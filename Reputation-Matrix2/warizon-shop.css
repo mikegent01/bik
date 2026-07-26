@@ -2016,3 +2016,217 @@ a.xlink:hover { color: #c7511f; }
   .info-hero { flex-direction: column; align-items: flex-start; }
   .info-icon { width: 72px; height: 72px; font-size: 38px; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PHASE 7: Training Wing visual improvements — target cards, pill filters
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Target card grid — replaces the dropdown */
+.ab-target-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  margin-top: 6px;
+}
+.ab-target-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 2px solid var(--wz-border, #d5dde6);
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  font-size: 13px;
+  position: relative;
+}
+.ab-target-card:hover {
+  border-color: #a855f7;
+  background: #faf5ff;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(168,85,247,0.15);
+}
+.ab-target-card.active {
+  border-color: #7c3aed;
+  background: linear-gradient(135deg, #f3e8ff 0%, #ede9fe 100%);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+}
+.ab-tc-name {
+  font-weight: 700;
+  color: #221431;
+  font-size: 13px;
+}
+.ab-tc-stats {
+  color: var(--wz-muted, #6b7280);
+  font-size: 11px;
+}
+.ab-tc-check {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #7c3aed;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Pill-style filter buttons */
+.ab-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.ab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border: 1.5px solid var(--wz-border, #d5dde6);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  color: #4a5568;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.ab-pill:hover {
+  border-color: #a855f7;
+  color: #7c3aed;
+  background: #faf5ff;
+}
+.ab-pill.active {
+  border-color: #7c3aed;
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(124,58,237,0.25);
+}
+
+.ab-toolbar-bottom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* Target section label */
+.abw-target-section {
+  grid-column: 1 / -1;
+}
+.abw-label {
+  display: block;
+  font-size: 12px;
+  color: var(--wz-muted, #6b7280);
+  margin-bottom: 4px;
+}
+
+/* Currency accept pills in item cards */
+.p-accepts-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--wz-muted);
+  margin-top: 4px;
+  line-height: 1.6;
+}
+.p-accepts-row .coin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.08);
+  font-size: 12px;
+}
+
+/* PD warning */
+.pdp-warning {
+  background: #fef3cd;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  color: #856404;
+  font-size: 13px;
+}
+
+
+/* PHASE 7: Currency pill buttons for PDP */
+.pdp-cur-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+.cur-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border: 1.5px solid var(--wz-border, #d5dde6);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  color: #4a5568;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.cur-pill:hover {
+  border-color: #ff9900;
+  background: #fff8e6;
+  color: #b12704;
+}
+.cur-pill.active {
+  border-color: #ff9900;
+  background: linear-gradient(135deg, #ff9900, #e68a00);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(255,153,0,0.25);
+}
+.cur-pill small {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+
+/* PHASE 7: Small pill variant for checkout */
+.cur-pill-sm {
+  padding: 3px 8px;
+  font-size: 11px;
+  gap: 3px;
+}
+.cur-pill-sm small {
+  font-size: 9px;
+  opacity: 0.7;
+  margin-left: 2px;
+}
+.co-pay-cur-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.co-ship-cur-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+

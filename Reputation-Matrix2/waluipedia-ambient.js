@@ -75,7 +75,24 @@
     { name: 'Survey Machine Snowdin', tempo: 70,
       chords: [['G2','B2','D3','G3'], ['E3','G3','B3','D4'], ['C3','E3','G3','C4'], ['D3','F3','A3','C4']],
       melody: ['B4','_','D5','G5','F5','_','D5','B4','G4','_','B4','D5','E5','_','D5','_','C5','E5','G5','_','A5','G5','E5','_','D5','_','B4','G4','F4','_','_','_'],
-      bass: ['G2','_','D2','_','E3','_','B2','_','C3','_','G2','_','D3','_','A2','_'], wave: 'sine' }
+      bass: ['G2','_','D2','_','E3','_','B2','_','C3','_','G2','_','D3','_','A2','_'], wave: 'sine' },
+    /* PHASE 7: Warizon store-specific tracks */
+    { name: 'Warizon Warehouse Waltz', tempo: 76,
+      chords: [['E2','G2','B2','E3'], ['A2','C3','E3','A3'], ['B2','D3','F3','B3'], ['C3','E3','G3','C4']],
+      melody: ['E4','G4','_','B4','A4','_','G4','E4','D4','_','E4','G4','A4','_','B4','_','C5','E5','_','D5','B4','_','A4','G4','F4','_','E4','G4','B4','_','_','_'],
+      bass: ['E2','_','B2','_','A2','_','E2','_','B2','_','F3','_','C3','_','G2','_'], wave: 'sine' },
+    { name: 'Wario Coin Counting', tempo: 88,
+      chords: [['A2','C3','E3','A3'], ['D3','F3','A3','D4'], ['E3','G3','B3','E4'], ['F2','A2','C3','F3']],
+      melody: ['A4','C5','E5','_','D5','C5','_','A4','G4','_','A4','C5','D5','_','E5','_','F5','E5','D5','_','C5','A4','G4','_','F4','A4','C5','_','_','_'],
+      bass: ['A2','_','E2','_','D3','_','A2','_','F2','_','C3','_','A2','_','E2','_'], wave: 'triangle' },
+    { name: 'WAH-zon Express', tempo: 80,
+      chords: [['D3','F3','A3','D4'], ['G2','B2','D3','G3'], ['A2','C3','E3','A3'], ['E3','G3','B3','E4']],
+      melody: ['D5','_','F5','A5','G5','_','F5','D5','E5','_','D5','F5','A5','_','G5','_','F5','E5','D5','_','C5','D5','E5','_','D5','_','A4','D5','F5','_','_','_'],
+      bass: ['D2','_','A2','_','G2','_','D2','_','A2','_','E3','_','C3','_','G2','_'], wave: 'triangle' },
+    { name: 'Garlic Vault Groove', tempo: 72,
+      chords: [['B2','D3','F3','B3'], ['E2','G2','B2','E3'], ['F2','A2','C3','F3'], ['G2','B2','D3','G3']],
+      melody: ['B4','D5','_','F5','E5','_','D5','B4','A4','_','B4','D5','E5','_','F5','_','E5','D5','B4','_','A4','G4','F4','_','E4','G4','A4','_','_','_'],
+      bass: ['B2','_','F2','_','E2','_','B2','_','G2','_','D3','_','F2','_','C3','_'], wave: 'sine' }
   ];
 
   function ensureAudio() {
@@ -214,7 +231,7 @@
   function buildUi() {
     if (ui || !document.body) return;
     const style = document.createElement('style');
-    style.textContent = `.walu-ambient{position:fixed;right:14px;bottom:14px;z-index:2147483000;display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid rgba(172,112,255,.45);border-radius:999px;background:linear-gradient(135deg,rgba(34,18,48,.96),rgba(12,7,22,.96));box-shadow:0 8px 30px rgba(0,0,0,.45);color:#eadbff;font:12px system-ui,sans-serif;backdrop-filter:blur(8px);pointer-events:auto}.walu-ambient button{border:1px solid rgba(234,219,255,.28);background:rgba(255,255,255,.08);color:#f4e7ff;border-radius:999px;min-width:30px;height:30px;cursor:pointer;pointer-events:auto}.walu-ambient button:hover{background:rgba(172,112,255,.25)}.walu-ambient-title{max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.88}.walu-ambient.is-playing{box-shadow:0 0 22px rgba(172,112,255,.32),0 8px 30px rgba(0,0,0,.45)}.walu-music-panel{position:fixed;right:14px;bottom:68px;z-index:2147482999;width:min(360px,calc(100vw - 28px));max-height:430px;overflow:auto;border:1px solid rgba(172,112,255,.45);border-radius:18px;background:linear-gradient(180deg,rgba(34,18,48,.98),rgba(9,5,18,.98));box-shadow:0 18px 50px rgba(0,0,0,.55);color:#eadbff;padding:12px;display:none}.walu-music-panel.open{display:block}.walu-music-panel h3{margin:0 0 4px;font-size:14px}.walu-music-panel p{margin:0 0 10px;opacity:.7;font-size:12px;line-height:1.35}.walu-music-list{display:grid;gap:7px}.walu-music-list button{width:100%;display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;text-align:left;border:1px solid rgba(234,219,255,.16);border-radius:12px;background:rgba(255,255,255,.06);color:#f4e7ff;padding:8px;cursor:pointer}.walu-music-list button:hover,.walu-music-list button.active{border-color:#f8c14a;background:rgba(248,193,74,.13)}.walu-music-list small{opacity:.55}.walu-music-volume{width:100%;accent-color:#a855f7}@media(max-width:700px){.walu-ambient{left:10px;right:10px;justify-content:center}.walu-ambient-title{max-width:130px}.walu-music-panel{left:10px;right:10px;width:auto}}`;
+    style.textContent = `.walu-ambient{position:fixed;top:14px;right:14px;z-index:9000;display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid rgba(172,112,255,.45);border-radius:999px;background:linear-gradient(135deg,rgba(34,18,48,.96),rgba(12,7,22,.96));box-shadow:0 8px 30px rgba(0,0,0,.45);color:#eadbff;font:12px system-ui,sans-serif;backdrop-filter:blur(8px);pointer-events:auto;cursor:grab;transition:opacity .3s,transform .3s}.walu-ambient:active{cursor:grabbing}.walu-ambient button{border:1px solid rgba(234,219,255,.28);background:rgba(255,255,255,.08);color:#f4e7ff;border-radius:999px;min-width:30px;height:30px;cursor:pointer;pointer-events:auto}.walu-ambient button:hover{background:rgba(172,112,255,.25)}.walu-ambient-title{max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.88}.walu-ambient.is-playing{box-shadow:0 0 22px rgba(172,112,255,.32),0 8px 30px rgba(0,0,0,.45)}.walu-ambient.is-hidden{opacity:0;pointer-events:none;transform:translateY(-10px)}.walu-music-panel{position:fixed;top:58px;right:14px;z-index:8999;width:min(360px,calc(100vw - 28px));max-height:430px;overflow:auto;border:1px solid rgba(172,112,255,.45);border-radius:18px;background:linear-gradient(180deg,rgba(34,18,48,.98),rgba(9,5,18,.98));box-shadow:0 18px 50px rgba(0,0,0,.55);color:#eadbff;padding:12px;display:none}.walu-music-panel.open{display:block}.walu-music-panel h3{margin:0 0 4px;font-size:14px}.walu-music-panel p{margin:0 0 10px;opacity:.7;font-size:12px;line-height:1.35}.walu-music-list{display:grid;gap:7px}.walu-music-list button{width:100%;display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;text-align:left;border:1px solid rgba(234,219,255,.16);border-radius:12px;background:rgba(255,255,255,.06);color:#f4e7ff;padding:8px;cursor:pointer}.walu-music-list button:hover,.walu-music-list button.active{border-color:#f8c14a;background:rgba(248,193,74,.13)}.walu-music-list small{opacity:.55}.walu-music-volume{width:100%;accent-color:#a855f7}@media(max-width:700px){.walu-ambient{left:10px;right:10px;justify-content:center;top:10px}.walu-ambient-title{max-width:130px}.walu-music-panel{left:10px;right:10px;width:auto;top:54px}}`;
     document.head.appendChild(style);
     ui = document.createElement('div');
     ui.className = 'walu-ambient';
@@ -227,6 +244,7 @@
     document.body.appendChild(panel);
     renderPlaylist();
     updateUi();
+    makeDraggable(ui);
   }
 
   // Capture-phase event delegation makes the controls work even if the SPA adds
@@ -256,6 +274,46 @@
     event.stopPropagation();
     shuffleTrack();
   }, true);
+
+  /* PHASE 7: Make the music widget draggable and auto-hide when modals open */
+  function makeDraggable(el) {
+    let isDragging = false, startX, startY, startLeft, startTop;
+    const saved = localStorage.getItem('waluipediaMusicPos');
+    if (saved) { try { const p = JSON.parse(saved); if (p.x != null) { el.style.left = p.x + 'px'; el.style.top = p.y + 'px'; el.style.right = 'auto'; } } catch(_) {} }
+    el.addEventListener('mousedown', e => {
+      if (e.target.tagName === 'BUTTON') return;
+      isDragging = true;
+      startX = e.clientX; startY = e.clientY;
+      const r = el.getBoundingClientRect();
+      startLeft = r.left; startTop = r.top;
+      el.style.transition = 'none';
+    });
+    document.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX, dy = e.clientY - startY;
+      const nx = Math.max(0, Math.min(window.innerWidth - el.offsetWidth, startLeft + dx));
+      const ny = Math.max(0, Math.min(window.innerHeight - el.offsetHeight, startTop + dy));
+      el.style.left = nx + 'px'; el.style.top = ny + 'px'; el.style.right = 'auto';
+    });
+    document.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      el.style.transition = '';
+      const r = el.getBoundingClientRect();
+      localStorage.setItem('waluipediaMusicPos', JSON.stringify({ x: r.left, y: r.top }));
+    });
+  }
+
+  /* Auto-hide widget when Warizon modals/checkout/cart drawers are open */
+  function syncModalVisibility() {
+    const modalOpen = !!document.querySelector('.modal-scrim, .cart-scrim, .modal.active, [aria-modal="true"]');
+    if (ui) ui.classList.toggle('is-hidden', modalOpen);
+    const panel = document.querySelector('[data-walu-music-panel]');
+    if (panel && modalOpen) panel.classList.remove('open');
+  }
+
+  const mo = new MutationObserver(syncModalVisibility);
+  mo.observe(document.body || document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'aria-modal'] });
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', buildUi);
   else buildUi();

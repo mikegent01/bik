@@ -85,6 +85,10 @@ function prettifyVendorId(vid) {
    vendor first, then keywords in its id/name) plus a list of ACCEPTED
    currencies it can actually be bought with. Gold is accepted everywhere
    (it is the universal reserve of the Waluipedia ledger).
+
+   PHASE 7: Popular items (high rating + reviews) accept MORE currencies.
+   Rare/expensive items prefer higher-tier currencies and may reject
+   common ones. The vendor still sets native tender; we add extras.
    -------------------------------------------------------------------------- */
 
 const GOLD_FEE = 0.10;   // conversion fee when a currency is NOT natively accepted for shipping/tax
@@ -187,17 +191,26 @@ function normalizeItem(raw, idx) {
   const cat = DEPARTMENTS[raw.category] ? raw.category : 'curiosities';
   const price = Math.max(0, Number(raw.price ?? 0));
   const rarity = String(raw.rarity || 'common').toLowerCase();
-  const rating = Math.round((3.2 + hash01(id + '|r') * 1.7) * 10) / 10;           // 3.2 – 4.9
+  /* PHASE 7: Rating range now includes some lower-rated items (2.0-4.9).
+     Items with "warning", rare bad vendors, or certain keywords get lower ratings. */
+  let rating = Math.round((2.0 + hash01(id + '|r') * 2.9) * 10) / 10;  // 2.0 – 4.9
+  // Lower ratings for items with warnings or suspicious vendors
+  if (raw.warning && hash01(id + '|w') < 0.5) rating = Math.round((2.0 + hash01(id + '|r2') * 1.5) * 10) / 10;  // 2.0 – 3.5
+  // Very high-rated items for premium things
+  if (['legendary', 'godly', 'wario_tier'].includes(rarity) && hash01(id + '|rr') > 0.6) rating = Math.round((4.2 + hash01(id + '|r3') * 0.7) * 10) / 10;  // 4.2 – 4.9
   const reviews = 3 + Math.floor(hash01(id + '|rc') * 2488);
   const cents = String(Math.floor(hash01(id + '|c') * 100)).padStart(2, '0');   // Amazon-style ".42"
   const premiumRarity = ['epic', 'legendary', 'godly', 'wario_tier'].includes(rarity);
   const prime = premiumRarity || hash01(id + '|p') < 0.35;
 
+  /* PHASE 7: Dynamic deals change daily based on date.
+     Use the current date (YYYY-MM-DD) in the hash so deals rotate each day. */
+  const todayStr = new Date().toISOString().slice(0, 10);
   let deal = null;
   if (raw.priceOriginal && Number(raw.priceOriginal) > price) {
     deal = { off: Math.round((1 - price / Number(raw.priceOriginal)) * 100), was: Number(raw.priceOriginal) };
-  } else if (price > 0 && hash01(id + '|d') < 0.22) {
-    const off = 10 + Math.floor(hash01(id + '|d2') * 30);
+  } else if (price > 0 && hash01(id + '|d|' + todayStr) < 0.22) {
+    const off = 10 + Math.floor(hash01(id + '|d2|' + todayStr) * 30);
     deal = { off, was: Math.ceil(price / (1 - off / 100)) };
   }
 
@@ -212,6 +225,37 @@ function normalizeItem(raw, idx) {
   pushCur(detected.native);
   detected.extra.forEach(pushCur);
   if (!accepted.includes('gold')) accepted.push('gold');
+
+  /* PHASE 7: Expand accepted currencies for popular items (high rating + reviews).
+     Rarer/expensive items prefer higher-tier currencies and may reject common ones. */
+  const popularityScore = (rating / 5) * Math.log10(reviews + 1);
+  const isHighTier = ['legendary', 'mythic', 'godly', 'wario_tier'].includes(rarity);
+  const isExpensive = price > 10000;
+  
+  // Popular items accept more currencies
+  if (popularityScore > 1.5 && !isHighTier) {
+    const extraCurs = ['wario_coin', 'platinum', 'mushroom_coin', 'bowser_bux'];
+    extraCurs.forEach(pushCur);
+  } else if (popularityScore > 1.0 && !isHighTier) {
+    const extraCurs = ['wario_coin', 'platinum'];
+    extraCurs.forEach(pushCur);
+  }
+  
+  // Rare/expensive items prefer higher-tier currencies
+  if (isHighTier || isExpensive) {
+    // Keep only native, extras from vendor, and gold (already added)
+    // Remove common currencies if they were added
+    const keepCurs = ['gold', detected.native, ...detected.extra];
+    if (isHighTier && !isExpensive) {
+      // Add platinum for legendary/mythic
+      pushCur('platinum');
+    }
+    // For very expensive items, ensure they accept high-value currencies
+    if (isExpensive && price > 50000) {
+      pushCur('platinum');
+      pushCur('wario_coin');
+    }
+  }
 
   return {
     id, idx,
@@ -591,6 +635,17 @@ function ensureAbilities() {
 const PLAYER_AP_LOCKED_KEYS = new Set(['archie', 'archie_miser', 'markop', 'hjumpik', 'remi', 'waluigi', 'bowser']);
 const AB_STATE = { q: '', type: '', cls: '', onlyUnlock: false, shown: 60, target: '' };
 
+/* PHASE 7: Disaster Inc. roster — Training Wing only targets allies/DCI members.
+   Core members (disaster_inc) + Allies & Attachés (disaster_inc_allies).
+   Sourced from xp.html PLAYERS data. */
+const DISASTER_INC_KEYS = new Set([
+  // Core members (disaster_inc faction)
+  'bowser', 'archie', 'archie_miser', 'waluigi', 'markop', 'hjumpik', 'remi',
+  // Allies & Attachés (disaster_inc_allies faction)
+  'rakasha_azure', 'usk', 'bones', 'dan', 'toad_lee', 'green_t', 'feyward_dan',
+  'speaker_l', 'eager', 'salam', 'ryan', 'smoking_j', 'mossy', 'roger'
+]);
+
 function apCostFor(level) {
   const tiers = AB?.points?.costTiers?.length ? AB.points.costTiers
     : [{ maxLevel: 3, ap: 1 }, { maxLevel: 7, ap: 2 }, { maxLevel: 11, ap: 3 }, { maxLevel: 99, ap: 5 }];
@@ -606,8 +661,10 @@ function apPlayerFor(acc = currentAccount()) {
 
 function trainableApRoster() {
   const players = AB?.points?.players || {};
+  /* PHASE 7: Only target Disaster Inc. core members and allies.
+     Filter out non-affiliated characters (random NPCs, monsters, etc.). */
   return Object.entries(players)
-    .filter(([key]) => !PLAYER_AP_LOCKED_KEYS.has(key))
+    .filter(([key]) => !PLAYER_AP_LOCKED_KEYS.has(key) && DISASTER_INC_KEYS.has(key))
     .map(([key, p]) => ({ key, ...p, apAvailable: Math.max(0, Number(p.apAvailable || 0)) }))
     .sort((a, b) => b.level - a.level || String(a.name).localeCompare(b.name));
 }
@@ -1017,7 +1074,14 @@ function miniCard(it) {
 }
 
 function renderHome() {
+  /* PHASE 7: Deals now rotate daily. Show category-themed deals based on day of week. */
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+  const categories = ['equipment', 'consumables', 'curiosities', 'services', 'faction', 'premium', 'forbidden'];
+  const featuredCat = categories[dayOfWeek % categories.length];
   const deals = ITEMS.filter(it => it.deal).sort((a, b) => (b.deal.off - a.deal.off) || (b.featured - a.featured)).slice(0, 20);
+  const catDeals = deals.filter(it => it.cat === featuredCat);
+  const topDeals = catDeals.length >= 6 ? catDeals : deals;
   const bestEquip = ITEMS.filter(it => it.cat === 'equipment').sort((a, b) => b.reviews - a.reviews).slice(0, 18);
   const acc = getSession();
   const seed = acc ? acc.id : 'guest';
@@ -1040,9 +1104,9 @@ function renderHome() {
   <div class="wz-container home-rows">
     <section class="row-card">
       <a class="row-more" data-go-deals="1">See all deals</a>
-      <h2>🔥 Today's Deals</h2>
-      <div class="row-sub">Discounted by Wario personally (he regrets it already)</div>
-      <div class="carousel">${deals.map(miniCard).join('')}</div>
+      <h2>🔥 Today's Deals — ${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</h2>
+      <div class="row-sub">Discounted by Wario personally (he regrets it already) · Spotlight: ${esc(DEPARTMENTS[featuredCat]?.icon || '🏷️')} ${esc(DEPARTMENTS[featuredCat]?.label || 'Everything')}</div>
+      <div class="carousel">${topDeals.map(miniCard).join('')}</div>
     </section>
 
     <section class="row-card">
@@ -1387,7 +1451,15 @@ function renderAbilities() {
     !knownSet.has(a.id) && !pendingSet.has(a.id) && target.level >= a.level && apLeft >= apCostFor(a.level));
   rows = rows.slice().sort((a, b) => a.level - b.level || apCostFor(a.level) - apCostFor(b.level) || String(a.name).localeCompare(b.name));
 
-  const targetOptions = roster.map(p => `<option value="${esc(p.key)}" ${target?.key === p.key ? 'selected' : ''}>${esc(p.name)} — Lv ${p.level}, ${Math.max(0, Number(p.apAvailable || 0) - apReservedFor(p.key))} AP</option>`).join('');
+  const targetCards = roster.map(p => {
+    const isActive = target?.key === p.key;
+    return `<button class="ab-target-card ${isActive ? 'active' : ''}" data-ab-target="${esc(p.key)}">
+      <span class="ab-tc-name">${esc(p.name)}</span>
+      <span class="ab-tc-stats">Lv ${p.level} · ${Math.max(0, Number(p.apAvailable || 0) - apReservedFor(p.key))} AP</span>
+      ${isActive ? '<span class="ab-tc-check">✓</span>' : ''}
+    </button>`;
+  }).join('');
+
   const requesterText = requester
     ? `${esc(requester.name)} · personal AP ${requester.locked ? 'locked for player characters' : 'not used here'}`
     : `${esc(acc?.name || 'This account')} · no personal AP ledger`;
@@ -1395,10 +1467,11 @@ function renderAbilities() {
   const apPanel = target
     ? `<div class="ab-wallet ab-wallet-wide">
         <div class="abw-row"><span>🧑‍🏫 Requester</span><b>${requesterText}</b></div>
-        <div class="abw-row"><span>🎯 Training target</span><select id="abTarget" class="sort-select">${targetOptions}</select></div>
+        <div class="abw-target-section"><span class="abw-label">🎯 Training target — Disaster Inc. roster</span>
+          <div class="ab-target-grid">${targetCards}</div>
+        </div>
         <div class="abw-row"><span>⚡ Target AP available</span><b>${apLeft} <small style="color:var(--wz-muted)">(${apReservedFor(target.key)} reserved)</small></b></div>
         <div class="abw-row"><span>📖 Target abilities known</span><b>${knownSet.size}</b></div>
-        <div class="abw-row"><span>🚫 Player-character self spend</span><b>Disabled</b></div>
       </div>`
     : `<div class="ab-wallet"><div class="abw-row"><span>⚠</span><span style="font-size:13px">No trainable roster found in <code>data/abilityPoints.json</code>.</span></div></div>`;
 
@@ -1420,17 +1493,17 @@ function renderAbilities() {
       }).join('')}
     </div>` : '';
 
-  const typeOpts = ['<option value="">All types</option>']
-    .concat(Object.entries(types).map(([k, t]) => `<option value="${esc(k)}" ${AB_STATE.type === k ? 'selected' : ''}>${esc(t.icon || '')} ${esc(t.label || k)}</option>`)).join('');
-  const classOpts = ['<option value="">All classes</option>']
-    .concat(Object.entries(classes).map(([k, c]) => `<option value="${esc(k)}" ${AB_STATE.cls === k ? 'selected' : ''}>${esc(c.icon || '')} ${esc(c.name || k)}</option>`)).join('');
+  const typePills = ['<button class="ab-pill ${AB_STATE.type === \'\' ? \'active\' : \'\'}" data-ab-type="">All types</button>']
+    .concat(Object.entries(types).map(([k, t]) => `<button class="ab-pill ${AB_STATE.type === k ? 'active' : ''}" data-ab-type="${esc(k)}">${esc(t.icon || '')} ${esc(t.label || k)}</button>`)).join('');
+  const classPills = ['<button class="ab-pill ${AB_STATE.cls === \'\' ? \'active\' : \'\'}" data-ab-class="">All classes</button>']
+    .concat(Object.entries(classes).map(([k, c]) => `<button class="ab-pill ${AB_STATE.cls === k ? 'active' : ''}" data-ab-class="${esc(k)}">${esc(c.icon || '')} ${esc(c.name || k)}</button>`)).join('');
 
   return `
   <div class="wz-container ab-page" style="margin-top:14px">
     <div class="results-bar ab-hero" style="align-items:flex-start;gap:14px;flex-wrap:wrap">
       <div style="flex:1;min-width:280px">
         <h1 class="page-title" style="margin:0">⚡ Training Wing — Party Upgrade Desk</h1>
-        <div style="color:var(--wz-muted);font-size:13px;margin-top:4px">Player characters (${[...PLAYER_AP_LOCKED_KEYS].filter(k => ['archie','markop','hjumpik','remi'].includes(k)).join(', ')}) do <b>not</b> spend AP on themselves here. Use the desk to strengthen allies, retainers, troops, and party NPCs. Every request still generates a DM receipt and never edits a sheet automatically.</div>
+        <div style="color:var(--wz-muted);font-size:13px;margin-top:4px">Training <b>Disaster Inc.</b> allies and attachés only. Player characters (archie, markop, hjumpik, remi) do <b>not</b> spend AP on themselves here. Every request generates a DM receipt.</div>
       </div>
       ${apPanel}
     </div>
@@ -1441,13 +1514,15 @@ function renderAbilities() {
     </div>
     ${pendingHtml}
     <div class="ab-toolbar">
-      <select id="abType" class="sort-select">${typeOpts}</select>
-      <select id="abClass" class="sort-select">${classOpts}</select>
-      ${target ? `<label class="f-check" style="white-space:nowrap"><input type="checkbox" id="abUnlockable" ${AB_STATE.onlyUnlock ? 'checked' : ''}> Trainable now</label>` : ''}
-      <form id="abSearchForm" style="display:flex;gap:6px;flex:1;max-width:420px;margin-left:auto">
-        <input class="gate-input" id="abSearch" value="${esc(AB_STATE.q)}" placeholder="Search abilities (try: fire, stealth, paladin)">
-        <button class="search-go" type="submit" style="border-radius:4px;width:42px">🔍</button>
-      </form>
+      <div class="ab-pill-row" id="abTypePills">${typePills}</div>
+      <div class="ab-pill-row" id="abClassPills">${classPills}</div>
+      <div class="ab-toolbar-bottom">
+        ${target ? `<label class="f-check" style="white-space:nowrap"><input type="checkbox" id="abUnlockable" ${AB_STATE.onlyUnlock ? 'checked' : ''}> Trainable now</label>` : ''}
+        <form id="abSearchForm" style="display:flex;gap:6px;flex:1;max-width:420px;margin-left:auto">
+          <input class="gate-input" id="abSearch" value="${esc(AB_STATE.q)}" placeholder="Search abilities (try: fire, stealth, paladin)">
+          <button class="search-go" type="submit" style="border-radius:4px;width:42px">🔍</button>
+        </form>
+      </div>
     </div>
     <div class="ab-grid">${rows.slice(0, AB_STATE.shown).map(a => abilityCard(a, ctx)).join('')}</div>
     ${rows.length > AB_STATE.shown ? `<button class="btn-plain" id="abMore" style="display:block;margin:16px auto;padding:10px 26px">Show more (${fmt(rows.length - AB_STATE.shown)} left)</button>` : ''}
@@ -1820,16 +1895,11 @@ function render() {
  * PDP "Item effects & rules" — numbered effect rows with the item's own
  * reviewed rules text (inline effectDetails), heuristic standard rules only
  * when the item shipped without review text.
+ * PHASE 7: Removed duplicate activation/duration/charges (already in Quick Read).
  */
 function effectsSectionHtml(it) {
   const rows = effectRowsFor(it);
-  const usage = usageFor(it);
-  if (!rows.length && !usage) return '';
-  const usageLabels = [['⚡ Activation', 'activation'], ['⏳ Duration', 'duration'], ['🔚 Ends when', 'endsWhen'], ['🔢 Charges', 'charges']];
-  const usageRows = usage ? usageLabels
-    .filter(([, k]) => usage[k])
-    .map(([label, k]) => `<div class="fx-usage-cell"><span>${label}</span><span>${esc(usage[k])}</span></div>`)
-    .join('') : '';
+  if (!rows.length) return '';
   return `<div class="pdp-effects" id="pdpEffects">
     <h2>Item effects &amp; rules <span class="fx-count">${rows.length} effect${rows.length === 1 ? '' : 's'}</span></h2>
     <div class="effects-list">
@@ -1842,22 +1912,20 @@ function effectsSectionHtml(it) {
         </div>
       </div>`).join('')}
     </div>
-    ${usageRows ? `<div class="fx-usage">${usageRows}</div>` : ''}
   </div><hr class="pdp-hr">`;
 }
 
-/** The "know what you're buying at a glance" panel: level, faction, usage. */
+/** The "know what you're buying at a glance" panel.
+ *  PHASE 7: Removed activation/duration/charges (already in Quick Read section above).
+ *  Now focuses on stock, level, faction, vendor, and shipping — info NOT shown elsewhere. */
 function glancePanelHtml(it) {
-  const u = usageFor(it);
   const cells = [];
-  if (u?.activation) cells.push(['⚡ Activation', u.activation]);
-  if (u?.duration) cells.push(['⏳ Duration', u.duration]);
-  if (u?.charges) cells.push(['🔢 Charges', u.charges]);
-  if (u?.endsWhen) cells.push(['🔚 Ends when', u.endsWhen]);
   cells.push(['🎖 Level required', it.level ? `Level ${it.level}+` : 'None (any scrub can use it)']);
   cells.push(['📦 Stock in warehouse', it.stock > 0 ? `${it.stock} left` : 'SOLD OUT']);
   if (it.factionBonus) cells.push(['🚩 Faction bonus', Object.entries(it.factionBonus).map(([k, v]) => `+${v} ${k}`).join(' · ')]);
   if (it.shippedBy) cells.push(['🚚 Fulfilled by', it.shippedBy]);
+  if (it.nativeVia !== 'default') cells.push(['💱 Native currency', currencyName(it.nativeCur)]);
+  if (!cells.length) return '';
   return `<div class="pdp-glance">
     <h2>At a glance</h2>
     <div class="pdp-glance-grid">
@@ -1931,10 +1999,11 @@ function openPdp(id, useCur = null) {
         <div class="pdp-price-block">
           <div class="pdp-cur-row">
             ${priceWidget(it, cur)}
-            <label class="pdp-cur-pick" title="This vendor accepts multiple currencies">
-              💱 Pay with
-              <select id="pdpCurrency" class="sort-select">${curOptions}</select>
-            </label>
+          </div>
+          ${it.accepted.length > 1 ? `<div class="pdp-cur-pick" title="This vendor accepts multiple currencies">
+            <span style="font-size:12px;color:var(--wz-muted)">💱 Pay with:</span>
+            <div class="pdp-cur-pills">${it.accepted.map(c => `<button class="cur-pill ${c === cur ? 'active' : ''}" data-pdp-cur="${esc(c)}" title="${c === it.nativeCur ? "Vendor's own currency" : ''}">${coinIcon(c)} ${esc(currencyName(c))}${c === it.nativeCur ? ' *' : ''}</button>`).join('')}</div>
+          </div>` : ''}
           </div>
           ${cur !== 'gold' ? `<div class="p-was">≈ 💰${fmt(it.price)} gold at Waluipedia exchange rates (1 ${esc(it.nativeCur)} = ${currencyBase(it.nativeCur)} gold)</div>` : ''}
           ${it.accepted.length > 1 ? `<div class="p-accepts-row">This vendor also accepts: ${it.accepted.filter(c => c !== cur).map(c => `${coinIcon(c)} ${esc(currencyName(c))}`).join(' · ')}</div>` : ''}
@@ -1946,23 +2015,16 @@ function openPdp(id, useCur = null) {
         ${effectsSectionHtml(it)}
         <div class="pdp-about">
           <h2>About this item</h2>
-          <ul>
-            ${it.level ? `<li>Requires character level ${it.level} to operate safely.${it.levelReason ? ` <span style="color:var(--wz-muted)">${esc(it.levelReason)}</span>` : ''}</li>` : ''}
-            ${it.warning ? `<li style="color:#b12704">⚠ ${esc(it.warning)}</li>` : ''}
-            ${it.stock <= 3 && it.stock > 0 ? `<li style="color:#b12704"><b>Hurry</b> — only ${it.stock} left in the warehouse.</li>` : ''}
-            ${!it.level && !it.warning && it.stock > 3 ? '<li>A genuine Wario-grade product. Quality guaranteed-ish.</li>' : ''}
-          </ul>
           <div class="pdp-desc">${loreLinkText(it.desc, 8)}</div>
+          ${it.warning ? `<div class="pdp-warning">⚠ ${esc(it.warning)}</div>` : ''}
           <table class="pdp-table">
-            <tr><td>Department</td><td>${esc(DEPARTMENTS[it.cat].label)}</td></tr>
-            <tr><td>Rarity</td><td>${esc(it.rarity.replace('_', ' '))}</td></tr>
+            <tr><td>Department</td><td>${esc(DEPARTMENTS[it.cat].icon)} ${esc(DEPARTMENTS[it.cat].label)}</td></tr>
+            <tr><td>Rarity</td><td><span class="rarity-chip rarity-${esc(it.rarity)}">${esc(it.rarity.replace('_', ' '))}</span></td></tr>
             <tr><td>Sold by</td><td>${esc(vendorName)}${it.vendor?.location ? ' — ' + esc(it.vendor.location) : ''}</td></tr>
             ${it.vendorReason ? `<tr><td>Why this vendor</td><td>${esc(it.vendorReason)}</td></tr>` : ''}
             <tr><td>Accepted payment</td><td>${it.accepted.map(c => `${coinIcon(c)} ${esc(currencyName(c))}`).join(' · ')}</td></tr>
             ${it.priceReason ? `<tr><td>Why this price</td><td>${esc(it.priceReason)}</td></tr>` : ''}
-            ${it.shippedBy ? `<tr><td>Fulfilled by</td><td>${esc(it.shippedBy)}</td></tr>` : ''}
-            ${it.shippingDetail ? `<tr><td>Shipping note</td><td>${esc(it.shippingDetail)}</td></tr>` : ''}
-            <tr><td>Item model</td><td>${esc(it.id)}</td></tr>
+            <tr><td>Item model</td><td><code>${esc(it.id)}</code></td></tr>
             <tr><td>Return policy</td><td><b>No returns. No refunds.</b> All sales benefit the Wario Retirement &amp; Garlic Fund.</td></tr>
           </table>
         </div>
@@ -1995,6 +2057,7 @@ function openPdp(id, useCur = null) {
   });
   scrim.addEventListener('change', e => {
     if (e.target.id === 'pdpCurrency') openPdp(id, e.target.value);
+    if (e.target.closest('[data-pdp-cur]')) openPdp(id, e.target.closest('[data-pdp-cur]').dataset.pdpCur);
   });
 }
 
@@ -2189,7 +2252,7 @@ function openCheckout(buyNowRows = null) {
                   <span class="co-pay-name">${esc(it.name)} <span class="ci-qty">×${rp.qty}</span></span>
                   <small class="co-pay-note">${it.accepted.length > 1 ? `vendor accepts ${it.accepted.map(c => coinIcon(c)).join(' ')}` : 'gold only'}</small>
                 </div>
-                <label class="co-pay-cur"><select class="sort-select" data-row-cur="${i}">${opts}</select></label>
+                <div class="co-pay-cur-pills">${it.accepted.map(c => `<button class="cur-pill cur-pill-sm ${c === rp.cur ? 'active' : ''}" data-row-cur="${i}" data-row-cur-val="${esc(c)}">${coinIcon(c)}<small>${esc(currencyName(c))}</small></button>`).join('')}</div>
                 <span class="co-pay-amt">${coinIcon(rp.cur)} <b>${fmt(rp.native)}</b>${rp.cur !== 'gold' ? `<small> ≈ 💰${fmt(rp.lineGold)}</small>` : ''}</span>
               </div>`;
             }).join('')}
@@ -2202,10 +2265,8 @@ function openCheckout(buyNowRows = null) {
                 <span class="ship-cost">${s.cost ? '💰' + fmt(s.cost) : 'FREE'}</span></label>`).join('')}
             </div>
             <div class="co-shiptax">
-              Pay shipping + 5% Wario Tax (💰${fmt(shipCost + tax)}) with
-              <select class="sort-select" id="shipTaxCur">
-                ${ownedCurs.map(cid => `<option value="${esc(cid)}" ${cid === coState.shipTaxCur ? 'selected' : ''}>${coinIcon(cid)} ${esc(currencyName(cid))} (held ${fmt(walletHeld(acc, cid))})${cid === 'wario_coin' ? ' — no fee' : cid !== 'gold' ? ' — 10% fee' : ''}</option>`).join('')}
-              </select>
+              <div style="font-size:12px;color:var(--wz-muted);margin-bottom:4px">Pay shipping + 5% Wario Tax (💰${fmt(shipCost + tax)}) with:</div>
+              <div class="co-ship-cur-pills">${ownedCurs.map(cid => `<button class="cur-pill cur-pill-sm ${cid === coState.shipTaxCur ? 'active' : ''}" data-ship-tax-cur="${esc(cid)}" title="Held: ${fmt(walletHeld(acc, cid))}">${coinIcon(cid)} ${esc(currencyName(cid))}${cid === 'wario_coin' ? ' ✦' : ''}</button>`).join('')}</div>
             </div>
           </div>
         </div>
@@ -2230,8 +2291,12 @@ function openCheckout(buyNowRows = null) {
 
   scrim.addEventListener('change', e => {
     if (e.target.name === 'wzShip') { coState.shipIdx = Number(e.target.value); scrim.innerHTML = renderCo(); }
-    else if (e.target.matches('[data-row-cur]')) { coState.rowCur[Number(e.target.dataset.rowCur)] = e.target.value; scrim.innerHTML = renderCo(); }
+    else if (e.target.matches('[data-row-cur]') || e.target.closest('[data-row-cur]')) {
+      const btn = e.target.closest('[data-row-cur]');
+      coState.rowCur[Number(btn.dataset.rowCur)] = btn.dataset.rowCurVal || btn.value; scrim.innerHTML = renderCo();
+    }
     else if (e.target.id === 'shipTaxCur') { coState.shipTaxCur = e.target.value; scrim.innerHTML = renderCo(); }
+    else if (e.target.closest('[data-ship-tax-cur]')) { coState.shipTaxCur = e.target.closest('[data-ship-tax-cur]').dataset.shipTaxCur; scrim.innerHTML = renderCo(); }
   });
   scrim.addEventListener('click', e => {
     if (e.target === scrim || e.target.closest('[data-close]')) closeModal();
@@ -2898,9 +2963,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (t.matches('#sortSelect')) { S.sort = t.value; S.page = 1; render(); return; }
     if (t.matches('#craftSchool')) { CRAFT_STATE.school = t.value; CRAFT_STATE.shown = 60; render(); return; }
     if (t.matches('#craftCat')) { CRAFT_STATE.cat = t.value; CRAFT_STATE.shown = 60; render(); return; }
-    if (t.matches('#abType')) { AB_STATE.type = t.value; AB_STATE.shown = 60; render(); return; }
-    if (t.matches('#abClass')) { AB_STATE.cls = t.value; AB_STATE.shown = 60; render(); return; }
-    if (t.matches('#abTarget')) { AB_STATE.target = t.value; AB_STATE.shown = 60; render(); return; }
+    if (t.matches('[data-ab-type]')) { AB_STATE.type = t.dataset.abType || ''; AB_STATE.shown = 60; render(); return; }
+    if (t.matches('[data-ab-class]')) { AB_STATE.cls = t.dataset.abClass || ''; AB_STATE.shown = 60; render(); return; }
+    if (t.matches('[data-ab-target]')) { AB_STATE.target = t.dataset.abTarget; AB_STATE.shown = 60; render(); return; }
     if (t.matches('#abUnlockable')) { AB_STATE.onlyUnlock = t.checked; AB_STATE.shown = 60; render(); return; }
     if (t.matches('#searchScope')) return;
   });
