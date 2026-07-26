@@ -788,10 +788,6 @@ img { max-width: 100%; }
 .pdp-store { font-size: 13px; margin: 2px 0 6px; }
 .pdp-hr { border: 0; border-top: 1px solid #e7e7e7; margin: 8px 0; }
 .pdp-price-block .p-price .whole { font-size: 28px; }
-.pdp-about h2 { font-size: 16px; margin: 10px 0 6px; }
-.pdp-about ul { margin: 0; padding-left: 18px; }
-.pdp-about li { margin-bottom: 4px; font-size: 13px; }
-.pdp-desc { font-size: 13px; color: #333; margin-top: 10px; }
 .pdp-table { width: 100%; font-size: 12px; border-collapse: collapse; margin-top: 10px; }
 .pdp-table td { padding: 4px 6px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
 .pdp-table td:first-child { color: var(--wz-muted); white-space: nowrap; width: 40%; }
@@ -1349,16 +1345,6 @@ img { max-width: 100%; }
 .p-gold-eq { font-size: 11px; color: var(--wz-muted); margin-top: 1px; }
 .p-curname { font-size: 10px; color: var(--wz-muted); font-weight: 400; margin-left: 4px; }
 
-/* --- PDP currency picker & glance panel --- */
-.pdp-cur-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.pdp-cur-pick { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--wz-muted); }
-.pdp-glance h2 { font-size: 16px; margin: 0 0 8px; }
-.pdp-glance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; }
-.pg-cell { display: flex; flex-direction: column; padding: 7px 10px; background: #f7f8f8; border: 1px solid #e7eaea; border-radius: 6px; }
-.pg-k { font-size: 10.5px; font-weight: 700; color: var(--wz-muted); text-transform: uppercase; letter-spacing: .03em; }
-.pg-v { font-size: 13px; color: var(--wz-text); line-height: 1.35; margin-top: 2px; }
-@media (max-width: 560px) { .pdp-glance-grid { grid-template-columns: 1fr; } }
-
 /* --- rarity chips we were missing --- */
 .rarity-mythic { background: linear-gradient(90deg, #e2492f, #ff7a45); }
 .rarity-unique { background: #e8618c; }
@@ -1677,9 +1663,7 @@ img { max-width: 100%; }
   color: #37475a;
 }
 .qr-use b { display: block; font-size: 10.5px; color: #0f1111; }
-.pdp-effects,
-.pdp-glance,
-.pdp-about {
+.pdp-effects {
   border-radius: 12px;
   padding: 12px;
   background: #fff;
@@ -2208,4 +2192,48 @@ a.xlink:hover { color: #c7511f; }
   .tender-chip-grid { grid-template-columns: 1fr; }
   .choice-menu { max-width: 100%; }
   .choice-popover { right: auto; left: 0; max-width: calc(100vw - 28px); }
+}
+
+/* Phase 7.1 — operational facts live beside the action they affect; the old
+   catch-all "About this item" repetition has been removed. */
+.pdp-requirements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.pdp-requirements span {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #d8c8f0;
+  border-radius: 999px;
+  padding: 4px 9px;
+  background: #f7f1ff;
+  color: #3b1f6b;
+  font-size: 11px;
+  font-weight: 700;
+}
+.pdp-requirements .warn {
+  border-color: #f0b8a8;
+  background: #fff2ee;
+  color: #a63413;
+}
+.pdp-delivery {
+  display: grid;
+  gap: 3px;
+  margin-top: 10px;
+  padding: 9px 10px;
+  border: 1px solid #d7e8dc;
+  border-radius: 9px;
+  background: #f5fbf7;
+  color: #244d31;
+  font-size: 11px;
+}
+.pdp-delivery span { color: #315c3c; }
+.pdp-delivery small { color: var(--wz-muted); line-height: 1.35; }
+.pdp-return-note {
+  margin-top: 7px;
+  color: #b12704;
+  font-size: 11px;
+  font-weight: 700;
 }

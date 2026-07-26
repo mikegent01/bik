@@ -590,6 +590,27 @@ function heuristicRules(title) {
 
 const normTitle = s => String(s || '').trim().toLowerCase();
 
+/** Expand common rules shorthand so reviewed and legacy titles can be matched. */
+function effectTitleTokens(value) {
+  return new Set(String(value || '')
+    .toLowerCase()
+    .replace(/\bac\b/g, 'armor class')
+    .replace(/\bhp\b/g, 'hit points')
+    .replace(/\bdmg\b/g, 'damage')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim().split(/\s+/)
+    .filter(word => word.length > 2 && !['the', 'while', 'with', 'from', 'can', 'for'].includes(word)));
+}
+
+function effectTitlesOverlap(a, b) {
+  const left = effectTitleTokens(a);
+  const right = effectTitleTokens(b);
+  if (!left.size || !right.size) return false;
+  let shared = 0;
+  left.forEach(token => { if (right.has(token)) shared++; });
+  return shared >= 2 || shared / Math.min(left.size, right.size) >= .6;
+}
+
 /**
  * Resolved effect rows for an item: [{title, rules, source:'reviewed'|'heuristic'}]
  * INLINE effectDetails WIN — they were written for this exact item. The slim
@@ -606,10 +627,12 @@ function effectRowsFor(item) {
   const used = new Set();
 
   names.forEach((title, i) => {
-    /* 1) inline detail matching the effect title (or sitting at the same index) */
+    /* 1) Match reviewed inline detail by exact title, semantic title, or aligned
+       index when the enrichment pipeline supplied one detail per legacy effect. */
     let det = inlineByTitle.get(normTitle(title)) || null;
-    if (!det && inline[i] && !used.has(inline[i]) && !item.effects.length) det = inline[i];
-    if (!det && inline[i] && normTitle(inline[i].title) === normTitle(title)) det = inline[i];
+    if (!det) det = inline.find(d => !used.has(d) && effectTitlesOverlap(title, d.title)) || null;
+    if (!det && inline[i] && !used.has(inline[i]) &&
+        (!item.effects.length || inline.length === names.length)) det = inline[i];
     if (det && det.rules) {
       used.add(det);
       rows.push({ title: det.title || title, rules: det.rules, source: 'reviewed' });
@@ -626,8 +649,12 @@ function effectRowsFor(item) {
     if (det) used.add(det);
   });
 
-  /* leftover inline details not referenced by the effects list */
-  inline.forEach(d => { if (!used.has(d) && d.rules) rows.push({ title: d.title, rules: d.rules, source: 'reviewed' }); });
+  /* Keep genuinely additional reviewed details, but never append a semantic
+     duplicate of a row already resolved from the legacy effects list. */
+  inline.forEach(d => {
+    const duplicate = rows.some(row => normTitle(row.rules) === normTitle(d.rules) || effectTitlesOverlap(row.title, d.title));
+    if (!used.has(d) && d.rules && !duplicate) rows.push({ title: d.title, rules: d.rules, source: 'reviewed' });
+  });
   return rows;
 }
 
@@ -1995,26 +2022,6 @@ function effectsSectionHtml(it) {
   </div><hr class="pdp-hr">`;
 }
 
-/** The "know what you're buying at a glance" panel: level, faction, usage. */
-function glancePanelHtml(it) {
-  const u = usageFor(it);
-  const cells = [];
-  if (u?.activation) cells.push(['⚡ Activation', u.activation]);
-  if (u?.duration) cells.push(['⏳ Duration', u.duration]);
-  if (u?.charges) cells.push(['🔢 Charges', u.charges]);
-  if (u?.endsWhen) cells.push(['🔚 Ends when', u.endsWhen]);
-  cells.push(['🎖 Level required', it.level ? `Level ${it.level}+` : 'None (any scrub can use it)']);
-  cells.push(['📦 Stock in warehouse', it.stock > 0 ? `${it.stock} left` : 'SOLD OUT']);
-  if (it.factionBonus) cells.push(['🚩 Faction bonus', Object.entries(it.factionBonus).map(([k, v]) => `+${v} ${k}`).join(' · ')]);
-  if (it.shippedBy) cells.push(['🚚 Fulfilled by', it.shippedBy]);
-  return `<div class="pdp-glance">
-    <h2>At a glance</h2>
-    <div class="pdp-glance-grid">
-      ${cells.map(([k, v]) => `<div class="pg-cell"><span class="pg-k">${k}</span><span class="pg-v">${esc(v)}</span></div>`).join('')}
-    </div>
-  </div><hr class="pdp-hr">`;
-}
-
 function openPdp(id, useCur = null) {
   const it = ITEM_BY_ID.get(id);
   if (!it) return;
@@ -2052,6 +2059,10 @@ function openPdp(id, useCur = null) {
         <h1>${esc(it.name)}</h1>
         <div class="pdp-store">Visit the <a data-vendor-search="${esc(vendorName)}">${esc(vendorName)} Store</a>${it.nativeVia !== 'default' ? ` · prices set in <b>${esc(currencyName(it.nativeCur))}</b>` : ''}</div>
         <div class="p-rating">${starsHtml(it.rating)} <span style="color:#de7921">▾</span> <a class="r-count">${it.rating} · ${fmt(it.reviews)} ratings</a></div>
+        <div class="pdp-requirements">
+          <span title="${esc(it.levelReason || 'Minimum safe character level')}">🎖 ${it.level ? `Level ${it.level}+ required` : 'No level requirement'}</span>
+          ${it.warning ? `<span class="warn">⚠ ${esc(it.warning)}</span>` : ''}
+        </div>
         <div class="pdp-quick-read">
           <div class="qr-head"><span>✨ Quick read</span><b>${esc(DEPARTMENTS[it.cat].label)}</b></div>
           ${it.desc ? `<p>${loreLinkText(it.desc, 6)}</p>` : '<p>Wario forgot to write a description, which is legally distinct from suspicious.</p>'}
@@ -2059,23 +2070,6 @@ function openPdp(id, useCur = null) {
         <hr class="pdp-hr">
         ${itemLoreHtml(it)}
         ${effectsSectionHtml(it)}
-        <div class="pdp-about">
-          <h2>About this item</h2>
-          <ul>
-            ${it.level ? `<li>Requires character level ${it.level} to operate safely.${it.levelReason ? ` <span style="color:var(--wz-muted)">${esc(it.levelReason)}</span>` : ''}</li>` : ''}
-            ${it.warning ? `<li style="color:#b12704">⚠ ${esc(it.warning)}</li>` : ''}
-            ${it.stock <= 3 && it.stock > 0 ? `<li style="color:#b12704"><b>Hurry</b> — only ${it.stock} left in the warehouse.</li>` : ''}
-            ${!it.level && !it.warning && it.stock > 3 ? '<li>A genuine Wario-grade product. Quality guaranteed-ish.</li>' : ''}
-          </ul>
-          <table class="pdp-table">
-            ${it.vendorReason ? `<tr><td>Why this vendor</td><td>${esc(it.vendorReason)}</td></tr>` : ''}
-            ${it.priceReason ? `<tr><td>Why this price</td><td>${esc(it.priceReason)}</td></tr>` : ''}
-            ${it.shippedBy ? `<tr><td>Fulfilled by</td><td>${esc(it.shippedBy)}</td></tr>` : ''}
-            ${it.shippingDetail ? `<tr><td>Shipping note</td><td>${esc(it.shippingDetail)}</td></tr>` : ''}
-            <tr><td>Item model</td><td>${esc(it.id)}</td></tr>
-            <tr><td>Return policy</td><td><b>No returns. No refunds.</b> All sales benefit the Wario Retirement &amp; Garlic Fund.</td></tr>
-          </table>
-        </div>
       </div>
 
       <aside class="pdp-buybox">
@@ -2087,7 +2081,7 @@ function openPdp(id, useCur = null) {
           <div class="tender-chip-grid">${currencyButtons}</div>
           <small>Rarity requires currencies worth at least ${it.paymentTierMin || 0} gold each. Popular everyday items accept more options.</small>
         </div>
-        <div style="margin-top:8px">${it.prime ? '<span class="wahprime">wahprime</span> FREE delivery' : 'Economy delivery'} <b>${deliveryLabel(it.id)}</b></div>
+        <div class="pdp-delivery"><b>${it.prime ? '<span class="wahprime">wahprime</span> FREE delivery' : 'Economy delivery'} · ${deliveryLabel(it.id)}</b>${it.shippedBy ? `<span>🚚 Fulfilled by ${esc(it.shippedBy)}</span>` : ''}${it.shippingDetail ? `<small>${esc(it.shippingDetail)}</small>` : ''}</div>
         ${out ? '<div class="bb-stock low">Currently unavailable</div>' : it.stock <= 3 ? `<div class="bb-stock low">Only ${it.stock} left in stock - order soon.</div>` : `<div class="bb-stock">In Stock · ${it.stock} available</div>`}
         ${!out ? `<div class="qty-stepper" id="pdpQty" data-value="1" data-max="${maxQty}" aria-label="Quantity"><button type="button" data-pdp-qty-dec aria-label="Decrease quantity">−</button><b data-pdp-qty-value>1</b><button type="button" data-pdp-qty-inc aria-label="Increase quantity">+</button></div>` : ''}
         <div class="bb-btns">
@@ -2095,6 +2089,7 @@ function openPdp(id, useCur = null) {
           <button class="btn-buy" data-pdp-buy="${esc(it.id)}" ${out ? 'disabled' : ''}>Buy Now</button>
         </div>
         <div class="secure-note">🔒 Secure purchase order · you pay the DM, never this page.</div>
+        <div class="pdp-return-note">↩ No returns or refunds.</div>
       </aside>
     </div>
   </div>`;
@@ -2564,9 +2559,9 @@ function openAbilityUnlock(abilityId) {
       <div style="padding:26px">
         <h1 style="font-size:22px;font-weight:700;margin:0 0 10px">${esc(a.icon || '⚡')} Train ${esc(target.name)}: ${esc(a.name)}</h1>
         <p style="font-size:14px;margin:0 0 12px">${esc(a.description || '')}</p>
-        <div class="co-banner-lite">Player character AP is locked on this page. <b>${esc(acc?.name || 'Requester')}</b> is filing a training request for <b>${esc(target.name)}</b>; the target's own AP is reserved pending DM approval.</div>
+        <div class="co-banner-lite"><b>${esc(target.name)}</b> is verified against the XP roster as a Disaster Inc. member or ally. <b>${esc(acc?.name || 'Requester')}</b> is filing the request; the target's AP is reserved pending DM approval.</div>
         <table class="pdp-table" style="margin-bottom:14px">
-          <tr><td>Requester</td><td>${esc(requester?.name || acc?.name || 'Unknown')} ${requester?.locked ? '(personal AP locked)' : ''}</td></tr>
+          <tr><td>Requester</td><td>${esc(requester?.name || acc?.name || 'Unknown')}</td></tr>
           <tr><td>Training target</td><td>${esc(target.name)} — Level ${target.level}</td></tr>
           <tr><td>Class</td><td>${esc(a.className || a.class)}</td></tr>
           <tr><td>Type</td><td>${esc(a.typeLabel || a.type)}</td></tr>
