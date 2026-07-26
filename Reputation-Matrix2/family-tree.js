@@ -5327,6 +5327,24 @@ function summaryIntroHTML(text) {
     return `<p>${formatInlineSummary(blocks[0].replace(/\n/g, ' '))}</p>`;
 }
 
+
+// Helper to render portrait: actual image if defined or fallback to emoji/text
+function getPortraitHTML(person, type = 'normal') {
+    if (!person || !person.id) return '❓';
+    const fallback = person.portrait || person.icon || '❓';
+    let sizeStyle = 'width: 48px; height: 48px;';
+    if (type === 'large') {
+        sizeStyle = 'width: 96px; height: 96px;';
+    } else if (type === 'mini') {
+        sizeStyle = 'width: 32px; height: 32px;';
+    } else if (type === 'inline') {
+        sizeStyle = 'width: 24px; height: 24px; display: inline-block; vertical-align: middle;';
+    } else if (type === 'person') {
+        sizeStyle = 'width: 48px; height: 48px;';
+    }
+    return `<img src="portraits/${person.id}.png" style="${sizeStyle} object-fit: cover; border-radius: 50%; margin: 0 auto; display: block;" onerror="this.outerHTML='<span class=\'portrait-fallback\'>${fallback}</span>'">`;
+}
+
 class DynastyTreeInterface {
     constructor() {
         this.container = null;
@@ -5598,7 +5616,7 @@ renderBranchMembersTree(members) {
                             <div class="branch-member-card ${(member.status || 'unknown').toLowerCase().replace(/[^a-z]/g, '')}" 
                                  data-member-id="${member.id || ''}"
                                  data-branch-member="true">
-                                <div class="member-portrait">${member.portrait || member.icon || '❓'}</div>
+                                <div class="member-portrait">${getPortraitHTML(member, 'normal')}</div>
                                 <div class="member-info">
                                     <span class="member-name">${member.name || 'Unknown'}</span>
                                     ${member.epithet ? `<span class="member-epithet">"${member.epithet}"</span>` : ''}
@@ -5649,7 +5667,7 @@ openBranchMemberDetail(member, branch) {
             </button>
             
             <div class="member-detail-header">
-                <div class="member-portrait-large">${member.portrait || member.icon || '❓'}</div>
+                <div class="member-portrait-large">${getPortraitHTML(member, 'large')}</div>
                 <div class="member-header-info">
                     <h2 class="member-full-name">${member.name || 'Unknown'}</h2>
                     ${member.epithet ? `<span class="member-epithet">"${member.epithet}"</span>` : ''}
@@ -6102,7 +6120,7 @@ renderMainTreeNode(member, house, isPartner = false) {
              data-status="${member.status || 'unknown'}">
             
             <div class="node-portrait-wrap">
-                <div class="node-portrait">${member.portrait || member.icon || (isExternal ? '👤' : '❓')}</div>
+                <div class="node-portrait">${getPortraitHTML(member, 'normal')}</div>
                 ${member.birthOrder ? `<span class="node-birth-order">#${member.birthOrder}</span>` : ''}
                 ${member.reign ? `<span class="node-crown">👑</span>` : ''}
             </div>
@@ -6263,7 +6281,7 @@ renderTreeNode(member) {
         <div class="tree-node ${statusClass}" 
              data-member-id="${member.id || ''}"
              data-status="${status}">
-            <div class="node-portrait">${member.portrait || member.icon || '❓'}</div>
+            <div class="node-portrait">${getPortraitHTML(member, 'normal')}</div>
             <div class="node-info">
                 <span class="node-name">${member.name || 'Unknown'}</span>
                 ${member.epithet ? `<span class="node-epithet">${member.epithet}</span>` : ''}
@@ -6330,7 +6348,7 @@ renderMemberList() {
                 ${members.map(member => `
                     <article class="member-card" data-member-id="${member.id || ''}">
                         <div class="card-header">
-                            <span class="member-portrait">${member.portrait || member.icon || '❓'}</span>
+                            <span class="member-portrait">${getPortraitHTML(member, 'inline')}</span>
                             <div class="member-titles">
                                 <h3>${member.name || 'Unknown'}</h3>
                                 ${member.epithet ? `<span class="epithet">"${member.epithet}"</span>` : ''}
@@ -6623,7 +6641,7 @@ renderSecrets() {
         modalBody.innerHTML = `
             <div class="member-dossier">
                 <div class="dossier-header">
-                    <span class="dossier-portrait">${member.portrait || member.icon}</span>
+                    <span class="dossier-portrait">${getPortraitHTML(member, 'inline')}</span>
                     <div class="dossier-titles">
                         <h2>${member.name}</h2>
                         ${member.epithet ? `<span class="dossier-epithet">"${member.epithet}"</span>` : ''}
@@ -7608,7 +7626,7 @@ renderTreePerson(person, branch, role = 'primary') {
              data-branch-id="${branch.id}"
              data-role="${role}">
             <div class="person-portrait">
-                <span class="portrait-emoji">${person.portrait || person.icon || '❓'}</span>
+                <span class="portrait-emoji">${getPortraitHTML(person, 'person')}</span>
                 ${person.birthOrder ? `<span class="birth-order">#${person.birthOrder}</span>` : ''}
             </div>
             <div class="person-details">
@@ -8022,7 +8040,7 @@ renderMiniTreeNode(member, branch) {
              data-branch-id="${branch.id}"
              data-parent="${Array.isArray(member.parents) ? member.parents.join(',') : (member.parents || '')}"
              data-children="${Array.isArray(member.children) ? member.children.join(',') : (member.children || '')}">
-            <div class="mini-node-portrait">${member.portrait || member.icon || '❓'}</div>
+            <div class="mini-node-portrait">${getPortraitHTML(member, 'mini')}</div>
             <div class="mini-node-info">
                 <span class="mini-node-name">${this.truncateName(member.name) || 'Unknown'}</span>
                 <span class="mini-node-dates">${member.born || '?'}-${member.died || '?'}</span>
