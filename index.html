@@ -4507,7 +4507,7 @@ function characterVisual(i){
   const boneLineIds = ['sans', 'papyrus', 'grandpa_semi', 'lazybones', 'baby_bones', 'dirty_brother', 'will', 'cursive', 'has_a_very_special_attack', 'times_new_roman', 'prunsel', 'real_star', 'brother_killer', 'my_little_brother', 'ness', 'wing_gaster', 'my_brother', 'pretty_soon', 'helvetica', 'gee_lady', 'garbage_brother', 'starman', 'quantity', 'speen_kind_of_down_lately', 'pet_rock', 'dedan', 'mystery_man', 'sans_deltarune'];
   const hasLocalImg = boneLineIds.includes(i.id) || i.image;
   const avatarImg = hasLocalImg 
-    ? `<img src="${esc(i.image || `portraits/${i.id}.png`)}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;" onerror="this.outerHTML='<span class=\"char-primary\">${esc(v.primary)}</span>'">`
+    ? `<img src="${esc(i.image || `portraits/${i.id}.png`)}" style="width: 100%; height: 100%; object-fit: cover; display: block;" onerror="this.outerHTML='<span class=\"char-primary\">${esc(v.primary)}</span>'">`
     : `<span class="char-primary">${esc(v.primary)}</span>`;
   return `<div class="character-card-visual theme-${esc(v.theme)}" style="--char-a:${v.colors[0]};--char-b:${v.colors[1]}"><div class="char-bg-emoji">${esc(v.primary)}${esc(v.badges[0]||'')}</div><div class="char-avatar">${avatarImg}</div><div class="char-visual-text"><span>${esc(v.label).slice(0,42)}</span><b>${esc(status).slice(0,32)}</b><div class="char-badge-row">${v.badges.map(b=>`<i>${esc(b)}</i>`).join('')}</div></div></div>`;
 }
