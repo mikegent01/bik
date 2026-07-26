@@ -165,6 +165,34 @@ function amtIn(goldAmount, id) {
   return Math.max(0, Math.ceil(Number(goldAmount || 0) / currencyBase(id)));
 }
 
+/**
+ * PHASE 7: Native currency discount — paying in the vendor's preferred currency
+ * gives you a discount. Common items get 5-10% off, rare items get 3-7% off,
+ * legendary/mythic items get 2-5% off. Gold never gets a discount (it's universal).
+ */
+function nativeDiscount(item) {
+  if (!item || item.nativeCur === 'gold') return 0;
+  const rarity = item.rarity || 'common';
+  // Common/uncommon: 5-10% discount
+  if (['common', 'uncommon'].includes(rarity)) return 5 + Math.floor(hash01(item.id + '|nd') * 6);
+  // Rare/epic: 3-7% discount
+  if (['rare', 'epic'].includes(rarity)) return 3 + Math.floor(hash01(item.id + '|nd') * 5);
+  // Legendary/mythic/godly: 2-5% discount
+  if (['legendary', 'mythic', 'godly', 'wario_tier'].includes(rarity)) return 2 + Math.floor(hash01(item.id + '|nd') * 4);
+  return 0;
+}
+
+/**
+ * Get the discounted price when paying in native currency.
+ * Returns the gold price with discount applied, rounded to whole number.
+ */
+function nativeDiscountedPrice(item) {
+  if (!item) return 0;
+  const discount = nativeDiscount(item);
+  if (discount === 0) return Math.round(item.price);
+  return Math.round(item.price * (1 - discount / 100));
+}
+
 /** "🍄 1,234 Mushroom Coins" style label */
 function curLabel(id, withName = false) {
   return `${coinIcon(id)}${withName ? ' ' + currencyName(id) : ''}`;
@@ -189,7 +217,9 @@ function detectNativeCurrency(raw) {
 function normalizeItem(raw, idx) {
   const id = String(raw.id ?? raw.name ?? `item_${idx}`);
   const cat = DEPARTMENTS[raw.category] ? raw.category : 'curiosities';
-  const price = Math.max(0, Number(raw.price ?? 0));
+  /* PHASE 7: Gold is always a WHOLE NUMBER — no decimals allowed.
+     Round to nearest integer so prices like 72.12 become 72. */
+  const price = Math.max(0, Math.round(Number(raw.price ?? 0)));
   const rarity = String(raw.rarity || 'common').toLowerCase();
   /* PHASE 7: Rating range now includes some lower-rated items (2.0-4.9).
      Items with "warning", rare bad vendors, or certain keywords get lower ratings. */
@@ -864,16 +894,24 @@ function starsHtml(rating, extraClass = '') {
   return `<span class="stars outline ${extraClass}"><span class="stars-bg">${full}</span><span class="stars-fg" style="width:${pct}%">${full}</span></span>`;
 }
 
-/** Amazon-style price widget in the item's NATIVE currency. */
+/** Amazon-style price widget in the item's NATIVE currency.
+ *  PHASE 7: Shows discount when paying in native currency. Gold is always whole. */
 function priceWidget(it, cur = null, { compact = false } = {}) {
   const c = cur || it.nativeCur;
-  const gold = it.price;
+  const gold = Math.round(it.price);
+  const isNative = c === it.nativeCur && c !== 'gold';
+  const discount = isNative ? nativeDiscount(it) : 0;
+  const effectiveGold = discount > 0 ? nativeDiscountedPrice(it) : gold;
+  const displayAmt = amtIn(effectiveGold, c);
+  const wasAmt = discount > 0 ? amtIn(gold, c) : 0;
   return `<span class="p-price">
-    <span class="sym">${coinIcon(c)}</span><span class="whole">${fmt(amtIn(gold, c))}</span><span class="frac">${c === 'gold' ? '' : `<small class="p-curname">${esc(currencyName(c))}</small>`}</span>
+    <span class="sym">${coinIcon(c)}</span><span class="whole">${fmt(displayAmt)}</span><span class="frac">${c === 'gold' ? '' : `<small class="p-curname">${esc(currencyName(c))}</small>`}</span>
+    ${discount > 0 ? `<span class="off native-disc">-${discount}% native</span>` : ''}
     ${it.deal ? `<span class="off">-${it.deal.off}%</span>` : ''}
   </span>
   ${it.deal ? `<div class="p-was">List: <s>${coinIcon(c)}${fmt(amtIn(it.deal.was, c))}</s></div>` : ''}
-  ${c !== 'gold' && !compact ? `<div class="p-gold-eq">≈ 💰${fmt(gold)} gold</div>` : ''}`;
+  ${discount > 0 ? `<div class="p-was">Was: <s>${coinIcon(c)}${fmt(wasAmt)}</s></div>` : ''}
+  ${c !== 'gold' && !compact ? `<div class="p-gold-eq">≈ 💰${fmt(effectiveGold)} gold${discount > 0 ? ` <small style="color:#067d17">(saved ${fmt(gold - effectiveGold)})</small>` : ''}</div>` : ''}`;
 }
 
 /** "Also accepts 💰 🟡 🍄" line shown under prices. */
@@ -1060,15 +1098,20 @@ function cardIntelHtml(it, { mini = false } = {}) {
 
 function miniCard(it) {
   const c = it.nativeCur;
+  const gold = Math.round(it.price);
+  const isNative = c !== 'gold';
+  const discount = isNative ? nativeDiscount(it) : 0;
+  const effectiveGold = discount > 0 ? nativeDiscountedPrice(it) : gold;
   return `<div class="mini-card" data-open="${esc(it.id)}">
     ${it.deal ? `<span class="deal-flag">${it.deal.off}% off</span>` : ''}
     <div class="mc-img">${esc(it.icon)}</div>
     <div class="mc-title">${esc(it.name)}</div>
     ${cardIntelHtml(it, { mini: true })}
     <div>${starsHtml(it.rating)} <span style="font-size:11px;color:var(--wz-link)">${fmt(it.reviews)}</span></div>
-    <div class="mc-price">${coinIcon(c)}${fmt(amtIn(it.price, c))}<span class="cents">${it.cents}</span></div>
+    <div class="mc-price">${coinIcon(c)}${fmt(amtIn(effectiveGold, c))}${c !== 'gold' ? `<span class="cents">${it.cents}</span>` : ''}</div>
+    ${discount > 0 ? `<div class="mc-was" style="color:#067d17">-${discount}% native discount!</div>` : ''}
     ${it.deal ? `<div class="mc-was">Was <s>${coinIcon(c)}${fmt(amtIn(it.deal.was, c))}</s> · Limited-time deal</div>` : ''}
-    ${c !== 'gold' ? `<div class="mc-was">≈ 💰${fmt(it.price)} gold</div>` : ''}
+    ${c !== 'gold' ? `<div class="mc-was">≈ 💰${fmt(effectiveGold)} gold</div>` : ''}
     ${it.prime ? '<div><span class="wahprime">wahprime</span></div>' : ''}
   </div>`;
 }
@@ -2002,10 +2045,15 @@ function openPdp(id, useCur = null) {
           </div>
           ${it.accepted.length > 1 ? `<div class="pdp-cur-pick" title="This vendor accepts multiple currencies">
             <span style="font-size:12px;color:var(--wz-muted)">💱 Pay with:</span>
-            <div class="pdp-cur-pills">${it.accepted.map(c => `<button class="cur-pill ${c === cur ? 'active' : ''}" data-pdp-cur="${esc(c)}" title="${c === it.nativeCur ? "Vendor's own currency" : ''}">${coinIcon(c)} ${esc(currencyName(c))}${c === it.nativeCur ? ' *' : ''}</button>`).join('')}</div>
+            <div class="pdp-cur-pills">${it.accepted.map(c => {
+              const isNat = c === it.nativeCur;
+              const disc = isNat ? nativeDiscount(it) : 0;
+              const dLabel = disc > 0 ? ' <span style="color:#067d17;font-weight:700">-' + disc + '%</span>' : '';
+              return '<button class="cur-pill ' + (c === cur ? 'active' : '') + '" data-pdp-cur="' + esc(c) + '" title="' + (isNat ? "Vendor's own currency" + (disc > 0 ? ' — ' + disc + '% discount!' : '') : '') + '">' + coinIcon(c) + ' ' + esc(currencyName(c)) + (isNat ? ' *' : '') + dLabel + '</button>';
+            }).join('')}</div>
           </div>` : ''}
-          </div>
-          ${cur !== 'gold' ? `<div class="p-was">≈ 💰${fmt(it.price)} gold at Waluipedia exchange rates (1 ${esc(it.nativeCur)} = ${currencyBase(it.nativeCur)} gold)</div>` : ''}
+          ${cur !== 'gold' ? `<div class="p-was">≈ 💰${fmt(Math.round(it.price))} gold at Waluipedia exchange rates (1 ${esc(it.nativeCur)} = ${currencyBase(it.nativeCur)} gold)</div>` : ''}
+          ${cur === it.nativeCur && nativeDiscount(it) > 0 ? `<div class="p-native-discount">🎉 <b>${esc(currencyName(it.nativeCur))} discount: -${nativeDiscount(it)}%</b> — paying in the vendor's preferred currency saves you coin!</div>` : ''}
           ${it.accepted.length > 1 ? `<div class="p-accepts-row">This vendor also accepts: ${it.accepted.filter(c => c !== cur).map(c => `${coinIcon(c)} ${esc(currencyName(c))}`).join(' · ')}</div>` : ''}
         </div>
         ${shipLine(it)}
@@ -2031,8 +2079,9 @@ function openPdp(id, useCur = null) {
       </div>
 
       <aside class="pdp-buybox">
-        <div class="bb-price"><span class="sym">${coinIcon(cur)}</span><span class="whole">${fmt(amtIn(it.price, cur))}</span><span class="frac">${cur === 'gold' ? '' : esc(currencyName(cur))}</span></div>
-        ${cur !== 'gold' ? `<div class="p-was">≈ 💰${fmt(it.price)} gold</div>` : ''}
+        <div class="bb-price"><span class="sym">${coinIcon(cur)}</span><span class="whole">${fmt(amtIn(cur === it.nativeCur && cur !== 'gold' ? nativeDiscountedPrice(it) : Math.round(it.price), cur))}</span><span class="frac">${cur === 'gold' ? '' : esc(currencyName(cur))}</span></div>
+        ${cur === it.nativeCur && cur !== 'gold' && nativeDiscount(it) > 0 ? `<div class="p-was" style="color:#067d17">Was: <s>${coinIcon(cur)}${fmt(amtIn(Math.round(it.price), cur))}</s> <span style="font-weight:700">-${nativeDiscount(it)}% native</span></div>` : ''}
+        ${cur !== 'gold' ? `<div class="p-was">≈ 💰${fmt(cur === it.nativeCur ? nativeDiscountedPrice(it) : Math.round(it.price))} gold</div>` : ''}
         ${it.deal ? `<div class="p-was">List: <s>${coinIcon(cur)}${fmt(amtIn(it.deal.was, cur))}</s> <span style="color:var(--wz-deal-red);font-weight:700">-${it.deal.off}%</span></div>` : ''}
         <div style="margin-top:6px">${it.prime ? '<span class="wahprime">wahprime</span> FREE delivery' : 'Economy delivery'} <b>${deliveryLabel(it.id)}</b></div>
         ${out ? '<div class="bb-stock low">Currently unavailable</div>' : it.stock <= 3 ? `<div class="bb-stock low">Only ${it.stock} left in stock - order soon.</div>` : '<div class="bb-stock">In Stock</div>'}
@@ -2054,9 +2103,6 @@ function openPdp(id, useCur = null) {
   document.body.appendChild(scrim);
   scrim.addEventListener('click', e => {
     if (e.target === scrim || e.target.closest('[data-close]')) closeModal();
-  });
-  scrim.addEventListener('change', e => {
-    if (e.target.id === 'pdpCurrency') openPdp(id, e.target.value);
     if (e.target.closest('[data-pdp-cur]')) openPdp(id, e.target.closest('[data-pdp-cur]').dataset.pdpCur);
   });
 }
@@ -2145,16 +2191,22 @@ function computePaymentPlan(rows, rowCur, shipTax, acc) {
   const needs = {};
   const rowPlans = [];
   let itemGold = 0;
+  let totalDiscountGold = 0;
   rows.forEach((r, i) => {
     const it = ITEM_BY_ID.get(r.id);
     if (!it) return;
     const cur = it.accepted.includes(rowCur[i]) ? rowCur[i] : it.nativeCur;
-    const unit = amtIn(it.price, cur);
+    const isNative = cur === it.nativeCur && cur !== 'gold';
+    const discount = isNative ? nativeDiscount(it) : 0;
+    const effectiveGold = discount > 0 ? nativeDiscountedPrice(it) : Math.round(it.price);
+    const unit = amtIn(effectiveGold, cur);
     const native = unit * r.qty;
-    const lineGold = it.price * r.qty;
+    const lineGold = effectiveGold * r.qty;
+    const savedGold = (Math.round(it.price) - effectiveGold) * r.qty;
     itemGold += lineGold;
+    totalDiscountGold += savedGold;
     needs[cur] = (needs[cur] || 0) + native;
-    rowPlans.push({ it, qty: r.qty, cur, unit, native, lineGold });
+    rowPlans.push({ it, qty: r.qty, cur, unit, native, lineGold, discount, savedGold });
   });
   const shipTaxGold = shipTax.gold;
   if (shipTaxGold > 0) {
@@ -2171,7 +2223,7 @@ function computePaymentPlan(rows, rowCur, shipTax, acc) {
   });
   return {
     rowPlans, needs, shortfalls,
-    itemGold, shipTaxGold, totalGold: itemGold + shipTaxGold,
+    itemGold, shipTaxGold, totalGold: itemGold + shipTaxGold, totalDiscountGold,
     covered: Object.keys(shortfalls).length === 0
   };
 }
@@ -2210,10 +2262,11 @@ function openCheckout(buyNowRows = null) {
 
   const renderCo = () => {
     const ship = shipOpts[coState.shipIdx] || shipOpts[0];
-    const subtotal = rows.reduce((s, r) => s + (ITEM_BY_ID.get(r.id)?.price || 0) * r.qty, 0);
+    const originalSubtotal = rows.reduce((s, r) => s + (ITEM_BY_ID.get(r.id)?.price || 0) * r.qty, 0);
     const shipCost = Number(ship.cost || 0);
-    const tax = Math.round(subtotal * 0.05); // the Wario Tax
-    const plan = computePaymentPlan(rows, coState.rowCur, { gold: shipCost + tax, cur: coState.shipTaxCur }, acc);
+    const plan = computePaymentPlan(rows, coState.rowCur, { gold: shipCost + Math.round(originalSubtotal * 0.05), cur: coState.shipTaxCur }, acc);
+    const tax = Math.round(originalSubtotal * 0.05); // the Wario Tax
+    const discountedSubtotal = plan.itemGold;
     const addr = FREE_ADDRESSES[Math.floor(hash01(acc?.name || 'wario') * FREE_ADDRESSES.length)];
 
     const shortfallHtml = Object.entries(plan.shortfalls).length
@@ -2253,7 +2306,7 @@ function openCheckout(buyNowRows = null) {
                   <small class="co-pay-note">${it.accepted.length > 1 ? `vendor accepts ${it.accepted.map(c => coinIcon(c)).join(' ')}` : 'gold only'}</small>
                 </div>
                 <div class="co-pay-cur-pills">${it.accepted.map(c => `<button class="cur-pill cur-pill-sm ${c === rp.cur ? 'active' : ''}" data-row-cur="${i}" data-row-cur-val="${esc(c)}">${coinIcon(c)}<small>${esc(currencyName(c))}</small></button>`).join('')}</div>
-                <span class="co-pay-amt">${coinIcon(rp.cur)} <b>${fmt(rp.native)}</b>${rp.cur !== 'gold' ? `<small> ≈ 💰${fmt(rp.lineGold)}</small>` : ''}</span>
+                <span class="co-pay-amt">${coinIcon(rp.cur)} <b>${fmt(rp.native)}</b>${rp.cur !== 'gold' ? `<small> ≈ 💰${fmt(rp.lineGold)}</small>` : ''}${rp.discount > 0 ? `<br><small style="color:#067d17">✓ ${rp.discount}% native discount (saved 💰${fmt(rp.savedGold)})</small>` : ''}</span>
               </div>`;
             }).join('')}
           </div>
@@ -2273,7 +2326,8 @@ function openCheckout(buyNowRows = null) {
         <div class="co-summary">
           <button class="btn-buy" id="placeOrderBtn" ${plan.covered ? '' : 'disabled'}>Generate purchase order</button>
           ${shortfallHtml}
-          <div class="line"><span>Items (${rows.reduce((n, r) => n + r.qty, 0)}):</span><span>💰${fmt(subtotal)}</span></div>
+          <div class="line"><span>Items (${rows.reduce((n, r) => n + r.qty, 0)}):</span><span>💰${fmt(discountedSubtotal)}</span></div>
+          ${plan.totalDiscountGold > 0 ? `<div class="line" style="color:#067d17"><span>🎉 Native currency discounts (${rows.filter((r,i) => (ITEM_BY_ID.get(r.id)?.nativeCur === coState.rowCur[i]) && coState.rowCur[i] !== 'gold').length} item${rows.filter((r,i) => (ITEM_BY_ID.get(r.id)?.nativeCur === coState.rowCur[i]) && coState.rowCur[i] !== 'gold').length === 1 ? '' : 's'}):</span><span>-💰${fmt(plan.totalDiscountGold)}</span></div>` : ''}
           <div class="line"><span>Shipping &amp; handling:</span><span>${shipCost ? '💰' + fmt(shipCost) : 'FREE'}</span></div>
           <div class="line"><span>Estimated Wario Tax (5%):</span><span>💰${fmt(tax)}</span></div>
           <div class="total"><span>Order total:</span><span>💰${fmt(plan.totalGold)} gold</span></div>

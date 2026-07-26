@@ -2230,3 +2230,32 @@ a.xlink:hover { color: #c7511f; }
   margin-top: 4px;
 }
 
+
+/* PHASE 7: Native currency discount styling */
+.p-native-discount {
+  background: linear-gradient(135deg, #e6ffed 0%, #d4edda 100%);
+  border: 2px solid #28a745;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 10px 0;
+  color: #155724;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.p-native-discount::before {
+  content: '💰';
+  font-size: 20px;
+}
+.native-disc {
+  background: #28a745 !important;
+  color: white !important;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
