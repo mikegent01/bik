@@ -1,7 +1,7 @@
 // Waluipedia Audio Desk: calm reading music + reliable controls for root index.html.
 // Generated with WebAudio (no large audio files). Starts only after the user presses 🎧/▶.
 (() => {
-  if (window.WaluipediaAmbient?.__v4) return;
+  if (window.WaluipediaAmbient?.__v5) return;
 
   const STORE = 'waluipediaAmbient';
   const VOL_STORE = 'waluipediaAmbientVolume';
@@ -19,6 +19,7 @@
   let loopsOnTrack = 0;
   let ui = null;
   let panel = null;
+  let restoreButton = null;
   const savedCollapsed = localStorage.getItem('waluipediaAmbientCollapsed');
   let collapsed = savedCollapsed == null ? /shop\.html$/i.test(location.pathname) : savedCollapsed === 'true';
   let dismissed = localStorage.getItem('waluipediaAmbientDismissed') === 'true';
@@ -269,6 +270,15 @@
     dismissed = false;
     localStorage.setItem('waluipediaAmbientDismissed', 'false');
     if (ui) ui.hidden = false;
+    if (restoreButton) restoreButton.hidden = true;
+  }
+
+  function hideWidget() {
+    dismissed = true;
+    localStorage.setItem('waluipediaAmbientDismissed', 'true');
+    panel?.classList.remove('open');
+    if (ui) ui.hidden = true;
+    if (restoreButton) restoreButton.hidden = false;
   }
 
   function restorePosition() {
@@ -303,6 +313,7 @@
     const mobileStyle = document.createElement('style');
     mobileStyle.setAttribute('data-walu-mobile-style', 'true');
     mobileStyle.textContent = `
+      .walu-ambient-restore{position:fixed;right:10px;bottom:10px;z-index:450;min-height:38px;padding:7px 11px;border:1px solid rgba(172,112,255,.55);border-radius:999px;background:linear-gradient(135deg,rgba(34,18,48,.97),rgba(12,7,22,.97));color:#f4e7ff;box-shadow:0 8px 24px rgba(0,0,0,.4);font:700 12px system-ui,sans-serif;cursor:pointer}.walu-ambient-restore[hidden]{display:none}.walu-ambient-restore:hover{border-color:#f8c14a;color:#f8c14a}
       html.walu-mobile-mode,html.walu-mobile-mode body{max-width:100%;overflow-x:hidden!important;-webkit-text-size-adjust:100%;text-size-adjust:100%}
       html.walu-mobile-mode body{font-size:16px!important;line-height:1.6!important}
       html.walu-mobile-mode .layout{display:block!important;width:100%!important;max-width:100%!important;margin:8px auto!important;padding:0 8px!important}
@@ -338,8 +349,16 @@
     panel = document.createElement('div');
     panel.className = 'walu-music-panel';
     panel.setAttribute('data-walu-music-panel', 'true');
-    panel.innerHTML = `<div class="walu-music-panel-head"><h3>🎼 Waluigi Site Playlist</h3><button type="button" class="walu-music-panel-close" data-walu-music-panel-close aria-label="Close music library">×</button></div><p>Includes dedicated Warizon checkout, Training Wing, and garlic-cart loops. Drag or collapse the control bar so it never covers the interface.</p><p><b>📱 Easy mobile mode:</b> use the phone button on the control bar for larger tap targets, single-column pages, readable tables, and phone-sized dialogs across the shop and Waluipedia.</p><div class="walu-music-list" data-walu-music-list></div><p style="margin-top:10px">Volume</p><input class="walu-music-volume" data-walu-music-volume type="range" min="0" max="1" step="0.01" value="${volume}">`;
+    panel.innerHTML = `<div class="walu-music-panel-head"><h3>🎼 Waluigi Site Playlist</h3><button type="button" class="walu-music-panel-close" data-walu-music-panel-close aria-label="Close music library">×</button></div><p>Includes dedicated Warizon checkout, Training Wing, and garlic-cart loops. Drag or collapse the control bar so it never covers the interface.</p><p><b>📱 Easy mobile mode:</b> use the phone button on the control bar for larger tap targets, single-column pages, readable tables, and phone-sized dialogs across the shop and Waluipedia.</p><button type="button" data-walu-music-dismiss style="width:100%;margin:0 0 10px;padding:8px;border:1px solid rgba(234,219,255,.22);border-radius:10px;background:rgba(255,255,255,.06);color:#eadbff;cursor:pointer">🙈 Hide floating music widget</button><div class="walu-music-list" data-walu-music-list></div><p style="margin-top:10px">Volume</p><input class="walu-music-volume" data-walu-music-volume type="range" min="0" max="1" step="0.01" value="${volume}">`;
     document.body.appendChild(panel);
+    restoreButton = document.createElement('button');
+    restoreButton.type = 'button';
+    restoreButton.className = 'walu-ambient-restore';
+    restoreButton.setAttribute('data-walu-music-restore', 'true');
+    restoreButton.textContent = '🎧 Show music';
+    restoreButton.title = 'Restore the hidden music widget';
+    restoreButton.hidden = !dismissed;
+    document.body.appendChild(restoreButton);
     applyMobileMode(mobileMode);
     ui.hidden = dismissed;
     setCollapsed(collapsed);
@@ -351,7 +370,7 @@
   // Capture-phase event delegation makes the controls work even if the SPA adds
   // other click handlers later. Stop only these music-control clicks.
   document.addEventListener('click', event => {
-    const target = event.target?.closest?.('#musicBtn,[data-walu-music-play],[data-walu-music-next],[data-walu-music-shuffle],[data-walu-music-panel-toggle],[data-walu-music-panel-close],[data-walu-music-track],[data-walu-music-collapse],[data-walu-music-dismiss],[data-walu-mobile-mode]');
+    const target = event.target?.closest?.('#musicBtn,[data-walu-music-play],[data-walu-music-next],[data-walu-music-shuffle],[data-walu-music-panel-toggle],[data-walu-music-panel-close],[data-walu-music-track],[data-walu-music-collapse],[data-walu-music-dismiss],[data-walu-music-restore],[data-walu-mobile-mode]');
     if (!target) return;
     event.preventDefault();
     event.stopPropagation();
@@ -363,10 +382,8 @@
     else if (target.matches('[data-walu-music-panel-close]')) panel?.classList.remove('open');
     else if (target.matches('[data-walu-mobile-mode]')) applyMobileMode(!mobileMode);
     else if (target.matches('[data-walu-music-collapse]')) setCollapsed(!collapsed);
-    else if (target.matches('[data-walu-music-dismiss]')) {
-      dismissed = true; localStorage.setItem('waluipediaAmbientDismissed', 'true');
-      panel?.classList.remove('open'); if (ui) ui.hidden = true;
-    }
+    else if (target.matches('[data-walu-music-dismiss]')) hideWidget();
+    else if (target.matches('[data-walu-music-restore]')) showWidget();
     else if (target.matches('[data-walu-music-track]')) { trackIndex = Number(target.dataset.waluMusicTrack) || 0; step = 0; loopsOnTrack = 0; if (audio) nextTime = audio.currentTime + 0.12; updateUi(); if (!playing) start(); else confirmation('next'); }
     else { showWidget(); toggle(); }
     if (target.id === 'musicBtn') showWidget();
@@ -429,7 +446,7 @@
   else buildUi();
 
   window.WaluipediaAmbient = {
-    __v4: true,
+    __v5: true,
     start, stop, toggle, nextTrack, randomTrack: shuffleTrack,
     setVolume(v) {
       volume = Math.max(0, Math.min(1, Number(v) || 0));
@@ -440,6 +457,7 @@
     disable() { enabled = false; localStorage.setItem(STORE, 'off'); stop(); },
     setMobileMode(value) { applyMobileMode(value); },
     toggleMobileMode() { applyMobileMode(!mobileMode); },
+    hideWidget, showWidget,
     test() { confirmation('start'); },
     get mobileMode() { return mobileMode; },
     get playing() { return playing; },

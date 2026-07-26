@@ -2272,3 +2272,21 @@ a.xlink:hover { color: #c7511f; }
 }
 .economy-guard small { color: #426b4d; }
 .co-scam-note { color: #b91c1c !important; font-weight: 800; margin-top: 4px; }
+
+/* Phase 7.4 — direct Crafting Forge commerce. */
+.cf-quote {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  padding: 9px 10px;
+  border: 1px solid #ead9a0;
+  border-radius: 9px;
+  background: #fff9e8;
+  color: #604900;
+  font-size: 11.5px;
+}
+.cf-quote span { display: inline-flex; gap: 4px; }
+.cf-quote small { width: 100%; color: var(--wz-muted); line-height: 1.4; }
+.cf-buy-actions { display: flex; gap: 7px; margin-top: auto; padding-top: 4px; }
+.cf-buy-actions .btn-buy,.cf-buy-actions .btn-add { min-height: 34px; padding: 0 12px; }
+@media(max-width:520px){.cf-buy-actions{flex-direction:column}.cf-cost span{display:block}}

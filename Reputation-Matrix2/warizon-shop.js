@@ -769,7 +769,12 @@ function ensureCrafting() {
   craftLoading = true;
   fetch('data/crafting.json')
     .then(r => (r.ok ? r.json() : { recipes: [], materials: [], schools: {} }))
-    .then(j => { craftData = j; craftLoading = false; if (S.view === 'crafting') render(); })
+    .then(j => {
+      craftData = j; craftLoading = false; registerCraftCommerce();
+      if (S.view === 'crafting' || S.view === 'orders') render();
+      if (document.getElementById('wzCart')) renderCartDrawer();
+      else updateCartBadge();
+    })
     .catch(() => { craftData = { recipes: [], materials: [], schools: {} }; craftLoading = false; if (S.view === 'crafting') render(); });
 }
 
@@ -807,6 +812,71 @@ function craftRecipes() { return craftData?.recipes || []; }
 function craftMaterials() { return craftData?.materials || []; }
 function craftSchools() { return craftData?.schools || {}; }
 function craftMatById(id) { return craftMaterials().find(m => m.id === id); }
+
+const CRAFT_RARITY_MULTIPLIER = {
+  junk: 1, common: 1, uncommon: 1.15, rare: 1.35, very_rare: 1.6,
+  epic: 2, legendary: 2.6, mythic: 3.2, unique: 3.5, cosmic: 4,
+  godly: 5, forbidden: 5, wario_tier: 6
+};
+const forgeMaterialId = id => `forge_material_${String(id || '').replace(/[^a-z0-9_]+/gi, '_')}`;
+const forgeRecipeId = id => `forge_recipe_${String(id || '').replace(/[^a-z0-9_]+/gi, '_')}`;
+
+function craftMaterialPrice(material) {
+  const base = Math.max(1, Number(material?.cost || 1));
+  const multiplier = CRAFT_RARITY_MULTIPLIER[String(material?.rarity || 'common').toLowerCase()] || 1;
+  return Math.max(1, Math.ceil(base * multiplier));
+}
+
+/** Retail forge quote = ingredients + labor/time + required-level skill + risk. */
+function craftRecipeQuote(recipe) {
+  const ingredients = (recipe?.materials || []).map(row => {
+    const material = craftMatById(row.id);
+    const quantity = Math.max(1, Number(row.quantity || 1));
+    const unit = craftMaterialPrice(material || { cost: 5, rarity: 'common' });
+    return { id: row.id, name: material?.name || row.id, quantity, unit, total: unit * quantity };
+  });
+  const ingredientTotal = ingredients.reduce((sum, row) => sum + row.total, 0);
+  const hours = Math.max(0, Number(recipe?.craftTime || 0));
+  const level = Math.max(0, Number(recipe?.levelRequirement || 0));
+  const spellLevel = Math.max(0, Number(recipe?.spellLevel || 0));
+  const failure = Math.max(0, 100 - Number(recipe?.successChance ?? 100));
+  const labor = Math.ceil(hours * 10);
+  const skill = Math.ceil(level * level * 4 + spellLevel * 20);
+  const risk = Math.ceil(ingredientTotal * failure / 100);
+  const forgeFee = Math.max(Math.max(0, Number(recipe?.goldCost || 0)), labor + skill + risk);
+  return { ingredients, ingredientTotal, labor, skill, risk, forgeFee, total: Math.max(1, ingredientTotal + forgeFee) };
+}
+
+function registerCraftCommerce() {
+  if (!craftData) return;
+  craftMaterials().forEach((material, index) => {
+    const raw = {
+      id: forgeMaterialId(material.id), name: material.name, description: material.description,
+      category: 'curiosities', price: craftMaterialPrice(material), icon: material.icon || '🧪',
+      stock: 999, rarity: material.rarity || 'common',
+      effects: [...(material.properties || []), ...(material.effects || [])],
+      vendor: 'wario_direct', shippedBy: 'Wario Crafting Forge', levelRequirement: 0,
+      shippingDetail: `Forge reagent counter · source: ${material.source || 'warehouse stock'}`
+    };
+    const item = normalizeItem(raw, ITEMS.length + index);
+    item.forgeKind = 'material'; item.forgeSourceId = material.id;
+    ITEM_BY_ID.set(item.id, item);
+  });
+  craftRecipes().forEach((recipe, index) => {
+    const quote = craftRecipeQuote(recipe);
+    const raw = {
+      id: forgeRecipeId(recipe.id), name: recipe.name, description: recipe.description || recipe.effect,
+      category: 'services', price: quote.total, icon: recipe.icon || '⚒️', stock: 99,
+      rarity: recipe.rarity || 'common', effects: recipe.effect ? [recipe.effect] : [],
+      vendor: 'wario_direct', shippedBy: 'Wario Crafting Forge',
+      levelRequirement: Number(recipe.levelRequirement || 0),
+      shippingDetail: `Made to order in ${recipe.craftTime || '?'} hours. Quote includes ingredients, labor, skill, and failure risk.`
+    };
+    const item = normalizeItem(raw, ITEMS.length + craftMaterials().length + index);
+    item.forgeKind = 'recipe'; item.forgeSourceId = recipe.id; item.forgeQuote = quote;
+    ITEM_BY_ID.set(item.id, item);
+  });
+}
 
 /* --------------------------------------------------------------------------
    ABILITY SHOP ("Training Wing") — data/abilityShop.json + abilityPoints.json
@@ -1947,12 +2017,14 @@ function generatePrimeReceipt(planId = 'standard') {
 function craftRecipeCard(r) {
   const sc = craftSchools()[String(r.school || '').toUpperCase()];
   const col = sc?.color || craftColor(r.rarity);
+  const quote = craftRecipeQuote(r);
   const mats = (r.materials || []).map(m => {
     const meta = craftMatById(m.id);
-    return `<button class="cf-mat" data-craft-buy="${esc(meta?.name || m.id)}" title="Find '${esc(meta?.name || m.id)}' in the warehouse">
+    const unit = craftMaterialPrice(meta || { cost: 5 });
+    return `<button class="cf-mat" data-forge-buy-material="${esc(m.id)}" data-forge-qty="${Math.max(1, Number(m.quantity || 1))}" title="Buy ${esc(meta?.name || m.id)} directly from the Forge">
       <span>${esc(meta?.icon || '•')}</span>
       <span class="cf-mat-n">${esc(meta?.name || m.id)}</span>
-      <span class="cf-mat-q">×${m.quantity || 1}</span>
+      <span class="cf-mat-q">×${m.quantity || 1} · 💰${fmt(unit * Math.max(1, Number(m.quantity || 1)))}</span>
     </button>`;
   }).join('');
   const success = Number(r.successChance || 0);
@@ -1967,7 +2039,7 @@ function craftRecipeCard(r) {
           ${r.levelRequirement ? `<span>Req Lv ${r.levelRequirement}</span>` : ''}
         </div>
       </div>
-      <div class="cf-cost">${fmt(r.goldCost || 0)}<span>g</span></div>
+      <div class="cf-cost">${fmt(quote.total)}<span>g retail</span></div>
     </div>
     ${r.description ? `<p class="cf-desc">${esc(r.description)}</p>` : ''}
     ${r.effect ? `<div class="cf-effect">✨ ${esc(r.effect)}</div>` : ''}
@@ -1976,11 +2048,14 @@ function craftRecipeCard(r) {
       ${success ? `<span class="${success >= 80 ? 'good' : success >= 50 ? 'mid' : 'bad'}">✓ ${success}% success</span>` : ''}
       <span class="cf-type">${esc(r.category || r.type || 'recipe')}</span>
     </div>
-    ${mats ? `<div class="cf-mats"><small>Materials — tap to shop:</small>${mats}</div>` : ''}
+    ${mats ? `<div class="cf-mats"><small>Ingredients — tap one to buy it now:</small>${mats}</div>` : ''}
+    <div class="cf-quote"><span>Ingredients <b>💰${fmt(quote.ingredientTotal)}</b></span><span>Forge fee <b>💰${fmt(quote.forgeFee)}</b></span><small>Fee = labor (${fmt(quote.labor)}) + level/spell skill (${fmt(quote.skill)}) + failure risk (${fmt(quote.risk)}), with the recipe's listed fee as minimum.</small></div>
+    <div class="cf-buy-actions"><button class="btn-buy" data-forge-buy-recipe="${esc(r.id)}">Buy crafted item · 💰${fmt(quote.total)}</button><button class="btn-add" data-forge-add-recipe="${esc(r.id)}">Add to Cart</button></div>
   </article>`;
 }
 
 function craftMaterialCard(m) {
+  const price = craftMaterialPrice(m);
   return `<article class="cf-card" style="--cf-c:${craftColor(m.rarity)}">
     <div class="cf-top">
       <span class="cf-ic">${esc(m.icon || '⚗️')}</span>
@@ -1991,12 +2066,12 @@ function craftMaterialCard(m) {
           ${m.rarity ? `<span style="color:${craftColor(m.rarity)};font-weight:700">${esc(m.rarity)}</span>` : ''}
         </div>
       </div>
-      <div class="cf-cost">${fmt(m.cost || 0)}<span>g</span></div>
+      <div class="cf-cost">${fmt(price)}<span>g each</span></div>
     </div>
     ${m.description ? `<p class="cf-desc">${esc(m.description)}</p>` : ''}
     ${(m.effects || []).length ? `<div class="cf-effect">✨ ${esc(m.effects.join(' · '))}</div>` : ''}
     ${m.source ? `<div class="cf-src">🗺 ${esc(m.source)}</div>` : ''}
-    <div class="cf-mats"><button class="btn-add" data-craft-buy="${esc(m.name)}" style="max-width:240px">🛒 Find in Warehouse</button></div>
+    <div class="cf-buy-actions"><button class="btn-buy" data-forge-buy-material="${esc(m.id)}">Buy Now · 💰${fmt(price)}</button><button class="btn-add" data-forge-add-material="${esc(m.id)}">Add to Cart</button></div>
   </article>`;
 }
 
@@ -2047,7 +2122,7 @@ function renderCrafting() {
       ${rows.length === 0 ? `<div class="empty-results"><div class="big">⚗️</div><h2>No recipes match</h2><p>Try fewer words — "fire", "scroll", "healing". Wario suggests "gold".</p></div>` : ''}`;
   } else if (C.tab === 'materials') {
     const rows = filterScore(craftMaterials());
-    body = `<div class="cf-toolbar"><span style="color:var(--wz-muted);font-size:12px">${fmt(rows.length)} of ${fmt(craftMaterials().length)} reagents — every "🛒 Find in Warehouse" button searches the shop for you</span></div>
+    body = `<div class="cf-toolbar"><span style="color:var(--wz-muted);font-size:12px">${fmt(rows.length)} of ${fmt(craftMaterials().length)} reagents — all ingredients are sold directly by the Forge, including Blank Parchment.</span></div>
       <div class="cf-grid">${rows.slice(0, C.shown).map(craftMaterialCard).join('')}</div>
       ${rows.length > C.shown ? `<button class="btn-plain" id="craftMore" style="display:block;margin:16px auto;padding:10px 26px">Show more (${fmt(rows.length - C.shown)} left)</button>` : ''}
       ${rows.length === 0 ? `<div class="empty-results"><div class="big">🧪</div><h2>No materials match</h2><p>Wario ate the entry you're looking for. Try another.</p></div>` : ''}`;
@@ -2903,13 +2978,15 @@ function buyNow(id, qty = 1) {
   const it = ITEM_BY_ID.get(id);
   if (!it) return;
   if (it.stock <= 0) { toast('<b>Out of stock.</b> Wario already sold it. To himself.'); return; }
-  qty = Math.max(1, Math.min(qty, Math.min(it.stock, 10)));
+  const maxPerOrder = it.forgeKind ? 99 : 10;
+  qty = Math.max(1, Math.min(qty, Math.min(it.stock, maxPerOrder)));
   openCheckout([{ id, qty }]);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   ensureLoreData();
   ensurePrimeData();
+  ensureCrafting(); // registers made-to-order recipes and every reagent as purchasable items
 
   // Keep countdown text live and rotate without requiring a hard refresh when
   // a storefront tab remains open across local midnight.
@@ -3111,8 +3188,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (t.closest('#craftMore')) { CRAFT_STATE.shown += 60; render(); return; }
     const cschool = t.closest('[data-craft-school]');
     if (cschool) { CRAFT_STATE.tab = 'recipes'; CRAFT_STATE.school = cschool.dataset.craftSchool; CRAFT_STATE.q = ''; CRAFT_STATE.shown = 60; render(); return; }
-    const cbuy = t.closest('[data-craft-buy]');
-    if (cbuy) { resetFilters(); S.q = cbuy.dataset.craftBuy; S.dept = 'all'; goTo('results'); toast(`Searching the warehouse for <b>${esc(cbuy.dataset.craftBuy)}</b>…`); return; }
+    const forgeBuyMaterial = t.closest('[data-forge-buy-material]');
+    if (forgeBuyMaterial) {
+      const material = craftMatById(forgeBuyMaterial.dataset.forgeBuyMaterial);
+      const id = forgeMaterialId(forgeBuyMaterial.dataset.forgeBuyMaterial);
+      const qty = Math.max(1, Number(forgeBuyMaterial.dataset.forgeQty || 1));
+      if (!material || !ITEM_BY_ID.has(id)) { toast('That reagent is not registered at the Forge counter.'); return; }
+      buyNow(id, qty); return;
+    }
+    const forgeAddMaterial = t.closest('[data-forge-add-material]');
+    if (forgeAddMaterial) {
+      const id = forgeMaterialId(forgeAddMaterial.dataset.forgeAddMaterial);
+      if (addToCart(id, 1)) openCart(); return;
+    }
+    const forgeBuyRecipe = t.closest('[data-forge-buy-recipe]');
+    if (forgeBuyRecipe) {
+      const id = forgeRecipeId(forgeBuyRecipe.dataset.forgeBuyRecipe);
+      if (!ITEM_BY_ID.has(id)) { toast('That made-to-order recipe is not registered yet.'); return; }
+      buyNow(id, 1); return;
+    }
+    const forgeAddRecipe = t.closest('[data-forge-add-recipe]');
+    if (forgeAddRecipe) {
+      const id = forgeRecipeId(forgeAddRecipe.dataset.forgeAddRecipe);
+      if (addToCart(id, 1)) openCart(); return;
+    }
 
     /* abilities wing */
     if (t.closest('#subAbilities')) { AB_STATE.shown = 60; goTo('abilities'); return; }
