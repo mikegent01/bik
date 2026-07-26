@@ -75,7 +75,8 @@
     ],
     "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
     "faction": "undertale_monsters",
-    "membership": "Snowdin Perimeter Watch / Underground local guide"
+    "membership": "Snowdin Perimeter Watch / Underground local guide",
+    "image": "portraits/sans.png"
   },
   {
     "id": "gamma_agent",
@@ -2249,7 +2250,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/papyrus.png"
   },
   {
     "id": "grandpa_semi",
@@ -2280,7 +2282,8 @@
         "text": "One page in the sealed Wing Gaster folder is sealed by a wax sigil Grandpa Semi did not set; it predates his custody, and he has never identified the hand that closed it."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "image": "portraits/grandpa_semi.png"
   },
   {
     "id": "lazybones",
@@ -2319,7 +2322,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/lazybones.png"
   },
   {
     "id": "baby_bones",
@@ -2358,7 +2362,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/baby_bones.png"
   },
   {
     "id": "dirty_brother",
@@ -2397,7 +2402,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/dirty_brother.png"
   },
   {
     "id": "will",
@@ -2436,7 +2442,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/will.png"
   },
   {
     "id": "cursive",
@@ -2475,7 +2482,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/cursive.png"
   },
   {
     "id": "times_new_roman",
@@ -2514,7 +2522,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/times_new_roman.png"
   },
   {
     "id": "prunsel",
@@ -2553,7 +2562,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/prunsel.png"
   },
   {
     "id": "real_star",
@@ -2592,7 +2602,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/real_star.png"
   },
   {
     "id": "wing_gaster",
@@ -2631,7 +2642,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/wing_gaster.png"
   },
   {
     "id": "helvetica",
@@ -2670,7 +2682,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/helvetica.png"
   },
   {
     "id": "garbage_brother",
@@ -2709,7 +2722,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/garbage_brother.png"
   },
   {
     "id": "quantity",
@@ -2748,7 +2762,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/quantity.png"
   },
   {
     "id": "mystery_man",
@@ -2787,7 +2802,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/mystery_man.png"
   },
   {
     "id": "sans_deltarune",
@@ -2818,7 +2834,8 @@
         "text": "His store ledger contains a date that has not happened in this world yet."
       }
     ],
-    "familyTreeSource": "family-tree.js / Snowdin Bone-Line"
+    "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
+    "image": "portraits/sans_deltarune.png"
   },
   {
     "id": "sans_family",
@@ -2902,7 +2919,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/has_a_very_special_attack.png"
   },
   {
     "id": "brother_killer",
@@ -2941,7 +2959,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/brother_killer.png"
   },
   {
     "id": "my_little_brother",
@@ -2980,7 +2999,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/my_little_brother.png"
   },
   {
     "id": "ness",
@@ -3019,7 +3039,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/ness.png"
   },
   {
     "id": "my_brother",
@@ -3058,7 +3079,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/my_brother.png"
   },
   {
     "id": "pretty_soon",
@@ -3097,7 +3119,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/pretty_soon.png"
   },
   {
     "id": "gee_lady",
@@ -3136,7 +3159,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/gee_lady.png"
   },
   {
     "id": "starman",
@@ -3175,7 +3199,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/starman.png"
   },
   {
     "id": "speen_kind_of_down_lately",
@@ -3214,7 +3239,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/speen_kind_of_down_lately.png"
   },
   {
     "id": "pet_rock",
@@ -3253,7 +3279,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/pet_rock.png"
   },
   {
     "id": "dedan",
@@ -3292,7 +3319,8 @@
     "level": 1,
     "powerLevel": 1,
     "fameScore": 18,
-    "fameTier": "Obscure"
+    "fameTier": "Obscure",
+    "image": "portraits/dedan.png"
   },
   {
     "id": "flowey",
