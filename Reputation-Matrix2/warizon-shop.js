@@ -242,13 +242,95 @@ function acceptedCurrenciesFor(raw, detected, rarity, rating, reviews) {
 }
 
 /* --------------------------------------------------------------------------
+   ECONOMY GUARD + SCAM SIGNALS
+   -------------------------------------------------------------------------- */
+
+function balanceText(raw) {
+  return [
+    raw.name, raw.description,
+    ...(Array.isArray(raw.effects) ? raw.effects : []),
+    ...(Array.isArray(raw.effectDetails) ? raw.effectDetails.flatMap(d => [d?.title, d?.rules]) : []),
+    ...Object.values(raw.usage || {})
+  ].filter(Boolean).join(' ').toLowerCase();
+}
+
+/** Detect permanent wealth engines and impossible commerce claims. Explicit
+    item metadata wins; heuristics protect future generated catalog entries. */
+function assessEconomyImpact(raw) {
+  const text = balanceText(raw);
+  const declared = raw.economyImpact && typeof raw.economyImpact === 'object' ? raw.economyImpact : {};
+  let floor = Math.max(0, Number(declared.priceFloor || 0));
+  let dailyGold = Math.max(0, Number(declared.dailyGold || 0));
+  const reasons = [];
+
+  if (/daily|each day|at dawn/.test(text)) {
+    for (const match of text.matchAll(/([\d,]+)\s+gold(?:\s+coins?)?/g)) {
+      dailyGold = Math.max(dailyGold, Number(match[1].replace(/,/g, '')) || 0);
+    }
+  }
+  if (dailyGold > 0) {
+    floor = Math.max(floor, dailyGold * 365 * 100); // 100-year income buy-in
+    reasons.push(`${fmt(dailyGold)} gold/day passive income`);
+  }
+  if (/all shops?.{0,45}(?:free|no cost)|all shop items?.{0,30}free|wares? for free/.test(text)) {
+    floor = Math.max(floor, 50_000_000_000);
+    reasons.push('free regional commerce');
+  }
+  if (/majority share|become the owner|ownership of (?:wario|the company)|buy wario'?s company/.test(text)) {
+    floor = Math.max(floor, 1_000_000_000);
+    reasons.push('corporate control');
+  }
+  if (/exponential.{0,30}(?:coin|gold|wealth)|(?:infinite|unlimited|bottomless).{0,24}(?:gold|money|wealth)/.test(text)) {
+    floor = Math.max(floor, 10_000_000_000);
+    reasons.push('uncapped wealth generation');
+  }
+
+  return {
+    tier: String(declared.tier || (floor ? 'economy_guarded' : 'standard')),
+    floor: Math.round(floor),
+    dailyGold,
+    protected: floor > 0,
+    dealEligible: declared.dealEligible !== false && floor === 0,
+    reason: String(declared.reason || reasons.join(' · '))
+  };
+}
+
+const SCAM_PHRASES = [
+  { rx: /all shops?.{0,45}(?:free|no cost)|all shop items?.{0,30}free|wares? for free/, score: 3, label: 'free-everything claim' },
+  { rx: /daily income|at dawn.{0,60}(?:receive|produce|generate).{0,40}gold|generate.{0,40}gold.{0,20}(?:daily|each day)/, score: 2, label: 'passive-income promise' },
+  { rx: /majority share|become the owner|buy wario'?s company|wario becomes your employee/, score: 2, label: 'ownership-transfer claim' },
+  { rx: /(?:infinite|unlimited|bottomless|never empties).{0,25}(?:gold|money|wealth|coins?)/, score: 2, label: 'unlimited-wealth language' },
+  { rx: /guaranteed|100% chance|no risk|no drawbacks|cannot fail/, score: 1, label: 'guaranteed outcome' },
+  { rx: /definitely not a scam|allegedly|probably|rumou?rs? say|trust wario/, score: 1, label: 'suspicious fine print' },
+  { rx: /grants? (?:any|unlimited) wishes?|rewrite reality/, score: 3, label: 'reality-breaking promise' }
+];
+
+function assessScamRisk(raw) {
+  const text = balanceText(raw);
+  const hits = SCAM_PHRASES.filter(rule => rule.rx.test(text));
+  let score = hits.reduce((sum, hit) => sum + hit.score, 0);
+  if (score && /wario/.test(String(raw.vendor || '').toLowerCase())) score += 1;
+  if (!score) return null;
+  const level = score >= 5 ? 'critical' : score >= 3 ? 'high' : 'caution';
+  return {
+    level, score,
+    reasons: hits.map(hit => hit.label),
+    message: level === 'critical'
+      ? 'Wario may take the payment without honoring these extraordinary claims. DM verification is required before any benefit applies.'
+      : 'This listing uses suspicious or unusually generous language. Payment is not proof that the advertised benefit works.'
+  };
+}
+
+/* --------------------------------------------------------------------------
    Catalog normalization (computed once)
    -------------------------------------------------------------------------- */
 
 function normalizeItem(raw, idx) {
   const id = String(raw.id ?? raw.name ?? `item_${idx}`);
   const cat = DEPARTMENTS[raw.category] ? raw.category : 'curiosities';
-  const price = Math.max(0, Number(raw.price ?? 0));
+  const listedPrice = Math.max(0, Number(raw.price ?? 0));
+  const economy = assessEconomyImpact(raw);
+  const price = Math.max(listedPrice, economy.floor);
   const rarity = String(raw.rarity || 'common').toLowerCase();
   const rating = Math.round((3.2 + hash01(id + '|r') * 1.7) * 10) / 10;           // 3.2 – 4.9
   const reviews = 3 + Math.floor(hash01(id + '|rc') * 2488);
@@ -272,7 +354,8 @@ function normalizeItem(raw, idx) {
     id, idx,
     name: String(raw.name || id),
     desc: String(raw.description || ''),
-    cat, price, basePrice: price, rarity,
+    cat, price, listedPrice, basePrice: price, rarity,
+    economy, scam: assessScamRisk(raw),
     icon: String(raw.icon || '📦'),
     stock: Number.isFinite(Number(raw.stock)) ? Number(raw.stock) : 0,
     effects: Array.isArray(raw.effects) ? raw.effects.map(String) : [],
@@ -333,7 +416,7 @@ function applyDailyDeals(day = localDayKey()) {
     it.featured = hash01(it.id + '|f') + it.rating / 10;
   });
 
-  const eligible = ITEMS.filter(it => it.stock > 0 && it.basePrice >= 5);
+  const eligible = ITEMS.filter(it => it.stock > 0 && it.basePrice >= 5 && it.economy.dealEligible);
   const picked = [];
   const ids = new Set();
   const take = (rows, count, kind) => {
@@ -1157,6 +1240,14 @@ function renderHeader() {
    RENDER: HOME
    -------------------------------------------------------------------------- */
 
+function scamWarningHtml(it, { compact = false } = {}) {
+  if (!it.scam) return '';
+  const title = it.scam.level === 'critical' ? '🚨 Critical scam risk' : it.scam.level === 'high' ? '⚠ High scam risk' : '⚠ Buyer caution';
+  return `<div class="scam-warning ${esc(it.scam.level)} ${compact ? 'compact' : ''}">
+    <b>${title}</b>${compact ? '' : `<span>${esc(it.scam.message)}</span><small>Flagged phrases: ${it.scam.reasons.map(esc).join(' · ')}</small>`}
+  </div>`;
+}
+
 function cardIntelHtml(it, { mini = false } = {}) {
   const rows = effectRowsFor(it);
   const primary = rows.find(r => r.rules) || null;
@@ -1187,6 +1278,7 @@ function miniCard(it) {
     <div class="mc-img">${esc(it.icon)}</div>
     <div class="mc-title">${esc(it.name)}</div>
     ${cardIntelHtml(it, { mini: true })}
+    ${scamWarningHtml(it, { compact: true })}
     <div>${starsHtml(it.rating)} <span style="font-size:11px;color:var(--wz-link)">${fmt(it.reviews)}</span></div>
     <div class="mc-price">${coinIcon(c)}${fmt(amtIn(it.price, c))}<span class="cents">${it.cents}</span></div>
     ${it.deal ? `<div class="mc-was">Was <s>${coinIcon(c)}${fmt(amtIn(it.deal.was, c))}</s> · Limited-time deal</div>` : ''}
@@ -1323,6 +1415,7 @@ function productCard(it) {
     <div class="p-img" data-open="${esc(it.id)}" title="${esc(it.name)}">${esc(it.icon)}</div>
     <div class="p-title" data-open="${esc(it.id)}">${esc(it.name)}</div>
     ${cardIntelHtml(it)}
+    ${scamWarningHtml(it, { compact: true })}
     <div class="p-rating">${starsHtml(it.rating)} <span class="r-count">${it.rating} · ${fmt(it.reviews)} ratings</span></div>
     ${priceWidget(it)}
     <div class="p-afford ${affordable ? 'ok' : 'no'}" title="${esc(affordLine(it))}">${affordable ? '✅ Affordable from your wallet' : '🔒 Not affordable right now'}</div>
@@ -2067,6 +2160,8 @@ function openPdp(id, useCur = null) {
           <div class="qr-head"><span>✨ Quick read</span><b>${esc(DEPARTMENTS[it.cat].label)}</b></div>
           ${it.desc ? `<p>${loreLinkText(it.desc, 6)}</p>` : '<p>Wario forgot to write a description, which is legally distinct from suspicious.</p>'}
         </div>
+        ${scamWarningHtml(it)}
+        ${it.economy.protected ? `<div class="economy-guard"><b>🏦 Economy-guarded price</b><span>This listing is excluded from daily deals and cannot fall below 💰${fmt(it.economy.floor)} gold.</span>${it.economy.reason ? `<small>${esc(it.economy.reason)}</small>` : ''}</div>` : ''}
         <hr class="pdp-hr">
         ${itemLoreHtml(it)}
         ${effectsSectionHtml(it)}
@@ -2292,6 +2387,7 @@ function openCheckout(buyNowRows = null) {
                 <div class="co-pay-mid">
                   <span class="co-pay-name">${esc(it.name)} <span class="ci-qty">×${rp.qty}</span></span>
                   <small class="co-pay-note">${esc(it.paymentTier)} · choose one of ${it.accepted.length} accepted currencies</small>
+                  ${it.scam ? `<small class="co-scam-note">⚠ ${esc(it.scam.level.toUpperCase())} SCAM RISK — DM verification required</small>` : ''}
                   <div class="co-tender-grid">${tender}</div>
                 </div>
                 <span class="co-pay-amt">Owed: ${coinIcon(rp.cur)} <b>${fmt(rp.native)}</b>${rp.cur !== 'gold' ? `<small> ≈ 💰${fmt(rp.lineGold)}</small>` : ''}</span>
@@ -2384,6 +2480,8 @@ function placeOrder(rows, ship, coState, isBuyNow = false) {
     currency: rp.cur,                         // what the player will hand the DM
     nativeTotal: rp.native,                   // amount of that currency owed
     isFaction: rp.it.cat === 'faction',
+    scamRisk: rp.it.scam ? { level: rp.it.scam.level, reasons: rp.it.scam.reasons, dmVerificationRequired: true } : null,
+    economyGuardFloor: rp.it.economy.protected ? rp.it.economy.floor : null,
     playerKey: acc?.id || 'unknown',
     orderedAt: nowIso,
     approvedAt: null,

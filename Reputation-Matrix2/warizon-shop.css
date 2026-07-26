@@ -2237,3 +2237,38 @@ a.xlink:hover { color: #c7511f; }
   font-size: 11px;
   font-weight: 700;
 }
+
+/* Phase 7.2 — keyword-driven buyer protection and economy guardrails. */
+.scam-warning {
+  display: grid;
+  gap: 3px;
+  margin: 10px 0;
+  padding: 10px 12px;
+  border: 1px solid #e5b13c;
+  border-left: 5px solid #d97706;
+  border-radius: 10px;
+  background: #fff8df;
+  color: #6a4300;
+  font-size: 12px;
+}
+.scam-warning.high { border-color: #e58c53; border-left-color: #c2410c; background: #fff1e8; color: #7c2d12; }
+.scam-warning.critical { border-color: #df6b6b; border-left-color: #b91c1c; background: #fff0f0; color: #7f1d1d; }
+.scam-warning b { font-size: 12px; text-transform: uppercase; letter-spacing: .035em; }
+.scam-warning span { line-height: 1.45; }
+.scam-warning small { color: currentColor; opacity: .75; }
+.scam-warning.compact { display: block; margin: 5px 0; padding: 5px 8px; border-left-width: 3px; }
+.scam-warning.compact b { font-size: 10px; }
+.economy-guard {
+  display: grid;
+  gap: 3px;
+  margin: 10px 0;
+  padding: 10px 12px;
+  border: 1px solid #9bc5a4;
+  border-left: 5px solid #18723a;
+  border-radius: 10px;
+  background: #effaf2;
+  color: #174b28;
+  font-size: 12px;
+}
+.economy-guard small { color: #426b4d; }
+.co-scam-note { color: #b91c1c !important; font-weight: 800; margin-top: 4px; }

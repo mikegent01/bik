@@ -704,17 +704,25 @@ export const ITEMS_050 = {
     "name": "WarioWare, Inc. Majority Share",
     "description": "The Warios Franchise Majority Share is a gleaming stock certificate from Wario Direct, forged in the fires of Delfino Square. When you hold it, the streets of your town will hum with productivity as every shop offers its goods for free. Daily, you'll see 10,000 gold coins appear in your vault, courtesy of Wario's Warehouse. Rumors say that Wario himself, despite his protests, works tirelessly to keep things running smoothly.",
     "category": "premium",
-    "price": 670000,
+    "price": 900000000000000,
     "icon": "💰",
     "stock": 1,
     "rarity": "godly",
+    "economyImpact": {
+      "tier": "economy_breaker",
+      "priceFloor": 900000000000000,
+      "dailyGold": 10000,
+      "freeShopRadiusMiles": 1,
+      "dealEligible": false,
+      "reason": "Permanent majority ownership, unlimited daily income, and free regional commerce must remain an institutional endgame acquisition."
+    },
     "effects": [
       "All shops offer their wares for free",
       "Daily income of 10,000 gold coins"
     ],
     "vendor": "wario_direct",
     "shippedBy": "Wario Express Courier Service",
-    "levelRequirement": 1,
+    "levelRequirement": 20,
     "effectDetails": [
       {
         "title": "Free Shop Goods",
@@ -725,16 +733,16 @@ export const ITEMS_050 = {
         "rules": "At dawn each day, you receive 10,000 gold coins from Wario's Warehouse. This effect continues as long as the item remains in your possession."
       }
     ],
-    "levelRequirementReason": "This item requires no level; it is a godly artifact that allows anyone to access Wario's business prowess.",
+    "levelRequirementReason": "A permanent corporate-control asset with uncapped regional commerce effects is restricted to level 20 endgame characters and still requires DM approval.",
     "vendorReason": "Only Wario Direct can offer such a powerful and controversial artifact, ensuring authenticity and exclusivity.",
     "shippingDetail": "The courier delivers the item directly to your home, bypassing any local authorities or taxes.",
     "usage": {
       "activation": "Passive effect; no activation required",
       "duration": "Instantaneous and ongoing while in possession",
       "endsWhen": "Exhausts charges or is destroyed by a successful Wario-level spell",
-      "charges": "Unlimited, but requires a yearly tribute of 100 gold coins to maintain"
+      "charges": "Unlimited while the deed remains valid; requires a yearly tribute of 100,000,000 gold coins and explicit DM renewal to maintain"
     },
-    "priceReason": "The item's value is balanced by its powerful effects and the requirement for annual maintenance.",
+    "priceReason": "Restored to its 900-trillion-gold institutional valuation because permanent free commerce and 10,000 gold per day are campaign-economy-breaking benefits.",
     "priceOriginal": 900000000000000,
     "priceReviewedAt": "2026-07-23T20:33:15.005962+00:00",
     "aiReviewedAt": "2026-07-23T20:33:15.005962+00:00",
