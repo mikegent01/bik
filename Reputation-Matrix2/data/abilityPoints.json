@@ -2,10 +2,14 @@
  "meta": {
   "generated": "2026-07-25",
   "generator": "tools/build_ability_points.py",
-  "source": "Reputation-Matrix2/xp.html -> const PLAYERS (level / currentXP)",
+  "source": "Reputation-Matrix2/xp.html -> const PLAYERS (faction / source order / level / currentXP)",
   "formula": "apEarned = level + floor(level / 5)",
   "costRule": "AP cost by required level: 1-3 -> 1, 5-7 -> 2, 8-11 -> 3, 14+ -> 5",
-  "note": "Abilities are unlocked with Ability Points earned by levelling, not with gold. Nothing here is authoritative over the table: the shop only generates a receipt, it never edits a character sheet."
+  "trainingTargetFactions": [
+   "disaster_inc",
+   "disaster_inc_allies"
+  ],
+  "note": "Abilities are unlocked with Ability Points earned by levelling, not with gold. Training targets are restricted to Disaster Inc. members and allies from the sorted XP roster. Nothing here is authoritative over the table: the shop only generates a receipt, it never edits a character sheet."
  },
  "apByLevel": {
   "1": 1,
@@ -74,6 +78,8 @@
  "players": {
   "gamma_agent": {
    "name": "Gamma Legionary Agent",
+   "faction": "gamma_division",
+   "rosterOrder": 0,
    "level": 3,
    "currentXP": 1250,
    "nextXP": 2700,
@@ -85,6 +91,8 @@
   },
   "dracule_mihawk": {
    "name": "Dracule Mihawk",
+   "faction": "independent",
+   "rosterOrder": 1,
    "level": 9,
    "currentXP": 45000,
    "nextXP": 64000,
@@ -96,6 +104,8 @@
   },
   "sans": {
    "name": "Sans",
+   "faction": "undertale_monsters",
+   "rosterOrder": 2,
    "level": 1,
    "currentXP": 300,
    "nextXP": 900,
@@ -107,6 +117,8 @@
   },
   "bowser": {
    "name": "Bowser",
+   "faction": "disaster_inc",
+   "rosterOrder": 3,
    "level": 8,
    "currentXP": 35292,
    "nextXP": 48000,
@@ -118,6 +130,8 @@
   },
   "archie": {
    "name": "Archie Archbold Miser",
+   "faction": "disaster_inc",
+   "rosterOrder": 4,
    "level": 6,
    "currentXP": 21030,
    "nextXP": 23000,
@@ -129,6 +143,8 @@
   },
   "waluigi": {
    "name": "Waluigi",
+   "faction": "disaster_inc",
+   "rosterOrder": 5,
    "level": 5,
    "currentXP": 11331,
    "nextXP": 14000,
@@ -140,6 +156,8 @@
   },
   "markop": {
    "name": "Markop",
+   "faction": "disaster_inc",
+   "rosterOrder": 6,
    "level": 8,
    "currentXP": 37769,
    "nextXP": 48000,
@@ -151,6 +169,8 @@
   },
   "hjumpik": {
    "name": "Hjumpik",
+   "faction": "disaster_inc",
+   "rosterOrder": 7,
    "level": 7,
    "currentXP": 25022,
    "nextXP": 34000,
@@ -162,6 +182,8 @@
   },
   "remi": {
    "name": "Remi",
+   "faction": "disaster_inc",
+   "rosterOrder": 8,
    "level": 7,
    "currentXP": 31258,
    "nextXP": 34000,
@@ -173,6 +195,8 @@
   },
   "rakashaazure": {
    "name": "Rakasha Azure",
+   "faction": "rakasha_tribes",
+   "rosterOrder": 9,
    "level": 4,
    "currentXP": 5240,
    "nextXP": 6500,
@@ -184,6 +208,8 @@
   },
   "usk": {
    "name": "Usk",
+   "faction": "disaster_inc_allies",
+   "rosterOrder": 10,
    "level": 2,
    "currentXP": 800,
    "nextXP": 900,
@@ -195,6 +221,8 @@
   },
   "bones": {
    "name": "Bones",
+   "faction": "disaster_inc_allies",
+   "rosterOrder": 11,
    "level": 5,
    "currentXP": 7880,
    "nextXP": 14000,
@@ -219,6 +247,8 @@
   },
   "dan": {
    "name": "Dan",
+   "faction": "liberated_toads",
+   "rosterOrder": 12,
    "level": 4,
    "currentXP": 3910,
    "nextXP": 6500,
@@ -249,6 +279,8 @@
   },
   "toadlee": {
    "name": "Toad Lee",
+   "faction": "liberated_toads",
+   "rosterOrder": 13,
    "level": 4,
    "currentXP": 5790,
    "nextXP": 6500,
@@ -279,6 +311,8 @@
   },
   "greent": {
    "name": "Green T",
+   "faction": "liberated_toads",
+   "rosterOrder": 14,
    "level": 5,
    "currentXP": 12500,
    "nextXP": 14000,
@@ -290,6 +324,8 @@
   },
   "feywarddan": {
    "name": "Feyward Dan",
+   "faction": "liberated_toads",
+   "rosterOrder": 15,
    "level": 3,
    "currentXP": 1960,
    "nextXP": 2700,
@@ -301,6 +337,8 @@
   },
   "speaker_l": {
    "name": "Speaker L",
+   "faction": "liberated_toads",
+   "rosterOrder": 16,
    "level": 3,
    "currentXP": 1470,
    "nextXP": 2700,
@@ -360,6 +398,8 @@
   },
   "eager": {
    "name": "Eager",
+   "faction": "liberated_toads",
+   "rosterOrder": 17,
    "level": 4,
    "currentXP": 4860,
    "nextXP": 6500,
@@ -396,6 +436,8 @@
   },
   "salam": {
    "name": "Salam",
+   "faction": "liberated_toads",
+   "rosterOrder": 18,
    "level": 3,
    "currentXP": 2220,
    "nextXP": 2700,
@@ -407,6 +449,8 @@
   },
   "ryan": {
    "name": "Ryan",
+   "faction": "liberated_toads",
+   "rosterOrder": 19,
    "level": 2,
    "currentXP": 590,
    "nextXP": 900,
@@ -431,6 +475,8 @@
   },
   "smoking_j": {
    "name": "Smoking J",
+   "faction": "liberated_toads",
+   "rosterOrder": 20,
    "level": 2,
    "currentXP": 550,
    "nextXP": 900,
@@ -442,6 +488,8 @@
   },
   "mossy": {
    "name": "Mossy / Steely",
+   "faction": "disaster_inc_allies",
+   "rosterOrder": 21,
    "level": 4,
    "currentXP": 3270,
    "nextXP": 6500,
@@ -453,6 +501,8 @@
   },
   "roger": {
    "name": "Roger",
+   "faction": "liberated_toads",
+   "rosterOrder": 22,
    "level": 2,
    "currentXP": 790,
    "nextXP": 900,
@@ -495,6 +545,8 @@
   },
   "luigi": {
    "name": "Luigi",
+   "faction": "mages_guild",
+   "rosterOrder": 23,
    "level": 5,
    "currentXP": 10310,
    "nextXP": 14000,
@@ -506,6 +558,8 @@
   },
   "originaldan": {
    "name": "Original Dan",
+   "faction": "mages_guild",
+   "rosterOrder": 24,
    "level": 7,
    "currentXP": 25690,
    "nextXP": 34000,
@@ -517,6 +571,8 @@
   },
   "valorian_stormweave": {
    "name": "Valorian Stormweave",
+   "faction": "mages_guild",
+   "rosterOrder": 25,
    "level": 2,
    "currentXP": 860,
    "nextXP": 900,
@@ -528,6 +584,8 @@
   },
   "thornbury": {
    "name": "Thornbury",
+   "faction": "mages_guild",
+   "rosterOrder": 26,
    "level": 2,
    "currentXP": 840,
    "nextXP": 900,
@@ -539,6 +597,8 @@
   },
   "parson_pellinost": {
    "name": "Parson Pellinost",
+   "faction": "mages_guild",
+   "rosterOrder": 27,
    "level": 2,
    "currentXP": 490,
    "nextXP": 900,
@@ -550,6 +610,8 @@
   },
   "sergeant_coldbrook": {
    "name": "Sergeant Varn Coldbrook",
+   "faction": "iron_legion",
+   "rosterOrder": 28,
    "level": 2,
    "currentXP": 410,
    "nextXP": 900,
@@ -561,6 +623,8 @@
   },
   "toadburt": {
    "name": "Toadburt",
+   "faction": "iron_legion",
+   "rosterOrder": 29,
    "level": 2,
    "currentXP": 800,
    "nextXP": 900,
@@ -572,6 +636,8 @@
   },
   "darno_spriggon": {
    "name": "Darno Spriggon",
+   "faction": "iron_legion",
+   "rosterOrder": 30,
    "level": 3,
    "currentXP": 1510,
    "nextXP": 2700,
@@ -583,6 +649,8 @@
   },
   "hargram_fidger": {
    "name": "Hargram Fidger",
+   "faction": "iron_legion",
+   "rosterOrder": 31,
    "level": 2,
    "currentXP": 550,
    "nextXP": 900,
@@ -594,6 +662,8 @@
   },
   "byscilla_danos": {
    "name": "Byscilla Danos",
+   "faction": "iron_legion",
+   "rosterOrder": 32,
    "level": 3,
    "currentXP": 1330,
    "nextXP": 2700,
@@ -605,6 +675,8 @@
   },
   "manderaz_the_mad": {
    "name": "Manderaz the Mad",
+   "faction": "iron_legion",
+   "rosterOrder": 33,
    "level": 3,
    "currentXP": 910,
    "nextXP": 2700,
@@ -616,6 +688,8 @@
   },
   "general_ironhand": {
    "name": "General Ironhand",
+   "faction": "iron_legion",
+   "rosterOrder": 34,
    "level": 2,
    "currentXP": 860,
    "nextXP": 900,
@@ -627,6 +701,8 @@
   },
   "rhak_the_lost": {
    "name": "Rhak the Lost",
+   "faction": "iron_legion",
+   "rosterOrder": 35,
    "level": 2,
    "currentXP": 790,
    "nextXP": 900,
@@ -638,6 +714,8 @@
   },
   "aemenor_evenflight": {
    "name": "Aemenor Evenflight",
+   "faction": "iron_legion",
+   "rosterOrder": 36,
    "level": 1,
    "currentXP": 130,
    "nextXP": 300,
@@ -649,6 +727,8 @@
   },
   "warol_creeton": {
    "name": "Warol Creeton",
+   "faction": "iron_legion",
+   "rosterOrder": 37,
    "level": 1,
    "currentXP": 180,
    "nextXP": 300,
@@ -660,6 +740,8 @@
   },
   "theoracle": {
    "name": "The Oracle",
+   "faction": "corvinarus",
+   "rosterOrder": 38,
    "level": 8,
    "currentXP": 39250,
    "nextXP": 48000,
@@ -671,6 +753,8 @@
   },
   "vivian_corvinarus": {
    "name": "Vivian Corvinarus",
+   "faction": "corvinarus",
+   "rosterOrder": 39,
    "level": 3,
    "currentXP": 1010,
    "nextXP": 2700,
@@ -682,6 +766,8 @@
   },
   "lady_aurelian": {
    "name": "Lady Aurelian Corvinarus",
+   "faction": "corvinarus",
+   "rosterOrder": 40,
    "level": 3,
    "currentXP": 1200,
    "nextXP": 2700,
@@ -693,6 +779,8 @@
   },
   "oranguscornelius": {
    "name": "Orangus Cornelius",
+   "faction": "corvinarus",
+   "rosterOrder": 41,
    "level": 5,
    "currentXP": 9320,
    "nextXP": 14000,
@@ -704,6 +792,8 @@
   },
   "orange_t": {
    "name": "Orange T",
+   "faction": "corvinarus",
+   "rosterOrder": 42,
    "level": 2,
    "currentXP": 320,
    "nextXP": 900,
@@ -715,6 +805,8 @@
   },
   "lyranth": {
    "name": "Lyranth",
+   "faction": "corvinarus",
+   "rosterOrder": 43,
    "level": 3,
    "currentXP": 1420,
    "nextXP": 2700,
@@ -726,6 +818,8 @@
   },
   "the_archivist": {
    "name": "The Archivist",
+   "faction": "corvinarus",
+   "rosterOrder": 44,
    "level": 3,
    "currentXP": 2200,
    "nextXP": 2700,
@@ -737,6 +831,8 @@
   },
   "kryn": {
    "name": "Kryn",
+   "faction": "corvinarus",
+   "rosterOrder": 45,
    "level": 4,
    "currentXP": 3500,
    "nextXP": 6500,
@@ -748,6 +844,8 @@
   },
   "orvinder_danos": {
    "name": "Orvinder Danos",
+   "faction": "corvinarus",
+   "rosterOrder": 46,
    "level": 2,
    "currentXP": 800,
    "nextXP": 900,
@@ -759,6 +857,8 @@
   },
   "tymnas": {
    "name": "Tymnas",
+   "faction": "corvinarus",
+   "rosterOrder": 47,
    "level": 3,
    "currentXP": 1400,
    "nextXP": 2700,
@@ -770,6 +870,8 @@
   },
   "marcus_ashford": {
    "name": "Marcus Ashford",
+   "faction": "onyx_hand",
+   "rosterOrder": 48,
    "level": 3,
    "currentXP": 900,
    "nextXP": 2700,
@@ -781,6 +883,8 @@
   },
   "vaxillusthebeastmaster": {
    "name": "Vaxillus the Beastmaster",
+   "faction": "shadowfell_denizens",
+   "rosterOrder": 49,
    "level": 4,
    "currentXP": 3970,
    "nextXP": 6500,
@@ -792,6 +896,8 @@
   },
   "rattles": {
    "name": "Rattles",
+   "faction": "shadowfell_denizens",
+   "rosterOrder": 50,
    "level": 3,
    "currentXP": 1110,
    "nextXP": 2700,
@@ -803,6 +909,8 @@
   },
   "pierceanamatar": {
    "name": "Pierce Anamatar",
+   "faction": "shadowfell_denizens",
+   "rosterOrder": 51,
    "level": 3,
    "currentXP": 2080,
    "nextXP": 2700,
@@ -814,6 +922,8 @@
   },
   "kamek": {
    "name": "Kamek",
+   "faction": "koopa_troop",
+   "rosterOrder": 52,
    "level": 2,
    "currentXP": 690,
    "nextXP": 900,
@@ -825,6 +935,8 @@
   },
   "princess_peach": {
    "name": "Princess Peach",
+   "faction": "mushroom_kingdom",
+   "rosterOrder": 53,
    "level": 4,
    "currentXP": 3820,
    "nextXP": 6500,
@@ -836,6 +948,8 @@
   },
   "mario": {
    "name": "Mario",
+   "faction": "mushroom_kingdom",
+   "rosterOrder": 54,
    "level": 5,
    "currentXP": 13980,
    "nextXP": 14000,
@@ -847,6 +961,8 @@
   },
   "professor_e_gadd": {
    "name": "Professor Elvin Gadd",
+   "faction": "mushroom_kingdom",
+   "rosterOrder": 55,
    "level": 3,
    "currentXP": 1970,
    "nextXP": 2700,
@@ -858,6 +974,8 @@
   },
   "pauline": {
    "name": "Pauline",
+   "faction": "mushroom_kingdom",
+   "rosterOrder": 56,
    "level": 1,
    "currentXP": 240,
    "nextXP": 300,
@@ -869,6 +987,8 @@
   },
   "lady_bloomia": {
    "name": "Lady Bloomia",
+   "faction": "mushroom_kingdom",
+   "rosterOrder": 57,
    "level": 3,
    "currentXP": 1200,
    "nextXP": 2700,
@@ -880,6 +1000,8 @@
   },
   "bryan": {
    "name": "Bryan",
+   "faction": "mushroom_kingdom",
+   "rosterOrder": 58,
    "level": 2,
    "currentXP": 450,
    "nextXP": 900,
@@ -891,6 +1013,8 @@
   },
   "toadettesr": {
    "name": "Toadette Sr.",
+   "faction": "mushroom_kingdom",
+   "rosterOrder": 59,
    "level": 2,
    "currentXP": 320,
    "nextXP": 900,
@@ -902,6 +1026,8 @@
   },
   "toadsworth_sr": {
    "name": "Toadsworth the Elder",
+   "faction": "mushroom_regency",
+   "rosterOrder": 60,
    "level": 4,
    "currentXP": 3060,
    "nextXP": 6500,
@@ -913,6 +1039,8 @@
   },
   "chancellor_toadsworth": {
    "name": "Chancellor Toadsworth",
+   "faction": "mushroom_regency",
+   "rosterOrder": 61,
    "level": 3,
    "currentXP": 1160,
    "nextXP": 2700,
@@ -924,6 +1052,8 @@
   },
   "princess_daisy": {
    "name": "Princess Daisy",
+   "faction": "mushroom_regency",
+   "rosterOrder": 62,
    "level": 3,
    "currentXP": 2030,
    "nextXP": 2700,
@@ -935,6 +1065,8 @@
   },
   "captain_toadette": {
    "name": "Captain Toadette",
+   "faction": "peach_loyalists",
+   "rosterOrder": 63,
    "level": 3,
    "currentXP": 1730,
    "nextXP": 2700,
@@ -946,6 +1078,8 @@
   },
   "mistveil": {
    "name": "Mistveil",
+   "faction": "peach_loyalists",
+   "rosterOrder": 64,
    "level": 3,
    "currentXP": 970,
    "nextXP": 2700,
@@ -957,6 +1091,8 @@
   },
   "embercap": {
    "name": "Embercap",
+   "faction": "peach_loyalists",
+   "rosterOrder": 65,
    "level": 2,
    "currentXP": 470,
    "nextXP": 900,
@@ -968,6 +1104,8 @@
   },
   "fawful": {
    "name": "Fawful",
+   "faction": "fawful_forces",
+   "rosterOrder": 66,
    "level": 5,
    "currentXP": 8940,
    "nextXP": 14000,
@@ -979,6 +1117,8 @@
   },
   "cackletta": {
    "name": "Cackletta",
+   "faction": "fawful_forces",
+   "rosterOrder": 67,
    "level": 7,
    "currentXP": 24050,
    "nextXP": 34000,
@@ -990,6 +1130,8 @@
   },
   "mimbus": {
    "name": "Mimbus",
+   "faction": "fawful_forces",
+   "rosterOrder": 68,
    "level": 5,
    "currentXP": 8070,
    "nextXP": 14000,
@@ -1001,6 +1143,8 @@
   },
   "thejestergoomba": {
    "name": "The Jester (Goomba)",
+   "faction": "fawful_forces",
+   "rosterOrder": 69,
    "level": 4,
    "currentXP": 3550,
    "nextXP": 6500,
@@ -1012,6 +1156,8 @@
   },
   "wario": {
    "name": "Wario",
+   "faction": "wario_enterprise",
+   "rosterOrder": 70,
    "level": 6,
    "currentXP": 18370,
    "nextXP": 23000,
@@ -1023,6 +1169,8 @@
   },
   "king_boo": {
    "name": "King Boo",
+   "faction": "enemy_wildcards",
+   "rosterOrder": 71,
    "level": 2,
    "currentXP": 580,
    "nextXP": 900,
@@ -1034,6 +1182,8 @@
   },
   "mysticmorel": {
    "name": "Mystic Morel",
+   "faction": "enemy_wildcards",
+   "rosterOrder": 72,
    "level": 4,
    "currentXP": 3570,
    "nextXP": 6500,
@@ -1045,6 +1195,8 @@
   },
   "the_medusa": {
    "name": "The Medusa",
+   "faction": "enemy_wildcards",
+   "rosterOrder": 73,
    "level": 1,
    "currentXP": 140,
    "nextXP": 300,
@@ -1056,6 +1208,8 @@
   },
   "rakka": {
    "name": "Rakka",
+   "faction": "enemy_wildcards",
+   "rosterOrder": 74,
    "level": 3,
    "currentXP": 920,
    "nextXP": 2700,
@@ -1067,6 +1221,8 @@
   },
   "king_k_rool": {
    "name": "King K. Rool",
+   "faction": "enemy_wildcards",
+   "rosterOrder": 75,
    "level": 1,
    "currentXP": 220,
    "nextXP": 300,
@@ -1078,6 +1234,8 @@
   },
   "kremlings": {
    "name": "The Kremlings",
+   "faction": "enemy_wildcards",
+   "rosterOrder": 76,
    "level": 2,
    "currentXP": 370,
    "nextXP": 900,
@@ -1089,6 +1247,8 @@
   },
   "kirby": {
    "name": "Kirby",
+   "faction": "dreamland",
+   "rosterOrder": 77,
    "level": 1,
    "currentXP": 130,
    "nextXP": 300,
@@ -1100,6 +1260,8 @@
   },
   "king_dedede": {
    "name": "King Dedede",
+   "faction": "dreamland",
+   "rosterOrder": 78,
    "level": 2,
    "currentXP": 370,
    "nextXP": 900,
@@ -1111,6 +1273,8 @@
   },
   "meta_knight": {
    "name": "Meta Knight",
+   "faction": "dreamland",
+   "rosterOrder": 79,
    "level": 2,
    "currentXP": 550,
    "nextXP": 900,
@@ -1122,6 +1286,8 @@
   },
   "rakasha": {
    "name": "The Rakasha",
+   "faction": "rakasha_tribes",
+   "rosterOrder": 80,
    "level": 4,
    "currentXP": 2900,
    "nextXP": 6500,
@@ -1133,6 +1299,8 @@
   },
   "thornpaw": {
    "name": "Thornpaw",
+   "faction": "rakasha_tribes",
+   "rosterOrder": 81,
    "level": 4,
    "currentXP": 6340,
    "nextXP": 6500,
@@ -1144,6 +1312,8 @@
   },
   "loreholdprofessorofchaos": {
    "name": "Lorehold Professor of Chaos",
+   "faction": "estragon_academy",
+   "rosterOrder": 82,
    "level": 5,
    "currentXP": 7530,
    "nextXP": 14000,
@@ -1155,6 +1325,8 @@
   },
   "baldi": {
    "name": "Baldi",
+   "faction": "estragon_academy",
+   "rosterOrder": 83,
    "level": 4,
    "currentXP": 4580,
    "nextXP": 6500,
@@ -1166,6 +1338,8 @@
   },
   "prismari": {
    "name": "Prismari",
+   "faction": "estragon_academy",
+   "rosterOrder": 84,
    "level": 5,
    "currentXP": 7230,
    "nextXP": 14000,
@@ -1177,6 +1351,8 @@
   },
   "earl_grey": {
    "name": "Earl Grey",
+   "faction": "tea_leaf_syndicate",
+   "rosterOrder": 85,
    "level": 2,
    "currentXP": 880,
    "nextXP": 900,
@@ -1188,6 +1364,8 @@
   },
   "captain_syrup": {
    "name": "Captain Syrup",
+   "faction": "black_sugar_pirates",
+   "rosterOrder": 86,
    "level": 2,
    "currentXP": 310,
    "nextXP": 900,
@@ -1199,6 +1377,8 @@
   },
   "elder_meadowlight": {
    "name": "Elder Rowan Meadowlight",
+   "faction": "veridian_grove",
+   "rosterOrder": 87,
    "level": 2,
    "currentXP": 690,
    "nextXP": 900,
@@ -1210,6 +1390,8 @@
   },
   "miles_edgeworth": {
    "name": "Miles Edgeworth",
+   "faction": "midlands_court",
+   "rosterOrder": 88,
    "level": 3,
    "currentXP": 920,
    "nextXP": 2700,
@@ -1221,6 +1403,8 @@
   },
   "godtoad": {
    "name": "God Toad",
+   "faction": "divine_entities",
+   "rosterOrder": 89,
    "level": 3,
    "currentXP": 2000,
    "nextXP": 2700,
@@ -1232,6 +1416,8 @@
   },
   "xo": {
    "name": "X.O.",
+   "faction": "iron_fists_guild",
+   "rosterOrder": 90,
    "level": 2,
    "currentXP": 690,
    "nextXP": 900,
@@ -1243,6 +1429,8 @@
   },
   "commander_g": {
    "name": "Commander G",
+   "faction": "iron_fists_guild",
+   "rosterOrder": 91,
    "level": 2,
    "currentXP": 690,
    "nextXP": 900,
@@ -1254,6 +1442,8 @@
   },
   "kyle_coinsoul": {
    "name": "Kyle Coinsoul",
+   "faction": "iron_fists_guild",
+   "rosterOrder": 92,
    "level": 2,
    "currentXP": 600,
    "nextXP": 900,
@@ -1265,6 +1455,8 @@
   },
   "revelmaster": {
    "name": "The Revelmaster",
+   "faction": "feyward_locals",
+   "rosterOrder": 93,
    "level": 2,
    "currentXP": 420,
    "nextXP": 900,
@@ -1276,6 +1468,8 @@
   },
   "scorncrow": {
    "name": "The Scorncrow",
+   "faction": "feyward_locals",
+   "rosterOrder": 94,
    "level": 2,
    "currentXP": 440,
    "nextXP": 900,
@@ -1287,6 +1481,8 @@
   },
   "saedia": {
    "name": "Saedia",
+   "faction": "feyward_locals",
+   "rosterOrder": 95,
    "level": 2,
    "currentXP": 630,
    "nextXP": 900,
@@ -1298,6 +1494,8 @@
   },
   "stuckina": {
    "name": "Stuckina",
+   "faction": "feyward_locals",
+   "rosterOrder": 96,
    "level": 1,
    "currentXP": 210,
    "nextXP": 300,
@@ -1309,6 +1507,8 @@
   },
   "herniva": {
    "name": "Herniva",
+   "faction": "feyward_locals",
+   "rosterOrder": 97,
    "level": 2,
    "currentXP": 400,
    "nextXP": 900,
@@ -1320,6 +1520,8 @@
   },
   "dyanos": {
    "name": "Dyanos",
+   "faction": "feyward_locals",
+   "rosterOrder": 98,
    "level": 1,
    "currentXP": 160,
    "nextXP": 300,
@@ -1331,6 +1533,8 @@
   },
   "the_onyx_knight": {
    "name": "The Onyx Knight",
+   "faction": "feyward_locals",
+   "rosterOrder": 99,
    "level": 1,
    "currentXP": 190,
    "nextXP": 300,
@@ -1342,6 +1546,8 @@
   },
   "the_goblin_spy": {
    "name": "The Goblin Spy",
+   "faction": "feyward_locals",
+   "rosterOrder": 100,
    "level": 1,
    "currentXP": 190,
    "nextXP": 300,
@@ -1353,6 +1559,8 @@
   },
   "corporal_reyes": {
    "name": "Corporal 'Ghost' Reyes",
+   "faction": "schoolhouse_incident",
+   "rosterOrder": 101,
    "level": 2,
    "currentXP": 440,
    "nextXP": 900,
@@ -1364,6 +1572,8 @@
   },
   "sergeant_stone": {
    "name": "Sergeant 'Brick' Stone",
+   "faction": "schoolhouse_incident",
+   "rosterOrder": 102,
    "level": 2,
    "currentXP": 440,
    "nextXP": 900,
@@ -1375,6 +1585,8 @@
   },
   "agent_t": {
    "name": "Agent T",
+   "faction": "schoolhouse_incident",
+   "rosterOrder": 103,
    "level": 2,
    "currentXP": 380,
    "nextXP": 900,
@@ -1386,6 +1598,8 @@
   },
   "leo": {
    "name": "Leo",
+   "faction": "schoolhouse_incident",
+   "rosterOrder": 104,
    "level": 2,
    "currentXP": 460,
    "nextXP": 900,
@@ -1397,6 +1611,8 @@
   },
   "specialist_miller": {
    "name": "Specialist Miller",
+   "faction": "schoolhouse_incident",
+   "rosterOrder": 105,
    "level": 2,
    "currentXP": 430,
    "nextXP": 900,
@@ -1408,6 +1624,8 @@
   },
   "donkey_kong": {
    "name": "Donkey Kong",
+   "faction": "kong_island",
+   "rosterOrder": 106,
    "level": 1,
    "currentXP": 120,
    "nextXP": 300,
@@ -1419,6 +1637,8 @@
   },
   "cranky_kong": {
    "name": "Cranky Kong",
+   "faction": "kong_island",
+   "rosterOrder": 107,
    "level": 2,
    "currentXP": 300,
    "nextXP": 900,
@@ -1430,6 +1650,8 @@
   },
   "lanky_kong": {
    "name": "Lanky Kong",
+   "faction": "kong_island",
+   "rosterOrder": 108,
    "level": 1,
    "currentXP": 160,
    "nextXP": 300,
@@ -1441,6 +1663,8 @@
   },
   "mr_l": {
    "name": "Mr. L",
+   "faction": "count_bleck_forces",
+   "rosterOrder": 109,
    "level": 3,
    "currentXP": 1320,
    "nextXP": 2700,
@@ -1452,6 +1676,8 @@
   },
   "unknown_assassin": {
    "name": "The Unknown Assassin",
+   "faction": "mushroom_regency",
+   "rosterOrder": 110,
    "level": 2,
    "currentXP": 740,
    "nextXP": 900,
@@ -1463,6 +1689,8 @@
   },
   "merric": {
    "name": "Merric",
+   "faction": "shadowfell_denizens",
+   "rosterOrder": 111,
    "level": 2,
    "currentXP": 450,
    "nextXP": 900,
@@ -1474,6 +1702,8 @@
   },
   "tanukiburt": {
    "name": "Tanukiburt",
+   "faction": "enemy_wildcards",
+   "rosterOrder": 112,
    "level": 2,
    "currentXP": 420,
    "nextXP": 900,

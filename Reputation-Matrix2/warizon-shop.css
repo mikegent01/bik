@@ -2016,3 +2016,196 @@ a.xlink:hover { color: #c7511f; }
   .info-hero { flex-direction: column; align-items: flex-start; }
   .info-icon { width: 72px; height: 72px; font-size: 38px; }
 }
+
+/* ==========================================================================
+   PHASE 7 — tiered tender, non-redundant cards, modern choice controls
+   ========================================================================== */
+
+/* Button-popover menus replace every native select in the Phase 7 storefront. */
+.choice-menu {
+  position: relative;
+  min-width: 170px;
+  color: var(--wz-text);
+  font-size: 12px;
+}
+.choice-menu > summary {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  list-style: none;
+  cursor: pointer;
+  border: 1px solid #c7cdd1;
+  border-radius: 10px;
+  padding: 7px 10px;
+  background: linear-gradient(180deg, #fff, #f3f5f5);
+  color: #263238;
+  box-shadow: 0 2px 5px rgba(15,17,17,.08);
+  font-weight: 700;
+}
+.choice-menu > summary::-webkit-details-marker { display: none; }
+.choice-menu > summary:focus-visible { outline: 3px solid rgba(0,113,133,.25); border-color: var(--wz-link); }
+.choice-menu[open] > summary { border-color: var(--wz-purple); box-shadow: 0 0 0 3px rgba(107,63,160,.13); }
+.choice-popover {
+  position: absolute;
+  z-index: 1100;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  max-width: min(390px, calc(100vw - 28px));
+  max-height: 330px;
+  overflow: auto;
+  display: grid;
+  gap: 3px;
+  padding: 7px;
+  border: 1px solid #d8dce0;
+  border-radius: 12px;
+  background: rgba(255,255,255,.985);
+  box-shadow: 0 16px 42px rgba(15,17,17,.22);
+}
+.choice-popover button {
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 0;
+  border-radius: 8px;
+  padding: 7px 10px;
+  background: transparent;
+  color: #263238;
+  text-align: left;
+  white-space: nowrap;
+}
+.choice-popover button:hover,
+.choice-popover button[aria-selected="true"] { background: #f3eaff; color: #3b1f6b; }
+.choice-popover button[aria-selected="true"]::after { content: "✓"; color: #067d62; font-weight: 900; }
+.choice-popover button small { display: block; margin-left: auto; color: var(--wz-muted); font-weight: 400; }
+
+.nav-search form { overflow: visible; }
+.search-scope { padding: 0; max-width: 170px; min-width: 74px; flex: 0 0 auto; }
+.search-scope > summary {
+  height: 40px;
+  min-height: 40px;
+  border: 0;
+  border-right: 1px solid #c7c7c7;
+  border-radius: 4px 0 0 4px;
+  background: #e6e6e6;
+  color: #475569;
+  box-shadow: none;
+}
+.search-scope .choice-popover { top: 44px; }
+.search-input { border-radius: 0; }
+.search-go { border-radius: 0 4px 4px 0; }
+.sort-choice { min-width: 200px; }
+.gate-account-choice { width: 100%; }
+.gate-account-choice .choice-popover { width: 100%; max-height: 310px; }
+.target-choice { width: min(390px, 100%); }
+.target-choice .choice-popover { width: 100%; }
+
+/* One concise card summary: description, primary rule and usage each occur once. */
+.p-card { min-height: 0; }
+.p-card .deal-flag { max-width: calc(100% - 28px); }
+.p-intel { border-left: 3px solid #d8c8f0; padding-left: 9px; margin: 7px 0 5px; }
+.p-intel .p-desc { margin-top: 0; }
+.p-accepts { flex-wrap: wrap; line-height: 1.3; }
+.p-accepts b { color: #3b1f6b; margin-right: 2px; }
+.deal-clock {
+  display: inline-flex;
+  margin-left: 7px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #fff0f3;
+  color: var(--wz-deal-red);
+  font-size: 11px;
+  vertical-align: middle;
+}
+
+/* Product detail keeps price/payment/stock in one buy box and rules in one section. */
+.pdp-modal { overflow: visible; }
+.pdp { padding-top: 34px; }
+.pdp-quick-read p { margin-bottom: 0; }
+.tender-picker {
+  margin: 12px 0;
+  padding: 10px;
+  border: 1px solid #e2d5f5;
+  border-radius: 12px;
+  background: #fbf9ff;
+}
+.tender-picker-head { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.tender-picker-head b { color: #3b1f6b; }
+.tender-picker-head span { color: var(--wz-muted); font-size: 10.5px; text-align: right; }
+.tender-picker > small { display: block; color: var(--wz-muted); line-height: 1.35; margin-top: 7px; }
+.tender-chip-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.tender-chip {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  gap: 0 5px;
+  align-items: center;
+  border: 1px solid #d5d9d9;
+  border-radius: 9px;
+  padding: 6px 7px;
+  background: #fff;
+  color: #263238;
+  text-align: left;
+}
+.tender-chip > span { grid-row: 1 / span 2; font-size: 18px; }
+.tender-chip b, .tender-chip small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tender-chip b { font-size: 10.5px; }
+.tender-chip small { color: var(--wz-muted); font-size: 9.5px; }
+.tender-chip:hover, .tender-chip.active { border-color: var(--wz-orange); background: #fff8e6; box-shadow: 0 0 0 2px rgba(255,153,0,.13); }
+.qty-stepper {
+  width: max-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 9px 0;
+  padding: 3px;
+  border: 1px solid #d5d9d9;
+  border-radius: 999px;
+  background: #f0f2f2;
+}
+.qty-stepper button {
+  width: 30px; height: 30px; border: 0; border-radius: 50%; background: #fff;
+  color: #3b1f6b; font-size: 18px; box-shadow: 0 1px 3px rgba(15,17,17,.12);
+}
+.qty-stepper b { min-width: 18px; text-align: center; }
+
+/* Checkout tender cards are direct, visible choices rather than nested selects. */
+.co-pay-row { grid-template-columns: 44px minmax(260px, 1fr) auto; align-items: start; padding: 10px 0; }
+.co-tender-grid { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+.co-tender-chip {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  gap: 0 4px;
+  border: 1px solid #d5d9d9;
+  border-radius: 9px;
+  padding: 5px 7px;
+  background: #fff;
+  color: #263238;
+  font-size: 11px;
+}
+.co-tender-chip small { grid-column: 1 / -1; color: var(--wz-muted); font-size: 9px; }
+.co-tender-chip:hover, .co-tender-chip.active { border-color: #6b3fa0; background: #f7f1ff; box-shadow: 0 0 0 2px rgba(107,63,160,.10); }
+.co-pay-amt { padding-top: 3px; }
+.co-shiptax .choice-menu { min-width: 240px; }
+
+.music-nav { color: #ffe89a !important; }
+
+@media (max-width: 980px) {
+  .choice-popover { right: 0; left: auto; }
+  .pdp { padding-top: 48px; }
+}
+@media (max-width: 700px) {
+  .search-scope { max-width: 84px; }
+  .search-scope .choice-current { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .co-pay-row { grid-template-columns: 44px 1fr; }
+  .co-pay-amt { grid-column: 2; text-align: left; }
+  .tender-chip-grid { grid-template-columns: 1fr; }
+  .choice-menu { max-width: 100%; }
+  .choice-popover { right: auto; left: 0; max-width: calc(100vw - 28px); }
+}

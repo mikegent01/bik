@@ -1,7 +1,7 @@
 // Waluipedia Audio Desk: calm reading music + reliable controls for root index.html.
 // Generated with WebAudio (no large audio files). Starts only after the user presses 🎧/▶.
 (() => {
-  if (window.WaluipediaAmbient?.__v2) return;
+  if (window.WaluipediaAmbient?.__v3) return;
 
   const STORE = 'waluipediaAmbient';
   const VOL_STORE = 'waluipediaAmbientVolume';
@@ -18,6 +18,11 @@
   let trackIndex = Number(localStorage.getItem('waluipediaAmbientTrack') || 0) || 0;
   let loopsOnTrack = 0;
   let ui = null;
+  let panel = null;
+  const savedCollapsed = localStorage.getItem('waluipediaAmbientCollapsed');
+  let collapsed = savedCollapsed == null ? /shop\.html$/i.test(location.pathname) : savedCollapsed === 'true';
+  let dismissed = localStorage.getItem('waluipediaAmbientDismissed') === 'true';
+  let drag = null;
 
   const hz = {
     C2: 65.41, D2: 73.42, E2: 82.41, F2: 87.31, G2: 98, A2: 110, B2: 123.47,
@@ -75,7 +80,19 @@
     { name: 'Survey Machine Snowdin', tempo: 70,
       chords: [['G2','B2','D3','G3'], ['E3','G3','B3','D4'], ['C3','E3','G3','C4'], ['D3','F3','A3','C4']],
       melody: ['B4','_','D5','G5','F5','_','D5','B4','G4','_','B4','D5','E5','_','D5','_','C5','E5','G5','_','A5','G5','E5','_','D5','_','B4','G4','F4','_','_','_'],
-      bass: ['G2','_','D2','_','E3','_','B2','_','C3','_','G2','_','D3','_','A2','_'], wave: 'sine' }
+      bass: ['G2','_','D2','_','E3','_','B2','_','C3','_','G2','_','D3','_','A2','_'], wave: 'sine' },
+    { name: 'Warizon Midnight Checkout', tempo: 88,
+      chords: [['A2','C3','E3','A3'], ['D3','F3','A3','C4'], ['G2','B2','D3','G3'], ['E3','G3','B3','D4']],
+      melody: ['A4','C5','E5','_','A5','G5','E5','C5','D5','_','F5','A5','G5','_','E5','_','D5','B4','G4','B4','D5','_','G5','F5','E5','_','C5','A4','B4','_','_','_'],
+      bass: ['A2','_','E2','_','D3','_','A2','_','G2','_','D3','_','E3','_','B2','_'], wave: 'square' },
+    { name: 'Training Wing Focus', tempo: 76,
+      chords: [['D3','F3','A3','D4'], ['C3','E3','G3','C4'], ['G2','B2','D3','G3'], ['A2','C3','E3','A3']],
+      melody: ['D4','A4','D5','_','F5','E5','D5','A4','C5','_','E5','G5','E5','_','C5','_','B4','D5','G5','_','A5','G5','E5','_','D5','C5','A4','F4','D4','_','_','_'],
+      bass: ['D2','_','A2','_','C3','_','G2','_','G2','_','D3','_','A2','_','E2','_'], wave: 'triangle' },
+    { name: 'Garlic Cart After Dark', tempo: 68,
+      chords: [['E2','G2','B2','E3'], ['A2','C3','E3','A3'], ['C3','E3','G3','C4'], ['B2','D3','F3','B3']],
+      melody: ['E4','G4','B4','_','E5','D5','B4','G4','A4','_','C5','E5','D5','_','B4','_','C5','E5','G5','_','B5','G5','E5','_','D5','B4','G4','F4','E4','_','_','_'],
+      bass: ['E2','_','B2','_','A2','_','E2','_','C3','_','G2','_','B2','_','F2','_'], wave: 'sine' }
   ];
 
   function ensureAudio() {
@@ -153,7 +170,7 @@
     document.querySelectorAll('[data-walu-music-play]').forEach(el => { el.textContent = playing ? '⏸' : '▶'; });
     const header = document.getElementById('musicBtn');
     if (header) {
-      header.textContent = playing ? '🎶' : '🎧';
+      header.textContent = playing ? '🎶 Music' : '🎧 Music';
       header.title = playing ? `Pause Waluigi playlist: ${track.name}` : `Play Waluigi playlist: ${track.name}`;
     }
     ui?.classList.toggle('is-playing', playing);
@@ -211,20 +228,80 @@
     list.innerHTML = tracks.map((track, index) => `<button type="button" data-walu-music-track="${index}" class="${index === trackIndex ? 'active' : ''}"><span>🎵</span><b>${track.name}</b><small>${track.tempo} bpm</small></button>`).join('');
   }
 
+  function clampWidgetPosition(left, top) {
+    if (!ui) return { left, top };
+    const pad = 8;
+    const w = ui.offsetWidth || 320;
+    const h = ui.offsetHeight || 48;
+    return {
+      left: Math.max(pad, Math.min(window.innerWidth - w - pad, left)),
+      top: Math.max(pad, Math.min(window.innerHeight - h - pad, top))
+    };
+  }
+
+  function positionPanel() {
+    if (!ui || !panel || !panel.classList.contains('open')) return;
+    const r = ui.getBoundingClientRect();
+    const width = Math.min(360, window.innerWidth - 20);
+    const left = Math.max(10, Math.min(window.innerWidth - width - 10, r.right - width));
+    const roomAbove = r.top - 10;
+    panel.style.width = `${width}px`;
+    panel.style.left = `${left}px`;
+    panel.style.right = 'auto';
+    panel.style.top = roomAbove >= Math.min(430, panel.scrollHeight) ? 'auto' : `${Math.min(window.innerHeight - 440, r.bottom + 8)}px`;
+    panel.style.bottom = roomAbove >= Math.min(430, panel.scrollHeight) ? `${window.innerHeight - r.top + 8}px` : 'auto';
+  }
+
+  function setCollapsed(value) {
+    collapsed = !!value;
+    localStorage.setItem('waluipediaAmbientCollapsed', String(collapsed));
+    ui?.classList.toggle('is-collapsed', collapsed);
+    const button = ui?.querySelector('[data-walu-music-collapse]');
+    if (button) {
+      button.textContent = collapsed ? '↗' : '−';
+      button.title = collapsed ? 'Expand music controls' : 'Collapse music controls';
+    }
+    if (collapsed) panel?.classList.remove('open');
+  }
+
+  function showWidget() {
+    dismissed = false;
+    localStorage.setItem('waluipediaAmbientDismissed', 'false');
+    if (ui) ui.hidden = false;
+  }
+
+  function restorePosition() {
+    if (!ui) return;
+    try {
+      const saved = JSON.parse(localStorage.getItem('waluipediaAmbientPosition') || 'null');
+      if (!saved || !Number.isFinite(saved.left) || !Number.isFinite(saved.top)) return;
+      const pos = clampWidgetPosition(saved.left, saved.top);
+      ui.style.left = `${pos.left}px`;
+      ui.style.top = `${pos.top}px`;
+      ui.style.right = 'auto';
+      ui.style.bottom = 'auto';
+    } catch (_) {}
+  }
+
   function buildUi() {
     if (ui || !document.body) return;
     const style = document.createElement('style');
-    style.textContent = `.walu-ambient{position:fixed;right:14px;bottom:14px;z-index:2147483000;display:flex;align-items:center;gap:7px;padding:8px 10px;border:1px solid rgba(172,112,255,.45);border-radius:999px;background:linear-gradient(135deg,rgba(34,18,48,.96),rgba(12,7,22,.96));box-shadow:0 8px 30px rgba(0,0,0,.45);color:#eadbff;font:12px system-ui,sans-serif;backdrop-filter:blur(8px);pointer-events:auto}.walu-ambient button{border:1px solid rgba(234,219,255,.28);background:rgba(255,255,255,.08);color:#f4e7ff;border-radius:999px;min-width:30px;height:30px;cursor:pointer;pointer-events:auto}.walu-ambient button:hover{background:rgba(172,112,255,.25)}.walu-ambient-title{max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.88}.walu-ambient.is-playing{box-shadow:0 0 22px rgba(172,112,255,.32),0 8px 30px rgba(0,0,0,.45)}.walu-music-panel{position:fixed;right:14px;bottom:68px;z-index:2147482999;width:min(360px,calc(100vw - 28px));max-height:430px;overflow:auto;border:1px solid rgba(172,112,255,.45);border-radius:18px;background:linear-gradient(180deg,rgba(34,18,48,.98),rgba(9,5,18,.98));box-shadow:0 18px 50px rgba(0,0,0,.55);color:#eadbff;padding:12px;display:none}.walu-music-panel.open{display:block}.walu-music-panel h3{margin:0 0 4px;font-size:14px}.walu-music-panel p{margin:0 0 10px;opacity:.7;font-size:12px;line-height:1.35}.walu-music-list{display:grid;gap:7px}.walu-music-list button{width:100%;display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;text-align:left;border:1px solid rgba(234,219,255,.16);border-radius:12px;background:rgba(255,255,255,.06);color:#f4e7ff;padding:8px;cursor:pointer}.walu-music-list button:hover,.walu-music-list button.active{border-color:#f8c14a;background:rgba(248,193,74,.13)}.walu-music-list small{opacity:.55}.walu-music-volume{width:100%;accent-color:#a855f7}@media(max-width:700px){.walu-ambient{left:10px;right:10px;justify-content:center}.walu-ambient-title{max-width:130px}.walu-music-panel{left:10px;right:10px;width:auto}}`;
+    style.textContent = `.walu-ambient{position:fixed;right:14px;bottom:14px;z-index:450;display:flex;align-items:center;gap:7px;padding:7px 9px;border:1px solid rgba(172,112,255,.45);border-radius:999px;background:linear-gradient(135deg,rgba(34,18,48,.96),rgba(12,7,22,.96));box-shadow:0 8px 30px rgba(0,0,0,.45);color:#eadbff;font:12px system-ui,sans-serif;backdrop-filter:blur(8px);pointer-events:auto;max-width:calc(100vw - 20px);touch-action:none}.walu-ambient[hidden]{display:none}.walu-ambient button{border:1px solid rgba(234,219,255,.28);background:rgba(255,255,255,.08);color:#f4e7ff;border-radius:999px;min-width:30px;height:30px;cursor:pointer;pointer-events:auto}.walu-ambient button:hover{background:rgba(172,112,255,.25)}.walu-ambient-drag{cursor:grab!important;touch-action:none}.walu-ambient-drag:active{cursor:grabbing!important}.walu-ambient-title{max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.88}.walu-ambient.is-playing{box-shadow:0 0 22px rgba(172,112,255,.32),0 8px 30px rgba(0,0,0,.45)}.walu-ambient.is-dragging{opacity:.9;box-shadow:0 16px 45px rgba(0,0,0,.5)}.walu-ambient.is-collapsed [data-walu-secondary],.walu-ambient.is-collapsed .walu-ambient-title{display:none}.walu-music-panel{position:fixed;z-index:449;width:min(360px,calc(100vw - 20px));max-height:min(430px,calc(100vh - 90px));overflow:auto;border:1px solid rgba(172,112,255,.45);border-radius:18px;background:linear-gradient(180deg,rgba(34,18,48,.98),rgba(9,5,18,.98));box-shadow:0 18px 50px rgba(0,0,0,.55);color:#eadbff;padding:12px;display:none;font:12px system-ui,sans-serif}.walu-music-panel.open{display:block}.walu-music-panel-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.walu-music-panel h3{margin:0 0 4px;font-size:14px}.walu-music-panel-close{border:1px solid rgba(234,219,255,.25);border-radius:50%;width:28px;height:28px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer}.walu-music-panel p{margin:0 0 10px;opacity:.7;font-size:12px;line-height:1.35}.walu-music-list{display:grid;gap:7px}.walu-music-list button{width:100%;display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;text-align:left;border:1px solid rgba(234,219,255,.16);border-radius:12px;background:rgba(255,255,255,.06);color:#f4e7ff;padding:8px;cursor:pointer}.walu-music-list button:hover,.walu-music-list button.active{border-color:#f8c14a;background:rgba(248,193,74,.13)}.walu-music-list small{opacity:.55}.walu-music-volume{width:100%;accent-color:#a855f7}@media(max-width:700px){.walu-ambient{right:10px;bottom:10px}.walu-ambient-title{max-width:105px}.walu-ambient [data-walu-music-shuffle]{display:none}}`;
     document.head.appendChild(style);
     ui = document.createElement('div');
     ui.className = 'walu-ambient';
-    ui.innerHTML = `<span title="Waluigi playlist">🎧</span><button type="button" data-walu-music-play title="Play / pause Waluigi playlist">▶</button><button type="button" data-walu-music-shuffle title="Shuffle Waluigi playlist">🔀</button><button type="button" data-walu-music-next title="Next Waluigi track">⏭</button><button type="button" data-walu-music-panel-toggle title="Open dedicated music section">🎼</button><span data-walu-music-title class="walu-ambient-title"></span>`;
+    ui.setAttribute('role', 'region');
+    ui.setAttribute('aria-label', 'Movable site music controls');
+    ui.innerHTML = `<button type="button" class="walu-ambient-drag" data-walu-music-drag title="Drag music controls" aria-label="Drag music controls">⠿</button><button type="button" data-walu-music-play title="Play / pause playlist">▶</button><button type="button" data-walu-secondary data-walu-music-shuffle title="Shuffle playlist">🔀</button><button type="button" data-walu-secondary data-walu-music-next title="Next track">⏭</button><button type="button" data-walu-secondary data-walu-music-panel-toggle title="Open music library">🎼</button><span data-walu-secondary data-walu-music-title class="walu-ambient-title"></span><button type="button" data-walu-music-collapse title="Collapse music controls">−</button><button type="button" data-walu-secondary data-walu-music-dismiss title="Hide music controls; use the header Music button to restore">×</button>`;
     document.body.appendChild(ui);
-    const panel = document.createElement('div');
+    panel = document.createElement('div');
     panel.className = 'walu-music-panel';
     panel.setAttribute('data-walu-music-panel', 'true');
-    panel.innerHTML = `<h3>🎼 Waluigi Site Playlist</h3><p>Dedicated music section for Waluipedia, Bank, Shop, Battlefield, and linked pages. Pick a calm reading loop or let it rotate.</p><div class="walu-music-list" data-walu-music-list></div><p style="margin-top:10px">Volume</p><input class="walu-music-volume" data-walu-music-volume type="range" min="0" max="1" step="0.01" value="${volume}">`;
+    panel.innerHTML = `<div class="walu-music-panel-head"><h3>🎼 Waluigi Site Playlist</h3><button type="button" class="walu-music-panel-close" data-walu-music-panel-close aria-label="Close music library">×</button></div><p>Includes dedicated Warizon checkout, Training Wing, and garlic-cart loops. Drag or collapse the control bar so it never covers the interface.</p><div class="walu-music-list" data-walu-music-list></div><p style="margin-top:10px">Volume</p><input class="walu-music-volume" data-walu-music-volume type="range" min="0" max="1" step="0.01" value="${volume}">`;
     document.body.appendChild(panel);
+    ui.hidden = dismissed;
+    setCollapsed(collapsed);
+    requestAnimationFrame(restorePosition);
     renderPlaylist();
     updateUi();
   }
@@ -232,16 +309,64 @@
   // Capture-phase event delegation makes the controls work even if the SPA adds
   // other click handlers later. Stop only these music-control clicks.
   document.addEventListener('click', event => {
-    const target = event.target?.closest?.('#musicBtn,[data-walu-music-play],[data-walu-music-next],[data-walu-music-shuffle],[data-walu-music-panel-toggle],[data-walu-music-track]');
+    const target = event.target?.closest?.('#musicBtn,[data-walu-music-play],[data-walu-music-next],[data-walu-music-shuffle],[data-walu-music-panel-toggle],[data-walu-music-panel-close],[data-walu-music-track],[data-walu-music-collapse],[data-walu-music-dismiss]');
     if (!target) return;
     event.preventDefault();
     event.stopPropagation();
     if (target.matches('[data-walu-music-next]')) nextTrack();
     else if (target.matches('[data-walu-music-shuffle]')) shuffleTrack();
-    else if (target.matches('[data-walu-music-panel-toggle]')) document.querySelector('[data-walu-music-panel]')?.classList.toggle('open');
+    else if (target.matches('[data-walu-music-panel-toggle]')) {
+      showWidget(); panel?.classList.toggle('open'); positionPanel();
+    }
+    else if (target.matches('[data-walu-music-panel-close]')) panel?.classList.remove('open');
+    else if (target.matches('[data-walu-music-collapse]')) setCollapsed(!collapsed);
+    else if (target.matches('[data-walu-music-dismiss]')) {
+      dismissed = true; localStorage.setItem('waluipediaAmbientDismissed', 'true');
+      panel?.classList.remove('open'); if (ui) ui.hidden = true;
+    }
     else if (target.matches('[data-walu-music-track]')) { trackIndex = Number(target.dataset.waluMusicTrack) || 0; step = 0; loopsOnTrack = 0; if (audio) nextTime = audio.currentTime + 0.12; updateUi(); if (!playing) start(); else confirmation('next'); }
-    else toggle();
+    else { showWidget(); toggle(); }
+    if (target.id === 'musicBtn') showWidget();
   }, true);
+
+  // Dragging is limited to the ⠿ handle so music buttons never steal pointer
+  // gestures from the shop. Position is clamped and persisted across pages.
+  document.addEventListener('pointerdown', event => {
+    const handle = event.target?.closest?.('[data-walu-music-drag]');
+    if (!handle || !ui) return;
+    event.preventDefault();
+    const rect = ui.getBoundingClientRect();
+    drag = { pointerId: event.pointerId, dx: event.clientX - rect.left, dy: event.clientY - rect.top };
+    handle.setPointerCapture?.(event.pointerId);
+    ui.classList.add('is-dragging');
+    ui.style.right = 'auto'; ui.style.bottom = 'auto';
+  }, true);
+
+  document.addEventListener('pointermove', event => {
+    if (!drag || event.pointerId !== drag.pointerId || !ui) return;
+    event.preventDefault();
+    const pos = clampWidgetPosition(event.clientX - drag.dx, event.clientY - drag.dy);
+    ui.style.left = `${pos.left}px`; ui.style.top = `${pos.top}px`;
+    positionPanel();
+  }, true);
+
+  const finishDrag = event => {
+    if (!drag || event.pointerId !== drag.pointerId || !ui) return;
+    const rect = ui.getBoundingClientRect();
+    localStorage.setItem('waluipediaAmbientPosition', JSON.stringify({ left: rect.left, top: rect.top }));
+    ui.classList.remove('is-dragging');
+    drag = null;
+  };
+  document.addEventListener('pointerup', finishDrag, true);
+  document.addEventListener('pointercancel', finishDrag, true);
+  window.addEventListener('resize', () => {
+    if (!ui || ui.hidden) return;
+    const rect = ui.getBoundingClientRect();
+    const pos = clampWidgetPosition(rect.left, rect.top);
+    ui.style.left = `${pos.left}px`; ui.style.top = `${pos.top}px`;
+    ui.style.right = 'auto'; ui.style.bottom = 'auto';
+    positionPanel();
+  });
 
   document.addEventListener('input', event => {
     const slider = event.target?.closest?.('[data-walu-music-volume]');
@@ -261,7 +386,7 @@
   else buildUi();
 
   window.WaluipediaAmbient = {
-    __v2: true,
+    __v3: true,
     start, stop, toggle, nextTrack, randomTrack: shuffleTrack,
     setVolume(v) {
       volume = Math.max(0, Math.min(1, Number(v) || 0));
