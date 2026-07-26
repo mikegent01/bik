@@ -7,79 +7,79 @@ const OUTPUT_FILE = path.join(TARGET_FOLDER, 'site-updates.json');
 
 // ====================== MANUAL DEPENDENCIES ======================
 const JS_DEPENDENCIES = {
-    'alliances.html': ['alliances-page.js'],
-    'assembly.html': ['assembly.js', 'assembly-data.js', 'assembly-events-data.js', 'assembly-intel-system.js', 'assembly-viral-data.js'],
-    'battlefield.html': ['battlefield.js', 'map-battle-data-base.js', 'map-battle-data-battlefields.js', 'calendar-data.js', 'data/calendarMonths.json', 'data/calendarWeekdays.json', 'data/calendarSeasons.json', 'data/calendarMeta.json'],
+    'alliances.html': ['js/pages/alliances-page.js'],
+    'assembly.html': ['js/pages/assembly.js', 'js/data_modules/assembly-data.js', 'js/data_modules/assembly-events-data.js', 'js/pages/assembly-intel-system.js', 'js/data_modules/assembly-viral-data.js'],
+    'battlefield.html': ['js/pages/battlefield.js', 'js/maps/map-battle-data-base.js', 'js/maps/map-battle-data-battlefields.js', 'js/pages/calendar-data.js', 'data/calendarMonths.json', 'data/calendarWeekdays.json', 'data/calendarSeasons.json', 'data/calendarMeta.json'],
     // calendar.html merged into battlefield.html#/calendar — single page
-    'civil-war.html': ['civil-war.js'],
-    'directory.html': ['directory-system.js'],
-    'focus.html': ['focus.js', 'focus-tree.js'],
-    'guilds.html': ['guilds.js', 'guilds-data.js', 'guilds-data-new.js'],
-    'login.html': ['login.js'],
-    'newspaper.html': ['newspaper.js', 'rakasha-news.js'],
-    'politics.html': ['politics.js', 'politics-data.js', 'parliament-members.js'],
-    'profile.html': ['profile.js', 'profile-themes.js'],
-    'relations.html': ['relations.js', 'character-relations.js'],
-    'religion.html': ['religion.js', 'religion-data.js'],
-    'research.html': ['research.js', 'research-data.js', 'research-names.js', 'research-constants.js'],
-    'rumors.html': ['rumors.js', 'rumor-chatter-data.js'],
-    'societal-values.html': ['societal-values.js'],
-    'species.html': ['species.js', 'species-data.js', 'species-workforce.js'],
+    'civil-war.html': ['js/pages/civil-war.js'],
+    'directory.html': ['js/pages/directory-system.js'],
+    'focus.html': ['js/pages/focus.js', 'js/pages/focus-tree.js'],
+    'guilds.html': ['js/pages/guilds.js', 'js/data_modules/guilds-data.js', 'js/data_modules/guilds-data-new.js'],
+    'login.html': ['js/pages/login.js'],
+    'newspaper.html': ['js/pages/newspaper.js', 'js/pages/rakasha-news.js'],
+    'politics.html': ['js/pages/politics.js', 'js/data_modules/politics-data.js', 'js/pages/parliament-members.js'],
+    'profile.html': ['js/pages/profile.js', 'js/pages/profile-themes.js'],
+    'relations.html': ['js/pages/relations.js', 'js/pages/character-relations.js'],
+    'religion.html': ['js/pages/religion.js', 'js/data_modules/religion-data.js'],
+    'research.html': ['js/pages/research.js', 'js/data_modules/research-data.js', 'js/pages/research-names.js', 'js/pages/research-constants.js'],
+    'rumors.html': ['js/pages/rumors.js', 'js/data_modules/rumor-chatter-data.js'],
+    'societal-values.html': ['js/pages/societal-values.js'],
+    'species.html': ['js/pages/species.js', 'js/data_modules/species-data.js', 'js/pages/species-workforce.js'],
     // timeline.html merged into battlefield.html#/calendar/timeline — single page
     'treaty.html': ['treaty.js'],
     
     // Factions
-    'faw.html': ['faction-fawful.js'],
-    'fawfuls-party.html': ['fawfuls-party.js'],
-    'iron-legion.html': ['iron-legion.js', 'iron-legion-data.js', 'iron-legion-details.js'],
-    'liberated-toads-event.html': ['liberated-toads-system.js'],
-    'mushroom-regency.html': ['mushroom-regency.js'],
-    'onyx-hand.html': ['onyx-hand.js', 'onyx-hand-details.js', 'onyx-hand-system.js'],
-    'peach-loyalists.html': ['peach-loyalists.js'],
-    'plagues.html': ['plagues.js', 'plagues-data.js'],
-    'rakasha-system.html': ['rakasha-clans-system.js'],
-    'regal-empire-system.html': ['regal-empire-system.js'],
-    'toads-event.html': ['toads_event.js'],
+    'faw.html': ['js/pages/faction-fawful.js'],
+    'fawfuls-party.html': ['js/pages/fawfuls-party.js'],
+    'iron-legion.html': ['js/pages/iron-legion.js', 'js/data_modules/iron-legion-data.js', 'js/data_modules/iron-legion-details.js'],
+    'liberated-toads-event.html': ['js/pages/liberated-toads-system.js'],
+    'mushroom-regency.html': ['js/pages/mushroom-regency.js'],
+    'onyx-hand.html': ['js/pages/onyx-hand.js', 'js/data_modules/onyx-hand-details.js', 'onyx-hand-system.js'],
+    'peach-loyalists.html': ['js/pages/peach-loyalists.js'],
+    'plagues.html': ['js/pages/plagues.js', 'js/data_modules/plagues-data.js'],
+    'rakasha-system.html': ['js/pages/rakasha-clans-system.js'],
+    'regal-empire-system.html': ['js/pages/regal-empire-system.js'],
+    'toads-event.html': ['js/pages/toads_event.js'],
     
     // Legal
-    'legal_systems.html': ['legal_systems.js', 'legal_data.js'],
+    'legal_systems.html': ['js/pages/legal_systems.js', 'js/pages/legal_data.js'],
     'laws.html': [
-        'laws.js', 'laws-data.js',
-        'laws-data-democratic.js', 'laws-data-internet.js', 
-        'laws-data-kivotos.js', 'laws-data-middle-earth.js', 
-        'laws-data-militaristic.js', 'laws-data-mystical.js', 
-        'laws-data-pokemon.js', 'laws-data-space.js', 
-        'laws-data-underworld.js', 'laws-data-warhammer.js'
+        'js/pages/laws.js', 'js/data_modules/laws-data.js',
+        'js/data_modules/laws-data-democratic.js', 'js/data_modules/laws-data-internet.js', 
+        'js/data_modules/laws-data-kivotos.js', 'js/data_modules/laws-data-middle-earth.js', 
+        'js/data_modules/laws-data-militaristic.js', 'js/data_modules/laws-data-mystical.js', 
+        'js/data_modules/laws-data-pokemon.js', 'js/data_modules/laws-data-space.js', 
+        'js/data_modules/laws-data-underworld.js', 'js/data_modules/laws-data-warhammer.js'
     ],
     
     // Quests
     'quests.html': [
-        'quests.js', 'quests-data.js', 'quests-data-1.js', 
-        'quests-constants.js', 'quests-helpers.js', 'bounty-quests-data.js'
+        'js/pages/quests.js', 'js/data_modules/quests-data.js', 'js/data_modules/quests-data-1.js', 
+        'js/pages/quests-constants.js', 'js/pages/quests-helpers.js', 'js/data_modules/bounty-quests-data.js'
     ],
     
     // Maps
     'maps.html': [
-        'maps.js', 'map-data.js', 'map-ui.js', 
-        'map-renderer.js', 'map-transform.js', 'map-tactical.js', 
-        'maps-selection.js', 'maps-data-loader.js'
+        'js/pages/maps.js', 'js/maps/map-data.js', 'js/maps/map-ui.js', 
+        'js/maps/map-renderer.js', 'js/maps/map-transform.js', 'js/maps/map-tactical.js', 
+        'js/maps/maps-selection.js', 'js/maps/maps-data-loader.js'
     ],
-    'doughnut-hole-maps.html': ['doughnut-hole.js', 'requests-doughnut-hole.js'],
-    'internet-maps.html': ['internet.js'],
-    'kivotos-maps.html': ['Kivotos.js', 'requests-kivotos.js', 'traditions-data-kivotos.js'],
-    'middle-earth-maps.html': ['requests-middle-earth.js', 'map-battle-data-middle-earth.js'],
-    'midlands-maps.html': ['midlands.js', 'map-battle-data-midlands.js'],
-    'mushroom-kingdom-maps.html': ['map-battle-data-mushroom-kingdom.js'],
-    'pokemon-maps.html': ['requests-pokemon.js', 'map-battle-data-pokemon.js'],
+    'doughnut-hole-maps.html': ['js/pages/doughnut-hole.js', 'js/maps/requests-doughnut-hole.js'],
+    'internet-maps.html': ['js/pages/internet.js'],
+    'kivotos-maps.html': ['js/core/Kivotos.js', 'js/maps/requests-kivotos.js', 'js/pages/traditions-data-kivotos.js'],
+    'middle-earth-maps.html': ['js/maps/requests-middle-earth.js', 'js/maps/map-battle-data-middle-earth.js'],
+    'midlands-maps.html': ['js/pages/midlands.js', 'js/maps/map-battle-data-midlands.js'],
+    'mushroom-kingdom-maps.html': ['js/maps/map-battle-data-mushroom-kingdom.js'],
+    'pokemon-maps.html': ['js/maps/requests-pokemon.js', 'js/maps/map-battle-data-pokemon.js'],
     'the-edge-maps.html': ['requests-the-edge.js'],
-    'warhammer-maps.html': ['warhammer.js', 'requests-warhammer.js', 'map-battle-data-warhammer.js'],
+    'warhammer-maps.html': ['js/pages/warhammer.js', 'js/maps/requests-warhammer.js', 'js/maps/map-battle-data-warhammer.js'],
     
     // Misc
     'global-war.html': ['GlobeHead/global-war.js'],
-    'family-tree.html': ['family-tree.js']
+    'family-tree.html': ['js/pages/family-tree.js']
 };
 
-const IGNORED_FILES = ['navigation.js', 'common.js', 'ui.js'];
+const IGNORED_FILES = ['js/core/navigation.js', 'js/core/common.js', 'js/core/ui.js'];
 
 // ====================== MAIN SCRIPT ======================
 console.log('📝 Generating site-updates.json...');
@@ -102,7 +102,16 @@ try {
         let linkedJs = [];
 
         // 1. Auto-link (same name)
-        linkedJs.push(file.replace('.html', '.js'));
+        const baseName = file.replace('.html', '.js');
+        const categories = ['core', 'data_modules', 'maps', 'pages'];
+        let foundCat = 'pages';
+        for (const cat of categories) {
+            if (fs.existsSync(path.join(TARGET_FOLDER, 'js', cat, baseName))) {
+                foundCat = cat;
+                break;
+            }
+        }
+        linkedJs.push('js/' + foundCat + '/' + baseName);
 
         // 2. Manual dependencies
         if (JS_DEPENDENCIES[file]) {
