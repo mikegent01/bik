@@ -71,8 +71,14 @@ Your JSON must have exactly:
 - vendor: an existing vendor id from the input item, plus vendorReason: string
 - shippedBy: a specific shipping/courier string, plus shippingDetail: string
 - usage: object with activation, duration, endsWhen, and charges strings; explicitly say what stops/exhausts/destroys the item
-- price: whole positive integer in XP
+- price: whole positive integer in gold-equivalent shop value
 - priceReason: string, one short sentence explaining the fair-value adjustment
+
+ECONOMY BALANCE: Never price a permanent income engine, infinite resource, free-all-shops effect,
+corporate/national ownership transfer, unrestricted wish, or reality rewrite like ordinary gear.
+Use at least a 100-year payback period for passive daily income and add a large control premium for
+free commerce or ownership. Campaign-economy-breaking assets may cost billions or trillions and
+must not be reduced merely to fit a normal item-price range.
 """
 
 
@@ -296,8 +302,8 @@ def validate(original: dict[str, Any], answer: dict[str, Any]) -> dict[str, Any]
             raise ValueError(f"{key} must be non-empty")
     if not isinstance(answer["usage"], dict) or set(answer["usage"]) != {"activation", "duration", "endsWhen", "charges"} or not all(isinstance(value, str) and value.strip() for value in answer["usage"].values()):
         raise ValueError("usage needs activation, duration, endsWhen, and charges")
-    if not isinstance(answer["price"], int) or isinstance(answer["price"], bool) or not 25 <= answer["price"] <= 10_000_000:
-        raise ValueError("price must be a reasonable whole XP amount")
+    if not isinstance(answer["price"], int) or isinstance(answer["price"], bool) or not 25 <= answer["price"] <= 9_000_000_000_000_000:
+        raise ValueError("price must be a positive whole gold-equivalent amount within JavaScript's safe integer range")
     if not isinstance(answer["priceReason"], str) or not answer["priceReason"].strip():
         raise ValueError("priceReason must be non-empty")
     if not all(isinstance(effect, str) and effect.strip() and len(effect) <= 160 for effect in answer["effects"]):

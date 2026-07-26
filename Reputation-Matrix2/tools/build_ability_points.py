@@ -10,6 +10,7 @@ file the shop can consume without parsing 1.3MB of HTML at runtime.
 Re-run after the Python XP evaluator updates xp.html.
 """
 import json, re, sys, os, datetime
+from zoneinfo import ZoneInfo
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -69,7 +70,9 @@ def main():
             held.setdefault(k['id'], []).append(ab)
 
     out_players = {}
-    for key, p in players.items():
+    # dict iteration intentionally preserves xp.html's curated roster order. The
+    # Training Wing uses rosterOrder rather than inventing another sort.
+    for roster_order, (key, p) in enumerate(players.items()):
         lvl = p.get('level')
         if lvl is None:
             continue
@@ -83,6 +86,11 @@ def main():
         spent = sum(ap_cost(a['level']) for a in mine)
         out_players[key] = {
             'name': p.get('name', key),
+            # Keep faction and source order beside the AP projection so clients
+            # can enforce the XP roster's ally/member targeting policy without
+            # parsing the very large xp.html document in the browser.
+            'faction': p.get('faction', 'independent'),
+            'rosterOrder': roster_order,
             'level': lvl,
             'currentXP': p.get('currentXP'),
             'nextXP': p.get('nextXP'),
@@ -102,14 +110,17 @@ def main():
 
     doc = {
         'meta': {
-            'generated': datetime.date.today().isoformat(),
+            'generated': datetime.datetime.now(ZoneInfo('America/New_York')).date().isoformat(),
             'generator': 'tools/build_ability_points.py',
-            'source': 'Reputation-Matrix2/xp.html -> const PLAYERS (level / currentXP)',
+            'source': 'Reputation-Matrix2/xp.html -> const PLAYERS (faction / source order / level / currentXP)',
             'formula': 'apEarned = level + floor(level / 5)',
             'costRule': 'AP cost by required level: 1-3 -> 1, 5-7 -> 2, 8-11 -> 3, 14+ -> 5',
+            'trainingTargetFactions': ['disaster_inc', 'disaster_inc_allies'],
             'note': ('Abilities are unlocked with Ability Points earned by levelling, '
-                     'not with gold. Nothing here is authoritative over the table: the '
-                     'shop only generates a receipt, it never edits a character sheet.'),
+                     'not with gold. Training targets are restricted to Disaster Inc. '
+                     'members and allies from the sorted XP roster. Nothing here is '
+                     'authoritative over the table: the shop only generates a receipt, '
+                     'it never edits a character sheet.'),
         },
         'apByLevel': {str(L): ap_for_level(L) for L in range(1, 41)},
         'costTiers': [

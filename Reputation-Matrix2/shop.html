@@ -10,8 +10,8 @@
        Waluipedia main website uses). -->
   <script src="wario-audio-bridge.js"></script>
   <script defer src="wario-site-sounds.js"></script>
-  <script defer src="waluipedia-ambient.js"></script>
-  <link rel="stylesheet" href="warizon-shop.css" />
+  <script defer src="waluipedia-ambient.js?v=phase7.5"></script>
+  <link rel="stylesheet" href="warizon-shop.css?v=phase7.5" />
 </head>
 <body>
 
@@ -43,16 +43,19 @@
 
       <div class="nav-search">
         <form id="searchForm" role="search">
-          <select class="search-scope" id="searchScope" aria-label="Search in">
-            <option value="all">All</option>
-            <option value="consumables">Garlic &amp; Groceries</option>
-            <option value="equipment">Weapons &amp; Equipment</option>
-            <option value="curiosities">Curiosities &amp; Oddities</option>
-            <option value="services">Services &amp; Favors</option>
-            <option value="faction">Faction Supply Depot</option>
-            <option value="forbidden">The Forbidden Aisle</option>
-            <option value="premium">WahPrime Exclusives</option>
-          </select>
+          <details class="choice-menu search-scope" id="searchScope" data-value="all">
+            <summary aria-label="Search department"><span class="choice-current">All</span><span aria-hidden="true">⌄</span></summary>
+            <div class="choice-popover" role="listbox" aria-label="Search department">
+              <button type="button" role="option" aria-selected="true" data-search-scope="all">All departments</button>
+              <button type="button" role="option" aria-selected="false" data-search-scope="consumables">Garlic &amp; Groceries</button>
+              <button type="button" role="option" aria-selected="false" data-search-scope="equipment">Weapons &amp; Equipment</button>
+              <button type="button" role="option" aria-selected="false" data-search-scope="curiosities">Curiosities &amp; Oddities</button>
+              <button type="button" role="option" aria-selected="false" data-search-scope="services">Services &amp; Favors</button>
+              <button type="button" role="option" aria-selected="false" data-search-scope="faction">Faction Supply Depot</button>
+              <button type="button" role="option" aria-selected="false" data-search-scope="forbidden">The Forbidden Aisle</button>
+              <button type="button" role="option" aria-selected="false" data-search-scope="premium">WahPrime Exclusives</button>
+            </div>
+          </details>
           <input class="search-input" id="searchInput" type="search" placeholder="Search Warizon" aria-label="Search Warizon" />
           <button class="search-go" type="submit" aria-label="Go">🔍</button>
         </form>
@@ -94,6 +97,7 @@
       <button class="subnav-all" id="allDepartmentsBtn">☰ All</button>
       <button id="subHome">warizon.wah</button>
       <button id="subDeals" class="deal-link">Today's Deals</button>
+      <button id="musicBtn" class="music-nav" title="Show or play the Warizon playlist">🎧 Music</button>
       <button id="subAbilities" class="deal-link">⚡ Training Wing</button>
       <button id="subCrafting" class="deal-link">🔨 Crafting Forge</button>
       <button data-sub-dept="equipment">Weapons &amp; Equipment</button>
@@ -154,6 +158,6 @@
     </footer>
   </div>
 
-  <script type="module" src="warizon-shop.js"></script>
+  <script type="module" src="warizon-shop.js?v=phase7.5"></script>
 </body>
 </html>
