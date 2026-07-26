@@ -394,6 +394,8 @@ const ITEMS = Object.values(SHOP_ITEMS || {}).map(normalizeItem);
    -------------------------------------------------------------------------- */
 
 const DAILY_DEAL_COUNT = 24;
+const DAILY_DEAL_MAX_GOLD = 1_000_000;
+const DAILY_DEAL_RARITIES = new Set(['junk', 'common', 'uncommon', 'rare']);
 let ACTIVE_DEAL_DAY = '';
 function localDayKey(date = new Date()) {
   const y = date.getFullYear();
@@ -416,7 +418,12 @@ function applyDailyDeals(day = localDayKey()) {
     it.featured = hash01(it.id + '|f') + it.rating / 10;
   });
 
-  const eligible = ITEMS.filter(it => it.stock > 0 && it.basePrice >= 5 && it.economy.dealEligible);
+  // Deals are for ordinary stocked goods, never scarce endgame assets. Keeping
+  // premium/economy-breaking listings out also prevents misleading "-100%"
+  // labels when a historical pre-review price differs wildly from today's list.
+  const eligible = ITEMS.filter(it =>
+    it.stock > 1 && it.basePrice >= 5 && it.basePrice <= DAILY_DEAL_MAX_GOLD &&
+    DAILY_DEAL_RARITIES.has(it.rarity) && it.economy.dealEligible);
   const picked = [];
   const ids = new Set();
   const take = (rows, count, kind) => {
@@ -431,12 +438,17 @@ function applyDailyDeals(day = localDayKey()) {
   take(dailyRank(eligible, day, 'rotation'), DAILY_DEAL_COUNT - picked.length, 'Daily rotation');
 
   picked.forEach(({ it, kind }) => {
-    const range = kind === 'Discovery deal' ? [22, 40] : kind === 'Crowd favourite' ? [10, 25] : [14, 32];
-    const off = range[0] + Math.floor(hash01(`${day}|discount|${it.id}`) * (range[1] - range[0] + 1));
-    it.price = Math.max(1, Math.round(it.basePrice * (1 - off / 100)));
-    it.deal = { off, was: it.basePrice, day, daily: true };
+    const range = kind === 'Discovery deal' ? [15, 25] : kind === 'Crowd favourite' ? [8, 15] : [10, 20];
+    const requestedOff = range[0] + Math.floor(hash01(`${day}|discount|${it.id}`) * (range[1] - range[0] + 1));
+    const off = Math.max(1, Math.min(25, requestedOff));
+    // A deal may never reduce an item by more than 25%, even if future lane
+    // settings are accidentally made more aggressive.
+    it.price = Math.min(it.basePrice - 1,
+      Math.max(Math.ceil(it.basePrice * .75), Math.floor(it.basePrice * (1 - off / 100))));
+    const actualOff = Math.max(1, Math.round((1 - it.price / it.basePrice) * 100));
+    it.deal = { off: actualOff, was: it.basePrice, day, daily: true };
     it.dealKind = kind;
-    it.featured += .45 + off / 100;
+    it.featured += .35 + actualOff / 100;
   });
 }
 
@@ -1312,7 +1324,7 @@ function renderHome() {
     <section class="row-card">
       <a class="row-more" data-go-deals="1">See all deals</a>
       <h2>🔥 Today's Deals <span class="deal-clock" data-deal-countdown>${esc(dealTimeLeft())}</span></h2>
-      <div class="row-sub">Fresh ${esc(ACTIVE_DEAL_DAY)} rotation: crowd favourites, lower-rated discovery picks, and warehouse wild cards. Changes at local midnight.</div>
+      <div class="row-sub">Fresh ${esc(ACTIVE_DEAL_DAY)} rotation: 8–25% off ordinary stocked goods only. Scarce, premium, and economy-guarded assets never enter the sale pool. Changes at local midnight.</div>
       <div class="carousel">${deals.map(miniCard).join('')}</div>
     </section>
 
