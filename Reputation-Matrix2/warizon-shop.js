@@ -915,7 +915,7 @@ function ensureAbilities() {
   });
 }
 
-const TRAINING_TARGET_FACTIONS = new Set(['disaster_inc', 'disaster_inc_allies']);
+const TRAINING_TARGET_FACTIONS = new Set(['disaster_inc']);
 const AB_STATE = { q: '', type: '', cls: '', onlyUnlock: false, shown: 60, target: '' };
 
 function apCostFor(level) {
@@ -1809,7 +1809,7 @@ function renderAbilities() {
     <div class="results-bar ab-hero" style="align-items:flex-start;gap:14px;flex-wrap:wrap">
       <div style="flex:1;min-width:280px">
         <h1 class="page-title" style="margin:0">⚡ Training Wing — Party Upgrade Desk</h1>
-        <div style="color:var(--wz-muted);font-size:13px;margin-top:4px">Targets come only from the XP roster's <b>Disaster Inc. — Core</b> and <b>Allies &amp; Attachés</b> groups, in that roster's curated order. Unaffiliated, hostile, and merely nearby characters cannot be selected. Every request generates a DM receipt and never edits a sheet automatically.</div>
+        <div style="color:var(--wz-muted);font-size:13px;margin-top:4px">Targets come only from the XP roster's <b>Disaster Inc. — Core</b> docket, in that roster's curated order. Unaffiliated, hostile, and merely nearby characters cannot be selected. Every request generates a DM receipt and never edits a sheet automatically.</div>
       </div>
       ${apPanel}
     </div>
@@ -2809,7 +2809,7 @@ function openAbilityUnlock(abilityId) {
         status: 'PENDING_DM_APPROVAL',
         targetFaction: target.faction,
         targetRosterOrder: target.rosterOrder,
-        rule: 'Target verified against the XP roster: Disaster Inc. core members and Allies & Attachés only.'
+        rule: 'Target verified against the XP roster: Disaster Inc. core docket only; training follows docket law.'
       };
       const list = getApReceipts();
       list.push(receipt);
