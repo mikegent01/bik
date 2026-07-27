@@ -955,7 +955,7 @@ let ledgerLoading = false;
 function ensureLedger() {
   if (LEDGER || ledgerLoading || typeof fetch !== 'function') return;
   ledgerLoading = true;
-  fetch('shop-purchases.json')
+  fetch('shop-purchases.json?t=' + Date.now())
     .then(r => (r.ok ? r.json() : []))
     .then(j => { LEDGER = Array.isArray(j) ? j : []; ledgerLoading = false; if (S.view === 'orders' || S.view === 'wahprime') render(); renderHeader(); })
     .catch(() => { LEDGER = []; ledgerLoading = false; if (S.view === 'orders' || S.view === 'wahprime') render(); renderHeader(); });
