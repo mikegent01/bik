@@ -1,0 +1,105 @@
+# Hyperlink System Overhaul — Diagnosis & Design
+
+## How this was diagnosed
+
+A Node harness (`/tmp/linkdiag`) extracted the *real* `safeAliases`, `buildLinkRegistry`
+and `linkify` functions out of `index.html` and ran them against the real
+`Reputation-Matrix2/data/*.json`, then linkified the actual Imp Ambush event article.
+
+Result on `the_imp_ambush_of_harvestide_29` (a ~6,000 word event article):
+
+| Entity   | Mentions in prose | Links produced |
+|----------|-------------------|----------------|
+| Markop   | 60                | 1              |
+| Remi     | 27                | 1              |
+| Tymnas   | 18                | 1              |
+| Dan      | 15                | **0**          |
+| Eager    | 15                | 1              |
+| Toads    | 9                 | 1              |
+| Archie   | (0 here, many elsewhere) | **0**   |
+
+**13 links in a 6,000-word article.** That is the bug the user reported.
+
+## Root causes
+
+1. **No nickname / first-name aliases.**
+   `safeAliases()` only emitted the full name, a `The `-stripped variant, an
+   honorific-stripped variant and a `— suffix`-stripped variant.
+   - `Archie Archbold Miser` → only `"Archie Archbold Miser"`. Prose always says
+     "Archie" → **never matched**. (Three-part names were never collapsed.)
+   - `Remi Akamatsu — Full Record` → `"Remi Akamatsu"`. Prose almost always says
+     just "Remi" → **never matched**.
+
+2. **`Dan` was hard-blocked.** `LINK_STOP` literally contained `'dan'`, so every
+   Dan article was unlinkable. It was blocked because "Dan" is ambiguous
+   (`dan`, `dan_the_toad`, `dedan`) — the old code had no way to disambiguate, so
+   it gave up and banned the word.
+
+3. **Ambiguity guard silently deleted links.** In `buildLinkRegistry`, if the top
+   two claimants for an alias had equal priority and neither was an exact name
+   match, the alias was dropped entirely — no attempt to resolve by context.
+
+4. **"First mention per whole article" starves long articles.** `linkify` set
+   `LINK_ONCE` per *page view*, so in a 6,000-word, 12-part event the reader gets
+   one Markop link in Part One and then nothing for the remaining 11 parts.
+
+5. **The density setting existed but was invisible.** `low/normal/aggressive`
+   shipped inside `articleControlPanel`, which is rendered into a
+   `railBox(..., {open:false})` — a collapsed `<details>` at the bottom of the
+   right rail. Effectively nobody could find it.
+
+6. **No singular/plural race handling.** `Toads` matched, `Toad` did not.
+
+## Measured result (same article, after the overhaul)
+
+| Density    | Inline links | Unique pages |
+|------------|--------------|--------------|
+| Light      | 14           | 13           |
+| Normal     | 82           | 15           |
+| Aggressive | 179          | 15           |
+
+Was **13 links / 13 unique** with no way to change it. Markop now links 57×
+in aggressive (was 1×), Remi 21× (was 1×), **Dan 13× (was 0)**, Toad/Toads 12×.
+Possessives (`Markop’s`, `Archivist’s`) link correctly. Verified in a real DOM
+via jsdom: 28/28 routes and 115/115 sampled articles render with **zero errors**,
+and **no article is left with zero prose links**.
+
+## The five features shipped
+
+1. **Smart Alias & Nickname Engine** — first names, middle-name collapse,
+   possessives, singular/plural species forms, honorifics, and `—`/`(` suffix
+   trimming, with a generic-word guard.
+2. **Context-Aware Disambiguation** — ambiguous names (Dan, Toad, …) resolve to
+   whichever candidate is actually a participant / related article of the page
+   being read, instead of being dropped.
+3. **Density Tiers (Light / Normal / Aggressive) + section-scoped relinking**,
+   exposed through an always-visible Link HUD instead of a buried panel.
+4. **Rich hover cards** — portrait, kind badge, XP level, faction/status,
+   summary and quick actions.
+5. **Link Graph + Wanted Pages** — per-article outbound/inbound link map computed
+   from real prose links, plus a site-wide registry of mentioned-but-missing
+   entities ("redlinks") at `#/wanted` so gaps become a work queue.
+
+### Bonus fix found while building Feature 5
+Wanted Pages immediately exposed that **`remi` was referenced 48 times as a dead
+grey chip** because the canonical id is `remi_akamatsu_full_backstory`. Same for
+`archie` → `archie_miser`, `oracle` → `the_oracle`, `azure` → `azure_rakasha`,
+`vaxillus` → `vaxillus_the_beastmaster`. Added `resolveArticleId()` (id-alias table
+built from `the_` prefixes, unique character first-tokens, and the curated XP-key
+map) and wired it into `openId()`, the related-article chips and the router, so
+those references are now live links. Wanted count dropped 565 → 556 and the
+remaining entries (`shadowfell`, `feywild`, …) are genuine missing pages.
+
+## Content fix
+
+The Imp Ambush article contained an out-of-character authorial aside that quoted
+the raw session script and admitted confusion:
+
+> *Wait, she stole his gun last night on Tymnas's suggestion, but wait—Markop's
+> bags still had no gun missing? … The script says: 'markop checks his bags
+> notices the items remi stole no gun or artifact missing'. …*
+
+Per the user: the script was wrong, **Remi did steal the gun** (established in
+`the_midnight_audit_of_harvestide_28`, Part Eleven: "The Gun"). The passage is
+rewritten so Markop finds the gun genuinely missing, which is now consistent with
+the previous night's event.

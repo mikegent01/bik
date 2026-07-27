@@ -4242,6 +4242,7 @@ function buildIndexes(){
   buildBacklinks();
   buildAnnotations();
   buildDateRegex();
+  buildIdAliases();
   buildLinkRegistry();
 }
 
@@ -4266,12 +4267,26 @@ function slug(s){return 'h-'+String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').
 let LINK_ENTRIES=[];            // [{re, id, route, kind, name}]
 let LINK_PREVIEW={};            // id -> {name, sub, summary, emoji, route}
 let LINK_YEAR_CTX=null;         // the year of the article currently being rendered (for dateless dates like "Efferd 26th")
-let LINK_ONCE=new Set();        // entity ids already linked in the current article (link first mention only)
-const LINK_STOP=new Set(['the','a','an','and','of','dan','ryan','x.o.','students','gold','coin','coins','piece','pieces','item','items','bits','bit']);
-const SHORT_ALLOWED=new Set(['usk','mora','sans','remi','ryan','x.o.','obol','bux','mora','leo','baud','gems','leaf']);
+let LINK_ONCE=new Set();        // entity ids already linked in the current scope (see LINK_SCOPE)
+/* 'dan' is deliberately NOT in LINK_STOP any more — ambiguous first names are now
+   resolved by LINK_CONTEXT (see resolveAmbiguous) instead of being banned outright. */
+const LINK_STOP=new Set(['the','a','an','and','of','x.o.','students','gold','coin','coins','piece','pieces','item','items','bits','bit']);
+const SHORT_ALLOWED=new Set(['usk','mora','sans','remi','ryan','dan','x.o.','obol','bux','mora','leo','baud','gems','leaf']);
 
 let LINK_TOTAL_COUNT=0;        // per-render link counter used by low-link mode
-const PREF_DEFAULTS={linkLevel:'normal',comments:true};
+
+/* ---------- Feature 2: context-aware disambiguation ----------
+   AMBIGUOUS[aliasLower] = [{id,kind,pri}, …] for aliases claimed by 2+ entities.
+   LINK_CONTEXT is the set of entity ids the CURRENT article is actually about
+   (its participants / relatedArticles / cast). When an ambiguous alias appears,
+   we link whichever candidate is in context instead of dropping the link. */
+let LINK_AMBIGUOUS={};
+let LINK_CONTEXT=new Set();
+/* ---------- Feature 5: link graph + wanted pages ---------- */
+let LINK_GRAPH_OUT=new Set();       // ids linked FROM the article currently rendering
+let LINK_WANTED={};                 // id -> {count, from:Set} — referenced but has no page
+let LINK_LAST_STATS={total:0,unique:0,scope:''};
+const PREF_DEFAULTS={linkLevel:'normal',comments:true,linkHud:true};
 let PREFS=loadReaderPrefs();
 function loadReaderPrefs(){
   try{const raw=localStorage.getItem('waluipedia-reader-prefs'); if(raw){return Object.assign({},PREF_DEFAULTS,JSON.parse(raw));}}catch(e){}
@@ -4283,16 +4298,53 @@ function prefToast(msg){
   if(!t){t=document.createElement('div');t.id='settingsToast';document.body.appendChild(t);}
   t.textContent=msg;t.classList.add('show');clearTimeout(t._hide);t._hide=setTimeout(()=>t.classList.remove('show'),1400);
 }
+/* ---------- Feature 3: hyperlink density tiers ----------
+   light      — only the strongest links, capped, so prose reads like a novel.
+   normal     — first mention per section (headings reset the scope), plus dates.
+   aggressive — every recognised occurrence, everywhere. Waluigi has no brakes.
+   'low' is kept as a silent alias for 'light' so old saved prefs keep working. */
+const LINK_LEVELS={
+  light:      {label:'Light',      cap:14,       scope:'article', help:'Light: only the strongest links, capped at 14 per page, so the prose reads like a story.'},
+  normal:     {label:'Normal',     cap:Infinity, scope:'section', help:'Normal: first mention of each entity per section (each heading re-opens the links), plus dates.'},
+  aggressive: {label:'Aggressive', cap:Infinity, scope:'all',     help:'Aggressive: link every recognised occurrence. Waluigi has no brakes.'}
+};
+function normLinkLevel(l){ if(l==='low') return 'light'; return LINK_LEVELS[l]?l:'normal'; }
+function linkLevelCfg(){ return LINK_LEVELS[normLinkLevel(PREFS.linkLevel)]; }
 function setLinkLevel(level){
-  if(!['low','normal','aggressive'].includes(level)) level='normal';
+  level=normLinkLevel(level);
   PREFS.linkLevel=level;saveReaderPrefs();LINK_ONCE=new Set();LINK_TOTAL_COUNT=0;closeAnnotation();Router.render();
-  prefToast('Hyperlinks: '+level);
+  prefToast('Hyperlinks: '+LINK_LEVELS[level].label);
 }
 function setComments(on){
   PREFS.comments=!!on;saveReaderPrefs();closeAnnotation();Router.render();
   prefToast(PREFS.comments?'Comments on':'Comments off');
 }
-function cycleLinkLevel(){const order=['low','normal','aggressive'];setLinkLevel(order[(order.indexOf(PREFS.linkLevel)+1)%order.length]);}
+function cycleLinkLevel(){const order=['light','normal','aggressive'];setLinkLevel(order[(order.indexOf(normLinkLevel(PREFS.linkLevel))+1)%order.length]);}
+function toggleLinkHud(){
+  PREFS.linkHud=!PREFS.linkHud;saveReaderPrefs();renderLinkHud();
+  prefToast(PREFS.linkHud?'Link HUD shown':'Link HUD hidden');
+}
+/* ---------- Feature 3 (surface): the always-visible Link HUD ----------
+   The density setting used to live inside a collapsed <details> at the bottom of the
+   right rail, so effectively nobody found it. This puts it on screen with a live
+   count of how many links the current page actually produced. */
+function renderLinkHud(){
+  let hud=document.getElementById('linkHud');
+  const onArticle=/^#\/(article|conflict|mbattle|chronicle|collection|holiday|currency|item|artifact|bearer)/.test(location.hash||'');
+  if(!PREFS.linkHud || !onArticle){ if(hud) hud.remove(); return; }
+  if(!hud){ hud=document.createElement('div'); hud.id='linkHud'; document.body.appendChild(hud); }
+  const lv=normLinkLevel(PREFS.linkLevel);
+  const s=LINK_LAST_STATS;
+  hud.innerHTML=`<div class="lh-row">
+      <span class="lh-title">🔗 Links</span>
+      <span class="lh-count" title="${esc(String(s.total))} links to ${esc(String(s.unique))} unique pages on this article">${s.total}<span class="lh-sub">/${s.unique}</span></span>
+      <button class="lh-x" title="Hide the HUD" onclick="toggleLinkHud()">✕</button>
+    </div>
+    <div class="lh-pills">
+      ${['light','normal','aggressive'].map(l=>`<button class="lh-pill ${l===lv?'on':''}" title="${esc(LINK_LEVELS[l].help)}" onclick="setLinkLevel('${l}')">${esc(LINK_LEVELS[l].label)}</button>`).join('')}
+    </div>
+    <div class="lh-hint">press <b>H</b> to cycle</div>`;
+}
 function copyCurrentLink(){
   const url=location.href;
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>prefToast('Article link copied')).catch(()=>{prompt('Copy link',url);});}
@@ -4757,9 +4809,33 @@ function articleRail(articleId,typeKey,item,infoRows,toc){
   }
   const inv=typeKey==='characters'?inventoryPanel(articleId,item):'';
   if(inv) parts.push(railBox('🎒 Inventory & Wallet',inv,{open:true}));
+  syncLinkStats();                                   // prose has rendered by now — capture the counts
+  const graph=linkGraphPanel(articleId);
+  if(graph) parts.push(railBox('🕸️ Link Graph',graph,{open:true,count:LINK_LAST_STATS.unique}));
   parts.push(railBox('🔗 Connected Systems',crossPagePanel(articleId,typeKey,item),{open:false}));
   parts.push(railBox('⚙️ Reader Controls',articleControlPanel(articleId),{open:false}));
   return `<div class="rail">${parts.filter(Boolean).join('')}</div>`;
+}
+
+/* ===== Feature 5 (surface): per-article Link Graph =====
+   Outbound = pages this article actually links to in its prose (measured during the
+   render that just happened). Inbound = pages that point back here. Together they turn
+   the wiki from a pile of documents into a navigable network. */
+function linkGraphPanel(articleId){
+  const out=[...LINK_GRAPH_OUT].filter(id=>id!==articleId&&LINK_PREVIEW[id]);
+  const inb=inboundFor(articleId).filter(id=>INDEX[id]);
+  if(!out.length&&!inb.length) return '';
+  const chip=id=>{
+    const p=LINK_PREVIEW[id]||{};
+    const nm=p.name||(INDEX[id]?displayName(INDEX[id].item):prettyId(id));
+    const route=p.route||('#/article/'+encodeURIComponent(id));
+    return `<a class="lg-chip" data-id="${esc(id)}" href="${route}" onclick="event.preventDefault();Router.go('${route}')"><span class="lg-emo">${p.emoji||'📄'}</span>${esc(nm)}</a>`;
+  };
+  let h='';
+  if(out.length) h+=`<div class="lg-sec"><div class="lg-head">Links out <b>${out.length}</b></div><div class="lg-chips">${out.slice(0,24).map(chip).join('')}${out.length>24?`<span class="lg-more">+${out.length-24} more</span>`:''}</div></div>`;
+  if(inb.length) h+=`<div class="lg-sec"><div class="lg-head">Linked from <b>${inb.length}</b></div><div class="lg-chips">${inb.slice(0,16).map(chip).join('')}${inb.length>16?`<span class="lg-more">+${inb.length-16} more</span>`:''}</div></div>`;
+  h+=`<div class="lg-foot">${LINK_LAST_STATS.total} inline link${LINK_LAST_STATS.total===1?'':'s'} rendered · <a onclick="Router.go('#/wanted')">wanted pages →</a></div>`;
+  return h;
 }
 function crossPagePanel(articleId,typeKey,item){
   const links=[];
@@ -4811,15 +4887,19 @@ function openLawsFromWiki(fid){ location.href='uploads/laws.html#'+encodeURIComp
 function articleControlPanel(articleId){
   const anns=ANNOT_BY_ARTICLE[articleId]||[];
   const cnum=anns.reduce((n,a)=>n+((a.comments||[]).length),0);
-  const lv=PREFS.linkLevel||'normal';
-  const help={low:'Low: caps auto-links so prose stays calmer.',normal:'Normal: first mention of each entity, plus dates.',aggressive:'Aggressive: link every recognized occurrence. Waluigi has no brakes.'}[lv];
+  const lv=normLinkLevel(PREFS.linkLevel);
+  const cfg=LINK_LEVELS[lv];
   return `<div class="article-controls"><h4>Reader Controls</h4>
-    <div class="ctrl-row"><div class="ctrl-label"><span>Hyperlink density</span><span>${esc(lv)}</span></div>
+    <div class="ctrl-row"><div class="ctrl-label"><span>Hyperlink density</span><span>${esc(cfg.label)}</span></div>
       <div class="ctrl-pills">
         <button class="setting-pill ${lv==='aggressive'?'active':''}" onclick="setLinkLevel('aggressive')">Aggressive</button>
         <button class="setting-pill ${lv==='normal'?'active':''}" onclick="setLinkLevel('normal')">Normal</button>
-        <button class="setting-pill ${lv==='low'?'active':''}" onclick="setLinkLevel('low')">Low</button>
-      </div><div class="ctrl-help">${esc(help)}</div></div>
+        <button class="setting-pill ${lv==='light'?'active':''}" onclick="setLinkLevel('light')">Light</button>
+      </div><div class="ctrl-help">${esc(cfg.help)}</div></div>
+    <div class="ctrl-row"><div class="ctrl-label"><span>Link HUD</span><span>${PREFS.linkHud?'shown':'hidden'}</span></div>
+      <div class="ctrl-pills">
+        <button class="setting-pill ${PREFS.linkHud?'active':''}" onclick="toggleLinkHud()">${PREFS.linkHud?'Hide HUD':'Show HUD'}</button>
+      </div><div class="ctrl-help">The floating HUD shows the live link count and switches density without opening this panel.</div></div>
     <div class="ctrl-row"><div class="ctrl-label"><span>Margin comments</span><span class="ctrl-count">${anns.length} notes · ${cnum} replies</span></div>
       <div class="ctrl-pills">
         <button class="setting-pill warn ${PREFS.comments?'active':''}" onclick="setComments(true)">Comments On</button>
@@ -4859,19 +4939,119 @@ function kindEmoji(kind,typeKey){
   return TYPE_BY_KEY[typeKey]?TYPE_BY_KEY[typeKey].emoji:'📄';
 }
 
-function safeAliases(name,kind,rawObj){
+/* ===== Feature 1: Smart Alias & Nickname Engine =====
+   People are referred to by first name in prose ("Markop checked his bags",
+   "Remi fired", "Archie burned it") but the registry only ever knew the full
+   canonical title ("Archie Archbold Miser", "Remi Akamatsu — Full Record").
+   That single gap is why a 6,000-word event produced 13 links.
+   These helpers generate the short forms an actual writer types, while keeping
+   a strict guard so we never claim a common English word. */
+const NAME_PARTICLES=new Set(['de','del','della','van','von','der','di','da','du','la','le','of','the','ibn','bin','mac','mc','al']);
+const GENERIC_FIRST=new Set(['the','a','an','and','of','captain','general','king','queen','lord','lady','prince','princess','chief','master','elder','judge','doctor','professor','commander','admiral','chancellor','sir','dame','emperor','archmage','patriarch','high','great','old','young','big','little','new','first','last','one','two','three','dark','light','iron','shadow','star','red','blue','green','black','white','golden','silver']);
+/* Words that are far too common in prose to ever become a link on their own.
+   Without this guard the bearer "Self Reflection" claims the alias "Self" and then
+   hyperlinks the word inside "Self-defense", which is exactly the kind of nonsense
+   that makes an auto-linker feel broken. */
+const NEVER_ALONE=new Set([
+  'book','books','gun','guns','door','window','house','home','table','chair','room','floor','wall','fire','water','air','earth','blood','bone','bones','hand','hands','eye','eyes','head','heart','time','day','days','night','year','years','man','men','woman','women','boy','girl','child','children','people','person','thing','things','place','places','world','life','death','war','peace','love','hate','work','game','games','play','story','stories','name','names','word','words','line','lines','part','parts','side','sides','end','ends','way','ways','point','points','case','cases','fact','facts','note','notes','list','lists','file','files','page','pages','record','records','report','reports','order','orders','plan','plans','deal','deals','job','jobs','team','teams','group','groups','party','parties','crew','crews','army','armies','force','forces','power','powers','magic','spell','spells','sword','swords','shield','shields','armor','coin','coins','money','gold','silver','copper','iron','steel','stone','stones','wood','glass','paper','cloth','food','drink','bread','meat','wine','beer','tea','milk','salt','sugar','oil','soap','rope','chain','chains','key','keys','lock','locks','box','boxes','bag','bags','pack','packs','crate','barrel','chest','chests','tool','tools','weapon','weapons','armour',
+  // pronoun-ish / abstract nouns that show up constantly in narration
+  'self','selves','other','others','one','none','all','some','any','each','every','both','half','most','more','less','many','few','own','same','such',
+  'justice','mercy','hope','faith','truth','honor','honour','glory','fate','doom','luck','chance','risk','trust','fear','anger','rage','pride','shame','guilt','grief','joy','peace','chaos','balance','reason','logic','memory','dream','dreams','mind','soul','spirit','will','voice','sound','light','dark','shade','shadow','flame','frost','storm','wind','rain','snow','ice','sun','moon','star','sky','sea','river','road','path','gate','wall','tower','bridge','field','grove','hill','cave','camp','court','hall','keep','fort','port','market','shop','inn','farm','mill','mine','forge','vault','bank','school','temple','church','shrine','tomb','grave',
+  'attack','defense','defence','battle','fight','duel','raid','siege','hunt','chase','escape','rescue','trial','test','quest','mission','task','goal','rule','rules','law','laws','right','rights','wrong','good','evil','best','worst','first','last','next','new','old','young','great','small','large','long','short','high','low','deep','wide','open','close','free','lost','found','dead','alive','safe','sick','tired','ready',
+  'north','south','east','west','left','right','up','down','front','back','top','bottom','inside','outside','above','below','near','far','here','there','now','then','today','tomorrow','yesterday'
+]);
+function aliasIsSafe(a,kind){
+  if(!a) return false;
+  const low=a.toLowerCase().trim();
+  if(!low) return false;
+  if(LINK_STOP.has(low)) return false;
+  if(NEVER_ALONE.has(low)) return false;
+  const multiword=/\s/.test(a);
+  if(!multiword){
+    if(low.length<4 && !SHORT_ALLOWED.has(low)) return false;
+    if(GENERIC_FIRST.has(low)) return false;
+  }
+  return true;
+}
+/* "Archie Archbold Miser" -> "Archie", "Archie Miser".  "Remi Akamatsu" -> "Remi".
+   Only real people get first-name treatment — otherwise "Toad Town" would claim
+   "Toad" and "Rose Manor" would claim "Rose". */
+/* Species / collective nouns ("Toad", "Koopa", "Elf"…). A character called
+   "Toad Lee" must not claim the bare word "Toad" — that belongs to the species page. */
+let LINK_SPECIES_WORDS=new Set();
+function buildSpeciesWords(){
+  LINK_SPECIES_WORDS=new Set();
+  const addWord=w=>{
+    if(!w) return; const s=String(w).trim();
+    if(!/^[A-Za-z][A-Za-z'’-]*$/.test(s)) return;
+    const l=s.toLowerCase();
+    LINK_SPECIES_WORDS.add(l);
+    if(/s$/.test(l)) LINK_SPECIES_WORDS.add(l.replace(/s$/,'')); else LINK_SPECIES_WORDS.add(l+'s');
+  };
+  try{
+    ['races','nations','cultures','factions'].forEach(k=>(DATA[k]||[]).forEach(it=>{
+      if(!it) return;
+      String(it.name||'').replace(/^the\s+/i,'').split(/\s+/).forEach(addWord);
+    }));
+  }catch(e){}
+}
+function personAliases(n,kind,typeKey){
+  const out=new Set();
+  const PEOPLEISH=(typeKey==='characters')||['bearer','member','dynasty'].includes(kind);
+  if(!PEOPLEISH) return out;
+  const parts=n.split(/\s+/).filter(Boolean);
+  if(parts.length<2 || parts.length>4) return out;
+  if(parts.some(p=>/[(),:—–"']/.test(p))) return out;     // avoid odd titles
+  const first=parts[0], last=parts[parts.length-1];
+  if(NAME_PARTICLES.has(last.toLowerCase())) return out;
+  // First name alone — the single highest-value alias in the whole system.
+  if(!GENERIC_FIRST.has(first.toLowerCase()) && !LINK_SPECIES_WORDS.has(first.toLowerCase())) out.add(first);
+  // First + last, dropping middle names ("Archie Archbold Miser" -> "Archie Miser").
+  if(parts.length>2 && !NAME_PARTICLES.has(parts[1].toLowerCase())) out.add(first+' '+last);
+  return out;
+}
+/* Singular/plural for species & groups: "Toads" <-> "Toad", "Elves" <-> "Elf".
+   Restricted to collective nouns (species / factions / nations) so we never invent
+   nonsense like "Markops" or "Dans" for individual people. */
+const PLURALISABLE=new Set(['races','factions','nations','cultures']);
+function numberAliases(n,kind,typeKey){
+  const out=new Set();
+  if(!PLURALISABLE.has(typeKey)) return out;
+  const m=n.match(/^([A-Z][A-Za-z'’-]*)$/);            // single capitalised word only
+  if(!m) return out;
+  const w=m[1];
+  if(/ies$/.test(w))      out.add(w.replace(/ies$/,'y'));
+  else if(/ves$/.test(w)) { out.add(w.replace(/ves$/,'f')); out.add(w.replace(/ves$/,'fe')); }
+  else if(/(ch|sh|ss|x|z)es$/.test(w)) out.add(w.replace(/es$/,''));
+  else if(/s$/.test(w) && !/ss$/.test(w)) out.add(w.replace(/s$/,''));
+  else { out.add(w+'s'); if(/(ch|sh|ss|x|z)$/.test(w)) out.add(w+'es'); }
+  return out;
+}
+function safeAliases(name,kind,rawObj,typeKey){
   // Generate conservative aliases. Full name always included.
   const out=new Set([name]);
   let n=name.trim();
   // "The Iron Legion" -> also "Iron Legion" (drop a leading article; keep it specific)
   if(/^the\s+/i.test(n)){ const dropped=n.replace(/^the\s+/i,''); if(dropped.length>=4) out.add(dropped); }
   // Title-prefix aliases: strip a leading honorific to expose the person's name (people only).
+  const TITLES=/^(princess|prince|king|queen|general|captain|commander|admiral|chancellor|chief|lord|lady|sir|dame|doctor|professor|master|elder|judge|emperor|archmage|patriarch|speaker|warden|scribe|auditor)\s+/i;
   if(kind==='article' || kind==='bearer' || kind==='member'){
-    const TITLES=/^(princess|prince|king|queen|general|captain|commander|admiral|chancellor|chief|lord|lady|sir|dame|doctor|professor|master|elder|judge|emperor|archmage|patriarch)\s+/i;
     if(TITLES.test(n)){ const bare=n.replace(TITLES,'').trim(); if(bare.length>=4) out.add(bare); }
   }
   // strip trailing " — Full Record" / " (Suspected)" style suffixes -> shorter canonical name
-  out.add(n.replace(/\s*[—(].*$/,'').trim());
+  const trimmed=n.replace(/\s*[—–(].*$/,'').trim();
+  out.add(trimmed);
+  // Nickname / first-name / singular-plural expansion on every canonical form so far.
+  [...out].forEach(base=>{
+    const b=String(base).replace(/^the\s+/i,'').replace(TITLES,'').trim();
+    personAliases(b,kind,typeKey).forEach(a=>out.add(a));
+    numberAliases(b,kind,typeKey).forEach(a=>out.add(a));
+  });
+  // Explicit aliases authored in the data always win (nicknames, callsigns, aka).
+  if(rawObj){
+    [].concat(rawObj.aliases||[],rawObj.aka||[],rawObj.nicknames||[],rawObj.alias?[rawObj.alias]:[])
+      .forEach(a=>{ if(typeof a==='string' && a.trim()) out.add(a.trim()); });
+  }
 
   if(kind==='currency'){
     // Plurals
@@ -4917,23 +5097,28 @@ function safeAliases(name,kind,rawObj){
 
   const SINGLE_GENERIC=new Set(['iron','shadow','star','dark','general','captain','commander','admiral','king','queen','prince','council','order','house','city','guild','legion','empire','crown','kingdom','land','people','battle','siege','manor','tower','tree','grove','estate','raventree']);
   return [...out].filter(a=>{
-    if(!a) return false;
+    if(!aliasIsSafe(a,kind)) return false;
     const low=a.toLowerCase();
-    if(low.length<5 && !SHORT_ALLOWED.has(low)) return false;
-    if(LINK_STOP.has(low)) return false;
     if(!/\s/.test(a) && SINGLE_GENERIC.has(low)) return false; // single generic word
     return true;
   });
 }
 function buildLinkRegistry(){
-  LINK_ENTRIES=[]; LINK_PREVIEW={};
+  LINK_ENTRIES=[]; LINK_PREVIEW={}; LINK_AMBIGUOUS={};
+  buildSpeciesWords();
   // Priority: when several entities claim the same alias, the higher-priority one wins the link.
   const PRI={ article:100, nation:95, artifact:80, bearer:78, invitem:76, craftingrecipe:75, craftingmaterial:74, currency:75, vendor:74, dynasty:72, conflict:70, majorbattle:68, holiday:50, member:40, session:38, crisis:36, vote:30, system:20 };
   const claims={}; // aliasLower -> [{id,kind,name,exact,pri}]
   const add=(name,id,kind,typeKey,summary,sub,rawObj)=>{
     if(!name||!id)return;
-    LINK_PREVIEW[id]={name, sub:sub||'', summary:(summary||'').slice(0,220), emoji:kindEmoji(kind,typeKey), route:routeForKind(kind,id), kind};
-    safeAliases(name,kind,rawObj).forEach(a=>{
+    const prev=LINK_PREVIEW[id]||{};
+    LINK_PREVIEW[id]={name, sub:sub||'', summary:(summary||'').slice(0,220), emoji:kindEmoji(kind,typeKey), route:routeForKind(kind,id), kind,
+      // richer hover-card payload (Feature 4)
+      image:(rawObj&&(rawObj.image||rawObj.portrait))||prev.image||'',
+      status:(rawObj&&(rawObj.status||rawObj.rarity||rawObj.type))||prev.status||'',
+      affiliation:(rawObj&&(rawObj.affiliation||rawObj.faction||rawObj.region||rawObj.location))||prev.affiliation||'',
+      typeKey:typeKey||prev.typeKey||''};
+    safeAliases(name,kind,rawObj,typeKey).forEach(a=>{
       const key=a.toLowerCase();
       (claims[key]=claims[key]||[]).push({id,kind,name:a,exact:(key===name.trim().toLowerCase()),pri:(PRI[kind]||10)});
     });
@@ -5022,24 +5207,149 @@ function buildLinkRegistry(){
   add('Star Bearers Vault','#/artifacts','system',null,'Star Fragments, Cosmic Bearers & Ancient Artifacts','Relic System');
   add('Multi-Realm Alliances','alliances.html','system',null,'Geopolitical Treaty Grids & Defense Pacts','Geopolitics Hub');
 
-  // Resolve each alias to a single winner: highest priority, then exact-name, then longest name.
+  // Resolve each alias to a default winner: highest priority, then exact-name, then longest name.
   const entries=[];
   Object.keys(claims).forEach(key=>{
     if(LINK_STOP.has(key)) return;
     const cands=claims[key];
     cands.sort((a,b)=> b.pri-a.pri || (b.exact?1:0)-(a.exact?1:0) || b.name.length-a.name.length);
     const top=cands[0];
-    // Ambiguity guard: if the top two are the SAME priority, NEITHER is an exact-name match,
-    // and they point to different targets, the alias is genuinely ambiguous -> skip it.
-    if(cands.length>1 && cands[1].pri===top.pri && !top.exact && cands[1].id!==top.id) return;
-    entries.push({id:top.id, kind:top.kind, name:top.name});
+    // Feature 2: instead of DROPPING genuinely ambiguous aliases (the old behaviour, which
+    // is why "Dan" was unlinkable everywhere), remember every candidate. At render time
+    // resolveAmbiguous() picks the one that is actually part of the current article's cast.
+    const distinct=[]; const seenIds=new Set();
+    cands.forEach(c=>{ if(!seenIds.has(c.id)){ seenIds.add(c.id); distinct.push({id:c.id,kind:c.kind,pri:c.pri,exact:c.exact}); } });
+    if(distinct.length>1) LINK_AMBIGUOUS[key]=distinct;
+    /* Default target when nothing is in context: prefer an exact-name match (the entity
+       actually CALLED this) over a partial one, so "Toad" resolves to the Toads species
+       page rather than to "Toad Lee", who merely starts with the word. */
+    let def=top;
+    if(!top.exact){
+      const exactHit=cands.find(c=>c.exact);
+      if(exactHit) def=exactHit;
+    }
+    entries.push({id:def.id, kind:def.kind, name:top.name, key});
   });
   // Match longer aliases before shorter ones so "The Mushroom Kingdom" is consumed before "Mushroom Kingdom".
   entries.sort((a,b)=>b.name.length-a.name.length);
   entries.forEach(e=>{
-    const pat='\\b'+e.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b';
-    try{ LINK_ENTRIES.push({re:new RegExp(pat), id:e.id, route:routeForKind(e.kind,e.id)}); }catch(_){}
+    // Possessives: "Markop's bags" / "Markop’s bags" should link the name, not swallow the 's.
+    const pat='\\b'+e.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+"(?:['’]s)?\\b";
+    try{ LINK_ENTRIES.push({re:new RegExp(pat), id:e.id, route:routeForKind(e.kind,e.id), key:e.key, kind:e.kind}); }catch(_){}
   });
+  buildWantedPages();
+}
+
+/* ===== Feature 2 (runtime): pick the right target for an ambiguous alias =====
+   "Dan" can mean dan / dan_the_toad / dedan. On an article whose cast includes
+   dan_the_toad, "Dan" should link there — not to whichever record happened to
+   sort first. Falls back to the default winner when nothing is in context. */
+function resolveAmbiguous(key,defaultId){
+  const cands=LINK_AMBIGUOUS[key];
+  if(!cands||!cands.length) return defaultId;
+  if(LINK_CONTEXT&&LINK_CONTEXT.size){
+    const inCtx=cands.filter(c=>LINK_CONTEXT.has(c.id));
+    if(inCtx.length===1) return inCtx[0].id;
+    if(inCtx.length>1){ inCtx.sort((a,b)=> b.pri-a.pri || (b.exact?1:0)-(a.exact?1:0)); return inCtx[0].id; }
+  }
+  return defaultId;
+}
+/* Called before an article renders its prose: establishes disambiguation context and
+   resets the per-page link counters/graph. */
+function beginLinkPass(item){
+  LINK_ONCE=new Set(); LINK_TOTAL_COUNT=0; LINK_GRAPH_OUT=new Set();
+  setLinkContext(item);
+}
+/* Snapshot the live counters. Called by the rail (which renders after the prose in the
+   same template literal) and again once the page is in the DOM. */
+function syncLinkStats(){
+  LINK_LAST_STATS={total:LINK_TOTAL_COUNT,unique:LINK_GRAPH_OUT.size,scope:linkLevelCfg().scope};
+  return LINK_LAST_STATS;
+}
+/* Called after the article HTML is in the DOM: publishes the stats the HUD/graph show. */
+function endLinkPass(){
+  syncLinkStats();
+  try{ renderLinkHud(); }catch(e){}
+}
+/* Build the cast/context of the article being rendered so disambiguation has something to go on. */
+function setLinkContext(item){
+  LINK_CONTEXT=new Set();
+  if(!item) return;
+  const push=v=>{ const id=typeof v==='string'?v:(v&&(v.id||v.articleId||v.key)); if(id&&LINK_PREVIEW[id]) LINK_CONTEXT.add(id); };
+  [].concat(item.participants||[],item.participatingCharacters||[],item.relatedArticles||[],
+            item.keyEvents||[],item.keyBattles||[],item.articles||[],item.members||[],
+            item.notableMembers||[],item.allies||[],item.enemies||[]).forEach(push);
+  try{ (BACKLINKS[item.id]?[...BACKLINKS[item.id]]:[]).forEach(push); }catch(e){}
+  try{ xpAwardsForEvent(item.id).forEach(a=>push(a.articleId)); }catch(e){}
+}
+
+/* ===== Feature 5: Wanted Pages (redlinks) =====
+   Scan structured references across the corpus for ids that are pointed at but have
+   no article. These are the real gaps in the wiki, surfaced as a work queue instead
+   of failing silently as dead chips. */
+/* ---------- id aliasing ----------
+   The data is full of short-hand ids ("remi", "archie", "oracle") that were written
+   before the canonical record got a longer id ("remi_akamatsu_full_backstory",
+   "archie_miser", "the_oracle"). Those used to render as dead grey chips — 48 of them
+   for Remi alone. Resolve them so they become real links instead of wanted pages. */
+let LINK_ID_ALIAS={};
+function buildIdAliases(){
+  LINK_ID_ALIAS={};
+  const ids=Object.keys(INDEX);
+  const claim=(alias,target)=>{
+    if(!alias||INDEX[alias]) return;                        // never shadow a real id
+    const cur=LINK_ID_ALIAS[alias];
+    if(cur&&cur!==target){ LINK_ID_ALIAS[alias]='\u0000ambiguous'; return; }
+    LINK_ID_ALIAS[alias]=target;
+  };
+  // "the_oracle" -> also answers to "oracle"
+  ids.forEach(id=>{ if(/^the_/.test(id)) claim(id.replace(/^the_/,''), id); });
+  // Characters answer to the first token of their id when it is unambiguous among characters.
+  const chars=ids.filter(id=>INDEX[id].typeKey==='characters');
+  const firstTok={};
+  chars.forEach(id=>{ const t=id.split('_')[0]; if(t.length>=3) (firstTok[t]=firstTok[t]||[]).push(id); });
+  Object.entries(firstTok).forEach(([tok,list])=>{ if(list.length===1) claim(tok,list[0]); });
+  // XP keys are a curated alias table already ("remi" -> remi_akamatsu_full_backstory).
+  try{ Object.entries(XP_SUMMARY||{}).forEach(([id,xp])=>{ if(xp&&xp.xpKey&&INDEX[id]) claim(xp.xpKey,id); }); }catch(e){}
+  Object.keys(LINK_ID_ALIAS).forEach(k=>{ if(LINK_ID_ALIAS[k]==='\u0000ambiguous') delete LINK_ID_ALIAS[k]; });
+}
+/* Canonical id for any reference: itself if it exists, otherwise its alias target. */
+function resolveArticleId(id){
+  if(!id||typeof id!=='string') return id;
+  if(INDEX[id]) return id;
+  return LINK_ID_ALIAS[id]||id;
+}
+function buildWantedPages(){
+  LINK_WANTED={};
+  const want=(rawId,fromId)=>{
+    let id=typeof rawId==='string'?rawId:(rawId&&(rawId.id||rawId.key));
+    if(!id||typeof id!=='string') return;
+    id=resolveArticleId(id);
+    if(INDEX[id]||LINK_PREVIEW[id]) return;                 // page exists — not wanted
+    if(/^(https?:|#|\.|\/)/.test(id)) return;               // a URL/route, not an entity id
+    if(!/^[a-z0-9][a-z0-9_-]{2,}$/i.test(id)) return;       // ids only, not prose
+    const rec=LINK_WANTED[id]||(LINK_WANTED[id]={id,count:0,from:new Set()});
+    rec.count++; if(fromId) rec.from.add(fromId);
+  };
+  const scan=it=>{
+    if(!it||!it.id) return;
+    ['relatedArticles','keyEvents','keyBattles','articles','allies','enemies','members','notableMembers','participants','participatingCharacters']
+      .forEach(f=>(it[f]||[]).forEach(v=>want(v,it.id)));
+  };
+  try{
+    TYPES.forEach(t=>(DATA[t.key]||[]).forEach(scan));
+    (DATA.majorBattles||[]).forEach(scan);
+  }catch(e){}
+}
+function wantedPagesList(limit){
+  const arr=Object.values(LINK_WANTED).sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id));
+  return limit?arr.slice(0,limit):arr;
+}
+/* Inbound links for the current article (who points here) — used by the Link Graph rail. */
+function inboundFor(id){
+  const set=new Set();
+  try{ (BACKLINKS[id]?[...BACKLINKS[id]]:[]).forEach(x=>set.add(x)); }catch(e){}
+  return [...set];
 }
 
 /* Turn already-escaped inline HTML into linked HTML.
@@ -5062,6 +5372,9 @@ function buildDateRegex(){
 }
 function linkify(escapedHtml, currentId){
   if(!escapedHtml) return escapedHtml;
+  const cfg=linkLevelCfg();
+  const linkMode=normLinkLevel(PREFS&&PREFS.linkLevel);
+  const cap=cfg.cap;
   // Split on existing tags so we never inject links inside <strong>/<em>/<code>/attributes.
   const parts=escapedHtml.split(/(<[^>]+>)/);
   let insideAnchor=false;                         // track existing <a>…</a> (manual links) to avoid double-linking
@@ -5076,26 +5389,30 @@ function linkify(escapedHtml, currentId){
     // 1) entity links. Work on plain-text pieces and re-split after each match so a later
     //    (shorter) alias can NEVER match text inside an anchor an earlier (longer) alias just made.
     //    This fixes "The Iron Legion" splitting into <a>The </a><a>Iron Legion</a>.
-    //    Each entity is linked only ONCE per article (first mention) via LINK_ONCE.
+    //    Repeat-suppression depends on the density tier (see LINK_LEVELS):
+    //      light/normal -> once per scope (article / section), aggressive -> every occurrence.
     let pieces=[seg0];
-    const linkMode=(PREFS&&PREFS.linkLevel)||'normal';
-    const lowCap=10;
     for(const ent of LINK_ENTRIES){
       if(ent.id===currentId) continue;            // never self-link
-      if(linkMode==='low' && LINK_TOTAL_COUNT>=lowCap) break;
-      if(linkMode!=='aggressive' && LINK_ONCE.has(ent.id)) continue; // normal/low: first mention only
+      if(LINK_TOTAL_COUNT>=cap) break;
+      const once=(linkMode!=='aggressive');
+      if(once && LINK_ONCE.has(ent.id)) continue;
       const next=[]; let done=false;
       for(const piece of pieces){
-        if(piece.startsWith('<') || (linkMode!=='aggressive' && done)){ next.push(piece); continue; } // inserted anchor/tag or already linked once
+        if(piece.startsWith('<') || (once && done)){ next.push(piece); continue; } // inserted anchor/tag or already linked once
         let last=0, out='', mm;
         const g=new RegExp(ent.re.source, ent.re.flags.includes('g')?ent.re.flags:ent.re.flags+'g');
         while((mm=g.exec(piece))!==null){
-          if(linkMode==='low' && LINK_TOTAL_COUNT>=lowCap) break;
+          if(LINK_TOTAL_COUNT>=cap) break;
+          // Feature 2: an ambiguous alias resolves against the current article's cast.
+          const targetId=ent.key?resolveAmbiguous(ent.key,ent.id):ent.id;
+          if(targetId===currentId){ continue; }   // resolved onto ourselves — leave as plain text
+          const pv=LINK_PREVIEW[targetId]; const route=pv?pv.route:ent.route;
           out+=piece.slice(last,mm.index);
-          out+='\u0001<a class="xlink" data-id="'+esc(ent.id)+'" href="'+ent.route+'">'+mm[0]+'</a>\u0001';
+          out+='\u0001<a class="xlink" data-id="'+esc(targetId)+'" href="'+route+'">'+mm[0]+'</a>\u0001';
           last=mm.index+mm[0].length;
-          LINK_TOTAL_COUNT++;
-          if(linkMode!=='aggressive'){ done=true; LINK_ONCE.add(ent.id); break; } // normal/low: one per entity per article
+          LINK_TOTAL_COUNT++; LINK_GRAPH_OUT.add(targetId);
+          if(once){ done=true; LINK_ONCE.add(ent.id); LINK_ONCE.add(targetId); break; }
         }
         out+=piece.slice(last);
         out.split('\u0001').forEach(p=>{ if(p) next.push(p); });
@@ -5110,7 +5427,7 @@ function linkify(escapedHtml, currentId){
         if(sub[k].startsWith('<')){ if(/^<a\b/i.test(sub[k]))inA=true; else if(/^<\/a>/i.test(sub[k]))inA=false; continue; }
         if(inA) continue;
         sub[k]=sub[k].replace(DATE_RE, m=>{
-          if(linkMode==='low' && LINK_TOTAL_COUNT>=lowCap) return m;
+          if(LINK_TOTAL_COUNT>=cap) return m;
           const y=parseYear(m) || LINK_YEAR_CTX || CUR.year; // date strings w/o a year default to the article's year context / current
           const mo=parseMonth(m);
           const route = mo&&mo<99 ? `#/year/${y}/${mo}` : `#/year/${y}`;
@@ -5157,9 +5474,12 @@ function mdToHtml(md,linkCtx){
   if(opt){ let mm2; const re2=/\[[^\]]+\]\(([^)]+)\)/g; while((mm2=re2.exec(md))!==null){ const tm=String(mm2[1]).match(/#\/article\/([a-zA-Z0-9_:-]+)/); const tid=tm?tm[1]:mm2[1]; if(LINK_PREVIEW[tid]) LINK_ONCE.add(tid); } }
   const fp=()=>{if(para.length){html+='<p>'+inlineMd(para.join(' '),opt)+'</p>';para=[];}};
   const fq=()=>{if(quote.length){html+='<blockquote>'+inlineMd(quote.join(' '))+'</blockquote>';quote=[];}}; // no links inside summary/quote
+  /* Feature 3: in 'normal' density a heading opens a new linking scope, so a 12-part
+     event links its cast once per part instead of once for the entire 6,000 words. */
+  const newSection=()=>{ if(opt && linkLevelCfg().scope==='section') LINK_ONCE=new Set(); };
   for(const raw of lines){const line=raw.trimEnd();
-    if(/^###\s+/.test(line)){fp();fq();const t=line.replace(/^###\s+/,'');html+='<h3 id="'+slug(t)+'">'+inlineMd(t)+'</h3>';continue;}
-    if(/^##\s+/.test(line)){fp();fq();const t=line.replace(/^##\s+/,'');html+='<h2 id="'+slug(t)+'">'+inlineMd(t)+'</h2>';continue;}
+    if(/^###\s+/.test(line)){fp();fq();newSection();const t=line.replace(/^###\s+/,'');html+='<h3 id="'+slug(t)+'">'+inlineMd(t)+'</h3>';continue;}
+    if(/^##\s+/.test(line)){fp();fq();newSection();const t=line.replace(/^##\s+/,'');html+='<h2 id="'+slug(t)+'">'+inlineMd(t)+'</h2>';continue;}
     if(/^>\s?/.test(line)){fp();quote.push(line.replace(/^>\s?/,''));continue;}
     if(line.trim()===''){fp();fq();continue;}
     fq();para.push(line);}
@@ -7234,7 +7554,7 @@ const INFOBOX={
   trials:[['docket','Docket'],['date','Filed'],['era','Era'],['jurisdiction','Jurisdiction'],['prosecutor','Prosecutor'],['defendant','Defendant'],['presiding','Presiding'],['status','Status'],['outcome','Outcome']],
 };
 function relKind(id){return INDEX[id]?TYPE_BY_KEY[INDEX[id].typeKey].singular:'?';}
-function openId(id){Router.go('#/article/'+encodeURIComponent(id));}
+function openId(id){Router.go('#/article/'+encodeURIComponent(resolveArticleId(id)));}
 
 /* ===== IN-WORLD VISUAL SYSTEMS (all SVG / data-driven, framed as Waluigi's instruments) ===== */
 
@@ -7576,6 +7896,7 @@ function view_article(id){
   if(id==='the_midlands'){ Router.go('#/article/regal_empire'); return; }
   if(id==='thornburys_field_journal'){ view_fieldJournal(); return; }
   let rec=INDEX[id];
+  if(!rec){ const alt=resolveArticleId(id); if(alt!==id && INDEX[alt]){ Router.go('#/article/'+encodeURIComponent(alt)); return; } }
   if(!rec && XP_SUMMARY){
     const alias=Object.keys(XP_SUMMARY).find(k=>XP_SUMMARY[k]&&XP_SUMMARY[k].xpKey===id);
     if(alias&&INDEX[alias]){ Router.go('#/article/'+encodeURIComponent(alias)); return; }
@@ -7584,6 +7905,7 @@ function view_article(id){
   const {typeKey,item}=rec;renderSidebar('list:'+typeKey);
   const t=TYPE_BY_KEY[typeKey];
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;   // year context for dateless inline dates
+  beginLinkPass(item);                                               // link context + graph/stat counters
   if(typeKey==='trials'){return view_trial(item,t);}
   const rt=readingTime((item.description||'')+' '+(item.summary||''));
   const heads=headings(item.description||'');
@@ -7657,7 +7979,7 @@ function view_article(id){
   }
   const relIds=[].concat(item.relatedArticles||[],item.keyEvents||[],item.keyBattles||[],item.articles||[]);
   const seen=new Set();
-  const relChips=relIds.filter(r=>{const k=typeof r==='string'?r:r.id;if(!k||seen.has(k))return false;seen.add(k);return true;}).map(r=>{const rid=typeof r==='string'?r:r.id;const ex=!!INDEX[rid];const label=ex?displayName(INDEX[rid].item):prettyId(rid);return ex?`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(label)}</span>`:`<span class="rel-chip deadlink" title="No article yet"><span class="rt">?</span>${esc(label)}</span>`;}).join('');
+  const relChips=relIds.filter(r=>{const k=typeof r==='string'?r:r.id;if(!k||seen.has(k))return false;seen.add(k);return true;}).map(r=>{const rid=resolveArticleId(typeof r==='string'?r:r.id);const ex=!!INDEX[rid];const label=ex?displayName(INDEX[rid].item):prettyId(rid);return ex?`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(label)}</span>`:`<span class="rel-chip deadlink" title="No article yet"><span class="rt">?</span>${esc(label)}</span>`;}).join('');
   const leadHtml=articleLead(item,typeKey);
   let audioHtml=item.audio?`<div style="margin:14px 0"><audio controls src="${esc(item.audio)}"></audio>${item.audioCaption?`<div class="imgcap">${esc(item.audioCaption)}</div>`:''}</div>`:'';
   const tocEntries=heads.map(h=>({slug:slug(h.text),text:h.text,h3:h.level===3})).concat(secTocParts.map(p=>({slug:p.slug,text:p.text,h3:false})));
@@ -7685,6 +8007,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
    </div></div><div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div></div>`;
+  endLinkPass();
   window.scrollTo(0,0);setupScrollSpy();applyCustomCss(item.customCss);
   if(typeKey==='factions'){ renderFactionPowerProjection(item.id); }
 }
@@ -7692,6 +8015,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
 /* ---- Trials get their own rich renderer (sections + timeline) ---- */
 function view_trial(item,t){
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;
+  beginLinkPass(item);
   let infoRows='';(INFOBOX.trials||[]).forEach(([f,label])=>{let v=item[f];if(!v)return;v=String(v);infoRows+=`<div class="row"><span class="k">${esc(label)}</span><span class="v" title="${esc(v)}">${esc(v)}</span></div>`;});
   const charges=Array.isArray(item.charges)?`<section class="charges-panel"><h2 id="h-charges">⚖️ Charges</h2><p class="text-muted">Filed allegations and legal directives. Names are linked when the archive has a matching record.</p><ul class="charge-list">${item.charges.map(c=>{const text=typeof c==='string'?c:(c.charge||c.name||JSON.stringify(c));const matches=[...String(text).matchAll(/\b(?:Elder Rowan Meadowlight|Iron Fists|Rakka Directive|Regal Empire|Mages' Guild|Mushroom Regency)\b/gi)];let html=esc(text);matches.reverse().forEach(m=>{const raw=m[0],key=raw.toLowerCase().replace(/[^a-z0-9]+/g,'_');const target=INDEX[key]?`#/article/${encodeURIComponent(key)}`:key.includes('regal')?'#/reputation/faction/regal_empire':key.includes('mushroom')?'#/reputation/faction/mushroom_regency':'';if(target)html=html.slice(0,m.index)+`<a class="charge-link" href="${target}">${esc(raw)}</a>`+html.slice(m.index+raw.length);});return `<li><span class="charge-marker">§</span><span>${html}</span></li>`;}).join('')}</ul></section>`:'';
   let sections='';const tocParts=[];
@@ -8241,6 +8565,31 @@ function view_year(year,scrollMonth){
   window.scrollTo(0,0);
   if(scrollMonth){ const n=document.getElementById('ym-'+scrollMonth); if(n) setTimeout(()=>n.scrollIntoView({behavior:'smooth',block:'start'}),60); }
 }
+/* ===== Feature 5 (surface): Wanted Pages =====
+   Every id referenced by an existing article that has no page of its own. These are the
+   real holes in the encyclopedia, ranked by how many articles are already asking for them. */
+function view_wanted(){
+  renderSidebar('wanted');
+  const all=wantedPagesList();
+  const rows=all.slice(0,300).map(w=>{
+    const from=[...w.from].slice(0,4).map(id=>{
+      const nm=INDEX[id]?displayName(INDEX[id].item):prettyId(id);
+      return `<a class="lg-chip sm" onclick="openId('${esc(id)}')">${esc(nm)}</a>`;
+    }).join('');
+    const extra=w.from.size>4?`<span class="lg-more">+${w.from.size-4}</span>`:'';
+    return `<tr><td><span class="wanted-name">${esc(prettyId(w.id))}</span><div class="wanted-id">${esc(w.id)}</div></td>
+      <td class="wanted-n">${w.count}</td>
+      <td>${from}${extra}</td></tr>`;
+  }).join('');
+  el('content').innerHTML=`<div class="card animate-fade-in">
+      <h2>🚧 Wanted Pages</h2>
+      <p class="text-muted">Entities that existing articles point at but which have no record of their own. Waluigi does not consider these "missing"; he considers them <i>outstanding paperwork</i>. Ranked by how many articles are already waiting.</p>
+      <div class="chips mt-10"><span class="chip active">${all.length} wanted</span><span class="chip" onclick="Router.go('#/home')">← Home</span></div>
+    </div>
+    <div class="card">${all.length?`<table class="wanted-table"><thead><tr><th>Wanted record</th><th>Requests</th><th>Referenced by</th></tr></thead><tbody>${rows}</tbody></table>${all.length>300?`<p class="text-muted mt-10">Showing the top 300 of ${all.length}.</p>`:''}`:'<p class="text-muted">No dangling references. The archive is, improbably, complete.</p>'}</div>`;
+  window.scrollTo(0,0);
+}
+
 function view_years(){
   renderSidebar('years');
   const yrs=allYears();
@@ -11079,7 +11428,8 @@ const Router={
     if(!m){view_home();return;}
     const route=m[1],arg=decodeURIComponent(m[2]||'');
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
-    LINK_TOTAL_COUNT=0;  // fresh per page view for low-link mode
+    LINK_TOTAL_COUNT=0;    // fresh per page view for the density cap
+    LINK_GRAPH_OUT=new Set(); LINK_CONTEXT=new Set(); LINK_LAST_STATS={total:0,unique:0,scope:''};
     document.body.classList.remove('hide-walu-ambient');
     if(route==='home')view_home();
     else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='collections')view_collection(); else view_list(arg); }
@@ -11101,6 +11451,7 @@ const Router={
     else if(route==='timeline')view_timeline();
     else if(route==='chronicle'||route==='chronicles')view_chronicle(arg);
     else if(route==='annotations'||route==='chatter')view_annotations(arg);
+    else if(route==='wanted'||route==='wanted-pages'||route==='redlinks')view_wanted();
     else if(route==='collection'||route==='collections')view_collection(arg);
     else if(route==='xp'||route==='leaderboard')view_xpLeaderboard();
     else if(route==='years')view_years();
@@ -11130,6 +11481,8 @@ const Router={
   }
 };
 window.addEventListener('hashchange',Router.render);
+/* Keep the Link HUD in sync on every navigation (it hides itself off-article). */
+window.addEventListener('hashchange',()=>{ try{ renderLinkHud(); }catch(e){} });
 const Nav={random(){const r=ALL_ITEMS[Math.floor(Math.random()*ALL_ITEMS.length)];openId(r.item.id);}};
 
 /* theme + shortcuts */
@@ -11204,7 +11557,25 @@ async function loadData(){
     }
     const id=a.getAttribute('data-id'); const p=LINK_PREVIEW[id];
     if(!p) return;
-    pv.innerHTML=`<div class="lp-head"><span class="lp-emoji">${p.emoji}</span><span class="lp-name">${esc(p.name)}</span></div>${p.sub?`<div class="lp-sub">${esc(p.sub).slice(0,60)}</div>`:''}<div class="lp-sum">${esc(p.summary)}${p.summary&&p.summary.length>=220?'…':''}</div><div class="lp-go">Click to open →</div>`;
+    /* ===== Feature 4: rich hover card =====
+       Portrait, type badge, live XP level, faction/status facts and quick actions —
+       so a hover answers "who is this and why do I care" without leaving the page. */
+    const kindLabel=(p.typeKey&&TYPE_BY_KEY[p.typeKey]?TYPE_BY_KEY[p.typeKey].singular:prettyId(p.kind||'record'));
+    const xp=(typeof XP_SUMMARY!=='undefined')?XP_SUMMARY[id]:null;
+    const facts=[];
+    if(p.affiliation) facts.push(`<span class="lp-fact">🏳️ ${esc(String(p.affiliation).slice(0,42))}</span>`);
+    if(p.status)      facts.push(`<span class="lp-fact">◈ ${esc(String(p.status).split('—')[0].trim().slice(0,34))}</span>`);
+    if(xp)            facts.push(`<span class="lp-fact xp">✦ Lv ${xp.level} · ${Number(xp.currentXP||0).toLocaleString()} XP</span>`);
+    const img=p.image?`<img class="lp-portrait" src="${esc(p.image)}" alt="" onerror="this.remove()">`:'';
+    const inb=(typeof BACKLINKS!=='undefined'&&BACKLINKS[id])?BACKLINKS[id].size:0;
+    pv.innerHTML=`<div class="lp-top">${img}<div class="lp-topbody">
+        <div class="lp-head"><span class="lp-emoji">${p.emoji}</span><span class="lp-name">${esc(p.name)}</span></div>
+        <div class="lp-badge">${esc(kindLabel)}</div>
+        ${p.sub?`<div class="lp-sub">${esc(String(p.sub)).slice(0,60)}</div>`:''}
+      </div></div>
+      ${facts.length?`<div class="lp-facts">${facts.join('')}</div>`:''}
+      <div class="lp-sum">${esc(p.summary)}${p.summary&&p.summary.length>=220?'…':''}</div>
+      <div class="lp-go"><span>Click to open →</span>${inb?`<span class="lp-inb">${inb} page${inb===1?'':'s'} link here</span>`:''}</div>`;
     pv.classList.add('show');
     positionPreview(x,y);
   }
