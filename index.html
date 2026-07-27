@@ -5851,10 +5851,42 @@ function linkify(escapedHtml, currentId){
   return parts.join('');
 }
 
+/* ===== Waluigi voice detection =====
+   Most articles write Waluigi's asides as plain *italics*, which render as ordinary <em>
+   and are visually identical to in-world italics (sound effects, quoted dialogue, ship
+   manuals). He blends into the narration and you cannot tell who is talking.
+
+   These asides are NOT all italics: short ones are sound effects (*BAM!*, *clack*) and
+   many long ones are in-world quotes or Iron Legion protocols. Auditing all 641 italic
+   asides in the corpus, the reliable signal is his actual voice-print — the WAH
+   catchphrase or him referring to himself by name — combined with enough length to be
+   commentary rather than an exclamation. */
+const WALUIGI_VOICE=/\b(?:WAH+|WAAAH+|Waluigi(?:['’]s)?)\b/i;
+/* Secondary tells: he addresses the reader directly and delivers verdicts. Only used when
+   the aside is not a quotation or a manual step, which is what keeps in-world dialogue and
+   the Iron Legion protocols out. */
+const WALUIGI_TONE=/(?:^|[\s—-])(?:Of course|Honestly|Naturally|Obviously|Frankly|Apparently|Predictably|Inevitably|Somehow)\b|\bWhen you\b|\bIf you\b|\b(?:absolute|utter|complete|sheer)\s+\w+\b/i;
+const ASIDE_IS_QUOTE=/^\s*["“‘'][\s\S]*["”’']\s*\.?\s*$/;
+/* NOTE: the ALL-CAPS heading test must stay case-SENSITIVE. Under /i the [A-Z] class also
+   matches lowercase, so ordinary prose was being misread as a manual heading and silently
+   left unstyled. Split into two regexes rather than one /i pattern. */
+const ASIDE_IS_SHOUTED=/^[A-Z][A-Z0-9 ,.\-]{14,}$/;                  // no /i on purpose
+const ASIDE_IS_MANUAL=/^\s*Step \w+[:,]|^\s*(?:if|do not|proceed)\b/i;
+function isWaluigiAside(text){
+  const s=String(text||'').trim();
+  if(s.length<25) return false;            // *BAM!* / *clack* / *WHOOSH!* stay plain
+  if(WALUIGI_VOICE.test(s)) return true;   // his name or catchphrase — unambiguous
+  if(ASIDE_IS_QUOTE.test(s)||ASIDE_IS_SHOUTED.test(s)||ASIDE_IS_MANUAL.test(s)) return false;  // in-world text
+  return WALUIGI_TONE.test(s);
+}
 function inlineMd(t,opts){
   t=esc(t);
   t=t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
-  t=t.replace(/(^|[^*])\*([^*]+)\*/g,'$1<em>$2</em>');
+  // Waluigi's asides become a marked-up voice instead of anonymous <em>.
+  t=t.replace(/(^|[^*])\*([^*]+)\*/g,(m,pre,body)=>
+    pre+(isWaluigiAside(body)
+      ? '<em class="walu-aside"><span class="walu-mark" aria-hidden="true">W</span>'+body+'</em>'
+      : '<em>'+body+'</em>'));
   t=t.replace(/`([^`]+)`/g,'<code>$1</code>');
   // Manual markdown links written in the JSON: [visible text](target_id) or full wiki URL ending in #/article/target_id.
   t=t.replace(/\[([^\]]+)\]\(([^)]+)\)/g,(m,text,target)=>{
