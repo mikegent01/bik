@@ -1283,7 +1283,7 @@ export const WALLETS = {
   "archie": {
     "name": "Archie Miser",
     "currencies": {
-      "gold": 349,
+      "gold": -34,
       "silver": 6,
       "bronze": 18
     }

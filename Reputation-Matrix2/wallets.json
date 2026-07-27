@@ -18,7 +18,7 @@
     "name": "Archie Miser",
     "title": "Pyromaniac Merchant",
     "currencies": {
-      "gold": 349,
+      "gold": -34,
       "silver": 6,
       "bronze": 18
     },
@@ -26,9 +26,9 @@
   },
   "bowser": {
     "name": "Bowser",
-    "title": "Koopa King \u2014 Lord of the Koopa Dominion",
-    "status": "Active \u2014 commands Koopa Troop, siege engines, Magikoopa labs",
-    "wallet_type": "Royal war chest \u2014 military treasury, not personal pocket money",
+    "title": "Koopa King — Lord of the Koopa Dominion",
+    "status": "Active — commands Koopa Troop, siege engines, Magikoopa labs",
+    "wallet_type": "Royal war chest — military treasury, not personal pocket money",
     "currencies": {
       "bowser_bux": 75000,
       "shell_credit": 12000,
@@ -48,7 +48,7 @@
   },
   "hjumpik": {
     "name": "Hjumpik",
-    "title": "Axe Enthusiast \u2014 Dwarven Ally, Legion Associate",
+    "title": "Axe Enthusiast — Dwarven Ally, Legion Associate",
     "currencies": {
       "midland_ducat": 421,
       "gold": 120,
@@ -70,9 +70,9 @@
   },
   "remi": {
     "name": "Remi",
-    "title": "FNG Smith \u2014 Disaster Inc. Engineer, Kivotan Student",
-    "status": "Active \u2014 engineer, holds portal knowledge, Feather Fall",
-    "wallet_type": "Engineer field wallet \u2014 Kivotos grant + practical survivor cash",
+    "title": "FNG Smith — Disaster Inc. Engineer, Kivotan Student",
+    "status": "Active — engineer, holds portal knowledge, Feather Fall",
+    "wallet_type": "Engineer field wallet — Kivotos grant + practical survivor cash",
     "currencies": {
       "kivotos_credit": 5500,
       "credstick": 1200,
@@ -89,7 +89,7 @@
   "wario": {
     "name": "Wario",
     "title": "Explosive Accountant / Hoard Lord / Shop-Credit Tyrant",
-    "status": "Active \u2014 extremely liquid, extremely greedy, and absolutely not as broke as his gold-on-hand suggests",
+    "status": "Active — extremely liquid, extremely greedy, and absolutely not as broke as his gold-on-hand suggests",
     "wallet_type": "NPC operating + vault estimate",
     "currencies": {
       "gold": 125000,
@@ -109,7 +109,7 @@
   "waluigi": {
     "name": "Waluigi",
     "title": "Historian / Mages Guild Associate / Correct Name Inventor",
-    "status": "Active \u2014 funds split between travel cash, research access, and document power",
+    "status": "Active — funds split between travel cash, research access, and document power",
     "wallet_type": "NPC personal + research-access wallet",
     "currencies": {
       "gold": 83,
@@ -127,7 +127,7 @@
   "toad_lee": {
     "name": "Toad Lee",
     "title": "Defenestrated Diplomat / Liberated Toad Organizer",
-    "status": "Active \u2014 keeps practical survivor funds, courier access, and Loyalist-friendly paper",
+    "status": "Active — keeps practical survivor funds, courier access, and Loyalist-friendly paper",
     "wallet_type": "NPC civic/diplomatic wallet",
     "currencies": {
       "toad_bond": 75,
@@ -145,7 +145,7 @@
   "salam": {
     "name": "Salam",
     "title": "Liberated Toad Sharpshooter",
-    "status": "Active \u2014 light field wallet, mostly survivor bonds and practical coin",
+    "status": "Active — light field wallet, mostly survivor bonds and practical coin",
     "wallet_type": "NPC field wallet",
     "currencies": {
       "toad_bond": 18,
@@ -161,7 +161,7 @@
   "captain_toadette": {
     "name": "Captain Toadette",
     "title": "Peach Loyalist Commander",
-    "status": "Active \u2014 not personal wealth so much as campaign authority and war chest access",
+    "status": "Active — not personal wealth so much as campaign authority and war chest access",
     "wallet_type": "NPC command treasury access",
     "currencies": {
       "peach_crown": 15000,
@@ -179,7 +179,7 @@
   "speaker_l": {
     "name": "Speaker L",
     "title": "Liberated Toad Legal Organizer",
-    "status": "Active \u2014 money is mostly legal paper, courier credit, and resistance administration",
+    "status": "Active — money is mostly legal paper, courier credit, and resistance administration",
     "wallet_type": "NPC legal/resistance operating wallet",
     "currencies": {
       "decree_strip": 500,
@@ -196,7 +196,7 @@
   "penny": {
     "name": "Penny",
     "title": "Detective / Wario-Side Investigator",
-    "status": "Active \u2014 professional wallet with cash, digital funds, and investigation-friendly paper",
+    "status": "Active — professional wallet with cash, digital funds, and investigation-friendly paper",
     "wallet_type": "NPC investigator wallet",
     "currencies": {
       "wario_coin": 600,
@@ -213,7 +213,7 @@
   "the_broker": {
     "name": "The Broker",
     "title": "Freelancer Underworld Information Dealer",
-    "status": "Active \u2014 wealth is information, liquid coin, coded credit, and quiet leverage",
+    "status": "Active — wealth is information, liquid coin, coded credit, and quiet leverage",
     "wallet_type": "NPC underworld bank wallet",
     "currencies": {
       "broker_mark": 2000,
@@ -233,7 +233,7 @@
   "first_mate_jones": {
     "name": "First Mate Jones",
     "title": "Syrup Pirate Officer",
-    "status": "Active \u2014 shipboard cash, prize shares, port credit, and smuggling liquidity",
+    "status": "Active — shipboard cash, prize shares, port credit, and smuggling liquidity",
     "wallet_type": "NPC pirate officer wallet",
     "currencies": {
       "doubloon": 2500,
@@ -251,7 +251,7 @@
   "mystic_morel": {
     "name": "Mystic Morel",
     "title": "Fortune Teller / Purple T / Future Thief",
-    "status": "Active problem \u2014 keeps odd currencies that are easy to hide, sing about, or pretend were destiny",
+    "status": "Active problem — keeps odd currencies that are easy to hide, sing about, or pretend were destiny",
     "wallet_type": "NPC occult/traveler wallet",
     "currencies": {
       "gold": 1200,
@@ -269,7 +269,7 @@
   "archmage_theron": {
     "name": "Archmage Theron",
     "title": "Mages Guild Authority",
-    "status": "Active \u2014 guild access, formal seals, and enough arcane collateral to make normal banks nervous",
+    "status": "Active — guild access, formal seals, and enough arcane collateral to make normal banks nervous",
     "wallet_type": "NPC institutional/guild wallet",
     "currencies": {
       "guild_seal": 300,
@@ -286,7 +286,7 @@
   "lady_toriel": {
     "name": "Lady Toriel",
     "title": "Leader of Autumnwood Province",
-    "status": "Active \u2014 provincial treasury access, harvest marks, court money, and diplomatic coin",
+    "status": "Active — provincial treasury access, harvest marks, court money, and diplomatic coin",
     "wallet_type": "NPC provincial treasury access",
     "currencies": {
       "autumn_leaf": 30000,
@@ -302,7 +302,7 @@
   "emperor_elgabalus": {
     "name": "Emperor Elgabalus",
     "title": "Emperor of the Regal Empire",
-    "status": "Active \u2014 sovereign treasury access; numbers represent accessible exchange instruments, not the entire imperial treasury",
+    "status": "Active — sovereign treasury access; numbers represent accessible exchange instruments, not the entire imperial treasury",
     "wallet_type": "NPC sovereign treasury access",
     "currencies": {
       "midland_ducat": 500000,
@@ -319,7 +319,7 @@
   "tea_leaf_receivership": {
     "name": "Tea Leaf Syndicate Receivership",
     "title": "Post-Big-T / Post-Chai-T Syndicate Ledger",
-    "status": "Active institution \u2014 dead operators removed; surviving money is controlled through receivers, safehouse ledgers, and collection agents",
+    "status": "Active institution — dead operators removed; surviving money is controlled through receivers, safehouse ledgers, and collection agents",
     "wallet_type": "institutional receivership wallet",
     "currencies": {
       "tea_chit": 2200,
@@ -336,7 +336,7 @@
   "princess_daisy": {
     "name": "Princess Daisy",
     "title": "Sarasaland Sovereign",
-    "status": "Active \u2014 royal treasury access, diplomatic coin, and hard cash for fast military decisions",
+    "status": "Active — royal treasury access, diplomatic coin, and hard cash for fast military decisions",
     "wallet_type": "NPC sovereign treasury access",
     "currencies": {
       "gold": 45000,
@@ -353,7 +353,7 @@
   "donkey_kong": {
     "name": "Donkey Kong",
     "title": "Kongo Bongo / DK Isles Leader",
-    "status": "Active \u2014 island stores, banana-backed value, medals, port coin, and practical trade goods",
+    "status": "Active — island stores, banana-backed value, medals, port coin, and practical trade goods",
     "wallet_type": "NPC island treasury access",
     "currencies": {
       "banana_medallion": 6500,
@@ -370,7 +370,7 @@
   "king_k_rool": {
     "name": "King K. Rool",
     "title": "Kremling King",
-    "status": "Active \u2014 raider hoard, port liquidity, and black-market exchange instruments",
+    "status": "Active — raider hoard, port liquidity, and black-market exchange instruments",
     "wallet_type": "NPC pirate/raider treasury access",
     "currencies": {
       "kremling_koin": 9000,
@@ -387,7 +387,7 @@
   "fawful": {
     "name": "Fawful",
     "title": "Cackling Remnant Commander",
-    "status": "Active but weakened \u2014 weird reserves, stolen paper, and emergency villain liquidity",
+    "status": "Active but weakened — weird reserves, stolen paper, and emergency villain liquidity",
     "wallet_type": "NPC faction remnant wallet",
     "currencies": {
       "gold": 12000,
@@ -402,9 +402,9 @@
   },
   "princess_celestia": {
     "name": "Princess Celestia",
-    "title": "Princess of Equestria \u2014 Solar Diarch",
-    "status": "Active \u2014 rules Equestria, not Midlands",
-    "wallet_type": "Equestrian royal treasury \u2014 no Midlands ducats, uses harmony court favors",
+    "title": "Princess of Equestria — Solar Diarch",
+    "status": "Active — rules Equestria, not Midlands",
+    "wallet_type": "Equestrian royal treasury — no Midlands ducats, uses harmony court favors",
     "currencies": {
       "gold": 9500,
       "silver": 4000,
@@ -419,9 +419,9 @@
   },
   "twilight_sparkle": {
     "name": "Twilight Sparkle",
-    "title": "Princess of Friendship \u2014 Equestrian Archmage",
-    "status": "Active \u2014 studies friendship, runs School of Friendship",
-    "wallet_type": "Equestrian academic treasury \u2014 no Midlands ducats",
+    "title": "Princess of Friendship — Equestrian Archmage",
+    "status": "Active — studies friendship, runs School of Friendship",
+    "wallet_type": "Equestrian academic treasury — no Midlands ducats",
     "currencies": {
       "gold": 3200,
       "silver": 1500,
@@ -438,7 +438,7 @@
   "chairwoman_rin": {
     "name": "Chairwoman Rin",
     "title": "Kivotos General Student Council Administrator",
-    "status": "Active \u2014 city-scale school-state operating funds and authenticated digital credit",
+    "status": "Active — city-scale school-state operating funds and authenticated digital credit",
     "wallet_type": "NPC civic treasury access",
     "currencies": {
       "kivotos_credit": 2500000,
@@ -454,8 +454,8 @@
   "liyue_qixing": {
     "name": "Liyue Qixing Treasury",
     "title": "Teyvat Mercantile Ruling Council",
-    "status": "Active institution \u2014 trade reserves and mora-clearing authority",
-    "wallet_type": "Teyvat Mercantile Council \u2014 mora primary, foreign ducats minimal trade",
+    "status": "Active institution — trade reserves and mora-clearing authority",
+    "wallet_type": "Teyvat Mercantile Council — mora primary, foreign ducats minimal trade",
     "currencies": {
       "mora": 3000000,
       "gold": 150000,
@@ -469,9 +469,9 @@
     "category": "Supporting Cast"
   },
   "pokemon_league_chair": {
-    "name": "Pok\u00e9mon League Chair Office",
+    "name": "Pokémon League Chair Office",
     "title": "League Prize and Clinic Reserve Authority",
-    "status": "Active institution \u2014 trainer payouts, clinic reserves, and cross-region clearing funds",
+    "status": "Active institution — trainer payouts, clinic reserves, and cross-region clearing funds",
     "wallet_type": "institutional league treasury access",
     "currencies": {
       "poke_dollar": 1800000,
@@ -487,7 +487,7 @@
   "high_king_thorgrim": {
     "name": "High King Thorgrim",
     "title": "Dwarven High King / Karaz-a-Karak Treasury Authority",
-    "status": "Active \u2014 oathgold, vault metals, grudges, and meticulously audited foreign exchange",
+    "status": "Active — oathgold, vault metals, grudges, and meticulously audited foreign exchange",
     "wallet_type": "NPC sovereign vault access",
     "currencies": {
       "dwarf_oathgold": 25000,
@@ -510,7 +510,7 @@
       "imperial_crown": 778
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "agent_t": {
     "name": "Agent T",
@@ -521,7 +521,7 @@
       "imperial_crown": 1641
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "archie_miser": {
     "name": "Archie Miser",
@@ -534,7 +534,7 @@
       "toad_whistle": 25
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "baldi": {
     "name": "Baldi",
@@ -545,13 +545,13 @@
       "relief_stamp": 330
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "bones": {
     "name": "Bones",
-    "title": "Liberated Toad \u2014 Master of Disguise, Infiltration Specialist",
-    "status": "Active \u2014 Liberated Toads, skilled at disguise, uncertain identity",
-    "wallet_type": "Infiltration operations wallet \u2014 multiple identities cash",
+    "title": "Liberated Toad — Master of Disguise, Infiltration Specialist",
+    "status": "Active — Liberated Toads, skilled at disguise, uncertain identity",
+    "wallet_type": "Infiltration operations wallet — multiple identities cash",
     "currencies": {
       "toad_bond": 90,
       "relief_stamp": 350,
@@ -575,7 +575,7 @@
       "relief_stamp": 800
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "byscilla_danos": {
     "name": "Byscilla Danos",
@@ -586,13 +586,13 @@
       "relief_stamp": 175
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "captain_syrup": {
     "name": "Captain Syrup",
-    "title": "Pirate Queen of Rogueport \u2014 Black Sugar Pirates",
-    "status": "Active \u2014 raids cargo, sells maps",
-    "wallet_type": "Pirate queen chest \u2014 doubloons + cargo + smuggler coin",
+    "title": "Pirate Queen of Rogueport — Black Sugar Pirates",
+    "status": "Active — raids cargo, sells maps",
+    "wallet_type": "Pirate queen chest — doubloons + cargo + smuggler coin",
     "currencies": {
       "doubloon": 950,
       "cargo_share": 55,
@@ -617,7 +617,7 @@
       "toad_bond": 40
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "commander_g": {
     "name": "Commander G",
@@ -638,7 +638,7 @@
       "decree_strip": 48
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "cranky_kong": {
     "name": "Cranky Kong",
@@ -650,7 +650,7 @@
       "decree_strip": 100
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "dan": {
     "name": "Dan",
@@ -663,7 +663,7 @@
       "midland_ducat": 1357
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "darno_spriggon": {
     "name": "Darno Spriggon",
@@ -675,7 +675,7 @@
       "wario_coin": 967
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "dyanos": {
     "name": "Dyanos",
@@ -688,7 +688,7 @@
       "gold": 347
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "eager": {
     "name": "Eager",
@@ -700,7 +700,7 @@
       "toad_bond": 105
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "earl_grey": {
     "name": "Earl Grey",
@@ -713,7 +713,7 @@
       "decree_strip": 203
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "elder_rowan_meadowlight": {
     "name": "Elder Rowan Meadowlight",
@@ -725,7 +725,7 @@
       "silver": 103
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "embercap": {
     "name": "Embercap",
@@ -737,7 +737,7 @@
       "wario_coin": 215
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "feyward_dan": {
     "name": "Feyward Dan",
@@ -750,7 +750,7 @@
       "wario_coin": 613
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "general_ironhand": {
     "name": "General Ironhand",
@@ -764,9 +764,9 @@
   },
   "green_t": {
     "name": "Green T",
-    "title": "Toad Scout \u2014 Transformation Capable, Tea Leaf Syndicate Defector",
-    "status": "Active \u2014 Disaster Inc. ally, holds Mirror of True Reflection",
-    "wallet_type": "Field scout wallet \u2014 former syndicate cash + Loyalist support",
+    "title": "Toad Scout — Transformation Capable, Tea Leaf Syndicate Defector",
+    "status": "Active — Disaster Inc. ally, holds Mirror of True Reflection",
+    "wallet_type": "Field scout wallet — former syndicate cash + Loyalist support",
     "currencies": {
       "gold": 220,
       "silver": 480,
@@ -792,7 +792,7 @@
       "toad_whistle": 68
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "herniva": {
     "name": "Herniva",
@@ -804,7 +804,7 @@
       "decree_strip": 219
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "king_dedede": {
     "name": "King Dedede",
@@ -828,7 +828,7 @@
       "midland_ducat": 3197
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "lady_aurelian_corvinarus": {
     "name": "Lady Aurelian Corvinarus",
@@ -862,7 +862,7 @@
       "wario_coin": 87
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "leo": {
     "name": "Leo",
@@ -874,7 +874,7 @@
       "silver": 384
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "lorehold_professor_of_chaos": {
     "name": "Lorehold Professor of Chaos",
@@ -897,7 +897,7 @@
       "wario_coin": 807
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "marcus_ashford": {
     "name": "Marcus Ashford",
@@ -908,7 +908,7 @@
       "wario_coin": 560
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "mario": {
     "name": "Mario",
@@ -921,7 +921,7 @@
       "gold": 370
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "merric": {
     "name": "Merric",
@@ -933,7 +933,7 @@
       "gold": 384
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "miles_edgeworth": {
     "name": "Miles Edgeworth",
@@ -945,7 +945,7 @@
       "toad_whistle": 16
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "mimbus": {
     "name": "Mimbus",
@@ -958,7 +958,7 @@
       "decree_strip": 54
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "mistveil": {
     "name": "Mistveil",
@@ -969,7 +969,7 @@
       "silver": 206
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "mr_l": {
     "name": "Mr. L",
@@ -981,7 +981,7 @@
       "decree_strip": 288
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "mystic_morsole": {
     "name": "Mystic Morsole",
@@ -992,7 +992,7 @@
       "gold": 364
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "orange_t": {
     "name": "Orange T",
@@ -1005,7 +1005,7 @@
       "silver": 579
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "original_dan": {
     "name": "Original Dan",
@@ -1016,7 +1016,7 @@
       "relief_stamp": 324
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "orvinder_danos": {
     "name": "Orvinder Danos",
@@ -1028,7 +1028,7 @@
       "relief_stamp": 126
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "parson_pellinost": {
     "name": "Parson Pellinost",
@@ -1041,7 +1041,7 @@
       "silver": 82
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "pauline": {
     "name": "Pauline",
@@ -1052,7 +1052,7 @@
       "silver": 365
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "pierce_anamatar": {
     "name": "Pierce Anamatar",
@@ -1064,7 +1064,7 @@
       "relief_stamp": 719
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "princess_peach": {
     "name": "Princess Peach",
@@ -1087,7 +1087,7 @@
       "imperial_crown": 820
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "professor_elvin_gadd": {
     "name": "Professor Elvin Gadd",
@@ -1110,7 +1110,7 @@
       "silver": 568
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "rakka": {
     "name": "Rakka",
@@ -1123,12 +1123,12 @@
       "gold": 334
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "roger": {
     "name": "Roger",
-    "title": "Disaster Inc. Situational Contractor \u2014 Logistics",
-    "status": "Active \u2014 helps with rope, ladders, rooftop escape logistics",
+    "title": "Disaster Inc. Situational Contractor — Logistics",
+    "status": "Active — helps with rope, ladders, rooftop escape logistics",
     "wallet_type": "Contractor logistics wallet",
     "currencies": {
       "gold": 150,
@@ -1151,7 +1151,7 @@
       "midland_ducat": 951
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "saedia": {
     "name": "Saedia",
@@ -1164,12 +1164,12 @@
       "gold": 177
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "sergeant_brick_stone": {
     "name": "Sergeant Brick Stone",
     "title": "Midlands Masonry Corps Sergeant",
-    "status": "Active \u2014 Toad Town rebuilding detail",
+    "status": "Active — Toad Town rebuilding detail",
     "wallet_type": "Field wallet",
     "currencies": {
       "gold": 68,
@@ -1183,7 +1183,7 @@
   "sergeant_varn_coldbrook": {
     "name": "Sergeant Varn Coldbrook",
     "title": "Iron Legion Frostline Sergeant",
-    "status": "Active \u2014 Snowdin perimeter guard",
+    "status": "Active — Snowdin perimeter guard",
     "wallet_type": "Field sergeant personal wallet",
     "currencies": {
       "midland_ducat": 320,
@@ -1216,7 +1216,7 @@
       "toad_bond": 185
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "steely": {
     "name": "Steely",
@@ -1228,7 +1228,7 @@
       "silver": 554
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "stuckina": {
     "name": "Stuckina",
@@ -1241,7 +1241,7 @@
       "relief_stamp": 644
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "the_archivist": {
     "name": "The Archivist",
@@ -1276,7 +1276,7 @@
       "gold": 25
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "thornbury": {
     "name": "Thornbury",
@@ -1287,7 +1287,7 @@
       "midland_ducat": 1461
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "thornpaw": {
     "name": "Thornpaw",
@@ -1298,7 +1298,7 @@
       "silver": 502
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "toadburt": {
     "name": "Toadburt",
@@ -1309,7 +1309,7 @@
       "decree_strip": 56
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "toadette_sr": {
     "name": "Toadette Sr.",
@@ -1320,7 +1320,7 @@
       "toad_bond": 62
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "toadsworth_the_elder": {
     "name": "Toadsworth the Elder",
@@ -1331,7 +1331,7 @@
       "relief_stamp": 754
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "tymnas": {
     "name": "Tymnas",
@@ -1342,7 +1342,7 @@
       "relief_stamp": 685
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "usk": {
     "name": "Usk",
@@ -1355,7 +1355,7 @@
       "wario_coin": 135
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "valorian_stormweave": {
     "name": "Valorian Stormweave",
@@ -1368,7 +1368,7 @@
       "toad_whistle": 29
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "vivian_corvinarus": {
     "name": "Vivian Corvinarus",
@@ -1381,7 +1381,7 @@
       "wario_coin": 456
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "x_o": {
     "name": "X.O.",
@@ -1393,7 +1393,7 @@
       "toad_whistle": 62
     },
     "category": "Supporting Cast",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "battle_mage_kovar": {
     "name": "Battle Mage Kovar",
@@ -1445,13 +1445,13 @@
       "imperial_crown": 1861
     },
     "category": "Supporting Cast",
-    "walletStatus": "No recorded holdings \u2014 bio does not establish a currency balance.",
-    "wallet_type": "Supporting Cast human operating wallet \u2014 fixed from generic spam"
+    "walletStatus": "No recorded holdings — bio does not establish a currency balance.",
+    "wallet_type": "Supporting Cast human operating wallet — fixed from generic spam"
   },
   "dracule_mihawk": {
     "name": "Dracule Mihawk",
-    "title": "The Hawk of Blackfen Pass \u2014 Old World Swordsman",
-    "status": "Active \u2014 observing Mount Ebott expedition, self-funded",
+    "title": "The Hawk of Blackfen Pass — Old World Swordsman",
+    "status": "Active — observing Mount Ebott expedition, self-funded",
     "wallet_type": "Independent human operative field wallet",
     "currencies": {
       "gold": 340,
@@ -1466,7 +1466,7 @@
   "gamma_agent": {
     "name": "Gamma Agent",
     "title": "Iron Legion Gamma Division Survey Agent",
-    "status": "Active \u2014 Mount Ebott survey, classified budget",
+    "status": "Active — Mount Ebott survey, classified budget",
     "wallet_type": "Legion expedition operating wallet",
     "currencies": {
       "midland_ducat": 500,
@@ -1481,7 +1481,7 @@
   "professor_e_gadd": {
     "name": "Professor Elvin Gadd",
     "title": "Ghost Researcher & Poltergust Inventor",
-    "status": "Active \u2014 private lab, self-funded research",
+    "status": "Active — private lab, self-funded research",
     "wallet_type": "Independent researcher lab wallet",
     "currencies": {
       "gold": 1250,
@@ -1497,7 +1497,7 @@
   "colonel_vera_steelstorm": {
     "name": "Colonel Vera Steelstorm",
     "title": "Regal Empire Air Cavalry Commander",
-    "status": "Active \u2014 commands airships over Midlands",
+    "status": "Active — commands airships over Midlands",
     "wallet_type": "Military command treasury access",
     "currencies": {
       "midland_ducat": 12000,
@@ -1513,7 +1513,7 @@
   "general_vale": {
     "name": "General Vale",
     "title": "Regal Empire Ground Forces Strategist",
-    "status": "Active \u2014 Bramblehaven front logistics",
+    "status": "Active — Bramblehaven front logistics",
     "wallet_type": "Military operating wallet",
     "currencies": {
       "midland_ducat": 8000,
@@ -1526,8 +1526,8 @@
   },
   "admiral_wave": {
     "name": "Admiral Wave Harlan",
-    "title": "Midlands Naval Admiral \u2014 Wave Fleet",
-    "status": "Active \u2014 patrols Blackwater Bay, anti-piracy ops",
+    "title": "Midlands Naval Admiral — Wave Fleet",
+    "status": "Active — patrols Blackwater Bay, anti-piracy ops",
     "wallet_type": "Naval command treasury access",
     "currencies": {
       "midland_ducat": 15000,
@@ -1543,7 +1543,7 @@
   "champion_carter": {
     "name": "Champion Carter Vale",
     "title": "Arena Champion & Midlands Duelist",
-    "status": "Active \u2014 prize fighter, personal fortune",
+    "status": "Active — prize fighter, personal fortune",
     "wallet_type": "Professional fighter purse wallet",
     "currencies": {
       "gold": 2800,
@@ -1557,8 +1557,8 @@
   },
   "archon_lumine": {
     "name": "Archon Lumine Starr",
-    "title": "Archon of Light \u2014 Midlands Magister",
-    "status": "Active \u2014 Mages Guild senior council",
+    "title": "Archon of Light — Midlands Magister",
+    "status": "Active — Mages Guild senior council",
     "wallet_type": "Archmage treasury access",
     "currencies": {
       "guild_seal": 120,
@@ -1574,7 +1574,7 @@
   "chief_redwood": {
     "name": "Chief Redwood Harlan",
     "title": "Chief of Midlands Forestry & Timber Guild",
-    "status": "Active \u2014 Autumnwood timber operations",
+    "status": "Active — Autumnwood timber operations",
     "wallet_type": "Provincial trade wallet",
     "currencies": {
       "autumn_leaf": 2500,
@@ -1589,7 +1589,7 @@
   "explorer_drake": {
     "name": "Explorer Drake Hawthorne",
     "title": "Midlands Explorer & Cartographer",
-    "status": "Active \u2014 mapping Kivotos and Midlands frontier",
+    "status": "Active — mapping Kivotos and Midlands frontier",
     "wallet_type": "Explorer expedition wallet",
     "currencies": {
       "gold": 520,
@@ -1603,8 +1603,8 @@
   },
   "admin_zero": {
     "name": "Admin Zero",
-    "title": "Internet Federation SysAdmin \u2014 Digital Market Overseer",
-    "status": "Active \u2014 controls credstick issuance",
+    "title": "Internet Federation SysAdmin — Digital Market Overseer",
+    "status": "Active — controls credstick issuance",
     "wallet_type": "Digital treasury operator wallet",
     "currencies": {
       "credstick": 15000,
@@ -1618,7 +1618,7 @@
   "high_magus_elion": {
     "name": "High Magus Elion Thorne",
     "title": "High Magus of the Obsidian Spire",
-    "status": "Active \u2014 Mages Guild elder, research grants",
+    "status": "Active — Mages Guild elder, research grants",
     "wallet_type": "Mages Guild high treasury",
     "currencies": {
       "guild_seal": 200,
@@ -1634,7 +1634,7 @@
   "high_overseer_aurelia": {
     "name": "High Overseer Aurelia Vance",
     "title": "High Overseer of the Regal Treasury Vault",
-    "status": "Active \u2014 audits imperial spending",
+    "status": "Active — audits imperial spending",
     "wallet_type": "Imperial audit operating wallet",
     "currencies": {
       "imperial_crown": 15000,
@@ -1649,7 +1649,7 @@
   "warlord_luna": {
     "name": "Warlord Luna Cross",
     "title": "Warlord of the Northern Tribes",
-    "status": "Active \u2014 commands raiders, negotiates with Empire",
+    "status": "Active — commands raiders, negotiates with Empire",
     "wallet_type": "Warlord personal war chest",
     "currencies": {
       "gold": 3500,
@@ -1665,7 +1665,7 @@
   "king_alaric": {
     "name": "King Alaric Thorne",
     "title": "King of the Border Realms",
-    "status": "Active \u2014 Regal Empire vassal king",
+    "status": "Active — Regal Empire vassal king",
     "wallet_type": "Royal treasury access",
     "currencies": {
       "imperial_crown": 12000,
@@ -1681,7 +1681,7 @@
   "lord_sigmar": {
     "name": "Lord Sigmar Helden",
     "title": "Lord of the Sigmarite Crusade",
-    "status": "Active \u2014 Warhammer allied human lord",
+    "status": "Active — Warhammer allied human lord",
     "wallet_type": "Crusade war chest",
     "currencies": {
       "gold": 6000,
@@ -1696,7 +1696,7 @@
   "imperator_maximus": {
     "name": "Imperator Maximus Decker",
     "title": "Imperator of the Old Imperial Guard",
-    "status": "Active \u2014 commands Old World legions",
+    "status": "Active — commands Old World legions",
     "wallet_type": "Imperial high command wallet",
     "currencies": {
       "imperial_crown": 18000,
@@ -1711,7 +1711,7 @@
   "president_varis": {
     "name": "President Varis Cole",
     "title": "President of New America",
-    "status": "Active \u2014 democratic human leader",
+    "status": "Active — democratic human leader",
     "wallet_type": "Presidential treasury access",
     "currencies": {
       "credstick": 12000,
@@ -1726,7 +1726,7 @@
   "ruler_doug": {
     "name": "Ruler Doug Harrow",
     "title": "Ruler of the Midlands Outskirts",
-    "status": "Active \u2014 practical human administrator",
+    "status": "Active — practical human administrator",
     "wallet_type": "Regional admin wallet",
     "currencies": {
       "midland_ducat": 3000,
@@ -1740,8 +1740,8 @@
   },
   "silas_thornfield": {
     "name": "Silas Thornfield",
-    "title": "Midlands Trade Factor \u2014 Spice & Silk Road",
-    "status": "Active \u2014 runs caravan routes through Regal Empire",
+    "title": "Midlands Trade Factor — Spice & Silk Road",
+    "status": "Active — runs caravan routes through Regal Empire",
     "wallet_type": "Merchant house operating wallet",
     "currencies": {
       "gold": 2200,
@@ -1756,8 +1756,8 @@
   },
   "mira_halbrecht": {
     "name": "Mira Halbrecht",
-    "title": "Regal Treasury Auditor \u2014 The Penny Pincher Who Matters",
-    "status": "Active \u2014 audits Wario and Bowser accounts",
+    "title": "Regal Treasury Auditor — The Penny Pincher Who Matters",
+    "status": "Active — audits Wario and Bowser accounts",
     "wallet_type": "Auditor personal + operational float",
     "currencies": {
       "midland_ducat": 5000,
@@ -1771,8 +1771,8 @@
   },
   "edric_bramble": {
     "name": "Edric Bramble",
-    "title": "Peach Loyalist Quartermaster \u2014 Human Liaison to Toads",
-    "status": "Active \u2014 supplies Bramblehaven from Midlands",
+    "title": "Peach Loyalist Quartermaster — Human Liaison to Toads",
+    "status": "Active — supplies Bramblehaven from Midlands",
     "wallet_type": "Quartermaster field wallet",
     "currencies": {
       "peach_crown": 800,
@@ -1787,8 +1787,8 @@
   },
   "lord_corvin_ashford": {
     "name": "Lord Corvin Ashford",
-    "title": "Regal Noble \u2014 Onyx Hand Contact (Reluctant)",
-    "status": "Active \u2014 blackmail ledger, trying to stay alive",
+    "title": "Regal Noble — Onyx Hand Contact (Reluctant)",
+    "status": "Active — blackmail ledger, trying to stay alive",
     "wallet_type": "Noble house wallet with black-market exposure",
     "currencies": {
       "imperial_crown": 6000,
@@ -1803,8 +1803,8 @@
   },
   "lady_isolde_vance": {
     "name": "Lady Isolde Vance",
-    "title": "Mages Guild Enchanter \u2014 Wands & Wards",
-    "status": "Active \u2014 runs enchantment shop in Regal Capital",
+    "title": "Mages Guild Enchanter — Wands & Wards",
+    "status": "Active — runs enchantment shop in Regal Capital",
     "wallet_type": "Artisan enchanter operating wallet",
     "currencies": {
       "guild_seal": 45,
@@ -1819,8 +1819,8 @@
   },
   "captain_helena_frost": {
     "name": "Captain Helena Frost",
-    "title": "Iron Legion Airship Captain \u2014 Frostwind",
-    "status": "Active \u2014 patrols over Shadowfell border",
+    "title": "Iron Legion Airship Captain — Frostwind",
+    "status": "Active — patrols over Shadowfell border",
     "wallet_type": "Airship captain operational wallet",
     "currencies": {
       "midland_ducat": 2500,
@@ -1834,8 +1834,8 @@
   },
   "commander_elias_ward": {
     "name": "Commander Elias Ward",
-    "title": "Freelancer Underworld Fixer \u2014 Human Connector",
-    "status": "Active \u2014 brokers jobs between Broker and Iron Legion",
+    "title": "Freelancer Underworld Fixer — Human Connector",
+    "status": "Active — brokers jobs between Broker and Iron Legion",
     "wallet_type": "Fixer escrow wallet",
     "currencies": {
       "broker_mark": 150,
@@ -1849,8 +1849,8 @@
   },
   "magus_selene_voss": {
     "name": "Magus Selene Voss",
-    "title": "Mages Guild Transit Officer \u2014 Portal Authority",
-    "status": "Active \u2014 issues transit stamps, hates paperwork",
+    "title": "Mages Guild Transit Officer — Portal Authority",
+    "status": "Active — issues transit stamps, hates paperwork",
     "wallet_type": "Transit officer cash box",
     "currencies": {
       "transit_stamp": 40,
@@ -1864,8 +1864,8 @@
   },
   "quartermaster_hargrove": {
     "name": "Quartermaster Hargrove",
-    "title": "Iron Legion Quartermaster \u2014 3rd Supply Chain",
-    "status": "Active \u2014 supplies gamma agent and others",
+    "title": "Iron Legion Quartermaster — 3rd Supply Chain",
+    "status": "Active — supplies gamma agent and others",
     "wallet_type": "Quartermaster depot wallet",
     "currencies": {
       "midland_ducat": 3500,
@@ -1879,8 +1879,8 @@
   },
   "barrister_quintin_dell": {
     "name": "Barrister Quintin Dell",
-    "title": "Regal Judiciary Advocate \u2014 Defends Toads Pro Bono",
-    "status": "Active \u2014 legal aid for Liberated Toads",
+    "title": "Regal Judiciary Advocate — Defends Toads Pro Bono",
+    "status": "Active — legal aid for Liberated Toads",
     "wallet_type": "Barrister trust account",
     "currencies": {
       "decree_strip": 300,
@@ -1894,8 +1894,8 @@
   },
   "merchant_prince_alric": {
     "name": "Merchant Prince Alric Dane",
-    "title": "Cargo & Doubloon Magnate \u2014 Black Sugar Route",
-    "status": "Active \u2014 owns three ships, owes Wario money",
+    "title": "Cargo & Doubloon Magnate — Black Sugar Route",
+    "status": "Active — owns three ships, owes Wario money",
     "wallet_type": "Merchant prince fleet wallet",
     "currencies": {
       "doubloon": 1200,
@@ -1910,8 +1910,8 @@
   },
   "doctor_livia_crane": {
     "name": "Doctor Livia Crane",
-    "title": "Kivotos Medical Chief \u2014 Human Surgeon",
-    "status": "Active \u2014 runs clinic in Abydos",
+    "title": "Kivotos Medical Chief — Human Surgeon",
+    "status": "Active — runs clinic in Abydos",
     "wallet_type": "Medical operating wallet",
     "currencies": {
       "kivotos_credit": 4000,
@@ -1924,9 +1924,9 @@
   },
   "sergeant_coldbrook_fixed": {
     "name": "Sergeant Varn Coldbrook",
-    "title": "Regal Outpost Sergeant \u2014 Rebuilt Wallet (Non-Spam)",
-    "status": "Active \u2014 now with realistic holdings",
-    "wallet_type": "Sergeant field wallet \u2014 fixed from 15.5g spam",
+    "title": "Regal Outpost Sergeant — Rebuilt Wallet (Non-Spam)",
+    "status": "Active — now with realistic holdings",
+    "wallet_type": "Sergeant field wallet — fixed from 15.5g spam",
     "currencies": {
       "midland_ducat": 450,
       "gold": 95,
@@ -1939,8 +1939,8 @@
   },
   "professor_mira_torres": {
     "name": "Professor Mira Torres",
-    "title": "Millennium Science Professor \u2014 Robotics",
-    "status": "Active \u2014 Kivotos tech vendor",
+    "title": "Millennium Science Professor — Robotics",
+    "status": "Active — Kivotos tech vendor",
     "wallet_type": "Academic research wallet",
     "currencies": {
       "kivotos_credit": 3500,
@@ -1953,8 +1953,8 @@
   },
   "captain_julia_syrup": {
     "name": "Captain Julia Syrup",
-    "title": "Syrup Fleet Quartermaster \u2014 Human First Mate",
-    "status": "Active \u2014 sister to Captain Syrup, handles ledger",
+    "title": "Syrup Fleet Quartermaster — Human First Mate",
+    "status": "Active — sister to Captain Syrup, handles ledger",
     "wallet_type": "Pirate quartermaster chest",
     "currencies": {
       "doubloon": 600,
@@ -1968,8 +1968,8 @@
   },
   "guild_clerk_amelia": {
     "name": "Guild Clerk Amelia Brint",
-    "title": "Mages Guild Clerk \u2014 Records & Clearance Writs",
-    "status": "Active \u2014 issues archive writs to Waluigi",
+    "title": "Mages Guild Clerk — Records & Clearance Writs",
+    "status": "Active — issues archive writs to Waluigi",
     "wallet_type": "Clerk operational float",
     "currencies": {
       "archive_writ": 12,
@@ -1983,8 +1983,8 @@
   },
   "blacksmith_holt": {
     "name": "Blacksmith Holt Mason",
-    "title": "Master Blacksmith \u2014 Midlands Forge",
-    "status": "Active \u2014 forges oathgold for dwarves and humans",
+    "title": "Master Blacksmith — Midlands Forge",
+    "status": "Active — forges oathgold for dwarves and humans",
     "wallet_type": "Forge shop wallet",
     "currencies": {
       "gold": 900,
@@ -1998,8 +1998,8 @@
   },
   "innkeep_marta": {
     "name": "Innkeep Marta Gable",
-    "title": "The Gilded Gryphon Innkeep \u2014 Midlands Market",
-    "status": "Active \u2014 feeds mercenaries and mages",
+    "title": "The Gilded Gryphon Innkeep — Midlands Market",
+    "status": "Active — feeds mercenaries and mages",
     "wallet_type": "Inn operating wallet",
     "currencies": {
       "gold": 350,
@@ -2013,8 +2013,8 @@
   },
   "courier_jace": {
     "name": "Courier Jace Rook",
-    "title": "Toad Network Human Courier \u2014 Fastest on Foot",
-    "status": "Active \u2014 delivers Waluigi dossiers",
+    "title": "Toad Network Human Courier — Fastest on Foot",
+    "status": "Active — delivers Waluigi dossiers",
     "wallet_type": "Courier tip wallet",
     "currencies": {
       "toad_whistle": 80,
@@ -2027,9 +2027,9 @@
   },
   "originaldan": {
     "name": "Original Dan",
-    "title": "Second-Class Fire Mage \u2014 Guild-Trained but Unstable",
-    "status": "Active \u2014 Mages Guild contractor, Toad crisis survivor",
-    "wallet_type": "Mage contractor field wallet \u2014 fixed from spam",
+    "title": "Second-Class Fire Mage — Guild-Trained but Unstable",
+    "status": "Active — Mages Guild contractor, Toad crisis survivor",
+    "wallet_type": "Mage contractor field wallet — fixed from spam",
     "currencies": {
       "gold": 85,
       "silver": 180,
@@ -2043,9 +2043,9 @@
   },
   "rodger": {
     "name": "Rodger",
-    "title": "Liberated Toad \u2014 Carpentry & Barricade Specialist",
-    "status": "Active \u2014 builds safehouses, Toad Town rebuilding",
-    "wallet_type": "Tradesman field wallet \u2014 rebuilding bonds + practical coin",
+    "title": "Liberated Toad — Carpentry & Barricade Specialist",
+    "status": "Active — builds safehouses, Toad Town rebuilding",
+    "wallet_type": "Tradesman field wallet — rebuilding bonds + practical coin",
     "currencies": {
       "toad_bond": 110,
       "relief_stamp": 420,
