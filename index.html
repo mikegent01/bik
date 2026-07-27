@@ -3781,13 +3781,13 @@ const XP_EVENT_AWARDS = {
       "date": "Mid-10XX BF"
     }
   ],
-  "the_imp_ambush_of_harvestide_29": [
+    "the_imp_ambush_of_harvestide_29": [
     {
       "xpKey": "markop",
       "articleId": "markop",
       "name": "Markop",
       "cat": "combat",
-      "xp": 1000,
+      "xp": 400,
       "title": "Imp Ambush — Right-Hand Man Sliced",
       "date": "29 Harvestide, 1040 BF"
     },
@@ -3796,7 +3796,7 @@ const XP_EVENT_AWARDS = {
       "articleId": "markop",
       "name": "Markop",
       "cat": "social",
-      "xp": 500,
+      "xp": 200,
       "title": "Imp Ambush — Tactical Diplomacy Attempt",
       "date": "29 Harvestide, 1040 BF"
     },
@@ -3805,7 +3805,7 @@ const XP_EVENT_AWARDS = {
       "articleId": "remi_akamatsu_full_backstory",
       "name": "Remi Akamatsu",
       "cat": "combat",
-      "xp": 800,
+      "xp": 350,
       "title": "Imp Ambush — Crossbow Defense",
       "date": "29 Harvestide, 1040 BF"
     },
@@ -3814,7 +3814,7 @@ const XP_EVENT_AWARDS = {
       "articleId": "remi_akamatsu_full_backstory",
       "name": "Remi Akamatsu",
       "cat": "survival",
-      "xp": 1000,
+      "xp": 450,
       "title": "Imp Ambush — Poison Soak Endurance",
       "date": "29 Harvestide, 1040 BF"
     },
@@ -3823,7 +3823,7 @@ const XP_EVENT_AWARDS = {
       "articleId": "dan_the_toad",
       "name": "Feyward Dan",
       "cat": "technique",
-      "xp": 900,
+      "xp": 350,
       "title": "Imp Ambush — Sensory Eye Awakening",
       "date": "29 Harvestide, 1040 BF"
     },
@@ -3832,7 +3832,7 @@ const XP_EVENT_AWARDS = {
       "articleId": "dan_the_toad",
       "name": "Feyward Dan",
       "cat": "social",
-      "xp": 400,
+      "xp": 150,
       "title": "Imp Ambush — Calling Out Hostility",
       "date": "29 Harvestide, 1040 BF"
     },
@@ -3841,7 +3841,7 @@ const XP_EVENT_AWARDS = {
       "articleId": "eager",
       "name": "Eager",
       "cat": "combat",
-      "xp": 800,
+      "xp": 300,
       "title": "Imp Ambush — Red Speed-Line Slash",
       "date": "29 Harvestide, 1040 BF"
     },
@@ -3850,7 +3850,7 @@ const XP_EVENT_AWARDS = {
       "articleId": "salam",
       "name": "Salam",
       "cat": "combat",
-      "xp": 600,
+      "xp": 200,
       "title": "Imp Ambush — Backstab Landing",
       "date": "29 Harvestide, 1040 BF"
     },
@@ -3859,7 +3859,7 @@ const XP_EVENT_AWARDS = {
       "articleId": "tymnas",
       "name": "Tymnas",
       "cat": "technique",
-      "xp": 700,
+      "xp": 300,
       "title": "Imp Ambush — Snare Trap Deployment",
       "date": "29 Harvestide, 1040 BF"
     },
@@ -3868,7 +3868,7 @@ const XP_EVENT_AWARDS = {
       "articleId": "tymnas",
       "name": "Tymnas",
       "cat": "combat",
-      "xp": 500,
+      "xp": 200,
       "title": "Imp Ambush — Short Sword Skirmish",
       "date": "29 Harvestide, 1040 BF"
     },
@@ -3877,7 +3877,7 @@ const XP_EVENT_AWARDS = {
       "articleId": "rattles",
       "name": "Rattles",
       "cat": "survival",
-      "xp": 600,
+      "xp": 250,
       "title": "Imp Ambush — Window Flank Defense",
       "date": "29 Harvestide, 1040 BF"
     }
@@ -8855,6 +8855,45 @@ function view_calendar(){
       </div>
       ${calSelector}
       ${tabBar}
+    </div>
+    <!-- 🕰️ Active Campaign Timelines Card -->
+    <div class="card mt-12" style="border-left: 5px solid var(--accent2); background: rgba(255,215,0,0.03);">
+      <div class="section-title" style="margin-top:0">🕰️ Active Campaign Timelines & Team Positions</div>
+      <p class="text-muted" style="font-size:12.5px; margin-bottom:12px;">
+        The party is currently fractured across three distinct dimensional timelines. The calendar renders relative absolute days, but the temporal flow is localized.
+      </p>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:12px;">
+        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:12px;">
+          <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+            <span style="font-size:18px">🌍</span>
+            <b style="color:#5a9af0; font-size:14px">Real-World Team</b>
+          </div>
+          <div style="font-size:13px; font-weight:bold; margin-bottom:4px;">Date: Aethel 9, 1040 BF</div>
+          <div style="font-size:11.5px; color:var(--muted); line-height:1.4">
+            Active in the Prime Material realm. Operating with standard imperial clockwork and seasonal progressions.
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:12px;">
+          <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+            <span style="font-size:18px">🌱</span>
+            <b style="color:#45d99a; font-size:14px">Feyward Team</b>
+          </div>
+          <div style="font-size:13px; font-weight:bold; margin-bottom:4px;">Date: Year 995 BF (Fey-Shifted)</div>
+          <div style="font-size:11.5px; color:var(--muted); line-height:1.4">
+            Navigating the unstable, ancient magic of the Feywild. Time here flows sluggishly and has diverged back to 995 BF.
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; padding:12px;">
+          <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;">
+            <span style="font-size:18px">🌑</span>
+            <b style="color:#a67af0; font-size:14px">Shadeward Team</b>
+          </div>
+          <div style="font-size:13px; font-weight:bold; margin-bottom:4px;">Date: 29 Harvestide, 1040 BF</div>
+          <div style="font-size:11.5px; color:var(--muted); line-height:1.4">
+            Trapped in the entropic decay of the Shadow Estate. Currently defending Tymnas's cottage under active imp siege!
+          </div>
+        </div>
+      </div>
     </div>
     ${mainContent}
     ${localSection}
