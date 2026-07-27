@@ -99,7 +99,7 @@
         "approvedBy": "Wario",
         "playerKey": "hjumpik"
     },
-        {
+    {
         "orderId": "WW-1D1U1GWJ-06",
         "itemId": "a_token_of_bureaucratic_chaos",
         "itemName": "Gehenna Academy Keychain",
@@ -109,7 +109,7 @@
         "approvedBy": "Wario",
         "playerKey": "hjumpik"
     },
-            {
+    {
         "orderId": "WW-1D1U1GWJ-07",
         "itemId": "leclaire_isle_bakery_blessing",
         "itemName": "Doughbound Blessing",
@@ -119,7 +119,7 @@
         "approvedBy": "Wario",
         "playerKey": "hjumpik"
     },
-            {
+    {
         "orderId": "WW-1D1U1GWJ-08",
         "itemId": "isle_delfino_tropical_tonic",
         "itemName": "Tropical Tonic of the Shine Sprite",
@@ -128,8 +128,8 @@
         "approvedAt": "2026-03-021:55:00.000Z",
         "approvedBy": "Wario",
         "playerKey": "hjumpik"
-    },    
-            {
+    },
+    {
         "orderId": "WW-1D1U1GWJ-09",
         "itemId": "rogueport_black_market_tape",
         "itemName": "Black Market Tape",
@@ -138,8 +138,8 @@
         "approvedAt": "2026-03-021:55:00.000Z",
         "approvedBy": "Wario",
         "playerKey": "hjumpik"
-    },    
-            {
+    },
+    {
         "orderId": "WW-1D1U1GWJ-10",
         "itemId": "dk_isles_fungal_essence",
         "itemName": "Fungal Essence",
@@ -148,5 +148,45 @@
         "approvedAt": "2026-03-021:55:00.000Z",
         "approvedBy": "Wario",
         "playerKey": "hjumpik"
-    }   
+    },
+    {
+        "orderId": "WW-E31C621D-01",
+        "itemId": "faction_extra_rations",
+        "itemName": "Emergency Rations",
+        "price": 39,
+        "isFaction": true,
+        "approvedAt": "2026-07-26T04:55:43.769Z",
+        "approvedBy": "DM",
+        "playerKey": "archie"
+    },
+    {
+        "orderId": "WW-E31C621D-02",
+        "itemId": "faction_training_dummies",
+        "itemName": "Training Dummies",
+        "price": 40,
+        "isFaction": true,
+        "approvedAt": "2026-07-26T04:55:43.769Z",
+        "approvedBy": "DM",
+        "playerKey": "archie"
+    },
+    {
+        "orderId": "WW-E31C621D-03",
+        "itemId": "weights_treadmills_and_protein_shakes",
+        "itemName": "The 'Iron Toad' Gym",
+        "price": 97,
+        "isFaction": true,
+        "approvedAt": "2026-07-26T04:55:43.769Z",
+        "approvedBy": "DM",
+        "playerKey": "archie"
+    },
+    {
+        "orderId": "WW-E31C621D-04",
+        "itemId": "faction_medical_supplies",
+        "itemName": "Medical Supply Cache",
+        "price": 189,
+        "isFaction": true,
+        "approvedAt": "2026-07-26T04:55:43.769Z",
+        "approvedBy": "DM",
+        "playerKey": "archie"
+    }
 ]
