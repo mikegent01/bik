@@ -977,10 +977,22 @@ function ensureLedger() {
     .catch(() => { LEDGER = []; ledgerLoading = false; if (S.view === 'orders' || S.view === 'wahprime') render(); renderHeader(); });
 }
 
-/** Ledger orders owned by the signed-in account (matched on wallet ids). */
+/** Ledger orders owned by the signed-in account (matched on wallet ids).
+    Ledger rows are historical data and have not always used the exact same
+    casing/alias as the wallet file.  Normalize both sides here so newer
+    receipts cannot silently disappear from Orders. */
 function ledgerOrdersFor(acc = currentAccount()) {
-  const owned = new Set(acc?.ids || []);
-  return (LEDGER || []).filter(o => owned.has(String(o.playerKey || '')));
+  if (!acc) return [];
+  const normalize = value => String(value ?? '').trim().toLowerCase();
+  const owned = new Set((acc.ids || []).map(normalize));
+  // Include the account's canonical id as well as merged wallet aliases.
+  if (acc.id) owned.add(normalize(acc.id));
+  const accountName = normalize(acc.name).replace(/[^a-z0-9]/g, '');
+  return (Array.isArray(LEDGER) ? LEDGER : []).filter(o => {
+    const key = normalize(o?.playerKey);
+    if (!key) return false;
+    return owned.has(key) || (accountName && key === accountName);
+  });
 }
 
 function getReceipts() {
