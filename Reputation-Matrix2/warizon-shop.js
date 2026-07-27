@@ -486,6 +486,21 @@ function loadCustomWallets() {
   try { return JSON.parse(localStorage.getItem(CUSTOM_WALLETS_KEY) || '{}'); } catch (_) { return {}; }
 }
 
+let WALLETS_DATA = null;
+function loadWalletsFromServer(callback) {
+  fetch('./wallets.json?t=' + Date.now(), { cache: 'no-cache' })
+    .then(r => r.ok ? r.json() : {})
+    .then(json => {
+      WALLETS_DATA = { ...(WALLETS || {}), ...json };
+      ACCOUNTS = buildAccounts();
+      if (callback) callback();
+    })
+    .catch(() => {
+      WALLETS_DATA = WALLETS || {};
+      if (callback) callback();
+    });
+}
+
 function buildAccounts() {
   const byName = new Map();
   const absorb = (id, wallet, custom) => {
@@ -499,7 +514,8 @@ function buildAccounts() {
       acc.currencies[cid] = (acc.currencies[cid] || 0) + Number(amt || 0);
     });
   };
-  Object.entries(WALLETS || {}).forEach(([id, w]) => absorb(id, w, false));
+  const source = WALLETS_DATA || WALLETS || {};
+  Object.entries(source).forEach(([id, w]) => absorb(id, w, false));
   Object.entries(loadCustomWallets()).forEach(([id, w]) => absorb(id, w, true));
 
   const preferred = ['archie', 'waluigi', 'wario', 'bowser', 'markop', 'remi', 'hjumpik', 'green_t', 'dan'];
@@ -3308,16 +3324,18 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* --- LOGIN GATE: session required --- */
-  if (getSession()) {
-    gate.hidden = true;
-    store.hidden = false;
-    applyDeepLink();
-    render();
-    ensureDeptMeta();
-    ensureEffectCatalog();
-  } else {
-    store.hidden = true;       // storefront stays locked until sign-in
-    gate.hidden = false;
-    renderGate();
-  }
+  loadWalletsFromServer(() => {
+    if (getSession()) {
+      gate.hidden = true;
+      store.hidden = false;
+      applyDeepLink();
+      render();
+      ensureDeptMeta();
+      ensureEffectCatalog();
+    } else {
+      store.hidden = true;       // storefront stays locked until sign-in
+      gate.hidden = false;
+      renderGate();
+    }
+  });
 });

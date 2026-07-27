@@ -90,7 +90,7 @@ function ensureSelectedCurrency() {
 
 async function loadWallets() {
   try {
-    const response = await fetch('./wallets.json', { cache: 'no-cache' });
+    const response = await fetch('./wallets.json?t=' + Date.now(), { cache: 'no-cache' });
     if (response.ok) {
       const json = await response.json();
       wallets = { ...(WALLETS || {}), ...json };
