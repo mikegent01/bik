@@ -5536,7 +5536,7 @@ function view_home(){
      <div class="card">
        <div class="home-section-head"><div><h2>🎭 Waluigi's Front Page Desk</h2><p>Objective Intelligence Bureau — Live Audit Logs, 48 Currency Ledgers & Active Heat Tracking</p></div></div>
        <div class="wnote mb-12" style="background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.08));border-left:4px solid var(--accent)">
-         <b>WAH! Editorial Directive (1040 BF):</b> "Midnight Audit processed. 48 currencies converted in bank ledgers. Wario's 7,880+ warehouse items cataloged. Archie Miser retains maximum heat (78). Stop hiding enemy soldiers in closets!"
+         <b>WAH! Editorial Directive (1040 BF):</b> "Imp Ambush of Harvestide 29 processed! Archie Miser settled 383g with the DM for a heap of warehouse rations and training dummies. Markop the centaur's hooves are clacking in Tymnas's cozy cottage, Remi Akamatsu got drenched in toxic bathroom poison, and Dan opened a creepy sensory eye. Clean up this swamp! WAH!"
        </div>
        <div class="home-feature-grid">
          ${fi?`<div class="feature-panel" onclick="openId('${(fi.id||'').replace(/'/g,'')}')"><div class="kicker">${esc((mp.featuredArticle&&mp.featuredArticle.label)||'Featured File')}</div><h2>${displayName(fi)}${annotationBadge(fi.id)}</h2>${fi.title?`<div class="art-subtitle mb-8">${fi.title}</div>`:''}<p class="text-muted">${feat.excerpt||fi.summary||''}</p><div class="home-actions"><span class="home-action">Inspect Featured File →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP Hotline</a></div></div>`:''}
