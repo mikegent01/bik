@@ -915,7 +915,8 @@ function ensureAbilities() {
   });
 }
 
-const TRAINING_TARGET_FACTIONS = new Set(['disaster_inc', 'disaster_inc_allies']);
+const TRAINING_TARGET_FACTIONS = new Set(['liberated_toads']);
+const TRAINING_EXCLUDED_KEYS = new Set(['waluigi', 'mole']);
 const AB_STATE = { q: '', type: '', cls: '', onlyUnlock: false, shown: 60, target: '' };
 
 function apCostFor(level) {
@@ -936,7 +937,7 @@ function apPlayerFor(acc = currentAccount()) {
 function trainableApRoster() {
   const players = AB?.points?.players || {};
   return Object.entries(players)
-    .filter(([, p]) => TRAINING_TARGET_FACTIONS.has(p.faction))
+    .filter(([key, p]) => TRAINING_TARGET_FACTIONS.has(p.faction) && !TRAINING_EXCLUDED_KEYS.has(String(key).toLowerCase()) && !/waluigi|mole/i.test(p.name || ''))
     .map(([key, p]) => ({ key, ...p, apAvailable: Math.max(0, Number(p.apAvailable || 0)) }))
     // Preserve the ordering curated in xp.html; this field is emitted by the
     // AP generator specifically so the shop never creates a competing roster.
@@ -958,7 +959,12 @@ function saveApReceipts(list) {
   const s = getSession(); if (!s) return;
   localStorage.setItem(AP_RECEIPTS_KEY(s.id), JSON.stringify(list));
 }
-function apReservedFor(targetKey = '') { return getApReceipts().filter(r => !targetKey || (r.targetKey || r.playerKey) === targetKey).reduce((n, r) => n + Number(r.apCost || 0), 0); }
+function apReservedFor(targetKey = '') {
+  const receipts = getApReceipts();
+  if (!targetKey) return receipts.reduce((n, r) => n + Number(r.apCost || 0), 0);
+  const shared = trainableApRoster().some(p => p.key === targetKey);
+  return receipts.filter(r => shared || (r.targetKey || r.playerKey) === targetKey).reduce((n, r) => n + Number(r.apCost || 0), 0);
+}
 function apReserved() { return apReservedFor(); }
 
 /* --------------------------------------------------------------------------
@@ -1768,7 +1774,7 @@ function renderAbilities() {
     meta: `Level ${p.level} · ${Math.max(0, Number(p.apAvailable || 0) - apReservedFor(p.key))} AP`
   }));
   const requesterText = requester
-    ? `${esc(requester.name)} · ${requester.eligibleTarget ? 'verified Disaster Inc. roster entry' : 'requester only (not an eligible target)'}`
+    ? `${esc(requester.name)} · ${requester.eligibleTarget ? 'verified Liberated Toad docket entry' : 'requester only (not an eligible target)'}`
     : `${esc(acc?.name || 'This account')} · no personal AP ledger`;
 
   const apPanel = target
@@ -1809,7 +1815,7 @@ function renderAbilities() {
     <div class="results-bar ab-hero" style="align-items:flex-start;gap:14px;flex-wrap:wrap">
       <div style="flex:1;min-width:280px">
         <h1 class="page-title" style="margin:0">⚡ Training Wing — Party Upgrade Desk</h1>
-        <div style="color:var(--wz-muted);font-size:13px;margin-top:4px">Targets come only from the XP roster's <b>Disaster Inc. — Core</b> and <b>Allies &amp; Attachés</b> groups, in that roster's curated order. Unaffiliated, hostile, and merely nearby characters cannot be selected. Every request generates a DM receipt and never edits a sheet automatically.</div>
+        <div style="color:var(--wz-muted);font-size:13px;margin-top:4px">Targets come only from the XP roster's <b>Disaster Inc. — Core</b> docket, in that roster's curated order. Unaffiliated, hostile, and merely nearby characters cannot be selected. Every request generates a DM receipt and never edits a sheet automatically.</div>
       </div>
       ${apPanel}
     </div>
@@ -2809,7 +2815,7 @@ function openAbilityUnlock(abilityId) {
         status: 'PENDING_DM_APPROVAL',
         targetFaction: target.faction,
         targetRosterOrder: target.rosterOrder,
-        rule: 'Target verified against the XP roster: Disaster Inc. core members and Allies & Attachés only.'
+        rule: 'Target verified against the XP roster: Disaster Inc. core docket only; training follows docket law.'
       };
       const list = getApReceipts();
       list.push(receipt);
