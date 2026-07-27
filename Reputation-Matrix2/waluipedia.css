@@ -334,6 +334,8 @@ a.xlink.datelink:hover{background:rgba(224,180,0,.15)}
 #linkPreview .lp-fact{font-size:10.5px;color:var(--muted);background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:2px 6px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 #linkPreview .lp-fact.xp{color:var(--accent2);border-color:rgba(224,180,0,.45)}
 #linkPreview .lp-inb{color:var(--muted);font-size:10px;white-space:nowrap}
+#linkPreview .lp-mute{margin-top:5px;padding-top:5px;border-top:1px dashed var(--border);font-size:9.5px;color:var(--muted);opacity:.75}
+#linkPreview .lp-mute b{color:var(--accent2)}
 /* ---- Link HUD (Feature 3) ---- */
 #linkHud{position:fixed;right:16px;bottom:16px;z-index:190;background:var(--panel2);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:9px 11px;font-size:12px;min-width:158px;backdrop-filter:blur(6px)}
 #linkHud .lh-row{display:flex;align-items:center;gap:8px}

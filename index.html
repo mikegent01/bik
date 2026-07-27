@@ -4286,6 +4286,8 @@ let LINK_CONTEXT=new Set();
 let LINK_GRAPH_OUT=new Set();       // ids linked FROM the article currently rendering
 let LINK_WANTED={};                 // id -> {count, from:Set} — referenced but has no page
 let LINK_LAST_STATS={total:0,unique:0,scope:''};
+let LINK_SUPPRESSED=[];             // [{alias,id,why}] weak matches refused on this render
+let HOVER_LINK_ID=null;             // entity under the cursor (for the M = mute shortcut)
 const PREF_DEFAULTS={linkLevel:'normal',comments:true,linkHud:true};
 let PREFS=loadReaderPrefs();
 function loadReaderPrefs(){
@@ -4320,6 +4322,24 @@ function setComments(on){
   prefToast(PREFS.comments?'Comments on':'Comments off');
 }
 function cycleLinkLevel(){const order=['light','normal','aggressive'];setLinkLevel(order[(order.indexOf(normLinkLevel(PREFS.linkLevel))+1)%order.length]);}
+/* ===== Reader-side link muting =====
+   Escape hatch for any auto-link that is wrong or simply noisy on a given reading:
+   mute the entity and it stops being auto-linked site-wide (manual links still work).
+   Stored in prefs, so no code change is needed to correct a bad match. */
+function mutedLinks(){ return Array.isArray(PREFS.mutedLinks)?PREFS.mutedLinks:[]; }
+function isLinkMuted(id){ return mutedLinks().indexOf(id)>=0; }
+function muteLink(id){
+  if(!id||isLinkMuted(id)) return;
+  PREFS.mutedLinks=mutedLinks().concat([id]); saveReaderPrefs();
+  const nm=(LINK_PREVIEW[id]&&LINK_PREVIEW[id].name)||prettyId(id);
+  prefToast('Muted auto-links to '+nm); Router.render();
+}
+function unmuteLink(id){
+  PREFS.mutedLinks=mutedLinks().filter(x=>x!==id); saveReaderPrefs();
+  const nm=(LINK_PREVIEW[id]&&LINK_PREVIEW[id].name)||prettyId(id);
+  prefToast('Unmuted '+nm); Router.render();
+}
+function unmuteAllLinks(){ PREFS.mutedLinks=[]; saveReaderPrefs(); prefToast('All links unmuted'); Router.render(); }
 function toggleLinkHud(){
   PREFS.linkHud=!PREFS.linkHud;saveReaderPrefs();renderLinkHud();
   prefToast(PREFS.linkHud?'Link HUD shown':'Link HUD hidden');
@@ -4900,6 +4920,22 @@ function articleControlPanel(articleId){
       <div class="ctrl-pills">
         <button class="setting-pill ${PREFS.linkHud?'active':''}" onclick="toggleLinkHud()">${PREFS.linkHud?'Hide HUD':'Show HUD'}</button>
       </div><div class="ctrl-help">The floating HUD shows the live link count and switches density without opening this panel.</div></div>
+    ${(()=>{
+      const mu=mutedLinks();
+      const sup=LINK_SUPPRESSED.length;
+      if(!mu.length && !sup) return '';
+      let h='<div class="ctrl-row"><div class="ctrl-label"><span>Auto-link exceptions</span>'+
+            `<span class="ctrl-count">${mu.length} muted${sup?` · ${sup} auto-skipped`:''}</span></div>`;
+      if(mu.length){
+        h+='<div class="ctrl-pills">'+mu.map(id=>{
+          const nm=(LINK_PREVIEW[id]&&LINK_PREVIEW[id].name)||prettyId(id);
+          return `<button class="setting-pill off active" title="Click to unmute" onclick="unmuteLink('${esc(id)}')">${esc(nm)} ✕</button>`;
+        }).join('')+'</div>';
+        h+=`<div class="ctrl-actions"><button class="ctrl-mini" onclick="unmuteAllLinks()">Unmute all</button></div>`;
+      }
+      h+=`<div class="ctrl-help">${sup?`${sup} weak match${sup===1?'':'es'} were skipped automatically on this page (forms of address like “called him <i>Boss</i>”, or words that double as ordinary English). `:''}Hover any link and press <b>M</b> to stop auto-linking that entity.</div></div>`;
+      return h;
+    })()}
     <div class="ctrl-row"><div class="ctrl-label"><span>Margin comments</span><span class="ctrl-count">${anns.length} notes · ${cnum} replies</span></div>
       <div class="ctrl-pills">
         <button class="setting-pill warn ${PREFS.comments?'active':''}" onclick="setComments(true)">Comments On</button>
@@ -4947,7 +4983,14 @@ function kindEmoji(kind,typeKey){
    These helpers generate the short forms an actual writer types, while keeping
    a strict guard so we never claim a common English word. */
 const NAME_PARTICLES=new Set(['de','del','della','van','von','der','di','da','du','la','le','of','the','ibn','bin','mac','mc','al']);
-const GENERIC_FIRST=new Set(['the','a','an','and','of','captain','general','king','queen','lord','lady','prince','princess','chief','master','elder','judge','doctor','professor','commander','admiral','chancellor','sir','dame','emperor','archmage','patriarch','high','great','old','young','big','little','new','first','last','one','two','three','dark','light','iron','shadow','star','red','blue','green','black','white','golden','silver']);
+/* ---- Honorifics / rank words ----
+   ONE shared list, used both to strip a leading title off a name and to refuse that
+   title as a standalone alias. Previously these were two separate hard-coded lists that
+   had drifted apart, which is how "Boss Knuckles" ended up claiming the bare word
+   "Boss" and hyperlinking it inside «addressed Koffin-K as 'Boss'». */
+const TITLE_WORDS=['princess','prince','king','queen','emperor','empress','general','captain','commander','admiral','marshal','colonel','major','sergeant','corporal','lieutenant','chancellor','chief','boss','lord','lady','sir','dame','baron','baroness','count','countess','duke','duchess','earl','viscount','doctor','professor','master','mistress','elder','judge','justice','archmage','magus','mage','wizard','witch','sage','seer','oracle','prophet','priest','priestess','bishop','cardinal','abbot','deacon','friar','monk','nun','patriarch','matriarch','speaker','warden','scribe','auditor','forgemaster','shadowmaster','beastmaster','harbormaster','quartermaster','loremaster','taskmaster','legionary','legate','centurion','praetor','consul','tribune','regent','steward','curator','keeper','herald','envoy','emissary','ambassador','governor','mayor','sheriff','constable','inspector','detective','agent','operative','officer','ranger','hunter','knight','squire','page','apprentice','journeyman','foreman','overseer','supervisor','director','president','premier','minister','secretary','treasurer','archivist','librarian','engineer','architect','surgeon','medic','nurse','pilot','navigator','gunner','smith','miller','baker','cook','brewer','tailor','mason','carpenter','miner','farmer','shepherd','sailor','soldier','guard','sentry','scout','spy'];
+const TITLE_RE=new RegExp('^(?:'+TITLE_WORDS.join('|')+')\\s+','i');
+const GENERIC_FIRST=new Set(TITLE_WORDS.concat(['the','a','an','and','of','high','great','old','young','big','little','new','first','last','one','two','three','dark','light','iron','shadow','star','red','blue','green','black','white','golden','silver','grand','royal','imperial','holy','sacred','ancient','elder','lesser','greater','upper','lower','inner','outer','north','south','east','west','saint','st','mother','father','brother','sister','uncle','aunt','cousin','granny','grandma','grandpa','baby','kid','boy','girl','man','woman','mister','mr','mrs','ms','miss']));
 /* Words that are far too common in prose to ever become a link on their own.
    Without this guard the bearer "Self Reflection" claims the alias "Self" and then
    hyperlinks the word inside "Self-defense", which is exactly the kind of nonsense
@@ -4969,8 +5012,68 @@ function aliasIsSafe(a,kind){
   const multiword=/\s/.test(a);
   if(!multiword){
     if(low.length<4 && !SHORT_ALLOWED.has(low)) return false;
-    if(GENERIC_FIRST.has(low)) return false;
+    if(GENERIC_FIRST.has(low)) return false;   // includes every honorific/rank word
   }
+  return true;
+}
+/* ===== Address-form suppression =====
+   Even a legitimate alias must not link when the prose is using the word as a form of
+   address rather than as a name: «addressed Koffin-K as 'Boss'», «called him "Chief"»,
+   «yes, sir». Detected from the immediate left context of the match. */
+const ADDRESS_LEAD=/(?:\b(?:as|called|calls|called him|called her|named|dubbed|titled|nicknamed|addressed(?:\s+\w+)?\s+as|refers?\s+to\s+\w+\s+as|known\s+as|goes\s+by|answers?\s+to)\s*)$/i;
+function isAddressUse(before,matched){
+  // Only single bare words can be a form of address ("Boss", "Chief"), not full names.
+  if(/\s/.test(matched)) return false;
+  const tail=before.slice(-72);
+  // Quoted immediately before the word: as 'Boss' / as "Boss" / as &#39;Boss&#39;
+  const quoted=/(?:['"“”‘’]|&#39;|&quot;)\s*$/.test(tail);
+  if(quoted && ADDRESS_LEAD.test(tail.replace(/(?:['"“”‘’]|&#39;|&quot;)\s*$/,''))) return true;
+  if(ADDRESS_LEAD.test(tail)) return true;
+  return false;
+}
+/* ---- Homograph detection, learned from the corpus ----
+   A derived one-word alias is "ambiguous" if the SAME word also appears lower-case in the
+   prose, which proves the archive uses it as an ordinary noun too ("wing", "core", "times",
+   "root"). Those are only linked mid-sentence, where a capital letter really signals a name.
+   Words that never appear lower-case (Peach, Daisy, Rowan, Azure…) are trusted everywhere.
+   Learning this from the data beats hand-maintaining a blocklist that will drift. */
+let WEAK_HOMOGRAPHS=new Set();
+function buildHomographs(){
+  WEAK_HOMOGRAPHS=new Set();
+  // Candidate words = every derived single-word alias in the registry.
+  const cands=new Set();
+  LINK_ENTRIES.forEach(e=>{ if(e.weak && e.alias && !/\s/.test(e.alias)) cands.add(e.alias.toLowerCase()); });
+  if(!cands.size) return;
+  const bodies=[];
+  try{
+    TYPES.forEach(t=>(DATA[t.key]||[]).forEach(it=>{ if(it&&it.description) bodies.push(it.description); }));
+  }catch(e){}
+  // Strip markdown link TARGETS and inline code first: "[Archie Miser](archie_miser)" must not
+  // count as lower-case prose usage of "archie" — that's an id, not an English word.
+  const corpus=bodies.join('\n')
+    .replace(/\]\([^)]*\)/g,'](')       // drop (target) of every markdown link
+    .replace(/`[^`]*`/g,' ')            // drop inline code
+    .replace(/\b[a-z0-9]+_[a-z0-9_]+\b/g,' ')  // drop snake_case identifiers
+    .replace(/https?:\/\/\S+/g,' ');    // drop URLs
+  cands.forEach(w=>{
+    // Look for the word spelled entirely lower-case as a standalone token.
+    const re=new RegExp('(?<![A-Za-z])'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![A-Za-z])','g');
+    if(re.test(corpus)) WEAK_HOMOGRAPHS.add(w);
+  });
+  // A handful of rank/relationship words are ambiguous even if the corpus never lower-cases them.
+  ['boss','chief','elder','sage','master','warden','judge','justice','agent','operative'].forEach(w=>{ if(cands.has(w)) WEAK_HOMOGRAPHS.add(w); });
+}
+/* A derived one-word alias is only trustworthy when the prose capitalises it the same way
+   the record does. Additionally, if the word doubles as ordinary English, refuse it at a
+   sentence start where every word is capitalised anyway. Real names like "Remi" are NOT
+   homographs, so they keep linking at the start of a sentence. */
+function weakMatchAllowed(before,matched,alias){
+  const bare=matched.replace(/['’]s$/,'');
+  if(bare!==alias) return false;                       // case must match exactly
+  if(!WEAK_HOMOGRAPHS.has(alias.toLowerCase())) return true;
+  const tail=before.replace(/<[^>]*>/g,'').slice(-40);
+  // Sentence-initial (start of text, or after . ! ? : ; — or a paragraph break)?
+  if(/(?:^|[.!?:;]|[—–]|\n)\s*(?:["'“”‘’]|&#39;|&quot;)?\s*$/.test(tail)) return false;
   return true;
 }
 /* "Archie Archbold Miser" -> "Archie", "Archie Miser".  "Remi Akamatsu" -> "Remi".
@@ -4999,7 +5102,11 @@ function personAliases(n,kind,typeKey){
   const out=new Set();
   const PEOPLEISH=(typeKey==='characters')||['bearer','member','dynasty'].includes(kind);
   if(!PEOPLEISH) return out;
-  const parts=n.split(/\s+/).filter(Boolean);
+  // Drop leading honorifics before doing anything else, so "Boss Knuckles" is treated
+  // as the person "Knuckles" and never offers "Boss" as a first name.
+  let work=n.replace(/^the\s+/i,'');
+  while(TITLE_RE.test(work)) work=work.replace(TITLE_RE,'').trim();
+  const parts=work.split(/\s+/).filter(Boolean);
   if(parts.length<2 || parts.length>4) return out;
   if(parts.some(p=>/[(),:—–"']/.test(p))) return out;     // avoid odd titles
   const first=parts[0], last=parts[parts.length-1];
@@ -5034,9 +5141,13 @@ function safeAliases(name,kind,rawObj,typeKey){
   // "The Iron Legion" -> also "Iron Legion" (drop a leading article; keep it specific)
   if(/^the\s+/i.test(n)){ const dropped=n.replace(/^the\s+/i,''); if(dropped.length>=4) out.add(dropped); }
   // Title-prefix aliases: strip a leading honorific to expose the person's name (people only).
-  const TITLES=/^(princess|prince|king|queen|general|captain|commander|admiral|chancellor|chief|lord|lady|sir|dame|doctor|professor|master|elder|judge|emperor|archmage|patriarch|speaker|warden|scribe|auditor)\s+/i;
+  // "Boss Knuckles" -> "Knuckles";  "Forgemaster Ironspore" -> "Ironspore".
+  const TITLES=TITLE_RE;
   if(kind==='article' || kind==='bearer' || kind==='member'){
-    if(TITLES.test(n)){ const bare=n.replace(TITLES,'').trim(); if(bare.length>=4) out.add(bare); }
+    let bare=n.replace(/^the\s+/i,'');
+    while(TITLE_RE.test(bare)) bare=bare.replace(TITLE_RE,'').trim();   // "Lord High Admiral X" -> "X"
+    bare=bare.replace(/\s+the\s+\w+$/i,'').trim();                      // "Sage Morel the Learned" -> "Morel"
+    if(bare && bare!==n && bare.length>=4) out.add(bare);
   }
   // strip trailing " — Full Record" / " (Suspected)" style suffixes -> shorter canonical name
   const trimmed=n.replace(/\s*[—–(].*$/,'').trim();
@@ -5235,8 +5346,13 @@ function buildLinkRegistry(){
   entries.forEach(e=>{
     // Possessives: "Markop's bags" / "Markop’s bags" should link the name, not swallow the 's.
     const pat='\\b'+e.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+"(?:['’]s)?\\b";
-    try{ LINK_ENTRIES.push({re:new RegExp(pat), id:e.id, route:routeForKind(e.kind,e.id), key:e.key, kind:e.kind}); }catch(_){}
+    // "weak" = a single-word alias we DERIVED rather than the entity's actual full name.
+    // These are the ones that can collide with ordinary prose, so they get extra checks.
+    const canonical=(LINK_PREVIEW[e.id]&&LINK_PREVIEW[e.id].name||'').trim().toLowerCase();
+    const weak=!/\s/.test(e.name) && e.name.trim().toLowerCase()!==canonical;
+    try{ LINK_ENTRIES.push({re:new RegExp(pat), id:e.id, route:routeForKind(e.kind,e.id), key:e.key, kind:e.kind, weak, alias:e.name}); }catch(_){}
   });
+  buildHomographs();
   buildWantedPages();
 }
 
@@ -5257,7 +5373,7 @@ function resolveAmbiguous(key,defaultId){
 /* Called before an article renders its prose: establishes disambiguation context and
    resets the per-page link counters/graph. */
 function beginLinkPass(item){
-  LINK_ONCE=new Set(); LINK_TOTAL_COUNT=0; LINK_GRAPH_OUT=new Set();
+  LINK_ONCE=new Set(); LINK_TOTAL_COUNT=0; LINK_GRAPH_OUT=new Set(); LINK_SUPPRESSED=[];
   setLinkContext(item);
 }
 /* Snapshot the live counters. Called by the rail (which renders after the prose in the
@@ -5407,6 +5523,19 @@ function linkify(escapedHtml, currentId){
           // Feature 2: an ambiguous alias resolves against the current article's cast.
           const targetId=ent.key?resolveAmbiguous(ent.key,ent.id):ent.id;
           if(targetId===currentId){ continue; }   // resolved onto ourselves — leave as plain text
+          // Derived one-word aliases ("Boss", "Root", "Meta") are the collision-prone ones.
+          // Skip forms of address («addressed Koffin-K as 'Boss'») and require exact
+          // capitalisation away from sentence starts before trusting them.
+          if(ent.weak){
+            const before=piece.slice(0,mm.index);
+            const why=isAddressUse(before, mm[0]) ? 'form of address'
+                    : (!weakMatchAllowed(before, mm[0], ent.alias) ? 'ambiguous word' : null);
+            if(why){
+              if(LINK_SUPPRESSED.length<40) LINK_SUPPRESSED.push({alias:ent.alias,id:targetId,why});
+              continue;
+            }
+          }
+          if(isLinkMuted(targetId)) continue;   // reader muted this entity
           const pv=LINK_PREVIEW[targetId]; const route=pv?pv.route:ent.route;
           out+=piece.slice(last,mm.index);
           out+='\u0001<a class="xlink" data-id="'+esc(targetId)+'" href="'+route+'">'+mm[0]+'</a>\u0001';
@@ -11429,7 +11558,7 @@ const Router={
     const route=m[1],arg=decodeURIComponent(m[2]||'');
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
     LINK_TOTAL_COUNT=0;    // fresh per page view for the density cap
-    LINK_GRAPH_OUT=new Set(); LINK_CONTEXT=new Set(); LINK_LAST_STATS={total:0,unique:0,scope:''};
+    LINK_GRAPH_OUT=new Set(); LINK_CONTEXT=new Set(); LINK_LAST_STATS={total:0,unique:0,scope:''}; LINK_SUPPRESSED=[];
     document.body.classList.remove('hide-walu-ambient');
     if(route==='home')view_home();
     else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='collections')view_collection(); else view_list(arg); }
@@ -11496,6 +11625,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
   else if(e.key==='t'&&!typing)setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
   else if(e.key==='r'&&!typing)Nav.random();
   else if(e.key.toLowerCase()==='h'&&!typing)cycleLinkLevel();
+  else if(e.key.toLowerCase()==='m'&&!typing&&HOVER_LINK_ID){ e.preventDefault(); muteLink(HOVER_LINK_ID); }
   else if(e.key.toLowerCase()==='c'&&!typing){
     const route=(location.hash||'').replace(/^#\/?/,'').split('/')[0];
     if(route==='legion'||route==='iron-legion') return;
@@ -11575,11 +11705,13 @@ async function loadData(){
       </div></div>
       ${facts.length?`<div class="lp-facts">${facts.join('')}</div>`:''}
       <div class="lp-sum">${esc(p.summary)}${p.summary&&p.summary.length>=220?'…':''}</div>
-      <div class="lp-go"><span>Click to open →</span>${inb?`<span class="lp-inb">${inb} page${inb===1?'':'s'} link here</span>`:''}</div>`;
+      <div class="lp-go"><span>Click to open →</span>${inb?`<span class="lp-inb">${inb} page${inb===1?'':'s'} link here</span>`:''}</div>
+      <div class="lp-mute">press <b>M</b> to stop auto-linking this</div>`;
+    HOVER_LINK_ID=id;
     pv.classList.add('show');
     positionPreview(x,y);
   }
-  function hidePreview(){ pv.classList.remove('show'); }
+  function hidePreview(){ pv.classList.remove('show'); HOVER_LINK_ID=null; }
   document.addEventListener('mouseover',e=>{
     const a=e.target.closest && e.target.closest('a.xlink');
     if(a){ clearTimeout(hideTimer); showPreview(a,e.clientX,e.clientY); }

@@ -90,6 +90,49 @@ map) and wired it into `openId()`, the related-article chips and the router, so
 those references are now live links. Wanted count dropped 565 → 556 and the
 remaining entries (`shadowfell`, `feywild`, …) are genuine missing pages.
 
+---
+
+# Round 2 — precision pass
+
+Reported: on `mount_ebott_survey_part_3`, the sentence
+«addressed **Koffin-K** as **'Boss'**» hyperlinked *Boss* → **Boss Knuckles**.
+
+This was a false positive introduced by Feature 1: `Boss Knuckles` is a character, so the
+first-name rule generated the alias **"Boss"** — an everyday noun.
+
+## Root cause
+
+Two hard-coded lists had drifted apart: `TITLES` (used to *strip* honorifics) and
+`GENERIC_FIRST` (used to *refuse* them as aliases). `boss`, `forgemaster`, `sage`,
+`legionary`, `shadowmaster` were in neither. Audit of derived one-word aliases found 7
+such title-derived collisions.
+
+## Four safeguards added
+
+1. **One shared honorific list.** `TITLE_WORDS` (~110 rank/role words) now drives both
+   stripping and refusal, and stripping is iterative, so `Lord High Admiral X` → `X` and
+   `Sage Morel the Learned` → `Morel`. `Boss Knuckles` now yields only `Knuckles`.
+2. **Form-of-address suppression.** Even a valid alias is skipped when the prose is using
+   it as a mode of address — `as 'Boss'`, `called him "Chief"`, `known as X`, `answers to X`.
+3. **Corpus-learned homograph detection.** Rather than hand-maintaining a blocklist,
+   `buildHomographs()` scans the corpus for each derived alias spelled **lower-case** as a
+   standalone word. If the archive itself uses it as a common noun (`wing`, `core`, `times`,
+   `root`, `toad`, `knuckles` → 45 words), it only links mid-sentence where a capital really
+   means a name. Words never lower-cased (`Peach`, `Daisy`, `Archie`, `Remi`, `Morel`) stay
+   trusted everywhere. Markdown link targets, snake_case ids, inline code and URLs are
+   stripped first, so `[Archie Miser](archie_miser)` is not mistaken for prose.
+4. **Reader-side muting.** Hover any link and press **M** to stop auto-linking that entity
+   site-wide; muted entities are listed and reversible in Reader Controls. Any future bad
+   match is now fixable from the UI without a code change. The controls panel also reports
+   how many weak matches were auto-skipped on the page.
+
+## Verified
+
+- `'Boss'` no longer links; Koffin-K still links 34× on that page; sentence text unchanged
+- Link volume held steady (imp ambush 14 / 79 / 175) — only genuine false positives removed
+- 27/27 routes and 97/97 articles clean, **0 failures**, no zero-link articles
+- Mute/unmute, the M shortcut and the exceptions UI all verified in a real DOM
+
 ## Content fix
 
 The Imp Ambush article contained an out-of-character authorial aside that quoted
