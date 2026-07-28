@@ -146,3 +146,39 @@ Per the user: the script was wrong, **Remi did steal the gun** (established in
 `the_midnight_audit_of_harvestide_28`, Part Eleven: "The Gun"). The passage is
 rewritten so Markop finds the gun genuinely missing, which is now consistent with
 the previous night's event.
+
+---
+
+# Round 3 — context-aware resolution
+
+The first pass treated context as a flat `Set`: an entity was either "in this article" or
+not. That is enough to stop `Dan` being unlinkable, but too blunt once several candidates
+are all present — the tie was broken by registry priority, not by the article.
+
+## Weighted relevance
+
+`LINK_CONTEXT_W` now scores every entity by *how* it relates to the page:
+
+| Role | Weight |
+|---|---|
+| named participant | 100 |
+| XP recipient | 90 |
+| related article / key event | 60 |
+| member / notable member | 55 |
+| ally / enemy | 40 |
+| backlink | 30 |
+| same cultural sphere | 15 |
+
+An entity cited in several roles scores higher, with diminishing returns, so a named
+participant who is also an XP recipient outranks a passing mention. On the Imp Ambush the
+seven cast members score 123–145 while a merely-related article sits at 60.
+
+## Proximity memory
+
+`LINK_RECENT` records the character offset where each entity was last linked.
+`resolveAmbiguous()` prefers a candidate linked within the previous ~240 characters, which
+is how a human reader disambiguates a bare repeat of a name. Context still dominates
+(weighted ×10), but strong recency breaks a context tie.
+
+Verified: link volume unchanged (14 / 79 / 175 across the tiers), `Dan` still resolves to
+`dan_the_toad`, and the `'Boss'` suppression from round 2 still holds.

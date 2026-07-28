@@ -219,6 +219,12 @@ let DATA, FCOLORS, MONTHS, CUR;
    loaded once at boot and shared, so traditions can be searched, linked and cited from
    faction, nation, character and event articles. */
 let CULTURES={}, LEGAL={}, SPECIES={}, REGIONAL_DEMO={};
+/* Tactical map catalogue. 182 maps are defined in map-data.js but the atlas only ever
+   surfaced the ~19 "*_full" overviews, because NATION_ATLAS_CONFIG hard-coded one map id
+   per nation. Loading MAP_DATA at boot lets the atlas resolve a realm to its whole map
+   group (every sub-region), and lets us verify a configured id actually exists. */
+let ATLAS_MAPS={};          // id -> map record
+let ATLAS_MAP_GROUPS={};    // group name -> [map record, …] ordered
 let TRADITIONS={};        // id -> {…tradition, category, cultures:[], followers:[]}
 let CULTURE_OF_SPECIES={};// speciesKey -> cultureId
 let CULTURE_BY_ARTICLE={};// articleId -> [cultureId,…] derived from relatedArticles/species
@@ -4171,8 +4177,11 @@ const NATION_ATLAS_CONFIG={
   animatopia:{label:'Animatopia',mapFile:'maps-view.html?map=animatopia_full',poiFile:'animatopia-pois.js',status:'Project directory path inferred'},
   equestria:{label:'Equestria',mapFile:'maps-view.html?map=equestria_full',poiFile:'equestria-pois.js',status:'Project directory path inferred'}
   ,koopa_dominion:{label:'Koopa Kingdom / Koopa Dominion',mapFile:'maps-view.html?map=mushroom_kingdom_full',poiFile:'mushroom-kingdom-pois.js',status:'Dark Lands / Koopa sphere inferred'}
-  ,beanbean_kingdom:{label:'The Beanbean Kingdom',mapFile:'maps-view.html?map=beanbean_kingdom_full',poiFile:'beanbean-kingdom-pois.js',status:'Project directory path inferred'}
-  ,isle_delfino:{label:'Isle Delfino',mapFile:'maps-view.html?map=sunshine_isles_full',poiFile:'sunshine-isles-pois.js',status:'Project directory path inferred'}
+  ,beanbean_kingdom:{label:'The Beanbean Kingdom',mapFile:'maps-view.html?map=beanbean_kingdom',poiFile:'beanbean-kingdom-pois.js',status:'Project directory path inferred'}
+  ,isle_delfino:{label:'Isle Delfino',mapFile:'maps-view.html?map=sunshine_isles',poiFile:'sunshine-isles-pois.js',status:'Project directory path inferred'}
+  ,sarasaland:{label:'Sarasaland',mapFile:'maps-view.html?map=mushroom_kingdom_full',poiFile:'mushroom-kingdom-pois.js',status:'Charted inside the Mushroom Kingdom regional sheet set'}
+  ,kongo_bongo:{label:'Kongo Bongo / DK Isles',mapFile:'maps-view.html?map=yoshi_dk_islands',poiFile:'mushroom-kingdom-pois.js',status:'Yoshi & DK island chain sheet'}
+  ,dreamland:{label:'Dreamland',mapFile:'maps-view.html?map=sunshine_isles',poiFile:'sunshine-isles-pois.js',status:'Filed with the outer island realms until a dedicated sheet exists'}
   ,faerun:{label:'Faerûn',mapFile:'maps-view.html?map=faerun_full',poiFile:'faerun-pois.js',status:'Project directory path inferred'}
   ,teyvat:{label:'Teyvat',mapFile:'maps-view.html?map=teyvat_full',poiFile:'teyvat-pois.js',status:'Project directory path inferred'}
   ,doughnut_hole:{label:'The Doughnut Hole',mapFile:'maps-view.html?map=doughnut_hole_full',poiFile:'doughnut-hole.js',status:'Project directory path inferred'}
@@ -4460,6 +4469,10 @@ let LINK_TOTAL_COUNT=0;        // per-render link counter used by low-link mode
    we link whichever candidate is in context instead of dropping the link. */
 let LINK_AMBIGUOUS={};
 let LINK_CONTEXT=new Set();
+let LINK_CONTEXT_W=new Map();   // id -> {score, kinds[]} weighted relevance for this article
+let LINK_RECENT=new Map();      // id -> character offset where it was last linked
+let LINK_CURSOR=0;              // running character offset through the article's prose
+let LINK_POS=0;                 // offset of the match currently being resolved
 /* ---------- Feature 5: link graph + wanted pages ---------- */
 let LINK_GRAPH_OUT=new Set();       // ids linked FROM the article currently rendering
 let LINK_WANTED={};                 // id -> {count, from:Set} — referenced but has no page
@@ -5640,20 +5653,45 @@ function buildLinkRegistry(){
    "Dan" can mean dan / dan_the_toad / dedan. On an article whose cast includes
    dan_the_toad, "Dan" should link there — not to whichever record happened to
    sort first. Falls back to the default winner when nothing is in context. */
+/* ===== Context-aware resolution =====
+   The first version treated context as a flat set: an entity was either "in the article"
+   or not. That is too blunt once several candidates are all present — an event whose cast
+   includes two different Dans got whichever sorted first.
+
+   Context is now *weighted*. A named participant outranks a related article, which
+   outranks a backlink, which outranks a realm/faction association. On top of that,
+   proximity matters: an ambiguous mention resolves toward whichever candidate was most
+   recently linked nearby in the same prose, which is how a human reader disambiguates. */
+const LINK_CTX_WEIGHT={participant:100, xp:90, related:60, member:55, ally:40, backlink:30, realm:20, culture:15};
+
+function contextScore(id){
+  const rec=LINK_CONTEXT_W?LINK_CONTEXT_W.get(id):null;
+  return rec?rec.score:0;
+}
 function resolveAmbiguous(key,defaultId){
   const cands=LINK_AMBIGUOUS[key];
   if(!cands||!cands.length) return defaultId;
-  if(LINK_CONTEXT&&LINK_CONTEXT.size){
-    const inCtx=cands.filter(c=>LINK_CONTEXT.has(c.id));
-    if(inCtx.length===1) return inCtx[0].id;
-    if(inCtx.length>1){ inCtx.sort((a,b)=> b.pri-a.pri || (b.exact?1:0)-(a.exact?1:0)); return inCtx[0].id; }
+
+  // 1. Recency: if one candidate was linked in the last few hundred characters of this
+  //    article, a bare repeat of the alias almost certainly means the same entity.
+  let best=null,bestScore=-1;
+  for(const c of cands){
+    const seen=LINK_RECENT.get(c.id);
+    const recency=(seen==null)?0:Math.max(0, 240-(LINK_POS-seen));
+    const ctx=contextScore(c.id);
+    if(!recency && !ctx) continue;
+    // Weight context above recency, but let strong recency break a context tie.
+    const score=ctx*10 + recency + (c.exact?5:0) + c.pri/100;
+    if(score>bestScore){ bestScore=score; best=c; }
   }
+  if(best) return best.id;
   return defaultId;
 }
 /* Called before an article renders its prose: establishes disambiguation context and
    resets the per-page link counters/graph. */
 function beginLinkPass(item){
   LINK_ONCE=new Set(); LINK_TOTAL_COUNT=0; LINK_GRAPH_OUT=new Set(); LINK_SUPPRESSED=[];
+  LINK_CURSOR=0; LINK_POS=0;
   setLinkContext(item);
 }
 /* Snapshot the live counters. Called by the rail (which renders after the prose in the
@@ -5670,13 +5708,35 @@ function endLinkPass(){
 /* Build the cast/context of the article being rendered so disambiguation has something to go on. */
 function setLinkContext(item){
   LINK_CONTEXT=new Set();
+  LINK_CONTEXT_W=new Map();
+  LINK_RECENT=new Map();
+  LINK_CURSOR=0;
   if(!item) return;
-  const push=v=>{ const id=typeof v==='string'?v:(v&&(v.id||v.articleId||v.key)); if(id&&LINK_PREVIEW[id]) LINK_CONTEXT.add(id); };
-  [].concat(item.participants||[],item.participatingCharacters||[],item.relatedArticles||[],
-            item.keyEvents||[],item.keyBattles||[],item.articles||[],item.members||[],
-            item.notableMembers||[],item.allies||[],item.enemies||[]).forEach(push);
-  try{ (BACKLINKS[item.id]?[...BACKLINKS[item.id]]:[]).forEach(push); }catch(e){}
-  try{ xpAwardsForEvent(item.id).forEach(a=>push(a.articleId)); }catch(e){}
+  const add=(v,kind)=>{
+    let id=typeof v==='string'?v:(v&&(v.id||v.articleId||v.key));
+    if(!id) return;
+    if(typeof resolveArticleId==='function') id=resolveArticleId(id);
+    if(!LINK_PREVIEW[id]) return;
+    const w=LINK_CTX_WEIGHT[kind]||10;
+    const prev=LINK_CONTEXT_W.get(id);
+    // An entity cited in several roles is more central, but with diminishing returns.
+    if(prev){ prev.score=Math.max(prev.score,w)+Math.min(prev.score,w)/4; prev.kinds.push(kind); }
+    else LINK_CONTEXT_W.set(id,{score:w,kinds:[kind]});
+    LINK_CONTEXT.add(id);
+  };
+  [].concat(item.participants||[],item.participatingCharacters||[]).forEach(v=>add(v,'participant'));
+  [].concat(item.relatedArticles||[],item.keyEvents||[],item.keyBattles||[],item.articles||[]).forEach(v=>add(v,'related'));
+  [].concat(item.members||[],item.notableMembers||[]).forEach(v=>add(v,'member'));
+  [].concat(item.allies||[],item.enemies||[]).forEach(v=>add(v,'ally'));
+  try{ (BACKLINKS[item.id]?[...BACKLINKS[item.id]]:[]).forEach(v=>add(v,'backlink')); }catch(e){}
+  try{ xpAwardsForEvent(item.id).forEach(a=>add(a.articleId,'xp')); }catch(e){}
+  // Realm/culture association: entities from the same sphere are likelier referents than
+  // a same-named character from an unrelated corner of the setting.
+  try{
+    (CULTURE_BY_ARTICLE[item.id]||[]).forEach(({id:cid})=>{
+      (articlesInCulture(cid)||[]).slice(0,60).forEach(aid=>add(aid,'culture'));
+    });
+  }catch(e){}
 }
 
 /* ===== Feature 5: Wanted Pages (redlinks) =====
@@ -5768,6 +5828,8 @@ function buildDateRegex(){
 }
 function linkify(escapedHtml, currentId){
   if(!escapedHtml) return escapedHtml;
+  const segStart=LINK_CURSOR;
+  LINK_CURSOR+=escapedHtml.length;   // running offset lets resolveAmbiguous() judge nearness
   const cfg=linkLevelCfg();
   const linkMode=normLinkLevel(PREFS&&PREFS.linkLevel);
   const cap=cfg.cap;
@@ -5801,6 +5863,7 @@ function linkify(escapedHtml, currentId){
         while((mm=g.exec(piece))!==null){
           if(LINK_TOTAL_COUNT>=cap) break;
           // Feature 2: an ambiguous alias resolves against the current article's cast.
+          LINK_POS=segStart+mm.index;
           const targetId=ent.key?resolveAmbiguous(ent.key,ent.id):ent.id;
           if(targetId===currentId){ continue; }   // resolved onto ourselves — leave as plain text
           // Derived one-word aliases ("Boss", "Root", "Meta") are the collision-prone ones.
@@ -5821,6 +5884,7 @@ function linkify(escapedHtml, currentId){
           out+='\u0001<a class="xlink" data-id="'+esc(targetId)+'" href="'+route+'">'+mm[0]+'</a>\u0001';
           last=mm.index+mm[0].length;
           LINK_TOTAL_COUNT++; LINK_GRAPH_OUT.add(targetId);
+          LINK_RECENT.set(targetId, segStart+mm.index);   // proximity memory for disambiguation
           if(once){ done=true; LINK_ONCE.add(ent.id); LINK_ONCE.add(targetId); break; }
         }
         out+=piece.slice(last);
@@ -6573,6 +6637,76 @@ function view_atlas(){
 function atlasChips(arr,kind){
   return (arr||[]).slice(0,80).map(o=>{const rec=INDEX[o.id]; const route= rec?`#/article/${encodeURIComponent(o.id)}`:(kind==='battle'&&o.conflict?`#/mbattle/${encodeURIComponent(o.id)}`:'#/home'); return `<span class="rel-chip" onclick="Router.go('${route}')"><span class="rt">${esc(kind)}</span>${esc(displayName(o)||o.name||o.id)}</span>`;}).join('')||'<p class="text-muted">No linked records yet.</p>';
 }
+/* ===== Atlas tactical-map applet =====
+   Renders the embedded map for a realm plus a switcher for every sub-region in that
+   realm's map group. Previously only the "*_full" overview was reachable, leaving 165 of
+   182 defined maps with no route into them from the atlas. */
+function atlasMapApplet(id, n){
+  const cfg=NATION_ATLAS_CONFIG[id]||{};
+  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
+  const resolved=atlasMapsFor(id);
+  const label=cfg.label||displayName(n);
+
+  if(!resolved.valid && !cfg.mapFile){
+    return `<div class="card atlas-map-empty"><h3>🗺️ No live map applet filed yet</h3><p class="text-muted">This realm has atlas records, but Waluigi has not connected a tactical map file. Locations and event records below remain available.</p></div>`;
+  }
+
+  const frameId=`atlasMapFrame_${String(id).replace(/[^a-z0-9_]/gi,'_')}`;
+  const url=mid=>`${prefix}maps-view.html?map=${encodeURIComponent(mid)}`;
+  const activeId=resolved.activeId||'';
+  const embedSrc=activeId?url(activeId)+'&embed=1':(cfg.mapFile?prefix+cfg.mapFile+(cfg.mapFile.includes('?')?'&':'?')+'embed=1':'');
+  const fullSrc=activeId?url(activeId):(cfg.mapFile?prefix+cfg.mapFile:'');
+
+  const regions=resolved.maps.length>1
+    ? `<div class="atlas-map-regions">
+         <span class="amr-label">${resolved.maps.length} regions in ${esc(resolved.group)}</span>
+         <div class="amr-chips">${resolved.maps.map(m=>
+           `<button class="amr-chip${m.id===activeId?' on':''}" data-map="${esc(m.id)}" data-frame="${esc(frameId)}" title="${esc(m.name||m.id)}">${esc(m.name||prettyId(m.id))}</button>`
+         ).join('')}</div>
+       </div>`
+    : '';
+
+  const poiCount=(ATLAS_MAPS[activeId]?.pointsOfInterest||[]).length;
+  const status=cfg.status||'Embedded interactive regional map with POIs, modes, search, and detail panel.';
+
+  return `<div class="card atlas-map-applet" data-map-applet="${esc(frameId)}">
+      <div class="atlas-map-toolbar">
+        <div>
+          <h3>🗺️ ${esc(label)} Tactical Map Applet</h3>
+          <p>${esc(status)}${poiCount?` · <b>${poiCount}</b> points of interest on this sheet`:''}</p>
+        </div>
+        <div class="chips">
+          <span class="chip active" onclick="const f=document.getElementById('${esc(frameId)}');f.src=f.dataset.src||f.src">Reset applet</span>
+          <a class="chip" href="${esc(fullSrc)}">Open full screen →</a>
+        </div>
+      </div>
+      ${regions}
+      <iframe id="${esc(frameId)}" data-src="${esc(embedSrc)}" loading="lazy" title="${esc(label)} Tactical Map"></iframe>
+    </div>`;
+}
+
+/* Swap the embedded map without reloading the atlas page. */
+function atlasSwitchMap(frameId, mapId){
+  const frame=document.getElementById(frameId);
+  if(!frame) return;
+  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
+  const src=`${prefix}maps-view.html?map=${encodeURIComponent(mapId)}&embed=1`;
+  frame.dataset.src=src;
+  frame.src=src;
+  const applet=frame.closest('.atlas-map-applet');
+  if(applet){
+    applet.querySelectorAll('.amr-chip').forEach(b=>b.classList.toggle('on', b.dataset.map===mapId));
+    const rec=ATLAS_MAPS[mapId];
+    const full=applet.querySelector('.atlas-map-toolbar a.chip');
+    if(full) full.href=`${prefix}maps-view.html?map=${encodeURIComponent(mapId)}`;
+    const sub=applet.querySelector('.atlas-map-toolbar p');
+    if(sub && rec){
+      const n=(rec.pointsOfInterest||[]).length;
+      sub.innerHTML=`${esc(rec.name||mapId)}${n?` · <b>${n}</b> points of interest on this sheet`:''}`;
+    }
+  }
+}
+
 function view_atlasNation(id){
   document.body.classList.add('hide-walu-ambient');
   id=atlasCanonical(id);
@@ -6580,23 +6714,45 @@ function view_atlasNation(id){
   const stats=atlasStatCard('Locations',x.locations.length)+atlasStatCard('Events',x.events.length)+atlasStatCard('Battles',x.battles.length)+atlasStatCard('Trials',x.trials.length)+atlasStatCard('Factions',x.factions.length)+atlasStatCard('Species',x.species.length);
   const dossier=mdToHtml(n.description||'',n.id);
   
-  const cfg=NATION_ATLAS_CONFIG[id]||{};
-  const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
-  const mapFile = cfg.mapFile ? pathPrefix + cfg.mapFile : '';
-  const mapEmbedFile = mapFile ? mapFile + (mapFile.includes('?')?'&':'?') + 'embed=1' : '';
-  const mapFrameId = `atlasMapFrame_${String(id).replace(/[^a-z0-9_]/gi,'_')}`;
-  const mapIframe = mapFile 
-    ? `<div class="card atlas-map-applet">
-         <div class="atlas-map-toolbar">
-           <div><h3>🗺️ ${esc(cfg.label || displayName(n))} Tactical Map Applet</h3><p>${esc(cfg.status||'Embedded interactive regional map with POIs, modes, search, and detail panel.')}</p></div>
-           <div class="chips"><span class="chip active" onclick="document.getElementById('${esc(mapFrameId)}').src='${esc(mapEmbedFile)}'">Reset applet</span><a class="chip" href="${esc(mapFile)}">Open full screen →</a></div>
-         </div>
-         <iframe id="${esc(mapFrameId)}" src="${esc(mapEmbedFile)}" title="${esc(cfg.label || displayName(n))} Tactical Map"></iframe>
-       </div>`
-    : `<div class="card atlas-map-empty"><h3>🗺️ No live map applet filed yet</h3><p class="text-muted">This realm has atlas records, but Waluigi has not connected a tactical map file. Locations and event records below remain available.</p></div>`;
+  const mapIframe = atlasMapApplet(id, n);
 
-  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/atlas')">World Atlas</a> › ${esc(displayName(n))}</div><div class="card animate-fade-in"><h1>${esc(displayName(n))}</h1><div class="metabar"><span class="pill">🍩 Atlas Dashboard</span><span class="pill">${esc(n.type||'Nation/Realm')}</span>${n.status?`<span class="pill">${esc(String(n.status).slice(0,80))}</span>`:''}</div>${flagArt(n)}<p style="color:var(--muted);font-size:15px;line-height:1.65">${esc(n.summary||'')}</p><div class="species-stats">${stats}</div><div class="chips"><span class="chip" onclick="openId('${esc(n.id)}')">Read classic article</span>${mapFile?`<span class="chip" onclick="location.href='${esc(mapFile)}'">Open Full Screen</span>`:''}</div>${claimantRegimePanel(n)}${nationOverview(n)}</div>${mapIframe}<div class="card"><h2>📖 Nation Dossier</h2><div class="prose">${dossier}</div></div><div class="card"><h2>🏰 Locations</h2><div class="related-list">${atlasChips(x.locations,'Location')}</div><h2>📜 Events</h2><div class="related-list">${atlasChips(x.events,'Event')}</div><h2>🗡️ Battles / Battlefield</h2><div class="related-list">${atlasChips(x.battles,'Battle')}</div><h2>⚖️ Trials</h2><div class="related-list">${atlasChips(x.trials,'Trial')}</div><h2>⚔️ Active Factions</h2><div class="related-list">${atlasChips(x.factions,'Faction')}</div><h2>🧬 Species & Peoples</h2><div class="related-list">${atlasChips(x.species,'Species')}</div></div>`;
+  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/atlas')">World Atlas</a> › ${esc(displayName(n))}</div><div class="card animate-fade-in"><h1>${esc(displayName(n))}</h1><div class="metabar"><span class="pill">🍩 Atlas Dashboard</span><span class="pill">${esc(n.type||'Nation/Realm')}</span>${n.status?`<span class="pill">${esc(String(n.status).slice(0,80))}</span>`:''}</div>${flagArt(n)}<p style="color:var(--muted);font-size:15px;line-height:1.65">${esc(n.summary||'')}</p><div class="species-stats">${stats}</div><div class="chips"><span class="chip" onclick="openId('${esc(n.id)}')">Read classic article</span>${atlasFullScreenChip(id)}</div>${claimantRegimePanel(n)}${nationOverview(n)}</div>${mapIframe}<div class="card"><h2>📖 Nation Dossier</h2><div class="prose">${dossier}</div></div><div class="card"><h2>🏰 Locations</h2><div class="related-list">${atlasChips(x.locations,'Location')}</div><h2>📜 Events</h2><div class="related-list">${atlasChips(x.events,'Event')}</div><h2>🗡️ Battles / Battlefield</h2><div class="related-list">${atlasChips(x.battles,'Battle')}</div><h2>⚖️ Trials</h2><div class="related-list">${atlasChips(x.trials,'Trial')}</div><h2>⚔️ Active Factions</h2><div class="related-list">${atlasChips(x.factions,'Faction')}</div><h2>🧬 Species & Peoples</h2><div class="related-list">${atlasChips(x.species,'Species')}</div></div>`;
+  activateAtlasMap();
   window.scrollTo(0,0);
+}
+
+/* The map iframe is created with data-src and no src so a heavy D3 applet does not boot
+   before the reader scrolls to it. */
+function activateAtlasMap(){
+  const frame=document.querySelector('.atlas-map-applet iframe[data-src]');
+  if(!frame) return;
+  const load=()=>{ if(!frame.src && frame.dataset.src) frame.src=frame.dataset.src; };
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ load(); io.disconnect(); } });
+    },{rootMargin:'320px'});
+    io.observe(frame);
+  } else load();
+  const applet=frame.closest('.atlas-map-applet');
+  if(applet && !applet.dataset.wired){
+    applet.dataset.wired='1';
+    applet.addEventListener('click',ev=>{
+      const chip=ev.target.closest('.amr-chip');
+      if(!chip) return;
+      ev.preventDefault();
+      load();
+      atlasSwitchMap(chip.dataset.frame, chip.dataset.map);
+    });
+  }
+}
+
+/* Full-screen link for the realm's currently resolved map. */
+function atlasFullScreenChip(id){
+  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
+  const r=atlasMapsFor(id);
+  const cfg=NATION_ATLAS_CONFIG[id]||{};
+  const href=r.activeId?`${prefix}maps-view.html?map=${encodeURIComponent(r.activeId)}`:(cfg.mapFile?prefix+cfg.mapFile:'');
+  return href?`<span class="chip" onclick="location.href='${esc(href)}'">Open Full Screen</span>`:'';
 }
 
 function dynastyPerks(id){
@@ -12291,9 +12447,55 @@ async function loadCultureSystem(){
   buildCultureIndexes();
 }
 
+/* Load the tactical map catalogue so the atlas can resolve whole map groups instead of
+   one hard-coded overview per realm. Failure is non-fatal: the atlas falls back to the
+   configured mapFile exactly as before. */
+async function loadMapCatalogue(){
+  try{
+    const m=await import(pathPrefix+'map-data.js');
+    ATLAS_MAPS=m.MAP_DATA||{};
+  }catch(e){ ATLAS_MAPS={}; }
+  ATLAS_MAP_GROUPS={};
+  Object.values(ATLAS_MAPS).forEach(rec=>{
+    if(!rec||!rec.id) return;
+    const g=rec.group||'Other Regions';
+    (ATLAS_MAP_GROUPS[g]=ATLAS_MAP_GROUPS[g]||[]).push(rec);
+  });
+  Object.values(ATLAS_MAP_GROUPS).forEach(list=>list.sort((a,b)=>(a.order||99)-(b.order||99)||String(a.name||'').localeCompare(String(b.name||''))));
+}
+
+/* Every map a realm can show, derived from MAP_DATA rather than a hard-coded string.
+   Returns {maps, activeId, group} — activeId is validated, so a config pointing at a
+   map id that no longer exists can never silently load the wrong realm. */
+function atlasMapsFor(nationId){
+  const cfg=NATION_ATLAS_CONFIG[nationId]||{};
+  const configured=(String(cfg.mapFile||'').match(/[?&]map=([a-z0-9_]+)/i)||[])[1]||'';
+  if(!Object.keys(ATLAS_MAPS).length){
+    return {maps:[], activeId:configured, group:'', valid:Boolean(configured)};
+  }
+  let active=ATLAS_MAPS[configured]?configured:'';
+  let group=active?(ATLAS_MAPS[active].group||''):'';
+  if(!active && configured){
+    // The configured id is broken (e.g. beanbean_kingdom_full / sunshine_isles_full).
+    // Recover by matching the realm name against a group instead of falling through to
+    // maps.js's silent "default to Mushroom Kingdom" behaviour.
+    const stem=configured.replace(/_full$/,'').replace(/_/g,' ').toLowerCase();
+    const hit=Object.keys(ATLAS_MAP_GROUPS).find(g=>{
+      const gl=g.toLowerCase();
+      return gl.includes(stem) || stem.includes(gl.replace(/ regions?$/,''));
+    });
+    if(hit){ group=hit; active=(ATLAS_MAP_GROUPS[hit][0]||{}).id||''; }
+  }
+  if(!group && active) group=ATLAS_MAPS[active].group||'';
+  const maps=group?(ATLAS_MAP_GROUPS[group]||[]):[];
+  if(!active && maps.length) active=maps[0].id;
+  return {maps, activeId:active, group, valid:Boolean(active)};
+}
+
 async function boot(){
   DATA = await loadData();
   await loadCultureSystem();
+  await loadMapCatalogue();
   // rebuild the derived globals + indexes now that DATA exists
   FCOLORS = DATA.factionColors||{};
   MONTHS = (DATA.calendarMonths||[]).map(m=>m.name||m);

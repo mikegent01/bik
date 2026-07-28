@@ -1002,6 +1002,14 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 .atlas-map-toolbar p{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.4}
 .atlas-map-applet iframe{display:block;width:100%;height:min(82vh,900px);min-height:680px;border:0;background:#080b14}
 .atlas-map-empty{border-left:4px solid var(--muted)}
+/* Region switcher: every sub-region map in the realm's group, swapped in place. */
+.atlas-map-regions{padding:10px 16px;border-bottom:1px solid var(--border);background:var(--panel2)}
+.atlas-map-regions .amr-label{display:block;font-size:10px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.atlas-map-regions .amr-chips{display:flex;flex-wrap:wrap;gap:5px;max-height:118px;overflow:auto}
+.amr-chip{background:var(--bg2);border:1px solid var(--border);color:var(--muted);border-radius:999px;padding:3px 10px;font-size:11.5px;cursor:pointer;font-family:inherit;transition:.12s;white-space:nowrap}
+.amr-chip:hover{border-color:var(--accent);color:var(--text);transform:translateY(-1px)}
+.amr-chip.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+@media(max-width:760px){.atlas-map-regions .amr-chips{max-height:96px}}
 @media(max-width:760px){.journal-viewer-card iframe,.atlas-map-applet iframe{height:78vh;min-height:560px}.journal-viewer-hero{display:block}.journal-viewer-hero .chips{margin-top:10px}}
 
 /* Hide floating Waluigi ambient controls while large embedded applets/journals are active. */
