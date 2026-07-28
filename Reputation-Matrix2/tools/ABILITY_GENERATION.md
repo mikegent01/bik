@@ -12,8 +12,14 @@ Start LM Studio's **OpenAI-compatible local server** before running anything her
 # REVIEW (default) — improve abilities already in data/abilityShop.json
 python tools/generate_abilities.py --limit 5
 
-# CREATE — invent new abilities for one class
+# CREATE — invent new abilities. With no --class it cycles every class round-robin.
+python tools/generate_abilities.py --mode create --count 500
+
+# Pin to one class
 python tools/generate_abilities.py --mode create --class rogue --count 4
+
+# Run until you stop it (Ctrl+C), cycling all classes
+python tools/generate_abilities.py --mode create --infinite
 ```
 
 Preview without writing anything:
@@ -35,6 +41,7 @@ python tools/generate_abilities.py --gui
 | `--mode review\|create` | improve existing abilities, or invent new ones |
 | `--class <id>` | restrict to one class (`rogue`, `wizard`, `paladin`, …) |
 | `--count N` | create mode: how many to invent |
+| `--infinite` | create mode: run until stopped, cycling every class |
 | `--limit N` | stop after N successes |
 | `--review-only` | checkpoint results, never write source |
 | `--review-mode unchecked\|stale\|all` | which existing abilities to spend requests on |
@@ -68,8 +75,23 @@ A reply is rejected (and retried with feedback, up to 5 times) if any of these f
 - the text claims unlimited uses/damage, auto-success, guaranteed crits, cannot-fail,
   cannot-be-hit, or permanent immunity
 - the name duplicates any existing ability (or one generated earlier in the same run)
+- the name is a **near-duplicate**. Exact-string matching was not enough: one run produced
+  *Shield Bash*, *Rapid Shield Bash*, *Fortify Shield* and *Fortified Shield* in five
+  requests. Names are now compared on a normalized key (stop-words dropped, crude stemming,
+  order-insensitive), so `Fortify Shield` and `Fortified Shield` both reduce to
+  `fortif shield` and collide. The rejection is fed back to the model as retry guidance.
 - the name is prefixed with its class
 - a *review* renamed the ability into something unrelated to the original
+
+## Class cycling and infinite mode
+
+`--mode create` with no `--class` now round-robins through every class in
+`abilityShop.json`, so a long run fills the whole catalogue instead of generating 500
+fighter abilities. `--infinite` (or `--count 0`) runs until you press Ctrl+C or hit Stop
+in the GUI.
+
+Infinite mode has a safety valve: 12 consecutive failures aborts the run, so a stopped or
+unloaded LM Studio server does not leave it spinning overnight against a dead endpoint.
 
 ## Safety
 
