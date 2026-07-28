@@ -104,6 +104,7 @@ class Settings:
     mode: str = "review"          # review | create
     klass: str = ""               # restrict to one class id
     count: int = 3                # create mode: how many new abilities
+    infinite: bool = False        # create mode: keep going until stopped
     review_only: bool = False     # checkpoint but never touch source
     review_mode: str = "unchecked"  # unchecked | stale | all
     stale_days: int = 30
@@ -198,6 +199,30 @@ def slugify(class_id: str, name: str) -> str:
     return f"{class_id}_{base}" if base else f"{class_id}_ability"
 
 
+# Words that carry no distinguishing meaning in an ability name, plus crude stemming, so
+# "Fortify Shield" / "Fortified Shield" / "Shield Bash" / "Rapid Shield Bash" collapse to
+# comparable keys instead of sailing past an exact-string check.
+DEDUPE_STOP = {"the", "of", "a", "an", "and", "rapid", "quick", "swift", "fast", "greater",
+               "lesser", "improved", "advanced", "superior", "minor", "major", "basic",
+               "strike", "surge", "burst", "blast", "technique", "maneuver", "stance",
+               "art", "form", "style", "mastery", "focus"}
+
+
+def _stem(word: str) -> str:
+    """Crude suffix stripping. Good enough to equate fortify/fortified/fortifying."""
+    for suffix in ("ing", "edly", "ies", "ied", "ed", "es", "s", "y"):
+        if len(word) > 4 and word.endswith(suffix):
+            return word[: -len(suffix)]
+    return word
+
+
+def dedupe_key(name: Any) -> str:
+    """Order-insensitive normalized signature of an ability name."""
+    words = re.findall(r"[a-z]+", str(name).lower())
+    core = sorted({_stem(w) for w in words if w not in DEDUPE_STOP and len(w) > 2})
+    return " ".join(core)
+
+
 def identity_terms(name: Any) -> set[str]:
     ignored = {"the", "of", "and", "for", "with", "from", "a", "an", "to", "in", "on"}
     return {w.lower() for w in re.findall(r"[A-Za-z]{4,}", str(name)) if w.lower() not in ignored}
@@ -208,13 +233,14 @@ def identity_terms(name: Any) -> set[str]:
 # --------------------------------------------------------------------------
 
 def build_user_prompt(shop: dict[str, Any], settings: Settings,
-                      ability: dict[str, Any] | None, feedback: str = "") -> str:
+                      ability: dict[str, Any] | None, feedback: str = "",
+                      class_id: str = "") -> str:
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     classes = shop.get("classes", {})
     existing_names = sorted({str(a.get("name", "")) for a in shop.get("abilities", [])} | settings.seen_names)
 
     if settings.mode == "create":
-        class_id = settings.klass or "fighter"
+        class_id = class_id or settings.klass or "fighter"
         cls = classes.get(class_id, {})
         head = (
             f"Invent ONE new ability for the {cls.get('name', class_id)} class.\n"
@@ -244,11 +270,12 @@ def build_user_prompt(shop: dict[str, Any], settings: Settings,
 
 
 def call_lm_studio(settings: Settings, shop: dict[str, Any],
-                   ability: dict[str, Any] | None, feedback: str = "") -> dict[str, Any]:
+                   ability: dict[str, Any] | None, feedback: str = "",
+                   class_id: str = "") -> dict[str, Any]:
     payload: dict[str, Any] = {
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": build_user_prompt(shop, settings, ability, feedback)},
+            {"role": "user", "content": build_user_prompt(shop, settings, ability, feedback, class_id)},
         ],
         "temperature": settings.temperature,
     }
@@ -357,13 +384,24 @@ def validate(settings: Settings, shop: dict[str, Any],
     if ap_cost != expected_ap:
         raise ValueError(f"apCost {ap_cost} does not match the tier rule for level {level} (expected {expected_ap})")
 
-    # Duplicate guard: never publish a second copy of an existing ability.
+    # Duplicate guard. Exact-string matching was not enough: a long run produced
+    # "Shield Bash", "Rapid Shield Bash", "Fortify Shield" and "Fortified Shield" in five
+    # requests, because none of them are byte-identical. Compare on a normalized key
+    # (stemmed, stop-worded, order-insensitive) so restatements collide too.
     lowered = name.lower()
     existing = {str(a.get("name", "")).lower() for a in shop.get("abilities", [])}
+    existing_keys = {dedupe_key(a.get("name", "")) for a in shop.get("abilities", [])}
     if original is not None:
         existing.discard(str(original.get("name", "")).lower())
-    if lowered in existing or lowered in {n.lower() for n in settings.seen_names}:
+        existing_keys.discard(dedupe_key(original.get("name", "")))
+    seen_lower = {n.lower() for n in settings.seen_names}
+    seen_keys = {dedupe_key(n) for n in settings.seen_names}
+    if lowered in existing or lowered in seen_lower:
         raise ValueError(f"ability name '{name}' already exists in the catalog")
+    key = dedupe_key(name)
+    if key and (key in existing_keys or key in seen_keys):
+        raise ValueError(f"ability name '{name}' is a near-duplicate of an existing ability "
+                         f"(normalizes to '{key}'); invent a mechanically different ability")
 
     # A review pass must stay recognisably about the same ability.
     if original is not None:
@@ -386,11 +424,12 @@ def validate(settings: Settings, shop: dict[str, Any],
 
 
 def request_with_retries(settings: Settings, shop: dict[str, Any],
-                         ability: dict[str, Any] | None) -> tuple[dict[str, Any] | None, Exception | None]:
+                         ability: dict[str, Any] | None,
+                         class_id: str = "") -> tuple[dict[str, Any] | None, Exception | None]:
     last_error: Exception | None = None
     for _ in range(5):
         try:
-            candidate = call_lm_studio(settings, shop, ability, str(last_error or ""))
+            candidate = call_lm_studio(settings, shop, ability, str(last_error or ""), class_id)
             return validate(settings, shop, ability, candidate), None
         except (ValueError, KeyError, json.JSONDecodeError, urllib.error.URLError,
                 TimeoutError, RuntimeError) as error:
@@ -473,20 +512,45 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
     completed = 0
 
     if settings.mode == "create":
-        class_id = settings.klass or "fighter"
-        if class_id not in shop.get("classes", {}):
-            notify(f"Unknown class '{class_id}'. Known: {', '.join(sorted(shop.get('classes', {})))}", None)
+        known = list(shop.get("classes", {}))
+        if settings.klass:
+            if settings.klass not in known:
+                notify(f"Unknown class '{settings.klass}'. Known: {', '.join(sorted(known))}", None)
+                return 0
+            rotation = [settings.klass]           # explicit --class pins to one
+        else:
+            rotation = known                      # no --class: cycle through every class
+        if not rotation:
+            notify("No classes defined in abilityShop.json.", None)
             return 0
-        target = settings.limit or settings.count
-        for index in range(target):
+
+        target = settings.limit or settings.count          # 0/infinite -> run until stopped
+        infinite = settings.infinite or target <= 0
+        if infinite:
+            notify(f"Infinite mode: cycling {len(rotation)} classes until stopped (Ctrl+C or Stop).", None)
+        elif len(rotation) > 1:
+            notify(f"Cycling {len(rotation)} classes: {', '.join(rotation)}", None)
+
+        consecutive_failures = 0
+        index = 0
+        while infinite or index < target:
             if stop and stop.is_set():
                 notify("Stopped.", None)
                 break
-            notify(f"Creating {class_id} ability {index + 1}/{target}…", None)
-            result, error = request_with_retries(settings, shop, None)
+            class_id = rotation[index % len(rotation)]     # round-robin so no class starves
+            label = f"{index + 1}/∞" if infinite else f"{index + 1}/{target}"
+            notify(f"Creating {class_id} ability {label}…", None)
+            result, error = request_with_retries(settings, shop, None, class_id)
+            index += 1
             if not result:
+                consecutive_failures += 1
                 notify(f"  failed: {error}", None)
+                # A dead/unloaded LM Studio would otherwise spin forever in infinite mode.
+                if consecutive_failures >= 12:
+                    notify("  12 consecutive failures — stopping. Is the LM Studio server still up?", None)
+                    break
                 continue
+            consecutive_failures = 0
             settings.seen_names.add(result["name"])
             checkpoint[f"new::{class_id}::{result['name']}"] = result
             save_checkpoint(checkpoint)
@@ -495,7 +559,7 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
                 save_shop(shop)
                 save_resume_state(new_id, result["name"], completed + 1, settings.mode)
             completed += 1
-            notify(f"  + {result['icon']} {result['name']} (Lv {result['level']}, {result['apCost']} AP)", result)
+            notify(f"  + {result['icon']} {result['name']} ({class_id} Lv {result['level']}, {result['apCost']} AP)", result)
         return completed
 
     abilities = [a for a in shop.get("abilities", []) if needs_review(a, settings)]
@@ -535,6 +599,7 @@ def cli() -> int:
     parser.add_argument("--mode", choices=("review", "create"), default="review")
     parser.add_argument("--class", dest="klass", default="", help="restrict to one class id")
     parser.add_argument("--count", type=int, default=3, help="create mode: how many to invent")
+    parser.add_argument("--infinite", action="store_true", help="create mode: run until you stop it (Ctrl+C), cycling every class")
     parser.add_argument("--review-only", action="store_true", help="checkpoint results without writing source")
     parser.add_argument("--review-mode", choices=("unchecked", "stale", "all"), default="unchecked")
     parser.add_argument("--stale-days", type=int, default=30)
@@ -548,6 +613,7 @@ def cli() -> int:
 
     settings = Settings(endpoint=args.endpoint, model=args.model, timeout=args.timeout,
                         limit=args.limit, mode=args.mode, klass=args.klass, count=args.count,
+                        infinite=args.infinite,
                         review_only=args.review_only, review_mode=args.review_mode,
                         stale_days=args.stale_days, temperature=args.temperature)
     done = process(settings, lambda line, _payload=None: print(line, flush=True))

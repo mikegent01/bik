@@ -5643,8 +5643,9 @@ function buildLinkRegistry(){
     // These are the ones that can collide with ordinary prose, so they get extra checks.
     const canonical=(LINK_PREVIEW[e.id]&&LINK_PREVIEW[e.id].name||'').trim().toLowerCase();
     const weak=!/\s/.test(e.name) && e.name.trim().toLowerCase()!==canonical;
-    try{ LINK_ENTRIES.push({re:new RegExp(pat), id:e.id, route:routeForKind(e.kind,e.id), key:e.key, kind:e.kind, weak, alias:e.name}); }catch(_){}
+    try{ LINK_ENTRIES.push({re:new RegExp(pat), id:e.id, route:routeForKind(e.kind,e.id), key:e.key, kind:e.kind, weak, alias:e.name, rare:rarestChar(e.name)}); }catch(_){}
   });
+  buildLinkLeadIndex();
   buildHomographs();
   buildWantedPages();
 }
@@ -5653,6 +5654,66 @@ function buildLinkRegistry(){
    "Dan" can mean dan / dan_the_toad / dedan. On an article whose cast includes
    dan_the_toad, "Dan" should link there — not to whichever record happened to
    sort first. Falls back to the default winner when nothing is in context. */
+/* ===== linkify prefilter =====
+   linkify() used to try all ~2,700 alias regexes against every paragraph: 185 paragraphs
+   x 2,738 entries = 506,530 regex executions for one event article, and 659ms of the
+   660ms render. Almost every one fails — "\bMushroom Kingdom\b" is tested against
+   paragraphs with no "M" in them.
+
+   Each alias is bucketed by its RAREST letter. An alias can only match if every one of
+   its characters is present in the text, so requiring just the rarest one is a sound
+   filter — and far more selective than the first letter, because a paragraph usually
+   contains every common letter but few rare ones ("Markop" needs a "k", "Waluigi" needs
+   a "w"). It can only skip regexes that provably could not match, so output is
+   byte-identical. */
+let LINK_LEAD_INDEX=new Map();   // rarest lowercase letter -> [entry, …]
+/* Rough English letter frequency, commonest first. Anything not listed is treated as very
+   rare, which is the safe direction (more selective, never wrong). */
+const LETTER_RANK=(()=>{
+  const order='etaoinshrdlcumwfgypbvkjxqz';
+  const m=new Map();
+  for(let i=0;i<order.length;i++) m.set(order[i], i);
+  return m;
+})();
+function rarestChar(alias){
+  let best='', bestRank=-1;
+  const s=String(alias).toLowerCase();
+  for(let i=0;i<s.length;i++){
+    const c=s[i];
+    if(c<'a'||c>'z') continue;                    // ignore spaces/punctuation
+    const rank=LETTER_RANK.has(c)?LETTER_RANK.get(c):99;
+    if(rank>bestRank){ bestRank=rank; best=c; }
+  }
+  return best;
+}
+function buildLinkLeadIndex(){
+  LINK_LEAD_INDEX=new Map();
+  for(const ent of LINK_ENTRIES){
+    const c=ent.rare||'';
+    if(!c){ // no usable letter: must always be tried
+      let b=LINK_LEAD_INDEX.get(''); if(!b){b=[];LINK_LEAD_INDEX.set('',b);} b.push(ent); continue;
+    }
+    let bucket=LINK_LEAD_INDEX.get(c);
+    if(!bucket){ bucket=[]; LINK_LEAD_INDEX.set(c,bucket); }
+    bucket.push(ent);
+  }
+}
+/* Entries that could possibly match this text. Longest-alias-first ordering is preserved
+   so "The Iron Legion" is still consumed before "Iron Legion". */
+function candidateEntries(text){
+  if(!LINK_LEAD_INDEX.size) return LINK_ENTRIES;
+  const lower=text.toLowerCase();
+  const present=new Set();
+  for(let i=0;i<lower.length;i++) present.add(lower[i]);
+  const out=[];
+  for(const [c,bucket] of LINK_LEAD_INDEX){
+    if(c==='' || present.has(c)) for(const e of bucket) out.push(e);
+  }
+  if(out.length>=LINK_ENTRIES.length) return LINK_ENTRIES;   // nothing gained
+  out.sort((a,b)=>b.alias.length-a.alias.length);
+  return out;
+}
+
 /* ===== Context-aware resolution =====
    The first version treated context as a flat set: an entity was either "in the article"
    or not. That is too blunt once several candidates are all present — an event whose cast
@@ -5850,7 +5911,8 @@ function linkify(escapedHtml, currentId){
     //    Repeat-suppression depends on the density tier (see LINK_LEVELS):
     //      light/normal -> once per scope (article / section), aggressive -> every occurrence.
     let pieces=[seg0];
-    for(const ent of LINK_ENTRIES){
+    // Only aliases whose first letter occurs in this segment can possibly match.
+    for(const ent of candidateEntries(seg0)){
       if(ent.id===currentId) continue;            // never self-link
       if(LINK_TOTAL_COUNT>=cap) break;
       const once=(linkMode!=='aggressive');
@@ -5859,7 +5921,11 @@ function linkify(escapedHtml, currentId){
       for(const piece of pieces){
         if(piece.startsWith('<') || (once && done)){ next.push(piece); continue; } // inserted anchor/tag or already linked once
         let last=0, out='', mm;
-        const g=new RegExp(ent.re.source, ent.re.flags.includes('g')?ent.re.flags:ent.re.flags+'g');
+        // Compile the global variant once per entry, not once per text piece. This was
+        // allocating a fresh RegExp on every (entry x piece) pair.
+        let g=ent.reG;
+        if(!g){ g=ent.reG=new RegExp(ent.re.source, ent.re.flags.includes('g')?ent.re.flags:ent.re.flags+'g'); }
+        g.lastIndex=0;
         while((mm=g.exec(piece))!==null){
           if(LINK_TOTAL_COUNT>=cap) break;
           // Feature 2: an ambiguous alias resolves against the current article's cast.
@@ -6654,7 +6720,10 @@ function atlasMapApplet(id, n){
   const frameId=`atlasMapFrame_${String(id).replace(/[^a-z0-9_]/gi,'_')}`;
   const url=mid=>`${prefix}maps-view.html?map=${encodeURIComponent(mid)}`;
   const activeId=resolved.activeId||'';
-  const embedSrc=activeId?url(activeId)+'&embed=1':(cfg.mapFile?prefix+cfg.mapFile+(cfg.mapFile.includes('?')?'&':'?')+'embed=1':'');
+  // chrome=0 only when the atlas itself renders a region switcher, otherwise the reader
+  // would lose the in-frame tabs and have no way to change region at all.
+  const suppress=resolved.maps.length>1?'&chrome=0':'';
+  const embedSrc=activeId?url(activeId)+'&embed=1'+suppress:(cfg.mapFile?prefix+cfg.mapFile+(cfg.mapFile.includes('?')?'&':'?')+'embed=1':'');
   const fullSrc=activeId?url(activeId):(cfg.mapFile?prefix+cfg.mapFile:'');
 
   const regions=resolved.maps.length>1
@@ -6690,7 +6759,7 @@ function atlasSwitchMap(frameId, mapId){
   const frame=document.getElementById(frameId);
   if(!frame) return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
-  const src=`${prefix}maps-view.html?map=${encodeURIComponent(mapId)}&embed=1`;
+  const src=`${prefix}maps-view.html?map=${encodeURIComponent(mapId)}&embed=1&chrome=0`;
   frame.dataset.src=src;
   frame.src=src;
   const applet=frame.closest('.atlas-map-applet');

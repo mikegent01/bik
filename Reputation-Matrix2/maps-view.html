@@ -19,9 +19,23 @@ body.map-embed #unified-page-title{display:none!important}
 body.map-embed #maps-layout{height:calc(100vh - 16px);min-height:560px;grid-template-columns:minmax(0,1fr) 300px;gap:12px}
 body.map-embed #map-controls{max-height:170px;overflow:auto;padding:10px}
 body.map-embed #map-display-area{min-height:380px}
+/* chrome=0: the atlas already renders its own region switcher and title above the
+   iframe, so hide the in-frame duplicates instead of showing the region list twice. */
+body.map-embed.map-nochrome .map-group-header,
+body.map-embed.map-nochrome .map-tabs{display:none!important}
+body.map-embed.map-nochrome #map-controls{max-height:none;overflow:visible;padding:8px 10px}
+body.map-embed.map-nochrome #maps-layout{height:calc(100vh - 12px);min-height:520px}
 @media(max-width:900px){body.map-embed #maps-layout{grid-template-columns:1fr;height:auto;overflow:auto}body.map-embed{overflow:auto}body.map-embed #map-detail-panel{min-height:180px}}
 </style>
-<script>document.addEventListener('DOMContentLoaded',()=>{if(new URLSearchParams(location.search).get('embed')==='1')document.body.classList.add('map-embed');});</script>
+<script>document.addEventListener('DOMContentLoaded',()=>{
+  const q=new URLSearchParams(location.search);
+  if(q.get('embed')==='1'){
+    document.body.classList.add('map-embed');
+    // The atlas renders its own region switcher above the iframe. chrome=0 hides the
+    // in-frame group tabs so the region list is not shown twice.
+    if(q.get('chrome')==='0') document.body.classList.add('map-nochrome');
+  }
+});</script>
 </head>
 <body>
     <div class="tablet-frame">
