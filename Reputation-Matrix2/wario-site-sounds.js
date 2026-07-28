@@ -8,6 +8,7 @@
   let ctx = null;
   let master = null;
   let lastHover = 0;
+  let lastHoverItem = null;   // which control last played the hover cue (stops repeats)
   let lastInput = 0;
   let lastAnyClick = 0;
   let lastRoute = location.hash;
@@ -206,11 +207,28 @@
 
   document.addEventListener('pointerover', event => {
     const item = interactiveFrom(event.target);
-    if (!item || item.contains(event.relatedTarget)) return;
+    if (!item) { lastHoverItem = null; return; }
+    // Ignore bubbling from inside the same control (e.g. an icon <span> in a button).
+    if (item.contains(event.relatedTarget)) return;
+    // The cue is once PER ELEMENT, not per unit of time. A purely time-based throttle
+    // let a slow mouse re-trigger the same inline link over and over, because browsers
+    // re-fire pointerover as the cursor crosses text nodes / when a hover card
+    // repositions under the pointer. Remembering the last element fixes the repeat.
+    if (item === lastHoverItem) return;
     const now = performance.now();
+    // Rate-limit fast sweeps, but do NOT claim the element yet — otherwise a throttled
+    // first hover would mark it "already played" and it would stay silent until you
+    // left and came back.
     if (now - lastHover < 110) return;
+    lastHoverItem = item;
     lastHover = now;
     play('hover');
+  }, true);
+
+  // Leaving a control clears it so re-entering later legitimately plays again.
+  document.addEventListener('pointerout', event => {
+    if (lastHoverItem && event.target === lastHoverItem &&
+        !lastHoverItem.contains(event.relatedTarget)) lastHoverItem = null;
   }, true);
 
   document.addEventListener('focusin', event => {

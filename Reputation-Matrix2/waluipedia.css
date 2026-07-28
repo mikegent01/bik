@@ -166,6 +166,43 @@ main.content{min-width:0}
 .event-details-section{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:16px;margin:18px 0}.event-details-section h4{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--accent2)}.event-details-section ul{margin:0;padding-left:20px;font-size:14px;color:var(--text)}.event-details-section li{margin-bottom:8px}
 .prose blockquote{background:rgba(224,180,0,.10);border-left:4px solid var(--accent2);margin:16px 0;padding:10px 16px;border-radius:8px}
 .waluigi-comment, .waluigi-rant { border-left: 4px solid #8b5fd4; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; margin: 20px 0; color: #d8c6ff; font-style: italic; }
+/* ---- Waluigi's inline asides ----
+   Most articles write his commentary as plain *italics*, which used to render as an
+   anonymous <em> indistinguishable from sound effects and in-world quotes. This gives his
+   voice a consistent purple identity so you can tell narration from Waluigi at a glance,
+   without breaking the flow of the paragraph the way a full block quote would. */
+em.walu-aside{
+  font-style:italic;
+  color:var(--link);
+  background:linear-gradient(90deg,rgba(138,75,255,.14),rgba(138,75,255,.05));
+  border-left:3px solid var(--accent);
+  border-radius:0 6px 6px 0;
+  padding:2px 8px 2px 7px;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+em.walu-aside .walu-mark{
+  display:inline-block;
+  font-style:normal;
+  font-weight:900;
+  font-size:9.5px;
+  line-height:1;
+  color:#fff;
+  background:var(--accent);
+  border-radius:3px;
+  padding:2px 3px;
+  margin-right:6px;
+  vertical-align:1.5px;
+  letter-spacing:.5px;
+  user-select:none;
+}
+/* Keep auto-links readable against the tinted background. */
+em.walu-aside a.xlink{color:var(--link);border-bottom-color:var(--link)}
+em.walu-aside a.xlink:hover{background:rgba(138,75,255,.28)}
+[data-theme="light"] em.walu-aside{
+  background:linear-gradient(90deg,rgba(107,43,189,.11),rgba(107,43,189,.04));
+  color:var(--link);
+}
 .xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; }
 .prose p{margin:12px 0}
 .related-list{display:flex;flex-wrap:wrap;gap:8px}
@@ -322,7 +359,85 @@ a.xlink.datelink:hover{background:rgba(224,180,0,.15)}
 #linkPreview .lp-name{font-weight:700;font-size:14.5px;color:var(--text)}
 #linkPreview .lp-sub{color:var(--accent2);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
 #linkPreview .lp-sum{color:var(--muted)}
-#linkPreview .lp-go{margin-top:8px;font-size:11px;color:var(--link);opacity:.8}
+#linkPreview .lp-go{margin-top:8px;font-size:11px;color:var(--link);opacity:.8;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+/* ---- rich hover card (Feature 4) ---- */
+#linkPreview{max-width:360px}
+#linkPreview .lp-top{display:flex;gap:10px;align-items:flex-start}
+#linkPreview .lp-topbody{min-width:0;flex:1}
+#linkPreview .lp-portrait{width:56px;height:56px;object-fit:cover;border-radius:10px;border:1px solid var(--border);flex:0 0 auto;background:var(--bg2)}
+#linkPreview .lp-head{margin-bottom:3px}
+#linkPreview .lp-badge{display:inline-block;font-size:9.5px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 7px;margin-bottom:4px;opacity:.9}
+#linkPreview .lp-facts{display:flex;flex-wrap:wrap;gap:5px;margin:7px 0 6px}
+#linkPreview .lp-fact{font-size:10.5px;color:var(--muted);background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:2px 6px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+#linkPreview .lp-fact.xp{color:var(--accent2);border-color:rgba(224,180,0,.45)}
+#linkPreview .lp-inb{color:var(--muted);font-size:10px;white-space:nowrap}
+#linkPreview .lp-mute{margin-top:5px;padding-top:5px;border-top:1px dashed var(--border);font-size:9.5px;color:var(--muted);opacity:.75}
+#linkPreview .lp-mute b{color:var(--accent2)}
+/* ---- Link HUD (Feature 3) ---- */
+#linkHud{position:fixed;right:16px;bottom:16px;z-index:190;background:var(--panel2);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow);padding:9px 11px;font-size:12px;min-width:158px;backdrop-filter:blur(6px)}
+#linkHud .lh-row{display:flex;align-items:center;gap:8px}
+#linkHud .lh-title{font-weight:800;color:var(--text);font-size:11.5px;letter-spacing:.3px}
+#linkHud .lh-count{margin-left:auto;font-weight:900;color:var(--accent);font-size:15px;line-height:1}
+#linkHud .lh-sub{color:var(--muted);font-size:10.5px;font-weight:700}
+#linkHud .lh-x{background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px;padding:0 0 0 2px;line-height:1;font-family:inherit}
+#linkHud .lh-x:hover{color:var(--danger)}
+#linkHud .lh-pills{display:flex;gap:4px;margin-top:7px}
+#linkHud .lh-pill{flex:1;background:var(--bg2);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:3px 0;font-size:10.5px;cursor:pointer;font-family:inherit;transition:.12s}
+#linkHud .lh-pill:hover{color:var(--text);border-color:var(--accent)}
+#linkHud .lh-pill.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:800}
+#linkHud .lh-hint{margin-top:6px;color:var(--muted);font-size:9.5px;text-align:center;opacity:.8}
+#linkHud .lh-hint b{color:var(--accent2)}
+@media (max-width:820px){#linkHud{right:10px;bottom:10px;transform:scale(.92);transform-origin:bottom right}}
+/* ---- Link Graph rail (Feature 5) ---- */
+.lg-sec{margin-bottom:10px}
+.lg-head{font-size:10px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.lg-head b{color:var(--accent);margin-left:4px}
+.lg-chips{display:flex;flex-wrap:wrap;gap:5px}
+.lg-chip{display:inline-flex;align-items:center;gap:4px;background:var(--bg2);border:1px solid var(--border);border-radius:999px;padding:2px 9px;font-size:11.5px;color:var(--text);text-decoration:none;cursor:pointer;transition:.12s;max-width:100%}
+.lg-chip:hover{border-color:var(--accent);color:var(--link);transform:translateY(-1px)}
+.lg-chip .lg-emo{font-size:11px}
+.lg-chip.sm{font-size:11px;padding:1px 7px}
+.lg-more{font-size:10.5px;color:var(--muted);align-self:center}
+.lg-foot{margin-top:9px;padding-top:8px;border-top:1px solid var(--border);font-size:10.5px;color:var(--muted)}
+.lg-foot a{color:var(--link);cursor:pointer}
+/* ---- Law & Culture / Legal Codex ---- */
+.lg-chip.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+.lf-who{margin-left:6px;font-size:9.5px;color:var(--muted);background:rgba(0,0,0,.25);border-radius:999px;padding:0 5px}
+.legal-friction{margin:18px 0;border:1px solid var(--border);border-left:4px solid var(--accent2);border-radius:12px;background:var(--panel2);padding:14px 16px}
+.legal-friction .lf-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:10px}
+.legal-friction .lf-head h3{margin:0;font-size:16px}
+.legal-friction .lf-sub{color:var(--muted);font-size:11.5px}
+.lf-laws{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.lf-clash-head{font-size:11px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;color:var(--danger);margin:12px 0 8px}
+.friction-list{display:flex;flex-direction:column;gap:9px}
+.friction-row{border:1px solid var(--border);border-left:3px solid var(--danger);border-radius:9px;background:var(--bg2);padding:9px 11px}
+.friction-pair{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px;font-weight:700}
+.friction-pair .fr-a,.friction-pair .fr-b{color:var(--link);cursor:pointer;text-decoration:none}
+.friction-pair .fr-a:hover,.friction-pair .fr-b:hover{text-decoration:underline}
+.friction-pair .fr-vs{font-size:10px;font-weight:900;letter-spacing:.8px;color:var(--danger);background:rgba(229,72,77,.14);border-radius:999px;padding:1px 7px}
+.friction-who{margin-top:5px;font-size:11.5px;color:var(--muted)}
+.friction-who a{color:var(--text);cursor:pointer}
+.friction-who a:hover{color:var(--link)}
+.friction-why{margin-top:5px;font-size:12px;color:var(--muted);font-style:italic;line-height:1.45}
+.lf-foot{margin-top:11px;padding-top:9px;border-top:1px solid var(--border);font-size:11.5px}
+.lf-foot a{color:var(--link);cursor:pointer}
+.codex-block{margin-top:20px;border:1px solid var(--border);border-radius:12px;background:var(--panel);padding:18px 20px}
+.codex-head h2{margin:0 0 6px;font-size:19px}
+.codex-cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:14px}
+.codex-cat{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:11px 12px}
+.codex-cat-head{font-size:11px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--accent2);margin-bottom:8px;display:flex;justify-content:space-between}
+.codex-cat-head span{color:var(--muted)}
+.fr-mini{display:inline-block;font-size:11px;margin:2px 6px 2px 0;white-space:nowrap}
+.fr-mini a{color:var(--link);cursor:pointer}
+@media (max-width:820px){.codex-cats{grid-template-columns:1fr}}
+/* ---- Wanted Pages table (Feature 5) ---- */
+.wanted-table{width:100%;border-collapse:collapse;font-size:13px}
+.wanted-table th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);border-bottom:1px solid var(--border);padding:7px 8px}
+.wanted-table td{padding:9px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+.wanted-table tr:hover td{background:rgba(138,75,255,.05)}
+.wanted-name{font-weight:700;color:var(--text)}
+.wanted-id{font-size:10.5px;color:var(--muted);font-family:ui-monospace,Menlo,Consolas,monospace}
+.wanted-n{color:var(--accent);font-weight:900;text-align:center;width:78px}
 hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 @media(max-width:940px){
   .layout{grid-template-columns:1fr}
@@ -887,6 +1002,14 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 .atlas-map-toolbar p{margin:4px 0 0;color:var(--muted);font-size:12px;line-height:1.4}
 .atlas-map-applet iframe{display:block;width:100%;height:min(82vh,900px);min-height:680px;border:0;background:#080b14}
 .atlas-map-empty{border-left:4px solid var(--muted)}
+/* Region switcher: every sub-region map in the realm's group, swapped in place. */
+.atlas-map-regions{padding:10px 16px;border-bottom:1px solid var(--border);background:var(--panel2)}
+.atlas-map-regions .amr-label{display:block;font-size:10px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.atlas-map-regions .amr-chips{display:flex;flex-wrap:wrap;gap:5px;max-height:118px;overflow:auto}
+.amr-chip{background:var(--bg2);border:1px solid var(--border);color:var(--muted);border-radius:999px;padding:3px 10px;font-size:11.5px;cursor:pointer;font-family:inherit;transition:.12s;white-space:nowrap}
+.amr-chip:hover{border-color:var(--accent);color:var(--text);transform:translateY(-1px)}
+.amr-chip.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+@media(max-width:760px){.atlas-map-regions .amr-chips{max-height:96px}}
 @media(max-width:760px){.journal-viewer-card iframe,.atlas-map-applet iframe{height:78vh;min-height:560px}.journal-viewer-hero{display:block}.journal-viewer-hero .chips{margin-top:10px}}
 
 /* Hide floating Waluigi ambient controls while large embedded applets/journals are active. */

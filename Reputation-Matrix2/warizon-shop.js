@@ -322,6 +322,153 @@ function assessScamRisk(raw) {
 }
 
 /* --------------------------------------------------------------------------
+   Buyer advisories — the scam-risk banner generalized
+   --------------------------------------------------------------------------
+   Scam risk proved that a keyword-driven banner is the cheapest way to turn flat
+   catalog text into something that warns, explains, and sets expectations at the
+   table. It was doing that job alone. These advisories reuse the same scoring
+   shape for the other situations a buyer actually needs flagged: cursed goods,
+   attunement load, consumables, legal exposure, volatility, faction reputation,
+   and known-fragile gear.
+
+   Each advisory declares:
+     id       stable key
+     tone     danger | warn | notice | good   (drives colour)
+     icon     leading glyph
+     title    short banner headline
+     phrases  [{rx, score, label}] scored against the item's combined text
+     verdict  (score, item) => the sentence a player reads
+     applies  optional extra gate that does not depend on phrasing
+   -------------------------------------------------------------------------- */
+
+const ADVISORY_RULES = [
+  {
+    id: 'cursed', tone: 'danger', icon: '☠️', title: 'Cursed / binding item',
+    phrases: [
+      { rx: /\bcursed?\b|\bcurse of\b/, score: 3, label: 'explicit curse' },
+      { rx: /cannot be removed|can'?t be removed|permanently bound|binds? to (?:the|your) (?:wielder|soul|hand)/, score: 3, label: 'cannot be removed' },
+      { rx: /remove curse|greater restoration|only.{0,30}(?:cleric|wish)/, score: 2, label: 'requires magical removal' },
+      { rx: /haunt|possess(?:es|ion)?|whispers? to you|feeds? on (?:your|the wielder)/, score: 2, label: 'malign behaviour' }
+    ],
+    verdict: score => score >= 5
+      ? 'This item is cursed and does not come off on demand. Assume a removal quest, not a refund.'
+      : 'This listing shows curse-adjacent language. Confirm the removal terms with your DM before attuning.'
+  },
+  {
+    id: 'attunement', tone: 'notice', icon: '🔗', title: 'Attunement required',
+    phrases: [
+      { rx: /requires? attunement|attuned?\b/, score: 3, label: 'attunement clause' },
+      { rx: /only one.{0,24}at a time|single attunement/, score: 1, label: 'exclusive slot' }
+    ],
+    verdict: () => 'Attunement uses one of your three slots. Check what you are giving up before buying.'
+  },
+  {
+    id: 'consumable', tone: 'notice', icon: '🥤', title: 'Single use — it is gone after',
+    phrases: [
+      { rx: /\bsingle[- ]use\b|\bone[- ]time\b|\bonce ever\b/, score: 3, label: 'single use' },
+      { rx: /is consumed|consumed on use|crumbles to dust|vanishes after|destroyed (?:on|after) use/, score: 3, label: 'consumed on use' },
+      { rx: /\bper (?:charge|dose|sip|vial)\b|\b\d+ charges?\b/, score: 1, label: 'limited charges' }
+    ],
+    verdict: score => score >= 4
+      ? 'Consumable. You are buying one use, not a permanent item — price it against a single encounter.'
+      : 'Charge-limited. Confirm whether the charges recharge before treating this as reusable.'
+  },
+  {
+    id: 'legal', tone: 'warn', icon: '⚖️', title: 'Legal exposure',
+    phrases: [
+      { rx: /\bstolen\b|\bcontraband\b|\bsmuggled\b|\bblack market\b/, score: 3, label: 'illicit provenance' },
+      { rx: /\bunlicensed\b|\bunregistered\b|\bno paperwork\b|\bforged (?:papers|permit|seal)\b/, score: 2, label: 'missing paperwork' },
+      { rx: /\billegal\b|\bbanned\b|\boutlawed\b|\bprohibited in\b|\bconfiscat/, score: 2, label: 'prohibited goods' },
+      { rx: /\bcustoms\b|\bcontraband inspection\b|\bwarrant\b|\bbounty on\b/, score: 1, label: 'enforcement interest' }
+    ],
+    // A single soft keyword is not evidence of a crime; require corroboration.
+    minScore: 2,
+    verdict: score => score >= 5
+      ? 'Carrying this is a crime in at least one realm. Expect confiscation, fines, or an arrest scene.'
+      : 'Paperwork on this listing is questionable. Do not flash it near an inspection.'
+  },
+  {
+    id: 'volatile', tone: 'danger', icon: '💥', title: 'Volatile — can hurt the user',
+    phrases: [
+      { rx: /explod(?:e|es|ing)|detonat|blast radius/, score: 3, label: 'explosive' },
+      { rx: /backfire|misfire|malfunction|unstable|unpredictable/, score: 2, label: 'unstable behaviour' },
+      { rx: /damage to (?:the )?(?:user|wielder|yourself)|hurts? the user|recoil/, score: 3, label: 'harms the user' },
+      { rx: /roll a d\d+.{0,40}(?:wild|surge|mishap)|on a (?:1|natural 1)/, score: 2, label: 'mishap table' }
+    ],
+    verdict: score => score >= 5
+      ? 'This can injure the person holding it. Agree on the mishap rule with your DM before the first use.'
+      : 'This item behaves unpredictably. Do not rely on it as your only plan.'
+  },
+  {
+    id: 'fragile', tone: 'warn', icon: '🩹', title: 'Fragile — breaks with use',
+    phrases: [
+      // "worn" is deliberately excluded: across the live catalog it almost always means
+      // "worn on the head", not "worn out", and it produced ~1,000 false positives.
+      { rx: /\bfragile\b|\bbrittle\b|\bshoddy\b|\bflimsy\b|\bdecrepit\b/, score: 2, label: 'poor condition' },
+      { rx: /breaks? (?:on|after|when)|snaps? if|falls? apart|\bdurability\b/, score: 3, label: 'breakage clause' },
+      { rx: /cannot be repaired|no repairs|beyond repair|irreparabl/, score: 2, label: 'unrepairable' }
+    ],
+    verdict: () => 'Expect this to break. Budget a replacement, or a repair cost, into the purchase.'
+  },
+  {
+    id: 'faction', tone: 'warn', icon: '🏳️', title: 'Reputation consequences',
+    phrases: [
+      { rx: /\breputation\b|\binfamy\b|standing with|loyalty of/, score: 2, label: 'reputation clause' },
+      { rx: /enemies? of the|declares? war|blood feud|marked for death/, score: 2, label: 'hostility trigger' },
+      { rx: /(?:offends?|angers?|insults?).{0,30}(?:faction|clan|court|guild|order)/, score: 2, label: 'gives offence' }
+    ],
+    minScore: 2,
+    verdict: () => 'Owning or using this is a political act. Somebody will notice, and it will show up in the Reputation Matrix.'
+  },
+  {
+    id: 'economy', tone: 'notice', icon: '🏦', title: 'Economy-guarded asset',
+    phrases: [],
+    applies: item => Boolean(item?.economy?.protected),
+    verdict: (_score, item) =>
+      `Excluded from daily deals and price-floored at 💰${fmt(item.economy.floor)} gold. ${item.economy.reason || 'This asset would distort the campaign economy.'}`
+  },
+  {
+    id: 'value', tone: 'good', icon: '✅', title: 'Clean listing',
+    phrases: [],
+    // Deliberately hard to earn: no other advisory fired, no scam flag, in stock, and
+    // genuinely well reviewed. A badge that everything gets is not a badge.
+    applies: (item, others) => others.length === 0 && !item.scam && item.price > 0 &&
+      item.stock > 0 && item.rating >= 4.6 && item.reviews >= 800,
+    verdict: (_score, item) => `No buyer warnings on this listing, and ${fmt(item.reviews)} ratings averaging ${item.rating}. Wario is visibly disappointed.`
+  }
+];
+
+/** Score every advisory against one normalized item. Order: danger, warn, notice, good. */
+const ADVISORY_TONE_ORDER = { danger: 0, warn: 1, notice: 2, good: 3 };
+
+function assessAdvisories(item, raw) {
+  const text = balanceText(raw);
+  const found = [];
+  for (const rule of ADVISORY_RULES) {
+    if (!rule.phrases.length) continue;                     // gate-only rules handled below
+    const hits = rule.phrases.filter(p => p.rx.test(text));
+    if (!hits.length) continue;
+    const score = hits.reduce((sum, hit) => sum + hit.score, 0);
+    if (score < (rule.minScore || 0)) continue;             // one soft keyword is not evidence
+    found.push({
+      id: rule.id, tone: rule.tone, icon: rule.icon, title: rule.title, score,
+      reasons: hits.map(hit => hit.label),
+      message: rule.verdict(score, item)
+    });
+  }
+  for (const rule of ADVISORY_RULES) {
+    if (rule.phrases.length || typeof rule.applies !== 'function') continue;
+    if (!rule.applies(item, found)) continue;
+    found.push({
+      id: rule.id, tone: rule.tone, icon: rule.icon, title: rule.title, score: 0,
+      reasons: [], message: rule.verdict(0, item)
+    });
+  }
+  found.sort((a, b) => (ADVISORY_TONE_ORDER[a.tone] - ADVISORY_TONE_ORDER[b.tone]) || (b.score - a.score));
+  return found;
+}
+
+/* --------------------------------------------------------------------------
    Catalog normalization (computed once)
    -------------------------------------------------------------------------- */
 
@@ -385,7 +532,16 @@ function normalizeItem(raw, idx) {
   };
 }
 
-const ITEMS = Object.values(SHOP_ITEMS || {}).map(normalizeItem);
+/** Advisories need the finished item (price, rating, economy), so they run as a
+    second pass rather than inside normalizeItem. */
+function attachAdvisories(item, raw) {
+  item.advisories = assessAdvisories(item, raw);
+  item.hasDanger = item.advisories.some(a => a.tone === 'danger');
+  return item;
+}
+
+const ITEMS = Object.values(SHOP_ITEMS || {}).map((raw, idx) =>
+  attachAdvisories(normalizeItem(raw, idx), raw));
 
 /* --------------------------------------------------------------------------
    DAILY DEAL ENGINE — a local-calendar rotation, not permanent source flags.
@@ -1356,6 +1512,26 @@ function renderHeader() {
    RENDER: HOME
    -------------------------------------------------------------------------- */
 
+/** Full advisory banners for the product page. */
+function advisoryHtml(it) {
+  if (!it.advisories?.length) return '';
+  return it.advisories.map(a => `<div class="advisory ${esc(a.tone)}">
+    <b>${a.icon} ${esc(a.title)}</b>
+    <span>${esc(a.message)}</span>
+    ${a.reasons.length ? `<small>Flagged: ${a.reasons.map(esc).join(' · ')}</small>` : ''}
+  </div>`).join('');
+}
+
+/** Compact pills for grid/list cards, so a warning is visible before you click in. */
+function advisoryPillsHtml(it, { max = 3 } = {}) {
+  if (!it.advisories?.length) return '';
+  const shown = it.advisories.slice(0, max);
+  const rest = it.advisories.length - shown.length;
+  return `<div class="advisory-pills">${
+    shown.map(a => `<span class="ad-pill ${esc(a.tone)}" title="${esc(a.title)}: ${esc(a.message)}">${a.icon} ${esc(a.title)}</span>`).join('')
+  }${rest > 0 ? `<span class="ad-pill more" title="${esc(it.advisories.slice(max).map(a => a.title).join(' · '))}">+${rest}</span>` : ''}</div>`;
+}
+
 function scamWarningHtml(it, { compact = false } = {}) {
   if (!it.scam) return '';
   const title = it.scam.level === 'critical' ? '🚨 Critical scam risk' : it.scam.level === 'high' ? '⚠ High scam risk' : '⚠ Buyer caution';
@@ -1395,6 +1571,7 @@ function miniCard(it) {
     <div class="mc-title">${esc(it.name)}</div>
     ${cardIntelHtml(it, { mini: true })}
     ${scamWarningHtml(it, { compact: true })}
+    ${advisoryPillsHtml(it)}
     <div>${starsHtml(it.rating)} <span style="font-size:11px;color:var(--wz-link)">${fmt(it.reviews)}</span></div>
     <div class="mc-price">${coinIcon(c)}${fmt(amtIn(it.price, c))}<span class="cents">${it.cents}</span></div>
     ${it.deal ? `<div class="mc-was">Was <s>${coinIcon(c)}${fmt(amtIn(it.deal.was, c))}</s> · Limited-time deal</div>` : ''}
@@ -1532,6 +1709,7 @@ function productCard(it) {
     <div class="p-title" data-open="${esc(it.id)}">${esc(it.name)}</div>
     ${cardIntelHtml(it)}
     ${scamWarningHtml(it, { compact: true })}
+    ${advisoryPillsHtml(it)}
     <div class="p-rating">${starsHtml(it.rating)} <span class="r-count">${it.rating} · ${fmt(it.reviews)} ratings</span></div>
     ${priceWidget(it)}
     <div class="p-afford ${affordable ? 'ok' : 'no'}" title="${esc(affordLine(it))}">${affordable ? '✅ Affordable from your wallet' : '🔒 Not affordable right now'}</div>
@@ -2282,6 +2460,7 @@ function openPdp(id, useCur = null) {
           ${it.desc ? `<p>${loreLinkText(it.desc, 6)}</p>` : '<p>Wario forgot to write a description, which is legally distinct from suspicious.</p>'}
         </div>
         ${scamWarningHtml(it)}
+        ${advisoryHtml(it)}
         ${it.economy.protected ? `<div class="economy-guard"><b>🏦 Economy-guarded price</b><span>This listing is excluded from daily deals and cannot fall below 💰${fmt(it.economy.floor)} gold.</span>${it.economy.reason ? `<small>${esc(it.economy.reason)}</small>` : ''}</div>` : ''}
         <hr class="pdp-hr">
         ${itemLoreHtml(it)}

@@ -214,6 +214,20 @@ const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? 
 /* DATA is populated by the loader (fetch ./data/*.json, fall back to embedded).
    These are declared with let and assigned once data is ready in boot(). */
 let DATA, FCOLORS, MONTHS, CUR;
+/* Culture / legal datasets. These used to be dynamically imported INSIDE view_cultures()
+   only, which is why nothing else on the site could reference a tradition. They are now
+   loaded once at boot and shared, so traditions can be searched, linked and cited from
+   faction, nation, character and event articles. */
+let CULTURES={}, LEGAL={}, SPECIES={}, REGIONAL_DEMO={};
+/* Tactical map catalogue. 182 maps are defined in map-data.js but the atlas only ever
+   surfaced the ~19 "*_full" overviews, because NATION_ATLAS_CONFIG hard-coded one map id
+   per nation. Loading MAP_DATA at boot lets the atlas resolve a realm to its whole map
+   group (every sub-region), and lets us verify a configured id actually exists. */
+let ATLAS_MAPS={};          // id -> map record
+let ATLAS_MAP_GROUPS={};    // group name -> [map record, …] ordered
+let TRADITIONS={};        // id -> {…tradition, category, cultures:[], followers:[]}
+let CULTURE_OF_SPECIES={};// speciesKey -> cultureId
+let CULTURE_BY_ARTICLE={};// articleId -> [cultureId,…] derived from relatedArticles/species
 const XP_SUMMARY={"bowser":{"xpKey":"bowser","name":"Bowser","level":8,"currentXP":35292,"nextXP":48000,"remainingXP":12708,"powerLevel":14,"fameScore":95,"entryCount":73},"archie_miser":{"xpKey":"archie","name":"Archie Miser","level":6,"currentXP":21030,"nextXP":23000,"remainingXP":1970,"powerLevel":13,"fameScore":74,"entryCount":64},"waluigi":{"xpKey":"waluigi","name":"Waluigi","level":5,"currentXP":11331,"nextXP":14000,"remainingXP":2669,"powerLevel":11,"fameScore":72,"entryCount":138},"markop":{"xpKey":"markop","name":"Markop","level":8,"currentXP":37769,"nextXP":48000,"remainingXP":10231,"powerLevel":13,"fameScore":64,"entryCount":68},"hjumpik":{"xpKey":"hjumpik","name":"Hjumpik","level":7,"currentXP":25022,"nextXP":34000,"remainingXP":8978,"powerLevel":12,"fameScore":55,"entryCount":55},"remi_akamatsu_full_backstory":{"xpKey":"remi","name":"Remi","level":7,"currentXP":30308,"nextXP":34000,"remainingXP":3692,"powerLevel":12,"fameScore":45,"entryCount":58},"azure_rakasha":{"xpKey":"rakashaazure","name":"Rakasha Azure","level":4,"currentXP":5240,"nextXP":6500,"remainingXP":1260,"powerLevel":7,"fameScore":42,"entryCount":11},"usk":{"xpKey":"usk","name":"Usk","level":2,"currentXP":800,"nextXP":900,"remainingXP":100,"powerLevel":5,"fameScore":26,"entryCount":3},"bones":{"xpKey":"bones","name":"Bones","level":4,"currentXP":6180,"nextXP":6500,"remainingXP":320,"powerLevel":8,"fameScore":52,"entryCount":18},"dan":{"xpKey":"originaldan","name":"Original Dan","level":7,"currentXP":25690,"nextXP":34000,"remainingXP":8310,"powerLevel":9,"fameScore":57,"entryCount":7},"toad_lee":{"xpKey":"toadlee","name":"Toad Lee","level":4,"currentXP":5790,"nextXP":6500,"remainingXP":710,"powerLevel":9,"fameScore":48,"entryCount":20},"green_t":{"xpKey":"greent","name":"Green T","level":5,"currentXP":12500,"nextXP":14000,"remainingXP":1500,"powerLevel":11,"fameScore":47,"entryCount":30},"dan_the_toad":{"xpKey":"feywarddan","name":"Feyward Dan","level":3,"currentXP":1960,"nextXP":2700,"remainingXP":740,"powerLevel":5,"fameScore":37,"entryCount":9},"speaker_l":{"xpKey":"speaker_l","name":"Speaker L","level":3,"currentXP":1470,"nextXP":2700,"remainingXP":1230,"powerLevel":5,"fameScore":37,"entryCount":8},"eager":{"xpKey":"eager","name":"Eager","level":4,"currentXP":4860,"nextXP":6500,"remainingXP":1640,"powerLevel":10,"fameScore":34,"entryCount":18},"salam":{"xpKey":"salam","name":"Salam","level":3,"currentXP":2220,"nextXP":2700,"remainingXP":480,"powerLevel":5,"fameScore":30,"entryCount":10},"ryan":{"xpKey":"ryan","name":"Ryan","level":2,"currentXP":590,"nextXP":900,"remainingXP":310,"powerLevel":4,"fameScore":30,"entryCount":3},"smoking_j":{"xpKey":"smoking_j","name":"Smoking J","level":2,"currentXP":550,"nextXP":900,"remainingXP":350,"powerLevel":4,"fameScore":30,"entryCount":2},"mossy":{"xpKey":"mossy","name":"Mossy / Steely","level":4,"currentXP":3270,"nextXP":6500,"remainingXP":3230,"powerLevel":4,"fameScore":28,"entryCount":12},"roger":{"xpKey":"roger","name":"Roger","level":2,"currentXP":790,"nextXP":900,"remainingXP":110,"powerLevel":3,"fameScore":26,"entryCount":4},"luigi":{"xpKey":"luigi","name":"Luigi","level":5,"currentXP":10310,"nextXP":14000,"remainingXP":3690,"powerLevel":13,"fameScore":86,"entryCount":35},"valorian_stormweave":{"xpKey":"valorian_stormweave","name":"Valorian Stormweave","level":2,"currentXP":860,"nextXP":900,"remainingXP":40,"powerLevel":4,"fameScore":32,"entryCount":3},"thornbury":{"xpKey":"thornbury","name":"Thornbury","level":2,"currentXP":840,"nextXP":900,"remainingXP":60,"powerLevel":5,"fameScore":26,"entryCount":4},"parson_pellinost":{"xpKey":"parson_pellinost","name":"Parson Pellinost","level":2,"currentXP":490,"nextXP":900,"remainingXP":410,"powerLevel":4,"fameScore":22,"entryCount":2},"toadburt":{"xpKey":"toadburt","name":"Toadburt","level":2,"currentXP":800,"nextXP":900,"remainingXP":100,"powerLevel":5,"fameScore":26,"entryCount":4},"darno_spriggon":{"xpKey":"darno_spriggon","name":"Darno Spriggon","level":3,"currentXP":1510,"nextXP":2700,"remainingXP":1190,"powerLevel":4,"fameScore":25,"entryCount":5},"hargram_fidger":{"xpKey":"hargram_fidger","name":"Hargram Fidger","level":2,"currentXP":550,"nextXP":900,"remainingXP":350,"powerLevel":4,"fameScore":22,"entryCount":2},"byscilla_danos":{"xpKey":"byscilla_danos","name":"Byscilla Danos","level":3,"currentXP":1330,"nextXP":2700,"remainingXP":1370,"powerLevel":3,"fameScore":21,"entryCount":4},"manderaz_the_mad":{"xpKey":"manderaz_the_mad","name":"Manderaz the Mad","level":3,"currentXP":910,"nextXP":2700,"remainingXP":1790,"powerLevel":3,"fameScore":21,"entryCount":3},"general_ironhand":{"xpKey":"general_ironhand","name":"General Ironhand","level":2,"currentXP":860,"nextXP":900,"remainingXP":40,"powerLevel":3,"fameScore":76,"entryCount":4},"rhak_the_lost":{"xpKey":"rhak_the_lost","name":"Rhak the Lost","level":2,"currentXP":790,"nextXP":900,"remainingXP":110,"powerLevel":3,"fameScore":18,"entryCount":3},"aemenor_evenflight":{"xpKey":"aemenor_evenflight","name":"Aemenor Evenflight","level":1,"currentXP":130,"nextXP":300,"remainingXP":170,"powerLevel":2,"fameScore":11,"entryCount":1},"warol_creeton":{"xpKey":"warol_creeton","name":"Warol Creeton","level":1,"currentXP":180,"nextXP":300,"remainingXP":120,"powerLevel":2,"fameScore":11,"entryCount":1},"the_oracle":{"xpKey":"theoracle","name":"The Oracle","level":8,"currentXP":39250,"nextXP":48000,"remainingXP":8750,"powerLevel":16,"fameScore":76,"entryCount":19},"vivian_corvinarus":{"xpKey":"vivian_corvinarus","name":"Vivian Corvinarus","level":3,"currentXP":1010,"nextXP":2700,"remainingXP":1690,"powerLevel":12,"fameScore":65,"entryCount":5},"lady_aurelian":{"xpKey":"lady_aurelian","name":"Lady Aurelian Corvinarus","level":3,"currentXP":1200,"nextXP":2700,"remainingXP":1500,"powerLevel":13,"fameScore":61,"entryCount":5},"orangus_cornelius":{"xpKey":"oranguscornelius","name":"Orangus Cornelius","level":5,"currentXP":9320,"nextXP":14000,"remainingXP":4680,"powerLevel":11,"fameScore":59,"entryCount":9},"lyranth":{"xpKey":"lyranth","name":"Lyranth","level":3,"currentXP":1420,"nextXP":2700,"remainingXP":1280,"powerLevel":6,"fameScore":34,"entryCount":6},"the_archivist":{"xpKey":"the_archivist","name":"The Archivist","level":3,"currentXP":2200,"nextXP":2700,"remainingXP":500,"powerLevel":6,"fameScore":33,"entryCount":10},"orvinder_danos":{"xpKey":"orvinder_danos","name":"Orvinder Danos","level":2,"currentXP":800,"nextXP":900,"remainingXP":100,"powerLevel":5,"fameScore":26,"entryCount":3},"tymnas":{"xpKey":"tymnas","name":"Tymnas","level":3,"currentXP":1100,"nextXP":2700,"remainingXP":1600,"powerLevel":4,"fameScore":22,"entryCount":4},"marcus_ashford":{"xpKey":"marcus_ashford","name":"Marcus Ashford","level":3,"currentXP":900,"nextXP":2700,"remainingXP":1800,"powerLevel":6,"fameScore":33,"entryCount":4},"vaxillus_the_beastmaster":{"xpKey":"vaxillusthebeastmaster","name":"Vaxillus the Beastmaster","level":4,"currentXP":3970,"nextXP":6500,"remainingXP":2530,"powerLevel":7,"fameScore":41,"entryCount":6},"rattles":{"xpKey":"rattles","name":"Rattles","level":3,"currentXP":1110,"nextXP":2700,"remainingXP":1590,"powerLevel":5,"fameScore":26,"entryCount":5},"kamek":{"xpKey":"kamek","name":"Kamek","level":2,"currentXP":690,"nextXP":900,"remainingXP":210,"powerLevel":10,"fameScore":46,"entryCount":4},"princess_peach":{"xpKey":"princess_peach","name":"Princess Peach","level":4,"currentXP":3820,"nextXP":6500,"remainingXP":2680,"powerLevel":8,"fameScore":98,"entryCount":11},"mario":{"xpKey":"mario","name":"Mario","level":5,"currentXP":13980,"nextXP":14000,"remainingXP":20,"powerLevel":14,"fameScore":92,"entryCount":23},"professor_e_gadd":{"xpKey":"professor_e_gadd","name":"Professor Elvin Gadd","level":3,"currentXP":1970,"nextXP":2700,"remainingXP":730,"powerLevel":5,"fameScore":29,"entryCount":6},"lady_bloomia":{"xpKey":"lady_bloomia","name":"Lady Bloomia","level":3,"currentXP":1200,"nextXP":2700,"remainingXP":1500,"powerLevel":4,"fameScore":25,"entryCount":4},"bryan":{"xpKey":"godtoad","name":"God Toad","level":3,"currentXP":2000,"nextXP":2700,"remainingXP":700,"powerLevel":100,"fameScore":70,"entryCount":7},"captain_toadette":{"xpKey":"captain_toadette","name":"Captain Toadette","level":3,"currentXP":1730,"nextXP":2700,"remainingXP":970,"powerLevel":7,"fameScore":68,"entryCount":6},"toadsworth_sr":{"xpKey":"toadsworth_sr","name":"Toadsworth the Elder","level":4,"currentXP":3060,"nextXP":6500,"remainingXP":3440,"powerLevel":7,"fameScore":50,"entryCount":12},"chancellor_toadsworth":{"xpKey":"chancellor_toadsworth","name":"Chancellor Toadsworth","level":3,"currentXP":1160,"nextXP":2700,"remainingXP":1540,"powerLevel":6,"fameScore":33,"entryCount":4},"princess_daisy":{"xpKey":"princess_daisy","name":"Princess Daisy","level":3,"currentXP":2030,"nextXP":2700,"remainingXP":670,"powerLevel":4,"fameScore":25,"entryCount":7},"mistveil":{"xpKey":"mistveil","name":"Mistveil","level":3,"currentXP":970,"nextXP":2700,"remainingXP":1730,"powerLevel":5,"fameScore":29,"entryCount":4},"embercap":{"xpKey":"embercap","name":"Embercap","level":2,"currentXP":470,"nextXP":900,"remainingXP":430,"powerLevel":5,"fameScore":26,"entryCount":2},"fawful":{"xpKey":"fawful","name":"Fawful","level":5,"currentXP":8940,"nextXP":14000,"remainingXP":5060,"powerLevel":15,"fameScore":88,"entryCount":19},"wario":{"xpKey":"wario","name":"Wario","level":6,"currentXP":18370,"nextXP":23000,"remainingXP":4630,"powerLevel":11,"fameScore":83,"entryCount":39},"king_boo":{"xpKey":"king_boo","name":"King Boo","level":2,"currentXP":580,"nextXP":900,"remainingXP":320,"powerLevel":12,"fameScore":78,"entryCount":2},"mystic_morel":{"xpKey":"mysticmorel","name":"Mystic Morel","level":4,"currentXP":3570,"nextXP":6500,"remainingXP":2930,"powerLevel":13,"fameScore":65,"entryCount":14},"rakka":{"xpKey":"rakka","name":"Rakka","level":3,"currentXP":920,"nextXP":2700,"remainingXP":1780,"powerLevel":5,"fameScore":29,"entryCount":3},"king_k_rool":{"xpKey":"king_k_rool","name":"King K. Rool","level":1,"currentXP":220,"nextXP":300,"remainingXP":80,"powerLevel":4,"fameScore":19,"entryCount":1},"kremlings":{"xpKey":"kremlings","name":"The Kremlings","level":2,"currentXP":370,"nextXP":900,"remainingXP":530,"powerLevel":3,"fameScore":18,"entryCount":2},"kirby":{"xpKey":"kirby","name":"Kirby","level":1,"currentXP":130,"nextXP":300,"remainingXP":170,"powerLevel":16,"fameScore":90,"entryCount":1},"king_dedede":{"xpKey":"king_dedede","name":"King Dedede","level":2,"currentXP":370,"nextXP":900,"remainingXP":530,"powerLevel":3,"fameScore":18,"entryCount":2},"meta_knight":{"xpKey":"meta_knight","name":"Meta Knight","level":2,"currentXP":550,"nextXP":900,"remainingXP":350,"powerLevel":3,"fameScore":18,"entryCount":2},"rakasha":{"xpKey":"rakasha","name":"The Rakasha","level":4,"currentXP":2900,"nextXP":6500,"remainingXP":3600,"powerLevel":7,"fameScore":40,"entryCount":11},"chief_thornpaw":{"xpKey":"thornpaw","name":"Thornpaw","level":4,"currentXP":6340,"nextXP":6500,"remainingXP":160,"powerLevel":7,"fameScore":62,"entryCount":12},"earl_grey":{"xpKey":"earl_grey","name":"Earl Grey","level":2,"currentXP":880,"nextXP":900,"remainingXP":20,"powerLevel":3,"fameScore":28,"entryCount":3},"captain_syrup":{"xpKey":"captain_syrup","name":"Captain Syrup","level":2,"currentXP":310,"nextXP":900,"remainingXP":590,"powerLevel":3,"fameScore":18,"entryCount":1},"elder_meadowlight":{"xpKey":"elder_meadowlight","name":"Elder Rowan Meadowlight","level":2,"currentXP":690,"nextXP":900,"remainingXP":210,"powerLevel":4,"fameScore":32,"entryCount":2},"miles_edgeworth":{"xpKey":"miles_edgeworth","name":"Miles Edgeworth","level":3,"currentXP":920,"nextXP":2700,"remainingXP":1780,"powerLevel":5,"fameScore":29,"entryCount":3},"xo":{"xpKey":"xo","name":"X.O.","level":2,"currentXP":690,"nextXP":900,"remainingXP":210,"powerLevel":5,"fameScore":26,"entryCount":2},"commander_g":{"xpKey":"commander_g","name":"Commander G","level":2,"currentXP":690,"nextXP":900,"remainingXP":210,"powerLevel":4,"fameScore":22,"entryCount":2},"kyle_coinsoul":{"xpKey":"kyle_coinsoul","name":"Kyle Coinsoul","level":2,"currentXP":600,"nextXP":900,"remainingXP":300,"powerLevel":4,"fameScore":22,"entryCount":2},"mr_l":{"xpKey":"mr_l","name":"Mr. L","level":3,"currentXP":1320,"nextXP":2700,"remainingXP":1380,"powerLevel":4,"fameScore":25,"entryCount":7},"unknown_assassin":{"xpKey":"unknown_assassin","name":"The Unknown Assassin","level":2,"currentXP":740,"nextXP":900,"remainingXP":160,"powerLevel":4,"fameScore":22,"entryCount":3},"merric":{"xpKey":"merric","name":"Merric","level":2,"currentXP":450,"nextXP":900,"remainingXP":450,"powerLevel":4,"fameScore":18,"entryCount":1},"tanukiburt":{"xpKey":"tanukiburt","name":"Tanukiburt","level":2,"currentXP":420,"nextXP":900,"remainingXP":480,"powerLevel":6,"fameScore":27,"entryCount":1}};
 const XP_EVENT_AWARDS = {
   "the_fawthful_narrative_failure": [
@@ -4163,8 +4177,11 @@ const NATION_ATLAS_CONFIG={
   animatopia:{label:'Animatopia',mapFile:'maps-view.html?map=animatopia_full',poiFile:'animatopia-pois.js',status:'Project directory path inferred'},
   equestria:{label:'Equestria',mapFile:'maps-view.html?map=equestria_full',poiFile:'equestria-pois.js',status:'Project directory path inferred'}
   ,koopa_dominion:{label:'Koopa Kingdom / Koopa Dominion',mapFile:'maps-view.html?map=mushroom_kingdom_full',poiFile:'mushroom-kingdom-pois.js',status:'Dark Lands / Koopa sphere inferred'}
-  ,beanbean_kingdom:{label:'The Beanbean Kingdom',mapFile:'maps-view.html?map=beanbean_kingdom_full',poiFile:'beanbean-kingdom-pois.js',status:'Project directory path inferred'}
-  ,isle_delfino:{label:'Isle Delfino',mapFile:'maps-view.html?map=sunshine_isles_full',poiFile:'sunshine-isles-pois.js',status:'Project directory path inferred'}
+  ,beanbean_kingdom:{label:'The Beanbean Kingdom',mapFile:'maps-view.html?map=beanbean_kingdom',poiFile:'beanbean-kingdom-pois.js',status:'Project directory path inferred'}
+  ,isle_delfino:{label:'Isle Delfino',mapFile:'maps-view.html?map=sunshine_isles',poiFile:'sunshine-isles-pois.js',status:'Project directory path inferred'}
+  ,sarasaland:{label:'Sarasaland',mapFile:'maps-view.html?map=mushroom_kingdom_full',poiFile:'mushroom-kingdom-pois.js',status:'Charted inside the Mushroom Kingdom regional sheet set'}
+  ,kongo_bongo:{label:'Kongo Bongo / DK Isles',mapFile:'maps-view.html?map=yoshi_dk_islands',poiFile:'mushroom-kingdom-pois.js',status:'Yoshi & DK island chain sheet'}
+  ,dreamland:{label:'Dreamland',mapFile:'maps-view.html?map=sunshine_isles',poiFile:'sunshine-isles-pois.js',status:'Filed with the outer island realms until a dedicated sheet exists'}
   ,faerun:{label:'Faerûn',mapFile:'maps-view.html?map=faerun_full',poiFile:'faerun-pois.js',status:'Project directory path inferred'}
   ,teyvat:{label:'Teyvat',mapFile:'maps-view.html?map=teyvat_full',poiFile:'teyvat-pois.js',status:'Project directory path inferred'}
   ,doughnut_hole:{label:'The Doughnut Hole',mapFile:'maps-view.html?map=doughnut_hole_full',poiFile:'doughnut-hole.js',status:'Project directory path inferred'}
@@ -4173,6 +4190,163 @@ const NATION_ATLAS_CONFIG={
   ,the_edge_regions:{label:'The Edge Regions',mapFile:'maps-view.html?map=the_edge_full',poiFile:'the-edge-pois.js',status:'Project directory path inferred'}
   ,grand_country:{label:'The Grand Country',mapFile:'maps-view.html?map=grand_country_full',poiFile:'grand-country-pois.js',status:'Project directory path inferred'}
 };
+
+/* ============ CULTURE / LEGAL INDEXES ============
+   Flattens the tradition catalogue and works out, for every article on the site, which
+   cultural spheres and legal traditions apply to it. All of this is derived from data that
+   already existed (culture.primary_species / culture.traditions / tradition.followers /
+   culture.relatedArticles) — no lore is invented here. */
+function buildCultureIndexes(){
+  TRADITIONS={}; CULTURE_OF_SPECIES={}; CULTURE_BY_ARTICLE={};
+  // 1. flatten traditions, remembering their category
+  Object.entries(LEGAL.traditions||{}).forEach(([cat,list])=>{
+    (list||[]).forEach(t=>{
+      if(!t||!t.id) return;
+      TRADITIONS[t.id]=Object.assign({},t,{category:cat,cultures:[],followerIds:(t.followers||[]).slice()});
+    });
+  });
+  // 2. species -> culture, and culture -> traditions backlink
+  Object.entries(CULTURES||{}).forEach(([cid,c])=>{
+    (c.primary_species||[]).forEach(sp=>{ if(!CULTURE_OF_SPECIES[sp]) CULTURE_OF_SPECIES[sp]=cid; });
+    (c.traditions||[]).forEach(tid=>{ if(TRADITIONS[tid] && TRADITIONS[tid].cultures.indexOf(cid)<0) TRADITIONS[tid].cultures.push(cid); });
+  });
+  // 3. article -> cultures. Three independent signals, strongest first.
+  const attach=(articleId,cid,how)=>{
+    if(!articleId||!cid) return;
+    const list=CULTURE_BY_ARTICLE[articleId]=CULTURE_BY_ARTICLE[articleId]||[];
+    if(!list.some(x=>x.id===cid)) list.push({id:cid,via:how});
+  };
+  // cultures.json carries relatedArticles that culture-data.js does not — merge both.
+  const culturePages={};
+  (DATA.cultures||[]).forEach(c=>{ if(c&&c.id) culturePages[c.id]=c; });
+  Object.entries(CULTURES||{}).forEach(([cid,c])=>{
+    const page=culturePages[cid]||{};
+    // (a) the culture explicitly names the article (from either source)
+    [].concat(c.relatedArticles||[],page.relatedArticles||[]).forEach(a=>{
+      attach(typeof resolveArticleId==='function'?resolveArticleId(a):a,cid,'named by the culture');
+    });
+    // (b) the culture claims a species that has its own article
+    (c.primary_species||[]).forEach(sp=>attach(sp,cid,'primary species'));
+    // (c) species keys rarely match article ids ('toad_citizen' vs 'toads'), so also match
+    //     the species' display name against race/nation articles.
+    (c.primary_species||[]).forEach(sp=>{
+      const spec=SPECIES[sp]; if(!spec||!spec.name) return;
+      const base=String(spec.name).replace(/\s*\(.*?\)\s*/g,'').trim().toLowerCase();
+      if(!base||base.length<3) return;
+      ['races','nations','factions'].forEach(tk=>{
+        (DATA[tk]||[]).forEach(it=>{
+          if(!it||!it.id) return;
+          const nm=String(it.name||'').toLowerCase();
+          const nmSing=nm.replace(/s$/,'');
+          if(nm===base||nmSing===base||nm===base+'s') attach(it.id,cid,'home culture of the '+spec.name);
+        });
+      });
+    });
+  });
+  // (d) a tradition's follower is an article -> that follower belongs to the tradition's cultures
+  Object.values(TRADITIONS).forEach(t=>{
+    (t.followerIds||[]).forEach(f=>{
+      const id=typeof resolveArticleId==='function'?resolveArticleId(f):f;
+      t.cultures.forEach(cid=>attach(id,cid,'follows '+t.name));
+    });
+  });
+  // (e) characters inherit the culture of their faction / race / nation. A person is bound by
+  //     the customs of the people they belong to — this is what puts the panel on character
+  //     pages, which is where most readers actually are.
+  (DATA.characters||[]).forEach(ch=>{
+    if(!ch||!ch.id||CULTURE_BY_ARTICLE[ch.id]) return;
+    const sources=[];
+    if(ch.faction) sources.push([ch.faction,'faction']);
+    (ch.relatedArticles||[]).forEach(r=>sources.push([r,'affiliation']));
+    // race text -> race article
+    if(ch.race && typeof findRaceIdForCharacter==='function'){
+      const rid=findRaceIdForCharacter(ch); if(rid) sources.push([rid,'species']);
+    }
+    for(const [raw,how] of sources){
+      const id=typeof resolveArticleId==='function'?resolveArticleId(raw):raw;
+      const inherited=CULTURE_BY_ARTICLE[id];
+      if(inherited && inherited.length){
+        attach(ch.id,inherited[0].id,'via '+(INDEX[id]?displayName(INDEX[id].item):prettyId(id))+' ('+how+')');
+        break;
+      }
+    }
+  });
+}
+/* Traditions that apply to a given article id (via its cultures + direct follower links). */
+function traditionsForArticle(articleId){
+  const out=new Map();
+  Object.values(TRADITIONS).forEach(t=>{
+    if((t.followerIds||[]).indexOf(articleId)>=0) out.set(t.id,{t,direct:true});
+  });
+  (CULTURE_BY_ARTICLE[articleId]||[]).forEach(({id:cid})=>{
+    const c=CULTURES[cid]; if(!c) return;
+    (c.traditions||[]).forEach(tid=>{ if(TRADITIONS[tid] && !out.has(tid)) out.set(tid,{t:TRADITIONS[tid],direct:false,via:c.name}); });
+  });
+  return [...out.values()];
+}
+/* Everything that follows a tradition, resolved to real articles where possible. */
+function followersOfTradition(tid){
+  const t=TRADITIONS[tid]; if(!t) return [];
+  return (t.followerIds||[]).map(f=>{
+    const id=(typeof resolveArticleId==='function')?resolveArticleId(f):f;
+    return {id, exists:!!INDEX[id], label:INDEX[id]?displayName(INDEX[id].item):prettyId(f)};
+  });
+}
+/* ---- Legal friction: pairs of traditions that cannot both be honoured ----
+   Declared once, then detected automatically wherever two parties meet. This is what turns
+   the tradition list from decoration into an analytical tool: it predicts *why* a scene
+   goes wrong. */
+const LEGAL_CONFLICTS=[
+  ['masquerade','witch_hunting',      'One side must stay hidden; the other is paid to expose it.'],
+  ['hospitality','looting_rights',    'A guest cannot be robbed and looted at the same time.'],
+  ['hospitality','might_makes_right', 'Guest-right protects the weak; the other side only respects strength.'],
+  ['trial_by_combat','open_source',   'One settles disputes with violence, the other with disclosure.'],
+  ['blood_tithe','respect_for_the_departed','Harvesting the living and honouring the dead answer to different owners.'],
+  ['data_sanctity','open_source',     'Archive-everything and free-for-all disagree on who controls a copy.'],
+  ['imperial_tithe_custom','looting_rights','Both claim the same purse by opposite logic.'],
+  ['might_makes_right','feudal_oaths','Strength-rule ignores the oath-chain feudal society depends on.'],
+  ['witch_hunting','mana_reverence',  'One treats magic as sacred, the other as a capital offence.'],
+  ['trial_by_combat','student_council_rule','A duel outranks a committee, until the committee says otherwise.'],
+  ['gun_ownership','parley',          'Universal carry makes a truce hard to verify.'],
+  ['ancestor_worship','blood_tithe',  'The ancestors are owed reverence, not extraction.']
+];
+function frictionBetween(tidsA,tidsB){
+  const A=new Set(tidsA), B=new Set(tidsB), hits=[];
+  LEGAL_CONFLICTS.forEach(([x,y,why])=>{
+    if((A.has(x)&&B.has(y))||(A.has(y)&&B.has(x))){
+      hits.push({a:TRADITIONS[x],b:TRADITIONS[y],why});
+    }
+  });
+  return hits.filter(h=>h.a&&h.b);
+}
+/* Scan an event's cast for parties whose legal traditions contradict each other. */
+function legalFrictionForEvent(item){
+  if(!item) return [];
+  const cast=[];
+  [].concat(item.participants||[],item.participatingCharacters||[],item.relatedArticles||[]).forEach(p=>{
+    const raw=typeof p==='string'?p:(p&&(p.id||p.articleId));
+    if(!raw) return;
+    const id=(typeof resolveArticleId==='function')?resolveArticleId(raw):raw;
+    if(!INDEX[id]||cast.some(c=>c.id===id)) return;
+    const trs=traditionsForArticle(id).map(x=>x.t.id);
+    if(trs.length) cast.push({id,name:displayName(INDEX[id].item),trs});
+  });
+  const out=[];
+  for(let i=0;i<cast.length;i++) for(let j=i+1;j<cast.length;j++){
+    frictionBetween(cast[i].trs,cast[j].trs).forEach(f=>out.push(Object.assign({},f,{left:cast[i],right:cast[j]})));
+  }
+  // de-duplicate identical tradition clashes
+  const seen=new Set();
+  return out.filter(f=>{ const k=f.a.id+'|'+f.b.id+'|'+f.left.id+'|'+f.right.id; if(seen.has(k))return false; seen.add(k); return true; });
+}
+/* Which articles belong to a culture (reverse of CULTURE_BY_ARTICLE). */
+function articlesInCulture(cid){
+  const out=[];
+  Object.entries(CULTURE_BY_ARTICLE).forEach(([aid,list])=>{
+    if(list.some(x=>x.id===cid) && INDEX[aid]) out.push(aid);
+  });
+  return out;
+}
 
 /* global id index (wiki articles + trials) — populated by buildIndexes() after data loads */
 const INDEX={};
@@ -4238,10 +4412,24 @@ function buildIndexes(){
         hay:[t.id,t.name,t.status,t.priority,(t.charges||[]).join(' '),(t.evidence||[]).join(' '),t.notes,t.speakerNote].filter(Boolean).join(' ').toLowerCase()});
     });
   })();
+  // Legal traditions + cultural spheres are searchable records in their own right.
+  Object.values(TRADITIONS).forEach(t=>{
+    const cults=(t.cultures||[]).map(c=>CULTURES[c]&&CULTURES[c].name).filter(Boolean);
+    SEARCH_DOCS.push({kind:'tradition',id:t.id,typeKey:'cultures',name:t.name,
+      summary:t.description||'',route:'#/tradition/'+encodeURIComponent(t.id),
+      hay:[t.id,t.name,t.description,t.category,'tradition law legal custom',cults.join(' '),(t.followerIds||[]).join(' ')].filter(Boolean).join(' ').toLowerCase()});
+  });
+  Object.entries(CULTURES||{}).forEach(([cid,c])=>{
+    if(INDEX[cid]) return;   // already indexed as a wiki article
+    SEARCH_DOCS.push({kind:'culture',id:cid,typeKey:'cultures',name:c.name,
+      summary:c.description||'',route:'#/article/'+encodeURIComponent(cid),
+      hay:[cid,c.name,c.description,(c.adjectives||[]).join(' '),c.art_style,'culture sphere'].filter(Boolean).join(' ').toLowerCase()});
+  });
   buildMonthOrd();
   buildBacklinks();
   buildAnnotations();
   buildDateRegex();
+  buildIdAliases();
   buildLinkRegistry();
 }
 
@@ -4266,12 +4454,32 @@ function slug(s){return 'h-'+String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').
 let LINK_ENTRIES=[];            // [{re, id, route, kind, name}]
 let LINK_PREVIEW={};            // id -> {name, sub, summary, emoji, route}
 let LINK_YEAR_CTX=null;         // the year of the article currently being rendered (for dateless dates like "Efferd 26th")
-let LINK_ONCE=new Set();        // entity ids already linked in the current article (link first mention only)
-const LINK_STOP=new Set(['the','a','an','and','of','dan','ryan','x.o.','students','gold','coin','coins','piece','pieces','item','items','bits','bit']);
-const SHORT_ALLOWED=new Set(['usk','mora','sans','remi','ryan','x.o.','obol','bux','mora','leo','baud','gems','leaf']);
+let LINK_ONCE=new Set();        // entity ids already linked in the current scope (see LINK_SCOPE)
+/* 'dan' is deliberately NOT in LINK_STOP any more — ambiguous first names are now
+   resolved by LINK_CONTEXT (see resolveAmbiguous) instead of being banned outright. */
+const LINK_STOP=new Set(['the','a','an','and','of','x.o.','students','gold','coin','coins','piece','pieces','item','items','bits','bit']);
+const SHORT_ALLOWED=new Set(['usk','mora','sans','remi','ryan','dan','x.o.','obol','bux','mora','leo','baud','gems','leaf']);
 
 let LINK_TOTAL_COUNT=0;        // per-render link counter used by low-link mode
-const PREF_DEFAULTS={linkLevel:'normal',comments:true};
+
+/* ---------- Feature 2: context-aware disambiguation ----------
+   AMBIGUOUS[aliasLower] = [{id,kind,pri}, …] for aliases claimed by 2+ entities.
+   LINK_CONTEXT is the set of entity ids the CURRENT article is actually about
+   (its participants / relatedArticles / cast). When an ambiguous alias appears,
+   we link whichever candidate is in context instead of dropping the link. */
+let LINK_AMBIGUOUS={};
+let LINK_CONTEXT=new Set();
+let LINK_CONTEXT_W=new Map();   // id -> {score, kinds[]} weighted relevance for this article
+let LINK_RECENT=new Map();      // id -> character offset where it was last linked
+let LINK_CURSOR=0;              // running character offset through the article's prose
+let LINK_POS=0;                 // offset of the match currently being resolved
+/* ---------- Feature 5: link graph + wanted pages ---------- */
+let LINK_GRAPH_OUT=new Set();       // ids linked FROM the article currently rendering
+let LINK_WANTED={};                 // id -> {count, from:Set} — referenced but has no page
+let LINK_LAST_STATS={total:0,unique:0,scope:''};
+let LINK_SUPPRESSED=[];             // [{alias,id,why}] weak matches refused on this render
+let HOVER_LINK_ID=null;             // entity under the cursor (for the M = mute shortcut)
+const PREF_DEFAULTS={linkLevel:'normal',comments:true,linkHud:true};
 let PREFS=loadReaderPrefs();
 function loadReaderPrefs(){
   try{const raw=localStorage.getItem('waluipedia-reader-prefs'); if(raw){return Object.assign({},PREF_DEFAULTS,JSON.parse(raw));}}catch(e){}
@@ -4283,16 +4491,71 @@ function prefToast(msg){
   if(!t){t=document.createElement('div');t.id='settingsToast';document.body.appendChild(t);}
   t.textContent=msg;t.classList.add('show');clearTimeout(t._hide);t._hide=setTimeout(()=>t.classList.remove('show'),1400);
 }
+/* ---------- Feature 3: hyperlink density tiers ----------
+   light      — only the strongest links, capped, so prose reads like a novel.
+   normal     — first mention per section (headings reset the scope), plus dates.
+   aggressive — every recognised occurrence, everywhere. Waluigi has no brakes.
+   'low' is kept as a silent alias for 'light' so old saved prefs keep working. */
+const LINK_LEVELS={
+  light:      {label:'Light',      cap:14,       scope:'article', help:'Light: only the strongest links, capped at 14 per page, so the prose reads like a story.'},
+  normal:     {label:'Normal',     cap:Infinity, scope:'section', help:'Normal: first mention of each entity per section (each heading re-opens the links), plus dates.'},
+  aggressive: {label:'Aggressive', cap:Infinity, scope:'all',     help:'Aggressive: link every recognised occurrence. Waluigi has no brakes.'}
+};
+function normLinkLevel(l){ if(l==='low') return 'light'; return LINK_LEVELS[l]?l:'normal'; }
+function linkLevelCfg(){ return LINK_LEVELS[normLinkLevel(PREFS.linkLevel)]; }
 function setLinkLevel(level){
-  if(!['low','normal','aggressive'].includes(level)) level='normal';
+  level=normLinkLevel(level);
   PREFS.linkLevel=level;saveReaderPrefs();LINK_ONCE=new Set();LINK_TOTAL_COUNT=0;closeAnnotation();Router.render();
-  prefToast('Hyperlinks: '+level);
+  prefToast('Hyperlinks: '+LINK_LEVELS[level].label);
 }
 function setComments(on){
   PREFS.comments=!!on;saveReaderPrefs();closeAnnotation();Router.render();
   prefToast(PREFS.comments?'Comments on':'Comments off');
 }
-function cycleLinkLevel(){const order=['low','normal','aggressive'];setLinkLevel(order[(order.indexOf(PREFS.linkLevel)+1)%order.length]);}
+function cycleLinkLevel(){const order=['light','normal','aggressive'];setLinkLevel(order[(order.indexOf(normLinkLevel(PREFS.linkLevel))+1)%order.length]);}
+/* ===== Reader-side link muting =====
+   Escape hatch for any auto-link that is wrong or simply noisy on a given reading:
+   mute the entity and it stops being auto-linked site-wide (manual links still work).
+   Stored in prefs, so no code change is needed to correct a bad match. */
+function mutedLinks(){ return Array.isArray(PREFS.mutedLinks)?PREFS.mutedLinks:[]; }
+function isLinkMuted(id){ return mutedLinks().indexOf(id)>=0; }
+function muteLink(id){
+  if(!id||isLinkMuted(id)) return;
+  PREFS.mutedLinks=mutedLinks().concat([id]); saveReaderPrefs();
+  const nm=(LINK_PREVIEW[id]&&LINK_PREVIEW[id].name)||prettyId(id);
+  prefToast('Muted auto-links to '+nm); Router.render();
+}
+function unmuteLink(id){
+  PREFS.mutedLinks=mutedLinks().filter(x=>x!==id); saveReaderPrefs();
+  const nm=(LINK_PREVIEW[id]&&LINK_PREVIEW[id].name)||prettyId(id);
+  prefToast('Unmuted '+nm); Router.render();
+}
+function unmuteAllLinks(){ PREFS.mutedLinks=[]; saveReaderPrefs(); prefToast('All links unmuted'); Router.render(); }
+function toggleLinkHud(){
+  PREFS.linkHud=!PREFS.linkHud;saveReaderPrefs();renderLinkHud();
+  prefToast(PREFS.linkHud?'Link HUD shown':'Link HUD hidden');
+}
+/* ---------- Feature 3 (surface): the always-visible Link HUD ----------
+   The density setting used to live inside a collapsed <details> at the bottom of the
+   right rail, so effectively nobody found it. This puts it on screen with a live
+   count of how many links the current page actually produced. */
+function renderLinkHud(){
+  let hud=document.getElementById('linkHud');
+  const onArticle=/^#\/(article|conflict|mbattle|chronicle|collection|holiday|currency|item|artifact|bearer)/.test(location.hash||'');
+  if(!PREFS.linkHud || !onArticle){ if(hud) hud.remove(); return; }
+  if(!hud){ hud=document.createElement('div'); hud.id='linkHud'; document.body.appendChild(hud); }
+  const lv=normLinkLevel(PREFS.linkLevel);
+  const s=LINK_LAST_STATS;
+  hud.innerHTML=`<div class="lh-row">
+      <span class="lh-title">🔗 Links</span>
+      <span class="lh-count" title="${esc(String(s.total))} links to ${esc(String(s.unique))} unique pages on this article">${s.total}<span class="lh-sub">/${s.unique}</span></span>
+      <button class="lh-x" title="Hide the HUD" onclick="toggleLinkHud()">✕</button>
+    </div>
+    <div class="lh-pills">
+      ${['light','normal','aggressive'].map(l=>`<button class="lh-pill ${l===lv?'on':''}" title="${esc(LINK_LEVELS[l].help)}" onclick="setLinkLevel('${l}')">${esc(LINK_LEVELS[l].label)}</button>`).join('')}
+    </div>
+    <div class="lh-hint">press <b>H</b> to cycle</div>`;
+}
 function copyCurrentLink(){
   const url=location.href;
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(()=>prefToast('Article link copied')).catch(()=>{prompt('Copy link',url);});}
@@ -4757,9 +5020,116 @@ function articleRail(articleId,typeKey,item,infoRows,toc){
   }
   const inv=typeKey==='characters'?inventoryPanel(articleId,item):'';
   if(inv) parts.push(railBox('🎒 Inventory & Wallet',inv,{open:true}));
+  const law=lawCulturePanel(articleId,typeKey,item);
+  if(law) parts.push(railBox('⚖️ Law & Culture',law,{open:true}));
+  syncLinkStats();                                   // prose has rendered by now — capture the counts
+  const graph=linkGraphPanel(articleId);
+  if(graph) parts.push(railBox('🕸️ Link Graph',graph,{open:true,count:LINK_LAST_STATS.unique}));
   parts.push(railBox('🔗 Connected Systems',crossPagePanel(articleId,typeKey,item),{open:false}));
   parts.push(railBox('⚙️ Reader Controls',articleControlPanel(articleId),{open:false}));
   return `<div class="rail">${parts.filter(Boolean).join('')}</div>`;
+}
+
+/* ===== Legal Friction panel (events & battles) =====
+   The analytical payoff of the tradition dataset: it reads the cast of a scene and reports
+   which parties are operating under rules that cannot both hold. This gives a player a
+   concrete reason to care about the legal system — it explains why the scene went wrong. */
+function legalFrictionPanel(item,typeKey){
+  if(!['events','battles','trials'].includes(typeKey)) return '';
+  const fr=legalFrictionForEvent(item);
+  const laws=lawsInPlayForEvent(item);
+  if(!fr.length && !laws.length) return '';
+  let h=`<div class="legal-friction"><div class="lf-head"><h3>⚖️ Law in Play</h3><span class="lf-sub">Derived from the traditions the participants are bound by.</span></div>`;
+  if(laws.length){
+    h+=`<div class="lf-laws">${laws.slice(0,8).map(l=>
+      `<a class="lg-chip" title="${esc(l.t.description||'')}" onclick="Router.go('#/tradition/${esc(l.t.id)}')"><span class="lg-emo">${esc(l.t.icon||'⚖️')}</span>${esc(l.t.name)}<span class="lf-who">${esc(l.who.slice(0,2).join(', '))}${l.who.length>2?' +'+(l.who.length-2):''}</span></a>`).join('')}</div>`;
+  }
+  if(fr.length){
+    h+=`<div class="lf-clash-head">⚡ ${fr.length} legal collision${fr.length===1?'':'s'} in this scene</div>`;
+    h+=`<div class="friction-list">${fr.slice(0,5).map(f=>`
+      <div class="friction-row">
+        <div class="friction-pair">
+          <a class="fr-a" onclick="Router.go('#/tradition/${esc(f.a.id)}')">${esc(f.a.icon||'⚖️')} ${esc(f.a.name)}</a>
+          <span class="fr-vs">vs</span>
+          <a class="fr-b" onclick="Router.go('#/tradition/${esc(f.b.id)}')">${esc(f.b.icon||'⚖️')} ${esc(f.b.name)}</a>
+        </div>
+        <div class="friction-who"><a onclick="openId('${esc(f.left.id)}')">${esc(f.left.name)}</a> ↔ <a onclick="openId('${esc(f.right.id)}')">${esc(f.right.name)}</a></div>
+        <div class="friction-why">${esc(f.why)}</div>
+      </div>`).join('')}</div>`;
+  }
+  h+=`<div class="lf-foot"><a onclick="Router.go('#/cultures')">Cultural Spheres & Legal Traditions →</a></div></div>`;
+  return h;
+}
+/* Traditions binding anyone in this scene, with who brings them. */
+function lawsInPlayForEvent(item){
+  if(!item) return [];
+  const map=new Map();
+  [].concat(item.participants||[],item.participatingCharacters||[],item.relatedArticles||[]).forEach(p=>{
+    const raw=typeof p==='string'?p:(p&&(p.id||p.articleId));
+    if(!raw) return;
+    const id=(typeof resolveArticleId==='function')?resolveArticleId(raw):raw;
+    if(!INDEX[id]) return;
+    traditionsForArticle(id).forEach(x=>{
+      const rec=map.get(x.t.id)||{t:x.t,who:[]};
+      const nm=displayName(INDEX[id].item);
+      if(rec.who.indexOf(nm)<0) rec.who.push(nm);
+      map.set(x.t.id,rec);
+    });
+  });
+  return [...map.values()].sort((a,b)=>b.who.length-a.who.length);
+}
+
+/* ===== Law & Culture rail panel =====
+   Shown on faction / nation / character / location / race articles. This is the main
+   reason a reader ever discovers the culture system: it now finds THEM, on the page they
+   were already reading, with the specific rules that bind that subject. */
+function lawCulturePanel(articleId,typeKey,item){
+  if(!Object.keys(TRADITIONS).length) return '';
+  const cults=(CULTURE_BY_ARTICLE[articleId]||[]).map(x=>({c:CULTURES[x.id],id:x.id,via:x.via})).filter(x=>x.c);
+  const trads=traditionsForArticle(articleId);
+  if(!cults.length && !trads.length) return '';
+  let h='';
+  if(cults.length){
+    h+=`<div class="lg-sec"><div class="lg-head">Cultural sphere<b>${cults.length}</b></div><div class="lg-chips">${
+      cults.map(x=>`<a class="lg-chip" title="${esc(x.via||'')}" onclick="Router.go('#/cultures')"><span class="lg-emo">${x.c.icon||'🌐'}</span>${esc(x.c.name)}</a>`).join('')
+    }</div></div>`;
+  }
+  if(trads.length){
+    const direct=trads.filter(x=>x.direct), inherited=trads.filter(x=>!x.direct);
+    const row=x=>`<a class="lg-chip" title="${esc(x.t.description||'')}" onclick="Router.go('#/tradition/${esc(x.t.id)}')"><span class="lg-emo">${esc(x.t.icon||'⚖️')}</span>${esc(x.t.name)}</a>`;
+    const CAP=8;
+    const sec=(label,list)=>{
+      if(!list.length) return '';
+      const shown=list.slice(0,CAP);
+      return `<div class="lg-sec"><div class="lg-head">${label}<b>${list.length}</b></div><div class="lg-chips">${
+        shown.map(row).join('')}${list.length>CAP?`<span class="lg-more">+${list.length-CAP} more</span>`:''}</div></div>`;
+    };
+    h+=sec('Bound by',direct);
+    h+=sec('Customary in its culture',inherited);
+  }
+  h+=`<div class="lg-foot"><a onclick="Router.go('#/cultures')">Open Cultural Spheres & Legal Traditions →</a></div>`;
+  return h;
+}
+
+/* ===== Feature 5 (surface): per-article Link Graph =====
+   Outbound = pages this article actually links to in its prose (measured during the
+   render that just happened). Inbound = pages that point back here. Together they turn
+   the wiki from a pile of documents into a navigable network. */
+function linkGraphPanel(articleId){
+  const out=[...LINK_GRAPH_OUT].filter(id=>id!==articleId&&LINK_PREVIEW[id]);
+  const inb=inboundFor(articleId).filter(id=>INDEX[id]);
+  if(!out.length&&!inb.length) return '';
+  const chip=id=>{
+    const p=LINK_PREVIEW[id]||{};
+    const nm=p.name||(INDEX[id]?displayName(INDEX[id].item):prettyId(id));
+    const route=p.route||('#/article/'+encodeURIComponent(id));
+    return `<a class="lg-chip" data-id="${esc(id)}" href="${route}" onclick="event.preventDefault();Router.go('${route}')"><span class="lg-emo">${p.emoji||'📄'}</span>${esc(nm)}</a>`;
+  };
+  let h='';
+  if(out.length) h+=`<div class="lg-sec"><div class="lg-head">Links out <b>${out.length}</b></div><div class="lg-chips">${out.slice(0,24).map(chip).join('')}${out.length>24?`<span class="lg-more">+${out.length-24} more</span>`:''}</div></div>`;
+  if(inb.length) h+=`<div class="lg-sec"><div class="lg-head">Linked from <b>${inb.length}</b></div><div class="lg-chips">${inb.slice(0,16).map(chip).join('')}${inb.length>16?`<span class="lg-more">+${inb.length-16} more</span>`:''}</div></div>`;
+  h+=`<div class="lg-foot">${LINK_LAST_STATS.total} inline link${LINK_LAST_STATS.total===1?'':'s'} rendered · <a onclick="Router.go('#/wanted')">wanted pages →</a></div>`;
+  return h;
 }
 function crossPagePanel(articleId,typeKey,item){
   const links=[];
@@ -4770,6 +5140,13 @@ function crossPagePanel(articleId,typeKey,item){
   links.push(`<a href="#/items">🎒 Item Index & Marketplace</a>`);
   links.push(`<a href="#/atlas">🍩 World Atlas</a>`);
   links.push(`<a href="#/dynasties">👑 Dynasties & Intel</a>`);
+  // Culture/law is a first-class system now — reachable from every article, with the
+  // specific traditions binding THIS subject when we know them.
+  (function(){
+    const trs=traditionsForArticle(articleId);
+    if(trs.length) links.push(`<a href="#/tradition/${encodeURIComponent(trs[0].t.id)}">⚖️ Law: ${esc(trs[0].t.name)}${trs.length>1?` (+${trs.length-1})`:''}</a>`);
+    else links.push(`<a href="#/cultures">⚖️ Cultures & Legal Traditions</a>`);
+  })();
   if(typeKey==='nations') links.push(`<a href="#/atlas/${encodeURIComponent(articleId)}">Open Atlas dashboard</a>`);
   if(typeKey==='factions'){
     try{ systemsForFaction(articleId).forEach(s=>links.push(`<a href="${s.route}">${s.emoji} ${esc(s.name)} (integrated system)</a>`)); }catch(e){}
@@ -4811,15 +5188,35 @@ function openLawsFromWiki(fid){ location.href='uploads/laws.html#'+encodeURIComp
 function articleControlPanel(articleId){
   const anns=ANNOT_BY_ARTICLE[articleId]||[];
   const cnum=anns.reduce((n,a)=>n+((a.comments||[]).length),0);
-  const lv=PREFS.linkLevel||'normal';
-  const help={low:'Low: caps auto-links so prose stays calmer.',normal:'Normal: first mention of each entity, plus dates.',aggressive:'Aggressive: link every recognized occurrence. Waluigi has no brakes.'}[lv];
+  const lv=normLinkLevel(PREFS.linkLevel);
+  const cfg=LINK_LEVELS[lv];
   return `<div class="article-controls"><h4>Reader Controls</h4>
-    <div class="ctrl-row"><div class="ctrl-label"><span>Hyperlink density</span><span>${esc(lv)}</span></div>
+    <div class="ctrl-row"><div class="ctrl-label"><span>Hyperlink density</span><span>${esc(cfg.label)}</span></div>
       <div class="ctrl-pills">
         <button class="setting-pill ${lv==='aggressive'?'active':''}" onclick="setLinkLevel('aggressive')">Aggressive</button>
         <button class="setting-pill ${lv==='normal'?'active':''}" onclick="setLinkLevel('normal')">Normal</button>
-        <button class="setting-pill ${lv==='low'?'active':''}" onclick="setLinkLevel('low')">Low</button>
-      </div><div class="ctrl-help">${esc(help)}</div></div>
+        <button class="setting-pill ${lv==='light'?'active':''}" onclick="setLinkLevel('light')">Light</button>
+      </div><div class="ctrl-help">${esc(cfg.help)}</div></div>
+    <div class="ctrl-row"><div class="ctrl-label"><span>Link HUD</span><span>${PREFS.linkHud?'shown':'hidden'}</span></div>
+      <div class="ctrl-pills">
+        <button class="setting-pill ${PREFS.linkHud?'active':''}" onclick="toggleLinkHud()">${PREFS.linkHud?'Hide HUD':'Show HUD'}</button>
+      </div><div class="ctrl-help">The floating HUD shows the live link count and switches density without opening this panel.</div></div>
+    ${(()=>{
+      const mu=mutedLinks();
+      const sup=LINK_SUPPRESSED.length;
+      if(!mu.length && !sup) return '';
+      let h='<div class="ctrl-row"><div class="ctrl-label"><span>Auto-link exceptions</span>'+
+            `<span class="ctrl-count">${mu.length} muted${sup?` · ${sup} auto-skipped`:''}</span></div>`;
+      if(mu.length){
+        h+='<div class="ctrl-pills">'+mu.map(id=>{
+          const nm=(LINK_PREVIEW[id]&&LINK_PREVIEW[id].name)||prettyId(id);
+          return `<button class="setting-pill off active" title="Click to unmute" onclick="unmuteLink('${esc(id)}')">${esc(nm)} ✕</button>`;
+        }).join('')+'</div>';
+        h+=`<div class="ctrl-actions"><button class="ctrl-mini" onclick="unmuteAllLinks()">Unmute all</button></div>`;
+      }
+      h+=`<div class="ctrl-help">${sup?`${sup} weak match${sup===1?'':'es'} were skipped automatically on this page (forms of address like “called him <i>Boss</i>”, or words that double as ordinary English). `:''}Hover any link and press <b>M</b> to stop auto-linking that entity.</div></div>`;
+      return h;
+    })()}
     <div class="ctrl-row"><div class="ctrl-label"><span>Margin comments</span><span class="ctrl-count">${anns.length} notes · ${cnum} replies</span></div>
       <div class="ctrl-pills">
         <button class="setting-pill warn ${PREFS.comments?'active':''}" onclick="setComments(true)">Comments On</button>
@@ -4830,6 +5227,8 @@ function articleControlPanel(articleId){
 }
 function routeForKind(kind,id){
   switch(kind){
+    case 'tradition':return '#/tradition/'+encodeURIComponent(id);
+    case 'culture':return '#/article/'+encodeURIComponent(id);
     case 'vote':return '#/vote/'+encodeURIComponent(id);
     case 'member':return '#/member/'+encodeURIComponent(id);
     case 'session':return '#/session/'+encodeURIComponent(id);
@@ -4854,24 +5253,199 @@ function routeForKind(kind,id){
   }
 }
 function kindEmoji(kind,typeKey){
-  const m={vote:'🏛️',member:'🏳️',session:'📋',crisis:'⚠️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',dynasty:'👑',currency:'💱',vendor:'🏪',system:'⚙️',holiday:'🎉',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',chronicle:'📜',annotation:'💬',collection:'🗂️'};
+  const m={tradition:'⚖️',culture:'🌐',vote:'🏛️',member:'🏳️',session:'📋',crisis:'⚠️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',dynasty:'👑',currency:'💱',vendor:'🏪',system:'⚙️',holiday:'🎉',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',chronicle:'📜',annotation:'💬',collection:'🗂️'};
   if(m[kind])return m[kind];
   return TYPE_BY_KEY[typeKey]?TYPE_BY_KEY[typeKey].emoji:'📄';
 }
 
-function safeAliases(name,kind,rawObj){
+/* ===== Feature 1: Smart Alias & Nickname Engine =====
+   People are referred to by first name in prose ("Markop checked his bags",
+   "Remi fired", "Archie burned it") but the registry only ever knew the full
+   canonical title ("Archie Archbold Miser", "Remi Akamatsu — Full Record").
+   That single gap is why a 6,000-word event produced 13 links.
+   These helpers generate the short forms an actual writer types, while keeping
+   a strict guard so we never claim a common English word. */
+const NAME_PARTICLES=new Set(['de','del','della','van','von','der','di','da','du','la','le','of','the','ibn','bin','mac','mc','al']);
+/* ---- Honorifics / rank words ----
+   ONE shared list, used both to strip a leading title off a name and to refuse that
+   title as a standalone alias. Previously these were two separate hard-coded lists that
+   had drifted apart, which is how "Boss Knuckles" ended up claiming the bare word
+   "Boss" and hyperlinking it inside «addressed Koffin-K as 'Boss'». */
+const TITLE_WORDS=['princess','prince','king','queen','emperor','empress','general','captain','commander','admiral','marshal','colonel','major','sergeant','corporal','lieutenant','chancellor','chief','boss','lord','lady','sir','dame','baron','baroness','count','countess','duke','duchess','earl','viscount','doctor','professor','master','mistress','elder','judge','justice','archmage','magus','mage','wizard','witch','sage','seer','oracle','prophet','priest','priestess','bishop','cardinal','abbot','deacon','friar','monk','nun','patriarch','matriarch','speaker','warden','scribe','auditor','forgemaster','shadowmaster','beastmaster','harbormaster','quartermaster','loremaster','taskmaster','legionary','legate','centurion','praetor','consul','tribune','regent','steward','curator','keeper','herald','envoy','emissary','ambassador','governor','mayor','sheriff','constable','inspector','detective','agent','operative','officer','ranger','hunter','knight','squire','page','apprentice','journeyman','foreman','overseer','supervisor','director','president','premier','minister','secretary','treasurer','archivist','librarian','engineer','architect','surgeon','medic','nurse','pilot','navigator','gunner','smith','miller','baker','cook','brewer','tailor','mason','carpenter','miner','farmer','shepherd','sailor','soldier','guard','sentry','scout','spy'];
+const TITLE_RE=new RegExp('^(?:'+TITLE_WORDS.join('|')+')\\s+','i');
+const GENERIC_FIRST=new Set(TITLE_WORDS.concat(['the','a','an','and','of','high','great','old','young','big','little','new','first','last','one','two','three','dark','light','iron','shadow','star','red','blue','green','black','white','golden','silver','grand','royal','imperial','holy','sacred','ancient','elder','lesser','greater','upper','lower','inner','outer','north','south','east','west','saint','st','mother','father','brother','sister','uncle','aunt','cousin','granny','grandma','grandpa','baby','kid','boy','girl','man','woman','mister','mr','mrs','ms','miss']));
+/* Words that are far too common in prose to ever become a link on their own.
+   Without this guard the bearer "Self Reflection" claims the alias "Self" and then
+   hyperlinks the word inside "Self-defense", which is exactly the kind of nonsense
+   that makes an auto-linker feel broken. */
+const NEVER_ALONE=new Set([
+  'book','books','gun','guns','door','window','house','home','table','chair','room','floor','wall','fire','water','air','earth','blood','bone','bones','hand','hands','eye','eyes','head','heart','time','day','days','night','year','years','man','men','woman','women','boy','girl','child','children','people','person','thing','things','place','places','world','life','death','war','peace','love','hate','work','game','games','play','story','stories','name','names','word','words','line','lines','part','parts','side','sides','end','ends','way','ways','point','points','case','cases','fact','facts','note','notes','list','lists','file','files','page','pages','record','records','report','reports','order','orders','plan','plans','deal','deals','job','jobs','team','teams','group','groups','party','parties','crew','crews','army','armies','force','forces','power','powers','magic','spell','spells','sword','swords','shield','shields','armor','coin','coins','money','gold','silver','copper','iron','steel','stone','stones','wood','glass','paper','cloth','food','drink','bread','meat','wine','beer','tea','milk','salt','sugar','oil','soap','rope','chain','chains','key','keys','lock','locks','box','boxes','bag','bags','pack','packs','crate','barrel','chest','chests','tool','tools','weapon','weapons','armour',
+  // pronoun-ish / abstract nouns that show up constantly in narration
+  'self','selves','other','others','one','none','all','some','any','each','every','both','half','most','more','less','many','few','own','same','such',
+  'justice','mercy','hope','faith','truth','honor','honour','glory','fate','doom','luck','chance','risk','trust','fear','anger','rage','pride','shame','guilt','grief','joy','peace','chaos','balance','reason','logic','memory','dream','dreams','mind','soul','spirit','will','voice','sound','light','dark','shade','shadow','flame','frost','storm','wind','rain','snow','ice','sun','moon','star','sky','sea','river','road','path','gate','wall','tower','bridge','field','grove','hill','cave','camp','court','hall','keep','fort','port','market','shop','inn','farm','mill','mine','forge','vault','bank','school','temple','church','shrine','tomb','grave',
+  'attack','defense','defence','battle','fight','duel','raid','siege','hunt','chase','escape','rescue','trial','test','quest','mission','task','goal','rule','rules','law','laws','right','rights','wrong','good','evil','best','worst','first','last','next','new','old','young','great','small','large','long','short','high','low','deep','wide','open','close','free','lost','found','dead','alive','safe','sick','tired','ready',
+  'north','south','east','west','left','right','up','down','front','back','top','bottom','inside','outside','above','below','near','far','here','there','now','then','today','tomorrow','yesterday'
+]);
+function aliasIsSafe(a,kind){
+  if(!a) return false;
+  const low=a.toLowerCase().trim();
+  if(!low) return false;
+  if(LINK_STOP.has(low)) return false;
+  if(NEVER_ALONE.has(low)) return false;
+  const multiword=/\s/.test(a);
+  if(!multiword){
+    if(low.length<4 && !SHORT_ALLOWED.has(low)) return false;
+    if(GENERIC_FIRST.has(low)) return false;   // includes every honorific/rank word
+  }
+  return true;
+}
+/* ===== Address-form suppression =====
+   Even a legitimate alias must not link when the prose is using the word as a form of
+   address rather than as a name: «addressed Koffin-K as 'Boss'», «called him "Chief"»,
+   «yes, sir». Detected from the immediate left context of the match. */
+const ADDRESS_LEAD=/(?:\b(?:as|called|calls|called him|called her|named|dubbed|titled|nicknamed|addressed(?:\s+\w+)?\s+as|refers?\s+to\s+\w+\s+as|known\s+as|goes\s+by|answers?\s+to)\s*)$/i;
+function isAddressUse(before,matched){
+  // Only single bare words can be a form of address ("Boss", "Chief"), not full names.
+  if(/\s/.test(matched)) return false;
+  const tail=before.slice(-72);
+  // Quoted immediately before the word: as 'Boss' / as "Boss" / as &#39;Boss&#39;
+  const quoted=/(?:['"“”‘’]|&#39;|&quot;)\s*$/.test(tail);
+  if(quoted && ADDRESS_LEAD.test(tail.replace(/(?:['"“”‘’]|&#39;|&quot;)\s*$/,''))) return true;
+  if(ADDRESS_LEAD.test(tail)) return true;
+  return false;
+}
+/* ---- Homograph detection, learned from the corpus ----
+   A derived one-word alias is "ambiguous" if the SAME word also appears lower-case in the
+   prose, which proves the archive uses it as an ordinary noun too ("wing", "core", "times",
+   "root"). Those are only linked mid-sentence, where a capital letter really signals a name.
+   Words that never appear lower-case (Peach, Daisy, Rowan, Azure…) are trusted everywhere.
+   Learning this from the data beats hand-maintaining a blocklist that will drift. */
+let WEAK_HOMOGRAPHS=new Set();
+function buildHomographs(){
+  WEAK_HOMOGRAPHS=new Set();
+  // Candidate words = every derived single-word alias in the registry.
+  const cands=new Set();
+  LINK_ENTRIES.forEach(e=>{ if(e.weak && e.alias && !/\s/.test(e.alias)) cands.add(e.alias.toLowerCase()); });
+  if(!cands.size) return;
+  const bodies=[];
+  try{
+    TYPES.forEach(t=>(DATA[t.key]||[]).forEach(it=>{ if(it&&it.description) bodies.push(it.description); }));
+  }catch(e){}
+  // Strip markdown link TARGETS and inline code first: "[Archie Miser](archie_miser)" must not
+  // count as lower-case prose usage of "archie" — that's an id, not an English word.
+  const corpus=bodies.join('\n')
+    .replace(/\]\([^)]*\)/g,'](')       // drop (target) of every markdown link
+    .replace(/`[^`]*`/g,' ')            // drop inline code
+    .replace(/\b[a-z0-9]+_[a-z0-9_]+\b/g,' ')  // drop snake_case identifiers
+    .replace(/https?:\/\/\S+/g,' ');    // drop URLs
+  cands.forEach(w=>{
+    // Look for the word spelled entirely lower-case as a standalone token.
+    const re=new RegExp('(?<![A-Za-z])'+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![A-Za-z])','g');
+    if(re.test(corpus)) WEAK_HOMOGRAPHS.add(w);
+  });
+  // A handful of rank/relationship words are ambiguous even if the corpus never lower-cases them.
+  ['boss','chief','elder','sage','master','warden','judge','justice','agent','operative'].forEach(w=>{ if(cands.has(w)) WEAK_HOMOGRAPHS.add(w); });
+}
+/* A derived one-word alias is only trustworthy when the prose capitalises it the same way
+   the record does. Additionally, if the word doubles as ordinary English, refuse it at a
+   sentence start where every word is capitalised anyway. Real names like "Remi" are NOT
+   homographs, so they keep linking at the start of a sentence. */
+function weakMatchAllowed(before,matched,alias){
+  const bare=matched.replace(/['’]s$/,'');
+  if(bare!==alias) return false;                       // case must match exactly
+  if(!WEAK_HOMOGRAPHS.has(alias.toLowerCase())) return true;
+  const tail=before.replace(/<[^>]*>/g,'').slice(-40);
+  // Sentence-initial (start of text, or after . ! ? : ; — or a paragraph break)?
+  if(/(?:^|[.!?:;]|[—–]|\n)\s*(?:["'“”‘’]|&#39;|&quot;)?\s*$/.test(tail)) return false;
+  return true;
+}
+/* "Archie Archbold Miser" -> "Archie", "Archie Miser".  "Remi Akamatsu" -> "Remi".
+   Only real people get first-name treatment — otherwise "Toad Town" would claim
+   "Toad" and "Rose Manor" would claim "Rose". */
+/* Species / collective nouns ("Toad", "Koopa", "Elf"…). A character called
+   "Toad Lee" must not claim the bare word "Toad" — that belongs to the species page. */
+let LINK_SPECIES_WORDS=new Set();
+function buildSpeciesWords(){
+  LINK_SPECIES_WORDS=new Set();
+  const addWord=w=>{
+    if(!w) return; const s=String(w).trim();
+    if(!/^[A-Za-z][A-Za-z'’-]*$/.test(s)) return;
+    const l=s.toLowerCase();
+    LINK_SPECIES_WORDS.add(l);
+    if(/s$/.test(l)) LINK_SPECIES_WORDS.add(l.replace(/s$/,'')); else LINK_SPECIES_WORDS.add(l+'s');
+  };
+  try{
+    ['races','nations','cultures','factions'].forEach(k=>(DATA[k]||[]).forEach(it=>{
+      if(!it) return;
+      String(it.name||'').replace(/^the\s+/i,'').split(/\s+/).forEach(addWord);
+    }));
+  }catch(e){}
+}
+function personAliases(n,kind,typeKey){
+  const out=new Set();
+  const PEOPLEISH=(typeKey==='characters')||['bearer','member','dynasty'].includes(kind);
+  if(!PEOPLEISH) return out;
+  // Drop leading honorifics before doing anything else, so "Boss Knuckles" is treated
+  // as the person "Knuckles" and never offers "Boss" as a first name.
+  let work=n.replace(/^the\s+/i,'');
+  while(TITLE_RE.test(work)) work=work.replace(TITLE_RE,'').trim();
+  const parts=work.split(/\s+/).filter(Boolean);
+  if(parts.length<2 || parts.length>4) return out;
+  if(parts.some(p=>/[(),:—–"']/.test(p))) return out;     // avoid odd titles
+  const first=parts[0], last=parts[parts.length-1];
+  if(NAME_PARTICLES.has(last.toLowerCase())) return out;
+  // First name alone — the single highest-value alias in the whole system.
+  if(!GENERIC_FIRST.has(first.toLowerCase()) && !LINK_SPECIES_WORDS.has(first.toLowerCase())) out.add(first);
+  // First + last, dropping middle names ("Archie Archbold Miser" -> "Archie Miser").
+  if(parts.length>2 && !NAME_PARTICLES.has(parts[1].toLowerCase())) out.add(first+' '+last);
+  return out;
+}
+/* Singular/plural for species & groups: "Toads" <-> "Toad", "Elves" <-> "Elf".
+   Restricted to collective nouns (species / factions / nations) so we never invent
+   nonsense like "Markops" or "Dans" for individual people. */
+const PLURALISABLE=new Set(['races','factions','nations','cultures']);
+function numberAliases(n,kind,typeKey){
+  const out=new Set();
+  if(!PLURALISABLE.has(typeKey)) return out;
+  const m=n.match(/^([A-Z][A-Za-z'’-]*)$/);            // single capitalised word only
+  if(!m) return out;
+  const w=m[1];
+  if(/ies$/.test(w))      out.add(w.replace(/ies$/,'y'));
+  else if(/ves$/.test(w)) { out.add(w.replace(/ves$/,'f')); out.add(w.replace(/ves$/,'fe')); }
+  else if(/(ch|sh|ss|x|z)es$/.test(w)) out.add(w.replace(/es$/,''));
+  else if(/s$/.test(w) && !/ss$/.test(w)) out.add(w.replace(/s$/,''));
+  else { out.add(w+'s'); if(/(ch|sh|ss|x|z)$/.test(w)) out.add(w+'es'); }
+  return out;
+}
+function safeAliases(name,kind,rawObj,typeKey){
   // Generate conservative aliases. Full name always included.
   const out=new Set([name]);
   let n=name.trim();
   // "The Iron Legion" -> also "Iron Legion" (drop a leading article; keep it specific)
   if(/^the\s+/i.test(n)){ const dropped=n.replace(/^the\s+/i,''); if(dropped.length>=4) out.add(dropped); }
   // Title-prefix aliases: strip a leading honorific to expose the person's name (people only).
+  // "Boss Knuckles" -> "Knuckles";  "Forgemaster Ironspore" -> "Ironspore".
+  const TITLES=TITLE_RE;
   if(kind==='article' || kind==='bearer' || kind==='member'){
-    const TITLES=/^(princess|prince|king|queen|general|captain|commander|admiral|chancellor|chief|lord|lady|sir|dame|doctor|professor|master|elder|judge|emperor|archmage|patriarch)\s+/i;
-    if(TITLES.test(n)){ const bare=n.replace(TITLES,'').trim(); if(bare.length>=4) out.add(bare); }
+    let bare=n.replace(/^the\s+/i,'');
+    while(TITLE_RE.test(bare)) bare=bare.replace(TITLE_RE,'').trim();   // "Lord High Admiral X" -> "X"
+    bare=bare.replace(/\s+the\s+\w+$/i,'').trim();                      // "Sage Morel the Learned" -> "Morel"
+    if(bare && bare!==n && bare.length>=4) out.add(bare);
   }
   // strip trailing " — Full Record" / " (Suspected)" style suffixes -> shorter canonical name
-  out.add(n.replace(/\s*[—(].*$/,'').trim());
+  const trimmed=n.replace(/\s*[—–(].*$/,'').trim();
+  out.add(trimmed);
+  // Nickname / first-name / singular-plural expansion on every canonical form so far.
+  [...out].forEach(base=>{
+    const b=String(base).replace(/^the\s+/i,'').replace(TITLES,'').trim();
+    personAliases(b,kind,typeKey).forEach(a=>out.add(a));
+    numberAliases(b,kind,typeKey).forEach(a=>out.add(a));
+  });
+  // Explicit aliases authored in the data always win (nicknames, callsigns, aka).
+  if(rawObj){
+    [].concat(rawObj.aliases||[],rawObj.aka||[],rawObj.nicknames||[],rawObj.alias?[rawObj.alias]:[])
+      .forEach(a=>{ if(typeof a==='string' && a.trim()) out.add(a.trim()); });
+  }
 
   if(kind==='currency'){
     // Plurals
@@ -4917,23 +5491,28 @@ function safeAliases(name,kind,rawObj){
 
   const SINGLE_GENERIC=new Set(['iron','shadow','star','dark','general','captain','commander','admiral','king','queen','prince','council','order','house','city','guild','legion','empire','crown','kingdom','land','people','battle','siege','manor','tower','tree','grove','estate','raventree']);
   return [...out].filter(a=>{
-    if(!a) return false;
+    if(!aliasIsSafe(a,kind)) return false;
     const low=a.toLowerCase();
-    if(low.length<5 && !SHORT_ALLOWED.has(low)) return false;
-    if(LINK_STOP.has(low)) return false;
     if(!/\s/.test(a) && SINGLE_GENERIC.has(low)) return false; // single generic word
     return true;
   });
 }
 function buildLinkRegistry(){
-  LINK_ENTRIES=[]; LINK_PREVIEW={};
+  LINK_ENTRIES=[]; LINK_PREVIEW={}; LINK_AMBIGUOUS={};
+  buildSpeciesWords();
   // Priority: when several entities claim the same alias, the higher-priority one wins the link.
   const PRI={ article:100, nation:95, artifact:80, bearer:78, invitem:76, craftingrecipe:75, craftingmaterial:74, currency:75, vendor:74, dynasty:72, conflict:70, majorbattle:68, holiday:50, member:40, session:38, crisis:36, vote:30, system:20 };
   const claims={}; // aliasLower -> [{id,kind,name,exact,pri}]
   const add=(name,id,kind,typeKey,summary,sub,rawObj)=>{
     if(!name||!id)return;
-    LINK_PREVIEW[id]={name, sub:sub||'', summary:(summary||'').slice(0,220), emoji:kindEmoji(kind,typeKey), route:routeForKind(kind,id), kind};
-    safeAliases(name,kind,rawObj).forEach(a=>{
+    const prev=LINK_PREVIEW[id]||{};
+    LINK_PREVIEW[id]={name, sub:sub||'', summary:(summary||'').slice(0,220), emoji:kindEmoji(kind,typeKey), route:routeForKind(kind,id), kind,
+      // richer hover-card payload (Feature 4)
+      image:(rawObj&&(rawObj.image||rawObj.portrait))||prev.image||'',
+      status:(rawObj&&(rawObj.status||rawObj.rarity||rawObj.type))||prev.status||'',
+      affiliation:(rawObj&&(rawObj.affiliation||rawObj.faction||rawObj.region||rawObj.location))||prev.affiliation||'',
+      typeKey:typeKey||prev.typeKey||''};
+    safeAliases(name,kind,rawObj,typeKey).forEach(a=>{
       const key=a.toLowerCase();
       (claims[key]=claims[key]||[]).push({id,kind,name:a,exact:(key===name.trim().toLowerCase()),pri:(PRI[kind]||10)});
     });
@@ -5012,6 +5591,16 @@ function buildLinkRegistry(){
     });
   }
   // world systems
+  // Legal traditions & cultural spheres — so "Trial by Combat" or "Right of Hospitality"
+  // becomes a live link the moment any article mentions it.
+  Object.values(TRADITIONS).forEach(t=>{
+    const cults=(t.cultures||[]).map(c=>CULTURES[c]&&CULTURES[c].name).filter(Boolean);
+    add(t.name,t.id,'tradition',null,t.description,
+        `${t.category?prettyId(t.category):'Legal'} tradition${cults.length?' · '+cults[0]:''}`,t);
+  });
+  Object.entries(CULTURES||{}).forEach(([cid,c])=>{
+    if(!INDEX[cid]) add(c.name,cid,'culture',null,c.description,'Cultural sphere',c);
+  });
   add('Reputation Matrix','#/reputation','system',null,'100+ Faction Standings & Infamy Heat Watch','World System');
   add('Currency Exchange','currency.html','system',null,'Universal Currency Converter & Multi-Tender Settlement','World System');
   add('Crafting Codex','#/crafting','system',null,'Scrolls, potions, enchantments, smithing recipes, and crafting materials integrated into Waluipedia','Crafting System');
@@ -5022,24 +5611,262 @@ function buildLinkRegistry(){
   add('Star Bearers Vault','#/artifacts','system',null,'Star Fragments, Cosmic Bearers & Ancient Artifacts','Relic System');
   add('Multi-Realm Alliances','alliances.html','system',null,'Geopolitical Treaty Grids & Defense Pacts','Geopolitics Hub');
 
-  // Resolve each alias to a single winner: highest priority, then exact-name, then longest name.
+  // Resolve each alias to a default winner: highest priority, then exact-name, then longest name.
   const entries=[];
   Object.keys(claims).forEach(key=>{
     if(LINK_STOP.has(key)) return;
     const cands=claims[key];
     cands.sort((a,b)=> b.pri-a.pri || (b.exact?1:0)-(a.exact?1:0) || b.name.length-a.name.length);
     const top=cands[0];
-    // Ambiguity guard: if the top two are the SAME priority, NEITHER is an exact-name match,
-    // and they point to different targets, the alias is genuinely ambiguous -> skip it.
-    if(cands.length>1 && cands[1].pri===top.pri && !top.exact && cands[1].id!==top.id) return;
-    entries.push({id:top.id, kind:top.kind, name:top.name});
+    // Feature 2: instead of DROPPING genuinely ambiguous aliases (the old behaviour, which
+    // is why "Dan" was unlinkable everywhere), remember every candidate. At render time
+    // resolveAmbiguous() picks the one that is actually part of the current article's cast.
+    const distinct=[]; const seenIds=new Set();
+    cands.forEach(c=>{ if(!seenIds.has(c.id)){ seenIds.add(c.id); distinct.push({id:c.id,kind:c.kind,pri:c.pri,exact:c.exact}); } });
+    if(distinct.length>1) LINK_AMBIGUOUS[key]=distinct;
+    /* Default target when nothing is in context: prefer an exact-name match (the entity
+       actually CALLED this) over a partial one, so "Toad" resolves to the Toads species
+       page rather than to "Toad Lee", who merely starts with the word. */
+    let def=top;
+    if(!top.exact){
+      const exactHit=cands.find(c=>c.exact);
+      if(exactHit) def=exactHit;
+    }
+    entries.push({id:def.id, kind:def.kind, name:top.name, key});
   });
   // Match longer aliases before shorter ones so "The Mushroom Kingdom" is consumed before "Mushroom Kingdom".
   entries.sort((a,b)=>b.name.length-a.name.length);
   entries.forEach(e=>{
-    const pat='\\b'+e.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b';
-    try{ LINK_ENTRIES.push({re:new RegExp(pat), id:e.id, route:routeForKind(e.kind,e.id)}); }catch(_){}
+    // Possessives: "Markop's bags" / "Markop’s bags" should link the name, not swallow the 's.
+    const pat='\\b'+e.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+"(?:['’]s)?\\b";
+    // "weak" = a single-word alias we DERIVED rather than the entity's actual full name.
+    // These are the ones that can collide with ordinary prose, so they get extra checks.
+    const canonical=(LINK_PREVIEW[e.id]&&LINK_PREVIEW[e.id].name||'').trim().toLowerCase();
+    const weak=!/\s/.test(e.name) && e.name.trim().toLowerCase()!==canonical;
+    try{ LINK_ENTRIES.push({re:new RegExp(pat), id:e.id, route:routeForKind(e.kind,e.id), key:e.key, kind:e.kind, weak, alias:e.name, rare:rarestChar(e.name)}); }catch(_){}
   });
+  buildLinkLeadIndex();
+  buildHomographs();
+  buildWantedPages();
+}
+
+/* ===== Feature 2 (runtime): pick the right target for an ambiguous alias =====
+   "Dan" can mean dan / dan_the_toad / dedan. On an article whose cast includes
+   dan_the_toad, "Dan" should link there — not to whichever record happened to
+   sort first. Falls back to the default winner when nothing is in context. */
+/* ===== linkify prefilter =====
+   linkify() used to try all ~2,700 alias regexes against every paragraph: 185 paragraphs
+   x 2,738 entries = 506,530 regex executions for one event article, and 659ms of the
+   660ms render. Almost every one fails — "\bMushroom Kingdom\b" is tested against
+   paragraphs with no "M" in them.
+
+   Each alias is bucketed by its RAREST letter. An alias can only match if every one of
+   its characters is present in the text, so requiring just the rarest one is a sound
+   filter — and far more selective than the first letter, because a paragraph usually
+   contains every common letter but few rare ones ("Markop" needs a "k", "Waluigi" needs
+   a "w"). It can only skip regexes that provably could not match, so output is
+   byte-identical. */
+let LINK_LEAD_INDEX=new Map();   // rarest lowercase letter -> [entry, …]
+/* Rough English letter frequency, commonest first. Anything not listed is treated as very
+   rare, which is the safe direction (more selective, never wrong). */
+const LETTER_RANK=(()=>{
+  const order='etaoinshrdlcumwfgypbvkjxqz';
+  const m=new Map();
+  for(let i=0;i<order.length;i++) m.set(order[i], i);
+  return m;
+})();
+function rarestChar(alias){
+  let best='', bestRank=-1;
+  const s=String(alias).toLowerCase();
+  for(let i=0;i<s.length;i++){
+    const c=s[i];
+    if(c<'a'||c>'z') continue;                    // ignore spaces/punctuation
+    const rank=LETTER_RANK.has(c)?LETTER_RANK.get(c):99;
+    if(rank>bestRank){ bestRank=rank; best=c; }
+  }
+  return best;
+}
+function buildLinkLeadIndex(){
+  LINK_LEAD_INDEX=new Map();
+  for(const ent of LINK_ENTRIES){
+    const c=ent.rare||'';
+    if(!c){ // no usable letter: must always be tried
+      let b=LINK_LEAD_INDEX.get(''); if(!b){b=[];LINK_LEAD_INDEX.set('',b);} b.push(ent); continue;
+    }
+    let bucket=LINK_LEAD_INDEX.get(c);
+    if(!bucket){ bucket=[]; LINK_LEAD_INDEX.set(c,bucket); }
+    bucket.push(ent);
+  }
+}
+/* Entries that could possibly match this text. Longest-alias-first ordering is preserved
+   so "The Iron Legion" is still consumed before "Iron Legion". */
+function candidateEntries(text){
+  if(!LINK_LEAD_INDEX.size) return LINK_ENTRIES;
+  const lower=text.toLowerCase();
+  const present=new Set();
+  for(let i=0;i<lower.length;i++) present.add(lower[i]);
+  const out=[];
+  for(const [c,bucket] of LINK_LEAD_INDEX){
+    if(c==='' || present.has(c)) for(const e of bucket) out.push(e);
+  }
+  if(out.length>=LINK_ENTRIES.length) return LINK_ENTRIES;   // nothing gained
+  out.sort((a,b)=>b.alias.length-a.alias.length);
+  return out;
+}
+
+/* ===== Context-aware resolution =====
+   The first version treated context as a flat set: an entity was either "in the article"
+   or not. That is too blunt once several candidates are all present — an event whose cast
+   includes two different Dans got whichever sorted first.
+
+   Context is now *weighted*. A named participant outranks a related article, which
+   outranks a backlink, which outranks a realm/faction association. On top of that,
+   proximity matters: an ambiguous mention resolves toward whichever candidate was most
+   recently linked nearby in the same prose, which is how a human reader disambiguates. */
+const LINK_CTX_WEIGHT={participant:100, xp:90, related:60, member:55, ally:40, backlink:30, realm:20, culture:15};
+
+function contextScore(id){
+  const rec=LINK_CONTEXT_W?LINK_CONTEXT_W.get(id):null;
+  return rec?rec.score:0;
+}
+function resolveAmbiguous(key,defaultId){
+  const cands=LINK_AMBIGUOUS[key];
+  if(!cands||!cands.length) return defaultId;
+
+  // 1. Recency: if one candidate was linked in the last few hundred characters of this
+  //    article, a bare repeat of the alias almost certainly means the same entity.
+  let best=null,bestScore=-1;
+  for(const c of cands){
+    const seen=LINK_RECENT.get(c.id);
+    const recency=(seen==null)?0:Math.max(0, 240-(LINK_POS-seen));
+    const ctx=contextScore(c.id);
+    if(!recency && !ctx) continue;
+    // Weight context above recency, but let strong recency break a context tie.
+    const score=ctx*10 + recency + (c.exact?5:0) + c.pri/100;
+    if(score>bestScore){ bestScore=score; best=c; }
+  }
+  if(best) return best.id;
+  return defaultId;
+}
+/* Called before an article renders its prose: establishes disambiguation context and
+   resets the per-page link counters/graph. */
+function beginLinkPass(item){
+  LINK_ONCE=new Set(); LINK_TOTAL_COUNT=0; LINK_GRAPH_OUT=new Set(); LINK_SUPPRESSED=[];
+  LINK_CURSOR=0; LINK_POS=0;
+  setLinkContext(item);
+}
+/* Snapshot the live counters. Called by the rail (which renders after the prose in the
+   same template literal) and again once the page is in the DOM. */
+function syncLinkStats(){
+  LINK_LAST_STATS={total:LINK_TOTAL_COUNT,unique:LINK_GRAPH_OUT.size,scope:linkLevelCfg().scope};
+  return LINK_LAST_STATS;
+}
+/* Called after the article HTML is in the DOM: publishes the stats the HUD/graph show. */
+function endLinkPass(){
+  syncLinkStats();
+  try{ renderLinkHud(); }catch(e){}
+}
+/* Build the cast/context of the article being rendered so disambiguation has something to go on. */
+function setLinkContext(item){
+  LINK_CONTEXT=new Set();
+  LINK_CONTEXT_W=new Map();
+  LINK_RECENT=new Map();
+  LINK_CURSOR=0;
+  if(!item) return;
+  const add=(v,kind)=>{
+    let id=typeof v==='string'?v:(v&&(v.id||v.articleId||v.key));
+    if(!id) return;
+    if(typeof resolveArticleId==='function') id=resolveArticleId(id);
+    if(!LINK_PREVIEW[id]) return;
+    const w=LINK_CTX_WEIGHT[kind]||10;
+    const prev=LINK_CONTEXT_W.get(id);
+    // An entity cited in several roles is more central, but with diminishing returns.
+    if(prev){ prev.score=Math.max(prev.score,w)+Math.min(prev.score,w)/4; prev.kinds.push(kind); }
+    else LINK_CONTEXT_W.set(id,{score:w,kinds:[kind]});
+    LINK_CONTEXT.add(id);
+  };
+  [].concat(item.participants||[],item.participatingCharacters||[]).forEach(v=>add(v,'participant'));
+  [].concat(item.relatedArticles||[],item.keyEvents||[],item.keyBattles||[],item.articles||[]).forEach(v=>add(v,'related'));
+  [].concat(item.members||[],item.notableMembers||[]).forEach(v=>add(v,'member'));
+  [].concat(item.allies||[],item.enemies||[]).forEach(v=>add(v,'ally'));
+  try{ (BACKLINKS[item.id]?[...BACKLINKS[item.id]]:[]).forEach(v=>add(v,'backlink')); }catch(e){}
+  try{ xpAwardsForEvent(item.id).forEach(a=>add(a.articleId,'xp')); }catch(e){}
+  // Realm/culture association: entities from the same sphere are likelier referents than
+  // a same-named character from an unrelated corner of the setting.
+  try{
+    (CULTURE_BY_ARTICLE[item.id]||[]).forEach(({id:cid})=>{
+      (articlesInCulture(cid)||[]).slice(0,60).forEach(aid=>add(aid,'culture'));
+    });
+  }catch(e){}
+}
+
+/* ===== Feature 5: Wanted Pages (redlinks) =====
+   Scan structured references across the corpus for ids that are pointed at but have
+   no article. These are the real gaps in the wiki, surfaced as a work queue instead
+   of failing silently as dead chips. */
+/* ---------- id aliasing ----------
+   The data is full of short-hand ids ("remi", "archie", "oracle") that were written
+   before the canonical record got a longer id ("remi_akamatsu_full_backstory",
+   "archie_miser", "the_oracle"). Those used to render as dead grey chips — 48 of them
+   for Remi alone. Resolve them so they become real links instead of wanted pages. */
+let LINK_ID_ALIAS={};
+function buildIdAliases(){
+  LINK_ID_ALIAS={};
+  const ids=Object.keys(INDEX);
+  const claim=(alias,target)=>{
+    if(!alias||INDEX[alias]) return;                        // never shadow a real id
+    const cur=LINK_ID_ALIAS[alias];
+    if(cur&&cur!==target){ LINK_ID_ALIAS[alias]='\u0000ambiguous'; return; }
+    LINK_ID_ALIAS[alias]=target;
+  };
+  // "the_oracle" -> also answers to "oracle"
+  ids.forEach(id=>{ if(/^the_/.test(id)) claim(id.replace(/^the_/,''), id); });
+  // Characters answer to the first token of their id when it is unambiguous among characters.
+  const chars=ids.filter(id=>INDEX[id].typeKey==='characters');
+  const firstTok={};
+  chars.forEach(id=>{ const t=id.split('_')[0]; if(t.length>=3) (firstTok[t]=firstTok[t]||[]).push(id); });
+  Object.entries(firstTok).forEach(([tok,list])=>{ if(list.length===1) claim(tok,list[0]); });
+  // XP keys are a curated alias table already ("remi" -> remi_akamatsu_full_backstory).
+  try{ Object.entries(XP_SUMMARY||{}).forEach(([id,xp])=>{ if(xp&&xp.xpKey&&INDEX[id]) claim(xp.xpKey,id); }); }catch(e){}
+  Object.keys(LINK_ID_ALIAS).forEach(k=>{ if(LINK_ID_ALIAS[k]==='\u0000ambiguous') delete LINK_ID_ALIAS[k]; });
+}
+/* Canonical id for any reference: itself if it exists, otherwise its alias target. */
+function resolveArticleId(id){
+  if(!id||typeof id!=='string') return id;
+  if(INDEX[id]) return id;
+  return LINK_ID_ALIAS[id]||id;
+}
+function buildWantedPages(){
+  LINK_WANTED={};
+  const want=(rawId,fromId)=>{
+    let id=typeof rawId==='string'?rawId:(rawId&&(rawId.id||rawId.key));
+    if(!id||typeof id!=='string') return;
+    id=resolveArticleId(id);
+    if(INDEX[id]||LINK_PREVIEW[id]) return;                 // page exists — not wanted
+    if(/^(https?:|#|\.|\/)/.test(id)) return;               // a URL/route, not an entity id
+    if(!/^[a-z0-9][a-z0-9_-]{2,}$/i.test(id)) return;       // ids only, not prose
+    const rec=LINK_WANTED[id]||(LINK_WANTED[id]={id,count:0,from:new Set()});
+    rec.count++; if(fromId) rec.from.add(fromId);
+  };
+  const scan=it=>{
+    if(!it||!it.id) return;
+    ['relatedArticles','keyEvents','keyBattles','articles','allies','enemies','members','notableMembers','participants','participatingCharacters']
+      .forEach(f=>(it[f]||[]).forEach(v=>want(v,it.id)));
+  };
+  try{
+    TYPES.forEach(t=>(DATA[t.key]||[]).forEach(scan));
+    (DATA.majorBattles||[]).forEach(scan);
+  }catch(e){}
+}
+function wantedPagesList(limit){
+  const arr=Object.values(LINK_WANTED).sort((a,b)=>b.count-a.count||a.id.localeCompare(b.id));
+  return limit?arr.slice(0,limit):arr;
+}
+/* Inbound links for the current article (who points here) — used by the Link Graph rail. */
+function inboundFor(id){
+  const set=new Set();
+  try{ (BACKLINKS[id]?[...BACKLINKS[id]]:[]).forEach(x=>set.add(x)); }catch(e){}
+  return [...set];
 }
 
 /* Turn already-escaped inline HTML into linked HTML.
@@ -5062,6 +5889,11 @@ function buildDateRegex(){
 }
 function linkify(escapedHtml, currentId){
   if(!escapedHtml) return escapedHtml;
+  const segStart=LINK_CURSOR;
+  LINK_CURSOR+=escapedHtml.length;   // running offset lets resolveAmbiguous() judge nearness
+  const cfg=linkLevelCfg();
+  const linkMode=normLinkLevel(PREFS&&PREFS.linkLevel);
+  const cap=cfg.cap;
   // Split on existing tags so we never inject links inside <strong>/<em>/<code>/attributes.
   const parts=escapedHtml.split(/(<[^>]+>)/);
   let insideAnchor=false;                         // track existing <a>…</a> (manual links) to avoid double-linking
@@ -5076,26 +5908,50 @@ function linkify(escapedHtml, currentId){
     // 1) entity links. Work on plain-text pieces and re-split after each match so a later
     //    (shorter) alias can NEVER match text inside an anchor an earlier (longer) alias just made.
     //    This fixes "The Iron Legion" splitting into <a>The </a><a>Iron Legion</a>.
-    //    Each entity is linked only ONCE per article (first mention) via LINK_ONCE.
+    //    Repeat-suppression depends on the density tier (see LINK_LEVELS):
+    //      light/normal -> once per scope (article / section), aggressive -> every occurrence.
     let pieces=[seg0];
-    const linkMode=(PREFS&&PREFS.linkLevel)||'normal';
-    const lowCap=10;
-    for(const ent of LINK_ENTRIES){
+    // Only aliases whose first letter occurs in this segment can possibly match.
+    for(const ent of candidateEntries(seg0)){
       if(ent.id===currentId) continue;            // never self-link
-      if(linkMode==='low' && LINK_TOTAL_COUNT>=lowCap) break;
-      if(linkMode!=='aggressive' && LINK_ONCE.has(ent.id)) continue; // normal/low: first mention only
+      if(LINK_TOTAL_COUNT>=cap) break;
+      const once=(linkMode!=='aggressive');
+      if(once && LINK_ONCE.has(ent.id)) continue;
       const next=[]; let done=false;
       for(const piece of pieces){
-        if(piece.startsWith('<') || (linkMode!=='aggressive' && done)){ next.push(piece); continue; } // inserted anchor/tag or already linked once
+        if(piece.startsWith('<') || (once && done)){ next.push(piece); continue; } // inserted anchor/tag or already linked once
         let last=0, out='', mm;
-        const g=new RegExp(ent.re.source, ent.re.flags.includes('g')?ent.re.flags:ent.re.flags+'g');
+        // Compile the global variant once per entry, not once per text piece. This was
+        // allocating a fresh RegExp on every (entry x piece) pair.
+        let g=ent.reG;
+        if(!g){ g=ent.reG=new RegExp(ent.re.source, ent.re.flags.includes('g')?ent.re.flags:ent.re.flags+'g'); }
+        g.lastIndex=0;
         while((mm=g.exec(piece))!==null){
-          if(linkMode==='low' && LINK_TOTAL_COUNT>=lowCap) break;
+          if(LINK_TOTAL_COUNT>=cap) break;
+          // Feature 2: an ambiguous alias resolves against the current article's cast.
+          LINK_POS=segStart+mm.index;
+          const targetId=ent.key?resolveAmbiguous(ent.key,ent.id):ent.id;
+          if(targetId===currentId){ continue; }   // resolved onto ourselves — leave as plain text
+          // Derived one-word aliases ("Boss", "Root", "Meta") are the collision-prone ones.
+          // Skip forms of address («addressed Koffin-K as 'Boss'») and require exact
+          // capitalisation away from sentence starts before trusting them.
+          if(ent.weak){
+            const before=piece.slice(0,mm.index);
+            const why=isAddressUse(before, mm[0]) ? 'form of address'
+                    : (!weakMatchAllowed(before, mm[0], ent.alias) ? 'ambiguous word' : null);
+            if(why){
+              if(LINK_SUPPRESSED.length<40) LINK_SUPPRESSED.push({alias:ent.alias,id:targetId,why});
+              continue;
+            }
+          }
+          if(isLinkMuted(targetId)) continue;   // reader muted this entity
+          const pv=LINK_PREVIEW[targetId]; const route=pv?pv.route:ent.route;
           out+=piece.slice(last,mm.index);
-          out+='\u0001<a class="xlink" data-id="'+esc(ent.id)+'" href="'+ent.route+'">'+mm[0]+'</a>\u0001';
+          out+='\u0001<a class="xlink" data-id="'+esc(targetId)+'" href="'+route+'">'+mm[0]+'</a>\u0001';
           last=mm.index+mm[0].length;
-          LINK_TOTAL_COUNT++;
-          if(linkMode!=='aggressive'){ done=true; LINK_ONCE.add(ent.id); break; } // normal/low: one per entity per article
+          LINK_TOTAL_COUNT++; LINK_GRAPH_OUT.add(targetId);
+          LINK_RECENT.set(targetId, segStart+mm.index);   // proximity memory for disambiguation
+          if(once){ done=true; LINK_ONCE.add(ent.id); LINK_ONCE.add(targetId); break; }
         }
         out+=piece.slice(last);
         out.split('\u0001').forEach(p=>{ if(p) next.push(p); });
@@ -5110,7 +5966,7 @@ function linkify(escapedHtml, currentId){
         if(sub[k].startsWith('<')){ if(/^<a\b/i.test(sub[k]))inA=true; else if(/^<\/a>/i.test(sub[k]))inA=false; continue; }
         if(inA) continue;
         sub[k]=sub[k].replace(DATE_RE, m=>{
-          if(linkMode==='low' && LINK_TOTAL_COUNT>=lowCap) return m;
+          if(LINK_TOTAL_COUNT>=cap) return m;
           const y=parseYear(m) || LINK_YEAR_CTX || CUR.year; // date strings w/o a year default to the article's year context / current
           const mo=parseMonth(m);
           const route = mo&&mo<99 ? `#/year/${y}/${mo}` : `#/year/${y}`;
@@ -5125,10 +5981,42 @@ function linkify(escapedHtml, currentId){
   return parts.join('');
 }
 
+/* ===== Waluigi voice detection =====
+   Most articles write Waluigi's asides as plain *italics*, which render as ordinary <em>
+   and are visually identical to in-world italics (sound effects, quoted dialogue, ship
+   manuals). He blends into the narration and you cannot tell who is talking.
+
+   These asides are NOT all italics: short ones are sound effects (*BAM!*, *clack*) and
+   many long ones are in-world quotes or Iron Legion protocols. Auditing all 641 italic
+   asides in the corpus, the reliable signal is his actual voice-print — the WAH
+   catchphrase or him referring to himself by name — combined with enough length to be
+   commentary rather than an exclamation. */
+const WALUIGI_VOICE=/\b(?:WAH+|WAAAH+|Waluigi(?:['’]s)?)\b/i;
+/* Secondary tells: he addresses the reader directly and delivers verdicts. Only used when
+   the aside is not a quotation or a manual step, which is what keeps in-world dialogue and
+   the Iron Legion protocols out. */
+const WALUIGI_TONE=/(?:^|[\s—-])(?:Of course|Honestly|Naturally|Obviously|Frankly|Apparently|Predictably|Inevitably|Somehow)\b|\bWhen you\b|\bIf you\b|\b(?:absolute|utter|complete|sheer)\s+\w+\b/i;
+const ASIDE_IS_QUOTE=/^\s*["“‘'][\s\S]*["”’']\s*\.?\s*$/;
+/* NOTE: the ALL-CAPS heading test must stay case-SENSITIVE. Under /i the [A-Z] class also
+   matches lowercase, so ordinary prose was being misread as a manual heading and silently
+   left unstyled. Split into two regexes rather than one /i pattern. */
+const ASIDE_IS_SHOUTED=/^[A-Z][A-Z0-9 ,.\-]{14,}$/;                  // no /i on purpose
+const ASIDE_IS_MANUAL=/^\s*Step \w+[:,]|^\s*(?:if|do not|proceed)\b/i;
+function isWaluigiAside(text){
+  const s=String(text||'').trim();
+  if(s.length<25) return false;            // *BAM!* / *clack* / *WHOOSH!* stay plain
+  if(WALUIGI_VOICE.test(s)) return true;   // his name or catchphrase — unambiguous
+  if(ASIDE_IS_QUOTE.test(s)||ASIDE_IS_SHOUTED.test(s)||ASIDE_IS_MANUAL.test(s)) return false;  // in-world text
+  return WALUIGI_TONE.test(s);
+}
 function inlineMd(t,opts){
   t=esc(t);
   t=t.replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
-  t=t.replace(/(^|[^*])\*([^*]+)\*/g,'$1<em>$2</em>');
+  // Waluigi's asides become a marked-up voice instead of anonymous <em>.
+  t=t.replace(/(^|[^*])\*([^*]+)\*/g,(m,pre,body)=>
+    pre+(isWaluigiAside(body)
+      ? '<em class="walu-aside"><span class="walu-mark" aria-hidden="true">W</span>'+body+'</em>'
+      : '<em>'+body+'</em>'));
   t=t.replace(/`([^`]+)`/g,'<code>$1</code>');
   // Manual markdown links written in the JSON: [visible text](target_id) or full wiki URL ending in #/article/target_id.
   t=t.replace(/\[([^\]]+)\]\(([^)]+)\)/g,(m,text,target)=>{
@@ -5157,9 +6045,12 @@ function mdToHtml(md,linkCtx){
   if(opt){ let mm2; const re2=/\[[^\]]+\]\(([^)]+)\)/g; while((mm2=re2.exec(md))!==null){ const tm=String(mm2[1]).match(/#\/article\/([a-zA-Z0-9_:-]+)/); const tid=tm?tm[1]:mm2[1]; if(LINK_PREVIEW[tid]) LINK_ONCE.add(tid); } }
   const fp=()=>{if(para.length){html+='<p>'+inlineMd(para.join(' '),opt)+'</p>';para=[];}};
   const fq=()=>{if(quote.length){html+='<blockquote>'+inlineMd(quote.join(' '))+'</blockquote>';quote=[];}}; // no links inside summary/quote
+  /* Feature 3: in 'normal' density a heading opens a new linking scope, so a 12-part
+     event links its cast once per part instead of once for the entire 6,000 words. */
+  const newSection=()=>{ if(opt && linkLevelCfg().scope==='section') LINK_ONCE=new Set(); };
   for(const raw of lines){const line=raw.trimEnd();
-    if(/^###\s+/.test(line)){fp();fq();const t=line.replace(/^###\s+/,'');html+='<h3 id="'+slug(t)+'">'+inlineMd(t)+'</h3>';continue;}
-    if(/^##\s+/.test(line)){fp();fq();const t=line.replace(/^##\s+/,'');html+='<h2 id="'+slug(t)+'">'+inlineMd(t)+'</h2>';continue;}
+    if(/^###\s+/.test(line)){fp();fq();newSection();const t=line.replace(/^###\s+/,'');html+='<h3 id="'+slug(t)+'">'+inlineMd(t)+'</h3>';continue;}
+    if(/^##\s+/.test(line)){fp();fq();newSection();const t=line.replace(/^##\s+/,'');html+='<h2 id="'+slug(t)+'">'+inlineMd(t)+'</h2>';continue;}
     if(/^>\s?/.test(line)){fp();quote.push(line.replace(/^>\s?/,''));continue;}
     if(line.trim()===''){fp();fq();continue;}
     fq();para.push(line);}
@@ -5169,13 +6060,13 @@ function mdToHtml(md,linkCtx){
 function headings(md){if(!md)return[];const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
-const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️',ability:'🎓'};
+const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',tradition:'⚖️',culture:'🌐',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️',ability:'🎓'};
 const SEARCH_CATEGORIES=[
   ['all','All'],['articles','Articles'],['characters','Characters'],['factions','Factions'],['events','Events'],['locations','Locations'],['items','Items'],['currencies','Currencies'],['battles','Battles'],['congress','Congress'],['books','Books'],['chronicles','Chronicles'],['dynasties','Dynasties'],['vendors','Vendors'],['holidays','Holidays']
 ];
 const SEARCH_CATEGORY_ALIASES={all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays'};
 function searchIcon(d){const m=SEARCH_META[d.kind];return typeof m==='function'?m(d.typeKey,d):(m||'🔎');}
-function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='ability')return 'Ability'; return prettyId(d.kind||'record'); }
+function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='tradition')return 'Legal Tradition'; if(d.kind==='culture')return 'Cultural Sphere'; if(d.kind==='ability')return 'Ability'; return prettyId(d.kind||'record'); }
 function docCategory(d){
   if(d.kind==='article'){
     if(d.typeKey==='characters')return 'characters';
@@ -5376,7 +6267,7 @@ function renderSidebar(active){
 
   h+=navSection('nav-world','World',[
     navLink({emoji:'🍩',label:'World Atlas',go:"Router.go('#/atlas')",active:active==='atlas',count:n('nations')}),
-    navLink({emoji:'⚖️',label:'Cultures & Laws',go:"Router.go('#/cultures')",active:active==='list:cultures',count:n('cultures')}),
+    navLink({emoji:'⚖️',label:'Cultures & Laws',go:"Router.go('#/cultures')",active:active==='list:cultures',count:(Object.keys(TRADITIONS||{}).length||n('cultures')),title:'Cultural spheres, legal traditions, and where the laws collide'}),
     navLink({emoji:'⚡',label:'Power Projection',go:"Router.go('#/power')",active:active==='power'}),
     navLink({emoji:'👑',label:'Dynasties',go:"Router.go('#/dynasties')",active:active==='dynasties',count:Object.keys(DYNASTY_SYSTEM.houses||{}).length}),
     navLink({emoji:'📓',label:"Thornbury's Journal",go:"Router.go('#/field-journal')",active:(active==='journal'||h1.includes('field-journal')||h1.includes('thornburys_field_journal'))})
@@ -5446,6 +6337,7 @@ function view_home(){
     +`<div class="catcard" onclick="Router.go('#/atlas')"><div class="cemoji">🍩</div><div class="cname">World Atlas</div><div class="ccount">${(DATA.nations||[]).length} realms</div></div>`
     +`<div class="catcard" onclick="Router.go('#/imperial-network')"><div class="cemoji">🕸️</div><div class="cname">Imperial Pressure</div><div class="ccount">Empire ↔ Legion integrated</div></div>`
     +`<div class="catcard" onclick="Router.go('#/pond-docket')"><div class="cemoji">⚖️</div><div class="cname">Pond Patrol Docket</div><div class="ccount">Liberated Toads system</div></div>`
+    +`<div class="catcard" onclick="Router.go('#/cultures')"><div class="cemoji">⚖️</div><div class="cname">Cultures & Law</div><div class="ccount">${Object.keys(CULTURES||{}).length} spheres · ${Object.keys(TRADITIONS||{}).length} traditions</div></div>`
     +`<div class="catcard" onclick="Router.go('#/dynasties')"><div class="cemoji">👑</div><div class="cname">Dynasties</div><div class="ccount">${Object.keys(DYNASTY_SYSTEM.houses||{}).length} bloodlines</div></div>`
     +`<div class="catcard" onclick="Router.go('#/items')"><div class="cemoji">🎒</div><div class="cname">Items</div><div class="ccount">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1} public items</div></div>`
     + TYPES.filter(t=>!['locations','nations'].includes(t.key)).map(t=>`<div class="catcard" onclick="Router.go('#/list/${t.key}')"><div class="cemoji">${t.emoji}</div><div class="cname">${t.label}</div><div class="ccount">${(DATA[t.key]||[]).length}</div></div>`).join('')
@@ -5811,6 +6703,79 @@ function view_atlas(){
 function atlasChips(arr,kind){
   return (arr||[]).slice(0,80).map(o=>{const rec=INDEX[o.id]; const route= rec?`#/article/${encodeURIComponent(o.id)}`:(kind==='battle'&&o.conflict?`#/mbattle/${encodeURIComponent(o.id)}`:'#/home'); return `<span class="rel-chip" onclick="Router.go('${route}')"><span class="rt">${esc(kind)}</span>${esc(displayName(o)||o.name||o.id)}</span>`;}).join('')||'<p class="text-muted">No linked records yet.</p>';
 }
+/* ===== Atlas tactical-map applet =====
+   Renders the embedded map for a realm plus a switcher for every sub-region in that
+   realm's map group. Previously only the "*_full" overview was reachable, leaving 165 of
+   182 defined maps with no route into them from the atlas. */
+function atlasMapApplet(id, n){
+  const cfg=NATION_ATLAS_CONFIG[id]||{};
+  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
+  const resolved=atlasMapsFor(id);
+  const label=cfg.label||displayName(n);
+
+  if(!resolved.valid && !cfg.mapFile){
+    return `<div class="card atlas-map-empty"><h3>🗺️ No live map applet filed yet</h3><p class="text-muted">This realm has atlas records, but Waluigi has not connected a tactical map file. Locations and event records below remain available.</p></div>`;
+  }
+
+  const frameId=`atlasMapFrame_${String(id).replace(/[^a-z0-9_]/gi,'_')}`;
+  const url=mid=>`${prefix}maps-view.html?map=${encodeURIComponent(mid)}`;
+  const activeId=resolved.activeId||'';
+  // chrome=0 only when the atlas itself renders a region switcher, otherwise the reader
+  // would lose the in-frame tabs and have no way to change region at all.
+  const suppress=resolved.maps.length>1?'&chrome=0':'';
+  const embedSrc=activeId?url(activeId)+'&embed=1'+suppress:(cfg.mapFile?prefix+cfg.mapFile+(cfg.mapFile.includes('?')?'&':'?')+'embed=1':'');
+  const fullSrc=activeId?url(activeId):(cfg.mapFile?prefix+cfg.mapFile:'');
+
+  const regions=resolved.maps.length>1
+    ? `<div class="atlas-map-regions">
+         <span class="amr-label">${resolved.maps.length} regions in ${esc(resolved.group)}</span>
+         <div class="amr-chips">${resolved.maps.map(m=>
+           `<button class="amr-chip${m.id===activeId?' on':''}" data-map="${esc(m.id)}" data-frame="${esc(frameId)}" title="${esc(m.name||m.id)}">${esc(m.name||prettyId(m.id))}</button>`
+         ).join('')}</div>
+       </div>`
+    : '';
+
+  const poiCount=(ATLAS_MAPS[activeId]?.pointsOfInterest||[]).length;
+  const status=cfg.status||'Embedded interactive regional map with POIs, modes, search, and detail panel.';
+
+  return `<div class="card atlas-map-applet" data-map-applet="${esc(frameId)}">
+      <div class="atlas-map-toolbar">
+        <div>
+          <h3>🗺️ ${esc(label)} Tactical Map Applet</h3>
+          <p>${esc(status)}${poiCount?` · <b>${poiCount}</b> points of interest on this sheet`:''}</p>
+        </div>
+        <div class="chips">
+          <span class="chip active" onclick="const f=document.getElementById('${esc(frameId)}');f.src=f.dataset.src||f.src">Reset applet</span>
+          <a class="chip" href="${esc(fullSrc)}">Open full screen →</a>
+        </div>
+      </div>
+      ${regions}
+      <iframe id="${esc(frameId)}" data-src="${esc(embedSrc)}" loading="lazy" title="${esc(label)} Tactical Map"></iframe>
+    </div>`;
+}
+
+/* Swap the embedded map without reloading the atlas page. */
+function atlasSwitchMap(frameId, mapId){
+  const frame=document.getElementById(frameId);
+  if(!frame) return;
+  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
+  const src=`${prefix}maps-view.html?map=${encodeURIComponent(mapId)}&embed=1&chrome=0`;
+  frame.dataset.src=src;
+  frame.src=src;
+  const applet=frame.closest('.atlas-map-applet');
+  if(applet){
+    applet.querySelectorAll('.amr-chip').forEach(b=>b.classList.toggle('on', b.dataset.map===mapId));
+    const rec=ATLAS_MAPS[mapId];
+    const full=applet.querySelector('.atlas-map-toolbar a.chip');
+    if(full) full.href=`${prefix}maps-view.html?map=${encodeURIComponent(mapId)}`;
+    const sub=applet.querySelector('.atlas-map-toolbar p');
+    if(sub && rec){
+      const n=(rec.pointsOfInterest||[]).length;
+      sub.innerHTML=`${esc(rec.name||mapId)}${n?` · <b>${n}</b> points of interest on this sheet`:''}`;
+    }
+  }
+}
+
 function view_atlasNation(id){
   document.body.classList.add('hide-walu-ambient');
   id=atlasCanonical(id);
@@ -5818,23 +6783,45 @@ function view_atlasNation(id){
   const stats=atlasStatCard('Locations',x.locations.length)+atlasStatCard('Events',x.events.length)+atlasStatCard('Battles',x.battles.length)+atlasStatCard('Trials',x.trials.length)+atlasStatCard('Factions',x.factions.length)+atlasStatCard('Species',x.species.length);
   const dossier=mdToHtml(n.description||'',n.id);
   
-  const cfg=NATION_ATLAS_CONFIG[id]||{};
-  const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
-  const mapFile = cfg.mapFile ? pathPrefix + cfg.mapFile : '';
-  const mapEmbedFile = mapFile ? mapFile + (mapFile.includes('?')?'&':'?') + 'embed=1' : '';
-  const mapFrameId = `atlasMapFrame_${String(id).replace(/[^a-z0-9_]/gi,'_')}`;
-  const mapIframe = mapFile 
-    ? `<div class="card atlas-map-applet">
-         <div class="atlas-map-toolbar">
-           <div><h3>🗺️ ${esc(cfg.label || displayName(n))} Tactical Map Applet</h3><p>${esc(cfg.status||'Embedded interactive regional map with POIs, modes, search, and detail panel.')}</p></div>
-           <div class="chips"><span class="chip active" onclick="document.getElementById('${esc(mapFrameId)}').src='${esc(mapEmbedFile)}'">Reset applet</span><a class="chip" href="${esc(mapFile)}">Open full screen →</a></div>
-         </div>
-         <iframe id="${esc(mapFrameId)}" src="${esc(mapEmbedFile)}" title="${esc(cfg.label || displayName(n))} Tactical Map"></iframe>
-       </div>`
-    : `<div class="card atlas-map-empty"><h3>🗺️ No live map applet filed yet</h3><p class="text-muted">This realm has atlas records, but Waluigi has not connected a tactical map file. Locations and event records below remain available.</p></div>`;
+  const mapIframe = atlasMapApplet(id, n);
 
-  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/atlas')">World Atlas</a> › ${esc(displayName(n))}</div><div class="card animate-fade-in"><h1>${esc(displayName(n))}</h1><div class="metabar"><span class="pill">🍩 Atlas Dashboard</span><span class="pill">${esc(n.type||'Nation/Realm')}</span>${n.status?`<span class="pill">${esc(String(n.status).slice(0,80))}</span>`:''}</div>${flagArt(n)}<p style="color:var(--muted);font-size:15px;line-height:1.65">${esc(n.summary||'')}</p><div class="species-stats">${stats}</div><div class="chips"><span class="chip" onclick="openId('${esc(n.id)}')">Read classic article</span>${mapFile?`<span class="chip" onclick="location.href='${esc(mapFile)}'">Open Full Screen</span>`:''}</div>${claimantRegimePanel(n)}${nationOverview(n)}</div>${mapIframe}<div class="card"><h2>📖 Nation Dossier</h2><div class="prose">${dossier}</div></div><div class="card"><h2>🏰 Locations</h2><div class="related-list">${atlasChips(x.locations,'Location')}</div><h2>📜 Events</h2><div class="related-list">${atlasChips(x.events,'Event')}</div><h2>🗡️ Battles / Battlefield</h2><div class="related-list">${atlasChips(x.battles,'Battle')}</div><h2>⚖️ Trials</h2><div class="related-list">${atlasChips(x.trials,'Trial')}</div><h2>⚔️ Active Factions</h2><div class="related-list">${atlasChips(x.factions,'Faction')}</div><h2>🧬 Species & Peoples</h2><div class="related-list">${atlasChips(x.species,'Species')}</div></div>`;
+  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/atlas')">World Atlas</a> › ${esc(displayName(n))}</div><div class="card animate-fade-in"><h1>${esc(displayName(n))}</h1><div class="metabar"><span class="pill">🍩 Atlas Dashboard</span><span class="pill">${esc(n.type||'Nation/Realm')}</span>${n.status?`<span class="pill">${esc(String(n.status).slice(0,80))}</span>`:''}</div>${flagArt(n)}<p style="color:var(--muted);font-size:15px;line-height:1.65">${esc(n.summary||'')}</p><div class="species-stats">${stats}</div><div class="chips"><span class="chip" onclick="openId('${esc(n.id)}')">Read classic article</span>${atlasFullScreenChip(id)}</div>${claimantRegimePanel(n)}${nationOverview(n)}</div>${mapIframe}<div class="card"><h2>📖 Nation Dossier</h2><div class="prose">${dossier}</div></div><div class="card"><h2>🏰 Locations</h2><div class="related-list">${atlasChips(x.locations,'Location')}</div><h2>📜 Events</h2><div class="related-list">${atlasChips(x.events,'Event')}</div><h2>🗡️ Battles / Battlefield</h2><div class="related-list">${atlasChips(x.battles,'Battle')}</div><h2>⚖️ Trials</h2><div class="related-list">${atlasChips(x.trials,'Trial')}</div><h2>⚔️ Active Factions</h2><div class="related-list">${atlasChips(x.factions,'Faction')}</div><h2>🧬 Species & Peoples</h2><div class="related-list">${atlasChips(x.species,'Species')}</div></div>`;
+  activateAtlasMap();
   window.scrollTo(0,0);
+}
+
+/* The map iframe is created with data-src and no src so a heavy D3 applet does not boot
+   before the reader scrolls to it. */
+function activateAtlasMap(){
+  const frame=document.querySelector('.atlas-map-applet iframe[data-src]');
+  if(!frame) return;
+  const load=()=>{ if(!frame.src && frame.dataset.src) frame.src=frame.dataset.src; };
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ load(); io.disconnect(); } });
+    },{rootMargin:'320px'});
+    io.observe(frame);
+  } else load();
+  const applet=frame.closest('.atlas-map-applet');
+  if(applet && !applet.dataset.wired){
+    applet.dataset.wired='1';
+    applet.addEventListener('click',ev=>{
+      const chip=ev.target.closest('.amr-chip');
+      if(!chip) return;
+      ev.preventDefault();
+      load();
+      atlasSwitchMap(chip.dataset.frame, chip.dataset.map);
+    });
+  }
+}
+
+/* Full-screen link for the realm's currently resolved map. */
+function atlasFullScreenChip(id){
+  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
+  const r=atlasMapsFor(id);
+  const cfg=NATION_ATLAS_CONFIG[id]||{};
+  const href=r.activeId?`${prefix}maps-view.html?map=${encodeURIComponent(r.activeId)}`:(cfg.mapFile?prefix+cfg.mapFile:'');
+  return href?`<span class="chip" onclick="location.href='${esc(href)}'">Open Full Screen</span>`:'';
 }
 
 function dynastyPerks(id){
@@ -6005,10 +6992,11 @@ function view_dynasties(){
 
 async function view_cultures() {
   renderSidebar('list:cultures');
-  const { CULTURE_DATA } = await import(pathPrefix + 'culture-data.js');
-  const { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } = await import(pathPrefix + 'species-data.js');
-  const { MAP_DATA } = await import(pathPrefix + 'map-data.js');
-  const { LEGAL_DATA } = await import(pathPrefix + 'legal_data.js');
+  // Culture/legal data is loaded at boot now; only the map is view-specific.
+  if(!Object.keys(CULTURES).length) await loadCultureSystem();
+  const CULTURE_DATA=CULTURES, LEGAL_DATA=LEGAL, SPECIES_DATA=SPECIES, REGIONAL_DEMOGRAPHICS=REGIONAL_DEMO;
+  let MAP_DATA={};
+  try{ ({ MAP_DATA } = await import(pathPrefix + 'map-data.js')); }catch(e){ MAP_DATA={}; }
   
   el('content').innerHTML = `
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Cultures & Laws</div>
@@ -6019,6 +7007,7 @@ async function view_cultures() {
         <span class="chip" onclick="Router.go('#/atlas')" style="cursor: pointer; background: rgba(138, 75, 255, 0.1); border-color: rgba(138, 75, 255, 0.4); color: #a78bfa;">🍩 Open World Atlas</span>
         <span class="chip active" onclick="Router.go('#/power')" style="cursor: pointer; background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.4); color: #ffd700;">⚡ Open Global Power Projection Monitor</span>
       </div>
+      <div id="legal-codex-mount"></div>
       
       <div class="culture-dashboard" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
         <div class="chart-panel" style="background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column;">
@@ -6185,7 +7174,70 @@ async function view_cultures() {
     `;
   });
   codexContainer.innerHTML = html;
+  const mount=document.getElementById('legal-codex-mount');
+  if(mount) mount.innerHTML = legalCodexSection();
   window.scrollTo(0,0);
+}
+
+/* ===== The Legal Codex: browse all traditions + every live legal collision =====
+   Gives the hub an actual index (previously the traditions were only tooltips) and a
+   friction table that names real scenes where the laws collided. */
+function legalCodexSection(){
+  if(!Object.keys(TRADITIONS).length) return '';
+  const byCat={};
+  Object.values(TRADITIONS).forEach(t=>{ (byCat[t.category]=byCat[t.category]||[]).push(t); });
+  const catIcon={martial:'⚔️',social:'🤝',arcane:'✨',economic:'🪙'};
+
+  const cats=Object.entries(byCat).map(([cat,list])=>`
+    <div class="codex-cat">
+      <div class="codex-cat-head">${catIcon[cat]||'⚖️'} ${esc(prettyId(cat))} <span>${list.length}</span></div>
+      <div class="lg-chips">${list.map(t=>{
+        const n=followersOfTradition(t.id).filter(f=>f.exists).length;
+        return `<a class="lg-chip" title="${esc(t.description||'')}" onclick="Router.go('#/tradition/${esc(t.id)}')"><span class="lg-emo">${esc(t.icon||'⚖️')}</span>${esc(t.name)}${n?`<span class="lf-who">${n}</span>`:''}</a>`;
+      }).join('')}</div>
+    </div>`).join('');
+
+  // Live friction: scan every event/battle for legal collisions.
+  const scenes=[];
+  (DATA.events||[]).concat(DATA.battles||[]).forEach(e=>{
+    if(!e||!e.id) return;
+    const fr=legalFrictionForEvent(e);
+    if(fr.length) scenes.push({e,fr});
+  });
+  scenes.sort((a,b)=>b.fr.length-a.fr.length);
+
+  const frictionRows=scenes.slice(0,12).map(({e,fr})=>`
+    <tr>
+      <td><a class="wanted-name" onclick="openId('${esc(e.id)}')" style="cursor:pointer">${esc(displayName(e))}</a></td>
+      <td class="wanted-n">${fr.length}</td>
+      <td>${fr.slice(0,3).map(f=>`<span class="fr-mini"><a onclick="Router.go('#/tradition/${esc(f.a.id)}')">${esc(f.a.name)}</a> ⚡ <a onclick="Router.go('#/tradition/${esc(f.b.id)}')">${esc(f.b.name)}</a></span>`).join('')}${fr.length>3?`<span class="lg-more">+${fr.length-3}</span>`:''}</td>
+    </tr>`).join('');
+
+  const totalClashes=scenes.reduce((n,s)=>n+s.fr.length,0);
+
+  return `
+    <div class="codex-block">
+      <div class="codex-head">
+        <h2>📕 The Legal Codex</h2>
+        <p class="text-muted">Every tradition in the archive, grouped by the kind of power it claims. The number on a tag is how many documented parties are bound by it. Click any law to see who follows it, what it collides with, and where it has already caused trouble.</p>
+      </div>
+      <div class="codex-cats">${cats}</div>
+    </div>
+    <div class="codex-block">
+      <div class="codex-head">
+        <h2>⚡ Where the Laws Collide</h2>
+        <p class="text-muted">Waluigi cross-referenced every recorded scene against the legal traditions of everyone present. These are the events where two parties were operating under rules that <i>cannot both be honoured</i> — which is, in Waluigi's professional opinion, the entire reason anything interesting ever happens.</p>
+      </div>
+      <div class="species-stats" style="margin-bottom:12px">
+        <div class="species-stat"><b>${Object.keys(TRADITIONS).length}</b>Traditions on file</div>
+        <div class="species-stat"><b>${LEGAL_CONFLICTS.length}</b>Known incompatibilities</div>
+        <div class="species-stat"><b>${scenes.length}</b>Scenes with legal friction</div>
+        <div class="species-stat"><b>${totalClashes}</b>Total collisions logged</div>
+      </div>
+      ${scenes.length?`<table class="wanted-table"><thead><tr><th>Recorded scene</th><th>Clashes</th><th>Colliding traditions</th></tr></thead><tbody>${frictionRows}</tbody></table>
+        ${scenes.length>12?`<p class="text-muted" style="margin-top:10px">Showing the 12 most contested of ${scenes.length} scenes.</p>`:''}`
+      :'<p class="text-muted">No legal collisions detected in the current record.</p>'}
+    </div>`;
 }
 
 
@@ -7234,7 +8286,7 @@ const INFOBOX={
   trials:[['docket','Docket'],['date','Filed'],['era','Era'],['jurisdiction','Jurisdiction'],['prosecutor','Prosecutor'],['defendant','Defendant'],['presiding','Presiding'],['status','Status'],['outcome','Outcome']],
 };
 function relKind(id){return INDEX[id]?TYPE_BY_KEY[INDEX[id].typeKey].singular:'?';}
-function openId(id){Router.go('#/article/'+encodeURIComponent(id));}
+function openId(id){Router.go('#/article/'+encodeURIComponent(resolveArticleId(id)));}
 
 /* ===== IN-WORLD VISUAL SYSTEMS (all SVG / data-driven, framed as Waluigi's instruments) ===== */
 
@@ -7576,6 +8628,7 @@ function view_article(id){
   if(id==='the_midlands'){ Router.go('#/article/regal_empire'); return; }
   if(id==='thornburys_field_journal'){ view_fieldJournal(); return; }
   let rec=INDEX[id];
+  if(!rec){ const alt=resolveArticleId(id); if(alt!==id && INDEX[alt]){ Router.go('#/article/'+encodeURIComponent(alt)); return; } }
   if(!rec && XP_SUMMARY){
     const alias=Object.keys(XP_SUMMARY).find(k=>XP_SUMMARY[k]&&XP_SUMMARY[k].xpKey===id);
     if(alias&&INDEX[alias]){ Router.go('#/article/'+encodeURIComponent(alias)); return; }
@@ -7584,6 +8637,7 @@ function view_article(id){
   const {typeKey,item}=rec;renderSidebar('list:'+typeKey);
   const t=TYPE_BY_KEY[typeKey];
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;   // year context for dateless inline dates
+  beginLinkPass(item);                                               // link context + graph/stat counters
   if(typeKey==='trials'){return view_trial(item,t);}
   const rt=readingTime((item.description||'')+' '+(item.summary||''));
   const heads=headings(item.description||'');
@@ -7647,6 +8701,28 @@ function view_article(id){
       listBlocks.push(`<div class="event-details-section"><h4>👥 Documented ${esc(item.name)}${others.length>1&&!String(item.name).endsWith('s')?'s':''} (auto-linked from Characters index)</h4><p>${chips}${others.length>40?` <span class="text-muted">…and ${others.length-40} more</span>`:''}</p></div>`);
     }
   }
+  // Culture pages: show the laws this sphere upholds and everyone who lives under it.
+  if(typeKey==='cultures' && item && CULTURES[item.id]){
+    const c=CULTURES[item.id];
+    const trs=(c.traditions||[]).map(tid=>TRADITIONS[tid]).filter(Boolean);
+    if(trs.length){
+      listBlocks.push(`<div class="event-details-section"><h4>⚖️ Legal traditions of this sphere</h4><div class="lg-chips">${
+        trs.map(t=>`<a class="lg-chip" title="${esc(t.description||'')}" onclick="Router.go('#/tradition/${esc(t.id)}')"><span class="lg-emo">${esc(t.icon||'⚖️')}</span>${esc(t.name)}</a>`).join('')
+      }</div></div>`);
+    }
+    const members=articlesInCulture(item.id).filter(id=>id!==item.id);
+    if(members.length){
+      const group={};
+      members.forEach(id=>{ const tk=INDEX[id].typeKey; (group[tk]=group[tk]||[]).push(id); });
+      const blocks=Object.entries(group).map(([tk,ids])=>{
+        const label=(TYPE_BY_KEY[tk]||{}).label||prettyId(tk);
+        return `<div class="lg-sec"><div class="lg-head">${esc(label)}<b>${ids.length}</b></div><div class="lg-chips">${
+          ids.slice(0,30).map(id=>`<a class="lg-chip" onclick="openId('${esc(id)}')"><span class="lg-emo">${(TYPE_BY_KEY[tk]||{}).emoji||'📄'}</span>${esc(displayName(INDEX[id].item))}</a>`).join('')
+        }${ids.length>30?`<span class="lg-more">+${ids.length-30}</span>`:''}</div></div>`;
+      }).join('');
+      listBlocks.push(`<div class="event-details-section"><h4>🌐 Who lives under this culture <span class="text-muted" style="font-weight:400;font-size:12px">(${members.length} records)</span></h4>${blocks}</div>`);
+    }
+  }
   // Collections listing when we're viewing a character or faction.
   if((typeKey==='characters'||typeKey==='factions') && item){
     const memberOf = (DATA.collections||[]).filter(c => (c.members||[]).some(m => m.id===item.id) || (c.articles||[]).includes(item.id));
@@ -7657,7 +8733,7 @@ function view_article(id){
   }
   const relIds=[].concat(item.relatedArticles||[],item.keyEvents||[],item.keyBattles||[],item.articles||[]);
   const seen=new Set();
-  const relChips=relIds.filter(r=>{const k=typeof r==='string'?r:r.id;if(!k||seen.has(k))return false;seen.add(k);return true;}).map(r=>{const rid=typeof r==='string'?r:r.id;const ex=!!INDEX[rid];const label=ex?displayName(INDEX[rid].item):prettyId(rid);return ex?`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(label)}</span>`:`<span class="rel-chip deadlink" title="No article yet"><span class="rt">?</span>${esc(label)}</span>`;}).join('');
+  const relChips=relIds.filter(r=>{const k=typeof r==='string'?r:r.id;if(!k||seen.has(k))return false;seen.add(k);return true;}).map(r=>{const rid=resolveArticleId(typeof r==='string'?r:r.id);const ex=!!INDEX[rid];const label=ex?displayName(INDEX[rid].item):prettyId(rid);return ex?`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(label)}</span>`:`<span class="rel-chip deadlink" title="No article yet"><span class="rt">?</span>${esc(label)}</span>`;}).join('');
   const leadHtml=articleLead(item,typeKey);
   let audioHtml=item.audio?`<div style="margin:14px 0"><audio controls src="${esc(item.audio)}"></audio>${item.audioCaption?`<div class="imgcap">${esc(item.audioCaption)}</div>`:''}</div>`:'';
   const tocEntries=heads.map(h=>({slug:slug(h.text),text:h.text,h3:h.level===3})).concat(secTocParts.map(p=>({slug:p.slug,text:p.text,h3:false})));
@@ -7671,7 +8747,7 @@ function view_article(id){
      <div class="readtime">⏱ ${rtFull} min read · ${totalWords} words</div>
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${leadHtml}${audioHtml}
-     ${typeKey==='events'?eventPeopleAndXpPanel(item):''}${intelEffectPanel(item,typeKey)}
+     ${typeKey==='events'?eventPeopleAndXpPanel(item):''}${legalFrictionPanel(item,typeKey)}${intelEffectPanel(item,typeKey)}
      ${typeKey==='nations'?`<div class="chips" style="margin:8px 0 16px"><span class="chip active">Classic article</span><span class="chip" onclick="Router.go('#/atlas/${encodeURIComponent(item.id)}')">Open Atlas dashboard</span></div>${claimantRegimePanel(item)}${nationOverview(item)}`:''}
      ${typeKey==='factions'?factionSystemBanner(item.id):''}
      ${typeKey==='battles'?battleVsInfographic(item):''}
@@ -7685,6 +8761,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
    </div></div><div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div></div>`;
+  endLinkPass();
   window.scrollTo(0,0);setupScrollSpy();applyCustomCss(item.customCss);
   if(typeKey==='factions'){ renderFactionPowerProjection(item.id); }
 }
@@ -7692,6 +8769,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
 /* ---- Trials get their own rich renderer (sections + timeline) ---- */
 function view_trial(item,t){
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;
+  beginLinkPass(item);
   let infoRows='';(INFOBOX.trials||[]).forEach(([f,label])=>{let v=item[f];if(!v)return;v=String(v);infoRows+=`<div class="row"><span class="k">${esc(label)}</span><span class="v" title="${esc(v)}">${esc(v)}</span></div>`;});
   const charges=Array.isArray(item.charges)?`<section class="charges-panel"><h2 id="h-charges">⚖️ Charges</h2><p class="text-muted">Filed allegations and legal directives. Names are linked when the archive has a matching record.</p><ul class="charge-list">${item.charges.map(c=>{const text=typeof c==='string'?c:(c.charge||c.name||JSON.stringify(c));const matches=[...String(text).matchAll(/\b(?:Elder Rowan Meadowlight|Iron Fists|Rakka Directive|Regal Empire|Mages' Guild|Mushroom Regency)\b/gi)];let html=esc(text);matches.reverse().forEach(m=>{const raw=m[0],key=raw.toLowerCase().replace(/[^a-z0-9]+/g,'_');const target=INDEX[key]?`#/article/${encodeURIComponent(key)}`:key.includes('regal')?'#/reputation/faction/regal_empire':key.includes('mushroom')?'#/reputation/faction/mushroom_regency':'';if(target)html=html.slice(0,m.index)+`<a class="charge-link" href="${target}">${esc(raw)}</a>`+html.slice(m.index+raw.length);});return `<li><span class="charge-marker">§</span><span>${html}</span></li>`;}).join('')}</ul></section>`:'';
   let sections='';const tocParts=[];
@@ -8241,6 +9319,117 @@ function view_year(year,scrollMonth){
   window.scrollTo(0,0);
   if(scrollMonth){ const n=document.getElementById('ym-'+scrollMonth); if(n) setTimeout(()=>n.scrollIntoView({behavior:'smooth',block:'start'}),60); }
 }
+/* ===== Feature 5 (surface): Wanted Pages =====
+   Every id referenced by an existing article that has no page of its own. These are the
+   real holes in the encyclopedia, ranked by how many articles are already asking for them. */
+function view_wanted(){
+  renderSidebar('wanted');
+  const all=wantedPagesList();
+  const rows=all.slice(0,300).map(w=>{
+    const from=[...w.from].slice(0,4).map(id=>{
+      const nm=INDEX[id]?displayName(INDEX[id].item):prettyId(id);
+      return `<a class="lg-chip sm" onclick="openId('${esc(id)}')">${esc(nm)}</a>`;
+    }).join('');
+    const extra=w.from.size>4?`<span class="lg-more">+${w.from.size-4}</span>`:'';
+    return `<tr><td><span class="wanted-name">${esc(prettyId(w.id))}</span><div class="wanted-id">${esc(w.id)}</div></td>
+      <td class="wanted-n">${w.count}</td>
+      <td>${from}${extra}</td></tr>`;
+  }).join('');
+  el('content').innerHTML=`<div class="card animate-fade-in">
+      <h2>🚧 Wanted Pages</h2>
+      <p class="text-muted">Entities that existing articles point at but which have no record of their own. Waluigi does not consider these "missing"; he considers them <i>outstanding paperwork</i>. Ranked by how many articles are already waiting.</p>
+      <div class="chips mt-10"><span class="chip active">${all.length} wanted</span><span class="chip" onclick="Router.go('#/home')">← Home</span></div>
+    </div>
+    <div class="card">${all.length?`<table class="wanted-table"><thead><tr><th>Wanted record</th><th>Requests</th><th>Referenced by</th></tr></thead><tbody>${rows}</tbody></table>${all.length>300?`<p class="text-muted mt-10">Showing the top 300 of ${all.length}.</p>`:''}`:'<p class="text-muted">No dangling references. The archive is, improbably, complete.</p>'}</div>`;
+  window.scrollTo(0,0);
+}
+
+/* ===== Legal tradition page =====
+   Every tradition is now a real destination: who follows it, which cultures uphold it,
+   which laws it collides with, and which recorded events involved its followers. */
+function view_tradition(id){
+  renderSidebar('list:cultures');
+  const t=TRADITIONS[id];
+  if(!t){
+    el('content').innerHTML=`<div class="card"><h2>Unknown tradition</h2><p class="text-muted">Waluigi has no statute filed under “${esc(id)}”.</p><p><a onclick="Router.go('#/cultures')">← Cultural Spheres & Legal Traditions</a></p></div>`;
+    return;
+  }
+  const cultures=(t.cultures||[]).map(cid=>CULTURES[cid]).filter(Boolean);
+  const followers=followersOfTradition(id);
+  const live=followers.filter(f=>f.exists), dead=followers.filter(f=>!f.exists);
+
+  // laws this one collides with
+  const clashes=LEGAL_CONFLICTS.filter(([a,b])=>a===id||b===id).map(([a,b,why])=>{
+    const other=TRADITIONS[a===id?b:a];
+    return other?{other,why}:null;
+  }).filter(Boolean);
+
+  // events whose cast includes a follower of this tradition
+  const followerIds=new Set(live.map(f=>f.id));
+  const events=[];
+  (DATA.events||[]).concat(DATA.battles||[]).forEach(e=>{
+    if(!e||!e.id) return;
+    const cast=[].concat(e.participants||[],e.participatingCharacters||[],e.relatedArticles||[])
+      .map(p=>typeof p==='string'?p:(p&&(p.id||p.articleId))).filter(Boolean)
+      .map(x=>typeof resolveArticleId==='function'?resolveArticleId(x):x);
+    const hit=cast.filter(c=>followerIds.has(c));
+    if(hit.length) events.push({e,hit});
+  });
+
+  const chip=(aid,label)=>`<a class="lg-chip" onclick="openId('${esc(aid)}')"><span class="lg-emo">${INDEX[aid]?(TYPE_BY_KEY[INDEX[aid].typeKey]||{}).emoji||'📄':'📄'}</span>${esc(label)}</a>`;
+
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/cultures')">Cultures & Laws</a> › ${esc(t.name)}</div>
+    <div class="article-layout"><div>
+      <div class="card animate-fade-in">
+        <h1 class="art-title">${esc(t.icon||'⚖️')} ${esc(t.name)}</h1>
+        <div class="art-subtitle">${esc(prettyId(t.category||'legal'))} tradition</div>
+        <div class="metabar">
+          <span class="pill">⚖️ Legal Tradition</span>
+          <span class="pill">${live.length} known follower${live.length===1?'':'s'}</span>
+          ${clashes.length?`<span class="pill" style="border-color:var(--danger);color:var(--danger)">${clashes.length} conflict${clashes.length===1?'':'s'}</span>`:''}
+          ${events.length?`<span class="pill">${events.length} recorded event${events.length===1?'':'s'}</span>`:''}
+        </div>
+        <div class="prose"><p>${esc(t.description||'')}</p></div>
+
+        ${cultures.length?`<h2 id="h-cultures">Upheld by</h2><div class="lg-chips">${cultures.map(c=>`<a class="lg-chip" onclick="Router.go('#/cultures')"><span class="lg-emo">${c.icon||'🌐'}</span>${esc(c.name)}</a>`).join('')}</div>`:''}
+
+        ${live.length?`<h2 id="h-followers">Who follows it</h2><div class="lg-chips">${live.map(f=>chip(f.id,f.label)).join('')}</div>`:''}
+        ${dead.length?`<p class="text-muted" style="margin-top:8px;font-size:12px">Also cited for: ${dead.map(f=>esc(f.label)).join(', ')} <span title="These groups are named in the legal record but have no article yet">(no article yet)</span></p>`:''}
+
+        ${clashes.length?`<h2 id="h-conflicts">⚡ Where it breaks down</h2>
+          <p class="text-muted">Traditions this one cannot be honoured alongside. When two parties in a scene hold both, expect the scene to go badly.</p>
+          <div class="friction-list">${clashes.map(c=>`
+            <div class="friction-row">
+              <div class="friction-pair"><span class="fr-a">${esc(t.icon||'⚖️')} ${esc(t.name)}</span><span class="fr-vs">vs</span><a class="fr-b" onclick="Router.go('#/tradition/${esc(c.other.id)}')">${esc(c.other.icon||'⚖️')} ${esc(c.other.name)}</a></div>
+              <div class="friction-why">${esc(c.why)}</div>
+            </div>`).join('')}</div>`:''}
+
+        ${events.length?`<h2 id="h-events">Seen in the record</h2>
+          <p class="text-muted">Events whose participants are bound by this tradition.</p>
+          <div class="related-list">${events.slice(0,24).map(({e,hit})=>`<span class="rel-chip" onclick="openId('${esc(e.id)}')"><span class="rt">${esc(hit.map(h=>INDEX[h]?displayName(INDEX[h].item):h).slice(0,2).join(', '))}</span>${esc(displayName(e))}</span>`).join('')}</div>
+          ${events.length>24?`<p class="text-muted">…and ${events.length-24} more.</p>`:''}`:''}
+      </div>
+    </div><div><div class="rail">
+      <div class="infobox"><h4>${esc(t.name)}</h4>
+        <div class="row"><span class="k">Category</span><span class="v">${esc(prettyId(t.category||'legal'))}</span></div>
+        <div class="row"><span class="k">Followers</span><span class="v">${live.length} documented</span></div>
+        <div class="row"><span class="k">Cultures</span><span class="v">${cultures.length}</span></div>
+        <div class="row"><span class="k">Conflicts</span><span class="v">${clashes.length}</span></div>
+      </div>
+      ${railBox('⚖️ All Traditions', traditionRailIndex(id), {open:true})}
+    </div></div></div>`;
+  window.scrollTo(0,0);
+}
+function traditionRailIndex(activeId){
+  const byCat={};
+  Object.values(TRADITIONS).forEach(t=>{ (byCat[t.category]=byCat[t.category]||[]).push(t); });
+  return Object.entries(byCat).map(([cat,list])=>
+    `<div class="lg-sec"><div class="lg-head">${esc(prettyId(cat))}<b>${list.length}</b></div><div class="lg-chips">${
+      list.map(t=>`<a class="lg-chip${t.id===activeId?' on':''}" onclick="Router.go('#/tradition/${esc(t.id)}')"><span class="lg-emo">${esc(t.icon||'⚖️')}</span>${esc(t.name)}</a>`).join('')
+    }</div></div>`).join('');
+}
+
 function view_years(){
   renderSidebar('years');
   const yrs=allYears();
@@ -11079,7 +12268,8 @@ const Router={
     if(!m){view_home();return;}
     const route=m[1],arg=decodeURIComponent(m[2]||'');
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
-    LINK_TOTAL_COUNT=0;  // fresh per page view for low-link mode
+    LINK_TOTAL_COUNT=0;    // fresh per page view for the density cap
+    LINK_GRAPH_OUT=new Set(); LINK_CONTEXT=new Set(); LINK_LAST_STATS={total:0,unique:0,scope:''}; LINK_SUPPRESSED=[];
     document.body.classList.remove('hide-walu-ambient');
     if(route==='home')view_home();
     else if(route==='list'){ if(arg==='nations')view_atlas(); else if(arg==='collections')view_collection(); else view_list(arg); }
@@ -11101,6 +12291,8 @@ const Router={
     else if(route==='timeline')view_timeline();
     else if(route==='chronicle'||route==='chronicles')view_chronicle(arg);
     else if(route==='annotations'||route==='chatter')view_annotations(arg);
+    else if(route==='wanted'||route==='wanted-pages'||route==='redlinks')view_wanted();
+    else if(route==='tradition'||route==='traditions'||route==='law')view_tradition(arg);
     else if(route==='collection'||route==='collections')view_collection(arg);
     else if(route==='xp'||route==='leaderboard')view_xpLeaderboard();
     else if(route==='years')view_years();
@@ -11130,6 +12322,8 @@ const Router={
   }
 };
 window.addEventListener('hashchange',Router.render);
+/* Keep the Link HUD in sync on every navigation (it hides itself off-article). */
+window.addEventListener('hashchange',()=>{ try{ renderLinkHud(); }catch(e){} });
 const Nav={random(){const r=ALL_ITEMS[Math.floor(Math.random()*ALL_ITEMS.length)];openId(r.item.id);}};
 
 /* theme + shortcuts */
@@ -11143,6 +12337,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
   else if(e.key==='t'&&!typing)setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
   else if(e.key==='r'&&!typing)Nav.random();
   else if(e.key.toLowerCase()==='h'&&!typing)cycleLinkLevel();
+  else if(e.key.toLowerCase()==='m'&&!typing&&HOVER_LINK_ID){ e.preventDefault(); muteLink(HOVER_LINK_ID); }
   else if(e.key.toLowerCase()==='c'&&!typing){
     const route=(location.hash||'').replace(/^#\/?/,'').split('/')[0];
     if(route==='legion'||route==='iron-legion') return;
@@ -11204,11 +12399,31 @@ async function loadData(){
     }
     const id=a.getAttribute('data-id'); const p=LINK_PREVIEW[id];
     if(!p) return;
-    pv.innerHTML=`<div class="lp-head"><span class="lp-emoji">${p.emoji}</span><span class="lp-name">${esc(p.name)}</span></div>${p.sub?`<div class="lp-sub">${esc(p.sub).slice(0,60)}</div>`:''}<div class="lp-sum">${esc(p.summary)}${p.summary&&p.summary.length>=220?'…':''}</div><div class="lp-go">Click to open →</div>`;
+    /* ===== Feature 4: rich hover card =====
+       Portrait, type badge, live XP level, faction/status facts and quick actions —
+       so a hover answers "who is this and why do I care" without leaving the page. */
+    const kindLabel=(p.typeKey&&TYPE_BY_KEY[p.typeKey]?TYPE_BY_KEY[p.typeKey].singular:prettyId(p.kind||'record'));
+    const xp=(typeof XP_SUMMARY!=='undefined')?XP_SUMMARY[id]:null;
+    const facts=[];
+    if(p.affiliation) facts.push(`<span class="lp-fact">🏳️ ${esc(String(p.affiliation).slice(0,42))}</span>`);
+    if(p.status)      facts.push(`<span class="lp-fact">◈ ${esc(String(p.status).split('—')[0].trim().slice(0,34))}</span>`);
+    if(xp)            facts.push(`<span class="lp-fact xp">✦ Lv ${xp.level} · ${Number(xp.currentXP||0).toLocaleString()} XP</span>`);
+    const img=p.image?`<img class="lp-portrait" src="${esc(p.image)}" alt="" onerror="this.remove()">`:'';
+    const inb=(typeof BACKLINKS!=='undefined'&&BACKLINKS[id])?BACKLINKS[id].size:0;
+    pv.innerHTML=`<div class="lp-top">${img}<div class="lp-topbody">
+        <div class="lp-head"><span class="lp-emoji">${p.emoji}</span><span class="lp-name">${esc(p.name)}</span></div>
+        <div class="lp-badge">${esc(kindLabel)}</div>
+        ${p.sub?`<div class="lp-sub">${esc(String(p.sub)).slice(0,60)}</div>`:''}
+      </div></div>
+      ${facts.length?`<div class="lp-facts">${facts.join('')}</div>`:''}
+      <div class="lp-sum">${esc(p.summary)}${p.summary&&p.summary.length>=220?'…':''}</div>
+      <div class="lp-go"><span>Click to open →</span>${inb?`<span class="lp-inb">${inb} page${inb===1?'':'s'} link here</span>`:''}</div>
+      <div class="lp-mute">press <b>M</b> to stop auto-linking this</div>`;
+    HOVER_LINK_ID=id;
     pv.classList.add('show');
     positionPreview(x,y);
   }
-  function hidePreview(){ pv.classList.remove('show'); }
+  function hidePreview(){ pv.classList.remove('show'); HOVER_LINK_ID=null; }
   document.addEventListener('mouseover',e=>{
     const a=e.target.closest && e.target.closest('a.xlink');
     if(a){ clearTimeout(hideTimer); showPreview(a,e.clientX,e.clientY); }
@@ -11285,8 +12500,71 @@ function synthesizeXpCharacterArticles(){
   });
 }
 
+/* Load the culture/legal modules once, up-front, so every view can use them. */
+async function loadCultureSystem(){
+  try{
+    const [c,l,s]=await Promise.all([
+      import(pathPrefix+'culture-data.js'),
+      import(pathPrefix+'legal_data.js'),
+      import(pathPrefix+'species-data.js')
+    ]);
+    CULTURES=c.CULTURE_DATA||{};
+    LEGAL=l.LEGAL_DATA||{};
+    SPECIES=s.SPECIES_DATA||{};
+    REGIONAL_DEMO=s.REGIONAL_DEMOGRAPHICS||{};
+  }catch(e){ CULTURES={};LEGAL={};SPECIES={};REGIONAL_DEMO={}; }
+  buildCultureIndexes();
+}
+
+/* Load the tactical map catalogue so the atlas can resolve whole map groups instead of
+   one hard-coded overview per realm. Failure is non-fatal: the atlas falls back to the
+   configured mapFile exactly as before. */
+async function loadMapCatalogue(){
+  try{
+    const m=await import(pathPrefix+'map-data.js');
+    ATLAS_MAPS=m.MAP_DATA||{};
+  }catch(e){ ATLAS_MAPS={}; }
+  ATLAS_MAP_GROUPS={};
+  Object.values(ATLAS_MAPS).forEach(rec=>{
+    if(!rec||!rec.id) return;
+    const g=rec.group||'Other Regions';
+    (ATLAS_MAP_GROUPS[g]=ATLAS_MAP_GROUPS[g]||[]).push(rec);
+  });
+  Object.values(ATLAS_MAP_GROUPS).forEach(list=>list.sort((a,b)=>(a.order||99)-(b.order||99)||String(a.name||'').localeCompare(String(b.name||''))));
+}
+
+/* Every map a realm can show, derived from MAP_DATA rather than a hard-coded string.
+   Returns {maps, activeId, group} — activeId is validated, so a config pointing at a
+   map id that no longer exists can never silently load the wrong realm. */
+function atlasMapsFor(nationId){
+  const cfg=NATION_ATLAS_CONFIG[nationId]||{};
+  const configured=(String(cfg.mapFile||'').match(/[?&]map=([a-z0-9_]+)/i)||[])[1]||'';
+  if(!Object.keys(ATLAS_MAPS).length){
+    return {maps:[], activeId:configured, group:'', valid:Boolean(configured)};
+  }
+  let active=ATLAS_MAPS[configured]?configured:'';
+  let group=active?(ATLAS_MAPS[active].group||''):'';
+  if(!active && configured){
+    // The configured id is broken (e.g. beanbean_kingdom_full / sunshine_isles_full).
+    // Recover by matching the realm name against a group instead of falling through to
+    // maps.js's silent "default to Mushroom Kingdom" behaviour.
+    const stem=configured.replace(/_full$/,'').replace(/_/g,' ').toLowerCase();
+    const hit=Object.keys(ATLAS_MAP_GROUPS).find(g=>{
+      const gl=g.toLowerCase();
+      return gl.includes(stem) || stem.includes(gl.replace(/ regions?$/,''));
+    });
+    if(hit){ group=hit; active=(ATLAS_MAP_GROUPS[hit][0]||{}).id||''; }
+  }
+  if(!group && active) group=ATLAS_MAPS[active].group||'';
+  const maps=group?(ATLAS_MAP_GROUPS[group]||[]):[];
+  if(!active && maps.length) active=maps[0].id;
+  return {maps, activeId:active, group, valid:Boolean(active)};
+}
+
 async function boot(){
   DATA = await loadData();
+  await loadCultureSystem();
+  await loadMapCatalogue();
   // rebuild the derived globals + indexes now that DATA exists
   FCOLORS = DATA.factionColors||{};
   MONTHS = (DATA.calendarMonths||[]).map(m=>m.name||m);
