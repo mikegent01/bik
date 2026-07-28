@@ -1,0 +1,19 @@
+{
+  "name": "<short evocative ability name, 2-4 words, no class prefix>",
+  "icon": "<a single emoji that fits the ability>",
+  "description": "<one tight sentence a player reads on the shop card: what it does, in plain language, under 160 characters>",
+  "type": "<one of: combat, utility, magic, stealth, social, support, leadership, divine>",
+  "level": 1,
+  "levelReason": "<one sentence explaining why the ability unlocks at this level>",
+  "rules": {
+    "activation": "<action, bonus action, reaction, passive, or special>",
+    "range": "<self, touch, a distance in feet, or an area>",
+    "duration": "<instantaneous, a concrete duration, or until a stated condition>",
+    "uses": "<uses per short rest, per long rest, per day, proficiency-limited, or at will>",
+    "effect": "<the table-ready 5e-inspired homebrew rule: dice, save DC formula, conditions applied, and exactly what ends it>",
+    "drawback": "<a real cost, risk, or limitation that keeps the ability honest>"
+  },
+  "apCost": 1,
+  "apReason": "<one sentence justifying the Ability Point cost against the level tier>",
+  "warioNote": "<one sarcastic in-character line from Wario about selling this training>"
+}

@@ -2271,6 +2271,53 @@ a.xlink:hover { color: #c7511f; }
   font-size: 12px;
 }
 .economy-guard small { color: #426b4d; }
+
+/* Phase 7.5 — buyer advisories. The scam banner generalized to the other
+   situations a buyer needs flagged: curses, attunement load, consumables,
+   legal exposure, volatility, breakage, and reputation fallout. */
+.advisory {
+  display: grid;
+  gap: 3px;
+  margin: 10px 0;
+  padding: 10px 12px;
+  border: 1px solid #d8d2c4;
+  border-left: 5px solid #8a8579;
+  border-radius: 10px;
+  background: #faf9f6;
+  color: #3f3a31;
+  font-size: 12px;
+}
+.advisory b { font-size: 12px; text-transform: uppercase; letter-spacing: .035em; }
+.advisory span { line-height: 1.45; }
+.advisory small { color: currentColor; opacity: .72; }
+.advisory.danger { border-color: #df6b6b; border-left-color: #b91c1c; background: #fff0f0; color: #7f1d1d; }
+.advisory.warn   { border-color: #e5b13c; border-left-color: #d97706; background: #fff8df; color: #6a4300; }
+.advisory.notice { border-color: #9db8d4; border-left-color: #2563eb; background: #eff5fd; color: #1e3a5f; }
+.advisory.good   { border-color: #9bc5a4; border-left-color: #18723a; background: #effaf2; color: #174b28; }
+
+/* Compact pills on grid/list cards so a warning is visible before opening the item. */
+.advisory-pills { display: flex; flex-wrap: wrap; gap: 4px; margin: 5px 0; }
+.ad-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 7px;
+  border: 1px solid #d8d2c4;
+  border-radius: 999px;
+  background: #faf9f6;
+  color: #3f3a31;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.6;
+  white-space: nowrap;
+  cursor: help;
+}
+.ad-pill.danger { border-color: #e8a5a5; background: #fff0f0; color: #9f2222; }
+.ad-pill.warn   { border-color: #e8cf8a; background: #fff8df; color: #7a5200; }
+.ad-pill.notice { border-color: #b8cde4; background: #eff5fd; color: #24507f; }
+.ad-pill.good   { border-color: #b3d7bd; background: #effaf2; color: #1c6236; }
+.ad-pill.more   { opacity: .7; }
+@media (max-width: 520px) { .ad-pill { font-size: 9.5px; } }
 .co-scam-note { color: #b91c1c !important; font-weight: 800; margin-top: 4px; }
 
 /* Phase 7.4 — direct Crafting Forge commerce. */
