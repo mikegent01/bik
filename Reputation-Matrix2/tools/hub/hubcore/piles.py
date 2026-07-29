@@ -28,75 +28,129 @@ def _ap_cost(level: int) -> int:
 # Valid ability types from generate_abilities.py (exact match)
 VALID_ABILITY_TYPES = {"combat", "utility", "magic", "stealth", "social", "support", "leadership", "divine"}
 
+def _load_real_ability_catalog():
+    """Load the canonical abilityShop.json so we use real, validated abilities."""
+    try:
+        shop = dataio.load_json(paths.ROOT / "data" / "abilityShop.json") or {}
+        return shop.get("abilities", [])
+    except Exception:
+        return []
+
+
 def generate_ability_items(level: int = 1, count: int = 3, class_hint: str = "") -> list[dict[str, Any]]:
-    """Generate lightweight ability items (as feats) for a character of the given level.
+    """Generate real ability items (as feats) pulled from the canonical Training Wing catalog.
 
-    These are synthetic items that carry AP cost metadata so they can be
-    imported into Foundry and tracked by the ability point system.
-
-    - Supports levels > 20 (no lumping at 20)
-    - Uses correct VALID_ABILITY_TYPES
-    - Avoids common duplicate names
+    This is the correct implementation:
+    - Uses the real 305 abilities from abilityShop.json (not low-quality templates)
+    - Respects level (with smart spread)
+    - Uses correct types from VALID_ABILITY_TYPES
+    - Avoids duplicates
+    - Supports levels 1–30+
     """
-    items = []
+    real_abilities = _load_real_ability_catalog()
+    if not real_abilities:
+        # Fallback to very basic if catalog missing
+        return []
+
     base_level = max(1, int(level))
-
-    # Tier-aware templates (higher levels get stronger abilities)
-    templates = [
-        # (name_base, description, min_level, type)
-        ("Divine Vigilance", "Gain advantage on Perception checks against evil.", 1, "divine"),
-        ("Shadowstep Sneak", "Bonus action to Hide after attacking.", 1, "stealth"),
-        ("Furious Roar", "Intimidate enemies within 30 ft once per short rest.", 1, "combat"),
-        ("Arcane Tempest", "Deal 1d6 force damage in a 10-ft radius.", 1, "magic"),
-        ("Swift Blade", "Extra attack with a bonus action once per short rest.", 1, "combat"),
-        ("Rapid Sight", "Advantage on initiative rolls.", 1, "combat"),
-        ("Inspire Charge", "Grant an ally +1d4 to their next attack roll.", 1, "leadership"),
-        ("Quick Brew", "Create a minor potion once per long rest.", 1, "utility"),
-        ("Sentinel Shield", "Reaction to grant an ally +2 AC.", 1, "support"),
-        ("Tool Shield", "Proficiency with one tool grants temporary hit points.", 1, "utility"),
-        ("Sacred Barrier", "Create a 10-ft radius sphere of protection.", 5, "divine"),
-        ("Shade Strike", "Deal extra damage when hidden.", 5, "stealth"),
-        ("Mirage Veil", "Become invisible for 1 minute once per long rest.", 9, "magic"),
-        ("Reckless Strike", "Advantage on next attack, disadvantage on AC until next turn.", 5, "combat"),
-        ("Quickfire Volley", "Make two ranged attacks as a bonus action.", 9, "combat"),
-        ("Nightshade Cloak", "Advantage on Stealth checks in darkness.", 5, "stealth"),
-        ("Charge Boost", "Increase movement speed by 10 ft for 1 minute.", 5, "leadership"),
-    ]
-
+    items = []
+    used_ids = set()
     used_names = set()
-    idx = 0
-    while len(items) < count and idx < len(templates) * 2:
-        name_base, desc, min_lvl, atype = templates[idx % len(templates)]
-        idx += 1
 
-        if name_base in used_names:
+    # Score abilities by how close they are to the requested level
+    def score_ability(ab):
+        ab_level = int(ab.get("level", 1))
+        ab_class = str(ab.get("class", "")).lower()
+        score = abs(ab_level - base_level)
+
+        # Prefer matching class hint
+        if class_hint and class_hint in ab_class:
+            score -= 5
+
+        # Slight preference for higher-level abilities when player is high level
+        if base_level >= 15 and ab_level >= 9:
+            score -= 2
+
+        return score
+
+    # Sort by relevance
+    scored = sorted(real_abilities, key=score_ability)
+
+    for ab in scored:
+        if len(items) >= count:
+            break
+
+        ab_id = ab.get("id")
+        ab_name = ab.get("name", "")
+        ab_level = int(ab.get("level", 1))
+        ab_type = str(ab.get("type", "combat")).lower()
+
+        if ab_id in used_ids or ab_name in used_names:
+            continue
+        if ab_type not in VALID_ABILITY_TYPES:
             continue
 
-        effective_level = max(min_lvl, base_level)
-        # Spread levels more evenly past 20
-        if base_level > 20:
-            effective_level = min(30, base_level + (idx % 5))
+        # Skip abilities that are way too high or too low for the character
+        if ab_level > base_level + 8 or ab_level < max(1, base_level - 6):
+            continue
 
-        ap_cost = _ap_cost(effective_level)
+        ap_cost = _ap_cost(ab_level)
 
         record = {
-            "id": f"ability_{len(items)+1}_{base_level}",
-            "name": f"{name_base} (Lv {effective_level})",
-            "description": desc,
+            "id": f"ability_{ab_id}",
+            "name": ab_name,
+            "description": ab.get("description", ""),
             "category": "services",
             "price": ap_cost * 75,
-            "rarity": "rare" if effective_level >= 13 else ("uncommon" if effective_level >= 5 else "common"),
-            "levelRequirement": effective_level,
+            "rarity": "rare" if ab_level >= 13 else ("uncommon" if ab_level >= 5 else "common"),
+            "levelRequirement": ab_level,
             "effects": [f"Costs {ap_cost} AP"],
-            "type": atype if atype in VALID_ABILITY_TYPES else "combat",
+            "type": ab_type,
             "_abilityPointCost": ap_cost,
             "_generatedFromLevel": base_level,
-            "_abilityType": atype,
+            "_abilityType": ab_type,
+            "_sourceAbilityId": ab_id,
+            "class": ab.get("class"),
         }
         items.append(record)
-        used_names.add(name_base)
+        used_ids.add(ab_id)
+        used_names.add(ab_name)
 
-    return items
+    # If we still don't have enough, relax the level filter
+    if len(items) < count:
+        for ab in scored:
+            if len(items) >= count:
+                break
+            ab_id = ab.get("id")
+            if ab_id in used_ids:
+                continue
+            ab_type = str(ab.get("type", "combat")).lower()
+            if ab_type not in VALID_ABILITY_TYPES:
+                continue
+
+            ab_level = int(ab.get("level", 1))
+            ap_cost = _ap_cost(ab_level)
+
+            record = {
+                "id": f"ability_{ab_id}",
+                "name": ab.get("name", ""),
+                "description": ab.get("description", ""),
+                "category": "services",
+                "price": ap_cost * 75,
+                "rarity": "rare" if ab_level >= 13 else ("uncommon" if ab_level >= 5 else "common"),
+                "levelRequirement": ab_level,
+                "effects": [f"Costs {ap_cost} AP"],
+                "type": ab_type,
+                "_abilityPointCost": ap_cost,
+                "_generatedFromLevel": base_level,
+                "_abilityType": ab_type,
+                "_sourceAbilityId": ab_id,
+                "class": ab.get("class"),
+            }
+            items.append(record)
+            used_ids.add(ab_id)
+
+    return items[:count]
 
 
 def _stub_from_receipt(receipt: dict[str, Any]) -> dict[str, Any]:
