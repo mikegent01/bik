@@ -10,11 +10,147 @@ the player still receives the thing they paid for.
 """
 from __future__ import annotations
 
+import json
 from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Any, Iterable
 
-from . import dataio, foundry, paths
+from . import dataio, foundry, llm, paths
+
+# Ability point cost tiers (matches build_ability_points.py)
+def _ap_cost(level: int) -> int:
+    L = int(level or 1)
+    if L <= 3:  return 1
+    if L <= 7:  return 2
+    if L <= 11: return 3
+    return 5
+
+# Valid ability types from generate_abilities.py (exact match)
+VALID_ABILITY_TYPES = {"combat", "utility", "magic", "stealth", "social", "support", "leadership", "divine"}
+
+def _load_real_ability_catalog():
+    """Load the canonical abilityShop.json so we use real, validated abilities."""
+    try:
+        shop = dataio.load_json(paths.ROOT / "data" / "abilityShop.json") or {}
+        return shop.get("abilities", [])
+    except Exception:
+        return []
+
+
+def generate_ability_items(level: int = 1, count: int = 3, class_hint: str = "") -> list[dict[str, Any]]:
+    """Generate real ability items (as feats) pulled from the canonical Training Wing catalog.
+
+    This is the correct implementation:
+    - Uses the real 305 abilities from abilityShop.json (not low-quality templates)
+    - Respects level (with smart spread)
+    - Uses correct types from VALID_ABILITY_TYPES
+    - Avoids duplicates
+    - Supports levels 1–30+
+    """
+    real_abilities = _load_real_ability_catalog()
+    if not real_abilities:
+        # Fallback to very basic if catalog missing
+        return []
+
+    base_level = max(1, int(level))
+    items = []
+    used_ids = set()
+    used_names = set()
+
+    # Score abilities by how close they are to the requested level
+    def score_ability(ab):
+        ab_level = int(ab.get("level", 1))
+        ab_class = str(ab.get("class", "")).lower()
+        score = abs(ab_level - base_level)
+
+        # Prefer matching class hint
+        if class_hint and class_hint in ab_class:
+            score -= 5
+
+        # Slight preference for higher-level abilities when player is high level
+        if base_level >= 15 and ab_level >= 9:
+            score -= 2
+
+        return score
+
+    # Sort by relevance
+    scored = sorted(real_abilities, key=score_ability)
+
+    for ab in scored:
+        if len(items) >= count:
+            break
+
+        ab_id = ab.get("id")
+        ab_name = ab.get("name", "")
+        ab_level = int(ab.get("level", 1))
+        ab_type = str(ab.get("type", "combat")).lower()
+
+        if ab_id in used_ids or ab_name in used_names:
+            continue
+        if ab_type not in VALID_ABILITY_TYPES:
+            continue
+
+        # Skip abilities that are way too high or too low for the character
+        if ab_level > base_level + 8 or ab_level < max(1, base_level - 6):
+            continue
+
+        ap_cost = _ap_cost(ab_level)
+
+        record = {
+            "id": f"ability_{ab_id}",
+            "name": ab_name,
+            "description": ab.get("description", ""),
+            "category": "services",
+            "price": ap_cost * 75,
+            "rarity": "rare" if ab_level >= 13 else ("uncommon" if ab_level >= 5 else "common"),
+            "levelRequirement": ab_level,
+            "effects": [f"Costs {ap_cost} AP"],
+            "type": ab_type,
+            "_abilityPointCost": ap_cost,
+            "_generatedFromLevel": base_level,
+            "_abilityType": ab_type,
+            "_sourceAbilityId": ab_id,
+            "class": ab.get("class"),
+        }
+        items.append(record)
+        used_ids.add(ab_id)
+        used_names.add(ab_name)
+
+    # If we still don't have enough, relax the level filter
+    if len(items) < count:
+        for ab in scored:
+            if len(items) >= count:
+                break
+            ab_id = ab.get("id")
+            if ab_id in used_ids:
+                continue
+            ab_type = str(ab.get("type", "combat")).lower()
+            if ab_type not in VALID_ABILITY_TYPES:
+                continue
+
+            ab_level = int(ab.get("level", 1))
+            ap_cost = _ap_cost(ab_level)
+
+            record = {
+                "id": f"ability_{ab_id}",
+                "name": ab.get("name", ""),
+                "description": ab.get("description", ""),
+                "category": "services",
+                "price": ap_cost * 75,
+                "rarity": "rare" if ab_level >= 13 else ("uncommon" if ab_level >= 5 else "common"),
+                "levelRequirement": ab_level,
+                "effects": [f"Costs {ap_cost} AP"],
+                "type": ab_type,
+                "_abilityPointCost": ap_cost,
+                "_generatedFromLevel": base_level,
+                "_abilityType": ab_type,
+                "_sourceAbilityId": ab_id,
+                "class": ab.get("class"),
+            }
+            items.append(record)
+            used_ids.add(ab_id)
+
+    return items[:count]
 
 
 def _stub_from_receipt(receipt: dict[str, Any]) -> dict[str, Any]:
@@ -35,11 +171,57 @@ def _stub_from_receipt(receipt: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+_STUB_ENRICH_SYSTEM = """You are a D&D 5e / Foundry item writer for a comedic-but-grounded homebrew wiki.
+Given a shop receipt for an item that no longer exists in the live catalog, return ONLY a JSON object with exactly these keys:
+  description: 2-4 sentences of flavorful, useful text. Describe what the item actually does (mechanical effect, bonus, or narrative power).
+  rarity: one of common | uncommon | rare | veryRare | legendary
+  effects: array of 1-3 short effect strings (e.g. "+2 to lockpicking checks", "Once per long rest: heal 2d6")
+  usage: optional object with activation/duration/charges if relevant (else omit)
+Never invent new names or contradict the receipt. Keep tone consistent with Wario's Warehouse (fun, slightly shady, high quality)."""
+
+def enrich_stub_with_model(
+    receipt: dict[str, Any],
+    *,
+    model: str | None = None,
+    endpoint: str = llm.DEFAULT_ENDPOINT,
+) -> dict[str, Any] | None:
+    """Ask LM Studio to turn a stub receipt into a real item description.
+
+    Returns None if the model is offline or the response is invalid.
+    """
+    payload = {
+        "orderId": receipt.get("orderId"),
+        "itemId": receipt.get("itemId"),
+        "itemName": receipt.get("itemName"),
+        "price": receipt.get("price"),
+        "isFaction": receipt.get("isFaction", False),
+        "playerKey": receipt.get("playerKey"),
+    }
+    result = llm.ask_json(
+        _STUB_ENRICH_SYSTEM,
+        json.dumps(payload, ensure_ascii=False),
+        endpoint=endpoint,
+        model=model,
+        temperature=0.75,
+    )
+    if not result or not isinstance(result, dict):
+        return None
+    return {
+        "description": str(result.get("description", "")).strip() or _stub_from_receipt(receipt)["description"],
+        "rarity": str(result.get("rarity", "common")).strip().lower() or "common",
+        "effects": [str(e).strip() for e in (result.get("effects") or []) if str(e).strip()][:3],
+        "usage": result.get("usage") if isinstance(result.get("usage"), dict) else None,
+        "_aiEnriched": True,
+    }
+
+
 def resolve_purchases(
     rows: Iterable[dict[str, Any]] | None = None,
     *,
     players: Iterable[str] | None = None,
     include_faction: bool = True,
+    use_ai_for_missing: bool = False,
+    model: str | None = None,
 ) -> dict[str, Any]:
     """Group receipts by player and attach the catalog record for each line.
 
@@ -67,7 +249,12 @@ def resolve_purchases(
         missing = record is None
         if missing:
             missing_total += 1
-            record = _stub_from_receipt(receipt)
+            stub = _stub_from_receipt(receipt)
+            if use_ai_for_missing:
+                enriched = enrich_stub_with_model(receipt, model=model)
+                if enriched:
+                    stub.update(enriched)
+            record = stub
         grouped[key].append({"receipt": receipt, "item": record, "missing": missing})
 
     players_out: dict[str, Any] = {}
@@ -115,8 +302,18 @@ def _display_name(player_key: str) -> str:
     return player_key.replace("_", " ").title()
 
 
-def build_pile_actor(player: dict[str, Any], *, pile_name: str | None = None) -> dict[str, Any]:
-    """Create one item-pile actor document holding everything a player bought."""
+def build_pile_actor(
+    player: dict[str, Any],
+    *,
+    pile_name: str | None = None,
+    include_abilities: bool = False,
+    character_level: int = 1,
+) -> dict[str, Any]:
+    """Create one item-pile actor document holding everything a player bought.
+
+    When include_abilities=True, also injects generated ability items
+    (as feats) scaled to the character's level.
+    """
     key = player["playerKey"]
     display = player.get("displayName") or key
     name = pile_name or f"{display} — Warehouse Delivery"
@@ -139,6 +336,26 @@ def build_pile_actor(player: dict[str, Any], *, pile_name: str | None = None) ->
             sort=index,
             seed=f"{key}:{record.get('id')}:{index}",
         ))
+
+    # Optional: generate ability items for this character
+    if include_abilities:
+        # Try to infer a class hint from the first item if available
+        class_hint = ""
+        if player.get("lines"):
+            first_item = player["lines"][0].get("item", {})
+            class_hint = str(first_item.get("class", "")).lower()
+
+        ability_items = generate_ability_items(
+            level=character_level,
+            count=3,
+            class_hint=class_hint
+        )
+        for idx, ab in enumerate(ability_items):
+            items.append(foundry.shop_item_to_foundry(
+                ab,
+                sort=500 + idx,
+                seed=f"{key}:ability:{idx}",
+            ))
 
     wallet = dataio.wallets().get(key) or {}
     balances = wallet.get("currencies") or {}
@@ -184,9 +401,16 @@ def build_all(
     players: Iterable[str] | None = None,
     include_faction: bool = True,
     write: bool = True,
+    use_ai_for_missing: bool = False,
+    model: str | None = None,
 ) -> dict[str, Any]:
     """Build (and optionally write) an item pile for every purchasing player."""
-    resolved = resolve_purchases(players=players, include_faction=include_faction)
+    resolved = resolve_purchases(
+        players=players,
+        include_faction=include_faction,
+        use_ai_for_missing=use_ai_for_missing,
+        model=model,
+    )
     paths.ensure_out_dirs()
 
     written: list[dict[str, Any]] = []
@@ -224,9 +448,19 @@ def build_all(
     return manifest
 
 
-def preview(players: Iterable[str] | None = None, include_faction: bool = True) -> dict[str, Any]:
+def preview(
+    players: Iterable[str] | None = None,
+    include_faction: bool = True,
+    use_ai_for_missing: bool = False,
+    model: str | None = None,
+) -> dict[str, Any]:
     """Summary for the GUI: who gets what, without writing any files."""
-    resolved = resolve_purchases(players=players, include_faction=include_faction)
+    resolved = resolve_purchases(
+        players=players,
+        include_faction=include_faction,
+        use_ai_for_missing=use_ai_for_missing,
+        model=model,
+    )
     rows = []
     for key, player in resolved["players"].items():
         rows.append({

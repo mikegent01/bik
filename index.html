@@ -181,6 +181,7 @@
         <option value="dynasties">Dynasties</option>
         <option value="vendors">Vendors</option>
         <option value="holidays">Holidays</option>
+        <option value="whatifs">What Ifs</option>
       </select>
       <select id="searchMode" class="search-select search-mode" title="Search matching mode">
         <option value="smart">Smart</option>
@@ -6294,6 +6295,7 @@ function renderSidebar(active){
     navLink({emoji:'🏦',label:'Bank & Exchange',go:"location.href='currency.html'"}),
     navLink({emoji:'📅',label:'Calendar',go:"Router.go('#/calendar')",active:active==='calendar'}),
     navLink({emoji:'🎉',label:'Holidays',go:"Router.go('#/holiday')",active:active==='holidays',count:(()=>{const g=DATA.calendarHolidays?.holidays||{};let c=0;Object.values(g).forEach(a=>c+=(a||[]).length);return c;})()}),
+      navLink({emoji:'❓',label:'What Ifs',go:"Router.go('#/whatif')",active:active==='whatifs',count:(DATA.whatifs&&DATA.whatifs.whatifs?DATA.whatifs.whatifs.length:0)}), 
     navLink({emoji:'🕰️',label:'Timeline',go:"Router.go('#/calendar/timeline')",count:(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}),
     navLink({emoji:'📚',label:'Library & Books',go:"Router.go('#/books')",active:active==='books',count:((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')})
