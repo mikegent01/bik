@@ -150,8 +150,12 @@ class HubHandler(BaseHTTPRequestHandler):
         if route == "purchases":
             include_faction = query.get("faction", "1") != "0"
             players = [p for p in (query.get("players") or "").split(",") if p]
+            use_ai = query.get("useAI", "0") == "1"
             return self._send_json({"ok": True, "data": piles.preview(
-                players=players or None, include_faction=include_faction)})
+                players=players or None,
+                include_faction=include_faction,
+                use_ai_for_missing=use_ai,
+            )})
 
         if route == "lore":
             return self._send_json({"ok": True, "data": {
@@ -216,6 +220,8 @@ class HubHandler(BaseHTTPRequestHandler):
                     players=players,
                     include_faction=bool(body.get("includeFaction", True)),
                     write=True,
+                    use_ai_for_missing=bool(body.get("useAIForMissing", False)),
+                    model=(body.get("model") or "").strip() or None,
                 )
                 return self._send_json({"ok": True, "data": manifest})
 

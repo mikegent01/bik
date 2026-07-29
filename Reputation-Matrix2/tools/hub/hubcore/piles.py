@@ -10,11 +10,12 @@ the player still receives the thing they paid for.
 """
 from __future__ import annotations
 
+import json
 from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Any, Iterable
 
-from . import dataio, foundry, paths
+from . import dataio, foundry, llm, paths
 
 
 def _stub_from_receipt(receipt: dict[str, Any]) -> dict[str, Any]:
@@ -35,11 +36,57 @@ def _stub_from_receipt(receipt: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+_STUB_ENRICH_SYSTEM = """You are a D&D 5e / Foundry item writer for a comedic-but-grounded homebrew wiki.
+Given a shop receipt for an item that no longer exists in the live catalog, return ONLY a JSON object with exactly these keys:
+  description: 2-4 sentences of flavorful, useful text. Describe what the item actually does (mechanical effect, bonus, or narrative power).
+  rarity: one of common | uncommon | rare | veryRare | legendary
+  effects: array of 1-3 short effect strings (e.g. "+2 to lockpicking checks", "Once per long rest: heal 2d6")
+  usage: optional object with activation/duration/charges if relevant (else omit)
+Never invent new names or contradict the receipt. Keep tone consistent with Wario's Warehouse (fun, slightly shady, high quality)."""
+
+def enrich_stub_with_model(
+    receipt: dict[str, Any],
+    *,
+    model: str | None = None,
+    endpoint: str = llm.DEFAULT_ENDPOINT,
+) -> dict[str, Any] | None:
+    """Ask LM Studio to turn a stub receipt into a real item description.
+
+    Returns None if the model is offline or the response is invalid.
+    """
+    payload = {
+        "orderId": receipt.get("orderId"),
+        "itemId": receipt.get("itemId"),
+        "itemName": receipt.get("itemName"),
+        "price": receipt.get("price"),
+        "isFaction": receipt.get("isFaction", False),
+        "playerKey": receipt.get("playerKey"),
+    }
+    result = llm.ask_json(
+        _STUB_ENRICH_SYSTEM,
+        json.dumps(payload, ensure_ascii=False),
+        endpoint=endpoint,
+        model=model,
+        temperature=0.75,
+    )
+    if not result or not isinstance(result, dict):
+        return None
+    return {
+        "description": str(result.get("description", "")).strip() or _stub_from_receipt(receipt)["description"],
+        "rarity": str(result.get("rarity", "common")).strip().lower() or "common",
+        "effects": [str(e).strip() for e in (result.get("effects") or []) if str(e).strip()][:3],
+        "usage": result.get("usage") if isinstance(result.get("usage"), dict) else None,
+        "_aiEnriched": True,
+    }
+
+
 def resolve_purchases(
     rows: Iterable[dict[str, Any]] | None = None,
     *,
     players: Iterable[str] | None = None,
     include_faction: bool = True,
+    use_ai_for_missing: bool = False,
+    model: str | None = None,
 ) -> dict[str, Any]:
     """Group receipts by player and attach the catalog record for each line.
 
@@ -67,7 +114,12 @@ def resolve_purchases(
         missing = record is None
         if missing:
             missing_total += 1
-            record = _stub_from_receipt(receipt)
+            stub = _stub_from_receipt(receipt)
+            if use_ai_for_missing:
+                enriched = enrich_stub_with_model(receipt, model=model)
+                if enriched:
+                    stub.update(enriched)
+            record = stub
         grouped[key].append({"receipt": receipt, "item": record, "missing": missing})
 
     players_out: dict[str, Any] = {}
@@ -184,9 +236,16 @@ def build_all(
     players: Iterable[str] | None = None,
     include_faction: bool = True,
     write: bool = True,
+    use_ai_for_missing: bool = False,
+    model: str | None = None,
 ) -> dict[str, Any]:
     """Build (and optionally write) an item pile for every purchasing player."""
-    resolved = resolve_purchases(players=players, include_faction=include_faction)
+    resolved = resolve_purchases(
+        players=players,
+        include_faction=include_faction,
+        use_ai_for_missing=use_ai_for_missing,
+        model=model,
+    )
     paths.ensure_out_dirs()
 
     written: list[dict[str, Any]] = []
@@ -224,9 +283,19 @@ def build_all(
     return manifest
 
 
-def preview(players: Iterable[str] | None = None, include_faction: bool = True) -> dict[str, Any]:
+def preview(
+    players: Iterable[str] | None = None,
+    include_faction: bool = True,
+    use_ai_for_missing: bool = False,
+    model: str | None = None,
+) -> dict[str, Any]:
     """Summary for the GUI: who gets what, without writing any files."""
-    resolved = resolve_purchases(players=players, include_faction=include_faction)
+    resolved = resolve_purchases(
+        players=players,
+        include_faction=include_faction,
+        use_ai_for_missing=use_ai_for_missing,
+        model=model,
+    )
     rows = []
     for key, player in resolved["players"].items():
         rows.append({

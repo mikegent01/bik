@@ -96,7 +96,7 @@ function renderDashboard() {
 
 async function loadCatalogHealth() {
   try {
-    const data = await api('purchases');
+    const data = await api('purchases?useAI=0');
     const { stats } = data;
     $('#catalogHealth').innerHTML = `
       <p class="muted">${stats.receipts} approved receipts across ${stats.players} player(s).
@@ -235,7 +235,8 @@ $('#previewPiles').addEventListener('click', async (event) => {
   busy(event.target, true, 'Reading…');
   try {
     const faction = $('#includeFaction').checked ? '1' : '0';
-    renderPilePreview(await api(`purchases?faction=${faction}`));
+    const useAI = $('#useAIPiles').checked ? '1' : '0';
+    renderPilePreview(await api(`purchases?faction=${faction}&useAI=${useAI}`));
     $('#pileResult').innerHTML = '';
   } catch (error) {
     toast(error.message, true);
@@ -248,7 +249,10 @@ $('#buildPiles').addEventListener('click', async (event) => {
   busy(event.target, true, 'Building…');
   try {
     const manifest = await api('piles/build', {
-      body: { includeFaction: $('#includeFaction').checked },
+      body: {
+        includeFaction: $('#includeFaction').checked,
+        useAIForMissing: $('#useAIPiles').checked,
+      },
     });
     $('#pileResult').innerHTML = `
       <div class="card">
