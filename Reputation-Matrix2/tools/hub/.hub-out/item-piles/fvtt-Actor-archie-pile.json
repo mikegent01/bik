@@ -1,0 +1,1615 @@
+{
+  "name": "Archie Miser — Warehouse Delivery",
+  "type": "character",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 6,
+      "cp": 18
+    },
+    "abilities": {
+      "str": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "acr": {
+        "value": 0,
+        "ability": "dex",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "ani": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "arc": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "ath": {
+        "value": 0,
+        "ability": "str",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "dec": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "his": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "ins": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "itm": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "inv": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "med": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "nat": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "prc": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "prf": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "per": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "rel": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "slt": {
+        "value": 0,
+        "ability": "dex",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "ste": {
+        "value": 0,
+        "ability": "dex",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "sur": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 0,
+        "calc": "flat",
+        "formula": ""
+      },
+      "hp": {
+        "value": 0,
+        "max": 0,
+        "temp": 0,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "init": {
+        "bonus": "0",
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "movement": {
+        "walk": 0,
+        "units": "ft",
+        "hover": false,
+        "burrow": 0,
+        "climb": 0,
+        "fly": 0,
+        "swim": 0,
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "special": "",
+        "ranges": {
+          "darkvision": 0,
+          "blindsight": 0,
+          "tremorsense": 0,
+          "truesight": 0
+        }
+      },
+      "spellcasting": "",
+      "death": {
+        "success": 0,
+        "failure": 0,
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "exhaustion": 0,
+      "inspiration": false,
+      "attunement": {
+        "max": 3
+      },
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      }
+    },
+    "details": {
+      "biography": {
+        "value": "<p>Item pile generated by the Waluipedia hub for Archie Miser.</p><p>9 item(s) across 8 entries, 30865 gold of approved purchases.</p><p>Every entry keeps its order id under flags.waluipedia.receipts.</p>",
+        "public": ""
+      },
+      "alignment": "",
+      "race": null,
+      "background": null,
+      "originalClass": "",
+      "xp": {
+        "value": 0
+      },
+      "appearance": "",
+      "trait": "",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "eyes": "",
+      "height": "",
+      "faith": "",
+      "hair": "",
+      "weight": "",
+      "gender": "",
+      "skin": "",
+      "age": ""
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "armorProf": {
+        "value": [],
+        "custom": ""
+      },
+      "weaponProf": {
+        "value": [],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      }
+    },
+    "resources": {
+      "primary": {
+        "value": null,
+        "max": null,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      },
+      "secondary": {
+        "value": null,
+        "max": null,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      },
+      "tertiary": {
+        "value": null,
+        "max": null,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      }
+    },
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "favorites": []
+  },
+  "prototypeToken": {
+    "name": "Archie Miser — Warehouse Delivery",
+    "displayName": 50,
+    "actorLink": true,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/item-bag.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 0,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": null
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "alpha": 1,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "negative": false,
+      "priority": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "appendNumber": false,
+    "prependAdjective": false,
+    "randomImg": false,
+    "depth": 0,
+    "turnMarker": {
+      "mode": 1,
+      "animation": "",
+      "src": "",
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    }
+  },
+  "items": [
+    {
+      "_id": "27mHOhtB2RucpEvt",
+      "name": "Tournament Card Deck",
+      "type": "loot",
+      "img": "icons/containers/bags/coinpouch-simple-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Tournament Card Deck, a simple yet contentious set of cards made from parchment and ink, is crafted by the Faction Quartermaster for casual games among allies. Each deck contains 52 cards that, when played, can either uplift morale or spark heated debates leading to playful fistfights. Players who engage in a game are granted +1 Morale until their next short rest, but must roll a DC 10 Constitution saving throw or risk a minor altercation.</p><h3>Effects</h3><ul><li><strong>Morale Boost</strong>: When a player uses the deck to play a game, they gain +1 Morale until their next short rest. However, if they lose the game, they must roll a DC 10 Constitution saving throw or engage in a minor altercation with another player.</li><li><strong>Minor Fistfights</strong>: If a player rolls a natural 1 on their Constitution saving throw after losing a game, they and an opponent must immediately make opposed Strength checks. The loser of the check takes 1d4 bludgeoning damage and is knocked prone.</li></ul><h3>Usage</h3><ul><li><strong>Activation</strong>: Playing a game with the deck as a bonus action.</li><li><strong>Duration</strong>: Until the player's next short rest or until they lose and roll a natural 1 on their Constitution saving throw.</li><li><strong>Ends when</strong>: If the player loses a game and rolls a natural 1, both players are affected by the minor fistfight rule.</li><li><strong>Charges</strong>: Unlimited uses; the deck refills as soon as it is used.</li></ul><p>Vendor: faction_quartermaster · Shipped by: Swift Courier of the Alliance · Level requirement: 1</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 40,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "tournament-card-deck",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "faction_uno_deck",
+          "sourceKey": "faction_uno_deck",
+          "sourceFile": "items_012.js",
+          "category": "faction",
+          "rarity": "common",
+          "vendor": "faction_quartermaster",
+          "shippedBy": "Swift Courier of the Alliance",
+          "levelRequirement": 1,
+          "icon": "🃏",
+          "effects": [
+            "+1 Morale",
+            "Risk of minor fistfights"
+          ],
+          "effectDetails": [
+            {
+              "title": "Morale Boost",
+              "rules": "When a player uses the deck to play a game, they gain +1 Morale until their next short rest. However, if they lose the game, they must roll a DC 10 Constitution saving throw or engage in a minor altercation with another player."
+            },
+            {
+              "title": "Minor Fistfights",
+              "rules": "If a player rolls a natural 1 on their Constitution saving throw after losing a game, they and an opponent must immediately make opposed Strength checks. The loser of the check takes 1d4 bludgeoning damage and is knocked prone."
+            }
+          ],
+          "usage": {
+            "activation": "Playing a game with the deck as a bonus action.",
+            "duration": "Until the player's next short rest or until they lose and roll a natural 1 on their Constitution saving throw.",
+            "endsWhen": "If the player loses a game and rolls a natural 1, both players are affected by the minor fistfight rule.",
+            "charges": "Unlimited uses; the deck refills as soon as it is used."
+          },
+          "priceGold": 40,
+          "receipts": [
+            {
+              "orderId": "FT-UPGRADE-001",
+              "approvedAt": "2025-12-15T12:00:00.000Z",
+              "approvedBy": "DM",
+              "price": 1500
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785283574010,
+        "modifiedTime": 1785283574010,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "4uMiZZ6NqTOvDTxY",
+      "name": "Faction Banners",
+      "type": "loot",
+      "img": "icons/containers/bags/coinpouch-simple-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Purchased from Wario's Warehouse on order FT-UPGRADE-002. This record is reconstructed from the receipt because the item is no longer listed in the live catalog.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 4000,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "faction-banners",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "faction_banners",
+          "sourceKey": null,
+          "sourceFile": null,
+          "category": "faction",
+          "rarity": "common",
+          "vendor": null,
+          "shippedBy": null,
+          "levelRequirement": null,
+          "icon": null,
+          "effects": [],
+          "effectDetails": [],
+          "usage": null,
+          "priceGold": 4000,
+          "receipts": [
+            {
+              "orderId": "FT-UPGRADE-002",
+              "approvedAt": "2025-12-15T12:00:00.000Z",
+              "approvedBy": "DM",
+              "price": 4000
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785283574011,
+        "modifiedTime": 1785283574011,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "4kgXJTWEZ5QOrMqB",
+      "name": "Wall of the Fallen",
+      "type": "loot",
+      "img": "icons/containers/bags/coinpouch-simple-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Wall of the Fallen stands as a solemn stone memorial, inscribed with names and dates of those who perished in service to your faction. Crafted from ancient granite quarried by the very hands that once wielded weapons for peace, its surface whispers tales of valor and sacrifice. When you call upon it, the wall releases a profound sense of unity and remembrance, bolstering the morale of your allies, and ensuring their spirits remain steadfast in the face of grief.</p><h3>Effects</h3><ul><li><strong>Morale Boost</strong>: When a character within 10 feet of the Wall of the Fallen uses an action to stabilize their morale, they gain a +2 bonus to their next saving throw against fear and despair. This effect lasts for 1 hour.</li><li><strong>Loyalty Stabilization</strong>: The Wall provides a daily boost to faction loyalty among nearby allies. For the duration of one week, any character within 50 feet who has lost more than half their hit points gains a +1 bonus to all loyalty checks.</li></ul><h3>Usage</h3><ul><li><strong>Activation</strong>: Used as an object interaction, once per day.</li><li><strong>Duration</strong>: Instantaneous effect; ongoing benefits for specified durations.</li><li><strong>Ends when</strong>: The daily use limit is reached or if the item is destroyed.</li><li><strong>Charges</strong>: Unlimited uses.</li></ul><p>Vendor: faction_quartermaster · Shipped by: Faction Courier Service · Level requirement: 3</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 39,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "wall-of-the-fallen",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "faction_memorial",
+          "sourceKey": "faction_memorial",
+          "sourceFile": "items_012.js",
+          "category": "faction",
+          "rarity": "common",
+          "vendor": "faction_quartermaster",
+          "shippedBy": "Faction Courier Service",
+          "levelRequirement": 3,
+          "icon": "🕯️",
+          "effects": [
+            "Morale Boost",
+            "Loyalty Stabilization"
+          ],
+          "effectDetails": [
+            {
+              "title": "Morale Boost",
+              "rules": "When a character within 10 feet of the Wall of the Fallen uses an action to stabilize their morale, they gain a +2 bonus to their next saving throw against fear and despair. This effect lasts for 1 hour."
+            },
+            {
+              "title": "Loyalty Stabilization",
+              "rules": "The Wall provides a daily boost to faction loyalty among nearby allies. For the duration of one week, any character within 50 feet who has lost more than half their hit points gains a +1 bonus to all loyalty checks."
+            }
+          ],
+          "usage": {
+            "activation": "Used as an object interaction, once per day.",
+            "duration": "Instantaneous effect; ongoing benefits for specified durations.",
+            "endsWhen": "The daily use limit is reached or if the item is destroyed.",
+            "charges": "Unlimited uses."
+          },
+          "priceGold": 39,
+          "receipts": [
+            {
+              "orderId": "FT-UPGRADE-003",
+              "approvedAt": "2025-12-15T12:00:00.000Z",
+              "approvedBy": "DM",
+              "price": 5000
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785283574011,
+        "modifiedTime": 1785283574011,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "lBxKCEfzoF7PuWER",
+      "name": "Premium Ink Supplies",
+      "type": "equipment",
+      "img": "icons/equipment/finger/ring-band-engraved-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p>Premium Ink Supplies are meticulously crafted by the Chroniclers' Guild, ensuring that every line of history is preserved in perfect clarity and permanence. Each bottle of ink is made from rare herbs and minerals harvested from the ancient forests, while parchment is sourced from a sacred grove known for its longevity and strength. These supplies not only enhance the writer's Intelligence but also imbue their work with an enduring legacy, ensuring that every entry is preserved for generations to come.</p><h3>Effects</h3><ul><li><strong>Enhanced Writing Precision</strong>: When used to write reports or histories, the writer gains a +1 Intelligence bonus until the end of their next long rest. This effect can be activated once per short rest.</li><li><strong>Endures Through Ages</strong>: Any document written with these supplies is imbued with a magical seal that ensures its preservation for at least 50 years, effectively doubling the shelf life of historical records. This benefit lasts until the document reaches this age limit or is destroyed.</li></ul><h3>Usage</h3><ul><li><strong>Activation</strong>: Passive effect; activation is automatic upon use.</li><li><strong>Duration</strong>: Until end of next long rest for 'Enhanced Writing Precision'; Until document reaches age limit or is destroyed for 'Endures Through Ages'.</li><li><strong>Ends when</strong>: Document reaches the age limit set by 'Endures Through Ages' or is destroyed; Use ends at the end of a long rest.</li><li><strong>Charges</strong>: Unlimited</li></ul><p>Vendor: faction_quartermaster · Shipped by: Swift Courier of the Chronicles · Level requirement: 1</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 39,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "premium-ink-supplies",
+        "type": {
+          "value": "trinket",
+          "baseItem": ""
+        },
+        "armor": {
+          "value": null
+        },
+        "attunement": "",
+        "equipped": false,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "faction_ink_supplies",
+          "sourceKey": "faction_ink_supplies",
+          "sourceFile": "items_012.js",
+          "category": "faction",
+          "rarity": "common",
+          "vendor": "faction_quartermaster",
+          "shippedBy": "Swift Courier of the Chronicles",
+          "levelRequirement": 1,
+          "icon": "✒️",
+          "effects": [
+            "Enhances Writing Precision",
+            "Endures Through Ages"
+          ],
+          "effectDetails": [
+            {
+              "title": "Enhanced Writing Precision",
+              "rules": "When used to write reports or histories, the writer gains a +1 Intelligence bonus until the end of their next long rest. This effect can be activated once per short rest."
+            },
+            {
+              "title": "Endures Through Ages",
+              "rules": "Any document written with these supplies is imbued with a magical seal that ensures its preservation for at least 50 years, effectively doubling the shelf life of historical records. This benefit lasts until the document reaches this age limit or is destroyed."
+            }
+          ],
+          "usage": {
+            "activation": "Passive effect; activation is automatic upon use.",
+            "duration": "Until end of next long rest for 'Enhanced Writing Precision'; Until document reaches age limit or is destroyed for 'Endures Through Ages'.",
+            "endsWhen": "Document reaches the age limit set by 'Endures Through Ages' or is destroyed; Use ends at the end of a long rest.",
+            "charges": "Unlimited"
+          },
+          "priceGold": 39,
+          "receipts": [
+            {
+              "orderId": "FT-UPGRADE-004",
+              "approvedAt": "2025-12-15T12:00:00.000Z",
+              "approvedBy": "DM",
+              "price": 8000
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785283574011,
+        "modifiedTime": 1785283574011,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "Nsa3W6iA9MTjt6Tw",
+      "name": "Training Dummies",
+      "type": "equipment",
+      "img": "icons/equipment/chest/breastplate-layered-steel.webp",
+      "system": {
+        "description": {
+          "value": "<p>These straw targets are meticulously crafted to mimic the stern visages and armor of Iron Legionnaires, each painted with a level of realism that makes every strike feel like an assault on flesh and steel. They stand tall in the training yard, their paint chipped by countless practice sessions but never losing their resolve. Fighters who train against these dummies find themselves subtly more adept, as if the very essence of the Iron Legion imparts itself to the blade through each blow.</p><h3>Effects</h3><ul><li><strong>Combat Readiness</strong>: You gain a +5 bonus to your Combat Readiness score when training with these dummies. This effect lasts until the end of the session or until you rest for at least an hour.</li><li><strong>Militia Training Boost</strong>: Your militia unit gains a small but significant boost in training efficiency, allowing them to level up slightly faster than usual while you are present. This effect persists as long as you and the militia are within sight of each other.</li></ul><h3>Usage</h3><ul><li><strong>Activation</strong>: Instantaneous, as an action when you begin training with these dummies.</li><li><strong>Duration</strong>: Until the end of the session or until you rest for at least one hour.</li><li><strong>Ends when</strong>: The effect ends if you stop using the dummies for combat training or if you rest for more than an hour.</li><li><strong>Charges</strong>: Unlimited; the dummies are always available.</li></ul><p>Vendor: faction_quartermaster · Shipped by: Iron Legion's own courier service · Level requirement: 1</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 2,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 40,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "training-dummies",
+        "type": {
+          "value": "trinket",
+          "baseItem": ""
+        },
+        "armor": {
+          "value": null
+        },
+        "attunement": "",
+        "equipped": false,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "faction_training_dummies",
+          "sourceKey": "faction_training_dummies",
+          "sourceFile": "items_012.js",
+          "category": "faction",
+          "rarity": "common",
+          "vendor": "faction_quartermaster",
+          "shippedBy": "Iron Legion's own courier service",
+          "levelRequirement": 1,
+          "icon": "🤺",
+          "effects": [
+            "Combat Readiness",
+            "Militia Training Boost"
+          ],
+          "effectDetails": [
+            {
+              "title": "Combat Readiness",
+              "rules": "You gain a +5 bonus to your Combat Readiness score when training with these dummies. This effect lasts until the end of the session or until you rest for at least an hour."
+            },
+            {
+              "title": "Militia Training Boost",
+              "rules": "Your militia unit gains a small but significant boost in training efficiency, allowing them to level up slightly faster than usual while you are present. This effect persists as long as you and the militia are within sight of each other."
+            }
+          ],
+          "usage": {
+            "activation": "Instantaneous, as an action when you begin training with these dummies.",
+            "duration": "Until the end of the session or until you rest for at least one hour.",
+            "endsWhen": "The effect ends if you stop using the dummies for combat training or if you rest for more than an hour.",
+            "charges": "Unlimited; the dummies are always available."
+          },
+          "priceGold": 40,
+          "receipts": [
+            {
+              "orderId": "FT-UPGRADE-005",
+              "approvedAt": "2025-12-15T12:00:00.000Z",
+              "approvedBy": "DM",
+              "price": 12000
+            },
+            {
+              "orderId": "WW-E31C621D-02",
+              "approvedAt": "2026-07-26T04:55:43.769Z",
+              "approvedBy": "DM",
+              "price": 40
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785283574011,
+        "modifiedTime": 1785283574011,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "yUq2mGKSsPY5AWI9",
+      "name": "Emergency Rations",
+      "type": "consumable",
+      "img": "icons/consumables/food/bread-loaf-boule-rustic-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Emergency Rations are dehydrated bundles of hardtack and dried mushrooms. They were crafted by the faction's survival experts, ensuring each bite is a battle-hardened soldier’s last chance to stave off starvation during prolonged sieges or harsh field conditions. These rations taste like dust but provide a burst of energy that keeps you alive another day. A morale boost and defensive edge are immediate bonuses for those who chow down on these life-sustaining treats.</p><h3>Effects</h3><ul><li><strong>Prevents Starvation</strong>: When consumed, this ration grants you advantage on saving throws against starvation and dehydration. It lasts until the end of your next long rest.</li><li><strong>Boosts Morale</strong>: For 8 hours after consuming these rations, your morale is boosted by +2 to all Charisma (Inspiration) checks and related abilities.</li></ul><h3>Usage</h3><ul><li><strong>Activation</strong>: Instantaneous consumption at will</li><li><strong>Duration</strong>: Until end of next long rest after consumption</li><li><strong>Ends when</strong>: Upon completion of a long rest or expiration</li><li><strong>Charges</strong>: Unlimited</li></ul><p>Vendor: faction_quartermaster · Shipped by: swift courier of the faction · Level requirement: 1</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 39,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "emergency-rations",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "destroyOnEmpty": true
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "faction_extra_rations",
+          "sourceKey": "faction_extra_rations",
+          "sourceFile": "items_012.js",
+          "category": "faction",
+          "rarity": "common",
+          "vendor": "faction_quartermaster",
+          "shippedBy": "swift courier of the faction",
+          "levelRequirement": 1,
+          "icon": "🥫",
+          "effects": [
+            "Prevents Starvation",
+            "Boosts Morale"
+          ],
+          "effectDetails": [
+            {
+              "title": "Prevents Starvation",
+              "rules": "When consumed, this ration grants you advantage on saving throws against starvation and dehydration. It lasts until the end of your next long rest."
+            },
+            {
+              "title": "Boosts Morale",
+              "rules": "For 8 hours after consuming these rations, your morale is boosted by +2 to all Charisma (Inspiration) checks and related abilities."
+            }
+          ],
+          "usage": {
+            "activation": "Instantaneous consumption at will",
+            "duration": "Until end of next long rest after consumption",
+            "endsWhen": "Upon completion of a long rest or expiration",
+            "charges": "Unlimited"
+          },
+          "priceGold": 39,
+          "receipts": [
+            {
+              "orderId": "WW-E31C621D-01",
+              "approvedAt": "2026-07-26T04:55:43.769Z",
+              "approvedBy": "DM",
+              "price": 39
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785283574011,
+        "modifiedTime": 1785283574011,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "8Ivb30rQEYBVob2U",
+      "name": "The 'Iron Toad' Gym",
+      "type": "loot",
+      "img": "icons/containers/bags/coinpouch-simple-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>'The Iron Toad Gym' is a training ground where toads build muscle and morale. Weights of solid iron, treadmills that challenge even the strongest, and protein shakes that fuel their growth lie within its walls. Over time, toads who train here gain +1 to both Strength and Constitution as they push themselves beyond their limits. The gym also instills a sense of camaraderie, boosting morale by 5 points, making each toad feel more resilient.</p><h3>Effects</h3><ul><li><strong>Strength and Constitution Boost</strong>: Toads who actively train at 'The Iron Toad Gym' gain +1 to their Strength and Constitution scores. This effect accumulates over time, but only while they are within the gym's walls.</li><li><strong>Morale Boost</strong>: For every week a toad trains at 'The Iron Toad Gym', their morale increases by 5 points. The effect is cumulative and can reach up to +20, but it resets if the toad leaves the gym for more than a month.</li></ul><h3>Usage</h3><ul><li><strong>Activation</strong>: Passive effect while in the gym.</li><li><strong>Duration</strong>: Instantaneous boost upon entering and cumulative over time.</li><li><strong>Ends when</strong>: Leaving the gym for more than a month resets the effects.</li><li><strong>Charges</strong>: Unlimited, as long as the toad remains within the gym.</li></ul><p>Vendor: toad_town_market · Shipped by: Toad Town Courier Service · Level requirement: 1</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 97,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "the-iron-toad-gym",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 700000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "weights_treadmills_and_protein_shakes",
+          "sourceKey": "weights_treadmills_and_protein_shakes",
+          "sourceFile": "items_050.js",
+          "category": "faction",
+          "rarity": "common",
+          "vendor": "toad_town_market",
+          "shippedBy": "Toad Town Courier Service",
+          "levelRequirement": 1,
+          "icon": "💪",
+          "effects": [
+            "Strength and Constitution Boost",
+            "Morale Boost"
+          ],
+          "effectDetails": [
+            {
+              "title": "Strength and Constitution Boost",
+              "rules": "Toads who actively train at 'The Iron Toad Gym' gain +1 to their Strength and Constitution scores. This effect accumulates over time, but only while they are within the gym's walls."
+            },
+            {
+              "title": "Morale Boost",
+              "rules": "For every week a toad trains at 'The Iron Toad Gym', their morale increases by 5 points. The effect is cumulative and can reach up to +20, but it resets if the toad leaves the gym for more than a month."
+            }
+          ],
+          "usage": {
+            "activation": "Passive effect while in the gym.",
+            "duration": "Instantaneous boost upon entering and cumulative over time.",
+            "endsWhen": "Leaving the gym for more than a month resets the effects.",
+            "charges": "Unlimited, as long as the toad remains within the gym."
+          },
+          "priceGold": 97,
+          "receipts": [
+            {
+              "orderId": "WW-E31C621D-03",
+              "approvedAt": "2026-07-26T04:55:43.769Z",
+              "approvedBy": "DM",
+              "price": 97
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785283574011,
+        "modifiedTime": 1785283574011,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "7Qin2BZLppNjaosD",
+      "name": "Medical Supply Cache",
+      "type": "container",
+      "img": "icons/containers/boxes/crate-wooden-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Medical Supply Cache is a meticulously packed shipment of healing supplies designed for faction medics. Each crate contains rare herbs, potent elixirs, and advanced medical tools that have been tested in the harshest battlefields. This vital cache reduces the time it takes for injured toads (the faction's loyal mounts) to recover by half, significantly lowering casualties on the battlefield. It also boosts the survival rate of critical injuries by 20%, ensuring that even the gravely wounded can find a fighting chance.</p><h3>Effects</h3><ul><li><strong>Faster Recovery for Injured Toads</strong>: When a faction medic administers supplies from the Medical Supply Cache, injured toads' recovery time is halved. This effect is instantaneous and does not require an action or save.</li><li><strong>Increased Survival Rate for Critical Injuries</strong>: The Medical Supply Cache increases the survival rate of critical injuries by 20%. This bonus applies once per toad within a 5-foot radius of the medic administering the supplies. The effect does not require an action and lasts until the next short or long rest.</li></ul><h3>Usage</h3><ul><li><strong>Activation</strong>: Instantaneous effect when a medic administers supplies from the cache.</li><li><strong>Duration</strong>: Until the next short or long rest, or until the toad is no longer critically injured.</li><li><strong>Ends when</strong>: The effect ends if the toad is no longer critically injured or has completed their next rest.</li><li><strong>Charges</strong>: Unlimited uses</li></ul><p>Vendor: faction_quartermaster · Shipped by: Priority Medical Courier · Level requirement: 1</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 220,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "properties": [],
+        "identifier": "medical-supply-cache",
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "capacity": {
+          "type": "weight",
+          "value": 30,
+          "weightless": false
+        },
+        "container": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 800000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "faction_medical_supplies",
+          "sourceKey": "faction_medical_supplies",
+          "sourceFile": "items_012.js",
+          "category": "faction",
+          "rarity": "uncommon",
+          "vendor": "faction_quartermaster",
+          "shippedBy": "Priority Medical Courier",
+          "levelRequirement": 1,
+          "icon": "🏥",
+          "effects": [
+            "Injured toads recover faster",
+            "Critical injuries have higher survival rates"
+          ],
+          "effectDetails": [
+            {
+              "title": "Faster Recovery for Injured Toads",
+              "rules": "When a faction medic administers supplies from the Medical Supply Cache, injured toads' recovery time is halved. This effect is instantaneous and does not require an action or save."
+            },
+            {
+              "title": "Increased Survival Rate for Critical Injuries",
+              "rules": "The Medical Supply Cache increases the survival rate of critical injuries by 20%. This bonus applies once per toad within a 5-foot radius of the medic administering the supplies. The effect does not require an action and lasts until the next short or long rest."
+            }
+          ],
+          "usage": {
+            "activation": "Instantaneous effect when a medic administers supplies from the cache.",
+            "duration": "Until the next short or long rest, or until the toad is no longer critically injured.",
+            "endsWhen": "The effect ends if the toad is no longer critically injured or has completed their next rest.",
+            "charges": "Unlimited uses"
+          },
+          "priceGold": 220,
+          "receipts": [
+            {
+              "orderId": "WW-E31C621D-04",
+              "approvedAt": "2026-07-26T04:55:43.769Z",
+              "approvedBy": "DM",
+              "price": 189
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785283574011,
+        "modifiedTime": 1785283574011,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "flags": {
+    "item-piles": {
+      "data": {
+        "enabled": true,
+        "type": "pile",
+        "deleteWhenEmpty": false,
+        "displayOne": false,
+        "showItemName": true,
+        "overrideSingleItemScale": true,
+        "singleItemScale": 0.75
+      },
+      "version": "3.3.4"
+    },
+    "waluipedia": {
+      "kind": "shop-delivery-pile",
+      "playerKey": "archie",
+      "generatedAt": "2026-07-29T00:06:14.011104+00:00",
+      "totalGold": 30865,
+      "orderIds": [
+        "FT-UPGRADE-001",
+        "FT-UPGRADE-002",
+        "FT-UPGRADE-003",
+        "FT-UPGRADE-004",
+        "FT-UPGRADE-005",
+        "WW-E31C621D-02",
+        "WW-E31C621D-01",
+        "WW-E31C621D-03",
+        "WW-E31C621D-04"
+      ]
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "14.360",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1785283574011,
+    "modifiedTime": 1785283574011,
+    "lastModifiedBy": null,
+    "exportSource": {
+      "worldId": "waluipedia-hub",
+      "uuid": "Actor.LnxEorOARy4QDbkl",
+      "coreVersion": "14.360",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    }
+  },
+  "_id": "LnxEorOARy4QDbkl",
+  "ownership": {
+    "default": 0
+  }
+}
