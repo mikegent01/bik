@@ -21,6 +21,7 @@ Usage from Reputation-Matrix2/:
   python tools/generate_abilities.py --review-only --limit 3    # preview only
   python tools/generate_abilities.py --mode create --class rogue --count 4
   python tools/generate_abilities.py --class wizard             # review one class
+  python tools/generate_abilities.py --mode create --infinite   # fill gaps forever
 
 Start LM Studio's OpenAI-compatible local server first.
 """
@@ -36,6 +37,7 @@ import threading
 import time
 import urllib.error
 import urllib.request
+from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -60,6 +62,14 @@ DEFAULT_ENDPOINT = "http://127.0.0.1:1234/v1/chat/completions"
 # reject a model that invents its own economy.
 AP_TIERS = ((4, 1), (8, 2), (12, 3), (99, 4))
 VALID_TYPES = {"combat", "utility", "magic", "stealth", "social", "support", "leadership", "divine"}
+
+# Level bands used for gap-filling. Each tuple is (min_level, max_level, label).
+LEVEL_BANDS = (
+    (1,  4,  "low",    "a small reliable edge — one bonus, one reroll, or a short condition"),
+    (5,  8,  "mid",    "changes one encounter beat — moderate damage boost, short control, or escape"),
+    (9,  12, "high",   "a strong per-rest play — meaningful burst, party-wide buff, or hard control"),
+    (13, 20, "epic",   "dramatic but hard-limited — one big moment per session with a clear cost"),
+)
 
 SYSTEM_PROMPT = """You are the rules editor for the Training Wing of a whimsical D&D 5e-inspired
 ability shop. Return ONLY a JSON object, no prose and no code fences.
@@ -95,21 +105,32 @@ def ap_for_level(level: int) -> int:
     return AP_TIERS[-1][1]
 
 
+def band_for_level(level: int) -> tuple[int, int, str, str]:
+    """Return the (min, max, label, guidance) band for a given level."""
+    for lo, hi, label, guidance in LEVEL_BANDS:
+        if lo <= level <= hi:
+            return lo, hi, label, guidance
+    return LEVEL_BANDS[-1]
+
+
 @dataclass
 class Settings:
     endpoint: str = DEFAULT_ENDPOINT
     model: str = ""
     timeout: int = 180
     limit: int = 0
-    mode: str = "review"          # review | create
-    klass: str = ""               # restrict to one class id
-    count: int = 3                # create mode: how many new abilities
-    infinite: bool = False        # create mode: keep going until stopped
-    review_only: bool = False     # checkpoint but never touch source
+    mode: str = "review"            # review | create
+    klass: str = ""                 # restrict to one class id
+    count: int = 3                  # create mode: how many new abilities
+    infinite: bool = False          # create mode: keep going until stopped
+    review_only: bool = False       # checkpoint but never touch source
     review_mode: str = "unchecked"  # unchecked | stale | all
     stale_days: int = 30
     temperature: float = 0.6
     seen_names: set[str] = field(default_factory=set)
+    # Per-run target level — set by the driver so the prompt is specific.
+    # 0 = let the model decide (old behaviour, kept for review mode).
+    target_level: int = 0
 
 
 # --------------------------------------------------------------------------
@@ -165,15 +186,62 @@ def save_checkpoint(results: dict[str, Any]) -> None:
 
 def save_resume_state(ability_id: str, name: str, completed: int, mode: str) -> None:
     WORK_DIR.mkdir(parents=True, exist_ok=True)
-    state = {"mode": mode, "lastAbilityId": ability_id, "lastAbilityName": name,
-             "completedThisRun": completed, "savedAt": datetime.now(timezone.utc).isoformat()}
+    state = {
+        "mode": mode,
+        "lastAbilityId": ability_id,
+        "lastAbilityName": name,
+        "completedThisRun": completed,
+        "savedAt": datetime.now(timezone.utc).isoformat(),
+    }
     temporary = RESUME_PATH.with_suffix(".tmp")
     temporary.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     replace_with_retry(temporary, RESUME_PATH)
 
 
 # --------------------------------------------------------------------------
-# Selection
+# Level-gap analysis — drives the deficit-weighted target picker
+# --------------------------------------------------------------------------
+
+def build_level_counts(shop: dict[str, Any], class_id: str = "") -> dict[int, int]:
+    """Count abilities per level, optionally filtered to one class."""
+    counts: dict[int, int] = defaultdict(int)
+    for ability in shop.get("abilities", []):
+        if class_id and ability.get("class") != class_id:
+            continue
+        lvl = int(ability.get("level") or 1)
+        counts[lvl] += 1
+    return dict(counts)
+
+
+def pick_target_level(
+    shop: dict[str, Any],
+    class_id: str,
+    seen_this_run: dict[int, int],
+    *,
+    min_level: int = 1,
+    max_level: int = 20,
+) -> int:
+    """Return the level with the worst deficit for this class.
+
+    Deficit = (target_per_level) - (existing + generated_this_run).
+    We use a flat target of 1 per level so every level gets coverage before
+    any level gets a second ability this run.  Ties are broken by level number
+    (lower first) so the catalog fills bottom-up.
+    """
+    existing = build_level_counts(shop, class_id)
+    best_level = min_level
+    best_deficit = -999_999
+    for lvl in range(min_level, max_level + 1):
+        have = existing.get(lvl, 0) + seen_this_run.get(lvl, 0)
+        deficit = -have          # more negative = less deficit; we want the highest value
+        if deficit > best_deficit or (deficit == best_deficit and lvl < best_level):
+            best_deficit = deficit
+            best_level = lvl
+    return best_level
+
+
+# --------------------------------------------------------------------------
+# Selection (review mode)
 # --------------------------------------------------------------------------
 
 def needs_review(ability: dict[str, Any], settings: Settings) -> bool:
@@ -202,10 +270,12 @@ def slugify(class_id: str, name: str) -> str:
 # Words that carry no distinguishing meaning in an ability name, plus crude stemming, so
 # "Fortify Shield" / "Fortified Shield" / "Shield Bash" / "Rapid Shield Bash" collapse to
 # comparable keys instead of sailing past an exact-string check.
-DEDUPE_STOP = {"the", "of", "a", "an", "and", "rapid", "quick", "swift", "fast", "greater",
-               "lesser", "improved", "advanced", "superior", "minor", "major", "basic",
-               "strike", "surge", "burst", "blast", "technique", "maneuver", "stance",
-               "art", "form", "style", "mastery", "focus"}
+DEDUPE_STOP = {
+    "the", "of", "a", "an", "and", "rapid", "quick", "swift", "fast", "greater",
+    "lesser", "improved", "advanced", "superior", "minor", "major", "basic",
+    "strike", "surge", "burst", "blast", "technique", "maneuver", "stance",
+    "art", "form", "style", "mastery", "focus",
+}
 
 
 def _stem(word: str) -> str:
@@ -232,12 +302,33 @@ def identity_terms(name: Any) -> set[str]:
 # Model call
 # --------------------------------------------------------------------------
 
-def build_user_prompt(shop: dict[str, Any], settings: Settings,
-                      ability: dict[str, Any] | None, feedback: str = "",
-                      class_id: str = "") -> str:
+def _level_instruction(target_level: int) -> str:
+    """Return a firm, specific level mandate to inject into the prompt."""
+    if target_level <= 0:
+        return ""
+    lo, hi, label, guidance = band_for_level(target_level)
+    ap = ap_for_level(target_level)
+    return (
+        f"\n\nLEVEL MANDATE: You MUST set \"level\" to exactly {target_level}. "
+        f"Do NOT choose a different level. "
+        f"Level {target_level} is in the {label} tier (levels {lo}-{hi}): {guidance}. "
+        f"Because level {target_level} is in the {label} tier, \"apCost\" MUST be exactly {ap}. "
+        f"Any response with a different level or apCost will be rejected and retried."
+    )
+
+
+def build_user_prompt(
+    shop: dict[str, Any],
+    settings: Settings,
+    ability: dict[str, Any] | None,
+    feedback: str = "",
+    class_id: str = "",
+) -> str:
     template = TEMPLATE_PATH.read_text(encoding="utf-8")
     classes = shop.get("classes", {})
-    existing_names = sorted({str(a.get("name", "")) for a in shop.get("abilities", [])} | settings.seen_names)
+    existing_names = sorted(
+        {str(a.get("name", "")) for a in shop.get("abilities", [])} | settings.seen_names
+    )
 
     if settings.mode == "create":
         class_id = class_id or settings.klass or "fighter"
@@ -249,8 +340,10 @@ def build_user_prompt(shop: dict[str, Any], settings: Settings,
         )
     else:
         cls = classes.get(str(ability.get("class", "")), {})
-        editable = {k: v for k, v in (ability or {}).items()
-                    if k not in {"knownBy", "accent", "typeLabel", "aiReviewedAt", "className"}}
+        editable = {
+            k: v for k, v in (ability or {}).items()
+            if k not in {"knownBy", "accent", "typeLabel", "aiReviewedAt", "className"}
+        }
         head = (
             "Improve this existing ability. Keep its identity, class, and intent — this is an "
             "editorial and rules pass, not a replacement.\n"
@@ -258,20 +351,30 @@ def build_user_prompt(shop: dict[str, Any], settings: Settings,
             f"Class profile: {json.dumps(cls, ensure_ascii=False)}"
         )
 
+    # Inject the level mandate when a specific target has been chosen.
+    level_block = _level_instruction(settings.target_level)
+
     forbidden = ", ".join(existing_names[:120])
     tail = (
         f"\n\nNames already used (do NOT reuse or near-duplicate any): {forbidden}"
-        f"\n\nFill in this exact JSON template and return JSON only:\n{template}"
+        + level_block
+        + f"\n\nFill in this exact JSON template and return JSON only:\n{template}"
     )
     if feedback:
-        tail += ("\n\nRETRY FEEDBACK: the previous draft was rejected because " + feedback +
-                 ". Fix exactly that and return the complete corrected JSON object.")
+        tail += (
+            "\n\nRETRY FEEDBACK: the previous draft was rejected because " + feedback
+            + ". Fix exactly that and return the complete corrected JSON object."
+        )
     return head + tail
 
 
-def call_lm_studio(settings: Settings, shop: dict[str, Any],
-                   ability: dict[str, Any] | None, feedback: str = "",
-                   class_id: str = "") -> dict[str, Any]:
+def call_lm_studio(
+    settings: Settings,
+    shop: dict[str, Any],
+    ability: dict[str, Any] | None,
+    feedback: str = "",
+    class_id: str = "",
+) -> dict[str, Any]:
     payload: dict[str, Any] = {
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
@@ -288,12 +391,17 @@ def call_lm_studio(settings: Settings, shop: dict[str, Any],
         if attempt:
             payload["messages"].append({
                 "role": "user",
-                "content": f"Your previous response was invalid JSON ({last_error}). "
-                           "Return the same answer as strictly valid JSON only, every string escaped.",
+                "content": (
+                    f"Your previous response was invalid JSON ({last_error}). "
+                    "Return the same answer as strictly valid JSON only, every string escaped."
+                ),
             })
         request = urllib.request.Request(
-            settings.endpoint, data=json.dumps(payload).encode("utf-8"),
-            headers={"Content-Type": "application/json; charset=utf-8"}, method="POST")
+            settings.endpoint,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json; charset=utf-8"},
+            method="POST",
+        )
         try:
             with urllib.request.urlopen(request, timeout=settings.timeout) as response:
                 body = json.loads(response.read())
@@ -316,30 +424,50 @@ def call_lm_studio(settings: Settings, shop: dict[str, Any],
 # Validation — a bad reply must never reach the catalog
 # --------------------------------------------------------------------------
 
-REQUIRED = {"name", "icon", "description", "type", "level", "levelReason",
-            "rules", "apCost", "apReason", "warioNote"}
+REQUIRED = {
+    "name", "icon", "description", "type", "level", "levelReason",
+    "rules", "apCost", "apReason", "warioNote",
+}
 RULE_KEYS = {"activation", "range", "duration", "uses", "effect", "drawback"}
-FILLER = re.compile(r"ask (?:your|the) dm|as (?:the|its) card states|powerful (?:ability|technique)"
-                    r"|mysterious|various effects|etc\.", re.IGNORECASE)
+FILLER = re.compile(
+    r"ask (?:your|the) dm|as (?:the|its) card states|powerful (?:ability|technique)"
+    r"|mysterious|various effects|etc\.",
+    re.IGNORECASE,
+)
 # Power claims that break a table. Rejected outright.
-BANNED = re.compile(r"\b(?:unlimited|infinite)\s+(?:uses|damage|hit points|spell slots)"
-                    r"|auto(?:matically)?\s+succeed|always\s+critical|guaranteed\s+critical"
-                    r"|cannot\s+(?:fail|miss|be\s+hit)|permanent(?:ly)?\s+immune", re.IGNORECASE)
+BANNED = re.compile(
+    r"\b(?:unlimited|infinite)\s+(?:uses|damage|hit points|spell slots)"
+    r"|auto(?:matically)?\s+succeed|always\s+critical|guaranteed\s+critical"
+    r"|cannot\s+(?:fail|miss|be\s+hit)|permanent(?:ly)?\s+immune",
+    re.IGNORECASE,
+)
 
 
-def validate(settings: Settings, shop: dict[str, Any],
-             original: dict[str, Any] | None, answer: dict[str, Any]) -> dict[str, Any]:
+def validate(
+    settings: Settings,
+    shop: dict[str, Any],
+    original: dict[str, Any] | None,
+    answer: dict[str, Any],
+) -> dict[str, Any]:
     if not isinstance(answer, dict):
         raise ValueError("response was not a JSON object")
     missing = REQUIRED - set(answer)
     extra = set(answer) - REQUIRED
     if missing or extra:
-        raise ValueError(f"expected exactly {sorted(REQUIRED)}; missing={sorted(missing)} extra={sorted(extra)}")
+        raise ValueError(
+            f"expected exactly {sorted(REQUIRED)}; "
+            f"missing={sorted(missing)} extra={sorted(extra)}"
+        )
 
     name = str(answer["name"]).strip()
     if not 3 <= len(name) <= 48:
         raise ValueError("name must be 3-48 characters")
-    if re.match(r"^\s*(?:the\s+)?(?:paladin|rogue|wizard|fighter|barbarian|spy|leader|gunslinger|militia|artisan|commoner)\b", name, re.I):
+    if re.match(
+        r"^\s*(?:the\s+)?(?:paladin|rogue|wizard|fighter|barbarian|spy|leader"
+        r"|gunslinger|militia|artisan|commoner)\b",
+        name,
+        re.I,
+    ):
         raise ValueError("name must not be prefixed with the class")
 
     description = str(answer["description"]).strip()
@@ -358,6 +486,13 @@ def validate(settings: Settings, shop: dict[str, Any],
         raise ValueError("level must be a whole number") from error
     if not 1 <= level <= 20:
         raise ValueError("level must be 1-20")
+
+    # Enforce the level mandate when one was given.
+    if settings.target_level > 0 and level != settings.target_level:
+        raise ValueError(
+            f"level mandate violated: asked for level {settings.target_level}, "
+            f"model returned level {level}"
+        )
 
     rules = answer["rules"]
     if not isinstance(rules, dict) or set(rules) != RULE_KEYS:
@@ -382,12 +517,12 @@ def validate(settings: Settings, shop: dict[str, Any],
     except (TypeError, ValueError) as error:
         raise ValueError("apCost must be a whole number") from error
     if ap_cost != expected_ap:
-        raise ValueError(f"apCost {ap_cost} does not match the tier rule for level {level} (expected {expected_ap})")
+        raise ValueError(
+            f"apCost {ap_cost} does not match the tier rule for level {level} "
+            f"(expected {expected_ap})"
+        )
 
-    # Duplicate guard. Exact-string matching was not enough: a long run produced
-    # "Shield Bash", "Rapid Shield Bash", "Fortify Shield" and "Fortified Shield" in five
-    # requests, because none of them are byte-identical. Compare on a normalized key
-    # (stemmed, stop-worded, order-insensitive) so restatements collide too.
+    # Duplicate guard — normalized, stemmed, order-insensitive.
     lowered = name.lower()
     existing = {str(a.get("name", "")).lower() for a in shop.get("abilities", [])}
     existing_keys = {dedupe_key(a.get("name", "")) for a in shop.get("abilities", [])}
@@ -400,14 +535,19 @@ def validate(settings: Settings, shop: dict[str, Any],
         raise ValueError(f"ability name '{name}' already exists in the catalog")
     key = dedupe_key(name)
     if key and (key in existing_keys or key in seen_keys):
-        raise ValueError(f"ability name '{name}' is a near-duplicate of an existing ability "
-                         f"(normalizes to '{key}'); invent a mechanically different ability")
+        raise ValueError(
+            f"ability name '{name}' is a near-duplicate of an existing ability "
+            f"(normalizes to '{key}'); invent a mechanically different ability"
+        )
 
     # A review pass must stay recognisably about the same ability.
     if original is not None:
-        before, after = identity_terms(original.get("name")), identity_terms(name)
+        before = identity_terms(original.get("name"))
+        after = identity_terms(name)
         if before and after and not (before & after) and len(before) > 1:
-            raise ValueError(f"renamed '{original.get('name')}' into an unrelated ability '{name}'")
+            raise ValueError(
+                f"renamed '{original.get('name')}' into an unrelated ability '{name}'"
+            )
 
     return {
         "name": name,
@@ -423,9 +563,12 @@ def validate(settings: Settings, shop: dict[str, Any],
     }
 
 
-def request_with_retries(settings: Settings, shop: dict[str, Any],
-                         ability: dict[str, Any] | None,
-                         class_id: str = "") -> tuple[dict[str, Any] | None, Exception | None]:
+def request_with_retries(
+    settings: Settings,
+    shop: dict[str, Any],
+    ability: dict[str, Any] | None,
+    class_id: str = "",
+) -> tuple[dict[str, Any] | None, Exception | None]:
     last_error: Exception | None = None
     for _ in range(5):
         try:
@@ -485,7 +628,7 @@ def apply_create(shop: dict[str, Any], class_id: str, result: dict[str, Any]) ->
         "className": cls.get("name", class_id.title()),
         "hitDie": cls.get("hitDie"),
         "primaryStat": cls.get("primaryStat"),
-        "price": 0,                       # legacy field; AP is the real currency
+        "price": 0,          # legacy field; AP is the real currency
         "apCost": result["apCost"],
         "apReason": result["apReason"],
         "levelReason": result["levelReason"],
@@ -505,8 +648,11 @@ def apply_create(shop: dict[str, Any], class_id: str, result: dict[str, Any]) ->
 # Driver
 # --------------------------------------------------------------------------
 
-def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], None],
-            stop: threading.Event | None = None) -> int:
+def process(
+    settings: Settings,
+    notify: Callable[[str, dict[str, Any] | None], None],
+    stop: threading.Event | None = None,
+) -> int:
     shop = load_shop()
     checkpoint = load_checkpoint()
     completed = 0
@@ -515,21 +661,31 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
         known = list(shop.get("classes", {}))
         if settings.klass:
             if settings.klass not in known:
-                notify(f"Unknown class '{settings.klass}'. Known: {', '.join(sorted(known))}", None)
+                notify(
+                    f"Unknown class '{settings.klass}'. Known: {', '.join(sorted(known))}",
+                    None,
+                )
                 return 0
-            rotation = [settings.klass]           # explicit --class pins to one
+            rotation = [settings.klass]   # explicit --class pins to one
         else:
-            rotation = known                      # no --class: cycle through every class
+            rotation = known              # no --class: cycle through every class
         if not rotation:
             notify("No classes defined in abilityShop.json.", None)
             return 0
 
-        target = settings.limit or settings.count          # 0/infinite -> run until stopped
+        target = settings.limit or settings.count   # 0 / infinite -> run until stopped
         infinite = settings.infinite or target <= 0
         if infinite:
-            notify(f"Infinite mode: cycling {len(rotation)} classes until stopped (Ctrl+C or Stop).", None)
+            notify(
+                f"Infinite mode: cycling {len(rotation)} classes, filling level gaps, "
+                "until stopped (Ctrl+C or Stop).",
+                None,
+            )
         elif len(rotation) > 1:
             notify(f"Cycling {len(rotation)} classes: {', '.join(rotation)}", None)
+
+        # Per-class counters so pick_target_level sees what this run has already added.
+        class_run_counts: dict[str, dict[int, int]] = {c: defaultdict(int) for c in rotation}
 
         consecutive_failures = 0
         index = 0
@@ -537,31 +693,59 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
             if stop and stop.is_set():
                 notify("Stopped.", None)
                 break
-            class_id = rotation[index % len(rotation)]     # round-robin so no class starves
-            label = f"{index + 1}/∞" if infinite else f"{index + 1}/{target}"
-            notify(f"Creating {class_id} ability {label}…", None)
+
+            class_id = rotation[index % len(rotation)]
+            run_counts = class_run_counts[class_id]
+
+            # Pick the level with the worst deficit for this class this run.
+            chosen_level = pick_target_level(shop, class_id, run_counts)
+            settings.target_level = chosen_level
+
+            ap = ap_for_level(chosen_level)
+            label = f"{index + 1}/inf" if infinite else f"{index + 1}/{target}"
+            notify(
+                f"Creating {class_id} ability {label} "
+                f"(targeting level {chosen_level}, {ap} AP)...",
+                None,
+            )
+
             result, error = request_with_retries(settings, shop, None, class_id)
             index += 1
+
             if not result:
                 consecutive_failures += 1
                 notify(f"  failed: {error}", None)
-                # A dead/unloaded LM Studio would otherwise spin forever in infinite mode.
                 if consecutive_failures >= 12:
-                    notify("  12 consecutive failures — stopping. Is the LM Studio server still up?", None)
+                    notify(
+                        "  12 consecutive failures — stopping. "
+                        "Is the LM Studio server still up?",
+                        None,
+                    )
                     break
                 continue
+
             consecutive_failures = 0
+            actual_level = result["level"]
             settings.seen_names.add(result["name"])
+            run_counts[actual_level] += 1
             checkpoint[f"new::{class_id}::{result['name']}"] = result
             save_checkpoint(checkpoint)
+
             if not settings.review_only:
                 new_id = apply_create(shop, class_id, result)
                 save_shop(shop)
                 save_resume_state(new_id, result["name"], completed + 1, settings.mode)
+
             completed += 1
-            notify(f"  + {result['icon']} {result['name']} ({class_id} Lv {result['level']}, {result['apCost']} AP)", result)
+            notify(
+                f"  + {result['icon']} {result['name']} "
+                f"({class_id} Lv {actual_level}, {result['apCost']} AP)",
+                result,
+            )
+
         return completed
 
+    # ---- review mode ----
     abilities = [a for a in shop.get("abilities", []) if needs_review(a, settings)]
     if settings.limit:
         abilities = abilities[: settings.limit]
@@ -569,12 +753,14 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
         notify("Nothing to review with the current filters.", None)
         return 0
 
-    notify(f"Reviewing {len(abilities)} abilities…", None)
+    notify(f"Reviewing {len(abilities)} abilities...", None)
     for ability in abilities:
         if stop and stop.is_set():
             notify("Stopped.", None)
             break
         notify(f"[{completed + 1}/{len(abilities)}] {ability.get('name')}", None)
+        # In review mode we keep the existing level; target_level 0 = no mandate.
+        settings.target_level = 0
         result, error = request_with_retries(settings, shop, ability)
         if not result:
             notify(f"  failed: {error}", None)
@@ -584,14 +770,26 @@ def process(settings: Settings, notify: Callable[[str, dict[str, Any] | None], N
         if not settings.review_only:
             apply_review(shop, str(ability.get("id")), result)
             save_shop(shop)
-            save_resume_state(str(ability.get("id")), result["name"], completed + 1, settings.mode)
+            save_resume_state(
+                str(ability.get("id")), result["name"], completed + 1, settings.mode
+            )
         completed += 1
-        notify(f"  ✓ {result['icon']} {result['name']} — Lv {result['level']} · {result['apCost']} AP", result)
+        notify(
+            f"  ok {result['icon']} {result['name']} "
+            f"-- Lv {result['level']} - {result['apCost']} AP",
+            result,
+        )
     return completed
 
 
+# --------------------------------------------------------------------------
+# CLI
+# --------------------------------------------------------------------------
+
 def cli() -> int:
-    parser = argparse.ArgumentParser(description="Generate/review Training Wing abilities with LM Studio.")
+    parser = argparse.ArgumentParser(
+        description="Generate/review Training Wing abilities with LM Studio."
+    )
     parser.add_argument("--endpoint", default=os.environ.get("LM_STUDIO_URL", DEFAULT_ENDPOINT))
     parser.add_argument("--model", default=os.environ.get("LM_STUDIO_MODEL", ""))
     parser.add_argument("--timeout", type=int, default=180)
@@ -599,9 +797,17 @@ def cli() -> int:
     parser.add_argument("--mode", choices=("review", "create"), default="review")
     parser.add_argument("--class", dest="klass", default="", help="restrict to one class id")
     parser.add_argument("--count", type=int, default=3, help="create mode: how many to invent")
-    parser.add_argument("--infinite", action="store_true", help="create mode: run until you stop it (Ctrl+C), cycling every class")
-    parser.add_argument("--review-only", action="store_true", help="checkpoint results without writing source")
-    parser.add_argument("--review-mode", choices=("unchecked", "stale", "all"), default="unchecked")
+    parser.add_argument(
+        "--infinite",
+        action="store_true",
+        help="create mode: run until stopped (Ctrl+C), cycling every class and filling gaps",
+    )
+    parser.add_argument(
+        "--review-only", action="store_true", help="checkpoint results without writing source"
+    )
+    parser.add_argument(
+        "--review-mode", choices=("unchecked", "stale", "all"), default="unchecked"
+    )
     parser.add_argument("--stale-days", type=int, default=30)
     parser.add_argument("--temperature", type=float, default=0.6)
     parser.add_argument("--gui", action="store_true")
@@ -611,11 +817,20 @@ def cli() -> int:
         launch_gui()
         return 0
 
-    settings = Settings(endpoint=args.endpoint, model=args.model, timeout=args.timeout,
-                        limit=args.limit, mode=args.mode, klass=args.klass, count=args.count,
-                        infinite=args.infinite,
-                        review_only=args.review_only, review_mode=args.review_mode,
-                        stale_days=args.stale_days, temperature=args.temperature)
+    settings = Settings(
+        endpoint=args.endpoint,
+        model=args.model,
+        timeout=args.timeout,
+        limit=args.limit,
+        mode=args.mode,
+        klass=args.klass,
+        count=args.count,
+        infinite=args.infinite,
+        review_only=args.review_only,
+        review_mode=args.review_mode,
+        stale_days=args.stale_days,
+        temperature=args.temperature,
+    )
     done = process(settings, lambda line, _payload=None: print(line, flush=True))
     print(f"\nFinished. {done} abilities {'previewed' if settings.review_only else 'written'}.")
     if settings.review_only:
@@ -624,7 +839,7 @@ def cli() -> int:
 
 
 # --------------------------------------------------------------------------
-# Optional Tk GUI, matching shop_studio.py's look
+# Optional Tk GUI
 # --------------------------------------------------------------------------
 
 def launch_gui() -> None:
@@ -641,10 +856,17 @@ def launch_gui() -> None:
     frame.pack(fill="both", expand=True)
 
     ttk.Label(frame, text="ABILITY STUDIO", font=("Arial", 18, "bold")).pack(anchor="w")
-    ttk.Label(frame, text="Review existing Training Wing abilities or invent new ones with a local LM Studio model.",
-              wraplength=700).pack(anchor="w", pady=(0, 12))
+    ttk.Label(
+        frame,
+        text=(
+            "Review existing Training Wing abilities or invent new ones "
+            "with a local LM Studio model."
+        ),
+        wraplength=700,
+    ).pack(anchor="w", pady=(0, 12))
 
-    row1 = ttk.Frame(frame); row1.pack(fill="x", pady=3)
+    row1 = ttk.Frame(frame)
+    row1.pack(fill="x", pady=3)
     ttk.Label(row1, text="Endpoint", width=10).pack(side="left")
     endpoint_var = tk.StringVar(value=os.environ.get("LM_STUDIO_URL", DEFAULT_ENDPOINT))
     ttk.Entry(row1, textvariable=endpoint_var).pack(side="left", fill="x", expand=True)
@@ -652,18 +874,29 @@ def launch_gui() -> None:
     model_var = tk.StringVar(value=os.environ.get("LM_STUDIO_MODEL", ""))
     ttk.Entry(row1, textvariable=model_var, width=22).pack(side="left")
 
-    row2 = ttk.Frame(frame); row2.pack(fill="x", pady=3)
+    row2 = ttk.Frame(frame)
+    row2.pack(fill="x", pady=3)
     ttk.Label(row2, text="Mode", width=10).pack(side="left")
     mode_var = tk.StringVar(value="review")
-    ttk.Combobox(row2, textvariable=mode_var, values=["review", "create"], width=10, state="readonly").pack(side="left")
+    ttk.Combobox(
+        row2, textvariable=mode_var, values=["review", "create"], width=10, state="readonly"
+    ).pack(side="left")
     ttk.Label(row2, text="Class").pack(side="left", padx=(10, 4))
     class_var = tk.StringVar(value="")
-    ttk.Combobox(row2, textvariable=class_var, values=[""] + classes, width=14, state="readonly").pack(side="left")
+    ttk.Combobox(
+        row2, textvariable=class_var, values=[""] + classes, width=14, state="readonly"
+    ).pack(side="left")
     ttk.Label(row2, text="Limit / count").pack(side="left", padx=(10, 4))
     limit_var = tk.StringVar(value="3")
     ttk.Entry(row2, textvariable=limit_var, width=6).pack(side="left")
     review_only_var = tk.BooleanVar(value=False)
-    ttk.Checkbutton(row2, text="Review only (no writes)", variable=review_only_var).pack(side="left", padx=12)
+    ttk.Checkbutton(
+        row2, text="Review only (no writes)", variable=review_only_var
+    ).pack(side="left", padx=12)
+    infinite_var = tk.BooleanVar(value=False)
+    ttk.Checkbutton(row2, text="Infinite (gap-fill)", variable=infinite_var).pack(
+        side="left", padx=4
+    )
 
     log = scrolledtext.ScrolledText(frame, height=18, wrap="word")
     log.pack(fill="both", expand=True, pady=10)
@@ -671,7 +904,9 @@ def launch_gui() -> None:
     stop_event = threading.Event()
 
     def append(line: str, _payload: dict[str, Any] | None = None) -> None:
-        log.insert("end", line + "\n"); log.see("end"); root.update_idletasks()
+        log.insert("end", line + "\n")
+        log.see("end")
+        root.update_idletasks()
 
     def run() -> None:
         stop_event.clear()
@@ -680,24 +915,40 @@ def launch_gui() -> None:
             count = int(limit_var.get() or 0)
         except ValueError:
             count = 3
-        settings = Settings(endpoint=endpoint_var.get().strip(), model=model_var.get().strip(),
-                            mode=mode_var.get(), klass=class_var.get().strip(),
-                            limit=count if mode_var.get() == "review" else 0,
-                            count=count, review_only=review_only_var.get())
+        settings = Settings(
+            endpoint=endpoint_var.get().strip(),
+            model=model_var.get().strip(),
+            mode=mode_var.get(),
+            klass=class_var.get().strip(),
+            limit=count if mode_var.get() == "review" else 0,
+            count=count,
+            infinite=infinite_var.get(),
+            review_only=review_only_var.get(),
+        )
 
         def worker() -> None:
             try:
                 done = process(settings, append, stop_event)
-                append(f"\nFinished. {done} abilities {'previewed' if settings.review_only else 'written'}.")
-            except Exception as error:                      # surface, never crash the window
+                append(
+                    f"\nFinished. {done} abilities "
+                    f"{'previewed' if settings.review_only else 'written'}."
+                )
+            except Exception as error:
                 append(f"\nERROR: {error}")
 
         threading.Thread(target=worker, daemon=True).start()
 
-    buttons = ttk.Frame(frame); buttons.pack(fill="x")
+    buttons = ttk.Frame(frame)
+    buttons.pack(fill="x")
     ttk.Button(buttons, text="Run", command=run, width=14).pack(side="left")
-    ttk.Button(buttons, text="Stop", command=stop_event.set, width=10).pack(side="left", padx=6)
-    ttk.Label(buttons, text=f"Checkpoints: {WORK_DIR.relative_to(ROOT)}", foreground="#666").pack(side="left", padx=12)
+    ttk.Button(buttons, text="Stop", command=stop_event.set, width=10).pack(
+        side="left", padx=6
+    )
+    ttk.Label(
+        buttons,
+        text=f"Checkpoints: {WORK_DIR.relative_to(ROOT)}",
+        foreground="#666",
+    ).pack(side="left", padx=12)
     root.mainloop()
 
 
