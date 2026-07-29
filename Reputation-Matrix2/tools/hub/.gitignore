@@ -1,0 +1,4 @@
+# Generated actors, item piles, and the shop-catalog cache — never commit these.
+.hub-out/
+__pycache__/
+*.pyc

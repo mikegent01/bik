@@ -1,0 +1,202 @@
+/* Waluipedia Hub — local tool GUI.
+   Purple/gold Wario-adjacent palette, dark by default, no external assets. */
+:root {
+  --bg: #14101c;
+  --bg-2: #1c1628;
+  --bg-3: #241c33;
+  --line: #362a4c;
+  --text: #ece7f5;
+  --muted: #9d92b5;
+  --purple: #8b5cf6;
+  --purple-dim: #6d43e0;
+  --gold: #f2c14e;
+  --green: #4ade80;
+  --red: #f87171;
+  --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.55 "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+h1, h2, h3 { margin: 0 0 .5rem; line-height: 1.25; }
+h1 { font-size: 1.15rem; letter-spacing: .04em; }
+h2 { font-size: 1rem; color: var(--gold); text-transform: uppercase; letter-spacing: .07em; }
+code { background: #00000055; padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+a { color: var(--purple); }
+
+.muted { color: var(--muted); font-size: .86rem; margin: .25rem 0; }
+
+/* ---------------------------------------------------------------- topbar */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding: .8rem 1.2rem;
+  background: linear-gradient(90deg, #241a38, #191325);
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 20;
+}
+.brand { display: flex; align-items: center; gap: .8rem; }
+.brand p { margin: 0; font-size: .75rem; }
+.mark {
+  width: 38px; height: 38px; flex: none; border-radius: 9px;
+  background: linear-gradient(135deg, var(--purple), var(--gold));
+  color: #1a1226; font-weight: 800; font-size: 1.3rem;
+  display: grid; place-items: center;
+}
+.topbar-right { display: flex; align-items: center; gap: .6rem; }
+
+.badge {
+  font-size: .74rem; padding: .28rem .6rem; border-radius: 999px;
+  border: 1px solid var(--line); white-space: nowrap;
+}
+.badge-on  { color: var(--green); border-color: #2f6b45; background: #10281a; }
+.badge-off { color: var(--muted); background: #00000033; }
+
+/* ------------------------------------------------------------------ tabs */
+.tabs {
+  display: flex; gap: .25rem; padding: 0 1.2rem;
+  background: var(--bg-2); border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+}
+.tab {
+  background: none; border: 0; border-bottom: 2px solid transparent;
+  color: var(--muted); padding: .7rem .9rem; cursor: pointer;
+  font-size: .88rem; white-space: nowrap;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+main { padding: 1.2rem; max-width: 1500px; margin: 0 auto; }
+.panel { display: none; }
+.panel.active { display: block; animation: fade .18s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(3px); } }
+
+/* ----------------------------------------------------------------- cards */
+.card {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1rem; margin-bottom: 1rem;
+}
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.creator-cols { grid-template-columns: minmax(320px, 420px) 1fr; align-items: start; }
+@media (max-width: 900px) { .cols { grid-template-columns: 1fr; } }
+
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .8rem; margin-bottom: 1rem; }
+.stat {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-left: 3px solid var(--purple);
+  border-radius: var(--radius); padding: .8rem 1rem;
+}
+.stat b { display: block; font-size: 1.6rem; color: var(--gold); line-height: 1.1; }
+.stat span { font-size: .78rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+
+.notes { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: .86rem; }
+.notes li { margin-bottom: .4rem; }
+.notes strong { color: var(--text); }
+
+/* --------------------------------------------------------------- buttons */
+.btn {
+  background: var(--bg-3); color: var(--text);
+  border: 1px solid var(--line); border-radius: 8px;
+  padding: .5rem .85rem; cursor: pointer; font-size: .86rem;
+  transition: border-color .15s, background .15s;
+}
+.btn:hover { border-color: var(--purple); background: #2c2140; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn-primary { background: var(--purple-dim); border-color: var(--purple); font-weight: 600; }
+.btn-primary:hover { background: var(--purple); }
+.btn-ghost { background: transparent; }
+.btn-sm { padding: .3rem .6rem; font-size: .78rem; }
+
+.quick { display: flex; flex-direction: column; gap: .5rem; align-items: stretch; }
+.controls { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; margin-top: .8rem; }
+
+/* ---------------------------------------------------------------- inputs */
+label { display: block; margin-bottom: .7rem; font-size: .82rem; color: var(--muted); }
+label.check { display: flex; align-items: center; gap: .45rem; margin-bottom: 0; }
+input, select, textarea {
+  width: 100%; margin-top: .25rem; padding: .45rem .6rem;
+  background: var(--bg); color: var(--text);
+  border: 1px solid var(--line); border-radius: 7px; font: inherit; font-size: .86rem;
+}
+input[type=checkbox] { width: auto; margin: 0; }
+input:focus, select:focus { outline: none; border-color: var(--purple); }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+
+.toolbar { display: flex; gap: .8rem; align-items: center; margin-bottom: .8rem; }
+.toolbar input { max-width: 380px; }
+
+/* ------------------------------------------------------- split list/detail */
+.split { display: grid; grid-template-columns: minmax(260px, 360px) 1fr; gap: 1rem; align-items: start; }
+@media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+
+.list {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: var(--radius); max-height: 70vh; overflow-y: auto;
+}
+.item {
+  padding: .6rem .8rem; border-bottom: 1px solid var(--line);
+  cursor: pointer; transition: background .12s;
+}
+.item:last-child { border-bottom: 0; }
+.item:hover { background: var(--bg-3); }
+.item.active { background: #33254d; border-left: 3px solid var(--gold); }
+.item b { display: block; font-size: .88rem; font-weight: 600; }
+.item small { color: var(--muted); font-size: .75rem; display: block; margin-top: .15rem;
+              overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.detail {
+  background: var(--bg-2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1rem;
+  max-height: 70vh; overflow-y: auto;
+}
+
+pre {
+  background: #0e0a16; border: 1px solid var(--line); border-radius: 8px;
+  padding: .8rem; overflow: auto; max-height: 420px;
+  font: 12px/1.5 "Cascadia Code", Consolas, monospace; color: #cfc6e4;
+  white-space: pre-wrap; word-break: break-word;
+}
+pre.tight { max-height: 260px; }
+
+/* ---------------------------------------------------------------- tables */
+table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+th, td { text-align: left; padding: .42rem .6rem; border-bottom: 1px solid var(--line); }
+th { color: var(--gold); font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; }
+tbody tr:hover { background: #00000030; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.tag {
+  display: inline-block; font-size: .7rem; padding: .12rem .45rem;
+  border-radius: 999px; background: #00000044; border: 1px solid var(--line);
+  color: var(--muted); margin: 0 .25rem .25rem 0;
+}
+.tag-warn { color: var(--gold); border-color: #6b5620; background: #2a2110; }
+.tag-good { color: var(--green); border-color: #2f6b45; background: #10281a; }
+.tag-bad  { color: var(--red); border-color: #6b2f2f; background: #2a1010; }
+
+.fn { border-left: 2px solid var(--line); padding: .25rem 0 .25rem .6rem; margin-bottom: .35rem; }
+.fn code { color: var(--gold); background: none; padding: 0; }
+.fn small { display: block; color: var(--muted); font-size: .76rem; }
+
+/* ----------------------------------------------------------------- toast */
+.toast {
+  position: fixed; bottom: 1.2rem; right: 1.2rem; z-index: 50;
+  background: var(--bg-3); border: 1px solid var(--purple);
+  border-radius: 8px; padding: .7rem 1rem; font-size: .85rem;
+  opacity: 0; transform: translateY(8px); pointer-events: none;
+  transition: opacity .2s, transform .2s; max-width: 420px;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.bad { border-color: var(--red); }
+
+.spinner {
+  display: inline-block; width: 13px; height: 13px; vertical-align: -2px;
+  border: 2px solid var(--line); border-top-color: var(--gold);
+  border-radius: 50%; animation: spin .7s linear infinite; margin-right: .4rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
