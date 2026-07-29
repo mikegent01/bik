@@ -19,6 +19,7 @@ frame = ttk.Frame(root, padding=22); frame.pack(fill="both", expand=True)
 ttk.Label(frame, text="WARIO SHOP STUDIO", font=("Arial", 20, "bold")).pack(pady=(0, 8))
 ttk.Label(frame, text="Run a review, keep world context current, clean data, or inspect shop integrity.", wraplength=540).pack(pady=(0, 18))
 buttons = [
+    ("Open the Waluipedia Hub", "Browser GUI for every tool, item piles from shop purchases, and the lore character creator.", lambda: launch("hub/server.py")),
     ("Review shop data (items + vendors)", "Review item rules, prices, requirements, shipping, and the vendor database together.", lambda: launch("review_shop_data.py")),
     ("Start world-item generator", "Watch events/battles and use LM Studio to create three current, live shop items each cycle.", lambda: launch("generate_shop_context.py", "--watch", "--generate-items")),
     ("Validate and report", "Check item JSON and write duplicate/integrity report.", lambda: launch("validate_shop_data.py")),

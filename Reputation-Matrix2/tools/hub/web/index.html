@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waluipedia Hub</title>
+<link rel="stylesheet" href="/static/hub.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">W</span>
+    <div>
+      <h1>Waluipedia Hub</h1>
+      <p id="rootPath" class="muted">loading…</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <span id="llmBadge" class="badge badge-off" title="LM Studio status">LM Studio: checking…</span>
+    <button id="refreshBtn" class="btn btn-ghost" title="Re-export the shop catalog from data/shop-items">Refresh data</button>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-tab="dashboard">Dashboard</button>
+  <button class="tab" data-tab="tools">Tools</button>
+  <button class="tab" data-tab="piles">Item Piles</button>
+  <button class="tab" data-tab="creator">Character Creator</button>
+  <button class="tab" data-tab="data">Data Browser</button>
+  <button class="tab" data-tab="outputs">Output</button>
+</nav>
+
+<main>
+  <!-- ------------------------------------------------ dashboard -->
+  <section class="panel active" id="tab-dashboard">
+    <div class="stat-grid" id="statGrid"></div>
+    <div class="cols">
+      <div class="card">
+        <h2>Quick actions</h2>
+        <div class="quick">
+          <button class="btn btn-primary" data-goto="piles">Build item piles from shop purchases</button>
+          <button class="btn btn-primary" data-goto="creator">Create a character from lore</button>
+          <button class="btn" data-goto="tools">Browse every tool &amp; function</button>
+          <button class="btn" data-goto="data">Open a data file</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>How this works</h2>
+        <ul class="notes">
+          <li><strong>Item Piles</strong> reads <code>shop-purchases.json</code>, resolves each receipt against the live shop catalog, and writes one Foundry item-pile actor per character.</li>
+          <li><strong>Character Creator</strong> builds a Foundry actor from <code>characters.json</code>, <code>events.json</code>, and <code>factions.json</code>, with starting gear picked from the real shop catalog.</li>
+          <li><strong>Tools</strong> lists every script in <code>tools/</code> with its docstring, CLI flags, and functions — click to read the source or run it.</li>
+          <li>Everything generated lands in <code>tools/hub/.hub-out/</code> and is git-ignored.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Shop catalog health</h2>
+      <div id="catalogHealth" class="muted">loading…</div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------ tools -->
+  <section class="panel" id="tab-tools">
+    <div class="toolbar">
+      <input type="search" id="toolSearch" placeholder="Filter tools and functions…">
+      <span class="muted" id="toolCount"></span>
+    </div>
+    <div class="split">
+      <div class="list" id="toolList"></div>
+      <div class="detail" id="toolDetail"><p class="muted">Select a tool to see its functions, flags, and source.</p></div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------ piles -->
+  <section class="panel" id="tab-piles">
+    <div class="card">
+      <h2>Shop purchases → Foundry item piles</h2>
+      <p class="muted">Every approved receipt becomes an item in that character's pile. Duplicate purchases merge into a quantity. Items missing from the catalog are rebuilt from the receipt so nothing paid for is lost.</p>
+      <div class="controls">
+        <label class="check"><input type="checkbox" id="includeFaction" checked> Include faction purchases</label>
+        <button class="btn" id="previewPiles">Preview</button>
+        <button class="btn btn-primary" id="buildPiles">Build item piles</button>
+      </div>
+    </div>
+    <div id="pileSummary"></div>
+    <div id="pileResult"></div>
+  </section>
+
+  <!-- ------------------------------------------------ creator -->
+  <section class="panel" id="tab-creator">
+    <div class="cols creator-cols">
+      <div class="card">
+        <h2>Build from lore</h2>
+        <label>Base on an existing character
+          <select id="charSelect"><option value="">— none (blank slate) —</option></select>
+        </label>
+        <label>Character name <input id="charName" placeholder="leave blank to use the lore name"></label>
+        <div class="row">
+          <label>Class <select id="charClass"><option value="">auto from lore</option></select></label>
+          <label>Level <input type="number" id="charLevel" value="1" min="1" max="20"></label>
+        </div>
+        <label>Race <input id="charRace" placeholder="auto from lore"></label>
+        <label>Faction <select id="charFaction"><option value="">auto / none</option></select></label>
+        <label>Link events (ctrl-click for several)
+          <select id="charEvents" multiple size="7"></select>
+        </label>
+        <div class="row">
+          <label class="check"><input type="checkbox" id="charGear" checked> Starting gear from the shop</label>
+          <label>How many <input type="number" id="charGearCount" value="6" min="0" max="20"></label>
+        </div>
+        <label class="check"><input type="checkbox" id="charModel"> Use LM Studio for flavor text <span id="modelHint" class="muted"></span></label>
+        <div class="controls">
+          <button class="btn" id="previewChar">Preview</button>
+          <button class="btn btn-primary" id="buildChar">Create actor JSON</button>
+        </div>
+      </div>
+      <div class="card" id="charResult">
+        <h2>Result</h2>
+        <p class="muted">Pick a character or fill the form, then Preview.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------ data -->
+  <section class="panel" id="tab-data">
+    <div class="toolbar">
+      <input type="search" id="dataSearch" placeholder="Filter data files…">
+      <span class="muted" id="dataCount"></span>
+    </div>
+    <div class="split">
+      <div class="list" id="dataList"></div>
+      <div class="detail" id="dataDetail"><p class="muted">Select a file to preview it.</p></div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------ outputs -->
+  <section class="panel" id="tab-outputs">
+    <div class="card">
+      <h2>Generated files</h2>
+      <p class="muted" id="outDir"></p>
+      <button class="btn" id="reloadOutputs">Reload</button>
+    </div>
+    <div id="outputList"></div>
+  </section>
+</main>
+
+<div id="toast" class="toast"></div>
+<script src="/static/hub.js"></script>
+</body>
+</html>
