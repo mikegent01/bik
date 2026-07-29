@@ -204,6 +204,18 @@
 .wi-ledger-pitch{font-style:italic;color:var(--muted);font-size:13px;margin-bottom:7px}
 .wi-ledger-body p{margin:0 0 6px;font-size:13px;line-height:1.6}
 .wi-ledger-lesson{color:var(--text)}
+.wi-analysis{margin:16px 0 4px;max-width:76ch;border:1px solid rgba(138,75,255,.42);border-left:4px solid #8a4bff;border-radius:11px;padding:12px 15px;background:linear-gradient(135deg,rgba(138,75,255,.13),rgba(138,75,255,.04)),var(--bg2)}
+.wi-an-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.wi-an-mark{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#8a4bff;color:#fff;font-weight:900;font-size:12px;font-family:system-ui,sans-serif;flex:0 0 auto}
+.wi-an-title{font-size:12px;letter-spacing:.11em;text-transform:uppercase;font-weight:900;color:#b98cff}
+.wi-an-body{font-size:13.4px;line-height:1.7;color:var(--text)}
+.wi-an-body p{margin:0 0 9px}
+.wi-an-body p:last-child{margin-bottom:0}
+.wi-an-body strong{color:#c9a6ff}
+.wi-verdict{border-left:5px solid #8a4bff;background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.05)),var(--panel)}
+.wi-verdict .wi-an-body{font-size:14px;max-width:76ch}
+.wi-byline{display:flex;align-items:center;gap:7px;margin-top:9px;font-size:12.5px;font-weight:700;color:#b98cff}
+.wi-povpill{background:rgba(138,75,255,.18);border-color:rgba(138,75,255,.45);color:#c9a6ff}
 @media(max-width:640px){.wi-ch-title{font-size:17px}.wi-prose{font-size:14px}.wi-arrow{display:none}}
 </style>
 </head>
@@ -4445,11 +4457,11 @@ function buildIndexes(){
     const wl=(DATA.whatifs&&Array.isArray(DATA.whatifs.whatifs))?DATA.whatifs.whatifs:[];
     wl.forEach(w=>{ if(!w||!w.id) return;
       SEARCH_DOCS.push({kind:'whatif',id:w.id,typeKey:'whatifs',name:w.title||prettyId(w.id),summary:w.premise||w.summary||'',
-        hay:[w.id,w.title,w.subtitle,w.premise,w.summary,w.divergence,w.outcome,w.subject,(w.tags||[]).join(' '),(w.wishes||[]).map(x=>x.concept+' '+x.result).join(' ')].filter(Boolean).join(' ').toLowerCase()});
+        hay:[w.id,w.title,w.subtitle,w.premise,w.summary,w.divergence,w.outcome,w.subject,w.narrator,w.byline,(w.tags||[]).join(' '),(w.wishes||[]).map(x=>x.concept+' '+x.result).join(' '),(w.verdict&&(w.verdict.title+' '+w.verdict.body))||''].filter(Boolean).join(' ').toLowerCase()});
       (w.chapters||[]).forEach(c=>{ if(!c) return;
         SEARCH_DOCS.push({kind:'whatifchapter',id:w.id+':'+(c.id||slug(c.heading||'')),parentId:w.id,anchor:'wi-'+slug(c.id||c.heading||''),typeKey:'whatifs',
           name:(c.heading||prettyId(c.id))+' — '+(w.title||prettyId(w.id)),summary:String(c.body||'').replace(/[*_>#]/g,'').slice(0,180),
-          hay:[c.id,c.heading,c.phase,c.wish,c.body].filter(Boolean).join(' ').toLowerCase()});
+          hay:[c.id,c.heading,c.phase,c.wish,c.body,(c.analysis&&(c.analysis.title+' '+c.analysis.body))||''].filter(Boolean).join(' ').toLowerCase()});
       });
     });
   })();
@@ -10243,6 +10255,7 @@ function view_whatif(id){
           <span class="pill">📖 ${whatifWordCount(w).toLocaleString()} words</span>
           <span class="pill">⏱️ ~${esc(String(w.readingTime||Math.max(1,Math.round(whatifWordCount(w)/225))))} min</span>
           ${w.resetsTotal?`<span class="pill">🔁 ${esc(String(w.resetsUsed??0))}/${esc(String(w.resetsTotal))} resets</span>`:''}
+          ${w.narrator?`<span class="pill wi-povpill">🎙️ ${esc(w.narrator)}</span>`:''}
           <span class="pill wi-noncanon">⚠ Non-canon</span>
         </div>
       </a>`;
@@ -10282,7 +10295,17 @@ function view_whatif(id){
         <div class="wi-ch-tags">${c.phase?`<span class="pill">${esc(c.phase)}</span>`:''}${c.wish?`<span class="pill wi-wishtag">Sold: ${esc(c.wish)}</span>`:''}</div>
       </div>
       <div class="wi-prose">${mdToHtml(c.body||'')}</div>
+      ${c.analysis?`<aside class="wi-analysis">
+        <div class="wi-an-head"><span class="wi-an-mark" aria-hidden="true">W</span><span class="wi-an-title">${esc(c.analysis.title||"Waluigi's Analysis")}</span></div>
+        <div class="wi-an-body">${mdToHtml(c.analysis.body||'')}</div>
+      </aside>`:''}
     </section>`).join('');
+
+  const verdict=w.verdict?`
+    <div class="card wi-verdict">
+      <div class="wi-an-head"><span class="wi-an-mark" aria-hidden="true">W</span><span class="wi-an-title">${esc(w.verdict.title||"Waluigi's Verdict")}</span></div>
+      <div class="wi-an-body">${mdToHtml(w.verdict.body||'')}</div>
+    </div>`:'';
 
   const ledger=(w.ledger||[]).length?`
     <div class="card wi-ledger">
@@ -10319,12 +10342,14 @@ function view_whatif(id){
       <h1 style="margin:4px 0 6px">${esc(w.emoji||'❓')} ${esc(w.title||prettyId(w.id))}</h1>
       ${w.subtitle?`<div class="wi-sub big">${esc(w.subtitle)}</div>`:''}
       <div class="wi-warn">⚠ NON-CANON. ${esc(w.clearance||'Filed by the What If Board.')} Nothing in this filing appears in the Chronicle.</div>
+      ${w.byline?`<div class="wi-byline"><span class="wi-an-mark" aria-hidden="true">W</span>${esc(w.byline)}</div>`:''}
       ${w.epigraph?`<blockquote class="wi-epi">${esc(w.epigraph)}</blockquote>`:''}
       <div class="chips" style="margin-top:10px">
         <span class="pill">📖 ${whatifWordCount(w).toLocaleString()} words</span>
         <span class="pill">⏱️ ~${esc(String(w.readingTime||''))} min read</span>
         <span class="pill">📄 ${chapters.length} parts</span>
         ${w.resetsTotal?`<span class="pill">🔁 ${esc(String(w.resetsUsed??0))}/${esc(String(w.resetsTotal))} resets used</span>`:''}
+        ${w.narrator?`<span class="pill wi-povpill">🎙️ POV: ${esc(w.narrator)}</span>`:''}
         ${w.filed?`<span class="pill">🗓️ Filed ${esc(w.filed)}</span>`:''}
       </div>
     </div>
@@ -10335,6 +10360,7 @@ function view_whatif(id){
         <div><div class="wi-lab">Point of Divergence</div><div class="wi-val">${esc(w.divergence||'—')}</div></div>
         <div><div class="wi-lab">Premise</div><div class="wi-val">${esc(w.premise||'—')}</div></div>
         <div><div class="wi-lab">Outcome</div><div class="wi-val">${esc(w.outcome||'—')}</div></div>
+        ${w.pov?`<div><div class="wi-lab">Narration</div><div class="wi-val">${esc(w.pov)}</div></div>`:''}
       </div>
       ${track?`<div class="wi-track">${track}</div>`:''}
     </div>
@@ -10343,6 +10369,7 @@ function view_whatif(id){
 
     <div class="card wi-article">${body}</div>
 
+    ${verdict}
     ${ledger}
     ${findings}
     ${related}
