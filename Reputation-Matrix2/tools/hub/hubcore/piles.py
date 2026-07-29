@@ -25,43 +25,76 @@ def _ap_cost(level: int) -> int:
     if L <= 11: return 3
     return 5
 
+# Valid ability types from generate_abilities.py (exact match)
+VALID_ABILITY_TYPES = {"combat", "utility", "magic", "stealth", "social", "support", "leadership", "divine"}
 
-def generate_ability_items(level: int = 1, count: int = 3) -> list[dict[str, Any]]:
+def generate_ability_items(level: int = 1, count: int = 3, class_hint: str = "") -> list[dict[str, Any]]:
     """Generate lightweight ability items (as feats) for a character of the given level.
 
     These are synthetic items that carry AP cost metadata so they can be
     imported into Foundry and tracked by the ability point system.
+
+    - Supports levels > 20 (no lumping at 20)
+    - Uses correct VALID_ABILITY_TYPES
+    - Avoids common duplicate names
     """
     items = []
     base_level = max(1, int(level))
 
-    ability_templates = [
-        ("Combat Training", "Basic weapon proficiency and tactics.", 2),
-        ("Arcane Insight", "Improved spell identification and lore.", 3),
-        ("Stealth Mastery", "Advantage on Stealth in dim light.", 2),
-        ("Leadership", "Grant allies temporary hit points once per short rest.", 4),
-        ("Survivalist", "Advantage on Survival checks in wilderness.", 2),
-        ("Tactical Mind", "Reroll one attack or save once per long rest.", 3),
+    # Tier-aware templates (higher levels get stronger abilities)
+    templates = [
+        # (name_base, description, min_level, type)
+        ("Divine Vigilance", "Gain advantage on Perception checks against evil.", 1, "divine"),
+        ("Shadowstep Sneak", "Bonus action to Hide after attacking.", 1, "stealth"),
+        ("Furious Roar", "Intimidate enemies within 30 ft once per short rest.", 1, "combat"),
+        ("Arcane Tempest", "Deal 1d6 force damage in a 10-ft radius.", 1, "magic"),
+        ("Swift Blade", "Extra attack with a bonus action once per short rest.", 1, "combat"),
+        ("Rapid Sight", "Advantage on initiative rolls.", 1, "combat"),
+        ("Inspire Charge", "Grant an ally +1d4 to their next attack roll.", 1, "leadership"),
+        ("Quick Brew", "Create a minor potion once per long rest.", 1, "utility"),
+        ("Sentinel Shield", "Reaction to grant an ally +2 AC.", 1, "support"),
+        ("Tool Shield", "Proficiency with one tool grants temporary hit points.", 1, "utility"),
+        ("Sacred Barrier", "Create a 10-ft radius sphere of protection.", 5, "divine"),
+        ("Shade Strike", "Deal extra damage when hidden.", 5, "stealth"),
+        ("Mirage Veil", "Become invisible for 1 minute once per long rest.", 9, "magic"),
+        ("Reckless Strike", "Advantage on next attack, disadvantage on AC until next turn.", 5, "combat"),
+        ("Quickfire Volley", "Make two ranged attacks as a bonus action.", 9, "combat"),
+        ("Nightshade Cloak", "Advantage on Stealth checks in darkness.", 5, "stealth"),
+        ("Charge Boost", "Increase movement speed by 10 ft for 1 minute.", 5, "leadership"),
     ]
 
-    for i in range(min(count, len(ability_templates))):
-        name, desc, min_level = ability_templates[i]
-        effective_level = max(min_level, base_level - 2 + i)
+    used_names = set()
+    idx = 0
+    while len(items) < count and idx < len(templates) * 2:
+        name_base, desc, min_lvl, atype = templates[idx % len(templates)]
+        idx += 1
+
+        if name_base in used_names:
+            continue
+
+        effective_level = max(min_lvl, base_level)
+        # Spread levels more evenly past 20
+        if base_level > 20:
+            effective_level = min(30, base_level + (idx % 5))
+
         ap_cost = _ap_cost(effective_level)
 
         record = {
-            "id": f"ability_{i+1}_{base_level}",
-            "name": f"{name} (Lv {effective_level})",
+            "id": f"ability_{len(items)+1}_{base_level}",
+            "name": f"{name_base} (Lv {effective_level})",
             "description": desc,
             "category": "services",
-            "price": ap_cost * 50,          # gold equivalent for display
-            "rarity": "uncommon" if effective_level > 8 else "common",
+            "price": ap_cost * 75,
+            "rarity": "rare" if effective_level >= 13 else ("uncommon" if effective_level >= 5 else "common"),
             "levelRequirement": effective_level,
             "effects": [f"Costs {ap_cost} AP"],
+            "type": atype if atype in VALID_ABILITY_TYPES else "combat",
             "_abilityPointCost": ap_cost,
             "_generatedFromLevel": base_level,
+            "_abilityType": atype,
         }
         items.append(record)
+        used_names.add(name_base)
 
     return items
 
@@ -252,7 +285,17 @@ def build_pile_actor(
 
     # Optional: generate ability items for this character
     if include_abilities:
-        ability_items = generate_ability_items(level=character_level, count=3)
+        # Try to infer a class hint from the first item if available
+        class_hint = ""
+        if player.get("lines"):
+            first_item = player["lines"][0].get("item", {})
+            class_hint = str(first_item.get("class", "")).lower()
+
+        ability_items = generate_ability_items(
+            level=character_level,
+            count=3,
+            class_hint=class_hint
+        )
         for idx, ab in enumerate(ability_items):
             items.append(foundry.shop_item_to_foundry(
                 ab,
