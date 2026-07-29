@@ -252,6 +252,8 @@ $('#buildPiles').addEventListener('click', async (event) => {
       body: {
         includeFaction: $('#includeFaction').checked,
         useAIForMissing: $('#useAIPiles').checked,
+        includeAbilities: $('#includeAbilities').checked,
+        characterLevel: Number($('#pileLevel').value) || 1,
       },
     });
     $('#pileResult').innerHTML = `

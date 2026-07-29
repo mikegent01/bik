@@ -17,6 +17,54 @@ from typing import Any, Iterable
 
 from . import dataio, foundry, llm, paths
 
+# Ability point cost tiers (matches build_ability_points.py)
+def _ap_cost(level: int) -> int:
+    L = int(level or 1)
+    if L <= 3:  return 1
+    if L <= 7:  return 2
+    if L <= 11: return 3
+    return 5
+
+
+def generate_ability_items(level: int = 1, count: int = 3) -> list[dict[str, Any]]:
+    """Generate lightweight ability items (as feats) for a character of the given level.
+
+    These are synthetic items that carry AP cost metadata so they can be
+    imported into Foundry and tracked by the ability point system.
+    """
+    items = []
+    base_level = max(1, int(level))
+
+    ability_templates = [
+        ("Combat Training", "Basic weapon proficiency and tactics.", 2),
+        ("Arcane Insight", "Improved spell identification and lore.", 3),
+        ("Stealth Mastery", "Advantage on Stealth in dim light.", 2),
+        ("Leadership", "Grant allies temporary hit points once per short rest.", 4),
+        ("Survivalist", "Advantage on Survival checks in wilderness.", 2),
+        ("Tactical Mind", "Reroll one attack or save once per long rest.", 3),
+    ]
+
+    for i in range(min(count, len(ability_templates))):
+        name, desc, min_level = ability_templates[i]
+        effective_level = max(min_level, base_level - 2 + i)
+        ap_cost = _ap_cost(effective_level)
+
+        record = {
+            "id": f"ability_{i+1}_{base_level}",
+            "name": f"{name} (Lv {effective_level})",
+            "description": desc,
+            "category": "services",
+            "price": ap_cost * 50,          # gold equivalent for display
+            "rarity": "uncommon" if effective_level > 8 else "common",
+            "levelRequirement": effective_level,
+            "effects": [f"Costs {ap_cost} AP"],
+            "_abilityPointCost": ap_cost,
+            "_generatedFromLevel": base_level,
+        }
+        items.append(record)
+
+    return items
+
 
 def _stub_from_receipt(receipt: dict[str, Any]) -> dict[str, Any]:
     """Build a minimal shop record for a receipt with no catalog entry."""
@@ -167,8 +215,18 @@ def _display_name(player_key: str) -> str:
     return player_key.replace("_", " ").title()
 
 
-def build_pile_actor(player: dict[str, Any], *, pile_name: str | None = None) -> dict[str, Any]:
-    """Create one item-pile actor document holding everything a player bought."""
+def build_pile_actor(
+    player: dict[str, Any],
+    *,
+    pile_name: str | None = None,
+    include_abilities: bool = False,
+    character_level: int = 1,
+) -> dict[str, Any]:
+    """Create one item-pile actor document holding everything a player bought.
+
+    When include_abilities=True, also injects generated ability items
+    (as feats) scaled to the character's level.
+    """
     key = player["playerKey"]
     display = player.get("displayName") or key
     name = pile_name or f"{display} — Warehouse Delivery"
@@ -191,6 +249,16 @@ def build_pile_actor(player: dict[str, Any], *, pile_name: str | None = None) ->
             sort=index,
             seed=f"{key}:{record.get('id')}:{index}",
         ))
+
+    # Optional: generate ability items for this character
+    if include_abilities:
+        ability_items = generate_ability_items(level=character_level, count=3)
+        for idx, ab in enumerate(ability_items):
+            items.append(foundry.shop_item_to_foundry(
+                ab,
+                sort=500 + idx,
+                seed=f"{key}:ability:{idx}",
+            ))
 
     wallet = dataio.wallets().get(key) or {}
     balances = wallet.get("currencies") or {}

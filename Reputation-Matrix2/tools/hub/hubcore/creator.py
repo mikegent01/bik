@@ -195,9 +195,13 @@ def suggest_gear(
     max_price = 300 + (character_level ** 2) * 35          # quadratic growth
     max_price = min(max_price, 250_000)                    # hard safety cap
 
-    # Tier boundaries (approximate item level)
-    tier_bounds = [0, 4, 8, 12, 16, 20, 999]
-    tier_names = ["T1 (1-4)", "T2 (5-8)", "T3 (9-12)", "T4 (13-16)", "T5 (17-20)", "T6 (20+)"]
+    # Tier boundaries — supports characters past level 20 (no lumping at 20)
+    # Tiers are based primarily on levelRequirement, secondarily on price
+    tier_bounds = [0, 4, 8, 12, 16, 20, 25, 30, 999]
+    tier_names = [
+        "T1 (1-4)", "T2 (5-8)", "T3 (9-12)", "T4 (13-16)",
+        "T5 (17-20)", "T6 (21-25)", "T7 (26-30)", "T8 (31+)"
+    ]
 
     catalog = dataio.shop_items()
 

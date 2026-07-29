@@ -222,6 +222,8 @@ class HubHandler(BaseHTTPRequestHandler):
                     write=True,
                     use_ai_for_missing=bool(body.get("useAIForMissing", False)),
                     model=(body.get("model") or "").strip() or None,
+                    include_abilities=bool(body.get("includeAbilities", False)),
+                    character_level=int(body.get("characterLevel", 1)),
                 )
                 return self._send_json({"ok": True, "data": manifest})
 
