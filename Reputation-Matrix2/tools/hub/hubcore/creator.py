@@ -169,11 +169,18 @@ def suggest_size(race_name: str) -> str:
     return "med"
 
 
-def suggest_gear(class_name: str, lore: dict[str, Any], limit: int = 6) -> list[dict[str, Any]]:
-    """Pick thematic starting gear out of the real shop catalog.
+def suggest_gear(
+    class_name: str,
+    lore: dict[str, Any],
+    limit: int = 6,
+    character_level: int = 1,
+) -> list[dict[str, Any]]:
+    """Pick thematic starting (or appropriate) gear out of the real shop catalog.
 
-    Matching is on class kit keywords plus faction/location words, and results
-    are sorted by price so a level 1 character does not start with an artifact.
+    Evenly distributes picks across item level tiers (based on price + levelRequirement).
+    Supports characters above level 20 by allowing progressively higher-tier gear.
+    When tiers are balanced, falls back to round-robin + least-represented tier weighting.
+    Avoids the old "only level 1 training wing" bias.
     """
     profile = CLASS_PROFILE.get(class_name, CLASS_PROFILE["Fighter"])
     keywords = list(profile["gear"])
@@ -181,49 +188,117 @@ def suggest_gear(class_name: str, lore: dict[str, Any], limit: int = 6) -> list[
     if faction.get("name"):
         keywords.append(str(faction["name"]).split()[0].lower())
 
+    # Level-based price / tier scaling (roughly 5e wealth by level)
+    # Level 1  ~ 100-300g     | Level 5  ~ 2k-4k
+    # Level 10 ~ 10k-20k     | Level 15 ~ 50k+
+    # Level 20+ allows very high-end items
+    max_price = 300 + (character_level ** 2) * 35          # quadratic growth
+    max_price = min(max_price, 250_000)                    # hard safety cap
+
+    # Tier boundaries (approximate item level)
+    tier_bounds = [0, 4, 8, 12, 16, 20, 999]
+    tier_names = ["T1 (1-4)", "T2 (5-8)", "T3 (9-12)", "T4 (13-16)", "T5 (17-20)", "T6 (20+)"]
+
     catalog = dataio.shop_items()
-    # Bucket affordable matches per keyword, then round-robin across buckets so a
-    # kit ends up varied (dagger + tools + cloak) instead of six daggers.
-    buckets: dict[str, list[tuple[int, dict[str, Any]]]] = {key: [] for key in keywords}
+
+    # Group items by keyword + tier
+    tier_buckets: dict[str, dict[int, list[tuple[int, dict[str, Any]]]]] = {
+        key: {i: [] for i in range(len(tier_bounds) - 1)} for key in keywords
+    }
+
     for record in catalog.values():
         name = str(record.get("name", "")).lower()
         if not name:
             continue
+
         try:
             price = int(record.get("price") or 0)
+            lvl_req = int(record.get("levelRequirement") or 1)
         except (TypeError, ValueError):
-            price = 0
-        if price <= 0 or price > 5000:      # keep the starting kit plausible
             continue
+
+        if price <= 0 or price > max_price:
+            continue
+
+        # Determine tier from levelRequirement (primary) or price
+        tier = 0
+        for i, bound in enumerate(tier_bounds[1:], 1):
+            if lvl_req < bound:
+                tier = i - 1
+                break
+        else:
+            tier = len(tier_bounds) - 2
+
         for keyword in keywords:
             if keyword in name:
-                buckets[keyword].append((price, record))
+                tier_buckets[keyword][tier].append((price, record))
                 break
-    for entries in buckets.values():
-        entries.sort(key=lambda row: (row[0], str(row[1].get("id"))))
 
+    # Sort each tier bucket by price (cheapest first within tier)
+    for key in tier_buckets:
+        for t in tier_buckets[key]:
+            tier_buckets[key][t].sort(key=lambda r: (r[0], str(r[1].get("id", ""))))
+
+    # Even distribution across tiers + keywords
     chosen: list[dict[str, Any]] = []
     seen_ids: set[str] = set()
-    depth = 0
-    while len(chosen) < limit and depth < 40:
+
+    # First pass: round-robin across tiers (most balanced)
+    tier_indices = [0] * (len(tier_bounds) - 1)
+    tier_counts = [0] * (len(tier_bounds) - 1)
+
+    for _ in range(limit * 3):  # safety loop
+        if len(chosen) >= limit:
+            break
+
         progressed = False
-        for keyword in keywords:
-            entries = buckets.get(keyword) or []
-            if depth >= len(entries):
-                continue
-            record = entries[depth][1]
-            progressed = True
-            identifier = str(record.get("id"))
-            if identifier in seen_ids:
-                continue
-            seen_ids.add(identifier)
-            chosen.append(record)
+        for t_idx in range(len(tier_bounds) - 1):
+            for keyword in keywords:
+                bucket = tier_buckets.get(keyword, {}).get(t_idx, [])
+                if tier_indices[t_idx] >= len(bucket):
+                    continue
+
+                record = bucket[tier_indices[t_idx]][1]
+                identifier = str(record.get("id"))
+                if identifier in seen_ids:
+                    tier_indices[t_idx] += 1
+                    continue
+
+                seen_ids.add(identifier)
+                chosen.append(record)
+                tier_counts[t_idx] += 1
+                tier_indices[t_idx] += 1
+                progressed = True
+
+                if len(chosen) >= limit:
+                    break
             if len(chosen) >= limit:
                 break
+
         if not progressed:
             break
-        depth += 1
-    return chosen
+
+    # Second pass: if still short, fill from the least-populated tiers
+    # (prevents one tier from dominating when the catalog is sparse)
+    if len(chosen) < limit:
+        remaining = limit - len(chosen)
+        # Weight toward under-represented tiers
+        for t_idx in sorted(range(len(tier_counts)), key=lambda x: tier_counts[x]):
+            for keyword in keywords:
+                if len(chosen) >= limit:
+                    break
+                bucket = tier_buckets.get(keyword, {}).get(t_idx, [])
+                for price, record in bucket:
+                    if len(chosen) >= limit:
+                        break
+                    identifier = str(record.get("id"))
+                    if identifier in seen_ids:
+                        continue
+                    seen_ids.add(identifier)
+                    chosen.append(record)
+                    tier_counts[t_idx] += 1
+
+    return chosen[:limit]
 
 
 def _class_item(class_name: str, level: int) -> dict[str, Any]:
@@ -426,7 +501,7 @@ def build_character(
 
     gear: list[dict[str, Any]] = []
     if include_gear and gear_count > 0:
-        gear = suggest_gear(final_class, lore, limit=gear_count)
+        gear = suggest_gear(final_class, lore, limit=gear_count, character_level=level)
         for index, record in enumerate(gear):
             items.append(foundry.shop_item_to_foundry(
                 record, sort=20 + index, seed=f"{final_name}:gear:{record.get('id')}"))
