@@ -60,11 +60,11 @@ def analyze_distribution(shop):
         count = level_counts[lvl]
         status = ""
         if count == 0:
-            status = "  ← MISSING"
+            status = "  [MISSING]"
         elif count < 4:
-            status = "  ← LOW"
+            status = "  [LOW]"
         elif count > 30:
-            status = "  ← OVERLOADED"
+            status = "  [OVERLOADED]"
         print(f"Level {lvl:2d}: {count:3d} abilities{status}")
     
     print(f"\nTotal abilities: {len(abilities)}")
@@ -76,7 +76,7 @@ def analyze_distribution(shop):
         for lvl in range(1, 31):
             c = class_level_counts[cls][lvl]
             if c > 0 or lvl <= 20:
-                marker = " ★" if c == 0 and lvl <= 20 else ""
+                marker = " *" if c == 0 and lvl <= 20 else ""
                 print(f"  Lv {lvl:2d}: {c:2d}{marker}")
     
     # Identify problem levels
