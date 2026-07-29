@@ -8822,6 +8822,7 @@ function view_article(id){
   el('content').innerHTML=`
    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/${typeKey}')">${esc(t.label)}</a> › ${esc(displayName(item))}</div>
    <div class="article-layout"><div><div class="card animate-fade-in">
+     <div class="art-kicker">${t.emoji} ${esc(t.singular)}${item.era?` · ${esc(String(item.era).split('—')[0].trim())}`:(item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:'')}</div>
      <h1 class="art-title">${esc(displayName(item))}</h1>
      ${item.title&&item.title!==item.name?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
      <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${typeKey==='factions'?systemsForFaction(item.id).map(s=>`<span class="pill" style="border-color:${s.accent};color:${s.accent};cursor:pointer" onclick="Router.go('${s.route}')">${s.emoji} ${esc(s.name)} — integrated system</span>`).join(''):''}${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}</div>
@@ -8842,6 +8843,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
    </div></div><div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div></div>`;
+  setArticleAccent(typeKey);
   endLinkPass();
   window.scrollTo(0,0);setupScrollSpy();applyCustomCss(item.customCss);
   if(typeKey==='factions'){ renderFactionPowerProjection(item.id); }
@@ -8879,6 +8881,7 @@ function view_trial(item,t){
   el('content').innerHTML=`
    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/trials')">Trials</a> › ${esc(displayName(item))}</div>
    <div class="article-layout"><div><div class="card animate-fade-in">
+     <div class="art-kicker">⚖️ Trial${item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:''}</div>
      <h1 class="art-title">${esc(item.name)}</h1>${item.title?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
      <div class="metabar"><span class="pill">⚖️ Trial</span>${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(item.status)}</span>`:''}</div>
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
@@ -8886,6 +8889,7 @@ function view_trial(item,t){
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}
      ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${relHtml}
    </div></div><div>${crossPagePanel(item.id,'trials',item)}${articleControlPanel(item.id)}<div class="infobox"><h4>${esc(item.name)}</h4>${infoRows}</div>${toc}</div></div>`;
+  setArticleAccent('trials');
   window.scrollTo(0,0);setupScrollSpy();
 }
 
@@ -12499,6 +12503,13 @@ function openBookReader(bookId) {
   renderPage();
 }
 
+/* Article hero accent — drives the per-type colour tokens in waluipedia.css.
+   Set on #content so one attribute recolours title, chips, headings and panels. */
+function setArticleAccent(typeKey){
+  const c=el('content'); if(!c) return;
+  if(typeKey) c.setAttribute('data-arttype',typeKey); else c.removeAttribute('data-arttype');
+}
+
 /* =============== ROUTER =============== */
 const Router={
   go(hash){if(location.hash===hash)Router.render();else location.hash=hash;},
@@ -12506,6 +12517,7 @@ const Router={
     const h=location.hash||'#/home';const m=h.match(/^#\/([^\/]+)\/?(.*)$/);
     if(!m){view_home();return;}
     const route=m[1],arg=decodeURIComponent(m[2]||'');
+    try{ setArticleAccent(null); }catch(e){}   // clear the article hero accent between routes
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
     LINK_TOTAL_COUNT=0;    // fresh per page view for the density cap
     LINK_GRAPH_OUT=new Set(); LINK_CONTEXT=new Set(); LINK_LAST_STATS={total:0,unique:0,scope:''}; LINK_SUPPRESSED=[];
