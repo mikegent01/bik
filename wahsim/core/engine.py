@@ -70,11 +70,26 @@ class Beat:
     roll: RollResult | None
     narration: str
     effects: list[str] = field(default_factory=list)
+    # Turn-order context, so a transcript can always answer 'whose turn was
+    # this, and where are we?' without the reader having to infer it.
+    phase_name: str = ''
+    round_no: int = 0
+    seat: str = ''          # e.g. '2/3' — second of three actors this round
+    role: str = ''
 
     def render(self, show_dice: bool = True) -> str:
         out = []
-        head = f'[{self.n:02d}] {self.actor_name} — {self.verb}'
-        out.append(head)
+        # Turn-order context up front: which phase, which round, which seat.
+        ctx = ''
+        if self.phase_name:
+            ctx = f'  ({self.phase_name}'
+            if self.round_no:
+                ctx += f' · r{self.round_no}'
+            if self.seat:
+                ctx += f' · turn {self.seat}'
+            ctx += ')'
+        role = f' [{self.role}]' if self.role else ''
+        out.append(f'[{self.n:02d}] {self.actor_name}{role} — {self.verb}{ctx}')
         if self.text:
             out.append(f'    "{self.text}"')
         if self.roll and show_dice:
@@ -169,9 +184,22 @@ class Session:
 
     def next_phase(self):
         if self.phase_idx < len(self._phases) - 1:
+            # Who just finished? If the incoming phase opens with the same
+            # actor, skip them so nobody acts twice across a phase boundary
+            # (the judge closes 'evidence' and opens 'testimony').
+            prev_order = self.turn_order()
+            last_actor = None
+            if prev_order:
+                last_actor = prev_order[(self.turn_idx - 1) % len(prev_order)]
+
             self.phase_idx += 1
             self.round = 1
             self.turn_idx = 0
+
+            new_order = self.turn_order()
+            if (last_actor is not None and len(new_order) > 1
+                    and new_order[0].key == last_actor.key):
+                self.turn_idx = 1
             hook = getattr(self.mode, 'on_phase_start', None)
             if hook:
                 hook(self.phase)
@@ -179,6 +207,11 @@ class Session:
     # -- recording ----------------------------------------------------------
     def record(self, beat: Beat) -> Beat:
         beat.n = len(self.beats) + 1
+        order = self.turn_order()
+        beat.phase_name = self.phase.name
+        beat.round_no = self.round
+        if order:
+            beat.seat = f'{(self.turn_idx % len(order)) + 1}/{len(order)}'
         self.beats.append(beat)
         # Everyone present remembers what happened.
         line = f'{beat.actor_name}: {beat.text or beat.narration[:90]}'

@@ -134,9 +134,10 @@ class SceneMode:
 
         dc = action.dc if action.dc is not None else DC['routine']
         roll = self.dice.check(dc, mods, adv, label=action.verb)
+        shown = ab.name if ab else action.verb
         narration = self._apply(action, roll, ab)
-        return Beat(0, '', a.name, action.verb, action.text, roll,
-                    narration, list(self.log_effects))
+        return Beat(0, '', a.name, shown, action.text, roll,
+                    narration, list(self.log_effects), role=a.role)
 
     def _apply(self, action: Action, roll, ab) -> str:
         a = action.actor

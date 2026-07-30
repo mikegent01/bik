@@ -151,8 +151,21 @@ class Game:
                      'hint': o.get('hint', ''), 'verb': o['verb']}
                     for i, o in enumerate(m.options(actor))]
 
+        order = []
+        try:
+            _o = s.turn_order()
+            for i, x in enumerate(_o):
+                order.append({'name': x.name, 'role': x.role,
+                              'player': bool(x.is_player),
+                              'now': x.key == (actor.key if actor else None),
+                              'n': i + 1})
+        except Exception:                                # noqa: BLE001
+            order = []
+
         beats = [{
             'n': b.n, 'actor': b.actor_name, 'verb': b.verb, 'text': b.text,
+            'phase_name': b.phase_name, 'round_no': b.round_no,
+            'seat': b.seat, 'role': b.role,
             'roll': b.roll.explain() if b.roll else '',
             'outcome': b.roll.outcome.label if (b.roll and b.roll.outcome) else '',
             'glyph': b.roll.outcome.glyph if (b.roll and b.roll.outcome) else '',
@@ -194,6 +207,7 @@ class Game:
             'phase': s.phase.name,
             'phase_desc': s.phase.description,
             'round': s.round,
+            'order': order,
             'status': m.status(),
             'clocks': clocks,
             'chart': chart,
@@ -372,6 +386,10 @@ background:var(--bg2);padding:12px;border-radius:9px;border:1px solid var(--bd);
 
   <!-- RIGHT -->
   <div>
+    <div class="card hide" id="cOrder">
+      <h3>Turn order · <span id="ordPhase" style="color:var(--mu)"></span></h3>
+      <div id="order"></div>
+    </div>
     <div class="card hide" id="cTurn">
       <h3 id="turnHead">Your move</h3>
       <div id="turnWho" style="font-weight:700;margin-bottom:4px"></div>
@@ -518,14 +536,36 @@ function render(){
   // transcript
   $('log').innerHTML = S.beats.length ? S.beats.map(b=>{
     const cls=b.outcome?(['SUCCESS','CRITICAL','PARTIAL'].includes(b.outcome)?'good':'bad'):'';
+    const ctx = b.phase_name
+      ? `<span style="color:var(--mu);font-size:10.5px;margin-left:7px">
+         ${esc(b.phase_name)} · r${b.round_no}${b.seat?' · turn '+esc(b.seat):''}</span>`
+      : '';
     return `<div class="beat ${cls}"><div><span class="who">${esc(b.actor)}</span>
-      <span class="verb">${esc(b.verb)}</span></div>
+      ${b.role?`<span class="verb">${esc(b.role)}</span>`:''}
+      <span class="verb">${esc(b.verb)}</span>${ctx}</div>
       ${b.text?`<div class="said">“${esc(b.text)}”</div>`:''}
       ${b.roll?`<div class="roll">🎲 ${esc(b.roll)}</div>`:''}
       ${b.narration?`<div style="font-size:12.5px;color:var(--mu)">${esc(b.narration)}</div>`:''}
       ${(b.effects||[]).map(e=>`<div class="fx">→ ${esc(e)}</div>`).join('')}</div>`;
   }).join('') : '<div style="color:var(--mu)">Nothing yet.</div>';
   $('log').scrollTop=$('log').scrollHeight;
+
+  // turn-order strip: who acts, in what order, and who is up right now.
+  if(S.order && S.order.length && !S.finished){
+    $('cOrder').className='card';
+    $('ordPhase').textContent = S.phase+' · round '+S.round;
+    $('order').innerHTML = S.order.map(o=>{
+      const now = o.now ? 'border-color:var(--ac2);background:rgba(224,180,0,.12)' : '';
+      return `<div style="display:flex;gap:8px;align-items:center;padding:5px 9px;
+        border:1px solid var(--bd);border-radius:8px;margin-bottom:5px;
+        font-size:12px;${now}">
+        <b style="color:var(--mu);width:14px">${o.n}</b>
+        <span style="flex:1">${esc(o.name)}${o.player?' ◀ you':''}</span>
+        <span style="color:var(--mu);font-size:10.5px;text-transform:uppercase">
+          ${esc(o.role)}</span>
+        ${o.now?'<span style="color:var(--ac2);font-weight:800">NOW</span>':''}
+      </div>`;}).join('');
+  } else { $('cOrder').className='card hide'; }
 
   // turn panel — always visible during play; the composer is never hidden.
   const me = S.current && S.current.is_player && !S.finished;

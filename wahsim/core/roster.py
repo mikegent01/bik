@@ -192,7 +192,16 @@ _ABILITY_POOL = [
 ]
 
 
-def grant_abilities(actor: Actor, dice: Dice, n: int = 3, pool_tags: tuple = ()) -> None:
+# Abilities that make no sense in a given venue. 'Offer a Concession' and
+# 'Call a Caucus' are parliamentary moves; they should never appear in a trial.
+VENUE_EXCLUDE = {
+    'court':    ('political',),
+    'chamber':  (),
+}
+
+
+def grant_abilities(actor: Actor, dice: Dice, n: int = 3, pool_tags: tuple = (),
+                    venue: str = '') -> None:
     """Give an actor abilities weighted toward their best skills.
 
     Canon purchases win: if this character has a purchase sheet in
@@ -216,8 +225,11 @@ def grant_abilities(actor: Actor, dice: Dice, n: int = 3, pool_tags: tuple = ())
                     'sustain', 'Sustain', 'Steady yourself. Recover composure.',
                     skill='composure', bonus=2, uses=-1, tags=['defensive']))
             return
+    banned = set(VENUE_EXCLUDE.get(venue, ()))
     cands = []
     for key, name, desc, skill, bonus, uses, tags in _ABILITY_POOL:
+        if banned & set(tags):
+            continue
         if pool_tags and not (set(tags) & set(pool_tags)) and skill not in actor.skills:
             continue
         score = actor.skill_mod(skill) + dice.rng.random() * 3

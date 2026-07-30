@@ -15,7 +15,7 @@ if __package__ in (None, ''):
     from wahsim.cli import run
     from wahsim.core.brain import LMStudioBrain, ScriptedBrain, make_brain
     from wahsim.core.dice import DC, Dice, Modifier, Outcome
-    from wahsim.core.engine import Session
+    from wahsim.core.engine import Action, Session
     from wahsim.core.entities import build_actor
     from wahsim.core.roster import (actor_from_record, find_character,
                                     generate_actor, grant_abilities)
@@ -24,7 +24,7 @@ else:
     from .cli import run
     from .core.brain import LMStudioBrain, ScriptedBrain, make_brain
     from .core.dice import DC, Dice, Modifier, Outcome
-    from .core.engine import Session
+    from .core.engine import Action, Session
     from .core.entities import build_actor
     from .core.roster import (actor_from_record, find_character,
                               generate_actor, grant_abilities)
@@ -207,6 +207,81 @@ for _ in range(30):
 check('gui reaches a result', st['finished'], str(st.get('round')))
 check('gui returns an epilogue', 'RESULT' in st['epilogue'])
 check('gui state is JSON-serialisable', bool(__import__('json').dumps(st)))
+
+print('\nTURN ORDER (visibility + correctness)')
+_d = Dice(seed=5); _b = make_brain(_d)
+_tm = TrialMode(_d, _b, {'prosecutor': 'edgeworth', 'defendant': 'archie',
+                         'player_side': 'defense', 'witness_count': 3})
+_ts = Session(_tm, _d, _b)
+_phases = {p.key: p for p in _tm.phases()}
+check('opening alternates prosecution then defence',
+      _phases['opening'].order == [_tm.prosecutor.key, _tm.defense.key])
+check('judge only sits in evidence/verdict phases',
+      _tm.judge.key not in _phases['opening'].order
+      and _tm.judge.key in _phases['verdict'].order)
+
+# Walk the real schedule and record who actually acts.
+_seq, _prev = [], None
+for _ in range(26):
+    if _tm.finished():
+        break
+    _act = _ts.current
+    if _act is None:
+        _ts.next_phase(); continue
+    if _ts.phase.key != _prev:
+        _prev = _ts.phase.key
+        _h = getattr(_tm, 'on_phase_start', None)
+        if _h and _ts.round == 1:
+            _h(_ts.phase)
+    _seq.append((_ts.phase.key, _act.role, _act.key))
+    _opt = _tm.options(_act)[0]
+    _ts.record(_tm.resolve(Action(actor=_act, verb=_opt['verb'], text='.',
+                                  skill=_opt.get('skill', ''), dc=_opt.get('dc'))))
+    _ts.advance()
+check('opening is exactly prosecutor then defence',
+      [r for p_, r, _k in _seq if p_ == 'opening'] == ['prosecutor', 'defense'],
+      str([r for p_, r, _k in _seq if p_ == 'opening']))
+_ev = [r for p_, r, _k in _seq if p_ == 'evidence']
+check('evidence cycles prosecutor/defense/judge',
+      _ev[:6] == ['prosecutor', 'defense', 'judge'] * 2, str(_ev[:6]))
+check('no individual acts twice in a row',
+      all(_seq[i][2] != _seq[i + 1][2] for i in range(len(_seq) - 1)),
+      str([(a[2], b[2]) for a, b in zip(_seq, _seq[1:]) if a[2] == b[2]][:2]))
+check('everyone in the cast eventually acts',
+      len({k for _, _, k in _seq}) >= 6, str(len({k for _, _, k in _seq})))
+check('each actor gets one turn per round in a phase',
+      len([1 for p_, _r, _k in _seq if p_ == 'evidence']) % 3 == 0)
+
+# The actual reported bug: order was right but invisible.
+_beat = _ts.beats[0]
+check('beats record their phase', bool(_beat.phase_name), _beat.phase_name)
+check('beats record the round', _beat.round_no >= 1)
+check('beats record the seat (n/total)', '/' in _beat.seat, _beat.seat)
+check('beats record the role', bool(_beat.role), _beat.role)
+check('rendered beat shows turn context',
+      'turn' in _beat.render() and _beat.phase_name in _beat.render())
+check('session exposes turn_order()', len(_ts.turn_order()) >= 1)
+
+print('\nTRANSCRIPT CLARITY')
+_d2 = Dice(seed=5); _b2 = make_brain(_d2)
+_t2 = TrialMode(_d2, _b2, {'prosecutor': 'edgeworth', 'witness_count': 3})
+_s2 = Session(_t2, _d2, _b2)
+_a2 = _s2.current
+_ab2 = next(x for x in _a2.abilities if x.available)
+_bt = _t2.resolve(Action(actor=_a2, verb='ability', text='.', ability=_ab2.key,
+                         skill=_ab2.skill, dc=14))
+check('ability beats name the ability, not "ability"',
+      _bt.verb != 'ability' and _bt.verb == _ab2.name, _bt.verb)
+check('no political abilities in a courtroom',
+      not [1 for a in _t2.actors() for ab in a.abilities if 'political' in ab.tags],
+      str([ab.name for a in _t2.actors() for ab in a.abilities
+           if 'political' in ab.tags]))
+_full = [a for a in _t2.actors() if a.composure == a.max_composure][0]
+_sus = _full.ability('sustain')
+_bt2 = _t2.resolve(Action(actor=_full, verb='ability', text='.', ability='sustain',
+                          skill='composure', dc=5))
+check('Sustain at full composure is not a wasted turn',
+      'recovers 0' not in ' '.join(_bt2.effects), str(_bt2.effects))
 
 print('\nABILITIES (from the canon shop)')
 from wahsim.core.abilities import (ap_spent, describe, find, load_loadout,

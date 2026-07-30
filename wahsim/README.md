@@ -225,7 +225,7 @@ wahsim/
     abilities.py     translates abilityShop.json into playable moves
   modes/
     trial.py  congress.py  glazed.py  scene.py
-  test_wahsim.py   98 tests
+  test_wahsim.py   114 tests
 ```
 
 The engine owns turn order, transcript and clocks. Modes own the fiction.
@@ -267,11 +267,13 @@ seeds, both AI backends **and the GUI** for free. Optional hooks:
 
 ## Tests
 
-`python -m wahsim.test_wahsim` — 98 assertions covering dice invariants
+`python -m wahsim.test_wahsim` — 114 assertions covering dice invariants
 (nat-1 always botches, advantage keeps the high die), composure feedback,
 ability exhaustion, canon lookup, clock bounds, replay determinism,
 early-exit epilogues, LM Studio fallback behaviour, GUI state serialisation and
-ability translation from canon (including that Archie's six real purchases all
+**turn-order guards** (each phase runs its exact schedule, and no individual
+acts twice in a row — including across phase boundaries), ability translation
+from canon (including that Archie's six real purchases all
 resolve exactly), **Glazed scale guards** (100 seats must still chart in under
 24 lines and resolve in under 60 turns), a full GUI playthrough,
 **entry-point guards** (every runnable file must import

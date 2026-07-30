@@ -98,7 +98,7 @@ class TrialMode:
                 a = actor_from_record(rec, role, d, is_player=player, power=power)
             else:
                 a = generate_actor(role, d, name=want or '', power=power, is_player=player)
-            grant_abilities(a, d, 3)
+            grant_abilities(a, d, 3, venue='court')
             self._actors.append(a)
             return a
 
@@ -239,9 +239,10 @@ class TrialMode:
             mods.append(Modifier('bench is impatient', -1))
 
         roll = self.dice.check(dc, mods, action.advantage, label=action.verb)
+        shown = ab.name if ab else action.verb
         narration = self._apply(action, roll, ab)
-        return Beat(0, '', a.name, action.verb, action.text, roll,
-                    narration, list(self.log_effects))
+        return Beat(0, '', a.name, shown, action.text, roll,
+                    narration, list(self.log_effects), role=a.role)
 
     def _fx(self, s: str):
         self.log_effects.append(s)
@@ -345,8 +346,17 @@ class TrialMode:
         # generic argue / ability
         if ab and 'defensive' in ab.tags:
             got = a.steady(3 if o.is_good else 1)
-            self._fx(f'{a.name} recovers {got} composure.')
-            return f'{a.name} steadies.'
+            if got:
+                self._fx(f'{a.name} recovers {got} composure.')
+                return f'{a.name} steadies.'
+            # Already composed: convert the turn into pressure instead of
+            # burning it, so 'recovers 0 composure' never appears again.
+            if o.is_good:
+                self._tick_side(side, 1)
+                self._fx(f'{a.name} is already composed, and presses the advantage.')
+            else:
+                self._fx(f'{a.name} holds steady; nothing gained.')
+            return f'{a.name} holds the floor.'
 
         if o.is_good:
             n = 2 if o == Outcome.CRIT else 1
