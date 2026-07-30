@@ -12,12 +12,23 @@ actual canon characters — Miles Edgeworth prosecutes, and the Grand Congress
 delegations keep their real blocs, influence and reliability ratings.
 
 ```bash
-python3 -m wahsim --gui            # browser GUI  → http://localhost:8765
-python3 -m wahsim                  # terminal menu
-python3 -m wahsim congress --auto  # watch the AI run a whole vote
-python3 -m wahsim --check          # test the LM Studio connection
-python3 -m wahsim.test_wahsim      # 63 tests
+# From the repo root (bik/):
+python -m wahsim --gui             # browser GUI  → http://localhost:8765
+python -m wahsim                   # terminal menu
+python -m wahsim congress --auto   # watch the AI run a whole vote
+python -m wahsim --check           # test the LM Studio connection
+python -m wahsim.test_wahsim       # 69 tests
+
+# Or from INSIDE the wahsim folder — these work too:
+python run_gui.py                  # simplest way to start the GUI
+python gui.py
+python cli.py --check
+python test_wahsim.py
 ```
+
+> **Windows note:** every runnable file works both ways. If you `cd wahsim` and
+> run `python gui.py`, it bootstraps its own import path — you don't need to
+> know about `-m` or packages. There's a regression test for exactly this.
 
 ---
 
@@ -136,7 +147,8 @@ so modes react to the *kind* of move.
 
 ```
 wahsim/
-  __main__.py      python3 -m wahsim
+  __main__.py      python -m wahsim
+  run_gui.py       plain `python run_gui.py` launcher (no -m needed)
   config.py        all tuning, env-overridable
   cli.py           terminal UI
   gui.py           http.server + single-page front end
@@ -148,7 +160,7 @@ wahsim/
     roster.py      canon loader, stat inference, ability granting
   modes/
     trial.py  congress.py  scene.py
-  test_wahsim.py   63 tests
+  test_wahsim.py   69 tests
 ```
 
 The engine owns turn order, transcript and clocks. Modes own the fiction.
@@ -190,9 +202,11 @@ seeds, both AI backends **and the GUI** for free. Optional hooks:
 
 ## Tests
 
-`python3 -m wahsim.test_wahsim` — 63 assertions covering dice invariants
+`python -m wahsim.test_wahsim` — 69 assertions covering dice invariants
 (nat-1 always botches, advantage keeps the high die), composure feedback,
 ability exhaustion, canon lookup, clock bounds, replay determinism,
 early-exit epilogues, LM Studio fallback behaviour, GUI state serialisation and
-a full GUI playthrough — plus **balance sweeps**: 24 congress and 12 trial
-sessions asserting outcomes stay competitive rather than fixed.
+a full GUI playthrough, **entry-point guards** (every runnable file must import
+cleanly both as `python file.py` and as `python -m ...`) — plus **balance
+sweeps**: 24 congress and 12 trial sessions asserting outcomes stay competitive
+rather than fixed.

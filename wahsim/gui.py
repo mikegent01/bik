@@ -5,8 +5,11 @@ single-page front end. No pip install, no tkinter (which is often missing from
 slim Python builds), and it matches how LM Studio already works: a local
 server you point a browser at.
 
-    python3 -m wahsim.gui              # then open http://localhost:8765
-    python3 -m wahsim.cli --gui --live
+    python gui.py                      # works from inside the wahsim folder
+    python -m wahsim.gui               # works from the repo root
+    python -m wahsim --gui --live
+
+Then open http://localhost:8765
 """
 from __future__ import annotations
 
@@ -15,12 +18,29 @@ import threading
 import webbrowser
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
-from .core.brain import LMStudioBrain, ScriptedBrain, make_brain
-from .core.dice import Dice
-from .core.engine import Action, Session
-from .modes.congress import CongressMode
-from .modes.scene import SceneMode, direct_scene
-from .modes.trial import TrialMode
+# Support BOTH `python gui.py` and `python -m wahsim.gui`.
+# Running a file directly gives it no parent package, so the relative imports
+# below would fail. In that case we put the repo root on sys.path and re-import
+# absolutely. This is the single most common way people try to start a GUI, so
+# it should not require knowing about -m.
+if __package__ in (None, ''):
+    import os
+    import sys
+
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from wahsim.core.brain import LMStudioBrain, ScriptedBrain, make_brain
+    from wahsim.core.dice import Dice
+    from wahsim.core.engine import Action, Session
+    from wahsim.modes.congress import CongressMode
+    from wahsim.modes.scene import SceneMode, direct_scene
+    from wahsim.modes.trial import TrialMode
+else:
+    from .core.brain import LMStudioBrain, ScriptedBrain, make_brain
+    from .core.dice import Dice
+    from .core.engine import Action, Session
+    from .modes.congress import CongressMode
+    from .modes.scene import SceneMode, direct_scene
+    from .modes.trial import TrialMode
 
 MODES = {'trial': TrialMode, 'congress': CongressMode, 'scene': SceneMode}
 

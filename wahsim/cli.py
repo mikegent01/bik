@@ -12,14 +12,28 @@ import argparse
 import sys
 import textwrap
 
-from . import config
-from .core.brain import LMStudioBrain, make_brain
-from .core.dice import Dice, Modifier
-from .core.engine import Action, Session
-from .core.roster import has_data
-from .modes.congress import CongressMode
-from .modes.scene import SceneMode, direct_scene
-from .modes.trial import TrialMode
+# Support both `python cli.py` (from inside the folder) and `python -m wahsim`.
+if __package__ in (None, ''):
+    import os
+
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from wahsim import config
+    from wahsim.core.brain import LMStudioBrain, make_brain
+    from wahsim.core.dice import Dice, Modifier
+    from wahsim.core.engine import Action, Session
+    from wahsim.core.roster import has_data
+    from wahsim.modes.congress import CongressMode
+    from wahsim.modes.scene import SceneMode, direct_scene
+    from wahsim.modes.trial import TrialMode
+else:
+    from . import config
+    from .core.brain import LMStudioBrain, make_brain
+    from .core.dice import Dice, Modifier
+    from .core.engine import Action, Session
+    from .core.roster import has_data
+    from .modes.congress import CongressMode
+    from .modes.scene import SceneMode, direct_scene
+    from .modes.trial import TrialMode
 
 W = 66
 BAR = '═' * W
@@ -269,7 +283,7 @@ def main(argv=None):
     args = p.parse_args(argv)
 
     if args.check:
-        from .core.brain import LMStudioBrain, ScriptedBrain
+        from wahsim.core.brain import LMStudioBrain, ScriptedBrain
         b = LMStudioBrain(ScriptedBrain(Dice(0)), base=args.api_base,
                           key=args.api_key, model=args.model)
         head('LM STUDIO CONNECTION')
@@ -286,7 +300,7 @@ def main(argv=None):
         return 0 if ok else 1
 
     if args.gui:
-        from .gui import serve
+        from wahsim.gui import serve
         serve(live=args.live, model=args.model, api_base=args.api_base, port=args.port)
         return 0
 

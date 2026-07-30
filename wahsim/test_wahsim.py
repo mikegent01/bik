@@ -3,18 +3,35 @@ from __future__ import annotations
 
 import contextlib
 import io
+import os
 import sys
 
-from . import config
-from .cli import run
-from .core.brain import LMStudioBrain, ScriptedBrain, make_brain
-from .core.dice import DC, Dice, Modifier, Outcome
-from .core.engine import Session
-from .core.entities import build_actor
-from .core.roster import find_character, generate_actor, grant_abilities
-from .modes.congress import CongressMode
-from .modes.scene import SceneMode, direct_scene
-from .modes.trial import TrialMode
+# Support both `python test_wahsim.py` and `python -m wahsim.test_wahsim`.
+if __package__ in (None, ''):
+    import os
+
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from wahsim import config
+    from wahsim.cli import run
+    from wahsim.core.brain import LMStudioBrain, ScriptedBrain, make_brain
+    from wahsim.core.dice import DC, Dice, Modifier, Outcome
+    from wahsim.core.engine import Session
+    from wahsim.core.entities import build_actor
+    from wahsim.core.roster import find_character, generate_actor, grant_abilities
+else:
+    from . import config
+    from .cli import run
+    from .core.brain import LMStudioBrain, ScriptedBrain, make_brain
+    from .core.dice import DC, Dice, Modifier, Outcome
+    from .core.engine import Session
+    from .core.entities import build_actor
+    from .core.roster import find_character, generate_actor, grant_abilities
+
+# The bootstrap above guarantees the repo root is importable either way, so the
+# mode imports can use one absolute form for both invocation styles.
+from wahsim.modes.congress import CongressMode
+from wahsim.modes.scene import SceneMode, direct_scene
+from wahsim.modes.trial import TrialMode
 
 PASS = FAIL = 0
 
@@ -161,7 +178,7 @@ check('commit threshold is sane', 10 <= config.COMMIT_THRESHOLD <= 100)
 check('max turns guard exists', config.MAX_TURNS > 50)
 
 print('\nGUI')
-from .gui import GAME, PAGE
+from wahsim.gui import GAME, PAGE
 check('page is served', '<html' in PAGE and 'WahSim' in PAGE)
 st = GAME.start({'mode': 'congress', 'seed': 3,
                  'spec': {'motion': 'Test', 'delegate_count': 5}})
@@ -187,6 +204,32 @@ for _ in range(30):
 check('gui reaches a result', st['finished'], str(st.get('round')))
 check('gui returns an epilogue', 'RESULT' in st['epilogue'])
 check('gui state is JSON-serialisable', bool(__import__('json').dumps(st)))
+
+print('\nENTRY POINTS')
+os.environ['WAHSIM_NO_SUBTESTS'] = '1'
+# Regression guard for the relative-import crash: every runnable file must work
+# BOTH as `python file.py` (from inside the folder) and as `python -m ...`.
+import subprocess
+_here = os.path.dirname(os.path.abspath(__file__))
+_root = os.path.dirname(_here)
+
+
+def _runs(args, cwd, label):
+    try:
+        r = subprocess.run([sys.executable] + args, cwd=cwd, capture_output=True,
+                           text=True, timeout=120)
+        bad = 'ImportError' in r.stderr or 'ModuleNotFoundError' in r.stderr
+        check(label, not bad, r.stderr.strip().splitlines()[-1] if bad else '')
+    except subprocess.TimeoutExpired:
+        check(label, False, 'timed out')
+
+
+_runs(['cli.py', '--check'], _here, 'python cli.py (inside folder)')
+_runs(['-c', 'import gui'], _here, 'import gui.py (inside folder)')
+_runs(['-c', 'import run_gui'], _here, 'import run_gui.py (inside folder)')
+_runs(['-m', 'wahsim', '--check'], _root, 'python -m wahsim (repo root)')
+_runs(['-m', 'wahsim.cli', '--check'], _root, 'python -m wahsim.cli (repo root)')
+_runs(['-c', 'import wahsim.gui'], _root, 'import wahsim.gui (repo root)')
 
 print('\nREPLAY')
 a1, _, _ = play(TrialMode, {'prosecutor': 'edgeworth', 'witness_count': 3}, seed=404)
