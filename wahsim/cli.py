@@ -23,6 +23,7 @@ if __package__ in (None, ''):
     from wahsim.core.engine import Action, Session
     from wahsim.core.roster import has_data
     from wahsim.modes.congress import CongressMode
+    from wahsim.modes.glazed import GlazedCongressMode
     from wahsim.modes.scene import SceneMode, direct_scene
     from wahsim.modes.trial import TrialMode
 else:
@@ -32,6 +33,7 @@ else:
     from .core.engine import Action, Session
     from .core.roster import has_data
     from .modes.congress import CongressMode
+    from .modes.glazed import GlazedCongressMode
     from .modes.scene import SceneMode, direct_scene
     from .modes.trial import TrialMode
 
@@ -245,7 +247,27 @@ def build_scene(dice, brain, args) -> SceneMode:
                                    'play': not args.auto})
 
 
-MODES = {'trial': build_trial, 'congress': build_congress, 'scene': build_scene}
+def build_glazed(dice, brain, args) -> 'GlazedCongressMode':
+    if args.auto or args.yes:
+        spec = {'motion': args.motion or
+                'Ratification of the Species Recognition Compact', 'size': 100}
+    else:
+        head('GLAZED CONGRESS SETUP')
+        print(wrap('The full chamber. Blocs are the unit of play: you whip '
+                   'blocs and work swing seats rather than lobbying 100 seats '
+                   'one at a time.'))
+        spec = {
+            'motion': ask('  The motion',
+                          'Ratification of the Species Recognition Compact'),
+            'sponsor': ask('  You are the sponsor named', 'The Sponsor'),
+            'threshold': ask('  Threshold (simple/super)', 'simple'),
+            'size': int(ask('  Chamber size', '100') or 100),
+        }
+    return GlazedCongressMode(dice, brain, spec)
+
+
+MODES = {'trial': build_trial, 'congress': build_congress,
+         'glazed': build_glazed, 'scene': build_scene}
 
 
 def main(argv=None):
@@ -311,11 +333,13 @@ def main(argv=None):
         print(f'  canon data: {"loaded" if has_data() else "not found (generating cast)"}')
         print()
         print('   1. Trial      — courtroom: evidence, witnesses, verdict')
-        print('   2. Congress   — table a motion, debate, roll-call vote')
-        print('   3. Scene      — describe any situation and play it out')
+        print('   2. Congress   — small chamber: 9 delegations, seat by seat')
+        print('   3. Glazed     — the FULL chamber: 100 delegations, whip blocs')
+        print('   4. Scene      — describe any situation and play it out')
         print()
         c = ask('  mode', '1')
-        mode_key = {'1': 'trial', '2': 'congress', '3': 'scene'}.get(c, c)
+        mode_key = {'1': 'trial', '2': 'congress', '3': 'glazed',
+                    '4': 'scene'}.get(c, c)
         if mode_key not in MODES:
             print('  unknown mode'); return 1
 

@@ -193,7 +193,29 @@ _ABILITY_POOL = [
 
 
 def grant_abilities(actor: Actor, dice: Dice, n: int = 3, pool_tags: tuple = ()) -> None:
-    """Give an actor abilities weighted toward their best skills."""
+    """Give an actor abilities weighted toward their best skills.
+
+    Canon purchases win: if this character has a purchase sheet in
+    wahsim/data/purchases.json, those real abilities are granted first and the
+    generic pool only tops up whatever slots remain.
+    """
+    try:
+        from .abilities import loadout_for
+        bought = loadout_for(actor.meta.get('article') or actor.key, dice)
+    except Exception:                                  # noqa: BLE001
+        bought = []
+    for ab in bought:
+        if not actor.ability(ab.key):
+            actor.abilities.append(ab)
+    if bought:
+        actor.meta['purchased'] = [a.name for a in bought]
+        n = max(0, n - len(bought))
+        if n == 0:
+            if not actor.ability('sustain'):
+                actor.abilities.append(Ability(
+                    'sustain', 'Sustain', 'Steady yourself. Recover composure.',
+                    skill='composure', bonus=2, uses=-1, tags=['defensive']))
+            return
     cands = []
     for key, name, desc, skill, bonus, uses, tags in _ABILITY_POOL:
         if pool_tags and not (set(tags) & set(pool_tags)) and skill not in actor.skills:

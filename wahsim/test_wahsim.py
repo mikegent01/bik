@@ -17,7 +17,8 @@ if __package__ in (None, ''):
     from wahsim.core.dice import DC, Dice, Modifier, Outcome
     from wahsim.core.engine import Session
     from wahsim.core.entities import build_actor
-    from wahsim.core.roster import find_character, generate_actor, grant_abilities
+    from wahsim.core.roster import (actor_from_record, find_character,
+                                    generate_actor, grant_abilities)
 else:
     from . import config
     from .cli import run
@@ -25,11 +26,13 @@ else:
     from .core.dice import DC, Dice, Modifier, Outcome
     from .core.engine import Session
     from .core.entities import build_actor
-    from .core.roster import find_character, generate_actor, grant_abilities
+    from .core.roster import (actor_from_record, find_character,
+                              generate_actor, grant_abilities)
 
 # The bootstrap above guarantees the repo root is importable either way, so the
 # mode imports can use one absolute form for both invocation styles.
 from wahsim.modes.congress import CongressMode
+from wahsim.modes.glazed import GlazedCongressMode
 from wahsim.modes.scene import SceneMode, direct_scene
 from wahsim.modes.trial import TrialMode
 
@@ -204,6 +207,67 @@ for _ in range(30):
 check('gui reaches a result', st['finished'], str(st.get('round')))
 check('gui returns an epilogue', 'RESULT' in st['epilogue'])
 check('gui state is JSON-serialisable', bool(__import__('json').dumps(st)))
+
+print('\nABILITIES (from the canon shop)')
+from wahsim.core.abilities import (ap_spent, describe, find, load_loadout,
+                                   loadout_for, to_ability)
+check('shop is indexed', find('Shadow Dodge') is not None)
+check('lookup is case-insensitive', find('shadow dodge') is not None)
+check('partial match prefers a prefix hit',
+      str((find('Guardian') or {}).get('name', '')).lower().startswith('guardian'),
+      str((find('Guardian') or {}).get('name')))
+# Shorthand is inherently ambiguous ('Bullet' matches six abilities), so the
+# real guarantee is that purchase sheets resolve EXACTLY, not fuzzily.
+_names = ['Shadow Dodge', 'Hidden Potential', "Sharpshooter's Edge",
+          "Guardian's Vigil", 'Bullet Speed', 'Bullet Swift']
+check('every purchase name is an exact shop match',
+      all((find(n) or {}).get('name') == n for n in _names),
+      str([n for n in _names if (find(n) or {}).get('name') != n]))
+check('unknown ability returns None', find('Definitely Not Real') is None)
+_ab = to_ability(find('Shadow Dodge'))
+check('translated ability has a skill', bool(_ab.skill))
+check('translated ability has a bonus', 2 <= _ab.bonus <= 6, str(_ab.bonus))
+check('tags are not duplicated', len(_ab.tags) == len(set(_ab.tags)), str(_ab.tags))
+_arch = loadout_for('archie')
+check("Archie's 6 purchases all resolve", len(_arch) == 6, str(len(_arch)))
+check('AP total is computed', ap_spent('archie') >= 5, str(ap_spent('archie')))
+check('lookup tolerates canon id vs shorthand',
+      len(loadout_for('archie_miser')) == 6)
+check('describe() renders', 'Shadow Dodge' in describe('archie'))
+check('missing character is handled', loadout_for('nobody_here') == [])
+check('unknown names are skipped, not fatal',
+      len(load_loadout(['Shadow Dodge', 'Not A Real Ability'])) == 1)
+_a = actor_from_record(find_character('archie'), 'defendant', Dice(seed=2))
+grant_abilities(_a, Dice(seed=2), 3)
+check('purchases are granted to the actor in play',
+      len(_a.meta.get('purchased', [])) == 6)
+check('sustain is still granted alongside', _a.ability('sustain') is not None)
+
+print('\nGLAZED CONGRESS (scale)')
+_gm, _gs, _ = play(GlazedCongressMode, {'motion': 'Test', 'size': 100}, seed=3)
+check('chamber holds 100 seats', len(_gm.seats) == 100, str(len(_gm.seats)))
+check('but only a handful speak', len(_gm.actors()) <= 12, str(len(_gm.actors())))
+check('reaches a result', _gm.result in ('CARRIED', 'FAILED'), _gm.result)
+_t = _gm.tally
+check('every seat votes exactly once',
+      _t['for'] + _t['against'] + _t['abstain'] == len(_gm.seats))
+check('resolves in a playable number of turns', len(_gs.beats) <= 60,
+      str(len(_gs.beats)))
+_chart = _gm.floor_chart()
+check('chart fits one screen at 100 seats', len(_chart.splitlines()) <= 24,
+      f'{len(_chart.splitlines())} lines')
+check('chart is bloc-level, not seat-level', 'BLOC' in _chart)
+check('swing list is surfaced', 'SWING SEATS' in _chart)
+check('bloc drill-down works',
+      'Sovereignty' in _gm.bloc_detail('Sovereignty'))
+check('leans stay in bounds', all(-100 <= x.lean <= 100 for x in _gm.seats))
+check('epilogue breaks down by bloc', 'FOR' in _gm.epilogue())
+_res = [play(GlazedCongressMode, {'motion': 'M', 'size': 100}, seed=s)[0].result
+        for s in range(10)]
+check('outcome is competitive at scale', 2 <= _res.count('CARRIED') <= 8,
+      f"{_res.count('CARRIED')}/10 carried")
+_small, _, _ = play(GlazedCongressMode, {'motion': 'M', 'size': 20}, seed=1)
+check('scales down to a small chamber', len(_small.seats) == 20)
 
 print('\nENTRY POINTS')
 os.environ['WAHSIM_NO_SUBTESTS'] = '1'

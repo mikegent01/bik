@@ -32,6 +32,7 @@ if __package__ in (None, ''):
     from wahsim.core.dice import Dice
     from wahsim.core.engine import Action, Session
     from wahsim.modes.congress import CongressMode
+    from wahsim.modes.glazed import GlazedCongressMode
     from wahsim.modes.scene import SceneMode, direct_scene
     from wahsim.modes.trial import TrialMode
 else:
@@ -39,10 +40,12 @@ else:
     from .core.dice import Dice
     from .core.engine import Action, Session
     from .modes.congress import CongressMode
+    from .modes.glazed import GlazedCongressMode
     from .modes.scene import SceneMode, direct_scene
     from .modes.trial import TrialMode
 
-MODES = {'trial': TrialMode, 'congress': CongressMode, 'scene': SceneMode}
+MODES = {'trial': TrialMode, 'congress': CongressMode,
+         'glazed': GlazedCongressMode, 'scene': SceneMode}
 
 
 class Game:
@@ -159,6 +162,21 @@ class Game:
         clocks = [{'name': c.name, 'filled': c.filled, 'size': c.size,
                    'pct': round(c.pct * 100)} for c in getattr(m, 'clocks', [])]
 
+        blocs = None
+        if hasattr(m, 'blocs'):
+            blocs = []
+            for b in sorted(m.blocs.values(), key=lambda x: -x.mean):
+                if not b.seats:
+                    continue
+                fo, ag, un = b.count()
+                blocs.append({'name': b.name, 'creed': b.creed, 'for': fo,
+                              'against': ag, 'undecided': un,
+                              'seats': len(b.seats), 'mean': round(b.mean)})
+        swing = None
+        if hasattr(m, 'swing_list'):
+            swing = [{'name': x.name, 'bloc': x.bloc, 'lean': round(x.lean)}
+                     for x in m.swing_list()[:10]]
+
         chart = None
         if hasattr(m, 'delegates'):
             chart = [{'name': d.actor.name, 'bloc': d.bloc,
@@ -179,6 +197,9 @@ class Game:
             'status': m.status(),
             'clocks': clocks,
             'chart': chart,
+            'blocs': blocs,
+            'swing': swing,
+            'seat_count': len(getattr(m, 'seats', []) or []),
             'finished': finished,
             'epilogue': m.epilogue() if finished else '',
             'current': None if not actor else {
@@ -291,7 +312,8 @@ background:var(--bg2);padding:12px;border-radius:9px;border:1px solid var(--bd);
       <label>Mode</label>
       <select id="mode" onchange="modeChanged()">
         <option value="trial">⚖️ Trial</option>
-        <option value="congress">🏛️ Congress</option>
+        <option value="congress">🏛️ Congress (9 seats)</option>
+        <option value="glazed">🍩 Glazed Congress (100 seats)</option>
         <option value="scene">🎭 Scene</option>
       </select>
 
@@ -303,6 +325,12 @@ background:var(--bg2);padding:12px;border-radius:9px;border:1px solid var(--bd);
         <label>You play</label>
         <select id="side"><option value="defense">Defence</option>
         <option value="prosecution">Prosecution</option></select>
+      </div>
+
+      <div id="fGlazed" class="hide">
+        <label>The motion</label>
+        <textarea id="gmotion">Ratification of the Species Recognition Compact</textarea>
+        <label>Chamber size</label><input id="gsize" type="number" value="100" min="20" max="120">
       </div>
 
       <div id="fCongress" class="hide">
@@ -345,21 +373,26 @@ background:var(--bg2);padding:12px;border-radius:9px;border:1px solid var(--bd);
   <!-- RIGHT -->
   <div>
     <div class="card hide" id="cTurn">
-      <h3>Your move</h3>
-      <div id="turnWho" style="font-weight:700;margin-bottom:8px"></div>
+      <h3 id="turnHead">Your move</h3>
+      <div id="turnWho" style="font-weight:700;margin-bottom:4px"></div>
+      <div id="turnHint" style="font-size:12px;color:var(--mu);margin-bottom:9px"></div>
+
+      <label>1 · What do you say <span style="text-transform:none">(blank = improvise)</span></label>
+      <textarea id="say" placeholder="Your Honour, the record disagrees…"
+        onkeydown="sayKey(event)"></textarea>
+      <div style="font-size:11px;color:var(--mu);margin:3px 0 10px">
+        Ctrl+Enter picks the first action.</div>
+
+      <label>2 · Choose an action</label>
       <div id="opts"></div>
-      <label>What do you say (blank = improvise)</label>
-      <textarea id="say"></textarea>
-      <div class="row">
-        <button class="ghost" onclick="advance()" id="btnAdv">Advance AI ▸</button>
-      </div>
-    </div>
-    <div class="card hide" id="cWait">
-      <h3>AI turn</h3>
-      <div style="color:var(--mu);font-size:12.5px" id="waitWho"></div>
-      <div class="row">
-        <button onclick="advance()" style="flex:1">Next turn ▸</button>
+
+      <div class="row" id="aiRow">
+        <button onclick="advance()" id="btnNext">Next turn ▸</button>
         <button class="ghost" onclick="runToMe()">Run to my turn ⏩</button>
+        <label style="display:flex;align-items:center;gap:6px;text-transform:none;
+          font-size:12px;color:var(--mu);margin:0">
+          <input type="checkbox" id="autoAI" checked style="width:auto"> auto-run AI
+        </label>
       </div>
     </div>
     <div class="card hide" id="cCast"><h3>Cast</h3><div id="cast"></div></div>
@@ -380,6 +413,7 @@ function modeChanged(){
   const m=$('mode').value;
   $('fTrial').className   = m==='trial'?'':'hide';
   $('fCongress').className= m==='congress'?'':'hide';
+  $('fGlazed').className  = m==='glazed'?'':'hide';
   $('fScene').className   = m==='scene'?'':'hide';
 }
 async function checkLM(){
@@ -398,16 +432,30 @@ async function start(){
     spec.player_side=$('side').value;spec.witness_count=3;}
   if(m==='congress'){spec.motion=$('motion').value;
     spec.delegate_count=parseInt($('dcount').value)||9;}
+  if(m==='glazed'){spec.motion=$('gmotion').value;
+    spec.size=parseInt($('gsize').value)||100;}
   if(m==='scene'){spec.premise=$('premise').value;spec.play=true;}
   S=await api('/api/start',{mode:m,seed:$('seed').value,live:$('live').checked,spec:spec});
-  render();
+  render(); maybeAuto();
 }
 async function advance(){ S=await api('/api/step',{}); render(); }
 async function runToMe(){ S=await api('/api/auto',{}); render(); }
 async function choose(i){
   S=await api('/api/step',{choice:i,text:$('say').value});
-  $('say').value=''; render();
-  if(!S.finished && S.current && !S.current.is_player) setTimeout(runToMe,120);
+  $('say').value=''; render(); maybeAuto();
+}
+function sayKey(e){
+  if(e.key==='Enter' && (e.ctrlKey||e.metaKey)){
+    e.preventDefault();
+    if(S.options && S.options.length) choose(0);
+  }
+}
+// If it is not the player's turn, run the AI forward automatically so the
+// human never has to hunt for a button to reach their own move.
+function maybeAuto(){
+  if(!S.started || S.finished) return;
+  if(!$('autoAI') || !$('autoAI').checked) return;
+  if(S.current && !S.current.is_player) setTimeout(runToMe, 220);
 }
 function reset(){ S={}; $('setup').className='card'; render(); }
 
@@ -435,8 +483,30 @@ function render(){
       <span>${c.filled}/${c.size}</span></div>
       <div class="bar"><i style="width:${c.pct}%"></i></div></div>`).join('');
   }
-  // congress floor
-  if(S.chart){
+  // large chamber: bloc whip board (keeps 100 seats to one screen)
+  if(S.blocs && S.blocs.length){
+    $('cChart').className='card';
+    $('chart').innerHTML =
+      `<div style="font-size:11px;color:var(--mu);margin-bottom:8px">
+        ${S.seat_count} delegations · ${S.blocs.length} blocs</div>` +
+      S.blocs.map(b=>{
+        const n=Math.max(1,b.seats), f=b['for']/n*100, u=b.undecided/n*100, a=b.against/n*100;
+        return `<div style="margin-bottom:9px" title="${esc(b.creed)}">
+          <div style="display:flex;justify-content:space-between;font-size:11.5px">
+            <b>${esc(b.name)}</b>
+            <span style="color:var(--mu)">${b['for']}/${b.undecided}/${b.against}</span></div>
+          <div style="display:flex;height:9px;border-radius:99px;overflow:hidden;
+            border:1px solid var(--bd);margin-top:3px">
+            <i style="width:${f}%;background:var(--gd)"></i>
+            <i style="width:${u}%;background:var(--panel2)"></i>
+            <i style="width:${a}%;background:var(--bd2)"></i></div></div>`;}).join('') +
+      (S.swing && S.swing.length ? `<div style="margin-top:10px;font-size:11px;
+        color:var(--ac2);text-transform:uppercase;letter-spacing:.1em">Swing seats</div>`
+        + S.swing.slice(0,6).map(x=>`<div style="font-size:11.5px;color:var(--mu)">
+          ${x.lean>0?'+':''}${x.lean} · ${esc(x.name)}</div>`).join('') : '');
+  }
+  // small congress floor
+  else if(S.chart){
     $('cChart').className='card';
     $('chart').innerHTML=S.chart.map(d=>{
       const pos=((d.lean+100)/200*100).toFixed(1);
@@ -457,19 +527,26 @@ function render(){
   }).join('') : '<div style="color:var(--mu)">Nothing yet.</div>';
   $('log').scrollTop=$('log').scrollHeight;
 
-  // turn panels
+  // turn panel — always visible during play; the composer is never hidden.
   const me = S.current && S.current.is_player && !S.finished;
-  $('cTurn').className = me?'card':'card hide';
-  $('cWait').className = (!me && !S.finished && S.current)?'card':'card hide';
-  if(me){
-    $('turnWho').textContent=S.current.name+' — composure '
-      +S.current.composure+'/'+S.current.max;
-    $('opts').innerHTML=S.options.map(o=>
-      `<button class="opt" onclick="choose(${o.i})">${esc(o.label)}
-       ${o.hint?`<small>${esc(o.hint)}</small>`:''}</button>`).join('');
-  } else if(S.current){
-    $('waitWho').textContent=S.current.name+' ('+S.current.role+') is acting.';
+  $('cTurn').className = (S.finished || !S.current) ? 'card hide' : 'card';
+  $('turnHead').textContent = me ? 'Your move' : 'AI turn';
+  $('aiRow').style.display = me ? 'none' : 'flex';
+  const say = $('say');
+  say.disabled = !me;
+  say.style.opacity = me ? '1' : '.45';
+  if(S.current){
+    $('turnWho').textContent = S.current.name
+      + (me ? ' — composure '+S.current.composure+'/'+S.current.max : '');
+    $('turnHint').textContent = me
+      ? 'Type a line (optional), then pick an action below.'
+      : S.current.name+' ('+S.current.role+') is acting.';
   }
+  $('opts').innerHTML = me ? S.options.map(o=>
+      `<button class="opt" onclick="choose(${o.i})">${esc(o.label)}
+       ${o.hint?`<small>${esc(o.hint)}</small>`:''}</button>`).join('')
+    : '<div style="font-size:12px;color:var(--mu)">Waiting for the AI…</div>';
+  if(me) setTimeout(()=>{try{say.focus();}catch(e){}}, 30);
 
   // cast
   $('cCast').className='card';

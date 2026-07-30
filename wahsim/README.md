@@ -15,7 +15,8 @@ delegations keep their real blocs, influence and reliability ratings.
 # From the repo root (bik/):
 python -m wahsim --gui             # browser GUI  → http://localhost:8765
 python -m wahsim                   # terminal menu
-python -m wahsim congress --auto   # watch the AI run a whole vote
+python -m wahsim congress --auto   # 9-seat chamber
+python -m wahsim glazed --auto     # the full 100-seat Glazed Congress
 python -m wahsim --check           # test the LM Studio connection
 python -m wahsim.test_wahsim       # 69 tests
 
@@ -102,6 +103,42 @@ roll call resolves.
     ········●·|·········    -13  Internet Federation   Non-Aligned
 ```
 
+### 🍩 Glazed Congress — the full chamber
+
+The founding session of 1026, at scale: **100 delegations across 7 blocs.**
+
+This one exists because of a display problem worth naming. One row per
+delegation is fine at 9 seats and unusable at 100 — that's ~2,200px of chart
+(2.4 screens), no way to find who matters, and lobbying seats one at a time
+would take 100 turns to move the room once.
+
+So the mode changes the **unit of play**:
+
+| | Congress (9) | Glazed (100) |
+|---|---|---|
+| Display | one row per seat | one bar per **bloc** |
+| Verbs | lobby a delegation | **whip a bloc**, work the **swing list** |
+| Speakers | everyone | the 8 highest-influence seats |
+| Chart height | 9 rows | ~20 rows *at any chamber size* |
+
+```
+  THE CHAMBER — 100 delegations, 7 blocs
+  BLOC                FOR/UND/AGN   WHIP BOARD
+  Progressive Bloc    8/8/0         ████████████░░░░░░░░░░░░ +16
+  Mercantile League   4/10/3        ██████░░░░░░░░░░░░░░▓▓▓▓  +5
+  Sovereignty Bloc    0/10/6        ░░░░░░░░░░░░░░░▓▓▓▓▓▓▓▓▓ -15
+  █ for   ░ undecided   ▓ against
+
+  SWING SEATS (93 still moveable, top 8):
+        +1  Halden Holds                 Arcane Concord
+        -2  Tessin Sovereignty           Mercantile League
+```
+
+Only the **swing seats** can still decide the vote, so those are surfaced and
+the settled ones are hidden. `bloc_detail('Sovereignty')` drills into any bloc
+on demand. Result: a 100-seat chamber reads in one screen and resolves in ~40
+turns, with a per-bloc breakdown at the end.
+
 ### 🎭 Scene
 Describe anything; the **Director** casts it and invents objectives. It matches
 named canon characters and infers roles from nouns it finds in your sentence
@@ -137,9 +174,33 @@ no hand-authoring.
 **Composure** is the pressure track: below 6 is `−1 shaken`, below 3 is
 `−3 rattled`, applied automatically to every roll.
 
-**Abilities** are generated per actor, weighted to their best skills, with
-limited charges and tags (`aggressive` / `risky` / `political` / `defensive`)
-so modes react to the *kind* of move.
+**Abilities** come from the real ability shop. `core/abilities.py` translates
+the 895 canon records in `abilityShop.json` into playable moves — the shop's own
+`type`, `class`, `apCost`, `level` and `rules.uses` decide the skill, bonus,
+charges and tags, so nothing is hand-tuned twice.
+
+Purchases live in `wahsim/data/purchases.json` and are granted automatically
+whenever that character appears:
+
+```json
+{"archie": {"bought": [
+  {"vendor": "Smokin' J", "abilities": ["Shadow Dodge", "Hidden Potential"]},
+  {"vendor": "Salem",     "abilities": ["Sharpshooter's Edge", "Guardian's Vigil"]},
+  {"vendor": "Roger",     "abilities": ["Bullet Speed", "Bullet Swift"]}]}}
+```
+
+```
+$ python -c "from wahsim.core.abilities import describe; print(describe('archie'))"
+Archie Archbold Miser — 5 AP spent
+  from Smokin' J:
+    • Shadow Dodge (spy, stealth, 1 AP) → deception +2
+    • Hidden Potential (commoner, utility) → recall +3
+  from Salem:
+    • Sharpshooter's Edge (fighter, combat, 1 AP) → intimidate +2
+```
+
+Only the name and vendor need recording — everything else is read from canon.
+Actors without a sheet still get generated abilities weighted to their skills.
 
 ---
 
@@ -158,9 +219,13 @@ wahsim/
     engine.py      Session, Phase, Clock, Action, Beat + protocols
     brain.py       ScriptedBrain + LMStudioBrain
     roster.py      canon loader, stat inference, ability granting
+  data/
+    purchases.json   who bought which abilities, from whom
+  core/
+    abilities.py     translates abilityShop.json into playable moves
   modes/
-    trial.py  congress.py  scene.py
-  test_wahsim.py   69 tests
+    trial.py  congress.py  glazed.py  scene.py
+  test_wahsim.py   98 tests
 ```
 
 The engine owns turn order, transcript and clocks. Modes own the fiction.
@@ -202,11 +267,14 @@ seeds, both AI backends **and the GUI** for free. Optional hooks:
 
 ## Tests
 
-`python -m wahsim.test_wahsim` — 69 assertions covering dice invariants
+`python -m wahsim.test_wahsim` — 98 assertions covering dice invariants
 (nat-1 always botches, advantage keeps the high die), composure feedback,
 ability exhaustion, canon lookup, clock bounds, replay determinism,
 early-exit epilogues, LM Studio fallback behaviour, GUI state serialisation and
-a full GUI playthrough, **entry-point guards** (every runnable file must import
+ability translation from canon (including that Archie's six real purchases all
+resolve exactly), **Glazed scale guards** (100 seats must still chart in under
+24 lines and resolve in under 60 turns), a full GUI playthrough,
+**entry-point guards** (every runnable file must import
 cleanly both as `python file.py` and as `python -m ...`) — plus **balance
 sweeps**: 24 congress and 12 trial sessions asserting outcomes stay competitive
 rather than fixed.
