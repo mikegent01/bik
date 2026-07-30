@@ -121,6 +121,9 @@ class Phase:
     description: str = ''
     max_rounds: int = 0             # 0 = until the mode says otherwise
     order: list[str] = field(default_factory=list)   # actor keys, empty = all
+    # Some phases have a legally fixed sequence (opening and closing statements
+    # go prosecution-then-defence by rule). Those opt out of initiative.
+    rolled: bool = True
 
 
 class Mode(Protocol):
@@ -149,19 +152,85 @@ class Session:
         self.round = 1
         self.turn_idx = 0
         self._phases = mode.phases()
+        self._order: list[Actor] | None = None
+        self.sat_out: list[Actor] = []
 
     # -- phase / turn plumbing ---------------------------------------------
     @property
     def phase(self) -> Phase:
         return self._phases[min(self.phase_idx, len(self._phases) - 1)]
 
-    def turn_order(self) -> list[Actor]:
+    def eligible(self) -> list[Actor]:
+        """Everyone the phase allows to act, before initiative is rolled."""
         keys = self.phase.order
         actors = self.mode.actors()
         if not keys:
             return [a for a in actors if a.composure > 0 or a.is_player]
         by_key = {a.key: a for a in actors}
         return [by_key[k] for k in keys if k in by_key]
+
+    def roll_initiative(self) -> list[Actor]:
+        """Roll turn order for the round, weighted by energy.
+
+        d6 + energy. A natural 1 on an exhausted actor means they sit the
+        round out — which keeps the spotlight on whoever still has drive
+        instead of marching through a cast of seven every round.
+
+        Essential actors (judge, chair, the player, anyone the mode marks)
+        can never be skipped: they always act, and they floor at initiative 1.
+        """
+        self.sat_out = []
+        if not self.phase.rolled:
+            # Fixed-sequence phase: keep the declared order, roll nothing.
+            self._order = self.eligible()
+            for a in self._order:
+                a.initiative = 0
+            return self._order
+
+        rolled: list[tuple[int, int, Actor]] = []
+        for a in self.eligible():
+            protected = a.essential or a.is_player
+            face = self.dice.d(6)[0]
+            score = face + a.energy
+
+            if not protected and (face == 1 or a.energy <= 0):
+                a.initiative = 0
+                a.skipped += 1
+                self.sat_out.append(a)
+                continue
+
+            if protected:
+                score = max(1, score)
+            a.initiative = score
+            a.skipped = 0
+            # Tie-break on presence so the commanding voice speaks first.
+            rolled.append((score, a.attr_mod('presence'), a))
+
+        rolled.sort(key=lambda t: (-t[0], -t[1]))
+        self._order = [a for _, _, a in rolled]
+        # A round with nobody in it would deadlock; fall back to the essentials.
+        if not self._order:
+            self._order = [a for a in self.eligible() if a.essential or a.is_player] \
+                          or self.eligible()[:1]
+        return self._order
+
+    def turn_order(self) -> list[Actor]:
+        if self._order is None:
+            self.roll_initiative()
+        return self._order
+
+    def initiative_table(self) -> str:
+        """Readable roll-off, so the order is never mysterious."""
+        rows = []
+        fixed = not self.phase.rolled
+        for i, a in enumerate(self.turn_order(), 1):
+            star = ' ★' if (a.essential or a.is_player) else ''
+            init = 'fixed order' if fixed else f'init {a.initiative}'
+            rows.append(f'    {i}. {a.name} ({a.role}) — {init}'
+                        f'  {a.energy_bar}{star}')
+        for a in getattr(self, 'sat_out', []):
+            rows.append(f'    –  {a.name} ({a.role}) sits out — no energy')
+        return '\n'.join(rows)
 
     @property
     def current(self) -> Actor | None:
@@ -173,14 +242,28 @@ class Session:
     def advance(self):
         """Move to the next actor, rolling over rounds and phases."""
         order = self.turn_order()
+        # Acting costs energy; sitting out restores it.
+        cur = order[self.turn_idx % len(order)] if order else None
+        if cur is not None:
+            # Acting costs 2; the per-round refresh gives back 1, so a
+            # delegate who speaks every round drains and eventually yields
+            # the floor. Sitting out is worth +3, so nobody is gone for long.
+            cur.spend_energy(2)
         self.turn_idx += 1
         if order and self.turn_idx % len(order) == 0:
             self.round += 1
+            for a in self.mode.actors():
+                a.recover_energy(1)
+            for a in getattr(self, 'sat_out', []):
+                a.recover_energy(3)
             hook = getattr(self.mode, 'on_round_end', None)
             if hook:
                 hook(self.round)
             if self.phase.max_rounds and self.round > self.phase.max_rounds:
                 self.next_phase()
+            else:
+                self.turn_idx = 0
+                self.roll_initiative()
 
     def next_phase(self):
         if self.phase_idx < len(self._phases) - 1:
@@ -195,8 +278,8 @@ class Session:
             self.phase_idx += 1
             self.round = 1
             self.turn_idx = 0
-
-            new_order = self.turn_order()
+            self._order = None
+            new_order = self.roll_initiative()
             if (last_actor is not None and len(new_order) > 1
                     and new_order[0].key == last_actor.key):
                 self.turn_idx = 1

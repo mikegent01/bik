@@ -202,6 +202,13 @@ class GlazedCongressMode:
         self.chair = generate_actor('judge', d, name=spec.get('chair', 'The Chair'),
                                     faction='Chamber', power=2)
         self.chair.role = 'chair'
+        self.chair.essential = True
+        self.sponsor.essential = True
+        # The single most powerful delegation always gets the floor.
+        _lead = max((x for x in self.seats if x.actor),
+                    key=lambda x: x.influence, default=None)
+        if _lead and _lead.actor:
+            _lead.actor.essential = True
         self._actors.append(self.chair)
 
     # ----------------------------------------------------------------- config
@@ -211,7 +218,7 @@ class GlazedCongressMode:
         return [
             Phase('tabling', 'Tabling the Motion',
                   f'The sponsor puts the question to {len(self.seats)} delegations.',
-                  max_rounds=1, order=[self.sponsor.key]),
+                  max_rounds=1, rolled=False, order=[self.sponsor.key]),
             Phase('debate', 'General Debate',
                   'Bloc leaders speak. Whole blocs move at once.',
                   max_rounds=3, order=floor),
@@ -219,7 +226,7 @@ class GlazedCongressMode:
                   'Work the blocs and the swing seats before the bell.',
                   max_rounds=3, order=[self.sponsor.key] + floor[1:4]),
             Phase('rollcall', 'Roll Call',
-                  f'All {len(self.seats)} delegations vote.', max_rounds=1,
+                  f'All {len(self.seats)} delegations vote.', max_rounds=1, rolled=False,
                   order=[self.chair.key]),
         ]
 

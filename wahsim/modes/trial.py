@@ -110,6 +110,13 @@ class TrialMode:
         self.defendant = cast('witness', spec.get('defendant', ''), power=0)
         self.defendant.role = 'defendant'
 
+        # The court cannot proceed without these three, so initiative may
+        # never skip them however tired they get.
+        for _a in (self.judge, self.prosecutor, self.defense):
+            _a.essential = True
+        self.judge.max_energy += 4
+        self.judge.energy = self.judge.max_energy
+
         # Witnesses
         names = spec.get('witnesses') or []
         count = max(2, min(4, spec.get('witness_count', 3)))
@@ -140,7 +147,7 @@ class TrialMode:
         return [
             Phase('opening', 'Opening Statements',
                   'Each side frames the case. Sets the room before a single fact lands.',
-                  max_rounds=1,
+                  max_rounds=1, rolled=False,
                   order=[self.prosecutor.key, self.defense.key]),
             Phase('evidence', 'Presentation of Evidence',
                   'Admit, contest and interpret the exhibits.',
@@ -151,10 +158,10 @@ class TrialMode:
                   max_rounds=4),
             Phase('closing', 'Closing Arguments',
                   'Last word. Whatever the clocks say now is what the verdict weighs.',
-                  max_rounds=1,
+                  max_rounds=1, rolled=False,
                   order=[self.prosecutor.key, self.defense.key]),
             Phase('verdict', 'Verdict', 'The bench rules.', max_rounds=1,
-                  order=[self.judge.key]),
+                  rolled=False, order=[self.judge.key]),
         ]
 
     def actors(self) -> list[Actor]:

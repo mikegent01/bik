@@ -86,6 +86,14 @@ class Actor:
     # Volatile state
     composure: int = 10
     max_composure: int = 10
+    # Initiative economy. `energy` is how much drive this actor has left to
+    # take turns; `essential` actors (judge, chair, the player) can never be
+    # skipped no matter how tired they are.
+    energy: int = 6
+    max_energy: int = 6
+    essential: bool = False
+    initiative: int = 0          # last rolled initiative, for display
+    skipped: int = 0             # consecutive rounds sat out
     conditions: list[str] = field(default_factory=list)
     memory: list[str] = field(default_factory=list)   # what this actor has seen
     stance: str = 'neutral'
@@ -123,6 +131,18 @@ class Actor:
                 return a
         return None
 
+    # -- initiative economy -------------------------------------------------
+    def spend_energy(self, n: int = 1) -> None:
+        self.energy = max(0, self.energy - n)
+
+    def recover_energy(self, n: int = 1) -> None:
+        self.energy = min(self.max_energy, self.energy + n)
+
+    @property
+    def energy_bar(self) -> str:
+        f = round(self.energy / max(1, self.max_energy) * 6)
+        return '◆' * f + '◇' * (6 - f)
+
     def bruise(self, amount: int) -> int:
         """Lose composure. Returns actual amount lost."""
         before = self.composure
@@ -154,7 +174,9 @@ class Actor:
             top = sorted(self.skills.items(), key=lambda kv: -kv[1])[:5]
             lines.append('  skills: ' + ', '.join(
                 f'{k.replace("_", " ")} {v:+d}' for k, v in top))
-        lines.append(f'  composure {self.composure_bar} {self.composure}/{self.max_composure}')
+        lines.append(f'  composure {self.composure_bar} {self.composure}/{self.max_composure}'
+                     f'   energy {self.energy_bar} {self.energy}/{self.max_energy}'
+                     + ('  ★essential' if self.essential else ''))
         for ab in self.abilities:
             lines.append(f'   • [{ab.charges}] {ab.name} — {ab.description}')
         return '\n'.join(lines)
@@ -184,8 +206,10 @@ def build_actor(
             base -= dice.rng.randint(1, 3)
         attrs[a] = max(1, min(10, base + dice.rng.randint(-1, 1)))
     comp = 8 + attrs['resolve'] // 2
+    nrg = 2 + (attrs['resolve'] + attrs['presence']) // 5
     return Actor(
         key=key, name=name, role=role, faction=faction, blurb=blurb,
         attrs=attrs, skills=dict(skills or {}), is_player=is_player,
         composure=comp, max_composure=comp,
+        energy=nrg, max_energy=nrg,
     )

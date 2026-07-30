@@ -158,7 +158,9 @@ class Game:
                 order.append({'name': x.name, 'role': x.role,
                               'player': bool(x.is_player),
                               'now': x.key == (actor.key if actor else None),
-                              'n': i + 1})
+                              'n': i + 1, 'init': x.initiative,
+                              'energy': x.energy, 'max_energy': x.max_energy,
+                              'essential': bool(x.essential)})
         except Exception:                                # noqa: BLE001
             order = []
 
@@ -208,6 +210,8 @@ class Game:
             'phase_desc': s.phase.description,
             'round': s.round,
             'order': order,
+            'sat_out': [{'name': x.name, 'role': x.role}
+                        for x in getattr(s, 'sat_out', [])],
             'status': m.status(),
             'clocks': clocks,
             'chart': chart,
@@ -387,7 +391,7 @@ background:var(--bg2);padding:12px;border-radius:9px;border:1px solid var(--bd);
   <!-- RIGHT -->
   <div>
     <div class="card hide" id="cOrder">
-      <h3>Turn order · <span id="ordPhase" style="color:var(--mu)"></span></h3>
+      <h3>🎲 Initiative · <span id="ordPhase" style="color:var(--mu)"></span></h3>
       <div id="order"></div>
     </div>
     <div class="card hide" id="cTurn">
@@ -560,11 +564,16 @@ function render(){
         border:1px solid var(--bd);border-radius:8px;margin-bottom:5px;
         font-size:12px;${now}">
         <b style="color:var(--mu);width:14px">${o.n}</b>
-        <span style="flex:1">${esc(o.name)}${o.player?' ◀ you':''}</span>
-        <span style="color:var(--mu);font-size:10.5px;text-transform:uppercase">
-          ${esc(o.role)}</span>
+        <span style="flex:1">${esc(o.name)}${o.player?' ◀ you':''}${o.essential?' ★':''}</span>
+        <span title="initiative" style="color:var(--ac2);font-weight:700">${o.init}</span>
+        <span title="energy" style="color:var(--gd);font-size:10px">
+          ${'◆'.repeat(Math.round(o.energy/Math.max(1,o.max_energy)*4))
+           +'◇'.repeat(4-Math.round(o.energy/Math.max(1,o.max_energy)*4))}</span>
         ${o.now?'<span style="color:var(--ac2);font-weight:800">NOW</span>':''}
-      </div>`;}).join('');
+      </div>`;}).join('')
+      + ((S.sat_out&&S.sat_out.length)
+        ? `<div style="font-size:11px;color:var(--mu);margin-top:6px">
+           sitting out: ${S.sat_out.map(x=>esc(x.name)).join(', ')}</div>` : '');
   } else { $('cOrder').className='card hide'; }
 
   // turn panel — always visible during play; the composer is never hidden.

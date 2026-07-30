@@ -99,16 +99,8 @@ def run(session: Session, auto: bool = False, show_dice: bool = True):
             last_phase = session.phase.key
             head(f'PHASE — {session.phase.name}')
             print(wrap(session.phase.description))
-            _order = session.turn_order()
-            if _order:
-                print()
-                print('  TURN ORDER THIS PHASE:')
-                for _i, _a in enumerate(_order, 1):
-                    _me = '  ◀ you' if _a.is_player else ''
-                    print(f'    {_i}. {_a.name} ({_a.role}){_me}')
-                _rounds = session.phase.max_rounds
-                print(f'    …repeating for {_rounds} round(s)' if _rounds
-                      else '    …repeating until the phase ends')
+            _rounds = session.phase.max_rounds
+            print(f'  {_rounds} round(s)' if _rounds else '  runs until resolved')
             hook = getattr(mode, 'on_phase_start', None)
             if hook and session.round == 1:
                 hook(session.phase)
@@ -118,6 +110,15 @@ def run(session: Session, auto: bool = False, show_dice: bool = True):
         print()
         rule()
         _o = session.turn_order()
+        # Initiative is re-rolled each round; show the roll-off once per round.
+        _tag = (session.phase.key, session.round)
+        if getattr(session, '_shown_init', None) != _tag:
+            session._shown_init = _tag
+            print()
+            _lbl = ('🎲 INITIATIVE' if session.phase.rolled
+                    else '📋 FIXED ORDER')
+            print(f'  {_lbl} — {session.phase.name}, round {session.round}')
+            print(session.initiative_table())
         _seat = (_o.index(actor) + 1) if actor in _o else 1
         print(f'  {session.phase.name} · round {session.round} · '
               f'turn {_seat}/{len(_o) or 1} — {actor.name} ({actor.role})')

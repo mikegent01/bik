@@ -143,6 +143,8 @@ class CongressMode:
         self.chair = generate_actor('judge', d, name=spec.get('chair', 'The Chair'),
                                     faction='Chamber', power=2)
         self.chair.role = 'chair'
+        self.chair.essential = True
+        self.sponsor.essential = True
         self._actors.append(self.chair)
 
     # ----------------------------------------------------------------- config
@@ -151,7 +153,7 @@ class CongressMode:
         return [
             Phase('tabling', 'Tabling the Motion',
                   'The sponsor puts the question. First impressions set the leans.',
-                  max_rounds=1, order=[self.sponsor.key]),
+                  max_rounds=1, rolled=False, order=[self.sponsor.key]),
             Phase('debate', 'General Debate',
                   'Delegations speak. Leans move. Blocs drag their members.',
                   max_rounds=3, order=floor),
@@ -160,7 +162,7 @@ class CongressMode:
                   max_rounds=2, order=[self.sponsor.key] + [
                       d.actor.key for d in self.delegates if not d.locked][:5]),
             Phase('rollcall', 'Roll Call', 'Positions lock. The chamber votes.',
-                  max_rounds=1, order=[self.chair.key]),
+                  max_rounds=1, rolled=False, order=[self.chair.key]),
         ]
 
     def actors(self) -> list[Actor]:

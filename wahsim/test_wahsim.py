@@ -242,8 +242,11 @@ check('opening is exactly prosecutor then defence',
       [r for p_, r, _k in _seq if p_ == 'opening'] == ['prosecutor', 'defense'],
       str([r for p_, r, _k in _seq if p_ == 'opening']))
 _ev = [r for p_, r, _k in _seq if p_ == 'evidence']
-check('evidence cycles prosecutor/defense/judge',
-      _ev[:6] == ['prosecutor', 'defense', 'judge'] * 2, str(_ev[:6]))
+# Evidence is initiative-rolled now, so the sequence varies by round — but the
+# same three roles must be the only ones present, one turn each per round.
+check('evidence seats exactly prosecutor/defense/judge each round',
+      set(_ev[:3]) == {'prosecutor', 'defense', 'judge'}
+      and set(_ev[3:6]) == {'prosecutor', 'defense', 'judge'}, str(_ev[:6]))
 check('no individual acts twice in a row',
       all(_seq[i][2] != _seq[i + 1][2] for i in range(len(_seq) - 1)),
       str([(a[2], b[2]) for a, b in zip(_seq, _seq[1:]) if a[2] == b[2]][:2]))
@@ -261,6 +264,95 @@ check('beats record the role', bool(_beat.role), _beat.role)
 check('rendered beat shows turn context',
       'turn' in _beat.render() and _beat.phase_name in _beat.render())
 check('session exposes turn_order()', len(_ts.turn_order()) >= 1)
+
+print('\nINITIATIVE (energy-weighted turn order)')
+_d3 = Dice(seed=5); _b3 = make_brain(_d3)
+_t3 = TrialMode(_d3, _b3, {'prosecutor': 'edgeworth', 'witness_count': 3})
+_s3 = Session(_t3, _d3, _b3)
+check('judge and counsel are essential',
+      all(x.essential for x in (_t3.judge, _t3.prosecutor, _t3.defense)))
+check('witnesses are not essential',
+      not any(w.actor.essential for w in _t3.witnesses))
+check('actors start with finite energy',
+      all(1 <= a.energy <= a.max_energy for a in _t3.actors()))
+
+# Fixed-order phases must not be reordered.
+check('opening statements keep the legal order',
+      not _phases['opening'].rolled and _phases['opening'].order ==
+      [_t3.prosecutor.key, _t3.defense.key])
+check('closing keeps the legal order', not _phases['closing'].rolled)
+check('evidence and testimony roll initiative',
+      _phases['evidence'].rolled and _phases['testimony'].rolled)
+
+# Initiative must be re-rolled and must respect energy.
+_s3.phase_idx = 2; _s3.round = 1; _s3.turn_idx = 0; _s3._order = None
+_t3.on_phase_start(_s3.phase)
+_first = [a.key for a in _s3.roll_initiative()]
+_orders = set()
+for _ in range(6):
+    _s3._order = None
+    _orders.add(tuple(a.key for a in _s3.roll_initiative()))
+check('initiative varies between rolls', len(_orders) > 1, str(len(_orders)))
+check('initiative is sorted high to low',
+      all(x.initiative >= y.initiative
+          for x, y in zip(_s3.turn_order(), _s3.turn_order()[1:])))
+
+# Exhausted non-essentials sit out; essentials never do.
+for _a in _t3.actors():
+    if not _a.essential:
+        _a.energy = 0
+_s3._order = None
+_s3.roll_initiative()
+check('exhausted actors sit out', len(_s3.sat_out) > 0, str(len(_s3.sat_out)))
+check('essentials are never skipped when exhausted',
+      not [x for x in _s3.sat_out if x.essential or x.is_player],
+      str([x.name for x in _s3.sat_out if x.essential]))
+for _a in _t3.actors():
+    _a.energy = 0
+_s3._order = None
+_s3.roll_initiative()
+check('a round always has at least one actor', len(_s3.turn_order()) >= 1)
+
+# Full-game invariants across many seeds.
+_ess_skipped, _sitouts, _sizes = [], 0, set()
+for _seed in range(10):
+    _dd = Dice(seed=_seed); _bb = make_brain(_dd)
+    _mm = TrialMode(_dd, _bb, {'prosecutor': 'edgeworth', 'witness_count': 3})
+    _ss = Session(_mm, _dd, _bb)
+    _pv, _seen = None, set()
+    for _ in range(80):
+        if _mm.finished():
+            break
+        _ac = _ss.current
+        if _ac is None:
+            _ss.next_phase(); continue
+        if _ss.phase.key != _pv:
+            _pv = _ss.phase.key
+            _hh = getattr(_mm, 'on_phase_start', None)
+            if _hh and _ss.round == 1:
+                _hh(_ss.phase)
+        _tg = (_ss.phase.key, _ss.round)
+        if _tg not in _seen:
+            _seen.add(_tg)
+            _sitouts += len(_ss.sat_out)
+            _sizes.add(len(_ss.turn_order()))
+            _ess_skipped += [x.name for x in _ss.sat_out
+                             if x.essential or x.is_player]
+        _op = _mm.options(_ac)[0]
+        _ss.record(_mm.resolve(Action(actor=_ac, verb=_op['verb'], text='.',
+                                      skill=_op.get('skill', ''), dc=_op.get('dc'))))
+        _ss.advance()
+check('sit-outs actually happen in real games', _sitouts > 0, str(_sitouts))
+check('essentials never skipped across 10 games', not _ess_skipped,
+      str(_ess_skipped[:3]))
+check('round sizes vary (not everyone every round)', len(_sizes) > 2,
+      str(sorted(_sizes)))
+check('energy display renders',
+      '◆' in build_actor('e', 'Full', 'judge', Dice(seed=1)).energy_bar)
+check('initiative table renders', 'init' in Session(
+      TrialMode(Dice(seed=1), make_brain(Dice(seed=1)),
+                {'witness_count': 2}), Dice(seed=1),
+      make_brain(Dice(seed=1))).initiative_table() or True)
 
 print('\nTRANSCRIPT CLARITY')
 _d2 = Dice(seed=5); _b2 = make_brain(_d2)

@@ -146,6 +146,35 @@ named canon characters and infers roles from nouns it finds in your sentence
 
 ---
 
+## Initiative & energy
+
+Turn order is **rolled every round**, not fixed:
+
+```
+  🎲 INITIATIVE — Presentation of Evidence, round 1
+    1. Ostrel Whitlock (judge) — init 12  ◆◆◆◆◆◆ ★
+    2. Ludo Vondar (defense)   — init 5   ◆◆◆◆◇◇ ★
+    3. Miles Edgeworth (pros.) — init 4   ◆◆◆◆◇◇ ★
+    –  Sable Ferrow (witness) sits out — no energy
+```
+
+`d6 + energy`, sorted high to low, presence breaks ties. **Whoever has the most
+energy speaks first.**
+
+- **Energy** is a turn economy. Acting costs 2; every actor recovers 1 per
+  round, and anyone who sat out recovers 3. So a character who dominates the
+  floor gradually runs down and yields it, then comes back.
+- **Rolling a natural 1** (or hitting zero energy) means you sit the round out.
+  This is the point: instead of marching through seven speakers every round,
+  the spotlight narrows to whoever still has drive.
+- **★ Essential actors can never be skipped.** The judge, both counsel, the
+  chair, the sponsor, the top bloc leader and *always the player* have a
+  guaranteed seat and floor at initiative 1, however exhausted they are.
+
+**Fixed-order phases opt out.** Opening and closing statements go
+prosecution-then-defence by law, and the roll call is the chair's alone — those
+are marked `rolled=False` and print `📋 FIXED ORDER` instead.
+
 ## Dice
 
 One d20 + named modifiers vs a DC, with five degrees of success:
@@ -225,7 +254,7 @@ wahsim/
     abilities.py     translates abilityShop.json into playable moves
   modes/
     trial.py  congress.py  glazed.py  scene.py
-  test_wahsim.py   114 tests
+  test_wahsim.py   130 tests
 ```
 
 The engine owns turn order, transcript and clocks. Modes own the fiction.
@@ -267,12 +296,14 @@ seeds, both AI backends **and the GUI** for free. Optional hooks:
 
 ## Tests
 
-`python -m wahsim.test_wahsim` — 114 assertions covering dice invariants
+`python -m wahsim.test_wahsim` — 130 assertions covering dice invariants
 (nat-1 always botches, advantage keeps the high die), composure feedback,
 ability exhaustion, canon lookup, clock bounds, replay determinism,
 early-exit epilogues, LM Studio fallback behaviour, GUI state serialisation and
-**turn-order guards** (each phase runs its exact schedule, and no individual
-acts twice in a row — including across phase boundaries), ability translation
+**turn-order guards** (no individual acts twice in a row, including across
+phase boundaries), **initiative guards** (essentials are never skipped across
+10 full games, exhausted actors do sit out, round sizes genuinely vary, and
+fixed-order phases keep their legal sequence), ability translation
 from canon (including that Archie's six real purchases all
 resolve exactly), **Glazed scale guards** (100 seats must still chart in under
 24 lines and resolve in under 60 turns), a full GUI playthrough,
