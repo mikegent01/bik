@@ -1,0 +1,26 @@
+{
+  "_note": "Who bought which abilities, from whom. Ability names are resolved against Reputation-Matrix2/data/abilityShop.json, so only the name and vendor need recording here — class, type, AP cost and rules all come from the canon record.",
+  "characters": {
+    "archie": {
+      "name": "Archie Archbold Miser",
+      "articleId": "archie",
+      "bought": [
+        {
+          "vendor": "Smokin' J",
+          "vendorNote": "Smoking J's AP offerings",
+          "abilities": ["Shadow Dodge", "Hidden Potential"]
+        },
+        {
+          "vendor": "Salem",
+          "vendorNote": "Salem's AP offerings",
+          "abilities": ["Sharpshooter's Edge", "Guardian's Vigil"]
+        },
+        {
+          "vendor": "Roger",
+          "vendorNote": "Roger's AP offerings",
+          "abilities": ["Bullet Speed", "Bullet Swift"]
+        }
+      ]
+    }
+  }
+}

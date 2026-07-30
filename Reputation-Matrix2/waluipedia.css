@@ -1047,3 +1047,117 @@ body.hide-walu-ambient .walu-music-panel{display:none!important}
 @media(max-width:720px){.crafting-grid{grid-template-columns:1fr}}
 .craft-price-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.craft-price-row span{border:1px solid rgba(224,180,0,.35);background:rgba(224,180,0,.10);color:var(--accent2);border-radius:999px;padding:4px 8px;font-size:11.5px;font-weight:800}.craft-buy-mini{margin-top:9px;width:100%;border:1px solid var(--border);border-radius:10px;background:linear-gradient(135deg,rgba(224,180,0,.16),rgba(138,75,255,.08));color:var(--text);padding:7px 9px;font-weight:800;cursor:pointer}.craft-buy-mini:hover{border-color:var(--accent2);transform:translateY(-1px)}.craft-market-note{border:1px solid rgba(224,180,0,.32);border-left:4px solid var(--accent2);border-radius:12px;background:linear-gradient(135deg,rgba(224,180,0,.10),rgba(138,75,255,.06)),var(--bg2);padding:12px;margin:14px 0}.craft-market-note h2{margin-top:0}.craft-market-note.mini{font-size:13px;color:var(--muted)}
 a.craft-buy-mini{display:block;text-align:center;text-decoration:none}
+
+/* ==========================================================================
+   26. ARTICLE HERO — parity pass with the What If reader
+   --------------------------------------------------------------------------
+   The What If filings looked dramatically better than ordinary articles for a
+   boring reason: their header was a tinted, accent-bordered hero block with a
+   kicker, a byline and a chip row, while every other page opened with a bare
+   <h1> on a flat card. Nothing here changes markup contracts — it restyles the
+   .art-title / .art-subtitle / .metabar / .readtime cluster that essentially
+   every view already emits, so events, characters, factions, battles, trials,
+   dynasties, votes and years all inherit the same treatment at once.
+   ========================================================================== */
+
+/* Any card that owns an .art-title is an article hero. Using :has() rather than
+   positional selectors because most views emit a .breadcrumb div before the card,
+   which breaks :first-of-type, and the card is nested one level deep in others. */
+.card:has(> .art-title),
+.card:has(> .flex-between-start > .art-title),
+.card:has(> div > .art-title){
+  position:relative;
+  border-top:4px solid var(--art-accent, var(--accent));
+  background:
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--art-accent, var(--accent)) 13%, transparent),
+      color-mix(in srgb, var(--accent2) 6%, transparent) 60%,
+      transparent),
+    var(--panel);
+  overflow:hidden;
+}
+/* Soft corner glow so the hero reads as a masthead, not just a tinted box. */
+.card:has(> .art-title)::after,
+.card:has(> .flex-between-start > .art-title)::after,
+.card:has(> div > .art-title)::after{
+  content:'';position:absolute;top:-70px;right:-70px;width:210px;height:210px;
+  background:radial-gradient(circle, color-mix(in srgb, var(--art-accent, var(--accent)) 26%, transparent), transparent 68%);
+  pointer-events:none;z-index:0;
+}
+.card:has(> .art-title) > *,
+.card:has(> .flex-between-start > .art-title) > *,
+.card:has(> div > .art-title) > *{position:relative;z-index:1}
+
+.art-title{
+  font-size:34px;line-height:1.16;margin:0 0 4px;letter-spacing:-.015em;
+  font-weight:800;
+}
+.art-subtitle{
+  color:var(--accent2);font-style:italic;margin:0 0 12px;font-size:16.5px;
+  line-height:1.45;max-width:70ch;
+}
+/* Kicker strip above the title — mirrors .wi-kicker. */
+.art-kicker{
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  font-weight:900;color:var(--art-accent, var(--accent2));margin-bottom:2px;
+}
+.metabar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px;align-items:center}
+.metabar .pill{
+  background:color-mix(in srgb, var(--art-accent, var(--accent)) 10%, var(--bg2));
+  border:1px solid color-mix(in srgb, var(--art-accent, var(--accent)) 34%, var(--border));
+  border-radius:999px;padding:3px 11px;font-size:12px;font-weight:600;
+}
+.readtime{
+  color:var(--muted);font-size:12.5px;margin-bottom:14px;
+  padding-top:10px;border-top:1px solid var(--border);
+}
+
+/* Per-type accents, set by view_article on #content. */
+[data-arttype="characters"]{--art-accent:#5aa9e6}
+[data-arttype="factions"]  {--art-accent:#e05a4a}
+[data-arttype="events"]    {--art-accent:#e0b400}
+[data-arttype="battles"]   {--art-accent:#e0724a}
+[data-arttype="locations"] {--art-accent:#2fae8a}
+[data-arttype="nations"]   {--art-accent:#3f8fd0}
+[data-arttype="races"]     {--art-accent:#7ac74f}
+[data-arttype="cultures"]  {--art-accent:#b07de0}
+[data-arttype="trials"]    {--art-accent:#c9a227}
+[data-arttype="collections"]{--art-accent:#8a4bff}
+
+/* Prose rhythm — matches .wi-prose, which was the other half of the gap. */
+.prose{font-size:15.6px;line-height:1.78;max-width:78ch}
+.prose p{margin:0 0 14px}
+.prose h2{
+  color:var(--art-accent, var(--accent));margin-top:34px;font-size:22px;
+  scroll-margin-top:84px;border-bottom:1px solid var(--border);padding-bottom:7px;
+}
+.prose h3{color:var(--accent2);margin-top:24px;font-size:17px;scroll-margin-top:84px}
+.prose strong{color:var(--accent2)}
+.prose > p:first-of-type{font-size:16.6px;line-height:1.72;color:var(--text)}
+
+/* Detail blocks get the same card language as the What If ledger rows. */
+.event-details-section{
+  background:linear-gradient(135deg, color-mix(in srgb, var(--art-accent, var(--accent)) 7%, transparent), transparent), var(--bg2);
+  border:1px solid var(--border);
+  border-left:3px solid var(--art-accent, var(--accent));
+  border-radius:12px;padding:16px 18px;margin:20px 0;
+}
+.event-details-section h4{
+  margin:0 0 10px;font-size:11.5px;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--art-accent, var(--accent2));font-weight:900;
+}
+
+/* Waluigi note blocks — align with .wi-analysis. */
+.wnote{
+  background:linear-gradient(135deg,rgba(138,75,255,.13),rgba(138,75,255,.04)),var(--bg2);
+  border:1px solid rgba(138,75,255,.42);border-left:4px solid var(--accent);
+  border-radius:11px;padding:13px 16px;margin:16px 0;font-style:italic;
+  line-height:1.7;max-width:78ch;
+}
+.wnote b{color:var(--link);font-style:normal}
+
+@media(max-width:640px){
+  .art-title{font-size:25px}
+  .art-subtitle{font-size:14.5px}
+  .prose{font-size:15px}
+}

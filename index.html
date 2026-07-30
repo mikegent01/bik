@@ -153,6 +153,70 @@
 .dock-list.bullets.danger li::before{content:'⚠';color:#e0574a;font-size:11px}
 .dock-list.bullets.good li::before{content:'✓';color:#4a9c6d}
 @media(max-width:640px){.spec-list.two-col{grid-template-columns:1fr}}
+
+/* ================= WHAT IF ARCHIVE ================= */
+.wi-hero{background:linear-gradient(135deg,rgba(224,180,0,.13),rgba(138,75,255,.09)),var(--panel)}
+.wi-kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:var(--accent2)}
+.wi-sub{font-size:13.5px;color:var(--muted);font-style:italic;line-height:1.5}
+.wi-sub.big{font-size:15px;max-width:74ch}
+.wi-warn{margin-top:12px;padding:9px 12px;border:1px dashed rgba(224,90,74,.55);background:rgba(224,90,74,.10);border-radius:9px;font-size:12.5px;color:var(--text);line-height:1.5}
+.wi-epi{margin:14px 0 0;padding:10px 16px;border-left:3px solid var(--accent);font-size:15px;font-style:italic;color:var(--text)}
+.wi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-top:14px}
+.wi-card{display:block;text-decoration:none;transition:transform .13s ease,box-shadow .13s ease}
+.wi-card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(0,0,0,.28)}
+.wi-cardtitle{margin:4px 0 4px;font-size:18px;line-height:1.25}
+.wi-prem{font-size:12.8px;line-height:1.55;color:var(--text);margin:8px 0 0}
+.wi-wishrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.wi-wish{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;border:1px solid var(--wi-c);color:var(--wi-c);background:color-mix(in srgb,var(--wi-c) 12%,transparent)}
+.wi-noncanon{background:rgba(224,90,74,.16);border-color:rgba(224,90,74,.42)}
+.wi-brief-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.wi-lab{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;font-weight:900;color:var(--accent2);margin-bottom:3px}
+.wi-val{font-size:13px;line-height:1.55;color:var(--text)}
+.wi-track{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.wi-step{flex:1 1 140px;min-width:130px;border:1px solid var(--wi-c);border-top:3px solid var(--wi-c);border-radius:10px;padding:10px;background:color-mix(in srgb,var(--wi-c) 8%,var(--bg2))}
+.wi-step-n{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:900;color:var(--wi-c)}
+.wi-step-icon{font-size:22px;line-height:1.3}
+.wi-step-c{font-size:13.5px;font-weight:800;color:var(--text)}
+.wi-step-r{font-size:11.5px;color:var(--muted);line-height:1.4;margin-top:2px}
+.wi-arrow{align-self:center;color:var(--muted);font-weight:900}
+.wi-toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:7px}
+.wi-toc-item{display:flex;align-items:baseline;gap:8px;padding:7px 10px;border:1px solid var(--border);border-radius:9px;background:var(--bg2);font-size:12.5px;text-decoration:none;color:var(--text)}
+.wi-toc-item:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--bg2))}
+.wi-toc-n{font-weight:900;color:var(--accent2);font-size:11px}
+.wi-toc-t{flex:1;min-width:0}
+.wi-toc-w{font-size:10px;color:var(--muted);white-space:nowrap}
+.wi-article{padding-top:6px}
+.wi-chapter{padding:20px 0;border-bottom:1px solid var(--border)}
+.wi-chapter:last-child{border-bottom:0;padding-bottom:4px}
+.wi-ch-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.wi-ch-title{margin:0;font-size:20px;letter-spacing:.01em}
+.wi-ch-tags{display:flex;gap:6px;flex-wrap:wrap}
+.wi-wishtag{background:rgba(224,180,0,.16);border-color:rgba(224,180,0,.42)}
+.wi-prose{font-size:14.5px;line-height:1.78;max-width:76ch}
+.wi-prose p{margin:0 0 13px}
+.wi-prose p:first-child{font-size:15px}
+.wi-prose strong{color:var(--accent2)}
+.wi-prose blockquote{margin:14px 0;padding:8px 16px;border-left:3px solid var(--accent);font-style:italic;color:var(--muted)}
+.wi-ledger-row{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--border)}
+.wi-ledger-n{font-size:26px;font-weight:900;color:var(--accent2);opacity:.55;line-height:1}
+.wi-ledger-body{flex:1;min-width:0}
+.wi-ledger-body h3{margin:0 0 3px;font-size:16px}
+.wi-ledger-pitch{font-style:italic;color:var(--muted);font-size:13px;margin-bottom:7px}
+.wi-ledger-body p{margin:0 0 6px;font-size:13px;line-height:1.6}
+.wi-ledger-lesson{color:var(--text)}
+.wi-analysis{margin:16px 0 4px;max-width:76ch;border:1px solid rgba(138,75,255,.42);border-left:4px solid #8a4bff;border-radius:11px;padding:12px 15px;background:linear-gradient(135deg,rgba(138,75,255,.13),rgba(138,75,255,.04)),var(--bg2)}
+.wi-an-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.wi-an-mark{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#8a4bff;color:#fff;font-weight:900;font-size:12px;font-family:system-ui,sans-serif;flex:0 0 auto}
+.wi-an-title{font-size:12px;letter-spacing:.11em;text-transform:uppercase;font-weight:900;color:#b98cff}
+.wi-an-body{font-size:13.4px;line-height:1.7;color:var(--text)}
+.wi-an-body p{margin:0 0 9px}
+.wi-an-body p:last-child{margin-bottom:0}
+.wi-an-body strong{color:#c9a6ff}
+.wi-verdict{border-left:5px solid #8a4bff;background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.05)),var(--panel)}
+.wi-verdict .wi-an-body{font-size:14px;max-width:76ch}
+.wi-byline{display:flex;align-items:center;gap:7px;margin-top:9px;font-size:12.5px;font-weight:700;color:#b98cff}
+.wi-povpill{background:rgba(138,75,255,.18);border-color:rgba(138,75,255,.45);color:#c9a6ff}
+@media(max-width:640px){.wi-ch-title{font-size:17px}.wi-prose{font-size:14px}.wi-arrow{display:none}}
 </style>
 </head>
 <body>
@@ -4388,6 +4452,19 @@ function buildIndexes(){
   (DATA.historicalTimeline||[]).forEach((h,i)=>{ if(!h || h.type==='era_header' || !h.title) return; const slug=chronicleSlug(h,i); const dateLbl=h.date?.year?`${h.date.year} BF`:''; SEARCH_DOCS.push({kind:'chronicle',id:slug,typeKey:'chronicles',name:h.title,summary:(h.description||'').slice(0,180),hay:[slug,h.title,h.description,h.category,dateLbl].filter(Boolean).join(' ').toLowerCase()}); });
   // Collections — 18 curated groupings deserve dedicated routes so they don't hide inside the generic list view.
   (DATA.collections||[]).forEach(c=>{ if(!c || !c.id) return; SEARCH_DOCS.push({kind:'collection',id:c.id,typeKey:'collections',name:c.name||prettyId(c.id),summary:c.summary||c.scope||'',hay:[c.id,c.name,c.title,c.scope,c.summary,c.criteria,(c.members||[]).map(m=>m.name+' '+m.role).join(' ')].filter(Boolean).join(' ').toLowerCase()}); });
+  // What If archive — each filing is searchable, and so is every chapter inside it.
+  (function(){
+    const wl=(DATA.whatifs&&Array.isArray(DATA.whatifs.whatifs))?DATA.whatifs.whatifs:[];
+    wl.forEach(w=>{ if(!w||!w.id) return;
+      SEARCH_DOCS.push({kind:'whatif',id:w.id,typeKey:'whatifs',name:w.title||prettyId(w.id),summary:w.premise||w.summary||'',
+        hay:[w.id,w.title,w.subtitle,w.premise,w.summary,w.divergence,w.outcome,w.subject,w.narrator,w.byline,(w.tags||[]).join(' '),(w.wishes||[]).map(x=>x.concept+' '+x.result).join(' '),(w.verdict&&(w.verdict.title+' '+w.verdict.body))||''].filter(Boolean).join(' ').toLowerCase()});
+      (w.chapters||[]).forEach(c=>{ if(!c) return;
+        SEARCH_DOCS.push({kind:'whatifchapter',id:w.id+':'+(c.id||slug(c.heading||'')),parentId:w.id,anchor:'wi-'+slug(c.id||c.heading||''),typeKey:'whatifs',
+          name:(c.heading||prettyId(c.id))+' — '+(w.title||prettyId(w.id)),summary:String(c.body||'').replace(/[*_>#]/g,'').slice(0,180),
+          hay:[c.id,c.heading,c.phase,c.wish,c.body,(c.analysis&&(c.analysis.title+' '+c.analysis.body))||''].filter(Boolean).join(' ').toLowerCase()});
+      });
+    });
+  })();
   const CG=DATA.congress||{};
   (CG.members||[]).forEach(m=>{ if(!m) return; SEARCH_DOCS.push({kind:'member',id:m.id,typeKey:'congress',name:m.name,summary:m.summary||'',hay:[m.name,m.bloc,m.status,m.delegate,m.summary,m.description].filter(Boolean).join(' ').toLowerCase()}); });
   (CG.sessions||[]).forEach(s=>{ if(!s) return; SEARCH_DOCS.push({kind:'session',id:s.id,typeKey:'congress',name:s.name,summary:s.summary||'',hay:[s.name,s.host,s.status,s.summary,s.description].filter(Boolean).join(' ').toLowerCase()}); });
@@ -6061,13 +6138,13 @@ function mdToHtml(md,linkCtx){
 function headings(md){if(!md)return[];const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
-const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',tradition:'⚖️',culture:'🌐',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️',ability:'🎓'};
+const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',tradition:'⚖️',culture:'🌐',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️',ability:'🎓',whatif:'❓'};
 const SEARCH_CATEGORIES=[
-  ['all','All'],['articles','Articles'],['characters','Characters'],['factions','Factions'],['events','Events'],['locations','Locations'],['items','Items'],['currencies','Currencies'],['battles','Battles'],['congress','Congress'],['books','Books'],['chronicles','Chronicles'],['dynasties','Dynasties'],['vendors','Vendors'],['holidays','Holidays']
+  ['all','All'],['articles','Articles'],['characters','Characters'],['factions','Factions'],['events','Events'],['locations','Locations'],['items','Items'],['currencies','Currencies'],['battles','Battles'],['congress','Congress'],['books','Books'],['chronicles','Chronicles'],['dynasties','Dynasties'],['vendors','Vendors'],['holidays','Holidays'],['whatifs','What Ifs']
 ];
-const SEARCH_CATEGORY_ALIASES={all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays'};
+const SEARCH_CATEGORY_ALIASES={all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays',whatif:'whatifs',whatifs:'whatifs',hypothetical:'whatifs',hypotheticals:'whatifs',noncanon:'whatifs',alt:'whatifs'};
 function searchIcon(d){const m=SEARCH_META[d.kind];return typeof m==='function'?m(d.typeKey,d):(m||'🔎');}
-function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='tradition')return 'Legal Tradition'; if(d.kind==='culture')return 'Cultural Sphere'; if(d.kind==='ability')return 'Ability'; return prettyId(d.kind||'record'); }
+function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='tradition')return 'Legal Tradition'; if(d.kind==='culture')return 'Cultural Sphere'; if(d.kind==='ability')return 'Ability'; if(d.kind==='whatif')return 'What If'; if(d.kind==='whatifchapter')return 'What If — Part'; return prettyId(d.kind||'record'); }
 function docCategory(d){
   if(d.kind==='article'){
     if(d.typeKey==='characters')return 'characters';
@@ -6091,6 +6168,7 @@ function docCategory(d){
   if(d.kind==='faction')return 'factions';
   if(d.kind==='system'||d.kind==='docketfile')return 'factions';
   if(d.kind==='ability')return 'items';
+  if(d.kind==='whatif'||d.kind==='whatifchapter')return 'whatifs';
   return 'articles';
 }
 function categoryMatches(d,cat){
@@ -6187,7 +6265,7 @@ function highlight(text,q){
   terms.forEach(t=>{if(t.length>1)o=o.replace(new RegExp('('+t+')','ig'),'<mark>$1</mark>');});
   return o;
 }
-function openSearchResult(d){ if(d.kind==='ability'){location.href=d.href||abilityShopUrl();return;} if(d.kind==='system'||d.kind==='docketfile')Router.go(d.route||'#/home'); else if(d.kind==='craftingrecipe')Router.go('#/crafting/recipe/'+encodeURIComponent(d.id)); else if(d.kind==='craftingmaterial')Router.go('#/crafting/material/'+encodeURIComponent(d.id)); else if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); }
+function openSearchResult(d){ if(d.kind==='ability'){location.href=d.href||abilityShopUrl();return;} if(d.kind==='system'||d.kind==='docketfile')Router.go(d.route||'#/home'); else if(d.kind==='craftingrecipe')Router.go('#/crafting/recipe/'+encodeURIComponent(d.id)); else if(d.kind==='craftingmaterial')Router.go('#/crafting/material/'+encodeURIComponent(d.id)); else if(d.kind==='faction')Router.go('#/reputation/faction/'+encodeURIComponent(d.id)); else if(d.kind==='dynasty')Router.go('#/dynasty/'+encodeURIComponent(d.id)); else if(d.kind==='vendor')Router.go('#/vendor/'+encodeURIComponent(d.id)); else if(d.kind==='holiday')Router.go('#/holiday/'+encodeURIComponent(d.id)); else if(d.kind==='currency')Router.go('#/currency/'+encodeURIComponent(d.id)); else if(d.kind==='chronicle')Router.go('#/chronicle/'+encodeURIComponent(d.id)); else if(d.kind==='collection')Router.go('#/collection/'+encodeURIComponent(d.id)); else if(d.kind==='book'){currentBookPage=0;currentBookId=d.id;if(typeof openBookReader==='function')openBookReader(d.id);else Router.go('#/books');} else if(d.kind==='article')openId(d.id); else if(d.kind==='vote')Router.go('#/vote/'+encodeURIComponent(d.id)); else if(d.kind==='conflict')Router.go('#/conflict/'+encodeURIComponent(d.id)); else if(d.kind==='majorbattle')Router.go('#/mbattle/'+encodeURIComponent(d.id)); else if(d.kind==='artifact')Router.go('#/artifact/'+encodeURIComponent(d.id)); else if(d.kind==='invitem')Router.go('#/item/'+encodeURIComponent(d.id)); else if(d.kind==='bearer')Router.go('#/bearer/'+encodeURIComponent(d.id)); else if(d.kind==='member')Router.go('#/member/'+encodeURIComponent(d.id)); else if(d.kind==='session')Router.go('#/session/'+encodeURIComponent(d.id)); else if(d.kind==='crisis')Router.go('#/crisis/'+encodeURIComponent(d.id)); else if(d.kind==='whatif')Router.go('#/whatif/'+encodeURIComponent(d.id)); else if(d.kind==='whatifchapter'){Router.go('#/whatif/'+encodeURIComponent(d.parentId));setTimeout(()=>{const t=document.getElementById(d.anchor);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});},120);} }
 
 const searchInput=el('search'),resultsBox=el('results'),searchCategory=el('searchCategory'),searchMode=el('searchMode');let activeIdx=-1,currentResults=[];
 function searchCounts(q){const all=search(q,{category:'all',limit:600});const counts={all:all.length};all.forEach(r=>{counts[r.cat]=(counts[r.cat]||0)+1;});return counts;}
@@ -6349,6 +6427,7 @@ function view_home(){
     +`<div class="catcard" onclick="Router.go('#/timeline')"><div class="cemoji">🕰️</div><div class="cname">Timeline</div><div class="ccount">chronological</div></div>`
     +`<div class="catcard" onclick="Router.go('#/vendor')"><div class="cemoji">🏪</div><div class="cname">Vendors & Markets</div><div class="ccount">commerce directory</div></div>`
     +`<div class="catcard" onclick="Router.go('#/holiday')"><div class="cemoji">🎉</div><div class="cname">Holidays & Observances</div><div class="ccount">calendar records</div></div>`
+    +`<div class="catcard" onclick="Router.go('#/whatif')"><div class="cemoji">❓</div><div class="cname">What Ifs</div><div class="ccount">${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length} non-canon filing${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length===1?'':'s'}</div></div>`
     +`<div class="catcard" onclick="Router.go('#/list/locations')"><div class="cemoji">🏰</div><div class="cname">Classic Locations Index</div><div class="ccount">tucked away</div></div>`;
 
   const dyk=mp.didYouKnow||[],otdStatic=mp.onThisDay||[];
@@ -8743,6 +8822,7 @@ function view_article(id){
   el('content').innerHTML=`
    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/${typeKey}')">${esc(t.label)}</a> › ${esc(displayName(item))}</div>
    <div class="article-layout"><div><div class="card animate-fade-in">
+     <div class="art-kicker">${t.emoji} ${esc(t.singular)}${item.era?` · ${esc(String(item.era).split('—')[0].trim())}`:(item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:'')}</div>
      <h1 class="art-title">${esc(displayName(item))}</h1>
      ${item.title&&item.title!==item.name?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
      <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${typeKey==='factions'?systemsForFaction(item.id).map(s=>`<span class="pill" style="border-color:${s.accent};color:${s.accent};cursor:pointer" onclick="Router.go('${s.route}')">${s.emoji} ${esc(s.name)} — integrated system</span>`).join(''):''}${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}</div>
@@ -8763,6 +8843,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
    </div></div><div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div></div>`;
+  setArticleAccent(typeKey);
   endLinkPass();
   window.scrollTo(0,0);setupScrollSpy();applyCustomCss(item.customCss);
   if(typeKey==='factions'){ renderFactionPowerProjection(item.id); }
@@ -8800,6 +8881,7 @@ function view_trial(item,t){
   el('content').innerHTML=`
    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/trials')">Trials</a> › ${esc(displayName(item))}</div>
    <div class="article-layout"><div><div class="card animate-fade-in">
+     <div class="art-kicker">⚖️ Trial${item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:''}</div>
      <h1 class="art-title">${esc(item.name)}</h1>${item.title?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
      <div class="metabar"><span class="pill">⚖️ Trial</span>${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(item.status)}</span>`:''}</div>
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
@@ -8807,6 +8889,7 @@ function view_trial(item,t){
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}
      ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${relHtml}
    </div></div><div>${crossPagePanel(item.id,'trials',item)}${articleControlPanel(item.id)}<div class="infobox"><h4>${esc(item.name)}</h4>${infoRows}</div>${toc}</div></div>`;
+  setArticleAccent('trials');
   window.scrollTo(0,0);setupScrollSpy();
 }
 
@@ -10140,6 +10223,164 @@ function renderMiniCalendar(containerId, year, monthIndex){
 function rarityClass(r){r=(r||'').toLowerCase();if(r==='legendary')return 'status-active';if(r==='rare')return 'status-concluded';return 'status-other';}
 function threatColor(t){ if(t==='∞'||t===Infinity) return 'var(--accent)'; const n=parseInt(t); if(isNaN(n))return 'var(--muted)'; if(n>=8)return 'var(--danger)'; if(n>=5)return 'var(--accent2)'; return 'var(--green)'; }
 function bearerStatusTag(s){s=(s||'').toLowerCase();if(/hostile/.test(s))return'status-active';if(/ally|neutral/.test(s))return'status-concluded';return'status-other';}
+/* =============== WHAT IF ARCHIVE ===============
+   Non-canon hypotheticals. Data lives in ./data/whatifs.json so new filings are
+   pure content: drop an entry in the array and it appears in the index, the
+   reader, the sidebar count and global search with no code changes. */
+function whatifList(){ const w=DATA.whatifs; return (w&&Array.isArray(w.whatifs))?w.whatifs.filter(Boolean):[]; }
+function whatifMeta(){ return (DATA.whatifs&&DATA.whatifs.meta)||{title:'What Ifs',subtitle:'Non-canon hypotheticals and alternate timelines'}; }
+function whatifById(id){ const l=whatifList(); return l.find(x=>x&&(x.id===id))||null; }
+function whatifWordCount(w){
+  if(w&&w.wordCount) return w.wordCount;
+  const txt=((w&&w.chapters)||[]).map(c=>c.body||'').join(' ');
+  return txt.split(/\s+/).filter(Boolean).length;
+}
+function whatifChapterAnchor(c){ return 'wi-'+slug(c.id||c.heading||''); }
+
+function view_whatif(id){
+  renderSidebar('whatifs');
+  const list=whatifList(), meta=whatifMeta();
+
+  /* ---- directory ---- */
+  if(!id){
+    if(!list.length){
+      el('content').innerHTML=`<div class="card"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › What Ifs</div><h1>❓ ${esc(meta.title||'What Ifs')}</h1><p class="text-muted">${esc(meta.description||'No filings yet.')}</p></div>`;
+      window.scrollTo(0,0); return;
+    }
+    const cards=list.map(w=>{
+      const wishes=(w.wishes||[]).map(x=>`<span class="wi-wish" style="--wi-c:${esc(x.color||'var(--accent)')}"><b>${esc(x.icon||'◈')}</b> ${esc(x.concept||'')}</span>`).join('');
+      return `<a class="card wi-card" href="#/whatif/${encodeURIComponent(w.id)}" style="border-top:4px solid ${esc(w.accent||'var(--accent)')}">
+        <div class="wi-kicker">${esc(w.kicker||'What If')}</div>
+        <h2 class="wi-cardtitle">${esc(w.emoji||'❓')} ${esc(w.title||prettyId(w.id))}</h2>
+        ${w.subtitle?`<div class="wi-sub">${esc(w.subtitle)}</div>`:''}
+        <p class="wi-prem">${esc((w.premise||w.summary||'').slice(0,260))}</p>
+        ${wishes?`<div class="wi-wishrow">${wishes}</div>`:''}
+        <div class="chips" style="margin-top:10px">
+          <span class="pill">📖 ${whatifWordCount(w).toLocaleString()} words</span>
+          <span class="pill">⏱️ ~${esc(String(w.readingTime||Math.max(1,Math.round(whatifWordCount(w)/225))))} min</span>
+          ${w.resetsTotal?`<span class="pill">🔁 ${esc(String(w.resetsUsed??0))}/${esc(String(w.resetsTotal))} resets</span>`:''}
+          ${w.narrator?`<span class="pill wi-povpill">🎙️ ${esc(w.narrator)}</span>`:''}
+          <span class="pill wi-noncanon">⚠ Non-canon</span>
+        </div>
+      </a>`;
+    }).join('');
+    el('content').innerHTML=`
+      <div class="card animate-fade-in wi-hero">
+        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › What Ifs</div>
+        <h1 style="margin:6px 0 4px">❓ ${esc(meta.title||'What Ifs')}</h1>
+        <p class="text-muted" style="font-size:13.5px">${esc(meta.subtitle||'')}</p>
+        <p style="font-size:13px;margin:8px 0 0">${esc(meta.description||'')}</p>
+        ${meta.disclaimer?`<div class="wi-warn">⚠ ${esc(meta.disclaimer)}</div>`:''}
+        <div class="chips" style="margin-top:10px"><span class="pill">${list.length} filing${list.length===1?'':'s'}</span><span class="pill">${list.reduce((a,w)=>a+whatifWordCount(w),0).toLocaleString()} words archived</span></div>
+      </div>
+      <div class="wi-grid">${cards}</div>`;
+    window.scrollTo(0,0); return;
+  }
+
+  /* ---- single filing ---- */
+  const w=whatifById(id);
+  if(!w){ view_whatif(); return; }
+
+  const chapters=w.chapters||[];
+  const toc=chapters.map((c,i)=>`<a class="wi-toc-item" href="#${whatifChapterAnchor(c)}"><span class="wi-toc-n">${String(i+1).padStart(2,'0')}</span><span class="wi-toc-t">${esc(c.heading||prettyId(c.id))}</span>${c.wish?`<span class="wi-toc-w">${esc(c.wish)}</span>`:''}</a>`).join('');
+
+  const track=(w.wishes||[]).map(x=>`
+    <div class="wi-step" style="--wi-c:${esc(x.color||'var(--accent)')}">
+      <div class="wi-step-n">Wish ${esc(String(x.n||''))}</div>
+      <div class="wi-step-icon">${esc(x.icon||'◈')}</div>
+      <div class="wi-step-c">${esc(x.concept||'')}</div>
+      <div class="wi-step-r">${esc(x.result||'')}</div>
+    </div>`).join('<div class="wi-arrow">→</div>');
+
+  const body=chapters.map(c=>`
+    <section class="wi-chapter" id="${whatifChapterAnchor(c)}">
+      <div class="wi-ch-head">
+        <h2 class="wi-ch-title">${esc(c.heading||prettyId(c.id))}</h2>
+        <div class="wi-ch-tags">${c.phase?`<span class="pill">${esc(c.phase)}</span>`:''}${c.wish?`<span class="pill wi-wishtag">Sold: ${esc(c.wish)}</span>`:''}</div>
+      </div>
+      <div class="wi-prose">${mdToHtml(c.body||'')}</div>
+      ${c.analysis?`<aside class="wi-analysis">
+        <div class="wi-an-head"><span class="wi-an-mark" aria-hidden="true">W</span><span class="wi-an-title">${esc(c.analysis.title||"Waluigi's Analysis")}</span></div>
+        <div class="wi-an-body">${mdToHtml(c.analysis.body||'')}</div>
+      </aside>`:''}
+    </section>`).join('');
+
+  const verdict=w.verdict?`
+    <div class="card wi-verdict">
+      <div class="wi-an-head"><span class="wi-an-mark" aria-hidden="true">W</span><span class="wi-an-title">${esc(w.verdict.title||"Waluigi's Verdict")}</span></div>
+      <div class="wi-an-body">${mdToHtml(w.verdict.body||'')}</div>
+    </div>`:'';
+
+  const ledger=(w.ledger||[]).length?`
+    <div class="card wi-ledger">
+      <h2 style="margin-top:0">📒 The Withdrawal Ledger</h2>
+      <p class="text-muted" style="font-size:12.5px;margin-top:-4px">Every concept sold, what was promised, what actually shipped.</p>
+      ${(w.ledger||[]).map(r=>`
+        <div class="wi-ledger-row">
+          <div class="wi-ledger-n">${esc(r.n||'')}</div>
+          <div class="wi-ledger-body">
+            <h3>${esc(r.concept||'')}</h3>
+            <div class="wi-ledger-pitch">${esc(r.pitch||'')}</div>
+            <p><b>What actually happened:</b> ${esc(r.reality||'')}</p>
+            <p class="wi-ledger-lesson"><b>Where it went wrong:</b> ${esc(r.lesson||'')}</p>
+            <div class="chips">${r.lifespan?`<span class="pill">⏱️ Held for ${esc(r.lifespan)}</span>`:''}${r.verdict?`<span class="pill">${esc(r.verdict)}</span>`:''}</div>
+          </div>
+        </div>`).join('')}
+    </div>`:'';
+
+  const findings=(w.findings||[]).length?`
+    <div class="card wi-findings">
+      <h2 style="margin-top:0">🔍 Board Findings</h2>
+      <ul class="dock-list bullets">${(w.findings||[]).map(f=>`<li><b>${esc(f.t||'')}</b><br>${esc(f.d||'')}</li>`).join('')}</ul>
+    </div>`:'';
+
+  const related=(w.related||[]).length?`<div class="card"><h2 style="margin-top:0">🔗 Related Records</h2><div class="chips">${(w.related||[]).map(r=>`<a class="chip" onclick="Router.go('${esc(r.route||'#/home')}')">${esc(r.emoji||'📄')} ${esc(r.label||'')}</a>`).join('')}</div></div>`:'';
+
+  const others=list.filter(x=>x.id!==w.id);
+  const more=others.length?`<div class="card"><h2 style="margin-top:0">❓ More Hypotheticals</h2><div class="chips">${others.map(x=>`<a class="chip" href="#/whatif/${encodeURIComponent(x.id)}">${esc(x.emoji||'❓')} ${esc(x.title||prettyId(x.id))}</a>`).join('')}</div></div>`:'';
+
+  el('content').innerHTML=`
+    <div class="card animate-fade-in wi-hero" style="border-top:5px solid ${esc(w.accent||'var(--accent)')}">
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/whatif')">What Ifs</a> › ${esc(w.title||prettyId(w.id))}</div>
+      <div class="wi-kicker">${esc(w.kicker||'What If')}</div>
+      <h1 style="margin:4px 0 6px">${esc(w.emoji||'❓')} ${esc(w.title||prettyId(w.id))}</h1>
+      ${w.subtitle?`<div class="wi-sub big">${esc(w.subtitle)}</div>`:''}
+      <div class="wi-warn">⚠ NON-CANON. ${esc(w.clearance||'Filed by the What If Board.')} Nothing in this filing appears in the Chronicle.</div>
+      ${w.byline?`<div class="wi-byline"><span class="wi-an-mark" aria-hidden="true">W</span>${esc(w.byline)}</div>`:''}
+      ${w.epigraph?`<blockquote class="wi-epi">${esc(w.epigraph)}</blockquote>`:''}
+      <div class="chips" style="margin-top:10px">
+        <span class="pill">📖 ${whatifWordCount(w).toLocaleString()} words</span>
+        <span class="pill">⏱️ ~${esc(String(w.readingTime||''))} min read</span>
+        <span class="pill">📄 ${chapters.length} parts</span>
+        ${w.resetsTotal?`<span class="pill">🔁 ${esc(String(w.resetsUsed??0))}/${esc(String(w.resetsTotal))} resets used</span>`:''}
+        ${w.narrator?`<span class="pill wi-povpill">🎙️ POV: ${esc(w.narrator)}</span>`:''}
+        ${w.filed?`<span class="pill">🗓️ Filed ${esc(w.filed)}</span>`:''}
+      </div>
+    </div>
+
+    <div class="card wi-brief">
+      <div class="wi-brief-grid">
+        <div><div class="wi-lab">Subject</div><div class="wi-val">${esc(w.subject||'—')}</div></div>
+        <div><div class="wi-lab">Point of Divergence</div><div class="wi-val">${esc(w.divergence||'—')}</div></div>
+        <div><div class="wi-lab">Premise</div><div class="wi-val">${esc(w.premise||'—')}</div></div>
+        <div><div class="wi-lab">Outcome</div><div class="wi-val">${esc(w.outcome||'—')}</div></div>
+        ${w.pov?`<div><div class="wi-lab">Narration</div><div class="wi-val">${esc(w.pov)}</div></div>`:''}
+      </div>
+      ${track?`<div class="wi-track">${track}</div>`:''}
+    </div>
+
+    ${toc?`<div class="card wi-toc"><h2 style="margin-top:0">📑 Contents</h2><div class="wi-toc-grid">${toc}</div></div>`:''}
+
+    <div class="card wi-article">${body}</div>
+
+    ${verdict}
+    ${ledger}
+    ${findings}
+    ${related}
+    ${more}`;
+  window.scrollTo(0,0);
+}
+
 function view_artifacts(){
   renderSidebar('artifacts');
   const A=DATA.artifacts||{};
@@ -12262,6 +12503,13 @@ function openBookReader(bookId) {
   renderPage();
 }
 
+/* Article hero accent — drives the per-type colour tokens in waluipedia.css.
+   Set on #content so one attribute recolours title, chips, headings and panels. */
+function setArticleAccent(typeKey){
+  const c=el('content'); if(!c) return;
+  if(typeKey) c.setAttribute('data-arttype',typeKey); else c.removeAttribute('data-arttype');
+}
+
 /* =============== ROUTER =============== */
 const Router={
   go(hash){if(location.hash===hash)Router.render();else location.hash=hash;},
@@ -12269,6 +12517,7 @@ const Router={
     const h=location.hash||'#/home';const m=h.match(/^#\/([^\/]+)\/?(.*)$/);
     if(!m){view_home();return;}
     const route=m[1],arg=decodeURIComponent(m[2]||'');
+    try{ setArticleAccent(null); }catch(e){}   // clear the article hero accent between routes
     LINK_ONCE=new Set();   // fresh per page view: each entity links only its first mention
     LINK_TOTAL_COUNT=0;    // fresh per page view for the density cap
     LINK_GRAPH_OUT=new Set(); LINK_CONTEXT=new Set(); LINK_LAST_STATS={total:0,unique:0,scope:''}; LINK_SUPPRESSED=[];
@@ -12317,6 +12566,7 @@ const Router={
     else if(route==='profile'){ if(arg) { setCurrentUserId(arg); } view_profile(); }
     else if(route==='me')view_profile();
     else if(route==='year'){const parts=arg.split('/');view_year(parts[0],parts[1]?parseInt(parts[1],10):null);}
+    else if(route==='whatif'||route==='whatifs'||route==='what-if'||route==='alt')view_whatif(arg);
     else if(route==='artifacts')view_artifacts();
     else if(route==='artifact')view_mainartifact(arg);
     else if(route==='bearer')view_bearer(arg);
@@ -12348,7 +12598,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(docu
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
