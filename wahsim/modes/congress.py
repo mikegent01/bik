@@ -19,8 +19,10 @@ from ..core.engine import Action, Beat, Clock, Phase
 from ..core.entities import Actor
 from ..core.roster import generate_actor, grant_abilities, load
 
-COMMIT = 55          # |lean| at or above this locks a delegate
-BLOC_PULL = 0.10     # how hard a bloc drags its members each round
+from .. import config
+
+COMMIT = config.COMMIT_THRESHOLD   # |lean| at or above this locks a delegate
+BLOC_PULL = config.BLOC_PULL       # how hard a bloc drags its members per round
 
 RELIABILITY_FX = {
     'High': (2, 'votes its stated position'),
@@ -71,7 +73,7 @@ class Delegate:
     def nudge(self, amount: float) -> float:
         before = self.lean
         if self.locked:
-            amount *= 0.35            # locked delegates are stubborn, not immovable
+            amount *= config.LOCKED_RESISTANCE   # stubborn, not immovable
         self.lean = max(-100, min(100, self.lean + amount))
         if abs(self.lean) >= COMMIT:
             self.locked = True

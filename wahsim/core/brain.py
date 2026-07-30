@@ -1,8 +1,15 @@
 """Pluggable AI backends.
 
-ScriptedBrain  — offline, seeded, zero dependencies. Always works.
-LMArenaBrain   — talks to an OpenAI-compatible endpoint (LMArena, OpenAI,
-                 Ollama, LM Studio, anything with /chat/completions).
+ScriptedBrain   — offline, seeded, zero dependencies. Always works.
+LMStudioBrain   — talks to LM Studio's local server (default
+                  http://localhost:1234/v1). The API is OpenAI-compatible, so
+                  this also works with Ollama, llama.cpp, Jan, or a hosted
+                  OpenAI-style endpoint.
+
+LM Studio quickstart:
+  1. Load a model in LM Studio.
+  2. Developer tab -> Start Server (default port 1234).
+  3. Run WahSim with --live. No API key required.
 
 Both satisfy the same Brain protocol, so modes never know which is running.
 If a live call fails for any reason it silently degrades to the scripted brain
@@ -109,8 +116,12 @@ class ScriptedBrain:
 
 
 # --------------------------------------------------------------------------
-# Live model brain (OpenAI-compatible; works with LMArena-style gateways)
+# Live model brain — LM Studio local server (OpenAI-compatible)
 # --------------------------------------------------------------------------
+
+from .. import config
+
+LMSTUDIO_DEFAULT = config.LMSTUDIO_BASE
 
 SYSTEM = (
     'You are running characters inside a turn-based tabletop simulation set in the '
@@ -122,19 +133,19 @@ SYSTEM = (
 )
 
 
-class LMArenaBrain:
-    """OpenAI-compatible chat client.
+class LMStudioBrain:
+    """Chat client for LM Studio's local server.
 
-    Configure with env vars (or constructor args):
-      WAHSIM_API_BASE   default https://api.openai.com/v1
-      WAHSIM_API_KEY    required for hosted endpoints
-      WAHSIM_MODEL      default gpt-4o-mini
+    Defaults assume LM Studio running on this machine with no authentication,
+    which is how it ships. Override via env vars or constructor args:
+      WAHSIM_API_BASE   default http://localhost:1234/v1
+      WAHSIM_API_KEY    usually unnecessary for a local server
+      WAHSIM_MODEL      blank = auto-detect whichever model is loaded
 
-    Point API_BASE at any local gateway (Ollama: http://localhost:11434/v1,
-    LM Studio: http://localhost:1234/v1) to run fully offline with a real model.
+    Also compatible with Ollama (:11434/v1), llama.cpp, Jan, or OpenAI.
     """
 
-    name = 'live'
+    name = 'lmstudio'
 
     def __init__(
         self,
@@ -146,14 +157,41 @@ class LMArenaBrain:
         verbose: bool = False,
     ):
         self.fallback = fallback
-        self.base = (base or os.getenv('WAHSIM_API_BASE') or 'https://api.openai.com/v1').rstrip('/')
-        self.key = key or os.getenv('WAHSIM_API_KEY') or ''
-        self.model = model or os.getenv('WAHSIM_MODEL') or 'gpt-4o-mini'
+        self.base = (base or os.getenv('WAHSIM_API_BASE') or LMSTUDIO_DEFAULT).rstrip('/')
+        self.key = key or os.getenv('WAHSIM_API_KEY') or config.LMSTUDIO_KEY
+        self.model = model or os.getenv('WAHSIM_MODEL') or ''
         self.timeout = timeout
         self.verbose = verbose
         self.calls = 0
         self.failures = 0
         self.last_error = ''
+        if not self.model:
+            self.model = self.detect_model() or 'local-model'
+
+    # -- discovery ----------------------------------------------------------
+    def list_models(self) -> list[str]:
+        """Ask the server which models are loaded. LM Studio exposes /models."""
+        try:
+            req = urllib.request.Request(
+                f'{self.base}/models',
+                headers={'Authorization': f'Bearer {self.key}'})
+            with urllib.request.urlopen(req, timeout=6) as r:
+                data = json.loads(r.read().decode())
+            return [m['id'] for m in data.get('data', []) if m.get('id')]
+        except Exception as e:                     # noqa: BLE001
+            self.last_error = f'{type(e).__name__}: {e}'
+            return []
+
+    def detect_model(self) -> str:
+        got = self.list_models()
+        return got[0] if got else ''
+
+    def ping(self) -> tuple[bool, str]:
+        """Is the server up? Used by the GUI banner and `--check`."""
+        models = self.list_models()
+        if models:
+            return True, f'{len(models)} model(s): ' + ', '.join(models[:3])
+        return False, self.last_error or 'no response from ' + self.base
 
     # -- transport ----------------------------------------------------------
     def _post(self, messages: list[dict], max_tokens: int = 220, temp: float = 0.9) -> str:
@@ -275,4 +313,8 @@ def make_brain(dice: Dice, live: bool = False, **kw):
     scripted = ScriptedBrain(dice)
     if not live:
         return scripted
-    return LMArenaBrain(scripted, **kw)
+    return LMStudioBrain(scripted, **kw)
+
+
+# Back-compat alias: the class was briefly named for a different provider.
+LMArenaBrain = LMStudioBrain

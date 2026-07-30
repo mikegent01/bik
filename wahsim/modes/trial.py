@@ -16,6 +16,7 @@ from dataclasses import dataclass, field
 from ..core.dice import DC, Dice, Modifier, Outcome
 from ..core.engine import Action, Beat, Clock, Phase
 from ..core.entities import Actor
+from .. import config
 from ..core.roster import (actor_from_record, find_character, generate_actor,
                            grant_abilities, load)
 
@@ -80,9 +81,9 @@ class TrialMode:
         self.active_witness: Witness | None = None
         self.verdict: str = ''
 
-        self.case = Clock('case', 'PROSECUTION CASE', 8)
-        self.doubt = Clock('doubt', 'REASONABLE DOUBT', 8)
-        self.patience = Clock('patience', "JUDGE'S PATIENCE", 6)
+        self.case = Clock('case', 'PROSECUTION CASE', config.CASE_CLOCK)
+        self.doubt = Clock('doubt', 'REASONABLE DOUBT', config.DOUBT_CLOCK)
+        self.patience = Clock('patience', "JUDGE'S PATIENCE", config.PATIENCE_CLOCK)
         self.clocks = [self.case, self.doubt, self.patience]
 
         self._build(spec)

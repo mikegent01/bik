@@ -12,7 +12,8 @@ import argparse
 import sys
 import textwrap
 
-from .core.brain import LMArenaBrain, make_brain
+from . import config
+from .core.brain import LMStudioBrain, make_brain
 from .core.dice import Dice, Modifier
 from .core.engine import Action, Session
 from .core.roster import has_data
@@ -71,7 +72,7 @@ def run(session: Session, auto: bool = False, show_dice: bool = True):
 
     last_phase = None
     guard = 0
-    while not mode.finished() and guard < 400:
+    while not mode.finished() and guard < config.MAX_TURNS:
         guard += 1
         actor = session.current
         if actor is None:
@@ -118,7 +119,7 @@ def run(session: Session, auto: bool = False, show_dice: bool = True):
         session.advance()
 
     print(mode.epilogue())
-    if isinstance(session.brain, LMArenaBrain):
+    if isinstance(session.brain, LMStudioBrain):
         b = session.brain
         print(f'\n  [brain: {b.model} · {b.calls} calls · {b.failures} fallbacks]')
         if b.failures and b.last_error:
@@ -238,15 +239,17 @@ def main(argv=None):
         prog='wahsim', description='Turn-based AI simulation engine.',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=textwrap.dedent("""
-        live model:
-          export WAHSIM_API_BASE=https://api.openai.com/v1   (or any OpenAI-compatible
-                                                              gateway / LMArena proxy /
-                                                              http://localhost:11434/v1)
-          export WAHSIM_API_KEY=sk-...
-          export WAHSIM_MODEL=gpt-4o-mini
-          python3 -m wahsim.cli trial --live
+        live model (LM Studio):
+          1. Load a model in LM Studio
+          2. Developer tab -> Start Server   (default port 1234)
+          3. python3 -m wahsim.cli trial --live
 
-        Without --live it runs fully offline on the scripted brain.
+        No API key needed. The loaded model is auto-detected.
+        Check the connection first with:  python3 -m wahsim.cli --check
+
+        Other OpenAI-compatible servers work too:
+          --api-base http://localhost:11434/v1     (Ollama)
+          WAHSIM_API_BASE / WAHSIM_MODEL / WAHSIM_API_KEY env vars
         """))
     p.add_argument('mode', nargs='?', choices=list(MODES), help='mode to run')
     p.add_argument('--seed', type=int, help='replay a previous session exactly')
@@ -258,8 +261,34 @@ def main(argv=None):
     p.add_argument('--motion', help='congress motion')
     p.add_argument('--case'); p.add_argument('--charge')
     p.add_argument('--no-dice', action='store_true', help='hide roll maths')
+    p.add_argument('--check', action='store_true',
+                   help='test the LM Studio connection and exit')
+    p.add_argument('--gui', action='store_true', help='launch the browser GUI')
+    p.add_argument('--port', type=int, default=8765, help='GUI port')
     p.add_argument('--verbose', action='store_true')
     args = p.parse_args(argv)
+
+    if args.check:
+        from .core.brain import LMStudioBrain, ScriptedBrain
+        b = LMStudioBrain(ScriptedBrain(Dice(0)), base=args.api_base,
+                          key=args.api_key, model=args.model)
+        head('LM STUDIO CONNECTION')
+        print(f'  endpoint : {b.base}')
+        ok, msg = b.ping()
+        print(f'  status   : {"CONNECTED" if ok else "NOT REACHABLE"}')
+        print(f'  detail   : {msg}')
+        if ok:
+            print(f'  model    : {b.model}')
+        else:
+            print()
+            print(wrap('Start LM Studio, load a model, then open the Developer '
+                       'tab and click Start Server. Default port is 1234.'))
+        return 0 if ok else 1
+
+    if args.gui:
+        from .gui import serve
+        serve(live=args.live, model=args.model, api_base=args.api_base, port=args.port)
+        return 0
 
     mode_key = args.mode
     if not mode_key:

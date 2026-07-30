@@ -5,8 +5,9 @@ import contextlib
 import io
 import sys
 
+from . import config
 from .cli import run
-from .core.brain import ScriptedBrain, make_brain
+from .core.brain import LMStudioBrain, ScriptedBrain, make_brain
 from .core.dice import DC, Dice, Modifier, Outcome
 from .core.engine import Session
 from .core.entities import build_actor
@@ -140,6 +141,52 @@ for cls, spec in ((TrialMode, {'witness_count': 2}),
                   (SceneMode, {'premise': 'A quiet threat', 'play': False})):
     mm, ss, _ = play(cls, spec, seed=17)
     check(f'{cls.__name__} terminates under the step guard', mm.finished())
+
+print('\nLM STUDIO BRAIN')
+lm = LMStudioBrain(ScriptedBrain(Dice(0)))
+check('defaults to LM Studio port', lm.base == 'http://localhost:1234/v1', lm.base)
+check('no real API key required', bool(lm.key))
+check('ping returns (bool, str)',
+      isinstance(lm.ping(), tuple) and isinstance(lm.ping()[0], bool))
+check('list_models degrades to []', lm.list_models() == [])
+check('speak falls back when offline', len(lm.speak(generate_actor('judge', Dice(1)), {})) > 5)
+check('choose falls back when offline',
+      0 <= lm.choose(generate_actor('judge', Dice(1)), [{'verb': 'a'}, {'verb': 'b'}], {}) < 2)
+check('invent falls back to {}', lm.invent({'instruction': 'x'}) == {})
+check('fallbacks were counted', lm.failures > 0)
+
+print('\nCONFIG')
+check('config exposes LM Studio base', config.LMSTUDIO_BASE.endswith('/v1'))
+check('commit threshold is sane', 10 <= config.COMMIT_THRESHOLD <= 100)
+check('max turns guard exists', config.MAX_TURNS > 50)
+
+print('\nGUI')
+from .gui import GAME, PAGE
+check('page is served', '<html' in PAGE and 'WahSim' in PAGE)
+st = GAME.start({'mode': 'congress', 'seed': 3,
+                 'spec': {'motion': 'Test', 'delegate_count': 5}})
+check('gui start returns state', st['started'] and st['title'] == 'Grand Congress')
+check('gui exposes clocks', len(st['clocks']) >= 1)
+check('gui exposes the floor chart', st['chart'] and len(st['chart']) == 5)
+check('gui marks the player turn', st['current']['is_player'])
+st = GAME.step(0, 'A speech for the record.')
+check('gui step records a beat', len(st['beats']) == 1)
+before = len(st['beats'])
+st = GAME.autoplay()
+# autoplay is *correct* to stop immediately when the player leads the next
+# phase, so assert it never regresses and never runs past the human.
+check('gui autoplay never regresses', len(st['beats']) >= before)
+check('gui autoplay stops on the player',
+      st['finished'] or not st['current'] or st['current']['is_player'])
+for _ in range(30):
+    if st['finished']:
+        break
+    st = GAME.autoplay()
+    if st['current'] and st['current']['is_player'] and not st['finished']:
+        st = GAME.step(0, 'Another point.')
+check('gui reaches a result', st['finished'], str(st.get('round')))
+check('gui returns an epilogue', 'RESULT' in st['epilogue'])
+check('gui state is JSON-serialisable', bool(__import__('json').dumps(st)))
 
 print('\nREPLAY')
 a1, _, _ = play(TrialMode, {'prosecutor': 'edgeworth', 'witness_count': 3}, seed=404)
