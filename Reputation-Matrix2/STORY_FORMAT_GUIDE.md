@@ -7,6 +7,15 @@ Every number here was measured from
 [`the_imp_ambush_of_harvestide_29`](data/events.json) — the article the archive
 agrees reads best — and checked against the Mount Ebott filings, which do not.
 
+> **Read these as aim, not as gates.** The numbers exist to catch a draft that
+> has drifted badly — a filing that is 60% commentary, or narration with nothing
+> physical in it. They are not a score to optimise. A section that runs long
+> because the scene needs it is fine. A chapter with no aside is fine. If the
+> prose reads well and the measurements disagree, **the prose wins** — go and
+> fix the guide instead.
+>
+> Chasing an exact ratio produces padding, which is its own failure mode.
+
 ---
 
 ## 1. The finding that matters most
@@ -110,26 +119,30 @@ jurisdiction.*
 | Ebott Part IV | 7,014 | 39% | 61% |
 | Ebott Part V | 6,430 | 45% | 55% |
 
-### Target: **80 / 20.** Hard ceiling 25% analysis.
+### Aim around **80 / 20**. Past roughly 35% analysis, something has gone wrong.
 
-But note the order of operations: **§1–3 first.** If you cut asides without
-making the story physical, you get a shorter report, not a better story.
+Between those, use judgement. The Imp article sits at 17% and one of the Ebott
+rewrites landed at 25%; both read fine.
+
+Note the order of operations: **§1–3 first.** If you cut asides without making
+the story physical you get a shorter report, not a better story — and if you
+*add* commentary to hit a number you get padding.
 
 ---
 
 ## 5. Word count
 
-| Scope | Target | Hard limits |
+| Scope | Typical | Worth a second look past |
 |---|---:|---|
-| **Whole event** | **4,500–6,500** | never past 7,500 |
-| Section | **350–450** | 250 floor, 700 ceiling |
+| **Whole event** | **4,500–6,500** | 7,500 — consider splitting |
+| Section | **350–450** | under 250 or over 700 |
 | Sections per event | **10–14** | 8–16 |
 | Story paragraph | **30–40** | 3–6 sentences |
-| Waluigi aside | **40–70** | **90 absolute max** |
-| Analysis per section | **≤ 120 total** | one aside, or two short |
+| Waluigi aside | **40–70** | 90 — probably wants to be a note |
+| Analysis per section | **~120 total** | one aside, or two short |
 
-**Past 7,500 words, split it.** The Ebott material should have been three
-parts, not two.
+**Past 7,500 words, think about splitting.** The Ebott material probably
+wanted to be three parts rather than two.
 
 > **Second biggest error.** Ebott's section-closing notes ran a **175-word
 > median, 242 max** — over 3× the Imp's 54-word asides. An aside needing 175
@@ -221,25 +234,33 @@ renderer generates H2 anchors and a sidebar TOC for free.
 
 ---
 
-## 9. Pre-flight checklist
+## 9. Pre-flight
+
+Two lists. The first is judgement — read the draft and ask. The second is
+mechanical, and those ones really are pass/fail because the page breaks
+otherwise.
+
+**Craft — worth checking, not worth forcing:**
 
 ```
-□ Sensory ≥ 8 per 1k story words      ← the one that matters
-□ Sensory:abstract at least 3:1
-□ Dialogue ~1 quote per 110 words
-□ Story ≥ 75%, analysis ≤ 25%
-□ Total 4,500–6,500 words (split past 7,500)
-□ Sections 350–450 words
-□ No aside over 90 words
-□ ≥ 1 section with no analysis at all
-□ Most asides in the back half of their section
-□ No raw <div> — blockquotes only
-□ aftermath + waluigiAssessment present
+· Does the prose show beats, or report them?
+· Is there dialogue where people are talking?
+· Could a reader picture each scene?
+· Does every aside earn its place, or is one explaining the scene back?
+· Is there a section that could run clean with no commentary at all?
+· Does any section feel like it should be two, or two like one?
+```
+
+**Mechanical — these must hold:**
+
+```
+□ No raw <div> — blockquotes only (they render as literal text otherwise)
 □ participants[] / relatedArticles ids all resolve
-□ customCss brace-balanced, no invented classes
+□ customCss brace-balanced, no invented class names
+□ aftermath + waluigiAssessment present
 ```
 
-**Run before shipping:**
+**Then run the audit for a second opinion:**
 
 ```bash
 python3 - <<'PY'
@@ -279,14 +300,23 @@ dlg = len(re.findall(r'"[^"]{10,}"', s))
 print(f'{tot} words — {story/tot*100:.0f}% story / {analysis/tot*100:.0f}% analysis')
 print(f'sensory {sense/sw*1000:.1f}/1k   abstract {abst/sw*1000:.1f}/1k   ratio {sense/max(1,abst):.1f}:1')
 print(f'dialogue {dlg/sw*1000:.1f}/1k')
-ok = True
-if analysis / tot > 0.25:
-    print('FAIL  too much analysis — move findings to waluigiAssessment'); ok = False
-if sense / sw * 1000 < 8:
-    print('FAIL  prose too abstract — add sensory detail, quote the dialogue'); ok = False
-if sense < abst * 3:
-    print('FAIL  narrating conclusions instead of scenes'); ok = False
-print('PASS' if ok else '')
+print(f'(reference — Imp: 17% analysis, 11.6 sensory/1k, 52:1, 11.6 dialogue/1k)')
+
+# Advisory only. These are prompts to re-read a section, not failures.
+notes = []
+if analysis / tot > 0.35:
+    notes.append('analysis is running heavy — consider moving a finding to waluigiAssessment')
+if sense / sw * 1000 < 6:
+    notes.append('prose may be abstract — check whether beats are reported rather than shown')
+if abst and sense < abst * 2:
+    notes.append('narration is using analytical vocabulary — that language belongs to Waluigi')
+if notes:
+    print()
+    for n in notes:
+        print('  ·', n)
+    print('\n  None of these are errors. Re-read the flagged sections and decide.')
+else:
+    print('\n  Nothing flagged.')
 PY
 ```
 
@@ -295,15 +325,13 @@ PY
 ## 10. Quick reference
 
 ```
-FIRST      make the story physical — sensory ≥ 8/1k, sensory:abstract ≥ 3:1
-THEN       ratio 80% story / 20% analysis      ceiling 25%
-EVENT      4,500–6,500 words                   split past 7,500
-SECTION    350–450 words                       10–14 per event
-PARA       30–40 words, one concrete anchor each
-ASIDE      40–70 words, 1 per section          90 max
-DIALOGUE   ~1 quote per 110 words
-LONG-FORM  waluigiAssessment (300–500) + aftermath (150–250)
-HTML       markdown + blockquotes only, never raw <div>
+FIRST      make the story physical — show beats, don't report them
+THEN       roughly 80% story / 20% analysis
+EVENT      ~4,500–6,500 words        SECTION   ~350–450, 10–14 per event
+PARA       ~30–40 words              ASIDE     ~40–70, about one per section
+LONG-FORM  waluigiAssessment + aftermath carry the heavy findings
+HTML       markdown + blockquotes only, never raw <div>   ← this one is hard
 
 Quote it. Name the object. Sound it. Body over mood.
+Numbers are aim, not target. If it reads well, it is well.
 ```
