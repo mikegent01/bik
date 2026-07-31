@@ -234,7 +234,90 @@ renderer generates H2 anchors and a sidebar TOC for free.
 
 ---
 
-## 9. Pre-flight
+## 9. What-if articles: build the branch before you build the spectacle
+
+The strongest what-if pieces combine two complementary strengths:
+
+- **The Imp article's scene craft:** a small, legible physical problem, rendered through bodies, objects, sound and specific places.
+- **The Wario article's counterfactual architecture:** a clear premise, numbered turns, escalating consequences, resets or decision points that change the shape of the next chapter, and a final ledger that lets the reader see what the branch actually proved.
+
+Do not make the story choose between those strengths. The spectacle only matters when the reader can follow the physical chain that produced it; the chain only matters when each turn changes what is possible next.
+
+### Start with one divergence
+
+State the branch point in one sentence before drafting:
+
+```text
+Canon fact: what happened in the archive.
+Divergence: the one fact that changes.
+Constraint: what remains unchanged.
+Question: what the branch is testing.
+```
+
+A good hypothetical changes one decision, presence, object, order, or disclosure. It does not quietly change the whole world to make the ending happen. If the divergence is large, identify the smaller hinge inside it—the door that opens, the form that is signed, the person who arrives thirty seconds earlier.
+
+### Give every turn a visible consequence
+
+For each chapter or section, track four beats:
+
+1. **Intent:** what the character thinks they are doing.
+2. **Action:** what they physically do or say.
+3. **Immediate result:** what changes in the room, body, institution or relationship.
+4. **Deferred cost:** what this result makes possible or impossible later.
+
+The Wario pattern is useful here: each withdrawal is attractive on its own terms, works briefly, then exposes a larger cost. The reset button is not just a joke; it changes behaviour by making failure cheap, and later becomes part of the failure. That is escalation with causality, not a sequence of random disasters.
+
+Use a branch ledger while drafting:
+
+| Turn | Character's pitch | What actually changes | Cost / new constraint | Reversible? |
+|---|---|---|---|---|
+| 01 | What they believe they are asking for | The concrete effect | The next problem created | yes/no |
+
+If two turns have the same consequence, combine them or make the second alter the rules. If a consequence appears without a preceding choice, add the missing scene.
+
+### Keep the scale climbing, not just the volume
+
+A reliable escalation moves through different scales:
+
+```text
+object / body → room → street or community → institution → meaning / memory
+```
+
+The Imp article makes a single room vivid before the commentary widens it. The Wario article earns cosmology by showing a lamp float, a river leave, a worker stop, and paperwork multiply. Follow that order. Do not open with the thesis, explain the apocalypse, and call the reader back for scenery.
+
+At every escalation, return to a witness and an object. A ringing phone, a cracked cup, a hand on a doorframe, a form that will not end: the concrete anchor keeps a large counterfactual emotionally legible.
+
+### Use the narrator as a participant, not a second essay
+
+Waluigi's voice should have a job in the scene. Let him notice, interrupt, misjudge, take notes, make a joke, withhold a name, or admit that he is afraid. His aside can interpret the beat, but it should also reveal what the beat costs him. The best Wario asides are funny because Waluigi is physically present and professionally offended; the best Imp passages work because the aside lands on a detail the reader has just seen.
+
+For serious turns, let the voice change rather than making every aside louder. A joke can fail. A correction can be filed against Waluigi himself. One quiet aside after a body, a silence or an empty room can carry more weight than three paragraphs of shouting.
+
+### Design the ending before the middle
+
+A what-if ending should answer three separate questions:
+
+- **What changed permanently?**
+- **What did the protagonist misunderstand or fail to control?**
+- **Who pays the cost, especially if they were not in the room?**
+
+The ending does not need to restore canon, and it should not use a twist to erase consequences. A reset may restore memory or paperwork, but the article still needs a residue: a ring in dust, a changed habit, a surviving institution, a witness who knows, or a choice that cannot be unmade. End on a specific image or action, then put the general finding in the verdict/ledger.
+
+### Make the apparatus earn its place
+
+Use the Wario-style extras when they clarify the branch rather than duplicate it:
+
+- `epigraph`: the filing's contradiction or emotional promise, not a synopsis.
+- `ledger`: one row per major turn; record pitch, reality, lesson, lifespan and verdict.
+- `findings`: 4–7 transferable claims, each stated in one sharp sentence and supported by a concrete detail.
+- `verdict`: acknowledge both the real gain and the real harm; do not force a clean moral if the branch does not supply one.
+- `related`: link only to entities or articles that the story actually changes or invokes.
+
+The apparatus should let a reader audit the story after reading it. It must not replace the story. If a ledger row contains the best scene, move that scene back into `chapters[].body`.
+
+---
+
+## 10. Pre-flight
 
 Two lists. The first is judgement — read the draft and ask. The second is
 mechanical, and those ones really are pass/fail because the page breaks
@@ -258,6 +341,8 @@ otherwise.
 □ participants[] / relatedArticles ids all resolve
 □ customCss brace-balanced, no invented class names
 □ aftermath + waluigiAssessment present
+□ What-if: divergence is explicit and chapters have a visible causal order
+□ What-if: ledger / findings agree with the story; no apparatus-only consequences
 ```
 
 **Then run the audit for a second opinion:**
@@ -322,7 +407,7 @@ PY
 
 ---
 
-## 10. Quick reference
+## 11. Quick reference
 
 ```
 FIRST      make the story physical — show beats, don't report them
