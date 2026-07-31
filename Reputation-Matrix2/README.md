@@ -6,6 +6,33 @@ To ensure readability and maintainability, this project follows a modular struct
 
 A key example of this philosophy is the handling of game data. Instead of large, monolithic data files, information is broken down into smaller, thematic modules. For instance, the detailed legal codes for different faction archetypes (`laws-data-militaristic.js`, `laws-data-democratic.js`, etc.) are kept in separate files and aggregated by a central `laws-data.js` file. This keeps each file focused on a single concept, improving organization and making it easier to add or modify data without affecting unrelated systems.
 
+## Writing Stories, Events & What-Ifs
+
+Narrative filings (session events in `data/events.json`, What-Ifs in `data/whatifs.json`) follow a dedicated craft standard:
+
+**→ [STORY_FORMAT_GUIDE.md](STORY_FORMAT_GUIDE.md)** — Waluipedia Story Format Guide
+
+### Archive ranking (the short version)
+
+| Rank | Filing | Role |
+|---:|---|---|
+| **1** | **Wario / Abstract Bank** (`wario_abstract_bank`) | Best complete *article* — scene craft + decision engine + ledger / findings / verdict |
+| **2** | **Imp Ambush** (`the_imp_ambush_of_harvestide_29`) | Best pure *scene* / best teaching text when narration goes abstract |
+| — | Mount Ebott filings | Negative control — analysis wearing a story costume |
+
+> **Imp is the better written scene. Wario is the better written article.**
+> Imp for the scene. Wario for the filing. **Both, or it isn’t finished.**
+
+| If you are writing… | Ceiling | Floor you must clear |
+|---|---|---|
+| A **session event** | Imp | Physical prose, short asides, ~80/20 story/analysis |
+| A **What-If** | Wario | Imp-grade scenes *before* any apparatus counts |
+| Anything long | Imp scenes + Wario frame | A thesis, a machine, a callback object in the close |
+
+The guide covers: physical prose techniques, voice/POV rules, section vs chapter shape, dual-layer commentary, the What-If decision engine (`ledger` / `findings` / `verdict`), event apparatus, pacing tells stolen from both references, and pre-flight audit scripts for each form.
+
+**Do not optimise the numbers.** They catch drift. If the prose reads well and the measurements disagree, the prose wins.
+
 ## Adding New Map Pages
 
 To maintain application stability and a consistent user experience, all new tactical map pages **must** adhere to the standardized map grouping system. Creating custom, one-off UI or filtering logic for a single map page can conflict with the global data loaders for POIs and tactical units, causing them to fail to render.
