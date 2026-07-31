@@ -33,7 +33,53 @@
       "disaster_inc",
       "mushroom_regency",
       "liberated_toads"
-    ]
+    ],
+    "systemId": "star_toad_caste_system",
+    "portrait": "portraits/star_toad.png",
+    "selfDesignation": "Toadfolk; individual communities use local names such as the Cap Commons, Star Toads, and the Liberated Cohorts",
+    "subgroups": [
+      "Red-Cap Toads",
+      "Blue Toads",
+      "Yellow Toads",
+      "Green Toads",
+      "Purple Toads",
+      "Pink Toads",
+      "Black Toads",
+      "White Toads",
+      "Star Toads",
+      "Shy Toads",
+      "Toadette lineages",
+      "regional and occupational cohorts"
+    ],
+    "history": "Toad history is usually written by the kingdoms they served, which is why it begins with appointments, harvests, sieges, and the names of monarchs. Toads remember it differently: as the history of kitchens that fed armies, roads repaired overnight, keys carried through locked palaces, and small communities that kept one another alive after the banners changed. Their oldest songs describe the Cap Commons, a network of mushroom settlements linked by bell-runners and shared seed vaults long before the Mushroom Kingdom had a crown.\n\nThe first kingdom absorbed those settlements without fully erasing them. Red-cap civic houses became clerks and wardens; blue-cap families carried water and medicine across winter routes; yellow-cap builders raised the first stone roads; green-cap scouts mapped forests and underground passages. These colors were never a rigid caste system. They were inherited associations, guild traditions, and local stories that outsiders later flattened into a convenient taxonomy. A Toad can change colors only in a fairy tale; a Toad can change professions, loyalties, and names in every generation.\n\nThe royal consolidation brought security and dependence together. Palace Toads gained literacy, stable rations, and legal protection, while distant villages paid taxes in labor and were expected to provide guards, porters, cooks, and messengers. When Peach ruled, many Toads understood service as a reciprocal covenant: the crown protected the roads, and the roads made the crown possible. After her death, the Regency kept the uniforms and paperwork while dropping much of the reciprocity. The same people who had been called the kingdom's backbone were counted as replaceable inventory.\n\nThe Iron Legion's trafficking, the prison camps, and the Loyalist levies made that contradiction impossible to ignore. The Liberated Toads did not appear from nowhere; they grew from mutual-aid kitchens, refugee chapels, forest rangers, laundry networks, and veterans who had learned that a thousand quiet logistical acts could become a rebellion. The Star Toad tradition emerged from this period as both a spiritual practice and an organizing language: a star is not a chosen hero, but a point of light that becomes a route when other points answer it.\n\nIn the present, Toad communities are divided over whether safety comes from restored royal protection, democratic cohorts, local autonomy, or a new federation of caps and regions. The argument is loud because the history is alive. A red-cap palace clerk and a blue-cap dockworker may share ancestry, but they do not share the same memory of the crown; a Star Toad cantor and a green-cap ranger may agree on mutual aid while disagreeing about whether secrecy protects the vulnerable or protects the old order.",
+    "culturalStructure": {
+      "coreValues": [
+        "mutual aid",
+        "competence as care",
+        "portable community",
+        "remembering the absent"
+      ],
+      "internalVoices": [
+        "palace and civic Toads",
+        "rural seed-keepers",
+        "military cohorts",
+        "Star Toad astronomers and cantors",
+        "refugees and displaced caps",
+        "young mixed-color urban Toads"
+      ],
+      "taboos": [
+        "selling a community member as property",
+        "destroying seed or medical stores for profit",
+        "claiming one cap color speaks for all Toads"
+      ],
+      "customs": [
+        "shared pot meals",
+        "cap-color naming ceremonies",
+        "bell and lantern signals",
+        "recording the names of the missing"
+      ]
+    },
+    "writingNote": "Do not write Toads as a single cheerful worker species. Show a community, a disagreement, and the practical system that keeps people alive."
   },
   {
     "id": "chaos_warrior",

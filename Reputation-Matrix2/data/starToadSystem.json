@@ -1,0 +1,39 @@
+{
+  "id": "star_toad_caste_system",
+  "name": "The Star Toad Constellary",
+  "type": "race_culture_system",
+  "status": "active",
+  "description": "A color-and-constellation system used by Toad communities to record vocation, memory, mutual-aid obligations, and Star Toad resonance without turning cap color into destiny.",
+  "principles": [
+    "Cap color is heritage and association, not a biological caste or moral category.",
+    "A Toad may belong to several constellations over a lifetime.",
+    "Star Toads are recognized by resonance, service, and community witness—not by a single color.",
+    "Every constellation grants a social role and a burden; there are no cost-free archetypes."
+  ],
+  "capColors": [
+    {"id":"red","name":"Red Cap","association":"civic defense, public courage, wardenship","strength":"rallying people in visible danger","burden":"being expected to stand first and recover quietly"},
+    {"id":"blue","name":"Blue Cap","association":"waterways, medicine, memory, travel","strength":"keeping routes and people connected","burden":"carrying everyone else's history"},
+    {"id":"yellow","name":"Yellow Cap","association":"building, craft, food stores, sunlight rites","strength":"making shelter and supply from little","burden":"having practical labor treated as invisible"},
+    {"id":"green","name":"Green Cap","association":"forests, scouting, hunting, field knowledge","strength":"seeing a safe path before others do","burden":"being trusted to survive alone"},
+    {"id":"purple","name":"Purple Cap","association":"archives, diplomacy, dreams, magic","strength":"finding patterns across distant communities","burden":"being suspected of knowing too much"},
+    {"id":"pink","name":"Pink Cap","association":"kinship, performance, celebration, care","strength":"turning grief into a shared language","burden":"being asked to make suffering beautiful"},
+    {"id":"black","name":"Black Cap","association":"night watch, mining, mourning, hidden routes","strength":"working where visibility and credit fail","burden":"being mistaken for secrecy itself"},
+    {"id":"white","name":"White Cap","association":"healing, vows, refuge, mediation","strength":"holding a community together during fracture","burden":"being expected to forgive before justice is done"}
+  ],
+  "starToad": {
+    "definition":"A Toad whose cap, voice, or presence resonates with the Star Road and whose community recognizes them as a route-maker between isolated people.",
+    "notAChosenOne":"Star Toads are not automatically royal, powerful, pure, or destined. The title can be earned, inherited, disputed, or refused.",
+    "practices":["night-sky route reading","constellation naming for the missing","shared lantern vigils","carrying messages across faction lines","turning local memories into navigable maps"],
+    "abilities":["Star Sighting: reveal a safe route or hidden connection when a community contributes a memory","Constellation Call: coordinate allied Toads across a map once three witnesses agree on the signal","Falling Star: spend stored mutual-aid credit to protect one person from an otherwise certain consequence"],
+    "limits":["a Star Toad cannot create trust where no one will answer","each use requires a witness, memory, or material contribution","false constellations form when leaders erase inconvenient names","the system weakens when communities are isolated or coerced"],
+    "storyHooks":["a star map has a missing village deliberately scratched out","two cap communities claim the same constellation and its resources","a Star Toad refuses a royal summons to guide refugees instead","the party must decide whether to reveal a safe route that an army could exploit"]
+  },
+  "systemHooks": {
+    "reputation":"Aid given to Toad communities creates constellation credit; exploitation creates broken-star markers.",
+    "events":"Cap-color customs and Star Toad vigils can unlock events, quests, and alternate dialogue.",
+    "battles":"Toad cohorts can provide route intelligence, evacuation lanes, field kitchens, or morale—never generic interchangeable infantry.",
+    "characters":"Characters may have a cap association, constellation membership, and a personal stance toward the system.",
+    "maps":"Star routes connect refuges, wells, kitchens, observatories, and hidden roads as a social map layer."
+  },
+  "sourceNote":"Original setting synthesis based on the project’s Toad entries and the supplied Star Toad reference image; color associations are local worldbuilding, not biological rules."
+}
