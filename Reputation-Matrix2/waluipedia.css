@@ -37,10 +37,32 @@
   --shadow:0 8px 30px rgba(0,0,0,.45); --radius:14px;
 }
 html[data-theme="light"]{
-  --bg:#f5f1fb; --bg2:#ece5f7; --panel:#ffffff; --panel2:#f6f1fd;
-  --border:#dccff0; --text:#241a38; --muted:#6b5e86; --accent:#6b2bbd;
-  --accent2:#9a6c00; --green:#1f8f70; --danger:#c3282d; --link:#5b239e;
-  --shadow:0 8px 24px rgba(90,0,140,.10);
+  --bg:#f3eefb; --bg2:#e9e1f6; --panel:#ffffff; --panel2:#f7f2ff;
+  --border:#c9b6e8; --text:#1a1230; --muted:#5c4e7a; --accent:#6b2bbd;
+  --accent2:#8a6200; --green:#1f8f70; --danger:#c3282d; --link:#5b239e;
+  --shadow:0 10px 28px rgba(70,0,120,.12);
+  color-scheme: light;
+  background: #f3eefb;
+}
+html[data-theme="light"] body{
+  background:
+    radial-gradient(1100px 520px at 85% -8%, rgba(107,43,189,.13), transparent 58%),
+    radial-gradient(820px 460px at -8% 12%, rgba(224,180,0,.10), transparent 55%),
+    #f3eefb !important;
+  color:#1a1230 !important;
+}
+html[data-theme="dark"],
+html:not([data-theme]){
+  color-scheme: dark;
+  background: #0d0a15;
+}
+html[data-theme="dark"] body,
+html:not([data-theme]) body{
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(138,75,255,.14), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgba(224,180,0,.07), transparent 55%),
+    #0d0a15 !important;
+  color:#ece7f5 !important;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -1398,4 +1420,29 @@ input:focus, textarea:focus, select:focus, button:focus-visible {
   header.topbar, aside.sidenav, #themeBtn, #musicBtn, #randomBtn, #loginBtn {
     display: none !important;
   }
+}
+
+
+/* Theme toggle toast — proof the shortcut fired */
+.theme-toast{
+  position:fixed; top:72px; right:18px; z-index:9999;
+  padding:10px 14px; border-radius:999px; font-weight:800; font-size:13px;
+  border:1px solid var(--border); box-shadow:var(--shadow);
+  background:var(--panel); color:var(--text);
+  opacity:0; transform:translateY(-8px); pointer-events:none;
+  transition:opacity .18s ease, transform .18s ease;
+}
+.theme-toast.show{ opacity:1; transform:translateY(0); }
+.theme-toast--light{ background:#fff8e8; color:#5a3d00; border-color:#e0b400; }
+.theme-toast--dark{ background:#241848; color:#f0e9ff; border-color:#8a4bff; }
+
+#themeBtn.is-light{
+  background: linear-gradient(135deg, #fff3b0, #ffd666) !important;
+  border-color:#c9a000 !important;
+  color:#4a3200 !important;
+  box-shadow:0 0 0 3px rgba(224,180,0,.28);
+}
+#themeBtn.is-dark{
+  background: linear-gradient(135deg, #2a1a55, #1a1030) !important;
+  border-color:#7a4fd6 !important;
 }

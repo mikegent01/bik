@@ -6,8 +6,21 @@
 <title>Waluipedia — The Objective Encyclopedia (Written by Waluigi)</title>
 <link rel="icon" href="./favicon.ico">
 <!-- External CSS: cached by browser, loaded once, scales as site grows -->
-  <link rel="preload" href="Reputation-Matrix2/waluipedia.css" as="style">
-  <link rel="stylesheet" href="Reputation-Matrix2/waluipedia.css">
+  <link rel="preload" href="Reputation-Matrix2/waluipedia.css?v=theme2" as="style">
+  <link rel="stylesheet" href="Reputation-Matrix2/waluipedia.css?v=theme2">
+  <script>
+  /* Apply theme BEFORE paint so toggle is never a no-op / flash. */
+  (function () {
+    try {
+      var m = localStorage.getItem('waluipedia-theme');
+      if (m !== 'light' && m !== 'dark') m = 'dark';
+      document.documentElement.setAttribute('data-theme', m);
+      document.documentElement.style.colorScheme = m;
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  })();
+  </script>
   <link rel="stylesheet" href="Reputation-Matrix2/ui-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/reputation-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/commerce-event-fixes.css">
@@ -261,7 +274,7 @@
     <button class="iconbtn" id="loginBtn" title="Login — pick your character" onclick="Router.go('#/login')">👤</button>
     <button class="iconbtn" id="randomBtn" title="Random article (r)">🎲</button>
     <button class="iconbtn" id="musicBtn" title="Waluigi reading music">🎧</button>
-    <button class="iconbtn" id="themeBtn" title="Toggle theme (t)">🌙</button>
+    <button type="button" class="iconbtn theme-toggle" id="themeBtn" title="Toggle light/dark mode (t)" aria-label="Toggle light/dark mode" aria-pressed="true">🌙</button>
   </div>
 </header>
 <div class="layout">
@@ -12579,25 +12592,57 @@ window.addEventListener('hashchange',()=>{ try{ renderLinkHud(); }catch(e){} });
 const Nav={random(){const r=ALL_ITEMS[Math.floor(Math.random()*ALL_ITEMS.length)];openId(r.item.id);}};
 
 /* theme + shortcuts */
-const themeBtn=el('themeBtn');
-function setTheme(m){
+const themeBtn = el('themeBtn');
+function flashThemeToast(mode) {
+  let n = document.getElementById('themeToast');
+  if (!n) {
+    n = document.createElement('div');
+    n.id = 'themeToast';
+    n.setAttribute('role', 'status');
+    document.body.appendChild(n);
+  }
+  n.textContent = mode === 'light' ? '☀️ Light mode' : '🌙 Dark mode';
+  n.className = 'theme-toast show theme-toast--' + mode;
+  clearTimeout(flashThemeToast._t);
+  flashThemeToast._t = setTimeout(() => { n.classList.remove('show'); }, 1400);
+}
+function setTheme(m, opts) {
   const mode = (m === 'light') ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', mode);
-  document.documentElement.style.colorScheme = mode;
+  const html = document.documentElement;
+  html.setAttribute('data-theme', mode);
+  html.style.colorScheme = mode;
+  // Force a repaint so stubborn cached rules cannot leave the old palette stuck
+  html.style.backgroundColor = '';
+  if (document.body) {
+    document.body.dataset.theme = mode;
+  }
   if (themeBtn) {
     themeBtn.textContent = mode === 'dark' ? '🌙' : '☀️';
     themeBtn.setAttribute('aria-label', mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
     themeBtn.setAttribute('title', mode === 'dark' ? 'Dark mode — click for light (t)' : 'Light mode — click for dark (t)');
     themeBtn.setAttribute('aria-pressed', mode === 'dark' ? 'true' : 'false');
+    themeBtn.classList.toggle('is-light', mode === 'light');
+    themeBtn.classList.toggle('is-dark', mode === 'dark');
   }
   try { localStorage.setItem('waluipedia-theme', mode); } catch (e) {}
+  if (opts && opts.toast) flashThemeToast(mode);
+  try { window.dispatchEvent(new CustomEvent('waluipedia:theme', { detail: { mode } })); } catch (e) {}
+  return mode;
 }
-setTheme((()=>{try{return localStorage.getItem('waluipedia-theme')||'dark';}catch(e){return 'dark';}})());
-themeBtn && themeBtn.addEventListener('click',()=>setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  return setTheme(cur === 'dark' ? 'light' : 'dark', { toast: true });
+}
+setTheme((() => { try { return localStorage.getItem('waluipedia-theme') || 'dark'; } catch (e) { return 'dark'; } })());
+if (themeBtn) {
+  themeBtn.addEventListener('click', (e) => { e.preventDefault(); toggleTheme(); });
+} else {
+  console.warn('[waluipedia] #themeBtn missing — theme shortcut still works');
+}
 el('randomBtn').addEventListener('click',()=>Nav.random());
-document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(document.activeElement.tagName);
+document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.test((document.activeElement&&document.activeElement.tagName)||'') || (document.activeElement&&document.activeElement.isContentEditable);
   if((e.key==='/'&&!typing)||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')){e.preventDefault();searchInput.focus();runSearch(true);}
-  else if(e.key==='t'&&!typing)setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+  else if(e.key.toLowerCase()==='t'&&!typing&&!e.ctrlKey&&!e.metaKey&&!e.altKey){ e.preventDefault(); toggleTheme(); }
   else if(e.key==='r'&&!typing)Nav.random();
   else if(e.key.toLowerCase()==='h'&&!typing)cycleLinkLevel();
   else if(e.key.toLowerCase()==='m'&&!typing&&HOVER_LINK_ID){ e.preventDefault(); muteLink(HOVER_LINK_ID); }
