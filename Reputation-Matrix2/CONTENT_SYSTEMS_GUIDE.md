@@ -1,6 +1,8 @@
 # Content Systems Guide
 
-Guidelines for adding **events, battles, characters and races** to the Reputation Matrix. These are not just text records: each entry should create a usable relationship between the world, its systems and the player's choices.
+Guidelines for adding **events, battles, characters and races** to the Reputation Matrix.
+
+For the dedicated prose structures and templates, use [`CONTENT_WRITING_GUIDE.md`](CONTENT_WRITING_GUIDE.md). This guide covers the data and systems layer; the writing guide covers how each entry should read. These are not just text records: each entry should create a usable relationship between the world, its systems and the player's choices.
 
 The existing data is intentionally permissive, so older entries may not satisfy every recommendation. New content should follow this guide; improve older generic entries when you touch them.
 
