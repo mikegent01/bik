@@ -1477,3 +1477,37 @@ input:focus, textarea:focus, select:focus, button:focus-visible {
 .arttile .race-thumb.tile{margin:0 0 8px}
 @media(max-width:720px){.race-sub-grid{grid-template-columns:1fr 1fr}.race-sub-img{height:110px}}
 @media(max-width:480px){.race-sub-grid{grid-template-columns:1fr}}
+
+
+/* ==========================================================================
+   Reputation / XP "why this number" explainers
+   ========================================================================== */
+.rep-factor-row{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 4px}
+.rep-factor-chip{font-size:10.5px;font-weight:700;border:1px solid var(--border);border-radius:999px;padding:2px 8px;background:var(--bg2);color:var(--muted);white-space:nowrap}
+.rep-factor-chip b{color:var(--text);font-weight:800;margin-right:3px}
+.rep-factor-chip.pos{border-color:rgba(74,222,128,.35);color:#86efac;background:rgba(34,197,94,.08)}
+.rep-factor-chip.pos b{color:#4ade80}
+.rep-factor-chip.neg{border-color:rgba(239,68,68,.35);color:#fca5a5;background:rgba(239,68,68,.08)}
+.rep-factor-chip.neg b{color:#f87171}
+.rep-factor-chip.zero{opacity:.75}
+.rep-factor-chip.total{white-space:normal;max-width:100%;font-size:10px;line-height:1.35;border-radius:8px;padding:4px 8px;color:var(--accent2);border-color:color-mix(in srgb,var(--accent2) 40%,var(--border))}
+.rep-top-events{font-size:11px;line-height:1.35;margin:2px 0 4px}
+.rep-op-row{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.rep-op-row:last-child{border-bottom:0}
+.rep-op-row:hover{background:rgba(138,75,255,.06);border-radius:8px;padding-left:6px;padding-right:6px}
+.rep-heat-why{margin:0 0 8px;padding:12px 14px;border:1px solid rgba(239,68,68,.28);border-radius:12px;background:linear-gradient(135deg,rgba(239,68,68,.10),rgba(138,75,255,.05)),var(--bg2)}
+.rep-heat-why-head{font-size:13.5px;margin-bottom:6px;color:var(--text)}
+.rep-why-list{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:12.5px;line-height:1.5}
+.rep-why-list li{margin:3px 0}
+.rep-formula{margin-top:6px;font-size:11.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--accent2);background:rgba(224,180,0,.08);border:1px dashed rgba(224,180,0,.35);border-radius:8px;padding:6px 8px}
+.rep-heat-band{font-size:12.5px;color:var(--text);margin:4px 0 6px;line-height:1.4}
+.rep-legend-box{padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);margin-bottom:4px}
+.rep-explain-card .rep-score-badge{flex:0 0 auto;margin-top:4px}
+.factor-explain{display:block;color:var(--muted);font-size:11px;font-weight:400;line-height:1.35;margin-top:2px}
+.xp-mini-panel .xp-why-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.xp-why-card{border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:8px 9px;font-size:11.5px;line-height:1.4;color:var(--muted)}
+.xp-why-card b{display:block;color:var(--accent2);font-size:12.5px;margin-bottom:3px}
+@media(max-width:640px){
+  .xp-mini-panel .xp-why-grid{grid-template-columns:1fr}
+  .rep-factor-chip.total{font-size:9.5px}
+}

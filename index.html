@@ -4659,7 +4659,34 @@ function xpPill(articleId){ const x=xpStats(articleId); return x ? `<span class=
 function xpMiniPanel(articleId){
   const x=xpStats(articleId); if(!x) return '';
   const pct=x.nextXP>0?Math.min(100,(x.currentXP/x.nextXP)*100):0;
-  return `<div class="xp-mini-panel"><h4>XP Ledger Link</h4><div class="xpbig">Level ${x.level}</div><div class="xpsub">${x.currentXP.toLocaleString()} / ${x.nextXP.toLocaleString()} XP · ${x.remainingXP.toLocaleString()} to Level ${x.level+1}</div><div class="xpbar"><span style="width:${pct}%"></span></div><div class="xpsub">${x.entryCount} ledger entries · Power ${x.powerLevel} · Fame ${x.fameScore}</div><a class="xplink" href="${xpUrl(articleId)}">Open full XP dossier →</a></div>`;
+  const fame = Number(x.fameScore)||0;
+  const power = Number(x.powerLevel)||0;
+  const entries = Number(x.entryCount)||0;
+  const fameWhy = fame>=90 ? 'Household-name recognition across realms (propaganda, myth, or both).'
+    : fame>=70 ? 'Widely known — chronicles and civilians both name-drop them.'
+    : fame>=40 ? 'Regionally known — specialists and locals recognise the name.'
+    : fame>=20 ? 'Niche recognition — appears in dossiers more than tavern songs.'
+    : 'Low public recognition — file exists, street does not.';
+  const powerWhy = power>=20 ? 'Outlier power tier (divine/siege/plot-scale).'
+    : power>=12 ? 'High combat/capability tier — changes battles by showing up.'
+    : power>=7 ? 'Competent field operator — reliable threat or ally.'
+    : 'Support / low-combat footprint relative to front-liners.';
+  const entriesWhy = entries>0
+    ? `${entries} dated ledger beat${entries===1?'':'s'} (events, battles, dossiers) granted the XP total. Open the full ledger to see each line.`
+    : 'No ledger beats filed yet in XP_SUMMARY.';
+  return `<div class="xp-mini-panel">
+    <h4>XP Ledger · why these numbers</h4>
+    <div class="xpbig">Level ${x.level}</div>
+    <div class="xpsub">${x.currentXP.toLocaleString()} / ${x.nextXP.toLocaleString()} XP · ${x.remainingXP.toLocaleString()} to Level ${x.level+1}</div>
+    <div class="xpbar"><span style="width:${pct}%"></span></div>
+    <div class="xp-why-grid">
+      <div class="xp-why-card"><b>✦ ${x.currentXP.toLocaleString()} XP</b><span>Sum of all category awards in the ledger (combat, discovery, social, survival, etc.). Not a popularity contest — it is work filed.</span></div>
+      <div class="xp-why-card"><b>📣 Fame ${fame}/100</b><span>${esc(fameWhy)} Fame ≠ reputation (factions liking you) and ≠ infamy (hostile heat).</span></div>
+      <div class="xp-why-card"><b>⚔️ Power ${power}</b><span>${esc(powerWhy)}</span></div>
+      <div class="xp-why-card"><b>📒 ${entries} entries</b><span>${esc(entriesWhy)}</span></div>
+    </div>
+    <a class="xplink" href="${xpUrl(articleId)}">Open full XP dossier (per-entry breakdown) →</a>
+  </div>`;
 }
 function artHash(s){let h=2166136261;String(s||'').split('').forEach(ch=>{h^=ch.charCodeAt(0);h=Math.imul(h,16777619);});return h>>>0;}
 const SPECIAL_ART={
@@ -10814,15 +10841,143 @@ const OPERATOR_BASE_STANDINGS = {
 };
 
 const INFAMY_PROFILES = {
-  bowser: { score: 64, icon: '👑', label: 'Royal Threat / Military Heat', tags: ['Invasive Sovereign', 'Front-Line Heat', 'Koopa Command'], warrants: ['Regal Empire: Supernatural Sovereignty Act - Invasive Sovereign Entity', 'Mushroom Regency: High Treason Border Incursion Warrant'] },
-  archie_miser: { score: 78, icon: '🔥', label: 'Arson Confession / Terrorist Heat', tags: ['Public Menace', 'Domestic Arsonist', 'Iron Mandate Target'], warrants: ['Regal Empire: Iron Mandate Priority 1 Terrorist Arrest Warrant', 'Iron Legion: Anti-Magic Shackles Detention Order'] },
-  waluigi: { score: 38, icon: '🍆', label: 'Nuisance / Complaint Magnet', tags: ['Chronicle Intrusion', 'Unpaid Debt Heat', 'Feyward Escapee'], warrants: ['Wario Enterprise: Debt Repossession Priority 2 (Kidney Collateral)'] },
-  markop: { score: 42, icon: '🛡️', label: 'Titan Class Disaster Threat', tags: ['Walking Siege Weapon', 'Spider Grove Destroyer', 'Disgraced Knight'], warrants: ['Regal Empire: Growth Magic Suppression Order'] },
-  hjumpik: { score: 24, icon: '⛏️', label: 'Specimen Contraband Scrutiny', tags: ['Unlawful Petrifaction', 'Feyward Traveler'], warrants: [] },
-  remi_akamatsu_full_backstory: { score: 32, icon: '⚙️', label: 'Unlicensed Construct Heat', tags: ['Class-4 Armament Violation', 'Vigilance Schematic Theft'], warrants: ['Iron Legion: Unlicensed Siege Construct Repair Order'] },
-  dan: { score: 48, icon: '⚡', label: 'Fire Detonation / Rogue Mage', tags: ['High-Yield Blast', 'Bowser Badge Scarring'], warrants: ['Mages Guild: Disciplinary Inquiry File'] },
-  green_t: { score: 58, icon: '🎯', label: 'Vampire Dinner Sniper Heat', tags: ['Patriarch Silver Gunshot', 'Shadow Estate Infiltrator'], warrants: ['Onyx Hand: Corvinarus Blood Debt Elimination Edict'] }
+  /* Heat 0–100 = how much hostile attention this person draws.
+     Not the same as fame (recognition) or reputation (faction liking).
+     reasons[] are the plain-language "why this number" lines. */
+  bowser: {
+    score: 64, icon: '👑', label: 'Royal Threat / Military Heat',
+    tags: ['Invasive Sovereign', 'Front-Line Heat', 'Koopa Command'],
+    warrants: ['Regal Empire: Supernatural Sovereignty Act - Invasive Sovereign Entity', 'Mushroom Regency: High Treason Border Incursion Warrant'],
+    reasons: [
+      'King-scale Koopa command presence: every room treats him as a military problem, not a tourist.',
+      'Border wars and Koopa Troop history keep Regency and Empire threat boards warm.',
+      'Score is high because institutions write warrants about him — not because a random NPC dislikes him.'
+    ],
+    formula: 'Baseline royal/military threat (~55) + active invasion/treason warrants (+9) ≈ 64'
+  },
+  archie_miser: {
+    score: 78, icon: '🔥', label: 'Arson Confession / Terrorist Heat',
+    tags: ['Public Menace', 'Domestic Arsonist', 'Iron Mandate Target'],
+    warrants: ['Regal Empire: Iron Mandate Priority 1 Terrorist Arrest Warrant', 'Iron Legion: Anti-Magic Shackles Detention Order'],
+    reasons: [
+      'Public arson confession and entropy magic made him a Priority-1 legal target, not a quirky mage.',
+      'Iron Legion detention orders and Empire terrorist framing stack heat faster than ordinary crime.',
+      'Debt and fire together keep civilian panic tags alive even when he is "on the team."'
+    ],
+    formula: 'Violence/arson baseline (~50) + Priority-1 warrants (+18) + public panic residual (+10) ≈ 78'
+  },
+  waluigi: {
+    score: 38, icon: '🍆', label: 'Nuisance / Complaint Magnet',
+    tags: ['Chronicle Intrusion', 'Unpaid Debt Heat', 'Feyward Escapee'],
+    warrants: ['Wario Enterprise: Debt Repossession Priority 2 (Kidney Collateral)'],
+    reasons: [
+      'Mostly nuisance-class heat: complaints, chronicle intrusion, and debt — not massacre warrants.',
+      'Wario Enterprise debt repossession keeps a standing civil heat tag.',
+      'Feyward escapee status adds scrutiny without pushing him into terrorist bands.'
+    ],
+    formula: 'Nuisance baseline (~25) + debt warrant (+8) + dimensional escapee tag (+5) ≈ 38'
+  },
+  markop: {
+    score: 42, icon: '🛡️', label: 'Titan Class Disaster Threat',
+    tags: ['Walking Siege Weapon', 'Spider Grove Destroyer', 'Disgraced Knight'],
+    warrants: ['Regal Empire: Growth Magic Suppression Order'],
+    reasons: [
+      'Battlefield scale makes guards treat him as a siege asset even when he is helping.',
+      'Growth-magic suppression order is institutional fear of his power class, not a murder rap sheet.',
+      'Disgraced-knight politics adds scrutiny without Archie-level criminal heat.'
+    ],
+    formula: 'Combat recognition (~28) + suppression order (+9) + disaster-site association (+5) ≈ 42'
+  },
+  hjumpik: {
+    score: 24, icon: '⛏️', label: 'Specimen Contraband Scrutiny',
+    tags: ['Unlawful Petrifaction', 'Feyward Traveler'],
+    warrants: [],
+    reasons: [
+      'Low legal heat: no major active warrants on file in this board.',
+      'Petrifaction and Feyward travel create customs/specimen scrutiny, not wanted posters.',
+      'Score stays in the "watched file" band — interesting to inspectors, not public enemy.'
+    ],
+    formula: 'Traveler baseline (~15) + contraband/specimen flags (+9) ≈ 24'
+  },
+  remi_akamatsu_full_backstory: {
+    score: 32, icon: '⚙️', label: 'Unlicensed Construct Heat',
+    tags: ['Class-4 Armament Violation', 'Vigilance Schematic Theft'],
+    warrants: ['Iron Legion: Unlicensed Siege Construct Repair Order'],
+    reasons: [
+      'Artificer work tripped Legion armament rules — heat is regulatory, not street-crime.',
+      'Siege-construct repair order means inspectors care about what she builds.',
+      'Lower than front-line villains because the public fear her tools more than her person.'
+    ],
+    formula: 'Technical violation baseline (~20) + Legion construct order (+12) ≈ 32'
+  },
+  dan: {
+    score: 48, icon: '⚡', label: 'Fire Detonation / Rogue Mage',
+    tags: ['High-Yield Blast', 'Bowser Badge Scarring'],
+    warrants: ['Mages Guild: Disciplinary Inquiry File'],
+    reasons: [
+      'High-yield combat magic and public detonation history raise civilian alarm.',
+      'Guild disciplinary file is professional heat — peers watching, not only cops.',
+      'Bowser-badge scarring ties him to politically loud incidents.'
+    ],
+    formula: 'Combat mage baseline (~30) + detonation incidents (+12) + guild inquiry (+6) ≈ 48'
+  },
+  green_t: {
+    score: 58, icon: '🎯', label: 'Vampire Dinner Sniper Heat',
+    tags: ['Patriarch Silver Gunshot', 'Shadow Estate Infiltrator'],
+    warrants: ['Onyx Hand: Corvinarus Blood Debt Elimination Edict'],
+    reasons: [
+      'Shooting a vampire patriarch at dinner is the single loudest political act on his file.',
+      'Onyx Hand blood-debt edict is factional kill-order heat, not Regency paperwork.',
+      'Quiet operator profile keeps score below open warlords — but vampires do not forget.'
+    ],
+    formula: 'Covert baseline (~20) + patriarch shot (+25) + blood-debt edict (+13) ≈ 58'
+  }
 };
+
+/** Plain-language explainer shared by heat UI. */
+
+// Aliases so op.key lookups always resolve (operators use short keys).
+INFAMY_PROFILES.archie = INFAMY_PROFILES.archie_miser;
+INFAMY_PROFILES.remi = INFAMY_PROFILES.remi_akamatsu_full_backstory;
+INFAMY_PROFILES.greent = INFAMY_PROFILES.green_t;
+
+function explainInfamy(heat){
+  const h = heat || {};
+  const score = Math.max(0, Math.min(100, Number(h.score)||0));
+  const band = score>=75 ? 'Public-enemy band — institutions and crowds both treat them as an active crisis.'
+    : score>=50 ? 'Wanted / high-scrutiny band — warrants or faction kill-orders are doing real work.'
+    : score>=30 ? 'Watched-file band — enough heat to change how guards and clerks behave.'
+    : 'Low-heat band — recognition without serious hostile legal pressure.';
+  const reasons = (h.reasons && h.reasons.length) ? h.reasons
+    : [(h.label?`Filed as “${h.label}”.`:'No dossier label.'),
+       (h.tags&&h.tags.length)?`Heat tags on file: ${h.tags.join(', ')}.`:'No heat tags.',
+       (h.warrants&&h.warrants.length)?`${h.warrants.length} warrant(s)/directive(s) currently listed.`:'No active warrants listed.'];
+  return { score, band, reasons, formula: h.formula || null };
+}
+
+/** One-line formula for a standing object from calculateOperatorStanding. */
+function standingFormulaLine(st){
+  if(!st) return '';
+  const f = (n)=>{ const v=Number(n)||0; return (v>=0?'+':'')+v; };
+  return `Total ${st.total>=0?'+':''}${st.total} = clamp( base ${f(st.base)} + subfactions ${f(st.subfactions)} + events ${f(st.rumors)} + ally/enemy ripple ${f(st.propagation)} )`;
+}
+
+function standingFactorChips(st){
+  if(!st) return '';
+  const chip = (label, val, tip) => {
+    const v = Number(val)||0;
+    const cls = v>0?'pos':v<0?'neg':'zero';
+    return `<span class="rep-factor-chip ${cls}" title="${esc(tip)}"><b>${esc(label)}</b> ${v>=0?'+':''}${v}</span>`;
+  };
+  return `<div class="rep-factor-row">
+    ${chip('Base', st.base, 'Starting relationship before events and internal politics.')}
+    ${chip('Events', st.rumors, 'Decayed sum of catalogued events/battles/trials involving both parties.')}
+    ${chip('Blocs', st.subfactions, 'Internal sub-faction modifiers (royalists, technocrats, etc.).')}
+    ${chip('Ripple', st.propagation, 'Ally/enemy network: friends of friends, enemies of enemies.')}
+    <span class="rep-factor-chip total" title="Clamped to −100…+100">${esc(standingFormulaLine(st))}</span>
+  </div>`;
+}
+
 
 function getStandingClass(s) {
   if (s >= 50) return 'friendly';
@@ -11340,17 +11495,19 @@ function renderWhyModal(factionKey, opKey) {
         <span style="font-size:28px">${heat.icon}</span>
         <div>
           <b style="font-size:16px">${esc(heat.label)}</b>
-          <div class="text-muted text-sm">Heat Level: <b>${heat.score} / 100</b></div>
+          <div class="text-muted text-sm">Heat Level: <b>${heat.score} / 100</b> — hostile attention, not faction liking</div>
         </div>
       </div>
+      ${(() => { const hx = explainInfamy(heat); return `<div class="rep-heat-band">${esc(hx.band)}</div>${hx.formula?`<div class="rep-formula">${esc(hx.formula)}</div>`:''}<h4>Why this heat score:</h4><ul class="rep-why-list">${hx.reasons.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>`; })()}
       <h4>Active Tags:</h4>
       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px">
         ${(heat.tags||[]).map(t => `<span class="chip">${esc(t)}</span>`).join('') || '<span class="text-muted">No specific heat tags.</span>'}
       </div>
       <h4>Active Warrants & Legal Directives:</h4>
       <ul style="color:#fca5a5;font-size:13px;line-height:1.5">
-        ${(heat.warrants||[]).map(w => `<li>🚨 ${esc(w)}</li>`).join('') || '<li>No active warrants recorded for this faction.</li>'}
+        ${(heat.warrants||[]).map(w => `<li>🚨 ${esc(w)}</li>`).join('') || '<li>No active warrants recorded on this heat file.</li>'}
       </ul>
+      <p class="text-muted text-sm" style="margin-top:12px">Standing with <b>${esc(faction.name)}</b> is a separate number (${st.total>=0?'+':''}${st.total}). Switch to the Standing Trace tab for base + events + blocs + ripple.</p>
     </div>
   `;
 
@@ -11397,7 +11554,8 @@ function renderArticleOperatorReputation(opId) {
   const op = REPUTATION_OPERATORS.find(o => o.id === opId || o.key === opId || o.xpKey === opId);
   if (!op) return '';
   
-  const heat = INFAMY_PROFILES[op.key] || { score: 30, icon: '👁️', label: 'Watched File' };
+  const heat = INFAMY_PROFILES[op.key] || { score: 30, icon: '👁️', label: 'Watched File', tags: [], warrants: [], reasons: [] };
+  const heatX = explainInfamy(heat);
   const keyFactions = ['regal_empire', 'iron_legion', 'koopa_troop', 'peach_loyalists', 'onyx_hand', 'mages_guild', 'freelancer_underworld', 'wario_land'];
   
   let rows = '';
@@ -11405,24 +11563,38 @@ function renderArticleOperatorReputation(opId) {
     const fac = LORE_FACTIONS[fKey];
     if (!fac) return;
     const st = calculateOperatorStanding(op.id, fKey);
+    const topEv = (st.contributions||[]).slice(0,2).map(c => {
+      const title = c.record.title || c.record.name || 'Event';
+      return `${c.decayed>=0?'+':''}${c.decayed} from ${title}`;
+    }).join(' · ');
     rows += `
-      <div class="rep-op-row" onclick="renderWhyModal('${fKey}', '${op.id}')" class="rep-op-row">
-        <div><span style="font-weight:700">${esc(fac.name)}</span> <small class="text-muted">(${esc(fac.region||'Realm')})</small></div>
+      <div class="rep-op-row" onclick="renderWhyModal('${fKey}', '${op.id}')" title="Click for full trace">
+        <div style="min-width:0;flex:1">
+          <div><span style="font-weight:700">${esc(fac.name)}</span> <small class="text-muted">(${esc(fac.region||'Realm')})</small></div>
+          ${standingFactorChips(st)}
+          ${topEv ? `<div class="rep-top-events text-muted">${esc(topEv)}${(st.contributions||[]).length>2?' · …':''}</div>` : `<div class="rep-top-events text-muted">No dated event modifiers — score is mostly baseline${st.subfactions||st.propagation?' + politics/ripple':''}.</div>`}
+        </div>
         <div class="rep-score-badge ${st.class}">${st.total >= 0 ? '+' : ''}${st.total} · ${esc(st.label)}</div>
       </div>
     `;
   });
 
   return `
-    <div class="card" style="border-left:4px solid var(--accent);margin-top:18px">
+    <div class="card rep-explain-card" style="border-left:4px solid var(--accent);margin-top:18px">
       <div class="home-section-head mb-12">
         <div>
-          <h3 style="margin:0;font-size:18px">⚖️ Faction Standings & Reputation Matrix</h3>
-          <p style="color:var(--muted);font-size:12.5px;margin:2px 0 0">Live standing, political alignment, and infamy heat profile for ${esc(op.name)}.</p>
+          <h3 style="margin:0;font-size:18px">⚖️ Faction Standings · why the numbers</h3>
+          <p style="color:var(--muted);font-size:12.5px;margin:2px 0 0">Each score is <b>base + internal blocs + decayed events + ally/enemy ripple</b>, clamped to −100…+100. Click a row for the full event list.</p>
         </div>
-        <span class="chip chip-negative" onclick="Router.go('#/reputation/infamy')">🚨 Heat: ${heat.score} (${esc(heat.label)})</span>
+        <span class="chip chip-negative" onclick="Router.go('#/reputation/infamy')">🚨 Heat ${heat.score} · ${esc(heat.label)}</span>
       </div>
-      <div class="mb-12">${rows}</div>
+      <div class="rep-heat-why">
+        <div class="rep-heat-why-head">${heat.icon||'🚨'} <b>Infamy / heat ${heatX.score}/100</b> — ${esc(heatX.band)}</div>
+        <ul class="rep-why-list">${heatX.reasons.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+        ${heatX.formula?`<div class="rep-formula">${esc(heatX.formula)}</div>`:''}
+        <div class="text-muted text-sm" style="margin-top:6px">Heat is <b>not</b> reputation. A hero can be famous (high fame XP) and still cold with the Regency (negative standing) while drawing warrants (high heat).</div>
+      </div>
+      <div class="mb-12" style="margin-top:14px">${rows}</div>
       <div style="text-align:right"><span class="chip active" onclick="Router.go('#/reputation/character/${encodeURIComponent(op.id)}')">Inspect Full 100+ Faction Standings for ${esc(op.name)} →</span></div>
     </div>
   `;
@@ -11450,9 +11622,10 @@ function renderArticleFactionReputation(factionId) {
         </div>
         <div class="rep-score-badge ${avgClass}">Party Average: ${partyAvg >= 0 ? '+' : ''}${partyAvg}</div>
       </div>
+      <p class="text-muted text-sm" style="margin:0 0 10px">Each pill is that operator’s standing with this faction. Click a pill for the full math: <b>base + blocs + decayed events + ally/enemy ripple</b>.</p>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">${opPills}</div>
       ${fac.waluigi_tip ? `<div class="rep-tip-box"><b>Waluigi's Tip on ${esc(fac.name)}:</b> ${esc(fac.waluigi_tip)}</div>` : ''}
-      <div style="text-align:right;margin-top:10px"><span class="chip active" onclick="renderWhyModal('${factionId}', 'bowser')">Inspect Calculation Trace & Intel Breakdown →</span></div>
+      <div style="text-align:right;margin-top:10px"><span class="chip active" onclick="renderWhyModal('${factionId}', 'bowser')">Open calculation trace (why +N / −N) →</span></div>
     </div>
   `;
 }
@@ -11621,9 +11794,11 @@ function view_reputation(arg) {
             <div class="rep-score-badge ${item.standing.class}">${item.standing.total>=0?'+':''}${item.standing.total} · ${esc(item.standing.label)}</div>
           </div>
           ${item.assessment ? `<div class="wnote" style="margin:8px 0"><b>Dossier Assessment:</b> "${esc(item.assessment)}"</div>` : `<div style="font-size:12.5px;color:var(--muted);margin:6px 0">${esc(item.faction.description||'')}</div>`}
+          ${standingFactorChips(item.standing)}
+          ${(item.standing.contributions||[]).length ? `<div class="rep-top-events text-muted">Top events: ${esc((item.standing.contributions||[]).slice(0,3).map(c => `${c.decayed>=0?'+':''}${c.decayed} ${(c.record.title||c.record.name||'').toString().slice(0,42)}`).join(' · '))}${(item.standing.contributions||[]).length>3?' …':''}</div>` : `<div class="rep-top-events text-muted">No dated event modifiers on file — this score is mostly baseline${(item.standing.subfactions||item.standing.propagation)?' plus politics/ripple':''}.</div>`}
           <div class="rep-card-footer">
-            <span style="font-size:11px;color:var(--muted)">Base: ${item.standing.base} · Rumors: ${item.standing.rumors} · Propagation: ${item.standing.propagation}</span>
-            <button class="rep-btn-trace" onclick="renderWhyModal('${item.faction.key}', '${selectedOp.id}')">Trace Calculation →</button>
+            <span style="font-size:11px;color:var(--muted)">${esc(standingFormulaLine(item.standing))}</span>
+            <button class="rep-btn-trace" onclick="renderWhyModal('${item.faction.key}', '${selectedOp.id}')">Why this score →</button>
           </div>
         </div>
       `;
@@ -11698,7 +11873,8 @@ function view_reputation(arg) {
 
   } else if (currentRepTab === 'infamy') {
     const heatCards = REPUTATION_OPERATORS.map(op => {
-      const heat = INFAMY_PROFILES[op.key] || { score: 30, icon: '👁️', label: 'Watched File', tags: [], warrants: [] };
+      const heat = INFAMY_PROFILES[op.key] || { score: 30, icon: '👁️', label: 'Watched File', tags: [], warrants: [], reasons: [] };
+      const hx = explainInfamy(heat);
       return `
         <div class="rep-faction-card" style="border-left:4px solid ${heat.score>=75?'var(--danger)':heat.score>=50?'var(--accent2)':'var(--green)'}">
           <div class="rep-fc-head">
@@ -11709,10 +11885,16 @@ function view_reputation(arg) {
             <span class="chip" style="background:rgba(239,68,68,.18);border-color:rgba(239,68,68,.4);color:#fca5a5;font-weight:900">Heat ${heat.score} / 100</span>
           </div>
           <div style="margin:8px 0;font-size:13px;font-weight:700;color:var(--accent2)">Status: ${esc(heat.label)}</div>
+          <div class="rep-heat-band">${esc(hx.band)}</div>
+          ${hx.formula?`<div class="rep-formula">${esc(hx.formula)}</div>`:''}
+          <div class="mb-8" style="margin-top:8px">
+            <b>Why this number:</b>
+            <ul class="rep-why-list">${hx.reasons.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+          </div>
           <div class="mb-8">
             <b>Active Heat Tags:</b>
             <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">
-              ${(heat.tags||[]).map(t => `<span class="chip">${esc(t)}</span>`).join('')}
+              ${(heat.tags||[]).map(t => `<span class="chip">${esc(t)}</span>`).join('') || '<span class="text-muted">None</span>'}
             </div>
           </div>
           <div>
@@ -11721,6 +11903,9 @@ function view_reputation(arg) {
               ${(heat.warrants||[]).map(w => `<li>${esc(w)}</li>`).join('') || '<li>No active legal warrants.</li>'}
             </ul>
           </div>
+          <div style="margin-top:10px;text-align:right">
+            <span class="chip" onclick="currentRepSelectedOp='${op.id}';currentRepTab='player';view_reputation();">See faction standings for ${esc(op.name)} →</span>
+          </div>
         </div>
       `;
     }).join('');
@@ -11728,8 +11913,16 @@ function view_reputation(arg) {
     bodyHtml = `
       <div class="card">
         <h2 class="mt-0">🚨 Public Menace & Infamy Heat Watch Board</h2>
-        <p style="color:var(--muted);font-size:13px;margin-bottom:16px">Fame is recognition. Infamy is heat: warrants, hostile legal decrees, public panic, and guard alerts across the 100 known polities.</p>
-        <div class="rep-cards-grid">${heatCards}</div>
+        <div class="rep-legend-box">
+          <p style="margin:0 0 8px"><b>How to read heat (infamy)</b> — this is <em>not</em> XP fame and <em>not</em> faction reputation.</p>
+          <ul style="margin:0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.5">
+            <li><b>Fame</b> (XP panel) = how many people know the name.</li>
+            <li><b>Reputation</b> (matrix) = whether a faction likes or hates them (−100…+100).</li>
+            <li><b>Heat / infamy</b> (this board) = hostile attention: warrants, kill-orders, panic, inspector flags (0…100).</li>
+          </ul>
+          <p style="margin:8px 0 0;color:var(--muted);font-size:12.5px">A person can be famous and well-liked by freelancers while still carrying high heat with the Empire. Click any operator’s standings link to see the faction math.</p>
+        </div>
+        <div class="rep-cards-grid" style="margin-top:16px">${heatCards}</div>
       </div>
     `;
   }
