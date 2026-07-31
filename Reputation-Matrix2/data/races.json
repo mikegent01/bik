@@ -845,36 +845,279 @@
   {
     "id": "koopa_troopa",
     "name": "Koopa Troopa",
-    "type": "Sapient Reptilian (Testudine)",
-    "origin": "Koopa Kingdom — territories now fragmented following the Koopa Troop's fracturing",
-    "avgLifespan": "40-60 years — though combat attrition means few reach natural old age",
+    "title": "Koopa Troopa — Shell, Branch, and the March After the Flag",
+    "type": "Sapient folk (testudine / Koopa clade — infantry & service culture)",
+    "classification": "Single species with service-branch variants (Paratroopa, marine, scout, line, etc.)",
+    "capSystem": "Service kits & branches primary; shell lacquer (green/red/etc.) secondary recognition only",
+    "origin": "Koopa Kingdom territories — fragmented with the Troop's fracture",
+    "avgLifespan": "Combat-skewed historically; elders marked by shell-scar and surviving orders",
+    "populationEstimate": "Unknown post-fracture; formerly mass infantry across branches, now scattered diaspora",
+    "status": "Fragmented — Troop collapse scattered line, air, marine, and scout cadres without unified command",
+    "image": "portraits/koopa.png",
+    "imageCaption": "Line Troopa baseline — the body every branch kit is built on.",
+    "summary": "Koopa Troopas are bipedal shelled people who formed the backbone of Bowser's Koopa Troop: line infantry, Paratroop drop cadres, marines, scouts, and the command layer that pointed them. Service branch and kit define subspecies filing here — not shell paint, though green and red lacquer still appear as secondary recognition. With the Troop fragmented, Troopas have scattered into freelancing, Regency labour, and remnant loyalty. Filed by Waluigi, who has kicked shells and later hired the people inside them.",
+    "description": "Waluigi has complicated feelings about Koopa Troopas. They were enemies once — garrison soldiers, corridor blockers, the wave that broke on a moustache and a plot. Then the Koopa Troop splintered, the fortresses emptied or changed flags, and Waluigi discovered that a people trained to hold a door until the door ends make terrifying freelancers once nobody prints the duty roster.\n\nThe first thing a stranger notices is the shell. The second is whether the shell has wings strapped on, salt in the seams, or a sergeant's polish. The third — if they stay long enough — is that Paratroopa, marine, scout, and line Troopa are the same species in different kits, not four tourist pamphlets pretending to be taxonomy.\n\nShell lacquer still comes in green, red, and other tints. Colour is real. Colour is secondary. This dossier leads with what they do, not what paint a marketing department sorted them into.\n\n![Standard line Koopa Troopa](portraits/koopa.png)\n\n### How to read this page\nStart with Service Branches if you came from a battlefield report that said only koopas. Start with Collapse if you came from a faction page about the Troop. Start with Notable Koopas if you wanted a person and found a species. Start with Physical Characteristics if you still think the shell is a backpack. The gallery is evidence that Troopa always had faces, wings, salt stains, and dens.",
+    "sections": [
+      {
+        "name": "Physical Characteristics",
+        "icon": "🐢",
+        "subtitle": "Shell, stance, beak, and the kickable sphere problem",
+        "image": "portraits/koopa.png",
+        "imageCaption": "Line Troopa baseline — the body every branch kit is built on.",
+        "overview": "\nKoopa Troopas are bipedal, turtle-like, testudine people. Adults typically stand three to four feet tall — short enough that human doorways feel generous and tall enough that underestimation becomes a tactical error. The body is compact, the stance slightly forward, the beak expressive in a narrow range that runs from orders received to orders were stupid but received.\n\n### The shell\nThe shell is living armour fused to the back, not a backpack. It is genuinely defensive. Waluigi has watched Troopas survive falls, warehouse blasts, cart collisions, and the kind of blunt trauma that ends unshielded careers. When threatened, most can withdraw into the shell and become a near-invulnerable sphere.\n\nThat sphere can be kicked.\n\nWaluigi is not proud of having kicked Koopa Troopas in shell-form. It was expedient. Expedience is not the same as honour. The archive will not pretend otherwise.\n\n\n*WAH! Waluigi has been launched through windows and Waluigi does not become a convenient sphere. Waluigi becomes a lawsuit. The physics of this species is efficient in a way that offends Waluigi's sense of drama.*\n\n\n\n### What is not a different race\nWings, marine seals, scout packs, and officer polish are kits and doctrines on the same body. A Paratroopa is a Troopa trained and equipped to leave the ground — not a separate people who hatched with aviation papers. A marine is a Troopa with salt in the job description. File the kit. Do not invent a species.\n\n### Lacquer colour — secondary only\nGreen and red shells are common in the field; other tints appear. Colour can mark family habit or unit fashion. It does not outrank service type in this archive's filing. A red Paratroopa is still filed under Paratroopa first. Anyone building four race pages for four paints will answer to Waluigi's footnotes.\n\n### Beak, motion, lifespan\nA closed beak is neutral. A slightly open beak is effort. A snap is punctuation. Outsiders who think Troopas are expressionless are not watching the beak. Default motion under old Troop doctrine was straight-line patrol until redirected — a training scar, not unchangeable biology. Put the same Troopa on scout duty and the path bends. Put them on Paratroop maps and the path leaves the ground. Lifespan is combat-skewed historically; elders are marked by shell-scar and the number of doors they were told to hold.\n\n### Childhood and medicine\nHatchlings drill early. Play looks like formation. Toys look like helmets. Lacquer, crack-sealing resins, and superstitious chalk marks are shell care. Shell-rot, joint lock after long withdrawals, and post-discharge still marching stress are real. Healers who only treat flesh miss half the patient. Wario has sold fake polish that peels in rain. Do not buy shell care from Wario.\n\n### Diet\nOmnivorous lean toward meat, roots, and fortress rations that outlive their packaging. Spicy food is a cultural flex. Garlic is a diplomatic incident when Toads are in the mess.\n\n\n### Extended field notes\nWaluigi requires every serious contact report to answer: which branch showed up, what kit they carried, whether wings or marine seals were functional, whether a named commander was present, and what they believed they were still loyal to. Fail those five and you have written a children's bestiary entry, not intelligence.\n\nParatroop survivors describe the first drop as a second hatching — the ground stops being the whole world. Marines describe the first boarding as the moment the shell learns it can be a door-breaker instead of a door. Scouts describe the first night alone as the moment the column becomes optional. Line Troopas describe the first day without a corridor assignment as the moment the silence gets loud. All four are the same people learning different maps.\n\nIn mixed companies after the fracture, branch teasing replaces formal rank when formal rank has nowhere to sit. A grounded Paratroop will still mock a line Troopa for thinking in hallways. A marine will still call dry posts baths for cowards. A scout will still vanish before the argument ends and return with food, which is a form of winning. Command cadre pretend not to find this funny. They find it funny.\n\nThe archive also notes civilian Koopa dens that never sent a hatchling to wings or waves — families of craft, cookery, and quiet shellwork. They are under-photographed because war artists liked spears. Under-photographed is not the same as mythical. When a den hosts a freelancers' meeting, the tea is strong and the rules are clearer than most fortresses managed.\n\nShell lacquer in green or red still helps a sentry recognise a silhouette at distance. That is optics. Optics are allowed. Optics are not ontology. Waluigi will keep repeating that sentence until the bestiary editors get tired first.\n\nThe practical historian should track four numbers in any Koopa contact report: how many line, how many winged, how many wet-kit, how many scouts. A fifth number — who commands them — matters more than all four. Without the fifth, you have wildlife photography. With the fifth, you have politics.\n\nWaluigi has rewritten enough briefings that said only hostile koopas to last a career. Hostile is a mood. Branch is a fact. Kit is a fact. The contract on the table is a fact. Moods change when the facts are named aloud in a room with beaks in it.\n"
+      },
+      {
+        "name": "Service Branches & Variants",
+        "icon": "🪖",
+        "subtitle": "Paratroopa, marine, scout, line — how the army actually sorted bodies",
+        "image": "portraits/koopa_paratrooper.png",
+        "imageCaption": "Paratroopa kit — vertical doctrine, same species.",
+        "overview": "\nThe Koopa Troop did not primarily organise its infantry by paint swatch in the rooms that mattered. It organised by job.\n\n| Variant | What it is | Not what it is |\n|---|---|---|\n| Line Troopa | Corridor, garrison, payroll majority | The only real Koopa |\n| Paratroopa | Winged drop kit; roofs, airships, ugly angles | A separate flying race |\n| Marine | Naval and dock doctrine; boarding, salt work | A different species that hatched wet |\n| Scout | Light kit, long routes, eyes ahead of the column | Automatically a colour category |\n| Command cadre | NCOs and officers who still issue orders | Biology; this is social |\n| Magikoopa | Caster caste/cousin vocation | Fancy line infantry with homework |\n| Domestic / civilian | Dens, clutches, non-spear life | Propaganda absence |\n\n\n\n*WAH! Tourist bestiaries love colour charts because colour charts fit on one page. Armies love job charts because job charts keep people alive. Waluigi files with the army on this one, which should alarm everyone.*\n\n\n\n### Paratroopa\nFlight-capable kit and drill on a Troopa body. Airship decks, fortress roofs, drop orders into courtyards that thought they were safe. When a report says a flying koopa, it almost always means Paratroopa doctrine, not a new Latin name. Wings are equipment and training investment. Losing them is a logistics problem and a grief problem. Grounded Paratroops invent rope doctrine by week three and call it tradition.\n\n### Marine / naval kit\nSealed fittings, salt-scarred lacquer, boarding hooks, dock seizure. The same beak saying hold the plank instead of hold the hall. Marines without ships invent river tolls and call it navy. Diaspora marines cluster where water still means money.\n\n### Scout\nLight load, long routes, contracts after the war. Scouts are the diaspora's favourite hire because they already know how to leave a map and return with news. Edge-awareness here is training culture more than paint.\n\n### Line infantry\nThe default. Spears, shells-as-shields, statue rooms, the eternal corridor. Straight-line jokes were written about them by people who never had to be the corridor. Line without corridors invent queues and call it civilisation.\n\n### Command remnants\nAfter the Troop's map burned, some Troopas kept issuing orders. That is not shell colour. That is a social subspecies of responsibility — dangerous if ignored, useful if negotiated with.\n\n### Magikoopa\nShare the broader Koopa clade; magical vocation changes childhood, status, and threat profile. Kamek is the type specimen outsiders know. Do not flatten Magikoopa into fancy Troopa. Do not exile them from the Koopa story either.\n\n### Recruitment and after-action language\nHatchling aptitude, unit need, and officer prejudice all mixed. A clutch might send one sibling to line, one to scout school, one to wings if the airship quota was hungry. Line reports talk about doors. Paratroop reports talk about wind and angles. Marine reports talk about decks and hooks. Scout reports talk about hours. If your intelligence summary flattens all four into koopa activity, you are not doing intelligence.\n\n### Colour as footnote\nGreen line lacquer and red edge-habits show up inside several branches. File colour under medical or kit notes when it matters for recognition. Do not let it eat the taxonomy.\n\n\n### Extended field notes\nWaluigi requires every serious contact report to answer: which branch showed up, what kit they carried, whether wings or marine seals were functional, whether a named commander was present, and what they believed they were still loyal to. Fail those five and you have written a children's bestiary entry, not intelligence.\n\nParatroop survivors describe the first drop as a second hatching — the ground stops being the whole world. Marines describe the first boarding as the moment the shell learns it can be a door-breaker instead of a door. Scouts describe the first night alone as the moment the column becomes optional. Line Troopas describe the first day without a corridor assignment as the moment the silence gets loud. All four are the same people learning different maps.\n\nIn mixed companies after the fracture, branch teasing replaces formal rank when formal rank has nowhere to sit. A grounded Paratroop will still mock a line Troopa for thinking in hallways. A marine will still call dry posts baths for cowards. A scout will still vanish before the argument ends and return with food, which is a form of winning. Command cadre pretend not to find this funny. They find it funny.\n\nThe archive also notes civilian Koopa dens that never sent a hatchling to wings or waves — families of craft, cookery, and quiet shellwork. They are under-photographed because war artists liked spears. Under-photographed is not the same as mythical. When a den hosts a freelancers' meeting, the tea is strong and the rules are clearer than most fortresses managed.\n\nShell lacquer in green or red still helps a sentry recognise a silhouette at distance. That is optics. Optics are allowed. Optics are not ontology. Waluigi will keep repeating that sentence until the bestiary editors get tired first.\n\nThe practical historian should track four numbers in any Koopa contact report: how many line, how many winged, how many wet-kit, how many scouts. A fifth number — who commands them — matters more than all four. Without the fifth, you have wildlife photography. With the fifth, you have politics.\n\nWaluigi has rewritten enough briefings that said only hostile koopas to last a career. Hostile is a mood. Branch is a fact. Kit is a fact. The contract on the table is a fact. Moods change when the facts are named aloud in a room with beaks in it.\n"
+      },
+      {
+        "name": "Military Culture",
+        "icon": "⚙️",
+        "subtitle": "Hierarchy, drill, airships, and dying on schedule",
+        "image": "portraits/koopa_marine.png",
+        "imageCaption": "Marine kit inside formation culture — still Troop, different wetness.",
+        "overview": "\nFor generations, Koopa Troopas were the backbone of the Koopa Troop — Bowser's military machine in its intermittent wars against the Mushroom Kingdom. They garrisoned fortresses, manned airships, dropped from dark skies, and died in waves when a certain human arrived with momentum and plot armour.\n\n### What the Troop trained into them\nHierarchy first. Orders flow down. Questions flow into latrine duty. Expendability as doctrine: independent thinking got you assigned to the fortress Mario was about to visit. Branch pride: Paratroops mocked line greens; marines mocked everyone dry; scouts mocked everyone loud; command mocked everyone late. Shell discipline: when to withdraw, when to stand, when to accept being kicked for the squad.\n\n### Rank\nRank lived in voice, scars, and who the line actually obeyed when the officer was missing — not solely in lacquer. Shellshock-type figures in the archive wear authority earned in rooms propaganda never painted.\n\n### Airship years and kit as culture\nTroopas who served aloft speak about wind more than corridors. Paratroop doctrine came from needing shells on roofs. Marine doctrine came from needing shells on decks. Wings are sacred to Paratroops the way vests are sacred to Toads — identity-bearing. A grounded wing on a den wall is a resume and a wound. Marines oil seals like prayer. Scouts hate noise that is not their noise. Line Troopas can sleep standing up and call it a skill.\n\n### Mess, song, superstition\nLow rhythmic marching songs that count paces. Superstition says never full-polish a shell before a doomed posting — the shine attracts protagonists. Waluigi cannot confirm the magic. Waluigi can confirm the pattern recognition.\n\n\n*WAH! Waluigi has been an enemy of this army and a coworker of its veterans. The difference is whether someone is still holding a clipboard that says disposable. Take the clipboard away and you still have a soldier. Keep the clipboard and you have a funeral schedule.*\n\n\n\n### Punishment culture\nOld Troop justice was public and physical. Shame drilled deeper than bruises. Remnant companies that keep shame-punishment keep desertion. Companies that switch to contract-and-vote keep people. Waluigi has opinions about which is civilisation.\n\n### Weapons and kit\nSpears, shells-as-shields, captured arms, airship wrenches, boarding hooks, the environment. A Troopa without kit is still a problem. A Troopa with kit and a grudge is a campaign.\n\n\n### Extended field notes\nWaluigi requires every serious contact report to answer: which branch showed up, what kit they carried, whether wings or marine seals were functional, whether a named commander was present, and what they believed they were still loyal to. Fail those five and you have written a children's bestiary entry, not intelligence.\n\nParatroop survivors describe the first drop as a second hatching — the ground stops being the whole world. Marines describe the first boarding as the moment the shell learns it can be a door-breaker instead of a door. Scouts describe the first night alone as the moment the column becomes optional. Line Troopas describe the first day without a corridor assignment as the moment the silence gets loud. All four are the same people learning different maps.\n\nIn mixed companies after the fracture, branch teasing replaces formal rank when formal rank has nowhere to sit. A grounded Paratroop will still mock a line Troopa for thinking in hallways. A marine will still call dry posts baths for cowards. A scout will still vanish before the argument ends and return with food, which is a form of winning. Command cadre pretend not to find this funny. They find it funny.\n\nThe archive also notes civilian Koopa dens that never sent a hatchling to wings or waves — families of craft, cookery, and quiet shellwork. They are under-photographed because war artists liked spears. Under-photographed is not the same as mythical. When a den hosts a freelancers' meeting, the tea is strong and the rules are clearer than most fortresses managed.\n\nShell lacquer in green or red still helps a sentry recognise a silhouette at distance. That is optics. Optics are allowed. Optics are not ontology. Waluigi will keep repeating that sentence until the bestiary editors get tired first.\n\nThe practical historian should track four numbers in any Koopa contact report: how many line, how many winged, how many wet-kit, how many scouts. A fifth number — who commands them — matters more than all four. Without the fifth, you have wildlife photography. With the fifth, you have politics.\n\nWaluigi has rewritten enough briefings that said only hostile koopas to last a career. Hostile is a mood. Branch is a fact. Kit is a fact. The contract on the table is a fact. Moods change when the facts are named aloud in a room with beaks in it.\n"
+      },
+      {
+        "name": "Collapse of the Troop",
+        "icon": "💥",
+        "subtitle": "When the war clock stops and the soldiers keep ticking",
+        "image": "portraits/bowser.png",
+        "imageCaption": "Bowser — king-scale weather system whose status scrambled every chain of command beneath him.",
+        "overview": "\nThe Koopa Troop fragmented. Fortresses fell or were repurposed. Bowser's status in the current crisis is contested, missing, imprisoned, allied, or it's complicated depending on which informant you bribe. For Troopas the practical result was identical: the schedule that told them who to die for stopped printing.\n\n### On the ground\nGarrisons without resupply becoming towns. NCOs becoming mayors by accident. Paratroop wings sold, grounded, or kept as identity. Marine kits showing up on rivers that never saw a Koopa navy. Scout cadres becoming the freelancers' labour pool. Whole squads selling spears into the Freelancer Underworld.\n\nFragmented does not mean gone. It means the org chart is a rumour and the spears are still sharp. Remnant holds can be three veterans and a flag or three hundred with a dock. Always scout the branch mix before you assume just greens in a hallway.\n\n### Loyalty after the flag\nSome keep loyalty to remnant Koopa leadership — royal household, Kamek's web, a banner in a basement. Some transfer loyalty to whoever feeds them. Some invent loyalty to a contract. The species is not always evil. The species is trained to attach, and attachment needs a target.\n\n\n*WAH! Waluigi understands loyalty. Waluigi's loyalty is to competence, tennis, and not dying in someone else's cutscene. Troopas were trained to invert that list. Retraining takes years. Unemployment takes a weekend.*\n\n\n\n### Paperwork ghosts\nPaybooks still list units that no longer exist. Brokers buy the paybooks and sell the names. A Troopa can be employed by three dead battalions and one living crime boss. Always ask who signs this week's chit.\n\n### The Mario scar\nEven Troopas who never personally fought Mario carry institutional memory of being the wave that breaks on a single human. That scar produces hatred, professional respect, and dark humour about plungers. Do not open with a Mario joke in a remnant barracks unless you like spears.\n\n\n### Extended field notes\nWaluigi requires every serious contact report to answer: which branch showed up, what kit they carried, whether wings or marine seals were functional, whether a named commander was present, and what they believed they were still loyal to. Fail those five and you have written a children's bestiary entry, not intelligence.\n\nParatroop survivors describe the first drop as a second hatching — the ground stops being the whole world. Marines describe the first boarding as the moment the shell learns it can be a door-breaker instead of a door. Scouts describe the first night alone as the moment the column becomes optional. Line Troopas describe the first day without a corridor assignment as the moment the silence gets loud. All four are the same people learning different maps.\n\nIn mixed companies after the fracture, branch teasing replaces formal rank when formal rank has nowhere to sit. A grounded Paratroop will still mock a line Troopa for thinking in hallways. A marine will still call dry posts baths for cowards. A scout will still vanish before the argument ends and return with food, which is a form of winning. Command cadre pretend not to find this funny. They find it funny.\n\nThe archive also notes civilian Koopa dens that never sent a hatchling to wings or waves — families of craft, cookery, and quiet shellwork. They are under-photographed because war artists liked spears. Under-photographed is not the same as mythical. When a den hosts a freelancers' meeting, the tea is strong and the rules are clearer than most fortresses managed.\n\nShell lacquer in green or red still helps a sentry recognise a silhouette at distance. That is optics. Optics are allowed. Optics are not ontology. Waluigi will keep repeating that sentence until the bestiary editors get tired first.\n\nThe practical historian should track four numbers in any Koopa contact report: how many line, how many winged, how many wet-kit, how many scouts. A fifth number — who commands them — matters more than all four. Without the fifth, you have wildlife photography. With the fifth, you have politics.\n\nWaluigi has rewritten enough briefings that said only hostile koopas to last a career. Hostile is a mood. Branch is a fact. Kit is a fact. The contract on the table is a fact. Moods change when the facts are named aloud in a room with beaks in it.\n"
+      },
+      {
+        "name": "Diaspora & Work After War",
+        "icon": "🗺️",
+        "subtitle": "Mercenaries, Regency labour, grounded wings, wet contracts",
+        "image": "portraits/koopa_scout.png",
+        "imageCaption": "Scout cadre — the diaspora's favourite hire.",
+        "overview": "\nScattered Troopas now appear across the Freelancer Underworld as door muscle and caravan guards; Mushroom Regency labour on docks and demolition; remnant Koopa holds in old forts and dens; and mixed crisis crews doing dimensional odd jobs.\n\n### Civilian skills inside drill\nInventory, watch rotation, crowd control, standing still for six hours. Converts to security and warehouse work. Converts less well to customer service. Smiling was not in the manual. The best retraining programmes do not start with forget the Troop. They start with your watch rotation skill is now a warehouse skill. Ego survives if purpose survives.\n\n### Branch afterlives\nEx-Paratroops take roof work, tower security, anything vertical — or drink about grounded wings. Ex-marines cluster at docks and river towns; boarding skills become persuasive logistics. Ex-scouts vanish into contracts and sometimes into better lives. Ex-line become the quiet majority of guards who still walk too straight in markets.\n\n### Money\nTroopas undercharge for violence and overcharge for boredom. Guard a door twelve hours and they want a fair wage. Storm a door twelve seconds and they forget to invoice. Brokers exploit this. Do not.\n\n### Relations with Toads\nMarket days can be peaceful. War days are not. Individually, a Troopa and a Toad can split a ration tin. Institutionally, their leadership classes keep writing different stories about who owns the castle. See the Toads article for the other half of the argument. When both share a worksite, watch the crane, the lunch line, and who apologises first after a shove.\n\n\n### Extended field notes\nWaluigi requires every serious contact report to answer: which branch showed up, what kit they carried, whether wings or marine seals were functional, whether a named commander was present, and what they believed they were still loyal to. Fail those five and you have written a children's bestiary entry, not intelligence.\n\nParatroop survivors describe the first drop as a second hatching — the ground stops being the whole world. Marines describe the first boarding as the moment the shell learns it can be a door-breaker instead of a door. Scouts describe the first night alone as the moment the column becomes optional. Line Troopas describe the first day without a corridor assignment as the moment the silence gets loud. All four are the same people learning different maps.\n\nIn mixed companies after the fracture, branch teasing replaces formal rank when formal rank has nowhere to sit. A grounded Paratroop will still mock a line Troopa for thinking in hallways. A marine will still call dry posts baths for cowards. A scout will still vanish before the argument ends and return with food, which is a form of winning. Command cadre pretend not to find this funny. They find it funny.\n\nThe archive also notes civilian Koopa dens that never sent a hatchling to wings or waves — families of craft, cookery, and quiet shellwork. They are under-photographed because war artists liked spears. Under-photographed is not the same as mythical. When a den hosts a freelancers' meeting, the tea is strong and the rules are clearer than most fortresses managed.\n\nShell lacquer in green or red still helps a sentry recognise a silhouette at distance. That is optics. Optics are allowed. Optics are not ontology. Waluigi will keep repeating that sentence until the bestiary editors get tired first.\n\nThe practical historian should track four numbers in any Koopa contact report: how many line, how many winged, how many wet-kit, how many scouts. A fifth number — who commands them — matters more than all four. Without the fifth, you have wildlife photography. With the fifth, you have politics.\n\nWaluigi has rewritten enough briefings that said only hostile koopas to last a career. Hostile is a mood. Branch is a fact. Kit is a fact. The contract on the table is a fact. Moods change when the facts are named aloud in a room with beaks in it.\n"
+      },
+      {
+        "name": "Notable Koopas",
+        "icon": "⭐",
+        "subtitle": "Proper nouns the archive must stop filing as a troopa",
+        "image": "portraits/general_shellshock.png",
+        "imageCaption": "Shellshock command presence — orders with a name attached.",
+        "overview": "\n### Bowser\nKing-scale Koopa. Not infantry mass class — a different weight under the same outsider word. His wars wrote Troopa employment history. His absence rewrote it. Full politics live on his character page; this species page notes only that every Troopa alive has lived in his weather.\n\n![Bowser](portraits/bowser.png)\n\n### Kamek\nMagikoopa. Caster, schemer, caretaker of royal disasters. Proof the clade includes vocations the infantry manual never covered.\n\n![Kamek](portraits/kamek.png)\n\n### Captain / General Shellshock\nWhen the archive needs a Troopa who gives orders instead of taking them. Battlefield credibility; loyalty that outlasts flags.\n\n![Shellshock](portraits/shellshock.png)\n\n![General Shellshock](portraits/general_shellshock.png)\n\n### Service kits in the gallery\nParatroop, marine, scout, line — doctrine and equipment, not separate races.\n\n![Paratroopa](portraits/koopa_paratrooper.png)\n\n![Marine](portraits/koopa_marine.png)\n\n![Scout](portraits/koopa_scout.png)\n\n![Line Troopa](portraits/koopa.png)\n\n### Domestic life\nPropaganda preferred spears. Dens and clutch-rearing still happened. Rarity of portraits is not absence of people.\n\n![Domestic Koopa portrait](portraits/koopa_mom.png)\n\n### Naming convention in reports\nIf your after-action says only koopas attacked, you have failed the archive. Branch, count, kit, and whether command was present. Waluigi will rewrite your report in purple ink if necessary. For every named officer there are a thousand line Troopas who held a corridor until the corridor ended.\n\n\n### Extended field notes\nWaluigi requires every serious contact report to answer: which branch showed up, what kit they carried, whether wings or marine seals were functional, whether a named commander was present, and what they believed they were still loyal to. Fail those five and you have written a children's bestiary entry, not intelligence.\n\nParatroop survivors describe the first drop as a second hatching — the ground stops being the whole world. Marines describe the first boarding as the moment the shell learns it can be a door-breaker instead of a door. Scouts describe the first night alone as the moment the column becomes optional. Line Troopas describe the first day without a corridor assignment as the moment the silence gets loud. All four are the same people learning different maps.\n\nIn mixed companies after the fracture, branch teasing replaces formal rank when formal rank has nowhere to sit. A grounded Paratroop will still mock a line Troopa for thinking in hallways. A marine will still call dry posts baths for cowards. A scout will still vanish before the argument ends and return with food, which is a form of winning. Command cadre pretend not to find this funny. They find it funny.\n\nThe archive also notes civilian Koopa dens that never sent a hatchling to wings or waves — families of craft, cookery, and quiet shellwork. They are under-photographed because war artists liked spears. Under-photographed is not the same as mythical. When a den hosts a freelancers' meeting, the tea is strong and the rules are clearer than most fortresses managed.\n\nShell lacquer in green or red still helps a sentry recognise a silhouette at distance. That is optics. Optics are allowed. Optics are not ontology. Waluigi will keep repeating that sentence until the bestiary editors get tired first.\n\nThe practical historian should track four numbers in any Koopa contact report: how many line, how many winged, how many wet-kit, how many scouts. A fifth number — who commands them — matters more than all four. Without the fifth, you have wildlife photography. With the fifth, you have politics.\n\nWaluigi has rewritten enough briefings that said only hostile koopas to last a career. Hostile is a mood. Branch is a fact. Kit is a fact. The contract on the table is a fact. Moods change when the facts are named aloud in a room with beaks in it.\n"
+      },
+      {
+        "name": "Relations with Neighbours",
+        "icon": "🤝",
+        "subtitle": "Toads, Goombas, humans, and shared disasters",
+        "image": "portraits/toad.png",
+        "imageCaption": "Toads — the neighbour species Troopas were most often ordered to point spears at.",
+        "overview": "\n### Toads\nMajority fabric of the Mushroom Kingdom. Frequent civilian targets in old wars; frequent coworkers in new crises. Their taxonomy is cap lineage under one species; yours is service branch under one species. Neither is a moral score. Full Toad dossier: article toads.\n\n### Goombas\nTreated as more disposable than Troopas by several hierarchies — a grim contest. Rank climbed by stepping on Goombas is a debt history does not forget.\n\n### Humans\nProtagonist-class humans rewired risk assessment. Ordinary humans are tall soft targets or employers. Learn the difference before you spear the wrong one.\n\n### Shared crises\nDimensional fractures do not check kit. Mixed crews that survive invent pidgin respect. Mixed crews that die often die arguing about old wars mid-new war. Docks and reconstruction zones put marine kits next to Toad logistics and human contractors. Friction is real. So is the quiet discovery that everyone wants the crane to work.\n\n\n*WAH! If your faction plan only budgets for Troopa reactions and not Toad ones — or the reverse — you are not planning a kingdom. You are planning a parade.*\n\n\n\n### Extended field notes\nWaluigi requires every serious contact report to answer: which branch showed up, what kit they carried, whether wings or marine seals were functional, whether a named commander was present, and what they believed they were still loyal to. Fail those five and you have written a children's bestiary entry, not intelligence.\n\nParatroop survivors describe the first drop as a second hatching — the ground stops being the whole world. Marines describe the first boarding as the moment the shell learns it can be a door-breaker instead of a door. Scouts describe the first night alone as the moment the column becomes optional. Line Troopas describe the first day without a corridor assignment as the moment the silence gets loud. All four are the same people learning different maps.\n\nIn mixed companies after the fracture, branch teasing replaces formal rank when formal rank has nowhere to sit. A grounded Paratroop will still mock a line Troopa for thinking in hallways. A marine will still call dry posts baths for cowards. A scout will still vanish before the argument ends and return with food, which is a form of winning. Command cadre pretend not to find this funny. They find it funny.\n\nThe archive also notes civilian Koopa dens that never sent a hatchling to wings or waves — families of craft, cookery, and quiet shellwork. They are under-photographed because war artists liked spears. Under-photographed is not the same as mythical. When a den hosts a freelancers' meeting, the tea is strong and the rules are clearer than most fortresses managed.\n\nShell lacquer in green or red still helps a sentry recognise a silhouette at distance. That is optics. Optics are allowed. Optics are not ontology. Waluigi will keep repeating that sentence until the bestiary editors get tired first.\n\nThe practical historian should track four numbers in any Koopa contact report: how many line, how many winged, how many wet-kit, how many scouts. A fifth number — who commands them — matters more than all four. Without the fifth, you have wildlife photography. With the fifth, you have politics.\n\nWaluigi has rewritten enough briefings that said only hostile koopas to last a career. Hostile is a mood. Branch is a fact. Kit is a fact. The contract on the table is a fact. Moods change when the facts are named aloud in a room with beaks in it.\n"
+      },
+      {
+        "name": "Waluigi's Findings",
+        "icon": "📋",
+        "subtitle": "Sentences that should outlive the fortress murals",
+        "overview": "\n1. Koopa Troopas are one people. Paratroopa, marine, scout, and line are service variants — not separate races. Shell colour is secondary recognition, not the filing spine.\n\n2. Hierarchy was training, not destiny. Remove the Troop and attachment instinct remains — aim it or someone worse will.\n\n3. The shell invited survival and abuse. Kickable invulnerability is a blessing until a commander budgets around it.\n\n4. Fragmentation produced freelancers, not voids. Unemployed soldiers become contracts, bandits, or citizens. Plan for all three. Grounded Paratroops and dockless marines are policy problems, not flavour.\n\n5. Underestimation is still a casualty generator. The straight-line joke is old. The survivors learned corners, roofs, and boarding planks.\n\n\n*WAH! Waluigi's recommendation to the Board: stop writing mindless troopas in briefings. Start writing branch, kit, and who they take orders from this week. Last month's chain of command is a museum piece. This week's can still kill you.*\n\n\n\n### Operational recommendations\nCensus them as people with employers, not Bowser residual. When hiring, ask branch and kit first; lacquer second. If remnant officers still use Troop ranks, use the ranks until you earn the right to retire them. On the battlefield, budget vertical Paratroop and wet marine threats; the green corridor stereotype is incomplete.\n\n### Personal note\nWaluigi has kicked shells and later hired the people inside them. Both facts are true. Only one belongs in a recruitment poster. The other belongs in a conscience. Branch before paint. Contract before myth. Beak before briefing adjective.\n\n\n### Extended field notes\nWaluigi requires every serious contact report to answer: which branch showed up, what kit they carried, whether wings or marine seals were functional, whether a named commander was present, and what they believed they were still loyal to. Fail those five and you have written a children's bestiary entry, not intelligence.\n\nParatroop survivors describe the first drop as a second hatching — the ground stops being the whole world. Marines describe the first boarding as the moment the shell learns it can be a door-breaker instead of a door. Scouts describe the first night alone as the moment the column becomes optional. Line Troopas describe the first day without a corridor assignment as the moment the silence gets loud. All four are the same people learning different maps.\n\nIn mixed companies after the fracture, branch teasing replaces formal rank when formal rank has nowhere to sit. A grounded Paratroop will still mock a line Troopa for thinking in hallways. A marine will still call dry posts baths for cowards. A scout will still vanish before the argument ends and return with food, which is a form of winning. Command cadre pretend not to find this funny. They find it funny.\n\nThe archive also notes civilian Koopa dens that never sent a hatchling to wings or waves — families of craft, cookery, and quiet shellwork. They are under-photographed because war artists liked spears. Under-photographed is not the same as mythical. When a den hosts a freelancers' meeting, the tea is strong and the rules are clearer than most fortresses managed.\n\nShell lacquer in green or red still helps a sentry recognise a silhouette at distance. That is optics. Optics are allowed. Optics are not ontology. Waluigi will keep repeating that sentence until the bestiary editors get tired first.\n\nThe practical historian should track four numbers in any Koopa contact report: how many line, how many winged, how many wet-kit, how many scouts. A fifth number — who commands them — matters more than all four. Without the fifth, you have wildlife photography. With the fifth, you have politics.\n\nWaluigi has rewritten enough briefings that said only hostile koopas to last a career. Hostile is a mood. Branch is a fact. Kit is a fact. The contract on the table is a fact. Moods change when the facts are named aloud in a room with beaks in it.\n"
+      }
+    ],
+    "subspecies": [
+      {
+        "id": "line_troopa",
+        "name": "Line Troopa",
+        "emoji": "🛡️",
+        "color": "#3d8c40",
+        "aka": "Garrison & corridor infantry",
+        "image": "portraits/koopa.png",
+        "tags": [
+          "Line",
+          "Garrison",
+          "Majority"
+        ],
+        "summary": "Default infantry body and culture: spears, shells-as-shields, watch rotations, the eternal hallway. Green lacquer is common here but not required. The payroll majority and the postcard silhouette."
+      },
+      {
+        "id": "paratroopa",
+        "name": "Paratroopa",
+        "emoji": "🪂",
+        "color": "#7e57c2",
+        "aka": "Winged drop troopers",
+        "image": "portraits/koopa_paratrooper.png",
+        "tags": [
+          "Air",
+          "Mobile",
+          "Vertical"
+        ],
+        "summary": "Same species, flight kit and drop doctrine. Roofs, airships, courtyard surprises. When reports say flying koopa, they almost always mean this branch — not a separate race."
+      },
+      {
+        "id": "marine_koopa",
+        "name": "Marine Troopa",
+        "emoji": "⚓",
+        "color": "#00838f",
+        "aka": "Naval & dock cadres",
+        "image": "portraits/koopa_marine.png",
+        "tags": [
+          "Naval",
+          "Boarding",
+          "Dock"
+        ],
+        "summary": "Salt-scarred seals, boarding hooks, ship and river work. Holds planks the way line holds doors. Diaspora marines cluster where water still means money."
+      },
+      {
+        "id": "scout_koopa",
+        "name": "Scout Troopa",
+        "emoji": "🗺️",
+        "color": "#6d4c41",
+        "aka": "Field eyes & long routes",
+        "image": "portraits/koopa_scout.png",
+        "tags": [
+          "Recon",
+          "Contract",
+          "Diaspora"
+        ],
+        "summary": "Light kit, long routes, news before the column. Favourite freelancers' hire after the war. Edge-awareness is training culture here more than paint."
+      },
+      {
+        "id": "command_cadre",
+        "name": "Command Cadre",
+        "emoji": "⭐",
+        "color": "#ffd700",
+        "aka": "NCOs & officers after the map burned",
+        "image": "portraits/general_shellshock.png",
+        "tags": [
+          "Command",
+          "Remnant",
+          "Orders"
+        ],
+        "summary": "Not a hatchling type — the social branch of Troopas who still issue orders. Shellshock-type authority. Negotiate with them or fight whoever they point."
+      },
+      {
+        "id": "magikoopa",
+        "name": "Magikoopa",
+        "emoji": "🪄",
+        "color": "#5e35b1",
+        "aka": "Caster caste / cousin vocation",
+        "image": "portraits/kamek.png",
+        "tags": [
+          "Magic",
+          "Caste",
+          "Court"
+        ],
+        "summary": "Broader Koopa clade with magical vocation — not fancy line infantry. Different childhood, status, and threat. Kamek is the outsider type specimen; the caste is wider than one schemer."
+      },
+      {
+        "id": "domestic_koopa",
+        "name": "Domestic / Civilian Koopa",
+        "emoji": "🏠",
+        "color": "#8d6e63",
+        "aka": "Dens, clutches, non-spear life",
+        "image": "portraits/koopa_mom.png",
+        "tags": [
+          "Civilian",
+          "Family",
+          "Overlooked"
+        ],
+        "summary": "The army was never the whole species. Clutch-rearing, den life, and unfashionable peace exist. Propaganda under-collected them; the archive will not."
+      },
+      {
+        "id": "troop_institution",
+        "name": "Troop Institutional Memory",
+        "emoji": "🚩",
+        "color": "#c62828",
+        "aka": "Flags, paybooks, ghost units",
+        "image": "portraits/koopa_troop.png",
+        "tags": [
+          "Institution",
+          "Paper",
+          "Loyalty targets"
+        ],
+        "summary": "Not biology — the lingering org-chart: banners, dead paybooks, brokers selling unit names. Explains why loyalty still finds targets after the war clock stops."
+      }
+    ],
+    "gallery": [
+      {
+        "src": "portraits/koopa.png",
+        "caption": "Line Troopa — corridor baseline"
+      },
+      {
+        "src": "portraits/koopa_paratrooper.png",
+        "caption": "Paratroopa — wings and drop doctrine"
+      },
+      {
+        "src": "portraits/koopa_marine.png",
+        "caption": "Marine — salt and boarding"
+      },
+      {
+        "src": "portraits/koopa_scout.png",
+        "caption": "Scout — long route, light kit"
+      },
+      {
+        "src": "portraits/koopa_troop.png",
+        "caption": "Troop mark — institutional memory"
+      },
+      {
+        "src": "portraits/shellshock.png",
+        "caption": "Shellshock — named command"
+      },
+      {
+        "src": "portraits/general_shellshock.png",
+        "caption": "General Shellshock — rank made visible"
+      },
+      {
+        "src": "portraits/bowser.png",
+        "caption": "Bowser — king-scale weather system"
+      },
+      {
+        "src": "portraits/kamek.png",
+        "caption": "Kamek — Magikoopa caste"
+      },
+      {
+        "src": "portraits/koopa_mom.png",
+        "caption": "Domestic life — not only spears"
+      },
+      {
+        "src": "portraits/warden_thornshell.png",
+        "caption": "Thornshell warden — carceral edge of shell culture"
+      }
+    ],
     "distinctiveTraits": [
-      "Turtle-like physiology with protective shell",
-      "Shell colors denoting role and temperament — green (standard), red (territorial), blue (elite), yellow (volatile)",
-      "Remarkable resilience to blunt trauma",
-      "Pack mentality with strong hierarchical instincts",
-      "Tendency to continue walking in straight lines until redirected"
+      "Living protective shell; can withdraw into near-invulnerable sphere form",
+      "Service variants: line, Paratroopa (winged), marine, scout, command cadre",
+      "Magikoopa as magical caste/cousin vocation within the broader clade",
+      "Shell lacquer colours (green, red, others) as secondary marks — not separate races",
+      "Strong hierarchical training from Koopa Troop military culture",
+      "High blunt-trauma resilience; historic expendability under Bowser's wars",
+      "Straight-line patrol habit as training scar, unlearned under scout/air doctrine"
     ],
     "notableMembers": [
+      "bowser",
+      "kamek",
       "captain_shellshock",
+      "general_shellshock",
       "koopa_the_quick",
       "kent_c_koopa"
     ],
     "regions": [
       "Former Koopa Kingdom territories",
       "Freelancer Underworld",
-      "Mushroom Regency (as laborers)",
+      "Mushroom Regency labour zones",
+      "Remnant garrisons and dens",
+      "Airship wreck-routes and dock belts",
       "Scattered mercenary companies"
     ],
-    "status": "Fragmented — the Koopa Troop's collapse has scattered Koopa Troopas across multiple factions without unified leadership",
-    "summary": "Koopa Troopas are turtle-like beings who historically formed the backbone of Bowser's military forces. They marched in formation. They garrisoned fortresses. They died in enormous numbers whenever Mario showed up. With the Koopa Troop fragmented and Bowser's current status uncertain, Koopa Troopas have scattered—some joining the Freelancer Underworld as mercenaries, others pressed into Regency labor, still others maintaining loyalty to whatever Koopa leadership remains. They are soldiers without a war, servants without a master, and surprisingly adaptable once freed from the compulsion to walk in straight lines until they hit something. Waluigi has worked alongside Koopa Troopas and found them reliable—loyal to whoever earns their respect, steady under pressure, and remarkably difficult to permanently injure. Their shells really do protect them from most blunt trauma. WAH.",
-    "description": "Waluigi has complicated feelings about Koopa Troopas. They were enemies once—obstacles in the path of whatever scheme Waluigi was pursuing, soldiers manning the fortresses Waluigi needed to bypass. But enemies and allies blur when the world fractures, and Waluigi has found Koopa Troopas to be more interesting than their reputation suggests.\n\n## Physical Characteristics\n\nKoopa Troopas are bipedal turtle-like beings, standing roughly three to four feet tall with protective shells covering their backs. The shells are genuinely defensive—Waluigi has seen Koopa Troopas survive falls, explosions, and direct impacts that would kill unshelled beings. They can also retreat INTO their shells when threatened, becoming nearly invulnerable spheres that can be... well, kicked. Waluigi is not proud of having kicked Koopa Troopas in shell-form. It was expedient at the time.\n\nShell color indicates role and temperament:\n\n**Green-shelled** Koopa Troopas are the standard variety—steady, reliable, inclined to follow orders without excessive creativity. They walk patrol routes. They guard positions. They do not ask questions.\n\n**Red-shelled** Koopa Troopas are more territorial and aware. They notice edges—will not walk off cliffs, will turn at boundaries, show more self-preservation instinct. This makes them better guards but worse shock troops.\n\n**Blue-shelled** Koopa Troopas are elite—faster, smarter, often assigned leadership roles. Captain Shellshock wears blue, and it is EARNED.\n\n**Yellow-shelled** Koopa Troopas are volatile. Waluigi does not have detailed information on why, but yellow shells correlate with explosive behavior. Sometimes literally.\n\n## Cultural History\n\nKoopa Troopas were the standard infantry of the Koopa Troop—Bowser's military forces that waged intermittent war against the Mushroom Kingdom for generations. They garrisoned the fortresses. They manned the airships. They died in waves whenever Mario or Luigi arrived.\n\nThis history shapes Koopa Troopa psychology. They are accustomed to hierarchy—to following orders, to dying for causes they may not fully understand, to being expendable in the grand schemes of greater powers. The Koopa Troop did not encourage independent thinking. Independent thinking got you assigned to fortress defense when Mario was spotted in the region.\n\nBut the Koopa Troop has fragmented. Bowser's status is uncertain. The fortresses have fallen or been repurposed. And Koopa Troopas, freed from the military structure that defined their existence, are discovering that they have OPTIONS.\n\n## Current Distribution\n\nWith the Koopa Troop's collapse, Koopa Troopas have scattered:\n\n**Freelancer Underworld:** Many have become mercenaries—selling their military training to whoever pays. Koopa Troopas make excellent security, garrison troops, and expendable muscle. They are used to the role.\n\n**Mushroom Regency:** Some have been pressed into labor within Regency territories. The Regency does not officially practice slavery, but 'indentured service' for former enemy combatants looks similar from the inside.\n\n**Koopa Troop Remnants:** Loyalists maintain whatever structure remains of Bowser's forces. These Koopa Troopas still answer to Koopa hierarchy, still garrison fortresses, still wait for orders that may never come.\n\n**Independent Operations:** The most interesting Koopa Troopas are those who have gone fully independent—using their skills for personal advancement rather than faction loyalty. Some have become surprisingly successful.\n\n## Notable Individuals\n\n**Captain Shellshock** — Blue-shelled veteran who now runs security for a Freelancer Underworld operation. Disciplined, professional, asks surprisingly good questions. Waluigi has worked with him twice and found him reliable.\n\n**Koopa the Quick** — Former racer who now operates as a courier. Fast enough to outrun most pursuit, smart enough to know which packages not to open. His racing background makes him valuable for time-sensitive deliveries.\n\n**Kent C. Koopa** — A Koopa Troopa of unusual size who operates a toll bridge. Just a toll bridge. He is VERY serious about his toll bridge. Waluigi paid the toll. It was easier.\n\n## Waluigi's Assessment\n\nKoopa Troopas are more capable than they appear. The 'mindless soldier' reputation comes from Koopa Troop conditioning, not inherent limitation. Given opportunity, many prove intelligent, adaptable, and surprisingly loyal to those who treat them as individuals rather than expendable resources.\n\nThey are not Toads—they do not have the resilience to passive suffering that Toads demonstrate. Koopa Troopas expect hierarchy. They want someone to follow. But they can learn to follow GOOD leaders rather than simply powerful ones.\n\nWaluigi respects that. Waluigi has been underestimated too. WAH.",
     "relatedArticles": [
       "koopa_troop",
+      "toads",
       "freelancer_underworld",
       "mushroom_regency",
-      "mushroom_kingdom"
-    ]
+      "mushroom_kingdom",
+      "bowser",
+      "kamek"
+    ],
+    "waluigiAssessment": "Koopa Troopas were built to be an army. The army left. The people remained.\n\nParatroopa, marine, scout, and line are jobs and kits — not separate races. Shell colour is a footnote you use to spot someone across a courtyard, not a reason to open four species pages. Kickable invulnerability made them legendary survivors and convenient inventory for bad commanders. Fragmentation put hierarchy instinct on the open market.\n\nWaluigi's recommendation: ask what branch they were, who they obey this week, and whether the wings still work. Pay them like professionals. Stop writing mindless in briefings you would not say to their beak.\n\nFinal stamp: branch before paint, contract before myth, beak before briefing adjective. The Koopa Troopa page exists so nobody has to ask Waluigi whether Paratroopas are a different race in a hallway while something with wings is already above the hallway.\n\nWAH.",
+    "customCss": ".race-dossier{border-left:3px solid #3d8c40;padding-left:12px}.race-gal-item img{background:#0f1a12}",
+    "expandedFromMicro": true
   },
   {
     "id": "skaven",
