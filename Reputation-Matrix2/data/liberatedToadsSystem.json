@@ -7,7 +7,13 @@
       "year": 1040,
       "label": "Highsun 21, 1040 BF"
     },
-    "note": "Operational snapshot frozen at Highsun 21, 1040 BF (Day 21) — the Order 120 emergency. The wider archive clock has advanced to Aethel 1040 BF, so this record is deliberately behind the present day; the Toad crisis has not been narrated forward yet."
+    "note": "Operational snapshot frozen at Highsun 21, 1040 BF (Day 21) — the Order 120 emergency. The wider archive clock has advanced to Aethel 1040 BF, so this record is deliberately behind the present day; the Toad crisis has not been narrated forward yet.",
+    "rosterNote": "Each cohort includes a full `roster` of named toads. The integer `members` field is still the headcount used by docket math (and barrel_survivors overlaps other cohorts). Many names use the '___ T' pun style (Pilo T, Geek T, Intel T, Capi T); others are toad-native. Roster rows are names/roles/levels — not full character articles unless linked elsewhere.",
+    "namingConvention": {
+      "tPun": "Say the name out loud with the letter T: Pilo T, Magne T, Budge T, Geek T, Nerd T, Intel T, Documen T, Equipmen T, Comba T, Warran T, Studen T, Recrui T…",
+      "toadNative": "Pond/fungus/labour names without a forced T ending.",
+      "notFullArticles": true
+    }
   },
   "structure": {
     "type": "Emergency Military Junta",
@@ -369,7 +375,7 @@
       "leader": "Captain Fernback",
       "purpose": "Security, enforcement of Speaker L's decrees, protection of the Cohort",
       "role": "Elite enforcement arm, directly commanded by Speaker L",
-      "members": 24,
+      "members": 23,
       "maxMembers": 30,
       "loyalty": 100,
       "morale": 85,
@@ -397,6 +403,251 @@
           "name": "Corporal Lilystalker",
           "level": 3,
           "role": "Night watch captain"
+        },
+        {
+          "name": "Sentry T",
+          "level": 2,
+          "role": "Door and deck watch",
+          "note": "Says halt like a lifestyle."
+        },
+        {
+          "name": "Warran T",
+          "level": 3,
+          "role": "Warrant clerk-enforcer",
+          "note": "Spells warrant with a capital T."
+        },
+        {
+          "name": "Capi T",
+          "level": 3,
+          "role": "Shift captain aide",
+          "note": "Clipboard is a weapon."
+        },
+        {
+          "name": "Protec T",
+          "level": 4,
+          "role": "Speaker close escort",
+          "note": "Stands between trouble and the podium."
+        },
+        {
+          "name": "Pilo T",
+          "level": 3,
+          "role": "Pursuit pilot / runner",
+          "note": "Not flight deck. Still faster than you."
+        },
+        {
+          "name": "Geek T",
+          "level": 2,
+          "role": "Gadget desk / night watch tech",
+          "note": "Borrowed from scouts for a week. Stayed two."
+        }
+      ],
+      "roster": [
+        {
+          "id": "sergeant_pondscum",
+          "name": "Sergeant Pondscum",
+          "role": "Second-in-command",
+          "level": 4,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "corporal_lilystalker",
+          "name": "Corporal Lilystalker",
+          "role": "Night watch captain",
+          "level": 3,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "sentry_t",
+          "name": "Sentry T",
+          "role": "Door and deck watch",
+          "level": 2,
+          "note": "Says halt like a lifestyle.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "warran_t",
+          "name": "Warran T",
+          "role": "Warrant clerk-enforcer",
+          "level": 3,
+          "note": "Spells warrant with a capital T.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "capi_t",
+          "name": "Capi T",
+          "role": "Shift captain aide",
+          "level": 3,
+          "note": "Clipboard is a weapon.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "protec_t",
+          "name": "Protec T",
+          "role": "Speaker close escort",
+          "level": 4,
+          "note": "Stands between trouble and the podium.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "sailmender",
+          "name": "Sailmender",
+          "role": "Patrol officer",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "notable",
+          "name": "Notable",
+          "role": "Night watch",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "detachment_t",
+          "name": "Detachment T",
+          "role": "Warrant runner",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "motionpass",
+          "name": "Motionpass",
+          "role": "Door detail",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "confidant_t",
+          "name": "Confidant T",
+          "role": "Brig attendant",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "conscript_t",
+          "name": "Conscript T",
+          "role": "Evidence escort",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "barnkeep",
+          "name": "Barnkeep",
+          "role": "Crowd control",
+          "level": 5,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "toadwise",
+          "name": "Toadwise",
+          "role": "Perimeter guard",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "pearl",
+          "name": "Pearl",
+          "role": "Docket runner",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "adjacen_t",
+          "name": "Adjacen T",
+          "role": "Arrest team",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "healhand",
+          "name": "Healhand",
+          "role": "Quiet room duty",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "granite",
+          "name": "Granite",
+          "role": "Corridor watch",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "superintendent_t",
+          "name": "Superintendent T",
+          "role": "Armory key",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "acolyte",
+          "name": "Acolyte",
+          "role": "Radio desk",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "stewhand",
+          "name": "Stewhand",
+          "role": "Rookie shadow",
+          "level": 5,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "nightwatch",
+          "name": "Nightwatch",
+          "role": "Sergeant aide",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "pilo_t",
+          "name": "Pilo T",
+          "role": "Pursuit pilot / runner",
+          "level": 3,
+          "note": "Not flight deck. Still faster than you.",
+          "notable": true,
+          "nameStyle": "t-pun"
         }
       ]
     },
@@ -408,7 +659,7 @@
       "leader": "Elder Mudcap",
       "purpose": "The original 150 trafficked toads - the heart of the movement",
       "role": "Core membership, moral authority of the faction",
-      "members": 147,
+      "members": 146,
       "maxMembers": 150,
       "loyalty": 88,
       "morale": 62,
@@ -439,6 +690,1370 @@
           "level": 1,
           "role": "Barrel 47 survivor",
           "note": "Lost family in transit"
+        },
+        {
+          "name": "Residen T",
+          "level": 2,
+          "role": "Block voice — mid decks",
+          "note": "Speaks for a corridor of bunks."
+        },
+        {
+          "name": "Studen T",
+          "level": 1,
+          "role": "Literacy circle",
+          "note": "Learning the docket before joining it."
+        },
+        {
+          "name": "Confiden T",
+          "level": 2,
+          "role": "Assembly floor voice",
+          "note": "Seconds motions that matter."
+        },
+        {
+          "name": "Persisten T",
+          "level": 2,
+          "role": "Grievance line",
+          "note": "Will not leave until heard."
+        },
+        {
+          "name": "Independen T",
+          "level": 2,
+          "role": "Unaligned bunk elder",
+          "note": "Votes with conscience, not cohort."
+        },
+        {
+          "name": "Dependen T",
+          "level": 2,
+          "role": "Family cluster head",
+          "note": "Keeps three kids and one rumor mill fed."
+        },
+        {
+          "name": "Inhabitan T",
+          "level": 1,
+          "role": "Lower hold voice",
+          "note": "Knows every drip in the ceiling."
+        },
+        {
+          "name": "Immigran T",
+          "level": 1,
+          "role": "New-realm arrival greeter",
+          "note": "Helps people who just got free."
+        }
+      ],
+      "roster": [
+        {
+          "id": "mudwhisper",
+          "name": "Mudwhisper",
+          "role": "Elder Mudcap's aide",
+          "level": 2,
+          "note": "First to speak out about conditions",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "croakston",
+          "name": "Croakston",
+          "role": "Barrel 47 survivor",
+          "level": 1,
+          "note": "Lost family in transit",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "residen_t",
+          "name": "Residen T",
+          "role": "Block voice — mid decks",
+          "level": 2,
+          "note": "Speaks for a corridor of bunks.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "studen_t",
+          "name": "Studen T",
+          "role": "Literacy circle",
+          "level": 1,
+          "note": "Learning the docket before joining it.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "confiden_t",
+          "name": "Confiden T",
+          "role": "Assembly floor voice",
+          "level": 2,
+          "note": "Seconds motions that matter.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "persisten_t",
+          "name": "Persisten T",
+          "role": "Grievance line",
+          "level": 2,
+          "note": "Will not leave until heard.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "independen_t",
+          "name": "Independen T",
+          "role": "Unaligned bunk elder",
+          "level": 2,
+          "note": "Votes with conscience, not cohort.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "match_t",
+          "name": "Match T",
+          "role": "Barrel survivor",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "plaintiff_t",
+          "name": "Plaintiff T",
+          "role": "Transit witness",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "budge_t",
+          "name": "Budge T",
+          "role": "Assembly attendee",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "cobble",
+          "name": "Cobble",
+          "role": "Kitchen hand",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "loamfoot",
+          "name": "Loamfoot",
+          "role": "Laundry shift",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "leek",
+          "name": "Leek",
+          "role": "Cargo help",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "novicekeep",
+          "name": "Novicekeep",
+          "role": "Quiet majority",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "harshkeep",
+          "name": "Harshkeep",
+          "role": "Ward visitor",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "shieldman",
+          "name": "Shieldman",
+          "role": "Story keeper",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "flatplane",
+          "name": "Flatplane",
+          "role": "Name rememberer",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "millcap_t",
+          "name": "Millcap T",
+          "role": "Missing-family seeker",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "exhibit_t",
+          "name": "Exhibit T",
+          "role": "New-arrival greeter",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "toadcalm",
+          "name": "Toadcalm",
+          "role": "Ration line",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "murmur",
+          "name": "Murmur",
+          "role": "Blanket fold",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "nettlesting",
+          "name": "Nettlesting",
+          "role": "Water carrier",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "brook_t",
+          "name": "Brook T",
+          "role": "Lamp lighter",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "toadkeeneye",
+          "name": "Toadkeeneye",
+          "role": "Floor scrub",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "foggy_t",
+          "name": "Foggy T",
+          "role": "Vest mender",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "specter_t",
+          "name": "Specter T",
+          "role": "Button sew",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "bosunhand",
+          "name": "Bosunhand",
+          "role": "Cap care",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "fresh_t",
+          "name": "Fresh T",
+          "role": "Children watch",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "dimhand",
+          "name": "Dimhand",
+          "role": "Elder companion",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "tinder_t",
+          "name": "Tinder T",
+          "role": "Vote line",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "surveyhand",
+          "name": "Surveyhand",
+          "role": "Motion seconder",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "fir",
+          "name": "Fir",
+          "role": "Grievance speaker",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "special",
+          "name": "Special",
+          "role": "Hope keeper",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "fragmen_t",
+          "name": "Fragmen T",
+          "role": "Fear quieter",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "attached",
+          "name": "Attached",
+          "role": "Mid-deck voice",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "wheelwright_t",
+          "name": "Wheelwright T",
+          "role": "Bunk neighbor",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "returnee_t",
+          "name": "Returnee T",
+          "role": "Roll-call answer",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "bolthand",
+          "name": "Bolthand",
+          "role": "Barrel survivor",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "hoodkeep",
+          "name": "Hoodkeep",
+          "role": "Transit witness",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "wrestkeep",
+          "name": "Wrestkeep",
+          "role": "Assembly attendee",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "reedcutter",
+          "name": "Reedcutter",
+          "role": "Kitchen hand",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "attachkeep",
+          "name": "Attachkeep",
+          "role": "Laundry shift",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "longshorekeep",
+          "name": "Longshorekeep",
+          "role": "Cargo help",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "jade",
+          "name": "Jade",
+          "role": "Quiet majority",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "runnermaster",
+          "name": "Runnermaster",
+          "role": "Ward visitor",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "shieldhand",
+          "name": "Shieldhand",
+          "role": "Story keeper",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "effec_t",
+          "name": "Effec T",
+          "role": "Name rememberer",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "riverbank",
+          "name": "Riverbank",
+          "role": "Missing-family seeker",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "scarmaster",
+          "name": "Scarmaster",
+          "role": "New-arrival greeter",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "ivy",
+          "name": "Ivy",
+          "role": "Ration line",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "cipherhand",
+          "name": "Cipherhand",
+          "role": "Blanket fold",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "plainhand",
+          "name": "Plainhand",
+          "role": "Water carrier",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "reservehand",
+          "name": "Reservehand",
+          "role": "Lamp lighter",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "softsole",
+          "name": "Softsole",
+          "role": "Floor scrub",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "fog_t",
+          "name": "Fog T",
+          "role": "Vest mender",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "whitehand",
+          "name": "Whitehand",
+          "role": "Button sew",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "pool_t",
+          "name": "Pool T",
+          "role": "Cap care",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "toadlet",
+          "name": "Toadlet",
+          "role": "Children watch",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "speckled_t",
+          "name": "Speckled T",
+          "role": "Elder companion",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "truffleroot",
+          "name": "Truffleroot",
+          "role": "Vote line",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "mycelroot",
+          "name": "Mycelroot",
+          "role": "Motion seconder",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "knotted",
+          "name": "Knotted",
+          "role": "Grievance speaker",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "caskman",
+          "name": "Caskman",
+          "role": "Hope keeper",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "hazel",
+          "name": "Hazel",
+          "role": "Fear quieter",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "toadling",
+          "name": "Toadling",
+          "role": "Mid-deck voice",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "picke_t",
+          "name": "Picke T",
+          "role": "Bunk neighbor",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "debi_t",
+          "name": "Debi T",
+          "role": "Roll-call answer",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "nettle",
+          "name": "Nettle",
+          "role": "Barrel survivor",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "boxer_t",
+          "name": "Boxer T",
+          "role": "Transit witness",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "briar",
+          "name": "Briar",
+          "role": "Assembly attendee",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "pugihand",
+          "name": "Pugihand",
+          "role": "Kitchen hand",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "herdhand",
+          "name": "Herdhand",
+          "role": "Laundry shift",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "bindward",
+          "name": "Bindward",
+          "role": "Cargo help",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "tadpoleswim",
+          "name": "Tadpoleswim",
+          "role": "Quiet majority",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "yardbird",
+          "name": "Yardbird",
+          "role": "Ward visitor",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "boleteback",
+          "name": "Boleteback",
+          "role": "Story keeper",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "tracker_t",
+          "name": "Tracker T",
+          "role": "Name rememberer",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "belted",
+          "name": "Belted",
+          "role": "Missing-family seeker",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "tunneler",
+          "name": "Tunneler",
+          "role": "New-arrival greeter",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "toadfair",
+          "name": "Toadfair",
+          "role": "Ration line",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "dewleaf",
+          "name": "Dewleaf",
+          "role": "Blanket fold",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "emissary_t",
+          "name": "Emissary T",
+          "role": "Water carrier",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "secondhand",
+          "name": "Secondhand",
+          "role": "Lamp lighter",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "badged_t",
+          "name": "Badged T",
+          "role": "Floor scrub",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "stitch_t",
+          "name": "Stitch T",
+          "role": "Vest mender",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "returnkeep",
+          "name": "Returnkeep",
+          "role": "Button sew",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "vested_t",
+          "name": "Vested T",
+          "role": "Cap care",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "thread_t",
+          "name": "Thread T",
+          "role": "Children watch",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "drykeep",
+          "name": "Drykeep",
+          "role": "Elder companion",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "payroll_t",
+          "name": "Payroll T",
+          "role": "Vote line",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "beet",
+          "name": "Beet",
+          "role": "Motion seconder",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "torch_t",
+          "name": "Torch T",
+          "role": "Grievance speaker",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "cook",
+          "name": "Cook",
+          "role": "Hope keeper",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "tidbit_t",
+          "name": "Tidbit T",
+          "role": "Fear quieter",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "fullhand",
+          "name": "Fullhand",
+          "role": "Mid-deck voice",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "sage",
+          "name": "Sage",
+          "role": "Roll-call answer",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "dillseed",
+          "name": "Dillseed",
+          "role": "Barrel survivor",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "initkeep",
+          "name": "Initkeep",
+          "role": "Transit witness",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "resistan_t",
+          "name": "Resistan T",
+          "role": "Assembly attendee",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "pondwick",
+          "name": "Pondwick",
+          "role": "Kitchen hand",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "locksmith",
+          "name": "Locksmith",
+          "role": "Laundry shift",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "bindkeep",
+          "name": "Bindkeep",
+          "role": "Cargo help",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "tutor",
+          "name": "Tutor",
+          "role": "Quiet majority",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "refugee_t",
+          "name": "Refugee T",
+          "role": "Ward visitor",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "shale",
+          "name": "Shale",
+          "role": "Story keeper",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "petal",
+          "name": "Petal",
+          "role": "Name rememberer",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "emissary",
+          "name": "Emissary",
+          "role": "Missing-family seeker",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "farmer_t",
+          "name": "Farmer T",
+          "role": "New-arrival greeter",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "helmsman",
+          "name": "Helmsman",
+          "role": "Ration line",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "steward_t",
+          "name": "Steward T",
+          "role": "Blanket fold",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "trout",
+          "name": "Trout",
+          "role": "Water carrier",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "healed",
+          "name": "Healed",
+          "role": "Lamp lighter",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "hollyberry",
+          "name": "Hollyberry",
+          "role": "Floor scrub",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "lantern_t",
+          "name": "Lantern T",
+          "role": "Vest mender",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "deckchief",
+          "name": "Deckchief",
+          "role": "Button sew",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "deckmaster",
+          "name": "Deckmaster",
+          "role": "Cap care",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "quoti_t",
+          "name": "Quoti T",
+          "role": "Children watch",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "opal",
+          "name": "Opal",
+          "role": "Elder companion",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "ranger",
+          "name": "Ranger",
+          "role": "Vote line",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "lockward",
+          "name": "Lockward",
+          "role": "Motion seconder",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "spearman",
+          "name": "Spearman",
+          "role": "Grievance speaker",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "found_t",
+          "name": "Found T",
+          "role": "Hope keeper",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "birchpale",
+          "name": "Birchpale",
+          "role": "Fear quieter",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "alchem_t",
+          "name": "Alchem T",
+          "role": "Mid-deck voice",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "breachmaster",
+          "name": "Breachmaster",
+          "role": "Bunk neighbor",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "radish",
+          "name": "Radish",
+          "role": "Roll-call answer",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "orderly",
+          "name": "Orderly",
+          "role": "Barrel survivor",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "carpkeep",
+          "name": "Carpkeep",
+          "role": "Transit witness",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "moonkeeper",
+          "name": "Moonkeeper",
+          "role": "Assembly attendee",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "reflec_t",
+          "name": "Reflec T",
+          "role": "Kitchen hand",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "cloudy",
+          "name": "Cloudy",
+          "role": "Laundry shift",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "cobbler",
+          "name": "Cobbler",
+          "role": "Cargo help",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "scoop_t",
+          "name": "Scoop T",
+          "role": "Quiet majority",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "mahogany",
+          "name": "Mahogany",
+          "role": "Ward visitor",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "cuminwarm",
+          "name": "Cuminwarm",
+          "role": "Story keeper",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "credit_t",
+          "name": "Credit T",
+          "role": "Name rememberer",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "fisher_t",
+          "name": "Fisher T",
+          "role": "Missing-family seeker",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "grimkeep",
+          "name": "Grimkeep",
+          "role": "New-arrival greeter",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "morelwise",
+          "name": "Morelwise",
+          "role": "Ration line",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "clien_t",
+          "name": "Clien T",
+          "role": "Blanket fold",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "goldmaster",
+          "name": "Goldmaster",
+          "role": "Water carrier",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "lost",
+          "name": "Lost",
+          "role": "Lamp lighter",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "chisel_t",
+          "name": "Chisel T",
+          "role": "Floor scrub",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "immigran_t",
+          "name": "Immigran T",
+          "role": "New-realm arrival greeter",
+          "level": 1,
+          "note": "Helps people who just got free.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "inhabitan_t",
+          "name": "Inhabitan T",
+          "role": "Lower hold voice",
+          "level": 1,
+          "note": "Knows every drip in the ceiling.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "dependen_t",
+          "name": "Dependen T",
+          "role": "Family cluster head",
+          "level": 2,
+          "note": "Keeps three kids and one rumor mill fed.",
+          "notable": true,
+          "nameStyle": "t-pun"
         }
       ]
     },
@@ -478,6 +2093,146 @@
           "name": "Quillback",
           "level": 2,
           "role": "Intelligence analyst"
+        },
+        {
+          "name": "Documen T",
+          "level": 3,
+          "role": "Primary minutes hand",
+          "note": "If it is not written, it did not happen."
+        },
+        {
+          "name": "Accoun T",
+          "level": 2,
+          "role": "Census and ledger desk",
+          "note": "Counts toads so the Empire cannot."
+        },
+        {
+          "name": "Archivis T",
+          "level": 3,
+          "role": "Deep stacks",
+          "note": "Finds names in dust."
+        },
+        {
+          "name": "Index T",
+          "level": 2,
+          "role": "Cross-reference desk",
+          "note": "Everything links to everything."
+        },
+        {
+          "name": "Notar T",
+          "level": 2,
+          "role": "Affidavit & seal desk",
+          "note": "Stamps harder than most hammers."
+        }
+      ],
+      "roster": [
+        {
+          "id": "inkspot",
+          "name": "Inkspot",
+          "role": "Chief archivist",
+          "level": 3,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "quillback",
+          "name": "Quillback",
+          "role": "Intelligence analyst",
+          "level": 2,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "documen_t",
+          "name": "Documen T",
+          "role": "Primary minutes hand",
+          "level": 3,
+          "note": "If it is not written, it did not happen.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "accoun_t",
+          "name": "Accoun T",
+          "role": "Census and ledger desk",
+          "level": 2,
+          "note": "Counts toads so the Empire cannot.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "archivis_t",
+          "name": "Archivis T",
+          "role": "Deep stacks",
+          "level": 3,
+          "note": "Finds names in dust.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "index_t",
+          "name": "Index T",
+          "role": "Cross-reference desk",
+          "level": 2,
+          "note": "Everything links to everything.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "barrelman",
+          "name": "Barrelman",
+          "role": "Archivist",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "occupant_t",
+          "name": "Occupant T",
+          "role": "Intelligence analyst",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "softhand",
+          "name": "Softhand",
+          "role": "Minutes clerk",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "staccato_t",
+          "name": "Staccato T",
+          "role": "Signal log",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "emigrant_t",
+          "name": "Emigrant T",
+          "role": "Map annotator",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "notar_t",
+          "name": "Notar T",
+          "role": "Affidavit & seal desk",
+          "level": 2,
+          "note": "Stamps harder than most hammers.",
+          "notable": true,
+          "nameStyle": "t-pun"
         }
       ]
     },
@@ -517,6 +2272,206 @@
           "name": "Hammerling",
           "level": 3,
           "role": "Weapons smith"
+        },
+        {
+          "name": "Magne T",
+          "level": 3,
+          "role": "Magtek salvage",
+          "note": "Sticks to problems until they yield."
+        },
+        {
+          "name": "Rocke T",
+          "level": 3,
+          "role": "Propellant and powder",
+          "note": "Handles boom with respect."
+        },
+        {
+          "name": "Socke T",
+          "level": 2,
+          "role": "Wiring and ports",
+          "note": "Makes the lights stay on."
+        },
+        {
+          "name": "Bracke T",
+          "level": 2,
+          "role": "Structural braces",
+          "note": "Keeps the ship from arguing with gravity."
+        },
+        {
+          "name": "Equipmen T",
+          "level": 3,
+          "role": "Kit issue chief",
+          "note": "Everything signed out ends with T."
+        },
+        {
+          "name": "Circui T",
+          "level": 3,
+          "role": "Board repair",
+          "note": "Solders calm into chaos."
+        }
+      ],
+      "roster": [
+        {
+          "id": "gearspore",
+          "name": "Gearspore",
+          "role": "Ship engineer",
+          "level": 3,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "hammerling",
+          "name": "Hammerling",
+          "role": "Weapons smith",
+          "level": 3,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "magne_t",
+          "name": "Magne T",
+          "role": "Magtek salvage",
+          "level": 3,
+          "note": "Sticks to problems until they yield.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "rocke_t",
+          "name": "Rocke T",
+          "role": "Propellant and powder",
+          "level": 3,
+          "note": "Handles boom with respect.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "socke_t",
+          "name": "Socke T",
+          "role": "Wiring and ports",
+          "level": 2,
+          "note": "Makes the lights stay on.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "bracke_t",
+          "name": "Bracke T",
+          "role": "Structural braces",
+          "level": 2,
+          "note": "Keeps the ship from arguing with gravity.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "resident_t",
+          "name": "Resident T",
+          "role": "Ship engineer",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "carpslow",
+          "name": "Carpslow",
+          "role": "Weapons smith",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "fieldmouse",
+          "name": "Fieldmouse",
+          "role": "Armor fitter",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "shadowkeep",
+          "name": "Shadowkeep",
+          "role": "Pipe welder",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "nightcap_t",
+          "name": "Nightcap T",
+          "role": "Gadget tinker",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "stigma_t",
+          "name": "Stigma T",
+          "role": "Quartermaster aide",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "adept",
+          "name": "Adept",
+          "role": "Tool crib",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "wrestler",
+          "name": "Wrestler",
+          "role": "Powder room",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "direct_t",
+          "name": "Direct T",
+          "role": "Rope loft",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "governmen_t",
+          "name": "Governmen T",
+          "role": "Sail loft",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "circui_t",
+          "name": "Circui T",
+          "role": "Board repair",
+          "level": 3,
+          "note": "Solders calm into chaos.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "equipmen_t",
+          "name": "Equipmen T",
+          "role": "Kit issue chief",
+          "level": 3,
+          "note": "Everything signed out ends with T.",
+          "notable": true,
+          "nameStyle": "t-pun"
         }
       ]
     },
@@ -561,6 +2516,242 @@
           "name": "Shieldback",
           "level": 3,
           "role": "Defense coordinator"
+        },
+        {
+          "name": "Comba T",
+          "level": 4,
+          "role": "Shock pair lead",
+          "note": "The name is the job description."
+        },
+        {
+          "name": "Assaul T",
+          "level": 4,
+          "role": "Breach team",
+          "note": "First through the ugly door."
+        },
+        {
+          "name": "Defen T",
+          "level": 3,
+          "role": "Shield wall anchor",
+          "note": "Last to step back."
+        },
+        {
+          "name": "Targe T",
+          "level": 2,
+          "role": "Training dummy instructor",
+          "note": "Ironically never the target."
+        },
+        {
+          "name": "Veter T",
+          "level": 4,
+          "role": "Drill sergeant",
+          "note": "Voice carries through bulkheads."
+        },
+        {
+          "name": "Regimen T",
+          "level": 3,
+          "role": "Fitness & formation",
+          "note": "Makes mornings worse on purpose."
+        }
+      ],
+      "roster": [
+        {
+          "id": "spearwort",
+          "name": "Spearwort",
+          "role": "Combat instructor",
+          "level": 4,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "shieldback",
+          "name": "Shieldback",
+          "role": "Defense coordinator",
+          "level": 3,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "comba_t",
+          "name": "Comba T",
+          "role": "Shock pair lead",
+          "level": 4,
+          "note": "The name is the job description.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "assaul_t",
+          "name": "Assaul T",
+          "role": "Breach team",
+          "level": 4,
+          "note": "First through the ugly door.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "defen_t",
+          "name": "Defen T",
+          "role": "Shield wall anchor",
+          "level": 3,
+          "note": "Last to step back.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "targe_t",
+          "name": "Targe T",
+          "role": "Training dummy instructor",
+          "level": 2,
+          "note": "Ironically never the target.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "veter_t",
+          "name": "Veter T",
+          "role": "Drill sergeant",
+          "level": 4,
+          "note": "Voice carries through bulkheads.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "dry",
+          "name": "Dry",
+          "role": "Combat instructor",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "bramble",
+          "name": "Bramble",
+          "role": "Defense coordinator",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "deposi_t",
+          "name": "Deposi T",
+          "role": "Shield wall",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "packet_t",
+          "name": "Packet T",
+          "role": "Spear line",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "paintmaster",
+          "name": "Paintmaster",
+          "role": "Door team",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "whitesmith",
+          "name": "Whitesmith",
+          "role": "Breach team",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "volunteer",
+          "name": "Volunteer",
+          "role": "Rear guard",
+          "level": 5,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "ordinarykeep",
+          "name": "Ordinarykeep",
+          "role": "Escort blade",
+          "level": 5,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "orbit_t",
+          "name": "Orbit T",
+          "role": "Drill sergeant",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "command_t",
+          "name": "Command T",
+          "role": "Sparring coach",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "ivyclimb",
+          "name": "Ivyclimb",
+          "role": "Armory guard",
+          "level": 5,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "elint_t",
+          "name": "Elint T",
+          "role": "Wall post",
+          "level": 5,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "silversmith",
+          "name": "Silversmith",
+          "role": "Gate post",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "slateface",
+          "name": "Slateface",
+          "role": "Night blade",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "regimen_t",
+          "name": "Regimen T",
+          "role": "Fitness & formation",
+          "level": 3,
+          "note": "Makes mornings worse on purpose.",
+          "notable": true,
+          "nameStyle": "t-pun"
         }
       ]
     },
@@ -606,6 +2797,173 @@
           "name": "Gentlepad",
           "level": 3,
           "role": "Psychological counselor"
+        },
+        {
+          "name": "Treatmen T",
+          "level": 3,
+          "role": "Trauma desk",
+          "note": "Prescribes rest. Enforces it."
+        },
+        {
+          "name": "Resilien T",
+          "level": 3,
+          "role": "Recovery coach",
+          "note": "Gets people standing again."
+        },
+        {
+          "name": "Patien T",
+          "level": 2,
+          "role": "Ward morale",
+          "note": "Named ironically. Never is."
+        },
+        {
+          "name": "Agremen T",
+          "level": 2,
+          "role": "Consent & care paperwork",
+          "note": "Nobody operates without a yes."
+        },
+        {
+          "name": "Elemen T",
+          "level": 2,
+          "role": "Herbal & elemental salves",
+          "note": "Smells like a greenhouse won a fight."
+        }
+      ],
+      "roster": [
+        {
+          "id": "soothing_moss",
+          "name": "Soothing Moss",
+          "role": "Chief surgeon",
+          "level": 4,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "gentlepad",
+          "name": "Gentlepad",
+          "role": "Psychological counselor",
+          "level": 3,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "treatmen_t",
+          "name": "Treatmen T",
+          "role": "Trauma desk",
+          "level": 3,
+          "note": "Prescribes rest. Enforces it.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "resilien_t",
+          "name": "Resilien T",
+          "role": "Recovery coach",
+          "level": 3,
+          "note": "Gets people standing again.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "patien_t",
+          "name": "Patien T",
+          "role": "Ward morale",
+          "level": 2,
+          "note": "Named ironically. Never is.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "alderbrook",
+          "name": "Alderbrook",
+          "role": "Surgeon",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "insistent_t",
+          "name": "Insistent T",
+          "role": "Orderly",
+          "level": 4,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "shielded",
+          "name": "Shielded",
+          "role": "Counselor",
+          "level": 5,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "pebble",
+          "name": "Pebble",
+          "role": "Herbalist",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "daywatch",
+          "name": "Daywatch",
+          "role": "Bone setter",
+          "level": 5,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "volva_t",
+          "name": "Volva T",
+          "role": "Burn ward",
+          "level": 5,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "swif_t",
+          "name": "Swif T",
+          "role": "Fever watch",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "pathfind_t",
+          "name": "Pathfind T",
+          "role": "Trauma desk",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "elemen_t",
+          "name": "Elemen T",
+          "role": "Herbal & elemental salves",
+          "level": 2,
+          "note": "Smells like a greenhouse won a fight.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "agremen_t",
+          "name": "Agremen T",
+          "role": "Consent & care paperwork",
+          "level": 2,
+          "note": "Nobody operates without a yes.",
+          "notable": true,
+          "nameStyle": "t-pun"
         }
       ]
     },
@@ -650,6 +3008,116 @@
           "name": "Whispertail",
           "level": 3,
           "role": "Signal specialist"
+        },
+        {
+          "name": "Intel T",
+          "level": 4,
+          "role": "Intelligence lead (acting)",
+          "note": "Reads rooms. Files people."
+        },
+        {
+          "name": "Geek T",
+          "level": 3,
+          "role": "Technical intercept",
+          "note": "Loves gadgets more than sleep."
+        },
+        {
+          "name": "Nerd T",
+          "level": 3,
+          "role": "Pattern analyst",
+          "note": "Corrects maps for fun."
+        },
+        {
+          "name": "Sigint T",
+          "level": 3,
+          "role": "Signal intercept",
+          "note": "Hears what radios pretend not to say."
+        },
+        {
+          "name": "Recon T",
+          "level": 3,
+          "role": "Long-route eyes",
+          "note": "Returns with news or not at all."
+        },
+        {
+          "name": "Humint T",
+          "level": 3,
+          "role": "Street face / soft contact",
+          "note": "Talks to people who do not talk to patrols."
+        }
+      ],
+      "roster": [
+        {
+          "id": "shadowleap",
+          "name": "Shadowleap",
+          "role": "Acting leader (unofficial)",
+          "level": 4,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "whispertail",
+          "name": "Whispertail",
+          "role": "Signal specialist",
+          "level": 3,
+          "note": "",
+          "notable": true,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "intel_t",
+          "name": "Intel T",
+          "role": "Intelligence lead (acting)",
+          "level": 4,
+          "note": "Reads rooms. Files people.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "geek_t_reassigned",
+          "name": "Geek T (reassigned)",
+          "role": "Technical intercept",
+          "level": 3,
+          "note": "Loves gadgets more than sleep.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "nerd_t",
+          "name": "Nerd T",
+          "role": "Pattern analyst",
+          "level": 3,
+          "note": "Corrects maps for fun.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "sigint_t",
+          "name": "Sigint T",
+          "role": "Signal intercept",
+          "level": 3,
+          "note": "Hears what radios pretend not to say.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "recon_t",
+          "name": "Recon T",
+          "role": "Long-route eyes",
+          "level": 3,
+          "note": "Returns with news or not at all.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "geek_t",
+          "name": "Geek T",
+          "role": "Technical intercept",
+          "level": 3,
+          "note": "Loves gadgets more than sleep.",
+          "notable": true,
+          "nameStyle": "t-pun"
         }
       ]
     },
@@ -674,7 +3142,326 @@
         "recovering": 12,
         "pending_assignment": 7,
         "disciplinary": 4
-      }
+      },
+      "notable_members": [
+        {
+          "name": "Recrui T",
+          "level": 1,
+          "role": "Skills assessment queue",
+          "note": "Looking for a cohort that fits."
+        },
+        {
+          "name": "Assistan T",
+          "level": 1,
+          "role": "Temp desk help",
+          "note": "Useful until assigned."
+        },
+        {
+          "name": "Applican T",
+          "level": 1,
+          "role": "Cohort application pile",
+          "note": "Form filled in triplicate."
+        },
+        {
+          "name": "Transien T",
+          "level": 1,
+          "role": "Passing through",
+          "note": "May stay. May not."
+        },
+        {
+          "name": "Participan T",
+          "level": 1,
+          "role": "Orientation group lead",
+          "note": "Keeps the new queue from panicking."
+        },
+        {
+          "name": "Occupan T",
+          "level": 1,
+          "role": "Temp bunk claim",
+          "note": "Sleeps light. Listens heavy."
+        }
+      ],
+      "roster": [
+        {
+          "id": "recrui_t",
+          "name": "Recrui T",
+          "role": "Skills assessment queue",
+          "level": 1,
+          "note": "Looking for a cohort that fits.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "assistan_t",
+          "name": "Assistan T",
+          "role": "Temp desk help",
+          "level": 1,
+          "note": "Useful until assigned.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "applican_t",
+          "name": "Applican T",
+          "role": "Cohort application pile",
+          "level": 1,
+          "note": "Form filled in triplicate.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "transien_t",
+          "name": "Transien T",
+          "role": "Passing through",
+          "level": 1,
+          "note": "May stay. May not.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "stale",
+          "name": "Stale",
+          "role": "Awaiting cohort",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "relayward",
+          "name": "Relayward",
+          "role": "Skills assessment",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "urgent_t",
+          "name": "Urgent T",
+          "role": "Medical hold",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "tinker_t",
+          "name": "Tinker T",
+          "role": "Orientation",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "leakhand",
+          "name": "Leakhand",
+          "role": "Temp kitchen",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "pine",
+          "name": "Pine",
+          "role": "Temp laundry",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "relayman",
+          "name": "Relayman",
+          "role": "Temp cargo",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "wry_t",
+          "name": "Wry T",
+          "role": "Language class",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "argumen_t",
+          "name": "Argumen T",
+          "role": "Literacy class",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "goldsmith",
+          "name": "Goldsmith",
+          "role": "Combat eval",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "liaisekeep",
+          "name": "Liaisekeep",
+          "role": "Craft eval",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "wayfind_t",
+          "name": "Wayfind T",
+          "role": "Scout eval",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "dewhand",
+          "name": "Dewhand",
+          "role": "Patrol eval",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "alto_t",
+          "name": "Alto T",
+          "role": "Clerk eval",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "breacher_t",
+          "name": "Breacher T",
+          "role": "Counseling queue",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "striped",
+          "name": "Striped",
+          "role": "Family search",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "shiny",
+          "name": "Shiny",
+          "role": "Name recovery",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "coral",
+          "name": "Coral",
+          "role": "Trauma rest",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "moment_t",
+          "name": "Moment T",
+          "role": "Light duty",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "rumor_t",
+          "name": "Rumor T",
+          "role": "Watch only",
+          "level": 3,
+          "note": "",
+          "notable": false,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "lancekeep",
+          "name": "Lancekeep",
+          "role": "Messenger pool",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "foragehand",
+          "name": "Foragehand",
+          "role": "Spare hands",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "bladehand",
+          "name": "Bladehand",
+          "role": "Training queue",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "gavelhand",
+          "name": "Gavelhand",
+          "role": "Pending vote",
+          "level": 1,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "docketward",
+          "name": "Docketward",
+          "role": "New arrival",
+          "level": 2,
+          "note": "",
+          "notable": false,
+          "nameStyle": "toad-native"
+        },
+        {
+          "id": "occupan_t",
+          "name": "Occupan T",
+          "role": "Temp bunk claim",
+          "level": 1,
+          "note": "Sleeps light. Listens heavy.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        },
+        {
+          "id": "participan_t",
+          "name": "Participan T",
+          "role": "Orientation group lead",
+          "level": 1,
+          "note": "Keeps the new queue from panicking.",
+          "notable": true,
+          "nameStyle": "t-pun"
+        }
+      ]
     }
   ],
   "voteTypes": {

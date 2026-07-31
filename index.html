@@ -7517,29 +7517,35 @@ function meterRow(label,val,tone){
 function ltCohortCard(c){
   const tone=ltCohortStatusTone(c.status);
   const cap=c.maxMembers?`${c.members}/${c.maxMembers}`:`${c.members}`;
-  const notable=specList((c.notable_members||[]).map(x=>({name:x.name,meta:x.level?`Lv ${x.level}`:'',desc:x.role,note:x.note,tone:c.color||'#4a9c6d',icon:'🐸'})));
+  const roster=Array.isArray(c.roster)?c.roster:[];
+  const tPuns=roster.filter(r=>/\sT$/.test(r.name||'')||r.nameStyle==='t-pun');
+  const notableSrc=(c.notable_members&&c.notable_members.length)?c.notable_members:roster.filter(r=>r.notable).slice(0,6);
+  const notable=specList((notableSrc||[]).map(x=>({name:x.name,meta:x.level?`Lv ${x.level}`:'',desc:x.role,note:x.note,tone:c.color||'#4a9c6d',icon:'🐸'})));
+  const rosterChips=roster.slice(0,48).map(r=>{
+    const isT=/\sT$/.test(r.name||'')||r.nameStyle==='t-pun';
+    return `<span class="lt-roster-chip ${isT?'t-pun':''}${r.notable?' notable':''}" title="${esc((r.role||'')+(r.level?` · Lv ${r.level}`:'')+(r.note?` — ${r.note}`:''))}">${esc(r.name)}</span>`;
+  }).join('');
+  const more=roster.length>48?`<span class="lt-roster-more">+${roster.length-48} more on full roll</span>`:'';
   const spec=(c.specializations||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
   const equip=(c.equipment||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
   const cas=c.casualties?Object.entries(c.casualties).filter(([,v])=>v).map(([k,v])=>`<span class="pill" style="border-color:#e0574a;color:#e0574a">${esc(prettyId(k))}: ${v}</span>`).join(''):'';
   const leaderId=(ltSystem().council.members.find(m=>m.name===c.leader)||{}).articleId;
   const leader=c.leader?(leaderId&&INDEX[leaderId]?`<a onclick="openId('${esc(leaderId)}')" style="cursor:pointer">${esc(c.leader)}</a>`:esc(c.leader)):'<i>vacant</i>';
-  return `<div class="dock-card" style="--dk:${tone}">
+  return `<div class="dock-card lt-cohort-card" style="--dk:${tone};--cc:${c.color||'#4a9c6d'}">
     <div class="dock-head">
       <span class="dock-face">${c.icon||'🐸'}</span>
-      <div style="min-width:0"><h3>${esc(c.name)}</h3><div class="dock-sub">Led by ${leader} · ${esc(cap)} members</div></div>
-      <div class="dock-status"><span class="dock-badge">${esc(c.status||'')}</span></div>
+      <div style="min-width:0"><h3>${esc(c.name)}</h3><div class="dock-sub">Led by ${leader} · ${esc(cap)} members${roster.length?` · ${roster.length} named`:''}${tPuns.length?` · ${tPuns.length} “__ T” puns`:''}</div></div>
     </div>
-    ${c.statusDetail?`<div class="dock-sub" style="margin-top:7px;color:${tone}">${esc(c.statusDetail)}</div>`:''}
-    <p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(c.description||c.purpose||'')}</p>
-    <div class="lt-meters">${meterRow('Loyalty',c.loyalty)}${meterRow('Morale',c.morale)}${meterRow('Combat readiness',c.combatReadiness)}</div>
-    ${c.role?`<div class="dock-label">Role</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(c.role)}</p>`:''}
-    ${spec?`<div class="dock-label">Specialisations</div><div class="chips">${spec}</div>`:''}
-    ${equip?`<div class="dock-label">Equipment</div><div class="chips">${equip}</div>`:''}
-    ${cas?`<div class="dock-label">Casualties</div><div class="chips">${cas}</div>`:''}
-    ${notable?`<div class="dock-label">Notable members</div>${notable}`:''}
+    <p class="dock-desc">${esc(c.description||c.purpose||'')}</p>
+    ${notable?`<div class="dock-block"><div class="dock-label">Notables</div>${notable}</div>`:''}
+    ${roster.length?`<div class="dock-block"><div class="dock-label">Full roster <span class="text-muted" style="font-weight:400">(${roster.length})</span></div><div class="lt-roster">${rosterChips}${more}</div></div>`:''}
+    ${spec?`<div class="dock-block"><div class="dock-label">Specializations</div><div class="chips">${spec}</div></div>`:''}
+    ${equip?`<div class="dock-block"><div class="dock-label">Equipment</div><div class="chips">${equip}</div></div>`:''}
+    ${cas?`<div class="dock-block"><div class="dock-label">Casualties</div><div class="chips">${cas}</div></div>`:''}
+    ${c.statusDetail?`<div class="dock-note">${esc(c.statusDetail)}</div>`:''}
   </div>`;
 }
-/* ---- Core roster ---- */
+
 function ltToadCard(t){
   const tone=ltStatusTone(t.statusType||t.status);
   const st=t.stats||{};
@@ -7850,7 +7856,7 @@ function view_pond_docket(){
   }
 
   /* ---------- COHORTS / ROSTER / TIMELINE ---------- */
-  const cohortsTab=S?`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2><p>Every body the docket draws enforcers, evidence, medics and testimony from.</p></div><span class="pill">${(S.cohorts||[]).length} cohorts · ${stats?stats.totalMembers:'?'} assignments</span></div><div class="wnote" style="margin-top:0"><b>Reading the numbers:</b> cohort sizes overlap. <i>Barrel Survivors</i> is the whole freed population of ~150; the functional cohorts are drawn from it and from later arrivals, so the sizes sum to more than the faction's headcount.</div><div class="dock-grid">${(S.cohorts||[]).map(ltCohortCard).join('')}</div></div>`
+  const cohortsTab=S?`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2><p>Every body the docket draws enforcers, evidence, medics and testimony from.</p></div><span class="pill">${(S.cohorts||[]).length} cohorts · ${stats?stats.totalMembers:'?'} assignments</span></div><div class="wnote" style="margin-top:0"><b>Reading the numbers:</b> cohort sizes overlap. <i>Barrel Survivors</i> is the whole freed population of ~150; the functional cohorts are drawn from it and from later arrivals, so the sizes sum to more than the faction's headcount.</div><div class="wnote" style="margin-top:10px"><b>Naming:</b> Every toad on a roster now has a name. Many use the <i>___ T</i> pun style — say it out loud (Pilo T, Intel T, Geek T, Magne T, Comba T, Documen T…). Others are toad-native pond/fungus names. These are roster names, not full character articles (yet).</div><div class="dock-grid">${(S.cohorts||[]).map(ltCohortCard).join('')}</div></div>`
     :`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2></div></div><div class="dock-grid">${(root.cohorts||[]).map(docketCohortCard).join('')}</div></div>`;
   const rosterTab=S?`<div class="card"><div class="home-section-head"><div><h2>⭐ Core Roster</h2><p>The named toads at the centre of the crisis — stats, conditions, abilities, and docket exposure.</p></div><span class="pill">${(S.coreToads||[]).length}</span></div><div class="dock-grid">${(S.coreToads||[]).map(ltToadCard).join('')}</div></div>`:'';
   const timelineTab=S?`<div class="card"><div class="home-section-head"><div><h2>📅 Faction Timeline</h2><p>${esc((S.meta&&S.meta.note)||'')}</p></div><span class="pill">${(S.timeline||[]).length} days</span></div><div class="lt-timeline">${ltTimeline(S.timeline)}</div></div>`:'';
