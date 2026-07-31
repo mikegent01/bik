@@ -183,7 +183,15 @@ export const SPECIES_DATA = {
     // MARIO WORLD
     // ========================================================================
     toad_citizen: { 
-        name: 'Toad', 
+        name: 'Toad',
+        gallery: [
+            { src: 'portraits/star_toad.png', alt: 'Star Toad' },
+            { src: 'portraits/toad.png', alt: 'Toad citizen' },
+            { src: 'portraits/toad_lee.png', alt: 'Toad Lee' },
+            { src: 'portraits/captain_toadette.png', alt: 'Captain Toadette' },
+            { src: 'portraits/forest_ranger_toad.png', alt: 'Forest ranger Toad' },
+            { src: 'portraits/liberated-toad_chorus.png', alt: 'Liberated Toad chorus' }
+        ], 
         color: '#ff6b6b', 
         icon: '🍄', 
         description: 'The peaceful, fungal-capped citizens of the Mushroom Kingdom.',

@@ -492,3 +492,38 @@
         height: 250px;
     }
 }
+/* Race showcase galleries: make a people visible, not just a census label. */
+.species-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin: 14px 0 16px;
+}
+.species-gallery-item {
+    margin: 0;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: rgba(0,0,0,.18);
+}
+.species-gallery-item img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: transform .2s ease, filter .2s ease;
+}
+.species-gallery-item:hover img { transform: scale(1.06); filter: brightness(1.15); }
+.species-gallery-item figcaption {
+    padding: 4px 5px;
+    color: var(--text-secondary);
+    font-size: .68rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+@media (max-width: 600px) {
+    .species-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

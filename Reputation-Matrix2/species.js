@@ -613,6 +613,16 @@ function renderSpeciesList(data) {
                         ${statusBadge}
                     </div>
                 </div>
+                ${species.gallery?.length ? `
+                    <div class="species-gallery" aria-label="${species.name} portraits">
+                        ${species.gallery.map(image => `
+                            <figure class="species-gallery-item">
+                                <img src="${image.src}" alt="${image.alt}" loading="lazy" onerror="this.closest('figure').remove()">
+                                <figcaption>${image.alt}</figcaption>
+                            </figure>
+                        `).join('')}
+                    </div>
+                ` : ''}
                 <p class="species-description">${species.description}</p>
                 <div class="species-context-links" style="display:flex;gap:6px;flex-wrap:wrap;margin:10px 0;">
                     <a class="chip" href="battlefield.html#/home">📚 Archive records</a>
