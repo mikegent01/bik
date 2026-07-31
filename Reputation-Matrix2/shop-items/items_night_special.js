@@ -1115,11 +1115,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'wario_recipe_garlic_grenade_soup',
     name: "Recipe: Garlic Grenade Soup",
     description: "A soup that explodes in your mouth. Wario's favorite.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 6500,
     icon: '📜',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Creates a soup that deals 2d6 poison damage to anyone within 10 ft who smells it (CON save DC 13)",
         "Drinking it grants immunity to poison for 1 hour (but you take 1d6 poison damage)",
@@ -1134,11 +1135,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'halfling_recipe_second_breakfast_surprise',
     name: "Recipe: Second Breakfast Surprise",
     description: "A dish that looks like breakfast but tastes like dinner.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 5800,
     icon: '📜',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Eating it confuses enemies: advantage on Deception checks for 1 hour",
         "You are full for 8 hours: no need for other meals",
@@ -1153,11 +1155,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'mages_guild_recipe_spell_slot_soup',
     name: "Recipe: Spell Slot Soup",
     description: "A broth made from boiled spell scrolls.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 8200,
     icon: '📜',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Consuming a bowl restores one 1st-level spell slot",
         "Tastes like ink and paper: disadvantage on Persuasion for 1 hour",
@@ -1172,11 +1175,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'dwarf_realms_recipe_mithril_ale_brew',
     name: "Recipe: Mithril Ale Brew",
     description: "A beer so strong it can dent armor.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 7800,
     icon: '📜',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Grants +2 to Constitution saves for 8 hours",
         "Disadvantage on Dexterity checks for 1 hour",
@@ -1191,11 +1195,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'greenskins_recipe_waaagh_stew',
     name: "Recipe: WAAAGH! Stew",
     description: "A stew that makes you want to fight everything.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 6200,
     icon: '📜',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+2 to attack rolls for 1 hour",
         "You must attack the nearest creature each round (Wis save DC 13 to resist)",
@@ -1210,11 +1215,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'mushroom_regency_recipe_poison_mushroom_deluxe',
     name: "Recipe: Poison Mushroom Deluxe",
     description: "A mushroom that poisons enemies but heals you.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 7200,
     icon: '📜',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Cook a mushroom that deals 2d6 poison to enemies who eat it",
         "You gain 2d6 temporary HP if you eat it (you're immune to the poison)",
@@ -1229,11 +1235,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'beanbean_kingdom_recipe_royal_bean_feast',
     name: "Recipe: Royal Bean Feast",
     description: "A feast fit for a king (who likes beans).",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 6800,
     icon: '📜',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Feeds 10 people: each gains +1 to Constitution saves for 24 hours",
         "Everyone must make a DC 12 Constitution save or be poisoned by gas for 1 hour",
@@ -1248,11 +1255,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'dk_crew_recipe_banana_bomb_pudding',
     name: "Recipe: Banana Bomb Pudding",
     description: "A pudding that explodes with banana flavor.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 6500,
     icon: '📜',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Throw pudding: 1d6 bludgeoning + target must DC 13 Dex save or be blinded by banana mush",
         "Eating it restores 1d8 HP but you must shout 'BANANA SLAMMA!'",
@@ -1267,11 +1275,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'yoshi_clans_recipe_egg_shell_soup',
     name: "Recipe: Eggshell Soup",
     description: "A soup made from crushed eggshells. Surprisingly nutritious.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 5900,
     icon: '📜',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Grants +1 AC for 1 hour (calcium boost)",
         "You have disadvantage on Dexterity checks for 1 hour (stiff joints)",
@@ -1286,11 +1295,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'kremling_krew_recipe_cannonball_chowder',
     name: "Recipe: Cannonball Chowder",
     description: "A thick stew with iron-rich chunks.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 6400,
     icon: '📜',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 to Strength checks for 1 hour",
         "Your teeth hurt: disadvantage on Charisma checks involving smiling",
@@ -1305,11 +1315,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'lizardmen_recipe_swamp_sushi',
     name: "Recipe: Swamp Sushi",
     description: "Raw fish from the swamp. What could go wrong?",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 5800,
     icon: '📜',
     stock: 7,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on saves vs. disease for 8 hours",
         "Constitution save DC 13 or contract a minor disease anyway",
@@ -1324,11 +1335,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'halfling_recipe_herb_crusted_pie',
     name: "Recipe: Herb-Crusted Comfort Pie",
     description: "A pie that tastes like home.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 6200,
     icon: '📜',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Removes one level of exhaustion",
         "Advantage on saves vs. fear for 8 hours",
@@ -1343,11 +1355,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'dwarf_realms_recipe_iron_gut_stew',
     name: "Recipe: Iron Gut Stew",
     description: "A stew that makes your stomach indestructible.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 7400,
     icon: '📜',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Immunity to poison for 8 hours",
         "You can eat anything without harm (rocks, metal, etc.)",
@@ -1362,11 +1375,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'greenskins_recipe_goblin_gumbo_deluxe',
     name: "Recipe: Goblin Gumbo Deluxe",
     description: "A stew that makes you think like a goblin.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 6600,
     icon: '📜',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on Stealth checks for 1 hour",
         "You must make a DC 10 Wisdom save or act like a goblin (disadvantage on Charisma)",
@@ -1381,11 +1395,12 @@ export const ITEMS_NIGHT_SPECIAL = {
     id: 'mages_guild_recipe_mana_muffins',
     name: "Recipe: Mana Muffins",
     description: "Muffins that restore magical energy.",
-    category: SHOP_CATEGORIES.RECIPE,
+    category: SHOP_CATEGORIES.CURIOSITIES,
     price: 8800,
     icon: '📜',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Restores one 1st-level spell slot",
         "You must eat it while casting: disadvantage on Concentration for 1 hour",
@@ -1405,6 +1420,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🔨',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+2 warhammer, deals extra 1d6 damage to constructs",
         "Once per day: can smash a non-magical object of Large size or smaller instantly",
@@ -1424,6 +1440,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '👑',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 Charisma with Koopa Troop, -1 Charisma with everyone else",
         "Once per day: can breathe a 15 ft cone of fire (2d6 damage, DC 13 Dex save)",
@@ -1443,6 +1460,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🏴',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Allies within 30 ft gain +1 to attack rolls while flag is held",
         "Toad loyalists are inspired: advantage on Charisma with them",
@@ -1462,6 +1480,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🔫',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Ranged weapon: 60/120 ft, 2d6+2 piercing, silent (no disadvantage on Stealth)",
         "Once per day: can fire a spectral bullet that deals 3d6 necrotic (no sound)",
@@ -1481,6 +1500,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🏛️',
     stock: 1,
     rarity: 'legendary',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Can seal any document: makes it legally binding in 12 dimensions",
         "Once per week: can issue a royal decree that must be obeyed (Wis save DC 18)",
@@ -1500,6 +1520,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🐢',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+2 AC, can withdraw as bonus action for +4 AC but speed drops to 0",
         "Once per day: can spin dash 20 ft as action, knocking prone everyone in path (Str save DC 14)",
@@ -1519,6 +1540,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🎭',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on Stealth checks in darkness",
         "Once per day: can become invisible for 1 minute (breaks if you attack)",
@@ -1538,6 +1560,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💣',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Allies within 20 ft deal +1d4 fire damage on attacks",
         "Once per day: can cause a 15 ft explosion (3d6 fire, Dex save DC 15)",
@@ -1557,6 +1580,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🪄',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Can cast one 1st-level spell from the wizard list once per day",
         "You have advantage on saves vs. magic",
@@ -1576,6 +1600,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🔮',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Once per day: can send a message to anyone you've met (they hear it as a whisper)",
         "Can receive one message per day from unknown sources (DM's choice)",
@@ -1595,6 +1620,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🩺',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Contains 5 healing potions (2d4+2) that recharge 1 per long rest",
         "Advantage on Medicine checks",
@@ -1614,6 +1640,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🖌️',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Can paint portals on walls (10 ft teleport, 3 uses per day)",
         "Paintings come to life and attack enemies (1d4 damage per round)",
@@ -1633,6 +1660,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '📯',
     stock: 3,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Blow horn: all allies within 60 ft gain 1d8 temporary HP",
         "Once per day: can cast Heroism on 3 creatures",
@@ -1652,6 +1680,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💎',
     stock: 1,
     rarity: 'legendary',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+2 to Charisma with reptiles and fiends",
         "Once per day: can cast Command as a 3rd-level spell",
@@ -1671,6 +1700,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🎭',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on Charisma checks with Shy Guys",
         "Can command up to 3 Shy Guys to follow you for 1 hour (1/day)",
@@ -1690,6 +1720,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🍬',
     stock: 10,
     rarity: 'common',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Eating one gives advantage on Intimidation checks for 1 hour",
         "Disadvantage on Persuasion checks for 2 hours",
@@ -1709,6 +1740,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '👨',
     stock: 8,
     rarity: 'common',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 Charisma while wearing (people respect the 'stache)",
         "Disadvantage on Perception checks (it tickles your nose)",
@@ -1728,6 +1760,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🧪',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Roll 1d6: 1-2 = no effect, 3-4 = 2d10 temp HP, 5-6 = +2 to all saves for 1 hour",
         "30% chance you are poisoned for 1 round",
@@ -1747,6 +1780,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '📦',
     stock: 1,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "The box is empty but valuable: can be sold for 5000 gp",
         "Opening it triggers Wario's laughter (audible 100 ft)",
@@ -1766,6 +1800,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '👗',
     stock: 3,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Disguise yourself as a princess (poorly): advantage on Deception vs. blind creatures",
         "Dress is huge: disadvantage on Stealth and speed reduced by 10 ft",
@@ -1785,6 +1820,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🪙',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Coin is invisible: advantage on Sleight of Hand checks to hide it",
         "50% chance shopkeepers believe you when you say you have it",
@@ -1804,6 +1840,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💐',
     stock: 6,
     rarity: 'common',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on Intimidation checks for 1 hour",
         "Disadvantage on Persuasion checks for 2 hours",
@@ -1823,6 +1860,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🍄',
     stock: 8,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Eating it gives 1d4 temp HP (it's just a mushroom)",
         "You believe you have an extra life: advantage on saves vs. fear for 1 hour",
@@ -1842,6 +1880,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '📋',
     stock: 3,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "If you die, Wario pays you 1000 gp (to your next of kin)",
         "Policy excludes: combat, magic, accidents, disease, old age, and breathing",
@@ -1861,6 +1900,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '⭐',
     stock: 1,
     rarity: 'legendary',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "One wish: Wario decides what you actually get (usually garlic or coins)",
         "Rod breaks after one use",
@@ -1880,6 +1920,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💣',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Can detect traps within 10 ft: advantage on Perception",
         "When it detects a trap, it triggers it with garlic (you're immune to the garlic effect)",
@@ -1899,6 +1940,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🗺️',
     stock: 3,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Map is invisible: advantage on checks to hide it",
         "50% chance there's actually treasure where it points",
@@ -1918,6 +1960,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🌻',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Once per day: cast Burning Hands (2d6 fire, DC 13)",
         "30% chance the flower backfires: you take 1d6 fire damage",
@@ -1937,6 +1980,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💀',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "If you die, Wario receives 5000 gp (from your estate)",
         "If you survive the campaign, Wario owes you 100 gp (he won't pay)",
@@ -1956,6 +2000,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💣',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Thrown: 3d6 poison damage in 15 ft radius (CON save DC 14)",
         "Vampires take double damage",
@@ -1975,6 +2020,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '✍️',
     stock: 7,
     rarity: 'common',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Collectors might believe it: advantage on Deception vs. gullible NPCs",
         "Real Peach fans are offended: disadvantage on Charisma with them",
@@ -1994,6 +2040,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🗡️',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 dagger, deals 1d6 psychic damage instead of piercing",
         "Advantage on attacks in darkness",
@@ -2013,6 +2060,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🥼',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Can store any number of items (weightless while in robe)",
         "Retrieving an item takes 1d4 rounds (you forget which pocket)",
@@ -2032,6 +2080,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🧹',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Can be used as a quarterstaff +1",
         "Once per day: cast Gust of Wind (the mop creates a gust)",
@@ -2051,6 +2100,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🎮',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Whip deals 1d6 slashing + 1d4 psychic (lag damage)",
         "Advantage on checks to trip digital creatures",
@@ -2070,6 +2120,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '👔',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "AC 18 but looks like common clothes",
         "Disadvantage on Deception checks (people think you're lying about armor)",
@@ -2089,6 +2140,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🛡️',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+2 AC, can display ads: advantage on Charisma with merchants",
         "Ads are distracting: disadvantage on Concentration",
@@ -2108,6 +2160,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🪖',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Immune to magical advertisements and illusions",
         "You can't see signs or labels: disadvantage on Investigation",
@@ -2127,6 +2180,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '👢',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on Stealth checks",
         "Leave shadow footprints that last 1 hour (can be tracked)",
@@ -2146,6 +2200,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '📚',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Contains 1d4 random spells of levels 1-3 (DM chooses)",
         "Spells are forgotten: you have disadvantage on Arcana to identify them",
@@ -2165,6 +2220,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🪠',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Can dispel magical effects of 3rd level or lower (1/day)",
         "Advantage on Strength checks to push/pull",
@@ -2184,6 +2240,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '📡',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 staff, spells have +10 ft range",
         "Creatures within 10 ft must save DC 13 or be distracted (disadvantage on Perception)",
@@ -2203,6 +2260,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🧥',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Changes your appearance every hour (DM's choice)",
         "Advantage on Deception checks",
@@ -2222,6 +2280,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🦾',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Gain +2 Strength, advantage on Strength checks",
         "Arm can be hacked: disadvantage on saves vs. technomancy",
@@ -2241,6 +2300,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '📱',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "One free Sending spell (to anyone, anywhere)",
         "After use, phone explodes: 2d6 fire damage to you (no save)",
@@ -2260,6 +2320,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🌑',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 AC, can cast Meteor Swarm once (then belt breaks)",
         "Belt is heavy: -10 ft speed",
@@ -2279,6 +2340,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🛡️',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "If a healer harms you, you get 1000 gp compensation",
         "Healers are nervous around you: disadvantage on their Medicine checks",
@@ -2298,6 +2360,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🪮',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 Charisma for 8 hours after use",
         "Hair sparkles: disadvantage on Stealth in darkness",
@@ -2317,6 +2380,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🧠',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Erase one memory (your choice) permanently",
         "You forget why you erased it: disadvantage on one check per day",
@@ -2336,6 +2400,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🥠',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Fortune comes true, but in the worst way possible",
         "Advantage on one check (the fortune is technically correct)",
@@ -2355,6 +2420,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🍀',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Reroll one natural 1 per day",
         "10% chance the charm backfires: you must reroll a natural 20",
@@ -2374,6 +2440,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🧔',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+2 Charisma with dwarves",
         "Disadvantage on Charisma with elves (they mock you)",
@@ -2393,6 +2460,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🎨',
     stock: 7,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 to attack rolls for 8 hours",
         "You must shout 'WAAAGH!' when attacking: disadvantage on Stealth",
@@ -2412,6 +2480,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🥊',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Your unarmed strikes deal 1d8 bludgeoning",
         "Disadvantage on Sleight of Hand checks",
@@ -2431,6 +2500,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🧥',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on Charisma checks with elves",
         "Disadvantage on Charisma with non-elves (they're beneath you)",
@@ -2450,6 +2520,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🕷️',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "AC 14 + Dex (max +3), weighs 5 lbs",
         "Advantage on checks to climb",
@@ -2469,6 +2540,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '⚪',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+2 AC, can reflect spells of 3rd level or lower (1/day)",
         "Reflect fails: spell hits you instead with double damage",
@@ -2488,6 +2560,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '⚔️',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 scimitar, deals +1d6 damage to creatures with blood",
         "You must deal damage each day or the cutlass deals 1d6 to you",
@@ -2507,6 +2580,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🔨',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+2 mace, deals +1d8 radiant to undead and fiends",
         "You must pray for 1 hour each day or lose the bonus",
@@ -2526,6 +2600,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🔱',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+2 trident, can cast Create or Destroy Water (3/day)",
         "Advantage on attacks in water",
@@ -2545,6 +2620,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🐪',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "While mounted: advantage on saves vs. exhaustion",
         "You must succeed DC 13 Wisdom save to dismount (it's too comfy)",
@@ -2564,6 +2640,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🔧',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on checks to repair items",
         "Repaired items work for 1d4 hours then break again",
@@ -2583,6 +2660,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '⛏️',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on checks to find treasure",
         "Shovel is cursed: you must dig at every X you see",
@@ -2602,6 +2680,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🗡️',
     stock: 8,
     rarity: 'common',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 longsword, advantage on Charisma with other millennials",
         "Disadvantage on Intimidation (it's not that impressive)",
@@ -2621,6 +2700,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🩴',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+10 speed, advantage on History checks",
         "Sandals are fragile: break on any critical hit (you fall prone)",
@@ -2640,6 +2720,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '📖',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Can copy one spell you see cast (once per day)",
         "Copied spell is slightly wrong: DM changes one word",
@@ -2659,6 +2740,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '📊',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "At start of each day: roll 1d4 → that's your AC bonus (1-4)",
         "Armor is invisible: advantage on Deception",
@@ -2678,6 +2760,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🧪',
     stock: 3,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Drink: swap personalities with nearest creature for 1 hour (Wis save DC 15 negates)",
         "You gain each other's proficiencies but also flaws",
@@ -2697,6 +2780,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💾',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Store up to 10 memories (perfect recall)",
         "Chip can be hacked: disadvantage on saves vs. memory alteration",
@@ -2716,6 +2800,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💻',
     stock: 1,
     rarity: 'legendary',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Automatically succeed on one Technology or Thieves' Tools check",
         "Using it alerts the authorities: they hunt you for 1 week",
@@ -2735,6 +2820,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '♈',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Each morning: receive a prophecy (DM gives vague hint)",
         "Prophecy is 50% accurate",
@@ -2754,6 +2840,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '📦',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Each week: receive 1d4 healing potions (2d4+2)",
         "10% chance potions are mislabeled (could be poison)",
@@ -2773,6 +2860,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💕',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Party gains +1 to all saves for 24 hours (bonding)",
         "Everyone must share feelings: disadvantage on Intimidation for 1 day",
@@ -2792,6 +2880,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🔮',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Gain one random skill proficiency from a past life (permanent)",
         "You have flashbacks: disadvantage on one check per day",
@@ -2811,6 +2900,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🔮',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Learn one true prophecy (DM gives specific hint)",
         "Prophecy is cryptic: disadvantage on checks to interpret it",
@@ -2830,6 +2920,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🥞',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Each morning: receive a breakfast that grants 1d6 temp HP",
         "Breakfast is heavy: disadvantage on Dexterity checks for 1 hour",
@@ -2849,6 +2940,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💰',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Reduce your beard debt by 500 gp",
         "Extend loan term: beard grows 1 inch per day until repaid",
@@ -2868,6 +2960,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🥤',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Each week: receive 4 drinks that grant +1 attack for 1 hour",
         "Drinks cause jitters: disadvantage on Dexterity checks after 2 drinks",
@@ -2887,6 +2980,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🍄',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Communicate telepathically with other subscribers within 10 miles",
         "Mushroom spies give you gossip: advantage on Investigation",
@@ -2906,6 +3000,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💰',
     stock: 8,
     rarity: 'common',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Counts your gold perfectly: find 10% extra (they take 5% fee)",
         "You get a certificate of bean authenticity",
@@ -2925,6 +3020,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🍌',
     stock: 6,
     rarity: 'common',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Preserve up to 50 bananas (never spoil)",
         "Preserved bananas are rock hard: 1d4 bludgeoning if thrown",
@@ -2944,6 +3040,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🥚',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Hatch 1d4 eggs per week (random creatures)",
         "50% chance eggs hatch into something dangerous",
@@ -2963,6 +3060,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🔫',
     stock: 3,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Cannon deals 4d10 bludgeoning damage (60 ft range)",
         "You must return it: disadvantage on Charisma if you don't",
@@ -2982,6 +3080,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🐊',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Learn swamp secrets: advantage on Survival in swamps for 30 days",
         "Guide is an alligator: disadvantage on Charisma (it doesn't talk)",
@@ -3001,6 +3100,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🌱',
     stock: 7,
     rarity: 'common',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Garden produces 2d10 herbs per month",
         "Garden becomes sentient: may refuse to grow certain plants",
@@ -3020,6 +3120,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '✂️',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 Charisma with dwarves for 7 days",
         "Beard becomes so majestic: disadvantage on Stealth",
@@ -3039,6 +3140,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🥁',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Drummers grant +1 to attack rolls to allies within 60 ft",
         "Drums are loud: disadvantage on Stealth",
@@ -3058,6 +3160,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🗣️',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Learn Giant language for 7 days",
         "Giants think you're mocking them: disadvantage on Charisma",
@@ -3077,6 +3180,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🧘',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on Charisma with elves for 7 days",
         "You must be polite: disadvantage on Intimidation",
@@ -3096,6 +3200,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🖤',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "+1 to Intimidation for 7 days",
         "You must brood: disadvantage on Persuasion",
@@ -3115,6 +3220,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🐾',
     stock: 7,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Animal companion gains +1 to attack rolls for 7 days",
         "Companion reveals trauma: you learn a secret about it",
@@ -3134,6 +3240,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🏴‍☠️',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Legal license to pirate (in certain waters): advantage on Charisma with pirates",
         "Navy hunts you: disadvantage on Stealth near military",
@@ -3153,6 +3260,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🙏',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Remove one alignment-based penalty or curse",
         "You must truly repent: disadvantage on checks if you sin again",
@@ -3172,6 +3280,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💧',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Can hold breath for 1 hour",
         "You develop gill envy: disadvantage on Charisma with fish",
@@ -3191,6 +3300,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🏜️',
     stock: 6,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on Survival in deserts for 30 days",
         "You see dunes everywhere: disadvantage on Perception in cities",
@@ -3210,6 +3320,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🤖',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Rent a CR 2 construct for 1 hour",
         "Construct follows commands but is clumsy: disadvantage on its checks",
@@ -3229,6 +3340,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '📈',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Invest 1000 gp: 50% chance to gain 2000 gp in 30 days",
         "50% chance you lose everything (Wario swears it's a sure thing)",
@@ -3248,6 +3360,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🎮',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Playing for 1 hour grants inspiration",
         "You become addicted: disadvantage on checks if you don't play daily",
@@ -3267,6 +3380,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🏺',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Remove one curse (90% success rate)",
         "10% chance curse transfers to you",
@@ -3286,6 +3400,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🎰',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Rent one spell slot (level 1-3) for 1 hour",
         "Slot is unstable: 20% chance spell fails",
@@ -3305,6 +3420,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '☁️',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Back up your memories: immune to memory alteration",
         "Cloud gets hacked: 5% chance your memories are leaked",
@@ -3324,6 +3440,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🛡️',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "If your identity is stolen, get 1000 gp compensation",
         "Changelings are insulted: disadvantage on Charisma with them",
@@ -3343,6 +3460,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🔄',
     stock: 3,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Update fixes bugs: advantage on Technology checks",
         "Update introduces new bugs: disadvantage on one random check type",
@@ -3362,6 +3480,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🌐',
     stock: 2,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Access illegal goods: advantage on Investigation in black markets",
         "FBI may monitor you: disadvantage on Stealth in cities",
@@ -3381,6 +3500,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🗡️',
     stock: 1,
     rarity: 'legendary',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Target is assassinated (no save, but plot armor applies)",
         "Assassin may betray you: 10% chance they come for you next",
@@ -3401,6 +3521,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🌟',
     stock: 5,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Each day: receive a horoscope that grants advantage on one check",
         "Horoscope is 60% accurate",
@@ -3420,6 +3541,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🦠',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "If you contract a disease: get 2000 gp compensation",
         "You must quarantine: disadvantage on Charisma for 30 days",
@@ -3439,6 +3561,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '💪',
     stock: 3,
     rarity: 'rare',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Party gains +1 to all saves for 30 days",
         "You must attend daily: miss a day, lose the bonus",
@@ -3458,6 +3581,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '🧠',
     stock: 4,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Advantage on Intelligence checks for 7 days",
         "You remember embarrassing things: disadvantage on Charisma once per day",
@@ -3477,6 +3601,7 @@ export const ITEMS_NIGHT_SPECIAL = {
     icon: '✔️',
     stock: 3,
     rarity: 'uncommon',
+        stockType: STOCK_TYPES.NIGHT_ONLY,
     effects: [
         "Learn if one prophecy is true (DM tells you)",
         "Verification is vague: 'Maybe, maybe not'",

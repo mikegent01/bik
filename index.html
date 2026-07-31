@@ -12580,9 +12580,20 @@ const Nav={random(){const r=ALL_ITEMS[Math.floor(Math.random()*ALL_ITEMS.length)
 
 /* theme + shortcuts */
 const themeBtn=el('themeBtn');
-function setTheme(m){document.documentElement.setAttribute('data-theme',m);themeBtn.textContent=m==='dark'?'🌙':'☀️';try{localStorage.setItem('waluipedia-theme',m);}catch(e){}}
+function setTheme(m){
+  const mode = (m === 'light') ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', mode);
+  document.documentElement.style.colorScheme = mode;
+  if (themeBtn) {
+    themeBtn.textContent = mode === 'dark' ? '🌙' : '☀️';
+    themeBtn.setAttribute('aria-label', mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    themeBtn.setAttribute('title', mode === 'dark' ? 'Dark mode — click for light (t)' : 'Light mode — click for dark (t)');
+    themeBtn.setAttribute('aria-pressed', mode === 'dark' ? 'true' : 'false');
+  }
+  try { localStorage.setItem('waluipedia-theme', mode); } catch (e) {}
+}
 setTheme((()=>{try{return localStorage.getItem('waluipedia-theme')||'dark';}catch(e){return 'dark';}})());
-themeBtn.addEventListener('click',()=>setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
+themeBtn && themeBtn.addEventListener('click',()=>setTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
 el('randomBtn').addEventListener('click',()=>Nav.random());
 document.addEventListener('keydown',e=>{const typing=/input|textarea/i.test(document.activeElement.tagName);
   if((e.key==='/'&&!typing)||((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k')){e.preventDefault();searchInput.focus();runSearch(true);}

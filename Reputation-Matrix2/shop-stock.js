@@ -334,10 +334,25 @@ export function isNightTime() {
 
 // Determine stock type for an item
 export function determineStockType(item) {
+    // Explicit tag always wins — night specials and other curated stock
+    // must not be reclassified by keyword/price heuristics.
+    if (item && item.stockType) {
+        const explicit = String(item.stockType).toLowerCase();
+        const known = new Set(Object.values(STOCK_TYPES));
+        if (known.has(explicit)) return explicit;
+        // allow legacy uppercase / enum-ish values
+        if (known.has(item.stockType)) return item.stockType;
+    }
+
     const name = (item.name || '').toLowerCase();
     const desc = (item.description || '').toLowerCase();
     const combined = `${name} ${desc}`;
     
+    // Night-file ids are authoritative even when stockType was omitted
+    if (item && typeof item.id === 'string' && item.id.startsWith('night_')) {
+        return STOCK_TYPES.NIGHT_ONLY;
+    }
+
     // Check keywords first (highest priority)
     for (const keyword of STOCK_KEYWORDS.night_only) {
         if (combined.includes(keyword)) return STOCK_TYPES.NIGHT_ONLY;

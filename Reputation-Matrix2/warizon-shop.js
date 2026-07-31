@@ -9,7 +9,7 @@
    ("Training Wing") with AP receipts.
    ========================================================================== */
 
-import { SHOP_ITEMS, VENDORS, SHIPPING_METHODS, BASE_MEMBERSHIP_TIERS, generateTier, getNextTier } from './shop-data.js';
+import { SHOP_ITEMS, VENDORS, SHIPPING_METHODS, BASE_MEMBERSHIP_TIERS, generateTier, getNextTier, getAllShopItems, NIGHT_SPECIAL_ITEMS } from './shop-data.js';
 import { WALLETS, CURRENCIES } from './currency.js';
 
 /* --------------------------------------------------------------------------
@@ -473,6 +473,7 @@ function assessAdvisories(item, raw) {
    -------------------------------------------------------------------------- */
 
 function normalizeItem(raw, idx) {
+  // Preserve curated stock gates (night market, delivery-only, etc.)
   const id = String(raw.id ?? raw.name ?? `item_${idx}`);
   const cat = DEPARTMENTS[raw.category] ? raw.category : 'curiosities';
   const listedPrice = Math.max(0, Number(raw.price ?? 0));
@@ -498,7 +499,9 @@ function normalizeItem(raw, idx) {
   const payment = acceptedCurrenciesFor(raw, detected, rarity, rating, reviews);
 
   return {
-    id, idx,
+    id,
+    stockType: raw.stockType || (String(raw.id || id || '').startsWith('night_') ? 'night_only' : undefined),
+    idx,
     name: String(raw.name || id),
     desc: String(raw.description || ''),
     cat, price, listedPrice, basePrice: price, rarity,
@@ -540,7 +543,8 @@ function attachAdvisories(item, raw) {
   return item;
 }
 
-const ITEMS = Object.values(SHOP_ITEMS || {}).map((raw, idx) =>
+const _RAW_CATALOG = getAllShopItems ? getAllShopItems() : (SHOP_ITEMS || {});
+const ITEMS = Object.values(_RAW_CATALOG).map((raw, idx) =>
   attachAdvisories(normalizeItem(raw, idx), raw));
 
 /* --------------------------------------------------------------------------

@@ -2928,7 +2928,7 @@ function createMembershipContainer() {
 
 // New: Prepare filtered items for lazy loading
 function prepareFilteredItems() {
-    let items = Object.values(SHOP_ITEMS).filter(item => item.category !== SHOP_CATEGORIES.FACTION);
+    let items = Object.values(getAllShopItems()).filter(item => item && item.category !== SHOP_CATEGORIES.FACTION);
     
     // Filter by category
     if (currentCategory !== 'all') {

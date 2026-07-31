@@ -1161,3 +1161,241 @@ a.craft-buy-mini{display:block;text-align:center;text-decoration:none}
   .art-subtitle{font-size:14.5px}
   .prose{font-size:15px}
 }
+
+
+/* ==========================================================================
+   26. WALUPEDIA THEME SYSTEM — Dark (default) + Light
+   --------------------------------------------------------------------------
+   Default is dark. Toggle writes html[data-theme="dark"|"light"] and persists
+   under localStorage key "waluipedia-theme". Prefer CSS variables; only pin
+   absolute colors when a surface must stay moody in both themes.
+   ========================================================================== */
+
+html {
+  color-scheme: dark;
+  --theme-glow: rgba(138, 75, 255, .14);
+  --theme-glow-gold: rgba(224, 180, 0, .07);
+  --overlay-scrim: rgba(0, 0, 0, .72);
+  --overlay-soft: rgba(0, 0, 0, .28);
+  --code-bg: #120c1c;
+  --topbar-bg: linear-gradient(90deg, rgba(27, 20, 48, .96), rgba(35, 24, 56, .96));
+  --hero-wash: linear-gradient(135deg, rgba(138, 75, 255, .18), rgba(224, 180, 0, .08));
+  --aside-wash: linear-gradient(135deg, rgba(138, 75, 255, .16), rgba(138, 75, 255, .04));
+  --chip-bg: rgba(255, 255, 255, .04);
+  --nav-hover: rgba(138, 75, 255, .14);
+  --nav-active: linear-gradient(90deg, rgba(138, 75, 255, .28), rgba(138, 75, 255, .06));
+  --selection-bg: rgba(138, 75, 255, .45);
+  --selection-fg: #fff;
+  --scroll-thumb: #3a2a5c;
+  --scroll-track: transparent;
+  --focus-ring: 0 0 0 3px rgba(138, 75, 255, .35);
+}
+
+html[data-theme="dark"],
+html:not([data-theme]) {
+  color-scheme: dark;
+  --bg: #0d0a15;
+  --bg2: #151022;
+  --panel: #1b1430;
+  --panel2: #231838;
+  --border: #38295a;
+  --text: #ece7f5;
+  --muted: #a99cc6;
+  --accent: #8a4bff;
+  --accent2: #e0b400;
+  --green: #2fae8a;
+  --danger: #e5484d;
+  --link: #c8a6ff;
+  --shadow: 0 8px 30px rgba(0, 0, 0, .45);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f5f1fb;
+  --bg2: #ece5f7;
+  --panel: #ffffff;
+  --panel2: #f6f1fd;
+  --border: #dccff0;
+  --text: #241a38;
+  --muted: #6b5e86;
+  --accent: #6b2bbd;
+  --accent2: #9a6c00;
+  --green: #1f8f70;
+  --danger: #c3282d;
+  --link: #5b239e;
+  --shadow: 0 8px 24px rgba(90, 0, 140, .10);
+  --theme-glow: rgba(107, 43, 189, .10);
+  --theme-glow-gold: rgba(154, 108, 0, .08);
+  --overlay-scrim: rgba(36, 26, 56, .45);
+  --overlay-soft: rgba(36, 26, 56, .10);
+  --code-bg: #f0eafb;
+  --topbar-bg: linear-gradient(90deg, rgba(255, 255, 255, .96), rgba(246, 241, 253, .96));
+  --hero-wash: linear-gradient(135deg, rgba(107, 43, 189, .10), rgba(154, 108, 0, .06));
+  --aside-wash: linear-gradient(135deg, rgba(107, 43, 189, .08), rgba(107, 43, 189, .03));
+  --chip-bg: rgba(36, 26, 56, .04);
+  --nav-hover: rgba(107, 43, 189, .10);
+  --nav-active: linear-gradient(90deg, rgba(107, 43, 189, .18), rgba(107, 43, 189, .05));
+  --selection-bg: rgba(107, 43, 189, .28);
+  --selection-fg: #1a1028;
+  --scroll-thumb: #c4b3e3;
+  --focus-ring: 0 0 0 3px rgba(107, 43, 189, .28);
+}
+
+/* Respect OS preference only when the user has never chosen a theme.
+   index.html already seeds data-theme from localStorage; this is the fallback
+   for bare pages that include the stylesheet without the toggle script. */
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) {
+    color-scheme: light;
+    --bg: #f5f1fb;
+    --bg2: #ece5f7;
+    --panel: #ffffff;
+    --panel2: #f6f1fd;
+    --border: #dccff0;
+    --text: #241a38;
+    --muted: #6b5e86;
+    --accent: #6b2bbd;
+    --accent2: #9a6c00;
+    --green: #1f8f70;
+    --danger: #c3282d;
+    --link: #5b239e;
+    --shadow: 0 8px 24px rgba(90, 0, 140, .10);
+  }
+}
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 80% -10%, var(--theme-glow), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, var(--theme-glow-gold), transparent 55%),
+    var(--bg);
+  color: var(--text);
+}
+
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) var(--scroll-track);
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-track { background: var(--scroll-track); }
+
+/* Topbar + chrome that previously hard-coded dark washes */
+header.topbar {
+  background: var(--topbar-bg);
+  border-bottom: 1px solid var(--border);
+}
+html[data-theme="light"] header.topbar {
+  background: var(--topbar-bg);
+}
+
+.hero { background: var(--hero-wash); }
+.search-chip { background: var(--chip-bg); }
+.navlink:hover { background: var(--nav-hover); }
+.navlink.active { background: var(--nav-active); }
+
+/* Theme toggle affordance */
+#themeBtn {
+  position: relative;
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+#themeBtn:hover {
+  border-color: var(--accent);
+  box-shadow: var(--focus-ring);
+}
+#themeBtn:active { transform: scale(.94); }
+html[data-theme="light"] #themeBtn {
+  background: linear-gradient(135deg, #fff7d6, #ffe8a3);
+  border-color: #e0b400;
+  color: #5a3d00;
+}
+html[data-theme="dark"] #themeBtn,
+html:not([data-theme]) #themeBtn {
+  background: linear-gradient(135deg, #241848, #1a1030);
+  border-color: #5a3d9a;
+}
+
+/* Surfaces that used pure black / pure white and broke the opposite theme */
+.rep-modal-overlay,
+.modal-overlay,
+.lightbox-overlay {
+  background: var(--overlay-scrim) !important;
+}
+html[data-theme="light"] .waluigi-splash-card {
+  background: linear-gradient(135deg, #ffffff, #f3ecff);
+  box-shadow: 0 20px 60px rgba(90, 0, 140, .14);
+}
+html[data-theme="light"] .atlas-map-applet,
+html[data-theme="light"] .atlas-map-applet iframe {
+  background: #e8e0f4;
+}
+html[data-theme="light"] .nation-map {
+  background:
+    radial-gradient(circle at 52% 28%, rgba(47, 174, 138, .22), transparent 18%),
+    radial-gradient(circle at 65% 58%, rgba(154, 108, 0, .14), transparent 18%),
+    linear-gradient(135deg, #d9eef0, #e7f0e2 54%, #ebe0f5);
+}
+html[data-theme="light"] .atlas-selected {
+  background: rgba(36, 26, 56, .04);
+}
+html[data-theme="light"] .atlas-reset {
+  background: rgba(255, 255, 255, .82);
+  color: var(--text);
+}
+html[data-theme="light"] .calendar-weekdays {
+  background: rgba(36, 26, 56, .04);
+}
+html[data-theme="light"] .calendar-day.filler {
+  background: rgba(36, 26, 56, .03);
+}
+html[data-theme="light"] .lf-who {
+  background: rgba(36, 26, 56, .06);
+}
+html[data-theme="light"] .wnote,
+html[data-theme="light"] em.walu-aside {
+  background: linear-gradient(135deg, rgba(107, 43, 189, .08), rgba(107, 43, 189, .03)), var(--bg2);
+  border-color: rgba(107, 43, 189, .28);
+  color: var(--text);
+}
+html[data-theme="light"] .card:hover {
+  box-shadow: 0 12px 28px rgba(90, 0, 140, .12);
+}
+html[data-theme="light"] .character-card-visual {
+  border-color: rgba(36, 26, 56, .10);
+  box-shadow: inset 0 0 42px rgba(36, 26, 56, .06);
+}
+
+/* Form controls pick up the scheme */
+input, textarea, select, button {
+  color-scheme: inherit;
+}
+input:focus, textarea:focus, select:focus, button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* Reduced motion: theme swap should not animate layout */
+@media (prefers-reduced-motion: reduce) {
+  #themeBtn { transition: none; }
+}
+
+/* Print: force a light, ink-friendly surface */
+@media print {
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  header.topbar, aside.sidenav, #themeBtn, #musicBtn, #randomBtn, #loginBtn {
+    display: none !important;
+  }
+}

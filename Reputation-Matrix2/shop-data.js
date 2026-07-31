@@ -182,6 +182,7 @@ export const SHOP_ITEMS = {
   ...ITEMS_083,
   ...ITEMS_084,
   ...ITEMS_WORLD_GENERATED,
+  ...ITEMS_NIGHT_SPECIAL,
 };
 
 // ============================================
@@ -267,6 +268,24 @@ export const STOCK_TYPES = {
     SPECIAL_ORDER: 'special_order', // Wario has to "acquire" it (wink wink)
     BACK_ORDER: 'back_order'        // Out of stock, 3-5 day wait
 };
+
+// --- Night catalog freeze -----------------------------------------------
+// Ensure every night-special entry is reachable via SHOP_ITEMS *and* carries
+// stockType: night_only. Bulk night files historically omitted stockType on
+// ~2/3 of rows; without this, the night market never surfaces them.
+(function normalizeNightSpecialCatalog() {
+    const nightType = (typeof STOCK_TYPES !== 'undefined' && STOCK_TYPES.NIGHT_ONLY) || 'night_only';
+    const night = (typeof NIGHT_SPECIAL_ITEMS === 'object' && NIGHT_SPECIAL_ITEMS) || {};
+    for (const [id, raw] of Object.entries(night)) {
+        if (!raw || typeof raw !== 'object') continue;
+        const tagged = raw.stockType ? raw : { ...raw, stockType: nightType };
+        // Prefer id-keyed entry; also keep whatever key the file used.
+        SHOP_ITEMS[id] = tagged;
+        if (raw.id && raw.id !== id) SHOP_ITEMS[raw.id] = tagged;
+        NIGHT_SPECIAL_ITEMS[id] = tagged;
+    }
+})();
+
 
 export const TIME_PERIODS = {
     DAWN: { 
@@ -530,7 +549,20 @@ export function getItemAvailability(item) {
 
 // Merge night items into main shop items
 export function getAllShopItems() {
-    return { ...SHOP_ITEMS, ...NIGHT_SPECIAL_ITEMS };
+    // Night specials must always land in the live catalog. Some call sites still
+    // read SHOP_ITEMS directly; SHOP_ITEMS itself now spreads ITEMS_NIGHT_SPECIAL.
+    // Normalize here so every night-file item is tagged night_only even if a
+    // bulk entry forgot stockType.
+    const all = { ...SHOP_ITEMS, ...NIGHT_SPECIAL_ITEMS };
+    for (const [id, item] of Object.entries(NIGHT_SPECIAL_ITEMS || {})) {
+        if (!item || typeof item !== 'object') continue;
+        if (!item.stockType) {
+            all[id] = { ...item, stockType: STOCK_TYPES.NIGHT_ONLY };
+        } else {
+            all[id] = item;
+        }
+    }
+    return all;
 }
 // Base named tiers (first 5)
 export const BASE_MEMBERSHIP_TIERS = [
@@ -983,7 +1015,9 @@ export const VENDORS = {
 // ============================================
 
 export function getShopStats() {
-    const items = Object.values(SHOP_ITEMS);
+    // Prefer the merged catalog so night specials are counted even if a
+    // future regen drops them out of the SHOP_ITEMS spread.
+    const items = Object.values(typeof getAllShopItems === 'function' ? getAllShopItems() : SHOP_ITEMS);
     return {
         totalItems: items.length,
         totalStock: items.reduce((sum, item) => sum + item.stock, 0),
