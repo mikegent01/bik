@@ -2337,3 +2337,161 @@ a.xlink:hover { color: #c7511f; }
 .cf-buy-actions { display: flex; gap: 7px; margin-top: auto; padding-top: 4px; }
 .cf-buy-actions .btn-buy,.cf-buy-actions .btn-add { min-height: 34px; padding: 0 12px; }
 @media(max-width:520px){.cf-buy-actions{flex-direction:column}.cf-cost span{display:block}}
+
+
+/* ==========================================================================
+   NIGHT MARKET + DARK MODE (Warizon storefront)
+   ========================================================================== */
+
+.night-link {
+  color: #c9a6ff !important;
+  font-weight: 700;
+}
+.night-link:hover { color: #e2d0ff !important; }
+
+.night-flag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  background: linear-gradient(135deg, #2a1450, #5b2d9b);
+  color: #f0e6ff;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid #a78bfa;
+  box-shadow: 0 2px 8px rgba(60, 20, 100, .35);
+}
+.p-card { position: relative; }
+.p-card.night-item {
+  border-color: #b794f4;
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, .25), var(--wz-shadow);
+}
+.p-card.night-item .p-img {
+  background: radial-gradient(circle at 50% 30%, rgba(139,92,246,.18), transparent 55%),
+              var(--wz-card);
+}
+
+.nav-theme {
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 18px;
+  min-width: 44px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border-radius: 8px;
+}
+.nav-theme:hover { background: rgba(255,255,255,.08); }
+.nav-theme.is-dark {
+  background: linear-gradient(135deg, #2a1a55, #1a1030);
+  box-shadow: 0 0 0 2px rgba(167, 139, 250, .45);
+}
+.nav-theme.is-light {
+  background: linear-gradient(135deg, #fff3b0, #ffd666);
+  color: #4a3200;
+}
+
+.wz-theme-toast {
+  position: fixed;
+  top: 72px;
+  right: 18px;
+  z-index: 9999;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+  background: #232f3e;
+  color: #fff;
+  border: 1px solid #ff9900;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+}
+.wz-theme-toast.show { opacity: 1; transform: translateY(0); }
+
+.night-help { margin: 6px 0 12px; font-size: 12px; color: var(--wz-muted); line-height: 1.4; }
+.night-help b { color: #7c3aed; }
+
+/* ----- Dark theme tokens ----- */
+html[data-wz-theme="dark"],
+body[data-wz-theme="dark"] {
+  color-scheme: dark;
+  --wz-navy: #0b0f14;
+  --wz-navy-2: #141b24;
+  --wz-navy-3: #243041;
+  --wz-text: #e8eaed;
+  --wz-muted: #9aa0a6;
+  --wz-line: #2f3b4a;
+  --wz-bg: #0f141b;
+  --wz-card: #1a222d;
+  --wz-link: #6ec6d8;
+  --wz-link-hover: #ff9a57;
+  --wz-price: #ff8a80;
+  --wz-shadow: 0 2px 8px rgba(0,0,0,.45);
+}
+
+html[data-wz-theme="dark"] body,
+body[data-wz-theme="dark"] {
+  background: var(--wz-bg) !important;
+  color: var(--wz-text) !important;
+}
+
+html[data-wz-theme="dark"] .topnav,
+html[data-wz-theme="dark"] .subnav {
+  background: var(--wz-navy) !important;
+  border-color: var(--wz-line);
+}
+
+html[data-wz-theme="dark"] .p-card,
+html[data-wz-theme="dark"] .side-filters,
+html[data-wz-theme="dark"] .results-bar,
+html[data-wz-theme="dark"] .gate-card {
+  background: var(--wz-card) !important;
+  color: var(--wz-text);
+  border-color: var(--wz-line);
+}
+
+html[data-wz-theme="dark"] .p-title,
+html[data-wz-theme="dark"] .p-title a {
+  color: #8fd3e0 !important;
+}
+
+html[data-wz-theme="dark"] .side-filters h3 {
+  color: #c5c9ce;
+}
+
+html[data-wz-theme="dark"] .f-link {
+  color: var(--wz-text);
+}
+html[data-wz-theme="dark"] .f-link.active {
+  background: rgba(255, 153, 0, .16);
+  color: #ffd699;
+}
+
+html[data-wz-theme="dark"] .site-foot,
+html[data-wz-theme="dark"] .back-to-top {
+  background: var(--wz-navy) !important;
+  color: #c5c9ce;
+}
+
+html[data-wz-theme="dark"] #gate {
+  background: var(--wz-bg) !important;
+}
+
+html[data-wz-theme="dark"] .search-input,
+html[data-wz-theme="dark"] input,
+html[data-wz-theme="dark"] select,
+html[data-wz-theme="dark"] textarea {
+  background: #121820;
+  color: var(--wz-text);
+  border-color: var(--wz-line);
+}
+
+html[data-wz-theme="dark"] .p-card.night-item {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 1px rgba(167, 139, 250, .35), 0 0 24px rgba(91, 45, 155, .25);
+}

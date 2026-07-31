@@ -64,6 +64,53 @@ function hash01(str) {
 function fmt(n) { return Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: 0 }); }
 function fmtDec(n, d = 1) { return Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: d }); }
 
+
+/* --------------------------------------------------------------------------
+   Warizon light / dark theme (storefront-local; separate from Waluipedia)
+   -------------------------------------------------------------------------- */
+const WZ_THEME_KEY = 'warizon.theme';
+function getWarizonTheme() {
+  try {
+    const m = localStorage.getItem(WZ_THEME_KEY);
+    if (m === 'dark' || m === 'light') return m;
+  } catch (_) {}
+  // Default: follow the Amazon-daylight storefront (light). Dark is opt-in.
+  return 'light';
+}
+function applyWarizonTheme(mode) {
+  const m = mode === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-wz-theme', m);
+  document.body && document.body.setAttribute('data-wz-theme', m);
+  const btn = document.getElementById('wzThemeBtn');
+  if (btn) {
+    btn.textContent = m === 'dark' ? '🌙' : '☀️';
+    btn.title = m === 'dark' ? 'Dark mode — click for light' : 'Light mode — click for dark';
+    btn.setAttribute('aria-label', btn.title);
+    btn.classList.toggle('is-dark', m === 'dark');
+    btn.classList.toggle('is-light', m === 'light');
+  }
+  try { localStorage.setItem(WZ_THEME_KEY, m); } catch (_) {}
+  return m;
+}
+function toggleWarizonTheme() {
+  const next = getWarizonTheme() === 'dark' ? 'light' : 'dark';
+  applyWarizonTheme(next);
+  try {
+    let n = document.getElementById('wzThemeToast');
+    if (!n) {
+      n = document.createElement('div');
+      n.id = 'wzThemeToast';
+      n.className = 'wz-theme-toast';
+      document.body.appendChild(n);
+    }
+    n.textContent = next === 'dark' ? '🌙 Warizon dark mode' : '☀️ Warizon light mode';
+    n.classList.add('show');
+    clearTimeout(toggleWarizonTheme._t);
+    toggleWarizonTheme._t = setTimeout(() => n.classList.remove('show'), 1400);
+  } catch (_) {}
+  return next;
+}
+
 function sfx(name) {
   try { const a = new Audio(`${name}.mp3`); a.volume = 0.45; a.play().catch(() => {}); } catch (_) {}
 }
@@ -546,6 +593,33 @@ function attachAdvisories(item, raw) {
 const _RAW_CATALOG = getAllShopItems ? getAllShopItems() : (SHOP_ITEMS || {});
 const ITEMS = Object.values(_RAW_CATALOG).map((raw, idx) =>
   attachAdvisories(normalizeItem(raw, idx), raw));
+
+/* Night Market catalog — the dedicated night specials array, not keyword guesses. */
+const NIGHT_ID_SET = (() => {
+  const s = new Set();
+  const bag = (typeof NIGHT_SPECIAL_ITEMS === 'object' && NIGHT_SPECIAL_ITEMS) || {};
+  for (const [k, v] of Object.entries(bag)) {
+    if (k) s.add(String(k));
+    if (v && v.id) s.add(String(v.id));
+  }
+  for (const it of ITEMS) {
+    if (it && String(it.id || '').startsWith('night_')) s.add(String(it.id));
+  }
+  return s;
+})();
+function isNightMarketItem(it) {
+  if (!it) return false;
+  if (NIGHT_ID_SET.has(String(it.id))) return true;
+  if (String(it.id || '').startsWith('night_')) return true;
+  // Curated rows from the night file sometimes keep recipe ids without a night_ prefix
+  return it.stockType === 'night_only' && NIGHT_ID_SET.has(String(it.id));
+}
+function isNightHours(date = new Date()) {
+  const h = date.getHours();
+  return h >= 20 || h < 5;
+}
+const NIGHT_MARKET_COUNT = ITEMS.filter(isNightMarketItem).length;
+
 
 /* --------------------------------------------------------------------------
    DAILY DEAL ENGINE — a local-calendar rotation, not permanent source flags.
@@ -1405,19 +1479,22 @@ const S = {
   infoSlug: 'about-warizon',
   q: '', dept: 'all', page: 1, sort: 'featured',
   bucket: -1, minStars: 0, rarities: new Set(), vendors: new Set(), currencies: new Set(),
-  inStockOnly: false, affordableOnly: false, dealsOnly: false
+  inStockOnly: false, affordableOnly: false, dealsOnly: false,
+  nightOnly: false         // Night Market facet — curated ITEMS_NIGHT_SPECIAL catalog
 };
 
 function resetFilters() {
   S.page = 1; S.bucket = -1; S.minStars = 0;
   S.rarities = new Set(); S.vendors = new Set(); S.currencies = new Set();
   S.inStockOnly = false; S.affordableOnly = false; S.dealsOnly = false;
+  S.nightOnly = false;
 }
 
 function filteredItems() {
   const q = S.q.trim().toLowerCase();
   const terms = q.split(/\s+/).filter(Boolean);
   let list = ITEMS;
+  if (S.nightOnly) list = list.filter(isNightMarketItem);
   if (S.dealsOnly) list = list.filter(it => it.deal?.day === ACTIVE_DEAL_DAY);
   if (S.dept !== 'all') list = list.filter(it => it.cat === S.dept);
   if (terms.length) list = list.filter(it => terms.every(t => it.search.includes(t)));
@@ -1457,6 +1534,12 @@ function goTo(view, patch = {}) {
 function showTodaysDeals() {
   resetFilters();
   S.q = ''; S.dept = 'all'; S.sort = 'featured'; S.dealsOnly = true;
+  goTo('results');
+}
+
+function showNightMarket() {
+  resetFilters();
+  S.q = ''; S.dept = 'all'; S.sort = 'featured'; S.nightOnly = true; S.dealsOnly = false;
   goTo('results');
 }
 
@@ -1698,6 +1781,16 @@ function filterSidebar() {
       <li><button class="f-link ${S.bucket === -1 ? 'active' : ''}" data-bucket="-1">Any price</button></li>
     </ul>
     <h3>Sold By</h3><div>${vendorChecks}</div>
+    <h3>🌙 Night Market</h3>
+    <ul>
+      <li><button class="f-link ${S.nightOnly ? 'active' : ''}" data-night="1" id="fNightMarket">
+        🌙 Night Specials <span class="cnt">${fmt(NIGHT_MARKET_COUNT)}</span>
+      </button></li>
+      <li><button class="f-link ${!S.nightOnly ? 'active' : ''}" data-night="0">All hours</button></li>
+    </ul>
+    <div class="f-help night-help">${isNightHours()
+      ? 'Night Market is <b>OPEN</b> (20:00–05:00). Shady stock from the night specials vault.'
+      : 'Night specials are always browsable here. In-world pickup is gated 20:00–05:00.'}</div>
     <h3>Availability</h3>
     <label class="f-check"><input type="checkbox" id="fInStock" ${S.inStockOnly ? 'checked' : ''}> Hide out-of-stock junk</label>
     <label class="f-check"><input type="checkbox" id="fAffordable" ${S.affordableOnly ? 'checked' : ''}> Affordable items only</label>
@@ -1707,8 +1800,10 @@ function filterSidebar() {
 function productCard(it) {
   const out = it.stock <= 0;
   const affordable = canAffordItem(it);
-  return `<article class="p-card">
+  const night = isNightMarketItem(it);
+  return `<article class="p-card ${night ? 'night-item' : ''}">
     ${it.deal ? `<span class="deal-flag">${it.deal.off}% off · ${esc(it.dealKind)}</span>` : ''}
+    ${night ? `<span class="night-flag" title="Night Market special">🌙 Night Special</span>` : ''}
     <div class="p-img" data-open="${esc(it.id)}" title="${esc(it.name)}">${esc(it.icon)}</div>
     <div class="p-title" data-open="${esc(it.id)}">${esc(it.name)}</div>
     ${cardIntelHtml(it)}
@@ -1754,7 +1849,8 @@ function renderResults() {
   const to = Math.min(total, start + PAGE_SIZE);
 
   const termPart = S.q.trim() ? ` for <span class="rb-term">"${esc(S.q.trim())}"</span>` : '';
-  const deptPart = S.dept !== 'all' ? ` in <b>${esc(DEPARTMENTS[S.dept].label)}</b>` : '';
+  const deptPart = S.dept !== 'all' && DEPARTMENTS[S.dept] ? ` in <b>${esc(DEPARTMENTS[S.dept].label)}</b>` : '';
+  const nightPart = S.nightOnly ? ` in the <b>🌙 Night Market</b>` : '';
 
   return `
   <div class="wz-container">
@@ -1763,7 +1859,7 @@ function renderResults() {
       <aside class="side-filters" id="sideFilters">${filterSidebar()}</aside>
       <div class="results-main">
         <div class="results-bar">
-          <div class="rb-count">${S.dealsOnly ? `<b>🔥 Today's ${fmt(total)} rotating deals</b> · <span data-deal-countdown>${esc(dealTimeLeft())}</span><br>` : ''}${fmt(from)}-${fmt(to)} of ${fmt(total)} results${termPart}${deptPart}</div>
+          <div class="rb-count">${S.dealsOnly ? `<b>🔥 Today's ${fmt(total)} rotating deals</b> · <span data-deal-countdown>${esc(dealTimeLeft())}</span><br>` : ''}${fmt(from)}-${fmt(to)} of ${fmt(total)} results${termPart}${deptPart}${nightPart}</div>
           <div class="sort-wrap">Sort by:
             ${choiceMenu('sortMenu', S.sort, [
               { value: 'featured', label: '✨ Featured' },
@@ -3200,6 +3296,7 @@ function buyNow(id, qty = 1) {
   openCheckout([{ id, qty }]);
 }
 
+applyWarizonTheme(getWarizonTheme());
 document.addEventListener('DOMContentLoaded', () => {
   ensureLoreData();
   ensurePrimeData();
@@ -3316,8 +3413,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (apUnlock) { openAbilityUnlock(apUnlock.dataset.apUnlock); return; }
 
     /* filters */
+    const nightBtn = t.closest('[data-night]');
+    if (nightBtn) {
+      S.nightOnly = nightBtn.dataset.night === '1';
+      S.dealsOnly = false;
+      S.page = 1;
+      render();
+      return;
+    }
     const deptBtn = t.closest('[data-dept]');
-    if (deptBtn) { S.dept = deptBtn.dataset.dept; S.page = 1; render(); return; }
+    if (deptBtn) { S.dept = deptBtn.dataset.dept; S.page = 1; S.nightOnly = false; render(); return; }
     const bucketBtn = t.closest('[data-bucket]');
     if (bucketBtn) { S.bucket = Number(bucketBtn.dataset.bucket); S.page = 1; render(); return; }
     const starsBtn = t.closest('[data-stars]');
@@ -3439,6 +3544,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (t.closest('#navOrders')) { goTo('orders'); return; }
     if (t.closest('#flyMembership')) { goTo('wahprime'); document.querySelector('.nav-acct-wrap')?.classList.remove('open'); return; }
     if (t.closest('#subDeals')) { showTodaysDeals(); return; }
+    if (t.closest('#subNight')) { showNightMarket(); return; }
+    if (t.closest('#themeBtn') || t.closest('#wzThemeBtn')) { toggleWarizonTheme(); return; }
     const subDept = t.closest('[data-sub-dept]');
     if (subDept) { if (subDept.dataset.subDept === 'premium') { goTo('wahprime'); return; } resetFilters(); S.q = ''; S.dept = subDept.dataset.subDept; goTo('results'); return; }
     if (t.closest('#allDepartmentsBtn')) { openDrawer(); return; }
@@ -3539,4 +3646,18 @@ document.addEventListener('DOMContentLoaded', () => {
       renderGate();
     }
   });
+});
+document.addEventListener('keydown', (e) => {
+  const tag = (document.activeElement && document.activeElement.tagName) || '';
+  const typing = /INPUT|TEXTAREA|SELECT/i.test(tag) || document.activeElement?.isContentEditable;
+  if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.key.toLowerCase() === 't') {
+    e.preventDefault();
+    toggleWarizonTheme();
+  }
+  if (e.key.toLowerCase() === 'n' && !e.shiftKey) {
+    // Quick jump to Night Market
+    e.preventDefault();
+    showNightMarket();
+  }
 });

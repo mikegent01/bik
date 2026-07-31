@@ -11,7 +11,16 @@
   <script src="wario-audio-bridge.js"></script>
   <script defer src="wario-site-sounds.js"></script>
   <script defer src="waluipedia-ambient.js?v=phase7.5"></script>
-  <link rel="stylesheet" href="warizon-shop.css?v=phase7.5" />
+  <link rel="stylesheet" href="warizon-shop.css?v=night1" />
+  <script>
+  (function () {
+    try {
+      var m = localStorage.getItem('warizon.theme');
+      if (m !== 'dark' && m !== 'light') m = 'light';
+      document.documentElement.setAttribute('data-wz-theme', m);
+    } catch (e) {}
+  })();
+  </script>
 </head>
 <body>
 
@@ -85,6 +94,7 @@
         <span class="nav-line2">&amp; Orders</span>
       </div>
 
+      <button type="button" class="nav-a nav-theme" id="wzThemeBtn" title="Toggle light/dark mode (t)" aria-label="Toggle light/dark mode">☀️</button>
       <div class="nav-a nav-cart" id="navCart">
         <span class="cart-count" id="cartCount">0</span>
         <span class="cart-glyph">🛒</span>
@@ -97,6 +107,7 @@
       <button class="subnav-all" id="allDepartmentsBtn">☰ All</button>
       <button id="subHome">warizon.wah</button>
       <button id="subDeals" class="deal-link">Today's Deals</button>
+      <button id="subNight" class="deal-link night-link" title="Night Market specials (n)">🌙 Night Market</button>
       <button id="musicBtn" class="music-nav" title="Show or play the Warizon playlist">🎧 Music</button>
       <button id="subAbilities" class="deal-link">⚡ Training Wing</button>
       <button id="subCrafting" class="deal-link">🔨 Crafting Forge</button>
@@ -158,6 +169,6 @@
     </footer>
   </div>
 
-  <script type="module" src="warizon-shop.js?v=phase7.5"></script>
+  <script type="module" src="warizon-shop.js?v=night1"></script>
 </body>
 </html>
