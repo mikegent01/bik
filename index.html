@@ -4966,7 +4966,38 @@ function characterVisual(i){
     : `<span class="char-primary">${esc(v.primary)}</span>`;
   return `<div class="character-card-visual theme-${esc(v.theme)}" style="--char-a:${v.colors[0]};--char-b:${v.colors[1]}"><div class="char-bg-emoji">${esc(v.primary)}${esc(v.badges[0]||'')}</div><div class="char-avatar">${avatarImg}</div><div class="char-visual-text"><span>${esc(v.label).slice(0,42)}</span><b>${esc(status).slice(0,32)}</b><div class="char-badge-row">${v.badges.map(b=>`<i>${esc(b)}</i>`).join('')}</div></div></div>`;
 }
-function cardVisual(i,key){ if(key==='characters')return characterVisual(i); if(key==='nations')return flagArt(i,'tile'); if(key==='battles')return battleThumb(i,'tile'); if(key==='locations')return locationThumb(i,'tile'); if(['events','trials','factions','collections'].includes(key))return autoArt(i,key,'tile'); return ''; }
+function cardVisual(i,key){ if(key==='characters')return characterVisual(i); if(key==='nations')return flagArt(i,'tile'); if(key==='battles')return battleThumb(i,'tile'); if(key==='locations')return locationThumb(i,'tile'); if(key==='races')return raceThumb(i,'tile'); if(['events','trials','factions','collections'].includes(key))return autoArt(i,key,'tile'); return ''; }
+function raceThumb(i,mode){
+  const small=mode==='tile';
+  const src=i.image||'';
+  if(src){
+    return `<figure class="article-lead-img race-thumb ${small?'tile':''}"><img src="${esc(src)}" alt="${esc(displayName(i))}" loading="lazy" onerror="this.onerror=null;this.style.display='none'"></figure>`;
+  }
+  return autoArt(i,'races',small?'tile':'full');
+}
+function raceDossierPanel(item){
+  if(!item) return '';
+  const subs=Array.isArray(item.subspecies)?item.subspecies:[];
+  const gallery=Array.isArray(item.gallery)?item.gallery:[];
+  if(!subs.length && !gallery.length) return '';
+  let h='<div class="race-dossier">';
+  if(subs.length){
+    h+=`<div class="race-subspecies"><h3 class="race-dossier-h">🧬 Cap lineages & subspecies <span class="text-muted" style="font-weight:400;font-size:12px">(${subs.length})</span></h3><div class="race-sub-grid">`;
+    h+=subs.map(s=>{
+      const img=s.image?`<img src="${esc(s.image)}" alt="${esc(s.name||'')}" loading="lazy" onerror="this.remove()">`:`<div class="race-sub-fallback" style="--cap:${esc(s.color||'#8a4bff')}">🍄</div>`;
+      const tags=(s.tags||[]).map(t=>`<span class="race-tag">${esc(t)}</span>`).join('');
+      return `<article class="race-sub-card" style="--cap:${esc(s.color||'var(--accent)')}"><div class="race-sub-img">${img}</div><div class="race-sub-body"><div class="race-sub-name">${esc(s.emoji||'🍄')} ${esc(s.name||s.id||'Variant')}</div>${s.aka?`<div class="race-sub-aka">${esc(s.aka)}</div>`:''}<p>${esc(s.summary||'')}</p>${tags?`<div class="race-sub-tags">${tags}</div>`:''}</div></article>`;
+    }).join('');
+    h+='</div></div>';
+  }
+  if(gallery.length){
+    h+=`<div class="race-gallery"><h3 class="race-dossier-h">🖼️ Field gallery</h3><div class="race-gallery-grid">`;
+    h+=gallery.map(g=>`<figure class="race-gal-item"><img src="${esc(g.src||g.image||'')}" alt="${esc(g.caption||g.alt||'')}" loading="lazy" onerror="this.closest('figure').classList.add('broken')"><figcaption>${esc(g.caption||g.alt||'')}</figcaption></figure>`).join('');
+    h+='</div></div>';
+  }
+  h+='</div>';
+  return h;
+}
 function decodeEntitiesBasic(s){return String(s||'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;|&apos;/g,"'");}
 function htmlishToMarkdown(s){
   s=decodeEntitiesBasic(s);
@@ -6142,6 +6173,9 @@ function mdToHtml(md,linkCtx){
   for(const raw of lines){const line=raw.trimEnd();
     if(/^###\s+/.test(line)){fp();fq();newSection();const t=line.replace(/^###\s+/,'');html+='<h3 id="'+slug(t)+'">'+inlineMd(t)+'</h3>';continue;}
     if(/^##\s+/.test(line)){fp();fq();newSection();const t=line.replace(/^##\s+/,'');html+='<h2 id="'+slug(t)+'">'+inlineMd(t)+'</h2>';continue;}
+    // Standalone markdown images: ![alt](path) — used heavily by race dossiers
+    const imgM=line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if(imgM){fp();fq();html+=`<figure class="md-figure"><img src="${esc(imgM[2])}" alt="${esc(imgM[1])}" loading="lazy" onerror="this.closest('figure').classList.add('broken')"><figcaption class="imgcap">${esc(imgM[1])}</figcaption></figure>`;continue;}
     if(/^>\s?/.test(line)){fp();quote.push(line.replace(/^>\s?/,''));continue;}
     if(line.trim()===''){fp();fq();continue;}
     fq();para.push(line);}
@@ -6668,7 +6702,7 @@ function view_list(key){
   const st=listState[key]||(listState[key]={filter:'All',sort:'az',query:''});
   const clean=s=>String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
   const recordText=i=>clean([i.id,displayName(i),i.title,i.type,i.status,i.affiliation,i.race,i.region,i.era,i.location,i.summary,i.description,(i.tags||[]).join(' ')].filter(Boolean).join(' '));
-  const wordCount=i=>words([i.description,i.summary].filter(Boolean).join(' '));
+  const wordCount=i=>{const sec=(i.sections||[]).map(s=>(s.overview||'')+' '+(s.subsections||[]).map(ss=>ss.description||ss.content||ss.text||'').join(' ')).join(' ');return words([i.description,i.summary,sec,i.waluigiAssessment].filter(Boolean).join(' '));};
   const recordYear=i=>parseYear(i.date)||parseYear(i.era)||parseYear(i.status)||0;
   const matchesFilter=i=>st.filter==='All'||(filterGroup(key,i)||'Ungrouped')===st.filter;
   const matchesQuery=i=>{
@@ -8373,7 +8407,7 @@ const INFOBOX={
   events:[['title','Title'],['date','Date'],['era','Era'],['type','Type'],['location','Location'],['status','Status'],['outcome','Outcome']],
   battles:[['date','Date'],['location','Location'],['type','Type'],['result','Result'],['casualties','Casualties']],
   locations:[['type','Type'],['region','Region'],['controllingFaction','Controlled by'],['population','Population'],['climate','Climate'],['status','Status']],
-  races:[['type','Type'],['origin','Origin'],['avgLifespan','Avg. Lifespan'],['status','Status']],
+  races:[['type','Type'],['origin','Origin'],['avgLifespan','Avg. Lifespan'],['status','Status'],['populationEstimate','Population'],['classification','Classification'],['capSystem','Cap System']],
   nations:[['type','Type'],['origin','Origin'],['region','Region'],['status','Status']],
   cultures:[['type','Type'],['art_style','Art Style'],['primary_species','Primary Species'],['traditions','Traditions']],
   collections:[['title','Title'],['type','Type'],['scope','Scope'],['criteria','Criteria']],
@@ -8743,6 +8777,7 @@ function view_article(id){
       secTocParts.push({slug:sid,text:(s.name||('Section '+(si+1)))});
       sectionsHtml+=`<h2 id="${sid}">${esc(label)}</h2>`;
       if(s.subtitle)sectionsHtml+=`<div class="art-subtitle" style="margin:-6px 0 8px">${esc(s.subtitle)}</div>`;
+      if(s.image)sectionsHtml+=`<figure class="section-figure"><img src="${esc(s.image)}" alt="${esc(s.name||'')}" loading="lazy" onerror="this.closest('figure').classList.add('broken')">${s.imageCaption?`<figcaption class="imgcap">${esc(s.imageCaption)}</figcaption>`:''}</figure>`;
       if(s.overview)sectionsHtml+=`<div class="prose">${applyAnnotations(mdToHtml(s.overview,item.id), item.id)}</div>`;
       if(s.waluigi_note)sectionsHtml+=`<div class="wnote"><b>Waluigi's Note:</b> ${esc(s.waluigi_note)}</div>`;
       (s.subsections||[]).forEach(ss=>{const nm=ss.name||ss.title||'';if(nm)sectionsHtml+=`<h3 id="${slug(nm)}">${esc(nm)}</h3>`;const body=ss.description||ss.content||ss.text||ss.overview||'';if(body)sectionsHtml+=`<div class="prose">${applyAnnotations(mdToHtml(body,item.id), item.id)}</div>`;if(ss.waluigi_note)sectionsHtml+=`<div class="wnote"><b>Waluigi's Note:</b> ${esc(ss.waluigi_note)}</div>`;});
@@ -8841,7 +8876,7 @@ function view_article(id){
      <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${typeKey==='factions'?systemsForFaction(item.id).map(s=>`<span class="pill" style="border-color:${s.accent};color:${s.accent};cursor:pointer" onclick="Router.go('${s.route}')">${s.emoji} ${esc(s.name)} — integrated system</span>`).join(''):''}${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}</div>
      <div class="readtime">⏱ ${rtFull} min read · ${totalWords} words</div>
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
-     ${leadHtml}${audioHtml}
+     ${leadHtml}${typeKey==='races'?raceDossierPanel(item):''}${audioHtml}
      ${typeKey==='events'?eventPeopleAndXpPanel(item):''}${legalFrictionPanel(item,typeKey)}${intelEffectPanel(item,typeKey)}
      ${typeKey==='nations'?`<div class="chips" style="margin:8px 0 16px"><span class="chip active">Classic article</span><span class="chip" onclick="Router.go('#/atlas/${encodeURIComponent(item.id)}')">Open Atlas dashboard</span></div>${claimantRegimePanel(item)}${nationOverview(item)}`:''}
      ${typeKey==='factions'?factionSystemBanner(item.id):''}

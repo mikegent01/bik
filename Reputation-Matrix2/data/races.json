@@ -2,15 +2,277 @@
   {
     "id": "toads",
     "name": "Toads",
-    "type": "Sapient Humanoid (Fungal)",
-    "origin": "Mushroom Kingdom",
-    "avgLifespan": "Unknown — they all look the same age and nobody has ever seen one die of old age, which is either reassuring or DEEPLY unsettling",
+    "title": "Toads — People of the Cap, the Vest, and the Vote",
+    "type": "Sapient folk (Mushroom Kingdom primary species)",
+    "classification": "Single species with cap-lineage subspecies",
+    "capSystem": "Subspecific lineages (not separate races)",
+    "origin": "Mushroom Kingdom (endemic); diaspora across Regal Empire and fracture zones",
+    "avgLifespan": "Unknown — no verified death-by-age; elders marked by role and scar, not wrinkle",
+    "populationEstimate": "Kingdom majority; precise census contested under Regency and war conditions",
+    "status": "Politically ascending — Liberated assemblies active; trafficking and underestimation ongoing",
+    "image": "portraits/toad.png",
+    "imageCaption": "Baseline red-cap Toad — the silhouette kingdoms put on postcards and forget to give a vote.",
+    "summary": "Toads are the Mushroom Kingdom's most common sapient people: short, durable, cap-bearing, and systematically underestimated. Cap colours mark subspecies lineages — not separate races. This dossier covers body, the cap system, labour culture, political predation, liberation politics, war and capture, and the individuals who forced the archive to stop writing 'a Toad' when it meant a person. Filed under protest by Waluigi, who has opinions.",
+    "description": "Waluigi has strong opinions about Toads. Very strong opinions. Waluigi has filed those opinions here so that nobody has to ask Waluigi again, and so that the archive cannot pretend it does not already know.\n\nThe first thing a stranger notices is the cap. The second is the bounce. The third — if they stay long enough — is that the little mushroom-people running the counter, the guard post, the courier desk and the riot line are the same species, and that the world has been treating them as furniture for longer than most kingdoms keep records.\n\nThis is the full dossier. Cap lineages. Body. Culture. Labour. War. Liberation. Notable individuals. Field gallery. Waluigi's findings.\n\n![A classic red-cap Toad of the Mushroom Kingdom](portraits/toad.png)\n\n### How to read this page\n\nStart with the **cap system** if you arrived angry about taxonomy. Start with **physical characteristics** if you arrived from a battlefield report. Start with **liberation** if you arrived from a faction page. Start with **notable Toads** if you arrived looking for a person and found a species. The gallery at the top is not decoration; it is evidence that the word \"Toad\" always had faces.\n\n*WAH! If you only came here to confirm Toads are short, you are correct and you are wasting a magnificent archive. Scroll.*\n\n\nFiled length note: this page is intentionally long. Tourist pamphlets are short because tourist pamphlets are lying by omission. Waluigi does not omit.\n",
+    "sections": [
+      {
+        "name": "Physical Characteristics",
+        "icon": "🍄",
+        "subtitle": "Height, bounce, caps, and the thing nobody dies of",
+        "image": "portraits/toad.png",
+        "imageCaption": "Standard red-cap citizen morphology — the silhouette every kingdom uses on its tourist pamphlets.",
+        "overview": "\nToads are short. Much shorter than Waluigi. Everyone is shorter than Waluigi, because Waluigi is magnificently tall, but Toads make the comparison theatrical. An adult Toad typically stands between the height of a kitchen counter and the height of a decent tennis net. Their proportions are compact: round torso, short limbs, large head dominated by a living fungal cap that is not a hat, not a helmet, and not removable without the kind of paperwork Waluigi refuses to sign.\n\nThe skin is smooth, slightly matte, and ranges from cream through peach to a warm tan. Hands are four-fingered, deft, and surprisingly strong. Feet are broad. The eyes are dark, round, and permanently set to an expression that outsiders read as \"friendly\" and that Waluigi has learned to read as \"currently calculating whether this conversation will end in a barrel.\"\n\n### The bounce\n\nDespite their size, Toads are remarkably durable. Waluigi has personally witnessed Toads survive falls from castle battlements, warehouse explosions, dimensional fractures, being stuffed into Iron Legion transport barrels, and at least one incident involving a runaway minecart and a crate of garlic. They recover from physical trauma with a resilience that is either admirable biology or a species-wide failure to register pain. Waluigi does not know which, and Waluigi is choosing not to run the experiment.\n\nWhen a Toad hits the ground hard, the sound is not a crack. It is a *fwump* — a soft, affronted percussion, followed by a squeak, followed by the Toad standing up and dusting off a vest as if the universe has merely been rude.\n\n\n\n*WAH! Waluigi has been launched through more windows than he cares to count and Waluigi does not bounce. Waluigi bruises. The physics of this species is personally offensive.*\n\n\n\n### Voice and presence\n\nToad voices are high, clear, and carry. In a crowded hall you can track a Toad conversation three tables away. In a quiet corridor the same voice becomes a needle. Waluigi has strong feelings about this. Waluigi has also noticed that Toads can drop the squeak when they want to — Green T's combat voice is flat and economical — which means the default pitch is not a limitation. It is a *register*.\n\n### Lifespan (or the absence of one)\n\nNo reliable record exists of a Toad dying of old age. They all look roughly the same age. Elders are identified by authority, scars, and the weight of their vest buttons, not by wrinkles. This is either reassuring or deeply unsettling depending on whether you are a Toad. Waluigi files it under both.\n\n\n### Anatomy in the field\n\nA Toad skull is mostly cap. The fungal structure is living tissue continuous with the scalp; it pulses faintly when the Toad is angry or sprinting. Cut one in a laboratory and you will learn nothing useful and make every Toad in a three-block radius your enemy. The archive prefers observation.\n\nShoulders are narrower than the cap's widest point, which means Toads in armour look like mushrooms wearing opinions. Custom pauldrons exist. Most Toads reject them as sweaty. The preferred protective layer is layered vest, courier satchel, and the ancient art of not being where the axe lands.\n\n### Diet and metabolism\n\nThey burn energy in short spikes — perfect for sprints, lifts, and emergency staircases. A Toad can haul a crate half their body weight up a service ladder and then sit very still for twenty minutes looking polite. Outsiders call this laziness. It is interval recovery. Waluigi, who invented the concept of dramatic resting between tennis sets, recognises a fellow professional.\n\nCold slows them. Heat makes the cap flush darker. Dimensional travel gives them nausea that they describe as \"the spins\" and treat with ginger sweets and denial.\n\n### Childhood\n\nToad children — \"sprouts\" in domestic speech — have oversized caps and no sense of mortality. They bounce off furniture as practice. Education is practical: counting, routes, vest buttons, which nobles tip, which pipes flood in spring. Formal academies exist for the connected. Everyone else learns on the job, which is why a twelve-year-old Toad can run a message network that would shame a royal courier guild.\n\n*WAH! Waluigi was not allowed to run message networks at twelve. Waluigi was forced to practice serves. This is why the Toads have better logistics and Waluigi has better topspin. The trade was not explained to Waluigi at the time.*\n\n### Medical notes\n\nToad blood is darker than human blood and smells faintly of soil after rain. Silver is unpleasant to them in large quantities but not vampiric-unpleasant. Fire is bad, as fire is bad for most people with opinions about continuing to live. Magical petrification works. Magical charm works less well than casters expect; a charmed Toad often completes the forced task and then files a complaint.\n"
+      },
+      {
+        "name": "The Cap System",
+        "icon": "🎨",
+        "subtitle": "Why colour is not a separate race — and why it still matters",
+        "image": "portraits/liberated_toad_chorus.png",
+        "imageCaption": "A mixed-cap cohort. Same species. Different ink on the same page.",
+        "overview": "\nEvery outsider asks the same question: **are different cap colours different races?**\n\n**No.**\n\nCap colour is a **subspecific lineage marker** within one species — *Toads* — the way eye colour, clan tartan, or house livery works among humans who have not yet invented a worse taxonomy. Red-caps, blue-caps, green-caps, yellow-caps, purple-caps, spotted variants, and the rare star-marked caps can intermarry, share households, serve in the same cohorts, and produce offspring whose caps may follow either parent, neither, or a grandparent Waluigi has never met. They share anatomy, language roots, bounce physics, and the same grim joke about barrels.\n\nWhat cap colour *does* mark is **lineage culture**: traditional trades, regional density, costume habits, and — too often — how the Regency, the Legion, and various employers sort Toads into jobs without asking.\n\n\n\n*WAH! Waluigi has watched humans invent twelve words for 'slightly different hat' and call it science. Cap colour is real. Cap colour is not a passport. Anyone who files a blue-cap as a different species from a red-cap is either lazy or selling something.*\n\n\n\n### How the archive files them\n\n| Level | What it is | Waluipedia home |\n|---|---|---|\n| **Species / race article** | Toads (this page) | `#/article/toads` |\n| **Subspecies / lineage** | Cap colours & marked variants | Cards below, and this section |\n| **Individuals** | Green T, Toad Lee, Toadsworth… | Character articles |\n| **Political body** | Liberated Toads, Pond Patrol, etc. | Faction / system pages |\n\nCap lineages are **not** separate race IDs. Splitting them would shatter search, break character→race links, and pretend the Mushroom Kingdom's underclass is twelve peoples instead of one people wearing different ink. Waluigi refuses.\n\n### Field recognition (practical)\n\n- **Spots vs solids:** Spotted caps (classically red/white) dominate tourist imagery. Solid and soft-gradient caps are common in labour and military cohorts.\n- **Markings:** Stars, stripes, and irregular blotches are lineage marks or individual mutations — not ranks. Rank lives on the vest, the weapon, and the voice.\n- **Dye and disguise:** Caps do not dye cleanly. Attempts look wrong under daylight. This has stopped exactly zero spies from trying.\n- **Trauma:** A torn cap fringe scars. A burned cap scars. Toads read those scars the way soldiers read medals.\n\n\n### Historical misuse\n\nEvery occupying force and every marketing department has tried to turn cap colour into destiny. Red-caps as \"loyal stock.\" Blue-caps as \"clerk stock.\" Green-caps as \"quiet stock.\" The Liberated assemblies have begun fining employers who print job ads with cap requirements. Waluigi supports the fines. Waluigi would support larger fines.\n\nFolk songs claim purple caps appear before disasters. Disasters appear before people start looking for purple caps. Correlation is not lineage.\n\n### Inheritance (what is actually known)\n\n- Two spotted parents often produce spotted children; not always.\n- Solid-cap lineages can throw a spotted child after three quiet generations; grandparents become unbearable at parties.\n- Star-marks cluster in certain family books but also appear spontaneously; the Star Spirits have not released a white paper.\n- Cap colour does **not** determine magical aptitude, moral virtue, or tennis potential.\n\n### Cross-lineage households\n\nMixed-cap marriages are normal in cities and slightly gossiped about in villages that still think gossip is infrastructure. Children of mixed households often grow up bilingual in stereotype: they know what strangers expect when they see the cap, and they know how little of that expectation survives contact with the person.\n\n### Cap care\n\nToads moisturise the cap fringe. Products exist. Scams exist. Wario has sold both. A healthy cap has a subtle sheen; a dehydrated cap looks dusty and makes other Toads offer you water with pointed kindness.\n\n*WAH! Waluigi does not have a cap. Waluigi has hair. Magnificent hair. Nobody offers Waluigi water with pointed kindness when Waluigi is dehydrated. They offer Waluigi unsolicited coaching tips. The species difference is cultural.*\n"
+      },
+      {
+        "name": "Culture, Labour & the Vest",
+        "icon": "👔",
+        "subtitle": "How a people who bounce became a people who work",
+        "image": "portraits/laundry_toad.png",
+        "imageCaption": "Domestic and service labour — the quiet majority of Toad economic life.",
+        "overview": "\nToads form the backbone of Mushroom Kingdom society. They are the workers, the merchants, the guards, the bureaucrats, the couriers, the kitchen lines, the laundry shifts, the castle staff, and the people holding the clipboard when something explodes. When Princess Peach was alive, they served as her retainers and her public. After her death, they became the primary population governed by the Mushroom Regency — which is a polite way of saying they inherited the bills and not the crown.\n\n### The vest as social technology\n\nAlmost every Toad in public life wears a vest. Colours and buttons encode employer, cohort, and sometimes mood. A clean pressed vest is respectability. A scorched vest is a story. A missing button is either poverty or a fight. Waluigi has learned to read vests the way Waluigi reads fine print: compulsively, and with diminishing faith in institutions.\n\n### Work patterns\n\nToad labour clusters hard:\n\n- **Service & domestic** — kitchens, laundry, hospitality, castle maintenance.\n- **Logistics** — couriers, warehouse crews, dock loaders, pipe-network runners.\n- **Civic** — clerks, census-takers, junior magistrates, post.\n- **Security** — town guards, cohort militia, private house guards.\n- **Specialist** — captains, admirals, gunslingers, speakers, the rare wizard who makes other Toads nervous.\n\nThey are good at coordination. A Toad crew can empty a burning warehouse in a pattern that looks choreographed because it *is* — not by rehearsal, but by a culture that has been managing other people's emergencies for centuries.\n\n\n\n*WAH! Everybody wants a Toad on the team until the Toad asks for a vote. Then suddenly the room discovers a passion for 'chain of command.' Waluigi has taken notes. Waluigi has a lot of notes.*\n\n\n\n### Language and manners\n\nPublic Toad speech is bright, polite, and full of diminutives that outsiders mistake for simplicity. Private Toad speech — cohort briefings, kitchen arguments, liberated assembly floors — is denser, dryer, and much funnier. They are excellent at saying \"yes, my lord\" in a tone that means \"I will remember this when the ledger opens.\"\n\n### Food\n\nMushrooms (ironically), root stews, packed rice balls, sugared beetles in the provinces, and an unwise enthusiasm for anything labelled \"festival cake.\" Garlic is controversial. Waluigi supports the pro-garlic faction on principle.\n\n\n### Festivals\n\nSporefall, the spring market weeks, and the quiet midwinter \"button day\" when families sew spare fasteners onto children's vests for luck. Music is brass-heavy and processional. Dance involves more bouncing than is strictly necessary. Outsiders who mock the dance are invited to try the logistics of feeding three thousand guests with two kitchens; the mockery usually stops.\n\n### Religion\n\nMany Toads keep small household shrines to Peach-as-memory, to older mushroom spirits, or to nothing at all with great sincerity. Liberated cohorts are carefully plural: the assembly does not establish a church. It establishes a docket. Waluigi considers this advanced.\n\n### Humour\n\nToad humour is dry, situational, and often aimed at people who think height is a moral achievement. Practical jokes tend toward rearranged signage and \"accidentally\" misrouted parcels for people who deserve misrouted parcels. Cruelty is rare; precision is common.\n\n### The courier ethic\n\nA Toad courier's pride is simple: the message arrives. Not the messenger's glory. Not the recipient's gratitude. The message. This ethic scales sideways into revolution surprisingly well. Once a people are trained to complete the task despite barriers, the definition of \"task\" becomes a political variable.\n\n### Art and making\n\nWoodwork, embroidery on vest linings, pipe-map murals, and a tradition of tiny landscape paintings on the inside of cupboard doors. Toad art is often where hands already are. Museums under-collect it. Waluigi has stolen— *borrowed* — three cupboard doors for the archive and will return them when the kingdom is less on fire.\n"
+      },
+      {
+        "name": "Political Condition",
+        "icon": "⚖️",
+        "subtitle": "Regency subjects, Loyalist recruits, Legion cargo",
+        "image": "portraits/scarred_guard_toad.png",
+        "imageCaption": "A scarred guard Toad — the face of a security class asked to hold a kingdom together with a spear and a stipend.",
+        "overview": "\nThe problem — and Waluigi says this with genuine sympathy — is that Toads are treated as **disposable** by virtually every faction that is not composed of Toads.\n\n### Under the Regency\n\nAs subjects of the Mushroom Regency, Toads provide the tax base, the street presence, and the soft power of \"normal life continues.\" Regency propaganda loves a smiling red-cap. Regency policy loves a quiet one. Dissidents disappear into paperwork. Forest rangers walk a line between crown service and something older.\n\n### Under the Loyalists\n\nPeach Loyalists recruit Toads as soldiers and symbols — living proof the kingdom still has a people worth saving. Some Toads believe this completely. Some believe it strategically. Some are just tired of barrels and will take any banner that points away from a cage.\n\n### Under the Iron Legion\n\nThe Iron Legion traffics Toads. That sentence should be enough. It is not enough, because the Legion files trafficking as \"labour reallocation\" and keeps the barrels clean. Entire cohorts have been reduced to cargo manifests. Waluigi has seen the manifests. Waluigi does not forget manifests.\n\n### Fawful, freelancers, and everybody else\n\nFawful's forces capture Toads when it is useful. Criminal crews hire them when they are cheap. Heroes collect them as sidekicks. The pattern is identical across ideologies: Toads are the hands that hold the world up, and hands are what you grab when you want something moved.\n\n\n\n*WAH! Waluigi knows what it is like to be treated as less important than you are. Waluigi is purple, loud, and impossible to ignore, and people still manage it. Toads are small, polite, and easy to file. That is not a personality. That is a vulnerability other people have been monetising.*\n\n\n\n\n### Law on paper vs law on the street\n\nRegency statutes grant Toads citizenship. Street practice grants Toads the right to be helpful. The gap between those sentences is where careers in advocacy, banditry, and liberation are made. Legal traditions in the Mushroom Kingdom still carry human and noble assumptions about who speaks in court. A Toad with a perfect case and a high voice is \"adorable\" until a good advocate makes the room feel ashamed. Shame is a tool. The Liberated docket uses it.\n\n### Taxes\n\nToads pay. They always pay. The creativity is in how many times the same coin is counted by different offices. Yellow-cap merchant houses hire blue-cap clerks to track the double-counting. Green-cap fixers appear when the numbers become personal.\n\n### Conscription\n\nWhen the crown or the Regency panics, Toad levies appear overnight because the lists already exist — tax rolls, courier registries, kitchen rosters. Liberation politics fights not only for the right to refuse, but for the right to **choose the war** worth dying in. Those are different rights. Only one of them fits on a slogan.\n\n### Foreign mirrors\n\nIn the Regal Empire and fracture-zone towns, Toad diaspora communities run inns and message houses. They are used as neutral ground by people who would not admit they need neutral ground. When dimensional crises spill, those inns become clinics and those message houses become the only working post. Nobody updates the citizenship paperwork to match.\n\n*WAH! Waluigi has been saved by three Toad inns and one Toad who pretended not to recognise Waluigi so that the people chasing Waluigi would also fail to recognise Waluigi. Waluigi owes favours. Waluigi pays favours. Waluigi does not pay favours in exposure, because exposure gets innkeepers killed.*\n"
+      },
+      {
+        "name": "Liberation & the Assembly",
+        "icon": "🐸",
+        "subtitle": "What happens when the furniture votes",
+        "image": "portraits/toad_alliance.png",
+        "imageCaption": "Alliance iconography from the Liberated Toads political project.",
+        "overview": "\nThe Liberated Toads are what happens when a people who have been patient decide that patience is no longer a virtue.\n\nThey are not a cosplay rebellion. They are a structured political body with a Speaker, a Heroes' Council, voting types, a docket, cohorts with morale and combat readiness, and a roster that includes named individuals with classes, weapons, and grudges. They hold assemblies. They argue procedure. They impeach. They keep minutes.\n\nWaluigi respects minutes.\n\n### Cohorts\n\nLiberated structure breaks the old \"town guard / kitchen / whoever is free\" muddle into purposeful cohorts — patrol, logistics, specialist combat, intelligence, and civic order. The Pond Patrol is one such body: dozens of members under a captain, not a mascot squad. When Waluigi says \"the Toads are organised,\" Waluigi means **chain of command plus ballots**, which is more civilisation than several kingdoms manage.\n\n### The emotional temperature\n\nLiberation did not make Toads nicer. It made them clearer. The squeak is still there. The bounce is still there. What changed is the sentence that comes after \"yes, my lord.\" Sometimes the sentence is \"no.\" Sometimes the sentence is a motion on the floor. Sometimes the sentence is a gunshot at a dinner party, and the room learns that quiet people have been listening the entire time.\n\n\n\n*WAH! The Iron Legion should be terrified of this. There are a LOT of Toads. They have been VERY patient. Patience is not the same thing as permission. Waluigi would explain the difference slowly, with charts, if the Legion hired Waluigi as a consultant, which they will not, because the Legion hates being told it is wrong.*\n\n\n\n### Disaster Inc. and the party\n\nSeveral of the most capable Toads in the current crisis work with or alongside Disaster Inc. and associated freelancers. This is not because Toads need heroes. It is because the fracture of the world has made every competent person a shared resource, and Toads have been the shared resource long enough to start naming their price.\n\n\n### Procedure as culture\n\nOutsiders expect rebellion to look like fire. Toad rebellion often looks like an agenda with attachments. Motions. Amendments. Emergency votes. Quorum fights at midnight. The first time Waluigi watched a Liberated assembly table a logistics motion before a vengeance motion, Waluigi understood they might actually win a country rather than a battle.\n\n### Speaker and council\n\nThe Speaker is not a monarch. The Heroes' Council is not a nobility. They are load-bearing roles under stress, and stress reveals whether a role is theatre or structure. Structure is when the person in the chair can lose a vote and remain in the chair. Theatre is when losing a vote means someone reaches for a knife. The Toads are practising structure on purpose because they have lived under other people's theatre.\n\n### Relations with Disaster Inc. and freelancers\n\nAlliances of convenience are still alliances. Toad cohorts provide local knowledge, numbers, and moral clarity; freelancers provide violence specialists and dimensional trauma. Friction exists. Minutes record the friction. That is healthy. Factions that never minute their friction resolve it in alleys.\n\n### Children of the movement\n\nSprouts raised in liberated cohorts learn cap colours as family history and chain of command as survival. They are less polite to nobles. Waluigi finds this delightful and, occasionally, diplomatically expensive.\n"
+      },
+      {
+        "name": "Notable Toads",
+        "icon": "⭐",
+        "subtitle": "Individuals the archive can no longer treat as flavour text",
+        "image": "portraits/toad_lee.png",
+        "imageCaption": "Toad Lee — steady hands in places that do not deserve them.",
+        "overview": "\nWaluigi wants the record to stop saying \"a Toad\" when it means a person.\n\n### Green T\nShot a vampire lord at a dinner party. Smuggled weapons in formal wear. Identified the Shadow Anchor and called the shot that shattered it. Green T is proof that the quietest person in the room might be the most dangerous, and that a green cap is not a personality — it is a silhouette you underestimate once.\n\n![Green T](portraits/green_t.png)\n\n### Toad Lee\nTrapped in the Feywild with Waluigi for longer than Waluigi's tennis elbow has been a medical condition. Steady. Reliable. Does not panic when fairy courts start speaking in riddles. Waluigi values this because everyone else Waluigi works with panics constantly.\n\n### Captain Toad & Captain Toadette\nExploration as a profession, not a mood. The Captains treat maps like sacred texts and caves like arguments to be won. When the archive needs someone to walk into a place that has already eaten three survey teams, it is usually wearing a backpack and a determined squint.\n\n![Captain Toad](portraits/captain_toad.png)\n\n![Captain Toadette](portraits/captain_toadette.png)\n\n### Chancellor Toadsworth\nThe institutional Toad. Bridge between crown memory and Regency present. Holds more keys than he admits and more regrets than the castle has drawers. Waluigi's feelings about Toadsworth are complicated, which is Waluigi's way of saying the man is useful and exhausting.\n\n![Chancellor Toadsworth](portraits/chancellor_toadsworth.png)\n\n### Admiral B. Toad & Sgt. Toadofsky\nProof that Toad military careers are real careers, not comic relief with ranks glued on. Naval and ground command both exist. Both have scars. Both have subordinates who would follow them into a pipe network at midnight.\n\n![Admiral B. Toad](portraits/admiral_b_toad.png)\n\n![Sgt. Toadofsky](portraits/sgt_toadofsky.png)\n\n### Forest, kitchen, laundry, midlands\nThe unnamed majority: ranger Toads in the tree line, kitchen sympathisers who hear everything, laundry workers who move messages in the folds of sheets, midlands scouts who come home with mud and news. The dossier names a few. The species is mostly these.\n\n![Forest ranger Toad](portraits/forest_ranger_toad.png)\n\n![Kitchen Toad](portraits/kitchen_toad_symp.png)\n\n### The God Toad problem\nThere is an entity in the wider crisis notes filed under names like God Toad / evil toad god imagery. Waluigi separates **theology** from **citizenship**. Divine or monstrous toadlike beings do not redefine the civil rights of the Toad folding your laundry. Anyone conflating the two is doing propaganda.\n\n![Hostile toad-god iconography — not a citizen](portraits/evil_toad_god.png)\n\n\n### Bryan the Toad (archival mention)\n\nExplored the Forgotten Temple of the Stars during a prison riot. During a riot. While other prisoners fought guards, Bryan did archaeology. Waluigi respects prioritisation that unhinged. If the archive ever opens a full page for Bryan, it will be because someone finally admitted curiosity is a combat statistic.\n\n### Toadburt, Eager, Salam, Mystic Morel\n\nParty-adjacent Toads who demonstrate the range: stubbornness, enthusiasm, heat, and weird magic. They are not \"mascots attached to the plot.\" They are plot. The species page lists them so search engines and lazy historians cannot pretend otherwise.\n\n### Unnamed thousands\n\nEvery named Toad stands on unnamed labour. The dossier's gallery includes prisoners and scouts and kitchen workers because the species is not a highlight reel. If you only remember Green T, you have failed the reading.\n"
+      },
+      {
+        "name": "War, Capture & the Barrel",
+        "icon": "🛢️",
+        "subtitle": "How a durable people get turned into inventory",
+        "image": "portraits/toad_prisoner_bramble.png",
+        "imageCaption": "Prisoner intake imagery — the barrel is a logistics technology and a moral indictment.",
+        "overview": "\nToad durability is a blessing until someone evil notices it.\n\nIf a body can survive rough transport, that body becomes cargo. The Iron Legion's barrel system is the industrial expression of that insight: stackable, sealable, deniable. Prisoners in the archive — Bramble, Crusty, Drip, Fern, Moss, and too many others — are not statistics. They are people who bounced when they should have broken, and were punished for the bounce with another lock.\n\n### Combat doctrine (when Toads choose the terms)\n\n- **Mass and coordination** over duels.\n- **Terrain familiarity** — pipes, alleys, kitchens, castle service routes.\n- **Specialists embedded in cohorts** rather than lone-wolf heroics.\n- **Moral shock** — a polite species that suddenly stops being polite rearranges enemy assumptions mid-battle.\n\n### What Waluigi needs commanders to understand\n\nA Toad militia is not a joke unit. Underestimation is a casualty generator. The squeak does not mean soft. The vest does not mean servant. The cap colour does not mean faction by itself. Check the banner, the orders, and the eyes.\n\n\n\n*WAH! If your battle plan assumes the Toads will panic, rewrite the plan. If your prison plan assumes the Toads will stay sorted, rewrite the prison. If your conscience assumes this is fine, rewrite your conscience.*\n\n\n\n\n### Escape stories\n\nToads escape by cooperation. One picks a lock, one jams a door, one lies with a smile, one remembers the route. Solo escapes happen; chorus escapes succeed. Legion after-action reports complain about \"unexpected unit cohesion among cargo.\" That sentence should be taught in war colleges.\n\n### Weapons of preference\n\nLight blades, borrowed spears, handguns for those who can get them, frying pans in domestic uprisings, and the environment itself — oil on stairs, redirected carts, bells rung at the wrong time. A Toad fight looks like a workplace accident converting into a plan.\n\n### Aftercare\n\nSurvivors need water, news, and a vest that is theirs. Return the name first. Then the weapon. Then the vote. Armies that reverse that order create different survivors.\n"
+      },
+      {
+        "name": "Relations with Other Kingdom Peoples",
+        "icon": "🤝",
+        "subtitle": "Koopas, Goombas, Yoshis, and the neighbours",
+        "image": "portraits/koopa.png",
+        "imageCaption": "Koopa Troopa — frequent neighbour, occasional enemy, permanent comparison point.",
+        "overview": "\nToads do not live in a vacuum. The Mushroom Kingdom is a stack of peoples who share roads and disasters.\n\n### Koopa Troopa\nArmoured, hierarchical, often imperial in posture when Bowser's banner is flying. Toad–Koopa relations swing from market coexistence to trench hostility depending on the decade. Individually, a Toad and a Koopa can share a ration tin. Institutionally, their leadership classes keep writing different stories about who owns the castle. See the Koopa Troopa race article for the other half of the argument.\n\n### Goombas\nTreated worse than Toads by almost every hierarchy, which is a grim achievement. Toad labour movements that forget Goombas are doing incomplete liberation. Waluigi will say this until someone minutes it.\n\n### Yoshis\nMore often allies of convenience and transport lore than political peers. A Yoshi mount relationship can be partnership or exploitation depending on the rider. Toads who adventure with Yoshis tend to understand consent better than knights who shout \"saddle.\"\n\n### Humans and student outsiders\nHumans occupy a strange slot: sometimes rulers, sometimes tourists, sometimes dimensional debris. Toads have extensive practice managing human expectations. That practice is not the same as affection.\n\n### Why this section exists\n\nSpecies pages that pretend their subject is alone become fanfiction. Toads are the majority fabric of a multi-people kingdom. Their story is tangled with every other story on purpose.\n\n*WAH! If your faction plan only budgets for Toad reactions and not Koopa ones, you are not planning a kingdom. You are planning a parade.*\n"
+      },
+      {
+        "name": "Waluigi's Findings",
+        "icon": "📋",
+        "subtitle": "Five sentences that should outlive the tourist pamphlets",
+        "overview": "\n1. **Toads are one people.** Cap colour is lineage and culture, not a separate race. The archive will not pretend otherwise to make census software happier.\n\n2. **Durability invited predation.** The same bounce that makes Toads legendary survivors made them ideal cargo for anyone wicked enough to own a barrel factory.\n\n3. **Politeness is not consent.** Centuries of \"yes, my lord\" were a survival strategy. Liberation is what happens when the strategy expires.\n\n4. **Institutions love the red-cap image and hate the green-cap gun.** Propaganda wants the postcard. History is being written by the cohort with a docket.\n\n5. **Underestimation is a tactical resource — for them.** Every commander who has laughed at a Toad formation has eventually filed a quieter report.\n\n\n\n*WAH! Waluigi's recommendation to the Board: stop hiring Toads as scenery. Start listening when they submit agenda items. The alternative is discovering that the scenery votes, shoots, and keeps better minutes than you do.*\n\n\n\n\n### Operational recommendations\n\n- **Census:** Count Toads as citizens, not capacity.\n- **Military:** Integrate cap lineages; do not segregate by pigment.\n- **Justice:** Accept high-register testimony without courtroom comedy.\n- **Logistics:** Hire Toad crew leads and then listen when they say the plan is stupid.\n- **Diplomacy:** When a Toad assembly sends a minute, read it before it becomes a battlefield map.\n\n### Personal note\n\nWaluigi likes Toads. Waluigi did not expect to write that sentence when Waluigi began this encyclopedia. Liking them does not mean underestimating them. It means filing them correctly.\n\nThe correct file is not \"mushroom comic relief.\"\n\nThe correct file is **people**.\n"
+      }
+    ],
+    "subspecies": [
+      {
+        "id": "cap_red_spot",
+        "name": "Red-Spot Caps",
+        "emoji": "🔴",
+        "color": "#e5484d",
+        "aka": "Postcard Toads · Classic caps",
+        "image": "portraits/toad.png",
+        "tags": [
+          "Common",
+          "Civic",
+          "Iconic"
+        ],
+        "summary": "Red cap with white spots — the default silhouette on every pamphlet. Dense in Toad Town and castle service. Stereotyped as cheerful; statistically just numerous."
+      },
+      {
+        "id": "cap_green",
+        "name": "Green Caps",
+        "emoji": "🟢",
+        "color": "#2fae8a",
+        "aka": "Green-line · Field & quiet work",
+        "image": "portraits/green_t.png",
+        "tags": [
+          "Lineage",
+          "Specialist",
+          "Underestimated"
+        ],
+        "summary": "Solid or soft-spotted green caps. Overrepresented in scouting, wet-work adjacent roles, and people who speak softly until they do not. Green T is the type specimen outsiders remember."
+      },
+      {
+        "id": "cap_blue",
+        "name": "Blue Caps",
+        "emoji": "🔵",
+        "color": "#5aa9e6",
+        "aka": "Harbour & clerk lines",
+        "image": "portraits/captain_toad.png",
+        "tags": [
+          "Logistics",
+          "Clerical",
+          "Coastal"
+        ],
+        "summary": "Blue-cap lineages cluster in docks, archives, and long-route exploration crews. Associated with steady pacing and an unwise willingness to enter caves."
+      },
+      {
+        "id": "cap_yellow",
+        "name": "Yellow Caps",
+        "emoji": "🟡",
+        "color": "#e0b400",
+        "aka": "Market golds",
+        "image": "portraits/chancellor_toadsworth.png",
+        "tags": [
+          "Merchant",
+          "Court",
+          "Visible"
+        ],
+        "summary": "Yellow and gold-leaning caps show up in merchant houses and court-adjacent bureaucracy. Easy to spot in a crowd — which is either pride or a targeting issue."
+      },
+      {
+        "id": "cap_purple",
+        "name": "Purple Caps",
+        "emoji": "🟣",
+        "color": "#8a4bff",
+        "aka": "Rare line · omen gossip",
+        "image": "portraits/captain_toadette.png",
+        "tags": [
+          "Rare",
+          "Symbolic",
+          "Gossip magnet"
+        ],
+        "summary": "Uncommon purple caps attract folk explanations Waluigi rejects and fashion explanations Waluigi accepts. Treat as lineage, not prophecy — unless the individual earns prophecy the hard way."
+      },
+      {
+        "id": "cap_star",
+        "name": "Star-Marked Caps",
+        "emoji": "⭐",
+        "color": "#ffd700",
+        "aka": "Star Toads · omen-bait",
+        "image": "portraits/star_toad.png",
+        "tags": [
+          "Rare",
+          "Marked",
+          "Political football"
+        ],
+        "summary": "Caps bearing star blotches or radiant marks. Every faction wants to claim them as destiny. Most just want lunch. Do not draft policy on a pigment."
+      },
+      {
+        "id": "cap_forest",
+        "name": "Forest & Earth Tones",
+        "emoji": "🌿",
+        "color": "#3d6b4f",
+        "aka": "Ranger lines",
+        "image": "portraits/forest_ranger_toad.png",
+        "tags": [
+          "Rural",
+          "Ranger",
+          "Dissident-adjacent"
+        ],
+        "summary": "Mossy, brown, and muted caps common outside the capital — rangers, dissidents, people who know which trees listen. Harder to postcard; easier to miss until the tree line moves."
+      },
+      {
+        "id": "cap_mixed_chorus",
+        "name": "Mixed-Cap Cohorts",
+        "emoji": "🌈",
+        "color": "#c8a6ff",
+        "aka": "Liberated default",
+        "image": "portraits/liberated_toad_chorus.png",
+        "tags": [
+          "Political",
+          "Modern",
+          "Integrated"
+        ],
+        "summary": "Not a biological lineage — the modern reality of liberated and urban cohorts where cap colour is present and irrelevant to chain of command. This is the future the pamphlets are afraid of."
+      }
+    ],
+    "gallery": [
+      {
+        "src": "portraits/toad.png",
+        "caption": "Standard red-cap citizen — species baseline"
+      },
+      {
+        "src": "portraits/toad_lee.png",
+        "caption": "Toad Lee — field operative reliability"
+      },
+      {
+        "src": "portraits/green_t.png",
+        "caption": "Green T — quiet lethal competence"
+      },
+      {
+        "src": "portraits/captain_toad.png",
+        "caption": "Captain Toad — exploration doctrine"
+      },
+      {
+        "src": "portraits/captain_toadette.png",
+        "caption": "Captain Toadette — same doctrine, less patience for fools"
+      },
+      {
+        "src": "portraits/chancellor_toadsworth.png",
+        "caption": "Chancellor Toadsworth — institutional memory"
+      },
+      {
+        "src": "portraits/admiral_b_toad.png",
+        "caption": "Admiral B. Toad — naval command is real"
+      },
+      {
+        "src": "portraits/sgt_toadofsky.png",
+        "caption": "Sgt. Toadofsky — ground cadre"
+      },
+      {
+        "src": "portraits/liberated_toad_chorus.png",
+        "caption": "Liberated chorus — mixed caps, one politics"
+      },
+      {
+        "src": "portraits/toad_alliance.png",
+        "caption": "Alliance mark — the project has stationery now"
+      },
+      {
+        "src": "portraits/forest_ranger_toad.png",
+        "caption": "Forest ranger — edge-of-map labour"
+      },
+      {
+        "src": "portraits/kitchen_toad_symp.png",
+        "caption": "Kitchen network — intelligence tastes like soup"
+      },
+      {
+        "src": "portraits/laundry_toad.png",
+        "caption": "Laundry shift — messages in the fold"
+      },
+      {
+        "src": "portraits/scarred_guard_toad.png",
+        "caption": "Scarred guard — security class under strain"
+      },
+      {
+        "src": "portraits/toad_prisoner_bramble.png",
+        "caption": "Prisoner Bramble — durability as liability"
+      },
+      {
+        "src": "portraits/midlands_scout_toad.png",
+        "caption": "Midlands scout — mud and news"
+      }
+    ],
     "distinctiveTraits": [
-      "Mushroom-cap heads in various colors",
-      "Small stature but surprisingly durable",
-      "Squeaky voices that haunt Waluigi's nightmares",
-      "Tendency to get kidnapped, captured, or put in barrels",
-      "Unexpected combat competence when properly motivated"
+      "Living fungal caps in lineage colours (spots, solids, rare star-marks)",
+      "Short stature with extreme physical durability ('the bounce')",
+      "High, carrying voices with a serious register under stress",
+      "Vest-coded social dress — employer, cohort, and status at a glance",
+      "Cultural talent for logistics, service coordination, and assembly procedure",
+      "Historically treated as disposable labour by non-Toad powers"
     ],
     "notableMembers": [
       "toad_lee",
@@ -18,22 +280,32 @@
       "toadburt",
       "eager",
       "salam",
-      "mystic_morel"
+      "mystic_morel",
+      "captain_toad",
+      "captain_toadette",
+      "chancellor_toadsworth",
+      "admiral_b_toad",
+      "sgt_toadofsky"
     ],
     "regions": [
       "Mushroom Kingdom",
-      "Regal Empire",
-      "Everywhere else somehow"
+      "Toad Town & castle service belts",
+      "Eastern Marches / forest edges",
+      "Midlands corridors",
+      "Regal Empire diaspora pockets",
+      "Wherever a barrel can be shipped"
     ],
-    "status": "Ubiquitous — you cannot go anywhere without tripping over a Toad",
-    "summary": "Toads are the most common sapient species in the Mushroom Kingdom and possibly the most underestimated beings in the entire multiverse. They look like mushrooms with legs. They sound like squeaky toys. And yet some of the most dangerous, competent, and terrifying individuals Waluigi has ever met have been Toads. Green T shot a vampire lord at dinner. Toad Lee has survived dimensional fractures. Bryan the Toad explored ancient temples during a prison riot. Waluigi has learned the hard way: never underestimate a Toad.\n\nRecent Shadow Estate note: Toad involvement now includes the real injured Toadburt being confirmed at the portal circle, Eager and Salam escaping via Remi’s Feather Fall, and Mystic Morel continuing to make every Toad-related problem more musical and suspicious.",
-    "description": "Waluigi has strong opinions about Toads. Very strong opinions.\n\n## Physical Characteristics\n\nToads are short—much shorter than Waluigi, but then again EVERYONE is shorter than Waluigi because Waluigi is MAGNIFICENTLY tall. They have mushroom caps on their heads that come in various colors: red with white spots is the most common, but blue, green, yellow, and purple variants exist. Waluigi suspects the cap colors mean something but nobody has ever explained it to him and Waluigi refuses to ask because asking implies ignorance and Waluigi is NEVER ignorant.\n\nDespite their small size, Toads are remarkably durable. Waluigi has seen Toads survive falls, explosions, dimensional fractures, and being stuffed in barrels by the Iron Legion. They bounce back from physical trauma with a resilience that Waluigi finds both admirable and slightly suspicious. Are they tough, or do they just not register pain? Waluigi doesn't know and isn't sure he wants to.\n\n## Cultural Role\n\nToads form the backbone of Mushroom Kingdom society. They're the workers, the merchants, the guards, the bureaucrats, the citizens. When Princess Peach was alive, they served as her retainers. After her death, they became the primary population governed by the Mushroom Regency.\n\nThe problem—and Waluigi says this with genuine sympathy—is that Toads are treated as DISPOSABLE by virtually every faction. The Iron Legion traffics them. The Peach Loyalists recruit them as soldiers. Fawful's forces capture them. Everyone uses Toads as resources rather than people, and it makes Waluigi ANGRY because Waluigi knows what it's like to be treated as less important than you are.\n\n## Notable Toads\n\nWaluigi wants to highlight some Toads who have proven themselves exceptional:\n\n**Green T** — Shot a vampire lord at a dinner party. Smuggled weapons in his formal wear. Identified the Shadow Anchor and called the shot that shattered it. Green T is proof that the quietest person in the room might be the most dangerous.\n\n**Toad Lee** — Currently trapped in the Feywild with Waluigi, navigating fairy court politics. Toad Lee is steady, reliable, and doesn't panic—qualities Waluigi values because EVERYONE ELSE Waluigi works with panics constantly.\n\n**Bryan the Toad** — Explored the Forgotten Temple of the Stars during a prison riot. DURING A RIOT. While other prisoners were fighting guards, Bryan was doing archaeology. Waluigi respects prioritization that unusual.\n\n## Waluigi's Assessment\n\nToads deserve better than what the world gives them. They're loyal, brave, and surprisingly capable when they stop being pushed around. The Liberated Toads faction represents what happens when Toads finally decide they've had enough—and the Iron Legion should be TERRIFIED of that, because there are a LOT of Toads and they have been VERY patient.\n\nWAH.",
     "relatedArticles": [
       "mushroom_kingdom",
       "disaster_inc",
       "mushroom_regency",
-      "liberated_toads"
-    ]
+      "liberated_toads",
+      "species_mushroom_kingdom_peoples",
+      "koopa_troopa"
+    ],
+    "waluigiAssessment": "Toads deserve better than what the world gives them. They are loyal, brave, and surprisingly capable when they stop being pushed around. The Liberated Toads faction represents what happens when Toads finally decide they have had enough — and the Iron Legion should be terrified of that, because there are a lot of Toads and they have been very patient.\n\nCap colour is a lineage story. It is not a licence to split a people into mascots. If the archive remembers one thing from this dossier, let it be this: **the bounce is not a joke, the vest is not a uniform of lesser citizenship, and the minutes of a Toad assembly are primary sources.**\n\nWAH.\n\nFinal filing stamp: Toads are the majority fabric of a kingdom that keeps trying to wear them as costume. Cap colour is ink on one page. Liberation is the edit. Anyone still asking whether blue-caps are \"a different race\" can reread the Cap System section until the question becomes embarrassing. Waluigi will wait. Waluigi is patient. Waluigi has already written the answer.\n",
+    "customCss": "\n/* ===== Toads race dossier (scoped via article accent + dossier classes) ===== */\n.race-dossier{margin:18px 0 22px;display:flex;flex-direction:column;gap:18px}\n.race-dossier-h{margin:0 0 10px;font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent2)}\n.race-sub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}\n.race-sub-card{display:flex;flex-direction:column;border:1px solid var(--border);border-top:3px solid var(--cap,var(--accent));border-radius:14px;background:linear-gradient(165deg,color-mix(in srgb,var(--cap,var(--accent)) 12%,transparent),transparent 42%),var(--panel2);overflow:hidden;box-shadow:var(--shadow);min-height:100%}\n.race-sub-img{height:140px;background:var(--bg2);display:grid;place-items:center;overflow:hidden}\n.race-sub-img img{width:100%;height:100%;object-fit:cover;display:block}\n.race-sub-fallback{width:100%;height:100%;display:grid;place-items:center;font-size:48px;background:radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--cap) 45%,transparent),transparent 60%),var(--bg2)}\n.race-sub-body{padding:12px 12px 14px;display:flex;flex-direction:column;gap:6px}\n.race-sub-name{font-weight:900;font-size:15px;color:var(--text)}\n.race-sub-aka{font-size:11px;color:var(--muted);font-style:italic}\n.race-sub-body p{margin:0;font-size:12.5px;line-height:1.45;color:var(--muted)}\n.race-sub-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}\n.race-tag{font-size:10px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--border);border-radius:999px;padding:2px 7px;color:var(--cap,var(--accent2));background:color-mix(in srgb,var(--cap,var(--accent)) 10%,transparent)}\n.race-gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}\n.race-gal-item{margin:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--bg2)}\n.race-gal-item img{width:100%;aspect-ratio:1;object-fit:cover;display:block;background:#1a1028}\n.race-gal-item figcaption{padding:7px 8px;font-size:11px;line-height:1.35;color:var(--muted)}\n.race-gal-item.broken,.md-figure.broken,.section-figure.broken{opacity:.55}\n.race-gal-item.broken figcaption::after,.md-figure.broken figcaption::after{content:\" (image missing)\";color:var(--danger)}\n.md-figure,.section-figure{margin:14px 0;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--panel2);box-shadow:var(--shadow)}\n.md-figure img,.section-figure img{width:100%;max-height:380px;object-fit:cover;display:block;background:#140c22}\n.md-figure figcaption,.section-figure figcaption{padding:8px 12px;font-size:12px;color:var(--muted)}\n.race-thumb.tile{margin:0 0 10px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}\n.race-thumb.tile img{width:100%;height:120px;object-fit:cover;display:block}\n[data-arttype=\"races\"] .prose h2{border-image:linear-gradient(90deg,var(--art-accent),transparent) 1}\n@media(max-width:720px){\n  .race-sub-grid{grid-template-columns:1fr 1fr}\n  .race-sub-img{height:110px}\n}\n@media(max-width:480px){\n  .race-sub-grid{grid-template-columns:1fr}\n}\n",
+    "expandedFromMicro": true
   },
   {
     "id": "chaos_warrior",
@@ -1112,7 +1384,7 @@
     "type": "Species Group / Mushroom Sphere Peoples",
     "status": "Species group hub — consolidates imported census profiles",
     "summary": "Mushroom Kingdom Peoples covers Toads, Koopas, Goombas, Yoshis, Piantas, Noki, Shy Guys, Bob-ombs, Monty Moles, Boos, and related populations. They are grouped because Mushroom-world politics is species politics: every civil war map is also a demographic map.",
-    "description": "The Mushroom sphere contains many peoples who outsiders reduce to platforming obstacles, which is historically offensive and strategically foolish. Toads are not generic civilians; they are the administrative and cultural backbone of the old kingdom. Koopas are not merely Bowser's troops; they are a civilization with military traditions, workers, nobles, and a wounded relationship to the crown. Goombas, Shy Guys, Bob-ombs, Monty Moles, Yoshis, Piantas, and Noki all occupy different roles in the region's economy and war ecology.\n\nThe civil war proves the point. A fortress is not held by abstract units. It is held by species communities with loyalties, grievances, work patterns, and fears. A Bob-omb demolition expert changes a battle differently than a Koopa foreman. A Toad refugee network changes legitimacy differently than a Yoshi migration.\n\nWaluigi groups them here so the Species tab can explain the Mushroom Kingdom as a living society rather than a backdrop with mushrooms painted on it.",
+    "description": "The Mushroom sphere contains many peoples who outsiders reduce to platforming obstacles, which is historically offensive and strategically foolish. Toads are not generic civilians; they are the administrative and cultural backbone of the old kingdom. Koopas are not merely Bowser's troops; they are a civilization with military traditions, workers, nobles, and a wounded relationship to the crown. Goombas, Shy Guys, Bob-ombs, Monty Moles, Yoshis, Piantas, and Noki all occupy different roles in the region's economy and war ecology.\n\nThe civil war proves the point. A fortress is not held by abstract units. It is held by species communities with loyalties, grievances, work patterns, and fears. A Bob-omb demolition expert changes a battle differently than a Koopa foreman. A Toad refugee network changes legitimacy differently than a Yoshi migration.\n\nWaluigi groups them here so the Species tab can explain the Mushroom Kingdom as a living society rather than a backdrop with mushrooms painted on it.\n\n> **Filing note:** For the full Toad species dossier — including cap-lineage subspecies, gallery, and liberation politics — see **[Toads](#/article/toads)**. Cap colours are subspecies under Toads, not separate race articles.\n",
     "relatedArticles": [
       "toads",
       "koopa_troopa"
