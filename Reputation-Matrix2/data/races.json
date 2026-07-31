@@ -82,32 +82,54 @@
     "writingNote": "Do not write Toads as a single cheerful worker species. Show a community, a disagreement, and the practical system that keeps people alive.",
     "wordCount": 5091,
     "gallery": [
-      "portraits/star_toad.png",
-      "portraits/toad.png",
-      "portraits/toad_lee.png",
-      "portraits/captain_toad.png",
-      "portraits/captain_toadette.png",
-      "portraits/chancellor_toadsworth.png",
-      "portraits/forest_ranger_toad.png",
-      "portraits/forest_dissident_toad.png",
-      "portraits/scarred_guard_toad.png",
-      "portraits/kitchen_toad_symp.png",
-      "portraits/liberated-toad_chorus.png",
-      "portraits/toad_alliance.png"
-    ],
-    "galleryCaptions": [
-      "Star Toad reference: a constellation-bearer and route-maker.",
-      "A common Toad face; the cap is a history, not a classification.",
-      "Toad Lee, field traveler and keeper of routes.",
-      "A civic Toad prepared for the road and the fight.",
-      "Captain Toadette, whose life changes with the institutions around her.",
-      "Chancellor Toadsworth, palace memory made visible.",
-      "A green-cap ranger reading the forest as a living map.",
-      "A forest dissident Toad refusing the old service bargain.",
-      "A scarred guard carrying the physical cost of survival.",
-      "A kitchen sympathizer: mutual aid as political infrastructure.",
-      "The Liberated Toad chorus: a people speaking together without becoming one voice.",
-      "A Toad alliance portrait showing the breadth of the community."
+      {
+        "src": "portraits/star_toad.png",
+        "caption": "Star Toad reference: a constellation-bearer and route-maker."
+      },
+      {
+        "src": "portraits/toad.png",
+        "caption": "A common Toad face; the cap is a history, not a classification."
+      },
+      {
+        "src": "portraits/toad_lee.png",
+        "caption": "Toad Lee, field traveler and keeper of routes."
+      },
+      {
+        "src": "portraits/captain_toad.png",
+        "caption": "A civic Toad prepared for the road and the fight."
+      },
+      {
+        "src": "portraits/captain_toadette.png",
+        "caption": "Captain Toadette, whose life changes with the institutions around her."
+      },
+      {
+        "src": "portraits/chancellor_toadsworth.png",
+        "caption": "Chancellor Toadsworth, palace memory made visible."
+      },
+      {
+        "src": "portraits/forest_ranger_toad.png",
+        "caption": "A green-cap ranger reading the forest as a living map."
+      },
+      {
+        "src": "portraits/forest_dissident_toad.png",
+        "caption": "A forest dissident Toad refusing the old service bargain."
+      },
+      {
+        "src": "portraits/scarred_guard_toad.png",
+        "caption": "A scarred guard carrying the physical cost of survival."
+      },
+      {
+        "src": "portraits/kitchen_toad_symp.png",
+        "caption": "A kitchen sympathizer: mutual aid as political infrastructure."
+      },
+      {
+        "src": "portraits/liberated-toad_chorus.png",
+        "caption": "The Liberated Toad chorus: a people speaking together without becoming one voice."
+      },
+      {
+        "src": "portraits/toad_alliance.png",
+        "caption": "A Toad alliance portrait showing the breadth of the community."
+      }
     ]
   },
   {
