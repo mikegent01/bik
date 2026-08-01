@@ -30,12 +30,22 @@
     if (!ctx) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) return null;
-      ctx = new AudioContext();
-      master = ctx.createGain();
-      master.gain.value = 0.22;
-      master.connect(ctx.destination);
+      try {
+        ctx = new AudioContext();
+        master = ctx.createGain();
+        master.gain.value = 0.22;
+        master.connect(ctx.destination);
+      } catch(e) {
+        console.warn('[WarioSiteSounds] AudioContext creation failed:', e);
+        return null;
+      }
     }
-    if (ctx.state === 'suspended') ctx.resume().catch(() => {});
+    if (ctx && ctx.state === 'suspended') {
+      ctx.resume().catch(() => {
+        console.warn('[WarioSiteSounds] AudioContext resume failed, requires user gesture');
+      });
+      return null;
+    }
     return ctx;
   }
 

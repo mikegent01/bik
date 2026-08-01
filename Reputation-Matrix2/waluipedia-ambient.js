@@ -102,12 +102,30 @@
     if (!audio) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) return null;
-      audio = new AudioContext();
-      master = audio.createGain();
-      master.gain.value = volume;
-      master.connect(audio.destination);
+      // Check if we have user gesture permission
+      // AudioContext must be created after user gesture in modern browsers
+      if (typeof document !== 'undefined' && document.body) {
+        // Try to create with user gesture
+        try {
+          audio = new AudioContext();
+          master = audio.createGain();
+          master.gain.value = volume;
+          master.connect(audio.destination);
+        } catch(e) {
+          console.warn('[WaluipediaAmbient] AudioContext creation failed, will retry on user gesture:', e);
+          return null;
+        }
+      } else {
+        return null;
+      }
     }
-    if (audio.state === 'suspended') audio.resume().catch(() => {});
+    // Resume if suspended (also requires user gesture)
+    if (audio.state === 'suspended') {
+      audio.resume().catch(() => {
+        console.warn('[WaluipediaAmbient] AudioContext resume failed, requires user gesture');
+      });
+      return null;
+    }
     return audio;
   }
 
@@ -185,7 +203,12 @@
     localStorage.setItem(STORE, 'on');
     if (playing) return;
     const ctx = ensureAudio();
-    if (!ctx) return;
+    if (!ctx) {
+      // AudioContext creation failed, likely due to missing user gesture
+      // This is fine - the user will click again after the first click enables audio
+      console.log('[WaluipediaAmbient] Waiting for user gesture to start audio');
+      return;
+    }
     playing = true;
     nextTime = ctx.currentTime + 0.42;
     confirmation('start');

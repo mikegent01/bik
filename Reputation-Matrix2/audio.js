@@ -6,16 +6,41 @@ class AudioEngine {
         this.masterVolume = 0.4;
         this.initialized = false;
         this.ambientNodes = [];
+        this.userGestureReceived = false;
     }
     
     init() {
+        // Only initialize if we haven't already AND we have user gesture
         if (this.initialized) return;
+        if (!this.userGestureReceived) {
+            // Mark that we want to initialize, but wait for user gesture
+            this.pendingInit = true;
+            return;
+        }
         try {
             this.ctx = new (window.AudioContext || window.webkitAudioContext)();
             this.initialized = true;
-            this.startAmbient();
+            this.pendingInit = false;
+            // Don't auto-start ambient - let it be started explicitly
+            // this.startAmbient();
         } catch(e) {
             console.warn('Web Audio not supported');
+        }
+    }
+    
+    // Call this from a user gesture handler (click, keypress, etc.)
+    handleUserGesture() {
+        this.userGestureReceived = true;
+        if (this.pendingInit) {
+            this.init();
+        }
+        // If AudioContext was suspended, resume it
+        if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume().then(() => {
+                console.log('[Audio] Context resumed after user gesture');
+            }).catch(e => {
+                console.warn('[Audio] Failed to resume context:', e);
+            });
         }
     }
     
@@ -479,12 +504,44 @@ class AudioEngine {
 // Global audio instance
 const audio = new AudioEngine();
 
-function toggleSound() {
+// Setup user gesture detection
+// This should be called on any user interaction (click, keypress, etc.)
+function setupAudioGestureHandler() {
+    // Add a global click handler that marks user gesture
+    document.addEventListener('click', () => {
+        audio.handleUserGesture();
+        // Remove this handler after first gesture to avoid redundant calls
+        document.removeEventListener('click', arguments.callee);
+    }, { once: true });
+    
+    // Also handle keypress
+    document.addEventListener('keydown', () => {
+        audio.handleUserGesture();
+        document.removeEventListener('keydown', arguments.callee);
+    }, { once: true });
+}
+
+// Call this to manually trigger audio initialization after user gesture
+function initAudioAfterGesture() {
+    audio.handleUserGesture();
     audio.init();
+}
+
+function toggleSound() {
+    initAudioAfterGesture();
     const enabled = audio.toggle();
-    document.getElementById('sound-toggle').textContent = enabled ? '🔊 Sound' : '🔇 Muted';
+    if (document.getElementById('sound-toggle')) {
+        document.getElementById('sound-toggle').textContent = enabled ? '🔊 Sound' : '🔇 Muted';
+    }
 }
 
 function setVolume(val) {
     audio.setVolume(val / 100);
+}
+
+// Auto-setup gesture handler when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupAudioGestureHandler);
+} else {
+    setupAudioGestureHandler();
 }
