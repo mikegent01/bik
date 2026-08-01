@@ -230,6 +230,35 @@
 .wi-byline{display:flex;align-items:center;gap:7px;margin-top:9px;font-size:12.5px;font-weight:700;color:#b98cff}
 .wi-povpill{background:rgba(138,75,255,.18);border-color:rgba(138,75,255,.45);color:#c9a6ff}
 @media(max-width:640px){.wi-ch-title{font-size:17px}.wi-prose{font-size:14px}.wi-arrow{display:none}}
+/* Live Terminal Badge CSS */
+.live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(224,180,0,0.12);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-left: auto;
+}
+.live-pulse {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(224,180,0,0.7);
+  animation: live-pulse-animation 1.6s infinite;
+}
+@keyframes live-pulse-animation {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(224,180,0,0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(224,180,0,0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(224,180,0,0); }
+}
 </style>
 </head>
 <body>
@@ -6495,6 +6524,18 @@ function view_home(){
   initCalendarState();
   const mp=DATA.mainPage||{};const feat=mp.featuredArticle;const fi=feat&&INDEX[feat.id]?INDEX[feat.id].item:null;
   const latest=mp.latestUpdate&&INDEX[mp.latestUpdate.id]?INDEX[mp.latestUpdate.id].item:null;
+  const directive = mp.editorialDirective || {
+    title: "WAH! Editorial Directive (1040 BF):",
+    text: "Imp Ambush of Harvestide 29 processed! Archie Miser settled 383g with the DM for a heap of warehouse rations and training dummies. Markop the centaur's hooves are clacking in Tymnas's cozy cottage, Remi Akamatsu got drenched in toxic bathroom poison, and Dan opened a creepy sensory eye. Clean up this swamp! WAH!"
+  };
+  const spotlight = mp.spotlight || {
+    kicker: "System Spotlight · Bank & Commerce",
+    title: "💱 Multi-Currency Exchange",
+    subtitle: "48 Tracked Tenders · Wallet Settlement",
+    excerpt: "Universal gold conversion rates across Gold, Mora, Wario Coin, Soul Coins, Ducats, and 44 other regional currencies. Integrated into Wario's shop checkout.",
+    actionText: "Open Bank Vaults →",
+    actionUrl: "currency.html"
+  };
   const cats=`<div class="catcard" onclick="Router.go('#/calendar')"><div class="cemoji">🗓️</div><div class="cname">Calendar</div><div class="ccount">${MONTHS.length} months · ${CUR.year} BF</div></div>`
     +`<div class="catcard" onclick="Router.go('#/atlas')"><div class="cemoji">🍩</div><div class="cname">World Atlas</div><div class="ccount">${(DATA.nations||[]).length} realms</div></div>`
     +`<div class="catcard" onclick="Router.go('#/imperial-network')"><div class="cemoji">🕸️</div><div class="cname">Imperial Pressure</div><div class="ccount">Empire ↔ Legion integrated</div></div>`
@@ -6589,14 +6630,32 @@ function view_home(){
        <div class="calendar-legend" style="margin-top:8px"><span class="lg"><i style="background:var(--accent)"></i>Has events</span><span class="lg">🟡 Today</span></div>
      </div>
      <div class="card">
-       <div class="home-section-head"><div><h2>🎭 Waluigi's Front Page Desk</h2><p>Objective Intelligence Bureau — Live Audit Logs, 48 Currency Ledgers & Active Heat Tracking</p></div></div>
+       <div class="home-section-head">
+         <div>
+           <h2>🎭 Waluigi's Front Page Desk</h2>
+           <p>Objective Intelligence Bureau — Live Audit Logs, 48 Currency Ledgers & Active Heat Tracking</p>
+         </div>
+         <div class="live-badge">
+           <span class="live-pulse"></span>
+           <span>Live Terminal</span>
+         </div>
+       </div>
        <div class="wnote mb-12" style="background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.08));border-left:4px solid var(--accent)">
-         <b>WAH! Editorial Directive (1040 BF):</b> "Imp Ambush of Harvestide 29 processed! Archie Miser settled 383g with the DM for a heap of warehouse rations and training dummies. Markop the centaur's hooves are clacking in Tymnas's cozy cottage, Remi Akamatsu got drenched in toxic bathroom poison, and Dan opened a creepy sensory eye. Clean up this swamp! WAH!"
+         <b>${esc(directive.title)}</b> "${esc(directive.text)}"
        </div>
        <div class="home-feature-grid">
          ${fi?`<div class="feature-panel" onclick="openId('${(fi.id||'').replace(/'/g,'')}')"><div class="kicker">${esc((mp.featuredArticle&&mp.featuredArticle.label)||'Featured File')}</div><h2>${displayName(fi)}${annotationBadge(fi.id)}</h2>${fi.title?`<div class="art-subtitle mb-8">${fi.title}</div>`:''}<p class="text-muted">${feat.excerpt||fi.summary||''}</p><div class="home-actions"><span class="home-action">Inspect Featured File →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP Hotline</a></div></div>`:''}
          ${latest?`<div class="feature-panel" onclick="openId('${(latest.id||'').replace(/'/g,'')}')"><div class="kicker">${mp.latestUpdate.label||'Latest Intelligence Log'}</div><h2>${displayName(latest)}${annotationBadge(latest.id)}</h2><p class="text-muted">${mp.latestUpdate.excerpt||previewText(latest)}</p><div class="home-actions"><span class="home-action">Open Latest Log →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP Context</a></div></div>`:''}
-         <div class="feature-panel" onclick="location.href='currency.html'"><div class="kicker">System Spotlight · Bank & Commerce</div><h2>💱 Multi-Currency Exchange</h2><div class="art-subtitle mb-8">48 Tracked Tenders · Wallet Settlement</div><p class="text-muted">Universal gold conversion rates across Gold, Mora, Wario Coin, Soul Coins, Ducats, and 44 other regional currencies. Integrated into Wario's shop checkout.</p><div class="home-actions"><a class="home-action" href="currency.html">Open Bank Vaults →</a><a class="home-action" href="shop.html">Browse Shop</a></div></div>
+         <div class="feature-panel" onclick="location.href='${esc(spotlight.actionUrl)}'">
+           <div class="kicker">${esc(spotlight.kicker)}</div>
+           <h2>${esc(spotlight.title)}</h2>
+           ${spotlight.subtitle ? `<div class="art-subtitle mb-8">${esc(spotlight.subtitle)}</div>` : ''}
+           <p class="text-muted">${esc(spotlight.excerpt)}</p>
+           <div class="home-actions">
+             <a class="home-action" href="${esc(spotlight.actionUrl)}">${esc(spotlight.actionText)}</a>
+             <a class="home-action" href="shop.html">Browse Shop</a>
+           </div>
+         </div>
        </div>
        <div class="mt-14" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
          <span style="font-size:12px;color:var(--muted);font-weight:700">Waluigi Desk Shortcuts:</span>

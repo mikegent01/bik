@@ -77,5 +77,17 @@
       "count": 31,
       "icon": "🌍"
     }
-  ]
+  ],
+  "editorialDirective": {
+    "title": "WAH! Editorial Directive (1040 BF):",
+    "text": "The Alpine Inn escape and the Arunedeal Goblin Camp file has been integrated! Bones managed to steal an iron breastplate from a frozen cart, got a winter coat from a goblin named Naaook for 75 gold, and teamed up with a battle-worn toad named Elbow who wields fey magic. They retreated from a colossal Legion checkpoint wall. Pay attention to the budget, and adjust the ledger immediately! WAH!"
+  },
+  "spotlight": {
+    "kicker": "System Spotlight · Bank & Commerce",
+    "title": "💱 Multi-Currency Exchange",
+    "subtitle": "48 Tracked Tenders · Wallet Settlement",
+    "excerpt": "Universal gold conversion rates across Gold, Mora, Wario Coin, Soul Coins, Ducats, and 44 other regional currencies. Integrated into Wario's shop checkout.",
+    "actionText": "Open Bank Vaults →",
+    "actionUrl": "currency.html"
+  }
 }
