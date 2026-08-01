@@ -92,6 +92,19 @@
   },
   "siteUpdates": [
     {
+      "id": "the_embassy_ambush_and_luigi_interrogation",
+      "kind": "whatif",
+      "label": "Canonical Audit · What-If",
+      "title": "The Mage's Embassy Ambush & Luigi Interrogation (1035 BF)",
+      "summary": "Waluigi's Rank-1 analytical audit of 18 Harvestide, 1035 BF (Mushroom Kingdom Era)—the day Wario attempted to kidnap Luigi from the Mage's Embassy (next to the Regal Embassy) to force answers about Mario's disappearance, featuring Dave the greeter, a 3-second countdown, an embassy explosion, a banana-peel police chase, and Luigi's heart-wrenching backseat confession about the eastern farm.",
+      "tags": [
+        "canonical audit",
+        "luigi interrogation",
+        "mario disappearance",
+        "wario"
+      ]
+    },
+    {
       "id": "bones_alpine_bank_eavesdropping_and_inn_refuge",
       "kind": "event",
       "label": "Latest Event",
