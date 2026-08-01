@@ -6536,22 +6536,113 @@ function view_home(){
     actionText: "Open Bank Vaults →",
     actionUrl: "currency.html"
   };
-  const cats=`<div class="catcard" onclick="Router.go('#/calendar')"><div class="cemoji">🗓️</div><div class="cname">Calendar</div><div class="ccount">${MONTHS.length} months · ${CUR.year} BF</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/atlas')"><div class="cemoji">🍩</div><div class="cname">World Atlas</div><div class="ccount">${(DATA.nations||[]).length} realms</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/imperial-network')"><div class="cemoji">🕸️</div><div class="cname">Imperial Pressure</div><div class="ccount">Empire ↔ Legion integrated</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/pond-docket')"><div class="cemoji">⚖️</div><div class="cname">Pond Patrol Docket</div><div class="ccount">Liberated Toads system</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/cultures')"><div class="cemoji">⚖️</div><div class="cname">Cultures & Law</div><div class="ccount">${Object.keys(CULTURES||{}).length} spheres · ${Object.keys(TRADITIONS||{}).length} traditions</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/dynasties')"><div class="cemoji">👑</div><div class="cname">Dynasties</div><div class="ccount">${Object.keys(DYNASTY_SYSTEM.houses||{}).length} bloodlines</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/items')"><div class="cemoji">🎒</div><div class="cname">Items</div><div class="ccount">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1} public items</div></div>`
-    + TYPES.filter(t=>!['locations','nations'].includes(t.key)).map(t=>`<div class="catcard" onclick="Router.go('#/list/${t.key}')"><div class="cemoji">${t.emoji}</div><div class="cname">${t.label}</div><div class="ccount">${(DATA[t.key]||[]).length}</div></div>`).join('')
-    +`<div class="catcard" onclick="Router.go('#/congress')"><div class="cemoji">🏛️</div><div class="cname">Congress</div><div class="ccount">${(DATA.congress_votes||[]).length} votes</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/artifacts')"><div class="cemoji">⭐</div><div class="cname">Artifacts</div><div class="ccount">${((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length} bearers</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/years')"><div class="cemoji">🗓️</div><div class="cname">Chronicle</div><div class="ccount">${allYears().length} years</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/timeline')"><div class="cemoji">🕰️</div><div class="cname">Timeline</div><div class="ccount">chronological</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/vendor')"><div class="cemoji">🏪</div><div class="cname">Vendors & Markets</div><div class="ccount">commerce directory</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/holiday')"><div class="cemoji">🎉</div><div class="cname">Holidays & Observances</div><div class="ccount">calendar records</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/whatif')"><div class="cemoji">❓</div><div class="cname">What Ifs</div><div class="ccount">${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length} non-canon filing${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length===1?'':'s'}</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/list/locations')"><div class="cemoji">🏰</div><div class="cname">Classic Locations Index</div><div class="ccount">tucked away</div></div>`;
+  const cats = `
+    <div class="mod-explore-section">
+      <div class="mod-explore-group">
+        <h3>📂 CORE ARCHIVES</h3>
+        <div class="mod-explore-list">
+          <div class="mod-explore-item" onclick="Router.go('#/list/characters')">
+            <span class="mod-explore-name">👤 Characters</span>
+            <span class="mod-explore-count">129 dossiers</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/list/events')">
+            <span class="mod-explore-name">📜 Historical Events</span>
+            <span class="mod-explore-count">85 events</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/list/factions')">
+            <span class="mod-explore-name">⚔️ Factions & Polities</span>
+            <span class="mod-explore-count">17 entities</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/list/battles')">
+            <span class="mod-explore-name">🗡️ Battle Records</span>
+            <span class="mod-explore-count">53 battles</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/list/races')">
+            <span class="mod-explore-name">🍄 Species & Peoples</span>
+            <span class="mod-explore-count">51 profiles</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-explore-group">
+        <h3>⚖️ JURISDICTIONS & SYSTEMS</h3>
+        <div class="mod-explore-list">
+          <div class="mod-explore-item" onclick="Router.go('#/reputation')">
+            <span class="mod-explore-name">📈 Faction Standing Matrix</span>
+            <span class="mod-explore-count">100+ matrix</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/pond-docket')">
+            <span class="mod-explore-name">⚖️ Pond Patrol Docket</span>
+            <span class="mod-explore-count">Liberated Toads</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/cultures')">
+            <span class="mod-explore-name">🎭 Cultures, Law & Customs</span>
+            <span class="mod-explore-count">15 spheres</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/list/trials')">
+            <span class="mod-explore-name">⛓️ Active Trials & Case Files</span>
+            <span class="mod-explore-count">7 trials</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/congress')">
+            <span class="mod-explore-name">🏛️ Parliamentary Congress</span>
+            <span class="mod-explore-count">16 votes</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-explore-group">
+        <h3>🕸️ STRATEGIC CONSOLES</h3>
+        <div class="mod-explore-list">
+          <div class="mod-explore-item" onclick="Router.go('#/imperial-network')">
+            <span class="mod-explore-name">🕸️ Imperial Pressure Network</span>
+            <span class="mod-explore-count">Legion Active</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/dynasties')">
+            <span class="mod-explore-name">👑 Dynasty Bloodlines</span>
+            <span class="mod-explore-count">6 lines</span>
+          </div>
+          <div class="mod-explore-item" onclick="location.href='alliances.html'">
+            <span class="mod-explore-name">🌐 Geopolitical Alliances Grid</span>
+            <span class="mod-explore-count">pacts & maps</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/artifacts')">
+            <span class="mod-explore-name">⭐ Cosmic Star Bearers Vault</span>
+            <span class="mod-explore-count">8 bearers</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/list/collections')">
+            <span class="mod-explore-name">🗂️ Curated Collections</span>
+            <span class="mod-explore-count">19 catalogs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mod-explore-group">
+        <h3>🗓️ CHRONICLES & PORTALS</h3>
+        <div class="mod-explore-list">
+          <div class="mod-explore-item" onclick="Router.go('#/calendar')">
+            <span class="mod-explore-name">📅 Imperial Calendar</span>
+            <span class="mod-explore-count">12 months</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/years')">
+            <span class="mod-explore-name">📖 Historical Chronicles</span>
+            <span class="mod-explore-count">21 years</span>
+          </div>
+          <div class="mod-explore-item" onclick="Router.go('#/timeline')">
+            <span class="mod-explore-name">🕰️ Chronological Timeline</span>
+            <span class="mod-explore-count">visual</span>
+          </div>
+          <div class="mod-explore-item" onclick="location.href='books/library.html'">
+            <span class="mod-explore-name">📚 Grand Library Archive</span>
+            <span class="mod-explore-count">40+ books</span>
+          </div>
+          <div class="mod-explore-item" onclick="location.href='xp.html'">
+            <span class="mod-explore-name">🔋 Experience & Hotline</span>
+            <span class="mod-explore-count">Lvl & Power</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
 
   const dyk=mp.didYouKnow||[],otdStatic=mp.onThisDay||[];
   const dateStr=`${MONTHS[CUR.monthIndex]||'?'} ${CUR.day}, ${CUR.year} BF`;
@@ -6593,10 +6684,10 @@ function view_home(){
   }).join('');
 
   const calMeta = `
-    <div class="calendar-explainer mt-10">
+    <div class="calendar-explainer mt-10" style="background: rgba(0,0,0,0.18); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.04);">
       <b>Today:</b> ${esc(fullDate)}<br>
       <b>Month:</b> ${esc(mdToday.name)} — ${esc(mdToday.description||'')} (${mdToday.days} days, ${seasonToday?seasonToday.name:''})<br>
-      <b>BF System:</b> BF counts UP toward present — 722 BF oldest, ${CUR.year} BF current. Larger year = more recent. Think chronicle page number. Weekday = absoluteDay % 7; absoluteDay = year×365 + days before month + (day-1). Rest days: Venerias, Saturias.<br>
+      <b>BF System:</b> BF counts UP toward present — 722 BF oldest, ${CUR.year} BF current. Larger year = more recent. Think chronicle page number. Weekday = absoluteDay % 7. Rest days: Venerias, Saturias.<br>
       <span class="chip" onclick="Router.go('#/calendar/${CUR.year}/${CUR.monthIndex}/${CUR.day}')" style="margin-top:6px;display:inline-block">Open ${esc(mdToday.name)} in Calendar →</span>
     </div>
   `;
@@ -6619,7 +6710,7 @@ function view_home(){
   const hiddenUpdates = updates.slice(4);
 
   const paths = [
-    { title: "📈 Reputation Matrix & Standings", desc: "Live 100+ faction matrix, operator standings, custom narrative assessments, and public menace heat tracking.", action: "Router.go('#/reputation')" },
+    { title: "📈 Faction Reputation Matrix", desc: "Live 100+ faction matrix, operator standings, custom narrative assessments, and public menace heat tracking.", action: "Router.go('#/reputation')" },
     { title: "🕸️ Imperial Pressure Network", desc: "Regal Empire, Iron Legion, bank, shop, reputation, and global-war data fused into one operational command layer.", action: "Router.go('#/imperial-network')" },
     { title: "⚖️ Pond Patrol Docket", desc: "Emergency Resolution 17-A rendered live: the Liberated Toads' accountability register, Pond Patrol warrants, council votes, and routes back to good standing.", action: "Router.go('#/pond-docket')" },
     { title: "💱 Multi-Currency & Bank Vaults", desc: "48 international tenders, conversion rates, wallet balances, loans, and debt ledgers.", action: "location.href='currency.html'" },
@@ -6634,14 +6725,45 @@ function view_home(){
   const initialPaths = paths.slice(0, 4);
   const hiddenPaths = paths.slice(4);
 
+  const updateItemHtml = (u) => `
+    <div class="mod-timeline-item" onclick="openId('${(u.id||'').replace(/'/g,'')}')">
+      <div class="mod-timeline-node"></div>
+      <div class="mod-timeline-content">
+        <div class="mod-timeline-header">
+          <span class="mod-timeline-label">${esc(u.label || 'Intel Log')}</span>
+          <span class="text-sm text-muted" style="font-size:11.5px; opacity:0.6">${esc(u.kind || 'event')}</span>
+        </div>
+        <div class="mod-timeline-title">${esc(u.title || displayName(u))}</div>
+        <p class="mod-timeline-summary">${esc(u.summary || '')}</p>
+        <div class="mod-timeline-tags">
+          ${(u.tags || []).map(t => `<span class="chip" style="font-size:10.4px;padding:1px 6px;margin:0;opacity:0.85">${esc(t)}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+
   el('content').innerHTML=`
    ${_loginBannerHome}
-   <div class="hero animate-fade-in" style="padding: 24px 28px; background: linear-gradient(135deg, rgba(138,75,255,0.08), rgba(20,10,30,0.5)), var(--panel);">
-     <h1 style="font-size: 26px; font-weight: 900; margin-bottom: 8px;">Welcome to Waluipedia — Now With Universal Multi-Tender Exchange & Audit Desk</h1>
-     <p style="font-size: 14.5px; line-height: 1.6; color: var(--muted); margin-bottom: 14px;">The objective encyclopedia now has Atlas dashboards, XP links, dynasty intel, 48 tracked international currencies, 7,880+ shop items, integrated Imperial Calendar, comments, and enough cross-references to make a normal archivist weep. Written by Waluigi. Disputed by everyone else.</p>
+   <div class="mod-hero animate-fade-in">
+     <h1>Welcome to Waluipedia — Now With Universal Multi-Tender Exchange & Audit Desk</h1>
+     <p>The objective encyclopedia now has Atlas dashboards, XP links, dynasty intel, 48 tracked international currencies, 7,880+ shop items, integrated Imperial Calendar, comments, and enough cross-references to make a normal archivist weep. Written by Waluigi. Disputed by everyone else.</p>
      <span class="datechip" style="font-size: 12.5px; font-weight: 700;">🕰️ Current: ${esc(fullDate)} — ${esc(wdToday.name)}</span>
-     <div class="home-actions" style="margin-top:14px; gap:8px;"><a class="home-action" onclick="Router.go('#/calendar')">📅 Imperial Calendar</a><a class="home-action" onclick="Router.go('#/article/${encodeURIComponent((mp.featuredArticle&&mp.featuredArticle.id)||'the_midnight_audit_of_harvestide_28')}')">Read Latest Audit File</a><a class="home-action" href="currency.html">💱 Currency Exchange</a><a class="home-action" href="shop.html">🛒 Wario Shop</a><a class="home-action" href="xp.html">Open XP Hotline</a><a class="home-action" onclick="Router.go('#/atlas')">World Atlas</a></div>
-     <div class="mini-stat-grid" style="margin-top: 16px;"><div class="mini-stat"><b>${ALL_ITEMS.length}</b>Articles</div><div class="mini-stat"><b>${totalAnnotations}</b>Comment threads</div><div class="mini-stat"><b>7,880+</b>Shop Items</div><div class="mini-stat"><b>48</b>Currencies</div><div class="mini-stat"><b>100</b>Factions</div><div class="mini-stat"><b>${intelTargets}</b>Intel targets</div></div>
+     <div class="mod-actions-row" style="margin-top:14px;">
+       <a class="mod-btn active" onclick="Router.go('#/calendar')">📅 Imperial Calendar</a>
+       <a class="mod-btn" onclick="Router.go('#/article/${encodeURIComponent((mp.featuredArticle&&mp.featuredArticle.id)||'the_midnight_audit_of_harvestide_28')}')">📖 Read Latest Audit File</a>
+       <a class="mod-btn" href="currency.html">💱 Currency Exchange (48 Tenders)</a>
+       <a class="mod-btn" href="shop.html">🛒 Wario Shop (7,880+ Items)</a>
+       <a class="mod-btn" href="xp.html">⚡ Open XP Hotline</a>
+       <a class="mod-btn" onclick="Router.go('#/atlas')">🍩 World Atlas</a>
+     </div>
+     <div class="mod-stats-board">
+       <div class="mod-stat-card"><span class="mod-stat-val">${ALL_ITEMS.length}</span><span class="mod-stat-lbl">Articles</span></div>
+       <div class="mod-stat-card"><span class="mod-stat-val">${totalAnnotations}</span><span class="mod-stat-lbl">Comment threads</span></div>
+       <div class="mod-stat-card"><span class="mod-stat-val">7,880+</span><span class="mod-stat-lbl">Shop Items</span></div>
+       <div class="mod-stat-card"><span class="mod-stat-val">48</span><span class="mod-stat-lbl">Currencies</span></div>
+       <div class="mod-stat-card"><span class="mod-stat-val">100</span><span class="mod-stat-lbl">Factions</span></div>
+       <div class="mod-stat-card"><span class="mod-stat-val">${intelTargets}</span><span class="mod-stat-lbl">Intel targets</span></div>
+     </div>
      ${calMeta}
    </div>
 
@@ -6673,83 +6795,132 @@ function view_home(){
      </div>
    </div>
 
-   <div class="grid2 home-layout">
-     <div class="card">
-       <div class="home-section-head"><div><h2>📅 This Month — ${esc(mdToday.name)} ${CUR.year} BF</h2><p>Mini calendar · click day to inspect · today highlighted</p></div><span class="chip" onclick="Router.go('#/calendar')">Full Calendar →</span></div>
-       <div id="home-mini-cal" class="mini-calendar"></div>
-       <div class="calendar-legend" style="margin-top:8px"><span class="lg"><i style="background:var(--accent)"></i>Has events</span><span class="lg">🟡 Today</span></div>
-     </div>
-     <div class="card">
-       <div class="home-section-head">
-         <div>
+   <div class="mod-dashboard">
+     <!-- Left Column: Primary Content -->
+     <div class="mod-left-col">
+       <div class="mod-card">
+         <div class="mod-card-header">
            <h2>🎭 Waluigi's Front Page Desk</h2>
-           <p>Objective Intelligence Bureau — Live Audit Logs, 48 Currency Ledgers & Active Heat Tracking</p>
-         </div>
-         <div class="live-badge">
-           <span class="live-pulse"></span>
-           <span>Live Terminal</span>
-         </div>
-       </div>
-       <div class="wnote mb-12" style="background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.08));border-left:4px solid var(--accent)">
-         <b>${esc(directive.title)}</b> "${esc(directive.text)}"
-       </div>
-       <div class="home-feature-grid">
-         ${fi?`<div class="feature-panel" onclick="openId('${(fi.id||'').replace(/'/g,'')}')"><div class="kicker">${esc((mp.featuredArticle&&mp.featuredArticle.label)||'Featured File')}</div><h2>${displayName(fi)}${annotationBadge(fi.id)}</h2>${fi.title?`<div class="art-subtitle mb-8">${fi.title}</div>`:''}<p class="text-muted">${feat.excerpt||fi.summary||''}</p><div class="home-actions"><span class="home-action">Inspect Featured File →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP Hotline</a></div></div>`:''}
-         ${latest?`<div class="feature-panel" onclick="openId('${(latest.id||'').replace(/'/g,'')}')"><div class="kicker">${mp.latestUpdate.label||'Latest Intelligence Log'}</div><h2>${displayName(latest)}${annotationBadge(latest.id)}</h2><p class="text-muted">${mp.latestUpdate.excerpt||previewText(latest)}</p><div class="home-actions"><span class="home-action">Open Latest Log →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP Context</a></div></div>`:''}
-         <div class="feature-panel" onclick="location.href='${esc(spotlight.actionUrl)}'">
-           <div class="kicker">${esc(spotlight.kicker)}</div>
-           <h2>${esc(spotlight.title)}</h2>
-           ${spotlight.subtitle ? `<div class="art-subtitle mb-8">${esc(spotlight.subtitle)}</div>` : ''}
-           <p class="text-muted">${esc(spotlight.excerpt)}</p>
-           <div class="home-actions">
-             <a class="home-action" href="${esc(spotlight.actionUrl)}">${esc(spotlight.actionText)}</a>
-             <a class="home-action" href="shop.html">Browse Shop</a>
+           <div class="live-badge">
+             <span class="live-pulse"></span>
+             <span>Live Terminal</span>
            </div>
          </div>
+         <div class="wnote mb-12" style="background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.08));border-left:4px solid var(--accent)">
+           <b>${esc(directive.title)}</b> "${esc(directive.text)}"
+         </div>
+         <div class="home-feature-grid">
+           ${fi?`<div class="feature-panel" onclick="openId('${(fi.id||'').replace(/'/g,'')}')"><div class="kicker">${esc((mp.featuredArticle&&mp.featuredArticle.label)||'Featured File')}</div><h2>${displayName(fi)}${annotationBadge(fi.id)}</h2>${fi.title?`<div class="art-subtitle mb-8">${fi.title}</div>`:''}<p class="text-muted">${feat.excerpt||fi.summary||''}</p><div class="home-actions"><span class="home-action">Inspect Featured File →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP Hotline</a></div></div>`:''}
+           ${latest?`<div class="feature-panel" onclick="openId('${(latest.id||'').replace(/'/g,'')}')"><div class="kicker">${mp.latestUpdate.label||'Latest Intelligence Log'}</div><h2>${displayName(latest)}${annotationBadge(latest.id)}</h2><p class="text-muted">${mp.latestUpdate.excerpt||previewText(latest)}</p><div class="home-actions"><span class="home-action">Open Latest Log →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP Context</a></div></div>`:''}
+           <div class="feature-panel" onclick="location.href='${esc(spotlight.actionUrl)}'">
+             <div class="kicker">${esc(spotlight.kicker)}</div>
+             <h2>${esc(spotlight.title)}</h2>
+             ${spotlight.subtitle ? `<div class="art-subtitle mb-8">${esc(spotlight.subtitle)}</div>` : ''}
+             <p class="text-muted">${esc(spotlight.excerpt)}</p>
+             <div class="home-actions">
+               <a class="home-action" href="${esc(spotlight.actionUrl)}">${esc(spotlight.actionText)}</a>
+               <a class="home-action" href="shop.html">Browse Shop</a>
+             </div>
+           </div>
+         </div>
+         <div class="mt-14" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+           <span style="font-size:12px;color:var(--muted);font-weight:700">Waluigi Desk Shortcuts:</span>
+           <span class="chip active" onclick="location.href='currency.html'">💱 Bank (48 Currencies)</span>
+           <span class="chip" onclick="location.href='shop.html'">🛒 Wario Shop (7,880+ Items)</span>
+           <span class="chip" onclick="Router.go('#/imperial-network')">🕸️ Imperial Pressure Network</span>
+           <span class="chip" onclick="Router.go('#/pond-docket')">⚖️ Pond Patrol Docket</span>
+           <span class="chip" onclick="location.href='assembly.html'">🏛️ Grand Assembly</span>
+           <span class="chip" onclick="Router.go('#/artifacts')">⭐ Star Bearers Vault</span>
+           <span class="chip" onclick="location.href='books/library.html'">📚 Grand Library</span>
+           <span class="chip" onclick="location.href='alliances.html'">🌐 Alliances Grid</span>
+         </div>
        </div>
-       <div class="mt-14" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
-         <span style="font-size:12px;color:var(--muted);font-weight:700">Waluigi Desk Shortcuts:</span>
-         <span class="chip active" onclick="location.href='currency.html'">💱 Bank (48 Currencies)</span>
-         <span class="chip" onclick="location.href='shop.html'">🛒 Wario Shop (7,880+ Items)</span>
-         <span class="chip" onclick="Router.go('#/imperial-network')">🕸️ Imperial Pressure Network</span>
-         <span class="chip" onclick="Router.go('#/pond-docket')">⚖️ Pond Patrol Docket</span>
-         <span class="chip" onclick="location.href='assembly.html'">🏛️ Grand Assembly</span>
-         <span class="chip" onclick="Router.go('#/artifacts')">⭐ Star Bearers Vault</span>
-         <span class="chip" onclick="location.href='books/library.html'">📚 Grand Library</span>
-         <span class="chip" onclick="location.href='alliances.html'">🌐 Alliances Grid</span>
+
+       <div class="mod-card">
+         <div class="mod-card-header">
+           <h2>🧭 Explore Faction Atlas & Database</h2>
+         </div>
+         ${cats}
+       </div>
+
+       <div class="mod-card">
+         <div class="mod-card-header">
+           <h2>👁️ Active Intel Feed & Audit Updates</h2>
+         </div>
+         <div class="mod-timeline" id="main-update-grid">
+           ${initialUpdates.map(updateItemHtml).join('')}
+           ${hiddenUpdates.map(u => `<div class="hidden-update-card" style="display:none">${updateItemHtml(u)}</div>`).join('')}
+         </div>
+         ${hiddenUpdates.length > 0 ? `
+           <div class="mt-10 text-center" id="load-more-container" style="margin-top: 14px;">
+             <span class="chip" onclick="document.querySelectorAll('.hidden-update-card').forEach(el=>el.style.display='block'); document.getElementById('load-more-container').style.display='none';" style="cursor:pointer;background:var(--panel);border-color:var(--accent)">
+               🔽 Load More Intelligence Logs (${hiddenUpdates.length} remaining) →
+             </span>
+           </div>
+         ` : ''}
+       </div>
+
+       <div class="mod-card">
+         <div class="mod-card-header">
+           <h2>📚 Suggested Strategic Paths & Dossiers</h2>
+         </div>
+         <div class="mod-dossier-grid" id="main-path-grid">
+           ${initialPaths.map(p => `
+             <div class="mod-dossier-card" onclick="${p.action}">
+               <h3>${esc(p.title)}</h3>
+               <p>${esc(p.desc)}</p>
+             </div>
+           `).join('')}
+           ${hiddenPaths.map(p => `
+             <div class="hidden-path-card mod-dossier-card" style="display:none" onclick="${p.action}">
+               <h3>${esc(p.title)}</h3>
+               <p>${esc(p.desc)}</p>
+             </div>
+           `).join('')}
+         </div>
+         ${hiddenPaths.length > 0 ? `
+           <div class="mt-10 text-center" id="load-more-paths-container" style="margin-top: 14px; margin-bottom: 12px;">
+             <span class="chip" onclick="document.querySelectorAll('.hidden-path-card').forEach(el=>el.style.display='block'); document.getElementById('load-more-paths-container').style.display='none';" style="cursor:pointer;background:var(--panel);border-color:var(--accent)">
+               📂 Expand All Reading Paths (${hiddenPaths.length} remaining) →
+             </span>
+           </div>
+         ` : ''}
        </div>
      </div>
-   </div>
-   <div class="card"><div class="home-section-head"><div><h2>Explore</h2><p>Explore all categories, system portals, and cross-realm directories in Waluipedia core.</p></div></div><div class="grid-cats">${cats}</div>
-     <h2 class="mt-18">Recently Updated / Added</h2>
-     <div class="update-grid" id="main-update-grid">
-       ${initialUpdates.map(updateCard).join('')}
-       ${hiddenUpdates.map(u => `<div class="hidden-update-card" style="display:none">${updateCard(u)}</div>`).join('')}
-     </div>
-     ${hiddenUpdates.length > 0 ? `
-       <div class="mt-10 text-center" id="load-more-container" style="margin-top: 14px;">
-         <span class="chip" onclick="document.querySelectorAll('.hidden-update-card').forEach(el=>el.style.display='block'); document.getElementById('load-more-container').style.display='none';" style="cursor:pointer;background:var(--panel);border-color:var(--accent)">
-           🔽 Load More Site Updates (${hiddenUpdates.length} remaining) →
-         </span>
+
+     <!-- Right Column: Context Widgets -->
+     <div class="mod-right-col">
+       <div class="mod-card">
+         <div class="mod-card-header">
+           <h2>📅 Mini Calendar</h2>
+         </div>
+         <div id="home-mini-cal" class="mini-calendar"></div>
+         <div class="calendar-legend" style="margin-top:8px"><span class="lg"><i style="background:var(--accent)"></i>Has events</span><span class="lg">🟡 Today</span></div>
        </div>
-     ` : ''}
-     <h2 class="mt-18">Comment Spotlight <a class="chip" href="#/annotations" style="font-size:11px;vertical-align:middle;margin-left:8px">Full Chatter Hub →</a></h2><div class="comment-grid">${commentSpotlightCards()}</div>
-     <h2 class="mt-18">Suggested Reading Paths</h2>
-     <div class="path-grid" id="main-path-grid">
-       ${initialPaths.map(p => `<div class="path-card" onclick="${p.action}"><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p></div>`).join('')}
-       ${hiddenPaths.map(p => `<div class="hidden-path-card path-card" style="display:none" onclick="${p.action}"><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p></div>`).join('')}
-     </div>
-     ${hiddenPaths.length > 0 ? `
-       <div class="mt-10 text-center" id="load-more-paths-container" style="margin-top: 14px; margin-bottom: 12px;">
-         <span class="chip" onclick="document.querySelectorAll('.hidden-path-card').forEach(el=>el.style.display='block'); document.getElementById('load-more-paths-container').style.display='none';" style="cursor:pointer;background:var(--panel);border-color:var(--accent)">
-           📂 Expand All Reading Paths (${hiddenPaths.length} remaining) →
-         </span>
+
+       <div class="mod-card">
+         <div class="mod-card-header">
+           <h2>💡 Did You Know…</h2>
+         </div>
+         <ul class="dyk" style="padding-left: 16px; margin: 0; line-height: 1.6;">${dyk.slice(0,7).map(x=>`<li style="margin-bottom:8px; font-size:13.5px; color:var(--muted);">${esc(x)}</li>`).join('')}</ul>
        </div>
-     ` : ''}
-   </div>
-   <div class="grid2">
-     <div class="card"><div class="section-title">Did You Know…</div><ul class="dyk">${dyk.slice(0,7).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
-     <div class="card"><div class="section-title">On This Day — ${esc(mdToday.name)} ${CUR.day} (dynamic, all years)</div><ul class="otd">${otdHtml||'<li class="text-muted">No entries for today yet — add dated events to populate this automatically.</li>'}</ul><div class="mt-10"><span class="chip" onclick="Router.go('#/year/${CUR.year}')">${CUR.year} BF chronicle →</span> <span class="chip" onclick="Router.go('#/calendar/${CUR.year}/${CUR.monthIndex}/${CUR.day}')">Open today in calendar →</span></div></div>
+
+       <div class="mod-card">
+         <div class="mod-card-header">
+           <h2>🌍 On This Day — ${esc(mdToday.name)} ${CUR.day}</h2>
+         </div>
+         <ul class="otd" style="padding-left: 16px; margin: 0; line-height: 1.6;">${otdHtml||'<li class="text-muted" style="font-size:13.5px;">No entries for today yet — add dated events to populate this automatically.</li>'}</ul>
+         <div class="mt-10" style="margin-top:14px;"><span class="chip" onclick="Router.go('#/year/${CUR.year}')">${CUR.year} BF chronicle →</span> <span class="chip" onclick="Router.go('#/calendar/${CUR.year}/${CUR.monthIndex}/${CUR.day}')">Calendar Detail →</span></div>
+       </div>
+
+       <div class="mod-card">
+         <div class="mod-card-header">
+           <h2>💬 Comment Spotlight</h2>
+           <span class="chip" onclick="Router.go('#/annotations')">Chatter Hub →</span>
+         </div>
+         <div class="comment-grid" style="display:flex; flex-direction:column; gap:12px;">${commentSpotlightCards()}</div>
+       </div>
+     </div>
    </div>`;
   try{ renderMiniCalendar('home-mini-cal', CUR.year, CUR.monthIndex); }catch(e){ console.warn('mini cal failed', e); }
   window.scrollTo(0,0);
