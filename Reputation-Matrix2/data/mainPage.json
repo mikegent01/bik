@@ -92,16 +92,16 @@
   },
   "siteUpdates": [
     {
-      "id": "bones_alpine_flight_goblin_camp_and_legion_wall",
+      "id": "bones_alpine_bank_eavesdropping_and_inn_refuge",
       "kind": "event",
       "label": "Latest Event",
-      "title": "Flight from the Alpine Inn",
-      "summary": "Bones escapes from the Alpine Inn, evading a Legion maid-infiltration trap, steals a breastplate from an ice-bound blacksmith cart, negotiates with Naaook the goblin, and teams up with a battle-worn toad mage named Elbow as they head toward a colossal checkpoint wall.",
+      "title": "Flight from the Alpine Inn & The Legion Wall Checkpoint",
+      "summary": "Bones escapes from the Alpine Inn, evading a Legion maid-infiltration trap, steals a breastplate from an ice-bound blacksmith cart, negotiates with Naaook the goblin for 75 gold, and teams up with a battle-worn toad mage named Elbow as they head toward a colossal checkpoint wall.",
       "tags": [
         "latest",
         "bones",
-        "escape",
-        "alliance"
+        "alpine inn",
+        "legion wall"
       ]
     },
     {
