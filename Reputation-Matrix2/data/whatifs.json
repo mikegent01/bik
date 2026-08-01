@@ -9,17 +9,17 @@
   "whatifs": [
     {
       "id": "the_embassy_ambush_and_luigi_interrogation",
-      "title": "The Mage's Embassy Ambush & The Luigi Interrogation (1040 BF)",
+      "title": "The Mage's Embassy Ambush & The Luigi Interrogation (1035 BF)",
       "subtitle": "Wario's Four-Call Squad, Dave the Greeter, a Blown-Up Embassy, and the Truth About Mario's Disappearance on the Farm",
       "emoji": "🏛️",
       "accent": "#8a4bff",
-      "kicker": "Classified Canonical Audit · Harvestide 1040 BF",
-      "status": "Canonical Intelligence Audit / Historical Retrospective (1040 BF)",
+      "kicker": "Classified Canonical Audit · Harvestide 1035 BF",
+      "status": "Canonical Intelligence Audit / Historical Retrospective (1035 BF Incident · Mushroom Kingdom Era)",
       "clearance": "Open file — filed by Waluigi as an official eyewitness record of the day Luigi confessed on the road from the Mage's Embassy",
       "subject": "Luigi & Wario",
       "subjectImage": "waluigi.png",
       "divergence": "Canonical Retrospective: While other What-If filings explore non-canon alternate timelines, Waluigi files this record as 100% CANONICAL. The Mage's Embassy exploded, Luigi cried in the backseat of Wario's car, Jimmy and Mona mutinied, and Mario is confirmed to have vanished on an eastern farm over a year ago.",
-      "premise": "In Harvestide 1040 BF, after receiving Auditor Toad papers referencing Mario's desire to 'crouch and backwards longjump out of this stupid kingdom,' Wario mobilizes a mercenary squad (Jimmy T, Mona, Ashley) to ambush Luigi at the Mage's Embassy next to the Regal Empire Embassy. The operation degenerates into arson, alarms, a banana-peel police chase, and an emotional backseat confession from Luigi that changes the campaign forever.",
+      "premise": "In Harvestide 1035 BF (Mushroom Kingdom Era), after receiving Auditor Toad papers referencing Mario's desire to 'crouch and backwards longjump out of this stupid kingdom,' Wario mobilizes a mercenary squad (Jimmy T, Mona, Ashley) to ambush Luigi at the Mage's Embassy next to the Regal Empire Embassy. The operation degenerates into arson, alarms, a banana-peel police chase, and an emotional backseat confession from Luigi that changes the campaign forever.",
       "summary": "Waluigi's analytical eyewitness audit of the day Wario attempted to kidnap Luigi from the Mage's Embassy to force answers about Mario's disappearance. What begins as a comedic WarioWare corporate scheme escalates into an embassy explosion, a high-speed police chase, and a heart-wrenching backseat confession where Luigi breaks down in tears, admitting Mario left with someone important on a farm over a year ago and never returned. While Wario's mercenary squad mutinies and Luigi escapes into the night, Waluigi reflects on the profound geopolitical reality of a kingdom without Mario.",
       "tags": [
         "Waluigi",
@@ -29,8 +29,10 @@
         "Mages Guild",
         "Regal Empire",
         "Canonical Audit",
-        "1040 BF",
-        "Embassy Ambush"
+        "1035 BF",
+        "Embassy Ambush",
+        "Mushroom Kingdom",
+        "1030s BF"
       ],
       "readingTime": 24,
       "wordCount": 5850,
