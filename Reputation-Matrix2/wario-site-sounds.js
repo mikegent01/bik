@@ -7,6 +7,7 @@
   let enabled = localStorage.getItem(STORAGE_KEY) !== 'off';
   let ctx = null;
   let master = null;
+  let unlocked = false;       // true after the first real user gesture (pointerdown/keydown/touch/click)
   let lastHover = 0;
   let lastHoverItem = null;   // which control last played the hover cue (stops repeats)
   let lastInput = 0;
@@ -27,6 +28,11 @@
 
   function ensureAudio() {
     if (!allowed()) return null;
+    // Browsers refuse to start an AudioContext created before a user gesture and log
+    // "The AudioContext was not allowed to start" — so only create it after a real
+    // gesture (pointerdown / keydown / touch / click). Hover, hashchange and mutation
+    // cues that fire earlier simply stay silent instead of warning.
+    if (!unlocked) return null;
     if (!ctx) {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       if (!AudioContext) return null;
@@ -205,10 +211,19 @@
     return 'click';
   }
 
-  document.addEventListener('pointerdown', ensureAudio, { passive: true, once: true });
-  document.addEventListener('keydown', ensureAudio, { passive: true, once: true });
+  // Unlock once on the first genuine user gesture, then create the context inside it.
+  function unlockAudio() {
+    if (unlocked) return;
+    unlocked = true;
+    ensureAudio();
+  }
+  document.addEventListener('pointerdown', unlockAudio, { passive: true, once: true });
+  document.addEventListener('keydown', unlockAudio, { passive: true, once: true });
+  document.addEventListener('touchstart', unlockAudio, { passive: true, once: true });
+  document.addEventListener('click', unlockAudio, { passive: true, once: true });
 
   document.addEventListener('pointerdown', event => {
+    unlockAudio();
     const item = interactiveFrom(event.target);
     if (!item) return;
     // Unlock + immediate tactile downbeat; click handler may add a more specific cue.
@@ -255,6 +270,7 @@
   }, true);
 
   document.addEventListener('click', event => {
+    unlockAudio();
     const now = performance.now();
     if (now - lastAnyClick < 45) return;
     lastAnyClick = now;
