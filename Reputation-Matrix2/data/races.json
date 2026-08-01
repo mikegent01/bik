@@ -93,7 +93,7 @@
         "emoji": "🔴",
         "color": "#e5484d",
         "aka": "Postcard Toads · Classic caps",
-        "image": "portraits/toad.png",
+        "image": "portraits/cap_red_spot.png",
         "tags": [
           "Common",
           "Civic",
@@ -107,7 +107,7 @@
         "emoji": "🟢",
         "color": "#2fae8a",
         "aka": "Green-line · Field & quiet work",
-        "image": "portraits/green_t.png",
+        "image": "portraits/cap_green.png",
         "tags": [
           "Lineage",
           "Specialist",
@@ -121,7 +121,7 @@
         "emoji": "🔵",
         "color": "#5aa9e6",
         "aka": "Harbour & clerk lines",
-        "image": "portraits/captain_toad.png",
+        "image": "portraits/cap_blue.png",
         "tags": [
           "Logistics",
           "Clerical",
@@ -135,7 +135,7 @@
         "emoji": "🟡",
         "color": "#e0b400",
         "aka": "Market golds",
-        "image": "portraits/chancellor_toadsworth.png",
+        "image": "portraits/cap_yellow.png",
         "tags": [
           "Merchant",
           "Court",
@@ -149,7 +149,7 @@
         "emoji": "🟣",
         "color": "#8a4bff",
         "aka": "Rare line · omen gossip",
-        "image": "portraits/captain_toadette.png",
+        "image": "portraits/cap_purple.png",
         "tags": [
           "Rare",
           "Symbolic",
