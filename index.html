@@ -6519,6 +6519,61 @@ function commentSpotlightCards(){
   return anns.slice(0,4).map(a=>{const rec=INDEX[a.articleId]; const title=rec?displayName(rec.item):prettyId(a.articleId); const comments=(a.comments||[]); const first=comments[0]||{}; return `<div class="comment-card" onclick="Router.go('#/article/${encodeURIComponent(a.articleId)}')"><div class="kicker">💬 ${comments.length} comments · ${esc(title)}</div><h3>${esc(first.author||'Commentary')}</h3><blockquote>${esc(a.quote||'').slice(0,170)}${(a.quote||'').length>170?'…':''}</blockquote><p>${esc(first.text||'').slice(0,180)}${(first.text||'').length>180?'…':''}</p></div>`;}).join('');
 }
 
+window.openCalendarMathModal = function() {
+  let existing = document.getElementById('cal-math-modal');
+  if (existing) existing.remove();
+  const mdToday = (typeof getMonthData === 'function') ? getMonthData(CUR.monthIndex) : { name: MONTHS[CUR.monthIndex], days: 30 };
+  const seasonToday = (typeof getSeasonForMonth === 'function') ? getSeasonForMonth(mdToday.ordinal || CUR.monthIndex + 1) : null;
+  const dateStr = `${MONTHS[CUR.monthIndex]||'?'} ${CUR.day}, ${CUR.year} BF`;
+  const fullDate = (typeof formatFullDate === 'function') ? formatFullDate(CUR.year, CUR.monthIndex, CUR.day) : dateStr;
+  const modalHtml = `
+    <div id="cal-math-modal" class="calendar-math-modal-overlay animate-fade-in" onclick="if(event.target===this)closeCalendarMathModal();">
+      <div class="calendar-math-modal" style="position:relative;">
+        <div class="flex-between-center" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <h3 style="margin:0;font-size:18px;color:var(--accent2);">🕰️ Imperial Calendar &amp; BF System Math</h3>
+          <span class="chip" onclick="closeCalendarMathModal()" style="cursor:pointer;margin:0;">✕ Close</span>
+        </div>
+        <div style="font-size:14px;line-height:1.65;color:var(--text);">
+          <p style="margin-top:0;"><b>Current Date:</b> ${esc(fullDate)}</p>
+          <p><b>Month Lore:</b> ${esc(mdToday.name)} — ${esc(mdToday.description||'')} (${mdToday.days} days${seasonToday ? ', ' + seasonToday.name : ''})</p>
+          <p><b>The BF Chronicle System:</b> BF counts UP toward the present — 722 BF is the oldest recorded year, and ${CUR.year} BF is the current active year. A larger number indicates a more recent year (think of it like a chronicle page number).</p>
+          <p><b>Weekday &amp; Absolute Math:</b> Weekday = absoluteDay % 7; where absoluteDay = (year × 365) + days before month + (day - 1). Standard rest days are Venerias and Saturias.</p>
+        </div>
+        <div style="margin-top:18px;display:flex;gap:10px;justify-content:flex-end;">
+          <button class="chip active" onclick="closeCalendarMathModal(); Router.go('#/calendar');">📅 Open Full Imperial Calendar →</button>
+          <button class="chip" onclick="closeCalendarMathModal();">Close</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+};
+window.closeCalendarMathModal = function() {
+  let existing = document.getElementById('cal-math-modal');
+  if (existing) existing.remove();
+};
+
+window.filterHomeCategories = function(tab) {
+  const tabs = document.querySelectorAll('.home-cat-tab');
+  tabs.forEach(t => {
+    if (t.getAttribute('data-tab') === tab) {
+      t.classList.add('active');
+    } else {
+      t.classList.remove('active');
+    }
+  });
+  const grid = document.getElementById('home-cat-grid');
+  if (!grid || !window.HOME_CATEGORIES_DATA) return;
+  const filtered = (tab === 'all') ? window.HOME_CATEGORIES_DATA : window.HOME_CATEGORIES_DATA.filter(c => c.group === tab);
+  grid.innerHTML = filtered.map(c => `
+    <div class="catcard" onclick="${c.action}">
+      <div class="cemoji">${c.emoji}</div>
+      <div class="cname">${esc(c.label)}</div>
+      <div class="ccount">${esc(c.count)}</div>
+    </div>
+  `).join('');
+};
+
 function view_home(){
   renderSidebar(null);
   initCalendarState();
@@ -6536,22 +6591,6 @@ function view_home(){
     actionText: "Open Bank Vaults →",
     actionUrl: "currency.html"
   };
-  const cats=`<div class="catcard" onclick="Router.go('#/calendar')"><div class="cemoji">🗓️</div><div class="cname">Calendar</div><div class="ccount">${MONTHS.length} months · ${CUR.year} BF</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/atlas')"><div class="cemoji">🍩</div><div class="cname">World Atlas</div><div class="ccount">${(DATA.nations||[]).length} realms</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/imperial-network')"><div class="cemoji">🕸️</div><div class="cname">Imperial Pressure</div><div class="ccount">Empire ↔ Legion integrated</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/pond-docket')"><div class="cemoji">⚖️</div><div class="cname">Pond Patrol Docket</div><div class="ccount">Liberated Toads system</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/cultures')"><div class="cemoji">⚖️</div><div class="cname">Cultures & Law</div><div class="ccount">${Object.keys(CULTURES||{}).length} spheres · ${Object.keys(TRADITIONS||{}).length} traditions</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/dynasties')"><div class="cemoji">👑</div><div class="cname">Dynasties</div><div class="ccount">${Object.keys(DYNASTY_SYSTEM.houses||{}).length} bloodlines</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/items')"><div class="cemoji">🎒</div><div class="cname">Items</div><div class="ccount">${Object.keys(INVENTORY_SYSTEM.items||{}).length-1} public items</div></div>`
-    + TYPES.filter(t=>!['locations','nations'].includes(t.key)).map(t=>`<div class="catcard" onclick="Router.go('#/list/${t.key}')"><div class="cemoji">${t.emoji}</div><div class="cname">${t.label}</div><div class="ccount">${(DATA[t.key]||[]).length}</div></div>`).join('')
-    +`<div class="catcard" onclick="Router.go('#/congress')"><div class="cemoji">🏛️</div><div class="cname">Congress</div><div class="ccount">${(DATA.congress_votes||[]).length} votes</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/artifacts')"><div class="cemoji">⭐</div><div class="cname">Artifacts</div><div class="ccount">${((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length} bearers</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/years')"><div class="cemoji">🗓️</div><div class="cname">Chronicle</div><div class="ccount">${allYears().length} years</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/timeline')"><div class="cemoji">🕰️</div><div class="cname">Timeline</div><div class="ccount">chronological</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/vendor')"><div class="cemoji">🏪</div><div class="cname">Vendors & Markets</div><div class="ccount">commerce directory</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/holiday')"><div class="cemoji">🎉</div><div class="cname">Holidays & Observances</div><div class="ccount">calendar records</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/whatif')"><div class="cemoji">❓</div><div class="cname">What Ifs</div><div class="ccount">${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length} non-canon filing${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length===1?'':'s'}</div></div>`
-    +`<div class="catcard" onclick="Router.go('#/list/locations')"><div class="cemoji">🏰</div><div class="cname">Classic Locations Index</div><div class="ccount">tucked away</div></div>`;
 
   const dyk=mp.didYouKnow||[],otdStatic=mp.onThisDay||[];
   const dateStr=`${MONTHS[CUR.monthIndex]||'?'} ${CUR.day}, ${CUR.year} BF`;
@@ -6563,196 +6602,533 @@ function view_home(){
   const intelTargets=Object.keys(partyIntel()).length;
 
   // Dynamic On This Day: events that happened on same month/day in any year
-  let dynamicOTD=[];
-  try{
-    const curMo=CUR.monthIndex+1;
-    const curDay=CUR.day;
-    (DATA.events||[]).forEach(e=>{
-      if(!e) return;
-      const mo=parseMonth(e.date||'');
-      const d=parseDay(e.date||'');
-      if(mo===curMo && d===curDay){
-        const yr=parseYear(e.date||'')||'?';
-        dynamicOTD.push({text:`${yr} BF — ${e.name||e.title||e.id}`, id:e.id, route:'#/article/'+encodeURIComponent(e.id)});
+  let dynamicOTD = [];
+  try {
+    const curMo = CUR.monthIndex + 1;
+    const curDay = CUR.day;
+    (DATA.events || []).forEach(e => {
+      if (!e) return;
+      const mo = parseMonth(e.date || '');
+      const d = parseDay(e.date || '');
+      if (mo === curMo && d === curDay) {
+        const yr = parseYear(e.date || '') || '?';
+        dynamicOTD.push({ text: `${yr} BF — ${e.name || e.title || e.id}`, id: e.id, route: '#/article/' + encodeURIComponent(e.id) });
       }
     });
-    (DATA.battles||[]).concat(DATA.majorBattles||[]).forEach(b=>{
-      if(!b) return;
-      const mo=parseMonth(b.date||'');
-      const d=parseDay(b.date||'');
-      if(mo===curMo && d===curDay){
-        const yr=parseYear(b.date||'')||'?';
-        dynamicOTD.push({text:`${yr} BF — Battle: ${b.name}`, id:b.id, route:b.conflict?'#/mbattle/'+encodeURIComponent(b.id):'#/article/'+encodeURIComponent(b.id)});
+    (DATA.battles || []).concat(DATA.majorBattles || []).forEach(b => {
+      if (!b) return;
+      const mo = parseMonth(b.date || '');
+      const d = parseDay(b.date || '');
+      if (mo === curMo && d === curDay) {
+        const yr = parseYear(b.date || '') || '?';
+        dynamicOTD.push({ text: `${yr} BF — Battle: ${b.name}`, id: b.id, route: b.conflict ? '#/mbattle/' + encodeURIComponent(b.id) : '#/article/' + encodeURIComponent(b.id) });
       }
     });
-  }catch(e){ dynamicOTD=[]; }
+  } catch(e) { dynamicOTD = []; }
 
-  const otdHtml = (dynamicOTD.length?dynamicOTD:otdStatic.map(s=>({text:s}))).slice(0,10).map(x=>{
-    if(x.route) return `<li><a onclick="Router.go('${x.route}')">${esc(x.text)}</a></li>`;
-    return `<li>${esc(x.text||x)}</li>`;
+  const otdHtml = (dynamicOTD.length ? dynamicOTD : otdStatic.map(s => ({ text: s }))).slice(0, 8).map(x => {
+    if (x.route) return `<li style="margin-bottom:6px;"><a onclick="Router.go('${x.route}')" style="cursor:pointer;text-decoration:none;">${esc(x.text)}</a></li>`;
+    return `<li style="margin-bottom:6px;">${esc(x.text || x)}</li>`;
   }).join('');
 
-  const calMeta = `
-    <div class="calendar-explainer mt-10">
-      <b>Today:</b> ${esc(fullDate)}<br>
-      <b>Month:</b> ${esc(mdToday.name)} — ${esc(mdToday.description||'')} (${mdToday.days} days, ${seasonToday?seasonToday.name:''})<br>
-      <b>BF System:</b> BF counts UP toward present — 722 BF oldest, ${CUR.year} BF current. Larger year = more recent. Think chronicle page number. Weekday = absoluteDay % 7; absoluteDay = year×365 + days before month + (day-1). Rest days: Venerias, Saturias.<br>
-      <span class="chip" onclick="Router.go('#/calendar/${CUR.year}/${CUR.monthIndex}/${CUR.day}')" style="margin-top:6px;display:inline-block">Open ${esc(mdToday.name)} in Calendar →</span>
-    </div>
-  `;
-  const _uidHome = (typeof getCurrentUserId==='function'?getCurrentUserId():null);
+  const _uidHome = typeof getCurrentUserId === 'function' ? getCurrentUserId() : null;
   const _loginBannerHome = !_uidHome ? `
-    <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
-      <div class="flex-gap-14-start">
-        <div class="waluigi-ava-big" style="width:64px;height:64px;font-size:30px;flex:0 0 64px">W</div>
-        <div class="flex-1">
-          <div class="section-title">🔐 IMMERSIVE SIGN-ON REQUIRED — WALUIGI DEMANDS IT</div>
-          <p style="color:var(--text);font-size:14px;line-height:1.55;margin:4px 0"><b>WAH!</b> You are browsing as <i>ANONYMOUS</i>! Connect your operator to see <b>wallet</b> (gold equiv), <b>XP</b> (Lvl, Power, Fame), and <b>bio</b> — all linked to XP page + bios! Each operator gets custom <code>Welcome, X</code>!</p>
-          <div class="chips mt-10"><span class="chip active" onclick="Router.go('#/login')">🔐 Connect now — immersive Waluigi welcome →</span><span class="chip" onclick="Router.go('#/items')">XP page + bios (guest)</span><span class="chip" onclick="location.href='currency.html'">Bank (intuitive)</span></div>
+    <div class="card animate-fade-in" style="border-left:4px solid var(--accent); background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel); padding:16px 20px; margin-bottom:18px;">
+      <div class="flex-gap-14-start" style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+        <div class="waluigi-ava-big" style="width:52px;height:52px;font-size:26px;flex:0 0 52px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:900;">W</div>
+        <div class="flex-1" style="flex:1;min-width:240px;">
+          <div style="font-size:14.5px;font-weight:800;color:var(--text);">🔐 IMMERSIVE SIGN-ON — LINK OPERATOR SESSION</div>
+          <div style="color:var(--muted);font-size:13px;line-height:1.45;margin:4px 0;">Connect your character session to view active wallet balances, XP progression, and custom Waluigi greetings.</div>
+          <div class="chips mt-10" style="margin-top:8px; display:flex; gap:8px;">
+            <span class="chip active" onclick="Router.go('#/login')" style="cursor:pointer;background:var(--accent);color:#fff;padding:5px 14px;border-radius:999px;font-weight:700;">🔐 Connect Session Now →</span>
+            <span class="chip" onclick="location.href='currency.html'" style="cursor:pointer;background:var(--panel2);border:1px solid var(--border);padding:5px 14px;border-radius:999px;">💱 48-Currency Exchange</span>
+          </div>
         </div>
       </div>
     </div>` : `
-    <div class="card animate-fade-in border-left-green"><div class="flex-gap-12-center"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#fff;font-weight:900">${esc((XP_SUMMARY[_uidHome]?.name||_uidHome||'U')[0].toUpperCase())}</div><div><b>Connected as ${esc(XP_SUMMARY[_uidHome]?.name||_uidHome||'User')}</b><div class="text-muted text-sm">${esc(typeof getWaluigiWelcome==='function'?getWaluigiWelcome(_uidHome).slice(0,110):'WAH! Welcome back!')}…</div></div><div class="ml-auto chips"><span class="chip" onclick="Router.go('#/profile')">Dossier → wallet/XP/bio</span></div></div></div>`;
+    <div class="card animate-fade-in border-left-green" style="border-left:4px solid var(--green); background:linear-gradient(135deg,rgba(47,174,138,0.12),var(--panel)); padding:16px 20px; margin-bottom:18px;">
+      <div class="flex-gap-12-center" style="display:flex; align-items:center; gap:14px; justify-content:space-between; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#fff;font-weight:900;">${esc((XP_SUMMARY[_uidHome]?.name||_uidHome||'U')[0].toUpperCase())}</div>
+          <div>
+            <b style="font-size:15px;color:var(--text);">Connected as ${esc(XP_SUMMARY[_uidHome]?.name||_uidHome||'User')}</b>
+            <div class="text-muted text-sm" style="font-size:13px;">${esc(typeof getWaluigiWelcome==='function'?getWaluigiWelcome(_uidHome).slice(0,110):'WAH! Welcome back!')}…</div>
+          </div>
+        </div>
+        <span class="chip active" onclick="Router.go('#/profile')" style="cursor:pointer;background:var(--green);color:#fff;padding:6px 16px;border-radius:999px;font-weight:700;">Dossier &amp; Wallet →</span>
+      </div>
+    </div>`;
 
-  const updates = mp.siteUpdates || SITE_UPDATES;
-  const initialUpdates = updates.slice(0, 4);
-  const hiddenUpdates = updates.slice(4);
-
-  const paths = [
-    { title: "📈 Reputation Matrix & Standings", desc: "Live 100+ faction matrix, operator standings, custom narrative assessments, and public menace heat tracking.", action: "Router.go('#/reputation')" },
-    { title: "🕸️ Imperial Pressure Network", desc: "Regal Empire, Iron Legion, bank, shop, reputation, and global-war data fused into one operational command layer.", action: "Router.go('#/imperial-network')" },
-    { title: "⚖️ Pond Patrol Docket", desc: "Emergency Resolution 17-A rendered live: the Liberated Toads' accountability register, Pond Patrol warrants, council votes, and routes back to good standing.", action: "Router.go('#/pond-docket')" },
-    { title: "💱 Multi-Currency & Bank Vaults", desc: "48 international tenders, conversion rates, wallet balances, loans, and debt ledgers.", action: "location.href='currency.html'" },
-    { title: "🏛️ Grand Latin Assembly & Viral Feeds", desc: "Cross-realm parliamentary motions, viral propaganda feeds, and live assembly votes across 100 polities.", action: "location.href='assembly.html'" },
-    { title: "⭐ Star Bearers & Main Artifacts", desc: "Star Fragments, Fire Flower Petals, God Toad, and the 9 Cosmic Star Bearers.", action: "Router.go('#/artifacts')" },
-    { title: "📚 Grand Library Archive", desc: "Over 40 full-text books with custom covers and library stock across Mushroom, Mordor, and Unseen archives.", action: "location.href='books/library.html'" },
-    { title: "🌐 Multi-Realm Alliances Grid", desc: "Geopolitical defense pacts, non-aggression treaties, and coalition maps.", action: "location.href='alliances.html'" },
-    { title: "🍄 Mushroom Civil War & House Toadstool", desc: "Regency, Peach Loyalists, Fawful occupation, Koopa intervention, and the broken crown.", action: "Router.go('#/atlas/mushroom_kingdom')" },
-    { title: "🌑 Shadow Estate Arc & Midnight Audit", desc: "Intrusions, firearm recovery, Black Crystal testing, and the closet-bound spy.", action: "Router.go('#/article/the_midnight_audit_of_harvestide_28')" }
+  window.HOME_CATEGORIES_DATA = [
+    { action: "Router.go('#/calendar')", emoji: '🗓️', label: 'Calendar', count: `${MONTHS.length} months · ${CUR.year} BF`, group: 'history' },
+    { action: "Router.go('#/atlas')", emoji: '🍩', label: 'World Atlas', count: `${(DATA.nations||[]).length} realms`, group: 'systems' },
+    { action: "Router.go('#/imperial-network')", emoji: '🕸️', label: 'Imperial Pressure', count: 'Empire ↔ Legion integrated', group: 'systems' },
+    { action: "Router.go('#/pond-docket')", emoji: '⚖️', label: 'Pond Patrol Docket', count: 'Liberated Toads system', group: 'systems' },
+    { action: "Router.go('#/cultures')", emoji: '⚖️', label: 'Cultures & Law', count: `${Object.keys(CULTURES||{}).length} spheres · ${Object.keys(TRADITIONS||{}).length} traditions`, group: 'systems' },
+    { action: "Router.go('#/dynasties')", emoji: '👑', label: 'Dynasties', count: `${Object.keys(DYNASTY_SYSTEM.houses||{}).length} bloodlines`, group: 'people' },
+    { action: "Router.go('#/items')", emoji: '🎒', label: 'Items', count: `${Object.keys(INVENTORY_SYSTEM.items||{}).length-1} public items`, group: 'commerce' },
+    ...TYPES.filter(t=>!['locations','nations'].includes(t.key)).map(t => ({
+      action: `Router.go('#/list/${t.key}')`,
+      emoji: t.emoji,
+      label: t.label,
+      count: `${(DATA[t.key]||[]).length}`,
+      group: ['characters','factions','races','collections','trials'].includes(t.key) ? 'people' : (['events','battles'].includes(t.key) ? 'history' : 'systems')
+    })),
+    { action: "Router.go('#/congress')", emoji: '🏛️', label: 'Congress', count: `${(DATA.congress_votes||[]).length} votes`, group: 'systems' },
+    { action: "Router.go('#/artifacts')", emoji: '⭐', label: 'Artifacts', count: `${((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length} bearers`, group: 'people' },
+    { action: "Router.go('#/years')", emoji: '🗓️', label: 'Chronicle', count: `${allYears().length} years`, group: 'history' },
+    { action: "Router.go('#/timeline')", emoji: '🕰️', label: 'Timeline', count: 'chronological', group: 'history' },
+    { action: "Router.go('#/vendor')", emoji: '🏪', label: 'Vendors & Markets', count: 'commerce directory', group: 'commerce' },
+    { action: "Router.go('#/holiday')", emoji: '🎉', label: 'Holidays & Observances', count: 'calendar records', group: 'commerce' },
+    { action: "Router.go('#/whatif')", emoji: '❓', label: 'What Ifs', count: `${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length} non-canon filing${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length===1?'':'s'}`, group: 'systems' },
+    { action: "Router.go('#/list/locations')", emoji: '🏰', label: 'Classic Locations Index', count: 'tucked away', group: 'history' },
+    { action: "location.href='books/library.html'", emoji: '📚', label: 'Grand Library Archive', count: '40+ books', group: 'history' },
+    { action: "location.href='currency.html'", emoji: '💱', label: 'Bank & Currency Exchange', count: '48 tenders', group: 'commerce' },
+    { action: "location.href='shop.html'", emoji: '🛒', label: 'Wario Shop', count: '7,880+ items', group: 'commerce' }
   ];
-  
-  const initialPaths = paths.slice(0, 4);
-  const hiddenPaths = paths.slice(4);
 
-  el('content').innerHTML=`
+  window.toggleEncyclopediaDrawer = function() {
+    const dir = document.getElementById('home-category-directory');
+    const btn = document.getElementById('toggle-drawer-btn');
+    if (!dir || !btn) return;
+    const isHidden = dir.style.display === 'none';
+    dir.style.display = isHidden ? 'block' : 'none';
+    btn.innerHTML = isHidden ? '📂 Hide Encyclopedia Catalog ▴' : '📂 Browse Full Encyclopedia Catalog (23 Categories) ▾';
+    if (isHidden) {
+      try { window.filterHomeCategories('all'); } catch(e) {}
+      dir.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  el('content').innerHTML = `
    ${_loginBannerHome}
-   <div class="hero animate-fade-in" style="padding: 24px 28px; background: linear-gradient(135deg, rgba(138,75,255,0.08), rgba(20,10,30,0.5)), var(--panel);">
-     <h1 style="font-size: 26px; font-weight: 900; margin-bottom: 8px;">Welcome to Waluipedia — Now With Universal Multi-Tender Exchange & Audit Desk</h1>
-     <p style="font-size: 14.5px; line-height: 1.6; color: var(--muted); margin-bottom: 14px;">The objective encyclopedia now has Atlas dashboards, XP links, dynasty intel, 48 tracked international currencies, 7,880+ shop items, integrated Imperial Calendar, comments, and enough cross-references to make a normal archivist weep. Written by Waluigi. Disputed by everyone else.</p>
-     <span class="datechip" style="font-size: 12.5px; font-weight: 700;">🕰️ Current: ${esc(fullDate)} — ${esc(wdToday.name)}</span>
-     <div class="home-actions" style="margin-top:14px; gap:8px;"><a class="home-action" onclick="Router.go('#/calendar')">📅 Imperial Calendar</a><a class="home-action" onclick="Router.go('#/article/${encodeURIComponent((mp.featuredArticle&&mp.featuredArticle.id)||'the_midnight_audit_of_harvestide_28')}')">Read Latest Audit File</a><a class="home-action" href="currency.html">💱 Currency Exchange</a><a class="home-action" href="shop.html">🛒 Wario Shop</a><a class="home-action" href="xp.html">Open XP Hotline</a><a class="home-action" onclick="Router.go('#/atlas')">World Atlas</a></div>
-     <div class="mini-stat-grid" style="margin-top: 16px;"><div class="mini-stat"><b>${ALL_ITEMS.length}</b>Articles</div><div class="mini-stat"><b>${totalAnnotations}</b>Comment threads</div><div class="mini-stat"><b>7,880+</b>Shop Items</div><div class="mini-stat"><b>48</b>Currencies</div><div class="mini-stat"><b>100</b>Factions</div><div class="mini-stat"><b>${intelTargets}</b>Intel targets</div></div>
-     ${calMeta}
-   </div>
 
-   <div class="card animate-fade-in" style="border-left:4px solid #e0b400;background:linear-gradient(135deg,rgba(224,180,0,.15),rgba(20,10,35,.4)),var(--panel)">
-     <div class="flex-gap-14-start">
-       <div style="width:54px;height:54px;font-size:26px;flex:0 0 54px;background:#e0b400;color:#000;display:grid;place-items:center;border-radius:12px;font-weight:900">🎮</div>
-       <div class="flex-1">
-         <div class="section-title" style="color:#ffd700;font-size:15px;letter-spacing:0.04em;">🎮 OPERATOR DIRECTIVE & QUICK START GUIDE</div>
-         <p style="color:var(--text);font-size:14.5px;line-height:1.55;margin:4px 0">Welcome to the terminal, Operator! Avoid cognitive overload by deploying directly to these primary targets:</p>
-         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px">
-           <div style="background:rgba(0,0,0,0.25);padding:10px;border-radius:8px;border:1px solid rgba(224,180,0,0.18)">
-             <b style="color:#ffd700;font-size:13.5px">1. Link Your Session</b>
-             <div class="text-sm text-muted" style="font-size:12px;margin-top:4px">Click '🔐 Connect now' in the sign-on banner to load your immersive wallet and custom welcome.</div>
-           </div>
-           <div style="background:rgba(0,0,0,0.25);padding:10px;border-radius:8px;border:1px solid rgba(224,180,0,0.18)">
-             <b style="color:#ffd700;font-size:13.5px">2. Inspect Live Logs</b>
-             <div class="text-sm text-muted" style="font-size:12px;margin-top:4px">Check 'Read Latest Audit File' to review Bones's daring escape and the battle-worn toad, Elbow.</div>
-           </div>
-           <div style="background:rgba(0,0,0,0.25);padding:10px;border-radius:8px;border:1px solid rgba(224,180,0,0.18)">
-             <b style="color:#ffd700;font-size:13.5px">3. Explore Atlas & Laws</b>
-             <div class="text-sm text-muted" style="font-size:12px;margin-top:4px">Use 'World Atlas' to browse mapped POIs, or check 'Cultures & Law' for the multi-realm codex.</div>
-           </div>
-           <div style="background:rgba(0,0,0,0.25);padding:10px;border-radius:8px;border:1px solid rgba(224,180,0,0.18)">
-             <b style="color:#ffd700;font-size:13.5px">4. Gear Up at Wario's</b>
-             <div class="text-sm text-muted" style="font-size:12px;margin-top:4px">Navigate to Wario's Shop to spend gold, convert 48 tenders, and load out your characters.</div>
-           </div>
-         </div>
+   <!-- 1. CAMPAIGN STATUS & COMMAND TERMINAL -->
+   <div class="hero animate-fade-in" style="padding:24px 28px; background:linear-gradient(135deg, rgba(138,75,255,0.15), rgba(20,10,35,0.65)), var(--panel); border-left:4px solid var(--accent); margin-bottom:24px;">
+     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+       <div>
+         <span class="party-tag" style="background:var(--accent);color:#fff;font-size:11px;padding:3px 10px;border-radius:999px;font-weight:800;text-transform:uppercase;">Waluipedia Campaign Hub</span>
+         <h1 style="font-size:26px; font-weight:900; margin:6px 0 4px; color:var(--text);">DISASTER INC. CAMPAIGN TERMINAL &amp; AUDIT DESK</h1>
+       </div>
+       <div style="display:flex; align-items:center; gap:8px;">
+         <span class="datechip" style="margin:0; background:var(--bg2);">🕰️ ${esc(fullDate)}</span>
+         <button class="chip" onclick="Router.go('#/calendar')" style="margin:0; cursor:pointer;">📅 Calendar</button>
+         <button class="chip" onclick="openCalendarMathModal()" style="margin:0; cursor:pointer; border-color:var(--link); color:var(--link);">ℹ️ BF Lore</button>
        </div>
      </div>
+     <p style="font-size:14.5px; line-height:1.6; color:var(--muted); margin:0 0 16px; max-width:880px;">
+       Live tabletop intelligence for <b>1040 BF</b>. Track party member wallets, institutional debt ledgers, faction reputation heat, and chronological adventure reports. Written by Waluigi. Disputed by everyone else.
+     </p>
+     <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+       <div class="hero-search-launch" onclick="document.getElementById('search').focus(); window.scrollTo({top:0,behavior:'smooth'});" style="margin:0; flex-grow:1; max-width:620px;">
+         <span>🔍 Search 436 articles, 7,880+ shop items, 48 currencies, or @events...</span>
+         <span style="background:var(--accent); color:#fff; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:700;">Click or /</span>
+       </div>
+       <a class="chip" href="shop.html" style="margin:0; font-weight:700; background:var(--panel2);">🛒 Wario Armory</a>
+       <a class="chip" href="currency.html" style="margin:0; font-weight:700; background:var(--panel2);">💱 48-Currency Bank</a>
+     </div>
    </div>
 
-   <div class="grid2 home-layout">
-     <div class="card">
-       <div class="home-section-head"><div><h2>📅 This Month — ${esc(mdToday.name)} ${CUR.year} BF</h2><p>Mini calendar · click day to inspect · today highlighted</p></div><span class="chip" onclick="Router.go('#/calendar')">Full Calendar →</span></div>
-       <div id="home-mini-cal" class="mini-calendar"></div>
-       <div class="calendar-legend" style="margin-top:8px"><span class="lg"><i style="background:var(--accent)"></i>Has events</span><span class="lg">🟡 Today</span></div>
+   <!-- 2. PARTY OVERVIEW: DISASTER INC. DOSSIER & WALLET LEDGERS -->
+   <div class="party-dashboard-card animate-fade-in">
+     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+       <div>
+         <div class="party-badge-strip" style="margin:0 0 4px;">
+           <span class="party-tag">💥 DISASTER INC. DOSSIER</span>
+           <span style="font-size:13px; color:var(--accent2); font-weight:700;">Active Party Operators — 1040 BF Crisis</span>
+         </div>
+         <h2 style="font-size:22px; font-weight:900; margin:0; color:var(--text);">PARTY TREASURY &amp; ACTIVE OPERATORS</h2>
+       </div>
+       <div style="display:flex; gap:8px; flex-wrap:wrap;">
+         <a class="chip active" href="currency.html" style="background:var(--accent); color:#fff; font-weight:700;">💱 Currency Exchange &amp; Debts →</a>
+         <a class="chip" href="shop.html" style="font-weight:700;">🛒 Browse 7,880+ Shop Items →</a>
+       </div>
      </div>
-     <div class="card">
-       <div class="home-section-head">
+     <p style="font-size:14px; line-height:1.55; color:var(--muted); margin:0 0 16px;">
+       Combined party liquid assets, active character wallets, and institutional debt ledgers tracked across 48 universal tenders.
+     </p>
+
+     <div class="member-wallets-grid">
+       <div class="member-wallet-card" onclick="Router.go('#/article/archie_miser')" style="cursor:pointer;">
+         <div class="member-wallet-head">
+           <div class="member-wallet-avatar">🧙‍♂️</div>
+           <div>
+             <h3 class="member-wallet-name">Archie Miser</h3>
+             <span class="member-wallet-role">Arcane Trickster / Sorcerer</span>
+           </div>
+         </div>
+         <div class="member-wallet-currencies" style="color:#ff6b6b;">Gold: -34g | Silver: 6s | Bronze: 18b</div>
+         <div class="member-wallet-note">⚠️ Overdue Debts: 1,474 Wario Coins &amp; 2,175 Ducats to Thornbury (rubber duck invoice).</div>
+       </div>
+
+       <div class="member-wallet-card" onclick="Router.go('#/article/markop')" style="cursor:pointer;">
+         <div class="member-wallet-head">
+           <div class="member-wallet-avatar">🛠️</div>
+           <div>
+             <h3 class="member-wallet-name">Markop Judi</h3>
+             <span class="member-wallet-role">Centaur Vanguard / Fighter</span>
+           </div>
+         </div>
+         <div class="member-wallet-currencies">Gold: 21g | Silver: 13s | Bronze: 28b</div>
+         <div class="member-wallet-note">🎒 Custody: Black Crystal key &amp; Trowel of Retrieving. Active Legion scrip debt.</div>
+       </div>
+
+       <div class="member-wallet-card" onclick="Router.go('#/article/remi_akamatsu_full_backstory')" style="cursor:pointer;">
+         <div class="member-wallet-head">
+           <div class="member-wallet-avatar">🔫</div>
+           <div>
+             <h3 class="member-wallet-name">Remi Akamatsu</h3>
+             <span class="member-wallet-role">Gunslinger / Artificer</span>
+           </div>
+         </div>
+         <div class="member-wallet-currencies">Kivotos: 5,500 | Gold: 180g | Silver: 220s</div>
+         <div class="member-wallet-note">🪞 Custody: Restored Mirror of True Reflection &amp; Oracle's Deck.</div>
+       </div>
+
+       <div class="member-wallet-card" onclick="Router.go('#/article/hjumpik')" style="cursor:pointer;">
+         <div class="member-wallet-head">
+           <div class="member-wallet-avatar">🐸</div>
+           <div>
+             <h3 class="member-wallet-name">Hjumpik</h3>
+             <span class="member-wallet-role">Toad Skirmisher / Scout</span>
+           </div>
+         </div>
+         <div class="member-wallet-currencies">Ducats: 421 | Gold: 120g | Silver: 180s</div>
+         <div class="member-wallet-note">💰 Stable reserve wallet; holds Dwarf Oathgold (8) and Toad Whistles (6).</div>
+       </div>
+
+       <div class="member-wallet-card" onclick="Router.go('#/article/bones')" style="cursor:pointer;">
+         <div class="member-wallet-head">
+           <div class="member-wallet-avatar">🦴</div>
+           <div>
+             <h3 class="member-wallet-name">Bones</h3>
+             <span class="member-wallet-role">Skeleton Operative / Infiltrator</span>
+           </div>
+         </div>
+         <div class="member-wallet-currencies">Gold: 75g | Equipment Assets</div>
+         <div class="member-wallet-note">❄️ Wearing Naaook's Goblin Winter Coat &amp; stolen Legion Iron Breastplate.</div>
+       </div>
+
+       <div class="member-wallet-card" onclick="Router.go('#/article/green_t')" style="cursor:pointer;">
+         <div class="member-wallet-head">
+           <div class="member-wallet-avatar">🧪</div>
+           <div>
+             <h3 class="member-wallet-name">Green T</h3>
+             <span class="member-wallet-role">Alchemist / Party Specialist</span>
+           </div>
+         </div>
+         <div class="member-wallet-currencies">Gold: 310g | Silver: 140s</div>
+         <div class="member-wallet-note">⚡ Contesting 7,507g Mirror claim with Wario. Mirror held during rooftop escape.</div>
+       </div>
+     </div>
+
+     <div style="margin-top:16px; padding:12px 16px; background:var(--bg2); border:1px solid var(--border); border-radius:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+       <div style="font-size:13.5px;">
+         <b style="color:var(--accent2);">Institutional Party Liability:</b>
+         <span style="color:var(--muted);"> 9,000 Wario Points owed to Quest Board · 5 Index Tokens owed to Shadow Estate Archive</span>
+       </div>
+       <span class="chip" onclick="Router.go('#/article/disaster_inc')" style="margin:0; cursor:pointer; font-size:12px;">Open Disaster Inc. Full Dossier →</span>
+     </div>
+   </div>
+
+   <!-- 3. FACTION HEAT & REPUTATION MATRIX SNAPSHOT -->
+   <div class="card animate-fade-in" style="border-left:4px solid #3f8fd0; margin-bottom:24px;">
+     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:6px;">
+       <div>
+         <span style="font-size:11px; font-weight:900; color:#3f8fd0; text-transform:uppercase; letter-spacing:0.6px;">Diplomatic Heat Engine</span>
+         <h2 style="font-size:20px; font-weight:900; margin:4px 0; color:var(--text);">📈 FACTION REPUTATION &amp; STANDING SNAPSHOT</h2>
+       </div>
+       <button class="chip active" onclick="Router.go('#/reputation')" style="cursor:pointer; background:#3f8fd0; color:#fff; font-weight:700;">📊 Open 100+ Faction Reputation Matrix →</button>
+     </div>
+     <p style="font-size:14px; color:var(--muted); margin:0 0 16px;">
+       How the primary powers and polities of 1040 BF view Disaster Inc.'s recent operations:
+     </p>
+
+     <div class="reputation-snapshot-grid">
+       <div class="rep-snap-card" onclick="location.href='shop.html'" style="--rep-color:#2fae8a;">
          <div>
-           <h2>🎭 Waluigi's Front Page Desk</h2>
-           <p>Objective Intelligence Bureau — Live Audit Logs, 48 Currency Ledgers & Active Heat Tracking</p>
-         </div>
-         <div class="live-badge">
-           <span class="live-pulse"></span>
-           <span>Live Terminal</span>
-         </div>
-       </div>
-       <div class="wnote mb-12" style="background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(224,180,0,.08));border-left:4px solid var(--accent)">
-         <b>${esc(directive.title)}</b> "${esc(directive.text)}"
-       </div>
-       <div class="home-feature-grid">
-         ${fi?`<div class="feature-panel" onclick="openId('${(fi.id||'').replace(/'/g,'')}')"><div class="kicker">${esc((mp.featuredArticle&&mp.featuredArticle.label)||'Featured File')}</div><h2>${displayName(fi)}${annotationBadge(fi.id)}</h2>${fi.title?`<div class="art-subtitle mb-8">${fi.title}</div>`:''}<p class="text-muted">${feat.excerpt||fi.summary||''}</p><div class="home-actions"><span class="home-action">Inspect Featured File →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP Hotline</a></div></div>`:''}
-         ${latest?`<div class="feature-panel" onclick="openId('${(latest.id||'').replace(/'/g,'')}')"><div class="kicker">${mp.latestUpdate.label||'Latest Intelligence Log'}</div><h2>${displayName(latest)}${annotationBadge(latest.id)}</h2><p class="text-muted">${mp.latestUpdate.excerpt||previewText(latest)}</p><div class="home-actions"><span class="home-action">Open Latest Log →</span><a class="home-action" onclick="event.stopPropagation();location.href='xp.html'">XP Context</a></div></div>`:''}
-         <div class="feature-panel" onclick="location.href='${esc(spotlight.actionUrl)}'">
-           <div class="kicker">${esc(spotlight.kicker)}</div>
-           <h2>${esc(spotlight.title)}</h2>
-           ${spotlight.subtitle ? `<div class="art-subtitle mb-8">${esc(spotlight.subtitle)}</div>` : ''}
-           <p class="text-muted">${esc(spotlight.excerpt)}</p>
-           <div class="home-actions">
-             <a class="home-action" href="${esc(spotlight.actionUrl)}">${esc(spotlight.actionText)}</a>
-             <a class="home-action" href="shop.html">Browse Shop</a>
+           <div class="rep-snap-head">
+             <b style="font-size:15px; color:var(--text);">💰 Wario's Enterprise</b>
+             <span class="rep-snap-status">ALLY / COMMERCIAL</span>
            </div>
+           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
+             "Every crisis is an opportunity, and Wario is charging you for it. Party holds 9,000 Wario Points float line."
+           </p>
          </div>
+         <div style="margin-top:12px; font-size:12px; font-weight:700; color:var(--green);">CEO: Wario · 7,880+ Shop Items →</div>
        </div>
-       <div class="mt-14" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
-         <span style="font-size:12px;color:var(--muted);font-weight:700">Waluigi Desk Shortcuts:</span>
-         <span class="chip active" onclick="location.href='currency.html'">💱 Bank (48 Currencies)</span>
-         <span class="chip" onclick="location.href='shop.html'">🛒 Wario Shop (7,880+ Items)</span>
-         <span class="chip" onclick="Router.go('#/imperial-network')">🕸️ Imperial Pressure Network</span>
-         <span class="chip" onclick="Router.go('#/pond-docket')">⚖️ Pond Patrol Docket</span>
-         <span class="chip" onclick="location.href='assembly.html'">🏛️ Grand Assembly</span>
-         <span class="chip" onclick="Router.go('#/artifacts')">⭐ Star Bearers Vault</span>
-         <span class="chip" onclick="location.href='books/library.html'">📚 Grand Library</span>
-         <span class="chip" onclick="location.href='alliances.html'">🌐 Alliances Grid</span>
+
+       <div class="rep-snap-card" onclick="Router.go('#/pond-docket')" style="--rep-color:#3f8fd0;">
+         <div>
+           <div class="rep-snap-head">
+             <b style="font-size:15px; color:var(--text);">🍄 Liberated Toads</b>
+             <span class="rep-snap-status">CO-OPERATIVE / ALLIED</span>
+           </div>
+           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
+             "Emergency Resolution 17-A is active. Speaker L and the Pond Patrol share safehouse routes and legal fund ledgers."
+           </p>
+         </div>
+         <div style="margin-top:12px; font-size:12px; font-weight:700; color:#3f8fd0;">Pond Patrol Docket Live →</div>
+       </div>
+
+       <div class="rep-snap-card" onclick="Router.go('#/imperial-network')" style="--rep-color:#e5484d;">
+         <div>
+           <div class="rep-snap-head">
+             <b style="font-size:15px; color:var(--text);">⚔️ Iron Legion</b>
+             <span class="rep-snap-status">HOSTILE / PRIORITY THREAT</span>
+           </div>
+           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
+             "Order 120 signed. General Ironhand is actively hunting non-compliant party operatives after the Aegis Command breach."
+           </p>
+         </div>
+         <div style="margin-top:12px; font-size:12px; font-weight:700; color:var(--danger);">Imperial Pressure Network →</div>
+       </div>
+
+       <div class="rep-snap-card" onclick="Router.go('#/article/corvinarus_family')" style="--rep-color:#8a4bff;">
+         <div>
+           <div class="rep-snap-head">
+             <b style="font-size:15px; color:var(--text);">🦇 House Corvinarus</b>
+             <span class="rep-snap-status">ACTIVE HUNTING GROUND</span>
+           </div>
+           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
+             "Succession war at Raventree Manor. Vivian Corvinarus has dropped disguise and is hunting party members through corridors."
+           </p>
+         </div>
+         <div style="margin-top:12px; font-size:12px; font-weight:700; color:var(--accent);">Three Threads Prophecy →</div>
+       </div>
+
+       <div class="rep-snap-card" onclick="Router.go('#/article/mages_guild')" style="--rep-color:#e0b400;">
+         <div>
+           <div class="rep-snap-head">
+             <b style="font-size:15px; color:var(--text);">🔮 Mages' Guild</b>
+             <span class="rep-snap-status">SUSPICIOUS / WATCHING</span>
+           </div>
+           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
+             "Tracking planar fractures, ritual room circles, and Archie Miser's unauthorized dimensional transit experiments."
+           </p>
+         </div>
+         <div style="margin-top:12px; font-size:12px; font-weight:700; color:var(--accent2);">Archie Transit Liabilities →</div>
+       </div>
+
+       <div class="rep-snap-card" onclick="Router.go('#/atlas/mushroom_kingdom')" style="--rep-color:#c8a6ff;">
+         <div>
+           <div class="rep-snap-head">
+             <b style="font-size:15px; color:var(--text);">👑 Mushroom Regency</b>
+             <span class="rep-snap-status">WARY / CONTESTED</span>
+           </div>
+           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
+             "House Toadstool main line broken. Regency balancing Peach Loyalists, House Rosewood bankers, and Koopa intervention."
+           </p>
+         </div>
+         <div style="margin-top:12px; font-size:12px; font-weight:700; color:var(--link);">Mushroom Civil War Atlas →</div>
        </div>
      </div>
    </div>
-   <div class="card"><div class="home-section-head"><div><h2>Explore</h2><p>Explore all categories, system portals, and cross-realm directories in Waluipedia core.</p></div></div><div class="grid-cats">${cats}</div>
-     <h2 class="mt-18">Recently Updated / Added</h2>
-     <div class="update-grid" id="main-update-grid">
-       ${initialUpdates.map(updateCard).join('')}
-       ${hiddenUpdates.map(u => `<div class="hidden-update-card" style="display:none">${updateCard(u)}</div>`).join('')}
-     </div>
-     ${hiddenUpdates.length > 0 ? `
-       <div class="mt-10 text-center" id="load-more-container" style="margin-top: 14px;">
-         <span class="chip" onclick="document.querySelectorAll('.hidden-update-card').forEach(el=>el.style.display='block'); document.getElementById('load-more-container').style.display='none';" style="cursor:pointer;background:var(--panel);border-color:var(--accent)">
-           🔽 Load More Site Updates (${hiddenUpdates.length} remaining) →
-         </span>
+
+   <!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
+   <div class="card animate-fade-in" style="border-left:4px solid #e0b400; margin-bottom:24px;">
+     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:6px;">
+       <div>
+         <span style="font-size:11px; font-weight:900; color:var(--accent2); text-transform:uppercase; letter-spacing:0.6px;">Party Chronicle &amp; Session Logs</span>
+         <h2 style="font-size:20px; font-weight:900; margin:4px 0; color:var(--text);">📜 RECENT ADVENTURES — WHAT WE'VE BEEN THROUGH</h2>
        </div>
-     ` : ''}
-     <h2 class="mt-18">Comment Spotlight <a class="chip" href="#/annotations" style="font-size:11px;vertical-align:middle;margin-left:8px">Full Chatter Hub →</a></h2><div class="comment-grid">${commentSpotlightCards()}</div>
-     <h2 class="mt-18">Suggested Reading Paths</h2>
-     <div class="path-grid" id="main-path-grid">
-       ${initialPaths.map(p => `<div class="path-card" onclick="${p.action}"><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p></div>`).join('')}
-       ${hiddenPaths.map(p => `<div class="hidden-path-card path-card" style="display:none" onclick="${p.action}"><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p></div>`).join('')}
+       <button class="chip active" onclick="Router.go('#/list/events')" style="cursor:pointer; background:var(--accent2); color:#0b0616; font-weight:800;">📂 Browse All 85 Campaign Events →</button>
      </div>
-     ${hiddenPaths.length > 0 ? `
-       <div class="mt-10 text-center" id="load-more-paths-container" style="margin-top: 14px; margin-bottom: 12px;">
-         <span class="chip" onclick="document.querySelectorAll('.hidden-path-card').forEach(el=>el.style.display='block'); document.getElementById('load-more-paths-container').style.display='none';" style="cursor:pointer;background:var(--panel);border-color:var(--accent)">
-           📂 Expand All Reading Paths (${hiddenPaths.length} remaining) →
-         </span>
+     <p style="font-size:14px; color:var(--muted); margin:0 0 8px;">
+       Chronological audit feed of recent party escapes, battles, and intelligence breakthroughs in 1040 BF:
+     </p>
+
+     <div class="campaign-timeline-feed">
+       <!-- Event 1 -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/mount_ebott_survey_part_3')" style="cursor:pointer;">
+         <div class="timeline-date-chip">Aethel 1040 BF · Latest Audit File</div>
+         <h3 class="timeline-event-title">The Mount Ebott Survey: Part III — The War Slip &amp; Flowey's Machine</h3>
+         <div class="timeline-actors">
+           <span>Sans</span><span>Flowey</span><span>Koffin-K</span><span>Gamma Agent</span><span>Dracule Mihawk</span>
+         </div>
+         <p class="timeline-summary">
+           Sans slips and says “the war,” Flowey is exposed as Asgore’s dead son and possible machine saboteur, Koffin-K accidentally founds an unauthorized Iron Legion team, and Snowdin briefly crowns a fedora.
+         </p>
+         <span class="chip" style="margin:0; font-size:12px; background:var(--panel);">📖 Read Full Audit Report →</span>
        </div>
-     ` : ''}
+
+       <!-- Event 2 -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/the_imp_ambush_of_harvestide_29')" style="cursor:pointer;">
+         <div class="timeline-date-chip">Harvestide 29, 1040 BF · Shadow Estate Siege</div>
+         <h3 class="timeline-event-title">The Imp Ambush of Harvestide 29</h3>
+         <div class="timeline-actors">
+           <span>Markop</span><span>Remi Akamatsu</span><span>Archie Miser</span><span>Dan</span><span>Tymnas</span>
+         </div>
+         <p class="timeline-summary">
+           Siege at the Shadow Estate: Imps attack seeking the Archivist's book. Markop rallies his team, Remi gets poisoned in the bathroom, Dan reveals his special eye, and the cottage undergoes a frantic defense.
+         </p>
+         <span class="chip" style="margin:0; font-size:12px; background:var(--panel);">📖 Read Imp Ambush File →</span>
+       </div>
+
+       <!-- Event 3 -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')" style="cursor:pointer;">
+         <div class="timeline-date-chip">Harvestide 28, 1040 BF · Manor Investigation</div>
+         <h3 class="timeline-event-title">The Midnight Audit of Harvestide 28</h3>
+         <div class="timeline-actors">
+           <span>Remi Akamatsu</span><span>Disaster Inc.</span><span>Onyx Hand</span>
+         </div>
+         <p class="timeline-summary">
+           Shadow Estate intrusions: Remi Akamatsu de-escalates intruders, reclaims her firearm, tests a black crystal lie detector, and discovers a spy hidden in a closet.
+         </p>
+         <span class="chip" style="margin:0; font-size:12px; background:var(--panel);">📖 Read Midnight Audit File →</span>
+       </div>
+
+       <!-- Event 4 -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/the_alpine_inn_escape')" style="cursor:pointer;">
+         <div class="timeline-date-chip">Harvestide, 1040 BF · Arunedeal Evacuation</div>
+         <h3 class="timeline-event-title">The Alpine Inn Escape &amp; अरुणेडेल Goblin Camp</h3>
+         <div class="timeline-actors">
+           <span>Bones</span><span>Naaook (Goblin)</span><span>Elbow (Fey Toad)</span>
+         </div>
+         <p class="timeline-summary">
+           Bones steals an iron breastplate from a frozen cart, buys a winter coat from Naaook for 75 gold, and teams up with a battle-worn toad named Elbow who wields fey magic to escape a colossal Legion checkpoint.
+         </p>
+         <span class="chip" style="margin:0; font-size:12px; background:var(--panel);">📖 Read Alpine Inn Escape →</span>
+       </div>
+
+       <!-- Event 5 -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/feyward_amnesia_vines_morel_steely')" style="cursor:pointer;">
+         <div class="timeline-date-chip">Harvestide, 1040 BF · Feyward Expedition</div>
+         <h3 class="timeline-event-title">Toad Lee’s Missing Time &amp; Morel’s Key</h3>
+         <div class="timeline-actors">
+           <span>Toad Lee</span><span>Mystic Morel</span><span>Steely</span>
+         </div>
+         <p class="timeline-summary">
+           Feyward memory wipes, amnesia vine hazards, Mystic Morel’s brass key, Steely’s warning, and new party XP allocations across the overgrown realm.
+         </p>
+         <span class="chip" style="margin:0; font-size:12px; background:var(--panel);">📖 Read Feyward Mystery File →</span>
+       </div>
+     </div>
    </div>
-   <div class="grid2">
-     <div class="card"><div class="section-title">Did You Know…</div><ul class="dyk">${dyk.slice(0,7).map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
-     <div class="card"><div class="section-title">On This Day — ${esc(mdToday.name)} ${CUR.day} (dynamic, all years)</div><ul class="otd">${otdHtml||'<li class="text-muted">No entries for today yet — add dated events to populate this automatically.</li>'}</ul><div class="mt-10"><span class="chip" onclick="Router.go('#/year/${CUR.year}')">${CUR.year} BF chronicle →</span> <span class="chip" onclick="Router.go('#/calendar/${CUR.year}/${CUR.monthIndex}/${CUR.day}')">Open today in calendar →</span></div></div>
-   </div>`;
-  try{ renderMiniCalendar('home-mini-cal', CUR.year, CUR.monthIndex); }catch(e){ console.warn('mini cal failed', e); }
-  window.scrollTo(0,0);
+
+   <!-- 5. OPERATOR TOOLKIT & COLLAPSIBLE ENCYCLOPEDIA DIRECTORY -->
+   <div class="card animate-fade-in" style="margin-bottom:24px;">
+     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:8px;">
+       <div>
+         <span style="font-size:11px; font-weight:900; color:var(--accent); text-transform:uppercase; letter-spacing:0.6px;">Quick-Access Navigation</span>
+         <h2 style="font-size:20px; font-weight:900; margin:4px 0; color:var(--text);">🎮 OPERATOR TOOLKIT &amp; CORE ARCHIVES</h2>
+       </div>
+       <button id="toggle-drawer-btn" class="chip" onclick="toggleEncyclopediaDrawer()" style="cursor:pointer; background:var(--panel2); border-color:var(--accent); color:var(--text); font-weight:700;">
+         📂 Browse Full Encyclopedia Catalog (23 Categories) ▾
+       </button>
+     </div>
+     <p style="font-size:14px; color:var(--muted); margin:0 0 14px;">
+       Direct launchpad to essential campaign systems, commerce ledgers, world maps, and historical books:
+     </p>
+
+     <div class="operator-toolkit-grid">
+       <a class="toolkit-tile" href="shop.html">
+         <div class="toolkit-tile-icon">🛒</div>
+         <div class="toolkit-tile-text">
+           <b>Wario Shop &amp; Armory</b>
+           <span>7,880+ Catalog Items</span>
+         </div>
+       </a>
+       <a class="toolkit-tile" href="currency.html">
+         <div class="toolkit-tile-icon">💱</div>
+         <div class="toolkit-tile-text">
+           <b>Bank &amp; Currency Exchange</b>
+           <span>48 Tenders &amp; Debts</span>
+         </div>
+       </a>
+       <a class="toolkit-tile" onclick="Router.go('#/atlas')">
+         <div class="toolkit-tile-icon">🗺️</div>
+         <div class="toolkit-tile-text">
+           <b>World Atlas</b>
+           <span>31 Mapped Realms</span>
+         </div>
+       </a>
+       <a class="toolkit-tile" onclick="Router.go('#/reputation')">
+         <div class="toolkit-tile-icon">📈</div>
+         <div class="toolkit-tile-text">
+           <b>Reputation Matrix</b>
+           <span>100+ Faction Standings</span>
+         </div>
+       </a>
+       <a class="toolkit-tile" onclick="Router.go('#/pond-docket')">
+         <div class="toolkit-tile-icon">⚖️</div>
+         <div class="toolkit-tile-text">
+           <b>Pond Patrol Docket</b>
+           <span>Resolution 17-A Register</span>
+         </div>
+       </a>
+       <a class="toolkit-tile" onclick="Router.go('#/artifacts')">
+         <div class="toolkit-tile-icon">⭐</div>
+         <div class="toolkit-tile-text">
+           <b>Star Bearers Vault</b>
+           <span>Major Artifacts &amp; Powers</span>
+         </div>
+       </a>
+       <a class="toolkit-tile" href="books/library.html">
+         <div class="toolkit-tile-icon">📚</div>
+         <div class="toolkit-tile-text">
+           <b>Grand Library Archive</b>
+           <span>40+ Full-Text Books</span>
+         </div>
+       </a>
+       <a class="toolkit-tile" onclick="Router.go('#/years')">
+         <div class="toolkit-tile-icon">🗓️</div>
+         <div class="toolkit-tile-text">
+           <b>Chronicle Archive</b>
+           <span>21 Recorded Years</span>
+         </div>
+       </a>
+     </div>
+
+     <!-- COLLAPSIBLE FULL CATEGORY DIRECTORY DRAWER -->
+     <div id="home-category-directory" style="display:none; margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
+       <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+         <div>
+           <h3 style="font-size:17px; font-weight:800; margin:0; color:var(--accent2);">📚 FULL ENCYCLOPEDIA DIRECTORY (23 CATEGORIES)</h3>
+           <p style="font-size:13px; color:var(--muted); margin:4px 0 0;">Select a filter tab below to browse all categories and portals:</p>
+         </div>
+         <span class="chip" onclick="toggleEncyclopediaDrawer()" style="cursor:pointer; font-size:12px;">✕ Close Drawer</span>
+       </div>
+       <div class="home-cat-tabs">
+         <button class="home-cat-tab active" data-tab="all" onclick="filterHomeCategories('all')">All Categories <span class="cat-badge">23</span></button>
+         <button class="home-cat-tab" data-tab="systems" onclick="filterHomeCategories('systems')">🏛️ Campaign Systems <span class="cat-badge">6</span></button>
+         <button class="home-cat-tab" data-tab="history" onclick="filterHomeCategories('history')">📚 History &amp; Archives <span class="cat-badge">7</span></button>
+         <button class="home-cat-tab" data-tab="people" onclick="filterHomeCategories('people')">👤 People &amp; Factions <span class="cat-badge">7</span></button>
+         <button class="home-cat-tab" data-tab="commerce" onclick="filterHomeCategories('commerce')">💰 Commerce &amp; Items <span class="cat-badge">5</span></button>
+       </div>
+       <div id="home-cat-grid" class="grid-cats"></div>
+     </div>
+   </div>
+
+   <!-- 6. CALENDAR & ON THIS DAY SIDE DESK -->
+   <div class="card animate-fade-in" style="margin-bottom:24px;">
+     <div class="home-section-head" style="margin-bottom:12px;">
+       <div>
+         <h2>📅 This Month — ${esc(mdToday.name)} ${CUR.year} BF</h2>
+         <p>Mini calendar · click day to inspect · today highlighted</p>
+       </div>
+       <span class="chip" onclick="Router.go('#/calendar')" style="cursor:pointer;margin:0;">Full Calendar →</span>
+     </div>
+     <div id="home-mini-cal" class="mini-calendar"></div>
+     <div class="calendar-legend" style="margin-top:8px;">
+       <span class="lg"><i style="background:var(--accent)"></i>Has events</span>
+       <span class="lg">🟡 Today</span>
+     </div>
+     <div style="margin-top:18px; border-top:1px solid var(--border); padding-top:14px;">
+       <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+         <h3 style="margin:0; font-size:15px; color:var(--accent2);">🕰️ On This Day — ${esc(mdToday.name)} ${CUR.day}</h3>
+         <span class="chip" onclick="Router.go('#/year/${CUR.year}')" style="cursor:pointer;font-size:11px;margin:0;">${CUR.year} BF chronicle →</span>
+       </div>
+       <ul class="otd" style="margin:0; padding-left:18px; font-size:13px; line-height:1.6; max-height:170px; overflow-y:auto;">
+         ${otdHtml||'<li class="text-muted">No entries for today yet — add dated events to populate this automatically.</li>'}
+       </ul>
+     </div>
+   </div>
+   `;
+
+  try { renderMiniCalendar('home-mini-cal', CUR.year, CUR.monthIndex); } catch(e) { console.warn('mini cal failed', e); }
+  try { window.filterHomeCategories('all'); } catch(e) { console.warn('cat filter failed', e); }
+  window.scrollTo(0, 0);
 }
 /* =============== LIST VIEW =============== */
 const listState={};
