@@ -188,5 +188,15 @@
         "approvedAt": "2026-07-26T04:55:43.769Z",
         "approvedBy": "DM",
         "playerKey": "archie"
+    },
+    {
+        "orderId": "WW-BONES-ARUNEDEAL-01",
+        "itemId": "arunedeal_winter_coat_and_shield",
+        "itemName": "Arunedeal Winter Coat & Shield",
+        "price": 75,
+        "isFaction": false,
+        "approvedAt": "2026-08-01T04:30:00.000Z",
+        "approvedBy": "Naaook",
+        "playerKey": "bones"
     }
 ]
