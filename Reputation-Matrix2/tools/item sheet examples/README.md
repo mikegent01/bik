@@ -735,13 +735,15 @@ both import fine).
 ### Build and ledger snapshot
 
 - **Level:** 3; **XP:** 1,960; **next level:** 2,700; **ledger entries:** 11.
-- **Interpretation:** Feywild Adept / Dimensional Escapee, a custom player-facing translation rather than a claim that the lore declares a published class.
-- **Ability emphasis:** Charisma 16, Dexterity 14, Wisdom 12, Constitution 13. Dan is socially and magically unusual, but not a polished wizard.
-- **Core features:** Feyward Sensory Eye, Wild Surge, Improvised Escape, Parallel Dan Paradox, Feyward Aura, One More Attempt, and Survivor of the Mazebound.
-- **Equipment:** short sword, quarterstaff, light crossbow, leather armor, Feyward scarf, Prismari school token, and thornbush splinter.
+- **Interpretation:** One-Armed Feyward Paladin / Dimensional Escapee, a custom player-facing translation of the divine abilities in the campaign record.
+- **Ability emphasis:** Strength 14, Charisma 16, Dexterity 14, Wisdom 12, Constitution 13. Dan is socially and divinely unusual, but still a displaced survivor rather than a polished saint.
+- **Core features:** Feyward Sensory Eye, Wild Surge, Improvised Escape, Parallel Dan Paradox, Feyward Aura, One More Attempt, Survivor of the Mazebound, Divine Sense, Divine Smite, Aura of Life, and Missing Arm — Permanent Injury.
+- **Equipment:** one-handed longsword, Holy Symbol of Ravenkind, chain mail, and Shield +1, plus the Feyward scarf, Prismari school token, and thornbush splinter.
 - **Chronology cards:** Estragon Island, Parallel Dan Separation, Mazebound, Shadow Estate, Vostolas, portal diplomacy, Telescope and Tennis Match, Spotlight Chase, Cookie Retrieval, and the Imp Ambush.
 
-The actor is over 2,000 formatted lines and explicitly contains `playerCharacter: true` and `npc: false`. Its chronology cards are reference material and must not be counted as new XP. The actor snapshot is linked to `PLAYERS.feywarddan`, while the lore article is stored under `data/characters.json` id `dan_the_toad`.
+The actor is over 2,300 formatted lines and explicitly contains `playerCharacter: true` and `npc: false`. Its chronology cards are reference material and must not be counted as new XP. The actor snapshot is linked to `PLAYERS.feywarddan`, while the lore article is stored under `data/characters.json` id `dan_the_toad`.
+
+The one-arm condition is represented in three places: the biography, `flags.bik.missingArm`, and the `Missing Arm — Permanent Injury` feature item. The loadout is intentionally one-handed: longsword plus Shield +1. Chain mail and Shield +1 produce the exported flat AC 19. The Holy Symbol of Ravenkind is an equipment document, while Divine Sense, Divine Smite, and Aura of Life are feature documents. Aura of Life is marked as a campaign-granted item because standard 5e normally gates it above Level 3; the GM can retain it as an established boon or apply the normal level gate.
 
 ### Canon boundaries
 
