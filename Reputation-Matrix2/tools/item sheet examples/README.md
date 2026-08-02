@@ -743,7 +743,22 @@ both import fine).
 - **Chronology cards:** Estragon Island, Parallel Dan Separation, Mazebound, Shadow Estate, Vostolas, portal diplomacy, Telescope and Tennis Match, Spotlight Chase, Cookie Retrieval, and the Imp Ambush.
 - **Deep-lore documents:** Prismari school token, Feyward aura/third-eye notes, one-arm field technique, Estragon escape notes, Mazebound thread, parallel-Dan identity file, telescope displacement notice, and Tymnas cottage eye-callouts.
 
-The actor now contains 50 item documents and is over 4,800 formatted lines. It explicitly contains `playerCharacter: true` and `npc: false`. Its chronology cards are reference material and must not be counted as new XP. The actor snapshot is linked to `PLAYERS.feywarddan`, while the lore article is stored under `data/characters.json` id `dan_the_toad`.
+The actor now contains 50 item documents and is over 4,800 formatted lines. It explicitly contains `playerCharacter: true` and `npc: false`.
+
+### Image paths
+
+The Feyward Dan export now uses Foundry asset paths in the same style as the uploaded Bowser and Hjumpik examples. Windows-style paths should be normalized to Foundry's forward-slash form:
+
+- Actor/token: `icons/creatures/amphibians/frog-confused-green-blue.webp`
+- Longsword: `icons/weapons/swords/sword-gold-holy.webp`
+- Chain mail: `icons/commodities/metal/mail-chain-steel.webp`
+- Shield +1: `icons/equipment/shield/heater-steel-gold.webp`
+- Holy Symbol of Ravenkind: `icons/treasure/token-gold-cross.webp`
+- Divine Sense / third eye: `icons/magic/perception/third-eye-blue-red.webp`
+- Divine Smite: `icons/magic/holy/projectiles-blades-salvo-yellow.webp`
+- Aura of Life: `icons/magic/life/cross-area-circle-green-white.webp`
+
+All 50 actor items have an `img` path. The paths are references to the Foundry asset library; they do not require copying the entire asset pack into this repository. If Foundry reports a missing image, install or mount the asset pack at the same data root used by the Bowser/Hjumpik world, then keep the path relative and use `/`, not `\\`. Its chronology cards are reference material and must not be counted as new XP. The actor snapshot is linked to `PLAYERS.feywarddan`, while the lore article is stored under `data/characters.json` id `dan_the_toad`.
 
 The one-arm condition is represented in three places: the biography, `flags.bik.missingArm`, and the `Missing Arm — Permanent Injury` feature item. The loadout is intentionally one-handed: longsword plus Shield +1. Chain mail and Shield +1 produce the exported flat AC 19. The Holy Symbol of Ravenkind is an equipment document, while Divine Sense, Divine Smite, and Aura of Life are feature documents. Aura of Life is marked as a campaign-granted item because standard 5e normally gates it above Level 3; the GM can retain it as an established boon or apply the normal level gate.
 

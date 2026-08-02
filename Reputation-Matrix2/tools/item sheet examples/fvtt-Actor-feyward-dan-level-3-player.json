@@ -1,7 +1,7 @@
 {
   "name": "Feyward Dan — Level 3 One-Armed Paladin Player Character",
   "type": "character",
-  "img": "portraits/feyward-dan.png",
+  "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
   "system": {
     "currency": {
       "pp": 0,
@@ -748,13 +748,13 @@
     }
   },
   "prototypeToken": {
-    "name": "Archie Miser",
+    "name": "Feyward Dan",
     "displayName": 30,
     "actorLink": true,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "images/bones/bones-portrait.png",
+      "src": "icons/creatures/amphibians/frog-confused-green-blue.webp",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -953,7 +953,8 @@
       "_id": "4257686b8dc14414",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/environment/people/cleric-orange.webp"
     },
     {
       "name": "Toad — Feyward Variant",
@@ -991,7 +992,8 @@
       "_id": "4b8eb918a8d24833",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/creatures/amphibians/frog-confused-green-blue.webp"
     },
     {
       "name": "Dimensional Escapee",
@@ -1029,7 +1031,8 @@
       "_id": "d7b8ef0d38ae40d2",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/movement/portal-vortex-orange.webp"
     },
     {
       "name": "Feyward Sensory Eye",
@@ -1067,7 +1070,8 @@
       "_id": "02b67d17ce6b4491",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/perception/third-eye-blue-red.webp"
     },
     {
       "name": "Wild Surge — Unstable Aura",
@@ -1105,7 +1109,8 @@
       "_id": "e6cbf8b57a504da9",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/holy/barrier-shield-winged-blue.webp"
     },
     {
       "name": "Improvised Escape",
@@ -1143,7 +1148,8 @@
       "_id": "49071511870b4120",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/movement/portal-vortex-orange.webp"
     },
     {
       "name": "Parallel Dan Paradox",
@@ -1181,7 +1187,8 @@
       "_id": "5596d30e39a54385",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/time/clock-spinning-gold-pink.webp"
     },
     {
       "name": "Feyward Aura",
@@ -1219,7 +1226,8 @@
       "_id": "a0cc45fbed14465c",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/holy/barrier-shield-winged-blue.webp"
     },
     {
       "name": "One More Attempt",
@@ -1257,7 +1265,8 @@
       "_id": "e2282123e98044de",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow.webp"
     },
     {
       "name": "Survivor of the Mazebound",
@@ -1295,7 +1304,8 @@
       "_id": "43520c9bfbbd408c",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/movement/portal-vortex-orange.webp"
     },
     {
       "name": "Feyward Scarf",
@@ -1333,7 +1343,8 @@
       "_id": "9019b26e5e5c4425",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/creatures/amphibians/frog-confused-green-blue.webp"
     },
     {
       "name": "Prismari School Token",
@@ -1371,7 +1382,8 @@
       "_id": "544da1c46a434921",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/documents/document-symbol-rune-tan.webp"
     },
     {
       "name": "Thornbush Splinter",
@@ -1409,7 +1421,8 @@
       "_id": "8e399f8c5e7b4dce",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/books/book-open-purple.webp"
     },
     {
       "name": "Chronicle Card — Estragon Island Incident",
@@ -1447,7 +1460,8 @@
       "_id": "021b803334654473",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/documents/notebook-spiral-red.webp"
     },
     {
       "name": "Chronicle Card — Parallel Dan Separation",
@@ -1485,7 +1499,8 @@
       "_id": "860e06b459334bee",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/documents/notebook-spiral-red.webp"
     },
     {
       "name": "Chronicle Card — Mazebound Grove",
@@ -1523,7 +1538,8 @@
       "_id": "2d379ed0a42a4d23",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/movement/portal-vortex-orange.webp"
     },
     {
       "name": "Chronicle Card — Shadow Estate Campaign",
@@ -1561,7 +1577,8 @@
       "_id": "0286f00160ea4d38",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/documents/notebook-spiral-red.webp"
     },
     {
       "name": "Chronicle Card — Vostolas and the Black Crystal",
@@ -1599,7 +1616,8 @@
       "_id": "4960c7bd96d744cc",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/documents/notebook-spiral-red.webp"
     },
     {
       "name": "Chronicle Card — Portal Betrayal and Gardner Vote",
@@ -1637,7 +1655,8 @@
       "_id": "28ae299f116d47f1",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/documents/notebook-spiral-red.webp"
     },
     {
       "name": "Chronicle Card — Telescope and Tennis Match",
@@ -1675,7 +1694,8 @@
       "_id": "d4c0bc373c5946bb",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/time/clock-spinning-gold-pink.webp"
     },
     {
       "name": "Chronicle Card — Spotlight Chase",
@@ -1713,7 +1733,8 @@
       "_id": "e4fc7b3d501546e9",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/documents/notebook-spiral-red.webp"
     },
     {
       "name": "Chronicle Card — Cookie Retrieval Protocol",
@@ -1751,7 +1772,8 @@
       "_id": "e841f7e76d644721",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/consumables/food/candy-pattie-pink-white.webp"
     },
     {
       "name": "Chronicle Card — Imp Ambush — Eye Opened",
@@ -1789,7 +1811,8 @@
       "_id": "422c77d47c1e4626",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/creatures/invertebrates/wasp-swarm-attack.webp"
     },
     {
       "name": "Chronicle Card — Current Location",
@@ -1827,12 +1850,13 @@
       "_id": "2a3505593e8344aa",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/documents/notebook-spiral-red.webp"
     },
     {
       "name": "Longsword",
       "type": "weapon",
-      "img": "icons/weapons/swords/greatsword-crossguard-steel.webp",
+      "img": "icons/weapons/swords/sword-gold-holy.webp",
       "system": {
         "description": {
           "value": "<p>A blessed longsword used one-handed by Feyward Dan. The remaining arm grips it while the other hand is occupied by the shield. The versatile two-handed mode is not available to this character.</p>",
@@ -2107,7 +2131,7 @@
     {
       "name": "Chain Mail",
       "type": "equipment",
-      "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
+      "img": "icons/commodities/metal/mail-chain-steel.webp",
       "system": {
         "description": {
           "value": "<p>Interlocking chain mail with quilted underlayer and gauntlets. Heavy armor, AC 16, Strength requirement 13, stealth disadvantage.</p>",
@@ -2203,7 +2227,7 @@
     {
       "name": "Shield +1",
       "type": "equipment",
-      "img": "icons/equipment/shield/round-wooden-boss-steel-brown.webp",
+      "img": "icons/equipment/shield/heater-steel-gold.webp",
       "system": {
         "description": {
           "value": "<p>A shield carried in Dan's available hand. Base shield +2 AC plus a +1 magical bonus. Dan cannot hold a second weapon while this is equipped.</p>",
@@ -2297,7 +2321,7 @@
     {
       "name": "Holy Symbol of Ravenkind",
       "type": "equipment",
-      "img": "icons/equipment/chest/breastplate-metal-scaled-grey.webp",
+      "img": "icons/treasure/token-gold-cross.webp",
       "system": {
         "description": {
           "value": "<p>A holy symbol of Ravenkind carried as Dan's divine focus. The campaign record establishes the relic; the GM decides whether its full artifact powers are active.</p>",
@@ -2437,7 +2461,8 @@
       "_id": "e22615613ade4d7f",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/perception/third-eye-blue-red.webp"
     },
     {
       "name": "Divine Smite",
@@ -2484,7 +2509,8 @@
       "_id": "c0095e1c56074ca5",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/holy/projectiles-blades-salvo-yellow.webp"
     },
     {
       "name": "Aura of Life",
@@ -2536,7 +2562,8 @@
       "_id": "3bf0d082010646b8",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/life/cross-area-circle-green-white.webp"
     },
     {
       "name": "Missing Arm — Permanent Injury",
@@ -2578,7 +2605,8 @@
       "_id": "28203388554b440b",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/skills/wounds/injury-hand-blood-red.webp"
     },
     {
       "name": "Bless",
@@ -2785,7 +2813,7 @@
           "spellFrom": "Archie actor schema"
         }
       },
-      "img": "icons/magic/air/wind-stream-blue-gray.webp",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
       "effects": [],
       "folder": "ERuXllkhTQF51rDJ",
       "_stats": {
@@ -3009,7 +3037,7 @@
           "spellFrom": "Archie actor schema"
         }
       },
-      "img": "icons/magic/air/wind-stream-blue-gray.webp",
+      "img": "icons/magic/control/control-influence-crown-gold.webp",
       "effects": [],
       "folder": "ERuXllkhTQF51rDJ",
       "_stats": {
@@ -3233,7 +3261,7 @@
           "spellFrom": "Archie actor schema"
         }
       },
-      "img": "icons/magic/air/wind-stream-blue-gray.webp",
+      "img": "icons/magic/life/cross-flared-green.webp",
       "effects": [],
       "folder": "ERuXllkhTQF51rDJ",
       "_stats": {
@@ -3457,7 +3485,7 @@
           "spellFrom": "Archie actor schema"
         }
       },
-      "img": "icons/magic/air/wind-stream-blue-gray.webp",
+      "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
       "effects": [],
       "folder": "ERuXllkhTQF51rDJ",
       "_stats": {
@@ -3681,7 +3709,7 @@
           "spellFrom": "Archie actor schema"
         }
       },
-      "img": "icons/magic/air/wind-stream-blue-gray.webp",
+      "img": "icons/magic/life/heart-cross-strong-green.webp",
       "effects": [],
       "folder": "ERuXllkhTQF51rDJ",
       "_stats": {
@@ -3905,7 +3933,7 @@
           "spellFrom": "Archie actor schema"
         }
       },
-      "img": "icons/magic/air/wind-stream-blue-gray.webp",
+      "img": "icons/magic/holy/barrier-shield-winged-cross.webp",
       "effects": [],
       "folder": "ERuXllkhTQF51rDJ",
       "_stats": {
@@ -4129,7 +4157,7 @@
           "spellFrom": "Archie actor schema"
         }
       },
-      "img": "icons/magic/air/wind-stream-blue-gray.webp",
+      "img": "icons/magic/holy/barrier-shield-winged-cross.webp",
       "effects": [],
       "folder": "ERuXllkhTQF51rDJ",
       "_stats": {
@@ -4353,7 +4381,7 @@
           "spellFrom": "Archie actor schema"
         }
       },
-      "img": "icons/magic/air/wind-stream-blue-gray.webp",
+      "img": "icons/magic/life/cross-area-circle-green-white.webp",
       "effects": [],
       "folder": "ERuXllkhTQF51rDJ",
       "_stats": {
@@ -4408,7 +4436,8 @@
       "_id": "6615e813e79244ad",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/documents/document-symbol-rune-tan.webp"
     },
     {
       "name": "Feyward Aura — Planar Tell",
@@ -4446,7 +4475,8 @@
       "_id": "de30331d40ee4b81",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/holy/barrier-shield-winged-blue.webp"
     },
     {
       "name": "Third Eye — Seam Sight",
@@ -4484,7 +4514,8 @@
       "_id": "7f4e37f8205e4f52",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/perception/third-eye-blue-red.webp"
     },
     {
       "name": "One-Arm Field Technique",
@@ -4522,7 +4553,8 @@
       "_id": "11ec51ad2ae244db",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/skills/wounds/injury-hand-blood-red.webp"
     },
     {
       "name": "Estragon Island Escape Notes",
@@ -4560,7 +4592,8 @@
       "_id": "582ef54826f4424c",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/movement/portal-vortex-orange.webp"
     },
     {
       "name": "Mazebound Thread",
@@ -4598,7 +4631,8 @@
       "_id": "e7b816424cdf4d40",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/movement/portal-vortex-orange.webp"
     },
     {
       "name": "Parallel Dan Identity File",
@@ -4636,7 +4670,8 @@
       "_id": "963109b646f24309",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/time/clock-spinning-gold-pink.webp"
     },
     {
       "name": "Telescope Displacement Notice",
@@ -4674,7 +4709,8 @@
       "_id": "25f61a3fe67c419e",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/magic/time/clock-spinning-gold-pink.webp"
     },
     {
       "name": "Tymnas Cottage Imp Callouts",
@@ -4712,7 +4748,8 @@
       "_id": "2d585c013eb14349",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/sundries/books/book-open-purple.webp"
     },
     {
       "name": "Feyward Travel Ration",
@@ -4750,7 +4787,8 @@
       "_id": "b972f0f1c5d5400a",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "icons/consumables/food/berries-ration-round-red.webp"
     }
   ],
   "effects": [
@@ -4835,7 +4873,10 @@
       ],
       "actualSpells": true,
       "spellSchemaSource": "fvtt-Actor-archie-miser-hSu2jXk6IxqmByBe.json",
-      "itemCount": 50
+      "itemCount": 50,
+      "imageSource": "Foundry core asset paths supplied by user; Windows backslashes normalized to forward slashes",
+      "actorImage": "icons/creatures/amphibians/frog-confused-green-blue.webp",
+      "itemImages": true
     },
     "exportSource": "Feyward Dan player character dossier"
   },
