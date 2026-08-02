@@ -6216,7 +6216,8 @@ function inlineMd(t,opts){
   if(opts&&opts.link){ t=linkify(t,opts.currentId); }
   
   // Unescape safe allowed HTML tags for custom styling (Waluigi comments & action chips)
-  t = t.replace(/&lt;div\s+class=(?:&quot;|&#39;|"|')*(waluigi-comment|waluigi-rant)(?:&quot;|&#39;|"|')*&gt;/gi, (m, cls) => `<div class="${cls}">`);
+  t = t.replace(/&lt;div\s+class=(?:&quot;|&#39;|"|')*(waluigi-comment|waluigi-rant|wi-ledger-[a-z0-9_-]+)(?:&quot;|&#39;|"|')*(?:\s+style=(?:&quot;|&#39;|"|')*[^&]+(?:&quot;|&#39;|"|')*)?&gt;/gi, (m, cls) => `<div class="${cls}">`);
+  t = t.replace(/&lt;(\/?(?:div|span|b|h3|table|thead|tbody|tr|th|td)[^&]*)&gt;/gi, '<$1>');
   t = t.replace(/&lt;div\s+class=(?:&quot;|&#39;|"|')*chips(?:&quot;|&#39;|"|')*(?:\s+style=(?:&quot;|&#39;|"|')*margin-top:\s*15px;?(?:&quot;|&#39;|"|')*)?&gt;/gi, '<div class="chips" style="margin-top: 15px;">');
   t = t.replace(/&lt;span\s+class=(?:&quot;|&#39;|"|')*chip\s+active(?:&quot;|&#39;|"|')*\s+onclick=(?:&quot;|&#39;|"|')*Router\.go\((?:&#39;|"|&quot;)*#\/power(?:&#39;|"|&quot;)*\)(?:&quot;|&#39;|"|')*&gt;/gi, '<span class="chip active" onclick="Router.go(\'#/power\')">');
   t = t.replace(/&lt;\/div&gt;/gi, '</div>');
@@ -6240,6 +6241,8 @@ function mdToHtml(md,linkCtx){
     // Standalone markdown images: ![alt](path) — used heavily by race dossiers
     const imgM=line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if(imgM){fp();fq();html+=`<figure class="md-figure"><img src="${esc(assetPath(imgM[2]))}" alt="${esc(imgM[1])}" loading="lazy" onerror="this.closest('figure').classList.add('broken')"><figcaption class="imgcap">${esc(imgM[1])}</figcaption></figure>`;continue;}
+    if(/^\s*<(div|span|h3|b|table|thead|tbody|tr|th|td)\b/.test(line) && (line.includes('wi-ledger') || line.includes('style='))){fp();fq();html+=line;continue;}
+    if(/^\s*<\/(div|span|h3|b|table|thead|tbody|tr|th|td)>/.test(line)){fp();fq();html+=line;continue;}
     if(/^>\s?/.test(line)){fp();quote.push(line.replace(/^>\s?/,''));continue;}
     if(line.trim()===''){fp();fq();continue;}
     fq();para.push(line);}
