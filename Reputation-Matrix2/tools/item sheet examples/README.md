@@ -11,6 +11,7 @@ This folder (`tools/item sheet examples/`) holds reference exports of the
 | `fvtt-Actor-archie-miser-hSu2jXk6IxqmByBe.json` | Full player character (PC) sheet — class, race, background, feats, spells, gear, token | The template for a **character actor** |
 | `fvtt-Actor-hjumpik-deldkur-6eBoDhCt0i3e3qZ4.json` | Second full PC sheet | A second character-sheet reference |
 | `fvtt-Actor-bones-level-5-infiltrator-player.json` | **Bones — level 5 player character**; 49 focused class, feature, weapon, gear, lore, and chronology documents | The reference for a fully fleshed-out PC linked to the XP ledger |
+| `fvtt-Actor-feyward-dan-level-3-player.json` | **Feyward Dan — level 3 player character**; parallel-reality Toad with Feyward eye, unstable aura, and 2,000+ lines of dossier JSON | The reference for a dimensional-variant PC; keep separate from Original Dan |
 | `fvtt-Actor-default-item-pile-WF1OTqeH4049Rt9B.json` | Loot / **item pile** actor (weapons, consumables, tools, containers) | The template for a **lootable pile** |
 
 ## Bones image pack and installer
@@ -727,7 +728,34 @@ both import fine).
 5. Validate JSON, import into Foundry, open the sheet and sanity-check
    calculated values (saves, skills, AC, HP).
 
-## 3.3 Recipe: Bones as a real player character (worked reference)
+## 3.3 Recipe: Feyward Dan as a real player character (worked reference)
+
+`fvtt-Actor-feyward-dan-level-3-player.json` is the playable sheet for **Feyward Dan**, not Original Dan. The project has multiple Dan records and they must not be merged: `dan` is the original Liberated Toads leader who lost his arm to the corrupted staff; `feywarddan` is the parallel-reality Toad who woke at Prismari's school, escaped a goblin ambush, survived the Mazebound, and opened the third sensory eye during the Imp Ambush.
+
+### Build and ledger snapshot
+
+- **Level:** 3; **XP:** 1,960; **next level:** 2,700; **ledger entries:** 11.
+- **Interpretation:** Feywild Adept / Dimensional Escapee, a custom player-facing translation rather than a claim that the lore declares a published class.
+- **Ability emphasis:** Charisma 16, Dexterity 14, Wisdom 12, Constitution 13. Dan is socially and magically unusual, but not a polished wizard.
+- **Core features:** Feyward Sensory Eye, Wild Surge, Improvised Escape, Parallel Dan Paradox, Feyward Aura, One More Attempt, and Survivor of the Mazebound.
+- **Equipment:** short sword, quarterstaff, light crossbow, leather armor, Feyward scarf, Prismari school token, and thornbush splinter.
+- **Chronology cards:** Estragon Island, Parallel Dan Separation, Mazebound, Shadow Estate, Vostolas, portal diplomacy, Telescope and Tennis Match, Spotlight Chase, Cookie Retrieval, and the Imp Ambush.
+
+The actor is over 2,000 formatted lines and explicitly contains `playerCharacter: true` and `npc: false`. Its chronology cards are reference material and must not be counted as new XP. The actor snapshot is linked to `PLAYERS.feywarddan`, while the lore article is stored under `data/characters.json` id `dan_the_toad`.
+
+### Canon boundaries
+
+Do not copy Original Dan's cursed-staff history, severed arm, or Liberated Toads co-leadership into this sheet. Feyward Dan may know about those events, be mistaken for the person involved, or share a continuity with him, but the unresolved distinction is the point of the character. The sheet deliberately leaves the origin of the third eye, Professor Prismari's full diagnosis, the identity of the betrayer, and Bowser's destination decision open for play.
+
+### Import checklist
+
+1. Import as a Foundry `character` actor in the same dnd5e/Midi-QOL environment as the other examples.
+2. Confirm the name says **Feyward Dan**, not Original Dan, and verify the `feywarddan` flag before assigning ownership.
+3. Confirm the sheet remains Level 3 / 1,960 XP and that AC, HP, spellcasting, and the Feyward Eye resource load.
+4. Treat the eye and Wild Surge as campaign features for GM review; they are not automatic official 5e features.
+5. Keep future XP in the XP ledger first. Update the actor snapshot deliberately after an advancement.
+
+## 3.4 Recipe: Bones as a real player character (worked reference)
 
 `fvtt-Actor-bones-level-5-infiltrator-player.json` is intentionally a **PC**, not
 an NPC. It is the concrete worked example for the Bones request and is larger
