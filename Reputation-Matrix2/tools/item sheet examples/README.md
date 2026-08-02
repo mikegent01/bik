@@ -737,13 +737,12 @@ both import fine).
 - **Level:** 3; **XP:** 1,960; **next level:** 2,700; **ledger entries:** 11.
 - **Interpretation:** One-Armed Feyward Paladin / Dimensional Escapee, a custom player-facing translation of the divine abilities in the campaign record.
 - **Ability emphasis:** Strength 14, Charisma 16, Dexterity 14, Wisdom 12, Constitution 13. Dan is socially and divinely unusual, but still a displaced survivor rather than a polished saint.
-- **Core features:** Feyward Sensory Eye, Wild Surge, Improvised Escape, Parallel Dan Paradox, Feyward Aura, One More Attempt, Survivor of the Mazebound, Divine Sense, Divine Smite, Aura of Life, and Missing Arm — Permanent Injury.
-- **Equipment:** one-handed longsword, Holy Symbol of Ravenkind, chain mail, and Shield +1, plus the Feyward scarf, Prismari school token, and thornbush splinter.
+- **Core features:** Feyward Sensory Eye, Wild Surge, Improvised Escape, Parallel Dan Paradox, Feyward Aura, One More Attempt, Survivor of the Mazebound, Divine Sense, Divine Smite, and Missing Arm — Permanent Injury.
+- **Confirmed carried equipment:** one-handed longsword, Holy Symbol of Ravenkind, chain mail, and Shield +1. The campaign record also gives him 10 gold pieces. The sword's provenance is intentionally unknown because the Estragon record says he has a sword but does not say where he obtained it.
 - **Spells:** Bless, Command, Cure Wounds, Divine Favor, Heroism, Protection from Evil and Good, Shield of Faith, and the campaign-granted Aura of Life. These are real `type: "spell"` documents with Foundry dnd5e activity/consumption structures copied from the Archie export pattern, not feat-shaped placeholders.
-- **Chronology cards:** Estragon Island, Parallel Dan Separation, Mazebound, Shadow Estate, Vostolas, portal diplomacy, Telescope and Tennis Match, Spotlight Chase, Cookie Retrieval, and the Imp Ambush.
-- **Deep-lore documents:** Prismari school token, Feyward aura/third-eye notes, one-arm field technique, Estragon escape notes, Mazebound thread, parallel-Dan identity file, telescope displacement notice, and Tymnas cottage eye-callouts.
+- **Source-only lore:** Prismari's school journal, the Mazebound rescue, the Telescope displacement, the Black Crystal, and the Imp Ambush remain in the article and source events. They are deliberately not fabricated as inventory because Dan merely read, saw, or experienced them; he did not acquire them.
 
-The actor now contains 50 item documents and is over 4,800 formatted lines. It explicitly contains `playerCharacter: true` and `npc: false`.
+The actor now contains 24 item documents and is over 3,000 formatted lines. It explicitly contains `playerCharacter: true` and `npc: false`.
 
 ### Image paths
 
@@ -758,9 +757,9 @@ The Feyward Dan export now uses Foundry asset paths in the same style as the upl
 - Divine Smite: `icons/magic/holy/projectiles-blades-salvo-yellow.webp`
 - Aura of Life: `icons/magic/life/cross-area-circle-green-white.webp`
 
-All 50 actor items have an `img` path. The paths are references to the Foundry asset library; they do not require copying the entire asset pack into this repository. If Foundry reports a missing image, install or mount the asset pack at the same data root used by the Bowser/Hjumpik world, then keep the path relative and use `/`, not `\\`. Its chronology cards are reference material and must not be counted as new XP. The actor snapshot is linked to `PLAYERS.feywarddan`, while the lore article is stored under `data/characters.json` id `dan_the_toad`.
+All 24 actor items have an `img` path. The paths are references to the Foundry asset library; they do not require copying the entire asset pack into this repository. If Foundry reports a missing image, install or mount the asset pack at the same data root used by the Bowser/Hjumpik world, then keep the path relative and use `/`, not `\\`. The actor snapshot is linked to `PLAYERS.feywarddan`, while the lore article is stored under `data/characters.json` id `dan_the_toad`. The article and source-event records carry the chronology; the actor inventory does not turn chronology cards into fake loot.
 
-The one-arm condition is represented in three places: the biography, `flags.bik.missingArm`, and the `Missing Arm — Permanent Injury` feature item. The loadout is intentionally one-handed: longsword plus Shield +1. Chain mail and Shield +1 produce the exported flat AC 19. The Holy Symbol of Ravenkind is an equipment document, while Divine Sense, Divine Smite, and Aura of Life are feature documents. Aura of Life is marked as a campaign-granted item because standard 5e normally gates it above Level 3; the GM can retain it as an established boon or apply the normal level gate.
+The one-arm condition is represented in three places: the biography, `flags.bik.missingArm`, and the `Missing Arm — Permanent Injury` feature item. The loadout is intentionally one-handed: longsword plus Shield +1. Chain mail and Shield +1 produce the exported flat AC 19. The Holy Symbol of Ravenkind is an equipment document; Divine Sense and Divine Smite are feature documents; Aura of Life is a real spell document. Aura of Life is marked as a campaign-granted item because standard 5e normally gates it above Level 3; the GM can retain it as an established boon or apply the normal level gate.
 
 ### Canon boundaries
 
