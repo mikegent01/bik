@@ -92,6 +92,19 @@
   },
   "siteUpdates": [
     {
+      "id": "campaign_songs_archive",
+      "kind": "event",
+      "label": "New Acoustic Archive",
+      "title": "The Grand Songbook of 1040 BF (18 Songs)",
+      "summary": "Waluigi's multi-dimensional archive of every ballad, shanty, drinking hymn, and unsanctioned chorus sung during Disaster Inc.'s campaigns—featuring Toad shanties, stealth-ruining choruses, and the Longjump Anthem.",
+      "tags": [
+        "songbook",
+        "music",
+        "shanties",
+        "waluigi"
+      ]
+    },
+    {
       "id": "the_embassy_ambush_and_luigi_interrogation",
       "kind": "event",
       "label": "Canonical Event · Eyewitness Audit",

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Waluipedia Grand Songbook — 18 Campaign Ballads, Shanties & Hymns</title>
+  <link rel="icon" href="./favicon.ico">
+  <link rel="stylesheet" href="Reputation-Matrix2/waluipedia.css?v=theme2">
+  <link rel="stylesheet" href="Reputation-Matrix2/ui-fixes.css">
+  <style>
+    body { background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 0; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 28px; background: var(--panel); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
+    .brand { font-size: 20px; font-weight: 900; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .nav-link { padding: 6px 14px; border-radius: 999px; background: var(--panel2); border: 1px solid var(--border); color: var(--text); text-decoration: none; font-size: 13.5px; font-weight: 700; transition: 0.15s; cursor: pointer; }
+    .nav-link:hover { border-color: var(--accent); color: var(--link); }
+    .container { max-width: 1240px; margin: 28px auto; padding: 0 20px; }
+    .hero-songbook { background: linear-gradient(135deg, rgba(138,75,255,0.18), rgba(224,180,0,0.10)), var(--panel); border: 1px solid var(--border); border-left: 6px solid var(--accent); border-radius: 16px; padding: 28px 32px; margin-bottom: 24px; box-shadow: var(--shadow); }
+    .hero-songbook h1 { font-size: 30px; font-weight: 900; margin: 0 0 10px; color: var(--text); }
+    .hero-songbook p { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 900px; margin: 0 0 18px; }
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; align-items: center; }
+    .filter-btn { background: var(--panel2); border: 1px solid var(--border); color: var(--muted); padding: 8px 18px; border-radius: 999px; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: 0.15s; }
+    .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 4px 12px rgba(138,75,255,0.35); }
+    .search-input { flex: 1; min-width: 260px; padding: 10px 18px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg2); color: var(--text); font-size: 14px; }
+    .songs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 18px; }
+    .song-card { background: var(--panel2); border: 1px solid var(--border); border-top: 4px solid var(--song-accent, var(--accent)); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+    .song-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--song-accent, var(--accent)); }
+    .song-kicker { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; color: var(--song-accent, var(--accent2)); margin-bottom: 6px; }
+    .song-title { font-size: 20px; font-weight: 900; color: var(--text); margin: 0 0 4px; line-height: 1.25; }
+    .song-performers { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 12px; }
+    .song-lyrics { background: rgba(0,0,0,0.35); border-left: 3px solid var(--song-accent, var(--accent2)); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 0 0 14px; font-style: italic; font-size: 14px; line-height: 1.65; color: #f3eefb; }
+    .song-context { font-size: 13.5px; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+    .wnote { background: linear-gradient(135deg, rgba(138,75,255,0.14), rgba(20,10,35,0.6)), var(--bg2); border: 1px solid rgba(138,75,255,0.35); border-left: 4px solid var(--accent); border-radius: 10px; padding: 12px 16px; font-size: 13px; line-height: 1.5; margin-bottom: 16px; color: var(--text); }
+    .wnote b { color: var(--link); }
+    .song-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
+    .song-btn { padding: 6px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid var(--border); background: var(--panel); color: var(--text); transition: 0.15s; }
+    .song-btn:hover { border-color: var(--accent); color: var(--link); }
+    .song-btn.play-btn { background: color-mix(in srgb, var(--song-accent, var(--accent)) 18%, var(--bg2)); border-color: var(--song-accent, var(--accent)); color: #fff; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html#/home"><span>W</span> Waluipedia Grand Songbook</a>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html#/home">🏠 Campaign Terminal</a>
+      <a class="nav-link" href="shop.html">🛒 Wario Shop</a>
+      <a class="nav-link" href="currency.html">💱 48-Currency Bank</a>
+      <a class="nav-link" href="index.html#/list/events">📜 All 85 Events</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero-songbook animate-fade-in">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+        <span style="font-size:11.5px; font-weight:900; text-transform:uppercase; letter-spacing:1px; background:var(--accent); color:#fff; padding:4px 12px; border-radius:999px;">Acoustic &amp; Historical Archive · 1040 BF</span>
+        <span style="font-size:13px; color:var(--accent2); font-weight:700;">57 Campaign Records Cross-Referenced</span>
+      </div>
+      <h1>THE GRAND SONGBOOK OF 1040 BF</h1>
+      <p>
+        An objective, multi-dimensional catalog of every ballad, shanty, drinking hymn, and unsanctioned chorus sung during Disaster Inc.'s campaigns. From Toad refugees singing in floating barrels to fey-spirit whistles and Wario's money chants, Waluigi has audited the lyrics, historical context, and harmonic failures of all 18 campaign songs. Written by Waluigi. Disputed by every choir director in the realm. WAH!
+      </p>
+    </div>
+
+    <div class="filter-bar">
+      <input type="text" id="song-search" class="search-input" placeholder="🔍 Search songs by title, lyrics, performer, or event (e.g. 'Toads', 'stealth', 'Wario', 'longjump')...">
+      <button class="filter-btn active" data-cat="all" onclick="filterSongs('all')">All Songs (18)</button>
+      <button class="filter-btn" data-cat="toad" onclick="filterSongs('toad')">🍄 Toad Shanties (4)</button>
+      <button class="filter-btn" data-cat="stealth" onclick="filterSongs('stealth')">🤫 Stealth-Ruining (3)</button>
+      <button class="filter-btn" data-cat="feywild" onclick="filterSongs('feywild')">🌿 Feywild &amp; Revelry (4)</button>
+      <button class="filter-btn" data-cat="military" onclick="filterSongs('military')">⚔️ Military &amp; Legal (4)</button>
+      <button class="filter-btn" data-cat="prophetic" onclick="filterSongs('prophetic')">🔮 Prophetic &amp; Laments (3)</button>
+    </div>
+
+    <div id="songs-grid" class="songs-grid"></div>
+  </main>
+
+  <script>
+    const SONGS_DATA = [
+      {
+        id: "song_we_are_the_toads",
+        title: "We Are the Toads (The Vigilance Liberation Anthem)",
+        category: "toad",
+        accent: "#3f8fd0",
+        performers: "Liberated Toad Refugees (Speaker L, Dan, Ryan)",
+        sourceTitle: "Kaelor Judi & The Road to Raventree",
+        sourceId: "kaelor_judi_witness_line_and_the_road_to_raventree",
+        lyrics: "We are the Toads, we hold the line! / Through cannon smoke and engine whine! / From Mushroom Hall to Midland shore, / We will be captive Toads no more!",
+        context: "Sung by Toad refugees falling out of barrels and marching along the road after the airship Vigilance exploded and was seized by the Iron Legion.",
+        critique: "A military anthem sung by fungi in barrels. High spirit, zero harmonic discipline. WAH!",
+        notes: "C4 E4 G4 C5"
+      },
+      {
+        id: "song_stealth_ruining_chorus",
+        title: "The Stealth-Ruining Chorus of the Grove of Woe",
+        category: "stealth",
+        accent: "#e0b400",
+        performers: "Green T, Dan, the Toad Cohort & Remi Akamatsu",
+        sourceTitle: "The Grove of Woe Incident",
+        sourceId: "the_grove_of_woe_incident",
+        lyrics: "Oh, we're sneaking through the dark, / Not a footprint, not a mark! / Quiet as the shadows creep, / While the Mazebounds fall asleep... / (LOUDER!) OH WE'RE SNEAKING THROUGH THE DARK!",
+        context: "During an active stealth mission in the Grove of Woe, Green T asked if the Toads could start singing. Everyone joined in—including Remi while draped over Markop's shoulder—until Markop yelled for silence.",
+        critique: "The only stealth operation in recorded history where the infiltrators announced their own coordinates in four-part harmony.",
+        notes: "G4 F4 E4 D4 C4"
+      },
+      {
+        id: "song_morel_heir_rhyme",
+        title: "Root and Scale in Tapestry (Morel's Prophetic Rhyme)",
+        category: "prophetic",
+        accent: "#8a4bff",
+        performers: "Mystic Morel (Purple T)",
+        sourceTitle: "Highsun 1, 955 BF — The Day Of",
+        sourceId: "highsun_1_955_bf_the_day_of",
+        lyrics: "The Heir was grown, not born, you see— / Root and scale in tapestry. / A crown of peach, a shell of stone, / To sit upon an empty throne.",
+        context: "An enigmatic nursery rhyme sung by Morel decades before the royal succession crisis was understood, hinting at draconic blood magic and the Hidden Heir.",
+        critique: "Morel's songs are never art; they are encrypted intelligence dossiers set to acoustic guitar.",
+        notes: "A4 C5 E5 A4"
+      },
+      {
+        id: "song_we_rolled_into_raventree",
+        title: "We Rolled Into Raventree on a Tuesday Maybe Thursday",
+        category: "feywild",
+        accent: "#2fae8a",
+        performers: "The Feywild Satyrs & The Revelmaster",
+        sourceTitle: "The Overgrown Manor Campaign",
+        sourceId: "overgrown_manor_campaign",
+        lyrics: "We rolled into Raventree on a Tuesday maybe Thursday! / The wine was already flowing and the grapes were getting hazy! / The lady said one night would last a thousand happy years, / So drink the poisoned honey and forget your mortal fears!",
+        context: "A satyr revelry shanty sung in the overgrown Feywild gardens of Raventree Manor, accompanied by alcoholic honey that knocks out adventurers.",
+        critique: "A drinking song designed to make you forget what century it is so they can steal your boots.",
+        notes: "D4 F4 A4 D5"
+      },
+      {
+        id: "song_saedia_music_box",
+        title: "Saedia's Music Box Melody (The Unleaving Earworm)",
+        category: "feywild",
+        accent: "#c8a6ff",
+        performers: "Saedia's Antique Fey Music Box",
+        sourceTitle: "The Overgrown Manor Campaign",
+        sourceId: "overgrown_manor_campaign",
+        lyrics: "(Instrumental — a delicate, haunting crystalline waltz in 3/4 time that repeats indefinitely inside the listener's mind)",
+        context: "Saedia wound up a small music box in the manor gardens. The melody permanently lodged itself in Waluigi's brain and has refused to leave since.",
+        critique: "Waluigi has tried sleeping pills, loud tennis grunts, and Wario's snoring—nothing removes this waltz from my skull! WAH!",
+        notes: "E5 B4 G4 E4"
+      },
+      {
+        id: "song_singing_thief_ballad",
+        title: "The Singing Thief's Bedside Ballad",
+        category: "stealth",
+        accent: "#8a4bff",
+        performers: "Purple T (The Singing Thief)",
+        sourceTitle: "The Dark Rooms & The Balcony Plan",
+        sourceId: "feyward_dark_rooms_and_balcony_planning",
+        lyrics: "Sleep now, wizard, close your eyes, / Underneath the purple skies. / Keep your spells and keep your pride, / I'll just take what's in your hide...",
+        context: "Sung softly by Purple T while Archie Miser was pinned to a bed, soothing the wizard while robbing his pockets blind.",
+        critique: "A lullaby with a 100% successful theft rate. Utterly shameless.",
+        notes: "C4 G4 E4 C4"
+      },
+      {
+        id: "song_toads_sing_at_door",
+        title: "The Toads Sing at the Door (Harvestide 14 Anthem)",
+        category: "toad",
+        accent: "#3f8fd0",
+        performers: "The Toad Escort Cohort",
+        sourceTitle: "14 Harvestside — Rattles, Morel & The Watermelon",
+        sourceId: "shadow_estate_session_Harvestside_14_full",
+        lyrics: "Open up the iron door, / Markop's checking on the floor! / Eager's waiting with a blade, / In the Shadow Estate shade!",
+        context: "While Markop was delicately listening for magical traps behind an ancient door, the Toads began singing a loud marching tune directly behind him.",
+        critique: "Toads do not understand doors. They believe every closed door is an invitation for an opera.",
+        notes: "G4 G4 A4 B4"
+      },
+      {
+        id: "song_frog_god_doxology",
+        title: "The Frog God's Swamp Doxology",
+        category: "prophetic",
+        accent: "#2fae8a",
+        performers: "Zealots of the Frog God (Tymnas's Swamp Choir)",
+        sourceTitle: "Archie's Frog God Dream & Burning Vigilance",
+        sourceId: "archie_frog_god_dream_duel",
+        lyrics: "Deep beneath the stagnant weed, / The Toad God watches every deed. / Croak and echo, mud and slime, / We outlive the end of time.",
+        context: "Chanted in low, guttural croaks during Archie's divine-contaminated dream duel and around the Astral Altar.",
+        critique: "Sounds less like music and more like fifty bullfrogs clearing their throats in a cathedral.",
+        notes: "C3 C3 D3 C3"
+      },
+      {
+        id: "song_order_through_compliance",
+        title: "Order Through Compliance (The Iron Legion March)",
+        category: "military",
+        accent: "#e5484d",
+        performers: "Iron Legion Garrison Cohorts",
+        sourceTitle: "The Maglev Express — Night One",
+        sourceId: "maglev_express_incident_night_one",
+        lyrics: "Step by step and gear by gear, / Iron Legion knows no fear. / Stamp the writ and clear the lane, / Order rules the mountain train.",
+        context: "Sung in strict cadence by Legion soldiers during inspection details and while patrolling train carriages.",
+        critique: "The only song in the world where every verse must be countersigned in triplicate.",
+        notes: "D4 D4 F4 A4"
+      },
+      {
+        id: "song_ballad_of_broken_rope",
+        title: "The Ballad of the Broken Rope (Thornbury's Lament)",
+        category: "military",
+        accent: "#e0b400",
+        performers: "Thornbury (Overheard by Alpine Bank Tellers)",
+        sourceTitle: "Flight from the Alpine Inn & The Legion Wall",
+        sourceId: "bones_alpine_bank_eavesdropping_and_inn_refuge",
+        lyrics: "Fifty feet of hempen weave, / Stolen by an arcane thief! / Two thousand gold is what is due, / Plus fifty silver, fresh and new!",
+        context: "Sung by Thornbury while filing his 2,062-gold bounty against Archie Miser at Alpine Bank over a snapped piece of string.",
+        critique: "A country-western ballad about an inflated expense report. Shameless extortion.",
+        notes: "E4 G4 A4 G4"
+      },
+      {
+        id: "song_maid_in_iron_serenade",
+        title: "The Maid in Iron's Serenade",
+        category: "stealth",
+        accent: "#e5484d",
+        performers: "The 6-Foot-Tall Iron Legion Knight in a Lace Apron",
+        sourceTitle: "The Alpine Mountain Inn Refuge",
+        sourceId: "bones_alpine_bank_eavesdropping_and_inn_refuge",
+        lyrics: "Housekeeping is here today, / Let us in without delay! / Fresh clean towels and soap to bring, / And an iron sword to swing!",
+        context: "Squeaked in a falsetto voice by a heavily armored Legion knight attempting to trick Bones into opening his hotel room door.",
+        critique: "The falsetto was so bad it violated three international treaties on vocal harmony.",
+        notes: "C5 E5 G5 C6"
+      },
+      {
+        id: "song_rose_shell_shanty",
+        title: "The Rose-Shell Betrothal Shanty",
+        category: "prophetic",
+        accent: "#c8a6ff",
+        performers: "Koopa Troop Minstrels",
+        sourceTitle: "House Toadstool Dynasty Records",
+        sourceId: "houseToadstool",
+        lyrics: "Oh, the Princess in her tower high, / Beneath the glowing regency sky! / A shell of gold, a rose so sweet, / The Mushroom and the Koopa meet!",
+        context: "A banned historical ballad sung by Koopa loyalists claiming Bowser and Peach had signed the Rose-Shell Accords.",
+        critique: "Banned in Toad Town, but Wario still has the vinyl record because he bought the distribution rights.",
+        notes: "F4 A4 C5 F5"
+      },
+      {
+        id: "song_warioware_money_chant",
+        title: "The WarioWare Money Chant",
+        category: "military",
+        accent: "#2fae8a",
+        performers: "Wario (Sole Proprietor & Chief Destruction Officer)",
+        sourceTitle: "Wario's Enterprise Dossier",
+        sourceId: "wario_enterprise",
+        lyrics: "WAH-HA-HA! Give me the gold! / Silver, ducats, new and old! / Every coin that you can see, / Belongs to Wario's company!",
+        context: "Wario's personal corporate anthem, chanted whenever he opens a vault, eats a ledger, or charges an ally interest.",
+        critique: "Not so much a song as a verbal vacuum cleaner for other people's wallets.",
+        notes: "C4 C4 G4 C5"
+      },
+      {
+        id: "song_longjump_anthem",
+        title: "The Longjump Anthem (The Mario Retirement Shanty)",
+        category: "toad",
+        accent: "#e0b400",
+        performers: "Independent Speed-Runners & Tavern Minstrels (1035 BF)",
+        sourceTitle: "The Mage's Embassy Ambush & Luigi Interrogation",
+        sourceId: "the_embassy_ambush_and_luigi_interrogation",
+        lyrics: "Oh, crouch on the stairs and watch your speed, / No more castles that you need! / Backwards jump through stone and wall, / And leave the kingdom once for all!",
+        context: "A popular underground tavern song that emerged after rumors spread of Mario backwards longjumping out of his heroic duties.",
+        critique: "The catchy folk song that drove Wario to kidnap Luigi. 10/10 chorus, 0/10 diplomatic aftermath.",
+        notes: "A4 G4 E4 A4"
+      },
+      {
+        id: "song_lament_of_blackfen_landships",
+        title: "The Lament of the Blackfen Landships",
+        category: "military",
+        accent: "#3f8fd0",
+        performers: "Midland Dwarves & Surviving Engineers",
+        sourceTitle: "The Collapse of Blackfen Pass",
+        sourceId: "blackfen_pass_massacre",
+        lyrics: "Cold the wind and white the frost, / In Blackfen Pass the ships were lost. / Boilers frozen in the snow, / Where the vampire blizzards blow...",
+        context: "A mournful historical ballad commemorating the freeze of the Imperial landships in Blackfen Pass.",
+        critique: "A tragic ballad that should remind military planners to buy winter oil.",
+        notes: "A3 C4 E4 A3"
+      },
+      {
+        id: "song_liberated_toad_hymn",
+        title: "The Liberated Toad Hymn (Resolution 17-A)",
+        category: "toad",
+        accent: "#3f8fd0",
+        performers: "Speaker L & The Pond Patrol",
+        sourceTitle: "The Pond Patrol Docket",
+        sourceId: "pond-docket",
+        lyrics: "By Pond and Docket, writ and sign, / No longer shall our spores recline. / Resolution Seventeen, / Keeps the forest bright and green!",
+        context: "The legal hymn sung at assembly sessions of the Liberated Toads.",
+        critique: "A legal document arranged for four-part choir. Shockingly inspiring.",
+        notes: "C4 F4 A4 C5"
+      },
+      {
+        id: "song_elbow_fey_whistle",
+        title: "Elbow's Fey Spirit Whistle",
+        category: "feywild",
+        accent: "#2fae8a",
+        performers: "Elbow (Fey Toad Mage)",
+        sourceTitle: "The Arunedeal Goblin Camp Refuge",
+        sourceId: "bones_alpine_bank_eavesdropping_and_inn_refuge",
+        lyrics: "(A shrill, melodic three-note whistle that sounds like winter wind through bamboo, summoning stinging fey spirits)",
+        context: "Whistled by Elbow to summon stinging fey spirits from his green staff to scatter the Arunedeal goblin tribe.",
+        critique: "Short, sharp, and results in twenty goblins running for their lives. Excellent tactical melody.",
+        notes: "G5 E5 A5 G5"
+      },
+      {
+        id: "song_corvinarus_three_threads_dirge",
+        title: "The Corvinarus Three-Threads Dirge",
+        category: "feywild",
+        accent: "#8a4bff",
+        performers: "Raventree Manor Servant Ghosts",
+        sourceTitle: "House Corvinarus Dossier",
+        sourceId: "corvinarus_family",
+        lyrics: "Three manors tall, three lords so fine, / Across the shifting thread of time. / But cut one thread of gold or red, / And every Corvinarus is dead.",
+        context: "Eerie nursery chant heard echoing through the crimson hallways of Raventree Manor.",
+        critique: "Gothic family melodrama at 60 beats per minute. Very spooky.",
+        notes: "E4 D4 C4 B3"
+      }
+    ];
+
+    function renderSongs(list) {
+      const grid = document.getElementById('songs-grid');
+      if (!grid) return;
+      grid.innerHTML = list.map((s, idx) => `
+        <div class="song-card animate-fade-in" style="--song-accent: ${s.accent};">
+          <div>
+            <div class="song-kicker">🎵 Song ${(idx+1).toString().padStart(2,'0')} · ${s.category.toUpperCase()}</div>
+            <h3 class="song-title">${s.title}</h3>
+            <div class="song-performers">Performed by: ${s.performers}</div>
+            <blockquote class="song-lyrics">
+              "${s.lyrics}"
+            </blockquote>
+            <p class="song-context"><b>Campaign Context:</b> ${s.context}</p>
+            <div class="wnote">
+              <b>Waluigi's Critique:</b> "${s.critique}"
+            </div>
+          </div>
+          <div class="song-actions">
+            <button class="song-btn play-btn" onclick="playSongCue('${s.notes}')">▶ Play Acoustic Cue</button>
+            <a class="song-btn" href="index.html#/article/${s.sourceId}">📖 View Event Article →</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterSongs(cat) {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      const q = document.getElementById('song-search').value.toLowerCase().trim();
+      const filtered = SONGS_DATA.filter(s => {
+        const matchCat = (cat === 'all') || (s.category === cat);
+        const matchQ = !q || s.title.toLowerCase().includes(q) || s.lyrics.toLowerCase().includes(q) || s.performers.toLowerCase().includes(q) || s.context.toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+      renderSongs(filtered);
+    }
+
+    document.getElementById('song-search').addEventListener('input', () => {
+      const activeCat = document.querySelector('.filter-btn.active')?.getAttribute('data-cat') || 'all';
+      filterSongs(activeCat);
+    });
+
+    // Simple WebAudio synthesizer to play melodic motifs
+    function playSongCue(notesStr) {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const freqMap = {
+          C3: 130.81, D3: 146.83, E3: 164.81, F3: 174.61, G3: 196.00, A3: 220.00, B3: 246.94,
+          C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00, A4: 440.00, B4: 493.88,
+          C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.00, B5: 987.77,
+          C6: 1046.50
+        };
+        const notes = notesStr.split(' ');
+        notes.forEach((note, index) => {
+          const freq = freqMap[note] || 440;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + index * 0.22);
+          gain.gain.setValueAtTime(0.12, ctx.currentTime + index * 0.22);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + index * 0.22 + 0.35);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + index * 0.22);
+          osc.stop(ctx.currentTime + index * 0.22 + 0.38);
+        });
+      } catch (e) {
+        console.warn('Audio unlock required or not supported', e);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSongs(SONGS_DATA);
+    });
+  </script>
+</body>
+</html>
