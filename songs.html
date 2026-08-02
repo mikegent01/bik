@@ -30,6 +30,22 @@
     .song-kicker { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; color: var(--song-accent, var(--accent2)); margin-bottom: 6px; }
     .song-title { font-size: 20px; font-weight: 900; color: var(--text); margin: 0 0 4px; line-height: 1.25; }
     .song-performers { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 12px; }
+        .full-song-sheet {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-left: 4px solid var(--song-accent);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin: 16px 0;
+      font-family: 'JetBrains Mono', monospace, sans-serif;
+      font-size: 13.5px;
+      line-height: 1.7;
+      color: var(--text);
+      max-height: 520px;
+      overflow-y: auto;
+      white-space: pre-line;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+    }
     .song-lyrics { background: rgba(0,0,0,0.35); border-left: 3px solid var(--song-accent, var(--accent2)); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 0 0 14px; font-style: italic; font-size: 14px; line-height: 1.65; color: #f3eefb; }
     .song-context { font-size: 13.5px; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
     .wnote { background: linear-gradient(135deg, rgba(138,75,255,0.14), rgba(20,10,35,0.6)), var(--bg2); border: 1px solid rgba(138,75,255,0.35); border-left: 4px solid var(--accent); border-radius: 10px; padding: 12px 16px; font-size: 13px; line-height: 1.5; margin-bottom: 16px; color: var(--text); }
@@ -65,11 +81,12 @@
 
     <div class="filter-bar">
       <input type="text" id="song-search" class="search-input" placeholder="🔍 Search songs by title, lyrics, performer, or event (e.g. 'Toads', 'stealth', 'Wario', 'longjump')...">
-      <button class="filter-btn active" data-cat="all" onclick="filterSongs('all')">All Songs (18)</button>
-      <button class="filter-btn" data-cat="toad" onclick="filterSongs('toad')">🍄 Toad Shanties (4)</button>
+      <button class="filter-btn active" data-cat="all" onclick="filterSongs('all')">All Songs (23)</button>
+      <button class="filter-btn" data-cat="full" onclick="filterSongs('full')" style="border-color:#8a4bff; color:#d8c6ff;">📜 Full-Length Broadway Songs (5)</button>
+      <button class="filter-btn" data-cat="toad" onclick="filterSongs('toad')">🍄 Toad Shanties (5)</button>
       <button class="filter-btn" data-cat="stealth" onclick="filterSongs('stealth')">🤫 Stealth-Ruining (3)</button>
-      <button class="filter-btn" data-cat="feywild" onclick="filterSongs('feywild')">🌿 Feywild &amp; Revelry (4)</button>
-      <button class="filter-btn" data-cat="military" onclick="filterSongs('military')">⚔️ Military &amp; Legal (4)</button>
+      <button class="filter-btn" data-cat="feywild" onclick="filterSongs('feywild')">🌿 Feywild &amp; Satyrs (5)</button>
+      <button class="filter-btn" data-cat="military" onclick="filterSongs('military')">⚔️ Military &amp; Legal (5)</button>
       <button class="filter-btn" data-cat="prophetic" onclick="filterSongs('prophetic')">🔮 Prophetic &amp; Laments (3)</button>
     </div>
 
@@ -78,6 +95,406 @@
 
   <script>
     const SONGS_DATA = [
+      {
+        id: "song_heroes_reborn_anthem",
+        title: 'The Iron Dominion Anthem: "Heroes Reborn" (A Staggering Circus)',
+        category: "full",
+        accent: "#e5484d",
+        performers: "The Iron Dominion Stage Singer & Legion Brass Band",
+        sourceTitle: "The Iron Dominion Refined & The Gate Confrontation",
+        sourceId: "iron_legion",
+        lyrics: `[Verse 1 – fast, snappy, bouncing on the beat]  
+Step into the spotlight, you pitiful crew!  
+The Iron Dominion is looking at you!  
+You call yourselves "Reborn," oh, isn't that grand?  
+The clumsiest comedy troupe in the land!  
+You’re marching on castles, you’re looking for fights,  
+But you can’t even handle a handful of knights!  
+We set up a snare, and you walked right inside,  
+So swallow your ego and swallow your pride!  
+  
+[Chorus – booming brass, big theatrical energy]  
+Oh, strike up the band for the "Heroes Reborn"!  
+A staggering circus, outclassed and outworn!  
+You challenged the Legion, you thought you were bold,  
+But your fire is dying, and your story is told!  
+One flick of the wrist! One snap of the hand!  
+And we’ve scattered the "saviors" all over the sand!  
+  
+[Verse 2 – prowling the stage, pointing with the cane]  
+Let’s look at the roster! Let’s look at the squad!  
+There’s Archie the mystic, communing with God!  
+His eyes rolling back till he’s totally blind,  
+He’s looking for answers he never will find!  
+And Humpik the dwarf with a hammer too wide,  
+Just waddling after the Koopa in stride!  
+He thinks that he’s lethal, he thinks he’s a threat,  
+But he’s just a mascot we haven't squashed yet!  
+  
+[Pre-Chorus – tempo slows to a mocking strut]  
+Toad Lee's got an axe that he barely can hold,  
+He trips on the carpet, so brave and so bold!  
+And Toadburt? Oh, Toadburt! Erased from the floor!  
+We wiped him away, he's not here anymore!  
+And Dan with his wand and his flickering spark?  
+A kid with a glowstick afraid of the dark.  
+  
+[Chorus – back to the fast, swinging beat]  
+Oh, strike up the band for the "Heroes Reborn"!  
+A staggering circus, outclassed and outworn!  
+You challenged the Legion, you thought you were bold,  
+But your fire is dying, and your story is told!  
+One flick of the wrist! One snap of the hand!  
+And we’ve scattered the "saviors" all over the sand!  
+  
+[Verse 3 – aggressive, mocking the heavy hitters]  
+And speaking of fire—oh, Bowser, my king!  
+A monarch who doesn't rule anything!  
+We took all his castles with elegant tact,  
+And now he’s just screaming to cover the fact!  
+He crushes an imp and he kicks down a door,  
+But he ran from the library, what a colossal bore!  
+And Markop the wizard, who sees through the lies!  
+Just standing there watching his fellowship die!  
+You saw all the magic! You knew it was bad!  
+But you couldn't save the best friend that you had!  
+  
+[Bridge – The music drops out. Just a slow, creeping stand-up bass.]  
+(The Singer stops moving. The spotlight turns a sickly, pale green. He speaks the next lines in a cruel, rhythmic whisper.)  
+  
+Because what is a tragedy... without the star?  
+Let's talk about Remi. Let's see how we are.  
+She took the vampire's ring.  
+She drank the black brew.  
+She played hide-and-seek like we told her to do.  
+We handed her poison, she called it a cure.  
+We've never destroyed someone so... immature.  
+  
+(The bass stops. Silence.)  
+  
+She smiled for the Gorgon.  
+She’s caught in the stone.  
+You wanted a fellowship?  
+Leave her alone.  
+  
+[Final Chorus – the band EXPLODES; cymbals crashing, trumpets blaring]  
+SO STRIKE UP THE BAND FOR THE HEROES REBORN!  
+YOUR KOOPA IS BROKEN! YOUR MYSTIC IS TORN!  
+YOU THOUGHT YOU WERE LEGENDS, YOU THOUGHT YOU WERE GREAT!  
+BUT YOU'RE JUST THE NOBODIES STUCK AT THE GATE!  
+  
+Go run to your airship! Go fly to the stars!  
+Go cover your bruises and bandage your scars!  
+The Legion is laughing, the Onyx Hand wins,  
+And this is exactly where the nightmare begins!  
+  
+[Outro – big Broadway finish, holding the final note]  
+(The Singer throws his arms wide, cane raised to the sky)  
+You’re yesterday's neeeeeeeeeews...  
+And you’re out... of... tiiiiiiiiiiiiiime!  
+  
+(He brings the cane down with a sharp CRACK on the stage floor. The music stops instantly. Blackout.)`,
+        context: "Sung by the Iron Dominion's theatrical stage singer to mock Disaster Inc. ('Heroes Reborn') during their confrontation at the checkpoint gate, roasting Archie, Hjumpik, Toad Lee, Toadburt, Dan, Bowser, Markop, and Remi.",
+        critique: "Waluigi hates the Iron Legion, but Waluigi must admit: their brass section hits like a magitek cannon, and roasting eight party members in perfect rhyme is exquisite musical cruelty. 10/10 villainy. WAH!",
+        notes: "C4 G4 G4 C5"
+      },
+      {
+        id: "song_toad_cohort_remix",
+        title: '"We Creep Through the Halls (Toads With No Balls)" / "Reborn (Iron Remnant Remix)"',
+        category: "full",
+        accent: "#3f8fd0",
+        performers: "The Liberated Toads Cohort & Speaker L",
+        sourceTitle: "The Pond Patrol Docket & Shadow Estate Infiltration",
+        sourceId: "liberated_toads",
+        lyrics: `We creep through the halls, Toads with no balls,  
+But we fight to the end, with our rattles and friends!  
+Through the shadow and dark, we leave our mark,  
+We sing while we sneak, we're unique, hear us speak!  
+Rattles will shake, Remi will take,  
+Markop will smite what the dark tries to make!  
+Eager ties tight, Green T lights the night,  
+We creep through the halls, but we always fight!  
+No torches to light, just the sound of our fright,  
+But our hearts beat like drums through the shadowfell night!  
+We're the Toads with no balls who climb manor walls,  
+We creep through the halls, hear our war cry calls!  
+So shiver the bones, let out all your groans,  
+We're the Toads who come creeping through estates and stones!  
+With Rattles our friend and a fight round the bend,  
+We creep through the halls till the very end!  
+  
+"Reborn (Iron Remnant Remix)" — Toad Cohort Battle Song  
+  
+[Verse 1]  
+We are the Toads who broke our chains,  
+But freedom cuts with hidden pains—  
+Our banner raised, our footing shaken,  
+Our trusted hand now nearly taken.  
+Reborn… but scarred by storms we made,  
+Our victory bright, our honor frayed.  
+  
+[Chant Refrain]  
+Reborn, reborn!  
+From triumph into thorn!  
+Reborn, reborn!  
+Through doubt our steps are torn!  
+  
+[Chorus]  
+Raise the helm! Raise the vow!  
+Though shadows cling to us somehow—  
+We marched in faith, we bled in flame,  
+Still cry: the free! We stay the same?  
+Through clash and fear, through guilt and pain,  
+We stand— though cracked— the free remain!  
+  
+[Verse 2]  
+Speaker L once led us bold,  
+But now the stories twist and fold—  
+The Legion comes with iron creed,  
+And chains return in whispered speed.  
+In ash we kneel, in mud we swear,  
+Our hearts divide— yet still we dare.  
+  
+[Chant Refrain]  
+Reborn, reborn!  
+Our courage bruised and worn!  
+Reborn, reborn!  
+In doubt a new form’s born!  
+  
+[Bridge]  
+We forged in terror, we fought in stone,  
+We carried truths we thought we’d known.  
+The lines we crossed, the trust we bled,  
+Now haunt the brave who never fled.  
+But even fractured, hurt, betrayed—  
+A Toad still rises from the grave.`,
+        context: "Sung by the Toad escort cohort while climbing Shadow Estate walls and infiltrating Iron Legion corridors—referencing Rattles, Remi, Markop, Eager, Green T, and Speaker L's twisted stories.",
+        critique: "Toads singing about having 'no balls' while scaling haunted manor walls is the most honest military self-assessment in 1040 BF. Shockingly inspiring.",
+        notes: "C4 E4 G4 C5"
+      },
+      {
+        id: "song_yesterdays_stain",
+        title: 'The Iron Dominion Refined: "Yesterday's Stain"',
+        category: "full",
+        accent: "#8a4bff",
+        performers: "The Iron Legion Stage Ensemble",
+        sourceTitle: "The Iron Consolidation",
+        sourceId: "iron_legion",
+        lyrics: `[Verse 1 – smooth, venomously playful; show-host cruelty]  
+Step right up, folks—take a seat,  
+Watch the fugitives admit defeat.  
+Archie with the “third eye,” aiming for mystique—  
+Darling, enlightenment shouldn’t look this weak.  
+  
+And Humpik—oh, the dwarf with the “hero’s stride,”  
+Swinging that hammer like it’s three sizes wide.  
+Marching after Bowser like a lost parade—  
+Someone tell him loyalty doesn’t make a blade.  
+  
+[Pre-Chorus – faux empathy, dripping sarcasm]  
+Aww, little Toad Lee, ax too tall,  
+Trip once more and you’ll dig your own crawl.  
+Toadburt vanished—vanished or fled?  
+Hard to tell when courage’s hanging by a thread.  
+  
+[Chorus – booming villain chorus, triumphant mockery]  
+Reborn? Reborn?  
+Is this the show you planned?  
+Reborn? Reborn?  
+A tragedy—accidentally unplanned!  
+Kneel to the Legion, iron in our tone—  
+Your Speaker’s gagged, your hero’s overthrown!  
+One march, one blade, one anthem of disdain—  
+You’re not legends…  
+You’re yesterday’s stain.  
+  
+[Verse 2 – spotlight prowling, calling each one out]  
+And Bowser—dearest Bowser—former king,  
+Still roaring loud though he’s lost everything.  
+Spikes, flame, bluster—such a tired act;  
+We seized his throne with elegance and tact.  
+  
+Dan and his wand with the flickering spark—  
+Trying to act dangerous? Precious, not dark.  
+The whole little troupe stumbling through fate—  
+We’d applaud the courage if it weren’t second-rate.  
+  
+[Chant Refrain – cruel playground rhythm, Legionnaires taunting]  
+Reborn, reborn?  
+Three-eyed failure on display!  
+Reborn, reborn?  
+Dwarf and Toads who lost their way!  
+Reborn, reborn?  
+Bowser’s strays—what a bore!  
+Run along, run along—mind the door!  
+  
+[Bridge – slow, predatory, tightening the noose]  
+Gather close, my wayward cast,  
+Heroes built of paper, torn too fast.  
+Your “Speaker,” your “mission,” your naïve crusade—  
+Crumble at the sound of our iron parade.  
+One silent signal, one disciplined stride,  
+And the Legion sweeps the board—clean, dignified.  
+  
+[Final Chorus – orchestra detonates; pure Legion dominance]  
+Reborn? Reborn?  
+Hush now, drop the illusion.  
+Reborn? Reborn?  
+All we see is delusion!  
+Archie, Humpik, Bowser, Toads—  
+Your saga buckles under our codes.  
+Raise the banner—watch your dream unwind,  
+For the only thing reborn tonight…  
+…is the Iron Dominion, refined.`,
+        context: "A smooth, show-host cruelty anthem mocking Archie's third eye, Hjumpik's hammer, Toad Lee's axe, Toadburt's disappearance, Bowser's lost throne, and Dan's glowstick wand.",
+        critique: "A Broadway showstopper designed to make a party quit their campaign out of sheer embarrassment. Exquisitely refined.",
+        notes: "A4 E4 A4 E5"
+      },
+      {
+        id: "song_revel_never_ends",
+        title: '"The Revel Never Ends!" (The Satyr's Bender Hymn)',
+        category: "full",
+        accent: "#2fae8a",
+        performers: "Ralos (Relis / 'Pal') & The Raventree Satyr Revelers",
+        sourceTitle: "The Overgrown Manor Campaign",
+        sourceId: "overgrown_manor_campaign",
+        lyrics: `(Verse 1)  
+We rolled into Raventree on a Tuesday, maybe Thursday,  
+The wine was already flowing and the grapes were getting hazy!  
+The lady said "one night only!" with a smile so very thin—  
+But we satyrs know a party when the party's letting *in*!  
+  
+(Verse 2)  
+Our leader—call me Ralos, call me Relis, call me "Pal"—  
+He raised his glass and shouted, "Now hear the satyr's call!  
+Why waste your days on worrying about some distant sorrow?  
+When the *now* is calling, calling, and tomorrow's only *borrowed*!"  
+  
+(Chorus)  
+The revel never ends! The revel never ends!  
+The glasses never empty and the night has got no friends!  
+We dance until we're breathless, we sing until we're hoarse—  
+This party's got no finish, it's the satyr's only course!  
+The revel never ends! The revel never ends!  
+The vines may pull us tighter but we'll drink until the trend's end!  
+So bring us another round, another tune, another rhyme—  
+We're satyrs on a bender and we're running out of *time*!  
+  
+(Verse 3)  
+The lady says we're trespassing, the butler says we're rude,  
+But we've got no homes to go to and we've paid our gratitude!  
+With every keg we empty and every bawdy song,  
+We write our names in legend—let the manor bells move on!  
+  
+(Bridge - Leader's Solo, one hand on heart)  
+They want us to be quiet, they want us to be tame,  
+But a satyr without a party is a flower without flame!  
+We didn't ask to be born into a world so very grim—  
+We just ask for one more chorus, one more drink, one more *hymn*!  
+  
+(Chorus - Bigger, with satyrs stomping feet)  
+THE REVEL NEVER ENDS! THE REVEL NEVER ENDS!  
+The floors may crack beneath us and the walls may start to bend!  
+But we'll keep this party going till the very last guest falls—  
+And if that means drinking forever, then we'll answer duty's calls!  
+THE REVEL NEVER ENDS! THE REVEL NEVER ENDS!  
+The lady can keep her manor, her vines, and her commands!  
+But we've got the music in our hearts and the wine in our hands—  
+And a satyr's revel never ends in a far-off fairyland!  
+  
+(Final Tag, as he leaps down and pulls hjumpik into a dance)  
+So who's for another round? Who's for another song?  
+The party's never over if you keep the party *strong*!  
+The revel never ends! The revel never ends!  
+*Blackout!*`,
+        context: "Sung on a Tuesday (or maybe Thursday) in the overgrown Feywild gardens of Raventree Manor while drinking poisoned honey wine, ignoring the lady's manor bells, and pulling Hjumpik into a dance!",
+        critique: "A bender hymn so powerful it makes you forget what century it is. Waluigi approves of any party that drinks until the floorboards splinter.",
+        notes: "G4 B4 D5 G5"
+      },
+      {
+        id: "song_wario_solarium_heist",
+        title: 'Wario's Attic Heist: "Gimme the Loot, Gimme the Gold!"',
+        category: "full",
+        accent: "#e0b400",
+        performers: "Wario (Master of the Wario Bash)",
+        sourceTitle: "Wario's Enterprise & The Bramblefly Duel",
+        sourceId: "wario_enterprise",
+        lyrics: `[Intro]  
+(Wario dusts off his overalls, slips on his "W" brass knuckles, and strikes a pose)  
+"WAH HA HA! You chumps down there can play with your ghosts and your history books! I’m here for the real lore! The gold kind!"  
+  
+[Verse 1]  
+Up the creeping vines I go, leaving all the chumps below,  
+I can smell the sweet, sweet glimmer in the attic air!  
+Fairy queens and magic rings? I don't care for Feyward things,  
+I just want the platinum waiting up the stair!  
+Look at all this silver! Look at all this loot!  
+I’m gonna buy a castle and a brand-new yellow suit!  
+(He kicks a humanoid bone out of the way)  
+Move over, dead guy, you don’t need the cash,  
+Here comes the master of the Wario bash!  
+  
+[Chorus]  
+Gimme the loot, gimme the gold!  
+Shove it in the bag 'til the seams unfold!  
+Step aside, bug, you're in Wario's way,  
+It's a beautiful, profitable, bomb-tossing day!  
+WAH! Mine! All mine!  
+  
+[Verse 2]  
+(The massive Bramblefly descends, its wings roaring like a hurricane. It dives for an Air Strike! Wario perfectly dodges with a greasy combat roll, stuffing a golden candlestick in his pocket mid-roll.)  
+  
+What's that racket? Ah, the overgrown mosquito!  
+Swooping with a stinger like a giant magic spear!  
+Got a million faceted eyes, but you’re blind to who is here!  
+You think an "Air Strike" scares a guy with knuckles made of brass?  
+I’ll shoulder-bash your thorax and I'll knock you on your— glass!  
+(He punches a flying tail spine away with a loud CLANG)  
+Watch the merchandise, you buzzing freak!  
+These rubies are antique!  
+  
+[Pre-Chorus]  
+(Wario reaches into his chaotic bag of holding and pulls out the beautifully wrapped, festively bowed present box. It is ticking loudly.)  
+  
+You want a piece of me? I brought a little gift!  
+Wrapped it up myself, give the ribbon a little lift!  
+Tick-tock, tick-tock, hear that festive sound?  
+When the Wario drops a present, it levels the whole ground!  
+  
+[Chorus]  
+Gimme the loot, gimme the gold!  
+I'm charging you interest for the items I hold!  
+Eat the explosive, you overgrown flea,  
+Nobody takes Wario's treasure from me!  
+WAH! Mine! All mine!  
+  
+[Bridge]  
+(Instrumental break: The Bramblefly uses Evasive Flight, dodging Wario's throws. The buzzing is deafening. Wario ignores the danger, frantically scooping piles of the 7,500 gold coins into his bag. He’s taking taking damage from the thorns, but his vintage Vampire Wine is keeping him going.)  
+  
+Sting me? Bite me? I drank vintage vampire wine!  
+Everything in this giant nest is absolutely MINE!  
+Take the ruby! Grab the crown! Stuff the coins into my sack!  
+I ain't fixing my coin press when I got this kind of stack!  
+(He hurls the ticking present right into the Bramblefly's open mandibles)  
+Enjoy the fireworks, bug! Time to take a step back!  
+  
+[The Climax / Outro]  
+(Wario strikes a triumphant, muscular pose in front of the gold pile. Behind him, the 'present' detonates in a massive fiery explosion—BOOOOOM! The Bramblefly screeches and crashes.)  
+  
+Ha! Another flawless victory for—  
+Wait. What’s that sound?  
+  
+(The music suddenly stops. A loud, ominous CRACK echoes beneath Wario's feet. The blast from the bomb, combined with the 400 lbs of gold Wario just shoved into his pockets, is too much for the rotted Solarium floor. The wood splinters.)  
+  
+Wario: "Uh oh."  
+  
+(The floor gives way completely.)  
+  
+Wario: "WAAAAAAAHHHHHHHHH!"`,
+        context: "Sung while climbing creeping vines into the Solarium to steal 7,500 gold coins, dodging a Bramblefly's Air Strike, throwing a ticking present box into its mandibles, and causing the rotted Solarium floor to splinter beneath 400 lbs of looted gold!",
+        critique: "Wario singing an opera while stuffing antique rubies into his pockets is the purest expression of commercial greed in recorded history. 11/10. WAH!",
+        notes: "C3 G3 C4 G4"
+      },
       {
         id: "song_we_are_the_toads",
         title: "We Are the Toads (The Vigilance Liberation Anthem)",
@@ -323,9 +740,9 @@
             <div class="song-kicker">🎵 Song ${(idx+1).toString().padStart(2,'0')} · ${s.category.toUpperCase()}</div>
             <h3 class="song-title">${s.title}</h3>
             <div class="song-performers">Performed by: ${s.performers}</div>
-            <blockquote class="song-lyrics">
-              "${s.lyrics}"
-            </blockquote>
+            ${s.category === 'full' 
+              ? `<div class="full-song-sheet">${s.lyrics}</div>` 
+              : `<blockquote class="song-lyrics">"${s.lyrics}"</blockquote>`}
             <p class="song-context"><b>Campaign Context:</b> ${s.context}</p>
             <div class="wnote">
               <b>Waluigi's Critique:</b> "${s.critique}"
