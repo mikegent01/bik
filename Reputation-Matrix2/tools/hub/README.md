@@ -67,6 +67,11 @@ and `factions.json`.
   ideal/bond/flaw, and alignment. The mechanical skeleton is never replaced, and
   if the model is unreachable the built-in writing is used and the UI says so.
 
+> **Schema & authoring guide:** for the `characters.json` record schema, the
+> Foundry actor/item-document fields, and the recipes to make a new PC, NPC, or
+> loot pile, read
+> [`tools/item sheet examples/README.md`](../item%20sheet%20examples/README.md).
+
 ### Data Browser
 All 402 JSON/JS data files with shape summaries and previews.
 

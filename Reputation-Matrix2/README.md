@@ -33,6 +33,23 @@ The guide covers: physical prose techniques, voice/POV rules, section vs chapter
 
 **Do not optimise the numbers.** They catch drift. If the prose reads well and the measurements disagree, the prose wins.
 
+## Characters, Items & Foundry Actor JSON
+
+Character lore records (`data/characters.json`), shop items
+(`data/shop-items/*.js`), and the play-ready Foundry VTT actor exports
+(`tools/item sheet examples/*.json`) follow a shared schema standard:
+
+**→ [tools/item sheet examples/README.md](tools/item%20sheet%20examples/README.md)** — Character & Item JSON Guide
+
+The guide covers: the `characters.json` schema field-by-field (id rules, XP-ledger
+linking via `MANUAL_CHARACTER_LINKS`, status/summary/description writing
+standards, `keyEvents` validation), the Foundry actor envelope
+(`system` / `items[]` / `prototypeToken` / `_stats` / `flags`), the per-item-type
+field requirements (weapon, equipment, consumable, tool, container, loot,
+class, race, background, feat, spell), item-pile construction, the Hub
+Character Creator + Item Piles workflow, naming conventions, and validation
+scripts.
+
 ## Adding New Map Pages
 
 To maintain application stability and a consistent user experience, all new tactical map pages **must** adhere to the standardized map grouping system. Creating custom, one-off UI or filtering logic for a single map page can conflict with the global data loaders for POIs and tactical units, causing them to fail to render.
