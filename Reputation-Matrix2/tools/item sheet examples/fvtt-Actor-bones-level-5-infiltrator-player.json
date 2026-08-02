@@ -1,7 +1,7 @@
 {
   "name": "Bones — Level 5 Infiltrator (Player Character)",
   "type": "character",
-  "img": "https://files.catbox.moe/86mxc1.jpeg",
+  "img": "images/bones/bones-portrait.png",
   "system": {
     "currency": {
       "pp": 0,
@@ -751,7 +751,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "player/archiereforemd.webp",
+      "src": "images/bones/bones-portrait.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -950,7 +950,8 @@
       "_id": "aabea528565241fa",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Unknown Humanoid",
@@ -980,7 +981,8 @@
       "_id": "unknownhumanoid0",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Liberated Toads Field Infiltrator",
@@ -1010,7 +1012,8 @@
       "_id": "liberatedtoadsin",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Expertise — Stealth",
@@ -1047,7 +1050,8 @@
       "_id": "1e74241f899848c6",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Expertise — Sleight of Hand",
@@ -1084,7 +1088,8 @@
       "_id": "57ee4784480241c6",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Sneak Attack (3d6)",
@@ -1121,7 +1126,8 @@
       "_id": "5282f70603514cf3",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Cunning Action",
@@ -1158,7 +1164,8 @@
       "_id": "a4117ede1a804367",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Uncanny Dodge",
@@ -1195,7 +1202,8 @@
       "_id": "d92e2803e15c4dfb",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Evasion",
@@ -1232,7 +1240,8 @@
       "_id": "62f5914bbd6748dd",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Infiltrator Background",
@@ -1269,7 +1278,8 @@
       "_id": "0f946c82723c46d9",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Unknown Identity",
@@ -1306,7 +1316,8 @@
       "_id": "59ee39a336f14d57",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Oracle Refusal",
@@ -1343,7 +1354,8 @@
       "_id": "b490b727c1c94464",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Planar Survivor",
@@ -1380,7 +1392,8 @@
       "_id": "d0a2e24288054cd9",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Field Judgment",
@@ -1417,7 +1430,8 @@
       "_id": "d230da8747c84265",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Longsword",
@@ -1478,7 +1492,8 @@
       "_id": "50ea7cf690094edd",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-weapons.png"
     },
     {
       "name": "Vile Mace",
@@ -1539,7 +1554,8 @@
       "_id": "f7d412a46d974fae",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-weapons.png"
     },
     {
       "name": "Light Crossbow",
@@ -1600,7 +1616,8 @@
       "_id": "64d653e8a78d4857",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-weapons.png"
     },
     {
       "name": "Wooden Shield",
@@ -1647,7 +1664,8 @@
       "_id": "b4f2c850118e4947",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-weapons.png"
     },
     {
       "name": "Leather Armor",
@@ -1694,7 +1712,8 @@
       "_id": "408aebd7e82446e6",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-field-kit.png"
     },
     {
       "name": "Winter Coat",
@@ -1741,7 +1760,8 @@
       "_id": "b91a33e214a04e1a",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-field-kit.png"
     },
     {
       "name": "Disguise Kit",
@@ -1788,7 +1808,8 @@
       "_id": "0a6fbdf413d142b0",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-field-kit.png"
     },
     {
       "name": "Thieves' Tools",
@@ -1835,7 +1856,8 @@
       "_id": "770b7c37a67d4e19",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-field-kit.png"
     },
     {
       "name": "Alpine Inn Key",
@@ -1882,7 +1904,8 @@
       "_id": "b46fe5cb170649fe",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Fundamentals of Abjuration",
@@ -1919,7 +1942,8 @@
       "_id": "d20357bd18844126",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-codex.png"
     },
     {
       "name": "Veins of the Tapestry",
@@ -1956,7 +1980,8 @@
       "_id": "b12085554a1f4192",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-codex.png"
     },
     {
       "name": "Field Journal — Thornbury",
@@ -1993,7 +2018,8 @@
       "_id": "72462d8e74224015",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Midland Ducats",
@@ -2040,7 +2066,8 @@
       "_id": "618455345ec7442a",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-field-kit.png"
     },
     {
       "name": "Bone Ash, Live Wood, Iron Dust, Chalk",
@@ -2087,7 +2114,8 @@
       "_id": "dcfba8fca6024fdc",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-codex.png"
     },
     {
       "name": "Chronicle Card — Spider Grove",
@@ -2124,7 +2152,8 @@
       "_id": "406c3a8aa0b34432",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Solarium Detonation",
@@ -2161,7 +2190,8 @@
       "_id": "124e034712d64348",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Iron Sky Breach",
@@ -2198,7 +2228,8 @@
       "_id": "c31d3f83d4a4498d",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Massacre at Aegis Command",
@@ -2235,7 +2266,8 @@
       "_id": "804b6a46573d4a54",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Aegis Command Riot",
@@ -2272,7 +2304,8 @@
       "_id": "60cf396b141746af",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Reclamation of the Vigilance",
@@ -2309,7 +2342,8 @@
       "_id": "af6786d1f8e64014",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — First Night at Raventree",
@@ -2346,7 +2380,8 @@
       "_id": "c3322175e6dd472d",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Mazebound Grove",
@@ -2383,7 +2418,8 @@
       "_id": "593919679a6a42cc",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Battle of the Brobot",
@@ -2420,7 +2456,8 @@
       "_id": "395195b1d5af40e8",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Grove of Woe",
@@ -2457,7 +2494,8 @@
       "_id": "8ed9324c68ff4a94",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Shadeward Anchor Ritual",
@@ -2494,7 +2532,8 @@
       "_id": "44dacd4b660e4eae",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Ruined Manor Convergence",
@@ -2531,7 +2570,8 @@
       "_id": "32b3464283e94fa1",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Medical Extortion",
@@ -2568,7 +2608,8 @@
       "_id": "f7956ae7769f425a",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Telescope and Tennis Match",
@@ -2605,7 +2646,8 @@
       "_id": "f8519a049e6f4a63",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Planar Sanctum Revelation",
@@ -2642,7 +2684,8 @@
       "_id": "92d6c64e99594760",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Veins of the Tapestry",
@@ -2679,7 +2722,8 @@
       "_id": "e6c4e50dd8224dce",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Oracle Flesh Vat",
@@ -2716,7 +2760,8 @@
       "_id": "2cffbed11b174eab",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Canoloth Trial",
@@ -2753,7 +2798,8 @@
       "_id": "c04e7dbbdb0f41ac",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Astral Altar",
@@ -2790,7 +2836,8 @@
       "_id": "de009bdb545c4a49",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Alpine Bank",
@@ -2827,7 +2874,8 @@
       "_id": "645ee4ef4336443f",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Blizzard Escape",
@@ -2864,7 +2912,8 @@
       "_id": "0c2ff6c57a554f66",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Arunedeal Camp",
@@ -2901,7 +2950,8 @@
       "_id": "a32c248d837146f7",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     },
     {
       "name": "Chronicle Card — Legion Checkpoint",
@@ -2938,7 +2988,8 @@
       "_id": "5a9f5e9cad3e45f6",
       "ownership": {
         "default": 0
-      }
+      },
+      "img": "images/bones/bones-chronicle.png"
     }
   ],
   "effects": [
@@ -3007,9 +3058,11 @@
       "fameScore": 52,
       "status": "Active",
       "source": "data/characters.json + xp.html + events.json + battles.json",
-      "notes": "Use this actor as a playable interpretation. Do not import level/xp back into characters.json."
+      "notes": "Use this actor as a playable interpretation. Do not import level/xp back into characters.json.",
+      "imageInstallRoot": "images/bones/"
     },
-    "exportSource": "Bones player character dossier"
+    "exportSource": "Bones player character dossier",
+    "tokenflip": {}
   },
   "_stats": {
     "compendiumSource": null,

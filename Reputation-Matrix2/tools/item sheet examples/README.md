@@ -13,6 +13,31 @@ This folder (`tools/item sheet examples/`) holds reference exports of the
 | `fvtt-Actor-bones-level-5-infiltrator-player.json` | **Bones — level 5 player character**; 49 focused class, feature, weapon, gear, lore, and chronology documents | The reference for a fully fleshed-out PC linked to the XP ledger |
 | `fvtt-Actor-default-item-pile-WF1OTqeH4049Rt9B.json` | Loot / **item pile** actor (weapons, consumables, tools, containers) | The template for a **lootable pile** |
 
+## Bones image pack and installer
+
+The `assets/` directory contains generated PNG art for Bones's portrait, weapons,
+field kit, forbidden codex, and campaign chronicle. `install_bones_assets.py`
+is a repeatable Windows installer: it copies those images to
+`Data/images/bones/`, rewrites the actor, token, token-flip, and item image paths
+to Foundry-relative paths, and makes a `.bak` before rewriting the actor JSON.
+
+From this directory on the user's Windows machine:
+
+```powershell
+py install_bones_assets.py
+# or, if Foundry Data is on another drive:
+py install_bones_assets.py --foundry-data "D:\Foundry\Data"
+# preview everything without writing:
+py install_bones_assets.py --dry-run
+```
+
+The default target is:
+`C:\Users\mikeg\AppData\Local\FoundryVTT\Data`. The script never assumes
+that path exists; it creates `images/bones/` when needed. After it completes,
+import the updated `fvtt-Actor-bones-level-5-infiltrator-player.json`. Foundry
+will resolve paths such as `images/bones/bones-weapons.png` relative to its
+Data directory.
+
 The guide is split into three parts:
 
 1. **[Part 1 — `characters.json`](#part-1--the-charactersjson-lore-database)** —
