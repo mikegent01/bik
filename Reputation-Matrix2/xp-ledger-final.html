@@ -16983,6 +16983,13 @@ function applyCharacterRecord(record, sourceName = 'external module') {
     return;
   }
   const factionFix = getCharacterFactionCorrection(record, key);
+  // The embedded XP ledger is the authoritative dossier. External world files
+  // (state.js, party-and-events.js, lore.js, characters.json…) exist to ENRICH
+  // dossiers with lore/faction/squad data — they must never regress an existing
+  // ledger dossier back to legacy stats (e.g. AUXILIARY_PARTY's old
+  // `level: 2, xp: 150` block for Bones overwriting Level 5 / 7,880 XP).
+  const isNewPlayer = !PLAYERS[key];
+  const hasLedgerDossier = !isNewPlayer && (PLAYERS[key].entries || []).length > 0;
   if (!PLAYERS[key]) {
     PLAYERS[key] = {
       name: String(record.name || record.displayName || record.title || titleFromId(key)),
@@ -17008,6 +17015,10 @@ function applyCharacterRecord(record, sourceName = 'external module') {
     race: ['race'], species: ['species'], status: ['status'], statusText: ['statusText', 'statusDescription'],
     membership: ['membership', 'role', 'position', 'affiliation'], squad: ['squad', 'cell', 'subgroup'], relationship: ['relationship', 'relationships', 'notes'], loreTitle: ['title'], loreSummary: ['summary'], loreDescription: ['description']
   })) {
+    // Status / statusText / membership are ledger-dossier fields. Do not let a
+    // legacy roster file (AUXILIARY_PARTY `status: "Captured"`) or a role guess
+    // (lore `role` → membership) regress them.
+    if (hasLedgerDossier && (field === 'status' || field === 'statusText' || field === 'membership')) continue;
     const value = pickFirst(record, names);
     if (value !== undefined) p[field] = Array.isArray(value) ? value.join(' · ') : String(value);
   }
@@ -17038,13 +17049,16 @@ function applyCharacterRecord(record, sourceName = 'external module') {
   const externalEntries = asArrayMaybe(record.entries || record.xpEntries || record.ledgerEntries)
     .map(e => normalizeEntryFromExternal(e, sourceName))
     .filter(Boolean);
-  if (externalEntries.length) {
+  // XP progression lives in the ledger. Only adopt external XP/entries when the
+  // ledger has no dossier for this player yet (new import) or its dossier is
+  // empty — never replace a filed ledger (23 entries → legacy `xp: 150`).
+  if (externalEntries.length && !hasLedgerDossier) {
     p.entries = externalEntries;
     p.currentXP = externalEntries.reduce((sum, e) => sum + Number(e.xp || 0), 0);
     const lvl = xpLevelFromTotal(p.currentXP);
     p.level = lvl.level;
     p.nextXP = lvl.nextXP;
-  } else {
+  } else if (!externalEntries.length && !hasLedgerDossier) {
     const xp = Number(pickFirst(record, ['currentXP', 'xp', 'experience', 'totalXP']));
     if (Number.isFinite(xp) && xp >= 0) {
       p.currentXP = xp;
