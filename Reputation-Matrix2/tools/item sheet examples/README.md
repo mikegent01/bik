@@ -10,6 +10,7 @@ This folder (`tools/item sheet examples/`) holds reference exports of the
 |---|---|---|
 | `fvtt-Actor-archie-miser-hSu2jXk6IxqmByBe.json` | Full player character (PC) sheet — class, race, background, feats, spells, gear, token | The template for a **character actor** |
 | `fvtt-Actor-hjumpik-deldkur-6eBoDhCt0i3e3qZ4.json` | Second full PC sheet | A second character-sheet reference |
+| `fvtt-Actor-bones-level-5-infiltrator-player.json` | **Bones — level 5 player character**; 49 focused class, feature, weapon, gear, lore, and chronology documents | The reference for a fully fleshed-out PC linked to the XP ledger |
 | `fvtt-Actor-default-item-pile-WF1OTqeH4049Rt9B.json` | Loot / **item pile** actor (weapons, consumables, tools, containers) | The template for a **lootable pile** |
 
 The guide is split into three parts:
@@ -701,7 +702,66 @@ both import fine).
 5. Validate JSON, import into Foundry, open the sheet and sanity-check
    calculated values (saves, skills, AC, HP).
 
-## 3.3 Recipe: make a loot / item pile
+## 3.3 Recipe: Bones as a real player character (worked reference)
+
+`fvtt-Actor-bones-level-5-infiltrator-player.json` is intentionally a **PC**, not
+an NPC. It is the concrete worked example for the Bones request and is larger
+than a minimal export so that the actor remains useful as campaign source
+material. It contains 49 documents and more than 1,000 formatted JSON lines.
+
+### What the build means
+
+- **Class:** Rogue-style Infiltrator, level 5. This is a rules translation of
+  the evidence in the project—disguise, stealth, eavesdropping, scouting,
+  escape, and choosing a retreat—not a claim that the lore file previously
+  declared a D&D class. The `flags.bik.class` field records that interpretation.
+- **Ability emphasis:** Dexterity 16, Constitution 14, Intelligence 13,
+  Wisdom 12, Strength 10, Charisma 8. The build is competent at stealth and
+  investigation without turning Bones into an unrealistically perfect hero.
+- **Player-facing features:** Sneak Attack, Cunning Action, Uncanny Dodge,
+  Evasion, Expertise, Planar Survivor, Oracle Refusal, and Field Judgment.
+  The last three are campaign features and should be reviewed by the GM.
+- **Equipment:** longsword, vile mace, light crossbow, wooden shield, leather
+  armor, winter coat, disguise kit, thieves’ tools, the two stolen books, the
+  Thornbury field journal, and the circle-repair components.
+- **Chronology cards:** the actor includes event cards for the Spider Grove,
+  Solarium, Vigilance, Aegis Command, Order 120, Raventree, the Planar Sanctum,
+  Canoloth, Astral Altar, Alpine Bank, Arunedeal, and the Legion checkpoint.
+  They are reference documents; they do **not** award XP a second time.
+
+### Ledger and sheet authority
+
+The actor's `system.details.xp.value` and `flags.bik.ledgerXP` are snapshots of
+the authoritative `PLAYERS.bones` dossier: Level 5, 7,880 XP, 23 entries, Power
+8, Fame 52. Do not edit `characters.json` to change progression and do not add
+XP again because a chronology card is present. File new earned XP in the ledger
+first, then regenerate or update the actor snapshot deliberately. The actor's
+`flags.bik.playerCharacter: true` and `npc: false` make its intended use explicit.
+
+### Canon choices left open on purpose
+
+The sheet does not invent Bones's true name, ancestry, exact face, or a magical
+explanation for the Toad God's intervention. It uses “Unknown / disguised
+humanoid” and records those questions in the biography. A player can resolve
+one of them in play without having to retcon the entire actor. Likewise, the
+Canoloth miss and the decision not to attack the Legion wall remain in the
+chronology: a fleshed-out player character should preserve failures and choices,
+not only bonuses.
+
+### Import checklist
+
+1. Make a backup of the actor JSON and the world before importing.
+2. Import as an Actor with type `character` in a `dnd5e` world using the same
+   major system version as the examples (the export metadata says core 14.360
+   and dnd5e 5.3.3).
+3. Confirm the sheet is Level 5 and that HP, AC, skills, and equipment are
+   visible. Foundry may recalculate derived values after import.
+4. Confirm the actor is owned by the player who will play Bones. The JSON's
+   ownership is intentionally neutral (`default: 0`).
+5. Do not drag the chronology cards into a combat encounter as enemies. They are
+   lore/feat documents attached to a player sheet.
+
+## 3.4 Recipe: make a loot / item pile
 
 1. Either run **Item Piles** in the hub (reads `shop-purchases.json`,
    resolves receipts against the shop catalog, writes one pile per player to
