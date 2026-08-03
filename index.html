@@ -260,6 +260,16 @@
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(224,180,0,0); }
 }
 </style>
+
+<style id="battle-article-layout-fix">
+.battle-full-layout{display:block;max-width:1120px;margin:0 auto}
+.battle-full-layout>div:first-child{max-width:100%;margin:0 auto}
+.battle-full-layout>div:last-child{display:none}
+.battle-full-layout .kv-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.battle-full-layout .kv-row{border-left:3px solid var(--accent);padding:10px 12px;border-radius:8px;background:var(--bg2)}
+.battle-full-layout .kv-row .k{display:block;color:var(--accent2);font-weight:800;margin-bottom:4px}
+.battle-full-layout .kv-row .v{color:var(--text);line-height:1.45}
+</style>
 </head>
 <body>
 <header class="topbar">
@@ -5128,7 +5138,7 @@ function valText(v){
   if(Array.isArray(v)) return v.map(valText).filter(Boolean).join(', ');
   if(typeof v==='object'){
     if(v.year!=null){ const mn=(MONTHS&&MONTHS[v.monthIndex])||monthName((v.monthIndex||0)+1); const time=(v.hour!=null)?` ${String(v.hour).padStart(2,'0')}:${String(v.minute||0).padStart(2,'0')}`:''; return `${mn} ${v.day||''}, ${v.year} BF${time}`; }
-    return v.name||v.id||v.faction||Object.values(v).map(valText).filter(Boolean).join(', ');
+    return v.name||v.id||v.faction||Object.entries(v).map(([k,val])=>`${sideLabel(k)}: ${valText(val)}`).filter(Boolean).join(' · ');
   }
   return String(v);
 }
@@ -9521,7 +9531,7 @@ function view_article(id){
   const toc=tocEntries.length?`<div class="toc" id="toc"><h4>Contents</h4>${tocEntries.map(h=>`<a class="${h.h3?'h3':''}" data-slug="${h.slug}" onclick="scrollToHeading('${h.slug}')">${esc(h.text)}</a>`).join('')}</div>`:'';
   el('content').innerHTML=`
    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/${typeKey}')">${esc(t.label)}</a> › ${esc(displayName(item))}</div>
-   <div class="article-layout"><div><div class="card animate-fade-in">
+   <div class="article-layout ${typeKey==='battles'?'battle-full-layout':''}"><div><div class="card animate-fade-in">
      <div class="art-kicker">${t.emoji} ${esc(t.singular)}${item.era?` · ${esc(String(item.era).split('—')[0].trim())}`:(item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:'')}</div>
      <h1 class="art-title">${esc(displayName(item))}</h1>
      ${item.title&&item.title!==item.name?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
