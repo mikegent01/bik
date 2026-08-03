@@ -5195,7 +5195,7 @@ function eventPeopleAndXpPanel(item){
   return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 Participants</h3>${people}</div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
 }
 const CATEGORIES_LABELS={combat:'Combat',exploration:'Exploration',social:'Social',survival:'Survival',discovery:'Discovery',chaos:'Chaos',stealth:'Stealth',faith:'Faith',magic:'Arcane',technique:'Technique',loyalty:'Loyalty',sabotage:'Sabotage'};
-function xpAwardsForEvent(eventId){const base=[...(XP_EVENT_AWARDS[eventId]||[])];const rec=(DATA?.events||[]).find(e=>e&&e.id===eventId);if(Array.isArray(rec?.xpAwards))base.push(...rec.xpAwards);const seen=new Set();return base.filter(a=>{const key=[a.xpKey,a.articleId,a.cat,a.xp,a.title].join('|');if(seen.has(key))return false;seen.add(key);return true;});}
+function xpAwardsForEvent(eventId){const base=[...(XP_EVENT_AWARDS[eventId]||[])];const rec=(DATA?.events||[]).find(e=>e&&e.id===eventId) || (DATA?.battles||[]).find(b=>b&&b.id===eventId);if(Array.isArray(rec?.xpAwards))base.push(...rec.xpAwards);const seen=new Set();return base.filter(a=>{const key=[a.xpKey,a.articleId,a.cat,a.xp,a.title].join('|');if(seen.has(key))return false;seen.add(key);return true;});}
 
 // Surface congress votes where a faction/nation was proposer, subject, notable_yea/nay/abstain, or clearly named in the description.
 function renderRelatedCongressVotes(item){
@@ -7036,7 +7036,7 @@ function view_home(){
            <span class="chip" onclick="Router.go('#/article/mossy')" style="margin:0; font-size:12px; background:var(--panel2); border-color:#e0b400;">🐕 Mossy / Steely →</span>
            <span class="chip" onclick="Router.go('#/article/remi_akamatsu_full_backstory')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🛠️ Remi's Escape →</span>
            <span class="chip" onclick="Router.go('#/article/the_imp_ambush_of_harvestide_29')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">⚔️ First Imp Battle →</span>
-           <span class="chip" onclick="Router.go('#/mbattle/battle_second_imp_offensive_kyrn_facility_breakout')" style="margin:0; font-size:12px; background:var(--panel2); border-color:#e5484d;">🧭 Tactical Battle Page →</span>
+           <span class="chip" onclick="Router.go('#/article/battle_second_imp_offensive_kyrn_facility_breakout')" style="margin:0; font-size:12px; background:var(--panel2); border-color:#e5484d;">🧭 Tactical Battle Page →</span>
          </div>
        </div>
 
@@ -9529,7 +9529,7 @@ function view_article(id){
      <div class="readtime">⏱ ${rtFull} min read · ${totalWords} words</div>
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${leadHtml}${typeKey==='races'?raceDossierPanel(item):''}${audioHtml}
-     ${typeKey==='events'?eventPeopleAndXpPanel(item):''}${legalFrictionPanel(item,typeKey)}${intelEffectPanel(item,typeKey)}
+     ${(typeKey==='events'||typeKey==='battles')?eventPeopleAndXpPanel(item):''}${legalFrictionPanel(item,typeKey)}${intelEffectPanel(item,typeKey)}
      ${typeKey==='nations'?`<div class="chips" style="margin:8px 0 16px"><span class="chip active">Classic article</span><span class="chip" onclick="Router.go('#/atlas/${encodeURIComponent(item.id)}')">Open Atlas dashboard</span></div>${claimantRegimePanel(item)}${nationOverview(item)}`:''}
      ${typeKey==='factions'?factionSystemBanner(item.id):''}
      ${typeKey==='battles'?battleVsInfographic(item):''}
