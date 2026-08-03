@@ -12,6 +12,7 @@ This folder (`tools/item sheet examples/`) holds reference exports of the
 | `fvtt-Actor-hjumpik-deldkur-6eBoDhCt0i3e3qZ4.json` | Second full PC sheet | A second character-sheet reference |
 | `fvtt-Actor-bones-level-5-infiltrator-player.json` | **Bones — level 5 player character**; 49 focused class, feature, weapon, gear, lore, and chronology documents | The reference for a fully fleshed-out PC linked to the XP ledger |
 | `fvtt-Actor-feyward-dan-level-3-player.json` | **Feyward Dan — level 3 player character**; parallel-reality Toad with Feyward eye, unstable aura, and 2,000+ lines of dossier JSON | The reference for a dimensional-variant PC; keep separate from Original Dan |
+| `fvtt-Actor-eager-level-4-catastrophe-scout-player.json` | **Eager — level 4 player character**; catastrophe scout with confirmed field gear and no fabricated party loot | The reference for a focused player inventory built from the Eager source record |
 | `fvtt-Actor-default-item-pile-WF1OTqeH4049Rt9B.json` | Loot / **item pile** actor (weapons, consumables, tools, containers) | The template for a **lootable pile** |
 
 ## Bones image pack and installer
@@ -728,7 +729,33 @@ both import fine).
 5. Validate JSON, import into Foundry, open the sheet and sanity-check
    calculated values (saves, skills, AC, HP).
 
-## 3.3 Recipe: Feyward Dan as a real player character (worked reference)
+## 3.3 Recipe: Eager as a real player character (worked reference)
+
+`fvtt-Actor-eager-level-4-catastrophe-scout-player.json` is the playable Eager sheet. It follows the same inventory rule as the corrected Feyward Dan export: the actor contains things Eager actually carried, obtained, or uses as a defined feature—not every artifact he saw during a party scene.
+
+### Build and ledger snapshot
+
+- **Level:** 4; **XP:** 4,860; **next level:** 6,500; **ledger entries:** 25.
+- **Interpretation:** Fighter / Catastrophe Scout. The class translation reflects Eager's ranged support, perimeter work, survival under restraint, and repeated ability to turn improvised equipment into a useful answer.
+- **Ability emphasis:** Dexterity 16, Constitution 14, Wisdom 13, Strength 12. He is a field survivor, not a flawless damage machine.
+- **Actual features:** Fighting Style — Archery, Second Wind, Action Surge, Catastrophe Magnet, Spider Grove Survivor, Pepper Spray Improvisation, Perimeter Guard, Panic and Recover, Feather Fall Chain procedure, and Unwilling Quest Generator.
+- **Confirmed inventory:** shortbow, arrows, dagger, pepper spray, the dead person's shoes, the dead person's pants, and ordinary field clothing. Currency is a small five-gold snapshot.
+- **Source-only objects deliberately excluded:** Black Crystal, Mirror of True Reflection, Orb of Shadow Domination, Umbral Signet, Remi's Feather Fall, Wario's bag, and the Tea Leaf Syndicate book. Eager saw, used, traded around, or participated in scenes involving these objects; the source does not establish them as his personal property.
+
+The actor contains 18 documents and over 3,000 formatted JSON lines. It is explicitly `playerCharacter: true` and `npc: false`. Its article and XP key are both `eager`; the biography carries the Spider Grove, Raventree, Tanuki, Tree of Woe, Shadow Estate, rooftop, cookie, and Imp Ambush history without turning those events into fake inventory.
+
+### Image paths
+
+The actor and every item use Foundry asset paths from the supplied image-path library. Important mappings include:
+
+- Actor/token: `icons/creatures/amphibians/frog-water-teal.webp`
+- Shortbow: `icons/weapons/bows/shortbow-recurve.webp`
+- Dagger: `icons/weapons/daggers/dagger-straight-blue.webp`
+- Pepper spray: `icons/skills/toxins/poison-bottle-open-fire-purple.webp`
+- Spider Grove feature: `icons/creatures/webs/web-spider-caught-hand-purple.webp`
+- Catastrophe Magnet: `icons/environment/traps/trap-jaw-tan.webp`
+
+## 3.4 Recipe: Feyward Dan as a real player character (worked reference)
 
 `fvtt-Actor-feyward-dan-level-3-player.json` is the playable sheet for **Feyward Dan**, not Original Dan. The project has multiple Dan records and they must not be merged: `dan` is the original Liberated Toads leader who lost his arm to the corrupted staff; `feywarddan` is the parallel-reality Toad who woke at Prismari's school, escaped a goblin ambush, survived the Mazebound, and opened the third sensory eye during the Imp Ambush.
 

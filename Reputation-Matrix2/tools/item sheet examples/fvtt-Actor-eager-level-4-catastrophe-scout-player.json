@@ -1,0 +1,3031 @@
+{
+  "name": "Eager — Level 4 Catastrophe Scout Player Character",
+  "type": "character",
+  "img": "icons/creatures/amphibians/frog-water-teal.webp",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 5,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "abilities": {
+      "str": {
+        "value": 12,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 16,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 14,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 13,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 8,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "7CR1Hpx2Po8spit0": {
+        "value": 0,
+        "ability": "dex",
+        "bonuses": {
+          "passive": "",
+          "check": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "acr": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "15jTCrWVxnN40NP8": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "passive": "",
+          "check": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "arc": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "value": 1,
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "JXS0f4ka71qKB2h3": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "-3",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "HosVywGhVnGaF5lI": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "-1",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "dec": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ZZNb2z3t0wdcMgNJ": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "6fCmMl31VtsqwENr": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "value": 1,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "UreduGlabi2z8Vvm": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "2",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "sur": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "hQUumf2MfKPzcpDd": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell0": {
+        "value": 0,
+        "override": null
+      },
+      "spell1": {
+        "value": 0,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      },
+      "pact": {
+        "value": 0,
+        "override": null
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 15,
+        "calc": "flat",
+        "formula": ""
+      },
+      "hp": {
+        "value": 30,
+        "max": 36,
+        "temp": 0,
+        "tempmax": 0
+      },
+      "init": {
+        "bonus": "0",
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "movement": {
+        "walk": "30",
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "special": "",
+        "ranges": {
+          "darkvision": 60,
+          "blindsight": 120,
+          "tremorsense": 0,
+          "truesight": 0
+        }
+      },
+      "spellcasting": "int",
+      "death": {
+        "success": 0,
+        "failure": 0,
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "exhaustion": 0,
+      "inspiration": true,
+      "attunement": {
+        "max": 3
+      },
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {}
+    },
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "details": {
+      "alignment": "Chaotic Good (panics honestly, returns anyway)",
+      "biography": {
+        "value": "",
+        "public": ""
+      },
+      "race": "Toad (unconfirmed)",
+      "background": "Disaster Inc. Catastrophe Scout",
+      "originalClass": "fighter",
+      "xp": {
+        "value": 4860
+      },
+      "appearance": "A Toad-shaped field companion of uncertain ancestry. Eager is often found in spider silk, a bad room, a collapsing estate, or the exact place the party was hoping not to go.",
+      "trait": "I just follow people. What do you think, Markop?",
+      "ideal": "No one gets left in the nest. If I am already there, the rescue has started.",
+      "bond": "The people who keep coming back for me, and the people I keep following back into trouble.",
+      "flaw": "I panic, miss, and make terrible entrances; then I stay long enough to be useful.",
+      "eyes": "Alert, usually wider than the situation warrants",
+      "height": "Medium",
+      "faith": "Unconfirmed",
+      "hair": "None confirmed",
+      "weight": "Unknown",
+      "gender": "Unknown",
+      "skin": "Toad green",
+      "age": "Unknown"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "Field jargon and enough Toad network shorthand to trade arrows."
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "armorProf": {
+        "value": [
+          "lgt",
+          "med"
+        ],
+        "custom": "Light and medium armor"
+      },
+      "weaponProf": {
+        "value": [
+          "sim",
+          "mar"
+        ],
+        "custom": "Simple and martial weapons; shortbow and dagger"
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      }
+    },
+    "resources": {
+      "primary": {
+        "label": "Second Wind",
+        "sr": true,
+        "lr": false,
+        "value": 1,
+        "max": 1
+      },
+      "secondary": {
+        "label": "Action Surge",
+        "sr": false,
+        "lr": true,
+        "value": 0,
+        "max": 1
+      },
+      "tertiary": {
+        "label": "Inspiration",
+        "sr": false,
+        "lr": false,
+        "value": 1,
+        "max": 1
+      }
+    },
+    "favorites": [],
+    "spellcasting": "",
+    "biography": {
+      "value": "<h2>Eager — Player Character Dossier</h2><p><strong>Level 4 Catastrophe Scout.</strong> Eager is the player-character who was cocooned fifteen feet above the Silent Grove, whose rescue triggered the Battle of the Spider Grove, who used pepper spray on spiders while enlarged, who missed at the Tree of Woe, wore a dead person's shoes and pants during the Shadow Estate chase, and who stayed in the cottage guard rotation after the universe repeatedly proved it wanted him elsewhere.</p><p><strong>Ledger:</strong> 4,860 XP, 25 entries, Level 4, Power 10 Elite, Fame 34 Local. The XP ledger remains authoritative.</p><h3>How to play Eager</h3><p>Eager is not fearless and is not a joke NPC. He is frightened, resourceful, loyal, and still present. He follows the party into danger, uses the strange tool he happens to have, and turns an embarrassing failure into a second chance. The inventory is deliberately limited to confirmed gear from the source record.</p><h3>Confirmed inventory</h3><p>Eager carries a shortbow, arrows, a dagger, pepper spray, the shoes and pants he acquired during the Shadow Estate chase, and ordinary field clothing. He does not own the party's Black Crystal, the Mirror of True Reflection, the Orb of Shadow Domination, the Umbral Signet, or Remi's Feather Fall. Those remain source-history objects.</p>",
+      "public": "Eager is the catastrophe magnet: rescue him and a battle begins, but he may be carrying exactly the absurd tool that saves the party."
+    }
+  },
+  "prototypeToken": {
+    "name": "Eager",
+    "displayName": 30,
+    "actorLink": true,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/creatures/amphibians/frog-water-teal.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": -1,
+      "scaleY": 1,
+      "tint": "#ff0000",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 1,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": true,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "blindsight",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 1,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 0,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "patrol": {
+        "enablePatrol": false,
+        "enableSpotting": false,
+        "makePatroller": false,
+        "multiPath": false,
+        "patrolPathName": "",
+        "pathNodeIndex": "0"
+      },
+      "monks-enhanced-journal": {
+        "chatbubble": ""
+      },
+      "dnd5e": {},
+      "about-face": {
+        "indicatorDisabled": false,
+        "flipOrRotate": "global",
+        "facingDirection": "global",
+        "rotationOffset": 0,
+        "direction": 90,
+        "prevPos": {
+          "x": 4400,
+          "y": 7400
+        }
+      },
+      "monks-tokenbar": {
+        "include": "default",
+        "movement": null
+      },
+      "tokenflip": {
+        "tokenfaces": [
+          {
+            "actorId": "UAPdHaUIPkgR8KWC",
+            "img": "player/archiereforemd.webp",
+            "id": "B4v8ZIqnlIhWqJZPaAOV",
+            "scaleX": -1,
+            "scaleY": 1,
+            "width": 1,
+            "height": 1,
+            "model3d": "",
+            "subject": "",
+            "autoFlip": 0,
+            "transition": "flip",
+            "autoFlipMacro": null
+          }
+        ],
+        "currentId": "b3WyhTA3DBqBWkCBbnZJ"
+      },
+      "wall-height": {
+        "tokenHeight": 0
+      },
+      "torch": {
+        "lightSourceState": "off"
+      },
+      "tagger": {},
+      "ATL": {
+        "originals": {}
+      },
+      "custom-dnd5e": {
+        "tint": "#ffffff"
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "depth": 1
+  },
+  "items": [
+    {
+      "name": "Fighter — Catastrophe Scout, Level 4",
+      "folder": null,
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "type": "class",
+      "img": "icons/environment/people/infantry.webp",
+      "sort": 180000,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Level 4 fighter interpretation of Eager's repeated combat, perimeter, survival, and improvised-tool actions. The Scout subtitle is campaign flavor, not a new NPC stat block.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "levels": 4,
+        "spellcasting": {
+          "progression": "none",
+          "ability": ""
+        },
+        "identifier": "fighter",
+        "advancement": {
+          "cusyoI9CVlBr6C6p": {
+            "_id": "cusyoI9CVlBr6C6p",
+            "type": "ItemGrant",
+            "level": 3,
+            "title": "Features",
+            "icon": "https://s3.amazonaws.com/files.d20.io/images/370083891/ehiccdURLhGdX-QnDkB14g/med.png?1701567685",
+            "configuration": {
+              "items": [],
+              "optional": false,
+              "spell": null
+            },
+            "value": {
+              "added": {
+                "D4xJALw4ny85zMyr": ""
+              }
+            },
+            "flags": {},
+            "hint": ""
+          }
+        },
+        "hd": {
+          "spent": 0,
+          "denomination": "d10",
+          "additional": ""
+        },
+        "startingEquipment": [],
+        "primaryAbility": {
+          "value": [
+            "str",
+            "dex"
+          ],
+          "all": false
+        },
+        "properties": [],
+        "wealth": ""
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "uqqgbMPVh83z7tl1",
+        "modifiedTime": 1783303433286,
+        "createdTime": 1782005283501
+      },
+      "_id": "90f8acd7442d4cf1",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Toad — Eager Variant",
+      "type": "race",
+      "system": {
+        "description": {
+          "value": "<p>Eager's ancestry is unconfirmed. Use Medium Toad as the table-facing interpretation without inventing a family or planar origin.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "toad-—-eager-variant",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "d5c6b4b8da1e46c8",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/creatures/amphibians/frog-water-teal.webp"
+    },
+    {
+      "name": "Disaster Inc. Catastrophe Scout",
+      "type": "background",
+      "system": {
+        "description": {
+          "value": "<p>A field background for rescue, perimeter work, survival, and following the party into places that have already begun to collapse.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "disaster-inc.-catastrophe-scout",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "5f606a64c6bb43f3",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/environment/wilderness/terrain-forest-gray.webp"
+    },
+    {
+      "name": "Fighting Style — Archery",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Eager is trained to use ranged weapons under pressure. Gain the standard Archery fighting-style bonus when using a ranged weapon.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "fighting-style-—-archery",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "218ad632c6e149d9",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/skills/ranged/person-archery-bow-attack-orange.webp"
+    },
+    {
+      "name": "Second Wind",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Bonus action: regain 1d10 + fighter level hit points. Uses are tracked in the primary resource.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "second-wind",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "e5281bfa2abd41c2",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/magic/life/heart-hand-gold-green.webp"
+    },
+    {
+      "name": "Action Surge",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Once per short or long rest, take one additional action on the turn. Uses are tracked in the secondary resource.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "action-surge",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "0ffd7e4be8ea4644",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/skills/movement/figure-running-gray.webp"
+    },
+    {
+      "name": "Catastrophe Magnet",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Danger finds Eager. When the GM places a complication in the scene, Eager may be the first to notice or trigger it; this is narrative positioning, not automatic damage.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "catastrophe-magnet",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "9693e2d368dd409b",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/environment/traps/trap-jaw-tan.webp"
+    },
+    {
+      "name": "Spider Grove Survivor",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Eager has been cocooned, rescued, enlarged, and returned to the fight. Gain advantage on one check per rest to resist restraint, webbing, or panic after being captured.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "spider-grove-survivor",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "2725fde32e6b4140",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/creatures/webs/web-spider-caught-hand-purple.webp"
+    },
+    {
+      "name": "Pepper Spray Improvisation",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Eager can use pepper spray against creatures with eyes or scent-based coordination. On a failed Constitution save, a target is blinded or disoriented at GM discretion. The spray has limited uses.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "pepper-spray-improvisation",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "65433e954bd64335",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/skills/toxins/poison-bottle-open-fire-purple.webp"
+    },
+    {
+      "name": "Perimeter Guard",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Eager can take a watch position and call out movement even while frightened. He does not need to be fearless to remain on guard.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "perimeter-guard",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "fe45ffcac22f4bf3",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/environment/people/infantry.webp"
+    },
+    {
+      "name": "Panic and Recover",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Once per long rest, after failing an attack or check while frightened, Eager can move up to half speed without provoking opportunity attacks and make a new Perception or Survival check.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "panic-and-recover",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "174e28245ba245da",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/magic/movement/trail-streak-zigzag-yellow.webp"
+    },
+    {
+      "name": "Feather Fall Chain",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Eager was a passenger in Remi's Feather Fall escape. This is a learned evacuation procedure, not a spell or owned item. He knows to grab the chain and stay with the group.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "feather-fall-chain",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "fc5c45c2419d422d",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/magic/air/weather-wind-gust.webp"
+    },
+    {
+      "name": "Unwilling Quest Generator",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Where Eager is, a problem is probably nearby. The party may gain a clue, rescue opportunity, or treasure lead by following the disaster.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "unwilling-quest-generator",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 180000,
+      "_id": "709e418a3e5548ad",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/environment/wilderness/portal.webp"
+    },
+    {
+      "name": "Dagger",
+      "system": {
+        "description": {
+          "value": "<p>A dagger Eager carried and offered to Remi to draw blood from the spider beast.</p>",
+          "chat": ""
+        },
+        "price": {
+          "value": 2,
+          "denomination": "gp"
+        },
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "rarity": "",
+        "attunement": "NaN",
+        "attuned": false,
+        "cover": null,
+        "range": {
+          "value": 20,
+          "long": 60,
+          "units": "ft",
+          "reach": null
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": true,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 4,
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            },
+            "bonus": ""
+          }
+        },
+        "armor": {
+          "value": null
+        },
+        "hp": {
+          "value": null,
+          "max": null,
+          "dt": null,
+          "conditions": ""
+        },
+        "type": {
+          "value": "simpleM",
+          "baseItem": "dagger"
+        },
+        "properties": [
+          "fin",
+          "lgt",
+          "thr"
+        ],
+        "activities": {
+          "3SJSAL3pv9gKkAM9": {
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "20",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": false,
+              "override": false
+            },
+            "attack": {
+              "ability": "",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": []
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "sort": 0,
+            "_id": "3SJSAL3pv9gKkAM9",
+            "name": "",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "ammunition": {},
+        "mastery": "nick",
+        "identifier": "dagger",
+        "crew": {
+          "value": []
+        },
+        "equipped": false,
+        "proficient": null
+      },
+      "type": "weapon",
+      "folder": "FL1Jee9DzStc7vM3",
+      "img": "icons/weapons/daggers/dagger-straight-blue.webp",
+      "effects": [],
+      "sort": 180000,
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.phbwepDagger0000",
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283501,
+        "modifiedTime": 1782005283501,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "_id": "0ae322011e3e4335",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Shortbow",
+      "type": "weapon",
+      "img": "icons/weapons/bows/shortbow-recurve.webp",
+      "system": {
+        "description": {
+          "value": "<p>A shortbow representing Eager's repeated arrow fire and perimeter support. The source calls his ranged weapon inconsistently; the sheet uses a shortbow for the player loadout.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 5,
+          "units": "lb"
+        },
+        "price": {
+          "value": 25,
+          "denomination": "gp"
+        },
+        "attunement": "NaN",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "range": {
+          "value": 80,
+          "long": 320,
+          "units": "ft"
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "properties": [
+          "two",
+          "amm",
+          "lod"
+        ],
+        "type": {
+          "value": "simpleR",
+          "baseItem": "shortbow"
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": "SpPPrYU00xxaxu1I",
+        "activities": {
+          "duRBUAv1LfcfKRCd": {
+            "_id": "duRBUAv1LfcfKRCd",
+            "type": "attack",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "attack": {
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "identifier": "shortbow",
+        "attuned": false,
+        "ammunition": {},
+        "equipped": true,
+        "proficient": null,
+        "crew": {
+          "value": []
+        }
+      },
+      "effects": [],
+      "folder": "pOAh0mmFrtbGtDAr",
+      "sort": 180000,
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.ddWvQRLmnnIS0eLF",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005283501,
+        "createdTime": 1782005283501
+      },
+      "_id": "9e067700e77149c7",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Pepper Spray",
+      "type": "consumable",
+      "img": "icons/skills/toxins/poison-bottle-open-fire-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>A limited-use canister Eager used successfully against smaller spiders while enlarged. It is mundane field equipment with a campaign-specific effect.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 6,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "uses": {
+          "max": "1",
+          "recovery": [],
+          "autoDestroy": false,
+          "spent": 0
+        },
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "equipped": true,
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "check",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "Creature must be Small or Medium.",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "target": "",
+                  "value": "1",
+                  "scaling": {
+                    "mode": "",
+                    "formula": ""
+                  }
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "touch",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "check": {
+              "ability": "",
+              "associated": [],
+              "dc": {}
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "damage": {
+              "onSave": "half",
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
+            },
+            "friendlySave": "default"
+          },
+          "dnd5eactivity100": {
+            "_id": "dnd5eactivity100",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "Creature must be Small or Medium.",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "target": "",
+                  "value": "1",
+                  "scaling": {
+                    "mode": "",
+                    "formula": ""
+                  }
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "touch",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "20"
+              }
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "identifier": "pepper-spray",
+        "attuned": false
+      },
+      "effects": [],
+      "folder": "UnUwTG4YIgd0kaUJ",
+      "sort": 180000,
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.tWJLHIL6ZIZUez9k",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005283501,
+        "createdTime": 1782005283501
+      },
+      "_id": "0f41fb39fce045af",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Dead Person's Shoes",
+      "type": "equipment",
+      "img": "icons/equipment/feet/shoes-leather-simple-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Shoes Eager found in the chess room and wore during the Shadow Estate chase. He said it felt wrong. He wore them anyway.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 4,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": "",
+          "units": "ft"
+        },
+        "strength": null,
+        "type": {
+          "value": "clothing",
+          "baseItem": ""
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "equipped": false,
+        "proficient": null,
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
+          }
+        },
+        "identifier": "dead-person's-shoes",
+        "attuned": false,
+        "crew": {
+          "value": []
+        }
+      },
+      "effects": [],
+      "folder": "aJgMxnZED9XdoN2W",
+      "sort": 180000,
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.SsAmWV6YBqeOFihT",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005283823,
+        "createdTime": 1782005283823
+      },
+      "_id": "0e651b48faa5496b",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Dead Person's Pants",
+      "type": "equipment",
+      "img": "icons/equipment/leg/pants-breeches-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Pants Eager acquired during the Shadow Estate chase. Markop observed that Eager was wearing a dead man's clothing; Eager replied that pants are important.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 4,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": "",
+          "units": "ft"
+        },
+        "strength": null,
+        "type": {
+          "value": "clothing",
+          "baseItem": ""
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "equipped": false,
+        "proficient": null,
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
+          }
+        },
+        "identifier": "dead-person's-pants",
+        "attuned": false,
+        "crew": {
+          "value": []
+        }
+      },
+      "effects": [],
+      "folder": "aJgMxnZED9XdoN2W",
+      "sort": 180000,
+      "flags": {
+        "bik": {
+          "source": "Eager player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.SsAmWV6YBqeOFihT",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005283823,
+        "createdTime": 1782005283823
+      },
+      "_id": "112a26e0d2784628",
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [
+    {
+      "_id": "dnd5ebloodied000",
+      "img": "systems/dnd5e/icons/svg/statuses/bloodied.svg",
+      "flags": {
+        "dnd5e": {
+          "isTemporary": true
+        }
+      },
+      "name": "Bloodied",
+      "statuses": [
+        "bloodied"
+      ],
+      "showIcon": 1,
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "disabled": false,
+      "start": {
+        "time": 0,
+        "combat": "hQils8t0Xh4HBD5w",
+        "combatant": "bkDMlni8MnvMEXxS",
+        "initiative": 15,
+        "round": 5,
+        "turn": 2
+      },
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "description": "",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": false,
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1783563697979,
+        "modifiedTime": 1783563697979,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    }
+  ],
+  "folder": null,
+  "flags": {
+    "bik": {
+      "characterId": "eager",
+      "playerCharacter": true,
+      "npc": false,
+      "class": "Fighter (Catastrophe Scout)",
+      "level": 4,
+      "ledgerXP": 4860,
+      "ledgerEntries": 25,
+      "powerLevel": 10,
+      "fameScore": 34,
+      "status": "Active — recovered from spider grove capture",
+      "source": "data/characters.json + xp.html + events.json + battles.json",
+      "confirmedInventory": [
+        "Shortbow",
+        "Arrows",
+        "Dagger",
+        "Pepper Spray",
+        "Dead Person's Shoes",
+        "Dead Person's Pants"
+      ],
+      "inventoryPolicy": "Only confirmed carried or acquired gear; party artifacts remain source history",
+      "actualSpells": false,
+      "itemImages": true
+    },
+    "exportSource": "Eager player character dossier"
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": "bik/eager-player",
+    "coreVersion": "14.360",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "lastModifiedBy": "bikEagerPC000001",
+    "modifiedTime": 1785716034133,
+    "createdTime": 1785716034133
+  },
+  "ownership": {
+    "default": 0
+  }
+}
