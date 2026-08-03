@@ -8295,6 +8295,162 @@
    "29 Harvestide, shortly after dawn: this aftermath begins with Eager’s whip strike, Tymnas’s sting, Remi’s shield block, and the expanded offensive.",
    "29 Harvestide, later that same crisis: the defenders surrender, Remi is dragged to the holding cells, and Kyrn returns.",
    "29–30 Harvestide: the cell escape, Mossy repair, Gregir Fendelsohn’s exit, and the unresolved theft close the present filing. The Shadowfell clock is unreliable, so no invented hour is assigned."
+  ],
+  "xpAwards": [
+   {
+    "xpKey": "eager",
+    "articleId": "eager",
+    "name": "Eager",
+    "cat": "combat",
+    "xp": 220,
+    "title": "Event — The Imp Ambush Aftermath — Combat",
+    "desc": "Whip engagement, evasive movement, and holding the cottage door after the formation collapsed.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "eager",
+    "articleId": "eager",
+    "name": "Eager",
+    "cat": "survival",
+    "xp": 180,
+    "title": "Event — The Imp Ambush Aftermath — Survival",
+    "desc": "Stayed in the defense after the accidental strike on Salam and survived the offensive.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "salam",
+    "articleId": "salam",
+    "name": "Salam",
+    "cat": "survival",
+    "xp": 220,
+    "title": "Event — The Imp Ambush Aftermath — Survival",
+    "desc": "Survived Eager's whip strike, multiple knockdowns, and evacuation through the window.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "salam",
+    "articleId": "salam",
+    "name": "Salam",
+    "cat": "combat",
+    "xp": 150,
+    "title": "Event — The Imp Ambush Aftermath — Combat",
+    "desc": "Remained a combat target and returned to the defensive line before collapsing.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "tymnas",
+    "articleId": "tymnas",
+    "name": "Tymnas",
+    "cat": "combat",
+    "xp": 180,
+    "title": "Event — The Imp Ambush Aftermath — Combat",
+    "desc": "Fought invisible attackers after being stung and kept the cottage position.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "tymnas",
+    "articleId": "tymnas",
+    "name": "Tymnas",
+    "cat": "survival",
+    "xp": 80,
+    "title": "Event — The Imp Ambush Aftermath — Survival",
+    "desc": "Remained active after the imp sting and the defense broke into separate rooms.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "remi_akamatsu_full_backstory",
+    "articleId": "remi_akamatsu_full_backstory",
+    "name": "Remi Akamatsu",
+    "cat": "combat",
+    "xp": 250,
+    "title": "Event — The Imp Ambush Aftermath — Combat",
+    "desc": "Shield block and silent-musket hit during the cottage offensive.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "remi_akamatsu_full_backstory",
+    "articleId": "remi_akamatsu_full_backstory",
+    "name": "Remi Akamatsu",
+    "cat": "survival",
+    "xp": 300,
+    "title": "Event — The Imp Ambush Aftermath — Survival",
+    "desc": "Escaped a one-hit-point cell, deceived the fighter-pass guard, and survived Kyrn.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "remi_akamatsu_full_backstory",
+    "articleId": "remi_akamatsu_full_backstory",
+    "name": "Remi Akamatsu",
+    "cat": "discovery",
+    "xp": 180,
+    "title": "Event — The Imp Ambush Aftermath — Discovery",
+    "desc": "Recognized the Aura of Life and teleportation carvings and turned the cell into a route.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "rattles",
+    "articleId": "rattles",
+    "name": "Rattles",
+    "cat": "magic",
+    "xp": 220,
+    "title": "Event — The Imp Ambush Aftermath — Magic",
+    "desc": "Healed the defenders and held Salam together after the room became unmanageable.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "rattles",
+    "articleId": "rattles",
+    "name": "Rattles",
+    "cat": "loyalty",
+    "xp": 220,
+    "title": "Event — The Imp Ambush Aftermath — Loyalty",
+    "desc": "Carried and threw Salam through the window to preserve his life.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "dan_the_toad",
+    "articleId": "dan_the_toad",
+    "name": "Feyward Dan",
+    "cat": "combat",
+    "xp": 280,
+    "title": "Event — The Imp Ambush Aftermath — Combat",
+    "desc": "Answered an imp sting with a divine smite that destroyed the attacker.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "markop",
+    "articleId": "markop",
+    "name": "Markop",
+    "cat": "combat",
+    "xp": 300,
+    "title": "Event — The Imp Ambush Aftermath — Combat",
+    "desc": "Killed two imps at the turning point and created space for the surrender.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "mossy",
+    "articleId": "mossy",
+    "name": "Mossy",
+    "cat": "survival",
+    "xp": 100,
+    "title": "Event — The Imp Ambush Aftermath — Survival",
+    "desc": "Remained recoverable after Kyrn melted the construct and returned to motion after Remi repaired it.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   }
   ]
  }
 ]
