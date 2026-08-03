@@ -542,6 +542,102 @@ something that isn’t a plot summary.
 
 ---
 
+## 11A. Battle pages — tactical record, not a second event summary
+
+A session event tells the story. A battle page explains **how the fight moved**.
+Use the battle page when a scene has a meaningful tactical question: who held the
+line, who was flanked, what objective changed hands, why the retreat or capture
+happened, and what the battlefield looked like after the last blow.
+
+### Required battle shell
+
+```text
+id
+name
+date
+location
+type
+result
+belligerents: {attackers, defenders}
+casualties: {attackers, defenders}
+summary
+description
+participants[]
+notableFeatures[]
+relatedArticles[]
+image / imageCaption (optional)
+```
+
+### The tactical sequence
+
+A full battle record should normally move through these beats:
+
+1. **Operational clock** — date, phase, and any exact time available. If the
+   plane's clock is unreliable, say so; never manufacture a minute.
+2. **Objectives** — what each side wanted, and what each side believed the other
+   wanted. A retrieval mission, a rescue, and a surrender are not interchangeable.
+3. **Force composition** — who was actually fighting, who was supporting, who was
+   wounded, and who was not present. Do not turn every participant into a
+   commander.
+4. **Terrain and sightlines** — doors, windows, rooms, elevation, fog, webs,
+   force fields, invisible enemies, or any object that changed movement.
+5. **First tactical failure** — friendly fire, a breached flank, lost visibility,
+   a failed spell, or a wrong assumption. Name the cost without flattening the
+   character into the mistake.
+6. **Adaptation** — identify the response: healing, callouts, shield work,
+   casualty evacuation, a smite, a door, a decoy, or a change in formation.
+7. **Turning point** — the exact action that changed the balance. Kills are not
+   automatically turning points; preserving an objective or opening an exit may
+   matter more.
+8. **Result by objective** — list each objective separately. One side can lose a
+   person, retain a book, lose two artifacts, and still win the immediate room.
+9. **Carry-forward** — what the next battle inherits: wounds, stolen objects,
+   open routes, surviving prisoners, new intelligence, or a changed relationship.
+
+### Battle truth rules
+
+- **Do not call an individual capture a whole-party surrender.** State who was
+  captured and who kept fighting.
+- **Track objects by custody.** “The imps took the Black Crystal and Mirror” is
+  not the same as “the imps took the book.” Name the holder of every important
+  object at the end of the page.
+- **Separate tactical victory from strategic victory.** Markop retaining the
+  book and disbursing the imps can be a tactical victory even while the party
+  loses two portal artifacts and Remi is captured.
+- **Put XP in the native field.** If an event or battle awards XP, use
+  `xpAwards[]` rows with `xpKey`, `articleId`, `name`, `cat`, `xp`, `title`,
+  `desc`, `date`, and `dateSort`. A prose XP table is useful for readers, but
+  the renderer reads `xpAwards[]`.
+- **Do not silently mutate the ledger.** Mark preview awards as pending until
+  the table confirms them, then file them in the authoritative XP ledger.
+- **Link the battle both ways.** Add the battle id to the event's `keyBattles`
+  and add the event id to the battle's `relatedArticles`.
+- **Use a non-graphic image when it clarifies terrain or aftermath.** An image
+  should show the room, formation, object, or atmosphere—not invent a new
+  character or contradict custody.
+
+### Worked tactical distinction
+
+```text
+Event: The party is attacked by invisible imps and Remi is captured.
+
+Battle page result:
+  Markop retains the Archivist's book and disburses the remaining imps.
+  The Toads do not surrender as a whole. The imps take the Black Crystal and
+  Mirror of True Reflection. Remi is captured, then escapes Kyrn's facility
+  with Mossy.
+
+Bad shorthand: “The party surrendered and the imps took the book.”
+Why it fails: it erases Markop's objective, the Toads' continued resistance,
+and the difference between the book and the two artifacts.
+```
+
+A battle page is finished when a reader can answer **who moved, where they
+moved, what they wanted, what they lost, what they retained, and why the next
+scene has a different tactical shape**.
+
+**---**
+
 ## 12. Pacing tells (steal deliberately)
 
 | Tell | Imp | Wario | When |

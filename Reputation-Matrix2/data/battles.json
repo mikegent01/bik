@@ -1985,5 +1985,107 @@
    "tymnas",
    "rattles"
   ]
+ },
+ {
+  "id": "battle_second_imp_offensive_kyrn_facility_breakout",
+  "name": "The Second Imp Offensive and Kyrn Facility Breakout",
+  "conflict": "shadow_estate_crisis",
+  "date": "29–30 Harvestide, 1040 BF",
+  "location": "Tymnas's Cottage and the Kyrn Holding Facility",
+  "type": "Multi-Phase Tactical Defense / Invisible-Enemy Engagement / Forced Capture / Prison Break",
+  "image": "assets/imp-aftermath-markop-dan-eager.png",
+  "imageCaption": "Markop, Feyward Dan, and Eager hold the cottage line while the invisible threat moves through the broken rooms.",
+  "result": "Tactical mixed victory: Markop retains the Archivist's book and disburses the remaining imps; the imps seize the Black Crystal and Mirror, but do not obtain the book; Remi escapes the holding facility with Mossy.",
+  "belligerents": {
+   "attackers": {
+    "name": "Archivist's Imp Force",
+    "commander": "Archivist's Right-Hand Man / imp assault cell",
+    "factionId": "the_archivist"
+   },
+   "defenders": {
+    "name": "Tymnas Cottage Defenders",
+    "commander": "Markop / distributed Toad defense",
+    "factionId": "disaster_inc"
+   }
+  },
+  "casualties": {
+   "attackers": "Chief imp and multiple assault imps destroyed or disbursed; surviving force retreats with the Black Crystal and Mirror but without the book.",
+   "defenders": "Salam unconscious and evacuated through window; Tymnas stung; Remi captured at one hit point then escapes; Mossy melted by Kyrn and repaired; no whole-party surrender."
+  },
+  "summary": "A second wave of invisible imps turns the aftermath of the Harvestide 29 cottage siege into a close-quarters tactical engagement. Eager's whip accidentally strikes Salam, Rattles heals and evacuates him, Dan destroys an imp with Divine Smite, and Markop kills two attackers while retaining the Archivist's book. The Toads continue resisting and Markop retains the book; Remi is captured in the confusion and the imps seize the Black Crystal and Mirror. The engagement continues inside Kyrn's holding facility, where Remi escapes an unlocked cell, repairs Mossy after Kyrn melts the construct, and exits with the dog.",
+  "description": "# BATTLE RECORD: THE SECOND IMP OFFENSIVE AND KYRN FACILITY BREAKOUT\n### Tactical Analysis of the Post-Imp Cottage Defense and Cell Escape\n### Filed by Waluigi, Auditor-General of Residential Warfare, Invisible Threats, and Doors That Are Not Locked\n\nThis is not a surrender record. Waluigi is correcting the earlier shorthand before it becomes a historical lie. The whole party did not surrender. Markop retained the book, and the Toads continued fighting. Markop kept the Archivist's book. The Toads did not lay down their weapons. The imps took the Black Crystal and Mirror of True Reflection, but they failed to recover the document that brought them to the cottage in the first place.\n\nThe engagement has two linked battlefields: a cottage with broken sightlines and a holding facility with broken security. The first battlefield is won by the defenders in the narrow sense that Markop disburses the remaining imps and keeps the book. The second is won by Remi in the narrow sense that she escapes with Mossy. The strategic situation is still bad: the imps leave with two portal artifacts, Salam is unconscious, and Kyrn has demonstrated that a damaged cell can still be used to destroy a friend.\n\n## 1. Operational Clock\n\n**29 Harvestide, dawn:** the first Imp Ambush begins at Tymnas's Cottage.\n\n**29 Harvestide, shortly after dawn:** the second offensive begins. Eager's whip strikes Salam; Tymnas is stung; Remi blocks an attack; additional imps enter the rear room.\n\n**29 Harvestide, later in the same crisis:** Rattles heals the defenders, Salam is evacuated, Dan smites an imp, Markop kills two attackers, and Markop retains the book while the Toads continue resisting.\n\n**29–30 Harvestide, exact cell hour unknown:** Remi is captured, encounters Kyrn, watches Mossy melt, escapes the unlocked cell, repairs the construct, and exits with it. Shadowfell time does not provide a trustworthy minute reading.\n\n## 2. Force Composition and Objectives\n\nThe imp force is a retrieval cell, not a conventional army. Its objective is narrow: recover the Archivist's book and remove the people obstructing that recovery. The right-hand man provides coordination, while subordinate imps use invisibility, flanking, stings, and attacks through the rear room.\n\nThe defenders have no single commander in the second phase. Markop holds the book and directs the practical defense. Dan identifies and destroys a threat with a divine smite. Rattles supplies healing and evacuation. Remi uses a shield and silent musket. Tymnas fights after being stung. Eager uses a whip and pepper spray while trying not to become another casualty. Salam is both combatant and casualty when Eager's strike lands incorrectly.\n\nThe asymmetry is immediate. The imps know their objective. The defenders know only that the cottage is filling with invisible bodies. The defenders' first tactical priority should be shared target acquisition. Instead, each person receives a separate attack and answers locally.\n\n## 3. Friendly-Fire Failure\n\nEager's whip is aimed at a ripple near the pantry. The target is not confirmed. The strike misses the imp and hits Salam in the head. Salam collapses. This is not a moral failure and not a reason to remove Eager from the line; it is a target-identification failure produced by invisible enemies and a crowded room.\n\nThe correction is simple but expensive: no blind melee swing without a callout, a visible disturbance, or a defensive purpose. Dan's eye and Rattles's healing later demonstrate the correct method. The party needs a sensor, a caller, and a designated strike window. Before that happens, the room pays for the missing system with Salam's consciousness.\n\n## 4. Rear-Room Breach\n\nWhile the front line absorbs pressure, more imps storm Remi's room. This is the attacker's decisive maneuver. The cottage defenders treat the front door as the battle. The imps treat the washroom window as the route around the battle.\n\nRemi blocks an attack with her shield, moves down from another attacker, and fires the silent musket into an imp's face. Her silence matters tactically: the shot does not reveal her position to every enemy in the building. The rear room remains a contested space instead of becoming a beacon.\n\nTymnas swings at an invisible attacker and connects. The hit makes the imp visible for an instant. This reveals a practical counter: damage is not merely damage; it is a temporary identification tool. Every successful strike should be called out, followed, and used to relocate the target before it vanishes.\n\n## 5. Collapse of the Salam Position\n\nSalam runs. He jumps over Dan and collides with an imp that reveals itself on contact. He falls again. Eager asks whether Salam does anything at all. Rattles answers not with an argument but with healing.\n\nRattles' healing wave restores the group enough to continue, but Salam remains in danger. Rattles chooses evacuation. He picks Salam up and throws him through the broken window. This is not abandonment. It is casualty removal: take the wounded body out of the kill zone before the room turns the casualty into a second enemy flank.\n\nThe window creates a third battlefield below the cottage. Salam is no longer available for coordinated strikes, but he is also no longer available to the imps. The decision preserves the possibility of recovery.\n\n## 6. Dan's Radiant Counterstrike and Markop's Axe\n\nAn imp stings Dan. Dan answers with Divine Smite. The radiant strike forces the imp visible, drives it into the wall, and leaves a black mark in the plaster. The smite does three jobs: damage, identification, and morale. It tells the defenders that the invisible force can be made to occupy physical space.\n\nRattles evacuates Salam while Markop swings twice. Markop kills two imps at the turning point. The important fact is not simply the number of dead attackers. It is what Markop does with the opening: he retains the book and disburses the remaining imps rather than accepting the attackers' demand.\n\nThe imp force came for the book. It leaves without it.\n\n## 7. Artifact Loss Without Book Loss\n\nThe imp force does successfully seize the Black Crystal and Mirror of True Reflection. These are portal artifacts, and losing them is strategically serious. They are not the same object as the Archivist's book.\n\nThe book remains with Markop. This distinction changes the next operation. The imps have two pieces of the portal chain, but they do not have the document that may explain the cell, the planes, or the relationships between the objects. Markop's retention is a tactical success even though the party loses artifacts and Remi.\n\nWaluigi's earlier Shadow Estate artifact records established that the Black Crystal, Mirror, Umbral Signet, and Orb of Shadow Domination are distributed across a chain of events. This battle adds a new distribution state: the imps hold two artifacts, the party holds the book, and the holding facility holds the people who know how the objects were used.\n\n## 8. Capture of Remi\n\nThe defenders do not surrender as a whole. Remi is captured in the confusion while the cottage defense fragments. This is an individual capture inside a continuing battle, not a party capitulation.\n\nThat distinction matters to the tactical record. Markop and the Toads continue resisting. The book remains in their possession. Remi is moved to the facility because the imps exploit the separation created by the rear-room breach and the defenders' casualty evacuation.\n\nThe imps therefore win a person and two artifacts, but fail the primary retrieval objective. This is a mixed tactical result, not a clean victory.\n\n## 9. The Holding Facility\n\nRemi wakes at one hit point in a cell marked with the Aura of Life symbol and teleportation geometry. Mossy lies in the opposite cell, already damaged. Kyrn returns and gives Remi an order to kill the Oracle and sever the plane. When Remi mentions her dog, Kyrn calls Mossy a mutt and fires the ray.\n\nMossy melts.\n\nThe facility's tactical purpose becomes visible. It does not only hold prisoners. It creates leverage by placing a person next to something they care about, then destroys the thing when the person refuses the assigned objective. Kyrn uses the cell as a pressure chamber.\n\nRemi survives because the facility has a physical failure. The cell door is not locked. She pulls it open. She finds a guard who trusts a fighter-pass excuse. She strikes him from behind, takes the keys, and repairs Mossy.\n\n## 10. Escape and Breach Assessment\n\nThe escape is not a clean liberation. Remi does not free every prisoner. Gregir Fendelsohn leaves first. Remi leaves with Mossy. The remaining prisoners stay in the room.\n\nThe facility is now breached from inside. Its security relies on doors, passes, and guards who assume that a person asking to leave is less dangerous than a person who has already acted. The party has learned the location of the cells and the existence of the teleportation markings. The imps and Kyrn have learned that Remi can leave damage behind her and return with a repaired construct.\n\nThe tactical recommendation is not to rush back alone. The next assault needs a counter-invisibility plan, a casualty extraction route, a way to protect the book, and a method for keeping the artifact carriers from being separated from the defense.\n\n## 11. Result\n\n**Cottage result:** Markop retains the Archivist's book and disburses the remaining imps. Salam is evacuated unconscious. The Toads do not surrender as a whole; Remi is captured during the confusion.\n\n**Artifact result:** The imp force takes the Black Crystal and Mirror of True Reflection.\n\n**Prison result:** Remi escapes at one hit point and repairs Mossy. Gregir also escapes. The facility remains active and contains other prisoners.\n\n**Strategic result:** Neither side receives everything it wants. The imps gain two portal artifacts and a temporary capture. The defenders retain the book and gain a route into Kyrn's facility.\n\n*Waluigi's final tactical note: the imps came for a book and left carrying a mirror. Markop kept the pages. Remi kept the dog. The Toads kept fighting. This is not a surrender. This is a battle that changed owners for two objects and changed rooms for everyone else. WAH.*",
+  "participants": [
+   {
+    "id": "markop",
+    "name": "Markop",
+    "role": "Held the Archivist's book, killed two imps, and disbursed the remaining attackers."
+   },
+   {
+    "id": "eager",
+    "name": "Eager",
+    "role": "Whip accidentally struck Salam, dodged an imp, and held the cottage line."
+   },
+   {
+    "id": "salam",
+    "name": "Salam",
+    "role": "Was struck by Eager, remained under attack, and was evacuated through the window."
+   },
+   {
+    "id": "tymnas",
+    "name": "Tymnas",
+    "role": "Was stung and struck an invisible imp."
+   },
+   {
+    "id": "rattles",
+    "name": "Rattles",
+    "role": "Healed the defenders and evacuated Salam."
+   },
+   {
+    "id": "dan_the_toad",
+    "name": "Feyward Dan",
+    "role": "Destroyed an imp with Divine Smite."
+   },
+   {
+    "id": "remi_akamatsu_full_backstory",
+    "name": "Remi Akamatsu",
+    "role": "Blocked, fired, was individually captured, escaped Kyrn's facility, and repaired Mossy."
+   },
+   {
+    "id": "mossy",
+    "name": "Mossy",
+    "role": "Melted by Kyrn and repaired by Remi."
+   },
+   {
+    "id": "kyrn",
+    "name": "Kyrn",
+    "role": "Destroyed Mossy and remained inside the holding facility."
+   }
+  ],
+  "outcome": "Markop retains the book and disburses the remaining imps. The Toads do not surrender as a whole. The imps take the Black Crystal and Mirror; Remi escapes the facility with Mossy.",
+  "notableFeatures": [
+   "Friendly-fire whip strike created the Salam casualty.",
+   "Rattles used healing and a window evacuation as casualty management.",
+   "Dan's smite made an invisible imp visible and destroyed it.",
+   "Markop retained the primary retrieval target: the Archivist's book.",
+   "The imp force seized the Black Crystal and Mirror of True Reflection.",
+   "Remi's individual capture was not a party surrender.",
+   "Kyrn melted Mossy; Remi repaired the construct and escaped.",
+   "The holding facility is now an active breach route."
+  ],
+  "relatedArticles": [
+   "the_imp_ambush_aftermath_and_kyrn_cell_escape",
+   "the_imp_ambush_of_harvestide_29",
+   "shadow_estate_mirror_rooftop_escape",
+   "markop",
+   "eager",
+   "salam",
+   "tymnas",
+   "rattles",
+   "dan_the_toad",
+   "remi_akamatsu_full_backstory",
+   "mossy",
+   "kyrn",
+   "the_archivist"
+  ]
  }
 ]

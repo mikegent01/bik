@@ -8,7 +8,7 @@
   "latestUpdate": {
     "id": "the_imp_ambush_aftermath_and_kyrn_cell_escape",
     "label": "Latest Session · Kyrn Facility Breach",
-    "excerpt": "A 5,552-word continuation of the Imp Ambush with XP rewards, relation links, Waluigi theories, cell carvings, Kyrn, Gregir Fendelsohn, and Remi repairing Mossy."
+    "excerpt": "A 5,552-word continuation of the Imp Ambush with tactical battle record, 2,880 XP rewards, relation links, Waluigi theories, cell carvings, Kyrn, Gregir Fendelsohn, and Remi repairing Mossy."
   },
   "didYouKnow": [
     "...that the Mount Ebott Survey Part III file now has XP awards and reputation deltas for Gamma Agent, Dracule Mihawk, Sans, Koffin-K, Flowey, and Asgore? Waluigi calls this “finally doing the paperwork.”",
@@ -96,7 +96,7 @@
       "kind": "event",
       "label": "New Session · Post-Imp Aftermath",
       "title": "The Book, the Cells, and the Dog Who Came Back",
-      "summary": "The cottage defense breaks, the party surrenders, Remi is taken to one-hit-point captivity, Kyrn melts Mossy, and an unlocked cell turns the prison into a breach route. XP preview: 2,880.",
+      "summary": "The cottage defense breaks without a whole-party surrender: Markop retains the book and disburses the remaining imps, while the imps take the Black Crystal and Mirror. Remi reaches one-hit-point captivity, then escapes Kyrn's facility with Mossy. XP preview: 2,880.",
       "tags": [
         "imp aftermath",
         "kyrn",
