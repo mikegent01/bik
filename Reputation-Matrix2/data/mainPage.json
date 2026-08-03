@@ -1,14 +1,14 @@
 {
   "featuredArticle": {
-    "id": "mount_ebott_survey_part_3",
+    "id": "the_imp_ambush_aftermath_and_kyrn_cell_escape",
     "type": "event",
-    "excerpt": "Ebott Part III is now filed: Sans slips and says “the war,” Flowey is exposed as Asgore’s dead son and possible machine saboteur, Koffin-K accidentally founds an unauthorized Iron Legion team, and Snowdin briefly crowns a fedora. XP, reputation, and linked character/location pages are now attached. WAH.",
-    "label": "Featured File · Ebott Survey"
+    "excerpt": "The Imp Ambush has moved from cottage siege to prison escape: Salam is down, Dan smites an imp, Remi escapes at one hit point, Mossy comes back, and the stolen book, Black Crystal, and Mirror remain in imp custody. XP preview: 2,880.",
+    "label": "Featured File · Post-Imp Aftermath"
   },
   "latestUpdate": {
-    "id": "monster_underground",
-    "label": "Latest Atlas / Realm Integration",
-    "excerpt": "The Monster Underground now has a proper Waluipedia realm link, connecting Mount Ebott, Snowdin, the Ruins, the CORE, Hotland routes, Flowey, Koffin-K, Sans, Asgore, Toriel, and the Iron Legion survey arc into the main atlas/search systems."
+    "id": "the_imp_ambush_aftermath_and_kyrn_cell_escape",
+    "label": "Latest Session · Kyrn Facility Breach",
+    "excerpt": "A 5,552-word continuation of the Imp Ambush with XP rewards, relation links, Waluigi theories, cell carvings, Kyrn, Gregir Fendelsohn, and Remi repairing Mossy."
   },
   "didYouKnow": [
     "...that the Mount Ebott Survey Part III file now has XP awards and reputation deltas for Gamma Agent, Dracule Mihawk, Sans, Koffin-K, Flowey, and Asgore? Waluigi calls this “finally doing the paperwork.”",
@@ -49,12 +49,12 @@
     },
     {
       "name": "Characters",
-      "count": 123,
+      "count": 129,
       "icon": "👤"
     },
     {
       "name": "Events",
-      "count": 79,
+      "count": 88,
       "icon": "📜"
     },
     {
@@ -80,7 +80,7 @@
   ],
   "editorialDirective": {
     "title": "WAH! Editorial Directive (1040 BF):",
-    "text": "The Alpine Inn escape and the Arunedeal Goblin Camp file has been integrated! Bones managed to steal an iron breastplate from a frozen cart, got a winter coat from a goblin named Naaook for 75 gold, and teamed up with a battle-worn toad named Elbow who wields fey magic. They retreated from a colossal Legion checkpoint wall. Pay attention to the budget, and adjust the ledger immediately! WAH!"
+    "text": "The Imp Ambush did not end at Tymnas’s cottage! Eager dropped Salam with a whip, Dan smote an imp, Rattles threw Salam through a window, and Remi escaped Kyrn’s facility with one hit point and a repaired Mossy. File the 2,880 XP preview, track the stolen Black Crystal and Mirror, and stop calling an unlocked prison a security system! WAH!"
   },
   "spotlight": {
     "kicker": "System Spotlight · Bank & Commerce",
@@ -91,6 +91,21 @@
     "actionUrl": "currency.html"
   },
   "siteUpdates": [
+    {
+      "id": "the_imp_ambush_aftermath_and_kyrn_cell_escape",
+      "kind": "event",
+      "label": "New Session · Post-Imp Aftermath",
+      "title": "The Book, the Cells, and the Dog Who Came Back",
+      "summary": "The cottage defense breaks, the party surrenders, Remi is taken to one-hit-point captivity, Kyrn melts Mossy, and an unlocked cell turns the prison into a breach route. XP preview: 2,880.",
+      "tags": [
+        "imp aftermath",
+        "kyrn",
+        "remi",
+        "mossy",
+        "eager",
+        "xp ledger"
+      ]
+    },
     {
       "id": "campaign_songs_archive",
       "kind": "event",
