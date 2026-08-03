@@ -3759,5 +3759,29 @@
     ],
     "needsReview": true,
     "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH."
+  },
+  {
+    "id": "kyrn",
+    "name": "Kyrn",
+    "title": "The Custodian Who Wants the Planes Severed",
+    "race": "Unknown",
+    "status": "Active — operating the holding facility after destroying Mossy and directing Remi toward the Oracle",
+    "affiliation": "Shadow Estate / Kyrn Facility (independent authority)",
+    "summary": "Kyrn is the facility operative who returned to Remi's cell, demanded that she kill the Oracle and sever the plane, and melted Mossy when Remi objected. He is not the same as the imp retrieval force; he controls the custody environment the imps use.",
+    "description": "Kyrn appears after Remi is dragged into the holding facility. He speaks as if the cell is part of a larger operation: kill the Oracle, sever the plane, and accept the force field and spikes as the price of obedience. When Remi points to Mossy, Kyrn dismisses the steel dog as a mutt and destroys it with a ray.\n\nHis power in the battle is not a sword line. It is control of the room: cells, custody, distance, and the threat of destroying whatever the prisoner cares about. Remi escapes when the lower cell door is not locked, repairs Mossy, and leaves the facility exposed. Kyrn remains an active threat because the plane-severing objective and the purpose of the carvings are unresolved.",
+    "keyEvents": [
+      "the_imp_ambush_aftermath_and_kyrn_cell_escape"
+    ],
+    "relatedArticles": [
+      "the_imp_ambush_aftermath_and_kyrn_cell_escape",
+      "battle_second_imp_offensive_kyrn_facility_breakout",
+      "the_archivist",
+      "the_oracle",
+      "mossy",
+      "remi_akamatsu_full_backstory"
+    ],
+    "faction": "independent",
+    "membership": "Kyrn Facility custodian / plane-severing operation",
+    "image": "icons/environment/traps/cage-steel.webp"
   }
 ]

@@ -2241,6 +2241,28 @@
     "desc": "Remained recoverable after Kyrn melted the construct and returned to motion after Remi repaired it.",
     "date": "29–30 Harvestide, 1040 BF",
     "dateSort": 10400929
+   },
+   {
+    "xpKey": "kyrn",
+    "articleId": "kyrn",
+    "name": "Kyrn",
+    "cat": "magic",
+    "xp": 240,
+    "title": "Event — The Imp Ambush Aftermath — Kyrn Facility Magic",
+    "desc": "Used the holding facility and a destructive ray to melt Mossy while directing Remi toward the Oracle and plane-severing objective.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
+   },
+   {
+    "xpKey": "kyrn",
+    "articleId": "kyrn",
+    "name": "Kyrn",
+    "cat": "control",
+    "xp": 180,
+    "title": "Event — The Imp Ambush Aftermath — Kyrn Facility Control",
+    "desc": "Created the cell pressure, custody threat, and forced-objective situation that shaped the second battlefield.",
+    "date": "29–30 Harvestide, 1040 BF",
+    "dateSort": 10400929
    }
   ]
  }
