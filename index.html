@@ -35,6 +35,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="Reputation-Matrix2/data/vendors-directory.js"></script>
   <script src="Reputation-Matrix2/data/books-data.js"></script>
+  <script src="Reputation-Matrix2/data/songs-data.js"></script>
   <script src="Reputation-Matrix2/wario-audio-bridge.js"></script>
   <script defer src="Reputation-Matrix2/wario-site-sounds.js"></script>
   <script defer src="Reputation-Matrix2/waluipedia-ambient.js"></script>
@@ -6547,6 +6548,7 @@ function renderSidebar(active){
       navLink({emoji:'❓',label:'What Ifs',go:"Router.go('#/whatif')",active:active==='whatifs',count:(DATA.whatifs&&DATA.whatifs.whatifs?DATA.whatifs.whatifs.length:0)}), 
     navLink({emoji:'🕰️',label:'Timeline',go:"Router.go('#/calendar/timeline')",count:(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}),
     navLink({emoji:'📚',label:'Library & Books',go:"Router.go('#/books')",active:active==='books',count:((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}),
+    navLink({emoji:'🎵',label:'Campaign Songbook',go:"Router.go('#/songs')",active:active==='songs',count:23}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')})
   ]);
 
@@ -6785,7 +6787,7 @@ function view_home(){
          <span style="background:var(--accent); color:#fff; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:700;">Click or /</span>
        </div>
        <a class="chip" href="shop.html" style="margin:0; font-weight:700; background:var(--panel2);">🛒 Wario Armory</a>
-       <a class="chip" href="songs.html" style="margin:0; font-weight:700; background:var(--panel2);">🎵 Campaign Songbook (23 Songs · 5 Full Lyrics)</a>
+       <a class="chip" href="#/songs" style="margin:0; font-weight:700; background:var(--panel2);">🎵 Campaign Songbook (23 Songs · 5 Full Lyrics)</a>
        <a class="chip" href="currency.html" style="margin:0; font-weight:700; background:var(--panel2);">💱 48-Currency Bank</a>
      </div>
    </div>
@@ -7129,7 +7131,7 @@ function view_home(){
      </p>
 
      <div class="operator-toolkit-grid">
-       <a class="toolkit-tile" href="songs.html">
+       <a class="toolkit-tile" href="#/songs">
          <div class="toolkit-tile-icon">🎵</div>
          <div class="toolkit-tile-text">
            <b>Grand Songbook</b>
@@ -13320,6 +13322,139 @@ function view_books(categoryArg) {
   renderGrid();
 }
 
+let currentSongFilter = 'all';
+let currentSongSearch = '';
+
+function playSongCue(notesStr) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const freqMap = {
+      C3: 130.81, D3: 146.83, E3: 164.81, F3: 174.61, G3: 196.00, A3: 220.00, B3: 246.94,
+      C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00, A4: 440.00, B4: 493.88,
+      C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.00, B5: 987.77,
+      C6: 1046.50
+    };
+    const notes = notesStr.split(' ');
+    notes.forEach((note, index) => {
+      const freq = freqMap[note] || 440;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + index * 0.22);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime + index * 0.22);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + index * 0.22 + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + index * 0.22);
+      osc.stop(ctx.currentTime + index * 0.22 + 0.38);
+    });
+  } catch (e) {
+    console.warn('Audio unlock required or not supported', e);
+  }
+}
+
+function view_songs(filterArg) {
+  renderSidebar('songs');
+  if (filterArg) currentSongFilter = filterArg;
+
+  const songs = window.SONGS_DATA || [];
+
+  function renderGrid() {
+    const q = currentSongSearch.toLowerCase().trim();
+    const filtered = songs.filter(s => {
+      const matchCat = (currentSongFilter === 'all') || (s.category === currentSongFilter);
+      const matchQ = !q || s.title.toLowerCase().includes(q) || s.lyrics.toLowerCase().includes(q) || s.performers.toLowerCase().includes(q) || s.context.toLowerCase().includes(q);
+      return matchCat && matchQ;
+    });
+
+    const categories = [
+      { id: 'all', label: 'All Songs', count: songs.length },
+      { id: 'full', label: 'Full Broadway Songs', count: songs.filter(s=>s.category==='full').length, style: 'border-color:#8a4bff; color:#d8c6ff;' },
+      { id: 'toad', label: 'Toad Shanties', count: songs.filter(s=>s.category==='toad').length },
+      { id: 'stealth', label: 'Stealth-Ruining', count: songs.filter(s=>s.category==='stealth').length },
+      { id: 'feywild', label: 'Feywild & Satyrs', count: songs.filter(s=>s.category==='feywild').length },
+      { id: 'military', label: 'Military & Legal', count: songs.filter(s=>s.category==='military').length },
+      { id: 'prophetic', label: 'Prophetic & Laments', count: songs.filter(s=>s.category==='prophetic').length }
+    ];
+
+    const chipsHtml = categories.map(cat => 
+      `<button class="chip ${cat.id === currentSongFilter ? 'active' : ''}" style="${cat.style || ''}" onclick="currentSongFilter='${cat.id}'; view_songs();">${esc(cat.label)} (${cat.count})</button>`
+    ).join('');
+
+    const cardsHtml = filtered.map((s, idx) => {
+      return `
+        <div class="song-card animate-fade-in" style="--song-accent: ${s.accent || '#8a4bff'};">
+          <div>
+            <div class="song-kicker" style="color: ${s.accent || 'var(--accent2)'};">🎵 Song ${(idx+1).toString().padStart(2,'0')} · ${s.category.toUpperCase()}</div>
+            <h3 class="song-title">${esc(s.title)}</h3>
+            <div class="song-performers">Performed by: ${esc(s.performers)}</div>
+            <div class="full-song-sheet">${esc(s.lyrics)}</div>
+            <p class="song-context"><b>Campaign Context:</b> ${esc(s.context)}</p>
+            <div class="wnote">
+              <b>Waluigi's Critique:</b> "${esc(s.critique)}"
+            </div>
+          </div>
+          <div class="song-actions">
+            <button class="song-btn play-btn" onclick="playSongCue('${esc(s.notes)}')">▶ Play Acoustic Cue</button>
+            <a class="song-btn" onclick="Router.go('#/article/${esc(s.sourceId)}')">📖 View Event Article →</a>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    el('content').innerHTML = `
+      <style>
+        .songs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 18px; margin-top: 18px; }
+        .song-card { background: var(--panel2); border: 1px solid var(--border); border-top: 4px solid var(--song-accent, var(--accent)); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+        .song-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--song-accent, var(--accent)); }
+        .song-kicker { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; color: var(--song-accent, var(--accent2)); margin-bottom: 6px; }
+        .song-title { font-size: 20px; font-weight: 900; color: var(--text); margin: 0 0 4px; line-height: 1.25; }
+        .song-performers { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 12px; }
+        .full-song-sheet {
+          background: rgba(0, 0, 0, 0.45);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          border-left: 4px solid var(--song-accent);
+          border-radius: 10px;
+          padding: 18px 22px;
+          margin: 16px 0;
+          font-family: 'JetBrains Mono', monospace, sans-serif;
+          font-size: 13.5px;
+          line-height: 1.7;
+          color: var(--text);
+          max-height: 250px;
+          overflow-y: auto;
+          white-space: pre-line;
+          box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .song-lyrics { background: rgba(0,0,0,0.35); border-left: 3px solid var(--song-accent, var(--accent2)); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 0 0 14px; font-style: italic; font-size: 14px; line-height: 1.65; color: #f3eefb; }
+        .song-context { font-size: 13.5px; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+        .song-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
+        .song-btn { padding: 6px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid var(--border); background: var(--panel); color: var(--text); transition: 0.15s; }
+        .song-btn:hover { border-color: var(--accent); color: var(--link); }
+        .song-btn.play-btn { background: color-mix(in srgb, var(--song-accent, var(--accent)) 18%, var(--bg2)); border-color: var(--song-accent, var(--accent)); color: #fff; }
+      </style>
+      <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
+        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Campaign Songbook</div>
+        <div class="home-section-head">
+          <div>
+            <h1 style="margin:0;font-size:26px">🎵 Waluipedia Grand Campaign Songbook</h1>
+            <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Waluigi's Definitive Audit of Campaign Ballads, Shanties, Hymns &amp; Unsanctioned Choruses across 57 Campaign Records.</p>
+          </div>
+          <span class="chip" style="background:rgba(138,75,255,0.18);border-color:rgba(138,75,255,0.4);color:#ffd166">Acoustic &amp; Historical Archive</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center">
+          <input type="text" class="rep-search-input" id="songSearchInput" placeholder="Search 23 songs by title, lyrics, performer, context, or critique..." value="${esc(currentSongSearch)}" oninput="currentSongSearch=this.value;renderGrid();" style="flex:1;min-width:260px">
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">${chipsHtml}</div>
+      </div>
+      <div class="songs-grid">${cardsHtml || '<div class="card" style="grid-column:1/-1;text-align:center;color:var(--muted)">No songs match your query.</div>'}</div>
+    `;
+    window.scrollTo(0, 0);
+  }
+
+  renderGrid();
+}
+
 function openBookReader(bookId) {
   const books = (DATA.books && DATA.books.books) || (window.BOOKS_DATA && window.BOOKS_DATA.books) || [];
   const book = books.find(b => b.id === bookId || String(b.title).toLowerCase().includes(String(bookId).toLowerCase()));
@@ -13436,6 +13571,7 @@ const Router={
     else if(route==='items')view_items();
     else if(route==='item')view_item(arg);
     else if(route==='books'||route==='library'||route==='codex')view_books(arg);
+    else if(route==='songs'||route==='song'||route==='songbook')view_songs(arg);
     else if(route==='book')openBookReader(arg);
     else if(route==='intel')view_dynasties();
     else if(route==='login')view_login();
