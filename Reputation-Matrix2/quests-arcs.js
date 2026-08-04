@@ -1393,20 +1393,6 @@ function setupEventListeners() {
     });
 }
 
-    // Keyboard Navigation
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (questModal?.classList.contains('active')) {
-                closeModal();
-            } else if (currentView === 'arc-detail') {
-                renderArcSelection();
-            } else if (currentView === 'all-quests') {
-                renderArcSelection();
-            }
-        }
-    });
-}
-
 // ============================================
 // COMPANION SELECTOR & FATIGUE SYSTEM
 // ============================================
