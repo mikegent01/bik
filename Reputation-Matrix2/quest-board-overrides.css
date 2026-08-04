@@ -1,0 +1,44 @@
+/* Quest board polish: the router renders the ledger in index.html, so keep these
+   deliberately scoped to quest views and safe alongside the global theme. */
+.quests-ledger-grid {
+  perspective: 900px;
+}
+.quests-ledger-grid .quest-card-item {
+  position: relative !important;
+  overflow: hidden;
+  border-radius: 14px !important;
+  background: linear-gradient(145deg, rgba(28,24,49,.96), rgba(13,18,31,.98)) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,.22);
+}
+.quests-ledger-grid .quest-card-item::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent2, #8a4bff), #ffd166, transparent);
+  opacity: .8;
+}
+.quests-ledger-grid .quest-card-item::after {
+  content: 'VIEW DOSSIER  →';
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  color: var(--accent2, #b58cff);
+  font: 800 10px/1 var(--font-mono, monospace);
+  letter-spacing: 1px;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: .2s ease;
+}
+.quests-ledger-grid .quest-card-item:hover::after,
+.quests-ledger-grid .quest-card-item:focus-within::after { opacity: 1; transform: none; }
+.quests-ledger-grid .quest-card-item:hover { transform: translateY(-5px) rotateX(1deg); }
+.quests-ledger-grid .quest-card-item h3 { letter-spacing: .2px; }
+.quests-ledger-grid .quest-card-item p { line-height: 1.55; }
+/* Make the search feel like a command console. */
+#questLedgerSearch { border-radius: 999px; padding-left: 17px; box-shadow: 0 0 0 3px rgba(138,75,255,.06); }
+#questLedgerSearch:focus { box-shadow: 0 0 0 3px rgba(138,75,255,.18), 0 0 20px rgba(138,75,255,.15); }
+@media (prefers-reduced-motion: reduce) {
+  .quests-ledger-grid .quest-card-item, .quests-ledger-grid .quest-card-item::after { transition: none; }
+  .quests-ledger-grid .quest-card-item:hover { transform: none; }
+}
