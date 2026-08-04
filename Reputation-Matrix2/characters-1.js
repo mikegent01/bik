@@ -96,6 +96,12 @@ export const CHARACTERS = {
         portrait: "portraits/eager.png",
         description: "A nimble and quick-witted toad who prefers to keep his distance, using his whip to control the battlefield and scout ahead for his slower brethren."
     },
+    salam: {
+        name: "Salam",
+        role: "Ranger With Damaged Trust",
+        portrait: "portraits/salam.png",
+        description: "A quiet, sharpshooting Toad ranger who landed a legendary eye-shot on the Arachnid Matriarch. Following many trials, his trust in outsiders is deeply fractured, but his vigilance remains unwavering."
+    },
     ryan: {
         name: "Ryan",
         role: "Arcane Student",

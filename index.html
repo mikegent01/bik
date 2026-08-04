@@ -35,6 +35,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="Reputation-Matrix2/data/vendors-directory.js"></script>
   <script src="Reputation-Matrix2/data/books-data.js"></script>
+  <script src="Reputation-Matrix2/data/songs-data.js"></script>
   <script src="Reputation-Matrix2/wario-audio-bridge.js"></script>
   <script defer src="Reputation-Matrix2/wario-site-sounds.js"></script>
   <script defer src="Reputation-Matrix2/waluipedia-ambient.js"></script>
@@ -6541,12 +6542,15 @@ function renderSidebar(active){
   h+=navSection('nav-systems-world','World Systems',[
     navLink({emoji:'🏛️',label:'Congress',go:"Router.go('#/congress')",active:active==='congress',count:n('congress_votes')}),
     navLink({emoji:'💱',label:'Currencies',go:"Router.go('#/currencies')",active:active==='currencies',count:(getCurrenciesList?getCurrenciesList().length:((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]).length)||45}),
-    navLink({emoji:'🏦',label:'Bank & Exchange',go:"location.href='currency.html'"}),
+    navLink({emoji:'🏦',label:'Bank & Exchange',go:"Router.go('#/banking')",active:active==='banking'}),
     navLink({emoji:'📅',label:'Calendar',go:"Router.go('#/calendar')",active:active==='calendar'}),
     navLink({emoji:'🎉',label:'Holidays',go:"Router.go('#/holiday')",active:active==='holidays',count:(()=>{const g=DATA.calendarHolidays?.holidays||{};let c=0;Object.values(g).forEach(a=>c+=(a||[]).length);return c;})()}),
       navLink({emoji:'❓',label:'What Ifs',go:"Router.go('#/whatif')",active:active==='whatifs',count:(DATA.whatifs&&DATA.whatifs.whatifs?DATA.whatifs.whatifs.length:0)}), 
     navLink({emoji:'🕰️',label:'Timeline',go:"Router.go('#/calendar/timeline')",count:(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}),
     navLink({emoji:'📚',label:'Library & Books',go:"Router.go('#/books')",active:active==='books',count:((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}),
+    navLink({emoji:'🎵',label:'Campaign Songbook',go:"Router.go('#/songs')",active:active==='songs',count:23}),
+    navLink({emoji:'🛰️',label:'Mission Control',go:"Router.go('#/mission-control')",active:active==='mission-control'}),
+    navLink({emoji:'📋',label:'Quests & Jobs',go:"Router.go('#/quests')",active:active==='quests',count:73}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')})
   ]);
 
@@ -6555,7 +6559,7 @@ function renderSidebar(active){
   const acct=[navLink({emoji:'🎲',label:'Random article',go:'Nav.random()'})];
   if(curU){
     acct.push(navLink({emoji:'👤',label:curName||'Profile',go:"Router.go('#/profile')",active:active==='profile',count:'Me'}));
-    acct.push(navLink({emoji:'🚪',label:'Logout',go:"(function(){localStorage.removeItem('waluipediaUser'); if(typeof updateTopbarLoginBtn==='function') updateTopbarLoginBtn(); Router.go('#/home');})()"}));
+    acct.push(navLink({emoji:'🚪',label:'Logout',go:"(function(){localStorage.removeItem('waluipediaUser'); localStorage.removeItem('vigilanceTerminalUser'); if(typeof updateTopbarLoginBtn==='function') updateTopbarLoginBtn(); Router.go('#/home');})()"}));
   }else{
     acct.push(navLink({emoji:'🔐',label:'Login',go:"Router.go('#/login')",active:active==='login'}));
   }
@@ -6785,7 +6789,7 @@ function view_home(){
          <span style="background:var(--accent); color:#fff; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:700;">Click or /</span>
        </div>
        <a class="chip" href="shop.html" style="margin:0; font-weight:700; background:var(--panel2);">🛒 Wario Armory</a>
-       <a class="chip" href="songs.html" style="margin:0; font-weight:700; background:var(--panel2);">🎵 Campaign Songbook (23 Songs · 5 Full Lyrics)</a>
+       <a class="chip" href="#/songs" style="margin:0; font-weight:700; background:var(--panel2);">🎵 Campaign Songbook (23 Songs · 5 Full Lyrics)</a>
        <a class="chip" href="currency.html" style="margin:0; font-weight:700; background:var(--panel2);">💱 48-Currency Bank</a>
      </div>
    </div>
@@ -7129,7 +7133,7 @@ function view_home(){
      </p>
 
      <div class="operator-toolkit-grid">
-       <a class="toolkit-tile" href="songs.html">
+       <a class="toolkit-tile" href="#/songs">
          <div class="toolkit-tile-icon">🎵</div>
          <div class="toolkit-tile-text">
            <b>Grand Songbook</b>
@@ -9545,7 +9549,7 @@ function view_article(id){
      ${typeKey==='battles'?battleVsInfographic(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
-${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}
+${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}
      <div class="prose">${applyAnnotations(mdToHtml(item.description||'',item.id), item.id)}</div>
      ${sectionsHtml}
      ${listBlocks.length?`<hr>${listBlocks.join('')}`:''}
@@ -9597,7 +9601,7 @@ function view_trial(item,t){
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${item.summary?`<div class="article-lead-card noimg"><div class="article-lead-summary"><h4>Case Summary</h4><p>${esc(item.summary)}</p></div></div>`:''}${anote}${defLink}
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}
-     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${relHtml}
+     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, 'trials') : ''}${relHtml}
    </div></div><div>${crossPagePanel(item.id,'trials',item)}${articleControlPanel(item.id)}<div class="infobox"><h4>${esc(item.name)}</h4>${infoRows}</div>${toc}</div></div>`;
   setArticleAccent('trials');
   window.scrollTo(0,0);setupScrollSpy();
@@ -11204,10 +11208,11 @@ function resolveUserXp(id) {
 }
 
 function resolveUserWallet(id) {
-  if (!id || typeof INVENTORY_SYSTEM === 'undefined' || !INVENTORY_SYSTEM.wallets) return null;
+  if (!id) return null;
+  const wallets = typeof walletSource === 'function' ? walletSource() : (INVENTORY_SYSTEM?.wallets || {});
   const walletKey = resolveUserWalletKey(id);
   const canonicalKey = resolveCanonicalUserKey(id);
-  return INVENTORY_SYSTEM.wallets[id] || INVENTORY_SYSTEM.wallets[walletKey] || INVENTORY_SYSTEM.wallets[canonicalKey] || INVENTORY_SYSTEM.wallets[id.replace('_miser', '')] || null;
+  return wallets[id] || wallets[walletKey] || wallets[canonicalKey] || wallets[id.replace('_miser', '')] || null;
 }
 
 /* =============== LOGIN / PROFILE — merged from existing terminal code + walupedia wallet/xp/bio ==== */
@@ -11220,7 +11225,7 @@ function getCurrentUserId(){
 function setCurrentUserId(id){
   try{
     if(id){ localStorage.setItem(WALU_WALLET_KEY, id); localStorage.setItem('vigilanceTerminalUser', id); }
-    else { localStorage.removeItem(WALU_WALLET_KEY); }
+    else { localStorage.removeItem(WALU_WALLET_KEY); localStorage.removeItem('vigilanceTerminalUser'); }
   }catch(e){}
   updateTopbarLoginBtn();
 }
@@ -11406,7 +11411,20 @@ function view_profile(){
   const rec=INDEX[uid];
   const charItem=rec?.item|| (DATA.characters||[]).find(c=>c.id===uid) || null;
   const wallet=resolveUserWallet(uid);
-  const bank= (()=>{ try{ const b=INVENTORY_SYSTEM?.banking||{}; const name=(charItem?.name||xp?.name||uid||'').toLowerCase(); return {accounts:(b.bank_accounts||[]).filter(x=>String(x.owner||'').toLowerCase()===name||String(x.owner||'').toLowerCase().includes(name)), loans:(b.loans||[]).filter(x=>String(x.borrower||'').toLowerCase()===name), debts:(b.debts||[]).filter(x=>String(x.debtor||'').toLowerCase()===name)} }catch(e){return {accounts:[],loans:[],debts:[]}} })();
+  const bank = (() => {
+    try {
+      const b = typeof bankingSource === 'function' ? bankingSource() : (INVENTORY_SYSTEM?.banking || {});
+      const name = (charItem?.name || xp?.name || uid || '').toLowerCase();
+      const rawName = String(uid).replace(/_miser/g, '').replace(/_akamatsu_full_backstory/g, '').toLowerCase();
+      return {
+        accounts: (b.bank_accounts || []).filter(x => String(x.owner || '').toLowerCase() === name || String(x.owner || '').toLowerCase().includes(name) || String(x.owner || '').toLowerCase().includes(rawName)),
+        loans: (b.loans || []).filter(x => String(x.borrower || '').toLowerCase() === name || String(x.borrower || '').toLowerCase().includes(name) || String(x.borrower || '').toLowerCase().includes(rawName)),
+        debts: (b.debts || []).filter(x => String(x.debtor || '').toLowerCase() === name || String(x.debtor || '').toLowerCase().includes(name) || String(x.debtor || '').toLowerCase().includes(rawName))
+      };
+    } catch(e) {
+      return { accounts: [], loans: [], debts: [] };
+    }
+  })();
   let totalGold=0; let breakdown={core:0,reg:0,spec:0,blk:0}; let walletLines='';
   if(wallet){
     const entries=Object.entries(wallet.currencies||{});
@@ -12188,6 +12206,23 @@ function renderWhyModal(factionKey, opKey) {
 function renderArticleOperatorReputation(opId) {
   const op = REPUTATION_OPERATORS.find(o => o.id === opId || o.key === opId || o.xpKey === opId);
   if (!op) return '';
+
+  let fatigueWarning = '';
+  try {
+    const stored = localStorage.getItem('waluipedia-companion-fatigue');
+    if (stored) {
+      const states = JSON.parse(stored);
+      const fatigue = states[opId];
+      if (fatigue > 0) {
+        fatigueWarning = `
+          <div class="rep-heat-why" style="background: rgba(239, 68, 68, 0.08); border-left: 3px solid var(--danger); padding: 12px; margin-bottom: 12px; border-radius: 6px;">
+            <div style="font-weight: 700; color: var(--danger); display: flex; align-items: center; gap: 6px;"><span>⏳</span> OPERATIONAL FATIGUE — RESTING</div>
+            <p style="margin: 4px 0 0; font-size: 12.5px; color: var(--text);">This operator is currently fatigued from their recent deployment on a major story arc mission. They are resting at the campsite/airship and are unavailable for active deployments for the next <b>${fatigue} mission${fatigue === 1 ? '' : 's'}</b>.</p>
+          </div>
+        `;
+      }
+    }
+  } catch (e) {}
   
   const heat = INFAMY_PROFILES[op.key] || { score: 30, icon: '👁️', label: 'Watched File', tags: [], warrants: [], reasons: [] };
   const heatX = explainInfamy(heat);
@@ -12223,6 +12258,7 @@ function renderArticleOperatorReputation(opId) {
         </div>
         <span class="chip chip-negative" onclick="Router.go('#/reputation/infamy')">🚨 Heat ${heat.score} · ${esc(heat.label)}</span>
       </div>
+      ${fatigueWarning}
       <div class="rep-heat-why">
         <div class="rep-heat-why-head">${heat.icon||'🚨'} <b>Infamy / heat ${heatX.score}/100</b> — ${esc(heatX.band)}</div>
         <ul class="rep-why-list">${heatX.reasons.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
@@ -13320,6 +13356,1087 @@ function view_books(categoryArg) {
   renderGrid();
 }
 
+let currentSongFilter = 'all';
+let currentSongSearch = '';
+
+function playSongCue(notesStr) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const freqMap = {
+      C3: 130.81, D3: 146.83, E3: 164.81, F3: 174.61, G3: 196.00, A3: 220.00, B3: 246.94,
+      C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00, A4: 440.00, B4: 493.88,
+      C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.00, B5: 987.77,
+      C6: 1046.50
+    };
+    const notes = notesStr.split(' ');
+    notes.forEach((note, index) => {
+      const freq = freqMap[note] || 440;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + index * 0.22);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime + index * 0.22);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + index * 0.22 + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + index * 0.22);
+      osc.stop(ctx.currentTime + index * 0.22 + 0.38);
+    });
+  } catch (e) {
+    console.warn('Audio unlock required or not supported', e);
+  }
+}
+
+function view_songs(filterArg) {
+  renderSidebar('songs');
+  if (filterArg) currentSongFilter = filterArg;
+
+  const songs = window.SONGS_DATA || [];
+
+  function renderGrid() {
+    const q = currentSongSearch.toLowerCase().trim();
+    const filtered = songs.filter(s => {
+      const matchCat = (currentSongFilter === 'all') || (s.category === currentSongFilter);
+      const matchQ = !q || s.title.toLowerCase().includes(q) || s.lyrics.toLowerCase().includes(q) || s.performers.toLowerCase().includes(q) || s.context.toLowerCase().includes(q);
+      return matchCat && matchQ;
+    });
+
+    const categories = [
+      { id: 'all', label: 'All Songs', count: songs.length },
+      { id: 'full', label: 'Full Broadway Songs', count: songs.filter(s=>s.category==='full').length, style: 'border-color:#8a4bff; color:#d8c6ff;' },
+      { id: 'toad', label: 'Toad Shanties', count: songs.filter(s=>s.category==='toad').length },
+      { id: 'stealth', label: 'Stealth-Ruining', count: songs.filter(s=>s.category==='stealth').length },
+      { id: 'feywild', label: 'Feywild & Satyrs', count: songs.filter(s=>s.category==='feywild').length },
+      { id: 'military', label: 'Military & Legal', count: songs.filter(s=>s.category==='military').length },
+      { id: 'prophetic', label: 'Prophetic & Laments', count: songs.filter(s=>s.category==='prophetic').length }
+    ];
+
+    const chipsHtml = categories.map(cat => 
+      `<button class="chip ${cat.id === currentSongFilter ? 'active' : ''}" style="${cat.style || ''}" onclick="currentSongFilter='${cat.id}'; view_songs();">${esc(cat.label)} (${cat.count})</button>`
+    ).join('');
+
+    const cardsHtml = filtered.map((s, idx) => {
+      return `
+        <div class="song-card animate-fade-in" style="--song-accent: ${s.accent || '#8a4bff'};">
+          <div>
+            <div class="song-kicker" style="color: ${s.accent || 'var(--accent2)'};">🎵 Song ${(idx+1).toString().padStart(2,'0')} · ${s.category.toUpperCase()}</div>
+            <h3 class="song-title">${esc(s.title)}</h3>
+            <div class="song-performers">Performed by: ${esc(s.performers)}</div>
+            <div class="full-song-sheet">${esc(s.lyrics)}</div>
+            <p class="song-context"><b>Campaign Context:</b> ${esc(s.context)}</p>
+            <div class="wnote">
+              <b>Waluigi's Critique:</b> "${esc(s.critique)}"
+            </div>
+          </div>
+          <div class="song-actions">
+            <button class="song-btn play-btn" onclick="playSongCue('${esc(s.notes)}')">▶ Play Acoustic Cue</button>
+            <a class="song-btn" onclick="Router.go('#/article/${esc(s.sourceId)}')">📖 View Event Article →</a>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    el('content').innerHTML = `
+      <style>
+        .songs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 18px; margin-top: 18px; }
+        .song-card { background: var(--panel2); border: 1px solid var(--border); border-top: 4px solid var(--song-accent, var(--accent)); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+        .song-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--song-accent, var(--accent)); }
+        .song-kicker { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.8px; color: var(--song-accent, var(--accent2)); margin-bottom: 6px; }
+        .song-title { font-size: 20px; font-weight: 900; color: var(--text); margin: 0 0 4px; line-height: 1.25; }
+        .song-performers { font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 12px; }
+        .full-song-sheet {
+          background: rgba(0, 0, 0, 0.45);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          border-left: 4px solid var(--song-accent);
+          border-radius: 10px;
+          padding: 18px 22px;
+          margin: 16px 0;
+          font-family: 'JetBrains Mono', monospace, sans-serif;
+          font-size: 13.5px;
+          line-height: 1.7;
+          color: var(--text);
+          max-height: 250px;
+          overflow-y: auto;
+          white-space: pre-line;
+          box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .song-lyrics { background: rgba(0,0,0,0.35); border-left: 3px solid var(--song-accent, var(--accent2)); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 0 0 14px; font-style: italic; font-size: 14px; line-height: 1.65; color: #f3eefb; }
+        .song-context { font-size: 13.5px; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+        .song-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); }
+        .song-btn { padding: 6px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid var(--border); background: var(--panel); color: var(--text); transition: 0.15s; }
+        .song-btn:hover { border-color: var(--accent); color: var(--link); }
+        .song-btn.play-btn { background: color-mix(in srgb, var(--song-accent, var(--accent)) 18%, var(--bg2)); border-color: var(--song-accent, var(--accent)); color: #fff; }
+      </style>
+      <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
+        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Campaign Songbook</div>
+        <div class="home-section-head">
+          <div>
+            <h1 style="margin:0;font-size:26px">🎵 Waluipedia Grand Campaign Songbook</h1>
+            <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Waluigi's Definitive Audit of Campaign Ballads, Shanties, Hymns &amp; Unsanctioned Choruses across 57 Campaign Records.</p>
+          </div>
+          <span class="chip" style="background:rgba(138,75,255,0.18);border-color:rgba(138,75,255,0.4);color:#ffd166">Acoustic &amp; Historical Archive</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center">
+          <input type="text" class="rep-search-input" id="songSearchInput" placeholder="Search 23 songs by title, lyrics, performer, context, or critique..." value="${esc(currentSongSearch)}" oninput="currentSongSearch=this.value;renderGrid();" style="flex:1;min-width:260px">
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">${chipsHtml}</div>
+      </div>
+      <div class="songs-grid">${cardsHtml || '<div class="card" style="grid-column:1/-1;text-align:center;color:var(--muted)">No songs match your query.</div>'}</div>
+    `;
+    window.scrollTo(0, 0);
+  }
+
+  renderGrid();
+}
+
+/* ================= COMPANION SELECTOR & FATIGUE SYSTEM ================= */
+const COMPANIONS = [
+  { id: 'salam', name: 'Salam', role: 'Ranger With Damaged Trust', icon: '🏹', class: 'Ranger', cost: 3, level: 3, power: 5, category: 'toads' },
+  { id: 'eager', name: 'Eager', role: 'Swift Scout', icon: '🪢', class: 'Fighter', cost: 3, level: 4, power: 10, category: 'toads' },
+  { id: 'dan', name: 'Dan', role: 'The Wounded Hero (Original)', icon: '🍄', class: 'Fighter', cost: 4, level: 4, power: 8, category: 'toads' },
+  { id: 'feywarddan', name: 'Feyward Dan', role: 'Parallel-Reality Dan', icon: '🪄', class: 'Paladin', cost: 3, level: 3, power: 5, category: 'toads' },
+  { id: 'toad_lee', name: 'Toad Lee', role: 'Warden of the Toads', icon: '🪓', class: 'Fighter', cost: 4, level: 4, power: 9, category: 'toads' },
+  { id: 'ryan', name: 'Ryan', role: 'Arcane Student', icon: '✨', class: 'Mage', cost: 2, level: 2, power: 4, category: 'toads' },
+  { id: 'roger', name: 'Roger', role: 'Pragmatist Gunner', icon: '🔫', class: 'Fighter', cost: 2, level: 2, power: 3, category: 'toads' },
+  { id: 'bones', name: 'Bones', role: 'Hardened Survivor', icon: '💀', class: 'Rogue', cost: 4, level: 5, power: 8, category: 'toads' },
+  { id: 'rattles', name: 'Rattles', role: 'Faithful Companion', icon: '🍉', class: 'Survivor', cost: 2, level: 3, power: 5, category: 'toads' },
+  { id: 'smoking_j', name: 'Smoking J', role: 'Liberated Smoker', icon: '🚬', class: 'Survivor', cost: 2, level: 2, power: 4, category: 'toads' },
+  { id: 'green_t', name: 'Green T', role: 'Syndicate Operative', icon: '🟢', class: 'Rogue', cost: 5, level: 5, power: 11, category: 'toads' },
+  { id: 'speaker_l', name: 'Speaker L', role: 'Voice of the Free', icon: '📣', class: 'Speaker', cost: 3, level: 3, power: 5, category: 'toads' },
+  
+  // Core cast (Fatigue Immune)
+  { id: 'bowser', name: 'Bowser', role: 'Deposed Koopa Warlord', icon: '🦖', class: 'Warlord', cost: 7, level: 8, power: 14, category: 'core' },
+  { id: 'hjumpik', name: 'Hjumpik', role: 'Dwarven King\'s Champion', icon: '🛡️', class: 'Champion', cost: 6, level: 7, power: 12, category: 'core' },
+  { id: 'archie', name: 'Archie Miser', role: 'Three-Eyed Pyro Merchant', icon: '👁️', class: 'Mage', cost: 5, level: 6, power: 13, category: 'core' },
+  { id: 'remi', name: 'Remi', role: 'Ingenious Smith & Engineer', icon: '🦊', class: 'Smith', cost: 5, level: 7, power: 12, category: 'core' },
+  { id: 'markop', name: 'Markop Judi', role: 'Disgraced Centaur Paladin', icon: '🐴', class: 'Paladin', cost: 6, level: 8, power: 13, category: 'core' },
+  { id: 'waluigi', name: 'Waluigi', role: 'Agent of Chaos', icon: '💜', class: 'Mage', cost: 5, level: 5, power: 11, category: 'core' },
+
+  // Special Hires (Fatigue Subject)
+  { id: 'luigi', name: 'Luigi / Agent L', role: 'Special Guest Operative', icon: '🟢', class: 'Fighter', cost: 6, level: 5, power: 13, category: 'special' },
+  { id: 'rakashaazure', name: 'Azure Rakasha', role: 'Dwarf Ally Summon', icon: '🐯', class: 'Beast', cost: 5, level: 4, power: 7, category: 'special' }
+];
+
+const CORE_CHARACTERS = new Set(['archie', 'hjumpik', 'bowser', 'remi']);
+const UNAVAILABLE_COMPANIONS = new Set(['speaker_l']);
+
+const WARIO_SHOP_CATALOG = [
+  { id: 'item_heal_pot', name: '🩹 Potion of Healing', price: 50, icon: '🧪', desc: 'Consumable. Restores 2d4+2 HP.', cost: 1 },
+  { id: 'item_antitoxin', name: '🧪 Antitoxin Vial', price: 100, icon: '🧪', desc: 'Consumable. Cures poisoned status.', cost: 1 },
+  { id: 'item_smoke_bomb', name: '💨 Deku Smoke Bomb', price: 150, icon: '💨', desc: 'Consumable. Safe tactical escape.', cost: 2 },
+  { id: 'item_bomb_bag', name: '💣 Wario Present Bomb', price: 300, icon: '💣', desc: 'Consumable. Deals 3d6 explosive area damage.', cost: 3 },
+  { id: 'item_leather_armor', name: '🛡️ Leather Armor', price: 45, icon: '👕', desc: 'Armor. Flat AC 12 + Dex modifier.', cost: 1 },
+  { id: 'item_shortbow', name: '🏹 Recurve Shortbow', price: 25, icon: '🏹', desc: 'Weapon. Ranged 1d6 piercing.', cost: 1 },
+  { id: 'item_longsword', name: '⚔️ Holy Longsword', price: 350, icon: '⚔️', desc: 'Weapon. Versatile 1d8/1d10 slashing.', cost: 3 },
+  { id: 'item_shield_1', name: '🛡️ Shield +1', price: 500, icon: '🛡️', desc: 'Shield. Grants flat +3 AC.', cost: 4 },
+  { id: 'item_talisman', name: '🔮 Echo Talisman', price: 800, icon: '🔮', desc: 'Relic. Amplifies spells.', cost: 4 }
+];
+
+const MISSION_BUDGET = 24;
+
+let currentSquadSlots = []; // Dynamic array of active deployed companions
+let currentSelectedUpgrades = new Set();
+
+let activeVotes = {
+  bowser: '',
+  archie: '',
+  hjumpik: '',
+  remi: ''
+};
+
+function getFatigueStates() {
+    try {
+        const stored = localStorage.getItem('waluipedia-companion-fatigue');
+        if (stored) {
+            const states = JSON.parse(stored);
+            CORE_CHARACTERS.forEach(id => { states[id] = 0; });
+            return states;
+        }
+    } catch (e) {}
+    const defaults = {};
+    COMPANIONS.forEach(c => { defaults[c.id] = 0; });
+    return defaults;
+}
+
+function saveFatigueStates(states) {
+    try {
+        CORE_CHARACTERS.forEach(id => { states[id] = 0; });
+        localStorage.setItem('waluipedia-companion-fatigue', JSON.stringify(states));
+    } catch (e) {}
+}
+
+function view_mission_control() {
+  renderSidebar('mission-control');
+  
+  const dateStr = `${MONTHS[CUR.monthIndex]||'?'} ${CUR.day}, ${CUR.year} BF`;
+  const states = getFatigueStates();
+
+  const curU = (typeof getCurrentUserId === 'function' ? getCurrentUserId() : null) || 'bowser';
+  const wallet = (typeof walletForChar === 'function' ? walletForChar(curU) : null) || (DATA && DATA.wallets && DATA.wallets[curU]) || { currencies: { gold: 100 } };
+  const goldBalance = wallet.currencies ? (wallet.currencies.gold || 0) : 100;
+  const isDebt = goldBalance < 0;
+
+  // Calculate current point totals
+  let squadPoints = 0;
+  const filledCount = currentSquadSlots.length;
+  const maxSlots = filledCount + 4;
+  currentSquadSlots.forEach(id => {
+    const comp = COMPANIONS.find(c => c.id === id);
+    if (comp) squadPoints += comp.cost;
+  });
+
+  const affordableUpgrades = WARIO_SHOP_CATALOG.filter(item => item.price <= Math.max(0, goldBalance));
+
+  currentSelectedUpgrades.forEach(id => {
+    const item = WARIO_SHOP_CATALOG.find(u => u.id === id);
+    if (!item || item.price > goldBalance) {
+      currentSelectedUpgrades.delete(id);
+    }
+  });
+
+  let upgradePoints = 0;
+  currentSelectedUpgrades.forEach(id => {
+    const upg = WARIO_SHOP_CATALOG.find(u => u.id === id);
+    if (upg) upgradePoints += upg.cost;
+  });
+
+  const totalPointsSpent = squadPoints + upgradePoints;
+  const remainingPoints = MISSION_BUDGET - totalPointsSpent;
+
+  const hasAtLeastFour = filledCount >= 4;
+  const underBudget = remainingPoints >= 0;
+
+  // Overextension Maintenance Gold Cost calculation
+  let overextensionCost = 0;
+  let overextensionLabel = 'Standard Squad (No maintenance cost)';
+  let overextensionColor = 'var(--green)';
+
+  if (filledCount === 5) {
+    overextensionCost = 50;
+    overextensionLabel = '⚠️ Overextended Squad (Costs 50 gp maintenance)';
+    overextensionColor = 'var(--accent2)';
+  } else if (filledCount === 6) {
+    overextensionCost = 150;
+    overextensionLabel = '🚨 Deep Overextension (Costs 150 gp maintenance)';
+    overextensionColor = 'var(--danger)';
+  } else if (filledCount === 7) {
+    overextensionCost = 300;
+    overextensionLabel = '☠️ Extreme Overextension (Costs 300 gp maintenance)';
+    overextensionColor = 'var(--danger)';
+  } else if (filledCount > 7) {
+    overextensionCost = 300 + (filledCount - 7) * 200;
+    overextensionLabel = `☠️ Critical Overextension (Costs ${overextensionCost} gp maintenance)`;
+    overextensionColor = 'var(--danger)';
+  }
+
+  const canAffordMaintenance = isDebt ? false : (goldBalance >= overextensionCost);
+  const canLaunch = hasAtLeastFour && underBudget && canAffordMaintenance;
+
+  // Strategic reward modifier (Multiplier)
+  let challengeRating = 'Standard Run (1.0x Rewards)';
+  let ratingColor = 'var(--green)';
+  if (totalPointsSpent < 15) {
+    challengeRating = 'Heroic Run (2.0x Gold & Standing!)';
+    ratingColor = '#ffd166';
+  } else if (totalPointsSpent < 20) {
+    challengeRating = 'Hard Run (1.5x Gold & Standing!)';
+    ratingColor = 'var(--accent2)';
+  }
+
+  // Deployed seats rendering (dynamic list of filled seats + 1 empty indicator)
+  const occupiedSlotsHtml = currentSquadSlots.map((id, index) => {
+    const comp = COMPANIONS.find(c => c.id === id);
+    const isCore = CORE_CHARACTERS.has(id);
+    const badgeStyle = isCore ? 'background: var(--green)22; border-color: var(--green); color: var(--green);' : 'background: var(--accent)22; border-color: var(--accent); color: var(--accent);';
+    return `
+      <div class="summary-stat" style="position: relative; text-align: left; display: flex; align-items: center; gap: 8px; background: rgba(138, 75, 255, 0.08); border: 2px solid var(--accent); padding: 8px 10px; border-radius: 8px;">
+        <span style="font-size: 24px;">${comp.icon}</span>
+        <div style="flex: 1; min-width: 0;">
+          <div style="font-size: 8px; color: var(--muted); text-transform: uppercase;">SEAT ${index + 1}</div>
+          <strong style="font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${esc(comp.name)}</strong>
+          <span class="pill" style="font-size: 7.5px; padding: 0px 3px; ${badgeStyle}">${isCore ? 'CORE' : 'COMPANION'}</span>
+        </div>
+        <span class="chip" style="margin: 0; font-size: 9px; padding: 1px 4px; background: var(--accent2)22; border-color: var(--accent2); color: var(--accent2);">${comp.cost}pt</span>
+        <button onclick="clearSlot(${index}); event.stopPropagation();" style="position: absolute; top: -6px; right: -6px; border-radius: 50%; width: 18px; height: 18px; border: 1px solid var(--border); background: var(--panel2); color: var(--text); font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 9px; z-index: 10;">✕</button>
+      </div>
+    `;
+  }).join('');
+
+  const slotsHtml = occupiedSlotsHtml + `
+    <div class="summary-stat" onclick="openSlotSelector(${filledCount})" style="cursor: pointer; border: 2px dashed var(--border); padding: 12px 6px; text-align: center; background: var(--panel); border-radius: 8px;">
+      <span style="font-size: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 2px;">SEAT ${filledCount + 1}</span>
+      <span style="font-size: 9px; color: var(--muted);">WAITING...</span>
+    </div>
+  `;
+
+  // Roster rendering by category
+  const renderGroup = (title, filterFn) => {
+    const list = COMPANIONS.filter(filterFn);
+    return `
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 8px; font-size: 12px; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.5px;">${esc(title)}</h4>
+        <div class="companions-grid">
+          ${list.map(c => {
+            const fatigue = states[c.id] || 0;
+            const isResting = fatigue > 0;
+            const isSelected = currentSquadSlots.includes(c.id);
+            const isUnavailable = UNAVAILABLE_COMPANIONS.has(c.id);
+            
+            let btnLabel = isSelected ? 'BENCH' : 'DEPLOY';
+            let btnClass = isSelected ? 'chip active' : 'chip';
+            let cardBorder = isSelected ? '2px solid var(--accent)' : '1px solid var(--border)';
+            let cardBg = isSelected ? 'rgba(138, 75, 255, 0.08)' : 'var(--panel)';
+            let opacity = '1';
+            let clickHandler = isSelected ? `onclick="benchCompanion('${c.id}')"` : `onclick="deployCompanion('${c.id}')"`;
+            let rightLabel = `COST: ${c.cost}pt`;
+            let badgeColor = 'var(--accent2)';
+
+            if (isUnavailable) {
+              opacity = '0.4';
+              clickHandler = '';
+              rightLabel = '🚫 REFUSES';
+              badgeColor = 'var(--danger)';
+              btnLabel = 'NOT AVAIL';
+              btnClass = 'chip';
+            } else if (isResting) {
+              opacity = '0.45';
+              clickHandler = '';
+              rightLabel = `RESTING (${fatigue}m)`;
+              badgeColor = 'var(--danger)';
+              btnLabel = 'RESTING';
+              btnClass = 'chip';
+            }
+
+            return `
+              <div class="companion-card" style="opacity: ${opacity}; border: ${cardBorder}; background: ${cardBg}; display: flex; gap: 10px; padding: 10px; border-radius: 8px; transition: 0.15s; position: relative;">
+                <div style="font-size: 26px; align-self: center;">${c.icon}</div>
+                <div style="flex: 1; min-width: 0; padding-right: 4px;">
+                  <div style="font-weight: 700; font-size: 13px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(c.name)}</div>
+                  <div style="font-size: 11px; color: var(--muted); margin-top: 1px;">Lv ${c.level} · Power ${c.power}</div>
+                  <button class="${btnClass}" ${clickHandler} style="margin: 6px 0 0; padding: 2px 10px; font-size: 10px; height: auto; min-height: auto; font-weight: 700;" ${isUnavailable?'disabled':''}>${btnLabel}</button>
+                </div>
+                <div style="font-size: 8.5px; font-weight: 900; background: ${badgeColor}22; border: 1px solid ${badgeColor}; color: ${badgeColor}; padding: 1px 5px; border-radius: 999px; position: absolute; top: 8px; right: 8px;">${rightLabel}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  };
+
+  const coreCastHtml = renderGroup('👑 Core Cast (Fatigue Immune)', c => c.category === 'core');
+  const toadsHtml = renderGroup('🍄 Liberated Toads & Companions', c => c.category === 'toads');
+  const specialHiresHtml = renderGroup('🌟 Special Hires', c => c.category === 'special');
+
+  // Wario Shop Stock side-panel
+  let upgradesHtml = '';
+  if (isDebt) {
+    const debtAmt = Math.abs(goldBalance);
+    const whyNote = curU === 'archie' || curU === 'archie_miser'
+      ? `Archie Miser currently carries an active 34-gold debt due to Thornbury's aggressive billing for broken rope, bath supplies, and rubber duckies at the Alpine Bank.` 
+      : `Wario's ledger records an active negative credit balance for this operator.`;
+    upgradesHtml = `
+      <div class="wnote" style="border-left-color: var(--danger); background: rgba(239, 68, 68, 0.06); text-align: center; padding: 20px; grid-column: 1/-1;">
+        <span style="font-size: 32px; display: block; margin-bottom: 8px;">🚫 CREDIT DENIED</span>
+        <b style="color: var(--danger);">Wario says:</b> "WAH! Archie! I'm not selling you any of Wario's elite stocks! Thornbury still wants his <b>2,175 DUCATS</b> for that bath-house rubber duck incident, and the Mages Guild has locked your credit! I'm cooperating with their financial blockade—and besides, you still owe me <b>1,474 Wario Coins</b> for 'emergency expenses' too! Pay off your bills at the bank first, rubber-duck arsonist! WAH!"
+        <p style="font-size: 12.5px; color: var(--muted); margin: 10px 0 12px; max-width: 500px; margin-left: auto; margin-right: auto;">${esc(whyNote)}</p>
+        <div style="display: flex; gap: 8px; justify-content: center;">
+          <a class="chip active" href="currency.html">🏦 Go to bank balance ledger</a>
+        </div>
+      </div>
+    `;
+  } else if (affordableUpgrades.length === 0) {
+    upgradesHtml = `
+      <div class="wnote" style="border-left-color: var(--accent2); text-align: center; padding: 18px; grid-column: 1/-1;">
+        <span>👛 No affordable items available. Your current active capital (<b>${goldBalance} gp</b>) is too low to purchase Wario's field stock.</span>
+      </div>
+    `;
+  } else {
+    upgradesHtml = affordableUpgrades.map(u => {
+      const isSelected = currentSelectedUpgrades.has(u.id);
+      const border = isSelected ? '2px solid var(--accent)' : '1px solid var(--border)';
+      const background = isSelected ? 'rgba(138, 75, 255, 0.08)' : 'var(--panel)';
+
+      return `
+        <div class="upgrade-card" onclick="selectUpgradeForSquad('${u.id}')" style="cursor: pointer; border: ${border}; background: ${background}; display: flex; gap: 10px; padding: 12px; border-radius: 8px; transition: 0.15s; position: relative;">
+            <div style="flex: 1; min-width: 0;">
+                <div style="font-weight: 700; font-size: 13px; color: var(--text);">${esc(u.name)}</div>
+                <div style="font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.45;">${esc(u.desc)}</div>
+                <div style="font-size: 10.5px; color: var(--accent2); margin-top: 4px; font-weight: 700;">Price: ${u.price} gp</div>
+            </div>
+            <div style="font-size: 8.5px; font-weight: 900; background: var(--accent2)22; border: 1px solid var(--accent2); color: var(--accent2); padding: 1px 5px; border-radius: 999px; position: absolute; top: 8px; right: 8px;">COST: ${u.cost} pt</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Co-op Voting Console Panel (Select nominations from available Ready operators)
+  const readyCompanions = COMPANIONS.filter(c => (states[c.id] || 0) === 0 && !UNAVAILABLE_COMPANIONS.has(c.id));
+  const generateVoteSelect = (playerKey, selectedId) => {
+    return `
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 12.5px;">
+        <span><b>${esc(playerKey.toUpperCase())}'s Nominee:</b></span>
+        <select onchange="updateNomination('${playerKey}', this.value)" style="background: var(--bg2); border: 1px solid var(--border); color: var(--text); padding: 4px; border-radius: 4px; font-size: 12px; width: 140px;">
+          <option value="">-- No Vote --</option>
+          ${readyCompanions.map(c => `<option value="${c.id}" ${c.id===selectedId?'selected':''}>${c.icon} ${esc(c.name)}</option>`).join('')}
+        </select>
+      </div>
+    `;
+  };
+
+  el('content').innerHTML = `
+    <style>
+      .companions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+      .upgrades-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; margin-top: 10px; }
+      .companion-card, .upgrade-card { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+      .companion-card:hover, .upgrade-card:hover { border-color: var(--accent2) !important; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+      .summary-stat { border: 1px solid var(--border); padding: 10px 12px; border-radius: 8px; background: var(--panel); text-align: center; }
+      .summary-stat strong { display: block; font-size: 18px; color: var(--accent2); }
+      .summary-stat span { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+      .mission-grid-container { display: grid; grid-template-columns: 1fr 340px; gap: 14px; margin-top: 14px; }
+      @media (max-width: 950px) {
+        .mission-grid-container { grid-template-columns: 1fr; }
+      }
+    </style>
+    
+    <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Mission Control</div>
+      <div class="home-section-head">
+        <div>
+          <h1 style="margin:0;font-size:26px">🛰️ Wario Mission Control: Disaster Inc. Tactical Prep</h1>
+          <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Assign active operators into the squad seats under the 24-point budget. Spend remaining points on Wario's live stock items.</p>
+        </div>
+        <span class="chip" style="background:rgba(224,180,0,0.12);border-color:var(--accent);color:var(--accent)">📅 Calendar: ${esc(dateStr)}</span>
+      </div>
+      <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="chip active" onclick="autofillCoreCast()" style="background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; cursor: pointer; padding: 6px 16px; box-shadow: 0 4px 12px rgba(138,75,255,0.25);">✨ Autofill Core Cast (4 Members)</button>
+      </div>
+    </div>
+
+    <!-- Live Budget Dashboard -->
+    <div class="card" style="border-left: 4px solid var(--accent2);">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <div class="summary-stat">
+            <b style="font-size: 18px; color: ${remainingPoints < 0 ? 'var(--danger)' : 'var(--accent2)'};">${remainingPoints} / ${MISSION_BUDGET}</b>
+            <span>Remaining Points</span>
+          </div>
+          <div class="summary-stat">
+            <strong>${filledCount}</strong>
+            <span>Seats Occupied</span>
+          </div>
+          <div class="summary-stat">
+            <strong>${squadPoints} pt</strong>
+            <span>Squad Cost</span>
+          </div>
+          <div class="summary-stat">
+            <strong>${upgradePoints} pt</strong>
+            <span>Gear Cost</span>
+          </div>
+          <div class="summary-stat" style="${isDebt?'border-color:var(--danger);':''}">
+            <strong style="${isDebt?'color:var(--danger);':''}">${goldBalance} gp</strong>
+            <span>Active Capital (${esc(curU.toUpperCase())})</span>
+          </div>
+          <div class="summary-stat" style="${overextensionCost > 0 ? 'border-color: var(--danger);' : ''}">
+            <strong style="${overextensionCost > 0 ? 'color: var(--danger);' : ''}">${overextensionCost} gp</strong>
+            <span>Overextended Cost</span>
+          </div>
+          <div class="summary-stat">
+            <strong style="color: ${ratingColor};">${challengeRating}</strong>
+            <span>Squad Efficiency Modifier</span>
+          </div>
+        </div>
+
+        <div style="text-align: right;">
+          <div style="font-size: 12.5px; color: var(--muted); margin-bottom: 6px;">
+            ${!hasAtLeastFour ? '⚠️ <b style="color:var(--danger)">Form a full 4-member squad minimum to launch</b>' : ''}
+            ${!underBudget ? '⚠️ <b style="color:var(--danger)">Exceeded point budget!</b>' : ''}
+            ${!canAffordMaintenance ? '⚠️ <b style="color:var(--danger)">Cannot afford overextension cost!</b>' : ''}
+            ${canLaunch ? '✓ <b style="color:var(--green)">Tactical assemblies verified</b>' : ''}
+          </div>
+          <button id="launch-squad-btn" class="chip active" style="margin: 0; padding: 10px 24px; font-weight: 700; border-radius: 8px; cursor: ${canLaunch ? 'pointer' : 'not-allowed'}; background: ${canLaunch ? 'var(--accent)' : 'var(--border-dim)'}; border-color: ${canLaunch ? 'var(--accent)' : 'var(--border)'};" ${canLaunch ? '' : 'disabled'} onclick="launchSquadDeployment()">🚀 Deploy Prepped Squad</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 1: Active Seats horizontal assembly panel -->
+    <div class="card">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+        <h3 style="margin: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🛡️</span> Active Deployed Seats (Maximum ${maxSlots})</h3>
+        ${overextensionCost > 0 ? `<span style="font-size: 12.5px; color: var(--danger); font-weight: 700;">${overextensionLabel}</span>` : ''}
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 10px;">
+        ${slotsHtml}
+      </div>
+    </div>
+
+    <div class="mission-grid-container">
+      <div>
+        <!-- Roster Section -->
+        <div class="card" style="margin: 0;">
+          <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">👥</span> Active Operator Roster</h3>
+          <p style="color: var(--muted); font-size: 12px; margin: -6px 0 14px;">Toggle characters to deploy or bench them. Rest count indicates recovery status from previous runs.</p>
+          ${coreCastHtml}
+          ${toadsHtml}
+          ${specialHiresHtml}
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <!-- Co-op Voting Console Panel -->
+        <div class="card" style="margin: 0;">
+          <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🗳️</span> Co-op Squad Voting Ballot</h3>
+          <p class="text-muted" style="font-size: 12px; line-height: 1.4; margin: -6px 0 12px;">Input nominee votes from each core player to automatically tally, resolve ties, and auto-deploy winners.</p>
+          <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px;">
+            ${generateVoteSelect('bowser', activeVotes.bowser)}
+            ${generateVoteSelect('archie', activeVotes.archie)}
+            ${generateVoteSelect('hjumpik', activeVotes.hjumpik)}
+            ${generateVoteSelect('remi', activeVotes.remi)}
+          </div>
+          <button class="chip active" onclick="tallyVotesAndDeploy()" style="width: 100%; text-align: center; justify-content: center; background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; cursor: pointer; border-radius: 8px;">🗳️ Tally Ballot &amp; Auto-Deploy</button>
+        </div>
+
+        <!-- Wario Shop Stock side-panel -->
+        <div class="card" style="margin: 0;">
+          <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🛒</span> Wario's Live Stock</h3>
+          <p class="text-muted" style="font-size: 12px; line-height: 1.4; margin: -6px 0 12px;">Purchase essential gear using remaining mission points. Items are filtered by active wallet affordability.</p>
+          <div class="upgrades-grid" style="display: flex; flex-direction: column; margin-top: 0;">
+            ${upgradesHtml}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+window.clearSlot = function(index) {
+  currentSquadSlots[index] = null;
+  view_mission_control();
+};
+
+window.deployCompanion = function(compId) {
+  const isAssigned = currentSquadSlots.includes(compId);
+  if (isAssigned) return;
+
+  const emptyIdx = currentSquadSlots.indexOf(null);
+  if (emptyIdx === -1) {
+    // Dynamically append new empty slots when deploying beyond limit!
+    currentSquadSlots.push(compId);
+  } else {
+    currentSquadSlots[emptyIdx] = compId;
+  }
+
+  view_mission_control();
+};
+
+window.benchCompanion = function(compId) {
+  currentSquadSlots = currentSquadSlots.filter(id => id !== compId);
+  view_mission_control();
+};
+
+window.autofillCoreCast = function() {
+  currentSquadSlots = [null, null, null, null, null];
+  
+  const coreArray = ['archie', 'markop', 'hjumpik', 'remi'];
+  coreArray.forEach((id, index) => {
+    currentSquadSlots[index] = id;
+  });
+  
+  view_mission_control();
+};
+
+window.updateNomination = function(playerKey, value) {
+  activeVotes[playerKey] = value;
+};
+
+window.tallyVotesAndDeploy = function() {
+  currentSquadSlots = [null, null, null, null, null];
+
+  const tallies = {};
+  Object.values(activeVotes).forEach(id => {
+    if (id) {
+      tallies[id] = (tallies[id] || 0) + 1;
+    }
+  });
+
+  const sorted = Object.entries(tallies).sort((a, b) => b[1] - a[1]);
+  
+  let slotIdx = 0;
+  sorted.forEach(([id, votes]) => {
+    if (slotIdx < 5) {
+      currentSquadSlots[slotIdx] = id;
+      slotIdx++;
+    }
+  });
+
+  view_mission_control();
+};
+
+window.selectUpgradeForSquad = function(upgId) {
+  if (currentSelectedUpgrades.has(upgId)) {
+    currentSelectedUpgrades.delete(upgId);
+  } else {
+    currentSelectedUpgrades.add(upgId);
+  }
+  view_mission_control();
+};
+
+window.launchSquadDeployment = function() {
+  const filledCount = currentSquadSlots.filter(id => id !== null).length;
+  if (filledCount < 4) return;
+
+  try { window.playWarioSiteSound?.('confirm'); } catch(e) {}
+
+  // Update fatigue states
+  const states = getFatigueStates();
+  
+  // Set all deployed companions to 2 (Resting - 2 missions), EXCEPT core characters
+  currentSquadSlots.forEach(id => {
+    if (id && !CORE_CHARACTERS.has(id)) {
+      states[id] = 2;
+    }
+  });
+
+  // Decrement others
+  COMPANIONS.forEach(c => {
+    if (!currentSquadSlots.includes(c.id) && !CORE_CHARACTERS.has(c.id)) {
+      const fatigue = states[c.id] || 0;
+      if (fatigue > 0) {
+        states[c.id] = fatigue - 1;
+      }
+    }
+  });
+
+  saveFatigueStates(states);
+
+  // Apply overextension gold deduction persistently from the wallet balance
+  const curU = (typeof getCurrentUserId === 'function' ? getCurrentUserId() : null) || 'bowser';
+  const wallet = (typeof walletForChar === 'function' ? walletForChar(curU) : null) || DATA.wallets[curU];
+  let deductMsg = '';
+  
+  let overCost = 0;
+  if (filledCount === 5) overCost = 50;
+  else if (filledCount === 6) overCost = 150;
+  else if (filledCount === 7) overCost = 300;
+  else if (filledCount > 7) overCost = 300 + (filledCount - 7) * 200;
+
+  if (overCost > 0 && wallet && wallet.currencies) {
+    const oldGold = wallet.currencies.gold || 0;
+    wallet.currencies.gold = oldGold - overCost;
+    try {
+      localStorage.setItem('waluipedia-wallets-override', JSON.stringify(DATA.wallets));
+    } catch (e) {}
+    deductMsg = `<p style="color: var(--danger); font-weight: 700;">🪙 Overextended Squad Maintenance deducted! Charged -${overCost} gp from ${curU.toUpperCase()}'s wallet (new balance: ${wallet.currencies.gold} gp).</p>`;
+  }
+
+  // Build beautiful mission deploy overlay
+  const deployedNames = currentSquadSlots.map((id, index) => {
+    if (!id) return '';
+    const c = COMPANIONS.find(co => co.id === id);
+    const badge = CORE_CHARACTERS.has(id) ? '<span class="pill" style="font-size:9px; background:var(--green)22; border-color:var(--green); color:var(--green);">CORE</span>' : '<span class="pill" style="font-size:9px; background:var(--danger)22; border-color:var(--danger); color:var(--danger);">RESTING</span>';
+    return c ? `<li>Seat ${index+1}: ${c.icon} <strong>${esc(c.name)}</strong> (${c.class}) ${badge}</li>` : id;
+  }).filter(Boolean).join('');
+
+  const deployedUpgrades = [...currentSelectedUpgrades].map(id => {
+    const u = WARIO_SHOP_CATALOG.find(up => up.id === id);
+    return u ? `<li>${esc(u.name)} (${u.price} gp)</li>` : id;
+  }).join('') || '<li>No upgrades purchased (Basic Deployment)</li>';
+
+  const overlay = document.createElement('div');
+  overlay.id = 'mission-results-modal';
+  overlay.className = 'rep-modal-overlay';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.zIndex = '1000';
+  overlay.style.position = 'fixed';
+  overlay.style.inset = '0';
+  overlay.style.background = 'rgba(0,0,0,0.8)';
+  overlay.onclick = (e) => { if (e.target === overlay) closeMissionResults(); };
+
+  overlay.innerHTML = `
+      <style>
+        .mission-results-box {
+            background: linear-gradient(135deg, rgba(20,10,35,0.95), rgba(10,5,20,0.98)), var(--panel);
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 30px rgba(138,75,255,0.4);
+            max-width: 600px;
+            width: 90%;
+            padding: 24px;
+            border-radius: 16px;
+            position: relative;
+            color: var(--text);
+            animation: modalScaleUp 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes modalScaleUp {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .results-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+        .results-header h2 {
+            margin: 0;
+            font-family: 'Orbitron', 'Cinzel', sans-serif;
+            font-size: 20px;
+            letter-spacing: 1px;
+            color: var(--accent2);
+        }
+        .results-body {
+            font-size: 14px;
+            line-height: 1.65;
+            margin-bottom: 20px;
+        }
+        .results-body p {
+            margin-top: 0;
+        }
+        .results-body strong {
+            color: var(--accent2);
+        }
+        .results-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+      </style>
+      <div class="mission-results-box">
+          <div class="results-header">
+              <span style="font-size: 32px;">🛰️</span>
+              <h2>SQUAD DEPLOYED SUCCESSFULY!</h2>
+          </div>
+          <div class="results-body">
+              <h3>⚡ Deployment Command Confirmed</h3>
+              <p>The squad has successfully assembled and launched into active operations!</p>
+              
+              <div style="background: rgba(138,75,255,0.06); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
+                <strong>Deployed Squad:</strong><br>
+                <ul style="margin: 4px 0 0; padding-left: 18px; font-size: 13px;">
+                  ${deployedNames}
+                </ul>
+              </div>
+
+              <div style="background: rgba(138,75,255,0.06); padding: 12px; border-radius: 8px; margin-bottom: 14px;">
+                <strong>Purchased Mission Upgrades:</strong>
+                <ul style="margin: 4px 0 0; padding-left: 18px; font-size: 13px;">
+                  ${deployedUpgrades}
+                </ul>
+              </div>
+
+              ${deductMsg}
+
+              <div style="background: rgba(239,68,68,0.08); border-left: 3px solid var(--danger); padding: 10px 14px; border-radius: 6px; font-size: 12.5px; color: var(--text); margin-top: 14px;">
+                  ℹ️ <strong>Roster fatigue updated:</strong> All deployed non-core squad members have now entered their rest cycles (RESTING - 2 missions). Core characters Archie, Hjumpik, Bowser, and Remi remain completely ready and immune to fatigue!
+              </div>
+          </div>
+          <div class="results-footer">
+              <button class="chip active" onclick="closeMissionResults()" style="margin: 0; background: var(--accent); border-color: var(--accent); color: #fff; padding: 6px 20px; font-weight: 700; cursor: pointer; border-radius: 8px;">Confirm &amp; Complete</button>
+          </div>
+      </div>
+  `;
+
+  // Reset active selections
+  currentSquadSlots = [];
+  currentSelectedUpgrades.clear();
+  activeVotes = { bowser: '', archie: '', hjumpik: '', remi: '' };
+
+  document.body.appendChild(overlay);
+};
+
+window.closeMissionResults = function() {
+    const modal = document.getElementById('mission-results-modal');
+    if (modal) modal.remove();
+    view_mission_control();
+};
+
+
+/* ================= CONNECTED QUEST OBJECTIVES & CAMPAIGN LOG ================= */
+function renderConnectedQuestsPanel(id, typeKey) {
+  const quests = DATA.quests || {};
+  const list = Object.values(quests);
+  
+  const matches = list.filter(q => {
+    if (Array.isArray(q.assignees) && q.assignees.includes(id)) return true;
+    if (q.primaryAssignee === id) return true;
+    if (q.id === id) return true;
+    if (q.arcId === id) return true;
+    if (Array.isArray(q.relatedQuests) && q.relatedQuests.includes(id)) return true;
+    if (Array.isArray(q.loreEntries) && q.loreEntries.includes(id)) return true;
+    
+    const term = String(id).toLowerCase().replace(/_/g, ' ');
+    const txt = ((q.title||'') + ' ' + (q.description||'') + ' ' + (q.objective||'') + ' ' + (q.category||'')).toLowerCase();
+    if (term.length > 3 && txt.includes(term)) return true;
+    
+    return false;
+  });
+
+  if (matches.length === 0) return '';
+
+  const rowsHtml = matches.slice(0, 15).map(q => {
+    const isCompleted = q.status === 'completed';
+    const color = isCompleted ? 'var(--green)' : 'var(--accent2)';
+    const priorityLabel = (q.priority && (q.priority.label || q.priority)) || 'Normal';
+    
+    return `
+      <tr style="border-bottom: 1px dashed var(--border);">
+        <td style="padding: 10px; font-weight: 700; border-right:1px solid var(--border);">
+          <a class="entity-link" href="#/quest/${encodeURIComponent(q.id)}">${esc(q.title || prettyId(q.id))}</a>
+        </td>
+        <td style="padding: 10px; border-right:1px solid var(--border);"><span class="pill" style="border-color:${color}; color:${color}; font-size:9.5px; text-transform:uppercase;">${q.status.toUpperCase()}</span></td>
+        <td style="padding: 10px; border-right:1px solid var(--border); color: var(--text); font-size:12.5px;">${esc(q.objective || q.subtitle || '')}</td>
+        <td style="padding: 10px; text-align: right; font-weight: 800; color: var(--accent2); font-size: 11px;">${esc(priorityLabel.toUpperCase())}</td>
+      </tr>
+    `;
+  }).join('');
+
+  return `
+    <div class="card" style="border-left: 4px solid var(--accent); margin-top: 18px;">
+      <h3 style="margin-top: 0; font-size: 16px; color: var(--accent); display: flex; align-items: center; gap: 8px;"><span class="title-icon">🔗</span> Connected Quest Objectives &amp; Campaign Milestones</h3>
+      <p class="text-muted" style="font-size: 12px; margin: -6px 0 10px;">The following active campaign objectives or system quests on Wario's Quest Board are linked directly to this record:</p>
+      <table class="wi-ledger" style="width:100%; border-collapse:collapse; font-size:13px; border:1px solid var(--border); border-radius:8px;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--border); background: rgba(138,75,255,0.06); color: var(--accent2);">
+            <th style="padding: 8px 10px; text-align: left; font-size:11px; border-right:1px solid var(--border);">Quest / Objective</th>
+            <th style="padding: 8px 10px; text-align: left; font-size:11px; width:100px; border-right:1px solid var(--border);">Status</th>
+            <th style="padding: 8px 10px; text-align: left; font-size:11px; border-right:1px solid var(--border);">Summary / Requirements</th>
+            <th style="padding: 8px 10px; text-align: right; font-size:11px; width:90px;">Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsHtml}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+/* ================= FULL INTEGRATED QUEST DIRECTORY & LOG ================= */
+let currentQuestSearch = '';
+let currentQuestFilter = 'active';
+
+function view_quests_ledger(filterArg) {
+  renderSidebar('quests');
+  if (filterArg) currentQuestFilter = filterArg;
+
+  const quests = DATA.quests || {};
+  const list = Object.values(quests);
+
+  function renderGrid() {
+    const q = currentQuestSearch.toLowerCase().trim();
+    const filtered = list.filter(item => {
+      const matchStatus = (currentQuestFilter === 'all') || (item.status === currentQuestFilter);
+      const matchQ = !q || 
+        (item.title || '').toLowerCase().includes(q) || 
+        (item.description || '').toLowerCase().includes(q) || 
+        (item.objective || '').toLowerCase().includes(q) || 
+        (item.category || '').toLowerCase().includes(q) ||
+        (item.assignees || []).join(' ').toLowerCase().includes(q);
+      return matchStatus && matchQ;
+    });
+
+    const categories = [
+      { id: 'all', label: 'All Jobs', count: list.length },
+      { id: 'active', label: 'Active / Ongoing', count: list.filter(item => item.status === 'active' || item.status === 'ongoing').length },
+      { id: 'completed', label: 'Completed', count: list.filter(item => item.status === 'completed').length }
+    ];
+
+    const chipsHtml = categories.map(cat => 
+      `<button class="chip ${cat.id === currentQuestFilter ? 'active' : ''}" onclick="currentQuestFilter='${cat.id}'; view_quests_ledger();">${esc(cat.label)} (${cat.count})</button>`
+    ).join('');
+
+    const cardsHtml = filtered.map((item, idx) => {
+      const isCompleted = item.status === 'completed';
+      const statusColor = isCompleted ? 'var(--green)' : 'var(--accent2)';
+      const priorityLabel = (item.priority && (item.priority.label || item.priority)) || 'Normal';
+      const difficultyLabel = (item.difficulty && item.difficulty.overall && item.difficulty.overall.label) || 'Normal';
+      const category = item.category || 'General';
+
+      return `
+        <div class="card quest-card-item" onclick="Router.go('#/quest/${encodeURIComponent(item.id)}')" style="border-left: 4px solid ${statusColor}; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: 0.15s; margin-bottom: 0;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom: 4px;">
+              <span style="font-size: 11px; font-weight: 900; color: var(--muted); text-transform: uppercase;">${esc(category)}</span>
+              <span class="pill" style="font-size: 9px; padding: 1px 6px; border-color:${statusColor}; color:${statusColor};">${item.status.toUpperCase()}</span>
+            </div>
+            <h3 style="margin: 0 0 6px; font-size: 16px; color: var(--text);">${esc(item.title || prettyId(item.id))}</h3>
+            <p style="font-size: 12.5px; color: var(--muted); line-height: 1.45; margin: 0 0 10px;">${esc(item.objective || item.subtitle || '')}</p>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top: 1px solid var(--border); padding-top: 8px; margin-top: auto;">
+            <span style="font-size: 11px; color: var(--muted);">Priority: <b style="color:var(--accent2);">${esc(priorityLabel)}</b></span>
+            <span style="font-size: 11px; color: var(--muted);">Diff: <b style="color:var(--danger);">${esc(difficultyLabel)}</b></span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    el('content').innerHTML = `
+      <style>
+        .quests-ledger-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; margin-top: 14px; }
+        .quest-card-item:hover { border-color: var(--accent2) !important; transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+      </style>
+      <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
+        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Quests &amp; Jobs Directory</div>
+        <div class="home-section-head">
+          <div>
+            <h1 style="margin:0;font-size:26px">📋 Wario Quest Board &amp; Campaign Objectives</h1>
+            <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Browse all 73 cataloged story missions, personal quests, faction bounties, and requests from the active campaigns.</p>
+          </div>
+          <a class="chip" href="#/mission-control">🛰️ Open Mission Control →</a>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center">
+          <input type="text" class="rep-search-input" id="questLedgerSearch" placeholder="Search 73 quests by title, description, category, or assignees..." value="${esc(currentQuestSearch)}" oninput="currentQuestSearch=this.value;renderGrid();" style="flex:1;min-width:260px">
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">${chipsHtml}</div>
+      </div>
+      <div class="quests-ledger-grid">${cardsHtml || '<div class="card" style="grid-column:1/-1;text-align:center;color:var(--muted)">No quests match your query.</div>'}</div>
+    `;
+    window.scrollTo(0,0);
+  }
+
+  renderGrid();
+}
+
+function view_quest_detail(questId) {
+  renderSidebar('quests');
+  const quests = DATA.quests || {};
+  const q = quests[questId];
+  if (!q) { view_quests_ledger(); return; }
+
+  const isCompleted = q.status === 'completed';
+  const statusColor = isCompleted ? 'var(--green)' : 'var(--accent2)';
+  const priorityLabel = (q.priority && (q.priority.label || q.priority)) || 'Normal';
+  const difficultyLabel = (q.difficulty && q.difficulty.overall && q.difficulty.overall.label) || 'Normal';
+  const diffStars = (q.difficulty && q.difficulty.overall && q.difficulty.overall.stars) || '★★★';
+
+  // Assignees links
+  const assigneesHtml = (q.assignees || []).map(id => {
+    const rec = INDEX[id];
+    const name = rec ? displayName(rec.item) : prettyId(id);
+    return rec ? `<a class="entity-link" onclick="openId('${esc(id)}')">👤 ${esc(name)}</a>` : `<span>👤 ${esc(name)}</span>`;
+  }).join(', ') || '<span class="text-muted">No specific assignees</span>';
+
+  // Milestones checklist
+  const milestonesHtml = (q.milestones || []).map(m => {
+    const done = m.status === 'completed';
+    const color = done ? 'var(--green)' : 'var(--muted)';
+    return `
+      <li style="list-style:none; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 6px; background: var(--bg2); display: flex; align-items: start; gap: 8px;">
+        <span style="font-size: 16px; color:${color}; font-weight:900;">${done ? '✓' : '⏳'}</span>
+        <div style="flex: 1;">
+          <strong style="${done?'text-decoration: line-through; color:var(--muted);':''}">${esc(m.title)}</strong>
+          <p style="margin: 2px 0 0; font-size: 12px; color: var(--muted);">${esc(m.description)}</p>
+        </div>
+      </li>
+    `;
+  }).join('') || '<span class="text-muted">No milestones listed.</span>';
+
+  // Consequences list
+  let consequencesHtml = '';
+  if (q.consequences && typeof q.consequences === 'object') {
+    consequencesHtml = Object.entries(q.consequences).map(([k, v]) => {
+      return `
+        <div style="padding: 10px; border-left: 3px solid var(--accent); background: rgba(138,75,255,0.04); margin-bottom: 6px; border-radius: 0 6px 6px 0;">
+          <b style="font-size:12px; text-transform:uppercase; color: var(--accent2);">${esc(k.replace(/_/g, ' '))}</b>
+          <p style="margin: 4px 0 0; font-size:12.5px; color: var(--text);">${esc(v)}</p>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Rewards list
+  let rewardsHtml = '';
+  if (q.rewards) {
+    const xpReward = q.rewards.xp ? `<span class="pill" style="border-color:var(--accent); color:var(--accent);">✦ ${Number(q.rewards.xp).toLocaleString()} XP</span>` : '';
+    const goldReward = q.rewards.gold ? `<span class="pill" style="border-color:var(--accent2); color:var(--accent2);">💰 ${Number(q.rewards.gold).toLocaleString()} GP</span>` : '';
+    const guaranteed = (q.rewards.guaranteed || []).map(r => `<li>🎁 <b>${esc(r.name)}</b>: ${esc(r.description || '')}</li>`).join('');
+    
+    rewardsHtml = `
+      <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom: 12px;">
+        ${xpReward} ${goldReward}
+      </div>
+      ${guaranteed ? `<ul style="margin:0; padding-left:18px; font-size:13px; line-height:1.5;">${guaranteed}</ul>` : ''}
+    `;
+  }
+
+  // Related Quests
+  const relatedChips = (q.relatedQuests || []).map(id => {
+    const rq = quests[id];
+    return rq ? `<a class="chip" href="#/quest/${encodeURIComponent(id)}">📋 ${esc(rq.title || prettyId(id))}</a>` : '';
+  }).filter(Boolean).join('');
+
+  el('content').innerHTML = `
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/quests')">Quests</a> › ${esc(q.title)}</div>
+    
+    <div class="article-layout">
+      <div>
+        <div class="card animate-fade-in" style="border-top: 5px solid ${statusColor}; background: linear-gradient(135deg, ${isCompleted ? 'rgba(34,197,94,0.14)' : 'rgba(138,75,255,0.14)'}, rgba(0,0,0,0.05)), var(--panel)">
+          <div style="display:flex; justify-content:space-between; align-items:start; gap:12px;">
+            <div>
+              <div style="font-size: 11px; font-weight:900; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:4px;">${esc(q.category || 'Story Line')}</div>
+              <h1 style="margin:0; font-size:26px; color:var(--text);">${esc(q.title)}</h1>
+              ${q.subtitle ? `<div style="font-size:14px; font-style:italic; color:var(--accent2); margin-top:2px;">${esc(q.subtitle)}</div>` : ''}
+            </div>
+            <span class="pill" style="font-size: 11px; padding: 4px 12px; border-color:${statusColor}; color:${statusColor}; font-weight:800; text-transform:uppercase;">${q.status.toUpperCase()}</span>
+          </div>
+          <div class="chips mt-10">
+            <span class="pill">Priority: <b>${esc(priorityLabel)}</b></span>
+            <span class="pill">Difficulty: <b>${esc(difficultyLabel)} ${esc(diffStars)}</b></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0; font-size:16px; color:var(--accent2);"><span class="title-icon">📖</span> Objective &amp; Details</h3>
+          <p style="font-size:14.5px; line-height:1.65; color:var(--text); font-weight:500;">${esc(q.objective)}</p>
+          <div class="prose" style="font-size:13.5px; line-height:1.6; white-space:pre-wrap; border-top: 1px solid var(--border); padding-top:14px; margin-top:14px;">${linkify ? linkify(esc(q.description)) : esc(q.description)}</div>
+        </div>
+
+        <!-- Milestones Panel -->
+        <div class="card">
+          <h3 style="margin-top:0; font-size:16px; color:var(--accent2);"><span class="title-icon">✓</span> Campaign Milestones</h3>
+          <ul style="padding:0; margin:0;">
+            ${milestonesHtml}
+          </ul>
+        </div>
+
+        ${consequencesHtml ? `<!-- Consequences Panel -->
+        <div class="card">
+          <h3 style="margin-top:0; font-size:16px; color:var(--accent2);"><span class="title-icon">⚖️</span> Consequences &amp; Future Paths</h3>
+          ${consequencesHtml}
+        </div>` : ''}
+
+        ${relatedChips ? `<!-- Related Quests Panel -->
+        <div class="card">
+          <h3 style="margin-top:0; font-size:16px; color:var(--accent2);"><span class="title-icon">🔗</span> Related Quests</h3>
+          <div class="chips">${relatedChips}</div>
+        </div>` : ''}
+      </div>
+
+      <!-- Right Rail Panel -->
+      <div>
+        <!-- Assignees Info Panel -->
+        <div class="infobox" style="margin-top:0;">
+          <h4>Quest Assignment</h4>
+          <div class="row"><span class="k">Quest ID</span><span class="v">${esc(q.id)}</span></div>
+          <div class="row"><span class="k">Assignees</span><span class="v">${assigneesHtml}</span></div>
+          <div class="row"><span class="k">Primary</span><span class="v">${esc(prettyId(q.primaryAssignee || ''))}</span></div>
+          <div class="row"><span class="k">Added</span><span class="v">${q.dates && q.dates.added ? `${q.dates.added.year} BF` : '1040 BF'}</span></div>
+        </div>
+
+        <!-- Rewards Panel -->
+        <div class="card" style="margin-top:14px; border-left: 3px solid var(--accent2);">
+          <h4 style="margin-top:0; font-size:14px; color:var(--accent2); text-transform:uppercase; letter-spacing:0.5px;">🎁 Rewards Listed</h4>
+          ${rewardsHtml || '<p class="text-muted" style="font-size:12.5px; margin:0;">No explicit loot or XP listed.</p>'}
+        </div>
+      </div>
+    </div>
+  `;
+  window.scrollTo(0,0);
+}
+
+
 function openBookReader(bookId) {
   const books = (DATA.books && DATA.books.books) || (window.BOOKS_DATA && window.BOOKS_DATA.books) || [];
   const book = books.find(b => b.id === bookId || String(b.title).toLowerCase().includes(String(bookId).toLowerCase()));
@@ -13428,6 +14545,7 @@ const Router={
     else if(route==='holiday'||route==='holidays')view_holiday(arg);
     else if(route==='currency')view_currency(arg);
     else if(route==='currencies')view_currencies();
+    else if(route==='banking'||route==='debts'||route==='bank')view_banking(arg);
     else if(route==='reputation'||route==='standings'||route==='directory')view_reputation(arg);
     else if(route==='atlas'){ if(arg)view_atlasNation(arg); else view_atlas(); }
     else if(route==='dynasties')view_dynasties();
@@ -13436,6 +14554,18 @@ const Router={
     else if(route==='items')view_items();
     else if(route==='item')view_item(arg);
     else if(route==='books'||route==='library'||route==='codex')view_books(arg);
+    else if(route==='songs'||route==='song'||route==='songbook')view_songs(arg);
+    else if(route==='mission-control'||route==='squad-prep'){
+      view_mission_control();
+    }
+    else if(route==='quests'||route==='quest'){
+      const parts=arg.split('/');
+      if(parts[0] && parts[0]!=='all' && parts[0]!=='active' && parts[0]!=='completed'){
+        view_quest_detail(parts[0]);
+      } else {
+        view_quests_ledger(parts[0]);
+      }
+    }
     else if(route==='book')openBookReader(arg);
     else if(route==='intel')view_dynasties();
     else if(route==='login')view_login();
@@ -13517,7 +14647,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.te
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
@@ -13734,6 +14864,10 @@ function atlasMapsFor(nationId){
 
 async function boot(){
   DATA = await loadData();
+  try {
+    const override = localStorage.getItem('waluipedia-wallets-override');
+    if (override) DATA.wallets = JSON.parse(override);
+  } catch (e) {}
   await loadCultureSystem();
   await loadMapCatalogue();
   // rebuild the derived globals + indexes now that DATA exists
