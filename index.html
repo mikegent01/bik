@@ -13522,7 +13522,7 @@ const WARIO_SHOP_CATALOG = [
 
 const MISSION_BUDGET = 24;
 
-let currentSquadSlots = [null, null, null, null, null]; // 5 starting slots
+let currentSquadSlots = [null, null, null, null, null]; // Resized dynamically
 let currentSelectedUpgrades = new Set();
 
 function getFatigueStates() {
@@ -13546,6 +13546,12 @@ function saveFatigueStates(states) {
     } catch (e) {}
 }
 
+function is6thSeatUnlocked() {
+  try {
+    return localStorage.getItem('waluipedia-6th-seat') === 'true';
+  } catch (e) { return false; }
+}
+
 function view_mission_control() {
   renderSidebar('mission-control');
   
@@ -13556,6 +13562,17 @@ function view_mission_control() {
   const wallet = (DATA && DATA.wallets && DATA.wallets[curU]) || { currencies: { gold: 100 } };
   const goldBalance = wallet.currencies ? (wallet.currencies.gold || 0) : 100;
   const isDebt = goldBalance < 0;
+
+  // Manage slots count (5 default, 6 if unlocked)
+  const has6th = is6thSeatUnlocked();
+  const maxSlots = has6th ? 6 : 5;
+  if (currentSquadSlots.length !== maxSlots) {
+    const newSlots = [null, null, null, null, null, null].slice(0, maxSlots);
+    for (let i = 0; i < Math.min(currentSquadSlots.length, maxSlots); i++) {
+      newSlots[i] = currentSquadSlots[i];
+    }
+    currentSquadSlots = newSlots;
+  }
 
   // Calculate current point totals
   let squadPoints = 0;
@@ -13589,29 +13606,46 @@ function view_mission_control() {
   const underBudget = remainingPoints >= 0;
   const canLaunch = hasAtLeastFour && underBudget;
 
-  // Deployed seats rendering (horizontal, modern layout)
+  // Strategic reward modifier (Multiplier)
+  let challengeRating = 'Standard Run (1.0x Rewards)';
+  let ratingColor = 'var(--green)';
+  let multiplier = 1.0;
+  if (totalPointsSpent < 15) {
+    challengeRating = 'Heroic Run (2.0x Gold & Standing!)';
+    ratingColor = '#ffd166';
+    multiplier = 2.0;
+  } else if (totalPointsSpent < 20) {
+    challengeRating = 'Hard Run (1.5x Gold & Standing!)';
+    ratingColor = 'var(--accent2)';
+    multiplier = 1.5;
+  }
+
+  // Gold Refund from unspent points
+  const pointsRefundGold = remainingPoints > 0 ? remainingPoints * 25 : 0;
+
+  // Deployed seats rendering
   const slotsHtml = currentSquadSlots.map((id, index) => {
     if (id) {
       const comp = COMPANIONS.find(c => c.id === id);
       const isCore = CORE_CHARACTERS.has(id);
       const badgeStyle = isCore ? 'background: var(--green)22; border-color: var(--green); color: var(--green);' : 'background: var(--accent)22; border-color: var(--accent); color: var(--accent);';
       return `
-        <div class="summary-stat" style="position: relative; text-align: left; display: flex; align-items: center; gap: 10px; background: rgba(138, 75, 255, 0.08); border: 2px solid var(--accent); padding: 10px 12px; border-radius: 8px;">
-          <span style="font-size: 28px;">${comp.icon}</span>
+        <div class="summary-stat" style="position: relative; text-align: left; display: flex; align-items: center; gap: 8px; background: rgba(138, 75, 255, 0.08); border: 2px solid var(--accent); padding: 8px 10px; border-radius: 8px; cursor: pointer;" onclick="openSlotSelector(${index})">
+          <span style="font-size: 24px;">${comp.icon}</span>
           <div style="flex: 1; min-width: 0;">
-            <div style="font-size: 9px; color: var(--muted); text-transform: uppercase;">SEAT ${index + 1}</div>
-            <strong style="font-size: 13px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${esc(comp.name)}</strong>
-            <span class="pill" style="font-size: 8px; margin-top: 2px; padding: 0px 4px; ${badgeStyle}">${isCore ? 'CORE' : 'COMPANION'}</span>
+            <div style="font-size: 8px; color: var(--muted); text-transform: uppercase;">SEAT ${index + 1}</div>
+            <strong style="font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${esc(comp.name)}</strong>
+            <span class="pill" style="font-size: 7.5px; padding: 0px 3px; ${badgeStyle}">${isCore ? 'CORE' : 'COMPANION'}</span>
           </div>
-          <span class="chip" style="margin: 0; font-size: 10px; padding: 2px 6px; background: var(--accent2)22; border-color: var(--accent2); color: var(--accent2);">${comp.cost}pt</span>
+          <span class="chip" style="margin: 0; font-size: 9px; padding: 1px 4px; background: var(--accent2)22; border-color: var(--accent2); color: var(--accent2);">${comp.cost}pt</span>
           <button onclick="clearSlot(${index}); event.stopPropagation();" style="position: absolute; top: -6px; right: -6px; border-radius: 50%; width: 18px; height: 18px; border: 1px solid var(--border); background: var(--panel2); color: var(--text); font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 9px; z-index: 10;">✕</button>
         </div>
       `;
     } else {
       return `
-        <div class="summary-stat" style="border: 2px dashed var(--border); padding: 14px 10px; text-align: center; background: var(--panel); border-radius: 8px;">
-          <span style="font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 2px;">SEAT ${index + 1}</span>
-          <span style="font-size: 10px; color: var(--muted);">WAITING...</span>
+        <div class="summary-stat" onclick="openSlotSelector(${index})" style="cursor: pointer; border: 2px dashed var(--border); padding: 12px 6px; text-align: center; background: var(--panel); border-radius: 8px;">
+          <span style="font-size: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 2px;">SEAT ${index + 1}</span>
+          <span style="font-size: 9px; color: var(--muted);">WAITING...</span>
         </div>
       `;
     }
@@ -13622,7 +13656,7 @@ function view_mission_control() {
     const list = COMPANIONS.filter(filterFn);
     return `
       <div style="margin-bottom: 14px;">
-        <h4 style="margin: 0 0 8px; font-size: 12.5px; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.5px;">${esc(title)}</h4>
+        <h4 style="margin: 0 0 8px; font-size: 12px; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.5px;">${esc(title)}</h4>
         <div class="companions-grid">
           ${list.map(c => {
             const fatigue = states[c.id] || 0;
@@ -13680,7 +13714,10 @@ function view_mission_control() {
         <span style="font-size: 32px; display: block; margin-bottom: 8px;">🚫 CREDIT DENIED</span>
         <b style="color: var(--danger);">Wario says:</b> "WAH! I don't give credit to bums with negative coins! Pay off your debt of <b>${debtAmt} gold</b> at the currency bank first!"
         <p style="font-size: 12.5px; color: var(--muted); margin: 6px 0 12px; max-width: 500px; margin-left: auto; margin-right: auto;">${esc(whyNote)}</p>
-        <div><a class="chip active" href="currency.html">🏦 Settle bank balance</a></div>
+        <div style="display: flex; gap: 8px; justify-content: center;">
+          <a class="chip active" href="currency.html">🏦 Settle bank balance</a>
+          <button class="chip" onclick="clearArchieDebt()" style="background: var(--green); border-color: var(--green); color: #fff; font-weight: 700; cursor: pointer;">💸 Pay Off 34 gp Debt</button>
+        </div>
       </div>
     `;
   } else if (affordableUpgrades.length === 0) {
@@ -13708,6 +13745,26 @@ function view_mission_control() {
     }).join('');
   }
 
+  // Disaster Inc. Profiles Panel
+  const profilesHtml = [
+    { id: 'bowser', icon: '🦖', name: 'Bowser', level: 8, power: 14, desc: 'Koopa King. Unrivalled physical defense and flame breath. Immune to fatigue.' },
+    { id: 'archie', icon: '👁️', name: 'Archie Miser', level: 6, power: 13, desc: 'Three-Eyed Bandit. Chaotic fire spells and reality distortion. Immune to fatigue.' },
+    { id: 'markop', icon: '🐴', name: 'Markop Judi', level: 8, power: 13, desc: 'Centaur Paladin. Impenetrable frontline defense and divine shields.' },
+    { id: 'hjumpik', icon: '🛡️', name: 'Hjumpik', level: 7, power: 12, desc: 'Dwarf Champion. Unstoppable hammer blows and siege capabilities. Immune to fatigue.' },
+    { id: 'remi', icon: '🦊', name: 'Remi', level: 7, power: 12, desc: 'Ingenious Smith. Feather Fall glider, artifact repairs, and speed support. Immune to fatigue.' },
+    { id: 'waluigi', icon: '💜', name: 'Waluigi', level: 5, power: 11, desc: 'Hacker and mischief-maker. Disrupts magical wards and mechanical grids.' }
+  ].map(di => {
+    return `
+      <div style="display: flex; gap: 8px; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg2); margin-bottom: 6px;">
+        <span style="font-size: 24px; align-self: center;">${di.icon}</span>
+        <div>
+          <b style="font-size: 13px; color: var(--text);">${esc(di.name)} <span class="text-muted" style="font-weight:400; font-size:11px;">Lv ${di.level} · Power ${di.power}</span></b>
+          <p style="margin: 2px 0 0; font-size: 11.5px; color: var(--muted); line-height: 1.35;">${esc(di.desc)}</p>
+        </div>
+      </div>
+    `;
+  }).join('');
+
   el('content').innerHTML = `
     <style>
       .companions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
@@ -13724,12 +13781,13 @@ function view_mission_control() {
       <div class="home-section-head">
         <div>
           <h1 style="margin:0;font-size:26px">🛰️ Wario Mission Control: Disaster Inc. Tactical Prep</h1>
-          <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Assign active operators into the 5 squad seats under the 24-point budget. Spend remaining points on affordable gear from Wario's live inventory.</p>
+          <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Assign active operators into the squad seats under the 24-point budget. Spend remaining points on affordable gear from Wario's live inventory.</p>
         </div>
         <span class="chip" style="background:rgba(224,180,0,0.12);border-color:var(--accent);color:var(--accent)">📅 Calendar: ${esc(dateStr)}</span>
       </div>
-      <div style="margin-top: 12px; text-align: left;">
+      <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
         <button class="chip active" onclick="autofillCoreCast()" style="background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; cursor: pointer; padding: 6px 16px; box-shadow: 0 4px 12px rgba(138,75,255,0.25);">✨ Autofill Core Cast (4 Members)</button>
+        ${!has6th ? `<button class="chip" onclick="unlock6thSeat()" style="background: rgba(224,180,0,0.15); border-color: var(--accent2); color: var(--accent2); font-weight: 700; cursor: pointer; padding: 6px 16px;">⛺ Unlock 6th Squad Seat (Costs 200 gp)</button>` : '<span class="chip" style="background: rgba(34,197,94,0.12); border-color: var(--green); color: var(--green); font-weight:700;">⛺ 6th Squad Seat Unlocked</span>'}
       </div>
     </div>
 
@@ -13738,11 +13796,11 @@ function view_mission_control() {
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <div class="summary-stat">
-            <strong>${remainingPoints} / ${MISSION_BUDGET}</strong>
+            <strong style="color: ${remainingPoints < 0 ? 'var(--danger)' : 'var(--accent2)'};">${remainingPoints} / ${MISSION_BUDGET}</strong>
             <span>Remaining Points</span>
           </div>
           <div class="summary-stat">
-            <strong>${filledCount} / 5</strong>
+            <strong>${filledCount} / ${maxSlots}</strong>
             <span>Seats Occupied</span>
           </div>
           <div class="summary-stat">
@@ -13756,6 +13814,10 @@ function view_mission_control() {
           <div class="summary-stat" style="${isDebt?'border-color:var(--danger);':''}">
             <strong style="${isDebt?'color:var(--danger);':''}">${goldBalance} gp</strong>
             <span>Active Gold (${esc(curU.toUpperCase())})</span>
+          </div>
+          <div class="summary-stat">
+            <strong style="color: ${ratingColor};">${challengeRating}</strong>
+            <span>Squad Efficiency Modifier</span>
           </div>
         </div>
 
@@ -13772,13 +13834,16 @@ function view_mission_control() {
 
     <!-- Step 1: Active Seats horizontal assembly panel -->
     <div class="card">
-      <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🛡️</span> Active Deployed Seats (Maximum 5)</h3>
-      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 10px;">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+        <h3 style="margin: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🛡️</span> Active Deployed Seats (Maximum ${maxSlots})</h3>
+        ${pointsRefundGold > 0 ? `<span style="font-size: 12.5px; color: var(--green); font-weight: 700;">🪙 Unspent Points Wario Refund: +${pointsRefundGold} gp on launch</span>` : ''}
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(${maxSlots}, 1fr); gap: 10px; margin-top: 10px;">
         ${slotsHtml}
       </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 320px; gap: 14px; margin-top: 14px;">
+    <div style="display: grid; grid-template-columns: 1fr 340px; gap: 14px; margin-top: 14px;">
       <div>
         <!-- Roster Section -->
         <div class="card" style="margin: 0;">
@@ -13811,10 +13876,9 @@ window.deployCompanion = function(compId) {
   const isAssigned = currentSquadSlots.includes(compId);
   if (isAssigned) return;
 
-  // Find next empty seat
   const emptyIdx = currentSquadSlots.indexOf(null);
   if (emptyIdx === -1) {
-    alert("⚠️ Squad is at full capacity (Max 5 Operators). Bench someone first!");
+    alert("⚠️ Squad is at full capacity. Bench someone first!");
     return;
   }
 
@@ -13831,15 +13895,148 @@ window.benchCompanion = function(compId) {
 };
 
 window.autofillCoreCast = function() {
-  // Clear slots
-  currentSquadSlots = [null, null, null, null, null];
+  const has6th = is6thSeatUnlocked();
+  const maxSlots = has6th ? 6 : 5;
+  currentSquadSlots = Array(maxSlots).fill(null);
   
-  // Fill the 4 core members into seats
   const coreArray = ['archie', 'markop', 'hjumpik', 'remi'];
   coreArray.forEach((id, index) => {
     currentSquadSlots[index] = id;
   });
   
+  view_mission_control();
+};
+
+window.unlock6thSeat = function() {
+  const curU = (typeof getCurrentUserId === 'function' ? getCurrentUserId() : null) || 'bowser';
+  const wallet = (DATA && DATA.wallets && DATA.wallets[curU]) || { currencies: { gold: 100 } };
+  const gold = wallet.currencies ? (wallet.currencies.gold || 0) : 100;
+
+  if (gold < 200) {
+    alert(`Wario says: "WAH! You only have ${gold} gp. A 6th command seat costs 200 gp!"`);
+    return;
+  }
+
+  // Deduct gold
+  wallet.currencies.gold = gold - 200;
+  localStorage.setItem('waluipedia-6th-seat', 'true');
+  
+  // Save updated wallet state
+  try {
+    localStorage.setItem('waluipedia-wallets-override', JSON.stringify(DATA.wallets));
+  } catch (e) {}
+
+  view_mission_control();
+};
+
+window.clearArchieDebt = function() {
+  // Safe helper to let players pay off Archie's 34gp debt directly from Wario's dashboard
+  const wallet = DATA.wallets['archie'];
+  if (wallet && wallet.currencies) {
+    wallet.currencies.gold = 0; // Debt paid
+    try {
+      localStorage.setItem('waluipedia-wallets-override', JSON.stringify(DATA.wallets));
+    } catch (e) {}
+    view_mission_control();
+  }
+};
+
+window.openSlotSelector = function(slotIndex) {
+  const states = getFatigueStates();
+  const deployedSet = new Set(currentSquadSlots.filter(id => id !== null));
+
+  const available = COMPANIONS.filter(c => {
+    const isResting = states[c.id] > 0;
+    const isDeployed = deployedSet.has(c.id);
+    return !isResting && !isDeployed;
+  });
+
+  const overlay = document.createElement('div');
+  overlay.id = 'slot-selector-modal';
+  overlay.className = 'rep-modal-overlay';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.zIndex = '1001';
+  overlay.style.position = 'fixed';
+  overlay.style.inset = '0';
+  overlay.style.background = 'rgba(0,0,0,0.85)';
+  overlay.onclick = (e) => { if (e.target === overlay) closeModal(); };
+
+  const cardsHtml = available.map(c => {
+    return `
+      <div class="companion-card" onclick="assignToSlot(${slotIndex}, '${c.id}'); closeModal();" style="cursor: pointer; border: 1px solid var(--border); display: flex; gap: 10px; padding: 12px; border-radius: 8px; background: var(--panel); transition: 0.15s; position: relative;">
+          <div style="font-size: 28px; align-self: center;">${c.icon}</div>
+          <div style="flex: 1; min-width: 0;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--text);">${esc(c.name)}</div>
+              <div style="font-size: 11.5px; color: var(--muted); margin-top: 1px;">Lv ${c.level} · Power ${c.power}</div>
+              <div style="font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(c.role)}</div>
+          </div>
+          <div style="font-size: 9px; font-weight: 900; background: var(--accent2)22; border: 1px solid var(--accent2); color: var(--accent2); padding: 1px 6px; border-radius: 999px; position: absolute; top: 8px; right: 8px;">COST: ${c.cost} pts</div>
+      </div>
+    `;
+  }).join('') || '<div class="text-muted" style="grid-column: 1/-1; text-align: center; padding: 20px;">No available ready operators found. Wait for other resting companions to recover.</div>';
+
+  overlay.innerHTML = `
+      <style>
+        .selector-modal-box {
+            background: linear-gradient(135deg, rgba(20,10,35,0.95), rgba(10,5,20,0.98)), var(--panel);
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 30px rgba(138,75,255,0.4);
+            max-width: 600px;
+            width: 90%;
+            padding: 24px;
+            border-radius: 16px;
+            color: var(--text);
+            animation: modalScaleUp 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes modalScaleUp {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .selector-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+        .selector-header h2 {
+            margin: 0;
+            font-size: 18px;
+            color: var(--accent2);
+        }
+        .selector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 10px;
+            max-height: 320px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+      </style>
+      <div class="selector-modal-box">
+          <div class="selector-header">
+              <h2>Select Operator for Slot ${slotIndex + 1}</h2>
+              <button class="chip" onclick="closeModal()" style="margin: 0; cursor: pointer;">✕ Close</button>
+          </div>
+          <div class="selector-grid">
+              ${cardsHtml}
+          </div>
+      </div>
+  `;
+
+  document.body.appendChild(overlay);
+};
+
+window.closeModal = function() {
+  const modal = document.getElementById('slot-selector-modal');
+  if (modal) modal.remove();
+};
+
+window.assignToSlot = function(slotIndex, compId) {
+  currentSquadSlots[slotIndex] = compId;
   view_mission_control();
 };
 
@@ -13880,12 +14077,41 @@ window.launchSquadDeployment = function() {
 
   saveFatigueStates(states);
 
+  // Apply gold refund persistently from unspent points
+  const curU = (typeof getCurrentUserId === 'function' ? getCurrentUserId() : null) || 'bowser';
+  const wallet = DATA.wallets[curU];
+  let refundMsg = '';
+  
+  let squadPoints = 0;
+  currentSquadSlots.forEach(id => {
+    if (id) {
+      const comp = COMPANIONS.find(c => c.id === id);
+      if (comp) squadPoints += comp.cost;
+    }
+  });
+  let upgradePoints = 0;
+  currentSelectedUpgrades.forEach(id => {
+    const upg = WARIO_SHOP_CATALOG.find(u => u.id === id);
+    if (upg) upgradePoints += upg.cost;
+  });
+  const remPoints = MISSION_BUDGET - (squadPoints + upgradePoints);
+  const refundAmount = remPoints > 0 ? remPoints * 25 : 0;
+
+  if (refundAmount > 0 && wallet && wallet.currencies) {
+    const oldGold = wallet.currencies.gold || 0;
+    wallet.currencies.gold = oldGold + refundAmount;
+    try {
+      localStorage.setItem('waluipedia-wallets-override', JSON.stringify(DATA.wallets));
+    } catch (e) {}
+    refundMsg = `<p style="color: var(--green); font-weight: 700;">🪙 Wario point refund applied! Added +${refundAmount} gp to ${curU.toUpperCase()}'s wallet (new balance: ${wallet.currencies.gold} gp).</p>`;
+  }
+
   // Build beautiful mission deploy overlay
   const deployedNames = currentSquadSlots.map((id, index) => {
     if (!id) return '';
     const c = COMPANIONS.find(co => co.id === id);
     const badge = CORE_CHARACTERS.has(id) ? '<span class="pill" style="font-size:9px; background:var(--green)22; border-color:var(--green); color:var(--green);">CORE</span>' : '<span class="pill" style="font-size:9px; background:var(--danger)22; border-color:var(--danger); color:var(--danger);">RESTING</span>';
-    return c ? `<li>Slot ${index+1}: ${c.icon} <strong>${esc(c.name)}</strong> (${c.class}) ${badge}</li>` : id;
+    return c ? `<li>Seat ${index+1}: ${c.icon} <strong>${esc(c.name)}</strong> (${c.class}) ${badge}</li>` : id;
   }).filter(Boolean).join('');
 
   const deployedUpgrades = [...currentSelectedUpgrades].map(id => {
@@ -13976,6 +14202,8 @@ window.launchSquadDeployment = function() {
                   ${deployedUpgrades}
                 </ul>
               </div>
+
+              ${refundMsg}
 
               <div style="background: rgba(239,68,68,0.08); border-left: 3px solid var(--danger); padding: 10px 14px; border-radius: 6px; font-size: 12.5px; color: var(--text); margin-top: 14px;">
                   ℹ️ <strong>Roster fatigue updated:</strong> All deployed non-core squad members have now entered their rest cycles (RESTING - 2 missions). Core characters Archie, Hjumpik, Bowser, and Remi remain completely ready and immune to fatigue!
@@ -14419,6 +14647,10 @@ function atlasMapsFor(nationId){
 
 async function boot(){
   DATA = await loadData();
+  try {
+    const override = localStorage.getItem('waluipedia-wallets-override');
+    if (override) DATA.wallets = JSON.parse(override);
+  } catch (e) {}
   await loadCultureSystem();
   await loadMapCatalogue();
   // rebuild the derived globals + indexes now that DATA exists
