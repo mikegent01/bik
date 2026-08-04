@@ -1,3 +1,4 @@
+<<<<<<<< HEAD:Reputation-Matrix2/data/songs-data.js
 window.SONGS_DATA = [
       {
         id: "song_heroes_reborn_anthem",
@@ -1170,3 +1171,19 @@ The Raventree will bear the bill.`,
         critique: "A Gothic rhyme that predicted Vivian Corvinarus hunting party members with red death-beams. Ominous.",
         notes: "E4 B3 G3 E3"
       }];
+========
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Waluipedia Grand Campaign Songbook — Redirecting</title>
+  <meta http-equiv="refresh" content="0; url=index.html#/songs">
+  <link rel="canonical" href="index.html#/songs">
+  <script>location.replace('index.html#/songs' + location.search + location.hash);</script>
+</head>
+<body>
+  <p>Opening <a href="index.html#/songs">Waluipedia Grand Campaign Songbook</a>…</p>
+</body>
+</html>
+>>>>>>>> be6f3ddd0018beb35a42674ea313c0ec8d52cf91:songs.html
