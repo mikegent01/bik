@@ -6558,7 +6558,7 @@ function renderSidebar(active){
   const acct=[navLink({emoji:'🎲',label:'Random article',go:'Nav.random()'})];
   if(curU){
     acct.push(navLink({emoji:'👤',label:curName||'Profile',go:"Router.go('#/profile')",active:active==='profile',count:'Me'}));
-    acct.push(navLink({emoji:'🚪',label:'Logout',go:"(function(){localStorage.removeItem('waluipediaUser'); if(typeof updateTopbarLoginBtn==='function') updateTopbarLoginBtn(); Router.go('#/home');})()"}));
+    acct.push(navLink({emoji:'🚪',label:'Logout',go:"(function(){localStorage.removeItem('waluipediaUser'); localStorage.removeItem('vigilanceTerminalUser'); if(typeof updateTopbarLoginBtn==='function') updateTopbarLoginBtn(); Router.go('#/home');})()"}));
   }else{
     acct.push(navLink({emoji:'🔐',label:'Login',go:"Router.go('#/login')",active:active==='login'}));
   }
@@ -11223,7 +11223,7 @@ function getCurrentUserId(){
 function setCurrentUserId(id){
   try{
     if(id){ localStorage.setItem(WALU_WALLET_KEY, id); localStorage.setItem('vigilanceTerminalUser', id); }
-    else { localStorage.removeItem(WALU_WALLET_KEY); }
+    else { localStorage.removeItem(WALU_WALLET_KEY); localStorage.removeItem('vigilanceTerminalUser'); }
   }catch(e){}
   updateTopbarLoginBtn();
 }
@@ -13486,10 +13486,6 @@ const COMPANIONS = [
   { id: 'bones', name: 'Bones', role: 'Hardened Survivor', icon: '💀', class: 'Rogue', cost: 4, level: 5, power: 8, category: 'toads' },
   { id: 'rattles', name: 'Rattles', role: 'Faithful Companion', icon: '🍉', class: 'Survivor', cost: 2, level: 3, power: 5, category: 'toads' },
   { id: 'smoking_j', name: 'Smoking J', role: 'Liberated Smoker', icon: '🚬', class: 'Survivor', cost: 2, level: 2, power: 4, category: 'toads' },
-  { id: 'elder_mudcap', name: 'Elder Mudcap', role: 'Council Elder', icon: '🧓', class: 'Elder', cost: 1, level: 1, power: 1, category: 'toads' },
-  { id: 'forgemaster_ironspore', name: 'Forgemaster Ironspore', role: 'Toad Blacksmith', icon: '⚒️', class: 'Smith', cost: 1, level: 1, power: 1, category: 'toads' },
-  { id: 'healer_mistpetal', name: 'Healer Mistpetal', role: 'Toad Apothecary', icon: '🌿', class: 'Healer', cost: 1, level: 1, power: 1, category: 'toads' },
-  { id: 'warden_thornshell', name: 'Warden Thornshell', role: 'Toad Guard', icon: '🛡️', class: 'Warden', cost: 1, level: 1, power: 1, category: 'toads' },
   { id: 'green_t', name: 'Green T', role: 'Syndicate Operative', icon: '🟢', class: 'Rogue', cost: 5, level: 5, power: 11, category: 'toads' },
   { id: 'speaker_l', name: 'Speaker L', role: 'Voice of the Free', icon: '📣', class: 'Speaker', cost: 3, level: 3, power: 5, category: 'toads' },
   
@@ -13507,7 +13503,7 @@ const COMPANIONS = [
 ];
 
 const CORE_CHARACTERS = new Set(['archie', 'hjumpik', 'bowser', 'remi']);
-const UNAVAILABLE_COMPANIONS = new Set(['elder_mudcap', 'forgemaster_ironspore', 'healer_mistpetal', 'warden_thornshell', 'speaker_l']);
+const UNAVAILABLE_COMPANIONS = new Set(['speaker_l']);
 
 const WARIO_SHOP_CATALOG = [
   { id: 'item_heal_pot', name: '🩹 Potion of Healing', price: 50, icon: '🧪', desc: 'Consumable. Restores 2d4+2 HP.', cost: 1 },
