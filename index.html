@@ -13578,7 +13578,7 @@ function view_mission_control() {
   // Calculate current point totals
   let squadPoints = 0;
   const filledCount = currentSquadSlots.length;
-  const maxSlots = filledCount + 1;
+  const maxSlots = filledCount + 4;
   currentSquadSlots.forEach(id => {
     const comp = COMPANIONS.find(c => c.id === id);
     if (comp) squadPoints += comp.cost;
