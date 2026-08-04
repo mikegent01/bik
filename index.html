@@ -11207,10 +11207,11 @@ function resolveUserXp(id) {
 }
 
 function resolveUserWallet(id) {
-  if (!id || typeof INVENTORY_SYSTEM === 'undefined' || !INVENTORY_SYSTEM.wallets) return null;
+  if (!id) return null;
+  const wallets = typeof walletSource === 'function' ? walletSource() : (INVENTORY_SYSTEM?.wallets || {});
   const walletKey = resolveUserWalletKey(id);
   const canonicalKey = resolveCanonicalUserKey(id);
-  return INVENTORY_SYSTEM.wallets[id] || INVENTORY_SYSTEM.wallets[walletKey] || INVENTORY_SYSTEM.wallets[canonicalKey] || INVENTORY_SYSTEM.wallets[id.replace('_miser', '')] || null;
+  return wallets[id] || wallets[walletKey] || wallets[canonicalKey] || wallets[id.replace('_miser', '')] || null;
 }
 
 /* =============== LOGIN / PROFILE — merged from existing terminal code + walupedia wallet/xp/bio ==== */
@@ -11409,7 +11410,20 @@ function view_profile(){
   const rec=INDEX[uid];
   const charItem=rec?.item|| (DATA.characters||[]).find(c=>c.id===uid) || null;
   const wallet=resolveUserWallet(uid);
-  const bank= (()=>{ try{ const b=INVENTORY_SYSTEM?.banking||{}; const name=(charItem?.name||xp?.name||uid||'').toLowerCase(); return {accounts:(b.bank_accounts||[]).filter(x=>String(x.owner||'').toLowerCase()===name||String(x.owner||'').toLowerCase().includes(name)), loans:(b.loans||[]).filter(x=>String(x.borrower||'').toLowerCase()===name), debts:(b.debts||[]).filter(x=>String(x.debtor||'').toLowerCase()===name)} }catch(e){return {accounts:[],loans:[],debts:[]}} })();
+  const bank = (() => {
+    try {
+      const b = typeof bankingSource === 'function' ? bankingSource() : (INVENTORY_SYSTEM?.banking || {});
+      const name = (charItem?.name || xp?.name || uid || '').toLowerCase();
+      const rawName = String(uid).replace(/_miser/g, '').replace(/_akamatsu_full_backstory/g, '').toLowerCase();
+      return {
+        accounts: (b.bank_accounts || []).filter(x => String(x.owner || '').toLowerCase() === name || String(x.owner || '').toLowerCase().includes(name) || String(x.owner || '').toLowerCase().includes(rawName)),
+        loans: (b.loans || []).filter(x => String(x.borrower || '').toLowerCase() === name || String(x.borrower || '').toLowerCase().includes(name) || String(x.borrower || '').toLowerCase().includes(rawName)),
+        debts: (b.debts || []).filter(x => String(x.debtor || '').toLowerCase() === name || String(x.debtor || '').toLowerCase().includes(name) || String(x.debtor || '').toLowerCase().includes(rawName))
+      };
+    } catch(e) {
+      return { accounts: [], loans: [], debts: [] };
+    }
+  })();
   let totalGold=0; let breakdown={core:0,reg:0,spec:0,blk:0}; let walletLines='';
   if(wallet){
     const entries=Object.entries(wallet.currencies||{});
