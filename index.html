@@ -13728,16 +13728,25 @@ function view_mission_control() {
 
   // Wario Shop Stock side-panel
   let upgradesHtml = '';
-  if (isDebt) {
+  if (curU === 'archie' || curU === 'archie_miser') {
+    upgradesHtml = `
+      <div class="wnote" style="border-left-color: var(--danger); background: rgba(239, 68, 68, 0.06); text-align: center; padding: 20px; grid-column: 1/-1;">
+        <span style="font-size: 32px; display: block; margin-bottom: 8px;">🚫 CREDIT DENIED</span>
+        <b style="color: var(--danger);">Wario says:</b> "WAH! Archie! I'm not selling you any of Wario's elite stocks! Thornbury still wants his <b>2,175 DUCATS</b> for that bath-house rubber duck incident, and the Mages Guild has locked your credit! I'm cooperating with their financial blockade—and besides, you still owe me <b>1,474 Wario Coins</b> for 'emergency expenses' too! Pay off your bills at the bank first, rubber-duck arsonist! WAH!"
+        <p style="font-size: 12.5px; color: var(--muted); margin: 10px 0 12px; max-width: 500px; margin-left: auto; margin-right: auto;">
+          Archie Miser carries multiple active institutional debts at the bank. Wario refuses to trade until these are settled.
+        </p>
+        <div style="display: flex; gap: 8px; justify-content: center;">
+          <a class="chip active" href="currency.html">🏦 Go to bank balance ledger</a>
+        </div>
+      </div>
+    `;
+  } else if (isDebt) {
     const debtAmt = Math.abs(goldBalance);
-    const whyNote = curU === 'archie' || curU === 'archie_miser'
-      ? `Archie Miser currently carries an active 34-gold debt due to Thornbury's aggressive billing for broken rope, bath supplies, and rubber duckies at the Alpine Bank.` 
-      : `Wario's ledger records an active negative credit balance for this operator.`;
     upgradesHtml = `
       <div class="wnote" style="border-left-color: var(--danger); background: rgba(239, 68, 68, 0.06); text-align: center; padding: 20px; grid-column: 1/-1;">
         <span style="font-size: 32px; display: block; margin-bottom: 8px;">🚫 CREDIT DENIED</span>
         <b style="color: var(--danger);">Wario says:</b> "WAH! I don't give credit to bums with negative coins! Pay off your debt of <b>${debtAmt} gold</b> at the currency bank first!"
-        <p style="font-size: 12.5px; color: var(--muted); margin: 6px 0 12px; max-width: 500px; margin-left: auto; margin-right: auto;">${esc(whyNote)}</p>
         <div style="display: flex; gap: 8px; justify-content: center;">
           <a class="chip active" href="currency.html">🏦 Go to bank balance ledger</a>
         </div>

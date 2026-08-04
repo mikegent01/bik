@@ -6,7 +6,7 @@
     "debts": "Each debt needs: id (unique), creditor, debtor, currencyKey, originalAmount, interestRate, daysBorrowed, amountOwed (current total), status (active/overdue/paid/defaulted), note",
     "available_bankIds": [
       "bank_ironvault",
-      "bank_crimson_ledger", 
+      "bank_crimson_ledger",
       "bank_golden_toad",
       "bank_wario_world",
       "bank_deephold",
@@ -393,23 +393,6 @@
   ],
   "loans": [
     {
-      "id": "loan_1",
-      "borrower": "Archie Miser",
-      "bankId": "bank_wario_world",
-      "marketId": "poi_wario_casino",
-      "currencyKey": "wario_coin",
-      "principal": 200,
-      "interestRate": 0.15,
-      "originDate": {
-        "year": 1040,
-        "monthIndex": 6,
-        "day": 3
-      },
-      "termDays": 30,
-      "paid": 50,
-      "status": "active"
-    },
-    {
       "id": "loan_2",
       "borrower": "Bowser",
       "bankId": "bank_crimson_ledger",
@@ -640,7 +623,7 @@
       "daysBorrowed": 15,
       "amountOwed": 10.82,
       "status": "active",
-      "note": "Rope replacement bill plus damages, consolidated from the Guild itemization. Thornbury’s paperwork was aggressive enough to count as a weapon."
+      "note": "Rope replacement bill plus damages, consolidated from the Guild itemization. Thornbury\u2019s paperwork was aggressive enough to count as a weapon."
     },
     {
       "id": "debt_4",
@@ -688,7 +671,7 @@
       "daysBorrowed": 3,
       "amountOwed": 5.1,
       "status": "active",
-      "note": "Archive “viewing, poster, and documentation” fees. Waluigi disputes the entire category and also the tone."
+      "note": "Archive \u201cviewing, poster, and documentation\u201d fees. Waluigi disputes the entire category and also the tone."
     },
     {
       "id": "debt_broker_bowser_contracts",
@@ -724,7 +707,7 @@
       "daysBorrowed": 11,
       "amountOwed": 2,
       "status": "active",
-      "note": "Restricted-copy fees for imperial records Waluigi insists are necessary to correct everyone else’s terrible summaries."
+      "note": "Restricted-copy fees for imperial records Waluigi insists are necessary to correct everyone else\u2019s terrible summaries."
     },
     {
       "id": "debt_first_mate_jones_syrup",
@@ -748,7 +731,7 @@
       "daysBorrowed": 16,
       "amountOwed": 995,
       "status": "overdue",
-      "note": "Wario claims docking assistance, storage, and “not telling customs” fees. Jones disputes the math, not the customs part."
+      "note": "Wario claims docking assistance, storage, and \u201cnot telling customs\u201d fees. Jones disputes the math, not the customs part."
     },
     {
       "id": "debt_liberated_toads_wario_supplies",
@@ -760,7 +743,7 @@
       "daysBorrowed": 18,
       "amountOwed": 682,
       "status": "active",
-      "note": "Emergency goods Wario claims were sold at a discount. The Liberated Toads claim “discount” is doing heroic labor in that sentence."
+      "note": "Emergency goods Wario claims were sold at a discount. The Liberated Toads claim \u201cdiscount\u201d is doing heroic labor in that sentence."
     },
     {
       "id": "debt_mystic_morel_remi_ring",
@@ -784,7 +767,7 @@
       "daysBorrowed": 4,
       "amountOwed": 12016,
       "status": "active",
-      "note": "Winning bid for petrified Remi. This is recorded as debt only because “moral crime with invoice” is not a banking status."
+      "note": "Winning bid for petrified Remi. This is recorded as debt only because \u201cmoral crime with invoice\u201d is not a banking status."
     },
     {
       "id": "debt_speaker_l_legal_fund",
@@ -820,7 +803,7 @@
       "daysBorrowed": 20,
       "amountOwed": 2175,
       "status": "overdue",
-      "note": "Broken rope, bath-related supplies, rubber duckies, paperwork fees, and a surcharge titled “you know what you did.” Thornbury officially converted this debt into an imperial bounty request at Alpine Bank in the Regal Capital."
+      "note": "Broken rope, bath-related supplies, rubber duckies, paperwork fees, and a surcharge titled \u201cyou know what you did.\u201d Thornbury officially converted this debt into an imperial bounty request at Alpine Bank in the Regal Capital."
     },
     {
       "id": "debt_toad_network_waluigi_courier",
@@ -868,7 +851,7 @@
       "daysBorrowed": 38,
       "amountOwed": 1474,
       "status": "overdue",
-      "note": "Accumulated Wario charges: emergency supplies, alleged theft-adjacent damages, and at least three line items labeled “because I said so.”"
+      "note": "Accumulated Wario charges: emergency supplies, alleged theft-adjacent damages, and at least three line items labeled \u201cbecause I said so.\u201d"
     },
     {
       "id": "debt_wario_disaster_shop",
@@ -892,14 +875,14 @@
       "daysBorrowed": 2,
       "amountOwed": 7507,
       "status": "active",
-      "note": "Contested Shadow Estate mirror-deal valuation. Wario says the Mirror of True Reflection is future property. Everyone else says “after Scarecrow.”"
+      "note": "Contested Shadow Estate mirror-deal valuation. Wario says the Mirror of True Reflection is future property. Everyone else says \u201cafter Scarecrow.\u201d"
     }
   ],
   "_NOTES": {
     "scope": "Banking records are separate from wallets.json. Wallets are what characters physically/actively hold; bank accounts are deposits, treasury access, vault balances, institutional reserves, loans, and debt ledgers.",
     "player_wallet_warning": "Do not use this file to overwrite player cash-on-hand. Player wallet values live in wallets.json.",
     "big_t_note": "Big T is dead. Active Tea Leaf banking is tracked under Chai and the Tea Leaf Syndicate, with legacy obligations noted as estate or syndicate debts.",
-    "quality_pass_2026_07_01": "Removed duplicate debt records for Mages Guild→Archie Miser and Wario→Bowser; kept one polished consolidated ledger entry for each.",
+    "quality_pass_2026_07_01": "Removed duplicate debt records for Mages Guild\u2192Archie Miser and Wario\u2192Bowser; kept one polished consolidated ledger entry for each.",
     "dead_wallet_policy": "Dead people should not appear as active wallets. Use estates, receiverships, or institutional ledgers for collectible money.",
     "currency_quality_pass_2026_07_01": "Removed redundant/weak catalog currencies: banana_bunch, oath_knot, umbral_shard, artisan_guilder. Wario Coin and Wario Points remain distinct: coin is private tender; points are shop/quest-board credit, not XP."
   }
