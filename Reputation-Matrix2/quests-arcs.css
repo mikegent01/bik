@@ -2918,4 +2918,26 @@ body {
         width: 100%;
     }
 }
+
+/* ============================================
+   COMPANION SELECTOR & FATIGUE SYSTEM
+   ============================================ */
+.companion-card:hover {
+    border-color: var(--accent2) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+.companions-grid::-webkit-scrollbar {
+    width: 6px;
+}
+.companions-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+.companions-grid::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 99px;
+}
+.companions-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
     

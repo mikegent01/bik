@@ -258,6 +258,7 @@ function renderArcDetail(arcId) {
     renderArcDescription(arc);
     renderPhaseTimeline(arc);
     renderConsequencesPreview(arc);
+    renderCompanionSelector(arcId);
     renderArcQuests(arcId);
     
     // Reset filter tabs
@@ -1391,6 +1392,261 @@ function setupEventListeners() {
         }
     });
 }
+
+// ============================================
+// COMPANION SELECTOR & FATIGUE SYSTEM
+// ============================================
+const COMPANIONS = [
+  { id: 'salam', name: 'Salam', role: 'Ranger With Damaged Trust', icon: '🍄', class: 'Ranger' },
+  { id: 'eager', name: 'Eager', role: 'Swift Scout', icon: '🍄', class: 'Fighter' },
+  { id: 'dan', name: 'Dan', role: 'The Wounded Hero', icon: '🍄', class: 'Mage' },
+  { id: 'toad_lee', name: 'Toad Lee', role: 'Warden of the Toads', icon: '🍄', class: 'Fighter' },
+  { id: 'ryan', name: 'Ryan', role: 'Arcane Student', icon: '🍄', class: 'Mage' },
+  { id: 'roger', name: 'Roger', role: 'Pragmatist Gunner', icon: '🍄', class: 'Fighter' },
+  { id: 'bones', name: 'Bones', role: 'Hardened Survivor', icon: '🍄', class: 'Rogue' },
+  { id: 'rattles', name: 'Rattles', role: 'Faithful Companion', icon: '🍄', class: 'Survivor' }
+];
+
+function getFatigueStates() {
+    try {
+        const stored = localStorage.getItem('waluipedia-companion-fatigue');
+        if (stored) return JSON.parse(stored);
+    } catch (e) {}
+    
+    // Default: everyone is Ready (0)
+    const defaults = {};
+    COMPANIONS.forEach(c => { defaults[c.id] = 0; });
+    return defaults;
+}
+
+function saveFatigueStates(states) {
+    try {
+        localStorage.setItem('waluipedia-companion-fatigue', JSON.stringify(states));
+    } catch (e) {}
+}
+
+let selectedCompanionId = null;
+
+function renderCompanionSelector(arcId) {
+    const container = document.getElementById('arc-companion-panel');
+    if (!container) return;
+
+    selectedCompanionId = null; // Reset selection
+
+    const states = getFatigueStates();
+    const arc = STORY_ARCS?.[arcId];
+    if (!arc || arc.status !== 'active') {
+        container.innerHTML = ''; // Only show for active arcs!
+        return;
+    }
+
+    const cardsHtml = COMPANIONS.map(c => {
+        const fatigue = states[c.id] || 0;
+        const isReady = fatigue === 0;
+        const statusClass = isReady ? 'status-ready' : 'status-resting';
+        const statusLabel = isReady ? 'READY' : `RESTING (${fatigue}m left)`;
+        const badgeColor = isReady ? 'var(--green)' : 'var(--danger)';
+        const opacity = isReady ? '1' : '0.45';
+        const cursor = isReady ? 'pointer' : 'not-allowed';
+        const clickAttr = isReady ? `onclick="selectCompanion('${c.id}')"` : '';
+
+        return `
+            <div class="companion-card" id="comp-card-${c.id}" ${clickAttr} style="opacity: ${opacity}; cursor: ${cursor}; display: flex; gap: 10px; padding: 10px; background: var(--panel); border: 1px solid var(--border); border-radius: 8px; transition: 0.15s; position: relative;">
+                <div class="comp-avatar" style="font-size: 24px; line-height: 1; align-self: center;">${c.icon}</div>
+                <div class="comp-details" style="flex: 1; min-width: 0;">
+                    <div class="comp-name" style="font-weight: 700; font-size: 13.5px; color: var(--text);">${esc(c.name)}</div>
+                    <div class="comp-role" style="font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(c.role)}</div>
+                </div>
+                <div class="comp-status-badge" style="font-size: 9px; font-weight: 900; background: ${badgeColor}22; border: 1px solid ${badgeColor}; color: ${badgeColor}; padding: 1px 6px; border-radius: 999px; position: absolute; top: 8px; right: 8px;">${statusLabel}</div>
+            </div>
+        `;
+    }).join('');
+
+    container.innerHTML = `
+        <div class="companion-selector-wrapper" style="margin-top: 20px; padding: 16px; background: var(--panel2); border: 1px solid var(--border); border-radius: 12px;">
+            <div class="flex-between-center" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+                <div>
+                    <h3 style="margin: 0; font-size: 16px; color: var(--accent2);">👥 Assign Companion &amp; Launch Arc Mission</h3>
+                    <p style="color: var(--muted); font-size: 12px; margin: 2px 0 0;">Select a Ready companion from the roster to deploy on this major story arc. Deployed companions will enter a rest cycle for the next 2 missions while others recover.</p>
+                </div>
+                <button id="launch-mission-btn" class="chip active" style="margin: 0; padding: 6px 16px; background: var(--border-dim); border-color: var(--border); cursor: not-allowed;" disabled onclick="launchArcMission('${arcId}')">🚀 Launch Arc Mission</button>
+            </div>
+            <div class="companions-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; max-height: 180px; overflow-y: auto; padding-right: 4px;">
+                ${cardsHtml}
+            </div>
+        </div>
+    `;
+}
+
+window.selectCompanion = function(compId) {
+    COMPANIONS.forEach(c => {
+        const el = document.getElementById(`comp-card-${c.id}`);
+        if (el) {
+            el.style.borderColor = (c.id === compId) ? 'var(--accent)' : 'var(--border)';
+            el.style.boxShadow = (c.id === compId) ? '0 0 10px rgba(138,75,255,0.2)' : 'none';
+        }
+    });
+
+    selectedCompanionId = compId;
+    const btn = document.getElementById('launch-mission-btn');
+    if (btn) {
+        btn.disabled = false;
+        btn.style.cursor = 'pointer';
+        btn.style.background = 'var(--accent)';
+        btn.style.borderColor = 'var(--accent)';
+        btn.style.color = '#fff';
+        btn.style.boxShadow = '0 4px 12px rgba(138,75,255,0.3)';
+    }
+    playSound?.('click_subtle.mp3');
+};
+
+function getMissionDeploymentNarrative(arcId, compId) {
+    const comp = COMPANIONS.find(c => c.id === compId) || { name: 'The Companion' };
+    
+    const narrativeMap = {
+        'shadowfell_estate': {
+            'salam': `<h3>🍷 Shadowfell Intrigue: Salam Deployed!</h3><p>Salam was chosen as rear support for the high-stakes dinner at the Onyx Hand's vampire court. Operating under the cover of the gloomy estate gardens, <strong>Salam used his acute senses</strong> to track hidden undead guards patrolling the perimeter. He successfully woodcarved a set of stealth barricade pegs to block a security door, and his vigilant cover allowed Archie and Green T to shatter the Shadowfell anchor crystal and escape without drawing the vampire lords' direct focus!</p>`,
+            'eager': `<h3>🍷 Shadowfell Intrigue: Eager Deployed!</h3><p>Eager was deployed as a distraction and scout. Predictably, <strong>Eager triggered a catastrophe magnet moment</strong> by wandering into the Shadow Estate's kitchen, crashing a tray of crystal glasses. However, while panicking, <strong>Eager deployed his pepper spray</strong>, permanently blinding three gargoyle hounds who were blocking the hallway! His chaotic flailing became the perfect cover for the party to make their rooftop Feather Fall escape!</p>`,
+            'bones': `<h3>🍷 Shadowfell Intrigue: Bones Deployed!</h3><p>Bones was sent into the estate’s ventilation ducts. Using his <strong>Stealth and Infiltration expertise</strong>, Bones eavesdropped directly over the Vampire Lords' table, mapping their entire security rotation and pocketing several Onyx Hand sigils. His intel let the party dodge every sentinel on the way out!</p>`,
+            'dan': `<h3>🍷 Shadowfell Intrigue: Dan Deployed!</h3><p>Dan served as the party’s shield. Utilizing his <strong>Divine Smite and Aura of Life</strong>, Dan kept the planar corruption from sapping the group’s morale during the social intrigue. When X.O.'s shadows loomed, Dan held the doorway single-handedly!</p>`
+        },
+        'feywild_attic': {
+            'salam': `<h3>🌿 Feywild Fracture: Salam Deployed!</h3><p>Salam was assigned to evict Lady Aurelian's rowdy Satyr guests. Using his <strong>woodcarving knives</strong>, Salam spent hours carving incredibly lifelike and mocking wooden puppets of the Satyr leaders, leaving them around the banquet hall. The Satyrs were so fascinated and insulted by the craftsmanship that they followed the trail of puppets directly out of the greenhouse and into the rosebeds, clearing the area in record time!</p>`,
+            'eager': `<h3>🌿 Feywild Fracture: Eager Deployed!</h3><p>Eager was deployed to help clear the overgrown Satyr gardens. While attempting to pick a glowing wild-magic orchid, <strong>Eager fell headfirst into an alchemical vine vat</strong>, triggering a massive, colorful spore-burst! The Satyrs were so thoroughly bewildered (and covered in sticky yellow pollen) by the massive, flailing Toad that they abandoned their bender and fled the manor entirely!</p>`,
+            'bones': `<h3>🌿 Feywild Fracture: Bones Deployed!</h3><p>Bones blended into the Feywild foliage using a custom satyr disguise. He slipped behind the banquet table, <strong>quietly purloining several vintage satyr wines</strong> and some valuable feywood carvings. His stealth kept Lady Aurelian’s guards from blaming the party for the chaos.</p>`,
+            'dan': `<h3>🌿 Feywild Fracture: Dan Deployed!</h3><p>Dan used his <strong>Feyward Sensory Eye</strong> to navigate the time-dilated corridors, preventing the party from losing several decades. His holy aura neutralised a hostile Satyr charm spell, keeping Waluigi and Hjumpik focused on the mission.</p>`
+        },
+        'raventree_manor': {
+            'salam': `<h3>🏚️ Nexus of Ruin: Salam Deployed!</h3><p>Salam was stationed as a sniper during the reconvergence ritual. From an elevated tree branch at the Silent Grove’s edge, <strong>Salam landed an exceptional eye-shot</strong> with his light crossbow, piercing the primary eye of a feral spectral hound that was charging Markop. His vigilance secured the ritual circle's rear sector!</p>`,
+            'eager': `<h3>🏚️ Nexus of Ruin: Eager Deployed!</h3><p>Eager stood watch at the front gates of Raventree. In classic fashion, <strong>Eager got his foot tangled in a rotted portcullis chain</strong>. While flailing, he accidentally pulled down a secret lever, revealing a hidden supply cellar filled with healing potions before a rust monster could chew through his pants! The party dragged him to safety just in time.</p>`,
+            'bones': `<h3>🏚️ Nexus of Ruin: Bones Deployed!</h3><p>Bones acted as the vanguard scout. Moving like a shadow, Bones navigated the haunted corridors, <strong>disarming three pressure traps and a magical glyph</strong> before the main party could trigger them. His lockpicking saved critical seconds while escaping the collapsing halls.</p>`,
+            'dan': `<h3>🏚️ Nexus of Ruin: Dan Deployed!</h3><p>Dan stood beside Markop at the center of the planar rift. Channeling his <strong>Feyward Aura and Divine Sense</strong>, Dan anchored the team’s physical reality while the timeline fractured around them, keeping the party’s minds from splintering across the planes.</p>`
+        }
+    };
+
+    const genericNarrative = `<h3>⚡ Arc Mission Launched: ${comp.name} Deployed!</h3><p>${comp.name} (${comp.role}) was successfully assigned as the companion for <strong>${STORY_ARCS?.[arcId]?.name || 'the active arc'}</strong>! They provide excellent perimeter support, scouting, and tactical cover, ensuring the party can navigate the massive planar splits of Raventree Manor safely. They have now entered their rest and recovery cycle.</p>`;
+
+    return narrativeMap[arcId]?.[compId] || genericNarrative;
+}
+
+window.launchArcMission = function(arcId) {
+    if (!selectedCompanionId) return;
+
+    playSound?.('confirm.mp3');
+
+    // Update fatigue states
+    const states = getFatigueStates();
+    
+    // Set selected to 2 (Resting - 2 missions left)
+    states[selectedCompanionId] = 2;
+
+    // Decrement others
+    COMPANIONS.forEach(c => {
+        if (c.id !== selectedCompanionId) {
+            const fatigue = states[c.id] || 0;
+            if (fatigue > 0) {
+                states[c.id] = fatigue - 1;
+            }
+        }
+    });
+
+    saveFatigueStates(states);
+
+    // Build results overlay modal
+    const comp = COMPANIONS.find(c => c.id === selectedCompanionId);
+    const narrative = getMissionDeploymentNarrative(arcId, selectedCompanionId);
+
+    const overlay = document.createElement('div');
+    overlay.id = 'mission-results-modal';
+    overlay.className = 'rep-modal-overlay';
+    overlay.style.display = 'flex';
+    overlay.style.alignItems = 'center';
+    overlay.style.justifyContent = 'center';
+    overlay.style.zIndex = '1000';
+    overlay.style.position = 'fixed';
+    overlay.style.inset = '0';
+    overlay.style.background = 'rgba(0,0,0,0.8)';
+    overlay.onclick = (e) => { if (e.target === overlay) closeMissionResults(); };
+
+    overlay.innerHTML = `
+        <style>
+          .mission-results-box {
+              background: linear-gradient(135deg, rgba(20,10,35,0.95), rgba(10,5,20,0.98)), var(--panel);
+              border: 2px solid var(--accent);
+              box-shadow: 0 0 30px rgba(138,75,255,0.4);
+              max-width: 600px;
+              width: 90%;
+              padding: 24px;
+              border-radius: 16px;
+              position: relative;
+              color: var(--text);
+              animation: modalScaleUp 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          }
+          @keyframes modalScaleUp {
+              from { transform: scale(0.85); opacity: 0; }
+              to { transform: scale(1); opacity: 1; }
+          }
+          .results-header {
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              border-bottom: 1px solid var(--border);
+              padding-bottom: 12px;
+              margin-bottom: 16px;
+          }
+          .results-header h2 {
+              margin: 0;
+              font-family: 'Orbitron', 'Cinzel', sans-serif;
+              font-size: 20px;
+              letter-spacing: 1px;
+              color: var(--accent2);
+          }
+          .results-body {
+              font-size: 14px;
+              line-height: 1.65;
+              margin-bottom: 20px;
+          }
+          .results-body p {
+              margin-top: 0;
+          }
+          .results-body strong {
+              color: var(--accent2);
+          }
+          .results-footer {
+              display: flex;
+              justify-content: flex-end;
+          }
+        </style>
+        <div class="mission-results-box">
+            <div class="results-header">
+                <span style="font-size: 32px;">⚡</span>
+                <h2>MISSION SUCCESSFUL!</h2>
+            </div>
+            <div class="results-body">
+                ${narrative}
+                <div style="background: rgba(138,75,255,0.08); border-left: 3px solid var(--accent); padding: 10px 14px; border-radius: 6px; font-size: 12.5px; color: var(--muted); margin-top: 14px;">
+                    ℹ️ <strong>Roster fatigue updated:</strong> <strong>${esc(comp.name)}</strong> is now <strong>RESTING</strong> and will be unavailable for the next 2 missions while other resting companions have progressed 1 mission closer to recovery.
+                </div>
+            </div>
+            <div class="results-footer">
+                <button class="chip active" onclick="closeMissionResults()" style="margin: 0; background: var(--accent); border-color: var(--accent); color: #fff; padding: 6px 20px; font-weight: 700; cursor: pointer; border-radius: 8px;">Confirm &amp; Complete</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+};
+
+window.closeMissionResults = function() {
+    const modal = document.getElementById('mission-results-modal');
+    if (modal) modal.remove();
+    playSound?.('click_subtle.mp3');
+    
+    // Refresh detail view to update roster states
+    if (selectedArc) {
+        renderArcDetail(selectedArc);
+    }
+};
 
 // ============================================
 // INITIALIZATION
