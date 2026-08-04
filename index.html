@@ -13476,21 +13476,34 @@ function view_songs(filterArg) {
 
 /* ================= COMPANION SELECTOR & FATIGUE SYSTEM ================= */
 const COMPANIONS = [
-  { id: 'salam', name: 'Salam', role: 'Ranger With Damaged Trust', icon: '🏹', class: 'Ranger', cost: 3, level: 3, power: 5 },
-  { id: 'eager', name: 'Eager', role: 'Swift Scout', icon: '🪢', class: 'Fighter', cost: 3, level: 4, power: 10 },
-  { id: 'dan', name: 'Dan', role: 'The Wounded Hero', icon: '🪄', class: 'Mage', cost: 4, level: 7, power: 9 },
-  { id: 'toad_lee', name: 'Toad Lee', role: 'Warden of the Toads', icon: '🪓', class: 'Fighter', cost: 4, level: 4, power: 9 },
-  { id: 'ryan', name: 'Ryan', role: 'Arcane Student', icon: '✨', class: 'Mage', cost: 2, level: 2, power: 4 },
-  { id: 'roger', name: 'Roger', role: 'Pragmatist Gunner', icon: '🔫', class: 'Fighter', cost: 2, level: 2, power: 3 },
-  { id: 'bones', name: 'Bones', role: 'Hardened Survivor', icon: '💀', class: 'Rogue', cost: 4, level: 5, power: 8 },
-  { id: 'rattles', name: 'Rattles', role: 'Faithful Companion', icon: '🍉', class: 'Survivor', cost: 2, level: 3, power: 5 },
-  { id: 'bowser', name: 'Bowser', role: 'Deposed Koopa Warlord', icon: '🦖', class: 'Warlord', cost: 7, level: 8, power: 14 },
-  { id: 'wario', name: 'Wario', role: 'Shoulder-Bash Master', icon: '💰', class: 'Bruiser', cost: 6, level: 6, power: 11 },
-  { id: 'hjumpik', name: 'Hjumpik', role: 'Dwarven King\'s Champion', icon: '🛡️', class: 'Champion', cost: 6, level: 7, power: 12 },
-  { id: 'waluigi', name: 'Waluigi', role: 'Agent of Chaos', icon: '💜', class: 'Mage', cost: 5, level: 5, power: 11 },
-  { id: 'archie', name: 'Archie Miser', role: 'Three-Eyed Pyro Merchant', icon: '👁️', class: 'Mage', cost: 5, level: 6, power: 13 },
-  { id: 'markop', name: 'Markop Judi', role: 'Disgraced Centaur Paladin', icon: '🐴', class: 'Paladin', cost: 6, level: 8, power: 13 },
-  { id: 'remi', name: 'Remi', role: 'Ingenious Smith & Engineer', icon: '🦊', class: 'Smith', cost: 5, level: 7, power: 12 }
+  { id: 'salam', name: 'Salam', role: 'Ranger With Damaged Trust', icon: '🏹', class: 'Ranger', cost: 3, level: 3, power: 5, category: 'toads' },
+  { id: 'eager', name: 'Eager', role: 'Swift Scout', icon: '🪢', class: 'Fighter', cost: 3, level: 4, power: 10, category: 'toads' },
+  { id: 'dan', name: 'Dan', role: 'The Wounded Hero (Original)', icon: '🍄', class: 'Fighter', cost: 4, level: 4, power: 8, category: 'toads' },
+  { id: 'feywarddan', name: 'Feyward Dan', role: 'Parallel-Reality Dan', icon: '🪄', class: 'Paladin', cost: 3, level: 3, power: 5, category: 'toads' },
+  { id: 'toad_lee', name: 'Toad Lee', role: 'Warden of the Toads', icon: '🪓', class: 'Fighter', cost: 4, level: 4, power: 9, category: 'toads' },
+  { id: 'ryan', name: 'Ryan', role: 'Arcane Student', icon: '✨', class: 'Mage', cost: 2, level: 2, power: 4, category: 'toads' },
+  { id: 'roger', name: 'Roger', role: 'Pragmatist Gunner', icon: '🔫', class: 'Fighter', cost: 2, level: 2, power: 3, category: 'toads' },
+  { id: 'bones', name: 'Bones', role: 'Hardened Survivor', icon: '💀', class: 'Rogue', cost: 4, level: 5, power: 8, category: 'toads' },
+  { id: 'rattles', name: 'Rattles', role: 'Faithful Companion', icon: '🍉', class: 'Survivor', cost: 2, level: 3, power: 5, category: 'toads' },
+  { id: 'smoking_j', name: 'Smoking J', role: 'Liberated Smoker', icon: '🚬', class: 'Survivor', cost: 2, level: 2, power: 4, category: 'toads' },
+  { id: 'elder_mudcap', name: 'Elder Mudcap', role: 'Council Elder', icon: '🧓', class: 'Elder', cost: 1, level: 1, power: 1, category: 'toads' },
+  { id: 'forgemaster_ironspore', name: 'Forgemaster Ironspore', role: 'Toad Blacksmith', icon: '⚒️', class: 'Smith', cost: 1, level: 1, power: 1, category: 'toads' },
+  { id: 'healer_mistpetal', name: 'Healer Mistpetal', role: 'Toad Apothecary', icon: '🌿', class: 'Healer', cost: 1, level: 1, power: 1, category: 'toads' },
+  { id: 'warden_thornshell', name: 'Warden Thornshell', role: 'Toad Guard', icon: '🛡️', class: 'Warden', cost: 1, level: 1, power: 1, category: 'toads' },
+  { id: 'green_t', name: 'Green T', role: 'Syndicate Operative', icon: '🟢', class: 'Rogue', cost: 5, level: 5, power: 11, category: 'toads' },
+  { id: 'speaker_l', name: 'Speaker L', role: 'Voice of the Free', icon: '📣', class: 'Speaker', cost: 3, level: 3, power: 5, category: 'toads' },
+  
+  // Core cast (Fatigue Immune)
+  { id: 'bowser', name: 'Bowser', role: 'Deposed Koopa Warlord', icon: '🦖', class: 'Warlord', cost: 7, level: 8, power: 14, category: 'core' },
+  { id: 'hjumpik', name: 'Hjumpik', role: 'Dwarven King\'s Champion', icon: '🛡️', class: 'Champion', cost: 6, level: 7, power: 12, category: 'core' },
+  { id: 'archie', name: 'Archie Miser', role: 'Three-Eyed Pyro Merchant', icon: '👁️', class: 'Mage', cost: 5, level: 6, power: 13, category: 'core' },
+  { id: 'remi', name: 'Remi', role: 'Ingenious Smith & Engineer', icon: '🦊', class: 'Smith', cost: 5, level: 7, power: 12, category: 'core' },
+  { id: 'markop', name: 'Markop Judi', role: 'Disgraced Centaur Paladin', icon: '🐴', class: 'Paladin', cost: 6, level: 8, power: 13, category: 'core' },
+  { id: 'waluigi', name: 'Waluigi', role: 'Agent of Chaos', icon: '💜', class: 'Mage', cost: 5, level: 5, power: 11, category: 'core' },
+
+  // Special Hires (Fatigue Subject)
+  { id: 'luigi', name: 'Luigi / Agent L', role: 'Special Guest Operative', icon: '🟢', class: 'Fighter', cost: 6, level: 5, power: 13, category: 'special' },
+  { id: 'rakashaazure', name: 'Azure Rakasha', role: 'Dwarf Ally Summon', icon: '🐯', class: 'Beast', cost: 5, level: 4, power: 7, category: 'special' }
 ];
 
 const CORE_CHARACTERS = new Set(['archie', 'hjumpik', 'bowser', 'remi']);
@@ -13507,9 +13520,9 @@ const WARIO_SHOP_CATALOG = [
   { id: 'item_talisman', name: '🔮 Echo Talisman', price: 800, icon: '🔮', desc: 'Relic. Amplifies spells.', cost: 4 }
 ];
 
-const MISSION_BUDGET = 18;
+const MISSION_BUDGET = 24;
 
-let currentSquadSlots = [null, null, null, null];
+let currentSquadSlots = [null, null, null, null, null]; // 5 starting slots
 let currentSelectedUpgrades = new Set();
 
 function getFatigueStates() {
@@ -13544,6 +13557,7 @@ function view_mission_control() {
   const goldBalance = wallet.currencies ? (wallet.currencies.gold || 0) : 100;
   const isDebt = goldBalance < 0;
 
+  // Calculate current point totals
   let squadPoints = 0;
   const filledCount = currentSquadSlots.filter(id => id !== null).length;
   currentSquadSlots.forEach(id => {
@@ -13575,38 +13589,98 @@ function view_mission_control() {
   const underBudget = remainingPoints >= 0;
   const canLaunch = hasAtLeastFour && underBudget;
 
+  // Deployed seats rendering (horizontal, modern layout)
   const slotsHtml = currentSquadSlots.map((id, index) => {
     if (id) {
       const comp = COMPANIONS.find(c => c.id === id);
+      const isCore = CORE_CHARACTERS.has(id);
+      const badgeStyle = isCore ? 'background: var(--green)22; border-color: var(--green); color: var(--green);' : 'background: var(--accent)22; border-color: var(--accent); color: var(--accent);';
       return `
-        <div class="summary-stat" style="position: relative; padding: 14px; text-align: left; display: flex; align-items: center; gap: 10px; background: rgba(138, 75, 255, 0.08); border: 2px solid var(--accent); cursor: pointer;" onclick="openSlotSelector(${index})">
-          <span style="font-size: 32px;">${comp.icon}</span>
+        <div class="summary-stat" style="position: relative; text-align: left; display: flex; align-items: center; gap: 10px; background: rgba(138, 75, 255, 0.08); border: 2px solid var(--accent); padding: 10px 12px; border-radius: 8px;">
+          <span style="font-size: 28px;">${comp.icon}</span>
           <div style="flex: 1; min-width: 0;">
-            <div style="font-size: 11px; color: var(--muted); text-transform: uppercase;">SLOT ${index + 1}</div>
-            <strong style="font-size: 14px; color: var(--text);">${esc(comp.name)}</strong>
-            <div style="font-size: 11.5px; color: var(--muted);">${esc(comp.role)}</div>
+            <div style="font-size: 9px; color: var(--muted); text-transform: uppercase;">SEAT ${index + 1}</div>
+            <strong style="font-size: 13px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${esc(comp.name)}</strong>
+            <span class="pill" style="font-size: 8px; margin-top: 2px; padding: 0px 4px; ${badgeStyle}">${isCore ? 'CORE' : 'COMPANION'}</span>
           </div>
-          <span class="chip" style="margin: 0; background: var(--accent2)22; border-color: var(--accent2); color: var(--accent2);">${comp.cost} pts</span>
-          <button onclick="clearSlot(${index}); event.stopPropagation();" style="position: absolute; top: -6px; right: -6px; border-radius: 50%; width: 20px; height: 20px; border: 1px solid var(--border); background: var(--panel2); color: var(--text); font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; z-index: 10;">✕</button>
+          <span class="chip" style="margin: 0; font-size: 10px; padding: 2px 6px; background: var(--accent2)22; border-color: var(--accent2); color: var(--accent2);">${comp.cost}pt</span>
+          <button onclick="clearSlot(${index}); event.stopPropagation();" style="position: absolute; top: -6px; right: -6px; border-radius: 50%; width: 18px; height: 18px; border: 1px solid var(--border); background: var(--panel2); color: var(--text); font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 9px; z-index: 10;">✕</button>
         </div>
       `;
     } else {
       return `
-        <div class="summary-stat" onclick="openSlotSelector(${index})" style="cursor: pointer; border: 2px dashed var(--border); padding: 18px; text-align: center; background: var(--panel);">
-          <div style="font-size: 24px; color: var(--muted); margin-bottom: 4px;">➕</div>
-          <span style="font-size: 12px; color: var(--muted); font-weight: 700; text-transform: uppercase;">SLOT ${index + 1} (EMPTY)</span>
+        <div class="summary-stat" style="border: 2px dashed var(--border); padding: 14px 10px; text-align: center; background: var(--panel); border-radius: 8px;">
+          <span style="font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 2px;">SEAT ${index + 1}</span>
+          <span style="font-size: 10px; color: var(--muted);">WAITING...</span>
         </div>
       `;
     }
   }).join('');
 
+  // Roster rendering by category
+  const renderGroup = (title, filterFn) => {
+    const list = COMPANIONS.filter(filterFn);
+    return `
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 8px; font-size: 12.5px; color: var(--accent2); text-transform: uppercase; letter-spacing: 0.5px;">${esc(title)}</h4>
+        <div class="companions-grid">
+          ${list.map(c => {
+            const fatigue = states[c.id] || 0;
+            const isResting = fatigue > 0;
+            const isSelected = currentSquadSlots.includes(c.id);
+            
+            let btnLabel = isSelected ? 'BENCH' : 'DEPLOY';
+            let btnClass = isSelected ? 'chip active' : 'chip';
+            let cardBorder = isSelected ? '2px solid var(--accent)' : '1px solid var(--border)';
+            let cardBg = isSelected ? 'rgba(138, 75, 255, 0.08)' : 'var(--panel)';
+            let opacity = '1';
+            let clickHandler = isSelected ? `onclick="benchCompanion('${c.id}')"` : `onclick="deployCompanion('${c.id}')"`;
+            let rightLabel = `COST: ${c.cost}pt`;
+            let badgeColor = 'var(--accent2)';
+
+            if (isResting) {
+              opacity = '0.45';
+              clickHandler = '';
+              rightLabel = `RESTING (${fatigue}m)`;
+              badgeColor = 'var(--danger)';
+              btnLabel = 'RESTING';
+              btnClass = 'chip';
+            }
+
+            return `
+              <div class="companion-card" style="opacity: ${opacity}; border: ${cardBorder}; background: ${cardBg}; display: flex; gap: 10px; padding: 10px; border-radius: 8px; transition: 0.15s; position: relative;">
+                <div style="font-size: 26px; align-self: center;">${c.icon}</div>
+                <div style="flex: 1; min-width: 0; padding-right: 4px;">
+                  <div style="font-weight: 700; font-size: 13px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(c.name)}</div>
+                  <div style="font-size: 11px; color: var(--muted); margin-top: 1px;">Lv ${c.level} · Power ${c.power}</div>
+                  <button class="${btnClass}" ${clickHandler} style="margin: 6px 0 0; padding: 2px 10px; font-size: 10px; height: auto; min-height: auto; font-weight: 700;">${btnLabel}</button>
+                </div>
+                <div style="font-size: 8.5px; font-weight: 900; background: ${badgeColor}22; border: 1px solid ${badgeColor}; color: ${badgeColor}; padding: 1px 5px; border-radius: 999px; position: absolute; top: 8px; right: 8px;">${rightLabel}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    `;
+  };
+
+  const coreCastHtml = renderGroup('👑 Core Cast (Fatigue Immune)', c => c.category === 'core');
+  const toadsHtml = renderGroup('🍄 Liberated Toads & Companions', c => c.category === 'toads');
+  const specialHiresHtml = renderGroup('🌟 Special Hires', c => c.category === 'special');
+
+  // Wario Shop point-buy gear rendering
   let upgradesHtml = '';
   if (isDebt) {
+    const debtAmt = Math.abs(goldBalance);
+    const whyNote = curU === 'archie' 
+      ? `Archie Miser currently carries an active 34-gold debt due to Thornbury's aggressive billing for broken rope, bath supplies, and rubber duckies at the Alpine Bank.` 
+      : `Wario's ledger records an active negative credit balance for this operator.`;
     upgradesHtml = `
       <div class="wnote" style="border-left-color: var(--danger); background: rgba(239, 68, 68, 0.06); text-align: center; padding: 20px; grid-column: 1/-1;">
         <span style="font-size: 32px; display: block; margin-bottom: 8px;">🚫 CREDIT DENIED</span>
-        <b style="color: var(--danger);">Wario says:</b> "WAH! I don't give credit to bums with negative coins! Pay off your debt of <b>${Math.abs(goldBalance)} gold</b> at the currency bank first!"
-        <div style="margin-top: 10px;"><a class="chip active" href="currency.html">🏦 Settle bank balance</a></div>
+        <b style="color: var(--danger);">Wario says:</b> "WAH! I don't give credit to bums with negative coins! Pay off your debt of <b>${debtAmt} gold</b> at the currency bank first!"
+        <p style="font-size: 12.5px; color: var(--muted); margin: 6px 0 12px; max-width: 500px; margin-left: auto; margin-right: auto;">${esc(whyNote)}</p>
+        <div><a class="chip active" href="currency.html">🏦 Settle bank balance</a></div>
       </div>
     `;
   } else if (affordableUpgrades.length === 0) {
@@ -13624,85 +13698,70 @@ function view_mission_control() {
       return `
         <div class="upgrade-card" onclick="selectUpgradeForSquad('${u.id}')" style="cursor: pointer; border: ${border}; background: ${background}; display: flex; gap: 10px; padding: 12px; border-radius: 8px; transition: 0.15s; position: relative;">
             <div style="flex: 1; min-width: 0;">
-                <div style="font-weight: 700; font-size: 13.5px; color: var(--text);">${esc(u.name)}</div>
-                <div style="font-size: 11.5px; color: var(--muted); margin-top: 2px;">${esc(u.desc)}</div>
-                <div style="font-size: 11px; color: var(--accent2); margin-top: 4px; font-weight: 700;">Price: ${u.price} gp</div>
+                <div style="font-weight: 700; font-size: 13px; color: var(--text);">${esc(u.name)}</div>
+                <div style="font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.45;">${esc(u.desc)}</div>
+                <div style="font-size: 10.5px; color: var(--accent2); margin-top: 4px; font-weight: 700;">Price: ${u.price} gp</div>
             </div>
-            <div style="font-size: 9px; font-weight: 900; background: var(--accent2)22; border: 1px solid var(--accent2); color: var(--accent2); padding: 1px 6px; border-radius: 999px; position: absolute; top: 8px; right: 8px;">COST: ${u.cost} pts</div>
+            <div style="font-size: 8.5px; font-weight: 900; background: var(--accent2)22; border: 1px solid var(--accent2); color: var(--accent2); padding: 1px 5px; border-radius: 999px; position: absolute; top: 8px; right: 8px;">COST: ${u.cost} pt</div>
         </div>
       `;
     }).join('');
   }
 
-  const profilesHtml = [
-    { id: 'bowser', icon: '🦖', name: 'Bowser', level: 8, power: 14, desc: 'Koopa King. Unrivalled physical defense and flame breath. Immune to fatigue.' },
-    { id: 'archie', icon: '👁️', name: 'Archie Miser', level: 6, power: 13, desc: 'Three-Eyed Bandit. Chaotic fire spells and reality distortion. Immune to fatigue.' },
-    { id: 'markop', icon: '🐴', name: 'Markop Judi', level: 8, power: 13, desc: 'Centaur Paladin. Impenetrable frontline defense and divine shields.' },
-    { id: 'hjumpik', icon: '🛡️', name: 'Hjumpik', level: 7, power: 12, desc: 'Dwarf Champion. Unstoppable hammer blows and siege capabilities. Immune to fatigue.' },
-    { id: 'remi', icon: '🦊', name: 'Remi', level: 7, power: 12, desc: 'Ingenious Smith. Feather Fall glider, artifact repairs, and speed support. Immune to fatigue.' },
-    { id: 'waluigi', icon: '💜', name: 'Waluigi', level: 5, power: 11, desc: 'Hacker and mischief-maker. Disrupts magical wards and mechanical grids.' }
-  ].map(di => {
-    return `
-      <div style="display: flex; gap: 8px; padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg2); margin-bottom: 6px;">
-        <span style="font-size: 24px; align-self: center;">${di.icon}</span>
-        <div>
-          <b style="font-size: 13px; color: var(--text);">${esc(di.name)} <span class="text-muted" style="font-weight:400; font-size:11px;">Lv ${di.level} · Power ${di.power}</span></b>
-          <p style="margin: 2px 0 0; font-size: 11.5px; color: var(--muted); line-height: 1.35;">${esc(di.desc)}</p>
-        </div>
-      </div>
-    `;
-  }).join('');
-
   el('content').innerHTML = `
     <style>
-      .slots-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 10px; }
-      .upgrades-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-top: 10px; }
+      .companions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+      .upgrades-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; margin-top: 10px; }
+      .companion-card, .upgrade-card { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
       .companion-card:hover, .upgrade-card:hover { border-color: var(--accent2) !important; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-      .summary-stat { border: 1px solid var(--border); padding: 10px 14px; border-radius: 8px; background: var(--panel); text-align: center; }
-      .summary-stat strong { display: block; font-size: 20px; color: var(--accent2); }
-      .summary-stat span { font-size: 11px; color: var(--muted); text-transform: uppercase; }
+      .summary-stat { border: 1px solid var(--border); padding: 10px 12px; border-radius: 8px; background: var(--panel); text-align: center; }
+      .summary-stat strong { display: block; font-size: 18px; color: var(--accent2); }
+      .summary-stat span { font-size: 10px; color: var(--muted); text-transform: uppercase; }
     </style>
     
     <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
-      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Squad Assembly</div>
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Mission Control</div>
       <div class="home-section-head">
         <div>
           <h1 style="margin:0;font-size:26px">🛰️ Wario Mission Control: Disaster Inc. Tactical Prep</h1>
-          <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Assign active operators into the 4 squad slots under the 18-point budget. Spend remaining points on affordable gear from Wario's live inventory.</p>
+          <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Assign active operators into the 5 squad seats under the 24-point budget. Spend remaining points on affordable gear from Wario's live inventory.</p>
         </div>
         <span class="chip" style="background:rgba(224,180,0,0.12);border-color:var(--accent);color:var(--accent)">📅 Calendar: ${esc(dateStr)}</span>
+      </div>
+      <div style="margin-top: 12px; text-align: left;">
+        <button class="chip active" onclick="autofillCoreCast()" style="background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; cursor: pointer; padding: 6px 16px; box-shadow: 0 4px 12px rgba(138,75,255,0.25);">✨ Autofill Core Cast (4 Members)</button>
       </div>
     </div>
 
     <!-- Live Budget Dashboard -->
     <div class="card" style="border-left: 4px solid var(--accent2);">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
-        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <div class="summary-stat">
             <strong>${remainingPoints} / ${MISSION_BUDGET}</strong>
             <span>Remaining Points</span>
           </div>
           <div class="summary-stat">
-            <strong>${filledCount} / 4</strong>
-            <span>Slots Occupied</span>
+            <strong>${filledCount} / 5</strong>
+            <span>Seats Occupied</span>
           </div>
           <div class="summary-stat">
-            <strong>${squadPoints} pts</strong>
+            <strong>${squadPoints} pt</strong>
             <span>Squad Cost</span>
           </div>
           <div class="summary-stat">
-            <strong>${upgradePoints} pts</strong>
+            <strong>${upgradePoints} pt</strong>
             <span>Gear Cost</span>
           </div>
-          <div class="summary-stat">
-            <strong>${goldBalance} gp</strong>
+          <div class="summary-stat" style="${isDebt?'border-color:var(--danger);':''}">
+            <strong style="${isDebt?'color:var(--danger);':''}">${goldBalance} gp</strong>
             <span>Active Gold (${esc(curU.toUpperCase())})</span>
           </div>
         </div>
 
         <div style="text-align: right;">
           <div style="font-size: 12.5px; color: var(--muted); margin-bottom: 6px;">
-            ${!hasAtLeastFour ? '⚠️ <b style="color:var(--danger)">Form a full 4-member squad to launch</b>' : ''}
+            ${!hasAtLeastFour ? '⚠️ <b style="color:var(--danger)">Form a full 4-member squad minimum to launch</b>' : ''}
             ${!underBudget ? '⚠️ <b style="color:var(--danger)">Exceeded point budget!</b>' : ''}
             ${canLaunch ? '✓ <b style="color:var(--green)">Tactical assemblies verified</b>' : ''}
           </div>
@@ -13711,33 +13770,32 @@ function view_mission_control() {
       </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 340px; gap: 14px;">
-      <div>
-        <!-- Step 1: Deployed Squad slots -->
-        <div class="card" style="margin: 0;">
-          <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🛡️</span> Step 1: Assemble Active Squad (4 Slots)</h3>
-          <p style="color: var(--muted); font-size: 12.5px; margin: -6px 0 14px;">Deploying core members Archie, Hjumpik, Bowser, and Remi costs points, but they are immune to post-mission fatigue rest cycles.</p>
-          <div class="slots-grid">
-            ${slotsHtml}
-          </div>
-        </div>
+    <!-- Step 1: Active Seats horizontal assembly panel -->
+    <div class="card">
+      <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🛡️</span> Active Deployed Seats (Maximum 5)</h3>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 10px;">
+        ${slotsHtml}
+      </div>
+    </div>
 
-        <!-- Step 2: Buy Tactical Gear -->
-        <div class="card" style="margin-top: 14px;">
-          <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🛒</span> Step 2: Spend Remaining Points on Wario's Live Stock</h3>
-          <p style="color: var(--muted); font-size: 12.5px; margin: -6px 0 14px;">Purchase essential gear using remaining mission points. Items are filtered automatically by what the active player (${esc(curU.toUpperCase())}) can afford in gold.</p>
-          <div class="upgrades-grid">
-            ${upgradesHtml}
-          </div>
+    <div style="display: grid; grid-template-columns: 1fr 320px; gap: 14px; margin-top: 14px;">
+      <div>
+        <!-- Roster Section -->
+        <div class="card" style="margin: 0;">
+          <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">👥</span> Active Operator Roster</h3>
+          <p style="color: var(--muted); font-size: 12px; margin: -6px 0 14px;">Toggle characters to deploy or bench them. Rest count indicates recovery status from previous runs.</p>
+          ${coreCastHtml}
+          ${toadsHtml}
+          ${specialHiresHtml}
         </div>
       </div>
 
-      <!-- Disaster Inc. files reading column -->
+      <!-- Wario Shop Stock side-panel -->
       <div class="card" style="margin: 0; align-self: start;">
-        <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">📂</span> Disaster Inc. Active Files</h3>
-        <p class="text-muted" style="font-size: 12px; line-height: 1.4; margin: -6px 0 12px;">Active operational files for the core syndicate. Click below to inspect their full dossiers and standing reports.</p>
-        <div style="display: flex; flex-direction: column;">
-          ${profilesHtml}
+        <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🛒</span> Wario's Live Stock</h3>
+        <p class="text-muted" style="font-size: 12px; line-height: 1.4; margin: -6px 0 12px;">Purchase essential gear using remaining mission points. Items are filtered by active wallet affordability.</p>
+        <div class="upgrades-grid" style="display: flex; flex-direction: column; margin-top: 0;">
+          ${upgradesHtml}
         </div>
       </div>
     </div>
@@ -13749,102 +13807,39 @@ window.clearSlot = function(index) {
   view_mission_control();
 };
 
-window.openSlotSelector = function(slotIndex) {
-  const states = getFatigueStates();
-  const deployedSet = new Set(currentSquadSlots.filter(id => id !== null));
+window.deployCompanion = function(compId) {
+  const isAssigned = currentSquadSlots.includes(compId);
+  if (isAssigned) return;
 
-  const available = COMPANIONS.filter(c => {
-    const isResting = states[c.id] > 0;
-    const isDeployed = deployedSet.has(c.id);
-    return !isResting && !isDeployed;
+  // Find next empty seat
+  const emptyIdx = currentSquadSlots.indexOf(null);
+  if (emptyIdx === -1) {
+    alert("⚠️ Squad is at full capacity (Max 5 Operators). Bench someone first!");
+    return;
+  }
+
+  currentSquadSlots[emptyIdx] = compId;
+  view_mission_control();
+};
+
+window.benchCompanion = function(compId) {
+  const idx = currentSquadSlots.indexOf(compId);
+  if (idx !== -1) {
+    currentSquadSlots[idx] = null;
+  }
+  view_mission_control();
+};
+
+window.autofillCoreCast = function() {
+  // Clear slots
+  currentSquadSlots = [null, null, null, null, null];
+  
+  // Fill the 4 core members into seats
+  const coreArray = ['archie', 'markop', 'hjumpik', 'remi'];
+  coreArray.forEach((id, index) => {
+    currentSquadSlots[index] = id;
   });
-
-  const overlay = document.createElement('div');
-  overlay.id = 'slot-selector-modal';
-  overlay.className = 'rep-modal-overlay';
-  overlay.style.display = 'flex';
-  overlay.style.alignItems = 'center';
-  overlay.style.justifyContent = 'center';
-  overlay.style.zIndex = '1001';
-  overlay.style.position = 'fixed';
-  overlay.style.inset = '0';
-  overlay.style.background = 'rgba(0,0,0,0.85)';
-  overlay.onclick = (e) => { if (e.target === overlay) closeModal(); };
-
-  const cardsHtml = available.map(c => {
-    return `
-      <div class="companion-card" onclick="assignToSlot(${slotIndex}, '${c.id}'); closeModal();" style="cursor: pointer; border: 1px solid var(--border); display: flex; gap: 10px; padding: 12px; border-radius: 8px; background: var(--panel); transition: 0.15s; position: relative;">
-          <div style="font-size: 28px; align-self: center;">${c.icon}</div>
-          <div style="flex: 1; min-width: 0;">
-              <div style="font-weight: 700; font-size: 13.5px; color: var(--text);">${esc(c.name)}</div>
-              <div style="font-size: 11.5px; color: var(--muted); margin-top: 1px;">Lv ${c.level} · Power ${c.power}</div>
-              <div style="font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${esc(c.role)}</div>
-          </div>
-          <div style="font-size: 9px; font-weight: 900; background: var(--accent2)22; border: 1px solid var(--accent2); color: var(--accent2); padding: 1px 6px; border-radius: 999px; position: absolute; top: 8px; right: 8px;">COST: ${c.cost} pts</div>
-      </div>
-    `;
-  }).join('') || '<div class="text-muted" style="grid-column: 1/-1; text-align: center; padding: 20px;">No available ready operators found. Wait for other resting companions to recover.</div>';
-
-  overlay.innerHTML = `
-      <style>
-        .selector-modal-box {
-            background: linear-gradient(135deg, rgba(20,10,35,0.95), rgba(10,5,20,0.98)), var(--panel);
-            border: 2px solid var(--accent);
-            box-shadow: 0 0 30px rgba(138,75,255,0.4);
-            max-width: 600px;
-            width: 90%;
-            padding: 24px;
-            border-radius: 16px;
-            color: var(--text);
-            animation: modalScaleUp 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes modalScaleUp {
-            from { transform: scale(0.85); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .selector-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 12px;
-            margin-bottom: 16px;
-        }
-        .selector-header h2 {
-            margin: 0;
-            font-size: 18px;
-            color: var(--accent2);
-        }
-        .selector-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 10px;
-            max-height: 320px;
-            overflow-y: auto;
-            padding-right: 4px;
-        }
-      </style>
-      <div class="selector-modal-box">
-          <div class="selector-header">
-              <h2>Select Operator for Slot ${slotIndex + 1}</h2>
-              <button class="chip" onclick="closeModal()" style="margin: 0; cursor: pointer;">✕ Close</button>
-          </div>
-          <div class="selector-grid">
-              ${cardsHtml}
-          </div>
-      </div>
-  `;
-
-  document.body.appendChild(overlay);
-};
-
-window.closeModal = function() {
-  const modal = document.getElementById('slot-selector-modal');
-  if (modal) modal.remove();
-};
-
-window.assignToSlot = function(slotIndex, compId) {
-  currentSquadSlots[slotIndex] = compId;
+  
   view_mission_control();
 };
 
@@ -13993,7 +13988,7 @@ window.launchSquadDeployment = function() {
   `;
 
   // Reset active selections
-  currentSquadSlots = [null, null, null, null];
+  currentSquadSlots = [null, null, null, null, null];
   currentSelectedUpgrades.clear();
 
   document.body.appendChild(overlay);
