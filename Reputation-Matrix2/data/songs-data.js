@@ -1,4 +1,5 @@
 <<<<<<<< HEAD:Reputation-Matrix2/data/songs-data.js
+<<<<<<<< HEAD:Reputation-Matrix2/data/songs-data.js
 window.SONGS_DATA = [
       {
         id: "song_heroes_reborn_anthem",
@@ -1172,6 +1173,8 @@ The Raventree will bear the bill.`,
         notes: "E4 B3 G3 E3"
       }];
 ========
+========
+>>>>>>>> bce02b886e39e3b0cdf5c99748c3318700311d9d:songs.html
 <!doctype html>
 <html lang="en">
 <head>

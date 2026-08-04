@@ -6550,6 +6550,7 @@ function renderSidebar(active){
     navLink({emoji:'📚',label:'Library & Books',go:"Router.go('#/books')",active:active==='books',count:((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}),
     navLink({emoji:'🎵',label:'Campaign Songbook',go:"Router.go('#/songs')",active:active==='songs',count:23}),
     navLink({emoji:'🛰️',label:'Mission Control',go:"Router.go('#/mission-control')",active:active==='mission-control'}),
+    navLink({emoji:'📋',label:'Quests & Jobs',go:"Router.go('#/quests')",active:active==='quests',count:73}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')})
   ]);
 
@@ -9548,7 +9549,7 @@ function view_article(id){
      ${typeKey==='battles'?battleVsInfographic(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
-${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}
+${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}
      <div class="prose">${applyAnnotations(mdToHtml(item.description||'',item.id), item.id)}</div>
      ${sectionsHtml}
      ${listBlocks.length?`<hr>${listBlocks.join('')}`:''}
@@ -9600,7 +9601,7 @@ function view_trial(item,t){
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${item.summary?`<div class="article-lead-card noimg"><div class="article-lead-summary"><h4>Case Summary</h4><p>${esc(item.summary)}</p></div></div>`:''}${anote}${defLink}
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}
-     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${relHtml}
+     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, 'trials') : ''}${relHtml}
    </div></div><div>${crossPagePanel(item.id,'trials',item)}${articleControlPanel(item.id)}<div class="infobox"><h4>${esc(item.name)}</h4>${infoRows}</div>${toc}</div></div>`;
   setArticleAccent('trials');
   window.scrollTo(0,0);setupScrollSpy();
@@ -14152,6 +14153,290 @@ window.closeMissionResults = function() {
 };
 
 
+/* ================= CONNECTED QUEST OBJECTIVES & CAMPAIGN LOG ================= */
+function renderConnectedQuestsPanel(id, typeKey) {
+  const quests = DATA.quests || {};
+  const list = Object.values(quests);
+  
+  const matches = list.filter(q => {
+    if (Array.isArray(q.assignees) && q.assignees.includes(id)) return true;
+    if (q.primaryAssignee === id) return true;
+    if (q.id === id) return true;
+    if (q.arcId === id) return true;
+    if (Array.isArray(q.relatedQuests) && q.relatedQuests.includes(id)) return true;
+    if (Array.isArray(q.loreEntries) && q.loreEntries.includes(id)) return true;
+    
+    const term = String(id).toLowerCase().replace(/_/g, ' ');
+    const txt = ((q.title||'') + ' ' + (q.description||'') + ' ' + (q.objective||'') + ' ' + (q.category||'')).toLowerCase();
+    if (term.length > 3 && txt.includes(term)) return true;
+    
+    return false;
+  });
+
+  if (matches.length === 0) return '';
+
+  const rowsHtml = matches.slice(0, 15).map(q => {
+    const isCompleted = q.status === 'completed';
+    const color = isCompleted ? 'var(--green)' : 'var(--accent2)';
+    const priorityLabel = (q.priority && (q.priority.label || q.priority)) || 'Normal';
+    
+    return `
+      <tr style="border-bottom: 1px dashed var(--border);">
+        <td style="padding: 10px; font-weight: 700; border-right:1px solid var(--border);">
+          <a class="entity-link" href="#/quest/${encodeURIComponent(q.id)}">${esc(q.title || prettyId(q.id))}</a>
+        </td>
+        <td style="padding: 10px; border-right:1px solid var(--border);"><span class="pill" style="border-color:${color}; color:${color}; font-size:9.5px; text-transform:uppercase;">${q.status.toUpperCase()}</span></td>
+        <td style="padding: 10px; border-right:1px solid var(--border); color: var(--text); font-size:12.5px;">${esc(q.objective || q.subtitle || '')}</td>
+        <td style="padding: 10px; text-align: right; font-weight: 800; color: var(--accent2); font-size: 11px;">${esc(priorityLabel.toUpperCase())}</td>
+      </tr>
+    `;
+  }).join('');
+
+  return `
+    <div class="card" style="border-left: 4px solid var(--accent); margin-top: 18px;">
+      <h3 style="margin-top: 0; font-size: 16px; color: var(--accent); display: flex; align-items: center; gap: 8px;"><span class="title-icon">🔗</span> Connected Quest Objectives &amp; Campaign Milestones</h3>
+      <p class="text-muted" style="font-size: 12px; margin: -6px 0 10px;">The following active campaign objectives or system quests on Wario's Quest Board are linked directly to this record:</p>
+      <table class="wi-ledger" style="width:100%; border-collapse:collapse; font-size:13px; border:1px solid var(--border); border-radius:8px;">
+        <thead>
+          <tr style="border-bottom: 2px solid var(--border); background: rgba(138,75,255,0.06); color: var(--accent2);">
+            <th style="padding: 8px 10px; text-align: left; font-size:11px; border-right:1px solid var(--border);">Quest / Objective</th>
+            <th style="padding: 8px 10px; text-align: left; font-size:11px; width:100px; border-right:1px solid var(--border);">Status</th>
+            <th style="padding: 8px 10px; text-align: left; font-size:11px; border-right:1px solid var(--border);">Summary / Requirements</th>
+            <th style="padding: 8px 10px; text-align: right; font-size:11px; width:90px;">Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rowsHtml}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+/* ================= FULL INTEGRATED QUEST DIRECTORY & LOG ================= */
+let currentQuestSearch = '';
+let currentQuestFilter = 'active';
+
+function view_quests_ledger(filterArg) {
+  renderSidebar('quests');
+  if (filterArg) currentQuestFilter = filterArg;
+
+  const quests = DATA.quests || {};
+  const list = Object.values(quests);
+
+  function renderGrid() {
+    const q = currentQuestSearch.toLowerCase().trim();
+    const filtered = list.filter(item => {
+      const matchStatus = (currentQuestFilter === 'all') || (item.status === currentQuestFilter);
+      const matchQ = !q || 
+        (item.title || '').toLowerCase().includes(q) || 
+        (item.description || '').toLowerCase().includes(q) || 
+        (item.objective || '').toLowerCase().includes(q) || 
+        (item.category || '').toLowerCase().includes(q) ||
+        (item.assignees || []).join(' ').toLowerCase().includes(q);
+      return matchStatus && matchQ;
+    });
+
+    const categories = [
+      { id: 'all', label: 'All Jobs', count: list.length },
+      { id: 'active', label: 'Active / Ongoing', count: list.filter(item => item.status === 'active' || item.status === 'ongoing').length },
+      { id: 'completed', label: 'Completed', count: list.filter(item => item.status === 'completed').length }
+    ];
+
+    const chipsHtml = categories.map(cat => 
+      `<button class="chip ${cat.id === currentQuestFilter ? 'active' : ''}" onclick="currentQuestFilter='${cat.id}'; view_quests_ledger();">${esc(cat.label)} (${cat.count})</button>`
+    ).join('');
+
+    const cardsHtml = filtered.map((item, idx) => {
+      const isCompleted = item.status === 'completed';
+      const statusColor = isCompleted ? 'var(--green)' : 'var(--accent2)';
+      const priorityLabel = (item.priority && (item.priority.label || item.priority)) || 'Normal';
+      const difficultyLabel = (item.difficulty && item.difficulty.overall && item.difficulty.overall.label) || 'Normal';
+      const category = item.category || 'General';
+
+      return `
+        <div class="card quest-card-item" onclick="Router.go('#/quest/${encodeURIComponent(item.id)}')" style="border-left: 4px solid ${statusColor}; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: 0.15s; margin-bottom: 0;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom: 4px;">
+              <span style="font-size: 11px; font-weight: 900; color: var(--muted); text-transform: uppercase;">${esc(category)}</span>
+              <span class="pill" style="font-size: 9px; padding: 1px 6px; border-color:${statusColor}; color:${statusColor};">${item.status.toUpperCase()}</span>
+            </div>
+            <h3 style="margin: 0 0 6px; font-size: 16px; color: var(--text);">${esc(item.title || prettyId(item.id))}</h3>
+            <p style="font-size: 12.5px; color: var(--muted); line-height: 1.45; margin: 0 0 10px;">${esc(item.objective || item.subtitle || '')}</p>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top: 1px solid var(--border); padding-top: 8px; margin-top: auto;">
+            <span style="font-size: 11px; color: var(--muted);">Priority: <b style="color:var(--accent2);">${esc(priorityLabel)}</b></span>
+            <span style="font-size: 11px; color: var(--muted);">Diff: <b style="color:var(--danger);">${esc(difficultyLabel)}</b></span>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    el('content').innerHTML = `
+      <style>
+        .quests-ledger-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; margin-top: 14px; }
+        .quest-card-item:hover { border-color: var(--accent2) !important; transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+      </style>
+      <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
+        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Quests &amp; Jobs Directory</div>
+        <div class="home-section-head">
+          <div>
+            <h1 style="margin:0;font-size:26px">📋 Wario Quest Board &amp; Campaign Objectives</h1>
+            <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Browse all 73 cataloged story missions, personal quests, faction bounties, and requests from the active campaigns.</p>
+          </div>
+          <a class="chip" href="#/mission-control">🛰️ Open Mission Control →</a>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center">
+          <input type="text" class="rep-search-input" id="questLedgerSearch" placeholder="Search 73 quests by title, description, category, or assignees..." value="${esc(currentQuestSearch)}" oninput="currentQuestSearch=this.value;renderGrid();" style="flex:1;min-width:260px">
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">${chipsHtml}</div>
+      </div>
+      <div class="quests-ledger-grid">${cardsHtml || '<div class="card" style="grid-column:1/-1;text-align:center;color:var(--muted)">No quests match your query.</div>'}</div>
+    `;
+    window.scrollTo(0,0);
+  }
+
+  renderGrid();
+}
+
+function view_quest_detail(questId) {
+  renderSidebar('quests');
+  const quests = DATA.quests || {};
+  const q = quests[questId];
+  if (!q) { view_quests_ledger(); return; }
+
+  const isCompleted = q.status === 'completed';
+  const statusColor = isCompleted ? 'var(--green)' : 'var(--accent2)';
+  const priorityLabel = (q.priority && (q.priority.label || q.priority)) || 'Normal';
+  const difficultyLabel = (q.difficulty && q.difficulty.overall && q.difficulty.overall.label) || 'Normal';
+  const diffStars = (q.difficulty && q.difficulty.overall && q.difficulty.overall.stars) || '★★★';
+
+  // Assignees links
+  const assigneesHtml = (q.assignees || []).map(id => {
+    const rec = INDEX[id];
+    const name = rec ? displayName(rec.item) : prettyId(id);
+    return rec ? `<a class="entity-link" onclick="openId('${esc(id)}')">👤 ${esc(name)}</a>` : `<span>👤 ${esc(name)}</span>`;
+  }).join(', ') || '<span class="text-muted">No specific assignees</span>';
+
+  // Milestones checklist
+  const milestonesHtml = (q.milestones || []).map(m => {
+    const done = m.status === 'completed';
+    const color = done ? 'var(--green)' : 'var(--muted)';
+    return `
+      <li style="list-style:none; padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; margin-bottom: 6px; background: var(--bg2); display: flex; align-items: start; gap: 8px;">
+        <span style="font-size: 16px; color:${color}; font-weight:900;">${done ? '✓' : '⏳'}</span>
+        <div style="flex: 1;">
+          <strong style="${done?'text-decoration: line-through; color:var(--muted);':''}">${esc(m.title)}</strong>
+          <p style="margin: 2px 0 0; font-size: 12px; color: var(--muted);">${esc(m.description)}</p>
+        </div>
+      </li>
+    `;
+  }).join('') || '<span class="text-muted">No milestones listed.</span>';
+
+  // Consequences list
+  let consequencesHtml = '';
+  if (q.consequences && typeof q.consequences === 'object') {
+    consequencesHtml = Object.entries(q.consequences).map(([k, v]) => {
+      return `
+        <div style="padding: 10px; border-left: 3px solid var(--accent); background: rgba(138,75,255,0.04); margin-bottom: 6px; border-radius: 0 6px 6px 0;">
+          <b style="font-size:12px; text-transform:uppercase; color: var(--accent2);">${esc(k.replace(/_/g, ' '))}</b>
+          <p style="margin: 4px 0 0; font-size:12.5px; color: var(--text);">${esc(v)}</p>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Rewards list
+  let rewardsHtml = '';
+  if (q.rewards) {
+    const xpReward = q.rewards.xp ? `<span class="pill" style="border-color:var(--accent); color:var(--accent);">✦ ${Number(q.rewards.xp).toLocaleString()} XP</span>` : '';
+    const goldReward = q.rewards.gold ? `<span class="pill" style="border-color:var(--accent2); color:var(--accent2);">💰 ${Number(q.rewards.gold).toLocaleString()} GP</span>` : '';
+    const guaranteed = (q.rewards.guaranteed || []).map(r => `<li>🎁 <b>${esc(r.name)}</b>: ${esc(r.description || '')}</li>`).join('');
+    
+    rewardsHtml = `
+      <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom: 12px;">
+        ${xpReward} ${goldReward}
+      </div>
+      ${guaranteed ? `<ul style="margin:0; padding-left:18px; font-size:13px; line-height:1.5;">${guaranteed}</ul>` : ''}
+    `;
+  }
+
+  // Related Quests
+  const relatedChips = (q.relatedQuests || []).map(id => {
+    const rq = quests[id];
+    return rq ? `<a class="chip" href="#/quest/${encodeURIComponent(id)}">📋 ${esc(rq.title || prettyId(id))}</a>` : '';
+  }).filter(Boolean).join('');
+
+  el('content').innerHTML = `
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/quests')">Quests</a> › ${esc(q.title)}</div>
+    
+    <div class="article-layout">
+      <div>
+        <div class="card animate-fade-in" style="border-top: 5px solid ${statusColor}; background: linear-gradient(135deg, ${isCompleted ? 'rgba(34,197,94,0.14)' : 'rgba(138,75,255,0.14)'}, rgba(0,0,0,0.05)), var(--panel)">
+          <div style="display:flex; justify-content:space-between; align-items:start; gap:12px;">
+            <div>
+              <div style="font-size: 11px; font-weight:900; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:4px;">${esc(q.category || 'Story Line')}</div>
+              <h1 style="margin:0; font-size:26px; color:var(--text);">${esc(q.title)}</h1>
+              ${q.subtitle ? `<div style="font-size:14px; font-style:italic; color:var(--accent2); margin-top:2px;">${esc(q.subtitle)}</div>` : ''}
+            </div>
+            <span class="pill" style="font-size: 11px; padding: 4px 12px; border-color:${statusColor}; color:${statusColor}; font-weight:800; text-transform:uppercase;">${q.status.toUpperCase()}</span>
+          </div>
+          <div class="chips mt-10">
+            <span class="pill">Priority: <b>${esc(priorityLabel)}</b></span>
+            <span class="pill">Difficulty: <b>${esc(difficultyLabel)} ${esc(diffStars)}</b></span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0; font-size:16px; color:var(--accent2);"><span class="title-icon">📖</span> Objective &amp; Details</h3>
+          <p style="font-size:14.5px; line-height:1.65; color:var(--text); font-weight:500;">${esc(q.objective)}</p>
+          <div class="prose" style="font-size:13.5px; line-height:1.6; white-space:pre-wrap; border-top: 1px solid var(--border); padding-top:14px; margin-top:14px;">${linkify ? linkify(esc(q.description)) : esc(q.description)}</div>
+        </div>
+
+        <!-- Milestones Panel -->
+        <div class="card">
+          <h3 style="margin-top:0; font-size:16px; color:var(--accent2);"><span class="title-icon">✓</span> Campaign Milestones</h3>
+          <ul style="padding:0; margin:0;">
+            ${milestonesHtml}
+          </ul>
+        </div>
+
+        ${consequencesHtml ? `<!-- Consequences Panel -->
+        <div class="card">
+          <h3 style="margin-top:0; font-size:16px; color:var(--accent2);"><span class="title-icon">⚖️</span> Consequences &amp; Future Paths</h3>
+          ${consequencesHtml}
+        </div>` : ''}
+
+        ${relatedChips ? `<!-- Related Quests Panel -->
+        <div class="card">
+          <h3 style="margin-top:0; font-size:16px; color:var(--accent2);"><span class="title-icon">🔗</span> Related Quests</h3>
+          <div class="chips">${relatedChips}</div>
+        </div>` : ''}
+      </div>
+
+      <!-- Right Rail Panel -->
+      <div>
+        <!-- Assignees Info Panel -->
+        <div class="infobox" style="margin-top:0;">
+          <h4>Quest Assignment</h4>
+          <div class="row"><span class="k">Quest ID</span><span class="v">${esc(q.id)}</span></div>
+          <div class="row"><span class="k">Assignees</span><span class="v">${assigneesHtml}</span></div>
+          <div class="row"><span class="k">Primary</span><span class="v">${esc(prettyId(q.primaryAssignee || ''))}</span></div>
+          <div class="row"><span class="k">Added</span><span class="v">${q.dates && q.dates.added ? `${q.dates.added.year} BF` : '1040 BF'}</span></div>
+        </div>
+
+        <!-- Rewards Panel -->
+        <div class="card" style="margin-top:14px; border-left: 3px solid var(--accent2);">
+          <h4 style="margin-top:0; font-size:14px; color:var(--accent2); text-transform:uppercase; letter-spacing:0.5px;">🎁 Rewards Listed</h4>
+          ${rewardsHtml || '<p class="text-muted" style="font-size:12.5px; margin:0;">No explicit loot or XP listed.</p>'}
+        </div>
+      </div>
+    </div>
+  `;
+  window.scrollTo(0,0);
+}
+
+
 function openBookReader(bookId) {
   const books = (DATA.books && DATA.books.books) || (window.BOOKS_DATA && window.BOOKS_DATA.books) || [];
   const book = books.find(b => b.id === bookId || String(b.title).toLowerCase().includes(String(bookId).toLowerCase()));
@@ -14273,6 +14558,14 @@ const Router={
     else if(route==='mission-control'||route==='squad-prep'){
       view_mission_control();
     }
+    else if(route==='quests'||route==='quest'){
+      const parts=arg.split('/');
+      if(parts[0] && parts[0]!=='all' && parts[0]!=='active' && parts[0]!=='completed'){
+        view_quest_detail(parts[0]);
+      } else {
+        view_quests_ledger(parts[0]);
+      }
+    }
     else if(route==='book')openBookReader(arg);
     else if(route==='intel')view_dynasties();
     else if(route==='login')view_login();
@@ -14354,7 +14647,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.te
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs'];
+  'trials','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
