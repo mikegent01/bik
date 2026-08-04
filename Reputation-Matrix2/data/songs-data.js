@@ -568,9 +568,28 @@ And those silver-tipped boots look so nice on my feet!
 Don't worry about paying your transit-stamp bills,  
 I'll spend all your coins in the Midgrual hills!  
   
+[Pre-Chorus - fingers walking pocket to pocket]  
+One for the road, and one for the door,  
+And one little spell-book, just to be sure.  
+You won't miss a thing when you wake with the sun—  
+Purple T's already three towns and gone.  
+  
+[Bridge - a floorboard creaks; the singing drops to a breath]  
+Shh... don't stir now, don't you dare wake,  
+This lullaby's sung for both our sakes.  
+You dream of glory, you dream of gold,  
+And I collect the interest, so I'm told.  
+  
+[Final Chorus - a little louder, a little braver near the door]  
+Hush-a-bye, Archie, don't make a sound,  
+By the time you're stirring I won't be found.  
+A wizard who sleeps is a wizard who pays,  
+For resting his head in the shadowfell haze!  
+  
 [Outro - footsteps tiptoeing away]  
 Sleep now, wizard... sleep so deep...  
-While I make a sixty-gold leap!`,
+While I make a sixty-gold leap!  
+*(The door clicks shut. Not even a whisper of a hinge.)*`,
         context: "Sung softly by Purple T while Archie Miser was pinned to a bed, soothing the wizard while robbing his pockets blind.",
         critique: "A lullaby with a 100% successful theft rate. Utterly shameless.",
         notes: "E4 G4 A4 E4"
@@ -601,12 +620,22 @@ But a Toad must sing for Toadstool's crown!
 If there's a trap behind the wood,  
 A four-part chorus does us good!  
   
+[Verse 3 - someone's brought a tambourine from somewhere]  
+Green T's found a tambourine,  
+Nobody knows where it's been!  
+Rattles is tapping out the beat,  
+Right on Markop's checking feet!  
+  
 [Bridge - Markop yelling in background]  
 *(Markop: "WILL YOU STOP SINGING?! I CAN'T HEAR THE LOCK CLICK!!")*  
+*(A Toad, sotto voce: "...should we hum it instead?")*  
+*(The entire cohort immediately begins humming the chorus at the same volume.)*  
   
 [Final Chorus - fortissimo]  
 AT THE DOOR! WE SING AT THE DOOR!  
 TILL RATTLES DROPS ONTO THE FLOOR!  
+WE'VE GOT NO SHAME AND WE'VE GOT NO FEAR,  
+JUST FOUR-PART HARMONY, LOUD AND CLEAR!  
 WAH-HOO!`,
         context: "While Markop was delicately listening for magical traps behind an ancient door, the Toad escort cohort began singing a loud marching tune directly behind him.",
         critique: "Toads do not understand doors. They believe every closed door is an invitation for an opera.",
@@ -638,12 +667,26 @@ And Vigilance fell from the skies,
 The Toad God sat upon his throne,  
 And claimed the astral for his own.  
   
-[Bridge - ritual croaking]  
-*(Low, rhythmic croaking echoing across the astral pond)*  
+[Verse 3 - the dream deepens, the water rises]  
+No prophet walks the astral shore,  
+Who wasn't drowned and dreamed before.  
+The lilies part, the stars go dim,  
+And every wandering eye finds him.  
   
-[Final Chorus]  
+[Bridge - ritual croaking, building in layers]  
+*(A single low croak, echoing across the astral pond.)*  
+*(A second voice answers. Then a third. Then a hundred, in perfect unison, until the sound is less a chant than a tide.)*  
+Come down, come down, beneath the reeds,  
+The Toad God hungers, the Toad God feeds—  
+Not on flesh, but on the truth you hide,  
+He'll croak it back on the rising tide.  
+  
+[Final Chorus - the full choir, echoing into silence]  
 GLORY TO THE PRIMORDIAL CROAK!  
-THE ENDLESS SWAMP THAT CANNOT BROKE!`,
+THE ENDLESS SWAMP THAT CANNOT BROKE!  
+FROM ESTRAGON TO ASTRAL STAR,  
+HE KNOWS EXACTLY WHERE YOU ARE...  
+*(The croaking fades to a single, final ripple.)*`,
         context: "A liturgical chant heard by Archie Miser in his divine-contaminated dream before confronting Original Dan.",
         critique: "A Gregorian chant with too much swamp mud. Highly ominous.",
         notes: "D3 A3 D4 A3"
@@ -674,9 +717,23 @@ We crush the chaos down below.
 Your magic rings and rebel cries,  
 Dissolve beneath Imperial skies!  
   
+[Pre-Chorus - rifles snapping to attention]  
+Left, right, left, the columns fall in line,  
+Every rebel banner surrendered on time.  
+Freedom is a footnote, chaos is a crime,  
+Compliance is forever, and forever's overtime!  
+  
+[Verse 3 - the garrison rolls south]  
+We paved the roads with broken chains,  
+We drained the marsh, we salted plains.  
+No Speaker's writ, no Toadstool seal,  
+Outranks the stamp of Legion steel.  
+  
 [Final Chorus - thunderous salute]  
 COMPLY! SUBMIT! ENFORCE THE CODE!  
-THE LEGION STANDS UPON THE ROAD!`,
+THE LEGION STANDS UPON THE ROAD!  
+NO TOAD SHALL PASS WITHOUT A WRIT,  
+IN GENERAL IRONHAND'S IRON PIT!`,
         context: "The official marching song of the Iron Legion, sung during border checkpoints and compliance enforcement.",
         critique: "A military march that sounds like a tax audit being hammered into an anvil.",
         notes: "C4 G4 C5 G4"
@@ -707,15 +764,24 @@ And let my woven fibers fall!
 I added Guild inspection fees,  
 And rubber-duckie warranties!  
   
+[Verse 3 - the ledger keeps growing]  
+I've added late fees, day by day,  
+Compounding while he runs away!  
+A filing fee, a stamping fee,  
+A fee for filing THIS decree!  
+  
 [Bridge - stamping the document]  
 You think a rope is only string?!  
 To an auditor, it's EVERYTHING!  
 I've filed a warrant with the state,  
 And Archie Miser meets his fate!  
+*(He stamps the ledger seventeen more times, for emphasis.)*  
   
 [Final Chorus - grand opera finish]  
 TWO THOUSAND SIXTY-TWO IN GOLD!  
-PAY THE INVOICE BEFORE YOU'RE COLD!`,
+PAY THE INVOICE BEFORE YOU'RE COLD!  
+OH, ARCHIE MISER BROKE MY ROPE—  
+AND SIGNED IN BLOOD HIS FINANCIAL DOPE!`,
         context: "Sung by Thornbury at Alpine Bank while filing a 2,062-gold Imperial bounty against Archie Miser over a broken hemp rope.",
         critique: "The most expensive piece of string in human history, set to dramatic opera.",
         notes: "E4 A4 C5 E5"
@@ -746,8 +812,21 @@ So turn the deadbolt on your door!
 Why are you hiding in the dark?  
 We only want your Legion mark!  
   
+[Bridge - the falsetto starts to crack under the weight of the gauntlets]  
+I've got a feather duster here,  
+*(CLANG)* —and nothing else, my dear!  
+That wasn't me, that clattering sound,  
+Just... housekeeping cutlery on the ground!  
+  
+[Verse 3 - the knocking gets less polite]  
+The lace is torn, the wig's askew,  
+The floorboards groan with every shoe.  
+We've dropped the act, we've dropped the broom,  
+Open this door or we take the room!  
+  
 [Outro - dropping falsetto to deep baritone]  
-*(Deep growl)* "Open the door, skeleton, or I'm chopping it down with my broadsword."`,
+*(Deep growl)* "Open the door, skeleton, or I'm chopping it down with my broadsword."  
+*(A pause. Then, weakly, back in falsetto:)* "...Please?"`,
         context: "Sung in a falsetto voice by a six-foot-tall Iron Legion knight in a frilly lace apron while knocking on Bones's hotel room door.",
         critique: "A heavy infantry knight singing falsetto through a keyhole. 0/10 optical camouflage.",
         notes: "C5 A4 F4 C4"
@@ -772,11 +851,29 @@ An iron pact of royal love!
 Let centuries of warfare cease,  
 In Rose-Shell diplomatic peace!  
   
-[Verse 2]  
+[Verse 2 - the court still humming with hope]  
+The minstrels played beneath the arch,  
+The banners rose for Highsun's march.  
+Two crowns, two claws, one waiting throne,  
+No kingdom left to stand alone.  
+  
+[Verse 3]  
 But tea was brewed and shadows fell,  
 Upon the castle and the shell.  
 The Princess died in Highsun's flame,  
 And left a kingdom lost in blame.  
+  
+[Bridge - the harp falters, one string at a time]  
+No one saw the poisoner's hand,  
+No one read the borders of the land.  
+The Koopa waited at the door,  
+For a bride who'd never dance no more.  
+  
+[Final Chorus - slower, in a minor key]  
+Oh, burn the treaty, break the dove!  
+No iron pact of royal love!  
+Let eighty-five long years of war,  
+Remember what the tea-cup bore!  
   
 [Outro - mournful solo violin]  
 The treaty burned, the petals shed...  
@@ -793,11 +890,18 @@ And now the Rose-Shell pact is dead.`,
         performers: "Wario & WarioWare Executives",
         sourceTitle: "Wario's Enterprise Dossier",
         sourceId: "wario_enterprise",
-        lyrics: `[Verse 1 - aggressive corporate cheerleading beat]  
+        lyrics: `[Intro - Wario slams a ledger on the boardroom table]  
+"ALL RIGHT, LISTEN UP! QUARTERLY MEETING IS NOW IN SESSION! WAH-HA-HA!"  
+  
+[Verse 1 - aggressive corporate cheerleading beat]  
 WAH-HA-HA! Give me the gold!  
 Silver, ducats, new and old!  
 Every coin that you can see,  
 Belongs to Wario's company!  
+Sign right here, don't read the print,  
+The fine text is a gold-plated hint!  
+By the time you find the clause,  
+I'll already own your jaws!  
   
 [Chorus - pounding brass knuckles on executive boardroom table]  
 CHARGE THEM INTEREST! CHARGE THEM FEE!  
@@ -810,6 +914,26 @@ Waluigi, get the sack!
 Shove the diamonds in the back!  
 We don't care about the lore,  
 AS LONG AS WE CAN BILL THEM MORE!  
+  
+[Pre-Chorus - Wario counting on fat gloved fingers]  
+One coin for the vault, one coin for me,  
+One coin for a coin-counting fee!  
+A fee to count the fee I made,  
+That's just smart business, don't be afraid!  
+  
+[Bridge - the boardroom table cracks under a fist]  
+(Waluigi, from the corner, muttering: "This is not how a company works, Wario—")  
+"SHUT UP, IT'S WORKING! LOOK AT THE VAULT!"  
+Profit's not a crime, it's an art,  
+And greed, my friends, is my beating heart!  
+  
+[Final Chorus - the whole boardroom pounding the table]  
+CHARGE THEM INTEREST! CHARGE THEM FEE!  
+EVERYTHING BELONGS TO ME!  
+IF THEY COMPLAIN ABOUT THE PRICE,  
+SHOULDER-BASH THEM ONCE OR TWICE!  
+STAMP THE INVOICE! SEAL THE DEAL!  
+WARIO ENTERPRISES—THAT'S THE REAL DEAL!  
 WAH!!`,
         context: "Wario's personal corporate anthem, chanted whenever he opens a vault, eats a ledger, or charges an ally interest.",
         critique: "Legally classified as industrial noise rather than music. WAH!",
@@ -841,13 +965,25 @@ And waved goodbye to the Mushroom King!
 Up on the stairs he built his pace,  
 And longjumped out of time and space!  
   
+[Verse 3 - the whole tavern joining in, half-remembered]  
+No plumber's wrench, no fireflower's heat,  
+Just a running start and a set of feet!  
+Some say he's farming, some say he's dead,  
+Some say he's married a mushroom instead!  
+  
 [Bridge]  
 *(Wario yelling in the tavern)*  
 "QUIET! WHO SAYS MARIO RETIRED?! WHERE'S THE FARM?!"  
+*(A regular, unbothered, refilling his tankard: "Nobody knows, Wario. That's the whole song.")*  
+*(Wario, louder: "I'LL FIND THAT FARM IF I HAVE TO BUY EVERY ACRE ON THE CONTINENT!")*  
   
-[Final Chorus - roaring pub singalong]  
+[Final Chorus - roaring pub singalong, tankards slamming the tables]  
 SO CROUCH AND JUMP! YA-HOO! YA-HOO!  
-CLIP RIGHT OUT OF THE REGENCY BLUE!`,
+CLIP RIGHT OUT OF THE REGENCY BLUE!  
+WHY FIGHT A TURTLE FOR THIRTY YEARS?!  
+WHEN YOU CAN RETIRE WITH EASTERN BEERS?!  
+NO ONE'S SEEN HIM, NO ONE KNOWS,  
+BUT EVERY TAVERN IN THE KINGDOM SINGS HOW IT GOES!`,
         context: "A popular underground tavern song that emerged after rumors spread of Mario backwards longjumping out of his heroic duties to retire on an eastern farm.",
         critique: "The catchy folk song that drove Wario to kidnap Luigi. 10/10 chorus, 0/10 diplomatic aftermath.",
         notes: "A4 G4 E4 A4"
@@ -873,10 +1009,28 @@ Now statues of ice in the mountain pass,
 Preserved in winter's frozen glass.  
   
 [Verse 2]  
+They marched with steam and marched with pride,  
+No dwarf had known so cold a tide.  
+The engineers cried out too late—  
+"Turn back!"—but iron does not wait.  
+  
+[Bridge - a single low horn, held for a long breath]  
+No grave was dug, no bell was rung,  
+No name was carved, no dirge was sung—  
+Until the wind itself learned how,  
+To hum the tune we're singing now.  
+  
+[Verse 3]  
 Eighty-seven years have flown,  
 Upon those battlements of stone.  
 The landships rust, the boilers crack,  
-And not a soldier has come back.`,
+And not a soldier has come back.  
+  
+[Final Chorus - the full brass section, fading to a single horn]  
+Oh, Gamma Division, proud and tall,  
+Who thought human iron could conquer all.  
+Sleep now, iron. Sleep now, steel.  
+The mountain keeps what the mountain will.`,
         context: "A mournful historical ballad commemorating the freeze of the Imperial landships in Blackfen Pass.",
         critique: "A tragic ballad that should remind military planners to buy winter oil.",
         notes: "A3 C4 E4 A3"
@@ -903,7 +1057,29 @@ SHALL FORWARD-BIND A TOAD IN IT!
   
 [Verse 2]  
 From Vigilance to Mushroom hall,  
-We answer to the Speaker's call!`,
+We answer to the Speaker's call!  
+Through barrel-fall and burning sky,  
+We found our voice, we learned to fly!  
+  
+[Bridge - the choir splits into rounds, voices overlapping]  
+(Section One): By Pond and Docket—  
+(Section Two): —writ and sign—  
+(Section Three): —no longer shall our spores recline!  
+(All, together): Resolution Seventeen is LAW!  
+  
+[Verse 3]  
+Let every garrison take note,  
+A Toad's allegiance is by vote!  
+Not forged in chains, not stamped in fear,  
+But signed in ink the Speaker holds dear!  
+  
+[Final Chorus - full four-part choir, triumphant]  
+WE ARE THE FREE! WE ARE THE TOADS!  
+WE GUARD THE POND AND WATCH THE ROADS!  
+NO IMPERIAL CHAIN OR LEGION WRIT,  
+SHALL FORWARD-BIND A TOAD IN IT!  
+BY POND AND DOCKET, NOW AND EVER—  
+LIBERATED TOADS, FOREVER!`,
         context: "The legal hymn sung at assembly sessions of the Liberated Toads.",
         critique: "A legal document arranged for four-part choir. Shockingly inspiring.",
         notes: "C4 F4 A4 C5"
@@ -917,15 +1093,28 @@ We answer to the Speaker's call!`,
         sourceTitle: "The Arunedeal Goblin Camp Refuge",
         sourceId: "bones_alpine_bank_eavesdropping_and_inn_refuge",
         lyrics: `[Intro - a shrill, melodic three-note whistle that sounds like winter wind through bamboo]  
+Whee-oo-whee... whee-oo-whee...  
+*(The notes climb and fall, climb and fall, never quite resolving—like a question the wind keeps asking.)*  
   
 [Stage Direction]  
-*(Elbow taps his gnarled green staff on the frozen ground. The whistle rises in pitch, echoing through the pines.)*  
+*(Elbow taps his gnarled green staff on the frozen ground. The whistle rises in pitch, echoing through the pines. Frost creeps outward from where the staff touches snow.)*  
+  
+[Verse - the whistle takes on a shape, almost words]  
+Whee-oo... the pines remember,  
+Whee-oo... the frost knows your name.  
+Whee-oo... you took what wasn't offered,  
+Whee-oo... the wood repays the same.  
   
 [Spoken Word / Incantation in Draconic]  
 "0sTlw cm6... v4N 5ih3Z." (Thank you... for your armor and tools.)  
+*(He says it gently, almost kindly. That's the worst part.)*  
   
 [Chorus - the buzzing hum of stinging fey spirits]  
-*(BZZZZZZT!! Hundreds of tiny glowing green hornets erupt from the staff, stinging every goblin in the camp until they scatter into the blizzard)*`,
+*(BZZZZZZT!! Hundreds of tiny glowing green hornets erupt from the staff, stinging every goblin in the camp until they scatter into the blizzard.)*  
+  
+[Outro - the whistle fades back to three notes, unhurried]  
+Whee-oo-whee... whee-oo-whee...  
+*(Elbow taps the staff once more. The hornets vanish. The pines go quiet. He walks on as if nothing happened at all.)*`,
         context: "Whistled by Elbow to summon stinging fey spirits from his green staff to scatter the Arunedeal goblin tribe.",
         critique: "Short, sharp, and results in twenty goblins running for their lives. Excellent tactical melody.",
         notes: "G5 E5 A5 G5"
@@ -954,7 +1143,29 @@ And one falls to the crimson blade.
 Oh, Vivian hunts down corridor three,  
 With death-beam magic running free.  
 The tapestry begins to tear,  
-Within the Raventree despair!`,
+Within the Raventree despair!  
+  
+[Verse 3 - the choir splits into three overlapping lines, one per thread]  
+(Past): I was the first, I wove the gold—  
+(Present): I am the thread that others hold—  
+(Future): I am the one who has not come,  
+(All): Yet still I bleed for what's begun!  
+  
+[Bridge - the harpsichord stops; only the soprano remains]  
+No blade may choose which thread to sever,  
+No lord may live in one thread ever.  
+Cut the past, and the present dies,  
+Cut the future, and the past lies.  
+So bind them tight, so bind them true,  
+Or lose all three, all three, all three...  
+  
+[Final Chorus - full choir, dissonant and unresolved]  
+Past and Present, Future dark,  
+Bound together by the dragon's mark.  
+One screams in frost, one bleeds in shade,  
+And one falls to the crimson blade—  
+And when the final thread goes still,  
+The Raventree will bear the bill.`,
         context: "An ancient family rhyme prophesying the metaphysical collapse of House Corvinarus if any of the three planar threads are severed.",
         critique: "A Gothic rhyme that predicted Vivian Corvinarus hunting party members with red death-beams. Ominous.",
         notes: "E4 B3 G3 E3"
