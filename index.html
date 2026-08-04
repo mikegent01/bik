@@ -13792,6 +13792,10 @@ function view_mission_control() {
       .summary-stat { border: 1px solid var(--border); padding: 10px 12px; border-radius: 8px; background: var(--panel); text-align: center; }
       .summary-stat strong { display: block; font-size: 18px; color: var(--accent2); }
       .summary-stat span { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+      .mission-grid-container { display: grid; grid-template-columns: 1fr 340px; gap: 14px; margin-top: 14px; }
+      @media (max-width: 950px) {
+        .mission-grid-container { grid-template-columns: 1fr; }
+      }
     </style>
     
     <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
@@ -13860,12 +13864,12 @@ function view_mission_control() {
         <h3 style="margin: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🛡️</span> Active Deployed Seats (Maximum ${maxSlots})</h3>
         ${overextensionCost > 0 ? `<span style="font-size: 12.5px; color: var(--danger); font-weight: 700;">${overextensionLabel}</span>` : ''}
       </div>
-      <div style="display: grid; grid-template-columns: repeat(${maxSlots}, 1fr); gap: 10px; margin-top: 10px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 10px;">
         ${slotsHtml}
       </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 340px; gap: 14px; margin-top: 14px;">
+    <div class="mission-grid-container">
       <div>
         <!-- Roster Section -->
         <div class="card" style="margin: 0;">
