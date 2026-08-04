@@ -13533,10 +13533,9 @@ const WARIO_SHOP_CATALOG = [
 
 const MISSION_BUDGET = 24;
 
-let currentSquadSlots = [null, null, null, null, null]; // 5 starting slots
+let currentSquadSlots = []; // Dynamic array of active deployed companions
 let currentSelectedUpgrades = new Set();
 
-// Persistent voting nominations
 let activeVotes = {
   bowser: '',
   archie: '',
@@ -13565,12 +13564,6 @@ function saveFatigueStates(states) {
     } catch (e) {}
 }
 
-function is6thSeatUnlocked() {
-  try {
-    return localStorage.getItem('waluipedia-6th-seat') === 'true';
-  } catch (e) { return false; }
-}
-
 function view_mission_control() {
   renderSidebar('mission-control');
   
@@ -13582,25 +13575,12 @@ function view_mission_control() {
   const goldBalance = wallet.currencies ? (wallet.currencies.gold || 0) : 100;
   const isDebt = goldBalance < 0;
 
-  // Manage slots count (5 default, 6 if unlocked)
-  const has6th = is6thSeatUnlocked();
-  const maxSlots = has6th ? 6 : 5;
-  if (currentSquadSlots.length !== maxSlots) {
-    const newSlots = [null, null, null, null, null, null].slice(0, maxSlots);
-    for (let i = 0; i < Math.min(currentSquadSlots.length, maxSlots); i++) {
-      newSlots[i] = currentSquadSlots[i];
-    }
-    currentSquadSlots = newSlots;
-  }
-
   // Calculate current point totals
   let squadPoints = 0;
-  const filledCount = currentSquadSlots.filter(id => id !== null).length;
+  const filledCount = currentSquadSlots.length;
   currentSquadSlots.forEach(id => {
-    if (id) {
-      const comp = COMPANIONS.find(c => c.id === id);
-      if (comp) squadPoints += comp.cost;
-    }
+    const comp = COMPANIONS.find(c => c.id === id);
+    if (comp) squadPoints += comp.cost;
   });
 
   const affordableUpgrades = WARIO_SHOP_CATALOG.filter(item => item.price <= Math.max(0, goldBalance));
@@ -13623,49 +13603,69 @@ function view_mission_control() {
 
   const hasAtLeastFour = filledCount >= 4;
   const underBudget = remainingPoints >= 0;
-  const canLaunch = hasAtLeastFour && underBudget;
+
+  // Overextension Maintenance Gold Cost calculation
+  let overextensionCost = 0;
+  let overextensionLabel = 'Standard Squad (No maintenance cost)';
+  let overextensionColor = 'var(--green)';
+
+  if (filledCount === 5) {
+    overextensionCost = 50;
+    overextensionLabel = '⚠️ Overextended Squad (Costs 50 gp maintenance)';
+    overextensionColor = 'var(--accent2)';
+  } else if (filledCount === 6) {
+    overextensionCost = 150;
+    overextensionLabel = '🚨 Deep Overextension (Costs 150 gp maintenance)';
+    overextensionColor = 'var(--danger)';
+  } else if (filledCount === 7) {
+    overextensionCost = 300;
+    overextensionLabel = '☠️ Extreme Overextension (Costs 300 gp maintenance)';
+    overextensionColor = 'var(--danger)';
+  } else if (filledCount > 7) {
+    overextensionCost = 300 + (filledCount - 7) * 200;
+    overextensionLabel = `☠️ Critical Overextension (Costs ${overextensionCost} gp maintenance)`;
+    overextensionColor = 'var(--danger)';
+  }
+
+  const canAffordMaintenance = isDebt ? false : (goldBalance >= overextensionCost);
+  const canLaunch = hasAtLeastFour && underBudget && canAffordMaintenance;
 
   // Strategic reward modifier (Multiplier)
   let challengeRating = 'Standard Run (1.0x Rewards)';
   let ratingColor = 'var(--green)';
-  let multiplier = 1.0;
   if (totalPointsSpent < 15) {
     challengeRating = 'Heroic Run (2.0x Gold & Standing!)';
     ratingColor = '#ffd166';
-    multiplier = 2.0;
   } else if (totalPointsSpent < 20) {
     challengeRating = 'Hard Run (1.5x Gold & Standing!)';
     ratingColor = 'var(--accent2)';
-    multiplier = 1.5;
   }
 
-  // Deployed seats rendering
-  const slotsHtml = currentSquadSlots.map((id, index) => {
-    if (id) {
-      const comp = COMPANIONS.find(c => c.id === id);
-      const isCore = CORE_CHARACTERS.has(id);
-      const badgeStyle = isCore ? 'background: var(--green)22; border-color: var(--green); color: var(--green);' : 'background: var(--accent)22; border-color: var(--accent); color: var(--accent);';
-      return `
-        <div class="summary-stat" style="position: relative; text-align: left; display: flex; align-items: center; gap: 8px; background: rgba(138, 75, 255, 0.08); border: 2px solid var(--accent); padding: 8px 10px; border-radius: 8px; cursor: pointer;" onclick="openSlotSelector(${index})">
-          <span style="font-size: 24px;">${comp.icon}</span>
-          <div style="flex: 1; min-width: 0;">
-            <div style="font-size: 8px; color: var(--muted); text-transform: uppercase;">SEAT ${index + 1}</div>
-            <strong style="font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${esc(comp.name)}</strong>
-            <span class="pill" style="font-size: 7.5px; padding: 0px 3px; ${badgeStyle}">${isCore ? 'CORE' : 'COMPANION'}</span>
-          </div>
-          <span class="chip" style="margin: 0; font-size: 9px; padding: 1px 4px; background: var(--accent2)22; border-color: var(--accent2); color: var(--accent2);">${comp.cost}pt</span>
-          <button onclick="clearSlot(${index}); event.stopPropagation();" style="position: absolute; top: -6px; right: -6px; border-radius: 50%; width: 18px; height: 18px; border: 1px solid var(--border); background: var(--panel2); color: var(--text); font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 9px; z-index: 10;">✕</button>
+  // Deployed seats rendering (dynamic list of filled seats + 1 empty indicator)
+  const occupiedSlotsHtml = currentSquadSlots.map((id, index) => {
+    const comp = COMPANIONS.find(c => c.id === id);
+    const isCore = CORE_CHARACTERS.has(id);
+    const badgeStyle = isCore ? 'background: var(--green)22; border-color: var(--green); color: var(--green);' : 'background: var(--accent)22; border-color: var(--accent); color: var(--accent);';
+    return `
+      <div class="summary-stat" style="position: relative; text-align: left; display: flex; align-items: center; gap: 8px; background: rgba(138, 75, 255, 0.08); border: 2px solid var(--accent); padding: 8px 10px; border-radius: 8px;">
+        <span style="font-size: 24px;">${comp.icon}</span>
+        <div style="flex: 1; min-width: 0;">
+          <div style="font-size: 8px; color: var(--muted); text-transform: uppercase;">SEAT ${index + 1}</div>
+          <strong style="font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">${esc(comp.name)}</strong>
+          <span class="pill" style="font-size: 7.5px; padding: 0px 3px; ${badgeStyle}">${isCore ? 'CORE' : 'COMPANION'}</span>
         </div>
-      `;
-    } else {
-      return `
-        <div class="summary-stat" onclick="openSlotSelector(${index})" style="cursor: pointer; border: 2px dashed var(--border); padding: 12px 6px; text-align: center; background: var(--panel); border-radius: 8px;">
-          <span style="font-size: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 2px;">SEAT ${index + 1}</span>
-          <span style="font-size: 9px; color: var(--muted);">WAITING...</span>
-        </div>
-      `;
-    }
+        <span class="chip" style="margin: 0; font-size: 9px; padding: 1px 4px; background: var(--accent2)22; border-color: var(--accent2); color: var(--accent2);">${comp.cost}pt</span>
+        <button onclick="clearSlot(${index}); event.stopPropagation();" style="position: absolute; top: -6px; right: -6px; border-radius: 50%; width: 18px; height: 18px; border: 1px solid var(--border); background: var(--panel2); color: var(--text); font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 9px; z-index: 10;">✕</button>
+      </div>
+    `;
   }).join('');
+
+  const slotsHtml = occupiedSlotsHtml + `
+    <div class="summary-stat" onclick="openSlotSelector(${filledCount})" style="cursor: pointer; border: 2px dashed var(--border); padding: 12px 6px; text-align: center; background: var(--panel); border-radius: 8px;">
+      <span style="font-size: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 2px;">SEAT ${filledCount + 1}</span>
+      <span style="font-size: 9px; color: var(--muted);">WAITING...</span>
+    </div>
+  `;
 
   // Roster rendering by category
   const renderGroup = (title, filterFn) => {
@@ -13728,25 +13728,16 @@ function view_mission_control() {
 
   // Wario Shop Stock side-panel
   let upgradesHtml = '';
-  if (curU === 'archie' || curU === 'archie_miser') {
+  if (isDebt) {
+    const debtAmt = Math.abs(goldBalance);
+    const whyNote = curU === 'archie' || curU === 'archie_miser'
+      ? `Archie Miser currently carries an active 34-gold debt due to Thornbury's aggressive billing for broken rope, bath supplies, and rubber duckies at the Alpine Bank.` 
+      : `Wario's ledger records an active negative credit balance for this operator.`;
     upgradesHtml = `
       <div class="wnote" style="border-left-color: var(--danger); background: rgba(239, 68, 68, 0.06); text-align: center; padding: 20px; grid-column: 1/-1;">
         <span style="font-size: 32px; display: block; margin-bottom: 8px;">🚫 CREDIT DENIED</span>
         <b style="color: var(--danger);">Wario says:</b> "WAH! Archie! I'm not selling you any of Wario's elite stocks! Thornbury still wants his <b>2,175 DUCATS</b> for that bath-house rubber duck incident, and the Mages Guild has locked your credit! I'm cooperating with their financial blockade—and besides, you still owe me <b>1,474 Wario Coins</b> for 'emergency expenses' too! Pay off your bills at the bank first, rubber-duck arsonist! WAH!"
-        <p style="font-size: 12.5px; color: var(--muted); margin: 10px 0 12px; max-width: 500px; margin-left: auto; margin-right: auto;">
-          Archie Miser carries multiple active institutional debts at the bank. Wario refuses to trade until these are settled.
-        </p>
-        <div style="display: flex; gap: 8px; justify-content: center;">
-          <a class="chip active" href="currency.html">🏦 Go to bank balance ledger</a>
-        </div>
-      </div>
-    `;
-  } else if (isDebt) {
-    const debtAmt = Math.abs(goldBalance);
-    upgradesHtml = `
-      <div class="wnote" style="border-left-color: var(--danger); background: rgba(239, 68, 68, 0.06); text-align: center; padding: 20px; grid-column: 1/-1;">
-        <span style="font-size: 32px; display: block; margin-bottom: 8px;">🚫 CREDIT DENIED</span>
-        <b style="color: var(--danger);">Wario says:</b> "WAH! I don't give credit to bums with negative coins! Pay off your debt of <b>${debtAmt} gold</b> at the currency bank first!"
+        <p style="font-size: 12.5px; color: var(--muted); margin: 10px 0 12px; max-width: 500px; margin-left: auto; margin-right: auto;">${esc(whyNote)}</p>
         <div style="display: flex; gap: 8px; justify-content: center;">
           <a class="chip active" href="currency.html">🏦 Go to bank balance ledger</a>
         </div>
@@ -13813,7 +13804,6 @@ function view_mission_control() {
       </div>
       <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
         <button class="chip active" onclick="autofillCoreCast()" style="background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; cursor: pointer; padding: 6px 16px; box-shadow: 0 4px 12px rgba(138,75,255,0.25);">✨ Autofill Core Cast (4 Members)</button>
-        ${!has6th ? `<button class="chip" onclick="unlock6thSeat()" style="background: rgba(224,180,0,0.15); border-color: var(--accent2); color: var(--accent2); font-weight: 700; cursor: pointer; padding: 6px 16px;">⛺ Unlock 6th Squad Seat (Costs 200 gp)</button>` : '<span class="chip" style="background: rgba(34,197,94,0.12); border-color: var(--green); color: var(--green); font-weight:700;">⛺ 6th Squad Seat Unlocked</span>'}
       </div>
     </div>
 
@@ -13822,11 +13812,11 @@ function view_mission_control() {
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
         <div style="display: flex; gap: 8px; flex-wrap: wrap;">
           <div class="summary-stat">
-            <strong style="color: ${remainingPoints < 0 ? 'var(--danger)' : 'var(--accent2)'};">${remainingPoints} / ${MISSION_BUDGET}</strong>
+            <b style="font-size: 18px; color: ${remainingPoints < 0 ? 'var(--danger)' : 'var(--accent2)'};">${remainingPoints} / ${MISSION_BUDGET}</b>
             <span>Remaining Points</span>
           </div>
           <div class="summary-stat">
-            <strong>${filledCount} / ${maxSlots}</strong>
+            <strong>${filledCount}</strong>
             <span>Seats Occupied</span>
           </div>
           <div class="summary-stat">
@@ -13841,6 +13831,10 @@ function view_mission_control() {
             <strong style="${isDebt?'color:var(--danger);':''}">${goldBalance} gp</strong>
             <span>Active Capital (${esc(curU.toUpperCase())})</span>
           </div>
+          <div class="summary-stat" style="${overextensionCost > 0 ? 'border-color: var(--danger);' : ''}">
+            <strong style="${overextensionCost > 0 ? 'color: var(--danger);' : ''}">${overextensionCost} gp</strong>
+            <span>Overextended Cost</span>
+          </div>
           <div class="summary-stat">
             <strong style="color: ${ratingColor};">${challengeRating}</strong>
             <span>Squad Efficiency Modifier</span>
@@ -13851,6 +13845,7 @@ function view_mission_control() {
           <div style="font-size: 12.5px; color: var(--muted); margin-bottom: 6px;">
             ${!hasAtLeastFour ? '⚠️ <b style="color:var(--danger)">Form a full 4-member squad minimum to launch</b>' : ''}
             ${!underBudget ? '⚠️ <b style="color:var(--danger)">Exceeded point budget!</b>' : ''}
+            ${!canAffordMaintenance ? '⚠️ <b style="color:var(--danger)">Cannot afford overextension cost!</b>' : ''}
             ${canLaunch ? '✓ <b style="color:var(--green)">Tactical assemblies verified</b>' : ''}
           </div>
           <button id="launch-squad-btn" class="chip active" style="margin: 0; padding: 10px 24px; font-weight: 700; border-radius: 8px; cursor: ${canLaunch ? 'pointer' : 'not-allowed'}; background: ${canLaunch ? 'var(--accent)' : 'var(--border-dim)'}; border-color: ${canLaunch ? 'var(--accent)' : 'var(--border)'};" ${canLaunch ? '' : 'disabled'} onclick="launchSquadDeployment()">🚀 Deploy Prepped Squad</button>
@@ -13862,7 +13857,7 @@ function view_mission_control() {
     <div class="card">
       <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
         <h3 style="margin: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">🛡️</span> Active Deployed Seats (Maximum ${maxSlots})</h3>
-        ${remainingPoints > 0 ? `<span style="font-size: 12.5px; color: var(--green); font-weight: 700;">🪙 Unspent Points Wario Refund: +${remainingPoints * 25} gp on completion</span>` : ''}
+        ${overextensionCost > 0 ? `<span style="font-size: 12.5px; color: var(--danger); font-weight: 700;">${overextensionLabel}</span>` : ''}
       </div>
       <div style="display: grid; grid-template-columns: repeat(${maxSlots}, 1fr); gap: 10px; margin-top: 10px;">
         ${slotsHtml}
@@ -13892,7 +13887,7 @@ function view_mission_control() {
             ${generateVoteSelect('hjumpik', activeVotes.hjumpik)}
             ${generateVoteSelect('remi', activeVotes.remi)}
           </div>
-          <button class="chip active" onclick="tallyVotesAndDeploy()" style="width: 100%; text-align: center; justify-content: center; background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; cursor: pointer;">🗳️ Tally Ballot &amp; Auto-Deploy</button>
+          <button class="chip active" onclick="tallyVotesAndDeploy()" style="width: 100%; text-align: center; justify-content: center; background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; cursor: pointer; border-radius: 8px;">🗳️ Tally Ballot &amp; Auto-Deploy</button>
         </div>
 
         <!-- Wario Shop Stock side-panel -->
@@ -13919,26 +13914,22 @@ window.deployCompanion = function(compId) {
 
   const emptyIdx = currentSquadSlots.indexOf(null);
   if (emptyIdx === -1) {
-    alert("⚠️ Squad is at full capacity. Bench someone first!");
-    return;
+    // Dynamically append new empty slots when deploying beyond limit!
+    currentSquadSlots.push(compId);
+  } else {
+    currentSquadSlots[emptyIdx] = compId;
   }
 
-  currentSquadSlots[emptyIdx] = compId;
   view_mission_control();
 };
 
 window.benchCompanion = function(compId) {
-  const idx = currentSquadSlots.indexOf(compId);
-  if (idx !== -1) {
-    currentSquadSlots[idx] = null;
-  }
+  currentSquadSlots = currentSquadSlots.filter(id => id !== compId);
   view_mission_control();
 };
 
 window.autofillCoreCast = function() {
-  const has6th = is6thSeatUnlocked();
-  const maxSlots = has6th ? 6 : 5;
-  currentSquadSlots = Array(maxSlots).fill(null);
+  currentSquadSlots = [null, null, null, null, null];
   
   const coreArray = ['archie', 'markop', 'hjumpik', 'remi'];
   coreArray.forEach((id, index) => {
@@ -13953,12 +13944,8 @@ window.updateNomination = function(playerKey, value) {
 };
 
 window.tallyVotesAndDeploy = function() {
-  // Clear slots
-  const has6th = is6thSeatUnlocked();
-  const maxSlots = has6th ? 6 : 5;
-  currentSquadSlots = Array(maxSlots).fill(null);
+  currentSquadSlots = [null, null, null, null, null];
 
-  // Count votes
   const tallies = {};
   Object.values(activeVotes).forEach(id => {
     if (id) {
@@ -13966,35 +13953,16 @@ window.tallyVotesAndDeploy = function() {
     }
   });
 
-  // Sort by vote count descending
   const sorted = Object.entries(tallies).sort((a, b) => b[1] - a[1]);
   
-  // Deploy top voted into vacant slots
   let slotIdx = 0;
   sorted.forEach(([id, votes]) => {
-    if (slotIdx < maxSlots) {
+    if (slotIdx < 5) {
       currentSquadSlots[slotIdx] = id;
       slotIdx++;
     }
   });
 
-  view_mission_control();
-};
-
-window.unlock6thSeat = function() {
-  const curU = (typeof getCurrentUserId === 'function' ? getCurrentUserId() : null) || 'bowser';
-  const wallet = (typeof walletForChar === 'function' ? walletForChar(curU) : null) || (DATA && DATA.wallets && DATA.wallets[curU]) || { currencies: { gold: 100 } };
-  const gold = wallet.currencies ? (wallet.currencies.gold || 0) : 100;
-
-  if (gold < 200) {
-    alert(`Wario says: "WAH! You only have ${gold} gp. A 6th command seat costs 200 gp!"`);
-    return;
-  }
-
-  // Deduct gold
-  wallet.currencies.gold = gold - 200;
-  localStorage.setItem('waluipedia-6th-seat', 'true');
-  
   view_mission_control();
 };
 
@@ -14034,6 +14002,26 @@ window.launchSquadDeployment = function() {
   });
 
   saveFatigueStates(states);
+
+  // Apply overextension gold deduction persistently from the wallet balance
+  const curU = (typeof getCurrentUserId === 'function' ? getCurrentUserId() : null) || 'bowser';
+  const wallet = (typeof walletForChar === 'function' ? walletForChar(curU) : null) || DATA.wallets[curU];
+  let deductMsg = '';
+  
+  let overCost = 0;
+  if (filledCount === 5) overCost = 50;
+  else if (filledCount === 6) overCost = 150;
+  else if (filledCount === 7) overCost = 300;
+  else if (filledCount > 7) overCost = 300 + (filledCount - 7) * 200;
+
+  if (overCost > 0 && wallet && wallet.currencies) {
+    const oldGold = wallet.currencies.gold || 0;
+    wallet.currencies.gold = oldGold - overCost;
+    try {
+      localStorage.setItem('waluipedia-wallets-override', JSON.stringify(DATA.wallets));
+    } catch (e) {}
+    deductMsg = `<p style="color: var(--danger); font-weight: 700;">🪙 Overextended Squad Maintenance deducted! Charged -${overCost} gp from ${curU.toUpperCase()}'s wallet (new balance: ${wallet.currencies.gold} gp).</p>`;
+  }
 
   // Build beautiful mission deploy overlay
   const deployedNames = currentSquadSlots.map((id, index) => {
@@ -14132,6 +14120,8 @@ window.launchSquadDeployment = function() {
                 </ul>
               </div>
 
+              ${deductMsg}
+
               <div style="background: rgba(239,68,68,0.08); border-left: 3px solid var(--danger); padding: 10px 14px; border-radius: 6px; font-size: 12.5px; color: var(--text); margin-top: 14px;">
                   ℹ️ <strong>Roster fatigue updated:</strong> All deployed non-core squad members have now entered their rest cycles (RESTING - 2 missions). Core characters Archie, Hjumpik, Bowser, and Remi remain completely ready and immune to fatigue!
               </div>
@@ -14143,7 +14133,7 @@ window.launchSquadDeployment = function() {
   `;
 
   // Reset active selections
-  currentSquadSlots = [null, null, null, null, null];
+  currentSquadSlots = [];
   currentSelectedUpgrades.clear();
   activeVotes = { bowser: '', archie: '', hjumpik: '', remi: '' };
 
@@ -14155,185 +14145,6 @@ window.closeMissionResults = function() {
     if (modal) modal.remove();
     view_mission_control();
 };
-
-function view_banking(filterUser) {
-  renderSidebar('banking');
-  const h = location.hash;
-
-  const data = (DATA && DATA.banking) || {};
-  const accounts = data.bank_accounts || [];
-  const loans = data.loans || [];
-  const debts = data.debts || [];
-
-  const curU = filterUser || (typeof getCurrentUserId === 'function' ? getCurrentUserId() : null) || 'bowser';
-  const prettyUser = curU.replace(/_miser/g, '').replace(/_akamatsu_full_backstory/g, '').toLowerCase();
-
-  const coinIcon = (key) => {
-    const icons = {
-      gold: '🪙',
-      silver: '🥈',
-      copper: '🥉',
-      wario_coin: '💰',
-      wario_points: '🟡',
-      midland_ducat: '👑',
-      arcane_shard: '🔮',
-      transit_stamp: '🎟️',
-      shadow_obol: '🍷',
-      toad_bond: '🍄'
-    };
-    return icons[key] || '🪙';
-  };
-
-  const formatCurrency = (amount, key) => {
-    return `${coinIcon(key)} <b>${Number(amount).toLocaleString()}</b> <span class="text-muted" style="font-size: 11px;">${key.replace(/_/g, ' ').toUpperCase()}</span>`;
-  };
-
-  // Filter lists based on selected character
-  const userAccounts = accounts.filter(a => String(a.owner).toLowerCase().includes(prettyUser) || String(a.id).toLowerCase().includes(prettyUser));
-  const userLoans = loans.filter(l => String(l.borrower).toLowerCase().includes(prettyUser) || String(l.id).toLowerCase().includes(prettyUser));
-  const userDebts = debts.filter(d => String(d.debtor).toLowerCase().includes(prettyUser) || String(d.id).toLowerCase().includes(prettyUser));
-
-  // Render accounts list
-  const acctsHtml = userAccounts.map(a => {
-    return `
-      <div style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg2); margin-bottom: 8px;">
-        <div style="display: flex; justify-content: space-between; font-weight: 700;">
-          <span>🏦 ${esc(a.owner)}</span>
-          <span style="color: var(--green);">${formatCurrency(a.balance, a.currencyKey)}</span>
-        </div>
-        <div style="font-size: 11.5px; color: var(--muted); margin-top: 4px;">
-          Bank: <b>${esc(prettyId(a.bankId))}</b> · Interest: <b>${Math.round(a.interestRate * 100)}%</b>
-        </div>
-        ${a.note ? `<p style="margin: 4px 0 0; font-size: 11.5px; color: var(--text); font-style: italic;">"${esc(a.note)}"</p>` : ''}
-      </div>
-    `;
-  }).join('') || '<p class="text-muted" style="font-size:12.5px;">No active bank accounts found for this character.</p>';
-
-  // Render loans list
-  const loansHtml = userLoans.map(l => {
-    const isOverdue = l.status === 'overdue';
-    const color = isOverdue ? 'var(--danger)' : 'var(--accent2)';
-    const remaining = Math.max(0, l.principal - l.paid);
-    return `
-      <div style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg2); margin-bottom: 8px;">
-        <div style="display: flex; justify-content: space-between; font-weight: 700;">
-          <span>📈 ${esc(l.borrower)}</span>
-          <span style="color: ${color};">${formatCurrency(l.principal, l.currencyKey)}</span>
-        </div>
-        <div style="font-size: 11.5px; color: var(--muted); margin-top: 4px; display: flex; justify-content: space-between;">
-          <span>Paid: <b>${l.paid}</b> · Owed: <b>${remaining}</b></span>
-          <span class="pill" style="font-size: 9px; padding: 0px 6px; background: ${isOverdue?'var(--danger)22':'var(--accent2)22'}; border-color: ${color}; color: ${color};">${l.status.toUpperCase()}</span>
-        </div>
-        ${l.note ? `<p style="margin: 4px 0 0; font-size: 11.5px; color: var(--text); font-style: italic;">"${esc(l.note)}"</p>` : ''}
-      </div>
-    `;
-  }).join('') || '<p class="text-muted" style="font-size:12.5px;">No active bank loans found for this character.</p>';
-
-  // Render debts list
-  const debtsHtml = userDebts.map(d => {
-    const isOverdue = d.status === 'overdue' || d.status === 'defaulted';
-    const color = isOverdue ? 'var(--danger)' : 'var(--accent2)';
-    return `
-      <div style="padding: 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg2); margin-bottom: 8px;">
-        <div style="display: flex; justify-content: space-between; font-weight: 700;">
-          <span>👤 Owed to ${esc(d.creditor)}</span>
-          <span style="color: ${color};">${formatCurrency(d.amountOwed, d.currencyKey)}</span>
-        </div>
-        <div style="font-size: 11.5px; color: var(--muted); margin-top: 4px; display: flex; justify-content: space-between;">
-          <span>Original: <b>${d.originalAmount}</b> · Days: <b>${d.daysBorrowed}</b></span>
-          <span class="pill" style="font-size: 9px; padding: 0px 6px; background: ${isOverdue?'var(--danger)22':'var(--accent2)22'}; border-color: ${color}; color: ${color};">${d.status.toUpperCase()}</span>
-        </div>
-        ${d.note ? `<p style="margin: 6px 0 0; font-size: 12px; color: var(--text); line-height:1.4; background: rgba(255,255,255,0.02); padding: 6px; border-left: 2px solid var(--border); border-radius: 0 4px 4px 0;">${esc(d.note)}</p>` : ''}
-      </div>
-    `;
-  }).join('') || '<p class="text-muted" style="font-size:12.5px;">No outstanding debts found for this character.</p>';
-
-  // Financial ruin spotlight for Archie Miser
-  const isArchieSpotlight = prettyUser === 'archie';
-  const archieLiabilitiesHtml = isArchieSpotlight ? `
-    <div class="card" style="border-left: 4px solid var(--danger); background: rgba(239, 68, 68, 0.04); margin-bottom: 14px;">
-      <h3 style="margin: 0 0 6px; color: var(--danger); display: flex; align-items: center; gap: 8px;">🚨 FINANCIAL RUIN RECORD: ARCHIE MISER</h3>
-      <p style="font-size: 13.5px; color: var(--text); line-height: 1.5; margin: 0 0 10px;">
-        Waluigi's audit of Archie Miser's file reveals that his bank debt is severely critical. While his physical pocket-wallet shows a flat deficit of <b>-34 gold</b>, his true outstanding institutional debt ledger comprises multiple currencies across several courts:
-      </p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">
-        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border: 1px solid var(--border);">
-          <div style="font-size: 11px; text-transform: uppercase; color: var(--muted);">Thornbury's Legal Claim</div>
-          <div style="font-size: 18px; font-weight: 700; color: var(--danger); margin-top: 2px;">👑 2,175 <span style="font-size:11px; font-weight:400;">DUCALS</span></div>
-          <p style="margin: 4px 0 0; font-size: 11px; color: var(--muted);">Issued at Alpine Bank for a broken climbing rope, bath salts, and a rubber ducky.</p>
-        </div>
-        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border: 1px solid var(--border);">
-          <div style="font-size: 11px; text-transform: uppercase; color: var(--muted);">Wario Corporate Ledger</div>
-          <div style="font-size: 18px; font-weight: 700; color: var(--danger); margin-top: 2px;">💰 1,474 <span style="font-size:11px; font-weight:400;">WARIO COINS</span></div>
-          <p style="margin: 4px 0 0; font-size: 11px; color: var(--muted);">Accumulated emergency supplies, fees, and charges titled "because I said so."</p>
-        </div>
-        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border: 1px solid var(--border);">
-          <div style="font-size: 11px; text-transform: uppercase; color: var(--muted);">Mages Guild Requisition</div>
-          <div style="font-size: 18px; font-weight: 700; color: var(--danger); margin-top: 2px;">🔮 10.82 <span style="font-size:11px; font-weight:400;">SHARDS</span></div>
-          <p style="margin: 4px 0 0; font-size: 11px; color: var(--muted);">Consolidated components replacement bill filed under Guild itemization.</p>
-        </div>
-        <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border: 1px solid var(--border);">
-          <div style="font-size: 11px; text-transform: uppercase; color: var(--muted);">Active Pocket Deficit</div>
-          <div style="font-size: 18px; font-weight: 700; color: var(--danger); margin-top: 2px;">🪙 -34 <span style="font-size:11px; font-weight:400;">GOLD</span></div>
-          <p style="margin: 4px 0 0; font-size: 11px; color: var(--muted);">Physical cash deficit carried on-hand in the field wallet.</p>
-        </div>
-      </div>
-    </div>
-  ` : '';
-
-  const dropdownUsers = [
-    { id: 'bowser', name: 'Bowser' },
-    { id: 'archie', name: 'Archie Miser' },
-    { id: 'waluigi', name: 'Waluigi' },
-    { id: 'hjumpik', name: 'Hjumpik' },
-    { id: 'remi', name: 'Remi' },
-    { id: 'markop', name: 'Markop' }
-  ];
-
-  el('content').innerHTML = `
-    <div class="card animate-fade-in" style="border-left:4px solid var(--accent2);background:linear-gradient(135deg,rgba(224,180,0,.14),rgba(138,75,255,.08)),var(--panel)">
-      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Banking &amp; Debt</div>
-      <div class="home-section-head">
-        <div>
-          <h1 style="margin:0;font-size:26px">🏦 Imperial Banking Registry &amp; Debt Ledger</h1>
-          <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Secure vault deposits, institutional bank loans, and outstanding debt obligations of the Midlands — 1040 BF.</p>
-        </div>
-        <div>
-          <label style="font-size: 12.5px; color: var(--muted); font-weight: 700;">Filter by Operator: </label>
-          <select onchange="Router.go('#/banking/' + this.value)" style="background: var(--panel2); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 999px; font-weight: 700; cursor: pointer;">
-            ${dropdownUsers.map(u => `<option value="${u.id}" ${u.id===prettyUser?'selected':''}>${esc(u.name)}</option>`).join('')}
-          </select>
-        </div>
-      </div>
-    </div>
-
-    ${archieLiabilitiesHtml}
-
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px;">
-      <!-- Accounts Panel -->
-      <div class="card" style="margin: 0;">
-        <h3 style="margin-top: 0; font-size: 16px; color: var(--green);"><span class="title-icon">🏦</span> Vault Deposits</h3>
-        <p class="text-muted" style="font-size: 12px; margin: -6px 0 12px;">Banked capital and operational interest-bearing deposits.</p>
-        ${acctsHtml}
-      </div>
-
-      <!-- Loans Panel -->
-      <div class="card" style="margin: 0;">
-        <h3 style="margin-top: 0; font-size: 16px; color: var(--accent2);"><span class="title-icon">📈</span> Active Loans</h3>
-        <p class="text-muted" style="font-size: 12px; margin: -6px 0 12px;">Principal, interest, and term agreements under bank authority.</p>
-        ${loansHtml}
-      </div>
-
-      <!-- Debts Panel -->
-      <div class="card" style="margin: 0;">
-        <h3 style="margin-top: 0; font-size: 16px; color: var(--danger);"><span class="title-icon">🚨</span> Outstanding Debts</h3>
-        <p class="text-muted" style="font-size: 12px; margin: -6px 0 12px;">Fines, personal contracts, and unpaid bills across factions.</p>
-        ${debtsHtml}
-      </div>
-    </div>
-  `;
-  window.scrollTo(0, 0);
-}
 
 
 function openBookReader(bookId) {
