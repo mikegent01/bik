@@ -13746,7 +13746,7 @@ function view_mission_control() {
   } else if (affordableUpgrades.length === 0) {
     upgradesHtml = `
       <div class="wnote" style="border-left-color: var(--accent2); text-align: center; padding: 18px; grid-column: 1/-1;">
-        <span>👛 No affordable items available. Your current gold balance (<b>${goldBalance} gp</b>) is too low to purchase Wario's field stock.</span>
+        <span>👛 No affordable items available. Your current active capital (<b>${goldBalance} gp</b>) is too low to purchase Wario's field stock.</span>
       </div>
     `;
   } else {
@@ -13830,7 +13830,7 @@ function view_mission_control() {
           </div>
           <div class="summary-stat" style="${isDebt?'border-color:var(--danger);':''}">
             <strong style="${isDebt?'color:var(--danger);':''}">${goldBalance} gp</strong>
-            <span>Active Gold (${esc(curU.toUpperCase())})</span>
+            <span>Active Capital (${esc(curU.toUpperCase())})</span>
           </div>
           <div class="summary-stat">
             <strong style="color: ${ratingColor};">${challengeRating}</strong>
