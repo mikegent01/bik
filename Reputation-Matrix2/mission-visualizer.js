@@ -43,7 +43,7 @@ const LOCATIONS = {
         characters: [
             { id: 'ryan', name: "Ryan", status: "Fleeing", pos: { x: 6, y: 0, z: 6 }, portrait: "toads/ryan.png", scale: 1.5 },
             { id: 'aie', name: "Aie (Traitor)", status: "Opening Doors", pos: { x: -2, y: 0, z: 0 }, portrait: "toads/toad.png", scale: 1.4 },
-            { id: 'legion_officer', name: "Legion Officer", status: "Breaching", pos: { x: 0, y: 0, z: -10 }, portrait: "portraits/colonel_vera_steelstorm.png", scale: 1.8, isEnemy: true },
+            { id: 'legion_officer', name: "Legion Officer", status: "Breaching", pos: { x: 0, y: 0, z: -10 }, portrait: "portraits/assets/portraits/leaders/colonel_vera_steelstorm.png", scale: 1.8, isEnemy: true },
             { id: 'legion_soldier_1', name: "Legionnaire", status: "Attacking", pos: { x: -4, y: 0, z: -8 }, portrait: "assets/factions/faction_iron_legion.png", scale: 1.6, isEnemy: true },
             { id: 'legion_soldier_2', name: "Legionnaire", status: "Attacking", pos: { x: 4, y: 0, z: -8 }, portrait: "assets/factions/faction_iron_legion.png", scale: 1.6, isEnemy: true }
         ]

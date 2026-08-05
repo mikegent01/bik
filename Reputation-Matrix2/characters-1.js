@@ -137,13 +137,13 @@ export const CHARACTERS = {
     general_marcus_ironhand: {
         name: "General Marcus Ironhand",
         role: "Supreme Commander, Iron Legion Old Guard",
-        portrait: "portraits/general_marcus_ironhand.png",
+        portrait: "portraits/assets/portraits/leaders/general_marcus_ironhand.png",
         description: "The aging but brilliant Supreme Commander of the Iron Legion. Ironhand is a master strategist who believes discipline is the greatest weapon and a staunch traditionalist."
     },
     colonel_vera_steelstorm: {
         name: "Colonel Vera Steelstorm",
         role: "War-Forged Leader, Iron Legion",
-        portrait: "portraits/colonel_vera_steelstorm.png",
+        portrait: "portraits/assets/portraits/leaders/colonel_vera_steelstorm.png",
         description: "A young, ambitious, and pragmatic officer leading the progressive 'War-Forged' faction within the Iron Legion. She values results over tradition."
     },
     chancellor_toadsworth: {
