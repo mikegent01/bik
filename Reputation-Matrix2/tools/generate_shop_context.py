@@ -20,7 +20,7 @@ OUTPUT = ROOT / "tools" / ".shop-enrichment" / "context" / "shop-world-context.j
 # These are the world-state JSON sources most useful for contextual shop stock.
 # Add a file with --include when a campaign introduces another relevant feed.
 CANDIDATES = (
-    ROOT / "data" / "events.json", ROOT / "data" / "battles.json",
+    ROOT / "data" / "../data/events/events.json", ROOT / "data" / "battles.json",
     ROOT / "data" / "currentDate.json", ROOT / "data" / "calendarHolidays.json",
     ROOT / "data" / "calendarSeasons.json", ROOT / "data" / "calendarMonths.json",
     ROOT / "data" / "locations.json", ROOT / "data" / "factions.json",

@@ -36,7 +36,7 @@
   async function ensure() {
     if (loaded) return;
     const j = async (u, f) => { try { const r = await fetch(u, { cache: 'no-cache' }); return r.ok ? await r.json() : f; } catch { return f; } };
-    [dm, lore] = await Promise.all([ j('shop-purchases.json', []), j('data/itemLoreLinks.json', {}) ]);
+    [dm, lore] = await Promise.all([ j('../../data/commerce/shop-purchases.json', []), j('data/itemLoreLinks.json', {}) ]);
     if (!Array.isArray(dm)) dm = [];
     // Item metadata comes from whatever the page already loaded, else lazily.
     itemsById = window.__warioItemsById || {};

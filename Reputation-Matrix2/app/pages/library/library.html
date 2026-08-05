@@ -238,12 +238,12 @@
         // LOAD
         async function loadItems(){
             try{
-                const r=await fetch('./items.json');
+                const r=await fetch('../../../data/commerce/Reputation-Matrix2/commerce/items.json');
                 if(!r.ok)throw new Error('HTTP '+r.status);
                 itemsData=await r.json(); init();
             }catch(e){
                 console.error(e);
-                grid.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text-muted);grid-column:1/-1"><p style="font-size:1.2rem;margin-bottom:10px">⚠️ Could not load items.json</p><p style="font-size:0.85rem">${e.message}</p></div>`;
+                grid.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text-muted);grid-column:1/-1"><p style="font-size:1.2rem;margin-bottom:10px">⚠️ Could not load Reputation-Matrix2/commerce/items.json</p><p style="font-size:0.85rem">${e.message}</p></div>`;
             }
         }
 
