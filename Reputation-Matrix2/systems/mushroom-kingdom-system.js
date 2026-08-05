@@ -7,7 +7,7 @@ import { MAJOR_BATTLES } from '../app/pages/battlefield/battlefield.js';
 import { MAP_DATA } from '../data/maps/map-data.js';
 
 // --- IMPORT THE CANONICAL CALCULATOR & LIMITS ---
-import { calculateAllAlliances, ALLIANCE_SIZE_LIMITS } from '../alliances-page.js';// ============================================
+import { calculateAllAlliances, ALLIANCE_SIZE_LIMITS } from '../app/systems/alliances-page.js';// ============================================
 // 1. CONFIGURATION
 // ============================================
 

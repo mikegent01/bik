@@ -18,7 +18,7 @@ import {
     SCRIPTED_ALLIANCES,
     ALLIANCE_TYPES,
     isExcludedFromAlliances 
-} from '../../../alliances-page.js';
+} from '../../systems/alliances-page.js';
 let _cachedWarData = null;
 let _cachedAllianceData = null;
 let _cacheTimestamp = 0;

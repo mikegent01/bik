@@ -1,6 +1,6 @@
 
 import { state, loadState } from '../../core/state.js';
-import { TOAD_TIMELINE } from './focus-tree.js';
+import { TOAD_TIMELINE } from '../../systems/focus-tree.js';
 import { LORE_DATA, CHARACTER_RELATIONS } from '../../../lore.js';
 import { playSound } from '../../core/common.js';
 

@@ -16,7 +16,7 @@ import { POKEMON_FACTIONS } from './factions/pokemon.js';
 import { EQUESTRIA_FACTIONS } from './factions/equestria.js'; // NEW IMPORT
 
 import { RUMORS } from './party-and-events.js';
-import { PARLIAMENT_MEMBERS } from './parliament-members.js'; 
+import { PARLIAMENT_MEMBERS } from './app/systems/parliament-members.js';
 import { REBEL_CLANS_DETAILS } from './data/factions/rebel-clans-details.js';
 import { FAWFUL_DETAILS } from './data/factions/fawful-details.js';
 import { COSMIC_JESTERS_DETAILS } from './data/factions/cosmic-jesters-details.js';
@@ -168,7 +168,7 @@ shadowfell_estate: {
             positive: ['Rescued Green T', 'Destroyed the Shadowfell anchor crystal', 'Gained intel on the Convergence Protocol'],
             negative: ['Enraged the Vampire Lords of the Onyx Hand', 'Left Bowser behind during the escape']
         }
-    },    
+    },
 feywild_attic: {
         id: 'feywild_attic',
         name: 'The Feywild Fracture',
@@ -190,7 +190,7 @@ feywild_attic: {
             positive: ['Powerful fey artifacts (Morning Glory)', 'Gained insight into the Corvinarus lineage', 'Tentative trust from Lady Aurelian'],
             negative: ['Time dilation issues', 'Conflicting missions from the Legion and Perrius', 'Rakasha is missing in action']
         }
-    },    
+    },
     capital_intrigue: {
         id: 'capital_intrigue',
         name: 'Capital Intrigue',
@@ -365,18 +365,18 @@ export function getArcProgress(arcId) {
 export function getArcStats(arcId) {
     const rumors = getRumorsByArc(arcId);
     const arc = STORY_ARCS[arcId];
-    
+
     if (!arc) return null;
-    
+
     const factionImpacts = {};
     rumors.forEach(rumor => {
         Object.entries(rumor.effects || {}).forEach(([faction, value]) => {
             factionImpacts[faction] = (factionImpacts[faction] || 0) + value;
         });
     });
-    
+
     const totalCycleImpact = rumors.reduce((sum, r) => sum + (r.cycle_impact?.score || 0), 0);
-    
+
     return {
         rumorCount: rumors.length,
         factionImpacts,

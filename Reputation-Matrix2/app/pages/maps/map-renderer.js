@@ -17,7 +17,7 @@ import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS, SPECIES_ESTATE_BIAS } from '../../
 import { PARTY_LOCATIONS } from '../../../data/support/party-data.js';
 import { PROVINCE_POLITICS } from '../../../data/support/politics-data.js';
 import { NATIONS, getTechTree, RESEARCH_CATEGORIES } from '../../../data/support/research-data.js';
-import { calculateAllAlliances } from '../../../alliances-page.js';
+import { calculateAllAlliances } from '../../systems/alliances-page.js';
 // ============================================================================
 // DOM REFERENCES
 // ============================================================================
