@@ -6,7 +6,7 @@ import { MAGES_GUILD_DETAILS } from './mages-guild-details.js';
 import { generateWeatherForDay, CURRENT_GAME_DATE } from './data/world/calendar.js';
 import { calculateGlobalCycle } from './research-data.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
-import { MAJOR_BATTLES } from './battlefield.js'; // Import battles for timeline connection
+import { MAJOR_BATTLES } from './app/pages/battlefield/battlefield.js'; // Import battles for timeline connection
 
 /**
  * Renders the HTML structure for the Mages' Guild system.

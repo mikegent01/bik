@@ -852,7 +852,7 @@ function pushLoreEntry(entries, name, id, kind, summary = '', sub = '') {
 function ensureLoreData() {
   if (loreLoading || LORE.entries.length || typeof fetch !== 'function') return;
   loreLoading = true;
-  const get = f => fetch(`data/${f}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null);
+  const get = f => fetch(`../../../data/${f}.json`, { cache: 'no-cache' }).then(r => r.ok ? r.json() : null).catch(() => null);
   Promise.all([get('characters'), get('factions'), get('locations'), get('nations'), get('currencies'), get('itemLoreLinks')])
     .then(([characters, factions, locations, nations, currencies, itemRefs]) => {
       const entries = [];
