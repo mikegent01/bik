@@ -39,7 +39,7 @@ No files are being moved as part of this inventory. This document records what e
 | Event/story data | `events/`, `data/events*`, event JS files | Narrative and rendering responsibilities are mixed in places |
 | Maps | `map-data/`, map pages, `*map*.js` | Follow existing map grouping rules in README before moving |
 | Images | `portraits/`, `banners/`, `icons/`, `images/`, `textures/`, `assets/` | Several overlapping image roots |
-| Commerce | `shop*.js`, `shop-items/`, `data/shop-items/` | Includes generated caches and backup files |
+| Commerce | `data/commerce/`, `shop-items/`, `data/shop-items/` | Canonical shop aggregator now lives in `data/commerce/`; root compatibility data remains separate |
 | Tools | `tools/` | Build scripts, Hub app, Foundry examples, and generated output |
 | Separate apps | `timeline/`, `wahsim/` | Should not be flattened into the main app |
 

@@ -9,7 +9,7 @@
    ("Training Wing") with AP receipts.
    ========================================================================== */
 
-import { SHOP_ITEMS, VENDORS, SHIPPING_METHODS, BASE_MEMBERSHIP_TIERS, generateTier, getNextTier, getAllShopItems, NIGHT_SPECIAL_ITEMS } from './shop-data.js';
+import { SHOP_ITEMS, VENDORS, SHIPPING_METHODS, BASE_MEMBERSHIP_TIERS, generateTier, getNextTier, getAllShopItems, NIGHT_SPECIAL_ITEMS } from './data/commerce/index.js';
 import { WALLETS, CURRENCIES } from './currency.js';
 
 /* --------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 // currency.js — Full Universal Currency System & Shop Integration v3
 // 45+ Currencies, Gold Equivalence, Vendor Exchange Rates, and Shop Item Integration.
 
-import { SHOP_ITEMS, VENDORS, getAllShopItems } from './shop-data.js';
+import { SHOP_ITEMS, VENDORS, getAllShopItems } from './data/commerce/index.js';
 
 export const CURRENCIES = {
   "gold": {

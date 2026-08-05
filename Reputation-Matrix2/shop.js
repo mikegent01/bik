@@ -14,7 +14,7 @@ function walletSummary(){
     return {label:entries.length?entries.map(([k,v])=>`${CURRENCIES[k]?.icon||'🪙'} ${Number(v).toLocaleString()} ${CURRENCIES[k]?.name||k}`).join(' · '):'Empty wallet',details:`${w.name||state.loggedInUser} · recorded holdings only`};
 }
 
-import { 
+import {
     STOCK_TYPES,
     TIME_PERIODS,
     getCurrentTimePeriod,
@@ -33,17 +33,17 @@ import { LORE_DATA } from './lore.js';
 import { REWARDS_DATA } from './quests/quests-main.js';
 import { playSound } from './common.js';
 import { getAllToadsData, getPreCalculatedFactionStats } from './liberated-toads-system.js';
-import { 
-    renderDurabilityBadge, 
-    renderLevelRequirement, 
-    calculateDurability, 
-    addOwnedItem, 
-    injectDurabilityStyles    
-} from './shop-durability.js';     
- 
-import {calculateFactionBonuses ,SHIPPING_METHODS,getFactionUpgrades ,BASE_MEMBERSHIP_TIERS,getAvailableShipping ,SHOP_CATEGORIES,SHOP_ITEMS,VENDORS ,getFreeShipping  ,getNextTier,getRequiredTierForItem  ,getAllShopItems,getShopStats,  } from './shop-data.js' 
+import {
+    renderDurabilityBadge,
+    renderLevelRequirement,
+    calculateDurability,
+    addOwnedItem,
+    injectDurabilityStyles
+} from './shop-durability.js';
+
+import {calculateFactionBonuses ,SHIPPING_METHODS,getFactionUpgrades ,BASE_MEMBERSHIP_TIERS,getAvailableShipping ,SHOP_CATEGORIES,SHOP_ITEMS,VENDORS ,getFreeShipping  ,getNextTier,getRequiredTierForItem  ,getAllShopItems,getShopStats,  } from './data/commerce/index.js'
 // === NEW: Per-player membership tracking ===
-let searchQuery = ''; 
+let searchQuery = '';
 let showAllItems = false;
 
 let activePlayer = null; // Current player using the shop
@@ -120,12 +120,12 @@ function formatPlayerName(playerKey) {
 function recalculateAllMemberships() {
     console.log('🔄 Recalculating all memberships...');
     console.log('📦 approvedPurchases count:', approvedPurchases?.length || 0);
-    
+
     // Reset all to 0
     for (const playerKey in playerMemberships) {
         playerMemberships[playerKey].lifetimeSpent = 0;
     }
-    
+
     // If no purchases, just set tiers and return
     if (!approvedPurchases || approvedPurchases.length === 0) {
         console.log('⚠️ No approved purchases found');
@@ -134,7 +134,7 @@ function recalculateAllMemberships() {
         }
         return;
     }
-    
+
     // Log each purchase for debugging
     console.log('📋 Processing purchases:');
     approvedPurchases.forEach((purchase, index) => {
@@ -143,36 +143,36 @@ function recalculateAllMemberships() {
         console.log(`      isFaction: ${purchase.isFaction}`);
         console.log(`      price: ${purchase.price}`);
         console.log(`      quantity: ${purchase.quantity || 1}`);
-        
+
         // Skip faction purchases
         if (purchase.isFaction === true) {
             console.log(`      ❌ SKIPPED (faction purchase)`);
             return;
         }
-        
+
         // Must have playerKey
         const playerKey = purchase.playerKey;
         if (!playerKey) {
             console.log(`      ❌ SKIPPED (no playerKey)`);
             return;
         }
-        
+
         // Must be a known player
         if (!playerMemberships[playerKey]) {
             console.log(`      ❌ SKIPPED (unknown player: ${playerKey})`);
             return;
         }
-        
+
         // Calculate amount
         const quantity = parseInt(purchase.quantity) || 1;
         const price = parseInt(purchase.price) || 0;
         const amount = price * quantity;
-        
+
         // Add to player
         playerMemberships[playerKey].lifetimeSpent += amount;
         console.log(`      ✅ ADDED ${amount} XP to ${playerKey} (total: ${playerMemberships[playerKey].lifetimeSpent})`);
     });
-    
+
     // Now calculate tiers for everyone
     console.log('📊 Final membership levels:');
     for (const playerKey in playerMemberships) {
@@ -207,7 +207,7 @@ function createDefaultTier() {
 function loadPlayerMemberships() {
     // Start with defaults for all known players
     playerMemberships = structuredClone(DEFAULT_PLAYER_MEMBERSHIPS);
-    
+
     // Try to load saved data
     try {
         const saved = localStorage.getItem('player_memberships');
@@ -224,15 +224,15 @@ function loadPlayerMemberships() {
     } catch (e) {
         console.warn('Could not load saved memberships:', e);
     }
-    
+
     // Calculate and assign tiers for ALL players
     for (const playerKey in playerMemberships) {
         const spent = playerMemberships[playerKey].lifetimeSpent || 0;
         const tier = getTierFromXP(spent);
         playerMemberships[playerKey].tier = tier || createDefaultTier();
     }
-    
-    console.log('👑 Memberships initialized:', Object.keys(playerMemberships).map(k => 
+
+    console.log('👑 Memberships initialized:', Object.keys(playerMemberships).map(k =>
         `${k}: ${playerMemberships[k].tier?.name || 'Bronze'}`
     ));
 }
@@ -258,12 +258,12 @@ function savePlayerMemberships() {
 
 function calculatePlayerSpendingFromPurchases() {
     const playerSpending = {};
-    
+
     // Initialize all known players to 0
     Object.keys(DEFAULT_PLAYER_MEMBERSHIPS).forEach(key => {
         playerSpending[key] = 0;
     });
-    
+
     // Sum up approved purchases per player
     approvedPurchases.forEach(purchase => {
         // Skip faction purchases - they don't count toward individual membership
@@ -271,48 +271,48 @@ function calculatePlayerSpendingFromPurchases() {
             console.log(`  ⏭️ Skipping faction purchase: ${purchase.itemName}`);
             return;
         }
-        
+
         const playerKey = purchase.playerKey;
         if (!playerKey) {
             console.log(`  ⚠️ Purchase missing playerKey: ${purchase.itemName}`);
             return;
         }
-        
+
         const quantity = purchase.quantity || 1;
         const amount = purchase.price * quantity;
-        
+
         if (playerSpending[playerKey] === undefined) {
             playerSpending[playerKey] = 0;
         }
         playerSpending[playerKey] += amount;
-        
+
         console.log(`  💰 ${playerKey}: +${amount} XP (${purchase.itemName} x${quantity})`);
     });
-    
+
     console.log('📊 Final player spending:', playerSpending);
     return playerSpending;
 }
 function initializePlayerMemberships() {
     console.log('🔧 Initializing player memberships...');
-    
+
     // Start with defaults
     playerMemberships = structuredClone(DEFAULT_PLAYER_MEMBERSHIPS);
-    
+
     // Calculate spending from approved purchases
     const playerSpending = calculatePlayerSpendingFromPurchases();
-    
+
     // Apply spending and calculate tiers
     for (const playerKey in playerMemberships) {
         const spent = playerSpending[playerKey] || 0;
         playerMemberships[playerKey].lifetimeSpent = spent;
-        
+
         // Calculate tier from spending
         const tier = getTierFromXP(spent);
         playerMemberships[playerKey].tier = tier || createDefaultTier();
-        
+
         console.log(`  👤 ${playerKey}: ${spent} XP spent → ${playerMemberships[playerKey].tier.name}`);
     }
-    
+
     console.log('✅ Player memberships initialized');
 }
 
@@ -322,7 +322,7 @@ function initializePlayerMemberships() {
 
 function getActiveMembership() {
     const activePlayer = getActivePlayer();
-    
+
     // Ensure player exists
     if (!playerMemberships[activePlayer]) {
         console.warn(`Player ${activePlayer} not found in memberships, creating default`);
@@ -332,13 +332,13 @@ function getActiveMembership() {
             tier: createDefaultTier()
         };
     }
-    
+
     // Ensure tier exists
     if (!playerMemberships[activePlayer].tier) {
         const spent = playerMemberships[activePlayer].lifetimeSpent || 0;
         playerMemberships[activePlayer].tier = getTierFromXP(spent) || createDefaultTier();
     }
-    
+
     return playerMemberships[activePlayer].tier;
 }
 
@@ -353,14 +353,14 @@ function addPlayerSpending(playerKey, amount) {
     if (!playerMemberships[playerKey]) {
         playerMemberships[playerKey] = { lifetimeSpent: 0, pendingSpent: 0 };
     }
-    
+
     const oldTier = getTierFromXP(playerMemberships[playerKey].lifetimeSpent || 0);
     playerMemberships[playerKey].lifetimeSpent = (playerMemberships[playerKey].lifetimeSpent || 0) + amount;
     const newTier = getTierFromXP(playerMemberships[playerKey].lifetimeSpent);
-    
+
     playerMemberships[playerKey].tier = newTier;
     savePlayerMemberships();
-    
+
     if (newTier.index > oldTier.index) {
         return { tierUp: true, oldTier, newTier };
     }
@@ -370,13 +370,13 @@ function addPlayerSpending(playerKey, amount) {
 
 function renderLevelBadge(item) {
     if (!item.levelRequirement) return '';
-    
+
     const canUse = canPurchaseAtLevel(item);
     const levelClass = canUse ? 'level-ok' : 'level-locked';
     const icon = canUse ? '⭐' : '🔒';
-    
+
     return `
-        <div class="level-badge ${levelClass}" 
+        <div class="level-badge ${levelClass}"
              title="${canUse ? 'Your party can use this!' : `Requires Level ${item.levelRequirement}. Party is Level ${PARTY_MAX_LEVEL}`}">
             <span class="level-icon">${icon}</span>
             <span class="level-text">Lvl ${item.levelRequirement}+</span>
@@ -419,20 +419,20 @@ function setCartQuantity(itemId, quantity) {
 
 function getMaxBulkQuantity(item) {
     if (!canBulkOrder(item)) return 1;
-    
+
     // Check remaining stock
     const approvedCount = approvedPurchases.filter(p => p.itemId === item.id).length;
-    const pendingCount = pendingOrders.reduce((sum, o) => 
+    const pendingCount = pendingOrders.reduce((sum, o) =>
         sum + o.items.filter(i => i.id === item.id).reduce((s, i) => s + (i.quantity || 1), 0), 0);
     const remainingStock = item.stock - approvedCount - pendingCount;
-    
+
     return Math.min(BULK_PRICING.maxQuantity, remainingStock);
 }
 
 
 function injectShopControlStyles() {
     if (document.getElementById('shop-control-styles')) return;
-    
+
     const styles = document.createElement('style');
     styles.id = 'shop-control-styles';
     styles.textContent = `
@@ -448,7 +448,7 @@ function injectShopControlStyles() {
             margin-bottom: 15px;
             flex-wrap: wrap;
         }
-        
+
         /* Search Container */
         .search-container {
             position: relative;
@@ -456,7 +456,7 @@ function injectShopControlStyles() {
             min-width: 200px;
             max-width: 400px;
         }
-        
+
         .shop-search-input {
             width: 100%;
             padding: 12px 40px 12px 16px;
@@ -467,17 +467,17 @@ function injectShopControlStyles() {
             color: white;
             transition: all 0.3s ease;
         }
-        
+
         .shop-search-input:focus {
             outline: none;
             border-color: #ffd700;
             box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
         }
-        
+
         .shop-search-input::placeholder {
             color: #888;
         }
-        
+
         .search-clear-btn {
             position: absolute;
             right: 12px;
@@ -496,18 +496,18 @@ function injectShopControlStyles() {
             justify-content: center;
             transition: all 0.2s ease;
         }
-        
+
         .search-clear-btn:hover {
             background: #ff4444;
         }
-        
+
         /* Load Controls */
         .load-controls {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
+
         .load-all-btn {
             padding: 10px 20px;
             font-size: 14px;
@@ -519,16 +519,16 @@ function injectShopControlStyles() {
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .load-all-btn:hover {
             background: rgba(255, 215, 0, 0.2);
         }
-        
+
         .load-all-btn.active {
             background: #ffd700;
             color: black;
         }
-        
+
         .item-count-display {
             font-size: 14px;
             color: #aaa;
@@ -536,14 +536,14 @@ function injectShopControlStyles() {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
         }
-        
+
         /* Category Tabs */
         .category-tabs {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
-        
+
         /* No Items State */
         .no-items {
             grid-column: 1 / -1;
@@ -554,19 +554,19 @@ function injectShopControlStyles() {
             padding: 60px 20px;
             text-align: center;
         }
-        
+
         .no-items .empty-icon {
             font-size: 64px;
             margin-bottom: 15px;
             opacity: 0.5;
         }
-        
+
         .no-items p {
             font-size: 18px;
             color: #888;
             margin-bottom: 15px;
         }
-        
+
         .clear-search-btn {
             padding: 10px 20px;
             font-size: 14px;
@@ -577,11 +577,11 @@ function injectShopControlStyles() {
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .clear-search-btn:hover {
             background: rgba(255, 215, 0, 0.2);
         }
-        
+
         /* Search Highlight */
         .item-name mark {
             background: #ffd700;
@@ -589,7 +589,7 @@ function injectShopControlStyles() {
             padding: 0 2px;
             border-radius: 2px;
         }
-        
+
         /* Load More Indicator */
         .load-more-indicator {
             grid-column: 1 / -1;
@@ -600,44 +600,44 @@ function injectShopControlStyles() {
             padding: 30px;
             gap: 8px;
         }
-        
+
         .load-more-indicator .loading-text {
             color: #888;
             font-size: 14px;
         }
-        
+
         .load-more-indicator .items-remaining {
             color: #666;
             font-size: 12px;
         }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .shop-controls {
                 flex-direction: column;
                 align-items: stretch;
             }
-            
+
             .search-container {
                 max-width: none;
             }
-            
+
             .load-controls {
                 justify-content: space-between;
             }
         }
     `;
-    
+
     document.head.appendChild(styles);
 }
 function renderMembershipRequirementBadge(item, requiredTier) {
     if (!requiredTier || requiredTier.id === 'bronze') return '';
-    
+
     const membership = getActiveMembership();
     const hasAccess = canPurchaseWithMembership(item, membership).allowed;
-    
+
     return `
-        <div class="membership-badge ${hasAccess ? 'unlocked' : 'locked'}" 
+        <div class="membership-badge ${hasAccess ? 'unlocked' : 'locked'}"
              style="--tier-color: ${requiredTier.color}"
              title="${hasAccess ? 'You can purchase this!' : `Requires ${requiredTier.name}`}">
             <span class="tier-icon">${requiredTier.icon}</span>
@@ -654,20 +654,20 @@ function calculateBulkPriceWithDiscount(item, quantity) {
 // Update renderBulkControls to accept effective price
 function renderBulkControls(item, currentQty, maxQty, canAfford, effectivePrice = null) {
     const price = effectivePrice || item.price;
-    
+
     if (!canBulkOrder(item) || maxQty <= 1) {
         return `
-            <button class="add-to-cart-btn" 
+            <button class="add-to-cart-btn"
                     ${(!canAfford || maxQty <= 0) ? 'disabled' : ''}
                     data-id="${item.id}">
                 ${currentQty > 0 ? '✓ In Cart' : '🛒 Add to Cart'}
             </button>
         `;
     }
-    
-    const nextUnitPrice = currentQty < maxQty ? 
+
+    const nextUnitPrice = currentQty < maxQty ?
         Math.ceil(price * (1 + (currentQty * (BULK_PRICING.priceIncreasePerUnit[item.rarity] || 0.05)))) : 0;
-    
+
     return `
         <div class="bulk-controls" data-id="${item.id}">
             <div class="bulk-info">
@@ -713,13 +713,13 @@ function loadPartyData() {
         } else {
             // Fallback: check localStorage or use defaults
             partyPlayers = JSON.parse(localStorage.getItem('party_members') || '[]');
-            
+
             // If still empty, create default party
             if (partyPlayers.length === 0) {
                 partyPlayers = ['player_1']; // At minimum, one player
             }
         }
-        
+
         activePlayer = partyPlayers[0];
         console.log('👥 Party loaded:', partyPlayers);
     } catch (e) {
@@ -740,17 +740,17 @@ function renderShopHeader() {
     const status = getXPStatus();
     const container = document.getElementById('shop-header');
     if (!container) return;
-    
+
     const activePlayer = getActivePlayer();
     const membership = getActiveMembership();
     const playerSpent = getPlayerLifetimeSpent(activePlayer);
     const nextTier = getNextTier(membership.index);
     const party = getPartyMembers();
-    
+
     const themeClass = currentTab === 'faction' ? 'faction-theme' : 'shop-theme';
     const totalCartItems = cart.reduce((sum, c) => sum + (c.quantity || 1), 0);
     const cartTotalPrice = cart.reduce((sum, c) => sum + (c.totalPrice || c.price), 0);
-    
+
     // Calculate progress to next tier
     const currentThreshold = membership.threshold || 0;
     const nextThreshold = nextTier?.threshold || currentThreshold + 1;
@@ -758,12 +758,12 @@ function renderShopHeader() {
     const needed = Math.max(1, nextThreshold - currentThreshold);
     const progressPercent = Math.min(100, Math.floor((progress / needed) * 100));
     const xpToNext = Math.max(0, nextThreshold - playerSpent);
-    
+
     container.className = `shop-header ${themeClass}`;
-    
+
     // Check if generic user (no player selector needed)
     const isGeneric = activePlayer === 'generic';
-    
+
     container.innerHTML = `
         <div class="header-content">
             <div class="shop-title">
@@ -771,13 +771,13 @@ function renderShopHeader() {
                 <div>
                     <h1>${currentTab === 'faction' ? 'FACTION ARMORY' : "WARIO'S WAREHOUSE"}</h1>
                     <p class="shop-subtitle">
-                        ${currentTab === 'faction' 
-                            ? `Liberated Toads HQ • ${factionStats?.total || 0} Members` 
+                        ${currentTab === 'faction'
+                            ? `Liberated Toads HQ • ${factionStats?.total || 0} Members`
                             : '"If it\'s shiny, I\'m selling it!" - Wario'}
                     </p>
                 </div>
             </div>
-            
+
             ${!isGeneric ? `
                 <!-- Current Player Display -->
                 <div class="current-player-display">
@@ -789,8 +789,8 @@ function renderShopHeader() {
                     <span class="player-name">👤 Guest Mode · <a href="battlefield.html#/login">Log in to load wallet</a></span>
                 </div>
             `}
-            
-            <div class="membership-display" id="membership-badge" 
+
+            <div class="membership-display" id="membership-badge"
                  style="--tier-color: ${membership.color || '#cd7f32'}">
                 <span class="membership-icon">${membership.icon || '🥉'}</span>
                 <div class="membership-info">
@@ -805,7 +805,7 @@ function renderShopHeader() {
                 </div>
                 <span class="tier-progress-text">${xpToNext.toLocaleString()} to ${nextTier?.icon || '🥈'}</span>
             </div>
-            
+
             <div class="party-level-display">
                 <span class="party-level-icon">⭐</span>
                 <div class="party-level-info">
@@ -813,7 +813,7 @@ function renderShopHeader() {
                     <span class="party-level-label">Party Max</span>
                 </div>
             </div>
-            
+
             <div class="xp-wallet actual-wallet-display">
                 <div class="wallet-stat total">
                     <span class="wallet-value">💳</span>
@@ -825,14 +825,14 @@ function renderShopHeader() {
                 </div>
                 <div class="wallet-wallet-note">${walletSummary().details}</div>
             </div>
-            
+
             <div class="cart-summary" id="cart-summary-btn">
                 <span class="cart-icon">🛒</span>
                 <span class="cart-count">${totalCartItems}</span>
                 <span class="cart-total">${cartTotalPrice.toLocaleString()} XP</span>
             </div>
         </div>
-        
+
         <div class="main-tabs">
             <button class="main-tab ${currentTab === 'shop' ? 'active' : ''}" data-tab="shop">
                 💎 Player Shop
@@ -845,7 +845,7 @@ function renderShopHeader() {
             </button>
         </div>
     `;
-    
+
     // Membership badge click
     container.querySelector('#membership-badge')?.addEventListener('click', () => {
         currentTab = 'membership';
@@ -853,19 +853,19 @@ function renderShopHeader() {
         renderMainContent();
         playSound('click.mp3');
     });
-    
+
     // Tab handlers
     container.querySelectorAll('.main-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             const newTab = tab.dataset.tab;
             if (newTab === currentTab) return;
-            
+
             if (cart.length > 0 && newTab !== 'membership') {
                 if (!confirm('Switching tabs will clear your cart. Continue?')) return;
                 cart = [];
                 cartQuantities = {};
             }
-            
+
             currentTab = newTab;
             currentPage = 0;
             renderShopHeader();
@@ -879,28 +879,28 @@ function renderShopHeader() {
 function renderMembershipTab() {
     const container = document.getElementById('membership-content');
     if (!container) return;
-    
+
     const activePlayer = getActivePlayer();
     const membership = getActiveMembership();
     const playerSpent = getPlayerLifetimeSpent(activePlayer);
     const nextTier = getNextTier(membership.index);
     const party = getPartyMembers();
-    
+
     const currentThreshold = membership.threshold || 0;
     const nextThreshold = nextTier?.threshold || currentThreshold + 1;
     const progress = playerSpent - currentThreshold;
     const needed = Math.max(1, nextThreshold - currentThreshold);
     const progressPercent = Math.min(100, Math.floor((progress / needed) * 100));
     const xpToNext = Math.max(0, nextThreshold - playerSpent);
-    
+
     // Generate preview of next few tiers
     const upcomingTiers = [];
     for (let i = membership.index + 1; i <= membership.index + 5 && i < 50; i++) {
         upcomingTiers.push(generateTier(i));
     }
-    
+
     const isGeneric = activePlayer === 'generic';
-    
+
     container.innerHTML = `
         <div class="membership-tab-content">
             <!-- Active Player Section -->
@@ -910,7 +910,7 @@ function renderMembershipTab() {
                 </div>
                 <div class="membership-hero-icon">${membership.icon || '🥉'}</div>
                 <h2>${membership.name || 'Bronze Bargain Hunter'}</h2>
-                
+
                 <div class="membership-stats">
                     <div class="membership-stat">
                         <span class="stat-value">${playerSpent.toLocaleString()}</span>
@@ -929,7 +929,7 @@ function renderMembershipTab() {
                         <span class="stat-label">Max Item Level</span>
                     </div>
                 </div>
-                
+
                 <div class="tier-progress-large">
                     <div class="progress-header">
                         <span>Progress to ${nextTier?.icon || '🥈'} ${nextTier?.name || 'Silver'}</span>
@@ -944,7 +944,7 @@ function renderMembershipTab() {
                     </div>
                 </div>
             </div>
-            
+
             ${!isGeneric ? `
                 <!-- All Party Members -->
                 <div class="membership-section">
@@ -961,9 +961,9 @@ function renderMembershipTab() {
                                 ((pSpent - pThreshold) / Math.max(1, pNextThreshold - pThreshold)) * 100
                             ));
                             const isActive = playerKey === activePlayer;
-                            
+
                             return `
-                                <div class="party-member-card ${isActive ? 'active' : ''}" 
+                                <div class="party-member-card ${isActive ? 'active' : ''}"
                                      style="--tier-color: ${pTier.color || '#cd7f32'}">
                                     <div class="member-header">
                                         <span class="member-icon">${pTier.icon || '🥉'}</span>
@@ -986,7 +986,7 @@ function renderMembershipTab() {
                     </div>
                 </div>
             ` : ''}
-            
+
             <!-- Your Perks -->
             <div class="membership-section">
                 <h3>🎁 ${isGeneric ? 'Current' : formatPlayerName(activePlayer) + "'s"} Perks</h3>
@@ -1005,7 +1005,7 @@ function renderMembershipTab() {
                     </div>
                 ` : ''}
             </div>
-            
+
             <!-- Base Tiers -->
             <div class="membership-section">
                 <h3>📊 Named Tiers</h3>
@@ -1013,7 +1013,7 @@ function renderMembershipTab() {
                     ${BASE_MEMBERSHIP_TIERS.map((tier, idx) => {
                         const isCurrent = membership.index === idx;
                         const isUnlocked = membership.index >= idx;
-                        
+
                         return `
                             <div class="tier-card ${isCurrent ? 'current' : ''} ${isUnlocked ? 'unlocked' : 'locked'}"
                                  style="--tier-color: ${tier.color}">
@@ -1045,7 +1045,7 @@ function renderMembershipTab() {
                     }).join('')}
                 </div>
             </div>
-            
+
             <!-- Upcoming Letter Tiers (if VIP+) -->
             ${membership.index >= 4 ? `
                 <div class="membership-section">
@@ -1088,11 +1088,11 @@ function renderMembershipTab() {
 // === Update completePurchase to track per-player spending ===
 function completePurchase() {
     if (cart.length === 0) return;
-    
+
     const status = getXPStatus();
     const isFaction = currentTab === 'faction';
     const membership = getActiveMembership();
-    
+
     // Calculate cart with membership discount
     let cartSubtotal = 0;
     cart.forEach(item => {
@@ -1100,28 +1100,28 @@ function completePurchase() {
         const discountedPrice = Math.ceil(basePrice * (1 - membership.discount / 100));
         cartSubtotal += discountedPrice;
     });
-    
+
     const freeShippingMethods = getFreeShipping(membership);
     const shippingCost = isFaction ? 0 : (
-        freeShippingMethods.includes(selectedShipping) ? 0 : 
+        freeShippingMethods.includes(selectedShipping) ? 0 :
         (SHIPPING_METHODS[selectedShipping.toUpperCase()]?.cost || 0)
     );
-    
+
     const cartTotal = cartSubtotal + shippingCost;
-    
+
     if (status.available < cartTotal) {
         showNotification('Insufficient XP!', 'error');
         return;
     }
-    
+
     const totalItems = cart.reduce((sum, c) => sum + (c.quantity || 1), 0);
-    
+
     if (isFaction) {
         // Faction purchase - doesn't count toward individual membership
         if (confirm(`Confirm spending ${cartTotal.toLocaleString()} Faction XP on upgrades?`)) {
             spentFactionXP += cartTotal;
             localStorage.setItem('faction_xp_spent', spentFactionXP.toString());
-            
+
             const owned = getPurchasedFactionUpgrades();
             cart.forEach(item => {
                 if (!owned.includes(item.id)) {
@@ -1130,10 +1130,10 @@ function completePurchase() {
                 }
             });
             localStorage.setItem('faction_items_owned', JSON.stringify(owned));
-            
+
             playSound('confirm.mp3');
             showNotification('Faction upgrades acquired!', 'success');
-            
+
             cart = [];
             cartQuantities = {};
             renderShopHeader();
@@ -1144,7 +1144,7 @@ function completePurchase() {
         // Player purchase - track for membership
         const shippingInfo = SHIPPING_METHODS[selectedShipping.toUpperCase()];
         const orderId = generateOrderId();
-        
+
         const order = {
             orderId: orderId,
             playerKey: activePlayer, // Track which player made the order
@@ -1152,7 +1152,7 @@ function completePurchase() {
                 const durability = calculateDurability(item);
                 const basePrice = item.totalPrice || item.price;
                 const discountedPrice = Math.ceil(basePrice * (1 - membership.discount / 100));
-                
+
                 return {
                     id: item.id,
                     name: item.name,
@@ -1184,23 +1184,23 @@ function completePurchase() {
             submittedAt: new Date().toISOString(),
             status: 'pending'
         };
-        
+
         pendingOrders.push(order);
         localStorage.setItem('xp_pending_orders', JSON.stringify(pendingOrders));
-        
+
         // Update player's pending spending (for display purposes)
         if (playerMemberships[activePlayer]) {
-            playerMemberships[activePlayer].pendingSpent = 
+            playerMemberships[activePlayer].pendingSpent =
                 (playerMemberships[activePlayer].pendingSpent || 0) + cartTotal;
             savePlayerMemberships();
         }
-        
+
         showReceipt(order, status.available - cartTotal);
-        
+
         cart = [];
         cartQuantities = {};
         playSound('confirm.mp3');
-        
+
         renderShopHeader();
         renderShopItems();
         renderCart();
@@ -1211,24 +1211,24 @@ function completePurchase() {
 export function processApprovedOrder(orderId) {
     const order = pendingOrders.find(o => o.orderId === orderId);
     if (!order || order.isFactionOrder) return;
-    
+
     const playerKey = order.playerKey || activePlayer;
     const result = addPlayerSpending(playerKey, order.total);
-    
+
     // Remove pending amount
     if (playerMemberships[playerKey]) {
-        playerMemberships[playerKey].pendingSpent = 
+        playerMemberships[playerKey].pendingSpent =
             Math.max(0, (playerMemberships[playerKey].pendingSpent || 0) - order.total);
         savePlayerMemberships();
     }
-    
+
     if (result.tierUp) {
         showNotification(
-            `🎉 ${formatPlayerName(playerKey)} ranked up to ${result.newTier.icon} ${result.newTier.name}!`, 
+            `🎉 ${formatPlayerName(playerKey)} ranked up to ${result.newTier.icon} ${result.newTier.name}!`,
             'success'
         );
     }
-    
+
     return result;
 }
 
@@ -1237,10 +1237,10 @@ export function processApprovedOrder(orderId) {
 function renderCart() {
     const container = document.getElementById('shop-cart');
     if (!container) return;
-    
+
     const status = getXPStatus();
     const isFaction = currentTab === 'faction';
-    
+
     // Ensure we have a valid membership - get it safely
     const membership = getActiveMembership();
     if (!membership) {
@@ -1248,23 +1248,23 @@ function renderCart() {
         container.innerHTML = '<p>Loading...</p>';
         return;
     }
-    
+
     // Calculate with membership discount
     let cartSubtotal = 0;
     let totalSavings = 0;
-    
+
     cart.forEach(item => {
         const basePrice = item.totalPrice || item.price;
         const discountedPrice = Math.ceil(basePrice * (1 - (membership.discount || 0) / 100));
         cartSubtotal += discountedPrice;
         totalSavings += basePrice - discountedPrice;
     });
-    
+
     // Shipping with membership benefits - use safe functions
     const freeShippingMethods = getFreeShipping(membership);
     const availableShipping = getAvailableShipping(membership);
-    
-    
+
+
     let shippingCost = 0;
     if (!isFaction && cart.length > 0) {
         if (freeShippingMethods.includes(selectedShipping)) {
@@ -1273,22 +1273,22 @@ function renderCart() {
             shippingCost = SHIPPING_METHODS[selectedShipping.toUpperCase()]?.cost || 0;
         }
     }
-    
+
     const cartTotal = cartSubtotal + shippingCost;
     const canCheckout = status.available >= cartTotal && cart.length > 0;
-    
+
     const totalItems = cart.reduce((sum, c) => sum + (c.quantity || 1), 0);
-    
+
     let cartHtml = `
         <h3>${isFaction ? '🍄 Faction Cart' : '🛒 Shopping Cart'} ${totalItems > 0 ? `(${totalItems} items)` : ''}</h3>
-        
+
         <div class="cart-membership-badge" style="--tier-color: ${getActiveMembership().color}">
             <span>${getActiveMembership().icon}</span>
             <span>${getActiveMembership().name}</span>
             ${getActiveMembership().discount > 0 ? `<span class="discount-active">-${getActiveMembership().discount}%</span>` : ''}
         </div>
     `;
-    
+
     if (cart.length === 0) {
         cartHtml += `
             <div class="cart-empty">
@@ -1303,7 +1303,7 @@ function renderCart() {
                     const basePrice = item.totalPrice || item.price;
                     const discountedPrice = Math.ceil(basePrice * (1 - getActiveMembership().discount / 100));
                     const itemSavings = basePrice - discountedPrice;
-                    
+
                     return `
                         <div class="cart-item" data-id="${item.id}">
                             <span class="cart-item-icon">${item.icon}</span>
@@ -1325,7 +1325,7 @@ function renderCart() {
                 }).join('')}
             </div>
         `;
-        
+
         if (!isFaction) {
             cartHtml += `
                 <div class="shipping-selector">
@@ -1337,7 +1337,7 @@ function renderCart() {
                                 const isFree = freeShippingMethods.includes(method.id);
                                 const displayCost = isFree ? 'FREE' : method.cost.toLocaleString() + ' XP';
                                 const freeLabel = isFree && method.cost > 0 ? ' (Member Perk!)' : '';
-                                
+
                                 return `
                                     <option value="${method.id}" ${selectedShipping === method.id ? 'selected' : ''}>
                                         ${method.icon} ${method.name} - ${displayCost}${freeLabel} (${method.deliveryTime})
@@ -1353,7 +1353,7 @@ function renderCart() {
                 </div>
             `;
         }
-        
+
         cartHtml += `
             <div class="cart-total-section">
                 <div class="cart-subtotal-row">
@@ -1382,19 +1382,19 @@ function renderCart() {
                 </div>
             </div>
             <button class="checkout-btn" ${canCheckout ? '' : 'disabled'}>
-                ${canCheckout 
-                    ? (isFaction ? '🍄 Approve Upgrade' : '💰 Place Order') 
+                ${canCheckout
+                    ? (isFaction ? '🍄 Approve Upgrade' : '💰 Place Order')
                     : '❌ Insufficient XP'}
             </button>
             <button class="clear-cart-btn">Clear Cart</button>
         `;
     }
-    
+
     // Pending Orders Section (same as before)
-    const relevantOrders = pendingOrders.filter(o => 
+    const relevantOrders = pendingOrders.filter(o =>
         isFaction ? o.isFactionOrder : !o.isFactionOrder
     );
-    
+
     if (relevantOrders.length > 0) {
         cartHtml += `
             <div class="pending-orders">
@@ -1423,9 +1423,9 @@ function renderCart() {
             </div>
         `;
     }
-    
+
     container.innerHTML = cartHtml;
-    
+
     // Event listeners (same as before)
     container.querySelectorAll('.remove-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -1438,7 +1438,7 @@ function renderCart() {
             renderCart();
         });
     });
-    
+
     const shippingSelect = container.querySelector('#shipping-select');
     if (shippingSelect) {
         shippingSelect.addEventListener('change', (e) => {
@@ -1446,9 +1446,9 @@ function renderCart() {
             renderCart();
         });
     }
-    
+
     container.querySelector('.checkout-btn')?.addEventListener('click', completePurchase);
-    
+
     container.querySelector('.clear-cart-btn')?.addEventListener('click', () => {
         cart = [];
         cartQuantities = {};
@@ -1458,7 +1458,7 @@ function renderCart() {
         renderCart();
         playSound('click.mp3');
     });
-    
+
     container.querySelectorAll('.cancel-order-btn').forEach(btn => {
         btn.addEventListener('click', () => cancelOrder(btn.dataset.orderId));
     });
@@ -1548,26 +1548,26 @@ function attachItemEventListeners(container, startIndex = 0) {
             e.stopPropagation();
             const itemId = btn.dataset.id;
             const item = SHOP_ITEMS[itemId];
-            
+
             // Check membership before adding
             const check = canPurchaseWithMembership(item, getActiveMembership());
             if (!check.allowed) {
                 showNotification(check.reason, 'error');
                 return;
             }
-            
+
             toggleCartItem(itemId);
         });
     });
-    
+
     container.querySelectorAll('.bulk-controls').forEach(controls => {
         const itemId = controls.dataset.id;
         const item = SHOP_ITEMS[itemId];
         if (!item) return;
-        
+
         const minusBtn = controls.querySelector('.qty-btn.minus');
         const plusBtn = controls.querySelector('.qty-btn.plus');
-        
+
         minusBtn?.addEventListener('click', (e) => {
             e.stopPropagation();
             const currentQty = getCartQuantity(itemId);
@@ -1577,17 +1577,17 @@ function attachItemEventListeners(container, startIndex = 0) {
             renderShopItems();
             renderCart();
         });
-        
+
         plusBtn?.addEventListener('click', (e) => {
             e.stopPropagation();
-            
+
             // Check membership
             const check = canPurchaseWithMembership(item, getActiveMembership());
             if (!check.allowed) {
                 showNotification(check.reason, 'error');
                 return;
             }
-            
+
             const currentQty = getCartQuantity(itemId);
             const maxQty = getMaxBulkQuantity(item);
             if (currentQty < maxQty) {
@@ -1604,23 +1604,23 @@ function attachItemEventListeners(container, startIndex = 0) {
 // Setup infinite scroll
 function setupInfiniteScroll() {
     let scrollTimeout;
-    
+
     window.addEventListener('scroll', () => {
         if (showAllItems || isLoadingMore) return;
-        
+
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
             const container = document.getElementById('shop-items');
             if (!container) return;
-            
+
             const rect = container.getBoundingClientRect();
             const bottomVisible = rect.bottom <= window.innerHeight + 300;
             const hasMore = (currentPage + 1) * ITEMS_PER_PAGE < filteredItems.length;
-            
+
             if (bottomVisible && hasMore) {
                 isLoadingMore = true;
                 currentPage++;
-                
+
                 renderShopItems(true);
                 isLoadingMore = false;
             }
@@ -1630,19 +1630,19 @@ function setupInfiniteScroll() {
 
 function handleInfiniteScroll() {
     if (isLoadingMore) return;
-    
+
     const container = document.getElementById('shop-items');
     if (!container) return;
-    
+
     const rect = container.getBoundingClientRect();
     const bottomVisible = rect.bottom <= window.innerHeight + 500;
-    
+
     const hasMore = (currentPage + 1) * ITEMS_PER_PAGE < filteredItems.length;
-    
+
     if (bottomVisible && hasMore) {
         isLoadingMore = true;
         currentPage++;
-        
+
         setTimeout(() => {
             renderShopItems(true);
             isLoadingMore = false;
@@ -1657,14 +1657,14 @@ function renderWarioStatusBar() {
         container.className = 'wario-status-bar';
         document.querySelector('.shop-header')?.after(container);
     }
-    
+
     const status = getWarioStatus();
     const dateTime = getFormattedGameDateTime();
     const allItems = getAllShopItems();
     const topSellers = getDailyTopSellers(allItems);
-    
+
     container.className = `wario-status-bar ${status.isNight ? 'night-mode' : ''}`;
-    
+
     container.innerHTML = `
         <!-- Time Display -->
         <div class="time-display">
@@ -1675,7 +1675,7 @@ function renderWarioStatusBar() {
                 <span class="game-date">${dateTime.full}</span>
             </div>
         </div>
-        
+
         <!-- Stock Meter -->
         <div class="stock-meter">
             <div class="stock-meter-label">
@@ -1686,7 +1686,7 @@ function renderWarioStatusBar() {
                 <div class="stock-meter-fill" style="width: ${status.stockPercent}%"></div>
             </div>
         </div>
-        
+
         <!-- Weather -->
         <div class="weather-display ${status.weather.isMagical ? 'magical' : ''}">
             <span class="weather-icon">${status.weather.icon}</span>
@@ -1695,51 +1695,51 @@ function renderWarioStatusBar() {
                 <span class="weather-desc">${status.weather.desc}</span>
             </div>
         </div>
-        
+
         <!-- Wario Mood -->
         <div class="wario-mood">
             <span class="mood-icon">${status.moodIcon}</span>
             <span class="mood-quote">"${status.quote}"</span>
         </div>
-        
+
         ${status.holiday ? `
             <div class="holiday-banner">
                 🎉 ${status.holiday.name}
             </div>
         ` : ''}
-        
+
         ${status.isNight ? `
             <div class="night-special-banner">
                 🌙 NIGHT MARKET OPEN - Special Items Available! 🌙
             </div>
         ` : ''}
     `;
-    
+
     return container;
 }
 
 // Render Crazes
 function renderCrazesBar() {
     const crazes = getDailyCrazes();
-    
+
     let container = document.getElementById('crazes-container');
     if (!container) {
         container = document.createElement('div');
         container.id = 'crazes-container';
         // Insert after wario status bar OR before shop-layout
-        const insertPoint = document.getElementById('wario-status-bar') || 
+        const insertPoint = document.getElementById('wario-status-bar') ||
                            document.querySelector('.shop-layout');
         if (insertPoint) {
             insertPoint.after(container);
         }
     }
-    
+
     if (!crazes || crazes.length === 0) {
         container.className = 'crazes-container empty';
         container.innerHTML = '';
         return;
     }
-    
+
     container.className = 'crazes-container';
     container.innerHTML = `
         <div class="crazes-label">
@@ -1765,7 +1765,7 @@ function renderCrazesBar() {
 function renderTopSellers() {
     const allItems = getAllShopItems();
     const topSellers = getDailyTopSellers(allItems);
-    
+
     let container = document.getElementById('top-sellers-section');
     if (!container) {
         container = document.createElement('div');
@@ -1774,7 +1774,7 @@ function renderTopSellers() {
         document.getElementById('crazes-container')?.after(container) ||
         document.getElementById('wario-status-bar')?.after(container);
     }
-    
+
     container.innerHTML = `
         <div class="top-sellers-header">
             <span>🏆</span>
@@ -1791,7 +1791,7 @@ function renderTopSellers() {
                         <div class="top-seller-info">
                             <span class="top-seller-name">${ts.item.name}</span>
                             <span class="top-seller-stock">
-                                ${availability.stockInfo.currentStock > 0 
+                                ${availability.stockInfo.currentStock > 0
                                     ? `⚡ ${availability.stockInfo.currentStock} left!`
                                     : '❌ SOLD OUT'}
                             </span>
@@ -1801,7 +1801,7 @@ function renderTopSellers() {
             }).join('')}
         </div>
     `;
-    
+
     // Click to scroll to item
     container.querySelectorAll('.top-seller-card').forEach(card => {
         card.addEventListener('click', () => {
@@ -1820,14 +1820,14 @@ function renderTopSellers() {
 function renderShopItems(append = false) {
     const container = document.getElementById('shop-items');
     if (!container) return;
-    
+
     const status = getXPStatus();
     const membership = getActiveMembership();
     const isNight = isNightTime();
     const allItems = getAllShopItems();
     const topSellers = getDailyTopSellers(allItems);
     const topSellerIds = topSellers.map(ts => ts.item.id);
-    
+
     let itemsToRender;
     if (showAllItems) {
         itemsToRender = filteredItems;
@@ -1836,7 +1836,7 @@ function renderShopItems(append = false) {
         const endIndex = startIndex + ITEMS_PER_PAGE;
         itemsToRender = filteredItems.slice(startIndex, endIndex);
     }
-    
+
     if (itemsToRender.length === 0 && !append) {
         container.innerHTML = `
             <div class="no-items">
@@ -1846,36 +1846,36 @@ function renderShopItems(append = false) {
         `;
         return;
     }
-    
+
     const itemsHtml = itemsToRender.map(item => {
         // Get dynamic availability
         const availability = getItemAvailability(item, allItems);
         const stockInfo = availability.stockInfo;
-        
+
         // Skip night-only during day (unless showing all)
         if (stockInfo.stockType === STOCK_TYPES.NIGHT_ONLY && !isNight && !showAllItems) {
             return '';
         }
-        
+
         const currentQty = getCartQuantity(item.id);
         const priceInfo = applyMembershipDiscount(item.price, membership);
         const effectivePrice = priceInfo.discounted;
-        
+
         const otherCartCost = cart.filter(c => c.id !== item.id)
             .reduce((sum, c) => sum + (c.totalPrice || c.price), 0);
         const canAffordOne = status.available - otherCartCost >= effectivePrice;
         const inCart = currentQty > 0;
-        
+
         const membershipCheck = canPurchaseWithMembership(item, membership);
         const requiredTier = getRequiredTierForItem(item);
         const isMembershipLocked = !membershipCheck.allowed;
-        
+
         const remainingStock = item.stock - (approvedPurchases.filter(p => p.itemId === item.id).length);
         const outOfStock = remainingStock <= 0;
-        
+
         const rarityClass = item.rarity || 'common';
         const canUseAtLevel = canPurchaseAtLevel(item);
-        
+
         // Dynamic classes
         const isTopSeller = topSellerIds.includes(item.id);
         const inCraze = stockInfo.crazeInfo.multiplier > 1;
@@ -1895,14 +1895,14 @@ function renderShopItems(append = false) {
         ((!canAffordOne && !inCart) || outOfStock || !availability.available) ? 'disabled' : ''
     ].filter(Boolean).join(' ');
         const vendor = getVendorDisplay(item.vendor);
-                const highlightedName = searchQuery ? 
-            item.name.replace(new RegExp(`(${escapeRegex(searchQuery)})`, 'gi'), '<mark>$1</mark>') : 
+                const highlightedName = searchQuery ?
+            item.name.replace(new RegExp(`(${escapeRegex(searchQuery)})`, 'gi'), '<mark>$1</mark>') :
             item.name;
     return `
         <div class="${classes}" data-id="${item.id}">
             ${isNightSpecial ? '<div class="night-special-tag">🌙 NIGHT SPECIAL</div>' : ''}
             ${isTopSeller ? '<div class="item-top-seller-badge">🔥 TOP SELLER</div>' : ''}
-            
+
             ${!availability.available ? `
                 <div class="time-lock-overlay">
                     <span class="lock-icon">${availability.icon}</span>
@@ -1913,7 +1913,7 @@ function renderShopItems(append = false) {
                     ` : ''}
                 </div>
             ` : ''}
-            
+
 
 ${isWarioScam(item) ? (() => {
     // Determine which scam text to show
@@ -1921,8 +1921,8 @@ ${isWarioScam(item) ? (() => {
     const isCheapScam = item.price < 1500;
 
     const title = isCheapScam ? "TOO GOOD TO BE TRUE?" : "BUYER BEWARE";
-    
-    const description = isCheapScam 
+
+    const description = isCheapScam
         ? `At only ${item.price.toLocaleString()} XP, this deal smells fishy. Wario isn't known for charity. You might receive a cardboard cutout, a broken replica, or he might just take the money and run.`
         : `At ${item.price.toLocaleString()} XP, Wario may be scamming you. There is <strong>no guarantee</strong> you will actually receive this item. Wario has been known to "lose" orders or claim "shipping accidents."`;
 
@@ -1965,7 +1965,7 @@ ${isWarioScam(item) ? (() => {
                     ⚖️ Price reviewed: ${item.price > item.priceOriginal ? 'raised' : 'lowered'} from ${item.priceOriginal.toLocaleString()} XP
                 </div>
             ` : ''}
-            
+
             <!-- Membership requirement badge (subtle, in badges area) -->
             ${isMembershipLocked ? `
                 <div class="membership-requirement-notice">
@@ -1973,14 +1973,14 @@ ${isWarioScam(item) ? (() => {
                     <span class="notice-text">Requires ${requiredTier.icon} ${requiredTier.name}</span>
                 </div>
             ` : ''}
-            
+
             <div class="availability-badge ${getAvailabilityClass(availability, stockInfo, inCraze, isTopSeller)}">
                 <span class="avail-icon">${availability.icon}</span>
                 <span class="avail-text">${availability.reason}</span>
-                ${availability.instant && !availability.shippingRequired ? 
+                ${availability.instant && !availability.shippingRequired ?
                     '<span class="pickup-badge">🏃 Pickup!</span>' : ''}
             </div>
-            
+
             ${stockInfo.currentStock > 0 && stockInfo.depletionRate > 0 ? `
                 <div class="stock-depletion">
                     <span>📉</span>
@@ -1990,14 +1990,14 @@ ${isWarioScam(item) ? (() => {
                     <span class="depletion-text">~${stockInfo.soldOutTime || '?'}h left</span>
                 </div>
             ` : ''}
-            
+
             <div class="item-badges">
                 ${renderDurabilityBadge(item)}
                 ${renderLevelBadge(item)}
             </div>
-            
+
             <p class="item-description">${item.description}</p>
-            
+
             <div class="item-effects" aria-label="Item effects">
                 ${(item.effects || []).map((effect, index) => `
                     <button class="effect-tag effect-detail-trigger" type="button" data-item-id="${item.id}" data-effect-index="${index}" aria-label="Read rules for ${effect}">
@@ -2006,9 +2006,9 @@ ${isWarioScam(item) ? (() => {
                 `).join('')}
             </div>
             ${renderInlineEffectRules(item)}
-            
+
             ${item.warning ? `<div class="item-warning">⚠️ ${item.warning}</div>` : ''}
-            
+
             <div class="item-footer">
                 <div class="vendor-info">
                     <span class="vendor-icon">${vendor.icon}</span>
@@ -2018,7 +2018,7 @@ ${isWarioScam(item) ? (() => {
                     ${outOfStock ? '❌ SOLD OUT' : `📦 ${remainingStock} in world`}
                 </span>
             </div>
-            
+
             <div class="item-shipping ${availability.instant ? 'instant' : ''}">
                 ${availability.instant ? `
                     <span class="shipping-label">🏃 Pickup:</span>
@@ -2029,7 +2029,7 @@ ${isWarioScam(item) ? (() => {
                     ${item.shippingDetail ? `<span class="shipping-detail" title="${item.shippingDetail}">ⓘ shipping details</span>` : ''}
                 `}
             </div>
-            
+
             <!-- Purchase controls - locked if membership restricted -->
             ${availability.available ? (
                 isMembershipLocked ? `
@@ -2051,14 +2051,14 @@ ${isWarioScam(item) ? (() => {
             ` : ''}
         </div>
     `;
-}).filter(html => html !== '').join('');    
+}).filter(html => html !== '').join('');
     if (append) {
         container.querySelector('.load-more-indicator')?.remove();
         container.insertAdjacentHTML('beforeend', itemsHtml);
     } else {
         container.innerHTML = itemsHtml;
     }
-    
+
     attachItemEventListeners(container);
 }
 function getAvailabilityClass(availability, stockInfo, inCraze, isTopSeller) {
@@ -2072,7 +2072,7 @@ function getAvailabilityClass(availability, stockInfo, inCraze, isTopSeller) {
 }
 function injectStockStyles() {
     if (document.getElementById('stock-styles')) return;
-    
+
     const styles = document.createElement('style');
     styles.id = 'stock-styles';
     styles.textContent = `
@@ -2087,61 +2087,61 @@ function injectStockStyles() {
             border: 2px solid #ffd700;
             min-width: 200px;
         }
-        
+
         .wario-status.night, .wario-status.midnight {
             border-color: #9b59b6;
             background: linear-gradient(135deg, rgba(75,0,130,0.3), rgba(0,0,0,0.4));
         }
-        
+
         .time-display {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        
+
         .time-icon {
             font-size: 24px;
         }
-        
+
         .time-info {
             display: flex;
             flex-direction: column;
         }
-        
+
         .time-name {
             font-weight: bold;
             color: #ffd700;
         }
-        
+
         .time-actual {
             font-size: 12px;
             color: #aaa;
         }
-        
+
         .stock-display {
             display: flex;
             flex-direction: column;
             gap: 4px;
         }
-        
+
         .stock-bar {
             height: 8px;
             background: rgba(255,255,255,0.1);
             border-radius: 4px;
             overflow: hidden;
         }
-        
+
         .stock-fill {
             height: 100%;
             background: linear-gradient(90deg, #ff4444, #ffaa00, #44ff44);
             transition: width 1s ease;
         }
-        
+
         .stock-text {
             font-size: 11px;
             color: #aaa;
         }
-        
+
         .wario-mood {
             display: flex;
             align-items: center;
@@ -2150,15 +2150,15 @@ function injectStockStyles() {
             color: #888;
             font-style: italic;
         }
-        
+
         .mood-icon {
             font-size: 20px;
         }
-        
+
         .mood-quote {
             flex: 1;
         }
-        
+
         .night-special-banner {
             background: linear-gradient(90deg, #9b59b6, #3498db, #9b59b6);
             background-size: 200% 100%;
@@ -2170,22 +2170,22 @@ function injectStockStyles() {
             font-weight: bold;
             font-size: 12px;
         }
-        
+
         @keyframes shimmer {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        
+
         /* Night mode header */
         .shop-header.night-mode {
             background: linear-gradient(180deg, #1a1a2e, #16213e);
         }
-        
+
         .shop-header.night-mode .shop-title h1 {
             text-shadow: 0 0 20px #9b59b6;
         }
-        
+
         /* Item availability badge */
         .availability-badge {
             display: flex;
@@ -2196,19 +2196,19 @@ function injectStockStyles() {
             font-size: 12px;
             margin: 8px 0;
         }
-        
+
         .availability-badge.instant {
             background: linear-gradient(135deg, rgba(46,204,113,0.2), rgba(39,174,96,0.1));
             border: 1px solid #2ecc71;
             color: #2ecc71;
         }
-        
+
         .availability-badge.delivery {
             background: linear-gradient(135deg, rgba(52,152,219,0.2), rgba(41,128,185,0.1));
             border: 1px solid #3498db;
             color: #3498db;
         }
-        
+
         .pickup-badge {
             background: #2ecc71;
             color: white;
@@ -2218,7 +2218,7 @@ function injectStockStyles() {
             font-size: 10px;
             margin-left: auto;
         }
-        
+
         /* Time locked overlay */
         .time-lock-overlay {
             position: absolute;
@@ -2235,34 +2235,34 @@ function injectStockStyles() {
             z-index: 10;
             border-radius: inherit;
         }
-        
+
         .time-lock-overlay .lock-icon {
             font-size: 48px;
         }
-        
+
         .time-lock-overlay .lock-reason {
             font-size: 14px;
             color: #aaa;
         }
-        
+
         .time-lock-overlay .lock-timer {
             font-size: 18px;
             color: #9b59b6;
             font-weight: bold;
         }
-        
+
         /* Night special items */
         .shop-item.night-special {
             border: 2px solid #9b59b6;
             box-shadow: 0 0 20px rgba(155, 89, 182, 0.3);
             animation: nightGlow 2s infinite alternate;
         }
-        
+
         @keyframes nightGlow {
             from { box-shadow: 0 0 10px rgba(155, 89, 182, 0.3); }
             to { box-shadow: 0 0 25px rgba(155, 89, 182, 0.5); }
         }
-        
+
         .night-special-badge {
             position: absolute;
             top: -10px;
@@ -2276,12 +2276,12 @@ function injectStockStyles() {
             z-index: 5;
             animation: pulse 1.5s infinite;
         }
-        
+
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
-        
+
         /* Instant shipping highlight */
         .item-shipping.instant {
             background: linear-gradient(135deg, rgba(46,204,113,0.2), rgba(39,174,96,0.1));
@@ -2289,13 +2289,13 @@ function injectStockStyles() {
             border-radius: 8px;
             padding: 8px;
         }
-        
+
         .item-shipping.instant .shipping-info {
             color: #2ecc71;
             font-weight: bold;
         }
     `;
-    
+
     document.head.appendChild(styles);
 }
 // Update init
@@ -2304,23 +2304,23 @@ async function init() {
     console.log('📅 Game Date:', getFormattedGameDateTime().full);
     console.log('🕐 Time Period:', getCurrentTimePeriod().name);
     console.log('🌙 Night Mode:', isNightTime());
-    
+
     // Note: Add <link rel="stylesheet" href="shop-stock.css"> to your HTML instead of injecting
     injectStockStyles();
     await loadApprovedPurchases();
     recalculateAllMemberships();
     loadFactionData();
     prepareFilteredItems();
-    
+
     // Render order matters!
     renderShopHeader();
     renderWarioStatusBar();
     renderCrazesBar();
     renderTopSellers();
     renderMainContent();
-    
+
     setupInfiniteScroll();
-    
+
     // Auto-refresh every minute
     setInterval(() => {
         if (currentTab === 'shop') {
@@ -2329,13 +2329,13 @@ async function init() {
             // Don't refresh items constantly - too expensive
         }
     }, 60000);
-    
+
     console.log('✅ Shop initialized');
     console.log('🔥 Today\'s crazes:', getDailyCrazes().map(c => c.name));
 }// Add these styles to injectMembershipStyles()
 function injectMembershipStyles() {
     if (document.getElementById('membership-styles')) return;
-    
+
     const styles = document.createElement('style');
     styles.id = 'membership-styles';
     styles.textContent = `
@@ -2348,12 +2348,12 @@ function injectMembershipStyles() {
             background: rgba(0,0,0,0.3);
             border-radius: 8px;
         }
-        
+
         .player-selector label {
             font-size: 12px;
             color: #aaa;
         }
-        
+
         .player-selector select {
             background: rgba(0,0,0,0.5);
             border: 1px solid #444;
@@ -2362,7 +2362,7 @@ function injectMembershipStyles() {
             border-radius: 6px;
             cursor: pointer;
         }
-        
+
         /* Party memberships grid */
         .party-memberships-grid {
             display: grid;
@@ -2370,7 +2370,7 @@ function injectMembershipStyles() {
             gap: 15px;
             margin-top: 15px;
         }
-        
+
         .party-member-card {
             background: rgba(0,0,0,0.4);
             border: 2px solid var(--tier-color, #666);
@@ -2379,42 +2379,42 @@ function injectMembershipStyles() {
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .party-member-card:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        
+
         .party-member-card.active {
             box-shadow: 0 0 20px var(--tier-color, #666);
             border-width: 3px;
         }
-        
+
         .member-header {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-bottom: 10px;
         }
-        
+
         .member-icon {
             font-size: 24px;
         }
-        
+
         .member-info {
             flex: 1;
         }
-        
+
         .member-name {
             font-weight: bold;
             display: block;
         }
-        
+
         .member-tier {
             font-size: 12px;
             color: var(--tier-color, #aaa);
         }
-        
+
         .active-badge {
             background: #4ade80;
             color: black;
@@ -2423,7 +2423,7 @@ function injectMembershipStyles() {
             font-size: 10px;
             font-weight: bold;
         }
-        
+
         .member-stats {
             display: flex;
             justify-content: space-between;
@@ -2431,32 +2431,32 @@ function injectMembershipStyles() {
             color: #aaa;
             margin-bottom: 8px;
         }
-        
+
         .member-progress {
             height: 4px;
             background: rgba(255,255,255,0.1);
             border-radius: 2px;
             overflow: hidden;
         }
-        
+
         .member-progress-bar {
             height: 100%;
             background: var(--tier-color, #666);
             transition: width 0.3s ease;
         }
-        
+
         /* Membership hero updates */
         .membership-player-name {
             font-size: 14px;
             color: #aaa;
             margin-bottom: 5px;
         }
-        
+
         .membership-spent {
             font-size: 11px;
             color: #888;
         }
-        
+
         .tier-progress-mini {
             width: 80px;
             height: 4px;
@@ -2465,28 +2465,28 @@ function injectMembershipStyles() {
             overflow: hidden;
             margin-top: 4px;
         }
-        
+
         .tier-progress-mini .tier-progress-bar {
             height: 100%;
             background: var(--tier-color, #666);
         }
-        
+
         /* Letter tiers section */
         .letter-tiers .tier-card {
             background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(50,50,50,0.3));
         }
-        
+
         .tier-card.upcoming {
             opacity: 0.8;
             border-style: dashed;
         }
-        
+
         .tier-info-text {
             color: #aaa;
             font-size: 14px;
             margin-bottom: 15px;
         }
-        
+
         .wario-warning-text {
             color: #ff9800;
             font-size: 14px;
@@ -2496,11 +2496,11 @@ function injectMembershipStyles() {
             border-radius: 8px;
             border-left: 3px solid #ff9800;
         }
-        
+
         /* Keep all previous membership styles... */
         ${getPreviousMembershipStyles()}
     `;
-    
+
     document.head.appendChild(styles);
 }
 
@@ -2518,19 +2518,19 @@ function getPreviousMembershipStyles() {
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .membership-display:hover {
             transform: scale(1.02);
             box-shadow: 0 0 15px var(--tier-color, #666);
         }
-        
+
         .membership-icon { font-size: 24px; }
         .membership-info { display: flex; flex-direction: column; align-items: center; }
         .membership-name { font-weight: bold; color: var(--tier-color, #fff); font-size: 12px; }
         .membership-discount { font-size: 11px; color: #4ade80; }
-        
+
         .shop-item.membership-locked { position: relative; }
-        
+
         .membership-lock-overlay {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -2542,11 +2542,11 @@ function getPreviousMembershipStyles() {
             z-index: 10;
             border-radius: inherit;
         }
-        
+
         .membership-lock-overlay .lock-icon { font-size: 32px; }
         .membership-lock-overlay .lock-tier { font-size: 16px; font-weight: bold; color: var(--tier-color, #fff); }
         .membership-lock-overlay .lock-reason { font-size: 12px; color: #aaa; }
-        
+
         .membership-badge {
             display: inline-flex;
             align-items: center;
@@ -2557,17 +2557,17 @@ function getPreviousMembershipStyles() {
             border-radius: 12px;
             font-size: 11px;
         }
-        
+
         .membership-badge.unlocked { border-color: #4ade80; color: #4ade80; }
         .membership-badge.locked { opacity: 0.7; }
-        
+
         .item-price-group { display: flex; flex-direction: column; align-items: flex-end; }
         .original-price { text-decoration: line-through; color: #888; font-size: 12px; }
         .discounted-price { color: #4ade80; }
         .discount-badge { background: #4ade80; color: black; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; }
-        
+
         .membership-tab-content { padding: 20px; max-width: 1200px; margin: 0 auto; }
-        
+
         .membership-hero {
             background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.3));
             border: 3px solid var(--tier-color, #666);
@@ -2576,37 +2576,37 @@ function getPreviousMembershipStyles() {
             text-align: center;
             margin-bottom: 30px;
         }
-        
+
         .membership-hero-icon { font-size: 64px; margin-bottom: 10px; }
         .membership-hero h2 { color: var(--tier-color, #fff); margin-bottom: 5px; }
-        
+
         .membership-stats { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 20px 0; }
         .membership-stat { text-align: center; }
         .membership-stat .stat-value { font-size: 24px; font-weight: bold; color: var(--tier-color, #fff); display: block; }
         .membership-stat .stat-label { font-size: 12px; color: #aaa; }
-        
+
         .tier-progress-large { max-width: 400px; margin: 0 auto; }
         .progress-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
         .progress-bar-large { height: 12px; background: rgba(255,255,255,0.1); border-radius: 6px; overflow: hidden; }
         .progress-fill { height: 100%; transition: width 0.5s ease; }
         .progress-footer { display: flex; justify-content: space-between; font-size: 12px; color: #aaa; margin-top: 8px; }
-        
+
         .membership-section { background: rgba(0,0,0,0.3); border-radius: 15px; padding: 20px; margin-bottom: 20px; }
         .membership-section h3 { margin-bottom: 15px; }
-        
+
         .perks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 10px; }
         .perk-item { display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px; }
         .perk-item.active .perk-check { color: #4ade80; }
-        
+
         .wario-note {
             display: flex; align-items: center; gap: 15px; margin-top: 20px; padding: 15px;
             background: linear-gradient(135deg, #4a1c7a, #2d1a47);
             border-radius: 10px; border: 2px solid #9b59b6;
         }
         .wario-face { font-size: 40px; }
-        
+
         .tiers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px; }
-        
+
         .tier-card {
             background: rgba(0,0,0,0.4);
             border: 2px solid var(--tier-color, #666);
@@ -2614,21 +2614,21 @@ function getPreviousMembershipStyles() {
             padding: 15px;
             transition: all 0.3s ease;
         }
-        
+
         .tier-card.current { box-shadow: 0 0 20px var(--tier-color, #666); }
         .tier-card.locked { opacity: 0.5; }
-        
+
         .tier-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
         .tier-header .tier-icon { font-size: 24px; }
         .tier-header .tier-name { font-weight: bold; color: var(--tier-color, #fff); }
         .current-badge { background: #4ade80; color: black; padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; }
         .locked-badge { margin-left: auto; }
-        
+
         .tier-requirements { font-size: 12px; color: #aaa; margin-bottom: 10px; }
         .tier-limits { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
         .limit-item { display: flex; justify-content: space-between; }
         .limit-label { color: #888; }
-        
+
         .faq .faq-item { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .faq .faq-item:last-child { border-bottom: none; }
         .faq .faq-item strong { color: #fff; }
@@ -2657,22 +2657,22 @@ async function loadApprovedPurchases() {
 function processApprovedPurchasesForMembership() {
     // Reset lifetime spent for all players based on approved purchases
     const playerSpending = {};
-    
+
     approvedPurchases.forEach(purchase => {
         // Skip faction purchases - they don't count toward individual membership
         if (purchase.isFaction) return;
-        
+
         const playerKey = purchase.playerKey;
         if (!playerKey) return;
-        
+
         const amount = purchase.price * (purchase.quantity || 1);
-        
+
         if (!playerSpending[playerKey]) {
             playerSpending[playerKey] = 0;
         }
         playerSpending[playerKey] += amount;
     });
-    
+
     // Update playerMemberships with calculated spending
     for (const playerKey in playerSpending) {
         if (!playerMemberships[playerKey]) {
@@ -2681,18 +2681,18 @@ function processApprovedPurchasesForMembership() {
                 pendingSpent: 0
             };
         }
-        
+
         // Set lifetime spent from approved purchases
         playerMemberships[playerKey].lifetimeSpent = playerSpending[playerKey];
-        
+
         // Recalculate tier
         const tier = getTierFromXP(playerSpending[playerKey]);
         playerMemberships[playerKey].tier = tier || createDefaultTier();
     }
-    
+
     // Log what we found
     console.log('💰 Player spending from approved purchases:', playerSpending);
-    
+
     // Save updated memberships
     savePlayerMemberships();
 }
@@ -2701,7 +2701,7 @@ export const BULK_PRICING = {
     allowedRarities: ['junk', 'common', 'uncommon'], // Only these can be bulk ordered
     maxQuantity: 10,
     priceIncreasePerUnit: {
-        junk: 0.02,     
+        junk: 0.02,
         common: 0.05,      // 5% increase per additional unit
         uncommon: 0.10     // 10% increase per additional unit
     },
@@ -2710,17 +2710,17 @@ export const BULK_PRICING = {
 };
 export function calculateBulkPrice(item, quantity) {
     if (quantity <= 1) return item.price;
-    
+
     const rarity = item.rarity || 'common';
     const increaseRate = BULK_PRICING.priceIncreasePerUnit[rarity] || 0.05;
-    
+
     // Each additional unit costs more
     let total = 0;
     for (let i = 0; i < quantity; i++) {
         const unitPrice = Math.ceil(item.price * (1 + (i * increaseRate)));
         total += unitPrice;
     }
-    
+
     return total;
 }
 export function getBulkPriceBreakdown(item, quantity) {
@@ -2731,13 +2731,13 @@ export function getBulkPriceBreakdown(item, quantity) {
             cumulative: item.price
         }];
     }
-    
+
     const rarity = item.rarity || 'common';
     const increaseRate = BULK_PRICING.priceIncreasePerUnit[rarity] || 0.05;
-    
+
     const breakdown = [];
     let cumulative = 0;
-    
+
     for (let i = 0; i < quantity; i++) {
         const unitPrice = Math.ceil(item.price * (1 + (i * increaseRate)));
         cumulative += unitPrice;
@@ -2748,24 +2748,24 @@ export function getBulkPriceBreakdown(item, quantity) {
             increase: i > 0 ? Math.round(i * increaseRate * 100) : 0
         });
     }
-    
+
     return breakdown;
 }
 
 export function canBulkOrder(item) {
-    return BULK_PRICING.enabled && 
+    return BULK_PRICING.enabled &&
            BULK_PRICING.allowedRarities.includes(item.rarity || 'common');
 }
 // --- Load Faction Data ---
 function loadFactionData() {
     console.log('🍄 Loading faction data...');
-    
+
     // Get all toads from the data file
     allToads = getAllToadsData();
-    
+
     // Get pre-calculated stats
     factionStats = getPreCalculatedFactionStats();
-    
+
     console.log('🍄 Faction data loaded:', {
         totalToads: allToads.length,
         totalXP: factionStats.totalXP,
@@ -2782,12 +2782,12 @@ function getPlayerXPStatus() {
     const earnedPlayerXP = allRewards
         .filter(r => r.earned && r.type === 'xp')
         .reduce((sum, r) => sum + (r.amount || 0), 0);
-    
+
     const personalPurchases = approvedPurchases.filter(p => {
         const item = SHOP_ITEMS[p.itemId];
         return item && item.category !== SHOP_CATEGORIES.FACTION;
     });
-    
+
     const spentPlayerXP = personalPurchases.reduce((sum, p) => sum + p.price, 0);
     const pendingPlayerXP = pendingOrders
         .filter(o => !o.isFactionOrder)
@@ -2805,7 +2805,7 @@ function getPlayerXPStatus() {
 
 function getFactionXPStatus() {
     const factionTotalXP = factionStats?.totalXP || 0;
-    
+
     const pendingFactionXP = pendingOrders
         .filter(o => o.isFactionOrder)
         .reduce((sum, o) => sum + o.total, 0);
@@ -2853,7 +2853,7 @@ function getPurchasedFactionUpgrades() {
 function showNotification(message, type = 'info') {
     const existing = document.querySelector('.shop-notification');
     if (existing) existing.remove();
-    
+
     const notification = document.createElement('div');
     notification.className = `shop-notification ${type}`;
     notification.innerHTML = `
@@ -2861,7 +2861,7 @@ function showNotification(message, type = 'info') {
         <span class="notification-message">${message}</span>
     `;
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
         notification.classList.add('fade-out');
         setTimeout(() => notification.remove(), 300);
@@ -2879,17 +2879,17 @@ function renderMainContent() {
     const factionContent = document.getElementById('faction-content');
     const membershipContent = document.getElementById('membership-content') || createMembershipContainer();
     const sidebar = document.querySelector('.shop-sidebar');
-    
+
     // Hide all first
     if (shopGrid) shopGrid.style.display = 'none';
     if (factionContent) factionContent.style.display = 'none';
     if (membershipContent) membershipContent.style.display = 'none';
     if (sidebar) sidebar.style.display = 'none';
-    
+
     if (currentTab === 'shop') {
         if (shopGrid) shopGrid.style.display = 'grid';
         if (sidebar) sidebar.style.display = 'flex';
-        
+
         renderCategoryTabs();
         prepareFilteredItems();
         renderShopItems();
@@ -2901,7 +2901,7 @@ function renderMainContent() {
         if (membershipContent) membershipContent.style.display = 'block';
         renderMembershipTab();
     }
-    
+
     renderCart();
     renderPurchaseHistory();
 }
@@ -2909,16 +2909,16 @@ function renderMainContent() {
 function createMembershipContainer() {
     const existing = document.getElementById('membership-content');
     if (existing) return existing;
-    
+
     const container = document.createElement('div');
     container.id = 'membership-content';
     container.className = 'membership-content';
-    
+
     const mainContainer = document.querySelector('.shop-main') || document.querySelector('.shop-container');
     if (mainContainer) {
         mainContainer.appendChild(container);
     }
-    
+
     return container;
 }
 
@@ -2929,12 +2929,12 @@ function createMembershipContainer() {
 // New: Prepare filtered items for lazy loading
 function prepareFilteredItems() {
     let items = Object.values(getAllShopItems()).filter(item => item && item.category !== SHOP_CATEGORIES.FACTION);
-    
+
     // Filter by category
     if (currentCategory !== 'all') {
         items = items.filter(item => item.category === currentCategory);
     }
-    
+
     // Filter by search query
     if (searchQuery) {
         items = items.filter(item => {
@@ -2947,14 +2947,14 @@ function prepareFilteredItems() {
                 ...(item.effects || []),
                 item.shippedBy
             ].filter(Boolean).join(' ').toLowerCase();
-            
+
             return searchFields.includes(searchQuery);
         });
     }
-    
+
     // Sort by price
     items.sort((a, b) => a.price - b.price);
-    
+
     filteredItems = items;
     currentPage = 0;
 }
@@ -2962,9 +2962,9 @@ function prepareFilteredItems() {
 function renderCategoryTabs() {
     const container = document.getElementById('shop-categories');
     if (!container) return;
-    
+
     const stats = getShopStats();
-    
+
     const categories = [
         { id: 'all', name: 'All Items', icon: '🏪', count: stats.totalItems - (stats.byCategory[SHOP_CATEGORIES.FACTION] || 0) },
         { id: SHOP_CATEGORIES.CONSUMABLES, name: 'Consumables', icon: '🍄', count: stats.byCategory[SHOP_CATEGORIES.CONSUMABLES] || 0 },
@@ -2974,18 +2974,18 @@ function renderCategoryTabs() {
         { id: SHOP_CATEGORIES.PREMIUM, name: 'Premium', icon: '✨', count: stats.byCategory[SHOP_CATEGORIES.PREMIUM] || 0 },
         { id: SHOP_CATEGORIES.FORBIDDEN, name: 'Forbidden', icon: '☠️', count: stats.byCategory[SHOP_CATEGORIES.FORBIDDEN] || 0 }
     ];
-    
+
     container.innerHTML = `
         <div class="shop-controls">
             <div class="search-container">
-                <input type="text" 
-                       id="shop-search" 
-                       class="shop-search-input" 
-                       placeholder="🔍 Search items..." 
+                <input type="text"
+                       id="shop-search"
+                       class="shop-search-input"
+                       placeholder="🔍 Search items..."
                        value="${searchQuery}">
                 ${searchQuery ? `<button class="search-clear-btn" id="clear-search">✕</button>` : ''}
             </div>
-            
+
             <div class="load-controls">
                 <button class="load-all-btn ${showAllItems ? 'active' : ''}" id="load-all-btn">
                     ${showAllItems ? '📄 Paginated' : '📜 Load All'}
@@ -2995,10 +2995,10 @@ function renderCategoryTabs() {
                 </span>
             </div>
         </div>
-        
+
         <div class="category-tabs">
             ${categories.map(cat => `
-                <button class="category-tab ${currentCategory === cat.id ? 'active' : ''}" 
+                <button class="category-tab ${currentCategory === cat.id ? 'active' : ''}"
                         data-category="${cat.id}">
                     <span class="cat-icon">${cat.icon}</span>
                     <span class="cat-name">${cat.name}</span>
@@ -3007,7 +3007,7 @@ function renderCategoryTabs() {
             `).join('')}
         </div>
     `;
-    
+
     // Search input handler
     const searchInput = container.querySelector('#shop-search');
     let searchTimeout;
@@ -3021,7 +3021,7 @@ function renderCategoryTabs() {
             renderShopItems();
         }, 300); // Debounce 300ms
     });
-    
+
     // Clear search button
     container.querySelector('#clear-search')?.addEventListener('click', () => {
         searchQuery = '';
@@ -3031,7 +3031,7 @@ function renderCategoryTabs() {
         renderShopItems();
         playSound('click.mp3');
     });
-    
+
     // Load all toggle
     container.querySelector('#load-all-btn')?.addEventListener('click', () => {
         showAllItems = !showAllItems;
@@ -3040,7 +3040,7 @@ function renderCategoryTabs() {
         renderShopItems();
         playSound('click.mp3');
     });
-    
+
     // Category tabs
     container.querySelectorAll('.category-tab').forEach(tab => {
         tab.addEventListener('click', () => {
@@ -3062,24 +3062,24 @@ function escapeRegex(string) {
 export function getTierFromXP(xpSpent) {
     // Ensure xpSpent is a valid number
     const spent = Number(xpSpent) || 0;
-    
+
     let tierIndex = 0;
-    
+
     // Find the highest tier the player qualifies for
     while (tierIndex < 200) { // Safety limit
         const nextTier = generateTier(tierIndex + 1);
         if (!nextTier || spent < nextTier.threshold) break;
         tierIndex++;
     }
-    
+
     const tier = generateTier(tierIndex);
-    
+
     // Safety: if somehow null, return bronze
     if (!tier) {
         console.warn('getTierFromXP returned null, defaulting to bronze');
         return { ...BASE_MEMBERSHIP_TIERS[0], index: 0 };
     }
-    
+
     return tier;
 }
 
@@ -3087,29 +3087,29 @@ export function getTierFromXP(xpSpent) {
 export function generateTier(tierIndex) {
     // Ensure tierIndex is valid
     const idx = Math.max(0, Math.floor(Number(tierIndex) || 0));
-    
+
     if (idx < BASE_MEMBERSHIP_TIERS.length) {
         return { ...BASE_MEMBERSHIP_TIERS[idx], index: idx };
     }
-    
+
     // Letter tiers (after Wario VIP)
     const letterIndex = idx - BASE_MEMBERSHIP_TIERS.length;
     const letterName = getLetterTierName(letterIndex);
-    
+
     const baseThreshold = BASE_MEMBERSHIP_TIERS[4].threshold; // 1,000,000
     const threshold = baseThreshold * Math.pow(2, letterIndex + 1);
-    
+
     const discount = Math.min(25, 20 + Math.floor(letterIndex / 5));
     const maxLevel = 20 + Math.floor(letterIndex / 2);
-    
+
     const hue = (letterIndex * 30) % 360;
     const color = `hsl(${hue}, 70%, 50%)`;
-    
+
     let icon = '🔷';
     if (letterIndex >= 26) icon = '💠';
     if (letterIndex >= 52) icon = '🌟';
     if (letterIndex >= 78) icon = '✨';
-    
+
     return {
         id: `tier_${letterName.toLowerCase()}`,
         name: `Tier ${letterName}`,
@@ -3144,7 +3144,7 @@ export function applyMembershipDiscount(basePrice, tier) {
             discountPercent: 0
         };
     }
-    
+
     const discount = tier.discount || 0;
     const discounted = Math.ceil(basePrice * (1 - discount / 100));
     return {
@@ -3161,7 +3161,7 @@ export function canPurchaseWithMembership(item, tier) {
     if (!tier) {
         return { allowed: false, reason: 'Membership data not loaded' };
     }
-    
+
     if (item.price > tier.maxPrice) {
         const requiredTier = getRequiredTierForItem(item);
         return {
@@ -3169,7 +3169,7 @@ export function canPurchaseWithMembership(item, tier) {
             reason: `Requires ${requiredTier.name} (item costs ${item.price.toLocaleString()} XP)`
         };
     }
-    
+
     if (item.levelRequirement && item.levelRequirement > tier.maxLevel) {
         const requiredTier = getRequiredTierForItem(item);
         return {
@@ -3177,20 +3177,20 @@ export function canPurchaseWithMembership(item, tier) {
             reason: `Requires ${requiredTier.name} (item is Level ${item.levelRequirement})`
         };
     }
-    
+
     if (item.category === SHOP_CATEGORIES.FORBIDDEN && tier.index < 4) {
         return {
             allowed: false,
             reason: "Forbidden items require Wario's Inner Circle"
         };
     }
-    
+
     return { allowed: true };
 }
 function toggleCartItem(itemId) {
     const item = SHOP_ITEMS[itemId];
     if (!item) return;
-    
+
     // For bulk items, use the bulk system
     if (canBulkOrder(item)) {
         const currentQty = getCartQuantity(itemId);
@@ -3204,7 +3204,7 @@ function toggleCartItem(itemId) {
     } else {
         // Non-bulk items: simple toggle
         const existingIndex = cart.findIndex(c => c.id === itemId);
-        
+
         if (existingIndex >= 0) {
             cart.splice(existingIndex, 1);
             delete cartQuantities[itemId];
@@ -3212,22 +3212,22 @@ function toggleCartItem(itemId) {
         } else {
             const isFactionItem = item.category === SHOP_CATEGORIES.FACTION;
             const isFactionTab = currentTab === 'faction';
-            
+
             if (isFactionItem !== isFactionTab) {
                 showNotification('Switch tabs to buy this item type.', 'error');
                 return;
             }
-            
-            cart.push({ 
-                ...item, 
-                quantity: 1, 
-                totalPrice: item.price 
+
+            cart.push({
+                ...item,
+                quantity: 1,
+                totalPrice: item.price
             });
             cartQuantities[itemId] = 1;
             playSound('confirm.mp3');
         }
     }
-    
+
     renderShopHeader();
     if (currentTab === 'shop') renderShopItems();
     if (currentTab === 'faction') renderFactionTab();
@@ -3237,19 +3237,19 @@ function toggleCartItem(itemId) {
 function cancelOrder(orderId) {
     const orderIndex = pendingOrders.findIndex(o => o.orderId === orderId);
     if (orderIndex === -1) return;
-    
+
     const order = pendingOrders[orderIndex];
-    
+
     if (!confirm(`Cancel order ${orderId}?\n\nThis will refund ${order.total.toLocaleString()} XP.`)) {
         return;
     }
-    
+
     pendingOrders.splice(orderIndex, 1);
     localStorage.setItem('xp_pending_orders', JSON.stringify(pendingOrders));
-    
+
     playSound('click.mp3');
     showNotification(`Order ${orderId} cancelled. ${order.total.toLocaleString()} XP refunded.`, 'success');
-    
+
     renderShopHeader();
     if (currentTab === 'shop') renderShopItems();
     if (currentTab === 'faction') renderFactionTab();
@@ -3261,17 +3261,17 @@ function cancelOrder(orderId) {
 function showReceipt(order, remainingXP) {
     const modal = document.getElementById('receipt-modal');
     const content = document.getElementById('receipt-content');
-    
+
     if (!modal || !content) return;
-    
+
     const now = new Date();
-    const dateStr = now.toLocaleDateString('en-US', { 
-        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' 
+    const dateStr = now.toLocaleDateString('en-US', {
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
     });
-    const timeStr = now.toLocaleTimeString('en-US', { 
-        hour: '2-digit', minute: '2-digit' 
+    const timeStr = now.toLocaleTimeString('en-US', {
+        hour: '2-digit', minute: '2-digit'
     });
-    
+
     content.innerHTML = `
         <div class="receipt">
             <div class="receipt-header">
@@ -3279,12 +3279,12 @@ function showReceipt(order, remainingXP) {
                 <h2 class="receipt-title">Wario's Warehouse</h2>
                 <p class="receipt-subtitle">Official Purchase Receipt</p>
             </div>
-            
+
             <div class="receipt-meta">
                 <span>Order: ${order.orderId}</span>
                 <span>${dateStr} ${timeStr}</span>
             </div>
-            
+
             <div class="receipt-party-level">
                 ⭐ Party Level: ${PARTY_MAX_LEVEL}
             </div>
@@ -3299,8 +3299,8 @@ function showReceipt(order, remainingXP) {
                                     <span class="receipt-bulk-note">(Bulk: ~${Math.ceil(item.totalPrice / item.quantity).toLocaleString()} ea)</span>
                                 ` : ''}
                                 <span class="receipt-item-durability">
-                                    ${item.durability?.isPermanent ? '♾️ Permanent' : 
-                                      item.durability?.isSingleUse ? '💨 Single Use' : 
+                                    ${item.durability?.isPermanent ? '♾️ Permanent' :
+                                      item.durability?.isSingleUse ? '💨 Single Use' :
                                       `🛡️ ${item.durability?.maxUses || '?'} Uses`}
                                 </span>
                             </div>
@@ -3311,7 +3311,7 @@ function showReceipt(order, remainingXP) {
                     </div>
                 `).join('')}
             </div>
-            
+
             <div class="receipt-summary">
                 <div class="summary-row">
                     <span>Subtotal:</span>
@@ -3332,33 +3332,33 @@ function showReceipt(order, remainingXP) {
                     <span>${order.total.toLocaleString()} XP</span>
                 </div>
             </div>
-            
+
             <div class="receipt-footer">
                 <p>Remaining Balance: ${remainingXP.toLocaleString()} XP</p>
                 <p class="wario-sig">"NO REFUNDS! WAH HA HA!" - Wario</p>
             </div>
-            
+
             <div class="receipt-actions">
                 <button class="close-receipt-btn">Close Receipt</button>
                 <button class="print-receipt-btn">🖨️ Print</button>
             </div>
         </div>
     `;
-    
+
     modal.style.display = 'flex';
-    
+
     // Modal actions
     const closeBtn = content.querySelector('.close-receipt-btn');
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
         playSound('click.mp3');
     });
-    
+
     const printBtn = content.querySelector('.print-receipt-btn');
     printBtn.addEventListener('click', () => {
         window.print();
     });
-    
+
     // Close on click outside
     modal.onclick = (e) => {
         if (e.target === modal) modal.style.display = 'none';
@@ -3370,19 +3370,19 @@ function getLetterTierName(index) {
     let name = '';
     // 0 -> A, 25 -> Z, 26 -> AA
     let n = index;
-    
+
     do {
         const remainder = n % 26;
         name = String.fromCharCode(65 + remainder) + name;
         n = Math.floor(n / 26) - 1;
     } while (n >= 0);
-    
+
     return name;
 }
 function isWarioScam(item) {
     const isOverpriced = item.price >= 1000000 && item.id !== 'warios_franchise';
     const isSuspicious = item.rarity === 'common' && item.price < 1500;
-    
+
     return isOverpriced || isSuspicious;
 }
 
@@ -3392,12 +3392,12 @@ function getScamWarningText(item) {
     if (item.rarity === 'common' && item.price < 1500) {
         return "Too good to be true...";
     }
-    
+
     // Condition 2: High Price (Default Scam)
     if (item.price >= 1000000 && item.id !== 'warios_franchise') {
         return "TOTAL SCAM!";
     }
-    
+
     return ""; // No warning text
 }
 
@@ -3418,25 +3418,25 @@ export {
 function renderFactionTab() {
     const container = document.getElementById('faction-content');
     if (!container) return;
-    
+
     const purchasedUpgrades = getPurchasedFactionUpgrades();
     const bonuses = calculateFactionBonuses(purchasedUpgrades);
     const status = getFactionXPStatus();
-    
+
     const stats = factionStats || {
         total: 0, active: 0, injured: 0, critical: 0, mia: 0, special: 0, deceased: 0,
         totalXP: 0, averageLevel: 0, morale: 50, loyalty: 50, combatReadiness: 50,
         levelDistribution: {}, cohortBreakdown: {}, classBreakdown: {}
     };
-    
+
     const modifiedStats = {
         morale: Math.min(100, stats.morale + (bonuses.morale || 0)),
         loyalty: Math.min(100, stats.loyalty + (bonuses.loyalty || 0)),
         combatReadiness: Math.min(100, stats.combatReadiness + (bonuses.combatReadiness || 0))
     };
-    
+
     const factionUpgrades = getFactionUpgrades();
-    
+
     factionUpgrades.sort((a, b) => {
         const aOwned = purchasedUpgrades.includes(a.id);
         const bOwned = purchasedUpgrades.includes(b.id);
@@ -3459,7 +3459,7 @@ function renderFactionTab() {
                         <span class="xp-label">Available XP</span>
                     </div>
                 </div>
-                
+
                 <div class="faction-stats-grid">
                     <div class="faction-stat-card members">
                         <span class="stat-icon">👥</span>
@@ -3475,7 +3475,7 @@ function renderFactionTab() {
                             ${stats.special > 0 ? `<span class="special">⭐ ${stats.special} Special</span>` : ''}
                         </div>
                     </div>
-                    
+
                     <div class="faction-stat-card">
                         <span class="stat-icon">💪</span>
                         <div class="stat-info">
@@ -3487,7 +3487,7 @@ function renderFactionTab() {
                         </div>
                         ${bonuses.morale > 0 ? `<span class="bonus-indicator">+${bonuses.morale}% from upgrades</span>` : ''}
                     </div>
-                    
+
                     <div class="faction-stat-card">
                         <span class="stat-icon">❤️</span>
                         <div class="stat-info">
@@ -3499,7 +3499,7 @@ function renderFactionTab() {
                         </div>
                         ${bonuses.loyalty > 0 ? `<span class="bonus-indicator">+${bonuses.loyalty}% from upgrades</span>` : ''}
                     </div>
-                    
+
                     <div class="faction-stat-card">
                         <span class="stat-icon">⚔️</span>
                         <div class="stat-info">
@@ -3511,7 +3511,7 @@ function renderFactionTab() {
                         </div>
                         ${bonuses.combatReadiness > 0 ? `<span class="bonus-indicator">+${bonuses.combatReadiness}% from upgrades</span>` : ''}
                     </div>
-                    
+
                     <div class="faction-stat-card">
                         <span class="stat-icon">⭐</span>
                         <div class="stat-info">
@@ -3519,7 +3519,7 @@ function renderFactionTab() {
                             <span class="stat-label">Total Faction XP</span>
                         </div>
                     </div>
-                    
+
                     <div class="faction-stat-card">
                         <span class="stat-icon">📊</span>
                         <div class="stat-info">
@@ -3527,14 +3527,14 @@ function renderFactionTab() {
                             <span class="stat-label">Average Level</span>
                         </div>
                         <div class="level-distribution">
-                            ${Object.entries(stats.levelDistribution || {}).sort((a,b) => parseInt(b[0]) - parseInt(a[0])).slice(0, 5).map(([lvl, count]) => 
+                            ${Object.entries(stats.levelDistribution || {}).sort((a,b) => parseInt(b[0]) - parseInt(a[0])).slice(0, 5).map(([lvl, count]) =>
                                 `<span class="level-tag">Lv${lvl}: ${count}</span>`
                             ).join('')}
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             ${purchasedUpgrades.length > 0 ? `
                 <div class="faction-section">
                     <h3>✅ Active Upgrades</h3>
@@ -3548,7 +3548,7 @@ function renderFactionTab() {
                                     <div class="upgrade-info">
                                         <span class="upgrade-name">${item.name}</span>
                                         <div class="upgrade-bonuses">
-                                            ${Object.entries(item.factionBonus || {}).map(([key, val]) => 
+                                            ${Object.entries(item.factionBonus || {}).map(([key, val]) =>
                                                 `<span class="bonus-tag active">+${val}% ${key}</span>`
                                             ).join('')}
                                         </div>
@@ -3559,7 +3559,7 @@ function renderFactionTab() {
                     </div>
                 </div>
             ` : ''}
-            
+
             <div class="faction-section">
                 <h3>🛒 Available Faction Upgrades</h3>
                 <div class="faction-upgrades-grid">
@@ -3568,7 +3568,7 @@ function renderFactionTab() {
                         const canAfford = status.available >= item.price;
                         const inCart = cart.some(c => c.id === item.id);
                         const durability = calculateDurability(item);
-                        
+
                         return `
                             <div class="faction-upgrade-card ${isPurchased ? 'purchased' : ''} ${!canAfford && !isPurchased ? 'unaffordable' : ''} ${inCart ? 'in-cart' : ''}"
                                  data-id="${item.id}">
@@ -3581,23 +3581,23 @@ function renderFactionTab() {
                                         </span>
                                     </div>
                                 </div>
-                                
+
                                 <div class="upgrade-badges">
                                     ${renderDurabilityBadge(item)}
                                     ${renderLevelRequirement(item)}
                                 </div>
-                                
+
                                 <p class="upgrade-description">${item.description}</p>
                                 <div class="upgrade-effects">
                                     ${item.effects.map(e => `<span class="effect-tag">✦ ${e}</span>`).join('')}
                                 </div>
                                 <div class="upgrade-bonuses">
-                                    ${Object.entries(item.factionBonus || {}).map(([key, val]) => 
+                                    ${Object.entries(item.factionBonus || {}).map(([key, val]) =>
                                         `<span class="bonus-tag">+${val}% ${key}</span>`
                                     ).join('')}
                                 </div>
                                 ${!isPurchased ? `
-                                    <button class="faction-add-btn" 
+                                    <button class="faction-add-btn"
                                             ${!canAfford ? 'disabled' : ''}
                                             data-id="${item.id}">
                                         ${inCart ? '✓ In Cart' : '🛒 Add to Cart'}
@@ -3608,11 +3608,11 @@ function renderFactionTab() {
                     }).join('')}
                 </div>
             </div>
-            
+
             <div class="faction-section bonus-summary">
                 <h3>📊 Total Upgrade Bonuses</h3>
                 <div class="bonus-summary-grid">
-                    ${Object.entries(bonuses).filter(([_, val]) => val > 0).length > 0 
+                    ${Object.entries(bonuses).filter(([_, val]) => val > 0).length > 0
                         ? Object.entries(bonuses).filter(([_, val]) => val > 0).map(([key, val]) => `
                             <div class="bonus-summary-item">
                                 <span class="bonus-key">${key.charAt(0).toUpperCase() + key.slice(1)}</span>
@@ -3625,7 +3625,7 @@ function renderFactionTab() {
             </div>
         </div>
     `;
-    
+
     container.querySelectorAll('.faction-add-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -3638,7 +3638,7 @@ function renderFactionTab() {
 function renderPurchaseHistory() {
     const container = document.getElementById('purchase-history');
     if (!container) return;
-    
+
     if (approvedPurchases.length === 0) {
         container.innerHTML = `
             <h3>📜 Order History</h3>
@@ -3648,16 +3648,16 @@ function renderPurchaseHistory() {
         `;
         return;
     }
-    
+
     const grouped = {};
     approvedPurchases.forEach(p => {
         const date = p.approvedAt?.split('T')[0] || 'Unknown';
         if (!grouped[date]) grouped[date] = [];
         grouped[date].push(p);
     });
-    
+
     const dates = Object.keys(grouped).sort().reverse();
-    
+
     container.innerHTML = `
         <h3>📜 Order History</h3>
         <div class="history-list">
