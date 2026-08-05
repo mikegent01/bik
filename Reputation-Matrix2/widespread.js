@@ -3,9 +3,9 @@ export const WIDESPREAD_FACTIONS = {
     freelancer_underworld: {
         name: "Freelancer Underworld",
         description: "A shadowy network of smugglers, assassins, and thieves operating for profit.",
-        logo: 'faction_freelancer.png',
-        relations: { 
-            allies: ['crimson_fleet', 'wario_land'], 
+        logo: 'assets/factions/faction_freelancer.png',
+        relations: {
+            allies: ['crimson_fleet', 'wario_land'],
             enemies: ['regal_empire', 'iron_legion', 'toad_gang', 'onyx_hand', 'mages_guild', 'the_unchained', 'silver_flame', 'oathbound_judges', 'iron_fists', 'liberated_toads', 'toad_cult', 'rakasha_clans', 'cosmic_jesters', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'moonfang_pack', 'mushroom_regency', 'peach_loyalists', 'diamond_city_investigators']
         },
         power_level: 7,
@@ -66,9 +66,9 @@ export const WIDESPREAD_FACTIONS = {
     cosmic_jesters: {
         name: "Servants of the Cosmic Jester",
         description: "An unpredictable cult that worships a chaotic, unknowable entity of madness.",
-        logo: 'faction_jester.png',
-        relations: { 
-            allies: ['ratchet_raiders'], 
+        logo: 'assets/factions/faction_jester.png',
+        relations: {
+            allies: ['ratchet_raiders'],
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'the_unchained', 'silver_flame', 'oathbound_judges', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists']
         },
         power_level: 5,
@@ -110,9 +110,9 @@ export const WIDESPREAD_FACTIONS = {
     the_unchained: {
         name: "The Unchained",
         description: "A revolutionary movement of freed slaves and rebels fighting against tyranny.",
-        logo: 'faction_the_unchained.png',
-        relations: { 
-            allies: ['rebel_clans', 'liberated_toads'], 
+        logo: 'assets/factions/faction_the_unchained.png',
+        relations: {
+            allies: ['rebel_clans', 'liberated_toads'],
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'wario_land', 'mushroom_regency', 'peach_loyalists']
         },
         power_level: 5,
@@ -154,9 +154,9 @@ export const WIDESPREAD_FACTIONS = {
     ratchet_raiders: {
         name: "The Ratchet Raiders",
         description: "Goblin mechanics and pilots with a love for dangerous, ramshackle technology.",
-        logo: 'faction_ratchet_raiders.png',
-        relations: { 
-            allies: ['cosmic_jesters'], 
+        logo: 'assets/factions/faction_ratchet_raiders.png',
+        relations: {
+            allies: ['cosmic_jesters'],
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'the_unchained', 'silver_flame', 'oathbound_judges', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists', 'goodstyle_artisans']
         },
         power_level: 4,
@@ -205,9 +205,9 @@ export const WIDESPREAD_FACTIONS = {
     crimson_fleet: {
         name: "The Crimson Fleet",
         description: "A notorious pirate fleet led by the cunning and ruthless Captain Syrup. They value freedom, treasure, and holding a grudge.",
-        logo: 'faction_crimson_fleet.png',
-        relations: { 
-            allies: ['freelancer_underworld'], 
+        logo: 'assets/factions/faction_crimson_fleet.png',
+        relations: {
+            allies: ['freelancer_underworld'],
             enemies: ['regal_empire', 'iron_legion', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists', 'diamond_city_investigators', 'goodstyle_artisans']
         },
         power_level: 5,
@@ -248,9 +248,9 @@ export const WIDESPREAD_FACTIONS = {
     wario_land: {
         name: "Wario Land",
         description: "Wario's personal kingdom of greed, built on plunder and the scent of garlic. After Wario's supposed 'death', it is now secretly led by the mysterious figure known as 'Mr. Wario', whose methods are even more ruthless.",
-        logo: 'faction_wario.png',
-        relations: { 
-            allies: ['freelancer_underworld'], 
+        logo: 'assets/factions/faction_wario.png',
+        relations: {
+            allies: ['freelancer_underworld'],
             enemies: ['regal_empire', 'iron_legion', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'mushroom_regency', 'peach_loyalists', 'diamond_city_investigators', 'goodstyle_artisans']
         },
         power_level: 4,
@@ -291,9 +291,9 @@ export const WIDESPREAD_FACTIONS = {
     iron_fists: {
         name: "The Iron Fists",
         description: "A brutal and aggressive criminal gang known for smuggling and extortion. Secretly, they have been operating as deniable assets for the Regal Empire, creating instability that the Empire can then quell.",
-        logo: 'faction_iron_fists.png',
-        relations: { 
-            allies: ['regal_empire'], 
+        logo: 'assets/factions/faction_iron_fists.png',
+        relations: {
+            allies: ['regal_empire'],
             enemies: ['iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists', 'diamond_city_investigators']
         },
         power_level: 5,
@@ -335,7 +335,7 @@ export const WIDESPREAD_FACTIONS = {
     diamond_city_investigators: {
         name: "Diamond City Investigators",
         description: "A private detective agency specializing in high-stakes treasure recovery, often finding themselves at odds with Wario's avaricious schemes.",
-        logo: 'faction_diamond_city_investigators.png',
+        logo: 'assets/factions/faction_diamond_city_investigators.png',
         relations: {
             allies: ['oathbound_judges', 'mushroom_regency'],
             enemies: ['wario_land', 'freelancer_underworld', 'iron_fists', 'crimson_fleet']
@@ -376,7 +376,7 @@ export const WIDESPREAD_FACTIONS = {
     goodstyle_artisans: {
         name: "The Goodstyle Artisans",
         description: "A collective of the world's finest artisans and creators, dedicated to preserving beauty and culture from the grubby hands of plunderers like Wario.",
-        logo: 'faction_goodstyle_artisans.png',
+        logo: 'assets/factions/faction_goodstyle_artisans.png',
         relations: {
             allies: ['mushroom_regency', 'mages_guild'],
             enemies: ['wario_land', 'ratchet_raiders', 'crimson_fleet']
@@ -411,9 +411,9 @@ export const WIDESPREAD_FACTIONS = {
     unaligned: {
         name: "Unaligned & Independent",
         description: "Represents various independent settlements, neutral parties, and areas not under the control of a major faction. Their motivations are diverse, ranging from self-preservation to a desire for true neutrality amidst the world's conflicts.",
-        logo: 'faction_unaligned.png',
-        relations: { 
-            allies: [], 
+        logo: 'assets/factions/faction_unaligned.png',
+        relations: {
+            allies: [],
             enemies: []
         },
         power_level: 1,
@@ -424,9 +424,9 @@ export const WIDESPREAD_FACTIONS = {
     tea_leaf_syndicate: {
         name: "The Tea Leaf Syndicate",
         description: "A sophisticated criminal organization masquerading as a legitimate tea import company. They control the flow of 'special blend' narcotics and enforce their contracts with quiet, brutal efficiency.",
-        logo: 'faction_tea_leaf_syndicate.png',
-        relations: { 
-            allies: ['freelancer_underworld'], 
+        logo: 'assets/factions/faction_tea_leaf_syndicate.png',
+        relations: {
+            allies: ['freelancer_underworld'],
             enemies: ['mushroom_regency', 'diamond_city_investigators', 'peach_loyalists']
         },
         power_level: 4,
@@ -443,8 +443,8 @@ export const WIDESPREAD_FACTIONS = {
         name: "Beanbean Kingdom",
         description: "The quirky, laughter-loving neighboring kingdom to the Mushroom Kingdom, known for its unique flora and culture.",
         logo: 'banners/beanbean_kingdom.png',
-        relations: { 
-            allies: ['mushroom_regency'], 
+        relations: {
+            allies: ['mushroom_regency'],
             enemies: ['fawfuls_furious_freaks']
         },
         power_level: 5,
@@ -456,8 +456,8 @@ export const WIDESPREAD_FACTIONS = {
         name: "Flower Kingdom",
         description: "A whimsical neighboring kingdom where strange 'Wonder Flowers' can dramatically alter reality.",
         logo: 'banners/flower_kingdom.png',
-        relations: { 
-            allies: ['mushroom_regency'], 
+        relations: {
+            allies: ['mushroom_regency'],
             enemies: ['koopa_troop']
         },
         power_level: 5,
@@ -469,8 +469,8 @@ export const WIDESPREAD_FACTIONS = {
         name: "The DK Crew",
         description: "Donkey Kong and his family of laid-back but powerful apes. They protect their island home and their massive banana hoard, but have recently been fractured by internal strife following Lanky Kong's disgraceful behavior at a diplomatic summit.",
         logo: 'banners/dk_crew.png',
-        relations: { 
-            allies: [], 
+        relations: {
+            allies: [],
             enemies: ['kremling_krew', 'koopa_troop']
         },
         power_level: 6,
@@ -515,8 +515,8 @@ export const WIDESPREAD_FACTIONS = {
         name: "The Yoshi Clans",
         description: "The peaceful, fruit-loving dinosaur inhabitants of Yoshi's Island. Generally pacifists, but fiercely protective of their young.",
         logo: 'banners/yoshi_clans.png',
-        relations: { 
-            allies: ['mushroom_regency'], 
+        relations: {
+            allies: ['mushroom_regency'],
             enemies: ['koopa_troop']
         },
         power_level: 4,
@@ -528,8 +528,8 @@ export const WIDESPREAD_FACTIONS = {
         name: "The Kremling Krew",
         description: "A militaristic army of crocodile-like Kremlings led by the tyrannical King K. Rool. They are the sworn enemies of the DK Crew and seek to steal the banana hoard.",
         logo: 'banners/kremling_krew.png',
-        relations: { 
-            allies: [], 
+        relations: {
+            allies: [],
             enemies: ['dk_crew', 'mushroom_regency']
         },
         power_level: 5,
@@ -541,8 +541,8 @@ export const WIDESPREAD_FACTIONS = {
         name: "Knights of the Gilded Lily",
         description: "A chivalric order of knights from the swampy kingdom of Chramalot. They value honor and courtly love, but their kingdom is beset by internal political strife.",
         logo: 'banners/gilded_lily.png',
-        relations: { 
-            allies: ['mushroom_regency'], 
+        relations: {
+            allies: ['mushroom_regency'],
             enemies: ['onyx_hand']
         },
         power_level: 5,
@@ -553,48 +553,48 @@ export const WIDESPREAD_FACTIONS = {
     animatopia_predator_alliance: {
         name: "Animatopia Predator Alliance",
         description: "A militaristic coalition of predator species who believe their strength gives them the right to rule. They seek to overthrow the central government and establish a new hierarchy.",
-        logo: 'faction_predator.png', 
-        relations: { enemies: ['animatopia_prey_congress'] }, 
-        power_level: 7, 
-        category: "Regional Powers", 
+        logo: 'assets/factions/faction_predator.png',
+        relations: { enemies: ['animatopia_prey_congress'] },
+        power_level: 7,
+        category: "Regional Powers",
         region: "Animatopia",
         primary_species: ['wolf', 'lion', 'tiger', 'bear']
     },
     animatopia_prey_congress: {
         name: "Animatopia Prey Congress",
         description: "A defensive alliance of prey species fighting for equality and the preservation of the current government. They rely on guerilla tactics and their vast numbers.",
-        logo: 'faction_prey.png',
-        relations: { enemies: ['animatopia_predator_alliance'] }, 
-        power_level: 6, 
-        category: "Regional Powers", 
+        logo: 'assets/factions/faction_prey.png',
+        relations: { enemies: ['animatopia_predator_alliance'] },
+        power_level: 6,
+        category: "Regional Powers",
         region: "Animatopia",
         primary_species: ['rabbit', 'deer', 'sheep', 'rodent']
     },
     earth_land_federation: {
         name: "Earth Land Federation",
         description: "A powerful, human-centric federation from a neighboring continent. They maintain a strong military and have significant economic interests in Animatopia, which they protect with a veneer of diplomacy.",
-        logo: 'faction_earth.png',
-        relations: {}, 
-        power_level: 8, 
-        category: "Major Powers", 
+        logo: 'assets/factions/faction_earth.png',
+        relations: {},
+        power_level: 8,
+        category: "Major Powers",
         region: "Earth Land"
     },
     connectopia_pioneers_guild: {
         name: "Connectopia Pioneers' Guild",
         description: "A rugged, independent guild representing the interests of the pioneer factions on the frontier continent of Connectopia. They are resourceful, pragmatic, and focused on resource acquisition.",
-        logo: 'faction_pioneer.png',
-        relations: {}, 
-        power_level: 5, 
-        category: "Regional Powers", 
+        logo: 'assets/factions/faction_pioneer.png',
+        relations: {},
+        power_level: 5,
+        category: "Regional Powers",
         region: "Connectopia"
     },
     liminal_observers: {
         name: "Liminal Observers",
         description: "An enigmatic faction from the unstable reality of 'Almost at the Edge'. Their motives are incomprehensible. They do not engage in traditional diplomacy, but their presence can warp local reality.",
-        logo: 'faction_liminal.png',
-        relations: {}, 
-        power_level: '?', 
-        category: "Interdimensional Threats", 
+        logo: 'assets/factions/faction_liminal.png',
+        relations: {},
+        power_level: '?',
+        category: "Interdimensional Threats",
         region: "Almost at the Edge"
-    }    
+    }
 };

@@ -4,7 +4,7 @@
 export const MYSTICAL_CODES = {
     onyx_hand: {
         name: "The Eternal Grasp",
-        logo: "faction_onyx_hand.png",
+        logo: "assets/factions/faction_onyx_hand.png",
         description: "An ancient, labyrinthine set of laws and traditions governing vampire society. It prioritizes secrecy, hierarchy, and the long-term manipulation of mortal affairs.",
         supporters: ['koopa_troop'],
         opponents: ['silver_flame', 'moonfang_pack', 'regal_empire'],
@@ -37,7 +37,7 @@ export const MYSTICAL_CODES = {
     },
     mages_guild: {
         name: "The Autumnwood Accords",
-        logo: "faction_mages_guild.png",
+        logo: "assets/factions/faction_mages_guild.png",
         description: "A complex body of laws governing the use of magic. The Accords are fiercely debated between the traditionalist Conservators and the radical Innovators.",
         supporters: ['goodstyle_artisans'],
         opponents: ['regal_empire', 'silver_flame', 'cosmic_jesters'],
@@ -70,7 +70,7 @@ export const MYSTICAL_CODES = {
     },
     silver_flame: {
         name: "The Edicts of the Flame",
-        logo: "faction_silver_flame.png",
+        logo: "assets/factions/faction_silver_flame.png",
         description: "A zealous, divine legal code with one core tenet: all that is unnatural is an abomination and must be purged with holy fire. There is no room for nuance.",
         supporters: [],
         opponents: ['onyx_hand', 'moonfang_pack', 'mages_guild', 'toad_cult', 'cosmic_jesters'],
@@ -90,7 +90,7 @@ export const MYSTICAL_CODES = {
     },
     moonfang_pack: {
         name: "The Primal Law",
-        logo: "faction_moonfang.png",
+        logo: "assets/factions/faction_moonfang.png",
         description: "An ancient, unwritten code based on strength, territory, and the cycle of the moon. The pack's alpha is the ultimate authority, and their rule is absolute until challenged.",
         supporters: ['rakasha_clans'],
         opponents: ['onyx_hand', 'silver_flame', 'iron_legion'],
@@ -110,7 +110,7 @@ export const MYSTICAL_CODES = {
     },
     rakasha_clans: {
         name: "The Law of the Wild",
-        logo: "faction_rakasha.png",
+        logo: "assets/factions/faction_rakasha.png",
         description: "A set of traditions centered on honor, respect for nature, and the balance between the physical and spiritual worlds.",
         supporters: ['moonfang_pack', 'liberated_toads'],
         opponents: ['regal_empire', 'iron_legion', 'ratchet_raiders'],
@@ -130,7 +130,7 @@ export const MYSTICAL_CODES = {
     },
     cosmic_jesters: {
         name: "Codex: The Punchline",
-        logo: "faction_jester.png",
+        logo: "assets/factions/faction_jester.png",
         description: "There are no laws, only suggestions, and they change hourly. The only consistent rule is that whatever is funniest and most chaotic is the 'correct' course of action.",
         supporters: ['ratchet_raiders'],
         opponents: ['oathbound_judges', 'regal_empire', 'iron_legion', 'mages_guild'],

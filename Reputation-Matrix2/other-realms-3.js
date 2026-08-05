@@ -4,7 +4,7 @@ export const OTHER_REALMS_3 = {
     the_known_world: {
         name: "World Federation of the Known World",
         description: "An expansive realm racked by orc offensives and intricate diplomatic impasses, with strict border controls enforced by a powerful federation.",
-        logo: 'faction_known_world.png',
+        logo: 'assets/factions/faction_known_world.png',
         relations: { 
             allies: ['regal_empire', 'iron_legion'], 
             enemies: ['rebel_clans', 'middle_earth_kingdoms', 'forest_tribes']
@@ -22,7 +22,7 @@ export const OTHER_REALMS_3 = {
     the_world_beyond: {
         name: "Expansionist Empire of the World Beyond",
         description: "A relentless, Roman-like empire pressing its expansion against all neighbors, its ambitious designs hampered only by a towering mountain ring.",
-        logo: 'faction_world_beyond.png',
+        logo: 'assets/factions/faction_world_beyond.png',
         relations: { 
             allies: ['regal_empire', 'iron_legion'], 
             enemies: ['rebel_clans', 'the_unchained', 'forest_tribes']
@@ -40,7 +40,7 @@ export const OTHER_REALMS_3 = {
     the_edge_outpost: {
         name: "The Edge Frontier Outpost",
         description: "A desolate, largely uninhabited region at the very edge of the Doughnut world, where water cascades into the void of space.",
-        logo: 'faction_the_edge.png',
+        logo: 'assets/factions/faction_the_edge.png',
         relations: { 
             allies: ['wayfinders_guild'], 
             enemies: ['triple_moon_remnants', 'cosmic_jesters']
@@ -58,7 +58,7 @@ export const OTHER_REALMS_3 = {
     equestrian_regime: {
         name: "Autocratic Regime of Equestria",
         description: "A pony ethno-state ruled by an immortal tyrant where other races are heavily marginalized or enslaved under a veneer of enforced happiness.",
-        logo: 'faction_equestria.png',
+        logo: 'assets/factions/faction_equestria.png',
         relations: { 
             allies: ['regal_empire'], 
             enemies: ['zootopia_republic', 'the_unchained', 'liberated_toads', 'rebel_clans']
@@ -76,7 +76,7 @@ export const OTHER_REALMS_3 = {
     grand_line_republic: {
         name: "Naval Republic of the Grand Line",
         description: "A sprawling chain of islands where a powerful government navy and notorious pirate crews clash for control of the world's greatest treasures.",
-        logo: 'faction_grand_line.png',
+        logo: 'assets/factions/faction_grand_line.png',
         relations: { 
             allies: ['divided_realms_republic'], 
             enemies: ['crimson_fleet', 'freelancer_underworld', 'regal_empire']
@@ -94,7 +94,7 @@ export const OTHER_REALMS_3 = {
     internet_federation: {
         name: "Digital Federation of The Internet",
         description: "A realm of interconnected information and digital tribes, with a complex web-based government system overseen by an enigmatic admin.",
-        logo: 'faction_internet.png',
+        logo: 'assets/factions/faction_internet.png',
         relations: { 
             allies: ['aurea_oligarchy'], 
             enemies: ['regal_empire', 'mages_guild']

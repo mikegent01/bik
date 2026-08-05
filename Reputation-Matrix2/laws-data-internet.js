@@ -46,7 +46,7 @@ export const INTERNET_CODES = {
     },
     hacktivist_collectives: {
         name: "The Unseen Cipher",
-        logo: "faction_the_unchained.png",
+        logo: "assets/factions/faction_the_unchained.png",
         description: "An unwritten, anarchist code of conduct for digital freedom fighters. It values anonymity, the liberation of data, and defiance of all centralized authority.",
         supporters: ['the_unchained', 'rebel_clans'],
         opponents: ['internet_federation', 'regal_empire', 'data_merchant_guilds'],

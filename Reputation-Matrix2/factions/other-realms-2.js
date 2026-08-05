@@ -4,7 +4,7 @@ export const OTHER_REALMS_2 = {
     zootopia_republic: {
         name: "Democratic Republic of Zootopia",
         description: "A progressive nation where anthropomorphic beings from diverse backgrounds strive to create a truly inclusive society.",
-        logo: 'faction_zootopia.png',
+        logo: 'assets/factions/faction_zootopia.png',
         relations: { 
             allies: ['pokemon_league', 'the_unchained', 'liberated_toads'], 
             enemies: ['regal_empire', 'iron_legion', 'equestrian_regime']
@@ -22,7 +22,7 @@ export const OTHER_REALMS_2 = {
     forest_tribes: {
         name: "Tribal Confederacy of Forests",
         description: "An untamed land where indigenous tribes live in harmony with the wild, fiercely guarding their ancestral lands from outsiders.",
-        logo: 'faction_forests.png',
+        logo: 'assets/factions/faction_forests.png',
         relations: { 
             allies: ['rakasha_clans', 'middle_earth_kingdoms'], 
             enemies: ['regal_empire', 'iron_legion', 'the_known_world']
@@ -40,7 +40,7 @@ export const OTHER_REALMS_2 = {
     leclaire_democracy: {
         name: "L'Eclaire Island Democracy",
         description: "A small island nation with a charismatic leader who champions democracy while secretly plotting to unify the Doughnut World under his rule.",
-        logo: 'faction_leclaire.png',
+        logo: 'assets/factions/faction_leclaire.png',
         relations: { 
             allies: ['divided_realms_republic'], 
             enemies: ['regal_empire', 'mushroom_regency', 'grand_line_republic']
@@ -58,7 +58,7 @@ export const OTHER_REALMS_2 = {
     triple_moon_remnants: {
         name: "Anarchic Remnants of Triple Moon",
         description: "A dangerous, unstable region scarred by past wars that left gaping holes into outer space, now ruled by competing warlords and survivor enclaves.",
-        logo: 'faction_triple_moon.png',
+        logo: 'assets/factions/faction_triple_moon.png',
         relations: { 
             allies: ['cosmic_jesters'], 
             enemies: ['regal_empire', 'oathbound_judges', 'the_edge_outpost']
@@ -76,7 +76,7 @@ export const OTHER_REALMS_2 = {
     divided_realms_republic: {
         name: "Fragmented Republic of the Divided Realms",
         description: "A region of opposing powers with independent island nations connected by ancient bridges, rife with internal conflict and suspicion.",
-        logo: 'faction_divided_realms.png',
+        logo: 'assets/factions/faction_divided_realms.png',
         relations: { 
             allies: ['leclaire_democracy', 'freelancer_underworld'], 
             enemies: ['regal_empire', 'grand_line_republic', 'the_known_world']

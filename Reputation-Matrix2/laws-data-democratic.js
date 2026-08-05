@@ -3,7 +3,7 @@
 export const DEMOCRATIC_CODES = {
     mushroom_regency: {
         name: "The Regency Accords",
-        logo: "faction_mushroom_regency.png",
+        logo: "assets/factions/faction_mushroom_regency.png",
         description: "The official, though often ignored, legal code of the Mushroom Kingdom. It prioritizes stability, tradition, and the rights of citizens.",
         supporters: ['goodstyle_artisans', 'liberated_toads', 'beanbean_kingdom'],
         opponents: ['koopa_troop', 'peach_loyalists', 'toad_gang', 'fawfuls_furious_freaks'],

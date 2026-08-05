@@ -5,7 +5,7 @@ export const MIDLANDS_FACTIONS = {
     regal_empire: { 
         name: "The Regal Empire",
         description: "The orderly, magitek-obsessed creators of the 'Vigilance', seeking to suppress chaos.",
-        logo: 'faction_regal_empire.png',
+        logo: 'assets/factions/faction_regal_empire.png',
         relations: { 
             allies: ['iron_legion', 'oathbound_judges', 'iron_fists'], 
             enemies: ['freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists', 'diamond_city_investigators', 'goodstyle_artisans'] 
@@ -72,7 +72,7 @@ export const MIDLANDS_FACTIONS = {
     iron_legion: {
         name: "The Iron Legion",
         description: "A highly organized militaristic faction dedicated to 'Order Through Expansion.' Operating from the Midlands, they seek to build a new empire through disciplined conquest and assimilation. They maintain a semi-autonomous sister legion, the Iron Crown Brigade, in the Mushroom Kingdom to undermine local factions and pave the way for annexation.",
-        logo: 'faction_iron_legion.png',
+        logo: 'assets/factions/faction_iron_legion.png',
         relations: { 
             allies: ['regal_empire'], 
             enemies: ['freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists', 'diamond_city_investigators', 'goodstyle_artisans']
@@ -92,7 +92,7 @@ export const MIDLANDS_FACTIONS = {
     onyx_hand: {
         name: "The Onyx Hand",
         description: "A shadowy network of ancient vampire covens from the Midlands. They operate as a clandestine cabal, weaving intricate webs of political intrigue and subtle manipulation to amass influence. Their sister coven, the Crimson Veil, is currently active in the Mushroom Kingdom, where they have orchestrated the assassination of the Toad Town mayor in a bid to install a puppet ruler.",
-        logo: 'faction_onyx_hand.png',
+        logo: 'assets/factions/faction_onyx_hand.png',
         relations: { 
             allies: ['koopa_troop'], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists']
@@ -111,7 +111,7 @@ export const MIDLANDS_FACTIONS = {
     mages_guild: {
         name: "Mages' Guild",
         description: "A formidable and enigmatic organization dedicated to the mastery and control of magic. Its internal structure is fractured, torn between the traditionalist Conservators, who prioritize stability, and the radical Innovators, who push magical boundaries at any cost. The Aegis Magi enforce the will of the dominant faction.",
-        logo: 'faction_mages_guild.png',
+        logo: 'assets/factions/faction_mages_guild.png',
         relations: { 
             allies: ['goodstyle_artisans'], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists']
@@ -130,7 +130,7 @@ export const MIDLANDS_FACTIONS = {
     silver_flame: {
         name: "Order of the Silver Flame",
         description: "Zealous paladins and clerics dedicated to eradicating supernatural evil.",
-        logo: 'faction_silver_flame.png',
+        logo: 'assets/factions/faction_silver_flame.png',
         relations: { 
             allies: [], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists']
@@ -174,7 +174,7 @@ export const MIDLANDS_FACTIONS = {
     oathbound_judges: {
         name: "The Oathbound Judges",
         description: "An impartial and unyielding order dedicated to upholding cosmic law.",
-        logo: 'faction_oathbound_judges.png',
+        logo: 'assets/factions/faction_oathbound_judges.png',
         relations: { 
             allies: ['regal_empire', 'diamond_city_investigators'], 
             enemies: ['iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists']
@@ -211,7 +211,7 @@ export const MIDLANDS_FACTIONS = {
     moonfang_pack: {
         name: "Moonfang Pack",
         description: "Territorial werewolf packs who clash with the city's ancient vampire covens.",
-        logo: 'faction_moonfang.png',
+        logo: 'assets/factions/faction_moonfang.png',
         relations: { 
             allies: ['rakasha_clans', 'koopa_troop'], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists']

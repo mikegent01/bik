@@ -9,14 +9,14 @@ const TIMELINE_DATA = [
     {
         time: "20:00 - Entertainment",
         title: "Beanish Brilliance Showcase",
-        icon: "faction_fawful.png",
+        icon: "assets/factions/faction_fawful.png",
         description: "Fawful will deliver a monologue of magnificent length detailing his genius. This will be followed by a demonstration of a new, probably dangerous, invention.",
         isCurrent: false,
     },
     {
         time: "21:00 - The Main Event",
         title: "Dinner is Served!",
-        icon: "faction_peach_loyalists.png",
+        icon: "assets/factions/faction_peach_loyalists.png",
         description: "The main course, consisting of captured Peach Loyalist soldiers, will be presented to the guests. It will be a meal of victory and fury! Their despair will be the most delicious sauce!",
         isCurrent: false,
     },

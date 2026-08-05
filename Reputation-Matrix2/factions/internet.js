@@ -41,7 +41,7 @@ export const INTERNET_FACTIONS = {
     hacktivist_collectives: {
         name: "The Hacktivist Collectives",
         description: "A decentralized network of digital anarchists, spies, and freedom fighters. They believe all information should be free and actively work to dismantle corporate and government control over the web, often operating from the Deep Web.",
-        logo: 'faction_the_unchained.png',
+        logo: 'assets/factions/faction_the_unchained.png',
         relations: {
             allies: ['the_unchained', 'rebel_clans'],
             enemies: ['internet_federation', 'regal_empire', 'data_merchant_guilds']

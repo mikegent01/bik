@@ -5,7 +5,7 @@ export const WILDERLANDS_FACTIONS = {
     rakasha_clans: {
         name: "Rakasha Clans",
         description: "Tribal beast-folk who value honor, strength, and the natural world. The Spirit-Walker shamans have recently taken on a 'missionary' role, attempting to guide other 'savage' races like Orcs toward a more balanced existence, often by renting out their territory for 'war training' that doubles as cultural exchange.",
-        logo: 'faction_rakasha.png',
+        logo: 'assets/factions/faction_rakasha.png',
         relations: { 
             allies: ['moonfang_pack', 'liberated_toads'], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'wario_land', 'mushroom_regency', 'peach_loyalists']
@@ -49,7 +49,7 @@ export const WILDERLANDS_FACTIONS = {
     koopa_troop: {
         name: "Koopa Troop",
         description: "Bowser's personal army, fiercely loyal to their warlord king.",
-        logo: 'faction_koopa_troop.png',
+        logo: 'assets/factions/faction_koopa_troop.png',
         relations: { 
             allies: ['onyx_hand', 'moonfang_pack'], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists', 'fawfuls_furious_freaks']
@@ -93,7 +93,7 @@ export const WILDERLANDS_FACTIONS = {
     rebel_clans: {
         name: "The Rebel Clans",
         description: "A coalition of disparate clans united against the Regal Empire's expansion.",
-        logo: 'faction_rebel_clans.png',
+        logo: 'assets/factions/faction_rebel_clans.png',
         relations: { 
             allies: ['the_unchained', 'liberated_toads'], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'wario_land', 'mushroom_regency', 'peach_loyalists']

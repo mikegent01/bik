@@ -13,21 +13,21 @@ const CURRENCY_DATA = {
     credstick: { name: "Credstick (Digital)", icon: "icon_currency.png", base_value: 1.1, home_faction: 'internet_federation', type: "Digital", description: "The standard digital currency of The Internet. Untraceable by non-digital means but requires network access.", acceptance: { default: 'low', internet_federation: 'high', millennium_science_school: 'high', freelancer_underworld: 'medium' } },
     
     // Regional & Factional
-    legion_scrip: { name: "Iron Legion Scrip", icon: "faction_iron_legion.png", base_value: 0.8, home_faction: 'iron_legion', type: "Military Fiat", description: "A military currency issued to Iron Legion soldiers. Its value is backed by the might of the Legion itself.", acceptance: { default: 'low', iron_legion: 'high', regal_empire: 'medium' } },
-    blood_vial: { name: "Onyx Blood Vial", icon: "faction_onyx_hand.png", base_value: 2.5, home_faction: 'onyx_hand', type: "Occult Commodity", description: "Vials of magically preserved, potent blood. Highly valuable to vampires, but viewed with suspicion elsewhere.", acceptance: { default: 'refused', onyx_hand: 'high', freelancer_underworld: 'low' } },
-    silver_pelts: { name: "Moonfang Silver Pelts", icon: "faction_moonfang.png", base_value: 1.8, home_faction: 'moonfang_pack', type: "Commodity", description: "The pelts of giant, silver-backed wolves. A symbol of status and wealth among the packs.", acceptance: { default: 'low', moonfang_pack: 'high', rakasha_clans: 'medium', onyx_hand: 'refused' } },
+    legion_scrip: { name: "Iron Legion Scrip", icon: "assets/factions/faction_iron_legion.png", base_value: 0.8, home_faction: 'iron_legion', type: "Military Fiat", description: "A military currency issued to Iron Legion soldiers. Its value is backed by the might of the Legion itself.", acceptance: { default: 'low', iron_legion: 'high', regal_empire: 'medium' } },
+    blood_vial: { name: "Onyx Blood Vial", icon: "assets/factions/faction_onyx_hand.png", base_value: 2.5, home_faction: 'onyx_hand', type: "Occult Commodity", description: "Vials of magically preserved, potent blood. Highly valuable to vampires, but viewed with suspicion elsewhere.", acceptance: { default: 'refused', onyx_hand: 'high', freelancer_underworld: 'low' } },
+    silver_pelts: { name: "Moonfang Silver Pelts", icon: "assets/factions/faction_moonfang.png", base_value: 1.8, home_faction: 'moonfang_pack', type: "Commodity", description: "The pelts of giant, silver-backed wolves. A symbol of status and wealth among the packs.", acceptance: { default: 'low', moonfang_pack: 'high', rakasha_clans: 'medium', onyx_hand: 'refused' } },
     arcane_shard: { name: "Arcane Shard", icon: "icon_magic.png", base_value: 3.0, home_faction: 'mages_guild', type: "Magical", description: "Crystallized magical energy. Used as currency among mages and as a potent component for enchanting.", acceptance: { default: 'low', mages_guild: 'high' } },
     mushroom_coin: { name: "Mushroom Kingdom Coin", icon: "icon_mushroom_coin.png", base_value: 0.5, home_faction: 'mushroom_regency', type: "Fiat", description: "The official, though currently unstable, currency of the Mushroom Regency.", acceptance: { default: 'low', mushroom_regency: 'high', peach_loyalists: 'high', beanbean_kingdom: 'medium' } },
     star_bits: { name: "Star Bits", icon: "icon_quests.png", base_value: 1.5, home_faction: 'peach_loyalists', type: "Magical", description: "Fragments of celestial power. Valued by those who follow the stars.", acceptance: { default: 'low', peach_loyalists: 'high', mages_guild: 'medium' } },
-    bowser_bux: { name: "Bowser Bux", icon: "faction_koopa_troop.png", base_value: 0.4, home_faction: 'koopa_troop', type: "Military Fiat", description: "Scrip stamped with Bowser's face. Worth something within the Koopa Troop, but not much elsewhere.", acceptance: { default: 'refused', koopa_troop: 'high' } },
+    bowser_bux: { name: "Bowser Bux", icon: "assets/factions/faction_koopa_troop.png", base_value: 0.4, home_faction: 'koopa_troop', type: "Military Fiat", description: "Scrip stamped with Bowser's face. Worth something within the Koopa Troop, but not much elsewhere.", acceptance: { default: 'refused', koopa_troop: 'high' } },
     banana_bunch: { name: "Banana Bunch", icon: "icon_dk_banana.png", base_value: 0.7, home_faction: 'dk_crew', type: "Commodity", description: "The primary currency of the DK Isles. Its value fluctuates wildly based on the banana harvest.", acceptance: { default: 'refused', dk_crew: 'high', yoshi_clans: 'low' } },
     kremling_koin: { name: "Kremling Koin", icon: "icon_kremling_koin.png", base_value: 0.6, home_faction: 'kremling_krew', type: "Illicit", description: "Crudely minted coins used by the Kremling Krew. Often stolen, and spending it can mark you as an associate.", acceptance: { default: 'refused', kremling_krew: 'high', freelancer_underworld: 'low' } },
     kivotos_credit: { name: "Kivotos Credit", icon: "factions/kivotos_gsu.png", base_value: 1.2, home_faction: 'general_student_union', type: "Fiat", description: "The highly stable and technologically advanced currency of the Kivotos Academy City.", acceptance: { default: 'low', general_student_union: 'high', millennium_science_school: 'high', trinity_general_school: 'medium' } },
     imperial_crown: { name: "Imperial Crown (Empire)", icon: "factions/empire.png", base_value: 1.1, home_faction: 'the_empire', type: "Fiat", description: "The official currency of the Empire of Man, backed by its vast treasury and military might.", acceptance: { default: 'medium', the_empire: 'high', regal_empire: 'medium' } },
     dwarf_oathgold: { name: "Dwarf Oathgold", icon: "factions/dwarfs.png", base_value: 4.0, home_faction: 'kingdoms_of_the_dwarves_wh', type: "Commodity", description: "Not just gold, but gold mined, smelted, and stamped with binding oaths. Its value is as much in its promise as its material.", acceptance: { default: 'medium' } },
     warpstone_token: { name: "Warpstone Token", icon: "factions/skaven.png", base_value: 10.0, home_faction: 'skaven', type: "Illicit", description: "Solidified magical chaos. Immensely powerful and valuable to the right buyer, but highly illegal and corrupting to possess.", acceptance: { default: 'refused', skaven: 'high', freelancer_underworld: 'low' } },
-    soul_coin: { name: "Soul Coin", icon: "faction_onyx_hand.png", base_value: 20.0, home_faction: null, type: "Occult", description: "Coins minted in the lower planes, each containing a trapped mortal soul. The ultimate currency for dealing with devils and demons.", acceptance: { default: 'refused', onyx_hand: 'medium' } },
-    wario_coin: { name: "Wario Coin", icon: "faction_wario.png", base_value: 1.2, home_faction: 'wario_land', type: "Fiat", description: "A large, garish gold coin stamped with Wario's face. Its value is propped up by Wario's massive hoard.", acceptance: { default: 'low', wario_land: 'high', freelancer_underworld: 'medium' } },
+    soul_coin: { name: "Soul Coin", icon: "assets/factions/faction_onyx_hand.png", base_value: 20.0, home_faction: null, type: "Occult", description: "Coins minted in the lower planes, each containing a trapped mortal soul. The ultimate currency for dealing with devils and demons.", acceptance: { default: 'refused', onyx_hand: 'medium' } },
+    wario_coin: { name: "Wario Coin", icon: "assets/factions/faction_wario.png", base_value: 1.2, home_faction: 'wario_land', type: "Fiat", description: "A large, garish gold coin stamped with Wario's face. Its value is propped up by Wario's massive hoard.", acceptance: { default: 'low', wario_land: 'high', freelancer_underworld: 'medium' } },
     rupee: { name: "Hyrulean Rupee", icon: "icon_rupee.png", base_value: 0.7, home_faction: 'kingdom_of_gondor', type: "Commodity", description: "Gemstones of varying colors used as currency in the lands of Hyrule and its neighbors.", acceptance: { default: 'low', kingdom_of_gondor: 'high' } },
     poke_dollar: { name: "PokéDollar", icon: "icon_pokedollar.png", base_value: 0.6, home_faction: 'pokemon_league', type: "Fiat", description: "The standard currency of the Pokémon regions, regulated by the Pokémon League.", acceptance: { default: 'low', pokemon_league: 'high' } },
     mora: { name: "Mora", icon: "icon_mora.png", base_value: 1.3, home_faction: 'teyvat_hegemony', type: "Fiat", description: "The common currency of Teyvat, minted in Liyue and recognized in all seven nations.", acceptance: { default: 'medium', teyvat_hegemony: 'high' } },
@@ -276,20 +276,20 @@ init();
 // icon_copper.png
 // icon_midland_ducat.png
 // icon_currency.png
-// faction_iron_legion.png
-// faction_onyx_hand.png
+// assets/factions/faction_iron_legion.png
+// assets/factions/faction_onyx_hand.png
 // faction_moonfang_pack.png
 // icon_magic.png
 // icon_mushroom_coin.png
 // icon_quests.png
-// faction_koopa_troop.png
+// assets/factions/faction_koopa_troop.png
 // icon_dk_banana.png
 // icon_kremling_koin.png
 // factions/kivotos_gsu.png
 // factions/empire.png
 // factions/dwarfs.png
 // factions/skaven.png
-// faction_wario.png
+// assets/factions/faction_wario.png
 // icon_rupee.png
 // icon_pokedollar.png
 // icon_mora.png

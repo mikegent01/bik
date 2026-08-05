@@ -30,7 +30,7 @@
     },
     "title": "Rise of the Iron Legion",
     "description": "In the Midlands, the Iron Legion consolidates power, turning a mercenary company into a state superpower.",
-    "icon": "faction_iron_legion.png",
+    "icon": "assets/factions/faction_iron_legion.png",
     "category": "Political"
   },
   {
@@ -73,7 +73,7 @@
     },
     "title": "Smuggling Bust",
     "description": "The party dismantles a key Iron Fists smuggling ring, placing a bounty on their heads.",
-    "icon": "faction_iron_fists.png",
+    "icon": "assets/factions/faction_iron_fists.png",
     "category": "Recent Event"
   },
   {
@@ -112,7 +112,7 @@
     },
     "title": "The Syrup Schism & Core Crisis",
     "description": "The party frees the pirate Captain Syrup, who immediately turns hostile. A chaotic confrontation ensues, revealing a traitorous toad and culminating in hjumpik disabling the airship's power core with an axe, sending the 'Vigilance' into a nose-dive.",
-    "icon": "faction_crimson_fleet.png",
+    "icon": "assets/factions/faction_crimson_fleet.png",
     "category": "Recent Event"
   },
   {
@@ -125,7 +125,7 @@
     },
     "title": "Aftermath on the Vigilance",
     "description": "The ship's power is restored using X.O.'s staff. In the chaos, Big T reappears only to be assassinated, Iron Legion agents attack and are detained, and Waluigi's agent 'Wally' is revealed before making a dramatic exit with Bowser, leaving the Liberated Toads critically injured.",
-    "icon": "faction_toad_gang.png",
+    "icon": "assets/factions/faction_toad_gang.png",
     "category": "Recent Event"
   },
   {
@@ -138,7 +138,7 @@
     },
     "title": "Standoff at Raventree",
     "description": "A tense negotiation with the Iron Legion leads to a bomb plot being uncovered. Captain Syrup escapes using an illusion, while Lario and a revived Big T are caught trying to sabotage the power core. hjumpik intervenes, forcing them both to retreat.",
-    "icon": "faction_iron_legion.png",
+    "icon": "assets/factions/faction_iron_legion.png",
     "category": "Recent Event"
   },
   {
@@ -164,7 +164,7 @@
     },
     "title": "Secrets at the Gala",
     "description": "Peach Loyalist scouts Embercap and Mistveil infiltrate Fawful's victory gala. During the event, Chief Thornpaw of the Rakasha finds Mistveil and reveals a stunning secret: he was in a relationship with Princess Peach and knows of a secret hatch in her room. This provides a massive new lead in the investigation of her death.",
-    "icon": "faction_fawful.png",
+    "icon": "assets/factions/faction_fawful.png",
     "category": "Recent Event"
   },
   {
@@ -233,7 +233,7 @@
     },
     "title": "The Barrel Secret Revealed",
     "description": "The Iron Legion reveals to hjumpik that the 150+ trafficked toads are not in a single cargo hold, but hidden individually in barrels throughout the ship, accessible via a secret compartment opened by a Mini-Mushroom.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Recent Event"
   },
   {
@@ -246,7 +246,7 @@
     },
     "title": "A Legion's Ruse",
     "description": "An internal conflict within the Iron Legion boarding party is revealed to be a feint. The distraction allowed other Legion agents to sneak past the party and pursue their own hidden objectives aboard the Vigilance.",
-    "icon": "faction_iron_legion.png",
+    "icon": "assets/factions/faction_iron_legion.png",
     "category": "Recent Event"
   },
   {
@@ -376,7 +376,7 @@
     },
     "title": "The Dinner That Broke Time",
     "description": "The liberated toads entered the nearby Shadeward Mansion seeking Archie, but instead found the Oracle. The bizarre, looping dinner was interrupted by a fireball-wielding clone of Archie, a robotic double, and ultimately a full-scale raid by the Iron Legion. Amid the chaos, a toad was captured by the robot, a traitor was revealed, and Wario appeared, claiming to be working with the Legion to investigate the mansion's temporal instability. The toads fought, negotiated, and ultimately escaped, but not before the Oracle delivered a cryptic final message.",
-    "icon": "faction_iron_legion.png",
+    "icon": "assets/factions/faction_iron_legion.png",
     "category": "Recent Event"
   },
   {
@@ -441,7 +441,7 @@
     },
     "title": "The Kong Bug",
     "description": "Donkey Kong discovers a Kremling listening device, leading to a total breakdown of relations with King K. Rool and a threat of assassination against Funky Kong.",
-    "icon": "faction_dk_crew.png",
+    "icon": "assets/factions/faction_dk_crew.png",
     "category": "Political"
   },
   {
@@ -571,7 +571,7 @@
     },
     "title": "The Third Eye Escape",
     "description": "Archie escapes custody with help from an Iron Legion spy, traversing alien dimensions before returning. The event shatters the Cohort's containment.",
-    "icon": "faction_iron_legion.png",
+    "icon": "assets/factions/faction_iron_legion.png",
     "category": "Recent Event"
   },
   {
@@ -584,7 +584,7 @@
     },
     "title": "The Iron Sky Breach",
     "description": "The Iron Legion boards and captures the Vigilance. Ryan is forced to jump from the ship to escape capture.",
-    "icon": "faction_iron_legion.png",
+    "icon": "assets/factions/faction_iron_legion.png",
     "category": "Military"
   },
   {
@@ -597,7 +597,7 @@
     },
     "title": "Bones Undercover",
     "description": "Bones infiltrates an Imperial Processing Facility disguised as a Legionnaire, uncovering a horrifying industrial complex.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Recent Event"
   },
   {
@@ -610,7 +610,7 @@
     },
     "title": "Ryan & The Rakasha",
     "description": "Ryan survives his fall and is taken in by a Rakasha spirit-walker, witnessing their sacred rites.",
-    "icon": "faction_rakasha.png",
+    "icon": "assets/factions/faction_rakasha.png",
     "category": "Recent Event"
   },
   {
@@ -623,7 +623,7 @@
     },
     "title": "Assassination Foiled",
     "description": "Donkey Kong intercepts the assassin Galypso at Funky's Surf Shack, preventing his brother's murder. The Kremling retreats, but the act of aggression ends the cold war.",
-    "icon": "faction_dk_crew.png",
+    "icon": "assets/factions/faction_dk_crew.png",
     "category": "Military"
   },
   {
@@ -636,7 +636,7 @@
     },
     "title": "The Spider Grove Ambush",
     "description": "Markop and Remi rescue Eager from a web-choked grove in Raventree Manor, defeating a massive Arachnid Matriarch with the chaotic assistance of Waluigi and a stolen Mages' Guild construct named Mossy.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Combat"
   },
   {
@@ -649,7 +649,7 @@
     },
     "title": "Grove Chaos & The Oracle's Light",
     "description": "The battle in the grove fractures the party. Remi and her dog hold off the giant spider before retreating, though her mechanical companion is damaged. Smoking J is bitten while the toad squad becomes lost in a dark, flooded fountain area. Amidst the fighting, the Oracle appears, casting a massive illumination spell to aid the party while Waluigi unleashes ice magic to clear a path.",
-    "icon": "faction_regal_empire.png",
+    "icon": "assets/factions/faction_regal_empire.png",
     "category": "Recent Event"
   },
   {
@@ -770,7 +770,7 @@
     },
     "title": "The Sleeper Agent",
     "description": "Captured by the Iron Legion in the physical antechamber, Toadburt is subjected to magical interrogation by Agent Malissia. He is fitted with an Entropy Ring and deployed as a coerced agent into the Feywild with orders to capture the Oracle within three days.",
-    "icon": "faction_iron_legion.png",
+    "icon": "assets/factions/faction_iron_legion.png",
     "category": "Recent Event"
   },
   {
@@ -783,7 +783,7 @@
     },
     "title": "Dinner with the Damned",
     "description": "Trapped in the monochrome 'Shadow Estate,' Archie and Bowser encounter the Onyx Hand. Stripped of his fire magic by the plane's physics, Archie bluffs their way into a vampire dinner party hosted by 'Orangus Cornelius,' discovering that Green T is being held as a guest.",
-    "icon": "faction_onyx_hand.png",
+    "icon": "assets/factions/faction_onyx_hand.png",
     "category": "Recent Event"
   },
   {
@@ -809,7 +809,7 @@
     },
     "title": "Iron Mandate Enacted",
     "description": "The Midlands Diet passes the Iron Mandate 28-8-3, granting the Iron Legion emergency powers to purge supernatural threats. Speaker Rivers resigns in protest as Legion patrols mobilize immediately.",
-    "icon": "faction_regal_empire.png",
+    "icon": "assets/factions/faction_regal_empire.png",
     "category": "Political"
   },
   {
@@ -822,7 +822,7 @@
     },
     "title": "The Dragon Conspiracy Revealed",
     "description": "At Dragon Mountain, Robinson uncovers the truth that the war between Dragons and the Regal Empire is a fabrication maintained by sonic control devices. He and the dragon 'Ignis-Major' are captured by the Iron Legion immediately after the discovery.",
-    "icon": "faction_regal_empire.png",
+    "icon": "assets/factions/faction_regal_empire.png",
     "category": "Recent Event"
   },
   {
@@ -835,7 +835,7 @@
     },
     "title": "Massacre at Aegis Command",
     "description": "Bones' infiltration of the Legion fortress ends in disaster when he is stabbed by General Ironhand. The mission reveals a Green Decoy posing as Speaker L, prompting Ironhand to issue 'Order 120': the immediate execution of all Toad prisoners.",
-    "icon": "faction_iron_legion.png",
+    "icon": "assets/factions/faction_iron_legion.png",
     "category": "Recent Event"
   },
   {
@@ -1173,7 +1173,7 @@
     },
     "title": "Shadow Estate Dinner",
     "description": "In the Shadowfell, Archie and Bowser attend a formal dinner hosted by Orangus Cornelius and the Vampire Lords. Archie adopts the persona of 'Darman Knightly' to survive the social intrigue, while Green T signals a secret plan from the kids' table.",
-    "icon": "faction_onyx_hand.png",
+    "icon": "assets/factions/faction_onyx_hand.png",
     "category": "Social"
   },
   {
@@ -1199,7 +1199,7 @@
     },
     "title": "Green T's Rebellion",
     "description": "During a bathroom break, Green T reveals to Archie that he has stolen a key from Orangus and possesses a firearm. He outlines a desperate plan to kill the Vampire Lords, shatter the crystals, and force the timelines to merge by unleashing the Beast.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Recent Event"
   },
   {
@@ -2122,7 +2122,7 @@
     },
     "title": "Aurelian's Request",
     "description": "Lady Aurelian Corvinarus requests Bone, Ash, Chalk, and Iron from Hjumpik. He reluctantly agrees.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Faction Event"
   },
   {
@@ -2485,7 +2485,7 @@
     },
     "title": "Remi meets a purple toad…",
     "description": "Remi encounters a purple toad who informs her about Archie Miser and the consequences of not finding him.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -2498,7 +2498,7 @@
     },
     "title": "Remi drinks a glowing potion offered",
     "description": "A guard offers Remi a glowing potion to alleviate her sadness after claiming her friends are dead. She drinks it, causing her to glow brightly.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -2550,7 +2550,7 @@
     },
     "title": "Remi overhears Toadburt's deal…",
     "description": "Remi eavesdrops on a conversation between Toadburt and the Archivist. Toadburt agrees to work for the Archivist in exchange for healing.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -2563,7 +2563,7 @@
     },
     "title": "Remi encounters imps who agree…",
     "description": "Remi meets imps who offer to check the stairs in exchange for her help with a fallen bookshelf.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -2576,7 +2576,7 @@
     },
     "title": "Remi reunites with Markop",
     "description": "Remi finds Markop in the main lobby, reunited after being separated.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -2589,7 +2589,7 @@
     },
     "title": "Remi gives Markop Vivian's wand",
     "description": "Remi hands Markop Vivian's wand, which she found during her adventures.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -2602,7 +2602,7 @@
     },
     "title": "Guards surround the party",
     "description": "A large number of guards gather around the party, questioning them about Remi's glowing and their connection to Vivian.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -2615,7 +2615,7 @@
     },
     "title": "The purple toad confesses to giving",
     "description": "The purple toad admits to giving Remi the potion, claiming it was meant to help her.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -2654,7 +2654,7 @@
     },
     "title": "Hargram introduces the party members to each other",
     "description": "Hargram, a pit fighter, introduces the other party members: Rhak, an orc; Manderaz, a hobgoblin; and Aemenor, an elf.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Hargram Fidger",
@@ -2713,7 +2713,7 @@
     },
     "title": "The party is encountered by mages",
     "description": "The party is approached by mages guild members who request their assistance in analyzing the site. They are given a Legion Arcane Field Analyzer to use.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Hargram Fidger",
@@ -2753,7 +2753,7 @@
     },
     "title": "Darno Spriggon arrives at the greenho",
     "description": "Darno Spriggon arrives at the greenhouse and informs the party that he has taken care of the remaining rust monsters. He also gives Hargram a letter addressed to Dan.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Darno Spriggon",
@@ -2773,7 +2773,7 @@
     },
     "title": "Vivian is captured and interrogated by Markop and Bowser",
     "description": "Markop and Bowser confront Vivian, who is tied up. They question him about his motives for attacking them.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Vivian",
@@ -2793,7 +2793,7 @@
     },
     "title": "Vivian explains his plan to blight",
     "description": "Vivian reveals his plan to blight the guests, including Orangus Cornelius, to become the sole heir. He mentions closing the planar fractures to isolate the manor.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Vivian",
@@ -2865,7 +2865,7 @@
     },
     "title": "Bowser and Markop encounter Marcus Ashfold, Orangus Cornelius' military consultant",
     "description": "They encounter Marcus Ashfold, who was observing the events unfold. He mentions keeping an eye on the three-eyed heir but doesn't elaborate.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Markop",
@@ -2917,7 +2917,7 @@
     },
     "title": "Remi discusses curing Purpleeyetus wi",
     "description": "Remi sought out the Toad in hopes of finding a cure for Purpleeyetus' affliction. She earnestly explained her desire to heal the creature, but the Toad, with a skeptical croak, questioned the wisdom and possibility of such a feat. Despite Remi's pleas, the Toad remained unconvinced, leaving Remi to continue searching for another solution.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -2930,7 +2930,7 @@
     },
     "title": "Onyx Hand guards offer Remi a gift",
     "description": "The Onyx Hand guards present Remi with a letter and a ring, claiming it's a friendship gift. When Remi rejects the ring, the guards offer her an anklet as an alternative.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Onyx Hand Guards",
@@ -2948,7 +2948,7 @@
     },
     "title": "Remi receives a friendship ring from the Onyx Hand",
     "description": "The ring is accompanied by a letter signed by Remi's vampire friends, raising suspicion.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Remi",
@@ -2997,7 +2997,7 @@
     },
     "title": "Onyx Hand guards propose a game",
     "description": "The guards suggest playing hide-and-seek as a way to investigate Remi further.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Remi",
@@ -3015,7 +3015,7 @@
     },
     "title": "Marcus Ashford arrives and offers Remi",
     "description": "Marcus Ashford, seemingly an ally, appears and gives Remi a nearly empty supply kit.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Remi",
@@ -3093,7 +3093,7 @@
     },
     "title": "The Onyx Hand guards read a letter threatening the Koopa Kingdom",
     "description": "The guards taunt Bowser with a letter outlining their plans to overthrow the Koopa Kingdom.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Onyx Hand Guards"
@@ -3130,7 +3130,7 @@
     },
     "title": "The Archivist threatens Remi and her companions",
     "description": "The Archivist threatens Remi and her companions, claiming he will kill them unless she complies with his demands.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event",
     "people": [
       "Archivist",
@@ -3189,7 +3189,7 @@
     },
     "title": "Toad Lee identifies a soldier as either from the Iron Legion or the Mages Guild",
     "description": "Toad Lee identifies a soldier as either from the Iron Legion or the Mages Guild.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3202,7 +3202,7 @@
     },
     "title": "Hjumpik spots Wario, who is already",
     "description": "Hjumpik spots Wario, who is already in the manor, and later engages him in a debt-related interaction.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3215,7 +3215,7 @@
     },
     "title": "Hjumpik shops for items and discovers",
     "description": "Hjumpik shops for items and discovers Wario is collecting debts, leading to a confrontation over discounts.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3267,7 +3267,7 @@
     },
     "title": "Wario treats his ledger as sacred",
     "description": "Wario treats his ledger as sacred scripture and risks his life to recover it due to its financial and legal value.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3332,7 +3332,7 @@
     },
     "title": "A satyr party begins with revelry",
     "description": "A satyr party begins with revelry, wine, and dancing, with the satyr leader urging revelry over worry.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3345,7 +3345,7 @@
     },
     "title": "Hjumpik encounters satyrs who want to be quiet and tame, but he insists on continuing the revel",
     "description": "Hjumpik encounters satyrs who want to be quiet and tame, but he insists on continuing the revel.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3371,7 +3371,7 @@
     },
     "title": "Hjumpik meets the Revel Master, who claims to have created The Revel through a bar game and…",
     "description": "Hjumpik meets the Revel Master, who claims to have created The Revel through a bar game and now controls its chaotic nature.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3384,7 +3384,7 @@
     },
     "title": "Ralis (possibly Ralos or Relis) reveals",
     "description": "Ralis (possibly Ralos or Relis) reveals himself as the Revel Master’s companion and a former Legion member, singing about the Legion’s judgment.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3410,7 +3410,7 @@
     },
     "title": "Hjumpik learns the Revel Master is not just a game master but a being who manipulates death…",
     "description": "Hjumpik learns the Revel Master is not just a game master but a being who manipulates death and chaos to keep the revel going.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3488,7 +3488,7 @@
     },
     "title": "Bones jumps down to help, gets",
     "description": "Bones jumps down to help, gets injured, and declares he's here to assist.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3657,7 +3657,7 @@
     },
     "title": "Bystall Unveils the Green Thunder",
     "description": "Bystall, her expression grim, gestured towards a towering figure silhouetted against the stormy sky. It was Green Thunder, a colossal mechanical monstrosity, its armor gleaming ominously. 'We must stop it,' she declared, outlining a plan of attack. 'First, protect the innocent and this manor. Then, subdue the slime creatures and engage the mech directly.'",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3748,7 +3748,7 @@
     },
     "title": "A Portal's Promise: A New Mission Unveiled",
     "description": "Archie stood before the shimmering portal, its edges rippling with otherworldly energy. Bystall’s voice, laced with urgency, crackled through the air, “The Guild needs your help again, Archie.” She held out a scroll, its surface etched with arcane symbols. As Archie took it, a wave of anticipation washed over him. The portal pulsed, beckoning him forward, promising new challenges and untold dangers.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3761,7 +3761,7 @@
     },
     "title": "A Mage's Welcome: Spriggon Delivers the Badge",
     "description": "Darno Spriggon, his face etched with a gruff kindness, handed Archie a small, leather-bound pouch. Inside lay a gleaming badge, embossed with the crest of the mages guild. Archie accepted it with trembling hands, a wave of pride washing over him. Years of hard work and dedication had finally paid off. “Welcome to the fold, young mage,” Spriggon boomed, his voice echoing with authority.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3787,7 +3787,7 @@
     },
     "title": "A Glimpse of Lost Days",
     "description": "In a dimly lit room, Dan showed Remi a faded photograph clutched in his hand. It depicted the airship Vigilance with a young Dan standing between Eager and Big T, a radiant smile on his face. Archie was visible in the background, engaged in a heated argument. The photo, a relic of happier times, served as a poignant reminder of the crew's shattered unity.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3852,7 +3852,7 @@
     },
     "title": "Bowser's Ruthless Exploitation",
     "description": "Dan Real, overwhelmed with grief and despair over his stolen identity, wept uncontrollably. Bowser, ever opportunistic, watched him with predatory eyes. As Dan sobbed, Bowser snatched a silver locket from his trembling hand and vanished into the shadows. The cruel act added another layer of anguish to Dan's already unbearable situation.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3917,7 +3917,7 @@
     },
     "title": "Reunion of the Vampire Loyalists",
     "description": "The battered survivors limped toward the docks to regroup with the Peach Loyalists, only to be met by a startling revelation. Captain Bloodshire emerged from the shadows of the SS Bloodsworth, revealing that her crew were not mere peach partisans, but a formidable faction of vampire loyalists. The air grew thick with tension as Big R and Mystivil realized the true nature of the allies standing before them in the salt-stained moonlight.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3956,7 +3956,7 @@
     },
     "title": "Arulean's Secret Mandate of Containment",
     "description": "Within the opulent, shadow-drenched halls of the Manor, Arulean gripped her orange silk folding fan with trembling fingers as she confronted Hjumpik. She issued a stern warning that a certain creature must be contained rather than slain, fearing that its death would bring scandal to her esteemed reputation. The tension in the room was palpable, leaving Hjumpik to grapple with the weight of a secret that could shatter their political standing.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -3982,7 +3982,7 @@
     },
     "title": "Chaos Amidst the Manor's Feast",
     "description": "The refined atmosphere of the Manor was shattered when Hjumpik stumbled upon a scene of pure, unadulterated madness. A lowly goblin waiter struggled beneath the weight of a frenzied satyr berserker who had mounted the poor creature's back in a fit of rage. The collision of high-society elegance and primal ferocity left Hjumpik reeling, unsure if the evening would end in a feast or a bloodbath.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {
@@ -4034,7 +4034,7 @@
     },
     "title": "A Bitter Dispute Over Monstrous Tactics",
     "description": "A heated ideological clash erupted between Hjumpik and Arulean as they contemplated their next move against an encroaching monster. Hjumpik argued fervently for the merits of diplomacy and friendship, hoping to pacify the beast through kindness. Arulean, however, stood resolute in his belief that only overwhelming force could ensure their survival. The argument left the party fractured, casting a shadow of uncertainty over their ability to face the looming threat.",
-    "icon": "faction_liberated_toads.png",
+    "icon": "assets/factions/faction_liberated_toads.png",
     "category": "Character Event"
   },
   {

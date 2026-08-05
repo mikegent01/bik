@@ -44,8 +44,8 @@ const LOCATIONS = {
             { id: 'ryan', name: "Ryan", status: "Fleeing", pos: { x: 6, y: 0, z: 6 }, portrait: "toads/ryan.png", scale: 1.5 },
             { id: 'aie', name: "Aie (Traitor)", status: "Opening Doors", pos: { x: -2, y: 0, z: 0 }, portrait: "toads/toad.png", scale: 1.4 },
             { id: 'legion_officer', name: "Legion Officer", status: "Breaching", pos: { x: 0, y: 0, z: -10 }, portrait: "portraits/colonel_vera_steelstorm.png", scale: 1.8, isEnemy: true },
-            { id: 'legion_soldier_1', name: "Legionnaire", status: "Attacking", pos: { x: -4, y: 0, z: -8 }, portrait: "faction_iron_legion.png", scale: 1.6, isEnemy: true },
-            { id: 'legion_soldier_2', name: "Legionnaire", status: "Attacking", pos: { x: 4, y: 0, z: -8 }, portrait: "faction_iron_legion.png", scale: 1.6, isEnemy: true }
+            { id: 'legion_soldier_1', name: "Legionnaire", status: "Attacking", pos: { x: -4, y: 0, z: -8 }, portrait: "assets/factions/faction_iron_legion.png", scale: 1.6, isEnemy: true },
+            { id: 'legion_soldier_2', name: "Legionnaire", status: "Attacking", pos: { x: 4, y: 0, z: -8 }, portrait: "assets/factions/faction_iron_legion.png", scale: 1.6, isEnemy: true }
         ]
     },
     solarium: {
@@ -54,7 +54,7 @@ const LOCATIONS = {
         characters: [
             { id: 'hjumpik', name: "hjumpik", status: "Mirror Combat", pos: { x: -4, y: 0, z: 2 }, portrait: "portraits/hjumpik.png", scale: 1.8 },
             { id: 'bowser', name: "Bowser", status: "Punching Mirrors", pos: { x: 4, y: 0, z: 2 }, portrait: "portraits/bowser.png", scale: 2.5 },
-            { id: 'shard_stalker', name: "Shard Stalker", status: "Teleporting", pos: { x: 0, y: 2, z: -6 }, portrait: "faction_unaligned.png", scale: 3.0, isEnemy: true },
+            { id: 'shard_stalker', name: "Shard Stalker", status: "Teleporting", pos: { x: 0, y: 2, z: -6 }, portrait: "assets/factions/faction_unaligned.png", scale: 3.0, isEnemy: true },
             { id: 'dan', name: "Dan", status: "Shattering Glass", pos: { x: -6, y: 0, z: 5 }, portrait: "toads/dan.png", scale: 1.5 },
             { id: 'oracle', name: "The Oracle", status: "Watching", pos: { x: 6, y: 1, z: 5 }, portrait: "portraits/oracle.png", scale: 1.8 },
             { id: 'archie', name: "Archie", status: "Using Fire", pos: { x: 0, y: 0, z: 8 }, portrait: "portraits/archie.png", scale: 1.5 }
@@ -65,10 +65,10 @@ const LOCATIONS = {
         camPos: {x: 12, y: 15, z: 12},
         characters: [
             { id: 'bones', name: "Bones (Disguised)", status: "Infiltrating", pos: { x: 2, y: 0, z: 2 }, portrait: "toads/bones.png", scale: 1.5 },
-            { id: 'creek', name: "Creek", status: "Captured/Injured", pos: { x: -6, y: 0.5, z: -6 }, portrait: "faction_freelancer.png", scale: 1.4, dead: true },
-            { id: 'mechanic', name: "Legion Mechanic", status: "Sabotaging Vent", pos: { x: 8, y: 0, z: -5 }, portrait: "faction_iron_legion.png", scale: 1.6, isEnemy: true },
+            { id: 'creek', name: "Creek", status: "Captured/Injured", pos: { x: -6, y: 0.5, z: -6 }, portrait: "assets/factions/faction_freelancer.png", scale: 1.4, dead: true },
+            { id: 'mechanic', name: "Legion Mechanic", status: "Sabotaging Vent", pos: { x: 8, y: 0, z: -5 }, portrait: "assets/factions/faction_iron_legion.png", scale: 1.6, isEnemy: true },
             { id: 'prisoner_toad', name: "Toad Prisoner", status: "Processing", pos: { x: -8, y: 0, z: 5 }, portrait: "toads/toad.png", scale: 1.2 },
-            { id: 'guard_1', name: "Facility Guard", status: "Patrolling", pos: { x: 0, y: 0, z: -2 }, portrait: "faction_iron_legion.png", scale: 1.6, isEnemy: true }
+            { id: 'guard_1', name: "Facility Guard", status: "Patrolling", pos: { x: 0, y: 0, z: -2 }, portrait: "assets/factions/faction_iron_legion.png", scale: 1.6, isEnemy: true }
         ]
     },
     rakasha: {
@@ -77,8 +77,8 @@ const LOCATIONS = {
         characters: [
             { id: 'ryan_saved', name: "Ryan", status: "Recovering", pos: { x: -3, y: 0, z: 4 }, portrait: "toads/ryan.png", scale: 1.5 },
             { id: 'rakasha_healer', name: "Rakasha Healer", status: "Tending", pos: { x: -1, y: 0, z: 2 }, portrait: "portraits/chief_thornpaw.png", scale: 1.8 },
-            { id: 'rakasha_warrior', name: "Rakasha Warrior", status: "Chanting", pos: { x: 5, y: 0, z: -5 }, portrait: "faction_rakasha.png", scale: 1.8 },
-            { id: 'rakasha_dancer', name: "Spirit Dancer", status: "Ritual", pos: { x: -5, y: 0, z: -5 }, portrait: "faction_rakasha.png", scale: 1.8 }
+            { id: 'rakasha_warrior', name: "Rakasha Warrior", status: "Chanting", pos: { x: 5, y: 0, z: -5 }, portrait: "assets/factions/faction_rakasha.png", scale: 1.8 },
+            { id: 'rakasha_dancer', name: "Spirit Dancer", status: "Ritual", pos: { x: -5, y: 0, z: -5 }, portrait: "assets/factions/faction_rakasha.png", scale: 1.8 }
         ]
     },
     harbor: {
@@ -87,8 +87,8 @@ const LOCATIONS = {
         characters: [
             { id: 'embercap', name: "Embercap", status: "Boarding", pos: { x: 0, y: 2, z: 4 }, portrait: "toads/embercap.png", scale: 1.5 },
             { id: 'toadette', name: "Captain Toadette", status: "Commanding", pos: { x: -6, y: 0, z: 8 }, portrait: "toads/captain_toadette.png", scale: 1.6 },
-            { id: 'loyalist_1', name: "Loyalist Soldier", status: "Ready", pos: { x: 4, y: 0, z: 8 }, portrait: "faction_peach_loyalists.png", scale: 1.3 },
-            { id: 'cheep_cheep', name: "Giant Red Cheep Cheep", status: "Transport", pos: { x: 0, y: 1, z: -10 }, portrait: "faction_unaligned.png", scale: 3.2 }
+            { id: 'loyalist_1', name: "Loyalist Soldier", status: "Ready", pos: { x: 4, y: 0, z: 8 }, portrait: "assets/factions/faction_peach_loyalists.png", scale: 1.3 },
+            { id: 'cheep_cheep', name: "Giant Red Cheep Cheep", status: "Transport", pos: { x: 0, y: 1, z: -10 }, portrait: "assets/factions/faction_unaligned.png", scale: 3.2 }
         ]
     },
     kitchen: {
@@ -126,7 +126,7 @@ const LOCATIONS = {
         camPos: {x: 0, y: 8, z: 15},
         characters: [
             { id: 'green_t', name: "Green T", status: "Trapped", pos: { x: 0, y: 0, z: 0 }, portrait: "toads/green_t.png", scale: 1.6 },
-            { id: 'mirror_monster', name: "Mirror Entity", status: "Hunting", pos: { x: 0, y: 2, z: -5 }, portrait: "faction_unaligned.png", scale: 3.0 }
+            { id: 'mirror_monster', name: "Mirror Entity", status: "Hunting", pos: { x: 0, y: 2, z: -5 }, portrait: "assets/factions/faction_unaligned.png", scale: 3.0 }
         ]
     },
     cockpit: {

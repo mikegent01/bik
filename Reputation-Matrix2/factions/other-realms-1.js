@@ -4,7 +4,7 @@ export const OTHER_REALMS_1 = {
     aurea_oligarchy: {
         name: "Aurean Technocratic Oligarchy",
         description: "A land of ancient ruins and futuristic designs, where tech and magic coexist under the strict governance of the High Overseer.",
-        logo: 'faction_aurea.png',
+        logo: 'assets/factions/faction_aurea.png',
         relations: { 
             allies: ['mages_guild', 'internet_federation'], 
             enemies: ['regal_empire', 'iron_legion', 'rakasha_clans', 'moonfang_pack', 'rebel_clans', 'the_unchained', 'silver_flame']
@@ -22,7 +22,7 @@ export const OTHER_REALMS_1 = {
     middle_earth_kingdoms: {
         name: "Kingdoms of Middle Earth",
         description: "A loose coalition of ancient kingdoms of Elves, Dwarves, and Men, defined by a legacy of magic and wars against ancient evils.",
-        logo: 'faction_middle_earth.png',
+        logo: 'assets/factions/faction_middle_earth.png',
         relations: { 
             allies: ['rakasha_clans', 'rebel_clans'], 
             enemies: ['regal_empire', 'iron_legion', 'onyx_hand', 'koopa_troop', 'the_known_world']
@@ -40,7 +40,7 @@ export const OTHER_REALMS_1 = {
     pokemon_league: {
         name: "Pokémon League Federation",
         description: "A vibrant realm guided by the bonds between trainers and their Pokémon, with a culture built around competition and cooperation.",
-        logo: 'faction_pokemon.png',
+        logo: 'assets/factions/faction_pokemon.png',
         relations: { 
             allies: ['zootopia_republic'], 
             enemies: ['regal_empire', 'iron_legion', 'onyx_hand', 'equestrian_regime']
@@ -58,7 +58,7 @@ export const OTHER_REALMS_1 = {
     teyvat_hegemony: {
         name: "Teyvat Divine Hegemony",
         description: "A continent ruled by divine Archons where mortals and gods clash for dominion over elemental forces.",
-        logo: 'faction_teyvat.png',
+        logo: 'assets/factions/faction_teyvat.png',
         relations: { 
             allies: ['mages_guild', 'faerun_theocracy'], 
             enemies: ['regal_empire', 'silver_flame', 'the_unchained', 'abyss_order']
@@ -76,7 +76,7 @@ export const OTHER_REALMS_1 = {
     faerun_theocracy: {
         name: "Faerun Mystical Theocracy",
         description: "A realm where magic saturates every aspect of life, and governance is fused with mystical traditions under a supreme sorcerer.",
-        logo: 'faction_faerun.png',
+        logo: 'assets/factions/faction_faerun.png',
         relations: { 
             allies: ['mages_guild', 'teyvat_hegemony'], 
             enemies: ['regal_empire', 'iron_legion', 'silver_flame']

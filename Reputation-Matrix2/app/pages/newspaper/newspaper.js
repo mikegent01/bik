@@ -110,7 +110,7 @@ Remember, peace is boring. **CHAOS** is profitable! And nobody does chaos better
         {
             id: 'advert_4',
             title: "Don't Be a Victim! Hire The Iron Fists!",
-            image: 'faction_iron_fists.png',
+            image: 'assets/factions/faction_iron_fists.png',
             image_alt: "Iron Fists faction logo.",
             content: "Trouble with rivals? Need a 'package' delivered discreetly? **The Iron Fists** offer comprehensive protection and enforcement services. We'll make sure your 'competitors' understand who's boss. Discreet, effective, and always gets the job done. (Payment upfront.)",
             cta: "Contact Us",

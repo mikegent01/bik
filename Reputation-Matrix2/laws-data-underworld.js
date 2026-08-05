@@ -3,7 +3,7 @@
 export const UNDERWORLD_CODES = {
     freelancer_underworld: {
         name: "The Freelancer's Code",
-        logo: "faction_freelancer.png",
+        logo: "assets/factions/faction_freelancer.png",
         description: "A loose, unwritten set of rules based on profit and reputation. There is no central authority, only a shared understanding that breaking the code is bad for business.",
         supporters: ['crimson_fleet', 'wario_land', 'ratchet_raiders'],
         opponents: ['oathbound_judges', 'silver_flame', 'regal_empire'],
@@ -36,7 +36,7 @@ export const UNDERWORLD_CODES = {
     },
     toad_gang: {
         name: "The Law of the Cap",
-        logo: "faction_toad_gang.png",
+        logo: "assets/factions/faction_toad_gang.png",
         description: "A brutal street code where the strongest leader's word is law. It is based on intimidation, protection rackets, and a fierce, supremacist ideology.",
         supporters: ['toad_cult'],
         opponents: ['mushroom_regency', 'liberated_toads', 'peach_loyalists'],
@@ -69,7 +69,7 @@ export const UNDERWORLD_CODES = {
     },
     ratchet_raiders: {
         name: "The Raider's Wrench",
-        logo: "faction_ratchet_raiders.png",
+        logo: "assets/factions/faction_ratchet_raiders.png",
         description: "A chaotic set of customs based on salvage rights and mechanical prowess. The best mechanic gets the best scrap, and disputes are often settled with a deadly race or a duel between ramshackle war machines.",
         supporters: ['cosmic_jesters', 'wario_land'],
         opponents: ['goodstyle_artisans', 'regal_empire'],
@@ -89,7 +89,7 @@ export const UNDERWORLD_CODES = {
     },
     crimson_fleet: {
         name: "The Pirate's Code",
-        logo: "faction_crimson_fleet.png",
+        logo: "assets/factions/faction_crimson_fleet.png",
         description: "A loose code of conduct that governs the various pirate crews. It primarily deals with the division of treasure and the rules of engagement.",
         supporters: ['freelancer_underworld'],
         opponents: ['regal_empire', 'mushroom_regency'],

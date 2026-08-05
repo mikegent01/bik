@@ -4,7 +4,7 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
     toad_gang: { 
         name: "The Toad Gang", 
         description: "Led by the tyrannical Big T, they seek to expand their 'Toadification' campaign.",
-        logo: 'faction_toad_gang.png',
+        logo: 'assets/factions/faction_toad_gang.png',
         relations: { 
             allies: ['toad_cult'], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists', 'fawfuls_furious_freaks'] 
@@ -68,7 +68,7 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
     toad_cult: {
         name: "The Toad Cult",
         description: "Fanatical schismatics who worship 'The Ascended One' and seek revenge.",
-        logo: 'faction_toad_cult.png',
+        logo: 'assets/factions/faction_toad_cult.png',
         relations: { 
             allies: ['toad_gang'], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'peach_loyalists'] 
@@ -119,7 +119,7 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
     mushroom_regency: {
         name: "Mushroom Regency",
         description: "The official but fractured government of the Mushroom Kingdom, struggling to maintain order amidst a civil war that has simmered for over a century. The conflict escalated dramatically into its current, chaotic final phase following the death of Princess Peach 45 years ago.",
-        logo: 'faction_mushroom_regency.png',
+        logo: 'assets/factions/faction_mushroom_regency.png',
         relations: { 
             allies: ['liberated_toads', 'goodstyle_artisans'], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'wario_land', 'peach_loyalists', 'fawfuls_furious_freaks']
@@ -137,7 +137,7 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
     peach_loyalists: {
         name: "Peach Loyalists",
         description: "A fanatical military faction that has split from the Regency. Following the events in Toad Town, their strategy has shifted under Captain Toadette to a brutal war of attrition. They have seized Toad Town, appointed a provisional government, and are now preparing to besiege Peach's Castle.",
-        logo: 'faction_peach_loyalists.png',
+        logo: 'assets/factions/faction_peach_loyalists.png',
         relations: { 
             allies: [], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'wario_land', 'mushroom_regency', 'fawfuls_furious_freaks']
@@ -197,7 +197,7 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
     fawfuls_furious_freaks: {
         name: "Fawful's Furious Freaks",
         description: "The erratic Beanish villain Fawful has seized Peach's Castle amidst the chaos, transforming it into a twisted stronghold. In a shocking move, he has formed an alliance with dragons and revealed that the very stones of the castle are alive. His army is a bizarre mix of brainwashed Toads, reprogrammed Goombas, and his own maniacal mechanical minions. They fight with unpredictable fury and chortles of doom.",
-        logo: 'faction_fawful.png',
+        logo: 'assets/factions/faction_fawful.png',
         relations: { 
             allies: [], 
             enemies: ['peach_loyalists', 'mushroom_regency', 'koopa_troop', 'toad_gang', 'liberated_toads', 'regal_empire', 'iron_legion']
@@ -221,7 +221,7 @@ export const MUSHROOM_KINGDOM_FACTIONS = {
     liberated_toads: {
         name: "The Liberated Toads",
         description: "A group of former slaves freed by the party. Led by the heroic Dan, they are finding their place in a dangerous world, now burdened with the knowledge that over 150 more trafficked toads were aboard the Vigilance.",
-        logo: 'faction_liberated_toads.png',
+        logo: 'assets/factions/faction_liberated_toads.png',
         relations: { 
             allies: ['rakasha_clans', 'the_unchained', 'rebel_clans', 'mushroom_regency'], 
             enemies: ['regal_empire', 'iron_legion', 'freelancer_underworld', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'cosmic_jesters', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'wario_land', 'peach_loyalists', 'fawfuls_furious_freaks']

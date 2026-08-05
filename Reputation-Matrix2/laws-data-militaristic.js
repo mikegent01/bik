@@ -3,7 +3,7 @@
 export const MILITARISTIC_CODES = {
     kingdom_of_gondor: {
         name: "The Law of the Stewards",
-        logo: "faction_regal_empire.png", // Placeholder, will need a Gondor logo
+        logo: "assets/factions/faction_regal_empire.png", // Placeholder, will need a Gondor logo
         description: "The ancient laws of Gondor, derived from Númenórean tradition. They are the laws of a kingdom under constant threat, valuing duty, vigilance, and the authority of the Steward who rules in the King's stead.",
         supporters: ['kingdom_of_rohan', 'elves_of_lindon'],
         opponents: ['mordor', 'freelancer_underworld'], // Corsairs
@@ -62,7 +62,7 @@ export const MILITARISTIC_CODES = {
     },
     iron_legion: {
         name: "The Hammer Code",
-        logo: "faction_iron_legion.png",
+        logo: "assets/factions/faction_iron_legion.png",
         description: "A rigid, unforgiving legal code where military law is the only law. Discipline, expansion, and order are the only virtues.",
         supporters: ['regal_empire'],
         opponents: ['rebel_clans', 'the_unchained', 'rakasha_clans', 'liberated_toads'],
@@ -143,7 +143,7 @@ export const MILITARISTIC_CODES = {
     },
     koopa_troop: {
         name: "The Law of the King",
-        logo: "faction_koopa_troop.png",
+        logo: "assets/factions/faction_koopa_troop.png",
         description: "A feudal military system where Bowser's word is absolute law. Loyalty to the king is the only legal principle that matters.",
         supporters: ['onyx_hand', 'moonfang_pack'],
         opponents: ['mushroom_regency', 'peach_loyalists', 'dk_crew', 'yoshi_clans'],
@@ -200,7 +200,7 @@ export const MILITARISTIC_CODES = {
     },
     peach_loyalists: {
         name: "The Loyalist Crusade",
-        logo: "faction_peach_loyalists.png",
+        logo: "assets/factions/faction_peach_loyalists.png",
         description: "A fanatical military code that has suspended all peacetime law. The only goal is the restoration of the 'true' monarchy and the punishment of its enemies.",
         supporters: [],
         opponents: ['koopa_troop', 'mushroom_regency', 'fawfuls_furious_freaks'],

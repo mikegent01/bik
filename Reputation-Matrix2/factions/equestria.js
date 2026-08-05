@@ -7,7 +7,7 @@ export const EQUESTRIA_FACTIONS = {
     equestrian_regime: {
         name: "The Equestrian Regime",
         description: "The absolute, solar-divine authority governing Equestria. Led by the immortal Queen Celestia, the Regime enforces 'Harmony' through a rigid caste system, a powerful secret police (The Ministry of Friendship Enforcement), and the elite Wonderbolts. They view non-pony races as subjects to be 'guided' or contained.",
-        logo: 'faction_equestria.png',
+        logo: 'assets/factions/faction_equestria.png',
         relations: {
             allies: ['regal_empire', 'pony_nobility'],
             enemies: ['spark_of_rebellion', 'zootopia_republic', 'the_unchained', 'liberated_toads', 'changeling_hive']
@@ -42,7 +42,7 @@ export const EQUESTRIA_FACTIONS = {
     spark_of_rebellion: {
         name: "The Spark of Rebellion",
         description: "An underground resistance movement composed of disenfranchised Earth Ponies, changelings, griffons, and other minorities. They operate from the shadows, seeking to dismantle the Regime and establish a republic.",
-        logo: 'faction_rebel_clans.png', // Placeholder
+        logo: 'assets/factions/faction_rebel_clans.png', // Placeholder
         relations: {
             allies: ['the_unchained', 'rebel_clans'],
             enemies: ['equestrian_regime', 'pony_nobility', 'iron_legion']
@@ -59,7 +59,7 @@ export const EQUESTRIA_FACTIONS = {
     changeling_hive: {
         name: "The Changeling Hive",
         description: "A parasitic species of shapeshifters who feed on love and emotion. They infiltrate pony society to survive and undermine the Regime from within.",
-        logo: 'faction_rakasha.png', // Placeholder
+        logo: 'assets/factions/faction_rakasha.png', // Placeholder
         relations: {
             allies: ['spark_of_rebellion'],
             enemies: ['equestrian_regime', 'pony_nobility']
@@ -75,7 +75,7 @@ export const EQUESTRIA_FACTIONS = {
     griffon_stone: {
         name: "Griffonstone Empire",
         description: "A neighboring empire of proud, greedy griffons. They maintain a tense peace with Equestria, focused entirely on trade and the accumulation of gold.",
-        logo: 'faction_world_beyond.png', // Placeholder
+        logo: 'assets/factions/faction_world_beyond.png', // Placeholder
         relations: {
             allies: [],
             enemies: []
@@ -104,7 +104,7 @@ export const EQUESTRIA_FACTIONS = {
     zebrabwe: {
         name: "Zebrabwe",
         description: "The homeland of the Zebras, a society known for its intricate alchemy, shamanistic traditions, and fierce warriors.",
-        logo: 'faction_forests.png', // Placeholder
+        logo: 'assets/factions/faction_forests.png', // Placeholder
         relations: {
             allies: [],
             enemies: []

@@ -1,5 +1,5 @@
 #party-header {
-    background: url('faction_fawful.png') no-repeat center center;
+    background: url('assets/factions/faction_fawful.png') no-repeat center center;
     background-size: contain;
     background-color: var(--sidebar-bg);
     border: 1px solid var(--positive-color);
