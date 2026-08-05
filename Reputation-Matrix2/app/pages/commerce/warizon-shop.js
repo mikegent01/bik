@@ -722,7 +722,7 @@ function loadCustomWallets() {
 
 let WALLETS_DATA = null;
 function loadWalletsFromServer(callback) {
-  fetch('./wallets.json?t=' + Date.now(), { cache: 'no-cache' })
+  fetch('../../../wallets.json?t=' + Date.now(), { cache: 'no-cache' })
     .then(r => r.ok ? r.json() : {})
     .then(json => {
       WALLETS_DATA = { ...(WALLETS || {}), ...json };
@@ -815,7 +815,7 @@ let deptMetaLoaded = false;
 function ensureDeptMeta() {
   if (deptMetaLoaded || typeof fetch !== 'function') return;
   deptMetaLoaded = true;
-  fetch('data/shop-departments.json')
+  fetch('../../../data/shop-departments.json')
     .then(r => (r.ok ? r.json() : null))
     .then(j => {
       (j?.departments || []).forEach(d => {
@@ -904,7 +904,7 @@ let effectCatalogLoading = false;
 function ensureEffectCatalog() {
   if (effectCatalog || effectCatalogLoading || typeof fetch !== 'function') return effectCatalog;
   effectCatalogLoading = true;
-  fetch('data/shop-effect-details-slim.json')
+  fetch('../../../data/shop-effect-details-slim.json')
     .then(r => (r.ok ? r.json() : null))
     .then(j => {
       effectCatalog = j || {};
@@ -1017,7 +1017,7 @@ let craftLoading = false;
 function ensureCrafting() {
   if (craftData || craftLoading || typeof fetch !== 'function') return;
   craftLoading = true;
-  fetch('data/crafting.json')
+  fetch('../../../data/crafting.json')
     .then(r => (r.ok ? r.json() : { recipes: [], materials: [], schools: {} }))
     .then(j => {
       craftData = j; craftLoading = false; registerCraftCommerce();
@@ -1140,8 +1140,8 @@ function ensureAbilities() {
   if (AB || abLoading || typeof fetch !== 'function') return;
   abLoading = true;
   Promise.all([
-    fetch('data/abilityShop.json').then(r => (r.ok ? r.json() : null)).catch(() => null),
-    fetch('data/abilityPoints.json').then(r => (r.ok ? r.json() : null)).catch(() => null)
+    fetch('../../../data/abilityShop.json').then(r => (r.ok ? r.json() : null)).catch(() => null),
+    fetch('../../../data/abilityPoints.json').then(r => (r.ok ? r.json() : null)).catch(() => null)
   ]).then(([shop, points]) => {
     AB = { shop: shop || { abilities: [], types: {}, classes: {} }, points: points || { players: {}, costTiers: [] } };
     abLoading = false;
@@ -1211,7 +1211,7 @@ let ledgerLoading = false;
 function ensureLedger() {
   if (LEDGER || ledgerLoading || typeof fetch !== 'function') return;
   ledgerLoading = true;
-  fetch('shop-purchases.json?t=' + Date.now())
+  fetch('../../../shop-purchases.json?t=' + Date.now())
     .then(r => (r.ok ? r.json() : []))
     .then(j => { LEDGER = Array.isArray(j) ? j : []; ledgerLoading = false; if (S.view === 'orders' || S.view === 'wahprime') render(); renderHeader(); })
     .catch(() => { LEDGER = []; ledgerLoading = false; if (S.view === 'orders' || S.view === 'wahprime') render(); renderHeader(); });
@@ -1257,7 +1257,7 @@ let primeLoading = false;
 function ensurePrimeData() {
   if (PRIME_DATA || primeLoading || typeof fetch !== 'function') return;
   primeLoading = true;
-  fetch('data/wahprime-memberships.json')
+  fetch('../../../data/wahprime-memberships.json')
     .then(r => (r.ok ? r.json() : null))
     .then(j => { PRIME_DATA = j || { plans: {}, memberships: {} }; primeLoading = false; if (S.view === 'wahprime') render(); renderHeader(); })
     .catch(() => { PRIME_DATA = { plans: {}, memberships: {} }; primeLoading = false; if (S.view === 'wahprime') render(); });
