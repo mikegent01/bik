@@ -1,5 +1,5 @@
 // map-data/the-edge-pois.js
-import { BUILDING_TYPES } from './building-types.js';
+import { BUILDING_TYPES } from '../data/support/building-types.js';
 
 const pointsOfInterest = [
   { id: 'poi_te_1', x: 25.51, y: 75.23, type: 'cosmic_anomaly', name: 'The Sea of Static', description: 'A roiling ocean of pure information noise where concepts and matter blur together. Systems fill with nonsensical data and crews experience profound existential confusion.', factionId: 'unaligned', intelReq: 80, population: 0, military_strength: 7 },

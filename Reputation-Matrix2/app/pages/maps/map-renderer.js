@@ -12,11 +12,11 @@ import { FACTION_COLORS } from '../../../factions/faction-colors.js';
 import { BATTLE_MAP_DATA } from '../../../map-battle-data.js';
 import { LEGAL_DATA } from '../../../legal_data.js';
 import { ALL_LEGAL_CODES } from '../../../laws-data.js';
-import { CULTURE_DATA } from '../../../culture-data.js';
-import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS, SPECIES_ESTATE_BIAS } from '../../../species-data.js';
+import { CULTURE_DATA } from '../../../data/support/culture-data.js';
+import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS, SPECIES_ESTATE_BIAS } from '../../../data/support/species-data.js';
 import { PARTY_LOCATIONS } from '../../../party-data.js';
 import { PROVINCE_POLITICS } from '../../../politics-data.js';
-import { NATIONS, getTechTree, RESEARCH_CATEGORIES } from '../../../research-data.js';
+import { NATIONS, getTechTree, RESEARCH_CATEGORIES } from '../../../data/support/research-data.js';
 import { calculateAllAlliances } from '../../../alliances-page.js';
 // ============================================================================
 // DOM REFERENCES

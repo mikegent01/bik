@@ -1,6 +1,6 @@
 
 import { LORE_DATA, STORY_ARCS, getRumorsByArc, getArcProgress, getArcStats, getUnassignedRumors } from '../../../lore.js';
-import { calculateRumorMetrics } from '../../../research-data.js';
+import { calculateRumorMetrics } from '../../../data/support/research-data.js';
 import { WAHBOOK_POSTS } from '../../../assembly-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 import { playSound } from '../../../common.js';

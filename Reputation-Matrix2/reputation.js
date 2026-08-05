@@ -1,5 +1,5 @@
 import { state } from './state.js';
-import { FACTION_ASSESSMENTS } from './assessments.js';
+import { FACTION_ASSESSMENTS } from './data/support/assessments.js';
 import { LORE_DATA } from './lore.js';
 
 export function getReputation(playerKey, factionKey) {

@@ -1,7 +1,7 @@
 
 
 import { state, loadState, saveState } from '../../../state.js';
-import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING, calculateDemographicBonus, calculateGuildBonus } from '../../../research-data.js';
+import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING, calculateDemographicBonus, calculateGuildBonus } from '../../../data/support/research-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 import { LORE_DATA } from '../../../lore.js';
 import { playSound } from '../../../common.js';

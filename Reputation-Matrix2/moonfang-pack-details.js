@@ -1,6 +1,6 @@
 
 
-import { getAbsoluteDay } from './research-data.js';
+import { getAbsoluteDay } from './data/support/research-data.js';
 import { MOON_PHASES } from './data/world/calendar.js';
 
 // Dynamic phase calculation using the shared data

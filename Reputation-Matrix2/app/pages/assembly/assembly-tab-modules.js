@@ -1,6 +1,6 @@
 import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
 import { CURRENT_GAME_DATE, CALENDAR_DATA } from '../../../data/world/calendar.js';
-import { calculateRumorMetrics } from '../../../research-data.js';
+import { calculateRumorMetrics } from '../../../data/support/research-data.js';
 
 function formatCharacterKey(key) {
   if (!key) return 'Unknown';

@@ -6,7 +6,7 @@ import { WAHBOOK_POSTS } from './assembly-data.js';
 import { QUEST_DATA } from './data/quest-system/index.js';
 import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './data/world/calendar.js';
 import { PARTY_LOCATIONS } from './party-data.js';
-import { getActiveAge, NATIONS, getTechTree, calculateRumorMetrics } from './research-data.js';
+import { getActiveAge, NATIONS, getTechTree, calculateRumorMetrics } from './data/support/research-data.js';
 import { state, loadState } from './state.js'; // Import state
 
 const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? '' : 'Reputation-Matrix2/');

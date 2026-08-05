@@ -4,7 +4,7 @@
 import { LORE_DATA } from './lore.js';
 import { TOAD_ABILITIES } from './abilities.js';
 import { MAP_DATA } from './map-data.js';
-import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from './research-data.js';
+import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from './data/support/research-data.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
 import { extractAllRewards } from './quests/quests-main.js';
 import { STORY_ARCS } from './lore.js';

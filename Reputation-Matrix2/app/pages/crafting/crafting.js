@@ -22,8 +22,8 @@ import {
     getShopMaterialsByCategory,
     getBundleXPPrices,
     getSpellSchool 
-} from '../../../crafting-data.js';
-import { initMarket, getMarketState, reduceMarketStock } from '../../../crafting-data.js';
+} from '../../../data/support/crafting-data.js';
+import { initMarket, getMarketState, reduceMarketStock } from '../../../data/support/crafting-data.js';
 import { REWARDS_DATA } from '../../../quests/quests-main.js';
 // ============================================
 // === CATALYST SUBSTITUTION SYSTEM ===

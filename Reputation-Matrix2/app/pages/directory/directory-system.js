@@ -1,7 +1,7 @@
 // directory-system.js - Player Relations Focused Directory System
 
 import { state, loadState } from '../../../state.js';
-import { FACTION_ASSESSMENTS } from '../../../assessments.js';
+import { FACTION_ASSESSMENTS } from '../../../data/support/assessments.js';
 import { getReputation, getGenericFactionAssessment } from '../../../reputation.js';
 import { getIntelForFaction, getIntelBreakdown } from '../../../systems/common.js';
 import { playSound } from '../../../common.js';
@@ -10,7 +10,7 @@ import { getAllFactions, getFaction, getFactionStats, toSystemId } from '../../.
 import { getRealTimeMapStats } from '../../../global-map-analysis.js';
 import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
 import { WAHBOOK_POSTS } from '../../../assembly-data.js';
-import { calculateRumorMetrics } from '../../../research-data.js';
+import { calculateRumorMetrics } from '../../../data/support/research-data.js';
 import { calculateAssemblyInfamy, getCharacterInfamy, getFactionInfamy, renderInfamyBadge } from '../assembly/assembly-infamy.js';
 let _targetRelationsCache = new Map();
 

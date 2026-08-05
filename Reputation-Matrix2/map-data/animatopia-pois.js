@@ -1,5 +1,5 @@
 // map-data/animatopia-pois.js
-import { BUILDING_TYPES } from './building-types.js';
+import { BUILDING_TYPES } from '../data/support/building-types.js';
 
 const pointsOfInterest = [
     // --- TUNDRATOWN (Predator Stronghold) ---

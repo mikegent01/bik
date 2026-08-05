@@ -2,7 +2,7 @@
 import { state } from '../state.js';
 import { LORE_DATA } from '../lore.js';
 import { getSubFactionReputation } from '../reputation.js';
-import { calculateRumorMetrics } from '../research-data.js';
+import { calculateRumorMetrics } from '../data/support/research-data.js';
 import { WAHBOOK_POSTS } from '../assembly-data.js';
 import { CURRENT_GAME_DATE } from '../data/world/calendar.js';
 /**
