@@ -23,7 +23,7 @@
   };
   const loadReviewedCatalog = async () => {
     try {
-      const response = await fetch('data/shop-effect-details.json', { cache: 'no-store' });
+      const response = await fetch('../../../data/shop-effect-details.json', { cache: 'no-store' });
       if (response.ok) reviewedCatalog = await response.json() || {};
     } catch {}
 
