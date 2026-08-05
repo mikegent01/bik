@@ -1,4 +1,4 @@
-import { STOCK_TYPES } from '../../shop-stock.js';
+import { STOCK_TYPES } from '../../app/pages/commerce/shop-stock.js';
 // NIGHT_SPECIAL_ITEMS - extracted from shop-data.js
 // Generated: 2026-03-21 16:24:19
 // Items: 192
