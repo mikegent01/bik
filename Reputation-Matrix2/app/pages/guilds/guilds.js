@@ -11,13 +11,13 @@ import {
     getPlayerGuildData,
     getAllPlayerGuilds
 } from './guilds-data.js';
-import { state, loadState } from './state.js';
-import { playSound } from './common.js';
+import { state, loadState } from '../../../state.js';
+import { playSound } from '../../../common.js';
 // Add to guilds.js - at the top with other imports
 
-import { getReputation, getGenericFactionAssessment } from './reputation.js';
-import { getIntelForFaction } from './systems/common.js';
-import { LORE_DATA } from './lore.js';
+import { getReputation, getGenericFactionAssessment } from '../../../reputation.js';
+import { getIntelForFaction } from '../../../systems/common.js';
+import { LORE_DATA } from '../../../lore.js';
 
 // ============================================
 // REPUTATION BRIDGE FUNCTIONS

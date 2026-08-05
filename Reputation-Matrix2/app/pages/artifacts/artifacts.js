@@ -1,6 +1,6 @@
-import { playSound } from './common.js';
-import { state } from './state.js';
-import { getIntelForFaction } from './systems/common.js';
+import { playSound } from '../../../common.js';
+import { state } from '../../../state.js';
+import { getIntelForFaction } from '../../../systems/common.js';
 
 // ============================================================================
 // UTILITY FUNCTIONS

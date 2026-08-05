@@ -1,7 +1,7 @@
 // societal-values.js - Faction & Regional Value Spectrum System
 
-import { getAllFactions, getFaction } from './systems/faction-registry.js'; 
-import { MAP_DATA } from './map-data.js'; 
+import { getAllFactions, getFaction } from '../../../systems/faction-registry.js';
+import { MAP_DATA } from '../../../map-data.js';
 
 // ============================================
 // VALUE AXES DEFINITIONS
@@ -21,9 +21,9 @@ const EXCLUDED_FACTION_IDS = [
 function calculateFactionCompatibility(factionId1, factionId2) {
     const values1 = getFactionValues(factionId1);
     const values2 = getFactionValues(factionId2);
-    
+
     if (!values1 || !values2) return null;
-    
+
     let totalDiff = 0;
     let count = 0;
     let extremeConflicts = 0;      // 50+ diff
@@ -32,16 +32,16 @@ function calculateFactionCompatibility(factionId1, factionId2) {
     let maxSingleDiff = 0;
     const biggestDifferences = [];
     const biggestAgreements = [];
-    
+
     Object.entries(VALUE_AXES).forEach(([axisId, axis]) => {
         const val1 = values1[axisId] || 50;
         const val2 = values2[axisId] || 50;
         const diff = Math.abs(val1 - val2);
-        
+
         totalDiff += diff;
         count++;
         maxSingleDiff = Math.max(maxSingleDiff, diff);
-        
+
         // Count conflict/agreement levels
         if (diff >= 50) {
             extremeConflicts++;
@@ -50,18 +50,18 @@ function calculateFactionCompatibility(factionId1, factionId2) {
             strongConflicts++;
             biggestDifferences.push({ axis, diff, val1, val2 });
         }
-        
+
         if (diff <= 15) {
             strongAgreements++;
             biggestAgreements.push({ axis, diff, val1, val2 });
         }
     });
-    
+
     const avgDiff = count > 0 ? totalDiff / count : 50;
-    
+
     // Calculate base compatibility
     let compatibility = Math.round(100 - avgDiff);
-    
+
     // Apply penalties for extreme conflicts
     if (extremeConflicts >= 3) {
         compatibility -= 30;  // Fundamental opposition
@@ -70,31 +70,31 @@ function calculateFactionCompatibility(factionId1, factionId2) {
     } else if (extremeConflicts >= 1) {
         compatibility -= 12;  // Significant tension
     }
-    
+
     // Apply smaller penalties for strong conflicts
     if (strongConflicts >= 3) {
         compatibility -= 10;
     } else if (strongConflicts >= 2) {
         compatibility -= 5;
     }
-    
+
     // Bonus for strong agreements (smaller than penalties)
     if (strongAgreements >= 4) {
         compatibility += 8;
     } else if (strongAgreements >= 3) {
         compatibility += 4;
     }
-    
+
     // If there's one massive disagreement (70+), it dominates
     if (maxSingleDiff >= 70) {
         compatibility = Math.min(compatibility, 35);
     } else if (maxSingleDiff >= 60) {
         compatibility = Math.min(compatibility, 45);
     }
-    
+
     // Clamp to 0-100
     compatibility = Math.max(0, Math.min(100, compatibility));
-    
+
     return {
         compatibility,
         avgDiff,
@@ -110,11 +110,11 @@ function getRelationshipLabel(compatibility, extremeConflicts = 0, strongAgreeme
     if (compatibility >= 85) return { label: 'Natural Allies', type: 'ally', icon: '💚' };
     if (compatibility >= 77) return { label: 'Strong Partners', type: 'ally', icon: '🤝' };
     if (compatibility >= 70) return { label: 'Friendly Relations', type: 'ally', icon: '😊' };
-    
+
     if (compatibility <= 15) return { label: 'Mortal Enemies', type: 'rival', icon: '💀' };
     if (compatibility <= 25) return { label: 'Bitter Rivals', type: 'rival', icon: '⚔️' };
     if (compatibility <= 35) return { label: 'Opposed', type: 'rival', icon: '😠' };
-    
+
     // Neutral range with nuance
     if (extremeConflicts > 0 && strongAgreements > 0) {
         return { label: 'Tense Neutrality', type: 'neutral', icon: '😬' };
@@ -406,7 +406,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         centralization: 30,
         knowledge: 25
     },
-    
+
     // ==========================================
     // MILITARY - Very strong modifiers
     // ==========================================
@@ -498,7 +498,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         centralization: 40,
         social_mobility: 35
     },
-    
+
     // ==========================================
     // RELIGIOUS/SPIRITUAL - Strong modifiers
     // ==========================================
@@ -569,7 +569,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         knowledge: 30,
         collectivism: -25
     },
-    
+
     // ==========================================
     // MAGIC/ARCANE - Very strong modifiers
     // ==========================================
@@ -637,7 +637,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         nature_development: -45,
         tradition_innovation: -35
     },
-    
+
     // ==========================================
     // TECHNOLOGY/SCIENCE - Very strong modifiers
     // ==========================================
@@ -731,7 +731,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         magic_technology: 40,
         borders: 35
     },
-    
+
     // ==========================================
     // TRADE/ECONOMIC - Strong modifiers
     // ==========================================
@@ -791,7 +791,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         militarism: -20,
         borders: 30
     },
-    
+
     // ==========================================
     // NATURE/ENVIRONMENT - Strong modifiers
     // ==========================================
@@ -868,7 +868,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         collectivism: -30,
         militarism: 30
     },
-    
+
     // ==========================================
     // RACE/SPECIES - Strong modifiers
     // ==========================================
@@ -1002,7 +1002,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         social_mobility: -30,
         tradition_innovation: -20
     },
-    
+
     // ==========================================
     // POLITICAL STANCE - Strong modifiers
     // ==========================================
@@ -1065,7 +1065,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         social_mobility: -35,
         tradition_innovation: -25
     },
-    
+
     // ==========================================
     // ISOLATIONIST/EXPANSIONIST - Strong modifiers
     // ==========================================
@@ -1107,7 +1107,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         foreign_policy: 45,
         borders: 30
     },
-    
+
     // ==========================================
     // PEACEFUL/DIPLOMATIC - Strong modifiers
     // ==========================================
@@ -1151,7 +1151,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         tradition_innovation: 30,
         social_mobility: 35
     },
-    
+
     // ==========================================
     // CRIMINAL/UNDERWORLD - Strong modifiers
     // ==========================================
@@ -1192,7 +1192,7 @@ const KEYWORD_VALUE_MODIFIERS = {
         knowledge: -35,
         collectivism: 30
     },
-    
+
     // ==========================================
     // MISCELLANEOUS - Strong modifiers
     // ==========================================
@@ -1574,7 +1574,7 @@ let viewMode = 'spectrum';
  */
 function calculateAllianceType(members) {
     if (!members || members.length === 0) return 'military_pact';
-    
+
     // Count building types across all members
     const buildingCounts = {
         military: 0,      // fortress, castle, barracks, watchtower
@@ -1584,52 +1584,52 @@ function calculateAllianceType(members) {
         cultural: 0,      // temple, shrine, monument, theater
         political: 0      // capital, palace, embassy, court
     };
-    
+
     const buildingTypeMap = {
         // Military
         'fortress': 'military', 'castle': 'military', 'barracks': 'military',
         'watchtower': 'military', 'fort': 'military', 'outpost': 'military',
         'siege_camp': 'military', 'garrison': 'military', 'stronghold': 'military',
-        
+
         // Economic
         'market': 'economic', 'mine': 'economic', 'farm': 'economic',
         'trade_post': 'economic', 'warehouse': 'economic', 'bank': 'economic',
         'workshop': 'economic', 'factory': 'economic', 'quarry': 'economic',
-        
+
         // Naval
         'port': 'naval', 'shipyard': 'naval', 'harbor': 'naval',
         'dock': 'naval', 'lighthouse': 'naval', 'naval_base': 'naval',
-        
+
         // Research
         'academy': 'research', 'library': 'research', 'mages_tower': 'research',
         'laboratory': 'research', 'university': 'research', 'observatory': 'research',
         'school': 'research', 'archive': 'research',
-        
+
         // Cultural
         'temple': 'cultural', 'shrine': 'cultural', 'monument': 'cultural',
         'theater': 'cultural', 'monastery': 'cultural', 'cathedral': 'cultural',
         'arena': 'cultural', 'colosseum': 'cultural',
-        
+
         // Political
         'capital': 'political', 'capital_city': 'political', 'palace': 'political',
         'embassy': 'political', 'court': 'political', 'senate': 'political',
         'throne_room': 'political'
     };
-    
+
     // Count POIs by type for all members
     members.forEach(memberId => {
         if (!MAP_DATA) return;
-        
+
         Object.entries(MAP_DATA).forEach(([regionId, region]) => {
             if (!regionId.endsWith('_full')) return;
             const pois = region.pointsOfInterest || [];
-            
+
             pois.forEach(poi => {
                 if (poi.factionId !== memberId) return;
-                
+
                 const poiType = (poi.type || '').toLowerCase().replace(/[\s-]/g, '_');
                 const category = buildingTypeMap[poiType];
-                
+
                 if (category) {
                     buildingCounts[category]++;
                 } else {
@@ -1643,21 +1643,21 @@ function calculateAllianceType(members) {
             });
         });
     });
-    
+
     // Calculate total and percentages
     const total = Object.values(buildingCounts).reduce((a, b) => a + b, 0) || 1;
     const percentages = {};
     Object.entries(buildingCounts).forEach(([key, val]) => {
         percentages[key] = (val / total) * 100;
     });
-    
+
     // Determine alliance type based on dominant categories
     const dominant = Object.entries(percentages)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 2);
-    
+
     const [primary, secondary] = dominant;
-    
+
     // Decision tree for alliance type
     if (primary[0] === 'military' && primary[1] >= 40) {
         if (secondary && secondary[0] === 'political' && secondary[1] >= 20) {
@@ -1665,32 +1665,32 @@ function calculateAllianceType(members) {
         }
         return 'military_pact';
     }
-    
+
     if (primary[0] === 'economic' && primary[1] >= 35) {
         return 'economic_union';
     }
-    
+
     if (primary[0] === 'naval' && primary[1] >= 25) {
         return 'naval_league';
     }
-    
+
     if (primary[0] === 'research' && primary[1] >= 25) {
         return 'technology_pact';
     }
-    
+
     if (primary[0] === 'cultural' && primary[1] >= 25) {
         return 'cultural_alliance';
     }
-    
+
     if (primary[0] === 'political' && primary[1] >= 30) {
         return 'federation';
     }
-    
+
     // Mixed - default to defensive coalition
     if (primary[1] < 30) {
         return 'defensive_coalition';
     }
-    
+
     // Fallback
     return 'military_pact';
 }
@@ -1702,26 +1702,26 @@ function calculateMemberRoles(alliance) {
     const memberPowers = {};
     let maxPower = 0;
     let leaderId = null;
-    
+
     alliance.members.forEach(memberId => {
         const stats = getFactionStats(memberId);
         const pois = getFactionTotalPOIs(memberId);
         const power = (stats.military * 2) + (stats.economic * 1.5) + (stats.political) + (pois * 5);
         memberPowers[memberId] = power;
-        
+
         if (power > maxPower) {
             maxPower = power;
             leaderId = memberId;
         }
     });
-    
+
     const roles = {};
     const avgPower = Object.values(memberPowers).reduce((a, b) => a + b, 0) / alliance.members.length;
-    
+
     alliance.members.forEach(memberId => {
         const power = memberPowers[memberId];
         const ratio = power / maxPower;
-        
+
         if (memberId === leaderId) {
             roles[memberId] = 'leader';
         } else if (ratio >= 0.7) {
@@ -1736,7 +1736,7 @@ function calculateMemberRoles(alliance) {
             roles[memberId] = 'puppet';
         }
     });
-    
+
     return { roles, leaderId, memberPowers };
 }
 
@@ -1772,14 +1772,14 @@ function generateFactionValuesWithSeed(faction) {
     const values = {};
     const factionId = faction.id || faction.name || 'unknown';
     const baseSeed = stringToSeed(factionId);
-    
+
     // Start with neutral values
     Object.keys(VALUE_AXES).forEach((axisId, index) => {
         values[axisId] = 50;
     });
-    
+
     if (!faction) return values;
-    
+
     // Gather text to analyze
     const textsToAnalyze = [
         faction.id || '',
@@ -1794,13 +1794,13 @@ function generateFactionValuesWithSeed(faction) {
         faction.species || '',
         ...(faction.tags || [])
     ].join(' ').toLowerCase();
-    
+
     // Track applied modifiers
     const appliedModifiers = {};
     Object.keys(VALUE_AXES).forEach(axisId => {
         appliedModifiers[axisId] = [];
     });
-    
+
     // Check keywords and apply modifiers
     Object.entries(KEYWORD_VALUE_MODIFIERS).forEach(([keyword, modifiers]) => {
         const regex = new RegExp(`\\b${keyword}`, 'i');
@@ -1812,13 +1812,13 @@ function generateFactionValuesWithSeed(faction) {
             });
         }
     });
-    
+
     // Calculate final values with randomization
     Object.entries(appliedModifiers).forEach(([axisId, mods], index) => {
         // Generate random offset for this faction/axis combination
         const axisSeed = baseSeed + index * 7919; // Use prime multiplier for variety
         const randomOffset = (seededRandom(axisSeed) - 0.5) * 20; // -10 to +10 random offset
-        
+
         if (mods.length > 0) {
             const avgMod = mods.reduce((sum, m) => sum + m, 0) / mods.length;
             values[axisId] = Math.max(5, Math.min(95, Math.round(50 + avgMod + randomOffset)));
@@ -1829,21 +1829,21 @@ function generateFactionValuesWithSeed(faction) {
             values[axisId] = Math.max(10, Math.min(90, Math.round(50 + variance)));
         }
     });
-    
+
     // Ensure minimum differentiation - check against other factions
     // Add faction-specific quirks based on name hash
     const quirks = Math.floor(seededRandom(baseSeed + 999) * 3) + 1; // 1-3 quirks
     const axisKeys = Object.keys(VALUE_AXES);
-    
+
     for (let i = 0; i < quirks; i++) {
         const quirkSeed = baseSeed + i * 1337;
         const axisIndex = Math.floor(seededRandom(quirkSeed) * axisKeys.length);
         const axisId = axisKeys[axisIndex];
         const quirkAmount = (seededRandom(quirkSeed + 1) - 0.5) * 30; // -15 to +15 quirk
-        
+
         values[axisId] = Math.max(5, Math.min(95, Math.round(values[axisId] + quirkAmount)));
     }
-    
+
     return values;
 }
 
@@ -1853,10 +1853,10 @@ function getFactionValues(factionId) {
     if (FACTION_VALUES[factionId]) {
         return FACTION_VALUES[factionId];
     }
-    
+
     const faction = getFaction(factionId);
     if (!faction) return generateDefaultValues();
-    
+
     // Use seeded generation
     return generateFactionValuesWithSeed(faction);
 }
@@ -1878,9 +1878,9 @@ function renderAllianceMemberChip(memberId, alliance, showStats = false) {
     const isLeader = memberId === alliance.leader;
     const power = alliance.memberPowers?.[memberId] || 0;
     const stats = showStats ? getFactionStats(memberId) : null;
-    
+
     return `
-        <div class="member-chip ${role}" 
+        <div class="member-chip ${role}"
              data-faction="${memberId}"
              style="--member-color: ${member?.color || '#666'};"
              title="${member?.name || memberId} - ${roleInfo.name}">
@@ -1905,7 +1905,7 @@ function renderAllianceMemberChip(memberId, alliance, showStats = false) {
 
 function renderAllianceHeader(alliance, showPower = true) {
     const allianceType = ALLIANCE_TYPES[alliance.allianceType] || ALLIANCE_TYPES.military_pact;
-    
+
     return `
         <div class="alliance-header-unified" style="--alliance-color: ${alliance.color};">
             <span class="alliance-icon-unified" style="background: ${alliance.color};">
@@ -1937,18 +1937,18 @@ function renderAllianceHeader(alliance, showPower = true) {
 
 function renderAllianceSectionCompact(alliance) {
     const allianceType = ALLIANCE_TYPES[alliance.allianceType] || ALLIANCE_TYPES.military_pact;
-    
+
     return `
         <div class="alliance-section-compact" style="border-color: ${alliance.color};">
             ${renderAllianceHeader(alliance, false)}
-            
+
             <div class="alliance-members-compact">
                 <span class="members-label">Members:</span>
                 <div class="members-list-compact">
                     ${alliance.members.map(m => renderAllianceMemberChip(m, alliance, true)).join('')}
                 </div>
             </div>
-            
+
             <div class="alliance-features-compact">
                 ${allianceType.features.slice(0, 5).map(fId => {
                     const f = ALLIANCE_FEATURES[fId];
@@ -1965,10 +1965,10 @@ function renderAllianceSectionCompact(alliance) {
 
 function renderTerritoryAllianceSection(control) {
     if (!control.alliance) return '';
-    
+
     const alliance = control.alliance;
     const allianceType = ALLIANCE_TYPES[alliance.allianceType] || ALLIANCE_TYPES.military_pact;
-    
+
     return `
         <div class="modal-section alliance-section">
             <h4>🤝 Controlling Alliance</h4>
@@ -1993,7 +1993,7 @@ function renderTerritoryAllianceSection(control) {
                         <span class="power-label">control</span>
                     </div>
                 </div>
-                
+
                 <div class="alliance-members">
                     <span class="members-label">Member Factions:</span>
                     <div class="members-list">
@@ -2003,9 +2003,9 @@ function renderTerritoryAllianceSection(control) {
                             const role = alliance.memberRoles?.[memberId] || 'full_member';
                             const roleInfo = MEMBER_ROLES[role] || MEMBER_ROLES.full_member;
                             const memberStats = control.dominantBloc?.members?.find(m => m.factionId === memberId);
-                            
+
                             return `
-                                <div class="member-chip ${role}" 
+                                <div class="member-chip ${role}"
                                      style="border-color: ${member?.color || '#666'};"
                                      onclick="window.showFactionModal('${memberId}'); document.getElementById('terr-modal')?.remove();">
                                     <span class="member-icon" style="background: ${member?.color || '#666'};">
@@ -2019,7 +2019,7 @@ function renderTerritoryAllianceSection(control) {
                         }).join('')}
                     </div>
                 </div>
-                
+
                 <div class="alliance-features-row">
                     <span class="features-label">Features:</span>
                     <div class="features-icons">
@@ -2030,7 +2030,7 @@ function renderTerritoryAllianceSection(control) {
                     </div>
                 </div>
             </div>
-            
+
             <p class="control-explanation">
                 <strong>De Facto</strong> control - This territory is governed by an alliance of ideologically aligned factions.
                 As a <strong>${allianceType.name}</strong>, members share ${allianceType.features.slice(0, 2).map(f => ALLIANCE_FEATURES[f]?.name || f).join(' and ')}.
@@ -2060,11 +2060,11 @@ function simpleHash(str) {
 
 function getFactionsByAxis(axisId, order = 'left') {
     const factions = getAllFactionsWithValues();
-    
+
     return factions.sort((a, b) => {
         const valA = a.values[axisId] || 50;
         const valB = b.values[axisId] || 50;
-        
+
         if (order === 'left') return valA - valB;
         if (order === 'right') return valB - valA;
         return (a.faction?.name || '').localeCompare(b.faction?.name || '');
@@ -2075,33 +2075,33 @@ function getGlobalAverages() {
     const factions = getAllFactionsWithValues();
     const totals = {};
     const counts = {};
-    
+
     Object.keys(VALUE_AXES).forEach(axisId => {
         totals[axisId] = 0;
         counts[axisId] = 0;
     });
-    
+
     factions.forEach(({ values }) => {
         Object.entries(values).forEach(([axisId, value]) => {
             totals[axisId] += value;
             counts[axisId]++;
         });
     });
-    
+
     const averages = {};
     Object.keys(VALUE_AXES).forEach(axisId => {
         averages[axisId] = counts[axisId] > 0 ? Math.round(totals[axisId] / counts[axisId]) : 50;
     });
-    
+
     return averages;
 }
 
 function findSimilarFactions(factionId, threshold = 15) {
     const targetValues = getFactionValues(factionId);
     if (!targetValues) return [];
-    
+
     const factions = getAllFactionsWithValues();
-    
+
     return factions
         .filter(f => f.id !== factionId)
         .map(f => {
@@ -2119,9 +2119,9 @@ function findSimilarFactions(factionId, threshold = 15) {
 function findOpposingFactions(factionId, threshold = 30) {
     const targetValues = getFactionValues(factionId);
     if (!targetValues) return [];
-    
+
     const factions = getAllFactionsWithValues();
-    
+
     return factions
         .filter(f => f.id !== factionId)
         .map(f => {
@@ -2143,7 +2143,7 @@ function findOpposingFactions(factionId, threshold = 30) {
 function renderHeader() {
     const factionCount = getAllFactionsWithValues().length;
     const axisCount = Object.keys(VALUE_AXES).length;
-    
+
     return `
         <div class="sv-header">
             <div class="sv-header-content">
@@ -2173,12 +2173,12 @@ function renderViewTabs() {
         { id: 'comparison', label: '⚔️ Compare', desc: 'Side-by-side faction comparison' },
         { id: 'overview', label: '🌐 World Overview', desc: 'Global value trends' }
     ];
-    
+
     return `
         <div class="sv-view-tabs">
             ${tabs.map(tab => `
-                <button class="sv-view-tab ${viewMode === tab.id ? 'active' : ''}" 
-                        data-view="${tab.id}" 
+                <button class="sv-view-tab ${viewMode === tab.id ? 'active' : ''}"
+                        data-view="${tab.id}"
                         title="${tab.desc}">
                     ${tab.label}
                 </button>
@@ -2216,9 +2216,9 @@ function renderAxisSelector() {
 function renderSpectrumView() {
     const axis = VALUE_AXES[selectedAxis];
     if (!axis) return '<p class="sv-error">Invalid axis selected</p>';
-    
+
     const factions = getFactionsByAxis(selectedAxis, sortOrder);
-    
+
     return `
         <div class="sv-spectrum-view">
             <div class="sv-spectrum-header">
@@ -2236,7 +2236,7 @@ function renderSpectrumView() {
                     </button>
                 </div>
             </div>
-            
+
             <div class="sv-spectrum-scale">
                 <div class="sv-scale-left" style="background: ${axis.leftColor};">
                     <span class="sv-scale-icon">${axis.leftIcon}</span>
@@ -2253,14 +2253,14 @@ function renderSpectrumView() {
                     <p class="sv-scale-desc">${axis.rightDesc}</p>
                 </div>
             </div>
-            
+
             <div class="sv-spectrum-list">
                 ${factions.map(({ id, faction, values }) => {
                     const value = values[selectedAxis] || 50;
                     const position = value;
                     const isLeft = value < 40;
                     const isRight = value > 60;
-                    
+
                     return `
                         <div class="sv-spectrum-item" data-faction="${id}">
                             <div class="sv-spectrum-faction">
@@ -2304,12 +2304,12 @@ function renderSpectrumView() {
 
 function renderRadarView() {
     const factions = getAllFactionsWithValues().slice(0, 80);
-    
+
     return `
         <div class="sv-radar-view">
             <h3 class="sv-section-title">🎯 Faction Value Profiles</h3>
             <p class="sv-section-desc">Complete ideological profiles showing all value dimensions</p>
-            
+
             <div class="sv-radar-grid">
                 ${factions.map(({ id, faction, values }) => renderFactionRadar(id, faction, values)).join('')}
             </div>
@@ -2319,7 +2319,7 @@ function renderRadarView() {
 
 function renderFactionRadar(id, faction, values) {
     const axes = Object.values(VALUE_AXES);
-    
+
     return `
         <div class="sv-radar-card" data-faction="${id}">
             <div class="sv-radar-header" style="border-color: ${faction?.color || '#666'};">
@@ -2331,7 +2331,7 @@ function renderFactionRadar(id, faction, values) {
             <div class="sv-radar-axes">
                 ${axes.map(axis => {
                     const value = values[axis.id] || 50;
-                    
+
                     return `
                         <div class="sv-radar-axis">
                             <div class="sv-radar-axis-header">
@@ -2372,14 +2372,14 @@ function renderFactionRadar(id, faction, values) {
 
 function renderComparisonView() {
     const allFactions = getAllFactionsWithValues();
-    const toCompare = comparisonFactions.length >= 2 
+    const toCompare = comparisonFactions.length >= 2
         ? comparisonFactions.map(id => allFactions.find(f => f.id === id)).filter(Boolean)
         : allFactions.slice(0, 80);
-    
+
     return `
         <div class="sv-comparison-view">
             <h3 class="sv-section-title">⚔️ Faction Comparison</h3>
-            
+
             <div class="sv-comparison-selector">
                 <p>Select factions to compare:</p>
                 <div class="sv-comparison-chips">
@@ -2393,7 +2393,7 @@ function renderComparisonView() {
                     `).join('')}
                 </div>
             </div>
-            
+
             <div class="sv-comparison-table">
                 <div class="sv-comparison-header">
                     <div class="sv-comparison-axis-col">Value Axis</div>
@@ -2406,7 +2406,7 @@ function renderComparisonView() {
                         </div>
                     `).join('')}
                 </div>
-                
+
                 ${Object.values(VALUE_AXES).map(axis => `
                     <div class="sv-comparison-row">
                         <div class="sv-comparison-axis-col">
@@ -2421,7 +2421,7 @@ function renderComparisonView() {
                             const isRight = value > 60;
                             const label = isLeft ? axis.leftLabel : isRight ? axis.rightLabel : 'Balanced';
                             const color = value < 50 ? axis.leftColor : axis.rightColor;
-                            
+
                             return `
                                 <div class="sv-comparison-value-col">
                                     <div class="sv-comparison-mini-bar">
@@ -2443,7 +2443,7 @@ function renderComparisonView() {
                     </div>
                 `).join('')}
             </div>
-            
+
             <div class="sv-comparison-analysis">
                 <h4>📊 Compatibility Analysis</h4>
                 ${renderCompatibilityMatrix(toCompare)}
@@ -2454,22 +2454,22 @@ function renderComparisonView() {
 
 function renderCompatibilityMatrix(factions) {
     if (factions.length < 2) return '<p>Select at least 2 factions to see compatibility.</p>';
-    
+
     const pairs = [];
     for (let i = 0; i < factions.length; i++) {
         for (let j = i + 1; j < factions.length; j++) {
             const f1 = factions[i];
             const f2 = factions[j];
-            
+
             const compat = calculateFactionCompatibility(f1.id, f2.id);
             if (!compat) continue;
-            
+
             const relationInfo = getRelationshipLabel(
-                compat.compatibility, 
-                compat.extremeConflicts, 
+                compat.compatibility,
+                compat.extremeConflicts,
                 compat.strongAgreements
             );
-            
+
             pairs.push({
                 f1: f1.faction,
                 f2: f2.faction,
@@ -2481,12 +2481,12 @@ function renderCompatibilityMatrix(factions) {
             });
         }
     }
-    
+
     return `
         <div class="sv-compatibility-grid">
             ${pairs.map(pair => {
                 const statusClass = pair.relationInfo.type;
-                
+
                 return `
                     <div class="sv-compatibility-card ${statusClass}">
                         <div class="sv-compat-header">
@@ -2534,23 +2534,23 @@ function renderCompatibilityMatrix(factions) {
 function renderWorldOverviewContent() {
     const averages = getGlobalAverages();
     const factions = getAllFactionsWithValues();
-    
+
     return `
         <div class="sv-world-overview">
             <h3 class="sv-section-title">🌐 World Value Trends</h3>
             <p class="sv-section-desc">Average positions across all factions for each value dimension</p>
-            
+
             <div class="sv-world-axes">
                 ${Object.values(VALUE_AXES).map(axis => {
                     const avg = averages[axis.id];
                     const isLeft = avg < 40;
                     const isRight = avg > 60;
                     const lean = isLeft ? axis.leftLabel : isRight ? axis.rightLabel : 'Balanced';
-                    
+
                     const leftCount = factions.filter(f => (f.values[axis.id] || 50) < 40).length;
                     const rightCount = factions.filter(f => (f.values[axis.id] || 50) > 60).length;
                     const centerCount = factions.length - leftCount - rightCount;
-                    
+
                     return `
                         <div class="sv-world-axis">
                             <div class="sv-world-axis-header">
@@ -2563,7 +2563,7 @@ function renderWorldOverviewContent() {
                                     </strong>
                                 </div>
                             </div>
-                            
+
                             <div class="sv-world-axis-visual">
                                 <div class="sv-world-side left" style="background: ${axis.leftColor}40;">
                                     <span class="sv-world-side-icon">${axis.leftIcon}</span>
@@ -2580,7 +2580,7 @@ function renderWorldOverviewContent() {
                                     <span class="sv-world-side-count">${rightCount} factions</span>
                                 </div>
                             </div>
-                            
+
                             <div class="sv-world-axis-bar">
                                 <div class="sv-world-bar-track" style="
                                     background: linear-gradient(to right, ${axis.leftColor}, #374151, ${axis.rightColor});
@@ -2594,7 +2594,7 @@ function renderWorldOverviewContent() {
                     `;
                 }).join('')}
             </div>
-            
+
             <div class="sv-world-insights">
                 <h4>🔍 World Insights</h4>
                 <div class="sv-insights-grid">
@@ -2607,68 +2607,68 @@ function renderWorldOverviewContent() {
 
 function generateWorldInsights(averages, factions) {
     const insights = [];
-    
+
     let mostLeft = { axis: null, value: 100 };
     let mostRight = { axis: null, value: 0 };
     let mostDivided = { axis: null, spread: 0 };
-    
+
     Object.entries(VALUE_AXES).forEach(([axisId, axis]) => {
         const avg = averages[axisId];
-        
+
         if (avg < mostLeft.value) {
             mostLeft = { axis, value: avg };
         }
         if (avg > mostRight.value) {
             mostRight = { axis, value: avg };
         }
-        
+
         const values = factions.map(f => f.values[axisId] || 50);
         const min = Math.min(...values);
         const max = Math.max(...values);
         const spread = max - min;
-        
+
         if (spread > mostDivided.spread) {
             mostDivided = { axis, spread, min, max };
         }
     });
-    
+
     if (mostLeft.axis) {
         insights.push(`
             <div class="sv-insight">
                 <span class="sv-insight-icon">${mostLeft.axis.leftIcon}</span>
                 <div class="sv-insight-text">
-                    <strong>Dominant Trend:</strong> The world leans strongly ${mostLeft.axis.leftLabel} 
+                    <strong>Dominant Trend:</strong> The world leans strongly ${mostLeft.axis.leftLabel}
                     in ${mostLeft.axis.name} (avg: ${mostLeft.value})
                 </div>
             </div>
         `);
     }
-    
+
     if (mostDivided.axis) {
         insights.push(`
             <div class="sv-insight conflict">
                 <span class="sv-insight-icon">⚡</span>
                 <div class="sv-insight-text">
-                    <strong>Greatest Division:</strong> ${mostDivided.axis.name} shows the widest 
+                    <strong>Greatest Division:</strong> ${mostDivided.axis.name} shows the widest
                     ideological split between factions (${mostDivided.min} to ${mostDivided.max})
                 </div>
             </div>
         `);
     }
-    
+
     const similar = findSimilarFactions(factions[0]?.id, 20);
     if (similar.length > 1) {
         insights.push(`
             <div class="sv-insight alliance">
                 <span class="sv-insight-icon">🤝</span>
                 <div class="sv-insight-text">
-                    <strong>Natural Alliances:</strong> ${similar.length + 1} factions share 
+                    <strong>Natural Alliances:</strong> ${similar.length + 1} factions share
                     highly similar values and may form coalitions.
                 </div>
             </div>
         `);
     }
-    
+
     return insights.join('');
 }
 
@@ -2680,7 +2680,7 @@ function renderSocietalValues() {
     const header = renderHeader();
     const tabs = renderViewTabs();
     const axisSelector = viewMode === 'spectrum' ? renderAxisSelector() : '';
-    
+
     let content = '';
     switch (viewMode) {
         case 'spectrum':
@@ -2698,7 +2698,7 @@ function renderSocietalValues() {
         default:
             content = renderSpectrumView();
     }
-    
+
     return `
         <div class="societal-values-system">
             ${header}
@@ -2718,7 +2718,7 @@ function renderSocietalValues() {
 function initSocietalValuesListeners() {
     const container = document.querySelector('.societal-values-system');
     if (!container) return;
-    
+
     container.addEventListener('click', (e) => {
         // View tabs
         const viewTab = e.target.closest('.sv-view-tab');
@@ -2727,7 +2727,7 @@ function initSocietalValuesListeners() {
             rerenderSocietalValues();
             return;
         }
-        
+
         // Axis selector
         const axisBtn = e.target.closest('.sv-axis-btn');
         if (axisBtn) {
@@ -2735,7 +2735,7 @@ function initSocietalValuesListeners() {
             rerenderSocietalValues();
             return;
         }
-        
+
         // Sort buttons
         const sortBtn = e.target.closest('.sv-sort-btn');
         if (sortBtn) {
@@ -2743,7 +2743,7 @@ function initSocietalValuesListeners() {
             rerenderSocietalValues();
             return;
         }
-        
+
         // Comparison chips
         const compChip = e.target.closest('.sv-comparison-chip');
         if (compChip) {
@@ -2756,13 +2756,13 @@ function initSocietalValuesListeners() {
             rerenderSocietalValues();
             return;
         }
-        
+
         // FIXED: Faction details buttons
         const detailsBtn = e.target.closest('.sv-spectrum-details, .sv-radar-btn[data-action="details"], [data-action="details"]');
         if (detailsBtn) {
             const factionId = detailsBtn.dataset.faction;
             console.log('[SocietalValues] Details clicked for:', factionId);
-            
+
             if (window.showFactionModal) {
                 window.showFactionModal(factionId);
             } else {
@@ -2771,7 +2771,7 @@ function initSocietalValuesListeners() {
             }
             return;
         }
-        
+
         // Add to compare
         const compareBtn = e.target.closest('.sv-radar-btn[data-action="compare"], [data-action="compare"]');
         if (compareBtn) {
@@ -2783,7 +2783,7 @@ function initSocietalValuesListeners() {
             }
             return;
         }
-        
+
         // Click on spectrum row (not on buttons)
         const spectrumItem = e.target.closest('.sv-spectrum-item');
         if (spectrumItem && !e.target.closest('button')) {
@@ -2793,7 +2793,7 @@ function initSocietalValuesListeners() {
             }
             return;
         }
-        
+
         // Click on radar card (not on buttons)
         const radarCard = e.target.closest('.sv-radar-card');
         if (radarCard && !e.target.closest('button')) {
@@ -2809,7 +2809,7 @@ function initSocietalValuesListeners() {
 function rerenderSocietalValues() {
     const container = document.querySelector('.societal-values-system');
     if (!container) return;
-    
+
     const parent = container.parentElement;
     container.remove();
     parent.insertAdjacentHTML('beforeend', renderSocietalValues());
@@ -2817,9 +2817,9 @@ function rerenderSocietalValues() {
 }
 function shouldExcludeFaction(factionId, faction) {
     if (!factionId) return true;
-    
+
     const idLower = String(factionId).toLowerCase().trim();
-    
+
     // Excluded IDs
     const excludedPatterns = [
         'unaligned',
@@ -2832,14 +2832,14 @@ function shouldExcludeFaction(factionId, faction) {
         'null',
         'undefined'
     ];
-    
+
     // Check if ID matches or contains excluded patterns
     for (const pattern of excludedPatterns) {
         if (idLower === pattern || idLower.includes(pattern)) {
             return true;
         }
     }
-    
+
     // Check faction name
     if (faction) {
         const name = String(faction.name || '').toLowerCase();
@@ -2848,13 +2848,13 @@ function shouldExcludeFaction(factionId, faction) {
                 return true;
             }
         }
-        
+
         // Also exclude "no faction" type names
         if (name === 'none' || name.includes('no faction')) {
             return true;
         }
     }
-    
+
     return false;
 }
 /**
@@ -2866,9 +2866,9 @@ function generateFactionValues(faction) {
     Object.keys(VALUE_AXES).forEach(axisId => {
         values[axisId] = 50;
     });
-    
+
     if (!faction) return values;
-    
+
     // Gather all text to analyze
     const textsToAnalyze = [
         faction.id || '',
@@ -2883,13 +2883,13 @@ function generateFactionValues(faction) {
         faction.species || '',
         ...(faction.tags || [])
     ].join(' ').toLowerCase();
-    
+
     // Track which modifiers we've applied to average them
     const appliedModifiers = {};
     Object.keys(VALUE_AXES).forEach(axisId => {
         appliedModifiers[axisId] = [];
     });
-    
+
     // Check each keyword
     Object.entries(KEYWORD_VALUE_MODIFIERS).forEach(([keyword, modifiers]) => {
         // Check if keyword exists in faction text
@@ -2903,7 +2903,7 @@ function generateFactionValues(faction) {
             });
         }
     });
-    
+
     // Calculate final values by averaging modifiers
     Object.entries(appliedModifiers).forEach(([axisId, mods]) => {
         if (mods.length > 0) {
@@ -2918,7 +2918,7 @@ function generateFactionValues(faction) {
             values[axisId] = 50 + variance;
         }
     });
-    
+
     return values;
 }
 
@@ -2929,12 +2929,12 @@ function getAllFactionsWithValues() {
     const allFactions = getAllFactions();
     const result = [];
     const addedIds = new Set();
-    
+
     // Add factions with preset values first
     Object.keys(FACTION_VALUES).forEach(factionId => {
         if (shouldExcludeFaction(factionId, null)) return;
         if (addedIds.has(factionId)) return;
-        
+
         const faction = allFactions[factionId] || getFaction(factionId);
         if (faction && !shouldExcludeFaction(factionId, faction)) {
             result.push({
@@ -2945,13 +2945,13 @@ function getAllFactionsWithValues() {
             addedIds.add(factionId);
         }
     });
-    
+
     // Add remaining factions from registry with generated values
     Object.entries(allFactions).forEach(([id, faction]) => {
         // Skip if already added or should be excluded
         if (addedIds.has(id)) return;
         if (shouldExcludeFaction(id, faction)) return;
-        
+
         result.push({
             id,
             faction,
@@ -2959,7 +2959,7 @@ function getAllFactionsWithValues() {
         });
         addedIds.add(id);
     });
-    
+
     return result;
 }
 /**
@@ -2972,12 +2972,12 @@ function getAllFactionsWithValues() {
 function debugFactionKeywords(factionId) {
     const allFactions = getAllFactions();
     const faction = allFactions[factionId] || getFaction(factionId);
-    
+
     if (!faction) {
         console.log(`Faction ${factionId} not found`);
         return;
     }
-    
+
     const textsToAnalyze = [
         faction.id || '',
         faction.name || '',
@@ -2991,11 +2991,11 @@ function debugFactionKeywords(factionId) {
         faction.species || '',
         ...(faction.tags || [])
     ].join(' ').toLowerCase();
-    
+
     console.log(`\n=== Debug: ${faction.name || factionId} ===`);
     console.log(`Text analyzed: "${textsToAnalyze.substring(0, 200)}..."`);
     console.log('\nMatched keywords:');
-    
+
     const matches = [];
     Object.entries(KEYWORD_VALUE_MODIFIERS).forEach(([keyword, modifiers]) => {
         const regex = new RegExp(`\\b${keyword}`, 'i');
@@ -3004,11 +3004,11 @@ function debugFactionKeywords(factionId) {
             console.log(`  ✓ "${keyword}":`, modifiers);
         }
     });
-    
+
     if (matches.length === 0) {
         console.log('  (no keywords matched)');
     }
-    
+
     console.log('\nGenerated values:');
     const values = generateFactionValues(faction);
     Object.entries(VALUE_AXES).forEach(([axisId, axis]) => {
@@ -3016,7 +3016,7 @@ function debugFactionKeywords(factionId) {
         const stance = val < 40 ? axis.leftLabel : val > 60 ? axis.rightLabel : 'Balanced';
         console.log(`  ${axis.name}: ${val} (${stance})`);
     });
-    
+
     return { faction, matches, values };
 }
 

@@ -1,6 +1,6 @@
-import { LEGAL_DATA } from './legal_data.js';
-import { LORE_DATA } from './lore.js';
-import { playSound } from './common.js';
+import { LEGAL_DATA } from '../../../legal_data.js';
+import { LORE_DATA } from '../../../lore.js';
+import { playSound } from '../../../common.js';
 
 const codexContainer = document.getElementById('codex-container');
 
