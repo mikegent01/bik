@@ -1,6 +1,10 @@
 // rumors.js - Complete file with Arc integration and Debug Mode support
 
+<<<<<<< HEAD
 import { LORE_DATA, STORY_ARCS, getRumorsByArc, getArcProgress, getArcStats, getUnassignedRumors } from '../../../lore.js';
+=======
+import { LORE_DATA, STORY_ARCS, getRumorsByArc, getArcProgress, getArcStats, getUnassignedRumors } from '../../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 import { playSound } from '../../core/common.js';
 import { state } from '../../core/state.js';

@@ -17,7 +17,11 @@ import { playSound } from '../../core/common.js';
 
 import { getReputation, getGenericFactionAssessment } from '../../systems/reputation.js';
 import { getIntelForFaction } from '../../../systems/common.js';
+<<<<<<< HEAD
 import { LORE_DATA } from '../../../lore.js';
+=======
+import { LORE_DATA } from '../../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 
 // ============================================
 // REPUTATION BRIDGE FUNCTIONS

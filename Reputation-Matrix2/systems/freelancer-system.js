@@ -1,6 +1,6 @@
 // This module handles the rendering and animation of the Freelancer Underworld network graph.
 
-import { LORE_DATA } from '../lore.js';
+import { LORE_DATA } from '../app/core/lore.js';
 
 /**
  * Renders the static HTML structure for the Freelancer network.

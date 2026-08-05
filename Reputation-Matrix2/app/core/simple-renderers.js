@@ -2,7 +2,11 @@
 // that do not require complex, separate initialization logic.
 
 import { state } from './app/core/state.js';
+<<<<<<< HEAD
 import { LORE_DATA, CHARACTER_RELATIONS } from '../lore.js';
+=======
+import { LORE_DATA, CHARACTER_RELATIONS } from './lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { buildDetailedSystemHTML } from './app/core/common.js';
 import { IRON_LEGION_DETAILS } from './data/factions/iron-legion-details.js';
 import { SILVER_FLAME_DETAILS } from './data/factions/silver-flame-details.js';

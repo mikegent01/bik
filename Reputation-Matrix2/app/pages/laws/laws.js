@@ -1,6 +1,10 @@
 
 import { LEGAL_DATA } from '../../../data/laws/legal_data.js';
+<<<<<<< HEAD
 import { LORE_DATA } from '../../../lore.js';
+=======
+import { LORE_DATA } from '../../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { CULTURE_DATA } from '../../../data/support/culture-data.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from '../../../data/support/species-data.js';
 import { MAP_DATA } from '../../../data/maps/map-data.js';

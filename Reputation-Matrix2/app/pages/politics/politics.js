@@ -9,8 +9,13 @@ import {
     getRelationshipLabel,
     getAllFactionsWithValues 
 } from './societal-values.js';
+<<<<<<< HEAD
 import { RUMORS } from '../../../party-and-events.js';
 import { STORY_ARCS,  } from '../../../lore.js';
+=======
+import { RUMORS } from '../../core/party-and-events.js';
+import { STORY_ARCS,  } from '../../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { MAJOR_BATTLES, CONFLICT_DETAILS } from '../battlefield/battlefield.js';
 import { CURRENT_GAME_DATE, CALENDAR_DATA, getDynamicTimestamp } from '../../../data/world/calendar.js';
 import { 

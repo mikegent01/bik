@@ -1,5 +1,9 @@
 import { state, loadState } from '../../core/state.js';
+<<<<<<< HEAD
 import { LORE_DATA } from '../../../lore.js';
+=======
+import { LORE_DATA } from '../../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { getDetailedFactionAssessment } from '../../systems/reputation.js';
 import { playSound } from '../../core/common.js';
 import { getIntelForFaction } from '../../../systems/common.js';

@@ -1,8 +1,14 @@
 
 import { TOAD_ABILITIES } from './data/support/abilities.js';
+<<<<<<< HEAD
 import {RUMORS } from './party-and-events.js';
 import { STORY_ARCS,  getRumorsByArc, getArcProgress, getArcStats } from './lore.js';
 import { LORE_DATA } from './lore.js';
+=======
+import {RUMORS } from '../core/party-and-events.js';
+import { STORY_ARCS,  getRumorsByArc, getArcProgress, getArcStats } from '../core/lore.js';
+import { LORE_DATA } from '../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 
 const ARC_POSITION_ORDER = {
     'opening': 0,

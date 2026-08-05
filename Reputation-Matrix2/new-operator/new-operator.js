@@ -1,5 +1,9 @@
 import { playSound } from '../app/core/common.js';
+<<<<<<< HEAD
 import { LORE_DATA } from '../lore.js';
+=======
+import { LORE_DATA } from '../app/core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { NEW_OPERATOR_QUESTS } from './new-operator-quests.js';
 import { RACES, FACTIONS, WALUIGI_REGION_TIPS, RACE_QUESTS, REGION_STARTING_ITEMS } from './new-operator-data.js';
 

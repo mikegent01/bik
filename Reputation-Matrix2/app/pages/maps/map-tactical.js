@@ -1,5 +1,9 @@
 import { BATTLE_MAP_DATA } from '../../../data/maps/map-battle-data.js';
+<<<<<<< HEAD
 import { LORE_DATA } from '../../../lore.js';
+=======
+import { LORE_DATA } from '../../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { FACTION_COLORS } from '../../../factions/faction-colors.js';
 import * as map from './maps.js';
 import * as ui from './map-ui.js';

@@ -2,7 +2,11 @@
 
 import { state } from '../../core/state.js';
 import { MAP_DATA, BUILDING_TYPES } from '../../../data/maps/map-data.js';
+<<<<<<< HEAD
 import { LORE_DATA } from '../../../lore.js';
+=======
+import { LORE_DATA } from '../../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { getIntelForFaction } from '../../../systems/common.js';
 import { playSound } from '../../core/common.js';
 import * as map from './maps.js';

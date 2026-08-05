@@ -4,7 +4,11 @@
  * WAHbook Assembly Page - Complete Redesign
  */
 
+<<<<<<< HEAD
 import { LORE_DATA, STORY_ARCS, getRumorsByArc } from '../../../lore.js';
+=======
+import { LORE_DATA, STORY_ARCS, getRumorsByArc } from '../../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { playSound } from '../../core/common.js';
 import { state, saveState, loadState } from '../../core/state.js';
 import { CURRENT_GAME_DATE, getDynamicTimestamp, CALENDAR_DATA } from '../../../data/world/calendar.js';

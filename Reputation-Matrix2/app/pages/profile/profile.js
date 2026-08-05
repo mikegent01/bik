@@ -4,7 +4,11 @@
  * Profile Page Handler - Vigilance Terminal
  */
 
+<<<<<<< HEAD
 import { LORE_DATA } from '../../../lore.js';
+=======
+import { LORE_DATA } from '../../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 
 // Try to import state, but don't fail if it doesn't work

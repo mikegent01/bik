@@ -2,7 +2,7 @@
 
 import { CURRENT_GAME_DATE } from './data/world/calendar.js';
 import { RESEARCH_FLAVOR } from './research-names.js';
-import { LORE_DATA } from './lore.js';
+import { LORE_DATA } from '../../app/core/lore.js';
 import { RESEARCH_CATEGORIES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING } from './research-constants.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
 import { GUILD_DATA } from '../factions/guilds-data.js';

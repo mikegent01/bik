@@ -1,6 +1,10 @@
 // This module handles the rendering and interaction for the Rebel Clans' unique system.
 
+<<<<<<< HEAD
 import { LORE_DATA } from '../../lore.js';
+=======
+import { LORE_DATA } from '../core/lore.js';
+>>>>>>> 0357b6f (Move remaining shared modules into core)
 import { getIntelForFaction } from '../core/common.js';
 import { state } from '../core/state.js';
 
