@@ -27,11 +27,11 @@
   <link rel="stylesheet" href="Reputation-Matrix2/crisis-reputation-fixes.css">
   <link rel="stylesheet" href="Reputation-Matrix2/clean-pass.css">
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
-  <link rel="preload" href="Reputation-Matrix2/battlefield.css" as="style">
-  <link rel="stylesheet" href="Reputation-Matrix2/battlefield.css">
+  <link rel="preload" href="Reputation-Matrix2/app/pages/battlefield/battlefield.css" as="style">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/pages/battlefield/battlefield.css">
   <link rel="stylesheet" href="Reputation-Matrix2/mushroom-kingdom-civil-war.css">
-  <link rel="stylesheet" href="Reputation-Matrix2/faction-modal.css">
-  <link rel="stylesheet" href="Reputation-Matrix2/iron-legion.css">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/components/factions/faction-modal.css">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/pages/iron-legion/iron-legion.css">
   <!-- Quest systems: Mission Control and the full quest ledger share these styles. -->
   <link rel="stylesheet" href="Reputation-Matrix2/app/pages/quests/quests.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/pages/quests/quests-arcs.css">
@@ -341,7 +341,10 @@ const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? 
 function assetPath(src){
   if(!src) return '';
   if(/^(?:https?:|data:|blob:|mailto:|#|\/)/i.test(src)) return src;
-  return pathPrefix + src.replace(/^\.\//,'');
+  const normalized = src.replace(/^\.\//,'');
+  if (/^book_cover_/.test(normalized)) return pathPrefix + 'app/pages/library/' + normalized;
+  if (/^faction_/.test(normalized)) return pathPrefix + 'assets/factions/' + normalized;
+  return pathPrefix + normalized;
 }
 /* ================= Waluipedia mega app ================= */
 /* DATA is populated by the loader (fetch ./data/*.json, fall back to embedded).
@@ -9405,7 +9408,7 @@ async function renderFactionPowerProjection(factionId) {
 function view_fieldJournal(){
   document.body.classList.add('hide-walu-ambient');
   renderSidebar('journal');
-  const journalSrc=pathPrefix+'Field_Journal.html';
+  const journalSrc=pathPrefix+'app/pages/standalone/Field_Journal.html';
   el('content').innerHTML=`
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Thornbury's Field Journal</div>
     <div class="card animate-fade-in journal-viewer-hero">
