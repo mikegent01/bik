@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../styles/global.css">
     <link rel="stylesheet" href="../../styles/layout.css">
     <link rel="stylesheet" href="components.css">
-    <link rel="stylesheet" href="mushroom-kingdom-civil-war.css">
+    <link rel="stylesheet" href="../../styles/systems/mushroom-kingdom-civil-war.css">
     <link rel="stylesheet" href="app/components/factions/faction-modal.css">  <!-- ADD THIS -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
@@ -34,12 +34,12 @@
     <div class="tablet-frame">
         <div class="scanline-overlay"></div>
         <div id="app">
-            
+
             <main id="main-content">
                 <header class="page-header">
                     <h1 class="page-title">Global War Monitor</h1>
                 </header>
-                
+
                 <!-- The Global War System Container -->
                 <div id="global-war-container">
                     <!-- Javascript will render content here -->
@@ -49,13 +49,13 @@
             </main>
         </div>
     </div>
-    
+
 <script type="module" src="common.js"></script>
 <script type="module" src="navigation.js"></script>
 <script type="module" src="app/components/factions/faction-modal.js"></script>  <!-- ADD THIS -->
 <script type="module">
     import { renderGlobalWar, initGlobalWarListeners } from './app/systems/global-war.js';
-    
+
     document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('global-war-container');
         if (container) {
@@ -67,4 +67,4 @@
     <script defer src="../../core/app/core/wario-site-sounds.js"></script>
     <script defer src="../../styles/app/styles/waluipedia-ambient.js"></script>
 </body>
-</html> 
+</html>
