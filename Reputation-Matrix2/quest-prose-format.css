@@ -1,0 +1,5 @@
+.quest-prose{max-width:78ch;color:var(--text);font-size:14px;line-height:1.72}
+.quest-prose p{margin:0 0 1.05em}
+.quest-prose p:last-child{margin-bottom:0}
+.quest-prose strong{color:var(--accent2);font-weight:850;letter-spacing:.01em}
+.quest-prose em{color:#d8c8ff}

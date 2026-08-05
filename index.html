@@ -37,6 +37,7 @@
   <link rel="stylesheet" href="Reputation-Matrix2/quests-arcs.css">
   <link rel="stylesheet" href="Reputation-Matrix2/quest-board-overrides.css">
   <link rel="stylesheet" href="Reputation-Matrix2/quest-consequence-format.css">
+  <link rel="stylesheet" href="Reputation-Matrix2/quest-prose-format.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="Reputation-Matrix2/data/vendors-directory.js"></script>
   <script src="Reputation-Matrix2/data/books-data.js"></script>
@@ -14306,6 +14307,19 @@ function view_quests_ledger(filterArg) {
   renderGrid();
 }
 
+function formatQuestProse(value) {
+  if (!value) return '';
+  const escaped = esc(String(value));
+  return escaped
+    .split(/\n{2,}/)
+    .map(block => {
+      const text = block.replace(/\n/g, '<br>')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+      return `<p>${text}</p>`;
+    }).join('');
+}
+
 function view_quest_detail(questId) {
   renderSidebar('quests');
   const quests = DATA.quests || {};
@@ -14397,7 +14411,7 @@ function view_quest_detail(questId) {
         <div class="card">
           <h3 style="margin-top:0; font-size:16px; color:var(--accent2);"><span class="title-icon">📖</span> Objective &amp; Details</h3>
           <p style="font-size:14.5px; line-height:1.65; color:var(--text); font-weight:500;">${esc(q.objective)}</p>
-          <div class="prose" style="font-size:13.5px; line-height:1.6; white-space:pre-wrap; border-top: 1px solid var(--border); padding-top:14px; margin-top:14px;">${linkify ? linkify(esc(q.description)) : esc(q.description)}</div>
+          <div class="prose quest-prose" style="font-size:13.5px; line-height:1.6; border-top: 1px solid var(--border); padding-top:14px; margin-top:14px;">${formatQuestProse(q.description)}</div>
         </div>
 
         <!-- Milestones Panel -->
