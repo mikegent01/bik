@@ -83,7 +83,7 @@ Remember, peace is boring. **CHAOS** is profitable! And nobody does chaos better
         {
             id: 'advert_1',
             title: "Reliable Barrel Transport!",
-            image: 'wario.png', // Assuming Wario asset will be created soon, or a barrel.
+            image: 'assets/portraits/party/wario.png', // Assuming Wario asset will be created soon, or a barrel.
             image_alt: "A sturdy wooden barrel.",
             content: "Need to make a quick getaway? Or perhaps transport a valuable (or ghostly) cargo? **Bongo's Barrels** offers discreet and surprisingly sturdy barrel-based transport solutions. Fast, reliable, and almost impossible to track! (Not responsible for dimensional shifts or accidental resurrections.)",
             cta: "Call Now!",

@@ -7,35 +7,35 @@ export const CHARACTERS = {
         name: "Archie Miser",
         isParty: true,
         role: "The Anarchist with the Third Eye",
-        portrait: "portraits/archie.png",
+        portrait: "portraits/assets/portraits/party/archie.png",
         description: "A three-eyed bandit with a chaotic history, currently a fugitive on the run. His third eye grants him strange, chaotic powers that defy conventional magic."
     },
     markop: {
         name: "Markop Judi",
         isParty: true,
         role: "The Disgraced Paladin",
-        portrait: "portraits/markop.png",
+        portrait: "portraits/assets/portraits/party/markop.png",
         description: "A Centaur Paladin, reluctantly roped into chaos. He tries to be a moral compass, though his faith and honor are constantly tested."
     },
     hjumpik: {
         name: "Hjumpik",
         isParty: true,
         role: "The Dwarven King's Champion",
-        portrait: "portraits/hjumpik.png",
+        portrait: "portraits/assets/portraits/party/hjumpik.png",
         description: "A powerful Dwarf warrior from a forgotten mountain hold. Fiercely loyal to his friend Bowser, their unlikely alliance is a source of confusion and concern for many factions."
     },
     bowser: {
         name: "Bowser",
         isParty: true,
         role: "The Deposed Koopa King",
-        portrait: "portraits/bowser.png",
+        portrait: "portraits/assets/portraits/party/bowser.png",
         description: "The once-mighty King of the Koopas, now a king without a kingdom. Arrogant, powerful, and surprisingly resilient, Bowser seeks to rebuild his empire and crush any who stand in his way."
     },
     remi: {
         name: "FNG Remi",
         isParty: true,
         role: "The Unlucky Newcomer",
-        portrait: "portraits/remi.png",
+        portrait: "portraits/assets/portraits/party/remi.png",
         description: "The newest operator on the Vigilance. Their past is a mystery, their future uncertain. Their stated reason for being here: 'I put one foot in front of the other and next thing I know, something happened.'"
     },
 
@@ -49,7 +49,7 @@ export const CHARACTERS = {
     wario: {
         name: "Mr. Wario",
         role: "Secret Leader of Wario Land",
-        portrait: "portraits/wario.png",
+        portrait: "portraits/assets/portraits/party/wario.png",
         description: "The mysterious mastermind pulling the strings of Wario's old empire. His identity is a closely guarded secret, but he shares Wario's insatiable greed and ruthlessness."
     },
     fawful: {

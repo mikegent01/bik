@@ -194,7 +194,7 @@
     },
     "title": "An Explosive Proposition",
     "description": "The newcomer FNG Remi is discovered in a crate. Wario gives her a box, which Bowser reveals is a bomb. The box explodes, injuring Remi, after which Wario offers her a place in his crew.",
-    "icon": "wario.png",
+    "icon": "assets/portraits/party/wario.png",
     "category": "Recent Event"
   },
   {
@@ -1017,7 +1017,7 @@
     },
     "title": "Wario’s Infinite Catalogue",
     "description": "In the fairy village Wario unfurls a 2,361-item wish-list, pricing a star rod at 900 trillion. Hjumpik pays in 'experience' and leaves with absurd artefacts.",
-    "icon": "wario.png",
+    "icon": "assets/portraits/party/wario.png",
     "category": "Social"
   },
   {
@@ -1524,7 +1524,7 @@
     },
     "title": "The Merchant of Chaos",
     "description": "Wario arrives in the Feywild manor. He provides Hjumpik with ancient Vampire Wine and reveals a massive debt ledger including Bowser and Waluigi.",
-    "icon": "wario.png",
+    "icon": "assets/portraits/party/wario.png",
     "category": "Social"
   },
   {
@@ -2351,7 +2351,7 @@
     },
     "title": "The Tome Heist",
     "description": "Embercap, Dewdrop, and Erick visit a magic shop to pick up items for Rakasha. Wario intercepts them, steals a 'Tome of Evil' worth 20,000 coins, and battles the toads. Wario escapes by turning into a bat, leaving the Toad Squad injured and in debt.",
-    "icon": "wario.png",
+    "icon": "assets/portraits/party/wario.png",
     "category": "Recent Event"
   },
   {
@@ -2407,7 +2407,7 @@
     },
     "title": "Wario vs. The Bramblefly",
     "description": "Wario battles the giant Bramblefly in the Solarium using a 'gift' box that is actually a bomb. The explosion blows a hole in the floor, sending Wario crashing down into a pile of treasure, which he immediately begins looting despite the fall.",
-    "icon": "wario.png",
+    "icon": "assets/portraits/party/wario.png",
     "category": "Combat"
   },
   {

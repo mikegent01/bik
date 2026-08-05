@@ -27,7 +27,7 @@ const CURRENCY_DATA = {
     dwarf_oathgold: { name: "Dwarf Oathgold", icon: "factions/dwarfs.png", base_value: 4.0, home_faction: 'kingdoms_of_the_dwarves_wh', type: "Commodity", description: "Not just gold, but gold mined, smelted, and stamped with binding oaths. Its value is as much in its promise as its material.", acceptance: { default: 'medium' } },
     warpstone_token: { name: "Warpstone Token", icon: "factions/skaven.png", base_value: 10.0, home_faction: 'skaven', type: "Illicit", description: "Solidified magical chaos. Immensely powerful and valuable to the right buyer, but highly illegal and corrupting to possess.", acceptance: { default: 'refused', skaven: 'high', freelancer_underworld: 'low' } },
     soul_coin: { name: "Soul Coin", icon: "assets/factions/faction_onyx_hand.png", base_value: 20.0, home_faction: null, type: "Occult", description: "Coins minted in the lower planes, each containing a trapped mortal soul. The ultimate currency for dealing with devils and demons.", acceptance: { default: 'refused', onyx_hand: 'medium' } },
-    wario_coin: { name: "Wario Coin", icon: "assets/factions/faction_wario.png", base_value: 1.2, home_faction: 'wario_land', type: "Fiat", description: "A large, garish gold coin stamped with Wario's face. Its value is propped up by Wario's massive hoard.", acceptance: { default: 'low', wario_land: 'high', freelancer_underworld: 'medium' } },
+    wario_coin: { name: "Wario Coin", icon: "assets/factions/faction_assets/portraits/party/wario.png", base_value: 1.2, home_faction: 'wario_land', type: "Fiat", description: "A large, garish gold coin stamped with Wario's face. Its value is propped up by Wario's massive hoard.", acceptance: { default: 'low', wario_land: 'high', freelancer_underworld: 'medium' } },
     rupee: { name: "Hyrulean Rupee", icon: "assets/icons/currency/rupee", base_value: 0.7, home_faction: 'kingdom_of_gondor', type: "Commodity", description: "Gemstones of varying colors used as currency in the lands of Hyrule and its neighbors.", acceptance: { default: 'low', kingdom_of_gondor: 'high' } },
     poke_dollar: { name: "PokéDollar", icon: "assets/icons/currency/pokedollar", base_value: 0.6, home_faction: 'pokemon_league', type: "Fiat", description: "The standard currency of the Pokémon regions, regulated by the Pokémon League.", acceptance: { default: 'low', pokemon_league: 'high' } },
     mora: { name: "Mora", icon: "assets/icons/currency/mora", base_value: 1.3, home_faction: 'teyvat_hegemony', type: "Fiat", description: "The common currency of Teyvat, minted in Liyue and recognized in all seven nations.", acceptance: { default: 'medium', teyvat_hegemony: 'high' } },
@@ -289,7 +289,7 @@ init();
 // factions/empire.png
 // factions/dwarfs.png
 // factions/skaven.png
-// assets/factions/faction_wario.png
+// assets/factions/faction_assets/portraits/party/wario.png
 // assets/icons/currency/rupee
 // assets/icons/currency/pokedollar
 // assets/icons/currency/mora

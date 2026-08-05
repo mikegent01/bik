@@ -5,7 +5,7 @@ export const PRISON_DECEPTION_POSTS = [
         characterKey: 'wah_media_collective',
         timestamp: 'Just Now',
         content: `BREAKING: Capital prison chaos erupts. A guard gives FNG Remi and Lario a 'house tour', then catches a disguised lockpicker calling himself 'Archie Writeman'. Dan bolts—twice—locking the Vigilance’s front doors. The All-Seeing Mage arrives, unlocks the prison door without effort, and demands Eager’s magic be drained. Another guard smashes a window and drags Eager out for transport. Sources say a detection device scanned 'Archie Writeman' and found nothing.`,
-        image: 'newspaper_prison.png',
+        image: 'newspaper_assets/portraits/party/prison.png',
         image_alt: "A grainy shot of a barred window, with a guard hauling a prisoner through.",
         likes: 2412,
         comments: [

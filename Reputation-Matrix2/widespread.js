@@ -248,7 +248,7 @@ export const WIDESPREAD_FACTIONS = {
     wario_land: {
         name: "Wario Land",
         description: "Wario's personal kingdom of greed, built on plunder and the scent of garlic. After Wario's supposed 'death', it is now secretly led by the mysterious figure known as 'Mr. Wario', whose methods are even more ruthless.",
-        logo: 'assets/factions/faction_wario.png',
+        logo: 'assets/factions/faction_assets/portraits/party/wario.png',
         relations: {
             allies: ['freelancer_underworld'],
             enemies: ['regal_empire', 'iron_legion', 'toad_gang', 'toad_cult', 'onyx_hand', 'mages_guild', 'rakasha_clans', 'cosmic_jesters', 'the_unchained', 'silver_flame', 'oathbound_judges', 'ratchet_raiders', 'koopa_troop', 'rebel_clans', 'crimson_fleet', 'iron_fists', 'moonfang_pack', 'liberated_toads', 'mushroom_regency', 'peach_loyalists', 'diamond_city_investigators', 'goodstyle_artisans']

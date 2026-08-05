@@ -14949,7 +14949,7 @@ npc\Gemini_Generated_Image_wjgk5xwjgk5xwjgk-removebg-preview.png
 npc\gemini_generated_image_y3oejry3oejry3oe.webp
 npc\gerg.webp
 npc\ghoost.webp
-npc\god.png
+npc\assets/portraits/party/god.png
 npc\goomba_by_shigehisa_nakaue.webp
 npc\gpt-image-1_The_scene_shifts_to_-removebg-preview.png
 npc\gpt-image-1_The_scene_shifts_to__1_-removebg-preview.png
@@ -15039,14 +15039,14 @@ npc\vellumf.webp
 npc\vellumff.webp
 npc\wa.png
 npc\waluigi.png
-npc\wario.png
+npc\assets/portraits/party/wario.png
 npc\woman.png
-player\archie.png
+player\assets/portraits/party/archie.png
 player\archieinjured.webp
 player\archiereforemd.webp
-player\bowser.png
+player\assets/portraits/party/bowser.png
 player\hjumpikbell.png
-player\markop.png
+player\assets/portraits/party/markop.png
 player\remi-removebg-preview.webp
 player\Screenshot_2026-07-12_211638-removebg-preview.png
 PlayerItems\1770248801007-019c2b0c-eb10-7486-9d92-0e33bd2398d6.png
