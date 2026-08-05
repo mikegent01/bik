@@ -2641,7 +2641,7 @@ document.addEventListener('DOMContentLoaded', init);
 // --- Fetch Data ---
 async function loadApprovedPurchases() {
     try {
-        const response = await fetch(`../../data/commerce/shop-purchases.json?t=${Date.now()}`);
+        const response = await fetch(`../../../data/commerce/shop-purchases.json?t=${Date.now()}`);
         if (response.ok) {
             approvedPurchases = await response.json();
             console.log('✅ Loaded approved purchases:', approvedPurchases.length);
