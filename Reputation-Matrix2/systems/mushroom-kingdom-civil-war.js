@@ -8,7 +8,7 @@ import {
     renderTerritoryDetailModal
 } from './mushroom-kingdom-system.js';
 
-import { getAllFactions, getFaction, getFactionStats } from './faction-registry.js';
+import { getAllFactions, getFaction, getFactionStats } from '../data/factions/faction-registry.js';
 import { 
     getRealTimeMapStats, 
     getCuratedTerritoryList, 

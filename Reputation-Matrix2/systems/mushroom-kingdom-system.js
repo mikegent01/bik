@@ -2,7 +2,7 @@
 
 import { getRealTimeMapStats, getDetailedFactionStats, getDetailedRegionStats } from './map-analysis.js';
 import { CURRENT_GAME_DATE } from '../data/world/calendar.js';
-import { getFaction, getAllFactions } from './faction-registry.js';
+import { getFaction, getAllFactions } from '../data/factions/faction-registry.js';
 import { MAJOR_BATTLES } from '../app/pages/battlefield/battlefield.js';
 import { MAP_DATA } from '../data/maps/map-data.js';
 

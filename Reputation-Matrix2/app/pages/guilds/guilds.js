@@ -10,7 +10,7 @@ import {
     getReputationTier,
     getPlayerGuildData,
     getAllPlayerGuilds
-} from './guilds-data.js';
+} from '../../../data/factions/guilds-data.js';
 import { state, loadState } from '../../../state.js';
 import { playSound } from '../../../common.js';
 // Add to guilds.js - at the top with other imports

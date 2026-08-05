@@ -5,7 +5,7 @@ import { RESEARCH_FLAVOR } from './research-names.js';
 import { LORE_DATA } from './lore.js';
 import { RESEARCH_CATEGORIES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING } from './research-constants.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
-import { GUILD_DATA } from './guilds-data.js';
+import { GUILD_DATA } from '../factions/guilds-data.js';
 
 export { RESEARCH_CATEGORIES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING };
 
