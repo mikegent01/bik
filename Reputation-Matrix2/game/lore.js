@@ -2,7 +2,7 @@
 // This file contains all the core narrative, character, and faction data for the application.
 // It imports data from smaller, more manageable files.
 
-import { CHARACTERS } from './characters-1.js';
+import { CHARACTERS } from '../data/characters/characters-1.js';
 import { MIDLANDS_FACTIONS } from './factions/midlands.js';
 import { MUSHROOM_KINGDOM_FACTIONS } from './factions/mushroom-kingdom.js';
 import { WIDESPREAD_FACTIONS } from './widespread.js';
@@ -21,7 +21,7 @@ import { REBEL_CLANS_DETAILS } from './rebel-clans-details.js';
 import { FAWFUL_DETAILS } from './fawful-details.js';
 import { COSMIC_JESTERS_DETAILS } from './cosmic-jesters-details.js';
 import {AUXILIARY_PARTY} from './party-and-events.js'
-export { CHARACTER_RELATIONS } from './character-relations.js';
+export { CHARACTER_RELATIONS } from '../data/characters/character-relations.js';
 
 const combinedCharacters = {
     ...CHARACTERS,
