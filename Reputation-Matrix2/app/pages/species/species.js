@@ -3,7 +3,7 @@
 import { LORE_DATA } from '../../../lore.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from '../../../data/support/species-data.js';
 import { MAP_DATA } from '../../../data/maps/map-data.js';
-import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES, calculateTechAccessByEstate } from '../../../species-workforce.js';
+import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES, calculateTechAccessByEstate } from '../../systems/species-workforce.js';
 import { RELIGION_DATA } from '../../../data/support/religion-data.js';
 import { getGlobalTechAverages, RESEARCH_CATEGORIES, calculateGlobalCycle } from '../../../data/support/research-data.js';
 import { getPlagueData, getCurrentSeason, PLAGUE_LIFECYCLE } from '../../../data/support/plagues-data.js';

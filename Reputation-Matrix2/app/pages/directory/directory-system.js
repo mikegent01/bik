@@ -2,12 +2,12 @@
 
 import { state, loadState } from '../../core/state.js';
 import { FACTION_ASSESSMENTS } from '../../../data/support/assessments.js';
-import { getReputation, getGenericFactionAssessment } from '../../../reputation.js';
+import { getReputation, getGenericFactionAssessment } from '../../systems/reputation.js';
 import { getIntelForFaction, getIntelBreakdown } from '../../../systems/common.js';
 import { playSound } from '../../core/common.js';
 import {AUXILIARY_PARTY} from '../../../party-and-events.js'
 import { getAllFactions, getFaction, getFactionStats, toSystemId } from '../../../systems/faction-registry.js';
-import { getRealTimeMapStats } from '../../../global-map-analysis.js';
+import { getRealTimeMapStats } from '../../systems/global-map-analysis.js';
 import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
 import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
 import { calculateRumorMetrics } from '../../../data/support/research-data.js';

@@ -10,7 +10,7 @@ import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.j
 // =============================================
 // DYNAMIC DATA INTEGRATION
 // =============================================
-import { getRealTimeMapStats, getDetailedFactionStats, getDetailedRegionStats } from '../../../global-map-analysis.js';
+import { getRealTimeMapStats, getDetailedFactionStats, getDetailedRegionStats } from '../../systems/global-map-analysis.js';
 import { getAllFactions, getFaction, toSystemId } from '../../../systems/faction-registry.js';
 
 // =============================================

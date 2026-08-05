@@ -1,9 +1,9 @@
 
 import { state } from './state.js';
 import { LORE_DATA } from './lore.js';
-import { getReputation, getGenericFactionAssessment, renderIndividualStandings } from './reputation.js';
+import { getReputation, getGenericFactionAssessment, renderIndividualStandings } from '../systems/reputation.js';
 import { playSound } from './common.js';
-import * as factionSystems from './faction-systems.js';
+import * as factionSystems from '../systems/faction-systems.js';
 import { getIntelForFaction, getIntelBreakdown } from './systems/common.js'; // Import helper
 
 const viewContainer = document.getElementById('view-container');

@@ -1,6 +1,6 @@
 import { state, loadState } from '../../core/state.js';
 import { LORE_DATA } from '../../../lore.js';
-import { getDetailedFactionAssessment } from './reputation.js';
+import { getDetailedFactionAssessment } from '../../systems/reputation.js';
 import { playSound } from '../../core/common.js';
 import { getIntelForFaction } from '../../../systems/common.js';
 

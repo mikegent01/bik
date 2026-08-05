@@ -1,6 +1,6 @@
 import { state } from './app/core/state.js';
 import { LORE_DATA } from '../lore.js';
-import { getSubFactionReputation } from '../reputation.js';
+import { getSubFactionReputation } from '../systems/reputation.js';
 
 /**
  * Calculates the intel level for a given faction based on the logged-in user.

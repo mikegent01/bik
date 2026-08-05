@@ -15,7 +15,7 @@ import { state, loadState } from '../../core/state.js';
 import { playSound } from '../../core/common.js';
 // Add to guilds.js - at the top with other imports
 
-import { getReputation, getGenericFactionAssessment } from '../../../reputation.js';
+import { getReputation, getGenericFactionAssessment } from '../../systems/reputation.js';
 import { getIntelForFaction } from '../../../systems/common.js';
 import { LORE_DATA } from '../../../lore.js';
 
