@@ -6,8 +6,8 @@
 <title>Waluipedia — The Objective Encyclopedia (Written by Waluigi)</title>
 <link rel="icon" href="./favicon.ico">
 <!-- External CSS: cached by browser, loaded once, scales as site grows -->
-  <link rel="preload" href="Reputation-Matrix2/waluipedia.css?v=theme2" as="style">
-  <link rel="stylesheet" href="Reputation-Matrix2/waluipedia.css?v=theme2">
+  <link rel="preload" href="Reputation-Matrix2/app/styles/waluipedia.css?v=theme2" as="style">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/waluipedia.css?v=theme2">
   <script>
   /* Apply theme BEFORE paint so toggle is never a no-op / flash. */
   (function () {
@@ -29,7 +29,7 @@
   <!-- Battlefield-specific styles (Wikipedia-style military conflict theme) -->
   <link rel="preload" href="Reputation-Matrix2/app/pages/battlefield/battlefield.css" as="style">
   <link rel="stylesheet" href="Reputation-Matrix2/app/pages/battlefield/battlefield.css">
-  <link rel="stylesheet" href="Reputation-Matrix2/mushroom-kingdom-civil-war.css">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/mushroom-kingdom-civil-war.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/components/factions/faction-modal.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/pages/iron-legion/iron-legion.css">
   <!-- Quest systems: Mission Control and the full quest ledger share these styles. -->
@@ -43,9 +43,9 @@
   <script src="Reputation-Matrix2/data/vendors-directory.js"></script>
   <script src="Reputation-Matrix2/data/books-data.js"></script>
   <script src="Reputation-Matrix2/data/songs-data.js"></script>
-  <script src="Reputation-Matrix2/wario-audio-bridge.js"></script>
-  <script defer src="Reputation-Matrix2/wario-site-sounds.js"></script>
-  <script defer src="Reputation-Matrix2/waluipedia-ambient.js"></script>
+  <script src="Reputation-Matrix2/app/core/wario-audio-bridge.js"></script>
+  <script defer src="Reputation-Matrix2/app/core/wario-site-sounds.js"></script>
+  <script defer src="Reputation-Matrix2/app/styles/waluipedia-ambient.js"></script>
 <style>.waluigi-dynasty-note{margin:16px 0;padding:12px 14px;border:1px solid #b55cff;border-left:4px solid #e35cff;border-radius:8px;background:linear-gradient(135deg,#5a167044,#1a052e99);color:#f3d5ff;line-height:1.55}.waluigi-dynasty-note b{color:#f5a9ff}
 /* ===== Faction-linked systems (Imperial Pressure Network, Pond Patrol Docket, …) ===== */
 .fsys-banner{position:relative;margin:16px 0 18px;padding:16px 18px;border:1px solid var(--border);border-left:5px solid var(--sys-accent,#8a4bff);border-radius:14px;background:linear-gradient(135deg,var(--sys-glow,rgba(138,75,255,.16)),rgba(0,0,0,0)),var(--panel2);box-shadow:var(--shadow);cursor:pointer;overflow:hidden}
