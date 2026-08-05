@@ -13650,6 +13650,8 @@ function view_mission_control() {
   // Deployed seats rendering (dynamic list of filled seats + 1 empty indicator)
   const occupiedSlotsHtml = currentSquadSlots.map((id, index) => {
     const comp = COMPANIONS.find(c => c.id === id);
+    // localStorage can contain retired companion IDs; render them safely and cleanly.
+    if (!comp) return '';
     const isCore = CORE_CHARACTERS.has(id);
     const badgeStyle = isCore ? 'background: var(--green)22; border-color: var(--green); color: var(--green);' : 'background: var(--accent)22; border-color: var(--accent); color: var(--accent);';
     return `
