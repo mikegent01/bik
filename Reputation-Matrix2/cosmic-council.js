@@ -2,7 +2,7 @@
 
 import { getAllFactions, getFaction, toSystemId } from '../systems/faction-registry.js';
 import { getRealTimeMapStats } from '../global-map-analysis.js';
-import { CURRENT_GAME_DATE } from '../calendar-data.js';
+import { CURRENT_GAME_DATE } from '../data/world/calendar.js';
 
 // ============================================
 // CONFIGURATION & LORE

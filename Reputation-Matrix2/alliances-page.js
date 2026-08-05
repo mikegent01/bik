@@ -2,7 +2,7 @@
 
 import { getAllFactions, getFaction } from './systems/faction-registry.js';
 import { MAP_DATA } from './map-data.js';
-import { CURRENT_GAME_DATE } from './calendar-data.js';
+import { CURRENT_GAME_DATE } from './data/world/calendar.js';
 import { 
     calculateFactionCompatibility, 
     getFactionValues, 

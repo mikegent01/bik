@@ -1,7 +1,7 @@
 
 import { LORE_DATA } from './lore.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA, generateWeatherForDay, MOON_PHASES } from './calendar-data.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA, generateWeatherForDay, MOON_PHASES } from './data/world/calendar.js';
 import { calculateGlobalCycle, getAbsoluteDay, calculateRumorMetrics } from './research-data.js';
 
 /**

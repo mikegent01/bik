@@ -3,7 +3,7 @@
 
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS, SPECIES_ESTATE_BIAS } from './species-data.js';
 import { NATIONS, getAbsoluteDay } from './research-data.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA } from './calendar-data.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA } from './data/world/calendar.js';
 
 // ============================================================================
 // CONSTANTS

@@ -1,7 +1,7 @@
 
 
 import { getAbsoluteDay } from './research-data.js';
-import { MOON_PHASES } from './calendar-data.js';
+import { MOON_PHASES } from './data/world/calendar.js';
 
 // Dynamic phase calculation using the shared data
 const MOON_CYCLE_LENGTH = 28;

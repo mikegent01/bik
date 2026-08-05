@@ -3,7 +3,7 @@
 import { getPlagueData, PLAGUE_LIFECYCLE, SPECIES_TAGS, getKnownDiseases, getCurrentSeason } from './plagues-data.js';
 import { calculateGlobalCycle, getGlobalTechAverages, NATIONS, getAbsoluteDay } from './research-data.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA } from './calendar-data.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA } from './data/world/calendar.js';
 import { MAP_DATA } from './map-data.js';
 import { SPECIES_DATA } from './species-data.js';
 import { calculateGlobalVitalStats } from './vital-stats-data.js';

@@ -5,7 +5,7 @@
  */
 
 import { LORE_DATA } from './lore.js';
-import { CURRENT_GAME_DATE } from './calendar-data.js';
+import { CURRENT_GAME_DATE } from './data/world/calendar.js';
 
 // Try to import state, but don't fail if it doesn't work
 let state = { userState: { following: [] }, party: [], debugMode: false };
@@ -80,7 +80,7 @@ function getPostTimeValue(post) {
 function getDynamicTimestamp(dateObj) {
     if (!dateObj) return 'Unknown';
     try {
-        const { getDynamicTimestamp: getTs } = import('./calendar-data.js');
+        const { getDynamicTimestamp: getTs } = import('./data/world/calendar.js');
         return getTs(dateObj);
     } catch (e) {
         // Fallback timestamp

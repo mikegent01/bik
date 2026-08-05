@@ -1,6 +1,6 @@
 
 
-import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './calendar-data.js';
+import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './data/world/calendar.js';
 import { playSound } from './common.js';
 import { RELIGION_DATA } from './religion-data.js';
 import { state } from './state.js'; // Import state to get logged-in user

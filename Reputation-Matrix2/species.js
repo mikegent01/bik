@@ -9,7 +9,7 @@ import { getGlobalTechAverages, RESEARCH_CATEGORIES, calculateGlobalCycle } from
 import { getPlagueData, getCurrentSeason, PLAGUE_LIFECYCLE } from './plagues-data.js';
 import { simulatePopulation, calculateGlobalVitalStats } from './population-state.js';
 import { WAHBOOK_POSTS } from './assembly-data.js';
-import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from './data/world/calendar.js';
 
 // Define Player Races for Relationship Context
 const PLAYER_RACE_LABELS = {

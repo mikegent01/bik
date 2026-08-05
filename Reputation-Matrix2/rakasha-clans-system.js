@@ -3,7 +3,7 @@
 // =============================================
 
 import { state } from './state.js';
-import { CURRENT_GAME_DATE } from './calendar-data.js';
+import { CURRENT_GAME_DATE } from './data/world/calendar.js';
 
 // =============================================
 // RAKASHA DATA - Integrated with Plot

@@ -3,7 +3,7 @@
 // Connects to calendar-data.js and common.js
 // ============================================
 
-import { MOON_PHASES, CURRENT_GAME_DATE, CURRENT_GAME_TIME } from './calendar-data.js';
+import { MOON_PHASES, CURRENT_GAME_DATE, CURRENT_GAME_TIME } from './data/world/calendar.js';
 import { getIntelForFaction } from './common-1.js';
 import { state } from './state.js'; 
 

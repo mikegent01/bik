@@ -14,7 +14,7 @@ import {
 import { playSound } from '../../../common.js';
 import { state } from '../../../state.js';
 import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
-import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../calendar-data.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../.../../../data/world/calendar.js';
 
 // ============================================
 // DOM ELEMENTS

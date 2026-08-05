@@ -15,7 +15,7 @@ import {
     renderAnalyticsModal, 
     getDetailedRegionStats 
 } from './map-analysis.js';
-import { CURRENT_GAME_DATE } from '../calendar-data.js';
+import { CURRENT_GAME_DATE } from '.../data/world/calendar.js';
 import { MDATA_F } from '../map-data.js';
 
 // ============================================

@@ -6,7 +6,7 @@
 // ============================================
 import { state } from './state.js';
 import { getIntelForFaction } from './systems/common.js'; // IMPORTED: The single source of truth for Intel
-import { CURRENT_GAME_DATE, CALENDAR_DATA } from './calendar-data.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA } from './data/world/calendar.js';
 
 // ============================================
 // CONSTANTS & LORE DATA

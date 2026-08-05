@@ -8,7 +8,7 @@ const PROJECT_PAGES = [
     'assembly.html',
     'relations.html',
     'rumors.html',
-    'calendar.html',
+    'app/pages/calendar/legacy.html',
     'timeline.html',
     'focus.html',
     'quests.html',

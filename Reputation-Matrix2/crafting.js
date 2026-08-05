@@ -1,5 +1,5 @@
 // crafting.js - Spell Scroll & Item Crafting System
-import { CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA } from './calendar-data.js';
+import { CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA } from './data/world/calendar.js';
 import {
     CRAFTING_CATEGORIES,
     CRAFTING_CONFIG,

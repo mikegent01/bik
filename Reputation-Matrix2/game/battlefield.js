@@ -1,6 +1,6 @@
 import { LORE_DATA } from './lore.js';
 import { FACTION_COLORS } from './factions/faction-colors.js';
-import { CALENDAR_DATA, CURRENT_GAME_DATE, getDynamicTimestamp } from './calendar-data.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE, getDynamicTimestamp } from '../data/world/calendar.js';
 import { STORY_ARCS, getRumorsByArc } from './lore.js';
 
 // ============================================================================

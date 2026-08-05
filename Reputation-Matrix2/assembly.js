@@ -7,7 +7,7 @@
 import { LORE_DATA, STORY_ARCS, getRumorsByArc } from './lore.js';
 import { playSound } from './common.js';
 import { state, saveState, loadState } from './state.js';
-import { CURRENT_GAME_DATE, getDynamicTimestamp, CALENDAR_DATA } from './calendar-data.js';
+import { CURRENT_GAME_DATE, getDynamicTimestamp, CALENDAR_DATA } from './data/world/calendar.js';
 import { calculateRumorMetrics, calculateGlobalCycle } from './research-data.js';
 import { calculateAssemblyInfamy, getCharacterInfamy, getPostInfamy, renderInfamyBadge, renderInfamyWatch, renderInfamyMatrix, renderDossierInfamy } from './assembly-infamy.js';
 let tabModulesPromise = null;

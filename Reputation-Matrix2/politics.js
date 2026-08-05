@@ -12,7 +12,7 @@ import {
 import { RUMORS } from './party-and-events.js';
 import { STORY_ARCS,  } from './lore.js';
 import { MAJOR_BATTLES, CONFLICT_DETAILS } from './battlefield.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA, getDynamicTimestamp } from './calendar-data.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA, getDynamicTimestamp } from './data/world/calendar.js';
 import { 
     calculateAllAlliances, 
     SCRIPTED_ALLIANCES,

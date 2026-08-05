@@ -3,7 +3,7 @@
 // Properly represents 150+ toads, Speaker L's power, governance, voting, XP, abilities
 
 import { state, loadState, saveState } from './state.js';
-import { CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA, getDynamicTimestamp } from './calendar-data.js';
+import { CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA, getDynamicTimestamp } from './data/world/calendar.js';
 
 // ========================================
 // CONSTANTS & CONFIGURATION

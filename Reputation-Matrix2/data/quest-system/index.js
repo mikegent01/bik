@@ -1,5 +1,5 @@
 
-import { CURRENT_GAME_DATE } from './calendar-data.js';
+import { CURRENT_GAME_DATE } from '../world/calendar.js';
 import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './constants.js';
 
 // Import all specific quest modules

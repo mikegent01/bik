@@ -3,7 +3,7 @@
 // =============================================
 
 import { state } from './state.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA } from './calendar-data.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA } from './data/world/calendar.js';
 
 // =============================================
 // DATA DEFINITIONS
