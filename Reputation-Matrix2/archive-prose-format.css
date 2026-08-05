@@ -1,0 +1,6 @@
+.archive-prose{font-size:15px;line-height:1.78}
+.archive-prose p{margin:0 0 1.2em;max-width:78ch}
+.archive-prose strong{color:var(--accent2);font-weight:850}
+.archive-prose em{color:#d9caff}
+.archive-section-heading{margin:1.55em 0 .45em;color:var(--accent2);font-size:1.55em;line-height:1.2;border-left:3px solid var(--accent2);padding-left:12px}
+.archive-rule{border:0;border-top:1px solid var(--border);margin:1.5em 0;opacity:.7}

@@ -38,6 +38,7 @@
   <link rel="stylesheet" href="Reputation-Matrix2/quest-board-overrides.css">
   <link rel="stylesheet" href="Reputation-Matrix2/quest-consequence-format.css">
   <link rel="stylesheet" href="Reputation-Matrix2/quest-prose-format.css">
+  <link rel="stylesheet" href="Reputation-Matrix2/archive-prose-format.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="Reputation-Matrix2/data/vendors-directory.js"></script>
   <script src="Reputation-Matrix2/data/books-data.js"></script>
@@ -9892,6 +9893,20 @@ function getChronicleIndex(){
 }
 function invalidateChronicleIndex(){ window.__CHRON_IDX=null; }
 
+function renderArchiveMarkdown(raw) {
+  const safe = esc(String(raw || ''));
+  const blocks = safe.split(/\n{2,}/).map(block => {
+    if (/^---+$/.test(block.trim())) return '<hr class="archive-rule">';
+    const heading = block.match(/^(#{2,4})\s+(.+)$/);
+    if (heading) return `<h2 class="archive-section-heading">${heading[2]}</h2>`;
+    const body = block.replace(/\n/g, '<br>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    return `<p>${body}</p>`;
+  }).join('');
+  return linkify ? linkify(blocks) : blocks;
+}
+
 function view_chronicle(id){
   renderSidebar('timeline');
   const idx=getChronicleIndex();
@@ -9941,7 +9956,7 @@ function view_chronicle(id){
   const prev=myIdx>0?list[myIdx-1]:null;
   const next=myIdx>=0 && myIdx<list.length-1?list[myIdx+1]:null;
   const sameEra=list.filter(x=>x.era===e.era && x.slug!==e.slug).slice(0,10);
-  const linkedDesc = linkify?linkify(esc(e.description||'')):esc(e.description||'');
+  const linkedDesc = renderArchiveMarkdown(e.description || '');
 
   // People chips — link to matching character articles when we can resolve them.
   const peopleChips = Array.isArray(e.people) ? e.people.map(name => {
@@ -9994,7 +10009,7 @@ function view_chronicle(id){
 
     <div class="card">
       <h2 style="margin-top:0">📖 Full Record</h2>
-      <p class="prose" style="font-size:15px;line-height:1.75">${linkedDesc||'<span class="text-muted">No description on file.</span>'}</p>
+      <div class="prose archive-prose">${linkedDesc||'<span class="text-muted">No description on file.</span>'}</div>
     </div>
 
     ${peopleChips?`<div class="card">
