@@ -1,5 +1,5 @@
 // crafting.js - Spell Scroll & Item Crafting System
-import { CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA } from './data/world/calendar.js';
+import { CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA } from '../../../data/world/calendar.js';
 import {
     CRAFTING_CATEGORIES,
     CRAFTING_CONFIG,
@@ -22,9 +22,9 @@ import {
     getShopMaterialsByCategory,
     getBundleXPPrices,
     getSpellSchool 
-} from './crafting-data.js';
-import { initMarket, getMarketState, reduceMarketStock } from './crafting-data.js';
-import { REWARDS_DATA } from './quests/quests-main.js';
+} from '../../../crafting-data.js';
+import { initMarket, getMarketState, reduceMarketStock } from '../../../crafting-data.js';
+import { REWARDS_DATA } from '../../../quests/quests-main.js';
 // ============================================
 // === CATALYST SUBSTITUTION SYSTEM ===
 // ============================================

@@ -4,13 +4,13 @@
  * Profile Page Handler - Vigilance Terminal
  */
 
-import { LORE_DATA } from './lore.js';
-import { CURRENT_GAME_DATE } from './data/world/calendar.js';
+import { LORE_DATA } from '../../../lore.js';
+import { CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 
 // Try to import state, but don't fail if it doesn't work
 let state = { userState: { following: [] }, party: [], debugMode: false };
 try {
-    const stateModule = await import('./state.js');
+    const stateModule = await import('../../../state.js');
     if (stateModule.state) state = stateModule.state;
     if (stateModule.loadState) stateModule.loadState();
 } catch (e) {
@@ -80,7 +80,7 @@ function getPostTimeValue(post) {
 function getDynamicTimestamp(dateObj) {
     if (!dateObj) return 'Unknown';
     try {
-        const { getDynamicTimestamp: getTs } = import('./data/world/calendar.js');
+        const { getDynamicTimestamp: getTs } = import('../../../data/world/calendar.js');
         return getTs(dateObj);
     } catch (e) {
         // Fallback timestamp

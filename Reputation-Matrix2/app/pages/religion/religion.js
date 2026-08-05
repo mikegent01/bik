@@ -1,9 +1,9 @@
 
 
-import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './data/world/calendar.js';
-import { playSound } from './common.js';
-import { RELIGION_DATA } from './religion-data.js';
-import { state } from './state.js'; // Import state to get logged-in user
+import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
+import { playSound } from '../../../common.js';
+import { RELIGION_DATA } from '../../../religion-data.js';
+import { state } from '../../../state.js'; // Import state to get logged-in user
 
 // DOM Elements
 const chartCanvas = document.getElementById('religion-chart');
@@ -434,8 +434,8 @@ function renderSidebar(year, monthIndex) {
 }
 
 // --- DATA IMPORT FUNCTIONS ---
-import { MAP_DATA } from './map-data.js';
-import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
+import { MAP_DATA } from '../../../map-data.js';
+import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from '../../../species-data.js';
 
 function getPlayerSpeciesKey() {
     const user = state.loggedInUser || 'generic';
