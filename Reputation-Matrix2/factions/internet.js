@@ -4,7 +4,7 @@ export const INTERNET_FACTIONS = {
     internet_federation: {
         name: "The Internet Federation",
         description: "The semi-official governing body of the Surface Web. A bureaucratic entity that attempts to maintain order, regulate data flow, and protect the integrity of its core systems through its powerful Anti-Virus Citadel and Moderator programs.",
-        logo: 'icon_world_assembly.png',
+        logo: 'assets/icons/icon_world_assembly.png',
         relations: {
             allies: ['regal_empire'],
             enemies: ['hacktivist_collectives', 'cosmic_jesters', 'freelancer_underworld']
@@ -78,7 +78,7 @@ export const INTERNET_FACTIONS = {
     data_merchant_guilds: {
         name: "The Data Merchant Guilds",
         description: "A powerful corporate conglomerate that views user data as the web's most valuable resource. They control the flow of information for profit, operating data mines, server farms, and the digital advertising market.",
-        logo: 'icon_currency.png',
+        logo: 'assets/icons/icon_currency.png',
         relations: {
             allies: ['freelancer_underworld'],
             enemies: ['hacktivist_collectives']

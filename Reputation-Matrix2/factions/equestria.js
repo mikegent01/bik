@@ -25,7 +25,7 @@ export const EQUESTRIA_FACTIONS = {
     pony_nobility: {
         name: "The Pony Nobility",
         description: "The landed aristocracy of Unicorns and Pegasi who control the economy and local governance. They are obsessed with status, lineage, and maintaining their privileges over Earth Ponies and non-pony species.",
-        logo: 'icon_currency.png', // Placeholder or specific logo
+        logo: 'assets/icons/icon_currency.png', // Placeholder or specific logo
         relations: {
             allies: ['equestrian_regime'],
             enemies: ['spark_of_rebellion', 'freelancer_underworld']

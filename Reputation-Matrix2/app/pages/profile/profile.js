@@ -44,7 +44,7 @@ function formatCharacterKey(key) {
 function isContentVisible(dateObj) {
     if (!dateObj) return true;
     if (!CURRENT_GAME_DATE) return true;
-    
+
     let isFuture = false;
     if (dateObj.year > CURRENT_GAME_DATE.year) isFuture = true;
     else if (dateObj.year === CURRENT_GAME_DATE.year) {
@@ -90,13 +90,13 @@ function getDynamicTimestamp(dateObj) {
 
 function getCharacterData(characterKey) {
     if (!characterKey) {
-        return { 
-            name: 'Unknown', 
-            portrait: FALLBACK_PORTRAIT, 
-            faction: null, 
+        return {
+            name: 'Unknown',
+            portrait: FALLBACK_PORTRAIT,
+            faction: null,
             characterKey: 'unknown',
             isDefined: false,
-            isUnknown: true 
+            isUnknown: true
         };
     }
 
@@ -111,13 +111,13 @@ function getCharacterData(characterKey) {
                 break;
             }
         }
-        
+
         // Use character's portrait if defined, otherwise construct path
         let portrait = char.portrait;
         if (!portrait || portrait === '') {
             portrait = `portraits/${characterKey}.png`;
         }
-        
+
         return {
             name: char.name,
             portrait: portrait,
@@ -163,19 +163,19 @@ function getCharacterData(characterKey) {
 
     // Special cases
     const specialCases = {
-        'wah_media_collective': { 
-            name: "WAH Media Collective", 
-            portrait: 'icon_newspaper.png', 
-            faction: { name: "The Daily Paradox" }, 
-            bio: "Official news network.", 
-            isDefined: true 
+        'wah_media_collective': {
+            name: "WAH Media Collective",
+            portrait: 'assets/icons/icon_newspaper.png',
+            faction: { name: "The Daily Paradox" },
+            bio: "Official news network.",
+            isDefined: true
         },
-        'delfino_reporter': { 
-            name: "Delfino Daily Reporter", 
-            portrait: 'portraits/delfino_reporter.png', 
-            faction: { name: "Delfino Press" }, 
-            bio: "Independent journalist.", 
-            isDefined: true 
+        'delfino_reporter': {
+            name: "Delfino Daily Reporter",
+            portrait: 'portraits/delfino_reporter.png',
+            faction: { name: "Delfino Press" },
+            bio: "Independent journalist.",
+            isDefined: true
         },
         // Add more special cases as needed
         'speaker_l': {
@@ -186,7 +186,7 @@ function getCharacterData(characterKey) {
             isDefined: true
         }
     };
-    
+
     if (specialCases[characterKey]) {
         return { ...specialCases[characterKey], characterKey };
     }
@@ -194,7 +194,7 @@ function getCharacterData(characterKey) {
     // Undefined character - log warning but don't crash
     console.warn(`[WAHbook] Undefined character: "${characterKey}"`);
     console.warn(`[WAHbook] Expected portrait at: portraits/${characterKey}.png`);
-    
+
     return {
         name: formatCharacterKey(characterKey),
         portrait: `portraits/${characterKey}.png`,
@@ -209,7 +209,7 @@ function getCharacterData(characterKey) {
 function findPortraitPath(characterKey) {
     // Base path
     const basePath = `portraits/${characterKey}.png`;
-    
+
     // We can't synchronously check if images exist, so we'll just return the expected path
     // The onerror handler on the img tag will handle missing images
     return basePath;
@@ -378,7 +378,7 @@ function showError(message = 'Profile could not be loaded') {
     const loadingEl = document.getElementById('profile-loading');
     const errorEl = document.getElementById('profile-error');
     const contentEl = document.getElementById('profile-content');
-    
+
     if (loadingEl) loadingEl.style.display = 'none';
     if (contentEl) contentEl.style.display = 'none';
     if (errorEl) {
@@ -555,7 +555,7 @@ function renderProfile(characterKey) {
         const updateFollowButtonState = () => {
             const isFollowing = state?.userState?.following?.includes(characterKey);
             followBtn.classList.toggle('following', isFollowing);
-            
+
             // Explicitly set content based on state
             if (isFollowing) {
                 followBtn.innerHTML = `<span class="follow-icon">✓</span> <span class="follow-text"></span>`;
@@ -574,16 +574,16 @@ function renderProfile(characterKey) {
         newBtn.onclick = () => {
             if (!state.userState) state.userState = { following: [] };
             if (!state.userState.following) state.userState.following = [];
-            
+
             const idx = state.userState.following.indexOf(characterKey);
             if (idx > -1) {
                 state.userState.following.splice(idx, 1);
             } else {
                 state.userState.following.push(characterKey);
             }
-            
-            try { 
-                localStorage.setItem('vigilanceTerminalState', JSON.stringify(state)); 
+
+            try {
+                localStorage.setItem('vigilanceTerminalState', JSON.stringify(state));
                 // Update UI immediately
                 const isFollowing = state.userState.following.includes(characterKey);
                 newBtn.classList.toggle('following', isFollowing);

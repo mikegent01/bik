@@ -250,7 +250,7 @@ function getCharacterData(characterKey) {
         return { name: fac.name, portrait: pathPrefix + fac.logo, faction: { name: fac.name, logo: pathPrefix + fac.logo } };
     }
     const specialCases = {
-        'wah_media_collective': { name: "WAH Media Collective", portrait: pathPrefix + 'icon_newspaper.png', faction: { name: "The Daily Paradox", logo: pathPrefix + 'icon_newspaper.png' } },
+        'wah_media_collective': { name: "WAH Media Collective", portrait: pathPrefix + 'assets/icons/icon_newspaper.png', faction: { name: "The Daily Paradox", logo: pathPrefix + 'assets/icons/icon_newspaper.png' } },
     };
     if (specialCases[characterKey]) return { ...specialCases[characterKey] };
     return { name: formatCharacterKey(characterKey), portrait: pathPrefix + 'portraits/unknown.png', faction: null };

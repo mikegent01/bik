@@ -233,7 +233,7 @@ export const MILITARISTIC_CODES = {
     },
     kremling_krew: {
         name: "The K. Rool Codex",
-        logo: "icon_pirate.png",
+        logo: "assets/icons/icon_pirate.png",
         description: "A militaristic pirate code where King K. Rool's tyrannical whims are law. The entire society is geared towards plunder and the subjugation of the DK Crew.",
         supporters: [],
         opponents: ['dk_crew', 'yoshi_clans'],

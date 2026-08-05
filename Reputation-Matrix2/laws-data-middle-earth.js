@@ -3,7 +3,7 @@
 export const MIDDLE_EARTH_CODES = {
     kingdom_of_rohan: {
         name: "The Oaths of the Mark",
-        logo: "icon_focus.png", // Placeholder
+        logo: "assets/icons/icon_focus.png", // Placeholder
         description: "The laws of the Rohirrim are unwritten, carried in song and memory. They are the customs of a proud, fierce people, bound by oaths of loyalty and a deep love for their horses and their land.",
         supporters: ['kingdom_of_gondor'],
         opponents: ['isengard', 'mordor'],
@@ -58,7 +58,7 @@ export const MIDDLE_EARTH_CODES = {
     },
     lothlorien: {
         name: "The Law of the Golden Wood",
-        logo: "icon_focus.png",
+        logo: "assets/icons/icon_focus.png",
         description: "The laws of Lothlórien are ancient and subtle, woven into the very fabric of the forest. They are the will of the Lord and Lady, intended to preserve the timeless beauty of their realm from the decay of the outside world.",
         supporters: ['elves_of_lindon'],
         opponents: ['mordor', 'isengard'],
@@ -101,7 +101,7 @@ export const MIDDLE_EARTH_CODES = {
     },
     elves_of_lindon: {
         name: "The Law of the Havens",
-        logo: "icon_focus.png",
+        logo: "assets/icons/icon_focus.png",
         description: "The laws of the Elves of Lindon are steeped in sorrow and sea-longing. They are the customs of a people at the end of their age, focused on preserving memory and building the ships that will carry them from Middle-earth forever.",
         supporters: ['kingdom_of_gondor', 'lothlorien'],
         opponents: ['mordor'],
@@ -132,7 +132,7 @@ export const MIDDLE_EARTH_CODES = {
     },
     kingdoms_of_the_dwarves: {
         name: "The Law of the Mountain",
-        logo: "icon_focus.png",
+        logo: "assets/icons/icon_focus.png",
         description: "The laws of the Dwarves are as ancient and unyielding as the stone they carve. They are centered on clan loyalty, the sanctity of oaths, and the reverence of craftsmanship and treasure.",
         supporters: ['elves_of_lindon', 'kingdom_of_gondor'],
         opponents: ['mordor', 'isengard'],
@@ -175,7 +175,7 @@ export const MIDDLE_EARTH_CODES = {
     },
     isengard: {
         name: "The Mind of Metal and Wheels",
-        logo: "icon_focus.png",
+        logo: "assets/icons/icon_focus.png",
         description: "The 'law' of Isengard is the singular, treacherous will of Saruman the White. It is a system built on industry, espionage, and the breeding of a perfect army to dominate the lands of Men.",
         supporters: ['mordor'],
         opponents: ['kingdom_of_rohan', 'lothlorien'],
@@ -206,7 +206,7 @@ export const MIDDLE_EARTH_CODES = {
     },
     mordor: {
         name: "The Law of the Lidless Eye",
-        logo: "icon_focus.png",
+        logo: "assets/icons/icon_focus.png",
         description: "There is no law in Mordor but the will of Sauron. It is a land of absolute terror, where power is the only right and cruelty is the only virtue. All beings are slaves to the Dark Lord's ambition.",
         supporters: ['isengard'],
         opponents: ['kingdom_of_gondor', 'kingdom_of_rohan', 'lothlorien'],

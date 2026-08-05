@@ -2,7 +2,7 @@ const TIMELINE_DATA = [
     {
         time: "19:00 - Arrival",
         title: "Welcoming of Fools",
-        icon: "icon_quests.png",
+        icon: "assets/icons/icon_quests.png",
         description: "All guests of sufficient evilness are to arrive. Fawful will greet them with chortles and condescension. Minions will provide appetizers that may or may not be sentient.",
         isCurrent: false,
     },
@@ -23,14 +23,14 @@ const TIMELINE_DATA = [
     {
         time: "22:00 - Gloating",
         title: "Post-Dinner Monologue",
-        icon: "icon_focus.png",
+        icon: "assets/icons/icon_focus.png",
         description: "After the guests have feasted on failure, Fawful will deliver a second, even more brilliant monologue. He will detail the next phase of his glorious plan for domination.",
         isCurrent: true,
     },
     {
         time: "23:00 - Finale",
         title: "The Grand Departure",
-        icon: "icon_dossier.png",
+        icon: "assets/icons/icon_dossier.png",
         description: "Guests will be 'encouraged' to depart, basking in the glow of Fawful's genius. The castle's defense systems will be put on high alert to ensure no one overstays their welcome.",
         isCurrent: false,
     }

@@ -101,7 +101,7 @@ Remember, peace is boring. **CHAOS** is profitable! And nobody does chaos better
         {
             id: 'advert_3',
             title: "Secure Your Secrets! (or steal others')",
-            image: 'icon_dossier.png',
+            image: 'assets/icons/icon_dossier.png',
             image_alt: "An open folder icon.",
             content: "**The Shadowbrokers' Guild** offers top-tier information gathering and protection services. From secure data vaults to discreet asset acquisition, we ensure your secrets are safe... or that your enemies' secrets are not. Blackmail and counter-espionage a specialty.",
             cta: "Inquire Within",

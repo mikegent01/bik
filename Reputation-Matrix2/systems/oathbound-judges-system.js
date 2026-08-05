@@ -22,7 +22,7 @@ export function renderOathboundJudgesSystem() {
         const pos = memberPositions[i];
         return `
             <div class="judge-seat" data-judge-id="${member.id}" style="top: ${pos.top || 'auto'}; left: ${pos.left || 'auto'}; right: ${pos.right || 'auto'}; bottom: ${pos.bottom || 'auto'}; transform: ${pos.transform};">
-                <img src="icon_gavel.png" alt="Judge Icon" class="judge-icon">
+                <img src="assets/icons/icon_gavel.png" alt="Judge Icon" class="judge-icon">
             </div>
         `;
     }).join('');

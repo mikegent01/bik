@@ -13,7 +13,7 @@
     },
     "title": "The Princess is Dead",
     "description": "Princess Peach is assassinated, plunging the Mushroom Kingdom into a century-long civil war.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Political"
   },
   {
@@ -47,7 +47,7 @@
     },
     "title": "Dragon Slain",
     "description": "The party defeats the dragon Ignis in the northern mountains, an act praised by militarists but condemned by magical researchers.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -60,7 +60,7 @@
     },
     "title": "Underworld Politics",
     "description": "Archie Miser is acquitted of killing a mage by an Onyx Hand tribunal, greatly angering the Mages' Guild.",
-    "icon": "icon_reputation.png",
+    "icon": "assets/icons/icon_reputation.png",
     "category": "Recent Event"
   },
   {
@@ -151,7 +151,7 @@
     },
     "title": "The Tea Party Incident",
     "description": "An attempt by Archie to meet with the 'Tea Leaf Syndicate' devolved into a massive brawl after a panic button is pressed, summoning both Toad Gang and Iron Legion forces. In the chaos, Archie unleashes a fireball, killing numerous combatants, including most of the Syndicate's muscle.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Recent Event"
   },
   {
@@ -207,7 +207,7 @@
     },
     "title": "Friendly Fire Incident",
     "description": "During a brawl, Waluigi casts a powerful 'Cone of Cold' spell, which accidentally freezes the toad Eager solid and injures FNG Remi. Eager is now presumed deceased by the crew.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -220,7 +220,7 @@
     },
     "title": "Syndicate Showdown",
     "description": "Green T of the Tea Leaf Syndicate reveals a giant form and crushes an Iron Legion soldier. His enforcer, Earl Grey, is poisoned by Roger's dagger and explodes, scattering items everywhere. The Syndicate's power base on the ship is shattered.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -259,7 +259,7 @@
     },
     "title": "The Democratic Summit Disaster",
     "description": "Lanky Kong's bizarre behavior at the Democratic Summit causes a major diplomatic incident, economic instability for the Mushroom Kingdom, and a deep fracture within the DK Crew.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Political"
   },
   {
@@ -272,7 +272,7 @@
     },
     "title": "Tense Negotiations",
     "description": "Following the summit disaster, Donkey Kong schedules a conference call with King K. Rool, suggesting a potential shift in the long-standing enmity between the two factions.",
-    "icon": "icon_pirate.png",
+    "icon": "assets/icons/icon_pirate.png",
     "category": "Political"
   },
   {
@@ -285,7 +285,7 @@
     },
     "title": "The Restaurant Raid & Sewer Stand-off",
     "description": "A day of cascading chaos. Eager was tracked to a restaurant, but an extraction attempt failed when the Iron Legion raided the building, spurred by a murder plot involving a 'ketchup man' who hid bodies in an octopus. With Dan critically injured, the party descended into the lava-filled sewers seeking a cure, only to be led into a trap by a Legion spy and forced to fight a massive Behir.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -298,7 +298,7 @@
     },
     "title": "The Fall of Bramblehaven",
     "description": "In a brutal, day-long assault, Captain Toadette's Peach Loyalist forces conquered the Fawful bastion of Bramblehaven. The Loyalists showed no mercy to surrendering troops, solidifying their reputation as ruthless fanatics. Though casualties were heavy on both sides, the Loyalists successfully retrieved valuable intel.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Military"
   },
   {
@@ -311,7 +311,7 @@
     },
     "title": "The Blue Dragon's Bargain",
     "description": "The party's clash with the 'blue dragon' (a Behir) resulted in a bizarre negotiation. A two-eyed clone of Archie, created via forbidden necromancy by the Iron Legion, was captured by the dragon who demanded a golden egg. hjumpik bargained for unneeded mushrooms, and the party escaped, learning of the clone's desire for Archie's third eye.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -324,7 +324,7 @@
     },
     "title": "The Haunting of Raventree Manor",
     "description": "Following Bowser and Waluigi, the party began exploring the decaying Raventree Manor. Inside the parlor, they encountered the polite but unsettling ghost of a noble. The party split up: Markop, after a bizarre fight with his own enchanted clothes, got lost in the dilapidated east wing, discovering a note warning not to clean the mirrors. Meanwhile, Archie became trapped in the unstable western hall as the manor itself seemed to watch their every move.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -337,7 +337,7 @@
     },
     "title": "Manor of Madness",
     "description": "The party's exploration of Raventree Manor descended into further chaos. After being separated, they battled swarms of haunted, flaming books, with Waluigi's 'help' only making the fire worse. Archie discovered a cryptic message on a balcony, and the party eventually regrouped with Bowser and Eager, uncovering some of Markop's personal effects, including a photograph of his lost father. Exhausted and wary, they have barricaded themselves in separate bedrooms for the night.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -350,7 +350,7 @@
     },
     "title": "The Oracle's Gambit",
     "description": "The night brought no rest, as FNG fought off corrosive rust monsters with Waluigi's aid. A subsequent balcony collapse nearly killed her, but she was rescued by the party. Their search led them to the mansion's host, the mysterious 'Oracle,' who extended a cryptic invitation to his gardens. Suspicions mounted as hjumpik formed a shaky alliance with Waluigi to investigate the Oracle, while Archie rescued Eager from a ruined solarium. The chaotic night culminated in Waluigi and Green T making a dramatic escape from the mansion grounds on the back of a summoned wyvern.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -363,7 +363,7 @@
     },
     "title": "The Scavenging Doctrine Vote",
     "description": "A vote was held to determine the Liberated Toads' resource gathering strategy. Archie's proposal for small, high-risk teams was overwhelmingly defeated by Dan's counter-proposal for larger, more cautious expeditions. The vote marks a significant return to influence for Dan and a strategic shift for the faction towards safety and unity.",
-    "icon": "icon_treaty.png",
+    "icon": "assets/icons/icon_treaty.png",
     "category": "Political"
   },
   {
@@ -389,7 +389,7 @@
     },
     "title": "Betrayal on the Airship",
     "description": "Returning to the Vigilance, the toads found it overrun by Iron Legion 'Royal Service' members. An intense confrontation erupted, and the rescued toad was taken to the mercenary Creek for emergency surgery. During the operation, an Iron Legion insignia was discovered on the wounded toad, exposing him as a plant and revealing the entire mansion raid was a setup.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -402,7 +402,7 @@
     },
     "title": "The Greenhouse Inferno",
     "description": "A chaotic battle in the manor's greenhouse against rust monsters results in Archie unleashing a massive fireball to save the party. The structure is destroyed, and Green T gives Markop a mysterious key.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -415,7 +415,7 @@
     },
     "title": "The Capture of Bramblehaven",
     "description": "Captain Toadette's Peach Loyalist forces seize the Fawful-held town of Bramblehaven in a brutal assault, executing prisoners and cementing their ruthless reputation.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Military"
   },
   {
@@ -428,7 +428,7 @@
     },
     "title": "The Maze of Time",
     "description": "Markop, Green T, and Bowser navigate a living hedge maze to find a hidden, abandoned version of the manor and evidence of a time war involving the Oracle.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -454,7 +454,7 @@
     },
     "title": "The Supernatural Sovereignty Act",
     "description": "The Regal Empire passes a law declaring organized vampires and werewolves illegal, effectively declaring war on the Onyx Hand and Moonfang Pack.",
-    "icon": "icon_treaty.png",
+    "icon": "assets/icons/icon_treaty.png",
     "category": "Political"
   },
   {
@@ -467,7 +467,7 @@
     },
     "title": "Kamek's Return",
     "description": "Magical activity in the Valley of Bowser signals the return of Kamek, who consolidates control over the Koopa Troop remnants.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Political"
   },
   {
@@ -480,7 +480,7 @@
     },
     "title": "Standoff at Raventree Manor",
     "description": "Speaker L's Pond Patrol besieges Archie and Hjumpik in the manor after a failed healing attempt on Eager. Tensions reach a breaking point.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Recent Event"
   },
   {
@@ -493,7 +493,7 @@
     },
     "title": "The Siege of Raventree",
     "description": "The Pond Patrol creates a containment perimeter. The manor responds by manifesting powerful wraiths. Archie surrenders to Speaker L to buy time, but a glass monster emerges from a mirror.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Recent Event"
   },
   {
@@ -506,7 +506,7 @@
     },
     "title": "Green T Lost",
     "description": "During the chaos at the manor, Green T is violently pulled into a mirror dimension by a supernatural entity.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -519,7 +519,7 @@
     },
     "title": "Archie's Confession",
     "description": "Archie Miser publicly confesses to the Greenhouse Inferno on Wahbook to justify his actions, drawing immediate Ire from the Mages' Guild.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Social"
   },
   {
@@ -532,7 +532,7 @@
     },
     "title": "The Dance Hall Discord",
     "description": "The party confronts Iron Legion spies and rogue Magi in the manor's dance hall. A mocking anthem is sung, and an Arcane Wraith attacks, scattering the combatants.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Recent Event"
   },
   {
@@ -545,7 +545,7 @@
     },
     "title": "The Mirror Door Breach",
     "description": "Led by the Oracle to a hidden upper house, the party barely escapes a mirror monster by slamming the door. The way back is sealed.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -662,7 +662,7 @@
     },
     "title": "Banishment of the Wraith",
     "description": "The party battles an Arcane Wraith in Raventree Manor while fending off interference from the Mages' Guild and Iron Legion. Bowser physically assaults the ghost, Dan fights one-armed, and Archie uses ice magic to aid the Oracle in banishing the entity.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -675,7 +675,7 @@
     },
     "title": "Titan of the Grove",
     "description": "Markop accepts a cryptic blessing from the Oracle, growing to a colossal size to match the Giant Spider. Eager, stuck in a massive form, indiscriminately uses pepper spray on the smaller arachnids. The skirmish is interrupted when the airship 'Vigilance' flies overhead, blasting Legion propaganda and ignoring the fight as it heads toward the manor.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -688,7 +688,7 @@
     },
     "title": "The Arachnid Matriarch Falls",
     "description": "The final battle against the giant spider reaches its climax. Remi is swarmed by minispiders and falls unconscious. Markop grapples with the Matriarch in a titan-scale deadlock while Waluigi weakens it with arcane rays. Salem lands a crossbow bolt through the creature's eye. The Oracle fires an arrow into its abdomen from below as Mossy bites into its legs. When the spider crashes into the Oracle's hastily-drawn banishment circle, it is consumed by light and vanishes.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -718,7 +718,7 @@
     },
     "title": "The Many Oracles Revealed",
     "description": "Returning to Raventree Manor, the party witnesses a startling revelation: there are multiple Oracles. One reveals a 'Star Shard,' a crystalline gift from the Toad God, and declares himself a 'Bearer.' The party reunites with Archie and Hjumpik, who have been in discussion with another Oracle. Preparations for a mysterious ritual begin immediately.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -731,7 +731,7 @@
     },
     "title": "The Shattered Ritual",
     "description": "The Oracle attempts a synchronization rite to align the physical world, mirror-space, and the 'Deep Layers'. Due to internal conflict, missing participants, and the unstable nature of Archie Miser's magic, the ritual catastrophically fails, shattering local reality into three distinct planar shards.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -757,7 +757,7 @@
     },
     "title": "The Shard Stalker & The Spy",
     "description": "The party breached the Solarium to destroy the Mirror Monster. In the chaos, hjumpik was pulled into the Mirror Dimension where he fought a doppleganger and received aid from an Iron Legion Spy, who revealed the impending Supernatural Sovereignty Act. Archie punched a mirror in a blood rage, and the group retreated to a Ruined Hall to plan their next move against the spies.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -848,7 +848,7 @@
     },
     "title": "The Midnight Gate",
     "description": "Lost in the hedge maze, Hjumpik discovered an ancient shrine to a scythe-wielding entity. Reunited with Rakasha, they found the 'Midnight Gate' and communicated with Agent H via an entropy ring, confirming an 'Orange Target' was nearby.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -861,7 +861,7 @@
     },
     "title": "The Hag's Hut Heist",
     "description": "Hjumpik and Rakasha infiltrated a hag's hut on the manor grounds, discovering Waluigi and Toad Lee trapped in cages intended for a stew. After a tense negotiation involving stolen potions and a bear trap, the group staged a daring jailbreak, leaping from a second-story window to escape.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -926,7 +926,7 @@
     },
     "title": "The Painful Healing",
     "description": "In the Feywild Greenhouse, Sprites healed Waluigi's shattered leg using rapid-growth magic. The process was agonizing but effective. The group learned of 'Orangeus Cornelius' and a grand party happening in the manor.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -965,7 +965,7 @@
     },
     "title": "Arrested by Fey Guards",
     "description": "Hjumpik, Rakasha, and Waluigi were captured by the Manor Guard while attempting to sneak out. Claiming to be sent by 'The Dragon', they were escorted to the main party instead of the dungeon.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -1056,7 +1056,7 @@
     },
     "title": "The Heir of Rot",
     "description": "Hjumpik met the 'Orange Heir' of Lady Aurelian Corvinarus at a grotesque banquet filled with rotting food and living carpets. The Heir denied being the Master, pointing instead to a 'Reveal' planned for later.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1134,7 +1134,7 @@
     },
     "title": "The Archmage's Warning",
     "description": "Perrius Annmatar appeared to Hjumpik, urging him to 'sever the lineage' of the Corvinarus family to escape the dimension. He warned that the only way out is to kill the heirs and fake the deaths of the Oracles.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -1160,7 +1160,7 @@
     },
     "title": "The Clockwork & The Tree",
     "description": "Navigating shattered walkways, Markop and Remi discover a mesmerizing Clockwork Room where time is visibly decaying, and an Oak Tree growing from a staircase, pulsating with dangerous crystalline energy.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -1186,7 +1186,7 @@
     },
     "title": "Mazebound Ambush & Laboratory Discovery",
     "description": "Remi and the group are ambushed by gray-skinned mazebounds in a cursed grove filled with shadow crows. Markop and Remi stumble upon a hidden laboratory in the Atrium containing tanks of malformed humanoids, realizing the Oracle is a researcher conducting forbidden necromancy. During the chaos, Salam is injured and Dan is captured.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -1212,7 +1212,7 @@
     },
     "title": "Convergence Imminent",
     "description": "As the dinner party reaches its climax, Remi and Markop breach the Atrium's ballroom, witnessing flickering visions of Archie in the Shadowfell. Both teams prepare for a synchronized assault across dimensions to stop—or start—the end of the world.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Recent Event"
   },
   {
@@ -1238,7 +1238,7 @@
     },
     "title": "The Lounge Clue",
     "description": "Toad Lee interrogated a goblin bartender about 'Archie Miser'. He learned that a male beast-folk guest (not Rakasha) was taken to the private Theater. Realizing their mistake, the group headed for the stage.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -1264,7 +1264,7 @@
     },
     "title": "Archie's Paperwork Bluff",
     "description": "In Shadeward Manor, Archie disguised himself as a vampire bureaucrat to rescue Green T from a locked room, bluffing his way past a guard by complaining about paperwork.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1277,7 +1277,7 @@
     },
     "title": "The Satyr Eviction",
     "description": "Hjumpik and Waluigi cleared the Guest Wing of unruly Satyrs by luring them with beer, pushing them off balconies, and directing them to a hag's hut. Lady Aurelian was pleased but demanded more service.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1303,7 +1303,7 @@
     },
     "title": "The Satyr Problem",
     "description": "Lady Aurelian tasked Hjumpik with removing drunken Satyrs from her party. Hjumpik discovered the guests were refusing to leave, leading to a tense standoff.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1329,7 +1329,7 @@
     },
     "title": "The Usk Connection",
     "description": "On the mezzanine, Hjumpik found a note that triggered a vision of Usk, the foggy elf from the Shadowfell manor, confirming the dimensions are bleeding together.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -1355,7 +1355,7 @@
     },
     "title": "Reunion with Rakasha",
     "description": "Hjumpik located Rakasha, who had been hired as manor staff along with another Rakshasa. She was reunited with the party, bringing the mechanical hound Steely (Mossy) with her.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -1368,7 +1368,7 @@
     },
     "title": "Perrius's Ultimatum",
     "description": "Perrius Annmatar contacted Hjumpik telepathically, demanding he kill the Orange Heir to prevent the timelines from severing. Hjumpik resolved to find proof of the Heir's illegitimacy instead.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -1394,7 +1394,7 @@
     },
     "title": "Wario's Arrival",
     "description": "Wario arrives in the Solarium seeking treasure and battles the Bramblefly with explosives.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Recent Event"
   },
   {
@@ -1420,7 +1420,7 @@
     },
     "title": "Archie Meets Agent L (Luigi)",
     "description": "Archie is introduced to Agent L by the Mages Guild to act as a cleanup crew for the area.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Social"
   },
   {
@@ -1433,7 +1433,7 @@
     },
     "title": "Contract Discussion",
     "description": "Archie and the Mages Guild negotiate terms. Archie is skeptical of a fast-tracked honorary fellowship badge detecting faint new magic on it.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Social"
   },
   {
@@ -1459,7 +1459,7 @@
     },
     "title": "Recruitment Attempt",
     "description": "Archie offers Usk and Orvinder to join; both decline, agreeing with the overall goals but possessing their own plans.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Social"
   },
   {
@@ -1498,7 +1498,7 @@
     },
     "title": "Return to Mages Guild",
     "description": "Archie and Luigi head back to deposit the ghosts into jars. Luigi expresses skepticism over ghost research for immortality.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Social"
   },
   {
@@ -1511,7 +1511,7 @@
     },
     "title": "Vision of the Grafting",
     "description": "Hjumpik touches a statue and sees a vision from 988: An Orange Robed figure cutting their palm over a screaming dragon egg. The origin of the Corvinarus power.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -1537,7 +1537,7 @@
     },
     "title": "The Delicate Fairy",
     "description": "The party meets Aurelian Corvinarus in the overgrown Master Bedroom. She plays the role of a delicate host, asking for the Satyrs to be removed.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Social"
   },
   {
@@ -1550,7 +1550,7 @@
     },
     "title": "The Broken Circle",
     "description": "Toad Lee identifies a broken magic circle under the rug. He estimates it will take 4 days to repair—aligning with the end of the month.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -1576,7 +1576,7 @@
     },
     "title": "Luigi's Entrance",
     "description": "A bump is heard at a nearby door. It opens, revealing Luigi to the group.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Social"
   },
   {
@@ -1602,7 +1602,7 @@
     },
     "title": "Perrius Anamatur Melts",
     "description": "Perrius Anamatur dissolves a spectral dancer that had attacked Markop, melting into his skin.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -1615,7 +1615,7 @@
     },
     "title": "Toadburt Flees",
     "description": "Toadburt escapes to another room, dodging guards and avoiding attacks.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -1628,7 +1628,7 @@
     },
     "title": "Salam Prepares Breach",
     "description": "Salam runs to the door to breach, fails, and readies his light crossbow.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Combat"
   },
   {
@@ -1641,7 +1641,7 @@
     },
     "title": "Onyx Knights Swarm",
     "description": "Onyx knights swarm the dance hall, ambushing the remaining characters.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Combat"
   },
   {
@@ -1654,7 +1654,7 @@
     },
     "title": "Onyx Knight Threatens Eager",
     "description": "An Onyx knight threatens to turn Eager into a vampire for faster healing. Eager protests, bites the knight's hand, and flees.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Combat"
   },
   {
@@ -1680,7 +1680,7 @@
     },
     "title": "Eager's Window Escape",
     "description": "Eager dashes past them and crashes through a window to escape. Markop clears the broken glass to help Remi follow.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -1693,7 +1693,7 @@
     },
     "title": "Remi Follows Guards",
     "description": "Remi runs out the front door, is intercepted by guards, and complies. Bowser, Dan, and Salam scatter through other exits.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1706,7 +1706,7 @@
     },
     "title": "Remi Dragged…",
     "description": "The escaping group watches Remi get dragged back into the manor. Markop suggests falling back to the airship for backup.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -1719,7 +1719,7 @@
     },
     "title": "Questioning Dan",
     "description": "Markop questions Dan's authenticity. Dan admits he doesn't know how to prove he's real, raising deep suspicions.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1732,7 +1732,7 @@
     },
     "title": "Kyrn Offers Drink",
     "description": "Kyrn approaches captured Remi, revealing the Oracle is dead. He claims her friends abandoned her and attempts to manipulate her loyalty.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Social"
   },
   {
@@ -1758,7 +1758,7 @@
     },
     "title": "Parallel Dan Confession",
     "description": "In the forest, Dan confesses to Markop that he is a parallel version. He suspects the original Dan is held by the Mages Guild in a null cage.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -1771,7 +1771,7 @@
     },
     "title": "Ritual & Oracle Details",
     "description": "The party discusses the collapsing reality and the previously failed Oracle, confirming Dan's disrupting role in protecting himself.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -1810,7 +1810,7 @@
     },
     "title": "Veranda & Maze Sign",
     "description": "Remi regroups with Markop on a veranda viewing the void. Chased by Vivian, they follow a 'MAZE THIS WAY' sign to escape.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -1823,7 +1823,7 @@
     },
     "title": "Toadsmith Guard Offers Lodging (Flashback)",
     "description": "A Mages Guild guard offers safe passage and beds to Toadsmith Poultice and Embercap. The toads get cold feet and leave.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1862,7 +1862,7 @@
     },
     "title": "Bryan Recruits Purple T (Flashback)",
     "description": "Bryan seeks out Purple T, recognizing his theft skills, and proposes an alliance to target Archie.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1888,7 +1888,7 @@
     },
     "title": "Recruiting Dan & Mage (Flashback)",
     "description": "Purple T and Bryan wake Dan. Bryan introduces himself as a servant of the toad god and coerces Dan and another mage to join a revenge mission against Archie.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1901,7 +1901,7 @@
     },
     "title": "Knockout Incense Candles (Flashback)",
     "description": "Purple T reveals a plan to use rare divination incense to knock Archie out. The smoke forces a constitution save to maintain concentration.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Discovery"
   },
   {
@@ -1914,7 +1914,7 @@
     },
     "title": "Closet Hide & Disguise Exit",
     "description": "Archie and Luigi hide in a mildewed coat closet before escaping. Archie disguises himself as an Iron Legion guard to guide Luigi back inside, slipping past the Mages Guild.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -1927,7 +1927,7 @@
     },
     "title": "Missing Toad Quest",
     "description": "A guard approaches Archie with a cryptic message regarding the nightborn house decree and offers a quest to locate a missing toad.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1966,7 +1966,7 @@
     },
     "title": "Byscilla's Discovery",
     "description": "Archie and Bones use a stolen water-powered fan to cool themselves. Byscilla Danos discovers them, confiscates the fan, and drags Bones away after confronting Archie.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Faction Event"
   },
   {
@@ -1992,7 +1992,7 @@
     },
     "title": "Ration Break with Thornbury",
     "description": "Archie and Luigi take a ration break. They converse with a Mages Guild guard named Thornbury about checking the remaining rooms.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -2031,7 +2031,7 @@
     },
     "title": "Goblin Guard Encounter",
     "description": "Hjumpik and Toad Lee encounter a goblin guard in the manor. After a brief scuffle, they manage to convince him to let them pass and loot his area.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Recent Event"
   },
   {
@@ -2044,7 +2044,7 @@
     },
     "title": "Spy in Sitting Room",
     "description": "Archie encounters the earlier spy in a ransacked sitting room. The spy evades questions about the ghosts, claiming he is busy looking for a toad.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -2070,7 +2070,7 @@
     },
     "title": "Gray Stone Pendant",
     "description": "A smooth, slightly warm gray stone in a brass pendant frame pulsing with faint inner light is found, bearing archaic inscriptions used to mark locations.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Discovery"
   },
   {
@@ -2096,7 +2096,7 @@
     },
     "title": "Collapsed Floor Room",
     "description": "The floor above is partially collapsed, acting as a dangerous ramp. Thornbury spots the initials 'OC' and 'AC' carved into a bedframe and smells incense from upstairs.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -2109,7 +2109,7 @@
     },
     "title": "Climbing Attempt Failures",
     "description": "Archie volunteers to climb the collapsed roof but repeatedly falls onto a Mages Guild observer. They eventually use a rope to ascend.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -2135,7 +2135,7 @@
     },
     "title": "Twilight Encounter",
     "description": "The group faces hunched, gray-skinned mazebounds in a twilight grove filled with shadow crows and cursed artifacts. Dan suspects one may be Archie, and the battle escalates as the grove’s horrors intensify.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -2148,7 +2148,7 @@
     },
     "title": "Agent L & Guild Encrypted Talk",
     "description": "Archie eavesdrops on Luigi and a Guild member discussing the destabilizing planar fracture. They agree to extract the ghosts even if it destabilizes the area and potentially kills Archie. The rope snaps, alerting them to Archie's presence.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -2187,7 +2187,7 @@
     },
     "title": "Waking Up After Injury",
     "description": "Archie wakes up hours later to find Agent L and Thornbury watching over him. They claim the Mages Guild brought him to safety.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -2200,7 +2200,7 @@
     },
     "title": "Purple Toad Fortune Teller",
     "description": "A Purple Toad enters and sings a cryptic fortune-telling song ('Shuffle the Deck, Dear Hero'). While singing, he picks Archie's pockets, asks about planar portals, opens one using Archie's stolen compass, and steps through.",
-    "icon": "icon_magic.png",
+    "icon": "assets/icons/icon_magic.png",
     "category": "Recent Event"
   },
   {
@@ -2230,7 +2230,7 @@
     },
     "title": "Speaker L's Vow",
     "description": "Speaker L chants a grim, rhythmic anthem reflecting his new, ruthless ideology following the Aegis Command massacre. He vows to hunt the imposter who wore his face. A guard interrupts, revealing that Raventree Manor is jointly controlled by the Guild and Legion, and the Vigilance has been renamed the 'Legionlance'.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Recent Event"
   },
   {
@@ -2243,7 +2243,7 @@
     },
     "title": "Infiltrating Raventree",
     "description": "Navigating thorny windows in the pitch black, Bones and Speaker L sneak into Raventree Manor. Bones captures a toad named Lucky T, who works for Speaker L, and subsequently knocks out a guard in the library to secure their path.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -2269,7 +2269,7 @@
     },
     "title": "Assassination Attempt Thwarted",
     "description": "The mole sprints into Archie's recovery room, leaping to assassinate him. Bones tackles the attacker mid-air, saving Archie. Luigi arrives and flashes his Poltergust light, scaring the remaining threats away.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -2282,7 +2282,7 @@
     },
     "title": "Hargram's Proposition",
     "description": "Tensions flare between Bones, Archie, and Lucky T, prompting Lucky T to leave. Shortly after, Hargram Fidger of the local Legion chapel approaches to offer Archie an alliance. Archie refuses, citing his recovery, while Thornbury warns of planar instability and incoming Guild reinforcements.",
-    "icon": "icon_social.png",
+    "icon": "assets/icons/icon_social.png",
     "category": "Social"
   },
   {
@@ -2364,7 +2364,7 @@
     },
     "title": "Bryan's Riot",
     "description": "On a prison island near the Forgotten Temple of Stars, Bryan incites a massive prison riot to cover his infiltration. He battles Legion guards at 'Grilly's Bar,' witnessing the cruelty of the penal colony, and chops off a guard's arm before proceeding to the temple.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Recent Event"
   },
   {
@@ -2420,7 +2420,7 @@
     },
     "title": "Bowser drags Markop away from danger",
     "description": "Bowser chases after someone and drags Markop along, claiming they are running from an enemy. Markop is confused about the situation.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -2433,7 +2433,7 @@
     },
     "title": "An axe is thrown…",
     "description": "While hiding, an axe is thrown at the door, indicating their pursuer is trying to break in.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -2446,7 +2446,7 @@
     },
     "title": "Vinvessa enters the room with blinding",
     "description": "Vinvessa enters the room, creating blinding smoke. Markop deflects it and goes outside to face her.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -2459,7 +2459,7 @@
     },
     "title": "Markop battles Vinvessa",
     "description": "A battle ensues between Markop and Vinvessa. Bowser knocks Markop unconscious, but he recovers and fights back.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -2472,7 +2472,7 @@
     },
     "title": "Vinvessa casts a red beam of disintegration at Markop, nearly killing him",
     "description": "Vinvessa casts a red beam of disintegration at Markop, nearly killing him. He survives due to divine intervention.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -2524,7 +2524,7 @@
     },
     "title": "Remi searches for Markop's body with the toads, encountering Pierce Anamatar and Kyrn along…",
     "description": "Remi searches for Markop's body with the toads, encountering Pierce Anamatar and Kyrn along the way.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -2537,7 +2537,7 @@
     },
     "title": "Remi discovers Toadburt in a library",
     "description": "Remi finds Toadburt and Pierce Anamatar in a library. Toadburt mentions he has a meeting with the Archivist.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -2628,7 +2628,7 @@
     },
     "title": "Purple Toad is kidnapped by Shadowfell",
     "description": "The purple toad is apprehended by Shadowfell guards for practicing magic within the estate.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -2641,7 +2641,7 @@
     },
     "title": "Remi is taken to the infirmary",
     "description": "Remi is escorted to the infirmary by guards, who claim they need to examine her.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -2693,7 +2693,7 @@
     },
     "title": "Hargram's team discovers a lone rust",
     "description": "While surveying the greenhouse, Hargram's team encounters a lone rust monster. They ambush and defeat it.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle",
     "people": [
       "Hargram Fidger",
@@ -2733,7 +2733,7 @@
     },
     "title": "The party encounters and defeats a ghost",
     "description": "While analyzing the site, the party encounters a ghost. They defeat it and loot its ectoplasm.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle",
     "people": [
       "Hargram Fidger",
@@ -2813,7 +2813,7 @@
     },
     "title": "Mazehounds enter the room and sing",
     "description": "Mazehounds enter the room and sing a menacing song, asking for Vivian's opinion. They seem to be under Vivian's control.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle",
     "people": [
       "Vivian",
@@ -2833,7 +2833,7 @@
     },
     "title": "Markop stabs Vivian in the chest",
     "description": "Tension reached its peak in Vivian's manor as Markop, consumed by rage, lunged forward and plunged his blade into Vivian's chest. The nobleman crumpled to the floor, his interrogation abruptly silenced by the fatal blow. Vivian's death marked a tragic turning point in the investigation, leaving many questions unanswered.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -2846,7 +2846,7 @@
     },
     "title": "Bowser and Markop burn Vivian's body",
     "description": "They dispose of Vivian's body by burning it and burying the ashes. A guard helps them with the burial.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event",
     "people": [
       "Markop",
@@ -2885,7 +2885,7 @@
     },
     "title": "Markop finds a letter from Bowser",
     "description": "While searching, Markop discovers a crumpled letter from Bowser to Princess Peach, revealing his complicated feelings and attempts to explain his presence.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery",
     "people": [
       "Markop",
@@ -2904,7 +2904,7 @@
     },
     "title": "Bowser trips and falls on Markop",
     "description": "Upstairs, Bowser lost his balance and tumbled onto Markop with a resounding thump. The impact sent both characters sprawling, momentarily stunned by the unexpected collision. Markop, caught off guard, yelped in surprise as he was pinned beneath Bowser's considerable weight.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -2966,7 +2966,7 @@
     },
     "title": "An Onyx Hand guard 'accidentally' inj",
     "description": "While Markop is examining Remi's eyes, an Onyx Hand guard 'trips' and cuts her eye.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event",
     "people": [
       "Remi",
@@ -2984,7 +2984,7 @@
     },
     "title": "Onyx Hand guards strategically…",
     "description": "As Remi, Markop, and Bowser cautiously explored the dimly lit catacombs beneath the city, they were suddenly surrounded by Onyx Hand guards. The guards fanned out, their movements silent and precise, effectively cutting off any chance of escape as they formed a tight perimeter around the trio. This unexpected ambush left Remi and her companions trapped, with no clear way forward or retreat.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -3080,7 +3080,7 @@
     },
     "title": "The Toad steals a note…",
     "description": "While Bowser was distracted, Toad stealthily snatched a note from his grasp, revealing a plot to deceive the Koopa King. This act of betrayal exposed the Toads' true intentions and cast doubt on their trustworthiness.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -3110,7 +3110,7 @@
     },
     "title": "Remi and her companions search for Archie at the airship",
     "description": "The group heads to the airship in search of Archie, who is described as being mentally unstable.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event",
     "people": [
       "Remi",
@@ -3163,7 +3163,7 @@
     },
     "title": "Remi enters the workshop",
     "description": "Remi pushed open the creaking door to the workshop, finding herself alone in a dimly lit space filled with an unsettling array of artifacts. Strange contraptions whirred softly, and dusty tomes lay open on cluttered workbenches, their pages filled with arcane symbols. The air hung heavy with the scent of ozone and something faintly metallic, hinting at experiments both wondrous and dangerous.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -3176,7 +3176,7 @@
     },
     "title": "Hjumpik and Toad Lee enter the manor, passing satyrs who offer drinks but are declined",
     "description": "Hjumpik and Toad Lee enter the manor, passing satyrs who offer drinks but are declined.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -3228,7 +3228,7 @@
     },
     "title": "Wario presents Hjumpik with a detailed",
     "description": "Wario presents Hjumpik with a detailed ledger of debts owed to him, including humorous and threatening entries.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3241,7 +3241,7 @@
     },
     "title": "Toad Lee shouts 'HEY WE FOUND",
     "description": "Toad Lee shouts 'HEY WE FOUND THE CANONBALL' after spotting it near a guard.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3254,7 +3254,7 @@
     },
     "title": "Hjumpik sees Wario shoulder-bash two",
     "description": "Hjumpik sees Wario shoulder-bash two people, then asks if they're okay.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3280,7 +3280,7 @@
     },
     "title": "Toad Lee and the guard fail",
     "description": "Toad Lee and the guard fail to free Canonball after being affected by a toxin from mushrooms.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3293,7 +3293,7 @@
     },
     "title": "Wario uses a garlic clove as a weapon, causing others to recoil and question his motives",
     "description": "Wario uses a garlic clove as a weapon, causing others to recoil and question his motives.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3319,7 +3319,7 @@
     },
     "title": "Hjumpik discovers a secret passage after",
     "description": "Hjumpik discovers a secret passage after the steel machine paws at the wall.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3358,7 +3358,7 @@
     },
     "title": "Hjumpik and Steely enter a staff",
     "description": "Hjumpik and Steely enter a staff room where they encounter The Revel, a chaotic, monstrous entity made of hunger and debauchery.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3397,7 +3397,7 @@
     },
     "title": "Hjumpik learns that the vines in the room were used to trap a dwarf, who was rescued by his…",
     "description": "Hjumpik learns that the vines in the room were used to trap a dwarf, who was rescued by his friends.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3423,7 +3423,7 @@
     },
     "title": "A very large blast is heard",
     "description": "A very large blast is heard in another room.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3436,7 +3436,7 @@
     },
     "title": "Hjumpik quickly goes down in response",
     "description": "Hjumpik quickly goes down in response to the explosion.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3449,7 +3449,7 @@
     },
     "title": "Relos realizes the keg is empty",
     "description": "Relos realizes the keg is empty.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3462,7 +3462,7 @@
     },
     "title": "Archie opens a bathroom door and is struck by a green thunderbolt fire",
     "description": "Archie opens a bathroom door and is struck by a green thunderbolt fire.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3475,7 +3475,7 @@
     },
     "title": "Archie shatters a mirror, freeing a creature that scurries away",
     "description": "Archie shatters a mirror, freeing a creature that scurries away.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3501,7 +3501,7 @@
     },
     "title": "Archie fires a fireball through a shattered window, killing a spider",
     "description": "Archie fires a fireball through a shattered window, killing a spider.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3514,7 +3514,7 @@
     },
     "title": "A spider leaves a strange footprint",
     "description": "A spider leaves a strange footprint on a blue bed, suggesting it stepped through a wall.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3527,7 +3527,7 @@
     },
     "title": "Archie and Bones arrive at a party guarded by the Regency",
     "description": "Archie and Bones arrive at a party guarded by the Regency.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -3540,7 +3540,7 @@
     },
     "title": "A ghost flies through the wall",
     "description": "A ghost flies through the wall as the battle begins.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3553,7 +3553,7 @@
     },
     "title": "Darno Spriggon battles a splitting sl",
     "description": "Darno Spriggon battles a splitting slime, laughing at its fate.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3566,7 +3566,7 @@
     },
     "title": "A giant mech crashes through the ceiling, declaring 'lets go bro bot'",
     "description": "A giant mech crashes through the ceiling, declaring 'lets go bro bot'.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3579,7 +3579,7 @@
     },
     "title": "Archie discovers a destabilization ev",
     "description": "Archie discovers a destabilization event in a protected magical zone.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3592,7 +3592,7 @@
     },
     "title": "A new villain emerges, demanding the party defeat them",
     "description": "A new villain emerges, demanding the party defeat them.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3605,7 +3605,7 @@
     },
     "title": "The mole battles a new figure",
     "description": "The mole battles a new figure, laughing about who's in charge.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3618,7 +3618,7 @@
     },
     "title": "Spectral Fury Unleashed",
     "description": "A chill wind swept through the room as Thunder, a malevolent specter, materialized before Archie. With a mournful wail, it lunged, spectral claws outstretched. Archie barely dodged the attack, his heart pounding against his ribs. Fear clawed at him, but he stood firm, steeling himself for the impending confrontation.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3631,7 +3631,7 @@
     },
     "title": "Fireball's Uncontrollable Fury",
     "description": "Archie unleashed a fireball, intending to drive back the spectral threat. But the spell spiraled out of control, engulfing the room in an inferno. Flames danced wildly, consuming everything in their path. Panic seized Archie as he realized his mistake - his own power had turned against him.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3644,7 +3644,7 @@
     },
     "title": "A Momentary Halt Amidst Ruin",
     "description": "The chamber groaned under the weight of collapsing debris, threatening to bury Archie alive. But just as the ceiling seemed poised to fall, Nine Fingers Klee leapt into action, grabbing Archie and pulling him free from harm's way. With a desperate cry, Archie summoned his remaining energy and unleashed a Freeze Ray, halting the descent of the rubble.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3670,7 +3670,7 @@
     },
     "title": "Spectral Shadows in Ruins",
     "description": "A wave of icy dread washed over the party as The Mole, eyes gleaming with malicious glee, snapped his fingers. Flickering lights pierced the gloom of the ruined manor, illuminating a spectral legion at his command. Ghosts, translucent and malevolent, materialized from the dust and shadows, their ethereal moans echoing through the dilapidated halls. Archie felt a chill crawl down his spine; he'd not encountered such raw necromantic power in years. The Mole cackled, \"Some friends will keep you company,\" before vanishing into the darkness, leaving behind a chorus of ghostly wails.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3683,7 +3683,7 @@
     },
     "title": "Brobot's Taunting Onslaught",
     "description": "A metallic screech split the air as Brobot, eyes glowing red, descended upon the party. \"Whoa there! Fancy meeting you here,\" he boomed, his voice distorted and robotic. He playfully squashed a slime creature, its body splitting into two more, showcasing a disturbing strength. Archie retorted, \"I don't see how that proves your strength. Care to explain?\" Brobot laughed, a grating metallic clang, before unleashing a barrage of taunts aimed at unnerving the adventurers.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3696,7 +3696,7 @@
     },
     "title": "Archie's Desperate Gambit",
     "description": "Archie felt a tightening in his chest, a sense of urgency pushing him to act. His mind raced; the Oracle was nowhere to be seen. He focused his arcane energy, channeling it into a devastating burst that shattered a wall with bone-jarring force. Dust and debris rained down as ghostly figures, alerted by the sudden commotion, swarmed towards the breach. \"I haven't seen the Oracle in a while,\" Archie muttered, fear mingling with determination.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3709,7 +3709,7 @@
     },
     "title": "Green Thunder's Ruthless Blow",
     "description": "A thunderous roar shook the ground as Green Thunder landed before Bones. With a casual swipe of its colossal fist, it sent the usually agile adventurer crashing into the debris. The impact was brutal and swift, leaving Bones unconscious in a cloud of dust. Archie and Nine Fingers exchanged worried glances; they had underestimated the raw power of their new foe.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3722,7 +3722,7 @@
     },
     "title": "Metal Meets Magic: A Laser Duel",
     "description": "Archie raised his hands, arcane energy crackling around his fingertips, as Brobot whirred and charged its laser cannon. A beam of pure energy shot towards Archie, forcing him to duck behind a crumbling wall, the air sizzling where he had stood moments before. He retaliated with a torrent of firebolts, each one exploding harmlessly against Brobot’s metallic hide. The automaton remained unfazed, its single red eye glowing menacingly as it stalked closer, its metal limbs clanging against the debris-strewn floor.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3735,7 +3735,7 @@
     },
     "title": "Bystall's Binding: A Spell Silences L",
     "description": "The air crackled with power as Bystall raised her hand, a swirling vortex of energy forming above Mr. L's head. The notorious agent attempted to dodge, but the spell was swift and merciless, binding him in shimmering chains of pure magic. His eyes widened in surprise, his usual smugness replaced by a flicker of fear as he struggled against the invisible restraints. Bystall’s voice, cold and firm, echoed through the room, “Your schemes end here, Mr. L.”",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3774,7 +3774,7 @@
     },
     "title": "The Waterfall's Hidden Secret",
     "description": "Curiosity led Remi and Bowser to investigate a cascading waterfall. As Bowser playfully tossed a Toad into the rushing water, the stone wall behind it gave way, revealing a submerged passage. Remi, hesitant to get wet, stayed behind while Bowser, with a gruff 'mandatory babysitting,' urged Eager and Salam into the concealed entrance. The air hung heavy with anticipation as they vanished into the cool darkness.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3800,7 +3800,7 @@
     },
     "title": "Chaos Engulfs the Structure",
     "description": "A deafening explosion ripped through the building, sending shockwaves that echoed through the halls. Screams pierced the air as flames erupted, casting an eerie crimson glow upon the panicked faces of those caught in the inferno. Remi, Eager and Salam scrambled for safety, their escape hampered by the spreading chaos and thick smoke.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3813,7 +3813,7 @@
     },
     "title": "A Fiery Assault",
     "description": "In a desperate struggle for survival, Dan found himself targeted by a colossal fireball. The searing inferno engulfed him, sending him reeling as Bowser roared in defiance, shielding the injured Dan from further harm.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3826,7 +3826,7 @@
     },
     "title": "The Shadow in Dan's Reflection",
     "description": "Dan Real awoke with a chilling sense of wrongness. His reflection in the polished armor did not feel like his own. The eyes staring back held a coldness he didn't recognize. Panic clawed at him as he reached out, his hand passing through the image like it was smoke. A deep voice echoed in his mind, \"Welcome home, Dan Real.\" Archie's insidious laughter followed, confirming the horrifying truth: Dan had been replaced by an imposter.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3839,7 +3839,7 @@
     },
     "title": "Markop Uncovers Archie's Sinister Plan",
     "description": "Poring over ancient tomes in the Guild library, Markop stumbled upon a hidden inscription within Archie's 'Third Eye Volume 1.' The inscription detailed Archie's ambition to seize control of the mages guild and bend its power to his will. A cold dread settled over Markop as he realized the true nature of the charismatic archmage. Archie wasn't simply seeking knowledge, he craved dominion.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3865,7 +3865,7 @@
     },
     "title": "Eager's Captivity and Corruption",
     "description": "Eager, once a jovial and carefree spirit, had been lured into the clutches of the Church of the Third Eye. They promised him power and enlightenment, but instead subjected him to relentless indoctrination and brainwashing. His vibrant personality faded, replaced by a chilling devotion to the Church's sinister agenda. Eager became a puppet, his will forever severed from his true self.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3878,7 +3878,7 @@
     },
     "title": "A Weary March Back to Safety",
     "description": "The journey back to the manor was a somber one. Bowser, despite his gruff exterior, moved with a heavy tread, his usual boisterous energy subdued. Dan Real, haunted by the recent revelations and the cryptic message from the three-eyed figure, kept his gaze fixed on the ground, lost in thought. Markop, ever the pragmatic leader, urged them onward, reminding them of the need for rest and regrouping after their harrowing exploration. A thick silence hung over the group, broken only by the crunch of gravel beneath their feet as they made their weary way back to the familiar sanctuary.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Recent Event"
   },
   {
@@ -3904,7 +3904,7 @@
     },
     "title": "The Fatal Shot and Chaotic Retreat",
     "description": "A sudden, violent crack of a musket shattered the heavy silence of the bay, striking the captain dead and sending her plunging into the pristine waters. As the group attempted to paddle closer to the wreckage, they were met with a devastating volley of gunfire from every direction, realizing they were outnumbered four to one. The frantic retreat through the spray was fueled by pure survival instinct as the ships began to splinter under the relentless onslaught.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -3930,7 +3930,7 @@
     },
     "title": "The Metamorphosis in the Private Chambers",
     "description": "Within the secluded stillness of the private chambers, Toad Lee and Hjumpik bore witness to a phenomenon that defied the natural laws of the Faewild. They observed a strange creature undergoing a terrifying transformation, its vibrant green hue draining away into a menacing, abyssal dark purple. This sudden, eerie shift in color left both explorers paralyzed by the unsettling sight of such predatory magic unfolding before their eyes.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3943,7 +3943,7 @@
     },
     "title": "The Growing Terror of Ol Burley",
     "description": "Under the shifting twilight of the Feywild, Toad Lee, Hjumpik, and Sedeai gathered in hushed tones to debate the horrifying nature of the entity known as Ol Burley. They spoke in terrified whispers of a creature that does not merely hunt, but expands its very mass by consuming everything in its path. The air grew heavy with dread as they realized that every swallowed morsel only serves to fuel its insatiable, ever-expanding hunger.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3969,7 +3969,7 @@
     },
     "title": "Shadows Dancing Beyond the Manor Windows",
     "description": "Waluigi, Hjumpik, and Toad Lee crept through the dense undergrowth and peered through manor windows, attempting a perilous reconnaissance of the estate. They moved with agonizing slowness, ducking behind thick bushes to evade the watchful eyes of the patrolling guards. Every snapping twig felt like a thunderclap in the silence, heightening the frantic pulse of their desperate scouting mission.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -3995,7 +3995,7 @@
     },
     "title": "The Sentient Bloom of the Waterfall Room",
     "description": "Amidst the rhythmic splashing of the humid waterfall fountain, Hjumpik and Toad Lee were performing their routine cleaning when a peculiar anomaly emerged from the damp shadows. Hjumpik brushed aside some moss to reveal a strange, pulsing pink flower that possessed an unsettling, sentient quality. As they watched in breathless silence, the petals twitched with intent, appearing to track their every movement like a predatory eye. The air in the room grew heavy with sudden dread as the duo realized they were no longer alone in the sanctuary.",
-    "icon": "icon_focus.png",
+    "icon": "assets/icons/icon_focus.png",
     "category": "Discovery"
   },
   {
@@ -4047,7 +4047,7 @@
     },
     "title": "The Unbidden Intrusion Upon…",
     "description": "The heavy silence of the chamber was shattered when a frenzied, unnamed beast slammed its massive weight against the door, splintering the wood with primal fury. Waluigi stood frozen in the sudden breach, his knuckles whitening as he gripped his tennis racket like a makeshift blade. The air grew thick with the scent of ozone and terror as the monster's shadow loomed over him, marking the start of a desperate struggle for survival.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -4060,7 +4060,7 @@
     },
     "title": "The Desperate Skirmish at the Frontline",
     "description": "With steel drawn and hearts racing, Garud and Arulean pressed forward into the fray, closing the distance toward the towering monstrosity. Behind them, Toad Lee braced himself, eyes fixed on the beast's movements as he prepared to launch a preemptive strike. The battlefield was a cacophony of clashing metal and heavy breathing, a moment of pure, unadulterated tension where a single misstep meant certain death.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -4073,7 +4073,7 @@
     },
     "title": "The Consumption of the Butler",
     "description": "A terrifying display of fae sorcery unfolded as the monster unleashed a shimmer of glittering, ethereal magic to ensnare a hapless butler. With a sickening surge of arcane energy, the beast lifted the servant into the air and consumed him whole, absorbing his very essence. Arulean watched in paralyzed horror as the creature's muscles swelled and its eyes glowed with newfound, predatory strength.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -4086,7 +4086,7 @@
     },
     "title": "The Canine Distraction of Hjumpik",
     "description": "In a frantic bid to divert the beast's murderous attention, Hjumpik signaled to Steely, commanding the loyal hound to unleash a deafening barrage of barks. The dog’s frantic yapping echoed through the chaos, creating a momentary auditory shroud that momentarily confused the oncoming monster. This desperate gambit provided a fleeting window of opportunity, though the weight of the approaching threat remained palpable.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -4099,7 +4099,7 @@
     },
     "title": "The Piercing Chill of Waluigi's Strike",
     "description": "Amidst the swirling chaos and the cacophony of clashing steel, Waluigi lunged through the gloom with a desperate, predatory grace. With a guttural cry that was lost to the roar of battle, he drove a jagged ice pick deep into the monster's pulsating flesh. The beast let out a wet, shuddering groan as the freezing metal bit into its essence, momentarily stalling its advance. In that fleeting moment of impact, the air seemed to freeze, leaving only the scent of iron and the frantic heartbeat of a survivor.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   },
   {
@@ -4112,7 +4112,7 @@
     },
     "title": "The Unyielding Bravery of Toad Lee",
     "description": "As the monstrous shadow loomed over the fray, Toad Lee cast aside all instinct for self-preservation to meet the horror head-on. With eyes ablaze with a frantic courage, he charged into the center of the carnage, his bare hands clenched into trembling fists. There was no weapon but his own raw resolve as he threw himself against the creature's overwhelming mass in a futile yet magnificent display of heroism. The surrounding combatants watched in stunned silence, momentarily breathless by the sheer audacity of such a small soul facing a titan.",
-    "icon": "icon_war.png",
+    "icon": "assets/icons/icon_war.png",
     "category": "Battle"
   }
 ]

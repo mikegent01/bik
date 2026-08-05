@@ -3,7 +3,7 @@
 export const SPACE_CODES = {
     custodians_of_causality: {
         name: "The Axiomatic Code",
-        logo: "icon_focus.png",
+        logo: "assets/icons/icon_focus.png",
         description: "The absolute and unchanging legal and physical code that governs the Custodians. It is based on the fundamental laws of the universe as they perceive them. Deviation is not just illegal; it is a corruption of reality itself.",
         supporters: ['oathbound_judges', 'regal_empire'],
         opponents: ['cosmic_jesters'],

@@ -33,11 +33,11 @@ export function renderRebelClansSystem() {
         <div class="system-content rebel-clans-system">
             <div class="war-council-lists">
                 <div class="council-list allies">
-                    <h5><img src="icon_reputation.png"> Known Allies</h5>
+                    <h5><img src="assets/icons/icon_reputation.png"> Known Allies</h5>
                     <ul>${alliesHTML}</ul>
                 </div>
                 <div class="council-list enemies">
-                    <h5><img src="icon_focus.png"> Primary Enemies</h5>
+                    <h5><img src="assets/icons/icon_focus.png"> Primary Enemies</h5>
                     <ul>${enemiesHTML}</ul>
                 </div>
             </div>
