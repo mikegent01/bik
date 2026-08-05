@@ -55,7 +55,7 @@ const JS_DEPENDENCIES = {
     // Quests
     'quests.html': [
         'quests.js', 'quests-data.js', 'quests-data-1.js', 
-        'quests-constants.js', 'quests-helpers.js', 'bounty-quests-data.js'
+        'data/quest-system/constants.js', 'app/pages/quests/quests-helpers.js', 'bounty-quests-data.js'
     ],
     
     // Maps
