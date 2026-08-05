@@ -1,6 +1,6 @@
-import { BATTLE_MAP_DATA } from './map-battle-data.js';
-import { LORE_DATA } from './lore.js';
-import { FACTION_COLORS } from './factions/faction-colors.js';
+import { BATTLE_MAP_DATA } from '../../../map-battle-data.js';
+import { LORE_DATA } from '../../../lore.js';
+import { FACTION_COLORS } from '../../../factions/faction-colors.js';
 import * as map from './maps.js';
 import * as ui from './map-ui.js';
 import { hasSufficientIntel } from './map-utils.js';

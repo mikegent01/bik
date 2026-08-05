@@ -1,9 +1,9 @@
 
 // maps-data-loader.js
 
-import { QUEST_DATA } from './data/quest-system/index.js';
-import { MAP_DATA } from './map-data.js';
-import { REGIONAL_DEMOGRAPHICS, SPECIES_DATA } from './species-data.js';
+import { QUEST_DATA } from '../../../data/quest-system/index.js';
+import { MAP_DATA } from '../../../map-data.js';
+import { REGIONAL_DEMOGRAPHICS, SPECIES_DATA } from '../../../species-data.js';
 
 // Mapping between the `data-world` attribute in maps-1.html and the group keys in REGIONAL_DEMOGRAPHICS
 const WORLD_TO_GROUP = {

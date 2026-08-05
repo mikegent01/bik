@@ -1,8 +1,8 @@
-import { playSound } from './common.js';
+import { playSound } from '../../../common.js';
 import * as map from './maps.js';
 import * as renderer from './map-renderer.js';
-import { MAP_DATA, BUILDING_TYPES } from './map-data.js';
-import { LORE_DATA } from './lore.js';
+import { MAP_DATA, BUILDING_TYPES } from '../../../map-data.js';
+import { LORE_DATA } from '../../../lore.js';
 
 // DOM Elements
 const displayArea = document.getElementById('map-display-area');

@@ -1,12 +1,12 @@
 // maps.js - Main map module entry point
 
-import { state, loadState, saveState } from './state.js';
+import { state, loadState, saveState } from '../../../state.js';
 import * as ui from './map-ui.js';
 import * as renderer from './map-renderer.js';
 import * as editor from './map-editor.js';
 import * as transform from './map-transform.js';
-import { playSound } from './common.js';
-import { MAP_DATA } from './map-data.js';
+import { playSound } from '../../../common.js';
+import { MAP_DATA } from '../../../map-data.js';
 
 // ============================================================================
 // STATE
