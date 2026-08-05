@@ -49,7 +49,7 @@ export const DEMOCRATIC_CODES = {
     },
     beanbean_kingdom: {
         name: "The Chuckola Charter",
-        logo: "assets/icons/icon_focus.png",
+        logo: "assets/icons/actions/focus",
         description: "The legal and social framework of the Beanbean Kingdom, which places a high value on humor, art, and good-natured commerce.",
         supporters: ['mushroom_regency'],
         opponents: ['fawfuls_furious_freaks'],
@@ -82,7 +82,7 @@ export const DEMOCRATIC_CODES = {
     },
     yoshi_clans: {
         name: "The Yoshi's Island Accords",
-        logo: "assets/icons/icon_focus.png",
+        logo: "assets/icons/actions/focus",
         description: "A simple, ancient set of traditions that govern the peaceful Yoshi Clans. The accords prioritize the well-being of the young, the sharing of fruit, and communal defense.",
         supporters: ['mushroom_regency', 'dk_crew'],
         opponents: ['koopa_troop'],

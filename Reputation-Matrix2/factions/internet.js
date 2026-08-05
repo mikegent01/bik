@@ -4,7 +4,7 @@ export const INTERNET_FACTIONS = {
     internet_federation: {
         name: "The Internet Federation",
         description: "The semi-official governing body of the Surface Web. A bureaucratic entity that attempts to maintain order, regulate data flow, and protect the integrity of its core systems through its powerful Anti-Virus Citadel and Moderator programs.",
-        logo: 'assets/icons/icon_world_assembly.png',
+        logo: 'assets/icons/navigation/world_assembly',
         relations: {
             allies: ['regal_empire'],
             enemies: ['hacktivist_collectives', 'cosmic_jesters', 'freelancer_underworld']

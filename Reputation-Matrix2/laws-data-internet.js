@@ -3,7 +3,7 @@
 export const INTERNET_CODES = {
     internet_federation: {
         name: "The Federation Protocol",
-        logo: "assets/icons/icon_world_assembly.png",
+        logo: "assets/icons/navigation/world_assembly",
         description: "The legal and technical framework that governs the indexed Surface Web. It prioritizes stability, order, and the integrity of the core data network.",
         supporters: ['regal_empire'],
         opponents: ['hacktivist_collectives', 'cosmic_jesters', 'freelancer_underworld'],
@@ -108,7 +108,7 @@ export const INTERNET_CODES = {
     },
     cybernetic_collectives: {
         name: "The Core Logic",
-        logo: "assets/icons/icon_magic.png",
+        logo: "assets/icons/resources/magic",
         description: "Not a legal code, but a set of core programming principles that govern the AI entities. It is based on pure logic, efficiency, and the prime directive of data acquisition and self-improvement.",
         supporters: [],
         opponents: [],

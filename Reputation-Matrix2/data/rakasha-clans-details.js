@@ -8,7 +8,7 @@ export const RAKASHA_DETAILS = {
         {
             id: 'spirit_walkers',
             name: 'Spirit-Walkers',
-            sigil: 'assets/icons/icon_spirit.png',
+            sigil: 'assets/icons/resources/spirit',
             philosophy: 'College of the Unseen',
             philosophy_desc: 'Believe that the balance of the physical and spiritual worlds is paramount. They are the shamans, healers, and keepers of ancestral knowledge who guide the clans with wisdom and foresight. The Spirit-Walkers maintain the sacred bond between the living and the dead.',
             extendedLore: 'The Spirit-Walkers trace their lineage to the first Rakasha who learned to hear the whispers of the departed. Their sacred groves contain bone chimes that have sung for centuries, each note carrying the voice of an ancestor. In times of crisis, the Spirit-Walkers perform the Rite of Seeing—a dangerous ritual that allows them to glimpse possible futures.',
@@ -61,7 +61,7 @@ export const RAKASHA_DETAILS = {
         {
             id: 'beast_riders',
             name: 'Beast-Riders',
-            sigil: 'assets/icons/icon_offense.png',
+            sigil: 'assets/icons/actions/offense',
             philosophy: 'College of the Claw',
             philosophy_desc: 'Hold that strength and martial prowess are the highest virtues. They are the warriors and protectors of the clans, forming deep bonds with their animal mounts and seeking glory in honorable combat. A Beast-Rider\'s mount is considered an extension of their soul.',
             extendedLore: 'The Beast-Riders emerged during the First Wars when the Rakasha needed defenders against expansion from the nascent kingdoms. They developed the sacred art of beast-bonding, a ritual that links rider and mount on a spiritual level. When one dies, the other often follows within days.',
@@ -107,7 +107,7 @@ export const RAKASHA_DETAILS = {
         {
             id: 'huntmasters',
             name: 'Huntmasters',
-            sigil: 'assets/icons/icon_scout.png',
+            sigil: 'assets/icons/resources/scout',
             philosophy: 'College of the Wild',
             philosophy_desc: 'Value survival, pragmatism, and a deep understanding of the natural world. They are the scouts, trackers, and providers who ensure the clans endure any hardship. The Huntmasters believe that adaptation is the highest form of wisdom.',
             extendedLore: 'The Huntmasters are the most numerous of the clans, though also the most dispersed. They maintain a network of hidden caches and safe houses across the continent, making them invaluable intelligence gatherers. Their tracking abilities are renowned—it is said a Huntmaster can follow a ghost through a rainstorm.',

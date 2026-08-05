@@ -165,7 +165,7 @@ function getCharacterData(characterKey) {
     const specialCases = {
         'wah_media_collective': {
             name: "WAH Media Collective",
-            portrait: 'assets/icons/icon_newspaper.png',
+            portrait: 'assets/icons/navigation/newspaper',
             faction: { name: "The Daily Paradox" },
             bio: "Official news network.",
             isDefined: true
