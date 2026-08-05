@@ -35,7 +35,7 @@ No files are being moved as part of this inventory. This document records what e
 |---|---|---|
 | Application shell dependencies | top level | 243 JS, 90 CSS, 83 HTML files at this level; needs later decomposition |
 | Shared data | `data/` | Characters, shop data, books, events, quests, vendors, and JSON records |
-| Quest data | `quests/`, `quests-data*.js`, `quests*.js` | Multiple generations and aggregators coexist |
+| Quest data | `quests/`, `data/quest-system/`, `quests-data-1.js` | Canonical aggregator/constants now live in `data/quest-system/`; legacy generations still require audit |
 | Event/story data | `events/`, `data/events*`, event JS files | Narrative and rendering responsibilities are mixed in places |
 | Maps | `map-data/`, map pages, `*map*.js` | Follow existing map grouping rules in README before moving |
 | Images | `portraits/`, `banners/`, `icons/`, `images/`, `textures/`, `assets/` | Several overlapping image roots |
