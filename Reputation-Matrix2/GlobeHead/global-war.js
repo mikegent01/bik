@@ -5,7 +5,7 @@ import { getRealTimeMapStats, getCuratedTerritoryList, getDetailedRegionStats, r
 import { CURRENT_GAME_DATE } from '.../data/world/calendar.js';
 import { MAP_DATA } from '../map-data.js';
 import { renderTerritoryDetailModal } from '../systems/mushroom-kingdom-system.js'; 
-import { showFactionModal } from '../faction-modal.js';
+import { showFactionModal } from '../app/components/factions/faction-modal.js';
 // ============================================
 // STATE
 // ============================================
