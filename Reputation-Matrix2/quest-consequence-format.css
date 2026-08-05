@@ -1,0 +1,12 @@
+/* Quest consequence cards: format decisions as readable, physical dossier entries. */
+.quest-consequence-fields{display:grid;gap:8px;margin-top:10px}
+.quest-consequence-field{padding:10px 12px 10px 14px;border-left:3px solid var(--accent2,#a77bff);border-radius:0 9px 9px 0;background:rgba(138,75,255,.08)}
+.quest-consequence-field p{margin:4px 0 0;color:var(--text,#f4efff);font-size:13px;line-height:1.5}
+.quest-consequence-label{display:block;color:var(--accent2,#c4a7ff);font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase}
+.quest-consequence-action{border-left-color:#f0b35b;background:rgba(240,179,91,.09)}
+.quest-consequence-action .quest-consequence-label{color:#ffd18a}
+.quest-consequence-result{border-left-color:#62c995;background:rgba(98,201,149,.08)}
+.quest-consequence-result .quest-consequence-label{color:#8be0b3}
+.quest-consequence-cost{border-left-color:#ef7187;background:rgba(239,113,135,.08)}
+.quest-consequence-cost .quest-consequence-label{color:#ff9cac}
+.quest-consequence-copy{margin:8px 0 0;line-height:1.55}
