@@ -238,7 +238,7 @@
         // LOAD
         async function loadItems(){
             try{
-                const r=await fetch('../../../data/commerce/Reputation-Matrix2/commerce/items.json');
+                const r=await fetch('../../../data/commerce/items.json');
                 if(!r.ok)throw new Error('HTTP '+r.status);
                 itemsData=await r.json(); init();
             }catch(e){
@@ -1404,7 +1404,7 @@
         <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
 
-    <script defer src="../../core/app/core/wario-site-sounds.js"></script>
-    <script defer src="../../styles/app/styles/waluipedia-ambient.js"></script>
+    <script defer src="../../core/wario-site-sounds.js"></script>
+    <script defer src="../../styles/waluipedia-ambient.js"></script>
 </body>
 </html>
