@@ -40,7 +40,7 @@ async function preloadSound(filename) {
     if (!audioContext || audioBuffers[filename] || failedSounds.has(filename)) return;
     
     try {
-        const response = await fetch(filename);
+        const response = await fetch('Reputation-Matrix2/assets/audio/ui/' + filename);
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);

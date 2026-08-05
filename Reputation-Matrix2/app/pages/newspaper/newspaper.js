@@ -127,7 +127,7 @@ function initAudio() {
     if (audioContext) return;
     try {
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        loadSound('click.mp3');
+        loadSound('Reputation-Matrix2/assets/audio/ui/click.mp3');
     } catch (e) {
         console.warn('Web Audio API is not supported in this browser');
     }
