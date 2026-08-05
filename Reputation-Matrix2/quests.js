@@ -84,7 +84,12 @@ function normalizeQuestData(quest) {
             title: s.title,
             description: s.description,
             status: s.status,
-            goals: s.options ? s.options.map(opt => ({ text: opt, status: 'active' })) : []
+            goals: s.options ? s.options.map(opt => ({
+                // Legacy quest steps store options as objects; never leak [object Object] into the UI.
+                text: typeof opt === 'string' ? opt : (opt.name || opt.title || opt.text || opt.description || 'Unnamed option'),
+                status: opt.status || 'active',
+                note: typeof opt === 'object' ? opt.description : ''
+            })) : []
         }));
     }
 
