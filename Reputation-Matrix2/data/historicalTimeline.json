@@ -441,7 +441,7 @@
     },
     "title": "The Kong Bug",
     "description": "Donkey Kong discovers a Kremling listening device, leading to a total breakdown of relations with King K. Rool and a threat of assassination against Funky Kong.",
-    "icon": "assets/factions/faction_dk_crew.png",
+    "icon": "assets/factions/faction_assets/illustrations/remaining/dk_crew.png",
     "category": "Political"
   },
   {
@@ -623,7 +623,7 @@
     },
     "title": "Assassination Foiled",
     "description": "Donkey Kong intercepts the assassin Galypso at Funky's Surf Shack, preventing his brother's murder. The Kremling retreats, but the act of aggression ends the cold war.",
-    "icon": "assets/factions/faction_dk_crew.png",
+    "icon": "assets/factions/faction_assets/illustrations/remaining/dk_crew.png",
     "category": "Military"
   },
   {

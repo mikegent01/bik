@@ -181,7 +181,7 @@ function renderFactionDetail(factionKey) {
 
     let waluigiTipHTML = '';
     if ((intelLevel >= 90 || isDebug) && faction.waluigi_tip) {
-        waluigiTipHTML = `<div class="waluigi-faction-tip"><img src="logo.png" alt="Waluigi Logo"><div><h6>Waluigi's Cunning Plan</h6><p>${faction.waluigi_tip}</p></div></div>`;
+        waluigiTipHTML = `<div class="waluigi-faction-tip"><img src="assets/illustrations/remaining/logo.png" alt="Waluigi Logo"><div><h6>Waluigi's Cunning Plan</h6><p>${faction.waluigi_tip}</p></div></div>`;
     }
 
     detailWrapper.innerHTML = `

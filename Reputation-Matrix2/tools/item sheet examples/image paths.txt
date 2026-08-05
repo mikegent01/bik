@@ -12117,7 +12117,7 @@ modules\mad-picknmix7\assets\scenes\mad-picknmix7-maps-SPRgxmCoj0zAKnjY-thumb.we
 modules\mad-picknmix7\assets\scenes\mad-picknmix7-maps-XIopguwYK6BzrUOf-thumb.webp
 modules\mad-picknmix7\assets\scenes\mad-picknmix7-maps-XOfGqcrsal1aRsGv-thumb.webp
 modules\mad-picknmix7\images\journal\ADV-Logo.webp
-modules\mad-picknmix7\images\journal\elevationlogo.png
+modules\mad-picknmix7\images\journal\elevationassets/illustrations/remaining/logo.png
 modules\mad-picknmix7\images\journal\FoundryGuy.webp
 modules\mad-picknmix7\images\journal\GHELFI-Logo.webp
 modules\mad-picknmix7\images\journal\JNB-Logo.webp
@@ -12162,8 +12162,8 @@ modules\mad-picknmix7\images\journal\Room Numbers\c.webp
 modules\mad-picknmix7\images\journal\Room Numbers\d.webp
 modules\mad-picknmix7\images\journal\Room Numbers\e.webp
 modules\mad-picknmix7\images\journal\Room Numbers\RoomDescriptions.webp
-modules\mad-picknmix7\images\journal\rotatelogo.png
-modules\mad-picknmix7\images\journal\slidelogo.png
+modules\mad-picknmix7\images\journal\rotateassets/illustrations/remaining/logo.png
+modules\mad-picknmix7\images\journal\slideassets/illustrations/remaining/logo.png
 modules\mad-picknmix7\images\maps\01-GemDragon\48.png
 modules\mad-picknmix7\images\maps\01-GemDragon\Assets\MAD_XX_YY_Print_GemDragonLair_TheCanopyCrystalsAmethyst copy.webp
 modules\mad-picknmix7\images\maps\01-GemDragon\Assets\MAD_XX_YY_Print_GemDragonLair_TheCanopyCrystalsEmerald copy.webp
@@ -12306,15 +12306,15 @@ modules\mad-picknmix8\assets\scenes\wIBgmIhGJvyTGFM0-thumb.webp
 modules\mad-picknmix8\assets\scenes\x9OEqgQFTCI1b2yl-thumb.webp
 modules\mad-picknmix8\assets\scenes\zVZAyrn2MQnHx8th-thumb.webp
 modules\mad-picknmix8\images\journal\ColtrinCompositions.png
-modules\mad-picknmix8\images\journal\elevationlogo.png
+modules\mad-picknmix8\images\journal\elevationassets/illustrations/remaining/logo.png
 modules\mad-picknmix8\images\journal\Foundry JOURNAL Banners (800   150px) (4).png
 modules\mad-picknmix8\images\journal\FoundryGuy.webp
 modules\mad-picknmix8\images\journal\jamesrpgart.jpg
 modules\mad-picknmix8\images\journal\Logo-MADTMC-RedCircle_Trans-1.png
 modules\mad-picknmix8\images\journal\MAD-Logo.webp
 modules\mad-picknmix8\images\journal\reader.png
-modules\mad-picknmix8\images\journal\rotatelogo.png
-modules\mad-picknmix8\images\journal\slidelogo.png
+modules\mad-picknmix8\images\journal\rotateassets/illustrations/remaining/logo.png
+modules\mad-picknmix8\images\journal\slideassets/illustrations/remaining/logo.png
 modules\mad-picknmix8\images\maps\01Chains\111.png
 modules\mad-picknmix8\images\maps\01Chains\MAD_PicknMix8_01_Print_NoGrid_20x50_Astral_Chained_Islands_Background.webp
 modules\mad-picknmix8\images\maps\01Chains\MAD_PicknMix8_01_Print_NoGrid_20x50_Astral_Chained_Islands_FVTT.webp
@@ -14507,7 +14507,7 @@ modules\splatter\bloodsplats\blood6.svg
 modules\splatter\bloodsplats\blood7.svg
 modules\splatter\bloodsplats\blood8.svg
 modules\splatter\bloodsplats\blood9.svg
-modules\swipe-vtt\assets\carolingian-logo.png
+modules\swipe-vtt\assets\carolingian-assets/illustrations/remaining/logo.png
 modules\swipe-vtt\assets\castle-cederic-vandenberghe-21DP3hytVHw-unsplash.webp
 modules\swipe-vtt\assets\dice\dice-d10.svg
 modules\swipe-vtt\assets\dice\dice-d12.svg

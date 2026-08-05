@@ -35,8 +35,8 @@ export function renderOathboundJudgesSystem() {
                     ${membersHTML}
                 </div>
                 <div class="scales-of-justice">
-                    <img src="scales_of_justice.png" alt="Scales of Justice" class="scales-base">
-                    <img src="scales_beam.png" alt="Scales Beam" class="scales-beam" style="transform: rotate(${balance}deg);">
+                    <img src="assets/illustrations/remaining/scales_of_justice.png" alt="Scales of Justice" class="scales-base">
+                    <img src="assets/illustrations/remaining/scales_beam.png" alt="Scales Beam" class="scales-beam" style="transform: rotate(${balance}deg);">
                 </div>
             </div>
             <div class="judge-info-panel" id="judge-info-panel">

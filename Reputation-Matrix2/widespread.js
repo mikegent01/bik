@@ -468,7 +468,7 @@ export const WIDESPREAD_FACTIONS = {
     dk_crew: {
         name: "The DK Crew",
         description: "Donkey Kong and his family of laid-back but powerful apes. They protect their island home and their massive banana hoard, but have recently been fractured by internal strife following Lanky Kong's disgraceful behavior at a diplomatic summit.",
-        logo: 'banners/dk_crew.png',
+        logo: 'banners/assets/illustrations/remaining/dk_crew.png',
         relations: {
             allies: [],
             enemies: ['kremling_krew', 'koopa_troop']

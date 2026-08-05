@@ -11,11 +11,11 @@ const REGION_IMAGE_MAP = {
     'Mushroom Kingdom': '../assets/maps/mushroom_kingdom.jpg',
     'The Midlands': '../assets/maps/fullmap.png',
     'The Internet': '../assets/maps/intermap.jpg',
-    'Middle-earth': '../mide.webp',
-    'The Fated Place': '../wa.jpg',
-    'Kivotos': '../archive.png',
-    'The Doughnut Hole': '../qaevyh08hsx51.webp',
-    'Other Worlds': '../logo.png'
+    'Middle-earth': '../assets/illustrations/remaining/mide.webp',
+    'The Fated Place': '../assets/illustrations/remaining/wa.jpg',
+    'Kivotos': '../assets/illustrations/remaining/archive.png',
+    'The Doughnut Hole': '../assets/illustrations/remaining/qaevyh08hsx51.webp',
+    'Other Worlds': '../assets/illustrations/remaining/logo.png'
 };
 
 const state = {
@@ -72,7 +72,7 @@ function init() {
 function populateRegions() {
     const regions = Object.keys(WALUIGI_REGION_TIPS);
     regionGrid.innerHTML = regions.map(region => {
-        const imageUrl = REGION_IMAGE_MAP[region] || '../logo.png';
+        const imageUrl = REGION_IMAGE_MAP[region] || '../assets/illustrations/remaining/logo.png';
         return `
             <div class="region-card" data-region-name="${region}">
                 <img src="${imageUrl}" alt="${region} map thumbnail">
@@ -83,7 +83,7 @@ function populateRegions() {
 }
 
 function updateRegionPreview(regionName) {
-    const imageUrl = REGION_IMAGE_MAP[regionName] || '../logo.png';
+    const imageUrl = REGION_IMAGE_MAP[regionName] || '../assets/illustrations/remaining/logo.png';
     
     regionPreviewImage.src = imageUrl;
     regionPreviewImage.style.display = 'block';
@@ -320,7 +320,7 @@ function setupEventListeners() {
         state.faction = e.target.value;
         const factionData = LORE_DATA.factions[state.faction];
         if (factionData && factionData.waluigi_tip) {
-            factionTipBox.innerHTML = `<img src="../logo.png" alt="Waluigi Logo"><div><h6>Waluigi's Cunning Plan</h6><p>${factionData.waluigi_tip}</p></div>`;
+            factionTipBox.innerHTML = `<img src="../assets/illustrations/remaining/logo.png" alt="Waluigi Logo"><div><h6>Waluigi's Cunning Plan</h6><p>${factionData.waluigi_tip}</p></div>`;
             factionTipBox.style.display = 'flex';
         } else {
             factionTipBox.style.display = 'none';

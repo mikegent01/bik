@@ -160,22 +160,22 @@ function createCompositeMapTexture() {
     // pos: 'front' (Main/Outer), 'side' (Almost Edge/Rim), 'hole' (The Edge/Inner), 'hide' (Don't show)
     const rawMapImages = [
         { src: 'assets/illustrations/edge.jpg', pos: 'side' },           // 1. Almost at the Edge
-        { src: 'topia.jpg', pos: 'front' },          // 2. Animatopia
+        { src: 'assets/illustrations/remaining/topia.jpg', pos: 'front' },          // 2. Animatopia
         { src: 'assets/maps/connectopia.png', pos: 'front' },    // 3. Connectopia
         { src: 'assets/illustrations/earth_land.png', pos: 'front' },    // 4. Earth Land
-        { src: 'qaevyh08hsx51.webp', pos: 'front' }, // 5. Doughnut Hole
-        { src: 'wa.jpg', pos: 'front' },             // 6. Warhammer
+        { src: 'assets/illustrations/remaining/qaevyh08hsx51.webp', pos: 'front' }, // 5. Doughnut Hole
+        { src: 'assets/illustrations/remaining/wa.jpg', pos: 'front' },             // 6. Warhammer
         { src: 'assets/maps/mushroom_kingdom.jpg', pos: 'hide' }, // 7. MK (HIDDEN)
         { src: 'assets/maps/fullmap.png', pos: 'front' },        // 8. Midlands
         { src: 'assets/maps/intermap.jpg', pos: 'front' },       // 9. Internet
-        { src: 'archive.png', pos: 'front' },        // 10. Kivotos
+        { src: 'assets/illustrations/remaining/archive.png', pos: 'front' },        // 10. Kivotos
         { src: 'assets/maps/pokemon.png', pos: 'hide' },        // 11. Pokemon (HIDDEN)
-        { src: 'mide.webp', pos: 'hide' },          // 12. Middle Earth (HIDDEN)
+        { src: 'assets/illustrations/remaining/mide.webp', pos: 'hide' },          // 12. Middle Earth (HIDDEN)
         { src: 'assets/maps/faerun.png', pos: 'front' },    // 13. Faerun
         { src: 'assets/maps/leclaire_isle.png', pos: 'front' },    // 14. Leclaire
         { src: 'assets/maps/teyvat.png', pos: 'front' },    // 15. Teyvat
         { src: 'assets/maps/equestria.png', pos: 'front' },    // 16. Equestria
-        { src: 'edge.avif', pos: 'hole' },           // 17. The Edge
+        { src: 'assets/illustrations/remaining/edge.avif', pos: 'hole' },           // 17. The Edge
         { src: 'assets/maps/grand_country.png', pos: 'front' }     // 18. Grand Country
     ];
 

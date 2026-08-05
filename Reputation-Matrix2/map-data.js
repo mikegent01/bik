@@ -385,7 +385,7 @@ export const MAP_DATA = {
     animatopia_full: {
         id: 'animatopia_full',
         name: 'Animatopia (Full)',
-        imageSrc: 'topia.jpg',
+        imageSrc: 'assets/illustrations/remaining/topia.jpg',
         order: 1,
         group: 'Animatopia',
         pointsOfInterest: animatopiaData.pointsOfInterest,
@@ -395,7 +395,7 @@ export const MAP_DATA = {
     animatopia_tundratown: {
         id: 'animatopia_tundratown',
         name: 'Tundratown',
-        imageSrc: 'topia.jpg',
+        imageSrc: 'assets/illustrations/remaining/topia.jpg',
         order: 2,
         group: 'Animatopia',
         pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'TUNDRATOWN'),
@@ -405,7 +405,7 @@ export const MAP_DATA = {
     animatopia_downtown: {
         id: 'animatopia_downtown',
         name: 'Down Town',
-        imageSrc: 'topia.jpg',
+        imageSrc: 'assets/illustrations/remaining/topia.jpg',
         order: 3,
         group: 'Animatopia',
         pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'DOWN TOWN'),
@@ -415,7 +415,7 @@ export const MAP_DATA = {
     animatopia_savanna_central: {
         id: 'animatopia_savanna_central',
         name: 'Savanna Central',
-        imageSrc: 'topia.jpg',
+        imageSrc: 'assets/illustrations/remaining/topia.jpg',
         order: 4,
         group: 'Animatopia',
         pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'SAVANNA CENTRAL'),
@@ -425,7 +425,7 @@ export const MAP_DATA = {
     animatopia_rainforest: {
         id: 'animatopia_rainforest',
         name: 'Rainforest District',
-        imageSrc: 'topia.jpg',
+        imageSrc: 'assets/illustrations/remaining/topia.jpg',
         order: 5,
         group: 'Animatopia',
         pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'Rainforest District'),
@@ -435,7 +435,7 @@ export const MAP_DATA = {
     animatopia_nocturnal: {
         id: 'animatopia_nocturnal',
         name: 'Nocturnal Ranges',
-        imageSrc: 'topia.jpg',
+        imageSrc: 'assets/illustrations/remaining/topia.jpg',
         order: 6,
         group: 'Animatopia',
         pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'Nocturnal ranges'),
@@ -445,7 +445,7 @@ export const MAP_DATA = {
     animatopia_outback: {
         id: 'animatopia_outback',
         name: 'Out Back Isle',
-        imageSrc: 'topia.jpg',
+        imageSrc: 'assets/illustrations/remaining/topia.jpg',
         order: 7,
         group: 'Animatopia',
         pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'Out back isle'),
@@ -455,7 +455,7 @@ export const MAP_DATA = {
     animatopia_western: {
         id: 'animatopia_western',
         name: 'Western Border',
-        imageSrc: 'topia.jpg',
+        imageSrc: 'assets/illustrations/remaining/topia.jpg',
         order: 8,
         group: 'Animatopia',
         pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'Western Border'),
@@ -465,7 +465,7 @@ export const MAP_DATA = {
     animatopia_eastern: {
         id: 'animatopia_eastern',
         name: 'Eastern Border',
-        imageSrc: 'topia.jpg',
+        imageSrc: 'assets/illustrations/remaining/topia.jpg',
         order: 9,
         group: 'Animatopia',
         pointsOfInterest: animatopiaData.pointsOfInterest.filter(p => p.subRegion === 'Eastern Border'),
@@ -931,7 +931,7 @@ export const MAP_DATA = {
     middle_earth_full: {
         id: 'middle_earth_full',
         name: 'Middle-earth (Full)',
-        imageSrc: 'mide.webp',
+        imageSrc: 'assets/illustrations/remaining/mide.webp',
         order: 1,
         group: 'Middle-earth',
         pointsOfInterest: [
@@ -955,7 +955,7 @@ export const MAP_DATA = {
     forlindon: {
         id: 'forlindon',
         name: 'Forlindon',
-        imageSrc: 'mide.webp',
+        imageSrc: 'assets/illustrations/remaining/mide.webp',
         order: 2,
         group: 'Middle-earth',
         pointsOfInterest: middleEarthData.pointsOfInterest.filter(p => p.subRegion === 'forlindon'),
@@ -965,7 +965,7 @@ export const MAP_DATA = {
     eriador: {
         id: 'eriador',
         name: 'Eriador',
-        imageSrc: 'mide.webp',
+        imageSrc: 'assets/illustrations/remaining/mide.webp',
         order: 3,
         group: 'Middle-earth',
         pointsOfInterest: middleEarthData.pointsOfInterest.filter(p => p.subRegion === 'eriador'),
@@ -975,7 +975,7 @@ export const MAP_DATA = {
     haradwaith: {
         id: 'haradwaith',
         name: 'Haradwaith',
-        imageSrc: 'mide.webp',
+        imageSrc: 'assets/illustrations/remaining/mide.webp',
         order: 4,
         group: 'Middle-earth',
         pointsOfInterest: haradwaithData.pointsOfInterest,
@@ -985,7 +985,7 @@ export const MAP_DATA = {
     umbar: {
         id: 'umbar',
         name: 'Umbar',
-        imageSrc: 'mide.webp',
+        imageSrc: 'assets/illustrations/remaining/mide.webp',
         order: 5,
         group: 'Middle-earth',
         pointsOfInterest: umbarData.pointsOfInterest,
@@ -995,7 +995,7 @@ export const MAP_DATA = {
     gondor: {
         id: 'gondor',
         name: 'Gondor',
-        imageSrc: 'mide.webp',
+        imageSrc: 'assets/illustrations/remaining/mide.webp',
         order: 6,
         group: 'Middle-earth',
         pointsOfInterest: gondorData.pointsOfInterest,
@@ -1005,7 +1005,7 @@ export const MAP_DATA = {
     rhovanion: {
         id: 'rhovanion',
         name: 'Rhovanion',
-        imageSrc: 'mide.webp',
+        imageSrc: 'assets/illustrations/remaining/mide.webp',
         order: 7,
         group: 'Middle-earth',
         pointsOfInterest: rhovanionData.pointsOfInterest,
@@ -1015,7 +1015,7 @@ export const MAP_DATA = {
     mordor: {
         id: 'mordor',
         name: 'The Land of Mordor',
-        imageSrc: 'mide.webp',
+        imageSrc: 'assets/illustrations/remaining/mide.webp',
         order: 8,
         group: 'Middle-earth',
         pointsOfInterest: mordorData.pointsOfInterest,
@@ -1025,7 +1025,7 @@ export const MAP_DATA = {
     kivotos_full: {
         id: 'kivotos_full',
         name: 'Kivotos (Full)',
-        imageSrc: 'archive.png',
+        imageSrc: 'assets/illustrations/remaining/archive.png',
         order: 1,
         group: 'Kivotos',
         pointsOfInterest: kivotosMainData.pointsOfInterest,
@@ -1045,7 +1045,7 @@ export const MAP_DATA = {
     kivotos_central: {
         id: 'kivotos_central',
         name: 'Kivotos Central',
-        imageSrc: 'archive.png',
+        imageSrc: 'assets/illustrations/remaining/archive.png',
         order: 2,
         group: 'Kivotos',
         pointsOfInterest: kivotosCentralData.pointsOfInterest,
@@ -1055,7 +1055,7 @@ export const MAP_DATA = {
     grand_latin: {
         id: 'grand_latin',
         name: 'Grand Latin',
-        imageSrc: 'archive.png',
+        imageSrc: 'assets/illustrations/remaining/archive.png',
         order: 3,
         group: 'Kivotos',
         pointsOfInterest: grandLatinData.pointsOfInterest,
@@ -1065,7 +1065,7 @@ export const MAP_DATA = {
     austelarassia: {
         id: 'austelarassia',
         name: 'Austelarassia',
-        imageSrc: 'archive.png',
+        imageSrc: 'assets/illustrations/remaining/archive.png',
         order: 4,
         group: 'Kivotos',
         pointsOfInterest: austelarassiaData.pointsOfInterest,
@@ -1075,7 +1075,7 @@ export const MAP_DATA = {
     silbaarstadt: {
         id: 'silbaarstadt',
         name: 'Silbaarstadt',
-        imageSrc: 'archive.png',
+        imageSrc: 'assets/illustrations/remaining/archive.png',
         order: 5,
         group: 'Kivotos',
         pointsOfInterest: silbaarstadtData.pointsOfInterest,
@@ -1085,7 +1085,7 @@ export const MAP_DATA = {
     al_haoung: {
         id: 'al_haoung',
         name: 'AL-haoung',
-        imageSrc: 'archive.png',
+        imageSrc: 'assets/illustrations/remaining/archive.png',
         order: 6,
         group: 'Kivotos',
         pointsOfInterest: alhaoungData.pointsOfInterest,
@@ -1095,7 +1095,7 @@ export const MAP_DATA = {
     northern_aurean_pole: {
         id: 'northern_aurean_pole',
         name: 'Northern Aurean Pole',
-        imageSrc: 'archive.png',
+        imageSrc: 'assets/illustrations/remaining/archive.png',
         order: 7,
         group: 'Kivotos',
         pointsOfInterest: northernAureanPoleData.pointsOfInterest,
@@ -1105,7 +1105,7 @@ export const MAP_DATA = {
     new_cairo: {
         id: 'new_cairo',
         name: 'New Cairo',
-        imageSrc: 'archive.png',
+        imageSrc: 'assets/illustrations/remaining/archive.png',
         order: 8,
         group: 'Kivotos',
         pointsOfInterest: newCairoData.pointsOfInterest,
@@ -1115,7 +1115,7 @@ export const MAP_DATA = {
     new_america: {
         id: 'new_america',
         name: 'New America',
-        imageSrc: 'archive.png',
+        imageSrc: 'assets/illustrations/remaining/archive.png',
         order: 9,
         group: 'Kivotos',
         pointsOfInterest: newAmericaData.pointsOfInterest,
@@ -1125,7 +1125,7 @@ export const MAP_DATA = {
     southern_aurean_pole: {
         id: 'southern_aurean_pole',
         name: 'Southern Aurean Pole',
-        imageSrc: 'archive.png',
+        imageSrc: 'assets/illustrations/remaining/archive.png',
         order: 10,
         group: 'Kivotos',
         pointsOfInterest: southernAureanPoleData.pointsOfInterest,
@@ -1255,7 +1255,7 @@ export const MAP_DATA = {
     warhammer_full: {
         id: 'warhammer_full',
         name: 'The Old World (Full)',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 1,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest,
@@ -1264,7 +1264,7 @@ export const MAP_DATA = {
     warhammer_empire: {
         id: 'warhammer_empire',
         name: 'The Empire',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 2,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'the_empire'),
@@ -1273,7 +1273,7 @@ export const MAP_DATA = {
     warhammer_worlds_edge: {
         id: 'warhammer_worlds_edge',
         name: 'Worlds Edge Mtns.',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 3,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'worlds_edge'),
@@ -1282,7 +1282,7 @@ export const MAP_DATA = {
     warhammer_sylvania: {
         id: 'warhammer_sylvania',
         name: 'Sylvania',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 4,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'sylvania'),
@@ -1291,7 +1291,7 @@ export const MAP_DATA = {
     warhammer_badlands: {
         id: 'warhammer_badlands',
         name: 'The Badlands',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 5,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'badlands'),
@@ -1300,7 +1300,7 @@ export const MAP_DATA = {
     warhammer_ulthuan: {
         id: 'warhammer_ulthuan',
         name: 'Ulthuan',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 6,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'ulthuan'),
@@ -1309,7 +1309,7 @@ export const MAP_DATA = {
     warhammer_naggaroth: {
         id: 'warhammer_naggaroth',
         name: 'Naggaroth',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 7,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'naggaroth'),
@@ -1318,7 +1318,7 @@ export const MAP_DATA = {
     warhammer_lustria: {
         id: 'warhammer_lustria',
         name: 'Lustria',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 8,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'lustria'),
@@ -1327,7 +1327,7 @@ export const MAP_DATA = {
     warhammer_land_of_the_dead: {
         id: 'warhammer_land_of_the_dead',
         name: 'Land of the Dead',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 9,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'land_of_the_dead'),
@@ -1336,7 +1336,7 @@ export const MAP_DATA = {
     warhammer_araby: {
         id: 'warhammer_araby',
         name: 'Araby',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 10,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'araby'),
@@ -1345,7 +1345,7 @@ export const MAP_DATA = {
     warhammer_southlands: {
         id: 'warhammer_southlands',
         name: 'The Southlands',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 11,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'southlands'),
@@ -1354,7 +1354,7 @@ export const MAP_DATA = {
     warhammer_bretonnia: {
         id: 'warhammer_bretonnia',
         name: 'Bretonnia',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 12,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'bretonnia'),
@@ -1363,7 +1363,7 @@ export const MAP_DATA = {
     warhammer_darklands: {
         id: 'warhammer_darklands',
         name: 'The Darklands',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 13,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'darklands'),
@@ -1372,7 +1372,7 @@ export const MAP_DATA = {
     warhammer_ancient_giant_land: {
         id: 'warhammer_ancient_giant_land',
         name: 'Ancient Giant Land',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 14,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'ancient_giant_land'),
@@ -1381,7 +1381,7 @@ export const MAP_DATA = {
     warhammer_grand_cathay: {
         id: 'warhammer_grand_cathay',
         name: 'Grand Cathay',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 15,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'grand_cathay'),
@@ -1390,7 +1390,7 @@ export const MAP_DATA = {
     warhammer_eastern_steppes: {
         id: 'warhammer_eastern_steppes',
         name: 'Eastern Steppes',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 16,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'eastern_steppes'),
@@ -1399,7 +1399,7 @@ export const MAP_DATA = {
     warhammer_great_bastion: {
         id: 'warhammer_great_bastion',
         name: 'The Great Bastion',
-        imageSrc: 'wa.jpg',
+        imageSrc: 'assets/illustrations/remaining/wa.jpg',
         order: 17,
         group: 'The Fated Place',
         pointsOfInterest: warhammerData.pointsOfInterest.filter(p => p.subRegion === 'great_bastion'),
@@ -1408,7 +1408,7 @@ export const MAP_DATA = {
     doughnut_hole_full: {
         id: 'doughnut_hole_full',
         name: 'The Doughnut Hole (Full)',
-        imageSrc: 'qaevyh08hsx51.webp',
+        imageSrc: 'assets/illustrations/remaining/qaevyh08hsx51.webp',
         order: 1,
         group: 'The Doughnut Hole',
         pointsOfInterest: doughnutHoleData.pointsOfInterest,
@@ -1418,7 +1418,7 @@ export const MAP_DATA = {
     jesters_playground: {
         id: 'jesters_playground',
         name: "The Jester's Playground",
-        imageSrc: 'qaevyh08hsx51.webp',
+        imageSrc: 'assets/illustrations/remaining/qaevyh08hsx51.webp',
         order: 2,
         group: 'The Doughnut Hole',
         pointsOfInterest: jestersPlaygroundPois,
@@ -1427,7 +1427,7 @@ export const MAP_DATA = {
     causality_chain: {
         id: 'causality_chain',
         name: "The Causality Chain",
-        imageSrc: 'qaevyh08hsx51.webp',
+        imageSrc: 'assets/illustrations/remaining/qaevyh08hsx51.webp',
         order: 3,
         group: 'The Doughnut Hole',
         pointsOfInterest: causalityChainPois,
@@ -1436,7 +1436,7 @@ export const MAP_DATA = {
     drifters_debris_field: {
         id: 'drifters_debris_field',
         name: "Drifter's Debris Field",
-        imageSrc: 'qaevyh08hsx51.webp',
+        imageSrc: 'assets/illustrations/remaining/qaevyh08hsx51.webp',
         order: 4,
         group: 'The Doughnut Hole',
         pointsOfInterest: driftersDebrisFieldPois,
@@ -1445,7 +1445,7 @@ export const MAP_DATA = {
     weavers_tapestry: {
         id: 'weavers_tapestry',
         name: "The Weaver's Tapestry",
-        imageSrc: 'qaevyh08hsx51.webp',
+        imageSrc: 'assets/illustrations/remaining/qaevyh08hsx51.webp',
         order: 5,
         group: 'The Doughnut Hole',
         pointsOfInterest: weaversTapestryPois,
@@ -1454,7 +1454,7 @@ export const MAP_DATA = {
     outer_anomaly: {
         id: 'outer_anomaly',
         name: "The Outer Anomaly",
-        imageSrc: 'qaevyh08hsx51.webp',
+        imageSrc: 'assets/illustrations/remaining/qaevyh08hsx51.webp',
         order: 6,
         group: 'The Doughnut Hole',
         pointsOfInterest: outerAnomalyPois,
@@ -1548,7 +1548,7 @@ export const MAP_DATA = {
     the_edge_full: {
         id: 'the_edge_full',
         name: 'The Edge',
-        imageSrc: 'edge.avif',
+        imageSrc: 'assets/illustrations/remaining/edge.avif',
         order: 2,
         group: 'The Edge Regions',
         pointsOfInterest: theEdgeData.pointsOfInterest,

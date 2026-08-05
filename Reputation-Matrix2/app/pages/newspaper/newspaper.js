@@ -3,7 +3,7 @@ const NEWS_ARTICLES = {
         {
             id: 'headline_1',
             title: "Ape-palling Behavior! Lanky Kong's Summit Shenanigans Cause Diplomatic and Economic Crisis!",
-            image: 'dk_crew.png',
+            image: 'assets/illustrations/remaining/dk_crew.png',
             image_alt: "A formal diplomatic stage in chaos. A long-armed ape can be seen flying through the air like a deflating balloon while dignitaries flee in terror.",
             date: "OCTOBER 28, YEAR 42",
             author: "By The Daily Paradox Political Desk",
@@ -51,7 +51,7 @@ The recapturing of the _Vigilance_ is a significant blow to X.O.'s mysterious ag
         {
             id: 'side_2',
             title: "Princess Peach Dead: Mushroom Kingdom Plunges into Crisis",
-            image: 'falling_figures.png', // Re-purposing an existing asset
+            image: 'assets/illustrations/remaining/falling_figures.png', // Re-purposing an existing asset
             image_alt: "Three figures falling through a colorful, striped sky, one a sorcerer, another cloaked in wolf fur, and a small mushroom-shaped figure. Symbolizes chaos and peril.",
             date: "OCTOBER 25, YEAR 42",
             author: "Crisis Desk Report",
