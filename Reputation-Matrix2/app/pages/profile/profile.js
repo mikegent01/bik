@@ -647,7 +647,7 @@ async function loadData() {
     }
 
     try {
-        const events = await import('./assembly-events-data.js');
+        const events = await import('../../../assembly-events-data.js');
         if (events.loadEventPosts) {
             const eventPosts = await events.loadEventPosts();
             if (Array.isArray(eventPosts)) {

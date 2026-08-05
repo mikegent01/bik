@@ -7,7 +7,7 @@ import {getFactionData } from './map-renderer.js';
 import { toggleEditMode } from './map-editor.js';
 import { resetTransform } from './map-transform.js';
 import * as transform from './map-transform.js';
-import { PROVINCE_POLITICS } from './politics-data.js';
+import { PROVINCE_POLITICS } from '../../../politics-data.js';
 
 const mapControls = document.getElementById('dynamic-map-controls');
 // ============================================================================

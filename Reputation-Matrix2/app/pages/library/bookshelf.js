@@ -1,5 +1,5 @@
-import { state, loadState } from './state.js';
-import { LORE_DATA } from './lore.js';
+import { state, loadState } from '../../../state.js';
+import { LORE_DATA } from '../../../lore.js';
 // Import book data from separate files
 import { BOOK_DATA as peachDiary } from './books/peach_diary.js';
 import { BOOK_DATA as mkHistory } from './books/mk_history.js';

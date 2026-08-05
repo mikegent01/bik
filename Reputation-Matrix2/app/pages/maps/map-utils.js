@@ -1,7 +1,7 @@
 import { state } from '../../../state.js';
 import { getIntelForFaction } from '../../../systems/common.js';
 import { MAP_DATA } from '../../../map-data.js';
-import { LEGAL_DATA } from './legal_data.js';
+import { LEGAL_DATA } from '../../../legal_data.js';
 
 export function hasSufficientIntel(requirement) {
     if (!requirement) return true;

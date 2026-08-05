@@ -1343,7 +1343,7 @@ async function ensureEventPostsLoaded() {
 
     eventsPostsPromise = (async () => {
         try {
-            const eventsModule = await import('./assembly-events-data.js');
+            const eventsModule = await import('../../../assembly-events-data.js');
             if (eventsModule.loadEventPosts) {
                 const eventPosts = await eventsModule.loadEventPosts();
                 if (Array.isArray(eventPosts) && eventPosts.length) {
