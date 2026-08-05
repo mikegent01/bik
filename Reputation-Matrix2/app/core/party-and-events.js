@@ -1,7 +1,7 @@
 
 
 
-import { TOAD_ABILITIES } from './data/support/abilities.js';
+import { TOAD_ABILITIES } from '../../data/support/abilities.js';
 
 export const AUXILIARY_PARTY = {
     dan: { name: "Dan", weapon: "Longsword & Magic", status: "Weakened & Diminished", portrait: "toads/dan.png", level: 1, xp: 0, xp_to_next: 100, log: [], abilities: [] },

@@ -14844,9 +14844,9 @@ function synthesizeXpCharacterArticles(){
 async function loadCultureSystem(){
   try{
     const [c,l,s]=await Promise.all([
-      import(pathPrefix+'culture-data.js'),
-      import(pathPrefix+'legal_data.js'),
-      import(pathPrefix+'species-data.js')
+      import(pathPrefix+'data/support/culture-data.js'),
+      import(pathPrefix+'data/laws/legal_data.js'),
+      import(pathPrefix+'data/support/species-data.js')
     ]);
     CULTURES=c.CULTURE_DATA||{};
     LEGAL=l.LEGAL_DATA||{};
@@ -14861,7 +14861,7 @@ async function loadCultureSystem(){
    configured mapFile exactly as before. */
 async function loadMapCatalogue(){
   try{
-    const m=await import(pathPrefix+'map-data.js');
+    const m=await import(pathPrefix+'data/maps/map-data.js');
     ATLAS_MAPS=m.MAP_DATA||{};
   }catch(e){ ATLAS_MAPS={}; }
   ATLAS_MAP_GROUPS={};

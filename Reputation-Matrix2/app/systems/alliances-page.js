@@ -1,13 +1,13 @@
 // alliances-page.js - Alliance Monitor Page
 
-import { getAllFactions, getFaction } from './systems/faction-registry.js';
-import { MAP_DATA } from './data/maps/map-data.js';
-import { CURRENT_GAME_DATE } from './data/world/calendar.js';
+import { getAllFactions, getFaction } from '../data/factions/faction-registry.js';
+import { MAP_DATA } from '../data/maps/map-data.js';
+import { CURRENT_GAME_DATE } from '../data/world/calendar.js';
 import { 
     calculateFactionCompatibility, 
     getFactionValues, 
     VALUE_AXES 
-} from './societal-values.js';
+} from '../pages/societal-values/societal-values.js';
 
 // ============================================
 // ALLIANCE CONFIGURATION
