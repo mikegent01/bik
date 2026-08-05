@@ -2,7 +2,7 @@
 // species-workforce.js
 
 import { SPECIES_DATA } from './data/support/species-data.js';
-import { RESEARCH_CATEGORIES, RESEARCH_TO_ESTATE_MAPPING } from './research-constants.js';
+import { RESEARCH_CATEGORIES, RESEARCH_TO_ESTATE_MAPPING } from '../../data/support/research-constants.js';
 
 // Define Labor Categories
 export const LABOR_CATEGORIES = [
