@@ -4,11 +4,11 @@
  * WAHbook Assembly Page - Complete Redesign
  */
 
-import { LORE_DATA, STORY_ARCS, getRumorsByArc } from './lore.js';
-import { playSound } from './common.js';
-import { state, saveState, loadState } from './state.js';
-import { CURRENT_GAME_DATE, getDynamicTimestamp, CALENDAR_DATA } from './data/world/calendar.js';
-import { calculateRumorMetrics, calculateGlobalCycle } from './research-data.js';
+import { LORE_DATA, STORY_ARCS, getRumorsByArc } from '../../../lore.js';
+import { playSound } from '../../../common.js';
+import { state, saveState, loadState } from '../../../state.js';
+import { CURRENT_GAME_DATE, getDynamicTimestamp, CALENDAR_DATA } from '../../../data/world/calendar.js';
+import { calculateRumorMetrics, calculateGlobalCycle } from '../../../research-data.js';
 import { calculateAssemblyInfamy, getCharacterInfamy, getPostInfamy, renderInfamyBadge, renderInfamyWatch, renderInfamyMatrix, renderDossierInfamy } from './assembly-infamy.js';
 let tabModulesPromise = null;
 // Global observer for tracking post visibility
@@ -1313,7 +1313,7 @@ function updateFullPageReadButton(isActive) {
 }
 async function loadDynamicData() {
     try {
-        const dataModule = await import('./assembly-data.js');
+        const dataModule = await import('../../../assembly-data.js');
         BASE_WAHBOOK_POSTS = Array.isArray(dataModule.WAHBOOK_POSTS) ? dataModule.WAHBOOK_POSTS : [];
         WAHBOOK_POSTS = [...BASE_WAHBOOK_POSTS];
         visiblePostsCache = null;
@@ -1450,7 +1450,7 @@ async function loadTabModules() {
 
 async function loadResearchModule() {
     if (!researchModulePromise) {
-        researchModulePromise = import('./research-data.js');
+        researchModulePromise = import('../../../research-data.js');
     }
     return researchModulePromise;
 }
