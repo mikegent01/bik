@@ -3,9 +3,9 @@
 // Connects to calendar-data.js and common.js
 // ============================================
 
-import { MOON_PHASES, CURRENT_GAME_DATE, CURRENT_GAME_TIME } from './data/world/calendar.js';
-import { getIntelForFaction } from './common-1.js';
-import { state } from './state.js'; 
+import { MOON_PHASES, CURRENT_GAME_DATE, CURRENT_GAME_TIME } from '../../../data/world/calendar.js';
+import { getIntelForFaction } from '../../../common-1.js';
+import { state } from '../../../state.js';
 
 // ============================================
 // EXTENDED DATA (Pack-specific)
@@ -129,8 +129,8 @@ function isDebugMode() {
 
 function getCurrentPhaseIndex() {
     // Calculate based on game date
-    const totalDays = (CURRENT_GAME_DATE.year * 360) + 
-                      (CURRENT_GAME_DATE.monthIndex * 30) + 
+    const totalDays = (CURRENT_GAME_DATE.year * 360) +
+                      (CURRENT_GAME_DATE.monthIndex * 30) +
                       CURRENT_GAME_DATE.day;
     return totalDays % MOON_PHASES.length;
 }
@@ -165,12 +165,12 @@ function renderMoonSection() {
         3: 'background: linear-gradient(270deg, rgba(10,5,5,0.95) 60%, transparent 100%);', // Outer Crust
         4: 'background: linear-gradient(180deg, rgba(10,5,5,0.9) 40%, transparent 100%);' // Bite
     };
-    
+
     const displayIndex = selectedPhaseIndex !== null ? selectedPhaseIndex : currentPhaseIndex;
 
     // Phase nodes
     const phaseNodesHTML = MOON_PHASES.map((phase, index) => `
-        <div class="phase-node ${index === currentPhaseIndex ? 'current' : ''} ${index === selectedPhaseIndex ? 'active' : ''}" 
+        <div class="phase-node ${index === currentPhaseIndex ? 'current' : ''} ${index === selectedPhaseIndex ? 'active' : ''}"
              data-phase-index="${index}">
             <span class="phase-icon">${phase.icon}</span>
             <span class="phase-label">${phase.name.split('(')[0].trim()}</span>
@@ -179,7 +179,7 @@ function renderMoonSection() {
 
     // Info panel content based on intel
     let loreHTML, effectHTML;
-    
+
     if (debug || intel >= 70) {
         loreHTML = displayPhase.lore;
         effectHTML = displayPhase.effect;
@@ -307,7 +307,7 @@ function renderMechanicsSection() {
     const cardsHTML = PACK_MECHANICS.map(mech => {
         const hasAccess = debug || intel >= mech.intelRequired;
         let statValue = mech.statValue;
-        
+
         // Dynamic value for lunar power
         if (mech.id === 'lunar_power') {
             statValue = hasAccess ? `${currentPhase.icon} Active` : '???';
@@ -420,7 +420,7 @@ function setupEventListeners(container) {
             const index = parseInt(phaseNode.dataset.phaseIndex);
             selectedPhaseIndex = index;
             rerender();
-            
+
             // Play howl on full moon (index 2)
             if (index === 2) {
                 const audio = document.getElementById('howlAudio');

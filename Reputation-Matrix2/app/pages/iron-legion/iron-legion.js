@@ -1,6 +1,6 @@
 // Iron Legion Dossier Page Controller
 
-import { IRON_LEGION_DATA, LEGION_QUOTES, THREAT_ASSESSMENT } from './iron-legion-data.js';
+import { IRON_LEGION_DATA, LEGION_QUOTES, THREAT_ASSESSMENT } from '../../../iron-legion-data.js';
 
 class IronLegionDossier {
     constructor() {
