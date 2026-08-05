@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { LORE_DATA, CHARACTER_RELATIONS } from '../../../lore.js';
-=======
 import { LORE_DATA, CHARACTER_RELATIONS } from '../../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { state } from '../../core/state.js';
 import { FACTION_COLORS } from '../../../factions/faction-colors.js';
 

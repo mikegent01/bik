@@ -6,11 +6,7 @@
 // ============================================
 
 import { MAP_DATA } from '../data/maps/map-data.js';
-<<<<<<< HEAD
-import { LORE_DATA } from '../lore.js';
-=======
 import { LORE_DATA } from '../app/core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { MIDLANDS_FACTIONS } from '../factions/midlands.js';
 import { MUSHROOM_KINGDOM_FACTIONS } from '../factions/mushroom-kingdom.js';
 import { WIDESPREAD_FACTIONS } from '../data/world/realms/widespread.js';

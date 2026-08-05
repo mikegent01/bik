@@ -1,10 +1,6 @@
 
 import { state } from '../app/core/state.js';
-<<<<<<< HEAD
-import { LORE_DATA } from '../lore.js';
-=======
 import { LORE_DATA } from '../app/core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { getSubFactionReputation } from '../app/systems/reputation.js';
 import { calculateRumorMetrics } from '../data/support/research-data.js';
 import { WAHBOOK_POSTS } from '../data/assembly/assembly-data.js';

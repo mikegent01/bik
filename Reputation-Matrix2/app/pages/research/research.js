@@ -3,11 +3,7 @@
 import { state, loadState, saveState } from '../../core/state.js';
 import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING, calculateDemographicBonus, calculateGuildBonus } from '../../../data/support/research-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
-<<<<<<< HEAD
-import { LORE_DATA } from '../../../lore.js';
-=======
 import { LORE_DATA } from '../../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { playSound } from '../../core/common.js';
 import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
 

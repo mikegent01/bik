@@ -1,9 +1,5 @@
 import { state } from './app/core/state.js';
-<<<<<<< HEAD
-import { LORE_DATA } from '../lore.js';
-=======
 import { LORE_DATA } from './lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { getSubFactionReputation } from '../systems/reputation.js';
 
 /**

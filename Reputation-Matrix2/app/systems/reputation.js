@@ -1,10 +1,6 @@
 import { state } from './app/core/state.js';
 import { FACTION_ASSESSMENTS } from './data/support/assessments.js';
-<<<<<<< HEAD
-import { LORE_DATA } from './lore.js';
-=======
 import { LORE_DATA } from '../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 
 export function getReputation(playerKey, factionKey) {
     return state.finalReputations[playerKey]?.reputation[factionKey] || 0;

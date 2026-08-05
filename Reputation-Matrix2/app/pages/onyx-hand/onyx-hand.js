@@ -1,10 +1,6 @@
 // onyx-hand.js - Complete script for Onyx Hand faction page with imports
 
-<<<<<<< HEAD
-import { LORE_DATA } from '../../../lore.js';
-=======
 import { LORE_DATA } from '../../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { getIntelForFaction } from '../../../systems/common.js';
 import { state } from '../../core/state.js';
 import { getAbsoluteDay } from '../../../data/support/research-data.js';

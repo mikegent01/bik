@@ -1,11 +1,7 @@
 // holy-midlands-diet.js
 // Enhanced with Iron Legion Integration - COMPLETE
 
-<<<<<<< HEAD
-import { LORE_DATA, CHARACTER_RELATIONS } from '../lore.js';
-=======
 import { LORE_DATA, CHARACTER_RELATIONS } from '../app/core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { state } from '../app/core/state.js';
 import { CURRENT_GAME_DATE, CALENDAR_DATA } from '../data/world/calendar.js';
 import { IRON_LEGION_DATA, LEGION_QUOTES, THREAT_ASSESSMENT } from '../data/factions/iron-legion-data.js';

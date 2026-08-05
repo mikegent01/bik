@@ -5,17 +5,10 @@ import { FACTION_ASSESSMENTS } from '../../../data/support/assessments.js';
 import { getReputation, getGenericFactionAssessment } from '../../systems/reputation.js';
 import { getIntelForFaction, getIntelBreakdown } from '../../../systems/common.js';
 import { playSound } from '../../core/common.js';
-<<<<<<< HEAD
-import {AUXILIARY_PARTY} from '../../../party-and-events.js'
-import { getAllFactions, getFaction, getFactionStats, toSystemId } from '../../../systems/faction-registry.js';
-import { getRealTimeMapStats } from '../../systems/global-map-analysis.js';
-import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
-=======
 import {AUXILIARY_PARTY} from '../../core/party-and-events.js'
 import { getAllFactions, getFaction, getFactionStats, toSystemId } from '../../../systems/faction-registry.js';
 import { getRealTimeMapStats } from '../../systems/global-map-analysis.js';
 import { LORE_DATA, STORY_ARCS } from '../../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
 import { calculateRumorMetrics } from '../../../data/support/research-data.js';
 import { calculateAssemblyInfamy, getCharacterInfamy, getFactionInfamy, renderInfamyBadge } from '../assembly/assembly-infamy.js';

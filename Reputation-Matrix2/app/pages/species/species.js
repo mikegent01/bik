@@ -1,10 +1,6 @@
 // species.js - Updated to use population simulation
 
-<<<<<<< HEAD
-import { LORE_DATA } from '../../../lore.js';
-=======
 import { LORE_DATA } from '../../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from '../../../data/support/species-data.js';
 import { MAP_DATA } from '../../../data/maps/map-data.js';
 import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES, calculateTechAccessByEstate } from '../../systems/species-workforce.js';

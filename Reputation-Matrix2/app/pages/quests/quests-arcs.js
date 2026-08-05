@@ -12,11 +12,7 @@ import {
     getQuestsByArc
 } from '../../../data/quest-system/index.js';
 import { playSound } from '../../core/common.js';
-<<<<<<< HEAD
-import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
-=======
 import { LORE_DATA, STORY_ARCS } from '../../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 
 // ============================================

@@ -1,11 +1,7 @@
 
 import { state, loadState } from '../../core/state.js';
 import { TOAD_TIMELINE } from '../../systems/focus-tree.js';
-<<<<<<< HEAD
-import { LORE_DATA, CHARACTER_RELATIONS } from '../../../lore.js';
-=======
 import { LORE_DATA, CHARACTER_RELATIONS } from '../../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { playSound } from '../../core/common.js';
 
 const auxiliaryPartyContainer = document.getElementById('auxiliary-party-container');

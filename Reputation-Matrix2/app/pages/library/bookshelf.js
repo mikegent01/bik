@@ -1,9 +1,5 @@
 import { state, loadState } from '../../core/state.js';
-<<<<<<< HEAD
-import { LORE_DATA } from '../../../lore.js';
-=======
 import { LORE_DATA } from '../../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 // Import book data from separate files
 import { BOOK_DATA as peachDiary } from './books/peach_diary.js';
 import { BOOK_DATA as mkHistory } from './books/mk_history.js';

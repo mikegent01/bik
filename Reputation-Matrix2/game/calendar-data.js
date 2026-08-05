@@ -1,9 +1,5 @@
 import { state } from '../app/core/state.js'; // Needed for seeded random if we use state
-<<<<<<< HEAD
-import {STORY_ARCS} from './lore.js';
-=======
 import {STORY_ARCS} from '../app/core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 export const CURRENT_GAME_DATE = {
     year: 1040,
     monthIndex: 7, // 0-indexed for Harvestide (ordinal 8)

@@ -1,11 +1,7 @@
 import { LORE_DATA } from '../app/core/lore.js';
 import { FACTION_COLORS } from './factions/faction-colors.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE, getDynamicTimestamp } from '../data/world/calendar.js';
-<<<<<<< HEAD
-import { STORY_ARCS, getRumorsByArc } from './lore.js';
-=======
 import { STORY_ARCS, getRumorsByArc } from '../app/core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 
 // ============================================================================
 // CONFLICT METADATA

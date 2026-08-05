@@ -1,10 +1,6 @@
 // This module handles rendering for Fawful's Furious Freaks' unique system.
 
-<<<<<<< HEAD
-import { LORE_DATA } from '../lore.js';
-=======
 import { LORE_DATA } from '../app/core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { getIntelForFaction } from '../app/core/common.js';
 import { state } from '../app/core/state.js';
 

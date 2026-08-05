@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
-=======
 import { LORE_DATA, STORY_ARCS } from '../../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { CURRENT_GAME_DATE, CALENDAR_DATA } from '../../../data/world/calendar.js';
 import { calculateRumorMetrics } from '../../../data/support/research-data.js';
 

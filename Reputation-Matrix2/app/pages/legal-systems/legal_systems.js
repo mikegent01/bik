@@ -1,9 +1,5 @@
 import { LEGAL_DATA } from '../../../data/laws/legal_data.js';
-<<<<<<< HEAD
-import { LORE_DATA } from '../../../lore.js';
-=======
 import { LORE_DATA } from '../../core/lore.js';
->>>>>>> 0357b6f (Move remaining shared modules into core)
 import { playSound } from '../../core/common.js';
 
 const codexContainer = document.getElementById('codex-container');
