@@ -49,70 +49,70 @@ export const EXPANDED_REALMS_AUREA_TO_FAERUN = {
     league_authority: {
         name: "League Authority",
         description: "The official governing body of the Pokémon League, responsible for regulating battles, maintaining gyms, and organizing the Champion's tournament.",
-        logo: 'assets/factions/faction_pokemon.png', relations: {}, power_level: 6, category: "Regional Powers", region: "Pokemon Regions", leader: "champion_carter"
+        logo: 'assets/factions/faction_assets/maps/pokemon.png', relations: {}, power_level: 6, category: "Regional Powers", region: "Pokemon Regions", leader: "champion_carter"
     },
     trainer_guild: {
         name: "The Trainer Guild",
         description: "An influential organization that provides support, resources, and representation for registered Pokémon trainers. They often lobby the League on behalf of their members.",
-        logo: 'assets/factions/faction_pokemon.png', relations: {}, power_level: 5, category: "Regional Powers", region: "Pokemon Regions", leader: "guildmaster_jenny"
+        logo: 'assets/factions/faction_assets/maps/pokemon.png', relations: {}, power_level: 5, category: "Regional Powers", region: "Pokemon Regions", leader: "guildmaster_jenny"
     },
     pokemon_society: {
         name: "The Pokémon Society",
         description: "A research organization dedicated to the study of Pokémon behavior, habitats, and the bonds they form with humans. Their findings often influence League policy.",
-        logo: 'assets/factions/faction_pokemon.png', relations: {}, power_level: 4, category: "Regional Powers", region: "Pokemon Regions", leader: "professor_elm"
+        logo: 'assets/factions/faction_assets/maps/pokemon.png', relations: {}, power_level: 4, category: "Regional Powers", region: "Pokemon Regions", leader: "professor_elm"
     },
     wildlife_conservators: {
         name: "Wildlife Conservators",
         description: "A group dedicated to protecting wild Pokémon habitats and preserving endangered species from poachers and habitat loss.",
-        logo: 'assets/factions/faction_pokemon.png', relations: {}, power_level: 3, category: "Underworld & Fringe", region: "Pokemon Regions", leader: "ranger_brie"
+        logo: 'assets/factions/faction_assets/maps/pokemon.png', relations: {}, power_level: 3, category: "Underworld & Fringe", region: "Pokemon Regions", leader: "ranger_brie"
     },
 
     // --- Teyvat ---
     archon_lumines_power: {
         name: "Archon Lumine's Divine Power",
         description: "The direct forces and followers of the God of Light, forming the dominant political and military entity in the ongoing Archon War.",
-        logo: 'assets/factions/faction_teyvat.png', relations: {}, power_level: 9, category: "Major Powers", region: "Teyvat", leader: "archon_lumine"
+        logo: 'assets/factions/faction_assets/maps/teyvat.png', relations: {}, power_level: 9, category: "Major Powers", region: "Teyvat", leader: "archon_lumine"
     },
     elemental_cults: {
         name: "Elemental Cults",
         description: "Various fanatical cults dedicated to the worship of specific elements (Pyro, Cryo, etc.), often acting as independent and unpredictable forces in the war.",
-        logo: 'assets/factions/faction_teyvat.png', relations: {}, power_level: 5, category: "Mystical & Ancient", region: "Teyvat", leader: "pyro_prophet_ember"
+        logo: 'assets/factions/faction_assets/maps/teyvat.png', relations: {}, power_level: 5, category: "Mystical & Ancient", region: "Teyvat", leader: "pyro_prophet_ember"
     },
     divine_guard: {
         name: "The Divine Guard",
         description: "An elite order of mortals sworn to protect the Archons and their temples. They are granted a measure of divine power for their service.",
-        logo: 'assets/factions/faction_teyvat.png', relations: {}, power_level: 7, category: "Regional Powers", region: "Teyvat", leader: "captain_aetherius"
+        logo: 'assets/factions/faction_assets/maps/teyvat.png', relations: {}, power_level: 7, category: "Regional Powers", region: "Teyvat", leader: "captain_aetherius"
     },
     vision_bearers: {
         name: "Mortals (Vision Bearers)",
         description: "A growing faction of mortals who have been granted 'Visions' (elemental powers) and seek to carve out their own destiny, independent of the gods.",
-        logo: 'assets/factions/faction_teyvat.png', relations: {}, power_level: 6, category: "Regional Powers", region: "Teyvat", leader: "the_traveler"
+        logo: 'assets/factions/faction_assets/maps/teyvat.png', relations: {}, power_level: 6, category: "Regional Powers", region: "Teyvat", leader: "the_traveler"
     },
     abyss_order: {
         name: "The Abyss Order",
         description: "A shadowy organization of monsters and corrupted beings who seek to overthrow the divine rule of the Archons and plunge the world into chaos.",
-        logo: 'assets/factions/faction_teyvat.png', relations: {}, power_level: 7, category: "Underworld & Fringe", region: "Teyvat", leader: "the_abyssal_prince"
+        logo: 'assets/factions/faction_assets/maps/teyvat.png', relations: {}, power_level: 7, category: "Underworld & Fringe", region: "Teyvat", leader: "the_abyssal_prince"
     },
 
     // --- Faerun ---
     high_magus_circle: {
         name: "High Magus Elion's Circle",
         description: "The inner circle of archmages and advisors who directly serve the Supreme Sorcerer, enacting his will to maintain their magical utopia.",
-        logo: 'assets/factions/faction_faerun.png', relations: {}, power_level: 8, category: "Major Powers", region: "Faerun", leader: "high_magus_elion"
+        logo: 'assets/factions/faction_assets/maps/faerun.png', relations: {}, power_level: 8, category: "Major Powers", region: "Faerun", leader: "high_magus_elion"
     },
     mage_council: {
         name: "The Mage Council",
         description: "The legislative body of Faerun's theocracy. While loyal to the High Magus, they often debate the ethical implications of his grand spells and policies.",
-        logo: 'assets/factions/faction_faerun.png', relations: {}, power_level: 7, category: "Regional Powers", region: "Faerun", leader: "lady_silverhand"
+        logo: 'assets/factions/faction_assets/maps/faerun.png', relations: {}, power_level: 7, category: "Regional Powers", region: "Faerun", leader: "lady_silverhand"
     },
     warrior_clans_faerun: {
         name: "Warrior Clans of Faerun",
         description: "Various martial orders and warrior clans who serve as the military arm of the theocracy, their blades and bows augmented with powerful enchantments.",
-        logo: 'assets/factions/faction_faerun.png', relations: {}, power_level: 6, category: "Regional Powers", region: "Faerun", leader: "warlord_drizzt"
+        logo: 'assets/factions/faction_assets/maps/faerun.png', relations: {}, power_level: 6, category: "Regional Powers", region: "Faerun", leader: "warlord_drizzt"
     },
     ancient_keepers: {
         name: "Elven Tribes (Ancient Keepers)",
         description: "Ancient Elven tribes who act as the guardians of Faerun's most powerful magical sites and artifacts, often operating with a degree of autonomy from the Mage Council.",
-        logo: 'assets/factions/faction_faerun.png', relations: {}, power_level: 5, category: "Mystical & Ancient", region: "Faerun", leader: "elder_elara"
+        logo: 'assets/factions/faction_assets/maps/faerun.png', relations: {}, power_level: 5, category: "Mystical & Ancient", region: "Faerun", leader: "elder_elara"
     }
 };

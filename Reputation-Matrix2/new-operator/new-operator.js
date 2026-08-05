@@ -8,9 +8,9 @@ const totalSteps = 6;
 let selectedRegion = null;
 
 const REGION_IMAGE_MAP = {
-    'Mushroom Kingdom': '../mushroom_kingdom.jpg',
-    'The Midlands': '../fullmap.png',
-    'The Internet': '../intermap.jpg',
+    'Mushroom Kingdom': '../assets/maps/mushroom_kingdom.jpg',
+    'The Midlands': '../assets/maps/fullmap.png',
+    'The Internet': '../assets/maps/intermap.jpg',
     'Middle-earth': '../mide.webp',
     'The Fated Place': '../wa.jpg',
     'Kivotos': '../archive.png',

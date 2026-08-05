@@ -7,7 +7,7 @@ export const EQUESTRIA_FACTIONS = {
     equestrian_regime: {
         name: "The Equestrian Regime",
         description: "The absolute, solar-divine authority governing Equestria. Led by the immortal Queen Celestia, the Regime enforces 'Harmony' through a rigid caste system, a powerful secret police (The Ministry of Friendship Enforcement), and the elite Wonderbolts. They view non-pony races as subjects to be 'guided' or contained.",
-        logo: 'assets/factions/faction_equestria.png',
+        logo: 'assets/factions/faction_assets/maps/equestria.png',
         relations: {
             allies: ['regal_empire', 'pony_nobility'],
             enemies: ['spark_of_rebellion', 'zootopia_republic', 'the_unchained', 'liberated_toads', 'changeling_hive']

@@ -128,7 +128,7 @@ export const MDATA_F = {
     mushroom_kingdom_full: {
         id: 'mushroom_kingdom_full',
         name: 'Mushroom Kingdom (Full)',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 1,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: [
@@ -183,7 +183,7 @@ export const MDATA_F = {
     mushroom_kingdom: {
         id: 'mushroom_kingdom',
         name: 'Mushroom Plains',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 2,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: mushroomKingdomData.pointsOfInterest,
@@ -193,7 +193,7 @@ export const MDATA_F = {
     the_north: {
         id: 'the_north',
         name: 'The North',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 3,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: theNorthData.pointsOfInterest,
@@ -203,7 +203,7 @@ export const MDATA_F = {
     mushroom_city: {
         id: 'mushroom_city',
         name: 'Mushroom City',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 4,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: mushroomCityData.pointsOfInterest,
@@ -213,7 +213,7 @@ export const MDATA_F = {
      beanbean_kingdom: {
         id: 'beanbean_kingdom',
         name: 'Beanbean Kingdom',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 5,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: beanbeanKingdomData.pointsOfInterest,
@@ -223,7 +223,7 @@ export const MDATA_F = {
     mountain_enclave: {
         id: 'mountain_enclave',
         name: 'Mountain Enclave',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 6,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: mountainEnclaveData.pointsOfInterest,
@@ -233,7 +233,7 @@ export const MDATA_F = {
     dry_dry_desert: {
         id: 'dry_dry_desert',
         name: 'Dry Dry Desert',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 7,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: dryDryDesertData.pointsOfInterest,
@@ -243,7 +243,7 @@ export const MDATA_F = {
     bandits_way: {
         id: 'bandits_way',
         name: 'Bandits Way',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 8,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: banditsWayData.pointsOfInterest,
@@ -253,7 +253,7 @@ export const MDATA_F = {
     wario_woods: {
         id: 'wario_woods',
         name: 'Wario Woods',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 9,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: warioWoodsData.pointsOfInterest,
@@ -263,7 +263,7 @@ export const MDATA_F = {
     arid_coast: {
         id: 'arid_coast',
         name: 'The Arid Coast',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 10,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: aridCoastData.pointsOfInterest,
@@ -273,7 +273,7 @@ export const MDATA_F = {
     boos_woods: {
         id: 'boos_woods',
         name: 'Boos Woods',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 11,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: boosWoodsData.pointsOfInterest,
@@ -283,7 +283,7 @@ export const MDATA_F = {
      pianta_sea: {
         id: 'pianta_sea',
         name: 'The Pianta Sea',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 12,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: piantaSeaData.pointsOfInterest,
@@ -293,7 +293,7 @@ export const MDATA_F = {
     yale_shores: {
         id: 'yale_shores',
         name: 'Yale Shores',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 13,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: yaleShoresData.pointsOfInterest,
@@ -303,7 +303,7 @@ export const MDATA_F = {
     barrel_volcano: {
         id: 'barrel_volcano',
         name: 'Barrel Volcano',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 1,
         group: 'Islands & Outer Realms',
         pointsOfInterest: barrelVolcanoData.pointsOfInterest,
@@ -313,7 +313,7 @@ export const MDATA_F = {
     seven_kingdoms: {
         id: 'seven_kingdoms',
         name: 'The Seven Kingdoms',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 2,
         group: 'Islands & Outer Realms',
         pointsOfInterest: sevenKingdomsData.pointsOfInterest,
@@ -323,7 +323,7 @@ export const MDATA_F = {
     sunshine_isles: {
         id: 'sunshine_isles',
         name: 'Sunshine Isles',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 3,
         group: 'Islands & Outer Realms',
         pointsOfInterest: sunshineIslesData.pointsOfInterest,
@@ -333,7 +333,7 @@ export const MDATA_F = {
     flower_kingdom: {
         id: 'flower_kingdom',
         name: 'Flower Kingdom',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 4,
         group: 'Islands & Outer Realms',
         pointsOfInterest: flowerKingdomData.pointsOfInterest,
@@ -343,7 +343,7 @@ export const MDATA_F = {
     yoshi_dk_islands: {
         id: 'yoshi_dk_islands',
         name: 'Yoshi & DKs Islands',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 5,
         group: 'Islands & Outer Realms',
         pointsOfInterest: yoshiDkIslandsData.pointsOfInterest,
@@ -353,7 +353,7 @@ export const MDATA_F = {
     waffle_chestnut: {
         id: 'waffle_chestnut',
         name: 'Waffle & Chestnut',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 6,
         group: 'Islands & Outer Realms',
         pointsOfInterest: waffleChestnutData.pointsOfInterest,
@@ -363,7 +363,7 @@ export const MDATA_F = {
     neo_bowser_city: {
         id: 'neo_bowser_city',
         name: 'Neo Bowser City',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 7,
         group: 'Islands & Outer Realms',
         pointsOfInterest: neoBowserCityData.pointsOfInterest,
@@ -373,7 +373,7 @@ export const MDATA_F = {
     ice_ice_outpost: {
         id: 'ice_ice_outpost',
         name: 'Ice Ice Outpost',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 8,
         group: 'Islands & Outer Realms',
         pointsOfInterest: iceIceOutpostData.pointsOfInterest,
@@ -475,7 +475,7 @@ export const MAP_DATA = {
     mushroom_kingdom_full: {
         id: 'mushroom_kingdom_full',
         name: 'Mushroom Kingdom (Full)',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 1,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: [
@@ -529,7 +529,7 @@ export const MAP_DATA = {
     mushroom_kingdom: {
         id: 'mushroom_kingdom',
         name: 'Mushroom Plains',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 2,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: mushroomKingdomData.pointsOfInterest,
@@ -539,7 +539,7 @@ export const MAP_DATA = {
     the_north: {
         id: 'the_north',
         name: 'The North',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 3,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: theNorthData.pointsOfInterest,
@@ -549,7 +549,7 @@ export const MAP_DATA = {
     mushroom_city: {
         id: 'mushroom_city',
         name: 'Mushroom City',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 4,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: mushroomCityData.pointsOfInterest,
@@ -559,7 +559,7 @@ export const MAP_DATA = {
      beanbean_kingdom: {
         id: 'beanbean_kingdom',
         name: 'Beanbean Kingdom',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 5,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: beanbeanKingdomData.pointsOfInterest,
@@ -569,7 +569,7 @@ export const MAP_DATA = {
     mountain_enclave: {
         id: 'mountain_enclave',
         name: 'Mountain Enclave',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 6,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: mountainEnclaveData.pointsOfInterest,
@@ -579,7 +579,7 @@ export const MAP_DATA = {
     dry_dry_desert: {
         id: 'dry_dry_desert',
         name: 'Dry Dry Desert',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 7,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: dryDryDesertData.pointsOfInterest,
@@ -589,7 +589,7 @@ export const MAP_DATA = {
     bandits_way: {
         id: 'bandits_way',
         name: 'Bandits Way',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 8,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: banditsWayData.pointsOfInterest,
@@ -599,7 +599,7 @@ export const MAP_DATA = {
     wario_woods: {
         id: 'wario_woods',
         name: 'Wario Woods',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 9,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: warioWoodsData.pointsOfInterest,
@@ -609,7 +609,7 @@ export const MAP_DATA = {
     arid_coast: {
         id: 'arid_coast',
         name: 'The Arid Coast',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 10,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: aridCoastData.pointsOfInterest,
@@ -619,7 +619,7 @@ export const MAP_DATA = {
     boos_woods: {
         id: 'boos_woods',
         name: 'Boos Woods',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 11,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: boosWoodsData.pointsOfInterest,
@@ -629,7 +629,7 @@ export const MAP_DATA = {
      pianta_sea: {
         id: 'pianta_sea',
         name: 'The Pianta Sea',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 12,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: piantaSeaData.pointsOfInterest,
@@ -639,7 +639,7 @@ export const MAP_DATA = {
     yale_shores: {
         id: 'yale_shores',
         name: 'Yale Shores',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 13,
         group: 'Mushroom Kingdom Regions',
         pointsOfInterest: yaleShoresData.pointsOfInterest,
@@ -649,7 +649,7 @@ export const MAP_DATA = {
     barrel_volcano: {
         id: 'barrel_volcano',
         name: 'Barrel Volcano',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 1,
         group: 'Islands & Outer Realms',
         pointsOfInterest: barrelVolcanoData.pointsOfInterest,
@@ -659,7 +659,7 @@ export const MAP_DATA = {
     seven_kingdoms: {
         id: 'seven_kingdoms',
         name: 'The Seven Kingdoms',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 2,
         group: 'Islands & Outer Realms',
         pointsOfInterest: sevenKingdomsData.pointsOfInterest,
@@ -669,7 +669,7 @@ export const MAP_DATA = {
     sunshine_isles: {
         id: 'sunshine_isles',
         name: 'Sunshine Isles',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 3,
         group: 'Islands & Outer Realms',
         pointsOfInterest: sunshineIslesData.pointsOfInterest,
@@ -679,7 +679,7 @@ export const MAP_DATA = {
     flower_kingdom: {
         id: 'flower_kingdom',
         name: 'Flower Kingdom',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 4,
         group: 'Islands & Outer Realms',
         pointsOfInterest: flowerKingdomData.pointsOfInterest,
@@ -689,7 +689,7 @@ export const MAP_DATA = {
     yoshi_dk_islands: {
         id: 'yoshi_dk_islands',
         name: 'Yoshi & DKs Islands',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 5,
         group: 'Islands & Outer Realms',
         pointsOfInterest: yoshiDkIslandsData.pointsOfInterest,
@@ -699,7 +699,7 @@ export const MAP_DATA = {
     waffle_chestnut: {
         id: 'waffle_chestnut',
         name: 'Waffle & Chestnut',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 6,
         group: 'Islands & Outer Realms',
         pointsOfInterest: waffleChestnutData.pointsOfInterest,
@@ -709,7 +709,7 @@ export const MAP_DATA = {
     neo_bowser_city: {
         id: 'neo_bowser_city',
         name: 'Neo Bowser City',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 7,
         group: 'Islands & Outer Realms',
         pointsOfInterest: neoBowserCityData.pointsOfInterest,
@@ -719,7 +719,7 @@ export const MAP_DATA = {
     ice_ice_outpost: {
         id: 'ice_ice_outpost',
         name: 'Ice Ice Outpost',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 8,
         group: 'Islands & Outer Realms',
         pointsOfInterest: iceIceOutpostData.pointsOfInterest,
@@ -729,7 +729,7 @@ export const MAP_DATA = {
     midlands_full: {
         id: 'midlands_full',
         name: 'The Midlands (Full)',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 1,
         group: 'The Midlands',
         pointsOfInterest: [
@@ -771,7 +771,7 @@ export const MAP_DATA = {
     midlands_capital: {
         id: 'midlands_capital',
         name: 'Regal Capital',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 2,
         group: 'The Midlands',
         pointsOfInterest: midlandsData.pointsOfInterest,
@@ -781,7 +781,7 @@ export const MAP_DATA = {
     yal_belanor: {
         id: 'yal_belanor',
         name: 'Yal Belanor',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 3,
         group: 'The Midlands',
         pointsOfInterest: yalBelanorData.pointsOfInterest,
@@ -791,7 +791,7 @@ export const MAP_DATA = {
     vemillia: {
         id: 'vemillia',
         name: 'Vemilia',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 4,
         group: 'The Midlands',
         pointsOfInterest: vemilliaData.pointsOfInterest,
@@ -801,7 +801,7 @@ export const MAP_DATA = {
     ironwood: {
         id: 'ironwood',
         name: 'Ironwood',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 5,
         group: 'The Midlands',
         pointsOfInterest: ironwoodData.pointsOfInterest,
@@ -811,7 +811,7 @@ export const MAP_DATA = {
     lockerwood: {
         id: 'lockerwood',
         name: 'Lockerwood',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 6,
         group: 'The Midlands',
         pointsOfInterest: lockerwoodData.pointsOfInterest,
@@ -821,7 +821,7 @@ export const MAP_DATA = {
      dragon_mountain: {
         id: 'dragon_mountain',
         name: 'Dragon Mountain',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 7,
         group: 'The Midlands',
         pointsOfInterest: dragonMountainData.pointsOfInterest,
@@ -831,7 +831,7 @@ export const MAP_DATA = {
     autumnwood: {
         id: 'autumnwood',
         name: 'Autumnwood',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 8,
         group: 'The Midlands',
         pointsOfInterest: autumnwoodData.pointsOfInterest,
@@ -841,7 +841,7 @@ export const MAP_DATA = {
     dry_county: {
         id: 'dry_county',
         name: 'Dry County',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 9,
         group: 'The Midlands',
         pointsOfInterest: dryCountyData.pointsOfInterest,
@@ -851,7 +851,7 @@ export const MAP_DATA = {
     theghdural: {
         id: 'theghdural',
         name: 'Theghdural',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 10,
         group: 'The Midlands',
         pointsOfInterest: theghduralData.pointsOfInterest,
@@ -861,7 +861,7 @@ export const MAP_DATA = {
     jungle_of_thorns: {
         id: 'jungle_of_thorns',
         name: 'Jungle of Thorns',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 11,
         group: 'The Midlands',
         pointsOfInterest: jungleOfThornsData.pointsOfInterest,
@@ -871,7 +871,7 @@ export const MAP_DATA = {
     ludor_isles: {
         id: 'ludor_isles',
         name: 'Ludor Isles',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 12,
         group: 'The Midlands',
         pointsOfInterest: ludorIslesData.pointsOfInterest,
@@ -881,7 +881,7 @@ export const MAP_DATA = {
     baldora_plains: {
         id: 'baldora_plains',
         name: 'Baldora Plains',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 13,
         group: 'The Midlands',
         pointsOfInterest: baldoraPlainsData.pointsOfInterest,
@@ -891,7 +891,7 @@ export const MAP_DATA = {
     lower_hills: {
         id: 'lower_hills',
         name: 'Lower Hills',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 14,
         group: 'The Midlands',
         pointsOfInterest: lowerHillsData.pointsOfInterest,
@@ -901,7 +901,7 @@ export const MAP_DATA = {
     yal_central: {
         id: 'yal_central',
         name: 'Yal Central',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 15,
         group: 'The Midlands',
         pointsOfInterest: yalCentralData.pointsOfInterest,
@@ -911,7 +911,7 @@ export const MAP_DATA = {
     northern_lands: {
         id: 'northern_lands',
         name: 'The Northern Lands',
-        imageSrc: 'fullmap.png',
+        imageSrc: 'assets/maps/fullmap.png',
         order: 16,
         group: 'The Midlands',
         pointsOfInterest: northernLandsData.pointsOfInterest,
@@ -921,7 +921,7 @@ export const MAP_DATA = {
     chramalot_kingdom: {
         id: 'chramalot_kingdom',
         name: 'Chramalot Kingdom',
-        imageSrc: 'mushroom_kingdom.jpg',
+        imageSrc: 'assets/maps/mushroom_kingdom.jpg',
         order: 9,
         group: 'Islands & Outer Realms',
         pointsOfInterest: chramalotKingdomData.pointsOfInterest,
@@ -1135,7 +1135,7 @@ export const MAP_DATA = {
     internet_full: {
         id: 'internet_full',
         name: 'The Internet (Full)',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 1,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest,
@@ -1145,7 +1145,7 @@ export const MAP_DATA = {
     internet_border: {
         id: 'internet_border',
         name: 'The Border',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 2,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'border'),
@@ -1155,7 +1155,7 @@ export const MAP_DATA = {
     internet_surface_web: {
         id: 'internet_surface_web',
         name: 'The Surface Web',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 3,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'surface_web'),
@@ -1165,7 +1165,7 @@ export const MAP_DATA = {
     internet_sea_of_archives: {
         id: 'internet_sea_of_archives',
         name: 'Sea of Archives',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 4,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'sea_of_archives'),
@@ -1175,7 +1175,7 @@ export const MAP_DATA = {
     internet_big_tech: {
         id: 'internet_big_tech',
         name: 'Big Tech Region',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 5,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'big_tech'),
@@ -1185,7 +1185,7 @@ export const MAP_DATA = {
     internet_apple_island: {
         id: 'internet_apple_island',
         name: 'Apple Island',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 6,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'apple_island'),
@@ -1195,7 +1195,7 @@ export const MAP_DATA = {
     internet_intel_corp: {
         id: 'internet_intel_corp',
         name: 'Intel Corp. Zone',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 7,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'intel_corp'),
@@ -1205,7 +1205,7 @@ export const MAP_DATA = {
     internet_deviant_web: {
         id: 'internet_deviant_web',
         name: 'The Deviant Web',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 8,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'deviant_web'),
@@ -1215,7 +1215,7 @@ export const MAP_DATA = {
     internet_criminal_web: {
         id: 'internet_criminal_web',
         name: 'The Criminal Web',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 9,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'criminal_web'),
@@ -1225,7 +1225,7 @@ export const MAP_DATA = {
     internet_deep_web: {
         id: 'internet_deep_web',
         name: 'The Deep Web',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 10,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'deep_web'),
@@ -1235,7 +1235,7 @@ export const MAP_DATA = {
     internet_capitol: {
         id: 'internet_capitol',
         name: 'The Capitol',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 11,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'capitol'),
@@ -1245,7 +1245,7 @@ export const MAP_DATA = {
     internet_wastefill: {
         id: 'internet_wastefill',
         name: 'Great Southern Wastefill',
-        imageSrc: 'intermap.jpg',
+        imageSrc: 'assets/maps/intermap.jpg',
         order: 12,
         group: 'The Internet',
         pointsOfInterest: internetData.pointsOfInterest.filter(p => p.subRegion === 'wastefill'),
@@ -1463,7 +1463,7 @@ export const MAP_DATA = {
     pokemon_full: {
         id: 'pokemon_full',
         name: 'Pokémon Regions (Full)',
-        imageSrc: 'pokemon.png',
+        imageSrc: 'assets/maps/pokemon.png',
         order: 1,
         group: 'Pokémon Regions',
         pointsOfInterest: pokemonData.pointsOfInterest,
@@ -1473,7 +1473,7 @@ export const MAP_DATA = {
     unova: {
         id: 'unova',
         name: 'Unova Region',
-        imageSrc: 'pokemon.png',
+        imageSrc: 'assets/maps/pokemon.png',
         order: 2,
         group: 'Pokémon Regions',
         pointsOfInterest: unovaPois,
@@ -1483,7 +1483,7 @@ export const MAP_DATA = {
     oore: {
         id: 'oore',
         name: 'Oore Region',
-        imageSrc: 'pokemon.png',
+        imageSrc: 'assets/maps/pokemon.png',
         order: 3,
         group: 'Pokémon Regions',
         pointsOfInterest: oorePois,
@@ -1493,7 +1493,7 @@ export const MAP_DATA = {
     kalos_johto_kanto_paldea: {
         id: 'kalos_johto_kanto_paldea',
         name: 'Kalos, Johto, Kanto, & Paldea',
-        imageSrc: 'pokemon.png',
+        imageSrc: 'assets/maps/pokemon.png',
         order: 4,
         group: 'Pokémon Regions',
         pointsOfInterest: [
@@ -1508,7 +1508,7 @@ export const MAP_DATA = {
     hoenn: {
         id: 'hoenn',
         name: 'Hoenn Region',
-        imageSrc: 'pokemon.png',
+        imageSrc: 'assets/maps/pokemon.png',
         order: 5,
         group: 'Pokémon Regions',
         pointsOfInterest: hoennPois,
@@ -1518,7 +1518,7 @@ export const MAP_DATA = {
     fiore_almia: {
         id: 'fiore_almia',
         name: 'Fiore & Almia',
-        imageSrc: 'pokemon.png',
+        imageSrc: 'assets/maps/pokemon.png',
         order: 6,
         group: 'Pokémon Regions',
         pointsOfInterest: [ ...fiorePois, ...almiaPois ],
@@ -1528,7 +1528,7 @@ export const MAP_DATA = {
     mountain_savana: {
         id: 'mountain_savana',
         name: 'Mountain Savana',
-        imageSrc: 'pokemon.png',
+        imageSrc: 'assets/maps/pokemon.png',
         order: 7,
         group: 'Pokémon Regions',
         pointsOfInterest: mountainSavanaPois,
@@ -1558,7 +1558,7 @@ export const MAP_DATA = {
     connectopia_full: {
         id: 'connectopia_full',
         name: 'Connectopia',
-        imageSrc: 'connectopia.png',
+        imageSrc: 'assets/maps/connectopia.png',
         order: 1,
         group: 'Connectopia',
         pointsOfInterest: connectopiaData.pointsOfInterest,
@@ -1620,7 +1620,7 @@ export const MAP_DATA = {
     faerun_full: {
         id: 'faerun_full',
         name: 'Faerûn',
-        imageSrc: 'faerun.png',
+        imageSrc: 'assets/maps/faerun.png',
         order: 1,
         group: 'Faerûn',
         pointsOfInterest: faerunData.pointsOfInterest,
@@ -1630,7 +1630,7 @@ export const MAP_DATA = {
     leclaire_isle_full: {
         id: 'leclaire_isle_full',
         name: 'L\'Eclaire Isle',
-        imageSrc: 'leclaire_isle.png',
+        imageSrc: 'assets/maps/leclaire_isle.png',
         order: 1,
         group: 'L\'Eclaire Isle',
         pointsOfInterest: leclaireIsleData.pointsOfInterest,
@@ -1640,7 +1640,7 @@ export const MAP_DATA = {
     teyvat_full: {
         id: 'teyvat_full',
         name: 'Teyvat',
-        imageSrc: 'teyvat.png',
+        imageSrc: 'assets/maps/teyvat.png',
         order: 1,
         group: 'Teyvat',
         pointsOfInterest: teyvatData.pointsOfInterest,
@@ -1650,7 +1650,7 @@ export const MAP_DATA = {
     equestria_full: {
         id: 'equestria_full',
         name: 'Equestria',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 1,
         group: 'Equestria',
     pointsOfInterest: [
@@ -1712,7 +1712,7 @@ export const MAP_DATA = {
     equestria_cenerlot: {
         id: 'equestria_cenerlot',
         name: 'Cenerlot (Capital)',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 2,
         group: 'Equestria',
         pointsOfInterest: cenerlotData.pointsOfInterest,
@@ -1722,7 +1722,7 @@ export const MAP_DATA = {
     equestria_mount_everhoof: {
         id: 'equestria_mount_everhoof',
         name: 'Mount Everhoof',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 3,
         group: 'Equestria',
         pointsOfInterest: mountEverhoofData.pointsOfInterest,
@@ -1732,7 +1732,7 @@ export const MAP_DATA = {
     equestria_hailbreg: {
         id: 'equestria_hailbreg',
         name: 'Hailbreg',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 4,
         group: 'Equestria',
         pointsOfInterest: hailbregData.pointsOfInterest,
@@ -1742,7 +1742,7 @@ export const MAP_DATA = {
     equestria_wandering_woods: {
         id: 'equestria_wandering_woods',
         name: 'Wandering Woods',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 5,
         group: 'Equestria',
         pointsOfInterest: wanderingWoodsData.pointsOfInterest,
@@ -1752,7 +1752,7 @@ export const MAP_DATA = {
     equestria_jackalope_slopes: {
         id: 'equestria_jackalope_slopes',
         name: 'Jackalope Slopes',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 6,
         group: 'Equestria',
         pointsOfInterest: jackalopeSlopesData.pointsOfInterest,
@@ -1762,7 +1762,7 @@ export const MAP_DATA = {
     equestria_sires_hollow: {
         id: 'equestria_sires_hollow',
         name: 'Sires Hollow',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 7,
         group: 'Equestria',
         pointsOfInterest: siresHollowData.pointsOfInterest,
@@ -1772,7 +1772,7 @@ export const MAP_DATA = {
     equestria_farasi: {
         id: 'equestria_farasi',
         name: 'Farasi',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 8,
         group: 'Equestria',
         pointsOfInterest: farasiData.pointsOfInterest,
@@ -1782,7 +1782,7 @@ export const MAP_DATA = {
     equestria_zebrabwe: {
         id: 'equestria_zebrabwe',
         name: 'Zebrabwe',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 9,
         group: 'Equestria',
         pointsOfInterest: zebrabweData.pointsOfInterest,
@@ -1792,7 +1792,7 @@ export const MAP_DATA = {
     equestria_saddle_arabia: {
         id: 'equestria_saddle_arabia',
         name: 'Saddle Arabia',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 10,
         group: 'Equestria',
         pointsOfInterest: saddleArabiaData.pointsOfInterest,
@@ -1802,7 +1802,7 @@ export const MAP_DATA = {
     equestria_bone_dry_desert: {
         id: 'equestria_bone_dry_desert',
         name: 'Bone Dry Desert',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 11,
         group: 'Equestria',
         pointsOfInterest: boneDryDesertData.pointsOfInterest,
@@ -1812,7 +1812,7 @@ export const MAP_DATA = {
     equestria_appledoosa: {
         id: 'equestria_appledoosa',
         name: 'Appledoosa',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 12,
         group: 'Equestria',
         pointsOfInterest: appledoosaData.pointsOfInterest,
@@ -1822,7 +1822,7 @@ export const MAP_DATA = {
     equestria_sea_palomino_desert: {
         id: 'equestria_sea_palomino_desert',
         name: 'Sea Palomino Desert',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 13,
         group: 'Equestria',
         pointsOfInterest: seaPalominoDesertData.pointsOfInterest,
@@ -1832,7 +1832,7 @@ export const MAP_DATA = {
     equestria_badlands: {
         id: 'equestria_badlands',
         name: 'Badlands',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 14,
         group: 'Equestria',
         pointsOfInterest: badlandsData.pointsOfInterest,
@@ -1842,7 +1842,7 @@ export const MAP_DATA = {
     equestria_south_central_park: {
         id: 'equestria_south_central_park',
         name: 'South Central Park',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 15,
         group: 'Equestria',
         pointsOfInterest: southCentralParkData.pointsOfInterest,
@@ -1852,7 +1852,7 @@ export const MAP_DATA = {
     equestria_storm_kings_realm: {
         id: 'equestria_storm_kings_realm',
         name: 'Storm Kings Realm',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 16,
         group: 'Equestria',
         pointsOfInterest: stormKingsRealmData.pointsOfInterest,
@@ -1862,7 +1862,7 @@ export const MAP_DATA = {
     equestria_great_blizzard_barreaer: {
         id: 'equestria_great_blizzard_barreaer',
         name: 'Great Blizzard Barreaer',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 17,
         group: 'Equestria',
         pointsOfInterest: greatBlizzardBarreaerData.pointsOfInterest,
@@ -1872,7 +1872,7 @@ export const MAP_DATA = {
     equestria_desolate_wasteland: {
         id: 'equestria_desolate_wasteland',
         name: 'Desolate Wasteland',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 18,
         group: 'Equestria',
         pointsOfInterest: desolateWastelandData.pointsOfInterest,
@@ -1882,7 +1882,7 @@ export const MAP_DATA = {
     equestria_mount_metazoa: {
         id: 'equestria_mount_metazoa',
         name: 'Mount Metazoa',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 19,
         group: 'Equestria',
         pointsOfInterest: mountMetazoaData.pointsOfInterest,
@@ -1892,7 +1892,7 @@ export const MAP_DATA = {
     equestria_sugar_maple_grove: {
         id: 'equestria_sugar_maple_grove',
         name: 'Sugar Maple Grove',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 20,
         group: 'Equestria',
         pointsOfInterest: sugarMapleGroveData.pointsOfInterest,
@@ -1902,7 +1902,7 @@ export const MAP_DATA = {
     equestria_griffonstone: {
         id: 'equestria_griffonstone',
         name: 'Griffonstone',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 21,
         group: 'Equestria',
         pointsOfInterest: griffinstoneData.pointsOfInterest,
@@ -1912,7 +1912,7 @@ export const MAP_DATA = {
     equestria_thrace: {
         id: 'equestria_thrace',
         name: 'Thrace',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 22,
         group: 'Equestria',
         pointsOfInterest: thraceData.pointsOfInterest,
@@ -1922,7 +1922,7 @@ export const MAP_DATA = {
     equestria_great_ice_platau: {
         id: 'equestria_great_ice_platau',
         name: 'Great Ice Plateau',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 23,
         group: 'Equestria',
         pointsOfInterest: greatIcePlatauData.pointsOfInterest,
@@ -1932,7 +1932,7 @@ export const MAP_DATA = {
     equestria_halfinger_grove: {
         id: 'equestria_halfinger_grove',
         name: 'Halfinger Grove',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 24,
         group: 'Equestria',
         pointsOfInterest: halfingerGroveData.pointsOfInterest,
@@ -1941,7 +1941,7 @@ export const MAP_DATA = {
     equestria_trotting_terrians: {
         id: 'equestria_trotting_terrians',
         name: 'Trotting Terrians',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 25,
         group: 'Equestria',
         pointsOfInterest: trottingTerriansData.pointsOfInterest,
@@ -1950,7 +1950,7 @@ export const MAP_DATA = {
     equestria_abyssinia: {
         id: 'equestria_abyssinia',
         name: 'Abyssinia',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 26,
         group: 'Equestria',
         pointsOfInterest: abyssiniaData.pointsOfInterest,
@@ -1959,7 +1959,7 @@ export const MAP_DATA = {
     equestria_ng_amia: {
         id: 'equestria_ng_amia',
         name: "Ng'Amia",
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 27,
         group: 'Equestria',
         pointsOfInterest: ngAmiaData.pointsOfInterest,
@@ -1968,7 +1968,7 @@ export const MAP_DATA = {
     equestria_shire_lanka: {
         id: 'equestria_shire_lanka',
         name: 'Shire Lanka',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 28,
         group: 'Equestria',
         pointsOfInterest: shireLankaData.pointsOfInterest,
@@ -1977,7 +1977,7 @@ export const MAP_DATA = {
     equestria_riverlands: {
         id: 'equestria_riverlands',
         name: 'Riverlands',
-        imageSrc: 'equestria.png',
+        imageSrc: 'assets/maps/equestria.png',
         order: 29,
         group: 'Equestria',
         pointsOfInterest: riverlandsData.pointsOfInterest,
@@ -1986,7 +1986,7 @@ export const MAP_DATA = {
     grand_country_full: {
         id: 'grand_country_full',
         name: 'The Grand Country',
-        imageSrc: 'grand_country.png',
+        imageSrc: 'assets/maps/grand_country.png',
         order: 1,
         group: 'The Grand Country',
         pointsOfInterest: grandCountryData.pointsOfInterest,

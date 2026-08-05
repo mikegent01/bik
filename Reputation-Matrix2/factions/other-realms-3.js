@@ -58,7 +58,7 @@ export const OTHER_REALMS_3 = {
     equestrian_regime: {
         name: "Autocratic Regime of Equestria",
         description: "A pony ethno-state ruled by an immortal tyrant where other races are heavily marginalized or enslaved under a veneer of enforced happiness.",
-        logo: 'assets/factions/faction_equestria.png',
+        logo: 'assets/factions/faction_assets/maps/equestria.png',
         relations: { 
             allies: ['regal_empire'], 
             enemies: ['zootopia_republic', 'the_unchained', 'liberated_toads', 'rebel_clans']

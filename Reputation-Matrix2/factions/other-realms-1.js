@@ -40,7 +40,7 @@ export const OTHER_REALMS_1 = {
     pokemon_league: {
         name: "Pokémon League Federation",
         description: "A vibrant realm guided by the bonds between trainers and their Pokémon, with a culture built around competition and cooperation.",
-        logo: 'assets/factions/faction_pokemon.png',
+        logo: 'assets/factions/faction_assets/maps/pokemon.png',
         relations: { 
             allies: ['zootopia_republic'], 
             enemies: ['regal_empire', 'iron_legion', 'onyx_hand', 'equestrian_regime']
@@ -58,7 +58,7 @@ export const OTHER_REALMS_1 = {
     teyvat_hegemony: {
         name: "Teyvat Divine Hegemony",
         description: "A continent ruled by divine Archons where mortals and gods clash for dominion over elemental forces.",
-        logo: 'assets/factions/faction_teyvat.png',
+        logo: 'assets/factions/faction_assets/maps/teyvat.png',
         relations: { 
             allies: ['mages_guild', 'faerun_theocracy'], 
             enemies: ['regal_empire', 'silver_flame', 'the_unchained', 'abyss_order']
@@ -76,7 +76,7 @@ export const OTHER_REALMS_1 = {
     faerun_theocracy: {
         name: "Faerun Mystical Theocracy",
         description: "A realm where magic saturates every aspect of life, and governance is fused with mystical traditions under a supreme sorcerer.",
-        logo: 'assets/factions/faction_faerun.png',
+        logo: 'assets/factions/faction_assets/maps/faerun.png',
         relations: { 
             allies: ['mages_guild', 'teyvat_hegemony'], 
             enemies: ['regal_empire', 'iron_legion', 'silver_flame']

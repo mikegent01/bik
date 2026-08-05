@@ -71,22 +71,22 @@ export const EXPANDED_REALMS_KNOWN_TO_INTERNET = {
     celestias_regime: {
         name: "Queen Celestia's Regime",
         description: "The autocratic government and royal guard that enforces Queen Celestia's immortal rule and pony supremacy.",
-        logo: 'assets/factions/faction_equestria.png', relations: {}, power_level: 5, category: "Regional Powers", region: "Equestria", leader: "queen_celestia"
+        logo: 'assets/factions/faction_assets/maps/equestria.png', relations: {}, power_level: 5, category: "Regional Powers", region: "Equestria", leader: "queen_celestia"
     },
     pony_nobility: {
         name: "The Pony Nobility",
         description: "The elite class of unicorn and pegasus nobles who support Celestia's rule in exchange for power and privilege.",
-        logo: 'assets/factions/faction_equestria.png', relations: {}, power_level: 4, category: "Regional Powers", region: "Equestria", leader: "duke_blueblood"
+        logo: 'assets/factions/faction_assets/maps/equestria.png', relations: {}, power_level: 4, category: "Regional Powers", region: "Equestria", leader: "duke_blueblood"
     },
     enslaved_minorities: {
         name: "Enslaved Minorities (Secret Keepers)",
         description: "The various non-pony races (griffons, diamond dogs, etc.) who are marginalized or enslaved. They secretly plot their liberation.",
-        logo: 'assets/factions/faction_equestria.png', relations: {}, power_level: 2, category: "Underworld & Fringe", region: "Equestria", leader: "gilda_the_griffon"
+        logo: 'assets/factions/faction_assets/maps/equestria.png', relations: {}, power_level: 2, category: "Underworld & Fringe", region: "Equestria", leader: "gilda_the_griffon"
     },
     spark_of_rebellion: {
         name: "The Spark of Rebellion",
         description: "A small but growing faction of rebel ponies who believe in equality and seek to overthrow Celestia's tyranny.",
-        logo: 'assets/factions/faction_equestria.png', relations: {}, power_level: 2, category: "Underworld & Fringe", region: "Equestria", leader: "starlight_glimmer"
+        logo: 'assets/factions/faction_assets/maps/equestria.png', relations: {}, power_level: 2, category: "Underworld & Fringe", region: "Equestria", leader: "starlight_glimmer"
     },
 
     // --- Grand Line Archipelago ---
