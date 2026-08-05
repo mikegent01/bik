@@ -2,8 +2,8 @@
 // MUSHROOM REGENCY FACTION SYSTEM
 // =============================================
 
-import { state } from './state.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA } from './data/world/calendar.js';
+import { state } from '../../../state.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA } from '../../../data/world/calendar.js';
 
 // =============================================
 // DATA DEFINITIONS

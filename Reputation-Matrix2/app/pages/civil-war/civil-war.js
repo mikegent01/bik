@@ -3,15 +3,15 @@
 // War Room Style Interface
 // =============================================
 
-import { state, loadState } from './state.js';
-import { getIntelBreakdown } from './systems/common.js';
-import { CALENDAR_DATA, CURRENT_GAME_DATE } from './data/world/calendar.js';
+import { state, loadState } from '../../../state.js';
+import { getIntelBreakdown } from '../../../systems/common.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 
 // =============================================
 // DYNAMIC DATA INTEGRATION
 // =============================================
-import { getRealTimeMapStats, getDetailedFactionStats, getDetailedRegionStats } from './global-map-analysis.js';
-import { getAllFactions, getFaction, toSystemId } from './systems/faction-registry.js';
+import { getRealTimeMapStats, getDetailedFactionStats, getDetailedRegionStats } from '../../../global-map-analysis.js';
+import { getAllFactions, getFaction, toSystemId } from '../../../systems/faction-registry.js';
 
 // =============================================
 // DYNAMIC FACTION MAPPING

@@ -1,10 +1,10 @@
 // onyx-hand.js - Complete script for Onyx Hand faction page with imports
 
-import { LORE_DATA } from './lore.js';
-import { getIntelForFaction } from './systems/common.js';
-import { state } from './state.js';
-import { getAbsoluteDay } from './research-data.js';
-import { MOON_PHASES, CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA } from './data/world/calendar.js';
+import { LORE_DATA } from '../../../lore.js';
+import { getIntelForFaction } from '../../../systems/common.js';
+import { state } from '../../../state.js';
+import { getAbsoluteDay } from '../../../research-data.js';
+import { MOON_PHASES, CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA } from '../../../data/world/calendar.js';
 
 // ============================================================================
 // ONYX HAND DATA
