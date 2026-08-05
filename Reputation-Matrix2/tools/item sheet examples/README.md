@@ -105,7 +105,7 @@ the shop catalog (see [§1.7](#17-items-are-not-here--they-live-in-the-shop-cata
 | `faction` | 🟡 | string | Machine id of a faction from `data/factions.json` (e.g. `liberated_toads`). |
 | `membership` | 🟡 | string | Role inside the faction, e.g. `"Hardened Survivor"`, `"Field Cell"`. |
 | `summary` | ✅ | string | 1–3 sentences. Used as the wiki lede, the Creator's biography seed, and the dossier blurb. **Who are they + what is happening to them right now.** |
-| `description` | 🟡 | string | The full article. Markdown with `##` sections. Follow the tone rules in `../STORY_FORMAT_GUIDE.md` (physical prose, Waluigi as auditor, ~80/20 story/analysis). |
+| `description` | 🟡 | string | The full article. Markdown with `##` sections. Follow the tone rules in `../../../../docs/STORY_FORMAT_GUIDE.md` (physical prose, Waluigi as auditor, ~80/20 story/analysis). |
 | `keyEvents` | 🟡 | string[] | **Event/battle ids that must exist in `data/events.json` or `data/battles.json`.** The Creator auto-pulls them into `Witness:` feats; the XP ledger uses them to grant discovery XP. |
 | `relatedArticles` | 🟡 | string[] | Article ids the wiki should cross-link (factions, locations, other characters). |
 | `aliases` | 🟡 | string[] | Other names the wiki/ledger should recognize. |
@@ -189,7 +189,7 @@ Rules of thumb:
    them *now*. It is not a biography dump — that is `description`'s job.
 3. **`description` uses markdown sections** (`## Combat and Demeanor`,
    `## Assessment`) and keeps the archive voice: Waluigi as forensic auditor,
-   physical prose, named consequences. See `../STORY_FORMAT_GUIDE.md` for the
+   physical prose, named consequences. See `../../../../docs/STORY_FORMAT_GUIDE.md` for the
    full craft standard — the same bar applies to character dossiers.
 4. **Dangling references are lint failures.** Every `keyEvents` id must exist
    in `data/events.json` or `data/battles.json`; every `relatedArticles` id

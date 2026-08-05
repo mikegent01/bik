@@ -10,7 +10,7 @@ A key example of this philosophy is the handling of game data. Instead of large,
 
 Narrative filings (session events in `data/events.json`, What-Ifs in `data/whatifs.json`) follow a dedicated craft standard:
 
-**→ [STORY_FORMAT_GUIDE.md](STORY_FORMAT_GUIDE.md)** — Waluipedia Story Format Guide
+**→ [../docs/STORY_FORMAT_GUIDE.md](../docs/STORY_FORMAT_GUIDE.md)** — Waluipedia Story Format Guide
 
 ### Archive ranking (the short version)
 
