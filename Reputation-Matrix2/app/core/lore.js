@@ -2,26 +2,26 @@
 // This file contains all the core narrative, character, and faction data for the application.
 // It imports data from smaller, more manageable files.
 
-import { CHARACTERS } from './data/characters/characters-1.js';
-import { MIDLANDS_FACTIONS } from './factions/midlands.js';
-import { MUSHROOM_KINGDOM_FACTIONS } from './factions/mushroom-kingdom.js';
-import { WIDESPREAD_FACTIONS } from './data/world/realms/widespread.js';
-import { WILDERLANDS_FACTIONS } from './factions/wilderlands.js';
-import { MIDDLE_EARTH_FACTIONS } from './factions/middle-earth.js';
-import { INTERNET_FACTIONS } from './factions/internet.js';
-import { WARHAMMER_FACTIONS } from './factions/warhammer.js';
-import { KIVOTOS_FACTIONS } from './factions/kivotos.js';
-import { SPACE_FACTIONS } from './factions/space.js';
-import { POKEMON_FACTIONS } from './factions/pokemon.js';
-import { EQUESTRIA_FACTIONS } from './factions/equestria.js'; // NEW IMPORT
+import { CHARACTERS } from '../../data/characters/characters-1.js';
+import { MIDLANDS_FACTIONS } from '../../factions/midlands.js';
+import { MUSHROOM_KINGDOM_FACTIONS } from '../../factions/mushroom-kingdom.js';
+import { WIDESPREAD_FACTIONS } from '../../data/world/realms/widespread.js';
+import { WILDERLANDS_FACTIONS } from '../../factions/wilderlands.js';
+import { MIDDLE_EARTH_FACTIONS } from '../../factions/middle-earth.js';
+import { INTERNET_FACTIONS } from '../../factions/internet.js';
+import { WARHAMMER_FACTIONS } from '../../factions/warhammer.js';
+import { KIVOTOS_FACTIONS } from '../../factions/kivotos.js';
+import { SPACE_FACTIONS } from '../../factions/space.js';
+import { POKEMON_FACTIONS } from '../../factions/pokemon.js';
+import { EQUESTRIA_FACTIONS } from '../../factions/equestria.js'; // NEW IMPORT
 
 import { RUMORS } from './party-and-events.js';
-import { PARLIAMENT_MEMBERS } from './app/systems/parliament-members.js';
-import { REBEL_CLANS_DETAILS } from './data/factions/rebel-clans-details.js';
-import { FAWFUL_DETAILS } from './data/factions/fawful-details.js';
-import { COSMIC_JESTERS_DETAILS } from './data/factions/cosmic-jesters-details.js';
+import { PARLIAMENT_MEMBERS } from '../systems/parliament-members.js';
+import { REBEL_CLANS_DETAILS } from '../../data/factions/rebel-clans-details.js';
+import { FAWFUL_DETAILS } from '../../data/factions/fawful-details.js';
+import { COSMIC_JESTERS_DETAILS } from '../../data/factions/cosmic-jesters-details.js';
 import {AUXILIARY_PARTY} from './party-and-events.js'
-export { CHARACTER_RELATIONS } from './data/characters/character-relations.js';
+export { CHARACTER_RELATIONS } from '../../data/characters/character-relations.js';
 
 const combinedCharacters = {
     ...CHARACTERS,

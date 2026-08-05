@@ -1,7 +1,7 @@
 // global-map-analysis.js
 
-import { MAP_DATA } from './data/maps/map-data.js';
-import { getAllFactions, getAllSystemIds, toSystemId, getFaction } from './systems/faction-registry.js';
+import { MAP_DATA } from '../../data/maps/map-data.js';
+import { getAllFactions, getAllSystemIds, toSystemId, getFaction } from '../../systems/faction-registry.js';
 /**
  * Core function to get all map statistics
  * Aggregates data from all 'Full' map entries in MAP_DATA.
