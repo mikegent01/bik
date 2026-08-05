@@ -40,11 +40,11 @@ However, references must be updated before moving them because some pages use ro
 Current committed campaign art:
 
 ```text
-assets/campaign-cover.png
-assets/campaign-cover-variant-1.png
-assets/campaign-cover-variant-2.png
-assets/campaign-cover-storyswap-1.png
-assets/campaign-cover-storyswap-2.png
+assets/campaign-art/campaign-cover.png
+assets/campaign-art/campaign-cover-variant-1.png
+assets/campaign-art/campaign-cover-variant-2.png
+assets/campaign-art/campaign-cover-storyswap-1.png
+assets/campaign-art/campaign-cover-storyswap-2.png
 ```
 
 Recommended eventual location:
