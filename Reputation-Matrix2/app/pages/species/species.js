@@ -1,15 +1,15 @@
 // species.js - Updated to use population simulation
 
-import { LORE_DATA } from './lore.js';
-import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
-import { MAP_DATA } from './map-data.js';
-import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES, calculateTechAccessByEstate } from './species-workforce.js';
-import { RELIGION_DATA } from './religion-data.js';
-import { getGlobalTechAverages, RESEARCH_CATEGORIES, calculateGlobalCycle } from './research-data.js';
-import { getPlagueData, getCurrentSeason, PLAGUE_LIFECYCLE } from './plagues-data.js';
-import { simulatePopulation, calculateGlobalVitalStats } from './population-state.js';
-import { WAHBOOK_POSTS } from './assembly-data.js';
-import { CALENDAR_DATA, CURRENT_GAME_DATE } from './data/world/calendar.js';
+import { LORE_DATA } from '../../../lore.js';
+import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from '../../../species-data.js';
+import { MAP_DATA } from '../../../map-data.js';
+import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES, calculateTechAccessByEstate } from '../../../species-workforce.js';
+import { RELIGION_DATA } from '../../../religion-data.js';
+import { getGlobalTechAverages, RESEARCH_CATEGORIES, calculateGlobalCycle } from '../../../research-data.js';
+import { getPlagueData, getCurrentSeason, PLAGUE_LIFECYCLE } from '../../../plagues-data.js';
+import { simulatePopulation, calculateGlobalVitalStats } from '../../../population-state.js';
+import { WAHBOOK_POSTS } from '../../../assembly-data.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 
 // Define Player Races for Relationship Context
 const PLAYER_RACE_LABELS = {

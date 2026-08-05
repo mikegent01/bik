@@ -1,23 +1,23 @@
 
 
-import { state, loadState, saveState } from './state.js';
-import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING, calculateDemographicBonus, calculateGuildBonus } from './research-data.js';
-import { CALENDAR_DATA, CURRENT_GAME_DATE } from './data/world/calendar.js';
-import { LORE_DATA } from './lore.js';
-import { playSound } from './common.js';
-import { WAHBOOK_POSTS } from './assembly-data.js'; 
+import { state, loadState, saveState } from '../../../state.js';
+import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActiveAge, calculateGlobalCycle, getAbsoluteDay, getGlobalAverageAge, CYCLE_PHASES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING, calculateDemographicBonus, calculateGuildBonus } from '../../../research-data.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
+import { LORE_DATA } from '../../../lore.js';
+import { playSound } from '../../../common.js';
+import { WAHBOOK_POSTS } from '../../../assembly-data.js';
 
 // Constants
-const NODE_WIDTH = 160; 
-const NODE_HEIGHT = 90; 
-const X_SPACING = 200; 
+const NODE_WIDTH = 160;
+const NODE_HEIGHT = 90;
+const X_SPACING = 200;
 const Y_SPACING = 180;
 
 // State
-let activeNation = Object.keys(NATIONS)[0]; 
-let activeCategory = RESEARCH_CATEGORIES[0]; 
-let currentView = 'tree'; 
-let currentZoom = 1.0; 
+let activeNation = Object.keys(NATIONS)[0];
+let activeCategory = RESEARCH_CATEGORIES[0];
+let currentView = 'tree';
+let currentZoom = 1.0;
 let globalCycleState = null; // Holds the calculated dynamic cycle
 let showAllFactors = false; // Toggle for showing all driving factors
 
@@ -40,30 +40,30 @@ const dynasticContainer = document.getElementById('dynastic-cycle-container');
 // --- Calculations ---
 
 function calculateResearchDate(daysToAdd) {
-    const daysPerYear = 365; 
-    const startYear = 1035; 
+    const daysPerYear = 365;
+    const startYear = 1035;
 
     // Calculate current absolute day
     let currentAbsoluteDay = 0;
     currentAbsoluteDay += (CURRENT_GAME_DATE.year - startYear) * daysPerYear;
-    
+
     const months = CALENDAR_DATA.months.values;
     for(let i=0; i<CURRENT_GAME_DATE.monthIndex; i++) {
         currentAbsoluteDay += months[i].days;
     }
     currentAbsoluteDay += (CURRENT_GAME_DATE.day - 1); // Day is 1-indexed
-    
+
     // Add research days
     let targetAbsoluteDay = currentAbsoluteDay + daysToAdd;
-    
+
     // Convert back to Game Date
     const estYearsPassed = Math.floor(targetAbsoluteDay / daysPerYear);
     const estYear = startYear + estYearsPassed;
-    
+
     let remainingDays = targetAbsoluteDay % daysPerYear;
     let estMonthIndex = 0;
     let estDay = 0;
-    
+
     for (let i = 0; i < months.length; i++) {
         if (remainingDays < months[i].days) {
             estMonthIndex = i;
@@ -72,14 +72,14 @@ function calculateResearchDate(daysToAdd) {
         }
         remainingDays -= months[i].days;
     }
-    
+
     // Safety fallback if loop finishes without assignment (e.g. last day of year)
     if (estDay === 0) {
-         estDay = remainingDays + 1; 
+         estDay = remainingDays + 1;
     }
 
     const monthName = months[estMonthIndex]?.name || "Unknown";
-    
+
     return `${monthName} ${estDay}, ${estYear} BF`;
 }
 
@@ -128,14 +128,14 @@ function renderCategoryTabs() {
     categoryTabsEl.innerHTML = RESEARCH_CATEGORIES.map(cat => {
         let slotType = 'Minor';
         let slotClass = 'minor';
-        
+
         if (nationData.slots.primary === cat) { slotType = 'Primary'; slotClass = 'primary'; }
         else if (nationData.slots.major.includes(cat)) { slotType = 'Major'; slotClass = 'major'; }
-        
+
         const isActive = cat === activeCategory ? 'active' : '';
-        
+
         let bonusHTML = '';
-        
+
         // Demographic Bonus
         const dBonus = demoBonuses[cat] || 1.0;
         if (dBonus > 1.0) {
@@ -162,13 +162,13 @@ function renderCategoryTabs() {
 
 function renderCycleBanner() {
     if (!globalCycleState) return;
-    
+
     const phase = globalCycleState.phase;
     const momentum = globalCycleState.momentum;
-    
+
     // Determine if cycle is shifted
     const isShifted = phase.id !== globalCycleState.naturalPhase.id;
-    
+
     if (isShifted) {
         const momentumType = momentum > 0 ? "Escalating" : "Stabilizing";
         rumorBannerEl.style.display = 'flex';
@@ -191,12 +191,12 @@ function renderEraBar() {
     autoSelectAgeChoice(activeNation, nationAge.id);
 
     const currentIndex = AGES.findIndex(a => a.id === nationAge.id);
-    
+
     const stepsHtml = AGES.map((age, index) => {
         let statusClass = '';
         if (index < currentIndex) statusClass = 'completed';
         else if (index === currentIndex) statusClass = 'active';
-        
+
         return `
             <div class="era-step ${statusClass}">
                 <div class="era-label">${age.name}</div>
@@ -222,12 +222,12 @@ function renderEraBar() {
 
 function renderActiveBanner(nodes) {
     const activeNode = nodes.find(n => n.status === 'researching');
-    
+
     if (activeNode) {
         bannerEl.style.display = 'flex';
         const daysLeft = Math.ceil((activeNode.cost * (100 - activeNode.progress)) / 100);
         const finishDate = calculateResearchDate(daysLeft);
-        
+
         // Add visual indicator for speed based on slot
         let speedLabel = "Normal Speed";
         if (activeNode.slotType === 'Primary') speedLabel = "200% Speed (Primary)";
@@ -265,11 +265,11 @@ function updateZoom() {
 }
 
 function renderTree() {
-    treeCanvasEl.innerHTML = ''; 
+    treeCanvasEl.innerHTML = '';
     // Pass the global cycle state to get modified costs
     const treeData = getTechTree(activeNation, activeCategory, state.researchState, globalCycleState);
     const nodes = Object.values(treeData);
-    
+
     renderActiveBanner(nodes);
     renderCycleBanner();
 
@@ -283,7 +283,7 @@ function renderTree() {
         el.style.top = `${top}px`;
         el.style.width = `${NODE_WIDTH}px`;
         el.style.height = `${NODE_HEIGHT}px`;
-        
+
         let progressBarHtml = '';
         if (node.status === 'researching') {
             progressBarHtml = `<div class="node-progress-bar"><div class="node-progress-fill" style="width:${node.progress}%"></div></div>`;
@@ -301,7 +301,7 @@ function renderTree() {
             </div>
             ${progressBarHtml}
         `;
-        
+
         el.addEventListener('click', () => openNodeDetails(node));
         treeCanvasEl.appendChild(el);
     });
@@ -318,60 +318,60 @@ function drawDynasticWheel(momentum) {
     const cx = width / 2;
     const cy = height / 2;
     const radius = 200;
-    
+
     const phases = CYCLE_PHASES;
     const numPhases = phases.length;
     const arcSize = (2 * Math.PI) / numPhases;
-    
+
     ctx.clearRect(0,0,width,height);
 
     // Draw the wheel static - Tension (index 3) at top
     const rotationOffset = -Math.PI / 2 - (3.5 * arcSize);
-    
+
     phases.forEach((phase, i) => {
         const startAngle = (i * arcSize) + rotationOffset;
         const endAngle = ((i + 1) * arcSize) + rotationOffset;
-        
+
         // Slice
         ctx.beginPath();
         ctx.moveTo(cx, cy);
         ctx.arc(cx, cy, radius, startAngle, endAngle);
         ctx.closePath();
-        
-        ctx.fillStyle = `${phase.color}44`; 
+
+        ctx.fillStyle = `${phase.color}44`;
         ctx.fill();
         ctx.strokeStyle = '#21262d';
         ctx.lineWidth = 4;
         ctx.stroke();
-        
+
         // Slice Label (Rotated)
         const textAngle = startAngle + (arcSize / 2);
         const textDist = radius * 0.7;
         const textX = cx + Math.cos(textAngle) * textDist;
         const textY = cy + Math.sin(textAngle) * textDist;
-        
+
         ctx.save();
         ctx.translate(textX, textY);
-        
+
         ctx.fillStyle = '#fff';
         ctx.font = 'bold 11px "Roboto Mono"';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.shadowColor = 'black';
         ctx.shadowBlur = 4;
-        
+
         const nameParts = phase.name.replace('Cycle of ', '').split(' ');
         nameParts.forEach((part, idx) => {
             ctx.fillText(part, 0, (idx - (nameParts.length-1)/2) * 12);
         });
-        
+
         ctx.restore();
     });
-    
+
     // Draw Needle dynamically pointing to the ACTIVE PHASE
     const activePhaseId = globalCycleState.phase.id;
     const activeIndex = phases.findIndex(p => p.id === activePhaseId);
-    
+
     const needleAngle = (activeIndex * arcSize) + rotationOffset + (arcSize / 2);
 
     // Needle
@@ -386,7 +386,7 @@ function drawDynasticWheel(momentum) {
     ctx.lineWidth = 6;
     ctx.lineCap = 'round';
     ctx.stroke();
-    
+
     // Center Hub
     ctx.beginPath();
     ctx.arc(cx, cy, 50, 0, 2 * Math.PI);
@@ -411,13 +411,13 @@ function renderDynasticCycleView() {
     const momentum = globalCycleState.momentum;
     const factors = globalCycleState.factors;
     const pendingFactors = globalCycleState.pendingFactors || [];
-    
+
     // Check debug mode
     const isDebugMode = window.debugMode === true || state?.debugMode === true;
-    
+
     document.getElementById('cycle-current-age').textContent = nationAge.name;
     document.getElementById('cycle-age-desc').textContent = `Tech Level: ${nationAge.description}`;
-    
+
     const history = state.researchState[activeNation]?.ageHistory || [];
     const currentChoiceEntry = history.find(h => h.ageId === nationAge.id);
 
@@ -445,7 +445,7 @@ function renderDynasticCycleView() {
     let factorsHTML = '';
     if (factors.length > 0) {
         factorsHTML += `<div class="driving-factors-list"><h6>Active Driving Factors:</h6>`;
-        
+
         const topFactors = factors.slice(0, 5);
         factorsHTML += topFactors.map(f => `
             <div class="factor-item type-${f.type}">
@@ -470,7 +470,7 @@ function renderDynasticCycleView() {
             </div>
             <button id="toggle-factors-btn" class="control-btn small" style="width:100%; margin-top:5px;">${showAllFactors ? 'Show Less' : `Show ${hiddenFactors.length} More`}</button>`;
         }
-        
+
         factorsHTML += `</div>`;
     } else {
         factorsHTML = `<p class="small">No major rumors influencing the cycle.</p>`;
@@ -511,10 +511,10 @@ function renderDynasticCycleView() {
 
     const statsDiv = document.getElementById('cycle-stats');
     const scoreColor = momentum > 0 ? '#f85149' : '#3fb950';
-    
+
     statsDiv.innerHTML = `
         <hr style="border-color:var(--border-color); margin:16px 0;">
-        
+
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
              <div style="flex-grow:1; padding-right:10px;">
                 <p style="color:${currentPhase.color}; font-size:1.3rem; font-family:var(--font-display); text-transform:uppercase; letter-spacing:1px; margin:0; line-height:1.2;">
@@ -531,9 +531,9 @@ function renderDynasticCycleView() {
         <div style="margin-top:10px; padding:10px; background:rgba(0,0,0,0.2); border-radius:4px;">
             ${factorsHTML}
         </div>
-        
+
         ${pendingHTML}
-        
+
         ${effectHTML}
     `;
 
@@ -569,8 +569,8 @@ function openNodeDetails(node) {
 
     const daysRemaining = Math.ceil(node.cost * (100 - node.progress) / 100);
     const finishDate = calculateResearchDate(daysRemaining);
-    
-    const timeString = node.status === 'researching' 
+
+    const timeString = node.status === 'researching'
         ? `${daysRemaining} days remaining<br><span class="calendar-estimate">(Exp: ${finishDate})</span>`
         : `${node.cost} days (Base)`;
 
@@ -584,12 +584,12 @@ function openNodeDetails(node) {
         const distItems = estateKeys.map(estate => {
             // Base Affinity (0.0 - 1.0)
             const affinity = mapping[estate] || 0.1;
-            
+
             let percentage = 0;
             if (node.tier <= 2) {
                 percentage = 100; // Ancient tech is universal
             } else {
-                // New Decay Formula: 
+                // New Decay Formula:
                 // Decay Rate = 12 - (Affinity * 10)
                 // Range: 2% decay per tier (High affinity) to 12% decay (Low affinity)
                 const decayRate = 12 - (affinity * 10);
@@ -600,10 +600,10 @@ function openNodeDetails(node) {
             if (node.status === 'researching') {
                 percentage = percentage * (node.progress / 100);
             }
-            
+
             // Clamp percentage
             percentage = Math.max(0, Math.min(100, percentage));
-            
+
             // Formatting Colors
             let color = '#7d8590'; // Grey (Low)
             if (percentage >= 80) color = '#3fb950'; // Green (Universal/High)
@@ -657,7 +657,7 @@ function toggleView(view) {
     currentView = view;
     document.getElementById('view-tree').style.display = view === 'tree' ? 'block' : 'none';
     document.getElementById('view-ages').style.display = view === 'ages' ? 'block' : 'none';
-    
+
     viewTreeBtn.classList.toggle('active', view === 'tree');
     viewAgesBtn.classList.toggle('active', view === 'ages');
 
@@ -688,7 +688,7 @@ function setupEventListeners() {
     if (detailPanelClose) {
         detailPanelClose.addEventListener('click', () => { detailPanel.classList.remove('visible'); appContainer.classList.remove('panel-visible'); });
     }
-    
+
     if(treeContainer) {
         treeContainer.addEventListener('wheel', (e) => {
             if(e.ctrlKey) {
