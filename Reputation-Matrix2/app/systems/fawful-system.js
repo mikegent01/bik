@@ -1,8 +1,8 @@
 // This module handles rendering for Fawful's Furious Freaks' unique system.
 
-import { LORE_DATA } from '../lore.js';
-import { getIntelForFaction } from './common.js';
-import { state } from '../state.js';
+import { LORE_DATA } from '../../lore.js';
+import { getIntelForFaction } from '../../common.js';
+import { state } from '../../state.js';
 
 export function renderFawfulSystem() {
     const data = LORE_DATA.faction_details.fawfuls_furious_freaks;
