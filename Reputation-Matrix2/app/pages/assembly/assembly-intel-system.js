@@ -514,7 +514,7 @@ function attachEventListeners() {
     document.querySelectorAll('.intel-filter-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
             currentFilter = e.target.closest('.intel-filter-tab').dataset.filter;
-            if (typeof playSound === 'function') playSound('click.mp3');
+            if (typeof playSound === 'function') playSound('../../../assets/audio/ui/click.mp3');
             renderContent();
         });
     });
@@ -528,7 +528,7 @@ function attachEventListeners() {
             } else {
                 expandedArcs.add(arcId);
             }
-            if (typeof playSound === 'function') playSound('click.mp3');
+            if (typeof playSound === 'function') playSound('../../../assets/audio/ui/click.mp3');
             renderContent();
         });
     });
@@ -540,7 +540,7 @@ function attachEventListeners() {
             const arcId = e.target.dataset.arc;
             expandedArcs.add(arcId);
             currentFilter = 'all';
-            if (typeof playSound === 'function') playSound('click.mp3');
+            if (typeof playSound === 'function') playSound('../../../assets/audio/ui/click.mp3');
             renderContent();
             setTimeout(() => {
                 const arcCard = document.querySelector(`[data-arc-id="${arcId}"]`);

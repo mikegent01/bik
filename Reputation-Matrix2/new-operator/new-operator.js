@@ -279,7 +279,7 @@ function setupEventListeners() {
     regionGrid.addEventListener('click', e => {
         const card = e.target.closest('.region-card');
         if (card) {
-            playSound('click.mp3');
+            playSound('../assets/audio/ui/click.mp3');
             const regionName = card.dataset.regionName;
             selectedRegion = regionName;
             state.region = regionName;

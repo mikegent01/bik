@@ -119,7 +119,7 @@ function playNextMonologueLine() {
         return;
     }
 
-    playSound('click.mp3', 0.4);
+    playSound('../../assets/audio/ui/click.mp3', 0.4);
     const line = fullMonologue[monologueIndex];
     introTextElement.textContent = '';
     clickPrompt.classList.add('hidden');

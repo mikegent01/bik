@@ -1187,7 +1187,7 @@ function setupModalInteractivity(quest) {
             });
             
             currentModalTab = targetPanel;
-            playSound?.('click.mp3');
+            playSound?.('../../../assets/audio/ui/click.mp3');
         });
     });
 
@@ -1214,7 +1214,7 @@ function setupModalInteractivity(quest) {
         card.addEventListener('click', () => {
             const questId = card.dataset.questId;
             if (questId && QUEST_DATA[questId]) {
-                playSound?.('click.mp3');
+                playSound?.('../../../assets/audio/ui/click.mp3');
                 openQuestModal(questId);
             }
         });
@@ -1270,7 +1270,7 @@ function toggleMilestone(item) {
         expandedMilestones.add(index);
     }
     
-    playSound?.('click.mp3');
+    playSound?.('../../../assets/audio/ui/click.mp3');
 }
 
 function closeModal() {
@@ -1290,7 +1290,7 @@ function setupEventListeners() {
     arcPanelsContainer?.addEventListener('click', (e) => {
         const panel = e.target.closest('.arc-panel');
         if (panel) {
-            playSound?.('click.mp3');
+            playSound?.('../../../assets/audio/ui/click.mp3');
             const arcId = panel.dataset.arc;
             renderArcDetail(arcId);
         }
@@ -1302,7 +1302,7 @@ function setupEventListeners() {
             const panel = e.target.closest('.arc-panel');
             if (panel) {
                 e.preventDefault();
-                playSound?.('click.mp3');
+                playSound?.('../../../assets/audio/ui/click.mp3');
                 renderArcDetail(panel.dataset.arc);
             }
         }
@@ -1310,18 +1310,18 @@ function setupEventListeners() {
 
     // View All Quests
     document.getElementById('view-all-quests')?.addEventListener('click', () => {
-        playSound?.('click.mp3');
+        playSound?.('../../../assets/audio/ui/click.mp3');
         renderAllQuests();
     });
 
     // Back Buttons
     document.getElementById('back-to-selection')?.addEventListener('click', () => {
-        playSound?.('click.mp3');
+        playSound?.('../../../assets/audio/ui/click.mp3');
         renderArcSelection();
     });
 
     document.getElementById('back-to-selection-from-all')?.addEventListener('click', () => {
-        playSound?.('click.mp3');
+        playSound?.('../../../assets/audio/ui/click.mp3');
         renderArcSelection();
     });
 
@@ -1329,7 +1329,7 @@ function setupEventListeners() {
     document.getElementById('arc-quest-filters')?.addEventListener('click', (e) => {
         const tab = e.target.closest('.filter-tab');
         if (tab) {
-            playSound?.('click.mp3');
+            playSound?.('../../../assets/audio/ui/click.mp3');
             document.querySelectorAll('#arc-quest-filters .filter-tab').forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             arcQuestFilter = tab.dataset.filter;
@@ -1347,7 +1347,7 @@ function setupEventListeners() {
     document.getElementById('arc-quest-list')?.addEventListener('click', (e) => {
         const card = e.target.closest('.arc-quest-card');
         if (card) {
-            playSound?.('click.mp3');
+            playSound?.('../../../assets/audio/ui/click.mp3');
             openQuestModal(card.dataset.questId);
         }
     });
@@ -1356,7 +1356,7 @@ function setupEventListeners() {
     document.getElementById('all-quest-tabs')?.addEventListener('click', (e) => {
         const tab = e.target.closest('.quest-tab');
         if (tab) {
-            playSound?.('click.mp3');
+            playSound?.('../../../assets/audio/ui/click.mp3');
             document.querySelectorAll('#all-quest-tabs .quest-tab').forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             allQuestsTab = tab.dataset.tab;
@@ -1384,7 +1384,7 @@ function setupEventListeners() {
     document.getElementById('all-quest-container')?.addEventListener('click', (e) => {
         const card = e.target.closest('.quest-card');
         if (card) {
-            playSound?.('click.mp3');
+            playSound?.('../../../assets/audio/ui/click.mp3');
             openQuestModal(card.dataset.questId);
         }
     });
@@ -1512,7 +1512,7 @@ window.selectCompanion = function(compId) {
         btn.style.color = '#fff';
         btn.style.boxShadow = '0 4px 12px rgba(138,75,255,0.3)';
     }
-    playSound?.('click_subtle.mp3');
+    playSound?.('../../../assets/audio/ui/click_subtle.mp3');
 };
 
 function getMissionDeploymentNarrative(arcId, compId) {
@@ -1547,7 +1547,7 @@ function getMissionDeploymentNarrative(arcId, compId) {
 window.launchArcMission = function(arcId) {
     if (!selectedCompanionId) return;
 
-    playSound?.('confirm.mp3');
+    playSound?.('../../../assets/audio/ui/confirm.mp3');
 
     // Update fatigue states
     const states = getFatigueStates();
@@ -1655,7 +1655,7 @@ window.launchArcMission = function(arcId) {
 window.closeMissionResults = function() {
     const modal = document.getElementById('mission-results-modal');
     if (modal) modal.remove();
-    playSound?.('click_subtle.mp3');
+    playSound?.('../../../assets/audio/ui/click_subtle.mp3');
     
     // Refresh detail view to update roster states
     if (selectedArc) {

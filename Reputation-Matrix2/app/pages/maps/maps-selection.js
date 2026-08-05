@@ -54,12 +54,12 @@ function initMapSelection() {
             if (diff === 0) {
                 // Clicked the front-facing item: Navigate
                 if (item.dataset.href) {
-                    playSound('confirm.mp3');
+                    playSound('../../../assets/audio/ui/confirm.mp3');
                     window.location.href = item.dataset.href;
                 }
             } else {
                 // Clicked a side item: Rotate to it
-                playSound('click.mp3');
+                playSound('../../../assets/audio/ui/click.mp3');
                 selectedIndex += diff;
                 rotateTo(selectedIndex);
             }
@@ -80,7 +80,7 @@ function initMapSelection() {
         btnLeft.addEventListener('click', () => {
             selectedIndex--;
             rotateTo(selectedIndex);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     }
 
@@ -88,13 +88,13 @@ function initMapSelection() {
         btnRight.addEventListener('click', () => {
             selectedIndex++;
             rotateTo(selectedIndex);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     }
     
     if (btn3D) {
         btn3D.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             open3DView();
         });
     }
@@ -112,17 +112,17 @@ function initMapSelection() {
         if (e.key === 'ArrowLeft') {
             selectedIndex--;
             rotateTo(selectedIndex);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         } else if (e.key === 'ArrowRight') {
             selectedIndex++;
             rotateTo(selectedIndex);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         } else if (e.key === 'Enter') {
              // Navigate to current
              const actualIndex = ((selectedIndex % cellCount) + cellCount) % cellCount;
              const activeItem = items[actualIndex];
              if (activeItem && activeItem.dataset.href) {
-                 playSound('confirm.mp3');
+                 playSound('../../../assets/audio/ui/confirm.mp3');
                  window.location.href = activeItem.dataset.href;
              }
         }

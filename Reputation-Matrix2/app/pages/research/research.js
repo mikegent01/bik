@@ -547,7 +547,7 @@ function renderDynasticCycleView() {
         toggleBtn.addEventListener('click', () => {
             showAllFactors = !showAllFactors;
             renderDynasticCycleView();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     }
 
@@ -566,7 +566,7 @@ function renderDynasticCycleView() {
 }
 
 function openNodeDetails(node) {
-    playSound('click.mp3');
+    playSound('../../../assets/audio/ui/click.mp3');
     let statusColor = 'var(--text-secondary)';
     if (node.status === 'completed') statusColor = 'var(--positive-color)';
     if (node.status === 'researching') statusColor = 'var(--accent-color)';
@@ -681,11 +681,11 @@ function renderAll() {
 function setupEventListeners() {
     nationListEl.addEventListener('click', e => {
         const li = e.target.closest('li');
-        if (li) { playSound('click.mp3'); activeNation = li.dataset.nation; renderAll(); }
+        if (li) { playSound('../../../assets/audio/ui/click.mp3'); activeNation = li.dataset.nation; renderAll(); }
     });
     categoryTabsEl.addEventListener('click', e => {
         const btn = e.target.closest('.category-btn');
-        if (btn) { playSound('click.mp3'); activeCategory = btn.dataset.category; renderAll(); }
+        if (btn) { playSound('../../../assets/audio/ui/click.mp3'); activeCategory = btn.dataset.category; renderAll(); }
     });
     viewTreeBtn.addEventListener('click', () => toggleView('tree'));
     viewAgesBtn.addEventListener('click', () => toggleView('ages'));

@@ -724,7 +724,7 @@ function attachEventListeners() {
     document.querySelectorAll('.filter-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
             currentFilter = e.target.closest('.filter-tab').dataset.filter;
-            try { playSound('click.mp3'); } catch (e) {}
+            try { playSound('../../../assets/audio/ui/click.mp3'); } catch (e) {}
             renderRumors();
         });
     });
@@ -738,7 +738,7 @@ function attachEventListeners() {
             } else {
                 expandedArcs.add(arcId);
             }
-            try { playSound('click.mp3'); } catch (e) {}
+            try { playSound('../../../assets/audio/ui/click.mp3'); } catch (e) {}
             renderRumors();
         });
     });
@@ -750,7 +750,7 @@ function attachEventListeners() {
             const arcId = e.target.dataset.arc;
             // Expand that arc and scroll to it
             expandedArcs.add(arcId);
-            try { playSound('click.mp3'); } catch (e) {}
+            try { playSound('../../../assets/audio/ui/click.mp3'); } catch (e) {}
             renderRumors();
             
             // Scroll to the arc card

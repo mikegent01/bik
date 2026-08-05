@@ -955,7 +955,7 @@ function setupEventListeners() {
         gridYearly.addEventListener('click', e => {
             const monthCell = e.target.closest('.mini-month-container');
             if (monthCell) {
-                playSound('confirm.mp3');
+                playSound('../../../assets/audio/ui/confirm.mp3');
                 const monthIndex = parseInt(monthCell.dataset.monthIndex, 10);
                 displayedDate.monthIndex = monthIndex;
                 selectedDate = { year: displayedDate.year, monthIndex: monthIndex, day: 1};
@@ -970,7 +970,7 @@ function setupEventListeners() {
         viewSwitcher.addEventListener('click', e => {
             const btn = e.target.closest('.view-btn');
             if (btn) {
-                playSound('click.mp3');
+                playSound('../../../assets/audio/ui/click.mp3');
                 const newView = btn.dataset.view;
 
                 if (currentView === newView) {
@@ -1019,7 +1019,7 @@ function setupEventListeners() {
         treeContainer.addEventListener('click', e => {
             const card = e.target.closest('.denomination-card');
             if (card) {
-                playSound('click.mp3');
+                playSound('../../../assets/audio/ui/click.mp3');
                 showDetailModal(card.dataset.id);
             }
         });
@@ -1046,7 +1046,7 @@ function setupEventListeners() {
         edictsBtn.addEventListener('click', () => {
             renderEdictsModal();
             edictsModal.style.display = 'flex';
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
         
         if (edictsClose) {

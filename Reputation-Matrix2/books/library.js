@@ -327,10 +327,10 @@ function setupEventListeners() {
             const hasBook = playerItems.has(bookKey);
 
             if (hasBook || state.debugMode) {
-                playSound('click.mp3');
+                playSound('../assets/audio/ui/click.mp3');
                 showBookModal(bookKey);
             } else {
-                playSound('wah.mp3', 0.5);
+                playSound('../assets/audio/ui/wah.mp3', 0.5);
                 alert(`This book is available at: ${card.dataset.location}`);
             }
         }
@@ -345,7 +345,7 @@ function setupEventListeners() {
     if (openBookBtn) {
         openBookBtn.addEventListener('click', () => {
             if (bookDataMap[currentBook.title]) {
-                playSound('click.mp3');
+                playSound('../assets/audio/ui/click.mp3');
                 currentPage = 0;
                 renderCurrentView();
             }

@@ -27,9 +27,9 @@ export function initAudio() {
         console.log('[Audio] AudioContext initialized');
         
         // Preload sounds - don't await, let them load in background
-        preloadSound('click.mp3');
-        preloadSound('wah.mp3');
-        preloadSound('confirm.mp3');
+        preloadSound('../../assets/audio/ui/click.mp3');
+        preloadSound('../../assets/audio/ui/wah.mp3');
+        preloadSound('../../assets/audio/ui/confirm.mp3');
     } catch (e) {
         console.warn('[Audio] Web Audio API not supported:', e.message);
         audioContext = null;
@@ -112,7 +112,7 @@ async function checkImage(src) {
 }
 
 async function scanCurrentPageForMissingImages() {
-    playSound('wah.mp3', 0.8);
+    playSound('../../assets/audio/ui/wah.mp3', 0.8);
     
     const images = document.querySelectorAll('img');
     const imageCheckPromises = Array.from(images).map(img => checkImage(img.getAttribute('src')));
@@ -196,7 +196,7 @@ function setupCommonEventListeners() {
             localStorage.setItem('vigilanceDebugMode', String(newDebugState));
             window.debugMode = newDebugState;
             
-            playSound('confirm.mp3', 0.5);
+            playSound('../../assets/audio/ui/confirm.mp3', 0.5);
             
             alert(`Debug Mode ${newDebugState ? 'ACTIVATED' : 'DEACTIVATED'}. Page will now reload.`);
             window.location.reload();
@@ -204,7 +204,7 @@ function setupCommonEventListeners() {
 
         // Logout button
         if (event.target.id === 'switch-operator-btn') {
-            playSound('wah.mp3', 0.8);
+            playSound('../../assets/audio/ui/wah.mp3', 0.8);
             localStorage.removeItem('vigilanceTerminalUser');
             localStorage.removeItem('vigilanceDebugMode');
             window.location.href = 'index.html';

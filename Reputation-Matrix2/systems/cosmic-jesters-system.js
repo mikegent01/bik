@@ -53,7 +53,7 @@ function triggerCosmicEvent() {
             setTimeout(() => document.body.classList.remove('cosmic-event-invert'), 3000);
             break;
         case 'random_sound':
-            playSound('wah.mp3');
+            playSound('../assets/audio/ui/wah.mp3');
             break;
         default: // glitch_text
              document.body.classList.add('cosmic-event-glitch');
@@ -84,7 +84,7 @@ export function initCosmicJestersSystem() {
     }, 1500);
 
     display.addEventListener('click', () => {
-        playSound('click.mp3');
+        playSound('../assets/audio/ui/click.mp3');
         triggerCosmicEvent();
     });
 }

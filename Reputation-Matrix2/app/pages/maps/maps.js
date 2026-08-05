@@ -192,7 +192,7 @@ function handleDisplayAreaClick(event) {
     if (poiMarker) {
         event.preventDefault();
         event.stopPropagation();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
         
         const poi = findPoiById(poiMarker.dataset.poiId);
         if (poi) {
@@ -209,7 +209,7 @@ function handleDisplayAreaClick(event) {
     if (troopMarker) {
         event.preventDefault();
         event.stopPropagation();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
         renderer.renderTacticalDetailPanel(troopMarker.dataset.troopId, 'troop');
         return;
     }
@@ -217,7 +217,7 @@ function handleDisplayAreaClick(event) {
     if (vigilanceMarker) {
         event.preventDefault();
         event.stopPropagation();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
         renderer.renderTacticalDetailPanel('vigilance', 'vigilance');
         return;
     }
@@ -227,7 +227,7 @@ function handleDisplayAreaClick(event) {
         
         event.preventDefault();
         event.stopPropagation();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
         
         const charKey = partyMarker.dataset.charKey;
         const status = partyMarker.dataset.status;
@@ -266,7 +266,7 @@ function handleModalClick(event) {
     const lawLink = event.target.closest('.law-link');
     if (lawLink) {
         event.preventDefault();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
         const lawKey = lawLink.dataset.lawKey;
         renderer.showLawCodexModal(lawKey);
     }

@@ -1252,7 +1252,7 @@ function renderRegionMarkers(fragment, regions, allPois) {
 
         marker.onclick = function(e) {
             e.stopPropagation();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderRegionDetailPanel(regionCopy);
         };
 
@@ -1521,7 +1521,7 @@ function renderRegionDetailPanel(region) {
     // Add click handlers for province items
     detailPanel.querySelectorAll('.province-list-item').forEach(item => {
         item.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             const provinceId = item.dataset.provinceId;
             const foundProvince = (region.provinces || []).find(p => p.id === provinceId);
             if (foundProvince) {
@@ -1600,7 +1600,7 @@ function renderStateMarkers(fragment, states, allPois) {
 
         marker.onclick = function(e) {
             e.stopPropagation();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderStateDetailPanel({ ...stateCopy, control: controlCopy });
         };
 
@@ -1683,7 +1683,7 @@ function renderProvinceMarkers(fragment, provinces, allPois) {
 
         marker.onclick = function(e) {
             e.stopPropagation();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderProvinceDetailPanel(provinceCopy);
         };
 
@@ -2050,7 +2050,7 @@ function renderStateDetailPanel(state) {
     // Add click handlers for POI items
     detailPanel.querySelectorAll('.province-poi-item').forEach(item => {
         item.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             showDetailPanel(item.dataset.poiId);
         });
     });
@@ -2264,7 +2264,7 @@ function renderProvinceDetailPanel(province) {
     // Add click handlers for POI items
     detailPanel.querySelectorAll('.province-poi-item').forEach(item => {
         item.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             showDetailPanel(item.dataset.poiId);
         });
     });
@@ -2272,7 +2272,7 @@ function renderProvinceDetailPanel(province) {
     // Add click handlers for state items
     detailPanel.querySelectorAll('.state-list-item').forEach(item => {
         item.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             const stateId = item.dataset.stateId;
             const foundState = (province.states || []).find(s => s.id === stateId);
             if (foundState) {
@@ -2722,7 +2722,7 @@ function createPoiMarker(poi) {
     marker.addEventListener('mouseleave', hideTooltip);
     marker.addEventListener('click', (e) => {
         e.stopPropagation();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
         showDetailPanel(poi.id);
     });
 
@@ -2823,7 +2823,7 @@ function createClusterMarker(cluster) {
     marker.addEventListener('mouseleave', hideTooltip);
     marker.addEventListener('click', (e) => {
         e.stopPropagation();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
         showClusterDetailPanel(cluster);
     });
 
@@ -3937,7 +3937,7 @@ function renderProvinces(container, provinceData) {
 
         marker.addEventListener('click', (e) => {
             e.stopPropagation();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderProvinceDetailPanel({ ...province, control: dynamicControl });
         });
 
@@ -4324,7 +4324,7 @@ function renderTacticalLayer(mapId, domContainer, svgContainer) {
         line.classList.add('front-line', 'clickable-tactical');
         line.style.pointerEvents = 'stroke';
         line.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderTacticalDetailPanel(fl.id, 'frontline');
         });
         svgFragment.appendChild(line);
@@ -4382,7 +4382,7 @@ function renderTacticalLayer(mapId, domContainer, svgContainer) {
 
         marker.addEventListener('click', (e) => {
             e.stopPropagation();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderTacticalDetailPanel(troop.id, 'troop');
         });
 
@@ -4677,7 +4677,7 @@ export function renderPoliticalSubmodeSelector() {
         btn.addEventListener('click', () => {
             const submode = btn.dataset.submode;
             map.setActivePoliticalSubmode(submode);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
 
             container.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -4873,7 +4873,7 @@ function showClusterDetailPanel(cluster) {
     // Add click handlers
     detailPanel.querySelectorAll('.cluster-poi-item').forEach(item => {
         item.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             showDetailPanel(item.dataset.poiId);
         });
     });
@@ -5015,7 +5015,7 @@ export function showDetailPanel(poiId) {
     // Add click handlers for party member cards
     detailPanel.querySelectorAll('.party-member-card').forEach(card => {
         card.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             const charKey = card.dataset.charKey;
             showPartyMemberModal(charKey);
         });
@@ -5190,7 +5190,7 @@ export function renderMapModeLegend() {
     if (clusterToggle) {
         clusterToggle.addEventListener('change', (e) => {
             CLUSTER_CONFIG.enabled = e.target.checked;
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderPois();
         });
     }
@@ -5198,7 +5198,7 @@ export function renderMapModeLegend() {
     const territoryToggle = document.getElementById('show-all-territories');
     if (territoryToggle) {
         territoryToggle.addEventListener('change', (e) => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             TERRITORY_CONFIG.showAllTerritories = e.target.checked;
             renderPois();
         });

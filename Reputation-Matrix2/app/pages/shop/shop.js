@@ -855,7 +855,7 @@ function renderShopHeader() {
         currentTab = 'membership';
         renderShopHeader();
         renderMainContent();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
     });
 
     // Tab handlers
@@ -874,7 +874,7 @@ function renderShopHeader() {
             currentPage = 0;
             renderShopHeader();
             renderMainContent();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 }
@@ -1135,7 +1135,7 @@ function completePurchase() {
             });
             localStorage.setItem('faction_items_owned', JSON.stringify(owned));
 
-            playSound('confirm.mp3');
+            playSound('../../../assets/audio/ui/confirm.mp3');
             showNotification('Faction upgrades acquired!', 'success');
 
             cart = [];
@@ -1203,7 +1203,7 @@ function completePurchase() {
 
         cart = [];
         cartQuantities = {};
-        playSound('confirm.mp3');
+        playSound('../../../assets/audio/ui/confirm.mp3');
 
         renderShopHeader();
         renderShopItems();
@@ -1435,7 +1435,7 @@ function renderCart() {
         btn.addEventListener('click', () => {
             const itemId = btn.dataset.id;
             setCartQuantity(itemId, 0);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderShopHeader();
             if (currentTab === 'shop') renderShopItems();
             if (currentTab === 'faction') renderFactionTab();
@@ -1460,7 +1460,7 @@ function renderCart() {
         if (currentTab === 'shop') renderShopItems();
         if (currentTab === 'faction') renderFactionTab();
         renderCart();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
     });
 
     container.querySelectorAll('.cancel-order-btn').forEach(btn => {
@@ -1576,7 +1576,7 @@ function attachItemEventListeners(container, startIndex = 0) {
             e.stopPropagation();
             const currentQty = getCartQuantity(itemId);
             setCartQuantity(itemId, currentQty - 1);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderShopHeader();
             renderShopItems();
             renderCart();
@@ -1596,7 +1596,7 @@ function attachItemEventListeners(container, startIndex = 0) {
             const maxQty = getMaxBulkQuantity(item);
             if (currentQty < maxQty) {
                 setCartQuantity(itemId, currentQty + 1);
-                playSound('confirm.mp3');
+                playSound('../../../assets/audio/ui/confirm.mp3');
                 renderShopHeader();
                 renderShopItems();
                 renderCart();
@@ -3033,7 +3033,7 @@ function renderCategoryTabs() {
         prepareFilteredItems();
         renderCategoryTabs();
         renderShopItems();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
     });
 
     // Load all toggle
@@ -3042,7 +3042,7 @@ function renderCategoryTabs() {
         currentPage = 0;
         renderCategoryTabs();
         renderShopItems();
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
     });
 
     // Category tabs
@@ -3053,7 +3053,7 @@ function renderCategoryTabs() {
             prepareFilteredItems();
             renderCategoryTabs();
             renderShopItems();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 }
@@ -3200,10 +3200,10 @@ function toggleCartItem(itemId) {
         const currentQty = getCartQuantity(itemId);
         if (currentQty > 0) {
             setCartQuantity(itemId, 0);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         } else {
             setCartQuantity(itemId, 1);
-            playSound('confirm.mp3');
+            playSound('../../../assets/audio/ui/confirm.mp3');
         }
     } else {
         // Non-bulk items: simple toggle
@@ -3212,7 +3212,7 @@ function toggleCartItem(itemId) {
         if (existingIndex >= 0) {
             cart.splice(existingIndex, 1);
             delete cartQuantities[itemId];
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         } else {
             const isFactionItem = item.category === SHOP_CATEGORIES.FACTION;
             const isFactionTab = currentTab === 'faction';
@@ -3228,7 +3228,7 @@ function toggleCartItem(itemId) {
                 totalPrice: item.price
             });
             cartQuantities[itemId] = 1;
-            playSound('confirm.mp3');
+            playSound('../../../assets/audio/ui/confirm.mp3');
         }
     }
 
@@ -3251,7 +3251,7 @@ function cancelOrder(orderId) {
     pendingOrders.splice(orderIndex, 1);
     localStorage.setItem('xp_pending_orders', JSON.stringify(pendingOrders));
 
-    playSound('click.mp3');
+    playSound('../../../assets/audio/ui/click.mp3');
     showNotification(`Order ${orderId} cancelled. ${order.total.toLocaleString()} XP refunded.`, 'success');
 
     renderShopHeader();
@@ -3355,7 +3355,7 @@ function showReceipt(order, remainingXP) {
     const closeBtn = content.querySelector('.close-receipt-btn');
     closeBtn.addEventListener('click', () => {
         modal.style.display = 'none';
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
     });
 
     const printBtn = content.querySelector('.print-receipt-btn');

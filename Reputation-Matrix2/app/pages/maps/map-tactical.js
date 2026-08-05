@@ -60,7 +60,7 @@ export function renderBattleElements(mapId) {
         line.setAttribute('points', fl.points);
         line.classList.add('front-line', 'clickable-tactical');
         line.addEventListener('click', () => {
-            map.playSound('click.mp3');
+            map.playSound('../../../assets/audio/ui/click.mp3');
             ui.renderTacticalDetailPanel(fl.id, 'frontline');
         });
         svg.appendChild(line);

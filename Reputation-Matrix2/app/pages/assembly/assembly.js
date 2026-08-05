@@ -32,16 +32,16 @@ let duplicatePosts = [];
  */
 function initDebugDiagnostics() {
     if (!window.debugMode && !state?.debugMode) return;
-    
+
     console.log('[WAHbook Debug] Running diagnostics...');
-    
+
     // Run diagnostics
     const imageReport = detectMissingImages();
     const duplicateReport = detectDuplicatePosts();
-    
+
     // Create debug panel
     createDebugPanel(imageReport, duplicateReport);
-    
+
     console.log('[WAHbook Debug] Missing images:', imageReport.length);
     console.log('[WAHbook Debug] Duplicate posts:', duplicateReport.length);
 }
@@ -52,17 +52,17 @@ function initDebugDiagnostics() {
 function detectMissingImages() {
     const report = [];
     const testedImages = new Set();
-    
+
     // Collect all character keys from posts
     const allCharacterKeys = new Set();
-    
+
     WAHBOOK_POSTS.forEach(post => {
         if (post.characterKey) allCharacterKeys.add(post.characterKey);
         post.comments?.forEach(comment => {
             if (comment.characterKey) allCharacterKeys.add(comment.characterKey);
         });
     });
-    
+
     // Also check LORE_DATA characters
     if (LORE_DATA?.characters) {
         Object.keys(LORE_DATA.characters).forEach(key => allCharacterKeys.add(key));
@@ -70,18 +70,18 @@ function detectMissingImages() {
     if (LORE_DATA?.auxiliary_party) {
         Object.keys(LORE_DATA.auxiliary_party).forEach(key => allCharacterKeys.add(key));
     }
-    
+
     // Test each unique image
     allCharacterKeys.forEach(characterKey => {
         const charData = getCharacterData(characterKey);
         const imagePath = charData.portrait;
-        
+
         if (testedImages.has(imagePath)) return;
         testedImages.add(imagePath);
-        
+
         // Skip data URIs and known fallbacks
         if (imagePath.startsWith('data:')) return;
-        
+
         report.push({
             characterKey,
             imagePath,
@@ -90,7 +90,7 @@ function detectMissingImages() {
             status: 'pending'
         });
     });
-    
+
     // Test images asynchronously
     report.forEach(item => {
         const img = new Image();
@@ -105,7 +105,7 @@ function detectMissingImages() {
         };
         img.src = item.imagePath;
     });
-    
+
     return report;
 }
 
@@ -116,7 +116,7 @@ function detectDuplicatePosts() {
     const report = [];
     const contentMap = new Map();
     const idSet = new Set();
-    
+
     WAHBOOK_POSTS.forEach((post, index) => {
         // Check for duplicate IDs
         if (idSet.has(post.id)) {
@@ -129,10 +129,10 @@ function detectDuplicatePosts() {
             });
         }
         idSet.add(post.id);
-        
+
         // Create content fingerprint
         const fingerprint = createContentFingerprint(post);
-        
+
         if (contentMap.has(fingerprint)) {
             const existingIndex = contentMap.get(fingerprint);
             report.push({
@@ -148,7 +148,7 @@ function detectDuplicatePosts() {
             contentMap.set(fingerprint, index);
         }
     });
-    
+
     duplicatePosts = report;
     return report;
 }
@@ -161,12 +161,12 @@ function createContentFingerprint(post) {
         .replace(/\s+/g, ' ')
         .replace(/[^\w\s]/g, '')
         .trim();
-    
+
     // Use first 100 chars + character key + date for fingerprint
-    const dateStr = post.date 
-        ? `${post.date.year}-${post.date.monthIndex}-${post.date.day}` 
+    const dateStr = post.date
+        ? `${post.date.year}-${post.date.monthIndex}-${post.date.day}`
         : 'nodate';
-    
+
     return `${post.characterKey || 'unknown'}|${dateStr}|${content.substring(0, 100)}`;
 }
 
@@ -178,7 +178,7 @@ function createDebugPanel(imageReport, duplicateReport) {
     if (debugPanel) {
         debugPanel.remove();
     }
-    
+
     debugPanel = document.createElement('div');
     debugPanel.id = 'wahbook-debug-panel';
     debugPanel.innerHTML = `
@@ -354,7 +354,7 @@ function createDebugPanel(imageReport, duplicateReport) {
                 text-decoration: line-through;
             }
         </style>
-        
+
         <div class="debug-header">
             <h3>🔧 WAHbook Debug Panel</h3>
             <div>
@@ -362,7 +362,7 @@ function createDebugPanel(imageReport, duplicateReport) {
                 <button class="debug-close" id="debug-close" title="Close">×</button>
             </div>
         </div>
-        
+
         <div class="debug-tabs">
             <button class="debug-tab active" data-tab="images">
                 🖼️ Images <span class="badge" id="missing-count">0</span>
@@ -374,11 +374,11 @@ function createDebugPanel(imageReport, duplicateReport) {
                 📊 Summary
             </button>
         </div>
-        
+
         <div class="debug-content" id="debug-content">
             <!-- Content populated dynamically -->
         </div>
-        
+
         <div class="debug-actions-bar">
             <button class="debug-export-btn primary" id="export-cleaned">
                 📥 Export Cleaned Data
@@ -388,12 +388,12 @@ function createDebugPanel(imageReport, duplicateReport) {
             </button>
         </div>
     `;
-    
+
     document.body.appendChild(debugPanel);
-    
+
     // Setup event listeners
     setupDebugPanelEvents(imageReport, duplicateReport);
-    
+
     // Show images tab by default
     showDebugTab('images', imageReport, duplicateReport);
 }
@@ -407,13 +407,13 @@ function setupDebugPanelEvents(imageReport, duplicateReport) {
         debugPanel?.remove();
         debugPanel = null;
     });
-    
+
     // Minimize button
     document.getElementById('debug-minimize')?.addEventListener('click', () => {
         const content = debugPanel.querySelector('.debug-content');
         const actions = debugPanel.querySelector('.debug-actions-bar');
         const tabs = debugPanel.querySelector('.debug-tabs');
-        
+
         if (content.style.display === 'none') {
             content.style.display = 'block';
             actions.style.display = 'flex';
@@ -424,7 +424,7 @@ function setupDebugPanelEvents(imageReport, duplicateReport) {
             tabs.style.display = 'none';
         }
     });
-    
+
     // Tab switching
     debugPanel.querySelectorAll('.debug-tab').forEach(tab => {
         tab.addEventListener('click', () => {
@@ -433,12 +433,12 @@ function setupDebugPanelEvents(imageReport, duplicateReport) {
             showDebugTab(tab.dataset.tab, imageReport, duplicateReport);
         });
     });
-    
+
     // Export cleaned data
     document.getElementById('export-cleaned')?.addEventListener('click', () => {
         exportCleanedData();
     });
-    
+
     // Export report
     document.getElementById('export-report')?.addEventListener('click', () => {
         exportDebugReport(imageReport, duplicateReport);
@@ -454,7 +454,7 @@ const markedForRemoval = new Set();
 function showDebugTab(tabName, imageReport, duplicateReport) {
     const content = document.getElementById('debug-content');
     if (!content) return;
-    
+
     switch (tabName) {
         case 'images':
             renderImagesTab(content, imageReport);
@@ -474,9 +474,9 @@ function showDebugTab(tabName, imageReport, duplicateReport) {
 function renderImagesTab(container, imageReport) {
     const missing = imageReport.filter(i => i.status === 'missing');
     const pending = imageReport.filter(i => i.status === 'pending');
-    
+
     document.getElementById('missing-count').textContent = missing.length;
-    
+
     if (missing.length === 0 && pending.length === 0) {
         container.innerHTML = `
             <div style="text-align:center;padding:40px;color:#44ff44;">
@@ -485,7 +485,7 @@ function renderImagesTab(container, imageReport) {
         `;
         return;
     }
-    
+
     const items = [...missing, ...pending].map(item => `
         <div class="debug-item ${item.status}">
             <div class="debug-item-header">
@@ -499,7 +499,7 @@ function renderImagesTab(container, imageReport) {
             </div>
         </div>
     `).join('');
-    
+
     container.innerHTML = items || '<p style="color:#888;">Checking images...</p>';
 }
 
@@ -518,7 +518,7 @@ function renderDuplicatesTab(container, duplicateReport) {
         `;
         return;
     }
-    
+
     // Bulk actions bar
     const bulkActions = `
         <div class="debug-bulk-actions" style="
@@ -563,12 +563,12 @@ function renderDuplicatesTab(container, duplicateReport) {
             💡 <strong>Tip:</strong> "Mark All" will mark the <em>duplicate</em> (second occurrence), keeping the original post.
         </div>
     `;
-    
+
     const items = duplicateReport.map((dup, index) => {
         const post1 = WAHBOOK_POSTS[dup.post1Index];
         const post2 = WAHBOOK_POSTS[dup.post2Index];
         const isMarked = markedForRemoval.has(dup.post2Index);
-        
+
         return `
             <div class="debug-item duplicate ${isMarked ? 'marked-for-removal' : ''}" data-dup-index="${index}">
                 <div class="debug-item-header">
@@ -580,24 +580,24 @@ function renderDuplicatesTab(container, duplicateReport) {
                     ID: ${post1?.id || 'N/A'}<br>
                     By: ${post1?.characterKey || 'Unknown'}<br>
                     "${(post1?.content || '').substring(0, 80)}..."<br><br>
-                    
+
                     <strong>Duplicate (index ${dup.post2Index}):</strong><br>
                     ID: ${post2?.id || 'N/A'}<br>
                     By: ${post2?.characterKey || 'Unknown'}<br>
                     "${(post2?.content || '').substring(0, 80)}..."
                 </div>
                 <div class="debug-item-actions">
-                    <button class="debug-btn ${isMarked ? 'debug-btn-keep' : 'debug-btn-remove'}" 
-                            data-action="toggle-mark" 
+                    <button class="debug-btn ${isMarked ? 'debug-btn-keep' : 'debug-btn-remove'}"
+                            data-action="toggle-mark"
                             data-index="${dup.post2Index}">
                         ${isMarked ? '↩️ Unmark' : '🗑️ Mark for Removal'}
                     </button>
                     <button class="debug-btn debug-btn-view" data-action="view" data-post-id="${post2?.id}">
                         👁️ View
                     </button>
-                    <button class="debug-btn" style="background:#8844ff;color:white;" 
-                            data-action="compare" 
-                            data-index1="${dup.post1Index}" 
+                    <button class="debug-btn" style="background:#8844ff;color:white;"
+                            data-action="compare"
+                            data-index1="${dup.post1Index}"
                             data-index2="${dup.post2Index}">
                         🔍 Compare
                     </button>
@@ -605,9 +605,9 @@ function renderDuplicatesTab(container, duplicateReport) {
             </div>
         `;
     }).join('');
-    
+
     container.innerHTML = bulkActions + items;
-    
+
     // Mark All button
     document.getElementById('mark-all-duplicates')?.addEventListener('click', () => {
         duplicateReport.forEach(dup => {
@@ -616,19 +616,19 @@ function renderDuplicatesTab(container, duplicateReport) {
         renderDuplicatesTab(container, duplicateReport);
         updateRemovalCount();
     });
-    
+
     // Unmark All button
     document.getElementById('unmark-all-duplicates')?.addEventListener('click', () => {
         markedForRemoval.clear();
         renderDuplicatesTab(container, duplicateReport);
         updateRemovalCount();
     });
-    
+
     // Individual button handlers
     container.querySelectorAll('.debug-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const action = btn.dataset.action;
-            
+
             if (action === 'toggle-mark') {
                 const index = parseInt(btn.dataset.index);
                 if (markedForRemoval.has(index)) {
@@ -663,8 +663,8 @@ function renderDuplicatesTab(container, duplicateReport) {
 function updateRemovalCount() {
     const badge = document.getElementById('duplicate-count');
     if (badge) {
-        badge.textContent = markedForRemoval.size > 0 
-            ? `${markedForRemoval.size} marked` 
+        badge.textContent = markedForRemoval.size > 0
+            ? `${markedForRemoval.size} marked`
             : duplicatePosts.length;
         badge.style.background = markedForRemoval.size > 0 ? '#ff4444' : '#ffaa00';
     }
@@ -676,7 +676,7 @@ function updateRemovalCount() {
 function showComparisonModal(post1, post2) {
     // Remove existing modal
     document.getElementById('debug-comparison-modal')?.remove();
-    
+
     const modal = document.createElement('div');
     modal.id = 'debug-comparison-modal';
     modal.innerHTML = `
@@ -759,7 +759,7 @@ function showComparisonModal(post1, post2) {
                 cursor: pointer;
             }
         </style>
-        
+
         <div class="comparison-content">
             <div class="comparison-header">
                 <h3>🔍 Post Comparison</h3>
@@ -777,14 +777,14 @@ function showComparisonModal(post1, post2) {
             </div>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
-    
+
     // Close handlers
     document.getElementById('close-comparison')?.addEventListener('click', () => {
         modal.remove();
     });
-    
+
     modal.addEventListener('click', (e) => {
         if (e.target === modal) modal.remove();
     });
@@ -795,7 +795,7 @@ function showComparisonModal(post1, post2) {
  */
 function renderPostDetails(post) {
     if (!post) return '<p style="color:#ff4444;">Post not found</p>';
-    
+
     const fields = [
         { label: 'ID', value: post.id },
         { label: 'Character', value: post.characterKey },
@@ -806,7 +806,7 @@ function renderPostDetails(post) {
         { label: 'Tags', value: post.tags?.join(', ') || 'None' },
         { label: 'Reactions', value: JSON.stringify(post.reactions || {}) }
     ];
-    
+
     return fields.map(f => `
         <div class="comparison-field">
             <strong>${f.label}:</strong>
@@ -823,29 +823,29 @@ function renderSummaryTab(container, imageReport, duplicateReport) {
     const uniqueCharacters = new Set(WAHBOOK_POSTS.map(p => p.characterKey)).size;
     const missingCount = imageReport.filter(i => i.status === 'missing').length;
     const undefinedChars = imageReport.filter(i => !i.isDefined).length;
-    
+
     container.innerHTML = `
         <div class="debug-summary">
             <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">📊 Data Summary</h4>
-            
+
             <p><strong>Total Posts:</strong> ${totalPosts}</p>
             <p><strong>Unique Authors:</strong> ${uniqueCharacters}</p>
             <p><strong>Duplicate Posts Found:</strong> <span style="color:${duplicateReport.length > 0 ? '#ffaa00' : '#44ff44'}">${duplicateReport.length}</span></p>
             <p><strong>Marked for Removal:</strong> <span style="color:#ff4444;font-weight:bold;">${markedForRemoval.size}</span></p>
             <p><strong>Posts After Cleanup:</strong> <span style="color:#44ff44;">${totalPosts - markedForRemoval.size}</span></p>
-            
+
             <hr style="border:none;border-top:1px solid #333;margin:12px 0;">
-            
+
             <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">🖼️ Image Summary</h4>
-            
+
             <p><strong>Total Characters:</strong> ${imageReport.length}</p>
             <p><strong>Missing Images:</strong> <span style="color:${missingCount > 0 ? '#ff4444' : '#44ff44'}">${missingCount}</span></p>
             <p><strong>Undefined Characters:</strong> <span style="color:${undefinedChars > 0 ? '#ffaa00' : '#44ff44'}">${undefinedChars}</span></p>
-            
+
             <hr style="border:none;border-top:1px solid #333;margin:12px 0;">
-            
+
             <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">🚀 Quick Actions</h4>
-            
+
             <div style="display:flex;flex-direction:column;gap:8px;">
                 <button class="debug-export-btn primary" id="summary-mark-all" style="padding:10px;border:none;border-radius:6px;cursor:pointer;background:#ff4444;color:white;font-weight:600;">
                     🗑️ Mark All ${duplicateReport.length} Duplicates for Removal
@@ -854,15 +854,15 @@ function renderSummaryTab(container, imageReport, duplicateReport) {
                     ↩️ Clear All Marks
                 </button>
             </div>
-            
+
             <hr style="border:none;border-top:1px solid #333;margin:12px 0;">
-            
+
             <p style="font-size:11px;color:#888;">
                 💡 After marking duplicates, click <strong>"Export Cleaned Data"</strong> to download a new assembly-data.js file with duplicates removed.
             </p>
         </div>
     `;
-    
+
     // Quick action buttons
     document.getElementById('summary-mark-all')?.addEventListener('click', () => {
         duplicateReport.forEach(dup => {
@@ -871,7 +871,7 @@ function renderSummaryTab(container, imageReport, duplicateReport) {
         renderSummaryTab(container, imageReport, duplicateReport);
         updateRemovalCount();
     });
-    
+
     document.getElementById('summary-clear-all')?.addEventListener('click', () => {
         markedForRemoval.clear();
         renderSummaryTab(container, imageReport, duplicateReport);
@@ -889,15 +889,15 @@ function renderSummaryTab(container, imageReport, duplicateReport) {
  */
 function updateDebugPanel() {
     if (!debugPanel) return;
-    
+
     const activeTab = debugPanel.querySelector('.debug-tab.active')?.dataset.tab;
     if (activeTab === 'images') {
         const imageReport = Array.from(document.querySelectorAll('.debug-item'))
             .map(el => ({
-                status: el.classList.contains('missing') ? 'missing' : 
+                status: el.classList.contains('missing') ? 'missing' :
                         el.classList.contains('found') ? 'found' : 'pending'
             }));
-        
+
         const missingCount = imageReport.filter(i => i.status === 'missing').length;
         document.getElementById('missing-count').textContent = missingCount;
     }
@@ -911,7 +911,7 @@ function exportCleanedData() {
     const cleanedPosts = WAHBOOK_POSTS.filter((post, index) => {
         return !markedForRemoval.has(index);
     });
-    
+
     // Also remove any auto-detected duplicate IDs
     const seenIds = new Set();
     const dedupedPosts = cleanedPosts.filter(post => {
@@ -921,7 +921,7 @@ function exportCleanedData() {
         seenIds.add(post.id);
         return true;
     });
-    
+
     // Generate the JS file content
     const fileContent = `// WAHbook Posts Data - Cleaned ${new Date().toISOString()}
 // Original: ${WAHBOOK_POSTS.length} posts
@@ -935,10 +935,10 @@ export function loadEventPosts() {
     return Promise.resolve([]);
 }
 `;
-    
+
     // Download the file
     downloadFile('assembly-data-cleaned.js', fileContent, 'application/javascript');
-    
+
     // Show confirmation
     alert(`✅ Exported cleaned data!\n\nOriginal: ${WAHBOOK_POSTS.length} posts\nCleaned: ${dedupedPosts.length} posts\nRemoved: ${WAHBOOK_POSTS.length - dedupedPosts.length} duplicates`);
 }
@@ -968,7 +968,7 @@ function exportDebugReport(imageReport, duplicateReport) {
             content: WAHBOOK_POSTS[index]?.content?.substring(0, 100)
         }))
     };
-    
+
     downloadFile('wahbook-debug-report.json', JSON.stringify(report, null, 2), 'application/json');
 }
 
@@ -1037,7 +1037,7 @@ function initPostVisibilityObserver() {
                         // Stop observing this post
                         postObserver.unobserve(postElement);
                     }, 1500); // Must be visible for 1.5 seconds
-                    
+
                     pendingSeenPosts.set(postId, timerId);
                 }
             } else {
@@ -1052,10 +1052,10 @@ function initPostVisibilityObserver() {
 }
 function updateSeenPosts() {
     // Identify which feed container is currently visible
-    const activeContainer = document.querySelector('.feed-content:not(.hidden) .posts-container') || 
+    const activeContainer = document.querySelector('.feed-content:not(.hidden) .posts-container') ||
                             document.querySelector('.feed-content:not(.hidden) [id$="-container"]') ||
                             document.querySelector('.feed-content:not(.hidden)');
-    
+
     if (activeContainer) {
         observePostsForVisibility(activeContainer);
     }
@@ -1063,12 +1063,12 @@ function updateSeenPosts() {
 function markPostAsSeen(postId) {
     if (!state.userState) return;
     if (!state.userState.seenPostIds) state.userState.seenPostIds = [];
-    
+
     if (!state.userState.seenPostIds.includes(postId)) {
         state.userState.seenPostIds.push(postId);
         saveState();
         console.log('[WAHbook] Marked post as seen:', postId);
-        
+
         // Update UI to remove "new" indicator
         const postElement = document.querySelector(`[data-post-id="${postId}"]`);
         if (postElement) {
@@ -1088,7 +1088,7 @@ function observePostsForVisibility(container) {
     }
 
     const seenIds = state.userState?.seenPostIds || [];
-    
+
     // Find all post elements and observe only unseen ones
     container.querySelectorAll('[data-post-id]').forEach(postElement => {
         const postId = postElement.dataset.postId;
@@ -1168,7 +1168,7 @@ function renderInfamyWatchCard() {
             currentPage = 1;
             renderNavTabs();
             renderCurrentFeed();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 }
@@ -1206,9 +1206,9 @@ export function speakFullPage() {
     }
 
     // Identify which feed container is currently visible
-    const activeContainer = document.querySelector('.feed-content:not(.hidden) .posts-container') || 
+    const activeContainer = document.querySelector('.feed-content:not(.hidden) .posts-container') ||
                             document.querySelector('.feed-content:not(.hidden) [id$="-container"]');
-    
+
     if (!activeContainer) {
         console.warn('No active feed container found to read.');
         return;
@@ -1242,7 +1242,7 @@ function readNextInSequence(ids, index) {
 
     const id = ids[index];
     // Check if it's a post or a rumor/event
-    const post = WAHBOOK_POSTS.find(p => p.id === id) || 
+    const post = WAHBOOK_POSTS.find(p => p.id === id) ||
                  LORE_DATA?.rumors?.find(r => r.id === id);
 
     if (!post) {
@@ -1276,7 +1276,7 @@ function readNextInSequence(ids, index) {
 
     const utterance = new SpeechSynthesisUtterance(script);
     utterance.rate = 0.95;
-    
+
     utterance.onend = () => {
         if (isReadingFullPage) {
             // Short pause between posts
@@ -1573,7 +1573,7 @@ function getVisiblePosts() {
     visiblePostsCache = WAHBOOK_POSTS.filter(p => isContentVisible(p?.date));
     return visiblePostsCache;
 }
-    
+
 function getTrendingScore(post) {
     // --- 1. Recency Calculation ---
     let daysSince = 0;
@@ -1588,24 +1588,24 @@ function getTrendingScore(post) {
     // Day 1 (Yesterday): 250 points
     // Day 2: 166 points
     // This ensures a new post with 0 likes usually beats a 2-day-old post with 50 likes.
-    let score = 500 / (Math.pow(daysSince, 0.8) + 1); 
+    let score = 500 / (Math.pow(daysSince, 0.8) + 1);
     // --- 3. Unseen Boost ---
-    // If the user hasn't seen it, multiply the score. 
+    // If the user hasn't seen it, multiply the score.
     // This pushes unseen content to the very top of its specific "Day tier".
     const seenCount = (state.userState?.seenPostIds || []).filter(id => id === post.id).length;
     if (seenCount === 0) {
-        score *= 1.5; 
+        score *= 1.5;
         // --- CHANGE 2: Minimum Score for Unseen ---
         // Ensure unseen posts never drop below a "floor" regardless of age
         // This ensures they appear in the Unseen Bucket sort.
-        score = Math.max(score, 50); 
+        score = Math.max(score, 50);
     } else {
-        score *= 0.8; 
+        score *= 0.8;
     }
 
     // --- 4. Engagement (Tie-Breaker Only) ---
     // We add this as a flat bonus, not a multiplier.
-    // This sorts posts from *the same day* by popularity, but won't let 
+    // This sorts posts from *the same day* by popularity, but won't let
     // an old popular post overtake a brand new post.
     const likes = post.likes || 0;
     const comments = post.comments ? post.comments.length : 0;
@@ -1693,7 +1693,7 @@ function renderStoriesBar() {
     // Get active characters (those who posted recently)
     const recentPosters = new Map();
     const visiblePosts = getVisiblePosts();
-    
+
     visiblePosts
         .filter(p => getDaysSincePost(p) <= 7)
         .forEach(post => {
@@ -1715,7 +1715,7 @@ function renderStoriesBar() {
     container.innerHTML = stories.map(story => {
         const char = getCharacterData(story.characterKey);
         const hasNewStory = getDaysSincePost(story.latestPost) === 0;
-        
+
         return `
             <div class="story-item" data-user="${story.characterKey}">
                 <div class="story-avatar-wrapper ${hasNewStory ? '' : 'no-story'}">
@@ -1791,7 +1791,7 @@ function renderTrendingTopics() {
         if (!isContentVisible(rumor.date)) return;
         const relatedPosts = getVisiblePosts().filter(p => p.rumorId === rumor.id);
         const metrics = calculateRumorMetrics(rumor, relatedPosts);
-        
+
         if (metrics.status === 'Viral' || metrics.status === 'Trending' || metrics.status === 'Active') {
             trendingList.push({
                 ...rumor,
@@ -1876,7 +1876,7 @@ function renderFollowSuggestions() {
             toggleFollow(user);
             btn.textContent = 'Following';
             btn.disabled = true;
-            playSound('confirm.mp3');
+            playSound('../../../assets/audio/ui/confirm.mp3');
         });
     });
 }
@@ -1942,7 +1942,7 @@ function renderFactionFilters() {
             currentPage = 1;
             renderFactionFilters();
             renderCurrentFeed();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 }
@@ -2003,14 +2003,14 @@ function renderPost(post, options = {}) {
     const allComments = post.comments || [];
     const visibleComments = allComments.slice(0, 3);
     const hiddenComments = allComments.slice(3);
-    
+
     const commentsHTML = visibleComments.map(comment => renderComment(comment)).join('');
 
-    const moreCommentsHTML = hiddenComments.length > 0 
+    const moreCommentsHTML = hiddenComments.length > 0
         ? `<button class="view-more-comments" data-post-id="${post.id}" data-hidden-count="${hiddenComments.length}">View ${hiddenComments.length} more comment${hiddenComments.length > 1 ? 's' : ''}</button>
            <div class="hidden-comments" data-post-id="${post.id}" style="display:none;">
                ${hiddenComments.map(comment => renderComment(comment)).join('')}
-           </div>` 
+           </div>`
         : '';
 
     // Media
@@ -2031,8 +2031,8 @@ function renderPost(post, options = {}) {
     ` : '';
 
     return `
-        <article class="feed-post ${debugClass} ${isUnseen && !isFuture ? 'unseen-post' : ''}" 
-                 data-post-id="${post.id}" 
+        <article class="feed-post ${debugClass} ${isUnseen && !isFuture ? 'unseen-post' : ''}"
+                 data-post-id="${post.id}"
                  ${isFuture ? 'style="opacity:0.7;border:2px dashed #ff4444;"' : ''}>
             ${badgesHTML}
             <div class="post-header">
@@ -2052,12 +2052,12 @@ function renderPost(post, options = {}) {
                 </div>
                 <button class="post-menu-btn" data-post-id="${post.id}">⋯</button>
             </div>
-            
+
             <div class="post-body">
                 <p class="post-content">${formatPostContent(post.content || '')}</p>
                 ${mediaHTML}
             </div>
-            
+
             <div class="post-interactions">
                 <button class="interaction-btn like-btn ${isLiked ? 'liked' : ''}" data-post-id="${post.id}" data-likes="${post.likes || 0}">
                     <span class="interaction-btn-icon">${isLiked ? '❤️' : '🤍'}</span>
@@ -2076,7 +2076,7 @@ function renderPost(post, options = {}) {
                     <span class="interaction-btn-icon">${isBookmarked ? '🔖' : '📑'}</span>
                 </button>
             </div>
-            
+
             ${(allComments.length || state.loggedInUser !== 'generic') ? `
                 <div class="post-comments-section">
                     <div class="post-comments">${commentsHTML}</div>
@@ -2115,7 +2115,7 @@ function speakPost(postId, btn) {
     if (!post) return;
 
     const author = getCharacterData(post.characterKey);
-    
+
     // 1. Clean up the text for better speech
     const cleanContent = post.content
         .replace(/#(\w+)/g, '$1') // Remove # from hashtags
@@ -2123,7 +2123,7 @@ function speakPost(postId, btn) {
 
     // 2. Build the full script
     let fullText = `${author.name} posted: ${cleanContent}. `;
-    
+
     if (post.comments && post.comments.length > 0) {
         fullText += ` There are ${post.comments.length} comments. `;
         post.comments.forEach(c => {
@@ -2134,7 +2134,7 @@ function speakPost(postId, btn) {
 
     // 3. Setup Utterance
     const utterance = new SpeechSynthesisUtterance(fullText);
-    
+
     // Optional: Pick a specific voice/speed
     utterance.rate = 0.95; // Slightly slower for clarity
     utterance.pitch = 1.0;
@@ -2184,14 +2184,14 @@ function attachPostEventListeners(container) {
         btn.addEventListener('click', () => {
             const postId = btn.dataset.postId;
             toggleLike(postId, btn);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
   container.querySelectorAll('.read-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const postId = btn.dataset.postId;
             speakPost(postId, btn);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
     // Comment buttons
@@ -2218,7 +2218,7 @@ function attachPostEventListeners(container) {
         btn.addEventListener('click', () => {
             const postId = btn.dataset.postId;
             toggleBookmark(postId, btn);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 
@@ -2244,42 +2244,42 @@ function attachPostEventListeners(container) {
         btn.addEventListener('click', () => {
             const postId = btn.dataset.postId;
             const hiddenContainer = container.querySelector(`.hidden-comments[data-post-id="${postId}"]`);
-            
+
             if (hiddenContainer) {
                 // Show hidden comments
                 hiddenContainer.style.display = 'block';
-                
+
                 // Move hidden comments into main comments container
                 const postEl = btn.closest('.feed-post') || btn.closest('article');
                 const commentsContainer = postEl?.querySelector('.post-comments');
-                
+
                 if (commentsContainer && hiddenContainer) {
                     // Append hidden comments to visible comments
                     commentsContainer.insertAdjacentHTML('beforeend', hiddenContainer.innerHTML);
-                    
+
                     // Remove the hidden container and button
                     hiddenContainer.remove();
                     btn.remove();
                 }
             }
-            
-            playSound('click.mp3');
+
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 }
 
 function formatPostContent(content) {
     if (!content) return '';
-    
+
     // Convert hashtags
     content = content.replace(/#(\w+)/g, '<span class="hashtag">#$1</span>');
-    
+
     // Convert mentions
     content = content.replace(/@(\w+)/g, '<a href="profile.html?user=$1" class="mention">@$1</a>');
-    
+
     // Convert URLs
     content = content.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
-    
+
     return content;
 }
 
@@ -2328,7 +2328,7 @@ function renderForYouFeed() {
         posts.sort((a, b) => {
             const aSeen = seenIds.includes(a.id);
             const bSeen = seenIds.includes(b.id);
-            
+
             // If one is seen and the other isn't, put unseen first
             if (aSeen !== bSeen) {
                 return aSeen ? 1 : -1;
@@ -2347,7 +2347,7 @@ function renderForYouFeed() {
         });
     } else {
         // --- RECOMMENDED (DEFAULT): The "Smart Mix" ---
-        
+
         // 1. Split posts into "Unseen" and "Seen" buckets
         const unseenPosts = [];
         const seenPosts = [];
@@ -2367,18 +2367,18 @@ function renderForYouFeed() {
         seenPosts.sort((a, b) => getTrendingScore(b) - getTrendingScore(a));
 
         // 3. Weave (Zipper) them together
-        // We generally want to prioritize fresh discovery (Unseen), 
+        // We generally want to prioritize fresh discovery (Unseen),
         // but keep popular recaps (Seen) mixed in.
-        
+
         // RATIO: 2 Unseen : 1 Seen
         // This guarantees unseen content is prioritized but doesn't feel empty/lonely.
         const wovenPosts = [];
-        
+
         while (unseenPosts.length > 0 || seenPosts.length > 0) {
             // Add up to 2 Unseen posts
             if (unseenPosts.length) wovenPosts.push(unseenPosts.shift());
             if (unseenPosts.length) wovenPosts.push(unseenPosts.shift());
-            
+
             // Add 1 Seen post (Sprinkle it in)
             if (seenPosts.length) wovenPosts.push(seenPosts.shift());
         }
@@ -2391,7 +2391,7 @@ function renderForYouFeed() {
 function updateNotificationBadge() {
     // Logic to determine real notifications (placeholder for now)
     const notificationCount = 0; // Set to 0 to hide, or calculate real count
-    
+
     const badge = document.getElementById('notif-count');
     if (badge) {
         if (notificationCount > 0) {
@@ -2452,7 +2452,7 @@ function renderPaginatedPosts(posts, container) {
     cleanupPostObserver();
     const effectivePageSize = isInitialRenderMode ? INITIAL_RENDER_POST_LIMIT : POSTS_PER_PAGE;
     const totalPages = Math.ceil(posts.length / effectivePageSize);
-    
+
     // Ensure currentPage is valid
     if (currentPage > totalPages && totalPages > 0) currentPage = 1;
     if (currentPage < 1) currentPage = 1;
@@ -2480,14 +2480,14 @@ function renderPaginatedPosts(posts, container) {
 
     container.innerHTML = currentPosts.map(post => renderPost(post)).join('');
     renderPagination(currentPage, totalPages);
-    
+
     // Attach listeners and observers
     attachPostEventListeners(container);
     observePostsForVisibility(container);
-    
-    // REMOVED: renderPaginationControls(posts.length, container); 
+
+    // REMOVED: renderPaginationControls(posts.length, container);
     // This line caused the crash because the function does not exist.
-    
+
     document.getElementById('read-full-page-btn')?.addEventListener('click', speakFullPage);
 }
 
@@ -2512,7 +2512,7 @@ function renderPagination(current, total) {
             currentPage--;
             renderCurrentFeed();
             scrollToTop();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         }
     });
 
@@ -2521,7 +2521,7 @@ function renderPagination(current, total) {
             currentPage++;
             renderCurrentFeed();
             scrollToTop();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         }
     });
 }
@@ -2568,9 +2568,9 @@ function handleQuickLink(action) {
     const feedContainer = document.getElementById('feed-foryou');
     const postsContainer = document.getElementById('foryou-posts');
     const headerTitle = feedContainer.querySelector('h3');
-    
+
     feedContainer.classList.remove('hidden');
-    
+
     // Update navigation tabs visual state (deselect all to show we are in a custom view)
     document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
 
@@ -2580,7 +2580,7 @@ function handleQuickLink(action) {
             // Filter: Posts where characterKey matches loggedInUser
             let myPosts = getVisiblePosts().filter(p => p.characterKey === state.loggedInUser);
             myPosts.sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
-            
+
             if (myPosts.length === 0) {
                 postsContainer.innerHTML = `<div class="empty-state"><h3>No Posts Yet</h3><p>You haven't posted anything.</p></div>`;
                 // Hide pagination for empty state
@@ -2610,11 +2610,11 @@ function handleQuickLink(action) {
                 // Check if user is mentioned in comments OR if someone replied to user's post
                 const inComments = (p.comments || []).some(c => (c.text || '').includes(`@${username}`));
                 const isReplyToMe = p.characterKey === username && (p.comments || []).length > 0;
-                
+
                 return inContent || inComments || isReplyToMe;
             });
             mentions.sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
-            
+
             if (mentions.length === 0) {
                 postsContainer.innerHTML = `<div class="empty-state"><h3>No Mentions</h3><p>You haven't been mentioned yet.</p></div>`;
                 document.getElementById('feed-pagination').style.display = 'none';
@@ -2629,7 +2629,7 @@ function handleQuickLink(action) {
             const likedIds = state.userState.likedPosts || [];
             let likedPosts = getVisiblePosts().filter(p => likedIds.includes(p.id));
             likedPosts.sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
-            
+
             if (likedPosts.length === 0) {
                 postsContainer.innerHTML = `<div class="empty-state"><h3>No Liked Posts</h3><p>Go like something!</p></div>`;
                 document.getElementById('feed-pagination').style.display = 'none';
@@ -2661,14 +2661,14 @@ async function renderExploreFeed() {
 function renderArcCard(arc, isActive) {
     const currentPhase = arc.phases?.[arc.currentPhase] || arc.phases?.[0];
     const progress = arc.phases ? Math.round(((arc.currentPhase + 1) / arc.phases.length) * 100) : 0;
-    
+
     // Format dates
     const startDateStr = arc.startDate ? formatArcDate(arc.startDate) : 'Unknown';
     const endDateStr = arc.endDate ? formatArcDate(arc.endDate) : 'Ongoing';
-    
+
     // Get related posts count
     const relatedPosts = getVisiblePosts().filter(p => p.arcId === arc.id).length;
-    
+
     // Get faction names
     const keyFactionNames = (arc.keyFactions || [])
         .map(fKey => LORE_DATA?.factions?.[fKey]?.name || fKey)
@@ -2683,9 +2683,9 @@ function renderArcCard(arc, isActive) {
                     <span class="arc-status-badge ${arc.status}">${arc.status}</span>
                 </div>
             </div>
-            
+
             <p class="arc-description">${arc.description}</p>
-            
+
             ${isActive && currentPhase ? `
                 <div class="arc-progress-section">
                     <div class="arc-phase-label">
@@ -2698,7 +2698,7 @@ function renderArcCard(arc, isActive) {
                     <div class="arc-progress-text">${arc.currentPhase + 1} / ${arc.phases.length} phases</div>
                 </div>
             ` : ''}
-            
+
             <div class="arc-meta">
                 <div class="arc-meta-item">
                     <span class="arc-meta-icon">📅</span>
@@ -2717,13 +2717,13 @@ function renderArcCard(arc, isActive) {
                     </div>
                 ` : ''}
             </div>
-            
+
             <div class="arc-themes">
                 ${(arc.themes || []).map(theme => `
                     <span class="arc-theme-tag">${theme}</span>
                 `).join('')}
             </div>
-            
+
             <div class="arc-card-footer">
                 <span class="arc-view-details">View Details →</span>
             </div>
@@ -2763,7 +2763,7 @@ function openArcModal(arcId) {
             </div>
         `;
         document.body.appendChild(modal);
-        
+
         modal.querySelector('.modal-close').addEventListener('click', () => closeModal(modal));
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal(modal);
@@ -2774,10 +2774,10 @@ function openArcModal(arcId) {
     const currentPhase = arc.phases?.[arc.currentPhase];
     const startDateStr = arc.startDate ? formatArcDate(arc.startDate) : 'Unknown';
     const endDateStr = arc.endDate ? formatArcDate(arc.endDate) : 'Ongoing';
-    
+
     // Get related posts
     const relatedPosts = getVisiblePosts().filter(p => p.arcId === arc.id);
-    
+
     // Get related rumors/events
     const relatedRumors = (LORE_DATA?.rumors || []).filter(r => r.arc === arc.id && isContentVisible(r.date));
 
@@ -2789,9 +2789,9 @@ function openArcModal(arcId) {
                 <span class="arc-status-badge ${arc.status}">${arc.status}</span>
             </div>
         </div>
-        
+
         <p class="arc-modal-description">${arc.description}</p>
-        
+
         <div class="arc-modal-dates">
             <div class="arc-date-item">
                 <span class="arc-date-label">Started</span>
@@ -2803,12 +2803,12 @@ function openArcModal(arcId) {
                 <span class="arc-date-value">${arc.status === 'resolved' ? endDateStr : 'Ongoing'}</span>
             </div>
         </div>
-        
+
         <div class="arc-modal-section">
             <h3>📍 Phases</h3>
             <div class="arc-phases-timeline">
                 ${arc.phases.map((phase, index) => {
-                    const status = index < arc.currentPhase ? 'completed' : 
+                    const status = index < arc.currentPhase ? 'completed' :
                                    index === arc.currentPhase ? 'current' : 'upcoming';
                     return `
                         <div class="arc-phase-item ${status}">
@@ -2824,7 +2824,7 @@ function openArcModal(arcId) {
                 }).join('')}
             </div>
         </div>
-        
+
         <div class="arc-modal-section">
             <h3>🏛️ Key Factions</h3>
             <div class="arc-factions-list">
@@ -2840,7 +2840,7 @@ function openArcModal(arcId) {
                 }).join('') || '<p class="empty-text">No key factions.</p>'}
             </div>
         </div>
-        
+
         <div class="arc-modal-section">
             <h3>🎭 Themes</h3>
             <div class="arc-themes-list">
@@ -2849,7 +2849,7 @@ function openArcModal(arcId) {
                 `).join('') || '<p class="empty-text">No themes defined.</p>'}
             </div>
         </div>
-        
+
         <div class="arc-modal-section consequences-section">
             <h3>⚖️ Consequences</h3>
             <div class="arc-consequences">
@@ -2867,7 +2867,7 @@ function openArcModal(arcId) {
                 </div>
             </div>
         </div>
-        
+
         ${relatedRumors.length > 0 ? `
             <div class="arc-modal-section">
                 <h3>📰 Related Events (${relatedRumors.length})</h3>
@@ -2881,7 +2881,7 @@ function openArcModal(arcId) {
                 </div>
             </div>
         ` : ''}
-        
+
         ${relatedPosts.length > 0 ? `
             <div class="arc-modal-section">
                 <h3>💬 Related Posts (${relatedPosts.length})</h3>
@@ -2923,17 +2923,17 @@ function openArcModal(arcId) {
 function countFactionMembers(factionKey) {
     const faction = LORE_DATA?.factions?.[factionKey];
     if (!faction) return 0;
-    
+
     let count = 0;
-    
+
     // Count leader
     if (faction.leader) count++;
-    
+
     // Count notable people
     if (faction.notable_people && Array.isArray(faction.notable_people)) {
         count += faction.notable_people.length;
     }
-    
+
     // Count characters associated with this faction
     for (const charKey in LORE_DATA?.characters || {}) {
         const char = LORE_DATA.characters[charKey];
@@ -2941,7 +2941,7 @@ function countFactionMembers(factionKey) {
             count++;
         }
     }
-    
+
     // Count auxiliary party members
     for (const charKey in LORE_DATA?.auxiliary_party || {}) {
         const char = LORE_DATA.auxiliary_party[charKey];
@@ -2949,7 +2949,7 @@ function countFactionMembers(factionKey) {
             count++;
         }
     }
-    
+
     return count || 1; // Return at least 1
 }
 
@@ -2971,7 +2971,7 @@ function renderActiveArcs() {
     container.innerHTML = arcs.slice(0, 4).map(arc => {
         const currentPhase = arc.phases?.[arc.currentPhase];
         const progress = arc.phases ? Math.round(((arc.currentPhase + 1) / arc.phases.length) * 100) : 0;
-        
+
         return `
             <div class="arc-item" data-arc="${arc.id}">
                 <span class="arc-icon">${arc.icon}</span>
@@ -2990,7 +2990,7 @@ function renderActiveArcs() {
     container.querySelectorAll('.arc-item').forEach(item => {
         item.addEventListener('click', () => {
             openArcModal(item.dataset.arc);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 }
@@ -3080,7 +3080,7 @@ function openCreatePostModal() {
     document.getElementById('char-count').textContent = '0';
 
     modal.classList.add('active');
-    playSound('click.mp3');
+    playSound('../../../assets/audio/ui/click.mp3');
 }
 
 function closeModal(modal) {
@@ -3119,7 +3119,7 @@ function openDossierModal(rumorId) {
         const factionLogo = factionData?.logo || null;
         const sign = value > 0 ? '+' : '';
         const className = value > 0 ? 'positive' : 'negative';
-        
+
         return `
             <div class="dossier-effect-item ${className}">
                 ${factionLogo ? `<img src="${factionLogo}" alt="${factionName}" class="dossier-effect-logo" ${lazyImageAttrs('onerror="handleImageError(this)"')}>` : ''}
@@ -3168,13 +3168,13 @@ function openDossierModal(rumorId) {
                 ${rumor.isEvent ? '<span class="dossier-type-badge event">Event</span>' : '<span class="dossier-type-badge rumor">Rumor</span>'}
             </div>
         </div>
-        
+
         ${arcHTML}
-        
+
         <p class="dossier-description">${rumor.description}</p>
-        
+
         ${keyFactionsHTML}
-        
+
         <div class="dossier-section">
             <h4>⚖️ Reputation Effects</h4>
             ${Object.keys(rumor.effects || {}).length > 0 ? `
@@ -3183,9 +3183,9 @@ function openDossierModal(rumorId) {
                 </div>
             ` : '<p class="dossier-no-effects">No reputation changes recorded.</p>'}
         </div>
-        
+
         ${renderDossierInfamy(rumor, relatedPosts, getInfamyState())}
-        
+
         ${relatedPosts.length > 0 ? `
             <div class="dossier-section">
                 <h4>💬 Related Posts (${relatedPosts.length})</h4>
@@ -3202,7 +3202,7 @@ function openDossierModal(rumorId) {
     `;
 
     // Attach event listeners
-    
+
     // Arc link click
     body.querySelector('.dossier-arc-link')?.addEventListener('click', () => {
         closeModal(modal);
@@ -3218,7 +3218,7 @@ function openDossierModal(rumorId) {
             renderNavTabs();
             renderFactionFilters();
             renderCurrentFeed();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 
@@ -3227,11 +3227,11 @@ function openDossierModal(rumorId) {
         const btn = e.target;
         const postsList = body.querySelector('.dossier-posts-list');
         const remainingPosts = relatedPosts.slice(5);
-        
+
         remainingPosts.forEach(p => {
             postsList.insertAdjacentHTML('beforeend', renderPost(p));
         });
-        
+
         btn.remove();
         attachPostEventListeners(postsList);
     });
@@ -3239,7 +3239,7 @@ function openDossierModal(rumorId) {
     attachPostEventListeners(body);
 
     modal.classList.add('active');
-    playSound('click.mp3');
+    playSound('../../../assets/audio/ui/click.mp3');
 }
 function openShareModal(postId) {
     const modal = document.getElementById('share-modal');
@@ -3253,7 +3253,7 @@ function openShareModal(postId) {
     modal.dataset.iframe = embedCode;
 
     modal.classList.add('active');
-    playSound('click.mp3');
+    playSound('../../../assets/audio/ui/click.mp3');
 }
 
 // ============================================================================
@@ -3264,12 +3264,12 @@ function openShareModal(postId) {
 
 function toggleLike(postId, btn) {
     if (!state.userState.likedPosts) state.userState.likedPosts = [];
-    
+
     const post = WAHBOOK_POSTS.find(p => p.id === postId);
     if (!post) return;
 
     const isLiked = state.userState.likedPosts.includes(postId);
-    
+
     if (isLiked) {
         state.userState.likedPosts = state.userState.likedPosts.filter(id => id !== postId);
         post.likes = Math.max(0, (post.likes || 1) - 1);
@@ -3288,9 +3288,9 @@ function toggleLike(postId, btn) {
 
 function toggleBookmark(postId, btn) {
     if (!state.userState.bookmarks) state.userState.bookmarks = [];
-    
+
     const isBookmarked = state.userState.bookmarks.includes(postId);
-    
+
     if (isBookmarked) {
         state.userState.bookmarks = state.userState.bookmarks.filter(id => id !== postId);
         btn.classList.remove('bookmarked');
@@ -3306,9 +3306,9 @@ function toggleBookmark(postId, btn) {
 
 function toggleFollow(characterKey) {
     if (!state.userState.following) state.userState.following = [];
-    
+
     const isFollowing = state.userState.following.includes(characterKey);
-    
+
     if (isFollowing) {
         state.userState.following = state.userState.following.filter(k => k !== characterKey);
     } else {
@@ -3323,20 +3323,20 @@ function submitReply(postId, text, inputEl) {
     if (!post) return;
 
     if (!post.comments) post.comments = [];
-    
+
     const newComment = {
         characterKey: state.loggedInUser,
         text: text
     };
-    
+
     post.comments.push(newComment);
-    
+
     // Re-render the post's comments section
     const postEl = inputEl.closest('.feed-post');
     if (postEl) {
         const commentsContainer = postEl.querySelector('.post-comments');
         const commenter = getCharacterData(state.loggedInUser);
-        
+
         const commentHTML = `
             <div class="comment">
                 <a href="profile.html?user=${state.loggedInUser}">
@@ -3348,24 +3348,24 @@ function submitReply(postId, text, inputEl) {
                 </div>
             </div>
         `;
-        
+
         commentsContainer.insertAdjacentHTML('beforeend', commentHTML);
-        
+
         // Update comment count
         const commentBtn = postEl.querySelector('.comment-btn span:last-child');
         if (commentBtn) {
             commentBtn.textContent = post.comments.length;
         }
     }
-    
+
     inputEl.value = '';
-    playSound('confirm.mp3');
+    playSound('../../../assets/audio/ui/confirm.mp3');
 }
 
 function submitNewPost() {
     const textarea = document.getElementById('new-post-textarea');
     const text = textarea?.value?.trim();
-    
+
     if (!text) return;
 
     const newPost = {
@@ -3379,13 +3379,13 @@ function submitNewPost() {
     };
 
     WAHBOOK_POSTS.unshift(newPost);
-    
+
     closeModal(document.getElementById('create-post-modal'));
     currentPage = 1;
     renderCurrentFeed();
     renderStoriesBar();
-    
-    playSound('confirm.mp3');
+
+    playSound('../../../assets/audio/ui/confirm.mp3');
 }
 
 // ============================================================================
@@ -3409,7 +3409,7 @@ function setupEventListeners() {
             e.preventDefault();
             const action = link.dataset.action;
             handleQuickLink(action);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
@@ -3418,11 +3418,11 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
 
     // Handle sounds based on selection
     if (currentSort === 'unseen') {
-        playSound('confirm.mp3'); 
+        playSound('../../../assets/audio/ui/confirm.mp3');
     } else {
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
     }
-    
+
     renderForYouFeed();
 });
     document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -3431,7 +3431,7 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
             currentPage = 1;
             renderNavTabs();
             renderCurrentFeed();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 
@@ -3479,12 +3479,12 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
             const format = btn.dataset.format;
             const modal = document.getElementById('share-modal');
             const textarea = document.getElementById('share-code-textarea');
-            
+
             document.querySelectorAll('.share-tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
+
             textarea.value = modal.dataset[format];
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 
@@ -3495,7 +3495,7 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
             const btn = document.getElementById('copy-share-btn');
             btn.textContent = 'Copied!';
             setTimeout(() => btn.textContent = 'Copy', 2000);
-            playSound('confirm.mp3');
+            playSound('../../../assets/audio/ui/confirm.mp3');
         });
     });
 
@@ -3503,7 +3503,7 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
     document.getElementById('notifications-btn')?.addEventListener('click', () => {
         const modal = document.getElementById('notifications-modal');
         const list = document.getElementById('notifications-list');
-        
+
         if (list) {
             list.innerHTML = `
                 <div style="padding:20px;text-align:center;color:var(--wahbook-text-muted);">
@@ -3511,20 +3511,20 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
                 </div>
             `;
         }
-        
+
         modal?.classList.add('active');
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
     });
 
     // Bookmarks button
     document.getElementById('bookmarks-btn')?.addEventListener('click', () => {
         const modal = document.getElementById('bookmarks-modal');
         const list = document.getElementById('bookmarks-list');
-        
+
         if (list) {
             const bookmarks = state.userState?.bookmarks || [];
             const bookmarkedPosts = WAHBOOK_POSTS.filter(p => bookmarks.includes(p.id));
-            
+
             if (bookmarkedPosts.length === 0) {
                 list.innerHTML = `
                     <div style="text-align:center;color:var(--wahbook-text-muted);padding:40px;">
@@ -3537,9 +3537,9 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
                 attachPostEventListeners(list);
             }
         }
-        
+
         modal?.classList.add('active');
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
     });
 
     // Event sort controls
@@ -3549,7 +3549,7 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
             btn.classList.add('active');
             // Re-render with new sort
             renderEventsFeed();
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
 }
@@ -3664,7 +3664,7 @@ function renderHeadlineFactions(rumor) {
 
 function renderNewsArticle(rumor) {
     const dateStr = rumor.time_ago || (rumor.date ? formatArcDate(rumor.date) : 'Recent');
-    
+
     return `
         <article class="news-article" data-rumor-id="${rumor.id}">
             <span class="article-category">${rumor.isEvent ? 'EVENT' : 'RUMOR'}</span>
@@ -3681,7 +3681,7 @@ function renderNewsArticle(rumor) {
 function renderNewsQuote(post) {
     const author = getCharacterData(post.characterKey);
     const excerpt = (post.content || '').substring(0, 100);
-    
+
     return `
         <div class="news-quote" data-post-id="${post.id}">
             <div class="quote-content">"${excerpt}${post.content?.length > 100 ? '...' : ''}"</div>
@@ -3696,7 +3696,7 @@ function renderNewsQuote(post) {
 
 function renderOpinionCard(post) {
     const author = getCharacterData(post.characterKey);
-    
+
     return `
         <div class="opinion-card" data-post-id="${post.id}">
             <img src="${author.portrait}" alt="${author.name}" class="opinion-avatar" ${lazyImageAttrs('onerror="handleImageError(this)"')}>
@@ -3710,16 +3710,16 @@ function renderOpinionCard(post) {
 
 function renderFactionWatch() {
     const factionActivity = [];
-    
+
     Object.entries(LORE_DATA?.factions || {}).forEach(([key, faction]) => {
         const posts = getVisiblePosts().filter(p => {
             const author = getCharacterData(p.characterKey);
             return author.faction?.key === key;
         });
-        
+
         // Calculate recent activity (last 7 days)
         const recentPosts = posts.filter(p => getDaysSincePost(p) <= 7);
-        
+
         if (recentPosts.length > 0) {
             factionActivity.push({
                 key,
@@ -3753,14 +3753,14 @@ function calculateFactionSentiment(posts) {
     // Simple sentiment based on likes vs comments ratio
     let totalLikes = 0;
     let totalComments = 0;
-    
+
     posts.forEach(p => {
         totalLikes += p.likes || 0;
         totalComments += (p.comments || []).length;
     });
 
     const ratio = totalLikes / Math.max(1, totalComments);
-    
+
     if (ratio > 2) return 'positive';
     if (ratio < 0.5) return 'negative';
     return 'neutral';

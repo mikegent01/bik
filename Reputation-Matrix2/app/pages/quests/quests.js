@@ -1355,7 +1355,7 @@ function renderQuestModal(questId) {
         card.addEventListener('click', () => {
             const relatedQuestId = card.dataset.questId;
             if (relatedQuestId && QUEST_DATA[relatedQuestId]) {
-                playSound?.('click.mp3');
+                playSound?.('../../../assets/audio/ui/click.mp3');
                 renderQuestModal(relatedQuestId);
                 // Scroll modal to top
                 modalContent.scrollTop = 0;
@@ -1368,7 +1368,7 @@ function renderQuestModal(questId) {
         card.addEventListener('click', () => {
             const loreKey = card.dataset.lore;
             if (loreKey && typeof openLoreModal === 'function') {
-                playSound?.('click.mp3');
+                playSound?.('../../../assets/audio/ui/click.mp3');
                 openLoreModal(loreKey);
             }
         });
@@ -1379,7 +1379,7 @@ function renderQuestModal(questId) {
         chip.addEventListener('click', () => {
             const npcKey = chip.dataset.npc;
             if (npcKey && typeof openNpcModal === 'function') {
-                playSound?.('click.mp3');
+                playSound?.('../../../assets/audio/ui/click.mp3');
                 openNpcModal(npcKey);
             }
         });
@@ -1390,7 +1390,7 @@ function renderQuestModal(questId) {
         card.addEventListener('click', () => {
             const locationName = card.querySelector('.location-name')?.textContent;
             if (locationName && typeof openLocationModal === 'function') {
-                playSound?.('click.mp3');
+                playSound?.('../../../assets/audio/ui/click.mp3');
                 // Convert display name back to key format
                 const locationKey = locationName.toLowerCase().replace(/\s+/g, '_');
                 openLocationModal(locationKey);
@@ -1416,7 +1416,7 @@ function setupEventListeners() {
         const tab = e.target.closest('.quest-tab');
         if (!tab) return;
 
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
         document.querySelectorAll('.quest-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         currentTab = tab.dataset.tab;
@@ -1451,7 +1451,7 @@ function setupEventListeners() {
     questContainer?.addEventListener('click', (e) => {
         const card = e.target.closest('.quest-card');
         if (card) {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderQuestModal(card.dataset.questId);
         }
     });

@@ -249,7 +249,7 @@ function renderInfamyWatchSidebar() {
             const search = document.getElementById('search-filter');
             if (search) search.value = currentFilters.search;
             render();
-            playSound('click.mp3', 0.3);
+            playSound('../../../assets/audio/ui/click.mp3', 0.3);
         });
     });
 }
@@ -1221,7 +1221,7 @@ function renderWhyModal(factionKey) {
 
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            playSound('click.mp3', 0.3);
+            playSound('../../../assets/audio/ui/click.mp3', 0.3);
             tabBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
@@ -1234,7 +1234,7 @@ function renderWhyModal(factionKey) {
 
     // Close handlers
     document.getElementById('why-close-btn').onclick = () => {
-        playSound('click.mp3', 0.3);
+        playSound('../../../assets/audio/ui/click.mp3', 0.3);
         modal.classList.remove('visible');
     };
 
@@ -2563,7 +2563,7 @@ function initEventListeners() {
         if (whyBtn) {
             e.stopPropagation();
             const factionKey = whyBtn.dataset.why;
-            playSound('click.mp3', 0.5);
+            playSound('../../../assets/audio/ui/click.mp3', 0.5);
             renderWhyModal(factionKey);
             return;
         }
@@ -2571,7 +2571,7 @@ function initEventListeners() {
         // Clear perspective button
         const clearBtn = e.target.closest('#clear-perspective-btn');
         if (clearBtn) {
-            playSound('click.mp3', 0.3);
+            playSound('../../../assets/audio/ui/click.mp3', 0.3);
             selectedPlayer = null;
             selectedTarget = null;
             invalidateTargetCache(); // Clear cache
@@ -2584,7 +2584,7 @@ function initEventListeners() {
         // View mode buttons
         const viewBtn = e.target.closest('.view-mode-btn');
         if (viewBtn) {
-            playSound('click.mp3', 0.5);
+            playSound('../../../assets/audio/ui/click.mp3', 0.5);
             document.querySelectorAll('.view-mode-btn').forEach(b => b.classList.remove('active'));
             viewBtn.classList.add('active');
             currentView = viewBtn.dataset.view;
@@ -2595,7 +2595,7 @@ function initEventListeners() {
         // Party member selection
         const partyMember = e.target.closest('.party-member-item');
         if (partyMember) {
-            playSound('click.mp3', 0.5);
+            playSound('../../../assets/audio/ui/click.mp3', 0.5);
             selectedPlayer = partyMember.dataset.player;
             selectedTarget = null;
             invalidateTargetCache();
@@ -2606,7 +2606,7 @@ function initEventListeners() {
         // Notable figure/NPC selection
         const figureItem = e.target.closest('.figure-item');
         if (figureItem) {
-            playSound('click.mp3', 0.5);
+            playSound('../../../assets/audio/ui/click.mp3', 0.5);
             const targetId = figureItem.dataset.target;
 
             if (selectedTarget === targetId) {
@@ -2623,7 +2623,7 @@ function initEventListeners() {
         // Faction cards
         const factionCard = e.target.closest('.faction-card, .pv-faction-item, .matrix-row, .intel-item');
         if (factionCard && !e.target.closest('button')) {
-            playSound('click.mp3', 0.5);
+            playSound('../../../assets/audio/ui/click.mp3', 0.5);
             const factionKey = factionCard.dataset.faction;
             window.location.hash = `faction/${factionKey}`;
             renderFactionDetailModal(factionKey);
@@ -2632,7 +2632,7 @@ function initEventListeners() {
 
         const detailsBtn = e.target.closest('.fc-details-btn');
         if (detailsBtn) {
-            playSound('click.mp3', 0.5);
+            playSound('../../../assets/audio/ui/click.mp3', 0.5);
             const factionKey = detailsBtn.dataset.faction;
             window.location.hash = `faction/${factionKey}`;
             renderFactionDetailModal(factionKey);
@@ -2644,7 +2644,7 @@ function initEventListeners() {
     const modalClose = document.getElementById('modal-close-btn');
     if (modalClose) {
         modalClose.addEventListener('click', () => {
-            playSound('click.mp3', 0.5);
+            playSound('../../../assets/audio/ui/click.mp3', 0.5);
             document.getElementById('faction-detail-modal')?.classList.remove('visible');
             window.location.hash = '';
         });
@@ -2685,7 +2685,7 @@ function initEventListeners() {
     document.addEventListener('change', (e) => {
         if (e.target.id === 'hide-minor-toggle') {
             hideMinorRelations = e.target.checked;
-            playSound('click.mp3', 0.3);
+            playSound('../../../assets/audio/ui/click.mp3', 0.3);
             render();
         }
     });

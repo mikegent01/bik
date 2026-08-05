@@ -111,7 +111,7 @@ function setupEventListeners() {
     selectorContainer.addEventListener('click', e => {
         const button = e.target.closest('.char-select-btn');
         if (button && !button.classList.contains('active')) {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             const charKey = button.dataset.charKey;
             activeCharacterKey = charKey;
             // Update active state on buttons

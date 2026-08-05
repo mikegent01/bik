@@ -271,7 +271,7 @@ function setupEventListeners() {
     document.getElementById('adverts-container').addEventListener('click', (e) => {
         if (e.target.classList.contains('advert-cta')) {
             e.preventDefault();
-            playSound('click.mp3', 0.6);
+            playSound('../../../assets/audio/ui/click.mp3', 0.6);
             alert("WAH! You clicked an ad! Now go buy Waluigi's goods!");
         }
     });

@@ -812,7 +812,7 @@ function renderFactionSearchDetail(result) {
     // Add click handlers
     detailPanel.querySelectorAll('.province-poi-item').forEach(item => {
         item.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             const poiId = item.dataset.poiId;
             const poi = factionPois.find(p => p.id === poiId);
             if (poi) {
@@ -883,7 +883,7 @@ function renderBuildingTypeSearchDetail(result) {
     // Add click handlers
     detailPanel.querySelectorAll('.province-poi-item').forEach(item => {
         item.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             const poiId = item.dataset.poiId;
             const poi = typePois.find(p => p.id === poiId);
             if (poi) {
@@ -1028,7 +1028,7 @@ function setupSearchListeners() {
         const result = results.find(r => r.type === resultType && r.id === resultId);
 
         if (result) {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             handleSearchResultClick(result);
 
             // Clear search
@@ -1099,7 +1099,7 @@ export function setupTabEventListeners() {
     mapControlsContainer.addEventListener('click', e => {
         const tabButton = e.target.closest('.map-tab-btn');
         if (tabButton && tabButton.dataset.mapId) {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             const mapId = tabButton.dataset.mapId;
             
             resetTransform();
@@ -1115,7 +1115,7 @@ export function setupTabEventListeners() {
 
         // Handle Party Toggle
         if (e.target.id === 'toggle-party-btn') {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             const newState = !map.showPartyMarkers;
             map.setShowPartyMarkers(newState);
             
@@ -1129,7 +1129,7 @@ export function setupTabEventListeners() {
 
         const modeButton = e.target.closest('#map-mode-selector .mode-btn');
         if (modeButton && !modeButton.classList.contains('active')) {
-            playSound('confirm.mp3', 0.5);
+            playSound('../../../assets/audio/ui/confirm.mp3', 0.5);
             const newMode = modeButton.dataset.mode;
             map.setActiveMapMode(newMode);
             
@@ -1158,7 +1158,7 @@ export function setupTabEventListeners() {
         subModeSelector.addEventListener('click', e => {
             const subModeBtn = e.target.closest('.mode-btn');
             if (subModeBtn && !subModeBtn.classList.contains('active')) {
-                playSound('click.mp3');
+                playSound('../../../assets/audio/ui/click.mp3');
                 map.setActivePoliticalSubmode(subModeBtn.dataset.submode);
                 subModeSelector.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
                 subModeBtn.classList.add('active');

@@ -204,11 +204,11 @@ export function setupEventListeners() {
     window.addEventListener('hashchange', router);
     document.body.addEventListener('click', (e) => {
         if (e.target.closest('.nav-button') || e.target.closest('.back-button') || e.target.closest('.terminal-back-button')) {
-            playSound('click.mp3', 0.6);
+            playSound('../../assets/audio/ui/click.mp3', 0.6);
         }
         if(e.target.matches('summary')) {
             const details = e.target.closest('details');
-            if (details && !details.open) playSound('confirm.mp3', 0.5);
+            if (details && !details.open) playSound('../../assets/audio/ui/confirm.mp3', 0.5);
         }
     });
     const regionFilterList = document.getElementById('region-filter-list');
@@ -217,7 +217,7 @@ export function setupEventListeners() {
             if(e.target.tagName === 'LI') {
                 const region = e.target.dataset.region;
                 if(region) {
-                    playSound('click.mp3');
+                    playSound('../../assets/audio/ui/click.mp3');
                     activeRegion = region;
                     renderFactionDirectory();
                 }
@@ -227,7 +227,7 @@ export function setupEventListeners() {
     const switchOperatorBtn = document.getElementById('switch-operator-btn');
     if (switchOperatorBtn) {
         switchOperatorBtn.addEventListener('click', () => {
-            playSound('wah.mp3');
+            playSound('../../assets/audio/ui/wah.mp3');
             localStorage.removeItem('vigilanceTerminalUser');
             localStorage.removeItem('vigilanceDebugMode');
             window.location.href = 'index.html';

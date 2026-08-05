@@ -1181,7 +1181,7 @@ function showBearerModal(bearerId) {
     const bearer = allBearers.find(b => b.id === bearerId);
     if (!bearer || !modal || !modalContent) return;
 
-    playSound('click.mp3');
+    playSound('../../../assets/audio/ui/click.mp3');
     
     const isAlwaysKnownIdentity = ['self_reflection', 'unknown', 'god_toad'].includes(bearer.id);
     const isAlwaysKnownDetails = ['self_reflection', 'unknown'].includes(bearer.id);
@@ -1267,7 +1267,7 @@ function showArtifactModal(artifactId) {
     const artifact = ARTIFACT_DATA.main_artifacts.find(a => a.id === artifactId);
     if (!artifact || !modal || !modalContent) return;
     
-    playSound('click.mp3');
+    playSound('../../../assets/audio/ui/click.mp3');
     
     const accentColor = artifact.id === 'star_fragment' ? '#ffd700' : artifact.id === 'fire_flower' ? '#ff4500' : '#9370db';
     
@@ -1375,7 +1375,7 @@ function handleMainContentClick(e) {
         if (newTab !== currentTab) {
             if (animationFrame) cancelAnimationFrame(animationFrame);
             currentTab = newTab;
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             renderPage();
         }
         return;
@@ -1385,7 +1385,7 @@ function handleMainContentClick(e) {
     const quickBtn = e.target.closest('.quick-btn');
     if (quickBtn) {
         currentTab = quickBtn.dataset.tab;
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
         renderPage();
         return;
     }
@@ -1410,7 +1410,7 @@ function handleMainContentClick(e) {
             if (animationFrame) cancelAnimationFrame(animationFrame);
         }
         
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
         return;
     }
     
@@ -1436,7 +1436,7 @@ function handleMainContentClick(e) {
         const card = regionHeader.closest('.region-card');
         if (card) {
             card.classList.toggle('expanded');
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         }
         return;
     }
@@ -1461,7 +1461,7 @@ function handleMainContentChange(e) {
     if (e.target.id === 'element-filter') {
         filterElement = e.target.value;
         // Could add filtering logic here
-        playSound('click.mp3');
+        playSound('../../../assets/audio/ui/click.mp3');
     }
 }
 

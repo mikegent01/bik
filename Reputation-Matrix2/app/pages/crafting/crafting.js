@@ -2195,7 +2195,7 @@ function clearInventory() {
     renderInventory();
     renderRecipeDetail();
     showNotification('Inventory cleared.', 'warning');
-    playSound('click.mp3');
+    playSound('../../../assets/audio/ui/click.mp3');
 }
 
 function renderSkillsPanel() {
@@ -3140,7 +3140,7 @@ function renderMaterialShop() {
     modal.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             addToShopCart(btn.dataset.id, 1);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
     
@@ -3150,7 +3150,7 @@ function renderMaterialShop() {
             const item = shopCart.find(c => c.id === btn.dataset.id);
             if (item) {
                 updateCartQuantity(btn.dataset.id, item.quantity + 1);
-                playSound('click.mp3');
+                playSound('../../../assets/audio/ui/click.mp3');
             }
         });
     });
@@ -3161,7 +3161,7 @@ function renderMaterialShop() {
             const item = shopCart.find(c => c.id === btn.dataset.id);
             if (item) {
                 updateCartQuantity(btn.dataset.id, item.quantity - 1);
-                playSound('click.mp3');
+                playSound('../../../assets/audio/ui/click.mp3');
             }
         });
     });
@@ -3170,7 +3170,7 @@ function renderMaterialShop() {
     modal.querySelectorAll('.cart-remove-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             removeFromShopCart(btn.dataset.id);
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
         });
     });
     

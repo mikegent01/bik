@@ -83,7 +83,7 @@ function handleGenerateCode() {
         alert("Exporting data is disabled in Political mode.");
         return;
     }
-    playSound('confirm.mp3');
+    playSound('../../../assets/audio/ui/confirm.mp3');
     if (activeEditorMode === 'drawingFog') finalizeFogPolygon();
     generateAndShowCode();
     toggleEditMode(false);
@@ -224,7 +224,7 @@ function renderItemEditorPanel(item, type) {
             if(!collection[itemIndex].factionId) delete collection[itemIndex].factionId;
             if(!collection[itemIndex].intelReq && collection[itemIndex].intelReq !== 0) delete collection[itemIndex].intelReq;
 
-            playSound('confirm.mp3');
+            playSound('../../../assets/audio/ui/confirm.mp3');
             detailPanel.innerHTML = `<p class="panel-placeholder positive">Changes saved.</p>`;
             renderer.renderPois(); // Re-render to show changes
         }
@@ -284,7 +284,7 @@ function handleRemoveClick(e) {
             }
         }
     }
-    if (removed) playSound('click.mp3');
+    if (removed) playSound('../../../assets/audio/ui/click.mp3');
 }
 
 function handleEditSelectClick(e) {
@@ -308,14 +308,14 @@ function handleEditSelectClick(e) {
             }
         }
     }
-    if (itemFound) playSound('click.mp3');
+    if (itemFound) playSound('../../../assets/audio/ui/click.mp3');
 }
 
 export function setupEditorEventListeners() {
     const editMapBtn = document.getElementById('edit-map-btn');
     if (editMapBtn) {
         editMapBtn.addEventListener('click', () => {
-            playSound('click.mp3');
+            playSound('../../../assets/audio/ui/click.mp3');
             toggleEditMode(!map.isEditMode);
         });
     }
