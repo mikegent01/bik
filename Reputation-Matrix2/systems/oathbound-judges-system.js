@@ -1,6 +1,6 @@
 // This module handles the rendering and interaction for the Oathbound Judges' Tribunal system.
 
-import { OATHBOUND_JUDGES_DETAILS } from '../oathbound-judges-details.js';
+import { OATHBOUND_JUDGES_DETAILS } from '../data/factions/oathbound-judges-details.js';
 
 /**
  * Renders the HTML structure for the Oathbound Judges' Tribunal Chamber.

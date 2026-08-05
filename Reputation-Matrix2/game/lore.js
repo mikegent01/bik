@@ -17,9 +17,9 @@ import { EQUESTRIA_FACTIONS } from './factions/equestria.js'; // NEW IMPORT
 
 import { RUMORS } from './party-and-events.js';
 import { PARLIAMENT_MEMBERS } from './parliament-members.js'; 
-import { REBEL_CLANS_DETAILS } from './rebel-clans-details.js';
-import { FAWFUL_DETAILS } from './fawful-details.js';
-import { COSMIC_JESTERS_DETAILS } from './cosmic-jesters-details.js';
+import { REBEL_CLANS_DETAILS } from '../data/factions/rebel-clans-details.js';
+import { FAWFUL_DETAILS } from '../data/factions/fawful-details.js';
+import { COSMIC_JESTERS_DETAILS } from '../data/factions/cosmic-jesters-details.js';
 import {AUXILIARY_PARTY} from './party-and-events.js'
 export { CHARACTER_RELATIONS } from '../data/characters/character-relations.js';
 
