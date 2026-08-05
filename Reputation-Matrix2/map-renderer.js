@@ -7,7 +7,7 @@ import { getIntelForFaction } from './systems/common.js';
 import { playSound } from './common.js';
 import * as map from './maps.js';
 import { resetTransform, getZoomLevel } from './map-transform.js';
-import { QUEST_DATA } from './quests-data.js';
+import { QUEST_DATA } from './data/quest-system/index.js';
 import { FACTION_COLORS } from './factions/faction-colors.js';
 import { BATTLE_MAP_DATA } from './map-battle-data.js';
 import { LEGAL_DATA } from './legal_data.js';

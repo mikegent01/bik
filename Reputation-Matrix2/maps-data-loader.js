@@ -1,7 +1,7 @@
 
 // maps-data-loader.js
 
-import { QUEST_DATA } from './quests-data.js';
+import { QUEST_DATA } from './data/quest-system/index.js';
 import { MAP_DATA } from './map-data.js';
 import { REGIONAL_DEMOGRAPHICS, SPECIES_DATA } from './species-data.js';
 

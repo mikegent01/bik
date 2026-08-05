@@ -1,6 +1,6 @@
 // quests-helpers.js - NEW FILE for rendering helpers
 
-import { QUEST_STATUS_CONFIG, MILESTONE_STATUS_CONFIG, GOAL_STATUS_CONFIG, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
+import { QUEST_STATUS_CONFIG, MILESTONE_STATUS_CONFIG, GOAL_STATUS_CONFIG, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './data/quest-system/constants.js';
 
 /**
  * Render a quest status badge

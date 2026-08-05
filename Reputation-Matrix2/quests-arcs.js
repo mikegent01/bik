@@ -10,7 +10,7 @@ import {
     isQuestUpdatedRecently,
     getUrgentQuests,
     getQuestsByArc
-} from './quests-data.js';
+} from './data/quest-system/index.js';
 import { playSound } from './common.js';
 import { LORE_DATA, STORY_ARCS } from './lore.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from './calendar-data.js';

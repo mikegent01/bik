@@ -2,7 +2,7 @@
 // This file contains new "Request" quests for the Mushroom Kingdom and surrounding areas.
 // UPDATED: Standardized schema to use 'milestones', 'QUEST_PRIORITY', and 'QUEST_TYPES'.
 
-import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
+import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from '../data/quest-system/constants.js';
 
 export const NEW_MK_QUESTS = {
     'toadette_loyalty_test': {

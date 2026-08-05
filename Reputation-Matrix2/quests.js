@@ -10,7 +10,7 @@ import {
     getDaysUntilDeadline,
     isQuestUpdatedRecently,
     getUrgentQuests
-} from './quests-data.js';
+} from './data/quest-system/index.js';
 import { playSound } from './common.js';
 import { state } from './state.js';
 import { LORE_DATA, STORY_ARCS } from './lore.js';

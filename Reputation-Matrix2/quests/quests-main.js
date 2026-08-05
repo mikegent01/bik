@@ -1,6 +1,6 @@
 // quests-main.js - UPDATED
 
-import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
+import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from '../data/quest-system/constants.js';
 
 // --- REWARDS EXTRACTION SYSTEM ---
 

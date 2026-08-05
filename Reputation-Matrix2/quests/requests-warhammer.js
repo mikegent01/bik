@@ -1,5 +1,5 @@
 // This file contains 30 new "Request" quests for The Fated Place (Warhammer) region.
-import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from './quests-constants.js';
+import { QUEST_STATUS, QUEST_PRIORITY, QUEST_TYPES, DIFFICULTY } from '../data/quest-system/constants.js';
 
 export const WARHAMMER_REQUESTS = {
     'req_wh_altdorf_mutant_purge': {
