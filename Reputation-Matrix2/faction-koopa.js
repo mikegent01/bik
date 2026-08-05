@@ -5,7 +5,7 @@
 
 import { state, loadState } from './state.js';
 import { getIntelBreakdown } from './systems/common.js';
-import { MAP_DATA } from './map-data.js';
+import { MAP_DATA } from './data/maps/map-data.js';
 import { playSound } from './common.js';
 
 // ============================================

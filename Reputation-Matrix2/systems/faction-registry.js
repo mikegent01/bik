@@ -5,7 +5,7 @@
 // IMPORTS
 // ============================================
 
-import { MAP_DATA } from '../map-data.js';
+import { MAP_DATA } from '../data/maps/map-data.js';
 import { LORE_DATA } from '../lore.js';
 import { MIDLANDS_FACTIONS } from '../factions/midlands.js';
 import { MUSHROOM_KINGDOM_FACTIONS } from '../factions/mushroom-kingdom.js';

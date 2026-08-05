@@ -2,9 +2,9 @@
 
 import { getPlagueData, PLAGUE_LIFECYCLE, SPECIES_TAGS, getKnownDiseases, getCurrentSeason } from '../../../data/support/plagues-data.js';
 import { calculateGlobalCycle, getGlobalTechAverages, NATIONS, getAbsoluteDay } from '../../../data/support/research-data.js';
-import { WAHBOOK_POSTS } from '../../../assembly-data.js';
+import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
 import { CURRENT_GAME_DATE, CALENDAR_DATA } from '../../../data/world/calendar.js';
-import { MAP_DATA } from '../../../map-data.js';
+import { MAP_DATA } from '../../../data/maps/map-data.js';
 import { SPECIES_DATA } from '../../../data/support/species-data.js';
 import { calculateGlobalVitalStats } from '../../../data/support/vital-stats-data.js';
 

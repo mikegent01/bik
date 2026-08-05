@@ -1,9 +1,9 @@
 // vital-stats-data.js - Vital Statistics Calculator
 
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from './species-data.js';
-import { MAP_DATA } from './map-data.js';
+import { MAP_DATA } from '../maps/map-data.js';
 import { getAbsoluteDay, calculateGlobalCycle, getGlobalTechAverages } from './research-data.js';
-import { WAHBOOK_POSTS } from './assembly-data.js';
+import { WAHBOOK_POSTS } from '../assembly/assembly-data.js';
 import { getPlagueData, PLAGUE_LIFECYCLE, getCurrentSeason } from './plagues-data.js';
 
 // ============================================================================

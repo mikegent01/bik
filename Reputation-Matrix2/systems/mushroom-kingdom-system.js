@@ -4,7 +4,7 @@ import { getRealTimeMapStats, getDetailedFactionStats, getDetailedRegionStats } 
 import { CURRENT_GAME_DATE } from '../data/world/calendar.js';
 import { getFaction, getAllFactions } from './faction-registry.js';
 import { MAJOR_BATTLES } from '../app/pages/battlefield/battlefield.js';
-import { MAP_DATA } from '../map-data.js';
+import { MAP_DATA } from '../data/maps/map-data.js';
 
 // --- IMPORT THE CANONICAL CALCULATOR & LIMITS ---
 import { calculateAllAlliances, ALLIANCE_SIZE_LIMITS } from '../alliances-page.js';// ============================================

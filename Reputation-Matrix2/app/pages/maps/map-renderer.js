@@ -1,7 +1,7 @@
 // map-renderer.js - Handles all map rendering logic
 
 import { state } from '../../../state.js';
-import { MAP_DATA, BUILDING_TYPES } from '../../../map-data.js';
+import { MAP_DATA, BUILDING_TYPES } from '../../../data/maps/map-data.js';
 import { LORE_DATA } from '../../../lore.js';
 import { getIntelForFaction } from '../../../systems/common.js';
 import { playSound } from '../../../common.js';
@@ -9,13 +9,13 @@ import * as map from './maps.js';
 import { resetTransform, getZoomLevel } from './map-transform.js';
 import { QUEST_DATA } from '../../../data/quest-system/index.js';
 import { FACTION_COLORS } from '../../../factions/faction-colors.js';
-import { BATTLE_MAP_DATA } from '../../../map-battle-data.js';
+import { BATTLE_MAP_DATA } from '../../../data/maps/map-battle-data.js';
 import { LEGAL_DATA } from '../../../legal_data.js';
 import { ALL_LEGAL_CODES } from '../../../laws-data.js';
 import { CULTURE_DATA } from '../../../data/support/culture-data.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS, SPECIES_ESTATE_BIAS } from '../../../data/support/species-data.js';
-import { PARTY_LOCATIONS } from '../../../party-data.js';
-import { PROVINCE_POLITICS } from '../../../politics-data.js';
+import { PARTY_LOCATIONS } from '../../../data/support/party-data.js';
+import { PROVINCE_POLITICS } from '../../../data/support/politics-data.js';
 import { NATIONS, getTechTree, RESEARCH_CATEGORIES } from '../../../data/support/research-data.js';
 import { calculateAllAlliances } from '../../../alliances-page.js';
 // ============================================================================

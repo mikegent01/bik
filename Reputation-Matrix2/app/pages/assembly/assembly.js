@@ -1313,7 +1313,7 @@ function updateFullPageReadButton(isActive) {
 }
 async function loadDynamicData() {
     try {
-        const dataModule = await import('../../../assembly-data.js');
+        const dataModule = await import('../../../data/assembly/assembly-data.js');
         BASE_WAHBOOK_POSTS = Array.isArray(dataModule.WAHBOOK_POSTS) ? dataModule.WAHBOOK_POSTS : [];
         WAHBOOK_POSTS = [...BASE_WAHBOOK_POSTS];
         visiblePostsCache = null;
@@ -1343,7 +1343,7 @@ async function ensureEventPostsLoaded() {
 
     eventsPostsPromise = (async () => {
         try {
-            const eventsModule = await import('../../../assembly-events-data.js');
+            const eventsModule = await import('../../../data/assembly/assembly-events-data.js');
             if (eventsModule.loadEventPosts) {
                 const eventPosts = await eventsModule.loadEventPosts();
                 if (Array.isArray(eventPosts) && eventPosts.length) {

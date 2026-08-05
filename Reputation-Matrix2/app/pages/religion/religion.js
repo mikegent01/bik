@@ -434,7 +434,7 @@ function renderSidebar(year, monthIndex) {
 }
 
 // --- DATA IMPORT FUNCTIONS ---
-import { MAP_DATA } from '../../../map-data.js';
+import { MAP_DATA } from '../../../data/maps/map-data.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from '../../../data/support/species-data.js';
 
 function getPlayerSpeciesKey() {

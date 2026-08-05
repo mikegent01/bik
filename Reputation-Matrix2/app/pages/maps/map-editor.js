@@ -1,7 +1,7 @@
 import { playSound } from '../../../common.js';
 import * as map from './maps.js';
 import * as renderer from './map-renderer.js';
-import { MAP_DATA, BUILDING_TYPES } from '../../../map-data.js';
+import { MAP_DATA, BUILDING_TYPES } from '../../../data/maps/map-data.js';
 import { LORE_DATA } from '../../../lore.js';
 
 // DOM Elements

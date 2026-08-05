@@ -1,7 +1,7 @@
 // societal-values.js - Faction & Regional Value Spectrum System
 
 import { getAllFactions, getFaction } from '../../../systems/faction-registry.js';
-import { MAP_DATA } from '../../../map-data.js';
+import { MAP_DATA } from '../../../data/maps/map-data.js';
 
 // ============================================
 // VALUE AXES DEFINITIONS

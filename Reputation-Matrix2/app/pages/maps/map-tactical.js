@@ -1,4 +1,4 @@
-import { BATTLE_MAP_DATA } from '../../../map-battle-data.js';
+import { BATTLE_MAP_DATA } from '../../../data/maps/map-battle-data.js';
 import { LORE_DATA } from '../../../lore.js';
 import { FACTION_COLORS } from '../../../factions/faction-colors.js';
 import * as map from './maps.js';

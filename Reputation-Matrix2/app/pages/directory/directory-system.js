@@ -9,7 +9,7 @@ import {AUXILIARY_PARTY} from '../../../party-and-events.js'
 import { getAllFactions, getFaction, getFactionStats, toSystemId } from '../../../systems/faction-registry.js';
 import { getRealTimeMapStats } from '../../../global-map-analysis.js';
 import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
-import { WAHBOOK_POSTS } from '../../../assembly-data.js';
+import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
 import { calculateRumorMetrics } from '../../../data/support/research-data.js';
 import { calculateAssemblyInfamy, getCharacterInfamy, getFactionInfamy, renderInfamyBadge } from '../assembly/assembly-infamy.js';
 let _targetRelationsCache = new Map();

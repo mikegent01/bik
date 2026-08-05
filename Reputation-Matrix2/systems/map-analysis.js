@@ -1,6 +1,6 @@
 // map-analysis.js
 
-import { MAP_DATA } from '../map-data.js';
+import { MAP_DATA } from '../data/maps/map-data.js';
 import { getAllFactions, getAllSystemIds, toSystemId, getFaction } from './faction-registry.js';
 
 const SKIP_REGIONS = ['mushroom_kingdom_full'];

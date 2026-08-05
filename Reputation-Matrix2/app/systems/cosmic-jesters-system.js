@@ -5,7 +5,7 @@ import { getIntelForFaction } from '../../common.js';
 import { playSound } from '../../common.js';
 import { state } from '../../state.js';
 import { calculateGlobalCycle } from '../../data/support/research-data.js';
-import { WAHBOOK_POSTS } from '../../assembly-data.js';
+import { WAHBOOK_POSTS } from '../../data/assembly/assembly-data.js';
 
 /**
  * Renders the HTML structure for the Chaos Index.

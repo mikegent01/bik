@@ -5,7 +5,7 @@ import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActive
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 import { LORE_DATA } from '../../../lore.js';
 import { playSound } from '../../../common.js';
-import { WAHBOOK_POSTS } from '../../../assembly-data.js';
+import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
 
 // Constants
 const NODE_WIDTH = 160;

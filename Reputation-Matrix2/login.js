@@ -2,10 +2,10 @@
 import { LORE_DATA } from './lore.js';
 import { WALUIGI_INTRO_TEXT, WALUIGI_REGION_TIPS } from './new-operator/new-operator-data.js';
 import { playSound } from './common.js';
-import { WAHBOOK_POSTS } from './assembly-data.js';
+import { WAHBOOK_POSTS } from './data/assembly/assembly-data.js';
 import { QUEST_DATA } from './data/quest-system/index.js';
 import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from './data/world/calendar.js';
-import { PARTY_LOCATIONS } from './party-data.js';
+import { PARTY_LOCATIONS } from './data/support/party-data.js';
 import { getActiveAge, NATIONS, getTechTree, calculateRumorMetrics } from './data/support/research-data.js';
 import { state, loadState } from './state.js'; // Import state
 

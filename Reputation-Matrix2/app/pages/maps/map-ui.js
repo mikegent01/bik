@@ -1,13 +1,13 @@
 
 import { playSound } from '../../../common.js';
-import { MAP_DATA, BUILDING_TYPES } from '../../../map-data.js';
+import { MAP_DATA, BUILDING_TYPES } from '../../../data/maps/map-data.js';
 import * as map from './maps.js';
 import * as renderer from './map-renderer.js';
 import {getFactionData } from './map-renderer.js';
 import { toggleEditMode } from './map-editor.js';
 import { resetTransform } from './map-transform.js';
 import * as transform from './map-transform.js';
-import { PROVINCE_POLITICS } from '../../../politics-data.js';
+import { PROVINCE_POLITICS } from '../../../data/support/politics-data.js';
 
 const mapControls = document.getElementById('dynamic-map-controls');
 // ============================================================================

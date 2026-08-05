@@ -2,7 +2,7 @@
 
 import { getFaction, getAllFactions, getFactionColor, getFactionIcon } from '../../../systems/faction-registry.js';
 import { VALUE_AXES, getFactionValues } from '../../pages/societal-values/societal-values.js';
-import { MAP_DATA } from '../../../map-data.js';
+import { MAP_DATA } from '../../../data/maps/map-data.js';
 
 // ============================================
 // STATE

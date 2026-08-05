@@ -1,5 +1,5 @@
 import { state, loadState } from '../../../state.js';
-import { WAHBOOK_POSTS } from '../../../assembly-data.js';
+import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
 import { CURRENT_GAME_DATE, CURRENT_GAME_TIME } from '../../../data/world/calendar.js';
 
 // ============================================

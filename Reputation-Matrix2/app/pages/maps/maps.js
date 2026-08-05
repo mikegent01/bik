@@ -6,7 +6,7 @@ import * as renderer from './map-renderer.js';
 import * as editor from './map-editor.js';
 import * as transform from './map-transform.js';
 import { playSound } from '../../../common.js';
-import { MAP_DATA } from '../../../map-data.js';
+import { MAP_DATA } from '../../../data/maps/map-data.js';
 
 // ============================================================================
 // STATE

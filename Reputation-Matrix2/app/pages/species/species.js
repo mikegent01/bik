@@ -2,13 +2,13 @@
 
 import { LORE_DATA } from '../../../lore.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from '../../../data/support/species-data.js';
-import { MAP_DATA } from '../../../map-data.js';
+import { MAP_DATA } from '../../../data/maps/map-data.js';
 import { renderWorkforceData, getBiasForSpecies, LABOR_CATEGORIES, calculateTechAccessByEstate } from '../../../species-workforce.js';
 import { RELIGION_DATA } from '../../../data/support/religion-data.js';
 import { getGlobalTechAverages, RESEARCH_CATEGORIES, calculateGlobalCycle } from '../../../data/support/research-data.js';
 import { getPlagueData, getCurrentSeason, PLAGUE_LIFECYCLE } from '../../../data/support/plagues-data.js';
 import { simulatePopulation, calculateGlobalVitalStats } from '../../../data/support/population-state.js';
-import { WAHBOOK_POSTS } from '../../../assembly-data.js';
+import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 
 // Define Player Races for Relationship Context
