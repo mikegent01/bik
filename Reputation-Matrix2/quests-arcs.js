@@ -918,6 +918,12 @@ function buildObjectivesPanel(quest) {
  * @returns {string} The HTML string for the intel panel.
  */
 function buildIntelPanel(quest, rawQuest) {
+    // Consequence and outcome records are objects; always format them before HTML interpolation.
+    const displayValue = (value) => {
+        if (value == null) return '';
+        if (typeof value !== 'object') return String(value);
+        return Object.entries(value).map(([key, text]) => `<div><strong>${formatKey(key)}:</strong> ${displayValue(text)}</div>`).join('');
+    };
     // Helper function to format keys into readable titles (e.g., 'side_with_perrius' -> 'Side With Perrius')
     // This function is assumed to exist from your previous code.
     const formatKey = (key) => {
@@ -967,7 +973,7 @@ function buildIntelPanel(quest, rawQuest) {
                         ${quest.hints.map((hint, i) => `
                             <div class="hint-card" data-hint="${i}">
                                 <span class="hint-icon">💡</span>
-                                <p class="hint-text">${hint}</p>
+                                <p class="hint-text">${displayValue(hint)}</p>
                             </div>
                         `).join('')}
                     </div>

@@ -14346,7 +14346,7 @@ function view_quest_detail(questId) {
       return `
         <div style="padding: 10px; border-left: 3px solid var(--accent); background: rgba(138,75,255,0.04); margin-bottom: 6px; border-radius: 0 6px 6px 0;">
           <b style="font-size:12px; text-transform:uppercase; color: var(--accent2);">${esc(k.replace(/_/g, ' '))}</b>
-          <p style="margin: 4px 0 0; font-size:12.5px; color: var(--text);">${esc(v)}</p>
+          <div style="margin: 4px 0 0; font-size:12.5px; color: var(--text);">${typeof v === 'object' ? Object.entries(v).map(([label, text]) => `<p style="margin:3px 0"><b>${esc(label.replace(/_/g, ' '))}:</b> ${esc(text)}</p>`).join('') : esc(v)}</div>
         </div>
       `;
     }).join('');
