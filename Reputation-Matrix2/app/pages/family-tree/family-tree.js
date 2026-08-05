@@ -3,9 +3,9 @@
 // Bloodlines of the Mushroom Kingdom & Allied Realms
 // =============================================
 
-import { state, loadState } from './state.js';
-import { getIntelBreakdown } from './systems/common.js';
-import { CALENDAR_DATA, CURRENT_GAME_DATE } from './data/world/calendar.js';
+import { state, loadState } from '../../../state.js';
+import { getIntelBreakdown } from '../../../systems/common.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 
 // =============================================
 // EXPANDED DYNASTY DATA

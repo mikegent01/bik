@@ -1,8 +1,8 @@
-import { state, loadState } from './state.js';
-import { LORE_DATA } from './lore.js';
+import { state, loadState } from '../../../state.js';
+import { LORE_DATA } from '../../../lore.js';
 import { getDetailedFactionAssessment } from './reputation.js';
-import { playSound } from './common.js';
-import { getIntelForFaction } from './systems/common.js';
+import { playSound } from '../../../common.js';
+import { getIntelForFaction } from '../../../systems/common.js';
 
 const selectorContainer = document.getElementById('character-selector-container');
 const dossierContainer = document.getElementById('dossier-display-container');
