@@ -1,5 +1,5 @@
 
-import { LEGAL_DATA } from '../../../legal_data.js';
+import { LEGAL_DATA } from '../../../data/laws/legal_data.js';
 import { LORE_DATA } from '../../../lore.js';
 import { CULTURE_DATA } from '../../../data/support/culture-data.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from '../../../data/support/species-data.js';

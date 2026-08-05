@@ -1,5 +1,5 @@
 
-import { TOAD_ABILITIES } from './abilities.js';
+import { TOAD_ABILITIES } from './data/support/abilities.js';
 import {RUMORS } from './party-and-events.js';
 import { STORY_ARCS,  getRumorsByArc, getArcProgress, getArcStats } from './lore.js';
 import { LORE_DATA } from './lore.js';

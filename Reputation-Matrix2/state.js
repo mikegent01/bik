@@ -2,7 +2,7 @@
 
 
 import { LORE_DATA } from './lore.js';
-import { TOAD_ABILITIES } from './abilities.js';
+import { TOAD_ABILITIES } from './data/support/abilities.js';
 import { MAP_DATA } from './data/maps/map-data.js';
 import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from './data/support/research-data.js';
 import { WAHBOOK_POSTS } from './data/assembly/assembly-data.js';

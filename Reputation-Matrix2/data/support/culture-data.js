@@ -1,7 +1,7 @@
 
 
 import { SPECIES_DATA } from './species-data.js';
-import { LEGAL_DATA } from './legal_data.js';
+import { LEGAL_DATA } from '../laws/legal_data.js';
 
 export const CULTURE_DATA = {
     imperial_heartland: {

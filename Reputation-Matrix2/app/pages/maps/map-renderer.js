@@ -10,7 +10,7 @@ import { resetTransform, getZoomLevel } from './map-transform.js';
 import { QUEST_DATA } from '../../../data/quest-system/index.js';
 import { FACTION_COLORS } from '../../../factions/faction-colors.js';
 import { BATTLE_MAP_DATA } from '../../../data/maps/map-battle-data.js';
-import { LEGAL_DATA } from '../../../legal_data.js';
+import { LEGAL_DATA } from '../../../data/laws/legal_data.js';
 import { ALL_LEGAL_CODES } from '../../../data/laws/laws-data.js';
 import { CULTURE_DATA } from '../../../data/support/culture-data.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS, SPECIES_ESTATE_BIAS } from '../../../data/support/species-data.js';

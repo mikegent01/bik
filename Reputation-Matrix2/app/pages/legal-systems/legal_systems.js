@@ -1,4 +1,4 @@
-import { LEGAL_DATA } from '../../../legal_data.js';
+import { LEGAL_DATA } from '../../../data/laws/legal_data.js';
 import { LORE_DATA } from '../../../lore.js';
 import { playSound } from '../../../common.js';
 
