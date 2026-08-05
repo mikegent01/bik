@@ -1,17 +1,17 @@
 // directory-system.js - Player Relations Focused Directory System
 
-import { state, loadState } from './state.js';
-import { FACTION_ASSESSMENTS } from './assessments.js';
-import { getReputation, getGenericFactionAssessment } from './reputation.js';
-import { getIntelForFaction, getIntelBreakdown } from './systems/common.js';
-import { playSound } from './common.js';
-import {AUXILIARY_PARTY} from './party-and-events.js'
-import { getAllFactions, getFaction, getFactionStats, toSystemId } from './systems/faction-registry.js';
-import { getRealTimeMapStats } from './global-map-analysis.js';
-import { LORE_DATA, STORY_ARCS } from './lore.js';
-import { WAHBOOK_POSTS } from './assembly-data.js';
-import { calculateRumorMetrics } from './research-data.js'; 
-import { calculateAssemblyInfamy, getCharacterInfamy, getFactionInfamy, renderInfamyBadge } from './assembly-infamy.js'; 
+import { state, loadState } from '../../../state.js';
+import { FACTION_ASSESSMENTS } from '../../../assessments.js';
+import { getReputation, getGenericFactionAssessment } from '../../../reputation.js';
+import { getIntelForFaction, getIntelBreakdown } from '../../../systems/common.js';
+import { playSound } from '../../../common.js';
+import {AUXILIARY_PARTY} from '../../../party-and-events.js'
+import { getAllFactions, getFaction, getFactionStats, toSystemId } from '../../../systems/faction-registry.js';
+import { getRealTimeMapStats } from '../../../global-map-analysis.js';
+import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
+import { WAHBOOK_POSTS } from '../../../assembly-data.js';
+import { calculateRumorMetrics } from '../../../research-data.js';
+import { calculateAssemblyInfamy, getCharacterInfamy, getFactionInfamy, renderInfamyBadge } from '../assembly/assembly-infamy.js';
 let _targetRelationsCache = new Map();
 
 let currentView = 'grid';
@@ -328,11 +328,11 @@ function renderInfamyReport() {
 function renderPartyMemberList() {
     const container = document.getElementById('party-member-list');
     if (!container) return;
-    
+
     container.innerHTML = state.party.map(playerKey => {
         const player = LORE_DATA.characters[playerKey];
         const isSelected = selectedPlayer === playerKey && !selectedTarget;
-        
+
         return `
             <div class="party-member-item ${isSelected ? 'selected' : ''}" data-player="${playerKey}">
                 <img src="${player?.portrait || 'portraits/unknown.png'}" alt="${player?.name}" class="party-member-portrait">
@@ -351,20 +351,20 @@ function renderPartyMemberList() {
 function renderNotableFigures() {
     const container = document.getElementById('notable-figures-list');
     if (!container) return;
-    
+
     const targets = getTargetsFromRumors();
-    
+
     if (targets.length === 0) {
         container.innerHTML = '<p class="no-figures">No notable figures found in rumors</p>';
         return;
     }
-    
+
     // Group by type
     const auxiliary = targets.filter(t => t.entity.type === 'auxiliary');
     const others = targets.filter(t => t.entity.type !== 'auxiliary');
-    
+
     let html = '';
-    
+
     if (auxiliary.length > 0) {
         html += `
             <div class="figures-group">
@@ -373,7 +373,7 @@ function renderNotableFigures() {
             </div>
         `;
     }
-    
+
     if (others.length > 0) {
         html += `
             <div class="figures-group">
@@ -382,7 +382,7 @@ function renderNotableFigures() {
             </div>
         `;
     }
-    
+
     container.innerHTML = html;
 }
 /**
@@ -393,17 +393,17 @@ function renderNotableFigures() {
 function renderFigureItem(target) {
     const { entity, rumors, roles } = target;
     const isSelected = selectedTarget === target.id;
-    
+
     const roleIcons = [];
     if (roles.has('instigator')) roleIcons.push('⚡');
     if (roles.has('target')) roleIcons.push('🎯');
     if (roles.has('affected')) roleIcons.push('📊');
-    
+
     // Normalize portrait path - ensure it starts with portraits/
-    const portraitPath = entity.portrait.includes('/') 
-        ? entity.portrait 
+    const portraitPath = entity.portrait.includes('/')
+        ? entity.portrait
         : `portraits/${entity.portrait}`;
-    
+
     return `
         <div class="figure-item ${isSelected ? 'selected' : ''}" data-target="${target.id}">
             <img src="${portraitPath}" alt="${entity.name}" class="figure-portrait" onerror="this.src='portraits/unknown.png'">
@@ -430,17 +430,17 @@ function renderFigureItem(target) {
  * NEW: Render a header showing current perspective
  */function renderPerspectiveHeader() {
     let existingHeader = document.getElementById('perspective-header');
-    
+
     if (!selectedTarget && !selectedPlayer) {
         if (existingHeader) existingHeader.remove();
         return;
     }
-    
+
     const container = document.getElementById('view-container');
     if (!container) return;
-    
+
     let entity, entityType;
-    
+
     if (selectedTarget) {
         entity = resolveTargetEntity(selectedTarget);
         entityType = 'NPC';
@@ -448,11 +448,11 @@ function renderFigureItem(target) {
         entity = LORE_DATA.characters[selectedPlayer];
         entityType = 'Party Member';
     }
-    
-    const portraitSrc = entity?.portrait 
-        ? `portraits/${entity.portrait.split('/').pop()}` 
+
+    const portraitSrc = entity?.portrait
+        ? `portraits/${entity.portrait.split('/').pop()}`
         : 'portraits/unknown.png';
-    
+
     const headerHTML = `
         <div id="perspective-header" class="perspective-header">
             <div class="perspective-info">
@@ -466,7 +466,7 @@ function renderFigureItem(target) {
             <button class="perspective-clear" id="clear-perspective-btn">✕ Clear</button>
         </div>
     `;
-    
+
     if (existingHeader) {
         existingHeader.outerHTML = headerHTML;
     } else {
@@ -479,15 +479,15 @@ function renderFigureItem(target) {
 function renderGridView() {
     const container = document.getElementById('view-container');
     if (!container) return;
-    
+
     const factions = getFilteredFactions();
     const isDebug = state.debugMode;
-    
+
     // Render perspective header
     let headerHTML = '';
     if (selectedTarget || selectedPlayer) {
         let entity, entityType;
-        
+
         if (selectedTarget) {
             entity = resolveTargetEntity(selectedTarget);
             entityType = 'NPC';
@@ -495,11 +495,11 @@ function renderGridView() {
             entity = LORE_DATA.characters[selectedPlayer];
             entityType = 'Party Member';
         }
-        
-        const portraitSrc = entity?.portrait 
-            ? `portraits/${entity.portrait.split('/').pop()}` 
+
+        const portraitSrc = entity?.portrait
+            ? `portraits/${entity.portrait.split('/').pop()}`
             : 'portraits/unknown.png';
-        
+
         headerHTML = `
             <div class="perspective-header">
                 <div class="perspective-info">
@@ -513,7 +513,7 @@ function renderGridView() {
             </div>
         `;
     }
-    
+
     if (factions.length === 0) {
         container.innerHTML = `
             ${headerHTML}
@@ -525,17 +525,17 @@ function renderGridView() {
         `;
         return;
     }
-    
+
     const predefined = factions.filter(f => !f.isAutoGenerated);
     const discovered = factions.filter(f => f.isAutoGenerated);
-    
+
     // Show count of hidden factions
     const allFactions = getUnifiedFactionList();
     const hiddenCount = allFactions.length - factions.length;
-    const hiddenNote = hideMinorRelations && hiddenCount > 0 
-        ? `<span class="hidden-count">(${hiddenCount} minor relations hidden)</span>` 
+    const hiddenNote = hideMinorRelations && hiddenCount > 0
+        ? `<span class="hidden-count">(${hiddenCount} minor relations hidden)</span>`
         : '';
-    
+
     container.innerHTML = `
         ${headerHTML}
         <div class="grid-header">
@@ -563,11 +563,11 @@ function renderGridView() {
 
 function renderFactionCard(factionData, isDebug) {
     const { key, faction, partyRep, intel, playerReps, targetRep, source, isAutoGenerated } = factionData;
-    
+
     // Determine which rep to display based on selection
     let displayRep;
     let repSource;
-    
+
     if (selectedTarget) {
         displayRep = targetRep;
         repSource = 'target';
@@ -578,22 +578,22 @@ function renderFactionCard(factionData, isDebug) {
         displayRep = partyRep;
         repSource = 'party';
     }
-    
+
     const repClass = getReputationClass(displayRep);
     const repLabel = getReputationLabel(displayRep);
-    
-    const notoriety = selectedPlayer 
+
+    const notoriety = selectedPlayer
         ? getPlayerNotoriety(selectedPlayer, key)
         : Math.round(state.party.reduce((sum, p) => sum + getPlayerNotoriety(p, key), 0) / state.party.length);
     const infamyHeat = selectedPlayer ? getRelationshipInfamy(selectedPlayer, key) : getPartyFactionInfamy(key);
     const infamyProfile = getFactionInfamyProfile(key);
-    
+
     const assessmentPlayer = selectedPlayer || 'archie';
     const assessment = getFactionAssessment(key, assessmentPlayer);
-    const assessmentSnippet = assessment 
+    const assessmentSnippet = assessment
         ? assessment.substring(0, 120) + (assessment.length > 120 ? '...' : '')
         : getGenericFactionAssessment(displayRep);
-    
+
     // Party indicator dots (only show if not viewing specific target)
     const playerIndicators = !selectedTarget ? state.party.map(p => {
         const rep = playerReps[p];
@@ -603,25 +603,25 @@ function renderFactionCard(factionData, isDebug) {
     }).join('') : '';
 
     const widthPct = Math.min(Math.abs(displayRep), 100) / 2;
-    const barStyle = displayRep < 0 
-        ? `width: ${widthPct}%; right: 50%; border-radius: 4px 0 0 4px;` 
+    const barStyle = displayRep < 0
+        ? `width: ${widthPct}%; right: 50%; border-radius: 4px 0 0 4px;`
         : `width: ${widthPct}%; left: 50%; border-radius: 0 4px 4px 0;`;
-    
+
     const sourceBadge = isAutoGenerated ? '<span class="source-badge from-poi"></span>' : '';
-    const arcBadge = factionData.faction.isFromStoryArc 
-    ? `<span class="source-badge from-arc" title="From: ${factionData.faction.relatedArcs?.join(', ') || 'Story Arc'}">📖</span>` 
+    const arcBadge = factionData.faction.isFromStoryArc
+    ? `<span class="source-badge from-arc" title="From: ${factionData.faction.relatedArcs?.join(', ') || 'Story Arc'}">📖</span>`
     : '';
 
     // Show "from rumors" indicator for target view
-    const targetIndicator = selectedTarget && targetRep !== 0 
-        ? `<span class="target-indicator" title="Impact from rumors involving this figure">📜</span>` 
+    const targetIndicator = selectedTarget && targetRep !== 0
+        ? `<span class="target-indicator" title="Impact from rumors involving this figure">📜</span>`
         : '';
     const rumorBadge = (!factionData.faction.isFromStoryArc && factionData.faction.isFromRumors)
     ? `<span class="source-badge from-rumor" title="Discovered from ${factionData.faction.relatedRumorCount} rumor(s)">📜</span>`
     : '';
 
     return `
-        <div class="faction-card ${repClass} ${isAutoGenerated ? 'auto-generated' : ''}" 
+        <div class="faction-card ${repClass} ${isAutoGenerated ? 'auto-generated' : ''}"
              data-faction="${key}"
              style="border-top-color: ${faction.color || 'var(--accent-color)'};">
             <div class="fc-header">
@@ -634,7 +634,7 @@ function renderFactionCard(factionData, isDebug) {
 </h4>
                     <span class="fc-region">${faction.region || 'Unknown Region'}</span>
                 </div>
-                
+
                 <div class="fc-rep-wrapper">
                     ${renderDirectoryInfamyBadge(infamyHeat, true)}
                     <div class="fc-rep-badge ${repClass}">
@@ -643,7 +643,7 @@ function renderFactionCard(factionData, isDebug) {
                     <button class="fc-why-btn" data-why="${key}" title="View Breakdown">?</button>
                 </div>
             </div>
-            
+
             <div class="fc-rep-bar-container">
                 <div class="fc-rep-bar">
                     <div class="fc-rep-fill ${repClass}" style="${barStyle}"></div>
@@ -655,9 +655,9 @@ function renderFactionCard(factionData, isDebug) {
                     <span>Friendly</span>
                 </div>
             </div>
-            
+
             ${!selectedTarget ? `<p class="fc-assessment">"${assessmentSnippet}"</p>` : ''}
-            
+
             <div class="fc-stats">
                 <div class="fc-stat">
                     <span class="fc-stat-label">Intel</span>
@@ -684,7 +684,7 @@ function renderFactionCard(factionData, isDebug) {
                 ` : ''}
             </div>
             <p class="fc-infamy-access">${getInfamyAccessText(infamyHeat, displayRep)}</p>
-            
+
             <div class="fc-footer">
                 ${playerIndicators ? `<div class="fc-party-reps">${playerIndicators}</div>` : '<div></div>'}
                 <button class="fc-details-btn" data-faction="${key}">View Details →</button>
@@ -699,9 +699,9 @@ function renderFactionCard(factionData, isDebug) {
 
 function getStandingSummary() {
     const factions = getFilteredFactions();
-    
+
     let friendly = 0, neutral = 0, hostile = 0;
-    
+
     factions.forEach(f => {
         let rep;
         if (selectedTarget) {
@@ -711,12 +711,12 @@ function getStandingSummary() {
         } else {
             rep = f.partyRep;
         }
-        
+
         if (rep >= 50) friendly++;
         else if (rep <= -50) hostile++;
         else neutral++;
     });
-    
+
     return { friendly, neutral, hostile, total: factions.length };
 }
 
@@ -739,21 +739,21 @@ function getStandingSummary() {
  */
 function extractRegionFromPOIs(factionId, mapStats) {
     if (!mapStats.regions) return null;
-    
+
     let maxPois = 0;
     let primaryRegion = null;
-    
+
     mapStats.regions.forEach(region => {
-        const factionPois = (region.pois || []).filter(poi => 
+        const factionPois = (region.pois || []).filter(poi =>
             toSystemId(poi.factionId || poi.controller) === factionId
         ).length;
-        
+
         if (factionPois > maxPois) {
             maxPois = factionPois;
             primaryRegion = region.name;
         }
     });
-    
+
     return primaryRegion;
 }
 
@@ -823,7 +823,7 @@ function getUniqueRegions() {
 
 function getRecentRumors(count = 5) {
     if (!LORE_DATA.rumors) return [];
-    
+
     return [...LORE_DATA.rumors]
         .sort((a, b) => {
             const dateA = new Date(a.date.year, a.date.monthIndex, a.date.day);
@@ -837,8 +837,8 @@ function getRecentRumors(count = 5) {
 // CALCULATIONS FOR MODAL
 // ============================================
 function getReputationFactors(factionKey) {
-    const targetPlayer = (selectedPlayer && selectedPlayer !== 'generic') 
-        ? selectedPlayer 
+    const targetPlayer = (selectedPlayer && selectedPlayer !== 'generic')
+        ? selectedPlayer
         : state.party[0];
 
     const factors = [];
@@ -918,17 +918,17 @@ function getReputationFactors(factionKey) {
 function renderPartyStatsBar() {
     const container = document.getElementById('party-stats-bar');
     if (!container) return;
-    
+
     const summary = getStandingSummary();
     const factions = getFilteredFactions();
-    
+
     const totalIntel = factions.reduce((sum, f) => sum + f.intel, 0);
     const avgIntel = factions.length > 0 ? Math.round(totalIntel / factions.length) : 0;
-    
+
     // Count auto-generated vs predefined
     const autoCount = factions.filter(f => f.isAutoGenerated).length;
     const predefinedCount = factions.length - autoCount;
-    
+
     container.innerHTML = `
         <div class="pstat-item">
             <span class="pstat-icon">🏴</span>
@@ -969,10 +969,10 @@ function renderPartyStatsBar() {
 function renderStandingSummary() {
     const container = document.getElementById('standing-summary-content');
     if (!container) return;
-    
+
     const summary = getStandingSummary();
     const total = summary.total || 1;
-    
+
     const friendlyPct = (summary.friendly / total) * 100;
     const neutralPct = (summary.neutral / total) * 100;
     const hostilePct = (summary.hostile / total) * 100;
@@ -994,14 +994,14 @@ function renderStandingSummary() {
 function renderRecentEvents() {
     const container = document.getElementById('recent-events-list');
     if (!container) return;
-    
+
     const rumors = getRecentRumors(5);
-    
+
     if (rumors.length === 0) {
         container.innerHTML = '<p class="no-events">No recent events</p>';
         return;
     }
-    
+
     container.innerHTML = rumors.map(rumor => `
         <div class="recent-event-item">
             <span class="event-date">${rumor.date.day}/${rumor.date.monthIndex + 1}</span>
@@ -1013,7 +1013,7 @@ function renderRecentEvents() {
 function renderRegionFilter() {
     const select = document.getElementById('region-filter');
     if (!select) return;
-    
+
     const regions = getUniqueRegions();
     select.innerHTML = `
         <option value="all">All Regions (${regions.length})</option>
@@ -1025,15 +1025,15 @@ function renderRegionFilter() {
 function renderWhyModal(factionKey) {
     const faction = getUnifiedFaction(factionKey);
     if (!faction) return;
-    
+
     const factors = getReputationFactors(factionKey);
     const targetPlayer = (selectedPlayer && selectedPlayer !== 'generic') ? selectedPlayer : state.party[0];
     const totalRep = getReputation(targetPlayer, factionKey);
     const playerData = LORE_DATA.characters[targetPlayer];
-    
+
     // Get intel breakdown
     const intelBreakdown = getIntelBreakdown(factionKey);
-    
+
     let modal = document.getElementById('why-modal');
     if (!modal) {
         modal = document.createElement('div');
@@ -1045,7 +1045,7 @@ function renderWhyModal(factionKey) {
     const html = `
         <div class="faction-modal why-modal">
             <button class="modal-close" id="why-close-btn">✕</button>
-            
+
             <!-- Header -->
             <div class="why-modal-header">
                 <img src="${faction.logo || 'logos/default.png'}" class="why-modal-logo" alt="${faction.name}">
@@ -1054,7 +1054,7 @@ function renderWhyModal(factionKey) {
                     <span class="why-modal-region">${faction.region || 'Unknown Region'}</span>
                 </div>
             </div>
-            
+
             <!-- Tab Navigation -->
             <div class="why-tabs">
                 <button class="why-tab-btn active" data-tab="reputation">
@@ -1070,7 +1070,7 @@ function renderWhyModal(factionKey) {
                     Infamy
                 </button>
             </div>
-            
+
             <!-- Reputation Tab -->
             <div class="why-tab-content active" id="why-tab-reputation">
                 <div class="why-section-header">
@@ -1082,7 +1082,7 @@ function renderWhyModal(factionKey) {
                         ${totalRep >= 0 ? '+' : ''}${totalRep}
                     </div>
                 </div>
-                
+
                 <div class="why-list">
                     ${factors.map(f => `
                         <div class="why-item ${f.impact}">
@@ -1097,7 +1097,7 @@ function renderWhyModal(factionKey) {
                         </div>
                     `).join('')}
                 </div>
-                
+
                 <div class="why-footer">
                     <div class="why-footer-label">Standing</div>
                     <div class="why-footer-value">
@@ -1106,7 +1106,7 @@ function renderWhyModal(factionKey) {
                     </div>
                 </div>
             </div>
-            
+
             <!-- Intel Tab -->
             <div class="why-tab-content" id="why-tab-intel">
                 <div class="why-section-header">
@@ -1118,7 +1118,7 @@ function renderWhyModal(factionKey) {
                         ${intelBreakdown.total}%
                     </div>
                 </div>
-                
+
                 <div class="intel-visual-bar">
                     <div class="intel-bar-track">
                         <div class="intel-bar-fill" style="width: ${intelBreakdown.total}%;"></div>
@@ -1133,7 +1133,7 @@ function renderWhyModal(factionKey) {
                         <span>Full Intel</span>
                     </div>
                 </div>
-                
+
                 <div class="why-list">
                     <!-- Base Intel -->
                     <div class="why-item ${intelBreakdown.base > 0 ? 'positive' : 'neutral'}">
@@ -1146,7 +1146,7 @@ function renderWhyModal(factionKey) {
                             ${intelBreakdown.base > 0 ? '+' : ''}${intelBreakdown.base}%
                         </span>
                     </div>
-                    
+
                     <!-- History Modifier -->
                     <div class="why-item ${intelBreakdown.history > 0 ? 'positive' : intelBreakdown.history < 0 ? 'negative' : 'neutral'}">
                         <div class="why-icon">${intelBreakdown.history >= 0 ? '📈' : '📉'}</div>
@@ -1158,7 +1158,7 @@ function renderWhyModal(factionKey) {
                             ${intelBreakdown.history >= 0 ? '+' : ''}${intelBreakdown.history}%
                         </span>
                     </div>
-                    
+
                     <!-- Decay -->
                     ${intelBreakdown.decay !== 0 ? `
                         <div class="why-item negative">
@@ -1172,7 +1172,7 @@ function renderWhyModal(factionKey) {
                             </span>
                         </div>
                     ` : ''}
-                    
+
                     <!-- Active Chatter -->
                     <div class="why-item ${intelBreakdown.active > 0 ? 'positive' : 'neutral'}">
                         <div class="why-icon">${intelBreakdown.active > 0 ? '💬' : '🔇'}</div>
@@ -1185,7 +1185,7 @@ function renderWhyModal(factionKey) {
                         </span>
                     </div>
                 </div>
-                
+
                 <!-- Intel Unlocks -->
                 <div class="intel-unlocks">
                     <h5 class="intel-unlocks-title">Intel Unlocks</h5>
@@ -1193,7 +1193,7 @@ function renderWhyModal(factionKey) {
                         ${renderIntelUnlocks(intelBreakdown.total)}
                     </div>
                 </div>
-                
+
                 <div class="why-footer">
                     <div class="why-footer-label">Intel Status</div>
                     <div class="why-footer-value">
@@ -1211,13 +1211,13 @@ function renderWhyModal(factionKey) {
     // Tab switching
     const tabBtns = modal.querySelectorAll('.why-tab-btn');
     const tabContents = modal.querySelectorAll('.why-tab-content');
-    
+
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             playSound('click.mp3', 0.3);
             tabBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
+
             const tabId = btn.dataset.tab;
             tabContents.forEach(content => {
                 content.classList.toggle('active', content.id === `why-tab-${tabId}`);
@@ -1230,8 +1230,8 @@ function renderWhyModal(factionKey) {
         playSound('click.mp3', 0.3);
         modal.classList.remove('visible');
     };
-    
-    modal.onclick = (e) => { 
+
+    modal.onclick = (e) => {
         if (e.target === modal) {
             modal.classList.remove('visible');
         }
@@ -1247,11 +1247,11 @@ function renderIntelUnlocks(intelLevel) {
         { threshold: 75, label: 'Secrets', icon: '🗝️', desc: 'Hidden information' },
         { threshold: 90, label: 'Full Dossier', icon: '📖', desc: 'Complete knowledge' }
     ];
-    
+
     return unlocks.map(unlock => {
         const isUnlocked = intelLevel >= unlock.threshold;
         const isNext = !isUnlocked && intelLevel >= unlock.threshold - 15;
-        
+
         return `
             <div class="intel-unlock-item ${isUnlocked ? 'unlocked' : ''} ${isNext ? 'next' : ''}">
                 <div class="intel-unlock-icon">${isUnlocked ? unlock.icon : '🔒'}</div>
@@ -1288,69 +1288,69 @@ function getIntelStatusLabel(intel) {
  */
 function getIntelTrend(breakdown) {
     const trend = breakdown.active + breakdown.decay;
-    
+
     if (trend > 5) return '📈 Increasing';
     if (trend < -5) return '📉 Decreasing';
     return '➡️ Stable';
 }
 function getHistoryDescription(historyValue, factionKey) {
     const historyData = state.factionHistory?.[factionKey];
-    
+
     if (!historyData || historyValue === 0) {
         return 'No established relationship history yet';
     }
-    
+
     const days = historyData.consecutiveDays || 0;
     const direction = historyData.isPositive ? 'positive' : 'negative';
-    
+
     if (days === 1) {
         return `1 day of ${direction} standing`;
     }
-    
+
     return `${days} consecutive days of ${direction} standing`;
 }
 function getDecayDescription(factionKey) {
     const lastActive = state.factionChatterLastActive?.[factionKey];
-    
+
     if (!lastActive) {
         return 'No recent information flow';
     }
-    
+
     const daysSince = getDaysBetween(lastActive, CURRENT_GAME_DATE);
-    
+
     if (daysSince === 1) {
         return 'Information going stale (1 day since last update)';
     }
-    
+
     return `Information going stale (${daysSince} days since last update)`;
 }
 function getActiveChatterDescription(activeValue, factionKey) {
     if (activeValue === 0) {
         return 'No current rumors or news about this faction';
     }
-    
+
     // Count active rumors involving this faction
     let activeRumorCount = 0;
     if (LORE_DATA && LORE_DATA.rumors) {
         LORE_DATA.rumors.forEach(rumor => {
             const isAffected = rumor.effects && rumor.effects[factionKey] !== undefined;
             const isTarget = rumor.targets && rumor.targets.includes(factionKey);
-            
+
             if (isAffected || isTarget) {
                 const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
                 const metrics = calculateRumorMetrics(rumor, relatedPosts);
-                
+
                 if (metrics.status !== 'Dead' && metrics.status !== 'Old News') {
                     activeRumorCount++;
                 }
             }
         });
     }
-    
+
     if (activeRumorCount === 1) {
         return '1 active rumor providing fresh intel';
     }
-    
+
     return `${activeRumorCount} active rumors providing fresh intel`;
 }
 
@@ -1358,16 +1358,16 @@ function getActiveChatterDescription(activeValue, factionKey) {
 function renderPlayerView() {
     const container = document.getElementById('view-container');
     if (!container) return;
-    
+
     const player = LORE_DATA.characters[selectedPlayer];
     const factions = getFilteredFactions();
-    
+
     const friendly = factions.filter(f => f.playerReps[selectedPlayer] >= 50);
     const warm = factions.filter(f => f.playerReps[selectedPlayer] >= 20 && f.playerReps[selectedPlayer] < 50);
     const neutral = factions.filter(f => f.playerReps[selectedPlayer] > -20 && f.playerReps[selectedPlayer] < 20);
     const cold = factions.filter(f => f.playerReps[selectedPlayer] <= -20 && f.playerReps[selectedPlayer] > -50);
     const hostile = factions.filter(f => f.playerReps[selectedPlayer] <= -50);
-    
+
     container.innerHTML = `
         <div class="player-view">
             <div class="pv-header">
@@ -1382,7 +1382,7 @@ function renderPlayerView() {
                     <div class="pv-stat"><span class="pv-stat-value">${neutral.length + warm.length + cold.length}</span><span class="pv-stat-label">Neutral</span></div>
                 </div>
             </div>
-            
+
             ${renderPlayerStandingSection('💚 Friendly Factions', friendly, selectedPlayer, 'friendly')}
             ${renderPlayerStandingSection('💛 Warm Relations', warm, selectedPlayer, 'warm')}
             ${renderPlayerStandingSection('⚪ Neutral', neutral, selectedPlayer, 'neutral')}
@@ -1394,7 +1394,7 @@ function renderPlayerView() {
 
 function renderPlayerStandingSection(title, factions, playerKey, className) {
     if (factions.length === 0) return '';
-    
+
     return `
         <div class="pv-section ${className}">
             <h4 class="pv-section-title">${title} (${factions.length})</h4>
@@ -1402,7 +1402,7 @@ function renderPlayerStandingSection(title, factions, playerKey, className) {
                 ${factions.map(f => {
                     const rep = f.playerReps[playerKey];
                     const assessment = getFactionAssessment(f.key, playerKey);
-                    
+
                     return `
                         <div class="pv-faction-item ${f.isAutoGenerated ? 'auto-generated' : ''}" data-faction="${f.key}">
                             <img src="${f.faction.logo || 'logos/default.png'}" alt="${f.faction.name}" class="pv-faction-logo">
@@ -1428,14 +1428,14 @@ function renderPlayerStandingSection(title, factions, playerKey, className) {
 function renderStandingsMatrix() {
     const container = document.getElementById('view-container');
     if (!container) return;
-    
+
     const factions = getFilteredFactions().slice(0, 25);
-    
+
     container.innerHTML = `
         <div class="standings-matrix">
             <h3 class="matrix-title">📈 Party Standing Matrix</h3>
             <p class="matrix-desc">How each party member stands with each faction</p>
-            
+
             <div class="matrix-container">
                 <table class="matrix-table">
                     <thead>
@@ -1472,7 +1472,7 @@ function renderStandingsMatrix() {
                     </tbody>
                 </table>
             </div>
-            
+
             <div class="matrix-legend">
                 <span class="legend-item"><span class="legend-dot friendly"></span> 50+ Friendly</span>
                 <span class="legend-item"><span class="legend-dot warm"></span> 20-49 Warm</span>
@@ -1487,18 +1487,18 @@ function renderStandingsMatrix() {
 function renderIntelReport() {
     const container = document.getElementById('view-container');
     if (!container) return;
-    
+
     const factions = getFilteredFactions().sort((a, b) => b.intel - a.intel);
-    
+
     container.innerHTML = `
         <div class="intel-report">
             <h3 class="intel-title">🔍 Intelligence Report</h3>
             <p class="intel-desc">Current intelligence levels on known factions</p>
-            
+
             <div class="intel-list">
                 ${factions.map(f => {
                     const breakdown = getIntelBreakdown(f.key);
-                    
+
                     return `
                         <div class="intel-item ${f.isAutoGenerated ? 'auto-generated' : ''}" data-faction="${f.key}">
                             <div class="intel-item-header">
@@ -1533,13 +1533,13 @@ function renderIntelReport() {
 function renderFactionDetailModal(factionKey) {
     const faction = getUnifiedFaction(factionKey);
     if (!faction) return;
-    
+
     const intel = getIntelForFaction(factionKey);
     const isDebug = state.debugMode;
-    
+
     const content = document.getElementById('faction-modal-content');
     if (!content) return;
-    
+
     // Build player assessments section
     const assessmentsHTML = state.party.map(playerKey => {
         const player = LORE_DATA.characters[playerKey];
@@ -1547,7 +1547,7 @@ function renderFactionDetailModal(factionKey) {
         const notoriety = getPlayerNotoriety(playerKey, factionKey);
         const assessment = getFactionAssessment(factionKey, playerKey);
         const repClass = getReputationClass(rep);
-        
+
         return `
             <div class="modal-player-assessment">
                 <div class="mpa-header">
@@ -1572,7 +1572,7 @@ function renderFactionDetailModal(factionKey) {
             </div>
         `;
     }).join('');
-    
+
     // Notable people section
     let notablePeopleHTML = '';
     if ((intel >= 25 || isDebug) && faction.notable_people && faction.notable_people.length > 0) {
@@ -1591,13 +1591,13 @@ function renderFactionDetailModal(factionKey) {
             </div>
         `;
     }
-    
+
     // Relations section
     let relationsHTML = '';
     if ((intel >= 50 || isDebug) && faction.relations) {
         const allies = faction.relations.allies || [];
         const enemies = faction.relations.enemies || [];
-        
+
         if (allies.length > 0 || enemies.length > 0) {
             relationsHTML = `
                 <div class="modal-section">
@@ -1626,7 +1626,7 @@ function renderFactionDetailModal(factionKey) {
             `;
         }
     }
-    
+
     // POI presence section for factions with territorial data
     let poiPresenceHTML = '';
     if (faction.poiCount > 0 || faction.military > 0 || faction.economic > 0) {
@@ -1658,12 +1658,12 @@ function renderFactionDetailModal(factionKey) {
             </div>
         `;
     }
-    
+
     // Source badge
-    const sourceBadge = faction.isAutoGenerated 
+    const sourceBadge = faction.isAutoGenerated
         ? '<span class="source-badge from-poi"></span>'
         : '<span class="source-badge from-lore"></span>';
-    
+
     content.innerHTML = `
         <div class="modal-header" style="border-color: ${faction.color || 'var(--accent-color)'};">
             <img src="${faction.logo || 'logos/default.png'}" alt="${faction.name}" class="modal-logo">
@@ -1672,32 +1672,32 @@ function renderFactionDetailModal(factionKey) {
                 <span class="modal-region">${faction.region || 'Unknown Region'}</span>
             </div>
         </div>
-        
+
         <div class="modal-intel-bar">
             <span class="modal-intel-label">Intel Level: ${intel}%</span>
             <div class="modal-intel-track">
                 <div class="modal-intel-fill" style="width: ${intel}%;"></div>
             </div>
         </div>
-        
+
         <div class="modal-section">
             <h4>Description</h4>
             <p class="modal-description">${faction.description || 'No description available.'}</p>
         </div>
-        
+
         ${poiPresenceHTML}
-        
+
         <div class="modal-section">
             <h4>Party Standings & Assessments</h4>
             <div class="modal-assessments">
                 ${assessmentsHTML}
             </div>
         </div>
-        
+
         ${notablePeopleHTML}
         ${relationsHTML}
     `;
-    
+
     const modal = document.getElementById('faction-detail-modal');
     if (modal) {
         modal.classList.add('visible');
@@ -1717,7 +1717,7 @@ function render() {
     renderInfamyWatchSidebar();
     renderRegionFilter();
     renderFiltersWithToggle(); // NEW
-    
+
     switch (currentView) {
         case 'player':
             renderPlayerView();
@@ -1780,23 +1780,23 @@ if (document.readyState === 'loading') {
  */
 function getUnifiedFactionList() {
     const now = Date.now();
-    
+
     if (_unifiedFactionCache && (now - _unifiedFactionCacheTime) < CACHE_DURATION) {
         return _unifiedFactionCache;
     }
-    
+
     const predefinedFactions = LORE_DATA.factions || {};
     const registryFactions = getAllFactions();
     const mapStats = getRealTimeMapStats();
-    
+
     const unifiedFactions = new Map();
-    
+
     // Step 1: Add all predefined factions first
     Object.entries(predefinedFactions).forEach(([key, faction]) => {
         const registryId = toSystemId(key);
         const registryData = registryFactions[registryId] || {};
         const stats = mapStats.global?.[registryId] || {};
-        
+
         unifiedFactions.set(key, {
             key,
             registryId,
@@ -1822,11 +1822,11 @@ function getUnifiedFactionList() {
             controlledRegions: stats.controlledRegions || 0
         });
     });
-    
+
     // Step 2: Add registry factions that don't have predefined templates
     Object.entries(registryFactions).forEach(([registryId, registryData]) => {
         if (registryId === 'unaligned') return;
-        
+
         let alreadyExists = false;
         for (const [existingKey] of unifiedFactions) {
             if (existingKey === registryId || toSystemId(existingKey) === registryId) {
@@ -1834,14 +1834,14 @@ function getUnifiedFactionList() {
                 break;
             }
         }
-        
+
         if (!alreadyExists) {
             const stats = mapStats.global?.[registryId] || {};
-            
-            const hasPresence = (stats.military || 0) > 0 || 
-                               (stats.economic || 0) > 0 || 
+
+            const hasPresence = (stats.military || 0) > 0 ||
+                               (stats.economic || 0) > 0 ||
                                (stats.poiCount || 0) > 0;
-            
+
             if (hasPresence || registryData.isAutoGenerated === false) {
                 unifiedFactions.set(registryId, {
                     key: registryId,
@@ -1870,12 +1870,12 @@ function getUnifiedFactionList() {
             }
         }
     });
-    
+
     // =============================================
     // Step 3: NEW — Add factions from STORY_ARCS keyFactions
     //         and from finalReputations that aren't yet listed
     // =============================================
-    
+
     // 3a: Collect every faction key referenced by story arcs
     const arcReferencedFactions = new Set();
     if (STORY_ARCS) {
@@ -1886,7 +1886,7 @@ function getUnifiedFactionList() {
             }
         }
     }
-    
+
     // 3b: Collect factions referenced in rumor effects keys
     //     e.g. effects: { purple_legion: -10 } → purple_legion should exist
     if (LORE_DATA.rumors) {
@@ -1898,7 +1898,7 @@ function getUnifiedFactionList() {
                     arcReferencedFactions.add(effectKey);
                 });
             }
-            
+
             // Also check personal_impact keys for faction references
             if (rumor.personal_impact) {
                 Object.values(rumor.personal_impact).forEach(playerEffects => {
@@ -1912,7 +1912,7 @@ function getUnifiedFactionList() {
             }
         });
     }
-    
+
     // 3c: Collect factions that appear in finalReputations
     //     (quest rewards may have injected new faction keys)
     if (state.finalReputations) {
@@ -1927,33 +1927,33 @@ function getUnifiedFactionList() {
             }
         }
     }
-    
+
     // 3d: For each referenced faction, add it if it's not already in the unified list
     arcReferencedFactions.forEach(factionKey => {
         if (factionKey === 'unaligned') return;
         if (factionKey === 'party') return;
-        
+
         const normalizedKey = toSystemId(factionKey);
-        
+
         // Check if already present
         let alreadyExists = false;
         for (const [existingKey, existingData] of unifiedFactions) {
-            if (existingKey === factionKey || 
-                existingKey === normalizedKey || 
+            if (existingKey === factionKey ||
+                existingKey === normalizedKey ||
                 existingData.registryId === factionKey ||
                 existingData.registryId === normalizedKey) {
                 alreadyExists = true;
                 break;
             }
         }
-        
+
         if (alreadyExists) return;
-        
+
         // Try to get data from predefined factions, registry, or build a stub
         const predefined = predefinedFactions[factionKey] || predefinedFactions[normalizedKey];
         const registry = registryFactions[factionKey] || registryFactions[normalizedKey];
         const stats = mapStats.global?.[normalizedKey] || mapStats.global?.[factionKey] || {};
-        
+
         // Determine which story arcs reference this faction
         const relatedArcs = [];
         if (STORY_ARCS) {
@@ -1964,28 +1964,28 @@ function getUnifiedFactionList() {
                 }
             }
         }
-        
+
         // Determine which rumors reference this faction in their effects
         const relatedRumors = [];
         if (LORE_DATA.rumors) {
             LORE_DATA.rumors.forEach(rumor => {
                 const inEffects = rumor.effects && rumor.effects[factionKey] !== undefined;
-                const inPersonal = rumor.personal_impact && 
+                const inPersonal = rumor.personal_impact &&
                     Object.values(rumor.personal_impact).some(pe => pe && pe[factionKey] !== undefined);
-                
+
                 if (inEffects || inPersonal) {
                     relatedRumors.push(rumor);
                 }
             });
         }
-        
+
         const arcNames = relatedArcs.map(a => a.name).join(', ');
         const rumorTitles = relatedRumors.slice(0, 3).map(r => r.title).join(', ');
-        
+
         // Build description from available context
         let description = '';
         const source = predefined || registry || {};
-        
+
         if (source.description) {
             description = source.description;
         } else if (relatedArcs.length > 0 && relatedRumors.length > 0) {
@@ -1997,14 +1997,14 @@ function getUnifiedFactionList() {
         } else {
             description = 'A faction referenced in current events.';
         }
-        
+
         // Determine the source type for the badge
         let entrySource = 'discovered';
         if (predefined) entrySource = 'predefined';
         else if (registry) entrySource = 'registry';
         else if (relatedArcs.length > 0) entrySource = 'story-arc';
         else if (relatedRumors.length > 0) entrySource = 'rumor-discovered';
-        
+
         unifiedFactions.set(factionKey, {
             key: factionKey,
             registryId: normalizedKey,
@@ -2033,11 +2033,11 @@ function getUnifiedFactionList() {
             activeRegions: stats.activeRegions || 0,
             controlledRegions: stats.controlledRegions || 0
         });
-    });    
+    });
     // Cache the result
     _unifiedFactionCache = Array.from(unifiedFactions.values());
     _unifiedFactionCacheTime = now;
-    
+
     return _unifiedFactionCache;
 }
 
@@ -2056,10 +2056,10 @@ function formatFactionKeyToName(key) {
 function getUnifiedFaction(factionKey) {
     const allFactions = getUnifiedFactionList();
     const normalizedKey = toSystemId(factionKey);
-    
-    return allFactions.find(f => 
-        f.key === factionKey || 
-        f.registryId === factionKey || 
+
+    return allFactions.find(f =>
+        f.key === factionKey ||
+        f.registryId === factionKey ||
         f.key === normalizedKey ||
         f.registryId === normalizedKey
     );
@@ -2099,15 +2099,15 @@ function isRumorStatKey(key) {
         'party_cohesion', 'party_morale', 'world_tension',
         'noki_trust', 'pianta_trust'
     ];
-    
+
     if (nonFactionKeys.includes(key)) return true;
-    
+
     // Check if it's a known party member (not a faction)
     if (state.party && state.party.includes(key)) return true;
-    
+
     // Check auxiliary party
     if (AUXILIARY_PARTY && AUXILIARY_PARTY[key]) return true;
-    
+
     return false;
 }
 /**
@@ -2118,21 +2118,21 @@ function isFactionKey(key) {
     if (LORE_DATA.factions && LORE_DATA.factions[key]) {
         return true;
     }
-    
+
     // Check registry directly without going through unified list
     const registryFactions = getAllFactions();
     const normalizedKey = toSystemId(key);
-    
+
     if (registryFactions[key] || registryFactions[normalizedKey]) {
         return true;
     }
-    
+
     // Common faction patterns
     const factionPatterns = [
-        'iron_legion', 'regal_empire', 'moonfang', 'rakasha', 
+        'iron_legion', 'regal_empire', 'moonfang', 'rakasha',
         'toad_resistance', 'noki', 'pianta', 'koopa'
     ];
-    
+
     return factionPatterns.some(pattern => key.includes(pattern));
 }
 
@@ -2142,7 +2142,7 @@ function isFactionKey(key) {
 function getTargetsFromRumors() {
     const rumors = LORE_DATA.rumors || [];
     const targetMap = new Map();
-    
+
     // Pre-fetch faction keys to avoid repeated lookups
     const knownFactionKeys = new Set();
     if (LORE_DATA.factions) {
@@ -2150,34 +2150,34 @@ function getTargetsFromRumors() {
     }
     const registryFactions = getAllFactions();
     Object.keys(registryFactions).forEach(k => knownFactionKeys.add(k));
-    
+
     rumors.forEach(rumor => {
         // Process targets array
         (rumor.targets || []).forEach(targetId => {
             processTarget(targetId, rumor, targetMap, 'target', 0, knownFactionKeys);
         });
-        
+
         // Process instigator
         if (rumor.instigator) {
             processTarget(rumor.instigator, rumor, targetMap, 'instigator', 0, knownFactionKeys);
         }
-        
+
         // Process effects keys
         Object.entries(rumor.effects || {}).forEach(([entityId, value]) => {
             if (isStatKey(entityId)) return;
             processTarget(entityId, rumor, targetMap, 'affected', value, knownFactionKeys);
         });
     });
-    
+
     // Filter out main party members
     const mainParty = new Set(state.party || []);
     const results = [];
-    
+
     targetMap.forEach((data, id) => {
         if (mainParty.has(id)) return;
-        
+
         const entity = resolveTargetEntity(id);
-        
+
         if (entity.type === 'auxiliary' || entity.type === 'unknown' || entity.type === 'character') {
             results.push({
                 id,
@@ -2186,7 +2186,7 @@ function getTargetsFromRumors() {
             });
         }
     });
-    
+
     return results.sort((a, b) => b.rumors.length - a.rumors.length);
 }
 
@@ -2202,9 +2202,9 @@ function processTarget(targetId, rumor, targetMap, role, effectValue = 0, knownF
             factionEffects: {}
         });
     }
-    
+
     const entry = targetMap.get(targetId);
-    
+
     // Avoid duplicate rumors
     if (!entry.rumors.find(r => r.id === rumor.id)) {
         entry.rumors.push({
@@ -2215,13 +2215,13 @@ function processTarget(targetId, rumor, targetMap, role, effectValue = 0, knownF
             arc: rumor.arc
         });
     }
-    
+
     entry.roles.add(role);
-    
+
     if (role === 'affected' && effectValue !== 0) {
         entry.totalImpact += effectValue;
     }
-    
+
     // Track faction effects using pre-fetched keys
     Object.entries(rumor.effects || {}).forEach(([key, value]) => {
         // Simple check using pre-fetched set
@@ -2258,7 +2258,7 @@ function resolveTargetEntity(targetId) {
             log: member.log || []
         };
     }
-    
+
     // Check main characters
     if (LORE_DATA.characters && LORE_DATA.characters[targetId]) {
         const char = LORE_DATA.characters[targetId];
@@ -2271,7 +2271,7 @@ function resolveTargetEntity(targetId) {
             description: char.description
         };
     }
-    
+
     // Check factions - use simple lookup
     if (LORE_DATA.factions && LORE_DATA.factions[targetId]) {
         const faction = LORE_DATA.factions[targetId];
@@ -2284,7 +2284,7 @@ function resolveTargetEntity(targetId) {
             region: faction.region
         };
     }
-    
+
     // Unknown target - create from ID
     return {
         type: 'unknown',
@@ -2312,10 +2312,10 @@ function getTargetFactionRelations(targetId) {
     if (_targetRelationsCache.has(targetId)) {
         return _targetRelationsCache.get(targetId);
     }
-    
+
     const rumors = LORE_DATA.rumors || [];
     const factionEffects = {};
-    
+
     // Pre-fetch faction keys
     const knownFactionKeys = new Set();
     if (LORE_DATA.factions) {
@@ -2323,18 +2323,18 @@ function getTargetFactionRelations(targetId) {
     }
     const registryFactions = getAllFactions();
     Object.keys(registryFactions).forEach(k => knownFactionKeys.add(k));
-    
+
     rumors.forEach(rumor => {
         // Check if this target is involved in the rumor
         const isTarget = (rumor.targets || []).includes(targetId);
         const isInstigator = rumor.instigator === targetId;
         const isAffected = rumor.effects && rumor.effects[targetId] !== undefined;
-        
+
         if (isTarget || isInstigator || isAffected) {
             // Collect faction effects from this rumor
             Object.entries(rumor.effects || {}).forEach(([key, value]) => {
                 if (isStatKey(key)) return;
-                
+
                 const normalizedKey = toSystemId(key);
                 if (knownFactionKeys.has(key) || knownFactionKeys.has(normalizedKey)) {
                     factionEffects[key] = (factionEffects[key] || 0) + value;
@@ -2342,10 +2342,10 @@ function getTargetFactionRelations(targetId) {
             });
         }
     });
-    
+
     // Cache the result
     _targetRelationsCache.set(targetId, factionEffects);
-    
+
     return factionEffects;
 }
 
@@ -2362,20 +2362,20 @@ function invalidateTargetCache() {
 function getFilteredFactions() {
     const isDebug = state.debugMode;
     const allFactions = getUnifiedFactionList();
-    
+
     // Pre-compute target relations if needed
     let targetRelations = {};
     if (selectedTarget) {
         targetRelations = getTargetFactionRelations(selectedTarget);
     }
-    
+
     let factions = allFactions
 .filter(faction => {
     const intel = getIntelForFaction(faction.key);
     if (!isDebug && intel <= 0) {
         // Always show story arc and rumor-discovered factions even with 0 intel
         if (faction.isFromStoryArc || faction.isFromRumors) return true;
-        
+
         if (faction.poiCount === 0 && faction.military === 0 && faction.economic === 0) {
             return false;
         }
@@ -2385,16 +2385,16 @@ function getFilteredFactions() {
         .map(faction => {
             const partyRep = getPartyAverageReputation(faction.key);
             const intel = getIntelForFaction(faction.key);
-            
+
             const playerReps = {};
             state.party.forEach(playerKey => {
                 playerReps[playerKey] = getPlayerReputation(playerKey, faction.key);
             });
-            
-            const targetRep = selectedTarget 
+
+            const targetRep = selectedTarget
                 ? (targetRelations[faction.key] || targetRelations[faction.registryId] || 0)
                 : 0;
-            
+
             return {
                 key: faction.key,
                 faction: faction,
@@ -2407,7 +2407,7 @@ function getFilteredFactions() {
                 isAutoGenerated: faction.isAutoGenerated
             };
         });
-    
+
     // NEW: Filter out minor/zero relations if toggle is on
     if (hideMinorRelations) {
         factions = factions.filter(f => {
@@ -2423,12 +2423,12 @@ function getFilteredFactions() {
             return Math.abs(rep) >= 2;
         });
     }
-    
+
     // ... rest of filters unchanged
     if (currentFilters.region !== 'all') {
         factions = factions.filter(f => f.region === currentFilters.region);
     }
-    
+
     if (currentFilters.standing !== 'all') {
         factions = factions.filter(f => {
             let rep;
@@ -2439,7 +2439,7 @@ function getFilteredFactions() {
             } else {
                 rep = f.partyRep;
             }
-            
+
             switch (currentFilters.standing) {
                 case 'friendly': return rep >= 50;
                 case 'neutral': return rep > -50 && rep < 50;
@@ -2448,16 +2448,16 @@ function getFilteredFactions() {
             }
         });
     }
-    
+
     if (currentFilters.search) {
         const search = currentFilters.search.toLowerCase();
-        factions = factions.filter(f => 
+        factions = factions.filter(f =>
             f.faction.name?.toLowerCase().includes(search) ||
             f.faction.description?.toLowerCase().includes(search) ||
             f.key.toLowerCase().includes(search)
         );
     }
-    
+
     // Sort
     switch (currentFilters.sort) {
         case 'name':
@@ -2487,7 +2487,7 @@ function getFilteredFactions() {
                 return repB - repA;
             });
     }
-    
+
     return factions;
 }
 
@@ -2498,10 +2498,10 @@ function getFilteredFactions() {
 function renderFiltersWithToggle() {
     const filterContainer = document.querySelector('.directory-filters');
     if (!filterContainer) return;
-    
+
     // Check if toggle already exists
     if (document.getElementById('hide-minor-toggle')) return;
-    
+
     const toggleHTML = `
         <div class="filter-group toggle-group">
             <label class="toggle-label" title="Hide factions with -1, 0, or +1 reputation">
@@ -2510,7 +2510,7 @@ function renderFiltersWithToggle() {
             </label>
         </div>
     `;
-    
+
     filterContainer.insertAdjacentHTML('beforeend', toggleHTML);
 }
 
@@ -2521,21 +2521,21 @@ function renderFiltersWithToggle() {
 
 function init() {
     console.log('[Directory] Initializing...');
-    
+
     // Clear caches on init
     invalidateFactionCache();
     invalidateTargetCache();
-    
+
     if (!state.finalReputations || Object.keys(state.finalReputations).length === 0) {
         loadState();
     }
-    
+
     selectedPlayer = state.loggedInUser !== 'generic' ? state.loggedInUser : state.party[0];
-    
+
     render();
     initEventListeners();
     handleHashRoute();
-    
+
     const allFactions = getUnifiedFactionList();
     console.log('[Directory] Initialized with', allFactions.length, 'factions (predefined + POI-extracted)');
 }
@@ -2547,9 +2547,9 @@ function init() {
 function initEventListeners() {
     const mainContent = document.getElementById('main-content');
     if (!mainContent) return;
-    
+
     window.addEventListener('hashchange', handleHashRoute);
-    
+
     // Why button
     document.addEventListener('click', (e) => {
         const whyBtn = e.target.closest('.fc-why-btn');
@@ -2560,7 +2560,7 @@ function initEventListeners() {
             renderWhyModal(factionKey);
             return;
         }
-        
+
         // Clear perspective button
         const clearBtn = e.target.closest('#clear-perspective-btn');
         if (clearBtn) {
@@ -2584,7 +2584,7 @@ function initEventListeners() {
             render();
             return;
         }
-        
+
         // Party member selection
         const partyMember = e.target.closest('.party-member-item');
         if (partyMember) {
@@ -2595,13 +2595,13 @@ function initEventListeners() {
             render();
             return;
         }
-        
+
         // Notable figure/NPC selection
         const figureItem = e.target.closest('.figure-item');
         if (figureItem) {
             playSound('click.mp3', 0.5);
             const targetId = figureItem.dataset.target;
-            
+
             if (selectedTarget === targetId) {
                 selectedTarget = null;
             } else {
@@ -2612,7 +2612,7 @@ function initEventListeners() {
             render();
             return;
         }
-        
+
         // Faction cards
         const factionCard = e.target.closest('.faction-card, .pv-faction-item, .matrix-row, .intel-item');
         if (factionCard && !e.target.closest('button')) {
@@ -2622,7 +2622,7 @@ function initEventListeners() {
             renderFactionDetailModal(factionKey);
             return;
         }
-        
+
         const detailsBtn = e.target.closest('.fc-details-btn');
         if (detailsBtn) {
             playSound('click.mp3', 0.5);
@@ -2632,7 +2632,7 @@ function initEventListeners() {
             return;
         }
     });
-    
+
     // Modal close
     const modalClose = document.getElementById('modal-close-btn');
     if (modalClose) {
@@ -2642,7 +2642,7 @@ function initEventListeners() {
             window.location.hash = '';
         });
     }
-    
+
     const modal = document.getElementById('faction-detail-modal');
     if (modal) {
         modal.addEventListener('click', (e) => {
@@ -2652,28 +2652,28 @@ function initEventListeners() {
             }
         });
     }
-    
+
     // Filters
     document.getElementById('region-filter')?.addEventListener('change', (e) => {
         currentFilters.region = e.target.value;
         render();
     });
-    
+
     document.getElementById('standing-filter')?.addEventListener('change', (e) => {
         currentFilters.standing = e.target.value;
         render();
     });
-    
+
     document.getElementById('sort-filter')?.addEventListener('change', (e) => {
         currentFilters.sort = e.target.value;
         render();
     });
-    
+
     document.getElementById('search-filter')?.addEventListener('input', (e) => {
         currentFilters.search = e.target.value;
         render();
     });
-    
+
     // Hide minor relations toggle
     document.addEventListener('change', (e) => {
         if (e.target.id === 'hide-minor-toggle') {
@@ -2682,7 +2682,7 @@ function initEventListeners() {
             render();
         }
     });
-    
+
     // Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
@@ -2694,10 +2694,10 @@ function initEventListeners() {
 }
 
 // Export cache invalidation for external use
-export { 
-    render, 
-    getFilteredFactions, 
-    getUnifiedFactionList, 
+export {
+    render,
+    getFilteredFactions,
+    getUnifiedFactionList,
     getUnifiedFaction,
     invalidateFactionCache,
     invalidateTargetCache
