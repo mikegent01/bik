@@ -722,7 +722,7 @@ function loadCustomWallets() {
 
 let WALLETS_DATA = null;
 function loadWalletsFromServer(callback) {
-  fetch('../../../wallets.json?t=' + Date.now(), { cache: 'no-cache' })
+  fetch('../../data/commerce/wallets.json?t=' + Date.now(), { cache: 'no-cache' })
     .then(r => r.ok ? r.json() : {})
     .then(json => {
       WALLETS_DATA = { ...(WALLETS || {}), ...json };
@@ -1211,7 +1211,7 @@ let ledgerLoading = false;
 function ensureLedger() {
   if (LEDGER || ledgerLoading || typeof fetch !== 'function') return;
   ledgerLoading = true;
-  fetch('../../../shop-purchases.json?t=' + Date.now())
+  fetch('../../data/commerce/shop-purchases.json?t=' + Date.now())
     .then(r => (r.ok ? r.json() : []))
     .then(j => { LEDGER = Array.isArray(j) ? j : []; ledgerLoading = false; if (S.view === 'orders' || S.view === 'wahprime') render(); renderHeader(); })
     .catch(() => { LEDGER = []; ledgerLoading = false; if (S.view === 'orders' || S.view === 'wahprime') render(); renderHeader(); });

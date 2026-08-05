@@ -1,10 +1,10 @@
-import { DINER_EVENT } from './events/diner-date-event.js';
+import { DINER_EVENT } from '../data/events/diner-date-event.js';
 import { state } from '../app/core/state.js';
 import { SCHEDULED_POSTS } from './events/scheduled-posts.js';
 import { CURRENT_GAME_DATE } from '../data/world/calendar.js';
-import { TOADETTE_TEST_EVENT } from './events/toadette-test-event.js';
-import { ARCHIE_FIASCO_EVENT } from './events/archie-fiasco-event.js';
-import { DAY14_CHATTER_EVENT } from './events/day14-chatter.js';
+import { TOADETTE_TEST_EVENT } from '../data/events/toadette-test-event.js';
+import { ARCHIE_FIASCO_EVENT } from '../data/events/archie-fiasco-event.js';
+import { DAY14_CHATTER_EVENT } from '../data/events/day14-chatter.js';
 
 
 const BASE_EVENTS = [
@@ -92,13 +92,13 @@ if (CURRENT_GAME_DATE.day >= 14 || state.debugMode) {
     allEvents.unshift(DINER_EVENT);
 
     // NEW: Capital Prison Deception event
-    const { PRISON_DECEPTION_EVENT } = await import('./events/prison-deception-event.js');
+    const { PRISON_DECEPTION_EVENT } = await import('./prison-deception-event.js');
     allEvents.unshift(PRISON_DECEPTION_EVENT);
 }
 
 // Conditionally add the Iron Hoof Day event (Day 15+)
 if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
-    const { IRON_HOOF_DAY_EVENT } = await import('./events/iron-hoof-day.js');
+    const { IRON_HOOF_DAY_EVENT } = await import('../app/systems/iron-hoof-day.js');
     allEvents.unshift(IRON_HOOF_DAY_EVENT);
 }
 
@@ -124,7 +124,7 @@ export async function loadEventPosts() {
 
     // Prioritize Iron Hoof Day posts at the very top if Day 15+ or debug
     if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
-        const { IRON_HOOF_DAY_POSTS } = await import('./events/iron-hoof-day.js');
+        const { IRON_HOOF_DAY_POSTS } = await import('../app/systems/iron-hoof-day.js');
         // Insert at the front so they display first even without sorting
         posts.unshift(...IRON_HOOF_DAY_POSTS);
     }
@@ -134,20 +134,20 @@ export async function loadEventPosts() {
 
     // --- Dynamic event posts ---
     if (CURRENT_GAME_DATE.day >= 14 || state.debugMode) {
-        const { DINER_POSTS } = await import('./events/diner-date-event.js');
+        const { DINER_POSTS } = await import('../data/events/diner-date-event.js');
         posts.push(...DINER_POSTS);
 
-        const { TOADETTE_TEST_POSTS } = await import('./events/toadette-test-event.js');
+        const { TOADETTE_TEST_POSTS } = await import('../data/events/toadette-test-event.js');
         posts.push(...TOADETTE_TEST_POSTS);
 
-        const { ARCHIE_FIASCO_POSTS } = await import('./events/archie-fiasco-event.js');
+        const { ARCHIE_FIASCO_POSTS } = await import('../data/events/archie-fiasco-event.js');
         posts.push(...ARCHIE_FIASCO_POSTS);
 
-        const { DAY14_CHATTER_POSTS } = await import('./events/day14-chatter.js');
+        const { DAY14_CHATTER_POSTS } = await import('../data/events/day14-chatter.js');
         posts.push(...DAY14_CHATTER_POSTS);
 
         // NEW: Capital Prison Deception posts
-        const { PRISON_DECEPTION_POSTS } = await import('./events/prison-deception-event.js');
+        const { PRISON_DECEPTION_POSTS } = await import('./prison-deception-event.js');
         posts.push(...PRISON_DECEPTION_POSTS);
     }
 
