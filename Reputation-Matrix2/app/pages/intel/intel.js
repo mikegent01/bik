@@ -1,7 +1,7 @@
-import { state, loadState } from '../../../state.js';
+import { state, loadState } from '../../core/state.js';
 import { LORE_DATA } from '../../../lore.js';
 import { getDetailedFactionAssessment } from './reputation.js';
-import { playSound } from '../../../common.js';
+import { playSound } from '../../core/common.js';
 import { getIntelForFaction } from '../../../systems/common.js';
 
 const selectorContainer = document.getElementById('character-selector-container');

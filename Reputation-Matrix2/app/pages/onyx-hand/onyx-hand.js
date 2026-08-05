@@ -2,7 +2,7 @@
 
 import { LORE_DATA } from '../../../lore.js';
 import { getIntelForFaction } from '../../../systems/common.js';
-import { state } from '../../../state.js';
+import { state } from '../../core/state.js';
 import { getAbsoluteDay } from '../../../data/support/research-data.js';
 import { MOON_PHASES, CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA } from '../../../data/world/calendar.js';
 

@@ -10,7 +10,7 @@ import { CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 // Try to import state, but don't fail if it doesn't work
 let state = { userState: { following: [] }, party: [], debugMode: false };
 try {
-    const stateModule = await import('../../../state.js');
+    const stateModule = await import('../../core/state.js');
     if (stateModule.state) state = stateModule.state;
     if (stateModule.loadState) stateModule.loadState();
 } catch (e) {

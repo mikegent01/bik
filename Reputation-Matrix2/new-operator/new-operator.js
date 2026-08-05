@@ -1,4 +1,4 @@
-import { playSound } from '../common.js';
+import { playSound } from '../app/core/common.js';
 import { LORE_DATA } from '../lore.js';
 import { NEW_OPERATOR_QUESTS } from './new-operator-quests.js';
 import { RACES, FACTIONS, WALUIGI_REGION_TIPS, RACE_QUESTS, REGION_STARTING_ITEMS } from './new-operator-data.js';

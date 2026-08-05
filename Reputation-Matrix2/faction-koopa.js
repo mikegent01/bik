@@ -3,10 +3,10 @@
 // Fixed Version - Working Layout
 // ============================================
 
-import { state, loadState } from './state.js';
+import { state, loadState } from './app/core/state.js';
 import { getIntelBreakdown } from './systems/common.js';
 import { MAP_DATA } from './data/maps/map-data.js';
-import { playSound } from './common.js';
+import { playSound } from './app/core/common.js';
 
 // ============================================
 // COMPLETE LORE & DATA

@@ -1,10 +1,10 @@
 // map-renderer.js - Handles all map rendering logic
 
-import { state } from '../../../state.js';
+import { state } from '../../core/state.js';
 import { MAP_DATA, BUILDING_TYPES } from '../../../data/maps/map-data.js';
 import { LORE_DATA } from '../../../lore.js';
 import { getIntelForFaction } from '../../../systems/common.js';
-import { playSound } from '../../../common.js';
+import { playSound } from '../../core/common.js';
 import * as map from './maps.js';
 import { resetTransform, getZoomLevel } from './map-transform.js';
 import { QUEST_DATA } from '../../../data/quest-system/index.js';

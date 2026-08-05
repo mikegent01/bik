@@ -1,5 +1,5 @@
 
-import { state } from '../state.js';
+import { state } from '../app/core/state.js';
 import { LORE_DATA } from '../lore.js';
 import { getSubFactionReputation } from '../reputation.js';
 import { calculateRumorMetrics } from '../data/support/research-data.js';

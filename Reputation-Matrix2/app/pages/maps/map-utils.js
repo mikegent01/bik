@@ -1,4 +1,4 @@
-import { state } from '../../../state.js';
+import { state } from '../../core/state.js';
 import { getIntelForFaction } from '../../../systems/common.js';
 import { MAP_DATA } from '../../../data/maps/map-data.js';
 import { LEGAL_DATA } from '../../../data/laws/legal_data.js';

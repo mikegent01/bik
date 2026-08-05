@@ -1,4 +1,4 @@
-import { state } from './state.js'; // Needed for seeded random if we use state
+import { state } from '../app/core/state.js'; // Needed for seeded random if we use state
 import {STORY_ARCS} from './lore.js';
 export const CURRENT_GAME_DATE = {
     year: 1040,

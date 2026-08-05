@@ -11,8 +11,8 @@ import {
     isQuestUpdatedRecently,
     getUrgentQuests
 } from '../../../data/quest-system/index.js';
-import { playSound } from '../../../common.js';
-import { state } from '../../../state.js';
+import { playSound } from '../../core/common.js';
+import { state } from '../../core/state.js';
 import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 

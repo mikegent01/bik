@@ -5,7 +5,7 @@
 
 import { MOON_PHASES, CURRENT_GAME_DATE, CURRENT_GAME_TIME } from '../../../data/world/calendar.js';
 import { getIntelForFaction } from '../../../common-1.js';
-import { state } from '../../../state.js';
+import { state } from '../../core/state.js';
 
 // ============================================
 // EXTENDED DATA (Pack-specific)

@@ -1,5 +1,5 @@
 import { DINER_EVENT } from './events/diner-date-event.js';
-import { state } from './state.js';
+import { state } from '../app/core/state.js';
 import { SCHEDULED_POSTS } from './events/scheduled-posts.js';
 import { CURRENT_GAME_DATE } from '../data/world/calendar.js';
 import { TOADETTE_TEST_EVENT } from './events/toadette-test-event.js';

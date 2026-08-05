@@ -1,5 +1,5 @@
 import { LORE_DATA, CHARACTER_RELATIONS } from '../../../lore.js';
-import { state } from '../../../state.js';
+import { state } from '../../core/state.js';
 import { FACTION_COLORS } from '../../../factions/faction-colors.js';
 
 // ============================================

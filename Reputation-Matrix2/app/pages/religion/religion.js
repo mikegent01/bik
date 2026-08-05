@@ -1,9 +1,9 @@
 
 
 import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
-import { playSound } from '../../../common.js';
+import { playSound } from '../../core/common.js';
 import { RELIGION_DATA } from '../../../data/support/religion-data.js';
-import { state } from '../../../state.js'; // Import state to get logged-in user
+import { state } from '../../core/state.js'; // Import state to get logged-in user
 
 // DOM Elements
 const chartCanvas = document.getElementById('religion-chart');

@@ -1,5 +1,5 @@
 
-import { playSound } from '../../../common.js';
+import { playSound } from '../../core/common.js';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 

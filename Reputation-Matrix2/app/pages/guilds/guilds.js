@@ -11,8 +11,8 @@ import {
     getPlayerGuildData,
     getAllPlayerGuilds
 } from '../../../data/factions/guilds-data.js';
-import { state, loadState } from '../../../state.js';
-import { playSound } from '../../../common.js';
+import { state, loadState } from '../../core/state.js';
+import { playSound } from '../../core/common.js';
 // Add to guilds.js - at the top with other imports
 
 import { getReputation, getGenericFactionAssessment } from '../../../reputation.js';

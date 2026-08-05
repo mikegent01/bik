@@ -2,7 +2,7 @@
 // Enhanced with Iron Legion Integration - COMPLETE
 
 import { LORE_DATA, CHARACTER_RELATIONS } from '../lore.js';
-import { state } from '../state.js';
+import { state } from '../app/core/state.js';
 import { CURRENT_GAME_DATE, CALENDAR_DATA } from '../data/world/calendar.js';
 import { IRON_LEGION_DATA, LEGION_QUOTES, THREAT_ASSESSMENT } from '../data/factions/iron-legion-data.js';
 // ============================================

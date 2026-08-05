@@ -1,8 +1,8 @@
 // This module handles the rendering and interaction for the Rebel Clans' unique system.
 
 import { LORE_DATA } from '../lore.js';
-import { getIntelForFaction } from './common.js';
-import { state } from '../state.js';
+import { getIntelForFaction } from '../app/core/common.js';
+import { state } from '../app/core/state.js';
 
 export function renderRebelClansSystem() {
     const data = LORE_DATA.faction_details.rebel_clans;

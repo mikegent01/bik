@@ -1,5 +1,5 @@
-import { playSound } from '../../../common.js';
-import { state } from '../../../state.js';
+import { playSound } from '../../core/common.js';
+import { state } from '../../core/state.js';
 import { getIntelForFaction } from '../../../systems/common.js';
 
 // ============================================================================

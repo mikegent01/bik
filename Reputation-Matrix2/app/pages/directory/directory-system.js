@@ -1,10 +1,10 @@
 // directory-system.js - Player Relations Focused Directory System
 
-import { state, loadState } from '../../../state.js';
+import { state, loadState } from '../../core/state.js';
 import { FACTION_ASSESSMENTS } from '../../../data/support/assessments.js';
 import { getReputation, getGenericFactionAssessment } from '../../../reputation.js';
 import { getIntelForFaction, getIntelBreakdown } from '../../../systems/common.js';
-import { playSound } from '../../../common.js';
+import { playSound } from '../../core/common.js';
 import {AUXILIARY_PARTY} from '../../../party-and-events.js'
 import { getAllFactions, getFaction, getFactionStats, toSystemId } from '../../../systems/faction-registry.js';
 import { getRealTimeMapStats } from '../../../global-map-analysis.js';

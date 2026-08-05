@@ -1,5 +1,5 @@
-import { loadState } from './state.js';
-import { router, renderPartyList, renderEventList, setupEventListeners } from './ui.js';
+import { loadState } from './app/core/state.js';
+import { router, renderPartyList, renderEventList, setupEventListeners } from './app/core/ui.js';
 
 /**
  * Renders the main UI components that are present on every view.

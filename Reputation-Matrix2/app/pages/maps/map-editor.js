@@ -1,4 +1,4 @@
-import { playSound } from '../../../common.js';
+import { playSound } from '../../core/common.js';
 import * as map from './maps.js';
 import * as renderer from './map-renderer.js';
 import { MAP_DATA, BUILDING_TYPES } from '../../../data/maps/map-data.js';

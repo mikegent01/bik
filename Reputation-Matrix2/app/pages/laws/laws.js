@@ -4,7 +4,7 @@ import { LORE_DATA } from '../../../lore.js';
 import { CULTURE_DATA } from '../../../data/support/culture-data.js';
 import { SPECIES_DATA, REGIONAL_DEMOGRAPHICS } from '../../../data/support/species-data.js';
 import { MAP_DATA } from '../../../data/maps/map-data.js';
-import { playSound } from '../../../common.js';
+import { playSound } from '../../core/common.js';
 
 const codexContainer = document.getElementById('codex-container');
 const statsContainer = document.getElementById('cultural-stats-container');
