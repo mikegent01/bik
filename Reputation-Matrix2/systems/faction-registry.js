@@ -9,7 +9,7 @@ import { MAP_DATA } from '../data/maps/map-data.js';
 import { LORE_DATA } from '../lore.js';
 import { MIDLANDS_FACTIONS } from '../factions/midlands.js';
 import { MUSHROOM_KINGDOM_FACTIONS } from '../factions/mushroom-kingdom.js';
-import { WIDESPREAD_FACTIONS } from '../widespread.js';
+import { WIDESPREAD_FACTIONS } from '../data/world/realms/widespread.js';
 import { WILDERLANDS_FACTIONS } from '../factions/wilderlands.js';
 import { MIDDLE_EARTH_FACTIONS } from '../factions/middle-earth.js';
 import { INTERNET_FACTIONS } from '../factions/internet.js';
