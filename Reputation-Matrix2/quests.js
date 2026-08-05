@@ -571,7 +571,7 @@ function renderQuestModal(questId) {
                                     <span class="consequence-icon">${type.icon}</span>
                                     <span class="consequence-label">${type.label}</span>
                                 </div>
-                                <p class="consequence-text">${val}</p>
+                                <div class="consequence-text">${typeof val === 'object' ? Object.entries(val).map(([label, text]) => `<p><strong>${label.replace(/_/g, ' ')}</strong>: ${text}</p>`).join('') : val}</div>
                             </div>
                         `;
                     }).join('')}
