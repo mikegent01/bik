@@ -75,7 +75,7 @@ const JS_DEPENDENCIES = {
     'warhammer-maps.html': ['warhammer.js', 'requests-warhammer.js', 'map-battle-data-warhammer.js'],
     
     // Misc
-    'global-war.html': ['GlobeHead/global-war.js'],
+    'global-war.html': ['app/systems/global-war.js'],
     'family-tree.html': ['family-tree.js']
 };
 

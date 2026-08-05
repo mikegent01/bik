@@ -1,11 +1,11 @@
 // global-war.js
 
-import { getAllFactions, getFaction, getFactionStats, toSystemId } from '../systems/faction-registry.js';
-import { getRealTimeMapStats, getCuratedTerritoryList, getDetailedRegionStats, renderAnalyticsModal, getDetailedFactionStats } from '../global-map-analysis.js';
-import { CURRENT_GAME_DATE } from '../data/world/calendar.js';
-import { MAP_DATA } from '../map-data.js';
-import { renderTerritoryDetailModal } from '../systems/mushroom-kingdom-system.js'; 
-import { showFactionModal } from '../app/components/factions/faction-modal.js';
+import { getAllFactions, getFaction, getFactionStats, toSystemId } from '../../systems/faction-registry.js';
+import { getRealTimeMapStats, getCuratedTerritoryList, getDetailedRegionStats, renderAnalyticsModal, getDetailedFactionStats } from '../../global-map-analysis.js';
+import { CURRENT_GAME_DATE } from '../../data/world/calendar.js';
+import { MAP_DATA } from '../../map-data.js';
+import { renderTerritoryDetailModal } from '../../systems/mushroom-kingdom-system.js';
+import { showFactionModal } from '../components/factions/faction-modal.js';
 // ============================================
 // STATE
 // ============================================
@@ -67,7 +67,7 @@ function sortFactions(factions, sortBy) {
 // ============================================
 function renderViewControls() {
     const regions = getAllRegions();
-    
+
     return `
         <div class="view-controls">
             <div class="view-toggle">
@@ -78,7 +78,7 @@ function renderViewControls() {
                     🗺️ Region View
                 </button>
             </div>
-            
+
             ${currentView === 'region' ? `
                 <div class="region-selector">
                     <label for="region-select">Select Region:</label>
@@ -92,7 +92,7 @@ function renderViewControls() {
                     </select>
                 </div>
             ` : ''}
-            
+
             <div class="sort-controls">
                 <label>Sort by:</label>
                 <div class="sort-buttons">
@@ -122,7 +122,7 @@ function renderViewControls() {
 // ============================================
 function renderGlobalStrategicOverview(stats) {
     const allFactions = getAllFactions();
-    
+
     const totalPois = Object.values(stats.global).reduce((acc, f) => acc + (f.poiCount || 0), 0) || 1;
 
     // Get active factions and apply filter
@@ -131,8 +131,8 @@ function renderGlobalStrategicOverview(stats) {
             if (id === 'unaligned') return false;
             const data = stats.global[id];
             if (!data) return false;
-            return (data.military || 0) > 0 || 
-                   (data.economic || 0) > 0 || 
+            return (data.military || 0) > 0 ||
+                   (data.economic || 0) > 0 ||
                    (data.political || 0) > 0 ||
                    (data.poiCount || 0) > 0;
         })
@@ -162,7 +162,7 @@ function renderGlobalStrategicOverview(stats) {
     factionData = factionData.sort((a, b) => b.totalPower - a.totalPower);
 
     const displayFactions = factionData; // Show ALL factions
-    
+
     const claimedPercent = factionData.reduce((acc, f) => acc + f.poiPercent, 0);
     const unclaimedPercent = Math.max(0, 100 - claimedPercent);
 
@@ -183,9 +183,9 @@ function renderGlobalStrategicOverview(stats) {
         }
         return style;
     };
-    
+
     // Reset used colors for stacking logic
-    const stackColorMap = new Map(); 
+    const stackColorMap = new Map();
 
     const stackedSegments = displayFactions.map(f => {
         let style = `width: ${f.poiPercent}%; background: ${f.color};`;
@@ -196,9 +196,9 @@ function renderGlobalStrategicOverview(stats) {
         } else {
             stackColorMap.set(f.color, 1);
         }
-        
+
         return `
-        <div class="control-segment ${f.isAuto ? 'auto-segment' : ''}" 
+        <div class="control-segment ${f.isAuto ? 'auto-segment' : ''}"
              style="${style}"
              title="${f.name}: ${f.poiPercent.toFixed(1)}% (${f.poiCount} POIs)">
         </div>
@@ -207,7 +207,7 @@ function renderGlobalStrategicOverview(stats) {
 
     // Reset for rows/legend to match
     usedColors.clear();
-    
+
     const powerRows = displayFactions.map(f => `
         <div class="power-comparison-row ${f.isAuto ? 'auto-faction' : ''}">
             <div class="pcr-faction" style="color: ${f.color};">
@@ -319,15 +319,15 @@ function renderGlobalStrategicOverview(stats) {
 // MAIN RENDER
 // ============================================
 export function renderGlobalWar() {
-    
+
     // Get stats based on current view
     let stats;
-    
+
     if (currentView === 'region' && currentRegion) {
         // Region view: stats for specific region
         // We use getDetailedRegionStats but need to shape it like the global stats object for consistency
         const detailed = getDetailedRegionStats(currentRegion);
-        
+
         // Re-build stats.global to contain sum for this region
         const globalStats = {};
         if (detailed && detailed.pois) {
@@ -348,9 +348,9 @@ export function renderGlobalWar() {
                 if (globalStats[fid]) globalStats[fid].activeRegions = 1;
             });
         }
-        
+
         stats = {
-            global: globalStats, 
+            global: globalStats,
             regions: detailed ? [detailed] : []
         };
 
@@ -358,7 +358,7 @@ export function renderGlobalWar() {
         // Global view: all full maps
         stats = getRealTimeMapStats();
     }
-    
+
     const territories = getCuratedTerritoryList(); // Used for sidebar
     const allFactions = getAllFactions();
 
@@ -368,8 +368,8 @@ export function renderGlobalWar() {
             if (key === 'unaligned') return false;
             const fStats = stats.global[key];
             if (!fStats) return false;
-            return (fStats.military || 0) > 0 || 
-                   (fStats.economic || 0) > 0 || 
+            return (fStats.military || 0) > 0 ||
+                   (fStats.economic || 0) > 0 ||
                    (fStats.poiCount || 0) > 0;
         })
         .map(([key, faction]) => {
@@ -388,11 +388,11 @@ export function renderGlobalWar() {
 
     // Apply sorting
     allActiveFactions = sortFactions(allActiveFactions, currentSort);
-    
+
     // Split into manual and auto-discovered
     const manualFactions = allActiveFactions.filter(([, faction]) => !faction.isAutoGenerated);
     const autoFactions = allActiveFactions.filter(([, faction]) => faction.isAutoGenerated);
-    
+
     // Combine for display
     const activeFactions = [...manualFactions, ...autoFactions];
 
@@ -406,8 +406,8 @@ export function renderGlobalWar() {
         const highlightClass = (stat) => currentSort === stat ? 'stat-highlighted' : '';
 
         return `
-            <div class="faction-card ${faction.isAutoGenerated ? 'faction-auto' : ''}" 
-                 data-faction="${key}" 
+            <div class="faction-card ${faction.isAutoGenerated ? 'faction-auto' : ''}"
+                 data-faction="${key}"
                  style="border-top: 4px solid ${faction.color};">
                 <div class="faction-card-header" style="border-bottom-color: ${faction.color};">
                     <div class="faction-icon" style="background: ${faction.color}">${faction.icon}</div>
@@ -465,8 +465,8 @@ export function renderGlobalWar() {
     const territoryHTML = territories.length > 0 ? territories.slice(0, 10).map(region => {
         const controllerDef = getFaction(region.controller);
         return `
-            <div class="territory-item ${region.isContested ? 'contested' : ''}" 
-                 data-region-id="${region.id}" 
+            <div class="territory-item ${region.isContested ? 'contested' : ''}"
+                 data-region-id="${region.id}"
                  style="border-left: 3px solid ${controllerDef.color};">
                 <div class="territory-icon">${region.isContested ? '🔥' : '🌍'}</div>
                 <div class="territory-info">
@@ -517,7 +517,7 @@ export function renderGlobalWar() {
                             ${territoryHTML}
                         </div>
                     </div>
-                    
+
                     <div class="events-section">
                         <h3 class="section-title">📊 Analytics</h3>
                         <button id="btn-view-analytics" class="cw-btn-primary" style="width: 100%;">View Full Report</button>
@@ -575,7 +575,7 @@ export function initGlobalWarListeners() {
             const regionId = terrItem.dataset.regionId;
             const detailedRegion = getDetailedRegionStats(regionId);
             if (detailedRegion) {
-                const html = renderTerritoryDetailModal(detailedRegion); 
+                const html = renderTerritoryDetailModal(detailedRegion);
                 document.body.insertAdjacentHTML('beforeend', html);
                 requestAnimationFrame(() => {
                     const overlay = document.getElementById('terr-modal');
@@ -612,7 +612,7 @@ export function initGlobalWarListeners() {
 // ============================================
 function showGlobalFactionModal(factionKey) {
     const registryId = toSystemId(factionKey);
-    
+
     // Use the full-featured modal from faction-modal.js
     if (window.showFactionModal) {
         window.showFactionModal(registryId);
@@ -627,14 +627,14 @@ function showGlobalFactionModal(factionKey) {
 function renderGlobalFactionDetailModal(registryId) {
     const faction = getFaction(registryId);
     if (!faction) return '';
-    
+
     const detailedStats = getDetailedFactionStats(registryId);
-    
+
     // Get top POIs (sorted by value)
     const topPois = (detailedStats.pois || [])
         .sort((a, b) => (b.military_strength + b.economic_value) - (a.military_strength + a.economic_value))
         .slice(0, 10);
-    
+
     return `
         <div class="faction-modal-overlay" id="faction-modal-${registryId}">
             <div class="faction-modal faction-modal-large">
@@ -654,13 +654,13 @@ function renderGlobalFactionDetailModal(registryId) {
                         <div class="stat-hero-card"><div class="stat-hero-value">${detailedStats.activeRegions}</div><div class="stat-hero-label">Active Regions</div></div>
                         <div class="stat-hero-card"><div class="stat-hero-value">${detailedStats.poiCount}</div><div class="stat-hero-label">POIs</div></div>
                     </div>
-                    
+
                     <div class="modal-two-column">
                         <div class="modal-column">
                             <div class="modal-section">
                                 <h4>🌍 Active Regions</h4>
                                 <div class="region-chips">
-                                     ${(detailedStats.regions && detailedStats.regions.length > 0) ? 
+                                     ${(detailedStats.regions && detailedStats.regions.length > 0) ?
                                         detailedStats.regions.map(r => `
                                             <div class="region-chip">
                                                 <span class="region-chip-icon">${r.isContested ? '🔥' : '🌍'}</span>
@@ -704,12 +704,12 @@ function renderGlobalFactionDetailModal(registryId) {
 function rerenderGlobalWar() {
     const container = document.querySelector('.civil-war-system');
     if (!container) return;
-    
+
     const parent = container.parentElement;
     const newHTML = renderGlobalWar();
-    
+
     container.remove();
     parent.insertAdjacentHTML('beforeend', newHTML);
-    
+
     initGlobalWarListeners();
 }

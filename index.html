@@ -8774,7 +8774,7 @@ function view_imperial_network(){
 async function view_power() {
   renderSidebar('power');
   const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
-  const { renderGlobalWar, initGlobalWarListeners } = await import(pathPrefix + 'GlobeHead/global-war.js');
+  const { renderGlobalWar, initGlobalWarListeners } = await import(pathPrefix + 'app/systems/global-war.js');
   el('content').innerHTML = `
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Power Projection</div>
     <div class="card animate-fade-in">
