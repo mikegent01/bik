@@ -13,7 +13,7 @@ import {
 } from '../../../data/quest-system/index.js';
 import { playSound } from '../../../common.js';
 import { LORE_DATA, STORY_ARCS } from '../../../lore.js';
-import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../.../../../data/world/calendar.js';
+import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 
 // ============================================
 // CONFIGURATION - CUSTOMIZE YOUR IMAGE PATHS

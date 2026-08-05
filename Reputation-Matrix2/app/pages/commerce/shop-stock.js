@@ -1,5 +1,5 @@
 // shop-stock.js - Dynamic Stock System using Calendar Data
-import { CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA, generateWeatherForDay } from '../../.../../../data/world/calendar.js';
+import { CURRENT_GAME_DATE, CURRENT_GAME_TIME, CALENDAR_DATA, generateWeatherForDay } from '../../../data/world/calendar.js';
 
 // === STOCK TYPE DETERMINATION ===
 
