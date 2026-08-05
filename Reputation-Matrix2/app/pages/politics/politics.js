@@ -1,7 +1,7 @@
 // politics.js - Political Systems, Laws, and Governance Analysis
 // Focused on political structures, legislation, and diplomatic relations
 
-import { getAllFactions, getFaction } from './systems/faction-registry.js';
+import { getAllFactions, getFaction } from '../../../systems/faction-registry.js';
 import { 
     getFactionValues, 
     VALUE_AXES, 
@@ -9,10 +9,10 @@ import {
     getRelationshipLabel,
     getAllFactionsWithValues 
 } from './societal-values.js';
-import { RUMORS } from './party-and-events.js';
-import { STORY_ARCS,  } from './lore.js';
-import { MAJOR_BATTLES, CONFLICT_DETAILS } from './battlefield.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA, getDynamicTimestamp } from './data/world/calendar.js';
+import { RUMORS } from '../../../party-and-events.js';
+import { STORY_ARCS,  } from '../../../lore.js';
+import { MAJOR_BATTLES, CONFLICT_DETAILS } from '../battlefield/battlefield.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA, getDynamicTimestamp } from '../../../data/world/calendar.js';
 import { 
     calculateAllAlliances, 
     SCRIPTED_ALLIANCES,

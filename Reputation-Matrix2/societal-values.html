@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="layout.css">
     <link rel="stylesheet" href="components.css">
     <link rel="stylesheet" href="societal-values.css">
-    <link rel="stylesheet" href="faction-modal.css">
+    <link rel="stylesheet" href="app/components/factions/faction-modal.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -34,7 +34,7 @@
     <script type="module" src="common.js"></script>
     <script type="module" src="navigation.js"></script>
     <!-- Load faction modal FIRST so window.showFactionModal is available -->
-    <script type="module" src="faction-modal.js"></script>
+    <script type="module" src="app/components/factions/faction-modal.js"></script>
     <script type="module" src="societal-values.js"></script>
     <script type="module">
         import { renderSocietalValues, initSocietalValuesListeners, getAllFactionsWithValues } from './societal-values.js';

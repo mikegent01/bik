@@ -1,6 +1,6 @@
-import { LORE_DATA, CHARACTER_RELATIONS } from './lore.js';
-import { state } from './state.js';
-import { FACTION_COLORS } from './factions/faction-colors.js';
+import { LORE_DATA, CHARACTER_RELATIONS } from '../../../lore.js';
+import { state } from '../../../state.js';
+import { FACTION_COLORS } from '../../../factions/faction-colors.js';
 
 // ============================================
 // RELATIONSHIP MANAGER - Central Data Handler
