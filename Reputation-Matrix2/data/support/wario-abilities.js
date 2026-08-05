@@ -144,7 +144,7 @@
   function holder(k, sole) {
     const tone = STATUS_TONE(k.status);
     const link = k.articleId
-      ? `href="../index.html#/article/${encodeURIComponent(k.articleId)}"`
+      ? `href="../../index.html#/article/${encodeURIComponent(k.articleId)}"`
       : '';
     const Tag = k.articleId ? 'a' : 'div';
     return `<${Tag} class="wa-holder" ${link} style="--t:${tone}" ${k.articleId ? 'title="Open dossier in Waluipedia"' : ''}>
@@ -238,7 +238,7 @@
         ${rec && rec.grantedAboveLevel?.length
           ? `<span class="wa-granted" title="${esc(rec.grantedAboveLevel.map(g => g.name + ' (needs Lv' + g.requires + ')').join(', '))}">${rec.grantedAboveLevel.length} story-granted above level</span>`
           : ''}
-        ${c.articleId ? `<a class="wa-dossier" href="../index.html#/article/${encodeURIComponent(c.articleId)}">Open dossier →</a>` : ''}
+        ${c.articleId ? `<a class="wa-dossier" href="../../index.html#/article/${encodeURIComponent(c.articleId)}">Open dossier →</a>` : ''}
       </div>
       <div class="wa-ablist">
         ${c.abilities.slice().sort((a, b) => a.level - b.level).map(a =>

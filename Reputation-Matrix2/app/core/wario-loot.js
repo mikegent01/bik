@@ -87,7 +87,7 @@
     return `<div class="wl-lore">
       <div class="wl-lore-h">Appears in the story</div>
       <div class="wl-lore-links">${rec.refs.map(r =>
-        `<a class="wl-ref" href="../index.html${esc(r.route)}" title="Open in Waluipedia">
+        `<a class="wl-ref" href="../../index.html${esc(r.route)}" title="Open in Waluipedia">
            <span class="wl-ref-k">${esc(KIND_LABEL[r.kind] || r.kind)}</span>
            <span class="wl-ref-n">${esc(r.name)}</span>
          </a>`).join('')}</div>

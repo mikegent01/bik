@@ -57,7 +57,7 @@ function makeDefaultCalendar(){
 export async function loadCalendars(){
   if(_calendarsCache) return _calendarsCache;
   try{
-    const r=await fetch('./data/calendars.json',{cache:'no-cache'});
+    const r=await fetch('../calendars.json',{cache:'no-cache'});
     if(!r.ok) throw new Error('no calendars.json');
     const j=await r.json();
     _calendarsCache = j.calendars || [makeDefaultCalendar()];

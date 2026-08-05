@@ -24,7 +24,7 @@ if (CURRENT_GAME_DATE.day >= 14 || state.debugMode) {
 
 if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
     allEvents.unshift(BRAMBLEHAVEN_EVENT);
-    const { IRON_HOOF_DAY_EVENT } = await import('../events/iron-hoof-day.js');
+    const { IRON_HOOF_DAY_EVENT } = await import('../../app/systems/iron-hoof-day.js');
     allEvents.unshift(IRON_HOOF_DAY_EVENT);
 }
 
@@ -66,7 +66,7 @@ export async function loadEventPosts() {
         posts.push(...DAY14_CHATTER_POSTS);
     }
     if (CURRENT_GAME_DATE.day >= 15 || state.debugMode) {
-        const { IRON_HOOF_DAY_POSTS } = await import('../events/iron-hoof-day.js');
+        const { IRON_HOOF_DAY_POSTS } = await import('../../app/systems/iron-hoof-day.js');
         posts.push(...IRON_HOOF_DAY_POSTS);
     }
     if (CURRENT_GAME_DATE.day >= 20 || state.debugMode) {

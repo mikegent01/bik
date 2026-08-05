@@ -14,8 +14,8 @@
   // crafting index is now a first-class panel inside the shop rather than a
   // link that throws you out to the wiki.
   const LINKS = [
-    { href: '../index.html#/home',  icon: '🏠', label: 'Waluipedia' },
-    { href: '../index.html#/items', icon: '🎒', label: 'Item Index' },
+    { href: '../../index.html#/home',  icon: '🏠', label: 'Waluipedia' },
+    { href: '../../index.html#/items', icon: '🎒', label: 'Item Index' },
     { href: 'currency.html',        icon: '🏦', label: 'Bank' }
   ];
 
@@ -25,7 +25,7 @@
     const bar = document.createElement('header');
     bar.id = 'warioShell';
     bar.innerHTML = `
-      <a class="ws-brand" href="../index.html#/home" title="Back to Waluipedia">
+      <a class="ws-brand" href="../../index.html#/home" title="Back to Waluipedia">
         <span class="ws-logo">W</span>
         <span class="ws-brandtxt"><b>Waluipedia</b><em>Wario's Warehouse</em></span>
       </a>

@@ -39,7 +39,7 @@ function checkForNewPosts() {
 
 async function getPageUpdates() {
     try {
-        const response = await fetch(`./site-updates.json?t=${Date.now()}`);
+        const response = await fetch(`../../../data/support/site-updates.json?t=${Date.now()}`);
         if (!response.ok) {
             console.warn('⚠️ Could not find site-updates.json');
             return {};

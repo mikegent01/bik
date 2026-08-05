@@ -5560,8 +5560,8 @@ export function showLawCodexModal(lawKey) {
 }
 
 export async function showLibraryPopup(poi) {
-    const { LIBRARY_STOCKS } = await import('./books/library_stocks.js');
-    const { BOOK_DESCRIPTIONS } = await import('./books/book_descriptions.js');
+    const { LIBRARY_STOCKS } = await import('../../../books/library_stocks.js');
+    const { BOOK_DESCRIPTIONS } = await import('../../../books/book_descriptions.js');
 
     const bookKeys = LIBRARY_STOCKS[poi.libraryStockKey] || [];
 
