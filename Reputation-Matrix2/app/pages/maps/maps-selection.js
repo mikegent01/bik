@@ -159,10 +159,10 @@ function createCompositeMapTexture() {
     // Configuration for map images
     // pos: 'front' (Main/Outer), 'side' (Almost Edge/Rim), 'hole' (The Edge/Inner), 'hide' (Don't show)
     const rawMapImages = [
-        { src: 'edge.jpg', pos: 'side' },           // 1. Almost at the Edge
+        { src: 'assets/illustrations/edge.jpg', pos: 'side' },           // 1. Almost at the Edge
         { src: 'topia.jpg', pos: 'front' },          // 2. Animatopia
         { src: 'connectopia.png', pos: 'front' },    // 3. Connectopia
-        { src: 'earth_land.png', pos: 'front' },    // 4. Earth Land
+        { src: 'assets/illustrations/earth_land.png', pos: 'front' },    // 4. Earth Land
         { src: 'qaevyh08hsx51.webp', pos: 'front' }, // 5. Doughnut Hole
         { src: 'wa.jpg', pos: 'front' },             // 6. Warhammer
         { src: 'mushroom_kingdom.jpg', pos: 'hide' }, // 7. MK (HIDDEN)

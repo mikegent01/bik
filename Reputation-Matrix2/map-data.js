@@ -30,7 +30,7 @@ import { ironwoodData } from './map-data/ironwood-pois.js';
 import { lockerwoodData } from './map-data/lockerwood-pois.js';
 import { dragonMountainData } from './map-data/dragon-mountain-pois.js';
 import { autumnwoodData } from './map-data/autumnwood-pois.js';
-import { 
+import {
     earthLandData,
     northAmericaData, southAmericaData, africaData, asiaData, azaniaData, terraNovaData,
     atenData, anubisData, amunRaData, horusData, tothData, apisiaData, minMnevisData,
@@ -178,7 +178,7 @@ export const MDATA_F = {
             ...(yaleShoresData.fogOfWar || []),
         ],
         poiSourceFile: null
-    },    
+    },
 
     mushroom_kingdom: {
         id: 'mushroom_kingdom',
@@ -379,7 +379,7 @@ export const MDATA_F = {
         pointsOfInterest: iceIceOutpostData.pointsOfInterest,
         fogOfWar: iceIceOutpostData.fogOfWar || [],
         poiSourceFile: 'map-data/ice-ice-outpost-pois.js'
-    },    
+    },
 }
 export const MAP_DATA = {
     animatopia_full: {
@@ -1467,7 +1467,7 @@ export const MAP_DATA = {
         order: 1,
         group: 'Pokémon Regions',
         pointsOfInterest: pokemonData.pointsOfInterest,
-        fogOfWar: [], 
+        fogOfWar: [],
         poiSourceFile: null
     },
     unova: {
@@ -1538,7 +1538,7 @@ export const MAP_DATA = {
     almost_edge_full: {
         id: 'almost_edge_full',
         name: 'Almost at the Edge',
-        imageSrc: 'edge.jpg',
+        imageSrc: 'assets/illustrations/edge.jpg',
         order: 1,
         group: 'The Edge Regions',
         pointsOfInterest: almostEdgeData.pointsOfInterest,
@@ -1568,7 +1568,7 @@ export const MAP_DATA = {
    earth_land_full: {
         id: 'earth_land_full',
         name: 'Earth Land',
-        imageSrc: 'earth_land.png',
+        imageSrc: 'assets/illustrations/earth_land.png',
         order: 1,
         group: 'Earth Land',
         pointsOfInterest: [
@@ -1995,52 +1995,52 @@ export const MAP_DATA = {
     },
 
     // --- EARTH LAND / REAL WORLD CONTINENTS ---
-    north_america: { id: 'north_america', name: 'North America', imageSrc: 'earth_land.png', group: 'Earth Continents', pointsOfInterest: northAmericaData.pointsOfInterest, fogOfWar: northAmericaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    south_america: { id: 'south_america', name: 'South America', imageSrc: 'earth_land.png', group: 'Earth Continents', pointsOfInterest: southAmericaData.pointsOfInterest, fogOfWar: southAmericaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    africa: { id: 'africa', name: 'Africa', imageSrc: 'earth_land.png', group: 'Earth Continents', pointsOfInterest: africaData.pointsOfInterest, fogOfWar: africaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    asia: { id: 'asia', name: 'Asia', imageSrc: 'earth_land.png', group: 'Earth Continents', pointsOfInterest: asiaData.pointsOfInterest, fogOfWar: asiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    azania: { id: 'azania', name: 'Azania', imageSrc: 'earth_land.png', group: 'Earth Continents', pointsOfInterest: azaniaData.pointsOfInterest, fogOfWar: azaniaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    terra_nova: { id: 'terra_nova', name: 'Terra Nova', imageSrc: 'earth_land.png', group: 'Earth Continents', pointsOfInterest: terraNovaData.pointsOfInterest, fogOfWar: terraNovaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    north_america: { id: 'north_america', name: 'North America', imageSrc: 'assets/illustrations/earth_land.png', group: 'Earth Continents', pointsOfInterest: northAmericaData.pointsOfInterest, fogOfWar: northAmericaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    south_america: { id: 'south_america', name: 'South America', imageSrc: 'assets/illustrations/earth_land.png', group: 'Earth Continents', pointsOfInterest: southAmericaData.pointsOfInterest, fogOfWar: southAmericaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    africa: { id: 'africa', name: 'Africa', imageSrc: 'assets/illustrations/earth_land.png', group: 'Earth Continents', pointsOfInterest: africaData.pointsOfInterest, fogOfWar: africaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    asia: { id: 'asia', name: 'Asia', imageSrc: 'assets/illustrations/earth_land.png', group: 'Earth Continents', pointsOfInterest: asiaData.pointsOfInterest, fogOfWar: asiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    azania: { id: 'azania', name: 'Azania', imageSrc: 'assets/illustrations/earth_land.png', group: 'Earth Continents', pointsOfInterest: azaniaData.pointsOfInterest, fogOfWar: azaniaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    terra_nova: { id: 'terra_nova', name: 'Terra Nova', imageSrc: 'assets/illustrations/earth_land.png', group: 'Earth Continents', pointsOfInterest: terraNovaData.pointsOfInterest, fogOfWar: terraNovaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
 
     // --- DIVINE REALMS (EGYPTIAN) ---
-    aten: { id: 'aten', name: 'Aten', imageSrc: 'earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: atenData.pointsOfInterest, fogOfWar: atenData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    anubis: { id: 'anubis', name: 'Anubis', imageSrc: 'earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: anubisData.pointsOfInterest, fogOfWar: anubisData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    amun_ra: { id: 'amun_ra', name: 'Amun-Ra', imageSrc: 'earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: amunRaData.pointsOfInterest, fogOfWar: amunRaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    horus: { id: 'horus', name: 'Horus', imageSrc: 'earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: horusData.pointsOfInterest, fogOfWar: horusData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    toth: { id: 'toth', name: 'Toth', imageSrc: 'earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: tothData.pointsOfInterest, fogOfWar: tothData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    apisia: { id: 'apisia', name: 'Apisia', imageSrc: 'earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: apisiaData.pointsOfInterest, fogOfWar: apisiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    min_mnevis: { id: 'min_mnevis', name: 'Min & Mnevis', imageSrc: 'earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: minMnevisData.pointsOfInterest, fogOfWar: minMnevisData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    aten: { id: 'aten', name: 'Aten', imageSrc: 'assets/illustrations/earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: atenData.pointsOfInterest, fogOfWar: atenData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    anubis: { id: 'anubis', name: 'Anubis', imageSrc: 'assets/illustrations/earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: anubisData.pointsOfInterest, fogOfWar: anubisData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    amun_ra: { id: 'amun_ra', name: 'Amun-Ra', imageSrc: 'assets/illustrations/earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: amunRaData.pointsOfInterest, fogOfWar: amunRaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    horus: { id: 'horus', name: 'Horus', imageSrc: 'assets/illustrations/earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: horusData.pointsOfInterest, fogOfWar: horusData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    toth: { id: 'toth', name: 'Toth', imageSrc: 'assets/illustrations/earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: tothData.pointsOfInterest, fogOfWar: tothData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    apisia: { id: 'apisia', name: 'Apisia', imageSrc: 'assets/illustrations/earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: apisiaData.pointsOfInterest, fogOfWar: apisiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    min_mnevis: { id: 'min_mnevis', name: 'Min & Mnevis', imageSrc: 'assets/illustrations/earth_land.png', group: 'Divine Kingdoms', pointsOfInterest: minMnevisData.pointsOfInterest, fogOfWar: minMnevisData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
 
     // --- MYTHIC ISLES & LOST LANDS ---
-    mu: { id: 'mu', name: 'Mu', imageSrc: 'earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: muData.pointsOfInterest, fogOfWar: muData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    greater_lemuria: { id: 'greater_lemuria', name: 'Greater Lemuria', imageSrc: 'earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: greaterLemuriaData.pointsOfInterest, fogOfWar: greaterLemuriaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    isle_of_blessed: { id: 'isle_of_blessed', name: 'Isle of the Blessed', imageSrc: 'earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: isleOfBlessedData.pointsOfInterest, fogOfWar: isleOfBlessedData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    aval_ons: { id: 'aval_ons', name: 'The Aval Ons', imageSrc: 'earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: avalOnsData.pointsOfInterest, fogOfWar: avalOnsData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    scylla_charybdis: { id: 'scylla_charybdis', name: 'Scylla & Chary Bois', imageSrc: 'earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: scyllaCharybdisData.pointsOfInterest, fogOfWar: scyllaCharybdisData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    garden_isles: { id: 'garden_isles', name: 'The Garden Islse', imageSrc: 'earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: gardenIslesData.pointsOfInterest, fogOfWar: gardenIslesData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    crimision_isle: { id: 'crimision_isle', name: 'Crimision Isle', imageSrc: 'earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: crimisionIsleData.pointsOfInterest, fogOfWar: crimisionIsleData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    mu: { id: 'mu', name: 'Mu', imageSrc: 'assets/illustrations/earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: muData.pointsOfInterest, fogOfWar: muData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    greater_lemuria: { id: 'greater_lemuria', name: 'Greater Lemuria', imageSrc: 'assets/illustrations/earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: greaterLemuriaData.pointsOfInterest, fogOfWar: greaterLemuriaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    isle_of_blessed: { id: 'isle_of_blessed', name: 'Isle of the Blessed', imageSrc: 'assets/illustrations/earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: isleOfBlessedData.pointsOfInterest, fogOfWar: isleOfBlessedData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    aval_ons: { id: 'aval_ons', name: 'The Aval Ons', imageSrc: 'assets/illustrations/earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: avalOnsData.pointsOfInterest, fogOfWar: avalOnsData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    scylla_charybdis: { id: 'scylla_charybdis', name: 'Scylla & Chary Bois', imageSrc: 'assets/illustrations/earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: scyllaCharybdisData.pointsOfInterest, fogOfWar: scyllaCharybdisData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    garden_isles: { id: 'garden_isles', name: 'The Garden Islse', imageSrc: 'assets/illustrations/earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: gardenIslesData.pointsOfInterest, fogOfWar: gardenIslesData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    crimision_isle: { id: 'crimision_isle', name: 'Crimision Isle', imageSrc: 'assets/illustrations/earth_land.png', group: 'Lost Continents & Myths', pointsOfInterest: crimisionIsleData.pointsOfInterest, fogOfWar: crimisionIsleData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
 
     // --- COSMIC & ABSTRACT ---
-    xenonesia: { id: 'xenonesia', name: 'Xenonesia', imageSrc: 'earth_land.png', group: 'Outer Realms', pointsOfInterest: xenonesiaData.pointsOfInterest, fogOfWar: xenonesiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    geminia: { id: 'geminia', name: 'Geminia', imageSrc: 'earth_land.png', group: 'Outer Realms', pointsOfInterest: geminiaData.pointsOfInterest, fogOfWar: geminiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    u_realm: { id: 'u_realm', name: 'U', imageSrc: 'earth_land.png', group: 'Outer Realms', pointsOfInterest: uData.pointsOfInterest, fogOfWar: uData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    polybius: { id: 'polybius', name: 'Polybius', imageSrc: 'earth_land.png', group: 'Outer Realms', pointsOfInterest: polybiusData.pointsOfInterest, fogOfWar: polybiusData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    eiwass: { id: 'eiwass', name: 'Eiwass', imageSrc: 'earth_land.png', group: 'Outer Realms', pointsOfInterest: eiwassData.pointsOfInterest, fogOfWar: eiwassData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    oracula: { id: 'oracula', name: 'Oracula', imageSrc: 'earth_land.png', group: 'Outer Realms', pointsOfInterest: oraculaData.pointsOfInterest, fogOfWar: oraculaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    asclepia: { id: 'asclepia', name: 'Asclepia', imageSrc: 'earth_land.png', group: 'Outer Realms', pointsOfInterest: asclepiaData.pointsOfInterest, fogOfWar: asclepiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    minerva: { id: 'minerva', name: 'Minerva', imageSrc: 'earth_land.png', group: 'Outer Realms', pointsOfInterest: minervaData.pointsOfInterest, fogOfWar: minervaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    xenonesia: { id: 'xenonesia', name: 'Xenonesia', imageSrc: 'assets/illustrations/earth_land.png', group: 'Outer Realms', pointsOfInterest: xenonesiaData.pointsOfInterest, fogOfWar: xenonesiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    geminia: { id: 'geminia', name: 'Geminia', imageSrc: 'assets/illustrations/earth_land.png', group: 'Outer Realms', pointsOfInterest: geminiaData.pointsOfInterest, fogOfWar: geminiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    u_realm: { id: 'u_realm', name: 'U', imageSrc: 'assets/illustrations/earth_land.png', group: 'Outer Realms', pointsOfInterest: uData.pointsOfInterest, fogOfWar: uData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    polybius: { id: 'polybius', name: 'Polybius', imageSrc: 'assets/illustrations/earth_land.png', group: 'Outer Realms', pointsOfInterest: polybiusData.pointsOfInterest, fogOfWar: polybiusData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    eiwass: { id: 'eiwass', name: 'Eiwass', imageSrc: 'assets/illustrations/earth_land.png', group: 'Outer Realms', pointsOfInterest: eiwassData.pointsOfInterest, fogOfWar: eiwassData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    oracula: { id: 'oracula', name: 'Oracula', imageSrc: 'assets/illustrations/earth_land.png', group: 'Outer Realms', pointsOfInterest: oraculaData.pointsOfInterest, fogOfWar: oraculaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    asclepia: { id: 'asclepia', name: 'Asclepia', imageSrc: 'assets/illustrations/earth_land.png', group: 'Outer Realms', pointsOfInterest: asclepiaData.pointsOfInterest, fogOfWar: asclepiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    minerva: { id: 'minerva', name: 'Minerva', imageSrc: 'assets/illustrations/earth_land.png', group: 'Outer Realms', pointsOfInterest: minervaData.pointsOfInterest, fogOfWar: minervaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
 
     // --- NORSE / YGGDRASIL REALMS ---
-    asgard: { id: 'asgard', name: 'Asgard', imageSrc: 'earth_land.png', group: 'Norse Realms', pointsOfInterest: asgardData.pointsOfInterest, fogOfWar: asgardData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    jotunheimr: { id: 'jotunheimr', name: 'Jotunheimr', imageSrc: 'earth_land.png', group: 'Norse Realms', pointsOfInterest: jotunheimrData.pointsOfInterest, fogOfWar: jotunheimrData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    skycaverns: { id: 'skycaverns', name: 'The Skycaverns', imageSrc: 'earth_land.png', group: 'Norse Realms', pointsOfInterest: skycavernsData.pointsOfInterest, fogOfWar: skycavernsData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    asgard: { id: 'asgard', name: 'Asgard', imageSrc: 'assets/illustrations/earth_land.png', group: 'Norse Realms', pointsOfInterest: asgardData.pointsOfInterest, fogOfWar: asgardData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    jotunheimr: { id: 'jotunheimr', name: 'Jotunheimr', imageSrc: 'assets/illustrations/earth_land.png', group: 'Norse Realms', pointsOfInterest: jotunheimrData.pointsOfInterest, fogOfWar: jotunheimrData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    skycaverns: { id: 'skycaverns', name: 'The Skycaverns', imageSrc: 'assets/illustrations/earth_land.png', group: 'Norse Realms', pointsOfInterest: skycavernsData.pointsOfInterest, fogOfWar: skycavernsData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
 
     // --- UNCHARTED WATERS & STRANGE LANDS ---
-    sirsirian_ocean: { id: 'sirsirian_ocean', name: 'The Sirsirian Ocean', imageSrc: 'earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: sirsirianOceanData.pointsOfInterest, fogOfWar: sirsirianOceanData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    pitatia: { id: 'pitatia', name: 'Pitatia', imageSrc: 'earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: pitatiaData.pointsOfInterest, fogOfWar: pitatiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    refijia: { id: 'refijia', name: 'Refijia', imageSrc: 'earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: refijiaData.pointsOfInterest, fogOfWar: refijiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    robensonia: { id: 'robensonia', name: 'Robensonia', imageSrc: 'earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: robensoniaData.pointsOfInterest, fogOfWar: robensoniaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    glarnia: { id: 'glarnia', name: 'Glarnia', imageSrc: 'earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: glarniaData.pointsOfInterest, fogOfWar: glarniaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    weldrhom: { id: 'weldrhom', name: 'Weldrhom', imageSrc: 'earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: weldrhomData.pointsOfInterest, fogOfWar: weldrhomData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
-    formosa_ultima: { id: 'formosa_ultima', name: 'Formosa Ultima', imageSrc: 'earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: formosaUltimaData.pointsOfInterest, fogOfWar: formosaUltimaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },    
+    sirsirian_ocean: { id: 'sirsirian_ocean', name: 'The Sirsirian Ocean', imageSrc: 'assets/illustrations/earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: sirsirianOceanData.pointsOfInterest, fogOfWar: sirsirianOceanData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    pitatia: { id: 'pitatia', name: 'Pitatia', imageSrc: 'assets/illustrations/earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: pitatiaData.pointsOfInterest, fogOfWar: pitatiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    refijia: { id: 'refijia', name: 'Refijia', imageSrc: 'assets/illustrations/earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: refijiaData.pointsOfInterest, fogOfWar: refijiaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    robensonia: { id: 'robensonia', name: 'Robensonia', imageSrc: 'assets/illustrations/earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: robensoniaData.pointsOfInterest, fogOfWar: robensoniaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    glarnia: { id: 'glarnia', name: 'Glarnia', imageSrc: 'assets/illustrations/earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: glarniaData.pointsOfInterest, fogOfWar: glarniaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    weldrhom: { id: 'weldrhom', name: 'Weldrhom', imageSrc: 'assets/illustrations/earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: weldrhomData.pointsOfInterest, fogOfWar: weldrhomData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
+    formosa_ultima: { id: 'formosa_ultima', name: 'Formosa Ultima', imageSrc: 'assets/illustrations/earth_land.png', group: 'Oceanic & Islands', pointsOfInterest: formosaUltimaData.pointsOfInterest, fogOfWar: formosaUltimaData.fogOfWar, poiSourceFile: 'map-data/earth-land-pois.js' },
 };

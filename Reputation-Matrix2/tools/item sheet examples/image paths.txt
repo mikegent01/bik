@@ -12918,7 +12918,7 @@ modules\moonlight-maps-free\maps\City_Tavern_Upper14_Night_lit.jpg
 modules\moonlight-maps-free\maps\City_Tavern_Upper15_unlit.jpg
 modules\moonlight-maps-free\maps\City_Tavern_Upper16_lit.jpg
 modules\moonlight-maps-free\maps\Cliff-edge-snow.jpg
-modules\moonlight-maps-free\maps\Cliff-edge.jpg
+modules\moonlight-maps-free\maps\Cliff-assets/illustrations/edge.jpg
 modules\moonlight-maps-free\maps\Cliff-pass-snow.jpg
 modules\moonlight-maps-free\maps\Cliff-pass.jpg
 modules\moonlight-maps-free\maps\Dark-cavern-webs.jpg
