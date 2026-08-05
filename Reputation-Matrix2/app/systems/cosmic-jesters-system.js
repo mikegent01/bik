@@ -1,11 +1,11 @@
 
 // This module handles the unique Chaos Index display for the Cosmic Jesters.
-import { LORE_DATA } from '../lore.js';
-import { getIntelForFaction } from './common.js';
-import { playSound } from '../common.js';
-import { state } from '../state.js';
-import { calculateGlobalCycle } from '../research-data.js';
-import { WAHBOOK_POSTS } from '../assembly-data.js';
+import { LORE_DATA } from '../../lore.js';
+import { getIntelForFaction } from '../../common.js';
+import { playSound } from '../../common.js';
+import { state } from '../../state.js';
+import { calculateGlobalCycle } from '../../research-data.js';
+import { WAHBOOK_POSTS } from '../../assembly-data.js';
 
 /**
  * Renders the HTML structure for the Chaos Index.

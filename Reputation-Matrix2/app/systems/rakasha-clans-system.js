@@ -2,8 +2,8 @@
 // RAKASHA CLANS SYSTEM - MAIN CONTROLLER
 // =============================================
 
-import { state } from './state.js';
-import { CURRENT_GAME_DATE } from './data/world/calendar.js';
+import { state } from '../../state.js';
+import { CURRENT_GAME_DATE } from '../../data/world/calendar.js';
 
 // =============================================
 // RAKASHA DATA - Integrated with Plot
