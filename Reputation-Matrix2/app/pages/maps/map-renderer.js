@@ -5926,10 +5926,4 @@ export function initMapRenderer() {
     });
 }
 
-// Auto-initialize if DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMapRenderer);
-} else {
-    initMapRenderer();
-}
-
+// maps.js owns renderer initialization after its live bindings are established.

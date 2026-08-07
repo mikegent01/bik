@@ -11,12 +11,12 @@ const poiPalette = document.getElementById('poi-palette');
 const drawFogBtn = document.getElementById('draw-fog-btn');
 const removeItemBtn = document.getElementById('remove-item-btn');
 const generateCodeBtn = document.getElementById('generate-code-btn');
-generateCodeBtn.title = 'Exports the current map data (POIs and Fog of War) as JavaScript code to be used in the map data files.';
+if (generateCodeBtn) generateCodeBtn.title = 'Exports the current map data (POIs and Fog of War) as JavaScript code to be used in the map data files.';
 const poiEditorModal = document.getElementById('poi-editor-modal');
-const closeModalBtn = poiEditorModal.querySelector('.modal-close');
+const closeModalBtn = poiEditorModal?.querySelector('.modal-close');
 const poiForm = document.getElementById('poi-form');
 const codeOutputModal = document.getElementById('code-output-modal');
-const codeOutputCloseBtn = codeOutputModal.querySelector('.modal-close');
+const codeOutputCloseBtn = codeOutputModal?.querySelector('.modal-close');
 const detailPanel = document.getElementById('map-detail-content');
 const mapControls = document.getElementById('map-controls');
 
@@ -308,6 +308,8 @@ function handleEditSelectClick(e) {
 }
 
 export function setupEditorEventListeners() {
+    // The integrated Atlas deliberately omits debug-editor controls.
+    if (!displayArea || !generateCodeBtn || !drawFogBtn || !removeItemBtn || !poiPalette || !poiForm || !closeModalBtn || !codeOutputCloseBtn) return;
     const editMapBtn = document.getElementById('edit-map-btn');
     if (editMapBtn) {
         editMapBtn.addEventListener('click', () => {
