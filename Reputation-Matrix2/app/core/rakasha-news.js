@@ -1,8 +1,8 @@
 
 import { LORE_DATA } from './lore.js';
-import { WAHBOOK_POSTS } from './data/assembly/assembly-data.js';
-import { CURRENT_GAME_DATE, CALENDAR_DATA, generateWeatherForDay, MOON_PHASES } from './data/world/calendar.js';
-import { calculateGlobalCycle, getAbsoluteDay, calculateRumorMetrics } from './data/support/research-data.js';
+import { WAHBOOK_POSTS } from '../../data/assembly/assembly-data.js';
+import { CURRENT_GAME_DATE, CALENDAR_DATA, generateWeatherForDay, MOON_PHASES } from '../../data/world/calendar.js';
+import { calculateGlobalCycle, getAbsoluteDay, calculateRumorMetrics } from '../../data/support/research-data.js';
 
 /**
  * Renders the HTML for the Rakasha Daily Roundup

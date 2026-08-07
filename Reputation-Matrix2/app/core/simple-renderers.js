@@ -4,9 +4,9 @@
 import { state } from './app/core/state.js';
 import { LORE_DATA, CHARACTER_RELATIONS } from './lore.js';
 import { buildDetailedSystemHTML } from './app/core/common.js';
-import { IRON_LEGION_DETAILS } from './data/factions/iron-legion-details.js';
-import { SILVER_FLAME_DETAILS } from './data/factions/silver-flame-details.js';
-import { KOOPA_TROOP_DETAILS } from './data/factions/koopa-troop-details.js';
+import { IRON_LEGION_DETAILS } from '../../data/factions/iron-legion-details.js';
+import { SILVER_FLAME_DETAILS } from '../../data/factions/silver-flame-details.js';
+import { KOOPA_TROOP_DETAILS } from '../../data/factions/koopa-troop-details.js';
 
 export function renderIronLegionDetailedSystem() {
     return buildDetailedSystemHTML(

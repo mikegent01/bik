@@ -1,6 +1,6 @@
 
 
-import { CURRENT_GAME_DATE } from './data/world/calendar.js';
+import { CURRENT_GAME_DATE } from '../world/calendar.js';
 import { RESEARCH_FLAVOR } from './research-names.js';
 import { LORE_DATA } from '../../app/core/lore.js';
 import { RESEARCH_CATEGORIES, SLOT_MULTIPLIERS, RESEARCH_TO_ESTATE_MAPPING } from './research-constants.js';
