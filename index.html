@@ -7510,18 +7510,17 @@ function atlasChips(arr,kind){
    realm's map group. Previously only the "*_full" overview was reachable, leaving 165 of
    182 defined maps with no route into them from the atlas. */
 function mountAtlasMap(mapId, group){
-  const host=document.getElementById('atlas-map-host'); if(!host) return;
-  host.dataset.group=group||'';
-  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
-  if(!document.getElementById('atlas-map-system-css')){const css=document.createElement('link');css.id='atlas-map-system-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/maps.css';document.head.appendChild(css);}
-  if(!document.getElementById('atlas-map-theme')){const theme=document.createElement('style');theme.id='atlas-map-theme';theme.textContent=`.atlas-map-integrated{background:linear-gradient(145deg,#17112d,#0d1322)!important;border:1px solid #4d357f!important;overflow:hidden}.atlas-map-integrated #atlas-map-host{--map-bg:#0b1220;--map-bg-secondary:#131d2d;--map-border:#34445f;--map-border-light:#7286ad;--map-text:#eef4ff;--map-text-secondary:#b8c7e3;--map-text-muted:#7e91b2;--map-accent:#ad7cff;--map-accent-muted:rgba(173,124,255,.18);--border-radius-lg:12px;--border-radius-md:8px;--border-radius-sm:6px;--transition-fast:.16s ease;padding:14px;background:radial-gradient(circle at top right,rgba(117,78,210,.16),transparent 38%)}.atlas-map-integrated #maps-layout{height:min(76vh,820px);min-height:580px;gap:14px;grid-template-columns:minmax(0,1fr) 330px}.atlas-map-integrated #map-controls{background:rgba(8,14,25,.78);backdrop-filter:blur(10px)}.atlas-map-integrated #map-display-area{min-height:470px;background:#070c15;border-color:#405273}.atlas-map-integrated #map-detail-panel{background:rgba(13,22,37,.94);border-color:#34445f}.atlas-map-integrated #map-demographics-panel{background:linear-gradient(180deg,rgba(35,27,67,.8),rgba(13,22,37,.9))}.atlas-map-integrated .map-tab-btn,.atlas-map-integrated .mode-btn{font-weight:600}.atlas-map-integrated .atlas-map-toolbar{padding:18px 20px;background:linear-gradient(90deg,rgba(111,67,190,.28),transparent);border-bottom:1px solid #49336e}.atlas-map-integrated .atlas-map-toolbar h3{font-size:18px;letter-spacing:.2px}.atlas-map-integrated .atlas-map-toolbar p{margin:5px 0 0;color:#b8c7e3}@media(max-width:900px){.atlas-map-integrated #maps-layout{height:auto;grid-template-columns:1fr}.atlas-map-integrated #map-detail-panel{min-height:260px}.atlas-map-integrated #map-display-area{min-height:420px}}`;document.head.appendChild(theme);}
-  import(prefix+'app/pages/maps/maps.js').then(mod=>mod.initMapSystem(mapId)).catch(err=>{host.innerHTML='<p class="text-muted">Unable to load the integrated map.</p>';console.error('Atlas map integration failed',err);});
+  const host=document.getElementById('atlas-map-host'); if(!host)return;
+  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css';document.head.appendChild(css);}
+  import(prefix+'app/pages/maps/atlas-map-v2.js').then(m=>m.mountAtlasMapV2(host,mapId)).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Atlas Map v2 failed',e);});
 }
+
 function atlasMapApplet(id, n){
   const cfg=NATION_ATLAS_CONFIG[id]||{},resolved=atlasMapsFor(id),label=cfg.label||displayName(n),activeId=resolved.activeId||'';
   if(!activeId)return `<div class="card atlas-map-empty"><h3>🗺️ No live map filed yet</h3><p class="text-muted">This realm has atlas records but no tactical map data.</p></div>`;
   const regions=resolved.maps.length>1?`<div class="atlas-map-regions"><span class="amr-label">${resolved.maps.length} regions in ${esc(resolved.group)}</span><div class="amr-chips">${resolved.maps.map(m=>`<button class="amr-chip${m.id===activeId?' on':''}" data-map="${esc(m.id)}" data-group="${esc(resolved.group)}">${esc(m.name||prettyId(m.id))}</button>`).join('')}</div></div>`:'';
-  return `<div class="card atlas-map-applet atlas-map-integrated"><div class="atlas-map-toolbar"><div><h3>🗺️ ${esc(label)} Tactical Map</h3><p>Integrated atlas map · no iframe or separate webpage.</p></div></div>${regions}<div id="atlas-map-host" data-group="${esc(resolved.group)}"><div id="maps-layout"><div id="map-view-container"><div id="map-controls"><div id="dynamic-map-controls"></div></div><div id="map-display-area"></div></div><aside id="map-detail-panel" class="card"><div id="map-demographics-panel"></div><div id="map-detail-content"><p class="panel-placeholder">Select a point of interest for details.</p></div></aside></div></div></div>`;
+  return `<div class="card atlas-map-applet atlas-map-integrated"><div class="atlas-map-toolbar"><div><h3>🗺️ ${esc(label)} Tactical Map</h3><p>Integrated atlas map · no iframe or separate webpage.</p></div></div>${regions}<div id="atlas-map-host" data-group="${esc(resolved.group)}"><div class="atlas-v2-loading">Loading map…</div></div></div>`;
 }
 
 /* Swap the embedded map without reloading the atlas page. */
@@ -7530,7 +7529,7 @@ function atlasSwitchMap(mapId, group){
   host.dataset.group=group||host.dataset.group||'';
   const demo=document.getElementById('atlas-demographics'); if(demo)demo.outerHTML=atlasDemographics(mapId);
   document.querySelectorAll('.amr-chip').forEach(b=>b.classList.toggle('on',b.dataset.map===mapId));
-  import((window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/')+'app/pages/maps/maps.js').then(m=>m.initMapSystem(mapId));
+  mountAtlasMap(mapId, group);
 }
 
 function view_atlasNation(id){
