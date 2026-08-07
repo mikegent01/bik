@@ -1,5 +1,5 @@
 // politics-data.js
-import { FACTION_COLORS } from './factions/faction-colors.js';
+import { FACTION_COLORS } from '../../factions/faction-colors.js';
 
 export const PROVINCE_POLITICS = {
     'mushroom_kingdom_full': {

@@ -27,9 +27,9 @@ export function initAudio() {
         console.log('[Audio] AudioContext initialized');
         
         // Preload sounds - don't await, let them load in background
-        preloadSound('../../assets/audio/ui/click.mp3');
-        preloadSound('../../assets/audio/ui/wah.mp3');
-        preloadSound('../../assets/audio/ui/confirm.mp3');
+        preloadSound('click.mp3');
+        preloadSound('wah.mp3');
+        preloadSound('confirm.mp3');
     } catch (e) {
         console.warn('[Audio] Web Audio API not supported:', e.message);
         audioContext = null;
@@ -40,7 +40,8 @@ async function preloadSound(filename) {
     if (!audioContext || audioBuffers[filename] || failedSounds.has(filename)) return;
     
     try {
-        const response = await fetch('Reputation-Matrix2/assets/audio/ui/' + filename);
+        const soundFile = String(filename).split('/').pop();
+        const response = await fetch(new URL(`../../assets/audio/ui/${soundFile}`, import.meta.url));
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}`);
