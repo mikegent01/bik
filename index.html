@@ -4993,7 +4993,7 @@ function nationOverview(item){
   const source='';
   const flags=`<div class="flag-mini-row"><span class="flag-chip">${esc((item.nationCategory||item.type||'Nation').toString())}</span>${cfg.poiFile?`<span class="flag-chip">Atlas data available</span>`:''}</div>`;
   if(!locChips&&!mapHtml&&!(cfg&&cfg.mapFile)) return '';
-  return `<div class="nation-atlas"><h3>🗺️ Nation Atlas</h3><p class="text-muted mb-10">Nation hub: flag, known locations, and tactical atlas. Select a Mushroom Kingdom point to zoom and measure routes.</p>${flags}${mapHtml}${source}${locChips?`<h3 class="mt-14">Visit Locations</h3><div class="nation-locs">${locChips}</div>`:''}${(cfg.mapFile||item.mapFile)?`<a class="map-link" href="${esc(cfg.mapFile||item.mapFile)}">Open full tactical map →</a>`:''}</div>`;
+  return `<div class="nation-atlas"><h3>🗺️ Nation Atlas</h3><p class="text-muted mb-10">Nation hub: flag, known locations, and tactical atlas. Select a Mushroom Kingdom point to zoom and measure routes.</p>${flags}${mapHtml}${source}${locChips?`<h3 class="mt-14">Visit Locations</h3><div class="nation-locs">${locChips}</div>`:''}</div>`;
 }
 function battleNamesForVisual(b){
   const bel=b.belligerents||{};
@@ -7577,11 +7577,8 @@ function activateAtlasMap(){
 
 /* Full-screen link for the realm's currently resolved map. */
 function atlasFullScreenChip(id){
-  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
-  const r=atlasMapsFor(id);
-  const cfg=NATION_ATLAS_CONFIG[id]||{};
-  const href=r.activeId?`${prefix}maps-view.html?map=${encodeURIComponent(r.activeId)}`:(cfg.mapFile?prefix+cfg.mapFile:'');
-  return href?`<span class="chip" onclick="location.href='${esc(href)}'">Open Full Screen</span>`:'';
+  // Atlas maps are mounted directly into this route; retain no separate map-page link.
+  return '';
 }
 
 function dynastyPerks(id){
