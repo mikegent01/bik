@@ -7509,75 +7509,27 @@ function atlasChips(arr,kind){
    Renders the embedded map for a realm plus a switcher for every sub-region in that
    realm's map group. Previously only the "*_full" overview was reachable, leaving 165 of
    182 defined maps with no route into them from the atlas. */
-function atlasMapApplet(id, n){
-  const cfg=NATION_ATLAS_CONFIG[id]||{};
+function mountAtlasMap(mapId, group){
+  const host=document.getElementById('atlas-map-host'); if(!host) return;
+  host.dataset.group=group||'';
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
-  const resolved=atlasMapsFor(id);
-  const label=cfg.label||displayName(n);
-
-  if(!resolved.valid && !cfg.mapFile){
-    return `<div class="card atlas-map-empty"><h3>🗺️ No live map applet filed yet</h3><p class="text-muted">This realm has atlas records, but Waluigi has not connected a tactical map file. Locations and event records below remain available.</p></div>`;
-  }
-
-  const frameId=`atlasMapFrame_${String(id).replace(/[^a-z0-9_]/gi,'_')}`;
-  const url=mid=>`${prefix}maps-view.html?map=${encodeURIComponent(mid)}`;
-  const activeId=resolved.activeId||'';
-  // chrome=0 only when the atlas itself renders a region switcher, otherwise the reader
-  // would lose the in-frame tabs and have no way to change region at all.
-  const suppress=resolved.maps.length>1?'&chrome=0':'';
-  const embedSrc=activeId?url(activeId)+'&embed=1'+suppress:(cfg.mapFile?prefix+cfg.mapFile+(cfg.mapFile.includes('?')?'&':'?')+'embed=1':'');
-  const fullSrc=activeId?url(activeId):(cfg.mapFile?prefix+cfg.mapFile:'');
-
-  const regions=resolved.maps.length>1
-    ? `<div class="atlas-map-regions">
-         <span class="amr-label">${resolved.maps.length} regions in ${esc(resolved.group)}</span>
-         <div class="amr-chips">${resolved.maps.map(m=>
-           `<button class="amr-chip${m.id===activeId?' on':''}" data-map="${esc(m.id)}" data-frame="${esc(frameId)}" title="${esc(m.name||m.id)}">${esc(m.name||prettyId(m.id))}</button>`
-         ).join('')}</div>
-       </div>`
-    : '';
-
-  const poiCount=(ATLAS_MAPS[activeId]?.pointsOfInterest||[]).length;
-  const status=cfg.status||'Embedded interactive regional map with POIs, modes, search, and detail panel.';
-
-  return `<div class="card atlas-map-applet" data-map-applet="${esc(frameId)}">
-      <div class="atlas-map-toolbar">
-        <div>
-          <h3>🗺️ ${esc(label)} Tactical Map Applet</h3>
-          <p>${esc(status)}${poiCount?` · <b>${poiCount}</b> points of interest on this sheet`:''}</p>
-        </div>
-        <div class="chips">
-          <span class="chip active" onclick="const f=document.getElementById('${esc(frameId)}');f.src=f.dataset.src||f.src">Reset applet</span>
-          <a class="chip" href="${esc(fullSrc)}">Open full screen →</a>
-        </div>
-      </div>
-      ${regions}
-      <iframe id="${esc(frameId)}" data-src="${esc(embedSrc)}" loading="lazy" title="${esc(label)} Tactical Map"></iframe>
-    </div>`;
+  if(!document.getElementById('atlas-map-system-css')){const css=document.createElement('link');css.id='atlas-map-system-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/maps.css';document.head.appendChild(css);}
+  import(prefix+'app/pages/maps/maps.js').then(mod=>mod.initMapSystem(mapId)).catch(err=>{host.innerHTML='<p class="text-muted">Unable to load the integrated map.</p>';console.error('Atlas map integration failed',err);});
+}
+function atlasMapApplet(id, n){
+  const cfg=NATION_ATLAS_CONFIG[id]||{},resolved=atlasMapsFor(id),label=cfg.label||displayName(n),activeId=resolved.activeId||'';
+  if(!activeId)return `<div class="card atlas-map-empty"><h3>🗺️ No live map filed yet</h3><p class="text-muted">This realm has atlas records but no tactical map data.</p></div>`;
+  const regions=resolved.maps.length>1?`<div class="atlas-map-regions"><span class="amr-label">${resolved.maps.length} regions in ${esc(resolved.group)}</span><div class="amr-chips">${resolved.maps.map(m=>`<button class="amr-chip${m.id===activeId?' on':''}" data-map="${esc(m.id)}" data-group="${esc(resolved.group)}">${esc(m.name||prettyId(m.id))}</button>`).join('')}</div></div>`:'';
+  return `<div class="card atlas-map-applet atlas-map-integrated"><div class="atlas-map-toolbar"><div><h3>🗺️ ${esc(label)} Tactical Map</h3><p>Integrated atlas map · no iframe or separate webpage.</p></div></div>${regions}<div id="atlas-map-host" data-group="${esc(resolved.group)}"><div id="maps-layout"><div id="map-view-container"><div id="map-controls"><div id="dynamic-map-controls"></div></div><div id="map-display-area"></div></div><aside id="map-detail-panel" class="card"><div id="map-demographics-panel"></div><div id="map-detail-content"><p class="panel-placeholder">Select a point of interest for details.</p></div></aside></div></div></div>`;
 }
 
 /* Swap the embedded map without reloading the atlas page. */
-function atlasSwitchMap(frameId, mapId){
-  const frame=document.getElementById(frameId);
-  if(!frame) return;
-  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
-  const src=`${prefix}maps-view.html?map=${encodeURIComponent(mapId)}&embed=1&chrome=0`;
-  frame.dataset.src=src;
-  frame.src=src;
-  const parentDemographics=document.getElementById('atlas-demographics');
-  if(parentDemographics) parentDemographics.outerHTML=atlasDemographics(mapId);
-  const applet=frame.closest('.atlas-map-applet');
-  if(applet){
-    applet.querySelectorAll('.amr-chip').forEach(b=>b.classList.toggle('on', b.dataset.map===mapId));
-    const rec=ATLAS_MAPS[mapId];
-    const full=applet.querySelector('.atlas-map-toolbar a.chip');
-    if(full) full.href=`${prefix}maps-view.html?map=${encodeURIComponent(mapId)}`;
-    const sub=applet.querySelector('.atlas-map-toolbar p');
-    if(sub && rec){
-      const n=(rec.pointsOfInterest||[]).length;
-      sub.innerHTML=`${esc(rec.name||mapId)}${n?` · <b>${n}</b> points of interest on this sheet`:''}`;
-    }
-  }
+function atlasSwitchMap(mapId, group){
+  const host=document.getElementById('atlas-map-host'); if(!host)return;
+  host.dataset.group=group||host.dataset.group||'';
+  const demo=document.getElementById('atlas-demographics'); if(demo)demo.outerHTML=atlasDemographics(mapId);
+  document.querySelectorAll('.amr-chip').forEach(b=>b.classList.toggle('on',b.dataset.map===mapId));
+  import((window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/')+'app/pages/maps/maps.js').then(m=>m.initMapSystem(mapId));
 }
 
 function view_atlasNation(id){
@@ -7591,7 +7543,10 @@ function view_atlasNation(id){
   const atlasDemographicsPanel = atlasDemographics(atlasMapsFor(id).activeId);
 
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/atlas')">World Atlas</a> › ${esc(displayName(n))}</div><div class="card animate-fade-in"><h1>${esc(displayName(n))}</h1><div class="metabar"><span class="pill">🍩 Atlas Dashboard</span><span class="pill">${esc(n.type||'Nation/Realm')}</span>${n.status?`<span class="pill">${esc(String(n.status).slice(0,80))}</span>`:''}</div>${flagArt(n)}<p style="color:var(--muted);font-size:15px;line-height:1.65">${esc(n.summary||'')}</p><div class="species-stats">${stats}</div><div class="chips"><span class="chip" onclick="openId('${esc(n.id)}')">Read classic article</span>${atlasFullScreenChip(id)}</div>${claimantRegimePanel(n)}${nationOverview(n)}</div>${atlasDemographicsPanel}${mapIframe}<div class="card"><h2>📖 Nation Dossier</h2><div class="prose">${dossier}</div></div><div class="card"><h2>🏰 Locations</h2><div class="related-list">${atlasChips(x.locations,'Location')}</div><h2>📜 Events</h2><div class="related-list">${atlasChips(x.events,'Event')}</div><h2>🗡️ Battles / Battlefield</h2><div class="related-list">${atlasChips(x.battles,'Battle')}</div><h2>⚖️ Trials</h2><div class="related-list">${atlasChips(x.trials,'Trial')}</div><h2>⚔️ Active Factions</h2><div class="related-list">${atlasChips(x.factions,'Faction')}</div><h2>🧬 Species & Peoples</h2><div class="related-list">${atlasChips(x.species,'Species')}</div></div>`;
-  activateAtlasMap();
+  const selected=atlasMapsFor(id);
+  mountAtlasMap(selected.activeId, selected.group);
+  const integrated=document.querySelector('.atlas-map-integrated');
+  if(integrated) integrated.addEventListener('click',e=>{const b=e.target.closest('.amr-chip');if(b) atlasSwitchMap(b.dataset.map,b.dataset.group);});
   window.scrollTo(0,0);
 }
 

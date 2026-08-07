@@ -314,9 +314,9 @@ function setupEventListeners() {
     });
 }
 
-function init() {
-    // Set initial map based on page
-    setActiveMapId(getMapIdForPage());
+function init(initialMapId) {
+    // A host page (the World Atlas) may supply a specific map ID.
+    setActiveMapId(initialMapId || getMapIdForPage());
 
     // Dynamically update page header and document titles in unified maps-view.html
     const mapData = MAP_DATA[mapState.activeMapId];

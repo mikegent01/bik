@@ -34,7 +34,10 @@ export function renderTabs() {
     
     let relevantGroups;
 
-    if (isUnifiedMapApplet && currentMapData?.group) {
+    const atlasHostGroup = document.getElementById('atlas-map-host')?.dataset.group;
+    if (atlasHostGroup) {
+        relevantGroups = [atlasHostGroup];
+    } else if (isUnifiedMapApplet && currentMapData?.group) {
         relevantGroups = [currentMapData.group];
     } else if (currentPage === 'midlands-maps.html') {
         relevantGroups = ['The Midlands'];
