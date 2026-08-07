@@ -8,6 +8,7 @@ import { toggleEditMode } from './map-editor.js';
 import { resetTransform } from './map-transform.js';
 import * as transform from './map-transform.js';
 import { PROVINCE_POLITICS } from '../../../data/support/politics-data.js';
+import { renderMapDemographics } from './map-demographics.js';
 
 const mapControls = document.getElementById('dynamic-map-controls');
 // ============================================================================
@@ -1108,6 +1109,7 @@ export function setupTabEventListeners() {
                 map.setActiveMapId(mapId);
                 if (map.isEditMode) toggleEditMode(false);
                 renderer.renderMap(mapId);
+                renderMapDemographics(mapId);
                 renderTabs();
             }
             return;

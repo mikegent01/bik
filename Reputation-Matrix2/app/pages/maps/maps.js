@@ -7,6 +7,7 @@ import * as editor from './map-editor.js';
 import * as transform from './map-transform.js';
 import { playSound } from '../../core/common.js';
 import { MAP_DATA } from '../../../data/maps/map-data.js';
+import { renderMapDemographics } from './map-demographics.js';
 
 // ============================================================================
 // STATE
@@ -339,8 +340,9 @@ function init() {
     // Initialize pan/zoom before first render
     transform.initPanAndZoom();
     
-    // Render the map
+    // Render the map and its population composition.
     renderer.renderMap(mapState.activeMapId);
+    renderMapDemographics(mapState.activeMapId);
 
     // Setup event listeners
     setupEventListeners();

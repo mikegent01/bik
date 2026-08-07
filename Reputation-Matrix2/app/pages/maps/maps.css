@@ -4213,3 +4213,18 @@
 .party-legend-key .key-dot.party-alert {
     background: #f85149;
 }
+/* Atlas demographic overview */
+#map-demographics-panel { border-bottom: 1px solid var(--map-border); }
+.map-demographics { padding: 12px 14px; background: rgba(12, 20, 34, .66); }
+.demographic-heading { display:flex; justify-content:space-between; align-items:center; color:var(--map-text-primary); font-weight:700; font-size:.9rem; }
+.demographic-heading b { color:var(--map-accent, #ffd700); font-family:'Roboto Mono', monospace; }
+.demographic-note { margin:4px 0 10px; color:var(--map-text-muted); font-size:.68rem; line-height:1.35; }
+.demographic-chart-row { display:grid; grid-template-columns:62px 1fr; gap:9px; align-items:center; margin-top:10px; }
+.demographic-chart-row h4 { margin:0 0 4px; color:var(--map-text-primary); font-size:.72rem; text-transform:uppercase; letter-spacing:.04em; }
+.demographic-pie { width:62px; height:62px; border-radius:50%; border:1px solid rgba(255,255,255,.22); box-shadow:inset 0 0 0 14px rgba(11,17,29,.94); }
+.demographic-legend { list-style:none; margin:0; padding:0; max-height:74px; overflow:auto; }
+.demographic-legend li { display:grid; grid-template-columns:8px minmax(0,1fr) 34px; align-items:center; gap:5px; color:var(--map-text-muted); font-size:.67rem; line-height:1.35; }
+.demographic-legend li span:nth-child(2) { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.demographic-legend b { color:var(--map-text-primary); text-align:right; font-weight:600; }
+.demographic-swatch { display:block; height:8px; border-radius:2px; }
+.demographic-empty { color:var(--map-text-muted); font-size:.7rem; }
