@@ -43,7 +43,7 @@ const LOCATIONS = {
         characters: [
             { id: 'ryan', name: "Ryan", status: "Fleeing", pos: { x: 6, y: 0, z: 6 }, portrait: "toads/ryan.png", scale: 1.5 },
             { id: 'aie', name: "Aie (Traitor)", status: "Opening Doors", pos: { x: -2, y: 0, z: 0 }, portrait: "toads/toad.png", scale: 1.4 },
-            { id: 'legion_officer', name: "Legion Officer", status: "Breaching", pos: { x: 0, y: 0, z: -10 }, portrait: "portraits/assets/portraits/leaders/colonel_vera_steelstorm.png", scale: 1.8, isEnemy: true },
+            { id: 'legion_officer', name: "Legion Officer", status: "Breaching", pos: { x: 0, y: 0, z: -10 }, portrait: "assets/portraits/leaders/colonel_vera_steelstorm.png", scale: 1.8, isEnemy: true },
             { id: 'legion_soldier_1', name: "Legionnaire", status: "Attacking", pos: { x: -4, y: 0, z: -8 }, portrait: "assets/factions/faction_iron_legion.png", scale: 1.6, isEnemy: true },
             { id: 'legion_soldier_2', name: "Legionnaire", status: "Attacking", pos: { x: 4, y: 0, z: -8 }, portrait: "assets/factions/faction_iron_legion.png", scale: 1.6, isEnemy: true }
         ]
@@ -52,12 +52,12 @@ const LOCATIONS = {
         title: "The Solarium Battle",
         camPos: {x: 0, y: 14, z: 14},
         characters: [
-            { id: 'hjumpik', name: "hjumpik", status: "Mirror Combat", pos: { x: -4, y: 0, z: 2 }, portrait: "portraits/assets/portraits/party/hjumpik.png", scale: 1.8 },
-            { id: 'bowser', name: "Bowser", status: "Punching Mirrors", pos: { x: 4, y: 0, z: 2 }, portrait: "portraits/assets/portraits/party/bowser.png", scale: 2.5 },
+            { id: 'hjumpik', name: "hjumpik", status: "Mirror Combat", pos: { x: -4, y: 0, z: 2 }, portrait: "assets/portraits/party/hjumpik.png", scale: 1.8 },
+            { id: 'bowser', name: "Bowser", status: "Punching Mirrors", pos: { x: 4, y: 0, z: 2 }, portrait: "assets/portraits/party/bowser.png", scale: 2.5 },
             { id: 'shard_stalker', name: "Shard Stalker", status: "Teleporting", pos: { x: 0, y: 2, z: -6 }, portrait: "assets/factions/faction_unaligned.png", scale: 3.0, isEnemy: true },
             { id: 'dan', name: "Dan", status: "Shattering Glass", pos: { x: -6, y: 0, z: 5 }, portrait: "toads/dan.png", scale: 1.5 },
             { id: 'oracle', name: "The Oracle", status: "Watching", pos: { x: 6, y: 1, z: 5 }, portrait: "portraits/oracle.png", scale: 1.8 },
-            { id: 'archie', name: "Archie", status: "Using Fire", pos: { x: 0, y: 0, z: 8 }, portrait: "portraits/assets/portraits/party/archie.png", scale: 1.5 }
+            { id: 'archie', name: "Archie", status: "Using Fire", pos: { x: 0, y: 0, z: 8 }, portrait: "assets/portraits/party/archie.png", scale: 1.5 }
         ]
     },
     facility: {
@@ -95,9 +95,9 @@ const LOCATIONS = {
         title: "Manor: The Kitchen",
         camPos: {x: 8, y: 12, z: 8},
         characters: [
-            { id: 'markop', name: "Markop", status: "Searching", pos: { x: 2, y: 0, z: 2 }, portrait: "portraits/assets/portraits/party/markop.png", scale: 1.8 },
+            { id: 'markop', name: "Markop", status: "Searching", pos: { x: 2, y: 0, z: 2 }, portrait: "assets/portraits/party/markop.png", scale: 1.8 },
             { id: 'roger', name: "Roger", status: "Guarding", pos: { x: -2, y: 0, z: -2 }, portrait: "toads/roger.png", scale: 1.5 },
-            { id: 'remi', name: "Remi", status: "Scavenging", pos: { x: 4, y: 0, z: -4 }, portrait: "portraits/assets/portraits/party/remi.png", scale: 1.5 },
+            { id: 'remi', name: "Remi", status: "Scavenging", pos: { x: 4, y: 0, z: -4 }, portrait: "assets/portraits/party/remi.png", scale: 1.5 },
             { id: 'soldier1', name: "Cohort Soldier", status: "Patrolling", pos: { x: -5, y: 0, z: 5 }, portrait: "toads/toad.png", scale: 1.2 }
         ]
     },
@@ -105,9 +105,9 @@ const LOCATIONS = {
         title: "Manor: Grand Foyer",
         camPos: {x: 0, y: 15, z: 20},
         characters: [
-            { id: 'hjumpik', name: "Hjumpik", status: "Alert", pos: { x: 0, y: 0, z: 0 }, portrait: "portraits/assets/portraits/party/hjumpik.png", scale: 1.8 },
-            { id: 'archie', name: "Archie", status: "Investigating", pos: { x: -3, y: 0, z: 2 }, portrait: "portraits/assets/portraits/party/archie.png", scale: 1.5 },
-            { id: 'bowser', name: "Bowser", status: "Commanding", pos: { x: 3, y: 0, z: 2 }, portrait: "portraits/assets/portraits/party/bowser.png", scale: 2.5 },
+            { id: 'hjumpik', name: "Hjumpik", status: "Alert", pos: { x: 0, y: 0, z: 0 }, portrait: "assets/portraits/party/hjumpik.png", scale: 1.8 },
+            { id: 'archie', name: "Archie", status: "Investigating", pos: { x: -3, y: 0, z: 2 }, portrait: "assets/portraits/party/archie.png", scale: 1.5 },
+            { id: 'bowser', name: "Bowser", status: "Commanding", pos: { x: 3, y: 0, z: 2 }, portrait: "assets/portraits/party/bowser.png", scale: 2.5 },
             { id: 'toad_lee', name: "Toad Lee", status: "Guarding", pos: { x: -5, y: 0, z: 5 }, portrait: "toads/toad_lee.png", scale: 1.5 },
             { id: 'dan', name: "Dan", status: "Recovering", pos: { x: 5, y: 0, z: 5 }, portrait: "toads/dan.png", scale: 1.5 }
         ]

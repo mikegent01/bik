@@ -7,35 +7,35 @@ export const CHARACTERS = {
         name: "Archie Miser",
         isParty: true,
         role: "The Anarchist with the Third Eye",
-        portrait: "portraits/assets/portraits/party/archie.png",
+        portrait: "assets/portraits/party/archie.png",
         description: "A three-eyed bandit with a chaotic history, currently a fugitive on the run. His third eye grants him strange, chaotic powers that defy conventional magic."
     },
     markop: {
         name: "Markop Judi",
         isParty: true,
         role: "The Disgraced Paladin",
-        portrait: "portraits/assets/portraits/party/markop.png",
+        portrait: "assets/portraits/party/markop.png",
         description: "A Centaur Paladin, reluctantly roped into chaos. He tries to be a moral compass, though his faith and honor are constantly tested."
     },
     hjumpik: {
         name: "Hjumpik",
         isParty: true,
         role: "The Dwarven King's Champion",
-        portrait: "portraits/assets/portraits/party/hjumpik.png",
+        portrait: "assets/portraits/party/hjumpik.png",
         description: "A powerful Dwarf warrior from a forgotten mountain hold. Fiercely loyal to his friend Bowser, their unlikely alliance is a source of confusion and concern for many factions."
     },
     bowser: {
         name: "Bowser",
         isParty: true,
         role: "The Deposed Koopa King",
-        portrait: "portraits/assets/portraits/party/bowser.png",
+        portrait: "assets/portraits/party/bowser.png",
         description: "The once-mighty King of the Koopas, now a king without a kingdom. Arrogant, powerful, and surprisingly resilient, Bowser seeks to rebuild his empire and crush any who stand in his way."
     },
     remi: {
         name: "FNG Remi",
         isParty: true,
         role: "The Unlucky Newcomer",
-        portrait: "portraits/assets/portraits/party/remi.png",
+        portrait: "assets/portraits/party/remi.png",
         description: "The newest operator on the Vigilance. Their past is a mystery, their future uncertain. Their stated reason for being here: 'I put one foot in front of the other and next thing I know, something happened.'"
     },
 
@@ -49,7 +49,7 @@ export const CHARACTERS = {
     wario: {
         name: "Mr. Wario",
         role: "Secret Leader of Wario Land",
-        portrait: "portraits/assets/portraits/party/wario.png",
+        portrait: "assets/portraits/party/wario.png",
         description: "The mysterious mastermind pulling the strings of Wario's old empire. His identity is a closely guarded secret, but he shares Wario's insatiable greed and ruthlessness."
     },
     fawful: {
@@ -137,13 +137,13 @@ export const CHARACTERS = {
     general_marcus_ironhand: {
         name: "General Marcus Ironhand",
         role: "Supreme Commander, Iron Legion Old Guard",
-        portrait: "portraits/assets/portraits/leaders/general_marcus_ironhand.png",
+        portrait: "assets/portraits/leaders/general_marcus_ironhand.png",
         description: "The aging but brilliant Supreme Commander of the Iron Legion. Ironhand is a master strategist who believes discipline is the greatest weapon and a staunch traditionalist."
     },
     colonel_vera_steelstorm: {
         name: "Colonel Vera Steelstorm",
         role: "War-Forged Leader, Iron Legion",
-        portrait: "portraits/assets/portraits/leaders/colonel_vera_steelstorm.png",
+        portrait: "assets/portraits/leaders/colonel_vera_steelstorm.png",
         description: "A young, ambitious, and pragmatic officer leading the progressive 'War-Forged' faction within the Iron Legion. She values results over tradition."
     },
     chancellor_toadsworth: {

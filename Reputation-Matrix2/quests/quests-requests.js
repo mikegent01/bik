@@ -116,9 +116,9 @@ const EXISTING_REQUESTS = {
 import { KIVOTOS_REQUESTS } from '../data/quest-system/requests/requests-kivotos.js';
 import { MIDDLE_EARTH_REQUESTS } from '../data/quest-system/requests/requests-middle-earth.js';
 import { DOUGHNUT_HOLE_REQUESTS } from '../data/quest-system/requests/requests-doughnut-hole.js';
-import { WARHAMMER_REQUESTS } from '../data/quest-system/requests/requests-warhammer.js';
+import { WARHAMMER_REQUESTS } from './requests-warhammer.js';
 import { INTERNET_REQUESTS } from './quests-internet.js';
-import { POKEMON_REQUESTS } from '../data/quest-system/requests/requests-pokemon.js';
+import { POKEMON_REQUESTS } from './requests-pokemon.js';
 
 export const REQUESTS = {
     ...EXISTING_REQUESTS,
