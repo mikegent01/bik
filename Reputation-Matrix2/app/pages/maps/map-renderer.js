@@ -3746,7 +3746,10 @@ export function renderMap(mapId) {
 
     const mapImage = document.createElement('img');
     mapImage.id = 'map-image';
-    mapImage.src = mapData.imageSrc;
+    // MAP_DATA asset paths are rooted at Reputation-Matrix2. Resolve them from
+    // this module so every embedded atlas map (Equestria, Animatopia, etc.)
+    // works no matter which document hosts the renderer.
+    mapImage.src = new URL(`../../../${mapData.imageSrc}`, import.meta.url).href;
     zoomWrapper.appendChild(mapImage);
     displayArea.appendChild(zoomWrapper);
 
