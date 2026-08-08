@@ -1,0 +1,10 @@
+{
+  "name": "Waluipedia Bros Attacks",
+  "version": "1.0.0",
+  "items": [
+    "support_fire_bros_attack.json",
+    "chop_bros_attack.json"
+  ],
+  "rules": "dnd5e",
+  "resource": "Bros Energy: 2 uses, refreshes on short rest; each partner spends 1"
+}

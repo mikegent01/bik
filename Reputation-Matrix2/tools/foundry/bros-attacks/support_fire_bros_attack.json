@@ -1,0 +1,141 @@
+{
+  "name": "Support Fire Bros Attack",
+  "type": "feat",
+  "img": "icons/skills/melee/strike-sword-steel-yellow.webp",
+  "system": {
+    "description": {
+      "value": "<p><strong>Team:</strong> Green T + Remi.</p><p>Choose one shooter and one support partner. The support partner steadies the shooter, corrects the sightline, and calls the timing. Both characters spend 1 Bros Energy. The shooter then resolves the shot with the table’s normal firearm rules.</p><p><strong>Resource:</strong> Each character has 2 Bros Energy. All spent energy returns after a very short rest.</p><p><strong>Safety question:</strong> A coordinated shot is still a choice. Confirm the target before firing.</p>",
+      "chat": "<p>Support partner: “Hold. Breathe. Now.” Both partners spend 1 Bros Energy.</p>"
+    },
+    "activities": {
+      "dnd5eactivity000": {
+        "_id": "dnd5eactivity000",
+        "type": "utility",
+        "activation": {
+          "type": "action",
+          "value": 1,
+          "condition": "Each named partner has 1 Bros Energy available and both partners are in position.",
+          "override": false
+        },
+        "consumption": {
+          "targets": [
+            {
+              "type": "itemUses",
+              "target": "",
+              "value": "1",
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              }
+            }
+          ],
+          "scaling": {
+            "allowed": false,
+            "max": ""
+          },
+          "spellSlot": false
+        },
+        "description": {
+          "chatFlavor": "<p>Support partner: “Hold. Breathe. Now.” Both partners spend 1 Bros Energy.</p>"
+        },
+        "duration": {
+          "concentration": false,
+          "units": "inst",
+          "special": "",
+          "override": false
+        },
+        "effects": [],
+        "range": {
+          "units": "self",
+          "special": "",
+          "override": false
+        },
+        "target": {
+          "template": {
+            "count": "",
+            "contiguous": false,
+            "type": "",
+            "size": "",
+            "width": "",
+            "angle": "",
+            "direction": "",
+            "distance": {
+              "units": "",
+              "value": ""
+            }
+          },
+          "affects": {
+            "choice": false,
+            "count": "",
+            "type": "",
+            "special": ""
+          },
+          "prompt": true,
+          "override": false
+        },
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        }
+      }
+    },
+    "uses": {
+      "spent": 0,
+      "max": "2",
+      "recovery": [
+        {
+          "period": "sr",
+          "type": "recoverAll"
+        }
+      ]
+    },
+    "advancement": {},
+    "identifier": "",
+    "source": {
+      "revision": 1,
+      "rules": "2024"
+    },
+    "crewed": false,
+    "enchant": {},
+    "prerequisites": {
+      "items": [],
+      "repeatable": false
+    },
+    "properties": [],
+    "requirements": "",
+    "type": {
+      "value": "",
+      "subtype": ""
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.360",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1782005283579,
+    "modifiedTime": 1782005283579,
+    "lastModifiedBy": "f9K62vO9hIl1GByi",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "flags": {
+    "waluipedia": {
+      "id": "support_fire_bros_attack",
+      "sourceEvent": "shadowfell_birthday_trap_tanuki",
+      "participants": [
+        "green_t",
+        "remi_akamatsu_full_backstory"
+      ],
+      "resource": "Bros Energy"
+    }
+  },
+  "_id": "5O1EMpHbadkSmQP4",
+  "ownership": {
+    "default": 0
+  }
+}

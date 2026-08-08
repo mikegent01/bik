@@ -285,7 +285,7 @@
 .bros-attack-card:before{content:'🤝';position:absolute;right:18px;top:14px;font-size:30px;opacity:.16;filter:grayscale(1)}
 .bros-attack-card h2{padding-right:44px}.bros-attack-card h3{color:var(--accent2);font-size:14px;margin:18px 0 7px}.bros-attack-card ol{padding-left:22px;color:var(--muted)}
 .bros-attack-card li{margin:5px 0}.bros-energy-box{display:flex;flex-wrap:wrap;gap:8px;padding:11px 12px;margin:14px 0;border:1px solid rgba(224,180,0,.32);border-radius:10px;background:rgba(224,180,0,.07)}
-.bros-energy-box b{color:#ffe7a0}.bros-source{font-size:12px;color:var(--muted);margin-top:14px}
+.bros-energy-box b{color:#ffe7a0}.bros-how{margin-top:14px;padding:14px 16px;border:1px solid rgba(150,230,179,.28);border-radius:10px;background:rgba(150,230,179,.06)}.bros-how h3{margin:0 0 6px;color:var(--green)}.bros-how ol{margin:0;padding-left:22px;color:var(--muted)}.bros-how li{margin:4px 0}.bros-source{font-size:12px;color:var(--muted);margin-top:14px}
 </style></head>
 <body>
 <header class="topbar">
@@ -14543,7 +14543,7 @@ function view_bros_attacks(){
       ${a.sourceEvent?`<p><a class="chip" href="#/article/${encodeURIComponent(a.sourceEvent)}">📜 Source filing →</a></p>`:''}
     </article>`;
   }).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in" style="border-left:5px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(224,180,0,.08)),var(--panel)"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Bros Attacks</div><h1 style="margin:6px 0">🤝 ${esc(doc.title||'Bros Attacks')}</h1><p class="text-muted">${esc(doc.subtitle||'')}</p><p>${esc(doc.description||'')}</p><div class="wnote"><b>Shared resource:</b> Bros Energy is a small teamwork reserve. Every named partner pays the cost, and everyone gets it back after a very short rest. A technique can succeed tactically and still be a terrible idea socially.</div></div><div class="bros-attack-grid">${cards||'<div class="card">No techniques have been confirmed yet.</div>'}</div>`;
+  el('content').innerHTML=`<div class="card animate-fade-in" style="border-left:5px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(224,180,0,.08)),var(--panel)"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Bros Attacks</div><h1 style="margin:6px 0">🤝 ${esc(doc.title||'Bros Attacks')}</h1><p class="text-muted">${esc(doc.subtitle||'')}</p><p>${esc(doc.description||'')}</p><div class="wnote"><b>Shared resource:</b> Bros Energy is a small teamwork reserve. Every named partner pays the cost, and everyone gets it back after a very short rest. A technique can succeed tactically and still be a terrible idea socially.</div><div class="bros-how"><h3>How players use this page</h3><ol><li>Put the named partners next to each other and confirm the target or obstacle.</li><li>Check that <b>each partner</b> has at least 1 Bros Energy.</li><li>Spend 1 energy from each partner’s own two-use pool.</li><li>Click the Foundry feat, follow its plain-language prompt, and resolve the normal weapon or movement rules.</li><li>Mark the result in the scene. Spent energy returns after a very short rest.</li></ol></div></div><div class="bros-attack-grid">${cards||'<div class="card">No techniques have been confirmed yet.</div>'}</div>`;
   window.scrollTo(0,0);
 }
 

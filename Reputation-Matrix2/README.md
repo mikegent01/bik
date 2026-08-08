@@ -193,7 +193,7 @@ The live Waluipedia loader fetches `Reputation-Matrix2/data/events.json` through
 
 ### Bros Attacks and static Foundry content
 
-Cooperative combat techniques belong in `data/brosAttacks.json`. Add one definition per confirmed technique with a stable `id`, name, participants, source event, steps, risks, result, and a Waluigi note. The reader-facing archive is `bros-attacks.html`; it is intentionally static and has no editor. The Foundry export is `tools/foundry/bros-attacks.json`, also intentionally static: it contains only the defined techniques as importable feat items. Update the source definitions and regenerate or update the static export together. Do not add a live in-page editor or let Foundry become a second source of truth.
+Cooperative combat techniques belong in `data/brosAttacks.json`. Add one definition per confirmed technique with a stable `id`, name, participants, source event, steps, risks, result, and a Waluigi note. The reader-facing archive is `bros-attacks.html`; it is intentionally static and has no editor. The Foundry export lives in `tools/foundry/bros-attacks/`: one valid dnd5e feat JSON per technique plus `manifest.json`. It is intentionally static and contains only the defined techniques as importable feat items. Each feat has two uses, spends one use per participant, and refreshes on a Foundry short rest (the rules text calls this a very short rest). Update the source definitions and regenerate the static item files together. Do not add a live in-page editor or let Foundry become a second source of truth.
 
 #### Bros Attack resource design
 
