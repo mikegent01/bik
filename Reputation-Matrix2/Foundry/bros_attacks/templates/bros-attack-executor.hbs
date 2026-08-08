@@ -1,0 +1,76 @@
+<div class="bros-executor-content">
+  <div class="bros-executor-header">
+    <h2>{{attack.name}}</h2>
+    {{#if attack.description}}
+    <div class="bros-attack-desc">{{attack.description}}</div>
+    {{/if}}
+  </div>
+
+  {{!-- Actor Selection --}}
+  <div class="bros-actor-select-section">
+    <div class="bros-actor-select-row">
+      <div>
+        <label>🔴 Player 1 (Initiator)</label>
+        <select id="bros-player1-select">
+          <option value="">-- Select --</option>
+          {{#each actors}}
+          <option value="{{this.id}}">{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div>
+        <label>🟢 Player 2 (Partner)</label>
+        <select id="bros-player2-select">
+          <option value="">-- Select --</option>
+          {{#each actors}}
+          <option value="{{this.id}}">{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  {{!-- Targets --}}
+  <div class="bros-target-section">
+    <label>🎯 Targets</label>
+    <div class="bros-target-list" id="bros-target-list">
+      <span class="bros-target-token" style="opacity:.5">
+        Select tokens on the canvas
+      </span>
+    </div>
+  </div>
+
+  {{!-- Combo Chain --}}
+  <div class="bros-combo-tracker">
+    <h3>⛓️ Combo Chain</h3>
+    <div class="bros-combo-steps-display" id="bros-combo-display">
+      {{#each attack.steps}}
+      <div class="bros-combo-step-row pending" data-step-index="{{@index}}">
+        <span class="step-num">{{brosMath @index "+" 1}}</span>
+        <div class="step-info">
+          <div class="step-label">{{this.label}}</div>
+          <div class="step-detail">
+            {{#if (brosEq this.player 1)}}🔴{{else}}🟢{{/if}}
+            Player {{this.player}} · {{this.ability}} · DC {{this.dc}}
+          </div>
+        </div>
+        <span class="step-result"></span>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  {{!-- Roll Section --}}
+  <div class="bros-roll-section" id="bros-roll-section">
+    <button class="bros-roll-btn" id="bros-start-combo">
+      ⭐ HERE WE GO! ⭐
+    </button>
+  </div>
+
+  {{!-- Damage Display --}}
+  <div class="bros-damage-display" id="bros-damage-display" style="display:none">
+    <h3>Total Damage</h3>
+    <div class="bros-damage-number" id="bros-total-damage">0</div>
+    <div class="bros-combo-count" id="bros-combo-count"></div>
+  </div>
+</div>

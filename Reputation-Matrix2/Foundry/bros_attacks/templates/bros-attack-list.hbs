@@ -1,0 +1,59 @@
+<div class="bros-attack-list-content">
+    <div class="bros-header-bar">
+        <h2>⭐ BROS Attacks</h2>
+        {{#if isGM}}
+        <button class="bros-btn" id="bros-create-new">
+            <i class="fas fa-plus"></i> Create New
+        </button>
+        {{/if}}
+    </div>
+
+    <div class="bros-attacks-grid">
+        {{#if attacks.length}}
+            {{#each attacks}}
+            <div class="bros-attack-card" data-attack-id="{{this.id}}">
+                <div class="bros-attack-icon">
+                    {{#if (eq this.category "fire")}}🔥{{/if}}
+                    {{#if (eq this.category "jump")}}🦘{{/if}}
+                    {{#if (eq this.category "hammer")}}🔨{{/if}}
+                    {{#if (eq this.category "shell")}}🐚{{/if}}
+                    {{#if (eq this.category "star")}}⭐{{/if}}
+                    {{#if (eq this.category "custom")}}✨{{/if}}
+                </div>
+                <div class="bros-attack-info">
+                    <h3>{{this.name}}</h3>
+                    <div class="bros-attack-meta">
+                        <span class="bros-category-badge {{this.category}}">{{this.category}}</span>
+                        <span>💥 {{this.baseDamage}} base</span>
+                        <span>🔗 {{this.steps.length}} steps</span>
+                        {{#if this.fpCost}}<span>🌸 {{this.fpCost}} FP</span>{{/if}}
+                    </div>
+                </div>
+                <div class="bros-attack-actions">
+                    <button class="bros-btn green small bros-execute-attack" data-attack-id="{{this.id}}" title="Execute">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    {{#if ../isGM}}
+                    <button class="bros-btn blue small bros-edit-attack" data-attack-id="{{this.id}}" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="bros-btn danger small bros-delete-attack" data-attack-id="{{this.id}}" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    {{/if}}
+                </div>
+            </div>
+            {{/each}}
+        {{else}}
+            <div class="bros-empty-state">
+                <i class="fas fa-star"></i>
+                <p>No BROS Attacks defined yet!</p>
+                {{#if isGM}}
+                <p>Click "Create New" to get started.</p>
+                {{else}}
+                <p>Ask your GM to create some BROS Attacks!</p>
+                {{/if}}
+            </div>
+        {{/if}}
+    </div>
+</div>

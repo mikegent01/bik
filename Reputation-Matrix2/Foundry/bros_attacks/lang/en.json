@@ -1,0 +1,59 @@
+{
+  "BROS": {
+    "Title": "BROS Attacks",
+    "Config": {
+      "Title": "Configure BROS Attack",
+      "Name": "Attack Name",
+      "Description": "Description",
+      "Icon": "Icon",
+      "BaseDamage": "Base Damage",
+      "BonusPerCombo": "Bonus Per Combo Hit",
+      "MaxCombos": "Max Combo Steps",
+      "DifficultyIncrease": "Difficulty Increase Per Step",
+      "ComboSteps": "Combo Steps",
+      "StepLabel": "Step Label",
+      "Actor": "Actor",
+      "Ability": "Ability / Stat",
+      "DC": "Base DC",
+      "Save": "Save",
+      "Delete": "Delete",
+      "AddStep": "Add Combo Step",
+      "Create": "Create New BROS Attack",
+      "Edit": "Edit",
+      "Execute": "Execute",
+      "Player1": "Player 1 (Initiator)",
+      "Player2": "Player 2 (Partner)",
+      "FPCost": "Flower Points Cost",
+      "Category": "Category",
+      "Categories": {
+        "fire": "🔥 Fire",
+        "jump": "🦘 Jump",
+        "hammer": "🔨 Hammer",
+        "shell": "🐚 Shell",
+        "star": "⭐ Star",
+        "custom": "✨ Custom"
+      }
+    },
+    "Executor": {
+      "Title": "Execute BROS Attack",
+      "SelectTarget": "Select Target(s)",
+      "Ready": "Ready!",
+      "Go": "HERE WE GO!",
+      "Roll": "Roll!",
+      "ComboStep": "Combo Step",
+      "Success": "SUCCESS! ✨",
+      "Fail": "MISS! 💥",
+      "Excellent": "EXCELLENT!!",
+      "ComboBreak": "COMBO BREAK!",
+      "TotalDamage": "Total Damage",
+      "FinalResult": "Final Result",
+      "Waiting": "Waiting for partner..."
+    },
+    "Chat": {
+      "Initiated": "initiated a BROS Attack!",
+      "ComboHit": "Combo Hit!",
+      "ComboMiss": "Combo Miss!",
+      "FinalDamage": "Final Damage"
+    }
+  }
+}

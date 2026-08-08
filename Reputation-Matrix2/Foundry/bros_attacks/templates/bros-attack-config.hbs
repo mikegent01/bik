@@ -1,0 +1,96 @@
+<form class="bros-config-form" autocomplete="off">
+    <div class="bros-form-row">
+        <div class="bros-form-group">
+            <label>Attack Name</label>
+            <input type="text" name="name" value="{{attack.name}}" placeholder="e.g. Fire Bros Bounce" required />
+        </div>
+        <div class="bros-form-group">
+            <label>Category</label>
+            <select name="category">
+                <option value="fire" {{#if (eq attack.category "fire")}}selected{{/if}}>🔥 Fire</option>
+                <option value="jump" {{#if (eq attack.category "jump")}}selected{{/if}}>🦘 Jump</option>
+                <option value="hammer" {{#if (eq attack.category "hammer")}}selected{{/if}}>🔨 Hammer</option>
+                <option value="shell" {{#if (eq attack.category "shell")}}selected{{/if}}>🐚 Shell</option>
+                <option value="star" {{#if (eq attack.category "star")}}selected{{/if}}>⭐ Star</option>
+                <option value="custom" {{#if (eq attack.category "custom")}}selected{{/if}}>✨ Custom</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="bros-form-group">
+        <label>Description</label>
+        <textarea name="description" rows="2" placeholder="Describe the attack...">{{attack.description}}</textarea>
+    </div>
+
+    <div class="bros-form-row three-col">
+        <div class="bros-form-group">
+            <label>Base Damage</label>
+            <input type="number" name="baseDamage" value="{{attack.baseDamage}}" min="0" placeholder="10" />
+        </div>
+        <div class="bros-form-group">
+            <label>Bonus Per Combo</label>
+            <input type="number" name="bonusPerCombo" value="{{attack.bonusPerCombo}}" min="0" placeholder="5" />
+        </div>
+        <div class="bros-form-group">
+            <label>FP Cost</label>
+            <input type="number" name="fpCost" value="{{attack.fpCost}}" min="0" placeholder="3" />
+        </div>
+    </div>
+
+    <div class="bros-form-row">
+        <div class="bros-form-group">
+            <label>Difficulty Increase Per Step</label>
+            <input type="number" name="difficultyIncrease" value="{{attack.difficultyIncrease}}" min="0" placeholder="2" />
+        </div>
+        <div class="bros-form-group">
+            <label>Damage Dice (optional)</label>
+            <input type="text" name="damageDice" value="{{attack.damageDice}}" placeholder="e.g. 1d6" />
+        </div>
+    </div>
+
+    <div class="bros-combo-steps-section">
+        <h3>⛓️ Combo Steps</h3>
+        <div id="bros-combo-steps-container">
+            {{#each attack.steps}}
+            <div class="bros-combo-step {{#if (eq this.player 1)}}player-1{{else}}player-2{{/if}}" data-step-index="{{@index}}">
+                <div class="bros-step-header">
+                    <span class="bros-step-number">{{math @index "+" 1}}</span>
+                    <button type="button" class="bros-step-remove" data-step-index="{{@index}}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="bros-step-fields">
+                    <div>
+                        <label>Label</label>
+                        <input type="text" name="steps.{{@index}}.label" value="{{this.label}}" placeholder="Jump!" />
+                    </div>
+                    <div>
+                        <label>Player</label>
+                        <select name="steps.{{@index}}.player">
+                            <option value="1" {{#if (eq this.player 1)}}selected{{/if}}>Player 1 🔴</option>
+                            <option value="2" {{#if (eq this.player 2)}}selected{{/if}}>Player 2 🟢</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Ability</label>
+                        <input type="text" name="steps.{{@index}}.ability" value="{{this.ability}}" placeholder="dex / str / etc" />
+                    </div>
+                    <div>
+                        <label>DC</label>
+                        <input type="number" name="steps.{{@index}}.dc" value="{{this.dc}}" min="1" placeholder="10" />
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <button type="button" class="bros-add-step-btn" id="bros-add-step">
+            <i class="fas fa-plus"></i> Add Combo Step
+        </button>
+    </div>
+
+    <div style="text-align: center; margin-top: 10px;">
+        <button type="submit" class="bros-btn green" style="padding: 10px 40px; font-size: 1em;">
+            <i class="fas fa-save"></i> Save BROS Attack
+        </button>
+    </div>
+</form>

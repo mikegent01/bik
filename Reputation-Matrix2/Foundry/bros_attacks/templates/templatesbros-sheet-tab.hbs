@@ -1,0 +1,62 @@
+<div class="tab bros-sheet-tab-content" data-tab="bros-attacks">
+  <div class="bros-sheet-tab-inner">
+
+    {{!-- Header --}}
+    <div class="bros-sheet-header">
+      <span class="bros-sheet-title">⭐ BROS Attacks</span>
+      <div class="bros-sheet-header-btns">
+        {{#if isGM}}
+        <button type="button" id="bros-sheet-create" class="bros-sheet-btn gold">
+          <i class="fas fa-plus"></i> New
+        </button>
+        {{/if}}
+        <button type="button" id="bros-open-manager" class="bros-sheet-btn blue">
+          <i class="fas fa-list"></i> All Attacks
+        </button>
+      </div>
+    </div>
+
+    {{!-- Attack List --}}
+    {{#if attacks.length}}
+    <div class="bros-sheet-attack-list">
+      {{#each attacks}}
+      <div class="bros-sheet-attack-row">
+        <span class="bros-sheet-attack-icon">{{brosIcon this.category}}</span>
+        <div class="bros-sheet-attack-info">
+          <span class="bros-sheet-attack-name">{{this.name}}</span>
+          <span class="bros-sheet-attack-meta">
+            💥 {{this.baseDamage}} base · 🔗 {{this.steps.length}} steps
+            {{#if this.fpCost}}· 🌸 {{this.fpCost}} FP{{/if}}
+          </span>
+        </div>
+        <div class="bros-sheet-attack-btns">
+          <button type="button" class="bros-sheet-btn green bros-sheet-execute"
+                  data-attack-id="{{this.id}}" title="Execute">
+            <i class="fas fa-play"></i>
+          </button>
+          {{#if ../isGM}}
+          <button type="button" class="bros-sheet-btn blue bros-sheet-edit"
+                  data-attack-id="{{this.id}}" title="Edit">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button type="button" class="bros-sheet-btn danger bros-sheet-delete"
+                  data-attack-id="{{this.id}}" title="Delete">
+            <i class="fas fa-trash"></i>
+          </button>
+          {{/if}}
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    {{else}}
+    <div class="bros-sheet-empty">
+      <i class="fas fa-star" style="color:#ffb703;opacity:0.4;font-size:2em"></i>
+      <p>No BROS Attacks yet!</p>
+      {{#if isGM}}
+      <p style="font-size:.85em;opacity:.7">Click "New" to create one.</p>
+      {{/if}}
+    </div>
+    {{/if}}
+
+  </div>
+</div>
