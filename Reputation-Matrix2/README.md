@@ -29,7 +29,41 @@ Narrative filings (session events in `data/events.json`, What-Ifs in `data/whati
 | A **What-If** | Wario | Imp-grade scenes *before* any apparatus counts |
 | Anything long | Imp scenes + Wario frame | A thesis, a machine, a callback object in the close |
 
-The guide covers: physical prose techniques, voice/POV rules, section vs chapter shape, dual-layer commentary, the What-If decision engine (`ledger` / `findings` / `verdict`), event apparatus, pacing tells stolen from both references, and pre-flight audit scripts for each form.
+The guide covers: physical prose techniques, voice/POV rules, section vs chapter shape, dual-layer commentary, the What-If decision engine (`ledger` / `findings` / `verdict`), event apparatus, pacing tells stolen from both references, relationship and reputation modifiers, and pre-flight audit scripts for each form.
+
+### Waluigi as an eyewitness narrator
+
+When Waluigi is present in a scene, he may—and for a personal filing should—write in **first person**. Let him record what he saw, what his body did, and what he thought or felt in the moment: fear, pride, irritation, embarrassment, suspicion, relief, or a grievance he will carry into the apparatus. First person is not permission to turn every paragraph into a monologue. Keep the room physical and let the feeling arrive through action, sensation, spoken argument, and a specific opinion.
+
+Use close third person only for beats Waluigi did not witness, and mark the change honestly (for example, reconstructing a corridor scene from Hjumpik and Toad Lee). Do not give Waluigi knowledge he could not have had. In a first-person event filing, establish his presence early, use “I” for his witnessed actions and thoughts, and reserve the italic `*WAH!` / `*Waluigi` asides for short jokes, corrections, grudges, and observations welded to the beat immediately above. The durable conclusion still belongs in `waluigiAssessment`, not hidden inside the scene.
+
+Example:
+
+> The ring came loose and struck my palm. I wanted to boast that I had planned the escape. I had not. My hands were shaking, and I was relieved enough to feel angry about it.
+>
+> *WAH! Waluigi prefers a tactical retreat when it is described as a tactical retreat. “Falling out a window while clutching a haunted ring” is less flattering, but more accurate.*
+
+### Relationship pages and reputation modifiers
+
+The site’s relationship matrix is event-driven. A character, faction, battle, trial, or other article can change how an operator is regarded by a faction by adding a signed `reputationChanges` object to the record. This is the relationship modifier for the article; it is not a prose-only claim. The renderer indexes these changes, applies time decay, shows the contributing article in the faction standing trace, and combines the result with base standings, internal politics, and faction-to-faction propagation.
+
+Use the short operator keys already recognized by the matrix (`waluigi`, `hjumpik`, `archie`, `markop`, `bowser`, `remi`, `dan`, `greent`, etc.) and existing faction IDs from `factions.json` / the loaded faction registry. Values are signed integers: positive means the operator’s standing improves; negative means it worsens. Keep changes modest and earned by the record. Do not invent a new character or faction key just to make a modifier render.
+
+```json
+"reputationChanges": {
+  "waluigi": {
+    "corvinarus_family": -4,
+    "mages_guild": 2
+  },
+  "hjumpik": {
+    "corvinarus_family": 3
+  }
+}
+```
+
+Add modifiers only when the article contains a believable cause: a faction witnessed the party rescue one of its people, the party stole from it, a battle changed its military view, or an investigation exposed useful intelligence. Explain the cause in `summary`, `aftermath`, `waluigiAssessment`, or a relevant section; the number should be auditable from the story. A modifier belongs on the article that caused the change, not on every related page. Link the related character, faction, event, and battle IDs so readers can inspect both sides of the relationship.
+
+For a new relationship-focused article, use a normal resolvable article record and include: the two parties, the dated change, the specific witnessed action, the signed `reputationChanges`, and the resulting status or unresolved tension. “They like each other more” is not enough: state who changed their view, by how much, why, and what future scene would test it. After editing, validate the JSON, confirm every operator and faction key resolves, and verify the article appears in the standing trace. Never manually edit calculated totals in the UI; those are derived from the modifier ledger.
 
 **Do not optimise the numbers.** They catch drift. If the prose reads well and the measurements disagree, the prose wins.
 
