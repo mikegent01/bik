@@ -9,10 +9,10 @@ const BROS_DEFINITIONS = [
     partnerB: "Toad Lee",
     description: "Hjumpik lifts Toad Lee. Toad Lee chops the growth. The pair advances through the opening.",
     steps: [
-      { actor: "A", title: "Lift Toad Lee", instruction: "Move upward across the field. Do not click.", gesture: "up", icon: "⛏️" },
-      { actor: "B", title: "Chop down", instruction: "Move downward across the field. Do not click.", gesture: "down", icon: "🪓" },
-      { actor: "B", title: "Chop down again", instruction: "Make another downward stroke. Do not use a countdown.", gesture: "down", icon: "🪓" },
-      { actor: "A", title: "Advance", instruction: "Move right across the cleared corridor. Do not click.", gesture: "right", icon: "👣" }
+      { actor: "A", title: "Lift Toad Lee", instruction: "Watch the bar. Press ↑ (or click) the instant the marker is in the green zone.", gesture: "up", icon: "⛏️" },
+      { actor: "B", title: "Chop down", instruction: "Watch the bar. Press ↓ (or click) the instant the marker is in the green zone.", gesture: "down", icon: "🪓" },
+      { actor: "B", title: "Chop down again", instruction: "One more — press ↓ (or click) when the marker hits the green zone.", gesture: "down", icon: "🪓" },
+      { actor: "A", title: "Advance", instruction: "Watch the bar. Press → (or click) the instant the marker is in the green zone.", gesture: "right", icon: "👣" }
     ]
   },
   {
@@ -22,13 +22,38 @@ const BROS_DEFINITIONS = [
     partnerB: "Remi",
     description: "Green T lines up the shot and calls the moment. Remi fires, then resets safely.",
     steps: [
-      { actor: "A", title: "Steady the aim", instruction: "Move into the target circle. Do not click.", gesture: "aim", icon: "🎯" },
-      { actor: "A", title: "Call the timing", instruction: "Move right through the timing lane. Do not click.", gesture: "right", icon: "⏱️" },
-      { actor: "B", title: "Fire", instruction: "Tap once to fire after the timing call.", gesture: "tap", icon: "🔫" },
-      { actor: "B", title: "Reset safely", instruction: "Move downward away from the firing line. Do not click.", gesture: "down", icon: "🛡️" }
+      { actor: "A", title: "Steady the aim", instruction: "Hold Space (or hold the button). Release the instant the charge meter is in the green zone.", gesture: "aim", icon: "🎯" },
+      { actor: "A", title: "Call the timing", instruction: "Watch the bar. Press → (or click) the instant the marker is in the green zone.", gesture: "right", icon: "⏱️" },
+      { actor: "B", title: "Fire", instruction: "Wait for GO, then press Enter (or click) immediately. Too early or too late misses.", gesture: "tap", icon: "🔫" },
+      { actor: "B", title: "Reset safely", instruction: "Watch the bar. Press ↓ (or click) the instant the marker is in the green zone.", gesture: "down", icon: "🛡️" }
     ]
   }
 ];
+
+// Each gesture maps to a keyboard key (or two, for WASD players) and a
+// button label. Input is always a single, unambiguous down/up/click event —
+// the challenge lives in the TIMING, not in trying to detect a gesture.
+const GESTURE_KEYS = {
+  up:    ["ArrowUp", "KeyW"],
+  down:  ["ArrowDown", "KeyS"],
+  right: ["ArrowRight", "KeyD"],
+  aim:   ["Space"],
+  tap:   ["Enter"]
+};
+const GESTURE_LABEL = { up: "↑", down: "↓", right: "→", aim: "🎯 Aim", tap: "🔫 Fire" };
+const GESTURE_HINT  = { up: "↑ or W", down: "↓ or S", right: "→ or D", aim: "Space", tap: "Enter" };
+// Keys intercepted while a drill is open, so Foundry's own hotkeys
+// (arrow keys pan/move the selected token) don't fire underneath it.
+const BLOCK_KEYS = new Set(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","KeyW","KeyA","KeyS","KeyD","Space","Enter"]);
+
+// Difficulty knobs — tune these to taste, nothing else needs to change.
+const CHALLENGE = {
+  up:    { type: "zone",     period: 1300, zoneWidth: 20 }, // ms per full sweep, % width of hit zone
+  down:  { type: "zone",     period: 1300, zoneWidth: 20 },
+  right: { type: "zone",     period: 1000, zoneWidth: 16 }, // faster + narrower = harder
+  aim:   { type: "charge",   maxHold: 1700, zoneStart: 55, zoneEnd: 78 }, // % of maxHold
+  tap:   { type: "reaction", minDelay: 700, maxDelay: 2200, window: 480 } // ms
+};
 
 const energyOf = actor => Number(actor?.getFlag?.(BROS_MODULE, "energy") ?? 2);
 async function spendEnergy(actors) {
@@ -64,7 +89,7 @@ class BrosAttackWindow extends foundry.applications.api.ApplicationV2 {
   _replaceHTML(result, content) { content.replaceChildren(result); }
 
   styles() { return `<style>
-    .bros-clean-root{font-family:Signika,system-ui,sans-serif;background:#111;color:#eee;padding:14px}.bros-clean-header{display:flex;gap:12px;align-items:center;border-bottom:2px solid #e4bb36;padding-bottom:12px}.bros-clean-star{font-size:34px}.bros-clean-header h1{color:#ffd84d;margin:0;font-size:21px}.bros-clean-header p{margin:3px 0 0;color:#aaa;font-size:12px}.bros-clean-target,.bros-clean-energy{padding:10px;margin-top:12px;border-radius:7px;font-size:12px}.bros-clean-target{display:flex;gap:8px;align-items:center;border:1px solid #633333;background:#210f0f;color:#ffb0a8}.bros-clean-target.has{border-color:#397b4b;background:#102516;color:#a7efb3}.bros-clean-target span{flex:1}.bros-clean-target button{background:#292929;color:#ddd;border:1px solid #555;border-radius:4px}.bros-clean-energy{border:1px solid #806b25;background:#241d0a;color:#ffe59a}.bros-clean-list{display:grid;gap:12px;margin-top:14px}.bros-clean-card{border:1px solid #3f3f3f;border-left:4px solid #d9a52e;border-radius:8px;padding:12px;background:#191919}.bros-clean-card h2{font-size:16px;color:#ffe36b;margin:0}.bros-clean-card p{font-size:12px;color:#bbb}.bros-clean-meta{display:flex;gap:7px;flex-wrap:wrap;color:#9fe6ae;font-size:11px}.bros-clean-use{float:right;background:#247b32;color:#fff;border:1px solid #54c765;border-radius:5px;padding:6px 12px;font-weight:bold}.bros-clean-use:disabled{opacity:.45}.bros-clean-overlay{position:fixed;inset:0;z-index:100000;background:#000c;display:grid;place-items:center}.bros-clean-drill{width:min(490px,94vw);background:#181818;border:2px solid #e0b83d;border-radius:12px;padding:18px;box-shadow:0 0 35px #000}.bros-clean-drill h2{color:#ffe06a;margin:0}.bros-clean-drill .turn{color:#9fe6ae;font-weight:bold;margin:10px 0}.bros-clean-pad{height:220px;position:relative;display:grid;place-items:center;overflow:hidden;border:2px dashed #75652c;border-radius:10px;background:linear-gradient(#182235 0 63%,#243720 63%);touch-action:none;user-select:none}.bros-clean-pad.fail{background:#4a1717;border-color:#ff746d}.bros-clean-pad.good{background:#174d26;border-color:#7cff99}.bros-clean-icon{font-size:48px;animation:bros-bob .7s infinite alternate}.bros-clean-arrow{position:absolute;font-size:48px;color:#ffe06a;animation:bros-pulse .7s infinite alternate}.bros-clean-help{min-height:38px;color:#ddd;font-size:13px}.bros-clean-timer{text-align:right;color:#ffe06a;font-weight:bold;font-size:13px;margin:-5px 0 5px}.bros-clean-timer.low{color:#ff756d;animation:bros-pulse .35s infinite alternate}.bros-clean-buttons{display:flex;gap:8px;margin-top:10px}.bros-clean-buttons button{flex:1;padding:8px;border-radius:5px}.bros-clean-cancel{background:#351414;color:#ffb0b0;border:1px solid #743535}@keyframes bros-pulse{to{transform:scale(1.2);opacity:.5}}@keyframes bros-bob{to{transform:translateY(-7px)}}
+    .bros-clean-root{font-family:Signika,system-ui,sans-serif;background:#111;color:#eee;padding:14px}.bros-clean-header{display:flex;gap:12px;align-items:center;border-bottom:2px solid #e4bb36;padding-bottom:12px}.bros-clean-star{font-size:34px}.bros-clean-header h1{color:#ffd84d;margin:0;font-size:21px}.bros-clean-header p{margin:3px 0 0;color:#aaa;font-size:12px}.bros-clean-target,.bros-clean-energy{padding:10px;margin-top:12px;border-radius:7px;font-size:12px}.bros-clean-target{display:flex;gap:8px;align-items:center;border:1px solid #633333;background:#210f0f;color:#ffb0a8}.bros-clean-target.has{border-color:#397b4b;background:#102516;color:#a7efb3}.bros-clean-target span{flex:1}.bros-clean-target button{background:#292929;color:#ddd;border:1px solid #555;border-radius:4px}.bros-clean-energy{border:1px solid #806b25;background:#241d0a;color:#ffe59a}.bros-clean-list{display:grid;gap:12px;margin-top:14px}.bros-clean-card{border:1px solid #3f3f3f;border-left:4px solid #d9a52e;border-radius:8px;padding:12px;background:#191919}.bros-clean-card h2{font-size:16px;color:#ffe36b;margin:0}.bros-clean-card p{font-size:12px;color:#bbb}.bros-clean-meta{display:flex;gap:7px;flex-wrap:wrap;color:#9fe6ae;font-size:11px}.bros-clean-use{float:right;background:#247b32;color:#fff;border:1px solid #54c765;border-radius:5px;padding:6px 12px;font-weight:bold}.bros-clean-use:disabled{opacity:.45}.bros-clean-overlay{position:fixed;inset:0;z-index:100000;background:#000c;display:grid;place-items:center}.bros-clean-drill{width:min(490px,94vw);background:#181818;border:2px solid #e0b83d;border-radius:12px;padding:18px;box-shadow:0 0 35px #000}.bros-clean-drill h2{color:#ffe06a;margin:0}.bros-clean-drill .turn{color:#9fe6ae;font-weight:bold;margin:10px 0}.bros-clean-pad{min-height:220px;position:relative;display:grid;place-items:center;overflow:hidden;border:2px dashed #75652c;border-radius:10px;background:linear-gradient(#182235 0 63%,#243720 63%);touch-action:none;user-select:none;padding:14px 0}.bros-clean-pad.fail{background:#4a1717;border-color:#ff746d}.bros-clean-pad.good{background:#174d26;border-color:#7cff99}.bros-clean-icon-sm{font-size:30px}.bros-track-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;padding:0 16px;box-sizing:border-box}.bros-track{position:relative;width:100%;height:26px;background:#20202a;border:1px solid #444;border-radius:6px}.bros-track-zone{position:absolute;top:0;bottom:0;background:#2f6b3a;opacity:.9;border-radius:4px}.bros-track-marker{position:absolute;top:-4px;bottom:-4px;width:4px;background:#ffe06a;box-shadow:0 0 8px #ffe06a;transform:translateX(-50%)}.bros-track-meter{position:absolute;top:0;bottom:0;left:0;background:linear-gradient(90deg,#3a6b2f,#8fd94a);width:0%;border-radius:4px}.bros-reaction-cue{font-size:26px;font-weight:bold;color:#889;transition:color .12s}.bros-reaction-cue.go{color:#7cff7c;text-shadow:0 0 12px #7cff7c}.bros-clean-action{font-size:20px;font-weight:bold;background:#2a3d20;color:#d8ffb0;border:2px solid #7cc94a;border-radius:10px;padding:10px 24px;cursor:pointer;box-shadow:0 0 18px #7cc94a55}.bros-clean-action:active{transform:scale(.96)}.bros-clean-action:disabled{opacity:.4;cursor:default}.bros-clean-hint{color:#9ab;font-size:11px;letter-spacing:.03em}.bros-clean-help{min-height:38px;color:#ddd;font-size:13px}.bros-clean-timer{text-align:right;color:#ffe06a;font-weight:bold;font-size:13px;margin:-5px 0 5px}.bros-clean-timer.low{color:#ff756d;animation:bros-pulse .35s infinite alternate}.bros-clean-buttons{display:flex;gap:8px;margin-top:10px}.bros-clean-buttons button{flex:1;padding:8px;border-radius:5px}.bros-clean-cancel{background:#351414;color:#ffb0b0;border:1px solid #743535}@keyframes bros-pulse{to{transform:scale(1.2);opacity:.5}}
   </style>`; }
 
   card(a,index) { return `<article class="bros-clean-card"><button class="bros-clean-use" data-use="${index}">Use</button><h2>${a.name}</h2><p>${a.description}</p><div class="bros-clean-meta"><span>👥 ${a.partnerA} + ${a.partnerB}</span><span>⚡ 1 each</span><span>↻ short rest</span></div></article>`; }
@@ -90,22 +115,182 @@ class BrosAttackWindow extends foundry.applications.api.ApplicationV2 {
 
   motion(attack,a,b,target) {
     const overlay=document.createElement("div");overlay.className="bros-clean-overlay";overlay.innerHTML=`<div class="bros-clean-drill"><h2>🤝 ${attack.name}</h2><div class="turn" data-turn></div><div class="bros-clean-timer" data-timer>Time: 10.0s</div><div class="bros-clean-pad" data-pad></div><div class="bros-clean-help" data-help></div><div data-progress></div><div class="bros-clean-buttons"><button class="bros-clean-cancel">Exit drill</button></div></div>`;document.body.appendChild(overlay);
-    const pad=overlay.querySelector("[data-pad]"),turn=overlay.querySelector("[data-turn]"),timer=overlay.querySelector("[data-timer]"),help=overlay.querySelector("[data-help]"),progress=overlay.querySelector("[data-progress]");let mode=null,index=0,last=null,distance=0,started=0,failures=0,finished=false,timerId=null;
-    const cleanup=()=>{clearInterval(timerId);overlay.remove();}; const current=()=>attack.steps[index];
-    const draw=()=>{const s=current();pad.replaceChildren();const icon=document.createElement("span");icon.className="bros-clean-icon";icon.textContent=s.icon;const arrow=document.createElement("span");arrow.className="bros-clean-arrow";arrow.textContent=s.gesture==="up"?"↑":s.gesture==="down"?"↓":s.gesture==="right"?"→":s.gesture==="aim"?"◎":"✦";pad.append(icon,arrow);turn.textContent=`${mode==="solo"?"One player":s.actor==="A"?a.name:b.name} — ${s.title}`;help.textContent=s.instruction;progress.textContent=`Step ${index+1} of ${attack.steps.length} · Mistakes remaining: ${2-failures}`;started=performance.now();distance=0;last=null;pad.className="bros-clean-pad";clearInterval(timerId);timer.classList.remove("low");timer.textContent="Time: 10.0s";timerId=setInterval(()=>{const left=Math.max(0,10-(performance.now()-started)/1000);timer.textContent=`Time: ${left.toFixed(1)}s`;timer.classList.toggle("low",left<=3);if(left<=0){clearInterval(timerId);fail();}},100);};
-    const fail=()=>{if(finished)return;clearInterval(timerId);failures++;pad.className="bros-clean-pad fail";if(failures>=3){turn.textContent="Drill failed";help.textContent="Three mistakes broke the rhythm. No rolls were made and no energy was spent.";setTimeout(cleanup,1300);}else{turn.textContent="Motion missed";help.textContent="Try the same step again. Movement gestures do not need a mouse button.";setTimeout(draw,800);}};
-    const success=()=>{if(finished)return;clearInterval(timerId);index++;if(index>=attack.steps.length){finished=true;pad.className="bros-clean-pad good";turn.textContent="Maneuver complete";help.textContent="The drill succeeded. Spending Bros Energy and resolving the normal rules…";setTimeout(async()=>{cleanup();if(await spendEnergy([a,b]))this.resolve(attack,a,b,target);},700);}else draw();};
-    const movement=(e)=>{if(!mode||finished||!last)return;const dx=e.clientX-last.x,dy=e.clientY-last.y;last={x:e.clientX,y:e.clientY};distance+=Math.hypot(dx,dy);const g=current().gesture;if(distance<55)return;if(g==="up"&&dy<0)success();else if(g==="down"&&dy>0)success();else if(g==="right"&&dx>0)success();else if(g==="aim"&&distance>65)success();};
-    pad.onpointermove=movement;pad.onpointerdown=e=>{if(!mode)return;if(current().gesture==="tap"){success();return;}last={x:e.clientX,y:e.clientY};};pad.onpointerup=()=>{last=null;};pad.onpointerleave=()=>{last=null;};
+    const pad=overlay.querySelector("[data-pad]"),turn=overlay.querySelector("[data-turn]"),timer=overlay.querySelector("[data-timer]"),help=overlay.querySelector("[data-help]"),progress=overlay.querySelector("[data-progress]");
+    let mode=null,index=0,finished=false,failures=0,timerId=null;
+    // The currently-armed input handlers for whichever mini-challenge is
+    // active right now. Each setup*() function below assigns these, and
+    // its returned teardown function clears them again.
+    let activeDown=null, activeUp=null, stepTeardown=()=>{};
+
+    const current=()=>attack.steps[index];
+
+    // ---- global input plumbing --------------------------------------
+    const onKeyDown=(e)=>{
+      if(BLOCK_KEYS.has(e.code)){e.preventDefault();e.stopPropagation();}
+      if(e.repeat)return; // ignore OS key-repeat while held
+      if(mode&&!finished&&activeDown)activeDown(e.code);
+    };
+    const onKeyUp=(e)=>{
+      if(mode&&!finished&&activeUp)activeUp(e.code);
+    };
+    window.addEventListener("keydown",onKeyDown,true);
+    window.addEventListener("keyup",onKeyUp,true);
+
+    const cleanup=()=>{
+      clearInterval(timerId);
+      stepTeardown();
+      window.removeEventListener("keydown",onKeyDown,true);
+      window.removeEventListener("keyup",onKeyUp,true);
+      overlay.remove();
+    };
+
+    // ---- per-challenge-type setup functions --------------------------
+    // Each returns a teardown() that cancels its timers/animation frames.
+
+    function setupZone(s,cfg){
+      const zoneStart=8+Math.random()*(92-cfg.zoneWidth-8);
+      const zoneEnd=zoneStart+cfg.zoneWidth;
+      const wrap=document.createElement("div");wrap.className="bros-track-wrap";
+      const icon=document.createElement("span");icon.className="bros-clean-icon-sm";icon.textContent=s.icon;
+      const track=document.createElement("div");track.className="bros-track";
+      const zoneEl=document.createElement("div");zoneEl.className="bros-track-zone";zoneEl.style.left=zoneStart+"%";zoneEl.style.width=(zoneEnd-zoneStart)+"%";
+      const marker=document.createElement("div");marker.className="bros-track-marker";
+      track.append(zoneEl,marker);
+      const btn=document.createElement("button");btn.className="bros-clean-action";btn.type="button";btn.textContent=GESTURE_LABEL[s.gesture];
+      const hint=document.createElement("span");hint.className="bros-clean-hint";hint.textContent=`press ${GESTURE_HINT[s.gesture]} when the marker is in the green`;
+      wrap.append(icon,track,btn,hint);
+      pad.append(wrap);
+
+      const start=performance.now();
+      const posAt=(now)=>{const t=((now-start)%cfg.period)/cfg.period;return t<0.5?t*2*100:(1-t)*2*100;};
+      let raf=requestAnimationFrame(function tick(now){marker.style.left=posAt(now)+"%";raf=requestAnimationFrame(tick);});
+
+      const attempt=()=>{const pos=posAt(performance.now());if(pos>=zoneStart&&pos<=zoneEnd)success();else fail();};
+      activeDown=(code)=>{if(GESTURE_KEYS[s.gesture].includes(code))attempt();};
+      activeUp=null;
+      btn.onclick=attempt;
+
+      return ()=>{cancelAnimationFrame(raf);activeDown=null;activeUp=null;};
+    }
+
+    function setupCharge(s,cfg){
+      const wrap=document.createElement("div");wrap.className="bros-track-wrap";
+      const icon=document.createElement("span");icon.className="bros-clean-icon-sm";icon.textContent=s.icon;
+      const track=document.createElement("div");track.className="bros-track";
+      const zoneEl=document.createElement("div");zoneEl.className="bros-track-zone";zoneEl.style.left=cfg.zoneStart+"%";zoneEl.style.width=(cfg.zoneEnd-cfg.zoneStart)+"%";
+      const meter=document.createElement("div");meter.className="bros-track-meter";
+      track.append(zoneEl,meter);
+      const btn=document.createElement("button");btn.className="bros-clean-action";btn.type="button";btn.textContent=GESTURE_LABEL[s.gesture];
+      const hint=document.createElement("span");hint.className="bros-clean-hint";hint.textContent=`hold ${GESTURE_HINT[s.gesture]}, release in the green`;
+      wrap.append(icon,track,btn,hint);
+      pad.append(wrap);
+
+      let holding=false,holdStart=0,raf=null;
+      const pctNow=()=>Math.min(100,((performance.now()-holdStart)/cfg.maxHold)*100);
+      const grow=()=>{
+        const pct=pctNow();meter.style.width=pct+"%";
+        if(pct>=100){holding=false;cancelAnimationFrame(raf);fail();return;}
+        raf=requestAnimationFrame(grow);
+      };
+      const startHold=()=>{if(holding||finished)return;holding=true;holdStart=performance.now();meter.style.width="0%";raf=requestAnimationFrame(grow);};
+      const releaseHold=()=>{
+        if(!holding)return;holding=false;cancelAnimationFrame(raf);
+        const pct=pctNow();
+        if(pct>=cfg.zoneStart&&pct<=cfg.zoneEnd)success();else fail();
+      };
+
+      activeDown=(code)=>{if(GESTURE_KEYS[s.gesture].includes(code))startHold();};
+      activeUp=(code)=>{if(GESTURE_KEYS[s.gesture].includes(code))releaseHold();};
+      btn.onmousedown=startHold;btn.onmouseup=releaseHold;btn.onmouseleave=()=>{if(holding)releaseHold();};
+
+      return ()=>{if(raf)cancelAnimationFrame(raf);activeDown=null;activeUp=null;};
+    }
+
+    function setupReaction(s,cfg){
+      const wrap=document.createElement("div");wrap.className="bros-track-wrap";
+      const icon=document.createElement("span");icon.className="bros-clean-icon-sm";icon.textContent=s.icon;
+      const cue=document.createElement("div");cue.className="bros-reaction-cue";cue.textContent="Wait…";
+      const btn=document.createElement("button");btn.className="bros-clean-action";btn.type="button";btn.textContent=GESTURE_LABEL[s.gesture];btn.disabled=true;
+      const hint=document.createElement("span");hint.className="bros-clean-hint";hint.textContent=`press ${GESTURE_HINT[s.gesture]} only after GO`;
+      wrap.append(icon,cue,btn,hint);
+      pad.append(wrap);
+
+      let armed=false;
+      const delay=cfg.minDelay+Math.random()*(cfg.maxDelay-cfg.minDelay);
+      const armTimeout=setTimeout(()=>{
+        armed=true;cue.textContent="GO!";cue.classList.add("go");btn.disabled=false;
+        windowTimeout=setTimeout(()=>{if(armed){armed=false;fail();}},cfg.window);
+      },delay);
+      let windowTimeout=null;
+
+      const attempt=()=>{
+        if(!armed){fail();return;} // pressed too early
+        armed=false;clearTimeout(windowTimeout);success();
+      };
+      activeDown=(code)=>{if(GESTURE_KEYS[s.gesture].includes(code))attempt();};
+      activeUp=null;
+      btn.onclick=attempt;
+
+      return ()=>{clearTimeout(armTimeout);clearTimeout(windowTimeout);activeDown=null;activeUp=null;};
+    }
+
+    // ---- step flow -----------------------------------------------------
+    const draw=()=>{
+      stepTeardown();
+      const s=current();
+      pad.replaceChildren();
+      pad.className="bros-clean-pad";
+      turn.textContent=`${mode==="solo"?"One player":s.actor==="A"?a.name:b.name} — ${s.title}`;
+      help.textContent=s.instruction;
+      progress.textContent=`Step ${index+1} of ${attack.steps.length} · Mistakes remaining: ${2-failures}`;
+
+      const cfg=CHALLENGE[s.gesture];
+      if(cfg.type==="zone")stepTeardown=setupZone(s,cfg);
+      else if(cfg.type==="charge")stepTeardown=setupCharge(s,cfg);
+      else stepTeardown=setupReaction(s,cfg);
+
+      clearInterval(timerId);timer.classList.remove("low");timer.textContent="Time: 10.0s";
+      const started=performance.now();
+      timerId=setInterval(()=>{const left=Math.max(0,10-(performance.now()-started)/1000);timer.textContent=`Time: ${left.toFixed(1)}s`;timer.classList.toggle("low",left<=3);if(left<=0){clearInterval(timerId);fail();}},100);
+    };
+
+    const fail=()=>{
+      if(finished)return;
+      clearInterval(timerId);failures++;pad.className="bros-clean-pad fail";
+      if(failures>=3){turn.textContent="Drill failed";help.textContent="Three mistakes broke the rhythm. No rolls were made and no energy was spent.";stepTeardown();setTimeout(cleanup,1300);}
+      else{turn.textContent="Motion missed";help.textContent="Try the same step again.";setTimeout(draw,800);}
+    };
+
+    const success=()=>{
+      if(finished)return;
+      clearInterval(timerId);index++;
+      if(index>=attack.steps.length){
+        finished=true;stepTeardown();pad.className="bros-clean-pad good";turn.textContent="Maneuver complete";help.textContent="The drill succeeded. Spending Bros Energy and resolving the normal rules…";
+        setTimeout(async()=>{cleanup();if(await spendEnergy([a,b]))this.resolve(attack,a,b,target);},700);
+      } else draw();
+    };
+
     const choose=(chosen)=>{mode=chosen;overlay.querySelector(".bros-clean-buttons").insertAdjacentHTML("afterbegin",`<span style="padding:8px;color:#9fe6ae">${chosen==="team"?"Team mode — pass the turn when prompted":"One player mode"}</span>`);draw();};
-    overlay.querySelector(".bros-clean-buttons").insertAdjacentHTML("afterbegin",'<button data-team>👥 Team mode</button><button data-solo>🎮 One player</button>');overlay.querySelector("[data-team]").onclick=()=>choose("team");overlay.querySelector("[data-solo]").onclick=()=>choose("solo");overlay.querySelector(".bros-clean-cancel").onclick=cleanup;
+    overlay.querySelector(".bros-clean-buttons").insertAdjacentHTML("afterbegin",'<button data-team>👥 Team mode</button><button data-solo>🎮 One player</button>');
+    overlay.querySelector("[data-team]").onclick=()=>choose("team");
+    overlay.querySelector("[data-solo]").onclick=()=>choose("solo");
+    overlay.querySelector(".bros-clean-cancel").onclick=cleanup;
   }
 
   async resolve(attack,a,b,target){
     const roll=async(actor,label)=>{const r=await new Roll(`1d20 + @abilities.${actor===a?"str":"dex"}.mod`,actor.getRollData()).roll();await r.toMessage({speaker:ChatMessage.getSpeaker({actor}),flavor:`${attack.name}: ${label}`});return r.total;};
-    const ra=await roll(a,"Partner A");const rb=await roll(b,"Partner B");const total=ra+rb;await ChatMessage.create({content:`<div class="bros-clean-card"><h2>🤝 ${attack.name} resolved</h2><p>${a.name} rolled ${ra}. ${b.name} rolled ${rb}. Combined result: <strong>${total}</strong>.</p><p>No automatic damage was applied; the GM applies the normal attack, movement, or clearing rules for this technique.</p></div>`});
+    const ra=await roll(a,"Partner A");const rb=await roll(b,"Partner B");const total=ra+rb;
+    await ChatMessage.create({content:`<div class="bros-clean-card"><h2>🤝 ${attack.name} resolved</h2><p>${a.name} rolled ${ra}. ${b.name} rolled ${rb}. Combined result: <strong>${total}</strong>.</p><p>No automatic damage was applied; the GM applies the normal attack, movement, or clearing rules for this technique.</p></div>`});
   }
 }
 
-Hooks.once("ready",()=>{game.brosAttacks=new BrosAttackWindow();const button=document.createElement("button");button.id="waluipedia-bros-button";button.textContent="🤝 BROS";Object.assign(button.style,{position:"fixed",bottom:"14px",left:"200px",zIndex:9999,background:"#271b05",color:"#ffe06a",border:"2px solid #e0b83d",borderRadius:"7px",padding:"7px 15px",fontWeight:"bold",cursor:"pointer"});button.onclick=()=>game.brosAttacks.render(true);document.body.appendChild(button);});
+Hooks.once("ready",()=>{
+  game.brosAttacks=new BrosAttackWindow();
+  const button=document.createElement("button");
+  button.id="waluipedia-bros-button";button.textContent="🤝 BROS";
+  Object.assign(button.style,{position:"fixed",bottom:"14px",left:"200px",zIndex:9999,background:"#271b05",color:"#ffe06a",border:"2px solid #e0b83d",borderRadius:"7px",padding:"7px 15px",fontWeight:"bold",cursor:"pointer"});
+  button.onclick=()=>game.brosAttacks.render(true);
+  document.body.appendChild(button);
+});
+
 Hooks.on("dnd5e.restCompleted",async(actor,data)=>{if(data?.restType==="short"||data?.restType==="sr")await actor.setFlag(BROS_MODULE,"energy",2);});
