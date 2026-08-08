@@ -187,3 +187,6 @@ Adding a new readable book to the game world involves several steps to ensure it
 3.  **Register in `bookshelf.js` (Party Inventory):** Import the content file and add it to the `bookDataMap`. Assign a cover in `getBookCoverUrl`.
 4.  **Register in `library.js` (Public Terminal):** Repeat the registration steps from `bookshelf.js`.
 5.  **Add to Inventory/Stock:** Add the book's title to a character's inventory in `state.js` or to a library's stock file.
+### Canonical event data file
+
+The live Waluipedia loader fetches `Reputation-Matrix2/data/events.json` through the `events` data key. That is the single canonical event registry. Do not maintain a second hand-edited mirror under `data/events/events.json`; duplicate registries drift and create false validation results. Other pages and documentation should link or refer to `data/events.json`. If a legacy export mentions the old path, update the reference rather than creating another copy.
