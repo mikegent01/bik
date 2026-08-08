@@ -3,6 +3,22 @@
 // ============================================
 
 const MODULE_ID = "bros-attacks";
+const STATIC_ATTACKS = [
+  { name: "Chop Bros", actorA: "Hjumpik Deldkur", actorB: "Toad Lee", rollA: "1d20 + @abilities.str.mod", rollALabel: "Hjumpik: Strength to lift", rollB: "1d20 + @abilities.str.mod", rollBLabel: "Toad Lee: Strength to chop", damageAFormula: null, damageBFormula: null, threshold: 10, maxCombo: 1, resourceCost: 1, description: "Clear the obstacle together. Both partners spend 1 Bros Energy. No countdown: move by shared rhythm." },
+  { name: "Support Fire Bros Attack", actorA: "Green T", actorB: "Remi", rollA: "1d20 + @abilities.wis.mod", rollALabel: "Green T: timing and aim", rollB: "1d20 + @prof + @abilities.dex.mod", rollBLabel: "Remi: attack roll", damageAFormula: null, damageBFormula: "1d6 + @abilities.dex.mod", threshold: 10, maxCombo: 1, resourceCost: 1, description: "Green T steadies the shot and Remi resolves the normal firearm attack. Both partners spend 1 Bros Energy." }
+];
+
+async function brosEnergy(actor) { return Number(actor.getFlag(MODULE_ID, "energy") ?? 2); }
+async function spendBrosEnergy(actors, cost=1) {
+  const missing=[]; for (const actor of actors) if (await brosEnergy(actor) < cost) missing.push(`${actor.name} has ${await brosEnergy(actor)} Bros Energy`);
+  if (missing.length) { ui.notifications.warn(`Bros Attack unavailable: ${missing.join("; ")}. Each partner needs ${cost} energy.`); return false; }
+  for (const actor of actors) await actor.setFlag(MODULE_ID, "energy", (await brosEnergy(actor))-cost);
+  return true;
+}
+function registerBrosRest(){
+  Hooks.on("dnd5e.restCompleted", async (actor, data) => { if (data?.restType === "short" || data?.restType === "sr") await actor.setFlag(MODULE_ID, "energy", 2); });
+}
+
 
 const ROLL_OPTIONS = {
   "Strength Check":     { formula: "1d20 + @abilities.str.mod", label: "Strength" },
@@ -140,6 +156,7 @@ Hooks.once("init", () => {
 
 Hooks.once("ready", () => {
   _setupSocket();
+  registerBrosRest();
   game.brosAttacks = new BrosAttacksApp();
 
   const btn = document.createElement("button");
@@ -422,7 +439,7 @@ class BrosAttacksApp extends ApplicationV2 {
 
   /* ── Render ─────────────────────────────── */
   async _renderHTML(context, options) {
-    const attacks = game.settings.get(MODULE_ID, "attacks") ?? [];
+    const attacks = STATIC_ATTACKS;
     const isGM    = game.user.isGM;
     const el      = document.createElement("div");
     el.classList.add("bros-root");
@@ -443,9 +460,9 @@ class BrosAttacksApp extends ApplicationV2 {
         <span class="ba-star">⭐</span>
         <div>
           <div class="ba-title">BROS Attacks</div>
-          <div class="ba-sub">Combo team attacks — target a token first!</div>
+          <div class="ba-sub">Two defined techniques — select the obstacle or target token, then press Use.</div>
         </div>
-        ${isGM ? `<button class="ba-new-btn" id="ba-create-btn">＋ New</button>` : ""}
+        <span class="ba-static-badge">STATIC RULES</span>
       </div>
 
       <div class="ba-body">
@@ -456,7 +473,7 @@ class BrosAttacksApp extends ApplicationV2 {
         </div>
 
         ${attacks.length === 0
-          ? `<div class="ba-empty">No BROS attacks yet.${isGM ? "<br><small>Click ＋ New to create one.</small>" : ""}</div>`
+          ? `<div class="ba-empty">No BROS attacks yet.<br><small>These are the two defined campaign techniques.</small></div>`
           : `<div class="ba-list">${attacks.map((a, i) => this._cardHTML(a, i, isGM)).join("")}</div>`}
 
         <div class="ba-status" id="ba-status" style="display:none;">
@@ -473,10 +490,10 @@ class BrosAttacksApp extends ApplicationV2 {
       <div class="ba-card" data-index="${i}">
         <div class="ba-card-glow"></div>
         <div class="ba-card-head">
-          <span class="ba-card-name">${a.name ?? "Unnamed"}</span>
+          <span class="ba-card-name">${a.name ?? "Unnamed"}</span><div class="ba-card-desc">${a.description ?? "Both partners spend 1 Bros Energy."}</div>
           <span class="ba-card-btns">
             <button class="ba-use-btn" data-index="${i}">▶ Use</button>
-            ${isGM ? `<button class="ba-del-btn" data-index="${i}">🗑</button>` : ""}
+            
           </span>
         </div>
         <div class="ba-card-cols">
@@ -495,8 +512,8 @@ class BrosAttacksApp extends ApplicationV2 {
           </div>
         </div>
         <div class="ba-card-foot">
-          Threshold: <strong>${a.threshold ?? 10}</strong> &nbsp;|&nbsp;
-          Max Hits: <strong>${a.maxCombo ?? 20}</strong>
+          Cost: <strong>${a.resourceCost ?? 1} Bros Energy each</strong> &nbsp;|&nbsp;
+          Pool: <strong>2 each</strong> &nbsp;|&nbsp; Refresh: <strong>very short rest</strong>
         </div>
       </div>`;
   }
@@ -508,8 +525,7 @@ class BrosAttacksApp extends ApplicationV2 {
 
     el.querySelectorAll(".ba-use-btn").forEach(btn =>
       btn.addEventListener("click", () => {
-        const attacks = game.settings.get(MODULE_ID, "attacks") ?? [];
-        const a = attacks[parseInt(btn.dataset.index)];
+        const a = STATIC_ATTACKS[parseInt(btn.dataset.index)];
         if (a) this._executeAttack(a);
       })
     );
@@ -909,6 +925,9 @@ class BrosAttacksApp extends ApplicationV2 {
     if (!target) { ui.notifications.error("No target! Select a token first."); return; }
     if (!target.system?.attributes?.hp) { ui.notifications.error(`No HP on "${target.name}".`); return; }
 
+    const energyReady = await spendBrosEnergy([actorA, actorB], attack.resourceCost ?? 1);
+    if (!energyReady) return;
+
     const aIsPlayer = !!getActorPlayer(actorA);
     const bIsPlayer = !!getActorPlayer(actorB);
     const threshold = attack.threshold ?? 10;
@@ -1093,6 +1112,8 @@ class BrosAttacksApp extends ApplicationV2 {
         border: none; border-radius: 5px; cursor: pointer; white-space: nowrap;
         box-shadow: 0 0 8px rgba(255,215,0,0.3); }
       .ba-new-btn:hover { background: linear-gradient(135deg,#c9950a,#ffe066); }
+      .ba-static-badge { margin-left:auto; color:#9fe6ae; font-size:10px; letter-spacing:1px; border:1px solid #397248; border-radius:4px; padding:4px 7px; }
+      .ba-card-desc { color:#aaa; font-size:11px; font-weight:normal; margin-top:4px; max-width:360px; }
 
       /* Body */
       .ba-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; }

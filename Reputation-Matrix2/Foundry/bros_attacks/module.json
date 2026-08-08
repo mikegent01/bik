@@ -1,8 +1,8 @@
 {
   "id": "bros_attacks",
   "title": "Bros. Attacks Combo System",
-  "description": "Adds cooperative combo attacks inspired by Mario & Luigi RPGs.",
-  "version": "1.0.0",
+  "description": "Static cooperative Bros Attacks with clear target prompts and per-participant Bros Energy.",
+  "version": "1.1.0",
   "compatibility": {
     "minimum": "14",
     "verified": "14"
