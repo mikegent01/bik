@@ -526,7 +526,7 @@ class BrosAttacksApp extends ApplicationV2 {
     el.querySelectorAll(".ba-use-btn").forEach(btn =>
       btn.addEventListener("click", () => {
         const a = STATIC_ATTACKS[parseInt(btn.dataset.index)];
-        if (a) this._executeAttack(a);
+        if (a) this._startMotionChallenge(a);
       })
     );
 
@@ -910,6 +910,30 @@ class BrosAttacksApp extends ApplicationV2 {
       zone.className = "wdz";
       zone.innerHTML = `🗡 Drag a weapon here from your item list`;
     }
+  }
+
+  /* ─────────────────────────────────────────
+     MOTION CHALLENGE
+     Pointer events work with mouse, touch screens, and phones.
+  ───────────────────────────────────────── */
+  _startMotionChallenge(attack) {
+    const old = document.getElementById("bros-motion-overlay"); if (old) old.remove();
+    const steps = ["tap", "swipe-up", "swipe-right", "hold"];
+    const names = {tap:"TAP", "swipe-up":"SWIPE UP", "swipe-right":"SWIPE RIGHT", hold:"HOLD"};
+    const labels = {tap:"Tap the circle once", "swipe-up":"Swipe upward", "swipe-right":"Swipe right", hold:"Press and hold for one second"};
+    const overlay=document.createElement("div"); overlay.id="bros-motion-overlay";
+    overlay.innerHTML=`<div class="bros-motion-window"><h2>🤝 ${attack.name}: Team Drill</h2><p class="bros-motion-help">Choose a mode. In Team mode the screen alternates between partners. In Solo mode one player completes every motion.</p><div class="bros-motion-modes"><button data-mode="team">👥 Team mode</button><button data-mode="solo">🎮 Solo mode</button></div><div class="bros-motion-status"></div><div class="bros-motion-pad" aria-label="Motion pad"><span>Choose a mode</span></div><button class="bros-motion-cancel">Cancel</button></div>`;
+    document.body.appendChild(overlay);
+    const style=document.createElement("style"); style.id="bros-motion-style"; style.textContent=`#bros-motion-overlay{position:fixed;inset:0;z-index:100000;background:#000b;display:grid;place-items:center;font-family:Signika,system-ui,sans-serif} .bros-motion-window{width:min(440px,92vw);background:#171717;color:#eee;border:2px solid gold;border-radius:12px;padding:20px;box-shadow:0 0 35px #000} .bros-motion-window h2{color:gold;margin:0 0 8px}.bros-motion-help{color:#bbb;font-size:13px}.bros-motion-modes{display:flex;gap:10px}.bros-motion-modes button{flex:1;padding:10px;background:#35230a;color:#ffe38a;border:1px solid #b88b22;border-radius:7px;font-weight:bold;cursor:pointer}.bros-motion-status{text-align:center;color:#9fe6ae;margin:14px 0;font-weight:bold;min-height:20px}.bros-motion-pad{height:190px;border:2px dashed #666;border-radius:12px;display:grid;place-items:center;text-align:center;color:#aaa;font-size:18px;touch-action:none;user-select:none;background:radial-gradient(circle,#382b09,#111)}.bros-motion-pad.active{border-color:#5fd38a;color:#fff}.bros-motion-pad.success{border-color:#56db7c;background:#12351d}.bros-motion-pad.fail{border-color:#e66;background:#351212}.bros-motion-cancel{margin-top:14px;width:100%;padding:8px;background:#321313;color:#ffb0b0;border:1px solid #773333;border-radius:6px;cursor:pointer}`; document.head.appendChild(style);
+    const status=overlay.querySelector(".bros-motion-status"),pad=overlay.querySelector(".bros-motion-pad"); let mode=null,step=0,score=0,start=0,down=null,holdTimer=null;
+    const actorFor=()=>mode==="solo"?"One player":(step%2===0?(attack.actorA||"Player A"):(attack.actorB||"Player B"));
+    const finish=(ok)=>{ if(ok){status.textContent=`✅ Drill complete: ${score}/${steps.length}. Resolving the attack…`;pad.classList.add("success");setTimeout(()=>{overlay.remove();style.remove();this._executeAttack(attack);},500);} else {status.textContent="❌ Drill failed. The timing broke. Try the attack again.";pad.classList.add("fail");setTimeout(()=>{step=0;score=0;pad.className="bros-motion-pad";status.textContent="Choose a mode to try again.";mode=null;},900);} };
+    const prompt=()=>{ if(step>=steps.length){finish(true);return;} const motion=steps[step];status.textContent=`${actorFor()}'s turn — ${labels[motion]} (${step+1}/${steps.length})`;pad.className="bros-motion-pad active";pad.innerHTML=`<strong>${names[motion]}</strong><small style="display:block;margin-top:8px;color:#bbb">${labels[motion]}</small>`;start=performance.now();};
+    const success=()=>{ if(performance.now()-start>6000){finish(false);return;} score++;step++;prompt();};
+    const fail=()=>{finish(false);};
+    pad.addEventListener("pointerdown",e=>{if(!mode)return;down={x:e.clientX,y:e.clientY,t:performance.now()};pad.setPointerCapture?.(e.pointerId); if(steps[step]==="hold") holdTimer=setTimeout(success,900);});
+    pad.addEventListener("pointerup",e=>{if(!mode||!down)return;clearTimeout(holdTimer);const m=steps[step],dx=e.clientX-down.x,dy=e.clientY-down.y,dt=performance.now()-down.t;down=null;if(m==="tap"&&Math.abs(dx)<30&&Math.abs(dy)<30&&dt<700)success();else if(m==="swipe-up"&&dy<-55&&Math.abs(dy)>Math.abs(dx))success();else if(m==="swipe-right"&&dx>55&&Math.abs(dx)>Math.abs(dy))success();else if(m!=="hold")fail();});
+    overlay.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;step=0;score=0;prompt();}); overlay.querySelector(".bros-motion-cancel").onclick=()=>{overlay.remove();style.remove();};
   }
 
   /* ─────────────────────────────────────────
