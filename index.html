@@ -278,7 +278,15 @@
 .battle-full-layout .kv-row .k{display:block;color:var(--accent2);font-weight:800;margin-bottom:4px}
 .battle-full-layout .kv-row .v{color:var(--text);line-height:1.45}
 </style>
-</head>
+<style>
+/* Bros Attacks archive: compact tactical cards, not a button catalogue. */
+.bros-attack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;margin-top:16px}
+.bros-attack-card{position:relative;overflow:hidden;border:1px solid rgba(166,122,240,.32);border-top:4px solid var(--accent2);background:linear-gradient(145deg,rgba(139,95,212,.14),rgba(0,0,0,.08)),var(--panel);box-shadow:0 12px 28px rgba(0,0,0,.18)}
+.bros-attack-card:before{content:'🤝';position:absolute;right:18px;top:14px;font-size:30px;opacity:.16;filter:grayscale(1)}
+.bros-attack-card h2{padding-right:44px}.bros-attack-card h3{color:var(--accent2);font-size:14px;margin:18px 0 7px}.bros-attack-card ol{padding-left:22px;color:var(--muted)}
+.bros-attack-card li{margin:5px 0}.bros-energy-box{display:flex;flex-wrap:wrap;gap:8px;padding:11px 12px;margin:14px 0;border:1px solid rgba(224,180,0,.32);border-radius:10px;background:rgba(224,180,0,.07)}
+.bros-energy-box b{color:#ffe7a0}.bros-source{font-size:12px;color:var(--muted);margin-top:14px}
+</style></head>
 <body>
 <header class="topbar">
   <div class="brand" onclick="Router.go('#/home')">
@@ -6546,6 +6554,7 @@ function renderSidebar(active){
     navLink({emoji:'🎒',label:'Items',go:"Router.go('#/items')",active:active==='items',count:Object.keys(INVENTORY_SYSTEM.items||{}).length-1}),
     navLink({emoji:'⚒️',label:'Crafting',go:"Router.go('#/crafting')",active:active==='crafting',count:((DATA.crafting&&DATA.crafting.recipes)||[]).length||0}),
     navLink({emoji:'⭐',label:'Artifacts',go:"Router.go('#/artifacts')",active:active==='artifacts',count:((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length+((DATA.artifacts&&DATA.artifacts.god_toad)?1:0)}),
+    navLink({emoji:'🤝',label:'Bros Attacks',go:"Router.go('#/bros-attacks')",active:active==='bros-attacks',count:((DATA.brosAttacks&&DATA.brosAttacks.attacks)||[]).length,title:'Confirmed cooperative techniques, resources, risks, and source filings'}),
     navLink({emoji:'🛒',label:"Wario's Shop",go:"location.href='Reputation-Matrix2/app/pages/shop/shop.html'"})
   ]);
 
@@ -14523,10 +14532,10 @@ function view_bros_attacks(){
     const r=a.resource||{};
     const people=(a.participants||[]).map(id=>{const x=byId(id);return x?`<a class="entity-link" href="#/article/${encodeURIComponent(id)}">${esc(x.name||prettyId(id))}</a>`:esc(prettyId(id));}).join(' + ');
     const steps=(a.steps||[]).map(x=>`<li>${esc(x)}</li>`).join('');
-    return `<article class="card" style="border-top:4px solid var(--accent2);background:linear-gradient(135deg,rgba(139,95,212,.14),rgba(0,0,0,.05)),var(--panel)">
+    return `<article class="card bros-attack-card">
       <div class="kicker">⚔️ ${esc(a.status||'filed')} · ${esc(a.type||'cooperative technique')}</div>
       <h2 style="margin:6px 0 0">${esc(a.name)}</h2><p class="text-muted" style="margin:0 0 12px">${esc(a.subtitle||'')}</p>
-      <div class="chips"><span class="pill">👥 ${people}</span><span class="pill">⚡ ${esc(String(r.cost||1))} Bros Energy each</span><span class="pill">🔄 ${esc(r.refresh||'Very short rest')}</span></div>
+      <div class="chips"><span class="pill">👥 ${people}</span></div><div class="bros-energy-box"><span>⚡ <b>${esc(String(r.cost||1))} Bros Energy each</b></span><span>Pool: ${esc(String(r.maximum||2))}</span><span>↻ ${esc(r.refresh||'Very short rest')}</span></div>
       <p>${esc(a.description||'')}</p>
       <h3>How it works</h3><ol>${steps}</ol>
       <div class="wnote"><b>Resource rule:</b> Each participating character spends ${esc(String(r.cost||1))} Bros Energy from a maximum of ${esc(String(r.maximum||2))}. The pool refreshes on a very short rest. <br><br>${esc(a.waluigiNote||'')}</div>
@@ -14534,7 +14543,7 @@ function view_bros_attacks(){
       ${a.sourceEvent?`<p><a class="chip" href="#/article/${encodeURIComponent(a.sourceEvent)}">📜 Source filing →</a></p>`:''}
     </article>`;
   }).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in" style="border-left:5px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(224,180,0,.08)),var(--panel)"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Bros Attacks</div><h1 style="margin:6px 0">🤝 ${esc(doc.title||'Bros Attacks')}</h1><p class="text-muted">${esc(doc.subtitle||'')}</p><p>${esc(doc.description||'')}</p><div class="wnote"><b>Shared resource:</b> Bros Energy is a small teamwork reserve. Every named partner pays the cost, and everyone gets it back after a very short rest. A technique can succeed tactically and still be a terrible idea socially.</div></div><div class="update-grid" style="margin-top:16px">${cards||'<div class="card">No techniques have been confirmed yet.</div>'}</div>`;
+  el('content').innerHTML=`<div class="card animate-fade-in" style="border-left:5px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(224,180,0,.08)),var(--panel)"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Bros Attacks</div><h1 style="margin:6px 0">🤝 ${esc(doc.title||'Bros Attacks')}</h1><p class="text-muted">${esc(doc.subtitle||'')}</p><p>${esc(doc.description||'')}</p><div class="wnote"><b>Shared resource:</b> Bros Energy is a small teamwork reserve. Every named partner pays the cost, and everyone gets it back after a very short rest. A technique can succeed tactically and still be a terrible idea socially.</div></div><div class="bros-attack-grid">${cards||'<div class="card">No techniques have been confirmed yet.</div>'}</div>`;
   window.scrollTo(0,0);
 }
 
