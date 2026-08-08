@@ -910,7 +910,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "barbarian---warden,-level-4",
+        "identifier": "barbarian---warden--level-4",
         "quantity": 1,
         "weight": 0,
         "price": {
@@ -1005,7 +1005,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "barrel-survivor-/-warden",
+        "identifier": "barrel-survivor---warden",
         "quantity": 1,
         "weight": 0,
         "price": {
@@ -1506,7 +1506,7 @@
             "fumbleThreshold": 1
           }
         },
-        "identifier": "the-warden\u2019s-axe",
+        "identifier": "the-wardens-axe",
         "attuned": false,
         "ammunition": {},
         "equipped": true,
@@ -1840,7 +1840,7 @@
           "value": "<p>Rope, chalk, ration tin, bandages, whetstone, hooded lantern, oil, a hand-drawn route ledger, and a roll-call slate.</p>",
           "chat": ""
         },
-        "identifier": "survivor\u2019s-field-kit",
+        "identifier": "survivors-field-kit",
         "source": {
           "revision": 1,
           "rules": "2024",
@@ -2642,7 +2642,7 @@
           "value": "<p>A battered shield painted with the Liberated Toads watch-mark. +2 AC while equipped.</p>",
           "chat": ""
         },
-        "identifier": "warden\u2019s-shield",
+        "identifier": "wardens-shield",
         "source": {
           "revision": 1,
           "rules": "2024",
@@ -3259,7 +3259,7 @@
           "value": "<p>Coiled rope for roofs, windows, rescues, and exits that were not supposed to exist.</p>",
           "chat": ""
         },
-        "identifier": "rope,-hemp-(50-ft.)",
+        "identifier": "rope--hemp--50-ft",
         "source": {
           "revision": 1,
           "rules": "2024",
@@ -3488,7 +3488,7 @@
           "value": "<p>Hooded lantern with shuttered blue glass for watch duty and discreet signals.</p>",
           "chat": ""
         },
-        "identifier": "warden\u2019s-lantern",
+        "identifier": "wardens-lantern",
         "source": {
           "revision": 1,
           "rules": "2024",
@@ -4072,7 +4072,7 @@
           "value": "<p>Ten uses of bandages, splints, antiseptic, and survivor-grade practical care.</p>",
           "chat": ""
         },
-        "identifier": "healer\u2019s-kit",
+        "identifier": "healers-kit",
         "source": {
           "revision": 1,
           "rules": "2024",
@@ -4339,7 +4339,7 @@
           "value": "<p>Dry rations held back for whoever did not get counted.</p>",
           "chat": ""
         },
-        "identifier": "rations,-emergency",
+        "identifier": "rations--emergency",
         "source": {
           "revision": 1,
           "rules": "2024",
@@ -5683,7 +5683,7 @@
           "value": "<p>A compact bedroll repaired repeatedly in the field.</p>",
           "chat": ""
         },
-        "identifier": "warden\u2019s-bedroll",
+        "identifier": "wardens-bedroll",
         "source": {
           "revision": 1,
           "rules": "2024",
