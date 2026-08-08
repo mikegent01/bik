@@ -8,31 +8,107 @@
       "name": "Support Fire Bros Attack",
       "type": "feat",
       "system": {
-        "description": {"value": "<p>Green T steadies Remi's aim, adjusts her position, and calls the timing for a coordinated support-fire shot.</p><p><strong>Archive caution:</strong> A clearer shot does not make the target lawful or safe.</p>", "chat": ""},
-        "activation": {"type": "action", "cost": 1, "condition": "An ally is available to steady aim and call timing."},
-        "uses": {"max": "", "spent": 0, "recovery": []},
-        "target": {"value": 1, "width": null, "units": "ft", "type": "creature"},
-        "range": {"value": 30, "long": null, "units": "ft"},
+        "description": {
+          "value": "<p>Green T steadies Remi's aim, adjusts her position, and calls the timing for a coordinated support-fire shot.</p><p><strong>Bros Energy:</strong> Each participating character spends 1 from a maximum of 2. Refreshes after a very short rest.</p><p><strong>Archive caution:</strong> A clearer shot does not make the target lawful or safe.</p>",
+          "chat": ""
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1,
+          "condition": "An ally is available to steady aim and call timing."
+        },
+        "uses": {
+          "max": "2",
+          "spent": 0,
+          "recovery": [
+            {
+              "period": "sr",
+              "type": "recoverAll"
+            }
+          ]
+        },
+        "target": {
+          "value": 1,
+          "width": null,
+          "units": "ft",
+          "type": "creature"
+        },
+        "range": {
+          "value": 30,
+          "long": null,
+          "units": "ft"
+        },
         "actionType": "rsak",
         "ability": "dex",
-        "save": {"ability": "", "dc": null, "scaling": "spell"}
+        "save": {
+          "ability": "",
+          "dc": null,
+          "scaling": "spell"
+        }
       },
-      "flags": {"waluipedia": {"id": "support_fire_bros_attack", "sourceEvent": "shadowfell_birthday_trap_tanuki", "participants": ["green_t", "remi_akamatsu_full_backstory"]}}
+      "flags": {
+        "waluipedia": {
+          "id": "support_fire_bros_attack",
+          "sourceEvent": "shadowfell_birthday_trap_tanuki",
+          "participants": [
+            "green_t",
+            "remi_akamatsu_full_backstory"
+          ]
+        }
+      }
     },
     {
       "name": "Chop Bros",
       "type": "feat",
       "system": {
-        "description": {"value": "<p>Hjumpik lifts Toad Lee to vine-height while Toad Lee chops through growth. The verified third attempt opened twenty-five feet of corridor and pushed back a large amount of leaf growth.</p><p><strong>Requirements:</strong> A strong lifting partner, a clear axe arc, room to advance, and shared rhythm. Do not use a shouted countdown.</p>", "chat": ""},
-        "activation": {"type": "action", "cost": 1, "condition": "A lifting partner and a cutting partner can coordinate safely."},
-        "uses": {"max": "", "spent": 0, "recovery": []},
-        "target": {"value": null, "width": null, "units": "ft", "type": "space"},
-        "range": {"value": 5, "long": null, "units": "ft"},
+        "description": {
+          "value": "<p>Hjumpik lifts Toad Lee to vine-height while Toad Lee chops through growth. The verified third attempt opened twenty-five feet of corridor and pushed back a large amount of leaf growth.</p><p><strong>Bros Energy:</strong> Each participating character spends 1 from a maximum of 2. Refreshes after a very short rest.</p><p><strong>Requirements:</strong> A strong lifting partner, a clear axe arc, room to advance, and shared rhythm. Do not use a shouted countdown.</p>",
+          "chat": ""
+        },
+        "activation": {
+          "type": "action",
+          "cost": 1,
+          "condition": "A lifting partner and a cutting partner can coordinate safely."
+        },
+        "uses": {
+          "max": "2",
+          "spent": 0,
+          "recovery": [
+            {
+              "period": "sr",
+              "type": "recoverAll"
+            }
+          ]
+        },
+        "target": {
+          "value": null,
+          "width": null,
+          "units": "ft",
+          "type": "space"
+        },
+        "range": {
+          "value": 5,
+          "long": null,
+          "units": "ft"
+        },
         "actionType": "mwak",
         "ability": "str",
-        "save": {"ability": "", "dc": null, "scaling": "spell"}
+        "save": {
+          "ability": "",
+          "dc": null,
+          "scaling": "spell"
+        }
       },
-      "flags": {"waluipedia": {"id": "chop_bros_attack", "sourceEvent": "feyward_chop_bros_soul_ring_and_the_guard_with_no_name", "participants": ["hjumpik", "toad_lee"]}}
+      "flags": {
+        "waluipedia": {
+          "id": "chop_bros_attack",
+          "sourceEvent": "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+          "participants": [
+            "hjumpik",
+            "toad_lee"
+          ]
+        }
+      }
     }
   ]
 }

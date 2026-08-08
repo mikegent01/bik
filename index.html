@@ -14514,6 +14514,31 @@ function setArticleAccent(typeKey){
   if(typeKey) c.setAttribute('data-arttype',typeKey); else c.removeAttribute('data-arttype');
 }
 
+function view_bros_attacks(){
+  renderSidebar('events');
+  const doc=DATA.brosAttacks||{title:'Bros Attacks',subtitle:'',description:'',attacks:[]};
+  const attacks=Array.isArray(doc.attacks)?doc.attacks:[];
+  const byId=id=>INDEX[id]||null;
+  const cards=attacks.map(a=>{
+    const r=a.resource||{};
+    const people=(a.participants||[]).map(id=>{const x=byId(id);return x?`<a class="entity-link" href="#/article/${encodeURIComponent(id)}">${esc(x.name||prettyId(id))}</a>`:esc(prettyId(id));}).join(' + ');
+    const steps=(a.steps||[]).map(x=>`<li>${esc(x)}</li>`).join('');
+    return `<article class="card" style="border-top:4px solid var(--accent2);background:linear-gradient(135deg,rgba(139,95,212,.14),rgba(0,0,0,.05)),var(--panel)">
+      <div class="kicker">⚔️ ${esc(a.status||'filed')} · ${esc(a.type||'cooperative technique')}</div>
+      <h2 style="margin:6px 0 0">${esc(a.name)}</h2><p class="text-muted" style="margin:0 0 12px">${esc(a.subtitle||'')}</p>
+      <div class="chips"><span class="pill">👥 ${people}</span><span class="pill">⚡ ${esc(String(r.cost||1))} Bros Energy each</span><span class="pill">🔄 ${esc(r.refresh||'Very short rest')}</span></div>
+      <p>${esc(a.description||'')}</p>
+      <h3>How it works</h3><ol>${steps}</ol>
+      <div class="wnote"><b>Resource rule:</b> Each participating character spends ${esc(String(r.cost||1))} Bros Energy from a maximum of ${esc(String(r.maximum||2))}. The pool refreshes on a very short rest. <br><br>${esc(a.waluigiNote||'')}</div>
+      ${a.risks?`<p><b>Risk:</b> ${esc(a.risks)}</p>`:''}${a.result?`<p><b>Filed result:</b> ${esc(a.result)}</p>`:''}
+      ${a.sourceEvent?`<p><a class="chip" href="#/article/${encodeURIComponent(a.sourceEvent)}">📜 Source filing →</a></p>`:''}
+    </article>`;
+  }).join('');
+  el('content').innerHTML=`<div class="card animate-fade-in" style="border-left:5px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(224,180,0,.08)),var(--panel)"><div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Bros Attacks</div><h1 style="margin:6px 0">🤝 ${esc(doc.title||'Bros Attacks')}</h1><p class="text-muted">${esc(doc.subtitle||'')}</p><p>${esc(doc.description||'')}</p><div class="wnote"><b>Shared resource:</b> Bros Energy is a small teamwork reserve. Every named partner pays the cost, and everyone gets it back after a very short rest. A technique can succeed tactically and still be a terrible idea socially.</div></div><div class="update-grid" style="margin-top:16px">${cards||'<div class="card">No techniques have been confirmed yet.</div>'}</div>`;
+  window.scrollTo(0,0);
+}
+
+
 /* =============== ROUTER =============== */
 const Router={
   go(hash){if(location.hash===hash)Router.render();else location.hash=hash;},
@@ -14536,6 +14561,7 @@ const Router={
     else if(route==='pond-docket'||route==='docket'||route==='pond-patrol'||route==='accountability-docket')view_pond_docket();
     else if(route==='ability-shop'||route==='abilities'||route==='ability'){location.href=abilityShopUrl(arg);return;}
     else if(route==='battlefield')view_list('battles');
+    else if(route==='bros-attacks'||route==='bros')view_bros_attacks();
     else if(route==='conflict')view_conflict(arg);
     else if(route==='mbattle')view_mbattle(arg);
     else if(route==='congress')view_congress(arg);

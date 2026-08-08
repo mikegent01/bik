@@ -8,7 +8,10 @@
       "name": "Support Fire Bros Attack",
       "subtitle": "Green T and Remi's barricaded-door technique",
       "status": "confirmed",
-      "participants": ["green_t", "remi_akamatsu_full_backstory"],
+      "participants": [
+        "green_t",
+        "remi_akamatsu_full_backstory"
+      ],
       "type": "Ranged support fire",
       "sourceEvent": "shadowfell_birthday_trap_tanuki",
       "description": "One partner steadies the shooter's aim, adjusts her position, and calls the timing so the shot lands with greater force and accuracy. Green T taught Remi the maneuver from a simple instruction sheet. Remi immediately used it against the tanuki behind a barricaded bathroom door, making the technique effective and the circumstances disastrous.",
@@ -20,14 +23,28 @@
       ],
       "risks": "The technique improves a bad decision as efficiently as a good one. A clearer shot does not make the target lawful, safe, or deserving of being shot.",
       "waluigiNote": "WAH! Green T managed to turn mentorship into a firearms incident before the ink on the instructional sheet dried. That is not a failure of coordination. That is coordination working for the wrong sentence.",
-      "relatedArticles": ["the_shadowfell_disaster_incident", "green_t", "remi_akamatsu_full_backstory"]
+      "relatedArticles": [
+        "the_shadowfell_disaster_incident",
+        "green_t",
+        "remi_akamatsu_full_backstory"
+      ],
+      "resource": {
+        "name": "Bros Energy",
+        "cost": 1,
+        "pool": "Each participating character",
+        "maximum": 2,
+        "refresh": "Very short rest"
+      }
     },
     {
       "id": "chop_bros_attack",
       "name": "Chop Bros",
       "subtitle": "Hjumpik and Toad Lee's twenty-five-foot corridor cut",
       "status": "confirmed",
-      "participants": ["hjumpik", "toad_lee"],
+      "participants": [
+        "hjumpik",
+        "toad_lee"
+      ],
       "type": "Close-range cooperative clearing",
       "sourceEvent": "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
       "description": "Hjumpik lifts Toad Lee to vine-height while Toad Lee chops through the growth ahead. The first attempt failed because Toad Lee was too heavy. The second nearly produced friendly fire after a countdown. The third worked when they stopped counting and found a shared rhythm, opening twenty-five feet of corridor and pushing the leaves back.",
@@ -40,7 +57,18 @@
       "risks": "The lift is heavy, the axe has a wide arc, and a countdown can make the swing arrive before the body is ready. The technique requires trust and room to fail safely.",
       "result": "Verified success: twenty-five feet of corridor opened; a large amount of leaf growth pushed back; the party reached the window and climbed upward at the end of the engagement.",
       "waluigiNote": "WAH! Attempt One failed on weight. Attempt Two failed on numbers. Attempt Three succeeded when the bros stopped performing the maneuver and started listening to each other. I hate how instructive this is.",
-      "relatedArticles": ["feyward_chop_bros_soul_ring_and_the_guard_with_no_name", "hjumpik", "toad_lee"]
+      "relatedArticles": [
+        "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+        "hjumpik",
+        "toad_lee"
+      ],
+      "resource": {
+        "name": "Bros Energy",
+        "cost": 1,
+        "pool": "Each participating character",
+        "maximum": 2,
+        "refresh": "Very short rest"
+      }
     }
   ]
 }

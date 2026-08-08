@@ -194,3 +194,7 @@ The live Waluipedia loader fetches `Reputation-Matrix2/data/events.json` through
 ### Bros Attacks and static Foundry content
 
 Cooperative combat techniques belong in `data/brosAttacks.json`. Add one definition per confirmed technique with a stable `id`, name, participants, source event, steps, risks, result, and a Waluigi note. The reader-facing archive is `bros-attacks.html`; it is intentionally static and has no editor. The Foundry export is `tools/foundry/bros-attacks.json`, also intentionally static: it contains only the defined techniques as importable feat items. Update the source definitions and regenerate or update the static export together. Do not add a live in-page editor or let Foundry become a second source of truth.
+
+#### Bros Attack resource design
+
+Bros Attacks use a small shared-feeling resource rather than unlimited button presses. Each named participant spends **1 Bros Energy** from a personal maximum of **2** when the technique is used. The participating characters regain their spent Bros Energy after a very short rest. This keeps the technique available for a dramatic second attempt without making cooperation free or turning it into a long-rest-only super move. The archive page should show the cost, maximum, refresh rule, steps, risk, result, and source filing for every defined attack. Foundry items should represent the same rule with two uses and short-rest recovery; never add an attack to Foundry that is not present in `data/brosAttacks.json`.
