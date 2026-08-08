@@ -190,3 +190,7 @@ Adding a new readable book to the game world involves several steps to ensure it
 ### Canonical event data file
 
 The live Waluipedia loader fetches `Reputation-Matrix2/data/events.json` through the `events` data key. That is the single canonical event registry. Do not maintain a second hand-edited mirror under `data/events/events.json`; duplicate registries drift and create false validation results. Other pages and documentation should link or refer to `data/events.json`. If a legacy export mentions the old path, update the reference rather than creating another copy.
+
+### Bros Attacks and static Foundry content
+
+Cooperative combat techniques belong in `data/brosAttacks.json`. Add one definition per confirmed technique with a stable `id`, name, participants, source event, steps, risks, result, and a Waluigi note. The reader-facing archive is `bros-attacks.html`; it is intentionally static and has no editor. The Foundry export is `tools/foundry/bros-attacks.json`, also intentionally static: it contains only the defined techniques as importable feat items. Update the source definitions and regenerate or update the static export together. Do not add a live in-page editor or let Foundry become a second source of truth.
