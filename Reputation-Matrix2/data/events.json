@@ -8555,7 +8555,8 @@
       "flowey",
       "papyrus",
       "mount_ebott_survey_part_5",
-      "wing_gaster"
+      "wing_gaster",
+      "mount_ebott_survey_part_7"
     ]
   },
   {
@@ -8766,5 +8767,122 @@
       }
     ],
     "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(80,80,80,0.12), rgba(40,40,40,0.10), rgba(212,168,83,0.06)); padding: 1.5rem; border-left: 6px solid #4a4a4a; border-radius: 1rem; } .xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; } .xp-preview-box h4 { color: #a67af0; margin-top: 0; font-size: 1.2em; border-bottom: 1px solid rgba(166, 122, 240, 0.3); padding-bottom: 8px; } .xp-list { list-style: none; padding: 0; margin: 15px 0; } .xp-list li { margin-bottom: 10px; line-height: 1.4; border-left: 3px solid rgba(139, 95, 212, 0.4); padding-left: 12px; } .xp-name { color: #f2d68a; font-weight: bold; display: block; margin-bottom: 2px; } .xp-total { color: #fff1b8; font-weight: bold; border-top: 1px dashed rgba(212, 168, 83, 0.3); padding-top: 4px; margin-top: 4px; display: inline-block; } .waluigi-rant { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .waluigi-comment { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .tactical-note { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.95em; } .intercepted-feed { background: #000; border: 1px dashed #7ee6a0; padding: 10px; margin: 10px 0; font-family: 'Courier New', Courier, monospace; color: #7ee6a0; } .people-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; } .person-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 5px 10px; font-size: 0.9em; }"
+  },
+  {
+    "id": "mount_ebott_survey_part_7",
+    "name": "The Mount Ebott Survey: Part VII",
+    "title": "The Mount Ebott Survey: Part VII — The Oath Before the Surface",
+    "date": "Mid-10XX BF — Day 5",
+    "era": "Mount Ebott Survey / Underground Egress",
+    "location": "Monster Underground — Capital Castle",
+    "type": "Exploration / Diplomacy",
+    "status": "Canon — ongoing",
+    "customCss": ".wiki-lead{background:linear-gradient(135deg,rgba(109,138,176,.16),rgba(20,10,40,.16),rgba(138,75,255,.08));padding:1.5rem;border-left:6px solid #8a4bff;border-radius:1rem}.prose blockquote{background:linear-gradient(135deg,rgba(138,75,255,0.13),transparent),var(--bg2);border-left:4px solid #8a4bff;border-radius:0 10px 10px 0;padding:13px 20px;margin:20px 0;font-size:14px;line-height:1.8;letter-spacing:.02em}.prose blockquote strong{color:#c9a6ff;letter-spacing:.05em}.prose blockquote em{color:#d9c2f5}.prose h2{color:#8a4bff;border-bottom-color:rgba(138,75,255,.35)}.wnote{background:linear-gradient(135deg,rgba(109,138,176,0.12),rgba(138,75,255,0.07)),var(--bg2);border-left:4px solid #8a4bff;padding:14px 18px;border-radius:0 10px 10px 0;margin:20px 0;font-size:13.5px;line-height:1.75}.wnote b{color:#b98cff}",
+    "summary": "After Papyrus turns to dust and Flowey is killed, the survey team retrieves the damaged Iron Legion survey machine and reaches Asgore and Toriel’s court. Sans explains the Underground’s barrier, the team requests a localized transport to the surface, and the court requires an oath of secrecy before beginning the spell.",
+    "description": "# THE MOUNT EBOTT SURVEY: PART VII\n### Filed by Waluigi, who was not present for the field sequence and therefore refuses to invent a position behind the machine\n\n> **Filing note.** This report begins after [Part VI](mount_ebott_survey_part_6). Papyrus is gone. Flowey is gone. The survey machine remains, which is the sort of outcome that makes equipment officers feel briefly vindicated. The party did not leave the Underground in this segment. They reached the capital and asked the court for a way out. The answer begins with an oath.",
+    "sections": [
+      {
+        "name": "The Machine Remains",
+        "icon": "🎒",
+        "overview": "The field did not stay quiet after Flowy died. Dust slid across the colored tiles. Somewhere above, the false sun hummed with the same patient note it had used before the bones, before the cage, before Papyrus turned to powder. Sans stood beside the dead flower and did not move.\n\nThe survey machine lay on its side near the edge of the field. Its screen still glowed. Ecological readings crawled past combat logs: soil moisture, wind pressure, magic spikes, a timestamp that jumped backward three minutes and then forward an hour. The casing had been cracked, repaired with a strip of metal, cracked again, and held together by a strap that looked too thin for the job.\n\nThe Gamma Agent lifted it. The strap groaned. The machine dropped against his knee with a heavy clunk.\n\n“It will not hold,” Mihawk said.\n\nThe Agent tightened the strap anyway. He made a backpack from the broken harness and pulled the machine high between his shoulders. It sagged immediately.\n\n“We just have to get out,” he said. “Asgore and the queen will know how to fix it.”\n\nMihawk watched the machine tilt. “That is not the same as knowing how to get out.”\n\nSans finally looked away from the dust. “We should go before anything else happens.”",
+        "waluigi_note": "*WAH! The survey machine has now survived at least one field deployment, one monster encounter, one impossible escape, and a backpack design based on optimism. Waluigi recommends a frame, two buckles, and a person whose definition of “hold” includes something besides “currently touching the object.”*"
+      },
+      {
+        "name": "The Queen Is a Title",
+        "icon": "👑",
+        "overview": "They walked through the false meadow toward the tunnels. The machine knocked against the Agent’s back at every step. Metal struck metal. The sound gave the group a rhythm, though no one called it music.\n\n“I don’t even know where we are anymore,” the Agent said.\n\nSans rubbed one hand over his skull. “We need an exit. Maybe the Queen or Asgore can help.”\n\n“You call her that a lot. Other people say Toriel. Is Queen her title? Isn’t it a little much?”\n\nSans stopped. The blue light in his eye sockets narrowed.\n\n“To me, she’s the Queen,” he said. “Toriel is her name. She’s also the queen of monsters. She deserves the title.”\n\nMihawk kept walking, Yoru still sheathed. He glanced back once, measuring the distance to Sans and the silence left by Papyrus.\n\nThe tunnels folded around them. Stone replaced grass. The false sunlight thinned behind the last roots. Sans tried to lead by memory, but the route changed twice: a corridor ended at a wall, then opened onto a passage that had not been there before.\n\n“Without a map,” the Agent said, “we can at least discuss what happens if the Friendship comes back with Gaster and his pirates.”\n\nMihawk’s hand rested near Yoru. “You expect it to return?”\n\n“Why wouldn’t I?”\n\n“Because Gaster’s crew is unpredictable.”\n\nSans looked at the dark ahead. “That is the polite version.”",
+        "waluigi_note": "*Waluigi records the first post-Papyrus argument: not about the murder, not about Flowy, but about whether a queen should be called a queen. This is how people keep walking after the impossible. They choose a smaller question and carry it until the larger one stops screaming.*"
+      },
+      {
+        "name": "The Twenty-Minute Shortcut",
+        "icon": "🌀",
+        "overview": "The route changed without announcing itself. One moment the party was walking through a narrow tunnel. The next, the walls blurred blue and the floor arrived under their boots with a soft jolt. The machine swung sideways. The Agent caught it against his ribs.\n\nMihawk looked at Sans.\n\n“You teleported us.”\n\nSans shrugged. “The capital isn’t far.”\n\n“You said we were in a random field.”\n\n“I said it looked like a random field.”\n\nThe Agent checked his watch. The hands had advanced twenty minutes. The machine’s clock disagreed by nine hours. A third timestamp on the survey display claimed they had been underground for three days.\n\n“Loops,” Sans said when the Agent asked. “The Underground loops. Places connect eventually. Some routes just take longer.”\n\n“That was too fast,” the Agent whispered to Mihawk. “No interruptions. Suddenly we’re near the capital.”\n\nMihawk’s golden eye stayed on Sans. “Teleportation is fast.”\n\n“That is not an explanation.”\n\n“No,” Mihawk said. “It is a fact.”\n\nThe capital appeared beyond a final bend: stone towers, guarded gates, and lamps burning in brackets along the walls. The guards saw the uniforms before the party reached the first step. Spears lowered.\n\n“Halt,” the lead guard said. “State your business.”",
+        "waluigi_note": "*WAH! Mihawk’s answer—“It is a fact”—is not a route explanation. It is the verbal equivalent of putting a lid on a box and labeling the box “later.” Waluigi has been informed that the Underground loops. Waluigi has not been informed whether it loops politely.*"
+      },
+      {
+        "name": "Papers at the Gate",
+        "icon": "📜",
+        "overview": "The guards asked for names, rank, and purpose. Sans hesitated. Mihawk said nothing. The Agent reached inside his coat and produced papers bearing Commissar Vexis’s seal.\n\n“We are the Iron Legion Commissar Royal Expedition Unit,” he said. “Codename Lone Snake. Color green. Primary purpose classified because it is active. Secondary purpose: survey of unfamiliar territory.”\n\nThe lead guard blinked. “Iron Legion?”\n\n“Commissar.”\n\n“Royal expedition?”\n\n“Unit.”\n\nThe guard took the papers. His thumb pressed the seal. He checked the signature twice, then passed them to a second guard, who checked them a third time with a frown that suggested the documents were too official to reject and too strange to trust.\n\n“Not informed,” the second guard said.\n\n“Neither were we,” the Agent said.\n\nThat answer did not help. It did, however, sound honest.\n\nThe guards finally opened the gate.\n\n“Enter for now,” the lead guard said. “Do not make us regret it.”\n\nSans leaned toward the Agent as they passed. “Those papers worked.”\n\n“Your guards are slow on the uptake.”\n\n“They’re trained to follow orders.”\n\nMihawk glanced at the sealed papers. “That is why the papers worked.”",
+        "waluigi_note": "*WAH! A forged—or at least unannounced—military credential has now carried the party farther than stealth, teleportation, or a functional survey strap. Waluigi is adding “official-looking paperwork” to the list of weapons that should never be left behind in a diplomatic crisis.*"
+      },
+      {
+        "name": "Tea Before the Throne",
+        "icon": "🍵",
+        "overview": "The castle entrance smelled of stone dust, wax, and tea. Servants watched the machine bump against the Agent’s back. One strap slipped. He caught it before it hit the floor.\n\n“Where can they be?” he asked.\n\nSans pointed down a corridor. “The throne room.”\n\nThe doors opened beneath a row of old lamps. Asgore sat at the far end with his trident beside the throne. Toriel stood near the steps. The room was large enough to make every footstep sound like a confession.\n\n“Who approaches my court?” Asgore asked.\n\nThe Agent lifted both hands, careful not to pull the machine loose. “We mean this place no harm. We are seeking an exit.”\n\n“An exit to where?” Toriel asked.\n\n“The surface.”\n\nSans spoke before the silence grew teeth. “I told them you might help.”\n\nAsgore looked from Sans to Mihawk, then to the cracked survey machine. “You believe I can simply open the way?”\n\n“No,” said the Agent. “We believe you know how.”\n\nThe answer landed better than a demand. Asgore leaned back. Toriel’s gaze stayed on the machine, then moved to the dried dust on Sans’s coat.\n\n“Before we discuss the surface,” Toriel said, “you should tell us what happened.”\n\nSans looked at the floor.\n\n“Papyrus,” he said.\n\nThe name stopped the room.",
+        "waluigi_note": "*The party reaches the court carrying a broken instrument and a dead brother’s silence. Waluigi would like the record to note that the machine is not the heaviest object in the room. That would be Sans’s unfinished sentence.*"
+      },
+      {
+        "name": "The Barrier Is Not a Door",
+        "icon": "🛡️",
+        "overview": "Asgore listened while Sans explained the route, the cage, the bones, and the dust. He did not interrupt. Toriel asked what had become of Flowy. Nobody answered immediately.\n\nWhen the Agent asked why the barrier could not simply be destroyed, Asgore folded his hands over his knees.\n\n“It is not only a wall,” he said. “It is the thing that has kept this world separate for generations. Destroying it without control could destabilize the Underground and expose the surface to dangers neither side understands.”\n\nToriel added, “A breach is not the same as a doorway. A doorway has edges. A breach keeps looking for more.”\n\n“What about a localized transport?” the Agent asked. “Send two people out instead of breaking everything.”\n\nAsgore’s eyes narrowed in thought. “That may be possible.”\n\n“May?”\n\n“It would require power, precision, and a stable destination. You might reach the surface and never return.”\n\nMihawk’s fingers tightened once around Yoru’s hilt. “Permanent separation.”\n\n“Yes,” Asgore said. “That is the risk.”\n\nThe Agent looked at Sans. Sans did not look back. The room held the sound of the machine’s cooling fan and the distant scrape of a guard’s boot outside the door.\n\n“I have gained what I came here for,” the Agent said. “I can live with the risk.”\n\nToriel’s expression did not soften. “Then we need an oath.”",
+        "waluigi_note": "*The Underground refuses the easy exit. Good. Waluigi has seen too many doors that were actually mouths. A localized transport with a permanent-return warning is at least honest enough to be frightening before anyone steps through it.*"
+      },
+      {
+        "name": "The Oath Before the Spell",
+        "icon": "🔒",
+        "overview": "Asgore rose. The throne room seemed to shrink around him.\n\n“You must promise secrecy,” he said. “The Underground and its people cannot become a curiosity for the surface. The barrier survives in part because the world above believes there is nothing here to find.”\n\nThe Agent listened. Sans kept his eyes down. Mihawk stood beside the damaged machine, silent but ready to leave if the promise became a chain.\n\nToriel spoke more gently. “This is not a request that you forget what happened. It is a request that you do not turn living people into evidence.”\n\nOutside, the castle lamps hissed. On the Agent’s back, the survey machine clicked through another corrupted timestamp.\n\nThe court waited for an answer.\n\nNo spell circle had been drawn. No surface light had appeared. The party had reached the first honest threshold of the Underground: not a gate, but a promise made before a gate could exist.",
+        "waluigi_note": "*A secret is not a clean ending, especially after a survey machine has recorded everything by accident. The next filing begins with the answer to the oath—and with the question of whether a machine built to observe can be trusted not to testify.*"
+      }
+    ],
+    "participants": [
+      {
+        "id": "gamma_agent",
+        "name": "Gamma Agent",
+        "role": "Iron Legion surveyor — carried the damaged survey machine, presented Commissar Vexis papers, requested a localized surface transport, and must answer the secrecy oath."
+      },
+      {
+        "id": "sans",
+        "name": "Sans",
+        "role": "Underground guide — led the party through shifting tunnels, defended Toriel’s title, explained the barrier, and brought Papyrus’s death into the throne room."
+      },
+      {
+        "id": "dracule_mihawk",
+        "name": "Dracule Mihawk",
+        "role": "Tactical enforcer — watched the route, tested Sans’s unexplained shortcut, guarded the court conversation, and remained ready for a permanent departure."
+      },
+      {
+        "id": "asgore",
+        "name": "Asgore",
+        "role": "Monster king — heard the request, explained why the barrier cannot simply be destroyed, and offered a dangerous localized transport."
+      },
+      {
+        "id": "toriel",
+        "name": "Toriel",
+        "role": "Queen and adviser — insisted that the party explain the death in the field and required secrecy before transport."
+      },
+      {
+        "id": "papyrus",
+        "name": "Papyrus",
+        "role": "Absent — dead in Part VI; his name changes the temperature of the throne room."
+      },
+      {
+        "id": "flowey",
+        "name": "Flowey",
+        "role": "Absent — killed before this report; his death and the stolen machine remain part of the court’s unanswered evidence."
+      }
+    ],
+    "outcome": "The party reaches Asgore and Toriel’s court with the damaged survey machine. A localized transport to the surface may be possible, but only after the party answers for the field events and swears secrecy about the Underground. No transport has occurred yet.",
+    "notableFeatures": [
+      "The survey machine is carried as a makeshift backpack despite immediately proving too heavy for the straps.",
+      "Sans explains that Toriel is “the Queen” to him, not merely a name.",
+      "The party uses Commissar Vexis papers to pass the castle gate.",
+      "The Underground barrier is treated as a living breach risk rather than an ordinary door.",
+      "A localized two-person transport is proposed but not yet cast.",
+      "The court requires an oath of secrecy before any surface route opens."
+    ],
+    "relatedArticles": [
+      "mount_ebott",
+      "sans",
+      "dracule_mihawk",
+      "gamma_agent",
+      "asgore",
+      "toriel",
+      "papyrus",
+      "flowey",
+      "mount_ebott_survey_part_6",
+      "iron_legion"
+    ],
+    "aftermath": "Papyrus’s death is now known to the survey team and will have to be explained to Asgore’s court. Flowey is dead, but his actions remain recorded in the damaged survey machine. The machine is in the party’s possession again, strapped to the Gamma Agent’s back and already slipping loose. Sans is emotionally exhausted and uncertain whether he can return to the places he has just left. Mihawk remains capable of protecting the group, but the court’s oath changes the mission from escape to negotiated departure. The party has not crossed the barrier. The next decision belongs to the people who live behind it.",
+    "waluigiAssessment": "1. **The party did not escape; it reached a negotiating room.** The castle gate opened because the papers looked official, not because the Underground welcomed armed strangers.\n\n2. **The machine is now evidence.** Its damaged memory contains the field sequence, including magic spikes and movement data. Flowey’s death may be a record even if the party’s testimony becomes disputed.\n\n3. **Sans’s title for Toriel is personal testimony.** Calling her “the Queen” is not a correction of public naming. It is Sans stating what remains true to him after Papyrus’s death.\n\n4. **A localized transport preserves the barrier at a price.** The proposal may let two people reach the surface, but it risks permanent separation and leaves the rest of the party’s route unresolved.\n\n5. **The oath is the actual threshold.** The court is not asking the party to pretend the Underground did not happen. It is asking them not to turn its people into a discovery for the surface.\n\n**Recommendation:** Before anyone accepts the transport, copy the survey machine’s readable data by hand, decide who crosses, and state what happens to the people left behind. Do not let the broken machine become the only witness to Papyrus."
   }
 ]
