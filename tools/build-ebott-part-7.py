@@ -3,11 +3,10 @@
 Refined builder for Mount Ebott Survey Part VII.
 Appends/updates mount_ebott_survey_part_7 in Reputation-Matrix2/data/events.json.
 
-Design Improvements:
-  1. NO DUPLICATION: Picks up immediately after Part VI ends (where Papyrus's dust settles and the cage shatters).
-  2. RESTORES ALL DIALOGUE & DETAILS: Full flashback tea scene, Flowey execution, survey machine logs, backpack attempt, barrier lore, cave loop, gate guards bluff with Commissar Vexis papers, throne room negotiation, and Oath of Secrecy.
-  3. MORE WALUIGI TALKING: Dual-layer Waluigi commentary in every section (inline *WAH!* aside + formal <div class="wnote"> block).
-  4. ELEGANT FORMATTING: Enhanced custom CSS, blockquote dialogue styling, custom wnote callouts, and clean section structure.
+Fixes:
+  1. FORMATTING FIX: Strips raw HTML <div class="wnote"> from section overviews so mdToHtml doesn't create invalid <p><div> DOM structures that cause side-by-side grid bugs.
+  2. WALUIGI NOTES: Puts formal notes into the native `waluigi_note` field, which index.html renders cleanly as <div class="wnote"><b>Waluigi's Note:</b> ...</div>.
+  3. WALUIGI ASIDES: Keeps inline *WAH! ...* asides inside overview as clean markdown paragraphs.
 """
 
 import json
@@ -19,14 +18,13 @@ EVENTS_PATH = os.path.join(ROOT, 'Reputation-Matrix2', 'data', 'events.json')
 CHARS_PATH = os.path.join(ROOT, 'Reputation-Matrix2', 'data', 'characters.json')
 
 custom_css = (
-    ".wiki-lead { background: linear-gradient(135deg, rgba(138,75,255,0.16), rgba(30,20,50,0.2), rgba(212,168,83,0.1)); padding: 1.5rem; border-left: 6px solid #8a4bff; border-radius: 1rem; margin-bottom: 20px; }\n"
-    ".prose blockquote { background: linear-gradient(135deg, rgba(138,75,255,0.12), rgba(20,20,30,0.15)), var(--bg2); border-left: 4px solid #8a4bff; border-radius: 0 10px 10px 0; padding: 14px 20px; margin: 18px 0; font-size: 14.5px; line-height: 1.8; color: var(--text); }\n"
-    ".prose blockquote strong { color: #d4a853; letter-spacing: 0.03em; }\n"
-    ".prose blockquote em { color: #c9a6ff; font-style: italic; }\n"
-    ".prose h2 { color: #d4a853; border-bottom: 2px solid rgba(212,168,83,0.3); padding-bottom: 6px; font-family: var(--font-title, serif); }\n"
-    ".wnote { background: linear-gradient(135deg, rgba(138,75,255,0.14), rgba(40,20,60,0.1)), var(--bg2); border-left: 4px solid #8a4bff; padding: 14px 18px; margin: 20px 0; border-radius: 0 8px 8px 0; font-size: 13.5px; line-height: 1.65; }\n"
-    ".wnote b { color: #d4a853; font-size: 14px; }\n"
-    ".wnote em { color: #e2c8ff; }"
+    ".wiki-lead{background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(30,20,50,.2),rgba(212,168,83,.1));padding:1.5rem;border-left:6px solid #8a4bff;border-radius:1rem;margin-bottom:20px}"
+    ".prose blockquote{background:linear-gradient(135deg,rgba(138,75,255,.12),rgba(20,20,30,.15)),var(--bg2);border-left:4px solid #8a4bff;border-radius:0 10px 10px 0;padding:14px 20px;margin:18px 0;font-size:14.5px;line-height:1.8;color:var(--text)}"
+    ".prose blockquote strong{color:#d4a853;letter-spacing:.03em}"
+    ".prose blockquote em{color:#c9a6ff;font-style:italic}"
+    ".prose h2{color:#d4a853;border-bottom:2px solid rgba(212,168,83,.3);padding-bottom:6px;font-family:var(--font-title,serif)}"
+    ".wnote{background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(40,20,60,.1)),var(--bg2);border-left:4px solid #8a4bff;padding:14px 18px;margin:20px 0;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.65}"
+    ".wnote b{color:#d4a853;font-size:14px}"
 )
 
 sections = [
@@ -47,14 +45,9 @@ sections = [
             "**\"Burn it,\"** Mihawk replied plainly, his fingers adjusting on Yoru's hilt. **\"Fire is effective against plants.\"**\n\n"
             "Sans remained motionless beside them, his shoulders hunched under his blue hoodie, his breath coming out slow and shallow as the dust settled on his boots.\n\n"
             "*WAH! Waluigi agrees completely with this tactical assessment! When a garden specimen murders a municipal officer from behind during an emotional admission, you do not prune it! "
-            "You do not give it plant food or put it in a decorative ceramic pot! You fetch a torch and incinerate the entire flowerbed until there is nothing left but carbon! WAH.*\n\n"
-            "<div class=\"wnote\">\n"
-            "<b>🟣 Waluigi's Editorial Note I: Herbicidal Tactical Doctrine</b><br>\n"
-            "Observe that Dracule Mihawk does not attempt to categorize Flowey as a duelist or a combatant of honor. He categorizes him as agricultural pestilence. "
-            "In military operations, treating an opportunistic wildcard as a formal opponent is a fatal error. Mihawk's immediate recommendation of fire reflects proper elemental counter-measures against root-based entities. WAH.\n"
-            "</div>"
+            "You do not give it plant food or put it in a decorative ceramic pot! You fetch a torch and incinerate the entire flowerbed until there is nothing left but carbon! WAH.*"
         ),
-        "waluigi_note": "Mihawk categorizes Flowey not as an opponent of honor, but as a pest requiring elemental incineration."
+        "waluigi_note": "Observe that Dracule Mihawk does not attempt to categorize Flowey as a duelist or a combatant of honor. He categorizes him as agricultural pestilence. In military operations, treating an opportunistic wildcard as a formal opponent is a fatal error. Mihawk's immediate recommendation of fire reflects proper elemental counter-measures against root-based entities. WAH."
     },
     {
         "name": "II. The Midnight Tea — Sans's Memory of Asgore",
@@ -80,14 +73,9 @@ sections = [
             "**\"There is nothing wrong in finding solace in others,\"** Asgore said softly. **\"I assure you if we had more people like you and your brother we will have a peaceful future someday. Promise me this will you, Sans? Never give up this dream.\"**\n\n"
             "Sans looked past Asgore at the peaceful darkness outside the glass. **\"Yeah... I do. More than anything, I want peace. I want everyone I care about to be happy and safe... A world where everyone can just... live without fighting. Without fear.\"**\n\n"
             "*WAH! The quiet tea-table summit! A depressed goat king and a sentry who refuses to do his job sitting in a castle drinking herbal tea at midnight! "
-            "This memory explains everything about Sans! He spent four years sleeping at his guard post in Snowdin not because he was lazy, but because he promised King Asgore he would choose peace over human-hunting! WAH.*\n\n"
-            "<div class=\"wnote\">\n"
-            "<b>🟣 Waluigi's Editorial Note II: The Moral Anchor of the Sentry</b><br>\n"
-            "This memory is the exact structural anchor that held Sans together. His refusal to capture humans was not insubordination; it was compliance with a personal oath made to Asgore. "
-            "When Flowey killed Papyrus, he did not merely murder a brother — he severed the exact reason Sans maintained his peaceful restraint. WAH.\n"
-            "</div>"
+            "This memory explains everything about Sans! He spent four years sleeping at his guard post in Snowdin not because he was lazy, but because he promised King Asgore he would choose peace over human-hunting! WAH.*"
         ),
-        "waluigi_note": "This flashback establishes the emotional core of Sans's restraint: his pacifism was anchored in his promise to Asgore and his love for Papyrus."
+        "waluigi_note": "This memory is the exact structural anchor that held Sans together. His refusal to capture humans was not insubordination; it was compliance with a personal oath made to Asgore. When Flowey killed Papyrus, he did not merely murder a brother — he severed the exact reason Sans maintained his peaceful restraint. WAH."
     },
     {
         "name": "III. The Freeze and the Eruption — Sans Executes Flowey",
@@ -106,14 +94,9 @@ sections = [
             "The Agent stepped forward, staring at the ruined soil. **\"Sans... he's dead. The flower is dead, you killed it.\"**\n\n"
             "Sans exhaled slowly, his eyelights returning as dim white pinpricks. **\"Guess I did,\"** he muttered quietly. **\"He deserved it.\"**\n\n"
             "*WAH! Time-stop beatdowns! Never make a short skeleton angry in front of a flower! "
-            "Sans went from zero magical reserve to a localized apocalyptic execution in three-tenths of a second! Flowey learned the hard way that 'where is that spirit now' is not a rhetorical question! WAH.*\n\n"
-            "<div class=\"wnote\">\n"
-            "<b>🟣 Waluigi's Editorial Note III: Tactical Analysis of Time-Stop Offense</b><br>\n"
-            "Notice that Sans did not use a complex puzzle, a bone storm, or a platform trap. He used absolute proximity and raw kinetic magic. "
-            "When the limits of restraint are removed, Sans's combat efficiency is staggering. Flowey was given no opportunity to burrow, reset, or summon vines. WAH.\n"
-            "</div>"
+            "Sans went from zero magical reserve to a localized apocalyptic execution in three-tenths of a second! Flowey learned the hard way that 'where is that spirit now' is not a rhetorical question! WAH.*"
         ),
-        "waluigi_note": "Sans's execution of Flowey is a rare demonstration of uninhibited combat capability when his personal boundaries are shattered."
+        "waluigi_note": "Notice that Sans did not use a complex puzzle, a bone storm, or a platform trap. He used absolute proximity and raw kinetic magic. When the limits of restraint are removed, Sans's combat efficiency is staggering. Flowey was given no opportunity to burrow, reset, or summon vines. WAH."
     },
     {
         "name": "IV. The Survey Machine Record — Ecological Miscalibration",
@@ -132,14 +115,9 @@ sections = [
             "The Agent stared down at the dropped machine, rubbing his shoulder. **\"It will not hold.\"**\n\n"
             "Mihawk exhaled dryly through his nose. **\"Told you.\"**\n\n"
             "*WAH! Repurposed technology! An ecological survey device that accidentally logged a murder and a time-stop assault because its sensors could not tell the difference between a root sample and a Gaster Blaster! "
-            "Iron Legion engineering at its finest! And strap failure! Waluigi has told Wario a hundred times that you cannot wear a brass boiler as a rucksack! WAH.*\n\n"
-            "<div class=\"wnote\">\n"
-            "<b>🟣 Waluigi's Editorial Note IV: On Field Equipment Modifications</b><br>\n"
-            "The Agent's attempt to convert a stationary survey apparatus into a backpack using worn leather straps is a classic field error. "
-            "Scientific instruments weighing eighty pounds require standardized transport carts or anti-gravity cradles. Attempting to wear them as luggage results in broken straps and bruised ankles. WAH.\n"
-            "</div>"
+            "Iron Legion engineering at its finest! And strap failure! Waluigi has told Wario a hundred times that you cannot wear a brass boiler as a rucksack! WAH.*"
         ),
-        "waluigi_note": "The survey machine's corrupted logs reflect its chaotic service history. Repaired by Flowey and salvaged by the Agent, it remains a fragile but vital intelligence asset."
+        "waluigi_note": "The Agent's attempt to convert a stationary survey apparatus into a backpack using worn leather straps is a classic field error. Scientific instruments weighing eighty pounds require standardized transport carts or anti-gravity cradles. Attempting to wear them as luggage results in broken straps and bruised ankles. WAH."
     },
     {
         "name": "V. Egress Doctrine — The Law of the Barrier",
@@ -161,14 +139,9 @@ sections = [
             "**\"And the humans won the war?\"**\n\n"
             "**\"Yeah,\"** Sans said softly. **\"The humans won. They drove us underground and sealed us away permanently. To break the barrier for good... it takes massive effort. Both humans and monsters working together willingly.\"**\n\n"
             "*WAH! Dimensional boundary laws! The barrier was built by an ancient human wizard who wanted to lock monsters away, but he built the lock so poorly that people can leave but cannot get back in! "
-            "Typical human wizard work — grand concept, terrible administrative execution! WAH.*\n\n"
-            "<div class=\"wnote\">\n"
-            "<b>🟣 Waluigi's Editorial Note V: The Legal Mechanics of One-Way Egress</b><br>\n"
-            "Notice the asymmetrical nature of the magical barrier. Individual egress is permitted under specific energy thresholds, but re-entry is blocked. "
-            "This design prevents surface forces from launching counter-invasions while forcing exiting individuals into permanent exile. WAH.\n"
-            "</div>"
+            "Typical human wizard work — grand concept, terrible administrative execution! WAH.*"
         ),
-        "waluigi_note": "Sans's explanation clarifies the asymmetrical nature of the Barrier: while egress is physically possible for individuals, permanent dissolution requires bilateral cooperation."
+        "waluigi_note": "Notice the asymmetrical nature of the magical barrier. Individual egress is permitted under specific energy thresholds, but re-entry is blocked. This design prevents surface forces from launching counter-invasions while forcing exiting individuals into permanent exile. WAH."
     },
     {
         "name": "VI. The Cave Loop — Teleportation Under Whispers",
@@ -183,14 +156,9 @@ sections = [
             "Mihawk kept his gaze fixed ahead, his voice low and unbothered. **\"Teleportation is fast... yes. But not unusual for monsters with magic. The capital isn't far from here anyway. It's normal to...\"**\n\n"
             "He cut himself off as three heavily armored royal guards stepped out from the shadows near the castle gates.\n\n"
             "*WAH! Spatial shortcuts! You think you are walking three miles through damp granite, but a skeleton blinks his eye sockets and suddenly you are standing in the king's front yard! "
-            "Spatial efficiency or lazy map design? Waluigi says both! WAH.*\n\n"
-            "<div class=\"wnote\">\n"
-            "<b>🟣 Waluigi's Editorial Note VI: Spatial Loop Mapping</b><br>\n"
-            "The Underground's geography operates on closed topology. Major hubs (Snowdin, Hotland, New Home) connect via compressed spatial corridors. "
-            "Sans's ability to navigate these shortcuts allows the team to bypass days of transit in twenty minutes. WAH.\n"
-            "</div>"
+            "Spatial efficiency or lazy map design? Waluigi says both! WAH.*"
         ),
-        "waluigi_note": "Sans's reliance on spatial loops allows the group to bypass intermediate sub-zones, bringing them directly to the political center of the Underground."
+        "waluigi_note": "The Underground's geography operates on closed topology. Major hubs (Snowdin, Hotland, New Home) connect via compressed spatial corridors. Sans's ability to navigate these shortcuts allows the team to bypass days of transit in twenty minutes. WAH."
     },
     {
         "name": "VII. The Gate Guard Bluff — The Commissar Vexis Documents",
@@ -210,14 +178,9 @@ sections = [
             "As they passed through the gates, Sans mumbled quietly with a smirk: **\"Guess those documents actually worked after all. We got lucky there. Good on you for getting all that military jargon down.\"**\n\n"
             "**\"Guess they're slow on the uptake, the guards,\"** the Agent chuckled.\n\n"
             "*WAH! Bureaucratic intimidation! Nothing confuses a checkpoint guard faster than a man in a green coat reading out sixteen syllables of fake classification numbers! "
-            "Waluigi uses this exact trick when entering VIP lounges at kart races! WAH.*\n\n"
-            "<div class=\"wnote\">\n"
-            "<b>🟣 Waluigi's Editorial Note VII: Administrative Override in Security Protocols</b><br>\n"
-            "Notice how easily the guards yielded when presented with wax-sealed paperwork signed by Commissar Vexis. "
-            "Security personnel in formal hierarchies are trained to fear administrative reprimand more than unauthorized entry. A gold foil seal is effectively an invisible key. WAH.\n"
-            "</div>"
+            "Waluigi uses this exact trick when entering VIP lounges at kart races! WAH.*"
         ),
-        "waluigi_note": "The Agent's military bluff demonstrates the power of formal documentation in bypassing security checkpoints."
+        "waluigi_note": "Notice how easily the guards yielded when presented with wax-sealed paperwork signed by Commissar Vexis. Security personnel in formal hierarchies are trained to fear administrative reprimand more than unauthorized entry. A gold foil seal is effectively an invisible key. WAH."
     },
     {
         "name": "VIII. The Throne Room Audience — King Asgore and Queen Toriel",
@@ -236,14 +199,9 @@ sections = [
             "Asgore scrutinized Sans. **\"He is the one who suggested you seek me out for assistance? And you believe I have the power to simply... open a path for you? Just like that? The logistics of opening a path to the surface are not simple.\"**\n\n"
             "Sans stepped forward, dropping his casual demeanor entirely. **\"We're aware the barrier isn't easy to undo... but if anyone could do it, you could, right?\"**\n\n"
             "*WAH! Royal court manners! Entering a throne room with a giant sword and a broken survey machine is usually a recipe for getting executed, "
-            "but King Asgore is so polite he offers tea before asking why you are standing on his rug! WAH.*\n\n"
-            "<div class=\"wnote\">\n"
-            "<b>🟣 Waluigi's Editorial Note VIII: Royal Audience Protocol</b><br>\n"
-            "The audience in the throne room transitions the expedition from tactical survival to high diplomacy. "
-            "Asgore and Toriel receive the group not as invaders, but as petitioning travelers seeking egress. WAH.\n"
-            "</div>"
+            "but King Asgore is so polite he offers tea before asking why you are standing on his rug! WAH.*"
         ),
-        "waluigi_note": "The interaction in the throne room transitions the expedition into a high-level diplomatic negotiation."
+        "waluigi_note": "The audience in the throne room transitions the expedition from tactical survival to high diplomacy. Asgore and Toriel receive the group not as invaders, but as petitioning travelers seeking egress. WAH."
     },
     {
         "name": "IX. Barrier Logistics — Localized Transport vs Mass Destruction",
@@ -261,14 +219,9 @@ sections = [
             "Toriel stepped forward, her expression turning serious. **\"However... there is one other factor to consider. If we do this... you must understand that it's possible you may never return. Are you prepared for such a life?\"**\n\n"
             "The Agent met her gaze firmly. **\"Yes. I feel like I have gained what I wanted to here.\"**\n\n"
             "*WAH! Localized portal physics! Instead of tearing down the whole wall and letting the roof collapse, you cut a small envelope-sized hole in reality and push two men through! "
-            "Precision magic over raw force every time! WAH.*\n\n"
-            "<div class=\"wnote\">\n"
-            "<b>🟣 Waluigi's Editorial Note IX: Systemic Stability vs Total Dissolution</b><br>\n"
-            "Asgore's refusal to destroy the Barrier outright is rooted in ecological physics. The Barrier regulates the Underground's internal magic balance. "
-            "A localized transport bypasses the barrier without destroying its structural load. WAH.\n"
-            "</div>"
+            "Precision magic over raw force every time! WAH.*"
         ),
-        "waluigi_note": "The localized transport proposal solves the ecological risk of total barrier collapse, substituting systemic disruption with personal exile."
+        "waluigi_note": "Asgore's refusal to destroy the Barrier outright is rooted in ecological physics. The Barrier regulates the Underground's internal magic balance. A localized transport bypasses the barrier without destroying its structural load. WAH."
     },
     {
         "name": "X. The Oath of Secrecy — The Final Terms",
@@ -283,13 +236,9 @@ sections = [
             "The safety of monsters depends on this barrier remaining intact in everyone's minds as a myth — not a reality they can exploit.\"**\n\n"
             "The Agent, Mihawk, and Sans stood together before the throne. The weight of the vow settled heavily in the air. The expedition had achieved its objective, but the price of egress was absolute silence.\n\n"
             "*WAH! The Non-Disclosure Agreement of Mount Ebott! A solemn vow made to a goat king and a queen that keeps seven hundred thousand underground monsters off surface television! "
-            "Waluigi approves of non-disclosure agreements, especially when they prevent tax auditors from finding hidden gold reserves! WAH.*\n\n"
-            "<div class=\"wnote\">\n"
-            "<b>🟣 Waluigi's Editorial Note X: The Non-Disclosure Vow</b><br>\n"
-            "The Oath of Secrecy serves as the final diplomatic barrier. It ensures that while individuals may exit, the Underground remains protected by mythological obscurity. WAH.\n"
-            "</div>"
+            "Waluigi approves of non-disclosure agreements, especially when they prevent tax auditors from finding hidden gold reserves! WAH.*"
         ),
-        "waluigi_note": "The Oath of Secrecy serves as the final diplomatic barrier, protecting the Underground through enforced mythology."
+        "waluigi_note": "The Oath of Secrecy serves as the final diplomatic barrier. It ensures that while individuals may exit, the Underground remains protected by mythological obscurity. WAH."
     }
 ]
 
@@ -328,7 +277,7 @@ assessment_text = (
     "**2. The Vexis Credentials — Administrative Victory.** The Agent's use of Commissar Vexis's papers proves Waluigi's long-standing thesis: "
     "guards at official gates do not read documents to verify truth; they read documents to relieve themselves of responsibility. A gold seal and a commissar's name will get you into almost any room in the multiverse. WAH.\n\n"
     "**3. The Execution of Flowey — Functional Retribution.** Flowey's elimination by Sans in a localized time-stop was necessary for operational security. "
-    "Allowing an hostile entity with cross-dimensional boundary data to remain mobile would have compromised both the Underground and surface operations. WAH.\n\n"
+    "Allowing a hostile entity with cross-dimensional boundary data to remain mobile would have compromised both the Underground and surface operations. WAH.\n\n"
     "**4. The Oath of Secrecy — Legal Recommendation.** Waluigi advises all readers to respect the Oath of Secrecy. "
     "Not because of royal authority, but because if humans on the surface discover seven hundred thousand monsters living under a mountain, they will immediately try to tax them. WAH.\n\n"
     "**Final Recommendation:** Approve the Part VII filing. Close the Mount Ebott Survey dossier. File the Vexis documents in the Iron Legion archives under Class 1 Clearance. WAH!"
@@ -358,7 +307,7 @@ part_7_event = {
         "The Agent's military bluff using Commissar Vexis credentials",
         "Throne room negotiation with King Asgore and Queen Toriel",
         "The localized transport agreement and Oath of Secrecy",
-        "Dual-layer Waluigi commentary in every section"
+        "Clean single-column layout formatting across all sections"
     ],
     "relatedArticles": [
         "mount_ebott_survey_part_6",
