@@ -647,8 +647,8 @@
         "value": "",
         "public": ""
       },
-      "race": "Unknown / disguised humanoid (treat as Medium humanoid until canon identifies him)",
-      "background": "Liberated Toads Field Infiltrator",
+      "race": "unknownhumanoid0",
+      "background": "liberatedtoadsin",
       "originalClass": "rogue",
       "xp": {
         "value": 7880

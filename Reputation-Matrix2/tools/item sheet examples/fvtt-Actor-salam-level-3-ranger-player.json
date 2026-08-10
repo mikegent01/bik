@@ -1,5 +1,5 @@
 {
-  "name": "Salam \u2014 Level 3 Ranger Player Character",
+  "name": "Salam — Level 3 Ranger Player Character",
   "type": "character",
   "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
   "system": {
@@ -646,13 +646,13 @@
         "value": "",
         "public": ""
       },
-      "race": "Toad \u2014 Salam Variant",
-      "background": "Liberated Toad Ranger",
+      "race": "salamrace0000001",
+      "background": "salambackground001",
       "originalClass": "ranger",
       "xp": {
         "value": 2220
       },
-      "appearance": "A quiet and alert Toad carrying a woodcarved bow and a light crossbow. Salam\u2019s eyes scan the dark, watching for threats and undead.",
+      "appearance": "A quiet and alert Toad carrying a woodcarved bow and a light crossbow. Salam’s eyes scan the dark, watching for threats and undead.",
       "trait": "I don't know if we can trust this, but we have to keep moving.",
       "ideal": "We protect the others, even when we are tired and scared.",
       "bond": "The fellow survivors of the Vigilance escape, and the bows we carve to survive.",
@@ -738,7 +738,7 @@
     "favorites": [],
     "spellcasting": "",
     "biography": {
-      "value": "<h2>Salam \u2014 Player Character Dossier</h2><p><strong>Level 3 Ranger.</strong> Salam is the quiet, sharpshooting Ranger of the Liberated Toads. Folded from the old Salem file, he is famous for landing a miraculous eye-shot through the Arachnid Matriarch's primary eye cluster during the Battle of the Spider Grove. He also survived the Shadow Estate's rooftop collapse, holding on to Remi's Feather Fall chain during the descent, and has co-led the Toads' perimeter guards.</p><p><strong>Ledger:</strong> 2,220 XP, 10 entries, Level 3, Power 5, Fame 30 Local. The XP ledger remains authoritative.</p><h3>How to play Salam</h3><p>Salam is a sharpshooter with damaged trust. He is quiet and vigilant, woodcarving bows or barricading doors under stress. He excels in ranged combat, elevated positioning, and sensing hidden or undead threats. His inventory contains only actual gear confirmed by the campaign logs.</p><h3>Confirmed inventory</h3><p>Salam carries a light crossbow, a shortbow, a handaxe / woodcarving tools, bolts, arrows, light leather armor, and a torch.</p>",
+      "value": "<h2>Salam — Player Character Dossier</h2><p><strong>Level 3 Ranger.</strong> Salam is the quiet, sharpshooting Ranger of the Liberated Toads. Folded from the old Salem file, he is famous for landing a miraculous eye-shot through the Arachnid Matriarch's primary eye cluster during the Battle of the Spider Grove. He also survived the Shadow Estate's rooftop collapse, holding on to Remi's Feather Fall chain during the descent, and has co-led the Toads' perimeter guards.</p><p><strong>Ledger:</strong> 2,220 XP, 10 entries, Level 3, Power 5, Fame 30 Local. The XP ledger remains authoritative.</p><h3>How to play Salam</h3><p>Salam is a sharpshooter with damaged trust. He is quiet and vigilant, woodcarving bows or barricading doors under stress. He excels in ranged combat, elevated positioning, and sensing hidden or undead threats. His inventory contains only actual gear confirmed by the campaign logs.</p><h3>Confirmed inventory</h3><p>Salam carries a light crossbow, a shortbow, a handaxe / woodcarving tools, bolts, arrows, light leather armor, and a torch.</p>",
       "public": "Salam is the quiet sharpshooter of the Liberated Toads. His precision eye-shot on the Matriarch saved Markop, and his forest-ranging senses protect the team from hidden undead."
     }
   },
@@ -753,7 +753,7 @@
       "ledgerEntries": 10,
       "powerLevel": 5,
       "fameScore": 30,
-      "status": "Active \u2014 light field wallet, mostly survivor bonds and practical coin",
+      "status": "Active — light field wallet, mostly survivor bonds and practical coin",
       "source": "data/characters.json + wallets.json + xp.html + events.json + battles.json",
       "confirmedInventory": [
         "Light Crossbow",
@@ -939,7 +939,7 @@
   "folder": null,
   "items": [
     {
-      "name": "Ranger \u2014 Sharpshooter, Level 3",
+      "name": "Ranger — Sharpshooter, Level 3",
       "type": "class",
       "img": "icons/environment/people/infantry.webp",
       "system": {
@@ -979,7 +979,7 @@
       "_id": "salamclass0000001"
     },
     {
-      "name": "Toad \u2014 Salam Variant",
+      "name": "Toad — Salam Variant",
       "type": "race",
       "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
       "system": {
@@ -1025,12 +1025,12 @@
       "_id": "salambackground001"
     },
     {
-      "name": "Favored Enemy \u2014 Beasts & Monstrosities",
+      "name": "Favored Enemy — Beasts & Monstrosities",
       "type": "feat",
       "img": "icons/creatures/claws/claw-talons-glowing-red.webp",
       "system": {
         "description": {
-          "value": "<p>Salam has significant experience studying, tracking, and hunting beasts and monstrosities\u2014particularly giant arachnids of the Silent Grove.</p>",
+          "value": "<p>Salam has significant experience studying, tracking, and hunting beasts and monstrosities—particularly giant arachnids of the Silent Grove.</p>",
           "chat": ""
         },
         "source": {
@@ -1057,7 +1057,7 @@
       "_id": "salamfeat00000001"
     },
     {
-      "name": "Natural Explorer \u2014 Forest & Underdark",
+      "name": "Natural Explorer — Forest & Underdark",
       "type": "feat",
       "img": "icons/magic/nature/plant-vine-glowing-green.webp",
       "system": {
@@ -1089,7 +1089,7 @@
       "_id": "salamfeat00000002"
     },
     {
-      "name": "Fighting Style \u2014 Archery",
+      "name": "Fighting Style — Archery",
       "type": "feat",
       "img": "icons/skills/ranged/archery-bow-arrow-glowing-orange.webp",
       "system": {

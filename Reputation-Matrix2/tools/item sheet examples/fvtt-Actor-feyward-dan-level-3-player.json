@@ -647,8 +647,8 @@
         "value": "",
         "public": ""
       },
-      "race": "Toad (Feyward / parallel-reality variant)",
-      "background": "Dimensional Escapee / Oathbound Survivor",
+      "race": "4b8eb918a8d24833",
+      "background": "d7b8ef0d38ae40d2",
       "originalClass": "paladin",
       "xp": {
         "value": 1960
@@ -1333,7 +1333,7 @@
           "value": 15,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,

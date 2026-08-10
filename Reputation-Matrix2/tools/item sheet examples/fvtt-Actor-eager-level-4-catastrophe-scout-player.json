@@ -646,8 +646,8 @@
         "value": "",
         "public": ""
       },
-      "race": "Toad (unconfirmed)",
-      "background": "Disaster Inc. Catastrophe Scout",
+      "race": "d5c6b4b8da1e46c8",
+      "background": "5f606a64c6bb43f3",
       "originalClass": "fighter",
       "xp": {
         "value": 4860
@@ -1474,7 +1474,7 @@
           "units": "lb"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "attuned": false,
         "cover": null,
         "range": {
@@ -1770,7 +1770,7 @@
           "value": 25,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
