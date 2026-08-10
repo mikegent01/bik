@@ -2,7 +2,7 @@
   "folder": null,
   "name": "Eager",
   "type": "npc",
-  "img": "npc/eg.png",
+  "img": "icons/svg/mystery-man.svg",
   "system": {
     "currency": {
       "pp": 0,
@@ -624,7 +624,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "npc/eg.png",
+      "src": "icons/svg/mystery-man.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

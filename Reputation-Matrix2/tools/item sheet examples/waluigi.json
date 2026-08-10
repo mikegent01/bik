@@ -2,7 +2,7 @@
   "folder": null,
   "name": "Waluigi",
   "type": "npc",
-  "img": "npc/waluigi.png",
+  "img": "icons/svg/mystery-man.svg",
   "system": {
     "currency": {
       "pp": 0,
@@ -711,7 +711,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "npc/waluigi.png",
+      "src": "icons/svg/mystery-man.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -800,7 +800,7 @@
     {
       "name": "The Void Racket",
       "type": "weapon",
-      "img": "npc/ai/1771128957079-019c5f82-e53a-715e-9e13-4bdc7bc1e167.webp",
+      "img": "icons/weapons/swords/sword-gold-holy.webp",
       "system": {
         "description": {
           "value": "<p><strong>Rare Magic Weapon (+1).</strong> This is no ordinary piece of sporting equipment. Looted from the ruins of the Grand Tennis Academy during the early years of the Civil War, this racket has been modified with illegal enchantments by Wario's artificers. The frame is reinforced with blackened steel, and the strings are woven from the gut of a Phase Spider, vibrating with a low, dissonance hum that sets teeth on edge.</p><p>When swung, the racket pulls kinetic energy from the air, manifesting glowing purple projectiles of force. It functions as both a mace and a wand, allowing Waluigi to strike distant foes with the same impact as a melee blow.</p>",
@@ -1018,7 +1018,7 @@
     {
       "name": "Wario's Debt Ledger",
       "type": "loot",
-      "img": "npc/ai/flux-2-flex-20260129_b_a_heavy%2C_ominous_tom.webp",
+      "img": "icons/sundries/documents/document-bound-tan.webp",
       "system": {
         "description": {
           "value": "<p>A heavy, ominous tome bound in yellow leather that smells faintly of garlic and greed. The pages are filled with frantic scribblings in Waluigi's hand and aggressive red stamps from Wario.</p><p>The final page lists a current outstanding balance of <strong>900,000,000,000,000 (900 Trillion) Gold Coins</strong>. The ink seems to be enchanted to glow brighter when Waluigi is idle, serving as a constant, terrifying reminder of his obligations. Possession of this book imparts a sense of crushing anxiety, but also a desperate, manic drive to succeed.</p>",
@@ -1336,7 +1336,7 @@
     {
       "name": "Wario's Bob-ombs",
       "type": "consumable",
-      "img": "npc/ai/bombx.webp",
+      "img": "icons/sundries/documents/document-sealed-red.webp",
       "system": {
         "description": {
           "value": "<p>These aren't standard military ordnance; these are WarioWare™ originals. Each black sphere has two wind-up feet and a pair of eyes that glare with malice.</p><p><strong>Action:</strong> Waluigi winds the key and throws the bomb up to 40 feet. It lands, walks 5 feet toward the nearest creature (friend or foe), and detonates. <strong>20ft Radius.</strong> <strong>DC 15 Dexterity Save</strong>. <strong>4d6 Fire + 4d6 Bludgeoning</strong> damage.</p>",
@@ -1654,7 +1654,7 @@
     {
       "name": "The Rose of Rejection",
       "type": "weapon",
-      "img": "npc/ai/fae.webp",
+      "img": "icons/weapons/swords/sword-gold-holy.webp",
       "system": {
         "description": {
           "value": "<p><strong>Weapon (Whip), Rare (Requires Attunement).</strong> This is not a crafted weapon, but a living cutting from the <strong>Feywild Manor's Rose Garden</strong>. Waluigi tore it from the earth during his escape from the Hag's Hut (Day 22). The stem is thick, woody, and lined with thorns that seem to lengthen when the wielder is angry.</p><p>The rose blooms perpetually with a deep, bruised purple flower. When snapped, it releases a scent of old perfume and bitter disappointment. It deals an additional <strong>1d6 Psychic damage</strong> on a hit, as the target is overwhelmed by feelings of inadequacy.</p><p><em>'She loves me... she loves me not... WALUIGI DOESN'T CARE!'</em></p>",
@@ -1843,7 +1843,7 @@
     {
       "name": "Sprite-Silk Leg Splint",
       "type": "equipment",
-      "img": "npc/ai/gemini_generated_image_x2wgfkx2wgfkx2wg.webp",
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp",
       "system": {
         "description": {
           "value": "<p><strong>Wondrous Item, Rare.</strong> A makeshift medical device crafted by the Sprites of the Feywild Greenhouse (Day 22). After the <strong>Guardian Butterfly</strong> shattered Waluigi's leg, the sprites used aggressive rapid-growth vines and hardened silk to knit the bone back together in seconds.</p><p>The splint has fused with Waluigi's pant leg and skin. It pulses with chaotic life energy. While wearing it, Waluigi's movement speed increases by 10 feet, but he suffers a -2 penalty to Stealth checks due to the audible creaking of the magical vines.</p>",
@@ -2214,7 +2214,7 @@
     {
       "name": "Vigilance Control Chip (Broken)",
       "type": "loot",
-      "img": "npc/ai/hunyuan-image-3.0_b_a_jagged_piece_of_gr.webp",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
       "system": {
         "description": {
           "value": "<p>A fried control circuit ripped from the console of the <strong>Airship Vigilance</strong> during the hijacking (Day 4). Waluigi grabbed it hoping it was the key to the autopilot, but instead, it just turned off the coffee machine.</p><p>He keeps it in his pocket, convinced he can use it to hotwire another vehicle someday. It sparks occasionally.</p>",
@@ -2432,7 +2432,7 @@
     {
       "name": "Defaced Photo of 'The Brothers'",
       "type": "loot",
-      "img": "npc/ai/imagen-4.0-ultra-generate-001_a_a_crumpled%2C_water-da.webp",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
       "system": {
         "description": {
           "value": "<p>A crumpled, water-damaged photograph of Mario and Luigi shaking hands with Princess Peach. Waluigi has aggressively scratched out their faces with a purple ink quill, tearing the paper in the process. He has drawn himself in the background, towering over them, holding a bag of gold.</p><p>It is a pathetic, angry little artifact that he keeps in his breast pocket, close to his heart.</p>",
@@ -2628,7 +2628,7 @@
     {
       "name": "The Orange Invitation",
       "type": "loot",
-      "img": "npc/ai/rott.webp",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
       "system": {
         "description": {
           "value": "<p>An elegant invitation printed on human skin vellum, inviting the holder to the <strong>Orange Heir's Banquet</strong>. The ink smells of rot. Waluigi stole this from a guest he knocked unconscious in the garden.</p><p>Text: <em>'The Rot is Ripe. The Time is Nigh. Come feed.'</em> Waluigi uses it to pick his teeth.</p>",

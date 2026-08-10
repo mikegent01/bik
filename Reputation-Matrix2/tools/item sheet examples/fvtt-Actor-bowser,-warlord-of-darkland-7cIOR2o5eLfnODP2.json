@@ -1,7 +1,7 @@
 {
   "name": "Bowser, Warlord of Darkland",
   "type": "npc",
-  "img": "npc/ezgif-7d221b3e36544a77.webp",
+  "img": "icons/svg/mystery-man.svg",
   "system": {
     "abilities": {
       "str": {
@@ -436,7 +436,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "npc/tumblr_mqtfrs9xbu1rrftcdo1_500.webp",
+      "src": "icons/svg/mystery-man.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",

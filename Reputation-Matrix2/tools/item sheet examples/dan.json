@@ -2,7 +2,7 @@
   "folder": null,
   "name": "Feyward Dan",
   "type": "character",
-  "img": "npc/danm.png",
+  "img": "icons/svg/mystery-man.svg",
   "system": {
     "currency": {
       "pp": 0,
@@ -757,7 +757,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "npc/danm.png",
+      "src": "icons/svg/mystery-man.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -2160,7 +2160,7 @@
           "value": []
         }
       },
-      "img": "https://cdn.5e.tools/2024/img/items/CoS/Holy%20Symbol%20of%20Ravenkind.webp",
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp",
       "ownership": {
         "default": 0,
         "f9K62vO9hIl1GByi": 3
@@ -4579,7 +4579,7 @@
         }
       },
       "effects": [],
-      "img": "modules/plutonium/media/icon/class/phb-paladin.webp",
+      "img": "icons/svg/book.svg",
       "_stats": {
         "systemVersion": "5.3.3",
         "coreVersion": "14.360",
@@ -4857,7 +4857,7 @@
         }
       },
       "effects": [],
-      "img": "assets/srd5e/img/TheGiddyLimit/homebrew-img/main/img/HelianasGuidetoMonsterHunting/images/Classes/Oath_of_the_Harvest_Paladin.webp",
+      "img": "icons/svg/book.svg",
       "_stats": {
         "systemVersion": "5.3.3",
         "coreVersion": "14.360",
@@ -5196,7 +5196,7 @@
         "default": 0,
         "f9K62vO9hIl1GByi": 3
       },
-      "img": "modules/plutonium/media/icon/class/phb-paladin.webp",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "classFeature",
@@ -5414,7 +5414,7 @@
         "default": 0,
         "f9K62vO9hIl1GByi": 3
       },
-      "img": "modules/plutonium/media/icon/class/phb-paladin.webp",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "classFeature",
@@ -7435,7 +7435,7 @@
         "default": 0,
         "f9K62vO9hIl1GByi": 3
       },
-      "img": "assets/srd5e/img/TheGiddyLimit/homebrew-img/main/img/HelianasGuidetoMonsterHunting/images/Classes/Oath_of_the_Harvest_Paladin.webp",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "subclassFeature",
@@ -7504,7 +7504,7 @@
         "default": 0,
         "f9K62vO9hIl1GByi": 3
       },
-      "img": "assets/srd5e/img/TheGiddyLimit/homebrew-img/main/img/HelianasGuidetoMonsterHunting/images/Classes/Oath_of_the_Harvest_Paladin.webp",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "subclassFeature",
@@ -7573,7 +7573,7 @@
         "default": 0,
         "f9K62vO9hIl1GByi": 3
       },
-      "img": "assets/srd5e/img/TheGiddyLimit/homebrew-img/main/img/HelianasGuidetoMonsterHunting/images/Classes/Oath_of_the_Harvest_Paladin.webp",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "subclassFeature",
@@ -7707,7 +7707,7 @@
         "default": 0,
         "f9K62vO9hIl1GByi": 3
       },
-      "img": "assets/srd5e/img/TheGiddyLimit/homebrew-img/main/img/HelianasGuidetoMonsterHunting/images/Classes/Oath_of_the_Harvest_Paladin.webp",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "subclassFeature",
@@ -7841,7 +7841,7 @@
         "default": 0,
         "f9K62vO9hIl1GByi": 3
       },
-      "img": "assets/srd5e/img/TheGiddyLimit/homebrew-img/main/img/HelianasGuidetoMonsterHunting/images/Classes/Oath_of_the_Harvest_Paladin.webp",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "subclassFeature",
@@ -8452,7 +8452,7 @@
         },
         "armor": {}
       },
-      "img": "https://cdn.5e.tools/2024/img/items/XPHB/Longsword.webp",
+      "img": "icons/weapons/swords/sword-gold-holy.webp",
       "ownership": {
         "default": 0,
         "f9K62vO9hIl1GByi": 3
@@ -8653,7 +8653,7 @@
         },
         "armor": {}
       },
-      "img": "https://cdn.5e.tools/2024/img/items/XPHB/Javelin.webp",
+      "img": "icons/weapons/swords/sword-gold-holy.webp",
       "ownership": {
         "default": 0,
         "f9K62vO9hIl1GByi": 3
@@ -9197,7 +9197,7 @@
           "value": []
         }
       },
-      "img": "https://cdn.5e.tools/2024/img/items/XPHB/Lamp.webp",
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp",
       "ownership": {
         "default": 0,
         "f9K62vO9hIl1GByi": 3
@@ -9843,7 +9843,7 @@
         "default": 0,
         "f9K62vO9hIl1GByi": 3
       },
-      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "raceFeature",
@@ -10222,7 +10222,7 @@
           "isDirectImport": true
         }
       },
-      "img": "modules/plutonium/media/icon/family-tree.svg",
+      "img": "icons/svg/mystery-man.svg",
       "ownership": {
         "default": 0,
         "f9K62vO9hIl1GByi": 3

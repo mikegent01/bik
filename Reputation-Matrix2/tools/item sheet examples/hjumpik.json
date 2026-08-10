@@ -2,7 +2,7 @@
   "folder": null,
   "name": "Hjumpik Deldkur",
   "type": "character",
-  "img": "player/hjumpikbell.png",
+  "img": "icons/svg/mystery-man.svg",
   "system": {
     "currency": {
       "pp": 8,
@@ -787,7 +787,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "player/hjumpikbell.png",
+      "src": "icons/svg/mystery-man.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -976,7 +976,7 @@
         }
       },
       "type": "class",
-      "img": "https://s3.amazonaws.com/files.d20.io/images/375848388/shcNYQe9X0pDaZmqPnsI_g/med.png?1705456557",
+      "img": "icons/svg/book.svg",
       "sort": 10000,
       "effects": [],
       "system": {
@@ -1191,7 +1191,7 @@
         }
       },
       "type": "feat",
-      "img": "https://s3.amazonaws.com/files.d20.io/images/375848388/shcNYQe9X0pDaZmqPnsI_g/med.png?1705456557",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "sort": 40000,
       "effects": [],
       "system": {
@@ -1252,7 +1252,7 @@
         }
       },
       "type": "feat",
-      "img": "https://s3.amazonaws.com/files.d20.io/images/375848388/shcNYQe9X0pDaZmqPnsI_g/med.png?1705456557",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "sort": 50000,
       "effects": [],
       "system": {
@@ -1313,7 +1313,7 @@
         }
       },
       "type": "feat",
-      "img": "https://s3.amazonaws.com/files.d20.io/images/375848388/shcNYQe9X0pDaZmqPnsI_g/med.png?1705456557",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "sort": 60000,
       "effects": [],
       "system": {
@@ -1374,7 +1374,7 @@
         }
       },
       "type": "feat",
-      "img": "https://s3.amazonaws.com/files.d20.io/images/375848388/shcNYQe9X0pDaZmqPnsI_g/med.png?1705456557",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "sort": 70000,
       "effects": [],
       "system": {
@@ -1435,7 +1435,7 @@
         }
       },
       "type": "loot",
-      "img": "https://s3.amazonaws.com/files.d20.io/images/375848388/shcNYQe9X0pDaZmqPnsI_g/med.png?1705456557",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
       "sort": 120000,
       "effects": [],
       "system": {
@@ -5610,7 +5610,7 @@
         }
       },
       "effects": [],
-      "img": "modules/plutonium/media/icon/farmer.svg",
+      "img": "icons/sundries/documents/document-bound-tan.webp",
       "folder": null,
       "sort": 0,
       "_stats": {
@@ -5743,7 +5743,7 @@
         },
         "advancement": {}
       },
-      "img": "modules/plutonium/media/icon/farmer.svg",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "backgroundFeature",
@@ -5906,7 +5906,7 @@
         },
         "advancement": {}
       },
-      "img": "modules/plutonium/media/icon/skills.svg",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "optionalfeatures.html",
@@ -6159,7 +6159,7 @@
     {
       "name": "Business Card",
       "type": "loot",
-      "img": "1709761629520545.jpg",
+      "img": "icons/sundries/documents/document-bound-tan.webp",
       "system": {
         "description": {
           "value": "<p><strong>Front of the Card:</strong></p><ul><li><strong>Name:</strong> Bowser Koopa</li><li><strong>Title:</strong> King of the Koopas</li><li><p><strong>Contact:</strong></p><ul><li>Castle Address: Bowser's Castle, Koopa Kingdom</li><li>Phone: 1-800-KOOPA-KING</li><li>Email: <a target=\"_new\">kingbowser@koopakingdom.com</a></li></ul></li><li><strong>Image:</strong> A regal portrait of Bowser, sporting his trademark spiky shell and menacing grin in a suit, set against a backdrop of a city.</li></ul><p><strong>Back of the Card:</strong></p><ul><li><strong>Slogan:</strong> \"Conquering Kingdoms, One Castle at a Time!\"</li><li><p><strong>Services:</strong></p><ul><li>Castle Renovations</li><li>Lava Pool Installation</li><li>Minion Recruitment and Training</li><li>Princess Kidnapping (currently not accepting new requests)</li></ul></li></ul>",
@@ -6272,7 +6272,7 @@
         "container": null,
         "identifier": "a-glass-jar-filled-with-the-teeth-of-children"
       },
-      "img": "modules/plutonium/media/icon/battle-gear.svg",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
       "flags": {
         "plutonium": {
           "page": "items.html",
@@ -6347,7 +6347,7 @@
         "container": null,
         "identifier": "a-card-with-a-picture-that-looks-weirdly-like-yourself"
       },
-      "img": "modules/plutonium/media/icon/battle-gear.svg",
+      "img": "icons/sundries/documents/document-bound-tan.webp",
       "flags": {
         "plutonium": {
           "page": "items.html",
@@ -6497,7 +6497,7 @@
         "container": null,
         "identifier": "a-glass-bone"
       },
-      "img": "modules/plutonium/media/icon/battle-gear.svg",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
       "flags": {
         "plutonium": {
           "page": "items.html",
@@ -8088,7 +8088,7 @@
           "value": []
         }
       },
-      "img": "https://raw.githubusercontent.com/5etools-mirror-2/5etools-img/main/items/CoS/Icon%20of%20Ravenloft.webp",
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp",
       "flags": {
         "plutonium": {
           "page": "items.html",
@@ -8627,7 +8627,7 @@
     {
       "name": "The Warped Gamma Propeller",
       "type": "loot",
-      "img": "321.webp",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
       "system": {
         "description": {
           "value": "<p>One notable remnant from Waluigi’s destroyed airship is the <strong>Warped Gamma Propeller</strong>, a massive, twisted propeller blade that once powered the vessel’s erratic flight. This oversized component, roughly 10 feet in diameter, is crafted from a patchwork of blackened steel and purple-painted wood, with jagged edges that suggest it was hastily repaired multiple times. The propeller’s hub is embossed with a bold, yellow “Γ” (the gamma symbol from Waluigi’s hat), slightly dented from the airship’s final crash.</p><p dir=\"auto\" style=\"white-space:pre-wrap\">The Warped Gamma Propeller was mounted on the airship’s stern, driving it through the skies with a wobbly, unpredictable motion that matched Waluigi’s chaotic piloting style. Its blades are uneven, with one noticeably bent at a 30-degree angle, causing the airship to lurch and spin during flight—perfect for disorienting enemies but disastrous for stability. Scorch marks and embedded Bullet Bill fragments hint at its exposure to the airship’s own misfired weaponry, likely a result of Waluigi’s penchant for “tricky” battle tactics gone wrong.</p><p dir=\"auto\" style=\"white-space:pre-wrap\">When the airship went down (possibly due to a failed scheme involving Wario and a stolen Power Star), the propeller was flung free, landing in a crumpled heap amidst the wreckage. Despite its damage, it still hums faintly with residual energy, suggesting it was powered by some dubious, possibly Toad-engineered tech. The propeller’s surface is scratched with taunting graffiti, like “Waluigi #1!” and “Luigi Stinks!”, reflecting Waluigi’s spiteful rivalry. If salvaged, it could theoretically be repurposed, but its warped shape makes it more a trophy of Waluigi’s failed ambitions than a functional component.</p>",
@@ -8727,7 +8727,7 @@
         },
         "container": null
       },
-      "img": "modules/plutonium/media/icon/image(2).webp",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
       "flags": {
         "plutonium": {
           "page": "items.html",
@@ -11036,7 +11036,7 @@
     {
       "name": "Spell Points",
       "type": "feat",
-      "img": "modules/dnd5e-spellpoints/img/mana-icon.webp",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "system": {
         "description": {
           "value": "<h1>Variant: Spell Points</h1><p>Source: <a href=\"https://www.dndbeyond.com/sources/dnd/dmg-2014/dungeon-masters-workshop#VariantSpellPoints\" target=\"_blank\">Dungeon Masters Guide</a></p><p>With this variant system, a character who has the Spellcasting feature uses spell points instead spell slots to fuel spells. Spell points give a caster more flexibility, at the cost of greater complexity.</p><p>In this variant, each spell has a point cost based on its level. The Spell Point Cost table summarizes the cost in spell points of slots from 1st to 9th level. Cantrips don't require slots and therefore don't require spell points.</p><p>Instead of gaining a number of spell slots to cast your spells from the Spellcasting feature, you gain a pool of spell points instead. You expend a number of spell points to create a spell slot of a given level, and then use that slot to cast a spell. You can't reduce your spell points total to less than 0, and you regain all spent spell points when you finish a long rest.</p><p>Spells of 6th level and higher are particularly taxing to cast. You can use spell points to create one slot of each level of 6th or higher. You can't create another slot of the same level until you finish a long rest.</p><p>The number of spell points you have to spend is based on your level as a spellcaster, as shown in the Spell Points by Level table. Your level also determines the maximum-level spell slot you can create. Even though you might have enough points to create a slot above this maximum, you can't do so.</p><p>The Spell Points by Level table applies to bards, clerics, druids, sorcerers, and wizards. For a paladin or ranger, halve the character's level in that class and then consult the table. For a fighter (Eldritch Knight) or rogue (Arcane Trickster), divide the character's level in that class by three. </p><p><em>For an Artificer, add half your levels (rounded up) in the artificer class to to determine your available spell points. (homebrew)</em></p>",
@@ -12001,7 +12001,7 @@
         "default": 0,
         "0tmjbgjsJjnyOG4D": 3
       },
-      "img": "https://cdn.5e.tools/2024/img/classes/XGE/Fighter.webp",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "subclassFeature",
@@ -13432,7 +13432,7 @@
     {
       "name": "Stolen Vampire Dinner Wine",
       "type": "consumable",
-      "img": "npc/ai/raventreewine.webp",
+      "img": "icons/consumables/drinks/potion-bottle-corked-red.webp",
       "system": {
         "description": {
           "value": "<p><strong>Uncommon Consumable.</strong> A bottle of extraordinarily expensive wine looted from one of the vampire dinner parties at Raventree Manor during the dimensional chaos of Highsun 16-22, 1040 BF. The label identifies it as a vintage from 687 BF (268 years old), produced in vineyards that no longer exist, from grapes cultivated by vampire lords who appreciated fine wine almost as much as fine blood. The bottle itself is a work of art—hand-blown glass with intricate etchings, sealed with wax bearing the crest of House Raventree.</p><p>When you consume this wine (drinking the full bottle takes 1 minute), you gain the following benefits for 1 hour:</p><ul><li>+2 bonus to Charisma (Persuasion) and Charisma (Deception) checks (the wine's sophistication rubs off on you, somehow)</li><li>Advantage on saving throws against poison and disease</li><li>You regain 3d8 + 3 hit points as the enchanted vintage courses through your system</li><li>You gain darkvision out to 60 feet (if you already have darkvision, its range increases by 30 feet)</li><li>Your blood becomes mildly toxic to vampires for the duration—any vampire that bites you takes 2d6 necrotic damage as the enchanted wine reacts violently to their digestive process</li></ul><p>However, the wine is also strongly associated with vampire magic. For the duration of the effect, you are treated as an undead creature for purposes of spells and effects that specifically target undead (such as Turn Undead, though you're not actually compelled to flee). This is usually not a problem for Wario, who uses the wine purely for its healing and social benefits, but it has caused awkward moments when he's been suddenly affected by a paladin's Turn Undead while trying to negotiate a deal.</p><p>Wario has approximately 8 bottles of this wine stolen from Raventree Manor's wine cellars (he would have taken more but they were heavy and he was in a hurry). He treats them as both emergency healing potions and luxury items he can sell to collectors for outrageous prices. He's already sold three bottles for 500-750gp each to merchants who didn't ask questions about provenance, and he's considering raising his prices because \"clearly I'm undervaluing rare vintage vampire wine.\"</p><p>The wine actually tastes incredible—rich, complex, with notes of ancient oak, dark fruit, and something faintly metallic that's probably the lingering essence of the vampire blood magic used in its creation. Wario doesn't particularly appreciate fine wine (he drinks it like grape juice), but he recognizes quality when it's profitable.</p>",
@@ -13526,7 +13526,7 @@
     {
       "name": "Pokémon Center Healing Machine (Rental)",
       "type": "consumable",
-      "img": "PlayerItems/1770248801007-019c2b0c-eb10-7486-9d92-0e33bd2398d6.png",
+      "img": "icons/sundries/documents/document-sealed-red.webp",
       "system": {
         "description": {
           "value": "<p>A portable version of the famous healing machine. Fully restores all allies after a rest. During a long rest, all allies regain full HP and recover from all diseases, poisons, and level 1 exhaustion. Rental lasts for one week. Makes a pleasant 'ding!' sound when finished.</p><hr><p><strong>Properties:</strong> Single use item</p><p><strong>Rarity:</strong> legendary</p>",
@@ -14222,7 +14222,7 @@
     {
       "name": "\"Original Recipe for Peach's Cake\" (Disputed)",
       "type": "loot",
-      "img": "npc/ai/screenshot-2026-02-06-190711.webp",
+      "img": "icons/sundries/documents/document-bound-tan.webp",
       "system": {
         "description": {
           "value": "<p><strong>Rare Item (Authenticity Questionable).</strong> A stained piece of parchment covered in recipe instructions, measurements, and what appear to be flour handprints. Wario claims this is the original, authentic recipe for Princess Peach's legendary cake—the cake that was so delicious it became famous throughout the Mushroom Kingdom before the war, served at royal functions, and considered one of the great culinary achievements of the pre-war era.</p><p>The recipe is written in elegant script (too elegant to be Wario's handwriting), with detailed instructions for a multi-layered strawberry cake with cream filling and decorative frosting. The measurements are in pre-war Mushroom Kingdom units, and there are marginal notes like \"His Majesty preferred extra strawberries\" and \"Princess requests heart-shaped decoration for festivals.\"</p><p>The parchment shows significant age—yellowed edges, small tears, stains from what might be actual cake ingredients (or might just be random kitchen spills from whoever actually wrote this). There's a royal seal watermark visible when held up to light, which Wario points to as \"proof of authenticity.\"</p><p><strong>If the recipe is actually followed:</strong> Make an Intelligence check (using Cook's Utensils proficiency if you have it). On a 15 or higher, you successfully create a cake that is genuinely delicious—anyone who eats a slice regains 2d4+2 hit points and gains advantage on Charisma checks for 1 hour as they're put in a wonderful mood by the exceptional taste. On a 10-14, you create a good but not spectacular cake that provides the healing but not the Charisma bonus. On a 9 or lower, something goes wrong and you waste the ingredients.</p><p><strong>The Authenticity Question:</strong> Wario acquired this recipe during a looting expedition to the ruins of Peach's castle sometime around 1005 BF. He claims he found it in the royal kitchens, sealed in a waterproof container, preserved perfectly for exactly this purpose. Skeptics point out that:</p><ul><li>The parchment's age is inconsistent—it looks old, but not 85+ years old</li><li>The royal seal watermark matches Peach-era documentation, but Wario could have stolen blank royal stationery and written this himself</li><li>Several ingredients listed didn't become available in the Mushroom Kingdom until after Peach's death, suggesting the recipe was written later</li><li>Wario has been caught selling \"authentic royal recipes\" before, most notably \"Bowser's Secret Fire Flower Chili Recipe\" which turned out to be copied from a common cookbook with \"add more heat\" scribbled in the margins</li></ul><p>Wario refuses to address these inconsistencies, insisting the recipe is genuine and pricing it at 5,000 gold pieces for interested buyers (\"It's a piece of history! Priceless! I'm practically giving it away at 5,000!\"). He's also created multiple \"certified copies\" that he sells for 500 gold pieces each, claiming they're \"authorized reproductions\" (they're just transcriptions he made himself).</p><p>The truth is ambiguous: the recipe might be authentic, might be a skilled forgery, or might be a real recipe that Wario found and is now wildly exaggerating the provenance of. The cake it produces is genuinely good regardless of authenticity, which Wario considers the only fact that matters (\"Does it matter WHERE the recipe came from if the cake tastes amazing? No! Stop asking questions and pay me!\").</p>",

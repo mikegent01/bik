@@ -1,7 +1,7 @@
 {
   "name": "Archie Miser",
   "type": "character",
-  "img": "token_1.png",
+  "img": "icons/svg/mystery-man.svg",
   "system": {
     "currency": {
       "pp": 0,
@@ -748,7 +748,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "player/archiereforemd.webp",
+      "src": "icons/svg/mystery-man.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -962,7 +962,7 @@
         }
       },
       "type": "class",
-      "img": "https://s3.amazonaws.com/files.d20.io/images/370083891/ehiccdURLhGdX-QnDkB14g/med.png?1701567685",
+      "img": "icons/svg/book.svg",
       "sort": 10000,
       "effects": [],
       "system": {
@@ -1063,7 +1063,7 @@
         }
       },
       "type": "feat",
-      "img": "https://s3.amazonaws.com/files.d20.io/images/370083891/ehiccdURLhGdX-QnDkB14g/med.png?1701567685",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "sort": 40000,
       "effects": [],
       "system": {
@@ -3669,7 +3669,7 @@
         }
       },
       "effects": [],
-      "img": "modules/plutonium/media/icon/farmer.svg",
+      "img": "icons/sundries/documents/document-bound-tan.webp",
       "folder": null,
       "sort": 0,
       "_stats": {
@@ -3802,7 +3802,7 @@
         },
         "advancement": {}
       },
-      "img": "modules/plutonium/media/icon/farmer.svg",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
       "flags": {
         "plutonium": {
           "page": "backgroundFeature",
@@ -8339,7 +8339,7 @@
     {
       "name": "Business Card",
       "type": "loot",
-      "img": "1709761629520545.jpg",
+      "img": "icons/sundries/documents/document-bound-tan.webp",
       "system": {
         "description": {
           "value": "<p><strong>Front of the Card:</strong></p><ul><li><strong>Name:</strong> Bowser Koopa</li><li><strong>Title:</strong> King of the Koopas</li><li><p><strong>Contact:</strong></p><ul><li>Castle Address: Bowser's Castle, Koopa Kingdom</li><li>Phone: 1-800-KOOPA-KING</li><li>Email: <a target=\"_new\">kingbowser@koopakingdom.com</a></li></ul></li><li><strong>Image:</strong> A regal portrait of Bowser, sporting his trademark spiky shell and menacing grin in a suit, set against a backdrop of a city.</li></ul><p><strong>Back of the Card:</strong></p><ul><li><strong>Slogan:</strong> \"Conquering Kingdoms, One Castle at a Time!\"</li><li><p><strong>Services:</strong></p><ul><li>Castle Renovations</li><li>Lava Pool Installation</li><li>Minion Recruitment and Training</li><li>Princess Kidnapping (currently not accepting new requests)</li></ul></li></ul>",
@@ -12121,7 +12121,7 @@
     {
       "name": "Inn Coupon",
       "type": "weapon",
-      "img": "DALL%C2%B7E%202025-02-26%2022.22.20%20-%20A%20beautifully%20designed%20inn%20coupon%20for%20a%20spa%20experience.%20The%20coupon%20has%20an%20elegant%2C%20luxurious%20look%20with%20soft%20pastel%20colors%2C%20gold%20accents%2C%20and%20a%20subtle%20.webp",
+      "img": "icons/sundries/documents/document-bound-tan.webp",
       "system": {
         "activities": {
           "LlwJZDUhlCEdvKsY": {

@@ -2,7 +2,7 @@
   "folder": null,
   "name": "Salam",
   "type": "npc",
-  "img": "npc/shadowtoad.png",
+  "img": "icons/svg/mystery-man.svg",
   "system": {
     "currency": {
       "pp": 0,
@@ -616,7 +616,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "npc/shadowtoad.png",
+      "src": "icons/svg/mystery-man.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
