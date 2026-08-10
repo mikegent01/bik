@@ -990,7 +990,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "toad-—-eager-variant",
+        "identifier": "toad-eager-variant",
         "quantity": 1,
         "weight": 0,
         "price": {
@@ -1029,7 +1029,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "disaster-inc.-catastrophe-scout",
+        "identifier": "disaster-inc-catastrophe-scout",
         "quantity": 1,
         "weight": 0,
         "price": {
@@ -1068,7 +1068,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "fighting-style-—-archery",
+        "identifier": "fighting-style-archery",
         "quantity": 1,
         "weight": 0,
         "price": {
@@ -2658,7 +2658,7 @@
             "otherActivityAsParentType": true
           }
         },
-        "identifier": "dead-person's-shoes",
+        "identifier": "dead-person-s-shoes",
         "attuned": false,
         "crew": {
           "value": []
@@ -2902,7 +2902,7 @@
             "otherActivityAsParentType": true
           }
         },
-        "identifier": "dead-person's-pants",
+        "identifier": "dead-person-s-pants",
         "attuned": false,
         "crew": {
           "value": []

@@ -648,8 +648,8 @@
         "value": "",
         "public": ""
       },
-      "race": "sCxUWoCkQo9o7KeU",
-      "background": "Dimensional Escapee / Oathbound Survivor",
+      "race": "4b8eb918a8d24833",
+      "background": "d7b8ef0d38ae40d2",
       "originalClass": "y7l5pkLwSvPqL7Ba",
       "xp": {
         "value": 1960
@@ -924,7 +924,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "toad-—-feyward-variant",
+        "identifier": "toad-feyward-variant",
         "advancement": {},
         "movement": {
           "units": "ft",
@@ -1089,7 +1089,7 @@
           "rules": "2014",
           "revision": 1
         },
-        "identifier": "wild-surge-—-unstable-aura",
+        "identifier": "wild-surge-unstable-aura",
         "properties": [],
         "activities": {},
         "uses": {

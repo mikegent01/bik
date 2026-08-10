@@ -647,8 +647,8 @@
         "value": "",
         "public": ""
       },
-      "race": "8p5XHfmC9VBSgtPw",
-      "background": "90x6Fx7ah3ilKj47",
+      "race": "knW6xtea7kDqKluc",
+      "background": "1lnWg3wxcKk7JZv8",
       "originalClass": "aMpTpSFzAAO3NwSc",
       "xp": {
         "value": 20000
@@ -8463,7 +8463,7 @@
           "denomination": "gp"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "currency": {
           "pp": 0,
           "gp": 0,
@@ -8532,7 +8532,7 @@
           "value": 1,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "capacity": {
@@ -8636,7 +8636,7 @@
           "value": 1,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "capacity": {
@@ -8740,7 +8740,7 @@
           "value": 25,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
@@ -8964,7 +8964,7 @@
           "value": 15,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
@@ -9186,7 +9186,7 @@
           "value": 10,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
@@ -9409,7 +9409,7 @@
           "value": 1,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
@@ -9632,7 +9632,7 @@
           "value": 50,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
@@ -9856,7 +9856,7 @@
           "value": 20,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
@@ -10602,7 +10602,7 @@
           "value": 2,
           "denomination": "sp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
@@ -10890,7 +10890,7 @@
           "value": 200,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
@@ -11123,7 +11123,7 @@
           "value": 10,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "common",
         "identified": true,
         "uses": {
@@ -11323,7 +11323,7 @@
           "value": 1,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
@@ -11578,7 +11578,7 @@
           "value": 5,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "common",
         "identified": true,
         "uses": {
@@ -11848,7 +11848,7 @@
           "value": 10,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "uncommon",
         "identified": true,
         "uses": {
@@ -12218,7 +12218,7 @@
           "denomination": "IETzTwoDi4ElBJAV"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "cover": null,
         "type": {
           "value": "simpleM",
@@ -12360,7 +12360,7 @@
           "value": 5,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "common",
         "identified": true,
         "uses": {
@@ -12562,7 +12562,7 @@
           "value": 50,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "rare",
         "identified": true,
         "uses": {
@@ -12775,7 +12775,7 @@
         "properties": [
           "mgc"
         ],
-        "attunement": "NaN",
+        "attunement": "",
         "uses": {
           "max": "",
           "spent": 0,
@@ -12921,7 +12921,7 @@
           "denomination": "gp"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "currency": {
           "pp": 0,
           "gp": 130,
@@ -13021,7 +13021,7 @@
           "denomination": "gp"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "currency": {
           "pp": 0,
           "gp": 0,
@@ -13096,7 +13096,7 @@
           "denomination": "gp"
         },
         "rarity": "uncommon",
-        "attunement": "NaN",
+        "attunement": "",
         "uses": {
           "max": "",
           "autoDestroy": true,
@@ -13215,7 +13215,7 @@
           "denomination": "gp"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "currency": {
           "pp": 0,
           "gp": 15,
@@ -13381,7 +13381,7 @@
           "denomination": "gp"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "currency": {
           "pp": 0,
           "gp": 0,
@@ -13793,7 +13793,7 @@
           "units": "lb"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "attuned": false,
         "cover": null,
         "range": {
@@ -14129,7 +14129,7 @@
           "denomination": "gp"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "attuned": false,
         "crew": {
           "value": []
@@ -14294,7 +14294,7 @@
           "denomination": "gp"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "attuned": false,
         "damage": {
           "base": {
@@ -14447,7 +14447,7 @@
           "units": "lb"
         },
         "rarity": "",
-        "attunement": "NaN",
+        "attunement": "",
         "cover": null,
         "uses": {
           "max": "",
@@ -15232,277 +15232,16 @@
     "dnd5e": {
       "showTokenPortrait": true
     },
-    "enhancedcombathud": {
-      "weaponSets": {
-        "1": {
-          "primary": null
-        },
-        "2": {
-          "primary": null
-        }
-      },
-      "activeWeaponSet": "1"
-    },
+    "enhancedcombathud": {},
     "dae": {
       "damageApplied": 7
     },
     "gambits-premades": {},
-    "fvtt-paper-doll-ui": {
-      "slots": {
-        "MAIN_LEFT": {
-          "0": "Actor.YZUJYaYxYXSJsZqr.Item.CrGG6Mf54we0zx2Y",
-          "1": "Actor.YZUJYaYxYXSJsZqr.Item.CrGG6Mf54we0zx2Y"
-        },
-        "RING": {
-          "0": null
-        },
-        "WRIST_RIGHT": {
-          "0": "Actor.YZUJYaYxYXSJsZqr.Item.tT4vjYBVZUCXlK7x"
-        },
-        "BODY": {
-          "0": "Actor.YZUJYaYxYXSJsZqr.Item.VM1U10OLm3JN4i9K"
-        },
-        "BOOTS": {
-          "0": null
-        }
-      }
-    },
+    "fvtt-paper-doll-ui": {},
     "sequencer": {
       "effects": []
     },
-    "bg3-inspired-hotbar": {
-      "activeSet": 0,
-      "containersConfig": {
-        "hotbar": [
-          {
-            "cols": 5,
-            "rows": 5,
-            "items": {
-              "0-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.xfvQ3gyjPxJinqkz"
-              },
-              "1-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.zUHR2weI75qu0CPp"
-              },
-              "2-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.VcJ14QqEKrfXvk9A"
-              },
-              "3-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.nB4ZhEIhoc0YlQx5"
-              },
-              "4-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.SpCZUZWLUsh1EsXp"
-              },
-              "4-2": null,
-              "3-2": null,
-              "1-2": null,
-              "0-2": null,
-              "2-2": null,
-              "2-3": null,
-              "0-1": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.SxYBWYlm4gnZlnYr"
-              }
-            },
-            "id": "hotbar-container",
-            "index": 0
-          },
-          {
-            "cols": 5,
-            "rows": 5,
-            "items": {
-              "0-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.mbxBnA7UuCWRJLeH"
-              },
-              "1-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.2nEC4gDjLWJxzEFJ"
-              },
-              "2-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.oewQE9aFRcnnscxd"
-              },
-              "3-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.9glmOlWylUskWevM"
-              },
-              "4-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.Ywttmwq5AfBCu3Ve"
-              },
-              "2-1": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.aAQr4nkX0gUsgCD5"
-              },
-              "3-1": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.3TAqnzBBhmrEA32R"
-              },
-              "4-1": null,
-              "0-2": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.jPWFX8VePGqvBtNA"
-              },
-              "1-2": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.vzREOnJvh6FfpTzd"
-              },
-              "2-2": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.yJb3BUWwizEPO9Ul"
-              },
-              "4-2": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.0fyqHd3VujUKx0DZ"
-              },
-              "0-3": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.VSu8wDXB0t5eebp5"
-              },
-              "2-3": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.C7WpO28MQCV8HAtz"
-              },
-              "3-3": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.wlNNS9r70GpG5sKN"
-              },
-              "2-4": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.f1V1DKxEnobvmtuT"
-              },
-              "3-4": null,
-              "0-1": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.WsQ2E0SBrMCQnuHn"
-              },
-              "1-1": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.azmMl7rw3KSydbwn"
-              },
-              "3-2": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.yAJu2rskbpx5GLwD"
-              },
-              "1-3": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.McxNWLNt1Gv2G4Hx"
-              },
-              "4-3": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.7vitf3nTb6OslgZI"
-              },
-              "0-4": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.yaSpUkeP2Xyvkudh"
-              },
-              "1-4": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.KoVxytJ7V4kaZQjD"
-              }
-            },
-            "id": "hotbar-container",
-            "index": 1
-          },
-          {
-            "cols": 5,
-            "rows": 5,
-            "items": {
-              "0-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.PZgBUVacEER5ncut"
-              },
-              "1-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.grEqIlZANvdfgQ0f"
-              },
-              "2-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.Ra4nrnpScoZWwm3x"
-              },
-              "3-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.PxIo9dqfCCRXFVAm"
-              },
-              "0-3": null,
-              "1-2": null,
-              "2-2": null,
-              "3-2": null,
-              "0-2": null,
-              "4-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.8JZpOaUzvmi2jrpS"
-              },
-              "3-3": null,
-              "1-4": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.oMxP8lzZEyp7Jgei"
-              },
-              "2-4": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.fIYSMsB3EIMmBfhL"
-              },
-              "3-4": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.D4xJALw4ny85zMyr"
-              }
-            },
-            "id": "hotbar-container",
-            "index": 2
-          }
-        ],
-        "weapon": [
-          {
-            "cols": 2,
-            "rows": 1,
-            "items": {
-              "0-0": null,
-              "1-0": {
-                "uuid": "Actor.YZUJYaYxYXSJsZqr.Item.XbzYl0Wu4tm1oFxN"
-              }
-            },
-            "type": "label",
-            "for": "weapon-set",
-            "delOnly": true,
-            "allowDuplicate": true,
-            "class": [
-              "bg3-weapon-set"
-            ],
-            "id": "weapon-container",
-            "index": 0
-          },
-          {
-            "cols": 2,
-            "rows": 1,
-            "items": {},
-            "type": "label",
-            "for": "weapon-set",
-            "delOnly": true,
-            "allowDuplicate": true,
-            "class": [
-              "bg3-weapon-set"
-            ],
-            "id": "weapon-container",
-            "index": 1
-          },
-          {
-            "cols": 2,
-            "rows": 1,
-            "items": {},
-            "type": "label",
-            "for": "weapon-set",
-            "delOnly": true,
-            "allowDuplicate": true,
-            "class": [
-              "bg3-weapon-set"
-            ],
-            "id": "weapon-container",
-            "index": 2
-          }
-        ],
-        "combat": [
-          {
-            "cols": 2,
-            "rows": 3,
-            "items": {
-              "0-0": {
-                "uuid": "Compendium.bg3-inspired-hotbar.bg3-inspired-hud.Macro.4D8OF8M1WStezKYR"
-              },
-              "0-1": {
-                "uuid": "Compendium.bg3-inspired-hotbar.bg3-inspired-hud.Macro.6g71bgb70KdiCFxI"
-              },
-              "0-2": {
-                "uuid": "Compendium.bg3-inspired-hotbar.bg3-inspired-hud.Macro.IfZ3MIJtHIfEDliQ"
-              },
-              "1-0": {
-                "uuid": "Compendium.bg3-inspired-hotbar.bg3-inspired-hud.Macro.OViSCOuazyVf3UgO"
-              },
-              "1-1": {
-                "uuid": "Compendium.bg3-inspired-hotbar.bg3-inspired-hud.Macro.aHwa1znbrf2SO5zu"
-              },
-              "1-2": {
-                "uuid": "Compendium.bg3-inspired-hotbar.bg3-inspired-hud.Macro.qlKPuaLsELZFx0Sn"
-              }
-            },
-            "class": [
-              "bg3-combat-container"
-            ],
-            "id": "combat-container",
-            "index": 0
-          }
-        ]
-      }
-    },
+    "bg3-inspired-hotbar": {},
     "custom-dnd5e": {},
     "survival-needs": {
       "stats": {
