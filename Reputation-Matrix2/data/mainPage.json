@@ -1,86 +1,23 @@
 {
   "featuredArticle": {
-    "id": "the_imp_ambush_aftermath_and_kyrn_cell_escape",
+    "id": "the_box_guardian_sharpie_disguise_and_the_soot_barrel",
     "type": "event",
-    "excerpt": "The Imp Ambush has moved from cottage siege to prison escape: Salam is down, Dan smites an imp, Remi escapes at one hit point, Mossy comes back, and the stolen book, Black Crystal, and Mirror remain in imp custody. XP preview: 3,300 including Kyrn.",
-    "label": "Featured File · Post-Imp Aftermath"
+    "excerpt": "Remi escapes Kyrn's cells, reunites with Markop and Eager via Locate Object, infiltrates a dungeon crab cage, triggers a dancing Box Guardian goblin, survives a gunpowder soot-barrel flash, and escapes wearing a Sharpie paper bag disguise while singing the Toad spore shanty.",
+    "label": "Featured File · Box Guardian & Soot Barrel Escape"
   },
   "latestUpdate": {
-    "id": "the_imp_ambush_aftermath_and_kyrn_cell_escape",
-    "label": "Latest Session · Kyrn Facility Breach",
-    "excerpt": "A 5,552-word continuation of the Imp Ambush with tactical battle record, 3,300 XP rewards, relation links, Waluigi theories, cell carvings, Kyrn, Gregir Fendelsohn, and Remi repairing Mossy."
+    "id": "the_box_guardian_sharpie_disguise_and_the_soot_barrel",
+    "label": "Latest Session · Shadow Estate Dungeon Infiltration",
+    "excerpt": "A 2,485-word session filing featuring Markop's Locate Object spell, Remi's Invisibility infiltration, the dancing Box Guardian, an explosive soot-barrel gun trap, a Sharpie paper bag disguise, and the Toad spore shanty."
   },
   "didYouKnow": [
-    "...that the Mount Ebott Survey Part III file now has XP awards and reputation deltas for Gamma Agent, Dracule Mihawk, Sans, Koffin-K, Flowey, and Asgore? Waluigi calls this “finally doing the paperwork.”",
-    "...that Sans saying “the war” may be evidence of memory suppression rather than ordinary forgetfulness? Waluigi has upgraded the Ebott file from “spooky cave trip” to “possible historical erasure incident.”",
-    "...that Flowey repaired the Legion survey machine to 98% integrity and left a vine behind like a signature? This is not plant behavior. This is audit behavior.",
-    "...that Corvinarus's 10-page codex predicted Disaster Inc.'s exact seating arrangements 80 years in advance—naming the 'one-armed shadow' (Dan), the 'fire that bleeds' (Archie), and the 'green one taking the children's table' (Green T)?",
-    "...that Thornbury charged Archie 2,062 gold and 5 silver for a broken hempen rope and converted it into an official Imperial Bounty across state lines?",
-    "...that Bones grabbed a multi-ton Yugoloth Canoloth's spiny tongue bare-handed and physically hauled it toward a cliff edge? Waluigi calls this raw kinetic insanity.",
-    "...that Alpine Bank enforces monetary warfare by refusing Mushroom Kingdom coins ('mushroom coins won't work') to force refugees into taking Imperial Midland Ducats?",
-    "...that the Toad God warned Bones to keep the Oracle alive and leave Raventree Manor divided to stop 'pesky star bears' from giving away their stars?",
-    "...that Bones is on the Iron Legion's Most Wanted list for allegedly 'strangling a toad on the Vigilance'? Waluigi blames administrative clerical incompetence.",
-    "...that Waluigi’s Front Page Desk now monitors 48 international currencies, ranging from Gold Pieces and Mora to Soul Coins and Wario Coins?",
-    "...that Wario's shop catalog now contains over 7,880 individual items across 14 realms? Waluigi checked the inventory personally and demands a cut!",
-    "...that Remi Akamatsu stole her gun back from Markop during a 3 AM intrusion at the Shadow Estate? Never come between an artificer and her firearms!",
-    "...that Archie Miser calls himself 'Darman Knightly' in the Shadowfell? It's the stupidest name I've ever heard. Also, he cut off a guy's finger!",
-    "...that the Grand Latin Assembly now processes viral propaganda feeds and infamy scores for 100 different polities? Waluigi calls this high-yield bureaucracy.",
-    "...that there are 9 Cosmic Star Bearers and a God Toad holding star fragment artifacts across the universe?",
-    "...that the Airship was full of Toads in barrels? The Iron Legion calls it 'Trafficking,' Wario calls it 'Efficient Packaging.' Potay-to, Potah-to.",
-    "...that Wario priced a Star Rod at 900 trillion coins? That is a very fair market price. No low-ball offers! I know what I have!",
-    "...that the Oracle keeps bodies in tanks? Disgusting! Science is for nerds who can't get rich honest ways (like stealing)."
-  ],
-  "onThisDay": [
-    "10XX BF — Mount Ebott Survey Part III: Sans slips about “the war,” Koffin-K joins an unauthorized Iron Legion team, Flowey is captured, and the repaired Legion survey machine is left in the abandoned Snowdin police station.",
-    "1040 BF — Deep Mirror Sanctum & Alpine Bank Crisis: Bones loots Corvinarus's codex, bare-hand drags a Canoloth, meets the Toad God, eavesdrops on Thornbury's 2,062-gold rope bounty at Alpine Bank, and retreats into a mountain blizzard to a 3-ducat inn room.",
-    "955 BF — Princess Peach takes a permanent nap. Everyone is still crying about it. Get over it!",
-    "1035 BF — The Iron Legion starts ruining everyone's fun with 'laws' and 'taxes'.",
-    "1040 BF — We killed a dragon! Well, *they* did, but I provided moral support (and looted the hoard).",
-    "1040 BF — The Planar Fracture happens. The universe breaks just to annoy me personally.",
-    "1040 BF — The Mirror of True Reflection is restored in the Shadow Estate, all four portal artifacts are secured, and the exit is immediately occupied by enemies because happiness is illegal.",
-    "1040 BF — Midnight Audit of the Shadow Estate: Remi Akamatsu steals her gun back, confronts a closet-soldier, and acquires a lie-detecting crystal. Waluigi's safety desk is overwhelmed. WAH.",
-    "10XX BF — The Iron Legion breaches the treaty layers of Mount Ebott, establishing a survey mission in the hidden village of Snowdin. Skeletons and casseroles are involved."
-  ],
-  "categories": [
-    {
-      "name": "Factions",
-      "count": 100,
-      "icon": "⚔️"
-    },
-    {
-      "name": "Characters",
-      "count": 129,
-      "icon": "👤"
-    },
-    {
-      "name": "Events",
-      "count": 88,
-      "icon": "📜"
-    },
-    {
-      "name": "Items & Shop",
-      "count": 7880,
-      "icon": "🎒"
-    },
-    {
-      "name": "Currencies",
-      "count": 48,
-      "icon": "💱"
-    },
-    {
-      "name": "Battles",
-      "count": 35,
-      "icon": "🗡️"
-    },
-    {
-      "name": "Nations & Realms",
-      "count": 31,
-      "icon": "🌍"
-    }
+    "...that Remi escaped two armed dungeon guards by drawing a goblin face on a cardboard box with a Sharpie marker and claiming to be a certified Box Guardian?",
+    "...that the Mount Ebott Survey Part VII file features Sans executing Flowey in a localized time-stop after recalling a midnight tea conversation with King Asgore?",
+    "...that Hjumpik recovered the Oracle-marked 'OC' Soul Ring during the Feyward Manor expedition using a garlic grenade and a Bob-omb?"
   ],
   "editorialDirective": {
     "title": "WAH! Editorial Directive (1040 BF):",
-    "text": "The Imp Ambush did not end at Tymnas’s cottage! Eager dropped Salam with a whip, Dan smote an imp, Rattles threw Salam through a window, and Remi escaped Kyrn’s facility with one hit point and a repaired Mossy. File the 2,880 XP preview, track the stolen Black Crystal and Mirror, and stop calling an unlocked prison a security system! WAH!"
+    "text": "Latest sessions filed! Remi Akamatsu survived an explosive swivel-gun barrel, wore a Sharpie cardboard box over her head to bluff past dungeon guards, and sang the Toad spore shanty while escaping with the Black Crystal! Meanwhile, Sans executed Flowey in Mount Ebott after an Oath of Secrecy with King Asgore and Queen Toriel, and Hjumpik's Feyward session recovered the OC Soul Ring! WAH!"
   },
   "spotlight": {
     "kicker": "System Spotlight · Bank & Commerce",
@@ -90,257 +27,12 @@
     "actionText": "Open Bank Vaults →",
     "actionUrl": "currency.html"
   },
-  "siteUpdates": [
-    {
-      "id": "the_imp_ambush_aftermath_and_kyrn_cell_escape",
-      "kind": "event",
-      "label": "New Session · Post-Imp Aftermath",
-      "title": "The Book, the Cells, and the Dog Who Came Back",
-      "summary": "The cottage defense breaks without a whole-party surrender: Markop retains the book and disburses the remaining imps, while the imps take the Black Crystal and Mirror. Remi reaches one-hit-point captivity, then escapes Kyrn's facility with Mossy. XP preview: 3,300 (including Kyrn).",
-      "tags": [
-        "imp aftermath",
-        "kyrn",
-        "remi",
-        "mossy",
-        "eager",
-        "xp ledger"
-      ]
-    },
-    {
-      "id": "campaign_songs_archive",
-      "kind": "event",
-      "label": "New Acoustic Archive",
-      "title": "The Grand Songbook of 1040 BF (18 Songs)",
-      "summary": "Waluigi's multi-dimensional archive of every ballad, shanty, drinking hymn, and unsanctioned chorus sung during Disaster Inc.'s campaigns—featuring Toad shanties, stealth-ruining choruses, and the Longjump Anthem.",
-      "tags": [
-        "songbook",
-        "music",
-        "shanties",
-        "waluigi"
-      ]
-    },
-    {
-      "id": "the_embassy_ambush_and_luigi_interrogation",
-      "kind": "event",
-      "label": "Canonical Event · Eyewitness Audit",
-      "title": "The Mage's Embassy Ambush & Luigi Interrogation (1035 BF)",
-      "summary": "Waluigi's Rank-1 analytical audit of 18 Harvestide, 1035 BF (Mushroom Kingdom Era)—the day Wario attempted to kidnap Luigi from the Mage's Embassy (next to the Regal Embassy) to force answers about Mario's disappearance, featuring Dave the greeter, a 3-second countdown, an embassy explosion, a banana-peel police chase, and Luigi's heart-wrenching backseat confession about the eastern farm.",
-      "tags": [
-        "canonical audit",
-        "luigi interrogation",
-        "mario disappearance",
-        "wario"
-      ]
-    },
-    {
-      "id": "bones_alpine_bank_eavesdropping_and_inn_refuge",
-      "kind": "event",
-      "label": "Latest Event",
-      "title": "Flight from the Alpine Inn & The Legion Wall Checkpoint",
-      "summary": "Bones escapes from the Alpine Inn, evading a Legion maid-infiltration trap, steals a breastplate from an ice-bound blacksmith cart, negotiates with Naaook the goblin for 75 gold, and teams up with a battle-worn toad mage named Elbow as they head toward a colossal checkpoint wall.",
-      "tags": [
-        "latest",
-        "bones",
-        "alpine inn",
-        "legion wall"
-      ]
-    },
-    {
-      "id": "pond-docket",
-      "kind": "route",
-      "route": "#/pond-docket",
-      "label": "Integrated System",
-      "title": "Pond Patrol Docket",
-      "summary": "Emergency Resolution 17-A is now a live Waluipedia system attached to the Liberated Toads and the Pond Patrol: accountability register, charges and evidence, standing orders, council votes, cohorts, and routes back to good standing.",
-      "tags": [
-        "system",
-        "liberated toads",
-        "pond patrol",
-        "docket"
-      ]
-    },
-    {
-      "id": "mount_ebott_survey_part_3",
-      "kind": "event",
-      "label": "Latest Ebott File",
-      "title": "Mount Ebott Survey Part III",
-      "summary": "Sans slips about “the war,” Flowey is tied to Asgore and the repaired survey machine, Koffin-K forms an unauthorized Iron Legion team, and Snowdin briefly crowns a fedora. XP, reputation, participants, and linked pages are now attached.",
-      "tags": [
-        "latest",
-        "ebott",
-        "xp",
-        "reputation"
-      ]
-    },
-    {
-      "id": "mount_ebott_survey_part_3",
-      "kind": "event",
-      "label": "XP + Reputation Pass",
-      "title": "Ebott Part III XP / Reputation Audit",
-      "summary": "Gamma Agent, Dracule Mihawk, Sans, Koffin-K, Flowey, and Asgore now have Part III XP hooks; the event includes explicit reputation changes and intel gains for barrier access, war-memory suppression, Flowey tech, and the unauthorized Iron Legion cell.",
-      "tags": [
-        "xp",
-        "reputation",
-        "faction review"
-      ]
-    },
-    {
-      "id": "monster_underground",
-      "kind": "article",
-      "label": "Atlas Link",
-      "title": "Monster Underground Atlas Integration",
-      "summary": "The Underground now appears as a linked Waluipedia realm with new pages for the Ruins, Hotland portals, the CORE, and the abandoned Snowdin Police Station.",
-      "tags": [
-        "atlas",
-        "locations",
-        "undertale"
-      ]
-    },
-    {
-      "id": "imperial-network",
-      "kind": "route",
-      "route": "#/imperial-network",
-      "label": "Integrated System",
-      "title": "Imperial Pressure Network",
-      "summary": "Iron Legion and Regal Empire systems are merged into one operational network with links to reputation, bank/currency, shop logistics, atlas, power projection, and event records.",
-      "tags": [
-        "system",
-        "iron legion",
-        "regal empire"
-      ]
-    },
-    {
-      "id": "shop.html",
-      "kind": "system",
-      "label": "Shop QOL",
-      "title": "Wario Shop Pricing & Card UX Pass",
-      "summary": "Shop cards now show quick prices, avoid nested scroll traps, include improved sorting/hide-affordable controls, operator wallet switching, and Waluipedia links inside item lore.",
-      "tags": [
-        "shop",
-        "pricing",
-        "qol"
-      ]
-    },
-    {
-      "id": "the_imp_ambush_of_harvestide_29",
-      "kind": "event",
-      "label": "Latest Event",
-      "title": "The Imp Ambush of Harvestide 29",
-      "summary": "Siege at the Shadow Estate: Imps attack seeking the Archivist's book. Markop rallies his team, Remi gets poisoned, Dan reveals his special eye, and the house undergoes a frantic defense.",
-      "tags": [
-        "latest",
-        "imp ambush",
-        "shadow estate",
-        "xp"
-      ]
-    },
-    {
-      "id": "the_midnight_audit_of_harvestide_28",
-      "kind": "event",
-      "label": "Latest Event",
-      "title": "The Midnight Audit of Harvestide 28",
-      "summary": "Shadow Estate intrusions: Remi Akamatsu de-escalates intruders, reclaims her firearm, tests a black crystal lie detector, and finds a spy in a closet.",
-      "tags": [
-        "latest",
-        "audit",
-        "shadow estate",
-        "xp"
-      ]
-    },
-    {
-      "id": "feyward_amnesia_vines_morel_steely",
-      "kind": "event",
-      "label": "New Event",
-      "title": "Toad Lee’s Missing Time & Morel’s Key",
-      "summary": "Feyward memory wipes, amnesia vine hazards, Mystic Morel’s brass key, Steely’s warning, and new party XP allocations.",
-      "tags": [
-        "feyward",
-        "xp",
-        "mystery"
-      ]
-    },
-    {
-      "id": "currency.html",
-      "kind": "system",
-      "label": "New System",
-      "title": "Shop Currency & Multi-Tender Settlement",
-      "summary": "48 currencies, multi-tender transactions, bank vaults, debt ledgers, and Wario warehouse checkout integration.",
-      "tags": [
-        "commerce",
-        "currencies",
-        "banking"
-      ]
-    },
-    {
-      "id": "assembly.html",
-      "kind": "system",
-      "label": "New System",
-      "title": "Grand Latin Assembly & Viral Intel Network",
-      "summary": "Cross-realm parliamentary motions, infamy scores, viral propaganda feeds, and live assembly votes across 100 polities.",
-      "tags": [
-        "system",
-        "assembly",
-        "intel"
-      ]
-    },
-    {
-      "id": "artifacts",
-      "kind": "route",
-      "route": "#/artifacts",
-      "label": "New Vault",
-      "title": "Star Bearers & Main Artifacts Vault",
-      "summary": "Star Fragments, Fire Flower Petals, God Toad, and the 9 Cosmic Star Bearers cataloged with full power metrics.",
-      "tags": [
-        "artifacts",
-        "star bearers"
-      ]
-    },
-    {
-      "id": "books/library.html",
-      "kind": "system",
-      "label": "New Archive",
-      "title": "Waluipedia Grand Library Archive",
-      "summary": "Over 40 full-text books with custom covers, library stock inventories, and historic codices from Mushroom to Mordor.",
-      "tags": [
-        "library",
-        "books",
-        "lore"
-      ]
-    },
-    {
-      "id": "alliances.html",
-      "kind": "system",
-      "label": "New System",
-      "title": "Multi-Realm Alliances & Geopolitical Grid",
-      "summary": "Comprehensive treaty matrices, defense pacts, non-aggression accords, and global faction coalitions.",
-      "tags": [
-        "geopolitics",
-        "alliances"
-      ]
-    },
-    {
-      "id": "mount_ebott_survey_mission",
-      "kind": "event",
-      "label": "New Mission",
-      "title": "Mount Ebott Survey Mission",
-      "summary": "Iron Legion treaty penetration at Mount Ebott, survey mission in Snowdin village with Dracule Mihawk, Gamma Agent, and Sans.",
-      "tags": [
-        "snowdin",
-        "survey",
-        "undertale"
-      ]
-    },
-    {
-      "id": "archie_frog_god_dream_duel",
-      "kind": "event",
-      "label": "New Event",
-      "title": "Archie’s Frog God Dream & Burning Vigilance",
-      "summary": "Divine-contaminated dream intelligence: Frog God, Star Core hesitation, Original Dan, burning Vigilance, and new Archie XP.",
-      "tags": [
-        "new",
-        "xp",
-        "shadow estate"
-      ]
-    }
+  "onThisDay": [
+    "955 BF — Princess Peach assassinated; Regency declares emergency state.",
+    "1018 BF — Bowser consumes Vacuum Shroom; Dark Star crisis begins.",
+    "1035 BF — Wario ambushes Luigi at Mage's Embassy in Toad Town.",
+    "1040 BF — Harvestide 28: Remi conducts Midnight Audit of Shadow Estate.",
+    "1040 BF — Harvestide 29: Imp Ambush at Tymnas's Cottage.",
+    "1040 BF — Harvestide 30: Remi uses Sharpie Box Disguise to escape dungeon."
   ]
 }

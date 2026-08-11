@@ -1,5 +1,5 @@
 {
-  "name": "Toad Lee \u2014 Level 4 Warden Barbarian",
+  "name": "Toad Lee — Level 4 Warden Barbarian",
   "type": "character",
   "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
   "system": {
@@ -644,11 +644,11 @@
     "details": {
       "alignment": "Lawful Neutral (protective, oath-bound, suspicious of betrayal)",
       "biography": {
-        "value": "<h2>Toad Lee \u2014 Warden of the Toads</h2><p><strong>Level 4 Barbarian; Liberated Toads, The Wardens.</strong> Toad Lee was freed from the Vigilance trafficking barrels and became one of the people who made survival into an organized duty. He is not a decorative hero: he assigns a guard, spots routes, carries an axe, and asks what happens after the door opens.</p><h3>Operational record</h3><p>Lee helped hold the line against the Coat, organized fractured survivors with Speaker L, pursued Waluigi during the Lounge Brawl with deliberately nonlethal leg-targeting swings, and kept functioning after Stucky&apos;s thrown eye landed on his head. He is the brain of the Feywild operation when the plan needs a roof, a route, or a fallback.</p><h3>Sheet boundary</h3><p>This is a level 4 playable translation of the lore. It includes confirmed themes\u2014axe work, Rage, Warden discipline, pursuit, and survivor logistics\u2014without inventing legendary loot or high-level magic. The XP ledger remains authoritative: 5,790 XP, 3 AP spent, 0 available.</p>",
+        "value": "<h2>Toad Lee — Warden of the Toads</h2><p><strong>Level 4 Barbarian; Liberated Toads, The Wardens.</strong> Toad Lee was freed from the Vigilance trafficking barrels and became one of the people who made survival into an organized duty. He is not a decorative hero: he assigns a guard, spots routes, carries an axe, and asks what happens after the door opens.</p><h3>Operational record</h3><p>Lee helped hold the line against the Coat, organized fractured survivors with Speaker L, pursued Waluigi during the Lounge Brawl with deliberately nonlethal leg-targeting swings, and kept functioning after Stucky&apos;s thrown eye landed on his head. He is the brain of the Feywild operation when the plan needs a roof, a route, or a fallback.</p><h3>Sheet boundary</h3><p>This is a level 4 playable translation of the lore. It includes confirmed themes—axe work, Rage, Warden discipline, pursuit, and survivor logistics—without inventing legendary loot or high-level magic. The XP ledger remains authoritative: 5,790 XP, 3 AP spent, 0 available.</p>",
         "public": ""
       },
-      "race": "Toad",
-      "background": "Liberated Survivor / Warden of the Toads",
+      "race": "bb00c9339a204b51",
+      "background": "a01588c74bc740d6",
       "originalClass": "barbarian",
       "xp": {
         "value": 5790
@@ -740,7 +740,7 @@
     "favorites": [],
     "spellcasting": "cha",
     "biography": {
-      "value": "<h2>Feyward Dan \u2014 Player Character Dossier</h2><p><strong>Level 3 One-Armed Feyward Paladin / Dimensional Escapee.</strong> This is the parallel Feyward Dan, not the original Dan who led the Liberated Toads and lost his arm to the corrupted mage staff. Feyward Dan woke in a yellow bed at Prismari's school, survived goblin betrayal, escaped through a window, was dragged through the Mazebound, slept through multiple dimensional emergencies, and opened his third sensory eye during the Imp Ambush.</p><p><strong>Ledger:</strong> 1,960 XP, 11 entries, Level 3, Power 5 Mortal. The actor is a playable translation of the lore; the XP ledger remains authoritative.</p><p><strong>Confirmed carried inventory:</strong> one sword of uncertain provenance, chain mail, Shield +1, Holy Symbol of Ravenkind, and ten gold pieces. The sword is the blade Dan used when he charged Professor Prismari after the explosion on Estragon's Island. The school journal, Prismari, Mazebound, and other events remain in the biography and source records rather than being invented as carried loot.</p><p><strong>Inventory rule:</strong> this actor deliberately contains only gear and abilities Dan actually has or was explicitly assigned. Memories, event records, and things he merely saw are not added to the inventory as fake loot.</p><h3>How to play Feyward Dan</h3><p>Use charm, improvisation, and sensory magic before force. Dan is not a polished wizard. He is a displaced player character who survives by testing doors, apologizing, fleeing when necessary, and returning when the party needs his eye.</p><h3>One-armed paladin rules</h3><p>Dan uses a longsword in his remaining hand and a shield in the other available hand. He cannot dual-wield or make two-handed weapon attacks. Divine Sense, Divine Smite, and the Aura of Life campaign item are included as documents. Aura of Life is recorded as a story/boon item and should be level-gated by the GM if standard 5e progression is being enforced.</p>",
+      "value": "<h2>Feyward Dan — Player Character Dossier</h2><p><strong>Level 3 One-Armed Feyward Paladin / Dimensional Escapee.</strong> This is the parallel Feyward Dan, not the original Dan who led the Liberated Toads and lost his arm to the corrupted mage staff. Feyward Dan woke in a yellow bed at Prismari's school, survived goblin betrayal, escaped through a window, was dragged through the Mazebound, slept through multiple dimensional emergencies, and opened his third sensory eye during the Imp Ambush.</p><p><strong>Ledger:</strong> 1,960 XP, 11 entries, Level 3, Power 5 Mortal. The actor is a playable translation of the lore; the XP ledger remains authoritative.</p><p><strong>Confirmed carried inventory:</strong> one sword of uncertain provenance, chain mail, Shield +1, Holy Symbol of Ravenkind, and ten gold pieces. The sword is the blade Dan used when he charged Professor Prismari after the explosion on Estragon's Island. The school journal, Prismari, Mazebound, and other events remain in the biography and source records rather than being invented as carried loot.</p><p><strong>Inventory rule:</strong> this actor deliberately contains only gear and abilities Dan actually has or was explicitly assigned. Memories, event records, and things he merely saw are not added to the inventory as fake loot.</p><h3>How to play Feyward Dan</h3><p>Use charm, improvisation, and sensory magic before force. Dan is not a polished wizard. He is a displaced player character who survives by testing doors, apologizing, fleeing when necessary, and returning when the party needs his eye.</p><h3>One-armed paladin rules</h3><p>Dan uses a longsword in his remaining hand and a shield in the other available hand. He cannot dual-wield or make two-handed weapon attacks. Divine Sense, Divine Smite, and the Aura of Life campaign item are included as documents. Aura of Life is recorded as a story/boon item and should be level-gated by the GM if standard 5e progression is being enforced.</p>",
       "public": "Feyward Dan is a parallel Toad with a colorful Feywild aura, an unreliable itinerary, and one extra eye that sees what invisible enemies hoped would remain unseen."
     }
   },
@@ -898,7 +898,7 @@
   },
   "items": [
     {
-      "name": "Barbarian \u2014 Warden, Level 4",
+      "name": "Barbarian — Warden, Level 4",
       "type": "class",
       "system": {
         "description": {
@@ -954,7 +954,7 @@
       "img": "icons/svg/item-bag.svg"
     },
     {
-      "name": "Toad \u2014 Liberated Survivor",
+      "name": "Toad — Liberated Survivor",
       "type": "race",
       "system": {
         "description": {
@@ -1266,7 +1266,7 @@
       "img": "icons/svg/item-bag.svg"
     },
     {
-      "name": "The Warden\u2019s Axe",
+      "name": "The Warden’s Axe",
       "type": "weapon",
       "img": "icons/weapons/axes/axe-double-brown.webp",
       "system": {
@@ -1291,7 +1291,7 @@
           "value": 15,
           "denomination": "gp"
         },
-        "attunement": "NaN",
+        "attunement": "",
         "rarity": "",
         "identified": true,
         "cover": null,
@@ -1638,7 +1638,7 @@
     },
     {
       "_id": "1ae71cecf06847bb",
-      "name": "Survivor\u2019s Field Kit",
+      "name": "Survivor’s Field Kit",
       "type": "consumable",
       "folder": "guHYjt0gjPLU2wCs",
       "img": "icons/commodities/gems/pearl-purple-dark.webp",
@@ -2438,7 +2438,7 @@
       }
     },
     {
-      "name": "Ability Score Improvement \u2014 Level 4",
+      "name": "Ability Score Improvement — Level 4",
       "type": "feat",
       "system": {
         "description": {
@@ -2478,7 +2478,7 @@
     },
     {
       "_id": "4ecd17faf5fe402c",
-      "name": "Warden\u2019s Shield",
+      "name": "Warden’s Shield",
       "type": "equipment",
       "folder": "1kn4uV4dTVVduLjA",
       "img": "icons/equipment/shield/heater-steel-engraved.webp",
@@ -2717,7 +2717,7 @@
             "expiry": null,
             "expired": false
           },
-          "description": "<p>You gain a +2 bonus to Armor Class against ranged attack rolls while you wield this Shield. This bonus is in addition to the Shield\u2019s normal bonus to AC.</p>",
+          "description": "<p>You gain a +2 bonus to Armor Class against ranged attack rolls while you wield this Shield. This bonus is in addition to the Shield’s normal bonus to AC.</p>",
           "tint": "#ffffff",
           "statuses": [],
           "sort": 0,
@@ -2756,7 +2756,7 @@
       }
     },
     {
-      "name": "Handaxe \u2014 Backup",
+      "name": "Handaxe — Backup",
       "system": {
         "description": {
           "value": "<p>A compact backup axe for close quarters and thrown pursuit. 1d6 slashing; thrown 20/60.</p>",
@@ -3324,7 +3324,7 @@
     },
     {
       "_id": "dbb68cbd49cb47c7",
-      "name": "Warden\u2019s Lantern",
+      "name": "Warden’s Lantern",
       "type": "equipment",
       "folder": "1kn4uV4dTVVduLjA",
       "img": "icons/skills/melee/shield-block-fire-orange.webp",
@@ -3563,7 +3563,7 @@
             "expiry": null,
             "expired": false
           },
-          "description": "<p>You gain a +2 bonus to Armor Class against ranged attack rolls while you wield this Shield. This bonus is in addition to the Shield\u2019s normal bonus to AC.</p>",
+          "description": "<p>You gain a +2 bonus to Armor Class against ranged attack rolls while you wield this Shield. This bonus is in addition to the Shield’s normal bonus to AC.</p>",
           "tint": "#ffffff",
           "statuses": [],
           "sort": 0,
@@ -3802,7 +3802,7 @@
           "autoDestroy": true
         },
         "description": {
-          "value": "<p>Fuel for the Warden\u2019s Lantern.</p>",
+          "value": "<p>Fuel for the Warden’s Lantern.</p>",
           "chat": ""
         },
         "identifier": "oil-flask",
@@ -3870,7 +3870,7 @@
     },
     {
       "_id": "3344a821afc64437",
-      "name": "Healer\u2019s Kit",
+      "name": "Healer’s Kit",
       "type": "consumable",
       "folder": "guHYjt0gjPLU2wCs",
       "img": "icons/commodities/gems/pearl-purple-dark.webp",
@@ -4410,7 +4410,7 @@
       "img": "icons/containers/bags/pack-engraved-leather-tan.webp",
       "system": {
         "description": {
-          "value": "<p>Field waterskin marked with the Wardens\u2019 roll-call notch.</p>",
+          "value": "<p>Field waterskin marked with the Wardens’ roll-call notch.</p>",
           "chat": ""
         },
         "identifier": "waterskin",
@@ -5519,7 +5519,7 @@
     },
     {
       "_id": "61be0452d7364f59",
-      "name": "Warden\u2019s Bedroll",
+      "name": "Warden’s Bedroll",
       "type": "equipment",
       "folder": "1kn4uV4dTVVduLjA",
       "img": "icons/skills/melee/shield-block-fire-orange.webp",
@@ -5758,7 +5758,7 @@
             "expiry": null,
             "expired": false
           },
-          "description": "<p>You gain a +2 bonus to Armor Class against ranged attack rolls while you wield this Shield. This bonus is in addition to the Shield\u2019s normal bonus to AC.</p>",
+          "description": "<p>You gain a +2 bonus to Armor Class against ranged attack rolls while you wield this Shield. This bonus is in addition to the Shield’s normal bonus to AC.</p>",
           "tint": "#ffffff",
           "statuses": [],
           "sort": 0,
@@ -5997,7 +5997,7 @@
           "autoDestroy": true
         },
         "description": {
-          "value": "<p>Community rebuilding bonds held in Toad Lee\u2019s custody; not personal spending money.</p>",
+          "value": "<p>Community rebuilding bonds held in Toad Lee’s custody; not personal spending money.</p>",
           "chat": ""
         },
         "identifier": "liberated-toads-relief-bonds",

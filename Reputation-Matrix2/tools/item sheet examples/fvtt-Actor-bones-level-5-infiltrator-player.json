@@ -1,7 +1,7 @@
 {
   "name": "Bones — Level 5 Infiltrator (Player Character)",
   "type": "character",
-  "img": "images/bones/bones-portrait.png",
+  "img": "icons/svg/mystery-man.svg",
   "system": {
     "currency": {
       "pp": 0,
@@ -647,8 +647,8 @@
         "value": "",
         "public": ""
       },
-      "race": "Unknown / disguised humanoid (treat as Medium humanoid until canon identifies him)",
-      "background": "Liberated Toads Field Infiltrator",
+      "race": "unknownhumanoid0",
+      "background": "liberatedtoadsin",
       "originalClass": "rogue",
       "xp": {
         "value": 7880
@@ -751,7 +751,7 @@
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "images/bones/bones-portrait.png",
+      "src": "icons/svg/mystery-man.svg",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -951,7 +951,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/svg/book.svg"
     },
     {
       "name": "Unknown Humanoid",
@@ -982,7 +982,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/svg/mystery-man.svg"
     },
     {
       "name": "Liberated Toads Field Infiltrator",
@@ -1013,7 +1013,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Expertise — Stealth",
@@ -1051,7 +1051,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
       "name": "Expertise — Sleight of Hand",
@@ -1089,7 +1089,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
       "name": "Sneak Attack (3d6)",
@@ -1127,7 +1127,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
       "name": "Cunning Action",
@@ -1165,7 +1165,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
       "name": "Uncanny Dodge",
@@ -1203,7 +1203,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
       "name": "Evasion",
@@ -1241,7 +1241,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
       "name": "Infiltrator Background",
@@ -1279,7 +1279,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Unknown Identity",
@@ -1317,7 +1317,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
       "name": "Oracle Refusal",
@@ -1355,7 +1355,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
       "name": "Planar Survivor",
@@ -1393,7 +1393,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
       "name": "Field Judgment",
@@ -1431,7 +1431,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
       "name": "Longsword",
@@ -1493,7 +1493,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-weapons.png"
+      "img": "icons/weapons/swords/sword-gold-holy.webp"
     },
     {
       "name": "Vile Mace",
@@ -1555,7 +1555,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-weapons.png"
+      "img": "icons/weapons/swords/sword-gold-holy.webp"
     },
     {
       "name": "Light Crossbow",
@@ -1617,7 +1617,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-weapons.png"
+      "img": "icons/weapons/bows/shortbow-recurve.webp"
     },
     {
       "name": "Wooden Shield",
@@ -1665,7 +1665,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-weapons.png"
+      "img": "icons/equipment/shield/heater-steel-gold.webp"
     },
     {
       "name": "Leather Armor",
@@ -1713,7 +1713,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-field-kit.png"
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp"
     },
     {
       "name": "Winter Coat",
@@ -1761,7 +1761,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-field-kit.png"
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp"
     },
     {
       "name": "Disguise Kit",
@@ -1809,7 +1809,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-field-kit.png"
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp"
     },
     {
       "name": "Thieves' Tools",
@@ -1857,7 +1857,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-field-kit.png"
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp"
     },
     {
       "name": "Alpine Inn Key",
@@ -1905,7 +1905,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp"
     },
     {
       "name": "Fundamentals of Abjuration",
@@ -1943,7 +1943,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-codex.png"
+      "img": "icons/commodities/gems/pearl-purple-dark.webp"
     },
     {
       "name": "Veins of the Tapestry",
@@ -1981,7 +1981,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-codex.png"
+      "img": "icons/commodities/gems/pearl-purple-dark.webp"
     },
     {
       "name": "Field Journal — Thornbury",
@@ -2019,7 +2019,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/commodities/gems/pearl-purple-dark.webp"
     },
     {
       "name": "Midland Ducats",
@@ -2067,7 +2067,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-field-kit.png"
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp"
     },
     {
       "name": "Bone Ash, Live Wood, Iron Dust, Chalk",
@@ -2115,7 +2115,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-codex.png"
+      "img": "icons/equipment/chest/breastplate-layered-steel-pink.webp"
     },
     {
       "name": "Chronicle Card — Spider Grove",
@@ -2153,7 +2153,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Solarium Detonation",
@@ -2191,7 +2191,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Iron Sky Breach",
@@ -2229,7 +2229,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Massacre at Aegis Command",
@@ -2267,7 +2267,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Aegis Command Riot",
@@ -2305,7 +2305,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Reclamation of the Vigilance",
@@ -2343,7 +2343,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — First Night at Raventree",
@@ -2381,7 +2381,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Mazebound Grove",
@@ -2419,7 +2419,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Battle of the Brobot",
@@ -2457,7 +2457,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Grove of Woe",
@@ -2495,7 +2495,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Shadeward Anchor Ritual",
@@ -2533,7 +2533,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Ruined Manor Convergence",
@@ -2571,7 +2571,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Medical Extortion",
@@ -2609,7 +2609,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Telescope and Tennis Match",
@@ -2647,7 +2647,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Planar Sanctum Revelation",
@@ -2685,7 +2685,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Veins of the Tapestry",
@@ -2723,7 +2723,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Oracle Flesh Vat",
@@ -2761,7 +2761,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Canoloth Trial",
@@ -2799,7 +2799,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Astral Altar",
@@ -2837,7 +2837,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Alpine Bank",
@@ -2875,7 +2875,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Blizzard Escape",
@@ -2913,7 +2913,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Arunedeal Camp",
@@ -2951,7 +2951,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     },
     {
       "name": "Chronicle Card — Legion Checkpoint",
@@ -2989,7 +2989,7 @@
       "ownership": {
         "default": 0
       },
-      "img": "images/bones/bones-chronicle.png"
+      "img": "icons/sundries/documents/document-bound-tan.webp"
     }
   ],
   "effects": [

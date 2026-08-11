@@ -1,0 +1,3578 @@
+{
+  "name": "Wario",
+  "type": "npc",
+  "img": "icons/svg/mystery-man.svg",
+  "folder": null,
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 20,
+        "proficient": 1,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 14,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 18,
+        "proficient": 1,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 12,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 16,
+        "proficient": 1,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 16,
+        "calc": "flat",
+        "formula": ""
+      },
+      "hp": {
+        "value": 136,
+        "max": 136,
+        "formula": "16d8 + 64",
+        "temp": null,
+        "tempmax": null
+      },
+      "movement": {
+        "walk": "30",
+        "units": "ft",
+        "hover": false,
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": null,
+        "special": "",
+        "ranges": {
+          "darkvision": 0,
+          "blindsight": null,
+          "tremorsense": null,
+          "truesight": null
+        }
+      },
+      "spellcasting": "",
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "price": {
+        "value": null,
+        "denomination": "gp"
+      },
+      "spell": {
+        "level": 0
+      }
+    },
+    "details": {
+      "cr": 7,
+      "alignment": "chaotic neutral",
+      "type": {
+        "value": "humanoid",
+        "subtype": "human"
+      },
+      "biography": {
+        "value": "<h1>Biography of Wario in This Timeline</h1>\n<p>In this alternate, war-torn Mushroom Kingdom timeline—set amid the aftermath of Princess Peach's assassination in 955 BF and the subsequent prolonged civil war—Wario emerges as the quintessential opportunistic wildcard, a greedy chaos agent who thrives in the power vacuum left by fractured kingdoms and collapsing allegiances. Where heroes seek justice and villains pursue conquest, Wario simply follows the money, laughing his distinctive \"Wah ha ha!\" while the world burns around him.</p>\n<hr>\n<h3>Physical Appearance &amp; Core Traits</h3>\n<p>Wario remains instantly recognizable as Mario's burly, inverted counterpart: massively built with a physique that combines obesity with surprising muscular power, sporting a huge head, prominent jutting chin, oversized pink triangular nose, and wild zigzag mustache that twitches when he's plotting something profitable. His signature outfit never varies—yellow cap emblazoned with a prominent purple \"W\", purple overalls over a long-sleeved yellow shirt, green pointed shoes, and white gloves marked with blue \"W\"s on the backs.</p>\n<p>His personality is equally consistent: hot-tempered, boisterous, crude, and utterly shameless in his greed. He thinks nothing of betraying allies, exploiting disasters, or causing collateral damage if there's profit in it. Unlike more ideologically-driven villains, Wario has no grand vision for the Mushroom Kingdom—he just wants to be rich, and he doesn't particularly care whose gold he's counting or whose burning city he's looting to get it.</p>\n<hr>\n<h3>Role in the Civil War Era (955 BF - Present)</h3>\n<p>Wario operates as a mercenary-treasure hunter-smuggler-pirate hybrid who drifts between factions with zero loyalty. He's worked temporary contracts for the Iron Legion when they paid well, sold intelligence to Peach Loyalists when the price was right, smuggled goods for Fawful's remnant forces, and double-crossed all of them when a better deal emerged. No faction trusts him, but many employ him because he's effective when properly motivated (i.e., paid in advance).</p>\n<p>His operation includes a loose network of agents, muscle-for-hire, and disposable recruits. Key among these is \"Wally,\" a mysterious operative who executed the dramatic extraction of Bowser during the chaotic Aftermath on the Vigilance events around Highsun 7, 1040 BF. Whether Wally is truly loyal to Wario or simply the highest bidder remains unclear—probably the latter.</p>\n<p>Wario maintains no fixed base of operations, preferring to move between safehouses, smuggler ports, and temporary camps. He's been spotted in Iron Legion territories, Regal Empire border towns, the lawless Darklands, and even popping up in supernatural hotspots when ancient treasure is rumored to be involved. His ability to appear and disappear seemingly at will has led to speculation that he has access to Warp Pipes, airship networks, or dimensional shortcuts that he's keeping to himself.</p>\n<hr>\n<h3>Notable Activities &amp; Incidents</h3>\n<p><strong>The Vigilance Barrel Incident (Highsun 11, 1040 BF):</strong> During a massive brawl aboard the airship Vigilance—which doubled as a trafficking operation reveal—Wario was discovered hiding in a barrel amid the chaos, apparently waiting for everyone to finish killing each other so he could loot the bodies and cargo. When discovered, he fought his way out, stole several crates of unknown contents, and escaped via emergency Warp Pipe he'd apparently planted beforehand \"just in case.\"</p>\n<p><strong>The Remi Recruitment (Highsun 12, 1040 BF):</strong> In one of his most characteristically cruel moves, Wario approached FNG Remi and presented her with what appeared to be a gift—a beautifully wrapped box. When she opened it, the bomb inside detonated, leaving her severely injured. As she lay bleeding, Wario laughed, tossed her a healing potion (which he charged to her account), and casually offered her a position in his crew. \"You survived! That means you're tough! Wah ha ha! You're hired!\" Whether Remi accepted or told him where to shove his job offer is unclear, but the incident perfectly encapsulates Wario's approach to recruitment: explosively terrible and entirely transactional.</p>\n<p><strong>Raventree Manor Operations (Highsun 16-22, 1040 BF):</strong> Wario inserted himself into the dimensional nightmare unfolding at Raventree Manor, claiming to be working with the Iron Legion to investigate temporal instabilities (a lie—he was there for rumored ancient treasure). During the looping dinner raid involving mirror dimensions, Oracles, vampires, hags, and the Orange Heir succession crisis, Wario set up increasingly bizarre schemes:</p>\n<ul>\n<li>In a Feywild-adjacent fairy village manifestation within the manor's fractured reality, Wario dramatically unfurled an absurdly long wish-list containing 2,361 items, ranging from mundane supplies to reality-bending artifacts. He priced a legendary Star Rod at \"900 trillion gold pieces, non-negotiable.\"</li>\n<li>He successfully extracted payment in the form of abstract \"experience\" from a confused entity named hjumpik, though what this transaction actually accomplished remains metaphysically unclear.</li>\n<li>He departed the fairy village with piles of ridiculous artifacts, including: seventeen cursed monkey paws (\"they're collectibles!\"), a mirror that shows only alternate timeline versions of yourself, three bags of \"definitely not stolen\" Koopa Troopa shells, and what he claimed was \"the original recipe for Peach's cake\" (authentication disputed).</li></ul>\n<p>Throughout the manor's escalating disasters—convergence rituals, planar fractures, vampire politics, Shadowfell bleed, and the succession war between Orangus Cornelius and various heirs—Wario remained focused exclusively on personal profit rather than any ideological position. He sold information to multiple parties, looted during dimensional breaches, and at one point tried to auction off a \"genuine piece of the Dark Moon\" (later revealed to be painted glass).</p>\n<hr>\n<h3>Current Status &amp; Operations (1040 BF)</h3>\n<p>Wario continues to operate as a freelance chaos profiteer, appearing wherever the war creates opportunities for wealth extraction. Recent intelligence suggests he's involved in:</p>\n<ul>\n<li>Smuggling operations moving restricted goods between Iron Legion and Regal Empire territories, charging exorbitant fees to both sides</li>\n<li>Treasure hunting in war-torn ruins, with particular interest in pre-war Mushroom Kingdom vaults and abandoned castles</li>\n<li>Arms dealing, selling weapons to whoever pays—he's been linked to shipments reaching Toad resistance cells, Bowser loyalists, and independent warlords</li>\n<li>Running underground gambling operations in neutral zones, rigging the games whenever possible</li>\n<li>Participating in airship hijackings, both as perpetrator and opportunistic \"rescue\" operator who charges victims for extraction</li></ul>\n<p>He has no known permanent allies, though he maintains working relationships with various criminals, smugglers, and mercenaries who share his profit-first philosophy. His relationship with Waluigi (his frequent partner in canonical timelines) is strained in this darker world—reports suggest they've had several violent falling-outs over split percentages, though they still occasionally collaborate when a job is too big for one greedy bastard to handle alone.</p>\n<hr>\n<h3>Combat Capabilities &amp; Tactics</h3>\n<p>Despite his comical appearance and greedy motivations, Wario is genuinely dangerous in combat. His massive strength allows him to wield oversized weapons and grapple opponents much larger than himself. He fights dirty—eye gouges, groin strikes, thrown improvised weapons, and tactical retreats when outmatched are all standard in his playbook.</p>\n<p>His signature moves include devastating shoulder charges that can knock enemies off airships or through walls, ground pounds that create shockwaves, and an inexplicable ability to eat almost anything and convert it into usable power (he's been documented eating bombs and turning them into explosive farts, which is horrifying but tactically effective).</p>\n<p>Wario is cowardly when the odds aren't in his favor, readily fleeing combat if victory looks expensive or unlikely. However, when cornered or when protecting a significant treasure haul, he becomes ferociously aggressive, fighting with the desperate strength of someone who refuses to give up his gold without taking several enemies with him.</p>\n<hr>\n<h3>Personality Summary</h3>\n<p>Wario is greed incarnate, a living embodiment of avarice without the sophistication or long-term planning that characterizes more traditional villains. He wants money NOW, he wants ALL of it, and he'll laugh while taking it from whoever has it. He's cruel but not sadistic for its own sake—he'll blow up Remi because it's funny and establishes dominance, then hire her because capable muscle is profitable. He'll hide in a barrel during a battle because why risk injury when you can wait and loot the winners?</p>\n<p>He has absolutely no sense of shame, honor, or loyalty beyond contractual obligations (and even those are negotiable if the breach is profitable enough). He's loud, obnoxious, and makes his signature \"Wah ha ha!\" laugh in situations where any sensible person would show restraint. He views the entire civil war as his personal treasure vault—a chaotic environment where traditional law and order have broken down, creating infinite opportunities for a sufficiently greedy and shameless opportunist.</p>\n<p>Yet despite all this, he's not entirely stupid. He knows when to cut losses, when to hide, and when to run. He's survived eighty-five years of civil war not through idealism or military genius, but through pure mercenary pragmatism: if it's not profitable, don't do it. If it might get you killed, charge triple. If everyone else is dying, hide in a barrel and loot them afterward.</p>\n<p>In a world of grand causes and terrible sacrifices, Wario remains committed to the only cause that's ever mattered to him: getting paid. Wah ha ha!</p>",
+        "public": ""
+      },
+      "race": "Human (Mushroom Kingdom)",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "habitat": {
+        "value": [],
+        "custom": ""
+      },
+      "treasure": {
+        "value": []
+      }
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "dr": {
+        "value": [
+          "poison"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": false
+    },
+    "resources": {
+      "legact": {
+        "max": 0,
+        "spent": 0
+      },
+      "legres": {
+        "max": 0,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    },
+    "source": {
+      "revision": 1,
+      "rules": "2024"
+    },
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0,
+      "IETzTwoDi4ElBJAV": 0
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "acr": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "JXS0f4ka71qKB2h3": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "HosVywGhVnGaF5lI": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "7CR1Hpx2Po8spit0": {
+        "ability": "con",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ZZNb2z3t0wdcMgNJ": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "6fCmMl31VtsqwENr": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "UreduGlabi2z8Vvm": {
+        "ability": "WIS",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "hQUumf2MfKPzcpDd": {
+        "ability": "INT",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0
+      },
+      "spell2": {
+        "value": 0
+      },
+      "spell3": {
+        "value": 0
+      },
+      "spell4": {
+        "value": 0
+      },
+      "spell5": {
+        "value": 0
+      },
+      "spell6": {
+        "value": 0
+      },
+      "spell7": {
+        "value": 0
+      },
+      "spell8": {
+        "value": 0
+      },
+      "spell9": {
+        "value": 0
+      },
+      "pact": {
+        "value": 0
+      }
+    }
+  },
+  "flags": {
+    "scene-packer": {
+      "hash": "3c5460fd1680ea4c23bb15a2f3f174ef2771456a"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "brute",
+          "coward",
+          "tactician",
+          "panicked",
+          "hunter"
+        ],
+        "reasons": [
+          "High HP (136) melee combatant → brute/frontliner",
+          "Keyword \"cowardly\" in name/biography → coward",
+          "Keyword \"vampire\" in name/biography → tactician",
+          "Keyword \"fleeing\" in name/biography → panicked",
+          "Keyword \"hunter\" in name/biography → hunter"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1786383961307,
+        "manuallyOverridden": false
+      }
+    }
+  },
+  "prototypeToken": {
+    "name": "Wario (Mercenary Profiteer)",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "depth": 1
+  },
+  "items": [
+    {
+      "name": "Multiattack",
+      "type": "feat",
+      "img": "icons/svg/sword.svg",
+      "system": {
+        "description": {
+          "value": "<p>You make three attacks: two with your fists or weapons, and one shoulder charge or ground pound.</p>",
+          "chat": "<p>You unleash a flurry of brutal strikes, combining raw strength with opportunistic violence in a display that's as effective as it is crude.</p>"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1782005284324,
+        "modifiedTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {}
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "25j0nrr4iUfdfpcl"
+    },
+    {
+      "name": "Wario Punch",
+      "type": "weapon",
+      "img": "icons/weapons/swords/sword-gold-holy.webp",
+      "system": {
+        "description": {
+          "value": "<p>You deliver a devastating haymaker punch powered by your massive strength and complete disregard for fighting fair. The blow carries enough force to send opponents flying backward, and you're not above adding a headbutt or elbow strike if they're still standing after the initial impact. On a critical hit, the target must succeed on a DC 16 Strength saving throw or be knocked prone as you literally punch them off their feet.</p>",
+          "chat": "<p>You wind up with exaggerated theatrical motion, then unleash a brutal haymaker that connects with a meaty THWACK, your target's head snapping back from the impact of your massive fist.</p>"
+        },
+        "range": {
+          "value": null,
+          "units": "ft",
+          "reach": null
+        },
+        "damage": {
+          "base": {
+            "number": 2,
+            "denomination": 8,
+            "bonus": "5",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "versatile": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "5",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "str",
+              "bonus": "",
+              "critical": {},
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "properties": [],
+        "proficient": null,
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "mastery": ""
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {},
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "9vQ3zyciftTI5W22"
+    },
+    {
+      "name": "Shoulder Charge",
+      "type": "weapon",
+      "img": "icons/skills/movement/arrow-upward-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>You lower your shoulder and charge forward in a straight line up to 30 feet, building momentum with each step until you slam into your target with the force of a battering ram. This reckless charge allows you to move through spaces occupied by creatures of your size or smaller (they must make a DC 16 Strength saving throw or be knocked aside 5 feet). When you hit a target with this charge, they take damage and must succeed on a DC 16 Strength saving throw or be knocked prone and pushed back 10 feet. If they're pushed into a wall, object, or another creature, they take an additional 2d6 bludgeoning damage from the impact. You can use this charge to break through wooden doors, barricades, or similar obstacles, treating them as having AC 10 and 20 hit points.</p>",
+          "chat": "<p>You break into a dead sprint, building terrifying momentum as your heavy frame barrels forward. At the last second you lower your shoulder and SLAM into your target like a runaway minecart, the impact creating a visible shockwave as bodies go flying.</p>"
+        },
+        "range": {
+          "value": null,
+          "units": "ft",
+          "reach": 30
+        },
+        "damage": {
+          "base": {
+            "number": 3,
+            "denomination": 8,
+            "bonus": "5",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "versatile": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "30",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "str",
+              "bonus": "",
+              "critical": {},
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "properties": [],
+        "proficient": null,
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {},
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "0V0ZCj3twhlklOp7"
+    },
+    {
+      "name": "Ground Pound",
+      "type": "weapon",
+      "img": "icons/weapons/swords/sword-gold-holy.webp",
+      "system": {
+        "description": {
+          "value": "<p>You leap into the air (up to 10 feet high if you have room) and come crashing down buttocks-first with devastating force, creating a shockwave upon impact. All creatures within 10 feet of your landing point must make a DC 16 Dexterity saving throw. On a failed save, they take 4d6 bludgeoning damage and are knocked prone as the ground buckles beneath them. On a successful save, they take half damage and remain standing. The impact creates difficult terrain in a 10-foot radius as the ground cracks and splinters. If used on a wooden floor, airship deck, or similarly fragile surface, you may break through entirely (DM's discretion), which is sometimes intentional when you're trying to escape or cause maximum chaos.</p>",
+          "chat": "<p>You leap into the air with surprising height for someone of your bulk, then plummet downward in a sitting position. The impact as you hit the ground is CATASTROPHIC—a visible shockwave radiates outward, cracks spiderweb across the floor, and everyone nearby is thrown off their feet by the tremor. \"WAH HA HA!\" you bellow, clearly pleased with the destruction.</p>"
+        },
+        "damage": {
+          "base": {
+            "number": 4,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "versatile": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "radius",
+                "size": "10",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": []
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "16"
+              }
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "properties": [],
+        "proficient": null,
+        "range": {
+          "units": "ft",
+          "reach": null
+        },
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "mastery": ""
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {},
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "bGUmcYIcgDiXW6rb"
+    },
+    {
+      "name": "Wario Bike Summon",
+      "type": "feat",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
+      "system": {
+        "description": {
+          "value": "<p>As an action, you can summon your signature purple motorcycle—the Wario Bike—which appears in an unoccupied space within 10 feet in a cloud of exhaust smoke and the roar of an engine that's somehow both poorly maintained and indestructible. The bike functions as a mount with the following statistics: AC 14, 50 HP, speed 60 feet. While riding the bike, you can make ramming attacks (treat as Shoulder Charge but with an additional 1d8 bludgeoning damage) and have advantage on checks to maintain control during high-speed chases or dangerous maneuvers.</p><p>The bike runs on a mysterious fuel source (some say garlic oil, others suspect pure greed) and never seems to actually run out of gas despite Wario never refueling it. The bike can be dismissed as a bonus action, vanishing in another cloud of exhaust, or it disappears automatically if reduced to 0 HP (it can be resummoned after a long rest, emerging dented and smoking but functional).</p><p>The Wario Bike is loud, obnoxious, and produces enough pollution to violate every environmental regulation ever written. It also has a horn that plays a jarring \"WAH HA HA HA!\" when honked, which Wario uses constantly and inappropriately. The bike has been banned from at least seven cities for noise violations, emissions standards breaches, and \"general obnoxiousness.\"</p>",
+          "chat": "<p>You whistle sharply and your purple motorcycle roars into existence in a cloud of black exhaust smoke, skidding to a stop beside you with the screech of worn brakes. You swing your leg over the seat, rev the engine unnecessarily loud, and honk the horn, which blares \"WAH HA HA HA!\" across the battlefield. Everyone within earshot grimaces. You couldn't be more pleased.</p>"
+        },
+        "uses": {
+          "max": "1",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "target": "",
+                  "value": "1",
+                  "scaling": {
+                    "mode": "",
+                    "formula": ""
+                  }
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {}
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "KtImBqp0RPRUHIkK"
+    },
+    {
+      "name": "Chomp",
+      "type": "feat",
+      "img": "icons/skills/social/intimidation-impersonate.webp",
+      "system": {
+        "description": {
+          "value": "<p>You can eat almost anything—and you do, because Wario's appetite is both legendary and horrifying. As a bonus action, you can attempt to bite and swallow a Small or smaller object, consumable, or even certain creatures (DM's discretion). This includes bombs (which you convert into explosive gas), potions (gaining their effects), coins (healing 1d4 HP per 10 gold pieces consumed, you sick bastard), and small enemies (dealing 2d6 + 5 piercing damage, and if this reduces them to 0 HP, you swallow them whole and gain temporary HP equal to their remaining HP).</p><p>Special interactions: If you eat a bomb or explosive device, you can use your reaction on your next turn to release it as a devastating fart in a 15-foot cone (DC 16 Constitution save, 3d6 fire damage and poisoned condition for 1 minute on failed save, half damage and no condition on success). This is absolutely disgusting but tactically effective.</p><p>You have advantage on saving throws against ingested poisons because your digestive system has adapted to process literally anything, including substances that would kill normal humans. Your stomach has become a garbage disposal of legendary efficiency and questionable biology.</p>",
+          "chat": "<p>You open your mouth impossibly wide—far wider than human anatomy should allow—and CHOMP down on your target with the enthusiasm of someone who's never met a food safety regulation they couldn't violate. The sound of your chewing is audible across the battlefield and deeply unsettling to everyone present.</p>"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {}
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "RJcfzsWqTRSiec2H"
+    },
+    {
+      "name": "Greedy Bastard",
+      "type": "feat",
+      "img": "icons/commodities/currency/coins-assorted-mix-copper-silver-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Passive Ability.</strong> Your overwhelming greed provides tangible mechanical benefits, because apparently avarice is a superpower in your world. You have advantage on all Wisdom (Perception) checks to notice treasure, valuables, hidden wealth, or anything worth money. You can smell gold within 60 feet (literally—you have developed a supernatural sense for currency), and you instinctively know the approximate value of any object you can see within 30 feet.</p><p>Additionally, whenever you see someone carrying visible wealth (coins, jewelry, magic items worth 100gp or more), you must succeed on a DC 10 Wisdom saving throw or become fixated on acquiring it, gaining advantage on attacks against that creature but having disadvantage on attacks against any other target until you either take the wealth or the wealthy creature leaves your sight.</p><p>Finally, you can use your gold as a resource in desperate situations: by spending 100gp worth of coins as a bonus action, you heal yourself for 2d8 + 5 HP as your greed literally sustains you. The coins vanish into your body (you eat them), and you feel warm satisfaction wash over you. \"Money IS happiness! WAH HA HA!\"</p>",
+          "chat": "<p>Your eyes literally transform into gold coin symbols as you spot something valuable, a cartoonish but genuine physiological response to the presence of wealth. You begin gravitating toward it unconsciously, fingers twitching with acquisitive hunger.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1782005284324,
+        "modifiedTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "YbKVb0kJGPYOuQml"
+    },
+    {
+      "name": "Tactical Coward",
+      "type": "feat",
+      "img": "icons/skills/movement/feet-winged-boots-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Passive and Reaction Ability.</strong> You have no shame about running away when a fight turns against you—in fact, you've turned cowardice into an art form. When you take the Dash or Disengage action, your movement speed increases by 10 feet as pure fear and greed fuel your escape. Additionally, you have advantage on all Dexterity saving throws made to avoid area effects (fireballs, exploding barrels, collapsing floors) because your self-preservation instinct is finely honed.</p><p>As a reaction when you would be hit by an attack, you can attempt to grab a nearby creature of your size or smaller and use them as a human shield. Make a contested Strength (Athletics) check against the target's Strength (Athletics) or Dexterity (Acrobatics). On a success, the attack hits them instead of you, and you shove them 5 feet away afterward. \"WAH! Not me, HIM!\"</p><p>Finally, if you are reduced to 0 hit points while you have at least 100gp worth of treasure on your person, you can spend all of your carried wealth as a reaction to instead drop to 1 hit point and immediately teleport up to 60 feet to an unoccupied space you can see as your emergency Warp Pipe activates (you always keep one hidden on your person for exactly this situation). You emerge from the teleportation prone, gasping, and broke—but alive, which is what matters.</p>",
+          "chat": "<p>The moment things turn against you, your survival instincts kick into overdrive. Your eyes widen, you emit a panicked \"WAHHH!\", and you're suddenly moving with speed that seems physically impossible for someone of your bulk, trampling allies and enemies alike in your desperate flight toward safety and profit preservation.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1782005284324,
+        "modifiedTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Wz2qcUT3I16auykL"
+    },
+    {
+      "name": "Wario's Custom Chopper (Weaponized Motorcycle)",
+      "type": "equipment",
+      "img": "icons/tools/cooking/mortar-stone-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Rare Vehicle.</strong> Your heavily modified purple motorcycle, customized with weapons, armor plating, and enough illegal modifications to get you arrested in any civilized territory. The bike serves as both transportation and mobile weapons platform, perfect for drive-by looting and high-speed escapes.</p><p>Statistics: AC 16 (reinforced frame with spiked armor plating), 75 HP, Speed 70 feet, can carry up to 500 pounds of cargo in saddlebags and hidden compartments (where you keep emergency gold and stolen goods). The bike can traverse difficult terrain without speed penalty and can make jumps up to 30 feet long with a running start.</p><p>Mounted Weapons: The bike features a forward-facing flamethrower (bonus action to activate, 15-foot cone, DC 14 Dexterity save, 2d6 fire damage), spiked wheel guards (creatures hit by ramming attacks take an extra 1d6 piercing damage), and an oil slick dispenser (action to activate, creates 30-foot line of difficult terrain behind you that lasts 1 minute, creatures entering must make DC 14 Dexterity save or fall prone).</p><p>The bike runs on \"Wario Fuel\"—a proprietary blend that smells like garlic, burns purple, and is probably illegal in most jurisdictions. You've never actually bought fuel for it; you just sort of... will it to keep running through sheer greed and stubbornness, and somehow it works.</p><p>The bike is also equipped with: hidden storage compartments (total capacity 50 cubic feet for smuggling), a mounted horn that plays your signature laugh, spiked handlebars for close-combat situations, and a license plate that reads \"WAHAHA\" (the plate is from a kingdom that no longer exists, making it technically untraceable).</p>",
+          "chat": "<p>You rev the engine on your custom chopper and the purple beast roars to life, belching black smoke from its exhaust pipes. The spikes on the wheel guards gleam menacingly, the flamethrower attachment hums as it warms up, and the entire machine vibrates with barely-contained mechanical violence. You pat the fuel tank affectionately. \"Good bike. Let's go make some money.\"</p>"
+        },
+        "equipped": true,
+        "quantity": 1,
+        "weight": {
+          "value": 450,
+          "units": "lb"
+        },
+        "identified": true,
+        "unidentified": {
+          "name": "Modified Purple Motorcycle",
+          "description": "<p>A heavily customized purple motorcycle that looks like it was designed by someone with more money than taste and a deep love of violence. The bike features spiked armor plating, what appears to be a flamethrower mounted to the front, and numerous compartments of unclear purpose. The exhaust pipes are modified to be unnecessarily loud, and the whole thing radiates \"illegal modifications.\" The license plate reads \"WAHAHA.\"</p>"
+        },
+        "price": {
+          "value": 8000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": "aMJbzkbnvztUlZqy",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null,
+        "type": {
+          "value": "",
+          "baseItem": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "world": {
+          "durability": {
+            "cur": 1000,
+            "max": 1000
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "srEYz0s0JC2Jco0m"
+    },
+    {
+      "name": "Absurdly Long Wish-List",
+      "type": "loot",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Legendary Item (Unique).</strong> An impossibly long scroll that unfurls to reveal 2,361 individually itemized wishes, demands, and desired acquisitions compiled by Wario over the course of his treasure-hunting career. The scroll itself is approximately 847 feet long when fully extended, written in Wario's barely-legible scrawl with occasional crude drawings of the items in question.</p><p>The list ranges from the mundane (\"47 wheels of fancy cheese\", \"new purple overalls, the expensive kind\") to the absurd (\"a castle, but not a haunted one this time\", \"seventeen cursed monkey paws for my collection\") to the cosmically expensive (\"Star Rod - 900 trillion gold pieces NON-NEGOTIABLE\" is written in all caps with multiple underlines).</p><p>Notable entries include: every coin in the Mushroom Kingdom, a working Warp Pipe network for personal use, Princess Peach's castle (\"she's not using it anymore\"), Bowser's gold reserves, a lifetime supply of garlic, the original recipe for Peach's cake, a mirror that shows only alternate timeline versions of yourself, three bags of \"definitely not stolen\" Koopa Troopa shells, and something cryptically listed as \"that thing Waluigi has that he KNOWS I want.\"</p><p>Recent additions to the list include items looted or desired from Raventree Manor: \"vampire wine cellars (all of them)\", \"the Orange Heir's inheritance documents (for blackmail purposes)\", \"whatever the hags are hiding in the Shadowfell basement\", \"that weird Oracle's prediction book\", and \"enough Feywild fairy dust to retire on.\"</p><p>The scroll has been used in bizarre metaphysical transactions, most notably when Wario successfully extracted payment in the form of abstract \"experience\" from an entity named hjumpik during the Feywild manifestation at Raventree Manor. How this transaction worked, what experience actually means in this context, and whether hjumpik understood what they were agreeing to remains unclear. Wario insists it was a \"fair deal\" and that hjumpik \"got what they paid for,\" though he's conspicuously vague about what that actually was.</p><p>The wish-list serves no mechanical combat purpose, but it's invaluable for understanding Wario's priorities (everything), his negotiating positions (unreasonable), and his long-term goals (acquire literally all wealth in existence, then maybe get lunch). Enemies who've seen the list describe it as \"simultaneously pathetic and terrifying\" because it reveals a mind that has genuinely, seriously considered how to steal every valuable object in the known world.</p>",
+          "chat": "<p>You dramatically unfurl the scroll with a theatrical flourish, and it keeps unfurling... and unfurling... and unfurling. Within seconds, the scroll has covered the floor in multiple overlapping loops, creating a maze of parchment that everyone has to step over. You clear your throat importantly and begin reading: \"Item number one: Every coin currently in circulation in the Mushroom Kingdom...\" This is going to take a while.</p>"
+        },
+        "weight": {
+          "value": 15,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Extremely Long Scroll",
+          "description": "<p>A scroll case that seems to contain far more parchment than should physically fit inside. When opened, the scroll extends to truly absurd lengths, covered in cramped handwriting and crude sketches. The sheer amount of text suggests this is either a historical chronicle, a legal document of Byzantine complexity, or someone's extremely detailed shopping list.</p>"
+        },
+        "quantity": 1,
+        "rarity": "legendary",
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "QuVAQilbkPvwRDJY"
+    },
+    {
+      "name": "Emergency Warp Pipe (One-Time Use)",
+      "type": "consumable",
+      "img": "icons/sundries/documents/document-sealed-red.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Rare Consumable.</strong> A compact, collapsible Warp Pipe that Wario keeps hidden on his person at all times for emergency escapes. When activated as a bonus action, the pipe rapidly expands to full size (a green pipe approximately 4 feet tall), and you can immediately use it to teleport up to 1 mile to any location you've previously visited. The pipe remains active for 1 round, during which other creatures can also use it (though Wario typically activates it and jumps in before anyone else can react).</p><p>After use, the pipe collapses back into its compact form but becomes inert—it's a one-time-use device that requires expensive recalibration and charging at a Warp Pipe hub to function again. Wario keeps several of these stashed in various safehouses, but he's extremely protective of them because they represent his ultimate escape plan when a job goes catastrophically wrong.</p><p>The pipe's destination is set when it's calibrated, and Wario typically programs his to lead to his most secure vault or a neutral-territory black market where he can disappear into the criminal underground. Smart enemies who've fought Wario before know to watch for the telltale green glow of an activating emergency pipe—it means he's about to vanish with whatever he's stolen, and you have approximately 3 seconds to stop him before he's gone.</p><p>The pipes are manufactured by an underground network of Toad engineers who've made a fortune selling emergency teleportation devices to criminals, smugglers, and mercenaries. Wario has a standing order for ten pipes per month, which he goes through with alarming regularity given how often his schemes go sideways and require desperate escapes.</p>",
+          "chat": "<p>You slap the compact cylinder against the ground and it EXPLODES outward into a full-sized green Warp Pipe with a distinctive *bwooomp* sound. Without hesitation, you dive headfirst into the pipe, your legs kicking comically in the air for a moment before you're sucked down and away with a whooshing sound. The pipe collapses behind you with a *pop*, leaving nothing but faint green sparkles and the distant echo of your mocking laughter.</p>"
+        },
+        "quantity": 3,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Collapsible Green Cylinder",
+          "description": "<p>A compact metallic cylinder, bright green with yellow trim, covered in warning labels in multiple languages. It appears to be some kind of emergency device—there's a large red activation button on one end and what looks like dimensional runes etched into the surface. Handle with extreme caution.</p>"
+        },
+        "price": {
+          "value": 500,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "uses": {
+          "max": "1",
+          "autoDestroy": false,
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {}
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "RDOzR0ZEd6oGujzT"
+    },
+    {
+      "name": "Wrapped Gift Box",
+      "type": "consumable",
+      "img": "icons/containers/boxes/box-gift-green.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Uncommon Consumable (Weapon).</strong> A beautifully wrapped present box, complete with elaborate bow and festive paper, that contains a primed Bob-omb set to detonate when the box is opened. This is Wario's idea of a \"gift,\" typically given to people he wants to recruit (after testing their durability) or enemies he wants to eliminate (while laughing about their trust issues).</p><p>When the box is opened, the Bob-omb inside explodes immediately. The creature opening the box and all creatures within 10 feet must make a DC 14 Dexterity saving throw. On a failed save, creatures take 6d6 fire damage and are knocked prone. On a successful save, they take half damage and remain standing. The explosion destroys the box entirely and leaves scorch marks in a 10-foot radius.</p><p>Wario keeps several of these prepared at all times, storing them in his Bag of Holding (which is concerning—one accidental detonation inside the extradimensional space could cause catastrophic damage, but Wario insists \"it'll be fine, probably\"). He's been known to leave them as \"traps\" in locations he's looted, give them to people he's negotiating with to establish dominance, or throw them as improvised grenades when he can't be bothered to unwrap them first.</p><p>The most infamous use of the Bomb Gift Box was when Wario gave one to FNG Remi on Highsun 12, 1040 BF. After it exploded and nearly killed her, he offered her a healing potion (at cost) and a job, reasoning that anyone who survived his recruitment test was tough enough to be useful. Whether this says more about Wario's cruelty or his pragmatic approach to hiring is a matter of ongoing debate.</p><p>The wrapping paper is actually quite nice—Wario pays extra for quality presentation because \"if you're going to blow someone up, you should at least have the courtesy to make it look festive.\" He has a Toad in one of the black markets who specializes in gift-wrapping explosives, and Wario is their best customer.</p>",
+          "chat": "<p>You present the beautifully wrapped box with both hands, a huge grin on your face that doesn't quite reach your eyes. \"For you! A gift! Go on, open it!\" you encourage enthusiastically, already taking several steps backward in anticipation of the imminent explosion. Your fingers are in your ears before the recipient even touches the ribbon. You're giggling.</p>"
+        },
+        "quantity": 5,
+        "weight": {
+          "value": 5,
+          "units": "lb"
+        },
+        "identified": true,
+        "unidentified": {
+          "name": "Wrapped Gift Box",
+          "description": "<p>A present box wrapped in festive paper with an elaborate bow. It's surprisingly heavy for its size, and you can hear something faintly ticking inside. The wrapping job is actually quite nice—someone put effort into making this look appealing, which makes the suspicious weight and ticking sound all the more concerning.</p>"
+        },
+        "price": {
+          "value": 75,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "uses": {
+          "max": "1",
+          "autoDestroy": true,
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {},
+        "item-identification": {
+          "originalName": "Wrapped Gift Box",
+          "originalImg": "icons/containers/boxes/box-gift-green.webp",
+          "originalDescription": "<p><strong>Uncommon Consumable (Weapon).</strong> A beautifully wrapped present box, complete with elaborate bow and festive paper, that contains a primed Bob-omb set to detonate when the box is opened. This is Wario's idea of a \"gift,\" typically given to people he wants to recruit (after testing their durability) or enemies he wants to eliminate (while laughing about their trust issues).</p><p>When the box is opened, the Bob-omb inside explodes immediately. The creature opening the box and all creatures within 10 feet must make a DC 14 Dexterity saving throw. On a failed save, creatures take 6d6 fire damage and are knocked prone. On a successful save, they take half damage and remain standing. The explosion destroys the box entirely and leaves scorch marks in a 10-foot radius.</p><p>Wario keeps several of these prepared at all times, storing them in his Bag of Holding (which is concerning—one accidental detonation inside the extradimensional space could cause catastrophic damage, but Wario insists \"it'll be fine, probably\"). He's been known to leave them as \"traps\" in locations he's looted, give them to people he's negotiating with to establish dominance, or throw them as improvised grenades when he can't be bothered to unwrap them first.</p><p>The most infamous use of the Bomb Gift Box was when Wario gave one to FNG Remi on Highsun 12, 1040 BF. After it exploded and nearly killed her, he offered her a healing potion (at cost) and a job, reasoning that anyone who survived his recruitment test was tough enough to be useful. Whether this says more about Wario's cruelty or his pragmatic approach to hiring is a matter of ongoing debate.</p><p>The wrapping paper is actually quite nice—Wario pays extra for quality presentation because \"if you're going to blow someone up, you should at least have the courtesy to make it look festive.\" He has a Toad in one of the black markets who specializes in gift-wrapping explosives, and Wario is their best customer.</p>",
+          "isIdentified": true,
+          "processed": true,
+          "lastAttempt_0tmjbgjsJjnyOG4D": 1771102874991
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "jiAWDGVbWpEJit4k"
+    },
+    {
+      "name": "Wario's Bag of Holding (Stolen)",
+      "type": "equipment",
+      "img": "icons/containers/bags/sack-simple-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Rare Item (Requires Attunement).</strong> A standard Bag of Holding that Wario definitely stole from someone (the original owner's initials \"M.M.\" are still faintly visible on the inside flap, hastily scratched out). The bag functions exactly like a normal Bag of Holding—extradimensional space, 500-pound capacity, 64 cubic feet volume—but Wario has filled it with the most chaotic collection of stolen goods, dangerous items, and inexplicable junk imaginable.</p><p>Current contents include (partial inventory, Wario refuses to fully catalog it): approximately 47,000 gold coins in mixed currencies, seventeen cursed monkey paws (\"collectibles!\"), five Bomb Gift Boxes (live and armed), a mirror that shows alternate timeline versions of whoever looks into it (stolen from Raventree Manor), multiple bags of \"definitely not stolen\" Koopa Troopa shells, what Wario claims is \"the original recipe for Peach's cake\" (a stained piece of parchment with flour handprints), several bottles of expensive vampire wine looted from dinner parties, a crowbar labeled \"PROPERTY OF IRON LEGION - RETURN IF FOUND\", emergency rations (mostly garlic), and an alarming number of magical items of uncertain provenance.</p><p>Additional contents discovered through various incidents: three fake mustaches (for disguises that never work), a collection of IOUs from people who definitely aren't going to pay him back, a wanted poster of himself that he keeps as a \"trophy\", four healing potions (expired, but Wario insists they're \"probably still good\"), a set of lockpicks, various grenades and explosives, a grappling hook, fifty feet of rope (stolen from a ship), a bottle of invisible ink, a jar of extremely pungent cheese (forgotten and now possibly sentient), and what appears to be a small fortune in stolen jewelry.</p><p>The bag also contains Wario's \"emergency fund\"—several thousand gold pieces separated into a special compartment that he only touches in absolute desperation (defined as \"situations where I might actually die before I can spend the rest of my money\"). This fund has been dipped into exactly three times in eighty-five years, which Wario considers a point of pride.</p><p>Wario treats the bag as his mobile vault, and losing it would be psychologically devastating to him—possibly more so than actual physical injury. He checks it obsessively, counts his gold daily (it takes about an hour), and sleeps with it tucked under his head (which is uncomfortable but necessary because he trusts literally no one, including his own employees).</p>",
+          "chat": "<p>You plunge your arm into the bag up to your shoulder, rummaging around with the confidence of someone who knows exactly where everything is despite the chaotic mess inside. There's a lot of clinking, something that might be cursed growling faintly, the smell of garlic and old cheese, and then you triumphantly pull out exactly what you needed. You don't bother closing the bag properly—you'll need it again in thirty seconds anyway.</p>"
+        },
+        "equipped": true,
+        "quantity": 1,
+        "weight": {
+          "value": 15,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Large Leather Sack",
+          "description": "<p>A worn leather bag that seems far too light for its apparent size. When you look inside, the interior extends into impossible depths—this is clearly some kind of extradimensional storage device. The bag is absolutely stuffed with... everything, apparently. Coins, weapons, food, magical items, junk, more coins, possibly a cursed artifact or two, something that smells like old cheese. The original owner's initials have been scratched out aggressively.</p>"
+        },
+        "price": {
+          "value": 4000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null,
+        "type": {
+          "value": "",
+          "baseItem": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "world": {
+          "durability": {
+            "cur": 1000,
+            "max": 1000
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "FryLbNQyMxAjNQyn"
+    },
+    {
+      "name": "Helmet of Greed",
+      "type": "equipment",
+      "img": "icons/equipment/head/cap-simple-leather-green.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Rare Item (Requires Attunement).</strong> Wario's signature yellow cap with the purple \"W\" emblem, though calling it just a \"cap\" undersells its properties significantly. The helmet has been reinforced with hidden metal plating, enchanted with protective wards, and imbued with Wario's sheer greedy determination over years of use. It's become almost a part of him—he never removes it, even when sleeping, and there are rumors that it's magically bonded to his head at this point.</p><p>While wearing this helmet, you gain the following benefits:</p><ul><li>+1 bonus to AC</li><li>Advantage on saving throws against being charmed or frightened (greed overrides other emotions)</li><li>You can use your reaction when you see a creature within 60 feet acquire treasure or wealth to immediately know its approximate value and location</li><li>Once per long rest, when you would fail a death saving throw, you can choose to succeed instead as your overwhelming desire to spend your accumulated wealth keeps you clinging to life</li><li>The helmet grants resistance to psychic damage (your single-minded focus on money makes you difficult to mentally affect)</li></ul><p>The helmet is also virtually indestructible—it has survived explosions, dragon fire, crushing impacts, being run over by his own motorcycle, and numerous attempts by creditors to seize it as collateral. Wario considers it his good luck charm, though \"luck\" in this case means \"ability to survive situations that should absolutely have killed me while escaping with stolen goods.\"</p><p>The purple \"W\" emblem glows faintly when significant treasure is nearby (within 30 feet), growing brighter as you get closer to the source. The glow is visible even in bright light, pulsing in rhythm with your heartbeat when truly valuable items are close. This has saved Wario from walking past hidden vaults on multiple occasions, though it's also given away his position when he was trying to be stealthy near wealth (his greed literally betrays him).</p><p>There's a small dent on the left side of the helmet from when Wario headbutted Bowser during a dispute over treasure split percentages in 1015 BF. Wario keeps the dent as a trophy. Bowser keeps a similar dent in his shell and absolutely does not consider it a trophy.</p>",
+          "chat": "<p>You adjust your helmet—a habitual gesture you perform dozens of times per day, running your hand over the familiar yellow fabric and feeling the reassuring weight of the hidden armor plating beneath. The \"W\" emblem catches the light and you swear you feel it pulse slightly, as if responding to your touch. This hat has been with you through eighty-five years of theft, violence, and profit. It's more than equipment—it's practically a body part at this point.</p>"
+        },
+        "equipped": true,
+        "quantity": 1,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Yellow Helmet with Purple Emblem",
+          "description": "<p>A yellow cap or helmet with a prominent purple \"W\" symbol on the front. Despite appearing to be simple headwear, closer examination reveals it's reinforced with metal plating underneath the fabric, and it radiates faint magical auras of abjuration and divination. The owner clearly never removes this—it's sweat-stained, worn, and has obviously been through considerable violence. There's a dent on the left side that looks suspiciously like it came from impact with something very large and very hard.</p>"
+        },
+        "price": {
+          "value": 2500,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "armor": {
+          "value": 1,
+          "dex": null
+        },
+        "type": {
+          "value": "",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "world": {
+          "durability": {
+            "cur": 1000,
+            "max": 1000
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "mJ7QUU7iBbamNdRn"
+    },
+    {
+      "name": "Garlic Cloves (Emergency Rations)",
+      "type": "consumable",
+      "img": "icons/sundries/documents/document-sealed-red.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Common Consumable.</strong> Wario's favorite food and emergency healing item. He keeps entire bags of garlic cloves on his person at all times, both for snacking and for their restorative properties (at least for him—most people find eating raw garlic cloves deeply unpleasant and question Wario's taste in literally everything).</p><p>When you consume a garlic clove as a bonus action, you regain 2d4 + 2 hit points and gain advantage on your next Constitution saving throw made within the next minute. The overwhelming garlic smell also provides an unexpected benefit: any creature that starts its turn within 5 feet of you must succeed on a DC 12 Constitution saving throw or have disadvantage on attack rolls against you until the start of its next turn as it recoils from your garlic breath. This effect stacks if you eat multiple cloves, increasing the DC by 1 per additional clove consumed (maximum DC 16).</p><p>Wario typically carries 30-40 garlic cloves at any given time, stored in multiple pockets for easy access. He eats them constantly—during combat, during negotiations, while running away, while counting money, while sleeping (he chews in his sleep, it's disturbing). The scent of garlic follows him everywhere like a miasma, which has actually helped him on several occasions when enemies tried to track him by scent (they lost the trail because literally everything in a 30-foot radius smells like garlic, making it impossible to distinguish his specific scent).</p><p>The cloves are also effective as improvised weapons against vampires and certain undead—Wario once defeated a vampire by shoving an entire handful of garlic into its mouth mid-monologue, causing it to flee in disgust and pain. This was possibly the most Wario way to defeat a supernatural enemy ever documented, and he's attempted to replicate the tactic multiple times since with varying success.</p><p>His garlic supplier is a Toad farmer in the neutral territories who grows a particularly pungent variety specifically for Wario. The farmer charges triple the normal rate because \"dealing with Wario requires hazard pay,\" but the garlic is genuinely high quality—each clove is about twice the size of normal garlic and has healing properties that standard garlic lacks. Whether this is due to magical cultivation or just Wario's biology responding positively to his favorite food is unclear.</p>",
+          "chat": "<p>You pull a garlic clove from one of your many pockets—you're not even sure which pocket anymore, you have garlic everywhere—and pop it into your mouth with evident satisfaction. The crunch is audible across the battlefield, and the pungent aroma that erupts from your mouth is genuinely weaponized. Anyone within ten feet visibly recoils, eyes watering. \"What?\" you ask through a mouthful of raw garlic, genuinely confused by their reaction. \"It's good for you! Builds character!\"</p>"
+        },
+        "quantity": 35,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Pungent Cloves",
+          "description": "<p>Small white cloves that emit an overpowering garlic smell. Whoever is carrying these has MANY of them—the scent is detectable from several feet away, possibly several rooms away. The cloves are unusually large and appear to be of very high quality, which somehow makes their overwhelming smell even more offensive.</p>"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "uses": {
+          "max": "1",
+          "autoDestroy": true,
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "food",
+          "subtype": ""
+        },
+        "activities": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "properties": [
+          "gear"
+        ]
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {}
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "f2146UOehzbezFVK"
+    },
+    {
+      "name": "Stolen Vampire Dinner Wine",
+      "type": "consumable",
+      "img": "icons/consumables/drinks/potion-bottle-corked-red.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Uncommon Consumable.</strong> A bottle of extraordinarily expensive wine looted from one of the vampire dinner parties at Raventree Manor during the dimensional chaos of Highsun 16-22, 1040 BF. The label identifies it as a vintage from 687 BF (268 years old), produced in vineyards that no longer exist, from grapes cultivated by vampire lords who appreciated fine wine almost as much as fine blood. The bottle itself is a work of art—hand-blown glass with intricate etchings, sealed with wax bearing the crest of House Raventree.</p><p>When you consume this wine (drinking the full bottle takes 1 minute), you gain the following benefits for 1 hour:</p><ul><li>+2 bonus to Charisma (Persuasion) and Charisma (Deception) checks (the wine's sophistication rubs off on you, somehow)</li><li>Advantage on saving throws against poison and disease</li><li>You regain 3d8 + 3 hit points as the enchanted vintage courses through your system</li><li>You gain darkvision out to 60 feet (if you already have darkvision, its range increases by 30 feet)</li><li>Your blood becomes mildly toxic to vampires for the duration—any vampire that bites you takes 2d6 necrotic damage as the enchanted wine reacts violently to their digestive process</li></ul><p>However, the wine is also strongly associated with vampire magic. For the duration of the effect, you are treated as an undead creature for purposes of spells and effects that specifically target undead (such as Turn Undead, though you're not actually compelled to flee). This is usually not a problem for Wario, who uses the wine purely for its healing and social benefits, but it has caused awkward moments when he's been suddenly affected by a paladin's Turn Undead while trying to negotiate a deal.</p><p>Wario has approximately 8 bottles of this wine stolen from Raventree Manor's wine cellars (he would have taken more but they were heavy and he was in a hurry). He treats them as both emergency healing potions and luxury items he can sell to collectors for outrageous prices. He's already sold three bottles for 500-750gp each to merchants who didn't ask questions about provenance, and he's considering raising his prices because \"clearly I'm undervaluing rare vintage vampire wine.\"</p><p>The wine actually tastes incredible—rich, complex, with notes of ancient oak, dark fruit, and something faintly metallic that's probably the lingering essence of the vampire blood magic used in its creation. Wario doesn't particularly appreciate fine wine (he drinks it like grape juice), but he recognizes quality when it's profitable.</p>",
+          "chat": "<p>You pop the cork with your teeth—you have absolutely no respect for proper wine-opening etiquette—spit it aside, and take a long swig directly from the bottle. The wine is rich, complex, centuries of careful aging creating flavors you can't quite identify but definitely appreciate on a \"this tastes expensive\" level. You wipe your mouth with the back of your glove, leaving a purple-red stain. \"Good stuff! WAH HA HA!\" You take another swig. This is too valuable to waste on savoring, better drink it all now before someone tries to take it.</p>"
+        },
+        "quantity": 8,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Ancient Vintage Wine",
+          "description": "<p>A bottle of extremely old wine with an ornate label in archaic script identifying it as a vintage from 687 BF. The bottle itself is beautiful hand-blown glass with intricate etchings, and the wax seal bears the crest of a noble house. The whole thing is covered in dust and decorative spiderwebs. This is clearly valuable, both as a collector's item and as a consumable of significant magical potency.</p>"
+        },
+        "price": {
+          "value": 500,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "uses": {
+          "max": "1",
+          "autoDestroy": true,
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "potion",
+          "subtype": ""
+        },
+        "activities": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "properties": [
+          "gear"
+        ]
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {}
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "sGInKkx2Jf6J7WeS"
+    },
+    {
+      "name": "Fake Star Rod (Painted Glass)",
+      "type": "loot",
+      "img": "icons/weapons/staves/staff-ornate-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Common Item (Worthless).</strong> A convincing-looking replica of the legendary Star Rod, created by Wario specifically to scam desperate buyers during the Raventree Manor dimensional events. The \"rod\" is actually a wooden dowel painted gold, with a glass star affixed to the top using common adhesive. From a distance or under poor lighting, it looks remarkably authentic—Wario put genuine effort into this forgery because the potential payoff was enormous.</p><p>The rod has no magical properties whatsoever. It doesn't grant wishes, channel star power, or do anything except look vaguely impressive when held dramatically. Wario attempted to sell it during the Raventree Manor chaos, pricing it at \"900 trillion gold pieces, non-negotiable\" on his absurdly long wish-list. When potential buyers asked to examine it closely or detect magic on it, Wario would suddenly become evasive, claim it was \"too powerful to activate here,\" or attempt to distract them with other offers.</p><p>No one actually bought the fake Star Rod, but Wario still carries it because he's convinced that eventually he'll find someone desperate and gullible enough to pay a fortune for it. \"It's an investment in future scamming opportunities,\" he explains when asked why he's lugging around a worthless painted stick.</p><p>The rod can be used as an improvised quarterstaff in combat (1d6 bludgeoning damage), though it will likely break if used this way, revealing the fraud. Wario would be genuinely upset if forced to use it as a weapon, both because it would ruin his scam and because he spent three whole hours painting it.</p>",
+          "chat": "<p>You pull out the \"Star Rod\" and hold it aloft dramatically, letting light catch the painted surface and glass star. \"BEHOLD! The legendary Star Rod! Yours for the low, low price of... let's say 800 trillion now, I'm feeling generous!\" Your salesmanship is enthusiastic, but anyone with Arcana proficiency who looks closely will immediately notice this is painted wood and glass. You're banking on desperation overriding common sense.</p>"
+        },
+        "weight": {
+          "value": 3,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Golden Rod with Star",
+          "description": "<p>A golden rod approximately 3 feet long, topped with a glittering star ornament. It radiates no magic, but it's quite pretty. Closer examination reveals the gold is actually paint, and the star appears to be glass rather than crystal or gem. This is either a ceremonial replica or an outright fake.</p>"
+        },
+        "quantity": 1,
+        "rarity": "common",
+        "price": {
+          "value": 5,
+          "denomination": "gp"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1782005284324,
+        "modifiedTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "s1O9NrTi0MTxHKDT"
+    },
+    {
+      "name": "Wario's Motorcycle (Customized)",
+      "type": "loot",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Rare Vehicle.</strong> A heavily customized purple and yellow motorcycle that Wario has modified extensively over the years to serve as his primary getaway vehicle when Warp Pipes aren't available or practical. The bike is built like a tank—reinforced frame, oversized tires designed for off-road escapes, armored paneling around the engine, and a storage compartment welded to the back that's barely large enough for one bag of stolen loot (Wario tried to make it bigger but the added weight affected handling).</p><p>The motorcycle has the following statistics:</p><ul><li><strong>Speed:</strong> 120 feet per round (roughly 80 mph at full throttle)</li><li><strong>AC:</strong> 16</li><li><strong>Hit Points:</strong> 75</li><li><strong>Damage Threshold:</strong> 10 (attacks dealing less than 10 damage don't harm it due to armor plating)</li><li><strong>Crew:</strong> 1 driver, 1 passenger (uncomfortably)</li><li><strong>Cargo:</strong> 200 pounds in rear compartment</li></ul><p>Special Features:</p><ul><li><strong>Nitro Boost:</strong> Once per short rest, Wario can activate illegal nitrous oxide injectors he installed himself (probably stolen from some racing league). For 1 minute, the motorcycle's speed doubles to 240 feet per round, but handling becomes extremely difficult—all vehicle maneuver checks are made with disadvantage, and there's a 20% chance each round that the bike's engine overheats, forcing it to stop for 1d4 rounds while it cools down.</li><li><strong>Ramming Speed:</strong> The motorcycle can be used as a weapon. When Wario drives it directly into a creature or object, he can make an attack roll using his Strength modifier + proficiency bonus. On a hit, the target takes 4d10 bludgeoning damage, and Wario must succeed on a DC 14 Dexterity saving throw or be thrown from the bike (taking 2d6 bludgeoning damage and landing prone 10 feet away). The motorcycle takes half the damage dealt to the target.</li><li><strong>Smoke Screen:</strong> The exhaust system has been modified to release thick black smoke on command. As a bonus action, Wario can fill a 20-foot cube behind the motorcycle with heavily obscuring smoke that lasts for 1 minute or until dispersed by strong wind. He uses this feature exclusively to escape pursuers or cover criminal activity—never for legitimate purposes.</li><li><strong>Hidden Compartment:</strong> There's a secret compartment under the seat (DC 18 Intelligence (Investigation) to find if you don't know it's there) where Wario keeps emergency funds (currently 500gp), a backup Warp Pipe activator, and what he describes as \"insurance documents\" (actually blackmail material on various business partners).</li></ul><p>The motorcycle is painted in Wario's signature colors—purple body with yellow accents and a large \"W\" emblem on the gas tank. It's loud, obnoxious, belches black smoke, and can be heard coming from half a mile away, which somewhat defeats the purpose of a getaway vehicle. Wario refuses to acknowledge this flaw.</p><p>He's extremely protective of the bike—more so than most of his other possessions, because replacing it would be expensive and he's genuinely attached to it in a way he rarely is with inanimate objects. The motorcycle represents freedom, speed, and the ability to escape literally any situation by just driving really fast in the opposite direction. It's saved his life on at least fourteen separate occasions (he's carved small \"W\" marks into the handlebars to commemorate successful escapes).</p><p>Current location: Usually stored in whatever safehouse Wario is operating from, or hidden in an alley/cave/abandoned building when he's conducting business on foot. He has multiple backup keys hidden in various locations because he's locked himself out before and the resulting rage was expensive (he had to pay a locksmith, which physically hurt him).</p>",
+          "chat": "<p>You rev the motorcycle's engine, which roars to life with a sound like an angry dragon with mechanical laryngitis. The entire frame vibrates with barely-contained power, black smoke belching from the exhaust pipes. You grip the handlebars, feeling the familiar worn grips under your gloves, and grin with genuine affection. This bike has gotten you out of more impossible situations than you can count. You pat the gas tank fondly—as close to sentimental as you ever get—then twist the throttle and launch forward with a screech of tires and a \"WAH HA HA!\" that echoes off the surrounding buildings.</p>"
+        },
+        "weight": {
+          "value": 400,
+          "units": "lb"
+        },
+        "identified": true,
+        "unidentified": {
+          "name": "Customized Motorcycle",
+          "description": "<p>A heavily modified motorcycle painted in garish purple and yellow, covered in armor plating, custom modifications, and bearing a large \"W\" emblem on the gas tank. The exhaust pipes look oversized and jury-rigged, and there are scorch marks around the engine suggesting this thing has been pushed well beyond manufacturer specifications. It smells like oil, smoke, and bad decisions.</p>"
+        },
+        "quantity": 1,
+        "rarity": "rare",
+        "price": {
+          "value": 5000,
+          "denomination": "gp"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": "aMJbzkbnvztUlZqy",
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "jyk925q7wf5IXpy1"
+    },
+    {
+      "name": "Ledger of Debts Owed to Wario",
+      "type": "loot",
+      "img": "icons/sundries/documents/document-bound-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Uncommon Item.</strong> A thick leather-bound ledger where Wario meticulously records every debt owed to him, no matter how small or how dubious the original transaction. The book is organized chronologically and by debtor, written in Wario's barely-legible handwriting with occasional crude drawings of the people who owe him money (usually unflattering caricatures emphasizing their most embarrassing features).</p><p>The ledger contains hundreds of entries spanning decades of \"business transactions,\" including:</p><ul><li><strong>Waluigi:</strong> 14,783 gold pieces for \"partnership expenses\" dating back to 1015 BF, plus interest compounded monthly at 15% (Waluigi disputes this entire debt and the two have nearly come to blows over it multiple times)</li><li><strong>Captain Toad:</strong> 150 gold pieces for \"rescue services\" after Wario \"found\" him trapped in a collapsing ruin (Captain Toad claims Wario caused the collapse in the first place while looting, making the rescue fee ethically questionable)</li><li><strong>Various Iron Legion Soldiers:</strong> Smaller debts of 10-50 gold pieces each for \"lending\" them supplies, gambling losses, or \"protection fees\" (extortion by another name)</li><li><strong>\"That Merchant in Toad Town\":</strong> 2,000 gold pieces for an \"investment opportunity\" that the merchant insists was actually a con job (it was)</li><li><strong>Bowser:</strong> 50,000 gold pieces for \"storage fees\" related to keeping some of Bowser's treasure safe during a battle (Wario stole half of it and is now charging Bowser to return the other half)</li><li><strong>FNG Remi:</strong> 75 gold pieces for the healing potion provided after the bomb-in-a-box incident, plus 25 gold \"recruitment processing fee\" (she hasn't paid and Wario brings it up constantly)</li><li><strong>Numerous entries simply listed as \"That Guy\":</strong> Various amounts, suggesting Wario doesn't always remember who owes him money but writes it down anyway in case he figures it out later</li></ul><p>Each entry includes the original amount, date, reason for the debt, current amount with interest, and increasingly threatening notes about collection attempts. Recent entries have evolved from \"polite reminders\" to \"SERIOUSLY PAY UP\" to detailed descriptions of what Wario plans to repossess if payment isn't received (usually wildly disproportionate to the actual debt).</p><p>The ledger also contains a section titled \"People Who Owe Wario Favors (Non-Monetary),\" which includes things like \"Wally - 1 free emergency extraction (redeemable any time)\", \"That Fence in Darklands - Will look the other way once\", and \"Vampire from Raventree - Said 'I owe you one' after I didn't stake him (COLLECT THIS!!!)\"</p><p>Wario treats this ledger as sacred scripture. He updates it religiously, cross-references entries obsessively, and has multiple backup copies hidden in different safehouses. Losing this book would be financially catastrophic—he'd lose track of thousands of gold pieces in outstanding debts, favors owed, and blackmail leverage. It's one of the few items he would actually risk his life to recover if stolen.</p><p>The ledger's mere existence has legal implications: possession of it could be used as evidence of extortion, fraud, illegal gambling, unlicensed lending, and numerous other crimes across multiple jurisdictions. Wario is aware of this but considers the risk acceptable because \"keeping track of who owes you money is just good business sense, WAH HA HA!\"</p>",
+          "chat": "<p>You flip open the ledger to a random page, running your finger down the list of names and amounts owed. Your eyes light up as you calculate the total—it's substantial, even accounting for the fact that you'll probably only collect 30% of these debts (people are so unreliable about paying their obligations). You pull out a pencil and add a new entry: today's date, the target's name, the amount they now owe you, and a crude drawing of their stupid face. \"Another satisfied customer! WAH HA HA!\" You slam the ledger shut with satisfaction. One day, you'll collect on ALL of these. One day.</p>"
+        },
+        "weight": {
+          "value": 3,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Financial Record Book",
+          "description": "<p>A thick leather-bound ledger filled with names, dates, amounts, and increasingly threatening marginal notes. This appears to be some kind of accounting record, though the interest rates listed seem usurious and many of the \"transaction descriptions\" sound like euphemisms for criminal activity. Whoever keeps this book takes their financial records VERY seriously—there are multiple bookmarks, color-coded entries, and cross-references.</p>"
+        },
+        "quantity": 1,
+        "rarity": "uncommon",
+        "price": {
+          "value": 100,
+          "denomination": "gp"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "bjIFNG4bad0G1hf5"
+    },
+    {
+      "name": "Spiked Pauldrons of Intimidation",
+      "type": "equipment",
+      "img": "icons/equipment/shoulder/pauldron-segmented-iron.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Uncommon Item (Requires Attunement).</strong> Oversized shoulder armor pieces covered in threatening spikes, studs, and sharp edges that make Wario look even more imposing than his natural bulk already does. The pauldrons are painted purple to match his overalls and feature prominent yellow \"W\" emblems on each shoulder. They're purely aesthetic—the spikes are decorative rather than functional weapons—but they serve an important psychological purpose.</p><p>While wearing these pauldrons, you gain the following benefits:</p><ul><li>+1 bonus to Charisma (Intimidation) checks as your silhouette becomes more threatening and aggressive</li><li>You have advantage on Charisma (Intimidation) checks made against creatures of your size or smaller who can see you</li><li>When you successfully grapple a creature, you can use your bonus action to flex dramatically, causing the pauldrons' spikes to glint menacingly. The grappled creature must succeed on a DC 13 Wisdom saving throw or become frightened of you until the grapple ends</li><li>The pauldrons provide minimal actual protection (+1 AC), but they make you look like you're not someone to mess with, which is often more valuable than actual armor</li></ul><p>Wario commissioned these pauldrons specifically because he was tired of people not taking him seriously despite his criminal resume. \"I'm a THREATENING crime lord!\" he shouted at the blacksmith. \"Make me look like I'll break your kneecaps for being late with payment!\" The blacksmith obliged, though they wisely required payment upfront.</p><p>The pauldrons are slightly too large and occasionally get stuck in doorways, which Wario pretends doesn't happen even as he's wedged sideways trying to fit through a standard door frame. He's knocked over approximately seventeen displays in shops, demolished six door frames, and caught the spikes on overhead obstacles more times than he can count, but he refuses to remove them because \"looking intimidating is worth occasional property damage.\"</p><p>There's a small compartment hidden inside the left pauldron (DC 16 Investigation check to find) where Wario keeps emergency lockpicks and a folded wanted poster of himself from 1032 BF (he's proud of making the \"Most Wanted\" list and keeps it as a trophy, even though the bounty has since expired).</p>",
+          "chat": "<p>You roll your shoulders, making the spiked pauldrons shift and glint in the light. The motion is pure intimidation theater—you've practiced it in front of a mirror dozens of times to get the maximum threatening effect. The spikes catch the light perfectly, your shadow grows more imposing, and you can see your target's eyes widen slightly in recognition that you are, in fact, a dangerous individual who might actually follow through on threats. \"You were saying?\" you ask with a toothy grin, letting the pause hang heavy with implication.</p>"
+        },
+        "equipped": true,
+        "quantity": 1,
+        "weight": {
+          "value": 8,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Spiked Shoulder Armor",
+          "description": "<p>Oversized pauldrons covered in decorative spikes and studs, painted in garish purple and yellow. The armor pieces are clearly designed more for intimidation than practical protection—the spikes are positioned to maximize visual threat rather than defensive utility. Each shoulder bears a large \"W\" emblem. Someone who wears these wants everyone to know they're dangerous (or at least wants to look dangerous).</p>"
+        },
+        "price": {
+          "value": 400,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "armor": {
+          "value": 1,
+          "dex": null
+        },
+        "type": {
+          "value": "",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "world": {
+          "durability": {
+            "cur": 750,
+            "max": 750
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "v2P9MAMQrjBPwWME"
+    },
+    {
+      "name": "Bag of Definitely Not Stolen Koopa Shells",
+      "type": "loot",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Uncommon Items (Stolen).</strong> A burlap sack containing approximately 47 Koopa Troopa shells in various colors—green, red, blue, and one rare gold shell that Wario is particularly proud of. The shells are \"definitely not stolen\" according to Wario, despite the fact that they're clearly military-issue shells bearing Bowser's army insignia, and at least six of them have identification numbers etched into the underside.</p><p>Each shell can be used as a thrown weapon with the following properties:</p><ul><li><strong>Range:</strong> 30/60 feet</li><li><strong>Damage:</strong> 2d6 bludgeoning damage on hit</li><li><strong>Special:</strong> After hitting or missing the initial target, the shell continues bouncing and sliding in a straight line for up to 60 feet or until it hits a solid obstacle. Any creature in the shell's path must make a DC 13 Dexterity saving throw or take 1d6 bludgeoning damage as the shell ricochets off them. The shell makes up to 3 of these ricochet attacks before losing momentum and stopping.</li></ul><p><strong>Special Shell Properties by Color:</strong></p><ul><li><strong>Green Shells:</strong> Standard properties as described above. Wario has 20 of these.</li><li><strong>Red Shells:</strong> The shell magically curves toward the nearest creature within 30 feet of its flight path, making the initial attack roll with advantage. Wario has 15 of these.</li><li><strong>Blue Shells:</strong> The shell flies in an arc and lands on the most dangerous-looking enemy within range (highest CR or character level), dealing 3d6 bludgeoning damage and knocking them prone on a failed DC 14 Strength saving throw. Wario has 11 of these.</li><li><strong>Gold Shell:</strong> Extremely rare. The shell deals 4d6 bludgeoning damage and explodes in a 10-foot radius burst of golden light on impact. All creatures in the area must make a DC 15 Dexterity saving throw or take 2d6 radiant damage and be blinded for 1 round. Wario has exactly 1 of these and will only use it in absolute emergencies (defined as \"situations where I might die before I can spend my gold\"). He's considered selling it multiple times but can't bring himself to part with something so rare and valuable.</li></ul><p>Wario acquired these shells through a combination of battlefield looting (after battles he didn't participate in), purchasing from corrupt Koopa Troopa quartermasters, and at least one midnight raid on a Bowser army supply depot that went surprisingly well. He's been trying to fence them for years, but the market for military-grade Koopa shells is limited—most legitimate buyers won't touch obviously stolen military equipment, and most criminal buyers already have their own sources.</p><p>The shells are stored in a reinforced bag because Wario learned the hard way that keeping them loose in his Bag of Holding leads to accidental activation when he's rummaging around for something else (he once accidentally shelled himself in the face while looking for lunch, which was both painful and humiliating).</p><p>If confronted about the shells' obvious stolen status, Wario has a prepared speech: \"These? I found these! Finders keepers! What, Koopa Troopas can't lose their shells? They're shells! They fall off! That's a thing that happens! Prove they're stolen! WAH HA HA!\" This defense has never worked in any legal context, but Wario continues using it because he's committed to the bit.</p>",
+          "chat": "<p>You reach into the bag and pull out a shell—green this time, you're saving the good ones for when you really need them. You test its weight, feeling the smooth curve of the shell against your palm, then wind up and HURL it with the practiced motion of someone who's done this hundreds of times. The shell rockets forward, hits your target with a satisfying BONK, then ricochets off three walls and two bystanders before finally skidding to a stop. \"WAH HA HA! Still got it!\" You'll collect the shell later. Probably. If you remember. If someone else doesn't take it first.</p>"
+        },
+        "quantity": 47,
+        "weight": {
+          "value": 20,
+          "units": "lb"
+        },
+        "identified": true,
+        "unidentified": {
+          "name": "Bag of Turtle Shells",
+          "description": "<p>A heavy burlap sack filled with Koopa Troopa shells in various colors. The shells are in excellent condition—too good for battlefield salvage—and many bear military insignia or identification numbers. These are clearly military-issue equipment, and the quantity suggests they weren't acquired through legitimate channels. The bag itself has scorch marks and what might be claw marks, suggesting it's been through some adventures.</p>"
+        },
+        "price": {
+          "value": 15,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": "aMJbzkbnvztUlZqy",
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400000,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Z4dWlgt919fFzKH0"
+    },
+    {
+      "name": "\"Original Recipe for Peach's Cake\" (Disputed)",
+      "type": "loot",
+      "img": "icons/sundries/documents/document-bound-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Rare Item (Authenticity Questionable).</strong> A stained piece of parchment covered in recipe instructions, measurements, and what appear to be flour handprints. Wario claims this is the original, authentic recipe for Princess Peach's legendary cake—the cake that was so delicious it became famous throughout the Mushroom Kingdom before the war, served at royal functions, and considered one of the great culinary achievements of the pre-war era.</p><p>The recipe is written in elegant script (too elegant to be Wario's handwriting), with detailed instructions for a multi-layered strawberry cake with cream filling and decorative frosting. The measurements are in pre-war Mushroom Kingdom units, and there are marginal notes like \"His Majesty preferred extra strawberries\" and \"Princess requests heart-shaped decoration for festivals.\"</p><p>The parchment shows significant age—yellowed edges, small tears, stains from what might be actual cake ingredients (or might just be random kitchen spills from whoever actually wrote this). There's a royal seal watermark visible when held up to light, which Wario points to as \"proof of authenticity.\"</p><p><strong>If the recipe is actually followed:</strong> Make an Intelligence check (using Cook's Utensils proficiency if you have it). On a 15 or higher, you successfully create a cake that is genuinely delicious—anyone who eats a slice regains 2d4+2 hit points and gains advantage on Charisma checks for 1 hour as they're put in a wonderful mood by the exceptional taste. On a 10-14, you create a good but not spectacular cake that provides the healing but not the Charisma bonus. On a 9 or lower, something goes wrong and you waste the ingredients.</p><p><strong>The Authenticity Question:</strong> Wario acquired this recipe during a looting expedition to the ruins of Peach's castle sometime around 1005 BF. He claims he found it in the royal kitchens, sealed in a waterproof container, preserved perfectly for exactly this purpose. Skeptics point out that:</p><ul><li>The parchment's age is inconsistent—it looks old, but not 85+ years old</li><li>The royal seal watermark matches Peach-era documentation, but Wario could have stolen blank royal stationery and written this himself</li><li>Several ingredients listed didn't become available in the Mushroom Kingdom until after Peach's death, suggesting the recipe was written later</li><li>Wario has been caught selling \"authentic royal recipes\" before, most notably \"Bowser's Secret Fire Flower Chili Recipe\" which turned out to be copied from a common cookbook with \"add more heat\" scribbled in the margins</li></ul><p>Wario refuses to address these inconsistencies, insisting the recipe is genuine and pricing it at 5,000 gold pieces for interested buyers (\"It's a piece of history! Priceless! I'm practically giving it away at 5,000!\"). He's also created multiple \"certified copies\" that he sells for 500 gold pieces each, claiming they're \"authorized reproductions\" (they're just transcriptions he made himself).</p><p>The truth is ambiguous: the recipe might be authentic, might be a skilled forgery, or might be a real recipe that Wario found and is now wildly exaggerating the provenance of. The cake it produces is genuinely good regardless of authenticity, which Wario considers the only fact that matters (\"Does it matter WHERE the recipe came from if the cake tastes amazing? No! Stop asking questions and pay me!\").</p>",
+          "chat": "<p>You carefully unfold the parchment, treating it with exaggerated reverence as if it's a sacred relic. \"Behold! The ORIGINAL recipe for Princess Peach's legendary cake! Used at royal banquets! Tasted by kings! Queens! That plumber guy!\" You point at the flour handprints with pride. \"See? These are probably Peach's ACTUAL handprints! Priceless! Historical artifact! You can't put a price on history! But if you could, it would be 5,000 gold pieces! Final offer! Non-negotiable!\" You're already mentally spending the money before they've even agreed to buy it.</p>"
+        },
+        "weight": {
+          "value": 0.1,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Aged Recipe Parchment",
+          "description": "<p>A yellowed piece of parchment containing a detailed cake recipe with elegant handwriting, marginal notes, and what appear to be flour handprints. There's a watermark visible when held to light that might be a royal seal. The recipe looks old and valuable, though verifying its claimed provenance would require expert analysis. Someone is clearly trying to sell this as more than just a cake recipe.</p>"
+        },
+        "quantity": 1,
+        "rarity": "rare",
+        "price": {
+          "value": 5000,
+          "denomination": "gp"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "WyV4raeBOEKDZSka"
+    },
+    {
+      "name": "Brass Knuckles (Well-Used)",
+      "type": "weapon",
+      "img": "icons/weapons/fist/fist-knuckles-brass.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Common Weapon.</strong> A pair of worn brass knuckles that Wario has owned for decades, carried in his back pocket for situations where punching someone needs that extra oomph of metal-reinforced violence. The knuckles are dented, scratched, and stained with old blood (whose blood is unclear and Wario isn't telling), but they remain perfectly functional.</p><p>When you make an unarmed strike while wearing these brass knuckles, your unarmed strike deals 1d6 + Strength modifier bludgeoning damage instead of the normal unarmed strike damage. Additionally, you have advantage on Strength (Athletics) checks made to grapple creatures, as the knuckles provide better grip when grabbing someone.</p><p>The brass knuckles have small \"W\" letters crudely filed into each knuckle, which Wario added himself because \"if I'm gonna punch someone, they should know WHO punched them.\" This has backfired multiple times when victims reported the assault to authorities and the distinctive \"W\" pattern in their bruising was used as evidence, but Wario refuses to file the letters off because he's committed to his personal branding.</p><p>Wario has used these brass knuckles in countless bar fights, alley brawls, \"business negotiations,\" debt collection attempts, and general violence. They're as much a part of his standard equipment as his helmet or gloves. He's been arrested for carrying concealed weapons multiple times because of these knuckles (brass knuckles are illegal in most civilized territories), but he always pays the fine and gets them back because \"they're sentimental! I've had these since I was 20! You can't expect me to give up sentimental items!\"</p><p>The knuckles are sized for Wario's large hands, so they might be slightly too big for smaller characters (though they still function, just with disadvantage on Dexterity (Sleight of Hand) checks while wearing them due to reduced manual dexterity).</p>",
+          "chat": "<p>You slide the brass knuckles onto your fingers with practiced ease—they fit perfectly, worn smooth in exactly the spots where your knuckles rest. You make a fist, feeling the reassuring weight of metal reinforcing your punch, then test the air with a few shadow-boxing jabs. The \"W\" letters on each knuckle catch the light. \"Alright,\" you say with a grin that promises violence. \"Let's talk business. And by business, I mean you're gonna pay what you owe, or I'm gonna rearrange your face until you WANT to pay.\" You crack your knuckles menacingly—the sound is much louder with brass reinforcement.</p>"
+        },
+        "equipped": true,
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Brass Knuckles",
+          "description": "<p>A pair of well-worn brass knuckles with \"W\" letters filed into each knuckle. The metal is dented and stained, clearly having seen extensive use in combat. Standard criminal equipment, illegal in most jurisdictions.</p>"
+        },
+        "price": {
+          "value": 10,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "damage": {
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "versatile": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        },
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "",
+              "bonus": "",
+              "critical": {},
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "properties": [],
+        "proficient": null,
+        "range": {
+          "units": "ft"
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {},
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "D4aAHJD8nbfBQIVr"
+    },
+    {
+      "name": "Grappling Hook and Rope",
+      "type": "equipment",
+      "img": "icons/tools/fishing/hook-simple-bone.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Common Item.</strong> A professional-grade grappling hook attached to 100 feet of reinforced rope, designed for scaling walls, crossing gaps, and accessing areas that Wario has no legal right to be in. The hook is three-pronged steel with wickedly sharp points that bite into stone, wood, or most building materials. The rope is tested to hold up to 800 pounds—more than enough for Wario's considerable bulk plus a heavy bag of loot.</p><p>The grappling hook can be thrown up to 40 feet (with disadvantage on the attack roll if thrown beyond 20 feet). When it successfully catches on a ledge, windowsill, or other secure point, you can climb the rope using your climbing speed. Wario has modified the rope with knots every 5 feet for easier climbing (granting advantage on Athletics checks to climb it if you use the knots).</p><p>Special markings on the rope show measurement intervals—every 25 feet is marked with a small yellow tag, allowing Wario to quickly estimate how much rope he's used without having to count (useful when you're dangling off a castle wall in the dark and need to know if you have enough rope to reach the ground).</p><p>Wario has used this grappling hook for:</p><ul><li>Breaking into 23 different buildings through second or third-story windows</li><li>Escaping from 17 buildings the same way (sometimes the same buildings he broke into)</li><li>Crossing a canyon while fleeing Iron Legion soldiers (he cut the rope after crossing, dropping the soldiers into the canyon—they survived but Wario didn't stick around to confirm)</li><li>Fishing a chest of gold coins out of a well after accidentally dropping it (the hook served admirably as an improvised fishing hook)</li><li>Tripping a pursuing guard by throwing the hook at his ankles (not the intended use, but effective)</li><li>One memorable incident involving hooking a vampire and dragging them into sunlight (Wario describes this as \"creative problem-solving,\" others describe it as \"attempted murder,\" semantics really)</li></ul><p>The hook and rope are maintained meticulously because Wario's life has depended on their reliability multiple times. He checks the rope for fraying before every job, oils the hook's hinge mechanism regularly, and has replaced the rope three times over the years when it showed signs of wear. This is one of the few areas where Wario's paranoia and attention to detail actually work in his favor—a rope breaking at the wrong moment would be expensive (medical bills) or fatal (morgue bills), and he's too greedy to risk either outcome.</p><p>The rope is coiled and secured to his belt with a quick-release clasp, allowing him to deploy it rapidly in emergencies. The hook itself hangs from a dedicated loop on his belt, easily accessible with his right hand. Years of practice have made him surprisingly proficient with the grappling hook—he can deploy, throw, and catch with practiced efficiency that wouldn't look out of place in a professional climber or cat burglar (Wario is technically both).</p>",
+          "chat": "<p>You unhook the grappling hook from your belt, give the rope a quick inspection for fraying (all good), then begin whirling the hook in a circle to build momentum. The steel hook whistles through the air as it spins faster and faster, then you release—the hook flies upward in a perfect arc, trailing rope behind it. It catches on the ledge with a satisfying *CLANK* and you give the rope a sharp tug to test the hold. Solid. You start climbing with practiced efficiency, hand over hand, boots finding purchase against the wall. \"WAH HA HA! They never guard the second floor properly! Amateurs!\"</p>"
+        },
+        "equipped": true,
+        "quantity": 1,
+        "weight": {
+          "value": 8,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Climbing Equipment",
+          "description": "<p>A professional-grade grappling hook with 100 feet of reinforced rope. The equipment is well-maintained, frequently used, and marked with measurement tags. Standard equipment for climbers, explorers, or anyone who needs to access vertical spaces—legitimately or otherwise.</p>"
+        },
+        "price": {
+          "value": 2,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null,
+        "type": {
+          "value": "",
+          "baseItem": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "8pQHNyWk7gObQa7l"
+    },
+    {
+      "name": "Lockpicking Tools (Masterwork)",
+      "type": "equipment",
+      "img": "icons/tools/hand/lockpicks-steel-grey.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Uncommon Item.</strong> A high-quality set of thieves' tools in a compact leather case, containing picks, tension wrenches, shims, and various specialized tools for defeating locks, traps, and security mechanisms. These aren't standard adventurer's thieves' tools—they're professional burglar equipment, custom-made by a master locksmith who Wario paid extremely well to \"ask no questions about what I'm using these for.\"</p><p>The tools grant the following benefits:</p><ul><li>You have advantage on Dexterity checks made to pick locks using these tools</li><li>The time required to pick a lock is halved (minimum 1 action)</li><li>You can attempt to pick locks of Superior quality (DC 25+) without disadvantage</li><li>The tools include a small magnifying lens for examining lock mechanisms in detail, granting +2 bonus to Intelligence (Investigation) checks to understand how a lock works before attempting to pick it</li></ul><p>The tools are organized in a custom case with each piece secured in a dedicated slot—no rattling, no loose pieces, everything exactly where Wario expects it to be even in pitch darkness (he's practiced picking locks blindfolded enough times that he can identify each tool by touch alone). The case itself is lined with soft cloth to prevent noise when opening or closing it.</p><p>Wario has owned these tools for over thirty years, replacing worn pieces as needed but keeping the original case (which has his initials \"W.W.\" stamped into the leather in gold leaf—understated by Wario's standards, which tells you how seriously he takes these tools). He's used them to open thousands of locks across hundreds of heists, break-ins, and \"unauthorized entry operations.\"</p><p>The tools have picked:</p><ul><li>Iron Legion vault locks (seventeen successful attempts, three failures where he had to flee)</li><li>Vampire crypt seals (\"They rely too much on magic wards, not enough on good mechanical security\")</li><li>Regal Empire treasury doors (twice, both times successfully, never caught)</li><li>Numerous civilian homes, shops, warehouses, and private safes</li><li>His own handcuffs after being arrested (four times—he's getting better at it)</li><li>One memorable magical lock that required both mechanical picking AND counterspelling the ward simultaneously (Wario paid a wizard to stand next to him and dispel on cue while he worked the picks—the wizard took a percentage of the loot and never asked questions)</li></ul><p>The tools are illegal to possess in most jurisdictions without proper licensing (locksmith's guild membership, security contractor credentials, etc.), which Wario obviously doesn't have. He's been arrested for possession of burglary tools on multiple occasions, usually in conjunction with actual burglary charges. The tools have been confiscated by authorities seven times—Wario has stolen them back from evidence lockup six of those times (the seventh time he just bought a new set and broke into the evidence room to steal OTHER valuable items since he was there anyway).</p><p>Wario stores the tools in an inner pocket of his overalls where they're always accessible but not visible during casual inspection. He checks them obsessively before every job—\"Measure twice, pick once\" is one of the few pieces of professional wisdom he actually follows religiously.</p>",
+          "chat": "<p>You pull out your lockpicking tools and select the appropriate pick and tension wrench with the practiced efficiency of someone who's done this a thousand times. You kneel in front of the lock, insert the tools, and close your eyes to focus entirely on the feedback through your fingertips. Click. Click. The pins are falling into place one by one—you can feel each tumbler giving way under the gentle pressure. There's an art to this, a rhythm, almost meditative if you weren't doing it to rob someone. Final pin clicks into place and the lock turns with a satisfying *clunk*. \"WAH HA HA! Still got it!\" You tuck the tools away and push the door open, ready to see what treasures await.</p>"
+        },
+        "equipped": true,
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Fine Lockpicking Set",
+          "description": "<p>A high-quality set of thieves' tools in a leather case with gold-stamped initials \"W.W.\" The tools are professional grade—much better than standard adventurer equipment—and meticulously organized. These are the tools of someone who picks locks for a living, not just occasionally.</p>"
+        },
+        "price": {
+          "value": 250,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null,
+        "type": {
+          "value": "",
+          "baseItem": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "world": {
+          "durability": {
+            "cur": 750,
+            "max": 750
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "67DiaYuV9leGRo8e"
+    },
+    {
+      "name": "Map to \"Wario's Secret Vault\"",
+      "type": "loot",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Very Rare Item (Unique).</strong> A hand-drawn map on weathered parchment showing the location of Wario's primary treasure vault—the place where he stores the bulk of his accumulated wealth, stolen artifacts, and items too valuable or dangerous to carry around. The map is encrypted using a cipher only Wario knows (or so he thinks—it's actually a fairly simple substitution cipher that a competent cryptographer could break in an hour, but Wario overestimates its security).</p><p>The map indicates the vault is located in the Darklands region, specifically in a network of abandoned mine tunnels beneath what used to be a Mushroom Kingdom fortress before the war. The location is deliberately remote, defensible, and far from major faction territories. The map includes:</p><ul><li>Precise coordinates using Wario's personal reference system (which doesn't match any standard cartographic system, making it useless to anyone who doesn't know his methodology)</li><li>Notes on trap locations protecting the vault approaches: \"Pit trap at junction 7 (I know where it is, don't step left)\", \"Fake wall at corridor 12 (real entrance is 3 feet to the right)\", \"Poison dart trap in main chamber (disabled but might reset, check first)\"</li><li>Entry code for the vault door: \"My favorite number + year I started getting rich + Waluigi's birthday (he doesn't know I know)\" (This evaluates to 3 + 997 + 14 = 1014, though you'd need to know those personal details to solve it)</li><li>Warnings: \"DO NOT TOUCH THE GOLD PILE IN NORTHEAST CORNER - CURSED\" and \"If vault door is open when you arrive, LEAVE IMMEDIATELY, someone else is here\"</li><li>Backup escape route marked in red: \"If everything goes wrong, emergency Warp Pipe under the false floor, leads to Toad Town black market\"</li></ul><p>The vault allegedly contains (according to Wario's boasts, actual contents may vary):</p><ul><li>Approximately 500,000+ gold pieces in various currencies</li><li>Jewelry, gems, and precious metals worth another 200,000+ gold</li><li>Magical items Wario has stolen but hasn't found buyers for yet</li><li>Blackmail material on dozens of powerful individuals</li><li>Deeds to properties Wario acquired through questionable means</li><li>Several artifacts that are definitely cursed but might be valuable to the right buyer</li><li>\"The good garlic\" (stored in climate-controlled conditions, apparently)</li><li>His collection of wanted posters featuring himself (he's sentimental about these)</li></ul><p>Wario carries this map on his person at all times, hidden in a secret pocket sewn into the inside of his helmet. The logic is that if someone manages to get the map, they've already captured or killed him, so they've earned the treasure (except he also has the vault trapped extensively, so they'll probably die trying to access it, which he finds hilarious in a dark way).</p><p>The map is one of the most valuable items Wario possesses—not because of the parchment itself, but because it represents access to his entire accumulated fortune. Losing this map would be psychologically devastating and financially catastrophic. He's created exactly three backup copies hidden in different safehouses, each protected by its own security measures and traps.</p><p>Numerous criminal organizations, bounty hunters, and intelligence agencies would pay fortunes for this map. The Iron Legion alone has an open bounty of 50,000 gold pieces for \"credible information leading to the location of Wario's primary asset cache,\" though Wario finds this both flattering (\"They think my stuff is worth 50,000 gold reward!\") and insulting (\"ONLY 50,000? My vault has twenty times that! Cheapskates!\").</p>",
+          "chat": "<p>You carefully unfold the map—this is one document you never handle carelessly. The familiar lines of the mine tunnels, the marked trap locations, the encoded entry sequence... you've memorized every detail, but seeing it on parchment is reassuring. This map represents everything you've worked for over eighty years of theft, extortion, and opportunistic looting. Your entire fortune, concentrated in one heavily-trapped underground vault that only you can access safely. You trace the route with one gloved finger, mentally calculating the current value of the contents (it goes up every month as you add more stolen goods). \"All mine,\" you mutter with deep satisfaction. \"Every last coin. WAH HA HA!\" You refold the map precisely along its creases and tuck it back into your helmet's secret pocket where it belongs.</p>"
+        },
+        "weight": {
+          "value": 0.1,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Encrypted Map",
+          "description": "<p>A hand-drawn map on weathered parchment, covered in coded annotations and cryptic symbols. The map appears to show a network of underground tunnels with various marked points labeled in cipher. There are warnings and notes in the margins, also encrypted. Whatever this map leads to, the creator went to considerable effort to keep the location secret. The parchment has been folded and refolded many times—this is a frequently consulted document.</p>"
+        },
+        "quantity": 1,
+        "rarity": "veryRare",
+        "price": {
+          "value": 50000,
+          "denomination": "gp"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ciRoj8xGMyrlwxu2"
+    },
+    {
+      "name": "Portable Bomb Workshop",
+      "type": "equipment",
+      "img": "icons/tools/smithing/hammer-sledge-steel-grey.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Rare Item.</strong> A compact kit containing all the tools and materials necessary for assembling Bob-ombs, explosive charges, and other incendiary devices in the field. The kit folds into a reinforced case (12\" x 8\" x 4\") that Wario can carry in his Bag of Holding or strap to his motorcycle when he needs it readily accessible. Opening the case reveals organized compartments containing:</p><ul><li>Fuses of various lengths and burn rates</li><li>Explosive powder in sealed, impact-resistant containers (enough for 10 standard bombs)</li><li>Casing materials (metal shells, wooden boxes, clay vessels)</li><li>Timing mechanisms (clockwork, chemical delay, magical triggers)</li><li>Assembly tools (precision screwdrivers, wire cutters, crimping pliers)</li><li>Safety equipment (thick gloves, protective goggles, blast cloth for wrapping volatile materials)</li><li>Instruction manual (mostly pictures because Wario can't be bothered to read detailed text)</li></ul><p>Using this kit, you can craft explosive devices during a short or long rest. The type of device determines the construction time and cost:</p><ul><li><strong>Basic Bomb:</strong> 30 minutes, 25gp materials. Deals 3d6 fire damage in a 10-foot radius, DC 13 Dexterity save for half damage.</li><li><strong>Shaped Charge:</strong> 1 hour, 50gp materials. Deals 5d6 fire damage in a 5-foot radius or can be used to blast through barriers (treats doors/walls as having 20 fewer HP for purposes of destruction).</li><li><strong>Smoke Bomb:</strong> 15 minutes, 10gp materials. Creates a 20-foot radius cloud of heavily obscuring smoke lasting 1 minute.</li><li><strong>Flash Bomb:</strong> 20 minutes, 20gp materials. Creatures within 15 feet must make DC 14 Constitution save or be blinded and deafened for 1 minute.</li><li><strong>Time-Delayed Bomb:</strong> 1 hour, 40gp materials. As Basic Bomb but can be set to detonate up to 1 hour after placement.</li></ul><p>Crafting explosive devices requires proficiency with either Tinker's Tools or Alchemist's Supplies. Each crafting attempt requires a DC 12 Intelligence check—on a success, you create a functional device; on a failure, you waste the materials but nothing explodes (yet); on a natural 1, there's an immediate accident dealing 2d6 fire damage to you as something goes wrong during assembly.</p><p>Wario has used this workshop to prepare explosives for:</p><ul><li>Vault doors that wouldn't yield to lockpicking</li><li>\"Negotiations\" where he needed leverage (placing visible bombs nearby as threat displays)</li><li>Tactical demolitions during heists (blowing holes in walls for alternative entry/exit points)</li><li>Covering escapes with smoke bombs</li><li>The aforementioned Bomb Gift Boxes (he assembles the bombs, wraps them festively, gives them away)</li><li>One incident where he mined an entire corridor in an Iron Legion facility and brought down the ceiling on pursuing guards (this is the event that got him banned from three territories and added 10,000 gold to his bounty)</li></ul><p>The kit itself is illegal to possess in most civilized areas—explosives manufacturing equipment requires licensing, permits, and guild membership that Wario obviously doesn't have. He's been arrested for possession of bomb-making materials twice, though both times he talked his way out by claiming he's \"a demolitions expert providing essential services\" (technically true) and paying substantial bribes (also technically true).</p><p>Wario is surprisingly careful with explosive materials—carelessness means losing fingers, and fingers are important for counting money. He follows proper safety protocols when assembling devices (except when he's in a hurry, which is often), stores materials properly (except when he's lazy, which is also often), and disposes of duds safely (by throwing them at enemies and hoping they explode anyway).</p><p>The kit is marked with bright yellow warning labels in multiple languages: \"EXPLOSIVES - HANDLE WITH CARE\", \"NO SMOKING\", \"KEEP AWAY FROM FIRE\", and one Wario added himself: \"PROPERTY OF WARIO - STEALING THIS WILL RESULT IN EXPLODING - WAH HA HA!\" The last warning is not a joke—he's trapped the case with a small charge that detonates if opened without the correct sequence (twist lock left, right, left, then press the release).</p>",
+          "chat": "<p>You open the portable bomb workshop case and survey the neatly organized compartments with the satisfaction of a craftsman reviewing quality tools. You pull out explosive powder, fuses, casing materials, and begin assembling a device with practiced efficiency. Your hands move through the familiar motions—measure powder, pack casing, attach fuse, set timer, test mechanism. Within minutes you have a functional bomb, beautifully crafted if you do say so yourself. You hold it up to admire your work. \"Perfect! WAH HA HA! This should solve my problem!\" You carefully set it aside and start assembling a second one. You might be solving a lot of problems today.</p>"
+        },
+        "equipped": true,
+        "quantity": 1,
+        "weight": {
+          "value": 15,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Suspicious Tool Kit",
+          "description": "<p>A reinforced case covered in warning labels about explosives, fire hazards, and handling precautions. Opening it reveals organized compartments containing powders, fuses, mechanical components, and assembly tools. This is clearly equipment for manufacturing explosive devices—highly illegal in most jurisdictions without proper licensing.</p>"
+        },
+        "price": {
+          "value": 800,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null,
+        "type": {
+          "value": "",
+          "baseItem": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "world": {
+          "durability": {
+            "cur": 1000,
+            "max": 1000
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "bMfFhu3A0JWHgfu0"
+    },
+    {
+      "name": "Counterfeit Coin Press (Broken)",
+      "type": "loot",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Uncommon Item (Non-Functional).</strong> A hand-operated coin press designed for creating counterfeit currency, currently broken and non-operational. The press is a mechanical device roughly the size of a large book, consisting of two dies (one for each side of a coin), a leverage arm for applying pressure, and a base plate. When functional, it could produce convincing fake coins that would pass casual inspection, though magical detection or expert numismatists could identify them as forgeries.</p><p>The press is currently broken because Wario used it too aggressively (\"I was trying to make coins FASTER!\") and cracked one of the dies. Repairing it would require either a skilled blacksmith (cost: 500gp, 1 week) or access to the original manufacturer (unlikely—Wario stole this from a counterfeiting operation he raided, and he's pretty sure those counterfeiters want it back along with his head).</p><p>When functional, the press could produce approximately 20-30 counterfeit coins per hour of work. The quality depended on the user's skill—a successful DC 15 Dexterity check using Tinker's Tools would produce convincing fakes, while failures resulted in obviously wrong coins (incorrect weight, poor detail, wrong metal composition).</p><p>Wario used this press extensively between 1025-1033 BF, producing an estimated 50,000+ counterfeit gold pieces that he introduced into circulation across multiple territories. This operation eventually contributed to minor inflation in several regional economies, though Wario was never caught and the full extent of his counterfeiting was never discovered by authorities (they know SOMEONE flooded the market with fake coins, but they never connected it to him specifically).</p><p>The press broke in 1034 BF during an attempt to counterfeit Regal Empire platinum pieces (worth 10gp each, making them lucrative targets for counterfeiting). Wario applied too much pressure trying to get the platinum's distinctive shine, the die cracked with a loud SNAP, and he barely avoided getting his hand crushed when the press mechanism failed catastrophically. He's kept the broken press ever since, meaning to get it repaired \"when I have time\" (he's had six years and still hasn't done it).</p><p>Possession of counterfeiting equipment is a serious crime in all civilized territories—punishable by imprisonment, heavy fines, or in some jurisdictions, amputation of the right hand (the theory being you can't counterfeit if you can't work the press). Wario keeps the broken press anyway because:</p><ol><li>He paid good money to steal it (transportation costs, bribes, etc.)</li><li>It might be valuable to the right buyer (other criminals)</li><li>He's sentimental about his greatest counterfeiting success (that 50,000 fake gold run)</li><li>He genuinely intends to repair it someday (probably not, but maybe)</li></ol><p>The press has the original manufacturer's mark filed off (Wario's work), replacement parts from three different sources jerry-rigged together (also Wario's work), and stains from various metals and inks used in the counterfeiting process. It's clearly been heavily used and poorly maintained, which is typical of Wario's approach to equipment that isn't directly keeping him alive.</p>",
+          "chat": "<p>You pull out the broken coin press and examine the cracked die with a mixture of nostalgia and frustration. This press made you SO much money before it broke. Literally made you money—fake money, but money that spent exactly like real money until someone checked too carefully. You run your thumb over the crack in the die, remembering the SNAP sound when it failed, the way the mechanism seized up, how close you came to losing your hand. \"Should get this fixed,\" you mutter, not for the first time. \"Could make SO much money if this worked again.\" You tuck it back into your bag, telling yourself you'll find a blacksmith next week. You've been telling yourself that for six years.</p>"
+        },
+        "weight": {
+          "value": 10,
+          "units": "lb"
+        },
+        "identified": false,
+        "unidentified": {
+          "name": "Broken Mechanical Press",
+          "description": "<p>A hand-operated press mechanism with dies designed to stamp circular objects—coins, specifically. One of the dies is cracked and the mechanism is seized. The manufacturer's mark has been deliberately filed off. This is clearly counterfeiting equipment, highly illegal even when broken. Why anyone would keep non-functional criminal evidence is puzzling.</p>"
+        },
+        "quantity": 1,
+        "rarity": "uncommon",
+        "price": {
+          "value": 200,
+          "denomination": "gp"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284324,
+        "createdTime": 1782005284324
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "SPdcpKWbo7qkWJ5d"
+    },
+    {
+      "name": "Wario's Bag of Holding",
+      "type": "container",
+      "folder": "CXJsbhXV9uLcWcfH",
+      "img": "icons/containers/bags/pack-engraved-leather-tan.webp",
+      "system": {
+        "description": {
+          "value": "<div><p>This bag has an interior space considerably larger than its outside dimensions—roughly 2 feet square and 4 feet deep on the inside. The bag can hold up to 500 pounds, not exceeding a volume of 64 <span class=\"no-break\">cubic</span> feet. The bag weighs 5 pounds, regardless of its contents. Retrieving an item from the bag requires a Utilize action.</p><p>If the bag is overloaded, pierced, or torn, it is destroyed, and its contents are scattered in the Astral Plane. If the bag is turned inside out, its contents spill forth unharmed, but the bag must be put right before it can be used again. The bag holds enough air for 10 minutes of breathing, divided by the number of breathing creatures inside.</p><p>Placing a <em>Bag of Holding</em> inside an extradimensional space created by a <em>@UUID[Compendium.dnd5e.equipment24.Item.dmgHewardsHandyH]{Handy Haversack}</em>, <em>@UUID[Compendium.dnd5e.equipment24.Item.dmgPortableHole0]{Portable Hole}</em>, or similar item instantly destroys both items and opens a gate to the Astral Plane. The gate originates where the one item was placed inside the other. Any creature within a 10-foot-radius Sphere centered on the gate is sucked through it to a random location on the Astral Plane. The gate then closes. The gate is one-way and can't be reopened.</p></div>",
+          "chat": ""
+        },
+        "identifier": "bag-of-holding",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": "",
+          "name": "Unidentified Container"
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 5,
+          "units": "lb"
+        },
+        "price": {
+          "value": 400,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "attunement": "",
+        "currency": {
+          "pp": 0,
+          "gp": 0,
+          "ep": 0,
+          "sp": 0,
+          "cp": 0,
+          "IETzTwoDi4ElBJAV": 0
+        },
+        "properties": [
+          "mgc",
+          "weightlessContents",
+          "gear"
+        ],
+        "capacity": {
+          "weight": {
+            "value": 10000,
+            "units": "lb"
+          },
+          "volume": {
+            "units": "cubicFoot",
+            "value": null
+          },
+          "count": null
+        },
+        "attuned": false,
+        "equipped": true
+      },
+      "effects": [],
+      "flags": {
+        "scene-packer": {
+          "hash": "989ab06b9d63ac2bcc04ae47a19df862d017d422"
+        },
+        "item-identification": {
+          "originalName": "Bag of Holding",
+          "originalImg": "icons/containers/bags/pack-engraved-leather-tan.webp",
+          "originalDescription": "<div><p>This bag has an interior space considerably larger than its outside dimensions—roughly 2 feet square and 4 feet deep on the inside. The bag can hold up to 500 pounds, not exceeding a volume of 64 <span class=\"no-break\">cubic</span> feet. The bag weighs 5 pounds, regardless of its contents. Retrieving an item from the bag requires a Utilize action.</p><p>If the bag is overloaded, pierced, or torn, it is destroyed, and its contents are scattered in the Astral Plane. If the bag is turned inside out, its contents spill forth unharmed, but the bag must be put right before it can be used again. The bag holds enough air for 10 minutes of breathing, divided by the number of breathing creatures inside.</p><p>Placing a <em>Bag of Holding</em> inside an extradimensional space created by a <em>@UUID[Compendium.dnd5e.equipment24.Item.dmgHewardsHandyH]{Handy Haversack}</em>, <em>@UUID[Compendium.dnd5e.equipment24.Item.dmgPortableHole0]{Portable Hole}</em>, or similar item instantly destroys both items and opens a gate to the Astral Plane. The gate originates where the one item was placed inside the other. Any creature within a 10-foot-radius Sphere centered on the gate is sucked through it to a random location on the Astral Plane. The gate then closes. The gate is one-way and can't be reopened.</p></div>",
+          "isIdentified": true,
+          "processed": true
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBagOfHolding0",
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005284324,
+        "modifiedTime": 1782005284324,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "sort": 300000,
+      "ownership": {
+        "default": 0,
+        "0tmjbgjsJjnyOG4D": 3
+      },
+      "_id": "wnOSyc1Crggm8mhL"
+    }
+  ],
+  "effects": [],
+  "ownership": {
+    "default": 0
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "dnd-part-2",
+      "uuid": "Actor.5tqjbYxHdJAC6FTa",
+      "coreVersion": "14.365",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    },
+    "coreVersion": "14.365",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1782005284324,
+    "modifiedTime": 1786383961322,
+    "lastModifiedBy": "f9K62vO9hIl1GByi"
+  }
+}
