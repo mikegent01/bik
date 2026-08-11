@@ -1244,44 +1244,6 @@
       "img": "icons/skills/social/intimidation-impersonate.webp"
     },
     {
-      "name": "Infiltrator Background",
-      "type": "background",
-      "system": {
-        "description": {
-          "value": "<p>Liberated Toads field training: disguise, reconnaissance, emergency travel, intelligence handling, and survival without a stable home base.</p>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "Waluipedia campaign",
-          "rules": "2014",
-          "revision": 1
-        },
-        "identifier": "infiltrator-background",
-        "quantity": 1,
-        "weight": 0,
-        "price": {
-          "value": 0,
-          "denomination": "gp"
-        },
-        "equipped": false,
-        "proficient": true
-      },
-      "flags": {
-        "bik": {
-          "source": "Bones player-character dossier",
-          "ledgerLinked": true
-        }
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 70000,
-      "_id": "0f946c82723c46d9",
-      "ownership": {
-        "default": 0
-      },
-      "img": "icons/sundries/documents/document-bound-tan.webp"
-    },
-    {
       "name": "Unknown Identity",
       "type": "feat",
       "system": {
