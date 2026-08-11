@@ -32,10 +32,27 @@
     playing: false,
     speed: 1,
     cue: -1,
+    seg: -1,
     lastTick: 0,
     raf: 0,
-    typed: -1
+    typed: -1,
+    spokenCue: -1
   };
+
+  /* ---------------- audio desk (rnn-audio.js, optional) ---------------- */
+  function A() { return window.RNNAudio && window.RNNAudio.supported ? window.RNNAudio : null; }
+
+  /* Read a caption aloud once per cue, only while actually rolling. */
+  function speakLine(c, isField) {
+    var a = A();
+    if (!a || !a.isVoiceOn() || !S.playing) return;
+    var idx = S.cues.indexOf(c);
+    if (idx === S.spokenCue) return;
+    S.spokenCue = idx;
+    a.speak(c.line.text, { durationMs: c.duration / S.speed, field: isField });
+    var f = el('rnn-cb-speaking');
+    if (f) f.hidden = false;
+  }
 
   /* ---------------- build cue list ---------------- */
   function buildCues(ep) {
@@ -150,9 +167,21 @@
       anchor.classList.toggle('is-field', isField);
       el('rnn-stage').style.opacity = isTitle ? '0' : '1';
 
-      el('rnn-lower-name').textContent = isField ? (S.episode.fieldName || 'FIELD RUNNER') : (S.episode.anchorName || 'ANCHOR');
-      el('rnn-lower-role').textContent = isField ? (S.episode.fieldRole || '') : (S.episode.anchorRole || '');
+      var who = isField ? (S.episode.fieldName || 'FIELD RUNNER') : (S.episode.anchorName || 'ANCHOR');
+      var role = isField ? (S.episode.fieldRole || '') : (S.episode.anchorRole || '');
+      el('rnn-lower-name').textContent = who;
+      el('rnn-lower-role').textContent = role;
       el('rnn-lower').style.opacity = isTitle ? '0.35' : '1';
+      el('rnn-cb-name').textContent = who;
+      el('rnn-cb-role').textContent = role;
+
+      // audio: sting on segment change, then read the new line aloud
+      if (c.segIndex !== S.seg) {
+        S.seg = c.segIndex;
+        if (A()) window.RNNAudio.sting(
+          seg.slug === 'COLD OPEN' ? 'open' : seg.slug === 'SIGN OFF' ? 'signoff' : 'seg');
+      }
+      speakLine(c, isField);
 
       // highlight rundown + transcript
       Array.prototype.slice.call(document.querySelectorAll('.rnn-rundown-item')).forEach(function (n) {
@@ -170,6 +199,7 @@
     var chars = revealMs <= 0 ? c.line.text.length
       : Math.round(c.line.text.length * Math.min(1, into / revealMs));
     if (chars !== S.typed) {
+      if (A() && S.playing && chars > S.typed && (chars % 3 === 0)) window.RNNAudio.blip();
       S.typed = chars;
       var shown = c.line.text.slice(0, chars);
       el('rnn-caption').innerHTML = esc(shown) +
@@ -189,13 +219,19 @@
   }
 
   function play() {
-    if (S.t >= S.total) S.t = 0;
+    if (S.t >= S.total) { S.t = 0; S.spokenCue = -1; }
     S.playing = true;
     S.lastTick = performance.now();
     el('rnn-gate').classList.add('hide');
     el('rnn-onair').classList.remove('paused');
     el('rnn-onair').innerHTML = '<span class="dot">●</span> ON AIR';
     el('rnn-play').textContent = '⏸ PAUSE';
+    if (A()) {
+      window.RNNAudio.start();
+      // speak the line we are sitting on, since paint() may not change cue
+      var c = S.cues[cueAt(S.t)];
+      if (c) { S.spokenCue = -1; speakLine(c, c.seg.type === 'field'); }
+    }
     S.raf = requestAnimationFrame(tick);
   }
 
@@ -205,6 +241,9 @@
     el('rnn-onair').classList.add('paused');
     el('rnn-onair').textContent = '❚❚ HELD';
     el('rnn-play').textContent = '▶ PLAY';
+    if (A()) { window.RNNAudio.stop(); }
+    var f = el('rnn-cb-speaking');
+    if (f) f.hidden = true;
   }
 
   function toggle() { S.playing ? pause() : play(); }
@@ -212,6 +251,8 @@
   function seek(ms) {
     S.t = Math.max(0, Math.min(S.total - 1, ms));
     S.cue = -1;
+    S.spokenCue = -1;
+    if (A()) window.RNNAudio.stopSpeech();
     paint(true);
   }
 
@@ -229,6 +270,39 @@
     el('rnn-onair').textContent = '◼ OFF AIR';
     el('rnn-gate').classList.remove('hide');
     el('rnn-gate-label').textContent = 'REPLAY BROADCAST';
+    if (A()) window.RNNAudio.stop();
+    var f = el('rnn-cb-speaking');
+    if (f) f.hidden = true;
+  }
+
+  /* ---------------- audio toggles ---------------- */
+  function toggleMusic() {
+    var a = A();
+    if (!a) return;
+    var on = !a.isMusicOn();
+    a.setMusic(on);
+    if (on && S.playing) a.start();
+    var b = el('rnn-music');
+    b.textContent = on ? '🥁 MUSIC ON' : '🔇 MUSIC OFF';
+    b.classList.toggle('on', on);
+  }
+
+  function toggleVoice() {
+    var a = A();
+    if (!a || !a.ttsSupported) return;
+    var on = !a.isVoiceOn();
+    a.setVoice(on);
+    var b = el('rnn-voice');
+    b.textContent = on ? '🗣 VOICE ON' : '🗣 VOICE OFF';
+    b.classList.toggle('on', on);
+    if (on && S.playing) {
+      S.spokenCue = -1;
+      var c = S.cues[cueAt(S.t)];
+      if (c) speakLine(c, c.seg.type === 'field');
+    } else {
+      var f = el('rnn-cb-speaking');
+      if (f) f.hidden = true;
+    }
   }
 
   /* ---------------- wiring ---------------- */
@@ -243,12 +317,16 @@
       var order = [1, 1.5, 2, 0.75];
       S.speed = order[(order.indexOf(S.speed) + 1) % order.length];
       el('rnn-speed').textContent = '⏩ ' + S.speed + '×';
+      if (A()) window.RNNAudio.setSpeed(S.speed);
     });
 
     el('rnn-cc').addEventListener('click', function () {
-      var off = el('rnn-screen').classList.toggle('captions-off');
+      var off = el('rnn-captionbar').classList.toggle('captions-off');
       el('rnn-cc').textContent = off ? '💬 CC OFF' : '💬 CC ON';
     });
+
+    el('rnn-music').addEventListener('click', toggleMusic);
+    el('rnn-voice').addEventListener('click', toggleVoice);
 
     el('rnn-progress').addEventListener('click', function (e) {
       var r = this.getBoundingClientRect();
@@ -270,11 +348,21 @@
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.target.tagName === 'SELECT') return;
+      if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
       if (e.code === 'Space') { e.preventDefault(); toggle(); }
       else if (e.code === 'ArrowRight') jumpSegment(1);
       else if (e.code === 'ArrowLeft') jumpSegment(-1);
+      else if (e.code === 'KeyM') toggleMusic();
+      else if (e.code === 'KeyV') toggleVoice();
+      else if (e.code === 'KeyC') el('rnn-cc').click();
     });
+
+    // never leave speech running after the tab or page goes away
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden && S.playing) toggle();
+    });
+    window.addEventListener('pagehide', function () { if (A()) window.RNNAudio.stop(); });
+    window.addEventListener('beforeunload', function () { if (A()) window.RNNAudio.stop(); });
 
     el('rnn-episode-select').addEventListener('change', function () {
       load(this.value);
@@ -290,7 +378,7 @@
     S.episode = ep;
     buildCues(ep);
     renderChrome(ep);
-    S.t = 0; S.cue = -1;
+    S.t = 0; S.cue = -1; S.seg = -1; S.spokenCue = -1;
     paint(true);
     el('rnn-gate-label').textContent = 'ROLL BROADCAST';
     el('rnn-gate-title').textContent = ep.title;
@@ -310,6 +398,24 @@
       return '<option value="' + esc(e.id) + '">EP ' + String(e.number).padStart(3, '0') + ' — ' + esc(e.title) + '</option>';
     }).join('');
     el('rnn-generated').textContent = data.generated || '—';
+
+    // audio buttons reflect what this browser can actually do
+    var a = A();
+    var mus = el('rnn-music'), voi = el('rnn-voice');
+    if (!a) {
+      mus.disabled = voi.disabled = true;
+      mus.textContent = '🔇 NO AUDIO';
+      voi.textContent = '🗣 NO VOICE';
+      mus.title = voi.title = 'This browser has no Web Audio support.';
+    } else {
+      mus.classList.add('on');
+      if (!a.ttsSupported) {
+        voi.disabled = true;
+        voi.textContent = '🗣 NO VOICE';
+        voi.title = 'This browser has no speech synthesis engine.';
+      }
+    }
+
     wire();
     load(data.latest || data.episodes[0].id);
   }

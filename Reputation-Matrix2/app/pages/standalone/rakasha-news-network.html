@@ -39,16 +39,15 @@
       <div class="rnn-headline" id="rnn-headline"></div>
 
       <div class="rnn-lower" id="rnn-lower">
-        <div>
-          <span class="rnn-lower-name" id="rnn-lower-name">ANCHOR</span>
-          <span class="rnn-lower-role" id="rnn-lower-role"></span>
-        </div>
-        <div class="rnn-caption" id="rnn-caption"></div>
+        <span class="rnn-lower-name" id="rnn-lower-name">ANCHOR</span>
+        <span class="rnn-lower-role" id="rnn-lower-role"></span>
       </div>
 
       <div class="rnn-ticker">
         <div class="rnn-ticker-label">HUNT WIRE</div>
-        <div class="rnn-ticker-track" id="rnn-ticker-track"></div>
+        <div class="rnn-ticker-window">
+          <div class="rnn-ticker-track" id="rnn-ticker-track"></div>
+        </div>
       </div>
 
       <div class="rnn-scanlines"></div>
@@ -59,9 +58,20 @@
           <div class="rnn-play-btn">▶</div>
           <b id="rnn-gate-label">ROLL BROADCAST</b>
           <small id="rnn-gate-title"></small>
-          <small>Space = play/pause · ← → = skip segment</small>
+          <small>Space = play/pause · ← → = skip segment · M = music · V = voice</small>
         </div>
       </div>
+    </div>
+
+    <!-- Captions live OUTSIDE the screen: no scanlines, no vignette, no
+         backdrop bleeding through the text. Plain dark strip, big serif. -->
+    <div class="rnn-captionbar" id="rnn-captionbar">
+      <div class="rnn-captionbar-who">
+        <span class="rnn-cb-name" id="rnn-cb-name">ANCHOR</span>
+        <span class="rnn-cb-role" id="rnn-cb-role"></span>
+        <span class="rnn-cb-speaking" id="rnn-cb-speaking" hidden>◉ READING</span>
+      </div>
+      <p class="rnn-caption" id="rnn-caption"></p>
     </div>
 
     <!-- ===================== TRANSPORT ===================== -->
@@ -72,6 +82,8 @@
       <button class="rnn-btn" id="rnn-restart">↺ RESTART</button>
       <button class="rnn-btn" id="rnn-speed">⏩ 1×</button>
       <button class="rnn-btn" id="rnn-cc">💬 CC ON</button>
+      <button class="rnn-btn" id="rnn-music" title="Rakasha theme — log drums, drone and bone flute, synthesised live">🥁 MUSIC ON</button>
+      <button class="rnn-btn" id="rnn-voice" title="Read the broadcast aloud with the browser's speech engine">🗣 VOICE OFF</button>
       <span class="rnn-time" id="rnn-time">0:00 / 0:00</span>
       <div class="rnn-progress" id="rnn-progress"><div class="rnn-progress-fill" id="rnn-progress-fill"></div></div>
     </div>
@@ -113,6 +125,7 @@
   </div>
 
   <script src="../../../data/rnn-broadcasts.js"></script>
+  <script src="rnn-audio.js"></script>
   <script src="rakasha-news-network.js"></script>
 </body>
 </html>

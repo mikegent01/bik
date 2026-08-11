@@ -25,6 +25,9 @@
 }
 
 .rnn-wrap { max-width: 1180px; margin: 0 auto; padding: 24px 18px 0; }
+/* The screen has a 6px border and the bars below it 1px; without this the
+   three stacked elements do not line up on their left and right edges. */
+.rnn-body *, .rnn-body *::before, .rnn-body *::after { box-sizing: border-box; }
 
 /* ---------- masthead ---------- */
 .rnn-masthead {
@@ -54,17 +57,34 @@
   position: relative; width: 100%; aspect-ratio: 16 / 9;
   overflow: hidden; background: #04140d;
   border: 6px solid #10130f;
-  border-radius: 14px;
+  border-radius: 14px 14px 0 0;
+  border-bottom: none;
   box-shadow: 0 0 0 3px var(--rnn-green-dark), 0 24px 60px rgba(0,0,0,.75),
               inset 0 0 90px rgba(0,0,0,.7);
 }
+/* Heavily blurred and darkened: the title card is a studio wall here, not a
+   readable logo. Scaled well past the frame so no letterform stays legible. */
 .rnn-backdrop {
-  position: absolute; inset: -6%; width: 112%; height: 112%;
-  object-fit: cover; filter: blur(7px) saturate(.85) brightness(.42);
-  transform: scale(1.04);
+  position: absolute; inset: -20%; width: 140%; height: 140%;
+  object-fit: cover; filter: blur(26px) saturate(.6) brightness(.28);
+  transform: scale(1.25);
 }
+/* studio wash so the anchor separates from the wall */
+.rnn-screen::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background: linear-gradient(to bottom, rgba(3,14,10,.55) 0%, rgba(3,14,10,.15) 42%, rgba(3,14,10,.82) 100%);
+}
+
+/* explicit stacking — the wash above must never bury the anchor or furniture */
+.rnn-backdrop  { z-index: 0; }
+.rnn-deskglow  { z-index: 1; }
+.rnn-stage     { z-index: 2; }
+.rnn-titlecard { z-index: 3; }
+.rnn-slug, .rnn-onair, .rnn-headline, .rnn-lower, .rnn-ticker { z-index: 4; }
+.rnn-scanlines, .rnn-vignette { z-index: 5; }
+.rnn-gate      { z-index: 6; }
 .rnn-scanlines {
-  position: absolute; inset: 0; pointer-events: none; opacity: .35;
+  position: absolute; inset: 0; pointer-events: none; opacity: .22;
   background: repeating-linear-gradient(to bottom, rgba(0,0,0,.55) 0 1px, transparent 1px 3px);
   mix-blend-mode: multiply;
 }
@@ -72,9 +92,7 @@
   position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(ellipse at center, transparent 45%, rgba(0,0,0,.72) 100%);
 }
-.rnn-screen.is-static .rnn-stage,
-.rnn-screen.is-static .rnn-lower,
-.rnn-screen.is-static .rnn-headline { opacity: 0; }
+
 
 /* title card (cold open / sign-off) */
 .rnn-titlecard {
@@ -89,14 +107,18 @@
   position: absolute; inset: 0; display: flex; align-items: flex-end;
   justify-content: center; transition: opacity .3s ease;
 }
+/* Source frames are only ~200px tall, so cap the upscale — past ~2.1x they
+   turn to mush. Better a slightly smaller anchor than a blurry one. */
 .rnn-anchor {
-  height: 74%; width: auto; margin-bottom: 11%;
-  image-rendering: -webkit-optimize-contrast;
+  height: min(74%, 430px); width: auto; margin-bottom: 9%;
   filter: drop-shadow(0 16px 26px rgba(0,0,0,.65));
   transform-origin: bottom center;
   transition: transform .18s ease;
 }
-.rnn-anchor.is-field { height: 64%; margin-bottom: 12%; animation: rnn-hop .9s ease-in-out infinite; }
+.rnn-anchor.is-field {
+  height: min(66%, 470px); margin-bottom: 10%;
+  animation: rnn-hop .9s ease-in-out infinite;
+}
 @keyframes rnn-hop {
   0%, 100% { transform: translateY(0) rotate(-1deg); }
   50%      { transform: translateY(-14px) rotate(2deg); }
@@ -123,10 +145,10 @@
   padding: 5px 12px; border-radius: 2px; text-transform: uppercase;
 }
 .rnn-headline {
-  position: absolute; top: 52px; left: 16px; max-width: 54%;
-  font-size: 21px; line-height: 1.2; font-weight: 900; letter-spacing: .5px;
+  position: absolute; top: 50px; left: 16px; max-width: 46%;
+  font-size: 20px; line-height: 1.22; font-weight: 900; letter-spacing: .5px;
   color: var(--rnn-cream); text-transform: uppercase;
-  text-shadow: 2px 2px 0 #000, 0 0 22px rgba(0,0,0,.9);
+  text-shadow: 2px 2px 0 #000, 0 2px 14px rgba(0,0,0,1);
   transition: opacity .3s ease;
 }
 .rnn-headline small {
@@ -134,24 +156,62 @@
   font-weight: 700; color: var(--rnn-orange); text-transform: uppercase;
 }
 
-/* lower third + captions */
+/* lower third — name plate only, stays on the screen */
 .rnn-lower {
-  position: absolute; left: 0; right: 0; bottom: 34px; padding: 0 16px;
+  position: absolute; left: 16px; right: 16px; bottom: 42px;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
   transition: opacity .3s ease;
 }
 .rnn-lower-name {
   display: inline-block; background: var(--rnn-green); color: #04140d;
   font-weight: 900; font-size: 12px; letter-spacing: 2px; padding: 5px 12px;
   text-transform: uppercase; border-left: 5px solid var(--rnn-orange);
+  text-shadow: none;
 }
-.rnn-lower-role { font-size: 10px; letter-spacing: 1px; opacity: .85; font-weight: 700; }
+.rnn-lower-role {
+  font-size: 10px; letter-spacing: 1px; font-weight: 700; color: var(--rnn-cream);
+  background: rgba(4,16,11,.8); padding: 4px 8px;
+}
+
+/* ---------- caption bar: OUTSIDE the screen ----------
+   Deliberately not inside .rnn-screen, so the scanlines, vignette and
+   blurred backdrop never touch the text. This is the readable surface. */
+.rnn-captionbar {
+  background: #061410;
+  border: 1px solid var(--rnn-green-dark);
+  border-top: 2px solid var(--rnn-lime);
+  border-bottom: none;
+  padding: 12px 18px 14px;
+}
+.rnn-captionbar-who {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.rnn-cb-name {
+  font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--rnn-lime);
+}
+.rnn-cb-role { font-size: 10px; letter-spacing: 1px; color: #7fb99a; text-transform: uppercase; }
+.rnn-cb-speaking {
+  margin-left: auto; font-size: 10px; letter-spacing: 2px; font-weight: 900;
+  color: var(--rnn-orange); animation: rnn-pulse 1.1s ease-in-out infinite;
+}
+@keyframes rnn-pulse { 50% { opacity: .35; } }
+
+/* Captions run up to ~280 chars = 3 lines at this width. Reserve exactly that
+   so the transport below never jumps as lines type in and swap out. The
+   max-width also keeps measure readable on very wide monitors. */
 .rnn-caption {
-  background: rgba(4, 16, 11, .86); border-left: 5px solid var(--rnn-lime);
-  padding: 12px 14px; font-size: 17px; line-height: 1.45; min-height: 58px;
-  color: var(--rnn-cream); font-family: Georgia, "Times New Roman", serif;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 19px; line-height: 1.6; min-height: 4.8em;
+  color: #f6f1e2;
+  text-shadow: none;
+  letter-spacing: .1px;
+  max-width: 96ch;
 }
 .rnn-caption .cursor { color: var(--rnn-lime); animation: rnn-blink 1s steps(1) infinite; }
-.rnn-screen.captions-off .rnn-caption { display: none; }
+.rnn-captionbar.captions-off .rnn-caption { visibility: hidden; }
 
 /* ticker */
 .rnn-ticker {
@@ -162,7 +222,11 @@
 .rnn-ticker-label {
   flex: 0 0 auto; background: var(--rnn-blood); color: #fff; font-size: 10px; font-weight: 900;
   letter-spacing: 2px; padding: 8px 10px; height: 100%; display: flex; align-items: center;
+  z-index: 2;
 }
+/* The track scrolls inside its own clipped window so it can never slide
+   underneath (or on top of) the HUNT WIRE label. */
+.rnn-ticker-window { flex: 1 1 auto; overflow: hidden; height: 100%; display: flex; align-items: center; }
 .rnn-ticker-track {
   white-space: nowrap; font-size: 12px; letter-spacing: 1px; color: var(--rnn-cream);
   animation: rnn-scroll 48s linear infinite; padding-left: 100%;
@@ -190,8 +254,12 @@
 .rnn-transport {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   background: #08150f; border: 1px solid var(--rnn-green-dark);
-  border-top: none; border-radius: 0 0 10px 10px; padding: 12px 14px;
+  border-top: 1px solid var(--rnn-green-dark);
+  border-radius: 0 0 10px 10px; padding: 12px 14px;
 }
+.rnn-btn.on { background: var(--rnn-lime); color: #04140d; border-color: var(--rnn-lime); }
+.rnn-btn:disabled { opacity: .4; cursor: not-allowed; }
+.rnn-btn:disabled:hover { background: var(--rnn-green-dark); color: var(--rnn-cream); }
 .rnn-btn {
   background: var(--rnn-green-dark); color: var(--rnn-cream); border: 1px solid var(--rnn-green);
   font-family: inherit; font-size: 12px; font-weight: 700; letter-spacing: 1px;
@@ -242,7 +310,20 @@
 
 @media (max-width: 900px) {
   .rnn-cols { grid-template-columns: 1fr; }
-  .rnn-headline { font-size: 15px; max-width: 62%; }
-  .rnn-caption { font-size: 14px; }
+  .rnn-headline { font-size: 14px; max-width: 52%; top: 44px; }
+  /* ~57 chars/line at this size, so the longest cue wraps to 5 rows. */
+  .rnn-caption { font-size: 16px; line-height: 1.55; min-height: 7.8em; }
+  .rnn-captionbar { padding: 10px 13px 12px; }
   .rnn-masthead h1 { font-size: 22px; }
+  .rnn-lower { bottom: 38px; }
+  .rnn-transport { gap: 7px; padding: 10px; }
+  .rnn-btn { padding: 7px 9px; font-size: 11px; }
+  .rnn-time { margin-left: 0; }
+}
+
+/* Respect reduced-motion: kill the hop, the scroll and the blinking. */
+@media (prefers-reduced-motion: reduce) {
+  .rnn-anchor.is-field, .rnn-ticker-track, .rnn-onair .dot,
+  .rnn-caption .cursor, .rnn-cb-speaking { animation: none !important; }
+  .rnn-ticker-track { padding-left: 0; }
 }

@@ -9462,7 +9462,7 @@ function view_rakashaNews(){
       <div>
         <h1>📺 Rakasha News Network — Last Week's Broadcast</h1>
         <p class="text-muted">${esc(epLine)}</p>
-        <p class="text-muted" style="font-size:12px;">The Rakasha desk reads back every recent adventure in its own voice — anchor frames, lower thirds and the Hunt Wire ticker, composited live from <code>animation_frames/</code>. A new episode is cut <b>every week that applicable new events exist</b>.</p>
+        <p class="text-muted" style="font-size:12px;">The Rakasha desk reads back every recent adventure in its own voice — anchor frames, lower thirds and the Hunt Wire ticker, composited live from <code>animation_frames/</code>. Hit <b>🥁 MUSIC</b> for the synthesised jungle-newsroom theme and <b>🗣 VOICE</b> to have the anchor read it aloud. A new episode is cut <b>every week that applicable new events exist</b>.</p>
       </div>
       <div class="chips">
         <a class="chip active" href="${esc(rnnSrc)}">Open full broadcast →</a>
@@ -9471,8 +9471,8 @@ function view_rakashaNews(){
         <span class="chip" onclick="Router.go('#/article/rakasha')">Rakasha dossier</span>
       </div>
     </div>
-    <div class="card journal-viewer-card">
-      <iframe id="rnnBroadcastFrame" src="${esc(rnnSrc)}" title="Rakasha News Network broadcast"></iframe>
+    <div class="card journal-viewer-card rnn-viewer-card">
+      <iframe id="rnnBroadcastFrame" src="${esc(rnnSrc)}" title="Rakasha News Network broadcast" allow="autoplay"></iframe>
     </div>`;
   window.scrollTo(0,0);
 }

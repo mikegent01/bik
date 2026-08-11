@@ -1466,6 +1466,8 @@ hr{border:none;border-top:1px solid var(--border);margin:22px 0}
 .journal-viewer-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;border-left:5px solid var(--accent2);background:linear-gradient(135deg,rgba(224,180,0,.10),rgba(138,75,255,.08)),var(--panel)}
 .journal-viewer-card{padding:0;overflow:hidden;border-radius:16px}
 .journal-viewer-card iframe{display:block;width:100%;height:min(82vh,920px);min-height:680px;border:0;background:#101322}
+/* RNN carries more chrome than the journal (screen + caption bar + transport). */
+.rnn-viewer-card iframe{height:min(92vh,1080px);min-height:820px;background:#050f0b}
 .atlas-map-applet{padding:0;overflow:hidden;border-radius:16px;border:1px solid var(--border);background:#080b14}
 .atlas-map-toolbar{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.05)),var(--panel2)}
 .atlas-map-toolbar h3{margin:0;color:var(--accent2);font-size:15px}
