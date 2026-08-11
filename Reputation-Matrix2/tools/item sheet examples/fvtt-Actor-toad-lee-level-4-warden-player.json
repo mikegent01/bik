@@ -1,0 +1,6185 @@
+{
+  "name": "Toad Lee — Level 4 Warden Barbarian",
+  "type": "character",
+  "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 18,
+      "ep": 0,
+      "sp": 7,
+      "cp": 4
+    },
+    "abilities": {
+      "str": {
+        "value": 16,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 14,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 16,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 12,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 14,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 10,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "7CR1Hpx2Po8spit0": {
+        "value": 0,
+        "ability": "dex",
+        "bonuses": {
+          "passive": "",
+          "check": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "acr": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "15jTCrWVxnN40NP8": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "passive": "",
+          "check": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "arc": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "value": 0,
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "JXS0f4ka71qKB2h3": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "-3",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "HosVywGhVnGaF5lI": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "-1",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "dec": {
+        "value": 1,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ZZNb2z3t0wdcMgNJ": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "6fCmMl31VtsqwENr": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "value": 1,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "UreduGlabi2z8Vvm": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "2",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "sur": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "hQUumf2MfKPzcpDd": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell0": {
+        "value": 3,
+        "override": null
+      },
+      "spell1": {
+        "value": 2,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      },
+      "pact": {
+        "value": 0,
+        "override": null
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 15,
+        "calc": "flat",
+        "formula": ""
+      },
+      "hp": {
+        "value": 41,
+        "max": 41,
+        "temp": 0,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "init": {
+        "bonus": "0",
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "movement": {
+        "walk": "30",
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "special": "",
+        "ranges": {
+          "darkvision": 60,
+          "blindsight": 120,
+          "tremorsense": 0,
+          "truesight": 0
+        }
+      },
+      "spellcasting": "",
+      "death": {
+        "success": 0,
+        "failure": 0,
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "exhaustion": 0,
+      "inspiration": true,
+      "attunement": {
+        "max": 3
+      },
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {}
+    },
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "details": {
+      "alignment": "Lawful Neutral (protective, oath-bound, suspicious of betrayal)",
+      "biography": {
+        "value": "<h2>Toad Lee — Warden of the Toads</h2><p><strong>Level 4 Barbarian; Liberated Toads, The Wardens.</strong> Toad Lee was freed from the Vigilance trafficking barrels and became one of the people who made survival into an organized duty. He is not a decorative hero: he assigns a guard, spots routes, carries an axe, and asks what happens after the door opens.</p><h3>Operational record</h3><p>Lee helped hold the line against the Coat, organized fractured survivors with Speaker L, pursued Waluigi during the Lounge Brawl with deliberately nonlethal leg-targeting swings, and kept functioning after Stucky&apos;s thrown eye landed on his head. He is the brain of the Feywild operation when the plan needs a roof, a route, or a fallback.</p><h3>Sheet boundary</h3><p>This is a level 4 playable translation of the lore. It includes confirmed themes—axe work, Rage, Warden discipline, pursuit, and survivor logistics—without inventing legendary loot or high-level magic. The XP ledger remains authoritative: 5,790 XP, 3 AP spent, 0 available.</p>",
+        "public": ""
+      },
+      "race": "bb00c9339a204b51",
+      "background": "a01588c74bc740d6",
+      "originalClass": "barbarian",
+      "xp": {
+        "value": 5790
+      },
+      "appearance": "A compact, hardy Toad carrying an axe too large for anyone who has not watched him use it. Scarred by flight, imprisonment, and the work of keeping frightened people alive.",
+      "trait": "I inventory exits, rooftops, and who is standing between the vulnerable and the door.",
+      "ideal": "Protection is an action, not a speech. No Toad is cargo.",
+      "bond": "The Wardens and the Liberated Toads; Speaker L; every survivor who needs a line held.",
+      "flaw": "I make plans inside plans and can mistake vigilance for certainty.",
+      "eyes": "Two ordinary eyes and one Feyward sensory eye",
+      "height": "Medium",
+      "faith": "Unresolved; has encountered forces that call themselves gods",
+      "hair": "None confirmed",
+      "weight": "Unknown",
+      "gender": "Male-presenting Toad",
+      "skin": "Toad green with Feywild color shift",
+      "age": "Unknown"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "Toad dialect; Liberated Toads field signs; Legion procedural terminology learned in captivity."
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "armorProf": {
+        "value": [
+          "lgt",
+          "med",
+          "shl"
+        ],
+        "custom": "Light, medium, and heavy armor; shields. Dan fights one-handed and does not receive a second-weapon benefit."
+      },
+      "weaponProf": {
+        "value": [
+          "sim",
+          "mar"
+        ],
+        "custom": "Simple and martial weapons; longsword; one-handed use only."
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      }
+    },
+    "resources": {
+      "primary": {
+        "label": "Rage",
+        "sr": false,
+        "lr": true,
+        "value": 3,
+        "max": 3
+      },
+      "secondary": {
+        "label": "Warden Guard",
+        "sr": true,
+        "lr": false,
+        "value": 2,
+        "max": 2
+      },
+      "tertiary": {
+        "label": "Inspiration",
+        "sr": false,
+        "lr": false,
+        "value": 1,
+        "max": 1
+      }
+    },
+    "favorites": [],
+    "spellcasting": "cha",
+    "biography": {
+      "value": "<h2>Feyward Dan — Player Character Dossier</h2><p><strong>Level 3 One-Armed Feyward Paladin / Dimensional Escapee.</strong> This is the parallel Feyward Dan, not the original Dan who led the Liberated Toads and lost his arm to the corrupted mage staff. Feyward Dan woke in a yellow bed at Prismari's school, survived goblin betrayal, escaped through a window, was dragged through the Mazebound, slept through multiple dimensional emergencies, and opened his third sensory eye during the Imp Ambush.</p><p><strong>Ledger:</strong> 1,960 XP, 11 entries, Level 3, Power 5 Mortal. The actor is a playable translation of the lore; the XP ledger remains authoritative.</p><p><strong>Confirmed carried inventory:</strong> one sword of uncertain provenance, chain mail, Shield +1, Holy Symbol of Ravenkind, and ten gold pieces. The sword is the blade Dan used when he charged Professor Prismari after the explosion on Estragon's Island. The school journal, Prismari, Mazebound, and other events remain in the biography and source records rather than being invented as carried loot.</p><p><strong>Inventory rule:</strong> this actor deliberately contains only gear and abilities Dan actually has or was explicitly assigned. Memories, event records, and things he merely saw are not added to the inventory as fake loot.</p><h3>How to play Feyward Dan</h3><p>Use charm, improvisation, and sensory magic before force. Dan is not a polished wizard. He is a displaced player character who survives by testing doors, apologizing, fleeing when necessary, and returning when the party needs his eye.</p><h3>One-armed paladin rules</h3><p>Dan uses a longsword in his remaining hand and a shield in the other available hand. He cannot dual-wield or make two-handed weapon attacks. Divine Sense, Divine Smite, and the Aura of Life campaign item are included as documents. Aura of Life is recorded as a story/boon item and should be level-gated by the GM if standard 5e progression is being enforced.</p>",
+      "public": "Feyward Dan is a parallel Toad with a colorful Feywild aura, an unreliable itinerary, and one extra eye that sees what invisible enemies hoped would remain unseen."
+    }
+  },
+  "prototypeToken": {
+    "name": "Toad Lee",
+    "displayName": 30,
+    "actorLink": true,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/creatures/amphibians/frog-confused-green-blue.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": -1,
+      "scaleY": 1,
+      "tint": "#ff0000",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 1,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": true,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "blindsight",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 1,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 0,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "patrol": {
+        "enablePatrol": false,
+        "enableSpotting": false,
+        "makePatroller": false,
+        "multiPath": false,
+        "patrolPathName": "",
+        "pathNodeIndex": "0"
+      },
+      "monks-enhanced-journal": {
+        "chatbubble": ""
+      },
+      "dnd5e": {},
+      "about-face": {
+        "indicatorDisabled": false,
+        "flipOrRotate": "global",
+        "facingDirection": "global",
+        "rotationOffset": 0,
+        "direction": 90,
+        "prevPos": {
+          "x": 4400,
+          "y": 7400
+        }
+      },
+      "monks-tokenbar": {
+        "include": "default",
+        "movement": null
+      },
+      "tokenflip": {
+        "tokenfaces": [
+          {
+            "actorId": "UAPdHaUIPkgR8KWC",
+            "img": "player/archiereforemd.webp",
+            "id": "B4v8ZIqnlIhWqJZPaAOV",
+            "scaleX": -1,
+            "scaleY": 1,
+            "width": 1,
+            "height": 1,
+            "model3d": "",
+            "subject": "",
+            "autoFlip": 0,
+            "transition": "flip",
+            "autoFlipMacro": null
+          }
+        ],
+        "currentId": "b3WyhTA3DBqBWkCBbnZJ"
+      },
+      "wall-height": {
+        "tokenHeight": 0
+      },
+      "torch": {
+        "lightSourceState": "off"
+      },
+      "tagger": {},
+      "ATL": {
+        "originals": {}
+      },
+      "custom-dnd5e": {
+        "tint": "#ffffff"
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "depth": 1
+  },
+  "items": [
+    {
+      "name": "Barbarian — Warden, Level 4",
+      "type": "class",
+      "system": {
+        "description": {
+          "value": "<p>Rage-fueled protector trained by necessity. Hit Die d12; Rage 3/long rest; Danger Sense; Reckless Attack; Ability Score Improvement at level 4.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "barbarian---warden--level-4",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": [],
+        "levels": 3,
+        "hd": {
+          "spent": 0,
+          "denomination": "d10",
+          "additional": ""
+        },
+        "spellcasting": {
+          "progression": "half",
+          "ability": "cha"
+        },
+        "primaryAbility": {
+          "value": [
+            "str",
+            "cha"
+          ],
+          "all": false
+        }
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "_id": "ac0e482bd23d468b",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/svg/item-bag.svg"
+    },
+    {
+      "name": "Toad — Liberated Survivor",
+      "type": "race",
+      "system": {
+        "description": {
+          "value": "<p>Small amphibious survivor. Advantage on checks to navigate familiar sewer, marsh, and rooftop routes; can squeeze through spaces sized for Small creatures.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "toad---liberated-survivor",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 10000,
+      "_id": "bb00c9339a204b51",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/svg/item-bag.svg"
+    },
+    {
+      "name": "Barrel Survivor / Warden",
+      "type": "background",
+      "system": {
+        "description": {
+          "value": "<p>You were treated as cargo and now organize people so it cannot happen again. Proficiencies: Survival and Investigation; Liberated Toads contacts.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "barrel-survivor---warden",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 20000,
+      "_id": "a01588c74bc740d6",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/svg/item-bag.svg"
+    },
+    {
+      "name": "Rage",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Bonus Action; 3/Long Rest. For 1 minute, gain resistance to bludgeoning, piercing, and slashing damage; +2 melee damage with Strength attacks. Ends early if unable to attack or take damage.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "rage",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 30000,
+      "_id": "a195a5d3ace84f9f",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/svg/item-bag.svg"
+    },
+    {
+      "name": "Reckless Attack",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>At the first attack on your turn, gain advantage on Strength melee attacks; attacks against you have advantage until your next turn.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "reckless-attack",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 30000,
+      "_id": "2b55cff2adae4911",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/svg/item-bag.svg"
+    },
+    {
+      "name": "Danger Sense",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Advantage on Dexterity saving throws against effects you can see while not blinded, deafened, or incapacitated.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "danger-sense",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 30000,
+      "_id": "4f4a41e3be24437e",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/svg/item-bag.svg"
+    },
+    {
+      "name": "Warden Routecraft",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Once per short rest, identify a defensible route, high ground, or escape line. You and up to four allies gain advantage on the next group Survival or Investigation check made to navigate, escape, or set a watch.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "warden-routecraft",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 30000,
+      "_id": "9e95acac10e7482c",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/svg/item-bag.svg"
+    },
+    {
+      "name": "Hold the Line",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Reaction, 2/short rest. When an ally within 10 feet is hit, move up to 10 feet toward them without provoking opportunity attacks. If adjacent after moving, reduce the damage by 1d6 + your Constitution modifier.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "hold-the-line",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 30000,
+      "_id": "e7bcabaf84624bf6",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/svg/item-bag.svg"
+    },
+    {
+      "name": "Nonlethal Pursuit",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>When you reduce a creature to 0 HP with a melee attack, you may knock it unconscious instead. Against a fleeing target, you may declare a leg-targeting strike; on a hit, deal normal damage and reduce speed by 10 feet until the end of its next turn.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "nonlethal-pursuit",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 30000,
+      "_id": "23aebdc4391d40ea",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/svg/item-bag.svg"
+    },
+    {
+      "name": "The Warden’s Axe",
+      "type": "weapon",
+      "img": "icons/weapons/axes/axe-double-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>A practical two-handed battleaxe carried by Toad Lee. Melee Weapon Attack: Strength; 1d10 slashing, versatile 1d12. Use the nonlethal pursuit option when the objective is capture, not execution.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "quantity": 3,
+        "weight": {
+          "value": 3,
+          "units": "lb"
+        },
+        "price": {
+          "value": 15,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": null
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": 1,
+            "denomination": 10,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 8,
+            "bonus": "",
+            "types": [
+              "slashing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "properties": [
+          "ver"
+        ],
+        "type": {
+          "value": "martialM",
+          "baseItem": "longsword"
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": "SpPPrYU00xxaxu1I",
+        "activities": {
+          "PSJISaeZXx1pelmF": {
+            "_id": "PSJISaeZXx1pelmF",
+            "type": "attack",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "attack": {
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "identifier": "the-wardens-axe",
+        "attuned": false,
+        "ammunition": {},
+        "equipped": true,
+        "proficient": true,
+        "crew": {
+          "value": []
+        }
+      },
+      "effects": [],
+      "folder": "pOAh0mmFrtbGtDAr",
+      "sort": 0,
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.10ZP2Bu3vnCuYMIB",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005283501,
+        "createdTime": 1782005283501
+      },
+      "_id": "a8a0d59d5e9c4c19",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Reinforced Warden Leathers",
+      "type": "equipment",
+      "img": "icons/equipment/chest/breastplate-layered-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Tough layered field leathers, scavenged and repaired by survivors. AC 14 + Dexterity modifier (max 2).</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 55,
+          "units": "lb"
+        },
+        "price": {
+          "value": 75,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "armor": {
+          "value": 16,
+          "dex": 0
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": "",
+          "units": "ft"
+        },
+        "strength": 13,
+        "type": {
+          "value": "heavy",
+          "baseItem": "chainmail"
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [
+          "stealthDisadvantage"
+        ],
+        "equipped": true,
+        "proficient": true,
+        "identifier": "reinforced-warden-leathers",
+        "activities": {},
+        "attuned": false,
+        "crew": {
+          "value": []
+        }
+      },
+      "effects": [],
+      "folder": "JqTP017wj3uxDJ8g",
+      "sort": 0,
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.rLMflzmxpe8JGTOA",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005283823,
+        "createdTime": 1782005283823
+      },
+      "_id": "342bb0096f3e4771",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "1ae71cecf06847bb",
+      "name": "Survivor’s Field Kit",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>Rope, chalk, ration tin, bandages, whetstone, hooded lantern, oil, a hand-drawn route ledger, and a roll-call slate.</p>",
+          "chat": ""
+        },
+        "identifier": "survivors-field-kit",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 6,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "900925c60fed4638",
+      "name": "Liberated Toads Warden Token",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>Proof of responsibility to the Wardens. It is not a badge of rank over survivors; it is a reminder that someone must answer the watch bell.</p>",
+          "chat": ""
+        },
+        "identifier": "liberated-toads-warden-token",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 6,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "0b127e6d4d874d34",
+      "name": "Lounge Brawl After-Action Note",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>A field note recording the pursuit of Waluigi: target legs, not vital areas; secure the papers; account for thrown eyes and damaged flooring.</p>",
+          "chat": ""
+        },
+        "identifier": "lounge-brawl-after-action-note",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 6,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Ability Score Improvement — Level 4",
+      "type": "feat",
+      "system": {
+        "description": {
+          "value": "<p>Level 4 advancement: +2 Strength (already reflected in the ability score).</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "ability-score-improvement---level-4",
+        "quantity": 1,
+        "weight": 0,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "equipped": false,
+        "proficient": true,
+        "properties": []
+      },
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 30000,
+      "_id": "56f4a0941b7a43ab",
+      "ownership": {
+        "default": 0
+      },
+      "img": "icons/svg/item-bag.svg"
+    },
+    {
+      "_id": "4ecd17faf5fe402c",
+      "name": "Warden’s Shield",
+      "type": "equipment",
+      "folder": "1kn4uV4dTVVduLjA",
+      "img": "icons/equipment/shield/heater-steel-engraved.webp",
+      "system": {
+        "activities": {
+          "KZLj6yQjI7Ps1KkW": {
+            "type": "utility",
+            "name": "Intercept Attack",
+            "_id": "KZLj6yQjI7Ps1KkW",
+            "sort": 100000,
+            "activation": {
+              "type": "reaction",
+              "value": null,
+              "override": false,
+              "condition": "an attacker makes a ranged attack roll against a target within 5 feet of you"
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": "You become the target of the ranged attack."
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "5"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "1",
+                "type": "any",
+                "special": "attack roll made against target"
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireIdentification": true,
+              "requireAttunement": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p>A battered shield painted with the Liberated Toads watch-mark. +2 AC while equipped.</p>",
+          "chat": ""
+        },
+        "identifier": "wardens-shield",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 6,
+          "units": "lb"
+        },
+        "price": {
+          "value": 4000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "required",
+        "armor": {
+          "value": 2,
+          "dex": null
+        },
+        "cover": null,
+        "hp": {
+          "value": null,
+          "max": null,
+          "dt": null,
+          "conditions": ""
+        },
+        "type": {
+          "value": "shield",
+          "baseItem": "shield"
+        },
+        "properties": [
+          "mgc"
+        ],
+        "strength": null,
+        "proficient": null,
+        "crew": {
+          "value": []
+        },
+        "attuned": false,
+        "equipped": true
+      },
+      "effects": [
+        {
+          "name": "Ranged Attack AC Bonus",
+          "img": "icons/skills/melee/shield-block-fire-orange.webp",
+          "origin": "Compendium.dnd5e.equipment24.Item.dmgArrowcatching",
+          "transfer": true,
+          "_id": "nds83KSHN6L236jW",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.attributes.ac.bonus",
+                "value": 2,
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              }
+            ]
+          },
+          "disabled": true,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "description": "<p>You gain a +2 bonus to Armor Class against ranged attack rolls while you wield this Shield. This bonus is in addition to the Shield’s normal bonus to AC.</p>",
+          "tint": "#ffffff",
+          "statuses": [],
+          "sort": 0,
+          "flags": {},
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "coreVersion": "14.360",
+            "systemId": "dnd5e",
+            "systemVersion": "5.3.3",
+            "createdTime": 1785281169666,
+            "modifiedTime": 1785281169666,
+            "lastModifiedBy": "f9K62vO9hIl1GByi",
+            "exportSource": null
+          },
+          "start": null,
+          "showIcon": 1,
+          "folder": null
+        }
+      ],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785281169666,
+        "modifiedTime": 1785281169666,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgArrowcatching"
+      },
+      "sort": -193750,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Handaxe — Backup",
+      "system": {
+        "description": {
+          "value": "<p>A compact backup axe for close quarters and thrown pursuit. 1d6 slashing; thrown 20/60.</p>",
+          "chat": ""
+        },
+        "price": {
+          "value": 5,
+          "denomination": "gp"
+        },
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "rarity": "",
+        "attunement": "",
+        "cover": null,
+        "range": {
+          "value": 20,
+          "long": 60,
+          "units": "ft",
+          "reach": null
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": true,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "types": [
+              "slashing"
+            ],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            },
+            "bonus": ""
+          }
+        },
+        "armor": {
+          "value": null
+        },
+        "hp": {
+          "value": null,
+          "max": null,
+          "dt": null,
+          "conditions": ""
+        },
+        "type": {
+          "value": "simpleM",
+          "baseItem": "handaxe"
+        },
+        "properties": [
+          "lgt",
+          "thr"
+        ],
+        "proficient": null,
+        "activities": {
+          "rkjuC3ZV4s9UpD0i": {
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "20",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": false,
+              "override": false
+            },
+            "attack": {
+              "ability": "",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": []
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "sort": 0,
+            "_id": "rkjuC3ZV4s9UpD0i",
+            "name": "",
+            "img": "",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "ammunition": {},
+        "mastery": "vex",
+        "identifier": "handaxe---backup",
+        "crew": {
+          "value": []
+        },
+        "attuned": false,
+        "equipped": true
+      },
+      "_id": "d5123a5fb9474369",
+      "type": "weapon",
+      "folder": "FL1Jee9DzStc7vM3",
+      "img": "icons/weapons/axes/axe-battle-black.webp",
+      "effects": [],
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785281138822,
+        "modifiedTime": 1785281138822,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.phbwepHandaxe000"
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "dfe24370387748a5",
+      "name": "Rope, Hemp (50 ft.)",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>Coiled rope for roofs, windows, rescues, and exits that were not supposed to exist.</p>",
+          "chat": ""
+        },
+        "identifier": "rope--hemp--50-ft",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "dbb68cbd49cb47c7",
+      "name": "Warden’s Lantern",
+      "type": "equipment",
+      "folder": "1kn4uV4dTVVduLjA",
+      "img": "icons/skills/melee/shield-block-fire-orange.webp",
+      "system": {
+        "activities": {
+          "KZLj6yQjI7Ps1KkW": {
+            "type": "utility",
+            "name": "Intercept Attack",
+            "_id": "KZLj6yQjI7Ps1KkW",
+            "sort": 100000,
+            "activation": {
+              "type": "reaction",
+              "value": null,
+              "override": false,
+              "condition": "an attacker makes a ranged attack roll against a target within 5 feet of you"
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": "You become the target of the ranged attack."
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "5"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "1",
+                "type": "any",
+                "special": "attack roll made against target"
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireIdentification": true,
+              "requireAttunement": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p>Hooded lantern with shuttered blue glass for watch duty and discreet signals.</p>",
+          "chat": ""
+        },
+        "identifier": "wardens-lantern",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 6,
+          "units": "lb"
+        },
+        "price": {
+          "value": 4000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "required",
+        "armor": {
+          "value": 2,
+          "dex": null
+        },
+        "cover": null,
+        "hp": {
+          "value": null,
+          "max": null,
+          "dt": null,
+          "conditions": ""
+        },
+        "type": {
+          "value": "shield",
+          "baseItem": "shield"
+        },
+        "properties": [
+          "mgc"
+        ],
+        "strength": null,
+        "proficient": null,
+        "crew": {
+          "value": []
+        },
+        "attuned": false,
+        "equipped": true
+      },
+      "effects": [
+        {
+          "name": "Ranged Attack AC Bonus",
+          "img": "icons/skills/melee/shield-block-fire-orange.webp",
+          "origin": "Compendium.dnd5e.equipment24.Item.dmgArrowcatching",
+          "transfer": true,
+          "_id": "nds83KSHN6L236jW",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.attributes.ac.bonus",
+                "value": 2,
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              }
+            ]
+          },
+          "disabled": true,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "description": "<p>You gain a +2 bonus to Armor Class against ranged attack rolls while you wield this Shield. This bonus is in addition to the Shield’s normal bonus to AC.</p>",
+          "tint": "#ffffff",
+          "statuses": [],
+          "sort": 0,
+          "flags": {},
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "coreVersion": "14.360",
+            "systemId": "dnd5e",
+            "systemVersion": "5.3.3",
+            "createdTime": 1785281169666,
+            "modifiedTime": 1785281169666,
+            "lastModifiedBy": "f9K62vO9hIl1GByi",
+            "exportSource": null
+          },
+          "start": null,
+          "showIcon": 1,
+          "folder": null
+        }
+      ],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785281169666,
+        "modifiedTime": 1785281169666,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgArrowcatching"
+      },
+      "sort": -193750,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "5d8b72fd7ba54d47",
+      "name": "Oil Flask",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>Fuel for the Warden’s Lantern.</p>",
+          "chat": ""
+        },
+        "identifier": "oil-flask",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 4,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "3344a821afc64437",
+      "name": "Healer’s Kit",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>Ten uses of bandages, splints, antiseptic, and survivor-grade practical care.</p>",
+          "chat": ""
+        },
+        "identifier": "healers-kit",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 10,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "e4131511a9bf45ba",
+      "name": "Rations, Emergency",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>Dry rations held back for whoever did not get counted.</p>",
+          "chat": ""
+        },
+        "identifier": "rations--emergency",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 6,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "c68eba98d34a48e3",
+      "name": "Waterskin",
+      "type": "container",
+      "folder": "CXJsbhXV9uLcWcfH",
+      "img": "icons/containers/bags/pack-engraved-leather-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>Field waterskin marked with the Wardens’ roll-call notch.</p>",
+          "chat": ""
+        },
+        "identifier": "waterskin",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 5,
+          "units": "lb"
+        },
+        "price": {
+          "value": 400,
+          "denomination": "gp"
+        },
+        "rarity": "uncommon",
+        "attunement": "",
+        "currency": {
+          "pp": 0,
+          "gp": 0,
+          "ep": 0,
+          "sp": 0,
+          "cp": 0
+        },
+        "properties": [
+          "mgc",
+          "weightlessContents"
+        ],
+        "capacity": {
+          "weight": {
+            "value": 500,
+            "units": "lb"
+          },
+          "volume": {
+            "units": "cubicFoot"
+          }
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785281203592,
+        "modifiedTime": 1785281203592,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBagOfHolding0"
+      },
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "3df1e0936124493c",
+      "name": "Chalk and Route Ledger",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>Chalk, grease pencil, and a folded ledger of exits, watches, and survivors.</p>",
+          "chat": ""
+        },
+        "identifier": "chalk-and-route-ledger",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Whetstone",
+      "system": {
+        "description": {
+          "value": "<p>Keeps the axe functional. Toad Lee considers that a moral responsibility.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 8,
+          "units": "lb"
+        },
+        "price": {
+          "value": 50,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "art",
+          "baseItem": "alchemist"
+        },
+        "ability": "int",
+        "chatFlavor": "",
+        "proficient": null,
+        "properties": [],
+        "bonus": "",
+        "activities": {
+          "3tr6iV1buoI6GB27": {
+            "type": "check",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "check": {
+              "ability": "int",
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              },
+              "associated": []
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "sort": 0,
+            "_id": "3tr6iV1buoI6GB27",
+            "name": "",
+            "img": "",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "damage": {
+              "onSave": "half",
+              "parts": [],
+              "critical": {
+                "allow": false
+              }
+            },
+            "friendlySave": "default"
+          }
+        },
+        "identifier": "whetstone",
+        "attuned": false,
+        "equipped": false
+      },
+      "_id": "53e7397c63c64b06",
+      "type": "tool",
+      "folder": "V8KHbNkEWoXQP3Pj",
+      "img": "icons/tools/cooking/mortar-herbs-yellow.webp",
+      "effects": [],
+      "sort": 100000,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785281198737,
+        "modifiedTime": 1785281198737,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.phbtulAlchemists"
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "2ea4a724cbbc42ca",
+      "name": "Manacles",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>For capture objectives. Not for punishment.</p>",
+          "chat": ""
+        },
+        "identifier": "manacles",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "f09e56e26b1b474c",
+      "name": "Signal Whistle",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>Three short notes: regroup. Two long notes: danger. One sustained note: everyone moves.</p>",
+          "chat": ""
+        },
+        "identifier": "signal-whistle",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "61be0452d7364f59",
+      "name": "Warden’s Bedroll",
+      "type": "equipment",
+      "folder": "1kn4uV4dTVVduLjA",
+      "img": "icons/skills/melee/shield-block-fire-orange.webp",
+      "system": {
+        "activities": {
+          "KZLj6yQjI7Ps1KkW": {
+            "type": "utility",
+            "name": "Intercept Attack",
+            "_id": "KZLj6yQjI7Ps1KkW",
+            "sort": 100000,
+            "activation": {
+              "type": "reaction",
+              "value": null,
+              "override": false,
+              "condition": "an attacker makes a ranged attack roll against a target within 5 feet of you"
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": "You become the target of the ranged attack."
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "5"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "1",
+                "type": "any",
+                "special": "attack roll made against target"
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireIdentification": true,
+              "requireAttunement": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p>A compact bedroll repaired repeatedly in the field.</p>",
+          "chat": ""
+        },
+        "identifier": "wardens-bedroll",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 6,
+          "units": "lb"
+        },
+        "price": {
+          "value": 4000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "required",
+        "armor": {
+          "value": 2,
+          "dex": null
+        },
+        "cover": null,
+        "hp": {
+          "value": null,
+          "max": null,
+          "dt": null,
+          "conditions": ""
+        },
+        "type": {
+          "value": "shield",
+          "baseItem": "shield"
+        },
+        "properties": [
+          "mgc"
+        ],
+        "strength": null,
+        "proficient": null,
+        "crew": {
+          "value": []
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [
+        {
+          "name": "Ranged Attack AC Bonus",
+          "img": "icons/skills/melee/shield-block-fire-orange.webp",
+          "origin": "Compendium.dnd5e.equipment24.Item.dmgArrowcatching",
+          "transfer": true,
+          "_id": "nds83KSHN6L236jW",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.attributes.ac.bonus",
+                "value": 2,
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              }
+            ]
+          },
+          "disabled": true,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "description": "<p>You gain a +2 bonus to Armor Class against ranged attack rolls while you wield this Shield. This bonus is in addition to the Shield’s normal bonus to AC.</p>",
+          "tint": "#ffffff",
+          "statuses": [],
+          "sort": 0,
+          "flags": {},
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "coreVersion": "14.360",
+            "systemId": "dnd5e",
+            "systemVersion": "5.3.3",
+            "createdTime": 1785281169666,
+            "modifiedTime": 1785281169666,
+            "lastModifiedBy": "f9K62vO9hIl1GByi",
+            "exportSource": null
+          },
+          "start": null,
+          "showIcon": 1,
+          "folder": null
+        }
+      ],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785281169666,
+        "modifiedTime": 1785281169666,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgArrowcatching"
+      },
+      "sort": -193750,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "ba40a94b18904c66",
+      "name": "Liberated Toads Relief Bonds",
+      "type": "consumable",
+      "folder": "guHYjt0gjPLU2wCs",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "activities": {
+          "OZHtgfnTZWKOg9JP": {
+            "type": "save",
+            "name": "Throw Bead",
+            "_id": "OZHtgfnTZWKOg9JP",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "minute",
+              "concentration": false,
+              "override": false,
+              "value": "1"
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "60"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 4,
+                  "bonus": "",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "img": "",
+            "visibility": {
+              "requireMagic": true,
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "identifier": "",
+              "requireAttunement": false,
+              "requireIdentification": false
+            },
+            "flags": {},
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "none",
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "1",
+          "autoDestroy": true
+        },
+        "description": {
+          "value": "<p>Community rebuilding bonds held in Toad Lee’s custody; not personal spending money.</p>",
+          "chat": ""
+        },
+        "identifier": "liberated-toads-relief-bonds",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": ""
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0.06,
+          "units": "lb"
+        },
+        "price": {
+          "value": 2000,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "attunement": "",
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "flags": {},
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1785280971460,
+        "modifiedTime": 1785280971461,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+      },
+      "sort": 650000,
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [
+    {
+      "_id": "dnd5ebloodied000",
+      "img": "systems/dnd5e/icons/svg/statuses/bloodied.svg",
+      "flags": {
+        "dnd5e": {
+          "isTemporary": true
+        }
+      },
+      "name": "Bloodied",
+      "statuses": [
+        "bloodied"
+      ],
+      "showIcon": 1,
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "disabled": false,
+      "start": {
+        "time": 0,
+        "combat": "hQils8t0Xh4HBD5w",
+        "combatant": "bkDMlni8MnvMEXxS",
+        "initiative": 15,
+        "round": 5,
+        "turn": 2
+      },
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": null,
+        "expired": false
+      },
+      "description": "",
+      "origin": null,
+      "tint": "#ffffff",
+      "transfer": false,
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1783563697979,
+        "modifiedTime": 1783563697979,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    }
+  ],
+  "folder": null,
+  "flags": {
+    "bik": {
+      "characterId": "feywarddan",
+      "playerCharacter": true,
+      "npc": false,
+      "class": "Paladin (Feyward Oath)",
+      "level": 3,
+      "ledgerXP": 1960,
+      "ledgerEntries": 11,
+      "powerLevel": 5,
+      "fameScore": 30,
+      "status": "Active / Unknown",
+      "source": "data/characters.json + xp.html + events.json + battles.json",
+      "notes": "Parallel Feyward Dan; do not merge with original Dan.",
+      "missingArm": true,
+      "armStatus": "One arm; permanent canon injury",
+      "equipment": [
+        "Longsword",
+        "Holy Symbol of Ravenkind",
+        "Chain Mail",
+        "Shield +1"
+      ],
+      "divineFeatures": [
+        "Divine Sense",
+        "Divine Smite",
+        "Aura of Life"
+      ],
+      "actualSpells": true,
+      "spellSchemaSource": "fvtt-Actor-archie-miser-hSu2jXk6IxqmByBe.json",
+      "itemCount": 24,
+      "imageSource": "Foundry core asset paths supplied by user; Windows backslashes normalized to forward slashes",
+      "actorImage": "icons/creatures/amphibians/frog-confused-green-blue.webp",
+      "itemImages": true,
+      "inventoryPolicy": "Only confirmed carried/assigned gear and playable abilities; no chronology cards or scene references as loot",
+      "confirmedInventory": [
+        "Longsword",
+        "Chain Mail",
+        "Shield +1",
+        "Holy Symbol of Ravenkind",
+        "10 gp"
+      ],
+      "removedFictionalInventory": [
+        "Prismari School Token",
+        "Thornbush Splinter",
+        "Mazebound Thread",
+        "Telescope Displacement Notice",
+        "Chronicle Cards"
+      ]
+    },
+    "exportSource": "Feyward Dan player character dossier"
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": "bik/feyward-dan-player",
+    "coreVersion": "14.360",
+    "systemId": "dnd5e",
+    "systemVersion": "4.3.9",
+    "lastModifiedBy": "bikDanPC00000001",
+    "modifiedTime": 1785687848098,
+    "createdTime": 1785686374932
+  },
+  "ownership": {
+    "default": 0
+  }
+}
