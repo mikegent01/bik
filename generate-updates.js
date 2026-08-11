@@ -18,6 +18,8 @@ const JS_DEPENDENCIES = {
     'login.html': ['login.js'],
     'newspaper.html': ['newspaper.js', 'rakasha-news.js'],
     'politics.html': ['politics.js', 'politics-data.js', 'parliament-members.js'],
+    // Rakasha News Network — weekly broadcast player (see tools/build-rnn-broadcast.py)
+    'rakasha-news-network.html': ['rakasha-news-network.js', 'data/rnn-broadcasts.js'],
     'profile.html': ['profile.js', 'profile-themes.js'],
     'relations.html': ['relations.js', 'character-relations.js'],
     'religion.html': ['religion.js', 'religion-data.js'],

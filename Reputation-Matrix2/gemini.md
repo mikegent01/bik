@@ -6,6 +6,42 @@ To ensure readability and maintainability, this project follows a modular struct
 
 A key example of this philosophy is the handling of game data. Instead of large, monolithic data files, information is broken down into smaller, thematic modules. For instance, the detailed legal codes for different faction archetypes (`laws-data-militaristic.js`, `laws-data-democratic.js`, etc.) are kept in separate files and aggregated by a central `laws-data.js` file. This keeps each file focused on a single concept, improving organization and making it easier to add or modify data without affecting unrelated systems.
 
+## ⚠ STANDING ORDER — The Rakasha News Network Weekly Broadcast
+
+**A new Rakasha News Network (RNN) broadcast must be produced every week in which applicable new events exist.** This rule is self-executing: whenever a new event is created, this instruction is to be read and followed as part of filing that event. Do not wait to be asked.
+
+### The trigger
+
+An event is "applicable" if, since the newest script in `../tools/rnn-scripts/`, **any** of the following happened:
+
+*   a new session filing was appended to `data/events.json`;
+*   the **"RECENT ADVENTURES — WHAT WE'VE BEEN THROUGH"** feed in `../index.html` gained an item;
+*   a major battle, trial, or faction rupture was recorded that the party witnessed.
+
+If a week passes with none of the above, **no episode is cut** and the existing episode stays labelled "last week". Never cut an empty broadcast to satisfy the schedule; the Rakasha do not speak when the jungle is quiet.
+
+### The procedure
+
+1.  **Check what is owed.** `python3 ../tools/build-rnn-broadcast.py --unaired` lists every event that has never aired. The lead story is normally the newest filing; older unaired items become the middle segments.
+2.  **Write the script.** Create `../tools/rnn-scripts/epNNN.json` (copy `ep001.json` as the template). Required keys: `id`, `number`, `title`, `airWeek`, `huntDay`, `covering`, `anchorName`/`anchorRole`, `fieldName`/`fieldRole`, `sourceEvents[]`, `ticker[]`, `segments[]`.
+3.  **Shape the rundown.** A normal episode runs 8–10 segments: `COLD OPEN` (titlecard) → `LEAD STORY` → two to four story segments → one `FIELD REPORT` (`type: "field"`, uses the leaping frame) → `WIND WHISPERS` → `SIGN OFF` (titlecard). Three to five caption lines per segment.
+4.  **Cast the frames.** Every line names an `expression` that must exist as a PNG in `animation_frames/`: `normal`, `happy`, `sad`, `concerned`, `eyebrowraised`, `mouthslightlyopen`, and `jump` (field runner only). Match the frame to the beat — `sad` for a death, `eyebrowraised` for a suspicion, `happy` for a farce.
+5.  **Hold the voice.** Same register as `app/core/rakasha-news.js`: predator-metaphor, short declaratives, faction nicknames (Iron-Hides, High-Crowns, Shell-Backs, Spore-Rats, Soft-Heads, Night-Drinkers…), and the house lines — *"The jungle sees all"*, *"Trust only the claw. Fear only the silence."*, *"This missive will self-destruct if eaten."* Report only what the source events actually record; the anchors admit ignorance rather than inventing.
+6.  **Cut it.** `python3 ../tools/build-rnn-broadcast.py`. This auto-times every caption, validates every frame and `sourceEvents` id, writes `data/rnn-broadcasts.js`, and re-splices the **"Last Week on the Rakasha News Network"** block at the top of both `../README.md` and `README.md`.
+7.  **Verify.** Open `app/pages/standalone/rakasha-news-network.html` (or `#/rnn` in the main site) and watch it end to end. Then run `node ../generate-updates.js`.
+
+### Files that belong to this system
+
+| File | Role |
+|---|---|
+| `../tools/rnn-scripts/*.json` | Hand-written episode scripts — the only place broadcast prose is authored |
+| `../tools/build-rnn-broadcast.py` | Generator: timing, validation, data file, README splice |
+| `data/rnn-broadcasts.js` | **Generated.** `window.RNN_BROADCASTS` — do not hand-edit |
+| `app/pages/standalone/rakasha-news-network.html` / `.js` | The broadcast player |
+| `app/styles/systems/rnn-broadcast.css` | Broadcast skin |
+| `animation_frames/` | Anchor sprites + RNN title card |
+| `../README.md`, `README.md` | Carry the "last week" block between the `RNN:LAST-WEEK` markers |
+
 ## Adding New Map Pages
 
 To maintain application stability and a consistent user experience, all new tactical map pages **must** adhere to the standardized map grouping system. Creating custom, one-off UI or filtering logic for a single map page can conflict with the global data loaders for POIs and tactical units, causing them to fail to render.
@@ -41,6 +77,7 @@ To advance the world state by one day, edit the following files:
 8.  **`party-and-events.js`**: Update the active `RUMORS` list to reflect new world events.
 9.  **`state.js`**: Add new rumor IDs to the `activeRumors` array to ensure they are calculated in the reputation system.
 10. **`focus-tree.js`**: Update the descriptions of ongoing `TOAD_TIMELINE` events to reflect the day's progress.
+11. **Rakasha News Network**: If the day produced a new session filing or a new entry in the Recent Adventures feed, the weekly broadcast is now owed. Follow the **STANDING ORDER** at the top of this document — write `../tools/rnn-scripts/epNNN.json` and run `python3 ../tools/build-rnn-broadcast.py`.
 
 By updating these key files, you ensure the world state remains consistent and the narrative continues to evolve.
 

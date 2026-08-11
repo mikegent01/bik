@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rakasha News Network — Weekly Broadcast</title>
+  <link rel="stylesheet" href="../../styles/systems/rnn-broadcast.css" />
+</head>
+<body class="rnn-body">
+  <div class="rnn-wrap">
+
+    <div class="rnn-masthead">
+      <div>
+        <h1>RAKASHA NEWS NETWORK</h1>
+        <p class="rnn-sub">The Jungle Sees All · Broadcast from the Spirit-Walker Longhouse</p>
+      </div>
+      <div class="rnn-masthead-right">
+        <a class="rnn-home-link" href="../../../../index.html#/home">← Waluipedia Home</a><br />
+        <select id="rnn-episode-select" aria-label="Choose broadcast"></select>
+      </div>
+    </div>
+
+    <!-- ===================== THE SCREEN ===================== -->
+    <div class="rnn-screen" id="rnn-screen">
+      <img class="rnn-backdrop" src="../../../animation_frames/background.png" alt="" />
+      <div class="rnn-deskglow"></div>
+
+      <div class="rnn-stage" id="rnn-stage">
+        <img class="rnn-anchor" id="rnn-anchor" src="../../../animation_frames/normal.png"
+             data-expr="normal" alt="Rakasha news anchor" />
+      </div>
+
+      <div class="rnn-titlecard" id="rnn-titlecard">
+        <img src="../../../animation_frames/background.png" alt="Rakasha News Network title card" />
+      </div>
+
+      <div class="rnn-slug" id="rnn-slug">STANDBY</div>
+      <div class="rnn-onair paused" id="rnn-onair">❚❚ STANDBY</div>
+      <div class="rnn-headline" id="rnn-headline"></div>
+
+      <div class="rnn-lower" id="rnn-lower">
+        <div>
+          <span class="rnn-lower-name" id="rnn-lower-name">ANCHOR</span>
+          <span class="rnn-lower-role" id="rnn-lower-role"></span>
+        </div>
+        <div class="rnn-caption" id="rnn-caption"></div>
+      </div>
+
+      <div class="rnn-ticker">
+        <div class="rnn-ticker-label">HUNT WIRE</div>
+        <div class="rnn-ticker-track" id="rnn-ticker-track"></div>
+      </div>
+
+      <div class="rnn-scanlines"></div>
+      <div class="rnn-vignette"></div>
+
+      <div class="rnn-gate" id="rnn-gate">
+        <div class="rnn-gate-inner">
+          <div class="rnn-play-btn">▶</div>
+          <b id="rnn-gate-label">ROLL BROADCAST</b>
+          <small id="rnn-gate-title"></small>
+          <small>Space = play/pause · ← → = skip segment</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== TRANSPORT ===================== -->
+    <div class="rnn-transport">
+      <button class="rnn-btn primary" id="rnn-play">▶ PLAY</button>
+      <button class="rnn-btn" id="rnn-prev">⏮ PREV</button>
+      <button class="rnn-btn" id="rnn-next">⏭ NEXT</button>
+      <button class="rnn-btn" id="rnn-restart">↺ RESTART</button>
+      <button class="rnn-btn" id="rnn-speed">⏩ 1×</button>
+      <button class="rnn-btn" id="rnn-cc">💬 CC ON</button>
+      <span class="rnn-time" id="rnn-time">0:00 / 0:00</span>
+      <div class="rnn-progress" id="rnn-progress"><div class="rnn-progress-fill" id="rnn-progress-fill"></div></div>
+    </div>
+
+    <!-- ===================== RUNDOWN / TRANSCRIPT ===================== -->
+    <div class="rnn-cols">
+      <div class="rnn-panel">
+        <h2 id="rnn-ep-title">Loading broadcast…</h2>
+        <div class="rnn-rundown-time" id="rnn-ep-meta" style="margin:-6px 0 14px;"></div>
+        <div id="rnn-rundown"></div>
+      </div>
+
+      <div class="rnn-panel">
+        <h2>Filed From</h2>
+        <ul class="rnn-meta-list" id="rnn-sources"></ul>
+        <h2 style="margin-top:18px;">Cadence</h2>
+        <p style="font-size:12px; line-height:1.7; margin:0;">
+          A new RNN broadcast is cut <b>every week</b> that applicable new events exist.
+          When a session is filed into <code>data/events.json</code> or the
+          <em>Recent Adventures</em> feed, run
+          <code>python3 tools/build-rnn-broadcast.py</code>, write the new script into
+          <code>tools/rnn-scripts/</code>, and the newest episode becomes “last week” at the
+          top of the READMEs.
+        </p>
+      </div>
+    </div>
+
+    <div class="rnn-panel" style="margin-top:20px;">
+      <h2>Full Transcript</h2>
+      <div id="rnn-transcript"></div>
+    </div>
+
+    <p class="rnn-note">
+      Broadcast frames composited live from <code>Reputation-Matrix2/animation_frames/</code>.
+      Episode data generated <b id="rnn-generated">—</b> into
+      <code>Reputation-Matrix2/data/rnn-broadcasts.js</code>.
+      Trust only the claw. Fear only the silence. This missive will self-destruct if eaten.
+    </p>
+  </div>
+
+  <script src="../../../data/rnn-broadcasts.js"></script>
+  <script src="rakasha-news-network.js"></script>
+</body>
+</html>

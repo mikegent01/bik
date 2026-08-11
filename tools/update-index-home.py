@@ -2,6 +2,17 @@
 """
 Updates index.html's view_home() timeline feed and mainPage.json.
 Adds the new session, Mount Ebott VII, Hjumpik's session, explicit dates, and session durations.
+
+STANDING ORDER — RAKASHA NEWS NETWORK
+-------------------------------------
+Adding an item to the "RECENT ADVENTURES" feed means the week now owes a broadcast.
+A new RNN episode must be cut every week in which applicable new events exist:
+
+    python3 tools/build-rnn-broadcast.py --unaired   # what has never aired
+    #  ...write tools/rnn-scripts/epNNN.json...
+    python3 tools/build-rnn-broadcast.py             # cut it + re-splice both READMEs
+
+Full procedure: Reputation-Matrix2/gemini.md (STANDING ORDER section).
 """
 
 import json

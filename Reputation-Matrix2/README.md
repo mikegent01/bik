@@ -1,10 +1,49 @@
 # Vigilance Terminal Project
 
+<!-- RNN:LAST-WEEK:START -->
+## 📺 Last Week on the Rakasha News Network
+
+> **EP 001 — The Box That Danced and the Boy Who Died Twice**  
+> Hunt Day HARVESTIDE 30, 1040 BF · covering Harvestide 18 – Harvestnoon 1, 1040 BF · runtime 5:28  
+> Anchor: **Whisper-in-Wind**, Death Speaker, Spirit-Walker Clan · Field: **Acolyte Dan**, Runner of the Cold Roads
+
+**▶ [Watch the broadcast](../Reputation-Matrix2/app/pages/standalone/rakasha-news-network.html)** — the Rakasha desk reads back everything the party survived last week, composited live from `Reputation-Matrix2/animation_frames/`.
+
+| Segment | Story | Cold open line |
+|---|---|---|
+| **COLD OPEN** | Rakasha News Network | Iron rusts. Flesh rots. Only the Hunt remains — and the Hunt has been busy. |
+| **LEAD STORY** | The Box That Danced | We open in the dark woods below the Shadow Estate, where a blood trail was followed by two hunte… |
+| **THE CELLS** | The Book, the Cells, and the Dog Who Came Back | Before the box, the cottage. The imps of the dead Archivist came for their book and took everyth… |
+| **THE RAIL LINE** | A Boss Undone by His Own Hands | North, on the Shell-Backs' underground rail line, a small man wanted a conductor's hat and could… |
+| **UNDER THE MOUNTAIN** | The Tea Promise and the Throne Room Oath | Beneath Mount Ebott the false sun still burns over a meadow that is not a meadow, and the tall b… |
+| **THE GREEN HOUSE** | The Manor Wore Its Owner's Face | In Feyward, the overgrowth stopped pretending to be a plant problem. The Lady pouring cold tea f… |
+| **FIELD REPORT** | The Cold Roads of Arunedeal | Whisper-in-Wind, I am ON the snow road and the snow road is TRYING TO KILL ME. Bones came throug… |
+| **WIND WHISPERS** | Whispers on the Breeze | Heard in the canopy: a letter from the Archie-watch names four suspects — the one-armed shadow, … |
+| **SIGN OFF** | Sign Off | That is the week. Trust only the claw. Fear only the silence. |
+
+*Cadence: a new RNN broadcast is cut **every week that applicable new events exist**. File the session, then run `python3 tools/build-rnn-broadcast.py` and drop the new script in `../tools/rnn-scripts/`. The newest episode always sits here, labelled “last week”.*
+
+<!-- RNN:LAST-WEEK:END -->
+
 ## Project Philosophy
 
 To ensure readability and maintainability, this project follows a modular structure. JavaScript files, particularly those containing significant logic or UI rendering code, are kept concise. The general guideline is to keep files under **500-600 lines**. This approach makes it easier for developers to quickly understand the purpose of a file and navigate the codebase effectively.
 
 A key example of this philosophy is the handling of game data. Instead of large, monolithic data files, information is broken down into smaller, thematic modules. For instance, the detailed legal codes for different faction archetypes (`laws-data-militaristic.js`, `laws-data-democratic.js`, etc.) are kept in separate files and aggregated by a central `laws-data.js` file. This keeps each file focused on a single concept, improving organization and making it easier to add or modify data without affecting unrelated systems.
+
+## The RNN Weekly Broadcast Rule
+
+**Every week in which applicable new events exist, a new Rakasha News Network broadcast must be cut.** Filing an event is not finished until you have checked whether the week now owes a broadcast. The full procedure — trigger conditions, script schema, frame casting, voice rules and the build command — is the **STANDING ORDER** at the top of [`gemini.md`](gemini.md).
+
+Short version:
+
+```bash
+python3 ../tools/build-rnn-broadcast.py --unaired   # what the desk still owes
+#  ...write ../tools/rnn-scripts/epNNN.json...
+python3 ../tools/build-rnn-broadcast.py             # cut it; READMEs re-splice themselves
+```
+
+If nothing new was filed that week, cut nothing: the existing episode simply remains "last week".
 
 ## Writing Stories, Events & What-Ifs
 
