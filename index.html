@@ -9925,56 +9925,88 @@ function invBrief(t){
   }).join('');
 }
 
-/* ---------- index view ---------- */
+/* ---------- index view ----------
+   Built from the site's own component vocabulary (.card / .species-stats /
+   .chips / .artgrid + .arttile / .wnote), so an investigation reads like every
+   other index in the archive rather than like a separate product. */
 function view_investigations(){
   renderSidebar('investigations');
   const list = invAll();
   if(!list.length){
-    el('content').innerHTML = '<div class="card"><p class="text-muted">No investigations are filed. The archive is, improbably, idle.</p></div>';
+    el('content').innerHTML = '<div class="card"><h2>No investigations filed</h2><p class="text-muted">The archive is, improbably, idle.</p></div>';
     return;
   }
   const active = list.filter(i => i.status === 'active');
   const stubs  = list.filter(i => i.status !== 'active');
 
-  const card = iv => {
+  const totals = list.reduce((a, iv) => {
+    const p = invProgress(iv);
+    a.exhibits += (iv.exhibits||[]).length;
+    a.leads    += (iv.leads||[]).length;
+    a.layers   += p.layers; a.done += p.done; a.xp += p.xp; a.totalXp += p.totalXp;
+    return a;
+  }, { exhibits:0, leads:0, layers:0, done:0, xp:0, totalXp:0 });
+
+  const tile = iv => {
     const p = invProgress(iv);
     const nEx = (iv.exhibits || []).length, nLead = (iv.leads || []).length;
-    return `<div class="inv-card" style="--inv-accent:${esc(iv.accent||'#8a4bff')}" onclick="Router.go('#/investigation/${encodeURIComponent(iv.id)}')">
-      <div class="inv-code">${esc(iv.icon||'')} ${esc(iv.codename)}</div>
-      <div class="inv-title">${esc(iv.title)}</div>
-      <div class="inv-sub">${esc(iv.subtitle||'')}</div>
-      <div class="inv-hook">${esc(iv.hook||'')}</div>
-      <div class="inv-foot">
-        <span class="inv-status inv-status--${esc(iv.status)}">${esc(iv.status)}</span>
-        <span class="inv-stat">${nEx} exhibit${nEx===1?'':'s'}</span>
-        <span class="inv-stat">${nLead} lead${nLead===1?'':'s'}</span>
-        ${p.layers ? `<span class="inv-stat">${p.done}/${p.layers} examined</span>` : ''}
-        ${p.xp ? `<span class="inv-stat" style="color:var(--accent2)">${p.xp} XP</span>` : ''}
+    return `<div class="arttile" onclick="Router.go('#/investigation/${encodeURIComponent(iv.id)}')" style="border-left-color:${esc(iv.accent||'var(--accent)')}">
+      <div style="font-size:32px">${esc(iv.icon||'🔍')}</div>
+      <div class="tt">${esc(iv.title)}</div>
+      <div class="tsub">◆ ${esc(iv.codename)} · ${esc(iv.classification||'')}</div>
+      <div class="tsum">${esc(iv.hook||'')}</div>
+      <div class="tmeta">
+        <span class="pill inv-status--${esc(iv.status)}">${esc(iv.status)}</span>
+        ${nEx ? `<span class="pill pill-exhibit">🗂️ ${nEx} exhibit${nEx===1?'':'s'}</span>` : ''}
+        <span class="pill">${nLead} lead${nLead===1?'':'s'}</span>
+        ${p.layers ? `<span class="pill border-accent">${p.done}/${p.layers} examined</span>` : ''}
+        ${p.xp ? `<span class="pill xp-pill">✦ ${p.xp.toLocaleString()} XP</span>` : ''}
       </div>
     </div>`;
   };
 
+  const section = (heading, blurb, rows) => rows.length ? `
+    <div class="card">
+      <div class="home-section-head">
+        <div><h2>${heading}</h2><p>${blurb}</p></div>
+        <span class="pill">${rows.length} file${rows.length===1?'':'s'}</span>
+      </div>
+      <div class="artgrid">${rows.map(tile).join('')}</div>
+    </div>` : '';
+
   el('content').innerHTML = `
-    <div class="inv-hero">
-      <div class="inv-kicker">Disaster Inc. · Archive · Open Files</div>
-      <h1>Investigations</h1>
-      <p>One open file per arc, instead of seventy-three errands. Exhibits accrete as sessions are played;
-         each is a physical article with a chain of custody. Examining one is a roll, because analysis is a
-         skill and the archive is not going to pretend otherwise. Deeper layers cost more and pay more.
-         <b>Do not believe Waluigi. Roll against the paper.</b></p>
+    <div class="card animate-fade-in">
+      <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Investigations</div>
+      <h1>🔍 Waluipedia Investigations</h1>
+      <div class="species-stats">
+        <div class="species-stat"><b>${list.length}</b>Open Files</div>
+        <div class="species-stat"><b>${totals.exhibits}</b>Exhibits Filed</div>
+        <div class="species-stat"><b>${totals.leads}</b>Live Leads</div>
+        <div class="species-stat"><b>${totals.totalXp.toLocaleString()}</b>XP In The Paperwork</div>
+      </div>
+      <p style="color:var(--muted);margin-top:8px">One open file per arc, instead of seventy-three errands. Exhibits accrete as sessions are played; each one is a physical article with a chain of custody. Examining an exhibit is a roll, because analysis is a skill and the archive is not going to pretend otherwise — deeper layers cost more and pay more.</p>
+      <div class="wnote mt-12"><b>Waluigi's note:</b> Do not believe me. Roll against the paper. The paper does not want anything from you, which is more than can be said for anyone else in this campaign.</div>
+      <div class="chips mt-12">
+        <button class="chip active" onclick="Router.go('#/investigations')">🔍 Open Files (${active.length})</button>
+        <a class="chip" href="#/quest-log">📋 Retired Quest Log</a>
+        <a class="chip" href="#/items">🎒 Item Index</a>
+      </div>
     </div>
-    <h3 style="margin:18px 0 2px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Open — accreting</h3>
-    <div class="inv-grid">${active.map(card).join('')}</div>
-    ${stubs.length ? `<h3 style="margin:26px 0 2px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Opened, awaiting exhibits</h3>
-    <div class="inv-grid">${stubs.map(card).join('')}</div>` : ''}
-    <div class="card" style="margin-top:20px">
-      <h3 style="margin-top:0;font-size:15px">On the retirement of the quest board</h3>
-      <p style="font-size:13.5px;line-height:1.7;margin:0">The board carried seventy-three entries and twenty-five of them
-      had no description at all — a title, a location, a notional reward, nothing else. Sixteen entries that were doing real
-      work have been promoted to <b>leads</b> inside the files above. The rest remain readable as campaign history;
-      nothing was deleted. A board answers <em>what could we do next</em>. The party has never been short of that.
-      An investigation answers <em>what is happening to us</em>.</p>
+
+    ${section('📂 Open — accreting', 'Files taking new exhibits every session. Click a file to read the documents.', active)}
+    ${section('🗄️ Opened, awaiting exhibits', 'Arcs with a file number and a thesis, but no paper filed yet.', stubs)}
+
+    <div class="card">
+      <div class="home-section-head">
+        <div><h2>📋 On the retirement of the quest board</h2><p>Why seventy-three entries became a handful of files.</p></div>
+        <a class="chip" href="#/quest-log">Open the retired log →</a>
+      </div>
+      <div class="prose">
+        <p>The board carried seventy-three entries and twenty-five of them had no description at all — a title, a location, a notional reward, nothing else. Sixteen entries that were doing real work have been promoted to <strong>leads</strong> inside the files above. The rest remain readable as campaign history; nothing was deleted.</p>
+        <p>A board answers <em>what could we do next</em>. The party has never been short of that. An investigation answers <em>what is happening to us</em>.</p>
+      </div>
     </div>`;
+  window.scrollTo(0,0);
 }
 
 /* ---------- case file view ---------- */
@@ -9992,7 +10024,7 @@ function view_investigation(id, tab){
   const sessions = {};
   (iv.sessions||[]).forEach(s => sessions[s.id] = s);
 
-  /* exhibits, grouped by session */
+  /* exhibits, grouped by the session that produced them */
   const groups = {};
   (iv.exhibits||[]).forEach(ex => { (groups[ex.session] = groups[ex.session] || []).push(ex); });
   const order = (iv.sessions||[]).map(s => s.id).filter(sid => groups[sid]);
@@ -10002,137 +10034,228 @@ function view_investigation(id, tab){
     const s = sessions[sid] || { label: prettyId(sid), date:'' };
     const tiles = groups[sid].map(ex => {
       const done = invExhibitDone(iv, ex);
-      const pips = (ex.layers||[]).map((l,i) => `<span class="pip ${invUnlocked(iv.id,ex.id,i)?'on':''}"></span>`).join('');
-      return `<div class="inv-ex ${done?'done':''}" onclick="invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')">
-        <div class="inv-ex-icon">${esc(ex.icon||'📄')}</div>
-        <div class="inv-ex-title">${esc(ex.title)}</div>
-        <div class="inv-ex-sec">${esc(ex.secured||'')}</div>
-        <div class="inv-ex-pips">${pips}</div>
+      const n = (ex.layers||[]).length;
+      const got = (ex.layers||[]).filter((l,i) => invUnlocked(iv.id, ex.id, i)).length;
+      const pips = (ex.layers||[]).map((l,i) => `<i class="pip ${invUnlocked(iv.id,ex.id,i)?'on':''}"></i>`).join('');
+      return `<div class="arttile" onclick="invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')" style="border-left-color:${done?'var(--green)':esc(iv.accent||'var(--accent)')}">
+        <div style="font-size:32px">${esc(ex.icon||'📄')}</div>
+        <div class="tt">${esc(ex.title)}</div>
+        <div class="tsub">◆ ${esc(ex.kind||'document')}${ex.custody?` · custody: ${esc(ex.custody)}`:''}</div>
+        <div class="tsum">${esc(ex.secured||'')}</div>
+        <div class="tmeta">
+          <span class="inv-pips" title="${got} of ${n} analyses unlocked">${pips}</span>
+          <span class="pill ${done?'border-accent':''}">${got}/${n} examined</span>
+          ${done?'<span class="pill pill-exhibit">fully read</span>':''}
+        </div>
       </div>`;
     }).join('');
     const ev = s.event && INDEX[s.event]
-      ? ` · <a class="entity-link" onclick="openId('${esc(s.event)}')">session record</a>` : '';
-    return `<h3 style="margin:20px 0 8px;font-size:14px">${esc(s.label)}
-      <span class="text-muted" style="font-weight:400;font-size:12px">· ${esc(s.date||'')}${ev}</span></h3>
-      <div class="inv-ex-grid">${tiles}</div>`;
+      ? ` · <a class="entity-link" onclick="openId('${esc(s.event)}')">open the session record →</a>` : '';
+    return `<div class="card">
+      <div class="home-section-head">
+        <div><h2>📎 ${esc(s.label)}</h2><p>${esc(s.date||'')}${ev}</p></div>
+        <span class="pill">${groups[sid].length} exhibit${groups[sid].length===1?'':'s'}</span>
+      </div>
+      <div class="artgrid">${tiles}</div>
+    </div>`;
   }).join('');
 
-  const threadsHtml = (iv.threads||[]).map(t =>
-    `<div class="inv-thread"><h4>${esc(t.title)}</h4><p>${invProse(t.text).replace(/^<p>|<\/p>$/g,'')}</p></div>`
-  ).join('') || '<div class="inv-empty">No threads opened yet.</div>';
-
-  const leadsHtml = (iv.leads||[]).map(l => {
-    const exLinks = (l.exhibits||[]).map(exid => {
-      const ex = (iv.exhibits||[]).find(e => e.id === exid);
-      return ex ? `<span class="inv-stat" style="cursor:pointer" onclick="invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')">${esc(ex.icon||'📄')} ${esc(ex.title)}</span>` : '';
-    }).join('');
-    return `<div class="inv-lead">
-      <div class="inv-lead-head">
-        <span class="inv-pri inv-pri--${esc(l.priority||'medium')}">${esc(l.priority||'medium')}</span>
-        <h4>${esc(l.title)}</h4>
-        <span class="inv-xp-tag">${l.xp||0} XP</span>
+  const threadsHtml = (iv.threads||[]).length ? `<div class="card">
+      <div class="home-section-head">
+        <div><h2>🧵 Open threads</h2><p>What the file currently believes, and what it is still holding open.</p></div>
+        <span class="pill">${(iv.threads||[]).length} thread${(iv.threads||[]).length===1?'':'s'}</span>
       </div>
-      <p class="inv-obj">${esc(l.objective||'')}</p>
-      <p class="inv-why"><b>Why this is a lead and not an errand.</b> ${esc(l.why||'')}</p>
-      <div class="inv-lead-foot">${exLinks}</div>
-    </div>`;
-  }).join('') || '<div class="inv-empty">No leads filed yet.</div>';
+      <div class="prose">${(iv.threads||[]).map(t =>
+        `<h3>${esc(t.title)}</h3>${invProse(t.text)}`).join('')}</div>
+    </div>`
+    : '<div class="card"><h2>No threads opened yet</h2><p class="text-muted">Nothing has been read closely enough to argue about.</p></div>';
+
+  const PRI_COLOR = { critical:'var(--danger)', high:'#f39c12', medium:'#3498db', low:'var(--muted)' };
+  const leadsHtml = (iv.leads||[]).length ? `<div class="card">
+      <div class="home-section-head">
+        <div><h2>🎯 Live leads</h2><p>Objectives this file is actually pursuing. Every one carries a reason it is a lead and not an errand.</p></div>
+        <span class="pill">${(iv.leads||[]).length} lead${(iv.leads||[]).length===1?'':'s'}</span>
+      </div>
+    </div>` + (iv.leads||[]).map(l => {
+      const pri = (l.priority||'medium');
+      /* a lead may cite an exhibit filed in another investigation — resolve
+         across all files rather than dropping the chip silently */
+      const exChips = (l.exhibits||[]).map(exid => {
+        let ex = (iv.exhibits||[]).find(e => e.id === exid), owner = iv;
+        if(!ex) invAll().some(o => {
+          const hit = (o.exhibits||[]).find(e => e.id === exid);
+          if(hit){ ex = hit; owner = o; return true; } return false;
+        });
+        if(!ex) return '';
+        const foreign = owner.id !== iv.id;
+        const go = foreign
+          ? `Router.go('#/investigation/${encodeURIComponent(owner.id)}');setTimeout(()=>invOpenExhibit('${esc(owner.id)}','${esc(ex.id)}'),60)`
+          : `invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')`;
+        return `<span class="chip" onclick="${go}">${esc(ex.icon||'📄')} ${esc(ex.title)}${foreign?` <span class="text-muted">· ${esc(owner.codename)}</span>`:''}</span>`;
+      }).join('');
+      const src = l.fromQuest ? `<span class="pill">promoted from the board</span>` : '';
+      return `<div class="card" style="border-left:4px solid ${PRI_COLOR[pri]||'var(--accent)'}">
+        <div class="metabar">
+          <span class="pill inv-pri--${esc(pri)}">${esc(pri)}</span>
+          <span class="pill">${esc(l.state||'open')}</span>
+          ${l.xp?`<span class="pill xp-pill">✦ ${l.xp} XP</span>`:''}
+          ${src}
+        </div>
+        <h3 style="margin:0 0 6px">${esc(l.title)}</h3>
+        <p style="margin:0 0 4px;font-size:14px;line-height:1.7">${esc(l.objective||'')}</p>
+        <div class="wnote"><b>Why this is a lead and not an errand:</b> ${esc(l.why||'')}</div>
+        ${exChips?`<div class="chips">${exChips}</div>`:''}
+      </div>`;
+    }).join('')
+    : '<div class="card"><h2>No leads filed yet</h2><p class="text-muted">The file has no live objective. That is either good news or an oversight.</p></div>';
+
+  const briefHtml = `<div class="card">
+    <div class="home-section-head">
+      <div><h2>🖋️ Waluigi's brief</h2><p>The archivist's own reading of the file. Argumentative by design.</p></div>
+      <span class="pill">${esc(iv.archivist||'Waluigi')}</span>
+    </div>
+    <div class="prose">${invBrief(iv.brief)}</div>
+  </div>`;
 
   const evChips = (iv.relatedEvents||[]).filter(e => INDEX[e]).map(e =>
-    `<span class="chip" onclick="openId('${esc(e)}')">${esc(prettyId(e))}</span>`).join('');
+    `<span class="rel-chip" onclick="openId('${esc(e)}')"><span class="rt">event</span>${esc(displayName(INDEX[e].item))}</span>`).join('');
 
   const tabBtn = (k, label, n) =>
-    `<button class="inv-tab ${INV_TAB===k?'active':''}" onclick="view_investigation('${esc(iv.id)}','${k}')">${label}${n!=null?` (${n})`:''}</button>`;
+    `<button class="chip ${INV_TAB===k?'active':''}" onclick="view_investigation('${esc(iv.id)}','${k}')">${label}${n!=null?` (${n})`:''}</button>`;
+
+  const otherFiles = invAll().filter(o => o.id !== iv.id).map(o =>
+    `<span class="rel-chip" onclick="Router.go('#/investigation/${encodeURIComponent(o.id)}')"><span class="rt">${esc(o.status)}</span>${esc(o.icon||'')} ${esc(o.title)}</span>`).join('');
+
+  const infoRows = [
+    ['Status', iv.status],
+    ['Classification', iv.classification],
+    ['Opened', iv.opened],
+    ['Last filed', iv.lastFiled],
+    ['Archivist', iv.archivist],
+    ['Exhibits', (iv.exhibits||[]).length],
+    ['Leads', (iv.leads||[]).length],
+    ['Threads', (iv.threads||[]).length]
+  ].filter(r => r[1] !== undefined && r[1] !== '')
+   .map(r => `<div class="row"><span class="k">${esc(r[0])}</span><span class="v">${esc(String(r[1]))}</span></div>`).join('');
 
   el('content').innerHTML = `
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> ›
       <a onclick="Router.go('#/investigations')">Investigations</a> › ${esc(iv.codename)}</div>
 
-    <div class="inv-file-head" style="--inv-accent:${esc(iv.accent||'#8a4bff')}">
-      <div class="inv-code" style="font-family:ui-monospace,monospace;font-size:11.5px;letter-spacing:.16em;font-weight:900;color:${esc(iv.accent||'#8a4bff')}">
-        ${esc(iv.icon||'')} ${esc(iv.codename)}</div>
-      <h1>${esc(iv.title)}</h1>
-      <p class="inv-sub">${esc(iv.subtitle||'')}</p>
-      <span class="inv-status inv-status--${esc(iv.status)}">${esc(iv.status)}</span>
-      <dl class="inv-meta">
-        <div><dt>Classification</dt><dd>${esc(iv.classification||'—')}</dd></div>
-        <div><dt>Opened</dt><dd>${esc(iv.opened||'—')}</dd></div>
-        <div><dt>Last filed</dt><dd>${esc(iv.lastFiled||'—')}</dd></div>
-        <div><dt>Archivist</dt><dd>${esc(iv.archivist||'Waluigi')}</dd></div>
-      </dl>
-      ${iv.imageCaption ? `<p class="text-muted" style="font-size:12px;font-style:italic;margin:12px 0 0">${esc(iv.imageCaption)}</p>` : ''}
-    </div>
-
-    ${p.layers ? `<div class="inv-progress">
-      <div class="inv-xp">${p.xp.toLocaleString()}<small>XP earned</small></div>
-      <div style="flex:1;min-width:180px">
-        <div style="font-size:12px;color:var(--muted);margin-bottom:5px">${p.done} of ${p.layers} analyses unlocked
-          · ${p.rolls} examination${p.rolls===1?'':'s'} attempted · ${p.totalXp.toLocaleString()} XP available</div>
-        <div class="inv-bar"><i style="width:${p.pct}%"></i></div>
+    <div class="article-layout"><div>
+      <div class="card animate-fade-in" style="border-left:4px solid ${esc(iv.accent||'var(--accent)')}">
+        <div class="art-kicker">${esc(iv.icon||'🔍')} ${esc(iv.codename)}</div>
+        <h1 class="art-title">${esc(iv.title)}</h1>
+        ${iv.subtitle?`<div class="art-subtitle">${esc(iv.subtitle)}</div>`:''}
+        <div class="metabar">
+          <span class="pill inv-status--${esc(iv.status)}">${esc(iv.status)}</span>
+          ${iv.classification?`<span class="pill">${esc(iv.classification)}</span>`:''}
+          <span class="pill">${(iv.exhibits||[]).length} exhibit${(iv.exhibits||[]).length===1?'':'s'}</span>
+          <span class="pill">${(iv.leads||[]).length} lead${(iv.leads||[]).length===1?'':'s'}</span>
+          ${p.xp?`<span class="pill xp-pill">✦ ${p.xp.toLocaleString()} XP earned</span>`:''}
+        </div>
+        ${p.layers ? `
+        <div class="species-stats">
+          <div class="species-stat"><b>${p.done}/${p.layers}</b>Analyses Unlocked</div>
+          <div class="species-stat"><b>${p.xp.toLocaleString()}</b>XP Earned Here</div>
+          <div class="species-stat"><b>${p.totalXp.toLocaleString()}</b>XP Available</div>
+          <div class="species-stat"><b>${p.rolls}</b>Examinations Rolled</div>
+        </div>
+        <div class="xpbar"><span style="width:${p.pct}%"></span></div>
+        <div style="display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)">
+          <span>${p.pct}% of this file has been read closely.</span>
+          <a class="entity-link" onclick="invReset('${esc(iv.id)}')">Reset this file's progress</a>
+        </div>` : ''}
+        ${iv.hook?`<div class="wnote"><b>The hook:</b> ${esc(iv.hook)}</div>`:''}
+        ${iv.imageCaption?`<p class="imgcap">${esc(iv.imageCaption)}</p>`:''}
+        <div class="chips mt-12">
+          ${(iv.exhibits||[]).length ? tabBtn('exhibits','📎 Exhibits',(iv.exhibits||[]).length) : ''}
+          ${tabBtn('brief','🖋️ Waluigi’s brief')}
+          ${tabBtn('leads','🎯 Leads',(iv.leads||[]).length)}
+          ${tabBtn('threads','🧵 Threads',(iv.threads||[]).length)}
+        </div>
       </div>
-      <button class="inv-tab" onclick="invReset('${esc(iv.id)}')">Reset file</button>
-    </div>` : ''}
 
-    <div class="inv-tabs">
-      ${(iv.exhibits||[]).length ? tabBtn('exhibits','📎 Exhibits',(iv.exhibits||[]).length) : ''}
-      ${tabBtn('brief','🖋️ Waluigi’s brief')}
-      ${tabBtn('leads','🎯 Leads',(iv.leads||[]).length)}
-      ${tabBtn('threads','🧵 Threads',(iv.threads||[]).length)}
-    </div>
+      ${INV_TAB==='exhibits' ? (exHtml || '<div class="card"><h2>No exhibits filed yet</h2><p class="text-muted">This file has a thesis and no paper. File a session.</p></div>') :
+        INV_TAB==='brief'    ? briefHtml :
+        INV_TAB==='leads'    ? leadsHtml : threadsHtml}
 
-    <div>${
-      INV_TAB==='exhibits' ? (exHtml || '<div class="inv-empty">No exhibits filed yet.</div>') :
-      INV_TAB==='brief'    ? `<div class="card"><div class="inv-brief">${invBrief(iv.brief)}</div></div>` :
-      INV_TAB==='leads'    ? leadsHtml : threadsHtml
-    }</div>
-
-    ${evChips ? `<div class="card" style="margin-top:18px">
-      <h3 style="margin-top:0;font-size:15px">Session records behind this file</h3>
-      <div class="chips">${evChips}</div></div>` : ''}
-
-    <div id="invModal" class="inv-modal" onclick="if(event.target===this)invCloseExhibit()"></div>`;
+      ${evChips ? `<div class="card">
+        <div class="home-section-head">
+          <div><h2>📜 Session records behind this file</h2><p>The events these exhibits were pulled out of.</p></div>
+          <span class="pill">${(iv.relatedEvents||[]).filter(e=>INDEX[e]).length} record${(iv.relatedEvents||[]).filter(e=>INDEX[e]).length===1?'':'s'}</span>
+        </div>
+        <div class="related-list">${evChips}</div></div>` : ''}
+    </div><div>
+      <div class="infobox"><h4>Case file</h4>${infoRows}</div>
+      <div class="cross-page-panel">
+        <h4>Connected Systems</h4>
+        <div class="cross-page-links">
+          <a href="#/investigations">🔍 All investigation files</a>
+          <a href="#/quest-log">📋 Retired quest log</a>
+          <a href="#/items">🎒 Item index &amp; exhibits</a>
+          <a href="#/reputation">📈 Reputation Matrix</a>
+        </div>
+      </div>
+      ${otherFiles?`<div class="infobox"><h4>Other open files</h4><div class="related-list">${otherFiles}</div></div>`:''}
+    </div></div>`;
+  window.scrollTo(0,0);
 }
 
-/* ---------- exhibit modal ---------- */
+/* ---------- exhibit reader ----------
+   Deliberately the same furniture as the prop reader in exhibits.css:
+   .exhibit-overlay > .exhibit-frame > .exhibit-bar / .exhibit-stage / .exhibit-foot.
+   An investigation exhibit IS a prop; it should not open into a different dialog. */
 function invOpenExhibit(invId, exId){
   const iv = invGet(invId); if(!iv) return;
   const ex = (iv.exhibits||[]).find(e => e.id === exId); if(!ex) return;
   let host = document.getElementById('invModal');
   if(!host){
     host = document.createElement('div');
-    host.id = 'invModal'; host.className = 'inv-modal';
+    host.id = 'invModal'; host.className = 'exhibit-overlay inv-overlay';
+    host.setAttribute('role','dialog'); host.setAttribute('aria-modal','true');
     host.onclick = e => { if(e.target === host) invCloseExhibit(); };
     document.body.appendChild(host);
   }
-  host.innerHTML = `<div class="inv-modal-inner">
-    <div class="inv-modal-head">
-      <span style="font-size:24px">${esc(ex.icon||'📄')}</span>
-      <h2>${esc(ex.title)}<br><span class="text-muted" style="font-size:11.5px;font-weight:400">
-        ${esc(ex.secured||'')}${ex.custody?` · custody: ${esc(ex.custody)}`:''}</span></h2>
-      <button class="inv-x" onclick="invCloseExhibit()" aria-label="Close">✕</button>
-    </div>
-    <div class="inv-modal-body" id="invModalBody"></div>
-  </div>`;
+
+  const foot = [];
+  (ex.links && ex.links.events || []).forEach(e => { if(INDEX[e]) foot.push(`<a onclick="invCloseExhibit();openId('${esc(e)}')">📜 ${esc(displayName(INDEX[e].item))}</a>`); });
+  (ex.links && ex.links.characters || []).forEach(c => { if(INDEX[c]) foot.push(`<a onclick="invCloseExhibit();openId('${esc(c)}')">👤 ${esc(displayName(INDEX[c].item))}</a>`); });
+  if(ex.itemId) foot.push(`<a onclick="invCloseExhibit();Router.go('#/item/${encodeURIComponent(ex.itemId)}')">🎒 ${esc(prettyId(ex.itemId))}</a>`);
+
+  host.innerHTML = `<div class="exhibit-frame">
+      <div class="exhibit-bar">
+        <span style="font-size:22px;line-height:1">${esc(ex.icon||'📄')}</span>
+        <h3>${esc(ex.title)}</h3>
+        <span class="exhibit-kind">${esc(ex.kind||'document')}</span>
+        <button class="exhibit-x" type="button" aria-label="Close exhibit" onclick="invCloseExhibit()">✕</button>
+      </div>
+      <div class="exhibit-stage" id="invModalBody"></div>
+      <div class="exhibit-foot">
+        <div class="exhibit-note">${esc(ex.secured||'')}${ex.custody?` · custody: ${esc(ex.custody)}`:''}</div>
+        ${foot.length?`<div class="exhibit-links">${foot.join('')}</div>`:''}
+      </div>
+    </div>`;
   const body = document.getElementById('invModalBody');
 
   const paper = (typeof getProp === 'function' && ex.propId && getProp(ex.propId))
-    ? `<div class="inv-paper">${propDocumentHtml(ex.propId)}</div>` : '';
-
-  const links = [];
-  (ex.links && ex.links.events || []).forEach(e => { if(INDEX[e]) links.push(`<span class="chip" onclick="invCloseExhibit();openId('${esc(e)}')">📜 ${esc(prettyId(e))}</span>`); });
-  (ex.links && ex.links.characters || []).forEach(c => { if(INDEX[c]) links.push(`<span class="chip" onclick="invCloseExhibit();openId('${esc(c)}')">👤 ${esc(prettyId(c))}</span>`); });
-  if(ex.itemId) links.push(`<span class="chip" onclick="invCloseExhibit();Router.go('#/item/${encodeURIComponent(ex.itemId)}')">🎒 ${esc(prettyId(ex.itemId))}</span>`);
+    ? propDocumentHtml(ex.propId) : '';
 
   body.innerHTML = `
-    <div class="inv-onrecord"><b>On the record, without rolling</b>${esc(ex.onRecord||'')}</div>
+    <div class="card">
+      <div class="home-section-head">
+        <div><h2>🗂️ On the record, without rolling</h2><p>What the file can assert about this exhibit before anybody analyses anything.</p></div>
+      </div>
+      <p style="margin:0;font-size:14px;line-height:1.7">${esc(ex.onRecord||'')}</p>
+    </div>
     ${paper}
-    <h3 style="font-size:14px;margin:20px 0 4px">Examination</h3>
-    <p class="text-muted" style="font-size:12.5px;margin:0 0 10px">
-      d6+1 against the difficulty. Failure is not a locked door — the paper is still on the table tomorrow,
-      and every failed reading leaves a <b>+1 study bonus</b> on that layer, up to +3. Persistence always gets there.
-      Each layer pays its XP once, on first unlock.</p>
-    <div id="invLayers">${(ex.layers||[]).map((l,i) => invLayerHtml(iv, ex, l, i)).join('')}</div>
-    ${links.length ? `<div style="margin-top:18px"><div class="text-muted" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;margin-bottom:6px">Cross-references</div><div class="chips">${links.join('')}</div></div>` : ''}`;
+    <div class="card">
+      <div class="home-section-head">
+        <div><h2>🔬 Examination</h2><p>d6+1 against the difficulty. Failure is not a locked door — the paper is still on the table tomorrow, and every failed reading leaves a <b>+1 study bonus</b> on that layer, up to +3. Each layer pays its XP once, on first unlock.</p></div>
+        <span class="pill">${(ex.layers||[]).length} layer${(ex.layers||[]).length===1?'':'s'}</span>
+      </div>
+      <div id="invLayers">${(ex.layers||[]).map((l,i) => invLayerHtml(iv, ex, l, i)).join('')}</div>
+    </div>`;
 
   host.classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -10150,15 +10273,15 @@ function invLayerHtml(iv, ex, l, i){
     <div class="inv-layer-head">
       <span class="inv-layer-n">LAYER ${i+1}</span>
       <span class="inv-layer-title">${unlocked ? esc(l.title) : (locked ? 'Sealed — examine the previous layer first' : 'Unexamined')}</span>
-      <span class="inv-dc">DC ${l.dc}</span>
-      <span class="inv-xp-tag">${l.xp} XP</span>
+      <span class="pill">DC ${l.dc}</span>
+      <span class="pill xp-pill">✦ ${l.xp} XP</span>
       ${unlocked
-        ? '<span style="font-size:11px;font-weight:800;color:#2ecc71">UNLOCKED</span>'
-        : `${bonus ? `<span class="inv-xp-tag" title="Study bonus earned by re-reading">+${bonus} study</span>` : ''}<button class="inv-roll-btn" ${locked?'disabled':''} onclick="invExamine('${esc(iv.id)}','${esc(ex.id)}',${i})">🎲 ${tries ? 'Examine again' : 'Examine'}</button>`}
+        ? '<span class="pill border-accent" style="color:var(--green)">unlocked</span>'
+        : `${bonus ? `<span class="pill" title="Study bonus earned by re-reading">+${bonus} study</span>` : ''}<button class="chip active" ${locked?'disabled':''} onclick="invExamine('${esc(iv.id)}','${esc(ex.id)}',${i})">🎲 ${tries ? 'Examine again' : 'Examine'}</button>`}
     </div>
     <div class="inv-layer-body">
       <div class="inv-roll-out" id="invOut_${esc(ex.id)}_${i}"></div>
-      ${unlocked ? `<div class="inv-analysis">${invAnalysis(l.text)}</div>` : ''}
+      ${unlocked ? `<div class="prose">${invAnalysis(l.text)}</div>` : ''}
     </div>
   </div>`;
 }
@@ -10248,7 +10371,7 @@ function propDocumentHtml(propId){
   const p = (typeof getProp === 'function') ? getProp(propId) : null;
   if(!p) return '';
   const stamps = (p.stamps||[]).map(s => `<span class="pd-stamp pd-stamp--${esc(s)}">${esc(s==='noaction'?'no action taken':s)}</span>`).join('');
-  return `<div class="pd pd--${esc(p.kind||'note')}${p.torn?' pd--torn':''}">${stamps}${p.body||''}</div>${p.note ? `<p class="text-muted" style="font-size:12px;font-style:italic;margin:8px 2px 0">${p.note}</p>` : ''}`;
+  return `<div class="pd pd--${esc(p.kind||'note')}${p.torn?' pd--torn':''}">${stamps}${p.body||''}</div>${p.note ? `<p class="imgcap">${p.note}</p>` : ''}`;
 }
 
 /* ---------- connected panel on record pages ---------- */
@@ -10271,24 +10394,28 @@ function renderConnectedInvestigationsPanel(id, typeKey){
   if(!hits.length) return '';
 
   const seen = new Set();
-  const rows = hits.filter(h => {
+  const kept = hits.filter(h => {
     const k = h.kind + ':' + h.label; if(seen.has(k)) return false; seen.add(k); return true;
-  }).slice(0, 12).map(h => `
-    <div class="inv-c-row">
-      <span class="inv-c-kind">${h.kind}</span>
-      <span style="flex:1">
+  }).slice(0, 12);
+
+  const rows = kept.map(h => `
+    <div class="kv-row">
+      <span class="k">${esc(h.kind)}</span>
+      <span class="v">
         ${h.kind === 'exhibit'
           ? `<a class="entity-link" onclick="Router.go('#/investigation/${encodeURIComponent(h.iv.id)}');setTimeout(()=>invOpenExhibit('${esc(h.iv.id)}','${esc(h.ex.id)}'),60)">${esc(h.label)}</a>`
           : `<a class="entity-link" href="#/investigation/${encodeURIComponent(h.iv.id)}">${esc(h.label)}</a>`}
-        <span class="text-muted" style="font-size:11.5px"> · ${esc(h.iv.codename)}</span>
-        <div class="text-muted" style="font-size:12px;line-height:1.5;margin-top:2px">${esc(String(h.note||'').slice(0,190))}</div>
+        <span class="text-muted"> · ${esc(h.iv.codename)}</span>
+        <div class="text-muted" style="font-size:12.5px;line-height:1.5;margin-top:3px">${esc(String(h.note||'').slice(0,190))}</div>
       </span>
     </div>`).join('');
 
-  return `<div class="inv-connected">
-    <h3><span class="title-icon">🔍</span> Open Investigations</h3>
-    <p class="inv-c-note">This record is cited in the archive's open case files. Exhibits open with a roll.</p>
-    ${rows}
+  return `<div class="card" style="border-left:4px solid var(--accent)">
+    <div class="home-section-head">
+      <div><h2>🔍 Open Investigations</h2><p>This record is cited in the archive's open case files. Exhibits open with a roll.</p></div>
+      <a class="chip" href="#/investigations">All files →</a>
+    </div>
+    <div class="kv-list">${rows}</div>
   </div>`;
 }
 
@@ -15363,8 +15490,7 @@ const Router={
        everything else lands on the index. The read-only history lives at #/quest-log. */
     else if(route==='quests'||route==='quest'){
       const qid=(arg||'').split('/')[0];
-      const map=((DATA.investigations&&DATA.investigations._README&&DATA.investigations._README.quest_migration)||{}).promoted_to_leads||{};
-      const hit=qid&&map[qid]&&map[qid][0];
+      const hit=qid&&invPromotedTo(qid);   /* "invId/leadId" or null */
       if(hit){ location.replace('#/investigation/'+encodeURIComponent(hit.split('/')[0])); return; }
       location.replace('#/investigations'); return;
     }

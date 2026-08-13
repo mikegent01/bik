@@ -31,7 +31,7 @@ is not answered by a list. It is answered by paper.
 | Path | What it is |
 |---|---|
 | `Reputation-Matrix2/data/investigations.json` | The data. `{ _README, investigations[] }` |
-| `Reputation-Matrix2/app/styles/systems/investigations.css` | All `.inv-*` styling |
+| `Reputation-Matrix2/app/styles/systems/investigations.css` | **Only** the examination accordion, dice, pips and inline rolls. Everything else is site-standard classes — see [Presentation](#presentation) |
 | `index.html` — section marked `INVESTIGATIONS SYSTEM` | The engine: views, dice, storage, connected panel |
 | `Reputation-Matrix2/data/props.json` | The physical documents exhibits render |
 | `Reputation-Matrix2/data/quests.json` | **Retained read-only** as the historical log at `#/quest-log`. Nothing was deleted from it |
@@ -73,7 +73,7 @@ map and its link starts resolving to the right file.
   "lastFiled": "24 Harvestide, 1040 BF",
   "archivist": "Waluigi, Auditor-General",
   "icon": "🏚️",
-  "accent": "#8a4bff",                       // drives --inv-accent
+  "accent": "#8a4bff",                       // inline border-left on the tile + file header
   "hook": "one sentence for the index card",
   "brief": "markdown-ish prose; ## makes a heading",
   "sessions": [ { "id":"…", "label":"…", "date":"…", "event":"<events.json id>" } ],
@@ -151,6 +151,13 @@ Examination is **d6 + 1 against the layer DC**, matching the roll in
 - XP is awarded **once per layer, on first unlock**.
 - Standard ladders: `3 / 5 / 7` for an ordinary document, `4 / 6 / 8` for one
   that is actively resisting being read (redactions, ciphers, sealed wax).
+- **The study bonus.** A bare `d6 + 1` tops out at 7, so a DC 8 layer would be
+  unreachable on its own. Every *failed* reading of a layer leaves a permanent
+  **+1 study bonus** on that layer, capped at **+3**, persisted alongside the
+  unlock state. So DC 8 is not a wall — it is two failed readings and a third
+  attempt. The failed pill shows `+N study` and the button changes to
+  *Examine again*. This is why the DCs were left alone rather than lowered:
+  documents that resist being read should take more than one sitting.
 - Progress lives in `localStorage` under `waluipedia-investigations-v1`.
   Nothing is written back to JSON. Reset from the file header.
 
@@ -173,6 +180,65 @@ Any layer `text` may contain:
 It renders as a dashed underline; clicking rolls a plain d6 against the DC and
 prints the result in place. One roll per span, no XP. Use it for a judgement
 call the archive genuinely cannot settle, not for decoration.
+
+---
+
+## Presentation
+
+An investigation page is **an ordinary Waluipedia page**. It is built out of
+the same components as every other index and article in the archive, and it
+should be indistinguishable from them at a glance. The first version of this
+system shipped a parallel design language (`.inv-hero`, `.inv-grid`,
+`.inv-card`, `.inv-tabs`, `.inv-modal`, …) and read like a different website
+bolted onto this one. That was removed.
+
+**The rule: if the site already has a class for it, use the site's class.**
+
+| Thing on the page | Class to use | Do not invent |
+|---|---|---|
+| Page/section container | `.card`, `.card.animate-fade-in` | `.inv-hero`, `.inv-file-head` |
+| Section header with a right-hand action | `.home-section-head` | a bespoke header row |
+| Grid of clickable things | `.artgrid` + `.arttile` (`.tt` `.tsub` `.tsum` `.tmeta`) | `.inv-grid`, `.inv-ex-grid` |
+| Detail page skeleton | `.breadcrumb` + `.article-layout` + `.art-kicker`/`.art-title`/`.art-subtitle`/`.metabar` | a bespoke file header |
+| Tabs / filters | `.chips` + `.chip` (`.active`) | `.inv-tabs` |
+| Small status badge | `.pill` (+ a colour-only modifier) | a new badge component |
+| Big number readout | `.species-stats` + `.species-stat` | `.inv-stat` |
+| Progress meter | `.xpbar` | `.inv-bar` |
+| Sidebar facts | `.infobox` with `.row`/`.k`/`.v` | `.inv-meta` |
+| Sidebar navigation | `.cross-page-panel` + `.cross-page-links` | a bespoke link list |
+| Aside in Waluigi's voice | `.wnote` | `.inv-brief` |
+| Long-form analysis | `.prose` | `.inv-analysis` |
+| Chip linking to another record | `.rel-chip` (with a `.rt` kicker) | `.inv-c-row` |
+| Reading a physical document full-screen | the prop overlay from `exhibits.css`: `.exhibit-overlay` → `.exhibit-frame` → `.exhibit-bar` / `.exhibit-stage` / `.exhibit-foot` | `.inv-modal` |
+| The document itself | `propDocumentHtml(propId)` → `.pd` and the `.pd-*` family | re-render the prop by hand |
+
+Four things are genuinely new to this system and therefore *do* live in
+`investigations.css`:
+
+1. `.inv-layer` — the examination accordion (head, body, `.open`, `.unlocked`,
+   `.locked`).
+2. `.inv-roll-out` and `.inv-die` — the roll readout and the tumbling die.
+3. `.inv-pips` / `.pip.on` — the "how much of this exhibit has been read"
+   strip, which sits inside an ordinary `.arttile .tmeta` row.
+4. `.inv-inline-roll` / `.inv-inline-out` — the clickable spans inside prose.
+
+Plus two colour-only modifiers that ride on `.pill` and set nothing but
+`color` and `border-color`: `.inv-status--*` (active / stub / closed) and
+`.inv-pri--*` (critical / high / medium / low).
+
+If you are about to add a rule to `investigations.css` that sets `padding`,
+`border-radius`, `display:grid`, or a background gradient, stop — you are
+rebuilding a component the site already has, and that is the exact mistake
+this section exists to prevent.
+
+Two conventions inherited from the rest of `index.html`:
+
+- **Optional panels return `''` when they have nothing to show.** See
+  `renderConnectedInvestigationsPanel()`, and `renderConnectedQuestsPanel()`
+  before it. Never render an empty box.
+- **Accent colour comes in as an inline `border-left`**, matching
+  `renderConnectedQuestsPanel()` and the event cards, rather than through a
+  custom property the stylesheet has to know about.
 
 ---
 
@@ -297,3 +363,4 @@ decision, not a data deletion, and it can be revised by editing the map.
 | A lead with no `why` | It is a quest again | Delete it or justify it |
 | Unresolvable ids in `links` | Chips silently vanish | Check against `events.json`, `characters.json`, `INVENTORY_SYSTEM.items` |
 | Reusing an `id` inside one investigation | The second one is unreachable | Ids are unique per file |
+| Adding a new `.inv-*` layout class | The page drifts away from the rest of the site again | Use the site class — see [Presentation](#presentation) |

@@ -1,181 +1,63 @@
 /* ============================================================================
    INVESTIGATIONS SYSTEM
    One open case file per story arc. Exhibits accrete; readers roll to dig.
-   Consumed by index.html views: view_investigations_index / view_investigation.
-   Physical document rendering is delegated to exhibits.css (.pd-* vocabulary).
+
+   DESIGN RULE: an investigation page is an ordinary Waluipedia page. It is
+   assembled from the site's existing component vocabulary — .card,
+   .home-section-head, .species-stats, .chips/.chip, .artgrid/.arttile, .pill,
+   .wnote, .rel-chip, .breadcrumb, .article-layout, .infobox, .xpbar — and the
+   exhibit reader reuses the prop overlay defined in exhibits.css
+   (.exhibit-overlay / -frame / -bar / -stage / -foot / .pd-*).
+
+   This stylesheet therefore contains ONLY what the site had no word for:
+   the examination accordion, the roll output and die, the pip strip, the
+   inline rollable spans, and the two pill colour variants (status, priority).
+   If you find yourself adding a card/grid/tab rule here, use the site class
+   instead — that divergence is exactly what this rewrite removed.
    ========================================================================== */
 
-/* ---------- index ---------- */
-.inv-hero{
-  border:1px solid var(--border); border-left:5px solid var(--accent);
-  border-radius:12px; padding:18px 20px; margin-bottom:16px;
-  background:linear-gradient(135deg, rgba(138,75,255,.10), transparent 65%);
-}
-.inv-hero h1{margin:0 0 6px; font-size:26px; letter-spacing:.2px}
-.inv-hero .inv-kicker{
-  font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
-  color:var(--accent2); font-weight:800; margin-bottom:6px;
-}
-.inv-hero p{margin:0; color:var(--muted); font-size:13.5px; max-width:74ch; line-height:1.6}
+/* ---------- pill variants: file status + lead priority ------------------- */
+/* These ride on .pill, so they inherit the site's pill shape and only set
+   colour. Nothing here should set padding, radius, or font-size. */
+.pill.inv-status--active{color:var(--green,#2ecc71);border-color:rgba(46,204,113,.5)}
+.pill.inv-status--stub{color:#f39c12;border-color:rgba(243,156,18,.5)}
+.pill.inv-status--closed{color:var(--muted)}
+.pill.inv-pri--critical{color:var(--danger);border-color:rgba(229,72,77,.55)}
+.pill.inv-pri--high{color:#f39c12;border-color:rgba(243,156,18,.5)}
+.pill.inv-pri--medium{color:#3498db;border-color:rgba(52,152,219,.5)}
+.pill.inv-pri--low{color:var(--muted)}
 
-.inv-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:14px; margin-top:14px}
+/* ---------- pip strip: how much of an exhibit has been read -------------- */
+/* Sits inside an .arttile .tmeta row alongside ordinary pills. */
+.inv-pips{display:inline-flex;gap:4px;align-items:center}
+.inv-pips .pip{width:20px;height:5px;border-radius:3px;background:var(--border);display:block}
+.inv-pips .pip.on{background:var(--accent2)}
 
-.inv-card{
-  border:1px solid var(--border); border-radius:12px; padding:16px;
-  background:var(--card,rgba(255,255,255,.02)); cursor:pointer;
-  transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;
-  display:flex; flex-direction:column; gap:8px; position:relative; overflow:hidden;
-}
-.inv-card:hover{transform:translateY(-2px); border-color:var(--accent); box-shadow:0 8px 22px rgba(0,0,0,.28)}
-.inv-card::before{content:""; position:absolute; inset:0 auto 0 0; width:4px; background:var(--inv-accent,var(--accent))}
-.inv-card .inv-code{
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11px;
-  letter-spacing:.14em; font-weight:800; color:var(--inv-accent,var(--accent2));
-}
-.inv-card .inv-title{font-size:17px; font-weight:800; line-height:1.25}
-.inv-card .inv-sub{font-size:12.5px; color:var(--muted); line-height:1.5}
-.inv-card .inv-hook{font-size:13px; line-height:1.6; border-left:2px solid var(--border); padding-left:10px; margin-top:2px}
-.inv-card .inv-foot{display:flex; gap:6px; flex-wrap:wrap; margin-top:auto; padding-top:8px}
-
-.inv-status{
-  font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:800;
-  padding:3px 8px; border-radius:999px; border:1px solid currentColor;
-}
-.inv-status--active{color:#2ecc71}
-.inv-status--stub{color:#f39c12}
-.inv-status--closed{color:var(--muted)}
-
-.inv-stat{
-  font-size:10.5px; padding:3px 8px; border-radius:999px;
-  border:1px solid var(--border); color:var(--muted); font-weight:700;
-}
-
-/* ---------- case file header ---------- */
-.inv-file-head{
-  border:1px solid var(--border); border-top:5px solid var(--inv-accent,var(--accent));
-  border-radius:12px; padding:20px 22px; margin-bottom:16px;
-  background:linear-gradient(180deg, rgba(138,75,255,.08), transparent 70%);
-}
-.inv-file-head h1{margin:2px 0 4px; font-size:28px; line-height:1.15}
-.inv-file-head .inv-sub{color:var(--muted); font-size:14px; margin:0 0 12px}
-.inv-meta{
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:10px; margin-top:12px; padding-top:12px; border-top:1px dashed var(--border);
-}
-.inv-meta dt{font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:800}
-.inv-meta dd{margin:2px 0 0; font-size:12.5px; font-weight:600}
-
-/* ---------- progress ---------- */
-.inv-progress{
-  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
-  border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin-bottom:14px;
-  background:rgba(138,75,255,.05);
-}
-.inv-progress .inv-xp{font-size:22px; font-weight:900; color:var(--accent2); line-height:1}
-.inv-progress .inv-xp small{display:block; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); font-weight:800; margin-top:3px}
-.inv-bar{flex:1; min-width:180px; height:8px; border-radius:4px; background:var(--bg2,rgba(0,0,0,.3)); overflow:hidden}
-.inv-bar > i{display:block; height:100%; background:linear-gradient(90deg,var(--accent2),var(--accent)); transition:width .4s ease}
-
-/* ---------- tabs ---------- */
-.inv-tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px}
-.inv-tab{
-  border:1px solid var(--border); background:transparent; color:var(--text);
-  border-radius:999px; padding:6px 14px; font-size:12.5px; font-weight:700; cursor:pointer;
-}
-.inv-tab:hover{border-color:var(--accent)}
-.inv-tab.active{background:var(--accent); border-color:var(--accent); color:#fff}
-
-/* ---------- exhibit tiles ---------- */
-.inv-ex-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:12px}
-.inv-ex{
-  border:1px solid var(--border); border-radius:10px; padding:13px; cursor:pointer;
-  display:flex; flex-direction:column; gap:6px; position:relative;
-  transition:border-color .12s ease, transform .12s ease;
-}
-.inv-ex:hover{border-color:var(--accent); transform:translateY(-2px)}
-.inv-ex .inv-ex-icon{font-size:22px; line-height:1}
-.inv-ex .inv-ex-title{font-weight:800; font-size:13.5px; line-height:1.3}
-.inv-ex .inv-ex-sec{font-size:11px; color:var(--muted); line-height:1.45}
-.inv-ex .inv-ex-pips{display:flex; gap:4px; margin-top:auto; padding-top:8px}
-.inv-ex .pip{width:22px; height:5px; border-radius:3px; background:var(--border)}
-.inv-ex .pip.on{background:var(--accent2)}
-.inv-ex.done{border-color:#2ecc71}
-.inv-ex.done::after{
-  content:"FULLY EXAMINED"; position:absolute; top:9px; right:9px;
-  font-size:8px; letter-spacing:.1em; font-weight:900; color:#2ecc71;
-}
-
-/* ---------- exhibit modal ---------- */
-.inv-modal{
-  position:fixed; inset:0; z-index:9000; display:none;
-  background:rgba(0,0,0,.72); backdrop-filter:blur(3px);
-  padding:24px; overflow-y:auto;
-}
-.inv-modal.show{display:block}
-.inv-modal-inner{
-  max-width:840px; margin:0 auto; background:var(--bg,#12121a);
-  border:1px solid var(--border); border-radius:14px; overflow:hidden;
-}
-.inv-modal-head{
-  display:flex; align-items:flex-start; gap:12px; padding:16px 18px;
-  border-bottom:1px solid var(--border); background:rgba(138,75,255,.08); position:sticky; top:0; z-index:2;
-}
-.inv-modal-head h2{margin:0; font-size:19px; line-height:1.25; flex:1}
-.inv-modal-head .inv-x{
-  background:transparent; border:1px solid var(--border); color:var(--text);
-  border-radius:8px; width:32px; height:32px; font-size:16px; cursor:pointer; flex:none;
-}
-.inv-modal-head .inv-x:hover{border-color:var(--accent); color:var(--accent)}
-.inv-modal-body{padding:18px}
-.inv-onrecord{
-  border-left:3px solid var(--accent); padding:10px 14px; margin-bottom:16px;
-  background:rgba(138,75,255,.05); font-size:13.5px; line-height:1.65;
-}
-.inv-onrecord b{display:block; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent2); margin-bottom:4px}
-
-/* the physical document, rendered through exhibits.css */
-.inv-paper{margin:16px 0}
-
-/* ---------- layers ---------- */
-.inv-layer{border:1px solid var(--border); border-radius:10px; margin-top:12px; overflow:hidden}
-.inv-layer-head{
-  display:flex; align-items:center; gap:10px; padding:11px 14px;
-  background:rgba(255,255,255,.02); flex-wrap:wrap;
-}
+/* ---------- the examination accordion ------------------------------------ */
+/* One collapsible block per layer, inside the reader's Examination card. */
+.inv-layer{border:1px solid var(--border);border-radius:10px;margin-top:10px;overflow:hidden;background:var(--bg2)}
+.inv-layer-head{display:flex;align-items:center;gap:9px;padding:10px 13px;flex-wrap:wrap}
 .inv-layer-n{
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:10.5px;
-  font-weight:900; letter-spacing:.1em; color:var(--muted);
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;
+  font-weight:900;letter-spacing:.1em;color:var(--muted);
 }
-.inv-layer-title{font-weight:800; font-size:13.5px; flex:1; min-width:160px}
-.inv-dc{
-  font-size:10px; font-weight:800; letter-spacing:.06em; padding:3px 8px;
-  border-radius:999px; border:1px solid var(--border); color:var(--muted);
-}
-.inv-xp-tag{font-size:10px; font-weight:800; color:var(--accent2)}
-.inv-roll-btn{
-  border:1px solid var(--accent); background:var(--accent); color:#fff;
-  border-radius:8px; padding:6px 14px; font-size:12px; font-weight:800; cursor:pointer;
-}
-.inv-roll-btn:hover{filter:brightness(1.12)}
-.inv-roll-btn:disabled{opacity:.5; cursor:not-allowed}
-.inv-roll-btn.retry{background:transparent; color:var(--accent)}
-
-.inv-layer-body{padding:0 14px; max-height:0; overflow:hidden; transition:max-height .3s ease, padding .3s ease}
-.inv-layer.open .inv-layer-body{max-height:4000px; padding:4px 14px 14px}
+.inv-layer-title{font-weight:800;font-size:13.5px;flex:1;min-width:160px}
+.inv-layer-head .chip[disabled]{opacity:.5;cursor:not-allowed}
+.inv-layer-body{padding:0 13px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+.inv-layer.open .inv-layer-body{max-height:4000px;padding:2px 13px 13px}
 .inv-layer.unlocked{border-color:var(--accent2)}
 .inv-layer.locked .inv-layer-title{color:var(--muted)}
+.inv-layer .prose{font-size:14.5px;max-width:none}
+.inv-layer .prose p:first-of-type{font-size:14.5px}
 
-.inv-analysis{font-size:14px; line-height:1.72}
-.inv-analysis p{margin:0 0 11px}
-.inv-analysis strong{color:var(--accent2)}
-.inv-analysis em{color:var(--text)}
-
-.inv-roll-out{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; padding:8px 0; line-height:1.6}
-.inv-roll-out .ok{color:#2ecc71; font-weight:800}
-.inv-roll-out .no{color:#e74c3c; font-weight:800}
+/* ---------- roll output + die -------------------------------------------- */
+.inv-roll-out{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;padding:8px 0;line-height:1.6}
+.inv-roll-out:empty{display:none}
+.inv-roll-out .ok{color:var(--green,#2ecc71);font-weight:800}
+.inv-roll-out .no{color:var(--danger);font-weight:800}
 .inv-die{
-  display:inline-block; min-width:26px; text-align:center; font-weight:900;
-  border:1px solid var(--accent2); border-radius:6px; padding:1px 6px; margin:0 3px;
+  display:inline-block;min-width:26px;text-align:center;font-weight:900;
+  border:1px solid var(--accent2);border-radius:6px;padding:1px 6px;margin:0 3px;
 }
 @keyframes inv-tumble{
   0%{transform:rotate(0) scale(1)} 25%{transform:rotate(-18deg) scale(1.16)}
@@ -184,74 +66,29 @@
 }
 .inv-die.rolling{animation:inv-tumble .55s ease-in-out}
 
-/* ---------- inline rollable spans (in briefs and analyses) ---------- */
+/* ---------- inline rollable spans inside analysis prose ------------------ */
 .inv-inline-roll{
-  border-bottom:1px dashed var(--accent2); cursor:help; color:var(--accent2); font-weight:600;
+  border-bottom:1px dashed var(--accent2);cursor:help;color:var(--accent2);font-weight:600;
 }
 .inv-inline-roll:hover{background:rgba(138,75,255,.12)}
-.inv-inline-roll.rolled{border-bottom-style:solid; cursor:default; opacity:.75}
-.inv-inline-out{font-size:12.5px; font-style:italic; margin-left:4px}
-.inv-inline-out .ok{color:#2ecc71}
-.inv-inline-out .no{color:#e74c3c}
+.inv-inline-roll.rolled{border-bottom-style:solid;cursor:default;opacity:.75}
+.inv-inline-out{font-size:12.5px;font-style:italic;margin-left:4px}
+.inv-inline-out .ok{color:var(--green,#2ecc71)}
+.inv-inline-out .no{color:var(--danger)}
 
-/* ---------- threads / leads ---------- */
-.inv-thread{border:1px solid var(--border); border-left:3px solid var(--accent2); border-radius:8px; padding:13px 15px; margin-bottom:10px}
-.inv-thread h4{margin:0 0 6px; font-size:14.5px}
-.inv-thread p{margin:0; font-size:13.5px; line-height:1.65; color:var(--text)}
-
-.inv-lead{border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:10px}
-.inv-lead-head{display:flex; align-items:center; gap:9px; flex-wrap:wrap; margin-bottom:7px}
-.inv-lead-head h4{margin:0; font-size:15px; flex:1; min-width:200px}
-.inv-pri{font-size:9px; letter-spacing:.1em; text-transform:uppercase; font-weight:900; padding:3px 8px; border-radius:999px; border:1px solid currentColor}
-.inv-pri--critical{color:#e74c3c}
-.inv-pri--high{color:#f39c12}
-.inv-pri--medium{color:#3498db}
-.inv-pri--low{color:var(--muted)}
-.inv-lead .inv-obj{font-size:13.5px; line-height:1.65; margin:0 0 8px}
-.inv-lead .inv-why{
-  font-size:13px; line-height:1.65; color:var(--muted);
-  border-left:2px solid var(--border); padding-left:11px; margin:0;
-}
-.inv-lead .inv-why b{color:var(--accent2); font-style:normal}
-.inv-lead-foot{display:flex; gap:6px; flex-wrap:wrap; margin-top:9px; align-items:center}
-
-/* ---------- brief prose ---------- */
-.inv-brief{font-size:14.5px; line-height:1.78; max-width:78ch}
-.inv-brief h2{font-size:18px; margin:22px 0 9px; padding-bottom:5px; border-bottom:1px solid var(--border)}
-.inv-brief p{margin:0 0 13px}
-.inv-brief strong{color:var(--accent2)}
-
-.inv-empty{border:1px dashed var(--border); border-radius:10px; padding:22px; text-align:center; color:var(--muted); font-size:13.5px}
-
-/* ---------- connected panel (record pages) ---------- */
-.inv-connected{border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:10px; padding:15px 17px; margin-top:18px}
-.inv-connected h3{margin:0 0 4px; font-size:16px; color:var(--accent); display:flex; align-items:center; gap:8px}
-.inv-connected .inv-c-note{font-size:12px; color:var(--muted); margin:0 0 11px}
-.inv-c-row{
-  display:flex; gap:10px; align-items:baseline; padding:9px 0;
-  border-bottom:1px dashed var(--border); font-size:13px;
-}
-.inv-c-row:last-child{border-bottom:0}
-.inv-c-row .inv-c-kind{
-  font-size:9px; letter-spacing:.1em; text-transform:uppercase; font-weight:900;
-  color:var(--accent2); min-width:62px; flex:none;
-}
-
-/* ---------- responsive ---------- */
-@media (max-width:640px){
-  .inv-modal{padding:0}
-  .inv-modal-inner{border-radius:0; min-height:100vh}
-  .inv-file-head{padding:15px}
-  .inv-file-head h1{font-size:22px}
-  .inv-ex-grid,.inv-grid{grid-template-columns:1fr}
-}
-
-/* ---------- light theme ---------- */
-body.light .inv-modal-inner{background:#fff}
-body.light .inv-hero,body.light .inv-file-head{background:linear-gradient(135deg,rgba(138,75,255,.06),transparent 65%)}
-body.light .inv-bar{background:rgba(0,0,0,.08)}
+/* ---------- exhibit reader: the shared prop overlay, opened by JS -------- */
+/* exhibits.css styles the overlay; it expects to exist only while open, but
+   the investigation reader keeps one host element around and toggles .show. */
+.inv-overlay{display:none}
+.inv-overlay.show{display:grid}
+/* The stage is the striped desk from exhibits.css; cards laid on it should
+   read as paper on a desk, not as page furniture. */
+.inv-overlay .exhibit-stage > .card{margin-bottom:14px}
+.inv-overlay .exhibit-stage > .card:last-child{margin-bottom:0}
+.inv-overlay .exhibit-stage .home-section-head h2{font-size:16px}
+.inv-overlay .exhibit-stage .pd{margin:0 auto 14px}
 
 @media print{
-  .inv-tabs,.inv-roll-btn,.inv-progress{display:none !important}
-  .inv-layer-body{max-height:none !important; padding:4px 14px 14px !important}
+  .inv-layer-head .chip{display:none !important}
+  .inv-layer-body{max-height:none !important;padding:2px 13px 13px !important}
 }

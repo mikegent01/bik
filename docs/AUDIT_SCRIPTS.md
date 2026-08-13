@@ -1,6 +1,6 @@
 # Audit Scripts
 
-Three scripts that count what a filing is actually made of. Run them from the
+Four scripts that count what a filing is actually made of. Run them from the
 repo root.
 
 The first two are **throwaway and advisory** — paste, change the id, run. They
@@ -13,15 +13,17 @@ They also **do not measure length as a fault**. Nothing here says "too long."
 If a number looks high, ask whether the prose is padded — not whether it can be
 shortened to hit a band.
 
-The third is **committed and strict**. `tools/check-exhibits.py` asks questions
-with right answers — does this class exist, does this id resolve — so its
-failures are bugs, not opinions.
+The last two are **committed and strict**. `tools/check-exhibits.py` and
+`tools/check-investigations.py` ask questions with right answers — does this
+class exist, does this id resolve, can a reader actually reach this DC — so
+their failures are bugs, not opinions.
 
 | Script | Reads | Use with | Verdict |
 |---|---|---|---|
 | [Event audit](#event-audit) | `Reputation-Matrix2/data/events.json` | [`STORY_FORMAT_GUIDE.md`](STORY_FORMAT_GUIDE.md) | Advisory |
 | [What-If audit](#what-if-audit) | `Reputation-Matrix2/data/whatifs.json` (`doc['whatifs']`) | [`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUIDE.md) | Advisory |
 | [Exhibit audit](#exhibit-audit) | `props.json`, `exhibits.css`, `index.html` | [`SESSION_FILING_PROCESS.md`](SESSION_FILING_PROCESS.md#step-6--exhibits-file-the-paper-the-story-mentions) | **Pass/fail** |
+| [Investigation audit](#investigation-audit) | `investigations.json`, `props.json`, `investigations.css`, `index.html` | [`INVESTIGATIONS.md`](INVESTIGATIONS.md) | **Pass/fail** |
 
 ---
 
@@ -199,3 +201,61 @@ Run it before you commit any filing that names paperwork, and after any edit to
 [Step 6 of the filing process](SESSION_FILING_PROCESS.md#step-6--exhibits-file-the-paper-the-story-mentions);
 the craft standard is
 [§9B of the story format guide](STORY_FORMAT_GUIDE.md#9b-exhibits--the-documents-the-story-names).
+
+---
+
+## Investigation audit
+
+The fourth script, and the second committed one. Where the exhibit audit checks
+that a *document* is well-formed, this one checks that a **case file** is
+well-formed: that its sessions point at real events, that its exhibits point at
+real props, that its ladders can actually be climbed, and that its leads are
+leads rather than quests that snuck back in.
+
+```bash
+python3 tools/check-investigations.py
+```
+
+No arguments — it reads `Reputation-Matrix2/data/investigations.json` against
+`props.json`, `events.json`, `characters.json`, `quests.json`,
+`app/styles/systems/investigations.css` and `index.html`.
+
+**Errors — exit 1, must be fixed:**
+
+| Check | Why it matters |
+|---|---|
+| `sessions[].event` or `relatedEvents[]` names no real event | The "open the session record" link goes nowhere. |
+| Exhibit `propId` not in `props.json` | The document area of the reader renders empty. |
+| Exhibit `session` with no `sessions[]` row | The exhibit falls into an untitled group at the bottom of the page. |
+| Exhibit with no `onRecord` | There is nothing to read before rolling, so the reader is asked to gamble on a blank. |
+| Exhibit with no layers, or layer with no title | Nothing to examine, or an unlocked layer with a blank heading. |
+| DCs not ascending | The reader hits the hardest wall first and stops. |
+| A DC above 10 | **Unreachable.** `d6 + 1` caps at 7 and the study bonus adds at most +3. A DC 11 layer is a door with no key. |
+| Malformed `[[roll:…]]` — not exactly four `\|`-separated fields | Renders as literal brackets in the middle of the prose. |
+| `links.events` / `links.characters` id that resolves to nothing | The chip silently vanishes from the reader's footer. |
+| A lead with no `why` | It is a quest again. The `why` is the entire difference. |
+| A lead citing an exhibit that exists in no file | Dead chip. |
+| Duplicate exhibit id inside one file | The second one is unreachable. |
+
+**Warnings — exit 0, read and judge:**
+
+| Check | What to do |
+|---|---|
+| XP not ascending with DC | Usually a typo, occasionally deliberate — a cheap layer that happens to be hard. Confirm you meant it. |
+| `fromQuest` naming no quest in `quests.json` | The "promoted from the board" pill is claiming a provenance that no longer exists. Fix the id or drop the field. |
+| A lead citing an exhibit filed in another investigation | Legal, and rendered as a cross-file chip that navigates then opens. Confirm the cross-reference is intentional. |
+| `status: active` with no exhibits | Should probably be a stub until the first session is filed. |
+| A rule in `investigations.css` that sets padding, radius, grid, flex or a gradient | **Presentation drift.** The site already has a component for that. See [`INVESTIGATIONS.md` § Presentation](INVESTIGATIONS.md#presentation). |
+| A `.inv-*` selector `index.html` never uses | Dead CSS from a removed component. Delete it. |
+
+That last pair is the unusual one, and it is the reason this script exists
+rather than being folded into the exhibit audit. The investigations system was
+rebuilt once already because it had grown its own parallel design language and
+stopped looking like the rest of the archive. These two checks are a tripwire on
+that specific regression: the moment someone starts rebuilding `.card` under a
+new name, the audit says so.
+
+Run it after any edit to `investigations.json`, and after any edit to the
+investigations engine or its stylesheet. The process step is
+[Step 7 of the filing process](SESSION_FILING_PROCESS.md#step-7--file-the-session-into-its-investigation);
+the authoring standard is [`INVESTIGATIONS.md`](INVESTIGATIONS.md).

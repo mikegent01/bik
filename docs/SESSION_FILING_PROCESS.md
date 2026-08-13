@@ -328,18 +328,26 @@ analysis, less story.** The story is already in `events.json`. If a sentence in
 a layer would sit unchanged inside the event article, cut it and write the
 argument instead.
 
+**Do not write CSS for this step.** An investigation page is assembled from the
+site's ordinary components; the data you add here renders through them
+automatically. If something looks wrong, it is a data problem, not a styling
+one — see [`INVESTIGATIONS.md` § Presentation](INVESTIGATIONS.md#presentation).
+
 ```bash
-python3 -c "import json; json.load(open('Reputation-Matrix2/data/investigations.json')); print('valid json')"
+python3 tools/check-investigations.py
 python3 tools/check-exhibits.py
 ```
 
+`check-investigations.py` catches most of the list below mechanically —
+unresolved event ids, missing props, non-ascending or unreachable DCs, leads
+with no `why`, and broken links. The two items it cannot check are the two that
+matter most: whether a layer is an argument or a summary, and whether a lead is
+worth pursuing. Read those yourself.
+
 ```
-□ sessions[] has the new row and its event id resolves
-□ Every new exhibit's propId exists in props.json
-□ Every layer set ascends in DC and pays XP that matches the ladder
-□ No layer retells the scene
-□ Every new lead has a why
-□ links.events / links.characters / links.items all resolve
+□ tools/check-investigations.py exits clean
+□ No layer retells the scene            (the script cannot see this)
+□ Every new lead is worth pursuing      (the script cannot see this either)
 □ Opened #/investigation/<id> and rolled every new layer once
 □ lastFiled bumped
 ```
