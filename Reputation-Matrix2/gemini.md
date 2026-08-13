@@ -49,18 +49,22 @@ If a week passes with none of the above, **no episode is cut** and the existing 
 ### A. Images — the procedure
 
 1.  **Choose the beats.** One lead image on the record, then one per section containing a place, an object, or a piece of evidence worth looking at. Three to six section images on a long filing. Illustrate where seeing the thing changes the paragraph; skip the rest.
-2.  **Generate.** Use the `generate_image` tool, prompting from the prose itself — real weather, real materials, real time of day, real damage. Ask for **in-world documentary photography or a survey plate**, never concept art or a poster. **No text or lettering in the image**; captions are a data field and generated lettering always renders wrong.
-3.  **Save.** `Reputation-Matrix2/assets/images/events/<event-slug>/<prefix>-<nn>-<subject>.jpg`, zero-padded and ordered by appearance.
-4.  **Compress.** Generated files are far too heavy for a static site. This environment has **ImageMagick v6 only** — no `magick`, `cwebp`, `pngquant`, or `optipng`:
+2.  **Write the prompt sheet before generating.** Generations cost — do not spend them on vibes. Pull the concrete nouns from the section (materials, measurements, damage, light, what is written on things) into a per-image block: source lines, "must appear" checklist, prompt. Review it against the prose, then generate. Full procedure and worked examples: [`../docs/IMAGE_GENERATION_GUIDE.md`](../docs/IMAGE_GENERATION_GUIDE.md).
+3.  **Generate.** Use the `generate_image` tool, prompting from the prose itself — real weather, real materials, real time of day, real damage. Ask for **in-world documentary photography or a survey plate**, never concept art or a poster.
+4.  **Text in the image only when the story requires it.** Decorative lettering is forbidden — unprompted, the model invents nonsense (a Mount Ebot helicopter came back tagged `CRERA`). But when the prose turns on something written — a memorial plank, a summit marker, the one-T spelling that caused the disaster — that text *is* the subject: specify it letter for letter, in caps, in quotes, and describe the medium ("burned in with a hot iron, wobbling strokes"). Check the spelling by eye afterwards.
+5.  **View every generated image** with `read_file` and check it against the "must appear" list. The model will return a blank signpost and say nothing.
+6.  **Fix defects by editing, not rerolling** — pass the file in `generate_image(images=[...])` and describe only the change.
+7.  **Save.** `Reputation-Matrix2/assets/images/events/<event-slug>/<prefix>-<nn>-<subject>.jpg`, zero-padded and ordered by appearance.
+8.  **Compress.** Generated files are far too heavy for a static site. This environment has **ImageMagick v6 only** — no `magick`, `cwebp`, `pngquant`, or `optipng`:
 
     ```bash
     convert in.png -resize 1600x1600\> -strip -interlace Plane -quality 82 out.jpg
     ```
 
     Target **under ~300 KB**. Confirm with `ls -la`; drop the quality and re-run on anything over.
-5.  **Wire.** Paths are relative to `Reputation-Matrix2/`. `"image"` + `"imageCaption"` on the record render the lead figure; the same two keys on a section object render an inline figure in that section.
-6.  **Caption in archive voice.** State what is shown, when, and what it proves or cost. A caption is a filing, not alt text.
-7.  **Verify.** JSON parses, article loads, every figure renders — a bad path fails silently to a placeholder.
+9.  **Wire.** Paths are relative to `Reputation-Matrix2/`. `"image"` + `"imageCaption"` on the record render the lead figure; the same two keys on a section object render an inline figure in that section.
+10. **Caption in archive voice.** State what is shown, when, and what it proves or cost. A caption is a filing, not alt text.
+11. **Verify.** JSON parses, article loads, every figure renders — a bad path fails silently to a placeholder.
 
 ### B. Exhibits — clickable in-world documents
 

@@ -120,16 +120,20 @@ Every new session event or long narrative filing ships **with images**. This is 
 **Step by step:**
 
 1. **Pick the beats.** One lead image for the record, plus one image for each section that contains a *place, an object, or a piece of evidence a reader would want to look at*. Three to six section images for a long filing is the working band. Do not illustrate every section — illustrate the ones where seeing the thing changes how the paragraph lands.
-2. **Generate the image.** Use the `generate_image` tool. Write the prompt from the prose itself: the actual weather, the actual materials, the actual time of day, the actual damage. Ask for **in-world documentary photography or survey plate**, not concept art or a poster. No text, no lettering, no captions burned into the image — captions are a data field, and generated lettering always comes out wrong.
-3. **Save to the right place.** `Reputation-Matrix2/assets/images/events/<event-slug>/<prefix>-<nn>-<subject>.jpg` — zero-padded, ordered by appearance. Example: `assets/images/events/mount-ebot/ebot-03-cave.jpg`.
-4. **Compress before committing.** Generated files land far too large for a static site. This environment has **ImageMagick v6 only** — there is no `magick`, `cwebp`, `pngquant`, or `optipng`. Use:
+2. **Write the prompt sheet first — before generating anything.** Generations cost. Pull the concrete nouns out of the section (materials, measurements, damage, light sources, what is written on things) and write a block per image listing the source lines, a "must appear" checklist, and the prompt. Review that sheet against the prose, *then* spend the calls. Full procedure and worked examples: [`docs/IMAGE_GENERATION_GUIDE.md`](../docs/IMAGE_GENERATION_GUIDE.md).
+3. **Generate the image.** Use the `generate_image` tool, prompting from the prose itself: the actual weather, the actual materials, the actual time of day, the actual damage. Ask for **in-world documentary photography or survey plate**, not concept art or a poster.
+4. **Text in the image: only when the story requires it.** Decorative lettering is forbidden — left free, the model invents nonsense words. But when the prose turns on something written (a memorial plank, a summit marker, a spelling that caused the disaster), that text is the *subject* and must be specified letter for letter, in caps, in quotes, with the medium described ("burned in with a hot iron, strokes wobbling"). Then check the spelling by eye afterwards.
+5. **Look at every image you generated.** `read_file` each one and actually inspect it against the checklist. The model will hand back a blank signpost without comment.
+6. **Fix defects by editing, not rerolling.** `generate_image` accepts an `images` array — pass the existing file and describe only the change. This keeps the composition you already paid for.
+7. **Save to the right place.** `Reputation-Matrix2/assets/images/events/<event-slug>/<prefix>-<nn>-<subject>.jpg` — zero-padded, ordered by appearance. Example: `assets/images/events/mount-ebot/ebot-03-cave.jpg`.
+8. **Compress before committing.** Generated files land far too large for a static site. This environment has **ImageMagick v6 only** — there is no `magick`, `cwebp`, `pngquant`, or `optipng`. Use:
 
    ```bash
    convert in.png -resize 1600x1600\> -strip -interlace Plane -quality 82 out.jpg
    ```
 
    Target **under ~300 KB per image**. Check with `ls -la` and re-run at a lower quality if any file is over.
-5. **Wire it into the JSON.** Paths are relative to `Reputation-Matrix2/`, and both fields are optional per level:
+9. **Wire it into the JSON.** Paths are relative to `Reputation-Matrix2/`, and both fields are optional per level:
 
    ```json
    "image": "assets/images/events/mount-ebot/ebot-01-mountain.jpg",
@@ -137,8 +141,8 @@ Every new session event or long narrative filing ships **with images**. This is 
    ```
 
    `image` / `imageCaption` on the **record** renders the lead figure; the same two keys on a **section** object render an inline figure inside that section.
-6. **Write the caption in archive voice.** A caption is a filing, not alt text. It states what is shown, when it was taken, and what it proves or costs. "The bridge" is a failure. "Machined slots at knee and shin height, razors angled to catch a leg going forward" is a caption.
-7. **Verify.** Confirm the JSON parses, load the article, and check every figure actually renders — a wrong path fails silently into a placeholder.
+10. **Write the caption in archive voice.** A caption is a filing, not alt text. It states what is shown, when it was taken, and what it proves or costs. "The bridge" is a failure. "Machined slots at knee and shin height, razors angled to catch a leg going forward" is a caption.
+11. **Verify.** Confirm the JSON parses, load the article, and check every figure actually renders — a wrong path fails silently into a placeholder.
 
 ### Attaching exhibits (clickable in-world documents)
 
