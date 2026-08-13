@@ -15,7 +15,8 @@
       "passport",
       "contract",
       "note",
-      "order"
+      "order",
+      "addendum"
     ],
     "adding_one": "Add an object here, give it `kind`, `title`, `body` (HTML using the .pd-* classes) and at least one link in `items` or `articles`. No JS or CSS changes are needed. Keep the body factual to the source record — a prop is evidence, not new canon.",
     "stamps": "Optional. `stamps: [\"overdue\"]` renders .pd-stamp--overdue. Available: overdue, paid, void, sealed, noaction, evidence."
@@ -604,6 +605,64 @@
       "stamps": [
         "sealed"
       ]
+    },
+    "prop_ebot_addendum_1040": {
+      "kind": "addendum",
+      "icon": "📎",
+      "title": "Addendum — Sheet 41, on Release",
+      "subtitle": "Filed 1040 BF · eight years after the mountain · attached to a demand nobody can answer",
+      "items": [],
+      "articles": [
+        "the_mount_ebot_expedition"
+      ],
+      "note": "Waluigi could not get the plate corrected, so Waluigi published the day instead. This is the slip that turned a failed complaint into an archive filing.",
+      "stamps": [
+        "noaction"
+      ],
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Walupedia Editorial Board</div><div class=\"pd-sub\">Office of the Auditor-General · addendum to file</div></div><div class=\"pd-late\">Attached 1040 BF — eight years after the ascent of 17 Aethel, 1032</div><dl class=\"pd-meta\"><dt>Attached to</dt><dd>Correction Demand — Survey Series IV, Sheet 41</dd><dt>Status of demand</dt><dd>Filed. Acknowledged by a clerk. Unanswered.</dd><dt>Respondent</dt><dd>The Old World Mapping Company — <b>no longer exists</b></dd></dl><div class=\"pd-body\"><p>The demand above was filed and is still, at the date of this release, unanswered. The company that could have answered it no longer exists. A correction requires somebody to correct it, and there is nobody left at that address to receive a letter, let alone a plate.</p><p>Waluigi has therefore done the only remaining useful thing and published the day itself:</p><div class=\"pd-clause\"><b class=\"n\">i.</b> the bridge is armed;</div><div class=\"pd-clause\"><b class=\"n\">ii.</b> the sentry does not speak;</div><div class=\"pd-clause\"><b class=\"n\">iii.</b> the slope returns its dead;</div><div class=\"pd-clause\"><b class=\"n\">iv.</b> and four humans are named on a plank past the span, with the fourth name rubbed nearly out.</div><p>None of that has aged. A mountain does not care which year you reach it in.</p></div><div class=\"pd-margin\">Eight years. The T is still missing. Waluigi has stopped asking and started printing.</div><div class=\"pd-wah\">WAH.</div>"
+    },
+    "prop_neighbor_addendum_third_telling": {
+      "kind": "addendum",
+      "icon": "📻",
+      "title": "Addendum — Wario's Final Comment",
+      "subtitle": "The third telling · in the Feywild · while trying to sell garlic",
+      "items": [],
+      "articles": [
+        "the_neighbor_incident"
+      ],
+      "note": "Wario withheld the only important detail across two full interviews. Asked why, he said: 'You didn't ask.' Waluigi filed the addendum and declined to comment further.",
+      "stamps": [
+        "evidence"
+      ],
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Walupedia Editorial Board</div><div class=\"pd-sub\">Addendum to file · account of Wario · third telling</div></div><div class=\"pd-late\">Recorded after the file was closed — the account was already published</div><dl class=\"pd-meta\"><dt>Source</dt><dd>Wario, verbally, unprompted</dd><dt>Circumstances</dt><dd>Feywild. Mid-transaction. Attempting to sell garlic.</dd><dt>Tellings prior</dt><dd>Two — this detail appeared in neither</dd></dl><div class=\"pd-body\"><p>Waluigi records the following for completeness, though it is probably not significant.</p><div class=\"pd-quote\">The neighbor left in a hurry, right? Like someone called him. And when I was leaving the basement, I saw his desk upstairs — the one near the front door. There was a communicator on it. Still active. Still connected. And there was a voice coming through it. Faint. But I heard it.</div><p>Waluigi asked what the voice said.</p><div class=\"pd-quote\">It said, <b>\"Professor, it's happening again. He's emerged. We need the contingency.\"</b> And then it said a name.</div><p>Waluigi asked what name.</p><div class=\"pd-quote\">It said <b>\"Mr. L.\"</b></div><p>Wario paused.</p><div class=\"pd-quote\">And then it said: <b>\"Activate Protocol Green Thunder.\"</b></div><p>Waluigi asked Wario why he had not mentioned this in the previous two tellings. Wario shrugged and said: <b>\"You didn't ask.\"</b></p></div><div class=\"pd-margin\">Waluigi has no additional commentary on this addendum. Waluigi is not going to think about it. Waluigi is moving on.</div><div class=\"pd-wah\">WAH.</div>"
+    },
+    "prop_archie_dream_addendum": {
+      "kind": "addendum",
+      "icon": "🗄️",
+      "title": "Addendum — Why This Dream Belongs in the Main Chronicle",
+      "subtitle": "Filing-classification note · dream evidence, contested",
+      "items": [],
+      "articles": [
+        "archie_frog_god_dream_duel"
+      ],
+      "note": "A ruling on where a dream is filed. Waluigi refuses the footnote on the grounds that the dream contains too many live campaign objects to be decorative.",
+      "stamps": [],
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Walupedia Editorial Board</div><div class=\"pd-sub\">Classification ruling · main chronicle vs. footnote</div></div><div class=\"pd-late\">Attached after filing — the placement was challenged and the challenge failed</div><div class=\"pd-body\"><p>A lesser historian would place this in a footnote and call it psychological color. Waluigi is not a lesser historian.</p><p>Objects appearing in the dream that are <b>live files elsewhere in this archive</b>:</p></div><table class=\"pd-table\"><thead><tr><th>Object</th><th>Also filed under</th></tr></thead><tbody><tr><td>Star Shards</td><td>Artifacts — active recovery</td></tr><tr><td>Star Core</td><td>Artifacts — hesitation on record</td></tr><tr><td>Frog God</td><td>Divine consequence — the abandoned Toad</td></tr><tr><td>Eager</td><td>Hostage leverage — ongoing</td></tr><tr><td>Hjumpik</td><td>Trust imagery</td></tr><tr><td>Original Dan</td><td>Personal consequence — entanglement</td></tr><tr><td>The Vigilance</td><td>Airship — burning, in the dream</td></tr><tr><td>The Dreadful Grove</td><td>Location — storm magic</td></tr></tbody></table><div class=\"pd-body\"><p>If a dream contains that many active files, it is no longer color. <b>It is a filing cabinet on fire.</b></p><p>The dream also connects two kinds of consequence. The Frog God is the cosmic result of Archie abandoning the Toad. Original Dan is the personal result of Archie being tangled in another person's destruction. The dream forces Archie to face both, then wakes him where the current party crisis continues. That is structure. Cruel structure, but structure.</p></div><div class=\"pd-title\">Standing recommendation</div><div class=\"pd-clause\"><b class=\"n\">1.</b> Archie should tell someone <b>immediately</b> — not later, not after three jokes and one accidental tactical disaster.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> Told, the dream becomes shared preparation.</div><div class=\"pd-clause\"><b class=\"n\">3.</b> Kept private, it remains the Frog God's rehearsal room inside his skull — and privacy lets shame edit the useful parts.</div><div class=\"pd-margin\">Waluigi prefers enemy rehearsals to be interrupted.</div><div class=\"pd-wah\">WAH.</div>"
+    },
+    "prop_feyward_addendum_legible": {
+      "kind": "addendum",
+      "icon": "🗝️",
+      "title": "Addendum — Why This Session Matters More Than It Looks",
+      "subtitle": "Feyward branch · nothing solved, everything made legible",
+      "items": [
+        "morel_feyward_key"
+      ],
+      "articles": [
+        "feyward_amnesia_vines_morel_steely"
+      ],
+      "note": "Waluigi's argument that an unsolved problem you can finally see is worth more than a solved one. Filed under: Feyward Complications, Toad Lee Suspicion, Morel Key, Steely Loss, Revel Still Ongoing.",
+      "stamps": [],
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Walupedia Editorial Board</div><div class=\"pd-sub\">Addendum · Feyward branch assessment</div></div><div class=\"pd-late\">Attached to the session record — the session did not close the branch</div><div class=\"pd-body\"><p>Waluigi wants to be clear that this session did not resolve the Feyward branch. It made the Feyward branch <b>more legible</b>. That is different and, in some ways, more useful.</p><p><b>A solved problem stops moving. A legible problem can be hunted.</b></p></div><table class=\"pd-table\"><thead><tr><th>Subject</th><th>Before the session</th><th>After</th></tr></thead><tbody><tr><td>Toad Lee</td><td>Useful, occasionally ridiculous</td><td>Useful, ridiculous, and a possible security problem</td></tr><tr><td>Mystic Morel</td><td>Ambiguous presence</td><td>Antagonist and informant — appeared from a wall, survived near-decapitation, issued a targeted warning, provided a key</td></tr><tr><td>Steely</td><td>Present</td><td>Lost. Deserves, if not XP, at least a record.</td></tr><tr><td>The revel</td><td>Ongoing</td><td>Still ongoing</td></tr></tbody></table><div class=\"pd-body\"><p>Money is not the only thing characters carry. They carry obligations. They carry evidence. They carry debts that never entered a ledger because the person who issued them smiled instead of writing them down.</p></div><div class=\"pd-margin\">Waluigi will track both, because Waluigi knows that unrecorded debts are how people end up dancing forever.</div><div class=\"pd-wah\">WAH.</div>"
     }
   }
 }

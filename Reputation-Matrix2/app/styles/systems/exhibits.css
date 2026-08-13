@@ -351,8 +351,49 @@
 }
 body.light .pill-exhibit{color:#6b4c12!important;border-color:rgba(150,110,30,.5)!important}
 
+/* ---------- kind: ADDENDUM ----------
+   A slip added to a file after the file was closed: cheaper paper, typed on a
+   different machine, pasted onto the original. Used for the "Waluigi went back
+   and said one more thing" documents. The tape and the top edge are drawn, so
+   the body HTML stays plain. */
+.pd--addendum{
+  --paper:#efe9dc; --ink:#221c15; --rule:#bfb29c;
+  max-width:560px; font-family:"Courier New",monospace; font-size:13px; line-height:1.75;
+  transform:rotate(.35deg);
+  border-top:1px dashed rgba(90,75,50,.5);
+}
+/* strip of tape holding the slip into the file */
+.pd--addendum::after{
+  content:""; position:absolute; top:-13px; left:50%; width:132px; height:27px;
+  transform:translateX(-50%) rotate(-1.6deg);
+  background:linear-gradient(180deg,rgba(226,214,178,.82),rgba(206,192,152,.7));
+  border-left:1px solid rgba(255,255,255,.35); border-right:1px solid rgba(140,125,90,.3);
+  box-shadow:0 1px 3px rgba(0,0,0,.22); opacity:.9; z-index:3; pointer-events:none;
+}
+.pd--addendum .pd-org{font-family:"Courier New",monospace;font-size:13px;letter-spacing:.22em}
+.pd--addendum .pd-head{border-bottom:1px dashed var(--ink);padding-bottom:8px}
+/* the "filed X years later" line */
+.pd-late{
+  font-family:"Courier New",monospace; font-size:10.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:#7a2f2f; text-align:center;
+  border:1px solid rgba(122,47,47,.4); padding:4px 8px; margin:0 0 16px;
+}
+/* verbatim quoted speech inside an addendum — Wario talking, mostly */
+.pd-quote{
+  border-left:3px solid rgba(34,28,21,.35); padding:2px 0 2px 12px; margin:12px 0;
+  font-family:Georgia,"Times New Roman",serif; font-size:14px; line-height:1.7; font-style:italic;
+}
+.pd-quote b{font-style:normal;letter-spacing:.04em}
+/* the editorial sign-off every Waluigi document ends on */
+.pd-wah{
+  text-align:right; font-family:"Courier New",monospace; font-weight:800;
+  letter-spacing:.3em; font-size:15px; color:#5a1f1f; margin-top:18px;
+}
+
 /* ---------- responsive ---------- */
 @media(max-width:600px){
+  .pd--addendum{font-size:12px}
+  .pd--addendum::after{width:100px}
   .pd{font-size:13px}
   .pd-meta{grid-template-columns:1fr;gap:1px}
   .pd-meta dt{padding-top:7px}
