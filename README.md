@@ -86,14 +86,15 @@ Six things that explain nearly every decision in this repository:
 
 | Document | Owns | Read when |
 |---|---|---|
-| **[`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md)** | **The ordered process.** Locations → characters → XP → *then* the event → exhibits → index → artifacts | **Always. Before any filing** |
+| **[`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md)** | **The ordered process.** Locations → characters → XP → *then* the event → exhibits → the investigation file → index → artifacts | **Always. Before any filing** |
+| **[`docs/INVESTIGATIONS.md`](docs/INVESTIGATIONS.md)** | **The investigations system** that replaced the quest board. One accreting case file per arc; exhibits, layered analysis behind d6+1 rolls, XP, leads | Adding a session's paper to an arc |
 | [`docs/STORY_FORMAT_GUIDE.md`](docs/STORY_FORMAT_GUIDE.md) | Craft standard for **canon session events** — prose, asides, apparatus, exhibits, battle pages | Writing an event |
 | [`docs/WHATIF_FORMAT_GUIDE.md`](docs/WHATIF_FORMAT_GUIDE.md) | Craft standard for **non-canon What-Ifs** — decision engine, ledger, findings, verdict | Writing a What-If |
 | [`docs/RNN_BROADCAST_GUIDE.md`](docs/RNN_BROADCAST_GUIDE.md) | The news broadcast. **One episode per ~10 events**, the pending list, the voice | Cutting an episode |
 | [`docs/IMAGE_GENERATION_GUIDE.md`](docs/IMAGE_GENERATION_GUIDE.md) | **Prompt sheet before generating.** Art direction from the prose, when text belongs in an image, editing over rerolling | Illustrating any filing |
 | [`docs/VERIFICATION_AND_ORGANIZATION.md`](docs/VERIFICATION_AND_ORGANIZATION.md) | Checks that catch breakage; rules that prevent bloat; where files go | Before calling a run done |
 | [`docs/RUN_REPORT_FORMAT.md`](docs/RUN_REPORT_FORMAT.md) | How to report at the end of a run — every file, every event, every XP award | End of every run |
-| [`docs/AUDIT_SCRIPTS.md`](docs/AUDIT_SCRIPTS.md) | The two craft-audit scripts (advisory) | Checking a draft’s numbers |
+| [`docs/AUDIT_SCRIPTS.md`](docs/AUDIT_SCRIPTS.md) | The craft-audit scripts — event, what-if (advisory) and exhibits (pass/fail) | Checking a draft’s numbers |
 | [`docs/ARCHIVE_RANKING.md`](docs/ARCHIVE_RANKING.md) | Which filings set the standard and why | Arguing about standards |
 
 ### How the code and data are built
@@ -163,12 +164,16 @@ Six things that explain nearly every decision in this repository:
 
 - **File a session** → follow
   [`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md) in order.
-  Locations, characters and XP come **before** the prose; exhibits, the home
-  feed and the RNN pending list come after.
+  Locations, characters and XP come **before** the prose; exhibits, the
+  investigation file, the home feed and the RNN pending list come after.
 - **File the paper a story mentions** → add it to
   `Reputation-Matrix2/data/props.json`, wire it with `[[prop:id|text]]`, then
   `python3 tools/check-exhibits.py`. Craft standard:
   [`docs/STORY_FORMAT_GUIDE.md` §9B](docs/STORY_FORMAT_GUIDE.md#9b-exhibits--the-documents-the-story-names).
+- **Add a session to an arc's investigation** → new `sessions[]` row, two or
+  three exhibits with three analysis layers each, any leads the session created,
+  in `Reputation-Matrix2/data/investigations.json`. No JS, no CSS.
+  [`docs/INVESTIGATIONS.md`](docs/INVESTIGATIONS.md).
 - **Refresh the home feed** → `python3 tools/update-index-home.py`.
 - **Cut the news** → only when ~10 events are pending;
   `python3 tools/build-rnn-broadcast.py` (see the cadence rule above).

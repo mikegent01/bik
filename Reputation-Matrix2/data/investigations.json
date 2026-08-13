@@ -1,0 +1,1181 @@
+{
+  "_README": {
+    "what": "Investigations replace the quest board. One investigation per story arc; each accretes exhibits, threads and leads as sessions are played.",
+    "why": "The quest board carried 73 entries, 25 of which had no description at all. A board answers 'what could we do next'. An investigation answers 'what is happening to us'.",
+    "route": "#/investigations for the index, #/investigation/<id> for a file. #/quests and #/quest/<id> redirect here.",
+    "authoring": "See docs/INVESTIGATIONS.md. Every claim in a brief must be pinned to a numbered exhibit that exists in props.json with a chain of custody.",
+    "tone": "Heavy Waluigi analysis, light story prose. The story is in events.json; this system is the archivist arguing about the story.",
+    "exhibit_shape": {
+      "id": "unique within the investigation",
+      "propId": "id in data/props.json - renders the physical document via the existing exhibit engine",
+      "itemId": "optional id in INVENTORY_SYSTEM.items",
+      "session": "id of an entry in the investigation's sessions[]",
+      "onRecord": "what is visible without rolling",
+      "layers": "ordered array; each { dc, xp, category, title, text }. Layer n+1 is locked until layer n is unlocked."
+    },
+    "dice": "Examination is d6+1 vs the layer DC, matching archiecourtcase. Failure is not a locked door: the layer may be re-examined. XP is awarded once per layer, on first unlock.",
+    "xp_categories": "discovery, magic, stealth, loyalty - matching the XP leaderboard's category colours.",
+    "storage": "Progress is per-browser in localStorage under 'waluipedia-investigations-v1'. Nothing is written back to JSON.",
+    "quest_migration": {
+      "note": "quests.json is retained read-only as the historical campaign log. Nothing was deleted from it.",
+      "promoted_to_leads": {
+        "dinner_party_aftermath": [
+          "shadeward_feyward_ruined/lead_verify_ring"
+        ],
+        "faeward_exploration": [
+          "shadeward_feyward_ruined/lead_toad_lee_time",
+          "shadeward_feyward_ruined/lead_morel_price"
+        ],
+        "hjumpik_feywild_survival": [
+          "shadeward_feyward_ruined/lead_steely_core"
+        ],
+        "remi_waluigi_espionage": [
+          "shadeward_feyward_ruined/lead_missing_card"
+        ],
+        "markop_vessel_investigation": [
+          "shadeward_feyward_ruined/lead_fourth_artifact"
+        ],
+        "timeline_convergence": [
+          "shadeward_feyward_ruined/lead_circle_sketches"
+        ],
+        "hjumpik_mirror_identity": [
+          "shadeward_feyward_ruined/lead_mirror_fragment"
+        ],
+        "archie_sleeper_protocol": [
+          "shadeward_feyward_ruined/lead_estate_register"
+        ],
+        "archie_kamek_conundrum": [
+          "shadeward_feyward_ruined/lead_seal_variance",
+          "mushroom_civil_war_file/lead_kamek_conundrum"
+        ],
+        "toads_rescue_eager": [
+          "capital_intrigue_file/lead_iron_docs"
+        ],
+        "markop_centaurs_burden": [
+          "capital_intrigue_file/lead_third_branch"
+        ],
+        "archie_god_toad_hunt": [
+          "mushroom_civil_war_file/lead_godtoad_article"
+        ],
+        "liberated_toads_integration": [
+          "toad_liberation_file/lead_ration_ledger"
+        ],
+        "toads_a_place_to_call_home": [
+          "toad_liberation_file/lead_housing_authority"
+        ],
+        "festival_of_the_fallen_pact": [
+          "rakasha_alliance_file/lead_pact_terms"
+        ],
+        "rogueport_retrieval": [
+          "rakasha_alliance_file/lead_rogueport_item"
+        ]
+      },
+      "culled_filler": [
+        "eager_rescue_lead",
+        "hidden_echo_in_the_core",
+        "request_aw_spell_reversal",
+        "request_aw_teleport_test",
+        "request_bp_lost_screw",
+        "request_bp_peace_offering",
+        "request_dc_prankster_bounty",
+        "request_dc_tumbleweed_rustlers",
+        "request_dm_radioactive_core",
+        "request_iw_legendary_beast",
+        "request_iw_rare_herbs",
+        "request_jt_food_taster",
+        "request_jt_ghostly_love",
+        "request_lh_letter_delivery",
+        "request_li_treasure_map",
+        "request_lw_vampire_bounty",
+        "request_mid_beast_hunt",
+        "request_mid_lost_heirloom",
+        "request_nl_bounty_on_orcs",
+        "request_nl_supply_run",
+        "request_tg_diplomatic_escort",
+        "request_tg_moon_herbs",
+        "request_vm_caravan_guard",
+        "request_vm_lost_pet",
+        "request_yb_sparring_partners",
+        "request_yc_scarecrow_menace",
+        "request_ys_explore_ruins"
+      ],
+      "retired_to_log": [
+        "archie_dinner_betrayal",
+        "archie_fugitive_of_the_accords",
+        "archie_jesters_masterpiece",
+        "archie_third_eye_escape",
+        "bones_identity_crisis",
+        "bowser_my_heir",
+        "bowser_rally_remnants",
+        "bowser_shadow_etiquette",
+        "bramblehaven_siege",
+        "bryans_mission",
+        "dan_reclaim_the_staff",
+        "dk_save_funky",
+        "guild_gryphon_contract_1",
+        "guild_mages_anomaly",
+        "hjumpik_feywild_heist",
+        "hjumpik_honor_quest",
+        "hjumpik_kings_physician",
+        "hjumpik_legion_pact",
+        "hjumpik_rescue_mission",
+        "markop_paladins_penance",
+        "markop_serpents_key",
+        "markop_silver_flame_schism",
+        "markop_void_vigil",
+        "remi_adopt_mossy",
+        "remi_noble_debt",
+        "rescue_toadburt",
+        "toad_lee_feywild_protocol",
+        "toadette_loyalty_test",
+        "vigilance_investigation",
+        "wario_roof_hazard"
+      ]
+    }
+  },
+  "investigations": [
+    {
+      "id": "shadeward_feyward_ruined",
+      "codename": "SHADEWARD FEYWARD RUINED",
+      "title": "Three Houses, One Method",
+      "subtitle": "The anchor, the graft, and the question of who keeps the record",
+      "status": "active",
+      "classification": "Open — accreting",
+      "arcIds": [
+        "shadowfell_estate",
+        "feywild_attic",
+        "raventree_manor"
+      ],
+      "opened": "23 Harvestide, 1040 BF",
+      "lastFiled": "24 Harvestide, 1040 BF",
+      "archivist": "Waluigi, Auditor-General",
+      "icon": "🏚️",
+      "accent": "#8a4bff",
+      "imageCaption": "No images survive of any of the three houses. Waluigi asked. Multiple times. One of the three replied, which was worse.",
+      "hook": "Three ruined houses, one load-bearing noun, and a diary page instructing the reader to watch whoever is keeping the record. Waluigi keeps the record.",
+      "brief": "Waluigi has opened one file instead of seventy-three.\n\nThe reason is arithmetic. The old quest board carried seventy-three entries, and Waluigi has now read all of them in one sitting, which is a thing Waluigi will not be doing again. Twenty-five were requests with no description at all — a title, a location, a notional reward, and nothing else. Several more were of the form *a farmer has lost a screw*. Waluigi does not object to a farmer losing a screw. Waluigi objects to filing it beside the destruction of a bloodline.\n\nA board is the wrong instrument. A board answers the question *what could we do next*, and the party has never once been short of things to do next. The question the party is actually short of is **what is happening to us**, and that question is not answered by a list. It is answered by paper: things that were written down at the time by people who did not know what they were part of.\n\nSo this is an investigation. One per arc. It accretes.\n\n## What this file is arguing\n\nThree houses have failed in the same way, and Waluigi is prepared to argue they failed by the same method.\n\nThe **Shadeward**, where Archie woke on marble in a world with no colour and no fire, and where the way out turned out to be a *shadow anchor* — an object holding a plane's condition in place over a house.\n\nThe **Feyward**, where the manor stopped attacking people and started converting them: a Toad who lost time standing at a door, a Lady replaced by overgrowth wearing her own face, a construct that rusted at the speed the house rusts things, and Mystic Morel coming out of a wall to say *don't make Toad Lee the anchor*.\n\nThe **ruined manor** near the Thornwood, where Agent L kicked aside a rug and found a teleportation circle deliberately damaged — or made to appear damaged — and where a spirit called Ashford said the Crown's bloodline was *broken at third branch*.\n\nAnchor. Anchor. Branch. Graft.\n\nFour words from four different mouths in three different houses, and all four of them are engineering vocabulary from the same discipline: something is held fixed so that something else can be pulled onto it, and the join is described in the language of gardening so that nobody at the table has to say what it is.\n\nWaluigi is not claiming a conspiracy. Waluigi is claiming a **contractor** — a method, repeated, by someone who has done it before and writes it down. And per the Aurelian diary page, the method's central instruction is not about bodies at all. It is *watch who is keeping the record*.\n\n## Why the reader has to roll\n\nEvery claim above is Waluigi's. Waluigi is a magnificent and interested party, and an interested party's summary is worth exactly nothing without the paper underneath it.\n\nSo the paper is here. Twelve exhibits, each one a physical article with a custody chain, most of them written by people who had no idea they were producing evidence — an ammunition sheet, an unpaid invoice, a salvage return with the values struck out, a card-reading register whose last outcome column is deliberately blank.\n\nExamining an exhibit is a roll because analysis is a skill and the archive is not going to pretend otherwise. A failed examination is not a locked door; it means the reader did not get anything new out of it *this time*, and the paper is still on the table tomorrow.\n\nDeeper layers cost more and pay more. The third layer of most exhibits is where the uncomfortable reading lives, and Waluigi has put the uncomfortable reading in writing rather than keeping it in Waluigi's head, for reasons the seal rubbing explains at length.\n\n## Standing rule of this file\n\nWhen a document can be read two ways, the archive files **both**, and marks which one the archive prefers.\n\nKamek read a dedication as a personal address, wrote *for me* on it in charcoal, and the label lost first and then everyone else did. Waluigi is not immune to this. Waluigi is simply writing the preference down, where somebody can check it later.\n\nWAH.",
+      "threads": [
+        {
+          "id": "th_anchor",
+          "title": "The anchor is a role, not an object",
+          "state": "open",
+          "text": "A shadow anchor held a plane's condition over the Shadeward estate. Morel warned against making Toad Lee *the* anchor — definite article, technical usage. The Black Crystal is filed in the party's own paperwork as an **anchor key**. If the role can be filled by a person, the party is currently escorting both a candidate and a key."
+        },
+        {
+          "id": "th_graft",
+          "title": "Grafting is succession fraud with a biological delivery mechanism",
+          "state": "open",
+          "text": "Aurelian's diary: what is joined is not the flesh, it is the **line**, and a line joined once can be joined again. The false Lady was not an impostor pretending — on the document's own logic she was a legitimate graft onto an opened line. The Ashford spirit's “broken at third branch” puts the same vocabulary inside the succession crisis."
+        },
+        {
+          "id": "th_record",
+          "title": "Whoever keeps the record decides afterwards what happened",
+          "state": "open",
+          "text": "The method's own instruction, written by one of its architects. It makes the Waluipedia a target and a compromised archivist indistinguishable from a diligent one. Countermeasure: every claim pinned to a numbered exhibit with a chain of hands. Do not believe Waluigi. Roll against the paper."
+        },
+        {
+          "id": "th_department",
+          "title": "There is administration behind this",
+          "state": "open",
+          "text": "The Umbral Signet grants **estate authority** — a credential, meaningless without a system that recognises it. The Shadeward butler knew Cornelius was expecting visitors who arrived by accident from another plane. A house does not expect an accident; somebody sent notice ahead. The closest thing to a suspect in this file is a clerical department, which Waluigi finds worse than a lich."
+        },
+        {
+          "id": "th_container",
+          "title": "The originals may still be inside",
+          "state": "open",
+          "text": "Destroying the false Lady produced a ring with, allegedly, the real one in it. If the graft is a container rather than a replacement, every grafted figure across three houses may still have somebody in it. The party has checked one."
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead_verify_ring",
+          "title": "Verify the occupant of the OC Soul Ring",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Establish, with the Mirror of True Reflection and not with hope, whether the ring lodged with the Anvil actually contains Lady Aurelian.",
+          "why": "The entire container thesis rests on one unverified claim, and the party wants it to be true, which is precisely when verification stops happening. The mirror exists, it is repaired, and it has never been assigned a keeper.",
+          "fromQuest": "dinner_party_aftermath",
+          "xp": 200,
+          "exhibits": [
+            "ex_soul_ring",
+            "ex_mirror_invoice"
+          ]
+        },
+        {
+          "id": "lead_toad_lee_time",
+          "title": "Account for Toad Lee's missing time",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Reconstruct where Toad Lee was, and with whom, during the period he cannot explain — without telling him he is a suspect, because he may be a victim and the two require different handling.",
+          "why": "Morel warned specifically against making him the anchor, using the grammar of an instruction to the party rather than a warning about an enemy. Either he was intercepted or he is a vector. Nobody has done the work.",
+          "fromQuest": "faeward_exploration",
+          "xp": 180,
+          "exhibits": [
+            "ex_key_thrown",
+            "ex_feyward_addendum"
+          ]
+        },
+        {
+          "id": "lead_steely_core",
+          "title": "Determine whether Steely's core retains memory",
+          "state": "open",
+          "priority": "high",
+          "objective": "Establish whether the fragmented core housing in Hjumpik's pack can be read, before deciding whether it should be — the salvage return says memory *unverified*, not destroyed.",
+          "why": "Steely was in the Feyward manor during Toad Lee's missing time, could not lie, and could not be enchanted into forgetting the way a Toad can. He is the most credible witness the branch ever had and he is currently loose parts.",
+          "fromQuest": "hjumpik_feywild_survival",
+          "xp": 160,
+          "exhibits": [
+            "ex_steely_burial"
+          ]
+        },
+        {
+          "id": "lead_missing_card",
+          "title": "Identify the card removed from the Oracle's Deck",
+          "state": "open",
+          "priority": "high",
+          "objective": "Find out which card is missing from Remi's deck and who took it, before the sixth outcome column fills itself in.",
+          "why": "Somebody edited a record inside the party's own pocket — the same operational signature as everything else in this file. The next draw is *The Ring*, and there is currently a ring in evidence with a person allegedly inside it.",
+          "fromQuest": "remi_waluigi_espionage",
+          "xp": 170,
+          "exhibits": [
+            "ex_reading_register",
+            "ex_bag_inventory"
+          ]
+        },
+        {
+          "id": "lead_fourth_artifact",
+          "title": "Establish the fourth item of the Portal Set",
+          "state": "open",
+          "priority": "high",
+          "objective": "Name and locate item four. Three are catalogued in full; the set is a routing system and one function is unaccounted for.",
+          "why": "Authority to enter, an anchor to fix the far end, an instrument to verify what arrived — the only job left in the sequence is deciding what a traveller *is* when it comes through. If that is what item four does, it is the graft's machinery.",
+          "fromQuest": "markop_vessel_investigation",
+          "xp": 220,
+          "exhibits": [
+            "ex_umbral_signet",
+            "ex_crystal_order"
+          ]
+        },
+        {
+          "id": "lead_circle_sketches",
+          "title": "Recover full plans of the ruined manor teleportation circle",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Obtain the complete geometry. The archive holds partial sketches only, and partial geometry cannot answer whether the damage was sabotage or camouflage.",
+          "why": "Sections were scratched out and connections severed. Either somebody ensured it could never be used again, or somebody made it *look* unusable while preserving its function for people who know how to restore it. Those two readings have opposite consequences.",
+          "fromQuest": "timeline_convergence",
+          "xp": 190,
+          "exhibits": [
+            "ex_key_thrown",
+            "ex_grafting_page"
+          ]
+        },
+        {
+          "id": "lead_mirror_fragment",
+          "title": "Trace the Mirror's absent fragment",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Establish where the missing piece was recovered from and who separated it from the frame in Usk's private chambers.",
+          "why": "A truth instrument was found broken with one piece elsewhere. Akamatsu billed 150 gold to recover and refit it. Waluigi would like to know whether it was lost or *taken*, because those are different crimes and only one of them has a suspect.",
+          "fromQuest": "hjumpik_mirror_identity",
+          "xp": 150,
+          "exhibits": [
+            "ex_mirror_invoice"
+          ]
+        },
+        {
+          "id": "lead_estate_register",
+          "title": "Find the register of estate authority",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Identify who maintains the record of shadow estate credentials — the system that makes the Umbral Signet mean anything.",
+          "why": "A credential requires an issuer. Waluigi has been calling this the clerical department for want of a name, and a nameless suspect is an unfalsifiable one, which is Waluigi's least favourite kind.",
+          "fromQuest": "archie_sleeper_protocol",
+          "xp": 210,
+          "exhibits": [
+            "ex_umbral_signet",
+            "ex_seal_rubbing"
+          ]
+        },
+        {
+          "id": "lead_morel_price",
+          "title": "Establish what Mystic Morel is owed",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Determine the price of the key before Morel names it at a moment of Morel's choosing.",
+          "why": "Morel came out of a wall, threw a key underarm so it could not be refused, issued a warning phrased as a technical instruction, and left. Nobody does that for nothing. The debt exists whether or not the party has written it down, so the party should write it down.",
+          "fromQuest": "faeward_exploration",
+          "xp": 140,
+          "exhibits": [
+            "ex_key_thrown",
+            "ex_bag_inventory"
+          ]
+        },
+        {
+          "id": "lead_seal_variance",
+          "title": "Confirm the seal carried no variance",
+          "state": "open",
+          "priority": "low",
+          "objective": "Have an actual ward scholar — Waluigi has said on the record that Waluigi is not one — confirm that the outer ring repeats without variation, and that the inner mark dedicates the prison to its occupant.",
+          "why": "The single most consequential misreading in the campaign rests on notation Waluigi cannot personally verify. If Waluigi is wrong about the variance, several conclusions in this file need withdrawing, and Waluigi would rather withdraw them than defend them.",
+          "fromQuest": "archie_kamek_conundrum",
+          "xp": 130,
+          "exhibits": [
+            "ex_seal_rubbing"
+          ]
+        }
+      ],
+      "sessions": [
+        {
+          "id": "s22_dark_rooms",
+          "label": "Dark rooms and the balcony plan",
+          "date": "22 Harvestide, 1040 BF",
+          "event": "feyward_dark_rooms_and_balcony_planning"
+        },
+        {
+          "id": "s23_amnesia",
+          "label": "Missing time, the key, and Steely's last warning",
+          "date": "23 Harvestide, 1040 BF",
+          "event": "feyward_amnesia_vines_morel_steely"
+        },
+        {
+          "id": "s24_chop_bros",
+          "label": "Chop Bros, the OC Soul Ring, and the guard with no name",
+          "date": "23–24 Harvestide, 1040 BF",
+          "event": "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+        },
+        {
+          "id": "s_shadeward_dinner",
+          "label": "The Shadeward arc and the vampire dinner",
+          "date": "21–24 Highsun, 1040 BF",
+          "event": "shadeward_arc"
+        },
+        {
+          "id": "s_ritual",
+          "label": "The Shadeward ritual",
+          "date": "Shadowfell time",
+          "event": "the_shadeward_ritual"
+        },
+        {
+          "id": "s_portal_set",
+          "label": "Portal artifact set — custody and carriage",
+          "date": "Ongoing",
+          "event": "the_shadeward_ritual"
+        },
+        {
+          "id": "s_ongoing",
+          "label": "Ongoing — filed as received",
+          "date": "Ongoing",
+          "event": "ruined_manor_convergence"
+        }
+      ],
+      "relatedEvents": [
+        "ruined_manor_convergence",
+        "shadeward_arc",
+        "remi_shadeward_arc",
+        "the_shadeward_ritual",
+        "9_Harvestside_aftermath_shadeward",
+        "feyward_dark_rooms_and_balcony_planning",
+        "feyward_amnesia_vines_morel_steely",
+        "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+        "the_feyward_revel_and_the_book_of_many_things",
+        "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy"
+      ],
+      "exhibits": [
+        {
+          "id": "ex_key_thrown",
+          "propId": "prop_feyward_key_tag",
+          "itemId": "morel_feyward_key",
+          "session": "s23_amnesia",
+          "icon": "🗝️",
+          "kind": "note",
+          "title": "The Key That Was Thrown",
+          "secured": "23 Harvestide, 1040 BF · Feyward manor, mid-corridor, in flight",
+          "custody": "Hjumpik",
+          "onRecord": "Mystic Morel came out of a wall, threw a warm brass key underarm without stopping, said one sentence, and was gone. Hjumpik caught the key. Two hearers agree on the sentence.",
+          "layers": [
+            {
+              "dc": 3,
+              "xp": 25,
+              "category": "discovery",
+              "title": "What the tag actually records",
+              "text": "Waluigi wants the reader to notice what this exhibit is. It is not a key. The key is in Hjumpik's pocket and Waluigi has never held it. The exhibit is the **tag** — and the tag records a method of transfer, which is the part everybody skips.\n\nMorel did not hand the key over. Handing something over creates a moment: two people, one object, an exchange that can be witnessed, refused, negotiated, or retracted. Morel threw it. Underarm. Without stopping. That converts a negotiation into a delivery, and a delivery cannot be refused — Hjumpik's only options were catch or drop, and Morel already knew which one Hjumpik would pick.\n\nWaluigi files this as the first competent thing Mystic Morel has done on the record."
+            },
+            {
+              "dc": 5,
+              "xp": 60,
+              "category": "discovery",
+              "title": "The sentence, read as an instruction rather than a warning",
+              "text": "“Don't make Toad Lee the anchor.”\n\nEveryone in the party heard that as protective. Waluigi has read it eleven times and Waluigi does not think it is protective. It is **technical**. A warning would have been *they're going to hurt Toad Lee*. An instruction is *don't do the thing you are about to do*, and the thing named is a procedure, with a role in it, and the role has a name: anchor.\n\nWhich means Morel knows the procedure. Which means Morel has seen the procedure performed, or has performed it, or has been briefed by someone who has. None of the three readings is comfortable and Waluigi is not going to pretend otherwise.\n\nAlso note the grammar. Not *don't let them make Toad Lee the anchor*. **Don't make.** Morel was warning the party about the party."
+            },
+            {
+              "dc": 7,
+              "xp": 120,
+              "category": "discovery",
+              "title": "Anchor, three houses — the reason this investigation exists",
+              "text": "Waluigi opened this entire file because of one word appearing in three places that have no business sharing vocabulary.\n\n**Shadeward.** Archie got his fire back by smashing a *shadow anchor* — an object holding a plane's condition in place over a house.\n\n**Feyward.** Morel warns against making a *person* the anchor.\n\n**The ruined manor.** A teleportation circle, damaged in a way that reads as deliberate, that would need something to hold its far end steady.\n\nThree houses. One load-bearing noun. Waluigi is aware that a word can be a coincidence, and Waluigi has been careful to say so wherever this file makes a claim. But an anchor is a specific engineering idea: it is the thing that stays fixed so that something else can pull against it. If the same technique is being used in the Shadowfell, in the Feyward, and under a rug near the Thornwood, then this is not three hauntings. It is one contractor.\n\nWaluigi does not know who the contractor is. Waluigi knows the contractor prefers anchors that can walk, because an anchor that can walk can be persuaded to stand somewhere and then be told it volunteered."
+            }
+          ],
+          "links": {
+            "events": [
+              "feyward_amnesia_vines_morel_steely",
+              "shadeward_arc",
+              "ruined_manor_convergence"
+            ],
+            "items": [
+              "morel_feyward_key"
+            ],
+            "characters": [
+              "toad_lee",
+              "hjumpik",
+              "mystic_morel",
+              "archie_miser"
+            ]
+          }
+        },
+        {
+          "id": "ex_bag_inventory",
+          "propId": "prop_morel_bag_inventory",
+          "itemId": "mystic_morel_tarot_bag",
+          "session": "s23_amnesia",
+          "icon": "🧳",
+          "kind": "ledger",
+          "title": "The Bag, Emptied Onto A Table",
+          "secured": "23 Harvestide, 1040 BF · taken down by two hands at once",
+          "custody": "Disaster Inc. Archive",
+          "onRecord": "Morel's bag was emptied and listed by two people simultaneously, so that neither could later be accused of editing the list. The third column is claims of ownership. Most of it was filled in after somebody said “wait, that's mine.”",
+          "layers": [
+            {
+              "dc": 3,
+              "xp": 25,
+              "category": "discovery",
+              "title": "Seven unlabelled keys",
+              "text": "Line two: *Keys, assorted, unlabelled, 7. Unclaimed.*\n\nA thief carries keys. Fine. A prophet carries keys — less fine, but Morel is both, so still fine. What is **not** fine is *unlabelled*. Seven keys and not one tag, not one scratch mark, not one loop of coloured thread. Waluigi has run a criminal enterprise of some distinction and can report that nobody carries seven unlabelled keys by accident. You label keys because you will forget. Unless forgetting is the point, in which case you label nothing and you memorise, and you memorise because a written label is a confession that can be taken off your body.\n\nOne of those seven, Waluigi notes, is not on the list any more. Morel threw it at Hjumpik."
+            },
+            {
+              "dc": 5,
+              "xp": 60,
+              "category": "discovery",
+              "title": "The stopped watch that nobody would claim",
+              "text": "Two pocket watches. One still running — claimed instantly by Hjumpik, which tells the reader something about Hjumpik and nothing about the case. One stopped. Claimed by, in the exact wording of the inventory: *Nobody. Everyone looked away.*\n\nWaluigi has interrogated professionals who gave less away than that column.\n\nA room full of people who will loot a corpse for supplies without blinking, and a stopped watch produces a coordinated failure of eye contact. That is not superstition. Superstition is loud. That is **recognition** — several people in that room knew what a stopped watch means in this context, declined to say so, and declined in a way they thought was invisible.\n\nWaluigi does not yet know what it means. Waluigi knows the party is keeping something from its own archive, and Waluigi is writing that down where they can read it."
+            },
+            {
+              "dc": 7,
+              "xp": 120,
+              "category": "discovery",
+              "title": "An incomplete deck, before the deck was given away",
+              "text": "*Cards, prophetic, incomplete deck, 1. Claimed by Morel.*\n\nHold that against the Reading Register, which Remi keeps for the Oracle's Deck that **Morel gave to Remi as a gift**. Register line five: *Card removed from deck. Not by Remi.*\n\nSo. The deck was already incomplete while it was in Morel's bag. Morel then gifted it. Remi, who is diligent to the point of being annoying about it, logged a card as missing and specified that the removal was not hers.\n\nTwo possibilities and Waluigi dislikes both.\n\nOne: Morel gave away a deck with a card already pulled, meaning the gift was pre-edited — somebody decided in advance which future Remi would not be permitted to draw.\n\nTwo: the card left after the handover, by a hand that was not Remi's, in a house where things come out of walls.\n\nThe register's sixth draw is *The Ring*, outcome column deliberately blank because it has not happened yet. Waluigi would very much like to know which card is missing before the sixth outcome fills itself in."
+            }
+          ],
+          "links": {
+            "events": [
+              "feyward_amnesia_vines_morel_steely"
+            ],
+            "items": [
+              "mystic_morel_tarot_bag",
+              "oracle_deck"
+            ],
+            "characters": [
+              "hjumpik",
+              "remi_akamatsu_full_backstory",
+              "mystic_morel"
+            ]
+          }
+        },
+        {
+          "id": "ex_grafting_page",
+          "propId": "prop_toad_lee_diary_page",
+          "itemId": "toad_lee_diary_pages",
+          "session": "s22_dark_rooms",
+          "icon": "📄",
+          "kind": "letter",
+          "title": "The Grafting Page",
+          "secured": "Feyward manor · loose page, recovered by Toad Lee",
+          "custody": "Toad Lee → Archive (copy)",
+          "onRecord": "A loose page from Lady Aurelian's diary, unsigned beyond the initial. Toad Lee read it while other people were swinging axes at plants.",
+          "layers": [
+            {
+              "dc": 3,
+              "xp": 30,
+              "category": "discovery",
+              "title": "Gardener's vocabulary, chosen on purpose",
+              "text": "“They call it **grafting**, which is a gardener's word, and they chose it on purpose.”\n\nAurelian is telling the reader that the terminology is public relations. A graft is not a wound. A graft *takes*. The tree does not complain afterwards — and the reason she gives for that is the sentence Waluigi keeps rereading: *the tree has nothing left to complain with.*\n\nThat is not gardening. That is a description of a survivor with no faculty left for objection. Somebody chose a horticultural euphemism for it and then used the euphemism at a dinner table until it stopped sounding like anything."
+            },
+            {
+              "dc": 5,
+              "xp": 70,
+              "category": "discovery",
+              "title": "What is joined is the line",
+              "text": "“What is joined is not the flesh. Anyone can join flesh. What is joined is the **line** — and a line that has been joined once can be joined again.”\n\nRead that as an engineer and not as a poet.\n\nGrafting is not body horror. Grafting is **succession fraud with a biological delivery mechanism**. You do not need to replace a person if you can replace their position in a lineage — and once a bloodline has been spliced successfully, the splice is repeatable, because the hard part was never the second graft. The hard part was establishing that the line tolerates grafting at all.\n\nWhich reframes the entire Feyward branch. The false Lady Aurelian was not an impostor in the ordinary sense. An impostor pretends. The overgrowth wearing its owner's face was, on this document's own logic, a *legitimate graft* onto a line that had already been opened.\n\nAnd it reframes the succession crisis, because the Ashford spirit told Luigi the Crown's bloodline was “broken at third branch.” **Branch.** Another gardener's word, from an entirely different house, in an entirely different mouth."
+            },
+            {
+              "dc": 7,
+              "xp": 140,
+              "category": "discovery",
+              "title": "Watch who keeps the record",
+              "text": "The last line is the one that made Waluigi close the folder and go for a walk.\n\n“The Legion watches the wrong end of it. They watch the bodies. The bodies are the least interesting part. Watch the **blood-work**, and watch **who is keeping the record of it**, because whoever keeps that record decides afterwards what happened.”\n\nWaluigi keeps a record. Waluigi is, by trade and by vanity, the person who decides afterwards what happened. Aurelian has written down the exact vulnerability of Waluigi's entire profession and she wrote it before Waluigi ever opened this file.\n\nSo Waluigi will state the obvious risk in Waluigi's own archive, because refusing to state it would be the first symptom of the disease: **if the method works by controlling the record, then the Waluipedia is a target, and a compromised archivist would produce a file that looks exactly like this one.**\n\nThe countermeasure is not trust. The countermeasure is that every claim in this investigation is pinned to a numbered exhibit that exists physically, in custody, with a chain of hands attached. Do not believe Waluigi. Roll against the paper."
+            }
+          ],
+          "links": {
+            "events": [
+              "feyward_dark_rooms_and_balcony_planning",
+              "ruined_manor_convergence"
+            ],
+            "items": [
+              "toad_lee_diary_pages"
+            ],
+            "characters": [
+              "toad_lee",
+              "waluigi"
+            ]
+          }
+        },
+        {
+          "id": "ex_soul_ring",
+          "propId": "prop_oc_soul_ring_custody",
+          "itemId": "oc_soul_ring",
+          "session": "s24_chop_bros",
+          "icon": "💍",
+          "kind": "contract",
+          "title": "Custody Undertaking — The OC Soul Ring",
+          "secured": "24 Harvestide, 1040 BF · recovered by Bob-omb, indoors, against advice",
+          "custody": "Lodged with the Anvil",
+          "onRecord": "The Lady interviewing Hjumpik over cold tea was not the Lady. What was left after the explosion was a gold ring, heavy, engraved **OC** inside the band, allegedly containing the real Aurelian. The occupant was not consulted, being inside it.",
+          "layers": [
+            {
+              "dc": 3,
+              "xp": 30,
+              "category": "discovery",
+              "title": "The word non-negotiable, three times",
+              "text": "The undertaking uses the word *non-negotiable* three times and underlines it once. Waluigi has drafted a great many instruments designed to be quietly negotiable later and can tell the reader from the inside: you repeat a word three times when you expect to be argued with by somebody specific.\n\nThe party knew, at the moment of signing, that someone was going to come for this ring. The document is braced for it."
+            },
+            {
+              "dc": 5,
+              "xp": 70,
+              "category": "discovery",
+              "title": "A person filed as an article",
+              "text": "Read the schedule. *Article: Ring, gold, heavy.* *Reported occupant: The Lady of the manor. The actual one.*\n\nThe archive has now created a category error and Waluigi is responsible for it. Aurelian is in the exhibit register under **Article**, with a custody chain, a recovery method, and a lodging location, filed exactly as one would file a dagger.\n\nWaluigi has thought about this for some time and Waluigi is going to keep it that way, because the alternative is worse. If she is filed as a person, she gets a status line and sympathy and nobody signs for her. Filed as an article, she gets a **chain of custody** — dated, witnessed, transferable only in writing. The indignity is the protection. Somebody is on the hook by name for where she is at all times.\n\n*Reported* occupant, though. Waluigi wrote that word deliberately. Nobody has verified the ring contains Aurelian. What the party has is a claim, a convenient artefact, and an enormous appetite for the story being true."
+            },
+            {
+              "dc": 7,
+              "xp": 140,
+              "category": "discovery",
+              "title": "Bob-omb, indoors, against advice",
+              "text": "Means of recovery: *Bob-omb, indoors, against advice.*\n\nWaluigi wishes to log a tactical objection that the party will ignore. You do not resolve a hostage situation involving a soul-capture article by detonating in an enclosed room. It worked. It worked in the specific way that things work when the universe is being generous to people it intends to bill later.\n\nBut here is the analytical point, and it is not about safety. **The false Lady's destruction produced the ring.** The overgrowth wearing Aurelian's face was, on the grafting page's own logic, joined to her line — and when the graft was blown apart, what fell out was the original, portable, and conveniently pocket-sized.\n\nWhich means the graft was not a replacement. It was a **container with a person still in it**. That is either the most encouraging fact in this file — the originals survive the procedure, they can be recovered — or the most alarming one, because it means every grafted figure in three houses may still have someone inside, and the party has so far checked exactly one."
+            }
+          ],
+          "links": {
+            "events": [
+              "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+            ],
+            "items": [
+              "oc_soul_ring"
+            ],
+            "characters": [
+              "hjumpik",
+              "waluigi"
+            ]
+          }
+        },
+        {
+          "id": "ex_steely_burial",
+          "propId": "prop_steely_burial_record",
+          "itemId": "steely_rusted_fragments",
+          "session": "s23_amnesia",
+          "icon": "⚙️",
+          "kind": "ledger",
+          "title": "Salvage Refusal — The Fragments of Steely",
+          "secured": "23 Harvestide, 1040 BF · collected by hand after the detonation",
+          "custody": "Hjumpik's pack",
+          "onRecord": "Steely rusted down and exploded. Hjumpik filed the remains on a salvage return and struck out every recoverable value on the sheet.",
+          "layers": [
+            {
+              "dc": 3,
+              "xp": 25,
+              "category": "loyalty",
+              "title": "The format is the argument",
+              "text": "This is a **salvage return**. It is the standard form for recovering value from a destroyed construct: component, condition, salvage value. Three columns, all business.\n\nHjumpik filled it in correctly and then struck out the third column on every line. Frame sections: recoverable, struck. Plating: recoverable, struck. Core housing: *fragmented, memory unverified*, recoverable, struck.\n\nHe did not refuse to file. He filed, and then made the filing say no. Waluigi respects this more than Waluigi is prepared to say in a public document."
+            },
+            {
+              "dc": 5,
+              "xp": 60,
+              "category": "loyalty",
+              "title": "Memory unverified",
+              "text": "Two words in the condition column and nobody has followed them up: **memory unverified.**\n\nA construct's core housing holds its memory. Steely was present for the corridors, the overgrowth, the doors that should not have opened, and — critically — Steely was present in the same house as Toad Lee during the period Toad Lee cannot account for.\n\nSteely could not lie. Steely also could not be enchanted into forgetting in the way a Toad can. Which makes the fragmented core the single most credible witness the Feyward branch ever had, and it is currently loose parts in a pack.\n\nWaluigi is not asking the party to disturb the burial. Waluigi is noting, for the record and with as much delicacy as Waluigi possesses, that *unverified* is not the same as *destroyed*, and that somebody wrote it that way on purpose."
+            },
+            {
+              "dc": 7,
+              "xp": 110,
+              "category": "loyalty",
+              "title": "Why a rusting dog is filed in a succession-fraud case",
+              "text": "A reader may reasonably ask why a construct's death sits in a file about grafting, anchors, and three ruined houses.\n\nBecause of *how* Steely died. Not shattered. Not cut down. **Rusted** — progressive, visible, over a period, in a house where the overgrowth is advancing and the Revel is still singing. Steely degraded at the pace the manor degrades things, and then went up near a foot-washing scene that nobody has adequately explained either.\n\nThe Feyward manor is not attacking intruders. It is **converting** them: Toad Lee loses time, the Lady is replaced by growth wearing her face, Waluigi needs sprites to put him back together, and the metal dog oxidises like it has been left out for a season. Every one of those is the same process at a different speed against a different material.\n\nSteely is in this file because Steely is the timer. He is the only party member whose rate of conversion could be watched with the naked eye, and the party watched it, and did not read it as data until it was a pile in a pack."
+            }
+          ],
+          "links": {
+            "events": [
+              "feyward_amnesia_vines_morel_steely"
+            ],
+            "items": [
+              "steely_rusted_fragments"
+            ],
+            "characters": [
+              "hjumpik",
+              "toad_lee",
+              "mystic_morel"
+            ]
+          }
+        },
+        {
+          "id": "ex_umbral_signet",
+          "propId": "prop_umbral_signet_redaction",
+          "itemId": "umbral_signet",
+          "session": "s_portal_set",
+          "icon": "💍",
+          "kind": "note",
+          "title": "Custody Memorandum — Umbral Signet (redacted copy)",
+          "secured": "Portal Artifact Set · Item 3 of 4",
+          "custody": "████████",
+          "onRecord": "The publishable version. Function: shadow key, estate authority, umbral routing. Current custody and last verified date are blacked out. A full copy exists and will not be published, because the enemy also reads the Waluipedia.",
+          "layers": [
+            {
+              "dc": 4,
+              "xp": 40,
+              "category": "stealth",
+              "title": "What the redaction admits",
+              "text": "Waluigi redacted two fields: **current custody** and **last verified**.\n\nAn adversary reading this page learns that the archive knows both. That is deliberate. A blank where an answer should be is a claim that the answer exists — and a bearer whose custody is publicly unknown but archivally recorded is much harder to rob than one whose name is printed.\n\nWhat Waluigi cannot hide, because the memorandum states it plainly, is the *function*: shadow key, estate authority, umbral routing. Anyone reading this now knows the signet opens estates and moves people through shadow. Waluigi accepted that cost. You cannot catalogue an artefact set and simultaneously pretend the artefacts do nothing."
+            },
+            {
+              "dc": 6,
+              "xp": 80,
+              "category": "stealth",
+              "title": "Item 3 of 4 — and the set is the point",
+              "text": "The memorandum is headed *Portal Artifact Set · Item 3 of 4*, and clause one says the other three are catalogued in full.\n\nSo the archive is publishing three of four artefacts openly and hiding the custody of one. That is not caution. That is a **decoy structure**, and Waluigi will now confess to it in Waluigi's own file, because a decoy that the party does not understand is a decoy that the party will accidentally dismantle.\n\nThe set matters more than any member of it. Individually: a shadow key, an anchor key, a truth mirror, a fourth. Collectively: a *routing system* — authority to enter, an anchor to fix the far end, an instrument to verify what came through, and one more piece. Waluigi has been assuming for some weeks that the fourth item is the one that decides what a traveller **is** when it arrives, because every other function in the set is already covered and that is the only job left."
+            },
+            {
+              "dc": 8,
+              "xp": 150,
+              "category": "stealth",
+              "title": "Estate authority, and why that phrase is doing more work than it looks",
+              "text": "*Estate authority.* Not *door-opening*. Not *access*. **Authority.**\n\nA signet does not pick locks. A signet proves you are entitled. The Umbral Signet is not a burglary tool, it is a **credential** — and a credential is only meaningful inside a system that recognises it, which means there is a system, which means somebody maintains a register of who holds estate authority in the shadow, which means the estates are administered.\n\nAdministered by whom? Waluigi does not know. But hold it against the Feyward grafting page: *whoever keeps that record decides afterwards what happened.* Hold it against Shadeward, where a butler in a tuxedo materialised out of the dark and knew that Master Cornelius was expecting visitors who had arrived by accident from another plane.\n\nA house does not *expect* an accident. Somebody sent notice ahead. Somebody with routing, credentials, and a register.\n\nThis is the closest thing this investigation has to a suspect, and it is not a person. It is a **clerical department**, and Waluigi finds that considerably more frightening than a lich."
+            }
+          ],
+          "links": {
+            "events": [
+              "shadeward_arc",
+              "the_shadeward_ritual"
+            ],
+            "items": [
+              "umbral_signet",
+              "black_crystal",
+              "mirror_true_reflection"
+            ],
+            "characters": [
+              "waluigi"
+            ]
+          }
+        },
+        {
+          "id": "ex_crystal_order",
+          "propId": "prop_black_crystal_carrier_order",
+          "itemId": "black_crystal",
+          "session": "s_portal_set",
+          "icon": "◆",
+          "kind": "order",
+          "title": "Carrier Discipline Order — Black Crystal",
+          "secured": "Issued after Lyranth demanded the crystal from Eager",
+          "custody": "Public-known carrier: Markop. Actual carrier: not recorded.",
+          "onRecord": "Lyranth demanded the anchor key from Eager. Eager was not carrying it and could not have produced it. The order exists to preserve that mistake.",
+          "layers": [
+            {
+              "dc": 4,
+              "xp": 40,
+              "category": "stealth",
+              "title": "Two disasters, only one of which has happened",
+              "text": "Clause I is the cleanest piece of counter-intelligence writing in the archive and Waluigi did not write it, which is why Waluigi is prepared to praise it.\n\n“The enemy has established that the crystal matters. The enemy has **not** established who is carrying it. Those are two different disasters and only one of them has happened.”\n\nMost parties, on being demanded an artefact, panic about the demand. The correct response is to audit what the demand *reveals about the demander*. Lyranth knew the crystal existed, knew it was with the party, and guessed wrong about the hand. That is a partial intelligence picture, and a partial picture is a thing you can feed."
+            },
+            {
+              "dc": 6,
+              "xp": 85,
+              "category": "stealth",
+              "title": "Do not correct it accidentally, which is harder",
+              "text": "Clause II instructs the party not to correct Lyranth's error, and then adds the clause that makes Waluigi trust the drafter: *do not correct it accidentally, either, which is harder.*\n\nDeliberate silence is easy. Accidental correction is the real failure mode: Eager looking relieved, Markop patting the wrong pocket, someone saying *he doesn't have it* in a corridor where the walls have recently produced a Mystic Morel.\n\nMarkop is under standing instruction to be visibly, tediously careful with a pocket, and to keep being careful with that pocket long after it stops feeling necessary. That last part is the professional touch. Every amateur maintains a cover until the moment they relax, which is the only moment anyone is watching."
+            },
+            {
+              "dc": 8,
+              "xp": 150,
+              "category": "stealth",
+              "title": "Anchor key — the noun again",
+              "text": "The subject line calls the Black Crystal an **anchor key**.\n\nWaluigi asks the reader to go back to the Feyward key tag and the third layer of it. Anchor in the Shadowfell, holding a plane's condition over a house. Anchor in the Feyward, as a role a *person* can be made to fill. And here, in the party's own quartermaster paperwork, an object described as the key to one.\n\nThe party is carrying a component of the same system it is investigating. Nobody in the party phrased it that way, because the crystal arrived as loot and loot is not interrogated.\n\nWaluigi is interrogating it. If the Black Crystal is an anchor key, then the question is not *who wants to steal it from us*. The question is **what is currently anchored, and does carrying the key make the bearer part of the mechanism**. Lyranth demanded it from Eager. Lyranth may not have been trying to acquire an artefact at all. Lyranth may have been trying to establish which body the key was attached to."
+            }
+          ],
+          "links": {
+            "events": [
+              "the_shadeward_ritual"
+            ],
+            "items": [
+              "black_crystal"
+            ],
+            "characters": [
+              "markop",
+              "mystic_morel"
+            ]
+          }
+        },
+        {
+          "id": "ex_mirror_invoice",
+          "propId": "prop_mirror_restoration_invoice",
+          "itemId": "mirror_true_reflection",
+          "session": "s_portal_set",
+          "icon": "🪞",
+          "kind": "invoice",
+          "title": "Restoration Account — Mirror of True Reflection",
+          "secured": "Recovered broken from Usk's private chambers",
+          "custody": "Green T, at close of business",
+          "onRecord": "650 gold, unpaid. Mending cast on a major artifact under field conditions, the absent fragment recovered and refitted, and a salvage claim entered by Wario — verbally, immediately, twice — and struck.",
+          "layers": [
+            {
+              "dc": 3,
+              "xp": 30,
+              "category": "discovery",
+              "title": "Salvage requires a wreck",
+              "text": "R. Akamatsu struck Wario's claim with seven words: *Salvage requires a wreck. This was a repair.*\n\nWaluigi is obliged to note that this is legally correct and that Wario knew it was legally correct when he entered the claim twice. The claim was not a legal argument. It was an attempt to establish a *timestamp* — a recorded moment at which Wario asserted interest in the mirror, so that a later negotiation could begin from “as previously claimed” rather than from nothing.\n\nWario does not win arguments. Wario creates paper that other people have to argue against later. Waluigi says this with professional affection and total distrust."
+            },
+            {
+              "dc": 5,
+              "xp": 70,
+              "category": "discovery",
+              "title": "The line item that is not about money",
+              "text": "Third line of the account: *Handling of an object that shows the handler what they are. 200 gp.*\n\nAn artificer billed two hundred gold for the psychological cost of touching the thing. That line is not padding — it is above the fragment recovery in the itemisation, which means Akamatsu considered it the second most demanding part of the job.\n\nThe Mirror of True Reflection was found **broken** in Usk's private chambers, with a piece missing that had to be recovered separately. Waluigi would like the reader to consider the ordinary explanation, which is that it got knocked over, and then to consider the other one: that somebody who did not like the answer broke it, and then removed a specific fragment, and that the fragment was not lost but *taken*."
+            },
+            {
+              "dc": 7,
+              "xp": 130,
+              "category": "discovery",
+              "title": "A different person has held it every time",
+              "text": "The archive's own footnote: *the person holding the mirror of truth has been a different person every time.*\n\nWaluigi added that line and Waluigi is now going to defend it, because it is the most useful sentence in the file about the party.\n\nAn instrument that verifies identity is only as trustworthy as its chain of custody, and this one has no chain — it has a *sequence of unrelated hands*. Usk had it broken. Akamatsu had it in pieces. Wario tried to have it before it set. Green T has it at close of business, and Green T is a person who counts revolver rounds out and back on a discipline sheet, which is the single strongest argument for leaving it exactly where it is.\n\nIn a case whose central mechanism is **replacing people with things wearing their line**, the party owns one device that can tell the difference and has never once assigned it a permanent keeper. That is the operational recommendation this investigation most wants acted on, and Waluigi has no authority to give orders, only the ability to write them down where they are embarrassing."
+            }
+          ],
+          "links": {
+            "events": [
+              "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+            ],
+            "items": [
+              "mirror_true_reflection"
+            ],
+            "characters": [
+              "green_t",
+              "wario",
+              "waluigi"
+            ]
+          }
+        },
+        {
+          "id": "ex_reading_register",
+          "propId": "prop_oracle_deck_reading_register",
+          "itemId": "oracle_deck",
+          "session": "s_ongoing",
+          "icon": "🎴",
+          "kind": "ledger",
+          "title": "Reading Register — Cards Drawn Against Events Occurring",
+          "secured": "Kept privately by Remi from the date of the gift",
+          "custody": "Remi",
+          "onRecord": "Six draws. The right-hand column — what actually happened — was filled in afterwards, which is the only honest way to keep such a record and the reason it is admissible.",
+          "layers": [
+            {
+              "dc": 4,
+              "xp": 45,
+              "category": "magic",
+              "title": "Why the method is sound and the result is worse for it",
+              "text": "Remi recorded the card at the time and the outcome later. That ordering is everything. A prophecy log written after the fact proves nothing, because memory obligingly reshapes a vague card into a specific event.\n\nSo Waluigi cannot dismiss this the way Waluigi would like to.\n\n*The Broken Window* — a window was broken, two days later. *The Guest Who Is Furniture* — a spy was found in a closet. Waluigi has tried to read those as retrofitted and cannot, because the cards were logged first, by a diligent person, in her own private book with nobody to impress."
+            },
+            {
+              "dc": 6,
+              "xp": 90,
+              "category": "magic",
+              "title": "The Lady With Two Faces, left blank at the time",
+              "text": "Third draw: *The Lady With Two Faces.* Recorded **before** the Feyward manor. Outcome column left blank at the time.\n\nRemi drew a two-faced Lady before the party ever met a Lady who was not the Lady — before the cold tea, before the interview, before the Bob-omb, before a gold ring engraved OC fell out of the overgrowth.\n\nWaluigi is not going to write *the deck predicted it*. Waluigi is going to write the sceptical version, which is somehow worse: **Morel gave Remi this deck.** Morel knew what was in the Feyward manor. A gift that produces an accurate card is a gift that was *loaded*, and a loaded deck is a way of putting information into a party without being the one who told them.\n\nEither the cards are prophetic or Mystic Morel has been running an intelligence channel through a card game. Waluigi has no way to distinguish these and resents it."
+            },
+            {
+              "dc": 8,
+              "xp": 160,
+              "category": "magic",
+              "title": "Draw five, draw six",
+              "text": "Fifth draw: **—**. Card removed from deck. *Not by Remi.*\n\nSixth draw: **The Ring**. Outcome column deliberately empty. It has not happened yet.\n\nWaluigi wants both of those understood together, because separately they are curiosities and together they are a threat assessment.\n\nSomebody reached into the deck of a person who logs everything, removed a card, and did it cleanly enough that Remi could only record the absence. That is the same operational signature as everything else in this file: not destruction, **editing**. The grafting page said watch who keeps the record. Here is somebody amending a record in the party's own pocket.\n\nAnd the very next draw is *The Ring*, in an investigation where a ring is currently lodged with the Anvil with a person allegedly inside it.\n\nThe register's outcome column is the only blank space in this entire investigation that will fill itself in without anybody rolling for it. Waluigi advises the party to be present when it does."
+            }
+          ],
+          "links": {
+            "events": [
+              "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+            ],
+            "items": [
+              "oracle_deck",
+              "oc_soul_ring"
+            ],
+            "characters": [
+              "remi_akamatsu_full_backstory",
+              "mystic_morel"
+            ]
+          }
+        },
+        {
+          "id": "ex_seal_rubbing",
+          "propId": "prop_kamek_seal_rubbing",
+          "itemId": "kamek_seal_rubbing",
+          "session": "s_ritual",
+          "icon": "🪄",
+          "kind": "map",
+          "title": "Seal Rubbing — The Notation Kamek Read As An Invitation",
+          "secured": "Charcoal on paper, taken at the seal face · scale unrecorded",
+          "custody": "Archive",
+          "onRecord": "Outer ring: binding notation, repeated without variation — which in ward-work means closed. Middle ring: a dedication naming the thing sealed. Inner mark: annotated on the original, in a firm hand, “for me.”",
+          "layers": [
+            {
+              "dc": 4,
+              "xp": 45,
+              "category": "magic",
+              "title": "Repeated without variation means closed",
+              "text": "The outer ring repeats one binding notation with no variation at all. Waluigi is not a ward scholar and has said so on the record. Waluigi has, however, had this confirmed: in ward-work, **repetition without variation is the notation for a closed condition**. A ward meant to be opened by a keyholder carries a variance — a break in the pattern where the key engages.\n\nThere is no variance anywhere on this rubbing.\n\nThe seal was not lockable. It was *sealed*, in the sense that a tomb is sealed, and the only correct reading of it was: this stays shut."
+            },
+            {
+              "dc": 6,
+              "xp": 90,
+              "category": "magic",
+              "title": "A dedication of the prison to what is inside it",
+              "text": "The inner mark was read by the taker of the rubbing as a personal address. He wrote **“for me”** on the original, in a firm hand, in charcoal, next to a mark that dedicates a prison to its occupant.\n\nThe greatest wizard in Koopa history versus a label. The label lost first. Then everyone else did.\n\nWaluigi has been careful throughout this file about mockery, because mockery is how an archive stops noticing things. So here is the non-mocking version. Kamek is not stupid and Kamek is not illiterate in ward-notation. Kamek read a dedication as an address because the notation is *ambiguous by design* — a mark that names the thing sealed will always be readable as a mark that names the reader, and whoever cut that seal knew it.\n\nThe seal was not merely a lock. It was a lock with **bait cut into the face of it**."
+            },
+            {
+              "dc": 8,
+              "xp": 160,
+              "category": "magic",
+              "title": "Reading a document as saying what one wishes it said",
+              "text": "The archive's closing note is Waluigi's own and Waluigi meant it as self-indictment: *Waluigi is extremely experienced in reading a document as saying what one wishes it said, and this is a textbook specimen.*\n\nThis is the methodological centre of the entire investigation, so Waluigi will spend a paragraph on it rather than a joke.\n\nEvery exhibit in this file can be read two ways. The key tag is a warning or an instruction. The grafting page is a confession or a boast. The reading register is prophecy or an intelligence channel. The ring contains Aurelian or contains a story the party badly wants to be true. In every single case the *pleasant* reading is available and free, and the unpleasant reading costs something.\n\nKamek picked the pleasant reading of one mark and it went the way it went.\n\nSo the standing rule of this investigation, written here because this is the exhibit that earns it: **when a document can be read two ways, the archive files both, and marks which one the archive would prefer.** A preference that is written down can be checked by somebody else later. A preference that is not written down becomes a fact within about a fortnight."
+            }
+          ],
+          "links": {
+            "events": [
+              "the_shadeward_ritual"
+            ],
+            "items": [
+              "kamek_seal_rubbing"
+            ],
+            "characters": [
+              "kamek",
+              "waluigi"
+            ]
+          }
+        },
+        {
+          "id": "ex_round_sheet",
+          "propId": "prop_green_t_round_sheet",
+          "itemId": "green_t_revolver",
+          "session": "s_shadeward_dinner",
+          "icon": "🔫",
+          "kind": "ledger",
+          "title": "Ammunition Accountability Sheet",
+          "secured": "Ongoing · maintained by Green T personally",
+          "custody": "Green T",
+          "onRecord": "Rounds out against rounds accounted. Every occasion balances. One line is struck, and the struck line is the exhibit.",
+          "layers": [
+            {
+              "dc": 3,
+              "xp": 30,
+              "category": "loyalty",
+              "title": "Silver. Recovered from Orangus Cornelius. Yes.",
+              "text": "Line one. *Dinner, the vampire. Out 6. Fired 1. Accounted: Silver. Recovered from Orangus Cornelius. Yes.*\n\nGreen T shot the host of a vampire dinner from the children's table, and then went and **got the bullet back**.\n\nWaluigi wants that sequence appreciated properly. It is not bravado. Recovering the round means no silver ball is left in a Shadowfell estate for somebody to match to a weapon, and it means the sheet balances. A person who retrieves evidence from inside a host during an active incident is not a child at a children's table. That is fieldcraft."
+            },
+            {
+              "dc": 5,
+              "xp": 65,
+              "category": "loyalty",
+              "title": "Weapon not loaded during instruction",
+              "text": "*Instruction of R. Akamatsu. Out 6. Fired 0. Accounted: Yes — weapon not loaded during instruction.*\n\nGreen T logged six rounds out, taught an artificer to handle a revolver, fired nothing, and specified in the accounted column that the weapon was empty for the lesson.\n\nNobody required that note. The sheet already balanced without it. It is there because Green T holds themself to a standard nobody in this party has asked for and most of them could not meet.\n\nWaluigi files this in an investigation about people being replaced by things wearing their faces, and here is why: **this sheet is an identity document.** Nothing in the Feyward or the Shadeward could counterfeit the habit of writing that line. A graft can wear a face. It cannot be bothered to note that the weapon was unloaded during a lesson that went fine."
+            },
+            {
+              "dc": 7,
+              "xp": 130,
+              "category": "loyalty",
+              "title": "The line that cannot be totalled",
+              "text": "*The tanuki matter — moral accounting. Out: —. Fired: —. Accounted: **No**.*\n\nAnd underneath, in the archive's hand: *the struck line is struck because it cannot be totalled, not because it was resolved.*\n\nGreen T fired one round in the tanuki matter, accounted for it in the line above, and then opened a second line for the part that a rounds ledger has no column for. Then struck it. Not erased — **struck**, which leaves it legible.\n\nWaluigi has spent this whole investigation arguing that whoever keeps the record decides what happened. Here is the counter-example, and Waluigi is glad to have it in the file. Green T kept a record that deliberately fails to resolve, in a format designed to always resolve, and left the failure visible.\n\nThat is what an honest archive looks like. Rounds unaccounted for: 0. Everything else: outstanding."
+            }
+          ],
+          "links": {
+            "events": [
+              "shadeward_arc"
+            ],
+            "items": [
+              "green_t_revolver"
+            ],
+            "characters": [
+              "green_t",
+              "waluigi"
+            ]
+          }
+        },
+        {
+          "id": "ex_feyward_addendum",
+          "propId": "prop_feyward_addendum_legible",
+          "itemId": null,
+          "session": "s23_amnesia",
+          "icon": "📎",
+          "kind": "addendum",
+          "title": "Addendum — Why This Session Matters More Than It Looks",
+          "secured": "Attached to the session record · the session did not close the branch",
+          "custody": "Walupedia Editorial Board",
+          "onRecord": "Waluigi's argument that an unsolved problem you can finally see is worth more than a solved one. A solved problem stops moving. A legible problem can be hunted.",
+          "layers": [
+            {
+              "dc": 3,
+              "xp": 25,
+              "category": "discovery",
+              "title": "Before and after, in four rows",
+              "text": "The addendum's table is the closest thing the archive has to an honest progress report.\n\n*Toad Lee:* useful and occasionally ridiculous → useful, ridiculous, **and a possible security problem**.\n\n*Mystic Morel:* ambiguous presence → antagonist and informant, appeared from a wall, survived near-decapitation, issued a targeted warning, provided a key.\n\n*Steely:* present → lost.\n\n*The revel:* ongoing → still ongoing.\n\nOne of those four rows got worse, two got more detailed, and one did not move at all. Waluigi published it in that order deliberately."
+            },
+            {
+              "dc": 5,
+              "xp": 70,
+              "category": "discovery",
+              "title": "Legibility as a war aim",
+              "text": "“A solved problem stops moving. A legible problem can be hunted.”\n\nWaluigi wrote that and then had to live with it, because it is the justification for this entire investigation existing instead of a quest board.\n\nA quest board says *retrieve the item, receive the reward, the entry closes*. That model assumes the problem is a task. This is not a task. Nobody is going to hand the party a completed Feyward branch in exchange for enough chopping.\n\nWhat the party can actually accumulate is **resolution** — in the optical sense. Every exhibit that gets examined makes the shape slightly sharper, and the shape is what you hunt. The XP in this file is not paid for defeating anything. It is paid for making something visible, because visibility is the only thing in this campaign that has never once been taken back."
+            },
+            {
+              "dc": 7,
+              "xp": 120,
+              "category": "discovery",
+              "title": "Obligations, evidence, and debts that never appear on a sheet",
+              "text": "The addendum ends: *Money is not the only thing characters carry. They carry obligations. They carry evidence. They carry debts that never appear on a sheet.*\n\nWaluigi will now inventory what the Feyward branch is carrying, since nobody else has.\n\n**Obligations.** A ring lodged with the Anvil containing, allegedly, a person. A construct's remains that were promised burial rather than salvage. A Toad who is either a victim or a vector and has been told he is neither.\n\n**Evidence.** Everything in this file. Twelve exhibits, in custody, with hands attached to each one.\n\n**Debts that never appear on a sheet.** Morel is owed something for the key, and Morel will name the price at a moment of Morel's choosing. Akamatsu is owed 650 gold and has not pressed. Aurelian is owed her body back.\n\nNone of that is on a quest board because a quest board cannot represent it. It is on this page because Waluigi's archive can, and because a debt that has been written down is considerably harder to walk away from than a debt that has merely been felt."
+            }
+          ],
+          "links": {
+            "events": [
+              "feyward_amnesia_vines_morel_steely",
+              "feyward_dark_rooms_and_balcony_planning"
+            ],
+            "items": [],
+            "characters": [
+              "toad_lee",
+              "hjumpik",
+              "mystic_morel",
+              "waluigi"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "capital_intrigue_file",
+      "codename": "THE REGENCY LEDGERS",
+      "title": "Who Signed, And In What",
+      "subtitle": "Coronations were theatre; real power signed in blood not ink",
+      "status": "stub",
+      "classification": "Opened — awaiting exhibits",
+      "arcIds": [
+        "capital_intrigue"
+      ],
+      "icon": "🏛️",
+      "accent": "#d4a017",
+      "opened": "Not yet formally opened",
+      "archivist": "Waluigi, Auditor-General",
+      "hook": "The Ashford spirit said the coronations were theatre. Waluigi believes him, which is the problem, because Waluigi wants to believe him.",
+      "imageCaption": "There are a great many images of the capital. Not one of them shows anybody signing anything.",
+      "brief": "Waluigi is opening this file empty and saying so, because an empty file that admits it is empty is more honest than a full one that has been padded.\n\nWhat exists: a spirit's testimony, relayed through notes that may or may not be Luigi's, stating that coronations were **theatre** while real power *signed in blood not ink*, and that documents are sealed in iron beneath a hanging tree in the Thornwood.\n\nWhat does not exist: a single piece of paper from the capital in the archive's custody. Not one. Waluigi has an entire investigation's worth of Feyward stationery and nothing at all from the building where the decisions were made, which is itself a finding — the capital produces speeches and the Feyward produces evidence, and Waluigi would like the reader to notice which institution is more careful.\n\nThis file opens properly the day somebody brings back paper.",
+      "threads": [
+        {
+          "id": "th_iron",
+          "title": "Documents sealed in iron beneath a hanging tree",
+          "state": "open",
+          "text": "Coordinates in the Thornwood, per the Ashford testimony. Unverified. Uninvestigated. Waluigi is aware of how that sentence looks in an archive that has been running for months."
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead_iron_docs",
+          "title": "Recover the documents sealed in iron",
+          "state": "open",
+          "priority": "high",
+          "objective": "Locate the hanging tree in the Thornwood and retrieve whatever is sealed beneath it in iron.",
+          "why": "It is the only physical evidence the succession thread has ever been offered, and it was offered by a spirit whose other statements are unfalsifiable. Iron and paper are falsifiable. Go and get them.",
+          "fromQuest": "toads_rescue_eager",
+          "xp": 250,
+          "exhibits": []
+        },
+        {
+          "id": "lead_third_branch",
+          "title": "Identify the third branch",
+          "state": "open",
+          "priority": "high",
+          "objective": "Establish which branch of the succession the Ashford spirit meant by “broken at third branch,” and whether the break was an event or a procedure.",
+          "why": "Held against the Aurelian grafting page, *branch* stops being a genealogist's metaphor and becomes the same gardening vocabulary the Feyward uses for splicing a bloodline. If the capital's succession was grafted, the crisis has a mechanism instead of a mystery.",
+          "fromQuest": "markop_centaurs_burden",
+          "xp": 230,
+          "exhibits": []
+        }
+      ],
+      "sessions": [],
+      "relatedEvents": [
+        "ruined_manor_convergence"
+      ]
+    },
+    {
+      "id": "mushroom_civil_war_file",
+      "codename": "THE GOD-TOAD QUESTION",
+      "title": "An Enormous Claim With No Custody Chain",
+      "subtitle": "Divinity, asserted; paperwork, absent",
+      "status": "stub",
+      "classification": "Opened — awaiting exhibits",
+      "arcIds": [
+        "mushroom_civil_war"
+      ],
+      "icon": "🍄",
+      "accent": "#e74c3c",
+      "opened": "Not yet formally opened",
+      "archivist": "Waluigi, Auditor-General",
+      "hook": "Several parties are hunting a god. Nobody has produced a document establishing that there is one.",
+      "imageCaption": "Waluigi declines to illustrate a deity whose existence is the open question of the file.",
+      "brief": "Waluigi has a methodological objection to this entire subject and is going to lead with it.\n\nEvery other file in this archive begins with an article — a key, a ring, an invoice, a sheet of rusted components. This one begins with a **claim**, and the claim has been repeated so often and by so many that repetition has done the work custody should have done.\n\nWaluigi's position: a god-toad is exactly the sort of proposition that produces action without evidence, which makes it exactly the sort of proposition somebody would manufacture. Waluigi is not saying it is false. Waluigi is saying the file stays a stub until somebody brings back something that can be put on a table.\n\nThe Kamek seal rubbing, filed in the SHADEWARD FEYWARD RUINED investigation, is the cautionary specimen: the greatest wizard in Koopa history read a dedication as a personal invitation because he wanted to. This file will not open on a want.",
+      "threads": [
+        {
+          "id": "th_claim",
+          "title": "Repetition is not custody",
+          "state": "open",
+          "text": "The god-toad is attested by many mouths and no articles. Waluigi wants one physical thing — a seal, a register, a receipt for a sacrifice, anything with a hand attached to it."
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead_godtoad_article",
+          "title": "Obtain one physical article attesting the god-toad",
+          "state": "open",
+          "priority": "high",
+          "objective": "Bring back a single object or document, with a chain of hands, that establishes the claim independently of anybody's testimony.",
+          "why": "Because this file cannot open without one, and because a movement this large that has generated no paperwork in months has either been extraordinarily careful or has nothing to file.",
+          "fromQuest": "archie_god_toad_hunt",
+          "xp": 240,
+          "exhibits": []
+        },
+        {
+          "id": "lead_kamek_conundrum",
+          "title": "Establish what Kamek believes he was invited to",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Get Kamek on the record about the inner mark, in his own words, before the archive's reading hardens into the official one.",
+          "why": "Waluigi has published a reading of that rubbing that makes Kamek look foolish. Waluigi's standing rule requires filing both readings, and Waluigi has so far only filed Waluigi's.",
+          "fromQuest": "archie_kamek_conundrum",
+          "xp": 150,
+          "exhibits": [
+            "ex_seal_rubbing"
+          ]
+        }
+      ],
+      "sessions": [],
+      "relatedEvents": [
+        "the_shadeward_ritual"
+      ]
+    },
+    {
+      "id": "toad_liberation_file",
+      "codename": "SOMEWHERE TO PUT THEM",
+      "title": "Liberation Is A Logistics Problem",
+      "subtitle": "The rescue was the easy part and everybody knew it at the time",
+      "status": "stub",
+      "classification": "Opened — awaiting exhibits",
+      "arcIds": [
+        "toad_liberation"
+      ],
+      "icon": "🏠",
+      "accent": "#2ecc71",
+      "opened": "Not yet formally opened",
+      "archivist": "Waluigi, Auditor-General",
+      "hook": "Liberated Toads have been counted, integrated, and housed on paper. Waluigi would like to see the paper.",
+      "imageCaption": "Waluigi has seen the camp. Waluigi is not going to describe it in a caption.",
+      "brief": "This is the file Waluigi least wants to write and is therefore writing first among the stubs.\n\nThe liberation itself is well documented and genuinely creditable. What is not documented — at all, anywhere in this archive — is the **afterwards**: who is feeding them, under whose authority they are housed, what happens to a liberated Toad who wants to leave, and who is keeping *that* record.\n\nWaluigi has spent an entire investigation arguing that whoever keeps the record decides afterwards what happened. That argument does not become less true when it is aimed at the party's own good deed. There are several hundred people whose status is currently defined by a system nobody in this archive has audited.\n\nThe file opens when somebody produces a roll, a ration ledger, or a housing register. Waluigi expects the ration ledger to be the interesting one. It always is.",
+      "threads": [
+        {
+          "id": "th_after",
+          "title": "Nobody has audited the good deed",
+          "state": "open",
+          "text": "Rescue generates narrative. Custody generates paperwork. This arc has produced a great deal of the former and none of the latter, and the people concerned are the ones who lose by that."
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead_ration_ledger",
+          "title": "Obtain the ration ledger",
+          "state": "open",
+          "priority": "high",
+          "objective": "Get the actual feeding record for the liberated population — quantities, dates, and the name of whoever signs for it.",
+          "why": "A ration ledger cannot be rhetorical. It either balances or it does not, and if it does not, the discrepancy has a name at the bottom of it.",
+          "fromQuest": "liberated_toads_integration",
+          "xp": 170,
+          "exhibits": []
+        },
+        {
+          "id": "lead_housing_authority",
+          "title": "Establish under whose authority they are housed",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Identify the legal or practical basis on which the liberated Toads occupy where they occupy, and what happens if that basis is withdrawn.",
+          "why": "Estate authority turned out to be the load-bearing concept in the Shadeward file. Waluigi would like to check whether the party's own settlement rests on a credential somebody else can revoke.",
+          "fromQuest": "toads_a_place_to_call_home",
+          "xp": 160,
+          "exhibits": [
+            "ex_umbral_signet"
+          ]
+        }
+      ],
+      "sessions": [],
+      "relatedEvents": []
+    },
+    {
+      "id": "rakasha_alliance_file",
+      "codename": "THE FESTIVAL PACT",
+      "title": "What Was Actually Agreed",
+      "subtitle": "A pact witnessed by many and written by none",
+      "status": "stub",
+      "classification": "Opened — awaiting exhibits",
+      "arcIds": [
+        "rakasha_alliance"
+      ],
+      "icon": "🐯",
+      "accent": "#f39c12",
+      "opened": "Not yet formally opened",
+      "archivist": "Waluigi, Auditor-General",
+      "hook": "Everyone present agrees a pact was made at the Festival of the Fallen. No two accounts agree on its terms.",
+      "imageCaption": "The festival was extensively observed and almost entirely unrecorded, which Waluigi suspects was arranged.",
+      "brief": "An oral pact is not a lesser instrument. Waluigi wants to be clear about that before the sceptical part, because in several cultures represented at that festival the spoken form is the binding one and the written form is the insult.\n\nBut an oral pact between parties who *do not share that convention* is a different animal. One side considers itself bound by what was said. The other considers itself bound by what was written, and nothing was written.\n\nSo the archive's question is not *was a pact made*. It is: **what does each party believe it owes**, and the two answers have never been placed side by side. Waluigi intends to place them side by side, in two columns, on one sheet, and then watch what happens to the room.\n\nStub until Waluigi has both columns.",
+      "threads": [
+        {
+          "id": "th_terms",
+          "title": "Two parties, two conventions, one unwritten agreement",
+          "state": "open",
+          "text": "Nobody is lying yet. That is the window. Once one side acts on its own reading, somebody becomes a liar retroactively, and Waluigi would rather have the columns before that happens."
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead_pact_terms",
+          "title": "Record both parties' understanding of the pact",
+          "state": "open",
+          "priority": "high",
+          "objective": "Take each side's account of the terms separately, without letting either see the other, and file them in parallel columns.",
+          "why": "Separately is the only way it works. Together, the more forceful party's version becomes the record, and this archive has an entire investigation about what happens next when that occurs.",
+          "fromQuest": "festival_of_the_fallen_pact",
+          "xp": 190,
+          "exhibits": []
+        },
+        {
+          "id": "lead_rogueport_item",
+          "title": "Establish what was retrieved at Rogueport and for whom",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Identify the retrieved article, its current custody, and whether it discharges any part of the pact.",
+          "why": "A retrieval performed under an unwritten agreement can be claimed afterwards as either a favour or a payment, and the difference is the whole alliance.",
+          "fromQuest": "rogueport_retrieval",
+          "xp": 150,
+          "exhibits": []
+        }
+      ],
+      "sessions": [],
+      "relatedEvents": []
+    }
+  ]
+}

@@ -40,6 +40,7 @@
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/quest-prose-format.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/archive-prose-format.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/exhibits.css">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/investigations.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="Reputation-Matrix2/data/vendors-directory.js"></script>
   <script src="Reputation-Matrix2/data/books-data.js"></script>
@@ -6584,7 +6585,7 @@ function renderSidebar(active){
     navLink({emoji:'📚',label:'Library & Books',go:"Router.go('#/books')",active:active==='books',count:((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}),
     navLink({emoji:'🎵',label:'Campaign Songbook',go:"Router.go('#/songs')",active:active==='songs',count:23}),
     navLink({emoji:'🛰️',label:'Mission Control',go:"Router.go('#/mission-control')",active:active==='mission-control'}),
-    navLink({emoji:'📋',label:'Quests & Jobs',go:"Router.go('#/quests')",active:active==='quests',count:73}),
+    navLink({emoji:'🔍',label:'Investigations',go:"Router.go('#/investigations')",active:active==='investigations',count:(((DATA.investigations||{}).investigations)||[]).length}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')})
   ]);
 
@@ -9640,7 +9641,7 @@ function view_article(id){
      ${typeKey==='battles'?battleVsInfographic(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
-${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}
+${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}
      <div class="prose">${applyAnnotations(mdToHtml(item.description||'',item.id), item.id)}</div>
      ${sectionsHtml}
      ${listBlocks.length?`<hr>${listBlocks.join('')}`:''}
@@ -9692,7 +9693,7 @@ function view_trial(item,t){
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${item.summary?`<div class="article-lead-card noimg"><div class="article-lead-summary"><h4>Case Summary</h4><p>${esc(item.summary)}</p></div></div>`:''}${anote}${defLink}
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}
-     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, 'trials') : ''}${relHtml}
+     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, 'trials') : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, 'trials') : ''}${relHtml}
    </div></div><div>${crossPagePanel(item.id,'trials',item)}${articleControlPanel(item.id)}<div class="infobox"><h4>${esc(item.name)}</h4>${infoRows}</div>${toc}</div></div>`;
   setArticleAccent('trials');
   window.scrollTo(0,0);setupScrollSpy();
@@ -9774,6 +9775,521 @@ function openProp(pid){
   window.__propEsc=e=>{ if(e.key==='Escape'){ e.preventDefault(); closeProp(); } };
   document.addEventListener('keydown',window.__propEsc);
   const x=ov.querySelector('.exhibit-x'); if(x) x.focus();
+}
+
+/* ============================================================================
+   INVESTIGATIONS SYSTEM
+   Replaces the quest board. One accreting case file per story arc.
+   Data: Reputation-Matrix2/data/investigations.json  (DATA.investigations)
+   Styles: Reputation-Matrix2/app/styles/systems/investigations.css
+   Exhibit documents are rendered through the existing prop engine (PROPS/getProp).
+   Progress is per-browser; nothing is written back to JSON.
+   ============================================================================ */
+
+const INV_STORE_KEY = 'waluipedia-investigations-v1';
+
+function invAll(){
+  const d = DATA.investigations;
+  return (d && d.investigations) || [];
+}
+function invGet(id){ return invAll().find(i => i.id === id) || null; }
+
+/* ---------- quest migration map ----------
+   The full triage of the retired 73-entry quest board lives in
+   investigations.json → _README.quest_migration. Nothing was deleted from
+   quests.json; these helpers decide what is *presented*. */
+function invMigration(){
+  const d = DATA.investigations;
+  return (d && d._README && d._README.quest_migration) || {};
+}
+function invCulled(qid){ return (invMigration().culled_filler || []).indexOf(qid) !== -1; }
+function invPromotedTo(qid){
+  const hit = (invMigration().promoted_to_leads || {})[qid];
+  return (hit && hit[0]) || null;   // "invId/leadId"
+}
+
+/* ---------- progress ---------- */
+function invState(){
+  try { return JSON.parse(localStorage.getItem(INV_STORE_KEY) || '{}'); }
+  catch(e){ return {}; }
+}
+function invSave(s){ try { localStorage.setItem(INV_STORE_KEY, JSON.stringify(s)); } catch(e){} }
+function invUnlocked(invId, exId, li){
+  const s = invState();
+  return !!(s[invId] && s[invId].unlocked && s[invId].unlocked[exId + ':' + li]);
+}
+function invUnlock(invId, exId, li, xp){
+  const s = invState();
+  s[invId] = s[invId] || { unlocked:{}, xp:0, rolls:0 };
+  const k = exId + ':' + li;
+  if(!s[invId].unlocked[k]){
+    s[invId].unlocked[k] = true;
+    s[invId].xp = (s[invId].xp || 0) + (xp || 0);
+  }
+  invSave(s);
+}
+/* Persistence bonus: DC-8 layers cannot be beaten by a single d6+1 (max 7).
+   That is deliberate — the hardest paper does not give way on one reading — but
+   it must not be a dead end. Each failed examination of a layer leaves a
+   +1 study bonus on that layer, capped at +3, so a reader who keeps coming back
+   always gets there. Nothing is consumed; the bonus is per layer, not global. */
+function invFails(invId, exId, li){
+  const s = invState();
+  return (s[invId] && s[invId].fails && s[invId].fails[exId + ':' + li]) || 0;
+}
+function invStudyBonus(invId, exId, li){ return Math.min(invFails(invId, exId, li), 3); }
+function invCountFail(invId, exId, li){
+  const s = invState();
+  s[invId] = s[invId] || { unlocked:{}, xp:0, rolls:0 };
+  s[invId].fails = s[invId].fails || {};
+  const k = exId + ':' + li;
+  s[invId].fails[k] = (s[invId].fails[k] || 0) + 1;
+  invSave(s);
+}
+function invCountRoll(invId){
+  const s = invState();
+  s[invId] = s[invId] || { unlocked:{}, xp:0, rolls:0 };
+  s[invId].rolls = (s[invId].rolls || 0) + 1;
+  invSave(s);
+}
+function invProgress(iv){
+  const s = invState()[iv.id] || { unlocked:{}, xp:0, rolls:0 };
+  const layers = (iv.exhibits || []).reduce((n,e) => n + (e.layers || []).length, 0);
+  const done = Object.keys(s.unlocked || {}).length;
+  const total = (iv.exhibits || []).reduce((n,e) => n + (e.layers||[]).reduce((m,l) => m + (l.xp||0), 0), 0);
+  return { layers, done, xp: s.xp || 0, totalXp: total, rolls: s.rolls || 0,
+           pct: layers ? Math.round(done * 100 / layers) : 0 };
+}
+function invExhibitDone(iv, ex){
+  return (ex.layers || []).every((l,i) => invUnlocked(iv.id, ex.id, i));
+}
+
+/* ---------- dice ----------
+   d6+1 vs DC, matching the archiecourtcase reference implementation.
+   No audio asset ships with the repo, so the "sound" is synthesised with the
+   WebAudio API: a short noise burst plus two clacks. Silent-fails everywhere. */
+let INV_AUDIO = null;
+function invDiceSound(){
+  try{
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(!AC) return;
+    INV_AUDIO = INV_AUDIO || new AC();
+    const ctx = INV_AUDIO;
+    if(ctx.state === 'suspended') ctx.resume();
+    const now = ctx.currentTime;
+    // noise burst: dice leaving the hand
+    const len = Math.floor(ctx.sampleRate * 0.16);
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const ch = buf.getChannelData(0);
+    for(let i=0;i<len;i++) ch[i] = (Math.random()*2-1) * Math.pow(1 - i/len, 2.4);
+    const src = ctx.createBufferSource(); src.buffer = buf;
+    const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2400; bp.Q.value = 0.8;
+    const g = ctx.createGain(); g.gain.value = 0.16;
+    src.connect(bp); bp.connect(g); g.connect(ctx.destination);
+    src.start(now);
+    // two clacks: dice settling
+    [0.17, 0.28].forEach((t, i) => {
+      const o = ctx.createOscillator(), og = ctx.createGain();
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(320 - i*60, now + t);
+      og.gain.setValueAtTime(0.0001, now + t);
+      og.gain.exponentialRampToValueAtTime(0.11, now + t + 0.006);
+      og.gain.exponentialRampToValueAtTime(0.0001, now + t + 0.09);
+      o.connect(og); og.connect(ctx.destination);
+      o.start(now + t); o.stop(now + t + 0.1);
+    });
+  }catch(e){ /* audio is decoration; never let it break a roll */ }
+}
+function invRollD6(){ return Math.floor(Math.random() * 6) + 1; }
+
+/* ---------- markdown-ish for analysis prose ---------- */
+function invProse(t){
+  if(!t) return '';
+  return String(t).split(/\n\n+/).map(p => {
+    let h = esc(p.trim())
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>')
+      .replace(/\n/g, '<br>');
+    return '<p>' + h + '</p>';
+  }).join('');
+}
+function invBrief(t){
+  if(!t) return '';
+  return String(t).split(/\n\n+/).map(p => {
+    const s = p.trim();
+    if(/^##\s+/.test(s)) return '<h2>' + esc(s.replace(/^##\s+/,'')) + '</h2>';
+    return '<p>' + esc(s)
+      .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+      .replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>')
+      .replace(/\n/g,'<br>') + '</p>';
+  }).join('');
+}
+
+/* ---------- index view ---------- */
+function view_investigations(){
+  renderSidebar('investigations');
+  const list = invAll();
+  if(!list.length){
+    el('content').innerHTML = '<div class="card"><p class="text-muted">No investigations are filed. The archive is, improbably, idle.</p></div>';
+    return;
+  }
+  const active = list.filter(i => i.status === 'active');
+  const stubs  = list.filter(i => i.status !== 'active');
+
+  const card = iv => {
+    const p = invProgress(iv);
+    const nEx = (iv.exhibits || []).length, nLead = (iv.leads || []).length;
+    return `<div class="inv-card" style="--inv-accent:${esc(iv.accent||'#8a4bff')}" onclick="Router.go('#/investigation/${encodeURIComponent(iv.id)}')">
+      <div class="inv-code">${esc(iv.icon||'')} ${esc(iv.codename)}</div>
+      <div class="inv-title">${esc(iv.title)}</div>
+      <div class="inv-sub">${esc(iv.subtitle||'')}</div>
+      <div class="inv-hook">${esc(iv.hook||'')}</div>
+      <div class="inv-foot">
+        <span class="inv-status inv-status--${esc(iv.status)}">${esc(iv.status)}</span>
+        <span class="inv-stat">${nEx} exhibit${nEx===1?'':'s'}</span>
+        <span class="inv-stat">${nLead} lead${nLead===1?'':'s'}</span>
+        ${p.layers ? `<span class="inv-stat">${p.done}/${p.layers} examined</span>` : ''}
+        ${p.xp ? `<span class="inv-stat" style="color:var(--accent2)">${p.xp} XP</span>` : ''}
+      </div>
+    </div>`;
+  };
+
+  el('content').innerHTML = `
+    <div class="inv-hero">
+      <div class="inv-kicker">Disaster Inc. · Archive · Open Files</div>
+      <h1>Investigations</h1>
+      <p>One open file per arc, instead of seventy-three errands. Exhibits accrete as sessions are played;
+         each is a physical article with a chain of custody. Examining one is a roll, because analysis is a
+         skill and the archive is not going to pretend otherwise. Deeper layers cost more and pay more.
+         <b>Do not believe Waluigi. Roll against the paper.</b></p>
+    </div>
+    <h3 style="margin:18px 0 2px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Open — accreting</h3>
+    <div class="inv-grid">${active.map(card).join('')}</div>
+    ${stubs.length ? `<h3 style="margin:26px 0 2px;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Opened, awaiting exhibits</h3>
+    <div class="inv-grid">${stubs.map(card).join('')}</div>` : ''}
+    <div class="card" style="margin-top:20px">
+      <h3 style="margin-top:0;font-size:15px">On the retirement of the quest board</h3>
+      <p style="font-size:13.5px;line-height:1.7;margin:0">The board carried seventy-three entries and twenty-five of them
+      had no description at all — a title, a location, a notional reward, nothing else. Sixteen entries that were doing real
+      work have been promoted to <b>leads</b> inside the files above. The rest remain readable as campaign history;
+      nothing was deleted. A board answers <em>what could we do next</em>. The party has never been short of that.
+      An investigation answers <em>what is happening to us</em>.</p>
+    </div>`;
+}
+
+/* ---------- case file view ---------- */
+let INV_TAB = 'exhibits';
+
+function view_investigation(id, tab){
+  renderSidebar('investigations');
+  const iv = invGet(id);
+  if(!iv){ view_investigations(); return; }
+  if(tab) INV_TAB = tab;
+  if(!['exhibits','brief','leads','threads'].includes(INV_TAB)) INV_TAB = 'exhibits';
+  if(!(iv.exhibits||[]).length && INV_TAB === 'exhibits') INV_TAB = 'brief';
+
+  const p = invProgress(iv);
+  const sessions = {};
+  (iv.sessions||[]).forEach(s => sessions[s.id] = s);
+
+  /* exhibits, grouped by session */
+  const groups = {};
+  (iv.exhibits||[]).forEach(ex => { (groups[ex.session] = groups[ex.session] || []).push(ex); });
+  const order = (iv.sessions||[]).map(s => s.id).filter(sid => groups[sid]);
+  Object.keys(groups).forEach(k => { if(!order.includes(k)) order.push(k); });
+
+  const exHtml = order.map(sid => {
+    const s = sessions[sid] || { label: prettyId(sid), date:'' };
+    const tiles = groups[sid].map(ex => {
+      const done = invExhibitDone(iv, ex);
+      const pips = (ex.layers||[]).map((l,i) => `<span class="pip ${invUnlocked(iv.id,ex.id,i)?'on':''}"></span>`).join('');
+      return `<div class="inv-ex ${done?'done':''}" onclick="invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')">
+        <div class="inv-ex-icon">${esc(ex.icon||'📄')}</div>
+        <div class="inv-ex-title">${esc(ex.title)}</div>
+        <div class="inv-ex-sec">${esc(ex.secured||'')}</div>
+        <div class="inv-ex-pips">${pips}</div>
+      </div>`;
+    }).join('');
+    const ev = s.event && INDEX[s.event]
+      ? ` · <a class="entity-link" onclick="openId('${esc(s.event)}')">session record</a>` : '';
+    return `<h3 style="margin:20px 0 8px;font-size:14px">${esc(s.label)}
+      <span class="text-muted" style="font-weight:400;font-size:12px">· ${esc(s.date||'')}${ev}</span></h3>
+      <div class="inv-ex-grid">${tiles}</div>`;
+  }).join('');
+
+  const threadsHtml = (iv.threads||[]).map(t =>
+    `<div class="inv-thread"><h4>${esc(t.title)}</h4><p>${invProse(t.text).replace(/^<p>|<\/p>$/g,'')}</p></div>`
+  ).join('') || '<div class="inv-empty">No threads opened yet.</div>';
+
+  const leadsHtml = (iv.leads||[]).map(l => {
+    const exLinks = (l.exhibits||[]).map(exid => {
+      const ex = (iv.exhibits||[]).find(e => e.id === exid);
+      return ex ? `<span class="inv-stat" style="cursor:pointer" onclick="invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')">${esc(ex.icon||'📄')} ${esc(ex.title)}</span>` : '';
+    }).join('');
+    return `<div class="inv-lead">
+      <div class="inv-lead-head">
+        <span class="inv-pri inv-pri--${esc(l.priority||'medium')}">${esc(l.priority||'medium')}</span>
+        <h4>${esc(l.title)}</h4>
+        <span class="inv-xp-tag">${l.xp||0} XP</span>
+      </div>
+      <p class="inv-obj">${esc(l.objective||'')}</p>
+      <p class="inv-why"><b>Why this is a lead and not an errand.</b> ${esc(l.why||'')}</p>
+      <div class="inv-lead-foot">${exLinks}</div>
+    </div>`;
+  }).join('') || '<div class="inv-empty">No leads filed yet.</div>';
+
+  const evChips = (iv.relatedEvents||[]).filter(e => INDEX[e]).map(e =>
+    `<span class="chip" onclick="openId('${esc(e)}')">${esc(prettyId(e))}</span>`).join('');
+
+  const tabBtn = (k, label, n) =>
+    `<button class="inv-tab ${INV_TAB===k?'active':''}" onclick="view_investigation('${esc(iv.id)}','${k}')">${label}${n!=null?` (${n})`:''}</button>`;
+
+  el('content').innerHTML = `
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> ›
+      <a onclick="Router.go('#/investigations')">Investigations</a> › ${esc(iv.codename)}</div>
+
+    <div class="inv-file-head" style="--inv-accent:${esc(iv.accent||'#8a4bff')}">
+      <div class="inv-code" style="font-family:ui-monospace,monospace;font-size:11.5px;letter-spacing:.16em;font-weight:900;color:${esc(iv.accent||'#8a4bff')}">
+        ${esc(iv.icon||'')} ${esc(iv.codename)}</div>
+      <h1>${esc(iv.title)}</h1>
+      <p class="inv-sub">${esc(iv.subtitle||'')}</p>
+      <span class="inv-status inv-status--${esc(iv.status)}">${esc(iv.status)}</span>
+      <dl class="inv-meta">
+        <div><dt>Classification</dt><dd>${esc(iv.classification||'—')}</dd></div>
+        <div><dt>Opened</dt><dd>${esc(iv.opened||'—')}</dd></div>
+        <div><dt>Last filed</dt><dd>${esc(iv.lastFiled||'—')}</dd></div>
+        <div><dt>Archivist</dt><dd>${esc(iv.archivist||'Waluigi')}</dd></div>
+      </dl>
+      ${iv.imageCaption ? `<p class="text-muted" style="font-size:12px;font-style:italic;margin:12px 0 0">${esc(iv.imageCaption)}</p>` : ''}
+    </div>
+
+    ${p.layers ? `<div class="inv-progress">
+      <div class="inv-xp">${p.xp.toLocaleString()}<small>XP earned</small></div>
+      <div style="flex:1;min-width:180px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:5px">${p.done} of ${p.layers} analyses unlocked
+          · ${p.rolls} examination${p.rolls===1?'':'s'} attempted · ${p.totalXp.toLocaleString()} XP available</div>
+        <div class="inv-bar"><i style="width:${p.pct}%"></i></div>
+      </div>
+      <button class="inv-tab" onclick="invReset('${esc(iv.id)}')">Reset file</button>
+    </div>` : ''}
+
+    <div class="inv-tabs">
+      ${(iv.exhibits||[]).length ? tabBtn('exhibits','📎 Exhibits',(iv.exhibits||[]).length) : ''}
+      ${tabBtn('brief','🖋️ Waluigi’s brief')}
+      ${tabBtn('leads','🎯 Leads',(iv.leads||[]).length)}
+      ${tabBtn('threads','🧵 Threads',(iv.threads||[]).length)}
+    </div>
+
+    <div>${
+      INV_TAB==='exhibits' ? (exHtml || '<div class="inv-empty">No exhibits filed yet.</div>') :
+      INV_TAB==='brief'    ? `<div class="card"><div class="inv-brief">${invBrief(iv.brief)}</div></div>` :
+      INV_TAB==='leads'    ? leadsHtml : threadsHtml
+    }</div>
+
+    ${evChips ? `<div class="card" style="margin-top:18px">
+      <h3 style="margin-top:0;font-size:15px">Session records behind this file</h3>
+      <div class="chips">${evChips}</div></div>` : ''}
+
+    <div id="invModal" class="inv-modal" onclick="if(event.target===this)invCloseExhibit()"></div>`;
+}
+
+/* ---------- exhibit modal ---------- */
+function invOpenExhibit(invId, exId){
+  const iv = invGet(invId); if(!iv) return;
+  const ex = (iv.exhibits||[]).find(e => e.id === exId); if(!ex) return;
+  let host = document.getElementById('invModal');
+  if(!host){
+    host = document.createElement('div');
+    host.id = 'invModal'; host.className = 'inv-modal';
+    host.onclick = e => { if(e.target === host) invCloseExhibit(); };
+    document.body.appendChild(host);
+  }
+  host.innerHTML = `<div class="inv-modal-inner">
+    <div class="inv-modal-head">
+      <span style="font-size:24px">${esc(ex.icon||'📄')}</span>
+      <h2>${esc(ex.title)}<br><span class="text-muted" style="font-size:11.5px;font-weight:400">
+        ${esc(ex.secured||'')}${ex.custody?` · custody: ${esc(ex.custody)}`:''}</span></h2>
+      <button class="inv-x" onclick="invCloseExhibit()" aria-label="Close">✕</button>
+    </div>
+    <div class="inv-modal-body" id="invModalBody"></div>
+  </div>`;
+  const body = document.getElementById('invModalBody');
+
+  const paper = (typeof getProp === 'function' && ex.propId && getProp(ex.propId))
+    ? `<div class="inv-paper">${propDocumentHtml(ex.propId)}</div>` : '';
+
+  const links = [];
+  (ex.links && ex.links.events || []).forEach(e => { if(INDEX[e]) links.push(`<span class="chip" onclick="invCloseExhibit();openId('${esc(e)}')">📜 ${esc(prettyId(e))}</span>`); });
+  (ex.links && ex.links.characters || []).forEach(c => { if(INDEX[c]) links.push(`<span class="chip" onclick="invCloseExhibit();openId('${esc(c)}')">👤 ${esc(prettyId(c))}</span>`); });
+  if(ex.itemId) links.push(`<span class="chip" onclick="invCloseExhibit();Router.go('#/item/${encodeURIComponent(ex.itemId)}')">🎒 ${esc(prettyId(ex.itemId))}</span>`);
+
+  body.innerHTML = `
+    <div class="inv-onrecord"><b>On the record, without rolling</b>${esc(ex.onRecord||'')}</div>
+    ${paper}
+    <h3 style="font-size:14px;margin:20px 0 4px">Examination</h3>
+    <p class="text-muted" style="font-size:12.5px;margin:0 0 10px">
+      d6+1 against the difficulty. Failure is not a locked door — the paper is still on the table tomorrow,
+      and every failed reading leaves a <b>+1 study bonus</b> on that layer, up to +3. Persistence always gets there.
+      Each layer pays its XP once, on first unlock.</p>
+    <div id="invLayers">${(ex.layers||[]).map((l,i) => invLayerHtml(iv, ex, l, i)).join('')}</div>
+    ${links.length ? `<div style="margin-top:18px"><div class="text-muted" style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;margin-bottom:6px">Cross-references</div><div class="chips">${links.join('')}</div></div>` : ''}`;
+
+  host.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  window.__invEsc = e => { if(e.key === 'Escape') invCloseExhibit(); };
+  document.addEventListener('keydown', window.__invEsc);
+}
+
+function invLayerHtml(iv, ex, l, i){
+  const unlocked = invUnlocked(iv.id, ex.id, i);
+  const prevOk = i === 0 || invUnlocked(iv.id, ex.id, i-1);
+  const locked = !unlocked && !prevOk;
+  const tries = invFails(iv.id, ex.id, i);
+  const bonus = invStudyBonus(iv.id, ex.id, i);
+  return `<div class="inv-layer ${unlocked?'unlocked open':''} ${locked?'locked':''}" id="invL_${esc(ex.id)}_${i}">
+    <div class="inv-layer-head">
+      <span class="inv-layer-n">LAYER ${i+1}</span>
+      <span class="inv-layer-title">${unlocked ? esc(l.title) : (locked ? 'Sealed — examine the previous layer first' : 'Unexamined')}</span>
+      <span class="inv-dc">DC ${l.dc}</span>
+      <span class="inv-xp-tag">${l.xp} XP</span>
+      ${unlocked
+        ? '<span style="font-size:11px;font-weight:800;color:#2ecc71">UNLOCKED</span>'
+        : `${bonus ? `<span class="inv-xp-tag" title="Study bonus earned by re-reading">+${bonus} study</span>` : ''}<button class="inv-roll-btn" ${locked?'disabled':''} onclick="invExamine('${esc(iv.id)}','${esc(ex.id)}',${i})">🎲 ${tries ? 'Examine again' : 'Examine'}</button>`}
+    </div>
+    <div class="inv-layer-body">
+      <div class="inv-roll-out" id="invOut_${esc(ex.id)}_${i}"></div>
+      ${unlocked ? `<div class="inv-analysis">${invAnalysis(l.text)}</div>` : ''}
+    </div>
+  </div>`;
+}
+
+/* analysis prose + inline rollable spans marked [[roll:DC|text|success|failure]] */
+function invAnalysis(t){
+  let n = 0;
+  const html = invProse(t);
+  return html.replace(/\[\[roll:(\d+)\|([^|]+)\|([^|]+)\|([^\]]+)\]\]/g, (m, dc, text, ok, no) =>
+    `<span class="inv-inline-roll" data-dc="${dc}" data-ok="${esc(ok)}" data-no="${esc(no)}"
+       onclick="invInlineRoll(this)" title="Insight check — DC ${dc}">${esc(text)}</span>`);
+}
+
+function invInlineRoll(node){
+  if(node.classList.contains('rolled')) return;
+  invDiceSound();
+  const dc = parseInt(node.dataset.dc, 10);
+  const roll = invRollD6();
+  const ok = roll >= dc;
+  const out = document.createElement('span');
+  out.className = 'inv-inline-out';
+  out.innerHTML = ` <span class="${ok?'ok':'no'}">(d6 ${roll} vs DC ${dc}) ${esc(ok ? node.dataset.ok : node.dataset.no)}</span>`;
+  node.parentNode.insertBefore(out, node.nextSibling);
+  node.classList.add('rolled');
+}
+
+function invExamine(invId, exId, i){
+  const iv = invGet(invId); if(!iv) return;
+  const ex = (iv.exhibits||[]).find(e => e.id === exId); if(!ex) return;
+  const l = (ex.layers||[])[i]; if(!l) return;
+
+  invDiceSound();
+  invCountRoll(invId);
+
+  const bonus = invStudyBonus(invId, exId, i);
+  const roll = invRollD6();
+  const total = roll + 1 + bonus;
+  const ok = total >= l.dc;
+  const wrap = document.getElementById('invL_' + exId + '_' + i);
+  const out  = document.getElementById('invOut_' + exId + '_' + i);
+  if(wrap) wrap.classList.add('open');
+  if(!ok) invCountFail(invId, exId, i);
+  const nextBonus = Math.min(bonus + 1, 3);
+  if(out){
+    out.innerHTML = `Evidence analysis · d6+1${bonus?` +${bonus} study`:''} vs DC ${l.dc} …
+      <span class="inv-die rolling">${roll}</span> + 1${bonus?` + ${bonus}`:''} = <b>${total}</b> — ` +
+      (ok ? `<span class="ok">Success. Further analysis unlocked.</span>`
+          : `<span class="no">No new insight this time.</span> <span class="text-muted">The paper is still on the table.</span>` +
+            (nextBonus > bonus ? ` <span class="text-muted">Re-reading it earns a <b>+${nextBonus}</b> study bonus on the next examination.</span>` : ''));
+  }
+  if(ok){
+    invUnlock(invId, exId, i, l.xp);
+    setTimeout(() => {
+      if(wrap){
+        wrap.outerHTML = invLayerHtml(iv, ex, l, i);
+        const nl = (ex.layers||[])[i+1];
+        if(nl){
+          const nw = document.getElementById('invL_' + exId + '_' + (i+1));
+          if(nw) nw.outerHTML = invLayerHtml(iv, ex, nl, i+1);
+        }
+        const o2 = document.getElementById('invOut_' + exId + '_' + i);
+        if(o2 && out) o2.innerHTML = out.innerHTML;
+      }
+    }, 620);
+  }
+}
+
+function invCloseExhibit(){
+  const host = document.getElementById('invModal');
+  if(host) host.classList.remove('show');
+  document.body.style.overflow = '';
+  if(window.__invEsc){ document.removeEventListener('keydown', window.__invEsc); window.__invEsc = null; }
+  // refresh tiles so pips/XP reflect the session, without losing the reader's place
+  const y = window.scrollY;
+  const m = (location.hash||'').match(/^#\/investigation\/([^\/]+)/);
+  if(m){ view_investigation(decodeURIComponent(m[1])); window.scrollTo(0, y); }
+}
+
+function invReset(invId){
+  if(!confirm('Reset this file? All unlocked analyses and XP for it are cleared from this browser.')) return;
+  const s = invState(); delete s[invId]; invSave(s);
+  view_investigation(invId);
+}
+
+/* renders a prop's physical document inline (same markup the exhibit overlay uses) */
+function propDocumentHtml(propId){
+  const p = (typeof getProp === 'function') ? getProp(propId) : null;
+  if(!p) return '';
+  const stamps = (p.stamps||[]).map(s => `<span class="pd-stamp pd-stamp--${esc(s)}">${esc(s==='noaction'?'no action taken':s)}</span>`).join('');
+  return `<div class="pd pd--${esc(p.kind||'note')}${p.torn?' pd--torn':''}">${stamps}${p.body||''}</div>${p.note ? `<p class="text-muted" style="font-size:12px;font-style:italic;margin:8px 2px 0">${p.note}</p>` : ''}`;
+}
+
+/* ---------- connected panel on record pages ---------- */
+function renderConnectedInvestigationsPanel(id, typeKey){
+  const list = invAll();
+  if(!list.length) return '';
+  const hits = [];
+  list.forEach(iv => {
+    if((iv.relatedEvents||[]).includes(id)) hits.push({ iv, kind:'file', label:iv.title, note:iv.hook });
+    (iv.exhibits||[]).forEach(ex => {
+      const L = ex.links || {};
+      if(ex.itemId === id || (L.events||[]).includes(id) || (L.characters||[]).includes(id) || (L.items||[]).includes(id))
+        hits.push({ iv, kind:'exhibit', ex, label:ex.title, note:ex.onRecord });
+    });
+    (iv.sessions||[]).forEach(s => {
+      if(s.event === id) hits.push({ iv, kind:'session', label:s.label, note:'Session record behind this file.' });
+    });
+    (iv.arcIds||[]).forEach(a => { if(a === id) hits.push({ iv, kind:'arc', label:iv.title, note:iv.hook }); });
+  });
+  if(!hits.length) return '';
+
+  const seen = new Set();
+  const rows = hits.filter(h => {
+    const k = h.kind + ':' + h.label; if(seen.has(k)) return false; seen.add(k); return true;
+  }).slice(0, 12).map(h => `
+    <div class="inv-c-row">
+      <span class="inv-c-kind">${h.kind}</span>
+      <span style="flex:1">
+        ${h.kind === 'exhibit'
+          ? `<a class="entity-link" onclick="Router.go('#/investigation/${encodeURIComponent(h.iv.id)}');setTimeout(()=>invOpenExhibit('${esc(h.iv.id)}','${esc(h.ex.id)}'),60)">${esc(h.label)}</a>`
+          : `<a class="entity-link" href="#/investigation/${encodeURIComponent(h.iv.id)}">${esc(h.label)}</a>`}
+        <span class="text-muted" style="font-size:11.5px"> · ${esc(h.iv.codename)}</span>
+        <div class="text-muted" style="font-size:12px;line-height:1.5;margin-top:2px">${esc(String(h.note||'').slice(0,190))}</div>
+      </span>
+    </div>`).join('');
+
+  return `<div class="inv-connected">
+    <h3><span class="title-icon">🔍</span> Open Investigations</h3>
+    <p class="inv-c-note">This record is cited in the archive's open case files. Exhibits open with a roll.</p>
+    ${rows}
+  </div>`;
 }
 
 function applyCustomCss(css){if(window.__ccss){window.__ccss.remove();window.__ccss=null;}if(!css)return;const s=document.createElement('style');s.textContent=css.replace(/\.wiki-article/g,'.prose').replace(/\.wiki-lead/g,'.prose blockquote');document.head.appendChild(s);window.__ccss=s;}
@@ -14382,7 +14898,7 @@ function renderConnectedQuestsPanel(id, typeKey) {
     return `
       <tr style="border-bottom: 1px dashed var(--border);">
         <td style="padding: 10px; font-weight: 700; border-right:1px solid var(--border);">
-          <a class="entity-link" href="#/quest/${encodeURIComponent(q.id)}">${esc(q.title || prettyId(q.id))}</a>
+          <a class="entity-link" href="#/quest-log/${encodeURIComponent(q.id)}">${esc(q.title || prettyId(q.id))}</a>
         </td>
         <td style="padding: 10px; border-right:1px solid var(--border);"><span class="pill" style="border-color:${color}; color:${color}; font-size:9.5px; text-transform:uppercase;">${q.status.toUpperCase()}</span></td>
         <td style="padding: 10px; border-right:1px solid var(--border); color: var(--text); font-size:12.5px;">${esc(q.objective || q.subtitle || '')}</td>
@@ -14393,8 +14909,8 @@ function renderConnectedQuestsPanel(id, typeKey) {
 
   return `
     <div class="card" style="border-left: 4px solid var(--accent); margin-top: 18px;">
-      <h3 style="margin-top: 0; font-size: 16px; color: var(--accent); display: flex; align-items: center; gap: 8px;"><span class="title-icon">🔗</span> Connected Quest Objectives &amp; Campaign Milestones</h3>
-      <p class="text-muted" style="font-size: 12px; margin: -6px 0 10px;">The following active campaign objectives or system quests on Wario's Quest Board are linked directly to this record:</p>
+      <h3 style="margin-top: 0; font-size: 16px; color: var(--accent); display: flex; align-items: center; gap: 8px;"><span class="title-icon">🔗</span> Retired Quest Log Entries</h3>
+      <p class="text-muted" style="font-size: 12px; margin: -6px 0 10px;">Historical entries from the retired quest board that referenced this record. Live objectives are <a class="entity-link" onclick="Router.go('#/investigations')">leads inside the investigation files</a>.</p>
       <table class="wi-ledger" style="width:100%; border-collapse:collapse; font-size:13px; border:1px solid var(--border); border-radius:8px;">
         <thead>
           <tr style="border-bottom: 2px solid var(--border); background: rgba(138,75,255,0.06); color: var(--accent2);">
@@ -14417,11 +14933,14 @@ let currentQuestSearch = '';
 let currentQuestFilter = 'active';
 
 function view_quests_ledger(filterArg) {
-  renderSidebar('quests');
+  renderSidebar('investigations');
   if (filterArg) currentQuestFilter = filterArg;
 
   const quests = DATA.quests || {};
-  const list = Object.values(quests);
+  /* Triage applied: the 27 filler entries recorded in investigations.json →
+     _README.quest_migration.culled_filler are not surfaced. They remain in
+     quests.json; this is a presentation decision, not a deletion. */
+  const list = Object.values(quests).filter(item => !invCulled(item.id));
 
   function renderGrid() {
     const q = currentQuestSearch.toLowerCase().trim();
@@ -14454,7 +14973,7 @@ function view_quests_ledger(filterArg) {
       const category = item.category || 'General';
 
       return `
-        <div class="card quest-card-item" onclick="Router.go('#/quest/${encodeURIComponent(item.id)}')" style="border-left: 4px solid ${statusColor}; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: 0.15s; margin-bottom: 0;">
+        <div class="card quest-card-item" onclick="Router.go('#/quest-log/${encodeURIComponent(item.id)}')" style="border-left: 4px solid ${statusColor}; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; transition: 0.15s; margin-bottom: 0;">
           <div>
             <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom: 4px;">
               <span style="font-size: 11px; font-weight: 900; color: var(--muted); text-transform: uppercase;">${esc(category)}</span>
@@ -14477,16 +14996,18 @@ function view_quests_ledger(filterArg) {
         .quest-card-item:hover { border-color: var(--accent2) !important; transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
       </style>
       <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel)">
-        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Quests &amp; Jobs Directory</div>
+        <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/investigations')">Investigations</a> › Retired quest log</div>
         <div class="home-section-head">
           <div>
-            <h1 style="margin:0;font-size:26px">📋 Wario Quest Board &amp; Campaign Objectives</h1>
-            <p style="color:var(--muted);font-size:13.5px;margin-top:4px">Browse all 73 cataloged story missions, personal quests, faction bounties, and requests from the active campaigns.</p>
+            <h1 style="margin:0;font-size:26px">📋 Retired Quest Log <span class="pill" style="vertical-align:middle">archive only</span></h1>
+            <p style="color:var(--muted);font-size:13.5px;margin-top:4px">The old Wario Quest Board, kept read-only as campaign history. Live objectives now live as <b>leads</b> inside
+            <a class="entity-link" onclick="Router.go('#/investigations')">open investigation files</a> — sixteen of these entries were promoted there, the rest are recorded here and nowhere else.
+            Nothing was deleted; the board simply stopped being the place you look.</p>
           </div>
-          <a class="chip" href="#/mission-control">🛰️ Open Mission Control →</a>
+          <a class="chip" href="#/investigations">🔍 Open Investigations →</a>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center">
-          <input type="text" class="rep-search-input" id="questLedgerSearch" placeholder="Search 73 quests by title, description, category, or assignees..." value="${esc(currentQuestSearch)}" oninput="currentQuestSearch=this.value;renderGrid();" style="flex:1;min-width:260px">
+          <input type="text" class="rep-search-input" id="questLedgerSearch" placeholder="Search the retired log by title, description, category, or assignees..." value="${esc(currentQuestSearch)}" oninput="currentQuestSearch=this.value;renderGrid();" style="flex:1;min-width:260px">
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:12px">${chipsHtml}</div>
       </div>
@@ -14512,10 +15033,30 @@ function formatQuestProse(value) {
 }
 
 function view_quest_detail(questId) {
-  renderSidebar('quests');
+  renderSidebar('investigations');
   const quests = DATA.quests || {};
   const q = quests[questId];
   if (!q) { view_quests_ledger(); return; }
+  if (invCulled(questId)) { view_quests_ledger(); return; }
+
+  /* If this entry was promoted into an investigation, say so at the top and
+     send the reader to the live version. The log page stays readable. */
+  const promoted = invPromotedTo(questId);
+  let promotedBanner = '';
+  if (promoted) {
+    const [pInv, pLead] = promoted.split('/');
+    const ivRec = invGet(pInv);
+    const leadRec = ivRec && (ivRec.leads || []).find(l => l.id === pLead);
+    if (ivRec) promotedBanner = `
+      <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(0,0,0,0)),var(--panel)">
+        <div style="font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">Superseded — this objective is live elsewhere</div>
+        <p style="margin:6px 0 10px;font-size:14px;line-height:1.6">
+          This board entry was promoted into <b>${esc(ivRec.codename)}</b>${leadRec ? ` as the lead <b>${esc(leadRec.title)}</b>` : ''}.
+          What you are reading below is the retired board copy, kept for history.
+        </p>
+        <button class="chip" onclick="Router.go('#/investigation/${encodeURIComponent(pInv)}')">🔍 Open the investigation</button>
+      </div>`;
+  }
 
   const isCompleted = q.status === 'completed';
   const statusColor = isCompleted ? 'var(--green)' : 'var(--accent2)';
@@ -14576,12 +15117,13 @@ function view_quest_detail(questId) {
   // Related Quests
   const relatedChips = (q.relatedQuests || []).map(id => {
     const rq = quests[id];
-    return rq ? `<a class="chip" href="#/quest/${encodeURIComponent(id)}">📋 ${esc(rq.title || prettyId(id))}</a>` : '';
+    return rq ? `<a class="chip" href="#/quest-log/${encodeURIComponent(id)}">📋 ${esc(rq.title || prettyId(id))}</a>` : '';
   }).filter(Boolean).join('');
 
   el('content').innerHTML = `
-    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/quests')">Quests</a> › ${esc(q.title)}</div>
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/investigations')">Investigations</a> › <a onclick="Router.go('#/quest-log')">Retired quest log</a> › ${esc(q.title)}</div>
     
+    ${promotedBanner}
     <div class="article-layout">
       <div>
         <div class="card animate-fade-in" style="border-top: 5px solid ${statusColor}; background: linear-gradient(135deg, ${isCompleted ? 'rgba(34,197,94,0.14)' : 'rgba(138,75,255,0.14)'}, rgba(0,0,0,0.05)), var(--panel)">
@@ -14812,7 +15354,21 @@ const Router={
     else if(route==='mission-control'||route==='squad-prep'){
       view_mission_control();
     }
+    else if(route==='investigations'||route==='investigation'){
+      if(route==='investigation'&&arg) view_investigation(arg.split('/')[0]);
+      else view_investigations();
+    }
+    /* The quest board was retired in favour of the investigations system.
+       Old links keep working: promoted quests land on the file that absorbed them,
+       everything else lands on the index. The read-only history lives at #/quest-log. */
     else if(route==='quests'||route==='quest'){
+      const qid=(arg||'').split('/')[0];
+      const map=((DATA.investigations&&DATA.investigations._README&&DATA.investigations._README.quest_migration)||{}).promoted_to_leads||{};
+      const hit=qid&&map[qid]&&map[qid][0];
+      if(hit){ location.replace('#/investigation/'+encodeURIComponent(hit.split('/')[0])); return; }
+      location.replace('#/investigations'); return;
+    }
+    else if(route==='quest-log'){
       const parts=arg.split('/');
       if(parts[0] && parts[0]!=='all' && parts[0]!=='active' && parts[0]!=='completed'){
         view_quest_detail(parts[0]);
@@ -14901,7 +15457,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.te
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
-  'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props'];
+  'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};

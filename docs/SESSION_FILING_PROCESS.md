@@ -20,7 +20,7 @@ about **sequence**, and the sequence is not optional.
 
 ---
 
-## The eight steps
+## The nine steps
 
 | # | Step | Output | Why it is here and not later |
 |---:|---|---|---|
@@ -30,8 +30,9 @@ about **sequence**, and the sequence is not optional.
 | 4 | **XP determined third.** | The `xpAwards[]` rows, written out before the prose | XP is a judgement about what the session was worth. Make it while the beats are still a list. Written after the prose, it becomes a reward for whichever scene you enjoyed writing |
 | 5 | **THEN write the event.** | `events.json` entry | Everything it points at already exists |
 | 6 | **Exhibits — file the paper the story mentions.** | `data/props.json` entries + `[[prop:…]]` triggers in the prose | The prose decides which documents exist. Written before the prose, you invent paperwork nobody needed; written after, you file exactly what the scene already promised the reader |
-| 7 | **Update the main index page.** | `index.html` home feed + `SITE_UPDATES` | An event nobody can find from the front page is not filed |
-| 8 | **Artifacts last.** | RNN pending list, broadcast if owed, any images or pages | These are downstream of the filing and cheap to redo. The filing is not |
+| 7 | **File the session into the investigation.** | A `sessions[]` row, new exhibits and leads in `investigations.json` | The arc file is where the paper is *argued about*. It can only cite exhibits that already exist, so it comes after Step 6 — and before the front page, because the front page links to it |
+| 8 | **Update the main index page.** | `index.html` home feed + `SITE_UPDATES` | An event nobody can find from the front page is not filed |
+| 9 | **Artifacts last.** | RNN pending list, broadcast if owed, any images or pages | These are downstream of the filing and cheap to redo. The filing is not |
 
 ---
 
@@ -298,7 +299,54 @@ with no addendum slip filed against it.
 
 ---
 
-## Step 7 — Update the main index page
+## Step 7 — File the session into the investigation
+
+**Every arc has exactly one open investigation, and it accretes.** The session
+just filed did not start a new quest; it added paper to a file that already
+exists. Full authoring guide: [`INVESTIGATIONS.md`](INVESTIGATIONS.md).
+
+This step is after exhibits because an investigation may only cite props that
+exist, and before the index page because the front page links to the file.
+
+Edit `Reputation-Matrix2/data/investigations.json`. No JS, no CSS.
+
+| Do | Where | Note |
+|---|---|---|
+| **Find the arc's file** | match the arc against `arcIds[]` | If no file exists and the arc is genuinely new, start a **stub** — see INVESTIGATIONS.md → *Starting a new file* |
+| **Add the session row** | `sessions[]` | `{ id, label, date, event }`. `event` must be the id of the event you just filed |
+| **Add exhibits** | `exhibits[]` | Two or three per session. Each needs a `propId` that exists in `props.json` from Step 6, a `session` matching the row above, `onRecord`, and **three layers** |
+| **Attach to a thread** | `threads[]` | If the exhibit touches no existing thread, either it belongs in another file or you have found a new thread. Add threads deliberately |
+| **Convert consequences to leads** | `leads[]` | Write the `why` first. Weak `why` → not a lead |
+| **Bump `lastFiled`** | header | In-world date |
+
+**Layers, not summaries.** DC/XP ascend together — `3/5/7` for ordinary paper,
+`4/6/8` for paper that resists being read. Roll is d6+1; failure costs nothing
+and the layer may be re-examined. XP pays once, on first unlock.
+
+The tone rule is the inversion the system exists for: **a lot of Waluigi
+analysis, less story.** The story is already in `events.json`. If a sentence in
+a layer would sit unchanged inside the event article, cut it and write the
+argument instead.
+
+```bash
+python3 -c "import json; json.load(open('Reputation-Matrix2/data/investigations.json')); print('valid json')"
+python3 tools/check-exhibits.py
+```
+
+```
+□ sessions[] has the new row and its event id resolves
+□ Every new exhibit's propId exists in props.json
+□ Every layer set ascends in DC and pays XP that matches the ladder
+□ No layer retells the scene
+□ Every new lead has a why
+□ links.events / links.characters / links.items all resolve
+□ Opened #/investigation/<id> and rolled every new layer once
+□ lastFiled bumped
+```
+
+---
+
+## Step 8 — Update the main index page
 
 **A filing that is not on the front page is not finished.** Three places, all
 in `index.html`, and they are easy to half-do:
@@ -319,7 +367,7 @@ in `index.html`, and they are easy to half-do:
 
 ---
 
-## Step 8 — Artifacts last
+## Step 9 — Artifacts last
 
 In this order:
 
@@ -348,8 +396,10 @@ In this order:
 5  EVENT       → now write it. events.json. STORY_FORMAT_GUIDE.md
 6  EXHIBITS    → props.json for the paper the prose named + [[prop:]] triggers
                  every ## Addendum: gets a slip · python3 tools/check-exhibits.py
-7  INDEX       → Recent Adventures feed + SITE_UPDATES + mainPage.json
-8  ARTIFACTS   → pending-news-articles.json → broadcast if owed → run report
+7  INVESTIGATION → the arc file gets the session row, its exhibits, its leads
+                 investigations.json · three layers each · analysis, not summary
+8  INDEX       → Recent Adventures feed + SITE_UPDATES + mainPage.json
+9  ARTIFACTS   → pending-news-articles.json → broadcast if owed → run report
 
 The event is written last. The paper it mentions is filed right after.
 The news is written after that.
