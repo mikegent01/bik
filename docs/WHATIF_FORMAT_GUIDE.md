@@ -29,7 +29,7 @@ the apparatus, and the length bands.
 | 5 | [Asides and the dual layer](#5-asides-and-the-dual-layer) | Inline colour vs. named findings |
 | 6 | [Formatting that renders](#6-formatting-that-renders) | Markdown only — never raw `<div>` |
 | 7 | [The required shell](#7-the-required-shell) | Every field, in order |
-| 8 | [Pacing tells](#8-pacing-tells) | Nine things good filings do |
+| 8 | [Pacing tells](#8-pacing-tells) | Nine things good filings do — steal deliberately |
 | 9 | [Pre-flight](#9-pre-flight) | Craft judgement + mechanical pass/fail |
 
 **Audit script:** [`AUDIT_SCRIPTS.md` → What-If audit](AUDIT_SCRIPTS.md#what-if-audit).
@@ -80,7 +80,7 @@ smarter and fail worse, you have an event in the wrong file.
 
 ---
 
-## 1. The decision engine (What-If spine)
+## 1. The decision engine
 
 A What-If is not “and then more things happened.” It is a **machine that
 applies one mistake to several surfaces** so the reader learns the mistake.
@@ -382,7 +382,7 @@ transferable rule. Both valid. A verdict that only restates the plot is not.
 
 ---
 
-## 8. Pacing tells (steal deliberately)
+## 8. Pacing tells
 
 | Tell | Imp | Wario | When |
 |---|---|---|---|

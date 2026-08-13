@@ -32,7 +32,7 @@ different narrator stance — see **[`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUI
 | 9 | [Event apparatus](#9-event-apparatus) | The wrapper fields |
 | 9A | [Naming rule](#naming-rule--table-names-are-not-character-names) | Table names are not character names |
 | 10 | [Battle and campaign pages](#10-battle-and-campaign-pages) | The tactical variant |
-| 11 | [Pacing tells](#11-pacing-tells) | Nine things good filings do |
+| 11 | [Pacing tells](#11-pacing-tells) | Nine things good filings do — steal deliberately |
 | 12 | [Pre-flight](#12-pre-flight) | Craft judgement + mechanical pass/fail |
 | — | [Worked miniature](#worked-miniature--same-beat-three-grades) | The same beat at three grades |
 
@@ -505,7 +505,7 @@ scene has a different tactical shape**.
 
 ---
 
-## 11. Pacing tells (steal deliberately)
+## 11. Pacing tells
 
 | Tell | Imp | Wario | When |
 |---|---|---|---|

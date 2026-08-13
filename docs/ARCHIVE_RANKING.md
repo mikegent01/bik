@@ -13,8 +13,8 @@ Two filings set the standard. They are not interchangeable.
 
 | Rank | Filing | Role | One-line verdict |
 |---:|---|---|---|
-| **1** | **Wario / Abstract Bank** — [`wario_abstract_bank`](data/whatifs.json) | Best complete *article* | Scene craft + voice + apparatus + transferable argument |
-| **2** | **Imp Ambush** — [`the_imp_ambush_of_harvestide_29`](data/events.json) | Best pure *scene* / best teaching text | How a paragraph works when nothing abstract leaks in |
+| **1** | **Wario / Abstract Bank** — [`wario_abstract_bank`](../Reputation-Matrix2/data/whatifs.json) | Best complete *article* | Scene craft + voice + apparatus + transferable argument |
+| **2** | **Imp Ambush** — [`the_imp_ambush_of_harvestide_29`](../Reputation-Matrix2/data/events.json) | Best pure *scene* / best teaching text | How a paragraph works when nothing abstract leaks in |
 | — | Mount Ebott filings | Negative control | Long, clever, and thin — analysis wearing a story costume |
 
 ### The finding, stated cleanly
