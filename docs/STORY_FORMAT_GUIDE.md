@@ -540,6 +540,31 @@ doesn’t, strong `outcome` + `notableFeatures` is enough.
 finding, put the thesis at the end, leave a callback object, give the skimmer
 something that isn’t a plot summary.
 
+### Naming rule — table names are not character names
+
+Session transcripts are full of **table names**: the GM, the players, the
+Discord handles they answer to. Those are the people at the table, not the
+people in the world. When a transcript says a name, ask which one it is before
+you write it into `characters.json`.
+
+```
+□ Is this name the person in the fiction, or the person rolling dice?
+□ Would it read as an out-of-world intrusion to someone who wasn’t at the table?
+□ Does it collide with a real handle, username, or the repo owner’s name?
+```
+
+If it is a table name, give the character an in-world name, or leave them
+unnamed and refer to them by role — *the hire*, *the charter pilot*, *the boy*.
+Unnamed is always safe: it invents no canon and can be named later without a
+retcon. A plain first name that happens to also be somebody's table name is
+tolerable if it reads naturally in-world; a handle or a full account name is
+not, ever.
+
+Precedent: `mike` in the Mount Ebot filing came out of the transcript as a GM
+name and was kept, because *mike* reads as an ordinary human first name and the
+lower-case spelling became a character detail. That is the ceiling, not the
+pattern to copy. Prefer inventing the name.
+
 ---
 
 ## 11A. Battle pages — tactical record, not a second event summary
@@ -687,6 +712,7 @@ at it without explaining it. Readers finish the filing themselves.
 □ What-Ifs: divergence, premise, chapters[], ledger[], findings[], verdict
 □ What-Ifs: every chapter has heading + body; analysis title/body if present
 □ Asides are their own paragraph, start *WAH! / *Waluigi, end with *
+□ No table names — GM/player/handle names never become character names (§11)
 ```
 
 ### Event audit
@@ -842,6 +868,7 @@ Leave one callback object in the close.
 
 Imp for the scene. Wario for the filing. Both, or it isn’t finished.
 Numbers are aim, not target. If it reads well, it is well.
+Table names are not character names — invent it, or leave them unnamed.
 ```
 
 ---
