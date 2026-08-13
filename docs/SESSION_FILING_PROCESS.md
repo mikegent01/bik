@@ -132,8 +132,8 @@ and never removed. **Do not add new instances of either.**
   "xp": 320,
   "title": "Event — The Mount Ebot Expedition — Survival",
   "desc": "One sentence naming what earned it.",
-  "date": "17 Aethel, 1040 BF",
-  "dateSort": 10401700
+  "date": "17 Aethel, 1032 BF",
+  "dateSort": 10321700
 }
 ```
 
@@ -144,7 +144,7 @@ and never removed. **Do not add new instances of either.**
 | `cat` | One of: `combat`, `exploration`, `social`, `survival`, `discovery`, `chaos`, `stealth`, `faith`, `magic`, `technique`, `loyalty`, `sabotage` (`CATEGORIES_LABELS`) |
 | `xp` | A number. Not a range, not a string |
 | `desc` | Recommended. One sentence, concrete, naming the action |
-| `dateSort` | Sortable integer form of the in-world date |
+| `dateSort` | Sortable integer form of the in-world date: `YYYYDDHH`. `17 Aethel, 1032 BF` at 17:00 → `10321700`. Change the year here whenever you change the year in `date`, or the award sorts into the wrong decade |
 
 **Do not silently mutate the authoritative ledger.** Awards filed on an event
 are a preview until the table confirms them. Say so in the run report (step 7)

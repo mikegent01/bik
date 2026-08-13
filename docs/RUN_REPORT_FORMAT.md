@@ -48,7 +48,7 @@ One entry per event, with everything needed to find and judge it.
 
 ```
 EVENT  the_mount_ebot_expedition — "The Mount Ebot Expedition"
-  date      17 Aethel, 1040 BF
+  date      17 Aethel, 1032 BF
   location  mount_ebot (new)
   parties   waluigi, wario, toad_lee, +4  (all ids resolve)
   length    13 sections / 5,936 words

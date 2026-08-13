@@ -293,11 +293,11 @@ window.RNN_BROADCASTS = {
     {
       "id": "rnn-002",
       "number": 2,
-      "title": "The Wrong Mountain and the God Who Runs the Place",
+      "title": "The File From Eight Years Ago and the God Who Runs the Place",
       "airWeek": "1040-AETHEL-W3",
       "recordedOn": "2026-08-13",
       "huntDay": "AETHEL 18, 1040 BF",
-      "covering": "Aethel 1 – 17, 1040 BF",
+      "covering": "Aethel 1 – 17, 1040 BF — plus one recovered file dated 17 Aethel, 1032 BF",
       "anchorName": "Whisper-in-Wind",
       "anchorRole": "Death Speaker, Spirit-Walker Clan",
       "fieldName": "Acolyte Dan",
@@ -312,14 +312,15 @@ window.RNN_BROADCASTS = {
         "the_waiting_room_testimony"
       ],
       "ticker": [
-        "TWO BROTHERS CLIMB A MOUNTAIN THAT IS NOT THE MOUNTAIN",
-        "ONE LETTER MISSING FROM A MAP — EIGHTEEN HOURS SPENT PAYING FOR IT",
-        "FOUR NAMES ON A PLANK, ONE RUBBED NEARLY OUT",
+        "A FILE EIGHT YEARS IN A CRATE — TWO BROTHERS, ONE MOUNTAIN, WRONG SPELLING",
+        "THE MISPRINT WAS NEVER CORRECTED — THE SHEETS ARE STILL IN CIRCULATION",
+        "FOUR NAMES ON A PLANK, ONE RUBBED NEARLY OUT — STILL THERE THIS MORNING",
+        "OUR RUNNER WALKED THE SLOPE THIS WEEK AND FOUND THE BRIDGE STILL ARMED",
         "THE HOST WITH THE CROWN IS A GOD — AND THE WORLD IS STILL A DOUGHNUT",
         "SPARK-WEAVER HEALER TAKES HIS MEDICINE BACK OUT OF THE PATIENT",
         "GLASS VATS UNDER THE STAR-LIT LIBRARY — THE HERDS ARE ADVISED TO WALK WIDE",
         "THE ONE CALLED ARCHIE SAT WITH A GOD AND SAID NO",
-        "THE JUNGLE SEES ALL"
+        "THE JUNGLE SEES ALL. THE JUNGLE ALSO KEEPS RECEIPTS"
       ],
       "segments": [
         {
@@ -334,25 +335,30 @@ window.RNN_BROADCASTS = {
             },
             {
               "expression": "normal",
-              "text": "This is the Rakasha News Network. Hunt Day eighteen of Aethel. The jungle sees all — and this week the jungle watched two grown men climb the wrong rock.",
-              "duration": 10560
+              "text": "This is the Rakasha News Network. Hunt Day eighteen of Aethel. The jungle sees all — and this week the jungle got its claws on a box of paper eight years old, because some things do not stop being true just because nobody read them.",
+              "duration": 11000
             }
           ]
         },
         {
           "slug": "LEAD STORY",
           "type": "anchor",
-          "title": "One Letter, One Mountain, Eighteen Hours",
+          "title": "The File That Sat in a Crate for Eight Years",
           "articleId": "the_mount_ebot_expedition",
           "lines": [
             {
+              "expression": "normal",
+              "text": "Our first story is not from this week. It is from eight years ago, and it was released three days ago, and the herds need it now for a reason we will come to.",
+              "duration": 11000
+            },
+            {
               "expression": "mouthslightlyopen",
-              "text": "On the seventeenth of Aethel the yellow one they call Wario put his brother in a produce sack, loaded him onto a rented sky-machine with a young human named Jory Dobbs, and flew north into a storm that had already been reported.",
+              "text": "On the seventeenth of Aethel, one thousand and thirty-two, the yellow one they call Wario put his brother in a produce sack, loaded him onto a rented sky-machine with a young human named Jory Dobbs, and flew north into a storm that had already been reported.",
               "duration": 11000
             },
             {
               "expression": "concerned",
-              "text": "The storm won. The machine went into a cave mouth sideways, slid sixty feet on wet stone, and lost its tail to a boulder. The pilot was knocked senseless in his straps. The boy was opened above the eye. The tall purple one checked both of them before the dust settled, and no one has thanked him yet.",
+              "text": "The storm won. The machine went into a cave mouth sideways, slid sixty feet on wet stone, and lost its tail to a boulder. The pilot was knocked senseless in his straps. The boy was opened above the eye. The tall purple one checked both of them before the dust settled, and eight years later nobody has thanked him yet.",
               "duration": 11000
             },
             {
@@ -377,7 +383,17 @@ window.RNN_BROADCASTS = {
             },
             {
               "expression": "eyebrowraised",
-              "text": "A clerk of the Old World Mapping Company dropped a letter, and the misprint was bought, folded, trusted, and handed to a man who cannot read either spelling. Bones, fire and blood, all of it purchased with one absent character. The Wheel does not need to be clever. It only needs a typesetter with cold hands.",
+              "text": "A clerk of the Old World Mapping Company dropped a letter, and the misprint was bought, folded, trusted, and handed to a man who cannot read either spelling. Bones, fire and blood, all of it purchased with one absent character.",
+              "duration": 11000
+            },
+            {
+              "expression": "concerned",
+              "text": "Now the part that makes an old story a warning. A correction was demanded. A clerk acknowledged the demand. The correction was never made, and the company burned down with its plates inside, so it can never be made by anyone. Survey Series Four still says Mount Ebot. Every sheet still in a saddlebag is still wrong in the exact way that opened that boy's head.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Eight years in a crate behind more urgent disasters. The purple one changed nothing in it before he let it out. The Wheel does not need to be clever. It only needs a typesetter with cold hands and an archive with a slow week.",
               "duration": 11000
             }
           ]
@@ -390,8 +406,8 @@ window.RNN_BROADCASTS = {
           "lines": [
             {
               "expression": "mouthslightlyopen",
-              "text": "Five nights earlier, the same two brothers walked into an office because a stranger promised them gold. The gold was real. The office was not.",
-              "duration": 9200
+              "text": "To this week, then. Six nights ago the same two brothers walked into an office because a stranger promised them gold. The gold was real. The office was not.",
+              "duration": 10560
             },
             {
               "expression": "concerned",
@@ -530,22 +546,27 @@ window.RNN_BROADCASTS = {
         {
           "slug": "FIELD REPORT",
           "type": "field",
-          "title": "The Slope With the Seams",
+          "title": "The Slope With the Seams, Eight Years Later",
           "articleId": "the_mount_ebot_expedition",
           "lines": [
             {
               "expression": "jump",
-              "text": "Whisper-in-Wind, I am on the wrong mountain and I want that on the record before anything else! I walked the slope where the ground gave up its property. The quake opened seams and pushed bones up out of the mud — ribs, jaws, a whole hillside of them. That was four days ago.",
+              "text": "Whisper-in-Wind, I read that old file and I went and stood on it! I am on the wrong mountain and I want that on the record before anything else. Eight years, and every page of it is still true this morning.",
               "duration": 11000
             },
             {
               "expression": "jump",
-              "text": "They are GONE. Not buried, not washed off — gone, and the mud is smooth, and I got down on my knees like a fool looking for one jaw with three teeth in it and I did not find it. Something is tidying up after itself and it is faster than a Rakasha on a rope.",
+              "text": "I walked the slope where the ground gave up its property. The quake seams are still open — you can put an arm in them. The bones the file says came up out of the mud are GONE. Not buried, not washed off. Gone, and the mud is smooth, and I got down on my knees like a fool looking for one jaw with three teeth in it and I did not find it. Something has been tidying up for eight years and it is faster than a Rakasha on a rope.",
               "duration": 11000
             },
             {
               "expression": "jump",
-              "text": "The bridge is still armed. It reset itself clean. And the plank at the summit is real — I read four names off it in the rain, and the fourth one has been rubbed at by a hand, not by weather. Somebody wanted that prince forgotten. Back to you, and send someone taller than me!",
+              "text": "The bridge is still armed. Eight years untended and it reset itself clean, which means it is not untended. Somebody oils that thing. And the plank at the summit is real — I read four names off it in the rain, same four, and the fourth one has been rubbed at by a hand, not by weather. Not eight years of weather. A hand.",
+              "duration": 11000
+            },
+            {
+              "expression": "jump",
+              "text": "So this is not an old story, Whisper. It is an old file about a mountain that is still doing all of it. Anyone walking up there on a Series Four sheet is walking into a page written in one thousand and thirty-two. Back to you, and send someone taller than me!",
               "duration": 11000
             }
           ]
@@ -568,7 +589,7 @@ window.RNN_BROADCASTS = {
             },
             {
               "expression": "concerned",
-              "text": "War drums: the Old World Mapping Company printed Survey Series Four and offered corrections on application. The company is ash and the corrections were never made. Every party still carrying one of those sheets is walking toward a mountain that is not there.",
+              "text": "War drums, and old ones. The Old World Mapping Company printed Survey Series Four and offered corrections on application. A correction was applied for eight years ago. The company is ash, the plates burned with it, and the corrections were never made. Every party still carrying one of those sheets is walking toward a mountain that is not there.",
               "duration": 11000
             },
             {
@@ -585,8 +606,8 @@ window.RNN_BROADCASTS = {
           "lines": [
             {
               "expression": "normal",
-              "text": "That is the week. Check your map before you climb. Check who drew it before you trust it.",
-              "duration": 6820
+              "text": "That is the week, and eight years ago as well. Check your map before you climb. Check who drew it before you trust it. And check the date on the file before you decide it cannot still hurt you.",
+              "duration": 11000
             },
             {
               "expression": "normal",
@@ -596,7 +617,7 @@ window.RNN_BROADCASTS = {
           ]
         }
       ],
-      "runtimeMs": 406920
+      "runtimeMs": 456900
     }
   ]
 };
