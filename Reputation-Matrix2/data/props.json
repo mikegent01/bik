@@ -323,6 +323,287 @@
       "stamps": [
         "sealed"
       ]
+    },
+    "prop_black_crystal_carrier_order": {
+      "kind": "order",
+      "icon": "◆",
+      "title": "Carrier Discipline Order — Portal Artifact Set",
+      "subtitle": "Issued to the party. Not to be read aloud in corridors.",
+      "items": [
+        "black_crystal"
+      ],
+      "articles": [],
+      "note": "Written after Lyranth demanded the crystal from Eager, who did not have it and could not have produced it.",
+      "body": "<div class=\"pd-classbar\">Party Eyes Only — Do Not Copy<span class=\"bottom\">Party Eyes Only — Do Not Copy</span></div><div class=\"pd-head\"><div class=\"pd-org\">Disaster Inc. · Archive</div><div class=\"pd-sub\">Standing Order on Carriage of the Portal Set</div></div><dl class=\"pd-meta\"><dt>Subject</dt><dd>Black Crystal (anchor key)</dd><dt>Public-known carrier</dt><dd>Markop</dd><dt>Actual carrier</dt><dd>Not recorded here. That is the point.</dd><dt>Occasioned by</dt><dd>Lyranth&rsquo;s demand upon Eager, \twho was carrying nothing</dd></dl><div class=\"pd-clause\"><b class=\"n\">I.</b> The enemy has established that the crystal matters. The enemy has <i>not</i> established who is carrying it. Those are two different disasters and only one of them has happened.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> Eager was named as carrier by Lyranth and was not the carrier. This error is the single most valuable asset the party currently owns. Do not correct it. Do not correct it accidentally, either, which is harder.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> The public-known holder is Markop. Markop is instructed to be visibly, tediously careful with a pocket, and to keep being careful with that pocket long after it stops being interesting.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> No member of this party is to say the words &ldquo;who has the crystal&rdquo; in a room with a door in it.</div><div class=\"pd-sigline\"><div><div class=\"pd-sign\">Waluigi</div><div class=\"pd-sigcap\">Chief Archivist</div></div><div><div class=\"pd-sign\">Markop</div><div class=\"pd-sigcap\">Named holder, publicly</div></div></div><div class=\"pd-fine\">Filed with the Black Crystal record. If you are reading this and you are not in the party, the archive would like to know how, and so would several other people.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_trowel_glazier_bill": {
+      "kind": "invoice",
+      "icon": "🪟",
+      "title": "Glazier&rsquo;s Bill — One Window, Promoted",
+      "subtitle": "Shadow Estate, ground floor east. Rendered after the Spotlight Chase.",
+      "items": [
+        "trowel_retrieving"
+      ],
+      "articles": [],
+      "note": "The trowel was designed for retrieval. It retrieved a pane of glass from a window frame, and everyone from the room.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Estate Glazing &amp; Small Repairs</div><div class=\"pd-sub\">Account rendered · Shadow Estate, east elevation</div></div><dl class=\"pd-meta\"><dt>Works ordered by</dt><dd>No one</dd><dt>Works performed by</dt><dd>Markop, with a trowel</dd><dt>Nature of works</dt><dd>Conversion of a window into a door, unscheduled</dd></dl><table class=\"pd-table\"><thead><tr><th>Item</th><th class=\"num\">Qty</th><th class=\"num\">Amount</th></tr></thead><tbody><tr><td>Glass, leaded, original to the house, no longer original to the house</td><td class=\"num\">1</td><td class=\"num\">240 gp</td></tr><tr><td>Frame, mullion, and the small carved bit nobody notices until it is gone</td><td class=\"num\">1</td><td class=\"num\">115 gp</td></tr><tr><td>Removal of glass from garden bed, lawn, and one boot</td><td class=\"num\">&mdash;</td><td class=\"num\">30 gp</td></tr><tr><td>Attendance out of hours, on account of the hour it was</td><td class=\"num\">1</td><td class=\"num\">45 gp</td></tr><tr><td>Adjustment: window did function as an exit</td><td class=\"num\">1</td><td class=\"num\">&minus;100 gp</td></tr></tbody><tfoot><tr><td>Settlement expected in Midland Ducats</td><td class=\"num\"></td><td class=\"num\">330</td></tr></tfoot></table><div class=\"pd-total\"><span>Total now due</span><span class=\"amt\">330 &#7429;</span></div><div class=\"pd-margin\">Retrieval of persons from a burning schedule is a legitimate use of a Trowel of Retrieving. The archive notes the tool worked exactly as named and the house did not. &mdash; W.</div><div class=\"pd-fine\">The estate reserves the right to bill for the second window when it is identified.</div>",
+      "stamps": [
+        "overdue"
+      ]
+    },
+    "prop_oracle_deck_reading_register": {
+      "kind": "ledger",
+      "icon": "🃏",
+      "title": "Reading Register — Cards Drawn Against Events Occurring",
+      "subtitle": "Kept by Remi. The right-hand column was filled in afterwards.",
+      "items": [
+        "oracle_deck"
+      ],
+      "articles": [],
+      "note": "Morel gave the deck as a gift. The register is Remi&rsquo;s own idea, and is the reason the gift is now evidence.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Private Register</div><div class=\"pd-sub\">Oracle&rsquo;s Deck · draws recorded at the time, outcomes recorded later</div></div><table class=\"pd-table\"><thead><tr><th>Draw</th><th>Card</th><th>What happened</th></tr></thead><tbody><tr><td>First</td><td>The Broken Window</td><td>A window was broken. Two days later.</td></tr><tr><td>Second</td><td>The Guest Who Is Furniture</td><td>A spy was found in a closet.</td></tr><tr><td>Third</td><td>The Lady With Two Faces</td><td>Recorded before the Feyward manor. Left blank at the time.</td></tr><tr><td>Fourth</td><td>The Hand That Gives</td><td>Reversed. The bag went missing the same evening.</td></tr><tr class=\"pd-strike\"><td>Fifth</td><td>&mdash;</td><td>Card removed from deck. Not by Remi.</td></tr><tr><td>Sixth</td><td>The Ring</td><td class=\"num\">&mdash;</td></tr></tbody></table><div class=\"pd-total\"><span>Draws logged</span><span class=\"amt\">6</span></div><div class=\"pd-margin pd-margin--red\">Sixth outcome column deliberately empty. It has not happened yet. &mdash; R.A.</div><div class=\"pd-fine\">A deck that is right afterwards is a deck that was right beforehand, and the archive dislikes both readings of that sentence.</div>"
+    },
+    "prop_mirror_restoration_invoice": {
+      "kind": "invoice",
+      "icon": "🪞",
+      "title": "Restoration Account — Mirror of True Reflection",
+      "subtitle": "Rendered by the artificer to the party. Disputed within the hour.",
+      "items": [
+        "mirror_true_reflection"
+      ],
+      "articles": [],
+      "note": "Wario attempted to claim the mirror as salvage before the Mending had finished setting.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">R. Akamatsu · Artificer</div><div class=\"pd-sub\">Account for restoration works · one revelation instrument</div></div><dl class=\"pd-meta\"><dt>Article</dt><dd>Mirror of True Reflection, recovered broken</dd><dt>Found in</dt><dd>Usk&rsquo;s private chambers</dd><dt>Missing piece</dt><dd>Recovered separately. Refitted.</dd><dt>Claim entered by</dt><dd>Wario, verbally, immediately, twice</dd></dl><table class=\"pd-table\"><thead><tr><th>Item</th><th class=\"num\">Qty</th><th class=\"num\">Amount</th></tr></thead><tbody><tr><td>Mending, cast upon a major artifact under field conditions</td><td class=\"num\">1</td><td class=\"num\">300 gp</td></tr><tr><td>Recovery and refitting of the absent fragment</td><td class=\"num\">1</td><td class=\"num\">150 gp</td></tr><tr><td>Handling of an object that shows the handler what they are</td><td class=\"num\">1</td><td class=\"num\">200 gp</td></tr><tr class=\"pd-strike\"><td>Salvage claim entered by W. Enterprise against the restored article</td><td class=\"num\">1</td><td class=\"num\">&mdash;</td></tr></tbody><tfoot><tr><td>Claim struck: the claimant did not break it and did not fix it</td><td class=\"num\"></td><td class=\"num\">650</td></tr></tfoot></table><div class=\"pd-total\"><span>Total, unpaid</span><span class=\"amt\">650 &#7429;</span></div><div class=\"pd-margin pd-margin--red\">Salvage requires a wreck. This was a repair. &mdash; R.A.</div><div class=\"pd-margin\">Custody at close of business: Green T. The archive notes that the person holding the mirror of truth has been a different person every week and finds that appropriate. &mdash; W.</div><div class=\"pd-fine\">Voided as to the salvage line only. The restoration charge stands and remains outstanding.</div>",
+      "stamps": [
+        "void"
+      ]
+    },
+    "prop_umbral_signet_redaction": {
+      "kind": "note",
+      "icon": "🕳️",
+      "title": "Custody Memorandum — Umbral Signet (redacted copy)",
+      "subtitle": "This is the version that leaves the archive.",
+      "items": [
+        "umbral_signet"
+      ],
+      "articles": [],
+      "note": "A full copy exists. It is not on Waluipedia and will not be, because the enemy also reads Waluipedia.",
+      "body": "<div class=\"pd-classbar\">Redacted for Publication<span class=\"bottom\">Redacted for Publication</span></div><div class=\"pd-head\"><div class=\"pd-org\">Disaster Inc. · Archive</div><div class=\"pd-sub\">Portal Artifact Set · Item 3 of 4</div></div><dl class=\"pd-meta\"><dt>Article</dt><dd>Umbral Signet</dd><dt>Function</dt><dd>Shadow key. Estate authority. Umbral routing.</dd><dt>Current custody</dt><dd><span class=\"pd-strike\">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span></dd><dt>Last verified</dt><dd><span class=\"pd-strike\">&#9608;&#9608;&#9608;&#9608;&#9608;</span></dd></dl><div class=\"pd-clause\"><b class=\"n\">1.</b> The signet is one of four. The other three are catalogued in full and the archive is comfortable with that, because three keys open nothing.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> <span class=\"pd-strike\">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span></div><div class=\"pd-clause\"><b class=\"n\">3.</b> <span class=\"pd-strike\">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;&#9608;</span> which is why clause 2 is not printed.</div><div class=\"pd-margin\">Waluipedia is a public archive. Waluigi is not a public idiot. The escape keychain is not going in the encyclopaedia in large friendly letters. &mdash; W.</div><div class=\"pd-fine\">Reader: the redactions are real redactions of real text, not decoration. The archive resents having to say so.</div>",
+      "stamps": [
+        "sealed"
+      ],
+      "torn": true
+    },
+    "prop_green_t_round_sheet": {
+      "kind": "ledger",
+      "icon": "🎯",
+      "title": "Ammunition Accountability Sheet",
+      "subtitle": "Kept because a firearm in a house full of children of various ages requires it.",
+      "items": [
+        "green_t_revolver"
+      ],
+      "articles": [],
+      "note": "Green T counts rounds out and counts rounds back. The sheet exists so that one line can exist.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Green T · Personal Discipline Sheet</div><div class=\"pd-sub\">Revolver, silenced · rounds out against rounds accounted</div></div><table class=\"pd-table\"><thead><tr><th>Occasion</th><th class=\"num\">Out</th><th class=\"num\">Fired</th><th>Accounted</th></tr></thead><tbody><tr><td>Dinner, the vampire</td><td class=\"num\">6</td><td class=\"num\">1</td><td>Silver. Recovered from Orangus Cornelius. Yes.</td></tr><tr><td>Corridor, general</td><td class=\"num\">6</td><td class=\"num\">0</td><td>Yes</td></tr><tr><td>Instruction of R. Akamatsu</td><td class=\"num\">6</td><td class=\"num\">0</td><td>Yes &mdash; weapon not loaded during instruction</td></tr><tr><td>The tanuki matter</td><td class=\"num\">6</td><td class=\"num\">1</td><td>Yes</td></tr><tr class=\"pd-strike\"><td>The tanuki matter &mdash; moral accounting</td><td class=\"num\">&mdash;</td><td class=\"num\">&mdash;</td><td>No</td></tr></tbody></table><div class=\"pd-total\"><span>Rounds unaccounted for</span><span class=\"amt\">0</span></div><div class=\"pd-margin pd-margin--red\">Every round is accounted for. That was never the part that was going to be hard. &mdash; G.T.</div><div class=\"pd-fine\">The struck line is struck because it cannot be totalled, not because it was resolved.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_simple_dagger_wire": {
+      "kind": "telegram",
+      "icon": "🗡️",
+      "title": "Field Wire — Hellhound Plan, Thrown Implement",
+      "subtitle": "Sent short because there was very little to say.",
+      "items": [
+        "simple_dagger"
+      ],
+      "articles": [],
+      "note": "The clink is load-bearing. It is the reason anyone knows where everyone was standing.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Disaster Inc. · Field Wire</div><div class=\"pd-sub\">Filed to the archive, same evening</div></div><pre style=\"margin:0;font-family:inherit;line-height:1.9;letter-spacing:.03em\">HELLHOUND PLAN COMMENCED STOP\nEAGER THREW DAGGER STOP\nDAGGER MISSED STOP\n\nDAGGER STRUCK FLOOR STOP\nCLINK AUDIBLE TO ALL PARTIES STOP\nALL PARTIES NOW AWARE OF ALL PARTIES STOP\n\nADVISE WHETHER THIS COUNTS AS A PLAN\nEAGER ENDS</pre><div class=\"pd-margin\">It counts. A common dagger, thrown badly, told the archive exactly where six people were standing at the same instant. Waluigi has reconstructed entire evenings from less. &mdash; W.</div>"
+    },
+    "prop_necromancer_wand_demand": {
+      "kind": "letter",
+      "icon": "🦴",
+      "title": "Letter of Demand — Surrender of a Death-Aspected Focus",
+      "subtitle": "The Mages Guild, to a person they had not previously had occasion to write to.",
+      "items": [
+        "necromancer_wand"
+      ],
+      "articles": [],
+      "note": "Addressed to Bowser. There is no record of a reply, and the wand has not moved.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">The Mages Guild</div><div class=\"pd-sub\">Office of Restricted Foci · correspondence</div></div><div class=\"pd-body\"><p>To the King of the Koopas, wherever this finds him,</p><p>It has come to the Guild&rsquo;s attention that an object dropped by the claimant Vivian during the corridor engagement at the Shadow Estate &mdash; a focus of death aspect, cold to the touch, of a make the Guild recognises and does not admire &mdash; was subsequently retrieved from the floor by yourself.</p><p>The Guild does not suggest that you took it improperly. The Guild observes only that it was on the floor and you are, by all accounts, a person who picks things up.</p><p>Such foci are corruptive by design. They reward curiosity and they punish it in the same motion. The Guild would ordinarily write at length here about the risk to the bearer&rsquo;s mind, and has prepared four paragraphs to that effect, which have been struck at the request of a colleague who has met you.</p><p>We ask that the focus be surrendered to any Guild station. We do not ask that it be studied, demonstrated, pointed at anyone, used to settle an argument, or kept because it is interesting.</p><p>Awaiting your reply, without confidence,</p></div><div class=\"pd-sigline\"><div><div class=\"pd-sign\">Keeper of Restricted Foci</div><div class=\"pd-sigcap\">The Mages Guild</div></div></div><div class=\"pd-margin\">No reply was sent. Waluigi suspects the wand is more disturbed by Bowser than Bowser is by the wand, and that this is the safest containment the Guild will ever achieve by accident. &mdash; W.</div>",
+      "stamps": [
+        "noaction"
+      ]
+    },
+    "prop_rattles_appraisal": {
+      "kind": "ledger",
+      "icon": "🐸",
+      "title": "Appraisal Sheet — Personal Effects, One Rattles",
+      "subtitle": "Valued by a pawnbroker who asked no questions and then asked one.",
+      "items": [
+        "rattles_frog_goblet"
+      ],
+      "articles": [],
+      "note": "The valuations are unremarkable. The final column is the reason this is filed.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Sundry Valuations</div><div class=\"pd-sub\">Effects presented for appraisal · not offered for sale</div></div><table class=\"pd-table\"><thead><tr><th>Article</th><th class=\"num\">Value</th><th>Broker&rsquo;s remark</th></tr></thead><tbody><tr><td>Frog, antique, brass, hinged at the jaw</td><td class=\"num\">14 gp</td><td>Hollow. Something was kept in it.</td></tr><tr><td>Goblet, silver-washed, one dent</td><td class=\"num\">22 gp</td><td>Dent is from the inside.</td></tr><tr><td>Frog and goblet, together</td><td class=\"num\">36 gp</td><td>They are a set. Nobody made them a set.</td></tr><tr><td>Same, as a matched pair with provenance</td><td class=\"num\">400 gp</td><td>If the owner would say where they came from.</td></tr><tr class=\"pd-strike\"><td>Owner asked where they came from</td><td class=\"num\">&mdash;</td><td>Owner left.</td></tr></tbody></table><div class=\"pd-total\"><span>Value as declared</span><span class=\"amt\">36 &#7429;</span></div><div class=\"pd-margin\">Thirty-six gold of brass and silver that Rattles carried through a servant corridor during an evening in which sensible people carried nothing. Waluigi does not yet know why they matter. Waluigi has written that sentence before and has always regretted it later. &mdash; W.</div>"
+    },
+    "prop_hidden_slot_withholding": {
+      "kind": "note",
+      "icon": "🚪",
+      "title": "Withholding Notice — Unconfirmed Item Slot",
+      "subtitle": "The archive declines. This is the notice of declining.",
+      "items": [
+        "hidden_item_slot"
+      ],
+      "articles": [],
+      "note": "Filed so that the gap in the inventory is itself documented, rather than looking like an oversight.",
+      "body": "<div class=\"pd-classbar\">Withheld From Publication<span class=\"bottom\">Withheld From Publication</span></div><div class=\"pd-head\"><div class=\"pd-org\">Waluipedia · Editorial</div><div class=\"pd-sub\">Notice of deliberate omission</div></div><dl class=\"pd-meta\"><dt>Record</dt><dd>Unconfirmed Item Slot</dd><dt>Status</dt><dd>Believed to exist</dd><dt>Public detail</dt><dd>None</dd><dt>Reason</dt><dd>Editorial, not evidentiary</dd></dl><div class=\"pd-clause\"><b class=\"n\">I.</b> The archive believes at least one relevant article is carried and not declared. The belief is well founded. The article is not described here.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> This is not a gap in the research. A gap in the research would be embarrassing. This is a decision, and decisions get a form.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> Wario would print it. Wario would print it with a price beside it. Waluigi has standards, and one of them is that a public encyclopaedia should not function as a shopping list for people who intend to search a body.</div><div class=\"pd-sigline\"><div><div class=\"pd-sign\">Waluigi</div><div class=\"pd-sigcap\">Chief Archivist &mdash; declining, in writing</div></div></div><div class=\"pd-fine\">This notice will be replaced by a full record if and when the article is declared, destroyed, or found by somebody less careful.</div>",
+      "stamps": [
+        "noaction"
+      ],
+      "torn": true
+    },
+    "prop_poltergust_service_record": {
+      "kind": "ledger",
+      "icon": "👻",
+      "title": "Service Record — Poltergust, Containment Cycles",
+      "subtitle": "E. Gadd paratechnology. Maintenance log, operator column completed in a shaky hand.",
+      "items": [
+        "poltergust"
+      ],
+      "articles": [],
+      "note": "The operator column is the same name every time. That is the finding.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">E. Gadd Laboratories</div><div class=\"pd-sub\">Field Unit Service Record · strobe and suction assembly</div></div><table class=\"pd-table\"><thead><tr><th>Cycle</th><th>Fault reported</th><th>Operator</th><th class=\"num\">Contained</th></tr></thead><tbody><tr><td>Routine</td><td>None. Filters replaced.</td><td>L. Mario</td><td class=\"num\">4</td></tr><tr><td>Routine</td><td>Strobe capacitor slow to charge</td><td>L. Mario</td><td class=\"num\">9</td></tr><tr><td>Emergency</td><td>Hose fouled &mdash; operator described contents as &ldquo;a face&rdquo;</td><td>L. Mario</td><td class=\"num\">1</td></tr><tr><td>Routine</td><td>Housing scorched, cause not stated</td><td>L. Mario</td><td class=\"num\">12</td></tr><tr><td>Emergency</td><td>Unit recovered from site without operator. Operator recovered later.</td><td>L. Mario</td><td class=\"num\">0</td></tr></tbody></table><div class=\"pd-total\"><span>Entities contained, lifetime</span><span class=\"amt\">26</span></div><div class=\"pd-margin\">Twenty-six containments, one operator, no substitutions. The device turns fear into procedure: strobe, suction, containment. The screaming is not a fault condition and has never once been logged as one. &mdash; W.</div><div class=\"pd-fine\">Counts as Technique when operated by the named operator. Not arcane. The laboratory is firm on this and so is the archive.</div>"
+    },
+    "prop_speaker_l_roll_call": {
+      "kind": "order",
+      "icon": "🪶",
+      "title": "Roll Call and Order of the Day — Liberated Toads",
+      "subtitle": "Read aloud. The hat was visible from the back of the room, which was the point.",
+      "items": [
+        "speaker_l_feathered_hat"
+      ],
+      "articles": [],
+      "note": "Filed as an example of what the hat is actually for.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">The Liberated Toads</div><div class=\"pd-sub\">Order of the Day · read from the barrel platform</div></div><dl class=\"pd-meta\"><dt>Read by</dt><dd>Speaker L</dd><dt>Distinguishing mark</dt><dd>The feathered hat, worn upright</dd><dt>Assembly</dt><dd>Such as could stand</dd><dt>Purpose of the hat</dt><dd>To be findable in a crowd that has lost people before</dd></dl><div class=\"pd-clause\"><b class=\"n\">I.</b> Names are read first and in full. Every one of them. It takes as long as it takes.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> Those who do not answer are not struck from the roll. They are carried forward and read again tomorrow.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> The Speaker will be visible for the duration. If you cannot find the Speaker, find the hat, and the Speaker will be under it.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> No barrel is to be spoken of today. Tomorrow either.</div><div class=\"pd-sigline\"><div><div class=\"pd-sign\">Speaker L</div><div class=\"pd-sigcap\">In the chair, in the hat</div></div></div><div class=\"pd-margin\">A hat is a morale object the way a flag is a piece of cloth. It looks better than the situation deserves, and it is meant to. &mdash; W.</div>"
+    },
+    "prop_embercap_field_return": {
+      "kind": "ledger",
+      "icon": "🔨",
+      "title": "Field Return — Loyalist Line, Position and Casualties",
+      "subtitle": "The commander&rsquo;s own position is entered on the same sheet as everyone else&rsquo;s.",
+      "items": [
+        "embercap_warhammer"
+      ],
+      "articles": [],
+      "note": "Read the position column. The hammer is at the front of it every time.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Peach Loyalists · Line Command</div><div class=\"pd-sub\">Field return rendered after action</div></div><table class=\"pd-table\"><thead><tr><th>Element</th><th>Position held</th><th class=\"num\">Losses</th></tr></thead><tbody><tr><td>Left, skirmish</td><td>Second rank</td><td class=\"num\">4</td></tr><tr><td>Centre</td><td>First rank</td><td class=\"num\">11</td></tr><tr><td>Right</td><td>Second rank</td><td class=\"num\">6</td></tr><tr><td><b>Commanding &mdash; Embercap</b></td><td><b>First rank, centre</b></td><td class=\"num\">&mdash;</td></tr><tr><td>Reserve</td><td>Held</td><td class=\"num\">0</td></tr></tbody></table><div class=\"pd-total\"><span>Total losses returned</span><span class=\"amt\">21</span></div><div class=\"pd-margin pd-margin--red\">The crimson hammer is a rally point because it is where the smoke is thickest, not because it is painted red. In smoke you cannot see a banner. You can see a man swinging something enormous. &mdash; W.</div><div class=\"pd-fine\">A commander who enters his own position in the same column as his dead is making a map honest. The archive has seen a great many returns and very few of those.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_eager_kit_receipt": {
+      "kind": "note",
+      "icon": "🌶️",
+      "title": "Kit Receipt — One Canister, Personal",
+      "subtitle": "Issued over a counter to someone who was told it would not help.",
+      "items": [
+        "eager_pepper_spray"
+      ],
+      "articles": [],
+      "note": "Kept in the file because the canister has, on record, mattered exactly often enough.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Sundries &amp; Small Defence</div><div class=\"pd-sub\">Counter receipt · no returns</div></div><dl class=\"pd-meta\"><dt>Issued to</dt><dd>Eager</dd><dt>Article</dt><dd>Pepper canister, personal, one</dd><dt>Advice given at counter</dt><dd>&ldquo;That will not help against most of what you are describing.&rdquo;</dd><dt>Advice taken</dt><dd>No</dd></dl><div class=\"pd-clause\"><b class=\"n\">1.</b> Purchaser was advised the article is ineffective against constructs, undead, the petrified, and most things with a plan.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> Purchaser stated that most of what happens to them is small, fast, and unexpected, and that they would like to be the unexpected thing for once.</div><div class=\"pd-clause\"><b class=\"n\">3.</b> Sold.</div><div class=\"pd-margin\">Morale value: makes Eager feel prepared. The archive has watched people die of feeling unprepared and considers three gold a reasonable price for the opposite. It has also, twice now, actually worked. &mdash; W.</div><div class=\"pd-fine\">No returns. The counter is firm about this and the counter has heard the story before.</div>"
+    },
+    "prop_lyranth_commission_card": {
+      "kind": "contract",
+      "icon": "🗿",
+      "title": "Commission Card — Finishing Works, Figures in Stone",
+      "subtitle": "A card of terms, of the kind an artisan hands to a patron. Read the third term.",
+      "items": [
+        "lyranth_chisel_set"
+      ],
+      "articles": [],
+      "note": "The chisels are ordinary. The card is what makes them an exhibit.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Lyranth · Sculptor</div><div class=\"pd-sub\">Card of terms for commissioned finishing works</div></div><dl class=\"pd-meta\"><dt>Medium</dt><dd>Stone. Supplied by the commission.</dd><dt>Tools</dt><dd>Fine chisels, the artisan&rsquo;s own</dd><dt>Turnaround</dt><dd>Prompt. The medium does not improve with waiting.</dd></dl><div class=\"pd-clause\"><b class=\"n\">I.</b> The artisan undertakes finishing work only. The artisan does not supply the figure. The commission supplies the figure.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> Expression is at the artisan&rsquo;s discretion. Patrons who request a particular expression will be accommodated where the figure permits it.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> The artisan works most successfully within the first hours. After that the surface hardens through and the fine detail &mdash; the mouth especially &mdash; can no longer be improved.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> Composition is not negotiable. A figure placed badly is a figure wasted, and the artisan will not have work of hers stood in a corridor facing a wall.</div><div class=\"pd-sigline\"><div><div class=\"pd-sign\">Lyranth</div><div class=\"pd-sigcap\">Sculptor</div></div><div><div class=\"pd-sign\">&nbsp;</div><div class=\"pd-sigcap\">Commission (unsigned)</div></div></div><div class=\"pd-margin pd-margin--red\">Term III is a working window. Read it again knowing that. It says the tools work best while the stone is new, and stone is not new unless something was recently not stone. &mdash; W.</div><div class=\"pd-fine\">The archive files this under art tools and would like it noted that it did so with a straight face and considerable difficulty.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_toadburt_compliance_notice": {
+      "kind": "order",
+      "icon": "💍",
+      "title": "Compliance Instrument — Entropy Ring, Terms of Wear",
+      "subtitle": "Iron Legion. Issued to the wearer, which is an unusual courtesy for a leash.",
+      "items": [
+        "toadburt_entropy_ring"
+      ],
+      "articles": [],
+      "note": "Retained because the Legion wrote it down. They always write it down.",
+      "body": "<div class=\"pd-classbar\">Legion Instrument &mdash; Personnel Control<span class=\"bottom\">Legion Instrument &mdash; Personnel Control</span></div><div class=\"pd-head\"><div class=\"pd-org\">Iron Legion · Auxiliary Personnel</div><div class=\"pd-sub\">Compliance instrument, terms of wear</div></div><dl class=\"pd-meta\"><dt>Wearer</dt><dd>Toadburt, auxiliary, unranked</dd><dt>Instrument</dt><dd>Entropy ring, sized on issue, not removable by wearer</dd><dt>Authority</dt><dd>Standing auxiliary regulations</dd><dt>Review</dt><dd>None scheduled</dd></dl><div class=\"pd-clause\"><b class=\"n\">I.</b> The instrument is issued for the duration of service. Service is not of fixed term.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> The instrument responds to non-compliance. The wearer is advised that it does not distinguish between refusal and delay, and that hesitation is read as the former.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> Removal by any hand other than the issuing officer&rsquo;s is a disciplinary matter for the hand, and a medical matter for the wearer.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> The wearer&rsquo;s acknowledgement is not required. This notice is provided for completeness of file.</div><div class=\"pd-sigline\"><div><div class=\"pd-sign\">Issuing Officer</div><div class=\"pd-sigcap\">Iron Legion, Auxiliary Personnel</div></div></div><div class=\"pd-margin pd-margin--red\">Clause IV. They did not need him to agree and they wrote a clause explaining that they did not need him to agree, and then they filed it. This is the Legion in four lines. &mdash; W.</div><div class=\"pd-fine\">The archive holds this instrument as evidence of method, not as an item of interest. Nobody should want this in a collection.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_tanukiburt_discrepancy": {
+      "kind": "ledger",
+      "icon": "🔘",
+      "title": "Discrepancy Sheet — Two Toadburts, Observed Side by Side",
+      "subtitle": "Compiled from what people noticed and could not immediately explain.",
+      "items": [
+        "tanukiburt_false_button"
+      ],
+      "articles": [],
+      "note": "The button is the last line. It is the only line the impostor got wrong by being too careful.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Disaster Inc. · Archive</div><div class=\"pd-sub\">Identity discrepancy sheet · subject Toadburt</div></div><table class=\"pd-table\"><thead><tr><th>Detail</th><th>The one we knew</th><th>The other one</th></tr></thead><tbody><tr><td>Voice</td><td>Flat, tired</td><td>Flat, tired</td></tr><tr><td>Gait</td><td>Favours the left</td><td>Favours the left</td></tr><tr><td>Reaction to the ring</td><td>Flinch, immediate</td><td>Flinch, one beat late</td></tr><tr><td>Knowledge of the corridor</td><td>Complete</td><td>Complete, and volunteered</td></tr><tr><td><b>Button, third from collar</b></td><td><b>Missing since spring</b></td><td><b>Present. Sewn on. New thread.</b></td></tr></tbody></table><div class=\"pd-total\"><span>Discrepancies of substance</span><span class=\"amt\">1</span></div><div class=\"pd-margin\">A shapeshifter can copy a limp. What a shapeshifter cannot do is resist fixing something that looks broken. The real one lost a button and lived with it. The copy sewed it back on, with new thread, and hanged itself on tidiness. &mdash; W.</div><div class=\"pd-fine\">Probably not actually a button. The archive distrusts it anyway, and has kept it in a labelled envelope rather than on a shelf.</div>"
+    },
+    "prop_morel_bag_inventory": {
+      "kind": "ledger",
+      "icon": "🎒",
+      "title": "Bag Inventory — Contents, As Emptied Onto A Table",
+      "subtitle": "Taken down by two people at once so that neither could be blamed for the list.",
+      "items": [
+        "mystic_morel_tarot_bag"
+      ],
+      "articles": [],
+      "note": "Every line in the third column was written after somebody said &ldquo;wait, that&rsquo;s mine.&rdquo;",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Contents Inventory</div><div class=\"pd-sub\">Prophet-thief kit · emptied under observation</div></div><table class=\"pd-table\"><thead><tr><th>Article</th><th class=\"num\">Qty</th><th>Claimed by</th></tr></thead><tbody><tr><td>Cards, prophetic, incomplete deck</td><td class=\"num\">1</td><td>Morel</td></tr><tr><td>Keys, assorted, unlabelled</td><td class=\"num\">7</td><td>Unclaimed</td></tr><tr><td>Watch, pocket, still running</td><td class=\"num\">1</td><td>Hjumpik</td></tr><tr><td>Watch, pocket, stopped</td><td class=\"num\">1</td><td>Nobody. Everyone looked away.</td></tr><tr><td>Sheet music, hand-copied</td><td class=\"num\">3</td><td>Morel</td></tr><tr><td>Excuses, prepared, written out in advance</td><td class=\"num\">4</td><td>Morel, cheerfully</td></tr><tr class=\"pd-strike\"><td>Item removed from table during inventory</td><td class=\"num\">1</td><td>&mdash;</td></tr></tbody></table><div class=\"pd-total\"><span>Articles logged</span><span class=\"amt\">17</span></div><div class=\"pd-margin\">Something left the table during an inventory being conducted by two people specifically so that this could not happen. Always check your pockets after hearing music. &mdash; W.</div>"
+    },
+    "prop_feyward_key_tag": {
+      "kind": "note",
+      "icon": "🗝️",
+      "title": "Evidence Tag — Brass Key, Thrown",
+      "subtitle": "Tagged where it landed. The warning is transcribed on the reverse.",
+      "items": [
+        "morel_feyward_key"
+      ],
+      "articles": [],
+      "note": "The key was not handed over. It was thrown, with a sentence attached, and the sentence is the exhibit.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Disaster Inc. · Archive</div><div class=\"pd-sub\">Evidence tag · article received in flight</div></div><dl class=\"pd-meta\"><dt>Article</dt><dd>Key, brass, unlabelled, warm</dd><dt>From</dt><dd>Mystic Morel</dd><dt>To</dt><dd>Hjumpik</dd><dt>Method of transfer</dt><dd>Thrown, underarm, without stopping</dd><dt>Chain of custody</dt><dd>Morel &rarr; air &rarr; Hjumpik</dd></dl><div class=\"pd-clause\"><b class=\"n\">Reverse of tag &mdash; words spoken at the moment of the throw, transcribed by two hearers who agree:</b></div><div class=\"pd-body\"><p>&ldquo;Don&rsquo;t make Toad Lee the anchor.&rdquo;</p></div><div class=\"pd-clause\"><b class=\"n\">Note.</b> The key may open a route out of the manor. Nobody has tested it. Testing it requires believing the person who threw it, and the archive has not decided about that person.</div><div class=\"pd-margin\">Trust value unclear. Practical value high. Waluigi files these separately and recommends everyone else do the same. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ],
+      "torn": true
+    },
+    "prop_oc_soul_ring_custody": {
+      "kind": "contract",
+      "icon": "💍",
+      "title": "Custody Undertaking — The OC Soul Ring",
+      "subtitle": "Non-negotiable. The word appears three times and was underlined once.",
+      "items": [
+        "oc_soul_ring"
+      ],
+      "articles": [
+        "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+      ],
+      "note": "Lodged with the Anvil the same night. The occupant of the ring was not consulted, being inside it.",
+      "body": "<div class=\"pd-classbar\">Custody Instrument &mdash; Unregistered Major Artifact<span class=\"bottom\">Custody Instrument &mdash; Unregistered Major Artifact</span></div><div class=\"pd-head\"><div class=\"pd-org\">Disaster Inc. · Archive</div><div class=\"pd-sub\">Undertaking as to custody of a soul-capture article</div></div><dl class=\"pd-meta\"><dt>Article</dt><dd>Ring, gold, heavy. Engraved within the band: <b>OC</b>.</dd><dt>Reported occupant</dt><dd>The Lady of the manor. The actual one.</dd><dt>Recovered from</dt><dd>The false Lady Aurelian &mdash; the overgrowth wearing its owner&rsquo;s face</dd><dt>Means of recovery</dt><dd>Bob-omb, indoors, against advice</dd><dt>Lodged with</dt><dd>The Anvil</dd></dl><div class=\"pd-clause\"><b class=\"n\">I.</b> The ring is not an item of treasure and is not to be entered in any division of spoils. A person is in it.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> Custody this evening ran: her &rarr; Waluigi &rarr; her &rarr; Waluigi &rarr; Hjumpik. The archive records the full sequence because a chain of custody with a gap in it is not a chain of custody, it is a story.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> The ring is <u>not</u> to be worn. Not experimentally. Not briefly. Not by someone who has thought of a clever reason.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> The initials <b>OC</b> are the same initials carved into the Corvinarus bedframes. The archive does not yet know what that means and will not pretend otherwise in a custody document.</div><div class=\"pd-sigline\"><div><div class=\"pd-sign\">Waluigi</div><div class=\"pd-sigcap\">Chief Archivist</div></div><div><div class=\"pd-sign\">Hjumpik</div><div class=\"pd-sigcap\">Bearer at close of evening</div></div></div><div class=\"pd-margin pd-margin--red\">She admitted it cheerfully. She struck the real Aurelian in the stomach mid-flight and put her in a ring, and then she said so at a poker table, and then she smiled. &mdash; W.</div><div class=\"pd-fine\">Non-negotiable custody. Any party member approached with an offer for this ring is to record the approach and the face of the person making it.</div>",
+      "stamps": [
+        "sealed"
+      ]
     }
   }
 }

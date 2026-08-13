@@ -1,1 +1,12 @@
 .wnote{overflow-wrap:anywhere}.wnote b{margin-right:3px}.wnote br{line-height:1.8}.event-reputation-panel{margin:14px 0;padding:14px;border:1px solid var(--border);border-left:4px solid var(--accent2);border-radius:12px;background:rgba(224,180,0,.06)}.event-reputation-panel h3{margin:0 0 4px;color:var(--accent2)}.rep-effect-row{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:8px 10px;margin-top:6px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);color:var(--text);text-decoration:none}.rep-effect-row:hover{border-color:var(--accent);color:var(--link)}.rep-effect-row b{font-size:14px;color:var(--accent2);white-space:nowrap}.merchant-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:12px}.merchant-details>div{padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);line-height:1.45}.merchant-details b{display:block;color:var(--accent2);margin-bottom:2px}.item-hero .metabar{display:flex;flex-wrap:wrap;gap:7px}.item-hero .metabar .pill,.item-hero .rarity-pill{white-space:nowrap}.shop-open-link{font-weight:800}.shop-open-link:hover{filter:brightness(1.2)}
+
+/* Reputation Impact panel — the operator is a person, so the name is a link.
+   Previously the operator line was flat text: you could open the faction it
+   affected but not the character doing the affecting. */
+.rep-op-block{margin-top:12px}
+.rep-op-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:5px}
+.rep-op-link{font-weight:700;color:var(--accent2);text-decoration:none;border-bottom:1px dotted rgba(224,180,0,.5);transition:.15s}
+.rep-op-link:hover{color:var(--text);border-bottom-color:var(--text)}
+.rep-op-link.is-flat{border-bottom:0;cursor:default;opacity:.85}
+.rep-op-standings{font-size:11px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:2px 8px;white-space:nowrap;transition:.15s}
+.rep-op-standings:hover{color:var(--accent2);border-color:var(--accent2);background:rgba(224,180,0,.10)}

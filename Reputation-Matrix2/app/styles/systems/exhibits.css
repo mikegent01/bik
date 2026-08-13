@@ -343,6 +343,14 @@
 .pd-classbar.bottom{margin:22px -38px -38px}
 @media(max-width:560px){.pd-classbar{margin:-20px -20px 16px}.pd-classbar.bottom{margin:18px -20px -20px}}
 
+/* ---------- items-grid badge: "this item has paperwork" ---------- */
+.pill-exhibit{
+  border-color:rgba(212,168,83,.55)!important;
+  color:#e8cf95!important;
+  background:linear-gradient(180deg,rgba(212,168,83,.16),rgba(212,168,83,.06))!important;
+}
+body.light .pill-exhibit{color:#6b4c12!important;border-color:rgba(150,110,30,.5)!important}
+
 /* ---------- responsive ---------- */
 @media(max-width:600px){
   .pd{font-size:13px}

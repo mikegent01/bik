@@ -9005,7 +9005,7 @@ async function view_items(arg) {
       <div class="tt">${esc(it.name)}</div>
       <div class="tsub">◆ Held Equipment · ${esc(it.category)} · ${esc(it.rarity)}</div>
       <div class="tsum">${esc(it.summary)}</div>
-      <div class="tmeta"><span class="pill border-accent">Known Held Item</span><span class="pill">${esc(it.visibility)}</span></div>
+      <div class="tmeta"><span class="pill border-accent">Known Held Item</span><span class="pill">${esc(it.visibility)}</span>${(()=>{const n=propsForItem(it.id).length;return n?`<span class="pill pill-exhibit">🗂️ ${n} document${n===1?'':'s'}</span>`:'';})()}</div>
     </div>
   `).join('');
 
@@ -12206,8 +12206,18 @@ function renderReputationImpactPanel(rec, typeKeyHint){
       const rawSign = val.raw>=0?'+':'';
       return `<a class="rep-effect-row" href="#/reputation/faction/${encodeURIComponent(fid)}"><span>⚔️ ${esc(label)}</span><b class="${val.decayed>=0?'pos':'neg'}">${sign}${val.decayed} <span class="text-muted" style="font-weight:400;font-size:11px">(raw ${rawSign}${val.raw})</span></b></a>`;
     }).join('');
-    return `<div style="margin-top:10px">
-      <div style="font-weight:700;color:var(--accent2);margin-bottom:4px">${esc(op.icon||'👤')} ${esc(op.name||prettyId(opId))}</div>
+    /* The operator is a person, not a label. Link the name to their article and
+       give a direct route into their full standings sheet in the matrix. */
+    const opName = op.name || prettyId(opId);
+    const hasArticle = (typeof INDEX!=='undefined') && !!INDEX[opId];
+    const nameHtml = hasArticle
+      ? `<a class="rep-op-link" href="#/article/${encodeURIComponent(opId)}" onclick="event.preventDefault();Router.go(this.getAttribute('href'))" title="Open ${esc(opName)}'s record">${esc(op.icon||'👤')} ${esc(opName)}</a>`
+      : `<span class="rep-op-link is-flat">${esc(op.icon||'👤')} ${esc(opName)}</span>`;
+    return `<div class="rep-op-block">
+      <div class="rep-op-head">
+        ${nameHtml}
+        <a class="rep-op-standings" href="#/reputation/character/${encodeURIComponent(opId)}" onclick="event.preventDefault();Router.go(this.getAttribute('href'))" title="Full faction standings for ${esc(opName)}">standings →</a>
+      </div>
       ${factionRows}
     </div>`;
   }).join('');
@@ -12260,7 +12270,7 @@ function renderWhyModal(factionKey, opKey) {
     <div id="modalTabTrace">
       <div class="home-section-head mb-12">
         <div>
-          <h3 class="m-0">${esc(op.icon)} ${esc(op.name)} Standings Trace for ${esc(faction.name)}</h3>
+          <h3 class="m-0">${esc(op.icon)} ${(typeof INDEX!=='undefined'&&INDEX[op.id])?`<a class="rep-op-link" href="#/article/${encodeURIComponent(op.id)}" onclick="event.preventDefault();closeWhyModal();Router.go(this.getAttribute('href'))" title="Open ${esc(op.name)}'s character record">${esc(op.name)}</a>`:esc(op.name)} Standings Trace for ${(typeof INDEX!=='undefined'&&INDEX[factionKey])?`<a class="rep-op-link" href="#/article/${encodeURIComponent(factionKey)}" onclick="event.preventDefault();closeWhyModal();Router.go(this.getAttribute('href'))" title="Open the ${esc(faction.name)} dossier">${esc(faction.name)}</a>`:esc(faction.name)}</h3>
           <p style="color:var(--muted);font-size:12px;margin:2px 0 0">Region: ${esc(faction.region||'Known Realms')} · Category: ${esc(faction.category||'Faction')}</p>
         </div>
         <div class="rep-score-badge ${st.class}">${st.total >= 0 ? '+' : ''}${st.total} · ${esc(st.label)}</div>
@@ -12465,7 +12475,10 @@ function renderArticleFactionReputation(factionId) {
   let opPills = '';
   REPUTATION_OPERATORS.forEach(op => {
     const st = calculateOperatorStanding(op.id, factionId);
-    opPills += `<span class="rep-op-pill ${st.total >= 0 ? 'pos' : 'neg'}" onclick="renderWhyModal('${factionId}', '${op.id}')" class="cursor-ptr">${op.icon} ${esc(op.name)}: ${st.total >= 0 ? '+' : ''}${st.total}</span>`;
+    const opName = (typeof INDEX !== 'undefined' && INDEX[op.id])
+      ? `<a class="rep-op-link" href="#/article/${encodeURIComponent(op.id)}" onclick="event.preventDefault();event.stopPropagation();Router.go(this.getAttribute('href'))" title="Open ${esc(op.name)}'s character record">${esc(op.name)}</a>`
+      : esc(op.name);
+    opPills += `<span class="rep-op-pill cursor-ptr ${st.total >= 0 ? 'pos' : 'neg'}" onclick="renderWhyModal('${factionId}', '${op.id}')" title="Why? Open the standings trace">${op.icon} ${opName}: ${st.total >= 0 ? '+' : ''}${st.total}</span>`;
   });
 
   return `
@@ -12664,9 +12677,10 @@ function view_reputation(arg) {
         <div class="profile-hero" style="margin-bottom:18px">
           <div class="ph-ava">${selectedOp.icon}</div>
           <div>
-            <h1>${esc(selectedOp.name)}</h1>
+            <h1>${(typeof INDEX!=='undefined'&&INDEX[selectedOp.id])?`<a class="rep-op-link" href="#/article/${encodeURIComponent(selectedOp.id)}" onclick="event.preventDefault();Router.go(this.getAttribute('href'))" title="Open ${esc(selectedOp.name)}'s character record">${esc(selectedOp.name)}</a>`:esc(selectedOp.name)}</h1>
             <div style="color:var(--accent2);font-style:italic;margin-top:2px">${esc(selectedOp.title)}</div>
             <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+              ${(typeof INDEX!=='undefined'&&INDEX[selectedOp.id])?`<span class="chip active" onclick="Router.go('#/article/${encodeURIComponent(selectedOp.id)}')">📄 Open ${esc(selectedOp.name)}'s character record →</span>`:''}
               <span class="chip chip-positive">Positive: ${posCount}</span>
               <span class="chip chip-neutral">Neutral: ${neuCount}</span>
               <span class="chip chip-negative">Hostile: ${negCount}</span>
@@ -12717,7 +12731,7 @@ function view_reputation(arg) {
               <tr>
                 <th style="text-align:left">Faction</th>
                 <th>Party Avg</th>
-                ${REPUTATION_OPERATORS.map(o => `<th>${o.icon} ${esc(o.name)}</th>`).join('')}
+                ${REPUTATION_OPERATORS.map(o => `<th>${o.icon} ${(typeof INDEX!=='undefined'&&INDEX[o.id])?`<a class="rep-op-link" href="#/article/${encodeURIComponent(o.id)}" onclick="event.preventDefault();Router.go(this.getAttribute('href'))" title="Open ${esc(o.name)}'s character record">${esc(o.name)}</a>`:esc(o.name)}</th>`).join('')}
               </tr>
             </thead>
             <tbody>${tableRows}</tbody>
@@ -12734,7 +12748,7 @@ function view_reputation(arg) {
         <div class="rep-faction-card" style="border-left:4px solid ${heat.score>=75?'var(--danger)':heat.score>=50?'var(--accent2)':'var(--green)'}">
           <div class="rep-fc-head">
             <div class="rep-fc-title">
-              <h3>${op.icon} ${esc(op.name)}</h3>
+              <h3>${op.icon} ${(typeof INDEX!=='undefined'&&INDEX[op.id])?`<a class="rep-op-link" href="#/article/${encodeURIComponent(op.id)}" onclick="event.preventDefault();Router.go(this.getAttribute('href'))" title="Open ${esc(op.name)}'s character record">${esc(op.name)}</a>`:esc(op.name)}</h3>
               <div class="region">${esc(op.title)}</div>
             </div>
             <span class="chip" style="background:rgba(239,68,68,.18);border-color:rgba(239,68,68,.4);color:#fca5a5;font-weight:900">Heat ${heat.score} / 100</span>

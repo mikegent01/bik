@@ -42,6 +42,38 @@ If a week passes with none of the above, **no episode is cut** and the existing 
 | `animation_frames/` | Anchor sprites + RNN title card |
 | `../README.md`, `README.md` | Carry the "last week" block between the `RNN:LAST-WEEK` markers |
 
+## ⚠ STANDING ORDER — Every Filing Ships Illustrated and Exhibited
+
+**A new session event or long narrative filing is not finished until it has images and, where the prose names a document, a readable exhibit.** Like the RNN rule, this is self-executing: read and follow it as part of filing the event. Do not wait to be asked.
+
+### A. Images — the procedure
+
+1.  **Choose the beats.** One lead image on the record, then one per section containing a place, an object, or a piece of evidence worth looking at. Three to six section images on a long filing. Illustrate where seeing the thing changes the paragraph; skip the rest.
+2.  **Generate.** Use the `generate_image` tool, prompting from the prose itself — real weather, real materials, real time of day, real damage. Ask for **in-world documentary photography or a survey plate**, never concept art or a poster. **No text or lettering in the image**; captions are a data field and generated lettering always renders wrong.
+3.  **Save.** `Reputation-Matrix2/assets/images/events/<event-slug>/<prefix>-<nn>-<subject>.jpg`, zero-padded and ordered by appearance.
+4.  **Compress.** Generated files are far too heavy for a static site. This environment has **ImageMagick v6 only** — no `magick`, `cwebp`, `pngquant`, or `optipng`:
+
+    ```bash
+    convert in.png -resize 1600x1600\> -strip -interlace Plane -quality 82 out.jpg
+    ```
+
+    Target **under ~300 KB**. Confirm with `ls -la`; drop the quality and re-run on anything over.
+5.  **Wire.** Paths are relative to `Reputation-Matrix2/`. `"image"` + `"imageCaption"` on the record render the lead figure; the same two keys on a section object render an inline figure in that section.
+6.  **Caption in archive voice.** State what is shown, when, and what it proves or cost. A caption is a filing, not alt text.
+7.  **Verify.** JSON parses, article loads, every figure renders — a bad path fails silently to a placeholder.
+
+### B. Exhibits — clickable in-world documents
+
+When the prose says an invoice, order, ledger, telegram, contract, or passport exists, the reader must be able to open and read it. These live in `data/props.json` and render as full custom-CSS paper in a modal.
+
+1.  Add a prop under `props`, keyed `prop_<subject>_<kind>`, keys in order: `kind`, `icon`, `title`, `subtitle`, `items`, `articles`, `note`, `body`, then optional `stamps`, `torn`.
+2.  `kind` ∈ `invoice`, `order`, `ledger`, `letter`, `telegram`, `contract`, `note`, `map`, `passport`. `stamps` ∈ `sealed`, `evidence`, `overdue`, `void`, `noaction`, `paid`.
+3.  `items` = item keys from `INVENTORY_SYSTEM`; `articles` = article IDs. Those arrays are the entire wiring: exhibit tiles appear automatically on every listed item page and article, and the modal links back. **Adding a document never touches renderer code.**
+4.  `body` is HTML using **only** the documented `.pd-*` classes in `app/styles/systems/exhibits.css` (`pd-head`, `pd-meta`, `pd-table`, `pd-total`, `pd-clause`, `pd-classbar`, `pd-sigline`, `pd-margin`, `pd-fine`, `pd-strike`). No invented classes, no inline styles.
+5.  Write the paper as the **issuing organisation** would. Waluigi's opinion belongs in the `pd-margin` aside and the `note` field, nowhere else.
+6.  Inline trigger inside prose: `[[prop:prop_id|invoice]]`.
+7.  Verify: `props.json` parses, every `items` / `articles` key resolves, and the tile opens.
+
 ## Adding New Map Pages
 
 To maintain application stability and a consistent user experience, all new tactical map pages **must** adhere to the standardized map grouping system. Creating custom, one-off UI or filtering logic for a single map page can conflict with the global data loaders for POIs and tactical units, causing them to fail to render.

@@ -113,6 +113,45 @@ A major session event is not complete when the event record alone is changed. Re
 
 **Do not optimise the numbers.** They catch drift. If the prose reads well and the measurements disagree, the prose wins.
 
+### Illustrating the filing (required — do this without being asked)
+
+Every new session event or long narrative filing ships **with images**. This is a step of the process, not a favour to be requested. A filing that reads well and shows nothing is not finished.
+
+**Step by step:**
+
+1. **Pick the beats.** One lead image for the record, plus one image for each section that contains a *place, an object, or a piece of evidence a reader would want to look at*. Three to six section images for a long filing is the working band. Do not illustrate every section — illustrate the ones where seeing the thing changes how the paragraph lands.
+2. **Generate the image.** Use the `generate_image` tool. Write the prompt from the prose itself: the actual weather, the actual materials, the actual time of day, the actual damage. Ask for **in-world documentary photography or survey plate**, not concept art or a poster. No text, no lettering, no captions burned into the image — captions are a data field, and generated lettering always comes out wrong.
+3. **Save to the right place.** `Reputation-Matrix2/assets/images/events/<event-slug>/<prefix>-<nn>-<subject>.jpg` — zero-padded, ordered by appearance. Example: `assets/images/events/mount-ebot/ebot-03-cave.jpg`.
+4. **Compress before committing.** Generated files land far too large for a static site. This environment has **ImageMagick v6 only** — there is no `magick`, `cwebp`, `pngquant`, or `optipng`. Use:
+
+   ```bash
+   convert in.png -resize 1600x1600\> -strip -interlace Plane -quality 82 out.jpg
+   ```
+
+   Target **under ~300 KB per image**. Check with `ls -la` and re-run at a lower quality if any file is over.
+5. **Wire it into the JSON.** Paths are relative to `Reputation-Matrix2/`, and both fields are optional per level:
+
+   ```json
+   "image": "assets/images/events/mount-ebot/ebot-01-mountain.jpg",
+   "imageCaption": "Mount Ebot from the valley track, photographed on a later survey. One T."
+   ```
+
+   `image` / `imageCaption` on the **record** renders the lead figure; the same two keys on a **section** object render an inline figure inside that section.
+6. **Write the caption in archive voice.** A caption is a filing, not alt text. It states what is shown, when it was taken, and what it proves or costs. "The bridge" is a failure. "Machined slots at knee and shin height, razors angled to catch a leg going forward" is a caption.
+7. **Verify.** Confirm the JSON parses, load the article, and check every figure actually renders — a wrong path fails silently into a placeholder.
+
+### Attaching exhibits (clickable in-world documents)
+
+When the prose says a document exists — an invoice, an order, a ledger, a telegram, a passport — the reader should be able to **open and read it**. Those artifacts live in `data/props.json` and render as full custom-CSS paper in a modal.
+
+1. Add a prop object under `props` keyed `prop_<subject>_<kind>`, with the keys in this order: `kind`, `icon`, `title`, `subtitle`, `items`, `articles`, `note`, `body`, then optional `stamps` and `torn`.
+2. `kind` must be one of the styled forms: `invoice`, `order`, `ledger`, `letter`, `telegram`, `contract`, `note`, `map`, `passport`. `stamps` may include `sealed`, `evidence`, `overdue`, `void`, `noaction`, `paid`.
+3. `items` holds item keys from `INVENTORY_SYSTEM`; `articles` holds article IDs. Those arrays are the wiring — an exhibit tile grid appears automatically on every item page and article listed, and the modal links back. No renderer code is ever touched to add a document.
+4. `body` is an HTML string built **only** from the documented `.pd-*` classes in `app/styles/systems/exhibits.css` (`pd-head`, `pd-meta`, `pd-table`, `pd-total`, `pd-clause`, `pd-classbar`, `pd-sigline`, `pd-margin`, `pd-fine`, `pd-strike`). Do not invent classes and do not use inline styles.
+5. Write the paper as the issuing organisation would, not as the archive would. Waluigi's opinion goes in the `pd-margin` aside and the `note` field, and nowhere else.
+6. To open a document from inside prose, use the inline trigger `[[prop:prop_id|invoice]]`.
+7. Verify: `props.json` parses, every `items` / `articles` key resolves, and the tile actually opens.
+
 ## Characters, Items & Foundry Actor JSON
 
 Character lore records (`data/characters.json`), shop items
