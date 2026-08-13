@@ -1,0 +1,328 @@
+{
+  "_README": {
+    "what": "Props are in-world documents you can open. An item record says a ledger exists; a prop lets the reader read it. Rendered by renderProp() in index.html, styled by app/styles/systems/exhibits.css.",
+    "where_they_appear": [
+      "Inline in any prose field, via the marker [[prop:<id>|visible text]] — becomes a clickable .proplink.",
+      "As a tile grid on the item page of every item listed in the prop's `items` array.",
+      "As an 'Exhibits' card at the foot of any article listed in the prop's `articles` array."
+    ],
+    "kinds": [
+      "invoice",
+      "ledger",
+      "letter",
+      "telegram",
+      "map",
+      "passport",
+      "contract",
+      "note",
+      "order"
+    ],
+    "adding_one": "Add an object here, give it `kind`, `title`, `body` (HTML using the .pd-* classes) and at least one link in `items` or `articles`. No JS or CSS changes are needed. Keep the body factual to the source record — a prop is evidence, not new canon.",
+    "stamps": "Optional. `stamps: [\"overdue\"]` renders .pd-stamp--overdue. Available: overdue, paid, void, sealed, noaction, evidence."
+  },
+  "props": {
+    "prop_ebot_survey_iv": {
+      "kind": "map",
+      "icon": "🗺️",
+      "title": "Survey Series IV — Sheet 41, Northern Reach",
+      "subtitle": "The Old World Mapping Company · the sheet with one T",
+      "items": [],
+      "articles": [
+        "the_mount_ebot_expedition"
+      ],
+      "note": "The physical sheet is retained in the archive as evidence. The correction demand attached to it was never answered.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">The Old World Mapping Company</div><div class=\"pd-sub\">Survey Series IV · Sheet 41 · Northern Reach</div></div><div class=\"pd-label\">Mount Ebo<span class=\"miss\">t</span></div><div class=\"pd-elev\">Summit 1,340 ft · No Further Service</div><svg class=\"pd-contour\" viewBox=\"0 0 420 150\" width=\"420\" height=\"150\" role=\"img\" aria-label=\"Contour sketch of a single peak with a bridge crossing marked\"><g fill=\"none\" stroke=\"#5c5044\" stroke-width=\"1.1\"><path d=\"M40 140 Q120 118 210 40 Q300 118 380 140\"/><path d=\"M64 140 Q130 122 210 58 Q290 122 356 140\" opacity=\".75\"/><path d=\"M88 140 Q140 126 210 76 Q280 126 332 140\" opacity=\".55\"/><path d=\"M112 140 Q150 130 210 94 Q270 130 308 140\" opacity=\".4\"/></g><g stroke=\"#9d2c25\" stroke-width=\"1.4\" fill=\"none\"><path d=\"M150 112 L270 112\" stroke-dasharray=\"5 3\"/></g><text x=\"210\" y=\"106\" font-size=\"8\" fill=\"#9d2c25\" text-anchor=\"middle\" letter-spacing=\"1.5\">BRIDGE — CONDITION UNKNOWN</text><text x=\"210\" y=\"34\" font-size=\"9\" fill=\"#2c2418\" text-anchor=\"middle\" letter-spacing=\"2\">1,340</text></svg><dl class=\"pd-meta\"><dt>Sheet</dt><dd>41 of 60, Northern Reach, scale one inch to two miles</dd><dt>Engraved</dt><dt>Plate</dt><dd>Series IV, second impression</dd><dd>House plates, works floor, Old World Mapping Company</dd><dt>Approach</dt><dd>Cave mouth at the north-east foot. Rope work advised above the treeline.</dd><dt>Nearest named</dt><dd>Mount Ebott — 400 miles <b>east</b> — not shown on this sheet</dd></dl><div class=\"pd-cartouche\"><div class=\"co-rose\">✳</div><div class=\"co-name\">The Old World Mapping Company</div><div class=\"co-series\">Survey Series IV · Corrections on Application</div></div><div class=\"pd-margin pd-margin--red\">One T. Mount Ebott has two. Four hundred miles of difference sold for the price of a folded sheet. — W.</div><div class=\"pd-fine\">Corrections on application. Apply in writing to the works, enclosing sheet number and impression. The Company undertakes to correct the plate and to reissue at no charge to the holder of a defective sheet.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_ebot_correction_demand": {
+      "kind": "letter",
+      "icon": "✉️",
+      "title": "Correction Demand — Sheet 41",
+      "subtitle": "Filed 1032 BF · acknowledged by a clerk · never answered",
+      "items": [],
+      "articles": [
+        "the_mount_ebot_expedition"
+      ],
+      "note": "The demand was posted, acknowledged, and never acted upon. The Company later burned down with its plates inside, which is why Survey Series IV can no longer be corrected by anybody at any price.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Walupedia Editorial Board</div><div class=\"pd-sub\">Office of the Auditor-General</div></div><dl class=\"pd-meta\"><dt>To</dt><dd>The Works Manager, The Old World Mapping Company</dd><dt>Re</dt><dd>Survey Series IV, Sheet 41 — defective plate</dd><dt>Dated</dt><dd>19 Aethel, 1032 BF</dd></dl><div class=\"pd-body\"><p>Sir,</p><p>Your Sheet 41 names the mountain at the head of the Northern Reach <b>MOUNT EBOT</b>. The mountain is correctly Mount Ebot. The mountain your customers believe they are buying is <b>Mount Ebott</b>, which lies four hundred miles east of it, and which contains a barrier, a quantity of monsters, and a king with a beard.</p><p>Your cartouche offers corrections on application. This is the application.</p><p>On the seventeenth of this month a party of three reached the summit of your Sheet 41 on the strength of your spelling. A chartered aircraft was destroyed. A twenty-two-year-old man was opened above the eye by a thrown bone and dressed under an overhang in hail. He was promised nothing and has so far received it.</p><p>Waluigi does not ask for damages. Waluigi asks for a T.</p><p>Correct the plate. Reissue the sheet. Every copy still folded in a saddlebag is a hazard you engraved.</p></div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>Waluigi</i></div><div class=\"pd-sigcap\">Auditor-General</div></div><div><div class=\"pd-sigline\"><i>&nbsp;</i></div><div class=\"pd-sigcap\">For the Company — no reply received</div></div></div><div class=\"pd-margin\">Acknowledged by a clerk, 24 Aethel 1032. Nothing further. Works destroyed by fire; plates lost. — filed to archive 1040 BF</div>",
+      "stamps": [
+        "noaction"
+      ]
+    },
+    "prop_ebot_passport": {
+      "kind": "passport",
+      "icon": "🛂",
+      "title": "Forged Identity Document — GREGORIO MORETTI",
+      "subtitle": "One of two produced at the briefing · photograph matches nobody present",
+      "items": [
+        "waluigi_disguise_kit_wally"
+      ],
+      "articles": [
+        "the_mount_ebot_expedition"
+      ],
+      "note": "Two were made. This one remained in Wario's cabinet. The other left the villa in the hire's coat pocket and is, at time of filing, at the bottom of a canvas kit-bag under a spare shirt.",
+      "body": "<div class=\"pp-cover\">Republic of Nowhere In Particular · Travel Document</div><div class=\"pp-body\"><div class=\"pp-photo\">👤</div><dl class=\"pp-fields\"><dt>Surname</dt><dd>MORETTI</dd><dt>Given names</dt><dd>GREGORIO</dd><dt>Nationality</dt><dd>UNSTATED</dd><dt>Date of birth</dt><dd>ILLEGIBLE</dd><dt>Height</dt><dd>AS DRAWN</dd><dt>Profession</dt><dd>IMPORT / EXPORT</dd><dt>Issued</dt><dd>17 AETHEL 1032 BF</dd><dt>Expires</dt><dd>WHENEVER ASKED</dd></dl></div><div class=\"pp-mrz\">P&lt;NOWMORETTI&lt;&lt;GREGORIO&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>0000000000NOW0000000M0000000&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;04</div><div style=\"padding:14px 18px\"><div class=\"pd-margin\">The photograph is of no one. Wario paid for two and checked neither. — W.</div></div>",
+      "stamps": [
+        "void"
+      ]
+    },
+    "prop_ebot_summit_plank": {
+      "kind": "note",
+      "icon": "🪧",
+      "title": "The Plank at the Cairn — Four Names",
+      "subtitle": "Burned lettering · bolted to a post · read in the rain",
+      "items": [],
+      "articles": [
+        "the_mount_ebot_expedition"
+      ],
+      "note": "Four humans went up a mountain nobody visits and did not come down. Somebody obeyed the paperwork on a hillside in the rain. That is all a marker is.",
+      "body": "<div class=\"pd-org\" style=\"text-align:center;letter-spacing:.18em\">IN MEMORY OF</div><hr><p style=\"text-align:center;font-size:19px;line-height:2.1;letter-spacing:.08em\">JAVIER<br>MIKAELA<br>DANIEL<br><span style=\"opacity:.42;text-decoration:line-through wavy rgba(0,0,0,.3)\">PRINCE ALPH·NS·</span></p><hr><p style=\"text-align:center;font-size:12.5px;letter-spacing:.1em;font-family:Georgia,serif\">WHO CAME UP AND DID NOT GO DOWN</p><div class=\"pd-margin\">The fourth has been rubbed at by a hand. Not by weather. The dates under it run backwards — Dobbs spotted that, not Wario, and not Waluigi either.</div>",
+      "stamps": []
+    },
+    "prop_thornbury_duck_invoice": {
+      "kind": "invoice",
+      "icon": "🦆",
+      "title": "Invoice — Bath, Rope, and Duck-Related Charges",
+      "subtitle": "Thornbury's Rubber-Duck Expense Ledger, page 4 · water-warped",
+      "items": [
+        "thornbury_duck_ledger"
+      ],
+      "articles": [],
+      "note": "Recovered after Byscilla dragged Thornbury from a luxury bath. Later used to consolidate questionable Guild expenses.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Thornbury · Expenses Recoverable</div><div class=\"pd-sub\">Rendered to the Mages Guild · Page 4</div></div><dl class=\"pd-meta\"><dt>Billed to</dt><dd>The Mages Guild, Accounts</dd><dt>Billed by</dt><dd>Thornbury</dd><dt>Matter</dt><dd>Extraction from bath; associated damages</dd></dl><table class=\"pd-table\"><thead><tr><th>Item</th><th class=\"num\">Qty</th><th class=\"num\">Amount</th></tr></thead><tbody><tr><td>Rope, luxury grade, severed in the course of an extraction not requested by the client</td><td class=\"num\">1</td><td class=\"num\">40 gp</td></tr><tr><td>Bath supplies, consumed</td><td class=\"num\">—</td><td class=\"num\">65 gp</td></tr><tr><td>Rubber duck, principal</td><td class=\"num\">1</td><td class=\"num\">3 gp</td></tr><tr><td>Rubber ducks, supporting cast</td><td class=\"num\">11</td><td class=\"num\">33 gp</td></tr><tr><td>Duck retrieval surcharge (stairwell)</td><td class=\"num\">1</td><td class=\"num\">120 gp</td></tr><tr><td>Paperwork fee, for the preparation of this paperwork</td><td class=\"num\">1</td><td class=\"num\">85 gp</td></tr><tr><td><b>&ldquo;You know what you did&rdquo;</b></td><td class=\"num\">1</td><td class=\"num\">1,829 gp</td></tr></tbody><tfoot><tr><td>Rendered in Midland Ducats at the Guild's own rate</td><td class=\"num\"></td><td class=\"num\">2,175</td></tr></tfoot></table><div class=\"pd-total\"><span>Total now due</span><span class=\"amt\">2,175 ᴅ</span></div><div class=\"pd-margin pd-margin--red\">Sixteen per cent. Twenty days. I did not agree to the duck line. — A.M.</div><div class=\"pd-fine\">Interest accrues at 16% on the outstanding balance. The line titled &ldquo;you know what you did&rdquo; is not itemised further and the creditor declines to elaborate in writing.</div>",
+      "stamps": [
+        "overdue"
+      ]
+    },
+    "prop_orvinder_truth_ledger": {
+      "kind": "ledger",
+      "icon": "📜",
+      "title": "Truth Ledger — Sworn Statements and Contradictions",
+      "subtitle": "Maintained by Orvinder Danos, barrister · double-column form",
+      "items": [
+        "orvinder_truth_ledger"
+      ],
+      "articles": [],
+      "note": "It does not force truth magically in public records. Everyone around it simply behaves as though lying near it would be personally embarrassing.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Orvinder Danos, Barrister</div><div class=\"pd-sub\">Ledger of Sworn Statements · Contradictions Marked</div></div><table class=\"pd-table\"><thead><tr><th>Deponent</th><th>Sworn</th><th>Later established</th></tr></thead><tbody><tr><td>Witness A</td><td>Was not present at the hour stated</td><td>Was present; corrected on the second reading</td></tr><tr><td>Witness B</td><td>Never handled the instrument</td><td>Handled it twice, both times gloved</td></tr><tr><td>Witness C</td><td>Cannot recall the sum</td><td>Recalled the sum exactly when it was read back wrong</td></tr><tr class=\"pd-strike\"><td>Witness D</td><td>Statement withdrawn before entry</td><td>Withdrawn; retained here because a withdrawal is also evidence</td></tr></tbody></table><hr><div class=\"pd-clause\"><b class=\"n\">1.</b> A statement entered in this ledger is entered in the deponent's own words and read back to the deponent before signature.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> A contradiction is recorded in the right-hand column without comment. The column is not an accusation. The column is a column.</div><div class=\"pd-clause\"><b class=\"n\">3.</b> Nothing in this ledger protects the practitioner against a technically truthful evasion, and the practitioner should stop expecting it to.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>O. Danos</i></div><div class=\"pd-sigcap\">Keeper of the ledger</div></div></div><div class=\"pd-margin\">A truth ledger is only as good as the person willing to read the ugly line twice. — W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_rakka_silence_contract": {
+      "kind": "contract",
+      "icon": "🤐",
+      "title": "Terms of Engagement — Silence Protocol",
+      "subtitle": "Employer copy · clause 7 is the one that matters",
+      "items": [
+        "rakka_silence_contract"
+      ],
+      "articles": [],
+      "note": "Inferred from Rakka-related teleportation and silence references. If your employer has a silence protocol, your retirement plan is probably a shovel.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Terms of Engagement</div><div class=\"pd-sub\">Employer Copy · Not For Issue To The Engaged Party</div></div><dl class=\"pd-meta\"><dt>Engaging party</dt><dd>Rakka</dd><dt>Engaged party</dt><dd>____________________ (completed on acceptance)</dd><dt>Term</dt><dd>Until concluded</dd></dl><div class=\"pd-clause\"><b class=\"n\">1.</b> The engaged party performs the work described and does not describe the work performed.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> Payment is rendered on completion. Completion is determined by the engaging party.</div><div class=\"pd-clause\"><b class=\"n\">4.</b> Knowledge acquired incidentally in the course of the work remains the property of the engaging party.</div><div class=\"pd-clause\"><b class=\"n\">6.</b> The engaged party shall not be told the identity of other engaged parties, and shall not enquire.</div><div class=\"pd-clause\" style=\"background:rgba(157,44,37,.09);border-left:3px solid #9d2c25;padding:9px 9px 9px 34px;margin-left:-3px\"><b class=\"n\">7.</b> <b>Where the engaged party comes into possession of knowledge exceeding the scope of the engagement, the engagement converts to a matter of loose-end management, and the engaged party becomes the matter.</b></div><div class=\"pd-clause\"><b class=\"n\">8.</b> Clause 7 is not negotiable and is not discussed.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>R.</i></div><div class=\"pd-sigcap\">For the engaging party</div></div><div><div class=\"pd-sigline\"><i>&nbsp;</i></div><div class=\"pd-sigcap\">Engaged party — signature block left blank</div></div></div><div class=\"pd-fine\">This document is retained by the engaging party. No counterpart is issued. The absence of a counterpart is itself a term.</div><div class=\"pd-margin pd-margin--red\">Nobody signs clause 7 sober. Nobody reads clause 7 twice. — W.</div>",
+      "stamps": []
+    },
+    "prop_ironhand_order_120": {
+      "kind": "order",
+      "icon": "🖋️",
+      "title": "Order 120 — Quarantine of the North",
+      "subtitle": "Signed by General Ironhand · tribunal exhibit",
+      "items": [
+        "ironhand_order120_pen"
+      ],
+      "articles": [
+        "tribunal_v_ironhand_1040"
+      ],
+      "note": "Ironhand chose to commit his atrocity to text, and text testifies. Some weapons have blades. This one has a nib and a body count.",
+      "body": "<div class=\"pd-classbar\">Restricted — Command Distribution Only</div><div class=\"pd-head\"><div class=\"pd-org\">Iron Legion · Command</div><div class=\"pd-sub\">Standing Order Number 120</div></div><dl class=\"pd-meta\"><dt>Issued by</dt><dd>General Ironhand, commanding</dd><dt>Occasion</dt><dd>Breach of Aegis Command; Planar Fracture at Raventree Manor</dd><dt>Effect</dt><dd>Legion Wall Checkpoint constituted a sealed quarantine</dd><dt>Distribution</dt><dd>Garrison commanders. Not for posting.</dd></dl><div class=\"pd-clause\"><b class=\"n\">I.</b> The northern line is closed. No writ, no passage, no exception granted at garrison level.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> Travel writs are inspected at the checkpoint. Non-compliant operatives are detained, not turned back.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> Detainee populations exceeding the capacity of the holding facility are to be reduced.</div><div class=\"pd-clause\" style=\"background:rgba(90,31,31,.09);border-left:3px solid #5a1f1f;padding:9px 9px 9px 34px;margin-left:-3px\"><b class=\"n\">IV.</b> <b>Toad prisoners held under this order are to be executed. Commanders will not seek confirmation of this paragraph in writing a second time.</b></div><div class=\"pd-clause\"><b class=\"n\">V.</b> This order is effective on signature and remains effective until countermanded by the undersigned.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>Ironhand</i></div><div class=\"pd-sigcap\">General, commanding</div></div><div><div class=\"pd-sigline\"><i>&nbsp;</i></div><div class=\"pd-sigcap\">Countersignature — none required</div></div></div><div class=\"pd-margin pd-margin--red\">Paragraph IV is four lines long and did not require him to raise his voice. That is the case. — W.</div><div class=\"pd-classbar bottom\">Exhibit · The People v. General Ironhand</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_bloomia_rose_letter": {
+      "kind": "letter",
+      "icon": "🌹",
+      "title": "The Winter Rose Letter",
+      "subtitle": "Left by Bloomia · survival-coded · authenticates the witness",
+      "items": [
+        "bloomia_winter_rose_letter"
+      ],
+      "articles": [],
+      "note": "The message pointing toward the place where roses grow in winter. A flower clue is still a knife if the right people fear it.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">&nbsp;</div><div class=\"pd-sub\">No letterhead · no direction · no signature</div></div><div class=\"pd-body\"><p>If this reaches the right hands it will mean nothing to the wrong ones, and that is the whole of my hope.</p><p>Ask for the place where <b>roses grow in winter</b>. Do not ask a lord. Ask someone who carries things and is not looked at.</p><p>The one who greets you there will not use my name. If they say the roses were planted for a wedding that did not happen, that is the sign, and you may say anything after it.</p><p>I am well. That is also a code, and I am sorry for it.</p></div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>🌹</i></div><div class=\"pd-sigcap\">Unsigned — a drawn rose in place of a name</div></div></div><div class=\"pd-margin\">She wrote a location into a garden and trusted a servant over a court. Both decisions were correct. — W.</div>",
+      "stamps": []
+    },
+    "prop_commander_g_invoice": {
+      "kind": "invoice",
+      "icon": "💼",
+      "title": "Statement of Account — Iron Fists",
+      "subtitle": "From the contract case · deniable work, itemised",
+      "items": [
+        "commander_g_contract_case"
+      ],
+      "articles": [],
+      "note": "Commander G speaks fluent invoice. This case is her accent.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Iron Fists</div><div class=\"pd-sub\">Statement of Account · Contract Case Copy</div></div><dl class=\"pd-meta\"><dt>Rendered by</dt><dd>Commander G</dd><dt>Matter</dt><dd>Funeral arrangements and associated services</dd><dt>Terms</dt><dd>On presentation. Discretion included at no charge.</dd></dl><table class=\"pd-table\"><thead><tr><th>Service</th><th class=\"num\">Amount</th></tr></thead><tbody><tr><td>Funeral, full arrangement</td><td class=\"num\">2,400 gp</td></tr><tr><td>Funeral, subject not deceased — surcharge</td><td class=\"num\">3,600 gp</td></tr><tr><td>Attendance, mourners, hired</td><td class=\"num\">480 gp</td></tr><tr><td>Grief, convincing</td><td class=\"num\">220 gp</td></tr><tr><td>Paperwork prepared in advance of the event</td><td class=\"num\">900 gp</td></tr><tr><td>Retention of the above paperwork, per annum</td><td class=\"num\">1,500 gp</td></tr></tbody><tfoot><tr><td>Payable to bearer of the case</td><td class=\"num\">9,100 gp</td></tr></tfoot></table><div class=\"pd-total\"><span>Due on presentation</span><span class=\"amt\">9,100 gp</span></div><div class=\"pd-fine\">The Iron Fists do not itemise methods. The Iron Fists itemise costs. A client who wishes to know which line covers what is invited to consider that the distinction is the service being purchased.</div><div class=\"pd-margin\">A funeral billed before the death is not a service. It is a schedule. — W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_tymnas_cookie_note": {
+      "kind": "note",
+      "icon": "🍪",
+      "title": "The Cookie Note",
+      "subtitle": "Delivered with cookies by knights · signed O.T.",
+      "items": [
+        "tymnas_cookie_note"
+      ],
+      "articles": [],
+      "note": "A cookie note should not be evidence. The Shadow Estate disagrees.",
+      "body": "<div class=\"pd-org\" style=\"text-align:center\">for Tymnas</div><hr><p>Your friends miss you. They said to bring these round and to say so out loud, so: they miss you.</p><p>Nobody could agree on what to call the group. Somebody said the Local Misfits. Somebody else said the Toad-Headed Heroes and was shouted down. It is written here as both because I was not going to referee it.</p><p>Come back when the house lets you.</p><p style=\"text-align:right;margin-top:1.4em\">— O.T.</p><div class=\"pd-margin\">Possibly sincere. Possibly bait. Definitely suspicious. The group-name confusion is the part that reads as real. — W.</div>",
+      "stamps": []
+    },
+    "prop_kyle_access_log": {
+      "kind": "ledger",
+      "icon": "🔑",
+      "title": "Platform Access Log — Override Entries",
+      "subtitle": "Swiftsoul platform · the four lines that convict a minor operative",
+      "items": [
+        "kyle_override_key"
+      ],
+      "articles": [],
+      "note": "A key is small. A log is smaller. Together they are the difference between being a minor operative and being the door a conspiracy walked through.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Swiftsoul · Platform Control</div><div class=\"pd-sub\">Restricted Access Log · Override Entries Only</div></div><table class=\"pd-table\"><thead><tr><th>Entry</th><th>Door</th><th>Authority</th><th class=\"num\">Duration</th></tr></thead><tbody><tr><td>Routine</td><td>Platform, main</td><td>Standing rota</td><td class=\"num\">08:40</td></tr><tr><td><b>Override</b></td><td>Platform, restricted</td><td>Master key — <b>K. Coinsoul</b></td><td class=\"num\">6 min</td></tr><tr><td><b>Override</b></td><td>Platform, restricted</td><td>Master key — <b>K. Coinsoul</b></td><td class=\"num\">4 min</td></tr><tr><td>Routine</td><td>Platform, main</td><td>Standing rota</td><td class=\"num\">11:05</td></tr><tr><td><b>Override</b></td><td>Platform, restricted</td><td>Master key — <b>K. Coinsoul</b></td><td class=\"num\">19 min</td></tr><tr class=\"pd-strike\"><td>Entry redacted at request of the platform office</td><td>—</td><td>—</td><td class=\"num\">—</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">§</b> An override entry is recorded against the key, not the hand. The log cannot state who turned it. The log can state that nobody else could have.</div><div class=\"pd-margin pd-margin--red\">Three overrides, one debtor, and a gambling balance that had stopped being survivable the previous week. The motive is in a different ledger. — W.</div><div class=\"pd-fine\">Retained as evidence. The redacted line is redacted in the original; Waluigi has reproduced the redaction rather than pretending it is not there.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_badge_447_receipt": {
+      "kind": "note",
+      "icon": "🎖️",
+      "title": "Property Receipt — Badge #447",
+      "subtitle": "Issued, worn, removed · the removal is the part that mattered",
+      "items": [
+        "bowser_badge_447"
+      ],
+      "articles": [],
+      "note": "Badges should not have this much plot weight. This one does, and the receipt is why: somebody numbered it, and a number can be followed.",
+      "body": "<div class=\"pd-org\" style=\"text-align:center\">PROPERTY RECEIPT</div><hr><dl class=\"pd-meta\"><dt>Article</dt><dd>Badge, Bowser pattern</dd><dt>Number</dt><dd><b>447</b></dd><dt>Issued to</dt><dd>Bearer, unnamed on this counterfoil</dd><dt>Condition on issue</dt><dd>Clean. Pin sound.</dd><dt>Condition on return</dt><dd>Returned with skin.</dd></dl><hr><p>The bearer signs below to acknowledge that the badge is <b>the property of the House</b>, that it is numbered, and that a numbered thing is a thing that can be traced back to the hand that wore it.</p><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>—</i></div><div class=\"pd-sigcap\">Bearer — counterfoil unsigned</div></div></div><div class=\"pd-margin\">Nobody signed it. Everybody was findable anyway. Removal of the badge preceded the combustion; the archive declines to state that it caused it. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_xo_stage_card": {
+      "kind": "note",
+      "icon": "🎭",
+      "title": "Stage Direction Card — Act Two",
+      "subtitle": "From X.O.'s deck · an operation written as a performance",
+      "items": [
+        "xo_stage_directive"
+      ],
+      "articles": [],
+      "note": "A god complex with cue cards is still a god complex. The cards are filed because the aesthetics are operational: when the staging is offended, the cruelty goes up.",
+      "torn": true,
+      "body": "<div class=\"pd-org\" style=\"text-align:center;letter-spacing:.2em\">ACT TWO</div><hr><p><b>ENTRANCE.</b> Not through the door. Through the door is what they are watching.</p><p><b>LIGHT.</b> Behind. Always behind. A face explained is a face diminished.</p><p><b>THE LINE.</b> Delivered once. If it must be repeated the scene has already failed and the failure is theirs.</p><p><b>THE FACE.</b> Selected for the audience, not for the crime. Choose the one they will remember in the retelling.</p><p><b>IF INTERRUPTED.</b> The interruption becomes the scene. Nothing is a mistake if it is committed to.</p><hr><p style=\"text-align:center;font-size:12px;letter-spacing:.12em\">— CURTAIN HELD UNTIL THEY UNDERSTAND —</p><div class=\"pd-margin pd-margin--red\">Read it twice. The fourth line selects a victim by how well they will describe the event afterwards. That is not vanity. That is target selection. — W.</div>",
+      "stamps": []
+    },
+    "prop_kamek_seal_rubbing": {
+      "kind": "map",
+      "icon": "🌀",
+      "title": "Seal Rubbing — The Notation Kamek Read As An Invitation",
+      "subtitle": "Charcoal on paper · annotated in a confident hand",
+      "items": [
+        "kamek_seal_rubbing"
+      ],
+      "articles": [],
+      "note": "The greatest wizard in Koopa history versus a label. The label lost first, then everyone else did.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Rubbing, taken at the seal face</div><div class=\"pd-sub\">Charcoal on paper · scale unrecorded</div></div><svg class=\"pd-contour\" viewBox=\"0 0 380 190\" width=\"380\" height=\"190\" role=\"img\" aria-label=\"Rubbing of a circular ward seal with concentric notation rings\"><g fill=\"none\" stroke=\"#3a332a\" stroke-width=\"1.6\" opacity=\".82\"><circle cx=\"190\" cy=\"95\" r=\"78\"/><circle cx=\"190\" cy=\"95\" r=\"62\" stroke-dasharray=\"9 5\"/><circle cx=\"190\" cy=\"95\" r=\"40\"/><path d=\"M190 17 L190 173 M112 95 L268 95 M135 40 L245 150 M245 40 L135 150\" opacity=\".55\"/></g><g fill=\"#3a332a\" opacity=\".8\" font-size=\"11\" font-family=\"Georgia,serif\"><text x=\"190\" y=\"99\" text-anchor=\"middle\" letter-spacing=\"3\">◈ ⟁ ◈</text></g><g stroke=\"#9d2c25\" fill=\"none\" stroke-width=\"1.3\"><circle cx=\"190\" cy=\"95\" r=\"88\" stroke-dasharray=\"3 4\"/></g></svg><dl class=\"pd-meta\"><dt>Outer ring</dt><dd>Binding notation. Repeated without variation, which in ward-work means <i>closed</i>.</dd><dt>Middle ring</dt><dd>A dedication. Names the thing sealed, not the reader.</dd><dt>Inner mark</dt><dd>Read by the taker of this rubbing as a personal address.</dd></dl><div class=\"pd-margin\">Annotated on the original in a firm hand: <b>&ldquo;for me&rdquo;</b>. The inner mark is a dedication of the prison to what is inside it. It was never addressed to anybody holding a stick of charcoal.</div><div class=\"pd-fine\">Waluigi is not a ward scholar and says so on the record. Waluigi is, however, extremely experienced in reading a document as saying what one wishes it said, and this is a textbook specimen.</div>",
+      "stamps": []
+    },
+    "prop_meadowlight_evidence_tag": {
+      "kind": "contract",
+      "icon": "🌿",
+      "title": "Chain of Custody — Meadowlight Staff Fragment",
+      "subtitle": "A sacred object entered into a docket · the tag is the insult",
+      "items": [
+        "meadowlight_staff_fragment"
+      ],
+      "articles": [],
+      "note": "Murder evidence should not have to do the work of mourning. Here it does both, on a printed form with a number in the corner.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Evidence Office</div><div class=\"pd-sub\">Chain of Custody · Sacred Object Handling</div></div><dl class=\"pd-meta\"><dt>Article</dt><dd>Staff fragment, shattered — Elder Meadowlight</dd><dt>Recovered</dt><dd>Near the death record location</dd><dt>Damage</dt><dd><b>Not consistent with fire.</b> Fracture, not char.</dd><dt>Bearing on</dt><dd>The Archie frame; druidic murder file</dd></dl><table class=\"pd-table\"><thead><tr><th>Held by</th><th>Purpose</th><th>Released to</th></tr></thead><tbody><tr><td>Recovering party</td><td>Recovery at scene</td><td>Evidence office</td></tr><tr><td>Evidence office</td><td>Examination — damage type</td><td>Docket clerk</td></tr><tr><td>Docket clerk</td><td>Entry as exhibit</td><td>Retained</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">i.</b> Sacred articles are handled under the same procedure as any other article. The office notes that the deceased's order was not consulted and had no standing to be.</div><div class=\"pd-clause\"><b class=\"n\">ii.</b> The non-fire damage finding is recorded here in the office's own words and has not been amended.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>clerk</i></div><div class=\"pd-sigcap\">Evidence office</div></div></div><div class=\"pd-margin pd-margin--red\">The finding on line three is the whole case and it is printed in the same size as the rest. A healer's staff, reduced to a damage-type field. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_bones_uniform_telegram": {
+      "kind": "telegram",
+      "icon": "📡",
+      "title": "Wire — Missing Legion Kit, Numbered",
+      "subtitle": "Sent late · read later · the uniform was already inside",
+      "items": [
+        "bones_legion_uniform"
+      ],
+      "articles": [],
+      "note": "Uniforms are doors people wear. This wire is the Legion noticing the handle had gone, several hours after somebody had used it.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Iron Legion · Quartermaster Wire</div></div><pre style=\"margin:0;font-family:inherit;line-height:1.9;letter-spacing:.03em\">TO ALL POSTS NORTHERN LINE STOP\nONE FIELD UNIFORM UNACCOUNTED FOLLOWING\nACTION STOP TAKEN FROM CASUALTY NOT\nRECOVERED WITH CASUALTY STOP\n\nASSUME WORN STOP ASSUME INSIDE STOP\n\nCHECK FACES NOT COLLARS STOP\nREPEAT CHECK FACES NOT COLLARS STOP\n\nQUARTERMASTER ENDS</pre><div class=\"pd-margin\">By the time a quartermaster is wiring &ldquo;check faces not collars&rdquo;, the collar has already walked past four sentries who checked the collar. — W.</div>",
+      "stamps": []
+    },
+    "prop_toad_lee_diary_page": {
+      "kind": "letter",
+      "icon": "📔",
+      "title": "Diary Page — Lady Aurelian, on Grafting",
+      "subtitle": "Preserved by Toad Lee, who read the plot",
+      "items": [
+        "toad_lee_diary_pages"
+      ],
+      "articles": [],
+      "note": "Toad Lee fell out a window, yes. He also read the important thing. Both facts can coexist, and only one of them is in this file.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">&nbsp;</div><div class=\"pd-sub\">Diary of Lady Aurelian · loose page, preserved</div></div><div class=\"pd-body\"><p>They call it <b>grafting</b>, which is a gardener's word, and they chose it on purpose. A graft takes. A graft is not a wound, it is a joining, and the tree does not complain afterwards because the tree has nothing left to complain with.</p><p>What is joined is not the flesh. Anyone can join flesh. What is joined is the <i>line</i> — and a line that has been joined once can be joined again, which is the part they do not say aloud at the table.</p><p>The Legion watches the wrong end of it. They watch the bodies. The bodies are the least interesting part. Watch the <b>blood-work</b>, and watch who is keeping the record of it, because whoever keeps that record decides afterwards what happened.</p></div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>A.</i></div><div class=\"pd-sigcap\">Unsigned beyond the initial</div></div></div><div class=\"pd-margin\">Reading is a combat skill. This page connects Legion observation to Corvinarus blood-work and it was recovered by the party member most famous for a window. — W.</div>",
+      "stamps": []
+    },
+    "prop_byscilla_disciplinary": {
+      "kind": "order",
+      "icon": "🧤",
+      "title": "Disciplinary Notice — The Bath Incident",
+      "subtitle": "Danos command · issued in gloves, received in water",
+      "items": [
+        "byscilla_command_gloves",
+        "thornbury_duck_ledger"
+      ],
+      "articles": [],
+      "note": "Some people need a sword. Byscilla needs gloves and disappointment. The notice is the disappointment, formalised.",
+      "body": "<div class=\"pd-classbar\">Command — Internal Discipline</div><div class=\"pd-head\"><div class=\"pd-org\">Danos Command</div><div class=\"pd-sub\">Notice of Disciplinary Finding</div></div><dl class=\"pd-meta\"><dt>Subject</dt><dd>Thornbury</dd><dt>Issued by</dt><dd>Byscilla Danos</dd><dt>Occasion</dt><dd>Extraction from a luxury bath during operational hours</dd></dl><div class=\"pd-clause\"><b class=\"n\">1.</b> The subject was located, in working hours, in water, at depth, with company of a rubber-fowl character not on any manifest.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> Extraction was effected by rope. The rope did not survive. The subject did.</div><div class=\"pd-clause\"><b class=\"n\">3.</b> The subject has since rendered an account for the rope, the bath, the ducks, and the preparation of the account. Command notes the account without endorsing the final line of it.</div><div class=\"pd-clause\"><b class=\"n\">4.</b> Finding: <b>the posture is corrected.</b> No further action, on condition that no further baths are held at depth in working hours.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>B. Danos</i></div><div class=\"pd-sigcap\">Command</div></div></div><div class=\"pd-margin\">Filed alongside the invoice, because one document created the other and neither is willing to admit it.</div><div class=\"pd-classbar bottom\">Retained — Danos Command</div>",
+      "stamps": [
+        "noaction"
+      ]
+    },
+    "prop_steely_burial_record": {
+      "kind": "ledger",
+      "icon": "⚙️",
+      "title": "Salvage Refusal — The Fragments of Steely",
+      "subtitle": "Filed by Hjumpik · every line valued at nothing",
+      "items": [
+        "steely_rusted_fragments"
+      ],
+      "articles": [],
+      "note": "A construct becomes a person in the moment somebody chooses burial over parts. This sheet is that moment, written down in the format of a salvage return with every recoverable value struck out.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Salvage Return</div><div class=\"pd-sub\">Construct Remains · Field Recovery</div></div><table class=\"pd-table\"><thead><tr><th>Component</th><th>Condition</th><th class=\"num\">Salvage value</th></tr></thead><tbody><tr class=\"pd-strike\"><td>Frame sections, three</td><td>Rusted through</td><td class=\"num\">recoverable</td></tr><tr class=\"pd-strike\"><td>Plating, assorted</td><td>Blast-scored</td><td class=\"num\">recoverable</td></tr><tr class=\"pd-strike\"><td>Core housing</td><td>Fragmented; memory unverified</td><td class=\"num\">recoverable</td></tr><tr class=\"pd-strike\"><td>Fittings and small parts</td><td>Scattered; collected by hand</td><td class=\"num\">recoverable</td></tr></tbody><tfoot><tr><td>Returned to stores</td><td>—</td><td class=\"num\">NIL</td></tr></tfoot></table><div class=\"pd-total\"><span>Disposition</span><span class=\"amt\">BURIED</span></div><div class=\"pd-clause\"><b class=\"n\">§</b> The recovering party collected the pieces by hand at the site and declined to enter them to stores. The return is filed complete so that the refusal is on the record rather than the omission.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>Hjumpik</i></div><div class=\"pd-sigcap\">Recovering party</div></div></div><div class=\"pd-margin\">Steely slowed, warned, and went up. The warning is the part no salvage column has a heading for. — W.</div>",
+      "stamps": []
+    },
+    "prop_tea_syndicate_page": {
+      "kind": "contract",
+      "icon": "🍵",
+      "title": "The Third Steeping — House Doctrine",
+      "subtitle": "A page from the Tea Leaf Syndicate book · read by Eager, absorbed by nobody",
+      "items": [
+        "tea_syndicate_book"
+      ],
+      "articles": [],
+      "note": "Tea people made hot leaf water into doctrine. Waluigi is annoyed and impressed, in that order, and only just.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">The Tea Leaf Syndicate</div><div class=\"pd-sub\">On the Third Steeping · House Doctrine, Article the Ninth</div></div><div class=\"pd-clause\"><b class=\"n\">i.</b> The first steeping is for the guest. It is courteous, it is weak, and it tells you nothing.</div><div class=\"pd-clause\"><b class=\"n\">ii.</b> The second steeping is for the table. By it a house is judged, and by it a house intends to be judged, which is why the second steeping is never the truth.</div><div class=\"pd-clause\"><b class=\"n\">iii.</b> <b>The third steeping is for the business.</b> It is taken after the guest has said the thing they came to say and before they have decided whether they meant it.</div><div class=\"pd-clause\"><b class=\"n\">iv.</b> A leaf held too long turns bitter and cannot be made sweet again by any subsequent kindness. The Syndicate applies this to leaves and to people and considers the comparison exact.</div><div class=\"pd-clause\"><b class=\"n\">v.</b> Serve the third steeping yourself. A cup poured by a servant is a cup poured by whoever pays the servant.</div><div class=\"pd-fine\">Preparations not found in polite markets are treated in Articles the Eleventh through Fourteenth, which are not reproduced here and which the archive has not seen.</div><div class=\"pd-margin\">Clause v is genuine operational security dressed as etiquette. Eager read this page and learned nothing, which is also data. — W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    }
+  }
+}
