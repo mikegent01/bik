@@ -1,0 +1,775 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=IM+Fell+English+SC&display=swap');
+/* Add a more script-like font for notes */
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap'); /* Example: Satisfy */
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap'); /* Example: Typewriter */
+
+:root {
+    --primary-bg: #f4f1e9; /* Parchment */
+    --secondary-bg: #e8e2d5; /* Slightly darker parchment */
+    --text-color: #3a2d22; /* Dark brown */
+    --header-bg: #4a2c1f; /* Dark wood brown */
+    --header-text: #e8e2d5;
+    --accent-color: #d4af37; /* Gold */
+    --border-color: #a07d4a; /* Darker gold/brass */
+    --evidence-bg: #c1a97e; /* Aged paper */
+    --evidence-hover: #b3996b;
+    --modal-bg: rgba(0, 0, 0, 0.75); /* Slightly darker modal overlay */
+    --modal-content-bg: #fdfaf3; /* Slightly lighter modal content bg */
+    --timeline-dot: #8b4513; /* Saddle brown */
+    --danger-color: #dc143c; /* Crimson */
+    --success-color: #228b22; /* Forest Green */
+    --firm-accent: #5a4a3a; /* Dusky brown for sketchy elements */
+    --rollable-bg: #fffacd; /* LemonChiffon for highlight */
+    --rollable-border: #d4af37;
+    --rollable-hover-bg: #f8f0ba;
+    --document-bg: #fffbf0; /* Light cream for documents */
+    --document-border: #ccc;
+    --ledger-line-color: #d3c0a5;
+    --note-font: 'Satisfy', cursive;
+    --lab-font: 'Special Elite', monospace;
+    --perfume-color: rgba(200, 160, 220, 0.1); /* Faint lavender for perfume effect */
+}
+
+body {
+    font-family: 'Crimson Text', serif;
+    background-color: var(--primary-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    /* Subtle texture */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100%" height="100%" fill="%23f4f1e9"/><path d="M0 0 Q 50 10 100 0 T 200 0 M0 100 Q 50 90 100 100 T 200 100" stroke="%23e8e2d5" stroke-width="1" fill="none" opacity="0.5"/><line x1="0" y1="50" x2="100" y2="50" stroke="%23e8e2d5" stroke-width="0.5" opacity="0.3"/><line x1="50" y1="0" x2="50" y2="100" stroke="%23e8e2d5" stroke-width="0.5" opacity="0.3"/></svg>');
+    position: relative; /* Needed for watermark */
+}
+
+#case-summary-container {
+    max-width: 950px; /* Slightly wider */
+    margin: 20px auto;
+    background-color: var(--secondary-bg);
+    border: 2px solid var(--border-color);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    overflow: hidden; /* Ensures border-radius clips content */
+    border-top: 5px solid var(--header-bg); /* Thicker top border */
+}
+
+header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 15px 25px;
+    border-bottom: 3px solid var(--accent-color);
+    text-align: center;
+    position: relative;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px; /* Increased gap */
+    position: relative;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.court-seal {
+    width: 85px; /* Slightly larger */
+    height: 85px;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.court-seal svg {
+    width: 100%;
+    height: 100%;
+}
+
+header h1 {
+    font-family: 'IM Fell English SC', serif;
+    margin: 0;
+    font-size: 2.4em; /* Slightly adjusted */
+    font-weight: normal;
+}
+
+header h2 {
+    margin: 5px 0 0;
+    font-size: 1.1em; /* Slightly smaller */
+    font-weight: normal;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+main {
+    padding: 25px;
+}
+
+section {
+    margin-bottom: 30px; /* Increased spacing */
+    padding-bottom: 25px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+h3, h4 {
+    font-family: 'IM Fell English SC', serif;
+    color: var(--header-bg);
+    margin-bottom: 15px; /* Increased spacing */
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 8px; /* Increased padding */
+}
+
+h3 {
+    font-size: 1.9em; /* Slightly larger */
+    text-align: center;
+}
+
+h4 {
+    font-size: 1.5em; /* Slightly larger */
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 10px; /* Increased spacing */
+    padding-left: 25px; /* Increased indent */
+    position: relative;
+}
+
+li::before {
+    content: '•';
+    position: absolute;
+    left: 5px; /* Adjusted position */
+    top: 2px; /* Fine-tune vertical alignment */
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+#personnel ul li strong { /* Style key personnel titles */
+    color: var(--firm-accent);
+    min-width: 150px;
+    display: inline-block;
+}
+
+#evidence-locker h4 {
+    margin-bottom: 20px;
+}
+
+.evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* Slightly larger min size */
+    gap: 20px; /* Increased gap */
+}
+
+.evidence-item {
+    background-color: var(--evidence-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition for multiple properties */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative; /* For potential future pseudo-elements */
+    overflow: hidden; /* Clip potential effects */
+}
+
+.evidence-item::after { /* Subtle overlay effect */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.6s ease;
+}
+
+.evidence-item:hover {
+    background-color: var(--evidence-hover);
+    transform: translateY(-4px) scale(1.02); /* Slightly more lift and scale */
+    box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.evidence-item:hover::after {
+    left: 100%; /* Slide effect on hover */
+}
+
+.evidence-item svg {
+    width: 45px; /* Slightly larger icons */
+    height: 45px;
+    margin-bottom: 10px;
+    fill: var(--header-bg); /* Default fill */
+    transition: transform 0.3s ease;
+}
+
+.evidence-item:hover svg {
+    transform: scale(1.1); /* Scale icon on hover */
+}
+/* Styles for 20 NEW Worldbuilding Icons */
+#item-tavern-receipt svg { fill: #D2B48C; } /* Tan for receipt */
+#item-petrified-citrus svg { fill: #8B4513; } /* Brown */
+#item-pterodactyl-feather svg { fill: #A9A9A9; } /* Dark Gray */
+#item-frost-sprite-dust svg { fill: #ADD8E6; } /* Light Blue */
+#item-vampire-complaint svg { fill: #800000; } /* Maroon */
+#item-werewolf-scent-marker svg { fill: #A0522D; } /* Sienna */
+#item-knights-guild-standard svg { fill: #B0C4DE; } /* Light Steel Blue */
+#item-archer-fletching svg { fill: #2E8B57; } /* Sea Green */
+#item-wizard-robe-patch svg { fill: #483D8B; } /* Dark Slate Blue */
+#item-missing-persons-poster svg { fill: #e1c699; } /* Light parchment */
+#item-shop-keeper-ledger svg { fill: #deb887; } /* Burlywood */
+#item-noble-handkerchief svg { fill: #DAA520; } /* Goldenrod */
+#item-kingly-tax-stamp svg { fill: #D4AF37; } /* Gold */
+#item-guard-incident-report svg { fill: #6c757d; } /* Gray */
+#item-mushroom-kingdom-coin svg { fill: #FFCC33; } /* Yellow star color */
+#item-imperial-waterskin svg { fill: #B22222; } /* Firebrick */
+#item-equestrian-bridle-fragment svg { fill: #FF69B4; } /* Hot pink */
+#item-thieves-cant-message svg { fill: #696969; } /* Dim gray */
+#item-wario-fan-club-card svg { fill: #FFDF00; } /* Gold */
+#item-toad-cult-component svg { fill: #9370DB; } /* Medium Purple */
+/* Specific Icon Fills */
+#item-testimony svg { fill: #8b4513; } /* SaddleBrown for testimony/reports */
+#item-residue svg { fill: #ff4500; } /* OrangeRed for fire */
+#item-robes svg { fill: #8B4513; } /* Same brown for kit */
+#item-emblem svg { fill: #a9a9a9; } /* DarkGray for melted silver */
+#item-blimp svg { fill: #a0522d; } /* Brown for blimp */
+#item-fall svg { fill: var(--danger-color); } /* Crimson for injury */
+#item-pouch svg { fill: #7a5230; } /* Brown for pouch */
+#item-druid-staff svg { fill: #228b22; } /* ForestGreen for staff */
+#item-station-log svg { fill: #6c757d; } /* Gray for log */
+#item-guild-communique svg { fill: #b8860b; } /* DarkGoldenrod for communique */
+#item-village-wards svg { fill: #1e90ff; } /* DodgerBlue for wards */
+#item-miser-notes svg { fill: #deb887; } /* Burlywood for notes/ledger */
+#item-wanted-poster svg { fill: #e1c699; } /* Light parchment for poster */
+#item-station-schedule svg { fill: #4682b4; } /* SteelBlue for schedule */
+#item-smuggler-coin svg { fill: #b87333; } /* Copper for coin */
+#item-overheard-convo svg { fill: #8b4513; } /* Same as testimony */
+#item-official-decree svg { fill: #d4af37; } /* Gold accent for decree */
+#item-love-letter svg { fill: #ffc0cb; } /* Pink for love letter */
+/* Styles for NEW icons */
+#item-fins-complaint svg { fill: #8b4513; } /* Same as testimony/reports */
+#item-clockwork-gear svg { fill: #b8860b; } /* DarkGoldenrod for gear */
+#item-station-power-log svg { fill: #ffd700; } /* Gold for power/lightning */
+#item-miser-debt-notice svg { fill: #dc143c; } /* Crimson for debt/danger */
+#item-scorched-playing-card svg { fill: #444; } /* Dark gray for scorched card */
+#item-anonymous-tip svg { fill: #6c757d; } /* Gray for anonymous tip */
+
+
+.evidence-item p {
+    margin: 0;
+    font-size: 0.95em; /* Slightly larger text */
+    font-weight: bold;
+}
+
+#timeline {
+    margin-top: 30px;
+}
+
+.timeline-list {
+    list-style: none;
+    padding-left: 15px; /* Increased indent */
+    position: relative;
+}
+
+.timeline-list::before { /* The timeline bar */
+    content: '';
+    position: absolute;
+    left: 6px; /* Adjusted position */
+    top: 8px;
+    bottom: 8px;
+    width: 3px; /* Thicker line */
+    background-color: var(--timeline-dot);
+    border-radius: 2px;
+}
+
+.timeline-list li {
+    padding-left: 35px; /* Increased indent */
+    margin-bottom: 18px; /* Increased spacing */
+    position: relative;
+}
+
+.timeline-list li::before { /* The timeline dot */
+    content: '';
+    position: absolute;
+    left: 0px; /* Adjusted position */
+    top: 6px; /* Adjusted position */
+    width: 13px; /* Larger dot */
+    height: 13px;
+    background-color: var(--timeline-dot);
+    border-radius: 50%;
+    border: 3px solid var(--secondary-bg); /* Match background for clean look */
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+.timeline-list li span {
+    font-weight: bold;
+    color: var(--header-bg);
+    display: block;
+    margin-bottom: 5px; /* Increased spacing */
+    font-size: 1.05em;
+}
+
+footer {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    text-align: center;
+    padding: 12px;
+    font-size: 0.85em;
+    font-style: italic;
+    border-top: 2px solid var(--accent-color);
+    opacity: 0.9;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: var(--modal-bg); /* Black w/ opacity */
+    backdrop-filter: blur(3px); /* Subtle blur */
+    opacity: 0; /* Start hidden for transition */
+    transition: opacity 0.4s ease-in-out;
+}
+
+.modal.show { /* Class added by JS to show modal */
+    display: flex; /* Use flex to center content */
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: var(--modal-content-bg);
+    padding: 30px; /* Increased padding */
+    border: 3px solid var(--border-color);
+    border-radius: 8px; /* Smoother radius */
+    width: 90%; /* Wider */
+    max-width: 850px; /* Increased max-width */
+    max-height: 90vh; /* Limit height */
+    overflow-y: auto; /* Allow scrolling within modal */
+    position: relative;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    transform: scale(0.95); /* Start slightly small for transition */
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.close-button {
+    color: var(--text-color);
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 32px; /* Larger */
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 10; /* Ensure it's above content */
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--danger-color);
+    transform: rotate(90deg);
+    text-decoration: none;
+}
+
+#modal-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.8em; /* Larger title */
+    font-family: 'IM Fell English SC', serif;
+    color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+/* Main modal content area (Summary + Examination) */
+#modal-content-main {
+    display: block; /* Default view */
+    margin-bottom: 20px;
+    /*display: flex; Layout report and examination side-by-side maybe? Or stack */
+    /* flex-direction: column; Stack sections */
+    /* gap: 20px; */
+}
+
+.report-section, .examination-section {
+    padding: 15px;
+    background: rgba(232, 226, 213, 0.4); /* Faint secondary bg */
+    border: 1px dashed var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 20px; /* Space between sections */
+}
+
+.report-section h5, .examination-section h5 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-family: 'IM Fell English SC', serif;
+    color: var(--firm-accent);
+}
+
+.examination-controls {
+    margin-bottom: 10px; /* Space between buttons and results */
+}
+
+.examination-section h5,
+.hidden-details h5 { /* Style the new heading in hidden details */
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-family: 'IM Fell English SC', serif;
+    color: var(--firm-accent);
+    font-size: 1.1em;
+    border-bottom: 1px dotted var(--border-color);
+    padding-bottom: 5px;
+}
+
+.hidden-details p { /* Ensure paragraph spacing in revealed details */
+    margin-bottom: 0.8em;
+}
+.hidden-details p:last-child {
+    margin-bottom: 0;
+}
+
+/* Button base styles (could be shared if more buttons are added) */
+.action-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: var(--firm-accent);
+    color: var(--header-text);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Crimson Text', serif;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-left: 10px; /* Space between buttons if needed */
+    vertical-align: middle; /* Align buttons nicely */
+}
+.action-button:first-child {
+    margin-left: 0; /* No margin on first button */
+}
+
+.action-button:hover:not(:disabled) {
+    background-color: #4a2c1f; /* Darker wood */
+    transform: translateY(-1px);
+}
+
+.action-button:active:not(:disabled) {
+    transform: translateY(0px);
+}
+
+#examine-button, #read-report-button {
+     font-size: 1em; /* Make buttons slightly larger */
+}
+
+#examine-button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+#read-report-button {
+     background-color: var(--accent-color); /* Gold for read button */
+     color: var(--header-bg);
+     border-color: #a07d4a;
+}
+#read-report-button:hover:not(:disabled) {
+    background-color: #b8860b; /* Darker gold */
+}
+
+#reset-rolls-button {
+     background-color: var(--danger-color); /* Make reset red */
+     color: white;
+     border-color: #8b0a1a; /* Darker danger color */
+}
+
+#reset-rolls-button:hover:not(:disabled) {
+    background-color: #8b0a1a;
+}
+
+#back-to-summary-button {
+    background-color: var(--firm-accent);
+    margin-bottom: 15px; /* Space below back button */
+}
+
+
+.roll-result-area {
+    margin-top: 10px;
+    font-style: italic;
+    color: var(--firm-accent);
+    min-height: 1.5em; /* Reserve space */
+}
+
+.roll-result-area .success, .insight-roll-result .success {
+    color: var(--success-color);
+    font-weight: bold;
+}
+
+.roll-result-area .failure, .insight-roll-result .failure {
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+.hidden-details {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dotted var(--border-color);
+    font-size: 0.95em;
+    background: rgba(255, 255, 255, 0.2); /* Slightly highlight revealed details */
+    padding: 10px;
+    border-radius: 3px;
+    display: none; /* Hidden initially */
+}
+
+.hidden-details.show {
+    display: block; /* Shown by JS */
+}
+
+/* Full Report View Styles */
+.full-report-view {
+    display: none; /* Hidden by default */
+    padding: 20px;
+    margin-top: 15px;
+    background-color: var(--document-bg);
+    border: 1px solid var(--document-border);
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 5px rgba(0,0,0,0.1);
+    max-height: 65vh; /* Limit height within modal */
+    overflow-y: auto; /* Allow scrolling */
+    font-family: 'Crimson Text', serif; /* Default font */
+}
+
+/* Specific Document Styles */
+.full-report-view.document-style-official {
+    border-left: 5px solid var(--header-bg); /* Official sidebar */
+}
+.full-report-view.document-style-official h4 {
+    font-family: 'IM Fell English SC', serif;
+    color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.full-report-view.document-style-lab {
+    font-family: var(--lab-font);
+    font-size: 0.95em;
+    line-height: 1.5;
+    border: 1px dashed #aaa;
+}
+.full-report-view.document-style-lab h4 {
+    text-align: center;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    text-decoration: underline;
+}
+.full-report-view.document-style-lab p { margin-bottom: 0.5em; }
+.full-report-view.document-style-lab hr { border-top: 1px dashed #aaa; }
+
+.full-report-view.document-style-ledger {
+    font-family: monospace;
+    font-size: 0.9em;
+}
+.ledger-page { padding: 10px; }
+.ledger-header { font-weight: bold; text-align: center; margin-bottom: 15px; border-bottom: 2px solid var(--firm-accent); padding-bottom: 5px; }
+.ledger-entry { display: grid; grid-template-columns: 60px 1fr 70px 70px 80px; border-bottom: 1px solid var(--ledger-line-color); padding: 4px 0; align-items: baseline; }
+.ledger-entry span { padding: 0 5px; }
+.ledger-entry .date { font-style: italic; color: #666; }
+.ledger-entry .debit { text-align: right; color: var(--danger-color); }
+.ledger-entry .credit { text-align: right; color: var(--success-color); }
+.ledger-entry .balance { text-align: right; font-weight: bold; }
+.ledger-entry.ledger-note .desc { grid-column: 2 / 6; font-style: italic; color: #444; background: rgba(200, 200, 180, 0.2); padding: 3px; }
+.ledger-entry.ledger-urgent { background-color: rgba(220, 20, 60, 0.05); } /* Faint red highlight */
+
+.full-report-view.document-style-note {
+    font-family: var(--note-font);
+    font-size: 1.1em;
+    line-height: 1.8;
+    background-image: linear-gradient(90deg, transparent 49px, var(--ledger-line-color) 49px, var(--ledger-line-color) 50px, transparent 50px); /* Faint lines like notebook */
+    background-size: 50px 1.8em;
+    border: 1px solid #ddd;
+}
+.full-report-view.document-style-note.perfumed {
+     background-color: color-mix(in srgb, var(--document-bg), var(--perfume-color) 30%);
+     position: relative;
+ }
+ .full-report-view.document-style-note.perfumed::before { /* Perfume cloud effect? */
+     content: '🌸'; /* Or an SVG */
+     position: absolute;
+     top: 5px;
+     right: 10px;
+     font-size: 1.5em;
+     opacity: 0.15;
+     pointer-events: none;
+ }
+.note-page.torn-edge {
+    border-right: 2px dashed #aaa; /* Simulate torn edge */
+    padding-right: 15px;
+}
+
+/* Style for water stain effect */
+.water-stained {
+    /* You might need more complex SVG filters or background images for a realistic effect */
+    /* This is a simple placeholder */
+    background-color: #f0eada !important; /* Slightly yellowed/stained */
+    opacity: 0.9; /* Make text slightly harder to read */
+    /* Add a subtle SVG texture overlay if desired */
+     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><filter id="water"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.05" numOctaves="3" seed="15" result="noise"/><feDiffuseLighting in="noise" lighting-color="%23d0c0a0" surfaceScale="1.5"><feDistantLight azimuth="45" elevation="60"/></feDiffuseLighting></filter><rect width="100%" height="100%" filter="url(%23water)" opacity="0.2"/></svg>');
+}
+
+
+.full-report-view.document-style-poster {
+    background: #f5e8c8; /* Poster color */
+    border: 2px solid #a07d4a;
+    padding: 15px;
+}
+.poster-front, .poster-back { margin-bottom: 10px; }
+.poster-title { text-align: center; font-family: 'IM Fell English SC', serif; font-size: 1.8em; margin-bottom: 5px; }
+.poster-image-placeholder { width: 100px; height: 100px; background: #ddd; border: 1px solid #555; margin: 5px auto; text-align: center; line-height: 100px; font-size: 0.8em; color: #777; }
+.poster-name { text-align: center; font-family: 'IM Fell English SC', serif; font-size: 1.5em; margin-bottom: 5px; }
+.poster-charges { font-size: 0.8em; margin-bottom: 10px; }
+.poster-reward { text-align: center; font-weight: bold; margin-bottom: 10px; }
+.poster-stamp { font-family: Impact, sans-serif; font-size: 2em; color: #a00; text-align: center; transform: rotate(-10deg); border: 3px double #a00; padding: 2px 5px; display: inline-block; margin: 0 auto 10px; }
+.poster-decree { font-size: 0.8em; text-align: center; font-style: italic; }
+.poster-back { border-top: 1px dashed #a07d4a; padding-top: 10px; font-size: 0.9em; }
+.poster-hidden-note { font-family: monospace; color: #555; background: rgba(255, 255, 255, 0.5); padding: 2px; margin-bottom: 3px; }
+
+.full-report-view.document-style-log pre.log-text {
+    font-family: monospace;
+    font-size: 0.85em;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background: #eee;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+.log-entry-header h3, .schedule-header h3 { font-size: 1.2em; text-align: center; }
+.log-entry-header p, .schedule-header p { font-size: 0.9em; text-align: center; margin: 2px 0; }
+
+table.schedule-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+table.schedule-table th, table.schedule-table td { border: 1px solid var(--ledger-line-color); padding: 4px 6px; text-align: left; }
+table.schedule-table th { background: var(--secondary-bg); font-weight: bold; }
+
+
+/* Rollable Text Styles */
+.rollable-text {
+    background-color: var(--rollable-bg);
+    border-bottom: 1px dashed var(--rollable-border);
+    padding: 0 2px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-style: italic;
+    font-weight: bold;
+    /* white-space: nowrap; /* Removed - allow wrapping */
+}
+
+.rollable-text:hover:not(.rolled) {
+    background-color: var(--rollable-hover-bg);
+}
+
+.rollable-text.rolled {
+    cursor: default;
+    background-color: transparent; /* Remove highlight after roll */
+    border-bottom: 1px solid transparent;
+    font-style: normal; /* Return to normal style */
+    font-weight: normal;
+    padding: 0;
+    /* white-space: normal; */ /* Default wrapping */
+}
+
+.insight-roll-result {
+    display: inline-block; /* Keep result on same line if possible */
+    margin-left: 5px;
+    padding: 1px 4px;
+    font-size: 0.9em;
+    font-style: italic;
+    border-radius: 3px;
+    background-color: var(--secondary-bg);
+    border: 1px solid var(--border-color);
+    white-space: normal; /* Allow result text to wrap */
+    vertical-align: baseline; /* Align better with text */
+}
+
+/* Additional Lore Section Styles */
+#additional-lore {
+    margin-top: 30px;
+}
+
+.lore-box {
+    background: rgba(232, 226, 213, 0.5);
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.lore-box h5 {
+    font-family: 'IM Fell English SC', serif;
+    color: var(--header-bg);
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.lore-box p {
+    margin-bottom: 1em;
+}
+
+.lore-box p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    header h1 {
+        font-size: 2em;
+    }
+    header h2 {
+        font-size: 1em;
+    }
+    main {
+        padding: 15px;
+    }
+    .evidence-grid {
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+        gap: 10px;
+    }
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+        /* max-height: 90vh; /* Already set */
+        /* overflow-y: auto; /* Already set */
+    }
+    #modal-title {
+        font-size: 1.5em;
+    }
+     .full-report-view {
+         max-height: 60vh; /* Adjust height for smaller screens */
+     }
+    .ledger-entry { grid-template-columns: 40px 1fr 50px 50px 60px; font-size: 0.8em; } /* Adjust ledger on mobile */
+
+}
