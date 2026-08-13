@@ -148,14 +148,25 @@ Every new session event or long narrative filing ships **with images**. This is 
 
 When the prose says a document exists — an invoice, an order, a ledger, a telegram, a passport — the reader should be able to **open and read it**. Those artifacts live in `data/props.json` and render as full custom-CSS paper in a modal.
 
+This is **step 6 of the filing process**, run immediately after the prose: [`docs/SESSION_FILING_PROCESS.md` → Step 6](../docs/SESSION_FILING_PROCESS.md#step-6--exhibits-file-the-paper-the-story-mentions). The craft standard — which documents earn a prop, how to write in the issuer's voice, the addendum form — is [`docs/STORY_FORMAT_GUIDE.md` §9B](../docs/STORY_FORMAT_GUIDE.md#9b-exhibits--the-documents-the-story-names). What follows is the field reference.
+
 1. Add a prop object under `props` keyed `prop_<subject>_<kind>`, with the keys in this order: `kind`, `icon`, `title`, `subtitle`, `items`, `articles`, `note`, `body`, then optional `stamps` and `torn`.
 2. `kind` must be one of the styled forms: `invoice`, `order`, `ledger`, `letter`, `telegram`, `contract`, `note`, `map`, `passport`, `addendum`. `stamps` may include `sealed`, `evidence`, `overdue`, `void`, `noaction`, `paid`.
 3. `items` holds item keys from `INVENTORY_SYSTEM`; `articles` holds article IDs. Those arrays are the wiring — an exhibit tile grid appears automatically on every item page and article listed, and the modal links back. No renderer code is ever touched to add a document.
-4. `body` is an HTML string built **only** from the documented `.pd-*` classes in `app/styles/systems/exhibits.css` (`pd-head`, `pd-meta`, `pd-table`, `pd-total`, `pd-clause`, `pd-classbar`, `pd-sigline`, `pd-margin`, `pd-fine`, `pd-strike`). Do not invent classes and do not use inline styles.
+4. `body` is an HTML string built **only** from the documented `.pd-*` classes in `app/styles/systems/exhibits.css`. Do not invent classes and **never use an inline style** — both render as unstyled text and both fail the audit. The vocabulary:
+   - **Structure** — `pd-head`, `pd-org`, `pd-sub`, `pd-title`, `pd-label`, `pd-meta` (a `<dl>`), `pd-table`, `pd-total`, `pd-clause`, `pd-fine`
+   - **Annotation** — `pd-margin` (`pd-margin--red` for alarm), `pd-flagged` for the clause somebody marked up, `pd-strike` on a struck table row
+   - **Signature** — `pd-sign`, `pd-sigline`, `pd-sigcap`, `pd-signoff`
+   - **Layout** — `pd-center`, `pd-right`, `pd-spaced`, `pd-inset`, `pd-wire` (a `<pre>` for telegram copy)
+   - **Carved / printed objects** — `pd-carved`, `pd-rubbed` (a name weather or a hand took back), `pd-epitaph`
+   - **Addendum slips** — `pd-late` (the "attached N years later" line), `pd-quote`, `pd-wah`
+   - **Kind-specific** — `pd-cartouche`, `pd-elev`, `pd-contour` (maps); `pp-cover`, `pp-body`, `pp-photo`, `pp-fields`, `pp-mrz` (passports); `pd-classbar`
+
+   If a document needs something the list does not cover, add the class to `exhibits.css` **first**, then use it.
 5. Write the paper as the issuing organisation would, not as the archive would. Waluigi's opinion goes in the `pd-margin` aside and the `note` field, and nowhere else.
 6. To open a document from inside prose, use the inline trigger `[[prop:prop_id|invoice]]`.
 7. **Every `## Addendum:` heading in a filing gets an `addendum` prop.** An addendum is the archive going back to a closed file and adding one more thing, so it is filed as a separate slip rather than buried mid-article: `pd-late` for the "attached N years later" line, `pd-quote` for verbatim speech, `pd-wah` for the sign-off. Say on the paper *why* the addendum exists — what was noticed, who noticed it, and why it was not in the original filing. Search for new ones with `grep -in addendum data/events.json`.
-8. Verify: `props.json` parses, every `items` / `articles` key resolves, no `[[prop:` marker survives into the rendered HTML, and the tile actually opens.
+8. Verify with **`python3 tools/check-exhibits.py`** — it fails on a broken `props.json`, an unstyled `kind` or stamp, an invented class, an inline style, an unresolvable `items` / `articles` id, a prop linked to nothing, and a `[[prop:…]]` marker with no prop behind it; it warns on an `## Addendum:` heading with no slip. Then load the article and confirm the tile opens and no raw `[[prop:` text survives.
 
 ## Characters, Items & Foundry Actor JSON
 

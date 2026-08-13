@@ -76,7 +76,23 @@ Fifteen shipped once.
 grep -n '<div\|<span\|<br' Reputation-Matrix2/data/events.json | head
 ```
 
-### 4. The page actually loads
+### 4. The exhibits are sound
+
+Props are the one data layer that renders raw HTML, so a typo there is a
+visible break rather than a silent one.
+
+```bash
+python3 tools/check-exhibits.py
+```
+
+Fails on: `props.json` not parsing · a `kind` or stamp with no CSS rule · an
+invented `.pd-*` class or an inline style in a `body` · an `items` / `articles`
+id that resolves to nothing · a prop linked to nothing (unopenable) · a
+`[[prop:…]]` marker pointing at a prop that does not exist. Warns on an
+`## Addendum:` heading with no addendum slip filed against it. Standard:
+[`STORY_FORMAT_GUIDE.md` §9B](STORY_FORMAT_GUIDE.md#9b-exhibits--the-documents-the-story-names).
+
+### 5. The page actually loads
 
 ```bash
 python3 -m http.server 8000 --bind 0.0.0.0
@@ -86,7 +102,7 @@ Then check: the home feed shows the new item · `#/article/<id>` resolves ·
 participant chips link to real pages · asides render as purple callouts, not
 italic text with stray asterisks · no console errors.
 
-### 5. Craft numbers (advisory)
+### 6. Craft numbers (advisory)
 
 [`AUDIT_SCRIPTS.md`](AUDIT_SCRIPTS.md). Advisory only. Re-read and decide.
 
@@ -177,6 +193,7 @@ find . \( -name '*-new.*' -o -name '*-v2.*' -o -name '*-final.*' \
 □ No dangling ids introduced by this run
 □ No raw <div>/<span> in prose fields
 □ No generated file hand-edited
+□ Exhibits filed for the paper the prose names; python3 tools/check-exhibits.py clean
 □ Home feed + SITE_UPDATES + mainPage.json updated
 □ Event id appended to tools/rnn-scripts/pending-news-articles.json
 □ Audit script run; output read, not just executed

@@ -390,6 +390,42 @@ body.light .pill-exhibit{color:#6b4c12!important;border-color:rgba(150,110,30,.5
   letter-spacing:.3em; font-size:15px; color:#5a1f1f; margin-top:18px;
 }
 
+/* ---------- shared utilities ----------
+   Prop bodies use the .pd-* vocabulary ONLY — never an inline style.
+   If a document needs something that is not here, add the class here
+   first, then use it. tools/check-exhibits.py fails the run otherwise. */
+
+/* centred display lines: memorial plate, stage card, headstone lettering */
+.pd-center{text-align:center}
+.pd-right{text-align:right}
+.pd-spaced{letter-spacing:.18em}
+/* the big carved-name block on a plank, plate or marker */
+.pd-carved{
+  text-align:center; font-size:19px; line-height:2.1; letter-spacing:.08em;
+}
+/* a name the weather — or a hand — has taken back off the wood */
+.pd-rubbed{opacity:.42;text-decoration:line-through wavy rgba(0,0,0,.3)}
+/* the small engraved line under a memorial rule */
+.pd-epitaph{
+  text-align:center; font-size:12.5px; letter-spacing:.1em;
+  font-family:Georgia,"Times New Roman",serif;
+}
+/* a clause somebody has marked up in the margin — the one that matters */
+.pd-flagged{
+  background:rgba(157,44,37,.09); border-left:3px solid #9d2c25;
+  padding:9px 9px 9px 34px; margin-left:-3px;
+}
+.pd--order .pd-flagged{background:rgba(90,31,31,.09);border-color:#5a1f1f}
+/* wire copy: monospaced-by-inheritance, generously leaded */
+.pd-wire{
+  margin:0; font-family:inherit; line-height:1.9; letter-spacing:.03em;
+  white-space:pre-wrap;
+}
+/* a hand-signed closing line at the foot of a note */
+.pd-signoff{text-align:right;margin-top:1.4em}
+/* padding for a note dropped inside an unpadded shell (passport, cover) */
+.pd-inset{padding:14px 18px}
+
 /* ---------- responsive ---------- */
 @media(max-width:600px){
   .pd--addendum{font-size:12px}
