@@ -192,7 +192,24 @@ system shipped a parallel design language (`.inv-hero`, `.inv-grid`,
 `.inv-card`, `.inv-tabs`, `.inv-modal`, …) and read like a different website
 bolted onto this one. That was removed.
 
-**The rule: if the site already has a class for it, use the site's class.**
+**Rule one: a case file is one continuous document.**
+
+Read it top to bottom — the hook, the brief, the threads, the evidence locker,
+the leads, the records behind them — with a sidebar table of contents to jump
+around. This is exactly how `view_trial()` renders a court case, and it is how
+`archiecourtcase/` renders the Miser trial: summary of allegations first, then
+you scroll into the evidence locker.
+
+An intermediate version of this page put those sections behind tabs. That was
+wrong for a reason worth writing down: **a case file is an argument, and an
+argument that is split across four pages you have to click between is not an
+argument any more, it is four fragments.** The reader cannot see the brief and
+the exhibit that supports it at the same time, cannot Ctrl-F the file, cannot
+print it, and cannot tell how much there is. Tabs are for *filtering a list of
+peers* — which is why the index page still has them. They are not for
+*sectioning one document*. Do not reintroduce them here.
+
+**Rule two: if the site already has a class for it, use the site's class.**
 
 | Thing on the page | Class to use | Do not invent |
 |---|---|---|
@@ -200,7 +217,7 @@ bolted onto this one. That was removed.
 | Section header with a right-hand action | `.home-section-head` | a bespoke header row |
 | Grid of clickable things | `.artgrid` + `.arttile` (`.tt` `.tsub` `.tsum` `.tmeta`) | `.inv-grid`, `.inv-ex-grid` |
 | Detail page skeleton | `.breadcrumb` + `.article-layout` + `.art-kicker`/`.art-title`/`.art-subtitle`/`.metabar` | a bespoke file header |
-| Tabs / filters | `.chips` + `.chip` (`.active`) | `.inv-tabs` |
+| Filters on the index | `.chips` + `.chip` (`.active`) | `.inv-tabs` |
 | Small status badge | `.pill` (+ a colour-only modifier) | a new badge component |
 | Big number readout | `.species-stats` + `.species-stat` | `.inv-stat` |
 | Progress meter | `.xpbar` | `.inv-bar` |
@@ -221,6 +238,12 @@ Four things are genuinely new to this system and therefore *do* live in
 3. `.inv-pips` / `.pip.on` — the "how much of this exhibit has been read"
    strip, which sits inside an ordinary `.arttile .tmeta` row.
 4. `.inv-inline-roll` / `.inv-inline-out` — the clickable spans inside prose.
+5. `.inv-session-head` — the dashed divider inside the evidence locker that
+   says "these exhibits came out of that session". An `<h3>`, so it stays in
+   the article's heading rhythm instead of becoming a card.
+6. `.inv-lead` — a lead as a bordered block in the run of the document, the way
+   charges read on a trial page. Not a card; cards would break the scroll into
+   a stack of boxes.
 
 Plus two colour-only modifiers that ride on `.pill` and set nothing but
 `color` and `border-color`: `.inv-status--*` (active / stub / closed) and
@@ -230,6 +253,22 @@ If you are about to add a rule to `investigations.css` that sets `padding`,
 `border-radius`, `display:grid`, or a background gradient, stop — you are
 rebuilding a component the site already has, and that is the exact mistake
 this section exists to prevent.
+
+### Section order on a case file
+
+| # | Section | Anchor | Shown when |
+|---|---|---|---|
+| — | Header: kicker, title, subtitle, metabar, **The Hook** in an `.article-lead-card`, progress | — | always |
+| 1 | Waluigi's Brief | `sec-brief` | `brief` is set |
+| 2 | Open Threads | `sec-threads` | `threads[]` is non-empty |
+| 3 | Evidence Locker | `sec-exhibits` | `exhibits[]` is non-empty |
+| 4 | Live Leads | `sec-leads` | `leads[]` is non-empty |
+| 5 | Session Records Behind This File | `sec-records` | at least one `relatedEvents` id resolves |
+
+The order is deliberate and matches the court document: **you are told what the
+file argues before you are handed the paper.** Sections push their own entry
+into the table of contents as they render, so the TOC never lists a section
+that is not on the page.
 
 Two conventions inherited from the rest of `index.html`:
 
@@ -323,7 +362,9 @@ Do not start one per session, per villain, or per location. Start one when an
 A new file needs, minimally: `id`, `codename`, `title`, `status: "stub"`,
 `arcIds`, `icon`, `accent`, `hook`, a `brief` that states what the file will
 argue, one thread, and two leads. Stubs render correctly with no exhibits and
-no sessions — the exhibits tab is simply hidden and the file opens on the brief.
+no sessions — the evidence locker section is simply absent, and the file opens
+on the brief. Every section on the page follows that rule: it renders or it is
+not there, and it never appears empty.
 
 Four stubs already exist and are waiting for their first exhibits:
 

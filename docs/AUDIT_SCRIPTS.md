@@ -250,10 +250,14 @@ No arguments — it reads `Reputation-Matrix2/data/investigations.json` against
 
 That last pair is the unusual one, and it is the reason this script exists
 rather than being folded into the exhibit audit. The investigations system was
-rebuilt once already because it had grown its own parallel design language and
-stopped looking like the rest of the archive. These two checks are a tripwire on
-that specific regression: the moment someone starts rebuilding `.card` under a
-new name, the audit says so.
+rebuilt twice — once because it had grown its own parallel design language, and
+once because it had put a single case file behind four tabs. These two checks
+are a tripwire on the first regression: the moment someone starts rebuilding
+`.card` under a new name, the audit says so.
+
+The second one the script cannot see, so it is written down instead: **a case
+file is one continuous document.** See
+[`INVESTIGATIONS.md` § Presentation](INVESTIGATIONS.md#presentation).
 
 Run it after any edit to `investigations.json`, and after any edit to the
 investigations engine or its stylesheet. The process step is

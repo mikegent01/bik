@@ -99,9 +99,14 @@ for iv in INV:
 LAYOUT = ('padding','border-radius','display:grid','display:flex','linear-gradient')
 for sel, body in re.findall(r'(\.inv-[a-z0-9-]+[^{]*)\{([^}]*)\}', CSS):
     root = re.match(r'\.inv-[a-z0-9-]+', sel.strip()).group(0)
+    # The components this system legitimately owns, because the site has no
+    # equivalent: the examination accordion, the dice, the pip strip, the
+    # inline rolls, the overlay host, the evidence-locker session divider and
+    # the lead block. Everything else must reuse a site class.
     if root in ('.inv-layer','.inv-layer-head','.inv-layer-body','.inv-layer-n',
                 '.inv-layer-title','.inv-roll-out','.inv-die','.inv-pips',
-                '.inv-inline-roll','.inv-inline-out','.inv-overlay'): continue
+                '.inv-inline-roll','.inv-inline-out','.inv-overlay',
+                '.inv-session-head','.inv-lead'): continue
     if any(k in body.replace(' ','') for k in LAYOUT):
         warn.append(f"investigations.css: `{sel.strip()}` sets layout — use a site class instead")
 used = set(re.findall(r'inv-[a-z0-9-]+', HTML))

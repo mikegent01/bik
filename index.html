@@ -10009,74 +10009,76 @@ function view_investigations(){
   window.scrollTo(0,0);
 }
 
-/* ---------- case file view ---------- */
-let INV_TAB = 'exhibits';
+/* ---------- case file view ----------
+   ONE CONTINUOUS DOCUMENT, like view_trial() and every article on this site.
+   The case reads top to bottom — what this is about, then the argument, then
+   the paper, then what it points at — and the sidebar TOC jumps you around.
+   An earlier version tabbed these sections; that split one case file across
+   four pages you had to click between to read, which is exactly what a case
+   file must not do. Do not reintroduce tabs here. */
 
-function view_investigation(id, tab){
+function view_investigation(id){
   renderSidebar('investigations');
   const iv = invGet(id);
   if(!iv){ view_investigations(); return; }
-  if(tab) INV_TAB = tab;
-  if(!['exhibits','brief','leads','threads'].includes(INV_TAB)) INV_TAB = 'exhibits';
-  if(!(iv.exhibits||[]).length && INV_TAB === 'exhibits') INV_TAB = 'brief';
 
   const p = invProgress(iv);
   const sessions = {};
   (iv.sessions||[]).forEach(s => sessions[s.id] = s);
+  const toc = [];
 
-  /* exhibits, grouped by the session that produced them */
+  /* --- the brief, up top, where the summary of allegations goes --- */
+  const briefHtml = iv.brief ? (toc.push({slug:'sec-brief', text:'Waluigi’s Brief'}),
+    `<h2 id="sec-brief">🖋️ Waluigi’s Brief</h2>
+     <div class="prose">${invBrief(iv.brief)}</div>`) : '';
+
+  /* --- threads: what the file currently argues --- */
+  const threadsHtml = (iv.threads||[]).length ? (toc.push({slug:'sec-threads', text:'Open Threads'}),
+    `<h2 id="sec-threads">🧵 Open Threads</h2>
+     <p class="text-muted" style="margin-top:-4px">What the file believes so far, and what it is still holding open.</p>
+     <div class="prose">${(iv.threads||[]).map(t =>
+       `<h3>${esc(t.title)}</h3>${invProse(t.text)}`).join('')}</div>`) : '';
+
+  /* --- the evidence locker: every exhibit, grouped by session --- */
   const groups = {};
   (iv.exhibits||[]).forEach(ex => { (groups[ex.session] = groups[ex.session] || []).push(ex); });
   const order = (iv.sessions||[]).map(s => s.id).filter(sid => groups[sid]);
   Object.keys(groups).forEach(k => { if(!order.includes(k)) order.push(k); });
 
-  const exHtml = order.map(sid => {
-    const s = sessions[sid] || { label: prettyId(sid), date:'' };
-    const tiles = groups[sid].map(ex => {
-      const done = invExhibitDone(iv, ex);
-      const n = (ex.layers||[]).length;
-      const got = (ex.layers||[]).filter((l,i) => invUnlocked(iv.id, ex.id, i)).length;
-      const pips = (ex.layers||[]).map((l,i) => `<i class="pip ${invUnlocked(iv.id,ex.id,i)?'on':''}"></i>`).join('');
-      return `<div class="arttile" onclick="invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')" style="border-left-color:${done?'var(--green)':esc(iv.accent||'var(--accent)')}">
-        <div style="font-size:32px">${esc(ex.icon||'📄')}</div>
-        <div class="tt">${esc(ex.title)}</div>
-        <div class="tsub">◆ ${esc(ex.kind||'document')}${ex.custody?` · custody: ${esc(ex.custody)}`:''}</div>
-        <div class="tsum">${esc(ex.secured||'')}</div>
-        <div class="tmeta">
-          <span class="inv-pips" title="${got} of ${n} analyses unlocked">${pips}</span>
-          <span class="pill ${done?'border-accent':''}">${got}/${n} examined</span>
-          ${done?'<span class="pill pill-exhibit">fully read</span>':''}
-        </div>
-      </div>`;
-    }).join('');
-    const ev = s.event && INDEX[s.event]
-      ? ` · <a class="entity-link" onclick="openId('${esc(s.event)}')">open the session record →</a>` : '';
-    return `<div class="card">
-      <div class="home-section-head">
-        <div><h2>📎 ${esc(s.label)}</h2><p>${esc(s.date||'')}${ev}</p></div>
-        <span class="pill">${groups[sid].length} exhibit${groups[sid].length===1?'':'s'}</span>
-      </div>
-      <div class="artgrid">${tiles}</div>
-    </div>`;
-  }).join('');
+  const exhibitsHtml = order.length ? (toc.push({slug:'sec-exhibits', text:'Evidence Locker'}),
+    `<h2 id="sec-exhibits">📎 Evidence Locker</h2>
+     <p class="text-muted" style="margin-top:-4px">Click an exhibit to read it and analyse further. Examination results are saved locally.</p>` +
+    order.map(sid => {
+      const s = sessions[sid] || { label: prettyId(sid), date:'' };
+      const ev = s.event && INDEX[s.event]
+        ? ` · <a class="entity-link" onclick="openId('${esc(s.event)}')">open the session record →</a>` : '';
+      const tiles = groups[sid].map(ex => {
+        const done = invExhibitDone(iv, ex);
+        const n = (ex.layers||[]).length;
+        const got = (ex.layers||[]).filter((l,i) => invUnlocked(iv.id, ex.id, i)).length;
+        const pips = (ex.layers||[]).map((l,i) => `<i class="pip ${invUnlocked(iv.id,ex.id,i)?'on':''}"></i>`).join('');
+        return `<div class="arttile" onclick="invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')" style="border-left-color:${done?'var(--green)':esc(iv.accent||'var(--accent)')}">
+          <div style="font-size:32px">${esc(ex.icon||'📄')}</div>
+          <div class="tt">${esc(ex.title)}</div>
+          <div class="tsub">◆ ${esc(ex.kind||'document')}${ex.custody?` · custody: ${esc(ex.custody)}`:''}</div>
+          <div class="tsum">${esc(ex.secured||'')}</div>
+          <div class="tmeta">
+            <span class="inv-pips" title="${got} of ${n} analyses unlocked">${pips}</span>
+            <span class="pill ${done?'border-accent':''}">${got}/${n} examined</span>
+            ${done?'<span class="pill pill-exhibit">fully read</span>':''}
+          </div>
+        </div>`;
+      }).join('');
+      return `<h3 class="inv-session-head">${esc(s.label)}<span>${esc(s.date||'')}${ev}</span></h3>
+              <div class="artgrid">${tiles}</div>`;
+    }).join('')) : '';
 
-  const threadsHtml = (iv.threads||[]).length ? `<div class="card">
-      <div class="home-section-head">
-        <div><h2>🧵 Open threads</h2><p>What the file currently believes, and what it is still holding open.</p></div>
-        <span class="pill">${(iv.threads||[]).length} thread${(iv.threads||[]).length===1?'':'s'}</span>
-      </div>
-      <div class="prose">${(iv.threads||[]).map(t =>
-        `<h3>${esc(t.title)}</h3>${invProse(t.text)}`).join('')}</div>
-    </div>`
-    : '<div class="card"><h2>No threads opened yet</h2><p class="text-muted">Nothing has been read closely enough to argue about.</p></div>';
-
+  /* --- leads --- */
   const PRI_COLOR = { critical:'var(--danger)', high:'#f39c12', medium:'#3498db', low:'var(--muted)' };
-  const leadsHtml = (iv.leads||[]).length ? `<div class="card">
-      <div class="home-section-head">
-        <div><h2>🎯 Live leads</h2><p>Objectives this file is actually pursuing. Every one carries a reason it is a lead and not an errand.</p></div>
-        <span class="pill">${(iv.leads||[]).length} lead${(iv.leads||[]).length===1?'':'s'}</span>
-      </div>
-    </div>` + (iv.leads||[]).map(l => {
+  const leadsHtml = (iv.leads||[]).length ? (toc.push({slug:'sec-leads', text:'Live Leads'}),
+    `<h2 id="sec-leads">🎯 Live Leads</h2>
+     <p class="text-muted" style="margin-top:-4px">Objectives this file is actually pursuing. Every one carries a reason it is a lead and not an errand.</p>` +
+    (iv.leads||[]).map(l => {
       const pri = (l.priority||'medium');
       /* a lead may cite an exhibit filed in another investigation — resolve
          across all files rather than dropping the chip silently */
@@ -10093,39 +10095,29 @@ function view_investigation(id, tab){
           : `invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')`;
         return `<span class="chip" onclick="${go}">${esc(ex.icon||'📄')} ${esc(ex.title)}${foreign?` <span class="text-muted">· ${esc(owner.codename)}</span>`:''}</span>`;
       }).join('');
-      const src = l.fromQuest ? `<span class="pill">promoted from the board</span>` : '';
-      return `<div class="card" style="border-left:4px solid ${PRI_COLOR[pri]||'var(--accent)'}">
+      return `<div class="inv-lead" style="border-left-color:${PRI_COLOR[pri]||'var(--accent)'}">
         <div class="metabar">
           <span class="pill inv-pri--${esc(pri)}">${esc(pri)}</span>
           <span class="pill">${esc(l.state||'open')}</span>
           ${l.xp?`<span class="pill xp-pill">✦ ${l.xp} XP</span>`:''}
-          ${src}
+          ${l.fromQuest?'<span class="pill">promoted from the board</span>':''}
         </div>
         <h3 style="margin:0 0 6px">${esc(l.title)}</h3>
         <p style="margin:0 0 4px;font-size:14px;line-height:1.7">${esc(l.objective||'')}</p>
         <div class="wnote"><b>Why this is a lead and not an errand:</b> ${esc(l.why||'')}</div>
         ${exChips?`<div class="chips">${exChips}</div>`:''}
       </div>`;
-    }).join('')
-    : '<div class="card"><h2>No leads filed yet</h2><p class="text-muted">The file has no live objective. That is either good news or an oversight.</p></div>';
+    }).join('')) : '';
 
-  const briefHtml = `<div class="card">
-    <div class="home-section-head">
-      <div><h2>🖋️ Waluigi's brief</h2><p>The archivist's own reading of the file. Argumentative by design.</p></div>
-      <span class="pill">${esc(iv.archivist||'Waluigi')}</span>
-    </div>
-    <div class="prose">${invBrief(iv.brief)}</div>
-  </div>`;
-
+  /* --- the session records behind the file --- */
   const evChips = (iv.relatedEvents||[]).filter(e => INDEX[e]).map(e =>
     `<span class="rel-chip" onclick="openId('${esc(e)}')"><span class="rt">event</span>${esc(displayName(INDEX[e].item))}</span>`).join('');
+  const relHtml = evChips ? (toc.push({slug:'sec-records', text:'Session Records'}),
+    `<h2 id="sec-records">📜 Session Records Behind This File</h2>
+     <p class="text-muted" style="margin-top:-4px">The events these exhibits were pulled out of.</p>
+     <div class="related-list">${evChips}</div>`) : '';
 
-  const tabBtn = (k, label, n) =>
-    `<button class="chip ${INV_TAB===k?'active':''}" onclick="view_investigation('${esc(iv.id)}','${k}')">${label}${n!=null?` (${n})`:''}</button>`;
-
-  const otherFiles = invAll().filter(o => o.id !== iv.id).map(o =>
-    `<span class="rel-chip" onclick="Router.go('#/investigation/${encodeURIComponent(o.id)}')"><span class="rt">${esc(o.status)}</span>${esc(o.icon||'')} ${esc(o.title)}</span>`).join('');
-
+  /* --- sidebar --- */
   const infoRows = [
     ['Status', iv.status],
     ['Classification', iv.classification],
@@ -10138,56 +10130,54 @@ function view_investigation(id, tab){
   ].filter(r => r[1] !== undefined && r[1] !== '')
    .map(r => `<div class="row"><span class="k">${esc(r[0])}</span><span class="v">${esc(String(r[1]))}</span></div>`).join('');
 
+  const otherFiles = invAll().filter(o => o.id !== iv.id).map(o =>
+    `<span class="rel-chip" onclick="Router.go('#/investigation/${encodeURIComponent(o.id)}')"><span class="rt">${esc(o.status)}</span>${esc(o.icon||'')} ${esc(o.title)}</span>`).join('');
+
+  const tocHtml = toc.length
+    ? `<div class="toc" id="toc"><h4>Contents</h4>${toc.map(t =>
+        `<a data-slug="${t.slug}" onclick="scrollToHeading('${t.slug}')">${esc(t.text)}</a>`).join('')}</div>`
+    : '';
+
   el('content').innerHTML = `
     <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> ›
       <a onclick="Router.go('#/investigations')">Investigations</a> › ${esc(iv.codename)}</div>
 
-    <div class="article-layout"><div>
-      <div class="card animate-fade-in" style="border-left:4px solid ${esc(iv.accent||'var(--accent)')}">
-        <div class="art-kicker">${esc(iv.icon||'🔍')} ${esc(iv.codename)}</div>
-        <h1 class="art-title">${esc(iv.title)}</h1>
-        ${iv.subtitle?`<div class="art-subtitle">${esc(iv.subtitle)}</div>`:''}
-        <div class="metabar">
-          <span class="pill inv-status--${esc(iv.status)}">${esc(iv.status)}</span>
-          ${iv.classification?`<span class="pill">${esc(iv.classification)}</span>`:''}
-          <span class="pill">${(iv.exhibits||[]).length} exhibit${(iv.exhibits||[]).length===1?'':'s'}</span>
-          <span class="pill">${(iv.leads||[]).length} lead${(iv.leads||[]).length===1?'':'s'}</span>
-          ${p.xp?`<span class="pill xp-pill">✦ ${p.xp.toLocaleString()} XP earned</span>`:''}
-        </div>
-        ${p.layers ? `
-        <div class="species-stats">
-          <div class="species-stat"><b>${p.done}/${p.layers}</b>Analyses Unlocked</div>
-          <div class="species-stat"><b>${p.xp.toLocaleString()}</b>XP Earned Here</div>
-          <div class="species-stat"><b>${p.totalXp.toLocaleString()}</b>XP Available</div>
-          <div class="species-stat"><b>${p.rolls}</b>Examinations Rolled</div>
-        </div>
-        <div class="xpbar"><span style="width:${p.pct}%"></span></div>
-        <div style="display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)">
-          <span>${p.pct}% of this file has been read closely.</span>
-          <a class="entity-link" onclick="invReset('${esc(iv.id)}')">Reset this file's progress</a>
-        </div>` : ''}
-        ${iv.hook?`<div class="wnote"><b>The hook:</b> ${esc(iv.hook)}</div>`:''}
-        ${iv.imageCaption?`<p class="imgcap">${esc(iv.imageCaption)}</p>`:''}
-        <div class="chips mt-12">
-          ${(iv.exhibits||[]).length ? tabBtn('exhibits','📎 Exhibits',(iv.exhibits||[]).length) : ''}
-          ${tabBtn('brief','🖋️ Waluigi’s brief')}
-          ${tabBtn('leads','🎯 Leads',(iv.leads||[]).length)}
-          ${tabBtn('threads','🧵 Threads',(iv.threads||[]).length)}
-        </div>
+    <div class="article-layout"><div><div class="card animate-fade-in" style="border-left:4px solid ${esc(iv.accent||'var(--accent)')}">
+      <div class="art-kicker">${esc(iv.icon||'🔍')} ${esc(iv.codename)}${iv.opened?` · opened ${esc(iv.opened)}`:''}</div>
+      <h1 class="art-title">${esc(iv.title)}</h1>
+      ${iv.subtitle?`<div class="art-subtitle">${esc(iv.subtitle)}</div>`:''}
+      <div class="metabar">
+        <span class="pill inv-status--${esc(iv.status)}">${esc(iv.status)}</span>
+        ${iv.classification?`<span class="pill">${esc(iv.classification)}</span>`:''}
+        <span class="pill">${(iv.exhibits||[]).length} exhibit${(iv.exhibits||[]).length===1?'':'s'}</span>
+        <span class="pill">${(iv.leads||[]).length} lead${(iv.leads||[]).length===1?'':'s'}</span>
+        ${p.xp?`<span class="pill xp-pill">✦ ${p.xp.toLocaleString()} XP earned</span>`:''}
       </div>
 
-      ${INV_TAB==='exhibits' ? (exHtml || '<div class="card"><h2>No exhibits filed yet</h2><p class="text-muted">This file has a thesis and no paper. File a session.</p></div>') :
-        INV_TAB==='brief'    ? briefHtml :
-        INV_TAB==='leads'    ? leadsHtml : threadsHtml}
+      ${iv.hook?`<div class="article-lead-card noimg"><div class="article-lead-summary">
+        <h4>The Hook</h4><p>${esc(iv.hook)}</p></div></div>`:''}
+      ${iv.imageCaption?`<p class="imgcap">${esc(iv.imageCaption)}</p>`:''}
 
-      ${evChips ? `<div class="card">
-        <div class="home-section-head">
-          <div><h2>📜 Session records behind this file</h2><p>The events these exhibits were pulled out of.</p></div>
-          <span class="pill">${(iv.relatedEvents||[]).filter(e=>INDEX[e]).length} record${(iv.relatedEvents||[]).filter(e=>INDEX[e]).length===1?'':'s'}</span>
-        </div>
-        <div class="related-list">${evChips}</div></div>` : ''}
-    </div><div>
-      <div class="infobox"><h4>Case file</h4>${infoRows}</div>
+      ${p.layers ? `
+      <div class="species-stats">
+        <div class="species-stat"><b>${p.done}/${p.layers}</b>Analyses Unlocked</div>
+        <div class="species-stat"><b>${p.xp.toLocaleString()}</b>XP Earned Here</div>
+        <div class="species-stat"><b>${p.totalXp.toLocaleString()}</b>XP Available</div>
+        <div class="species-stat"><b>${p.rolls}</b>Examinations Rolled</div>
+      </div>
+      <div class="xpbar"><span style="width:${p.pct}%"></span></div>
+      <div style="display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)">
+        <span>${p.pct}% of this file has been read closely.</span>
+        <a class="entity-link" onclick="invReset('${esc(iv.id)}')">Reset this file's progress</a>
+      </div>` : ''}
+
+      ${briefHtml}
+      ${threadsHtml}
+      ${exhibitsHtml}
+      ${leadsHtml}
+      ${relHtml}
+    </div></div><div>
+      <div class="infobox"><h4>Case File</h4>${infoRows}</div>
       <div class="cross-page-panel">
         <h4>Connected Systems</h4>
         <div class="cross-page-links">
@@ -10197,9 +10187,11 @@ function view_investigation(id, tab){
           <a href="#/reputation">📈 Reputation Matrix</a>
         </div>
       </div>
-      ${otherFiles?`<div class="infobox"><h4>Other open files</h4><div class="related-list">${otherFiles}</div></div>`:''}
+      ${otherFiles?`<div class="infobox"><h4>Other Open Files</h4><div class="related-list">${otherFiles}</div></div>`:''}
+      ${tocHtml}
     </div></div>`;
   window.scrollTo(0,0);
+  setupScrollSpy();
 }
 
 /* ---------- exhibit reader ----------
