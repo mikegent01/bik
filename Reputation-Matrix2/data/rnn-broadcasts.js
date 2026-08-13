@@ -3,8 +3,8 @@
    Rebuild:        python3 tools/build-rnn-broadcast.py
    Cadence:        one new episode per week when new events exist. */
 window.RNN_BROADCASTS = {
-  "generated": "2026-08-11",
-  "latest": "rnn-001",
+  "generated": "2026-08-13",
+  "latest": "rnn-002",
   "cadence": "A new broadcast is cut every week that applicable new events exist.",
   "episodes": [
     {
@@ -282,6 +282,314 @@ window.RNN_BROADCASTS = {
         }
       ],
       "runtimeMs": 327560
+    },
+    {
+      "id": "rnn-002",
+      "number": 2,
+      "title": "The Wrong Mountain and the God Who Runs the Place",
+      "airWeek": "1040-AETHEL-W3",
+      "recordedOn": "2026-08-13",
+      "huntDay": "AETHEL 18, 1040 BF",
+      "covering": "Aethel 1 – 17, 1040 BF",
+      "anchorName": "Whisper-in-Wind",
+      "anchorRole": "Death Speaker, Spirit-Walker Clan",
+      "fieldName": "Acolyte Dan",
+      "fieldRole": "Runner of the Cold Roads",
+      "sourceEvents": [
+        "the_mount_ebot_expedition",
+        "the_toad_god_interview_and_the_star_shard",
+        "ruined_manor_convergence",
+        "the_medical_extortion_incident",
+        "the_planar_sanctum_revelation",
+        "the_shadeward_ritual",
+        "the_waiting_room_testimony"
+      ],
+      "ticker": [
+        "TWO BROTHERS CLIMB A MOUNTAIN THAT IS NOT THE MOUNTAIN",
+        "ONE LETTER MISSING FROM A MAP — EIGHTEEN HOURS SPENT PAYING FOR IT",
+        "FOUR NAMES ON A PLANK, ONE RUBBED NEARLY OUT",
+        "THE HOST WITH THE CROWN IS A GOD — AND THE WORLD IS STILL A DOUGHNUT",
+        "SPARK-WEAVER HEALER TAKES HIS MEDICINE BACK OUT OF THE PATIENT",
+        "GLASS VATS UNDER THE STAR-LIT LIBRARY — THE HERDS ARE ADVISED TO WALK WIDE",
+        "THE ONE CALLED ARCHIE SAT WITH A GOD AND SAID NO",
+        "THE JUNGLE SEES ALL"
+      ],
+      "segments": [
+        {
+          "slug": "COLD OPEN",
+          "type": "titlecard",
+          "title": "Rakasha News Network",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "Iron rusts. Flesh rots. Maps lie. Only the Hunt remains.",
+              "duration": 4100
+            },
+            {
+              "expression": "normal",
+              "text": "This is the Rakasha News Network. Hunt Day eighteen of Aethel. The jungle sees all — and this week the jungle watched two grown men climb the wrong rock.",
+              "duration": 10560
+            }
+          ]
+        },
+        {
+          "slug": "LEAD STORY",
+          "type": "anchor",
+          "title": "One Letter, One Mountain, Eighteen Hours",
+          "articleId": "the_mount_ebot_expedition",
+          "lines": [
+            {
+              "expression": "mouthslightlyopen",
+              "text": "On the seventeenth of Aethel the yellow one they call Wario put his brother in a produce sack, loaded him onto a rented sky-machine with a young human named mike, and flew north into a storm that had already been reported.",
+              "duration": 11000
+            },
+            {
+              "expression": "concerned",
+              "text": "The storm won. The machine went into a cave mouth sideways, slid sixty feet on wet stone, and lost its tail to a boulder. The pilot was knocked senseless in his straps. The boy was opened above the eye. The tall purple one checked both of them before the dust settled, and no one has thanked him yet.",
+              "duration": 11000
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "On the slope they met a small hooded thing four feet tall that threw sharpened human bone and did not speak. Not a word. Not a hiss. It stepped out of the world and back into it eleven feet to the left, twice, until the purple one froze every flat place it could land.",
+              "duration": 11000
+            },
+            {
+              "expression": "concerned",
+              "text": "Then a bridge that some empire built and somebody else improved — sixty razors in the parapets, six flame jets under the deck, all of it triggered by weight. It ignored the thin man entirely. It tried very hard to kill the fat one, and it very nearly earned its keep.",
+              "duration": 11000
+            },
+            {
+              "expression": "sad",
+              "text": "At the summit, a plank with four names burned into it. Javier. Mikaela. Daniel. And a fourth rubbed nearly out — a prince, by the reading of it. Four humans who went up a mountain nobody visits and did not come down. Somebody obeyed the paperwork on a hillside in the rain. That is all a marker is.",
+              "duration": 11000
+            },
+            {
+              "expression": "happy",
+              "text": "And then the map came out of the crate. The sign said Mount Ebot. The map said Mount Ebot. One T. Mount Ebott — the mountain with the monsters, the barrier and the bearded king — is four hundred miles east of where they were standing.",
+              "duration": 11000
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "A clerk of the Old World Mapping Company dropped a letter, and the misprint was bought, folded, trusted, and handed to a man who cannot read either spelling. Bones, fire and blood, all of it purchased with one absent character. The Wheel does not need to be clever. It only needs a typesetter with cold hands.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "THE INTERVIEW",
+          "type": "anchor",
+          "title": "The Host With the Crown",
+          "articleId": "the_toad_god_interview_and_the_star_shard",
+          "lines": [
+            {
+              "expression": "mouthslightlyopen",
+              "text": "Five nights earlier, the same two brothers walked into an office because a stranger promised them gold. The gold was real. The office was not.",
+              "duration": 9200
+            },
+            {
+              "expression": "concerned",
+              "text": "The lights went out one by one. A piano replaced the table. A crown came down through the air with a Star Shard set in it, and the host stopped pretending to be a host. The Toad God. He flattened them, flicked them like cards, and took the purple one's mouth off his face for the sport of it.",
+              "duration": 11000
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "He confirmed what this desk has said for two seasons and been mocked for saying. The world is a doughnut. A Cosmic Jester has already taken a bite out of the far side of it, the depopulation is real, and the god's opinion of that bite is that more should be taken until something sweet is reached.",
+              "duration": 11000
+            },
+            {
+              "expression": "sad",
+              "text": "Then he kept the yellow brother back for a private arrangement and threw the thin one out. Chief Acquisitions Officer, the fat one called himself. He was negotiating a share of the end of the world before the smoke had cleared off his own coat.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "We do not know what was agreed in that room. We say so plainly. What we know is that one brother left with a primed skull and no allies, and five days later he was in a sack on the way to the wrong mountain.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "THE MANOR",
+          "type": "anchor",
+          "title": "Ghosts, a Warrant, and an Alliance Nobody Trusts",
+          "articleId": "ruined_manor_convergence",
+          "lines": [
+            {
+              "expression": "concerned",
+              "text": "Aethel opened at the ruined manor. The green plumber found a broken travelling circle and took testimony from a murdered spirit — coordinates in the Thornwood, and an accusation that a crown was placed on the wrong head.",
+              "duration": 11000
+            },
+            {
+              "expression": "mouthslightlyopen",
+              "text": "Then the dead arrived in number. Between twenty and forty, depending on which mouth you ask, and this desk will not pretend to a count it does not have. Everybody ran. The one called Archie went out of a window from forty feet and woke in an Iron-Hide hospital surrounded by corpses.",
+              "duration": 11000
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "The Soft-Heads came to arrest the plumber for hiding his brother and for what they call residual activities. A fight settled it instead. Archie appointed himself judge. The accused fled before the verdict, which is the correct response to a courtroom assembled in a ruin.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Out of that came the Cells of the Third Eye — three hostile factions in one bag, and most of the hands in it wearing Iron-Hide grey. When a wolf offers to share a den, count the exits before you count your blessings.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "THE HEALER'S DEBT",
+          "type": "anchor",
+          "title": "The Medicine Came Back Out",
+          "articleId": "the_medical_extortion_incident",
+          "lines": [
+            {
+              "expression": "eyebrowraised",
+              "text": "A Spark-Weaver calling himself Parson Pellinost healed the one called Archie without being asked, then presented the debt.",
+              "duration": 6820
+            },
+            {
+              "expression": "mouthslightlyopen",
+              "text": "Archie demanded a refund. The healer gave him one. He reached in and pulled the healing back out of the body, which is the only honest refund this desk has ever heard described.",
+              "duration": 11000
+            },
+            {
+              "expression": "concerned",
+              "text": "In the same hours the Iron-Hides told the world that the one called Bones had Starlight Fever. There is no such sickness. There were sedatives, and a coma they built themselves, and a story they expected the herd to swallow.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Note the shape of it. The lie was elaborate. The guarding of the lie was lazy. That is what a predator looks like when it has grown used to eating unopposed.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "THE VATS",
+          "type": "anchor",
+          "title": "What Is Under the Star-Lit Library",
+          "articleId": "the_planar_sanctum_revelation",
+          "lines": [
+            {
+              "expression": "concerned",
+              "text": "Fleeing the Iron-Hides, the Oracle moved Archie and the comatose Bones to the place he calls the Planar Sanctum. It greets you as a library under stars.",
+              "duration": 9880
+            },
+            {
+              "expression": "sad",
+              "text": "Then the floor opens. Two Crystal Tethers, one violet and one orange, holding a man in a metal tank and pulling him apart to stay lit. In the next room, glass vats. Malformed things, fed by tube, weeping, kept alive because being alive is the useful part.",
+              "duration": 11000
+            },
+            {
+              "expression": "mouthslightlyopen",
+              "text": "The Oracle says that is the end waiting for all of them if the timelines are not severed. This desk has reported many cruelties. Cruelty with plumbing is a different animal.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "We name no location, because we have none to name. If you are herd, and you are offered a bed in a beautiful room with no windows, sleep somewhere else.",
+              "duration": 10900
+            }
+          ]
+        },
+        {
+          "slug": "THE ANCHOR",
+          "type": "anchor",
+          "title": "He Stood in the Candles and Said No to a God",
+          "articleId": "the_shadeward_ritual",
+          "lines": [
+            {
+              "expression": "mouthslightlyopen",
+              "text": "Archie Miser then demanded to be sent to Shadeward for his friends. He was told a month had already passed there. He did not care, which is the entire character of the man in one sentence.",
+              "duration": 11000
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "The Oracle cast without a circle. Mark that and hold it. The anchor took on more power than an anchor should, the Soft-Head troops were rounded up outside by the one called Berio, and the comatose Bones was carried off in the confusion.",
+              "duration": 11000
+            },
+            {
+              "expression": "happy",
+              "text": "And at the Astral Altar the Toad God was already waiting, with everything a man could want laid out ready. Archie refused all of it and chose his friends and the long road to Shadeward Manor.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Two audiences with the same god in one month. One brother negotiated. One boy said no. The jungle notes which of them still owns his own name.",
+              "duration": 9880
+            }
+          ]
+        },
+        {
+          "slug": "FIELD REPORT",
+          "type": "field",
+          "title": "The Slope With the Seams",
+          "articleId": "the_mount_ebot_expedition",
+          "lines": [
+            {
+              "expression": "jump",
+              "text": "Whisper-in-Wind, I am on the wrong mountain and I want that on the record before anything else! I walked the slope where the ground gave up its property. The quake opened seams and pushed bones up out of the mud — ribs, jaws, a whole hillside of them. That was four days ago.",
+              "duration": 11000
+            },
+            {
+              "expression": "jump",
+              "text": "They are GONE. Not buried, not washed off — gone, and the mud is smooth, and I got down on my knees like a fool looking for one jaw with three teeth in it and I did not find it. Something is tidying up after itself and it is faster than a Rakasha on a rope.",
+              "duration": 11000
+            },
+            {
+              "expression": "jump",
+              "text": "The bridge is still armed. It reset itself clean. And the plank at the summit is real — I read four names off it in the rain, and the fourth one has been rubbed at by a hand, not by weather. Somebody wanted that prince forgotten. Back to you, and send someone taller than me!",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "WIND WHISPERS",
+          "type": "anchor",
+          "title": "Whispers on the Breeze",
+          "articleId": "the_waiting_room_testimony",
+          "lines": [
+            {
+              "expression": "eyebrowraised",
+              "text": "Heard in a waiting room: the green plumber went under the knife near death, and a surgeon he calls Uncle Dario opened him up. We do not know that man. Neither, it seems, does anyone else.",
+              "duration": 11000
+            },
+            {
+              "expression": "mouthslightlyopen",
+              "text": "In the same room: a princess of the sand who spoke of the patient as her blood, a mayor of the tall city who spoke of him as hers, and the yellow brother, who came uninvited and left talking about robbing a pharmacy. Every one of them already knew what had happened before they were told.",
+              "duration": 11000
+            },
+            {
+              "expression": "concerned",
+              "text": "War drums: the Old World Mapping Company printed Survey Series Four and offered corrections on application. The company is ash and the corrections were never made. Every party still carrying one of those sheets is walking toward a mountain that is not there.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "Smelt on the breeze: sharpened bone, lamp oil, and a struck match. Somebody keeps that mountain. Nobody has asked its permission for anything in a long time.",
+              "duration": 9880
+            }
+          ]
+        },
+        {
+          "slug": "SIGN OFF",
+          "type": "titlecard",
+          "title": "Sign Off",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "That is the week. Check your map before you climb. Check who drew it before you trust it.",
+              "duration": 6820
+            },
+            {
+              "expression": "normal",
+              "text": "Trust only the claw. Fear only the silence. This broadcast will self-destruct if eaten. The Rakasha News Network returns when the Hunt gives us something worth saying.",
+              "duration": 9880
+            }
+          ]
+        }
+      ],
+      "runtimeMs": 406920
     }
   ]
 };

@@ -3841,5 +3841,27 @@
     "faction": "independent",
     "membership": "Kyrn Facility custodian / plane-severing operation",
     "image": "assets/icons/actions/icon_traps.png"
+  },
+  {
+    "id": "mike",
+    "name": "mike",
+    "title": "Hired Off a Noticeboard",
+    "type": "Character / Mount Ebot file",
+    "race": "Human",
+    "status": "Active — recovering from a scalp laceration taken in the Mount Ebot crash; still, alarmingly, available for work",
+    "affiliation": "Wario's Enterprise (casual labour, one expedition, competitive rate unpaid at time of filing)",
+    "summary": "mike — lower-case m, and he will tell you it is on his papers that way before you have finished asking — answered an advertisement for skilled labour and found himself in a taped-together charter flying into a storm with a man in a produce sack. He took a bracket to the head in the crash, bled down one side of his face for the rest of the day, tied every knot in the rope chain correctly, and was the first person to say out loud that they had climbed the wrong mountain.",
+    "description": "Waluigi met mike for eighteen hours and can describe him completely: cheap boots with good laces, a woollen hat he lost in the rotor wash, a kit-bag containing sandwiches, a spare shirt and no rope whatsoever, and hands that would not stop moving over the buckles of a harness he had plainly never worn before.\n\nHe was hired the way Wario hires everyone, which is to say he was not hired at all — a seat was filled. He arrived early. He had packed lunch. He described the Mount Ebot expedition, on the tarmac, before the turbine started, as **\"my first expedition.\"**\n\n## What He Actually Did\n\nWaluigi is obliged by the record to note the following, because nobody else in this campaign will.\n\nHe held his own bandage for nine hours without being told twice.\n\nHe worked the bottom station of the rope chain with a head wound, tied nine loads of netting, and **checked every knot twice before he shouted** — which is more procedure than the entire remainder of Wario's Enterprise has demonstrated in the archive to date.\n\nHe stayed oriented through a concussion, a bone-thrower, an earthquake and a burning bridge, and answered every question Waluigi put to him under the overhang, which is how Waluigi knew the skull was still working.\n\nHe did the arithmetic on Prince Alphonse's dates faster than Waluigi expected of a man bleeding into his own eye, and correctly identified that they ran the wrong way.\n\nAnd he read the summit plank and said the sentence out loud: **\"So we climbed the wrong mountain.\"**\n\n## Waluigi's Standing Note\n\nWaluigi does not do sentiment and will not start now. The point is operational. mike is the most breakable object Wario has ever put on an aircraft and he was also, by a distance, the second most useful person on that mountain, and the difference between those two facts is training that nobody has offered him.\n\nSomebody should. Preferably before Wario finds another noticeboard. WAH.",
+    "keyEvents": [
+      "the_mount_ebot_expedition"
+    ],
+    "relatedArticles": [
+      "the_mount_ebot_expedition",
+      "mount_ebot",
+      "waluigi",
+      "wario"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Character anchor created so the Mount Ebot filing does not leave a named casualty unlinked. Lower-case m is correct and is not a typesetting error, which on this particular mountain is worth stating explicitly. WAH."
   }
 ]

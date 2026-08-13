@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Updates index.html's view_home() timeline feed and mainPage.json.
-Adds the new session, Mount Ebott VII, Hjumpik's session, explicit dates, and session durations.
+Adds the newest session (Mount Ebot, one T), the Box Guardian filing, Mount Ebott VII,
+Hjumpik's session, explicit dates, and session durations.
 
 STANDING ORDER — RAKASHA NEWS NETWORK
 -------------------------------------
@@ -35,9 +36,27 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
      </p>
 
      <div class="campaign-timeline-feed">
-       <!-- Event 0: Latest Session - Box Guardian & Sharpie Disguise -->
+       <!-- Event 0: Latest Session - The Mount Ebot Expedition -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/the_mount_ebot_expedition')" style="cursor:pointer; border-left:4px solid #8a4bff; background:linear-gradient(135deg,rgba(138,75,255,.16),var(--panel2));">
+         <div class="timeline-date-chip" style="color:#c9a6ff;">Aethel 17, 1040 BF · Duration: ~18 hours in-world · Latest Session</div>
+         <h3 class="timeline-event-title">The Mount Ebot Expedition — One T</h3>
+         <div class="timeline-actors">
+           <span>Waluigi</span><span>Wario</span><span>mike</span><span>The Charter Pilot</span><span>The Small One</span>
+         </div>
+         <p class="timeline-summary">
+           Wario abducts Waluigi in a produce sack at four in the morning, hires a stranger named mike off a noticeboard, and flies a taped-together charter into a storm hunting treasure. The aircraft goes into a cave sideways, the pilot is knocked unconscious, mike takes a head wound, and the party climbs anyway — past a silent bone-throwing sentry that teleports, an earthquake that pushes skeletons up out of the ground in rows, and a bridge improved with sixty razors and six flame jets triggered by weight. At the summit: a plank with four names on it, and a map that reads MOUNT EBOT. One T. The wrong mountain, four hundred miles west of the right one, because a compositor at the Old World Mapping Company dropped a letter.
+         </p>
+         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
+           <span class="chip" onclick="Router.go('#/article/the_mount_ebot_expedition')" style="margin:0; font-size:12px; background:#8a4bff; color:#fff; font-weight:800;">📖 Read Full Session Filing →</span>
+           <span class="chip" onclick="Router.go('#/article/mount_ebot')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">🪨 Mount Ebot (One T) →</span>
+           <span class="chip" onclick="Router.go('#/article/mike')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🩹 mike →</span>
+           <span class="chip" onclick="Router.go('#/article/mount_ebott')" style="margin:0; font-size:12px; background:var(--panel2); border-color:#e5484d;">⛰️ Mount Ebott (Two T) →</span>
+         </div>
+       </div>
+
+       <!-- Event 1: Box Guardian & Sharpie Disguise -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/the_box_guardian_sharpie_disguise_and_the_soot_barrel')" style="cursor:pointer; border-left:4px solid #d4a853; background:linear-gradient(135deg,rgba(212,168,83,.14),var(--panel2));">
-         <div class="timeline-date-chip" style="color:#d4a853;">Harvestide 30, 1040 BF · Duration: ~1.5 hours · Latest Session</div>
+         <div class="timeline-date-chip" style="color:#d4a853;">Harvestide 30, 1040 BF · Duration: ~1.5 hours · Previous Session</div>
          <h3 class="timeline-event-title">The Box Guardian, the Sharpie Disguise, and the Soot-Barrel Trap</h3>
          <div class="timeline-actors">
            <span>Remi Akamatsu</span><span>Markop</span><span>Feyward Dan</span><span>Eager</span><span>Salam</span><span>Tymnas</span><span>Mossy</span><span>The Box Guardian</span>
@@ -53,7 +72,7 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
          </div>
        </div>
 
-       <!-- Event 1: Mount Ebott Survey Part VII -->
+       <!-- Event 2: Mount Ebott Survey Part VII -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/mount_ebott_survey_part_7')" style="cursor:pointer; border-left:4px solid #8a4bff; background:linear-gradient(135deg,rgba(138,75,255,.10),var(--panel2));">
          <div class="timeline-date-chip" style="color:#c9a6ff;">Mid-10XX BF — Day 6 · Duration: ~2.5 hours · Egress Completed</div>
          <h3 class="timeline-event-title">The Mount Ebott Survey: Part VII — The Tea Promise, Flowey's Execution, &amp; The Throne Room Oath</h3>
@@ -71,7 +90,7 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
          </div>
        </div>
 
-       <!-- Event 2: post-Imp aftermath -->
+       <!-- Event 3: post-Imp aftermath -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/the_imp_ambush_aftermath_and_kyrn_cell_escape')" style="cursor:pointer; border-left:4px solid #e5484d; background:linear-gradient(135deg,rgba(229,72,77,.10),var(--panel2));">
          <div class="timeline-date-chip" style="color:#e5484d;">Harvestide 29–30, 1040 BF · Duration: ~2 hours · Facility Breakout</div>
          <h3 class="timeline-event-title">The Imp Ambush Aftermath — The Book, the Cells, and the Dog Who Came Back</h3>
@@ -89,7 +108,7 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
          </div>
        </div>
 
-       <!-- Event 3: Hjumpik Feyward Session -->
+       <!-- Event 4: Hjumpik Feyward Session -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/feyward_chop_bros_soul_ring_and_the_guard_with_no_name')" style="cursor:pointer; border-left:4px solid #2fae8a; background:linear-gradient(135deg,rgba(47,174,138,.12),var(--panel2));">
          <div class="timeline-date-chip" style="color:#2fae8a;">23–24 Harvestide, 1040 BF (Feyward-relative) · Duration: ~1.5 hours · Feyward Expedition</div>
          <h3 class="timeline-event-title">Chop Bros, the OC Soul Ring, &amp; The Guard With No Name (Hjumpik Session)</h3>
@@ -107,7 +126,7 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
          </div>
        </div>
 
-       <!-- Event 4: original Imp Ambush -->
+       <!-- Event 5: original Imp Ambush -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/the_imp_ambush_of_harvestide_29')" style="cursor:pointer;">
          <div class="timeline-date-chip">Harvestide 29, 1040 BF · Duration: ~1.5 hours · Shadow Estate Siege</div>
          <h3 class="timeline-event-title">The Imp Ambush of Harvestide 29</h3>
@@ -124,7 +143,7 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
          </div>
        </div>
 
-       <!-- Event 5 -->
+       <!-- Event 8 -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')" style="cursor:pointer;">
          <div class="timeline-date-chip">Harvestide 28, 1040 BF · Duration: ~1 hour · Manor Investigation</div>
          <h3 class="timeline-event-title">The Midnight Audit of Harvestide 28</h3>
@@ -167,7 +186,7 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
          <span class="chip" style="margin:0; font-size:12px; background:var(--panel);">📖 Read Feyward Mystery File →</span>
        </div>
 
-       <!-- Event 8: Canonical Retrospective -->
+       <!-- Event 9: Canonical Retrospective -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/the_embassy_ambush_and_luigi_interrogation')" style="cursor:pointer; border-left:4px solid #8a4bff; background:linear-gradient(135deg,rgba(138,75,255,.08),var(--panel2));">
          <div class="timeline-date-chip" style="color:var(--link);">Harvestide 18, 1035 BF · Duration: ~2 hours · Canonical Eyewitness Audit</div>
          <h3 class="timeline-event-title">The Mage's Embassy Ambush &amp; The Luigi Interrogation (1035 BF)</h3>

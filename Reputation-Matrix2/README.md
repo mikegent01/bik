@@ -3,23 +3,24 @@
 <!-- RNN:LAST-WEEK:START -->
 ## 📺 Last Week on the Rakasha News Network
 
-> **EP 001 — The Box That Danced and the Boy Who Died Twice**  
-> Hunt Day HARVESTIDE 30, 1040 BF · covering Harvestide 18 – Harvestnoon 1, 1040 BF · runtime 5:28  
+> **EP 002 — The Wrong Mountain and the God Who Runs the Place**  
+> Hunt Day AETHEL 18, 1040 BF · covering Aethel 1 – 17, 1040 BF · runtime 6:47  
 > Anchor: **Whisper-in-Wind**, Death Speaker, Spirit-Walker Clan · Field: **Acolyte Dan**, Runner of the Cold Roads
 
 **▶ [Watch the broadcast](../Reputation-Matrix2/app/pages/standalone/rakasha-news-network.html)** — the Rakasha desk reads back everything the party survived last week, composited live from `Reputation-Matrix2/animation_frames/`.
 
 | Segment | Story | Cold open line |
 |---|---|---|
-| **COLD OPEN** | Rakasha News Network | Iron rusts. Flesh rots. Only the Hunt remains — and the Hunt has been busy. |
-| **LEAD STORY** | The Box That Danced | We open in the dark woods below the Shadow Estate, where a blood trail was followed by two hunte… |
-| **THE CELLS** | The Book, the Cells, and the Dog Who Came Back | Before the box, the cottage. The imps of the dead Archivist came for their book and took everyth… |
-| **THE RAIL LINE** | A Boss Undone by His Own Hands | North, on the Shell-Backs' underground rail line, a small man wanted a conductor's hat and could… |
-| **UNDER THE MOUNTAIN** | The Tea Promise and the Throne Room Oath | Beneath Mount Ebott the false sun still burns over a meadow that is not a meadow, and the tall b… |
-| **THE GREEN HOUSE** | The Manor Wore Its Owner's Face | In Feyward, the overgrowth stopped pretending to be a plant problem. The Lady pouring cold tea f… |
-| **FIELD REPORT** | The Cold Roads of Arunedeal | Whisper-in-Wind, I am ON the snow road and the snow road is TRYING TO KILL ME. Bones came throug… |
-| **WIND WHISPERS** | Whispers on the Breeze | Heard in the canopy: a letter from the Archie-watch names four suspects — the one-armed shadow, … |
-| **SIGN OFF** | Sign Off | That is the week. Trust only the claw. Fear only the silence. |
+| **COLD OPEN** | Rakasha News Network | Iron rusts. Flesh rots. Maps lie. Only the Hunt remains. |
+| **LEAD STORY** | One Letter, One Mountain, Eighteen Hours | On the seventeenth of Aethel the yellow one they call Wario put his brother in a produce sack, l… |
+| **THE INTERVIEW** | The Host With the Crown | Five nights earlier, the same two brothers walked into an office because a stranger promised the… |
+| **THE MANOR** | Ghosts, a Warrant, and an Alliance Nobody Trusts | Aethel opened at the ruined manor. The green plumber found a broken travelling circle and took t… |
+| **THE HEALER'S DEBT** | The Medicine Came Back Out | A Spark-Weaver calling himself Parson Pellinost healed the one called Archie without being asked… |
+| **THE VATS** | What Is Under the Star-Lit Library | Fleeing the Iron-Hides, the Oracle moved Archie and the comatose Bones to the place he calls the… |
+| **THE ANCHOR** | He Stood in the Candles and Said No to a God | Archie Miser then demanded to be sent to Shadeward for his friends. He was told a month had alre… |
+| **FIELD REPORT** | The Slope With the Seams | Whisper-in-Wind, I am on the wrong mountain and I want that on the record before anything else! … |
+| **WIND WHISPERS** | Whispers on the Breeze | Heard in a waiting room: the green plumber went under the knife near death, and a surgeon he cal… |
+| **SIGN OFF** | Sign Off | That is the week. Check your map before you climb. Check who drew it before you trust it. |
 
 *Cadence: a new RNN broadcast is cut **every week that applicable new events exist**. File the session, then run `python3 tools/build-rnn-broadcast.py` and drop the new script in `../tools/rnn-scripts/`. The newest episode always sits here, labelled “last week”.*
 
