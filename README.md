@@ -70,7 +70,11 @@ Six things that explain nearly every decision in this repository:
    target. Improve instead of cutting.
 5. **Process before prose.** Locations, characters and XP are settled *before*
    the event is written. The event is written last. See the filing process.
-6. **Generated files are never hand-edited.** Edit the generator, then run it.
+6. **If the prose says a document exists, the reader can open it.** Invoices,
+   wires, demands and addendums are filed as exhibits in `props.json`, written
+   in the issuing body's voice. A filing that only describes its paper is a
+   summary of an archive.
+7. **Generated files are never hand-edited.** Edit the generator, then run it.
 
 ---
 
@@ -82,8 +86,8 @@ Six things that explain nearly every decision in this repository:
 
 | Document | Owns | Read when |
 |---|---|---|
-| **[`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md)** | **The ordered process.** Locations → characters → XP → *then* the event → index → artifacts | **Always. Before any filing** |
-| [`docs/STORY_FORMAT_GUIDE.md`](docs/STORY_FORMAT_GUIDE.md) | Craft standard for **canon session events** — prose, asides, apparatus, battle pages | Writing an event |
+| **[`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md)** | **The ordered process.** Locations → characters → XP → *then* the event → exhibits → index → artifacts | **Always. Before any filing** |
+| [`docs/STORY_FORMAT_GUIDE.md`](docs/STORY_FORMAT_GUIDE.md) | Craft standard for **canon session events** — prose, asides, apparatus, exhibits, battle pages | Writing an event |
 | [`docs/WHATIF_FORMAT_GUIDE.md`](docs/WHATIF_FORMAT_GUIDE.md) | Craft standard for **non-canon What-Ifs** — decision engine, ledger, findings, verdict | Writing a What-If |
 | [`docs/RNN_BROADCAST_GUIDE.md`](docs/RNN_BROADCAST_GUIDE.md) | The news broadcast. **One episode per ~10 events**, the pending list, the voice | Cutting an episode |
 | [`docs/IMAGE_GENERATION_GUIDE.md`](docs/IMAGE_GENERATION_GUIDE.md) | **Prompt sheet before generating.** Art direction from the prose, when text belongs in an image, editing over rerolling | Illustrating any filing |
@@ -159,8 +163,12 @@ Six things that explain nearly every decision in this repository:
 
 - **File a session** → follow
   [`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md) in order.
-  Locations, characters and XP come **before** the prose; the home feed and the
-  RNN pending list come after.
+  Locations, characters and XP come **before** the prose; exhibits, the home
+  feed and the RNN pending list come after.
+- **File the paper a story mentions** → add it to
+  `Reputation-Matrix2/data/props.json`, wire it with `[[prop:id|text]]`, then
+  `python3 tools/check-exhibits.py`. Craft standard:
+  [`docs/STORY_FORMAT_GUIDE.md` §9B](docs/STORY_FORMAT_GUIDE.md#9b-exhibits--the-documents-the-story-names).
 - **Refresh the home feed** → `python3 tools/update-index-home.py`.
 - **Cut the news** → only when ~10 events are pending;
   `python3 tools/build-rnn-broadcast.py` (see the cadence rule above).

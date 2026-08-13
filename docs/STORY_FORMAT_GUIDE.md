@@ -31,6 +31,7 @@ different narrator stance — see **[`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUI
 | 8 | [Formatting that renders](#8-formatting-that-renders) | Markdown only — never raw `<div>` |
 | 9 | [Event apparatus](#9-event-apparatus) | The wrapper fields |
 | 9A | [Naming rule](#naming-rule--table-names-are-not-character-names) | Table names are not character names |
+| 9B | [Exhibits](#9b-exhibits--the-documents-the-story-names) | The documents the story names — file the paper |
 | 10 | [Battle and campaign pages](#10-battle-and-campaign-pages) | The tactical variant |
 | 11 | [Pacing tells](#11-pacing-tells) | Nine things good filings do — steal deliberately |
 | 12 | [Pre-flight](#12-pre-flight) | Craft judgement + mechanical pass/fail |
@@ -55,6 +56,9 @@ PARA         ~30–40w          ASIDE    ~40–70 (1/section, 2–4/chapter)
 NOTE         analysis / waluigi_note   60–120w
 APPARATUS    ledger + findings + verdict          (what-if)
              aftermath + waluigiAssessment        (event, when resolved)
+EXHIBITS     the prose names paper → props.json files it → [[prop:id|text]]
+             written as the ISSUER · Waluigi only in the margin
+             every ## Addendum: → an addendum slip: what / who / why late
 HTML         markdown + blockquotes only — never raw <div>
 
 Quote it. Name the object. Sound it. Body over mood.
@@ -64,6 +68,7 @@ Write findings[].t as if they were all that survived.
 Leave one callback object in the close.
 
 Imp for the scene. Wario for the filing. Both, or it isn’t finished.
+If the prose says a document exists, the reader must be able to open it.
 Numbers are aim, not target. If it reads well, it is well.
 Table names are not character names — invent it, or leave them unnamed.
 ```
@@ -363,6 +368,7 @@ headings (Imp style) still works — keep part lengths in band either way.
 | `aftermath` (recommended) | standing / materiel / exposure |
 | `waluigiAssessment` (recommended when resolved) | numbered findings + one recommendation |
 | `xpAwards[]` | the awards decided in step 4 of the filing process |
+| exhibits (`data/props.json`) | the documents the prose names — filed in step 6, wired back by `articles[]` (§9B) |
 
 Imp ships without a formal assessment because the asides carry the colour and
 the outcome is mid-siege. If your event *resolves*, write the assessment. If it
@@ -406,6 +412,112 @@ Ebot narrative. The `characters.json` entry survives as a historical artifact
 only. See the rule in the [entry README](../README.md) — **`mike` is a GM name;
 ignore it wherever it appears.** Do not repeat the pattern. Invent the name, or
 leave the character unnamed.
+
+---
+
+## 9B. Exhibits — the documents the story names
+
+**If the prose says a document exists, file it.** The reader should be able to
+open the invoice, read the wire, and see the clerk's initials on the demand.
+An archive that only *describes* its paper is a summary of an archive.
+
+Where this sits in the process: exhibits are **step 6**, immediately after the
+prose and before the index —
+[`SESSION_FILING_PROCESS.md` → Step 6](SESSION_FILING_PROCESS.md#step-6--exhibits-file-the-paper-the-story-mentions).
+Field reference and the full `.pd-*` class list:
+[`Reputation-Matrix2/README.md`](../Reputation-Matrix2/README.md#attaching-exhibits-clickable-in-world-documents).
+This section is the **craft** standard: what makes the paper good.
+
+### What earns a prop
+
+| File it | Leave it in the prose |
+|---|---|
+| The paper holds a fact the prose only summarises | It is scenery — a desk with papers on it |
+| A later filing will need to point at it as evidence | It is a category, not an object ("some contracts") |
+| Institutional voice makes it colder or funnier than narration | It would duplicate the scene beat for beat |
+| It is an `## Addendum:` heading — **always** | — |
+
+Three to six exhibits on a long filing is the working band, same as images.
+A prop nobody opens is bloat; a filing that promises a document and hides it is
+worse.
+
+### Write it as the organisation, not as the archive
+
+The document's job is to be **in character for whoever typed it**. This is the
+single most common failure: props written in Waluigi's voice all the way down,
+which turns evidence into another aside.
+
+> **Reject** — the archive talking on the bank's letterhead:
+> *"This ridiculous invoice demands 4,070 gold for a service Wario never
+> actually performed."*
+>
+> **File** — the bank talking, and the reader drawing the conclusion:
+> | Item | Amount |
+> |---|---|
+> | Consultation, initial | 400 |
+> | Consultation, follow-up (unrequested) | 400 |
+> | Discretion | 3,000 |
+> | **Balance due** | **4,070** |
+>
+> …and in the margin, small: *"Discretion is not a service. It is a threat with
+> a price on it. — W."*
+
+Match the register to the issuer. A quartermaster's wire is clipped and repeats
+its own warning. A bank is polite and ruinous. A memorial plank is four names
+and no adjectives. A ministry never uses one word where a clause will do.
+
+### The three voices on a page
+
+| Layer | Class | Carries |
+|---|---|---|
+| The document | `pd-head` `pd-meta` `pd-table` `pd-clause` `pd-total` | What the issuer wrote. Neutral, institutional, complete |
+| The margin | `pd-margin` (`--red` for alarm) | Waluigi, in pencil, disagreeing with the page he is showing you |
+| The docket | the `note` field | The archive's one-line summary on the tile |
+
+Waluigi appears in the margin and the docket. **Nowhere else.** If his voice is
+in the body copy, the exhibit has stopped being evidence.
+
+### Addendums
+
+An addendum is the archive going back to a **closed** file and adding one more
+thing, so it is filed as its own slip (`kind: "addendum"`), not buried
+mid-article. Every one must answer three questions on the paper itself:
+
+```
+□ What was noticed?          the detail, verbatim where possible (pd-quote)
+□ Who noticed it?            name them — "Dobbs spotted that, not Wario"
+□ Why was it not in the      the honest reason: nobody asked, the company
+  original filing?           had dissolved, the placement was challenged
+```
+
+Use `pd-late` for the "attached eight years after the ascent" line, `pd-quote`
+for verbatim speech, `pd-wah` for the sign-off. The late line is the whole
+point of the form: an addendum's meaning is *how long it took to arrive*.
+
+### Prose triggers
+
+The tile grid at the foot of the article is the floor. Put the trigger on the
+sentence that makes the promise, so the reader opens the paper at the moment
+they want it:
+
+```
+the demand was [[prop:prop_sheet41_correction_demand|filed and never answered]]
+```
+
+Do not label triggers "click here" or "see exhibit". The link text is part of
+the sentence and should read as prose with or without the link.
+
+### Pre-flight
+
+```
+□ Every document the prose names is filed, or deliberately skipped
+□ Each prop reads as its issuer, not as the archive
+□ Waluigi is in the margin and the note only
+□ Every ## Addendum: heading has an addendum prop: what / who / why-late
+□ At least one inline [[prop:…]] trigger per document, welded to its sentence
+□ Body uses only documented .pd-* classes — no inline styles, no new names
+□ python3 tools/check-exhibits.py is clean
+```
 
 ---
 
@@ -551,6 +663,8 @@ at it without explaining it. Readers finish the filing themselves.
 □ Asides are their own paragraph, start *WAH! / *Waluigi, end with *
 □ No table names — GM/player/handle names never become character names (§9A)
 □ xpAwards[] present if XP was earned; every xpKey verified against XP_SUMMARY
+□ Every document the prose names is filed in props.json, or skipped on purpose (§9B)
+□ Every ## Addendum: heading has an addendum prop; tools/check-exhibits.py clean
 □ Event added to the home feed, SITE_UPDATES, and the RNN pending list
 ```
 

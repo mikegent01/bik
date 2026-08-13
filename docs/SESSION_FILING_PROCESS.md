@@ -11,7 +11,7 @@ them is a writing problem.
 
 > **The event is written LAST.**
 > Locations first. Characters second. XP third. Prose fourth.
-> Broadcast, home feed, and every other artifact come after the prose.
+> Exhibits, broadcast, home feed, and every other artifact come after the prose.
 
 Nothing here is about style. Style lives in
 [`STORY_FORMAT_GUIDE.md`](STORY_FORMAT_GUIDE.md) (events) and
@@ -20,7 +20,7 @@ about **sequence**, and the sequence is not optional.
 
 ---
 
-## The seven steps
+## The eight steps
 
 | # | Step | Output | Why it is here and not later |
 |---:|---|---|---|
@@ -29,8 +29,9 @@ about **sequence**, and the sequence is not optional.
 | 3 | **Characters second.** | `characters.json` entries created or amended | `participants[]` must resolve. Names get decided here, under the naming rule — not mid-paragraph |
 | 4 | **XP determined third.** | The `xpAwards[]` rows, written out before the prose | XP is a judgement about what the session was worth. Make it while the beats are still a list. Written after the prose, it becomes a reward for whichever scene you enjoyed writing |
 | 5 | **THEN write the event.** | `events.json` entry | Everything it points at already exists |
-| 6 | **Update the main index page.** | `index.html` home feed + `SITE_UPDATES` | An event nobody can find from the front page is not filed |
-| 7 | **Artifacts last.** | RNN pending list, broadcast if owed, any images or pages | These are downstream of the filing and cheap to redo. The filing is not |
+| 6 | **Exhibits — file the paper the story mentions.** | `data/props.json` entries + `[[prop:…]]` triggers in the prose | The prose decides which documents exist. Written before the prose, you invent paperwork nobody needed; written after, you file exactly what the scene already promised the reader |
+| 7 | **Update the main index page.** | `index.html` home feed + `SITE_UPDATES` | An event nobody can find from the front page is not filed |
+| 8 | **Artifacts last.** | RNN pending list, broadcast if owed, any images or pages | These are downstream of the filing and cheap to redo. The filing is not |
 
 ---
 
@@ -101,7 +102,7 @@ Same discipline, against `Reputation-Matrix2/data/characters.json`.
 
 Session transcripts are full of **table names** — the GM, the players, the
 handles they answer to. Run every name through the naming rule in
-[`STORY_FORMAT_GUIDE.md`](STORY_FORMAT_GUIDE.md#rule-table-names-are-not-character-names)
+[`STORY_FORMAT_GUIDE.md`](STORY_FORMAT_GUIDE.md#naming-rule--table-names-are-not-character-names)
 before it enters `characters.json`. Unnamed is always safe. *The hire*, *the
 charter pilot*, *the boy* invent no canon and can be named later without a
 retcon.
@@ -172,7 +173,132 @@ existing indentation. Validate the JSON parses before moving on.
 
 ---
 
-## Step 6 — Update the main index page
+## Step 6 — Exhibits: file the paper the story mentions
+
+**If the prose says a document exists, the reader must be able to open it.**
+An invoice, a contract, a ledger page, a wire, a summit plank, an addendum —
+the story names it, so the archive holds it. That is the whole rule.
+
+This step is here, immediately after the prose, for a reason. Do it earlier and
+you invent paperwork the scene never needed. Do it later — or never — and the
+filing keeps making promises it does not keep: *"the demand was filed"*, and
+nothing to read.
+
+Exhibits live in `Reputation-Matrix2/data/props.json` and render as full
+custom-CSS paper in a modal. **No JS and no CSS changes are needed to add one.**
+The craft standard — how the paper should be *written* — is
+[`STORY_FORMAT_GUIDE.md` §9B](STORY_FORMAT_GUIDE.md#9b-exhibits--the-documents-the-story-names).
+The field reference is
+[`Reputation-Matrix2/README.md` → Attaching exhibits](../Reputation-Matrix2/README.md#attaching-exhibits-clickable-in-world-documents).
+
+### 6a — List the documents the prose already promised
+
+Re-read the finished event and write down every piece of paper it mentions.
+
+```bash
+python3 - <<'EOF' | sort | uniq -c | sort -rn
+import json, re
+EVENT = "the_mount_ebot_expedition"          # <- the event you just filed
+ev = next(e for e in json.load(open("Reputation-Matrix2/data/events.json"))
+          if e["id"] == EVENT)
+print("\n".join(re.findall(
+    r"(?i)\b(invoice|receipt|ledger|contract|writ|order|telegram|wire|deed|"
+    r"permit|passport|manifest|affidavit|addendum|demand|plaque|plank)s?\b",
+    json.dumps(ev))))
+EOF
+```
+
+Then triage. **Not every mention earns a prop.** File the ones where seeing the
+document changes what the reader knows:
+
+```
+□ Does the paper contain a fact the prose only summarises?
+   ("the demand was ignored" → the demand itself, with the clerk's initials)
+□ Is it evidence — something a later filing will need to point at?
+□ Is it funnier, colder, or more damning in institutional voice than in prose?
+□ Would a reader want to look at it? A named object beats a category.
+
+If it is only scenery, leave it in the prose. A prop nobody opens is bloat.
+```
+
+**Every `## Addendum:` heading is automatic.** An addendum is the archive going
+back to a closed file, so it gets filed as a separate `addendum` slip rather
+than being buried mid-article. Find any that are still buried with:
+
+```bash
+grep -in "addendum" Reputation-Matrix2/data/events.json | head
+python3 tools/check-exhibits.py    # warns on every uncovered ## Addendum:
+```
+
+### 6b — Write each prop
+
+Add an object under `props`, keyed `prop_<subject>_<kind>`:
+
+```json
+"prop_sheet41_correction_demand": {
+  "kind": "order",
+  "icon": "📐",
+  "title": "Correction Demand — Survey Series IV, Sheet 41",
+  "subtitle": "Office of the Auditor-General",
+  "items": [],
+  "articles": ["the_mount_ebot_expedition"],
+  "note": "Filed. Acknowledged by a clerk. Unanswered.",
+  "body": "<div class=\"pd-head\">…</div>",
+  "stamps": ["noaction"]
+}
+```
+
+| Field | Rule |
+|---|---|
+| `kind` | One of the styled forms: `invoice` `ledger` `letter` `telegram` `map` `passport` `contract` `note` `order` `addendum`. The kind sets the paper stock, so pick the one the issuing body would have used |
+| `items` / `articles` | **The wiring.** Item keys from `INVENTORY_SYSTEM`, article ids from the data files. A tile grid appears automatically on every page listed, and the modal links back. A prop wired to nothing can never be opened |
+| `body` | HTML built **only** from the `.pd-*` classes in `app/styles/systems/exhibits.css`. Never an inline style, never an invented class — both render as unstyled text. Need something new? Add the class to the stylesheet first |
+| `stamps` | Optional: `overdue` `paid` `void` `sealed` `noaction` `evidence` |
+| `note` | The archive's one-line docket for the tile. Waluigi's voice belongs here and in `.pd-margin` — **nowhere else on the paper** |
+
+**Write the paper as the issuing organisation would.** A quartermaster's wire is
+clipped and repeats itself. A bank is polite and ruinous. A memorial plank is
+four names and no adjectives. The document's job is to be *in character for
+whoever typed it*; Waluigi's opinion goes in the margin aside, where the reader
+can see him disagreeing with the page he is showing them.
+
+### 6c — Wire it into the prose
+
+A tile grid at the foot of the article is the floor, not the goal. Put the
+trigger on the sentence that mentions the document:
+
+```
+the demand was [[prop:prop_sheet41_correction_demand|filed and never answered]]
+```
+
+`[[prop:id|visible text]]` renders as a clickable `.proplink`. It works in any
+field that goes through `mdToHtml` — `description`, `sections[].overview`,
+`aftermath`, `waluigiAssessment`. One trigger per document is usually right;
+the tiles catch the rest.
+
+### 6d — Verify
+
+```bash
+python3 tools/check-exhibits.py
+```
+
+It fails the run on: a broken `props.json`, an unstyled `kind` or stamp, an
+invented `.pd-*` class, an inline style, an `items` / `articles` id that
+resolves to nothing, a prop linked to nothing, and a `[[prop:…]]` marker
+pointing at a prop that does not exist. It warns on any `## Addendum:` heading
+with no addendum slip filed against it.
+
+```
+□ check-exhibits.py is clean
+□ Every document the prose names is either filed or deliberately skipped
+□ Every ## Addendum: heading has an addendum prop
+□ Opened each new prop in the browser — the paper renders, backlinks work
+□ No raw [[prop: text visible in the rendered article
+```
+
+---
+
+## Step 7 — Update the main index page
 
 **A filing that is not on the front page is not finished.** Three places, all
 in `index.html`, and they are easy to half-do:
@@ -193,7 +319,7 @@ in `index.html`, and they are easy to half-do:
 
 ---
 
-## Step 7 — Artifacts last
+## Step 8 — Artifacts last
 
 In this order:
 
@@ -220,9 +346,12 @@ In this order:
 3  CHARACTERS  → characters.json entries exist; names pass the naming gate
 4  XP          → xpAwards[] rows written out, xpKey verified against XP_SUMMARY
 5  EVENT       → now write it. events.json. STORY_FORMAT_GUIDE.md
-6  INDEX       → Recent Adventures feed + SITE_UPDATES + mainPage.json
-7  ARTIFACTS   → pending-news-articles.json → broadcast if owed → run report
+6  EXHIBITS    → props.json for the paper the prose named + [[prop:]] triggers
+                 every ## Addendum: gets a slip · python3 tools/check-exhibits.py
+7  INDEX       → Recent Adventures feed + SITE_UPDATES + mainPage.json
+8  ARTIFACTS   → pending-news-articles.json → broadcast if owed → run report
 
-The event is written last. The news is written after that.
+The event is written last. The paper it mentions is filed right after.
+The news is written after that.
 Never trim story-critical material to hit a number.
 ```

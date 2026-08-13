@@ -1,22 +1,27 @@
 # Audit Scripts
 
-Two throwaway scripts that count what a filing is actually made of. Paste,
-change the id, run from the repo root.
+Three scripts that count what a filing is actually made of. Run them from the
+repo root.
 
-**They are advisory.** They count sensory words, dialogue, and the story /
-analysis ratio. They cannot tell whether a scene is good, whether a joke lands,
-or whether the argument holds. A filing that flags nothing can still be dull; a
-filing that flags three things can be finished. Read the output, re-read the
-prose, then decide.
+The first two are **throwaway and advisory** — paste, change the id, run. They
+count sensory words, dialogue, and the story / analysis ratio. They cannot tell
+whether a scene is good, whether a joke lands, or whether the argument holds. A
+filing that flags nothing can still be dull; a filing that flags three things
+can be finished. Read the output, re-read the prose, then decide.
 
 They also **do not measure length as a fault**. Nothing here says "too long."
 If a number looks high, ask whether the prose is padded — not whether it can be
 shortened to hit a band.
 
-| Script | Reads | Use with |
-|---|---|---|
-| [Event audit](#event-audit) | `Reputation-Matrix2/data/events.json` | [`STORY_FORMAT_GUIDE.md`](STORY_FORMAT_GUIDE.md) |
-| [What-If audit](#what-if-audit) | `Reputation-Matrix2/data/whatifs.json` (`doc['whatifs']`) | [`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUIDE.md) |
+The third is **committed and strict**. `tools/check-exhibits.py` asks questions
+with right answers — does this class exist, does this id resolve — so its
+failures are bugs, not opinions.
+
+| Script | Reads | Use with | Verdict |
+|---|---|---|---|
+| [Event audit](#event-audit) | `Reputation-Matrix2/data/events.json` | [`STORY_FORMAT_GUIDE.md`](STORY_FORMAT_GUIDE.md) | Advisory |
+| [What-If audit](#what-if-audit) | `Reputation-Matrix2/data/whatifs.json` (`doc['whatifs']`) | [`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUIDE.md) | Advisory |
+| [Exhibit audit](#exhibit-audit) | `props.json`, `exhibits.css`, `index.html` | [`SESSION_FILING_PROCESS.md`](SESSION_FILING_PROCESS.md#step-6--exhibits-file-the-paper-the-story-mentions) | **Pass/fail** |
 
 ---
 
@@ -148,3 +153,49 @@ else:
     print('  Nothing flagged.')
 PY
 ```
+
+---
+
+## Exhibit audit
+
+Unlike the two above, this one is **committed, not pasted** — and it is **not
+advisory**. It checks facts, not taste: whether a prop is well-formed, whether
+its `kind` and stamps have styling behind them, whether every class its body
+uses exists, whether the ids it links to resolve, and whether it can be reached
+at all. Those questions have right answers, so a failure is a bug. Fix it
+rather than reading past it.
+
+```bash
+python3 tools/check-exhibits.py
+```
+
+No id argument — it reads the whole layer at once: `Reputation-Matrix2/data/props.json`,
+the `.pd-*` rules in `Reputation-Matrix2/app/styles/systems/exhibits.css`, the
+`INVENTORY_SYSTEM` object and `[[prop:…]]` markers in `index.html`, and the id
+arrays of every data file an article can live in.
+
+**Errors — exit 1, must be fixed:**
+
+| Check | Why it matters |
+|---|---|
+| Missing `kind`, `title` or `body` | The card renders empty or untitled. |
+| `kind` with no `.pd--<kind>` rule | Falls back to unstyled — a document with no paper. |
+| Unknown entry in `stamps[]` | Renders as an invisible or unstyled stamp. |
+| `body` uses a `pd-*` class the CSS never defines | A typo that silently does nothing. |
+| `body` contains an inline `style=` | Styling belongs in `exhibits.css` where the print and light-mode rules can reach it. |
+| `items[]` key not in `INVENTORY_SYSTEM` | Tile grid never appears on the item page. |
+| `articles[]` id resolves to no record | Exhibits card never appears on the article. |
+| Prop linked to nothing | It exists in the data and can never be opened. |
+| `[[prop:<id>]]` with no prop behind it | Reader clicks a link into nothing. |
+
+**Warnings — exit 0, read and judge:**
+
+| Check | What to do |
+|---|---|
+| `## Addendum:` heading with no addendum prop covering it | Usually means a late correction is described in prose but has no slip to open. File one, or decide the heading is not a document. |
+
+Run it before you commit any filing that names paperwork, and after any edit to
+`props.json` or `exhibits.css`. The process step is
+[Step 6 of the filing process](SESSION_FILING_PROCESS.md#step-6--exhibits-file-the-paper-the-story-mentions);
+the craft standard is
+[§9B of the story format guide](STORY_FORMAT_GUIDE.md#9b-exhibits--the-documents-the-story-names).
