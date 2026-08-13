@@ -22,7 +22,7 @@
 | **WIND WHISPERS** | Whispers on the Breeze | Heard in a waiting room: the green plumber went under the knife near death, and a surgeon he cal… |
 | **SIGN OFF** | Sign Off | That is the week. Check your map before you climb. Check who drew it before you trust it. |
 
-*Cadence: a new RNN broadcast is cut **every week that applicable new events exist**. File the session, then run `python3 tools/build-rnn-broadcast.py` and drop the new script in `../tools/rnn-scripts/`. The newest episode always sits here, labelled “last week”.*
+*Cadence: **one episode per ~10 filed events, not one per event.** File the session, add the event id to `../tools/rnn-scripts/pending-news-articles.json`, and when the list reaches ten write the next script in `../tools/rnn-scripts/` and run `python3 tools/build-rnn-broadcast.py`. Full rules: [`docs/RNN_BROADCAST_GUIDE.md`](../docs/RNN_BROADCAST_GUIDE.md). The newest episode always sits here.*
 
 <!-- RNN:LAST-WEEK:END -->
 

@@ -1,12 +1,19 @@
 /* GENERATED FILE — do not hand-edit.
    Source scripts: tools/rnn-scripts/*.json
    Rebuild:        python3 tools/build-rnn-broadcast.py
-   Cadence:        one new episode per week when new events exist. */
+   Cadence:        one episode per ~10 filed events (docs/RNN_BROADCAST_GUIDE.md). */
 window.RNN_BROADCASTS = {
   "generated": "2026-08-13",
   "latest": "rnn-002",
-  "cadence": "A new broadcast is cut every week that applicable new events exist.",
+  "cadence": "One episode per ~10 filed events, not one per event. See docs/RNN_BROADCAST_GUIDE.md.",
   "episodes": [
+    {
+      "_comment": "Events filed but not yet aired on the Rakasha News Network. Append {id, filed, note} the moment an event is filed (step 7 of docs/SESSION_FILING_PROCESS.md). When pending[] reaches `threshold`, write the next tools/rnn-scripts/epNNN.json covering those events, then clear pending[] to [] and set lastEpisode. Ground truth is `python3 tools/build-rnn-broadcast.py --unaired`; if this file and that disagree, --unaired is right.",
+      "threshold": 10,
+      "lastEpisode": "rnn-002",
+      "pending": [],
+      "runtimeMs": 0
+    },
     {
       "id": "rnn-001",
       "number": 1,

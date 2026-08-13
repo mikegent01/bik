@@ -121,7 +121,7 @@ def write_data_js(episodes, generated):
     payload = {
         'generated': generated,
         'latest': episodes[-1]['id'] if episodes else None,
-        'cadence': 'A new broadcast is cut every week that applicable new events exist.',
+        'cadence': 'One episode per ~10 filed events, not one per event. See docs/RNN_BROADCAST_GUIDE.md.',
         'episodes': episodes,
     }
     body = json.dumps(payload, indent=2, ensure_ascii=False)
@@ -129,7 +129,7 @@ def write_data_js(episodes, generated):
         '/* GENERATED FILE — do not hand-edit.\n'
         '   Source scripts: tools/rnn-scripts/*.json\n'
         '   Rebuild:        python3 tools/build-rnn-broadcast.py\n'
-        '   Cadence:        one new episode per week when new events exist. */\n'
+        '   Cadence:        one episode per ~10 filed events (docs/RNN_BROADCAST_GUIDE.md). */\n'
     )
     with open(OUT_JS, 'w', encoding='utf-8') as f:
         f.write(banner + 'window.RNN_BROADCASTS = ' + body + ';\n')
@@ -165,9 +165,11 @@ def readme_block(ep, depth):
         '|---|---|---|',
     ] + rows + [
         '',
-        '*Cadence: a new RNN broadcast is cut **every week that applicable new events exist**. '
-        'File the session, then run `python3 tools/build-rnn-broadcast.py` and drop the new script '
-        'in `%s`. The newest episode always sits here, labelled “last week”.*' % script,
+        '*Cadence: **one episode per ~10 filed events, not one per event.** File the session, add '
+        'the event id to `%spending-news-articles.json`, and when the list reaches ten write the '
+        'next script in `%s` and run `python3 tools/build-rnn-broadcast.py`. Full rules: '
+        '[`docs/RNN_BROADCAST_GUIDE.md`](%sdocs/RNN_BROADCAST_GUIDE.md). The newest episode always '
+        'sits here.*' % (script, script, depth),
         '',
         README_END,
     ]
