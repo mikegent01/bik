@@ -109,7 +109,6 @@ Six things that explain nearly every decision in this repository:
 | [`wahsim/README.md`](wahsim/README.md) | The Wahsim simulator — its own tool, its own docs |
 | [`Reputation-Matrix2/tools/hub/README.md`](Reputation-Matrix2/tools/hub/README.md) | The tools hub |
 | [`Reputation-Matrix2/tools/item sheet examples/README.md`](Reputation-Matrix2/tools/item%20sheet%20examples/README.md) | Foundry item-sheet examples |
-| [`Reputation-Matrix2/books/README.md`](Reputation-Matrix2/books/README.md), [`Reputation-Matrix2/books/gemini.md`](Reputation-Matrix2/books/gemini.md) | Near-duplicates of the two canonical copies above. **Prefer the canonical copies** |
 | `timeline/README.md` | Boilerplate for a bundled third-party React app. **Not ours — leave it alone** |
 
 ---

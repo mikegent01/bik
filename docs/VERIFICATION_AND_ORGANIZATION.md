@@ -164,8 +164,7 @@ find . \( -name '*-new.*' -o -name '*-v2.*' -o -name '*-final.*' \
 
 | Situation | Decision |
 |---|---|
-| `Reputation-Matrix2/books/README.md` ≈ `Reputation-Matrix2/README.md` | Near-duplicate. The `Reputation-Matrix2/` copy is canonical |
-| `books/gemini.md` is a truncation of `Reputation-Matrix2/gemini.md` | Canonical copy is `Reputation-Matrix2/gemini.md` |
+| `Reputation-Matrix2/books/README.md`, `books/gemini.md` | **Deleted.** They were copies of `Reputation-Matrix2/README.md` and `Reputation-Matrix2/gemini.md` with nothing unique in them. Do not recreate them — `books/` holds book data, not process docs |
 | `timeline/README.md` | Boilerplate for a bundled third-party React app. **Leave alone** |
 | `wahsim/README.md`, `Reputation-Matrix2/tools/hub/README.md` | Genuine tool docs. Index them; do not rewrite them |
 
