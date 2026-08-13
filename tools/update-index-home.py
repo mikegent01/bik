@@ -41,15 +41,15 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
          <div class="timeline-date-chip" style="color:#c9a6ff;">Aethel 17, 1040 BF · Duration: ~18 hours in-world · Latest Session</div>
          <h3 class="timeline-event-title">The Mount Ebot Expedition — One T</h3>
          <div class="timeline-actors">
-           <span>Waluigi</span><span>Wario</span><span>mike</span><span>The Charter Pilot</span><span>The Small One</span>
+           <span>Waluigi</span><span>Wario</span><span>Jory Dobbs</span><span>Antonio</span><span>The Charter Pilot</span><span>The Small One</span>
          </div>
          <p class="timeline-summary">
-           Wario abducts Waluigi in a produce sack at four in the morning, hires a stranger named mike off a noticeboard, and flies a taped-together charter into a storm hunting treasure. The aircraft goes into a cave sideways, the pilot is knocked unconscious, mike takes a head wound, and the party climbs anyway — past a silent bone-throwing sentry that teleports, an earthquake that pushes skeletons up out of the ground in rows, and a bridge improved with sixty razors and six flame jets triggered by weight. At the summit: a plank with four names on it, and a map that reads MOUNT EBOT. One T. The wrong mountain, four hundred miles west of the right one, because a compositor at the Old World Mapping Company dropped a letter.
+           Wario plans the whole thing in a locked gold room over treasure maps weighted down with garlic bread, hires a stranger named Jory Dobbs off a noticeboard for a wage of nothing, forges two passports, and specifically excludes Waluigi — then spots him on a balcony with binoculars at four in the morning, abducts him in a produce sack, and flies a taped-together charter into a storm hunting treasure. The aircraft goes into a cave sideways, the pilot is knocked unconscious, Dobbs takes a head wound, and the party climbs anyway — past a silent bone-throwing sentry that teleports, an earthquake that pushes skeletons up out of the ground in rows, and a bridge improved with sixty razors and six flame jets triggered by weight. At the summit: a plank with four names on it, and a map that reads MOUNT EBOT. One T. The wrong mountain, four hundred miles west of the right one, because a compositor at the Old World Mapping Company dropped a letter.
          </p>
          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
            <span class="chip" onclick="Router.go('#/article/the_mount_ebot_expedition')" style="margin:0; font-size:12px; background:#8a4bff; color:#fff; font-weight:800;">📖 Read Full Session Filing →</span>
            <span class="chip" onclick="Router.go('#/article/mount_ebot')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">🪨 Mount Ebot (One T) →</span>
-           <span class="chip" onclick="Router.go('#/article/mike')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🩹 mike →</span>
+           <span class="chip" onclick="Router.go('#/article/jory_dobbs')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🩹 Jory Dobbs →</span>
            <span class="chip" onclick="Router.go('#/article/mount_ebott')" style="margin:0; font-size:12px; background:var(--panel2); border-color:#e5484d;">⛰️ Mount Ebott (Two T) →</span>
          </div>
        </div>

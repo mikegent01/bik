@@ -347,7 +347,7 @@ window.RNN_BROADCASTS = {
           "lines": [
             {
               "expression": "mouthslightlyopen",
-              "text": "On the seventeenth of Aethel the yellow one they call Wario put his brother in a produce sack, loaded him onto a rented sky-machine with a young human named mike, and flew north into a storm that had already been reported.",
+              "text": "On the seventeenth of Aethel the yellow one they call Wario put his brother in a produce sack, loaded him onto a rented sky-machine with a young human named Jory Dobbs, and flew north into a storm that had already been reported.",
               "duration": 11000
             },
             {
