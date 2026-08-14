@@ -28,7 +28,8 @@ Exit 0 = clean, 1 = at least one error.
 import json, re, collections
 
 INV  = json.load(open('Reputation-Matrix2/data/investigations.json'))['investigations']
-PROPS= set(json.load(open('Reputation-Matrix2/data/props.json'))['props'])
+PROPDATA = json.load(open('Reputation-Matrix2/data/props.json'))['props']
+PROPS= set(PROPDATA)
 HTML = open('index.html', encoding='utf-8').read()
 CSS  = open('Reputation-Matrix2/app/styles/systems/investigations.css', encoding='utf-8').read()
 
@@ -47,6 +48,7 @@ QUESTS = ids('Reputation-Matrix2/data/quests.json','quests')
 
 ALL_EX = {ex['id']: iv['id'] for iv in INV for ex in iv.get('exhibits', [])}
 
+n_doc = [0]
 err, warn = [], []
 for iv in INV:
     tag = iv['id']
@@ -96,6 +98,33 @@ for iv in INV:
                     err.append(f"{tag}/{ex['id']}/{field}: inline roll needs both a success and a failure line")
         if not rolls:
             warn.append(f"{tag}/{ex['id']}: no inline insight rolls — nothing in the prose to investigate")
+
+        # docRolls: insight checks anchored to a phrase in the prop's own body.
+        # `match` MUST appear verbatim in a text run of that body — inside a tag
+        # or split across markup it would silently never render.
+        body = (PROPDATA.get(ex.get('propId')) or {}).get('body', '') or ''
+        runs = [x for x in re.split(r'(<[^>]+>)', body) if not x.startswith('<')]
+        dseen = set()
+        for i, r in enumerate(ex.get('docRolls') or []):
+            n_doc[0] += 1
+            rdc = r.get('dc')
+            if not isinstance(rdc, int) or not 2 <= rdc <= 6:
+                err.append(f"{tag}/{ex['id']}/docRolls[{i}]: dc {rdc!r} out of range — reading a line is a plain d6")
+            if not r.get('success') or not r.get('failure'):
+                err.append(f"{tag}/{ex['id']}/docRolls[{i}]: needs both a success and a failure line")
+            m = r.get('match') or ''
+            if not m:
+                err.append(f"{tag}/{ex['id']}/docRolls[{i}]: no match phrase")
+            elif not any(m in run for run in runs):
+                err.append(f"{tag}/{ex['id']}/docRolls[{i}]: match {m[:40]!r} is not verbatim text in {ex.get('propId')}")
+            elif m in dseen:
+                err.append(f"{tag}/{ex['id']}/docRolls[{i}]: duplicate match {m[:40]!r} — the first occurrence wins")
+            else:
+                dseen.add(m)
+            if sum(run.count(m) for run in runs) > 1 and m:
+                warn.append(f"{tag}/{ex['id']}/docRolls[{i}]: match {m[:40]!r} occurs more than once; the first is used")
+        if ex.get('propId') and not (ex.get('docRolls') or []):
+            warn.append(f"{tag}/{ex['id']}: no docRolls — the document itself cannot be read into")
         if not ex.get('visual'):
             warn.append(f"{tag}/{ex['id']}: no visual — the exhibit has no specimen art")
         elif 'class=' in ex['visual']:
@@ -139,7 +168,7 @@ n_ex = sum(len(i.get('exhibits',[])) for i in INV)
 n_roll = sum(len(re.findall(r'\[\[roll:', (e.get('onRecord','') or '') + (e.get('analysis','') or '')))
              for i in INV for e in i.get('exhibits',[]))
 n_vis = sum(1 for i in INV for e in i.get('exhibits',[]) if e.get('visual'))
-print(f"files: {len(INV)}  exhibits: {n_ex}  examinations: {n_ex}  insight rolls: {n_roll}  visuals: {n_vis}")
+print(f"files: {len(INV)}  exhibits: {n_ex}  examinations: {n_ex}  insight rolls: {n_roll}  document rolls: {n_doc[0]}  visuals: {n_vis}")
 for e in err:  print('  ERROR  ', e)
 for w in warn: print('  warn   ', w)
 print(f"\n{len(err)} error(s), {len(warn)} warning(s)")

@@ -9854,7 +9854,7 @@ function invRollTokens(t){
   return m ? m.length : 0;
 }
 function invInsightCount(ex){
-  return invRollTokens(ex.onRecord) + invRollTokens(ex.analysis);
+  return invRollTokens(ex.onRecord) + invRollTokens(ex.analysis) + (ex.docRolls||[]).length;
 }
 function invInsightFound(iv, ex){
   const b = invBucket(iv.id).insight;
@@ -10226,8 +10226,15 @@ function invOpenExhibit(invId, exId){
     </div>`;
   const body = document.getElementById('invModalBody');
 
-  const paper = (typeof getProp === 'function' && ex.propId && getProp(ex.propId))
+  let paper = (typeof getProp === 'function' && ex.propId && getProp(ex.propId))
     ? propDocumentHtml(ex.propId) : '';
+  if(paper) paper = invDocRollHtml(iv, ex, paper);
+  const docHead = (paper && (ex.docRolls||[]).length)
+    ? `<div class="card" style="padding:14px 16px 2px">
+        <div class="home-section-head"><div><h2>📄 The document itself</h2>
+        <p>Read the paper, not the summary. Underlined phrases in the document below are
+        <b>insight checks</b> on that exact line — click one to work out what it is telling you.</p></div></div>
+       </div>` : '';
 
   body.innerHTML = `
     ${ex.visual ? `<div class="card" style="padding:14px">${ex.visual}</div>` : ''}
@@ -10237,7 +10244,7 @@ function invOpenExhibit(invId, exId){
       </div>
       <div class="prose">${invAnalysis(iv, ex, 'rec', ex.onRecord||'')}</div>
     </div>
-    ${paper}
+    ${docHead}${paper}
     <div class="card">
       <div class="home-section-head">
         <div><h2>🔬 Examination</h2><p>One reading, d6+1 against the difficulty. It costs nothing and it is not repeatable — whatever the dice say is what this file says from now on.</p></div>
@@ -10350,6 +10357,42 @@ function invReset(invId){
   if(!confirm('Reset this file? Every examination and insight roll recorded for it is cleared from this browser, and the dice start again from nothing.')) return;
   const s = invState(); delete s[invId]; invSave(s);
   view_investigation(invId);
+}
+
+/* ---------- reading the document itself ----------
+   An exhibit may carry docRolls[]: { dc, match, success, failure }. `match` is
+   a phrase that appears verbatim in the prop's own body — a line of the diary,
+   a struck figure, a redacted field. Each one is turned into an insight check
+   in place, so the reader interrogates the paper directly instead of only
+   reading the archivist's summary of it.
+
+   Replacement happens in text nodes only. The body is split on tags and the
+   phrase is matched inside the text runs, so a `match` can never corrupt an
+   attribute or nest a span inside markup it does not own. */
+function invDocRollHtml(iv, ex, html){
+  const rolls = ex.docRolls || [];
+  if(!rolls.length) return html;
+  const parts = String(html).split(/(<[^>]+>)/);
+  rolls.forEach((r, i) => {
+    if(!r || !r.match) return;
+    const rid = ex.id + ':doc:' + i;
+    const verdict = invVerdict(iv.id, 'insight', rid);
+    const span = `<span class="inv-inline-roll${verdict?' rolled':''}" data-inv="${esc(iv.id)}" data-rid="${esc(rid)}"
+       data-dc="${r.dc||4}" data-ok="${esc(r.success||'')}" data-no="${esc(r.failure||'')}"
+       ${verdict?'':`onclick="invInlineRoll(this)" title="Read this line closely — DC ${r.dc||4}"`}>${esc(r.match)}</span>`;
+    const out = verdict
+      ? span + invInlineOut(verdict === 'success' ? r.success : r.failure, verdict === 'success')
+      : span;
+    let done = false;
+    for(let k = 0; k < parts.length && !done; k++){
+      if(parts[k].charAt(0) === '<') continue;          // a tag, never touched
+      const at = parts[k].indexOf(esc(r.match));
+      if(at < 0) continue;
+      parts[k] = parts[k].slice(0, at) + out + parts[k].slice(at + esc(r.match).length);
+      done = true;
+    }
+  });
+  return parts.join('');
 }
 
 /* renders a prop's physical document inline (same markup the exhibit overlay uses) */

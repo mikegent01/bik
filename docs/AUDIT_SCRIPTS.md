@@ -240,12 +240,17 @@ No arguments — it reads `Reputation-Matrix2/data/investigations.json` against
 | A lead with no `why` | It is a quest again. The `why` is the entire difference. |
 | A lead citing an exhibit that exists in no file | Dead chip. |
 | Duplicate exhibit id inside one file | The second one is unreachable. |
+| A `docRolls[].match` that is not verbatim text in the prop's `body` | The roll never renders and the reader never learns it existed. Silent, so it is an error. |
+| A `docRolls[]` entry with a `dc` outside 2–6, or missing `success`/`failure` | Same reasons as an inline prose roll — it is the same plain `d6`. |
+| Two `docRolls[]` on one exhibit sharing a `match` | Only the first occurrence is ever replaced, so the second roll is dead. |
 
 **Warnings — exit 0, read and judge:**
 
 | Check | What to do |
 |---|---|
 | An exhibit with no inline insight rolls | Nothing in its prose can be investigated. Salt three or four through it. |
+| An exhibit with a `propId` but no `docRolls` | The reader can see the document but cannot interrogate it. Anchor two checks to lines that actually carry the case. |
+| A `docRolls[].match` occurring more than once in the body | Only the first is used. Lengthen the phrase until it is unique. |
 | An exhibit with no `visual` | The reader gets a filing number instead of an object. Draw it. |
 | An examination DC below 2 | It cannot fail, so it is not a roll. |
 | `fromQuest` naming no quest in `quests.json` | The "promoted from the board" pill is claiming a provenance that no longer exists. Fix the id or drop the field. |

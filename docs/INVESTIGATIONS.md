@@ -102,6 +102,12 @@ map and its link starts resolving to the right file.
   "onRecord": "What anyone can see without rolling.",
   "dc": 4,                            // the one examination DC, 2–7
   "analysis": "The archivist's full reading. `## ` starts a subheading.",
+  "docRolls": [                       // optional; insight checks inside the prop itself
+    { "dc": 4,
+      "match": "verbatim phrase from the prop's own body",
+      "success": "what reading that line closely reveals",
+      "failure": "the shallow reading" }
+  ],
   "links": { "events": [], "items": [], "characters": [] }
 }
 ```
@@ -223,6 +229,46 @@ Use a roll for a judgement call the archive genuinely cannot settle from the
 paper alone. Do not use it for decoration, and do not put load-bearing plot on
 the success branch — a reader who rolls badly still has to be able to follow
 the case.
+
+**A success must pay in case material, not in characterisation.** "He always
+does that" is not a finding. A success should surface a document's contents, a
+number, a date, a name, a consequence, or a cross-reference to another exhibit
+— something a reader could carry to a different page in the file and use. If
+the only thing a roll establishes is that somebody has a habit, cut it or
+rewrite it until it points at evidence.
+
+### Rolls inside the document itself — `docRolls`
+
+The prose above an exhibit is the archivist talking. `docRolls` puts the
+checks in **the source paper**, so the reader interrogates the diary, the
+invoice or the register line by line instead of reading a summary of it.
+
+```jsonc
+"docRolls": [
+  { "dc": 3,
+    "match": "the tree has nothing left to complain with",
+    "success": "what that exact line gives up under scrutiny",
+    "failure": "a gardening image, morbidly put." }
+]
+```
+
+Rules, all enforced by `tools/check-investigations.py`:
+
+- `match` must appear **verbatim in a text run of the prop's `body`** in
+  `props.json` — not inside a tag, not split across markup. If it does not,
+  the roll silently never renders, which is why this is an error and not a
+  warning.
+- Only the **first** occurrence is replaced. A phrase that appears twice
+  warns; pick a longer, unique one.
+- `dc` is 2–6. This is a plain `d6`, same as an inline prose roll.
+- Both `success` and `failure` are required.
+- Ids are `exhibitId:doc:ordinal` by array position, so the same
+  append-don't-insert rule applies.
+
+They render with the identical `.inv-inline-roll` treatment, resolve to
+`[Insight: …]`, and are counted in the exhibit's insight total alongside the
+prose rolls. The exhibit stage shows a **📄 The document itself** heading above
+the paper whenever an exhibit has any.
 
 ---
 
