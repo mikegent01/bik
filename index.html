@@ -9881,6 +9881,20 @@ function invRollTokens(t){
   const m = String(t||'').match(/\[\[roll:/g);
   return m ? m.length : 0;
 }
+/* Flatten exhibit prose to a plain sentence, for places that show a preview
+   rather than the document itself: article panels, tile summaries, tooltips.
+   A [[roll:]] token collapses to its LABEL — the words the reader would have
+   clicked — because the success text is the payoff and must not be given away
+   outside the exhibit. Markdown emphasis and heading marks are dropped too. */
+function invPlainText(t){
+  return String(t || '')
+    .replace(/\[\[roll:\d+\|([^|]*)\|[^|]*\|[^\]]*\]\]/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
 function invInsightCount(ex){
   return invRollTokens(ex.onRecord) + invRollTokens(ex.analysis) + invDocRollCount(ex);
 }
@@ -10678,48 +10692,81 @@ function propDocumentHtml(propId){
   return `<div class="pd pd--${esc(p.kind||'note')}${p.torn?' pd--torn':''}">${stamps}${p.body||''}</div>${p.note ? `<p class="imgcap">${p.note}</p>` : ''}`;
 }
 
-/* ---------- connected panel on record pages ---------- */
-function renderConnectedInvestigationsPanel(id, typeKey){
-  const list = invAll();
-  if(!list.length) return '';
-  const hits = [];
-  list.forEach(iv => {
-    if((iv.relatedEvents||[]).includes(id)) hits.push({ iv, kind:'file', label:iv.title, note:iv.hook });
-    (iv.exhibits||[]).forEach(ex => {
-      const L = ex.links || {};
-      if(ex.itemId === id || (L.events||[]).includes(id) || (L.characters||[]).includes(id) || (L.items||[]).includes(id))
-        hits.push({ iv, kind:'exhibit', ex, label:ex.title, note:ex.onRecord });
+/* ---------- connected panel on record pages ----------
+   "Investigate this further." Every article that the archive has actually
+   filed paper against gets a way into that paper, and the paper is what makes
+   these pages grow: a character is no longer just prose about a character, it
+   is prose plus the documents that mention them.
+
+   Hits are grouped by case file rather than listed flat, because five rows
+   reading THE FESTIVAL PACT five times is a worse answer to "where do I read
+   more" than one file with five documents under it. Within a file the exhibit
+   rows carry the reason they matched — cited in an exhibit, the session the
+   record came out of, the arc itself — so the reader knows why they are being
+   offered a document before they spend a click on it. */
+function invConnections(id){
+  const files = [];
+  invAll().forEach(iv => {
+    const ex = [], why = [];
+    (iv.exhibits || []).forEach(x => {
+      const L = x.links || {};
+      if(x.itemId === id || (L.events||[]).includes(id) ||
+         (L.characters||[]).includes(id) || (L.items||[]).includes(id)) ex.push(x);
     });
-    (iv.sessions||[]).forEach(s => {
-      if(s.event === id) hits.push({ iv, kind:'session', label:s.label, note:'Session record behind this file.' });
-    });
-    (iv.arcIds||[]).forEach(a => { if(a === id) hits.push({ iv, kind:'arc', label:iv.title, note:iv.hook }); });
+    (iv.sessions || []).forEach(ss => { if(ss.event === id) why.push('session record: ' + ss.label); });
+    if((iv.arcIds || []).includes(id)) why.push('this file covers the arc');
+    if((iv.relatedEvents || []).includes(id) && !why.length) why.push('listed in the session records');
+    if(ex.length || why.length) files.push({ iv, ex, why });
   });
-  if(!hits.length) return '';
+  /* Most paper first — the file with eight exhibits is the one to read. */
+  return files.sort((a,b) => b.ex.length - a.ex.length);
+}
 
-  const seen = new Set();
-  const kept = hits.filter(h => {
-    const k = h.kind + ':' + h.label; if(seen.has(k)) return false; seen.add(k); return true;
-  }).slice(0, 12);
+function renderConnectedInvestigationsPanel(id, typeKey){
+  const files = invConnections(id);
+  if(!files.length) return '';
 
-  const rows = kept.map(h => `
-    <div class="kv-row">
-      <span class="k">${esc(h.kind)}</span>
-      <span class="v">
-        ${h.kind === 'exhibit'
-          ? `<a class="entity-link" onclick="Router.go('#/investigation/${encodeURIComponent(h.iv.id)}');setTimeout(()=>invOpenExhibit('${esc(h.iv.id)}','${esc(h.ex.id)}'),60)">${esc(h.label)}</a>`
-          : `<a class="entity-link" href="#/investigation/${encodeURIComponent(h.iv.id)}">${esc(h.label)}</a>`}
-        <span class="text-muted"> · ${esc(h.iv.codename)}</span>
-        <div class="text-muted" style="font-size:12.5px;line-height:1.5;margin-top:3px">${esc(String(h.note||'').slice(0,190))}</div>
-      </span>
-    </div>`).join('');
+  const nDoc = files.reduce((n,f) => n + f.ex.length, 0);
+  const blocks = files.map(f => {
+    const iv = f.iv;
+    const rows = f.ex.slice(0, 6).map(x => {
+      const done = !!invResult(iv.id, 'exam', x.id);
+      const rolls = invInsightCount(x);
+      return `<div class="kv-row">
+        <span class="k">${esc(x.icon || '📄')} ${esc(x.kind || 'exhibit')}</span>
+        <span class="v">
+          <a class="entity-link" onclick="Router.go('#/investigation/${encodeURIComponent(iv.id)}');setTimeout(()=>invOpenExhibit('${esc(iv.id)}','${esc(x.id)}'),60)">${esc(x.title)}</a>
+          ${done ? '<span class="pill" style="margin-left:6px">read</span>' : ''}
+          <div class="text-muted" style="font-size:12.5px;line-height:1.5;margin-top:3px">${esc(invPlainText(x.onRecord).slice(0, 210))}${invPlainText(x.onRecord).length > 210 ? '…' : ''}</div>
+          <div class="text-muted" style="font-size:11.5px;margin-top:3px">Examination DC ${esc(String(x.dc))}${rolls ? ` · ${rolls} insight check${rolls === 1 ? '' : 's'}` : ''}</div>
+        </span>
+      </div>`;
+    }).join('');
+    const more = f.ex.length > 6
+      ? `<div class="text-muted" style="font-size:12.5px;margin-top:6px">and ${f.ex.length - 6} more exhibit${f.ex.length - 6 === 1 ? '' : 's'} in this file.</div>` : '';
+    const note = f.why.length
+      ? `<div class="text-muted" style="font-size:12.5px;margin:2px 0 8px">${esc(f.why.join(' · '))}</div>` : '';
+    return `<div style="margin-bottom:16px">
+      <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+        <a class="entity-link" style="font-weight:800" href="#/investigation/${encodeURIComponent(iv.id)}">${esc(iv.icon || '🔍')} ${esc(iv.title)}</a>
+        <span class="text-muted" style="font-size:12px">◆ ${esc(iv.codename)}</span>
+        ${f.ex.length ? `<span class="pill">${f.ex.length} exhibit${f.ex.length === 1 ? '' : 's'} cite this</span>` : ''}
+      </div>
+      ${note}
+      ${rows ? `<div class="kv-list">${rows}</div>` : ''}
+      ${more}
+    </div>`;
+  }).join('');
 
   return `<div class="card" style="border-left:4px solid var(--accent)">
     <div class="home-section-head">
-      <div><h2>🔍 Open Investigations</h2><p>This record is cited in the archive's open case files. Exhibits open with a roll.</p></div>
+      <div>
+        <h2>🔍 Investigate this further</h2>
+        <p>${nDoc ? `${nDoc} document${nDoc === 1 ? '' : 's'} in the archive ${nDoc === 1 ? 'names' : 'name'} this record.` : 'The archive has an open file covering this record.'} Opening an exhibit is a roll; reading costs nothing.</p>
+      </div>
       <a class="chip" href="#/investigations">All files →</a>
     </div>
-    <div class="kv-list">${rows}</div>
+    ${blocks}
   </div>`;
 }
 

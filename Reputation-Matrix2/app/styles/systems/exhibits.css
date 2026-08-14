@@ -211,8 +211,17 @@
 
 /* small print */
 .pd-fine{font-size:10.5px;line-height:1.5;color:var(--ink2);margin-top:16px;border-top:1px solid var(--rule);padding-top:9px}
-.pd-clause{margin:9px 0;padding-left:34px;position:relative;font-size:12.5px;line-height:1.55}
-.pd-clause b.n{position:absolute;left:0;top:0;font-family:"Courier New",monospace;color:var(--ink2)}
+/* Hanging indent, not absolute positioning. The label is a run-in: short ones
+   ("1.", "IV.") pad out to the 34px gutter so the clause text still lines up in
+   a column, and long ones ("Carriers' note.", "Standing instruction, entered
+   week 9.") simply run on and the body wraps under them. An absolutely
+   positioned label was overprinting the clause text for every label wider than
+   the gutter, which was most of them. */
+.pd-clause{margin:9px 0;padding-left:34px;text-indent:-34px;font-size:12.5px;line-height:1.55}
+.pd-clause b.n{
+  display:inline-block;min-width:26px;margin-right:8px;text-indent:0;
+  font-family:"Courier New",monospace;color:var(--ink2);
+}
 
 /* ---------- kind: LETTER ---------- */
 .pd--letter{--paper:#f6f1e2;font-size:14.5px}
