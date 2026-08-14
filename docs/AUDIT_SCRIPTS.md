@@ -284,6 +284,13 @@ python3 tools/check-rolls.py
 No arguments — it reads `Reputation-Matrix2/data/rolls.json` against
 `props.json`, `investigations.json` and `index.html`.
 
+It validates all three target buckets. `props` matches against the prop body;
+`items` matches against the item's `description` — and because the item
+catalogue is a JS object literal (`const INVENTORY_SYSTEM=…`) inside
+`index.html` rather than a data file, the audit parses it out of the page. If
+that literal is ever moved into `Reputation-Matrix2/data/`, `_load_items()` is
+the only thing that needs changing.
+
 Rolls live apart from the documents they annotate, keyed by target id. That is
 what makes them scale, and it is also what makes them quiet when they break:
 nothing in `props.json` knows a roll is pointing at it, so a mistyped `match`
@@ -296,6 +303,9 @@ rolls. Everything here exists to make that failure loud.
 |---|---|
 | `match` is not verbatim text in the target's body | The roll never renders. The audit says whether the phrase is absent entirely or present but split by a tag, because those are different mistakes. |
 | A target id that is in no `props.json` | The whole entry annotates nothing. |
+| A target id that is in no `INVENTORY_SYSTEM.items` | Same, for the items bucket. |
+| An item target with no `description` | There is no body to splice rolls into. |
+| `items` has entries but `invItemRollHtml` is gone from `index.html` | The bucket renders nowhere. |
 | `dc` outside 2–6 | A plain `d6` cannot pass a 7 or fail a 1. |
 | Missing `success` or `failure` | A third of readers land on the empty branch, permanently. |
 | Missing `id` | The id is the save key. Without one, verdicts cannot persist. |

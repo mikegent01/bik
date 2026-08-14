@@ -255,6 +255,15 @@ about evidence, not dice.
         "failure": "a gardening image, morbidly put." }
     ]
   },
+  "items": {                                  // keyed by an INVENTORY_SYSTEM.items id
+    "black_crystal": [
+      { "id": "bc_carrier_secrecy",
+        "dc": 3,
+        "match": "its carrier secrecy is currently more valuable than its sparkle",
+        "success": "what that line commits the party to operationally",
+        "failure": "a warning to keep it hidden." }
+    ]
+  },
   "articles": {}                              // reserved — see below
 }
 ```
@@ -271,6 +280,27 @@ Rules, all enforced by `tools/check-rolls.py`:
 - `dc` is 2–6. A plain `d6`, same as an inline prose roll.
 - `success` and `failure` are both required. `**bold**` and `*italic*` work.
 
+### Why `items` is a legitimate target and `articles` is not
+
+Held items carry rolls; encyclopedia articles do not. The line is not about
+which renderer was easier to reach.
+
+An item page is **Waluigi reading an object that is in custody**. The
+description is explicitly his assessment — it argues, it speculates, it tells
+the party what to do about the thing — so there is something for a reader to
+be right or wrong about, exactly as with an exhibit. An event article is the
+archive speaking as the archive, and the rest of the wiki cites it as settled.
+
+Item rolls store under the pseudo-case id `item:<itemId>` in the same save
+file, so a reader's close readings of the Black Crystal sit alongside their
+case work without `investigations.json` needing to know items exist.
+
+One ordering rule, learned the hard way. `invItemRollHtml()` splices rolls
+**before** the auto-linker runs, then unstashes. If you link first, a phrase
+like `the center of Lyranth's wrong accusation against Eager` gets an `<a>`
+wrapped around *Eager*, the phrase stops being contiguous in any single text
+run, and the roll silently never renders. Rolls first, links second, always.
+
 ### Why `articles` is empty
 
 The engine is target-agnostic: `invRollsFor(kind, targetId)` does not care what
@@ -286,6 +316,19 @@ interrogated. Keep rolls where the reader is meant to be doing the work.
 
 If that changes, add entries under `articles` and teach the article renderer to
 pipe its body through the same splicer. Nothing else needs to move.
+
+### Roll anchors and hyperlinks must never nest
+
+Case files and item pages are auto-linked now, so roll chips and `<a class=
+"xlink">` share the same paragraph. Either nesting breaks something: an `<a>`
+inside a chip steals the click and navigates instead of rolling, and a chip
+inside an `<a>` can never be reached. Three guards, all of which must stay:
+
+1. `invStash()` / `invUnstash()` park finished anchors behind `\u241E` sentinels
+   so the linker cannot see inside them.
+2. Anchor **labels** render with `invRichInline(text, null)` — link context off.
+3. `.inv-inline-roll a.xlink { pointer-events: none }` in `investigations.css`,
+   as a last resort if the first two are ever bypassed.
 
 ---
 
