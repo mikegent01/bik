@@ -15,6 +15,21 @@ ROLLS = json.load(open('Reputation-Matrix2/data/rolls.json'))
 PROPS = json.load(open('Reputation-Matrix2/data/props.json'))['props']
 INV   = json.load(open('Reputation-Matrix2/data/investigations.json'))['investigations']
 
+# Held items are the third target kind, and they are the awkward one: the
+# catalogue is a JS object literal inside index.html rather than a data file,
+# so the audit has to go get it. If that literal is ever moved to
+# Reputation-Matrix2/data/, this is the only block that needs to change.
+_IDX_SRC = open('index.html', encoding='utf-8').read()
+def _load_items():
+    m = re.search(r'const INVENTORY_SYSTEM=(\{.*?\});\n', _IDX_SRC, re.S)
+    if not m:
+        return None
+    try:
+        return json.loads(m.group(1)).get('items') or {}
+    except Exception:
+        return None
+ITEMS = _load_items()
+
 err, warn = [], []
 
 # Which props are actually reachable — a roll on an unreferenced prop renders
@@ -30,7 +45,7 @@ def text_runs(body):
 
 
 n_rolls = 0
-for kind in ('props', 'articles'):
+for kind in ('props', 'articles', 'items'):
     bucket = ROLLS.get(kind) or {}
     if not isinstance(bucket, dict):
         err.append(f"{kind}: must be an object keyed by target id")
@@ -49,6 +64,20 @@ for kind in ('props', 'articles'):
             runs = text_runs(body)
             if target not in EXHIBIT_PROPS:
                 warn.append(f"{tag}: prop is not used by any exhibit, so these rolls are unreachable today")
+        elif kind == 'items':
+            if ITEMS is None:
+                body, runs = None, None
+                warn.append(f"{tag}: could not parse INVENTORY_SYSTEM out of index.html — matches unverified")
+            elif target not in ITEMS:
+                err.append(f"{tag}: no such held item in INVENTORY_SYSTEM.items — these rolls render nowhere")
+                continue
+            else:
+                # The item page renders description through mdToHtml, so the
+                # haystack is the raw description text.
+                body = ITEMS[target].get('description', '') or ''
+                runs = text_runs(body)
+                if not body:
+                    err.append(f"{tag}: item has no description to splice rolls into")
         else:
             # articles are reserved; validate shape but there is no body to check
             body, runs = None, None
@@ -113,6 +142,8 @@ if "'rolls'" not in idx:
     err.append("index.html: 'rolls' is missing from DATA_FILES — the registry never loads")
 if 'invRollsFor' not in idx:
     err.append("index.html: invRollsFor() is gone — nothing reads the registry")
+if (ROLLS.get('items') or {}) and 'invItemRollHtml' not in idx:
+    err.append("index.html: invItemRollHtml() is gone — the items bucket renders nowhere")
 if re.search(r'docRolls', json.dumps(INV)):
     err.append("investigations.json: still carries docRolls[] — rolls live in rolls.json now")
 
@@ -120,7 +151,7 @@ for e in err:
     print(f"  ERROR   {e}")
 for w in warn:
     print(f"  warn    {w}")
-targets = sum(len(ROLLS.get(k) or {}) for k in ('props', 'articles'))
+targets = sum(len(ROLLS.get(k) or {}) for k in ('props', 'articles', 'items'))
 print(f"\nregistry: {n_rolls} rolls across {targets} targets")
 print(f"{len(err)} error(s), {len(warn)} warning(s)")
 sys.exit(1 if err else 0)

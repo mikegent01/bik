@@ -4,7 +4,8 @@
     "why": "Rolls used to live inside investigations.json, which meant only exhibits could carry them and every new one bloated a data file that is about cases, not dice. This registry is keyed by target id, so the engine never needs to know what kind of thing it is annotating.",
     "targets": {
       "props": "A prop id from props.json. The roll is spliced into that prop's rendered body wherever it appears — currently the exhibit reader.",
-      "articles": "Reserved. Same shape, keyed by article/page id. Deliberately empty: an encyclopedia article should read the same for everybody, so reference pages stay authoritative. Case documents are where a reader is meant to be interrogating the text."
+      "articles": "Reserved. Same shape, keyed by article/page id. Deliberately empty: an encyclopedia article should read the same for everybody, so reference pages stay authoritative. Case documents are where a reader is meant to be interrogating the text.",
+      "items": "A held-item id from INVENTORY_SYSTEM.items. The roll is spliced into that item's rendered description on its #/item/ page. Items are the one reference page that DOES carry rolls: an artifact is a physical thing a reader can interrogate, and the description is Waluigi's reading of it rather than a neutral entry."
     },
     "entry": {
       "id": "Stable, unique within its target. This is the save key — RENAMING IT DISCARDS A READER'S RECORDED VERDICT. Order does not matter; ids are not positional.",
@@ -209,5 +210,234 @@
       }
     ]
   },
-  "articles": {}
+  "articles": {},
+  "items": {
+    "black_crystal": [
+      {
+        "id": "bc_carrier_secrecy",
+        "dc": 3,
+        "match": "its carrier secrecy is currently more valuable than its sparkle",
+        "success": "Read that as an operational rule, not a turn of phrase. The crystal's defensive value is entirely a function of who the enemy *thinks* is carrying it, which means the asset being protected is not the stone — it is Lyranth's wrong answer. Every hour that error survives is an hour of cover the party did not have to pay for. It also means the crystal cannot be openly used without spending that cover permanently.",
+        "failure": "a warning to keep it hidden. Sensible, and about as far as the sentence goes on one reading."
+      },
+      {
+        "id": "bc_lyranth_error",
+        "dc": 4,
+        "match": "the center of Lyranth’s wrong accusation against Eager",
+        "success": "Lyranth accused Eager, and Eager was not the carrier — Markop was. Confront what that requires: the enemy has intelligence good enough to know the crystal changed hands during the servant-corridor chain, but not good enough to know who took it. They are working from a witness or an intercept that stopped one handoff short. Somebody saw part of that night and reported it, which makes the accusation itself a piece of evidence about the leak.",
+        "failure": "Lyranth got the wrong person. Enemies do that."
+      },
+      {
+        "id": "bc_structural_threat",
+        "dc": 5,
+        "match": "a small object becoming a structural threat to an entire prison-house",
+        "success": "\"Prison-house\" is doing precise work: the Shadow Estate is filed here as a structure whose function is confinement, and the crystal is filed as portal-critical. Put those together and the crystal is not an escape tool the party found lying around — it is a defect in the building. That reframes every guard, every locked corridor and every polite host in the estate as staff of a facility that is currently missing a piece of itself, and knows it.",
+        "failure": "the crystal is dangerous and the estate is bad news. Both true, neither new."
+      }
+    ],
+    "mirror_true_reflection": [
+      {
+        "id": "mtr_useful_catastrophic",
+        "dc": 3,
+        "match": "useful for escape and catastrophic for secrecy",
+        "success": "The same property does both jobs, which is why nobody can agree on how to use it. It is a portal artifact, so it serves the escape; it reveals truths, so it cannot be carried through a room full of people keeping them. The party's own secrets are inside its blast radius — Bones in a borrowed Legion uniform, Green T's mentorship, the crystal's real carrier. Anyone arguing to use the mirror in company is proposing to spend the party's cover to open a door.",
+        "failure": "a double-edged artifact. The file says so in as many words."
+      },
+      {
+        "id": "mtr_wario_claim",
+        "dc": 4,
+        "match": "immediately coveted by Wario",
+        "success": "Note the sequence: found broken in Usk's chambers, repaired by Remi, *then* claimed by Wario. He did not want it while it was scrap. The claim attaches to Remi's labour, not to the object — and the banking file carries that as debt_wario_mirror_claim, 7,500 gp against Green T and Disaster Inc., dated two days after. Wario converted somebody else's repair work into a receivable, which is the whole method in one artifact.",
+        "failure": "Wario wanted it. Wario wants everything."
+      },
+      {
+        "id": "mtr_usk_chambers",
+        "dc": 5,
+        "match": "found broken in Usk’s chambers",
+        "success": "Ask the question the sentence avoids: who broke it. A revelation device kept in a private chamber, in pieces, with the missing fragment elsewhere in the house, is not a damaged heirloom — it is a disabled instrument. Somebody in the estate wanted the truth-teller out of service badly enough to break it and separate the pieces, and Usk's chambers is where the largest part was kept. Remi did not repair an artifact. She undid a decision.",
+        "failure": "it was broken, and Remi fixed it. The how is not recorded here."
+      }
+    ],
+    "oracle_deck": [
+      {
+        "id": "od_accurate_bait",
+        "dc": 3,
+        "match": "Accurate things can still be bait",
+        "success": "This is the handling rule for every prophecy in the file. Accuracy is what buys a source trust, and trust is the thing being harvested — a deck that is right nine times has purchased the tenth reading in advance. Morel does not need to lie to steer Remi; he only needs to be reliably correct until she stops checking. Treat each accurate card as a deposit into an account somebody else intends to withdraw.",
+        "failure": "don't trust the cards blindly. Standard advice about prophecy."
+      },
+      {
+        "id": "od_gift_burden_leash",
+        "dc": 4,
+        "match": "gift, burden, and possibly leash",
+        "success": "Three readings of one act, and the file declines to choose — because Morel's pattern makes all three simultaneously true. The banking ledger records debt_mystic_morel_remi_ring: Morel claiming ongoing consideration from Remi over a *different* object, flagged as predatory. A man who bills for one gift gave her a second. The deck is not a kindness with strings; it is a second instrument in an existing arrangement.",
+        "failure": "Morel's motives are mixed. He is that sort of person."
+      },
+      {
+        "id": "od_child_homework",
+        "dc": 5,
+        "match": "turn childhood into homework assigned by fate",
+        "success": "The sentence is angrier than it looks and it is making an accusation about consent. Remi is the youngest party member carrying an artifact whose entire function is obligation — every card is a task she did not accept. Set it beside the auction ledger, where petrified Remi was bid on for 12,000 gold: this file keeps recording adults converting her into an asset. The deck is the polite version of the same transaction.",
+        "failure": "giving a child a prophecy deck is unkind. Waluigi disapproves."
+      }
+    ],
+    "umbral_signet": [
+      {
+        "id": "us_key_and_claim",
+        "dc": 3,
+        "match": "treat it as a key and a claim at once",
+        "success": "A signet is not a key by nature — it is an identity token. If this one opens umbral routing, then the door is not checking for a key, it is checking for *authority*, and whoever carries the signet is being read by the estate as the person entitled to use it. That is the claim: using it means answering to it. The party cannot pass through as thieves; the house will file them as staff.",
+        "failure": "it opens doors and carries obligations. The file says as much."
+      },
+      {
+        "id": "us_four_key",
+        "dc": 4,
+        "match": "part of the four-key portal problem",
+        "success": "Four keys, and this archive has already filed at least two of the others: the Black Crystal as portal-critical anchor key, and the Mirror of True Reflection as a portal artifact. That is three named, held by three different party members — the crystal with Markop, the mirror passing through Green T, the signet here. Nobody in the party can leave alone, and the estate only has to intercept one of them to hold the door shut.",
+        "failure": "there are four keys and this is one. The rest is not printed."
+      },
+      {
+        "id": "us_refuses_to_print",
+        "dc": 5,
+        "match": "refuses to print every activation detail for the benefit of enemies who can read",
+        "success": "Waluigi has never once been shy in this archive, so a deliberate omission is itself a data point: he believes the file is being read by the other side. Every other item here is documented to the point of insult. The signet is the exception, which tells you he rates the enemy's access to the archive as higher than their access to the party — and that somewhere there is a version of this entry, unredacted, that he is keeping off the page.",
+        "failure": "details are withheld for security. Fair enough."
+      }
+    ],
+    "oc_soul_ring": [
+      {
+        "id": "osr_two_initials",
+        "dc": 3,
+        "match": "the same two initials that turn up carved into the bedframes of the Corvinarus Sanctum",
+        "success": "Initials on a soul-capture ring and the same initials cut into sanctum bedframes is not a coincidence of monogramming — it is the same hand marking property. Bedframes are where sleepers lie. If OC marked both the furniture people were held in and the device that holds souls, the archive is looking at one inventory system with two kinds of stock, and the Oracle signs the manifest.",
+        "failure": "the initials match. Somebody's monogram gets around."
+      },
+      {
+        "id": "osr_four_transfers",
+        "dc": 4,
+        "match": "changed hands four times in one night",
+        "success": "Four transfers in a night, each one costing the room dignity, is a custody chain — and custody chains are what this archive uses to prove intent. Four separate people held an occupied soul-prison and passed it on rather than resolve it. The ring did not end up with the dwarf because he won it; it ended there because he was the only one who treated the occupant as a person rather than as an asset to be moved along.",
+        "failure": "it moved around a lot that night. Chaotic evening."
+      },
+      {
+        "id": "osr_occupant",
+        "dc": 5,
+        "match": "interview the occupant through a professional",
+        "success": "Read that as a legal instruction, not a courtesy. \"Interview\" and \"through a professional\" is the language of taking a statement from a witness who cannot be put in a room — Waluigi is treating the soul in the ring as a person with testimony, not as a magical effect. If that occupant can be interviewed, they saw whatever put them in there, and this item stops being loot and becomes the archive's only surviving witness to its own creation.",
+        "failure": "talk to the soul carefully. Sound advice, unusually gentle for him."
+      }
+    ],
+    "green_t_revolver": [
+      {
+        "id": "gtr_morally_worse",
+        "dc": 3,
+        "match": "making everyone morally worse before the trigger is pulled",
+        "success": "The weapon's real function is on the offer, not the shot. Presented to someone in crisis, it converts a moral question into a mechanical one and hands them the answer — and whoever accepts has already decided something about themselves before firing. That is why the file classes it as a social problem: the damage is done at the moment of handing over, and it lands on the person holding it, not the person in front of it.",
+        "failure": "guns escalate situations. True of most guns."
+      },
+      {
+        "id": "gtr_lesson_illegal",
+        "dc": 4,
+        "match": "ask what lesson he is teaching and whether the lesson should be illegal",
+        "success": "That is written as a test the party is expected to actually apply, and it names Green T as an instructor rather than an ally with a sidearm. The tanuki crisis is the precedent: Remi, the youngest, at the sharp end of the mentorship. Read alongside Morel's deck and the auction ledger, this is the third adult in the file teaching Remi something she did not ask to learn, and the only one doing it with a loaded weapon.",
+        "failure": "be wary of Green T's advice. He is a syndicate operative."
+      }
+    ],
+    "kyle_override_key": [
+      {
+        "id": "kok_three_entries",
+        "dc": 3,
+        "match": "three override entries, one key, one debtor",
+        "success": "Three uses and one key means the log cannot distinguish which of the three was Kyle. An override key is an authority token, not an identity — so the platform log proves the key was present three times and proves nothing about whose hand held it. As evidence it convicts the key. Anyone building a case on it needs a fourth source for each entry, or they are prosecuting a piece of metal.",
+        "failure": "the key was used three times and Kyle owes money. Both on the record."
+      },
+      {
+        "id": "kok_critical_evidence",
+        "dc": 4,
+        "match": "Critical Evidence",
+        "success": "The rarity field is being used as a case classification here, not a price band — every other item in this catalogue is graded on narrative weight, and this one is graded on admissibility. Something has already been built on it. Pair it with the debtor framing and the shape is clear: the key is not interesting because it opens a platform, it is interesting because somebody is being billed for what came through that door.",
+        "failure": "the archive rates it as important evidence. Duly noted."
+      }
+    ],
+    "rakka_silence_contract": [
+      {
+        "id": "rsc_clause_seven",
+        "dc": 3,
+        "match": "clause seven included",
+        "success": "The phrase \"included\" is pointed: it means clause seven is routinely *not* included, and that the employer's copy is the only version carrying it. Two versions of one contract with different terms is not a filing error, it is how a silence protocol works — the operative signs one document and the employer keeps another. Whatever clause seven says, Rakka may not have read it, and the employer knows that.",
+        "failure": "there is a seventh clause and it matters. The document is right here."
+      },
+      {
+        "id": "rsc_employer_record",
+        "dc": 4,
+        "match": "assassination clause / employer record",
+        "success": "The classification names the wrong half of the danger. An assassination clause implicates the killer; an *employer record* implicates whoever commissioned it — and this is the employer's own copy, which means the archive is holding the paperwork of the party that ordered the work, not the party that did it. That is the copy a court wants. It is also the copy the employer most needs to disappear.",
+        "failure": "it is a contract about killing people, filed under Rakka."
+      }
+    ],
+    "orvinder_truth_ledger": [
+      {
+        "id": "otl_right_column",
+        "dc": 3,
+        "match": "read the right-hand column twice",
+        "success": "A double-column oath ledger sets what was sworn against what was done, and telling a reader to check one side twice is telling them the two columns disagree. The left is the oath; the right is performance. Waluigi does not ask for a second reading of anything he thinks is accurate — he is pointing at entries where the ledger records a promise as kept that the archive can show was not.",
+        "failure": "the right column is important. The ledger is reproduced in the file."
+      },
+      {
+        "id": "otl_props_leverage",
+        "dc": 4,
+        "match": "props become leverage, evidence, or debts",
+        "success": "That is the archive stating its own operating theory, and this catalogue is the proof: the mirror became a 7,500 gp receivable, Morel's gift became ongoing consideration against Remi, the override key became a debtor's problem. An oath ledger is the purest case — it is an object whose only content is other people's obligations. Holding it means holding everyone recorded in it.",
+        "failure": "objects turn into problems in this world. Waluigi's usual thesis."
+      }
+    ],
+    "bones_legion_uniform": [
+      {
+        "id": "blu_noticed_eventually",
+        "dc": 3,
+        "match": "The Legion noticed eventually",
+        "success": "\"Eventually\" is the whole intelligence value. The quartermaster's wire is dated, so the gap between Bones putting the uniform on and the Legion writing it down measures exactly how long their internal accounting takes to catch a missing set of kit. That interval is reusable. It also means the Legion is now looking for a specific uniform rather than a specific person, which is a problem that can be solved by laundry.",
+        "failure": "the disguise was discovered. These things usually are."
+      },
+      {
+        "id": "blu_borrowed",
+        "dc": 4,
+        "match": "Borrowed Legion Uniform",
+        "success": "The archive titles it \"borrowed\" and then files a quartermaster's telegram about it, which is the joke and the exposure at once — the Legion's paperwork calls it something else, and their word is the one that appears in a charge sheet. Note who else this archive puts in Legion paperwork: Markop Judi carries a Legion equipment requisition loan in the banking file. The party's relationship with the Iron Legion is already documentary, and now it is documentary in two directions.",
+        "failure": "he took a uniform and wore it. The Legion disagreed about the terms."
+      }
+    ],
+    "kamek_seal_rubbing": [
+      {
+        "id": "ksr_catastrophic_scholarship",
+        "dc": 3,
+        "match": "Catastrophic Scholarship",
+        "success": "The rarity grade blames the reading, not the seal. A rubbing is a faithful copy — the damage in this file comes from the annotation written beside it, which means Kamek transcribed something correctly and then explained it wrongly, and the wrong explanation is what travelled. This item is filed as dangerous because somebody competent made an error confidently enough to be believed.",
+        "failure": "the scholarship went badly. The title says so."
+      },
+      {
+        "id": "ksr_annotation_and_all",
+        "dc": 4,
+        "match": "annotation and all",
+        "success": "Preserving the mistake alongside the source is a deliberate archival choice, and the reason is corroboration: the rubbing shows what the seal says, the annotation shows what Kamek believed it said, and the distance between them is the evidence. You cannot prove a misreading without keeping the misreading. Whoever acted on Kamek's version can now be shown exactly which words they were acting on.",
+        "failure": "the note is preserved with the rubbing. Thorough filing."
+      }
+    ],
+    "toad_lee_diary_pages": [
+      {
+        "id": "tld_page_that_matters",
+        "dc": 3,
+        "match": "it is the page that matters",
+        "success": "One page reproduced out of a diary, and the file says plainly that the selection is the finding. Lady Aurelian on grafting is the subject — grafting being the method the Feyward exhibits keep circling. Toad Lee wrote down a technique before the party understood there was a technique, which makes these pages a dated record of when the method was known and by whom.",
+        "failure": "one page is more important than the others. It is reproduced here."
+      },
+      {
+        "id": "tld_feyward_evidence",
+        "dc": 4,
+        "match": "lore notes / feyward evidence",
+        "success": "Both halves of that classification are load-bearing. As lore notes they are Toad Lee's private reading; as Feyward evidence they are exhibits in an open file — the same investigation whose exhibits already name Toad Lee as the anchor of somebody's procedure. His own diary is being used to corroborate a case in which he is the target. That is a bad position to be in, and he assembled the paperwork for it himself.",
+        "failure": "the diary is both lore and evidence. Filed under both."
+      }
+    ]
+  }
 }

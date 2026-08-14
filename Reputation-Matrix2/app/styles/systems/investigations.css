@@ -72,23 +72,34 @@
    result block read as transparent and the die floated on bare page. Every
    surface and tint below is either a token or a token-derived colour-mix, so
    both themes get a real card. */
+/* The result reads as a panel the page pushed out, not as a tinted sentence:
+   a heavier left spine, real elevation and a slide-in so the eye follows the
+   click that produced it. */
 .inv-result{
-  display:block;margin:10px 0 12px;padding:10px 12px;
-  border:1px solid var(--border);border-left-width:3px;border-radius:8px;
+  display:block;margin:12px 0 14px;padding:11px 14px;
+  border:1px solid var(--border);border-left-width:5px;border-radius:10px;
   background:var(--panel2);
-  box-shadow:0 1px 3px rgba(0,0,0,.10);
+  box-shadow:0 2px 10px rgba(0,0,0,.14), inset 0 1px 0 rgba(255,255,255,.04);
+  animation:inv-result-in .22s ease-out both;
 }
+@keyframes inv-result-in{ from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:none} }
+@media (prefers-reduced-motion:reduce){ .inv-result{animation:none} }
 .inv-result.is-pass{
   border-left-color:var(--green,#2ecc71);
-  background:color-mix(in srgb, var(--green,#2ecc71) 7%, var(--panel2));
-  border-color:color-mix(in srgb, var(--green,#2ecc71) 28%, var(--border));
+  background:color-mix(in srgb, var(--green,#2ecc71) 9%, var(--panel2));
+  border-color:color-mix(in srgb, var(--green,#2ecc71) 30%, var(--border));
+  box-shadow:0 2px 10px color-mix(in srgb, var(--green,#2ecc71) 16%, transparent);
 }
 .inv-result.is-fail{
   border-left-color:var(--danger);
-  background:color-mix(in srgb, var(--danger) 7%, var(--panel2));
-  border-color:color-mix(in srgb, var(--danger) 28%, var(--border));
+  background:color-mix(in srgb, var(--danger) 9%, var(--panel2));
+  border-color:color-mix(in srgb, var(--danger) 30%, var(--border));
+  box-shadow:0 2px 10px color-mix(in srgb, var(--danger) 14%, transparent);
 }
-.inv-result-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:6px}
+.inv-result-head{
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:7px;
+  padding-bottom:7px;border-bottom:1px solid color-mix(in srgb, var(--border) 60%, transparent);
+}
 .inv-result-body{display:block;font-size:13.5px;line-height:1.62;color:var(--text)}
 .inv-result.is-fail .inv-result-body{color:var(--muted)}
 
@@ -98,10 +109,10 @@
    page show through is not a die. */
 .inv-face{
   display:inline-grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);
-  gap:1px;width:30px;height:30px;padding:4px;box-sizing:border-box;flex:0 0 auto;
-  border:1px solid var(--accent2);border-radius:7px;
+  gap:1px;width:36px;height:36px;padding:5px;box-sizing:border-box;flex:0 0 auto;
+  border:2px solid var(--accent2);border-radius:9px;
   background:var(--panel);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 1px 2px rgba(0,0,0,.18);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 2px 5px rgba(0,0,0,.24);
 }
 .inv-face i{display:block;border-radius:50%;background:transparent}
 .inv-face i.on{background:var(--accent2);box-shadow:0 0 4px rgba(138,75,255,.55)}
@@ -138,16 +149,62 @@
    The archiecourtcase treatment: tinted background, dashed underline, italic
    bold, pointer. Once rolled it reverts to ordinary body text so a resolved
    passage reads as prose rather than as an exhausted button. */
+/* A roll is not a link, and now that ordinary wiki links (a.xlink — dotted
+   underline, --link violet) appear in the same paragraph, the two MUST NOT be
+   mistakeable for each other. A link takes you somewhere else; a roll spends
+   an irreversible die on the passage you are reading. So the roll anchor is
+   deliberately louder: gold on a solid tinted chip, boxed rather than
+   underlined, slightly larger than body text, with a 🎲 before it. */
 .inv-inline-roll{
-  background:color-mix(in srgb, var(--accent) 14%, var(--panel));
-  border-bottom:1px dashed var(--accent2);
-  color:var(--accent2);font-weight:700;font-style:italic;cursor:pointer;
+  display:inline;
+  background:color-mix(in srgb, var(--accent2) 20%, var(--panel));
+  border:1px solid color-mix(in srgb, var(--accent2) 55%, var(--border));
+  border-bottom-width:2px;
+  border-radius:6px;
+  padding:1px 7px 2px 5px;
+  margin:0 1px;
+  color:var(--accent2);
+  font-weight:800;font-style:normal;
+  font-size:1.04em;
+  line-height:1.5;
+  cursor:pointer;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;
+  box-shadow:0 1px 0 color-mix(in srgb, var(--accent2) 30%, transparent);
+  transition:background .13s, box-shadow .13s, transform .13s;
 }
-.inv-inline-roll:hover{background:color-mix(in srgb, var(--accent) 28%, var(--panel))}
+/* the die sits in the anchor itself so the affordance survives any container */
+.inv-inline-roll::before{
+  content:"🎲";
+  font-size:.92em;
+  margin-right:5px;
+  filter:saturate(1.15);
+}
+.inv-inline-roll:hover{
+  background:color-mix(in srgb, var(--accent2) 34%, var(--panel));
+  box-shadow:0 2px 0 color-mix(in srgb, var(--accent2) 55%, transparent), 0 2px 8px rgba(0,0,0,.16);
+}
+.inv-inline-roll:active{transform:translateY(1px);box-shadow:0 1px 0 color-mix(in srgb, var(--accent2) 40%, transparent)}
 .inv-inline-roll:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
-.inv-inline-roll.rolled{
-  background:none;border-bottom:none;color:inherit;font-weight:inherit;
-  font-style:inherit;cursor:default;
+@media (prefers-reduced-motion:reduce){ .inv-inline-roll{transition:none} }
+/* Once spent it reverts to ordinary body text: a resolved passage should read
+   as prose, not as an exhausted button competing with the live ones. */
+.inv-inline-roll.rolled,
+.inv-inline-roll.rolled:hover{
+  display:inline;background:none;border:none;border-radius:0;padding:0;margin:0;
+  color:inherit;font-weight:inherit;font-style:inherit;font-size:inherit;
+  cursor:default;box-shadow:none;transform:none;
+}
+.inv-inline-roll.rolled::before{content:none}
+
+/* Wiki links inside a case file stay quiet next to the roll chips — they are
+   navigation, not the interaction the page is asking for. */
+.inv-exam a.xlink,
+.inv-overlay a.xlink{border-bottom-style:dotted}
+/* ...but never inside a live roll chip: nothing there should look clickable
+   in a second, competing way. (invRichInline already renders roll labels with
+   linking disabled; this is belt and braces for authored inline HTML.) */
+.inv-inline-roll a.xlink{
+  color:inherit;border-bottom:none;background:none;font-weight:inherit;pointer-events:none;
 }
 
 /* ---------- exhibit stage furniture (was inline style= in index.html) ---- */

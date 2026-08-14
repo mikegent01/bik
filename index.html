@@ -9074,6 +9074,17 @@ async function view_item(id) {
   
   if (heldDef && id !== 'hidden_item_slot') {
     const it = heldDef;
+    /* An item page is a record like any other: the names in Waluigi's reading
+       of an object are the same entities the encyclopedia already documents,
+       so the auto-linker gets the same pass an article view gets. Context is
+       the item's own related articles plus whoever is holding it. */
+    if(typeof beginLinkPass === 'function'){
+      const ctxIds = (it.relatedArticles || []).slice();
+      Object.entries(INVENTORY_SYSTEM.inventories || {}).forEach(([cid, arr]) => {
+        if(arr.some(x => x.itemId === id)) ctxIds.push(cid);   // the holder is always relevant
+      });
+      beginLinkPass({ id: id, relatedArticles: ctxIds });
+    }
     const holders = Object.entries(INVENTORY_SYSTEM.inventories || {}).filter(([cid, arr]) => arr.some(x => x.itemId === id));
     const rel = (it.relatedArticles || []).map(rid => INDEX[rid] ? `<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(displayName(INDEX[rid].item))}</span>` : `<span class="rel-chip deadlink"><span class="rt">?</span>${esc(prettyId(rid))}</span>`).join('');
     const hold = holders.map(([cid, arr]) => {
@@ -9093,9 +9104,10 @@ async function view_item(id) {
             <h1>${esc(it.name)}</h1>
             <div class="metabar"><span class="pill">◆ Party Held Relic</span><span class="pill">${esc(it.type)}</span><span class="rarity-pill">${esc(it.rarity)}</span><span class="pill">${esc(it.visibility || 'known')}</span></div>
             <p class="text-muted">${esc(it.summary)}</p>
-            ${it.description ? `<div class="prose item-copy">${mdToHtml(it.description)}</div>` : `<p class="text-muted">${esc(it.summary)}</p>`}
+            ${invItemRollHead(id)}
+            ${it.description ? `<div class="prose item-copy">${invItemRollHtml(id, mdToHtml(it.description))}</div>` : `<p class="text-muted">${esc(it.summary)}</p>`}
             ${it.obtained ? `<p><b>Obtained:</b> ${esc(it.obtained)}</p>` : ''}
-            ${it.waluigi ? `<div class="wnote"><b>Waluigi's Item Note:</b> ${esc(it.waluigi)}</div>` : ''}
+            ${it.waluigi ? `<div class="wnote"><b>Waluigi's Item Note:</b> ${inlineMd(it.waluigi, {link:true, currentId:id})}</div>` : ''}
           </div>
           ${exhibitTilesHtml(propsForItem(id),{heading:'🗂️ Attached Documents',blurb:'The paperwork this item actually generated. Click to read the document itself.'})}
           ${features}${hist}
@@ -9116,6 +9128,7 @@ async function view_item(id) {
         </div>
       </div>
     `;
+    if(typeof endLinkPass === 'function') endLinkPass();
     window.scrollTo(0,0);
     applyCustomCss(it.customCss);
     return;
@@ -9925,10 +9938,33 @@ function invRollD6(){ return Math.floor(Math.random() * 6) + 1; }
    so any emphasis inside the roll's success text broke the pair and printed a
    literal `**` on the page. A lazy any-character match closes on the nearest
    `**` instead, which is the correct markdown reading and still non-greedy. */
-function invRichInline(t){
-  return esc(t == null ? '' : t)
-    .replace(/\*\*([\s\S]+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+/* Inline markup for investigation prose.
+
+   This was a private, weaker copy of the site's inline renderer: it knew about
+   ** and * and nothing else. That made a case file the one place in the whole
+   archive where naming a character, a faction or a date did not link to the
+   record for it — the exact opposite of what an investigation is for. It now
+   delegates to inlineMd(), the same function every article uses, so exhibits
+   inherit entity links, date links, [[prop:]] exhibit triggers and manual
+   [text](target_id) links for nothing.
+
+   `ctx` is the id of the record being read, so the linker never links a page
+   to itself. Pass an explicit null to get markup with NO hyperlinks: that is
+   what the visible label of a roll anchor uses, because an anchor is a button
+   and a link inside a button steals the click. */
+function invRichInline(t, ctx){
+  if(t == null) return '';
+  if(typeof inlineMd !== 'function') return esc(String(t));   // engine not loaded (harness/tests)
+  return inlineMd(String(t), ctx === null ? null : {link:true, currentId: ctx || ''});
+}
+
+/* Roll anchors and link anchors must not nest, in either direction. Both the
+   prose path and the document path therefore park finished roll anchors behind
+   a sentinel, run the linker over what is left, and put the anchors back. The
+   sentinel is U+241E, which esc() leaves alone and no alias can match. */
+function invStash(list, html){ list.push(html); return '\u241EIROLL' + (list.length - 1) + '\u241E'; }
+function invUnstash(list, html){
+  return list.length ? String(html).replace(/\u241EIROLL(\d+)\u241E/g, (m, n) => list[+n] || '') : html;
 }
 
 /* ---------- markdown-ish for analysis prose ---------- */
@@ -9937,17 +9973,17 @@ function invRichInline(t){
    and they drifted: only one of them understood `## `, so every subheading in
    an exhibit's analysis rendered as a literal "## A dedication of the prison"
    in the middle of the page. One function, one behaviour, both call sites. */
-function invProse(t){
+function invProse(t, ctx){
   if(!t) return '';
   return String(t).split(/\n\n+/).map(p => {
     const s = p.trim();
     if(!s) return '';
-    if(/^###\s+/.test(s)) return '<h4>' + invRichInline(s.replace(/^###\s+/, '')) + '</h4>';
-    if(/^##\s+/.test(s))  return '<h3>' + invRichInline(s.replace(/^##\s+/, '')) + '</h3>';
-    return '<p>' + invRichInline(s).replace(/\n/g, '<br>') + '</p>';
+    if(/^###\s+/.test(s)) return '<h4>' + invRichInline(s.replace(/^###\s+/, ''), ctx) + '</h4>';
+    if(/^##\s+/.test(s))  return '<h3>' + invRichInline(s.replace(/^##\s+/, ''), ctx) + '</h3>';
+    return '<p>' + invRichInline(s, ctx).replace(/\n/g, '<br>') + '</p>';
   }).join('');
 }
-function invBrief(t){ return invProse(t); }
+function invBrief(t, ctx){ return invProse(t, ctx); }
 
 /* ---------- index view ----------
    Built from the site's own component vocabulary (.card / .species-stats /
@@ -10046,6 +10082,17 @@ function view_investigation(id){
   const iv = invGet(id);
   if(!iv){ view_investigations(); return; }
 
+  /* Open a link pass so the case file is auto-linked like any article. The
+     context object gives the disambiguator a cast to work with: an
+     investigation's related characters and events are exactly the names its
+     prose is most likely to be talking about. */
+  beginLinkPass({
+    id: iv.id,
+    characters: iv.relatedCharacters || [],
+    events: iv.relatedEvents || [],
+    locations: iv.relatedLocations || []
+  });
+
   const p = invProgress(iv);
   const sessions = {};
   (iv.sessions||[]).forEach(s => sessions[s.id] = s);
@@ -10126,8 +10173,8 @@ function view_investigation(id){
           ${l.fromQuest?'<span class="pill">promoted from the board</span>':''}
         </div>
         <h3 style="margin:0 0 6px">${esc(l.title)}</h3>
-        <p style="margin:0 0 4px;font-size:14px;line-height:1.7">${esc(l.objective||'')}</p>
-        <div class="wnote"><b>Why this is a lead and not an errand:</b> ${esc(l.why||'')}</div>
+        <p style="margin:0 0 4px;font-size:14px;line-height:1.7">${invRichInline(l.objective||'', iv.id)}</p>
+        <div class="wnote"><b>Why this is a lead and not an errand:</b> ${invRichInline(l.why||'', iv.id)}</div>
         ${exChips?`<div class="chips">${exChips}</div>`:''}
       </div>`;
     }).join('')) : '';
@@ -10213,6 +10260,7 @@ function view_investigation(id){
       ${otherFiles?`<div class="infobox"><h4>Other Open Files</h4><div class="related-list">${otherFiles}</div></div>`:''}
       ${tocHtml}
     </div></div>`;
+  endLinkPass();                       // publish link stats to the HUD, same as an article
   window.scrollTo(0,0);
   setupScrollSpy();
 }
@@ -10224,6 +10272,17 @@ function view_investigation(id){
 function invOpenExhibit(invId, exId){
   const iv = invGet(invId); if(!iv) return;
   const ex = (iv.exhibits||[]).find(e => e.id === exId); if(!ex) return;
+
+  /* The overlay renders outside the page's own link pass, so it opens one of
+     its own. Its context is the exhibit's declared links — the people and
+     events this specific document is about — which is a tighter, better cast
+     for disambiguation than the whole case file's. */
+  beginLinkPass({
+    id: ex.propId || ex.id,
+    characters: (ex.links && ex.links.characters) || [],
+    events: (ex.links && ex.links.events) || []
+  });
+
   let host = document.getElementById('invModal');
   if(!host){
     host = document.createElement('div');
@@ -10280,6 +10339,7 @@ function invOpenExhibit(invId, exId){
       <div id="invExam">${invExamHtml(iv, ex)}</div>
     </div>`;
 
+  endLinkPass();
   host.classList.add('show');
   document.body.style.overflow = 'hidden';
   window.__invEsc = e => { if(e.key === 'Escape') invCloseExhibit(); };
@@ -10332,7 +10392,14 @@ function invExamine(invId, exId){
     host.innerHTML = `<div class="inv-exam">${invRollResult({
       ok: ok, roll: roll, total: total, bonus: 1, dc: dc, rolling: true,
       label: 'Evidence analysis', text: 'Reading the exhibit…' })}</div>`;
-    setTimeout(() => { host.innerHTML = invExamHtml(iv, ex); }, 700);
+    setTimeout(() => {
+      // the analysis this reveals is freshly linked, so it needs its own pass
+      beginLinkPass({ id: ex.propId || ex.id,
+                      characters: (ex.links && ex.links.characters) || [],
+                      events: (ex.links && ex.links.events) || [] });
+      host.innerHTML = invExamHtml(iv, ex);
+      endLinkPass();
+    }, 700);
   }
 }
 
@@ -10340,20 +10407,32 @@ function invExamine(invId, exId){
    [[roll:DC|text|success|failure]] anywhere in onRecord or analysis becomes a
    clickable span. Each one gets a stable id built from the exhibit, the field
    and its ordinal, so a stored verdict can be replayed on the next render. */
+/* Roll tokens are lifted out BEFORE the linker runs.
+
+   Order matters and used to be the bug waiting to happen. A roll anchor is a
+   button; if the auto-linker were allowed to see the words inside one it would
+   plant an <a> in the middle of it, and clicking the passage would navigate
+   away instead of rolling. So: pull each [[roll:]] out to a sentinel, let
+   invProse() link the surrounding prose normally, then drop the finished
+   anchors back in. The anchor's own visible label is rendered with links
+   explicitly disabled (ctx === null) for the same reason. The success and
+   failure texts DO get links — by the time a reader sees those they are
+   reading an outcome, not aiming at a target. */
 function invAnalysis(iv, ex, field, t){
   let n = 0;
-  // invProse() has already escaped this text and expanded ** and * into real
-  // markup, so the captured anchor is finished HTML. Escaping it a second time
-  // here is what used to print a literal &lt;strong&gt; in the middle of a roll.
-  // `ok` and `no` are still raw data and are escaped as attributes.
-  return invProse(t).replace(/\[\[roll:(\d+)\|([^|]+)\|([^|]+)\|([^\]]+)\]\]/g, (m, dc, text, ok, no) => {
+  const ctx = (ex && ex.propId) || (iv && iv.id) || '';
+  const stash = [];
+  const staged = String(t || '').replace(/\[\[roll:(\d+)\|([^|]+)\|([^|]+)\|([^\]]+)\]\]/g, (m, dc, text, ok, no) => {
     const rid = ex.id + ':' + field + ':' + (n++);
     const res = invResult(iv.id, 'insight', rid);
-    return invRollAnchor({
-      inv: iv.id, rid: rid, dc: +dc, html: text,
-      ok: ok, no: no, res: res, label: 'Insight check'   // already safe HTML
-    });
+    return invStash(stash, invRollAnchor({
+      inv: iv.id, rid: rid, dc: +dc,
+      html: invRichInline(text, null),                    // label: markup, never links
+      ok: invRichInline(ok, ctx), no: invRichInline(no, ctx),
+      res: res, label: 'Insight check'
+    }));
   });
+  return invUnstash(stash, invProse(staged, ctx));
 }
 
 /* One rollable anchor plus, if it has been resolved, its result. `html` is
@@ -10471,19 +10550,96 @@ function invRollsFor(kind, targetId){
 }
 function invDocRollHtml(iv, ex, html){
   const rolls = invRollsFor('props', ex.propId);
-  if(!rolls.length) return html;
+  const ctx = (ex && ex.propId) || '';
+  const stash = [];
+  let out = String(html);
+
+  if(rolls.length){
+    const parts = out.split(/(<[^>]+>)/);
+    rolls.forEach(r => {
+      if(!r || !r.match) return;
+      const rid = ex.id + ':doc:' + r.id;
+      const res = invResult(iv.id, 'insight', rid);
+      // The body is already HTML, so the phrase is compared in escaped form.
+      const needle = esc(r.match);
+      const anchor = invStash(stash, invRollAnchor({
+        inv: iv.id, rid: rid, dc: r.dc || 4, html: needle,
+        ok: invRichInline(r.success || '', ctx), no: invRichInline(r.failure || '', ctx), res: res,
+        label: 'Close reading'
+      }));
+      for(let k = 0; k < parts.length; k++){
+        if(parts[k].charAt(0) === '<') continue;        // a tag, never touched
+        const at = parts[k].indexOf(needle);
+        if(at < 0) continue;
+        parts[k] = parts[k].slice(0, at) + anchor + parts[k].slice(at + needle.length);
+        break;
+      }
+    });
+    out = parts.join('');
+  }
+
+  /* The paper itself gets linked too. A name on a 1040 BF invoice is the same
+     name as the one in the article about them, and refusing to say so makes a
+     case file less useful than the encyclopedia it sits inside. linkify()
+     already skips anything inside a tag or an existing <a>, and the roll
+     anchors are parked behind sentinels above, so nothing nests. */
+  out = invLinkifyDoc(out, ctx);
+  return invUnstash(stash, out);
+}
+
+/* Run the site linker across finished document HTML. Kept separate from
+   inlineMd() because a prop body is already markup — it must not be escaped
+   again, and it must not have ** or * reinterpreted inside stamps and tables. */
+function invLinkifyDoc(html, ctx){
+  if(!html || typeof linkify !== 'function') return html;
+  try { return linkify(String(html), ctx || ''); }
+  catch(e){ return html; }
+}
+
+/* how many registry rolls a prop carries — used for the exhibit's insight count */
+function invDocRollCount(ex){
+  return invRollsFor('props', ex && ex.propId).length;
+}
+
+/* ---------- held items as roll targets -----------------------------------
+   An item page is the third kind of thing that can be interrogated. It is not
+   an encyclopedia article — the description is Waluigi reading an object in
+   custody, so there is something to be right or wrong about. Verdicts are
+   stored under the pseudo-case id `item:<itemId>` in the same save file, so a
+   reader's close readings of the Black Crystal survive alongside their case
+   work without investigations.json knowing items exist. */
+function invItemRollCount(itemId){
+  return invRollsFor('items', itemId).length;
+}
+function invItemRollsDone(itemId){
+  const b = invState()['item:' + itemId];
+  const ins = (b && b.insight) || {};
+  return Object.keys(ins).length;
+}
+/* Splices the item's registry rolls into its rendered description, then links
+   the result. Order is load-bearing and was got wrong once already: if the
+   description is auto-linked first, a match like "the center of Lyranth's
+   wrong accusation against Eager" is split by the <a> around "Eager" and the
+   phrase is no longer contiguous in any text run, so the roll silently never
+   renders. So rolls go in first, park behind sentinels, and the linker runs
+   over what is left — which also guarantees no <a> can ever wrap an anchor. */
+function invItemRollHtml(itemId, html){
+  const rolls = invRollsFor('items', itemId);
+  if(!rolls.length) return invLinkifyDoc(html, itemId);
+  const invId = 'item:' + itemId;
+  const stash = [];
   const parts = String(html).split(/(<[^>]+>)/);
+
   rolls.forEach(r => {
     if(!r || !r.match) return;
-    const rid = ex.id + ':doc:' + r.id;
-    const res = invResult(iv.id, 'insight', rid);
-    // The body is already HTML, so the phrase is compared in escaped form.
+    const rid = r.id;
+    const res = invResult(invId, 'insight', rid);
     const needle = esc(r.match);
-    const anchor = invRollAnchor({
-      inv: iv.id, rid: rid, dc: r.dc || 4, html: needle,
-      ok: invRichInline(r.success || ''), no: invRichInline(r.failure || ''), res: res,
-      label: 'Close reading'
-    });
+    const anchor = invStash(stash, invRollAnchor({
+      inv: invId, rid: rid, dc: r.dc || 4, html: needle,
+      ok: invRichInline(r.success || '', null), no: invRichInline(r.failure || '', null),
+      res: res, label: 'Close reading'
+    }));
     for(let k = 0; k < parts.length; k++){
       if(parts[k].charAt(0) === '<') continue;          // a tag, never touched
       const at = parts[k].indexOf(needle);
@@ -10492,12 +10648,26 @@ function invDocRollHtml(iv, ex, html){
       break;
     }
   });
-  return parts.join('');
-}
 
-/* how many registry rolls a prop carries — used for the exhibit's insight count */
-function invDocRollCount(ex){
-  return invRollsFor('props', ex && ex.propId).length;
+  return invUnstash(stash, invLinkifyDoc(parts.join(''), itemId));
+}
+/* the close-reading header on an item page, mirroring the exhibit's doc head */
+function invItemRollHead(itemId){
+  const n = invItemRollCount(itemId);
+  if(!n) return '';
+  const done = invItemRollsDone(itemId);
+  return `<div class="inv-doc-head">
+    <span class="inv-doc-title">🔍 Close reading</span>
+    <span class="inv-doc-count">${done} of ${n} found</span>
+    <span class="inv-doc-hint">Highlighted phrases can be examined — click to roll a d6 against the DC.</span>
+    ${done ? `<a class="poi-link" onclick="invItemReset('${esc(itemId)}')">Reset</a>` : ''}
+  </div>`;
+}
+function invItemReset(itemId){
+  const s = invState();
+  delete s['item:' + itemId];
+  invSave(s);
+  if(typeof view_item === 'function') view_item(itemId);
 }
 
 /* renders a prop's physical document inline (same markup the exhibit overlay uses) */
@@ -14506,7 +14676,24 @@ const WARIO_SHOP_CATALOG = [
   { id: 'item_talisman', name: '🔮 Echo Talisman', price: 800, icon: '🔮', desc: 'Relic. Amplifies spells.', cost: 4 }
 ];
 
-const MISSION_BUDGET = 24;
+/* ---------- mission budget -------------------------------------------------
+   The budget used to be a flat 24, which quietly made the actual campaign
+   party illegal: Hjumpik 6 + Bowser 7 + Archie 5 + Remi 5 + Markop 6 = 29.
+   Deploying the people who are canonically on the mission put the board at
+   -5 and threw "Exceeded point budget!", so the one squad guaranteed to be
+   correct was the one the tool refused to sign off.
+
+   So the budget is no longer a magic number — it is derived from the canon
+   roster plus a fixed margin. Re-cost a character tomorrow and the budget
+   follows them; the canon five can always deploy, and the margin is what the
+   player actually spends decisions on. */
+const CANON_SQUAD = ['hjumpik', 'bowser', 'archie', 'remi', 'markop'];
+const MISSION_MARGIN = 5;                     // room for one specialist or a few upgrades
+const CANON_SQUAD_COST = CANON_SQUAD.reduce((n, id) => {
+  const c = COMPANIONS.find(x => x.id === id);
+  return n + (c ? c.cost : 0);
+}, 0);
+const MISSION_BUDGET = CANON_SQUAD_COST + MISSION_MARGIN;   // 29 + 5 = 34
 
 let currentSquadSlots = []; // Dynamic array of active deployed companions
 let currentSelectedUpgrades = new Set();
@@ -14552,7 +14739,9 @@ function view_mission_control() {
 
   // Calculate current point totals
   let squadPoints = 0;
-  const filledCount = currentSquadSlots.length;
+  // Empty slots are not seats. currentSquadSlots can carry nulls from the
+  // vote/tally paths, and counting them billed the player for empty chairs.
+  const filledCount = currentSquadSlots.filter(Boolean).length;
   const maxSlots = filledCount + 4;
   currentSquadSlots.forEach(id => {
     const comp = COMPANIONS.find(c => c.id === id);
@@ -14585,20 +14774,24 @@ function view_mission_control() {
   let overextensionLabel = 'Standard Squad (No maintenance cost)';
   let overextensionColor = 'var(--green)';
 
-  if (filledCount === 5) {
+  /* The ladder starts one seat later than it used to. Five is the size of the
+     party that actually walks into these places, so charging maintenance on it
+     was billing the player for showing up with their own cast. Overextension
+     now means what the word means: bringing more people than the campaign. */
+  if (filledCount === 6) {
     overextensionCost = 50;
     overextensionLabel = '⚠️ Overextended Squad (Costs 50 gp maintenance)';
     overextensionColor = 'var(--accent2)';
-  } else if (filledCount === 6) {
+  } else if (filledCount === 7) {
     overextensionCost = 150;
     overextensionLabel = '🚨 Deep Overextension (Costs 150 gp maintenance)';
     overextensionColor = 'var(--danger)';
-  } else if (filledCount === 7) {
+  } else if (filledCount === 8) {
     overextensionCost = 300;
     overextensionLabel = '☠️ Extreme Overextension (Costs 300 gp maintenance)';
     overextensionColor = 'var(--danger)';
-  } else if (filledCount > 7) {
-    overextensionCost = 300 + (filledCount - 7) * 200;
+  } else if (filledCount > 8) {
+    overextensionCost = 300 + (filledCount - 8) * 200;
     overextensionLabel = `☠️ Critical Overextension (Costs ${overextensionCost} gp maintenance)`;
     overextensionColor = 'var(--danger)';
   }
@@ -14606,13 +14799,16 @@ function view_mission_control() {
   const canAffordMaintenance = isDebt ? false : (goldBalance >= overextensionCost);
   const canLaunch = hasAtLeastFour && underBudget && canAffordMaintenance;
 
-  // Strategic reward modifier (Multiplier)
+  /* Strategic reward modifier. The thresholds are a fraction of the budget
+     rather than the old hard-coded 15/20, which were tuned to a 24-point cap
+     and would have quietly stopped meaning anything the moment the budget
+     moved. Bonus rewards are for going in lighter than you were allowed to. */
   let challengeRating = 'Standard Run (1.0x Rewards)';
   let ratingColor = 'var(--green)';
-  if (totalPointsSpent < 15) {
+  if (totalPointsSpent > 0 && totalPointsSpent <= MISSION_BUDGET * 0.45) {
     challengeRating = 'Heroic Run (2.0x Gold & Standing!)';
     ratingColor = '#ffd166';
-  } else if (totalPointsSpent < 20) {
+  } else if (totalPointsSpent > 0 && totalPointsSpent <= MISSION_BUDGET * 0.65) {
     challengeRating = 'Hard Run (1.5x Gold & Standing!)';
     ratingColor = 'var(--accent2)';
   }
@@ -14785,7 +14981,7 @@ function view_mission_control() {
         <span class="chip" style="background:rgba(224,180,0,0.12);border-color:var(--accent);color:var(--accent)">📅 Calendar: ${esc(dateStr)}</span>
       </div>
       <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
-        <button class="chip active" onclick="autofillCoreCast()" style="background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; cursor: pointer; padding: 6px 16px; box-shadow: 0 4px 12px rgba(138,75,255,0.25);">✨ Autofill Core Cast (4 Members)</button>
+        <button class="chip active" onclick="autofillCoreCast()" style="background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 700; cursor: pointer; padding: 6px 16px; box-shadow: 0 4px 12px rgba(138,75,255,0.25);">✨ Autofill Canon Squad (${CANON_SQUAD.length} Members · ${CANON_SQUAD_COST} pts)</button>
       </div>
     </div>
 
@@ -14911,13 +15107,11 @@ window.benchCompanion = function(compId) {
 };
 
 window.autofillCoreCast = function() {
-  currentSquadSlots = [null, null, null, null, null];
-  
-  const coreArray = ['archie', 'markop', 'hjumpik', 'remi'];
-  coreArray.forEach((id, index) => {
-    currentSquadSlots[index] = id;
-  });
-  
+  /* Fills the squad with the party the campaign actually runs, and nothing
+     else — no null padding. The old version wrote five slots and filled four,
+     so the empty fifth still counted toward the seat total and the board
+     charged maintenance for a chair nobody was sitting in. */
+  currentSquadSlots = CANON_SQUAD.slice();
   view_mission_control();
 };
 
