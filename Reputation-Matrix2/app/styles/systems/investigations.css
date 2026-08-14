@@ -55,36 +55,65 @@
    is on the table or it is not. */
 .inv-exam .prose{font-size:14.5px;max-width:none}
 .inv-exam .prose p:first-of-type{font-size:14.5px}
-.inv-exam .prose h2{font-size:15px;margin:18px 0 6px;letter-spacing:.01em}
-.inv-exam .prose h2:first-child{margin-top:2px}
+/* invProse() emits h3 for `## ` and h4 for `### `; these used to target h2,
+   which is why authored subheadings sat unstyled inside an exhibit. */
+.inv-exam .prose h3{font-size:15px;margin:18px 0 6px;letter-spacing:.01em}
+.inv-exam .prose h3:first-child{margin-top:2px}
+.inv-exam .prose h4{font-size:13.5px;margin:14px 0 5px;letter-spacing:.01em;color:var(--accent2)}
+.inv-exam .prose h4:first-child{margin-top:2px}
 
 /* ---------- dice + roll results ------------------------------------------
    A resolved roll is an object, not a sentence in brackets: the pip face that
    came up, the arithmetic, an explicit PASS/FAIL, then what was learned. Used
    identically by the inline prose rolls, the in-document close readings and
    the exhibit examination, so a reader learns one visual grammar. */
+/* The surface is an OPAQUE theme token, not a white overlay. It used to be
+   rgba(255,255,255,.02), which is a no-op on a light background — the whole
+   result block read as transparent and the die floated on bare page. Every
+   surface and tint below is either a token or a token-derived colour-mix, so
+   both themes get a real card. */
 .inv-result{
   display:block;margin:10px 0 12px;padding:10px 12px;
   border:1px solid var(--border);border-left-width:3px;border-radius:8px;
-  background:rgba(255,255,255,.02);
+  background:var(--panel2);
+  box-shadow:0 1px 3px rgba(0,0,0,.10);
 }
-.inv-result.is-pass{border-left-color:var(--green,#2ecc71)}
-.inv-result.is-fail{border-left-color:var(--danger)}
+.inv-result.is-pass{
+  border-left-color:var(--green,#2ecc71);
+  background:color-mix(in srgb, var(--green,#2ecc71) 7%, var(--panel2));
+  border-color:color-mix(in srgb, var(--green,#2ecc71) 28%, var(--border));
+}
+.inv-result.is-fail{
+  border-left-color:var(--danger);
+  background:color-mix(in srgb, var(--danger) 7%, var(--panel2));
+  border-color:color-mix(in srgb, var(--danger) 28%, var(--border));
+}
 .inv-result-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:6px}
 .inv-result-body{display:block;font-size:13.5px;line-height:1.62;color:var(--text)}
 .inv-result.is-fail .inv-result-body{color:var(--muted)}
 
 /* the die face: a real 3x3 pip grid, not a numeral */
+/* the die face: a real 3x3 pip grid, not a numeral. It is a physical object,
+   so it gets an opaque body (--panel) and its own shadow — a die that lets the
+   page show through is not a die. */
 .inv-face{
   display:inline-grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);
   gap:1px;width:30px;height:30px;padding:4px;box-sizing:border-box;flex:0 0 auto;
-  border:1px solid var(--accent2);border-radius:7px;background:rgba(138,75,255,.10);
+  border:1px solid var(--accent2);border-radius:7px;
+  background:var(--panel);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 1px 2px rgba(0,0,0,.18);
 }
 .inv-face i{display:block;border-radius:50%;background:transparent}
 .inv-face i.on{background:var(--accent2);box-shadow:0 0 4px rgba(138,75,255,.55)}
-.is-pass .inv-face{border-color:var(--green,#2ecc71);background:rgba(46,204,113,.10)}
+.is-pass .inv-face{
+  border-color:var(--green,#2ecc71);
+  background:color-mix(in srgb, var(--green,#2ecc71) 12%, var(--panel));
+}
 .is-pass .inv-face i.on{background:var(--green,#2ecc71);box-shadow:0 0 4px rgba(46,204,113,.5)}
-.is-fail .inv-face{border-color:var(--danger);background:rgba(231,76,60,.10)}
+.is-fail .inv-face{
+  border-color:var(--danger);
+  background:color-mix(in srgb, var(--danger) 12%, var(--panel));
+}
 .is-fail .inv-face i.on{background:var(--danger);box-shadow:none}
 
 .inv-sum{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;font-weight:800;color:var(--text)}
@@ -110,10 +139,11 @@
    bold, pointer. Once rolled it reverts to ordinary body text so a resolved
    passage reads as prose rather than as an exhausted button. */
 .inv-inline-roll{
-  background:rgba(138,75,255,.14);border-bottom:1px dashed var(--accent2);
+  background:color-mix(in srgb, var(--accent) 14%, var(--panel));
+  border-bottom:1px dashed var(--accent2);
   color:var(--accent2);font-weight:700;font-style:italic;cursor:pointer;
 }
-.inv-inline-roll:hover{background:rgba(138,75,255,.26)}
+.inv-inline-roll:hover{background:color-mix(in srgb, var(--accent) 28%, var(--panel))}
 .inv-inline-roll:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
 .inv-inline-roll.rolled{
   background:none;border-bottom:none;color:inherit;font-weight:inherit;

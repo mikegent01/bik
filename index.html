@@ -9919,34 +9919,35 @@ function invRollD6(){ return Math.floor(Math.random() * 6) + 1; }
    raw authored strings. Both must end up as *safe HTML* so the renderer can
    insert them without escaping a second time — escaping twice is what printed
    a literal &lt;strong&gt; mid-sentence. This converts the raw case. */
+/* The bold pass must be able to span a roll token, because authored prose
+   legitimately writes **a claim [[roll:4|…|…*quoted*…|…]] stated in bold.**
+   The old pattern was `\*\*([^*]+)\*\*`, which refuses to cross a single `*`,
+   so any emphasis inside the roll's success text broke the pair and printed a
+   literal `**` on the page. A lazy any-character match closes on the nearest
+   `**` instead, which is the correct markdown reading and still non-greedy. */
 function invRichInline(t){
   return esc(t == null ? '' : t)
-    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*\*([\s\S]+?)\*\*/g, '<strong>$1</strong>')
     .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
 }
 
 /* ---------- markdown-ish for analysis prose ---------- */
+/* The one markdown-ish renderer for authored investigation prose. There used
+   to be two of these — invProse for exhibits and invBrief for case briefs —
+   and they drifted: only one of them understood `## `, so every subheading in
+   an exhibit's analysis rendered as a literal "## A dedication of the prison"
+   in the middle of the page. One function, one behaviour, both call sites. */
 function invProse(t){
   if(!t) return '';
   return String(t).split(/\n\n+/).map(p => {
-    let h = esc(p.trim())
-      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-      .replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>')
-      .replace(/\n/g, '<br>');
-    return '<p>' + h + '</p>';
-  }).join('');
-}
-function invBrief(t){
-  if(!t) return '';
-  return String(t).split(/\n\n+/).map(p => {
     const s = p.trim();
-    if(/^##\s+/.test(s)) return '<h2>' + esc(s.replace(/^##\s+/,'')) + '</h2>';
-    return '<p>' + esc(s)
-      .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
-      .replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>')
-      .replace(/\n/g,'<br>') + '</p>';
+    if(!s) return '';
+    if(/^###\s+/.test(s)) return '<h4>' + invRichInline(s.replace(/^###\s+/, '')) + '</h4>';
+    if(/^##\s+/.test(s))  return '<h3>' + invRichInline(s.replace(/^##\s+/, '')) + '</h3>';
+    return '<p>' + invRichInline(s).replace(/\n/g, '<br>') + '</p>';
   }).join('');
 }
+function invBrief(t){ return invProse(t); }
 
 /* ---------- index view ----------
    Built from the site's own component vocabulary (.card / .species-stats /

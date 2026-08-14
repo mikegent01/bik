@@ -98,6 +98,14 @@ for iv in INV:
         if not rolls:
             warn.append(f"{tag}/{ex['id']}: no inline insight rolls — nothing in the prose to investigate")
 
+        # Bold markers must pair up. invRichInline() closes `**` on the nearest
+        # following `**`, so bold is allowed to span a [[roll:...]] token — but
+        # an odd count means one marker never closes and prints literally.
+        for field in ('onRecord','analysis'):
+            body = ex.get(field) or ''
+            if body.count('**') % 2:
+                err.append(f"{tag}/{ex['id']}/{field}: odd number of `**` markers — an unclosed bold prints literally")
+
         # docRolls moved out to rolls.json — see tools/check-rolls.py. An
         # exhibit carrying them inline is stale data the engine ignores.
         if ex.get('docRolls'):
