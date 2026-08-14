@@ -1068,7 +1068,7 @@
     "relatedArticles": [
       "raventree_manor",
       "corvinarus_family",
-      "the_planar_fracture",
+      "planar_fracture",
       "the_planar_sanctum",
       "archie_miser",
       "markop",
@@ -1526,7 +1526,7 @@
       "order_120",
       "astral_altar",
       "alpine_bank",
-      "arunedeal_goblins"
+      "arunedeal_goblin_camp"
     ]
   },
   {
@@ -1575,7 +1575,7 @@
       "estragon_island",
       "professor_prismari",
       "lorehold",
-      "mazebound",
+      "mazebounds",
       "mystic_morel",
       "rattles",
       "tymnas",
@@ -1622,7 +1622,7 @@
       "arachnid_matriarch",
       "pepper_spray",
       "tea_leaf_syndicate",
-      "black_crystal",
+      "black_crystal_item",
       "mirror_of_true_reflection",
       "umbral_signet",
       "orb_of_shadow_domination",
@@ -3886,5 +3886,64 @@
     ],
     "needsReview": true,
     "waluigiComment": "Placeholder name, not a person. The hired man on Mount Ebot is filed as Jory Dobbs. Waluigi keeps the husk because dead links are worse than duplicates, and because an archive that quietly deletes its own mistakes cannot be trusted about anyone else's. WAH."
+  },
+  {
+    "id": "speaker_rivers",
+    "name": "Speaker Rivers",
+    "title": "The Trojan Speaker",
+    "race": "Toad",
+    "type": "Character / Liberated Toads Command Record",
+    "status": "Active — assumed direction of the movement after Speaker L's disappearance",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "Cohort leadership",
+    "summary": "Rivers resigned from the Midlands Diet at 09:00 on the 21st of Highsun, 1040 BF in protest at the Iron Mandate, then allowed himself to be taken so that a digital virus could be carried inside Aegis Command. He is credited in the battle record with triggering the largest prison break in Regal Empire history, and with directing it remotely. Where Speaker L argued, Rivers acts, and the archive is not yet agreed on whether that is an improvement.",
+    "description": "Waluigi files this record with a warning attached: the sources disagree about Speaker Rivers, and the disagreement is the interesting part.\n\nWhat is not disputed. Rivers sat in the Midlands Diet and resigned from it at nine in the morning on the 21st of Highsun, 1040 BF, in protest at the passage of the Iron Mandate 28-8-3. The conflict record names the phase that follows 'The Trojan Speaker (Day 18-21)' and describes it plainly: Rivers allowed himself to be captured in order to plant a digital virus. The battle record for the Aegis Command Uprising lists him as a commander of the Toad side, marked '(Remote)', alongside Creek as medic, against General Ironhand. It credits him with triggering the break using smuggled Mini-Mushrooms, custom gas, prepped tunnels and server hacks.\n\n## The succession\n\nSpeaker L led the movement through the founding, the Accountability Docket, and the Raventree containment. He is recorded in the Liberated Toads' own system as missing, and separately as revealed to be a decoy — the figure in Legion custody was a green-dyed stand-in. The cohort's own battle song puts the transition in the mouths of the toads who lived it:\n\n> Speaker L once led us bold,\n> But now the stories twist and fold —\n> The Legion comes with iron creed,\n> And chains return in whispered speed.\n\n'The stories twist and fold' is doing a great deal of work in that verse. The cohort is not singing about a leader who died. They are singing about a leader whose account of himself stopped matching what they could see.\n\n## Rivers is the harder man\n\nWaluigi's assessment, offered as assessment and not as record: Speaker L's instincts were legal and procedural. He built dockets, granted himself emergency powers by a 6-0-0 vote, and contained Raventree with a perimeter and a dissent recorded from Healer Mistpetal. Every one of those is the act of somebody who believes the argument can still be won inside the rules.\n\nRivers resigned from a chamber rather than sit in it, then used his own body as a delivery mechanism for a weapon. That is not a procedural instinct. A man who has calculated that his capture is worth more than his liberty has already decided the rules are scenery, and a movement led by that man goes to different places than one led by a lawyer in a feathered hat.\n\nThe Liberated Toads' operational snapshot is frozen at Highsun 21 and still lists Speaker L as the Speaker. The command structure it describes has been overtaken by events. Waluigi notes this so the reader does not mistake a stale file for a current one. WAH.",
+    "keyEvents": [
+      "iron_mandate",
+      "order_120",
+      "aegis_command_riot"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "speaker_l",
+      "iron_mandate",
+      "order_120",
+      "creek_medic",
+      "general_ironhand",
+      "aegis_command",
+      "council_of_seven"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Sources conflict on whether Rivers and Speaker L are the same office or the same person. Filed as distinct because the Diet resignation and the Speakership are recorded an hour apart on the same day. Revise on direct testimony."
+  },
+  {
+    "id": "creek_medic",
+    "name": "Creek",
+    "title": "The Medic Who Was Given a Sickle",
+    "race": "Toad",
+    "type": "Character / Liberated Toads Roster",
+    "status": "Active — pinned down at Aegis Command as of the Order 120 emergency",
+    "affiliation": "Liberated Toads",
+    "faction": "liberated_toads",
+    "membership": "Menders / infiltration team",
+    "summary": "Creek worked as a medic in a hospital before the barrels. He stabilised Dan after Dan lost an arm, melted an Iron Legion soldier with acid during the failed courtyard infiltration, and is named in the Aegis Command Uprising battle record as a commander of the Toad side. The Liberated Toads' crisis log for Order 120 records the infiltration team — Creek — as pinned down with under an hour on the clock.",
+    "description": "Creek is listed in the Liberated Toads roster under one word: Medic. Waluigi has assembled the rest from the places he turns up, and the rest is not a medic's career.\n\nHe was a hospital medic before the liberation. When Dan lay bleeding and armless after Green T's intervention, it was Creek who stepped forward and stabilised him. That is the job he trained for and the last time the archive shows him doing it unaccompanied by violence.\n\n## The sickle\n\nBefore the party pressed past the smoke trap on the approach to a dragon's lair, Archie handed Creek a sickle. Waluigi wishes to record his opinion of this: arming a medic with a farming implement before walking into a dragon's lair is the single most Disaster Inc. decision in the archive, and Disaster Inc. has a great deal of competition for that title.\n\n## The courtyard\n\nCreek accompanied Bones into the Aegis Command prison courtyard on the 21st of Highsun. Bones was disguised as a guard and the disguise lasted exactly as long as it took him to say 'I'm a new recruit' to General Ironhand, who tore it off and put a blade through his chest. In the chaos that followed, Creek melted a Legion soldier with acid. The Legion's own casualty return for that engagement reads, in full: '1 Soldier (Melted by Creek's acid).'\n\nThey were overwhelmed. The infiltration failed, Bones was taken critically wounded, and Order 120 was issued. The council's crisis entry at 14:45 notes that the infiltration team was pinned down and names only Creek.\n\n## Commander\n\nThe battle record for the uprising lists two commanders on the Toad side: Speaker Rivers, marked remote, and Creek. Rivers was directing from outside. Creek was inside the building, and had been since the infiltration collapsed. Whatever the roster says, the man holding the line at Aegis Command that afternoon was the hospital medic with the borrowed sickle. WAH.",
+    "keyEvents": [
+      "order_120",
+      "aegis_command_riot"
+    ],
+    "relatedArticles": [
+      "liberated_toads",
+      "bones",
+      "dan",
+      "general_ironhand",
+      "speaker_rivers",
+      "aegis_command",
+      "order_120",
+      "archie_miser"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Referenced in majorBattles as 'creek_medic' and in the faction roster simply as 'Creek'. Same toad. Filed under the id the battle record already uses."
   }
 ]

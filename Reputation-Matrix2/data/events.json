@@ -248,7 +248,7 @@
     "relatedArticles": [
       "the_grove_of_woe_incident",
       "dan",
-      "the_planar_fracture",
+      "planar_fracture",
       "the_oracle",
       "god_toad",
       "estragons_island",
@@ -307,7 +307,7 @@
         "role": "Replacement villain — chosen for scale, documented aggression history, and most importantly for the war his accusation enabled"
       },
       {
-        "id": "toadsworth_elder",
+        "id": "toadsworth_sr",
         "name": "Toadsworth the Elder",
         "role": "Chronicler — documented the Fawthful Narrative's existence and suppression in private journals recovered by the Loyalists in 1010 BF"
       },
@@ -839,7 +839,7 @@
     "relatedArticles": [
       "shadow_estate_campaign",
       "god_toad",
-      "fawthful_forces",
+      "fawful_forces",
       "star_rod",
       "fountain_of_dreams",
       "remi",
@@ -1262,7 +1262,7 @@
       "mages_guild",
       "three_eyed_bandit",
       "the_shadowmere_compact",
-      "the_planar_fracture",
+      "planar_fracture",
       "time_dilation_crisis",
       "the_tanuki"
     ]
@@ -1601,7 +1601,7 @@
         "role": "Sixteen-year-old uninvited observer who contributed the population tier voting system, ate three ceremonial pastries, and appears in the witness registry as 'W. Waluigi, Observer, Mushroom Kingdom (disputed status)'"
       },
       {
-        "id": "toadsworth_elder",
+        "id": "toadsworth_sr",
         "name": "Toadsworth the Elder",
         "role": "Mushroom Kingdom senior delegate — signed the Charter with existential reluctance, voted for Waluigi's tier system without acknowledging it, spent eleven days being appalled by Waluigi's presence"
       },
@@ -1648,7 +1648,7 @@
       "raventree_crisis",
       "species_recognition_compact",
       "dimensional_barrier_monitoring_committee",
-      "toadsworth_elder",
+      "toadsworth_sr",
       "princess_daisy",
       "waluigi"
     ]
@@ -2431,7 +2431,7 @@
       "pond_patrol",
       "we_are_the_toads",
       "disaster_inc",
-      "mazebound",
+      "mazebounds",
       "toad_god",
       "mystic_morel",
       "waluigi",
@@ -3700,7 +3700,7 @@
       "archie_miser_shadowfell_arc",
       "the_onyx_hand",
       "house_of_voss",
-      "the_shadeward_arc",
+      "shadeward_arc",
       "the_four_artifacts",
       "the_mirror_of_true_reflection",
       "mossy_steely",
@@ -4147,10 +4147,10 @@
       "dan",
       "disaster_inc",
       "raventree_manor",
-      "the_ruined_manor_convergence",
+      "ruined_manor_convergence",
       "the_eastern_passage",
-      "the_mushroom_kingdom",
-      "the_planar_fracture",
+      "mushroom_kingdom",
+      "planar_fracture",
       "time_dilation_crisis",
       "shadeward_arc",
       "poltergust",
@@ -4163,7 +4163,7 @@
       "toadsworth_the_elder",
       "the_shadowfell_dan",
       "fawful",
-      "the_mushroom_regency",
+      "mushroom_regency",
       "peach_loyalists"
     ]
   },
@@ -4372,7 +4372,7 @@
       "markop",
       "remi",
       "house_of_voss",
-      "the_planar_fracture",
+      "planar_fracture",
       "the_estragon_island_incident"
     ]
   },
@@ -4584,12 +4584,12 @@
       "vaxillus",
       "raventree_manor",
       "the_midnight_fountain",
-      "the_rescue_of_steely",
+      "rescue_of_steely",
       "the_portal_betrayal_and_the_gardeners_vote",
       "volsotos",
       "speaker_l",
       "the_death_lounge",
-      "the_shadeward_arc"
+      "shadeward_arc"
     ]
   },
   {
@@ -4803,7 +4803,7 @@
     "description": "## Part One: The Laboratory  Chillwind 8, 963 BF, Approximately the Twelfth Hour\n\nWaluigi must begin with the laboratory because the laboratory is where the context lives. You cannot understand what the expedition meant without understanding what the world looked like from inside the room where it started, and the room where it started tells you exactly what the Long Dark actually was when you were inside it rather than reading about it later from a distance of seventy-seven years.\n\nProfessor E. Gadd's laboratory in the Guild District was one of a very small number of scientific facilities still operating at meaningful capacity fourteen months into the infrastructure collapse. This is worth pausing on. Most research operations in the kingdom had scaled back or ceased entirely when Star Road power failed in 962 BF. The research that had driven the Mushroom Kingdom's scientific advancement for decades  the spectral studies, the magical engineering, the alchemical development  had stopped, not because researchers had stopped caring or funding had disappeared but because the energy source that ran the equipment simply did not exist anymore. Laboratories full of sophisticated apparatus had become cold rooms full of expensive furniture. The knowledge was still there. The machines were still there. The power to run them was not.\n\nE. Gadd's laboratory ran on Guild emergency ration power. Approximately a third of normal operating capacity. This produced a specific set of conditions that Waluigi can reconstruct from the field notes and from descriptions provided by Long Dark survivors who worked in Guild-adjacent facilities during this period. The overhead lights flickered rather than burned steady  a rhythmic uncertain pulse that made shadows crawl across the workbenches in ways that seemed designed to unsettle visitors and that E. Gadd appeared genuinely not to notice. The temperature was marginal in the specific way of Long Dark heated spaces: warm enough to work, cold enough that you were always aware of the cold waiting at the edges, the kind of temperature that settled into joints and made fingers stiff and concentration brittle after extended periods. The electric kettle had stopped working seven months prior when the power rationing dropped below its minimum wattage requirement. Tea was brewed on a coal burner that E. Gadd had installed himself, leaving soot marks on the ceiling above it that he had also not noticed or at least had not addressed. The coal burner was a Long Dark adaptation  practical, functional, requiring no infrastructure beyond the coal itself. E. Gadd had made this adaptation so smoothly and so early that it appeared to have become part of the laboratory's permanent character rather than an emergency measure.\n\nThe laboratory was cluttered in the particular way of a workspace that has been both home and professional space for an extended period under conditions that do not permit the luxury of tidiness. Equipment piled on equipment across every horizontal surface. Poltergust components in various states of assembly and disassembly. Glass vials of substances arranged in rows that followed a logic visible only to E. Gadd and possibly not fully visible even to him. Papers covered in dense notation mixed with papers covered in sketches mixed with papers that appeared to be shopping lists for components that may or may not have been available for purchase in the current economy. In one corner, a storage cabinet labeled TOP SECRET  DO NOT TOUCH UNLESS EXPERIENCED in large handwritten letters, which was the most organized thing in the room, which tells you something important about E. Gadd's priority hierarchy: operational security received more attention than general organization.\n\nInto this laboratory walked Leo. Waluigi does not have detailed documentation of Leo's arrival. The Guild record lists him as 'Trainee (Leo), assigned to Gadd Science emergency contract, Chillwind 963.' No prior service record. No background file beyond the assignment notation. No personal history visible in any document Waluigi has been able to access. He walked into E. Gadd's flickering coal-scented laboratory as a new trainee on his first field deployment during the worst infrastructure collapse in living memory, and the Guild record treats this as unremarkable enough to document in a single line. Waluigi does not find it unremarkable. Waluigi finds the gap between the single line and what actually happened during this departure sequence to be one of the most significant gaps in the available documentation of this period.\n\nLuigi was already there when Leo arrived, mid-conversation with E. Gadd, handling Poltergust parts from his own standard-issue unit with the practiced ease of someone who has been working with the same equipment family for a very long time. The standard Poltergust  stable, reliable, built for containment rather than discovery  was Luigi's tool. He knew it completely. He had been using it, and tool\n\n[... ADMINISTRATIVE PRUNING BY WALUIGI TO SAVE ARCHIVE SPACE ...]\n\nnt, this profound ideological wound, was the armor Leo wore. It explains his coldness. It explains his fast processing speed and lack of panic. He was not waiting for a hero to save him, because he believed the hero had deserted them. He believed they were entirely on their own.They boarded the train.E. Gadd ushered them past the mechanical conductor droid, using the Clearance Token to secure access to what he called a 'strategically advantageous position.' This turned out to be a cramped, dirty, private observation nook tucked against a ventilation shaft in the very last car, partially obscured by a heavy velvet curtain. The heavy pneumatic doors hissed shut, sealing them inside a vibrating, ozone-scented iron box. The train lurched forward, plunging into the dark tunnels of the mountain pass.Luigi collapsed onto the stiff wooden bench. He told Leo to focus on his breathing. And then, Luigi did something that requires specific economic and psychological documentation: he reached into his pocket, pulled out a small, crumpled piece of hard candy with trembling fingers, and offered it to Leo.Sugar helps with the shock, Luigi said softly. It helped Mario once.Waluigi wants to be extremely clear about what this gesture meant in 963 BF. Sugar was not a casual commodity. The agricultural supply chains that brought sugar cane to Toad Town had been severed for eight years by the civil war, and whatever reserves existed had been frozen or hoarded by the Mages Guild when the Star Road failed. Sugar was pure, fast-burning calories. In the Hoarfrost Winter of the Long Dark, calories were body heat. Calories were literal survival. For Luigi to give away a piece of sugar to a trainee he had met an hour ago was an act of profound, self-sacrificing generosity. And he referenced Mario. While Leo was silently despising Mario for running away, Luigi was invoking his brother's name as a comfort mechanism, passing on a lesson Mario had taught him. The contrast between Leo's bitter resentment and Luigi's enduring, tragic devotion, occupying the exact same physical space on that train compartment, is the emotional core of this expedition. Luigi still believed in the brother who had left him alone in a dying world. Leo chewed the sugar. As a reflex of a pre-collapse mindset, he began looking around the seat for a dinner menu.He did not find a menu. He found a stiff piece of parchmenta topographical transit map of the rail line. E. Gadd snatched the map immediately, his magnifying glass hovering over the parchment. He instantly identified operational hazards: Blackwood Pass, a deep subterranean trench marked with a skull-and-crossbones, notorious for signal interference. If they lost contact with station HQ there, they would be flying blind through contested territory. When Leo asked about the train's amenities, E. Gadd laughed a harsh, wheezing laugh. He pointed to the fine print on the map. The Maglev Express did not serve dinner. It featured an automated vending unit in the dining car that dispensed 'Nutrient Slurry' and dehydrated crackers. Waluigi pauses on this detail. The Mushroom Kingdom was once a civilization defined by its abundancefeasts, banquets, endless supplies of fresh food. Now, its elite Mages Guild operatives, traveling on a high-security armored train to save a village from spectral annihilation, were expected to sustain themselves on heavily rationed, machine-dispensed sludge. This was the texture of life in the second year of the Long Dark.Before the grim reality of the nutrient slurry could fully settle upon the group, the operational environment changed again, instantly and violently.A heavy, rhythmic *thud-thud-thud* sounded from the ceiling of the compartment.E. Gadd froze. The train was moving at tremendous speed through a subterranean mountain pass. The sound was not the wind. It was not a loose bolt. It was the distinct, heavy sound of sharp, multi-jointed limbs scraping against the metal exterior of the train's roof. E. Gadd reached into his lab coat and retrieved a brass-encased ecto-meter. He flicked it on. The needle on the gauge violently slammed all the way to the right, pinning itself deep into the red zone. A massive spectral density spike. Directly above their heads.Stay low, E. Gadd whispered, his face pale under the flickering compartment lamp, gripping Leo's sleeve. If that pressure seal on the ceiling fails, we won't be worrying about dinner; we'll be worrying about whether our souls are still attached to our bodies!Waluigi's analysis of the departure phase concludes here. The transit phase had officially begun. They had successfully navigated the human threatsthe Guild checkpoints, the failing infrastructure, the security golems, and the crowded terminal. But they were now moving through the Long Dark, trapped in a sealed iron box traveling at high speed, and the Long Dark had finally found them. What follows on the roof of the Maglev Express is an entirely different operational paradigm.",
     "participants": [
       {
-        "id": "professor_egadd",
+        "id": "professor_e_gadd",
         "name": "Professor E. Gadd",
         "role": "Mission Lead — Mages Guild emergency contract — operated his laboratory on Guild ration power with a coal-burning tea kettle because the electric one stopped working seven months prior — equipped Leo with the Prototype-X specifically for its power independence from the collapsed Star Road network — pre-loaded containment cloth into Leo's gear without informing him — carried a remote steam valve trigger as a prepared checkpoint contingency — navigated the checkpoint incident through steam distraction and academic bluffing — identified the maintenance tunnel bypass suggesting prior use — collected golem components from wreckage during a covert operation because science does not pause for operational security — detected roof entity with ecto-meter — his field notes from subsequent hours degrade in organization suggesting something significant occurred — primary scientific authority who performs normalcy regardless of civilizational collapse"
       },
@@ -4865,7 +4865,7 @@
       "Three people getting on the train — during the Long Dark — when the train was not guaranteed — this being still a choice that cost something"
     ],
     "relatedArticles": [
-      "professor_egadd",
+      "professor_e_gadd",
       "luigi",
       "leo",
       "the_clockwork_spire",
@@ -4986,9 +4986,9 @@
       "Toad Lee thinking something interesting that will not be documented here — Waluigi agrees with this editorial decision"
     ],
     "relatedArticles": [
-      "the_overgrown_manor_campaign",
+      "overgrown_manor_campaign",
       "ferngrove_manor",
-      "the_hag_of_ferngrove",
+      "the_hag_of_ferngrove_manor",
       "waluigi",
       "hjumpik",
       "toad_lee",
@@ -5002,7 +5002,7 @@
       "princess_peach",
       "wario_bros",
       "disaster_inc",
-      "the_planar_fracture",
+      "planar_fracture",
       "feyward_campaign",
       "herniva",
       "the_revel",
@@ -5222,10 +5222,10 @@
       "luigi",
       "egadd",
       "estalia",
-      "the_planar_fracture",
-      "the_overgrown_manor_campaign",
+      "planar_fracture",
+      "overgrown_manor_campaign",
       "ferngrove_manor",
-      "the_hag_of_ferngrove",
+      "the_hag_of_ferngrove_manor",
       "stucky_stuckina_boggs",
       "rakasha_azure",
       "steely",
@@ -5708,7 +5708,7 @@
       "captain_toadette",
       "chronicles_of_the_mushroom_throne",
       "coronation_day",
-      "kivotos_millennium_science_school",
+      "millennium_science_school",
       "luminara_nocturne",
       "crimson_veil_protocol",
       "provision_14",
@@ -5928,7 +5928,7 @@
       "chronicles_of_the_mushroom_throne",
       "coronation_day",
       "pony_halo_concordant",
-      "kivotos_millennium_science_school",
+      "millennium_science_school",
       "sarasaland_emergency_protocols"
     ],
     "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(80,80,80,0.12), rgba(40,40,40,0.10), rgba(212,168,83,0.06)); padding: 1.5rem; border-left: 6px solid #4a4a4a; border-radius: 1rem; } .xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; } .xp-preview-box h4 { color: #a67af0; margin-top: 0; font-size: 1.2em; border-bottom: 1px solid rgba(166, 122, 240, 0.3); padding-bottom: 8px; } .xp-list { list-style: none; padding: 0; margin: 15px 0; } .xp-list li { margin-bottom: 10px; line-height: 1.4; border-left: 3px solid rgba(139, 95, 212, 0.4); padding-left: 12px; } .xp-name { color: #f2d68a; font-weight: bold; display: block; margin-bottom: 2px; } .xp-total { color: #fff1b8; font-weight: bold; border-top: 1px dashed rgba(212, 168, 83, 0.3); padding-top: 4px; margin-top: 4px; display: inline-block; } .waluigi-rant { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .waluigi-comment { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .tactical-note { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.95em; } .intercepted-feed { background: #000; border: 1px dashed #7ee6a0; padding: 10px; margin: 10px 0; font-family: 'Courier New', Courier, monospace; color: #7ee6a0; } .people-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; } .person-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 5px 10px; font-size: 0.9em; }"
@@ -9277,6 +9277,119 @@
         "date": "17 Aethel, 1032 BF",
         "dateSort": 10321700
       }
+    ]
+  },
+  {
+    "id": "order_120",
+    "name": "Order 120",
+    "title": "The Execution Order That Made the Riot Inevitable",
+    "date": "21st Highsun, 1040 BF — issued 14:30",
+    "era": "The Aegis Uprising — Toad Liberation Crisis",
+    "location": "Aegis Command Fortress, Regal Empire Midlands",
+    "type": "Military Order / Atrocity Directive / Casus Belli",
+    "status": "Executed in part — superseded by the loss of the facility the same afternoon",
+    "summary": "Order 120 was General Ironhand's directive for the immediate execution of all Toad prisoners held at Aegis Command, issued on the 21st of Highsun, 1040 BF at 14:30. It followed the failed courtyard infiltration in which Bones was stabbed, and the Legion's confirmation that the 'Speaker L' in their custody was a decoy. The order did not produce the compliance it assumed. It produced the largest prison break in Regal Empire history, in the same building, within the hour.",
+    "description": "Waluigi wishes to be precise about what Order 120 was, because the archive is full of people who use the number as a synonym for cruelty and never say what the document actually did.\n\nOrder 120 was an instruction to kill prisoners already in custody. Not a battlefield order, not a rule of engagement, not a reprisal policy with conditions attached. General Ironhand issued it at 14:30 on the 21st of Highsun after two things happened in quick succession: Bones, disguised as a guard, was recognised in the courtyard and stabbed through the chest, and the Legion established that the 'Speaker L' they had been interrogating was a decoy — a loyalist who had claimed under questioning that he had eaten a poisonous mushroom and was dying regardless.\n\nThe interrogation had produced nothing. The decoy had spoken of the Fractured Heart philosophy and of the Council of Seven, and had described a movement that would survive any single death. He was telling the truth, and he was also wasting the Legion's afternoon on purpose. Ironhand appears to have concluded that if the prisoners could not be made to yield intelligence, they could at least be made to stop existing.\n\n## What the order set running\n\nThe Liberated Toads' own council recorded the emergency at 14:45 — fifteen minutes after issue — as CRISIS RESPONSE: ORDER 120, proposed by Captain Fernback, with a deadline of 15:45. One hour. The council's own background note is the flattest sentence in the file: 'We have less than an hour before executions begin. The infiltration team (Creek) is pinned down.'\n\nThe crisis vote was taken with the Speaker's seat effectively empty and the Council in disarray, and it did not resolve cleanly. What resolved the situation was not a vote. It was the prisoners.\n\n## The order as evidence\n\nThere is a detail in the archive that Waluigi keeps returning to. Order 120 reached the Council of Seven's clerk roughly thirty-two hours before the gate offices received it, and no copy was ever recalled. Soldiers in the field twice radioed to ask whether 'the hour stands' — whether the order was still live — and received no reply, on a line that was working.\n\nThat is not the paperwork of a decision taken in fury at 14:30. That is the paperwork of a decision that had been sitting somewhere, drafted, waiting for an afternoon bad enough to justify it. Waluigi does not assert this. Waluigi notes the timestamps and invites the reader to do arithmetic.\n\n## Outcome\n\nOrder 120 was never completed. The riot began at 14:30 and the facility was compromised before the deadline expired. The order's practical legacy is that it converted a containment problem into an uprising, handed the Liberated Toads the moral position in every subsequent negotiation, and gave the Glazed Congress the specific atrocity it needed to move against the Iron Mandate. It is the single most counterproductive instruction issued by the Iron Legion during the crisis, and it was issued by their most senior commander in the field. WAH.",
+    "participants": [
+      {
+        "id": "general_ironhand",
+        "name": "General Ironhand",
+        "role": "Issued the order"
+      },
+      {
+        "id": "bones",
+        "name": "Bones",
+        "role": "Stabbed in the courtyard; named among the prisoners condemned"
+      },
+      {
+        "id": "captain_fernback",
+        "name": "Captain Fernback",
+        "role": "Proposed the Liberated Toads' emergency response at 14:45"
+      },
+      {
+        "id": "speaker_l",
+        "name": "Speaker L",
+        "role": "The prisoner in custody proved to be a decoy standing in for him"
+      }
+    ],
+    "outcome": "Not completed. The Aegis Command Uprising began at 14:30 and the facility fell before the 15:45 deadline. The order became the central atrocity cited against the Iron Mandate.",
+    "notableFeatures": [
+      "Issued 14:30, 21st Highsun 1040 BF, by General Ironhand",
+      "Directed the execution of all Toad prisoners held at Aegis Command",
+      "Triggered by the failed courtyard infiltration and the exposure of the Speaker L decoy",
+      "Liberated Toads logged the crisis at 14:45 with a 15:45 deadline — one hour",
+      "Reached the Council of Seven's clerk roughly 32 hours before the gate offices",
+      "Two field queries asking whether 'the hour stands' went unanswered on a working line"
+    ],
+    "keyBattles": [
+      "aegis_command_riot"
+    ],
+    "relatedArticles": [
+      "aegis_command",
+      "iron_legion",
+      "liberated_toads",
+      "general_ironhand",
+      "bones",
+      "speaker_l",
+      "captain_fernback",
+      "iron_mandate",
+      "council_of_seven",
+      "vigilance"
+    ]
+  },
+  {
+    "id": "iron_mandate",
+    "name": "The Iron Mandate",
+    "title": "Emergency Powers, Passed 28-8-3, That Reclassified People as Threats",
+    "date": "21st Highsun, 1040 BF — enacted 09:00",
+    "era": "The Aegis Uprising — Toad Liberation Crisis",
+    "location": "The Midlands Diet, Regal Empire",
+    "type": "Emergency Legislation / Enabling Act",
+    "status": "In force in the Regal Empire; formally condemned by the Glazed Congress under Vote #200",
+    "summary": "The Iron Mandate is the emergency legislation passed by the Midlands Diet on the 21st of Highsun, 1040 BF at 09:00, by a recorded division of 28 for, 8 against, 3 abstaining. It granted the Iron Legion emergency powers to purge supernatural threats and reclassified the Liberated Toads as an 'organized supernatural entity.' Speaker Rivers resigned from the Diet in protest as Legion patrols mobilised. It remains the legal instrument under which the rest of the crisis was conducted.",
+    "description": "The Iron Mandate is the most consequential document of the Toad Liberation Crisis, and it is boring on purpose. That is what makes it work.\n\nIt passed the Midlands Diet at nine in the morning on the 21st of Highsun, 1040 BF, 28-8-3. Thirty-nine members voted out of a chamber that could seat more. The Mandate granted the Iron Legion emergency powers to purge supernatural threats, and — this is the operative move — it classified the Liberated Toads as an 'organized supernatural entity.' Not a rebellion, not a criminal conspiracy, not a party to a conflict. An entity. Entities do not have standing to negotiate, and nothing done to an entity is done to a person.\n\nSpeaker Rivers resigned from the Diet in protest the same morning. Legion patrols mobilised immediately, which suggests the mobilisation orders were drafted before the vote rather than after it.\n\n## What the powers actually permitted\n\nThe Mandate's provisions allowed the Iron Legion to detain, relocate, and restrict the movements of persons classified as presenting 'supernatural risk profiles.' The classification required no individual finding of wrongdoing. A person could be detained on the basis of what they were held to be rather than anything they were held to have done. The Mages Guild advisory submission on the Mandate's compliance with the Species Recognition Compact ran to forty-seven pages and concluded that six specific provisions were incompatible with the compact's core requirements.\n\nSix hours after the Mandate was enacted, General Ironhand issued Order 120. Waluigi observes that the Mandate did not require Order 120 and did not authorise the execution of prisoners. Waluigi also observes that Order 120 was issued on the first day the Legion held emergency powers, which is either a remarkable coincidence or the entire point of asking for emergency powers.\n\n## The condemnation that did not condemn\n\nSeven member nations — Beanbean Kingdom, the Pokemon League Regions, Yoshi's Island, Sarasaland, Flipside-Flopside, Pi'illo Kingdom, and the Elves of Lindon — jointly brought the Iron Mandate Condemnation Resolution before the Glazed Congress as Vote #200. They had the votes. This was known before the session opened.\n\nWhat was also known before the session opened was that the Iron Pact, led by the Regal Empire, had made explicit to the Non-Aligned bloc and to smaller Sovereignty Bloc nations that treating the condemnation as a legitimate Congress action would be regarded as a hostile act against a founding member. The economic dependencies were not abstract. Waluigi has read the division list and has read the trade figures and considers them the same document filed twice.\n\n## Standing\n\nThe Iron Mandate remains in force inside the Regal Empire. The condemnation resolution exists. Both facts are true simultaneously, which is the ordinary condition of international law and the reason Waluigi drinks. WAH.",
+    "participants": [
+      {
+        "id": "speaker_rivers",
+        "name": "Speaker Rivers",
+        "role": "Resigned from the Midlands Diet in protest at the Mandate's passage"
+      },
+      {
+        "id": "iron_legion",
+        "name": "The Iron Legion",
+        "role": "Recipient of the emergency powers"
+      },
+      {
+        "id": "liberated_toads",
+        "name": "The Liberated Toads",
+        "role": "Reclassified as an 'organized supernatural entity'"
+      },
+      {
+        "id": "mages_guild",
+        "name": "The Mages Guild",
+        "role": "Filed the forty-seven page compliance advisory"
+      }
+    ],
+    "outcome": "Passed 28-8-3 and immediately operative. Speaker Rivers resigned. Order 120 followed within six hours. The Glazed Congress condemnation (Vote #200) was brought by seven nations against Iron Pact pressure.",
+    "notableFeatures": [
+      "Passed by the Midlands Diet 28-8-3 at 09:00 on 21st Highsun 1040 BF",
+      "Classified the Liberated Toads as an 'organized supernatural entity'",
+      "Permitted detention on 'supernatural risk profile' with no individual finding of wrongdoing",
+      "Mages Guild advisory: 47 pages, six provisions incompatible with the Species Recognition Compact",
+      "Speaker Rivers resigned in protest; Legion patrols mobilised immediately",
+      "Condemned at the Glazed Congress by seven sponsoring nations as Vote #200"
+    ],
+    "keyBattles": [
+      "aegis_command_riot"
+    ],
+    "relatedArticles": [
+      "order_120",
+      "iron_legion",
+      "liberated_toads",
+      "speaker_rivers",
+      "glazed_congress_founding",
+      "mages_guild",
+      "regal_empire"
     ]
   }
 ]
