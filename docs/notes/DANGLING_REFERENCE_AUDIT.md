@@ -161,11 +161,54 @@ These did **not** link under any kind, article or otherwise, at audit time:
   "Order 120", "Iron Mandate", "Council of Seven", "Speaker Rivers" and "Creek" auto-link
   from other pages' prose in both directions. All four checkers 0 errors / 0 warnings.
 
+## Round 2 — the Class B/C batch
+
+Seven outstanding entities were resolved with the user's direct answers. **Every answer was
+checked against the data before anything was written, and three of the seven needed
+correcting** — the answer was a memory of the story, the files are the story.
+
+| Entity | User's answer | What the data said |
+|---|---|---|
+| Third Eye | Archie Miser's third eye | Correct — *and* there is a second referent, the **Cells of the Third Eye** alliance named after it |
+| Fractured Heart | "not on this website" | **Wrong** — present in 6 files; it is Speaker L's Day 18 docket line |
+| Accountability Docket | Speaker L's warrant | Correct, and pinned to **ED-001**, Day 18, under ER-17-A (6-0-0) |
+| Robinson | Markop's father's *middle name* | **Wrong** — Robinson **is** Markop's father, a separate person in 4 files |
+| The Mole | a mole who sold them out on the Vigilance | Council seat 7 confirmed; the **Vigilance framing is not in the data** |
+| Sonic Grid | needs a page | Already covered — `aegis_command` is titled "Aegis Command & The Sonic Grid" |
+| Whispering Caves | needs a page | Only 4 passing mentions, no defining detail — a page would be invention |
+
+### Pages authored (4)
+
+`robinson`, `the_mole` (characters); `accountability_docket`, `fractured_heart` (events).
+Page count **459 → 463**.
+
+- **Robinson** — Markop's father. Day 21, 10:00, Dragon Mountain: the Great Dragon reveals
+  the Dragon–Empire war is manufactured by sonic control; Robinson and the dragon are
+  taken to Aegis Command **4.5 hours before Order 120**. Fate unrecorded.
+- **The Mole** — Cohort Council seat 7 (Scouts), Iron Legion spy, defected Day 16, seat
+  left **VACANT**. The page does **not** assert identity with the Brobot-arc "the Mole";
+  two entities, one name, no evidence connecting them.
+- **Accountability Docket** — ED-001. Names Archie, Bowser, Waluigi, Dan, Eager. Links to
+  the live `#/pond-docket` route rather than duplicating it.
+- **Fractured Heart** — traced to its origin line and to the interrogation where the Legion
+  filed it as "cult-like rhetoric" immediately before Order 120.
+
+### Class D aliases (no new pages)
+
+`aegis_command` ← "Sonic Grid" / "The Sonic Grid"; `vigilance` ← "The Vigilance" /
+"Legionlance"; `ruined_manor_convergence` ← "Cells of the Third Eye"; `archie_miser` ←
+"Archie". Three `"the_vigilance"` id references corrected to `vigilance`.
+
+### Interlinking
+
+21 backlinks added across `factions/events/characters/locations` so every new page is
+reachable **in both directions**. Verified in jsdom: inbound refs are now
+robinson 5, the_mole 6, accountability_docket 6, fractured_heart 6, and each new page
+renders with 22–36 outbound links. All four checkers 0 errors / 0 warnings.
+
 ## Still open
 
-`the_mole` and `robinson` (Class C); Third Eye, Supernatural Sovereignty Act, Sonic Grid,
-Fractured Heart, Mini-Mushroom, Midlands Diet, Accountability Docket, Whispering Caves
-(Class B). `midlands_diet` and `supernatural_sovereignty_act` were deliberately **removed**
+Supernatural Sovereignty Act, Mini-Mushroom, Midlands Diet (Class B). `midlands_diet` and `supernatural_sovereignty_act` were deliberately **removed**
 from the new Iron Mandate page's `relatedArticles` rather than shipped as broken links —
 restore them when those pages exist.
 

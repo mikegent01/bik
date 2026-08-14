@@ -930,7 +930,9 @@
       "teacher_t",
       "bully_t",
       "nerd_t",
-      "geek_t"
+      "geek_t",
+      "accountability_docket",
+      "fractured_heart"
     ]
   },
   {
@@ -966,7 +968,9 @@
     "relatedArticles": [
       "iron_legion",
       "liberated_toads",
-      "aegis_command"
+      "aegis_command",
+      "robinson",
+      "fractured_heart"
     ]
   },
   {
@@ -1357,7 +1361,8 @@
       "shadow_estate_spotlight_cookie_cottage",
       "iron_legion",
       "liberated_toads",
-      "the_box_guardian_sharpie_disguise_and_the_soot_barrel"
+      "the_box_guardian_sharpie_disguise_and_the_soot_barrel",
+      "robinson"
     ]
   },
   {
@@ -1522,7 +1527,7 @@
       "elbow",
       "naaook",
       "arunedeal",
-      "the_vigilance",
+      "vigilance",
       "order_120",
       "astral_altar",
       "alpine_bank",
@@ -2346,6 +2351,10 @@
       "the_midnight_audit_of_harvestide_28",
       "thornwood_manor_silent_field_dossier",
       "the_box_guardian_sharpie_disguise_and_the_soot_barrel"
+    ],
+    "aliases": [
+      "Archie",
+      "Archie Miser"
     ]
   },
   {
@@ -3912,7 +3921,8 @@
       "creek_medic",
       "general_ironhand",
       "aegis_command",
-      "council_of_seven"
+      "council_of_seven",
+      "accountability_docket"
     ],
     "needsReview": true,
     "waluigiComment": "Sources conflict on whether Rivers and Speaker L are the same office or the same person. Filed as distinct because the Diet resignation and the Speakership are recorded an hour apart on the same day. Revise on direct testimony."
@@ -3945,5 +3955,56 @@
     ],
     "needsReview": true,
     "waluigiComment": "Referenced in majorBattles as 'creek_medic' and in the faction roster simply as 'Creek'. Same toad. Filed under the id the battle record already uses."
+  },
+  {
+    "id": "robinson",
+    "name": "Robinson",
+    "title": "The Father Who Found Out the War Was a Machine",
+    "race": "Centaur",
+    "type": "Character / Dragon Conspiracy Record",
+    "status": "Captured — taken to Aegis Command with the dragon Ignis-Major on Day 21",
+    "affiliation": "Unaligned",
+    "summary": "Robinson is Markop's father. At 10:00 on the 21st of Highsun, 1040 BF, inside the Dragon's Den at Dragon Mountain, a Great Dragon told him that the war between the Dragons and the Regal Empire is a fabrication — that the Empire drives dragons to violence with sonic control devices and then bills the world for the defence. The dragon was paralysed by a sonic weapon within the hour. Robinson and Ignis-Major were both taken to Aegis Command.",
+    "description": "Waluigi wishes to note at the outset that Robinson is the only person in this entire archive who found out what the Sonic Grid was for and was believed immediately, because the thing telling him was a dragon and the dragon had no reason to lie.\n\nRobinson is Markop's father. The archive is consistent on this and states it plainly in three separate files, which is three more than it manages for most family relationships.\n\n## Dragon Mountain\n\nOn the 21st of Highsun, 1040 BF, at ten in the morning, Robinson woke inside the Dragon's Den to find a Great Dragon coiling above him. This is the point at which most people in this archive would have died. Instead the dragon talked.\n\nWhat it told him: the war between Dragons and the Regal Empire is not a war. It is a fabrication. The Empire has been controlling dragons with sonic frequencies to stage false conflicts — provoking the attacks it then claims credit for repelling. The dragons are not enemies of the Empire. They are the Empire's livestock, driven to rage on a schedule.\n\nThe battle record calls the engagement that followed 'Robinson & The Dragon': one side unaligned with Robinson as its only named commander, the other the Iron Brigade of the Iron Legion. Outcome, defeat. Casualties, both captured, none on the Legion side. The operative line is four words long — *dragon paralyzed by sonic weapon* — and it is the whole conspiracy demonstrated on the person who had just learned about it.\n\n## Why the timing matters\n\nRobinson was captured at Dragon Mountain and taken to Aegis Command on the morning of Day 21. Aegis Command is one of twelve nodes in the Sonic Grid, the infrastructure built to paralyse dragons and harvest the life-force of Toads. He was moved from the demonstration to the facility.\n\nFour and a half hours later, at 14:30, General Ironhand issued Order 120 and the prisoners at Aegis Command rose. Robinson was inside the building for that. The archive does not record what became of him in the rising, which Waluigi regards as the single most annoying gap in the Toad arc, because the man who could testify to the sonic weapon firsthand was in the one place where every witness either escaped through a drain or did not escape at all.\n\n## What Waluigi will not assert\n\nMarkop is a party member in good standing who has spent the campaign being the reliable one. His father was taken by the Iron Legion on the morning of the worst day of the crisis, in a facility the party's allies broke open that same afternoon, and the archive contains no record of the two facts being connected by anybody at the time. Waluigi does not know whether Markop knows. Waluigi has decided that is not his to publish. WAH.",
+    "keyEvents": [
+      "order_120",
+      "aegis_command_riot"
+    ],
+    "relatedArticles": [
+      "markop",
+      "aegis_command",
+      "iron_legion",
+      "order_120",
+      "regal_empire",
+      "general_ironhand"
+    ],
+    "needsReview": true,
+    "waluigiComment": "Filed as 'Robinson' — the name the battle record, the timeline, and the conflict file all use. Relationship to Markop stated identically in three sources. Fate after Day 21 unrecorded."
+  },
+  {
+    "id": "the_mole",
+    "name": "The Mole",
+    "title": "Seventh Seat, Iron Legion Spy, Defected Day 16",
+    "race": "Toad",
+    "type": "Character / Liberated Toads — Vacated Seat",
+    "status": "Defected Day 16 — at large; the Scouts' seat remains unfilled and the cohort flagged compromised",
+    "affiliation": "Iron Legion (covert); formerly Liberated Toads",
+    "summary": "The Mole held the seventh seat on the Cohort Council as the Scouts' elected representative, and was an Iron Legion spy the entire time. He defected on Day 16 of Highsun, 1040 BF. The council record states it without decoration: 'Previous holder was The Mole - an Iron Legion spy. Seat remains unfilled.' The Scouts cohort is still flagged as compromised, and the chair has been left empty rather than refilled.",
+    "description": "Waluigi has written a great many entries about betrayal in this archive. This is the only one where the betrayed party responded by leaving the furniture exactly where it was.\n\nThe Cohort Council seats seven — one elected representative per major cohort. Seat seven belonged to the Scouts. The toad who held it was an Iron Legion spy, and on Day 16 of Highsun, 1040 BF, he stopped pretending otherwise and left. The council's own roster entry is four fields long and reads, in full: name VACANT, cohort The Scouts, portrait a question mark, description 'Previous holder was The Mole - an Iron Legion spy. Seat remains unfilled.' The note field says 'Betrayer defected Day 16.'\n\nEvery other field on that record — level, loyalty, stance, current vote, article id — is null.\n\n## What the seat cost\n\nThe Scouts cohort is the smallest active formation in the movement and the only one carrying a standing compromise flag. A scouting arm run by an enemy asset is worse than no scouting arm, because a movement with no scouts knows it is blind, and a movement with compromised scouts believes it can see.\n\nConsider the sequence. The Mole defects on Day 16. On Day 18 the council passes Emergency Resolution 17-A unanimously, six to nil, granting Speaker L emergency powers and establishing the Accountability Docket — six votes from a seven-seat body, because the seventh chair is empty and everyone in the room can see it. On Day 19 they vote a containment perimeter around Raventree Manor five to one. On Day 21 the Iron Mandate lands, Order 120 follows, and the Legion turns out to have known enough about the movement's structure to be unsurprised by any of it.\n\nWaluigi is not going to claim the Mole caused all of that. Waluigi will observe that a body which grants one man emergency powers two days after discovering a spy in its own leadership is a body making decisions under the specific pressure of not knowing what else has already been sold.\n\n## The empty chair\n\nThe movement could have refilled the seat. The Scouts still exist. Instead the council has kept the chair vacant and kept the flag on the cohort, and every division since Day 16 has been counted out of six.\n\nWaluigi's reading is that the vacancy is doing deliberate work. A filled seat says the problem is over. An empty one, sitting there at every session with a question mark where the portrait goes, says the problem is ongoing and nobody in the room is to forget it. That is either admirable institutional honesty or a wound the Liberated Toads have decided to keep open on purpose, and Waluigi suspects the toads themselves could not tell you which. WAH.",
+    "keyEvents": [
+      "order_120"
+    ],
+    "relatedArticles": [
+      "council_of_seven",
+      "liberated_toads",
+      "iron_legion",
+      "vigilance",
+      "speaker_l",
+      "captain_fernback",
+      "order_120",
+      "pond_patrol"
+    ],
+    "needsReview": true,
+    "waluigiComment": "The council roster is the only source that identifies the Mole as the Scouts' seventh seat and dates the defection to Day 16. A separate recurring figure called 'the Mole' appears in the Overgrown Manor and Brobot records as a chaos agent with counterfeit E. Gadd equipment; whether these are the same individual is NOT established and is deliberately not asserted here."
   }
 ]

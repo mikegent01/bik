@@ -463,7 +463,10 @@
       "salam",
       "raventree_manor",
       "kaelor_judi_witness_line_and_the_road_to_raventree",
-      "thornwood_manor_silent_field_dossier"
+      "thornwood_manor_silent_field_dossier",
+      "accountability_docket",
+      "fractured_heart",
+      "the_mole"
     ],
     "factionDocket": {
       "canonicalRecord": "Waluipedia faction dossier; the Liberated Toads terminal is an operational view, not a separate canon.",
@@ -1049,7 +1052,9 @@
       "general_ironhand",
       "aegis_command",
       "vigilance",
-      "liberated_toads"
+      "liberated_toads",
+      "robinson",
+      "the_mole"
     ]
   },
   {
@@ -1423,7 +1428,10 @@
       "healer_mistpetal",
       "order_120",
       "iron_mandate",
-      "pond_patrol"
+      "pond_patrol",
+      "accountability_docket",
+      "fractured_heart",
+      "the_mole"
     ]
   }
 ]

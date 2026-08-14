@@ -651,7 +651,7 @@
       "waluigi",
       "miles_edgeworth",
       "swiftsoul_airkeep",
-      "the_vigilance",
+      "vigilance",
       "rakka",
       "veilwood_spa",
       "the_swiftsoul_incident",
@@ -2049,7 +2049,12 @@
       "star_fountain_reunion",
       "the_eastern_passage",
       "mr_l",
-      "the_arrangement"
+      "the_arrangement",
+      "the_mole"
+    ],
+    "aliases": [
+      "Cells of the Third Eye",
+      "The Cells of the Third Eye"
     ]
   },
   {
@@ -2425,7 +2430,7 @@
       "sprig_the_mole",
       "bryan",
       "archie_miser",
-      "the_vigilance",
+      "vigilance",
       "barrel_toads",
       "raventree_manor",
       "pond_patrol",
@@ -9334,7 +9339,10 @@
       "captain_fernback",
       "iron_mandate",
       "council_of_seven",
-      "vigilance"
+      "vigilance",
+      "fractured_heart",
+      "robinson",
+      "accountability_docket"
     ]
   },
   {
@@ -9389,7 +9397,123 @@
       "speaker_rivers",
       "glazed_congress_founding",
       "mages_guild",
-      "regal_empire"
+      "regal_empire",
+      "accountability_docket"
+    ]
+  },
+  {
+    "id": "accountability_docket",
+    "name": "The Accountability Docket",
+    "title": "The Warrant That Sent the Pond Patrol to Raventree Manor",
+    "date": "18th Highsun, 1040 BF",
+    "era": "The Aegis Uprising — Toad Liberation Crisis",
+    "location": "The Vigilance; enforced across Raventree and the surrounding region",
+    "type": "Emergency Resolution / Arrest Register / Standing Order ED-001",
+    "status": "Active — enforced by the Pond Patrol; lethal force withheld in the Speaker's absence",
+    "summary": "The Accountability Docket is Standing Order ED-001, issued on Day 18 of Highsun, 1040 BF under Emergency Resolution 17-A. It establishes formal charges against Archie Miser, Bowser, Waluigi, Dan and Eager, and creates the register that names them. It is the Pond Patrol's warrant, and it is the reason the Patrol raided Raventree Manor. Its governing rule is four words long: apprehend, but do not slay.",
+    "description": "Waluigi is named on this docket. The reader should weigh everything that follows accordingly, and Waluigi would rather say so at the top than have it discovered at the bottom.\n\nThe Accountability Docket is Standing Order ED-001, issued Day 18 of Highsun, 1040 BF. Its authority is Emergency Resolution 17-A, passed by the Cohort Council unanimously — six for, none against, none abstaining, out of a seven-seat body whose seventh chair had been empty since the Mole defected two days earlier. The same resolution granted Speaker L emergency powers. The Docket is what those powers were immediately spent on.\n\nIts effect, in the register's own words, is to establish formal charges against **Archie Miser, Bowser, Waluigi, Dan and Eager**, and to create the list that holds them. The enforcement arm is the Pond Patrol. The authority chain runs: Cohort Council to Emergency Resolution 17-A to Speaker L, and — since the Speaker went absent after the Aegis decoy reveal — to Captain Fernback as acting commander, and from him to Pond Patrol field units.\n\n## Why this sent the Patrol to Raventree\n\nThe Docket is a warrant, and warrants are served where the subject is. Archie Miser was at Raventree Manor. On Day 19 the council issued the follow-on order — ED-002, Containment Protocol Alpha — authorising the Pond Patrol to hold a containment perimeter around the manor. The perimeter vote passed five to one, with Healer Mistpetal dissenting on the grounds that a cordon cuts off the people trapped inside as surely as it contains what is in there.\n\nSo the raid on Raventree Manor was not a battle the Liberated Toads went looking for. It was an arrest, escalated by geography into a siege, and then escalated again by what the manor turned out to contain.\n\n## Apprehend, but do not slay\n\nThe protocol line is: *Apprehend, but do not slay. Lethal force denied unless by threat defied.* Only Speaker L could authorise a killing. With the Speaker absent, Captain Fernback ruled that no docket subject may be killed except in immediate defence of a toad's life.\n\nWaluigi wants this understood properly, because it is the part outsiders get wrong. Being on the Docket does not make you an enemy of the Liberated Toads. Docket subjects remain allied with the movement and can be helped, escorted and defended by it. A Patrol unit meeting a listed subject attempts apprehension first. Fighting back moves you up the priority ladder and costs you standing. Surrendering, submitting evidence, or completing a restoration task can move a subject to probationary or clear them entirely.\n\n## The four pillars\n\nThe Docket rests on four words, each with its own clause: **CONTAIN** — halt the spread of disorder before it reaches the Cohort. **ACCOUNT** — every action has a cost that must be acknowledged out loud. **RESTORE** — rebuild what was broken, heal what was wounded, return what was taken. **ADHERE** — to the Will of the Cohort, as spoken by the Council.\n\nSpeaker L's Day 18 statement on issuing it: *'This is not retribution's art, but the mending of the fractured heart. By pond and law, by vow and steel, the wound must close for peace to heal.'*\n\nThat is the origin of the Fractured Heart. The philosophy the Legion later heard about under interrogation and filed as cult rhetoric began as one line in a warrant, and the warrant's stated purpose is not punishment but restoration. Waluigi, who is named on it, finds this genuinely difficult to be sarcastic about, and has elected not to try. WAH.",
+    "participants": [
+      {
+        "id": "speaker_l",
+        "name": "Speaker L",
+        "role": "Issuing voice; granted emergency powers by the same resolution"
+      },
+      {
+        "id": "captain_fernback",
+        "name": "Captain Fernback",
+        "role": "Acting commander in the Speaker's absence; set the lethal-force rule"
+      },
+      {
+        "id": "pond_patrol",
+        "name": "Pond Patrol",
+        "role": "Enforcement arm"
+      },
+      {
+        "id": "archie_miser",
+        "name": "Archie Miser",
+        "role": "Docket subject — the warrant that took the Patrol to Raventree Manor"
+      },
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Docket subject, and the archivist of this entry"
+      }
+    ],
+    "outcome": "Active. Produced ED-002 (Raventree containment, passed 5-1) on Day 19. ED-003, the Iron Mandate response, was suspended mid-session by the Order 120 emergency on Day 21.",
+    "notableFeatures": [
+      "Standing Order ED-001, issued Day 18 under Emergency Resolution 17-A",
+      "ER-17-A passed 6-0-0 by a seven-seat council with one seat vacant",
+      "Charges Archie Miser, Bowser, Waluigi, Dan and Eager",
+      "Protocol: 'Apprehend, but do not slay. Lethal force denied unless by threat defied.'",
+      "Only Speaker L may authorise lethal force; Fernback restricted it further in his absence",
+      "Four pillars: CONTAIN, ACCOUNT, RESTORE, ADHERE",
+      "Speaker L's issuing quote is the origin of the 'fractured heart' phrase"
+    ],
+    "keyBattles": [
+      "reclamation_of_the_vigilance"
+    ],
+    "relatedArticles": [
+      "pond_patrol",
+      "liberated_toads",
+      "speaker_l",
+      "captain_fernback",
+      "council_of_seven",
+      "archie_miser",
+      "raventree_manor",
+      "vigilance",
+      "order_120",
+      "iron_mandate"
+    ]
+  },
+  {
+    "id": "fractured_heart",
+    "name": "The Fractured Heart",
+    "title": "A Line From a Warrant That the Enemy Filed as Cult Rhetoric",
+    "date": "Coined 18th Highsun, 1040 BF; recorded by the Iron Legion 21st Highsun",
+    "era": "The Aegis Uprising — Toad Liberation Crisis",
+    "location": "The Vigilance; carried into Aegis Command by a prisoner",
+    "type": "Doctrine / Founding Philosophy",
+    "status": "Active doctrine of the Liberated Toads; logged by Iron Legion interrogators as cult rhetoric",
+    "summary": "The Fractured Heart is the guiding philosophy of the Liberated Toads. It originates in a single line spoken by Speaker L on Day 18 of Highsun, 1040 BF when he issued the Accountability Docket: 'This is not retribution's art, but the mending of the fractured heart.' Three days later a Toad prisoner recited it to Iron Legion interrogators at Aegis Command alongside the litany CONTAIN, ACCOUNT, RESTORE, ADHERE. The Legion wrote it down as cult-like rhetoric, which tells you more about the Legion than about the doctrine.",
+    "description": "Waluigi has traced this one to its source, and the source is not what either side thinks it is.\n\n## Where it comes from\n\nOn Day 18 of Highsun, 1040 BF, Speaker L issued the Accountability Docket — the warrant naming Archie Miser, Bowser, Waluigi, Dan and Eager. The statement he attached to it runs:\n\n> This is not retribution's art, but the mending of the fractured heart.\n> By pond and law, by vow and steel, the wound must close for peace to heal.\n\nThat is the whole origin. The Fractured Heart is not a scripture, a cult, or an ancient tradition. It is a line of verse in an arrest warrant, and the arrest warrant's stated purpose is restoration rather than punishment. The 'fractured heart' being mended is the Cohort itself — a population that came out of the barrels, discovered a spy in its own leadership on Day 16, and had to decide within forty-eight hours what it was going to do to the people who had wronged it.\n\nThe answer it chose was: account for it out loud, then repair it. Hence the four pillars that travel with the phrase — CONTAIN, ACCOUNT, RESTORE, ADHERE — and hence the protocol line, *apprehend, but do not slay*.\n\n## What the Legion heard\n\nOn the 21st, at Aegis Command, the Iron Legion had a prisoner they believed was Speaker L. He was a decoy — a loyalist whose skin had been dyed green, who claimed under torture that he had eaten a poisonous mushroom and was dying anyway.\n\nUnder interrogation he spoke about the Fractured Heart philosophy, about the Council of Seven, and about how the movement would survive any single death. The Legion's own record describes him as spouting cult-like rhetoric about 'The Fractured Heart' and a doctrine of 'CONTAIN, ACCOUNT, RESTORE, ADHERE.'\n\nWaluigi finds this the single most revealing exchange in the crisis. A tortured prisoner recited his movement's theory of restorative justice to the people torturing him, and they logged it as cultism. The interrogators were listening for an operational secret and could not process being handed a moral one. They got nothing useful, concluded the prisoner was mad or fanatical, and reported upward accordingly. General Ironhand read the reports, worked out he had been sold an afternoon, and issued Order 120.\n\nSo the doctrine's first recorded appearance in enemy hands is also, directly, the thing that preceded the order to execute the prisoners. The decoy told them the movement would survive any single death, and the Legion's response was to test it.\n\n## Standing\n\nIt survived. The prisoners rose at 14:30, the facility was compromised before the execution deadline, and the phrase outlived both the decoy and the order. The Liberated Toads still operate under it: the Accountability Docket remains active, subjects can still clear themselves by restoration rather than punishment, and the four pillars still head the register.\n\nWaluigi is named on that register and has read the doctrine that governs his own arrest. He notes, without further comment, that it is more generous than anything the Iron Legion has ever offered him. WAH.",
+    "participants": [
+      {
+        "id": "speaker_l",
+        "name": "Speaker L",
+        "role": "Coined the phrase issuing the Accountability Docket, Day 18"
+      },
+      {
+        "id": "liberated_toads",
+        "name": "The Liberated Toads",
+        "role": "Movement operating under the doctrine"
+      },
+      {
+        "id": "general_ironhand",
+        "name": "General Ironhand",
+        "role": "Received the interrogation reports; issued Order 120 after them"
+      }
+    ],
+    "outcome": "Survived the decoy, the interrogation and Order 120. Remains the operative philosophy of the Liberated Toads and the stated basis of the Accountability Docket.",
+    "notableFeatures": [
+      "Origin: Speaker L's Day 18 statement issuing the Accountability Docket",
+      "Litany: CONTAIN, ACCOUNT, RESTORE, ADHERE",
+      "Recited to Iron Legion interrogators at Aegis Command by the green-dyed Speaker L decoy",
+      "Logged in Legion records as 'cult-like rhetoric'",
+      "Restorative rather than punitive: subjects may clear themselves by restoration",
+      "The interrogation that produced it immediately preceded Order 120"
+    ],
+    "keyBattles": [
+      "aegis_command_riot"
+    ],
+    "relatedArticles": [
+      "accountability_docket",
+      "speaker_l",
+      "liberated_toads",
+      "council_of_seven",
+      "order_120",
+      "general_ironhand",
+      "aegis_command",
+      "pond_patrol"
     ]
   }
 ]
