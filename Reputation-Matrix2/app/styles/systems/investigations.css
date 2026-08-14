@@ -253,3 +253,16 @@
 .inv-plain li b{display:block; color:var(--text); font-size:14.5px; margin-bottom:3px}
 .inv-plain li span{display:block; color:var(--muted); font-size:13.5px; line-height:1.6}
 
+/* ---------- background reading ----------
+   The plain summary says what happened; this says what world it happened in.
+   Three curated links per file, each with the reason to follow it, so a new
+   reader can get the context the archive voice assumes. Layout is the site's
+   .event-details-section; only the list typography is set here. */
+.inv-bg .inv-bg-lede{margin:-4px 0 12px; color:var(--muted); font-size:12.5px; line-height:1.5}
+.inv-bg li{margin-bottom:12px; line-height:1.5}
+.inv-bg li:last-child{margin-bottom:0}
+.inv-bg li a{font-size:14.5px; font-weight:600}
+.inv-bg li em{display:block; color:var(--accent2); font-style:normal; font-size:11.5px;
+  text-transform:uppercase; letter-spacing:.5px; margin:2px 0 3px}
+.inv-bg li span{display:block; color:var(--muted); font-size:13.5px; line-height:1.6}
+

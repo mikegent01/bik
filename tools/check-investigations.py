@@ -45,6 +45,10 @@ def ids(path, key):
 EVENTS = ids('Reputation-Matrix2/data/events.json','events')
 CHARS  = ids('Reputation-Matrix2/data/characters.json','characters')
 QUESTS = ids('Reputation-Matrix2/data/quests.json','quests')
+FACTIONS = ids('Reputation-Matrix2/data/factions.json','factions')
+# Background links may point at an event, a faction or a character — all three
+# resolve through the page's INDEX, so all three are legitimate here.
+ARTICLE_IDS = EVENTS | FACTIONS | CHARS
 
 ALL_EX = {ex['id']: iv['id'] for iv in INV for ex in iv.get('exhibits', [])}
 
@@ -57,6 +61,27 @@ for iv in INV:
             err.append(f"{tag}: session {s['id']} → unknown event {s['event']}")
     for e in iv.get('relatedEvents', []):
         if e not in EVENTS: err.append(f"{tag}: relatedEvents → unknown event {e}")
+
+    # Reader-facing furniture added for newcomers. The renderer filters both
+    # against INDEX so a bad id degrades to nothing on the page, which means a
+    # rotted link is silent — hence checking it here instead.
+    for b in iv.get('background', []):
+        for k in ('id', 'kicker', 'why'):
+            if not b.get(k):
+                err.append(f"{tag}: background entry missing `{k}`")
+        # An event id must resolve; faction/character ids live in article data
+        # the checker does not load, so those are only warned about.
+        if b.get('id') and b['id'] not in ARTICLE_IDS:
+            err.append(f"{tag}: background → unresolvable id {b['id']}")
+        if b.get('why') and len(b['why']) < 40:
+            warn.append(f"{tag}: background {b.get('id')} — `why` is too short to be a reason")
+    ps = iv.get('plainSummary', [])
+    if iv.get('exhibits') and not ps:
+        warn.append(f"{tag}: has exhibits but no plainSummary — new readers get no plain-english entry point")
+    for p in ps:
+        for k in ('point', 'detail'):
+            if not p.get(k):
+                err.append(f"{tag}: plainSummary entry missing `{k}`")
     seen = collections.Counter()
     for ex in iv.get('exhibits', []):
         seen[ex['id']] += 1

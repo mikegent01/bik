@@ -9570,11 +9570,11 @@ function view_article(id){
       if(x && typeof x==='object'){
         const id=x.id||x.key;
         const name=x.name||(id?prettyId(id):'');
-        if(linkable && id && INDEX[id]) return `<a class="entity-link" onclick="openId('${esc(id)}')">${esc(name)}</a>`+(x.role?` <span class="text-muted" style="font-size:11px">(${esc(x.role)})</span>`:'');
+        if(linkable && id && INDEX[id]) return `<a class="entity-link" href="#/article/${encodeURIComponent(resolveArticleId(id))}">${esc(name)}</a>`+(x.role?` <span class="text-muted" style="font-size:11px">(${esc(x.role)})</span>`:'');
         return esc(name)+(x.role?` <span class="text-muted" style="font-size:11px">(${esc(x.role)})</span>`:'');
       }
       const s=String(x);
-      if(linkable && INDEX[s]) return `<a class="entity-link" onclick="openId('${esc(s)}')">${esc(displayName(INDEX[s].item))}</a>`;
+      if(linkable && INDEX[s]) return `<a class="entity-link" href="#/article/${encodeURIComponent(resolveArticleId(s))}">${esc(displayName(INDEX[s].item))}</a>`;
       return esc(linkable?prettyId(s):s);
     });
     const anyLong = raws.some(v=>String((v&&v.name)||v||'').length>40);
@@ -9597,7 +9597,7 @@ function view_article(id){
       return r.includes(raceName) || (raceId && r.includes(raceId.replace(/_/g,' ')));
     });
     if(others.length){
-      const chips=others.slice(0,40).map(ch=>`<a class="entity-link" onclick="openId('${esc(ch.id)}')">${esc(displayName(ch))}</a>`).join(', ');
+      const chips=others.slice(0,40).map(ch=>`<a class="entity-link" href="#/article/${encodeURIComponent(resolveArticleId(ch.id))}">${esc(displayName(ch))}</a>`).join(', ');
       listBlocks.push(`<div class="event-details-section"><h4>👥 Documented ${esc(item.name)}${others.length>1&&!String(item.name).endsWith('s')?'s':''} (auto-linked from Characters index)</h4><p>${chips}${others.length>40?` <span class="text-muted">…and ${others.length-40} more</span>`:''}</p></div>`);
     }
   }
@@ -10136,7 +10136,7 @@ function view_investigation(id){
     order.map(sid => {
       const s = sessions[sid] || { label: prettyId(sid), date:'' };
       const ev = s.event && INDEX[s.event]
-        ? ` · <a class="entity-link" onclick="openId('${esc(s.event)}')">open the session record →</a>` : '';
+        ? ` · <a class="entity-link" href="#/article/${encodeURIComponent(resolveArticleId(s.event))}">open the session record →</a>` : '';
       const tiles = groups[sid].map(ex => {
         const done = invExhibitDone(iv, ex);
         const verdict = invVerdict(iv.id, 'exam', ex.id);
@@ -10246,6 +10246,22 @@ function view_investigation(id){
         <p class="inv-plain-lede">No archive voice, no jargon. If the brief below reads as dense, this is the same case told straight.</p>
         <ol>${iv.plainSummary.map(p => `<li><b>${esc(p.point)}</b><span>${esc(p.detail)}</span></li>`).join('')}</ol>
       </div>` : ''}
+
+      ${(() => {
+        /* Background reading. Every entry is checked against INDEX so a
+           renamed or removed event degrades to nothing rather than to a dead
+           chip — the same contract the session-record chips use below. */
+        const bgs = (iv.background||[]).filter(b => INDEX[b.id]);
+        if(!bgs.length) return '';
+        return `<div class="event-details-section inv-bg">
+          <h4>Read this first</h4>
+          <p class="inv-bg-lede">New to this case? These are the three things worth knowing before the documents make sense. You can skip them — the file stands on its own — but they are the background the archive assumes you have.</p>
+          <ol>${bgs.map(b => `<li>
+            <a class="entity-link" href="#/article/${encodeURIComponent(resolveArticleId(b.id))}">${esc(displayName(INDEX[b.id].item))}</a>
+            <em>${esc(b.kicker)}</em>
+            <span>${esc(b.why)}</span></li>`).join('')}</ol>
+        </div>`;
+      })()}
 
       ${p.exhibits ? `
       <div class="infobox">
@@ -15583,7 +15599,7 @@ function view_quest_detail(questId) {
   const assigneesHtml = (q.assignees || []).map(id => {
     const rec = INDEX[id];
     const name = rec ? displayName(rec.item) : prettyId(id);
-    return rec ? `<a class="entity-link" onclick="openId('${esc(id)}')">👤 ${esc(name)}</a>` : `<span>👤 ${esc(name)}</span>`;
+    return rec ? `<a class="entity-link" href="#/article/${encodeURIComponent(resolveArticleId(id))}">👤 ${esc(name)}</a>` : `<span>👤 ${esc(name)}</span>`;
   }).join(', ') || '<span class="text-muted">No specific assignees</span>';
 
   // Milestones checklist
