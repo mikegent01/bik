@@ -240,3 +240,16 @@
   display:block; margin-top:4px; color:var(--muted);
   font-size:11.5px; line-height:1.45; font-weight:400;
 }
+
+/* ---------- plain-english summary ----------
+   Readers told us the case files read as a puzzle box: the archive voice is
+   good prose but it withholds the plot, so a newcomer cannot tell what
+   actually happened. Every file now opens with the same case told flatly, as
+   a numbered list, before any atmosphere. Layout comes from the site's
+   .event-details-section; these rules only set the list's own typography. */
+.inv-plain .inv-plain-lede{margin:-4px 0 12px; color:var(--muted); font-size:12.5px; line-height:1.5}
+.inv-plain li{margin-bottom:12px; line-height:1.55}
+.inv-plain li:last-child{margin-bottom:0}
+.inv-plain li b{display:block; color:var(--text); font-size:14.5px; margin-bottom:3px}
+.inv-plain li span{display:block; color:var(--muted); font-size:13.5px; line-height:1.6}
+

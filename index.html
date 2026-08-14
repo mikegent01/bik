@@ -10183,7 +10183,6 @@ function view_investigation(id){
         <div class="metabar">
           <span class="pill inv-pri--${esc(pri)}">${esc(pri)}</span>
           <span class="pill">${esc(l.state||'open')}</span>
-          ${l.xp?`<span class="pill xp-pill">✦ ${l.xp} XP</span>`:''}
           ${l.fromQuest?'<span class="pill">promoted from the board</span>':''}
         </div>
         <h3 style="margin:0 0 6px">${esc(l.title)}</h3>
@@ -10240,6 +10239,13 @@ function view_investigation(id){
       ${iv.hook?`<div class="article-lead-card noimg"><div class="article-lead-summary">
         <h4>The Hook</h4><p>${esc(iv.hook)}</p></div></div>`:''}
       ${iv.imageCaption?`<p class="imgcap">${esc(iv.imageCaption)}</p>`:''}
+
+      ${(iv.plainSummary||[]).length ? `
+      <div class="event-details-section inv-plain">
+        <h4>The story in plain english</h4>
+        <p class="inv-plain-lede">No archive voice, no jargon. If the brief below reads as dense, this is the same case told straight.</p>
+        <ol>${iv.plainSummary.map(p => `<li><b>${esc(p.point)}</b><span>${esc(p.detail)}</span></li>`).join('')}</ol>
+      </div>` : ''}
 
       ${p.exhibits ? `
       <div class="infobox">
