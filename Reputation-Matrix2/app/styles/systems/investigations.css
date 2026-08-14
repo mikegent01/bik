@@ -229,3 +229,14 @@
 @media print{
   .inv-exam .chip{display:none !important}
 }
+
+/* ---------- progress block on a case file ----------
+   The four counters used to be bare numbers with two-word labels — "Insights
+   Found", "Examined So Far" — which told a first-time reader nothing about
+   what they were counting or whether it cost anything. Each stat now carries
+   an explanatory sentence. The block itself reuses the site's .infobox and
+   .listhead, so this one rule is all the system needs to own. */
+.species-stat .inv-stat-note{
+  display:block; margin-top:4px; color:var(--muted);
+  font-size:11.5px; line-height:1.45; font-weight:400;
+}

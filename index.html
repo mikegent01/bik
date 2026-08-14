@@ -10119,8 +10119,8 @@ function view_investigation(id){
 
   /* --- threads: what the file currently argues --- */
   const threadsHtml = (iv.threads||[]).length ? (toc.push({slug:'sec-threads', text:'Open Threads'}),
-    `<h2 id="sec-threads">🧵 Open Threads</h2>
-     <p class="text-muted" style="margin-top:-4px">What the file believes so far, and what it is still holding open.</p>
+    `<h2 id="sec-threads">🧵 What the file has worked out so far</h2>
+     <p class="text-muted" style="margin-top:-4px">Five running conclusions, each built from the documents below and each still open to being wrong. Read these if you want the findings without reading twelve documents.</p>
      <div class="prose">${(iv.threads||[]).map(t =>
        `<h3>${esc(t.title)}</h3>${invProse(t.text)}`).join('')}</div>`) : '';
 
@@ -10131,8 +10131,8 @@ function view_investigation(id){
   Object.keys(groups).forEach(k => { if(!order.includes(k)) order.push(k); });
 
   const exhibitsHtml = order.length ? (toc.push({slug:'sec-exhibits', text:'Evidence Locker'}),
-    `<h2 id="sec-exhibits">📎 Evidence Locker</h2>
-     <p class="text-muted" style="margin-top:-4px">Click an exhibit to read it and analyse further. Examination results are saved locally.</p>` +
+    `<h2 id="sec-exhibits">📎 The documents themselves</h2>
+     <p class="text-muted" style="margin-top:-4px">Every piece of paper this file is built on, grouped by the session it came out of. Click one to open it: you roll once to examine it, and whatever you roll is kept in this browser for good.</p>` +
     order.map(sid => {
       const s = sessions[sid] || { label: prettyId(sid), date:'' };
       const ev = s.event && INDEX[s.event]
@@ -10160,8 +10160,8 @@ function view_investigation(id){
   /* --- leads --- */
   const PRI_COLOR = { critical:'var(--danger)', high:'#f39c12', medium:'#3498db', low:'var(--muted)' };
   const leadsHtml = (iv.leads||[]).length ? (toc.push({slug:'sec-leads', text:'Live Leads'}),
-    `<h2 id="sec-leads">🎯 Live Leads</h2>
-     <p class="text-muted" style="margin-top:-4px">Objectives this file is actually pursuing. Every one carries a reason it is a lead and not an errand.</p>` +
+    `<h2 id="sec-leads">🎯 What to chase next</h2>
+     <p class="text-muted" style="margin-top:-4px">Questions the documents raised but could not answer. Each says what to do, and — more importantly — what the file expects to learn from doing it.</p>` +
     (iv.leads||[]).map(l => {
       const pri = (l.priority||'medium');
       /* a lead may cite an exhibit filed in another investigation — resolve
@@ -10231,11 +10231,10 @@ function view_investigation(id){
       <h1 class="art-title">${esc(iv.title)}</h1>
       ${iv.subtitle?`<div class="art-subtitle">${esc(iv.subtitle)}</div>`:''}
       <div class="metabar">
-        <span class="pill inv-status--${esc(iv.status)}">${esc(iv.status)}</span>
-        ${iv.classification?`<span class="pill">${esc(iv.classification)}</span>`:''}
-        <span class="pill">${(iv.exhibits||[]).length} exhibit${(iv.exhibits||[]).length===1?'':'s'}</span>
-        <span class="pill">${(iv.leads||[]).length} lead${(iv.leads||[]).length===1?'':'s'}</span>
-        ${p.found?`<span class="pill">${p.found} insight${p.found===1?'':'s'} found</span>`:''}
+        <span class="pill inv-status--${esc(iv.status)}" title="${iv.status==='active'?'This file is still taking new documents as sessions are played.':'This file has a number and a thesis but no documents filed yet.'}">${iv.status==='active'?'Still taking new paper':esc(iv.status)}</span>
+        <span class="pill" title="A document filed in evidence. Open one to read it.">${(iv.exhibits||[]).length} document${(iv.exhibits||[]).length===1?'':'s'}</span>
+        <span class="pill" title="Something the file wants answered next, and the reason it is worth answering.">${(iv.leads||[]).length} open question${(iv.leads||[]).length===1?'':'s'}</span>
+        ${p.found?`<span class="pill">${p.found} fact${p.found===1?'':'s'} you have turned up</span>`:''}
       </div>
 
       ${iv.hook?`<div class="article-lead-card noimg"><div class="article-lead-summary">
@@ -10243,16 +10242,24 @@ function view_investigation(id){
       ${iv.imageCaption?`<p class="imgcap">${esc(iv.imageCaption)}</p>`:''}
 
       ${p.exhibits ? `
-      <div class="species-stats">
-        <div class="species-stat"><b>${p.read}/${p.exhibits}</b>Exhibits Read</div>
-        <div class="species-stat"><b>${p.attempted}</b>Examined So Far</div>
-        <div class="species-stat"><b>${p.found}</b>Insights Found</div>
-        <div class="species-stat"><b>${p.insights}</b>Insight Checks Taken</div>
-      </div>
-      <div class="xpbar"><span style="width:${p.pct}%"></span></div>
-      <div style="display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)">
-        <span>${p.pct}% of this file has been read closely. Rolls are permanent.</span>
-        <a class="entity-link" onclick="invReset('${esc(iv.id)}')">Reset this file's progress</a>
+      <div class="infobox">
+        <h4>Your progress through this file</h4>
+        <p class="text-muted" style="margin:0 0 4px">Nothing here is scored and nothing is spent. These four numbers only tell you how much of the paper you have personally opened, so you can find your place again.</p>
+        <div class="species-stats">
+          <div class="species-stat"><b>${p.read}/${p.exhibits}</b>Documents opened
+            <span class="inv-stat-note">You examined these successfully and can now read them in full.</span></div>
+          <div class="species-stat"><b>${p.attempted}</b>Documents attempted
+            <span class="inv-stat-note">Examined at least once. A failed examination still counts — you do not get a second try.</span></div>
+          <div class="species-stat"><b>${p.insights}</b>Close readings made
+            <span class="inv-stat-note">Underlined phrases you clicked inside a document.</span></div>
+          <div class="species-stat"><b>${p.found}</b>Close readings that paid
+            <span class="inv-stat-note">Of those, the ones that beat their difficulty and gave you a fact.</span></div>
+        </div>
+        <div class="xpbar"><span style="width:${p.pct}%"></span></div>
+        <div class="listhead" style="margin:8px 0 0;font-size:12px;color:var(--muted)">
+          <span><b>${p.pct}%</b> of the documents in this file are open to you. Every roll is recorded once and kept — there is no re-rolling a bad result.</span>
+          <a class="entity-link" onclick="invReset('${esc(iv.id)}')">Clear my progress and start over</a>
+        </div>
       </div>` : ''}
 
       ${briefHtml}
