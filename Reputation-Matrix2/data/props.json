@@ -663,6 +663,725 @@
       "note": "Waluigi's argument that an unsolved problem you can finally see is worth more than a solved one. Filed under: Feyward Complications, Toad Lee Suspicion, Morel Key, Steely Loss, Revel Still Ongoing.",
       "stamps": [],
       "body": "<div class=\"pd-head\"><div class=\"pd-org\">Walupedia Editorial Board</div><div class=\"pd-sub\">Addendum · Feyward branch assessment</div></div><div class=\"pd-late\">Attached to the session record — the session did not close the branch</div><div class=\"pd-body\"><p>Waluigi wants to be clear that this session did not resolve the Feyward branch. It made the Feyward branch <b>more legible</b>. That is different and, in some ways, more useful.</p><p><b>A solved problem stops moving. A legible problem can be hunted.</b></p></div><table class=\"pd-table\"><thead><tr><th>Subject</th><th>Before the session</th><th>After</th></tr></thead><tbody><tr><td>Toad Lee</td><td>Useful, occasionally ridiculous</td><td>Useful, ridiculous, and a possible security problem</td></tr><tr><td>Mystic Morel</td><td>Ambiguous presence</td><td>Antagonist and informant — appeared from a wall, survived near-decapitation, issued a targeted warning, provided a key</td></tr><tr><td>Steely</td><td>Present</td><td>Lost. Deserves, if not XP, at least a record.</td></tr><tr><td>The revel</td><td>Ongoing</td><td>Still ongoing</td></tr></tbody></table><div class=\"pd-body\"><p>Money is not the only thing characters carry. They carry obligations. They carry evidence. They carry debts that never entered a ledger because the person who issued them smiled instead of writing them down.</p></div><div class=\"pd-margin\">Waluigi will track both, because Waluigi knows that unrecorded debts are how people end up dancing forever.</div><div class=\"pd-wah\">WAH.</div>"
+    },
+    "prop_octopus_stock_sheet": {
+      "kind": "ledger",
+      "icon": "🍽️",
+      "title": "Kitchen Stock Sheet — The Gilded Octopus, Live Column",
+      "subtitle": "Received goods, week ending 15 Harvestide · the live column is the fourth from the left",
+      "items": [],
+      "articles": [
+        "eager",
+        "first_month_incidents"
+      ],
+      "note": "A restaurant does not write down that it is holding a prisoner. It writes down that it is holding stock, and that is very much worse.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">The Gilded Octopus &middot; Kitchens</div><div class=\"pd-sub\">Stock received &middot; week ending 15 Harvestide, 1040 BF</div></div><table class=\"pd-table\"><thead><tr><th>Line</th><th>Description</th><th>Cond.</th><th>Held</th><th>Cost</th></tr></thead><tbody><tr><td>1</td><td>Cheep-cheep, river, iced</td><td>Fresh</td><td>Cellar</td><td>4 gp</td></tr><tr><td>2</td><td>Fowl, dressed, dozen</td><td>Fresh</td><td>Cellar</td><td>9 gp</td></tr><tr><td>3</td><td>Truffle, shadowfell, half-oz</td><td>Dry</td><td>Safe</td><td>60 gp</td></tr><tr class=\"pd-flagged\"><td>4</td><td><b>Exotic stock, one (1) &mdash; ambulatory. Do not ice.</b></td><td><b>Live</b></td><td><b>Back room</b></td><td><b>&mdash;</b></td></tr><tr><td>5</td><td>Wine, sparkling, two cases</td><td>&mdash;</td><td>Cellar</td><td>140 gp</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Kitchen note, line 4.</b> Feed once daily. Kept apart from the cellar because the cellar is cold and the cost of replacement is understood to be considerable.</div><div class=\"pd-clause\"><b class=\"n\">Cost column, line 4.</b> Left blank. The house did not purchase this line and has therefore entered no figure against it.</div><div class=\"pd-margin\">Every other line on this sheet has a price. The line that is a person does not. Waluigi has read a great many stock sheets and has never before seen a kitchen decline to value something it was holding &mdash; declining to value it is how you avoid writing down who gave it to you. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_imperial_transfer_docket": {
+      "kind": "order",
+      "icon": "⛓️",
+      "title": "Transfer Docket — Imperial Holding, Movement of One Detainee",
+      "subtitle": "Three movements in thirty-one hours, each authorised by a different office",
+      "items": [],
+      "articles": [
+        "eager"
+      ],
+      "note": "Nobody escapes three times in a day. Somebody is signing him out.",
+      "body": "<div class=\"pd-classbar\">Imperial Holding &middot; Movement Control</div><div class=\"pd-head\"><div class=\"pd-org\">Capital Detention Service</div><div class=\"pd-sub\">Docket of movements &middot; detainee unnamed, described</div></div><dl class=\"pd-meta\"><dt>Detainee</dt><dd>Toad, male, small, scout&rsquo;s kit removed on entry</dd><dt>Entered</dt><dd>14 Harvestide, 04:20, general reception</dd><dt>Name given</dt><dd>None recorded. Reception marked <i>refused</i>.</dd></dl><table class=\"pd-table\"><thead><tr><th>#</th><th>From</th><th>To</th><th>Hour</th><th>Authorised by</th></tr></thead><tbody><tr><td>1</td><td>General reception</td><td>Deep hold, cell 9</td><td>14th, 06:00</td><td>Warden&rsquo;s office</td></tr><tr><td>2</td><td>Deep hold, cell 9</td><td>Goods gate</td><td>14th, 21:40</td><td>Chamberlain&rsquo;s clerk</td></tr><tr class=\"pd-flagged\"><td>3</td><td>Goods gate</td><td><b>Released to private carriage &mdash; no destination entered</b></td><td>14th, 22:05</td><td><b>Signature illegible; seal is not the warden&rsquo;s</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Standing rule 6.</b> A detainee leaving Imperial custody departs through reception, in daylight, against a named receipt.</div><div class=\"pd-clause\"><b class=\"n\">Observed.</b> This detainee departed through the goods gate, at night, against a seal the movement office could not identify and did not challenge.</div><div class=\"pd-margin\">The prison did not lose him. The prison delivered him, out of the tradesmen&rsquo;s entrance, twenty-five minutes after a clerk of the Chamberlain signed a piece of paper. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_sewer_route_card": {
+      "kind": "map",
+      "icon": "🔥",
+      "title": "Route Card — Lower Capital, Thermal Section",
+      "subtitle": "Drawn by a runner who used it twice in one day and lived",
+      "items": [],
+      "articles": [
+        "first_month_incidents",
+        "hjumpik"
+      ],
+      "note": "The same three hundred yards of burning sewer appear in two unrelated errands on the same date. That is not a coincidence, that is a corridor.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Field sketch &middot; not an official survey</div><div class=\"pd-sub\">Lower capital, thermal section &middot; two transits, 15 Harvestide</div></div><svg class=\"pd-contour\" viewBox=\"0 0 380 180\" width=\"380\" height=\"180\" role=\"img\" aria-label=\"Sketch map of a sewer run with two marked transits and a shared junction\"><g fill=\"none\" stroke=\"#3a332a\" stroke-width=\"1.6\" opacity=\".8\"><path d=\"M20 120 L96 120 L140 74 L232 74 L286 118 L360 118\"/><path d=\"M96 120 L96 162 M232 74 L232 26 M140 74 L108 40\"/></g><g stroke=\"#9d2c25\" stroke-width=\"2.4\" fill=\"none\" stroke-dasharray=\"7 5\"><path d=\"M22 124 L96 124 L142 78 L230 78\"/></g><g stroke=\"#2f6f4f\" stroke-width=\"2.4\" fill=\"none\" stroke-dasharray=\"4 6\"><path d=\"M358 114 L288 114 L234 70 L146 70\"/></g><g fill=\"#3a332a\" font-size=\"10\" font-family=\"Georgia,serif\"><text x=\"18\" y=\"140\">GOODS GATE</text><text x=\"300\" y=\"136\">APOTHECARY STAIR</text><text x=\"150\" y=\"62\">JUNCTION 7 &mdash; SHARED</text><text x=\"96\" y=\"176\">to the river</text></g><g fill=\"none\" stroke=\"#9d2c25\" stroke-width=\"1.6\"><circle cx=\"186\" cy=\"76\" r=\"13\"/></g></svg><dl class=\"pd-meta\"><dt>Red transit</dt><dd>Extraction of one Toad from the goods-gate end, 15 Harvestide, small hours</dd><dt>Green transit</dt><dd>Passage to the apothecary stair for the elixir, same date, later</dd><dt>Junction 7</dt><dd>Both transits pass through it. Circled because both parties reported the heat there as survivable, which it is not.</dd></dl><div class=\"pd-fine\">The thermal section is mapped nowhere in the public survey. Two separate parties nonetheless found the same junction on the same day, which means the route is known to somebody who is not the survey office.</div>",
+      "stamps": []
+    },
+    "prop_owl_writ": {
+      "kind": "order",
+      "icon": "🦉",
+      "title": "Writ of Summons — Consorting with Anomalies",
+      "subtitle": "Delivered by clockwork owl, which is a delivery method with a witness list",
+      "items": [],
+      "articles": [
+        "markop"
+      ],
+      "note": "An Oathbound Judge sent a machine to do this because a machine cannot be asked a question at the door.",
+      "body": "<div class=\"pd-classbar\">Hall of Judgment &middot; Oathbound Bench</div><div class=\"pd-head\"><div class=\"pd-org\">In the matter of the Bench and MARKOP</div><div class=\"pd-sub\">Writ of summons &middot; personal service by mechanism</div></div><div class=\"pd-clause\"><b class=\"n\">I.</b> You are required to attend the Hall of Judgment and answer the charge of <b>Consorting with Anomalies</b>.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> The charge is laid under the standing instruments and requires no complainant.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">III.</b> Non-attendance is itself an answer, and will be recorded as one.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> Service is effected on delivery. The bearer does not wait for a reply and is not empowered to receive one.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>For the Bench</i></div><div class=\"pd-sigcap\">Justicar presiding &mdash; name struck from the served copy</div></div></div><div class=\"pd-margin\">Note the fourth clause. The Bench has arranged to be unreachable at the exact moment it becomes reasonable to negotiate. That is not an oversight in the drafting; that is the drafting. &mdash; W.</div><div class=\"pd-fine\">The name of the issuing Justicar is present on the Hall&rsquo;s retained copy and absent from the copy served. Both copies are otherwise identical.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_anomalies_docket": {
+      "kind": "ledger",
+      "icon": "⚖️",
+      "title": "Bench Docket — Charges Laid Under the Anomalies Instrument",
+      "subtitle": "Eleven years of a charge nobody has ever successfully defended",
+      "items": [],
+      "articles": [
+        "markop"
+      ],
+      "note": "The conviction rate is not the finding. The withdrawal rate is.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Hall of Judgment &middot; Registry</div><div class=\"pd-sub\">Charge: Consorting with Anomalies &middot; all entries, 1029&ndash;1040 BF</div></div><table class=\"pd-table\"><thead><tr><th>Year</th><th>Laid</th><th>Tried</th><th>Convicted</th><th>Withdrawn before trial</th></tr></thead><tbody><tr><td>1029&ndash;1033</td><td>4</td><td>4</td><td>4</td><td>0</td></tr><tr><td>1034&ndash;1037</td><td>9</td><td>3</td><td>3</td><td>6</td></tr><tr><td>1038</td><td>7</td><td>1</td><td>1</td><td>6</td></tr><tr><td>1039</td><td>12</td><td>1</td><td>1</td><td>11</td></tr><tr class=\"pd-flagged\"><td><b>1040 to date</b></td><td><b>19</b></td><td><b>0</b></td><td><b>0</b></td><td><b>19</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Registry note.</b> A withdrawal is entered without reason. The Bench is not required to give one and does not.</div><div class=\"pd-total\">Laid, eleven years: 51 &middot; Tried: 9 &middot; Withdrawn: 42</div><div class=\"pd-margin\">Forty-two charges laid and dropped. A charge that is never tried is not a charge, it is a lever, and the lever works precisely because the accused cannot make it go to trial and clear their name. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_kaelor_wanted_bill": {
+      "kind": "note",
+      "icon": "📜",
+      "title": "Wanted Bill — Two Thousand Gold, Reissued",
+      "subtitle": "The same bill, printed twice, four years apart, with one word changed",
+      "items": [],
+      "articles": [
+        "kaelor_judi_witness_line_and_the_road_to_raventree",
+        "markop"
+      ],
+      "note": "The sum did not change. The offence did.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Posted by authority</div><div class=\"pd-sub\">Two impressions of one plate, held side by side</div></div><div class=\"pd-row\"><div class=\"pd-inset\"><div class=\"pd-label\">First impression</div><div class=\"pd-center pd-spaced\">2,000 GOLD</div><div class=\"pd-body\"><p>For information leading to the whereabouts of the subject, wanted upon the charge of <b>giving false witness</b>.</p></div></div><div class=\"pd-inset\"><div class=\"pd-label\">Second impression</div><div class=\"pd-center pd-spaced\">2,000 GOLD</div><div class=\"pd-body\"><p>For information leading to the whereabouts of the subject, wanted upon the charge of <b>consorting with anomalies</b>.</p></div></div></div><div class=\"pd-clause\"><b class=\"n\">Physical comparison.</b> Identical plate. Identical border damage at the lower left. The charge line has been cut out of the block and reset; the reset line sits half a point high and is legible as a repair under a glass.</div><div class=\"pd-margin\">Somebody wanted this man for one thing, failed to get him for it, and re-engraved the reason rather than withdraw the reward. The reward is the constant. The offence is the variable. Waluigi would like that sentence read twice. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ],
+      "torn": true
+    },
+    "prop_archmage_requisition": {
+      "kind": "invoice",
+      "icon": "⚗️",
+      "title": "Requisition and Charge — One Restorative, Compounded Under Protest",
+      "subtitle": "The Guild billed for the elixir and separately for the indignity",
+      "items": [],
+      "articles": [
+        "hjumpik",
+        "the_medical_extortion_incident"
+      ],
+      "note": "The Guild will do almost anything if you make staying polite more expensive than complying.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Mages&rsquo; Guild &middot; Compounding Bench</div><div class=\"pd-sub\">Requisition 4471 &middot; compounded 15 Harvestide, 1040 BF</div></div><table class=\"pd-table\"><thead><tr><th>Item</th><th>Basis</th><th>Charge</th></tr></thead><tbody><tr><td>Restorative, greater, one phial</td><td>Schedule rate</td><td>450 gp</td></tr><tr><td>Reagent &mdash; scale, draconic, aged</td><td>Supplied by applicant</td><td>0 gp</td></tr><tr><td>Bench time, out of hours</td><td>Double rate</td><td>120 gp</td></tr><tr class=\"pd-flagged\"><td><b>Compounding under duress &mdash; surcharge</b></td><td><b>Discretion of the bench</b></td><td><b>300 gp</b></td></tr></tbody></table><div class=\"pd-total\">Total charged: 870 gp &middot; Total received: 0 gp</div><div class=\"pd-clause\"><b class=\"n\">Bench memorandum.</b> The applicant declined to leave the compounding room. The applicant was advised that the Guild does not compound under pressure. The applicant remained. The compound was made.</div><div class=\"pd-clause\"><b class=\"n\">Recovery.</b> Referred to collections. Collections have declined to pursue, citing the applicant&rsquo;s address as unknown and his temperament as known.</div><div class=\"pd-margin\">The Guild invented a line item for being stood over, priced it at three hundred gold, and then wrote the whole bill off rather than go and find the dwarf. Waluigi has never respected an institution less or a dwarf more. &mdash; W.</div>",
+      "stamps": [
+        "overdue"
+      ]
+    },
+    "prop_dragon_barter_note": {
+      "kind": "note",
+      "icon": "🐲",
+      "title": "Barter Note — Mushrooms, Sundry, Against One Scale",
+      "subtitle": "Written on the reverse of a ration chit by a party who could not read the front",
+      "items": [],
+      "articles": [
+        "hjumpik"
+      ],
+      "note": "The dragon believed it had the better of this. Waluigi is not certain the dragon was wrong.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Reverse of a ration chit</div><div class=\"pd-sub\">Hand: large, unsteady, pressed hard enough to emboss the front</div></div><div class=\"pd-body\"><p>&ldquo;I GIVE ONE SCALE OFF THE OLD SHOULDER.<br>HE GIVE MUSHROOMS. SIX BAGS. THE SPOTTED KIND.<br>THE SPOTTED KIND IS BETTER. HE DID NOT KNOW THIS.<br>I KNOW THIS. GOOD TRADE FOR ME.&rdquo;</p></div><dl class=\"pd-meta\"><dt>Given</dt><dd>One scale, shoulder, shed &mdash; aged, therefore inert and therefore legal to hold</dd><dt>Received</dt><dd>Six bags, mushroom, spotted variety, described by the other party as useless</dd><dt>Both parties</dt><dd>Recorded as satisfied</dd></dl><div class=\"pd-clause\"><b class=\"n\">Note on the spotted variety.</b> The spotted kind is a controlled reagent below the capital. Six bags of it moved across a table, unremarked, as the worthless half of a trade.</div><div class=\"pd-margin\">Two parties each walked away certain they had cheated the other, and the archive&rsquo;s view is that they were both right, which is the only kind of trade Waluigi genuinely enjoys reading about. &mdash; W.</div>",
+      "stamps": [],
+      "torn": true
+    },
+    "prop_ashford_transcript": {
+      "kind": "letter",
+      "icon": "👻",
+      "title": "Testimony — The Ashford Spirit, As Relayed",
+      "subtitle": "Transcribed at one remove. The archive says so at the top rather than the bottom.",
+      "items": [],
+      "articles": [
+        "marcus_ashford",
+        "the_tree_of_woe_engagement"
+      ],
+      "note": "The only testimony this file has, and it arrives through a hand the archive cannot identify.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Relayed testimony &middot; second-hand by admission</div><div class=\"pd-sub\">Notes in a hand resembling Luigi&rsquo;s. Not authenticated.</div></div><div class=\"pd-quote\">&ldquo;The coronations were theatre. Real power signed in blood not ink. What was signed is sealed in iron, beneath the hanging tree, in the Thornwood.&rdquo;</div><dl class=\"pd-meta\"><dt>Speaker</dt><dd>Ashford, deceased, manifesting</dd><dt>Relay</dt><dd>Notes taken by a third party at the time; hand not authenticated</dd><dt>Corroboration</dt><dd>None. No second hearer has been produced.</dd></dl><div class=\"pd-clause\"><b class=\"n\">On the phrase <i>signed in blood not ink</i>.</b> Capable of two readings. Figurative: a settlement enforced by violence. Literal: an instrument executed in blood, which is a documentary form with a shelf life and a smell, and which iron would be a sensible container for.</div><div class=\"pd-clause\"><b class=\"n\">On the phrase <i>theatre</i>.</b> Capable of only one reading, and it is the useful one. Theatre has a budget.</div><div class=\"pd-fine\">Filed under protest. Waluigi objects to the whole class of evidence and has filed it anyway, because refusing to file the only testimony you have is not scepticism, it is squeamishness.</div>",
+      "stamps": []
+    },
+    "prop_thornwood_iron_survey": {
+      "kind": "map",
+      "icon": "🌳",
+      "title": "Survey Extract — Thornwood, Northern Quarter, Iron Anomaly",
+      "subtitle": "The tree is on the old sheet and absent from the new one",
+      "items": [],
+      "articles": [
+        "the_tree_of_woe_engagement",
+        "thornwood_manor_silent_field_dossier"
+      ],
+      "note": "Somebody redrew a forest and left one tree out of the second draft.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Survey comparison &middot; two sheets, one quarter</div><div class=\"pd-sub\">Old sheet 1021 BF &middot; current sheet 1038 BF</div></div><svg class=\"pd-contour\" viewBox=\"0 0 380 190\" width=\"380\" height=\"190\" role=\"img\" aria-label=\"Two overlaid survey outlines of a forest quarter with one feature circled\"><g fill=\"none\" stroke=\"#3a332a\" stroke-width=\"1.4\" opacity=\".75\"><path d=\"M24 158 C80 120 70 70 120 44 C170 18 240 34 286 60 C330 84 344 130 352 160\"/><path d=\"M52 158 C96 128 92 86 130 66 C176 42 232 56 268 76 C304 96 318 132 326 158\"/></g><g fill=\"none\" stroke=\"#2f6f4f\" stroke-width=\"1.2\" stroke-dasharray=\"5 4\" opacity=\".85\"><path d=\"M40 160 C92 124 84 76 132 52 C182 26 246 42 290 68\"/></g><g stroke=\"#9d2c25\" stroke-width=\"1.8\" fill=\"none\"><circle cx=\"214\" cy=\"96\" r=\"17\"/><path d=\"M214 79 L214 113 M197 96 L231 96\" opacity=\".5\"/></g><g fill=\"#3a332a\" font-size=\"10\" font-family=\"Georgia,serif\"><text x=\"236\" y=\"92\">HANGING TREE (1021 sheet)</text><text x=\"236\" y=\"106\">not carried forward</text><text x=\"26\" y=\"178\">solid: 1021 &middot; dashed: 1038</text></g></svg><dl class=\"pd-meta\"><dt>1021 sheet</dt><dd>Feature present, annotated <i>hanging tree</i>, with a ferrous note in the margin</dd><dt>1038 sheet</dt><dd>Feature absent. Ground shown as open. No felling recorded.</dd><dt>Ferrous note</dt><dd>Marginal on the old sheet only: <i>compass unreliable within thirty paces</i></dd></dl><div class=\"pd-margin\">A tree is not the sort of thing a survey office forgets. A tree that makes a compass lie is the sort of thing a survey office is told to forget. &mdash; W.</div>",
+      "stamps": []
+    },
+    "prop_coronation_staging_bill": {
+      "kind": "invoice",
+      "icon": "🎭",
+      "title": "Staging Account — Ceremonial Fittings, Coronation Season",
+      "subtitle": "If the coronations were theatre, then somewhere there is a bill for the set",
+      "items": [],
+      "articles": [
+        "the_arrangement",
+        "glazed_congress_founding"
+      ],
+      "note": "This is the exhibit that opens the file. It is a furniture bill.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Crown Works &middot; Ceremonial Fittings</div><div class=\"pd-sub\">Account rendered to the Chamberlain&rsquo;s office &middot; coronation season</div></div><table class=\"pd-table\"><thead><tr><th>Item</th><th>Qty</th><th>Note</th><th>Charge</th></tr></thead><tbody><tr><td>Dais, tiered, dressed</td><td>1</td><td>Hire, three days</td><td>310 gp</td></tr><tr><td>Standards, embroidered</td><td>24</td><td>Purchase</td><td>480 gp</td></tr><tr><td>Regalia, display copies</td><td>3</td><td>Gilt over base metal</td><td>760 gp</td></tr><tr class=\"pd-flagged\"><td><b>Signing table, rehearsal &mdash; second</b></td><td><b>1</b></td><td><b>Delivered to a private address, not the hall</b></td><td><b>95 gp</b></td></tr><tr><td>Carriage and setting-up</td><td>&mdash;</td><td>Night working</td><td>180 gp</td></tr></tbody></table><div class=\"pd-total\">Rendered: 1,825 gp &middot; Settled in full, no query raised</div><div class=\"pd-clause\"><b class=\"n\">Regalia, display copies.</b> Gilt over base metal, three sets. The ceremony required one. The account does not say what became of the other two.</div><div class=\"pd-clause\"><b class=\"n\">Signing table, second.</b> Charged as a rehearsal item and delivered to a private address on the night before. Crown Works has no record of its return and did not invoice for one.</div><div class=\"pd-margin\">A ceremony with one signing table in the hall and a second signing table at a private house is a ceremony with two signings, and only one of them had an audience. &mdash; W.</div>",
+      "stamps": [
+        "paid"
+      ]
+    },
+    "prop_shard_assay": {
+      "kind": "ledger",
+      "icon": "⭐",
+      "title": "Assay Sheet — Star Fragment, Recovered Mass Against Issued Mass",
+      "subtitle": "Somebody weighed a piece of a god and the sums do not close",
+      "items": [],
+      "articles": [
+        "star_shard_caves_tanuki_origin",
+        "portal_artifacts_collection"
+      ],
+      "note": "The interesting number in an assay is never the total. It is the discrepancy.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Assay bench &middot; unattributed</div><div class=\"pd-sub\">Fragment mass reconciliation &middot; caves recovery</div></div><table class=\"pd-table\"><thead><tr><th>Line</th><th>Description</th><th>Mass (drams)</th></tr></thead><tbody><tr><td>A</td><td>Mass recorded at the cave face, before extraction</td><td>412</td></tr><tr><td>B</td><td>Mass logged into the first holding</td><td>388</td></tr><tr><td>C</td><td>Mass released against receipt</td><td>360</td></tr><tr class=\"pd-flagged\"><td><b>D</b></td><td><b>Unaccounted between A and C</b></td><td><b>52</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Bench note.</b> Extraction losses on a crystalline mass of this class run to two per cent. Observed loss is twelve and six-tenths.</div><div class=\"pd-clause\"><b class=\"n\">Query raised.</b> Once, by the weighing clerk, in writing. No answer is attached and the query was not repeated.</div><div class=\"pd-margin\">Fifty-two drams of god went somewhere between the rock and the receipt. Waluigi is less interested in what it did than in the fact that a clerk noticed, wrote it down, asked once, and then stopped. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_orange_t_service_record": {
+      "kind": "ledger",
+      "icon": "🍊",
+      "title": "Service Record — One Toad, Closed Without a Closing Entry",
+      "subtitle": "Every file ends. This one stops.",
+      "items": [],
+      "articles": [
+        "archie_god_sermon"
+      ],
+      "note": "A personnel file that stops mid-line is a personnel file somebody was told to put down.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Kingdom Service &middot; Personnel</div><div class=\"pd-sub\">Record maintained to the date shown &middot; no closing entry</div></div><table class=\"pd-table\"><thead><tr><th>Entry</th><th>Posting</th><th>Remark</th></tr></thead><tbody><tr><td>1</td><td>Township watch, junior</td><td>Satisfactory</td></tr><tr><td>2</td><td>Township watch, senior</td><td>Satisfactory. Commended once.</td></tr><tr><td>3</td><td>Detached &mdash; caves survey party</td><td>At own request</td></tr><tr class=\"pd-flagged\"><td><b>4</b></td><td><b>&mdash;</b></td><td><b>Entry begun. Not completed. Ink matches entry 3.</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Closing.</b> None. A record is closed by death, discharge, or transfer, each of which has a form. No form is attached.</div><div class=\"pd-clause\"><b class=\"n\">Custody.</b> The file was not archived. It was left in the active drawer, where it remains.</div><div class=\"pd-margin\">He asked to go to the caves. Nobody sent him. Waluigi keeps meeting men who volunteered for the thing that ended them, and it never once looks like an accident from the paperwork side. &mdash; W.</div>",
+      "stamps": []
+    },
+    "prop_satyr_songsheet": {
+      "kind": "note",
+      "icon": "🎻",
+      "title": "Song Sheet — Two Verses, One Written Over the Other",
+      "subtitle": "A performer's working copy, with the correction still legible underneath",
+      "items": [],
+      "articles": [
+        "campaign_songs_archive",
+        "archie_god_sermon"
+      ],
+      "note": "The verse the satyr sang and the verse the satyr crossed out are both on this sheet, and only one of them was safe.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Performer&rsquo;s working sheet</div><div class=\"pd-sub\">Recovered from the pit. Two hands, or one hand twice.</div></div><div class=\"pd-quote\">&ldquo;Oh the Legion marches iron-shod,<br>and the Legion answers to the rod,<br><s>and the rod is held by a living god</s><br>and the rod is held by the ones abroad.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Struck line.</b> Legible beneath the correction. Written in the same ink and the same hand as the rest of the verse.</div><div class=\"pd-clause\"><b class=\"n\">Replacement line.</b> Written in a harder pressure and slightly cramped, as though fitted into a space that was already the wrong size.</div><div class=\"pd-clause\"><b class=\"n\">Performed.</b> The replacement. Witnesses agree the Legion danced.</div><div class=\"pd-margin\">A satyr sang a room full of soldiers into a dance, and the only edit on the sheet is the line that would have told them who holds the rod. He changed it before he walked in, not during. That is not stage fright, that is a risk assessment. &mdash; W.</div>",
+      "stamps": [],
+      "torn": true
+    },
+    "prop_legion_dance_returns": {
+      "kind": "ledger",
+      "icon": "🪖",
+      "title": "Duty Return — Iron Legion, The Evening Nobody Was at Their Post",
+      "subtitle": "Forty-one signatures on a muster that was taken while the muster was dancing",
+      "items": [],
+      "articles": [
+        "archie_god_sermon"
+      ],
+      "note": "Armies do not record their embarrassments. They record their headcounts, and the headcount is the embarrassment.",
+      "body": "<div class=\"pd-classbar\">Iron Legion &middot; Duty Office</div><div class=\"pd-head\"><div class=\"pd-org\">Evening return &middot; posts and presences</div><div class=\"pd-sub\">Compiled by the duty serjeant, signed, unamended</div></div><table class=\"pd-table\"><thead><tr><th>Post</th><th>Establishment</th><th>Present</th><th>Remark</th></tr></thead><tbody><tr><td>Gate, outer</td><td>6</td><td>6</td><td>&mdash;</td></tr><tr><td>Gate, inner</td><td>4</td><td>2</td><td>Two absent, returned</td></tr><tr><td>Yard patrol</td><td>12</td><td>0</td><td>Assembled in hall</td></tr><tr><td>Hall &mdash; off duty</td><td>19</td><td>41</td><td>Excess unexplained</td></tr><tr class=\"pd-flagged\"><td><b>Cells, watch</b></td><td><b>2</b></td><td><b>0</b></td><td><b>Serjeant records: &ldquo;also in hall&rdquo;</b></td></tr></tbody></table><div class=\"pd-total\">Establishment on post: 43 &middot; Actually on post: 8</div><div class=\"pd-clause\"><b class=\"n\">Duty serjeant&rsquo;s remark, verbatim.</b> &ldquo;Music in the hall. No orders given to attend. None required, apparently.&rdquo;</div><div class=\"pd-margin\">Thirty-five soldiers left their posts for a song, including the two men watching the cells. Nobody was punished, because punishing thirty-five men means admitting thirty-five men left. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_goblin_parole": {
+      "kind": "note",
+      "icon": "🗡️",
+      "title": "Parole Note — One Guard, Spared, Released on Terms",
+      "subtitle": "Written by the man who was spared, at the request of the people who spared him",
+      "items": [],
+      "articles": [
+        "archie_god_sermon"
+      ],
+      "note": "The party let a guard live and got a document out of it, which is a better return than most mercy earns.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Undertaking, given freely</div><div class=\"pd-sub\">Hand: the maker&rsquo;s own, unsteady, in charcoal</div></div><div class=\"pd-body\"><p>&ldquo;I was on the door. They did not kill me. I said I would write what I know and I am writing it.</p><p>The orders for the hall came down two days before, not that night. We were told there would be a performance and we were told not to interfere with it. I do not know who told the captain. The captain was pleased about it.</p><p>I go north now. I will not be at that door again.&rdquo;</p></div><dl class=\"pd-meta\"><dt>Given</dt><dd>On release, without inducement recorded</dd><dt>Witnessed</dt><dd>Two, both party</dd><dt>Verified against</dt><dd>The duty return of the same evening</dd></dl><div class=\"pd-margin\">Two days before. That is the whole exhibit. The Legion did not spontaneously dance to a satyr &mdash; the Legion had been told, in advance, to permit a performance it had no reason to expect. &mdash; W.</div>",
+      "stamps": [],
+      "torn": true
+    },
+    "prop_fawful_supply_manifest": {
+      "kind": "contract",
+      "icon": "🫘",
+      "title": "Supply Agreement — Goods to be Delivered to a Party Not Named",
+      "subtitle": "An alliance, expressed the only way an alliance is ever really expressed",
+      "items": [],
+      "articles": [
+        "fawful",
+        "fawful_gala_revelations"
+      ],
+      "note": "Nobody signs a treaty. Everybody signs a delivery schedule.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Agreement for supply &middot; counterpart copy</div><div class=\"pd-sub\">Receiving party described, not named</div></div><div class=\"pd-clause\"><b class=\"n\">1.</b> The supplier shall deliver, monthly, to the described party: preserved stores for four hundred; lamp oil, six barrels; and mechanical parts to the schedule annexed.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> The described party is identified for the purposes of this agreement by the mark impressed below, and by no other means.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">3.</b> Delivery is to the crossing, not to a settlement. The supplier&rsquo;s carts do not enter.</div><div class=\"pd-clause\"><b class=\"n\">4.</b> Payment is in advance and has been made for eleven months.</div><div class=\"pd-cartouche\">MARK IMPRESSED HERE &mdash; a bean, upright, within a cog</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>For the supplier</i></div><div class=\"pd-sigcap\">Signature present, name not printed</div></div><div><div class=\"pd-sigline\"><i>For the described party</i></div><div class=\"pd-sigcap\">Mark only</div></div></div><div class=\"pd-margin\">Stores for four hundred, monthly, paid eleven months in advance, delivered to a crossing so that no carter ever sees where it goes. Somebody is feeding an army of four hundred and has been for the better part of a year. &mdash; W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_kamek_insurance_index": {
+      "kind": "note",
+      "icon": "🧙",
+      "title": "Index Card — Materials Held Against Kamek, Contents Withheld",
+      "subtitle": "The card exists. What the card indexes is somewhere else.",
+      "items": [],
+      "articles": [
+        "kamek",
+        "archie_miser"
+      ],
+      "note": "An index without its file is still evidence — of the filing.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Index card &middot; drawer unknown</div><div class=\"pd-sub\">Ruled card, standard, both sides used</div></div><dl class=\"pd-meta\"><dt>Subject</dt><dd>Kamek</dd><dt>Holding</dt><dd>Four items. Described by class only.</dd><dt>Class 1</dt><dd>Correspondence, dated, in the subject&rsquo;s hand</dd><dt>Class 2</dt><dd>A financial instrument, executed</dd><dt>Class 3</dt><dd>A witness, living, contactable</dd><dt>Class 4</dt><dd>An object. No further description entered.</dd></dl><div class=\"pd-clause\"><b class=\"n\">Use note, on the reverse.</b> &ldquo;Not to be spent on a small thing. Once used it is used.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Filing note.</b> The card gives no location for any of the four items. The card was not filed with them.</div><div class=\"pd-margin\">Whoever wrote this understood leverage better than most people in this archive: it is worth the most on the day before you use it, and nothing at all on the day after. &mdash; W.</div>",
+      "stamps": []
+    },
+    "prop_regency_alert_bulletin": {
+      "kind": "telegram",
+      "icon": "📡",
+      "title": "Standing Alert — Terms Which Trigger a Report to the Regency",
+      "subtitle": "A watchlist of words. Every one of them is a word the party has used out loud.",
+      "items": [],
+      "articles": [
+        "kamek",
+        "bowser"
+      ],
+      "note": "The Regency cannot listen to everything. It has therefore decided what it is listening for.",
+      "body": "<div class=\"pd-wire\">REGENCY SIGNALS &middot; STANDING INSTRUCTION &middot; NOT FOR CIRCULATION BELOW WARD LEVEL</div><div class=\"pd-head\"><div class=\"pd-org\">Terms requiring immediate report</div><div class=\"pd-sub\">Report by fastest means. Do not investigate locally.</div></div><table class=\"pd-table\"><thead><tr><th>Term</th><th>Report within</th></tr></thead><tbody><tr><td>Any approach to the named mage</td><td>1 hour</td></tr><tr><td>Any gathering of former household troops, six or more</td><td>1 hour</td></tr><tr><td>Use of the old style of address for the deposed</td><td>6 hours</td></tr><tr class=\"pd-flagged\"><td><b>Any enquiry concerning the succession instruments</b></td><td><b>Immediate</b></td></tr><tr><td>Movement of the standard, in any condition</td><td>12 hours</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Note to wardens.</b> A report is not an accusation and attracts no consequence for the reporter. Failure to report does.</div><div class=\"pd-margin\">Read the fourth line and then read the title of this case file. Waluigi has been walking around asking, out loud, the exact question that requires an immediate report to the Regency. &mdash; W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_shellshock_standing_order": {
+      "kind": "order",
+      "icon": "🐢",
+      "title": "General Order — Command Assumed, Effective at Once",
+      "subtitle": "The document by which a subordinate becomes a usurper, in ninety words",
+      "items": [],
+      "articles": [
+        "bowser",
+        "first_bowser_conflict"
+      ],
+      "note": "Usurpation is not a moment. It is a memorandum with a distribution list.",
+      "body": "<div class=\"pd-classbar\">Koopa Forces &middot; General Orders</div><div class=\"pd-head\"><div class=\"pd-org\">General Order &mdash; command</div><div class=\"pd-sub\">Effective at once &middot; distribution: all formations</div></div><div class=\"pd-clause\"><b class=\"n\">1.</b> Command of all formations is assumed by the undersigned, effective at once.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> Standing orders continue unaltered. Formations will not stand down and will not redeploy.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">3.</b> Correspondence addressed to the previous holder of command will be forwarded to this office unopened.</div><div class=\"pd-clause\"><b class=\"n\">4.</b> No formation is to seek confirmation of this order from any other source.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>General Shellshock</i></div><div class=\"pd-sigcap\">Signature and date present on the retained copy</div></div></div><div class=\"pd-margin\">Clause 4 is the one that gives the game away. A commander with an unquestioned right to command does not have to forbid people from checking. &mdash; W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_remnant_muster_roll": {
+      "kind": "ledger",
+      "icon": "🔥",
+      "title": "Muster Roll — Remnants, By Formation, With Reasons for Absence",
+      "subtitle": "The reasons column is the only honest column on any muster roll ever written",
+      "items": [],
+      "articles": [
+        "bowser"
+      ],
+      "note": "Count the men. Then read why the missing ones are missing, because that is the army you actually have.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Muster &middot; remnant formations</div><div class=\"pd-sub\">Taken by hand, formation by formation, over nine days</div></div><table class=\"pd-table\"><thead><tr><th>Formation</th><th>Was</th><th>Is</th><th>Principal reason for loss</th></tr></thead><tbody><tr><td>Household, first</td><td>120</td><td>44</td><td>Killed or taken</td></tr><tr><td>Household, second</td><td>120</td><td>71</td><td>Killed or taken</td></tr><tr class=\"pd-flagged\"><td><b>Line, third</b></td><td><b>200</b></td><td><b>18</b></td><td><b>Transferred, on written order, to the new command</b></td></tr><tr><td>Line, fourth</td><td>200</td><td>140</td><td>Scattered, returning in ones</td></tr><tr><td>Engineers</td><td>40</td><td>39</td><td>&mdash;</td></tr></tbody></table><div class=\"pd-total\">Was: 680 &middot; Is: 312 &middot; Lost to the enemy: 186 &middot; Lost to a signature: 182</div><div class=\"pd-clause\"><b class=\"n\">Note on the third line formation.</b> No engagement is recorded against it. Its strength went from two hundred to eighteen on paper, in one day, by order.</div><div class=\"pd-margin\">Almost as many men were taken by a written order as by the enemy, and the order cost nothing, killed nobody, and cannot be avenged. Waluigi would like the remnants to understand which of those two losses is the emergency. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_sermon_collection_plate": {
+      "kind": "ledger",
+      "icon": "🙏",
+      "title": "Collection Account — A Congregation That Should Not Exist Yet",
+      "subtitle": "Three months of takings for a faith the archive only learned about last week",
+      "items": [],
+      "articles": [
+        "archie_god_sermon",
+        "archie_miser"
+      ],
+      "note": "Belief is hard to measure. Weekly takings are not.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">House of the Ascended &middot; collections</div><div class=\"pd-sub\">Weekly, in copper equivalent &middot; three months</div></div><table class=\"pd-table\"><thead><tr><th>Week</th><th>Attendance (est.)</th><th>Collection</th><th>Note</th></tr></thead><tbody><tr><td>1&ndash;4</td><td>20&ndash;35</td><td>2&ndash;5 sp</td><td>Meeting in a yard</td></tr><tr><td>5&ndash;8</td><td>60&ndash;140</td><td>18&ndash;40 sp</td><td>Moved indoors. Roof hired.</td></tr><tr class=\"pd-flagged\"><td><b>9</b></td><td><b>400+</b></td><td><b>11 gp</b></td><td><b>Overflow. Second sitting added.</b></td></tr><tr><td>10&ndash;12</td><td>400&ndash;600</td><td>9&ndash;14 gp weekly</td><td>Two sittings, both full</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Expenditure.</b> Roof hire, lamp oil, and one paid doorkeeper. No stipend is drawn by any preacher.</div><div class=\"pd-clause\"><b class=\"n\">Balance carried.</b> Substantial, and untouched. The account is accumulating and nobody is spending it.</div><div class=\"pd-margin\">A congregation that goes from thirty to six hundred in nine weeks and does not pay its own preacher is not a scam, which is what Waluigi checked for first. It is worse. It is sincere, and it is saving up. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_two_kingdoms_border_notice": {
+      "kind": "addendum",
+      "icon": "🚧",
+      "title": "Border Notice — Amendment to the Crossing Schedule, Fourth This Season",
+      "subtitle": "The line between the two halves of a civil war, redrawn by an administrator",
+      "items": [],
+      "articles": [
+        "glazed_congress_founding"
+      ],
+      "note": "Wars are fought over the line. The line is moved by a clerk with a schedule of amendments.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Crossing Schedule &middot; Amendment 4</div><div class=\"pd-sub\">Issued to gate officers only. Not published.</div></div><div class=\"pd-clause\"><b class=\"n\">1.</b> The crossings at the eastern mill and the ford are closed to all traffic except supply carts under a standing agreement.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> The crossing at the crossroads remains open, hours of daylight, subject to search.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">3.</b> Carts travelling under the mark described in the annexe are not to be searched, delayed, or entered in the crossing book.</div><div class=\"pd-clause\"><b class=\"n\">4.</b> Officers will not discuss clause 3 with officers of other crossings.</div><div class=\"pd-fine\">Annexe not attached to this copy. The described mark is stated to be impressed and not printed.</div><div class=\"pd-margin\">Clause 3 creates a category of cart that legally does not cross the border, because a cart that is not entered in the crossing book did not cross. Clause 4 makes sure no two gate officers ever compare notes about how many of those carts there are. &mdash; W.</div>",
+      "stamps": [
+        "noaction"
+      ]
+    },
+    "prop_bramblehaven_survey": {
+      "kind": "ledger",
+      "icon": "🏚️",
+      "title": "Site Survey — Bramblehaven Ruins, Condition and Capacity",
+      "subtitle": "A surveyor priced three sites and only wrote a warning on one of them",
+      "items": [],
+      "articles": [
+        "the_estragon_island_incident"
+      ],
+      "note": "Resettlement is not a moral question until after it is an engineering one.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Site survey &middot; comparative</div><div class=\"pd-sub\">Three sites, walked in one week, by one surveyor</div></div><table class=\"pd-table\"><thead><tr><th>Site</th><th>Shelter for</th><th>Water</th><th>Approaches</th><th>Cost to make habitable</th></tr></thead><tbody><tr><td>Bramblehaven ruins</td><td>300 at once</td><td>Well, fouled, recoverable</td><td>Four. All open.</td><td>Low</td></tr><tr><td>Hidden Valley</td><td>80, rising to 200 with build</td><td>Stream, year-round</td><td>One, narrow</td><td>Medium</td></tr><tr class=\"pd-flagged\"><td><b>Abandoned mine</b></td><td><b>500+</b></td><td><b>Pumped. Pump absent.</b></td><td><b>One, closeable</b></td><td><b>High</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Surveyor&rsquo;s remark, entered against Bramblehaven only.</b> &ldquo;The walls stand and the roofs do not. Four ways in means four ways in for everyone else as well. I can house them here by the week&rsquo;s end. I would not want to defend it.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Not assessed.</b> Title. None of the three sites was checked for ownership.</div><div class=\"pd-margin\">The cheapest site is the one you cannot hold and the one you can hold has no pump. Waluigi notes that nobody asked who owns any of them, which is the question that ends resettlements. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_new_toad_town_charter": {
+      "kind": "contract",
+      "icon": "🏠",
+      "title": "Draft Charter — A Settlement Named In Advance of Existing",
+      "subtitle": "Somebody wrote the constitution before anybody found the ground",
+      "items": [],
+      "articles": [
+        "glazed_congress_founding"
+      ],
+      "note": "Hope, notarised. The blank in clause 1 is the whole problem.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Draft instrument of settlement</div><div class=\"pd-sub\">Unexecuted. Blanks as shown.</div></div><div class=\"pd-clause\"><b class=\"n\">1.</b> The settlement hereby constituted shall be known as <b>New Toad Town</b> and shall be situate at ____________________.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> Admission is open to any Toad presenting themselves, without enquiry into origin, prior service, or the circumstances of their departure.</div><div class=\"pd-clause\"><b class=\"n\">3.</b> No person shall be surrendered out of the settlement on the demand of any authority not itself a party to this charter.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">4.</b> Clause 3 is understood by the drafters to be unenforceable and is included regardless.</div><div class=\"pd-clause\"><b class=\"n\">5.</b> This charter takes effect on the day a site is secured and not before.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>Drafted by</i></div><div class=\"pd-sigcap\">Three hands. None printed.</div></div></div><div class=\"pd-margin\">Clause 4 is the most honest sentence Waluigi has read all season. They wrote a protection, admitted in writing that it will not hold, and left it in anyway, because a promise you cannot keep is still the promise people came for. &mdash; W.</div>",
+      "stamps": []
+    },
+    "prop_mine_pump_requisition": {
+      "kind": "invoice",
+      "icon": "⛏️",
+      "title": "Requisition — One Pump, Refused Twice, Priced Both Times",
+      "subtitle": "The difference between five hundred people housed and five hundred people drowned is one machine",
+      "items": [],
+      "articles": [
+        "the_estragon_island_incident"
+      ],
+      "note": "The mine can hold everybody. The mine also fills with water.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Requisition &middot; heavy plant</div><div class=\"pd-sub\">Submitted twice. Refused twice. Same office.</div></div><table class=\"pd-table\"><thead><tr><th>Submission</th><th>Article</th><th>Quoted</th><th>Disposal</th></tr></thead><tbody><tr><td>First</td><td>Drainage pump, mine class, with fittings</td><td>340 gp</td><td>Refused &mdash; &ldquo;no consigned site&rdquo;</td></tr><tr><td>Second</td><td>As above, second-hand, unwarranted</td><td>185 gp</td><td>Refused &mdash; &ldquo;no consigned site&rdquo;</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Refusal ground, verbatim, both times.</b> &ldquo;Plant is not issued against a site the requisitioner does not hold.&rdquo;</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">Consequence.</b> The site cannot be held until it is drained. It cannot be drained until it is held.</div><div class=\"pd-fine\">A third submission may be made only with a title reference or a consignment order.</div><div class=\"pd-margin\">One hundred and eighty-five gold pieces stand between five hundred Toads and a roof, and the office will not release it because they do not own the hole. Waluigi has seen sieges with fewer moving parts. &mdash; W.</div>",
+      "stamps": [
+        "noaction"
+      ]
+    },
+    "prop_aegis_visitor_book": {
+      "kind": "ledger",
+      "icon": "🛡️",
+      "title": "Visitor Book — Aegis Command, One Entry That Does Not Leave",
+      "subtitle": "Every visitor signs in. Almost every visitor signs out.",
+      "items": [
+        "bones_legion_uniform"
+      ],
+      "articles": [
+        "bones_alpine_bank_eavesdropping_and_inn_refuge"
+      ],
+      "note": "Infiltration is not invisibility. It is being the sort of entry nobody reads twice.",
+      "body": "<div class=\"pd-classbar\">Aegis Command &middot; Gatehouse</div><div class=\"pd-head\"><div class=\"pd-org\">Visitors &middot; day book</div><div class=\"pd-sub\">In, out, and purpose. Kept by the gate clerk.</div></div><table class=\"pd-table\"><thead><tr><th>In</th><th>Name as given</th><th>Purpose as given</th><th>Out</th></tr></thead><tbody><tr><td>07:40</td><td>Quartermaster&rsquo;s runner</td><td>Returns</td><td>08:05</td></tr><tr><td>09:15</td><td>Contractor, roofing</td><td>Estimate</td><td>11:30</td></tr><tr class=\"pd-flagged\"><td><b>09:50</b></td><td><b>Relief, records section</b></td><td><b>Reporting as ordered</b></td><td><b>&mdash;</b></td></tr><tr><td>13:00</td><td>Victualler</td><td>Delivery</td><td>13:20</td></tr><tr><td>16:45</td><td>Officer, name illegible</td><td>&mdash;</td><td>17:10</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Gate clerk&rsquo;s standing practice.</b> A visitor reporting for duty is entered on arrival and thereafter carried on the strength, not the visitor book. No sign-out is expected.</div><div class=\"pd-margin\">Nine-fifty in the morning, &ldquo;relief, records section, reporting as ordered.&rdquo; Nobody ordered it and nobody checked, because the one entry in a visitor book that never needs closing is the man who has joined. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_records_section_signout": {
+      "kind": "ledger",
+      "icon": "🗄️",
+      "title": "File Sign-Out — Records Section, Nine Files in Forty Minutes",
+      "subtitle": "The trail an infiltrator leaves is not footprints, it is a borrowing card",
+      "items": [],
+      "articles": [
+        "bones_alpine_bank_eavesdropping_and_inn_refuge"
+      ],
+      "note": "He read exactly the right nine things, in the right order, and initialled for all of them.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Records section &middot; sign-out card</div><div class=\"pd-sub\">One card, one morning, one initial repeated</div></div><table class=\"pd-table\"><thead><tr><th>Time</th><th>File</th><th>Returned</th></tr></thead><tbody><tr><td>10:02</td><td>Standing orders, current series</td><td>Yes</td></tr><tr><td>10:06</td><td>Distribution list, general orders</td><td>Yes</td></tr><tr><td>10:11</td><td>Detention returns, quarter</td><td>Yes</td></tr><tr><td>10:19</td><td>Transport requisitions, quarter</td><td>Yes</td></tr><tr class=\"pd-flagged\"><td><b>10:26</b></td><td><b>Order series 118&ndash;122, retained copies</b></td><td><b>Yes</b></td></tr><tr><td>10:31</td><td>Council correspondence, in</td><td>Yes</td></tr><tr><td>10:38</td><td>Council correspondence, out</td><td>Yes</td></tr><tr><td>10:41</td><td>Personnel, records section</td><td>Yes</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Initial.</b> The same two letters against every line. Not matched to any name on the section&rsquo;s strength.</div><div class=\"pd-clause\"><b class=\"n\">Note.</b> Every file was returned. Nothing is missing from the section.</div><div class=\"pd-margin\">Detention returns, then transport, then the order series, then the correspondence both ways, then the personnel file for the section he was standing in. That is not curiosity. That is a man working through a list somebody gave him. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_speaker_l_decoy_brief": {
+      "kind": "note",
+      "icon": "🎩",
+      "title": "Decoy Brief — What the Green Speaker Was to Say, and When to Stop",
+      "subtitle": "A written plan for being the wrong person in the right room",
+      "items": [
+        "speaker_l_feathered_hat"
+      ],
+      "articles": [
+        "speaker_l",
+        "glazed_congress_founding"
+      ],
+      "note": "The brief survives. Whether it was followed is a separate exhibit.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Brief &middot; for the speaker attending</div><div class=\"pd-sub\">Read, memorised, and not to be carried into the chamber</div></div><div class=\"pd-clause\"><b class=\"n\">1.</b> You are the delegation. There is no other delegation. If asked whether others are coming, say they are not.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> Speak to the resettlement question at length. Detail is the point. The longer the chamber discusses where, the longer it is not discussing who.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">3.</b> If the words <i>order</i> and <i>one hundred and twenty</i> are used together, stop speaking, sit down, and do not answer further questions.</div><div class=\"pd-clause\"><b class=\"n\">4.</b> Do not defend anyone by name. A name in the record is a name on a list.</div><div class=\"pd-clause\"><b class=\"n\">5.</b> You will be believed because you are expected. That is the entire mechanism. Do not improve on it.</div><div class=\"pd-margin\">Clause 3 means somebody already knew the number before the chamber sat. A decoy brief that names the trigger phrase in advance is not a decoy brief, it is a warning that was written down. &mdash; W.</div>",
+      "stamps": [],
+      "torn": true
+    },
+    "prop_council_seven_division": {
+      "kind": "ledger",
+      "icon": "⚖️",
+      "title": "Division List — Council of Seven, Four to Three, With One Abstention Recorded Twice",
+      "subtitle": "Seven members, eight votes counted, and nobody in the chamber noticed",
+      "items": [],
+      "articles": [
+        "glazed_congress_founding"
+      ],
+      "note": "A division list is the only record of a hearing that cannot be redrafted afterwards. Usually.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Council of Seven &middot; division</div><div class=\"pd-sub\">Question: that the resettlement petition be received</div></div><table class=\"pd-table\"><thead><tr><th>Seat</th><th>Vote</th><th>Note</th></tr></thead><tbody><tr><td>First</td><td>Aye</td><td>&mdash;</td></tr><tr><td>Second</td><td>No</td><td>&mdash;</td></tr><tr><td>Third</td><td>Aye</td><td>&mdash;</td></tr><tr><td>Fourth</td><td>No</td><td>&mdash;</td></tr><tr><td>Fifth</td><td>Abstain</td><td>Recorded</td></tr><tr class=\"pd-flagged\"><td><b>Fifth</b></td><td><b>Abstain</b></td><td><b>Recorded again. Not struck.</b></td></tr><tr><td>Sixth</td><td>No</td><td>&mdash;</td></tr><tr><td>Seventh</td><td>Aye</td><td>Vacated seat &mdash; see clerk&rsquo;s note</td></tr></tbody></table><div class=\"pd-total\">Ayes 3 &middot; Noes 3 &middot; Abstentions 2 (from one seat) &middot; Petition not received</div><div class=\"pd-clause\"><b class=\"n\">Clerk&rsquo;s note.</b> The seventh seat was vacated during the sitting. The vote was cast before vacation and stands.</div><div class=\"pd-margin\">One seat abstained twice, one seat voted and then ceased to exist, and the petition failed on a tie that a competent clerk could have resolved four different ways. Waluigi does not think this was incompetence. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_fractured_heart_receipt": {
+      "kind": "invoice",
+      "icon": "💔",
+      "title": "Receipt — One Article, Described Only as Fractured, Held Against Return",
+      "subtitle": "A pawn ticket for something that should not have a pawn ticket",
+      "items": [],
+      "articles": [
+        "glazed_congress_founding",
+        "the_arrangement"
+      ],
+      "note": "Whatever the Fractured Heart is, somebody issued a receipt for it, which is how the archive knows it moved.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Held against return</div><div class=\"pd-sub\">Counterfoil. The article is not described beyond the entry shown.</div></div><dl class=\"pd-meta\"><dt>Article</dt><dd>One. &ldquo;Fractured. Heart.&rdquo; Entered on two lines.</dd><dt>Deposited by</dt><dd>Bearer. No name taken.</dd><dt>Advanced against</dt><dd>Nothing. No sum paid out.</dd><dt>Redeemable by</dt><dd>Production of this counterfoil only</dd><dt>Period</dt><dd>Ninety days, then forfeit</dd></dl><div class=\"pd-clause\"><b class=\"n\">House rule endorsed on the reverse.</b> Articles on which no sum is advanced are accepted only where the house wishes the article off the street.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">Days elapsed at filing.</b> Eighty-one.</div><div class=\"pd-margin\">Nobody borrowed against it. Somebody paid nothing, took a ticket, and left the thing in a strongroom &mdash; which per the house&rsquo;s own rule means the house wanted it off the street. Nine days from forfeit. &mdash; W.</div>",
+      "stamps": [
+        "overdue"
+      ]
+    },
+    "prop_ironhand_incident_return": {
+      "kind": "addendum",
+      "icon": "🗡️",
+      "title": "Incident Return — One Wounding, Filed Under Accident",
+      "subtitle": "The form has a box for how it happened and somebody ticked the wrong one on purpose",
+      "items": [],
+      "articles": [
+        "general_ironhand",
+        "bones"
+      ],
+      "note": "Marcus Ironhand stabbed Bones. The paperwork says a stack of crates fell over.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Incident return &middot; personnel injury</div><div class=\"pd-sub\">Completed by the duty officer, countersigned</div></div><dl class=\"pd-meta\"><dt>Injured</dt><dd>One. Records section relief.</dd><dt>Nature</dt><dd>Penetrating wound, left side, below the ribs</dd><dt>Cause as entered</dt><dd>Accident &mdash; falling stores</dd><dt>Implement recovered</dt><dd>None entered</dd><dt>Witnesses</dt><dd>One. Name withheld at own request.</dd></dl><div class=\"pd-clause pd-flagged\"><b class=\"n\">Medical remark, attached.</b> &ldquo;The wound is clean, narrow, and angled upward. It is not consistent with falling stores. I have entered the cause as given to me.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Disposal.</b> No investigation opened. Accidents do not require one.</div><div class=\"pd-margin\">The surgeon wrote down that the official cause is impossible and then entered the official cause anyway, in the same paragraph, on a form that goes into a file. That is a man leaving a note for whoever comes looking. Waluigi came looking. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_order_120_distribution": {
+      "kind": "order",
+      "icon": "📜",
+      "title": "Distribution Sheet — Order 120, Who Received It and Exactly When",
+      "subtitle": "The order itself is elsewhere. This is the list of everyone who has read it.",
+      "items": [
+        "ironhand_order120_pen"
+      ],
+      "articles": [
+        "general_ironhand",
+        "the_arrangement"
+      ],
+      "note": "You cannot always get the order. You can almost always get the distribution sheet.",
+      "body": "<div class=\"pd-classbar\">Aegis Command &middot; General Orders &middot; Series 120</div><div class=\"pd-head\"><div class=\"pd-org\">Distribution and receipt</div><div class=\"pd-sub\">Signed for on delivery. Times as recorded by the receiving office.</div></div><table class=\"pd-table\"><thead><tr><th>Copy</th><th>To</th><th>Received</th></tr></thead><tbody><tr><td>1</td><td>Command, retained</td><td>Not applicable</td></tr><tr><td>2</td><td>Field, first</td><td>Day 1, 06:20</td></tr><tr><td>3</td><td>Field, second</td><td>Day 1, 06:25</td></tr><tr class=\"pd-flagged\"><td><b>4</b></td><td><b>Council clerk, for information</b></td><td><b>Day 2, 14:10</b></td></tr><tr><td>5</td><td>Gate offices, all</td><td>Day 2, 18:00</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Execution.</b> The order carries a stated hour of execution. It is not reproduced on this sheet.</div><div class=\"pd-clause\"><b class=\"n\">Recall.</b> No copy has been recalled. A recall would appear on this sheet as a struck line and a second signature.</div><div class=\"pd-margin\">Copy four went to the Council clerk <i>for information</i> thirty-two hours before the gate offices got theirs. The Council knew, in writing, a day and a third before the men who would have to do it. &mdash; W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_creek_position_report": {
+      "kind": "telegram",
+      "icon": "📶",
+      "title": "Position Report — Pinned, Holding, Asking a Question Nobody Answered",
+      "subtitle": "Six lines sent from a place with one way out, and the reply column is empty",
+      "items": [],
+      "articles": [
+        "the_arrangement"
+      ],
+      "note": "The last message is not the dramatic one. It is the one asking whether the deadline is real.",
+      "body": "<div class=\"pd-wire\">FIELD SIGNALS &middot; RECEIVED AND LOGGED &middot; REPLIES AS SHOWN</div><div class=\"pd-head\"><div class=\"pd-org\">Position reports, in sequence</div><div class=\"pd-sub\">One sender. Log kept at the receiving station.</div></div><table class=\"pd-table\"><thead><tr><th>Logged</th><th>Text as received</th><th>Reply sent</th></tr></thead><tbody><tr><td>21:40</td><td>IN POSITION. QUIET.</td><td>ACK</td></tr><tr><td>23:15</td><td>MOVEMENT NORTH SIDE. NOT OURS.</td><td>ACK</td></tr><tr><td>01:02</td><td>ROAD CLOSED BEHIND US. ONE WAY OUT.</td><td>ACK</td></tr><tr><td>03:30</td><td>HOLDING. NO CASUALTIES. NEED TO KNOW IF THE HOUR STANDS.</td><td>&mdash;</td></tr><tr class=\"pd-flagged\"><td><b>05:55</b></td><td><b>REPEAT. DOES THE HOUR STAND.</b></td><td><b>&mdash;</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Station note.</b> The set was manned throughout. No fault is recorded on the line.</div><div class=\"pd-margin\">Three acknowledgements, then two questions and nothing. The line worked. Somebody at the receiving end read &ldquo;does the hour stand&rdquo; twice and decided not to answer, which is itself an answer and a much worse one. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_toad_ration_strength": {
+      "kind": "ledger",
+      "icon": "🍞",
+      "title": "Ration Strength — How Many There Actually Are, Counted By Bread",
+      "subtitle": "Nobody will give the archive a headcount. Everybody keeps a bread book.",
+      "items": [],
+      "articles": [
+        "glazed_congress_founding"
+      ],
+      "note": "The most reliable census in any crisis is the one taken by whoever has to feed it.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Issuing point &middot; ration strength</div><div class=\"pd-sub\">Daily count, twelve days, taken at issue</div></div><table class=\"pd-table\"><thead><tr><th>Day</th><th>Rations issued</th><th>Remark</th></tr></thead><tbody><tr><td>1&ndash;3</td><td>410, 438, 455</td><td>&mdash;</td></tr><tr><td>4&ndash;6</td><td>489, 512, 540</td><td>Second queue opened</td></tr><tr><td>7&ndash;9</td><td>566, 601, 640</td><td>Stocks drawn forward</td></tr><tr class=\"pd-flagged\"><td><b>10&ndash;12</b></td><td><b>688, 731, 774</b></td><td><b>Issuing at half portion from day 11</b></td></tr></tbody></table><div class=\"pd-total\">Growth: 410 to 774 in twelve days &middot; Stock remaining at current issue: 5 days &middot; At full portion: 2 days</div><div class=\"pd-clause\"><b class=\"n\">Issuer&rsquo;s remark.</b> &ldquo;I am not turning anyone away and I am not asking anyone where they came from. Somebody else can do the arithmetic.&rdquo;</div><div class=\"pd-margin\">Seven hundred and seventy-four, growing by forty a day, five days of food at half portion. The resettlement debate is arguing about sites while the actual clock is a bread book at an issuing point. &mdash; W.</div>",
+      "stamps": [
+        "overdue"
+      ]
+    },
+    "prop_falls_portage_bill": {
+      "kind": "invoice",
+      "icon": "🌊",
+      "title": "Portage Bill — Cheep-Cheep Falls, Three Loads Down, Two Loads Back",
+      "subtitle": "The carriers charged by weight and the arithmetic does not close",
+      "items": [],
+      "articles": [
+        "the_eastern_passage"
+      ],
+      "note": "Nobody in the party will say what was carried. The portage bill weighed it.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Falls portage &middot; hire of carriers</div><div class=\"pd-sub\">Rated by load. Downstream and upstream priced separately.</div></div><table class=\"pd-table\"><thead><tr><th>Leg</th><th>Loads</th><th>Rated weight</th><th>Charge</th></tr></thead><tbody><tr><td>Down, first</td><td>3</td><td>210 lb</td><td>9 gp</td></tr><tr class=\"pd-flagged\"><td><b>Up, return</b></td><td><b>2</b></td><td><b>248 lb</b></td><td><b>14 gp</b></td></tr></tbody></table><div class=\"pd-total\">Three loads down at 210 lb &middot; two loads up at 248 lb &middot; net gain 38 lb</div><div class=\"pd-clause\"><b class=\"n\">Carriers&rsquo; note.</b> The upstream rate is higher for the same weight. The party queried the charge and paid it.</div><div class=\"pd-clause\"><b class=\"n\">Not itemised.</b> Contents. The carriers rate by weight and do not open loads.</div><div class=\"pd-margin\">They went down with three loads and came back with two, and the two were heavier than the three. Thirty-eight pounds of something joined the party at the bottom of a waterfall and nobody has entered it anywhere else. &mdash; W.</div>",
+      "stamps": [
+        "paid"
+      ]
+    },
+    "prop_rogueport_ambush_return": {
+      "kind": "addendum",
+      "icon": "🗡️",
+      "title": "Ambush Return — Positions Held Before Arrival",
+      "subtitle": "You cannot occupy four positions on a route you learned about afterwards",
+      "items": [],
+      "articles": [
+        "the_embassy_ambush_and_luigi_interrogation"
+      ],
+      "note": "The shape of an ambush tells you when it was planned. This one was planned early.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Contact return &middot; reconstructed</div><div class=\"pd-sub\">Positions as found afterwards, from marks on the ground</div></div><table class=\"pd-table\"><thead><tr><th>Position</th><th>Occupied</th><th>Evidence</th></tr></thead><tbody><tr><td>Roofline, north</td><td>Yes</td><td>Scuffing, tile displaced, two sets</td></tr><tr><td>Alley mouth, east</td><td>Yes</td><td>Standing marks, prolonged</td></tr><tr><td>Alley mouth, west</td><td>Yes</td><td>Standing marks, prolonged</td></tr><tr class=\"pd-flagged\"><td><b>Behind, on the approach</b></td><td><b>Yes</b></td><td><b>Occupied before the party passed it</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Prolonged marks.</b> Standing marks of that depth in that ground indicate a wait measured in hours, not minutes.</div><div class=\"pd-clause\"><b class=\"n\">Route.</b> The party&rsquo;s route through the ward was chosen the same morning and communicated to four people.</div><div class=\"pd-margin\">Four positions, one of them behind the party on the approach, all occupied for hours before anyone arrived. That is not a patrol that got lucky. Somebody was given the route with enough time to walk it first. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_trade_ward_tenancy": {
+      "kind": "ledger",
+      "icon": "🏢",
+      "title": "Tenancy Schedule — Trade Ward, One Lease With No Trade",
+      "subtitle": "Every building on the street sells something except the one with the emblem",
+      "items": [],
+      "articles": [
+        "the_embassy_ambush_and_luigi_interrogation"
+      ],
+      "note": "A purple emblem is not evidence. A lease with no declared trade is.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Ward tenancy schedule</div><div class=\"pd-sub\">Extract. Declared trade as entered by the tenant.</div></div><table class=\"pd-table\"><thead><tr><th>No.</th><th>Tenant</th><th>Declared trade</th><th>Rent, quarterly</th></tr></thead><tbody><tr><td>14</td><td>Chandler</td><td>Candles, oils</td><td>6 gp</td></tr><tr><td>16</td><td>Factor</td><td>Grain brokerage</td><td>11 gp</td></tr><tr class=\"pd-flagged\"><td><b>18</b></td><td><b>Held by agent. No name entered.</b></td><td><b>&mdash;</b></td><td><b>40 gp</b></td></tr><tr><td>20</td><td>Ropewalk</td><td>Cordage</td><td>7 gp</td></tr><tr><td>22</td><td>Victualler</td><td>Provisions</td><td>9 gp</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Ward rule.</b> A tenancy without a declared trade is rated at the punitive rate. Number 18 is paying it, quarterly, in full, and has not appealed.</div><div class=\"pd-clause\"><b class=\"n\">Frontage.</b> Number 18 carries a device in purple above the door. Devices are not registered by the ward.</div><div class=\"pd-margin\">Forty gold a quarter to avoid writing down what you do, on a street where the going rate is nine. That is a body with money choosing the expensive silence over the cheap lie. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_iron_mandate_extract": {
+      "kind": "order",
+      "icon": "⚙️",
+      "title": "Iron Mandate — Extract of the Operative Clauses Only",
+      "subtitle": "Two sentences that make a whole people into a licensing question",
+      "items": [],
+      "articles": [
+        "national_power_projection"
+      ],
+      "note": "The Mandate is long. The part that matters is short and Waluigi has cut away the rest.",
+      "body": "<div class=\"pd-classbar\">Iron Mandate &middot; operative extract</div><div class=\"pd-head\"><div class=\"pd-org\">Extract, certified against the enrolled text</div><div class=\"pd-sub\">Recitals and schedules omitted</div></div><div class=\"pd-clause\"><b class=\"n\">Clause 2.</b> No body other than the Legion shall maintain armed men within a ward of the city.</div><div class=\"pd-clause\"><b class=\"n\">Clause 3.</b> A body maintaining armed men in a ward with the consent of the ward is nonetheless within clause 2.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">Clause 7.</b> Nothing in this Mandate applies to men maintained at the request of a recognised authority, where the request is recorded.</div><div class=\"pd-clause\"><b class=\"n\">Clause 9.</b> The Legion determines what is a recognised authority.</div><div class=\"pd-fine\">Penalty on conviction under clause 2: forfeiture of the premises and dispersal of the body.</div><div class=\"pd-margin\">Clause 7 is the door and clause 9 is the Legion holding the handle. You may keep armed men if you were asked to, by somebody the Legion agrees is somebody. Everything in this file turns on that sentence. &mdash; W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_festival_offering_list": {
+      "kind": "ledger",
+      "icon": "🕯️",
+      "title": "Offering List — Festival of the Fallen, With One Line Entered Late",
+      "subtitle": "A list of who gave what, and one entry in a different hand",
+      "items": [],
+      "articles": [
+        "pony_halo_concordant_and_crimson_veil"
+      ],
+      "note": "Festivals keep offering lists for the same reason temples keep accounts: somebody always asks later.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Festival of the Fallen &middot; offerings received</div><div class=\"pd-sub\">Entered at the table as brought forward</div></div><table class=\"pd-table\"><thead><tr><th>Order</th><th>Offering</th><th>By</th></tr></thead><tbody><tr><td>1</td><td>Grain, one measure</td><td>The district, collectively</td></tr><tr><td>2</td><td>Salt, one measure</td><td>The district, collectively</td></tr><tr><td>3</td><td>Oil, one measure</td><td>The district, collectively</td></tr><tr><td>4</td><td>A name, spoken</td><td>Each household in turn</td></tr><tr class=\"pd-flagged\"><td><b>5</b></td><td><b>&ldquo;An undertaking, given aloud, on behalf of the living.&rdquo;</b></td><td><b>Not entered</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Hand.</b> Entries 1&ndash;4 are in the table clerk&rsquo;s hand. Entry 5 is in another, added after the list was ruled off.</div><div class=\"pd-clause\"><b class=\"n\">Custom.</b> Offerings at this festival are goods and names. The rite has no category for an undertaking.</div><div class=\"pd-margin\">Four offerings of the kind the festival has always taken, and then a fifth in somebody else&rsquo;s handwriting, below the ruled line, with no giver named. A promise was made at that table and the record was amended to admit it existed. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_avatar_terms_memo": {
+      "kind": "note",
+      "icon": "🐯",
+      "title": "Terms Memorandum — What Was Asked For, in Four Lines",
+      "subtitle": "Somebody in that circle wrote the terms down while they were still being spoken",
+      "items": [],
+      "articles": [
+        "chief_thornpaw",
+        "pony_halo_concordant_and_crimson_veil"
+      ],
+      "note": "Every negotiation has one participant taking notes. This is theirs.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Memorandum &middot; taken at the circle</div><div class=\"pd-sub\">Contemporaneous. Not agreed by any party.</div></div><div class=\"pd-clause\"><b class=\"n\">Asked of us.</b> That armed men of the Loyalist establishment be quartered within the district, permanently, and at the district&rsquo;s request.</div><div class=\"pd-clause\"><b class=\"n\">Offered to us.</b> Recognition. Standing. The rite completed rather than abandoned.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">Objected by one voice.</b> &ldquo;A garrison you asked for is still a garrison.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Answered.</b> &ldquo;A garrison you asked for is a garrison you can un-ask.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Not addressed.</b> Whether the un-asking has any legal effect. Nobody in the circle raised the Mandate.</div><div class=\"pd-margin\">The objection and the answer are both good and only one of them is true. Waluigi has read clause 9 of the Mandate and can report that the un-asking is worth precisely nothing, and that nobody at the circle knew it. &mdash; W.</div>",
+      "stamps": [],
+      "torn": true
+    },
+    "prop_sovereignty_act_notice": {
+      "kind": "order",
+      "icon": "⚖️",
+      "title": "Public Notice — Supernatural Sovereignty Act, Posted in the District",
+      "subtitle": "The offence is not the pact, it is who the pact was with",
+      "items": [],
+      "articles": [
+        "national_power_projection"
+      ],
+      "note": "The Act was posted three streets from the festival ground. Somebody wanted it read that week.",
+      "body": "<div class=\"pd-classbar\">By authority &middot; posted notice</div><div class=\"pd-head\"><div class=\"pd-org\">Supernatural Sovereignty Act &middot; summary for posting</div><div class=\"pd-sub\">The full text is available for inspection at the ward office</div></div><div class=\"pd-clause\"><b class=\"n\">1.</b> No allegiance, undertaking or covenant may be given to any power not of the mortal establishment.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> An undertaking given in the course of a rite is an undertaking for the purposes of clause 1.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">3.</b> The offence is complete on the giving. Performance is not required.</div><div class=\"pd-clause\"><b class=\"n\">4.</b> The offence is triable as sedition.</div><div class=\"pd-clause\"><b class=\"n\">5.</b> Where the undertaking is given collectively, every person present who did not dissent aloud is taken to have given it.</div><div class=\"pd-fine\">Posted this quarter. Ward office copy stamped and dated.</div><div class=\"pd-margin\">Clause 5 is the one that should frighten people and clause 3 is the one that should frighten lawyers. Everybody who stood in that circle and did not shout is, on the face of this notice, a seditionist. &mdash; W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_district_quartering_return": {
+      "kind": "ledger",
+      "icon": "🏘️",
+      "title": "Quartering Return — Where the Garrison Actually Went",
+      "subtitle": "Six buildings, and five of them are not barracks",
+      "items": [],
+      "articles": [
+        "national_power_projection"
+      ],
+      "note": "A garrison is described by the buildings it takes, not by the number of men in it.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Quartering return &middot; district</div><div class=\"pd-sub\">Premises taken up. Compensation as noted.</div></div><table class=\"pd-table\"><thead><tr><th>Premises</th><th>Former use</th><th>Men</th><th>Compensation</th></tr></thead><tbody><tr><td>Old customs shed</td><td>Storage</td><td>24</td><td>Paid</td></tr><tr class=\"pd-flagged\"><td><b>Meeting hall</b></td><td><b>District assembly</b></td><td><b>0</b></td><td><b>None &mdash; &ldquo;not occupied&rdquo;</b></td></tr><tr class=\"pd-flagged\"><td><b>Granary, upper floor</b></td><td><b>Grain reserve</b></td><td><b>0</b></td><td><b>None &mdash; &ldquo;not occupied&rdquo;</b></td></tr><tr><td>Two houses, riverside</td><td>Dwelling</td><td>12</td><td>Paid</td></tr><tr class=\"pd-flagged\"><td><b>Gatehouse, east</b></td><td><b>District watch</b></td><td><b>0</b></td><td><b>None &mdash; &ldquo;not occupied&rdquo;</b></td></tr></tbody></table><div class=\"pd-total\">Men quartered: 36 &middot; Premises taken: 6 &middot; Premises with no men in them: 3</div><div class=\"pd-clause\"><b class=\"n\">&ldquo;Not occupied.&rdquo;</b> Defined in the return as premises to which the garrison holds the key and in which no man sleeps.</div><div class=\"pd-margin\">Thirty-six men, and the three buildings with nobody in them are the assembly hall, the grain, and the watch house. They did not garrison the district. They took its meeting place, its food and its keys, and left the beds for later. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_tiger_summon_expenditure": {
+      "kind": "addendum",
+      "icon": "🐅",
+      "title": "Expenditure Note — One Summoning, Spent and Not Replaced",
+      "subtitle": "A resource with a count of one, entered as used, with the replacement column blank",
+      "items": [],
+      "articles": [
+        "the_embassy_ambush_and_luigi_interrogation"
+      ],
+      "note": "The party will describe this as a moment. The archive files it as a stores problem.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Expenditure note &middot; non-material</div><div class=\"pd-sub\">Entered against the retrieval account</div></div><dl class=\"pd-meta\"><dt>Held</dt><dd>One. Not divisible.</dd><dt>Expended</dt><dd>Rogueport, at the ambush</dd><dt>Effect</dt><dd>Contact broken. Party extracted.</dd><dt>Replacement</dt><dd>&mdash;</dd><dt>Terms of replacement</dt><dd>Not established. See remark.</dd></dl><div class=\"pd-clause pd-flagged\"><b class=\"n\">Remark.</b> &ldquo;It was given once and the giving was a favour. A second is not a purchase and cannot be requisitioned. It would have to be asked for, which is a different transaction with a different price.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Account effect.</b> The retrieval succeeded. The reserve is nil.</div><div class=\"pd-margin\">They spent their one irreplaceable thing to get out of an ambush that somebody arranged. Whoever tipped the Legion did not need to win the fight. Making the party spend that was the win. &mdash; W.</div>",
+      "stamps": [
+        "noaction"
+      ]
+    },
+    "prop_silence_contract_counterpart": {
+      "kind": "contract",
+      "icon": "🤐",
+      "title": "Silence Contract — The Counterpart Copy, With the Schedule Attached",
+      "subtitle": "Everybody has read the clause. Nobody has read the list at the back.",
+      "items": [
+        "rakka_silence_contract"
+      ],
+      "articles": [
+        "rakka",
+        "the_embassy_ambush_and_luigi_interrogation"
+      ],
+      "note": "The operative clause is famous. The schedule is where the information is.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Counterpart &middot; instrument of silence</div><div class=\"pd-sub\">Executed. Schedule attached and initialled.</div></div><div class=\"pd-clause\"><b class=\"n\">Operative clause.</b> The party of the second part shall not speak, write, or by any sign communicate the matters listed in the schedule, to any person, without limit of time.</div><div class=\"pd-clause\"><b class=\"n\">Schedule &mdash; matters covered.</b></div><table class=\"pd-table\"><thead><tr><th>Item</th><th>Matter</th></tr></thead><tbody><tr><td>i</td><td>The route taken through the Trade Ward</td></tr><tr><td>ii</td><td>The number of persons informed of that route</td></tr><tr class=\"pd-flagged\"><td><b>iii</b></td><td><b>The identity of the person who requested the route in advance</b></td></tr><tr><td>iv</td><td>Any sum paid in connection with items i to iii</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Consideration.</b> Stated as received. Amount not entered on the counterpart.</div><div class=\"pd-margin\">A silence contract tells you what happened by listing what may not be said. Item iii concedes, in writing, that somebody requested the route in advance and that this person has a name. &mdash; W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_district_petition_signatures": {
+      "kind": "letter",
+      "icon": "✍️",
+      "title": "Petition — Rescind the Request, Signed by Rather Fewer Than Expected",
+      "subtitle": "A hundred and forty names, and a note about the ones that are not there",
+      "items": [],
+      "articles": [
+        "national_power_projection",
+        "chief_thornpaw"
+      ],
+      "note": "The interesting part of a petition is always the refusals.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Petition of the district</div><div class=\"pd-sub\">To the recognised authority, for transmission</div></div><div class=\"pd-clause\"><b class=\"n\">Prayer.</b> That the request under which armed men are quartered in this district be rescinded, and the premises returned.</div><dl class=\"pd-meta\"><dt>Signatures</dt><dd>141</dd><dt>Households in district</dt><dd>c. 400</dd><dt>Refused to sign</dt><dd>38, of whom 31 gave the same reason</dd><dt>Not asked</dt><dd>The remainder</dd></dl><div class=\"pd-clause pd-flagged\"><b class=\"n\">Reason given by the thirty-one, recorded once.</b> &ldquo;The grain is in the granary and the garrison has the key.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Circulator&rsquo;s note.</b> Support was strongest in the riverside streets, where men are billeted in houses, and weakest nearest the granary.</div><div class=\"pd-margin\">The people with soldiers sleeping in their front rooms signed. The people near the food did not. Thirty-one households worked out the shape of this before anybody in the file did. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_legion_ward_patrol_book": {
+      "kind": "ledger",
+      "icon": "🛡️",
+      "title": "Patrol Book — The Ward That Stopped Being Patrolled",
+      "subtitle": "The Legion did not increase its presence after the pact. It withdrew.",
+      "items": [],
+      "articles": [
+        "national_power_projection",
+        "the_embassy_ambush_and_luigi_interrogation"
+      ],
+      "note": "Counter-intuitive and entirely documented. The patrols went down, not up.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Patrol book &middot; ward extract</div><div class=\"pd-sub\">Patrols entered per week, twelve weeks</div></div><table class=\"pd-table\"><thead><tr><th>Weeks</th><th>Patrols, Trade Ward</th><th>Patrols, district</th></tr></thead><tbody><tr><td>1&ndash;4</td><td>21, 20, 22, 21</td><td>18, 19, 18, 20</td></tr><tr><td>5&ndash;8</td><td>22, 21, 23, 22</td><td>19, 17, 14, 9</td></tr><tr class=\"pd-flagged\"><td><b>9&ndash;12</b></td><td><b>21, 22, 21, 22</b></td><td><b>4, 2, 1, 0</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Standing instruction, entered week 9.</b> &ldquo;District policed by arrangement. Patrols not required.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Comparison.</b> Trade Ward patrol strength is unchanged throughout.</div><div class=\"pd-margin\">The Legion stopped going in. Not because it lost the district but because it no longer has to walk a street it holds the keys to. Withdrawal is what control looks like once the arrangement is signed. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
     }
   }
 }

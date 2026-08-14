@@ -524,14 +524,45 @@ no sessions — the evidence locker section is simply absent, and the file opens
 on the brief. Every section on the page follows that rule: it renders or it is
 not there, and it never appears empty.
 
-Four stubs already exist and are waiting for their first exhibits:
+### The four stubs have been promoted
 
-| Codename | File | Arc |
-|---|---|---|
-| `THE REGENCY LEDGERS` 🏛️ | `capital_intrigue_file` | Capital intrigue |
-| `THE GOD-TOAD QUESTION` 🍄 | `mushroom_civil_war_file` | Mushroom civil war |
-| `SOMEWHERE TO PUT THEM` 🏠 | `toad_liberation_file` | Toad liberation |
-| `THE FESTIVAL PACT` 🐯 | `rakasha_alliance_file` | Rakasha alliance |
+The four arcs that used to sit under **Opened, awaiting exhibits** now carry a
+full file each. They are the worked example to copy from — every one of them
+went through the twelve steps above, in order.
+
+| Codename | File | Exhibits | Sessions | Threads | Leads |
+|---|---|---:|---:|---:|---:|
+| `THE REGENCY LEDGERS` 🏛️ | `capital_intrigue_file` | 12 | 5 | 5 | 5 |
+| `THE GOD-TOAD QUESTION` 🍄 | `mushroom_civil_war_file` | 12 | 4 | 5 | 5 |
+| `SOMEWHERE TO PUT THEM` 🏠 | `toad_liberation_file` | 12 | 4 | 5 | 5 |
+| `THE FESTIVAL PACT` 🐯 | `rakasha_alliance_file` | 12 | 4 | 5 | 5 |
+
+Promotion is not just adding exhibits. All of it moves together:
+
+1. `status` `stub` → `active`, `classification` → `Open — accreting`, and
+   `opened` stops saying *not yet formally opened*. Add `lastFiled`.
+2. **The brief is rewritten to argue from the evidence.** A stub brief states
+   what the file *will* argue; an active brief states what the paper *does*
+   say, names exhibits in the text, and records where the archivist was wrong.
+   All four of these briefs open by revisiting the stub's own prediction —
+   `capital_intrigue_file` withdraws its complaint, `rakasha_alliance_file`
+   explains why the two-column exercise it promised is impossible.
+3. **Threads grow from one to five.** The original stub thread stays, with its
+   id, and is rewritten in the light of the paper.
+4. **Leads get wired.** Every lead's `exhibits[]` is populated, and any lead
+   the evidence has answered or refuted is closed *with the reason recorded*
+   rather than deleted.
+5. **`relatedEvents` is derived, not typed.** It is the session events plus
+   every `links.events` id, de-duplicated in order.
+6. **`_README.quest_migration` is updated.** A new lead with a `fromQuest`
+   must be added to `promoted_to_leads` and removed from `culled_filler` /
+   `retired_to_log`, or the `#/quest/<id>` redirect will send the reader to the
+   index instead of to the lead that absorbed the quest. The three buckets
+   must still total 73.
+
+The shelf headed **Opened, awaiting exhibits** on `#/investigations` is now
+empty, and empty is the correct state for it: it renders only when a stub
+exists.
 
 ---
 
@@ -542,9 +573,15 @@ that the decision is auditable rather than remembered.
 
 | Bucket | Count | Meaning |
 |---|---:|---|
-| `promoted_to_leads` | 16 | Story-bearing. Now leads inside a file. Old links redirect |
-| `culled_filler` | 27 | The 25 empty `request_*` stubs plus two duplicates. Not surfaced anywhere |
-| `retired_to_log` | 30 | Real content, resolved or dormant. Readable at `#/quest-log`, not presented as live |
+| `promoted_to_leads` | 22 | Story-bearing. Now 30 leads across five files. Old links redirect |
+| `culled_filler` | 26 | Empty `request_*` stubs and duplicates. Not surfaced anywhere |
+| `retired_to_log` | 25 | Real content, resolved or dormant. Readable at `#/quest-log`, not presented as live |
+
+The counts moved when the four stubs were promoted: six quests that had been
+filed as retired or filler turned out to have paper behind them after all, and
+a quest may map to more than one lead. **The three buckets must always total
+73.** If you promote another quest, move its id between buckets rather than
+adding it to a second one.
 
 **Nothing was deleted from `quests.json`.** The triage is a presentation
 decision, not a data deletion, and it can be revised by editing the map.

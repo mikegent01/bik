@@ -10054,7 +10054,7 @@ function view_investigations(){
     </div>
 
     ${section('📂 Open — accreting', 'Files taking new exhibits every session. Click a file to read the documents.', active)}
-    ${section('🗄️ Opened, awaiting exhibits', 'Arcs with a file number and a thesis, but no paper filed yet.', stubs)}
+    ${section('🗄️ Opened, awaiting exhibits', 'Arcs with a file number and a thesis, but no paper filed yet. Empty is the correct state for this shelf.', stubs)}
 
     <div class="card">
       <div class="home-section-head">
@@ -10062,7 +10062,7 @@ function view_investigations(){
         <a class="chip" href="#/quest-log">Open the retired log →</a>
       </div>
       <div class="prose">
-        <p>The board carried seventy-three entries and twenty-five of them had no description at all — a title, a location, a notional reward, nothing else. Sixteen entries that were doing real work have been promoted to <strong>leads</strong> inside the files above. The rest remain readable as campaign history; nothing was deleted.</p>
+        <p>The board carried seventy-three entries and twenty-five of them had no description at all — a title, a location, a notional reward, nothing else. Twenty-two entries that were doing real work have been promoted to <strong>leads</strong> inside the files above, thirty leads between them. The rest remain readable as campaign history; nothing was deleted.</p>
         <p>A board answers <em>what could we do next</em>. The party has never been short of that. An investigation answers <em>what is happening to us</em>.</p>
       </div>
     </div>`;
@@ -15392,7 +15392,7 @@ function view_quests_ledger(filterArg) {
   if (filterArg) currentQuestFilter = filterArg;
 
   const quests = DATA.quests || {};
-  /* Triage applied: the 27 filler entries recorded in investigations.json →
+  /* Triage applied: the filler entries recorded in investigations.json →
      _README.quest_migration.culled_filler are not surfaced. They remain in
      quests.json; this is a presentation decision, not a deletion. */
   const list = Object.values(quests).filter(item => !invCulled(item.id));
@@ -15456,7 +15456,7 @@ function view_quests_ledger(filterArg) {
           <div>
             <h1 style="margin:0;font-size:26px">📋 Retired Quest Log <span class="pill" style="vertical-align:middle">archive only</span></h1>
             <p style="color:var(--muted);font-size:13.5px;margin-top:4px">The old Wario Quest Board, kept read-only as campaign history. Live objectives now live as <b>leads</b> inside
-            <a class="entity-link" onclick="Router.go('#/investigations')">open investigation files</a> — sixteen of these entries were promoted there, the rest are recorded here and nowhere else.
+            <a class="entity-link" onclick="Router.go('#/investigations')">open investigation files</a> — twenty-two of these entries were promoted there, the rest are recorded here and nowhere else.
             Nothing was deleted; the board simply stopped being the place you look.</p>
           </div>
           <a class="chip" href="#/investigations">🔍 Open Investigations →</a>
