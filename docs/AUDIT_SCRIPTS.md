@@ -209,7 +209,7 @@ the craft standard is
 The fourth script, and the second committed one. Where the exhibit audit checks
 that a *document* is well-formed, this one checks that a **case file** is
 well-formed: that its sessions point at real events, that its exhibits point at
-real props, that its ladders can actually be climbed, and that its leads are
+real props, that its rolls can actually be passed, and that its leads are
 leads rather than quests that snuck back in.
 
 ```bash
@@ -228,10 +228,14 @@ No arguments — it reads `Reputation-Matrix2/data/investigations.json` against
 | Exhibit `propId` not in `props.json` | The document area of the reader renders empty. |
 | Exhibit `session` with no `sessions[]` row | The exhibit falls into an untitled group at the bottom of the page. |
 | Exhibit with no `onRecord` | There is nothing to read before rolling, so the reader is asked to gamble on a blank. |
-| Exhibit with no layers, or layer with no title | Nothing to examine, or an unlocked layer with a blank heading. |
-| DCs not ascending | The reader hits the hardest wall first and stops. |
-| A DC above 10 | **Unreachable.** `d6 + 1` caps at 7 and the study bonus adds at most +3. A DC 11 layer is a door with no key. |
-| Malformed `[[roll:…]]` — not exactly four `\|`-separated fields | Renders as literal brackets in the middle of the prose. |
+| Exhibit still carrying `layers[]` | The ladder was replaced by one examination; the data is from the old schema and will not render. |
+| Exhibit with no `analysis` | The examination succeeds and reveals nothing. |
+| Exhibit with no integer `dc` | There is nothing to roll against. |
+| An examination DC above 7 | **Unreachable.** Examination is `d6 + 1`, which caps at 7. There is no study bonus any more — failure is permanent, so an impossible DC is a door with no key. |
+| An insight DC outside 2–6 | Insight is a plain `d6`. Above 6 it can never pass; below 2 it can never fail. |
+| An inline roll missing its success or failure line | A third of readers land on the empty branch, permanently. |
+| Malformed `[[roll:…]]` — not exactly four `\|`-separated fields | Renders as literal brackets in the middle of the prose. Usually a `]` inside the text. |
+| A `visual` containing `class=` | Specimen art must be inline styles only, so it travels with the data instead of leaking into a shared stylesheet. |
 | `links.events` / `links.characters` id that resolves to nothing | The chip silently vanishes from the reader's footer. |
 | A lead with no `why` | It is a quest again. The `why` is the entire difference. |
 | A lead citing an exhibit that exists in no file | Dead chip. |
@@ -241,7 +245,9 @@ No arguments — it reads `Reputation-Matrix2/data/investigations.json` against
 
 | Check | What to do |
 |---|---|
-| XP not ascending with DC | Usually a typo, occasionally deliberate — a cheap layer that happens to be hard. Confirm you meant it. |
+| An exhibit with no inline insight rolls | Nothing in its prose can be investigated. Salt three or four through it. |
+| An exhibit with no `visual` | The reader gets a filing number instead of an object. Draw it. |
+| An examination DC below 2 | It cannot fail, so it is not a roll. |
 | `fromQuest` naming no quest in `quests.json` | The "promoted from the board" pill is claiming a provenance that no longer exists. Fix the id or drop the field. |
 | A lead citing an exhibit filed in another investigation | Legal, and rendered as a cross-file chip that navigates then opens. Confirm the cross-reference is intentional. |
 | `status: active` with no exhibits | Should probably be a stub until the first session is filed. |

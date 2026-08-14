@@ -314,19 +314,21 @@ Edit `Reputation-Matrix2/data/investigations.json`. No JS, no CSS.
 |---|---|---|
 | **Find the arc's file** | match the arc against `arcIds[]` | If no file exists and the arc is genuinely new, start a **stub** — see INVESTIGATIONS.md → *Starting a new file* |
 | **Add the session row** | `sessions[]` | `{ id, label, date, event }`. `event` must be the id of the event you just filed |
-| **Add exhibits** | `exhibits[]` | Two or three per session. Each needs a `propId` that exists in `props.json` from Step 6, a `session` matching the row above, `onRecord`, and **three layers** |
+| **Add exhibits** | `exhibits[]` | Two or three per session. Each needs a `propId` that exists in `props.json` from Step 6, a `session` matching the row above, `onRecord`, an `analysis`, one `dc` (2–7), a few inline `[[roll:…]]` insight checks, and an inline-CSS `visual` |
 | **Attach to a thread** | `threads[]` | If the exhibit touches no existing thread, either it belongs in another file or you have found a new thread. Add threads deliberately |
 | **Convert consequences to leads** | `leads[]` | Write the `why` first. Weak `why` → not a lead |
 | **Bump `lastFiled`** | header | In-world date |
 
-**Layers, not summaries.** DC/XP ascend together — `3/5/7` for ordinary paper,
-`4/6/8` for paper that resists being read. Roll is d6+1; failure costs nothing
-and the layer may be re-examined. XP pays once, on first unlock.
+**Analysis, not summaries.** One examination per exhibit: `d6+1` against one
+`dc` — 3 for paper that wants to be read, 6 for paper that does not. **Rolling
+costs no XP and pays none**, and it resolves permanently: there is no
+re-examining, so write the failure branch of every inline insight roll as
+carefully as the success branch.
 
 The tone rule is the inversion the system exists for: **a lot of Waluigi
 analysis, less story.** The story is already in `events.json`. If a sentence in
-a layer would sit unchanged inside the event article, cut it and write the
-argument instead.
+an `analysis` would sit unchanged inside the event article, cut it and write
+the argument instead.
 
 **Do not write CSS for this step.** An investigation page is assembled from the
 site's ordinary components; the data you add here renders through them

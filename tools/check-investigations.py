@@ -65,19 +65,41 @@ for iv in INV:
             err.append(f"{tag}/{ex['id']}: session {ex['session']} has no sessions[] row")
         if not ex.get('onRecord'):
             err.append(f"{tag}/{ex['id']}: no onRecord — nothing to read before rolling")
-        L = ex.get('layers', [])
-        if not L: err.append(f"{tag}/{ex['id']}: no layers")
-        dcs = [l['dc'] for l in L]
-        if dcs != sorted(dcs): err.append(f"{tag}/{ex['id']}: DCs not ascending {dcs}")
-        if max(dcs or [0]) > 10:
-            err.append(f"{tag}/{ex['id']}: DC {max(dcs)} unreachable (d6+1 caps at 7, +3 study = 10)")
-        xps = [l.get('xp', 0) for l in L]
-        if xps != sorted(xps): warn.append(f"{tag}/{ex['id']}: XP not ascending {xps}")
-        for i, l in enumerate(L):
-            if not l.get('title'): err.append(f"{tag}/{ex['id']}[{i}]: layer has no title")
-            for m in re.findall(r'\[\[roll:([^\]]*)\]\]', l.get('text','')):
-                if len(m.split('|')) != 4:
-                    err.append(f"{tag}/{ex['id']}[{i}]: malformed inline roll [[roll:{m}]]")
+        if 'layers' in ex:
+            err.append(f"{tag}/{ex['id']}: still has layers[] — the ladder was replaced by one examination")
+        if not ex.get('analysis'):
+            err.append(f"{tag}/{ex['id']}: no analysis — nothing for the examination to reveal")
+        dc = ex.get('dc')
+        if not isinstance(dc, int):
+            err.append(f"{tag}/{ex['id']}: no integer dc for the examination")
+        elif dc > 7:
+            err.append(f"{tag}/{ex['id']}: DC {dc} unreachable — the examination is d6+1, which caps at 7")
+        elif dc < 2:
+            warn.append(f"{tag}/{ex['id']}: DC {dc} cannot fail — an automatic roll is not a roll")
+        if 'xp' in ex or any('xp' in str(k) for k in ()):
+            err.append(f"{tag}/{ex['id']}: exhibits do not award XP — rolling buys information, not levels")
+        rolls = 0
+        for field in ('onRecord', 'analysis'):
+            for m in re.findall(r'\[\[roll:([^\]]*)\]\]', ex.get(field, '') or ''):
+                rolls += 1
+                parts = m.split('|')
+                if len(parts) != 4:
+                    err.append(f"{tag}/{ex['id']}/{field}: malformed inline roll [[roll:{m}]]")
+                    continue
+                try: rdc = int(parts[0])
+                except ValueError:
+                    err.append(f"{tag}/{ex['id']}/{field}: inline roll DC {parts[0]!r} is not a number")
+                    continue
+                if not 2 <= rdc <= 6:
+                    err.append(f"{tag}/{ex['id']}/{field}: inline roll DC {rdc} out of range — insight is a plain d6")
+                if not parts[2].strip() or not parts[3].strip():
+                    err.append(f"{tag}/{ex['id']}/{field}: inline roll needs both a success and a failure line")
+        if not rolls:
+            warn.append(f"{tag}/{ex['id']}: no inline insight rolls — nothing in the prose to investigate")
+        if not ex.get('visual'):
+            warn.append(f"{tag}/{ex['id']}: no visual — the exhibit has no specimen art")
+        elif 'class=' in ex['visual']:
+            err.append(f"{tag}/{ex['id']}: visual uses a class — specimen art must be inline styles only")
         for k, pool in (('events',EVENTS), ('characters',CHARS)):
             for v in (ex.get('links') or {}).get(k, []):
                 if v not in pool: err.append(f"{tag}/{ex['id']}: links.{k} → unknown id {v}")
@@ -100,11 +122,10 @@ LAYOUT = ('padding','border-radius','display:grid','display:flex','linear-gradie
 for sel, body in re.findall(r'(\.inv-[a-z0-9-]+[^{]*)\{([^}]*)\}', CSS):
     root = re.match(r'\.inv-[a-z0-9-]+', sel.strip()).group(0)
     # The components this system legitimately owns, because the site has no
-    # equivalent: the examination accordion, the dice, the pip strip, the
-    # inline rolls, the overlay host, the evidence-locker session divider and
-    # the lead block. Everything else must reuse a site class.
-    if root in ('.inv-layer','.inv-layer-head','.inv-layer-body','.inv-layer-n',
-                '.inv-layer-title','.inv-roll-out','.inv-die','.inv-pips',
+    # equivalent: the examination block, the dice, the inline rolls, the
+    # overlay host, the evidence-locker session divider and the lead block.
+    # Everything else must reuse a site class.
+    if root in ('.inv-exam','.inv-roll-out','.inv-die',
                 '.inv-inline-roll','.inv-inline-out','.inv-overlay',
                 '.inv-session-head','.inv-lead'): continue
     if any(k in body.replace(' ','') for k in LAYOUT):
@@ -115,9 +136,10 @@ for cls in sorted(set(re.findall(r'\.(inv-[a-z0-9-]+)', CSS))):
         warn.append(f"investigations.css: `.{cls}` is never used by index.html")
 
 n_ex = sum(len(i.get('exhibits',[])) for i in INV)
-n_l  = sum(len(l.get('layers',[])) for i in INV for l in i.get('exhibits',[]))
-xp   = sum(l.get('xp',0) for i in INV for e in i.get('exhibits',[]) for l in e.get('layers',[]))
-print(f"files: {len(INV)}  exhibits: {n_ex}  layers: {n_l}  XP: {xp}")
+n_roll = sum(len(re.findall(r'\[\[roll:', (e.get('onRecord','') or '') + (e.get('analysis','') or '')))
+             for i in INV for e in i.get('exhibits',[]))
+n_vis = sum(1 for i in INV for e in i.get('exhibits',[]) if e.get('visual'))
+print(f"files: {len(INV)}  exhibits: {n_ex}  examinations: {n_ex}  insight rolls: {n_roll}  visuals: {n_vis}")
 for e in err:  print('  ERROR  ', e)
 for w in warn: print('  warn   ', w)
 print(f"\n{len(err)} error(s), {len(warn)} warning(s)")

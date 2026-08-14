@@ -10,8 +10,9 @@
    (.exhibit-overlay / -frame / -bar / -stage / -foot / .pd-*).
 
    This stylesheet therefore contains ONLY what the site had no word for:
-   the examination accordion, the roll output and die, the pip strip, the
-   inline rollable spans, and the two pill colour variants (status, priority).
+   the roll output and die, the inline rollable spans, and the two pill colour
+   variants (status, priority). Exhibit specimen art is drawn with inline
+   styles in the data file, so it needs nothing here.
    If you find yourself adding a card/grid/tab rule here, use the site class
    instead — that divergence is exactly what this rewrite removed.
    ========================================================================== */
@@ -26,12 +27,6 @@
 .pill.inv-pri--high{color:#f39c12;border-color:rgba(243,156,18,.5)}
 .pill.inv-pri--medium{color:#3498db;border-color:rgba(52,152,219,.5)}
 .pill.inv-pri--low{color:var(--muted)}
-
-/* ---------- pip strip: how much of an exhibit has been read -------------- */
-/* Sits inside an .arttile .tmeta row alongside ordinary pills. */
-.inv-pips{display:inline-flex;gap:4px;align-items:center}
-.inv-pips .pip{width:20px;height:5px;border-radius:3px;background:var(--border);display:block}
-.inv-pips .pip.on{background:var(--accent2)}
 
 /* ---------- session divider inside the evidence locker ------------------- */
 /* The locker is one continuous run of exhibits; this is the rule that says
@@ -55,22 +50,13 @@
 .inv-lead .wnote{margin:8px 0 0}
 .inv-lead .chips{margin-top:9px}
 
-/* ---------- the examination accordion ------------------------------------ */
-/* One collapsible block per layer, inside the reader's Examination card. */
-.inv-layer{border:1px solid var(--border);border-radius:10px;margin-top:10px;overflow:hidden;background:var(--bg2)}
-.inv-layer-head{display:flex;align-items:center;gap:9px;padding:10px 13px;flex-wrap:wrap}
-.inv-layer-n{
-  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;
-  font-weight:900;letter-spacing:.1em;color:var(--muted);
-}
-.inv-layer-title{font-weight:800;font-size:13.5px;flex:1;min-width:160px}
-.inv-layer-head .chip[disabled]{opacity:.5;cursor:not-allowed}
-.inv-layer-body{padding:0 13px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
-.inv-layer.open .inv-layer-body{max-height:4000px;padding:2px 13px 13px}
-.inv-layer.unlocked{border-color:var(--accent2)}
-.inv-layer.locked .inv-layer-title{color:var(--muted)}
-.inv-layer .prose{font-size:14.5px;max-width:none}
-.inv-layer .prose p:first-of-type{font-size:14.5px}
+/* ---------- the examination block ---------------------------------------
+   One roll per exhibit, so there is no accordion any more: either the reading
+   is on the table or it is not. */
+.inv-exam .prose{font-size:14.5px;max-width:none}
+.inv-exam .prose p:first-of-type{font-size:14.5px}
+.inv-exam .prose h2{font-size:15px;margin:18px 0 6px;letter-spacing:.01em}
+.inv-exam .prose h2:first-child{margin-top:2px}
 
 /* ---------- roll output + die -------------------------------------------- */
 .inv-roll-out{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;padding:8px 0;line-height:1.6}
@@ -88,15 +74,22 @@
 }
 .inv-die.rolling{animation:inv-tumble .55s ease-in-out}
 
-/* ---------- inline rollable spans inside analysis prose ------------------ */
+/* ---------- inline rollable spans inside prose ---------------------------
+   The archiecourtcase treatment: tinted background, dashed underline, italic
+   bold, pointer. Once rolled it reverts to ordinary body text so a resolved
+   passage reads as prose rather than as an exhausted button. */
 .inv-inline-roll{
-  border-bottom:1px dashed var(--accent2);cursor:help;color:var(--accent2);font-weight:600;
+  background:rgba(138,75,255,.14);border-bottom:1px dashed var(--accent2);
+  color:var(--accent2);font-weight:700;font-style:italic;cursor:pointer;
 }
-.inv-inline-roll:hover{background:rgba(138,75,255,.12)}
-.inv-inline-roll.rolled{border-bottom-style:solid;cursor:default;opacity:.75}
-.inv-inline-out{font-size:12.5px;font-style:italic;margin-left:4px}
+.inv-inline-roll:hover{background:rgba(138,75,255,.26)}
+.inv-inline-roll.rolled{
+  background:none;border-bottom:none;color:inherit;font-weight:inherit;
+  font-style:inherit;cursor:default;
+}
+.inv-inline-out{font-size:12.5px;font-style:italic}
 .inv-inline-out .ok{color:var(--green,#2ecc71)}
-.inv-inline-out .no{color:var(--danger)}
+.inv-inline-out .no{color:var(--muted)}
 
 /* ---------- exhibit reader: the shared prop overlay, opened by JS -------- */
 /* exhibits.css styles the overlay; it expects to exist only while open, but
@@ -111,6 +104,5 @@
 .inv-overlay .exhibit-stage .pd{margin:0 auto 14px}
 
 @media print{
-  .inv-layer-head .chip{display:none !important}
-  .inv-layer-body{max-height:none !important;padding:2px 13px 13px !important}
+  .inv-exam .chip{display:none !important}
 }

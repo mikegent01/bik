@@ -9814,54 +9814,51 @@ function invState(){
   catch(e){ return {}; }
 }
 function invSave(s){ try { localStorage.setItem(INV_STORE_KEY, JSON.stringify(s)); } catch(e){} }
-function invUnlocked(invId, exId, li){
+/* Two verdict stores, both keyed off the archiecourtcase model:
+     exam[exhibitId]      -> 'success' | 'failure'   (one examination per exhibit)
+     insight[rollId]      -> 'success' | 'failure'   (one roll per inline span)
+   A verdict is written once and then replayed on every render. Nothing here is
+   re-rollable and nothing here costs or awards XP — a roll buys information,
+   which is the only currency this system has. Clearing the file is the only
+   way back, and that is a deliberate, confirmed action. */
+function invBucket(invId){
   const s = invState();
-  return !!(s[invId] && s[invId].unlocked && s[invId].unlocked[exId + ':' + li]);
+  const b = s[invId] || {};
+  return { exam: b.exam || {}, insight: b.insight || {} };
 }
-function invUnlock(invId, exId, li, xp){
-  const s = invState();
-  s[invId] = s[invId] || { unlocked:{}, xp:0, rolls:0 };
-  const k = exId + ':' + li;
-  if(!s[invId].unlocked[k]){
-    s[invId].unlocked[k] = true;
-    s[invId].xp = (s[invId].xp || 0) + (xp || 0);
-  }
-  invSave(s);
+function invVerdict(invId, kind, key){
+  return invBucket(invId)[kind][key] || null;
 }
-/* Persistence bonus: DC-8 layers cannot be beaten by a single d6+1 (max 7).
-   That is deliberate — the hardest paper does not give way on one reading — but
-   it must not be a dead end. Each failed examination of a layer leaves a
-   +1 study bonus on that layer, capped at +3, so a reader who keeps coming back
-   always gets there. Nothing is consumed; the bonus is per layer, not global. */
-function invFails(invId, exId, li){
+function invRecord(invId, kind, key, verdict){
   const s = invState();
-  return (s[invId] && s[invId].fails && s[invId].fails[exId + ':' + li]) || 0;
-}
-function invStudyBonus(invId, exId, li){ return Math.min(invFails(invId, exId, li), 3); }
-function invCountFail(invId, exId, li){
-  const s = invState();
-  s[invId] = s[invId] || { unlocked:{}, xp:0, rolls:0 };
-  s[invId].fails = s[invId].fails || {};
-  const k = exId + ':' + li;
-  s[invId].fails[k] = (s[invId].fails[k] || 0) + 1;
-  invSave(s);
-}
-function invCountRoll(invId){
-  const s = invState();
-  s[invId] = s[invId] || { unlocked:{}, xp:0, rolls:0 };
-  s[invId].rolls = (s[invId].rolls || 0) + 1;
+  const b = s[invId] = s[invId] || {};
+  b[kind] = b[kind] || {};
+  if(!b[kind][key]) b[kind][key] = verdict;
   invSave(s);
 }
 function invProgress(iv){
-  const s = invState()[iv.id] || { unlocked:{}, xp:0, rolls:0 };
-  const layers = (iv.exhibits || []).reduce((n,e) => n + (e.layers || []).length, 0);
-  const done = Object.keys(s.unlocked || {}).length;
-  const total = (iv.exhibits || []).reduce((n,e) => n + (e.layers||[]).reduce((m,l) => m + (l.xp||0), 0), 0);
-  return { layers, done, xp: s.xp || 0, totalXp: total, rolls: s.rolls || 0,
-           pct: layers ? Math.round(done * 100 / layers) : 0 };
+  const b = invBucket(iv.id);
+  const exhibits = (iv.exhibits || []).length;
+  const read = (iv.exhibits || []).filter(e => b.exam[e.id] === 'success').length;
+  const attempted = (iv.exhibits || []).filter(e => b.exam[e.id]).length;
+  const insights = Object.keys(b.insight).length;
+  const found = Object.keys(b.insight).filter(k => b.insight[k] === 'success').length;
+  return { exhibits, read, attempted, insights, found,
+           pct: exhibits ? Math.round(read * 100 / exhibits) : 0 };
 }
 function invExhibitDone(iv, ex){
-  return (ex.layers || []).every((l,i) => invUnlocked(iv.id, ex.id, i));
+  return invVerdict(iv.id, 'exam', ex.id) === 'success';
+}
+function invRollTokens(t){
+  const m = String(t||'').match(/\[\[roll:/g);
+  return m ? m.length : 0;
+}
+function invInsightCount(ex){
+  return invRollTokens(ex.onRecord) + invRollTokens(ex.analysis);
+}
+function invInsightFound(iv, ex){
+  const b = invBucket(iv.id).insight;
+  return Object.keys(b).filter(k => k.indexOf(ex.id + ':') === 0 && b[k] === 'success').length;
 }
 
 /* ---------- dice ----------
@@ -9943,9 +9940,9 @@ function view_investigations(){
     const p = invProgress(iv);
     a.exhibits += (iv.exhibits||[]).length;
     a.leads    += (iv.leads||[]).length;
-    a.layers   += p.layers; a.done += p.done; a.xp += p.xp; a.totalXp += p.totalXp;
+    a.read += p.read; a.found += p.found;
     return a;
-  }, { exhibits:0, leads:0, layers:0, done:0, xp:0, totalXp:0 });
+  }, { exhibits:0, leads:0, read:0, found:0 });
 
   const tile = iv => {
     const p = invProgress(iv);
@@ -9959,8 +9956,8 @@ function view_investigations(){
         <span class="pill inv-status--${esc(iv.status)}">${esc(iv.status)}</span>
         ${nEx ? `<span class="pill pill-exhibit">🗂️ ${nEx} exhibit${nEx===1?'':'s'}</span>` : ''}
         <span class="pill">${nLead} lead${nLead===1?'':'s'}</span>
-        ${p.layers ? `<span class="pill border-accent">${p.done}/${p.layers} examined</span>` : ''}
-        ${p.xp ? `<span class="pill xp-pill">✦ ${p.xp.toLocaleString()} XP</span>` : ''}
+        ${p.read ? `<span class="pill border-accent">${p.read}/${p.exhibits} read</span>` : ''}
+        ${p.found ? `<span class="pill">${p.found} insight${p.found===1?'':'s'}</span>` : ''}
       </div>
     </div>`;
   };
@@ -9982,9 +9979,9 @@ function view_investigations(){
         <div class="species-stat"><b>${list.length}</b>Open Files</div>
         <div class="species-stat"><b>${totals.exhibits}</b>Exhibits Filed</div>
         <div class="species-stat"><b>${totals.leads}</b>Live Leads</div>
-        <div class="species-stat"><b>${totals.totalXp.toLocaleString()}</b>XP In The Paperwork</div>
+        <div class="species-stat"><b>${totals.read}</b>Exhibits Read Closely</div>
       </div>
-      <p style="color:var(--muted);margin-top:8px">One open file per arc, instead of seventy-three errands. Exhibits accrete as sessions are played; each one is a physical article with a chain of custody. Examining an exhibit is a roll, because analysis is a skill and the archive is not going to pretend otherwise — deeper layers cost more and pay more.</p>
+      <p style="color:var(--muted);margin-top:8px">One open file per arc, instead of seventy-three errands. Exhibits accrete as sessions are played; each one is a physical article with a chain of custody. Examining an exhibit is a roll, because analysis is a skill and the archive is not going to pretend otherwise. Rolling costs nothing and buys nothing but information — and it happens once.</p>
       <div class="wnote mt-12"><b>Waluigi's note:</b> Do not believe me. Roll against the paper. The paper does not want anything from you, which is more than can be said for anyone else in this campaign.</div>
       <div class="chips mt-12">
         <button class="chip active" onclick="Router.go('#/investigations')">🔍 Open Files (${active.length})</button>
@@ -10054,18 +10051,17 @@ function view_investigation(id){
         ? ` · <a class="entity-link" onclick="openId('${esc(s.event)}')">open the session record →</a>` : '';
       const tiles = groups[sid].map(ex => {
         const done = invExhibitDone(iv, ex);
-        const n = (ex.layers||[]).length;
-        const got = (ex.layers||[]).filter((l,i) => invUnlocked(iv.id, ex.id, i)).length;
-        const pips = (ex.layers||[]).map((l,i) => `<i class="pip ${invUnlocked(iv.id,ex.id,i)?'on':''}"></i>`).join('');
+        const verdict = invVerdict(iv.id, 'exam', ex.id);
+        const nIns = invInsightCount(ex);
+        const gotIns = invInsightFound(iv, ex);
         return `<div class="arttile" onclick="invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')" style="border-left-color:${done?'var(--green)':esc(iv.accent||'var(--accent)')}">
           <div style="font-size:32px">${esc(ex.icon||'📄')}</div>
           <div class="tt">${esc(ex.title)}</div>
           <div class="tsub">◆ ${esc(ex.kind||'document')}${ex.custody?` · custody: ${esc(ex.custody)}`:''}</div>
           <div class="tsum">${esc(ex.secured||'')}</div>
           <div class="tmeta">
-            <span class="inv-pips" title="${got} of ${n} analyses unlocked">${pips}</span>
-            <span class="pill ${done?'border-accent':''}">${got}/${n} examined</span>
-            ${done?'<span class="pill pill-exhibit">fully read</span>':''}
+            <span class="pill ${done?'border-accent':''}">${verdict ? (done?'examined':'examination failed') : 'unexamined'}</span>
+            ${nIns?`<span class="pill">${gotIns}/${nIns} insights</span>`:''}
           </div>
         </div>`;
       }).join('');
@@ -10151,23 +10147,23 @@ function view_investigation(id){
         ${iv.classification?`<span class="pill">${esc(iv.classification)}</span>`:''}
         <span class="pill">${(iv.exhibits||[]).length} exhibit${(iv.exhibits||[]).length===1?'':'s'}</span>
         <span class="pill">${(iv.leads||[]).length} lead${(iv.leads||[]).length===1?'':'s'}</span>
-        ${p.xp?`<span class="pill xp-pill">✦ ${p.xp.toLocaleString()} XP earned</span>`:''}
+        ${p.found?`<span class="pill">${p.found} insight${p.found===1?'':'s'} found</span>`:''}
       </div>
 
       ${iv.hook?`<div class="article-lead-card noimg"><div class="article-lead-summary">
         <h4>The Hook</h4><p>${esc(iv.hook)}</p></div></div>`:''}
       ${iv.imageCaption?`<p class="imgcap">${esc(iv.imageCaption)}</p>`:''}
 
-      ${p.layers ? `
+      ${p.exhibits ? `
       <div class="species-stats">
-        <div class="species-stat"><b>${p.done}/${p.layers}</b>Analyses Unlocked</div>
-        <div class="species-stat"><b>${p.xp.toLocaleString()}</b>XP Earned Here</div>
-        <div class="species-stat"><b>${p.totalXp.toLocaleString()}</b>XP Available</div>
-        <div class="species-stat"><b>${p.rolls}</b>Examinations Rolled</div>
+        <div class="species-stat"><b>${p.read}/${p.exhibits}</b>Exhibits Read</div>
+        <div class="species-stat"><b>${p.attempted}</b>Examined So Far</div>
+        <div class="species-stat"><b>${p.found}</b>Insights Found</div>
+        <div class="species-stat"><b>${p.insights}</b>Insight Checks Taken</div>
       </div>
       <div class="xpbar"><span style="width:${p.pct}%"></span></div>
       <div style="display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)">
-        <span>${p.pct}% of this file has been read closely.</span>
+        <span>${p.pct}% of this file has been read closely. Rolls are permanent.</span>
         <a class="entity-link" onclick="invReset('${esc(iv.id)}')">Reset this file's progress</a>
       </div>` : ''}
 
@@ -10234,19 +10230,20 @@ function invOpenExhibit(invId, exId){
     ? propDocumentHtml(ex.propId) : '';
 
   body.innerHTML = `
+    ${ex.visual ? `<div class="card" style="padding:14px">${ex.visual}</div>` : ''}
     <div class="card">
       <div class="home-section-head">
-        <div><h2>🗂️ On the record, without rolling</h2><p>What the file can assert about this exhibit before anybody analyses anything.</p></div>
+        <div><h2>🗂️ On the record</h2><p>What the file can assert before anybody analyses anything. Underlined phrases are <b>insight checks</b> — click one to read further into it.</p></div>
       </div>
-      <p style="margin:0;font-size:14px;line-height:1.7">${esc(ex.onRecord||'')}</p>
+      <div class="prose">${invAnalysis(iv, ex, 'rec', ex.onRecord||'')}</div>
     </div>
     ${paper}
     <div class="card">
       <div class="home-section-head">
-        <div><h2>🔬 Examination</h2><p>d6+1 against the difficulty. Failure is not a locked door — the paper is still on the table tomorrow, and every failed reading leaves a <b>+1 study bonus</b> on that layer, up to +3. Each layer pays its XP once, on first unlock.</p></div>
-        <span class="pill">${(ex.layers||[]).length} layer${(ex.layers||[]).length===1?'':'s'}</span>
+        <div><h2>🔬 Examination</h2><p>One reading, d6+1 against the difficulty. It costs nothing and it is not repeatable — whatever the dice say is what this file says from now on.</p></div>
+        <span class="pill">DC ${ex.dc || 4}</span>
       </div>
-      <div id="invLayers">${(ex.layers||[]).map((l,i) => invLayerHtml(iv, ex, l, i)).join('')}</div>
+      <div id="invExam">${invExamHtml(iv, ex)}</div>
     </div>`;
 
   host.classList.add('show');
@@ -10255,90 +10252,87 @@ function invOpenExhibit(invId, exId){
   document.addEventListener('keydown', window.__invEsc);
 }
 
-function invLayerHtml(iv, ex, l, i){
-  const unlocked = invUnlocked(iv.id, ex.id, i);
-  const prevOk = i === 0 || invUnlocked(iv.id, ex.id, i-1);
-  const locked = !unlocked && !prevOk;
-  const tries = invFails(iv.id, ex.id, i);
-  const bonus = invStudyBonus(iv.id, ex.id, i);
-  return `<div class="inv-layer ${unlocked?'unlocked open':''} ${locked?'locked':''}" id="invL_${esc(ex.id)}_${i}">
-    <div class="inv-layer-head">
-      <span class="inv-layer-n">LAYER ${i+1}</span>
-      <span class="inv-layer-title">${unlocked ? esc(l.title) : (locked ? 'Sealed — examine the previous layer first' : 'Unexamined')}</span>
-      <span class="pill">DC ${l.dc}</span>
-      <span class="pill xp-pill">✦ ${l.xp} XP</span>
-      ${unlocked
-        ? '<span class="pill border-accent" style="color:var(--green)">unlocked</span>'
-        : `${bonus ? `<span class="pill" title="Study bonus earned by re-reading">+${bonus} study</span>` : ''}<button class="chip active" ${locked?'disabled':''} onclick="invExamine('${esc(iv.id)}','${esc(ex.id)}',${i})">🎲 ${tries ? 'Examine again' : 'Examine'}</button>`}
-    </div>
-    <div class="inv-layer-body">
-      <div class="inv-roll-out" id="invOut_${esc(ex.id)}_${i}"></div>
-      ${unlocked ? `<div class="prose">${invAnalysis(l.text)}</div>` : ''}
-    </div>
+/* ---------- examination ----------
+   One roll per exhibit. d6+1 vs the exhibit DC, no bonuses, no cost, no XP.
+   The verdict is stored the first time it is taken and replayed forever after,
+   so an exhibit reads the same on the tenth visit as it did on the first. */
+function invExamHtml(iv, ex){
+  const verdict = invVerdict(iv.id, 'exam', ex.id);
+  if(!verdict){
+    return `<div class="inv-exam">
+      <p class="text-muted" style="margin:0 0 10px">The archivist's reading of this exhibit has not been attempted.</p>
+      <button class="chip active" onclick="invExamine('${esc(iv.id)}','${esc(ex.id)}')">🎲 Examine</button>
+    </div>`;
+  }
+  if(verdict === 'failure'){
+    return `<div class="inv-exam">
+      <div class="inv-roll-out"><span class="no">The examination failed.</span>
+        <span class="text-muted">Whatever this page had to say, this file did not get it out of it.</span></div>
+      <p class="text-muted" style="margin:10px 0 0;font-size:13px">The insight checks above and in any unlocked passage still stand on their own.</p>
+    </div>`;
+  }
+  return `<div class="inv-exam">
+    <div class="inv-roll-out"><span class="ok">Examination succeeded — the archivist's full reading follows.</span></div>
+    <div class="prose">${invAnalysis(iv, ex, 'an', ex.analysis||'')}</div>
   </div>`;
 }
 
-/* analysis prose + inline rollable spans marked [[roll:DC|text|success|failure]] */
-function invAnalysis(t){
+function invExamine(invId, exId){
+  const iv = invGet(invId); if(!iv) return;
+  const ex = (iv.exhibits||[]).find(e => e.id === exId); if(!ex) return;
+  if(invVerdict(invId, 'exam', exId)) return;
+
+  invDiceSound();
+  const dc = ex.dc || 4;
+  const roll = invRollD6();
+  const total = roll + 1;
+  const ok = total >= dc;
+  invRecord(invId, 'exam', exId, ok ? 'success' : 'failure');
+
+  const host = document.getElementById('invExam');
+  if(host){
+    host.innerHTML = `<div class="inv-roll-out">Evidence analysis · d6+1 vs DC ${dc} …
+      <span class="inv-die rolling">${roll}</span> + 1 = <b>${total}</b></div>`;
+    setTimeout(() => { host.innerHTML = invExamHtml(iv, ex); }, 620);
+  }
+}
+
+/* ---------- prose + inline insight rolls ----------
+   [[roll:DC|text|success|failure]] anywhere in onRecord or analysis becomes a
+   clickable span. Each one gets a stable id built from the exhibit, the field
+   and its ordinal, so a stored verdict can be replayed on the next render. */
+function invAnalysis(iv, ex, field, t){
   let n = 0;
-  const html = invProse(t);
-  return html.replace(/\[\[roll:(\d+)\|([^|]+)\|([^|]+)\|([^\]]+)\]\]/g, (m, dc, text, ok, no) =>
-    `<span class="inv-inline-roll" data-dc="${dc}" data-ok="${esc(ok)}" data-no="${esc(no)}"
-       onclick="invInlineRoll(this)" title="Insight check — DC ${dc}">${esc(text)}</span>`);
+  return invProse(t).replace(/\[\[roll:(\d+)\|([^|]+)\|([^|]+)\|([^\]]+)\]\]/g, (m, dc, text, ok, no) => {
+    const rid = ex.id + ':' + field + ':' + (n++);
+    const verdict = invVerdict(iv.id, 'insight', rid);
+    const span = `<span class="inv-inline-roll${verdict?' rolled':''}" data-inv="${esc(iv.id)}" data-rid="${esc(rid)}"
+       data-dc="${dc}" data-ok="${esc(ok)}" data-no="${esc(no)}"
+       ${verdict?'':`onclick="invInlineRoll(this)" title="Insight check — DC ${dc}"`}>${esc(text)}</span>`;
+    return verdict ? span + invInlineOut(verdict === 'success' ? ok : no, verdict === 'success') : span;
+  });
+}
+function invInlineOut(text, ok){
+  return ` <span class="inv-inline-out"><span class="${ok?'ok':'no'}">[Insight: ${esc(text)}]</span></span>`;
 }
 
 function invInlineRoll(node){
   if(node.classList.contains('rolled')) return;
+  const invId = node.dataset.inv, rid = node.dataset.rid;
+  if(invVerdict(invId, 'insight', rid)) return;
   invDiceSound();
   const dc = parseInt(node.dataset.dc, 10);
   const roll = invRollD6();
   const ok = roll >= dc;
+  invRecord(invId, 'insight', rid, ok ? 'success' : 'failure');
   const out = document.createElement('span');
   out.className = 'inv-inline-out';
-  out.innerHTML = ` <span class="${ok?'ok':'no'}">(d6 ${roll} vs DC ${dc}) ${esc(ok ? node.dataset.ok : node.dataset.no)}</span>`;
+  out.innerHTML = `<span class="${ok?'ok':'no'}">[Insight: ${esc(ok ? node.dataset.ok : node.dataset.no)}]</span>`;
   node.parentNode.insertBefore(out, node.nextSibling);
+  node.parentNode.insertBefore(document.createTextNode(' '), out);
   node.classList.add('rolled');
-}
-
-function invExamine(invId, exId, i){
-  const iv = invGet(invId); if(!iv) return;
-  const ex = (iv.exhibits||[]).find(e => e.id === exId); if(!ex) return;
-  const l = (ex.layers||[])[i]; if(!l) return;
-
-  invDiceSound();
-  invCountRoll(invId);
-
-  const bonus = invStudyBonus(invId, exId, i);
-  const roll = invRollD6();
-  const total = roll + 1 + bonus;
-  const ok = total >= l.dc;
-  const wrap = document.getElementById('invL_' + exId + '_' + i);
-  const out  = document.getElementById('invOut_' + exId + '_' + i);
-  if(wrap) wrap.classList.add('open');
-  if(!ok) invCountFail(invId, exId, i);
-  const nextBonus = Math.min(bonus + 1, 3);
-  if(out){
-    out.innerHTML = `Evidence analysis · d6+1${bonus?` +${bonus} study`:''} vs DC ${l.dc} …
-      <span class="inv-die rolling">${roll}</span> + 1${bonus?` + ${bonus}`:''} = <b>${total}</b> — ` +
-      (ok ? `<span class="ok">Success. Further analysis unlocked.</span>`
-          : `<span class="no">No new insight this time.</span> <span class="text-muted">The paper is still on the table.</span>` +
-            (nextBonus > bonus ? ` <span class="text-muted">Re-reading it earns a <b>+${nextBonus}</b> study bonus on the next examination.</span>` : ''));
-  }
-  if(ok){
-    invUnlock(invId, exId, i, l.xp);
-    setTimeout(() => {
-      if(wrap){
-        wrap.outerHTML = invLayerHtml(iv, ex, l, i);
-        const nl = (ex.layers||[])[i+1];
-        if(nl){
-          const nw = document.getElementById('invL_' + exId + '_' + (i+1));
-          if(nw) nw.outerHTML = invLayerHtml(iv, ex, nl, i+1);
-        }
-        const o2 = document.getElementById('invOut_' + exId + '_' + i);
-        if(o2 && out) o2.innerHTML = out.innerHTML;
-      }
-    }, 620);
-  }
+  node.removeAttribute('onclick');
+  node.onclick = null;
 }
 
 function invCloseExhibit(){
@@ -10353,7 +10347,7 @@ function invCloseExhibit(){
 }
 
 function invReset(invId){
-  if(!confirm('Reset this file? All unlocked analyses and XP for it are cleared from this browser.')) return;
+  if(!confirm('Reset this file? Every examination and insight roll recorded for it is cleared from this browser, and the dice start again from nothing.')) return;
   const s = invState(); delete s[invId]; invSave(s);
   view_investigation(invId);
 }

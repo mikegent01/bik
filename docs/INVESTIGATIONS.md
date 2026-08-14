@@ -12,15 +12,16 @@ The question the party is short of is **what is happening to us**. That question
 is not answered by a list. It is answered by paper.
 
 > **One investigation per arc. It accretes.**
-> Sessions add exhibits. Exhibits carry layered analysis behind dice rolls.
-> Rolling pays XP. Objectives that survive become **leads** inside the file.
+> Sessions add exhibits. Exhibits carry analysis behind a die.
+> Rolling costs nothing and pays nothing but information, and it happens once.
+> Objectives that survive become **leads** inside the file.
 
 | | Old | New |
 |---|---|---|
 | Unit | A quest | An investigation (one per arc) |
 | Growth | New quests are appended forever | The same file gets new exhibits |
-| Reward | A flat listed reward | XP, paid per analysis layer, once |
-| Reader action | Read a description | **Roll d6+1 against a DC and read further** |
+| Reward | A flat listed reward | Information. Rolling costs and pays no XP |
+| Reader action | Read a description | **Roll once against a DC and read further — or don't, permanently** |
 | Balance | Story summary | **Heavy Waluigi analysis, light story prose** |
 | Route | `#/quests` | `#/investigations` |
 
@@ -97,8 +98,10 @@ map and its link starts resolving to the right file.
   "title": "The key Morel threw",
   "secured": "Recovered 23 Harvestide, Feyward attic corridor",
   "custody": "Party — Toad Lee",
+  "visual": "<div style=…>…</div>",   // inline-CSS specimen art, no classes
   "onRecord": "What anyone can see without rolling.",
-  "layers": [ … ],
+  "dc": 4,                            // the one examination DC, 2–7
+  "analysis": "The archivist's full reading. `## ` starts a subheading.",
   "links": { "events": [], "items": [], "characters": [] }
 }
 ```
@@ -108,16 +111,30 @@ map and its link starts resolving to the right file.
 not resolve is silently dropped from the cross-reference chips, which is worse
 than an error because you will not notice.
 
-### Layer
+### Visual
 
-```jsonc
-{ "dc": 5, "xp": 70, "category": "discovery", "title": "…", "text": "…" }
-```
+Every exhibit carries a `visual`: a small CSS drawing of the thing itself — the
+key in flight, the struck salvage return, the mirror with one fragment refitted.
 
-- Layers are **ordered**. Layer *n+1* is sealed until layer *n* is unlocked.
-- `category` is one of `discovery`, `magic`, `stealth`, `loyalty` — the same
-  four the XP leaderboard colours.
-- `text` is the analysis. This is where the writing lives.
+It is **inline styles only**. No class attribute, no stylesheet rule, no ASCII.
+The audit rejects a `visual` containing `class=`. The reason is the same one
+that governs prop `body` markup in `props.json`: art that belongs to one
+specific exhibit belongs in the data next to that exhibit, not as a permanent
+rule in a shared stylesheet that every future page has to carry.
+
+Compose from primitives — positioned `div`s, borders, `border-radius`,
+gradients, `transform:rotate`. If you find yourself needing a real image, the
+exhibit probably wants a prop document instead.
+
+### Analysis
+
+`analysis` is one prose field, revealed whole by a single successful
+examination. Use `## ` at the start of a paragraph for a subheading; that is
+how the old layer titles survive as structure inside the reading.
+
+This replaced a three-layer ladder with per-layer DCs and XP. The ladder is
+gone: it made the reader roll five times to finish a paragraph, and it turned
+reading into farming.
 
 ### Lead
 
@@ -143,23 +160,33 @@ file can prove, it is not a lead. Put it in the log and move on.
 
 ## Dice
 
-Examination is **d6 + 1 against the layer DC**, matching the roll in
-`archiecourtcase/dice.js`, which is where this interaction came from.
+Both rolls are taken from `archiecourtcase/dice.js`, which is where this
+interaction came from. **Neither costs XP and neither awards it.** A roll buys
+information. That is the only thing it buys, and it is enough.
 
-- Failure is **not a locked door**. Nothing is consumed. The button says
-  Examine again and the paper is still on the table tomorrow.
-- XP is awarded **once per layer, on first unlock**.
-- Standard ladders: `3 / 5 / 7` for an ordinary document, `4 / 6 / 8` for one
-  that is actively resisting being read (redactions, ciphers, sealed wax).
-- **The study bonus.** A bare `d6 + 1` tops out at 7, so a DC 8 layer would be
-  unreachable on its own. Every *failed* reading of a layer leaves a permanent
-  **+1 study bonus** on that layer, capped at **+3**, persisted alongside the
-  unlock state. So DC 8 is not a wall — it is two failed readings and a third
-  attempt. The failed pill shows `+N study` and the button changes to
-  *Examine again*. This is why the DCs were left alone rather than lowered:
-  documents that resist being read should take more than one sitting.
-- Progress lives in `localStorage` under `waluipedia-investigations-v1`.
-  Nothing is written back to JSON. Reset from the file header.
+**Examination** — `d6 + 1` against the exhibit's `dc`, once per exhibit,
+revealing the whole `analysis`. This is `performExaminationRoll()` in the
+reference.
+
+**Insight** — a plain `d6` against an inline DC, once per span, printing a line
+in place. This is `performInsightRoll()` in the reference.
+
+- **A roll resolves once.** The verdict — success *or* failure — is written to
+  `localStorage` the first time it is taken and replayed on every render
+  afterwards. There is no Examine again, no re-roll, no grinding a DC until it
+  gives way. If the reading failed, it failed, and the file says so.
+- Because failure is permanent, DCs stay low: **2–7** for an examination
+  (`d6+1` caps at 7, so 8 would be unreachable), **2–6** for an insight (a
+  plain `d6`). The audit enforces both ranges, and rejects a DC so low it
+  cannot fail.
+- **Write the failure line as carefully as the success line.** Roughly a third
+  of readers will only ever see it, and it is the permanent state of that
+  passage for them. It should be a plausible reading that happens to be less
+  revealing — never "you learn nothing".
+- State lives in `localStorage` under `waluipedia-investigations-v1`, shaped
+  `{ invId: { exam:{exhibitId:verdict}, insight:{rollId:verdict} } }`. Nothing
+  is written back to JSON. The only way back is the reset link in the file
+  header, which confirms first.
 
 There is **no dice audio asset in this repository**. `archiecourtcase/dice.js`
 references a `/dice noise.mp3` that does not exist. Rather than ship a binary,
@@ -171,15 +198,31 @@ else changes.
 
 ### Inline rolls inside prose
 
-Any layer `text` may contain:
+`onRecord` and `analysis` may both contain:
 
 ```
 [[roll:5|the phrase the reader clicks|what a success says|what a failure says]]
 ```
 
-It renders as a dashed underline; clicking rolls a plain d6 against the DC and
-prints the result in place. One roll per span, no XP. Use it for a judgement
-call the archive genuinely cannot settle, not for decoration.
+It renders as tinted, dashed-underlined, italic bold text — the
+`.rollable-text` treatment from the reference. Clicking rolls a plain `d6`
+against the DC and prints `[Insight: …]` in place, then reverts the anchor to
+ordinary body text so a resolved passage reads as prose rather than as a spent
+button.
+
+Neither the anchor text nor either outcome may contain `]`, which closes the
+token. The renderer supplies the `[Insight: …]` wrapper, so do not write it in
+the data.
+
+Roll ids are derived, not authored: `exhibitId:field:ordinal`, where field is
+`rec` or `an`. **Inserting a new roll ahead of an existing one in the same
+field shifts every id after it**, which silently reassigns saved verdicts.
+Append rather than insert where you can.
+
+Use a roll for a judgement call the archive genuinely cannot settle from the
+paper alone. Do not use it for decoration, and do not put load-bearing plot on
+the success branch — a reader who rolls badly still has to be able to follow
+the case.
 
 ---
 
@@ -229,19 +272,18 @@ peers* — which is why the index page still has them. They are not for
 | Reading a physical document full-screen | the prop overlay from `exhibits.css`: `.exhibit-overlay` → `.exhibit-frame` → `.exhibit-bar` / `.exhibit-stage` / `.exhibit-foot` | `.inv-modal` |
 | The document itself | `propDocumentHtml(propId)` → `.pd` and the `.pd-*` family | re-render the prop by hand |
 
-Four things are genuinely new to this system and therefore *do* live in
+Five things are genuinely new to this system and therefore *do* live in
 `investigations.css`:
 
-1. `.inv-layer` — the examination accordion (head, body, `.open`, `.unlocked`,
-   `.locked`).
+1. `.inv-exam` — the examination block: the button before the roll, the
+   verdict after it.
 2. `.inv-roll-out` and `.inv-die` — the roll readout and the tumbling die.
-3. `.inv-pips` / `.pip.on` — the "how much of this exhibit has been read"
-   strip, which sits inside an ordinary `.arttile .tmeta` row.
-4. `.inv-inline-roll` / `.inv-inline-out` — the clickable spans inside prose.
-5. `.inv-session-head` — the dashed divider inside the evidence locker that
+3. `.inv-inline-roll` / `.inv-inline-out` — the clickable spans inside prose
+   and the `[Insight: …]` line each one leaves behind.
+4. `.inv-session-head` — the dashed divider inside the evidence locker that
    says "these exhibits came out of that session". An `<h3>`, so it stays in
    the article's heading rhythm instead of becoming a card.
-6. `.inv-lead` — a lead as a bordered block in the run of the document, the way
+5. `.inv-lead` — a lead as a bordered block in the run of the document, the way
    charges read on a trial page. Not a card; cards would break the scroll into
    a stack of boxes.
 
@@ -298,15 +340,17 @@ Working rules:
 2. **Prefer the boring document.** An ammunition sheet, an unpaid invoice, a
    salvage return with the values struck out. People lie in testimony and tell
    the truth in accounting.
-3. **Write the uncomfortable reading down.** Do not save it. The third layer is
-   where it belongs, and it is worth the most XP because it costs the most to
-   look at.
+3. **Write the uncomfortable reading down.** Do not save it for later and do
+   not bury it behind the highest DC. It goes in the `analysis`, in plain
+   sight of anyone who passes one roll.
 4. **File both readings.** When a document can be read two ways, the archive
    files both and marks which one it prefers. Kamek read a dedication as a
    personal address and wrote *for me* on it in charcoal. Waluigi is not immune
    to this; Waluigi simply writes the preference down where it can be checked.
 5. **No summary of the scene.** If a sentence would fit unchanged in the event
-   article, cut it from the layer.
+   article, cut it from the analysis.
+6. **Every exhibit gets a picture.** Draw the object in inline CSS. An exhibit
+   the reader cannot see is a paragraph with a filing number.
 
 ---
 
@@ -331,26 +375,33 @@ same reason: everything out of order becomes a rewrite.
 5. **Write `onRecord`.** What is visible without rolling. One or two sentences,
    flat and factual. This is the part that has to be *true* rather than
    *argued*.
-6. **Write three layers.** Surface reading → the thing a careful reader would
-   catch → the reading that changes what the file is about. DC and XP ascend
-   together.
-7. **Attach it to a thread.** If the exhibit does not touch an existing entry in
+6. **Write the `analysis` and set one `dc`.** Surface reading → the thing a
+   careful reader would catch → the reading that changes what the file is
+   about, as continuous prose with `## ` subheadings. One DC, 2–7, for the
+   whole thing: 3 for paper that wants to be read, 6 for paper that does not.
+7. **Salt three or four insight rolls through it.** Put them on judgement
+   calls, not facts, and write the failure branch as carefully as the success
+   branch — for a lot of readers it is the only one that will ever exist.
+8. **Draw the `visual`.** Inline CSS, no classes, no ASCII.
+9. **Attach it to a thread.** If the exhibit does not touch an existing entry in
    `threads[]`, either it belongs in a different file or you have discovered a
    new thread. Add the thread deliberately; do not let them breed.
-8. **Convert consequences into leads.** If the session ended with the party
+10. **Convert consequences into leads.** If the session ended with the party
    owing somebody an answer, that is a lead. Write the `why` first. If the `why`
    is weak, do not write the lead.
-9. **Bump `lastFiled`.** In-world date.
-10. **Run the checks.**
+11. **Bump `lastFiled`.** In-world date.
+12. **Run the checks.**
 
 ```bash
 python3 -c "import json; json.load(open('Reputation-Matrix2/data/investigations.json')); print('valid json')"
-python3 tools/check-exhibits.py     # every propId you referenced must pass this
+python3 tools/check-exhibits.py       # every propId you referenced must pass this
+python3 tools/check-investigations.py # DCs, roll syntax, inline-only visuals
 ```
 
-Then open `#/investigation/<id>` and roll every new layer once. A layer whose
-`text` reads like an event summary will be obvious the moment it is behind a
-die.
+Then open `#/investigation/<id>` and examine every new exhibit once. Because a
+roll resolves permanently, test in a private window or reset the file from its
+header — otherwise your first result is the only one you will ever see while
+proofreading.
 
 ---
 
@@ -399,8 +450,12 @@ decision, not a data deletion, and it can be revised by editing the map.
 |---|---|---|
 | Exhibit with a `propId` that is not in `props.json` | The document area renders empty | Create the prop first; run `tools/check-exhibits.py` |
 | `session` id that matches no `sessions[]` entry | The exhibit renders in an untitled group at the bottom | Add the session row |
-| Layers out of DC order | Reader hits the hardest wall first and stops | Ascend: 3/5/7 or 4/6/8 |
-| A layer that summarises the scene | Reader paid a roll for something they already read | Cut it; write the argument instead |
+| Examination DC above 7 | Unreachable — `d6+1` caps at 7 | Keep it in 2–7; the audit errors |
+| Insight DC above 6 | Unreachable — insight is a plain `d6` | Keep it in 2–6 |
+| `]` inside a roll's text or outcomes | The token closes early and the prose breaks | Rewrite the line without it |
+| A lazy failure branch ("you learn nothing") | A third of readers get a dead end, permanently | Write a plausible lesser reading |
+| An `analysis` that summarises the scene | Reader paid a roll for something they already read | Cut it; write the argument instead |
+| A `visual` with a `class` attribute | Style leaks into a shared stylesheet | Inline styles only; the audit errors |
 | A lead with no `why` | It is a quest again | Delete it or justify it |
 | Unresolvable ids in `links` | Chips silently vanish | Check against `events.json`, `characters.json`, `INVENTORY_SYSTEM.items` |
 | Reusing an `id` inside one investigation | The second one is unreachable | Ids are unique per file |
