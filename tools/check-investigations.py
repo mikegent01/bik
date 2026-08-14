@@ -48,7 +48,6 @@ QUESTS = ids('Reputation-Matrix2/data/quests.json','quests')
 
 ALL_EX = {ex['id']: iv['id'] for iv in INV for ex in iv.get('exhibits', [])}
 
-n_doc = [0]
 err, warn = [], []
 for iv in INV:
     tag = iv['id']
@@ -99,32 +98,11 @@ for iv in INV:
         if not rolls:
             warn.append(f"{tag}/{ex['id']}: no inline insight rolls — nothing in the prose to investigate")
 
-        # docRolls: insight checks anchored to a phrase in the prop's own body.
-        # `match` MUST appear verbatim in a text run of that body — inside a tag
-        # or split across markup it would silently never render.
-        body = (PROPDATA.get(ex.get('propId')) or {}).get('body', '') or ''
-        runs = [x for x in re.split(r'(<[^>]+>)', body) if not x.startswith('<')]
-        dseen = set()
-        for i, r in enumerate(ex.get('docRolls') or []):
-            n_doc[0] += 1
-            rdc = r.get('dc')
-            if not isinstance(rdc, int) or not 2 <= rdc <= 6:
-                err.append(f"{tag}/{ex['id']}/docRolls[{i}]: dc {rdc!r} out of range — reading a line is a plain d6")
-            if not r.get('success') or not r.get('failure'):
-                err.append(f"{tag}/{ex['id']}/docRolls[{i}]: needs both a success and a failure line")
-            m = r.get('match') or ''
-            if not m:
-                err.append(f"{tag}/{ex['id']}/docRolls[{i}]: no match phrase")
-            elif not any(m in run for run in runs):
-                err.append(f"{tag}/{ex['id']}/docRolls[{i}]: match {m[:40]!r} is not verbatim text in {ex.get('propId')}")
-            elif m in dseen:
-                err.append(f"{tag}/{ex['id']}/docRolls[{i}]: duplicate match {m[:40]!r} — the first occurrence wins")
-            else:
-                dseen.add(m)
-            if sum(run.count(m) for run in runs) > 1 and m:
-                warn.append(f"{tag}/{ex['id']}/docRolls[{i}]: match {m[:40]!r} occurs more than once; the first is used")
-        if ex.get('propId') and not (ex.get('docRolls') or []):
-            warn.append(f"{tag}/{ex['id']}: no docRolls — the document itself cannot be read into")
+        # docRolls moved out to rolls.json — see tools/check-rolls.py. An
+        # exhibit carrying them inline is stale data the engine ignores.
+        if ex.get('docRolls'):
+            err.append(f"{tag}/{ex['id']}: docRolls[] belongs in rolls.json now — the engine reads the registry, so these render nothing")
+
         if not ex.get('visual'):
             warn.append(f"{tag}/{ex['id']}: no visual — the exhibit has no specimen art")
         elif 'class=' in ex['visual']:
@@ -154,9 +132,17 @@ for sel, body in re.findall(r'(\.inv-[a-z0-9-]+[^{]*)\{([^}]*)\}', CSS):
     # equivalent: the examination block, the dice, the inline rolls, the
     # overlay host, the evidence-locker session divider and the lead block.
     # Everything else must reuse a site class.
-    if root in ('.inv-exam','.inv-roll-out','.inv-die',
-                '.inv-inline-roll','.inv-inline-out','.inv-overlay',
-                '.inv-session-head','.inv-lead'): continue
+    if root in ('.inv-exam','.inv-overlay','.inv-session-head','.inv-lead',
+                # the dice widget: a pip face, its arithmetic, its pass/fail
+                # badge and the result card they sit in. No site component
+                # renders a die, so this system draws its own.
+                '.inv-result','.inv-result-head','.inv-result-body',
+                '.inv-face','.inv-sum','.inv-vs','.inv-badge','.inv-label',
+                '.inv-inline-roll',
+                # thin spacing shims that exist only to keep style="" out of
+                # index.html; they set padding and nothing else.
+                '.inv-doc-head','.inv-visual-card','.inv-ex-icon',
+                '.inv-exam-idle','.inv-exam-note'): continue
     if any(k in body.replace(' ','') for k in LAYOUT):
         warn.append(f"investigations.css: `{sel.strip()}` sets layout — use a site class instead")
 used = set(re.findall(r'inv-[a-z0-9-]+', HTML))
@@ -168,7 +154,7 @@ n_ex = sum(len(i.get('exhibits',[])) for i in INV)
 n_roll = sum(len(re.findall(r'\[\[roll:', (e.get('onRecord','') or '') + (e.get('analysis','') or '')))
              for i in INV for e in i.get('exhibits',[]))
 n_vis = sum(1 for i in INV for e in i.get('exhibits',[]) if e.get('visual'))
-print(f"files: {len(INV)}  exhibits: {n_ex}  examinations: {n_ex}  insight rolls: {n_roll}  document rolls: {n_doc[0]}  visuals: {n_vis}")
+print(f"files: {len(INV)}  exhibits: {n_ex}  examinations: {n_ex}  insight rolls: {n_roll}  visuals: {n_vis}")
 for e in err:  print('  ERROR  ', e)
 for w in warn: print('  warn   ', w)
 print(f"\n{len(err)} error(s), {len(warn)} warning(s)")

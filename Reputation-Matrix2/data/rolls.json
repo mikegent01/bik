@@ -1,0 +1,213 @@
+{
+  "_README": {
+    "what": "Insight rolls, detached from the things they annotate. An entry attaches a d6 check to a phrase inside some target document: a prop, and in principle any article or page in the archive.",
+    "why": "Rolls used to live inside investigations.json, which meant only exhibits could carry them and every new one bloated a data file that is about cases, not dice. This registry is keyed by target id, so the engine never needs to know what kind of thing it is annotating.",
+    "targets": {
+      "props": "A prop id from props.json. The roll is spliced into that prop's rendered body wherever it appears — currently the exhibit reader.",
+      "articles": "Reserved. Same shape, keyed by article/page id. Deliberately empty: an encyclopedia article should read the same for everybody, so reference pages stay authoritative. Case documents are where a reader is meant to be interrogating the text."
+    },
+    "entry": {
+      "id": "Stable, unique within its target. This is the save key — RENAMING IT DISCARDS A READER'S RECORDED VERDICT. Order does not matter; ids are not positional.",
+      "dc": "2-6. A plain d6, no modifiers.",
+      "match": "A phrase that appears VERBATIM in the target's body text, outside of any tag. Only the first occurrence is used. Markup inside it (** or *) is fine and renders normally.",
+      "success": "What close reading reveals. Must pay in case material: a name, a number, a date, a consequence, a cross-reference. Not characterisation.",
+      "failure": "The shallow reading. Never a dead end."
+    },
+    "audit": "python3 tools/check-rolls.py"
+  },
+  "props": {
+    "prop_feyward_key_tag": [
+      {
+        "id": "key_thrown_1",
+        "dc": 4,
+        "match": "make Toad Lee the anchor",
+        "success": "Morel names one specific party member and one specific role. He is not warning the party about a monster — he is warning them about an assignment. Somebody, somewhere, has a procedure with a slot in it, and Morel has seen enough of that procedure to know Toad Lee fits the slot.",
+        "failure": "a thief's parting line. He talks in riddles for a living."
+      },
+      {
+        "id": "key_thrown_2",
+        "dc": 3,
+        "match": "Nobody has tested it",
+        "success": "the party has held a possible exit from that manor since the dark rooms and has never once tried the door. The key is not the unresolved thing here. The willingness to owe Morel something is.",
+        "failure": "no time, no opportunity. Manors are busy."
+      }
+    ],
+    "prop_morel_bag_inventory": [
+      {
+        "id": "bag_inventory_1",
+        "dc": 4,
+        "match": "Excuses, prepared, written out in advance",
+        "success": "written in advance means anticipating an interrogation he had not yet had. Morel packs for being caught the way other people pack for rain.",
+        "failure": "a performer keeps patter. It is a living."
+      },
+      {
+        "id": "bag_inventory_2",
+        "dc": 5,
+        "match": "Item removed from table during inventory",
+        "success": "seventeen articles logged, one gone, under two pairs of eyes kept precisely so this could not happen. The theft is not the finding — the finding is that Morel can take something off a watched table while the watchers are the ones writing the list.",
+        "failure": "a busy room and a long list. Things move."
+      }
+    ],
+    "prop_toad_lee_diary_page": [
+      {
+        "id": "grafting_page_1",
+        "dc": 3,
+        "match": "the tree has nothing left to complain with",
+        "success": "not \"does not complain\" — has nothing left to complain with. Aurelian is describing a survivor with the faculty of objection removed. She is writing about the procedure from the inside, and she is not describing it as a death.",
+        "failure": "a gardening image, morbidly put."
+      },
+      {
+        "id": "grafting_page_2",
+        "dc": 5,
+        "match": "which is the part they do not say aloud at the table",
+        "success": "at the table. Aurelian heard this discussed at dinner, in company, by people comfortable enough to use the euphemism and careful enough to stop short of the repeatable part. This page is a record of a conversation, not a private theory.",
+        "failure": "she may simply mean it is unspoken generally."
+      },
+      {
+        "id": "grafting_page_3",
+        "dc": 4,
+        "match": "whoever keeps that record decides afterwards what happened",
+        "success": "she wrote this before the overgrowth wore her face, and the party now holds her in a ring while Waluigi writes her file. Aurelian's last instruction was to watch the archivist, and the archivist is the one who filed her.",
+        "failure": "sound advice about record-keeping. Widely applicable."
+      }
+    ],
+    "prop_oc_soul_ring_custody": [
+      {
+        "id": "soul_ring_1",
+        "dc": 4,
+        "match": "The Lady of the manor. The actual one.",
+        "success": "the drafter distinguishes the occupant from the thing recovered, which means the archive accepted that both existed at once — a real Aurelian inside the ring and a false one answering questions over cold tea for an entire interview.",
+        "failure": "a clarification, carefully worded."
+      },
+      {
+        "id": "soul_ring_2",
+        "dc": 3,
+        "match": "Bob-omb, indoors, against advice",
+        "success": "the means of recovery is filed as plainly as the article. Whoever drafted this expected the recovery to be challenged later and made sure the reckless part was already on the record rather than discovered on it.",
+        "failure": "an accurate and unflattering description of a Tuesday."
+      }
+    ],
+    "prop_steely_burial_record": [
+      {
+        "id": "steely_burial_1",
+        "dc": 5,
+        "match": "Fragmented; memory unverified",
+        "success": "unverified is not destroyed. A fragmented core with unread memory is a witness nobody has interviewed — and there is an artificer in this same file, owed 650 gold, who works on exactly this kind of instrument.",
+        "failure": "a fragmented core is usually a dead one."
+      },
+      {
+        "id": "steely_burial_2",
+        "dc": 4,
+        "match": "collected the pieces by hand at the site",
+        "success": "by hand, at the site, then filed as a complete return with every value struck. Hjumpik did the paperwork correctly specifically so that his refusal could not be recorded as an oversight.",
+        "failure": "he did not want the parts sold. That is all."
+      }
+    ],
+    "prop_umbral_signet_redaction": [
+      {
+        "id": "umbral_signet_1",
+        "dc": 4,
+        "match": "three keys open nothing",
+        "success": "the archive is publishing three of four on the explicit theory that a set is useless incomplete. That theory holds only while the fourth stays unlocated — which makes this document a bet, printed, with the stake named in it.",
+        "failure": "reasonable operational security."
+      }
+    ],
+    "prop_black_crystal_carrier_order": [
+      {
+        "id": "crystal_order_1",
+        "dc": 5,
+        "match": "This error is the single most valuable asset the party currently owns",
+        "success": "an enemy's wrong belief filed as an asset, in an inventory, with an instruction not to correct it. The party is now running a deception it did not plan, through a man who does not know he is running it.",
+        "failure": "a fortunate mistake, and they know it."
+      },
+      {
+        "id": "crystal_order_2",
+        "dc": 3,
+        "match": "Not recorded here. That is the point.",
+        "success": "the archive that catalogues everything has deliberately left one field blank and said so. Compare the umbral signet memorandum, which redacts custody the same way. Two documents, one habit: the archive hides carriers, never objects.",
+        "failure": "an obvious precaution."
+      }
+    ],
+    "prop_mirror_restoration_invoice": [
+      {
+        "id": "mirror_invoice_1",
+        "dc": 4,
+        "match": "Handling of an object that shows the handler what they are",
+        "success": "Akamatsu billed 200 gold for the personal cost of touching it, itemised between mending and refitting like any other line. The artificer looked into a mirror of truth during the repair and charged for what it cost her.",
+        "failure": "artificers charge for hazard. Standard practice."
+      },
+      {
+        "id": "mirror_invoice_2",
+        "dc": 3,
+        "match": "Claim struck: the claimant did not break it and did not fix it",
+        "success": "Wario claimed salvage on an object that was never a wreck, twice, in front of witnesses. The strike is dated and the claim survives underneath it — which is exactly the outcome he wanted from claiming it at all.",
+        "failure": "the claim failed. The paperwork worked."
+      }
+    ],
+    "prop_oracle_deck_reading_register": [
+      {
+        "id": "reading_register_1",
+        "dc": 5,
+        "match": "Card removed from deck. Not by Remi.",
+        "success": "somebody edited a prophetic deck between draws, and the register's keeper knew it was not her. The fifth future was not missed. It was taken out before it could be drawn.",
+        "failure": "decks lose cards. It happens."
+      },
+      {
+        "id": "reading_register_2",
+        "dc": 4,
+        "match": "Recorded before the Feyward manor. Left blank at the time.",
+        "success": "The Lady With Two Faces was logged before anyone met a false Aurelian, and the outcome column was left honestly empty rather than filled in later. That blank is the reason this register is evidence and not a party trick.",
+        "failure": "a vague card and a convenient fit."
+      }
+    ],
+    "prop_kamek_seal_rubbing": [
+      {
+        "id": "seal_rubbing_1",
+        "dc": 4,
+        "match": "A dedication. Names the thing sealed, not the reader.",
+        "success": "the middle ring settles it in one line. The seal addresses its prisoner. Kamek read a label on a cage as a letter to himself, and dug under a castle on the strength of that reading.",
+        "failure": "ward notation is not the archive's field."
+      },
+      {
+        "id": "seal_rubbing_2",
+        "dc": 3,
+        "match": "Read by the taker of this rubbing as a personal address.",
+        "success": "the rubbing records its own reader's interpretation as part of the evidence. Whoever filed this understood that how Kamek read the seal is a more useful fact than what the seal says.",
+        "failure": "an annotation, dutifully noted."
+      }
+    ],
+    "prop_green_t_round_sheet": [
+      {
+        "id": "round_sheet_1",
+        "dc": 4,
+        "match": "Silver. Recovered from Orangus Cornelius. Yes.",
+        "success": "he went back for the round after it had been fired into a vampire. That is not tidiness — silver is evidence and it is expensive, and a fifteen-year-old with a silenced revolver worked out both without being told.",
+        "failure": "he kept his silver. Sensible."
+      },
+      {
+        "id": "round_sheet_2",
+        "dc": 5,
+        "match": "moral accounting",
+        "success": "he added a row to his own discipline sheet that no discipline sheet has a column for, then struck it because it would not total. Every round is accounted for. The tanuki is not.",
+        "failure": "an odd entry in an otherwise tidy ledger."
+      }
+    ],
+    "prop_feyward_addendum_legible": [
+      {
+        "id": "feyward_addendum_1",
+        "dc": 4,
+        "match": "Lost. Deserves, if not XP, at least a record.",
+        "success": "the editorial board files a construct's loss as a debt the archive owes rather than a reward the party missed. Steely slowed, warned, and went up — and the only monument is a line in an addendum.",
+        "failure": "a sentimental line in an assessment."
+      },
+      {
+        "id": "feyward_addendum_2",
+        "dc": 5,
+        "match": "They carry debts that never entered a ledger because the person who issued them smiled instead of writing them down",
+        "success": "which is the whole method this file has been chasing. Morel smiles and hands over a key. The Guild smiles and fits a ring. Nothing signed, everything owed, and no document to contest afterwards.",
+        "failure": "a nice sentence about obligation."
+      }
+    ]
+  },
+  "articles": {}
+}

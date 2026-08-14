@@ -102,12 +102,8 @@ map and its link starts resolving to the right file.
   "onRecord": "What anyone can see without rolling.",
   "dc": 4,                            // the one examination DC, 2–7
   "analysis": "The archivist's full reading. `## ` starts a subheading.",
-  "docRolls": [                       // optional; insight checks inside the prop itself
-    { "dc": 4,
-      "match": "verbatim phrase from the prop's own body",
-      "success": "what reading that line closely reveals",
-      "failure": "the shallow reading" }
-  ],
+  // NB: rolls inside the document are NOT stored here. They live in
+  // data/rolls.json, keyed by propId. See "Rolls inside the document" below.
   "links": { "events": [], "items": [], "characters": [] }
 }
 ```
@@ -237,38 +233,59 @@ number, a date, a name, a consequence, or a cross-reference to another exhibit
 the only thing a roll establishes is that somebody has a habit, cut it or
 rewrite it until it points at evidence.
 
-### Rolls inside the document itself — `docRolls`
+### Rolls inside the document — `data/rolls.json`
 
-The prose above an exhibit is the archivist talking. `docRolls` puts the
-checks in **the source paper**, so the reader interrogates the diary, the
-invoice or the register line by line instead of reading a summary of it.
+The prose above an exhibit is the archivist talking. The registry puts checks
+in **the source paper**, so the reader interrogates the diary, the invoice or
+the register line by line instead of reading a summary of it.
+
+These do not live on the exhibit. They live in their own file, keyed by the id
+of whatever they annotate, because rolls attached to case data could only ever
+annotate case data — and every new one bloated a file that is supposed to be
+about evidence, not dice.
 
 ```jsonc
-"docRolls": [
-  { "dc": 3,
-    "match": "the tree has nothing left to complain with",
-    "success": "what that exact line gives up under scrutiny",
-    "failure": "a gardening image, morbidly put." }
-]
+{
+  "props": {                                  // keyed by a props.json id
+    "prop_toad_lee_diary_page": [
+      { "id": "grafting_page_1",              // stable; this is the save key
+        "dc": 3,
+        "match": "the tree has nothing left to complain with",
+        "success": "what that exact line gives up under scrutiny",
+        "failure": "a gardening image, morbidly put." }
+    ]
+  },
+  "articles": {}                              // reserved — see below
+}
 ```
 
-Rules, all enforced by `tools/check-investigations.py`:
+Rules, all enforced by `tools/check-rolls.py`:
 
-- `match` must appear **verbatim in a text run of the prop's `body`** in
-  `props.json` — not inside a tag, not split across markup. If it does not,
-  the roll silently never renders, which is why this is an error and not a
-  warning.
-- Only the **first** occurrence is replaced. A phrase that appears twice
-  warns; pick a longer, unique one.
-- `dc` is 2–6. This is a plain `d6`, same as an inline prose roll.
-- Both `success` and `failure` are required.
-- Ids are `exhibitId:doc:ordinal` by array position, so the same
-  append-don't-insert rule applies.
+- `match` must appear **verbatim in a text run of the target's body** — not
+  inside a tag, not split across markup. If it does not, the roll silently
+  never renders, so this is an error. The audit will tell you specifically if
+  the phrase exists but is broken up by markup.
+- Only the **first** occurrence is replaced. A phrase appearing twice warns.
+- `id` is the storage key and is **not positional**, so entries can be
+  reordered and inserted freely. Renaming one discards that reader's verdict.
+- `dc` is 2–6. A plain `d6`, same as an inline prose roll.
+- `success` and `failure` are both required. `**bold**` and `*italic*` work.
 
-They render with the identical `.inv-inline-roll` treatment, resolve to
-`[Insight: …]`, and are counted in the exhibit's insight total alongside the
-prose rolls. The exhibit stage shows a **📄 The document itself** heading above
-the paper whenever an exhibit has any.
+### Why `articles` is empty
+
+The engine is target-agnostic: `invRollsFor(kind, targetId)` does not care what
+it is annotating, so wiring rolls into ordinary articles is a data change, not
+a code change.
+
+It is deliberately unused. **A reference page should read the same for
+everybody.** If an event article tells one reader the garrison was betrayed and
+another that it was not, depending on a d6, the page cannot be cited — and the
+rest of the archive links to these pages as settled fact. Case documents are
+different: an exhibit is *evidence*, and evidence is supposed to be
+interrogated. Keep rolls where the reader is meant to be doing the work.
+
+If that changes, add entries under `articles` and teach the article renderer to
+pipe its body through the same splicer. Nothing else needs to move.
 
 ---
 
@@ -442,6 +459,7 @@ same reason: everything out of order becomes a rewrite.
 python3 -c "import json; json.load(open('Reputation-Matrix2/data/investigations.json')); print('valid json')"
 python3 tools/check-exhibits.py       # every propId you referenced must pass this
 python3 tools/check-investigations.py # DCs, roll syntax, inline-only visuals
+python3 tools/check-rolls.py          # document rolls: verbatim matches, ids, DCs
 ```
 
 Then open `#/investigation/<id>` and examine every new exhibit once. Because a

@@ -413,21 +413,7 @@
               "mystic_morel",
               "archie_miser"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 4,
-              "match": "make Toad Lee the anchor",
-              "success": "Morel names one specific party member and one specific role. He is not warning the party about a monster — he is warning them about an assignment. Somebody, somewhere, has a procedure with a slot in it, and Morel has seen enough of that procedure to know Toad Lee fits the slot.",
-              "failure": "a thief's parting line. He talks in riddles for a living."
-            },
-            {
-              "dc": 3,
-              "match": "Nobody has tested it",
-              "success": "the party has held a possible exit from that manor since the dark rooms and has never once tried the door. The key is not the unresolved thing here. The willingness to owe Morel something is.",
-              "failure": "no time, no opportunity. Manors are busy."
-            }
-          ]
+          }
         },
         {
           "id": "ex_bag_inventory",
@@ -457,21 +443,7 @@
               "remi_akamatsu_full_backstory",
               "mystic_morel"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 4,
-              "match": "Excuses, prepared, written out in advance",
-              "success": "written in advance means anticipating an interrogation he had not yet had. Morel packs for being caught the way other people pack for rain.",
-              "failure": "a performer keeps patter. It is a living."
-            },
-            {
-              "dc": 5,
-              "match": "Item removed from table during inventory",
-              "success": "seventeen articles logged, one gone, under two pairs of eyes kept precisely so this could not happen. The theft is not the finding — the finding is that Morel can take something off a watched table while the watchers are the ones writing the list.",
-              "failure": "a busy room and a long list. Things move."
-            }
-          ]
+          }
         },
         {
           "id": "ex_grafting_page",
@@ -500,27 +472,7 @@
               "toad_lee",
               "waluigi"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 3,
-              "match": "the tree has nothing left to complain with",
-              "success": "not \"does not complain\" — has nothing left to complain with. Aurelian is describing a survivor with the faculty of objection removed. She is writing about the procedure from the inside, and she is not describing it as a death.",
-              "failure": "a gardening image, morbidly put."
-            },
-            {
-              "dc": 5,
-              "match": "which is the part they do not say aloud at the table",
-              "success": "at the table. Aurelian heard this discussed at dinner, in company, by people comfortable enough to use the euphemism and careful enough to stop short of the repeatable part. This page is a record of a conversation, not a private theory.",
-              "failure": "she may simply mean it is unspoken generally."
-            },
-            {
-              "dc": 4,
-              "match": "whoever keeps that record decides afterwards what happened",
-              "success": "she wrote this before the overgrowth wore her face, and the party now holds her in a ring while Waluigi writes her file. Aurelian's last instruction was to watch the archivist, and the archivist is the one who filed her.",
-              "failure": "sound advice about record-keeping. Widely applicable."
-            }
-          ]
+          }
         },
         {
           "id": "ex_soul_ring",
@@ -548,21 +500,7 @@
               "hjumpik",
               "waluigi"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 4,
-              "match": "The Lady of the manor. The actual one.",
-              "success": "the drafter distinguishes the occupant from the thing recovered, which means the archive accepted that both existed at once — a real Aurelian inside the ring and a false one answering questions over cold tea for an entire interview.",
-              "failure": "a clarification, carefully worded."
-            },
-            {
-              "dc": 3,
-              "match": "Bob-omb, indoors, against advice",
-              "success": "the means of recovery is filed as plainly as the article. Whoever drafted this expected the recovery to be challenged later and made sure the reckless part was already on the record rather than discovered on it.",
-              "failure": "an accurate and unflattering description of a Tuesday."
-            }
-          ]
+          }
         },
         {
           "id": "ex_steely_burial",
@@ -591,21 +529,7 @@
               "toad_lee",
               "mystic_morel"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 5,
-              "match": "Fragmented; memory unverified",
-              "success": "unverified is not destroyed. A fragmented core with unread memory is a witness nobody has interviewed — and there is an artificer in this same file, owed 650 gold, who works on exactly this kind of instrument.",
-              "failure": "a fragmented core is usually a dead one."
-            },
-            {
-              "dc": 4,
-              "match": "collected the pieces by hand at the site",
-              "success": "by hand, at the site, then filed as a complete return with every value struck. Hjumpik did the paperwork correctly specifically so that his refusal could not be recorded as an oversight.",
-              "failure": "he did not want the parts sold. That is all."
-            }
-          ]
+          }
         },
         {
           "id": "ex_umbral_signet",
@@ -635,15 +559,7 @@
             "characters": [
               "waluigi"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 4,
-              "match": "three keys open nothing",
-              "success": "the archive is publishing three of four on the explicit theory that a set is useless incomplete. That theory holds only while the fourth stays unlocated — which makes this document a bet, printed, with the stake named in it.",
-              "failure": "reasonable operational security."
-            }
-          ]
+          }
         },
         {
           "id": "ex_crystal_order",
@@ -671,21 +587,7 @@
               "markop",
               "mystic_morel"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 5,
-              "match": "This error is the single most valuable asset the party currently owns",
-              "success": "an enemy's wrong belief filed as an asset, in an inventory, with an instruction not to correct it. The party is now running a deception it did not plan, through a man who does not know he is running it.",
-              "failure": "a fortunate mistake, and they know it."
-            },
-            {
-              "dc": 3,
-              "match": "Not recorded here. That is the point.",
-              "success": "the archive that catalogues everything has deliberately left one field blank and said so. Compare the umbral signet memorandum, which redacts custody the same way. Two documents, one habit: the archive hides carriers, never objects.",
-              "failure": "an obvious precaution."
-            }
-          ]
+          }
         },
         {
           "id": "ex_mirror_invoice",
@@ -714,21 +616,7 @@
               "wario",
               "waluigi"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 4,
-              "match": "Handling of an object that shows the handler what they are",
-              "success": "Akamatsu billed 200 gold for the personal cost of touching it, itemised between mending and refitting like any other line. The artificer looked into a mirror of truth during the repair and charged for what it cost her.",
-              "failure": "artificers charge for hazard. Standard practice."
-            },
-            {
-              "dc": 3,
-              "match": "Claim struck: the claimant did not break it and did not fix it",
-              "success": "Wario claimed salvage on an object that was never a wreck, twice, in front of witnesses. The strike is dated and the claim survives underneath it — which is exactly the outcome he wanted from claiming it at all.",
-              "failure": "the claim failed. The paperwork worked."
-            }
-          ]
+          }
         },
         {
           "id": "ex_reading_register",
@@ -757,21 +645,7 @@
               "remi_akamatsu_full_backstory",
               "mystic_morel"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 5,
-              "match": "Card removed from deck. Not by Remi.",
-              "success": "somebody edited a prophetic deck between draws, and the register's keeper knew it was not her. The fifth future was not missed. It was taken out before it could be drawn.",
-              "failure": "decks lose cards. It happens."
-            },
-            {
-              "dc": 4,
-              "match": "Recorded before the Feyward manor. Left blank at the time.",
-              "success": "The Lady With Two Faces was logged before anyone met a false Aurelian, and the outcome column was left honestly empty rather than filled in later. That blank is the reason this register is evidence and not a party trick.",
-              "failure": "a vague card and a convenient fit."
-            }
-          ]
+          }
         },
         {
           "id": "ex_seal_rubbing",
@@ -799,21 +673,7 @@
               "kamek",
               "waluigi"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 4,
-              "match": "A dedication. Names the thing sealed, not the reader.",
-              "success": "the middle ring settles it in one line. The seal addresses its prisoner. Kamek read a label on a cage as a letter to himself, and dug under a castle on the strength of that reading.",
-              "failure": "ward notation is not the archive's field."
-            },
-            {
-              "dc": 3,
-              "match": "Read by the taker of this rubbing as a personal address.",
-              "success": "the rubbing records its own reader's interpretation as part of the evidence. Whoever filed this understood that how Kamek read the seal is a more useful fact than what the seal says.",
-              "failure": "an annotation, dutifully noted."
-            }
-          ]
+          }
         },
         {
           "id": "ex_round_sheet",
@@ -841,21 +701,7 @@
               "green_t",
               "waluigi"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 4,
-              "match": "Silver. Recovered from Orangus Cornelius. Yes.",
-              "success": "he went back for the round after it had been fired into a vampire. That is not tidiness — silver is evidence and it is expensive, and a fifteen-year-old with a silenced revolver worked out both without being told.",
-              "failure": "he kept his silver. Sensible."
-            },
-            {
-              "dc": 5,
-              "match": "moral accounting",
-              "success": "he added a row to his own discipline sheet that no discipline sheet has a column for, then struck it because it would not total. Every round is accounted for. The tanuki is not.",
-              "failure": "an odd entry in an otherwise tidy ledger."
-            }
-          ]
+          }
         },
         {
           "id": "ex_feyward_addendum",
@@ -884,21 +730,7 @@
               "mystic_morel",
               "waluigi"
             ]
-          },
-          "docRolls": [
-            {
-              "dc": 4,
-              "match": "Lost. Deserves, if not XP, at least a record.",
-              "success": "the editorial board files a construct's loss as a debt the archive owes rather than a reward the party missed. Steely slowed, warned, and went up — and the only monument is a line in an addendum.",
-              "failure": "a sentimental line in an assessment."
-            },
-            {
-              "dc": 5,
-              "match": "They carry debts that never entered a ledger because the person who issued them smiled instead of writing them down",
-              "success": "which is the whole method this file has been chasing. Morel smiles and hands over a key. The Guild smiles and fits a ring. Nothing signed, everything owed, and no document to contest afterwards.",
-              "failure": "a nice sentence about obligation."
-            }
-          ]
+          }
         }
       ]
     },

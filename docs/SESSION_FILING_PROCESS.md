@@ -337,6 +337,7 @@ one — see [`INVESTIGATIONS.md` § Presentation](INVESTIGATIONS.md#presentation
 
 ```bash
 python3 tools/check-investigations.py
+python3 tools/check-rolls.py
 python3 tools/check-exhibits.py
 ```
 
@@ -348,6 +349,7 @@ worth pursuing. Read those yourself.
 
 ```
 □ tools/check-investigations.py exits clean
+□ tools/check-rolls.py exits clean
 □ No layer retells the scene            (the script cannot see this)
 □ Every new lead is worth pursuing      (the script cannot see this either)
 □ Opened #/investigation/<id> and rolled every new layer once

@@ -58,21 +58,52 @@
 .inv-exam .prose h2{font-size:15px;margin:18px 0 6px;letter-spacing:.01em}
 .inv-exam .prose h2:first-child{margin-top:2px}
 
-/* ---------- roll output + die -------------------------------------------- */
-.inv-roll-out{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;padding:8px 0;line-height:1.6}
-.inv-roll-out:empty{display:none}
-.inv-roll-out .ok{color:var(--green,#2ecc71);font-weight:800}
-.inv-roll-out .no{color:var(--danger);font-weight:800}
-.inv-die{
-  display:inline-block;min-width:26px;text-align:center;font-weight:900;
-  border:1px solid var(--accent2);border-radius:6px;padding:1px 6px;margin:0 3px;
+/* ---------- dice + roll results ------------------------------------------
+   A resolved roll is an object, not a sentence in brackets: the pip face that
+   came up, the arithmetic, an explicit PASS/FAIL, then what was learned. Used
+   identically by the inline prose rolls, the in-document close readings and
+   the exhibit examination, so a reader learns one visual grammar. */
+.inv-result{
+  display:block;margin:10px 0 12px;padding:10px 12px;
+  border:1px solid var(--border);border-left-width:3px;border-radius:8px;
+  background:rgba(255,255,255,.02);
 }
+.inv-result.is-pass{border-left-color:var(--green,#2ecc71)}
+.inv-result.is-fail{border-left-color:var(--danger)}
+.inv-result-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:6px}
+.inv-result-body{display:block;font-size:13.5px;line-height:1.62;color:var(--text)}
+.inv-result.is-fail .inv-result-body{color:var(--muted)}
+
+/* the die face: a real 3x3 pip grid, not a numeral */
+.inv-face{
+  display:inline-grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);
+  gap:1px;width:30px;height:30px;padding:4px;box-sizing:border-box;flex:0 0 auto;
+  border:1px solid var(--accent2);border-radius:7px;background:rgba(138,75,255,.10);
+}
+.inv-face i{display:block;border-radius:50%;background:transparent}
+.inv-face i.on{background:var(--accent2);box-shadow:0 0 4px rgba(138,75,255,.55)}
+.is-pass .inv-face{border-color:var(--green,#2ecc71);background:rgba(46,204,113,.10)}
+.is-pass .inv-face i.on{background:var(--green,#2ecc71);box-shadow:0 0 4px rgba(46,204,113,.5)}
+.is-fail .inv-face{border-color:var(--danger);background:rgba(231,76,60,.10)}
+.is-fail .inv-face i.on{background:var(--danger);box-shadow:none}
+
+.inv-sum{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;font-weight:800;color:var(--text)}
+.inv-vs{font-weight:600;color:var(--muted);margin-left:4px}
+.inv-badge{
+  font-size:10.5px;font-weight:900;letter-spacing:.09em;
+  padding:2px 8px;border-radius:999px;border:1px solid currentColor;
+}
+.is-pass .inv-badge{color:var(--green,#2ecc71)}
+.is-fail .inv-badge{color:var(--danger)}
+.inv-label{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+
 @keyframes inv-tumble{
   0%{transform:rotate(0) scale(1)} 25%{transform:rotate(-18deg) scale(1.16)}
   50%{transform:rotate(14deg) scale(1.16)} 75%{transform:rotate(-8deg) scale(1.08)}
   100%{transform:rotate(0) scale(1)}
 }
-.inv-die.rolling{animation:inv-tumble .55s ease-in-out}
+.inv-face.rolling{animation:inv-tumble .55s ease-in-out}
+@media (prefers-reduced-motion:reduce){ .inv-face.rolling{animation:none} }
 
 /* ---------- inline rollable spans inside prose ---------------------------
    The archiecourtcase treatment: tinted background, dashed underline, italic
@@ -83,13 +114,18 @@
   color:var(--accent2);font-weight:700;font-style:italic;cursor:pointer;
 }
 .inv-inline-roll:hover{background:rgba(138,75,255,.26)}
+.inv-inline-roll:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
 .inv-inline-roll.rolled{
   background:none;border-bottom:none;color:inherit;font-weight:inherit;
   font-style:inherit;cursor:default;
 }
-.inv-inline-out{font-size:12.5px;font-style:italic}
-.inv-inline-out .ok{color:var(--green,#2ecc71)}
-.inv-inline-out .no{color:var(--muted)}
+
+/* ---------- exhibit stage furniture (was inline style= in index.html) ---- */
+.inv-doc-head{padding:14px 16px 2px}
+.inv-visual-card{padding:14px}
+.inv-ex-icon{font-size:22px;line-height:1}
+.inv-exam-idle{margin:0 0 10px}
+.inv-exam-note{margin:10px 0 0;font-size:13px}
 
 /* ---------- exhibit reader: the shared prop overlay, opened by JS -------- */
 /* exhibits.css styles the overlay; it expects to exist only while open, but

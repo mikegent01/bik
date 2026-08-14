@@ -24,6 +24,7 @@ their failures are bugs, not opinions.
 | [What-If audit](#what-if-audit) | `Reputation-Matrix2/data/whatifs.json` (`doc['whatifs']`) | [`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUIDE.md) | Advisory |
 | [Exhibit audit](#exhibit-audit) | `props.json`, `exhibits.css`, `index.html` | [`SESSION_FILING_PROCESS.md`](SESSION_FILING_PROCESS.md#step-6--exhibits-file-the-paper-the-story-mentions) | **Pass/fail** |
 | [Investigation audit](#investigation-audit) | `investigations.json`, `props.json`, `investigations.css`, `index.html` | [`INVESTIGATIONS.md`](INVESTIGATIONS.md) | **Pass/fail** |
+| [Roll registry audit](#roll-registry-audit) | `rolls.json`, `props.json`, `investigations.json`, `index.html` | [`INVESTIGATIONS.md`](INVESTIGATIONS.md#rolls-inside-the-document--datarollsjson) | **Pass/fail** |
 
 ---
 
@@ -240,17 +241,14 @@ No arguments — it reads `Reputation-Matrix2/data/investigations.json` against
 | A lead with no `why` | It is a quest again. The `why` is the entire difference. |
 | A lead citing an exhibit that exists in no file | Dead chip. |
 | Duplicate exhibit id inside one file | The second one is unreachable. |
-| A `docRolls[].match` that is not verbatim text in the prop's `body` | The roll never renders and the reader never learns it existed. Silent, so it is an error. |
-| A `docRolls[]` entry with a `dc` outside 2–6, or missing `success`/`failure` | Same reasons as an inline prose roll — it is the same plain `d6`. |
-| Two `docRolls[]` on one exhibit sharing a `match` | Only the first occurrence is ever replaced, so the second roll is dead. |
+| An exhibit still carrying `docRolls[]` | Document rolls moved to `rolls.json`. Inline ones render nothing. |
 
 **Warnings — exit 0, read and judge:**
 
 | Check | What to do |
 |---|---|
 | An exhibit with no inline insight rolls | Nothing in its prose can be investigated. Salt three or four through it. |
-| An exhibit with a `propId` but no `docRolls` | The reader can see the document but cannot interrogate it. Anchor two checks to lines that actually carry the case. |
-| A `docRolls[].match` occurring more than once in the body | Only the first is used. Lengthen the phrase until it is unique. |
+
 | An exhibit with no `visual` | The reader gets a filing number instead of an object. Draw it. |
 | An examination DC below 2 | It cannot fail, so it is not a roll. |
 | `fromQuest` naming no quest in `quests.json` | The "promoted from the board" pill is claiming a provenance that no longer exists. Fix the id or drop the field. |
@@ -274,3 +272,45 @@ Run it after any edit to `investigations.json`, and after any edit to the
 investigations engine or its stylesheet. The process step is
 [Step 7 of the filing process](SESSION_FILING_PROCESS.md#step-7--file-the-session-into-its-investigation);
 the authoring standard is [`INVESTIGATIONS.md`](INVESTIGATIONS.md).
+
+---
+
+## Roll registry audit
+
+```bash
+python3 tools/check-rolls.py
+```
+
+No arguments — it reads `Reputation-Matrix2/data/rolls.json` against
+`props.json`, `investigations.json` and `index.html`.
+
+Rolls live apart from the documents they annotate, keyed by target id. That is
+what makes them scale, and it is also what makes them quiet when they break:
+nothing in `props.json` knows a roll is pointing at it, so a mistyped `match`
+renders nothing at all and looks exactly like an exhibit that simply has no
+rolls. Everything here exists to make that failure loud.
+
+**Errors — exit 1, must be fixed:**
+
+| Check | Why it matters |
+|---|---|
+| `match` is not verbatim text in the target's body | The roll never renders. The audit says whether the phrase is absent entirely or present but split by a tag, because those are different mistakes. |
+| A target id that is in no `props.json` | The whole entry annotates nothing. |
+| `dc` outside 2–6 | A plain `d6` cannot pass a 7 or fail a 1. |
+| Missing `success` or `failure` | A third of readers land on the empty branch, permanently. |
+| Missing `id` | The id is the save key. Without one, verdicts cannot persist. |
+| Duplicate `id` on one target | Two rolls collide in storage and answer for each other. |
+| Two entries sharing a `match` | Only the first occurrence is ever replaced, so the second can never render. |
+| `docRolls[]` still present in `investigations.json` | Stale schema; the engine reads the registry. |
+| `'rolls'` missing from `DATA_FILES`, or `invRollsFor()` gone | The registry never loads and every document roll silently disappears. |
+
+**Warnings — exit 0, read and judge:**
+
+| Check | What to do |
+|---|---|
+| A prop with rolls that no exhibit references | Authored work nobody can reach. Wire the prop to an exhibit or drop the rolls. |
+| A `match` that occurs more than once | Only the first is used. Lengthen the phrase. |
+| A `match` under 12 characters | It will become ambiguous the moment the body is edited. |
+| A `success` naming no person, number or date | The rule is that a success pays in case material, not characterisation. Re-read it and decide whether it is a finding or a mood. |
+| An entry under `articles` | Reserved and deliberately unused — see [`INVESTIGATIONS.md`](INVESTIGATIONS.md#why-articles-is-empty). Confirm the renderer supports it. |
+| An `id` that is not `lower_snake_case` | Cosmetic, but ids are permanent. |
