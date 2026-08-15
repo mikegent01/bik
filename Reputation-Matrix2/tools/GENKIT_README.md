@@ -109,20 +109,61 @@ not. The fallback is not a consolation prize — plenty of Python builds ship
 without tkinter (including this sandbox's), and a browser page also works over
 SSH, where a native window does not. `--web` forces the dashboard.
 
+The panel inherits whatever the command line asked for, so
+`--endpoint`/`--model`/`--workers` pre-fill the form and are used by a run
+started from it. `--host 0.0.0.0` binds beyond loopback to reach the panel from
+another machine (this also implies `--web`, since a native window cannot serve
+one). Alongside `produced` and `failed` it reports **`retried`** — records that
+were rejected once and recovered rather than lost.
+
 ## Safety
 
 - **Atomic writes.** Everything goes through a temp file and `os.replace`, so
   an interrupted run cannot truncate `crafting.json`.
 - **Checkpoints.** `tools/.genkit/checkpoint-<system>.json` records every key.
   Re-running skips completed work; the directory is disposable.
-- **Hard validation.** Rejections are specific and logged, never silently
-  patched. A run against a deliberately wrong mock produced
-  `price 480000 outside the common band 10-200`, `unknown category 'armor'`,
-  `apCost not an integer` — all correctly refused.
+- **Repair before rejection.** A wrong answer is usually a *nearly right*
+  answer in the wrong vocabulary, so the validators resolve before they refuse:
+  `ALCHEMY` → `TRANSMUTATION`, `gadgets` → `curiosities`, `Original Dan` →
+  `dan`, `hjumpick` → `hjumpik`. A faction the archive has never heard of is
+  **minted** rather than dropped; a near-miss is merged into the existing one.
+  When the model files a *faction* in an *operator* slot — a common and
+  perfectly sensible confusion — the row is salvaged into `effects` instead of
+  costing the whole record. Only placeholders (`tbd`, `nope`, `unaffiliated`)
+  and genuine nonsense are refused.
+- **Rejections are retried, not discarded.** A `ValidationError` is a verdict
+  on one attempt, not on the record. The task is put back at the *front* of its
+  system's queue carrying the reason, and the next prompt opens with
+  `YOUR PREVIOUS ATTEMPT WAS REJECTED: …` so the model is told what to fix.
+  `Runner.MAX_ATTEMPTS = 3` bounds it. Unexpected exceptions are retryable too,
+  since they are usually one malformed reply hitting an unguarded path.
+- **Hard validation, still.** Repair never invents content: it only maps a
+  label onto the vocabulary the archive actually uses. Anything unsalvageable
+  is refused with a message naming the legal values.
 - **Category discipline.** `normalizeItem()` silently dumps unknown categories
-  into `curiosities`; the validator rejects them loudly instead.
+  into `curiosities`; the validator resolves them properly or rejects loudly.
 - **Dry run.** `--dry-run` exercises prompt → validate → checkpoint and writes
   nothing.
+
+## WAHwire authoring rules
+
+- **Author cooldown.** After a character posts, that account must sit out the
+  next `AUTHOR_COOLDOWN = 3` posts. Prompt guidance alone was not enough — with
+  13 voices offered, the models still returned `waluigi` four times out of four
+  — so `recent_authors()` names the blocked accounts in the prompt *and*
+  `_author_validate` refuses a repeat.
+- **18 reactions**, not 6: `cheer, rage, grief, smug, alarm, deadpan, mourning,
+  defiant, gloating, fear, awe, disgust, relief, suspicion, resolve, mockery,
+  pride, despair`. The tuple in `systems/wahwire.py` and the `REACTIONS` map in
+  `app/pages/wahwire/wahwire.js` **must stay in step** — `tools/test_genkit.py`
+  fails if a reaction exists in Python but not in the page.
+- **Comments and replies.** A post may carry up to 6 comments, each
+  `{id, author, content, likes, reaction, replyTo}`. The post's own author may
+  not comment on it, `replyTo` is only honoured when that account already
+  appears earlier in the thread, and a malformed comment is dropped on its own
+  rather than failing the post. Threads render in a modal drawer on the feed
+  page, not inline: `.ww-post` is a fixed 168 px row matched to `ROW_HEIGHT`,
+  and variable-height content would break the virtualiser's scroll maths.
 
 ## Verified end to end
 
@@ -136,3 +177,20 @@ schema-valid replies:
   usage activation and warning; add-to-cart increments the badge
 - `sync_bros_attacks.py --check` and all four `check-*.py` audits pass
 - no pre-existing field modified in `events.json` (diffed against HEAD)
+
+Against a deliberately *misbehaving* mock that rejects roughly three replies in
+four (wrong vocabulary, duplicate names, missing numbers, prose where a map
+belongs):
+
+- **115 failures → 8** once repair and requeue were in place, then to 6 with
+  the mock emitting valid post bodies; the survivors are genuine refusals
+- 8 posts authored by 6 different accounts with **zero cooldown violations**,
+  6 distinct reactions and 15 comments including reply chains
+- the control panel reported `produced 24, failed 6, recovered 23 retry(ies)`
+  with a per-system ok/fail/retry breakdown
+
+Unit tests: `python3 tools/test_genkit.py` — 50 checks covering operator and
+faction repair, school and category resolution, the cooldown, comment
+validation, reaction parity with the front end, and scheduler requeue.
+Front-end: `/tmp/wahwire_threadtest.js` — 36 checks over the thread drawer
+against real generated data.

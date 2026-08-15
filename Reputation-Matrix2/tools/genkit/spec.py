@@ -35,6 +35,13 @@ class Task:
     payload: dict[str, Any] = field(default_factory=dict)
     # Phase lets a system order its own work (WAHwire: "prune" before "author").
     phase: str = ""
+    # How many times this task has come back to a worker. A rejection is not a
+    # verdict on the record, only on one attempt at it, so the runner requeues
+    # instead of discarding — but it has to stop eventually.
+    attempts: int = 0
+    # Why the last attempt was rejected, fed back into the next prompt so the
+    # model is told what to fix rather than guessing again.
+    last_error: str = ""
 
 
 @dataclass
@@ -44,6 +51,11 @@ class TaskResult:
     detail: str = ""
     record: dict[str, Any] | None = None
     changed_paths: list[str] = field(default_factory=list)
+    # A failure the same task could survive on another attempt (the model broke
+    # a rule). Distinct from a permanent one, like "this id already exists".
+    retryable: bool = False
+    # The rejection reason, replayed into the retry prompt.
+    reason: str = ""
 
 
 @dataclass

@@ -15,6 +15,7 @@ storefront without touching the five-place category registration.
 
 from __future__ import annotations
 
+import difflib
 import json
 import re
 import threading
@@ -42,6 +43,59 @@ DEPARTMENTS = [
     "consumables", "equipment", "curiosities", "services",
     "faction", "forbidden", "premium",
 ]
+
+# Plausible department names the model reaches for that this storefront does
+# not stock under that word. Mapping beats rejecting: the item is fine, only
+# the shelf label is wrong.
+CATEGORY_ALIASES = {
+    "gadget": "curiosities", "gadgets": "curiosities", "trinket": "curiosities",
+    "trinkets": "curiosities", "artifact": "curiosities", "artifacts": "curiosities",
+    "relic": "curiosities", "relics": "curiosities", "misc": "curiosities",
+    "miscellaneous": "curiosities", "oddities": "curiosities", "collectible": "curiosities",
+    "collectibles": "curiosities", "treasure": "curiosities", "jewelry": "curiosities",
+    "weapon": "equipment", "weapons": "equipment", "armor": "equipment",
+    "armour": "equipment", "gear": "equipment", "tool": "equipment",
+    "tools": "equipment", "apparel": "equipment", "clothing": "equipment",
+    "accessory": "equipment", "accessories": "equipment", "shield": "equipment",
+    "shields": "equipment", "wand": "equipment", "wands": "equipment",
+    "potion": "consumables", "potions": "consumables", "food": "consumables",
+    "drink": "consumables", "drinks": "consumables", "scroll": "consumables",
+    "scrolls": "consumables", "ammunition": "consumables", "ammo": "consumables",
+    "supplies": "consumables", "medicine": "consumables", "elixir": "consumables",
+    "elixirs": "consumables", "reagent": "consumables", "reagents": "consumables",
+    "service": "services", "hire": "services", "hires": "services",
+    "contract": "services", "contracts": "services", "mercenary": "services",
+    "training": "services", "transport": "services", "information": "services",
+    "factions": "faction", "military": "faction", "guild": "faction",
+    "banned": "forbidden", "illegal": "forbidden", "contraband": "forbidden",
+    "blackmarket": "forbidden", "black market": "forbidden", "cursed": "forbidden",
+    "dark": "forbidden", "restricted": "forbidden",
+    "luxury": "premium", "exclusive": "premium", "vip": "premium",
+    "highend": "premium", "high-end": "premium", "rare goods": "premium",
+}
+
+
+def resolve_category(proposed: str) -> str | None:
+    """Map a model's department answer onto the seven real departments."""
+    key = " ".join(str(proposed or "").strip().lower().replace("_", " ").split())
+    if not key:
+        return None
+    if key in DEPARTMENTS:
+        return key
+    if key in CATEGORY_ALIASES:
+        return CATEGORY_ALIASES[key]
+    # Singular/plural drift, e.g. "consumable".
+    for dept in DEPARTMENTS:
+        if key == dept.rstrip("s") or key + "s" == dept:
+            return dept
+    close = difflib.get_close_matches(key, DEPARTMENTS, n=1, cutoff=0.84)
+    if close:
+        return close[0]
+    close = difflib.get_close_matches(key, list(CATEGORY_ALIASES), n=1, cutoff=0.9)
+    if close:
+        return CATEGORY_ALIASES[close[0]]
+    return None
+
 
 _COUNT_CACHE: dict[str, int] | None = None
 
@@ -234,8 +288,20 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             category = candidate
             break
     if not category:
+        # A near-miss like "gadgets" or "weapons" is a good answer in the wrong
+        # vocabulary. Map it before giving up — only a genuinely unreadable
+        # value should cost us the record.
+        for part in parts:
+            resolved = resolve_category(part)
+            if resolved:
+                category = resolved
+                break
+    if not category:
         # normalizeItem() would silently dump it in curiosities; be explicit.
-        raise ValidationError(f"unknown category {str(raw_category)!r}")
+        raise ValidationError(
+            f"unknown category {str(raw_category)!r} — "
+            f"use exactly one of: {', '.join(DEPARTMENTS)}"
+        )
 
     description = " ".join(str(raw.get("description", "")).split())
     if not (40 <= len(description) <= 900):

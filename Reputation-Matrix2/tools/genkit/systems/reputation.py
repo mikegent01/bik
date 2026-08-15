@@ -22,7 +22,9 @@ exists; populating it is what "knock-on effects" means here.
 
 from __future__ import annotations
 
+import difflib
 import json
+import re
 import threading
 from pathlib import Path
 from typing import Any
@@ -44,6 +46,52 @@ OPERATORS = {
     "dan": "Original Dan, fire mage veteran",
     "green_t": "Green T, vampire dinner sniper",
 }
+
+# Near-misses the local models make constantly. The operator list is short and
+# fixed, so a wrong id is nearly always one of these rather than a real miss:
+# a display name, a shortened key, or the character's other name.
+OPERATOR_ALIASES = {
+    "original_dan": "dan",
+    "originaldan": "dan",
+    "dan_the_fire_mage": "dan",
+    "fire_mage_dan": "dan",
+    "remi": "remi_akamatsu_full_backstory",
+    "remi_akamatsu": "remi_akamatsu_full_backstory",
+    "akamatsu": "remi_akamatsu_full_backstory",
+    "greent": "green_t",
+    "green_toad": "green_t",
+    "archie": "archie_miser",
+    "miser": "archie_miser",
+    "king_bowser": "bowser",
+    "bowser_koopa": "bowser",
+    "waluigi_archivist": "waluigi",
+    "hjumpick": "hjumpik",
+    "markop_paladin": "markop",
+}
+
+
+def resolve_operator(raw_id: Any) -> str | None:
+    """Map a proposed operator id onto a real one, or None.
+
+    Only the eight tracked operators have a reputation column, so an id that
+    resolves to nothing is dropped — but a *typo* dropping a whole scored
+    record was throwing away work that was otherwise correct.
+    """
+    key = re.sub(r"[^a-z0-9]+", "_", str(raw_id).strip().lower()).strip("_")
+    if not key:
+        return None
+    if key in OPERATORS:
+        return key
+    if key in OPERATOR_ALIASES:
+        return OPERATOR_ALIASES[key]
+    # A display name like "Green T" or "Archie Miser, pyromancer".
+    head = key.split("_,")[0]
+    for oid in OPERATORS:
+        if head == oid or head.startswith(oid + "_") or oid.startswith(head + "_"):
+            return oid
+    match = difflib.get_close_matches(key, list(OPERATORS), n=1, cutoff=0.88)
+    return match[0] if match else None
+
 
 FILES = {
     "events": ROOT / "data" / "events.json",
@@ -271,9 +319,11 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     dropped_factions: set[str] = set()
     out_of_range = 0
     for op_id, deltas in changes.items():
-        if op_id not in OPERATORS:
+        resolved_op = resolve_operator(op_id)
+        if resolved_op is None:
             bad_ops.add(str(op_id)[:40])
             continue  # drop an invented operator rather than fail the record
+        op_id = resolved_op
         if not isinstance(deltas, dict):
             continue
         row: dict[str, int] = {}
@@ -296,21 +346,45 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
                 continue
             row[resolved] = delta
         if row:
-            clean_changes[op_id] = row
-    if not clean_changes:
-        why = []
-        if bad_ops:
-            why.append("unknown operators: " + ", ".join(sorted(bad_ops)[:4]))
-        if dropped_factions:
-            why.append("not a group: " + ", ".join(sorted(dropped_factions)[:4]))
-        if out_of_range:
-            why.append(f"{out_of_range} delta(s) zero or beyond ±30")
-        raise ValidationError(
-            "nothing scoreable — " + ("; ".join(why) if why else "empty response")
-        )
+            # Two proposed spellings can resolve onto the same operator; keep
+            # both sets of deltas rather than letting the last one win.
+            existing = clean_changes.setdefault(op_id, {})
+            for fid, delta in row.items():
+                if fid not in existing or abs(delta) > abs(existing[fid]):
+                    existing[fid] = delta
 
-    clean_effects: dict[str, int] = {}
-    for fid, value in (raw.get("effects") or {}).items():
+    # The models routinely put a FACTION in the operator slot ("koopa_resistance",
+    # "magikoopa_council"). That is not nonsense, it is the right judgement filed
+    # under the wrong key: a faction-level consequence. Rather than lose the whole
+    # record, fold those rows into `effects`, which is exactly the record-wide
+    # echo they describe.
+    salvaged_effects: dict[str, int] = {}
+    for stray in list(bad_ops):
+        as_faction = resolve_faction(stray)
+        if not as_faction:
+            continue
+        deltas = changes.get(stray)
+        if not isinstance(deltas, dict):
+            continue
+        for fid, value in deltas.items():
+            try:
+                delta = int(value)
+            except (TypeError, ValueError):
+                continue
+            if delta and abs(delta) <= 20:
+                target = resolve_faction(fid) or as_faction
+                if abs(salvaged_effects.get(target, 0)) < abs(delta):
+                    salvaged_effects[target] = delta
+        bad_ops.discard(stray)
+
+    clean_effects: dict[str, int] = dict(salvaged_effects)
+    # The model sometimes answers `effects` with a prose string instead of a
+    # map. That is a malformed field, not a malformed record — ignore it and
+    # keep whatever else scored.
+    raw_effects = raw.get("effects")
+    if not isinstance(raw_effects, dict):
+        raw_effects = {}
+    for fid, value in raw_effects.items():
         resolved = resolve_faction(fid)
         if not resolved:
             continue
@@ -323,8 +397,28 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
                 continue
             clean_effects[resolved] = delta
 
+    # Only now is it fair to give up: a record that scored no operator but did
+    # produce a real faction-level echo is still worth keeping.
+    if not clean_changes and not clean_effects:
+        why = []
+        if bad_ops:
+            why.append(
+                "unknown operators: " + ", ".join(sorted(bad_ops)[:4])
+                + f" — use only: {', '.join(sorted(OPERATORS))}"
+            )
+        if dropped_factions:
+            why.append("not a group: " + ", ".join(sorted(dropped_factions)[:4]))
+        if out_of_range:
+            why.append(f"{out_of_range} delta(s) zero or beyond ±30")
+        raise ValidationError(
+            "nothing scoreable — " + ("; ".join(why) if why else "empty response")
+        )
+
     clean_notes: dict[str, str] = {}
-    for op_id, note in (raw.get("reputationNotes") or {}).items():
+    raw_notes = raw.get("reputationNotes")
+    if not isinstance(raw_notes, dict):
+        raw_notes = {}
+    for op_id, note in raw_notes.items():
         if op_id not in clean_changes or not isinstance(note, str):
             continue
         text = " ".join(note.split())

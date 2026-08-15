@@ -51,13 +51,27 @@ const AUTHORS = {
   hjumpik:                 { name: 'Hjumpik',                 handle: '@hjumpik',      glyph: '🎯', tone: '#00838f' }
 };
 
+// Must stay in step with REACTIONS in tools/genkit/systems/wahwire.py — the
+// generator validates against that tuple, this renders whatever it wrote.
 const REACTIONS = {
-  cheer:   { glyph: '🎉', label: 'Cheering',  tone: '#2e7d32' },
-  rage:    { glyph: '🔥', label: 'Furious',   tone: '#c0392b' },
-  grief:   { glyph: '🕯️', label: 'Grieving',  tone: '#5c6bc0' },
-  smug:    { glyph: '😏', label: 'Smug',      tone: '#b8860b' },
-  alarm:   { glyph: '⚠️', label: 'Alarmed',   tone: '#ef6c00' },
-  deadpan: { glyph: '➖', label: 'Deadpan',   tone: '#78909c' }
+  cheer:     { glyph: '🎉', label: 'Cheering',   tone: '#2e7d32' },
+  rage:      { glyph: '🔥', label: 'Furious',    tone: '#c0392b' },
+  grief:     { glyph: '🕯️', label: 'Grieving',   tone: '#5c6bc0' },
+  smug:      { glyph: '😏', label: 'Smug',       tone: '#b8860b' },
+  alarm:     { glyph: '⚠️', label: 'Alarmed',    tone: '#ef6c00' },
+  deadpan:   { glyph: '➖', label: 'Deadpan',    tone: '#78909c' },
+  mourning:  { glyph: '🖤', label: 'Mourning',   tone: '#4a4a5a' },
+  defiant:   { glyph: '✊', label: 'Defiant',    tone: '#00838f' },
+  gloating:  { glyph: '🃏', label: 'Gloating',   tone: '#8e24aa' },
+  fear:      { glyph: '😰', label: 'Afraid',     tone: '#5d4037' },
+  awe:       { glyph: '✨', label: 'Awed',       tone: '#7e57c2' },
+  disgust:   { glyph: '🤢', label: 'Disgusted',  tone: '#558b2f' },
+  relief:    { glyph: '😮‍💨', label: 'Relieved',  tone: '#26a69a' },
+  suspicion: { glyph: '🧐', label: 'Suspicious', tone: '#6d4c41' },
+  resolve:   { glyph: '🛡️', label: 'Resolute',   tone: '#37474f' },
+  mockery:   { glyph: '🤡', label: 'Mocking',    tone: '#d81b60' },
+  pride:     { glyph: '🦁', label: 'Proud',      tone: '#f9a825' },
+  despair:   { glyph: '💧', label: 'Despairing', tone: '#455a64' }
 };
 
 const MONTHS = ['Deepwinter', 'Thawmarch', 'Seedfall', 'Rainwake', 'Brightleaf',
@@ -116,6 +130,11 @@ function prepare(p) {
     likes: Number(p.likes) || 0,
     status: p.status || 'legacy',
     reaction: p.reaction || '',
+    // Comment threads are kept off the fixed-height row (the virtualiser needs
+    // every row to be exactly ROW_HEIGHT) and shown in the reader instead.
+    comments: (Array.isArray(p.comments) ? p.comments : []).filter(
+      c => c && typeof c === 'object' && typeof c.content === 'string'
+    ),
     tags: Array.isArray(p.tags) ? p.tags : [],
     links,
     // `linked` is filled in by resolveLinks() once the record files are
@@ -355,6 +374,10 @@ function rowHTML(post, k) {
       ${wire}
       <div class="ww-meta">
         <span class="ww-likes" title="likes">❤ ${post.likes.toLocaleString()}</span>
+        ${post.comments.length
+          ? `<button type="button" class="ww-replies" data-post="${esc(post.id)}"
+               title="Read the replies">💬 ${post.comments.length}</button>`
+          : ''}
         ${post.tags.map(t => `<span class="ww-tag">#${esc(t)}</span>`).join('')}
       </div>
     </div>
@@ -599,9 +622,77 @@ function drawMood() {
 
 /* -------------------------------------------------------------- controls */
 
+/* ------------------------------------------------------------ replies */
+
+function openThread(postId) {
+  const post = state.posts.find(p => p.id === postId);
+  if (!post || !post.comments.length) return;
+
+  const react = REACTIONS[post.reaction];
+  const rows = post.comments.map(c => {
+    const who = AUTHORS[c.author] || { name: c.author, handle: '@' + c.author,
+                                       glyph: '\u{1F464}', tone: '#78909c' };
+    const cr = REACTIONS[c.reaction];
+    const answering = c.replyTo && AUTHORS[c.replyTo]
+      ? `<span class="ww-reply-to">replying to ${esc(AUTHORS[c.replyTo].handle)}</span>`
+      : '';
+    return `<article class="ww-comment${c.replyTo ? ' is-reply' : ''}">
+      <div class="ww-avatar ww-avatar--sm" style="background:${who.tone}22;border-color:${who.tone}">${who.glyph}</div>
+      <div class="ww-comment-body">
+        <div class="ww-post-head">
+          <b class="ww-name" style="color:${who.tone}">${esc(who.name)}</b>
+          <span class="ww-handle">${esc(who.handle)}</span>
+          ${answering}
+          ${cr ? `<span class="ww-badge ww-badge--react" style="color:${cr.tone};border-color:${cr.tone}66">${cr.glyph} ${esc(cr.label)}</span>` : ''}
+        </div>
+        <p class="ww-content">${esc(c.content)}</p>
+        <div class="ww-meta"><span class="ww-likes">❤ ${(Number(c.likes) || 0).toLocaleString()}</span></div>
+      </div>
+    </article>`;
+  }).join('');
+
+  el('wwThreadBody').innerHTML = `
+    <article class="ww-comment ww-comment--op">
+      <div class="ww-avatar ww-avatar--sm" style="background:${post.who.tone}22;border-color:${post.who.tone}">${post.who.glyph}</div>
+      <div class="ww-comment-body">
+        <div class="ww-post-head">
+          <b class="ww-name" style="color:${post.who.tone}">${esc(post.who.name)}</b>
+          <span class="ww-handle">${esc(post.who.handle)}</span>
+          ${react ? `<span class="ww-badge ww-badge--react" style="color:${react.tone};border-color:${react.tone}66">${react.glyph} ${esc(react.label)}</span>` : ''}
+        </div>
+        <p class="ww-content">${esc(post.content)}</p>
+        <div class="ww-meta"><span class="ww-likes">❤ ${post.likes.toLocaleString()}</span></div>
+      </div>
+    </article>
+    <div class="ww-thread-rule"><span>${post.comments.length} repl${post.comments.length === 1 ? 'y' : 'ies'}</span></div>
+    ${rows}`;
+
+  const box = el('wwThread');
+  box.hidden = false;
+  el('wwThreadClose').focus();
+}
+
+function closeThread() {
+  el('wwThread').hidden = true;
+}
+
 function wire() {
   const vp = el('wwViewport');
   wireTimelineHover();
+
+  // Delegated: rows are recycled by the virtualiser, so per-row listeners
+  // would be attached and dropped on every scroll frame.
+  el('wwWindow').addEventListener('click', e => {
+    const btn = e.target.closest('[data-post]');
+    if (btn) openThread(btn.dataset.post);
+  });
+  el('wwThreadClose').addEventListener('click', closeThread);
+  el('wwThread').addEventListener('click', e => {
+    if (e.target === el('wwThread')) closeThread();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !el('wwThread').hidden) closeThread();
+  });
 
   // rAF-coalesced: scroll fires far faster than the screen refreshes, and
   // doing DOM work per event is how a virtualised list still ends up janky.

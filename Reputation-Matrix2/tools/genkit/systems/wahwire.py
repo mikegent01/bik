@@ -305,7 +305,16 @@ Return strictly valid JSON only, no commentary, no code fence:
   "content": "<the post, 2-4 sentences, first person, in character>",
   "likes": <integer 0-9000>,
   "tags": ["<2-4 lowercase single-word tags>"],
-  "reaction": "<one of: cheer, rage, grief, smug, alarm, deadpan>"
+  "reaction": "<one of the reaction ids listed below>",
+  "comments": [
+    {
+      "author": "<a DIFFERENT id from the author list>",
+      "content": "<1-2 sentences replying to the post, in that character's voice>",
+      "likes": <integer 0-4000>,
+      "reaction": "<one of the reaction ids listed below>",
+      "replyTo": "<omit, or the author id of the comment being answered>"
+    }
+  ]
 }
 
 Rules:
@@ -321,6 +330,17 @@ Rules:
   in `content` gets the whole post rejected.
 - At most one emoji, and only if that character would use one.
 - Do not repeat the record's title back as a sentence. React, don't summarise.
+
+Comments:
+- Write 1 to 4 comments. A quiet, technical record may deserve one; a scandal or
+  a massacre should draw an argument.
+- A comment is a REPLY, not a second post. It agrees, mocks, corrects, grieves or
+  picks a fight with what was actually said above it.
+- Never let the original poster comment on their own post.
+- Use `replyTo` to answer an earlier commenter by their author id. A short chain
+  of two people arguing is better than four unrelated remarks.
+- Comments get fewer likes than the post unless the comment is the better line.
+- Disagreement is the point. A feed where everyone agrees is not worth reading.
 """
 
 
@@ -375,20 +395,66 @@ def _author_prompt(task: Task) -> tuple[str, str]:
             "Use that dating if you refer to when it happened. Do not invent a different date.\n"
         )
 
+    # Rotation is enforced in validation; saying so here saves a round trip.
+    blocked = recent_authors()
+    cooldown_note = ""
+    if blocked:
+        available = [a for a in KNOWN_AUTHORS if a not in blocked]
+        cooldown_note = (
+            f"\n\nON COOLDOWN — these accounts posted in the last {AUTHOR_COOLDOWN} "
+            f"posts and are FORBIDDEN here: {', '.join(sorted(set(blocked)))}\n"
+            f"You must choose one of: {', '.join(available)}\n"
+            "Pick the one with the strongest reason to care about THIS record."
+        )
+
     prompt = (
         f"RECORD:\n{json.dumps(view, ensure_ascii=False, indent=2)}\n"
         f"{date_note}\n"
         f"AUTHORS — pick exactly one `author` id from this list:\n"
         + "\n".join(lines)
-        + "\n\nWrite the post."
+        + cooldown_note
+        + f"\n\nREACTION IDS (use these exact strings): {', '.join(REACTIONS)}"
+        + "\nPick the one that fits. Do not default to 'deadpan'."
+        + "\n\nWrite the post and its comments."
     )
     return AUTHOR_SYSTEM, prompt
+
+
+# How many other posts must appear between two posts by the same account.
+# Left to itself the model funnels almost everything through one loud voice
+# (it was Waluigi, every time), which makes the feed read like a blog.
+AUTHOR_COOLDOWN = 3
+
+# The feed's emotional palette. Six was too coarse — every ambiguous post fell
+# into "deadpan", so the mix panel showed one grey bar. These are the tones the
+# archive's records actually provoke, and they must stay in step with REACTIONS
+# in app/pages/wahwire/wahwire.js.
+REACTIONS = (
+    "cheer", "rage", "grief", "smug", "alarm", "deadpan",
+    "mourning", "defiant", "gloating", "fear", "awe", "disgust",
+    "relief", "suspicion", "resolve", "mockery", "pride", "despair",
+)
+
+
+def recent_authors(limit: int = AUTHOR_COOLDOWN) -> list[str]:
+    """The authors of the last `limit` posts, most recent first."""
+    posts = sorted(
+        (p for p in _posts() if p.get("author")),
+        key=lambda p: p.get("order") or 0,
+    )
+    return [str(p.get("author")) for p in posts[-limit:]][::-1]
 
 
 def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     author = str(raw.get("author", "")).strip()
     if author not in KNOWN_AUTHORS:
         raise ValidationError(f"unknown author {author!r}")
+    blocked = recent_authors()
+    if author in blocked:
+        raise ValidationError(
+            f"{author} posted within the last {AUTHOR_COOLDOWN} posts — "
+            f"pick a different account. On cooldown: {', '.join(sorted(set(blocked)))}"
+        )
     content = raw.get("content")
     if not isinstance(content, str) or not (40 <= len(content.strip()) <= 900):
         raise ValidationError("content missing or out of length range")
@@ -415,7 +481,7 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         likes = 0
 
     reaction = str(raw.get("reaction", "")).strip().lower()
-    if reaction not in ("cheer", "rage", "grief", "smug", "alarm", "deadpan"):
+    if reaction not in REACTIONS:
         reaction = "deadpan"
 
     tags: list[str] = []
@@ -427,9 +493,46 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             tags.append(tag)
     tags = tags[:4]
 
+    # Comments are a bonus, never a reason to lose the post: anything
+    # malformed is dropped individually and the post still lands.
+    comments: list[dict[str, Any]] = []
+    seen_comment_authors: list[str] = []
+    for entry in (raw.get("comments") or [])[:6]:
+        if not isinstance(entry, dict):
+            continue
+        c_author = str(entry.get("author", "")).strip()
+        if c_author not in KNOWN_AUTHORS or c_author == author:
+            continue
+        c_text = entry.get("content")
+        if not isinstance(c_text, str):
+            continue
+        c_text = " ".join(re.sub(r"#\w+", " ", c_text).split())
+        if not (10 <= len(c_text) <= 400):
+            continue
+        try:
+            c_likes = max(0, min(4000, int(entry.get("likes", 0))))
+        except (TypeError, ValueError):
+            c_likes = 0
+        c_reaction = str(entry.get("reaction", "")).strip().lower()
+        if c_reaction not in REACTIONS:
+            c_reaction = "deadpan"
+        # A reply only makes sense if that person is already in the thread.
+        reply_to = str(entry.get("replyTo", "")).strip()
+        if reply_to not in seen_comment_authors:
+            reply_to = ""
+        comments.append({
+            "id": f"c{len(comments) + 1}",
+            "author": c_author,
+            "content": c_text,
+            "likes": c_likes,
+            "reaction": c_reaction,
+            "replyTo": reply_to,
+        })
+        seen_comment_authors.append(c_author)
+
     return {
         "author": author, "content": content, "likes": likes,
-        "tags": tags, "reaction": reaction,
+        "tags": tags, "reaction": reaction, "comments": comments,
     }
 
 
@@ -455,13 +558,19 @@ def _author_apply(task: Task, data: dict[str, Any]) -> TaskResult:
             "links": [{"id": rid, "type": "event"}],
             "tags": data["tags"],
             "reaction": data["reaction"],
+            "comments": data.get("comments") or [],
         }
         entry.update(provenance("wahwire", task.payload.get("model", "")))
         posts.append(entry)
         atomic_write_json(STORE, store)
 
+    n_comments = len(data.get("comments") or [])
     return TaskResult(
-        task=task, ok=True, detail=f"new post by {data['author']} ({data['likes']} likes)",
+        task=task, ok=True,
+        detail=(
+            f"new post by {data['author']} ({data['likes']} likes, "
+            f"{n_comments} comment(s))"
+        ),
         record=data, changed_paths=[str(STORE.relative_to(ROOT))],
     )
 

@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import random
+import re
 import threading
 from typing import Any
 
@@ -188,13 +189,41 @@ def build_prompt(task: Task) -> tuple[str, str]:
     return SYSTEM_PROMPT, prompt
 
 
+def _overused_words(name: str) -> list[str]:
+    """Words in `name` that the shop is already saturated with.
+
+    A collision is rarely a coincidence: the model latches onto a flavour word
+    ("Shadow", "Storm", "Titanic") and permutes around it. Reporting which word
+    is exhausted is far more actionable than "that name is taken".
+    """
+    counts: dict[str, int] = {}
+    for ability in _abilities():
+        for word in re.findall(r"[A-Za-z']+", str(ability.get("name") or "")):
+            if len(word) > 3:
+                counts[word.lower()] = counts.get(word.lower(), 0) + 1
+    return [
+        w for w in dict.fromkeys(
+            x.lower() for x in re.findall(r"[A-Za-z']+", name) if len(x) > 3
+        )
+        if counts.get(w, 0) >= 3
+    ]
+
+
 def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     store = _load()
     name = " ".join(str(raw.get("name", "")).split())
     if not (3 <= len(name) <= 48):
         raise ValidationError("bad name")
     if name.lower() in {(a.get("name") or "").lower() for a in _abilities()}:
-        raise ValidationError(f"duplicate ability name {name!r}")
+        # Name the words it keeps recycling. "Shadowstep" already exists, so
+        # "Ethereal Shadowstep" gets proposed next and collides too; the retry
+        # needs to know to drop the noun, not decorate it.
+        stale = _overused_words(name)
+        hint = (
+            f" — stop reusing the word(s) {', '.join(stale)}; pick a different noun"
+            if stale else ""
+        )
+        raise ValidationError(f"duplicate ability name {name!r}{hint}")
 
     ability_type = str(raw.get("type", "")).strip().lower()
     if ability_type not in store.get("types", []):

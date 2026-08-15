@@ -38,6 +38,7 @@ class RunState:
         self.running = False
         self.produced = 0
         self.failed = 0
+        self.retried = 0
         self.runner: Runner | None = None
         self.thread: threading.Thread | None = None
         self.per_system: dict[str, dict[str, int]] = {}
@@ -45,11 +46,20 @@ class RunState:
     def note(self, event: RunnerEvent) -> None:
         with self.lock:
             self.log.append({"kind": event.kind, "text": event.text, "system": event.system_id})
-            self.produced = event.produced or self.produced
-            self.failed = event.failed or self.failed
-            if event.system_id and event.kind in ("ok", "fail"):
-                row = self.per_system.setdefault(event.system_id, {"ok": 0, "fail": 0})
-                row["ok" if event.kind == "ok" else "fail"] += 1
+            # `or` would swallow a real 0 and leave a stale count on screen —
+            # compare against None so "no counter on this event" is the only
+            # thing that keeps the previous value.
+            if event.produced is not None:
+                self.produced = event.produced
+            if event.failed is not None:
+                self.failed = event.failed
+            if event.retried is not None:
+                self.retried = event.retried
+            if event.system_id and event.kind in ("ok", "fail", "retry"):
+                row = self.per_system.setdefault(
+                    event.system_id, {"ok": 0, "fail": 0, "retry": 0}
+                )
+                row[{"ok": "ok", "fail": "fail", "retry": "retry"}[event.kind]] += 1
             if event.kind in ("done", "error"):
                 self.running = False
 
@@ -59,6 +69,7 @@ class RunState:
                 "running": self.running,
                 "produced": self.produced,
                 "failed": self.failed,
+                "retried": self.retried,
                 "log": list(self.log)[-120:],
                 "perSystem": dict(self.per_system),
                 "systems": [
@@ -80,6 +91,7 @@ class RunState:
             self.running = True
             self.produced = 0
             self.failed = 0
+            self.retried = 0
             self.per_system.clear()
         runner = Runner(all_systems(), settings, on_event=self.note)
         self.runner = runner
@@ -130,6 +142,7 @@ PAGE = """<!doctype html>
  .log div{padding:2px 0;border-bottom:1px solid #241f1b}
  .ok{color:var(--ok)} .fail{color:var(--bad)} .task{color:var(--muted)}
  .stat{font-size:22px;font-weight:700}
+ .stat.retry{color:#e0b400}
  .stats{display:flex;gap:26px;margin-left:auto}
  .stats div span{display:block;font-size:11px;color:var(--muted);text-transform:uppercase}
 </style></head><body>
@@ -138,17 +151,18 @@ PAGE = """<!doctype html>
   <div class="stats">
     <div><span>produced</span><b class="stat ok" id="produced">0</b></div>
     <div><span>failed</span><b class="stat fail" id="failed">0</b></div>
+    <div><span>retried</span><b class="stat retry" id="retried">0</b></div>
     <div><span>state</span><b class="stat" id="state">idle</b></div>
   </div>
 </header>
 <div class="wrap">
  <div class="side">
   <label>LM Studio endpoint</label>
-  <input id="endpoint" value="http://127.0.0.1:1234/v1/chat/completions">
+  <input id="endpoint" value="__ENDPOINT__">
   <label>Model (blank = whatever is loaded)</label>
-  <input id="model" placeholder="auto-detect">
+  <input id="model" value="__MODEL__" placeholder="auto-detect">
   <label>Workers — concurrent LM Studio conversations</label>
-  <input id="workers" type="number" min="1" max="8" value="2">
+  <input id="workers" type="number" min="1" max="8" value="__WORKERS__">
   <label>Stop after N records (0 = keep going)</label>
   <input id="limit" type="number" min="0" value="0">
   <label>Only these systems (comma ids, blank = all)</label>
@@ -173,10 +187,11 @@ async function poll(){
   try{
     const s=await (await fetch('/state')).json();
     $('produced').textContent=s.produced; $('failed').textContent=s.failed;
+    $('retried').textContent=s.retried||0;
     $('state').textContent=s.running?'running':'idle';
     $('go').disabled=s.running; $('halt').disabled=!s.running;
     $('systems').tBodies[0].innerHTML=s.systems.map(x=>{
-      const p=s.perSystem[x.id]||{ok:0,fail:0};
+      const p=s.perSystem[x.id]||{ok:0,fail:0,retry:0};
       return `<tr><td><span class="stage">${x.stage}</span></td>
         <td title="${x.summary}">${x.title}</td><td>${x.pending}</td>
         <td class="ok">${p.ok}</td><td class="fail">${p.fail}</td></tr>`;}).join('');
@@ -198,7 +213,7 @@ poll(); setInterval(poll,1200);
 """
 
 
-def _handler_factory(state: RunState):
+def _handler_factory(state: RunState, defaults: Settings | None = None):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *args):  # noqa: A003 - silence per-request logging
             pass
@@ -215,7 +230,14 @@ def _handler_factory(state: RunState):
                 payload = json.dumps(state.snapshot()).encode("utf-8")
                 self._send(200, payload, "application/json")
             else:
-                self._send(200, PAGE.encode("utf-8"), "text/html; charset=utf-8")
+                # Show the endpoint/model/workers the panel was actually
+                # launched with, so the form matches the run it will start.
+                base = defaults or Settings()
+                page = (PAGE
+                        .replace("__ENDPOINT__", base.endpoint)
+                        .replace("__MODEL__", base.model or "")
+                        .replace("__WORKERS__", str(base.workers or 2)))
+                self._send(200, page.encode("utf-8"), "text/html; charset=utf-8")
 
         def do_POST(self) -> None:  # noqa: N802
             if self.path.startswith("/stop"):
@@ -223,13 +245,18 @@ def _handler_factory(state: RunState):
                 return
             length = int(self.headers.get("Content-Length") or 0)
             body = json.loads(self.rfile.read(length) or b"{}")
+            # Fall back to whatever the command line asked for. Using a bare
+            # Settings() here ignored --endpoint/--model and sent every run to
+            # the default port regardless of how the panel was launched.
+            base = defaults or Settings()
             settings = Settings(
-                endpoint=body.get("endpoint") or Settings().endpoint,
-                model=body.get("model") or "",
-                workers=int(body.get("workers") or 2),
+                endpoint=body.get("endpoint") or base.endpoint,
+                model=body.get("model") or base.model or "",
+                workers=int(body.get("workers") or base.workers or 2),
                 limit=int(body.get("limit") or 0),
-                temperature=float(body.get("temperature") or 0.7),
+                temperature=float(body.get("temperature") or base.temperature or 0.7),
                 dry_run=bool(body.get("dry_run")),
+                timeout=base.timeout,
                 only=[s.strip() for s in (body.get("only") or "").split(",") if s.strip()],
             )
             self._send(200, state.start(settings).encode(), "text/plain")
@@ -237,9 +264,10 @@ def _handler_factory(state: RunState):
     return Handler
 
 
-def launch_web(host: str = "127.0.0.1", port: int = 8765, *, open_browser: bool = True) -> None:
+def launch_web(host: str = "127.0.0.1", port: int = 8765, *, open_browser: bool = True,
+               defaults: Settings | None = None) -> None:
     state = RunState()
-    server = ThreadingHTTPServer((host, port), _handler_factory(state))
+    server = ThreadingHTTPServer((host, port), _handler_factory(state, defaults))
     url = f"http://{host}:{port}/"
     print(f"genkit control panel: {url}")
     print("Ctrl-C to quit.")
@@ -260,7 +288,7 @@ def launch_web(host: str = "127.0.0.1", port: int = 8765, *, open_browser: bool 
 # tkinter backend
 # ---------------------------------------------------------------------------
 
-def launch_tk() -> None:
+def launch_tk(defaults: Settings | None = None) -> None:
     import tkinter as tk
     from tkinter import ttk
 
@@ -273,8 +301,8 @@ def launch_tk() -> None:
     controls.pack(fill="x")
 
     fields: dict[str, tk.Variable] = {
-        "endpoint": tk.StringVar(value=Settings().endpoint),
-        "model": tk.StringVar(value=""),
+        "endpoint": tk.StringVar(value=(defaults or Settings()).endpoint),
+        "model": tk.StringVar(value=(defaults or Settings()).model or ""),
         "workers": tk.IntVar(value=2),
         "limit": tk.IntVar(value=0),
         "only": tk.StringVar(value=""),
@@ -319,6 +347,7 @@ def launch_tk() -> None:
         status.config(
             text=f"{'running' if snap['running'] else 'idle'} · "
                  f"produced {snap['produced']} · failed {snap['failed']}"
+                 f" · retried {snap.get('retried', 0)}"
         )
         start_button.config(state="disabled" if snap["running"] else "normal")
         stop_button.config(state="normal" if snap["running"] else "disabled")
@@ -354,14 +383,18 @@ def launch_tk() -> None:
     root.mainloop()
 
 
-def launch(prefer_web: bool = False, **kwargs) -> None:
+def launch(prefer_web: bool = False, defaults: Settings | None = None, **kwargs) -> None:
     """Native window when possible, browser dashboard when not."""
+    # A non-loopback bind is an explicit request to reach the panel from
+    # elsewhere, which the native window cannot satisfy.
+    if kwargs.get("host") not in (None, "", "127.0.0.1", "localhost"):
+        prefer_web = True
     if not prefer_web:
         try:
             import tkinter  # noqa: F401
         except ModuleNotFoundError:
             print("tkinter is not available — falling back to the web dashboard.")
         else:
-            launch_tk()
+            launch_tk(defaults)
             return
-    launch_web(**kwargs)
+    launch_web(defaults=defaults, **kwargs)

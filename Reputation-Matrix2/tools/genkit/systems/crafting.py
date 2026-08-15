@@ -13,6 +13,7 @@ one and justifies it in a line.
 
 from __future__ import annotations
 
+import difflib
 import json
 import threading
 from typing import Any
@@ -123,10 +124,76 @@ def build_prompt(task: Task) -> tuple[str, str]:
     return SYSTEM_PROMPT, prompt
 
 
+# Answers that are *correct* in general fantasy vocabulary but are not one of
+# the eight schools this archive uses. Rejecting these throws away a good
+# classification over a naming difference, so fold them in instead.
+SCHOOL_ALIASES = {
+    "ALCHEMY": "TRANSMUTATION",
+    "ALCHEMICAL": "TRANSMUTATION",
+    "POTION": "TRANSMUTATION",
+    "POTIONS": "TRANSMUTATION",
+    "BREWING": "TRANSMUTATION",
+    "CRAFTING": "TRANSMUTATION",
+    "SMITHING": "TRANSMUTATION",
+    "FORGING": "TRANSMUTATION",
+    "TRANSFORMATION": "TRANSMUTATION",
+    "HEALING": "ABJURATION",
+    "RESTORATION": "ABJURATION",
+    "PROTECTION": "ABJURATION",
+    "WARDING": "ABJURATION",
+    "DEFENSE": "ABJURATION",
+    "SUMMONING": "CONJURATION",
+    "TELEPORTATION": "CONJURATION",
+    "DESTRUCTION": "EVOCATION",
+    "ELEMENTAL": "EVOCATION",
+    "FIRE": "EVOCATION",
+    "DAMAGE": "EVOCATION",
+    "DIVINE": "DIVINATION",
+    "SCRYING": "DIVINATION",
+    "PROPHECY": "DIVINATION",
+    "CHARM": "ENCHANTMENT",
+    "MIND": "ENCHANTMENT",
+    "BUFF": "ENCHANTMENT",
+    "DECEPTION": "ILLUSION",
+    "STEALTH": "ILLUSION",
+    "SHADOW": "ILLUSION",
+    "DEATH": "NECROMANCY",
+    "BLOOD": "NECROMANCY",
+    "POISON": "NECROMANCY",
+    "CURSE": "NECROMANCY",
+}
+
+
+def resolve_school(proposed: str) -> str | None:
+    """Best-effort map of a model's answer onto the eight canonical schools.
+
+    Exact, then alias, then a conservative fuzzy pass for plain misspellings
+    ('TRANSMUATION'). Returns None only when nothing sensible matches.
+    """
+    key = "".join(ch for ch in str(proposed or "").upper() if ch.isalpha())
+    if not key:
+        return None
+    known = _schools()
+    if key in known:
+        return key
+    if key in SCHOOL_ALIASES:
+        return SCHOOL_ALIASES[key]
+    close = difflib.get_close_matches(key, list(known), n=1, cutoff=0.82)
+    if close:
+        return close[0]
+    close = difflib.get_close_matches(key, list(SCHOOL_ALIASES), n=1, cutoff=0.88)
+    if close:
+        return SCHOOL_ALIASES[close[0]]
+    return None
+
+
 def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
-    school = str(raw.get("school", "")).strip().upper()
-    if school not in _schools():
-        raise ValidationError(f"unknown school {school!r}")
+    school = resolve_school(raw.get("school", ""))
+    if school is None:
+        raise ValidationError(
+            f"unknown school {str(raw.get('school', ''))!r} — "
+            f"use exactly one of: {', '.join(_schools())}"
+        )
     reason = " ".join(str(raw.get("reason", "")).split())
     if len(reason.split()) > 26 or len(reason) < 10:
         raise ValidationError("reason missing or too long")

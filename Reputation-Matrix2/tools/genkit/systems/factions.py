@@ -89,7 +89,12 @@ _NOT_A_GROUP = re.compile(
     r"^(the_)?("
     r"unknown|none|n_?a|various|civilians?|everyone|nobody|public|"
     r"bystanders?|locals?|survivors?|witnesses?|world|realm|region|"
-    r"party_members?|players?|dm|gm"
+    r"party_members?|players?|dm|gm|"
+    # Placeholder answers. Creating a faction is the right default, but these
+    # are the model declining to answer, not naming a new group.
+    r"nope|nil|null|none_of_the_above|no_one|no_change|neutral|other|"
+    r"tbd|todo|example|placeholder|test|foo|bar|baz|string|value|faction|"
+    r"faction_id|group|groups|all|any|misc|unaffiliated"
     r")$"
 )
 

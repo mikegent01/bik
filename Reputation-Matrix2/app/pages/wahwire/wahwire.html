@@ -123,6 +123,20 @@
     </div>
 </div>
 
+<!-- ============ REPLY THREAD ============
+     Comment threads are variable height, and the feed's virtualiser requires
+     every row to be exactly ROW_HEIGHT. So threads open here instead of
+     inline: the feed stays O(1) to scroll and the conversation gets room. -->
+<div class="ww-thread" id="wwThread" hidden>
+    <div class="ww-thread-panel" role="dialog" aria-modal="true" aria-labelledby="wwThreadTitle">
+        <div class="ww-thread-head">
+            <h2 id="wwThreadTitle">Replies</h2>
+            <button type="button" class="ww-thread-close" id="wwThreadClose" aria-label="Close replies">✕</button>
+        </div>
+        <div class="ww-thread-body" id="wwThreadBody"></div>
+    </div>
+</div>
+
 <script type="module" src="../../core/common.js" defer></script>
 <script type="module" src="../navigation/navigation.js" defer></script>
 <script type="module" src="wahwire.js"></script>

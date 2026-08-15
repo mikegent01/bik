@@ -82,7 +82,16 @@ class WorkerPool:
             try:
                 result = self.handler(task, index)
             except Exception as error:  # noqa: BLE001 - a worker must not die
-                result = TaskResult(task=task, ok=False, detail=f"{type(error).__name__}: {error}")
+                # An unexpected crash is usually one malformed reply hitting an
+                # unguarded path, not a doomed record. Mark it retryable so the
+                # runner puts it back in the pool; MAX_ATTEMPTS still bounds it.
+                result = TaskResult(
+                    task=task,
+                    ok=False,
+                    detail=f"{type(error).__name__}: {error}",
+                    retryable=True,
+                    reason=f"{type(error).__name__}: {error}",
+                )
             finally:
                 with self._busy_lock:
                     self._busy -= 1

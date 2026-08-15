@@ -36,14 +36,23 @@ def _shorten_prompt(prompt: str, fraction: float) -> str:
 
 @dataclass
 class RunnerEvent:
-    kind: str          # started | task | ok | fail | skip | done | error
+    kind: str          # started | task | ok | fail | retry | skip | done | error
     text: str
     system_id: str = ""
-    produced: int = 0
-    failed: int = 0
+    # None means "this event carries no counter", which is different from a
+    # genuine zero. Consumers must test for None, not truthiness.
+    produced: int | None = None
+    failed: int | None = None
+    retried: int | None = None
 
 
 class Runner:
+    # How many times one task may be re-attempted after a rule violation.
+    # Three attempts clears the duplicate-name and missing-number rejections
+    # the local models actually make, without spinning forever on a record the
+    # model simply cannot do.
+    MAX_ATTEMPTS = 3
+
     def __init__(
         self,
         systems: Iterable[SystemSpec],
@@ -70,6 +79,7 @@ class Runner:
         }
         self.produced = 0
         self.failed = 0
+        self.retried = 0
         self._counter_lock = threading.Lock()
         self._stop = threading.Event()
         self.pool = WorkerPool(
@@ -120,6 +130,10 @@ class Runner:
                 continue
             checkpoint = self.checkpoints[task.system_id]
             if checkpoint.done(task.key):
+                # Tell the scheduler, or it will offer this same key on every
+                # refill for the rest of the run and the console fills with
+                # "already done" while nothing is generated.
+                self.scheduler.complete(task, changed=False)
                 self._emit(
                     RunnerEvent("skip", f"already done: {task.label}", task.system_id)
                 )
@@ -137,9 +151,11 @@ class Runner:
         self._emit(
             RunnerEvent(
                 "done",
-                f"produced {self.produced}, failed {self.failed}",
+                f"produced {self.produced}, failed {self.failed}"
+                + (f", recovered {self.retried} retry(ies)" if self.retried else ""),
                 produced=self.produced,
                 failed=self.failed,
+                retried=self.retried,
             )
         )
 
@@ -156,6 +172,14 @@ class Runner:
             record = {}
         else:
             system_prompt, user_prompt = system.build_prompt(task)
+            if task.last_error:
+                # This task has been here before. Say what went wrong, in the
+                # imperative, at the end where it is closest to the answer.
+                user_prompt += (
+                    f"\n\nYOUR PREVIOUS ATTEMPT WAS REJECTED: {task.last_error}\n"
+                    "Return the whole answer again as strictly valid JSON, fixing "
+                    "exactly that problem. Do not repeat the rejected value."
+                )
             try:
                 raw = self.client.complete_json(
                     system_prompt, user_prompt, temperature=self.settings.temperature
@@ -192,7 +216,15 @@ class Runner:
             try:
                 record = system.validate(task, raw)
             except ValidationError as error:
-                return TaskResult(task=task, ok=False, detail=f"rejected: {error}")
+                # The model answered, but broke a rule: a duplicate name, an
+                # effect with no numbers, an operator that does not exist.
+                # That is a verdict on one attempt, not on the record, so the
+                # task goes back in the pool carrying the reason — the next
+                # prompt tells the model exactly what to fix.
+                return TaskResult(
+                    task=task, ok=False, detail=f"rejected: {error}",
+                    retryable=True, reason=str(error),
+                )
 
         if self.settings.dry_run:
             return TaskResult(
@@ -202,6 +234,31 @@ class Runner:
 
     def _collect(self, result: TaskResult) -> None:
         checkpoint = self.checkpoints[result.task.system_id]
+        task = result.task
+
+        # A rejected task is put back rather than thrown away. It carries the
+        # reason with it, so the retry prompt says what was wrong instead of
+        # asking the same question and hoping for a different answer.
+        if not result.ok and result.retryable and task.attempts < self.MAX_ATTEMPTS:
+            task.attempts += 1
+            task.last_error = result.reason or result.detail
+            self.scheduler.requeue(task)
+            with self._counter_lock:
+                self.retried += 1
+            self._emit(
+                RunnerEvent(
+                    "retry",
+                    f"{task.label} — attempt {task.attempts + 1}: {result.reason}",
+                    task.system_id,
+                    produced=self.produced,
+                    failed=self.failed,
+                    retried=self.retried,
+                )
+            )
+            return
+
+        # A failure wrote nothing, so the system will keep offering this task.
+        self.scheduler.complete(task, changed=result.ok)
         with self._counter_lock:
             if result.ok:
                 self.produced += 1
@@ -219,6 +276,7 @@ class Runner:
                 result.task.system_id,
                 produced=self.produced,
                 failed=self.failed,
+                retried=self.retried,
             )
         )
 

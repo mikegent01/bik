@@ -76,6 +76,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--web", action="store_true",
                         help="force the browser dashboard instead of a native window")
     parser.add_argument("--port", type=int, default=8765, help="dashboard port")
+    parser.add_argument("--host", default="127.0.0.1",
+                        help="dashboard bind address (use 0.0.0.0 to reach it "
+                             "from another machine)")
 
     parser.add_argument("--workers", type=int, default=2,
                         help="concurrent LM Studio conversations (default 2)")
@@ -119,7 +122,8 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.gui or args.web:
         from genkit.gui import launch
-        launch(prefer_web=args.web, port=args.port)
+        launch(prefer_web=args.web, host=args.host, port=args.port,
+               defaults=settings)
         return 0
 
     def on_event(event: RunnerEvent) -> None:
