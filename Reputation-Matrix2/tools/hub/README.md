@@ -120,13 +120,19 @@ tools/hub/
     piles.py           purchases  -> item-pile actors
     creator.py         lore       -> character actors
     llm.py             optional LM Studio client
-  .hub-out/            generated output (git-ignored)
+  .hub-out/            generated output (git-ignored; regenerates on demand)
 ```
 
 ## Notes
 
 * The server binds to `127.0.0.1` only and refuses any path outside the repo.
   It is a local dev tool — don't expose it to a network.
+* **Paths in generated files are repo-relative** (`./Reputation-Matrix2/…`,
+  always forward slashes). Use `paths.relative()` for anything written into a
+  file or returned to the UI; a raw `str(path)` bakes one machine's home
+  directory into the output, which is meaningless to everyone else. The two
+  deliberate exceptions are `doctor` and the header's **root** readout, which
+  exist to tell you where the hub is actually running.
 * The shop catalog is cached to `.hub-out/cache/`, keyed on the newest file
   mtime in `data/shop-items`, so edits invalidate it automatically. **Refresh
   data** in the top bar forces a re-export.

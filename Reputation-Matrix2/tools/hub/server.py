@@ -119,7 +119,7 @@ class HubHandler(BaseHTTPRequestHandler):
         if route == "overview":
             data = registry.overview()
             data["llm"] = llm.available()
-            data["outDir"] = str(paths.OUT_DIR)
+            data["outDir"] = paths.relative(paths.OUT_DIR)
             return self._send_json({"ok": True, "data": data})
 
         if route == "llm":
@@ -185,14 +185,14 @@ class HubHandler(BaseHTTPRequestHandler):
                 for path in sorted(folder.glob("*.json")):
                     stat = path.stat()
                     files.append({
-                        "name": path.name, "path": str(path),
+                        "name": path.name, "path": paths.relative(path),
                         "relative": paths.relative(path),
                         "size": stat.st_size, "modified": stat.st_mtime,
                         "kind": "pile" if folder == paths.PILES_DIR else "actor",
                     })
             files.sort(key=lambda row: row["modified"], reverse=True)
             return self._send_json({"ok": True, "data": {"files": files,
-                                                         "outDir": str(paths.OUT_DIR)}})
+                                                         "outDir": paths.relative(paths.OUT_DIR)}})
 
         if route == "runs":
             with _run_lock:
@@ -236,7 +236,7 @@ class HubHandler(BaseHTTPRequestHandler):
                 target = creator.save_character(result)
                 return self._send_json({"ok": True, "data": {
                     "report": result["report"],
-                    "file": target,
+                    "file": paths.relative(Path(target)),
                     "relativeFile": paths.relative(Path(target)),
                 }})
 

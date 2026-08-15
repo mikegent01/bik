@@ -439,7 +439,10 @@ def build_all(
             filename = f"fvtt-Actor-{foundry.safe_filename(key)}-pile.json"
             target = paths.PILES_DIR / filename
             dataio.write_json(target, actor)
-            entry["file"] = str(target)
+            # Repo-relative on both keys: this manifest is committed, so an
+            # absolute path here would bake one machine's home directory into
+            # the repository and churn the diff on every run elsewhere.
+            entry["file"] = paths.relative(target)
             entry["relativeFile"] = paths.relative(target)
         else:
             entry["actor"] = actor

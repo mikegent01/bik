@@ -42,8 +42,16 @@ def ensure_out_dirs() -> None:
 
 
 def relative(path: Path) -> str:
-    """Display a path relative to the repo when possible, else absolute."""
+    """A repo-relative, portable path string: './Reputation-Matrix2/...'.
+
+    Always forward slashes and always prefixed './', regardless of the OS that
+    produced it. Anything written into a file that gets committed must use this
+    rather than str(path): a Windows absolute path baked into a generated
+    artifact is meaningless on anyone else's machine and shows up as noise in
+    every diff. Falls back to the absolute path only when the target genuinely
+    lives outside the repository.
+    """
     try:
-        return str(Path(path).resolve().relative_to(SITE_ROOT))
+        return "./" + Path(path).resolve().relative_to(SITE_ROOT).as_posix()
     except ValueError:
-        return str(path)
+        return Path(path).as_posix()
