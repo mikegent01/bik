@@ -23,6 +23,8 @@ def all_systems() -> list[SystemSpec]:
         abilities.SPEC,
         reputation.SPEC,
         crafting.SPEC,
+        wahwire.DISCUSS_SPEC,    # threads posts, interleaved with authoring
+        wahwire.PROFILE_SPEC,    # bios + the follow graph, 13 accounts
     ]
 
 

@@ -20,6 +20,7 @@ ids, which is what makes the feed worth linking to articles at all.
 
 from __future__ import annotations
 
+import difflib
 import json
 import re
 import threading
@@ -413,8 +414,11 @@ def _author_prompt(task: Task) -> tuple[str, str]:
         f"AUTHORS — pick exactly one `author` id from this list:\n"
         + "\n".join(lines)
         + cooldown_note
-        + f"\n\nREACTION IDS (use these exact strings): {', '.join(REACTIONS)}"
-        + "\nPick the one that fits. Do not default to 'deadpan'."
+        + f"\n\nREACTION IDS: {', '.join(reactions())}"
+        + "\nPick the one that fits. Do not default to 'deadpan'. If none of "
+          "them names what this record actually provokes, invent a new one: "
+          "a single lower-case English feeling word (e.g. 'vindication', "
+          "'dread'). It will be added to the palette."
         + "\n\nWrite the post and its comments."
     )
     return AUTHOR_SYSTEM, prompt
@@ -425,24 +429,163 @@ def _author_prompt(task: Task) -> tuple[str, str]:
 # (it was Waluigi, every time), which makes the feed read like a blog.
 AUTHOR_COOLDOWN = 3
 
-# The feed's emotional palette. Six was too coarse — every ambiguous post fell
-# into "deadpan", so the mix panel showed one grey bar. These are the tones the
-# archive's records actually provoke, and they must stay in step with REACTIONS
-# in app/pages/wahwire/wahwire.js.
-REACTIONS = (
+# The feed's emotional palette, now open-ended.
+#
+# Six tones was too coarse — every ambiguous post fell into "deadpan" and the
+# mix panel showed one grey bar. Eighteen is better, but a fixed list has the
+# same failure mode further out: the archive keeps producing records whose
+# mood is genuinely not on it, and forcing those to "deadpan" throws away the
+# most interesting thing about the post.
+#
+# So the list is a seed, not a limit. A pass that reaches for a tone the
+# palette does not have mints it (see `mint_reaction`), and both this module
+# and app/pages/wahwire/wahwire.js read the result from
+# data/wahwire/reactions.json — which is what keeps the two from drifting.
+REACTIONS_FILE = ROOT / "data" / "wahwire" / "reactions.json"
+
+# Fallback only, for a missing or unreadable palette file.
+SEED_REACTIONS = (
     "cheer", "rage", "grief", "smug", "alarm", "deadpan",
     "mourning", "defiant", "gloating", "fear", "awe", "disgust",
     "relief", "suspicion", "resolve", "mockery", "pride", "despair",
 )
 
+# Glyphs for minted tones, cycled by hash so a new reaction gets a stable face
+# without the model having to pick an emoji (it picks badly, and a broken
+# surrogate pair in a JSON store is a bad trade for a nicer icon).
+_MINT_GLYPHS = ("💬", "🌀", "🜂", "❖", "◈", "⟡", "✦", "◐", "⚑", "❉")
+_MINT_TONES = ("#6a7b8c", "#8d6e63", "#7986cb", "#4db6ac", "#9575cd",
+               "#a1887f", "#4fc3f7", "#aed581", "#ff8a65", "#90a4ae")
+
+_REACTIONS_CACHE: dict[str, Any] | None = None
+_REACTION_LOCK = threading.Lock()
+
+
+def _reactions_doc() -> dict[str, Any]:
+    global _REACTIONS_CACHE
+    if _REACTIONS_CACHE is None:
+        doc = read_json(REACTIONS_FILE, default=None)
+        if not isinstance(doc, dict) or not isinstance(doc.get("reactions"), dict):
+            doc = {
+                "version": 1,
+                "note": "Seeded from SEED_REACTIONS after a missing palette file.",
+                "reactions": {
+                    name: {"glyph": "·", "label": name.title(), "tone": "#78909c",
+                           "origin": "canon"}
+                    for name in SEED_REACTIONS
+                },
+            }
+        _REACTIONS_CACHE = doc
+    return _REACTIONS_CACHE
+
+
+def reactions() -> tuple[str, ...]:
+    """Every reaction id currently in the palette."""
+    return tuple(_reactions_doc().get("reactions", {}))
+
+
+def mint_reaction(name: str, *, model: str = "", source: str = "") -> str | None:
+    """Add a new emotion to the palette, returning its id.
+
+    Guarded rather than open: the id has to look like a single feeling word.
+    Without that the palette fills up with "reaction", "mixed_emotions" and
+    whole sentences, and a palette that contains everything describes nothing.
+    """
+    slug = re.sub(r"[^a-z]+", "_", str(name).strip().lower()).strip("_")
+    if not (3 <= len(slug) <= 18) or "_" in slug:
+        return None
+    if slug in {"reaction", "emotion", "feeling", "mood", "none", "other",
+                "mixed", "neutral", "unknown", "various"}:
+        return None
+
+    with _REACTION_LOCK:
+        doc = _reactions_doc()
+        palette = doc.setdefault("reactions", {})
+        if slug in palette:
+            return slug
+        index = sum(ord(c) for c in slug)
+        palette[slug] = {
+            "glyph": _MINT_GLYPHS[index % len(_MINT_GLYPHS)],
+            "label": slug.title(),
+            "tone": _MINT_TONES[index % len(_MINT_TONES)],
+            "origin": "generated",
+            "by": model,
+            "source": source,
+        }
+        atomic_write_json(REACTIONS_FILE, doc)
+    return slug
+
+
+def _resolve_reaction(value: Any, *, model: str = "", source: str = "") -> str:
+    """Map a proposed reaction onto a palette entry, minting if it is new."""
+    slug = re.sub(r"[^a-z]+", "_", str(value or "").strip().lower()).strip("_")
+    if not slug:
+        return "deadpan"
+    palette = reactions()
+    if slug in palette:
+        return slug
+
+    # An inflection of an existing tone is the same tone: "rageful" is rage,
+    # "pridefull" is pride, "disgusted" is disgust. Minting these would fill
+    # the palette with grammatical variants of emotions it already has, which
+    # is noise dressed up as range.
+    for known in palette:
+        if len(known) >= 4 and (slug.startswith(known) or known.startswith(slug)):
+            return known
+
+    # A near-miss is a spelling, not a new emotion. The cutoff sits in the
+    # clear gap measured against the seed palette: misspellings score 0.80+
+    # ("greif"→grief, "releif"→relief) while genuinely different feelings
+    # score 0.73 and below ("dread", "sorrow", "contempt"), so nothing real
+    # gets swallowed by a neighbour.
+    close = difflib.get_close_matches(slug, list(palette), n=1, cutoff=0.78)
+    if close:
+        return close[0]
+
+    return mint_reaction(slug, model=model, source=source) or "deadpan"
+
+
+# Authors claimed by tasks that are mid-flight: prompted, or answered but not
+# yet written. Without this the cooldown is unenforceable with more than one
+# worker — two tasks read the same on-disk tail, both see waluigi is clear,
+# and both legally choose him. The store only learns about the first at write
+# time, by which point the second has already been validated and accepted.
+#
+# Ordered so the oldest claim can be dropped once it has aged past the window.
+_INFLIGHT_AUTHORS: list[str] = []
+# Its own lock, deliberately not `_WRITE_LOCK`: the re-check in
+# `_author_apply()` runs while the store lock is held, and reusing it here
+# would deadlock the writer against itself.
+_INFLIGHT_LOCK = threading.Lock()
+
+
+def _claim_author(author: str) -> None:
+    """Reserve an author for a post that is about to be written."""
+    with _INFLIGHT_LOCK:
+        _INFLIGHT_AUTHORS.append(author)
+        del _INFLIGHT_AUTHORS[:-AUTHOR_COOLDOWN]
+
 
 def recent_authors(limit: int = AUTHOR_COOLDOWN) -> list[str]:
-    """The authors of the last `limit` posts, most recent first."""
+    """The accounts inside the cooldown window, most recent first.
+
+    Covers both what is on disk and what is in flight. A post that has been
+    generated but not yet written still counts — otherwise the window has a
+    hole exactly the width of a generation round-trip, which is where every
+    duplicate Waluigi post came through.
+    """
     posts = sorted(
         (p for p in _posts() if p.get("author")),
         key=lambda p: p.get("order") or 0,
     )
-    return [str(p.get("author")) for p in posts[-limit:]][::-1]
+    window = [str(p.get("author")) for p in posts[-limit:]][::-1]
+    with _INFLIGHT_LOCK:
+        claimed = list(reversed(_INFLIGHT_AUTHORS))
+    # In-flight claims are more recent than anything on disk by definition, so
+    # they go at the front and push the oldest on-disk post out of the window.
+    # Duplicates are kept rather than collapsed: the list is the last `limit`
+    # posts, and silently shortening it would widen the real cooldown.
+    return (claimed + window)[:limit]
 
 
 def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
@@ -480,9 +623,11 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     except (TypeError, ValueError):
         likes = 0
 
-    reaction = str(raw.get("reaction", "")).strip().lower()
-    if reaction not in REACTIONS:
-        reaction = "deadpan"
+    model = str(task.payload.get("model", ""))
+    reaction = _resolve_reaction(
+        raw.get("reaction"), model=model,
+        source=str(task.payload.get("record", {}).get("id", "")),
+    )
 
     tags: list[str] = []
     for candidate in list(raw.get("tags") or []) + salvaged:
@@ -513,9 +658,7 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             c_likes = max(0, min(4000, int(entry.get("likes", 0))))
         except (TypeError, ValueError):
             c_likes = 0
-        c_reaction = str(entry.get("reaction", "")).strip().lower()
-        if c_reaction not in REACTIONS:
-            c_reaction = "deadpan"
+        c_reaction = _resolve_reaction(entry.get("reaction"), model=model)
         # A reply only makes sense if that person is already in the thread.
         reply_to = str(entry.get("replyTo", "")).strip()
         if reply_to not in seen_comment_authors:
@@ -536,6 +679,52 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def _author_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    """Reassign a post whose author is on cooldown.
+
+    Only the cooldown is repaired here. It is a scheduling constraint, not a
+    judgement about the writing: the post itself is finished and good, and the
+    model has simply reached for the loudest voice again after being told
+    three times not to. Choosing a different account in code costs nothing and
+    saves the record.
+
+    A short post is a different matter — that is the model under-delivering,
+    and quietly padding it would be the tool writing the archive's content.
+    Those still fail.
+    """
+    if "cooldown" not in why:
+        return None
+
+    blocked = set(recent_authors())
+    blocked.add(str(raw.get("author", "")).strip())
+    available = [a for a in KNOWN_AUTHORS if a not in blocked]
+    if not available:
+        return None
+
+    fixed = dict(raw)
+    # Prefer whoever has been quiet longest, so the reassignment actively
+    # widens the cast instead of settling on the next name in the list.
+    posts = sorted(
+        (p for p in _posts() if p.get("author")),
+        key=lambda p: p.get("order") or 0,
+    )
+    last_seen = {a: -1 for a in available}
+    for index, post in enumerate(posts):
+        author = str(post.get("author"))
+        if author in last_seen:
+            last_seen[author] = index
+    fixed["author"] = min(available, key=lambda a: last_seen[a])
+
+    # A comment by the new author would now be a reply to themselves.
+    comments = fixed.get("comments")
+    if isinstance(comments, list):
+        fixed["comments"] = [
+            c for c in comments
+            if not (isinstance(c, dict) and c.get("author") == fixed["author"])
+        ]
+    return fixed
+
+
 def _author_apply(task: Task, data: dict[str, Any]) -> TaskResult:
     record = task.payload["record"]
     rid = record.get("id")
@@ -546,6 +735,33 @@ def _author_apply(task: Task, data: dict[str, Any]) -> TaskResult:
         posts = store.setdefault("posts", [])
         if any(p.get("id") == post_id for p in posts):
             return TaskResult(task=task, ok=False, detail="post already exists")
+
+        # Re-check the cooldown at the only moment it can be checked honestly.
+        # Validation ran against the window as it stood when the reply came
+        # back; another worker may have written a post by this author in the
+        # gap. Writing anyway is what let the same voice appear twice in a
+        # row, so the post goes back to the pool for a different account
+        # instead — the record still gets covered, just not by this one.
+        written = sorted(
+            (p for p in posts if p.get("author")),
+            key=lambda p: p.get("order") or 0,
+        )
+        window = {str(p.get("author")) for p in written[-AUTHOR_COOLDOWN:]}
+        if data["author"] in window:
+            return TaskResult(
+                task=task, ok=False,
+                detail=(
+                    f"{data['author']} was claimed by another worker inside the "
+                    f"{AUTHOR_COOLDOWN}-post cooldown"
+                ),
+                retryable=True,
+                reason=(
+                    f"{data['author']} posted within the last {AUTHOR_COOLDOWN} "
+                    f"posts — pick a different account. On cooldown: "
+                    f"{', '.join(sorted(window))}"
+                ),
+            )
+        _claim_author(data["author"])
         order = max([p.get("order") or 0 for p in posts] or [0]) + 1
         entry = {
             "id": post_id,
@@ -627,6 +843,509 @@ AUTHOR_SPEC = SystemSpec(
     validate=_author_validate,
     apply=_author_apply,
     pending=lambda: len(_uncovered_records()),
+    repair=_author_repair,
 )
 
-SPECS = [PRUNE_SPEC, AUTHOR_SPEC]
+# --------------------------------------------------------------------------
+# stage 2 — discuss
+#
+# Authoring covers a record with one voice. That is a wire, not a feed: the
+# nineteen legacy posts and every newly authored one sat there with nobody
+# answering them, which is the least social a social feed can be.
+#
+# This pass goes back to posts that already exist — including the hand-written
+# legacy ones the generator never touched — and adds the argument underneath.
+# It is deliberately separate from authoring rather than folded into it:
+# a thread written at the same moment as its post is one author imagining a
+# reaction, while a thread written later can be seeded with what the rest of
+# the feed went on to say.
+# --------------------------------------------------------------------------
+
+# Threads shorter than this are candidates for more discussion.
+DISCUSS_TARGET = 3
+# Never grow a thread past this, however many passes run over it.
+DISCUSS_CEILING = 8
+
+DISCUSS_SYSTEM = """You write the comment thread under a post on WAHwire, an in-world social
+feed inside a tabletop campaign archive.
+
+You are given ONE existing post and the accounts available to reply with. Write the
+replies that post would actually have drawn: people who were there disputing the
+detail, rivals scoring points, someone who lost something staying quiet about the part
+that matters. Comments may reply to each other.
+
+RULES
+- Reply only as accounts from the list. NEVER reply as the post's own author.
+- 1 to 4 comments. Fewer good ones beat four filler ones.
+- Each comment 10-400 characters, in that character's voice, no hashtags.
+- Disagree where disagreement is earned. A thread of agreement is not a thread.
+- Do not restate the post. Add something: a correction, a consequence, an accusation,
+  a detail only that person would know.
+- `replyTo` is optional and must name an account that already commented ABOVE it.
+- `reaction` is one of the listed ids, or a new single lower-case feeling word if
+  none of them fits.
+- Invent no events. Work only from what the post and the record say.
+
+Return ONLY JSON:
+{"comments":[{"author":"<id>","content":"<text>","likes":<0-4000>,
+              "reaction":"<id>","replyTo":"<id or empty>"}]}"""
+
+
+def _thin_threads(limit: int = 400) -> list[dict[str, Any]]:
+    """Live posts whose comment thread is thinner than the target."""
+    out = []
+    for post in _posts():
+        if post.get("status") == "retired":
+            continue
+        comments = post.get("comments")
+        if not isinstance(comments, list):
+            comments = []
+        if len(comments) < DISCUSS_TARGET:
+            out.append(post)
+    return out[:limit]
+
+
+def _discuss_tasks(count: int) -> list[Task]:
+    return [
+        Task(
+            system_id="wahwire-discuss",
+            key=f"discuss:{p['id']}",
+            label=f"wahwire thread · {p['id']}",
+            payload={"id": p["id"], "post": p},
+            phase="discuss",
+        )
+        for p in _thin_threads()[:count]
+    ]
+
+
+def _discuss_prompt(task: Task) -> tuple[str, str]:
+    post = task.payload["post"]
+    author = str(post.get("author", ""))
+    who = voices()
+
+    existing = [c for c in (post.get("comments") or []) if isinstance(c, dict)]
+
+    # Everyone except the post's author may reply.
+    lines = []
+    for author_id in KNOWN_AUTHORS:
+        if author_id == author:
+            continue
+        v = who.get(author_id)
+        if v:
+            bits = [b for b in (v["title"], v["affiliation"]) if b]
+            head = f"  {author_id} — {v['name']}"
+            if bits:
+                head += f" ({'; '.join(bits)})"
+            lines.append(head)
+        else:
+            note = ROLE_NOTES.get(author_id, "")
+            lines.append(f"  {author_id}" + (f" — {note}" if note else ""))
+
+    # The record the post is about, so replies can carry real detail rather
+    # than reacting to the prose in a vacuum.
+    record_note = ""
+    targets = link_targets()
+    for link in post.get("links") or []:
+        key = link.get("id") if isinstance(link, dict) else link
+        target = targets.get(str(key))
+        if target:
+            record_note = (
+                f"\nThe post is about this record:\n"
+                f"  {target.get('name', key)} — {str(target.get('summary', ''))[:600]}\n"
+            )
+            break
+
+    thread_note = ""
+    if existing:
+        thread_note = "\nAlready in the thread (do not repeat these points):\n" + "\n".join(
+            f"  {c.get('author')}: {str(c.get('content', ''))[:200]}" for c in existing
+        ) + "\n"
+
+    poster = who.get(author, {}).get("name", author)
+    prompt = (
+        f"POST by {author} ({poster}):\n"
+        f"\"{post.get('content', '')}\"\n"
+        f"{record_note}{thread_note}\n"
+        f"ACCOUNTS you may reply as:\n" + "\n".join(lines)
+        + f"\n\nREACTION IDS: {', '.join(reactions())}"
+        + "\nIf none fits, invent one single lower-case feeling word."
+        + f"\n\nWrite {DISCUSS_TARGET - len(existing)} to 4 comments."
+    )
+    return DISCUSS_SYSTEM, prompt
+
+
+def _discuss_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
+    post = task.payload["post"]
+    author = str(post.get("author", ""))
+    model = str(task.payload.get("model", ""))
+
+    existing = [c for c in (post.get("comments") or []) if isinstance(c, dict)]
+    room = DISCUSS_CEILING - len(existing)
+    if room <= 0:
+        raise ValidationError("thread already at its ceiling")
+
+    # Anyone already in the thread can be replied to; so can the accounts
+    # added by this batch, in order.
+    seen_authors = [str(c.get("author")) for c in existing if c.get("author")]
+    seen_text = {" ".join(str(c.get("content", "")).lower().split()) for c in existing}
+
+    comments: list[dict[str, Any]] = []
+    for entry in (raw.get("comments") or [])[:4]:
+        if len(comments) >= room:
+            break
+        if not isinstance(entry, dict):
+            continue
+        c_author = str(entry.get("author", "")).strip()
+        if c_author not in KNOWN_AUTHORS or c_author == author:
+            continue
+        c_text = entry.get("content")
+        if not isinstance(c_text, str):
+            continue
+        c_text = " ".join(re.sub(r"#\w+", " ", c_text).split())
+        if not (10 <= len(c_text) <= 400):
+            continue
+        # A pass that runs twice over the same post must not say it twice.
+        if c_text.lower() in seen_text:
+            continue
+        try:
+            c_likes = max(0, min(4000, int(entry.get("likes", 0))))
+        except (TypeError, ValueError):
+            c_likes = 0
+        reply_to = str(entry.get("replyTo", "")).strip()
+        if reply_to not in seen_authors:
+            reply_to = ""
+        comments.append({
+            "author": c_author,
+            "content": c_text,
+            "likes": c_likes,
+            "reaction": _resolve_reaction(entry.get("reaction"), model=model),
+            "replyTo": reply_to,
+        })
+        seen_authors.append(c_author)
+        seen_text.add(c_text.lower())
+
+    if not comments:
+        raise ValidationError(
+            "no usable comments — each needs an account from the list "
+            "(not the post's own author) and 10-400 characters of new content"
+        )
+    return {"comments": comments}
+
+
+def _discuss_apply(task: Task, data: dict[str, Any]) -> TaskResult:
+    post_id = task.payload["id"]
+    with _WRITE_LOCK:
+        store = _load()
+        post = next(
+            (p for p in store.get("posts", []) if p.get("id") == post_id), None
+        )
+        if post is None:
+            return TaskResult(task=task, ok=False, detail="post not found on write")
+
+        comments = post.get("comments")
+        if not isinstance(comments, list):
+            comments = []
+
+        # Re-check against the store rather than the snapshot in the payload:
+        # another worker may have threaded this same post in the meantime.
+        have = {" ".join(str(c.get("content", "")).lower().split()) for c in comments
+                if isinstance(c, dict)}
+        added = 0
+        for comment in data["comments"]:
+            if len(comments) >= DISCUSS_CEILING:
+                break
+            if " ".join(comment["content"].lower().split()) in have:
+                continue
+            entry = dict(comment)
+            # Ids are assigned at write time so they stay unique across passes.
+            entry["id"] = f"c{len(comments) + 1}"
+            entry["generated"] = True
+            comments.append(entry)
+            have.add(" ".join(comment["content"].lower().split()))
+            added += 1
+
+        if not added:
+            return TaskResult(
+                task=task, ok=False,
+                detail="every comment was already in the thread",
+            )
+
+        post["comments"] = comments
+        atomic_write_json(STORE, store)
+
+    return TaskResult(
+        task=task, ok=True,
+        detail=f"{added} comment(s) added to {post_id} ({len(comments)} total)",
+        record=data, changed_paths=[str(STORE.relative_to(ROOT))],
+    )
+
+
+DISCUSS_SPEC = SystemSpec(
+    id="wahwire-discuss",
+    title="WAHwire · thread existing posts",
+    summary="Add comments and replies to posts that nobody has answered.",
+    # Stage 1, not 2, even though it reads what stage 1 writes. Stages are a
+    # hard gate: a stage-2 system waits for every stage-1 system to drain, and
+    # stage 1 holds ~3,300 shop/ability/reputation tasks, so threading would
+    # never have run at all. Sharing stage 1 lets it interleave — it threads
+    # the pruned legacy posts immediately and picks up newly authored ones as
+    # they land. It only depends on stage 0, which does gate it correctly:
+    # no point threading a post that is about to be retired.
+    stage=1,
+    next_tasks=_discuss_tasks,
+    build_prompt=_discuss_prompt,
+    validate=_discuss_validate,
+    apply=_discuss_apply,
+    pending=lambda: len(_thin_threads()),
+)
+
+
+# ============================================================================
+# PROFILES — who each account is, and who they follow
+# ============================================================================
+#
+# The feed shows posts; a profile shows a person. Clicking a name has to lead
+# somewhere, and "somewhere" needs three things the post store does not hold:
+# a bio in the account's own register, a location line, and a follow list.
+#
+# The follow graph is the part worth generating rather than hard-coding. Who
+# reads whom is a political statement in this setting — the Iron Legion colonel
+# following the werewolf alpha means something, and a random graph would say
+# something false. So each account is asked who it follows and why, and the
+# edges are validated against the roster.
+
+PROFILES_FILE = ROOT / "data" / "wahwire" / "profiles.json"
+
+_PROFILE_LOCK = threading.Lock()
+_PROFILES_CACHE: dict[str, Any] | None = None
+
+
+def _profiles_doc() -> dict[str, Any]:
+    global _PROFILES_CACHE
+    if _PROFILES_CACHE is None:
+        doc = read_json(PROFILES_FILE, default=None)
+        if not isinstance(doc, dict) or not isinstance(doc.get("profiles"), dict):
+            doc = {
+                "version": 1,
+                "note": (
+                    "WAHwire account profiles. `follows` is a list of account "
+                    "ids; `followReasons` explains each edge in one line."
+                ),
+                "profiles": {},
+            }
+        _PROFILES_CACHE = doc
+    return _PROFILES_CACHE
+
+
+def profiles() -> dict[str, Any]:
+    return dict(_profiles_doc().get("profiles", {}))
+
+
+def _unprofiled() -> list[str]:
+    """Accounts with no profile yet, in roster order."""
+    have = _profiles_doc().get("profiles", {})
+    return [a for a in KNOWN_AUTHORS if a not in have]
+
+
+PROFILE_SYSTEM = """You write the profile page for an account on WAHwire, an in-world social
+feed in a Mario-derived dark-fantasy setting.
+
+Return ONE JSON object and nothing else:
+
+{
+  "bio": "<the account's own self-description, 60-220 characters, first person or in their register>",
+  "location": "<a short place or posting-from line, 3-40 characters>",
+  "joined": "<a short in-world join note, 3-40 characters>",
+  "follows": [
+    {"id": "<account id from the list>", "why": "<one short line, under 90 characters>"}
+  ]
+}
+
+RULES
+- The bio is written BY the account, not about it. Match their voice: a general
+  writes like a general, a frightened civilian writes like a frightened civilian.
+- Follow 2 to 5 accounts. Only ids from the ACCOUNTS list. Never follow yourself.
+- Who someone follows is a political fact. An enemy may be followed to watch
+  them; say so in "why". Do not make everyone follow everyone.
+- No hashtags, no emoji, no markdown, no line breaks."""
+
+
+def _profile_tasks(count: int) -> list[Task]:
+    out: list[Task] = []
+    for account in _unprofiled()[:count]:
+        who = voices().get(account, {})
+        out.append(Task(
+            system_id="wahwire-profile",
+            key=f"profile:{account}",
+            label=f"profile · {who.get('name', account)}",
+            payload={"account": account},
+        ))
+    return out
+
+
+def _profile_prompt(task: Task) -> tuple[str, str]:
+    account = task.payload["account"]
+    who = voices()
+
+    me = who.get(account)
+    if me:
+        bits = [b for b in (me["title"], me["affiliation"]) if b]
+        self_note = f"{me['name']}" + (f" ({'; '.join(bits)})" if bits else "")
+        if me["summary"]:
+            self_note += f"\n{me['summary'][:900]}"
+    else:
+        self_note = ROLE_NOTES.get(account, account.replace("_", " "))
+
+    lines = []
+    for other in KNOWN_AUTHORS:
+        if other == account:
+            continue
+        v = who.get(other)
+        if v:
+            bits = [b for b in (v["title"], v["affiliation"]) if b]
+            lines.append(f"  {other} — {v['name']}"
+                         + (f" ({'; '.join(bits)})" if bits else ""))
+        else:
+            note = ROLE_NOTES.get(other, "")
+            lines.append(f"  {other}" + (f" — {note}" if note else ""))
+
+    # Their own posts, so the bio matches what they actually say on the feed.
+    mine = [p for p in _posts()
+            if p.get("author") == account and p.get("status") != "retired"]
+    post_note = ""
+    if mine:
+        post_note = "\nWhat this account has posted:\n" + "\n".join(
+            f"  \"{str(p.get('content', ''))[:160]}\"" for p in mine[:4]
+        ) + "\n"
+
+    prompt = (
+        f"ACCOUNT: {account}\n{self_note}\n{post_note}\n"
+        f"ACCOUNTS they could follow:\n" + "\n".join(lines)
+    )
+    return PROFILE_SYSTEM, prompt
+
+
+def _profile_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
+    account = task.payload["account"]
+
+    bio = raw.get("bio")
+    if not isinstance(bio, str):
+        raise ValidationError("no bio returned")
+    bio = " ".join(re.sub(r"#\w+", " ", bio).split())
+    if not (40 <= len(bio) <= 260):
+        raise ValidationError(
+            f"bio is {len(bio)} characters, needs to be between 40 and 260"
+        )
+
+    def _short(value: Any, limit: int = 40) -> str:
+        text = " ".join(str(value or "").split())
+        return text[:limit]
+
+    follows: list[str] = []
+    reasons: dict[str, str] = {}
+    for entry in (raw.get("follows") or [])[:6]:
+        if isinstance(entry, dict):
+            fid = str(entry.get("id", "")).strip()
+            why = _short(entry.get("why"), 90)
+        else:
+            fid, why = str(entry).strip(), ""
+        # A follow edge pointing at nobody is worse than no edge: the profile
+        # page would render a dead link. Fold near-misses, drop the rest.
+        if fid not in KNOWN_AUTHORS:
+            near = difflib.get_close_matches(fid, KNOWN_AUTHORS, n=1, cutoff=0.86)
+            if not near:
+                continue
+            fid = near[0]
+        if fid == account or fid in follows:
+            continue
+        follows.append(fid)
+        if why:
+            reasons[fid] = why
+
+    if not follows:
+        raise ValidationError(
+            "no usable follows — needs 2 to 5 account ids from the list"
+        )
+
+    return {
+        "bio": bio,
+        "location": _short(raw.get("location")),
+        "joined": _short(raw.get("joined")),
+        "follows": follows[:5],
+        "followReasons": {k: v for k, v in reasons.items() if k in follows[:5]},
+    }
+
+
+def _profile_apply(task: Task, data: dict[str, Any]) -> TaskResult:
+    account = task.payload["account"]
+    model = str(task.payload.get("model", ""))
+
+    with _PROFILE_LOCK:
+        doc = _profiles_doc()
+        entry = dict(data)
+        # A profile is a whole generated record, so it carries the full stamp
+        # (status + _generated), same as an authored post.
+        entry.update(provenance("wahwire-profile", model))
+        doc.setdefault("profiles", {})[account] = entry
+        atomic_write_json(PROFILES_FILE, doc)
+
+    return TaskResult(
+        task=task, ok=True,
+        detail=f"profile for {account}, following {len(data['follows'])}",
+        record=data, changed_paths=[str(PROFILES_FILE.relative_to(ROOT))],
+    )
+
+
+def _profile_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    """Salvage a profile whose follow list was the only broken part.
+
+    A good bio thrown away because the model invented one account id is the
+    exact waste this pass exists to avoid. If it named nobody real, fall back
+    to the accounts this one has actually talked to on the feed.
+    """
+    if "no usable follows" not in why:
+        return None
+
+    account = task.payload["account"]
+    fixed = dict(raw)
+
+    # Who this account has replied to, and who has replied to it — a follow
+    # graph derived from real interactions rather than invented.
+    partners: list[str] = []
+    for post in _posts():
+        comments = [c for c in (post.get("comments") or []) if isinstance(c, dict)]
+        authors = [str(post.get("author") or "")] + [
+            str(c.get("author") or "") for c in comments
+        ]
+        if account not in authors:
+            continue
+        for other in authors:
+            if other and other != account and other in KNOWN_AUTHORS \
+                    and other not in partners:
+                partners.append(other)
+
+    if not partners:
+        return None
+
+    fixed["follows"] = [{"id": p, "why": "Answers them on the wire."}
+                        for p in partners[:3]]
+    return fixed
+
+
+PROFILE_SPEC = SystemSpec(
+    id="wahwire-profile",
+    title="WAHwire · account profiles",
+    summary="Write each account's bio and decide who it follows.",
+    # Stage 1 for the same reason as the discussion pass: stage 2 never runs
+    # while stage 1 still holds thousands of tasks. Profiles read posts but do
+    # not depend on any particular post existing.
+    stage=1,
+    next_tasks=_profile_tasks,
+    build_prompt=_profile_prompt,
+    validate=_profile_validate,
+    apply=_profile_apply,
+    pending=lambda: len(_unprofiled()),
+    repair=_profile_repair,
+)
+
+SPECS = [PRUNE_SPEC, AUTHOR_SPEC, DISCUSS_SPEC, PROFILE_SPEC]

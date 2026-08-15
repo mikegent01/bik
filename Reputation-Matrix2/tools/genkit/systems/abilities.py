@@ -281,6 +281,60 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+# Distinct nouns to fall back on, ordered so the result still reads like an
+# ability rather than like a serial number. Deliberately not "Shadow", "Storm"
+# or "Titanic" — those are the words the models saturate in the first place.
+_RENAME_NOUNS = (
+    "Gambit", "Cadence", "Verdict", "Reprisal", "Interdict", "Wager",
+    "Bulwark", "Sever", "Overture", "Recoil", "Tessellate", "Foreclose",
+    "Hush", "Levy", "Pivot", "Quarry", "Sunder", "Tally", "Undertow", "Vise",
+)
+
+
+def repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    """Last-resort fix for an ability the model could not get past validate().
+
+    Only the name is ever repaired, and only for a collision. That is the one
+    rejection class where the model's actual work — the rules, the drawback,
+    the level reasoning — is sound and a single string is in the way. Three
+    prompts telling it "Ethereal Shadowstep is taken" produced "Ethereal
+    Shadowstep" three times; the collision has to be broken in code.
+
+    Everything else (no numbers in the effect, a missing drawback) is a
+    genuinely incomplete answer, and inventing the missing content here would
+    be the tool writing content while pretending the model did.
+    """
+    if "duplicate ability name" not in why:
+        return None
+    fixed = dict(raw)
+    taken = {(a.get("name") or "").strip().lower() for a in _abilities()}
+    original = " ".join(str(raw.get("name", "")).split())
+    if not original:
+        return None
+
+    # Keep the model's adjective, replace the noun it keeps colliding on. The
+    # first word carries the flavour it chose; the last word is the collision.
+    words = original.split()
+    stem = " ".join(words[:-1]) if len(words) > 1 else original
+    class_id = str(task.payload.get("class", ""))
+    level = task.payload.get("level", "")
+
+    for noun in _RENAME_NOUNS:
+        candidate = f"{stem} {noun}".strip()
+        if len(candidate) <= 48 and candidate.lower() not in taken:
+            fixed["name"] = candidate
+            return fixed
+
+    # Every noun colliding too means the stem itself is exhausted. Fall back on
+    # something guaranteed unique and still legible on the shop shelf.
+    for n in range(2, 60):
+        candidate = f"{stem} {class_id.capitalize()} Form {n}"[:48].strip()
+        if candidate.lower() not in taken:
+            fixed["name"] = candidate
+            return fixed
+    return None
+
+
 def apply(task: Task, record: dict[str, Any]) -> TaskResult:
     with _WRITE_LOCK:
         store = _load()
@@ -312,4 +366,5 @@ SPEC = SystemSpec(
     validate=validate,
     apply=apply,
     pending=pending,
+    repair=repair,
 )

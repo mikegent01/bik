@@ -80,6 +80,8 @@ class Runner:
         self.produced = 0
         self.failed = 0
         self.retried = 0
+        # Records that would have been lost and were salvaged in code instead.
+        self.repaired = 0
         self._counter_lock = threading.Lock()
         self._stop = threading.Event()
         self.pool = WorkerPool(
@@ -152,7 +154,8 @@ class Runner:
             RunnerEvent(
                 "done",
                 f"produced {self.produced}, failed {self.failed}"
-                + (f", recovered {self.retried} retry(ies)" if self.retried else ""),
+                + (f", recovered {self.retried} retry(ies)" if self.retried else "")
+                + (f", repaired {self.repaired}" if self.repaired else ""),
                 produced=self.produced,
                 failed=self.failed,
                 retried=self.retried,
@@ -221,6 +224,49 @@ class Runner:
                 # That is a verdict on one attempt, not on the record, so the
                 # task goes back in the pool carrying the reason — the next
                 # prompt tells the model exactly what to fix.
+                #
+                # Except on the last attempt. At that point requeueing is not
+                # on the table any more and the only remaining choice is
+                # repair-or-discard, so the system gets to salvage its own
+                # reply in code. A rejection must end as a fixed record, not
+                # as a lost one.
+                final = task.attempts >= self.MAX_ATTEMPTS
+                if final and system.repair:
+                    try:
+                        repaired = system.repair(task, raw, str(error))
+                    except Exception as repair_error:  # noqa: BLE001
+                        repaired = None
+                        self._emit(RunnerEvent(
+                            "fail",
+                            f"{task.label} — repair itself failed: {repair_error}",
+                            task.system_id,
+                        ))
+                    if repaired is not None:
+                        # Re-validate: a repair that cannot pass the system's
+                        # own gate is a bug, and letting it through unchecked
+                        # would put exactly the content validation exists to
+                        # stop into the archive.
+                        try:
+                            record = system.validate(task, repaired)
+                        except ValidationError as still_bad:
+                            return TaskResult(
+                                task=task, ok=False,
+                                detail=f"rejected: {error} · repair also rejected: {still_bad}",
+                            )
+                        self._emit(RunnerEvent(
+                            "retry",
+                            f"{task.label} — REPAIRED in code: {error}",
+                            task.system_id,
+                        ))
+                        with self._counter_lock:
+                            self.repaired += 1
+                        if self.settings.dry_run:
+                            return TaskResult(
+                                task=task, ok=True,
+                                detail="dry run (repaired, nothing written)",
+                                record=record,
+                            )
+                        return system.apply(task, record)
                 return TaskResult(
                     task=task, ok=False, detail=f"rejected: {error}",
                     retryable=True, reason=str(error),

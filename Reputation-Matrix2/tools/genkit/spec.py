@@ -79,6 +79,21 @@ class SystemSpec:
     apply: Callable[[Task, dict], TaskResult] = None          # writes to data/
     pending: Callable[[], int] = None                         # -> records left
 
+    # Last resort before a record is lost.
+    #
+    # `validate` is the right place to be strict: telling the model "that name
+    # is taken" and asking again is how quality stays up. But after the final
+    # attempt the choice is no longer "strict or lax", it is "repair or throw
+    # the record away", and throwing it away is always the worse answer — the
+    # model's judgement was usually sound and only its bookkeeping was wrong.
+    #
+    # A repair takes the rejected reply and the reason, and returns a record
+    # that WILL pass, fixed deterministically in code rather than by asking
+    # again: disambiguate the duplicate name, re-file the faction-shaped
+    # answer under `effects`, reassign the author who is on cooldown. Return
+    # None to accept the loss when there is genuinely nothing to salvage.
+    repair: Callable[[Task, dict, str], dict | None] = None   # (task, raw, why)
+
     # A system that needs no model (pure bookkeeping) sets this. The runner
     # skips the LM Studio round trip and calls `apply` with an empty dict.
     offline: bool = False

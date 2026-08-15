@@ -10,3 +10,34 @@
 .rep-op-link.is-flat{border-bottom:0;cursor:default;opacity:.85}
 .rep-op-standings{font-size:11px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:2px 8px;white-space:nowrap;transition:.15s}
 .rep-op-standings:hover{color:var(--accent2);border-color:var(--accent2);background:rgba(224,180,0,.10)}
+
+/* ===================== WAHWIRE PANEL (foot of an article) =====================
+   Sits under the reputation ledger. Deliberately reads as a different surface
+   from the archive around it — the wire is voices, not record — so it uses the
+   feed's cooler blue accent instead of the archive gold. */
+.wahwire-panel{margin:14px 0;padding:14px;border:1px solid var(--border);border-left:4px solid #5b7c99;border-radius:12px;background:rgba(91,124,153,.07)}
+.wahwire-panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.wahwire-panel-head h3{margin:0;color:#8fb3cc}
+.wahwire-panel-tally{font-size:11px;color:var(--muted);white-space:nowrap}
+.wahwire-panel-note{margin:2px 0 10px;font-size:12px;color:var(--muted)}
+.ww-panel-post{display:flex;gap:10px;padding:10px;margin-top:8px;border:1px solid var(--border);border-radius:10px;background:var(--bg2)}
+.ww-panel-avatar{flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;font-size:17px;border:1px solid;border-radius:9px}
+.ww-panel-body{flex:1 1 auto;min-width:0}
+.ww-panel-head{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;font-size:12px;margin-bottom:3px}
+.ww-panel-name{font-weight:700;text-decoration:none;border-bottom:1px dotted currentColor}
+.ww-panel-name:hover{filter:brightness(1.25)}
+.ww-panel-handle,.ww-panel-when{color:var(--muted);font-size:11px}
+.ww-panel-content{margin:0;font-size:13px;line-height:1.55;overflow-wrap:anywhere}
+.ww-panel-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;font-size:11px;color:var(--muted)}
+.ww-panel-tag{color:#8fb3cc}
+.ww-panel-thread{margin-top:8px;padding-left:10px;border-left:2px solid var(--border)}
+.ww-panel-comment{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;padding:4px 0;font-size:12px;line-height:1.5}
+.ww-panel-comment.is-reply{padding-left:14px}
+.ww-panel-comment.is-op .ww-panel-comment-who{text-decoration:underline dotted}
+.ww-panel-comment-who{font-weight:700;white-space:nowrap}
+.ww-panel-comment-body{color:var(--text);overflow-wrap:anywhere}
+.ww-panel-comment-react{font-size:11px}
+.ww-panel-more{display:inline-block;margin-top:4px;font-size:11px;color:var(--muted);text-decoration:none}
+.ww-panel-more:hover{color:#8fb3cc}
+.wahwire-panel-all{display:inline-block;margin-top:10px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;font-size:12px;font-weight:600;color:#8fb3cc;text-decoration:none;transition:.15s}
+.wahwire-panel-all:hover{border-color:#8fb3cc;background:rgba(91,124,153,.14)}

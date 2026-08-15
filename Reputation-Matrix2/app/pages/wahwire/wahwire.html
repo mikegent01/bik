@@ -82,8 +82,20 @@
             <div class="ww-controls">
                 <div class="ww-search">
                     <span class="ww-search-icon">⌕</span>
-                    <input id="wwSearch" type="search" placeholder="Search the wire…"
-                           aria-label="Search posts" autocomplete="off">
+                    <!-- `from:` is a real operator, not decoration: it filters
+                         by account rather than by text. Advertised in the
+                         placeholder because an unmentioned operator is an
+                         operator nobody uses. -->
+                    <input id="wwSearch" type="search"
+                           placeholder="Search the wire…  (try from:bowser)"
+                           aria-label="Search posts, or type from: followed by an account to search by profile"
+                           autocomplete="off">
+                </div>
+                <!-- Only visible when an article deep-linked into the feed. -->
+                <div class="ww-scope" id="wwScope" hidden>
+                    <span class="ww-scope-tag">Showing posts about</span>
+                    <b id="wwScopeLabel"></b>
+                    <button type="button" id="wwScopeClear" class="ww-scope-clear">clear ✕</button>
                 </div>
                 <div class="ww-filters" id="wwFilters">
                     <button class="ww-chip is-on" data-filter="all">All</button>
@@ -115,7 +127,7 @@
                     <div class="ww-feed-window" id="wwWindow"></div>
                 </div>
                 <div class="ww-empty" id="wwEmpty" hidden>
-                    <p>Nothing on the wire matches that.</p>
+                    <p id="wwEmptyText">Nothing on the wire matches that.</p>
                 </div>
             </div>
 

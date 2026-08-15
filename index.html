@@ -5220,11 +5220,14 @@ function eventPeopleAndXpPanel(item){
   const people=participantCards?`<div class="event-participants"><div class="event-participant-grid">${participantCards}</div></div>`:'';
   const awards=xpAwardsForEvent(item.id).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" class="cursor-ptr"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
   const effectsPanel = renderReputationImpactPanel(item);
-  if(!people && !awards && !effectsPanel) return '';
-  if(!awards && !people) return effectsPanel;
-  if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 Participants</h3>${people}</div></div></div>${effectsPanel}`;
-  if(!people) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
-  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 Participants</h3>${people}</div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${effectsPanel}`;
+  // The wire goes last, under the reputation ledger: reaction after record.
+  const wirePanel = typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(item.id, 'events') : '';
+  const tail = effectsPanel + wirePanel;
+  if(!people && !awards && !tail) return '';
+  if(!awards && !people) return tail;
+  if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 Participants</h3>${people}</div></div></div>${tail}`;
+  if(!people) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${tail}`;
+  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 Participants</h3>${people}</div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${tail}`;
 }
 const CATEGORIES_LABELS={combat:'Combat',exploration:'Exploration',social:'Social',survival:'Survival',discovery:'Discovery',chaos:'Chaos',stealth:'Stealth',faith:'Faith',magic:'Arcane',technique:'Technique',loyalty:'Loyalty',sabotage:'Sabotage'};
 function xpAwardsForEvent(eventId){const base=[...(XP_EVENT_AWARDS[eventId]||[])];const rec=(DATA?.events||[]).find(e=>e&&e.id===eventId) || (DATA?.battles||[]).find(b=>b&&b.id===eventId);if(Array.isArray(rec?.xpAwards))base.push(...rec.xpAwards);const seen=new Set();return base.filter(a=>{const key=[a.xpKey,a.articleId,a.cat,a.xp,a.title].join('|');if(seen.has(key))return false;seen.add(key);return true;});}
@@ -8716,19 +8719,116 @@ async function loadGeneratedFactions(){
 }
 
 let WAHWIRE_COUNT = '';
-async function loadWahwireCount(){
+
+/* The feed itself, kept in memory once it has been fetched.
+   The sidebar badge needed the file anyway; holding on to the posts instead of
+   just counting them is what lets every article render its own slice of the
+   wire without a second request. Indexed by the record the post points at,
+   because a per-article panel asks "who talked about THIS" and scanning 19
+   (soon thousands) of posts on every route change is a real cost. */
+let WAHWIRE_POSTS = null;              // null = not loaded yet, [] = none
+let WAHWIRE_BY_RECORD = null;          // Map<recordId, post[]>
+let WAHWIRE_PROFILES = {};             // account id -> {bio, follows, ...}
+
+const WAHWIRE_AUTHORS = {
+  lord_crimson:            { name: 'Lord Crimson',            handle: '@crimson',    glyph: '\u{1FA78}', tone: '#c0392b' },
+  general_marcus_ironhand: { name: 'General Marcus Ironhand', handle: '@ironhand',   glyph: '\u2694\uFE0F', tone: '#8e6b3a' },
+  colonel_vera_steelstorm: { name: 'Col. Vera Steelstorm',    handle: '@steelstorm', glyph: '\u{1F6E1}\uFE0F', tone: '#5b7c99' },
+  alpha_bloodmaw:          { name: 'Alpha Bloodmaw',          handle: '@bloodmaw',   glyph: '\u{1F43A}', tone: '#7a4b2a' },
+  wah_media_collective:    { name: 'WAH Media Collective',    handle: '@wahmedia',   glyph: '\u{1F4E1}', tone: '#b8860b' },
+  generic_toad:            { name: 'A Toad',                  handle: '@toad',       glyph: '\u{1F344}', tone: '#c0392b' },
+  toadsworth:              { name: 'Toadsworth',              handle: '@toadsworth', glyph: '\u{1F3A9}', tone: '#8b6f47' },
+  toadette:                { name: 'Toadette',                handle: '@toadette',   glyph: '\u{1F338}', tone: '#c2185b' },
+  waluigi:                 { name: 'Waluigi',                 handle: '@waluigi',    glyph: '\u{1F346}', tone: '#6a1b9a' },
+  bowser:                  { name: 'Bowser',                  handle: '@kingkoopa',  glyph: '\u{1F422}', tone: '#2e7d32' },
+  archie_miser:            { name: 'Archie Miser',            handle: '@archie',     glyph: '\u{1F4B0}', tone: '#b8860b' },
+  markop:                  { name: 'Markop',                  handle: '@markop',     glyph: '\u{1F527}', tone: '#546e7a' },
+  hjumpik:                 { name: 'Hjumpik',                 handle: '@hjumpik',    glyph: '\u{1F3AF}', tone: '#00838f' }
+};
+
+function wahwireWho(id){
+  return WAHWIRE_AUTHORS[id] || { name: prettyId(id||'unknown'), handle: '@'+(id||'unknown'),
+                                  glyph: '\u{1F464}', tone: '#7a8a99' };
+}
+
+/* Reaction glyphs are shared with the feed page via data/wahwire/reactions.json.
+   Loaded opportunistically; an unknown tone just renders without a glyph. */
+let WAHWIRE_REACTIONS = {};
+
+function indexWahwirePosts(posts){
+  const byRecord = new Map();
+  const add = (rid, post) => {
+    if(!rid) return;
+    if(!byRecord.has(rid)) byRecord.set(rid, []);
+    const bucket = byRecord.get(rid);
+    if(!bucket.includes(post)) bucket.push(post);
+  };
+  for(const post of posts){
+    if(!post) continue;
+    // Authored posts carry `links`; the 19 legacy posts carry `legacyEventId`.
+    // Both are pointers at a record, so both feed the same index.
+    for(const l of (post.links||[])){
+      add(typeof l === 'string' ? l : (l && (l.id || l.target)), post);
+    }
+    add(post.legacyEventId, post);
+  }
+  for(const bucket of byRecord.values()){
+    bucket.sort((a,b) => (Number(b.likes)||0) - (Number(a.likes)||0));
+  }
+  return byRecord;
+}
+
+async function loadWahwireFeed(){
   try{
     const res = await fetch(pathPrefix + 'data/wahwire/posts.json', {cache:'no-cache'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const j = await res.json();
-    const n = (j && Array.isArray(j.posts)) ? j.posts.length : 0;
+    WAHWIRE_POSTS = (j && Array.isArray(j.posts)) ? j.posts : [];
+    WAHWIRE_BY_RECORD = indexWahwirePosts(WAHWIRE_POSTS);
+    const n = WAHWIRE_POSTS.length;
     if(n !== WAHWIRE_COUNT){
       WAHWIRE_COUNT = n;
       // Re-render only if the sidebar is already on screen, so the badge
       // appears without waiting for the next route change.
       try{ if(document.getElementById('sidenav')) renderSidebar(NAV_ACTIVE); }catch(e){}
     }
+    // The panel is rendered synchronously as part of the article HTML, so a
+    // feed that lands after the first paint has to ask for a repaint. Only
+    // when there is something to show for the record currently on screen.
+    try{ refreshWahwirePanels(); }catch(e){}
   }catch(e){ /* feed still reachable without a badge */ }
+}
+
+/* Two side files the panel likes but can live without. Fired alongside the
+   posts, never awaited by boot. */
+async function loadWahwireSideFiles(){
+  try{
+    const res = await fetch(pathPrefix + 'data/wahwire/reactions.json', {cache:'no-cache'});
+    if(res.ok){ const d = await res.json(); WAHWIRE_REACTIONS = (d && d.reactions) || {}; }
+  }catch(e){}
+  try{
+    const res = await fetch(pathPrefix + 'data/wahwire/profiles.json', {cache:'no-cache'});
+    if(res.ok){ const d = await res.json(); WAHWIRE_PROFILES = (d && d.profiles) || {}; }
+  }catch(e){}
+  try{ refreshWahwirePanels(); }catch(e){}
+}
+
+async function loadWahwireCount(){
+  await Promise.all([loadWahwireFeed(), loadWahwireSideFiles()]);
+}
+
+/* Fill in any panel that rendered before the feed arrived. Panels announce the
+   record they belong to, so this works for whatever view is on screen. */
+function refreshWahwirePanels(){
+  document.querySelectorAll('[data-wahwire-record]').forEach(node => {
+    const rid = node.getAttribute('data-wahwire-record');
+    const html = renderWahwireFeedPanel(rid, node.getAttribute('data-wahwire-kind')||'');
+    if(html){
+      node.outerHTML = html;
+    }else if(node.classList.contains('wahwire-panel-pending')){
+      node.remove();   // nothing to say about this record after all
+    }
+  });
 }
 
 
@@ -9759,7 +9859,7 @@ function view_trial(item,t){
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${item.summary?`<div class="article-lead-card noimg"><div class="article-lead-summary"><h4>Case Summary</h4><p>${esc(item.summary)}</p></div></div>`:''}${anote}${defLink}
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}
-     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, 'trials') : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, 'trials') : ''}${relHtml}
+     ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, 'trials') : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, 'trials') : ''}${typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(item.id, 'trials') : ''}${relHtml}
    </div></div><div>${crossPagePanel(item.id,'trials',item)}${articleControlPanel(item.id)}<div class="infobox"><h4>${esc(item.name)}</h4>${infoRows}</div>${toc}</div></div>`;
   setArticleAccent('trials');
   window.scrollTo(0,0);setupScrollSpy();
@@ -10920,7 +11020,7 @@ function view_mbattle(id){
     ${b.commanders?`<h2>Commanders</h2>${keyedRows(b.commanders)}`:''}
     ${b.tacticalNotes?`<h2>Tactical Notes</h2><div class="prose">${richTextToHtml(b.tacticalNotes,b.id)}</div>`:''}
     ${chars?`<h2>Participating Characters</h2><div class="related-list">${chars}</div>`:''}
-    ${renderReputationImpactPanel(b,'majorBattles')}</div>`;
+    ${renderReputationImpactPanel(b,'majorBattles')}${typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(b.id, 'majorBattles') : ''}</div>`;
   window.scrollTo(0,0);
 }
 
@@ -13260,6 +13360,99 @@ function getPartyAverageStanding(factionKey) {
 /* Renders the "📈 Reputation Impact" panel for a single record (event/battle/trial/mbattle).
    Shows per-operator, per-faction decayed & raw deltas so the reader can see
    exactly how the record moved the matrix. */
+/* =========================================================================
+   WAHWIRE ON THE ARTICLE — what the public said about this record
+   -------------------------------------------------------------------------
+   The archive states what happened. The wire states how it landed. Putting the
+   feed at the foot of the record it belongs to is the whole point: a reader
+   finishes the account of a battle and immediately sees the city arguing about
+   it, in character, with names that lead to profiles.
+
+   Renders nothing at all when the record has no posts — an empty "0 posts"
+   box on hundreds of articles is noise, not a feature. Before the feed has
+   loaded it emits a placeholder carrying the record id, which
+   refreshWahwirePanels() swaps out (or removes) once the fetch lands.
+   ========================================================================= */
+const WAHWIRE_PANEL_LIMIT = 4;   // the loudest few; the rest are one click away
+
+function wahwireReactionGlyph(id){
+  const r = WAHWIRE_REACTIONS[id];
+  return r && r.glyph ? r.glyph : '';
+}
+
+function renderWahwirePanelComment(c, postAuthor){
+  const who = wahwireWho(c.author);
+  const glyph = wahwireReactionGlyph(c.reaction);
+  const isOp = c.author === postAuthor;
+  return `<div class="ww-panel-comment${isOp?' is-op':''}${c.replyTo?' is-reply':''}">
+    <span class="ww-panel-comment-who" style="color:${who.tone}">${esc(who.name)}</span>
+    <span class="ww-panel-comment-body">${esc(c.content||'')}</span>
+    ${glyph?`<span class="ww-panel-comment-react" title="${esc((WAHWIRE_REACTIONS[c.reaction]||{}).label||c.reaction||'')}">${glyph}</span>`:''}
+  </div>`;
+}
+
+function renderWahwireFeedPanel(recordId, kindHint){
+  if(!recordId) return '';
+
+  // Not loaded yet: leave a marker the loader can come back and fill.
+  if(!WAHWIRE_BY_RECORD){
+    return `<div class="wahwire-panel-pending" data-wahwire-record="${esc(recordId)}" data-wahwire-kind="${esc(kindHint||'')}" hidden></div>`;
+  }
+
+  const posts = WAHWIRE_BY_RECORD.get(recordId) || [];
+  if(!posts.length) return '';
+
+  const shown = posts.slice(0, WAHWIRE_PANEL_LIMIT);
+  const hidden = posts.length - shown.length;
+  const totalComments = posts.reduce((n,p) => n + ((p.comments||[]).length), 0);
+  const feedHref = wahwireUrl();
+
+  const rows = shown.map(post => {
+    const who = wahwireWho(post.author);
+    const comments = (post.comments||[]);
+    const profile = WAHWIRE_PROFILES[post.author];
+    // The author's own bio makes a genuinely useful tooltip here: the reader
+    // is meeting these accounts mid-argument, with no feed page around them.
+    const tip = profile && profile.bio ? esc(profile.bio) : esc(who.handle);
+    const top = comments.slice(0, 2).map(c => renderWahwirePanelComment(c, post.author)).join('');
+    const more = comments.length > 2
+      ? `<a class="ww-panel-more" href="${esc(feedHref)}#post/${encodeURIComponent(post.id)}">+${comments.length-2} more repl${comments.length-2===1?'y':'ies'} →</a>`
+      : '';
+    return `<article class="ww-panel-post">
+      <div class="ww-panel-avatar" style="background:${who.tone}22;border-color:${who.tone}">${who.glyph}</div>
+      <div class="ww-panel-body">
+        <div class="ww-panel-head">
+          <a class="ww-panel-name" style="color:${who.tone}" href="${esc(feedHref)}#profile/${encodeURIComponent(post.author)}" title="${tip}">${esc(who.name)}</a>
+          <span class="ww-panel-handle">${esc(who.handle)}</span>
+          ${post.timestamp?`<span class="ww-panel-when">· ${esc(String(post.timestamp))}</span>`:''}
+        </div>
+        <p class="ww-panel-content">${esc(post.content||'')}</p>
+        <div class="ww-panel-meta">
+          <span title="likes">\u2764 ${Number(post.likes||0).toLocaleString()}</span>
+          ${comments.length?`<span title="replies">\u{1F4AC} ${comments.length}</span>`:''}
+          ${(post.tags||[]).slice(0,3).map(t=>`<span class="ww-panel-tag">#${esc(t)}</span>`).join('')}
+        </div>
+        ${top?`<div class="ww-panel-thread">${top}${more}</div>`:''}
+      </div>
+    </article>`;
+  }).join('');
+
+  const tally = `${posts.length} post${posts.length===1?'':'s'}`
+    + (totalComments?` · ${totalComments} repl${totalComments===1?'y':'ies'}`:'');
+
+  return `<div class="wahwire-panel" data-wahwire-record="${esc(recordId)}" data-wahwire-kind="${esc(kindHint||'')}">
+    <div class="wahwire-panel-head">
+      <h3>\u{1F4E1} On WAHwire</h3>
+      <span class="wahwire-panel-tally">${esc(tally)}</span>
+    </div>
+    <p class="wahwire-panel-note">What the public said about this record.</p>
+    ${rows}
+    <a class="wahwire-panel-all" href="${esc(feedHref)}#record/${encodeURIComponent(recordId)}">
+      ${hidden>0?`Read all ${posts.length} posts on the wire`:'Open the wire'} \u2192
+    </a>
+  </div>`;
+}
+
 function renderReputationImpactPanel(rec, typeKeyHint){
   if(!rec) return '';
   const impact = getRecordReputationImpact(rec, typeKeyHint||'events');

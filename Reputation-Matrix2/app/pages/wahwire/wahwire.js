@@ -20,6 +20,7 @@
  */
 
 const STORE_URL = '../../../data/wahwire/posts.json';
+const REACTIONS_URL = '../../../data/wahwire/reactions.json';
 
 /* The terminal is at the repo root, four levels up. Note that
  * Reputation-Matrix2/index.html is only a meta-refresh redirect and drops the
@@ -51,8 +52,15 @@ const AUTHORS = {
   hjumpik:                 { name: 'Hjumpik',                 handle: '@hjumpik',      glyph: '🎯', tone: '#00838f' }
 };
 
-// Must stay in step with REACTIONS in tools/genkit/systems/wahwire.py — the
-// generator validates against that tuple, this renders whatever it wrote.
+/* The feed's emotional palette, loaded from data/wahwire/reactions.json.
+ *
+ * This used to be a frozen literal here, duplicated in
+ * tools/genkit/systems/wahwire.py — which meant the generator could only ever
+ * use tones the front-end already knew, and adding one meant editing two
+ * files in step or watching posts render blank. Now both sides read the same
+ * file, so a reaction the generator invents shows up here with no code change.
+ *
+ * Seeded with the canon tones so the page still renders if the fetch fails. */
 const REACTIONS = {
   cheer:     { glyph: '🎉', label: 'Cheering',   tone: '#2e7d32' },
   rage:      { glyph: '🔥', label: 'Furious',    tone: '#c0392b' },
@@ -74,6 +82,66 @@ const REACTIONS = {
   despair:   { glyph: '💧', label: 'Despairing', tone: '#455a64' }
 };
 
+/* Fold the palette file over the seed. Unknown-but-present tones are kept
+ * rather than replaced, so a generated reaction never blanks a post. */
+async function loadReactions() {
+  try {
+    const res = await fetch(REACTIONS_URL);
+    if (!res.ok) return;
+    const doc = await res.json();
+    const table = (doc && doc.reactions) || {};
+    for (const [id, def] of Object.entries(table)) {
+      if (!def || typeof def !== 'object') continue;
+      REACTIONS[id] = {
+        glyph: def.glyph || '·',
+        label: def.label || (id.charAt(0).toUpperCase() + id.slice(1)),
+        tone:  def.tone  || '#78909c'
+      };
+    }
+  } catch (err) {
+    console.warn('[wahwire] reaction palette unavailable, using built-ins', err);
+  }
+}
+
+/* Account profiles, written by the wahwire-profile generator pass.
+ *
+ * Kept separate from the post store on purpose: a profile changes when the
+ * account changes, not when it posts, and the feed must still render if this
+ * file is missing entirely — every lookup below falls back to AUTHORS. */
+const PROFILES_URL = '../../../data/wahwire/profiles.json';
+const PROFILES = Object.create(null);
+
+async function loadProfiles() {
+  try {
+    const res = await fetch(PROFILES_URL);
+    if (!res.ok) return;
+    const doc = await res.json();
+    for (const [id, def] of Object.entries((doc && doc.profiles) || {})) {
+      if (def && typeof def === 'object') PROFILES[id] = def;
+    }
+  } catch (err) {
+    console.warn('[wahwire] profiles unavailable', err);
+  }
+}
+
+/* Who follows whom, inverted once so a profile can show BOTH directions.
+ * The generator only records outgoing edges; followers are derived. */
+function followersOf(id) {
+  const out = [];
+  for (const [who, def] of Object.entries(PROFILES)) {
+    if (who !== id && (def.follows || []).includes(id)) out.push(who);
+  }
+  return out;
+}
+
+function whoIs(id) {
+  return AUTHORS[id] || {
+    name: (id || 'Unknown').replace(/_/g, ' '),
+    handle: '@' + (id || 'unknown'),
+    glyph: '\u{1F464}', tone: '#78909c'
+  };
+}
+
 const MONTHS = ['Deepwinter', 'Thawmarch', 'Seedfall', 'Rainwake', 'Brightleaf',
   'Longlight', 'Highsun', 'Harvestide', 'Aethel', 'Emberfade', 'Frostgate', 'Nightreach'];
 
@@ -82,6 +150,7 @@ const OVERSCAN   = 6;     // rows rendered beyond the viewport, to hide fast scr
 
 const state = {
   posts: [],
+  recordScope: '',            // set by a #record/<id> deep link from an article
   order: new Int32Array(0),   // indices into posts[], in display order
   view:  new Int32Array(0),   // indices surviving the current filter+search
   filter: 'all',
@@ -152,6 +221,12 @@ function prepare(p) {
     bucket: (d.year || 0) * 12 + (d.monthIndex || 0),
     sortKey: (d.year || 0) * 10000 + (d.monthIndex || 0) * 100 + (d.day || 0),
     order: Number(p.order) || 0,
+    // Every record this post points at, so a #record/<id> deep link from an
+    // article can filter by pointer rather than by text.
+    pointsAt: new Set([
+      ...(p.links || []).map(l => (typeof l === 'string' ? l : (l && (l.id || l.target)))),
+      p.legacyEventId
+    ].filter(Boolean)),
     // one lowercased haystack: search is a single indexOf per post
     hay: `${p.content || ''} ${who.name} ${who.handle} ${(p.tags || []).join(' ')} ${p.id}`.toLowerCase()
   };
@@ -162,6 +237,12 @@ async function load() {
   // the end of a successful load, which meant any fetch hiccup left a page
   // full of buttons that silently did nothing.
   wire();
+
+  // Palette first: rowHTML() reads REACTIONS while rendering, so a tone that
+  // arrives late would render as a blank badge on the first paint.
+  // Palette and profiles are independent fetches; run them together rather
+  // than paying two round trips in series before the first paint.
+  await Promise.all([loadReactions(), loadProfiles()]);
 
   let raw;
   try {
@@ -182,6 +263,7 @@ async function load() {
   resolveLinks();
   buildOrder();
   applyFilter();   // applyFilter() redraws every panel
+  applyHashRoute();
 }
 
 /* Resolve link ids to real record names so a post can point at the event that
@@ -262,9 +344,40 @@ function buildOrder() {
   state.order = Int32Array.from(arr);
 }
 
+/* Drive the search box from code and re-run the filter.
+ * Used by the profile panel's "show only this account" button, so the state
+ * the user sees in the box always matches the state the filter is using. */
+function searchFor(query) {
+  const box = el('wwSearch');
+  box.value = query;
+  state.query = query;
+  el('wwViewport').scrollTop = 0;
+  applyFilter();
+  box.focus();
+}
+
 function applyFilter() {
-  const q = state.query.trim().toLowerCase();
+  const raw = state.query.trim().toLowerCase();
   const f = state.filter;
+
+  // `from:<account>` searches BY PROFILE rather than by text — the difference
+  // matters for an account like @toad whose handle appears inside other
+  // people's posts. Anything after the operator still matches as free text,
+  // so `from:bowser docks` works.
+  const scope = state.recordScope;
+  let author = '';
+  let q = raw;
+  const op = raw.match(/^from:\s*(@?[a-z0-9_]+)\s*/);
+  if (op) {
+    author = op[1].replace(/^@/, '');
+    q = raw.slice(op[0].length).trim();
+    // Accept either the id (`bowser`) or the handle (`@kingkoopa`).
+    if (!AUTHORS[author]) {
+      const byHandle = Object.keys(AUTHORS).find(
+        id => AUTHORS[id].handle.toLowerCase() === '@' + author);
+      if (byHandle) author = byHandle;
+    }
+  }
   const p = state.posts;
   const src = state.order;
   const out = new Int32Array(src.length);
@@ -276,6 +389,8 @@ function applyFilter() {
     if (f === 'legacy'    && post.status !== 'legacy') continue;
     if (f === 'generated' && !post.generated)          continue;
     if (f === 'linked'    && !post.linked)             continue;
+    if (author && post.author !== author)              continue;
+    if (scope && !post.pointsAt.has(scope))            continue;
     if (q && post.hay.indexOf(q) === -1)               continue;
     out[n++] = src[k];
   }
@@ -283,9 +398,30 @@ function applyFilter() {
 
   el('wwCount').textContent = n === state.posts.length
     ? `${n.toLocaleString()} posts on the wire`
-    : `${n.toLocaleString()} of ${state.posts.length.toLocaleString()} posts`;
+    : author
+      ? `${n.toLocaleString()} post${n === 1 ? '' : 's'} by ${whoIs(author).handle}`
+      : `${n.toLocaleString()} of ${state.posts.length.toLocaleString()} posts`;
+
+  // A scope arriving from an article is invisible otherwise: the reader would
+  // see a short feed with an empty search box and no way to understand why.
+  const scopeBar = el('wwScope');
+  if (scopeBar) {
+    scopeBar.hidden = !scope;
+    if (scope) {
+      const label = (state.targets[scope] && state.targets[scope].name) || scope.replace(/_/g, ' ');
+      el('wwScopeLabel').textContent = label;
+    }
+  }
 
   el('wwEmpty').hidden = n > 0;
+  // An account can have a profile and no posts — several of the cast are
+  // followed far more than they speak. "Nothing matches that" reads like a
+  // broken filter; say which account is quiet instead.
+  if (!n) {
+    el('wwEmptyText').textContent = author
+      ? `${whoIs(author).name} has a profile but has not posted on the wire.`
+      : 'Nothing on the wire matches that.';
+  }
   el('wwSizer').style.height = `${n * ROW_HEIGHT}px`;
   state.firstRendered = -1;   // force a repaint
   renderWindow();
@@ -364,8 +500,11 @@ function rowHTML(post, k) {
     <div class="ww-avatar" style="background:${who.tone}22;border-color:${who.tone}">${who.glyph}</div>
     <div class="ww-post-body">
       <div class="ww-post-head">
-        <b class="ww-name" style="color:${who.tone}">${esc(who.name)}</b>
-        <span class="ww-handle">${esc(who.handle)}</span>
+        <button type="button" class="ww-who" data-profile="${esc(post.author)}"
+                title="Open ${esc(who.name)}'s profile">
+          <b class="ww-name" style="color:${who.tone}">${esc(who.name)}</b>
+          <span class="ww-handle">${esc(who.handle)}</span>
+        </button>
         <span class="ww-dot">·</span>
         <span class="ww-when">${esc(post.when)}</span>
         ${badges.join('')}
@@ -640,8 +779,11 @@ function openThread(postId) {
       <div class="ww-avatar ww-avatar--sm" style="background:${who.tone}22;border-color:${who.tone}">${who.glyph}</div>
       <div class="ww-comment-body">
         <div class="ww-post-head">
-          <b class="ww-name" style="color:${who.tone}">${esc(who.name)}</b>
-          <span class="ww-handle">${esc(who.handle)}</span>
+          <button type="button" class="ww-who" data-profile="${esc(c.author)}"
+                  title="Open ${esc(who.name)}'s profile">
+            <b class="ww-name" style="color:${who.tone}">${esc(who.name)}</b>
+            <span class="ww-handle">${esc(who.handle)}</span>
+          </button>
           ${answering}
           ${cr ? `<span class="ww-badge ww-badge--react" style="color:${cr.tone};border-color:${cr.tone}66">${cr.glyph} ${esc(cr.label)}</span>` : ''}
         </div>
@@ -656,8 +798,11 @@ function openThread(postId) {
       <div class="ww-avatar ww-avatar--sm" style="background:${post.who.tone}22;border-color:${post.who.tone}">${post.who.glyph}</div>
       <div class="ww-comment-body">
         <div class="ww-post-head">
-          <b class="ww-name" style="color:${post.who.tone}">${esc(post.who.name)}</b>
-          <span class="ww-handle">${esc(post.who.handle)}</span>
+          <button type="button" class="ww-who" data-profile="${esc(post.author)}"
+                  title="Open ${esc(post.who.name)}'s profile">
+            <b class="ww-name" style="color:${post.who.tone}">${esc(post.who.name)}</b>
+            <span class="ww-handle">${esc(post.who.handle)}</span>
+          </button>
           ${react ? `<span class="ww-badge ww-badge--react" style="color:${react.tone};border-color:${react.tone}66">${react.glyph} ${esc(react.label)}</span>` : ''}
         </div>
         <p class="ww-content">${esc(post.content)}</p>
@@ -667,6 +812,8 @@ function openThread(postId) {
     <div class="ww-thread-rule"><span>${post.comments.length} repl${post.comments.length === 1 ? 'y' : 'ies'}</span></div>
     ${rows}`;
 
+  // Shared modal: the profile view rewrites this heading, so set it back.
+  el('wwThreadTitle').textContent = 'Replies';
   const box = el('wwThread');
   box.hidden = false;
   el('wwThreadClose').focus();
@@ -676,6 +823,100 @@ function closeThread() {
   el('wwThread').hidden = true;
 }
 
+/* ------------------------------------------------------------ profiles */
+
+/* A person, not a byline. Opening a profile shows who they are, everything
+ * they have said on the wire, and — the part that makes the feed feel like a
+ * network rather than a list — who they follow and who follows them.
+ *
+ * Rendered into the same modal as threads: one dialog, one focus trap, one
+ * Escape handler. Two overlapping modals is how a page ends up with a close
+ * button that closes the wrong thing. */
+function openProfile(accountId) {
+  const who = whoIs(accountId);
+  const profile = PROFILES[accountId] || {};
+
+  // Their posts, newest first — a profile is a record of what they said.
+  const mine = state.posts
+    .filter(p => p.author === accountId)
+    .sort((a, b) => (b.order || 0) - (a.order || 0));
+
+  const likes = mine.reduce((n, p) => n + p.likes, 0);
+  const replies = state.posts.reduce(
+    (n, p) => n + p.comments.filter(c => c.author === accountId).length, 0);
+
+  const chip = id => {
+    const w = whoIs(id);
+    const why = (profile.followReasons || {})[id];
+    return `<button type="button" class="ww-follow" data-profile="${esc(id)}"
+              ${why ? `title="${esc(why)}"` : ''}>
+        <span class="ww-follow-glyph" style="border-color:${w.tone}">${w.glyph}</span>
+        <span class="ww-follow-name" style="color:${w.tone}">${esc(w.name)}</span>
+        <span class="ww-follow-handle">${esc(w.handle)}</span>
+      </button>`;
+  };
+
+  const following = (profile.follows || []).filter(id => id !== accountId);
+  const followers = followersOf(accountId);
+
+  const postRows = mine.length
+    ? mine.map(p => `<article class="ww-profile-post">
+        <div class="ww-profile-post-head">
+          <span class="ww-when">${esc(p.when)}</span>
+          ${p.comments.length
+            ? `<button type="button" class="ww-replies" data-post="${esc(p.id)}"
+                 title="Read the replies">💬 ${p.comments.length}</button>`
+            : ''}
+          <span class="ww-likes">❤ ${p.likes.toLocaleString()}</span>
+        </div>
+        <p class="ww-content">${esc(p.content)}</p>
+      </article>`).join('')
+    : '<p class="ww-profile-none">This account has not posted on the wire.</p>';
+
+  el('wwThreadTitle').textContent = who.name;
+  el('wwThreadBody').innerHTML = `
+    <header class="ww-profile-head">
+      <div class="ww-avatar ww-avatar--lg"
+           style="background:${who.tone}22;border-color:${who.tone}">${who.glyph}</div>
+      <div class="ww-profile-id">
+        <b class="ww-profile-name" style="color:${who.tone}">${esc(who.name)}</b>
+        <span class="ww-handle">${esc(who.handle)}</span>
+        ${profile.bio ? `<p class="ww-profile-bio">${esc(profile.bio)}</p>` : ''}
+        <div class="ww-profile-facts">
+          ${profile.location ? `<span>📍 ${esc(profile.location)}</span>` : ''}
+          ${profile.joined ? `<span>🕰 ${esc(profile.joined)}</span>` : ''}
+        </div>
+      </div>
+    </header>
+
+    <div class="ww-profile-tally">
+      <div><b>${mine.length.toLocaleString()}</b><span>posts</span></div>
+      <div><b>${likes.toLocaleString()}</b><span>likes</span></div>
+      <div><b>${replies.toLocaleString()}</b><span>replies</span></div>
+      <div><b>${following.length}</b><span>following</span></div>
+      <div><b>${followers.length}</b><span>followers</span></div>
+    </div>
+
+    ${following.length ? `<div class="ww-thread-rule"><span>following</span></div>
+      <div class="ww-follows">${following.map(chip).join('')}</div>` : ''}
+    ${followers.length ? `<div class="ww-thread-rule"><span>followed by</span></div>
+      <div class="ww-follows">${followers.map(chip).join('')}</div>` : ''}
+
+    <div class="ww-thread-rule">
+      <span>${mine.length} post${mine.length === 1 ? '' : 's'} on the wire</span>
+    </div>
+    ${postRows}
+
+    ${mine.length ? `<div class="ww-profile-actions">
+      <button type="button" class="ww-profile-filter" data-scope="${esc(accountId)}">
+        Show only ${esc(who.handle)} in the feed
+      </button>
+    </div>` : ''}`;
+
+  el('wwThread').hidden = false;
+  el('wwThreadClose').focus();
+}
+
 function wire() {
   const vp = el('wwViewport');
   wireTimelineHover();
@@ -683,9 +924,39 @@ function wire() {
   // Delegated: rows are recycled by the virtualiser, so per-row listeners
   // would be attached and dropped on every scroll frame.
   el('wwWindow').addEventListener('click', e => {
+    const face = e.target.closest('[data-profile]');
+    if (face) { openProfile(face.dataset.profile); return; }
     const btn = e.target.closest('[data-post]');
     if (btn) openThread(btn.dataset.post);
   });
+
+  // Inside the modal: a name in a thread opens that person, a follow chip
+  // walks the graph, and the scope button turns the profile into a filter.
+  el('wwThreadBody').addEventListener('click', e => {
+    const face = e.target.closest('[data-profile]');
+    if (face) { openProfile(face.dataset.profile); return; }
+    const scope = e.target.closest('[data-scope]');
+    if (scope) {
+      closeThread();
+      searchFor('from:' + scope.dataset.scope);
+      return;
+    }
+    const btn = e.target.closest('[data-post]');
+    if (btn) openThread(btn.dataset.post);
+  });
+  const clearScope = el('wwScopeClear');
+  if (clearScope) {
+    clearScope.addEventListener('click', () => {
+      state.recordScope = '';
+      history.replaceState(null, '', location.pathname + location.search);
+      el('wwViewport').scrollTop = 0;
+      applyFilter();
+    });
+  }
+
+  // Back/forward between deep links from articles should actually navigate.
+  window.addEventListener('hashchange', applyHashRoute);
+
   el('wwThreadClose').addEventListener('click', closeThread);
   el('wwThread').addEventListener('click', e => {
     if (e.target === el('wwThread')) closeThread();
@@ -768,12 +1039,52 @@ window.__wahwireIngest = function (posts) {
   resolveLinks();
   buildOrder();
   applyFilter();   // applyFilter() redraws every panel
+  applyHashRoute();
 };
 
 /* Guarded: both of these can fire depending on how fast the module resolves,
  * and load() now binds listeners, so running it twice would double every
  * handler (one keystroke, two filter passes). */
 let _booted = false;
+/* Deep links from the rest of the site.
+ *
+ *   #profile/<account>  the article panel's bylines
+ *   #post/<postId>      "+N more replies"
+ *   #record/<recordId>  "read all N posts on the wire"
+ *
+ * A link that arrives from an article must land on the thing it named, not on
+ * the top of an unfiltered feed — otherwise the panel is a dead end and the
+ * reader has to re-find the post they were already looking at. */
+function applyHashRoute() {
+  const raw = decodeURIComponent((location.hash || '').replace(/^#/, ''));
+  if (!raw) return;
+  const [kind, ...rest] = raw.split('/');
+  const arg = rest.join('/');
+  if (!arg) return;
+
+  if (kind === 'profile') {
+    if (AUTHORS[arg] || PROFILES[arg]) openProfile(arg);
+    return;
+  }
+  if (kind === 'post') {
+    const post = state.posts.find(p => p.id === arg);
+    if (post) {
+      // Scroll the feed to it as well, so closing the thread leaves the
+      // reader in the right place rather than back at the top.
+      const at = [...state.view].findIndex(i => state.posts[i].id === arg);
+      if (at >= 0) el('wwViewport').scrollTop = at * ROW_HEIGHT;
+      openThread(arg);
+    }
+    return;
+  }
+  if (kind === 'record') {
+    // Records are addressed through links[] / legacyEventId, not the text, so
+    // this is a real filter rather than a search for the id string.
+    state.recordScope = arg;
+    applyFilter();
+  }
+}
+
 function boot() { if (_booted) return; _booted = true; load(); }
 document.addEventListener('DOMContentLoaded', boot);
 if (document.readyState !== 'loading') boot();

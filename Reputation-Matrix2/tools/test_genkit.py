@@ -17,7 +17,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from genkit.spec import Task, TaskResult, ValidationError  # noqa: E402
 from genkit.scheduler import PopcornScheduler  # noqa: E402
-from genkit.systems import crafting, reputation, shop_items, wahwire  # noqa: E402
+from genkit.systems import (  # noqa: E402
+    abilities, crafting, factions, reputation, shop_items, wahwire,
+)
 
 PASS = FAIL = 0
 
@@ -154,10 +156,57 @@ try:
     check("an eligible author passes", ok["author"] == "toadette")
     check("a newly added reaction is preserved", ok["reaction"] == "despair", ok["reaction"])
 
-    coerced = wahwire._author_validate(post_task, {
-        "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
-        "likes": 10, "tags": ["docks"], "reaction": "flabbergasted"})
-    check("an unknown reaction falls back to deadpan", coerced["reaction"] == "deadpan")
+    # The palette is open-ended now: a real feeling word the archive has not
+    # seen before is minted rather than flattened. Stubbed so the assertion
+    # does not depend on (or write to) the live palette file.
+    minted = []
+    original_mint = wahwire.mint_reaction
+
+    def _record_mint(name, **kw):
+        # Delegate to the real guard so the test still exercises it, but
+        # write to a throwaway palette instead of the repo's file.
+        result = original_mint(name, **kw)
+        if result:
+            minted.append(result)
+        return result
+
+    original_doc = wahwire._reactions_doc
+    scratch = {"version": 1, "reactions": {
+        r: {"glyph": "·", "label": r.title(), "tone": "#78909c", "origin": "canon"}
+        for r in wahwire.SEED_REACTIONS}}
+    wahwire._reactions_doc = lambda: scratch
+    wahwire.mint_reaction = _record_mint
+    original_write = wahwire.atomic_write_json
+    wahwire.atomic_write_json = lambda *a, **k: None
+    try:
+        coerced = wahwire._author_validate(post_task, {
+            "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
+            "likes": 10, "tags": ["docks"], "reaction": "flabbergasted"})
+        check("a genuinely new emotion is minted, not flattened",
+              coerced["reaction"] == "flabbergasted" and minted == ["flabbergasted"],
+              f'{coerced["reaction"]} / minted={minted}')
+
+        misspelled = wahwire._author_validate(post_task, {
+            "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
+            "likes": 10, "tags": ["docks"], "reaction": "greif"})
+        check("a misspelling folds onto the existing tone",
+              misspelled["reaction"] == "grief", misspelled["reaction"])
+
+        inflected = wahwire._author_validate(post_task, {
+            "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
+            "likes": 10, "tags": ["docks"], "reaction": "rageful"})
+        check("an inflection folds onto its root tone",
+              inflected["reaction"] == "rage", inflected["reaction"])
+
+        junk = wahwire._author_validate(post_task, {
+            "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
+            "likes": 10, "tags": ["docks"], "reaction": "mixed feelings really"})
+        check("a non-word still falls back to deadpan", junk["reaction"] == "deadpan",
+              junk["reaction"])
+    finally:
+        wahwire.mint_reaction = original_mint
+        wahwire._reactions_doc = original_doc
+        wahwire.atomic_write_json = original_write
 
     section("wahwire · comments and replies")
 
@@ -199,11 +248,36 @@ try:
 finally:
     wahwire._load = original_load
 
-section("wahwire · reaction map parity")
-check("18 reactions defined", len(wahwire.REACTIONS) == 18, str(len(wahwire.REACTIONS)))
+section("wahwire · reaction palette")
+
+# The palette moved out of both source files and into data/wahwire/reactions.json
+# so the generator can extend it without a code change on either side. What
+# matters now is that the two readers agree on the file, not that two frozen
+# literals happen to match.
+palette = wahwire.reactions()
+check("palette loads from data/wahwire/reactions.json", len(palette) >= 18,
+      str(len(palette)))
+for seeded in wahwire.SEED_REACTIONS:
+    if seeded not in palette:
+        check(f"seed reaction {seeded} present in the palette", False)
+        break
+else:
+    check("every seed reaction survives in the palette", True)
+
 js = (Path(__file__).resolve().parents[1] / "app/pages/wahwire/wahwire.js").read_text()
-missing = [r for r in wahwire.REACTIONS if f"{r}:" not in js and f"'{r}'" not in js]
-check("every Python reaction exists in wahwire.js", not missing, str(missing))
+check("wahwire.js reads the palette file",
+      "REACTIONS_URL" in js and "loadReactions" in js)
+# The palette fetch was folded into the profile fetch when profiles landed, so
+# accept either the bare await or the combined one -- what matters is that the
+# load is awaited inside load(), before the first paint.
+check("wahwire.js folds the palette in before the first paint",
+      "await loadReactions();" in js
+      or "await Promise.all([loadReactions(), loadProfiles()]);" in js)
+# The built-in fallback must still cover the seed set, so a failed fetch
+# degrades to the hand-written tones rather than to blank badges.
+absent = [r for r in wahwire.SEED_REACTIONS if f"{r}:" not in js]
+check("wahwire.js keeps a built-in fallback for every seed reaction",
+      not absent, str(absent))
 
 # --------------------------------------------------------------- requeue
 section("scheduler · requeue")
@@ -229,6 +303,189 @@ check("Task tracks attempts", Task(system_id="s", key="k", label="l").attempts =
 r = TaskResult(task=t, ok=False, detail="d", retryable=True, reason="because")
 check("TaskResult carries retryable", r.retryable is True)
 check("TaskResult carries a reason", r.reason == "because")
+
+# ------------------------------------------------- people are not factions
+section("factions · a person is never a faction")
+
+# The salvage path that rescues faction-shaped reputation answers used to run
+# every unrecognised operator id through the faction resolver, which mints
+# anything it does not know. That turned members of the cast into
+# organisations: `diddy_kong` and `wario` were both written real dossiers,
+# with a region and a power level, into data/factionsGenerated.json.
+check("a cast member is recognised as a person", factions.is_person("diddy_kong"))
+check("so is one written with a title",
+      factions.is_person("chunky_kong_the_third"))
+check("and one from the JSON roster", factions.is_person("wario"))
+check("a group noun means it is a group, not the person it is named after",
+      not factions.is_person("wario_land") and not factions.is_person("bowser_legion"))
+check("a real faction is not mistaken for a person",
+      not factions.is_person("koopa_troop") and not factions.is_person("dk_crew"))
+
+known = set(reputation.faction_ids())
+check("resolving a person reports 'person', and mints nothing",
+      factions.resolve("diddy_kong", known) == (None, "person"))
+check("an organisation sharing a person's name still resolves",
+      factions.resolve("wario_land", known)[1] in ("exact", "alias", "fuzzy"))
+check("a genuinely new group is still created",
+      factions.resolve("magikoopa_council", known)[1] == "create")
+
+rep_task = Task(system_id="reputation", key="k", label="l",
+                payload={"kind": "majorBattles", "id": "x", "name": "X"})
+scored = reputation.validate(rep_task, {
+    "reputationChanges": {"diddy_kong": {"koopa_troop": -5},
+                          "wario": {"warios_enterprise": 8}}})
+check("a person in the operator slot is not minted as a faction",
+      scored["_created"] == [], str(scored["_created"]))
+check("the factions they named are still scored as effects",
+      scored["effects"].get("koopa_troop") == -5
+      and scored["effects"].get("wario_land") == 8, str(scored["effects"]))
+check("and the people are reported rather than silently absorbed",
+      scored["_people"] == ["diddy_kong", "wario"], str(scored["_people"]))
+
+# ------------------------------------------------------------ repair passes
+section("repair · a rejection becomes a record")
+
+check("every system that can reject has a repair or a reason not to",
+      reputation.SPEC.repair is not None
+      and abilities.SPEC.repair is not None
+      and wahwire.AUTHOR_SPEC.repair is not None)
+
+# A person in the operator slot whose deltas DO name real factions is now
+# salvaged by validate() itself and never reaches repair.
+survivor = reputation.validate(rep_task, {
+    "reputationChanges": {"lanky_kong": {"dk_crew": 6, "koopa_troop": -3}},
+    "effects": "prose instead of a map"})
+check("a person naming real factions is salvaged without needing repair",
+      survivor["effects"].get("dk_crew") == 6
+      and survivor["effects"].get("koopa_troop") == -3, str(survivor["effects"]))
+
+# Repair is for the case validate cannot save: the factions are buried a level
+# deeper than the schema allows, so nothing scores on the first pass.
+bad = {"reputationChanges": {"the_battle": {"aftermath": {"dk_crew": 6,
+                                                          "koopa_troop": -3}}},
+       "effects": "prose instead of a map"}
+try:
+    reputation.validate(rep_task, bad)
+    check("a mis-nested reputation reply is rejected first", False, "it passed")
+except ValidationError as err:
+    check("a mis-nested reputation reply is rejected first", True)
+    fixed = reputation.repair(rep_task, bad, str(err))
+    check("repair digs the real factions out of the wrong nesting",
+          fixed is not None and fixed["effects"].get("dk_crew") == 6, str(fixed))
+    check("and the repaired record passes validation",
+          reputation.validate(rep_task, fixed)["effects"].get("koopa_troop") == -3)
+
+check("repair declines when there is genuinely nothing to keep",
+      reputation.repair(rep_task, {"reputationChanges": {"nobody": {"unknown": 4}}},
+                        "nothing scoreable — unknown operators: nobody") is None)
+check("repair does not fire for an unrelated rejection",
+      reputation.repair(rep_task, bad, "some other complaint") is None)
+
+# abilities: the duplicate name the model would not stop reusing
+taken = abilities._abilities()
+if taken:
+    dupe = dict(taken[0])
+    ab_task = Task(system_id="abilities", key="k", label="l",
+                   payload={"class": "brawler", "level": 5})
+    repaired_ability = abilities.repair(
+        ab_task, dupe, f"duplicate ability name {dupe.get('name')!r}")
+    names = {(a.get("name") or "").strip().lower() for a in taken}
+    check("a duplicate ability name is renamed to something free",
+          repaired_ability is not None
+          and repaired_ability["name"].lower() not in names,
+          str(repaired_ability and repaired_ability["name"]))
+    check("the rename keeps the model's own wording",
+          repaired_ability["name"].split()[0] == str(dupe.get("name")).split()[0])
+    check("abilities repair declines for a non-name rejection",
+          abilities.repair(ab_task, dupe, "effect has no numbers") is None)
+
+# ------------------------------------------------- cooldown under concurrency
+section("wahwire · cooldown binds across workers")
+
+wahwire._INFLIGHT_AUTHORS.clear()
+saved_load = wahwire._load
+wahwire._load = lambda: {"version": 1, "posts": [
+    {"id": "a", "author": "markop", "order": 1},
+    {"id": "b", "author": "bowser", "order": 2},
+]}
+try:
+    check("an author free on disk is offered", "waluigi" not in wahwire.recent_authors())
+    # Another worker picks waluigi and has not written yet.
+    wahwire._claim_author("waluigi")
+    check("an in-flight claim blocks the same author",
+          "waluigi" in wahwire.recent_authors(), str(wahwire.recent_authors()))
+
+    dup_task = Task(system_id="wahwire-author", key="k", label="l",
+                    payload={"record": {"id": "e1", "name": "X"}})
+    raw_post = {"author": "waluigi", "content": "x" * 60, "likes": 5,
+                "tags": [], "reaction": "smug"}
+    try:
+        wahwire._author_validate(dup_task, raw_post)
+        check("a claimed author is rejected", False, "waluigi was allowed twice")
+    except ValidationError as err:
+        check("a claimed author is rejected", True)
+        rescued = wahwire._author_repair(dup_task, raw_post, str(err))
+        check("the post is reassigned rather than lost",
+              rescued is not None and rescued["author"] != "waluigi",
+              str(rescued and rescued["author"]))
+        check("and the reassigned post validates",
+              wahwire._author_validate(dup_task, rescued)["author"] == rescued["author"])
+
+    check("the claim ages out after the cooldown window",
+          (wahwire._claim_author("toadette"), wahwire._claim_author("hjumpik"),
+           wahwire._claim_author("markop"),
+           "waluigi" not in wahwire.recent_authors())[-1],
+          str(wahwire.recent_authors()))
+finally:
+    wahwire._load = saved_load
+    wahwire._INFLIGHT_AUTHORS.clear()
+
+# ------------------------------------------------------- discussion pass
+section("wahwire · threading existing posts")
+
+saved_load = wahwire._load
+wahwire._load = lambda: {"version": 1, "posts": [
+    {"id": "p1", "author": "waluigi", "order": 1, "content": "Docks are gone.",
+     "status": "canon", "comments": [
+         {"id": "c1", "author": "bowser", "content": "Good. They were in the way."}]},
+    {"id": "p2", "author": "markop", "order": 2, "content": "Nobody signed for it.",
+     "status": "canon"},
+    {"id": "p3", "author": "hjumpik", "order": 3, "content": "Retired.", "status": "retired"},
+]}
+try:
+    thin = [p["id"] for p in wahwire._thin_threads()]
+    check("posts with thin threads are queued", thin == ["p1", "p2"], str(thin))
+    check("retired posts are never threaded", "p3" not in thin)
+
+    d_task = Task(system_id="wahwire-discuss", key="k", label="l",
+                  payload={"id": "p1", "post": wahwire._load()["posts"][0]})
+    threaded = wahwire._discuss_validate(d_task, {"comments": [
+        {"author": "markop", "content": "I have the signed order right here.",
+         "likes": 12, "reaction": "suspicion"},
+        {"author": "toadette", "content": "Then read out the name on it.",
+         "likes": 3, "reaction": "resolve", "replyTo": "markop"},
+        {"author": "waluigi", "content": "Replying to my own post should be dropped.",
+         "likes": 1, "reaction": "smug"},
+        {"author": "bowser", "content": "Good. They were in the way.",
+         "likes": 1, "reaction": "gloating"},
+    ]})
+    added = threaded["comments"]
+    check("comments on an existing post are accepted", len(added) == 2, str(len(added)))
+    check("the post's own author cannot reply to itself",
+          all(c["author"] != "waluigi" for c in added))
+    check("a reply to an existing commenter is kept",
+          added[1]["replyTo"] == "markop", added[1]["replyTo"])
+    check("a comment already in the thread is not repeated",
+          all("in the way" not in c["content"] for c in added))
+
+    try:
+        wahwire._discuss_validate(d_task, {"comments": [
+            {"author": "waluigi", "content": "only a self-reply here", "likes": 1}]})
+        check("a thread with nothing usable is rejected", False, "it passed")
+    except ValidationError:
+        check("a thread with nothing usable is rejected", True)
+finally:
+    wahwire._load = saved_load
 
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)

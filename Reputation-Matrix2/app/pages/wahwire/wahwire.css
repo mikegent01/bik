@@ -609,3 +609,166 @@
   height: 1px;
   background: #332b25;
 }
+
+/* ============================ PROFILES ============================
+   A byline is a button now. It has to still look like a byline in the feed —
+   the row is dense and 13 outlined buttons per screen would be noise — so the
+   affordance only appears on hover and focus. */
+.ww-who {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 7px;
+  padding: 1px 5px;
+  margin: -1px -5px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.ww-who:hover { background: #2a221c; border-color: #4a3d33; }
+.ww-who:focus-visible { outline: 2px solid var(--ww-accent, #d4a24a); outline-offset: 1px; }
+
+.ww-avatar--lg {
+  flex: 0 0 58px;
+  width: 58px;
+  height: 58px;
+  font-size: 28px;
+  border-radius: 15px;
+}
+
+.ww-profile-head {
+  display: flex;
+  gap: 14px;
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid #332b25;
+}
+
+.ww-profile-id { min-width: 0; }
+.ww-profile-name { display: block; font-size: 17px; font-weight: 700; }
+.ww-profile-bio {
+  margin: 7px 0 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #cdbfae;
+}
+.ww-profile-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+  color: var(--ww-muted);
+  font-size: 11px;
+}
+
+/* Five figures across, so the row stays readable at the modal's width. */
+.ww-profile-tally {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: #332b25;
+  border-bottom: 1px solid #332b25;
+}
+.ww-profile-tally > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 4px;
+  background: #191411;
+}
+.ww-profile-tally b { font-size: 15px; }
+.ww-profile-tally span {
+  color: var(--ww-muted);
+  font-size: 9.5px;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.ww-follows {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 4px 16px 12px;
+}
+.ww-follow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px 5px 6px;
+  background: #1c1613;
+  border: 1px solid #3a302a;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.ww-follow:hover { background: #241d18; border-color: #56463a; }
+.ww-follow:focus-visible { outline: 2px solid var(--ww-accent, #d4a24a); outline-offset: 1px; }
+.ww-follow-glyph {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid;
+  border-radius: 7px;
+  font-size: 12px;
+}
+.ww-follow-name { font-weight: 700; }
+.ww-follow-handle { color: var(--ww-muted); font-size: 10.5px; }
+
+.ww-profile-post {
+  padding: 11px 16px;
+  border-bottom: 1px solid #241d18;
+}
+.ww-profile-post-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+  font-size: 11px;
+}
+.ww-profile-none,
+.ww-profile-actions { padding: 14px 16px; }
+.ww-profile-none { color: var(--ww-muted); font-size: 12px; }
+
+.ww-profile-filter {
+  width: 100%;
+  padding: 9px;
+  background: #1c1613;
+  border: 1px solid #3a302a;
+  border-radius: 7px;
+  color: #e8dcc8;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.ww-profile-filter:hover { background: #241d18; border-color: #56463a; }
+
+/* A scope handed over from an article. Must announce itself: a silently
+   filtered feed reads as a broken feed. */
+.ww-scope {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 7px 11px;
+  border: 1px solid #4a6a80;
+  border-radius: 8px;
+  background: rgba(91, 124, 153, .14);
+  font-size: 12px;
+}
+.ww-scope-tag { color: var(--ww-muted); font-size: 11px; }
+.ww-scope-clear {
+  padding: 2px 9px;
+  background: none;
+  border: 1px solid #4a6a80;
+  border-radius: 999px;
+  color: #8fb3cc;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+.ww-scope-clear:hover { background: rgba(91, 124, 153, .25); }

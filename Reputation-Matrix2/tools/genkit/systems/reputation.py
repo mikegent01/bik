@@ -277,7 +277,13 @@ def build_prompt(task: Task) -> tuple[str, str]:
 def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     factions = set(faction_ids()) | factions_mod.generated_ids()
     changes = raw.get("reputationChanges")
-    if not isinstance(changes, dict) or not changes:
+    if not isinstance(changes, dict):
+        changes = {}
+    # An empty `reputationChanges` is not automatically an empty answer: a
+    # record can land entirely as faction-level `effects`, which is exactly
+    # what a repaired reply looks like. The real emptiness check happens after
+    # both halves have been scored, so let this fall through to it.
+    if not changes and not isinstance(raw.get("effects"), dict):
         raise ValidationError("no reputationChanges returned")
 
     record_name = task.payload.get("name") or task.payload.get("id") or ""
@@ -358,24 +364,47 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     # under the wrong key: a faction-level consequence. Rather than lose the whole
     # record, fold those rows into `effects`, which is exactly the record-wide
     # echo they describe.
+    #
+    # The other thing that lands in the operator slot is a PERSON — `wario`,
+    # `diddy_kong`, `lanky_kong`. That is also the right judgement under the
+    # wrong key, but it must not go through the faction resolver: an unknown
+    # slug there resolves to `create`, so asking "is diddy_kong a faction?"
+    # answered "he is now" and minted him a dossier, complete with a region
+    # and a power level. Members of the cast are screened out first and only
+    # the faction deltas they named are kept.
     salvaged_effects: dict[str, int] = {}
+    people_as_ops: set[str] = set()
     for stray in list(bad_ops):
-        as_faction = resolve_faction(stray)
-        if not as_faction:
+        person = factions_mod.is_person(stray)
+        as_faction = None if person else resolve_faction(stray)
+        if not person and not as_faction:
             continue
         deltas = changes.get(stray)
         if not isinstance(deltas, dict):
             continue
+        kept = False
         for fid, value in deltas.items():
             try:
                 delta = int(value)
             except (TypeError, ValueError):
                 continue
-            if delta and abs(delta) <= 20:
-                target = resolve_faction(fid) or as_faction
-                if abs(salvaged_effects.get(target, 0)) < abs(delta):
-                    salvaged_effects[target] = delta
-        bad_ops.discard(stray)
+            if not delta or abs(delta) > 20:
+                continue
+            # For a person there is no fallback target: the row is only
+            # meaningful through the factions it names, so an unresolvable
+            # inner id is dropped rather than banked against the human.
+            target = resolve_faction(fid) or as_faction
+            if not target:
+                continue
+            kept = True
+            if abs(salvaged_effects.get(target, 0)) < abs(delta):
+                salvaged_effects[target] = delta
+        if person:
+            if kept:
+                people_as_ops.add(str(stray)[:40])
+                bad_ops.discard(stray)
+        else:
+            bad_ops.discard(stray)
 
     clean_effects: dict[str, int] = dict(salvaged_effects)
     # The model sometimes answers `effects` with a prose string instead of a
@@ -438,6 +467,84 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         "reputationNotes": clean_notes,
         "_merged": merged,
         "_created": created,
+        # People the model filed as operators, kept for the run log so the
+        # pattern stays visible instead of being silently absorbed.
+        "_people": sorted(people_as_ops),
+    }
+
+
+def repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    """Last-resort rescue for a reputation record with nothing scoreable.
+
+    By the time this runs the model has been asked three times, each time with
+    the operator list quoted back at it, and has answered three times with
+    names that are not on it. The remaining content is still real: it read the
+    battle and decided who came out of it better. What it got wrong is which
+    column that belongs in.
+
+    So the fix is to stop insisting on the operator column. Every delta the
+    model produced — at any nesting depth, under any key — is walked, and
+    anything that names a *faction* is filed as a record-wide `effect`. That is
+    the honest reading of "the Koopa Resistance gained 7": a faction-level
+    consequence of the record, which is precisely what `effects` records.
+
+    Nothing is invented. If the reply named no faction anywhere, there is
+    genuinely nothing to keep and the record is allowed to fail.
+    """
+    if "nothing scoreable" not in why:
+        return None
+
+    known = set(faction_ids())
+    salvaged: dict[str, int] = {}
+
+    def harvest(node: Any, inherited: str | None = None) -> None:
+        """Walk the reply for (faction, number) pairs at any depth."""
+        if isinstance(node, dict):
+            for key, value in node.items():
+                slug = factions_mod.slugify(key)
+                if isinstance(value, (int, float)) and not isinstance(value, bool):
+                    # A leaf number: the key beside it is the subject, unless
+                    # the key is a person, in which case the enclosing faction
+                    # is.
+                    target = None
+                    if slug and not factions_mod.is_person(slug):
+                        resolved, how = factions_mod.resolve(slug, known)
+                        if resolved and how in ("exact", "alias", "fuzzy"):
+                            target = resolved
+                    target = target or inherited
+                    if not target:
+                        continue
+                    try:
+                        delta = int(value)
+                    except (TypeError, ValueError):
+                        continue
+                    if not delta:
+                        continue
+                    delta = max(-20, min(20, delta))
+                    if abs(salvaged.get(target, 0)) < abs(delta):
+                        salvaged[target] = delta
+                else:
+                    # A branch: if its key names a faction it becomes the
+                    # subject for the numbers underneath it.
+                    subject = inherited
+                    if slug and not factions_mod.is_person(slug):
+                        resolved, how = factions_mod.resolve(slug, known)
+                        if resolved and how in ("exact", "alias", "fuzzy"):
+                            subject = resolved
+                    harvest(value, subject)
+        elif isinstance(node, list):
+            for item in node:
+                harvest(item, inherited)
+
+    harvest(raw.get("reputationChanges"))
+    harvest(raw.get("effects"))
+    if not salvaged:
+        return None
+
+    return {
+        "reputationChanges": {},
+        "effects": salvaged,
+        "reputationNotes": {},
     }
 
 
@@ -517,4 +624,5 @@ SPEC = SystemSpec(
     validate=validate,
     apply=apply,
     pending=pending,
+    repair=repair,
 )

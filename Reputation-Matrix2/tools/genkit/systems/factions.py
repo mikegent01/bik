@@ -99,6 +99,122 @@ _NOT_A_GROUP = re.compile(
 )
 
 
+CHARACTERS = ROOT / "data" / "characters.json"
+# The larger cast lives in a JS module keyed by id, not in the JSON roster.
+# `diddy_kong`, `lanky_kong` and `chunky_kong` are only here — which is exactly
+# why they were the ids that got minted as factions.
+CHARACTERS_JS = ROOT / "data" / "characters" / "characters-1.js"
+
+_CHARACTER_KEY = re.compile(r"^\s{4}([A-Za-z0-9_]+)\s*:\s*\{", re.M)
+_CHARACTER_NAME = re.compile(r"""^\s{8}name\s*:\s*["']([^"']+)["']""", re.M)
+
+_PEOPLE: set[str] | None = None
+
+
+def people_ids() -> set[str]:
+    """Every id and name in the character rosters, slugified.
+
+    A faction resolver that does not know who the *people* are will mint them
+    as organisations. `diddy_kong` and `wario` are not near-misses for any
+    faction, and they are not noise either, so `resolve()` concluded "new
+    group" and wrote each of them a dossier — turning two of the campaign's
+    cast into institutions in the reputation matrix.
+
+    No regex can catch this: a person's id looks exactly like a faction's. The
+    only reliable signal is the roster itself, so read both of them — the flat
+    JSON list and the keyed JS module, which do not hold the same people.
+    """
+    global _PEOPLE
+    if _PEOPLE is None:
+        people: set[str] = set()
+
+        roster = read_json(CHARACTERS, default=None) or []
+        if isinstance(roster, dict):
+            roster = roster.get("characters", []) or []
+        for entry in roster:
+            if not isinstance(entry, dict):
+                continue
+            for field in ("id", "name"):
+                slug = slugify(entry.get(field) or "")
+                if len(slug) >= 3:
+                    people.add(slug)
+
+        # Parsed rather than imported: this is a browser ES module, and a
+        # generator pass should not need a JS runtime to know who Diddy Kong
+        # is. The shape is stable and machine-written, so a keyed-line match
+        # is sufficient and fails closed (an unreadable file simply means
+        # fewer names, never a wrong one).
+        try:
+            source = CHARACTERS_JS.read_text(encoding="utf-8")
+        except OSError:
+            source = ""
+        for match in _CHARACTER_KEY.findall(source):
+            slug = slugify(match)
+            if len(slug) >= 3:
+                people.add(slug)
+        for match in _CHARACTER_NAME.findall(source):
+            slug = slugify(match)
+            if len(slug) >= 3:
+                people.add(slug)
+
+        _PEOPLE = people
+    return _PEOPLE
+
+
+# Nouns that turn a person's name into an organisation's. `wario` is a man,
+# `wario_land` is his company; `bowser` is a king, `bowser_legion` is his army.
+# Any slug carrying one of these is a group even when a cast member's name is
+# sitting inside it.
+_GROUP_NOUN = re.compile(
+    r"(?:^|_)("
+    r"land|legion|crew|krew|council|guild|army|clan|troop|troops|corps|"
+    r"company|co|inc|enterprise|enterprises|syndicate|cartel|gang|band|"
+    r"order|circle|court|house|family|dynasty|regime|faction|force|forces|"
+    r"squad|team|union|league|alliance|coalition|front|party|cult|church|"
+    r"school|academy|bureau|agency|network|collective|resistance|militia|"
+    r"brigade|fleet|navy|guard|watch|brotherhood|sisterhood|kingdom|empire|"
+    r"republic|state|senate|assembly|ministry|division|society|group|"
+    r"followers|loyalists|supporters|fans|media"
+    r")(?:$|_)"
+)
+
+# Honorifics and generational suffixes the models attach to a name. Stripping
+# them lets `chunky_kong_the_third` be recognised as Chunky Kong rather than as
+# a brand-new organisation called the Chunky Kong The Third.
+_TITLE_AFFIX = re.compile(
+    r"(?:^(?:the|lord|lady|king|queen|prince|princess|sir|dame|captain|"
+    r"general|colonel|major|sergeant|chief|chancellor|master|doctor|dr|"
+    r"professor|elder|high|grand)_)|"
+    r"(?:_(?:the_(?:first|second|third|fourth|fifth|elder|younger|great)|"
+    r"jr|sr|i|ii|iii|iv|v)$)"
+)
+
+
+def is_person(proposed: str) -> bool:
+    """True when the slug names a member of the cast rather than a group.
+
+    A group noun anywhere in the slug settles it the other way immediately:
+    the whole point of `wario_land` is that it is not Wario.
+    """
+    slug = slugify(proposed)
+    if not slug:
+        return False
+    if _GROUP_NOUN.search(slug):
+        return False
+    people = people_ids()
+    if slug in people:
+        return True
+    # Strip honorifics and generational suffixes, repeatedly — the models
+    # stack them ("the_great_chunky_kong_jr").
+    trimmed = slug
+    for _ in range(4):
+        stripped = _TITLE_AFFIX.sub("", trimmed).strip("_")
+        if stripped == trimmed:
+            break
+        trimmed = stripped
+    return len(trimmed) >= 3 and trimmed in people
+
+
 def _load() -> dict[str, Any]:
     global _CACHE
     if _CACHE is None:
@@ -132,8 +248,10 @@ def resolve(
     """Map a proposed faction id onto a real one.
 
     Returns `(faction_id, how)` where `how` is one of `exact`, `alias`,
-    `fuzzy`, `create` or `reject`. A `create` result means the caller should
-    mint the faction; `reject` means the label named no group at all.
+    `fuzzy`, `create`, `person` or `reject`. A `create` result means the
+    caller should mint the faction; `person` means the label named a member of
+    the cast and belongs to the operator resolver, not here; `reject` means
+    the label named no group at all.
 
     Fuzzy matching is deliberately strict (0.86). At 0.6 it happily proposed
     `flower_kingdom` for `mushroom_kingdom` — two different realms — which
@@ -152,6 +270,19 @@ def resolve(
     target = ALIASES.get(slug)
     if target and target in known:
         return target, "alias"
+
+    # A named member of the cast is a person, and a person is never a faction
+    # — not even a new one. This sits *after* the exact and alias lookups on
+    # purpose: the character roster also carries a few entries that really are
+    # organisations (`koopa_troop`), and those already have a faction dossier,
+    # so a confirmed faction id always wins.
+    #
+    # It sits *before* the fuzzy pass and `create` because both are how people
+    # became institutions: `wario` is one edit from `wario_land`, which would
+    # have merged a man into his own company, and `diddy_kong` matched nothing
+    # at all, so he was minted a dossier with a region and a power level.
+    if is_person(slug):
+        return None, "person"
 
     close = difflib.get_close_matches(slug, sorted(known), n=1, cutoff=0.86)
     if close:
