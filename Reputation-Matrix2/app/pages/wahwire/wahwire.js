@@ -100,7 +100,13 @@ function prepare(p) {
     glyph: '\u{1F464}', tone: '#78909c'
   };
   const d = p.date || {};
-  const links = Array.isArray(p.links) ? p.links : [];
+  // Two shapes in the wild: the legacy set stored bare id strings, the
+  // generator writes {id, type} objects. Normalise to ids here, once, rather
+  // than teaching every consumer both shapes — rendering an object as a
+  // string is what produced "[object Object]" on screen.
+  const links = (Array.isArray(p.links) ? p.links : [])
+    .map(l => (l && typeof l === 'object') ? l.id : l)
+    .filter(l => typeof l === 'string' && l);
   return {
     i: _prepareIndex++,
     id: p.id,
@@ -308,7 +314,10 @@ function rowHTML(post, k) {
   const badges = [];
   if (post.status === 'canon')  badges.push('<span class="ww-badge ww-badge--canon">canon</span>');
   if (post.status === 'legacy') badges.push('<span class="ww-badge ww-badge--legacy">legacy</span>');
-  if (post.generated)           badges.push('<span class="ww-badge ww-badge--gen">generated</span>');
+  // `generated` is deliberately NOT badged. It stays on the record and stays
+  // filterable (#wwFilters 'generated'), but an in-world feed that labels its
+  // own posts as machine-written breaks the fiction for the reader.
+
   if (react) badges.push(
     `<span class="ww-badge ww-badge--react" style="color:${react.tone};border-color:${react.tone}66">` +
     `${react.glyph} ${esc(react.label)}</span>`);

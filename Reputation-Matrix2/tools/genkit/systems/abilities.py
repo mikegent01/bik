@@ -141,13 +141,25 @@ def build_prompt(task: Task) -> tuple[str, str]:
         for a in peers[:8]
     ]
 
+    # Names are unique across the WHOLE shop, not per class, but the sample
+    # above only shows same-class peers. That is why the model kept proposing
+    # "Shadow Cloak" for spy after rogue already had it, burning a full
+    # round-trip each time. Show every taken name — they are short, and a few
+    # hundred of them cost far less than one rejected generation.
+    taken = sorted({(a.get("name") or "").strip() for a in _abilities() if a.get("name")})
+
     prompt = (
         f"CLASS: {class_id} — {json.dumps(class_meta, ensure_ascii=False)}\n"
         f"TARGET LEVEL: {level}\n\n"
-        f"EXISTING {class_id.upper()} ABILITIES (do not duplicate):\n"
+        f"EXISTING {class_id.upper()} ABILITIES (match tone and power, do not duplicate):\n"
         f"{json.dumps(sample, ensure_ascii=False, indent=2)}\n\n"
+        f"NAMES ALREADY TAKEN ACROSS ALL CLASSES — picking any of these fails:\n"
+        f"{', '.join(taken)}\n\n"
         f"ALLOWED TYPES: {', '.join(store.get('types', []))}\n\n"
-        f"Design one new level {level} {class_id} ability."
+        f"Design one new level {level} {class_id} ability.\n"
+        f"`rules.effect` MUST contain concrete numbers (dice, distances, "
+        f"durations, or a count) — an effect with no numbers is rejected.\n"
+        f"`rules.drawback` must be a real cost, never 'none'."
     )
     return SYSTEM_PROMPT, prompt
 

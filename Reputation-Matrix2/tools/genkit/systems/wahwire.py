@@ -21,6 +21,7 @@ ids, which is what makes the feed worth linking to articles at all.
 from __future__ import annotations
 
 import json
+import re
 import threading
 from typing import Any
 
@@ -32,6 +33,43 @@ STORE = ROOT / "data" / "wahwire" / "posts.json"
 
 _WRITE_LOCK = threading.Lock()
 _LINK_CACHE: dict[str, dict[str, str]] = {}
+_VOICE_CACHE: dict[str, dict[str, str]] = {}
+
+
+def voices() -> dict[str, dict[str, str]]:
+    """Who each author actually is, straight out of data/characters.json.
+
+    Without this the model only ever saw a bare id like `archie_miser` and had
+    to guess a personality, which is why early output all sounded like the same
+    narrator. Archie alone carries a 42k-character description; feeding a
+    trimmed slice of the real article is the difference between a post that
+    could have been written by anyone and one only that character would write.
+
+    Authors with no article (wah_media_collective, generic_toad) simply get no
+    entry and fall back to the role note in the prompt.
+    """
+    global _VOICE_CACHE
+    if _VOICE_CACHE:
+        return _VOICE_CACHE
+    data = read_json(ROOT / "data" / "characters.json", default=[])
+    records = data if isinstance(data, list) else data.get("characters", [])
+    wanted = set(KNOWN_AUTHORS)
+    out: dict[str, dict[str, str]] = {}
+    for record in records:
+        if not isinstance(record, dict):
+            continue
+        rid = record.get("id")
+        if rid not in wanted:
+            continue
+        summary = " ".join(str(record.get("summary") or "").split())
+        out[rid] = {
+            "name": str(record.get("name") or rid),
+            "title": str(record.get("title") or ""),
+            "affiliation": str(record.get("affiliation") or ""),
+            "summary": summary[:700],
+        }
+    _VOICE_CACHE = out
+    return out
 
 # Posts are written by in-world accounts. These are the ones the legacy feed
 # already uses plus the party, all resolvable in data/characters/characters-*.js.
@@ -278,8 +316,27 @@ Rules:
   plausibly have posted, not always the most important person.
 - `likes` should track how popular that opinion would be, not how important the event is.
   An unpopular truth gets few likes.
-- No hashtags, no emoji spam, at most one emoji.
+- Do NOT put hashtags in `content`. The `tags` array below is the only place
+  tags belong, and they are written there WITHOUT a leading '#'. A '#' anywhere
+  in `content` gets the whole post rejected.
+- At most one emoji, and only if that character would use one.
+- Do not repeat the record's title back as a sentence. React, don't summarise.
 """
+
+
+# Authors with no article of their own still need a voice note, or the model
+# invents one. These are the outlets and bit-players, described from how the
+# legacy feed already uses them.
+ROLE_NOTES = {
+    "wah_media_collective": "A sensationalist news outlet. Writes in headline voice, all caps openers, breathless.",
+    "generic_toad": "An ordinary Mushroom Kingdom civilian. Frightened, parochial, worries about rent and family.",
+    "lord_crimson": "A vampire lord of the Onyx Hand. Formal, archaic, contemptuous of mortals.",
+    "general_marcus_ironhand": "A Regal Empire general. Clipped military register, talks in objectives and materiel.",
+    "colonel_vera_steelstorm": "An Iron Legion colonel. Cold, procedural, quotes regulations.",
+    "alpha_bloodmaw": "A werewolf pack alpha. Territorial, blunt, speaks for the wild.",
+    "toadsworth": "An elderly Mushroom Kingdom retainer. Fussy, loyal, prone to 'Master' and 'I say'.",
+    "toadette": "A young, plucky Mushroom Kingdom toad. Earnest and informal.",
+}
 
 
 def _author_prompt(task: Task) -> tuple[str, str]:
@@ -291,10 +348,39 @@ def _author_prompt(task: Task) -> tuple[str, str]:
                  "summary", "description", "result", "aftermath")
         and v not in (None, "", [], {})
     }
+
+    # Give the model the actual people, not just their ids. A voice note per
+    # author is what stops every post reading like the same narrator.
+    who = voices()
+    lines = []
+    for author_id in KNOWN_AUTHORS:
+        v = who.get(author_id)
+        if v:
+            bits = [b for b in (v["title"], v["affiliation"]) if b]
+            head = f"  {author_id} — {v['name']}"
+            if bits:
+                head += f" ({'; '.join(bits)})"
+            lines.append(head + (f"\n      {v['summary']}" if v["summary"] else ""))
+        else:
+            note = ROLE_NOTES.get(author_id, "")
+            lines.append(f"  {author_id}" + (f" — {note}" if note else ""))
+
+    # The record's own date string, verbatim. The feed shows this, so an
+    # invented date would be visible on screen next to a real one.
+    date_note = ""
+    raw_date = record.get("date")
+    if isinstance(raw_date, str) and raw_date.strip():
+        date_note = (
+            f"\nThis record is dated: {raw_date.strip()}\n"
+            "Use that dating if you refer to when it happened. Do not invent a different date.\n"
+        )
+
     prompt = (
-        f"RECORD:\n{json.dumps(view, ensure_ascii=False, indent=2)}\n\n"
-        f"AUTHOR IDS:\n  " + ", ".join(KNOWN_AUTHORS) + "\n\n"
-        "Write the post."
+        f"RECORD:\n{json.dumps(view, ensure_ascii=False, indent=2)}\n"
+        f"{date_note}\n"
+        f"AUTHORS — pick exactly one `author` id from this list:\n"
+        + "\n".join(lines)
+        + "\n\nWrite the post."
     )
     return AUTHOR_SYSTEM, prompt
 
@@ -307,8 +393,21 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(content, str) or not (40 <= len(content.strip()) <= 900):
         raise ValidationError("content missing or out of length range")
     content = " ".join(content.split())
-    if content.count("#") > 0:
-        raise ValidationError("hashtags are not used on this feed")
+
+    # Trailing hashtags are a habit the model will not fully unlearn, and
+    # throwing away an otherwise good post over them wastes a whole generation
+    # round-trip. Salvage instead: lift them into `tags` (which is where they
+    # were always meant to go) and strip them from the prose. Only reject when
+    # removing them would leave nothing worth publishing.
+    salvaged: list[str] = []
+    if "#" in content:
+        for match in re.findall(r"#(\w{2,20})", content):
+            tag = match.lower()
+            if tag not in salvaged:
+                salvaged.append(tag)
+        content = " ".join(re.sub(r"#\w+", " ", content).split()).strip(" .,;:-—")
+        if len(content) < 40:
+            raise ValidationError("post is only hashtags once they are stripped")
 
     try:
         likes = max(0, min(9000, int(raw.get("likes", 0))))
@@ -319,11 +418,14 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     if reaction not in ("cheer", "rage", "grief", "smug", "alarm", "deadpan"):
         reaction = "deadpan"
 
-    tags = [
-        str(t).strip().lower()
-        for t in (raw.get("tags") or [])
-        if isinstance(t, str) and 2 <= len(t.strip()) <= 20
-    ][:4]
+    tags: list[str] = []
+    for candidate in list(raw.get("tags") or []) + salvaged:
+        if not isinstance(candidate, str):
+            continue
+        tag = candidate.strip().lstrip("#").lower()
+        if 2 <= len(tag) <= 20 and tag not in tags:
+            tags.append(tag)
+    tags = tags[:4]
 
     return {
         "author": author, "content": content, "likes": likes,

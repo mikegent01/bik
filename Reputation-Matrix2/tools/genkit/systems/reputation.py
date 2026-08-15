@@ -193,26 +193,45 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         raise ValidationError("no reputationChanges returned")
 
     clean_changes: dict[str, dict[str, int]] = {}
+    # Track WHY things were dropped. "every id was invalid" told us nothing
+    # about whether the model hallucinated or the archive simply has no
+    # faction for this record (there is no `brobot` or `krew` faction, so a
+    # Brobot skirmish genuinely cannot be scored against the 100 known ids).
+    bad_ops: set[str] = set()
+    bad_factions: set[str] = set()
+    out_of_range = 0
     for op_id, deltas in changes.items():
         if op_id not in OPERATORS:
-            continue  # silently drop an invented operator rather than fail the record
+            bad_ops.add(str(op_id)[:40])
+            continue  # drop an invented operator rather than fail the record
         if not isinstance(deltas, dict):
             continue
         row: dict[str, int] = {}
         for fid, value in deltas.items():
             if fid not in factions:
+                bad_factions.add(str(fid)[:40])
                 continue
             try:
                 delta = int(value)
             except (TypeError, ValueError):
                 continue
             if delta == 0 or abs(delta) > 30:
+                out_of_range += 1
                 continue
             row[fid] = delta
         if row:
             clean_changes[op_id] = row
     if not clean_changes:
-        raise ValidationError("every operator or faction id was invalid")
+        why = []
+        if bad_ops:
+            why.append("unknown operators: " + ", ".join(sorted(bad_ops)[:4]))
+        if bad_factions:
+            why.append("no such faction: " + ", ".join(sorted(bad_factions)[:4]))
+        if out_of_range:
+            why.append(f"{out_of_range} delta(s) zero or beyond ±30")
+        raise ValidationError(
+            "nothing scoreable — " + ("; ".join(why) if why else "empty response")
+        )
 
     clean_effects: dict[str, int] = {}
     for fid, value in (raw.get("effects") or {}).items():

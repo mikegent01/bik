@@ -191,10 +191,14 @@ def build_prompt(task: Task) -> tuple[str, str]:
     existing_names = [v.get("name") for v in _generated().values() if v.get("name")][-25:]
     prompt = (
         f"RARITY: {rarity} — {RARITY_GUIDE[rarity]}\n\n"
-        f"DEPARTMENTS: {', '.join(DEPARTMENTS)}\n\n"
+        f"DEPARTMENTS — `category` must be EXACTLY ONE of these strings, "
+        f"copied verbatim, never a list and never two joined by a comma:\n"
+        f"  {', '.join(DEPARTMENTS)}\n\n"
         + (f"ALREADY IN STOCK (do not repeat):\n  " + "\n  ".join(existing_names) + "\n\n"
            if existing_names else "")
-        + f"Invent one {rarity} item for Warizon."
+        + f"Invent one {rarity} item for Warizon.\n"
+        + "Every entry in `effectDetails[].rules` must contain concrete numbers "
+          "(dice, ranges, durations, charges). Mechanics with no numbers are rejected."
     )
     return SYSTEM_PROMPT, prompt
 
@@ -215,10 +219,23 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     if name.lower() in {(v.get("name") or "").lower() for v in _generated().values()}:
         raise ValidationError(f"duplicate item name {name!r}")
 
-    category = str(raw.get("category", "")).strip().lower()
-    if category not in DEPARTMENTS:
+    # The model sometimes answers with a list, or with two departments joined
+    # by a comma ("premium, curiosities"). Both are recoverable: take the first
+    # entry that is a real department rather than throwing the item away.
+    raw_category = raw.get("category")
+    if isinstance(raw_category, (list, tuple)):
+        parts = [str(c) for c in raw_category]
+    else:
+        parts = str(raw_category or "").split(",")
+    category = ""
+    for part in parts:
+        candidate = part.strip().lower()
+        if candidate in DEPARTMENTS:
+            category = candidate
+            break
+    if not category:
         # normalizeItem() would silently dump it in curiosities; be explicit.
-        raise ValidationError(f"unknown category {category!r}")
+        raise ValidationError(f"unknown category {str(raw_category)!r}")
 
     description = " ".join(str(raw.get("description", "")).split())
     if not (40 <= len(description) <= 900):
