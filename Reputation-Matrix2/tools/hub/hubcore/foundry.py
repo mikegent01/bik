@@ -334,6 +334,13 @@ def shop_item_to_foundry(
                 "usage": usage or None,
                 "priceGold": item.get("price"),
                 "receipts": item.get("_receipts") or [],
+                # Bros items only. The Foundry module reads these to grant a
+                # free use and to teach the technique; without them an
+                # imported one-shot is just flavour text and the item has no
+                # mechanical effect in play. Absent on everything else.
+                **({"brosAttack": item["brosAttack"]} if item.get("brosAttack") else {}),
+                **({"teachesTechnique": True} if item.get("teachesTechnique") else {}),
+                **({"energyRule": item["energyRule"]} if item.get("energyRule") else {}),
             },
         },
         "_stats": stats_block(),

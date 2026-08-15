@@ -66,6 +66,65 @@ async function spendEnergy(actors) {
   return true;
 }
 
+// ---- Bros items -----------------------------------------------------
+// Premade one-shots bought from the shop. The site writes the technique id
+// into flags.waluipedia.brosAttack when the item is exported to Foundry, so
+// an imported kit can be matched back to the technique it performs.
+//
+// The balance rule, and the reason this is not just a discount: using a bros
+// item spends THE ITEM, not Bros Energy. That is what stops a stack of kits
+// becoming a stack of free attacks — each one is destroyed. Once the pair has
+// learned the technique it reverts to the normal economy (1 each from 2, back
+// on a short rest), so a second copy buys another free use and nothing more.
+const brosItemFor = (attack, actor) => actor?.items?.find(item =>
+  item?.flags?.waluipedia?.brosAttack === attack.id && (item.system?.quantity ?? 1) > 0);
+
+const findBrosItem = (attack, actors) => {
+  for (const actor of actors) {
+    const item = brosItemFor(attack, actor);
+    if (item) return { actor, item };
+  }
+  return null;
+};
+
+const hasLearned = (attack, actors) =>
+  actors.every(a => (a?.getFlag?.(BROS_MODULE, "learned") ?? []).includes(attack.id));
+
+async function consumeBrosItem(attack, found, actors) {
+  const { actor, item } = found;
+  const quantity = Number(item.system?.quantity ?? 1);
+  if (quantity > 1) await item.update({ "system.quantity": quantity - 1 });
+  else await item.delete();
+
+  // Teaching items promote the pair to the normal economy from here on.
+  let taught = false;
+  if (item.flags?.waluipedia?.teachesTechnique) {
+    for (const target of actors) {
+      const learned = target.getFlag(BROS_MODULE, "learned") ?? [];
+      if (!learned.includes(attack.id)) {
+        await target.setFlag(BROS_MODULE, "learned", [...learned, attack.id]);
+        taught = true;
+      }
+    }
+  }
+  await ChatMessage.create({ content:
+    `<div class="bros-clean-card"><h2>📦 ${item.name} used</h2>`
+    + `<p>${actor.name} spends the item to perform <strong>${attack.name}</strong>. `
+    + `No Bros Energy was spent — the item is consumed instead.</p>`
+    + (taught ? `<p>Both partners have now <strong>learned ${attack.name}</strong>. `
+        + `From here it costs 1 Bros Energy each, from a maximum of 2, back after a short rest.</p>` : "")
+    + `</div>` });
+  return true;
+}
+
+// Prefer the item when one is present, because that is the whole point of
+// owning it. Falls back to energy so nothing that worked before stops working.
+async function payFor(attack, actors) {
+  const found = findBrosItem(attack, actors);
+  if (found) return consumeBrosItem(attack, found, actors);
+  return spendEnergy(actors);
+}
+
 class BrosAttackWindow extends foundry.applications.api.ApplicationV2 {
   static DEFAULT_OPTIONS = {
     id: "waluipedia-bros-attacks",
@@ -80,7 +139,7 @@ class BrosAttackWindow extends foundry.applications.api.ApplicationV2 {
     root.innerHTML = this.styles() + `
       <header class="bros-clean-header"><span class="bros-clean-star">🤝</span><div><h1>Bros Attacks</h1><p>Choose a defined technique. Follow the motion. Then resolve the normal rules.</p></div></header>
       <div class="bros-clean-target" data-target>🎯 <span>Select an obstacle or target token before pressing Use.</span><button data-refresh>↻</button></div>
-      <div class="bros-clean-energy">⚡ Each named partner spends 1 Bros Energy from 2. Energy returns after a short rest.</div>
+      <div class="bros-clean-energy">⚡ Each named partner spends 1 Bros Energy from 2. Energy returns after a short rest. 📦 If a partner is carrying a bros item for the technique, it is spent instead and no energy is used.</div>
       <div class="bros-clean-list">${BROS_DEFINITIONS.map((a,i)=>this.card(a,i)).join("")}</div>`;
     this.wire(root);
     return root;
@@ -92,7 +151,18 @@ class BrosAttackWindow extends foundry.applications.api.ApplicationV2 {
     .bros-clean-root{font-family:Signika,system-ui,sans-serif;background:#111;color:#eee;padding:14px}.bros-clean-header{display:flex;gap:12px;align-items:center;border-bottom:2px solid #e4bb36;padding-bottom:12px}.bros-clean-star{font-size:34px}.bros-clean-header h1{color:#ffd84d;margin:0;font-size:21px}.bros-clean-header p{margin:3px 0 0;color:#aaa;font-size:12px}.bros-clean-target,.bros-clean-energy{padding:10px;margin-top:12px;border-radius:7px;font-size:12px}.bros-clean-target{display:flex;gap:8px;align-items:center;border:1px solid #633333;background:#210f0f;color:#ffb0a8}.bros-clean-target.has{border-color:#397b4b;background:#102516;color:#a7efb3}.bros-clean-target span{flex:1}.bros-clean-target button{background:#292929;color:#ddd;border:1px solid #555;border-radius:4px}.bros-clean-energy{border:1px solid #806b25;background:#241d0a;color:#ffe59a}.bros-clean-list{display:grid;gap:12px;margin-top:14px}.bros-clean-card{border:1px solid #3f3f3f;border-left:4px solid #d9a52e;border-radius:8px;padding:12px;background:#191919}.bros-clean-card h2{font-size:16px;color:#ffe36b;margin:0}.bros-clean-card p{font-size:12px;color:#bbb}.bros-clean-meta{display:flex;gap:7px;flex-wrap:wrap;color:#9fe6ae;font-size:11px}.bros-clean-use{float:right;background:#247b32;color:#fff;border:1px solid #54c765;border-radius:5px;padding:6px 12px;font-weight:bold}.bros-clean-use:disabled{opacity:.45}.bros-clean-overlay{position:fixed;inset:0;z-index:100000;background:#000c;display:grid;place-items:center}.bros-clean-drill{width:min(490px,94vw);background:#181818;border:2px solid #e0b83d;border-radius:12px;padding:18px;box-shadow:0 0 35px #000}.bros-clean-drill h2{color:#ffe06a;margin:0}.bros-clean-drill .turn{color:#9fe6ae;font-weight:bold;margin:10px 0}.bros-clean-pad{min-height:220px;position:relative;display:grid;place-items:center;overflow:hidden;border:2px dashed #75652c;border-radius:10px;background:linear-gradient(#182235 0 63%,#243720 63%);touch-action:none;user-select:none;padding:14px 0}.bros-clean-pad.fail{background:#4a1717;border-color:#ff746d}.bros-clean-pad.good{background:#174d26;border-color:#7cff99}.bros-clean-icon-sm{font-size:30px}.bros-track-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;padding:0 16px;box-sizing:border-box}.bros-track{position:relative;width:100%;height:26px;background:#20202a;border:1px solid #444;border-radius:6px}.bros-track-zone{position:absolute;top:0;bottom:0;background:#2f6b3a;opacity:.9;border-radius:4px}.bros-track-marker{position:absolute;top:-4px;bottom:-4px;width:4px;background:#ffe06a;box-shadow:0 0 8px #ffe06a;transform:translateX(-50%)}.bros-track-meter{position:absolute;top:0;bottom:0;left:0;background:linear-gradient(90deg,#3a6b2f,#8fd94a);width:0%;border-radius:4px}.bros-reaction-cue{font-size:26px;font-weight:bold;color:#889;transition:color .12s}.bros-reaction-cue.go{color:#7cff7c;text-shadow:0 0 12px #7cff7c}.bros-clean-action{font-size:20px;font-weight:bold;background:#2a3d20;color:#d8ffb0;border:2px solid #7cc94a;border-radius:10px;padding:10px 24px;cursor:pointer;box-shadow:0 0 18px #7cc94a55}.bros-clean-action:active{transform:scale(.96)}.bros-clean-action:disabled{opacity:.4;cursor:default}.bros-clean-hint{color:#9ab;font-size:11px;letter-spacing:.03em}.bros-clean-help{min-height:38px;color:#ddd;font-size:13px}.bros-clean-timer{text-align:right;color:#ffe06a;font-weight:bold;font-size:13px;margin:-5px 0 5px}.bros-clean-timer.low{color:#ff756d;animation:bros-pulse .35s infinite alternate}.bros-clean-buttons{display:flex;gap:8px;margin-top:10px}.bros-clean-buttons button{flex:1;padding:8px;border-radius:5px}.bros-clean-cancel{background:#351414;color:#ffb0b0;border:1px solid #743535}@keyframes bros-pulse{to{transform:scale(1.2);opacity:.5}}
   </style>`; }
 
-  card(a,index) { return `<article class="bros-clean-card"><button class="bros-clean-use" data-use="${index}">Use</button><h2>${a.name}</h2><p>${a.description}</p><div class="bros-clean-meta"><span>👥 ${a.partnerA} + ${a.partnerB}</span><span>⚡ 1 each</span><span>↻ short rest</span></div></article>`; }
+  card(a,index) {
+    // Say which cost actually applies right now. A held item is spent instead
+    // of energy, so showing "1 each" in that case would be a lie.
+    const actors=[game.actors?.getName(a.partnerA),game.actors?.getName(a.partnerB)].filter(Boolean);
+    const found=actors.length?findBrosItem(a,actors):null;
+    const learned=actors.length===2&&hasLearned(a,actors);
+    const cost=found
+      ? `<span title="Using the item spends the item, not Bros Energy">📦 ${found.item.name} — spends the item, not energy</span>`
+      : `<span>⚡ 1 each</span><span>↻ short rest</span>`;
+    const badge=learned&&!found?`<span title="Learned from an item; now on the normal economy">🎓 learned</span>`:"";
+    return `<article class="bros-clean-card"><button class="bros-clean-use" data-use="${index}">Use</button><h2>${a.name}</h2><p>${a.description}</p><div class="bros-clean-meta"><span>👥 ${a.partnerA} + ${a.partnerB}</span>${cost}${badge}</div></article>`;
+  }
 
   wire(root) {
     root.querySelector("[data-refresh]").onclick=()=>this.refreshTarget(root);
@@ -266,7 +336,7 @@ class BrosAttackWindow extends foundry.applications.api.ApplicationV2 {
       clearInterval(timerId);index++;
       if(index>=attack.steps.length){
         finished=true;stepTeardown();pad.className="bros-clean-pad good";turn.textContent="Maneuver complete";help.textContent="The drill succeeded. Spending Bros Energy and resolving the normal rules…";
-        setTimeout(async()=>{cleanup();if(await spendEnergy([a,b]))this.resolve(attack,a,b,target);},700);
+        setTimeout(async()=>{cleanup();if(await payFor(attack,[a,b]))this.resolve(attack,a,b,target);},700);
       } else draw();
     };
 
