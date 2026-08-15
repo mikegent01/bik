@@ -1676,6 +1676,7 @@ function miniCard(it) {
 }
 
 function renderHome() {
+  ensureBros(); // the yard teaser counts come from the generated bros data
   const deals = ITEMS.filter(it => it.deal).sort((a, b) => (b.deal.off - a.deal.off) || (b.featured - a.featured)).slice(0, 20);
   const bestEquip = ITEMS.filter(it => it.cat === 'equipment').sort((a, b) => b.reviews - a.reviews).slice(0, 18);
   const acc = getSession();
@@ -1748,7 +1749,7 @@ function renderHome() {
       <a class="row-more" data-go-bros="1">Open the Bros Training Yard →</a>
       <h2>⭐ Bros Training Yard</h2>
       <div class="row-sub">Practice kits for two — a kit is spent instead of Bros Energy, and a teaching kit is learned once and kept</div>
-      <div class="cf-teaser-body"><span class="cf-teaser-stat">🤝 <b>2</b> confirmed techniques</span><span class="cf-teaser-stat">📦 <b>4</b> kits stocked</span><span class="cf-teaser-stat">🎚️ <b>3</b> difficulty tiers</span><button class="btn-add" data-go-bros="1" style="max-width:220px">Enter the yard</button></div>
+      <div class="cf-teaser-body"><span class="cf-teaser-stat">🤝 <b>${fmt(brosTechniques().length)}</b> technique${brosTechniques().length === 1 ? '' : 's'}</span><span class="cf-teaser-stat">📦 <b>${fmt(brosItems().length)}</b> kits stocked</span><span class="cf-teaser-stat">🎚️ <b>3</b> difficulty tiers</span><button class="btn-add" data-go-bros="1" style="max-width:220px">Enter the yard</button></div>
     </section>
   </div>`;
 }
@@ -2509,25 +2510,37 @@ function renderCrafting() {
 
 // The techniques the archive has confirmed. Mirrors data/brosAttacks.json;
 // kits reference these by id through their brosAttack / teachesTechnique field.
-const BROS_TECHNIQUES = {
-  chop_bros_attack: {
-    name: 'Chop Bros',
-    partners: 'Hjumpik Deldkur + Toad Lee',
-    blurb: 'A lift, two vertical strokes and a rightward advance — the twenty-five-foot corridor cut.'
-  },
-  support_fire_bros_attack: {
-    name: 'Support Fire',
-    partners: 'Green T + Remi',
-    blurb: 'Align the sightline, call the timing, fire, reset safely. Learned from a sheet, used on a barricaded door.'
-  }
-};
+/* Bros techniques and schools come from data/brosAttacks.schools.json, which is
+   GENERATED from data/brosAttacks.json by tools/sync_bros_attacks.py. The
+   storefront holds no copy of its own: adding a technique upstream makes it
+   appear here with no edit to this file. */
+let brosData = null;
+let brosLoading = false;
+function ensureBros() {
+  if (brosData || brosLoading || typeof fetch !== 'function') return;
+  brosLoading = true;
+  fetch('../../../data/brosAttacks.schools.json')
+    .then(r => (r.ok ? r.json() : { schools: {}, attacks: [] }))
+    .then(j => {
+      brosData = j; brosLoading = false;
+      if (S.view === 'bros' || S.view === 'home') render();
+    })
+    .catch(() => { brosData = { schools: {}, attacks: [] }; brosLoading = false; if (S.view === 'bros') render(); });
+}
+// Participants are stored as article ids ("toad_lee"); show them as names.
+function brosName(id) {
+  return String(id || '').replace(/_/g, ' ').replace(/\b[a-z]/g, c => c.toUpperCase());
+}
+function brosSchools() { return (brosData && brosData.schools) || {}; }
+function brosTechniques() { return (brosData && brosData.attacks) || []; }
+function brosTechniqueById(id) { return brosTechniques().find(a => a.id === id) || null; }
 
 function brosItems() {
   return ITEMS.filter(it => it.cat === 'bros');
 }
 
 function brosKitCard(it) {
-  const teaches = it.teachesTechnique && BROS_TECHNIQUES[it.brosAttack];
+  const teaches = it.teachesTechnique && brosTechniqueById(it.brosAttack);
   const tag = teaches
     ? `<span class="by-tag by-tag--teach">Teaches ${esc(teaches.name)}</span>`
     : `<span class="by-tag by-tag--support">Support supply</span>`;
@@ -2561,31 +2574,61 @@ function brosKitCard(it) {
 }
 
 function renderBrosYard() {
+  ensureBros();
   const kits = brosItems();
-  const byTechnique = Object.entries(BROS_TECHNIQUES).map(([id, tech]) => {
-    const rows = kits.filter(it => it.brosAttack === id);
-    return { id, tech, rows };
-  });
-  const general = kits.filter(it => !BROS_TECHNIQUES[it.brosAttack]);
+  const techniques = brosTechniques();
+  const schools = brosSchools();
+  const techIds = new Set(techniques.map(t => t.id));
+  const general = kits.filter(it => !techIds.has(it.brosAttack));
 
-  const techBlocks = byTechnique.map(({ tech, rows }) => `
-    <section class="by-tech">
-      <div class="by-tech-head">
-        <h3>${esc(tech.name)}</h3>
-        <span class="by-partners">${esc(tech.partners)}</span>
-      </div>
-      <p class="by-tech-blurb">${esc(tech.blurb)}</p>
-      ${rows.length
-        ? `<div class="by-grid">${rows.map(brosKitCard).join('')}</div>`
-        : `<div class="by-none">No kit for this technique is stocked right now. It can still be performed with Bros Energy.</div>`}
-    </section>`).join('');
+  // Group techniques by school. A school appears only when it has a technique,
+  // so the yard grows as canon does without ever showing an empty shelf.
+  const order = Object.keys(schools);
+  const groups = new Map();
+  techniques.forEach(t => {
+    const key = t.school || '_other';
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(t);
+  });
+  const techBlocks = [...groups.keys()]
+    .sort((a, b) => (order.indexOf(a) < 0 ? 99 : order.indexOf(a)) - (order.indexOf(b) < 0 ? 99 : order.indexOf(b)))
+    .map(key => {
+      const school = schools[key];
+      const inner = groups.get(key).map(tech => {
+        const rows = kits.filter(it => it.brosAttack === tech.id);
+        const partners = (tech.participants || []).map(brosName).join(' + ');
+        return `
+        <section class="by-tech">
+          <div class="by-tech-head">
+            <h3>${esc(tech.name)}</h3>
+            ${partners ? `<span class="by-partners">${esc(partners)}</span>` : ''}
+            ${tech.status && tech.status !== 'confirmed' ? `<span class="by-tag by-tag--support">${esc(tech.status)}</span>` : ''}
+          </div>
+          ${tech.subtitle ? `<p class="by-tech-blurb">${esc(tech.subtitle)}</p>` : ''}
+          ${rows.length
+            ? `<div class="by-grid">${rows.map(brosKitCard).join('')}</div>`
+            : `<div class="by-none">No kit for this technique is stocked right now. It can still be performed with Bros Energy.</div>`}
+        </section>`;
+      }).join('');
+      if (!school) return inner;
+      return `
+      <section class="by-school" style="border-left-color:${esc(school.color || '#888')}">
+        <div class="by-school-head">
+          <h2><span class="by-school-icon">${esc(school.icon || '')}</span> ${esc(school.name || key)}</h2>
+          <span class="by-school-count">${groups.get(key).length} technique${groups.get(key).length === 1 ? '' : 's'}</span>
+        </div>
+        ${school.summary ? `<p class="by-school-summary">${esc(school.summary)}</p>` : ''}
+        ${school.doctrine ? `<p class="by-school-doctrine">“${esc(school.doctrine)}”</p>` : ''}
+        ${inner}
+      </section>`;
+    }).join('');
 
   return `
   <div class="wz-container" style="margin-top:14px">
     <div class="results-bar" style="align-items:center">
       <div>
         <h1 class="page-title" style="margin:0">⭐ Bros Training Yard</h1>
-        <div style="color:var(--wz-muted);font-size:13px">${fmt(kits.length)} kits · ${Object.keys(BROS_TECHNIQUES).length} confirmed techniques — practice gear for two. Spends the kit, not the pair.</div>
+        <div style="color:var(--wz-muted);font-size:13px">${fmt(kits.length)} kits · ${fmt(techniques.length)} technique${techniques.length === 1 ? '' : 's'} in ${fmt(new Set(techniques.map(t => t.school)).size)} school${new Set(techniques.map(t => t.school)).size === 1 ? '' : 's'} — practice gear for two. Spends the kit, not the pair.</div>
       </div>
       <a class="row-more" data-go-dept="bros" style="margin-left:auto">Browse as a department →</a>
     </div>

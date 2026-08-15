@@ -1,34 +1,11 @@
 /* Waluipedia Bros Attacks — clean static module, Foundry V13+ */
 const BROS_MODULE = "bros_attacks";
 
-const BROS_DEFINITIONS = [
-  {
-    id: "chop_bros_attack",
-    name: "Chop Bros",
-    partnerA: "Hjumpik Deldkur",
-    partnerB: "Toad Lee",
-    description: "Hjumpik lifts Toad Lee. Toad Lee chops the growth. The pair advances through the opening.",
-    steps: [
-      { actor: "A", title: "Lift Toad Lee", instruction: "Watch the bar. Press ↑ (or click) the instant the marker is in the green zone.", gesture: "up", icon: "⛏️" },
-      { actor: "B", title: "Chop down", instruction: "Watch the bar. Press ↓ (or click) the instant the marker is in the green zone.", gesture: "down", icon: "🪓" },
-      { actor: "B", title: "Chop down again", instruction: "One more — press ↓ (or click) when the marker hits the green zone.", gesture: "down", icon: "🪓" },
-      { actor: "A", title: "Advance", instruction: "Watch the bar. Press → (or click) the instant the marker is in the green zone.", gesture: "right", icon: "👣" }
-    ]
-  },
-  {
-    id: "support_fire_bros_attack",
-    name: "Support Fire Bros Attack",
-    partnerA: "Green T",
-    partnerB: "Remi",
-    description: "Green T lines up the shot and calls the moment. Remi fires, then resets safely.",
-    steps: [
-      { actor: "A", title: "Steady the aim", instruction: "Hold Space (or hold the button). Release the instant the charge meter is in the green zone.", gesture: "aim", icon: "🎯" },
-      { actor: "A", title: "Call the timing", instruction: "Watch the bar. Press → (or click) the instant the marker is in the green zone.", gesture: "right", icon: "⏱️" },
-      { actor: "B", title: "Fire", instruction: "Wait for GO, then press Enter (or click) immediately. Too early or too late misses.", gesture: "tap", icon: "🔫" },
-      { actor: "B", title: "Reset safely", instruction: "Watch the bar. Press ↓ (or click) the instant the marker is in the green zone.", gesture: "down", icon: "🛡️" }
-    ]
-  }
-];
+// BROS_DEFINITIONS and BROS_SCHOOLS are generated into bros-definitions.js
+// from data/brosAttacks.json (the single source of truth) by
+// tools/sync_bros_attacks.py. That file is loaded before this one via
+// module.json "scripts", so both constants are already in scope here.
+// To add a technique: edit data/brosAttacks.json, then run the sync tool.
 
 // Each gesture maps to a keyboard key (or two, for WASD players) and a
 // button label. Input is always a single, unambiguous down/up/click event —
@@ -231,7 +208,7 @@ class BrosAttackWindow extends foundry.applications.api.ApplicationV2 {
       <div class="bros-clean-target" data-target>🎯 <span>Select an obstacle or target token before pressing Use.</span><button data-refresh>↻</button></div>
       ${this.difficultyBar()}
       <div class="bros-clean-energy">⚡ Each named partner spends ${diff.energy} Bros Energy from 2. Energy returns after a short rest.${canSeeItems()?" 📦 If a partner is carrying a bros item for the technique, it is spent instead and no energy is used.":""}</div>
-      <div class="bros-clean-list">${BROS_DEFINITIONS.map((a,i)=>this.card(a,i)).join("")}</div>`;
+      <div class="bros-clean-list">${this.schoolSections()}</div>`;
     this.wire(root);
     return root;
   }
@@ -239,7 +216,7 @@ class BrosAttackWindow extends foundry.applications.api.ApplicationV2 {
   _replaceHTML(result, content) { content.replaceChildren(result); }
 
   styles() { return `<style>
-    .bros-clean-root{font-family:Signika,system-ui,sans-serif;background:#111;color:#eee;padding:14px}.bros-clean-header{display:flex;gap:12px;align-items:center;border-bottom:2px solid #e4bb36;padding-bottom:12px}.bros-clean-star{font-size:34px}.bros-clean-header h1{color:#ffd84d;margin:0;font-size:21px}.bros-clean-header p{margin:3px 0 0;color:#aaa;font-size:12px}.bros-clean-target,.bros-clean-energy{padding:10px;margin-top:12px;border-radius:7px;font-size:12px}.bros-clean-target{display:flex;gap:8px;align-items:center;border:1px solid #633333;background:#210f0f;color:#ffb0a8}.bros-clean-target.has{border-color:#397b4b;background:#102516;color:#a7efb3}.bros-clean-target span{flex:1}.bros-clean-target button{background:#292929;color:#ddd;border:1px solid #555;border-radius:4px}.bros-clean-energy{border:1px solid #806b25;background:#241d0a;color:#ffe59a}.bros-clean-list{display:grid;gap:12px;margin-top:14px}.bros-clean-card{border:1px solid #3f3f3f;border-left:4px solid #d9a52e;border-radius:8px;padding:12px;background:#191919}.bros-clean-card h2{font-size:16px;color:#ffe36b;margin:0}.bros-clean-card p{font-size:12px;color:#bbb}.bros-clean-meta{display:flex;gap:7px;flex-wrap:wrap;color:#9fe6ae;font-size:11px}.bros-clean-use{float:right;background:#247b32;color:#fff;border:1px solid #54c765;border-radius:5px;padding:6px 12px;font-weight:bold}.bros-clean-use:disabled{opacity:.45}.bros-clean-overlay{position:fixed;inset:0;z-index:100000;background:#000c;display:grid;place-items:center}.bros-clean-drill{width:min(490px,94vw);background:#181818;border:2px solid #e0b83d;border-radius:12px;padding:18px;box-shadow:0 0 35px #000}.bros-clean-drill h2{color:#ffe06a;margin:0}.bros-clean-drill .turn{color:#9fe6ae;font-weight:bold;margin:10px 0}.bros-clean-pad{min-height:220px;position:relative;display:grid;place-items:center;overflow:hidden;border:2px dashed #75652c;border-radius:10px;background:linear-gradient(#182235 0 63%,#243720 63%);touch-action:none;user-select:none;padding:14px 0}.bros-clean-pad.fail{background:#4a1717;border-color:#ff746d}.bros-clean-pad.good{background:#174d26;border-color:#7cff99}.bros-clean-icon-sm{font-size:30px}.bros-track-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;padding:0 16px;box-sizing:border-box}.bros-track{position:relative;width:100%;height:26px;background:#20202a;border:1px solid #444;border-radius:6px}.bros-track-zone{position:absolute;top:0;bottom:0;background:#2f6b3a;opacity:.9;border-radius:4px}.bros-track-marker{position:absolute;top:-4px;bottom:-4px;width:4px;background:#ffe06a;box-shadow:0 0 8px #ffe06a;transform:translateX(-50%)}.bros-track-meter{position:absolute;top:0;bottom:0;left:0;background:linear-gradient(90deg,#3a6b2f,#8fd94a);width:0%;border-radius:4px}.bros-reaction-cue{font-size:26px;font-weight:bold;color:#889;transition:color .12s}.bros-reaction-cue.go{color:#7cff7c;text-shadow:0 0 12px #7cff7c}.bros-clean-action{font-size:20px;font-weight:bold;background:#2a3d20;color:#d8ffb0;border:2px solid #7cc94a;border-radius:10px;padding:10px 24px;cursor:pointer;box-shadow:0 0 18px #7cc94a55}.bros-clean-action:active{transform:scale(.96)}.bros-clean-action:disabled{opacity:.4;cursor:default}.bros-clean-hint{color:#9ab;font-size:11px;letter-spacing:.03em}.bros-clean-help{min-height:38px;color:#ddd;font-size:13px}.bros-clean-timer{text-align:right;color:#ffe06a;font-weight:bold;font-size:13px;margin:-5px 0 5px}.bros-clean-timer.low{color:#ff756d;animation:bros-pulse .35s infinite alternate}.bros-clean-buttons{display:flex;gap:8px;margin-top:10px}.bros-clean-buttons button{flex:1;padding:8px;border-radius:5px}.bros-clean-cancel{background:#351414;color:#ffb0b0;border:1px solid #743535}@keyframes bros-pulse{to{transform:scale(1.2);opacity:.5}}.bros-clean-diff{margin-top:12px;padding:10px;border:1px solid #3a4a63;background:#121822;border-radius:7px}.bros-diff-row{display:flex;gap:8px}.bros-diff-btn{flex:1;padding:7px 4px;border-radius:6px;border:1px solid #4a4a4a;background:#1d1d1d;color:#ccc;font-weight:bold;font-size:12px;cursor:pointer}.bros-diff-btn:hover:not(:disabled){border-color:#e0b83d;color:#ffe06a}.bros-diff-btn.on{background:#2b2410;border-color:#e0b83d;color:#ffe06a;box-shadow:0 0 10px #e0b83d55}.bros-diff-btn:disabled{opacity:.5;cursor:default}.bros-diff-note{margin:8px 0 0;font-size:11.5px;color:#9ab;line-height:1.45}.bros-diff-tag{font-size:12px;color:#9fe6ae;font-weight:normal}
+    .bros-clean-root{font-family:Signika,system-ui,sans-serif;background:#111;color:#eee;padding:14px}.bros-clean-header{display:flex;gap:12px;align-items:center;border-bottom:2px solid #e4bb36;padding-bottom:12px}.bros-clean-star{font-size:34px}.bros-clean-header h1{color:#ffd84d;margin:0;font-size:21px}.bros-clean-header p{margin:3px 0 0;color:#aaa;font-size:12px}.bros-clean-target,.bros-clean-energy{padding:10px;margin-top:12px;border-radius:7px;font-size:12px}.bros-clean-target{display:flex;gap:8px;align-items:center;border:1px solid #633333;background:#210f0f;color:#ffb0a8}.bros-clean-target.has{border-color:#397b4b;background:#102516;color:#a7efb3}.bros-clean-target span{flex:1}.bros-clean-target button{background:#292929;color:#ddd;border:1px solid #555;border-radius:4px}.bros-clean-energy{border:1px solid #806b25;background:#241d0a;color:#ffe59a}.bros-clean-list{display:grid;gap:12px;margin-top:14px}.bros-clean-card{border:1px solid #3f3f3f;border-left:4px solid #d9a52e;border-radius:8px;padding:12px;background:#191919}.bros-clean-card h2{font-size:16px;color:#ffe36b;margin:0}.bros-clean-card p{font-size:12px;color:#bbb}.bros-clean-meta{display:flex;gap:7px;flex-wrap:wrap;color:#9fe6ae;font-size:11px}.bros-clean-use{float:right;background:#247b32;color:#fff;border:1px solid #54c765;border-radius:5px;padding:6px 12px;font-weight:bold}.bros-clean-use:disabled{opacity:.45}.bros-clean-overlay{position:fixed;inset:0;z-index:100000;background:#000c;display:grid;place-items:center}.bros-clean-drill{width:min(490px,94vw);background:#181818;border:2px solid #e0b83d;border-radius:12px;padding:18px;box-shadow:0 0 35px #000}.bros-clean-drill h2{color:#ffe06a;margin:0}.bros-clean-drill .turn{color:#9fe6ae;font-weight:bold;margin:10px 0}.bros-clean-pad{min-height:220px;position:relative;display:grid;place-items:center;overflow:hidden;border:2px dashed #75652c;border-radius:10px;background:linear-gradient(#182235 0 63%,#243720 63%);touch-action:none;user-select:none;padding:14px 0}.bros-clean-pad.fail{background:#4a1717;border-color:#ff746d}.bros-clean-pad.good{background:#174d26;border-color:#7cff99}.bros-clean-icon-sm{font-size:30px}.bros-track-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;padding:0 16px;box-sizing:border-box}.bros-track{position:relative;width:100%;height:26px;background:#20202a;border:1px solid #444;border-radius:6px}.bros-track-zone{position:absolute;top:0;bottom:0;background:#2f6b3a;opacity:.9;border-radius:4px}.bros-track-marker{position:absolute;top:-4px;bottom:-4px;width:4px;background:#ffe06a;box-shadow:0 0 8px #ffe06a;transform:translateX(-50%)}.bros-track-meter{position:absolute;top:0;bottom:0;left:0;background:linear-gradient(90deg,#3a6b2f,#8fd94a);width:0%;border-radius:4px}.bros-reaction-cue{font-size:26px;font-weight:bold;color:#889;transition:color .12s}.bros-reaction-cue.go{color:#7cff7c;text-shadow:0 0 12px #7cff7c}.bros-clean-action{font-size:20px;font-weight:bold;background:#2a3d20;color:#d8ffb0;border:2px solid #7cc94a;border-radius:10px;padding:10px 24px;cursor:pointer;box-shadow:0 0 18px #7cc94a55}.bros-clean-action:active{transform:scale(.96)}.bros-clean-action:disabled{opacity:.4;cursor:default}.bros-clean-hint{color:#9ab;font-size:11px;letter-spacing:.03em}.bros-clean-help{min-height:38px;color:#ddd;font-size:13px}.bros-clean-timer{text-align:right;color:#ffe06a;font-weight:bold;font-size:13px;margin:-5px 0 5px}.bros-clean-timer.low{color:#ff756d;animation:bros-pulse .35s infinite alternate}.bros-clean-buttons{display:flex;gap:8px;margin-top:10px}.bros-clean-buttons button{flex:1;padding:8px;border-radius:5px}.bros-clean-cancel{background:#351414;color:#ffb0b0;border:1px solid #743535}@keyframes bros-pulse{to{transform:scale(1.2);opacity:.5}}.bros-clean-diff{margin-top:12px;padding:10px;border:1px solid #3a4a63;background:#121822;border-radius:7px}.bros-diff-row{display:flex;gap:8px}.bros-diff-btn{flex:1;padding:7px 4px;border-radius:6px;border:1px solid #4a4a4a;background:#1d1d1d;color:#ccc;font-weight:bold;font-size:12px;cursor:pointer}.bros-diff-btn:hover:not(:disabled){border-color:#e0b83d;color:#ffe06a}.bros-diff-btn.on{background:#2b2410;border-color:#e0b83d;color:#ffe06a;box-shadow:0 0 10px #e0b83d55}.bros-diff-btn:disabled{opacity:.5;cursor:default}.bros-diff-note{margin:8px 0 0;font-size:11.5px;color:#9ab;line-height:1.45}.bros-diff-tag{font-size:12px;color:#9fe6ae;font-weight:normal}.bros-school{border:1px solid #333;border-left:4px solid #888;border-radius:8px;padding:10px 12px 4px;background:#141414}.bros-school-name{margin:0;font-size:13px;color:#ffe36b;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:8px}.bros-school-count{background:#2a2a2a;border:1px solid #4a4a4a;border-radius:10px;padding:0 7px;font-size:11px;color:#bbb}.bros-school-summary{margin:5px 0 0;font-size:11.5px;color:#9ab;line-height:1.45}.bros-school-doctrine{margin:4px 0 8px;font-size:11.5px;color:#c9b06a;font-style:italic;line-height:1.45}.bros-school .bros-clean-card{margin-bottom:8px}
   </style>`; }
 
   // The tier selector. Players only get the buttons when the GM has allowed
@@ -255,6 +232,35 @@ class BrosAttackWindow extends foundry.applications.api.ApplicationV2 {
       <p class="bros-diff-note"><strong>${diff.icon} ${diff.label}.</strong> ${diff.blurb}
       ${mayChange?"":" The GM sets the tier for this world."}</p>
     </div>`;
+  }
+
+  // Techniques are grouped by school so the list stays readable as it grows,
+  // and so a partnership can see what else it could learn along the same line.
+  // The index passed to card() must stay the index into BROS_DEFINITIONS,
+  // because [data-use] resolves against that array.
+  schoolSections() {
+    const order=Object.keys(BROS_SCHOOLS);
+    const groups=new Map();
+    BROS_DEFINITIONS.forEach((a,i)=>{
+      const key=a.school||"_other";
+      if(!groups.has(key)) groups.set(key,[]);
+      groups.get(key).push([a,i]);
+    });
+    const keys=[...groups.keys()].sort((x,y)=>{
+      const ix=order.indexOf(x), iy=order.indexOf(y);
+      return (ix<0?99:ix)-(iy<0?99:iy);
+    });
+    return keys.map(key=>{
+      const school=BROS_SCHOOLS[key];
+      const cards=groups.get(key).map(([a,i])=>this.card(a,i)).join("");
+      if(!school) return cards;
+      return `<section class="bros-school" style="border-left-color:${school.color}">
+        <h3 class="bros-school-name">${school.icon} ${school.name}
+          <span class="bros-school-count">${groups.get(key).length}</span></h3>
+        <p class="bros-school-summary">${school.summary}</p>
+        ${school.doctrine?`<p class="bros-school-doctrine">“${school.doctrine}”</p>`:""}
+        ${cards}</section>`;
+    }).join("");
   }
 
   card(a,index) {

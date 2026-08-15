@@ -3542,6 +3542,15 @@ html[data-wz-theme="dark"] .ab-ic {
 .by-explain-grid p { margin: 0; font-size: 13px; line-height: 1.5; color: var(--wz-muted); }
 .by-explain-grid b { color: var(--wz-text); }
 
+/* Schools of bros attacks — the grouping shell around .by-tech blocks. */
+.by-school { border: 1px solid var(--wz-line); border-left: 5px solid #888; border-radius: 10px; padding: 14px 16px 4px; margin-bottom: 20px; background: var(--wz-panel, #fff); }
+.by-school-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.by-school-head h2 { margin: 0; font-size: 19px; letter-spacing: .01em; }
+.by-school-icon { font-size: 20px; }
+.by-school-count { margin-left: auto; font-size: 12px; color: var(--wz-muted); border: 1px solid var(--wz-line); border-radius: 11px; padding: 2px 9px; white-space: nowrap; }
+.by-school-summary { margin: 6px 0 0; font-size: 13px; color: var(--wz-muted); line-height: 1.5; }
+.by-school-doctrine { margin: 5px 0 12px; font-size: 13px; font-style: italic; color: #8a6d1f; line-height: 1.5; }
+.by-school .by-tech { margin-bottom: 16px; }
 .by-tech { margin-bottom: 22px; }
 .by-tech-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .by-tech-head h3 { margin: 0; font-size: 17px; }
