@@ -45,6 +45,9 @@ CATEGORY_TO_TYPE = {
     "faction": "loot",
     "forbidden": "loot",
     "premium": "loot",
+    # Badges are worn commemorations, not gear: equipment so they can sit in a
+    # character's inventory and be shown, with no attunement and no bonuses.
+    "badges": "equipment",
 }
 
 RARITY_MAP = {
@@ -150,7 +153,15 @@ def html_paragraphs(*blocks: str) -> str:
 
 
 def guess_type_and_icon(item: dict[str, Any]) -> tuple[str, str]:
-    """Pick a Foundry item type + icon from the shop record."""
+    """Pick a Foundry item type + icon from the shop record.
+
+    An explicit `foundryType` on the record always wins. Keyword hints are a
+    guess of last resort and they misfire on descriptive prose: the Chop Bros
+    kit mentions a practice axe and would otherwise import as a weapon.
+    """
+    explicit = str(item.get("foundryType") or "").strip()
+    if explicit:
+        return explicit, str(item.get("foundryIcon") or DEFAULT_ICON)
     haystack = f"{item.get('name', '')} {item.get('description', '')[:120]}".lower()
     for keyword, item_type, icon in _TYPE_HINTS:
         if keyword in haystack:
@@ -173,8 +184,16 @@ def _uses_block(item: dict[str, Any]) -> dict[str, Any]:
     charges = str((item.get("usage") or {}).get("charges", ""))
     match = re.search(r"\b(\d{1,3})\b", charges)
     if not match:
-        return {"max": "", "spent": 0, "recovery": []}
-    maximum = match.group(1)
+        # "Single use" / "one use" spelled out is a real 1-use item. But
+        # "one use per day" is recurring, not a one-shot, and must keep its
+        # recovery period, so only treat it as 1 when no period is named.
+        if re.search(r"\b(one|single)[- ]?(time |shot )?\buse", charges, re.I) \
+                and not re.search(r"\bper\b|\brest\b|\bdaily\b|\bdawn\b|\bday\b", charges, re.I):
+            maximum = "1"
+        else:
+            return {"max": "", "spent": 0, "recovery": []}
+    else:
+        maximum = match.group(1)
     recovery: list[dict[str, Any]] = []
     lowered = charges.lower()
     if "long rest" in lowered:

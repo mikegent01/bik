@@ -1,2 +1,5 @@
 _art_preview.html
 *.zip
+
+# Generator drafts: unverified output, never canon, never committed
+Reputation-Matrix2/tools/.generated/

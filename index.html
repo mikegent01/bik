@@ -9661,7 +9661,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${item.aftermath?`<h2 id="h-aftermath">Aftermath</h2><div class="prose">${applyAnnotations(mdToHtml(item.aftermath,item.id), item.id)}</div>`:''}
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
-   </div>${exhibitTilesHtml(propsForArticle(item.id),{heading:'🗂️ Exhibits Filed With This Record',blurb:'The documents behind the account. Click to read the paper as filed.'})}</div><div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div></div>`;
+   </div>${exhibitTilesHtml(propsForArticle(item.id),{heading:'🗂️ Documents behind this record',blurb:'The paperwork this account is built on. Click any one to read it as filed.'})}</div><div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div></div>`;
   setArticleAccent(typeKey);
   endLinkPass();
   window.scrollTo(0,0);setupScrollSpy();applyCustomCss(item.customCss);
@@ -10053,12 +10053,12 @@ function view_investigations(){
       <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Investigations</div>
       <h1>🔍 Waluipedia Investigations</h1>
       <div class="species-stats">
-        <div class="species-stat"><b>${list.length}</b>Open Files</div>
-        <div class="species-stat"><b>${totals.exhibits}</b>Exhibits Filed</div>
-        <div class="species-stat"><b>${totals.leads}</b>Live Leads</div>
-        <div class="species-stat"><b>${totals.read}</b>Exhibits Read Closely</div>
+        <div class="species-stat"><b>${list.length}</b>Cases</div>
+        <div class="species-stat"><b>${totals.exhibits}</b>Documents</div>
+        <div class="species-stat"><b>${totals.leads}</b>Open Questions</div>
+        <div class="species-stat"><b>${totals.read}</b>Read Closely</div>
       </div>
-      <p style="color:var(--muted);margin-top:8px">One open file per arc, instead of seventy-three errands. Exhibits accrete as sessions are played; each one is a physical article with a chain of custody. Examining an exhibit is a roll, because analysis is a skill and the archive is not going to pretend otherwise. Rolling costs nothing and buys nothing but information — and it happens once.</p>
+      <p style="color:var(--muted);margin-top:8px">One open file per arc, instead of seventy-three errands. Documents pile up as sessions are played; each one is a real piece of paper, and the file records who has been holding it. Examining an exhibit is a roll, because analysis is a skill and the archive is not going to pretend otherwise. Rolling costs nothing and buys nothing but information — and it happens once.</p>
       <div class="wnote mt-12"><b>Waluigi's note:</b> Do not believe me. Roll against the paper. The paper does not want anything from you, which is more than can be said for anyone else in this campaign.</div>
       <div class="chips mt-12">
         <button class="chip active" onclick="Router.go('#/investigations')">🔍 Open Files (${active.length})</button>
@@ -10067,8 +10067,8 @@ function view_investigations(){
       </div>
     </div>
 
-    ${section('📂 Open — accreting', 'Files taking new exhibits every session. Click a file to read the documents.', active)}
-    ${section('🗄️ Opened, awaiting exhibits', 'Arcs with a file number and a thesis, but no paper filed yet. Empty is the correct state for this shelf.', stubs)}
+    ${section('📂 Cases being worked', 'These take new documents every session. Click one to read what it has.', active)}
+    ${section('🗄️ Cases opened, nothing filed yet', 'These have a number and a question, but no documents yet. Empty is the right state for this shelf.', stubs)}
 
     <div class="card">
       <div class="home-section-head">
@@ -10130,7 +10130,7 @@ function view_investigation(id){
   const order = (iv.sessions||[]).map(s => s.id).filter(sid => groups[sid]);
   Object.keys(groups).forEach(k => { if(!order.includes(k)) order.push(k); });
 
-  const exhibitsHtml = order.length ? (toc.push({slug:'sec-exhibits', text:'Evidence Locker'}),
+  const exhibitsHtml = order.length ? (toc.push({slug:'sec-exhibits', text:'The documents'}),
     `<h2 id="sec-exhibits">📎 The documents themselves</h2>
      <p class="text-muted" style="margin-top:-4px">Every piece of paper this file is built on, grouped by the session it came out of. Click one to open it: you roll once to examine it, and whatever you roll is kept in this browser for good.</p>` +
     order.map(sid => {
@@ -10145,11 +10145,11 @@ function view_investigation(id){
         return `<div class="arttile" onclick="invOpenExhibit('${esc(iv.id)}','${esc(ex.id)}')" style="border-left-color:${done?'var(--green)':esc(iv.accent||'var(--accent)')}">
           <div style="font-size:32px">${esc(ex.icon||'📄')}</div>
           <div class="tt">${esc(ex.title)}</div>
-          <div class="tsub">◆ ${esc(ex.kind||'document')}${ex.custody?` · custody: ${esc(ex.custody)}`:''}</div>
+          <div class="tsub">◆ ${esc(ex.kind||'document')}${ex.custody?` · held by ${esc(ex.custody)}`:''}</div>
           <div class="tsum">${esc(ex.secured||'')}</div>
           <div class="tmeta">
-            <span class="pill ${done?'border-accent':''}">${verdict ? (done?'examined':'examination failed') : 'unexamined'}</span>
-            ${nIns?`<span class="pill">${gotIns}/${nIns} insights</span>`:''}
+            <span class="pill ${done?'border-accent':''}" title="${verdict ? (done?'You read this one closely and it gave up what it had.':'You read this one and it did not give up what it had. That verdict is kept.') : 'Nobody has read this one closely yet.'}">${verdict ? (done?'read closely':'read — nothing came of it') : 'not yet read'}</span>
+            ${nIns?`<span class="pill" title="Underlined phrases inside this document that can be looked into. You have followed up ${gotIns} of ${nIns}.">${gotIns} of ${nIns} details followed up</span>`:''}
           </div>
         </div>`;
       }).join('');
@@ -10159,7 +10159,7 @@ function view_investigation(id){
 
   /* --- leads --- */
   const PRI_COLOR = { critical:'var(--danger)', high:'#f39c12', medium:'#3498db', low:'var(--muted)' };
-  const leadsHtml = (iv.leads||[]).length ? (toc.push({slug:'sec-leads', text:'Live Leads'}),
+  const leadsHtml = (iv.leads||[]).length ? (toc.push({slug:'sec-leads', text:'What to chase next'}),
     `<h2 id="sec-leads">🎯 What to chase next</h2>
      <p class="text-muted" style="margin-top:-4px">Questions the documents raised but could not answer. Each says what to do, and — more importantly — what the file expects to learn from doing it.</p>` +
     (iv.leads||[]).map(l => {
@@ -10195,7 +10195,7 @@ function view_investigation(id){
   /* --- the session records behind the file --- */
   const evChips = (iv.relatedEvents||[]).filter(e => INDEX[e]).map(e =>
     `<span class="rel-chip" onclick="openId('${esc(e)}')"><span class="rt">event</span>${esc(displayName(INDEX[e].item))}</span>`).join('');
-  const relHtml = evChips ? (toc.push({slug:'sec-records', text:'Session Records'}),
+  const relHtml = evChips ? (toc.push({slug:'sec-records', text:'Session records'}),
     `<h2 id="sec-records">📜 Session Records Behind This File</h2>
      <p class="text-muted" style="margin-top:-4px">The events these exhibits were pulled out of.</p>
      <div class="related-list">${evChips}</div>`) : '';
@@ -10207,9 +10207,9 @@ function view_investigation(id){
     ['Opened', iv.opened],
     ['Last filed', iv.lastFiled],
     ['Archivist', iv.archivist],
-    ['Exhibits', (iv.exhibits||[]).length],
-    ['Leads', (iv.leads||[]).length],
-    ['Threads', (iv.threads||[]).length]
+    ['Documents filed', (iv.exhibits||[]).length],
+    ['Open questions', (iv.leads||[]).length],
+    ['Findings so far', (iv.threads||[]).length]
   ].filter(r => r[1] !== undefined && r[1] !== '')
    .map(r => `<div class="row"><span class="k">${esc(r[0])}</span><span class="v">${esc(String(r[1]))}</span></div>`).join('');
 
@@ -10349,7 +10349,7 @@ function invOpenExhibit(invId, exId){
       </div>
       <div class="exhibit-stage" id="invModalBody"></div>
       <div class="exhibit-foot">
-        <div class="exhibit-note">${esc(ex.secured||'')}${ex.custody?` · custody: ${esc(ex.custody)}`:''}</div>
+        <div class="exhibit-note">${esc(ex.secured||'')}${ex.custody?` · held by ${esc(ex.custody)}`:''}</div>
         ${foot.length?`<div class="exhibit-links">${foot.join('')}</div>`:''}
       </div>
     </div>`;
