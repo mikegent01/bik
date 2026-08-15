@@ -8690,6 +8690,31 @@ function wahwireUrl(){ return pathPrefix + 'app/pages/wahwire/wahwire.html'; }
    not one of the flat DATA_FILES keys. Loaded on its own, after boot, without
    blocking the render: a sidebar badge is never worth delaying the page for.
    Null until it lands, and navLink() simply omits an empty count. */
+/* Factions minted by tools/genkit live in their own file rather than inside
+   the 251 KB LORE_FACTIONS literal below — rewriting that line from a
+   background tool is slow and an excellent way to corrupt the largest source
+   file in the repo. They are merged in here at load instead.
+
+   Hand-written entries always win: a generated stub must never overwrite a
+   real dossier, only fill a gap where none existed. Awaited during boot,
+   because the reputation matrix rendering half its roster and then quietly
+   growing is worse than a few milliseconds of delay. */
+async function loadGeneratedFactions(){
+  try{
+    const res = await fetch(pathPrefix + 'data/factionsGenerated.json', {cache:'no-cache'});
+    if(!res.ok) return;                      // absent is the normal case
+    const payload = await res.json();
+    const extra = (payload && payload.factions) || {};
+    let added = 0;
+    for(const [id, faction] of Object.entries(extra)){
+      if(!id || LORE_FACTIONS[id]) continue; // never clobber hand-written canon
+      LORE_FACTIONS[id] = faction;
+      added++;
+    }
+    if(added) window.__GENERATED_FACTIONS = added;
+  }catch(e){ /* the archive works fine without them */ }
+}
+
 let WAHWIRE_COUNT = '';
 async function loadWahwireCount(){
   try{
@@ -16243,6 +16268,10 @@ async function boot(){
   MONTHS = (DATA.calendarMonths||[]).map(m=>m.name||m);
   CUR = DATA.currentDate||{year:1040,monthIndex:7,day:18};
   synthesizeXpCharacterArticles();
+  // Must run BEFORE buildIndexes(): the faction search docs are built from
+  // LORE_FACTIONS, so merging afterwards leaves the new factions present in
+  // the data but unreachable from search.
+  await loadGeneratedFactions();
   buildIndexes();
   buildAtlasIndex();
   invalidateRepEventCache();  // rebuild reputation event cache now that DATA is loaded

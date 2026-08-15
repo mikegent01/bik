@@ -30,6 +30,7 @@ from typing import Any
 from ..settings import ROOT
 from ..spec import SystemSpec, Task, TaskResult, ValidationError, provenance
 from ..storage import atomic_write_json, read_json
+from . import factions as factions_mod
 
 # Canonical operator ids, straight from REPUTATION_OPERATORS in index.html.
 OPERATORS = {
@@ -116,7 +117,7 @@ def next_tasks(count: int) -> list[Task]:
                     system_id="reputation",
                     key=f"{kind}:{rid}",
                     label=f"reputation · {kind} · {name}",
-                    payload={"kind": kind, "id": rid},
+                    payload={"kind": kind, "id": rid, "name": name},
                 )
             )
         index += 1
@@ -134,11 +135,29 @@ Return strictly valid JSON only, no commentary, no code fence:
 {
   "reputationChanges": { "<operatorId>": { "<factionId>": <integer -30..30> } },
   "effects": { "<factionId>": <integer -20..20> },
-  "reputationNotes": { "<operatorId>": "<one sentence, max 22 words>" }
+  "reputationNotes": { "<operatorId>": "<one sentence, max 22 words>" },
+  "newFactions": { }
 }
 
 Hard rules:
-- Use ONLY operator ids and faction ids from the lists you are given. Never invent one.
+- Use ONLY operator ids from the list you are given. Never invent an operator.
+- Prefer a faction id from the list. If the record clearly involves an organised
+  group that is NOT on the list, you may name it with a new lowercase_underscore
+  id AND describe it under `newFactions`, like this:
+
+    "newFactions": {
+      "<new_faction_id>": {
+        "name": "<proper name>",
+        "description": "<one or two sentences drawn from THIS record>",
+        "region": "<where they operate, if the record says>",
+        "category": "Minor Powers",
+        "relations": { "allies": ["<known id>"], "enemies": ["<known id>"] }
+      }
+    }
+
+  Only do this for an actual named organisation, army, house, crew or order.
+  Never for a place, an object, a single person, or a vague grouping like
+  "civilians" or "everyone" — those are dropped.
 - Only include an operator the record actually involves. Two or three is normal; one is fine.
 - Only include a faction the record actually touches. Two to four per operator.
 - Deltas are integers, never zero. Mixed signs are good: the same deed usually earns
@@ -187,18 +206,48 @@ def build_prompt(task: Task) -> tuple[str, str]:
 
 
 def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
-    factions = set(faction_ids())
+    factions = set(faction_ids()) | factions_mod.generated_ids()
     changes = raw.get("reputationChanges")
     if not isinstance(changes, dict) or not changes:
         raise ValidationError("no reputationChanges returned")
 
+    record_name = task.payload.get("name") or task.payload.get("id") or ""
+    model = task.payload.get("model", "")
+
+    # Faction ids are RESOLVED, not refused. A near-miss is redirected to the
+    # canonical id, a genuinely new group is minted, and only labels that name
+    # no group at all are dropped. Losing a whole scored record because the
+    # model wrote "koopa_resistance" instead of "koopa_troop" threw away work
+    # that was otherwise correct.
+    resolutions: dict[str, tuple[str | None, str]] = {}
+
+    def resolve_faction(fid: Any) -> str | None:
+        key = str(fid)
+        if key in resolutions:
+            return resolutions[key][0]
+        resolved, how = factions_mod.resolve(key, factions, record_text=record_name)
+        if how == "create" and resolved:
+            proposal = (raw.get("newFactions") or {}).get(key) or {}
+            if not isinstance(proposal, dict):
+                proposal = {}
+            factions_mod.mint(
+                resolved,
+                name=str(proposal.get("name", "")),
+                description=str(proposal.get("description", "")),
+                region=str(proposal.get("region", "")),
+                category=str(proposal.get("category", "")),
+                relations=proposal.get("relations")
+                if isinstance(proposal.get("relations"), dict) else None,
+                source_record=record_name,
+                model=model,
+            )
+            factions.add(resolved)
+        resolutions[key] = (resolved, how)
+        return resolved
+
     clean_changes: dict[str, dict[str, int]] = {}
-    # Track WHY things were dropped. "every id was invalid" told us nothing
-    # about whether the model hallucinated or the archive simply has no
-    # faction for this record (there is no `brobot` or `krew` faction, so a
-    # Brobot skirmish genuinely cannot be scored against the 100 known ids).
     bad_ops: set[str] = set()
-    bad_factions: set[str] = set()
+    dropped_factions: set[str] = set()
     out_of_range = 0
     for op_id, deltas in changes.items():
         if op_id not in OPERATORS:
@@ -208,8 +257,9 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             continue
         row: dict[str, int] = {}
         for fid, value in deltas.items():
-            if fid not in factions:
-                bad_factions.add(str(fid)[:40])
+            resolved = resolve_faction(fid)
+            if not resolved:
+                dropped_factions.add(str(fid)[:40])
                 continue
             try:
                 delta = int(value)
@@ -218,15 +268,20 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             if delta == 0 or abs(delta) > 30:
                 out_of_range += 1
                 continue
-            row[fid] = delta
+            # Two proposed ids can resolve onto the same canonical faction
+            # (e.g. "legion" and "the_legion"); keep the larger swing rather
+            # than letting whichever came last silently win.
+            if resolved in row and abs(row[resolved]) >= abs(delta):
+                continue
+            row[resolved] = delta
         if row:
             clean_changes[op_id] = row
     if not clean_changes:
         why = []
         if bad_ops:
             why.append("unknown operators: " + ", ".join(sorted(bad_ops)[:4]))
-        if bad_factions:
-            why.append("no such faction: " + ", ".join(sorted(bad_factions)[:4]))
+        if dropped_factions:
+            why.append("not a group: " + ", ".join(sorted(dropped_factions)[:4]))
         if out_of_range:
             why.append(f"{out_of_range} delta(s) zero or beyond ±30")
         raise ValidationError(
@@ -235,14 +290,17 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
 
     clean_effects: dict[str, int] = {}
     for fid, value in (raw.get("effects") or {}).items():
-        if fid not in factions:
+        resolved = resolve_faction(fid)
+        if not resolved:
             continue
         try:
             delta = int(value)
         except (TypeError, ValueError):
             continue
         if delta and abs(delta) <= 20:
-            clean_effects[fid] = delta
+            if resolved in clean_effects and abs(clean_effects[resolved]) >= abs(delta):
+                continue
+            clean_effects[resolved] = delta
 
     clean_notes: dict[str, str] = {}
     for op_id, note in (raw.get("reputationNotes") or {}).items():
@@ -256,10 +314,15 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             continue
         clean_notes[op_id] = text
 
+    merged = {k: v[0] for k, v in resolutions.items() if v[1] in ("alias", "fuzzy")}
+    created = [v[0] for v in resolutions.values() if v[1] == "create"]
+
     return {
         "reputationChanges": clean_changes,
         "effects": clean_effects,
         "reputationNotes": clean_notes,
+        "_merged": merged,
+        "_created": created,
     }
 
 
@@ -311,10 +374,19 @@ def apply(task: Task, record_data: dict[str, Any]) -> TaskResult:
 
     ops = len(record_data["reputationChanges"])
     total = sum(len(v) for v in record_data["reputationChanges"].values())
+    detail = f"{ops} operator(s), {total} faction delta(s)"
+    # Say so out loud: a silent merge or a silently minted faction is exactly
+    # the kind of change someone needs to be able to audit later.
+    merged = record_data.get("_merged") or {}
+    if merged:
+        detail += " · merged " + ", ".join(f"{k}→{v}" for k, v in list(merged.items())[:3])
+    created = record_data.get("_created") or []
+    if created:
+        detail += " · NEW faction " + ", ".join(created[:3])
     return TaskResult(
         task=task,
         ok=True,
-        detail=f"{ops} operator(s), {total} faction delta(s)",
+        detail=detail,
         record=record_data,
         changed_paths=[str(path.relative_to(ROOT))],
     )
