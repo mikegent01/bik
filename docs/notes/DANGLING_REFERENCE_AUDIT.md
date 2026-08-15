@@ -206,9 +206,48 @@ reachable **in both directions**. Verified in jsdom: inbound refs are now
 robinson 5, the_mole 6, accountability_docket 6, fractured_heart 6, and each new page
 renders with 22–36 outbound links. All four checkers 0 errors / 0 warnings.
 
+## Round 3 — the last three (Class B closed)
+
+| Entity | User's answer | What the data added |
+|---|---|---|
+| Supernatural Sovereignty Act | "act outlawing vampires" | True as a summary, but `props.json` holds the **posted five-clause text**, and the operative clauses never say *vampire* — they outlaw a kind of promise |
+| Midlands Diet | "regal empires diet political body" | Confirmed; the Legion's own asset register sizes it at **28 of 39 seats aligned** |
+| Mini-Mushroom | "an item from mario" | True, but in this archive it is the item that **broke Aegis Command** |
+
+### Pages authored (2) + 1 item
+
+- **`supernatural_sovereignty_act`** (events) — passed 13:00, 18th Highsun 1040 BF. Built on
+  the real statute text recovered from `prop_sovereignty_act_notice`. Clause 3 completes the
+  offence on the giving; clause 5 convicts everyone present who did not dissent aloud. The
+  page's argument is that this Act is the loaded chamber and the Iron Mandate is the trigger.
+- **`midlands_diet`** (factions) — 39 seats. The Legion's register says 28 aligned; the Iron
+  Mandate passed **28**-8-3. The Mandate persuaded nobody who was not already counted.
+- **`mini_mushroom`** — added to `INVENTORY_SYSTEM` in `index.html`, *not* as an article. It
+  already existed in the bulk shop catalogue (`items_030.js`), but that catalogue is **not
+  indexed by the link registry**, so the name was unlinkable everywhere it mattered.
+
+### The Mini-Mushroom lesson (new failure mode)
+
+This is a **fifth** failure mode beyond the four in the original audit: *the entity exists,
+in a data file, with a good description — but in a namespace the link registry never reads.*
+`buildLinkRegistry` aliases `INVENTORY_SYSTEM.items`, not `shop-items/*.js`. Anything
+story-critical living only in the shop catalogue is invisible to autolinking. Check the
+namespace, not just the existence.
+
+### Interlinking
+
+13 further backlinks. `midlands_diet` and `supernatural_sovereignty_act` were **restored to
+`iron_mandate.relatedArticles`**, closing the deliberate omission left in Round 1.
+
+Verified in jsdom: "Mini Mushroom", "Midlands Diet", "Supernatural Sovereignty Act",
+"Sonic Grid", "The Vigilance" and "Council of Seven" all resolve from bare prose. Both new
+pages render (h1 correct, 33 outbound links each). All four checkers 0/0. **465 articles.**
+
 ## Still open
 
-Supernatural Sovereignty Act, Mini-Mushroom, Midlands Diet (Class B). `midlands_diet` and `supernatural_sovereignty_act` were deliberately **removed**
+Nothing from the original dangling-reference sweep. Remaining known gap: `Mini Mushroom Dust`
+does not autolink (it is a separate shop-catalogue item, same namespace problem — left alone
+because nothing references it in prose). `midlands_diet` and `supernatural_sovereignty_act` were deliberately **removed**
 from the new Iron Mandate page's `relatedArticles` rather than shipped as broken links —
 restore them when those pages exist.
 

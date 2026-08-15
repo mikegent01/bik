@@ -9342,7 +9342,9 @@
       "vigilance",
       "fractured_heart",
       "robinson",
-      "accountability_docket"
+      "accountability_docket",
+      "supernatural_sovereignty_act",
+      "midlands_diet"
     ]
   },
   {
@@ -9398,7 +9400,9 @@
       "glazed_congress_founding",
       "mages_guild",
       "regal_empire",
-      "accountability_docket"
+      "accountability_docket",
+      "midlands_diet",
+      "supernatural_sovereignty_act"
     ]
   },
   {
@@ -9514,6 +9518,70 @@
       "general_ironhand",
       "aegis_command",
       "pond_patrol"
+    ]
+  },
+  {
+    "id": "supernatural_sovereignty_act",
+    "name": "The Supernatural Sovereignty Act",
+    "title": "Five Clauses That Made Attendance a Crime",
+    "date": "18th Highsun, 1040 BF — passed 13:00",
+    "era": "The Aegis Uprising — Toad Liberation Crisis",
+    "location": "The Midlands Diet, Regal Empire; posted by ward office in every district",
+    "type": "Legislation / Enabling Act",
+    "status": "Enacted and in force. Listed by the Iron Legion among its political assets as 'legal basis for expanded operations'.",
+    "summary": "The Supernatural Sovereignty Act is the Regal Empire law passed at 13:00 on the 18th of Highsun, 1040 BF declaring organized vampires and werewolves illegal — in practice a declaration of war on the Onyx Hand and the Moonfang Pack. Its five posted clauses go considerably further than the summary suggests. Clause 3 completes the offence on the giving of an undertaking, with no performance required. Clause 5 convicts everyone present at a collective undertaking who did not dissent aloud. It is the legal instrument the Iron Mandate was built on three days later.",
+    "description": "Waluigi wants to be precise about this one, because the Act is usually described in a single sentence and that sentence hides the entire problem.\n\n## What the summary says\n\nThe timeline entry reads: *the Regal Empire passes a law declaring organized vampires and werewolves illegal, effectively declaring war on the Onyx Hand and Moonfang Pack.* That is true and it is not the dangerous part.\n\n## What the posted notice actually says\n\nThe ward-office summary for posting runs to five clauses:\n\n1. No allegiance, undertaking or covenant may be given to any power not of the mortal establishment.\n2. An undertaking given in the course of a rite is an undertaking for the purposes of clause 1.\n3. The offence is complete on the giving. Performance is not required.\n4. The offence is triable as sedition.\n5. Where the undertaking is given collectively, every person present who did not dissent aloud is taken to have given it.\n\nRead clause 1 and note what is missing: the word *vampire* does not appear, and neither does *werewolf*. The Act does not outlaw a species. It outlaws a **kind of promise** — and 'any power not of the mortal establishment' is a definition wide enough to swallow funeral rites, harvest ceremonies, household prayers and any oath sworn to anything the Diet has not personally licensed.\n\nClause 2 then confirms that ceremonial speech counts. Clause 3 removes the requirement that anything actually happen. Clause 4 makes it sedition, which carries the sentence sedition carries. And clause 5 removes the requirement that you personally said anything at all.\n\nWaluigi's note on the posted copy stands: *clause 5 is the one that should frighten people and clause 3 is the one that should frighten lawyers.* Under clause 3 there is no act to prove, only words. Under clause 5 there is not even that — standing in a circle and keeping your mouth shut is the offence. Silence is construed as assent, and assent is sedition.\n\n## How it was used\n\nA copy was posted three streets from a festival ground in the quarter it was needed. Somebody wanted it read that week. At the funeral rite that followed, the clerk's offering list shows the four traditional offerings ruled off — grain, salt, oil, and a name from each household — and a fifth entry written below the line in a second hand: *an undertaking, given aloud, on behalf of the living.* No giver named. Under clause 5, no giver needed to be named. Exactly one voice dissented aloud at that circle. Everybody else present is, on the face of the notice, a seditionist.\n\nThe Act also reaches further than its authors advertised. Because the Rakasha are an organized supernatural entity, a Loyalist garrison protecting Rakasha interests is technically sedition — which is how a law aimed at vampires ended up criminalising a garrison's ordinary duties.\n\n## Why it matters to the crisis\n\nThe Iron Legion lists the Act in its own asset register under *political*, with the note 'legal basis for expanded operations'. It sits directly above the Iron Mandate in that register. An Iron Legion deep-cover agent leaked its impending passage to hjumpik inside the Mirror Dimension before it was law — the Legion knew what was coming and considered it worth burning an agent's cover to trail.\n\nThree days later the Iron Mandate reclassified the Liberated Toads as an 'organized supernatural entity'. That reclassification only bites because this Act already existed to define what happens to one. The Mandate is the trigger; the Supernatural Sovereignty Act is the loaded chamber. WAH.",
+    "participants": [
+      {
+        "id": "regal_empire",
+        "name": "The Regal Empire",
+        "role": "Passed the Act through the Midlands Diet"
+      },
+      {
+        "id": "iron_legion",
+        "name": "The Iron Legion",
+        "role": "Principal beneficiary; lists it as 'legal basis for expanded operations'"
+      },
+      {
+        "id": "onyx_hand",
+        "name": "The Onyx Hand",
+        "role": "Organized vampires — a named target"
+      },
+      {
+        "id": "moonfang_pack",
+        "name": "The Moonfang Pack",
+        "role": "Organized werewolves — a named target"
+      },
+      {
+        "id": "hjumpik",
+        "name": "hjumpik",
+        "role": "Warned of the Act's passage by an Iron Legion spy in the Mirror Dimension"
+      }
+    ],
+    "outcome": "Enacted and never repealed. Provided the legal machinery the Iron Mandate used three days later to reclassify the Liberated Toads as an organized supernatural entity.",
+    "notableFeatures": [
+      "Passed 13:00, 18th Highsun 1040 BF — the same day as Emergency Resolution 17-A on the Toad side",
+      "Clause 3: the offence is complete on the giving; performance is not required",
+      "Clause 5: everyone present who did not dissent aloud is taken to have given the undertaking",
+      "Clause 4: triable as sedition",
+      "Never names vampires or werewolves in its operative text — it outlaws a kind of promise",
+      "Its passage was leaked in advance by an Iron Legion deep-cover agent",
+      "Makes a Loyalist garrison protecting Rakasha interests technically seditious"
+    ],
+    "keyEvents": [
+      "iron_mandate",
+      "midlands_diet"
+    ],
+    "relatedArticles": [
+      "iron_mandate",
+      "midlands_diet",
+      "regal_empire",
+      "iron_legion",
+      "onyx_hand",
+      "moonfang_pack",
+      "hjumpik",
+      "order_120",
+      "liberated_toads"
     ]
   }
 ]

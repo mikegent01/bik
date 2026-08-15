@@ -466,7 +466,9 @@
       "thornwood_manor_silent_field_dossier",
       "accountability_docket",
       "fractured_heart",
-      "the_mole"
+      "the_mole",
+      "supernatural_sovereignty_act",
+      "midlands_diet"
     ],
     "factionDocket": {
       "canonicalRecord": "Waluipedia faction dossier; the Liberated Toads terminal is an operational view, not a separate canon.",
@@ -1054,7 +1056,9 @@
       "vigilance",
       "liberated_toads",
       "robinson",
-      "the_mole"
+      "the_mole",
+      "supernatural_sovereignty_act",
+      "midlands_diet"
     ]
   },
   {
@@ -1257,7 +1261,8 @@
       "shadow_estate_mirror_rooftop_escape",
       "tanukiburt",
       "merric",
-      "vaxillus_the_beastmaster"
+      "vaxillus_the_beastmaster",
+      "supernatural_sovereignty_act"
     ]
   },
   {
@@ -1432,6 +1437,42 @@
       "accountability_docket",
       "fractured_heart",
       "the_mole"
+    ]
+  },
+  {
+    "id": "midlands_diet",
+    "name": "The Midlands Diet",
+    "title": "Thirty-Nine Seats, Twenty-Eight of Them Already Spoken For",
+    "type": "Legislative Body / Political Institution",
+    "status": "Sitting. Assessed by Iron Legion intelligence as under 'near-total political control'.",
+    "affiliation": "The Regal Empire",
+    "summary": "The Midlands Diet is the legislative body of the Regal Empire — a 39-seat chamber that passed both the Supernatural Sovereignty Act and the Iron Mandate within three days of each other during the Toad Liberation Crisis. The Iron Legion's own asset register lists 'Midlands Diet Control — 28 of 39 seats aligned' under the heading political, with the note 'near-total political control'. Speaker Rivers sat in this chamber and resigned from it at 09:00 on the 21st of Highsun in protest at the Mandate.",
+    "description": "Waluigi files the Midlands Diet under institutions that did their job exactly as designed, which is the worst thing that can be said about a parliament.\n\n## The arithmetic\n\nThirty-nine seats. The Iron Legion's internal asset register — the same document that counts its infantry and its warlord alliances — has an entry under *political* reading: **Midlands Diet Control, 28 of 39 seats aligned, near-total political control.**\n\nThat is not an accusation from an enemy. That is the Legion's own bookkeeping, filed alongside its troop counts, because from the Legion's point of view the Diet is an asset in the same category as a garrison.\n\nTwenty-eight of thirty-nine is 71.8 per cent. Waluigi invites the reader to compare that figure with the recorded division on the Iron Mandate: **28 for, 8 against, 3 abstaining.** Twenty-eight. The Mandate did not persuade a single seat that was not already aligned. The vote was not a debate; it was a headcount that had been taken in advance, and the Legion knew the result before the question was put because the Legion had written down the number weeks earlier.\n\n## What it passed\n\n**18th Highsun, 13:00 — the Supernatural Sovereignty Act.** Organized vampires and werewolves declared illegal; in its posted text, any undertaking to a power outside the mortal establishment made triable as sedition, complete on the giving, with everyone present who did not dissent aloud held to have given it.\n\n**21st Highsun, 09:00 — the Iron Mandate.** Emergency powers to the Iron Legion to purge supernatural threats, and the reclassification of the Liberated Toads as an 'organized supernatural entity'. Passed 28-8-3. Legion patrols mobilised immediately — which tells you the mobilisation orders were cut before the vote.\n\nThree days between them. The first defined the crime; the second decided who was guilty of it. Waluigi does not believe the sequencing was accidental.\n\n## The eleven\n\nThe more interesting number is the other one. Eight against, three abstaining. Eleven seats out of thirty-nine were not the Legion's, and the register's phrase 'near-total' is doing quiet work — the Legion counted its own control and privately conceded it was not complete.\n\nOne of those seats belonged to **Speaker Rivers**, who resigned at 09:00 on the 21st, the hour the Mandate passed, and then allowed himself to be taken so that a digital virus could be carried inside Aegis Command. Rivers is the only member of this chamber who resigned it and then used the resignation as an operation. Whether the other ten did anything at all is not recorded, which is its own kind of record.\n\n## Standing\n\nThe Iron Mandate was later condemned by the Glazed Congress as Vote #200. That condemnation is external. Nothing in the sources shows the Midlands Diet repealing, reviewing, or revisiting either statute. The chamber that passed them has not, on any evidence available to this archive, said a further word about them. WAH.",
+    "leadership": [
+      {
+        "name": "Speaker Rivers",
+        "role": "Sitting member until 09:00, 21st Highsun 1040 BF; resigned in protest at the Iron Mandate",
+        "id": "speaker_rivers"
+      }
+    ],
+    "notableFeatures": [
+      "39 seats total; 28 assessed by the Iron Legion as 'aligned'",
+      "Passed the Supernatural Sovereignty Act, 18th Highsun 1040 BF at 13:00",
+      "Passed the Iron Mandate, 21st Highsun 1040 BF at 09:00, by 28-8-3",
+      "The Mandate's 28 votes for exactly matches the Legion's count of aligned seats",
+      "Listed in the Iron Legion's asset register under 'political', not under 'diplomatic'",
+      "Speaker Rivers resigned his seat the hour the Mandate passed",
+      "Legion patrols mobilised immediately on passage — before, by implication, the vote concluded"
+    ],
+    "relatedArticles": [
+      "iron_mandate",
+      "supernatural_sovereignty_act",
+      "regal_empire",
+      "iron_legion",
+      "speaker_rivers",
+      "order_120",
+      "liberated_toads",
+      "aegis_command"
     ]
   }
 ]
