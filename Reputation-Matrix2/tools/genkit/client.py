@@ -26,6 +26,31 @@ class LMStudioError(RuntimeError):
     pass
 
 
+class ContextExceededError(LMStudioError):
+    """The prompt did not fit the model's *loaded* context length.
+
+    Worth its own type because it is the one LM Studio failure that is our
+    fault and is fixable in-process: retrying the same prompt will fail
+    identically forever, but retrying a shorter one usually succeeds. Note
+    that the loaded context is often 4096 even when the model advertises far
+    more, so this cannot be predicted from the model name.
+    """
+
+
+_CONTEXT_MARKERS = (
+    "context size has been exceeded",
+    "context length has been exceeded",
+    "exceeds the context",
+    "context_length_exceeded",
+    "too many tokens",
+)
+
+
+def _is_context_error(detail: str) -> bool:
+    low = detail.lower()
+    return any(marker in low for marker in _CONTEXT_MARKERS)
+
+
 class LMStudioClient:
     def __init__(self, endpoint: str, model: str = "", timeout: int = 240) -> None:
         self.endpoint = endpoint
@@ -88,9 +113,10 @@ class LMStudioClient:
                     body = json.loads(response.read())
             except urllib.error.HTTPError as error:
                 detail = error.read().decode("utf-8", errors="replace").strip()
-                raise LMStudioError(
-                    f"LM Studio HTTP {error.code}: {detail or error.reason}"
-                ) from error
+                message = f"LM Studio HTTP {error.code}: {detail or error.reason}"
+                if _is_context_error(detail):
+                    raise ContextExceededError(message) from error
+                raise LMStudioError(message) from error
             except Exception as error:  # noqa: BLE001
                 raise LMStudioError(f"LM Studio unreachable: {error}") from error
 

@@ -18,6 +18,7 @@ import threading
 from typing import Any
 
 from ..settings import ROOT
+from .. import prompting
 from ..spec import SystemSpec, Task, TaskResult, ValidationError, provenance
 from ..storage import atomic_write_json, read_json
 
@@ -122,6 +123,12 @@ Rules:
 """
 
 
+# How many already-taken names to show as a duplicate-avoidance hint. Chosen
+# to keep the abilities prompt near ~1k tokens: the model only needs a sense of
+# the namespace, and validate() is the real gate.
+_NAME_HINT_CAP = 160
+
+
 def build_prompt(task: Task) -> tuple[str, str]:
     store = _load()
     class_id = task.payload["class"]
@@ -141,19 +148,36 @@ def build_prompt(task: Task) -> tuple[str, str]:
         for a in peers[:8]
     ]
 
-    # Names are unique across the WHOLE shop, not per class, but the sample
-    # above only shows same-class peers. That is why the model kept proposing
-    # "Shadow Cloak" for spy after rogue already had it, burning a full
-    # round-trip each time. Show every taken name — they are short, and a few
-    # hundred of them cost far less than one rejected generation.
-    taken = sorted({(a.get("name") or "").strip() for a in _abilities() if a.get("name")})
+    # Names are unique across the WHOLE shop, not per class, but the peer
+    # sample above only shows same-class peers -- that is why the model kept
+    # proposing "Shadow Cloak" for spy after rogue already had it.
+    #
+    # Dumping all of them is not the answer either: at 892 names that was
+    # ~14 KB (~3.5k tokens) of the prompt and it grows with every ability
+    # generated, which is exactly how this system started failing with
+    # "Context size has been exceeded". The list is a duplicate-avoidance
+    # hint, not a contract -- validate() is what actually enforces
+    # uniqueness, and it checks against the full set regardless.
+    #
+    # So send the names most likely to be re-proposed: same-class ones (the
+    # real collision risk, since tone drives naming) plus a stable sample of
+    # the rest, capped. Deterministic ordering keeps prompts cache-friendly.
+    all_names = {(a.get("name") or "").strip() for a in _abilities() if a.get("name")}
+    all_names.discard("")
+    peer_names = sorted(
+        {(a.get("name") or "").strip() for a in peers if a.get("name")}
+    )
+    others = sorted(all_names.difference(peer_names))
+    others = prompting.sample_evenly(others, max(0, _NAME_HINT_CAP - len(peer_names)))
+    taken = peer_names + others
 
     prompt = (
         f"CLASS: {class_id} — {json.dumps(class_meta, ensure_ascii=False)}\n"
         f"TARGET LEVEL: {level}\n\n"
         f"EXISTING {class_id.upper()} ABILITIES (match tone and power, do not duplicate):\n"
         f"{json.dumps(sample, ensure_ascii=False, indent=2)}\n\n"
-        f"NAMES ALREADY TAKEN ACROSS ALL CLASSES — picking any of these fails:\n"
+        f"NAMES ALREADY TAKEN (sample — the full set is enforced on submit, "
+        f"so avoid anything close to these too):\n"
         f"{', '.join(taken)}\n\n"
         f"ALLOWED TYPES: {', '.join(store.get('types', []))}\n\n"
         f"Design one new level {level} {class_id} ability.\n"

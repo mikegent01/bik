@@ -28,6 +28,7 @@ from pathlib import Path
 from typing import Any
 
 from ..settings import ROOT
+from .. import prompting
 from ..spec import SystemSpec, Task, TaskResult, ValidationError, provenance
 from ..storage import atomic_write_json, read_json
 from . import factions as factions_mod
@@ -194,13 +195,33 @@ def build_prompt(task: Task) -> tuple[str, str]:
             value = value[:1800] + " […]"
         view[field] = value
 
+    # The operator and faction lists are fixed overhead the model cannot do
+    # without, so the record has to fit in whatever is left. Sixteen of the 209
+    # pending records are long enough to blow a 4096-token window on their own
+    # ("The Toad God Interview" is ~7.9k), and an over-long prompt is not a
+    # degraded generation -- it is an HTTP 400 and a lost record.
+    operators_block = "\n".join(f"  {oid} — {desc}" for oid, desc in OPERATORS.items())
+    factions_block = ", ".join(faction_ids())
+    scaffold = (
+        f"RECORD ({kind}):\n\n\n"
+        f"OPERATOR IDS (use these exact strings):\n{operators_block}"
+        f"\n\nFACTION IDS (use these exact strings):\n  {factions_block}"
+        f"\n\nAssign the reputation consequences of this record."
+    )
+    budget = prompting.char_budget(system_prompt=SYSTEM_PROMPT) - len(scaffold)
+    # Identity and outcome matter most; colour is what gets cut.
+    view = prompting.fit(
+        view,
+        max(600, budget),
+        priority=["id", "name", "title", "date", "outcome", "result",
+                  "summary", "belligerents", "participants", "charges"],
+    )
+
     prompt = (
         f"RECORD ({kind}):\n{json.dumps(view, ensure_ascii=False, indent=2)}\n\n"
-        f"OPERATOR IDS (use these exact strings):\n"
-        + "\n".join(f"  {oid} — {desc}" for oid, desc in OPERATORS.items())
-        + "\n\nFACTION IDS (use these exact strings):\n  "
-        + ", ".join(faction_ids())
-        + "\n\nAssign the reputation consequences of this record."
+        f"OPERATOR IDS (use these exact strings):\n{operators_block}"
+        f"\n\nFACTION IDS (use these exact strings):\n  {factions_block}"
+        f"\n\nAssign the reputation consequences of this record."
     )
     return SYSTEM_PROMPT, prompt
 
