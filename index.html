@@ -6530,7 +6530,9 @@ function navSection(id,title,links,opts={}){
   const head=title?`<div class="navhead ${opts.alwaysOpen?'static':''}" ${opts.alwaysOpen?'':`onclick="toggleNavSection('${id}')"`}><span>${esc(title)}</span>${opts.alwaysOpen?'':`<span class="navchev">▾</span>`}</div>`:'';
   return `<div class="navsec ${collapsed?'collapsed':''}" data-navsec="${id}">${head}<div class="navbody">${links.join('')}</div></div>`;
 }
+let NAV_ACTIVE=null;
 function renderSidebar(active){
+  NAV_ACTIVE=active;
   const h1=location.hash;
   const n=(k)=>(DATA[k]||[]).length;
   let h='';
@@ -6586,7 +6588,8 @@ function renderSidebar(active){
     navLink({emoji:'🎵',label:'Campaign Songbook',go:"Router.go('#/songs')",active:active==='songs',count:23}),
     navLink({emoji:'🛰️',label:'Mission Control',go:"Router.go('#/mission-control')",active:active==='mission-control'}),
     navLink({emoji:'🔍',label:'Investigations',go:"Router.go('#/investigations')",active:active==='investigations',count:(((DATA.investigations||{}).investigations)||[]).length}),
-    navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')})
+    navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')}),
+    navLink({emoji:'〰️',label:'WAHwire',go:`location.href='${wahwireUrl()}'`,count:WAHWIRE_COUNT,title:'The public feed — every post, searchable, wired back to the records it talks about'})
   ]);
 
   const curU=(typeof getCurrentUserId==='function'?getCurrentUserId():null);
@@ -6784,7 +6787,8 @@ function view_home(){
     { action: "Router.go('#/list/locations')", emoji: '🏰', label: 'Classic Locations Index', count: 'tucked away', group: 'history' },
     { action: "location.href='books/library.html'", emoji: '📚', label: 'Grand Library Archive', count: '40+ books', group: 'history' },
     { action: "location.href='currency.html'", emoji: '💱', label: 'Bank & Currency Exchange', count: '48 tenders', group: 'commerce' },
-    { action: "location.href='Reputation-Matrix2/app/pages/shop/shop.html'", emoji: '🛒', label: 'Wario Shop', count: '7,880+ items', group: 'commerce' }
+    { action: "location.href='Reputation-Matrix2/app/pages/shop/shop.html'", emoji: '🛒', label: 'Wario Shop', count: '7,880+ items', group: 'commerce' },
+    { action: `location.href='${wahwireUrl()}'`, emoji: '〰️', label: 'WAHwire', count: 'the public feed', group: 'systems' }
   ];
 
   window.toggleEncyclopediaDrawer = function() {
@@ -8677,6 +8681,30 @@ function abilityByName(name,cls){
 /* Deep link into Wario's shop overlay rather than a Waluipedia page. */
 function abilityShopUrl(id){ return 'Reputation-Matrix2/app/pages/shop/shop.html#ability-shop'+(id?'/'+encodeURIComponent(id):''); }
 function warehouseUrl(tab){ return 'Reputation-Matrix2/app/pages/shop/shop.html#warehouse'+(tab?'/'+encodeURIComponent(tab):''); }
+
+/* WAHwire — the public feed, its own page. pathPrefix keeps this correct from
+   both the repo root and from inside Reputation-Matrix2/. */
+function wahwireUrl(){ return pathPrefix + 'app/pages/wahwire/wahwire.html'; }
+
+/* The post count lives in data/wahwire/posts.json, which is nested and so is
+   not one of the flat DATA_FILES keys. Loaded on its own, after boot, without
+   blocking the render: a sidebar badge is never worth delaying the page for.
+   Null until it lands, and navLink() simply omits an empty count. */
+let WAHWIRE_COUNT = '';
+async function loadWahwireCount(){
+  try{
+    const res = await fetch(pathPrefix + 'data/wahwire/posts.json', {cache:'no-cache'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const j = await res.json();
+    const n = (j && Array.isArray(j.posts)) ? j.posts.length : 0;
+    if(n !== WAHWIRE_COUNT){
+      WAHWIRE_COUNT = n;
+      // Re-render only if the sidebar is already on screen, so the badge
+      // appears without waiting for the next route change.
+      try{ if(document.getElementById('sidenav')) renderSidebar(NAV_ACTIVE); }catch(e){}
+    }
+  }catch(e){ /* feed still reachable without a badge */ }
+}
 
 
 /* =============== IRON LEGION FULL DOSSIER (ported into the Imperial Pressure Network) ====== */
@@ -16223,6 +16251,7 @@ async function boot(){
   invalidateXpAggregate(); // rebuild XP leaderboard aggregate
   el('statline').textContent = ALL_ITEMS.length+' articles · '+Object.keys(DATA.conflicts||{}).length+' conflicts · '+(DATA.majorBattles||[]).length+' battles · '+(DATA.congress_votes||[]).length+' votes · '+(((DATA.artifacts||{}).star_bearers||[]).length)+' bearers · '+window.__DATA_SOURCE+' · / search · H links · C comments';
   try{ updateTopbarLoginBtn(); }catch(e){}
+  loadWahwireCount();   // deliberately not awaited: a badge must not delay the page
   Router.render();
 }
 boot();

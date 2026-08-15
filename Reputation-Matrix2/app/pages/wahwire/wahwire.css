@@ -117,6 +117,20 @@
 
 .ww-panel-note { font-size: 11px; color: var(--ww-muted); }
 
+.ww-back {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ww-muted);
+  text-decoration: none;
+  border: 1px solid var(--ww-line, #3a322c);
+  border-radius: 999px;
+  padding: 4px 12px;
+  transition: color .15s, border-color .15s;
+}
+.ww-back:hover { color: var(--ww-gold); border-color: var(--ww-gold); }
+
 .ww-canvas { display: block; width: 100%; height: 150px; cursor: crosshair; }
 
 /* Reserved height, always: the readout is filled on hover, and letting it
