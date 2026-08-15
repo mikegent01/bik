@@ -257,9 +257,25 @@ def shop_item_to_foundry(
         provenance.append(f"Level requirement: {item['levelRequirement']}")
     provenance_html = html_paragraphs(" · ".join(provenance)) if provenance else ""
 
+    # A badge's whole point is the record it commemorates, and a warning is the
+    # reason a GM would ever say no. Both are play-facing, so they belong in the
+    # text the GM actually reads, not only in the flags.
+    marks_html = ""
+    if item.get("marks"):
+        marks_html = f"<h3>Marks</h3>{html_paragraphs(str(item['marks']).strip())}"
+
+    warning_html = ""
+    if item.get("warning"):
+        warning_html = f"<h3>Warning</h3>{html_paragraphs(str(item['warning']).strip())}"
+
+    requirement_html = ""
+    if item.get("requirement"):
+        requirement_html = f"<h3>Requires</h3>{html_paragraphs(str(item['requirement']).strip())}"
+
     description = (
         html_paragraphs(str(item.get("description", "")).strip())
-        + rules_html + usage_html + provenance_html
+        + marks_html + rules_html + usage_html
+        + requirement_html + warning_html + provenance_html
     )
 
     system: dict[str, Any] = {
@@ -341,6 +357,13 @@ def shop_item_to_foundry(
                 **({"brosAttack": item["brosAttack"]} if item.get("brosAttack") else {}),
                 **({"teachesTechnique": True} if item.get("teachesTechnique") else {}),
                 **({"energyRule": item["energyRule"]} if item.get("energyRule") else {}),
+                # Badges are cosmetic and record-backed: `marks` names the real
+                # event, and losing it would leave a token that commemorates
+                # nothing. The rest are conditions a GM adjudicates.
+                **({"marks": item["marks"]} if item.get("marks") else {}),
+                **({"warning": item["warning"]} if item.get("warning") else {}),
+                **({"requirement": item["requirement"]} if item.get("requirement") else {}),
+                **({"factionBonus": item["factionBonus"]} if item.get("factionBonus") else {}),
             },
         },
         "_stats": stats_block(),
