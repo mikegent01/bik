@@ -1,6 +1,41 @@
 # Rebuild Plan — `toad_liberation_file`
 
-**Status:** planning only. No data files touched yet.
+**Status: DELIVERED.** The rebuild described below was written and shipped. The case is now titled **"Two Returns for One Afternoon"** with 12 new exhibits and 12 new props.
+
+## What shipped, against this plan
+
+| Plan said | Delivered |
+|---|---|
+| Retitle to *Two Returns for One Afternoon* | done |
+| 12 exhibits, each on a real prop | done — `ex_tl_*`, props `prop_tl_*` |
+| 5 threads, 5 leads, 4 sessions | done |
+| Sonic Grid central | done — `ex_tl_grid`, the *throughput* column |
+| Casualty contradiction presented unresolved | done — `ex_tl_two_returns`, DC 6 |
+| Ironhold nowhere | confirmed absent |
+| Delete the 12 obsolete props | **partially** — see below |
+
+### Four deviations from the plan, and why
+
+1. **Only 4 of the 12 old props were deleted, not all 12.** On inspection only `prop_bramblehaven_survey`, `prop_new_toad_town_charter`, `prop_mine_pump_requisition` and `prop_toad_ration_strength` actually rested on invented premises. The other eight (the visitor book, the records sign-out, the decoy brief, the council division, the fractured-heart receipt, the incident return, the Order 120 distribution sheet and Creek's position report) are sound documents built on real material. Deleting them would have been cutting for the sake of cutting, which the standing rule forbids. They remain in `props.json` as an available library.
+2. **Session anchors changed.** The plan proposed `disaster_inc_naming_dispute` for the Order 120 session; `order_120` itself is now a real event id (authored in the dangling-reference work) and is a better anchor. `thornburys_field_journal` and `star_shard_caves_tanuki_origin` were kept and verified.
+3. **Background entry 3 is `general_ironhand`, not `aegis_command`.** `check-background.py` only resolves events, factions and characters — `aegis_command` is a location and fails the checker. Ironhand carries the same material and is verifiable.
+4. **A fourth inline roll was appended to every exhibit.** The plan specified four; the first draft had three. Appended at the end of each analysis, never inserted, so stored roll ordinals stay valid.
+
+### The four open questions, answered by default
+
+They went unanswered, so the plan's own recommendations were taken: the honest title, the Sonic Grid central, the contradiction left unresolved with a marked preference, and Ironhold excluded. All four are reversible.
+
+### Verification at delivery
+
+All four checkers 0 errors / 0 warnings. Rendered in jsdom with examination verdicts pre-seeded: all 12 exhibits show 4 inline rolls, 5–6 headings, resolving links and a real prop document, with no `[[roll:` or `[[prop:` leaks and no stray sentinels. Confirmed absent from the rendered page: `774`, `New Toad Town`, `Bramblehaven`.
+
+---
+
+*The original plan follows unchanged, as the record of what was intended.*
+
+---
+
+**Scope:** this case and nothing else.
 **Scope:** this case and nothing else.
 **Rule for the whole document:** every figure below carries the file it came from. If a number has no source line, it does not go in the case.
 

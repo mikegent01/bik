@@ -1011,49 +1011,6 @@
         "noaction"
       ]
     },
-    "prop_bramblehaven_survey": {
-      "kind": "ledger",
-      "icon": "🏚️",
-      "title": "Site Survey — Bramblehaven Ruins, Condition and Capacity",
-      "subtitle": "A surveyor priced three sites and only wrote a warning on one of them",
-      "items": [],
-      "articles": [
-        "the_estragon_island_incident"
-      ],
-      "note": "Resettlement is not a moral question until after it is an engineering one.",
-      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Site survey &middot; comparative</div><div class=\"pd-sub\">Three sites, walked in one week, by one surveyor</div></div><table class=\"pd-table\"><thead><tr><th>Site</th><th>Shelter for</th><th>Water</th><th>Approaches</th><th>Cost to make habitable</th></tr></thead><tbody><tr><td>Bramblehaven ruins</td><td>300 at once</td><td>Well, fouled, recoverable</td><td>Four. All open.</td><td>Low</td></tr><tr><td>Hidden Valley</td><td>80, rising to 200 with build</td><td>Stream, year-round</td><td>One, narrow</td><td>Medium</td></tr><tr class=\"pd-flagged\"><td><b>Abandoned mine</b></td><td><b>500+</b></td><td><b>Pumped. Pump absent.</b></td><td><b>One, closeable</b></td><td><b>High</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Surveyor&rsquo;s remark, entered against Bramblehaven only.</b> &ldquo;The walls stand and the roofs do not. Four ways in means four ways in for everyone else as well. I can house them here by the week&rsquo;s end. I would not want to defend it.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Not assessed.</b> Title. None of the three sites was checked for ownership.</div><div class=\"pd-margin\">The cheapest site is the one you cannot hold and the one you can hold has no pump. Waluigi notes that nobody asked who owns any of them, which is the question that ends resettlements. &mdash; W.</div>",
-      "stamps": [
-        "evidence"
-      ]
-    },
-    "prop_new_toad_town_charter": {
-      "kind": "contract",
-      "icon": "🏠",
-      "title": "Draft Charter — A Settlement Named In Advance of Existing",
-      "subtitle": "Somebody wrote the constitution before anybody found the ground",
-      "items": [],
-      "articles": [
-        "glazed_congress_founding"
-      ],
-      "note": "Hope, notarised. The blank in clause 1 is the whole problem.",
-      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Draft instrument of settlement</div><div class=\"pd-sub\">Unexecuted. Blanks as shown.</div></div><div class=\"pd-clause\"><b class=\"n\">1.</b> The settlement hereby constituted shall be known as <b>New Toad Town</b> and shall be situate at ____________________.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> Admission is open to any Toad presenting themselves, without enquiry into origin, prior service, or the circumstances of their departure.</div><div class=\"pd-clause\"><b class=\"n\">3.</b> No person shall be surrendered out of the settlement on the demand of any authority not itself a party to this charter.</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">4.</b> Clause 3 is understood by the drafters to be unenforceable and is included regardless.</div><div class=\"pd-clause\"><b class=\"n\">5.</b> This charter takes effect on the day a site is secured and not before.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>Drafted by</i></div><div class=\"pd-sigcap\">Three hands. None printed.</div></div></div><div class=\"pd-margin\">Clause 4 is the most honest sentence Waluigi has read all season. They wrote a protection, admitted in writing that it will not hold, and left it in anyway, because a promise you cannot keep is still the promise people came for. &mdash; W.</div>",
-      "stamps": []
-    },
-    "prop_mine_pump_requisition": {
-      "kind": "invoice",
-      "icon": "⛏️",
-      "title": "Requisition — One Pump, Refused Twice, Priced Both Times",
-      "subtitle": "The difference between five hundred people housed and five hundred people drowned is one machine",
-      "items": [],
-      "articles": [
-        "the_estragon_island_incident"
-      ],
-      "note": "The mine can hold everybody. The mine also fills with water.",
-      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Requisition &middot; heavy plant</div><div class=\"pd-sub\">Submitted twice. Refused twice. Same office.</div></div><table class=\"pd-table\"><thead><tr><th>Submission</th><th>Article</th><th>Quoted</th><th>Disposal</th></tr></thead><tbody><tr><td>First</td><td>Drainage pump, mine class, with fittings</td><td>340 gp</td><td>Refused &mdash; &ldquo;no consigned site&rdquo;</td></tr><tr><td>Second</td><td>As above, second-hand, unwarranted</td><td>185 gp</td><td>Refused &mdash; &ldquo;no consigned site&rdquo;</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Refusal ground, verbatim, both times.</b> &ldquo;Plant is not issued against a site the requisitioner does not hold.&rdquo;</div><div class=\"pd-clause pd-flagged\"><b class=\"n\">Consequence.</b> The site cannot be held until it is drained. It cannot be drained until it is held.</div><div class=\"pd-fine\">A third submission may be made only with a title reference or a consignment order.</div><div class=\"pd-margin\">One hundred and eighty-five gold pieces stand between five hundred Toads and a roof, and the office will not release it because they do not own the hole. Waluigi has seen sieges with fewer moving parts. &mdash; W.</div>",
-      "stamps": [
-        "noaction"
-      ]
-    },
     "prop_aegis_visitor_book": {
       "kind": "ledger",
       "icon": "🛡️",
@@ -1181,21 +1138,6 @@
       "body": "<div class=\"pd-wire\">FIELD SIGNALS &middot; RECEIVED AND LOGGED &middot; REPLIES AS SHOWN</div><div class=\"pd-head\"><div class=\"pd-org\">Position reports, in sequence</div><div class=\"pd-sub\">One sender. Log kept at the receiving station.</div></div><table class=\"pd-table\"><thead><tr><th>Logged</th><th>Text as received</th><th>Reply sent</th></tr></thead><tbody><tr><td>21:40</td><td>IN POSITION. QUIET.</td><td>ACK</td></tr><tr><td>23:15</td><td>MOVEMENT NORTH SIDE. NOT OURS.</td><td>ACK</td></tr><tr><td>01:02</td><td>ROAD CLOSED BEHIND US. ONE WAY OUT.</td><td>ACK</td></tr><tr><td>03:30</td><td>HOLDING. NO CASUALTIES. NEED TO KNOW IF THE HOUR STANDS.</td><td>&mdash;</td></tr><tr class=\"pd-flagged\"><td><b>05:55</b></td><td><b>REPEAT. DOES THE HOUR STAND.</b></td><td><b>&mdash;</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Station note.</b> The set was manned throughout. No fault is recorded on the line.</div><div class=\"pd-margin\">Three acknowledgements, then two questions and nothing. The line worked. Somebody at the receiving end read &ldquo;does the hour stand&rdquo; twice and decided not to answer, which is itself an answer and a much worse one. &mdash; W.</div>",
       "stamps": [
         "evidence"
-      ]
-    },
-    "prop_toad_ration_strength": {
-      "kind": "ledger",
-      "icon": "🍞",
-      "title": "Ration Strength — How Many There Actually Are, Counted By Bread",
-      "subtitle": "Nobody will give the archive a headcount. Everybody keeps a bread book.",
-      "items": [],
-      "articles": [
-        "glazed_congress_founding"
-      ],
-      "note": "The most reliable census in any crisis is the one taken by whoever has to feed it.",
-      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Issuing point &middot; ration strength</div><div class=\"pd-sub\">Daily count, twelve days, taken at issue</div></div><table class=\"pd-table\"><thead><tr><th>Day</th><th>Rations issued</th><th>Remark</th></tr></thead><tbody><tr><td>1&ndash;3</td><td>410, 438, 455</td><td>&mdash;</td></tr><tr><td>4&ndash;6</td><td>489, 512, 540</td><td>Second queue opened</td></tr><tr><td>7&ndash;9</td><td>566, 601, 640</td><td>Stocks drawn forward</td></tr><tr class=\"pd-flagged\"><td><b>10&ndash;12</b></td><td><b>688, 731, 774</b></td><td><b>Issuing at half portion from day 11</b></td></tr></tbody></table><div class=\"pd-total\">Growth: 410 to 774 in twelve days &middot; Stock remaining at current issue: 5 days &middot; At full portion: 2 days</div><div class=\"pd-clause\"><b class=\"n\">Issuer&rsquo;s remark.</b> &ldquo;I am not turning anyone away and I am not asking anyone where they came from. Somebody else can do the arithmetic.&rdquo;</div><div class=\"pd-margin\">Seven hundred and seventy-four, growing by forty a day, five days of food at half portion. The resettlement debate is arguing about sites while the actual clock is a bread book at an issuing point. &mdash; W.</div>",
-      "stamps": [
-        "overdue"
       ]
     },
     "prop_falls_portage_bill": {
@@ -1379,6 +1321,219 @@
       ],
       "note": "Counter-intuitive and entirely documented. The patrols went down, not up.",
       "body": "<div class=\"pd-head\"><div class=\"pd-org\">Patrol book &middot; ward extract</div><div class=\"pd-sub\">Patrols entered per week, twelve weeks</div></div><table class=\"pd-table\"><thead><tr><th>Weeks</th><th>Patrols, Trade Ward</th><th>Patrols, district</th></tr></thead><tbody><tr><td>1&ndash;4</td><td>21, 20, 22, 21</td><td>18, 19, 18, 20</td></tr><tr><td>5&ndash;8</td><td>22, 21, 23, 22</td><td>19, 17, 14, 9</td></tr><tr class=\"pd-flagged\"><td><b>9&ndash;12</b></td><td><b>21, 22, 21, 22</b></td><td><b>4, 2, 1, 0</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Standing instruction, entered week 9.</b> &ldquo;District policed by arrangement. Patrols not required.&rdquo;</div><div class=\"pd-clause\"><b class=\"n\">Comparison.</b> Trade Ward patrol strength is unchanged throughout.</div><div class=\"pd-margin\">The Legion stopped going in. Not because it lost the district but because it no longer has to walk a street it holds the keys to. Withdrawal is what control looks like once the arrangement is signed. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_tl_barrel_manifest": {
+      "kind": "ledger",
+      "icon": "🛢️",
+      "title": "Cargo Return — The Vigilance, Hold Inventory by Weight",
+      "subtitle": "Ninety-one barrels of salt pork that do not weigh what salt pork weighs",
+      "items": [],
+      "articles": [
+        "liberated_toads",
+        "vigilance",
+        "the_estragon_island_incident"
+      ],
+      "note": "Nobody wrote 'people' on this sheet. The scale did it for them.",
+      "body": "<div class=\"pd-classbar\">Vigilance &middot; Quartermaster &middot; Hold return</div><div class=\"pd-head\"><div class=\"pd-org\">Standing cargo, lower holds</div><div class=\"pd-sub\">Weights as taken at the crane. Contents as declared by the shipper.</div></div><table class=\"pd-table\"><thead><tr><th>Lot</th><th>Declared</th><th>Units</th><th>Weight against declared</th></tr></thead><tbody><tr><td>A</td><td>Salt pork, packed</td><td>as declared</td><td>agrees</td></tr><tr class=\"pd-flagged\"><td><b>B</b></td><td><b>Salt pork, packed</b></td><td><b>150 and over</b></td><td><b>short by more than half</b></td></tr><tr><td>C</td><td>Ship's stores, dry</td><td>as declared</td><td>agrees</td></tr><tr><td>D</td><td>Cable, spare</td><td>as declared</td><td>agrees</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Discrepancy.</b> Lot B is materially under declared weight, every unit, consistently. Shipper advised. No amended manifest received.</div><div class=\"pd-clause\"><b class=\"n\">Stowage.</b> Lot B stowed outboard of the frames, in the void spaces. Access is not possible at standing height.</div><div class=\"pd-margin\">A barrel of packed salt pork has a known weight. Every barrel in lot B came in under it, by the same margin, more than a hundred and fifty times, and they were stowed where no one standing upright could reach them. The clerk noticed, wrote it down, advised the shipper and filed the sheet. Everything the system was meant to do, it did. It simply never asked what weighs less than pork and needs a void space. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_tl_mushroom_docket": {
+      "kind": "ledger",
+      "icon": "🍄",
+      "title": "Stores Docket — Mini-Mushroom, Issue and Return",
+      "subtitle": "The same item that found the barrels is the item that emptied the cells",
+      "items": [
+        "mini_mushroom"
+      ],
+      "articles": [
+        "aegis_command",
+        "speaker_l",
+        "liberated_toads"
+      ],
+      "note": "Two issues, eight months apart, same commodity code. Only one of them was authorised.",
+      "body": "<div class=\"pd-classbar\">Commodity 44-M &middot; Controlled issue</div><div class=\"pd-head\"><div class=\"pd-org\">Mini-Mushroom &mdash; issue record</div><div class=\"pd-sub\">Controlled item. Issue requires a named authority and a stated purpose.</div></div><table class=\"pd-table\"><thead><tr><th>Date</th><th>Purpose stated</th><th>Authority</th></tr></thead><tbody><tr><td>Day 12</td><td>Access to void spaces, lower hold</td><td>Ship's officer</td></tr><tr class=\"pd-flagged\"><td><b>&mdash;</b></td><td><b>No further issue recorded, any date</b></td><td><b>&mdash;</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Note on the commodity.</b> Issued for confined-space access. Effect runs approximately ten minutes. Residue is a fine dust and is not recovered.</div><div class=\"pd-clause\"><b class=\"n\">Note on later movement.</b> This docket records no issue to any kitchen, bakery or ration store, at any facility, on any date.</div><div class=\"pd-margin\">The authorised history of this commodity is one day and one purpose: getting a man into a space he could not otherwise reach, which is how the barrels were found. Whatever reached the hardtack at Aegis Command never touched a stores docket. That is not a gap in the record. That is the method. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_tl_cohort_return": {
+      "kind": "ledger",
+      "icon": "📋",
+      "title": "Cohort Strength Return — Day 21, With the Warning Attached",
+      "subtitle": "Eight rows that sum to 275 and a note explaining why you must not sum them",
+      "items": [],
+      "articles": [
+        "liberated_toads",
+        "captain_fernback",
+        "scribe_dewdrop"
+      ],
+      "note": "The most honest line on the sheet is the one telling you the sheet cannot be added up.",
+      "body": "<div class=\"pd-classbar\">Cohort Council &middot; Strength return &middot; Day 21</div><div class=\"pd-head\"><div class=\"pd-org\">Cohorts, established and effective</div><div class=\"pd-sub\">Effective strength against establishment. Morale as assessed by cohort leader.</div></div><table class=\"pd-table\"><thead><tr><th>Cohort</th><th>Eff.</th><th>Est.</th><th>Leader</th><th>Status</th><th>Morale</th></tr></thead><tbody><tr><td>Pond Patrol</td><td>23</td><td>30</td><td>Captain Fernback</td><td>active</td><td>85</td></tr><tr><td>Barrel Survivors</td><td>146</td><td>150</td><td>Elder Mudcap</td><td>recovering</td><td>62</td></tr><tr><td>The Chroniclers</td><td>12</td><td>20</td><td>Scribe Dewdrop</td><td>active</td><td>78</td></tr><tr><td>The Crafters</td><td>18</td><td>25</td><td>Forgemaster Ironspore</td><td>active</td><td>80</td></tr><tr><td>The Wardens</td><td>22</td><td>35</td><td>Warden Thornshell</td><td>strained</td><td>75</td></tr><tr><td>The Menders</td><td>15</td><td>20</td><td>Healer Mistpetal</td><td>overwhelmed</td><td>70</td></tr><tr class=\"pd-flagged\"><td><b>The Scouts</b></td><td><b>8</b></td><td><b>15</b></td><td><b>VACANT</b></td><td><b>compromised</b></td><td><b>45</b></td></tr><tr><td>The Unassigned</td><td>31</td><td>&mdash;</td><td>&mdash;</td><td>transitional</td><td>55</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Roster note.</b> Barrel Survivors are also counted within their working cohorts. These columns overlap and must not be totalled as a population.</div><div class=\"pd-margin\">The columns add to 275. The note says do not add the columns. Both are on the same sheet, in the same hand. This archive therefore cannot state how many Liberated Toads there are, and anyone who gives you a figure is reading a document that told them not to. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_tl_council_division": {
+      "kind": "order",
+      "icon": "🪑",
+      "title": "Division Record — Four Votes and an Empty Chair",
+      "subtitle": "Seat seven abstains by not existing",
+      "items": [],
+      "articles": [
+        "council_of_seven",
+        "liberated_toads",
+        "the_mole",
+        "speaker_l"
+      ],
+      "note": "A seven-seat council that has never once recorded seven votes.",
+      "body": "<div class=\"pd-classbar\">Cohort Council &middot; Divisions as recorded</div><div class=\"pd-head\"><div class=\"pd-org\">Recorded divisions, Days 16&ndash;19</div><div class=\"pd-sub\">Quorum is four. Seat seven has been vacant since Day 16.</div></div><table class=\"pd-table\"><thead><tr><th>Ref</th><th>Question</th><th>For</th><th>Ag.</th><th>Abs.</th><th>Cast</th></tr></thead><tbody><tr><td>V-2016-001</td><td>Scavenging doctrine</td><td>5</td><td>1</td><td>0</td><td>6</td></tr><tr><td>V-2018-001</td><td>Emergency Resolution 17-A</td><td>6</td><td>0</td><td>0</td><td>6</td></tr><tr><td>V-2018-002</td><td>Medical priority protocol</td><td>6</td><td>0</td><td>0</td><td>6</td></tr><tr><td>V-2019-001</td><td>Raventree containment perimeter</td><td>5</td><td>1</td><td>0</td><td>6</td></tr><tr class=\"pd-flagged\"><td><b>&mdash;</b></td><td><b>Seat 7 &mdash; Scouts</b></td><td colspan=\"3\"><b>VACANT since Day 16</b></td><td><b>&mdash;</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Seat seven.</b> Held by the Scouts' representative. Vacated on exposure as an Iron Legion agent. Not refilled.</div><div class=\"pd-clause\"><b class=\"n\">Effect on quorum.</b> Quorum of four is met by the remaining six. No division has been invalidated.</div><div class=\"pd-margin\">Every division on this sheet casts six votes out of seven seats, and not one of them records the seventh as an abstention &mdash; it is simply not there. The council kept working. That is the point: a body can lose a seventh of itself to an enemy and carry on passing motions six-nil. &mdash; W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_tl_crisis_vote": {
+      "kind": "order",
+      "icon": "⏱️",
+      "title": "Emergency Division V-2021-002 — Sixty Minutes, No Majority",
+      "subtitle": "Tabled 14:45, deadline 15:45, speaker's chair marked absent",
+      "items": [],
+      "articles": [
+        "order_120",
+        "captain_fernback",
+        "speaker_l",
+        "council_of_seven"
+      ],
+      "note": "The only division in the record that ran out of time instead of votes.",
+      "body": "<div class=\"pd-classbar\">Cohort Council &middot; Emergency division &middot; CRISIS RESPONSE: ORDER 120</div><div class=\"pd-head\"><div class=\"pd-org\">Tabled 14:45 &middot; Deadline 15:45</div><div class=\"pd-sub\">Proposed by Captain Fernback. Quorum 4 of 4 present.</div></div><div class=\"pd-clause\"><b class=\"n\">Chair.</b> SPEAKER ABSENT. CAPTAIN FERNBACK ASSUMING TEMPORARY COMMAND.</div><table class=\"pd-table\"><thead><tr><th>Option</th><th>Votes at freeze</th></tr></thead><tbody><tr class=\"pd-flagged\"><td><b>Suicide assault</b></td><td><b>2</b></td></tr><tr><td>Negotiated exchange</td><td>1</td></tr><tr><td>Withdraw and disperse</td><td>1</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Result.</b> No option reached a majority within the stated hour. The division stands unresolved on the record.</div><div class=\"pd-margin\">Four votes, three ways, sixty minutes. While this sheet was open the prisoners it concerned were already going down the drains. The council was deciding whether to rescue people who were in the middle of rescuing themselves, and it could not even manage that. &mdash; W.</div>",
+      "stamps": [
+        "overdue"
+      ]
+    },
+    "prop_tl_interrogation": {
+      "kind": "note",
+      "icon": "🎙️",
+      "title": "Interrogation Record — The Green Prisoner",
+      "subtitle": "Four words, one poisoned mushroom, and nothing else for the file",
+      "items": [],
+      "articles": [
+        "fractured_heart",
+        "speaker_l",
+        "bones",
+        "general_ironhand",
+        "aegis_command"
+      ],
+      "note": "The interrogator wrote down doctrine and filed it as rhetoric. It was a delaying tactic.",
+      "body": "<div class=\"pd-classbar\">Aegis Command &middot; Records section &middot; Interview note</div><div class=\"pd-head\"><div class=\"pd-org\">Subject: prisoner presenting as Speaker L</div><div class=\"pd-sub\">Interviewing officer notes taken contemporaneously.</div></div><div class=\"pd-clause\"><b class=\"n\">On appearance.</b> Subject's colouring is markedly green. Asked to account for it. States he ate a poisoned mushroom and the colour changed.</div><div class=\"pd-clause\"><b class=\"n\">On organisation.</b> Subject recites: CONTAIN. ACCOUNT. RESTORE. ADHERE. Repeats on request. Adds nothing.</div><div class=\"pd-quote\">This is not retribution's art, but the mending of the fractured heart.</div><div class=\"pd-clause\"><b class=\"n\">On dispositions.</b> Nil. Subject provides no names, no strengths, no locations.</div><div class=\"pd-clause\"><b class=\"n\">Assessment.</b> Cult-like rhetoric. Subject assessed as low intelligence value. Interview suspended.</div><div class=\"pd-margin\">A man in a cell explained restorative justice to the people torturing him and they wrote 'cult-like rhetoric' in the assessment box. He was not the Speaker and he was not raving. He was running out the clock, in verse, and it worked. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_tl_hardtack_req": {
+      "kind": "invoice",
+      "icon": "🍞",
+      "title": "Kitchen Requisition — Hardtack, Prisoners' Ration",
+      "subtitle": "Bread drawn above establishment, written off as baking wastage",
+      "items": [],
+      "articles": [
+        "aegis_command",
+        "liberated_toads",
+        "speaker_l"
+      ],
+      "note": "The bread is the weapon. The requisition is where the weapon becomes visible.",
+      "body": "<div class=\"pd-classbar\">Aegis Command &middot; Subsistence &middot; Weekly requisition</div><div class=\"pd-head\"><div class=\"pd-org\">Hardtack, prisoners' ration, baked on site</div><div class=\"pd-sub\">Requisition raised by kitchen, countersigned by stores.</div></div><table class=\"pd-table\"><thead><tr><th>Week</th><th>Drawn against establishment</th><th>Variance noted as</th></tr></thead><tbody><tr><td>Preceding weeks</td><td>agrees</td><td>&mdash;</td></tr><tr class=\"pd-flagged\"><td><b>Week of the incident</b></td><td><b>above establishment</b></td><td><b>wastage, baking</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Countersign.</b> Stores countersigned without query.</div><div class=\"pd-clause\"><b class=\"n\">Baking.</b> Prisoners' hardtack is baked on site by kitchen staff. Ingredients are drawn against this requisition and are not separately itemised.</div><div class=\"pd-margin\">A kitchen that had wasted nothing for weeks suddenly wasted enough to notice, in the week the cells emptied, and stores signed it off without a question. Something extra went into that dough and this requisition is the only place it had to be declared. It was declared as wastage. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_tl_order_120_signed": {
+      "kind": "order",
+      "icon": "📜",
+      "title": "Order 120 — As Signed, With the Countersign Block",
+      "subtitle": "An instruction to kill everyone, written in the register of a stores memo",
+      "items": [
+        "ironhand_order120_pen"
+      ],
+      "articles": [
+        "order_120",
+        "general_ironhand",
+        "aegis_command"
+      ],
+      "note": "Read the verbs. Not one of them is 'kill'.",
+      "body": "<div class=\"pd-classbar\">Aegis Command &middot; General Orders &middot; Series 120</div><div class=\"pd-head\"><div class=\"pd-org\">Order 120</div><div class=\"pd-sub\">Issued under the authority of the officer commanding.</div></div><div class=\"pd-clause\"><b class=\"n\">I.</b> The detained population held under supernatural classification is assessed as an unrecoverable security liability.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> Custody of that population is to be discontinued.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> Discontinuation is to be effected in full. No trials are to be convened. No ransoms are to be entertained. No exceptions are to be made on grounds of age, cohort or cooperation.</div><div class=\"pd-clause\"><b class=\"n\">IV.</b> Officers are reminded that this instruction is lawful under emergency powers and that compliance is not discretionary.</div><div class=\"pd-sign\"><div class=\"pd-sigline\"></div><div class=\"pd-sigcap\">Officer commanding</div></div><div class=\"pd-margin\">Clause II says 'custody is to be discontinued'. Clause III makes sure you understand that it means everyone. The word for what clause II describes appears nowhere on the page, because a man who writes the word has to know he wrote it. This is what an atrocity looks like when it is drafted by someone who intends to survive the paperwork. &mdash; W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_tl_grid_schedule": {
+      "kind": "ledger",
+      "icon": "📡",
+      "title": "Sonic Grid — Node Schedule and Throughput Column",
+      "subtitle": "Twelve nodes, and a column heading that should not exist",
+      "items": [],
+      "articles": [
+        "aegis_command",
+        "robinson",
+        "order_120"
+      ],
+      "note": "Somebody had to choose a word for the thing in column four. They chose 'throughput'.",
+      "body": "<div class=\"pd-classbar\">Restricted &middot; Emitter network &middot; Operating schedule</div><div class=\"pd-head\"><div class=\"pd-org\">Node schedule, all stations</div><div class=\"pd-sub\">Output in emitter-hours. Throughput per operating day.</div></div><table class=\"pd-table\"><thead><tr><th>Node</th><th>Station</th><th>Output</th><th>Throughput</th></tr></thead><tbody><tr><td>1</td><td>Aegis Command</td><td>full</td><td>as available</td></tr><tr><td>2&ndash;11</td><td>Stations not named on this copy</td><td>full</td><td>as available</td></tr><tr class=\"pd-flagged\"><td><b>12</b></td><td><b>Station not named on this copy</b></td><td><b>reduced</b></td><td><b>as available</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Purpose.</b> Maintain suppression frequency across the operating area. Suppression is continuous; interruption permits recovery in the target population.</div><div class=\"pd-clause\"><b class=\"n\">Throughput.</b> Defined as units consumed per operating day. Replacement is drawn from detained population as available.</div><div class=\"pd-margin\">Twelve nodes keep a frequency in the air that drops dragons out of it. The frequency is powered by people, the people are called throughput, and replacement is 'as available' &mdash; which means the cells are a fuel depot with a roll call. Robinson and his dragon were brought to node one at ten in the morning. Order 120 was issued at half past two. &mdash; W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_tl_two_returns": {
+      "kind": "ledger",
+      "icon": "⚖️",
+      "title": "Two Casualty Returns for the Same Afternoon",
+      "subtitle": "Same header, same date, same engagement, different numbers",
+      "items": [],
+      "articles": [
+        "order_120",
+        "aegis_command",
+        "liberated_toads",
+        "general_ironhand"
+      ],
+      "note": "Neither return has been withdrawn. Both are on the file.",
+      "body": "<div class=\"pd-classbar\">Casualty returns &middot; Aegis Command &middot; Day 21, 14:30</div><div class=\"pd-head\"><div class=\"pd-org\">Return A and Return B, as filed</div><div class=\"pd-sub\">Both returns describe the same engagement at the same facility on the same afternoon.</div></div><table class=\"pd-table\"><thead><tr><th>Line</th><th>Return A</th><th>Return B</th></tr></thead><tbody><tr class=\"pd-flagged\"><td><b>Own dead</b></td><td><b>12 killed</b></td><td><b>3 missing</b></td></tr><tr><td>Own recaptured</td><td>17</td><td>not stated</td></tr><tr class=\"pd-flagged\"><td><b>Enemy dead</b></td><td><b>32</b></td><td><b>67</b></td></tr><tr><td>Participants</td><td>158 escaped</td><td>150 rioted</td></tr><tr><td>Assessment</td><td>decisive victory</td><td>facility damaged</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Reconciliation.</b> None on file. No amending return has been received against either document.</div><div class=\"pd-margin\">Twelve dead or three missing. Thirty-two of theirs or sixty-seven. A hundred and fifty-eight out, or a hundred and fifty rioting. One afternoon, one building, two returns, and the gap between them is thirty-five bodies that either exist or do not. Waluigi has a preference between these documents. Waluigi is not going to write it in the margin of the exhibit. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_tl_boiler_log": {
+      "kind": "ledger",
+      "icon": "🔧",
+      "title": "Boiler House Maintenance Log — Valve Failures and What Was In Them",
+      "subtitle": "The east wall came down because the relief valves would not lift",
+      "items": [],
+      "articles": [
+        "aegis_command",
+        "speaker_l",
+        "order_120"
+      ],
+      "note": "The recovered obstructions are itemised. Read the item.",
+      "body": "<div class=\"pd-classbar\">Aegis Command &middot; Engineering &middot; Boiler house</div><div class=\"pd-head\"><div class=\"pd-org\">Post-incident inspection, relief valves</div><div class=\"pd-sub\">Valves inspected following the pressure event. Obstruction recovered from the housings.</div></div><table class=\"pd-table\"><thead><tr><th>Valve</th><th>Lifted?</th><th>Obstruction recovered</th></tr></thead><tbody><tr><td>Relief, all inspected</td><td>No</td><td>Metal disc, ribbon attached</td></tr><tr class=\"pd-flagged\"><td><b>Identification</b></td><td><b>&mdash;</b></td><td><b>Imperial service medals</b></td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Identification.</b> Discs identified as Imperial service medals, long service and campaign issue. Ribbons intact.</div><div class=\"pd-clause\"><b class=\"n\">Consequence.</b> With relief prevented, pressure vented through the east elevation. Wall lost.</div><div class=\"pd-margin\">Every relief valve in the house was jammed with a decoration for long and faithful service to the Empire, by someone who had a supply of them. The east wall of an Imperial fortress was blown out by Imperial medals. Waluigi did not write that line. The inspection did. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_tl_noki_consignment": {
+      "kind": "letter",
+      "icon": "🌊",
+      "title": "Consignment Note — Moss, Delivered Weeks Before Anyone Needed It",
+      "subtitle": "A delivery that only makes sense if you already know what is going to happen",
+      "items": [],
+      "articles": [
+        "aegis_command",
+        "speaker_l",
+        "liberated_toads"
+      ],
+      "note": "The date on this note is the most incriminating thing in the file.",
+      "body": "<div class=\"pd-classbar\">Consignment note &middot; Carrier's copy</div><div class=\"pd-head\"><div class=\"pd-org\">Goods received, river frontage</div><div class=\"pd-sub\">Carrier: independent. Consignee: not stated on this copy.</div></div><table class=\"pd-table\"><thead><tr><th>Item</th><th>Condition</th></tr></thead><tbody><tr class=\"pd-flagged\"><td><b>Moss, luminous, living</b></td><td><b>viable, keep damp</b></td></tr><tr><td>Sheeting, cotton, used</td><td>serviceable</td></tr><tr><td>Line, braided</td><td>new</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Handling.</b> Trays to be laid, not stacked. Consignee advised the moss must be placed in darkness and left undisturbed to establish.</div><div class=\"pd-clause\"><b class=\"n\">Standing arrangement.</b> Carrier to hold submersible craft at the river frontage on call. No date specified.</div><div class=\"pd-margin\">Luminous moss, laid in the dark early so it would be glowing when it was needed. Bedsheets. Braided line. Submersibles on call with no date. Every item on this note is useless on the day it arrived and decisive on a day nobody had announced yet. This is what planning looks like when it is filed as freight. &mdash; W.</div>",
       "stamps": [
         "evidence"
       ]
