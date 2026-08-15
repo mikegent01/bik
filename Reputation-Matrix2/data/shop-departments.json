@@ -1,6 +1,6 @@
 {
   "_README": "Sidebar Department data for warizon-shop.js. Regenerate with tools/build_shop_departments.py after item files change.",
-  "totalItems": 5832,
+  "totalItems": 5842,
   "departments": [
     {
       "id": "consumables",
@@ -50,6 +50,13 @@
       "icon": "👑",
       "tagline": "For customers whose pockets jingle loud enough.",
       "count": 220
+    },
+    {
+      "id": "badges",
+      "label": "Badges & Commendations",
+      "icon": "🎖️",
+      "tagline": "Earned, awarded, or quietly acquired. Wario asks no questions.",
+      "count": 10
     }
   ],
   "unmappedCategories": []

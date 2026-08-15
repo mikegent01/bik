@@ -130,7 +130,34 @@ tools/hub/
 * The shop catalog is cached to `.hub-out/cache/`, keyed on the newest file
   mtime in `data/shop-items`, so edits invalidate it automatically. **Refresh
   data** in the top bar forces a re-export.
-* `data/shop-items/items_night_special.js` uses `STOCK_TYPES` without importing
-  it. The loader shims that symbol so those 192 night items still load instead
-  of failing the whole export; fixing the import in that file is worthwhile
-  separately.
+* `data/shop-items/items_night_special.js` imports `STOCK_TYPES` correctly. The
+  loader still shims that symbol as a belt-and-braces measure so a future edit
+  that drops the import cannot fail the whole export.
+* The **legacy** `shop-items/` copy of that file had a stale relative import
+  (`../shop-stock.js`) and was the one failing to load. It now points at
+  `../app/pages/commerce/shop-stock.js`, so `doctor` reports zero failed files.
+
+## Fixed — August 2026
+
+Three `hubcore/paths.py` constants were built with `../../../data/...` segments
+that climbed above the repository root, so they silently pointed at paths that
+did not exist:
+
+| Constant | Resolved to (broken) | Now |
+| --- | --- | --- |
+| `PURCHASES_PATH` | `/home/data/commerce/shop-purchases.json` | `data/commerce/shop-purchases.json` |
+| `WALLETS_PATH` | `/home/user/data/commerce/wallets.json` | `data/commerce/wallets.json` |
+| `EVENTS_PATH` | `/home/user/data/events/events.json` | `data/events.json` |
+
+Because the loaders degrade gracefully on a missing file, nothing raised — the
+hub just reported **0 receipts** and **0 events** and built empty item piles.
+`hub_cli.py doctor` now reports 20 receipts and 98 events.
+
+Separately, `POST /api/piles/build` returned a 500 (`build_all() got an
+unexpected keyword argument 'include_abilities'`) whenever the web UI's
+*include abilities* toggle was set: `build_pile_actor` accepted
+`include_abilities`/`character_level` but `build_all` neither accepted nor
+forwarded them. It does now.
+
+**If the hub ever shows zero of something, check `paths.py` first** — a wrong
+path there looks exactly like an empty data set.

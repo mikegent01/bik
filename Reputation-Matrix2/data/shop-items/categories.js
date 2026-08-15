@@ -8,5 +8,6 @@ export const SHOP_CATEGORIES = {
     SERVICES: 'services',
     FACTION: 'faction',
     FORBIDDEN: 'forbidden',
-    PREMIUM: 'premium'
+    PREMIUM: 'premium',
+    BADGES: 'badges'
 };

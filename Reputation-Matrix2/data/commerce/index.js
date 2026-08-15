@@ -90,6 +90,7 @@ import { ITEMS_082 } from '../shop-items/items_082.js';
 import { ITEMS_083 } from '../shop-items/items_083.js';
 import { ITEMS_084 } from '../shop-items/items_084.js';
 import { ITEMS_NIGHT_SPECIAL } from '../shop-items/items_night_special.js';
+import { ITEMS_BADGES } from '../shop-items/items_badges.js';
 import { ITEMS_WORLD_GENERATED } from '../../shop-items/items_world_generated.js';
 
 // ============================================
@@ -182,6 +183,7 @@ export const SHOP_ITEMS = {
   ...ITEMS_083,
   ...ITEMS_084,
   ...ITEMS_WORLD_GENERATED,
+  ...ITEMS_BADGES,
   ...ITEMS_NIGHT_SPECIAL,
 };
 

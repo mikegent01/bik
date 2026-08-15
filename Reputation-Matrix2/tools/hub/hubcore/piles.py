@@ -403,8 +403,14 @@ def build_all(
     write: bool = True,
     use_ai_for_missing: bool = False,
     model: str | None = None,
+    include_abilities: bool = False,
+    character_level: int = 1,
 ) -> dict[str, Any]:
-    """Build (and optionally write) an item pile for every purchasing player."""
+    """Build (and optionally write) an item pile for every purchasing player.
+
+    include_abilities/character_level are forwarded to build_pile_actor so the
+    web UI's "include abilities" toggle reaches the actor builder.
+    """
     resolved = resolve_purchases(
         players=players,
         include_faction=include_faction,
@@ -415,7 +421,11 @@ def build_all(
 
     written: list[dict[str, Any]] = []
     for key, player in resolved["players"].items():
-        actor = build_pile_actor(player)
+        actor = build_pile_actor(
+            player,
+            include_abilities=include_abilities,
+            character_level=character_level,
+        )
         entry = {
             "playerKey": key,
             "displayName": player["displayName"],

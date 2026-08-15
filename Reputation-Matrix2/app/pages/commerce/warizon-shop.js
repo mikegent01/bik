@@ -33,7 +33,8 @@ const DEPARTMENTS = {
   services:    { label: 'Services & Favors', icon: '🤝' },
   faction:     { label: 'Faction Supply Depot', icon: '🚩' },
   forbidden:   { label: 'The Forbidden Aisle', icon: '☠️' },
-  premium:     { label: 'WahPrime Exclusives', icon: '👑' }
+  premium:     { label: 'WahPrime Exclusives', icon: '👑' },
+  badges:      { label: 'Badges & Commendations', icon: '🎖️' }
 };
 
 const PRICE_BUCKETS = [

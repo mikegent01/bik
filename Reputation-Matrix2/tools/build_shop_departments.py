@@ -58,6 +58,11 @@ DEPARTMENTS = {
         'icon': '👑',
         'tagline': 'For customers whose pockets jingle loud enough.',
     },
+    'badges': {
+        'label': 'Badges & Commendations',
+        'icon': '🎖️',
+        'tagline': 'Earned, awarded, or quietly acquired. Wario asks no questions.',
+    },
 }
 
 
