@@ -10,9 +10,9 @@ from typing import Callable, Iterable
 from .client import ContextExceededError, LMStudioClient, LMStudioError
 from .pool import WorkerPool
 from .scheduler import PopcornScheduler
-from .settings import Settings
+from .settings import ROOT, Settings
 from .spec import SystemSpec, Task, TaskResult, ValidationError
-from .storage import Checkpoint
+from .storage import Checkpoint, sweep_temporaries
 
 
 def _shorten_prompt(prompt: str, fraction: float) -> str:
@@ -103,6 +103,17 @@ class Runner:
         if not self.settings.model:
             self.settings.model = advertised
             self.client.model = advertised
+
+        # A previous run that was interrupted mid-write leaves .tmp drafts in
+        # the data directories. They are debris, not content, and they turn up
+        # as untracked files at commit time, so clear them before starting.
+        swept = sweep_temporaries(
+            ROOT / "data", ROOT / "shop-items"
+        )
+        if swept:
+            self._emit(RunnerEvent(
+                "skip", f"cleared {swept} stray .tmp file(s) from an interrupted run"
+            ))
 
         self._emit(
             RunnerEvent(

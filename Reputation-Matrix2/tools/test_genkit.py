@@ -487,5 +487,107 @@ try:
 finally:
     wahwire._load = saved_load
 
+# --------------------------------------------------- repair covers every system
+section("repair · full coverage across the registry")
+
+from genkit.systems import all_systems  # noqa: E402
+
+missing = [s.id for s in all_systems() if s.repair is None]
+check("every registered system has a repair hook", not missing, ", ".join(missing))
+
+# --- shop items: a duplicate name is a label problem, a bad price is not
+shop_task = Task(system_id="shop_items", key="k", label="shop item · common",
+                 payload={"rarity": "common"})
+# Stub the store rather than reading the shard: on a clean tree the generated
+# shard is empty, and a test that quietly skips itself is not a test.
+saved_generated = shop_items._generated
+dupe = "Chrono Snail"
+shop_items._generated = lambda: {"wz_gen_common_0001": {"name": dupe}}
+try:
+    fixed = shop_items.repair(shop_task, {"name": dupe}, f"duplicate item name {dupe!r}")
+    check("a duplicate item name is disambiguated in code",
+          fixed is not None and fixed["name"] != dupe, str(fixed and fixed["name"]))
+    check("the repaired name keeps the model's own wording in front",
+          fixed is not None and fixed["name"].startswith(dupe))
+    check("the repaired name stays inside the 60-character limit",
+          fixed is not None and len(fixed["name"]) <= 60)
+
+    # Exhaust every mark so the rarity-counter fallback is exercised too.
+    crowded = {f"i{n}": {"name": f"{dupe} {mark}"}
+               for n, mark in enumerate(shop_items._RENAME_MARKS)}
+    crowded["orig"] = {"name": dupe}
+    shop_items._generated = lambda: crowded
+    fallback = shop_items.repair(shop_task, {"name": dupe},
+                                 f"duplicate item name {dupe!r}")
+    taken = {v["name"].lower() for v in crowded.values()}
+    check("a name that has exhausted every mark still gets a unique fallback",
+          fallback is not None and fallback["name"].lower() not in taken,
+          str(fallback and fallback["name"]))
+finally:
+    shop_items._generated = saved_generated
+
+check("a price rejection is not repaired into a made-up price",
+      shop_items.repair(shop_task, {"name": "Ordinary Rope", "price": 99999},
+                        "price 99999 outside the common band") is None)
+
+# --- crafting: classify only on unambiguous evidence
+craft_task = Task(system_id="crafting", key="k", label="recipe",
+                  payload={"name": "Bone Charm",
+                           "description": "carved from undead remains"})
+fixed = crafting.repair(craft_task, {"school": "Spooky", "reason": "x"},
+                        "unknown school 'Spooky'")
+check("an unknown school is recovered from the recipe's own wording",
+      fixed is not None and fixed["school"] == "NECROMANCY", str(fixed))
+check("the substituted reason survives validation's length rule",
+      fixed is not None and 10 <= len(fixed["reason"]) and len(fixed["reason"].split()) <= 26)
+vague = Task(system_id="crafting", key="k", label="recipe",
+             payload={"name": "Mystery Goo", "description": "indescribable"})
+check("a recipe with no clear evidence is left rejected, not guessed",
+      crafting.repair(vague, {"school": "Spooky", "reason": "x"},
+                      "unknown school 'Spooky'") is None)
+
+# --- prune: a synonym is vocabulary, an undecided answer is a real failure
+prune_task = Task(system_id="wahwire-prune", key="k", label="post",
+                  payload={"id": "p1"})
+check("'remove' is read as a retire verdict",
+      (wahwire._prune_repair(prune_task, {"verdict": "remove"},
+                             "bad verdict 'remove'") or {}).get("verdict") == "retire")
+check("'retain' is read as a keep verdict",
+      (wahwire._prune_repair(prune_task, {"verdict": "retain"},
+                             "bad verdict 'retain'") or {}).get("verdict") == "keep")
+check("an undecided verdict is not defaulted to keep",
+      wahwire._prune_repair(prune_task, {"verdict": "revise"},
+                            "bad verdict 'revise'") is None)
+
+# --- discuss: reassign a bad handle, but never pad a short comment
+saved_load = wahwire._load
+wahwire._load = lambda: {"posts": [
+    {"id": "p1", "author": "waluigi", "order": 1, "content": "x", "comments": []}]}
+try:
+    d_task = Task(system_id="wahwire-discuss", key="k", label="thread",
+                  payload={"id": "p1", "author": "waluigi"})
+    fixed = wahwire._discuss_repair(d_task, {"comments": [
+        {"author": "not_a_real_account",
+         "content": "The freight manifest never matched what came off the barge."},
+        {"author": "waluigi",
+         "content": "Counting the crates twice does not make them mine."},
+    ]}, "no usable comments — each needs an account from the list")
+    check("comments with invented handles are reassigned, not discarded",
+          fixed is not None and len(fixed["comments"]) == 2, str(fixed))
+    check("reassigned comments use real accounts",
+          fixed is not None
+          and all(c["author"] in wahwire.KNOWN_AUTHORS for c in fixed["comments"]))
+    check("the post's own author is never used as a replier",
+          fixed is not None
+          and all(c["author"] != "waluigi" for c in fixed["comments"]))
+    check("the model's comment text is preserved verbatim",
+          fixed is not None and "freight manifest" in fixed["comments"][0]["content"])
+    check("a too-short comment is not padded to make it pass",
+          wahwire._discuss_repair(d_task, {"comments": [
+              {"author": "nobody", "content": "lol"}]},
+              "no usable comments — each needs an account") is None)
+finally:
+    wahwire._load = saved_load
+
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)

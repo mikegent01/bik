@@ -11,6 +11,7 @@ from __future__ import annotations
 import itertools
 import json
 import os
+import re
 import stat
 import threading
 import time
@@ -79,6 +80,10 @@ def replace_with_retry(temporary: Path, target: Path, *, attempts: int = 20) -> 
 
 _TMP_SEQUENCE = itertools.count()
 
+# Matches only the temporaries THIS module creates: "<name>.<pid>.<n>.tmp".
+# Anything else ending in .tmp belongs to someone else and is left alone.
+_TMP_NAME = re.compile(r"\.\d+\.\d+\.tmp$")
+
 
 def atomic_write_text(target: Path, text: str) -> None:
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -92,13 +97,40 @@ def atomic_write_text(target: Path, text: str) -> None:
     try:
         replace_with_retry(temporary, target)
     finally:
-        # Never leave debris behind once the content is safely in place.
+        # Never leave debris behind. The old version only deleted the
+        # temporary when its bytes still matched the target, which is the one
+        # case where .replace() had ALREADY consumed it -- so the check passed
+        # on files that no longer existed and skipped the files that did.
+        # Anything still sitting here has either been copied into place by the
+        # fallback or is a dead draft, and both are garbage.
         try:
-            if temporary.exists() and target.exists():
-                if temporary.read_bytes() == target.read_bytes():
-                    temporary.unlink(missing_ok=True)
+            temporary.unlink(missing_ok=True)
         except OSError:
             pass
+
+
+def sweep_temporaries(*dirs: Path) -> int:
+    """Delete stray `<name>.<pid>.<n>.tmp` drafts left by an interrupted run.
+
+    A killed process (Ctrl+C, a closed terminal, a crash) never reaches the
+    `finally` above, so its half-written drafts stay on disk and show up as
+    untracked files in the next commit. They are pure debris -- the real
+    content is in the target file -- so clearing them at startup is safe.
+    """
+    removed = 0
+    for directory in dirs:
+        directory = Path(directory)
+        if not directory.is_dir():
+            continue
+        for stray in directory.rglob("*.tmp"):
+            if not _TMP_NAME.search(stray.name):
+                continue  # not ours; leave other tooling's files alone
+            try:
+                stray.unlink()
+                removed += 1
+            except OSError:
+                pass
+    return removed
 
 
 def atomic_write_json(target: Path, payload: Any, *, indent: int = 2) -> None:

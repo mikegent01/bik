@@ -200,6 +200,55 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     return {"school": school, "schoolReason": reason}
 
 
+# Keyword -> school, used only as a last resort when the model cannot name a
+# school the Forge recognises. Deliberately narrow: these are the words that
+# unambiguously belong to one school, so a match is evidence rather than a
+# guess. Anything vaguer is left to fail loudly instead of being mislabelled.
+_SCHOOL_HINTS = (
+    ("NECROMANCY", ("undead", "bone", "corpse", "soul", "wraith", "revive", "death")),
+    ("ABJURATION", ("ward", "shield", "barrier", "protect", "resist", "guard", "aegis")),
+    ("DIVINATION", ("scry", "sight", "reveal", "detect", "oracle", "foresee", "truth")),
+    ("ILLUSION", ("illusion", "phantom", "mirage", "invisib", "disguise", "glamour")),
+    ("CONJURATION", ("summon", "portal", "teleport", "conjure", "gate", "banish")),
+    ("ENCHANTMENT", ("charm", "enchant", "mind", "sleep", "compel", "beguile", "calm")),
+    ("TRANSMUTATION", ("transmut", "transform", "alter", "shape", "forge", "harden")),
+    ("EVOCATION", ("fire", "flame", "lightning", "frost", "blast", "storm", "energy")),
+)
+
+
+def repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    """Classify a recipe from its own text when the model names no valid school.
+
+    Unlike a duplicate name, this is not a cosmetic fix -- so it only fires on
+    unambiguous evidence. The recipe's name and description are scanned for
+    words that belong to exactly one school ("undead" is necromancy and nothing
+    else). If nothing matches, the task is left rejected rather than dumped
+    into EVOCATION to make the counter look better; a wrong school is worse
+    than a blank one because the Forge filter would then hide it under the
+    wrong heading.
+    """
+    if "unknown school" not in why:
+        return None
+    hay = " ".join([
+        str(task.payload.get("name", "")),
+        str(task.payload.get("description", "")),
+        str(raw.get("school", "")),
+        str(raw.get("reason", "")),
+    ]).lower()
+
+    for school, words in _SCHOOL_HINTS:
+        if any(word in hay for word in words):
+            fixed = dict(raw)
+            fixed["school"] = school
+            reason = " ".join(str(raw.get("reason", "")).split())
+            if len(reason) < 10 or len(reason.split()) > 26:
+                hit = next(w for w in words if w in hay)
+                reason = f"Classified from the recipe's own wording ({hit})."
+            fixed["reason"] = reason
+            return fixed
+    return None
+
+
 def apply(task: Task, data: dict[str, Any]) -> TaskResult:
     with _WRITE_LOCK:
         store = _load()
@@ -235,4 +284,5 @@ SPEC = SystemSpec(
     validate=validate,
     apply=apply,
     pending=pending,
+    repair=repair,
 )

@@ -214,6 +214,40 @@ def _prune_prompt(task: Task) -> tuple[str, str]:
     return PRUNE_SYSTEM, prompt
 
 
+# Words models reach for instead of the two they were given. Only unambiguous
+# synonyms are listed -- "revise" or "maybe" are genuinely undecided answers
+# and must not be forced into a verdict here.
+_VERDICT_SYNONYMS = {
+    "retire": ("retire", "remove", "delete", "drop", "cut", "discard", "purge"),
+    "keep": ("keep", "kept", "retain", "hold", "stay", "preserve", "publish"),
+}
+
+
+def _prune_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    """Map a near-miss verdict word onto the two the pass accepts.
+
+    The model does the actual judging; when it answers "remove" instead of
+    "retire" the decision has been made and only the vocabulary is off. That
+    is worth repairing.
+
+    A garbled or genuinely undecided verdict is NOT defaulted to "keep" --
+    that would be the tool deciding what stays in the archive. Likewise a
+    kept post with no content, or an edit that ballooned into a rewrite, are
+    the model failing the task, and both still fail.
+    """
+    if "bad verdict" not in why:
+        return None
+    said = str(raw.get("verdict", "")).strip().lower()
+    if not said:
+        return None
+    for verdict, words in _VERDICT_SYNONYMS.items():
+        if any(word in said for word in words):
+            fixed = dict(raw)
+            fixed["verdict"] = verdict
+            return fixed
+    return None
+
+
 def _prune_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     verdict = str(raw.get("verdict", "")).strip().lower()
     if verdict not in ("keep", "retire"):
@@ -830,6 +864,7 @@ PRUNE_SPEC = SystemSpec(
     build_prompt=_prune_prompt,
     validate=_prune_validate,
     apply=_prune_apply,
+    repair=_prune_repair,
     pending=lambda: len(_unpruned()),
 )
 
@@ -1032,6 +1067,65 @@ def _discuss_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     return {"comments": comments}
 
 
+def _discuss_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    """Salvage a thread whose comments are good but whose accounts are not.
+
+    The common failure is the model inventing a plausible-sounding handle, or
+    answering in the post author's own voice. Both are label problems: the
+    comment text is written and usable, and only the name on it is wrong.
+    Reassigning to a real account that is not the post's author keeps the
+    writing and fixes the attribution.
+
+    Comments that fail on LENGTH are left out -- too short means the model
+    under-delivered, and padding them here would be the tool writing the
+    archive's content. If nothing survives, the task stays rejected.
+    """
+    if "no usable comments" not in why:
+        return None
+
+    author = str(task.payload.get("author", "")).strip()
+    post = next((p for p in _posts() if p.get("id") == task.payload.get("id")), None)
+    existing = [c for c in ((post or {}).get("comments") or []) if isinstance(c, dict)]
+    seen_text = {" ".join(str(c.get("content", "")).lower().split()) for c in existing}
+
+    # Spread reassignments over the quietest accounts rather than always
+    # picking the first name in the list.
+    used = [str(c.get("author")) for c in existing if c.get("author")]
+    pool = sorted(
+        (a for a in KNOWN_AUTHORS if a != author),
+        key=lambda a: used.count(a),
+    )
+    if not pool:
+        return None
+
+    fixed_comments: list[dict[str, Any]] = []
+    for index, entry in enumerate((raw.get("comments") or [])[:4]):
+        if not isinstance(entry, dict):
+            continue
+        text = entry.get("content")
+        if not isinstance(text, str):
+            continue
+        text = " ".join(re.sub(r"#\w+", " ", text).split())
+        if not (10 <= len(text) <= 400):
+            continue  # a length failure is the model's, not a label's
+        if text.lower() in seen_text:
+            continue
+        candidate = str(entry.get("author", "")).strip()
+        if candidate not in KNOWN_AUTHORS or candidate == author:
+            candidate = pool[index % len(pool)]
+        replacement = dict(entry)
+        replacement["author"] = candidate
+        replacement["content"] = text
+        fixed_comments.append(replacement)
+        seen_text.add(text.lower())
+
+    if not fixed_comments:
+        return None
+    fixed = dict(raw)
+    fixed["comments"] = fixed_comments
+    return fixed
+
+
 def _discuss_apply(task: Task, data: dict[str, Any]) -> TaskResult:
     post_id = task.payload["id"]
     with _WRITE_LOCK:
@@ -1096,6 +1190,7 @@ DISCUSS_SPEC = SystemSpec(
     build_prompt=_discuss_prompt,
     validate=_discuss_validate,
     apply=_discuss_apply,
+    repair=_discuss_repair,
     pending=lambda: len(_thin_threads()),
 )
 
