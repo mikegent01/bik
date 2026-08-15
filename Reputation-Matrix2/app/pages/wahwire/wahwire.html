@@ -26,7 +26,11 @@
                     </div>
                 </div>
                 <div class="ww-stats" id="wwStats">
-                    <div class="ww-stat"><b id="statPosts">—</b><span>posts</span></div>
+                    <div class="ww-stat">
+                        <b id="statPosts">—</b>
+                        <span>posts</span>
+                        <em class="ww-stat-note" id="statPostsNote">on the wire</em>
+                    </div>
                     <div class="ww-stat"><b id="statLikes">—</b><span>likes</span></div>
                     <div class="ww-stat"><b id="statVoices">—</b><span>voices</span></div>
                     <div class="ww-stat">
@@ -47,12 +51,15 @@
                     <!-- Canvas, not 100k DOM nodes: this has to stay smooth at scale. -->
                     <canvas id="tlCanvas" class="ww-canvas" height="150"></canvas>
                     <div class="ww-axis" id="tlAxis"></div>
+                    <!-- Filled on hover: the chart is aggregated, so the reader
+                         needs a way to ask what a given column actually is. -->
+                    <div class="ww-hover" id="tlHover"></div>
                 </div>
 
                 <div class="ww-panel">
                     <div class="ww-panel-head">
                         <h2>Loudest voices</h2>
-                        <span class="ww-panel-note">by total likes</span>
+                        <span class="ww-panel-note">by likes, in view</span>
                     </div>
                     <div class="ww-bars" id="voiceBars"></div>
                 </div>
@@ -60,7 +67,7 @@
                 <div class="ww-panel">
                     <div class="ww-panel-head">
                         <h2>Mood of the wire</h2>
-                        <span class="ww-panel-note">reaction mix</span>
+                        <span class="ww-panel-note" id="moodNote">reaction mix</span>
                     </div>
                     <div class="ww-mood" id="moodChart"></div>
                 </div>

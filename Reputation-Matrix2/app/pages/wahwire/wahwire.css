@@ -117,7 +117,18 @@
 
 .ww-panel-note { font-size: 11px; color: var(--ww-muted); }
 
-.ww-canvas { display: block; width: 100%; height: 150px; }
+.ww-canvas { display: block; width: 100%; height: 150px; cursor: crosshair; }
+
+/* Reserved height, always: the readout is filled on hover, and letting it
+   collapse to zero would jog the whole panel every time the mouse enters. */
+.ww-hover {
+  min-height: 15px;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ww-gold, #e0b400);
+  letter-spacing: .02em;
+}
 
 .ww-axis {
   display: flex;

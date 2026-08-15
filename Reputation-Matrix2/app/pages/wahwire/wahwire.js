@@ -74,6 +74,7 @@ const state = {
   query: '',
   sort: 'chrono',
   targets: {},
+  tl: null,                   // timeline geometry, for the hover readout
   firstRendered: -1,
   lastRendered: -1
 };
@@ -155,11 +156,7 @@ async function load() {
   await loadTargets();
   resolveLinks();
   buildOrder();
-  applyFilter();
-  drawStats();
-  drawTimeline();
-  drawVoices();
-  drawMood();
+  applyFilter();   // applyFilter() redraws every panel
 }
 
 /* Resolve link ids to real record names so a post can point at the event that
@@ -267,6 +264,13 @@ function applyFilter() {
   el('wwSizer').style.height = `${n * ROW_HEIGHT}px`;
   state.firstRendered = -1;   // force a repaint
   renderWindow();
+
+  // The panels summarise the VIEW, so they are stale the moment it changes.
+  // Redrawing here is the only place that cannot be forgotten by a caller.
+  drawStats();
+  drawTimeline();
+  drawVoices();
+  drawMood();
 }
 
 /* ------------------------------------------------------------ the feed */
@@ -351,25 +355,50 @@ function rowHTML(post, k) {
 /* ----------------------------------------------------------- statistics */
 
 function drawStats() {
-  const p = state.posts;
-  let likes = 0, linked = 0;
+  // Everything below aggregates the CURRENT VIEW, not the whole corpus, so the
+  // panels answer "what am I looking at" rather than repeating a constant.
+  // Single pass over an Int32Array of indices: no intermediate arrays, no
+  // spread, nothing that grows a temporary proportional to the corpus.
+  const p = state.posts, v = state.view;
+  let likes = 0, linked = 0, broken = 0;
   const voices = new Set();
-  for (const x of p) { likes += x.likes; voices.add(x.author); if (x.linked) linked++; }
-  el('statPosts').textContent  = p.length.toLocaleString();
-  el('statLikes').textContent  = likes >= 1e6 ? (likes / 1e6).toFixed(1) + 'M'
-                               : likes >= 1e3 ? (likes / 1e3).toFixed(1) + 'k'
-                               : likes.toLocaleString();
+  for (let k = 0; k < v.length; k++) {
+    const x = p[v[k]];
+    likes += x.likes;
+    voices.add(x.author);
+    if (x.linked) linked++;
+    broken += x.dangling.length;
+  }
+
+  const filtered = v.length !== p.length;
+  el('statPosts').textContent  = v.length.toLocaleString();
+  el('statLikes').textContent  = fmtCount(likes);
   el('statVoices').textContent = voices.size.toLocaleString();
   el('statLinked').textContent = linked.toLocaleString();
 
-  // Report the repair backlog next to the count it undermines.
+  // When a filter is active, say what the number is a subset OF.
+  const pn = el('statPostsNote');
+  if (pn) pn.textContent = filtered ? `of ${p.length.toLocaleString()} on the wire` : 'on the wire';
+
+  // Two different failures, reported separately because they need different
+  // fixes: a BROKEN pointer is a data defect to repair, while a post with no
+  // pointer at all is just unwired and waiting on the authoring pass.
   const note = el('statLinkedNote');
   if (note) {
-    note.textContent = state.dangling
-      ? `${state.dangling} unresolved pointer${state.dangling === 1 ? '' : 's'}`
-      : 'all pointers resolve';
-    note.classList.toggle('is-warn', state.dangling > 0);
+    const unwired = v.length - linked;
+    const bits = [];
+    if (broken)  bits.push(`${broken.toLocaleString()} unresolved pointer${broken === 1 ? '' : 's'}`);
+    if (unwired) bits.push(`${unwired.toLocaleString()} post${unwired === 1 ? '' : 's'} unwired`);
+    note.textContent = bits.length ? bits.join(' · ') : 'all pointers resolve';
+    note.classList.toggle('is-warn', broken > 0 || unwired > 0);
   }
+}
+
+function fmtCount(n) {
+  return n >= 1e9 ? (n / 1e9).toFixed(1) + 'B'
+       : n >= 1e6 ? (n / 1e6).toFixed(1) + 'M'
+       : n >= 1e3 ? (n / 1e3).toFixed(1) + 'k'
+       : n.toLocaleString();
 }
 
 /* Canvas, deliberately: at 100k posts a bar-per-post DOM chart is the same
@@ -383,100 +412,187 @@ function drawTimeline() {
   cv.width = cssW * dpr;
   cv.height = 150 * dpr;
   const g = cv.getContext('2d');
-  g.scale(dpr, dpr);
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
   const W = cssW, H = 150;
   g.clearRect(0, 0, W, H);
 
-  if (!state.posts.length) return;
-
-  const counts = new Map();
-  let lo = Infinity, hi = -Infinity;
-  for (const p of state.posts) {
-    if (!p.year) continue;
-    counts.set(p.bucket, (counts.get(p.bucket) || 0) + 1);
-    if (p.bucket < lo) lo = p.bucket;
-    if (p.bucket > hi) hi = p.bucket;
+  const p = state.posts, v = state.view;
+  state.tl = null;
+  if (!v.length) {
+    el('tlAxis').innerHTML = '';
+    el('tlNote').textContent = 'nothing in view';
+    return;
   }
-  if (!counts.size) return;
+
+  // Bucket by month across the VIEW. Map + single pass; peak is tracked in the
+  // loop rather than Math.max(...counts.values()), which spreads every bucket
+  // onto the call stack and throws once a corpus spans enough months.
+  const counts = new Map();
+  let lo = Infinity, hi = -Infinity, peak = 0, dated = 0;
+  for (let k = 0; k < v.length; k++) {
+    const post = p[v[k]];
+    if (!post.year) continue;
+    const c = (counts.get(post.bucket) || 0) + 1;
+    counts.set(post.bucket, c);
+    if (c > peak) peak = c;
+    if (post.bucket < lo) lo = post.bucket;
+    if (post.bucket > hi) hi = post.bucket;
+    dated++;
+  }
+  if (!counts.size) {
+    el('tlAxis').innerHTML = '';
+    el('tlNote').textContent = 'no dated posts in view';
+    return;
+  }
 
   const span = Math.max(1, hi - lo + 1);
-  const peak = Math.max(...counts.values());
-  const barW = Math.max(1, W / span);
+  const plotH = H - 26;
 
-  for (let b = lo; b <= hi; b++) {
-    const c = counts.get(b) || 0;
+  // More months than pixels: fold buckets into columns so a wide span stays
+  // readable and the paint cost is bounded by width, not by corpus size.
+  const cols = Math.min(span, Math.floor(W));
+  const colW = W / cols;
+  const colMax = new Float64Array(cols);
+  for (const [b, c] of counts) {
+    const ci = Math.min(cols - 1, Math.floor(((b - lo) / span) * cols));
+    if (c > colMax[ci]) colMax[ci] = c;
+  }
+
+  const grad = g.createLinearGradient(0, 0, 0, H - 18);
+  grad.addColorStop(0, '#f0c419');
+  grad.addColorStop(1, '#8a6d00');
+  g.fillStyle = grad;
+  for (let ci = 0; ci < cols; ci++) {
+    const c = colMax[ci];
     if (!c) continue;
-    const h = Math.max(2, (c / peak) * (H - 26));
-    const x = ((b - lo) / span) * W;
-    const grad = g.createLinearGradient(0, H - h, 0, H);
-    grad.addColorStop(0, '#e0b400');
-    grad.addColorStop(1, '#8a6d00');
-    g.fillStyle = grad;
-    g.fillRect(x, H - h - 18, Math.max(1, barW - 1), h);
+    const h = Math.max(2, (c / peak) * plotH);
+    g.fillRect(ci * colW, H - h - 18, Math.max(1, colW - (colW > 3 ? 1 : 0)), h);
   }
 
   g.strokeStyle = '#3a322c';
   g.lineWidth = 1;
-  g.beginPath(); g.moveTo(0, H - 18); g.lineTo(W, H - 18); g.stroke();
+  g.beginPath(); g.moveTo(0, H - 17.5); g.lineTo(W, H - 17.5); g.stroke();
+
+  // Keep the geometry so the hover readout can map a pixel back to a month.
+  state.tl = { lo, hi, span, cols, colW, peak, W, counts };
 
   const yLo = Math.floor(lo / 12), yHi = Math.floor(hi / 12);
   el('tlAxis').innerHTML =
     `<span>${yLo} BF</span><span>peak ${peak.toLocaleString()} in one month</span><span>${yHi} BF</span>`;
-  el('tlNote').textContent = `${counts.size.toLocaleString()} active months`;
+  el('tlNote').textContent =
+    `${counts.size.toLocaleString()} active month${counts.size === 1 ? '' : 's'} · ${dated.toLocaleString()} dated`;
+}
+
+/* Hover readout: the timeline is aggregate, so let the reader interrogate a
+ * specific month instead of guessing at a bar. */
+function wireTimelineHover() {
+  const cv = el('tlCanvas');
+  const out = el('tlHover');
+  if (!cv || !out) return;
+
+  cv.addEventListener('mousemove', e => {
+    const tl = state.tl;
+    if (!tl) return;
+    const rect = cv.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    if (x < 0 || x > tl.W) { out.textContent = ''; return; }
+    const bucket = tl.lo + Math.min(tl.span - 1, Math.floor((x / tl.W) * tl.span));
+    const n = tl.counts.get(bucket) || 0;
+    const year = Math.floor(bucket / 12);
+    const month = MONTHS[bucket % 12] || '';
+    out.textContent = `${month} ${year} BF — ${n.toLocaleString()} post${n === 1 ? '' : 's'}`;
+  }, { passive: true });
+
+  cv.addEventListener('mouseleave', () => { out.textContent = ''; }, { passive: true });
 }
 
 function drawVoices() {
+  const p = state.posts, v = state.view;
   const tally = new Map();
-  for (const p of state.posts) {
-    const cur = tally.get(p.author) || { likes: 0, posts: 0, who: p.who };
-    cur.likes += p.likes; cur.posts++;
-    tally.set(p.author, cur);
+  for (let k = 0; k < v.length; k++) {
+    const post = p[v[k]];
+    let cur = tally.get(post.author);
+    if (!cur) { cur = { likes: 0, posts: 0, who: post.who }; tally.set(post.author, cur); }
+    cur.likes += post.likes;
+    cur.posts++;
   }
-  const top = [...tally.entries()].sort((a, b) => b[1].likes - a[1].likes).slice(0, 7);
-  const peak = top.length ? top[0][1].likes || 1 : 1;
 
-  el('voiceBars').innerHTML = top.map(([, v]) => `
-    <div class="ww-bar-row">
-      <span class="ww-bar-label" style="color:${v.who.tone}">${v.who.glyph} ${esc(v.who.name)}</span>
+  // Partial selection: only the top 7 are ever shown, so a full sort of every
+  // author is wasted work on a wide corpus.
+  const top = topN([...tally.values()], 7, (a, b) => b.likes - a.likes);
+  const peak = top.length ? (top[0].likes || 1) : 1;
+
+  el('voiceBars').innerHTML = top.map(vv => `
+    <div class="ww-bar-row" title="${esc(vv.who.name)} — ${vv.posts.toLocaleString()} post${vv.posts === 1 ? '' : 's'}">
+      <span class="ww-bar-label" style="color:${vv.who.tone}">${vv.who.glyph} ${esc(vv.who.name)}</span>
       <div class="ww-bar-track">
-        <div class="ww-bar-fill" style="width:${Math.max(2, (v.likes / peak) * 100)}%;background:${v.who.tone}"></div>
+        <div class="ww-bar-fill" style="width:${Math.max(2, (vv.likes / peak) * 100)}%;background:${vv.who.tone}"></div>
       </div>
-      <span class="ww-bar-val">${v.likes.toLocaleString()}</span>
-    </div>`).join('') || '<p class="ww-none">No voices yet.</p>';
+      <span class="ww-bar-val">${fmtCount(vv.likes)}</span>
+    </div>`).join('') || '<p class="ww-none">No voices in view.</p>';
+}
+
+/* Top-n by partial selection. Sorting 100k authors to show 7 is the kind of
+ * cost that only shows up once the data is real. */
+function topN(arr, n, cmp) {
+  if (arr.length <= n) return arr.sort(cmp);
+  const best = [];
+  for (const x of arr) {
+    if (best.length < n) {
+      best.push(x);
+      if (best.length === n) best.sort(cmp);
+    } else if (cmp(x, best[n - 1]) < 0) {
+      let i = n - 1;
+      while (i > 0 && cmp(x, best[i - 1]) < 0) { best[i] = best[i - 1]; i--; }
+      best[i] = x;
+    }
+  }
+  return best;
 }
 
 function drawMood() {
+  const p = state.posts, v = state.view;
   const tally = new Map();
-  for (const p of state.posts) {
-    const key = p.reaction || 'unset';
-    tally.set(key, (tally.get(key) || 0) + 1);
+  let withReaction = 0;
+  for (let k = 0; k < v.length; k++) {
+    const r = p[v[k]].reaction;
+    if (!r) continue;
+    tally.set(r, (tally.get(r) || 0) + 1);
+    withReaction++;
   }
-  const total = state.posts.length || 1;
-  const rows = [...tally.entries()]
-    .filter(([k]) => k !== 'unset')
-    .sort((a, b) => b[1] - a[1]);
 
-  if (!rows.length) {
+  if (!withReaction) {
     el('moodChart').innerHTML =
-      '<p class="ww-none">No reactions recorded yet — the authoring pass adds these.</p>';
+      '<p class="ww-none">No reactions recorded in view — the authoring pass adds these.</p>';
     return;
   }
+
+  const rows = [...tally.entries()].sort((a, b) => b[1] - a[1]);
+  // Percentages are of posts that HAVE a reaction, not of all posts, so the
+  // column sums to 100 instead of quietly shrinking as unreacted posts arrive.
   el('moodChart').innerHTML = rows.map(([k, n]) => {
     const r = REACTIONS[k] || { glyph: '·', label: k, tone: '#78909c' };
-    const pct = ((n / total) * 100).toFixed(1);
-    return `<div class="ww-mood-row">
+    const pct = ((n / withReaction) * 100).toFixed(1);
+    return `<div class="ww-mood-row" title="${n.toLocaleString()} post${n === 1 ? '' : 's'}">
       <span class="ww-mood-glyph" style="background:${r.tone}22;border-color:${r.tone}">${r.glyph}</span>
       <span class="ww-mood-label">${esc(r.label)}</span>
       <div class="ww-bar-track"><div class="ww-bar-fill" style="width:${pct}%;background:${r.tone}"></div></div>
       <span class="ww-bar-val">${pct}%</span>
     </div>`;
   }).join('');
+
+  const note = el('moodNote');
+  if (note) {
+    const un = v.length - withReaction;
+    note.textContent = un ? `${un.toLocaleString()} without a reaction` : 'reaction mix';
+  }
 }
 
 /* -------------------------------------------------------------- controls */
 
 function wire() {
   const vp = el('wwViewport');
+  wireTimelineHover();
 
   // rAF-coalesced: scroll fires far faster than the screen refreshes, and
   // doing DOM work per event is how a virtualised list still ends up janky.
@@ -551,11 +667,7 @@ window.__wahwireIngest = function (posts) {
   state.posts = posts.map(prepare);
   resolveLinks();
   buildOrder();
-  applyFilter();
-  drawStats();
-  drawTimeline();
-  drawVoices();
-  drawMood();
+  applyFilter();   // applyFilter() redraws every panel
 };
 
 /* Guarded: both of these can fire depending on how fast the module resolves,
