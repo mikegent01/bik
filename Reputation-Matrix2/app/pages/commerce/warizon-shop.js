@@ -574,6 +574,12 @@ function normalizeItem(raw, idx) {
     usageRaw: raw.usage && typeof raw.usage === 'object'
       ? ['activation', 'duration', 'endsWhen', 'charges'].reduce((u, k) => raw.usage[k] ? (u[k] = String(raw.usage[k]), u) : u, {})
       : null,
+    // Bros kit wiring. The Training Yard groups by technique and distinguishes
+    // kits that teach one permanently from supplies that only support a drill,
+    // so these three fields have to survive normalization.
+    brosAttack: raw.brosAttack ? String(raw.brosAttack) : '',
+    teachesTechnique: raw.teachesTechnique === true,
+    energyRule: raw.energyRule ? String(raw.energyRule) : '',
     vendorId, vendor, vendorLabel,
     nativeCur: payment.primary, vendorCur: payment.vendorCurrency, nativeVia: detected.via,
     accepted: payment.accepted, paymentTier: payment.tierLabel,
@@ -1477,7 +1483,7 @@ function shipLine(item) {
    -------------------------------------------------------------------------- */
 
 const S = {
-  view: 'home',            // 'home' | 'results' | 'orders' | 'crafting' | 'abilities' | 'wahprime' | 'info'
+  view: 'home',            // 'home' | 'results' | 'orders' | 'crafting' | 'bros' | 'abilities' | 'wahprime' | 'info'
   infoSlug: 'about-warizon',
   q: '', dept: 'all', page: 1, sort: 'featured',
   bucket: -1, minStars: 0, rarities: new Set(), vendors: new Set(), currencies: new Set(),
@@ -1737,6 +1743,13 @@ function renderHome() {
       <div class="row-sub">Potions, scrolls &amp; smithing — buy the reagents here, Wario charges extra for the anvil rental</div>
       <div class="cf-teaser-body"><span class="cf-teaser-stat">📜 <b>1,038</b> recipes</span><span class="cf-teaser-stat">🧪 <b>372</b> materials</span><span class="cf-teaser-stat">🔮 <b>8</b> schools of craft</span><button class="btn-add" data-go-craft="1" style="max-width:220px">Start crafting</button></div>
     </section>
+
+    <section class="row-card cf-teaser" id="brosTeaser">
+      <a class="row-more" data-go-bros="1">Open the Bros Training Yard →</a>
+      <h2>⭐ Bros Training Yard</h2>
+      <div class="row-sub">Practice kits for two — a kit is spent instead of Bros Energy, and a teaching kit is learned once and kept</div>
+      <div class="cf-teaser-body"><span class="cf-teaser-stat">🤝 <b>2</b> confirmed techniques</span><span class="cf-teaser-stat">📦 <b>4</b> kits stocked</span><span class="cf-teaser-stat">🎚️ <b>3</b> difficulty tiers</span><button class="btn-add" data-go-bros="1" style="max-width:220px">Enter the yard</button></div>
+    </section>
   </div>`;
 }
 
@@ -1797,6 +1810,23 @@ function filterSidebar() {
     <label class="f-check"><input type="checkbox" id="fInStock" ${S.inStockOnly ? 'checked' : ''}> Hide out-of-stock junk</label>
     <label class="f-check"><input type="checkbox" id="fAffordable" ${S.affordableOnly ? 'checked' : ''}> Affordable items only</label>
     <div class="f-help">Checks your signed-in wallet against each item's accepted currencies. No coins are spent until the DM approves a receipt.</div>`;
+}
+
+/* An empty shelf caused by a catalog-wide lens (deals / night market) used to
+   be indistinguishable from an empty shelf caused by an empty department,
+   because those two lenses have no visible control on a department page.
+   Name the active lens and offer a one-click way out. */
+function emptyReasonHtml() {
+  const lenses = [];
+  if (S.dealsOnly) lenses.push({ label: "Today's Deals", note: 'only a couple of dozen items rotate onto sale each day' });
+  if (S.nightOnly) lenses.push({ label: 'Night Market', note: 'only night-stocked goods are shown' });
+  if (S.inStockOnly) lenses.push({ label: 'in-stock only', note: '' });
+  if (S.affordableOnly) lenses.push({ label: 'affordable only', note: '' });
+  if (!lenses.length) return '';
+  const names = lenses.map(l => `<b>${esc(l.label)}</b>`).join(' + ');
+  const note = lenses.find(l => l.note)?.note || '';
+  return `<p class="empty-lens">A filter is still on: ${names}${note ? ` — ${esc(note)}` : ''}.
+    <button class="btn-plain" data-clear-lenses="1" style="margin-left:6px;padding:4px 12px">Clear it and show everything</button></p>`;
 }
 
 function productCard(it) {
@@ -1874,6 +1904,7 @@ function renderResults() {
         </div>
         ${total === 0
           ? `<div class="empty-results"><div class="big">🧄</div><h2>No results${termPart}</h2>
+             ${emptyReasonHtml()}
              <p>Wario checked the whole warehouse. Twice. Try different keywords, or check your spelling, cheapskate.</p></div>`
           : `<div class="grid">${pageItems.map(productCard).join('')}</div>`}
         ${pagerHtml(total)}
@@ -2466,6 +2497,136 @@ function renderCrafting() {
 }
 
 /* --------------------------------------------------------------------------
+   RENDER: BROS TRAINING YARD
+   --------------------------------------------------------------------------
+   Bros kits are a department like any other, but a flat grid of four items
+   does not explain them: a kit is only meaningful next to the technique it
+   performs, and the two kinds (teaching kits vs. support supplies) behave
+   completely differently at the table. This section groups the shelf by
+   technique and states the rules once, in plain language, so a player can
+   work out what they are buying without opening the wiki.
+   -------------------------------------------------------------------------- */
+
+// The techniques the archive has confirmed. Mirrors data/brosAttacks.json;
+// kits reference these by id through their brosAttack / teachesTechnique field.
+const BROS_TECHNIQUES = {
+  chop_bros_attack: {
+    name: 'Chop Bros',
+    partners: 'Hjumpik Deldkur + Toad Lee',
+    blurb: 'A lift, two vertical strokes and a rightward advance — the twenty-five-foot corridor cut.'
+  },
+  support_fire_bros_attack: {
+    name: 'Support Fire',
+    partners: 'Green T + Remi',
+    blurb: 'Align the sightline, call the timing, fire, reset safely. Learned from a sheet, used on a barricaded door.'
+  }
+};
+
+function brosItems() {
+  return ITEMS.filter(it => it.cat === 'bros');
+}
+
+function brosKitCard(it) {
+  const teaches = it.teachesTechnique && BROS_TECHNIQUES[it.brosAttack];
+  const tag = teaches
+    ? `<span class="by-tag by-tag--teach">Teaches ${esc(teaches.name)}</span>`
+    : `<span class="by-tag by-tag--support">Support supply</span>`;
+  const rule = it.energyRule
+    ? `<div class="by-rule"><b>Energy:</b> ${esc(it.energyRule)}</div>`
+    : '';
+  const stock = it.stock > 0
+    ? `<span class="by-stock">${fmt(it.stock)} in stock</span>`
+    : `<span class="by-stock by-stock--out">Out of stock</span>`;
+  return `
+    <article class="by-kit">
+      <div class="by-kit-head" data-open="${esc(it.id)}">
+        <span class="by-kit-icon">${esc(it.icon)}</span>
+        <div>
+          <h4>${esc(it.name)}</h4>
+          ${tag}
+        </div>
+      </div>
+      <p class="by-kit-desc">${esc(it.desc.slice(0, 190))}${it.desc.length > 190 ? '…' : ''}</p>
+      ${rule}
+      <div class="by-kit-foot">
+        <span class="by-price">${fmt(it.price)} gold</span>
+        ${stock}
+        <span class="by-vendor">${esc(it.vendorLabel || '')}</span>
+      </div>
+      <div class="by-kit-actions">
+        <button class="btn-plain" data-open="${esc(it.id)}">Details</button>
+        <button class="btn-add" data-add="${esc(it.id)}" ${it.stock <= 0 ? 'disabled' : ''}>${it.stock <= 0 ? 'Out of Stock' : 'Add to Cart'}</button>
+      </div>
+    </article>`;
+}
+
+function renderBrosYard() {
+  const kits = brosItems();
+  const byTechnique = Object.entries(BROS_TECHNIQUES).map(([id, tech]) => {
+    const rows = kits.filter(it => it.brosAttack === id);
+    return { id, tech, rows };
+  });
+  const general = kits.filter(it => !BROS_TECHNIQUES[it.brosAttack]);
+
+  const techBlocks = byTechnique.map(({ tech, rows }) => `
+    <section class="by-tech">
+      <div class="by-tech-head">
+        <h3>${esc(tech.name)}</h3>
+        <span class="by-partners">${esc(tech.partners)}</span>
+      </div>
+      <p class="by-tech-blurb">${esc(tech.blurb)}</p>
+      ${rows.length
+        ? `<div class="by-grid">${rows.map(brosKitCard).join('')}</div>`
+        : `<div class="by-none">No kit for this technique is stocked right now. It can still be performed with Bros Energy.</div>`}
+    </section>`).join('');
+
+  return `
+  <div class="wz-container" style="margin-top:14px">
+    <div class="results-bar" style="align-items:center">
+      <div>
+        <h1 class="page-title" style="margin:0">⭐ Bros Training Yard</h1>
+        <div style="color:var(--wz-muted);font-size:13px">${fmt(kits.length)} kits · ${Object.keys(BROS_TECHNIQUES).length} confirmed techniques — practice gear for two. Spends the kit, not the pair.</div>
+      </div>
+      <a class="row-more" data-go-dept="bros" style="margin-left:auto">Browse as a department →</a>
+    </div>
+
+    <section class="by-explain">
+      <h2>How a bros kit works</h2>
+      <div class="by-explain-grid">
+        <div>
+          <h4>🤝 The technique</h4>
+          <p>Two named partners act together. Each spends <b>1 Bros Energy</b> from a personal maximum of <b>2</b>, and both get it back after a very short rest.</p>
+        </div>
+        <div>
+          <h4>📦 The kit</h4>
+          <p>A kit is spent <b>instead of</b> energy. That is the whole point of owning one — and the reason a stack of kits is not a stack of free attacks, because each use destroys one.</p>
+        </div>
+        <div>
+          <h4>🎓 Learning</h4>
+          <p>A teaching kit marks both partners as having learned the technique <b>permanently</b>. After that they use the normal energy cost, and a second copy buys one more free use and nothing else.</p>
+        </div>
+        <div>
+          <h4>🎚️ Difficulty</h4>
+          <p>The Foundry drill runs at <b>Easy</b>, <b>Medium</b> or <b>Hard</b>, set by the GM. Harder tiers tighten the timing and pay a bigger bonus; Hard costs both points of energy. A kit covers the cost at <b>any</b> tier.</p>
+        </div>
+      </div>
+    </section>
+
+    ${techBlocks}
+
+    ${general.length ? `
+    <section class="by-tech">
+      <div class="by-tech-head"><h3>General supplies</h3><span class="by-partners">Any pair</span></div>
+      <p class="by-tech-blurb">Gear that supports rehearsal and recovery rather than performing a named technique.</p>
+      <div class="by-grid">${general.map(brosKitCard).join('')}</div>
+    </section>` : ''}
+
+    ${kits.length === 0 ? `<div class="empty-results"><div class="big">⭐</div><h2>No kits stocked</h2>
+      <p>Bros Logistics has not delivered. Techniques can still be performed with Bros Energy.</p></div>` : ''}
+  </div>`;
+}
+
+/* --------------------------------------------------------------------------
    RENDER root dispatcher
    -------------------------------------------------------------------------- */
 
@@ -2475,6 +2636,7 @@ function render() {
   if (S.view === 'results') view.innerHTML = renderResults();
   else if (S.view === 'orders') view.innerHTML = renderOrders();
   else if (S.view === 'crafting') view.innerHTML = renderCrafting();
+  else if (S.view === 'bros') view.innerHTML = renderBrosYard();
   else if (S.view === 'abilities') view.innerHTML = renderAbilities();
   else if (S.view === 'wahprime') view.innerHTML = renderWahPrime();
   else if (S.view === 'info') view.innerHTML = renderInfoPage();
@@ -3017,6 +3179,7 @@ function openDrawer() {
         <button data-drawer-prime="1">👑 WahPrime Exclusives <span>›</span></button>
         <button data-drawer-abilities="1">⚡ Training Wing (Ability Shop) <span>›</span></button>
         <button data-drawer-crafting="1">🔨 Crafting Forge <span>›</span></button>
+        <button data-drawer-bros="1">⭐ Bros Training Yard <span>›</span></button>
         <button data-drawer-orders="1">📦 Your Orders <span>›</span></button>
         <button data-drawer-cart="1">🛒 Your Cart <span>›</span></button>
         <hr>
@@ -3368,6 +3531,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (t.closest('[data-go-shop]')) { goTo('home'); return; }
     if (t.closest('[data-go-prime]')) { goTo('wahprime'); return; }
     if (t.closest('[data-go-craft]')) { CRAFT_STATE.shown = 60; goTo('crafting'); return; }
+    if (t.closest('[data-go-bros]')) { goTo('bros'); return; }
     if (t.closest('[data-go-abilities]')) { AB_STATE.shown = 60; goTo('abilities'); return; }
 
     const buyAgain = t.closest('[data-buy-again]');
@@ -3423,8 +3587,16 @@ document.addEventListener('DOMContentLoaded', () => {
       render();
       return;
     }
+    if (t.closest('[data-clear-lenses]')) {
+      S.dealsOnly = false; S.nightOnly = false; S.inStockOnly = false; S.affordableOnly = false;
+      S.page = 1; render(); return;
+    }
     const deptBtn = t.closest('[data-dept]');
-    if (deptBtn) { S.dept = deptBtn.dataset.dept; S.page = 1; S.nightOnly = false; render(); return; }
+    // Picking a department is a "show me this shelf" action, so it clears the
+    // two whole-catalog lenses. Leaving dealsOnly on made small departments
+    // look empty: only a couple of dozen items are on sale on any given day,
+    // so "Bros Attack Kits" honestly reported 0 of 0 results while holding 4.
+    if (deptBtn) { S.dept = deptBtn.dataset.dept; S.page = 1; S.nightOnly = false; S.dealsOnly = false; render(); return; }
     const bucketBtn = t.closest('[data-bucket]');
     if (bucketBtn) { S.bucket = Number(bucketBtn.dataset.bucket); S.page = 1; render(); return; }
     const starsBtn = t.closest('[data-stars]');
@@ -3507,6 +3679,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* crafting forge */
     if (t.closest('#subCrafting')) { CRAFT_STATE.q = ''; CRAFT_STATE.shown = 60; goTo('crafting'); return; }
+    if (t.closest('#subBros')) { goTo('bros'); return; }
     const ctab = t.closest('[data-craft-tab]');
     if (ctab) { CRAFT_STATE.tab = ctab.dataset.craftTab; CRAFT_STATE.shown = 60; render(); return; }
     if (t.closest('#craftMore')) { CRAFT_STATE.shown += 60; render(); return; }
@@ -3560,6 +3733,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (t.closest('[data-drawer-prime]')) { closeDrawer(); goTo('wahprime'); return; }
     if (t.closest('[data-drawer-abilities]')) { closeDrawer(); AB_STATE.shown = 60; goTo('abilities'); return; }
     if (t.closest('[data-drawer-crafting]')) { closeDrawer(); goTo('crafting'); return; }
+    if (t.closest('[data-drawer-bros]')) { closeDrawer(); goTo('bros'); return; }
     if (t.closest('[data-drawer-orders]')) { closeDrawer(); goTo('orders'); return; }
     if (t.closest('[data-drawer-cart]')) { closeDrawer(); openCart(); return; }
     if (t.closest('[data-drawer-account]')) { closeDrawer(); document.querySelector('.nav-acct-wrap')?.classList.toggle('open'); window.scrollTo({ top: 0 }); return; }
