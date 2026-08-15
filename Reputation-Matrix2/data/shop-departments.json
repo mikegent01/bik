@@ -1,6 +1,6 @@
 {
   "_README": "Sidebar Department data for warizon-shop.js. Regenerate with tools/build_shop_departments.py after item files change.",
-  "totalItems": 5842,
+  "totalItems": 5846,
   "departments": [
     {
       "id": "consumables",
@@ -57,6 +57,13 @@
       "icon": "🎖️",
       "tagline": "Earned, awarded, or quietly acquired. Wario asks no questions.",
       "count": 10
+    },
+    {
+      "id": "bros",
+      "label": "Bros Attack Kits",
+      "icon": "⭐",
+      "tagline": "Practice gear for two. Spends the kit, not the pair.",
+      "count": 4
     }
   ],
   "unmappedCategories": []

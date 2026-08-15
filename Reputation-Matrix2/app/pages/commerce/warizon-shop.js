@@ -34,7 +34,8 @@ const DEPARTMENTS = {
   faction:     { label: 'Faction Supply Depot', icon: '🚩' },
   forbidden:   { label: 'The Forbidden Aisle', icon: '☠️' },
   premium:     { label: 'WahPrime Exclusives', icon: '👑' },
-  badges:      { label: 'Badges & Commendations', icon: '🎖️' }
+  badges:      { label: 'Badges & Commendations', icon: '🎖️' },
+  bros:        { label: 'Bros Attack Kits', icon: '⭐' }
 };
 
 const PRICE_BUCKETS = [

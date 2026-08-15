@@ -48,6 +48,10 @@ CATEGORY_TO_TYPE = {
     # Badges are worn commemorations, not gear: equipment so they can sit in a
     # character's inventory and be shown, with no attunement and no bonuses.
     "badges": "equipment",
+    # Bros kits are spent to perform a technique, so they behave as consumables
+    # even when an item teaches a permanent technique: the teaching copy is the
+    # thing that gets used up. See Foundry/bros_attacks/README.md.
+    "bros": "consumable",
 }
 
 RARITY_MAP = {

@@ -63,6 +63,11 @@ DEPARTMENTS = {
         'icon': '🎖️',
         'tagline': 'Earned, awarded, or quietly acquired. Wario asks no questions.',
     },
+    'bros': {
+        'label': 'Bros Attack Kits',
+        'icon': '⭐',
+        'tagline': 'Practice gear for two. Spends the kit, not the pair.',
+    },
 }
 
 

@@ -39,9 +39,9 @@ The Barrel Survivor's Mark is priced at 0 and stocked at 0 on purpose: the
 Liberated Toads issue it and refuse coin for it. It is in the catalog so it can
 be *awarded*, not bought.
 
-## Adding a category to the shop — the four places
+## Adding a category to the shop — the five places
 
-A new category must be registered in **four** places or it will not appear.
+A new category must be registered in **five** places or it will not appear.
 This is the part that is easy to get wrong: `normalizeItem()` in
 `warizon-shop.js` silently reassigns any unknown category to `curiosities`, so
 a missed step shows up as items vanishing into the wrong department rather than
@@ -54,6 +54,11 @@ as an error.
    search-scope dropdown is hand-written HTML and does not read `DEPARTMENTS`.
 4. `tools/build_shop_departments.py` — add display metadata, then re-run it so
    `data/shop-departments.json` carries the new department and its live count.
+   Pick an icon no other department already uses.
+5. `tools/hub/hubcore/foundry.py` — add the category to `CATEGORY_TO_TYPE` so
+   the Foundry export maps it to a real dnd5e item type. Without this the
+   category falls through to `loot` for any item that does not set an explicit
+   `foundryType`, which is silent and only shows up in the exported pack.
 
 Item files also need wiring into `data/commerce/index.js` (import + spread into
 `SHOP_ITEMS`) or `getAllShopItems()` will never see them.

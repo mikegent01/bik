@@ -21,6 +21,47 @@ bottom-left.
 is the record; a technique that never happened at the table does not exist.
 Add it to the data file from a real session first, then mirror it here.
 
+## Difficulty
+
+Three tiers, chosen by the GM in **Configure Settings → Bros. Attacks → Bros Attack
+difficulty**, or from the buttons at the top of the 🤝 BROS window. Difficulty
+is a world setting, so the whole table plays at the same tier.
+
+| tier | energy each | bonus to the combined total | seconds per step | mistakes allowed |
+|---|---|---|---|---|
+| 🟢 Easy | 1 | +0 | 10 | 3 |
+| 🟡 Medium | 1 | +2 | 8 | 2 |
+| 🔴 Hard | 2 | +5 | 6 | 1 |
+
+**Easy is the original drill, unchanged.** The two shipped techniques were
+built and tested at these numbers; the tier exists so that baseline has a name.
+Medium and Hard derive from it by multiplier — narrower zones, faster sweeps,
+a shorter tap window, a tighter charge band — and pay the pair back with a flat
+bonus when the technique resolves.
+
+Hard costs 2 energy each, which is the whole pool: one hard attempt per short
+rest, and a failed drill still spends nothing but the clock. Tiers never go
+below a 5% zone, a 180ms tap window, or a charge band that cannot be reached.
+
+By default players cannot change the tier; the buttons render disabled with the
+current one marked. Turn on **Players may pick the difficulty** to hand it over.
+
+Items ignore difficulty when paying: a kit is spent instead of energy at any
+tier. The kit buys the performance, so Hard makes the drill harder and the
+bonus bigger without making the kit cost more.
+
+## GM controls
+
+| control | where | what it does |
+|---|---|---|
+| Bros Attack difficulty | settings / window buttons | the tier above |
+| Players may pick the difficulty | settings | lets non-GMs press the tier buttons |
+| Players can see Bros items | settings | when off, non-GMs see no item rows, quantities, or item cost hints — the card just shows the energy cost |
+| `game.brosAttacks.setItemCount(actor, attackId, qty)` | console/macro | sets the quantity of that technique's kit on an actor; `0` deletes it; returns `null` if the actor has no such kit |
+
+`game.brosAttacks.difficulties` exposes the tier table if you want to build a
+macro around it.
+
 ## Paying for an attack
 
 Two ways, and the module picks automatically:

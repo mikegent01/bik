@@ -179,3 +179,17 @@ Adding a new readable book to the game world involves several steps to ensure it
 3.  **Register in `bookshelf.js` (Party Inventory):** Import the content file and add it to the `bookDataMap`. Assign a cover in `getBookCoverUrl`.
 4.  **Register in `library.js` (Public Terminal):** Repeat the registration steps from `bookshelf.js`.
 5.  **Add to Inventory/Stock:** Add the book's title to a character's inventory in `state.js` or to a library's stock file.
+## Bros Attacks, Bros Items & Drill Difficulty
+
+Full guidance lives in `README.md` (`### Bros Attacks and static Foundry content` onward). Short version:
+
+- **Techniques** are defined in `data/brosAttacks.json` and read by the `#/bros-attacks` route in the root `index.html`. There is no `bros-attacks.html` file. Static dnd5e feat exports live in `tools/foundry/bros-attacks/`; regenerate them with the source definitions, never separately.
+- **Cost:** 1 Bros Energy per participant from a maximum of 2, refreshed on a very short rest (Foundry short rest).
+- **Difficulty** is a GM world setting with three tiers. Easy = 1 energy, +0, 10s, 3 mistakes and is the original baseline the shipped techniques were tuned at. Medium = 1 energy, +2, 8s, 2 mistakes. Hard = 2 energy, +5, 6s, 1 mistake. Tune new techniques on Easy and let the multipliers derive the rest. Never exceed the 2-energy pool; never make a tier unplayable.
+- **Bros items** are in `data/shop-items/items_bros.js` under the shop category `bros` (⭐ Bros Attack Kits). Teaching kits (`brosAttack` + `teachesTechnique` + `energyRule`) spend the item instead of energy at any tier and permanently teach the pair; support items change the economy instead. A `teachesTechnique` id must exist in `data/brosAttacks.json`.
+- **GM controls:** `game.brosAttacks.setItemCount(actor, attackId, quantity)` sets or deletes a kit; the "Players can see Bros items" world setting hides item rows and costs from non-GMs.
+- **Adding a category** means all five registration points in `tools/SHOP_BADGES.md` plus regenerating `data/shop-departments.json`.
+
+## Annotations (Chatter Hub)
+
+Annotations live in `data/annotations.json` and appear both as inline highlights and in the **Chatter Hub** at `#/annotations`. Each one is a character arguing with a filing: real voice, real faction, a clear position. The `quote` must be an exact phrase from the article body or the highlight silently fails to anchor. Prefer short quotes, let replies genuinely disagree, and never use an annotation to supply a fact the article itself should have stated.

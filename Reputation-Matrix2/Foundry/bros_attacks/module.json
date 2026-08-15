@@ -1,8 +1,8 @@
 {
   "id": "bros_attacks",
   "title": "Bros. Attacks Combo System",
-  "description": "Static cooperative Bros Attacks with clear target prompts and per-participant Bros Energy. Bros items bought from the shop are spent instead of energy and teach the technique permanently.",
-  "version": "2.1.0",
+  "description": "Static cooperative Bros Attacks with clear target prompts and per-participant Bros Energy. Easy/Medium/Hard drill difficulty changes cost, timing and payoff. Bros items bought from the shop are spent instead of energy and teach the technique permanently; GMs can set item quantities and hide items from players.",
+  "version": "2.2.0",
   "compatibility": {
     "minimum": "14",
     "verified": "14"
