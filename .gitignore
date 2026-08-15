@@ -3,3 +3,10 @@ _art_preview.html
 
 # Generator drafts: unverified output, never canon, never committed
 Reputation-Matrix2/tools/.generated/
+
+# genkit run state: checkpoints are resumable local bookkeeping, not content
+Reputation-Matrix2/tools/.genkit/
+
+# Python bytecode
+__pycache__/
+*.pyc
