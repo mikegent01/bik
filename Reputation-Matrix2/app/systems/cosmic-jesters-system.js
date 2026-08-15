@@ -5,7 +5,7 @@ import { getIntelForFaction } from '../core/common.js';
 import { playSound } from '../core/common.js';
 import { state } from '../core/state.js';
 import { calculateGlobalCycle } from '../../data/support/research-data.js';
-import { WAHBOOK_POSTS } from '../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../data/assembly/assembly-data.js';
 
 /**
  * Renders the HTML structure for the Chaos Index.
@@ -69,7 +69,7 @@ export function initCosmicJestersSystem() {
     const display = document.getElementById('chaos-index-display');
     if (!display) return;
     
-    const globalCycle = calculateGlobalCycle(WAHBOOK_POSTS);
+    const globalCycle = calculateGlobalCycle(WAHWIRE_POSTS);
     const momentum = Math.abs(globalCycle.momentum);
     const phaseId = globalCycle.phase.id;
 

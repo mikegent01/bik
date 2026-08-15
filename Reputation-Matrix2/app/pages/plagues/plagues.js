@@ -2,7 +2,7 @@
 
 import { getPlagueData, PLAGUE_LIFECYCLE, SPECIES_TAGS, getKnownDiseases, getCurrentSeason } from '../../../data/support/plagues-data.js';
 import { calculateGlobalCycle, getGlobalTechAverages, NATIONS, getAbsoluteDay } from '../../../data/support/research-data.js';
-import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../../data/assembly/assembly-data.js';
 import { CURRENT_GAME_DATE, CALENDAR_DATA } from '../../../data/world/calendar.js';
 import { MAP_DATA } from '../../../data/maps/map-data.js';
 import { SPECIES_DATA } from '../../../data/support/species-data.js';
@@ -122,7 +122,7 @@ function renderPlagues() {
     }
     
     try {
-        const globalCycle = calculateGlobalCycle(WAHBOOK_POSTS);
+        const globalCycle = calculateGlobalCycle(WAHWIRE_POSTS);
         const techAverages = getGlobalTechAverages();
         const medicalTech = techAverages.MEDICAL || 1;
         const currentDay = getAbsoluteDay();

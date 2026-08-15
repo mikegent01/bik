@@ -1,5 +1,5 @@
 
-// This file contains WAHbook posts for scripted events that trigger on specific in-game dates.
+// This file contains WAHwire posts for scripted events that trigger on specific in-game dates.
 // The assembly-events-data.js file will check the current game date and load these posts accordingly.
 
 export const SCHEDULED_POSTS = [

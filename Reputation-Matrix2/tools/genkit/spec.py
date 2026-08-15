@@ -1,6 +1,6 @@
 """What a "generatable system" is.
 
-Every system the cycler touches — shop items, WAHbook posts, abilities,
+Every system the cycler touches — shop items, WAHwire posts, abilities,
 reputation impacts, bros attacks, badges, crafting recipes — reduces to the
 same five questions:
 
@@ -33,7 +33,7 @@ class Task:
     key: str                       # stable id — the checkpoint dedupe key
     label: str                     # one line for the log/GUI
     payload: dict[str, Any] = field(default_factory=dict)
-    # Phase lets a system order its own work (WAHbook: "prune" before "author").
+    # Phase lets a system order its own work (WAHwire: "prune" before "author").
     phase: str = ""
 
 
@@ -57,7 +57,7 @@ class SystemSpec:
     # False keeps a system in the inventory but out of the cycle.
     enabled: bool = True
     # Systems with a lower stage never yield to a higher one while they still
-    # have work. WAHbook's pruning pass is stage 0, authoring is stage 1.
+    # have work. WAHwire's pruning pass is stage 0, authoring is stage 1.
     # Within a stage the scheduler is random ("popcorn").
     stage: int = 1
 

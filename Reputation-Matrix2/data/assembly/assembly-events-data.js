@@ -40,7 +40,7 @@ if (CURRENT_GAME_DATE.day >= 20 || state.debugMode) {
     allEvents.unshift(ARCHIES_CONFESSION_EVENT);
 }
 
-export const WAHBOOK_EVENTS = allEvents;
+export const WAHWIRE_EVENTS = allEvents;
 
 // Function to dynamically load posts for active events
 export async function loadEventPosts() {

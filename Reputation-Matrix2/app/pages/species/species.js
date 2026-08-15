@@ -8,7 +8,7 @@ import { RELIGION_DATA } from '../../../data/support/religion-data.js';
 import { getGlobalTechAverages, RESEARCH_CATEGORIES, calculateGlobalCycle } from '../../../data/support/research-data.js';
 import { getPlagueData, getCurrentSeason, PLAGUE_LIFECYCLE } from '../../../data/support/plagues-data.js';
 import { simulatePopulation, calculateGlobalVitalStats } from '../../../data/support/population-state.js';
-import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../../data/assembly/assembly-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 
 // Define Player Races for Relationship Context

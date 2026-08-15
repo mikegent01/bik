@@ -109,7 +109,7 @@ if (CURRENT_GAME_DATE.day >= 16 || state.debugMode) {
 }
 
 
-export const WAHBOOK_EVENTS = allEvents;
+export const WAHWIRE_EVENTS = allEvents;
 
 // Function to dynamically load posts for active events
 export async function loadEventPosts() {

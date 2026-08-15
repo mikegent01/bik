@@ -1,10 +1,10 @@
-// WAHbook Posts Data - Canonicalized, Cleaned, Chunked
+// WAHwire Posts Data - Canonicalized, Cleaned, Chunked
 
 
-export const WAHBOOK_POSTS = [
+export const WAHWIRE_POSTS = [
 ];
 
-export const WAHBOOK_POST_CHUNKS = [
+export const WAHWIRE_POST_CHUNKS = [
 
 ];
 

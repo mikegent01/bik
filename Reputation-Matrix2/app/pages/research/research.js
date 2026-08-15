@@ -5,7 +5,7 @@ import { NATIONS, RESEARCH_CATEGORIES, getTechTree, AGES, AGE_CHOICES, getActive
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 import { LORE_DATA } from '../../core/lore.js';
 import { playSound } from '../../core/common.js';
-import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../../data/assembly/assembly-data.js';
 
 // Constants
 const NODE_WIDTH = 160;
@@ -105,7 +105,7 @@ function autoSelectAgeChoice(nationKey, ageId) {
 
 function updateGlobalCycle() {
     // Recalculate the global cycle state based on current rumors and posts
-    globalCycleState = calculateGlobalCycle(WAHBOOK_POSTS);
+    globalCycleState = calculateGlobalCycle(WAHWIRE_POSTS);
 }
 
 // --- Rendering ---

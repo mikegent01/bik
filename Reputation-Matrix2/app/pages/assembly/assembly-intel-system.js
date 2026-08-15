@@ -1,7 +1,7 @@
 
 import { LORE_DATA, STORY_ARCS, getRumorsByArc, getArcProgress, getArcStats, getUnassignedRumors } from '../../core/lore.js';
 import { calculateRumorMetrics } from '../../../data/support/research-data.js';
-import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../../data/assembly/assembly-data.js';
 import { CALENDAR_DATA, CURRENT_GAME_DATE } from '../../../data/world/calendar.js';
 import { playSound } from '../../core/common.js';
 
@@ -70,8 +70,8 @@ function renderArcProgressBar(arc) {
 // RENDER: Intel Card
 // ============================================
 function renderIntelCard(rumor, showArcBadge = true) {
-    // Ensure we are looking at the latest WAHBOOK_POSTS (which might be modified by assembly.js)
-    const relatedPosts = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id);
+    // Ensure we are looking at the latest WAHWIRE_POSTS (which might be modified by assembly.js)
+    const relatedPosts = WAHWIRE_POSTS.filter(post => post.rumorId === rumor.id);
     const chatterCount = relatedPosts.length;
     const metrics = calculateRumorMetrics(rumor, relatedPosts);
 
@@ -206,7 +206,7 @@ function renderArcTimeline(arcId) {
                         </h4>
                         <div class="timeline-events">
                             ${posRumors.map(rumor => {
-                                const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
+                                const relatedPosts = WAHWIRE_POSTS.filter(p => p.rumorId === rumor.id);
                                 const metrics = calculateRumorMetrics(rumor, relatedPosts);
                                 return `
                                     <div class="timeline-event dossier-trigger ${rumor.isEvent ? 'is-event' : ''}" data-rumor-id="${rumor.id}" title="Click to view intel details">
@@ -250,7 +250,7 @@ function renderArcCard(arc) {
     let hasImpactData = false;
 
     rumors.forEach(rumor => {
-        const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
+        const relatedPosts = WAHWIRE_POSTS.filter(p => p.rumorId === rumor.id);
         const metrics = calculateRumorMetrics(rumor, relatedPosts);
         if (metrics.finalScore > maxImpact) maxImpact = metrics.finalScore;
         if (metrics.finalScore < minImpact) minImpact = metrics.finalScore;
@@ -406,9 +406,9 @@ function renderSummaryStats() {
     const totalEvents = LORE_DATA.rumors?.filter(r => r.isEvent).length || 0;
     const totalCycleImpact = LORE_DATA.rumors?.reduce((sum, r) => sum + (r.cycle_impact?.score || 0), 0) || 0;
 
-    // Calculate total chatter across all rumors based on current WAHBOOK_POSTS
+    // Calculate total chatter across all rumors based on current WAHWIRE_POSTS
     const totalChatter = LORE_DATA.rumors?.reduce((sum, r) => {
-        const related = WAHBOOK_POSTS.filter(p => p.rumorId === r.id).length;
+        const related = WAHWIRE_POSTS.filter(p => p.rumorId === r.id).length;
         return sum + related;
     }, 0) || 0;
 

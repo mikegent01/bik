@@ -33,7 +33,7 @@ left alone; they look deliberate.
 
 | System | State | Consequence |
 |---|---|---|
-| **WAHbook posts** | **19 posts total, all in `data/events/scheduled-posts.js`.** `WAHBOOK_POSTS`, `WAHBOOK_POST_CHUNKS`, `VIRAL_POSTS` and `RUMOR_CHATTER_DATA` are all empty arrays. Six of the seven files in `data/events/` are **zero bytes**. | See §4 — this changes the order of operations you asked for. |
+| **WAHwire posts** | **19 posts total, all in `data/events/scheduled-posts.js`.** `WAHWIRE_POSTS`, `WAHWIRE_POST_CHUNKS`, `VIRAL_POSTS` and `RUMOR_CHATTER_DATA` are all empty arrays. Six of the seven files in `data/events/` are **zero bytes**. | See §4 — this changes the order of operations you asked for. |
 | Vendors | No `data/vendors.json`. `data/shop-items/vendors.js` exports zero vendors. | `tools/enrich_vendors.py` exists but has nothing to enrich. |
 | Item shards | `items_101`–`items_105`, `items_night_special.js`, `categories.js` are empty; `items_051/052/054/057/059/063/068/075/084` hold 7–52 items against a ~100 norm. | Natural targets for the item generator. |
 
@@ -62,9 +62,9 @@ as written.
 
 ---
 
-## 4. The WAHbook problem — read this before the cycler runs
+## 4. The WAHwire problem — read this before the cycler runs
 
-You asked for the WAHbook pass to be ordered: **quality-check and prune the
+You asked for the WAHwire pass to be ordered: **quality-check and prune the
 existing posts one at a time, and only after a full clean pass start writing
 posts for new events.**
 

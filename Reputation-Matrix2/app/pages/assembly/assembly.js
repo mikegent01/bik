@@ -1,7 +1,7 @@
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
- * WAHbook Assembly Page - Complete Redesign
+ * WAHwire Assembly Page - Complete Redesign
  */
 
 import { LORE_DATA, STORY_ARCS, getRumorsByArc } from '../../core/lore.js';
@@ -29,7 +29,7 @@ let duplicatePosts = [];
 function initDebugDiagnostics() {
     if (!window.debugMode && !state?.debugMode) return;
 
-    console.log('[WAHbook Debug] Running diagnostics...');
+    console.log('[WAHwire Debug] Running diagnostics...');
 
     // Run diagnostics
     const imageReport = detectMissingImages();
@@ -38,8 +38,8 @@ function initDebugDiagnostics() {
     // Create debug panel
     createDebugPanel(imageReport, duplicateReport);
 
-    console.log('[WAHbook Debug] Missing images:', imageReport.length);
-    console.log('[WAHbook Debug] Duplicate posts:', duplicateReport.length);
+    console.log('[WAHwire Debug] Missing images:', imageReport.length);
+    console.log('[WAHwire Debug] Duplicate posts:', duplicateReport.length);
 }
 
 /**
@@ -52,7 +52,7 @@ function detectMissingImages() {
     // Collect all character keys from posts
     const allCharacterKeys = new Set();
 
-    WAHBOOK_POSTS.forEach(post => {
+    WAHWIRE_POSTS.forEach(post => {
         if (post.characterKey) allCharacterKeys.add(post.characterKey);
         post.comments?.forEach(comment => {
             if (comment.characterKey) allCharacterKeys.add(comment.characterKey);
@@ -113,12 +113,12 @@ function detectDuplicatePosts() {
     const contentMap = new Map();
     const idSet = new Set();
 
-    WAHBOOK_POSTS.forEach((post, index) => {
+    WAHWIRE_POSTS.forEach((post, index) => {
         // Check for duplicate IDs
         if (idSet.has(post.id)) {
             report.push({
                 type: 'duplicate_id',
-                post1Index: WAHBOOK_POSTS.findIndex(p => p.id === post.id),
+                post1Index: WAHWIRE_POSTS.findIndex(p => p.id === post.id),
                 post2Index: index,
                 postId: post.id,
                 reason: `Duplicate ID: ${post.id}`
@@ -136,7 +136,7 @@ function detectDuplicatePosts() {
                 post1Index: existingIndex,
                 post2Index: index,
                 postId: post.id,
-                existingPostId: WAHBOOK_POSTS[existingIndex].id,
+                existingPostId: WAHWIRE_POSTS[existingIndex].id,
                 reason: 'Identical or near-identical content',
                 fingerprint
             });
@@ -176,16 +176,16 @@ function createDebugPanel(imageReport, duplicateReport) {
     }
 
     debugPanel = document.createElement('div');
-    debugPanel.id = 'wahbook-debug-panel';
+    debugPanel.id = 'wahwire-debug-panel';
     debugPanel.innerHTML = `
         <style>
-            #wahbook-debug-panel {
+            #wahwire-debug-panel {
                 position: fixed;
                 bottom: 20px;
                 right: 20px;
                 width: 400px;
                 max-height: 500px;
-                background: var(--wahbook-bg-secondary, #1a1a2e);
+                background: var(--wahwire-bg-secondary, #1a1a2e);
                 border: 2px solid #ff6b35;
                 border-radius: 12px;
                 z-index: 10000;
@@ -216,14 +216,14 @@ function createDebugPanel(imageReport, duplicateReport) {
             }
             .debug-tabs {
                 display: flex;
-                background: var(--wahbook-bg-tertiary, #252540);
+                background: var(--wahwire-bg-tertiary, #252540);
             }
             .debug-tab {
                 flex: 1;
                 padding: 10px;
                 border: none;
                 background: none;
-                color: var(--wahbook-text-secondary, #888);
+                color: var(--wahwire-text-secondary, #888);
                 cursor: pointer;
                 font-size: 12px;
                 border-bottom: 2px solid transparent;
@@ -246,7 +246,7 @@ function createDebugPanel(imageReport, duplicateReport) {
                 padding: 12px;
             }
             .debug-item {
-                background: var(--wahbook-bg-tertiary, #252540);
+                background: var(--wahwire-bg-tertiary, #252540);
                 padding: 10px;
                 margin-bottom: 8px;
                 border-radius: 8px;
@@ -270,7 +270,7 @@ function createDebugPanel(imageReport, duplicateReport) {
             }
             .debug-item-title {
                 font-weight: 600;
-                color: var(--wahbook-text-primary, #fff);
+                color: var(--wahwire-text-primary, #fff);
             }
             .debug-item-status {
                 padding: 2px 8px;
@@ -283,7 +283,7 @@ function createDebugPanel(imageReport, duplicateReport) {
             .status-pending { background: #888; color: white; }
             .status-duplicate { background: #ffaa00; color: black; }
             .debug-item-detail {
-                color: var(--wahbook-text-secondary, #888);
+                color: var(--wahwire-text-secondary, #888);
                 font-size: 11px;
                 word-break: break-all;
             }
@@ -313,7 +313,7 @@ function createDebugPanel(imageReport, duplicateReport) {
             }
             .debug-actions-bar {
                 padding: 12px;
-                background: var(--wahbook-bg-tertiary, #252540);
+                background: var(--wahwire-bg-tertiary, #252540);
                 border-top: 1px solid #333;
                 display: flex;
                 gap: 8px;
@@ -338,12 +338,12 @@ function createDebugPanel(imageReport, duplicateReport) {
             }
             .debug-summary {
                 padding: 12px;
-                background: var(--wahbook-bg-tertiary, #252540);
+                background: var(--wahwire-bg-tertiary, #252540);
                 font-size: 12px;
-                color: var(--wahbook-text-secondary, #888);
+                color: var(--wahwire-text-secondary, #888);
             }
             .debug-summary strong {
-                color: var(--wahbook-text-primary, #fff);
+                color: var(--wahwire-text-primary, #fff);
             }
             .marked-for-removal {
                 opacity: 0.4;
@@ -352,7 +352,7 @@ function createDebugPanel(imageReport, duplicateReport) {
         </style>
 
         <div class="debug-header">
-            <h3>🔧 WAHbook Debug Panel</h3>
+            <h3>🔧 WAHwire Debug Panel</h3>
             <div>
                 <button class="debug-close" id="debug-minimize" title="Minimize">−</button>
                 <button class="debug-close" id="debug-close" title="Close">×</button>
@@ -522,7 +522,7 @@ function renderDuplicatesTab(container, duplicateReport) {
             gap: 8px;
             margin-bottom: 12px;
             padding: 10px;
-            background: var(--wahbook-bg-tertiary, #1a1a2e);
+            background: var(--wahwire-bg-tertiary, #1a1a2e);
             border-radius: 8px;
             border: 1px solid #333;
         ">
@@ -561,8 +561,8 @@ function renderDuplicatesTab(container, duplicateReport) {
     `;
 
     const items = duplicateReport.map((dup, index) => {
-        const post1 = WAHBOOK_POSTS[dup.post1Index];
-        const post2 = WAHBOOK_POSTS[dup.post2Index];
+        const post1 = WAHWIRE_POSTS[dup.post1Index];
+        const post2 = WAHWIRE_POSTS[dup.post2Index];
         const isMarked = markedForRemoval.has(dup.post2Index);
 
         return `
@@ -647,7 +647,7 @@ function renderDuplicatesTab(container, duplicateReport) {
             } else if (action === 'compare') {
                 const index1 = parseInt(btn.dataset.index1);
                 const index2 = parseInt(btn.dataset.index2);
-                showComparisonModal(WAHBOOK_POSTS[index1], WAHBOOK_POSTS[index2]);
+                showComparisonModal(WAHWIRE_POSTS[index1], WAHWIRE_POSTS[index2]);
             }
         });
     });
@@ -691,7 +691,7 @@ function showComparisonModal(post1, post2) {
                 padding: 20px;
             }
             .comparison-content {
-                background: var(--wahbook-bg-secondary, #1a1a2e);
+                background: var(--wahwire-bg-secondary, #1a1a2e);
                 border-radius: 12px;
                 max-width: 900px;
                 width: 100%;
@@ -717,7 +717,7 @@ function showComparisonModal(post1, post2) {
                 background: #333;
             }
             .comparison-post {
-                background: var(--wahbook-bg-tertiary, #252540);
+                background: var(--wahwire-bg-tertiary, #252540);
                 padding: 16px;
             }
             .comparison-post h4 {
@@ -736,10 +736,10 @@ function showComparisonModal(post1, post2) {
                 font-size: 12px;
             }
             .comparison-field strong {
-                color: var(--wahbook-text-secondary, #888);
+                color: var(--wahwire-text-secondary, #888);
             }
             .comparison-field-value {
-                color: var(--wahbook-text-primary, #fff);
+                color: var(--wahwire-text-primary, #fff);
                 word-break: break-word;
             }
             .comparison-field-value.different {
@@ -815,14 +815,14 @@ function renderPostDetails(post) {
  * Render the summary tab - UPDATED with removal count
  */
 function renderSummaryTab(container, imageReport, duplicateReport) {
-    const totalPosts = WAHBOOK_POSTS.length;
-    const uniqueCharacters = new Set(WAHBOOK_POSTS.map(p => p.characterKey)).size;
+    const totalPosts = WAHWIRE_POSTS.length;
+    const uniqueCharacters = new Set(WAHWIRE_POSTS.map(p => p.characterKey)).size;
     const missingCount = imageReport.filter(i => i.status === 'missing').length;
     const undefinedChars = imageReport.filter(i => !i.isDefined).length;
 
     container.innerHTML = `
         <div class="debug-summary">
-            <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">📊 Data Summary</h4>
+            <h4 style="margin:0 0 12px;color:var(--wahwire-text-primary);">📊 Data Summary</h4>
 
             <p><strong>Total Posts:</strong> ${totalPosts}</p>
             <p><strong>Unique Authors:</strong> ${uniqueCharacters}</p>
@@ -832,7 +832,7 @@ function renderSummaryTab(container, imageReport, duplicateReport) {
 
             <hr style="border:none;border-top:1px solid #333;margin:12px 0;">
 
-            <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">🖼️ Image Summary</h4>
+            <h4 style="margin:0 0 12px;color:var(--wahwire-text-primary);">🖼️ Image Summary</h4>
 
             <p><strong>Total Characters:</strong> ${imageReport.length}</p>
             <p><strong>Missing Images:</strong> <span style="color:${missingCount > 0 ? '#ff4444' : '#44ff44'}">${missingCount}</span></p>
@@ -840,7 +840,7 @@ function renderSummaryTab(container, imageReport, duplicateReport) {
 
             <hr style="border:none;border-top:1px solid #333;margin:12px 0;">
 
-            <h4 style="margin:0 0 12px;color:var(--wahbook-text-primary);">🚀 Quick Actions</h4>
+            <h4 style="margin:0 0 12px;color:var(--wahwire-text-primary);">🚀 Quick Actions</h4>
 
             <div style="display:flex;flex-direction:column;gap:8px;">
                 <button class="debug-export-btn primary" id="summary-mark-all" style="padding:10px;border:none;border-radius:6px;cursor:pointer;background:#ff4444;color:white;font-weight:600;">
@@ -904,7 +904,7 @@ function updateDebugPanel() {
  */
 function exportCleanedData() {
     // Remove marked duplicates
-    const cleanedPosts = WAHBOOK_POSTS.filter((post, index) => {
+    const cleanedPosts = WAHWIRE_POSTS.filter((post, index) => {
         return !markedForRemoval.has(index);
     });
 
@@ -919,12 +919,12 @@ function exportCleanedData() {
     });
 
     // Generate the JS file content
-    const fileContent = `// WAHbook Posts Data - Cleaned ${new Date().toISOString()}
-// Original: ${WAHBOOK_POSTS.length} posts
+    const fileContent = `// WAHwire Posts Data - Cleaned ${new Date().toISOString()}
+// Original: ${WAHWIRE_POSTS.length} posts
 // After cleanup: ${dedupedPosts.length} posts
-// Removed: ${WAHBOOK_POSTS.length - dedupedPosts.length} duplicates
+// Removed: ${WAHWIRE_POSTS.length - dedupedPosts.length} duplicates
 
-export const WAHBOOK_POSTS = ${JSON.stringify(dedupedPosts, null, 2)};
+export const WAHWIRE_POSTS = ${JSON.stringify(dedupedPosts, null, 2)};
 
 // Export helper for event integration
 export function loadEventPosts() {
@@ -936,7 +936,7 @@ export function loadEventPosts() {
     downloadFile('assembly-data-cleaned.js', fileContent, 'application/javascript');
 
     // Show confirmation
-    alert(`✅ Exported cleaned data!\n\nOriginal: ${WAHBOOK_POSTS.length} posts\nCleaned: ${dedupedPosts.length} posts\nRemoved: ${WAHBOOK_POSTS.length - dedupedPosts.length} duplicates`);
+    alert(`✅ Exported cleaned data!\n\nOriginal: ${WAHWIRE_POSTS.length} posts\nCleaned: ${dedupedPosts.length} posts\nRemoved: ${WAHWIRE_POSTS.length - dedupedPosts.length} duplicates`);
 }
 
 /**
@@ -946,7 +946,7 @@ function exportDebugReport(imageReport, duplicateReport) {
     const report = {
         generated: new Date().toISOString(),
         summary: {
-            totalPosts: WAHBOOK_POSTS.length,
+            totalPosts: WAHWIRE_POSTS.length,
             duplicatePosts: duplicateReport.length,
             markedForRemoval: markedForRemoval.size,
             missingImages: imageReport.filter(i => i.status === 'missing').length,
@@ -955,17 +955,17 @@ function exportDebugReport(imageReport, duplicateReport) {
         missingImages: imageReport.filter(i => i.status === 'missing'),
         duplicates: duplicateReport.map(dup => ({
             ...dup,
-            post1Content: WAHBOOK_POSTS[dup.post1Index]?.content?.substring(0, 100),
-            post2Content: WAHBOOK_POSTS[dup.post2Index]?.content?.substring(0, 100)
+            post1Content: WAHWIRE_POSTS[dup.post1Index]?.content?.substring(0, 100),
+            post2Content: WAHWIRE_POSTS[dup.post2Index]?.content?.substring(0, 100)
         })),
         markedForRemoval: Array.from(markedForRemoval).map(index => ({
             index,
-            postId: WAHBOOK_POSTS[index]?.id,
-            content: WAHBOOK_POSTS[index]?.content?.substring(0, 100)
+            postId: WAHWIRE_POSTS[index]?.id,
+            content: WAHWIRE_POSTS[index]?.content?.substring(0, 100)
         }))
     };
 
-    downloadFile('wahbook-debug-report.json', JSON.stringify(report, null, 2), 'application/json');
+    downloadFile('wahwire-debug-report.json', JSON.stringify(report, null, 2), 'application/json');
 }
 
 /**
@@ -1063,7 +1063,7 @@ function markPostAsSeen(postId) {
     if (!state.userState.seenPostIds.includes(postId)) {
         state.userState.seenPostIds.push(postId);
         saveState();
-        console.log('[WAHbook] Marked post as seen:', postId);
+        console.log('[WAHwire] Marked post as seen:', postId);
 
         // Update UI to remove "new" indicator
         const postElement = document.querySelector(`[data-post-id="${postId}"]`);
@@ -1118,8 +1118,8 @@ const FALLBACK_PORTRAIT = 'data:image/svg+xml;base64,' + btoa(`
 `);
 const requestIdle = window.requestIdleCallback || ((cb) => setTimeout(() => cb({ timeRemaining: () => 0, didTimeout: false }), 1));
 let isReadingFullPage = false;
-let WAHBOOK_POSTS = [];
-let BASE_WAHBOOK_POSTS = [];
+let WAHWIRE_POSTS = [];
+let BASE_WAHWIRE_POSTS = [];
 let visiblePostsCache = null;
 let eventsPostsLoaded = false;
 let eventsPostsPromise = null;
@@ -1141,9 +1141,9 @@ let assemblyInfamyState = null;
 function refreshAssemblyInfamy() {
     try {
         assemblyInfamyState = calculateAssemblyInfamy(getVisiblePosts(), LORE_DATA);
-        window.WAHBOOK_INFAMY_STATE = assemblyInfamyState;
+        window.WAHWIRE_INFAMY_STATE = assemblyInfamyState;
     } catch (e) {
-        console.warn('[WAHbook] Infamy engine failed:', e.message);
+        console.warn('[WAHwire] Infamy engine failed:', e.message);
         assemblyInfamyState = null;
     }
     return assemblyInfamyState;
@@ -1238,7 +1238,7 @@ function readNextInSequence(ids, index) {
 
     const id = ids[index];
     // Check if it's a post or a rumor/event
-    const post = WAHBOOK_POSTS.find(p => p.id === id) ||
+    const post = WAHWIRE_POSTS.find(p => p.id === id) ||
                  LORE_DATA?.rumors?.find(r => r.id === id);
 
     if (!post) {
@@ -1314,23 +1314,23 @@ function updateFullPageReadButton(isActive) {
 async function loadDynamicData() {
     try {
         const dataModule = await import('../../../data/assembly/assembly-data.js');
-        BASE_WAHBOOK_POSTS = Array.isArray(dataModule.WAHBOOK_POSTS) ? dataModule.WAHBOOK_POSTS : [];
-        WAHBOOK_POSTS = [...BASE_WAHBOOK_POSTS];
+        BASE_WAHWIRE_POSTS = Array.isArray(dataModule.WAHWIRE_POSTS) ? dataModule.WAHWIRE_POSTS : [];
+        WAHWIRE_POSTS = [...BASE_WAHWIRE_POSTS];
         visiblePostsCache = null;
 
-        const chunkLoaders = Array.isArray(dataModule.WAHBOOK_POST_CHUNKS) ? dataModule.WAHBOOK_POST_CHUNKS : [];
+        const chunkLoaders = Array.isArray(dataModule.WAHWIRE_POST_CHUNKS) ? dataModule.WAHWIRE_POST_CHUNKS : [];
         if (chunkLoaders.length) {
             schedulePostChunkLoading(chunkLoaders);
         }
     } catch (e) {
-        console.warn('[WAHbook] Could not load assembly-data:', e.message);
-        BASE_WAHBOOK_POSTS = [];
-        WAHBOOK_POSTS = [];
+        console.warn('[WAHwire] Could not load assembly-data:', e.message);
+        BASE_WAHWIRE_POSTS = [];
+        WAHWIRE_POSTS = [];
         visiblePostsCache = null;
     }
 
     requestIdle(() => {
-        globalCycleState = calculateGlobalCycle(WAHBOOK_POSTS);
+        globalCycleState = calculateGlobalCycle(WAHWIRE_POSTS);
         refreshAssemblyInfamy();
         renderCycleStatus();
         renderInfamyWatchCard();
@@ -1347,15 +1347,15 @@ async function ensureEventPostsLoaded() {
             if (eventsModule.loadEventPosts) {
                 const eventPosts = await eventsModule.loadEventPosts();
                 if (Array.isArray(eventPosts) && eventPosts.length) {
-                    WAHBOOK_POSTS.push(...eventPosts);
+                    WAHWIRE_POSTS.push(...eventPosts);
                 }
             }
         } catch (e) {
-            console.log('[WAHbook] No event posts module');
+            console.log('[WAHwire] No event posts module');
         } finally {
             eventsPostsLoaded = true;
             visiblePostsCache = null;
-            globalCycleState = calculateGlobalCycle(WAHBOOK_POSTS);
+            globalCycleState = calculateGlobalCycle(WAHWIRE_POSTS);
             refreshAssemblyInfamy();
             renderInfamyWatchCard();
         }
@@ -1377,11 +1377,11 @@ function scheduleDeferredWidgets() {
         try {
             const research = await loadResearchModule();
             if (research?.calculateGlobalCycle) {
-                globalCycleState = research.calculateGlobalCycle(WAHBOOK_POSTS);
+                globalCycleState = research.calculateGlobalCycle(WAHWIRE_POSTS);
                 renderCycleStatus();
             }
         } catch (e) {
-            console.warn('[WAHbook] Deferred research preload failed:', e.message);
+            console.warn('[WAHwire] Deferred research preload failed:', e.message);
         }
     });
 }
@@ -1397,20 +1397,20 @@ function schedulePostChunkLoading(chunkLoaders) {
         requestIdle(async () => {
             try {
                 const mod = await chunkLoaders[index]();
-                const chunkPosts = Array.isArray(mod?.WAHBOOK_POSTS) ? mod.WAHBOOK_POSTS : [];
+                const chunkPosts = Array.isArray(mod?.WAHWIRE_POSTS) ? mod.WAHWIRE_POSTS : [];
                 if (chunkPosts.length) {
-                    WAHBOOK_POSTS.push(...chunkPosts);
+                    WAHWIRE_POSTS.push(...chunkPosts);
                     visiblePostsCache = null;
 
                     if ((index + 1) % 2 === 0 || index === maxChunksToAutoload - 1) {
                         requestIdle(() => {
-                            globalCycleState = calculateGlobalCycle(WAHBOOK_POSTS);
+                            globalCycleState = calculateGlobalCycle(WAHWIRE_POSTS);
                             renderCycleStatus();
                         });
                     }
                 }
             } catch (e) {
-                console.warn('[WAHbook] Failed to load post chunk', index + 2, e);
+                console.warn('[WAHwire] Failed to load post chunk', index + 2, e);
             } finally {
                 const nextDelay = 240;
                 setTimeout(() => loadChunkSequentially(index + 1), nextDelay);
@@ -1566,7 +1566,7 @@ function getCharacterData(characterKey) {
 
 function getVisiblePosts() {
     if (visiblePostsCache) return visiblePostsCache;
-    visiblePostsCache = WAHBOOK_POSTS.filter(p => isContentVisible(p?.date));
+    visiblePostsCache = WAHWIRE_POSTS.filter(p => isContentVisible(p?.date));
     return visiblePostsCache;
 }
 
@@ -1647,7 +1647,7 @@ function renderUserProfileCard() {
 
     if (state.loggedInUser === 'generic') {
         container.innerHTML = `
-            <div class="user-avatar-placeholder" style="width:80px;height:80px;border-radius:50%;background:var(--wahbook-bg-tertiary);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:2rem;">👤</div>
+            <div class="user-avatar-placeholder" style="width:80px;height:80px;border-radius:50%;background:var(--wahwire-bg-tertiary);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:2rem;">👤</div>
             <div class="user-name">Guest User</div>
             <div class="user-handle">@guest</div>
             <a href="index.html" class="btn-primary" style="margin-top:16px;display:inline-block;text-decoration:none;font-size:0.85rem;">Login</a>
@@ -1741,7 +1741,7 @@ function renderCreatePostBox() {
 
     if (state.loggedInUser === 'generic') {
         container.innerHTML = `
-            <div style="text-align:center;padding:20px;color:var(--wahbook-text-secondary);">
+            <div style="text-align:center;padding:20px;color:var(--wahwire-text-secondary);">
                 <p>Login to create posts</p>
                 <a href="index.html" class="btn-primary" style="margin-top:12px;display:inline-block;text-decoration:none;">Login</a>
             </div>
@@ -1800,7 +1800,7 @@ function renderTrendingTopics() {
     trendingList.sort((a, b) => Math.abs(b.metrics.finalScore) - Math.abs(a.metrics.finalScore));
 
     if (trendingList.length === 0) {
-        container.innerHTML = '<p style="color:var(--wahbook-text-muted);font-size:0.85rem;">No trending topics right now.</p>';
+        container.innerHTML = '<p style="color:var(--wahwire-text-muted);font-size:0.85rem;">No trending topics right now.</p>';
         return;
     }
 
@@ -1845,7 +1845,7 @@ function renderFollowSuggestions() {
         .map(([key, count]) => ({ characterKey: key, postCount: count }));
 
     if (suggestions.length === 0) {
-        container.innerHTML = '<p style="color:var(--wahbook-text-muted);font-size:0.85rem;">No suggestions right now.</p>';
+        container.innerHTML = '<p style="color:var(--wahwire-text-muted);font-size:0.85rem;">No suggestions right now.</p>';
         return;
     }
 
@@ -1892,7 +1892,7 @@ function renderCycleStatus() {
     if (!container) return;
 
     if (!globalCycleState) {
-        container.innerHTML = '<p style="color:var(--wahbook-text-muted);">Calculating cycle...</p>';
+        container.innerHTML = '<p style="color:var(--wahwire-text-muted);">Calculating cycle...</p>';
         return;
     }
 
@@ -2107,7 +2107,7 @@ function speakPost(postId, btn) {
     // Stop anything else currently playing
     stopSpeaking();
 
-    const post = WAHBOOK_POSTS.find(p => p.id === postId);
+    const post = WAHWIRE_POSTS.find(p => p.id === postId);
     if (!post) return;
 
     const author = getCharacterData(post.characterKey);
@@ -2523,7 +2523,7 @@ function renderPagination(current, total) {
 }
 
 function scrollToTop() {
-    document.querySelector('.wahbook-feed-area')?.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelector('.wahwire-feed-area')?.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ============================================================================
@@ -2960,7 +2960,7 @@ function renderActiveArcs() {
     const arcs = Object.values(STORY_ARCS || {}).filter(arc => arc.status === 'active');
 
     if (arcs.length === 0) {
-        container.innerHTML = '<p style="color:var(--wahbook-text-muted);font-size:0.85rem;">No active story arcs.</p>';
+        container.innerHTML = '<p style="color:var(--wahwire-text-muted);font-size:0.85rem;">No active story arcs.</p>';
         return;
     }
 
@@ -3261,7 +3261,7 @@ function openShareModal(postId) {
 function toggleLike(postId, btn) {
     if (!state.userState.likedPosts) state.userState.likedPosts = [];
 
-    const post = WAHBOOK_POSTS.find(p => p.id === postId);
+    const post = WAHWIRE_POSTS.find(p => p.id === postId);
     if (!post) return;
 
     const isLiked = state.userState.likedPosts.includes(postId);
@@ -3315,7 +3315,7 @@ function toggleFollow(characterKey) {
 }
 
 function submitReply(postId, text, inputEl) {
-    const post = WAHBOOK_POSTS.find(p => p.id === postId);
+    const post = WAHWIRE_POSTS.find(p => p.id === postId);
     if (!post) return;
 
     if (!post.comments) post.comments = [];
@@ -3374,7 +3374,7 @@ function submitNewPost() {
         comments: []
     };
 
-    WAHBOOK_POSTS.unshift(newPost);
+    WAHWIRE_POSTS.unshift(newPost);
 
     closeModal(document.getElementById('create-post-modal'));
     currentPage = 1;
@@ -3502,7 +3502,7 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
 
         if (list) {
             list.innerHTML = `
-                <div style="padding:20px;text-align:center;color:var(--wahbook-text-muted);">
+                <div style="padding:20px;text-align:center;color:var(--wahwire-text-muted);">
                     <p>No new notifications</p>
                 </div>
             `;
@@ -3519,11 +3519,11 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
 
         if (list) {
             const bookmarks = state.userState?.bookmarks || [];
-            const bookmarkedPosts = WAHBOOK_POSTS.filter(p => bookmarks.includes(p.id));
+            const bookmarkedPosts = WAHWIRE_POSTS.filter(p => bookmarks.includes(p.id));
 
             if (bookmarkedPosts.length === 0) {
                 list.innerHTML = `
-                    <div style="text-align:center;color:var(--wahbook-text-muted);padding:40px;">
+                    <div style="text-align:center;color:var(--wahwire-text-muted);padding:40px;">
                         <span style="font-size:2rem;">🔖</span>
                         <p>No bookmarked posts yet</p>
                     </div>
@@ -3559,7 +3559,7 @@ document.getElementById('foryou-sort')?.addEventListener('change', (e) => {
 // ============================================================================
 
 async function init() {
-    console.log('[WAHbook] Initializing...');
+    console.log('[WAHwire] Initializing...');
 
     // Sync debug mode
     try {
@@ -3572,7 +3572,7 @@ async function init() {
     try {
         loadState();
     } catch (e) {
-        console.warn('[WAHbook] Could not load state');
+        console.warn('[WAHwire] Could not load state');
     }
 
     // Initialize user state if needed
@@ -3618,13 +3618,13 @@ async function init() {
             const postEl = document.querySelector(`[data-post-id="${postId}"]`);
             if (postEl) {
                 postEl.scrollIntoView({ behavior: 'smooth' });
-                postEl.style.boxShadow = '0 0 20px var(--wahbook-accent)';
+                postEl.style.boxShadow = '0 0 20px var(--wahwire-accent)';
                 setTimeout(() => postEl.style.boxShadow = '', 2000);
             }
         }, 500);
     }
 
-    console.log('[WAHbook] Initialization complete');
+    console.log('[WAHwire] Initialization complete');
 }
 // ============================================================================
 // RENDER: NEWS TAB (Newspaper Style)

@@ -171,7 +171,7 @@ const LOCATIONS = {
 
         history: `<p>The Greenhouse was one of the last functional structures on the manor grounds before its destruction. It had become infested with rust monsters—magical creatures that devour metal and corrode equipment.</p>
         <p>On Day 17, the party encountered the rust monster swarm while exploring. With the creatures threatening to destroy their weapons and armor, Archie made the controversial decision to unleash a fireball, destroying the Greenhouse entirely.</p>
-        <p>The event later became known as "The Greenhouse Inferno" and prompted Archie's public confession on Wahbook, drawing the ire of the Mages' Guild.</p>`,
+        <p>The event later became known as "The Greenhouse Inferno" and prompted Archie's public confession on Wahwire, drawing the ire of the Mages' Guild.</p>`,
 
         currentState: "Completely destroyed. No salvageable materials. The site may be used as a landmark but offers no shelter or resources.",
         stateClass: "state-safe",
@@ -183,7 +183,7 @@ const LOCATIONS = {
 
         notableEvents: [
             { name: "The Greenhouse Inferno", date: "Day 17, 10:00", type: "destruction", description: "Archie's fireball destroys the structure. Party saved from rust monsters. Green T gives Markop a mysterious key." },
-            { name: "Archie's Confession", date: "Day 20, 07:45", type: "social", description: "Archie publicly confesses to the destruction on Wahbook, drawing Mages' Guild attention." }
+            { name: "Archie's Confession", date: "Day 20, 07:45", type: "social", description: "Archie publicly confesses to the destruction on Wahwire, drawing Mages' Guild attention." }
         ]
     },
 

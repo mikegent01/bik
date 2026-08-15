@@ -2,7 +2,7 @@
 import { LORE_DATA } from './lore.js';
 import { WALUIGI_INTRO_TEXT, WALUIGI_REGION_TIPS } from './new-operator/new-operator-data.js';
 import { playSound } from './app/core/common.js';
-import { WAHBOOK_POSTS } from '../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../data/assembly/assembly-data.js';
 import { QUEST_DATA } from '../../data/quest-system/index.js';
 import { CALENDAR_DATA, MAGICAL_WEATHER_EVENTS, CURRENT_GAME_DATE } from '../../data/world/calendar.js';
 import { PARTY_LOCATIONS } from '../../data/support/party-data.js';
@@ -336,7 +336,7 @@ function renderMissionWidget() {
 }
 
 function renderChatterWidget() {
-    const latestPost = [...WAHBOOK_POSTS].sort((a, b) => (b.order || 0) - (a.order || 0))[0];
+    const latestPost = [...WAHWIRE_POSTS].sort((a, b) => (b.order || 0) - (a.order || 0))[0];
     if (!latestPost) return '';
 
     const author = getCharacterData(latestPost.characterKey);
@@ -447,7 +447,7 @@ function renderIntelWidget() {
     let maxScore = -999;
 
     LORE_DATA.rumors.forEach(rumor => {
-         const relatedPosts = WAHBOOK_POSTS.filter(post => post.rumorId === rumor.id);
+         const relatedPosts = WAHWIRE_POSTS.filter(post => post.rumorId === rumor.id);
          const metrics = calculateRumorMetrics(rumor, relatedPosts);
          
          if (Math.abs(metrics.finalScore) > maxScore) {

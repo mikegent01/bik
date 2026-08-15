@@ -4839,7 +4839,7 @@ const PLAYERS = {
         "cat": "discovery",
         "xp": 80,
         "title": "Event — The Feyward Revel Crisis: Poison, Plants, and Frozen Diplomacy",
-        "desc": "Waluigi's ruling — Waluigi earns 80 Discovery XP here because Was in the sauna for the middle third of the session — this was reasonable — was on his Wahbook reading the previous session's wiki entry — had a towel with his logo on his head — was in his overalls — agreed to help Hjumpik immediately and without conditions — exited the shower ready as ever.. This is Discovery XP because the value is information: investigation, documentation, revelation, records, lore, or confirming what actually happened. Result Waluigi cares about: Waluigi was in a sauna for the middle third of this session and is going to address that directly because if he does not address it directly someone will address it indirectly and the indirect version will not contain the context that makes the sauna stay reasonable, which it was.. Filed date: ~18 Harvestside, 1040 BF (relative timing unstable). Source checked: Reputation-Matrix2/events/events.json.",
+        "desc": "Waluigi's ruling — Waluigi earns 80 Discovery XP here because Was in the sauna for the middle third of the session — this was reasonable — was on his Wahwire reading the previous session's wiki entry — had a towel with his logo on his head — was in his overalls — agreed to help Hjumpik immediately and without conditions — exited the shower ready as ever.. This is Discovery XP because the value is information: investigation, documentation, revelation, records, lore, or confirming what actually happened. Result Waluigi cares about: Waluigi was in a sauna for the middle third of this session and is going to address that directly because if he does not address it directly someone will address it indirectly and the indirect version will not contain the context that makes the sauna stay reasonable, which it was.. Filed date: ~18 Harvestside, 1040 BF (relative timing unstable). Source checked: Reputation-Matrix2/events/events.json.",
         "date": "~18 Harvestside, 1040 BF (relative timing unstable)",
         "dateSort": 10400818,
         "sourceMarker": "✦"
@@ -16230,7 +16230,7 @@ function getFameImpact(ch, key = null) {
   const personalAccess = ch.fameAccessText || (key ? CUSTOM_FAME_ACCESS[key] : '') || '';
   const legalImpact = getLegalFameImpact(ch, key);
   const importNote = EXTERNAL_LEDGER_SOURCE.loaded.length
-    ? `Live imports can alter this readout through state, faction registry, lore, auxiliary party, Wahbook rumors, or reputation modules. Loaded: ${EXTERNAL_LEDGER_SOURCE.loaded.map(m => m.label).join(', ')}.`
+    ? `Live imports can alter this readout through state, faction registry, lore, auxiliary party, Wahwire rumors, or reputation modules. Loaded: ${EXTERNAL_LEDGER_SOURCE.loaded.map(m => m.label).join(', ')}.`
     : 'Standalone mode: fame effects come from the embedded ledger until matching directory modules are placed beside this file.';
   const hooks = [];
   if (tags.some(t => /infamy/i.test(t))) hooks.push('Infamy can worsen first impressions but improve intimidation.');
@@ -17200,9 +17200,9 @@ async function loadOptionalDirectoryModules() {
   try {
     window.XP_LEDGER_FACTION_ASSESSMENTS = modules.assessments?.FACTION_ASSESSMENTS || null;
     window.XP_LEDGER_STORY_ARCS = modules.lore?.STORY_ARCS || null;
-    window.XP_LEDGER_WAHBOOK_POSTS = modules.assemblyData?.WAHBOOK_POSTS || null;
-    if (modules.researchData?.calculateRumorMetrics && modules.assemblyData?.WAHBOOK_POSTS) {
-      window.XP_LEDGER_RUMOR_METRICS = modules.researchData.calculateRumorMetrics(modules.assemblyData.WAHBOOK_POSTS);
+    window.XP_LEDGER_WAHWIRE_POSTS = modules.assemblyData?.WAHWIRE_POSTS || null;
+    if (modules.researchData?.calculateRumorMetrics && modules.assemblyData?.WAHWIRE_POSTS) {
+      window.XP_LEDGER_RUMOR_METRICS = modules.researchData.calculateRumorMetrics(modules.assemblyData.WAHWIRE_POSTS);
     }
   } catch (err) {
     EXTERNAL_LEDGER_SOURCE.errors.push({ label: 'support-data', message: err && err.message ? err.message : String(err) });

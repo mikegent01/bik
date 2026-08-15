@@ -5,7 +5,7 @@ import { state } from '../core/state.js';
 import { MAGES_GUILD_DETAILS } from '../../data/factions/mages-guild-details.js';
 import { generateWeatherForDay, CURRENT_GAME_DATE } from '../../data/world/calendar.js';
 import { calculateGlobalCycle } from '../../data/support/research-data.js';
-import { WAHBOOK_POSTS } from '../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../data/assembly/assembly-data.js';
 import { MAJOR_BATTLES } from '../pages/battlefield/battlefield.js'; // Import battles for timeline connection
 
 /**
@@ -23,7 +23,7 @@ export function renderMagesGuildSystem() {
 
     // Get Dynamic Data
     const weather = generateWeatherForDay(CURRENT_GAME_DATE.year, CURRENT_GAME_DATE.monthIndex, CURRENT_GAME_DATE.day);
-    const globalCycle = calculateGlobalCycle(WAHBOOK_POSTS);
+    const globalCycle = calculateGlobalCycle(WAHWIRE_POSTS);
 
     // Determine Orb Visuals based on Weather
     let orbClass = '';

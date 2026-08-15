@@ -518,7 +518,7 @@
       "minute": 45
     },
     "title": "Archie's Confession",
-    "description": "Archie Miser publicly confesses to the Greenhouse Inferno on Wahbook to justify his actions, drawing immediate Ire from the Mages' Guild.",
+    "description": "Archie Miser publicly confesses to the Greenhouse Inferno on Wahwire to justify his actions, drawing immediate Ire from the Mages' Guild.",
     "icon": "assets/icons/icon_social.png",
     "category": "Social"
   },
@@ -1939,7 +1939,7 @@
       "minute": 56
     },
     "title": "Removing Guild Tracking / Departure (Flashback)",
-    "description": "Purple T violently removes the Mages Guild tracking badges from Dan and the others to avoid detection. They formulate a plan to track Archie via Wahbook and immediately walk through an unauthorized portal.",
+    "description": "Purple T violently removes the Mages Guild tracking badges from Dan and the others to avoid detection. They formulate a plan to track Archie via Wahwire and immediately walk through an unauthorized portal.",
     "icon": "icon_portal.png",
     "category": "Recent Event"
   },

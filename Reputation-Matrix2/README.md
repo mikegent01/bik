@@ -206,15 +206,15 @@ By following this structure, any new map page will automatically inherit the cor
 
 ## Advancing the In-Game Day and Scripted Events
 
-Simulating the passage of one in-game day requires updating several interconnected systems. This process ensures all changes are cohesive and reflected across the application, including the new scripted WAHbook posts that trigger on specific dates.
+Simulating the passage of one in-game day requires updating several interconnected systems. This process ensures all changes are cohesive and reflected across the application, including the new scripted WAHwire posts that trigger on specific dates.
 
 To advance the world state by one day, edit the following files:
 
 1.  **`calendar.js`**: Increment the `day` value in the `CURRENT_GAME_DATE` constant. This is the master clock for the world.
-2.  **`events/scheduled-posts.js`**: This file contains the scripted WAHbook posts for the ongoing world war. To add new events, create new post objects with a future `scheduledDate`.
+2.  **`events/scheduled-posts.js`**: This file contains the scripted WAHwire posts for the ongoing world war. To add new events, create new post objects with a future `scheduledDate`.
 3.  **`quests/*.js`**: Advance the status of any ongoing personal, main, or world quests. Change a step's status from `'active'` to `'completed'` and the next from `'locked'` to `'active'`.
 4.  **`map-battle-data-*.js`**: Update the `x` and `y` coordinates of tactical units on the map to reflect a day's movement or the outcome of a battle.
-5.  **`assembly-data.js` / `assembly-intel-data.js`**: Add new, non-scheduled WAHbook posts from various characters reacting to the day's events to make the world feel alive.
+5.  **`assembly-data.js` / `assembly-intel-data.js`**: Add new, non-scheduled WAHwire posts from various characters reacting to the day's events to make the world feel alive.
 6.  **`timeline-data.js`**: For major, world-shaking events, add a new entry to the historical timeline.
 7.  **`character-relations.js`**: If an event would logically change how two characters feel about each other, update their personal opinion text.
 

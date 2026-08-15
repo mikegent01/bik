@@ -1,4 +1,4 @@
-"""WAHwire — the social feed, formerly "WAHbook".
+"""WAHwire — the social feed, formerly "WAHwire".
 
 Two stages, and the order is deliberate:
 

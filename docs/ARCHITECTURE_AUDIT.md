@@ -30,7 +30,7 @@ These systems reinforce Waluipedia's core identity: an in-world archive that rec
 
 - Events and chronicles
 - Timeline and archive prose
-- WAHbook / Assembly records
+- WAHwire / Assembly records
 - Newspaper and intelligence reports
 - Books and library
 - Field journal

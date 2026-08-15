@@ -1350,7 +1350,7 @@ completed: { year: 1040, monthIndex: 6, day: 21 } // Failed on this date
                 id: 'm1', 
                 status: 'completed', 
                 title: "The Confession", 
-                description: "Archie posted the confession to Wahbook at 07:45. By 08:00, it had 2,000 likes and one official warrant.",
+                description: "Archie posted the confession to Wahwire at 07:45. By 08:00, it had 2,000 likes and one official warrant.",
                 completedDate: { year: 1040, monthIndex: 6, day: 20 },
                 outcomes: [
                     "Public admission to the Greenhouse Inferno",

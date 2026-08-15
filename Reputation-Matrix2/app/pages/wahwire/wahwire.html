@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WAHwire | Vigilance Terminal</title>
+    <meta name="description" content="WAHwire: the public feed. Every post the archive has on record, wired to the events that caused them.">
+    <link rel="stylesheet" href="../../styles/global.css">
+    <link rel="stylesheet" href="../../styles/layout.css">
+    <link rel="stylesheet" href="../../styles/components.css">
+    <link rel="stylesheet" href="wahwire.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="tablet-frame">
+    <div class="scanline-overlay"></div>
+    <div id="app">
+        <main id="main-content" class="ww-main">
+
+            <header class="ww-masthead">
+                <div class="ww-brand">
+                    <span class="ww-brand-mark">〰</span>
+                    <div>
+                        <h1 class="ww-brand-name">WAHwire</h1>
+                        <p class="ww-brand-tag">The public feed. Everything anyone said out loud.</p>
+                    </div>
+                </div>
+                <div class="ww-stats" id="wwStats">
+                    <div class="ww-stat"><b id="statPosts">—</b><span>posts</span></div>
+                    <div class="ww-stat"><b id="statLikes">—</b><span>likes</span></div>
+                    <div class="ww-stat"><b id="statVoices">—</b><span>voices</span></div>
+                    <div class="ww-stat">
+                        <b id="statLinked">—</b>
+                        <span>wired to records</span>
+                        <em class="ww-stat-note" id="statLinkedNote"></em>
+                    </div>
+                </div>
+            </header>
+
+            <!-- ============ VISUALISATIONS ============ -->
+            <section class="ww-viz" id="wwViz">
+                <div class="ww-panel ww-panel--wide">
+                    <div class="ww-panel-head">
+                        <h2>Volume over time</h2>
+                        <span class="ww-panel-note" id="tlNote">every post, by month</span>
+                    </div>
+                    <!-- Canvas, not 100k DOM nodes: this has to stay smooth at scale. -->
+                    <canvas id="tlCanvas" class="ww-canvas" height="150"></canvas>
+                    <div class="ww-axis" id="tlAxis"></div>
+                </div>
+
+                <div class="ww-panel">
+                    <div class="ww-panel-head">
+                        <h2>Loudest voices</h2>
+                        <span class="ww-panel-note">by total likes</span>
+                    </div>
+                    <div class="ww-bars" id="voiceBars"></div>
+                </div>
+
+                <div class="ww-panel">
+                    <div class="ww-panel-head">
+                        <h2>Mood of the wire</h2>
+                        <span class="ww-panel-note">reaction mix</span>
+                    </div>
+                    <div class="ww-mood" id="moodChart"></div>
+                </div>
+            </section>
+
+            <!-- ============ CONTROLS ============ -->
+            <div class="ww-controls">
+                <div class="ww-search">
+                    <span class="ww-search-icon">⌕</span>
+                    <input id="wwSearch" type="search" placeholder="Search the wire…"
+                           aria-label="Search posts" autocomplete="off">
+                </div>
+                <div class="ww-filters" id="wwFilters">
+                    <button class="ww-chip is-on" data-filter="all">All</button>
+                    <button class="ww-chip" data-filter="canon">Canon</button>
+                    <button class="ww-chip" data-filter="legacy">Legacy</button>
+                    <button class="ww-chip" data-filter="generated">Generated</button>
+                    <button class="ww-chip" data-filter="linked">Wired to a record</button>
+                </div>
+                <div class="ww-sort">
+                    <label for="wwSort">Sort</label>
+                    <select id="wwSort">
+                        <option value="chrono">Oldest first</option>
+                        <option value="recent">Newest first</option>
+                        <option value="likes">Most liked</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="ww-resultbar">
+                <span id="wwCount">—</span>
+                <span class="ww-render-note" id="wwRenderNote"></span>
+            </div>
+
+            <!-- ============ THE FEED ============ -->
+            <!-- Virtualised: the viewport holds a spacer of the full scroll height
+                 and only the visible slice is ever in the DOM. -->
+            <div class="ww-feed-viewport" id="wwViewport" tabindex="0">
+                <div class="ww-feed-sizer" id="wwSizer">
+                    <div class="ww-feed-window" id="wwWindow"></div>
+                </div>
+                <div class="ww-empty" id="wwEmpty" hidden>
+                    <p>Nothing on the wire matches that.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+
+<script type="module" src="../../core/common.js" defer></script>
+<script type="module" src="../navigation/navigation.js" defer></script>
+<script type="module" src="wahwire.js"></script>
+<script defer src="../../core/wario-site-sounds.js"></script>
+<script defer src="../../styles/waluipedia-ambient.js"></script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 
 import { LORE_DATA } from './lore.js';
-import { WAHBOOK_POSTS } from '../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../data/assembly/assembly-data.js';
 import { CURRENT_GAME_DATE, CALENDAR_DATA, generateWeatherForDay, MOON_PHASES } from '../../data/world/calendar.js';
 import { calculateGlobalCycle, getAbsoluteDay, calculateRumorMetrics } from '../../data/support/research-data.js';
 
@@ -21,7 +21,7 @@ export function renderRakashaNews() {
     const moonPhaseIndex = Math.floor((absDay % 28) / 28 * MOON_PHASES.length) % MOON_PHASES.length;
     const moonPhase = MOON_PHASES[moonPhaseIndex];
     
-    const globalCycle = calculateGlobalCycle(WAHBOOK_POSTS);
+    const globalCycle = calculateGlobalCycle(WAHWIRE_POSTS);
     const topRumor = getTopRumor();
     const gossip = getRakashaWhispers(absDay, globalCycle);
     const factionHeat = calculateRakashaHeat(absDay);
@@ -247,7 +247,7 @@ function getTopRumor() {
 
     // Find most impactful active rumor
     rumors.forEach(r => {
-        const posts = WAHBOOK_POSTS.filter(p => p.rumorId === r.id);
+        const posts = WAHWIRE_POSTS.filter(p => p.rumorId === r.id);
         const metrics = calculateRumorMetrics(r, posts);
         if (Math.abs(metrics.finalScore) > maxScore) {
             maxScore = Math.abs(metrics.finalScore);
@@ -307,7 +307,7 @@ function getRakashaWhispers(currentAbsDay, globalCycle) {
     const oneWeekAgo = currentAbsDay - 7;
     
     // 1. Find actual recent short posts
-    const recentPosts = WAHBOOK_POSTS.filter(p => {
+    const recentPosts = WAHWIRE_POSTS.filter(p => {
         if (!p.date) return false;
         const postAbsDay = ((p.date.year - 1035) * 365) + (p.date.monthIndex * 30) + p.date.day;
         return postAbsDay >= oneWeekAgo && postAbsDay <= currentAbsDay && p.content.length < 120;
@@ -371,7 +371,7 @@ function calculateRakashaHeat(currentAbsDay) {
     const heatMap = {};
     const oneWeekAgo = currentAbsDay - 7;
 
-    WAHBOOK_POSTS.forEach(post => {
+    WAHWIRE_POSTS.forEach(post => {
         if (!post.date) return;
         const postAbsDay = ((post.date.year - 1035) * 365) + (post.date.monthIndex * 30) + post.date.day;
         

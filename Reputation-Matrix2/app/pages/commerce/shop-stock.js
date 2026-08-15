@@ -84,7 +84,7 @@ const CRAZE_REASONS = [
     "A popular bard wrote a song about these!",
     "The Emperor's cousin bought a dozen!",
     "A prophecy mentioned items like these!",
-    "These are going viral on WahBook!",
+    "These are going viral on WahWire!",
     "A limited edition variant was discovered!",
     "Foreign merchants are buying these up!",
     "A new dungeon was found that requires these!",

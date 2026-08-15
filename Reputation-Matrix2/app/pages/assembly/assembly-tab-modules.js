@@ -143,7 +143,7 @@ export function renderEventsTab({ container, getVisiblePosts, isContentVisible, 
               ${Object.entries(event.effects || {}).map(([faction, value]) => {
                 const factionData = LORE_DATA.factions?.[faction];
                 const name = factionData?.name || formatCharacterKey(faction);
-                const color = value > 0 ? 'var(--wahbook-positive)' : 'var(--wahbook-negative)';
+                const color = value > 0 ? 'var(--wahwire-positive)' : 'var(--wahwire-negative)';
                 return `<span style="color:${color}">${name}: ${value > 0 ? '+' : ''}${value}</span>`;
               }).join('') || '<span style="color:#888">No reputation changes.</span>'}
             </div>

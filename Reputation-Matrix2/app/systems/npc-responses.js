@@ -1,4 +1,4 @@
-// This file contains the data for keyword-based NPC responses on WAHbook.
+// This file contains the data for keyword-based NPC responses on WAHwire.
 
 export const NPC_RESPONSES = [
     // --- GENERIC INITIAL KEYWORDS ---

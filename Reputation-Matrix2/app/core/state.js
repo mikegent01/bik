@@ -5,7 +5,7 @@ import { LORE_DATA } from './lore.js';
 import { TOAD_ABILITIES } from '../../data/support/abilities.js';
 import { MAP_DATA } from '../../data/maps/map-data.js';
 import { RESEARCH_CATEGORIES, NATIONS, calculateRumorMetrics } from '../../data/support/research-data.js';
-import { WAHBOOK_POSTS } from '../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../data/assembly/assembly-data.js';
 import { extractAllRewards } from '../../quests/quests-main.js';
 import { STORY_ARCS } from './lore.js';
 const DATA_VERSION = 3; 
@@ -286,7 +286,7 @@ players: {
             reputation: {
                 regal_empire: -40,       // Wanted criminal
                 iron_legion: -60,        // "Tea Party Incident" (Day 9) + Escaped Custody (Day 20)
-                mages_guild: -80,        // "Greenhouse Inferno" confession on Wahbook (Day 20)
+                mages_guild: -80,        // "Greenhouse Inferno" confession on Wahwire (Day 20)
                 onyx_hand: 20,           // Acquitted by Tribunal (Day 2) - respected but wary
                 tea_leaf_syndicate: -100,// Killed their enforcer Earl Grey (Day 12)
                 liberated_toads: 10,     // Controversial figure (lost vote on Day 16)
@@ -662,7 +662,7 @@ function calculateFinalReputations() {
                     const isTarget = rumor.targets.includes('party') ? state.party.includes(playerKey) : rumor.targets.includes(playerKey);
                     const isInstigator = rumor.instigator === playerKey;
 
-                    const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
+                    const relatedPosts = WAHWIRE_POSTS.filter(p => p.rumorId === rumor.id);
                     const metrics = calculateRumorMetrics(rumor, relatedPosts);
                     
                     let effect = 0;

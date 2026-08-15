@@ -3,7 +3,7 @@ import { state } from '../app/core/state.js';
 import { LORE_DATA } from '../app/core/lore.js';
 import { getSubFactionReputation } from '../app/systems/reputation.js';
 import { calculateRumorMetrics } from '../data/support/research-data.js';
-import { WAHBOOK_POSTS } from '../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../data/assembly/assembly-data.js';
 import { CURRENT_GAME_DATE } from '../data/world/calendar.js';
 /**
  * Calculates the breakdown of intel for a faction.
@@ -38,7 +38,7 @@ export function getIntelBreakdown(factionKey) {
             const isTarget = rumor.targets && rumor.targets.includes(factionKey);
             
             if (isAffected || isTarget) {
-                const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
+                const relatedPosts = WAHWIRE_POSTS.filter(p => p.rumorId === rumor.id);
                 const metrics = calculateRumorMetrics(rumor, relatedPosts);
                 
                 if (metrics.status !== 'Dead' && metrics.status !== 'Old News') {

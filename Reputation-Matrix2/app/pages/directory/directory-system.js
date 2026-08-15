@@ -9,7 +9,7 @@ import {AUXILIARY_PARTY} from '../../core/party-and-events.js'
 import { getAllFactions, getFaction, getFactionStats, toSystemId } from '../../../systems/faction-registry.js';
 import { getRealTimeMapStats } from '../../systems/global-map-analysis.js';
 import { LORE_DATA, STORY_ARCS } from '../../core/lore.js';
-import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../../data/assembly/assembly-data.js';
 import { calculateRumorMetrics } from '../../../data/support/research-data.js';
 import { calculateAssemblyInfamy, getCharacterInfamy, getFactionInfamy, renderInfamyBadge } from '../assembly/assembly-infamy.js';
 let _targetRelationsCache = new Map();
@@ -47,7 +47,7 @@ const CACHE_DURATION = 5000; // 5 seconds
 
 function refreshDirectoryInfamy() {
     try {
-        directoryInfamyState = calculateAssemblyInfamy(WAHBOOK_POSTS || [], LORE_DATA || {});
+        directoryInfamyState = calculateAssemblyInfamy(WAHWIRE_POSTS || [], LORE_DATA || {});
         window.DIRECTORY_INFAMY_STATE = directoryInfamyState;
     } catch (err) {
         console.warn('[Directory] Infamy calculation failed:', err.message);
@@ -182,7 +182,7 @@ function getRelationshipInfamyBreakdown(playerKey, factionKey) {
         const effect = Number(rumor.effects?.[factionKey] || 0);
         let spread = 0;
         try {
-            const relatedPosts = (WAHBOOK_POSTS || []).filter(p => p.rumorId === rumor.id);
+            const relatedPosts = (WAHWIRE_POSTS || []).filter(p => p.rumorId === rumor.id);
             spread = Math.min(8, Math.abs(calculateRumorMetrics(rumor, relatedPosts)?.finalScore || 0) / 18);
         } catch (e) {}
         if (effect < 0) addInfamyFactor(factors, 'Public Dossier', `${rumor.title || rumor.id} is negative public evidence against this relationship.`, Math.min(16, Math.abs(effect) * 0.45 + spread), 'dossier');
@@ -190,11 +190,11 @@ function getRelationshipInfamyBreakdown(playerKey, factionKey) {
         else if (spread > 3) addInfamyFactor(factors, 'Public Chatter', `${rumor.title || rumor.id} keeps this faction in active conversation.`, spread, 'dossier');
     });
 
-    // WAHbook chatter by this character about this faction can create fresh heat.
-    const relatedPosts = (WAHBOOK_POSTS || []).filter(p => p.characterKey === playerKey && postMentionsFaction(p, factionKey));
+    // WAHwire chatter by this character about this faction can create fresh heat.
+    const relatedPosts = (WAHWIRE_POSTS || []).filter(p => p.characterKey === playerKey && postMentionsFaction(p, factionKey));
     if (relatedPosts.length) {
         const postHeat = relatedPosts.reduce((sum, p) => sum + (getDirectoryInfamyState()?.posts?.[p.id]?.score || 0), 0) / relatedPosts.length;
-        addInfamyFactor(factors, 'WAHbook Chatter', `${relatedPosts.length} post(s) by this character mention the faction; public posting converts private standing into visible heat.`, Math.min(15, postHeat * 0.18 + relatedPosts.length), 'media');
+        addInfamyFactor(factors, 'WAHwire Chatter', `${relatedPosts.length} post(s) by this character mention the faction; public posting converts private standing into visible heat.`, Math.min(15, postHeat * 0.18 + relatedPosts.length), 'media');
     }
 
     const rawTotal = factors.reduce((sum, f) => sum + f.value, 0);
@@ -1337,7 +1337,7 @@ function getActiveChatterDescription(activeValue, factionKey) {
             const isTarget = rumor.targets && rumor.targets.includes(factionKey);
 
             if (isAffected || isTarget) {
-                const relatedPosts = WAHBOOK_POSTS.filter(p => p.rumorId === rumor.id);
+                const relatedPosts = WAHWIRE_POSTS.filter(p => p.rumorId === rumor.id);
                 const metrics = calculateRumorMetrics(rumor, relatedPosts);
 
                 if (metrics.status !== 'Dead' && metrics.status !== 'Old News') {

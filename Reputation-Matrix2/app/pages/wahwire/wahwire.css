@@ -1,0 +1,470 @@
+/* WAHwire — the public feed.
+ *
+ * Terminal palette, consistent with the rest of the archive. The feed is
+ * virtualised, so two rules matter more than they look:
+ *   - .ww-post has a FIXED height that must match ROW_HEIGHT in wahwire.js
+ *   - .ww-feed-window is transform-positioned, never top/margin, so scrolling
+ *     stays on the compositor
+ */
+
+:root {
+  --ww-bg: #12100f;
+  --ww-panel: #1a1715;
+  --ww-line: #3a322c;
+  --ww-ink: #f2e9de;
+  --ww-muted: #a99a89;
+  --ww-gold: #e0b400;
+}
+
+.ww-main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 18px 20px 60px;
+  color: var(--ww-ink);
+}
+
+/* ------------------------------------------------------------ masthead */
+
+.ww-masthead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, #1c1917 0%, #14110f 100%);
+  border: 1px solid var(--ww-line);
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.ww-brand { display: flex; align-items: center; gap: 16px; }
+
+.ww-brand-mark {
+  font-size: 38px;
+  color: var(--ww-gold);
+  line-height: 1;
+  text-shadow: 0 0 18px rgba(224, 180, 0, 0.45);
+}
+
+.ww-brand-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 30px;
+  letter-spacing: 3px;
+  margin: 0;
+  color: var(--ww-gold);
+}
+
+.ww-brand-tag {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: var(--ww-muted);
+  letter-spacing: .3px;
+}
+
+.ww-stats { display: flex; gap: 26px; flex-wrap: wrap; }
+
+.ww-stat { text-align: right; }
+
+.ww-stat b {
+  display: block;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 22px;
+  color: var(--ww-ink);
+  line-height: 1.1;
+}
+
+.ww-stat span {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ww-muted);
+}
+
+/* ------------------------------------------------------ visualisations */
+
+.ww-viz {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.ww-panel {
+  background: var(--ww-panel);
+  border: 1px solid var(--ww-line);
+  border-radius: 10px;
+  padding: 14px 16px 16px;
+}
+
+.ww-panel--wide { grid-column: 1 / -1; }
+
+.ww-panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ww-panel-head h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--ww-gold);
+  margin: 0;
+}
+
+.ww-panel-note { font-size: 11px; color: var(--ww-muted); }
+
+.ww-canvas { display: block; width: 100%; height: 150px; }
+
+.ww-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10.5px;
+  color: var(--ww-muted);
+  margin-top: 4px;
+}
+
+/* bars shared by voices + mood */
+
+.ww-bar-row, .ww-mood-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 62px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 9px;
+  font-size: 12.5px;
+}
+
+.ww-mood-row { grid-template-columns: 30px 84px 1fr 46px; }
+
+.ww-bar-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+}
+
+.ww-bar-track {
+  height: 9px;
+  background: #0d0b0a;
+  border: 1px solid var(--ww-line);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.ww-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width .35s ease;
+}
+
+.ww-bar-val {
+  text-align: right;
+  color: var(--ww-muted);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ww-mood-glyph {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid;
+  border-radius: 7px;
+  font-size: 14px;
+}
+
+.ww-mood-label { font-size: 12px; color: var(--ww-ink); }
+
+.ww-none { color: var(--ww-muted); font-size: 12px; margin: 6px 0 0; }
+
+/* -------------------------------------------------------------- controls */
+
+.ww-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.ww-search {
+  position: relative;
+  flex: 1 1 260px;
+  min-width: 220px;
+}
+
+.ww-search-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ww-muted);
+  font-size: 15px;
+}
+
+#wwSearch {
+  width: 100%;
+  padding: 9px 12px 9px 32px;
+  background: #0d0b0a;
+  border: 1px solid var(--ww-line);
+  border-radius: 7px;
+  color: var(--ww-ink);
+  font-family: 'Roboto Mono', monospace;
+  font-size: 13px;
+}
+
+#wwSearch:focus {
+  outline: none;
+  border-color: var(--ww-gold);
+  box-shadow: 0 0 0 2px rgba(224, 180, 0, .16);
+}
+
+.ww-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.ww-chip {
+  padding: 7px 13px;
+  background: transparent;
+  border: 1px solid var(--ww-line);
+  border-radius: 20px;
+  color: var(--ww-muted);
+  font-family: 'Roboto Mono', monospace;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.ww-chip:hover { border-color: var(--ww-gold); color: var(--ww-ink); }
+
+.ww-chip.is-on {
+  background: var(--ww-gold);
+  border-color: var(--ww-gold);
+  color: #231c00;
+  font-weight: 700;
+}
+
+.ww-sort { display: flex; align-items: center; gap: 7px; }
+
+.ww-sort label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ww-muted);
+}
+
+#wwSort {
+  padding: 8px 10px;
+  background: #0d0b0a;
+  border: 1px solid var(--ww-line);
+  border-radius: 7px;
+  color: var(--ww-ink);
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+}
+
+.ww-resultbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 2px 8px;
+  font-size: 12px;
+  color: var(--ww-muted);
+}
+
+.ww-render-note { font-size: 10.5px; opacity: .75; }
+
+/* ------------------------------------------------------------- the feed */
+
+.ww-feed-viewport {
+  position: relative;
+  height: 70vh;
+  min-height: 460px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--ww-panel);
+  border: 1px solid var(--ww-line);
+  border-radius: 10px;
+  /* Isolate the scroller so row repaints never touch the rest of the page. */
+  contain: strict;
+}
+
+.ww-feed-viewport:focus { outline: 1px solid rgba(224, 180, 0, .4); }
+
+.ww-feed-sizer { position: relative; width: 100%; }
+
+.ww-feed-window {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  will-change: transform;
+}
+
+/* Height is authoritative: it must equal ROW_HEIGHT in wahwire.js or the
+ * scroll maths drifts. Changing one without the other misaligns the feed. */
+/* HEIGHT IS LOAD-BEARING.
+ *
+ * The feed is virtualised: wahwire.js computes which rows are on screen with
+ * `scrollTop / ROW_HEIGHT` and positions the window by transform. That maths
+ * is only correct if every row is EXACTLY ROW_HEIGHT tall. If a row is allowed
+ * to grow to fit its content, the rendered slice drifts further out of
+ * register the further you scroll.
+ *
+ * ROW_HEIGHT = 168 in wahwire.js. Change one, change the other.
+ * `height` (not min-height) plus `overflow:hidden` is what enforces it. */
+.ww-post {
+  display: flex;
+  gap: 13px;
+  padding: 15px 18px;
+  border-bottom: 1px solid #241f1b;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 168px;   /* === ROW_HEIGHT in wahwire.js */
+}
+
+.ww-post:hover { background: #1f1a17; }
+
+.ww-avatar {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  border: 1px solid;
+  border-radius: 11px;
+}
+
+.ww-post-body { flex: 1 1 auto; min-width: 0; }
+
+.ww-post-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+  font-size: 12.5px;
+}
+
+.ww-name { font-weight: 700; }
+
+.ww-handle, .ww-when, .ww-dot { color: var(--ww-muted); font-size: 11.5px; }
+
+.ww-badge {
+  padding: 1px 7px;
+  border: 1px solid var(--ww-line);
+  border-radius: 4px;
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: .7px;
+  color: var(--ww-muted);
+}
+
+.ww-badge--canon  { color: #4ade80; border-color: #4ade8055; }
+.ww-badge--legacy { color: #a99a89; }
+.ww-badge--gen    { color: var(--ww-gold); border-color: #e0b40055; }
+
+.ww-content {
+  margin: 0 0 7px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ww-ink);
+  /* Clamp so a long post cannot break the fixed row height. */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ww-wired {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.ww-wired-label {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ww-muted);
+}
+
+.ww-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 9px;
+  background: rgba(224, 180, 0, .09);
+  border: 1px solid rgba(224, 180, 0, .3);
+  border-radius: 20px;
+  color: var(--ww-gold);
+  text-decoration: none;
+  font-size: 11px;
+  max-width: 320px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ww-link:hover {
+  background: rgba(224, 180, 0, .2);
+  border-color: var(--ww-gold);
+}
+
+.ww-link-kind { opacity: .8; }
+
+.ww-meta { display: flex; align-items: center; gap: 11px; flex-wrap: wrap; }
+
+.ww-likes { color: #e57373; font-size: 11.5px; font-variant-numeric: tabular-nums; }
+
+.ww-tag { color: var(--ww-muted); font-size: 10.5px; }
+
+.ww-empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--ww-muted);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+@media (max-width: 860px) {
+  .ww-viz { grid-template-columns: 1fr; }
+  .ww-stats { gap: 16px; }
+  .ww-stat b { font-size: 18px; }
+  .ww-bar-row { grid-template-columns: 110px 1fr 54px; }
+}
+
+/* Repair-backlog signalling: an unresolved pointer is shown in place rather
+ * than quietly dropped, so the gap is countable from the page itself. */
+.ww-stat-note {
+  display: block;
+  font-style: normal;
+  font-size: 9.5px;
+  letter-spacing: .4px;
+  color: #6f6357;
+  margin-top: 1px;
+}
+
+.ww-stat-note.is-warn { color: #ef6c00; }
+
+.ww-dangling {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border: 1px dashed rgba(239, 108, 0, .5);
+  border-radius: 20px;
+  color: #ef6c00;
+  font-size: 10.5px;
+  max-width: 340px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

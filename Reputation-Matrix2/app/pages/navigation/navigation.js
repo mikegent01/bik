@@ -1,5 +1,5 @@
 import { state, loadState } from '../../core/state.js';
-import { WAHBOOK_POSTS } from '../../../data/assembly/assembly-data.js';
+import { WAHWIRE_POSTS } from '../../../data/assembly/assembly-data.js';
 import { CURRENT_GAME_DATE, CURRENT_GAME_TIME } from '../../../data/world/calendar.js';
 
 // ============================================
@@ -15,7 +15,7 @@ let bootComplete = false;
 
 function checkForNewPosts() {
     loadState();
-    const notificationDot = document.getElementById('wahbook-notification');
+    const notificationDot = document.getElementById('wahwire-notification');
     const tabletNotification = document.getElementById('tablet-notification');
     
     if (state.loggedInUser === 'generic' || !state.userState.following || state.userState.following.length === 0) {
@@ -24,7 +24,7 @@ function checkForNewPosts() {
         return;
     }
 
-    const followedPosts = WAHBOOK_POSTS.filter(p => state.userState.following.includes(p.characterKey));
+    const followedPosts = WAHWIRE_POSTS.filter(p => state.userState.following.includes(p.characterKey));
     const seenIds = new Set(state.userState.seenPostIds);
     const hasNewPosts = followedPosts.some(p => !seenIds.has(p.id));
 
@@ -349,10 +349,18 @@ function initCollapsibleGroups() {
 // QUICK ACTION BUTTONS
 // ============================================
 
+/* Resolve a path relative to navigation.js itself. The tablet is injected into
+ * pages living at different depths, so anything resolved against the *document*
+ * breaks on all but one of them. */
+function pageUrl(relative) {
+    const tag = document.querySelector('script[src*="navigation.js"]');
+    return tag ? new URL(relative, tag.src).href : relative;
+}
+
 function initQuickActions() {
     const homeBtn = document.getElementById('quick-home');
     const missionsBtn = document.getElementById('quick-missions');
-    const wahbookBtn = document.getElementById('quick-wahbook');
+    const wahwireBtn = document.getElementById('quick-wahwire');
     
     if (homeBtn) {
         homeBtn.addEventListener('click', () => {
@@ -366,9 +374,13 @@ function initQuickActions() {
         });
     }
     
-    if (wahbookBtn) {
-        wahbookBtn.addEventListener('click', () => {
-            window.location.href = 'assembly.html';
+    if (wahwireBtn) {
+        wahwireBtn.addEventListener('click', () => {
+            // WAHwire has its own page now; it used to dump you on the Assembly.
+            // Resolved against navigation.js rather than the current document,
+            // because this tablet is injected into pages at several different
+            // depths and a bare relative href only works from one of them.
+            window.location.href = pageUrl('../wahwire/wahwire.html');
         });
     }
 }

@@ -17,7 +17,7 @@ try {
     console.warn('[Profile] State module not available:', e.message);
 }
 
-let WAHBOOK_POSTS = [];
+let WAHWIRE_POSTS = [];
 
 // ============================================================================
 // FALLBACK ASSETS - Always available, no network needed
@@ -192,8 +192,8 @@ function getCharacterData(characterKey) {
     }
 
     // Undefined character - log warning but don't crash
-    console.warn(`[WAHbook] Undefined character: "${characterKey}"`);
-    console.warn(`[WAHbook] Expected portrait at: portraits/${characterKey}.png`);
+    console.warn(`[WAHwire] Undefined character: "${characterKey}"`);
+    console.warn(`[WAHwire] Expected portrait at: portraits/${characterKey}.png`);
 
     return {
         name: formatCharacterKey(characterKey),
@@ -215,15 +215,15 @@ function findPortraitPath(characterKey) {
     return basePath;
 }
 function getPostsByCharacter(characterKey) {
-    if (!Array.isArray(WAHBOOK_POSTS)) return [];
-    return WAHBOOK_POSTS
+    if (!Array.isArray(WAHWIRE_POSTS)) return [];
+    return WAHWIRE_POSTS
         .filter(post => post?.characterKey === characterKey && isContentVisible(post.date))
         .sort((a, b) => getPostTimeValue(b) - getPostTimeValue(a));
 }
 
 function getPostsWithCharacterComments(characterKey) {
-    if (!Array.isArray(WAHBOOK_POSTS)) return [];
-    return WAHBOOK_POSTS
+    if (!Array.isArray(WAHWIRE_POSTS)) return [];
+    return WAHWIRE_POSTS
         .filter(post => {
             if (!post || !isContentVisible(post.date)) return false;
             return post.comments?.some(c => c?.characterKey === characterKey);
@@ -246,10 +246,10 @@ function getTotalLikes(posts) {
 }
 
 function countMentions(characterKey) {
-    if (!Array.isArray(WAHBOOK_POSTS)) return 0;
+    if (!Array.isArray(WAHWIRE_POSTS)) return 0;
     let count = 0;
     const searchName = characterKey.replace(/_/g, ' ').toLowerCase();
-    WAHBOOK_POSTS.forEach(post => {
+    WAHWIRE_POSTS.forEach(post => {
         if (!isContentVisible(post?.date)) return;
         if (post?.content?.toLowerCase().includes(searchName)) count++;
         post?.comments?.forEach(c => {
@@ -260,9 +260,9 @@ function countMentions(characterKey) {
 }
 
 function countComments(characterKey) {
-    if (!Array.isArray(WAHBOOK_POSTS)) return 0;
+    if (!Array.isArray(WAHWIRE_POSTS)) return 0;
     let count = 0;
-    WAHBOOK_POSTS.forEach(post => {
+    WAHWIRE_POSTS.forEach(post => {
         if (!isContentVisible(post?.date)) return;
         post?.comments?.forEach(c => {
             if (c?.characterKey === characterKey) count++;
@@ -387,7 +387,7 @@ function showError(message = 'Profile could not be loaded') {
             <div class="error-icon">⚠️</div>
             <h2>Error</h2>
             <p>${message}</p>
-            <a href="assembly.html" class="btn-primary" style="margin-top: 20px; padding: 12px 24px; background: var(--accent-color, #6c5ce7); color: white; text-decoration: none; border-radius: 8px;">Back to WAHbook</a>
+            <a href="assembly.html" class="btn-primary" style="margin-top: 20px; padding: 12px 24px; background: var(--accent-color, #6c5ce7); color: white; text-decoration: none; border-radius: 8px;">Back to WAHwire</a>
         `;
     }
 }
@@ -639,11 +639,11 @@ function renderProfile(characterKey) {
 async function loadData() {
     try {
         const data = await import('../../../data/assembly/assembly-data.js');
-        WAHBOOK_POSTS = data.WAHBOOK_POSTS || [];
-        console.log('[Profile] Loaded posts:', WAHBOOK_POSTS.length);
+        WAHWIRE_POSTS = data.WAHWIRE_POSTS || [];
+        console.log('[Profile] Loaded posts:', WAHWIRE_POSTS.length);
     } catch (e) {
         console.warn('[Profile] Could not load assembly-data:', e.message);
-        WAHBOOK_POSTS = [];
+        WAHWIRE_POSTS = [];
     }
 
     try {
@@ -651,8 +651,8 @@ async function loadData() {
         if (events.loadEventPosts) {
             const eventPosts = await events.loadEventPosts();
             if (Array.isArray(eventPosts)) {
-                WAHBOOK_POSTS.push(...eventPosts);
-                console.log('[Profile] Added event posts, total:', WAHBOOK_POSTS.length);
+                WAHWIRE_POSTS.push(...eventPosts);
+                console.log('[Profile] Added event posts, total:', WAHWIRE_POSTS.length);
             }
         }
     } catch (e) {
@@ -689,14 +689,14 @@ async function init() {
                 <div class="error-icon">🔍</div>
                 <h2>No User Specified</h2>
                 <p>Add <code style="background: #333; padding: 4px 8px; border-radius: 4px;">?user=character_key</code> to the URL</p>
-                <a href="assembly.html" class="btn-primary" style="margin-top: 20px; padding: 12px 24px; background: var(--accent-color, #6c5ce7); color: white; text-decoration: none; border-radius: 8px;">Back to WAHbook</a>
+                <a href="assembly.html" class="btn-primary" style="margin-top: 20px; padding: 12px 24px; background: var(--accent-color, #6c5ce7); color: white; text-decoration: none; border-radius: 8px;">Back to WAHwire</a>
             `;
         }
         return;
     }
 
     // Update page title immediately
-    document.title = `${formatCharacterKey(characterKey)} - WAHbook Profile`;
+    document.title = `${formatCharacterKey(characterKey)} - WAHwire Profile`;
 
     // Set a timeout to show content even if data loading takes too long
     const loadingTimeout = setTimeout(() => {

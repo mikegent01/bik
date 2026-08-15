@@ -890,7 +890,7 @@ const ACCOUNTABILITY_DOCKET = {
             evidence: [
                 "Multiple witness accounts",
                 "Physical damage to Raventree Manor",
-                "Archie's own public confession on WAHbook"
+                "Archie's own public confession on WAHwire"
             ],
             notes: "Escaped custody with help from an Iron Legion spy named 'Jerry'. Last seen traversing alien dimensions via his Third Eye. Considered magically unstable and dangerous, but not malicious.",
             last_seen: "Day 20 - Dimensional breach at Raventree Manor",

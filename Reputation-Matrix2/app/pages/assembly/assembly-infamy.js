@@ -1,5 +1,5 @@
 /**
- * WAHbook Infamy Engine
+ * WAHwire Infamy Engine
  * Fame is attention. Infamy is heat: warrants, fear, hostile scrutiny,
  * faction grudges, and the social cost of being recognized for the wrong reasons.
  */
