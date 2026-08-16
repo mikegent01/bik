@@ -23,59 +23,86 @@
     },
     "bowser": {
       "name": "Bowser",
-      "description": "Named in the record “Highsun 1, 955 BF — The Day Of”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:08:21.444741+00:00",
         "sourceRecord": "Highsun 1, 955 BF — The Day Of"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T20:39:59+00:00",
+        "sourceArticles": [
+          "highsun_1_955_bf_the_day_of",
+          "the_assassination_of_peach",
+          "the_fawthful_narrative_failure",
+          "mages_guild",
+          "mushroom_regency"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "united_midlands_factions": {
       "name": "United Midlands Factions",
-      "description": "Named in the record “The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:09:15.506315+00:00",
         "sourceRecord": "The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T20:40:00+00:00",
+        "sourceArticles": [
+          "session_2_ravencreek_to_swiftsoul",
+          "vigilance",
+          "session_1_dragon_mountain",
+          "archie_miser",
+          "markop"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "midlands_faction_reputations": {
       "name": "Midlands Faction Reputations",
-      "description": "Named in the record “The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:09:15.507772+00:00",
         "sourceRecord": "The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T20:40:00+00:00",
+        "sourceArticles": [
+          "session_2_ravencreek_to_swiftsoul",
+          "vigilance",
+          "session_1_dragon_mountain",
+          "archie_miser",
+          "markop"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "star_sprites": {
