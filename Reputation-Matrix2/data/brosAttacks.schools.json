@@ -66,6 +66,186 @@
       ],
       "status": "confirmed",
       "playable": true
+    },
+    {
+      "id": "gamma_discrepancy_bros_attack",
+      "name": "Gamma Discrepancy Bros Attack",
+      "school": "clearing",
+      "subtitle": "Markop and Green T analyze historical data to uncover a hidden truth",
+      "participants": [
+        "markop",
+        "green_t"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "detonation_bros_attack",
+      "name": "Detonation Bros Attack",
+      "school": "support_fire",
+      "subtitle": "The Original Dan creates a massive fire detonation while the Feyward Dan attempts to escape harm.",
+      "participants": [
+        "dan_original",
+        "dan_feyward"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "misdirection_bros_attack",
+      "name": "Misdirection Bros Attack",
+      "school": "misdirection",
+      "subtitle": "Mushroom Regency misdirects Toadsworth to allow Fawful to escape",
+      "participants": [
+        "mushroom_regency",
+        "toadsworth_sr"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "goblin_alchemy_bros_attack",
+      "name": "Goblin Alchemy Bros Attack",
+      "school": "clearing",
+      "subtitle": "Markop creates height, Archie slices through the blood manor's defenses.",
+      "participants": [
+        "markop",
+        "archie_miser"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "teleportation_bros_attack",
+      "name": "Teleportation Bros Attack",
+      "school": "clearing",
+      "subtitle": "Koopa and Tanukiburt teleport to unknown coordinates connecting to the Shadow Estate",
+      "participants": [
+        "koopa_trooper",
+        "tanukiburt"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "misdirection_bros_attack_variant",
+      "name": "Misdirection Bros Attack (Variant)",
+      "school": "misdirection",
+      "subtitle": "Diddy distracts the mourners while Chunky escapes in a broom closet.",
+      "participants": [
+        "diddy_kong",
+        "chunky_kong_junimus_gorolini_bongo_jr"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "jumping_coordination_bros_attack",
+      "name": "Jumping Coordination Bros Attack",
+      "school": "misdirection",
+      "subtitle": "Ghost and Brick simultaneously jump from the classroom window into the void",
+      "participants": [
+        "corporal_reyes",
+        "sergeant_stone"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "tanuki_liberation_bros_attack",
+      "name": "Tanuki Liberation Bros Attack",
+      "school": "support_fire",
+      "subtitle": "Remi presses the gun while Green T adjusts her aim downward.",
+      "participants": [
+        "remi",
+        "green_t"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "shieldwork_bros_attack",
+      "name": "Shieldwork Bros Attack",
+      "school": "shieldwork",
+      "subtitle": "Michael Afton holds the line so Wario can speak with Cassidy",
+      "participants": [
+        "michael_afton",
+        "wario"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "waluigi_s_distraction_bros_attack",
+      "name": "Waluigi's Distraction Bros Attack",
+      "school": "misdirection",
+      "subtitle": "Princess Daisy and Waluigi create a diversion to allow Toadsworth Sr. to sign the Charter unseen",
+      "participants": [
+        "princess_daisy",
+        "waluigi"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "toad_rescue_bros_attack",
+      "name": "Toad Rescue Bros Attack",
+      "school": "clearing",
+      "subtitle": "Mario and Luigi extract from Bowser's body",
+      "participants": [
+        "mario",
+        "luigi"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "ghostly_misdirection_bros_attack",
+      "name": "Ghostly Misdirection Bros Attack",
+      "school": "misdirection",
+      "subtitle": "Wario distracts while the neighbor's machinery is reconfigured for escape.",
+      "participants": [
+        "wario",
+        "professor_e_gadd"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "astral_portal_creation_bros_attack",
+      "name": "Astral Portal Creation Bros Attack",
+      "school": "clearing",
+      "subtitle": "Archie Miser and The Oracle perform the ritual without a circle.",
+      "participants": [
+        "archie_miser",
+        "the_oracle"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "ruler_counterattack_bros_attack",
+      "name": "Ruler Counterattack Bros Attack",
+      "school": "shieldwork",
+      "subtitle": "'Brick' Stone and 'Viper' Miller synchronize their movements to counter Baldi's ruler attack.",
+      "participants": [
+        "sergeant_stone",
+        "specialist_miller"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "frozen_shieldwork_bros_attack",
+      "name": "Frozen Shieldwork Bros Attack",
+      "school": "shieldwork",
+      "subtitle": "Waluigi holds an ice shield while Hjumpik moves through the frozen manor",
+      "participants": [
+        "waluigi",
+        "hjumpik"
+      ],
+      "status": "confirmed",
+      "playable": true
     }
   ]
 }

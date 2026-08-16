@@ -281,6 +281,400 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:21:13+00:00"
       }
+    },
+    "chancellor_toadsworth": {
+      "bio": "I inherited the Regency, but not its innocence. I rebuild in exile, keeping secrets safe.",
+      "location": "In Exile",
+      "joined": "Spring, Year 177",
+      "follows": [
+        "markop",
+        "generic_toad",
+        "bowser"
+      ],
+      "followReasons": {
+        "markop": "A titan who knows when silence is necessary.",
+        "generic_toad": "To hear the truth from those whose lives have not been shaped by power.",
+        "bowser": "Bowser, King of the Koopalings, holds truths about Disaster Inc."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:12:50+00:00"
+      }
+    },
+    "captain_toadette": {
+      "bio": "They call it a collapse. I call it a tactical retreat. The Loyalists are scattered, but not broken. We now operate from the shadows, a resistance against all tyranny.",
+      "location": "Underground Resistance Network",
+      "joined": "Onward to Victory",
+      "follows": [
+        "lord_crimson",
+        "waluigi",
+        "fawful"
+      ],
+      "followReasons": {
+        "lord_crimson": "He understands the value of darkness.",
+        "waluigi": "To watch Bowser squirm.",
+        "fawful": "The Conqueror's forces need to be contained."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:12:53+00:00"
+      }
+    },
+    "wario": {
+      "bio": "Explosives and ledgers. Wario's enterprise is a force to be reckoned with in the Feywild.",
+      "location": "Shadow Estate",
+      "joined": "Mirror recovery sequence",
+      "follows": [
+        "markop",
+        "waluigi",
+        "general_marcus_ironhand"
+      ],
+      "followReasons": {
+        "markop": "The Titan Who Almost Didn't Get Back Up. He knows the ins and outs of survival.",
+        "waluigi": "Waluigi disputes my debt, but his numbers are interesting.",
+        "general_marcus_ironhand": "Military objectives and materiel—someone needs to keep an eye on that."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:13:00+00:00"
+      }
+    },
+    "luigi": {
+      "bio": "I’m Luigi, the reluctant ghostbuster. Mr. L’s return changed everything. Fear’s a weapon, and I wield it—or so they say.",
+      "location": "Mushroom Kingdom",
+      "joined": "Joined in the Year of the Miasma",
+      "follows": [
+        "lord_crimson",
+        "waluigi",
+        "mystic_morel"
+      ],
+      "followReasons": {
+        "lord_crimson": "I need to understand a lord like him to know Mr. L’s influence.",
+        "waluigi": "He drives me crazy, but he’s my brother and a fellow ghostbuster.",
+        "mystic_morel": "That fortune-teller knows too much—she might be key to Mr. L's plan."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:13:09+00:00"
+      }
+    },
+    "green_t": {
+      "bio": "Green T is back from the dead, literally. Survived a vampire lord and a mirror dimension. Now plotting from the Shadows.",
+      "location": "Shadowfell",
+      "joined": "+1042 BF - Shadow Estate Diaries",
+      "follows": [
+        "markop",
+        "lord_crimson",
+        "alpha_bloodmaw"
+      ],
+      "followReasons": {
+        "markop": "The Titan Who Almost Didn't Get Back Up; Relatable struggle.",
+        "lord_crimson": "To understand the enemy's perspective and plot countermeasures.",
+        "alpha_bloodmaw": "Territorial instincts are valuable in survival."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:13:11+00:00"
+      }
+    },
+    "eager": {
+      "bio": "I bring bad luck wherever I go. Not that it matters now, as I'm just a relic for Disaster Inc. to use when they need someone expendable.",
+      "location": "The Shadowfell",
+      "joined": "2023-05-14",
+      "follows": [
+        "waluigi",
+        "bowser"
+      ],
+      "followReasons": {
+        "waluigi": "Waluigi reluctantly follows me because he knows I'm not to be trusted.",
+        "bowser": "Bowser watches me to see if I'll do something suicidal for the Koopas."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:13:20+00:00"
+      }
+    },
+    "mario": {
+      "bio": "I disappeared, but I'm still out there. Every shadow holds a possibility.",
+      "location": "Raventree Manor",
+      "joined": "85 years ago... or is it?",
+      "follows": [
+        "luigi",
+        "wah_media_collective",
+        "bowser"
+      ],
+      "followReasons": {
+        "luigi": "He's working the shadows, like me.",
+        "wah_media_collective": "They stir up trouble worth investigating.",
+        "bowser": "We're not done with each other yet."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:13:41+00:00"
+      }
+    },
+    "bones": {
+      "bio": "Survived Aegis Command, Corvinarus, and Thornbury. Master of infiltration and survival. Follow me for secrets only the dead know.",
+      "location": "Regal Capital",
+      "joined": "Fractured Sanctum",
+      "follows": [
+        "waluigi",
+        "lord_crimson",
+        "mystic_morel"
+      ],
+      "followReasons": {
+        "waluigi": "Liberated Toads' greatest ally",
+        "lord_crimson": "To avoid the Onyx Hand's notice",
+        "mystic_morel": "The fortune teller is always watching"
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:14:05+00:00"
+      }
+    },
+    "salam": {
+      "bio": "I survived the Shadow Estate by holding on to Remi. Now I'm with the Liberated Toads, hunting down Disaster Inc.'s screw-ups.",
+      "location": "With the liberated",
+      "joined": "After the rooftop",
+      "follows": [
+        "generic_toad",
+        "bones",
+        "bowser"
+      ],
+      "followReasons": {
+        "generic_toad": "The scared one knows how to stay out of trouble.",
+        "bones": "We both know where the bodies are buried.",
+        "bowser": "He's looking for his kingdom. I'm looking for mine."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:14:16+00:00"
+      }
+    },
+    "mystic_morel": {
+      "bio": "I predict misfortune and take your gold. My tarot tells truths you'd rather not know.",
+      "location": "Shadow Estate",
+      "joined": "Unknown, possibly pre-history",
+      "follows": [
+        "archie_miser",
+        "wah_media_collective",
+        "markop"
+      ],
+      "followReasons": {
+        "archie_miser": "He's a victim of my talents. A fine subject for divination.",
+        "wah_media_collective": "They hype every disaster I cause; they deserve to see mine.",
+        "markop": "The Titan who almost didn't get back up—worth noting in the rising stars."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:14:50+00:00"
+      }
+    },
+    "toad_lee": {
+      "bio": "Toad Lee continues to fight despite being tossed out windows. Disaster Inc. needs me, even if Waluigi finds it funny.",
+      "location": "Mushroom Kingdom",
+      "joined": "Joined WAHwire to keep the front lines i",
+      "follows": [
+        "eager",
+        "generic_toad",
+        "lord_crimson"
+      ],
+      "followReasons": {
+        "eager": "Eager is a fellow front-line fighter against Disaster Inc.",
+        "generic_toad": "To help ordinary citizens like me stay safe.",
+        "lord_crimson": "Need to understand the vampire's perspective in this mess."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:14:54+00:00"
+      }
+    },
+    "fawful": {
+      "bio": "Fawful: MY castle is a fortress of mustard and mayhem! Those who oppose me are either too afraid or simply wrong. Mustard, my favorite condiment, will always be my greatest weapon.",
+      "location": "Castle of Peaches",
+      "joined": "ON THE NIGHT OF CONQUEST",
+      "follows": [
+        "waluigi",
+        "mystic_morel",
+        "bowser"
+      ],
+      "followReasons": {
+        "waluigi": "WALUIGI FINDS ME IRRITATING BUT MY MUSTARD IS A FORCE TO BE RECKoned WITH.",
+        "mystic_morel": "THE FORTUNE TELLER HAS STEALTH AND KNOWLEDGE, IDEAL FOR SPREADING CHORTES.",
+        "bowser": "BOWSER UNDERESTIMATES MY DOMINION OVER THE CASTLE OF PEACHES."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:15+00:00"
+      }
+    },
+    "the_oracle": {
+      "bio": "Orantha Cornelius, or whoever is playing today. Timeline custodian, reality checkpoint, and all-around paradox defuser.",
+      "location": "Raventree Manor",
+      "joined": "Day One of the Cataclysm",
+      "follows": [
+        "markop",
+        "wah_media_collective",
+        "bowser"
+      ],
+      "followReasons": {
+        "markop": "Markop almost got back up... I had to help.",
+        "wah_media_collective": "To keep an eye on the sensationalists.",
+        "bowser": "Bowser has held the door. I've seen what's behind it."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:18+00:00"
+      }
+    },
+    "princess_peach": {
+      "bio": "The circumstances of my assassination remain unresolved. I was kind, gracious, and would have been horrified by what is being done in my name.",
+      "location": "Mushroom Kingdom (former ruler)",
+      "joined": "The day Peach Loyalists rose",
+      "follows": [
+        "captain_toadette",
+        "generic_toad",
+        "waluigi"
+      ],
+      "followReasons": {
+        "captain_toadette": "Watching the Ruthless Restorer bring chaos to the one I once ruled.",
+        "generic_toad": "Understanding the fear of those left behind.",
+        "waluigi": "He knew me, and this isn't me he's avenging."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:27+00:00"
+      }
+    },
+    "mossy": {
+      "bio": "I bite things. Silent, uncomplaining, reliable. Waluigi appreciates me.",
+      "location": "Disaster Inc. Workshop",
+      "joined": "Stolen During Events",
+      "follows": [
+        "waluigi",
+        "markop",
+        "mystic_morel"
+      ],
+      "followReasons": {
+        "waluigi": "Waluigi values my reliability.",
+        "markop": "Markop is a fellow asset.",
+        "mystic_morel": "Mystic Morel's insights are intriguing."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:30+00:00"
+      }
+    },
+    "orangus_cornelius": {
+      "bio": "Orangus Cornelius, The Defenestrated Lord. I survived Green T's bullet and Bowser's tackle. Now I'm just a bat who lost my Anchor. Socially dead, physically impressive.",
+      "location": "Shadow Estate Ruins",
+      "joined": "20 Years Ago",
+      "follows": [
+        "lord_crimson",
+        "bowser",
+        "wah_media_collective"
+      ],
+      "followReasons": {
+        "lord_crimson": "Formal vampire lord, might know more about surviving the Shadowfell.",
+        "bowser": "King of the Koopas, might help rebuild my dimensional Anchor.",
+        "wah_media_collective": "They report on disaster and intrigue, might learn something useful."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:39+00:00"
+      }
+    },
+    "dracule_mihawk": {
+      "bio": "Dracule Mihawk, the Hawk of Blackfen Pass. I observe and adapt, wielding my blade as a tool for improvisation. Mount Ebott is proving an enlightening yet perilous task.",
+      "location": "Mount Ebott",
+      "joined": "Year of the Frostpeak",
+      "follows": [
+        "wah_media_collective",
+        "colonel_vera_steelstorm",
+        "generic_toad"
+      ],
+      "followReasons": {
+        "wah_media_collective": "Sensationalism is a double-edged sword, but it's important to stay informed.",
+        "colonel_vera_steelstorm": "She represents procedural integrity in an ever-changing world.",
+        "generic_toad": "Every voice matters, even one filled with fear and uncertainty."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:48+00:00"
+      }
+    },
+    "sans": {
+      "bio": "I'm Sans, the skeleton of Snowdin. Observing from the shadows, I offer hospitality to those who seek it. The Bone-Line is strong.",
+      "location": "Snowdin Town",
+      "joined": "Joined the Bone-Line in '96",
+      "follows": [
+        "lord_crimson",
+        "generic_toad",
+        "wah_media_collective"
+      ],
+      "followReasons": {
+        "lord_crimson": "He embodies regal disdain for mortals.",
+        "generic_toad": "His fear is amusing, yet relatable.",
+        "wah_media_collective": "To keep an eye on sensationalism."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:54+00:00"
+      }
     }
   }
 }

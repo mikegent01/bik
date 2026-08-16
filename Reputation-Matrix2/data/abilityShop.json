@@ -94,7 +94,7 @@
         "Simple weapons",
         "Martial weapons"
       ],
-      "count": 103
+      "count": 107
     },
     "rogue": {
       "name": "Rogue",
@@ -117,7 +117,7 @@
         "Rapiers",
         "Shortswords"
       ],
-      "count": 101
+      "count": 105
     },
     "barbarian": {
       "name": "Barbarian",
@@ -139,7 +139,7 @@
         "Simple weapons",
         "Martial weapons"
       ],
-      "count": 104
+      "count": 107
     },
     "wizard": {
       "name": "Wizard",
@@ -160,7 +160,7 @@
         "Quarterstaffs",
         "Light crossbows"
       ],
-      "count": 100
+      "count": 104
     },
     "fighter": {
       "name": "Fighter",
@@ -181,7 +181,7 @@
         "Simple weapons",
         "Martial weapons"
       ],
-      "count": 114
+      "count": 116
     },
     "gunslinger": {
       "name": "Gunslinger",
@@ -201,7 +201,7 @@
         "Simple weapons",
         "Firearms"
       ],
-      "count": 99
+      "count": 102
     },
     "spy": {
       "name": "Spy",
@@ -223,7 +223,7 @@
         "Rapiers",
         "Shortswords"
       ],
-      "count": 95
+      "count": 100
     },
     "leader": {
       "name": "Leader",
@@ -243,7 +243,7 @@
       "weapons": [
         "Simple weapons"
       ],
-      "count": 96
+      "count": 100
     },
     "commoner": {
       "name": "Commoner",
@@ -257,7 +257,7 @@
       "weapons": [
         "Improvised weapons"
       ],
-      "count": 98
+      "count": 101
     },
     "militia": {
       "name": "Militia",
@@ -276,7 +276,7 @@
       "weapons": [
         "Simple weapons"
       ],
-      "count": 98
+      "count": 101
     },
     "artisan": {
       "name": "Artisan",
@@ -293,7 +293,7 @@
         "Improvised weapons",
         "Tools as weapons"
       ],
-      "count": 96
+      "count": 102
     }
   },
   "abilities": [
@@ -34847,6 +34847,1441 @@
         "system": "abilities",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T00:28:25+00:00"
+      }
+    },
+    {
+      "id": "leader_l18_gen0",
+      "name": "Crowning Command",
+      "icon": "👑",
+      "level": 18,
+      "type": "leadership",
+      "typeLabel": "Leadership",
+      "description": "Unite your allies for an ultimate surge, granting them +3 to AC and damage until the end of their next turn.",
+      "class": "leader",
+      "className": "Leader",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 1180,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a significant boost in combat effectiveness, fitting the level 18 requirement.",
+      "rules": {
+        "activation": "action",
+        "range": "30 feet",
+        "duration": "until the end of their next turn",
+        "uses": "1/day",
+        "effect": "All allies within 30 feet gain +3 to AC and damage on attacks until the end of their next turn. They must use an action to activate this ability.",
+        "drawback": "Using this ability requires you to remain still for 1 round after its activation."
+      },
+      "apCost": 5,
+      "apReason": "The effect is powerful and grants allies a substantial advantage, justifying a high AP cost.",
+      "warioNote": "Hey there! This one's a real doozy. But ya gotta stay still for a round after using it. Ya sure you wanna pay that price?",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:12:58+00:00"
+      }
+    },
+    {
+      "id": "artisan_l18_gen1",
+      "name": "Titanic Alchemy",
+      "icon": "⚗️",
+      "level": 18,
+      "type": "magic",
+      "typeLabel": "Magic",
+      "description": "Mix ingredients into an alchemical concoction that explodes in a burst of force and poison.",
+      "class": "artisan",
+      "className": "Artisan",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 1180,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability allows for a powerful offensive burst that complements the class's focus on crafting and combat at high levels.",
+      "rules": {
+        "activation": "action",
+        "range": "15 feet",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "Create a potent alchemical weapon that deals 4d8 + Intelligence modifier force damage in a 10-foot radius burst, and an additional 2d6 poison damage. You must consume or spill the concoction to use it.",
+        "drawback": "You must consume or spill the alchemical mixture to activate it, potentially exposing you to its effects."
+      },
+      "apCost": 5,
+      "apReason": "The ability requires precise timing and a limited resource (the alchemical mixture), making it costly in terms of preparation.",
+      "warioNote": "You coulda bought this in a bottle, but nooo... you had to go and make it yourself! That’s what I call dedication!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:13:05+00:00"
+      }
+    },
+    {
+      "id": "wizard_l19_gen0",
+      "name": "Eternal Focus",
+      "icon": "📚",
+      "level": 19,
+      "type": "magic",
+      "typeLabel": "Magic",
+      "description": "Focus your arcane power indefinitely to enhance all spells cast.",
+      "class": "wizard",
+      "className": "Wizard",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 1240,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a significant boost to spellcasting at the expense of memorization, fitting well with a level 19 wizard's need for powerful abilities.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 minute",
+        "uses": "at will",
+        "effect": "While active, you gain a +2 bonus to spell DCs and spell attack rolls. Additionally, once per short rest, you can choose an arcane spell of 3rd level or lower that has been prepared but not cast yet; this spell is cast instantly.",
+        "drawback": "You must memorize one additional 3rd-level spell for each use."
+      },
+      "apCost": 2,
+      "apReason": "Grants a +2 bonus and an instant cast on a third-level spell but costs one additional memorized spell.",
+      "warioNote": "Hey there, wanna know what happens when you forget to plan ahead? You get to memorize more spells!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:13:17+00:00"
+      }
+    },
+    {
+      "id": "spy_l19_gen1",
+      "name": "Inkwell Resurgence",
+      "icon": "INK",
+      "level": 19,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "Summon a burst of ink to heal yourself and create an ink barrier that grants temporary hit points.",
+      "class": "spy",
+      "className": "Spy",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 1240,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability reflects the spy's mastery of stealth and their ability to turn situations around with a final flourish.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 minute",
+        "uses": "1/short rest",
+        "effect": "You gain 5d8 temporary hit points. For the next round, any creature that hits you with a melee attack takes 2d6 force damage as your ink resurges.",
+        "drawback": "You must remain still for 1 minute after using this ability to allow the ink to fully regenerate."
+      },
+      "apCost": 5,
+      "apReason": "This high-cost ability provides significant healing and defensive benefits, requiring careful management of resources.",
+      "warioNote": "Hey there! Inkwell Resurgence? Nice try, but you’re running out of ink. Better keep your supply stocked!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:13:38+00:00"
+      }
+    },
+    {
+      "id": "artisan_l19_gen1",
+      "name": "Forge Conduit",
+      "icon": "🔨",
+      "level": 19,
+      "type": "magic",
+      "typeLabel": "Magic",
+      "description": "Channel your mastery into an ally's weapon, granting them +1 bonus to attack rolls and dealing 2d6 force damage.",
+      "class": "artisan",
+      "className": "Artisan",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 1240,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability supports the team while leveraging the artisan's mastery of tools, fitting as a level 19 feature that provides utility to allies without overshadowing existing combat features.",
+      "rules": {
+        "activation": "action",
+        "range": "touch",
+        "duration": "until end of next turn",
+        "uses": "1/long rest",
+        "effect": "Grant an ally within touch range a +1 bonus to attack rolls and deal 2d6 force damage with their next weapon attack.",
+        "drawback": "You must forgo your own weapon attacks on this turn."
+      },
+      "apCost": 3,
+      "apReason": "Supports multiple allies and offers a significant buff with damage for one turn.",
+      "warioNote": "Hey! You're not the one doing all the heavy lifting today, are ya? Just lending a hand, right?",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:13:59+00:00"
+      }
+    },
+    {
+      "id": "rogue_l20_gen1",
+      "name": "Shadowstep Nemesis",
+      "icon": "🗡️",
+      "level": 20,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Summon a shadowy nemesis to deliver relentless attacks against your most dangerous foe within sight.",
+      "class": "rogue",
+      "className": "Rogue",
+      "hitDie": 8,
+      "primaryStat": "dex",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability complements existing combat-focused abilities by providing an ongoing threat against a single enemy over time.",
+      "rules": {
+        "activation": "reaction",
+        "range": "60 feet",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "You summon a shadowy nemesis that targets the most dangerous enemy within 60 feet. This creature attacks the target for up to 3 rounds, dealing 2d6 necrotic damage plus your proficiency bonus on each attack roll. The target can spend 1 action per round to attempt an Intelligence saving throw (DC = 15 + your rogue level) or lose its next turn.",
+        "drawback": "You must use a short rest after summoning the nemesis, and it cannot be dismissed early."
+      },
+      "apCost": 4,
+      "apReason": "Requires a long rest to use again and provides a strong effect lasting for one minute that can turn the tide of combat.",
+      "warioNote": "Nah, pal! You gotta cool down after summonin' that dark beastie. Can't be messin' with foes all day!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:14:13+00:00"
+      }
+    },
+    {
+      "id": "spy_l20_gen1",
+      "name": "Inkwell Nexus",
+      "icon": "💧",
+      "level": 20,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "Forge a web of ink that snares and blinds your foes, creating an impenetrable barrier.",
+      "class": "spy",
+      "className": "Spy",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability requires a significant cooldown and offers an area-of-effect debuff suitable for a level 20 spy that can dominate large battlescene events.",
+      "rules": {
+        "activation": "reaction",
+        "range": "touch",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "Ink bursts from the target to create a 20-foot radius sphere that blinds creatures within it for 1 round and immobilizes them until the end of your next turn. Creatures that start their turn inside the sphere take 1d6 acid damage.",
+        "drawback": "You are immobile during the duration of this effect, unable to move or act."
+      },
+      "apCost": 5,
+      "apReason": "The creation of such a powerful effect in close combat, with a wide impact radius, necessitates high AP cost to balance its power.",
+      "warioNote": "Hey there, pal! You want to create an ink web that blinds your foes? That’s gonna cost ya five APs! Can’t have you hoggin' all the spotlight, now can we?",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:14:27+00:00"
+      }
+    },
+    {
+      "id": "artisan_l20_gen1",
+      "name": "Forge Convergence",
+      "icon": "🔨",
+      "level": 20,
+      "type": "magic",
+      "typeLabel": "Magic",
+      "description": "Unite your tools in perfect harmony to unleash a devastating weapon that grants +5 to attack rolls and damage for the next round.",
+      "class": "artisan",
+      "className": "Artisan",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability scales with the character's level, providing a powerful boost to combat effectiveness at the highest tier.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 round",
+        "uses": "at will",
+        "effect": "Create a one-time legendary weapon dealing 4d12 + Intelligence modifier force damage. Grant yourself advantage on all attack rolls and damage rolls for the next round.",
+        "drawback": "You must sacrifice your movement this turn."
+      },
+      "apCost": 5,
+      "apReason": "Creating such an enhanced weapon and granting advantage for an entire round is a significant cost in terms of utility and focus.",
+      "warioNote": "Huh! Sacrifice your step? You think that’s cheap? I’ll have you know, this thing’s gonna take some real finesse to pull off!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:13+00:00"
+      }
+    },
+    {
+      "id": "paladin_l2_gen1",
+      "name": "Radiant Vow",
+      "icon": "✍️",
+      "level": 2,
+      "type": "divine",
+      "typeLabel": "Divine",
+      "description": "Forge a sacred promise that grants temporary hit points equal to your Charisma modifier when you are reduced to 0 hit points.",
+      "class": "paladin",
+      "className": "Paladin",
+      "hitDie": 10,
+      "primaryStat": "cha",
+      "price": 220,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides significant healing at crucial moments and requires a personal cost.",
+      "rules": {
+        "activation": "reaction",
+        "range": "self",
+        "duration": "instantaneous",
+        "uses": "1/long rest",
+        "effect": "When you are reduced to 0 hit points, gain temporary hit points equal to your Charisma modifier (maximum equals twice this value).",
+        "drawback": "You must utter a sacred oath that cannot be broken."
+      },
+      "apCost": 2,
+      "apReason": "Requires a reaction and a long rest to use, making it costly in both time and situational utility.",
+      "warioNote": "You better not break that vow, or you’ll be in for a world of hurt! WAAAAAIIITTT!!!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:44+00:00"
+      }
+    },
+    {
+      "id": "rogue_l2_gen1",
+      "name": "Feinting Strike",
+      "icon": "🗡️",
+      "level": 2,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Distract your opponent by feinting a strike, dealing an extra d6 slashing damage if they believe you're attacking them.",
+      "class": "rogue",
+      "className": "Rogue",
+      "hitDie": 8,
+      "primaryStat": "dex",
+      "price": 220,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability scales with the rogue's Sneak Attack and adds a strategic combat option at level 2.",
+      "rules": {
+        "activation": "action",
+        "range": "melee weapon attack",
+        "duration": "until end of the target's next turn",
+        "uses": "1/short rest",
+        "effect": "If you hit with a melee weapon attack, and the target believes they are being struck, you deal an additional 1d6 slashing damage.",
+        "drawback": "The target must succeed on a Wisdom saving throw (DC 8 + your proficiency bonus) or be temporarily disoriented, losing their next action."
+      },
+      "apCost": 1,
+      "apReason": "",
+      "warioNote": "Hey! It’s all fun and games until someone feints right into your heart!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:16:29+00:00"
+      }
+    },
+    {
+      "id": "barbarian_l2_gen0",
+      "name": "Raging Fury",
+      "icon": "💪",
+      "level": 2,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Gain +1d6 damage on all melee attacks this turn.",
+      "class": "barbarian",
+      "className": "Barbarian",
+      "hitDie": 12,
+      "primaryStat": "str",
+      "price": 220,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a clear and potent damage boost, fitting for level 2.",
+      "rules": {
+        "activation": "action",
+        "range": "touch",
+        "duration": "until end of next turn",
+        "uses": "at will",
+        "effect": "Deal an additional 1d6 points of damage on your next melee attack. This effect stacks with other rage-based damage bonuses.",
+        "drawback": "Must spend a fury point to activate."
+      },
+      "apCost": 1,
+      "apReason": "Provides a significant combat advantage but requires the expendable resource of a fury point.",
+      "warioNote": "Spend a fury point! It's just one point... But it's yours!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:17:00+00:00"
+      }
+    },
+    {
+      "id": "leader_l2_gen0",
+      "name": "Energetic Boost",
+      "icon": "⚡",
+      "level": 2,
+      "type": "support",
+      "typeLabel": "Support",
+      "description": "Restore temporary hit points equal to your CHA modifier + level to nearby allies.",
+      "class": "leader",
+      "className": "Leader",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 220,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "Provides long-term support to allies, fitting the leadership theme.",
+      "rules": {
+        "activation": "action",
+        "range": "30 feet",
+        "duration": "1 minute",
+        "uses": "1/short rest",
+        "effect": "One ally within range regains 2d8 temporary hit points.",
+        "drawback": "You expend a short rest to activate."
+      },
+      "apCost": 3,
+      "apReason": "Requires a short rest, which is a significant resource.",
+      "warioNote": "Energetic Boost? Save some juice for later! You'll need it.",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:18:15+00:00"
+      }
+    },
+    {
+      "id": "spy_l2_gen1",
+      "name": "Ink Gambit",
+      "icon": "🪄",
+      "level": 2,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "Blur your surroundings to confuse foes, making yourself and one ally indistinct.",
+      "class": "spy",
+      "className": "Spy",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 220,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a significant stealth benefit but at the cost of combat capabilities, fitting for level 2.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 minute",
+        "uses": "1/short rest",
+        "effect": "You and an adjacent ally gain advantage on Dexterity (Stealth) checks for the duration. At the start of your next turn, roll a d6; on an odd result, you both become visible.",
+        "drawback": "During the effect's duration, you cannot use any actions that involve attacking."
+      },
+      "apCost": 2,
+      "apReason": "Requires use of an action and has a duration longer than a single turn.",
+      "warioNote": "Hey there! Need to disappear? You can, just not while doing damage. Haha!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:19:23+00:00"
+      }
+    },
+    {
+      "id": "commoner_l2_gen0",
+      "name": "Emergency Repair",
+      "icon": "🔧",
+      "level": 2,
+      "type": "utility",
+      "typeLabel": "Utility",
+      "description": "Make an improvised repair to a broken item or piece of equipment.",
+      "class": "commoner",
+      "className": "Commoner",
+      "hitDie": 6,
+      "primaryStat": null,
+      "price": 220,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This utility ability complements existing social and combat abilities by offering a way to handle practical problems in emergencies.",
+      "rules": {
+        "activation": "action",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "at will",
+        "effect": "You can spend up to 1 AP and use your action to apply a temporary fix, granting the repaired item or equipment +2 to AC for the next 10 minutes.",
+        "drawback": "The repair is not permanent; after the duration ends, the broken item reverts to its previous state."
+      },
+      "apCost": 1,
+      "apReason": "Repairing items is often resource-intensive; this requires an Action Point, reflecting the complexity of such tasks.",
+      "warioNote": "You can't make something last forever with just some quick fixin'! But it’ll hold for a bit!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:19:46+00:00"
+      }
+    },
+    {
+      "id": "rogue_l3_gen1",
+      "name": "Shadowy Feint",
+      "icon": "🗡️",
+      "level": 3,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "You feign an attack and then strike from the side, dealing extra damage.",
+      "class": "rogue",
+      "className": "Rogue",
+      "hitDie": 8,
+      "primaryStat": "dex",
+      "price": 280,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability builds on existing Rogue combat mechanics by allowing a follow-up attack with extra damage, providing an incentive for tactical positioning and timing.",
+      "rules": {
+        "activation": "action",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "When you hit a target with your first attack action on your turn, you can choose to feint an attack. On the following round, make another attack against that same target as part of your action. This second attack deals an additional 2d6 damage.",
+        "drawback": "You cannot use this ability more than once per short rest."
+      },
+      "apCost": 2,
+      "apReason": "This ability requires a full action and has a cooldown, justifying its AP cost of 2.",
+      "warioNote": "Hey there! You think you're so slick? Well, this trick costs you two Action Points... but the damage is worth it, right?",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:20:00+00:00"
+      }
+    },
+    {
+      "id": "wizard_l3_gen1",
+      "name": "Arcane Mirage Array",
+      "icon": "Mirage 🌄",
+      "level": 3,
+      "type": "magic",
+      "typeLabel": "Magic",
+      "description": "Create three illusory duplicates that distract foes and hinder attacks against you.",
+      "class": "wizard",
+      "className": "Wizard",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 280,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability offers a versatile and temporary advantage in combat by creating multiple distractions.",
+      "rules": {
+        "activation": "action",
+        "range": "30 feet",
+        "duration": "1 minute",
+        "uses": "at will",
+        "effect": "You create an array of three illusory duplicates within a 20-foot cube. Creatures attacking you have disadvantage on their attack rolls until the end of your next turn.",
+        "drawback": "The illusion fades after one minute, leaving no lasting effects."
+      },
+      "apCost": 2,
+      "apReason": "Creating three distinct mirages at once requires more intricate spellwork than simpler illusions.",
+      "warioNote": "Ooh, shiny! Three mirages? That'll be 2 AP, bub. Can't have you hoggin' all the tricks!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:20:05+00:00"
+      }
+    },
+    {
+      "id": "gunslinger_l3_gen1",
+      "name": "Overload Magazine",
+      "icon": "🔫",
+      "level": 3,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Load two magazines into your firearm, dealing an additional 1d6 fire damage.",
+      "class": "gunslinger",
+      "className": "Gunslinger",
+      "hitDie": 8,
+      "primaryStat": "dex",
+      "price": 280,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a substantial damage bonus, but at the cost of being unable to shoot for a turn.",
+      "rules": {
+        "activation": "action",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "1/long rest",
+        "effect": "Swap in two fresh magazines to your firearm. The next attack or ability you use that deals fire damage deals an additional 1d6 points of fire damage.",
+        "drawback": "You are temporarily out of ammunition for one round."
+      },
+      "apCost": 2,
+      "apReason": "It requires careful planning and immediate application, with significant benefit and drawback.",
+      "warioNote": "Ain't no free lunch! Gotta reload one round. Ain't that right?",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:20:25+00:00"
+      }
+    },
+    {
+      "id": "militia_l3_gen1",
+      "name": "Defensive Parry",
+      "icon": "🛡️",
+      "level": 3,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Parry a single attack and redirect its force to damage the attacker.",
+      "class": "militia",
+      "className": "Militia",
+      "hitDie": 8,
+      "primaryStat": "con",
+      "price": 280,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "A level 3 ability that offers defensive versatility without requiring constant use of resources.",
+      "rules": {
+        "activation": "reaction",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "Redirect an enemy's melee attack against you, dealing 1d6 bludgeoning damage to them. You take half as much damage from the redirected attack.",
+        "drawback": "Cannot parry if you are incapacitated or have no shield."
+      },
+      "apCost": 1,
+      "apReason": "Redirecting an enemy's attack and dealing damage to them is a strategic combat move, worth the minor action cost.",
+      "warioNote": "Hey there! For just one Action Point, you can turn an attacker into their own punching bag. Isn't that nice?",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:20:44+00:00"
+      }
+    },
+    {
+      "id": "artisan_l3_gen1",
+      "name": "Toolchain Focus",
+      "icon": "🔨",
+      "level": 3,
+      "type": "utility",
+      "typeLabel": "Utility",
+      "description": "Enhance the lethality of your improvised weapons by +1d6 damage.",
+      "class": "artisan",
+      "className": "Artisan",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 280,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This utility ability boosts combat effectiveness for extended periods without overloading other abilities.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "instantaneous",
+        "uses": "at will",
+        "effect": "Until the end of your next turn, your improvised weapons deal an additional 1d6 damage on a hit.",
+        "drawback": "You must spend 1 hour crafting or repairing tools immediately after using this ability."
+      },
+      "apCost": 2,
+      "apReason": "Toolchain Focus provides a significant damage buff, making it more costly than a single-use ability but still accessible at lower levels.",
+      "warioNote": "You need to put in some serious hours after using this one, so be sure you’ve got the time!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:20:49+00:00"
+      }
+    },
+    {
+      "id": "paladin_l4_gen1",
+      "name": "Divine Vow Strike",
+      "icon": "⚔️",
+      "level": 4,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Execute a vow to strike down your foe with the power of holy might.",
+      "class": "paladin",
+      "className": "Paladin",
+      "hitDie": 10,
+      "primaryStat": "cha",
+      "price": 340,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability allows for a powerful single attack that can be used to finish off a weakened foe or to force a decisive strike. The requirement of a save adds a risk without making it trivial.",
+      "rules": {
+        "activation": "action",
+        "range": "5 feet",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "Make a melee weapon attack against a creature within range. On a hit, deal radiant damage equal to your level + your Charisma modifier. If you are already raging, this deals an additional 2d8 radiant damage.",
+        "drawback": "You must make a Wisdom saving throw; on a failure, you fall prone."
+      },
+      "apCost": 2,
+      "apReason": "The action cost combined with the additional damage and the risk of falling prone justify this AP cost.",
+      "warioNote": "Nah, that’s one swing that can send ya flat on yer back! Make sure you’re ready to catch yourself!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:20:56+00:00"
+      }
+    },
+    {
+      "id": "barbarian_l4_gen1",
+      "name": "Feral Maw",
+      "icon": "-Compatible_with_animal",
+      "level": 4,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Mimic the ferocity of your foe's pain to deal an extra 1d8 piercing damage.",
+      "class": "barbarian",
+      "className": "Barbarian",
+      "hitDie": 12,
+      "primaryStat": "str",
+      "price": 340,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability complements existing rage abilities by providing a reactive source of extra damage, specifically through piercing damage, which is rare for barbarians and adds variety to combat encounters.",
+      "rules": {
+        "activation": "reaction",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "When you are reduced to 0 hit points, as a reaction, you can bite your attacker for an extra 1d8 piercing damage. You must be raging to use this ability.",
+        "drawback": "You cannot use Feral Maw if you have not taken at least one action in the current round."
+      },
+      "apCost": 2,
+      "apReason": "Requires taking an action in the current round prior to using this reaction-based ability.",
+      "warioNote": "You gotta be hittin' 'em hard early on, or you'll never get a chance to sink yer teeth into them later!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:04+00:00"
+      }
+    },
+    {
+      "id": "fighter_l4_gen0",
+      "name": "Twin Strike",
+      "icon": "🗡️",
+      "level": 4,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Make two melee attacks as part of your movement.",
+      "class": "fighter",
+      "className": "Fighter",
+      "hitDie": 10,
+      "primaryStat": "str",
+      "price": 340,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability allows for a burst of attacks at the cost of mobility, fitting a level 4 fighter who has already established their combat prowess.",
+      "rules": {
+        "activation": "action",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "at will",
+        "effect": "You can make two additional melee attack rolls as part of a single move action. If either attack hits, you deal an extra 1d6 damage.",
+        "drawback": "You must move at least 10 feet during your movement."
+      },
+      "apCost": 1,
+      "apReason": "The ability to make two additional melee attacks provides significant offensive power but requires moving which can be limiting in some scenarios.",
+      "warioNote": "Move it or lose it! Make sure you're not standing still when you want to swing twice!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:13+00:00"
+      }
+    },
+    {
+      "id": "wizard_l4_gen1",
+      "name": "Phantasmal Shard",
+      "icon": "➡️",
+      "level": 4,
+      "type": "magic",
+      "typeLabel": "Magic",
+      "description": "Create a harmless phantasmal shard that hovers nearby and provides a fleeting insight into the surroundings.",
+      "class": "wizard",
+      "className": "Wizard",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 340,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "At level 4, this ability provides a temporary boost to perception and requires concentration, fitting the wizard's arcane focus.",
+      "rules": {
+        "activation": "bonus action",
+        "range": "self (10 feet)",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "A phantasmal shard appears in an unoccupied space within range and hovers there, granting you advantage on Wisdom (Perception) checks for 1 round. It then vanishes.",
+        "drawback": "You must make a concentration check at the start of your turn or lose the effect."
+      },
+      "apCost": 1,
+      "apReason": "It offers significant situational benefit but does not have ongoing effects or multiple uses per day.",
+      "warioNote": "Yo, Wizard! Just one look at this phantasmal shard, and you might see ghosts in the mirror!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:14+00:00"
+      }
+    },
+    {
+      "id": "gunslinger_l4_gen1",
+      "name": "Burst Barrage",
+      "icon": "🔫",
+      "level": 4,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Fire three rounds in rapid succession for triple the damage on one target.",
+      "class": "gunslinger",
+      "className": "Gunslinger",
+      "hitDie": 8,
+      "primaryStat": "dex",
+      "price": 340,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability scales well with the character's proficiency in firearms and increases their offensive capabilities without overpowered effects.",
+      "rules": {
+        "activation": "action",
+        "range": "30 feet",
+        "duration": "instantaneous",
+        "uses": "at will",
+        "effect": "Deal 1d8 + DEX modifier fire damage three times to a single target, dealing an additional 1d6 fire damage on each hit.",
+        "drawback": "You must reload your firearm immediately after this ability is used."
+      },
+      "apCost": 2,
+      "apReason": "Requires an action to perform a series of rapid shots, thus costing two AP.",
+      "warioNote": "Spend your actions wisely, ya scoundrel! One burst is all you get 'fore you're reloadin'!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:22+00:00"
+      }
+    },
+    {
+      "id": "spy_l4_gen1",
+      "name": "Ink Mirage Misdirection",
+      "icon": "inking",
+      "level": 4,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "Create a mirage of ink that distracts enemies, forcing them to make a saving throw or be temporarily confused.",
+      "class": "spy",
+      "className": "Spy",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 340,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a strong distraction effect that can be crucial for combat situations, justifying its placement at level 4.",
+      "rules": {
+        "activation": "action",
+        "range": "30 feet",
+        "duration": "1 round",
+        "uses": "1/short rest",
+        "effect": "Target creatures within range must succeed on a DC 15 Wisdom saving throw or become confused until the start of their next turn. On a success, they are only distracted and take no penalty to attacks made against you.",
+        "drawback": "You leave yourself vulnerable during the duration, requiring an additional attack roll at disadvantage."
+      },
+      "apCost": 2,
+      "apReason": "The creation of a powerful mirage with a significant effect on enemy actions requires resource expenditure.",
+      "warioNote": "Ink it up, kid! But you're gonna need more than just ink to get outta this one alive!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:22:05+00:00"
+      }
+    },
+    {
+      "id": "leader_l4_gen0",
+      "name": "Shield of Unity",
+      "icon": "🛡️",
+      "level": 4,
+      "type": "support",
+      "typeLabel": "Support",
+      "description": "Draw on the unity of your allies to create a shield that blocks one attack.",
+      "class": "leader",
+      "className": "Leader",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 340,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "Support abilities at level 4 typically offer a defensive boost or healing effect, and this provides both by leveraging unity among allies.",
+      "rules": {
+        "activation": "reaction",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "at will",
+        "effect": "When you are hit by an attack, designate one ally within 30 feet. That ally gains a +2 bonus to AC until the start of their next turn.",
+        "drawback": "You cannot use this ability again for 1 hour."
+      },
+      "apCost": 1,
+      "apReason": "Provides immediate defense while costing an Action Point to limit overuse.",
+      "warioNote": "Hey! You're not invincible just because you shout orders! Save your energy for the tough stuff!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:22:15+00:00"
+      }
+    },
+    {
+      "id": "commoner_l4_gen0",
+      "name": "Mud Shield",
+      "icon": "🐸",
+      "level": 4,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Create a makeshift mud shield that provides +2 AC for 1 minute.",
+      "class": "commoner",
+      "className": "Commoner",
+      "hitDie": 6,
+      "primaryStat": null,
+      "price": 340,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "At level 4, creating a temporary but effective combat enhancement without multiclassing should provide meaningful support in battle.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 minute",
+        "uses": "1/short rest",
+        "effect": "You create a mud shield around yourself, granting you +2 AC until the start of your next turn. After that, it degrades into harmless mud.",
+        "drawback": "The shield is cumbersome and can only be used once per short rest."
+      },
+      "apCost": 1,
+      "apReason": "Mud Shield provides an immediate combat advantage that lasts for a significant portion of the encounter, justifying its action cost.",
+      "warioNote": "Hey there, froggy! That mud shield's great—now you can't even move without slipping and sliding!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:22:26+00:00"
+      }
+    },
+    {
+      "id": "militia_l4_gen1",
+      "name": "Breach Shield",
+      "icon": "🛡️",
+      "level": 4,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Shove aside an enemy and create an opening for your allies to exploit.",
+      "class": "militia",
+      "className": "Militia",
+      "hitDie": 8,
+      "primaryStat": "con",
+      "price": 340,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a clear tactical opening that relies on physical prowess and immediate response, fitting for level 4.",
+      "rules": {
+        "activation": "reaction",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "Push a creature up to 10 feet away, forcing it to make a Strength saving throw (DC 13) or fall prone. You gain advantage on attack rolls against creatures in the space you just vacated.",
+        "drawback": "You are disarmed until the start of your next turn."
+      },
+      "apCost": 1,
+      "apReason": "It requires timing and situational awareness, making it an impactful use of an action point.",
+      "warioNote": "Yo, you just cleared the way for your buddies to charge in — but now you're weapon-less 'til next turn! Yikes!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:22:32+00:00"
+      }
+    },
+    {
+      "id": "artisan_l4_gen1",
+      "name": "Tool Surge",
+      "icon": "🔨",
+      "level": 4,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Channel your tools' power to unleash a series of strikes.",
+      "class": "artisan",
+      "className": "Artisan",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 340,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability scales with level by increasing the number and power of strikes, fitting for level 4.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 round",
+        "uses": "1/day",
+        "effect": "Make three melee attacks with improvised weapons, each dealing 1d8 + Intelligence modifier force damage. You can choose to forgo the bonus action version of Tool Finesse.",
+        "drawback": "You must forgo using Tool Finesse as a bonus action for the rest of this battle."
+      },
+      "apCost": 2,
+      "apReason": "It requires a full action and deals significant damage over multiple attacks at a cost to other utility abilities.",
+      "warioNote": "You're spending an entire action on tools? Coulda saved it for that big sword.",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:22:55+00:00"
+      }
+    },
+    {
+      "id": "paladin_l5_gen1",
+      "name": "Divine Hymn",
+      "icon": "🎶",
+      "level": 5,
+      "type": "leadership",
+      "typeLabel": "Leadership",
+      "description": "Lead your allies in a holy chant that grants them advantage on saving throws.",
+      "class": "paladin",
+      "className": "Paladin",
+      "hitDie": 10,
+      "primaryStat": "cha",
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a significant boost to allies' defenses, fitting for a level 5 paladin who can already heal and smite effectively.",
+      "rules": {
+        "activation": "bonus action",
+        "range": "self",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "Allies within 30 feet gain advantage on all saving throws until the end of your next turn.",
+        "drawback": "You cannot use this ability again until after you complete a long rest."
+      },
+      "apCost": 3,
+      "apReason": "This ability offers a strong buff effect that lasts over an extended period, justifying its high AP cost.",
+      "warioNote": "Singin' in the rain? Sure! But you gotta rest up after, ya hear?",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:23:00+00:00"
+      }
+    },
+    {
+      "id": "rogue_l5_gen1",
+      "name": "Shade Surge",
+      "icon": "🗡️",
+      "level": 5,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Leap into the shadows and surge forward to deliver multiple strikes at enemies.",
+      "class": "rogue",
+      "className": "Rogue",
+      "hitDie": 8,
+      "primaryStat": "dex",
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability introduces the concept of leveraging shadowy cover for offensive purposes, fitting a level 5 rogue that emphasizes combat precision and versatility.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "You leap into a shadow, gaining advantage on your next attack roll. On a hit, you deal 2d6 slashing damage with any weapon and gain another attack as part of this action.",
+        "drawback": "You must be within 30 feet of an enemy to use this ability."
+      },
+      "apCost": 1,
+      "apReason": "",
+      "warioNote": "Yo, you ain't no ninja if ya can't use the shadows right. But for a buck, why not?",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:24:22+00:00"
+      }
+    },
+    {
+      "id": "barbarian_l5_gen0",
+      "name": "Berserker Surge",
+      "icon": "💪",
+      "level": 5,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "On your turn, you unleash a surge of primal fury to deal extra damage on your next attack.",
+      "class": "barbarian",
+      "className": "Barbarian",
+      "hitDie": 12,
+      "primaryStat": "str",
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability builds upon existing rage-based abilities, providing a more immediate and potent damage boost suitable for level 5.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 round",
+        "uses": "at will",
+        "effect": "Deal an additional 2d6 damage on your first melee attack of the turn. You must move at least 5 feet after activating this ability.",
+        "drawback": "You are vulnerable to opportunity attacks for the rest of your turn."
+      },
+      "apCost": 1,
+      "apReason": "Provides a significant increase in combat effectiveness at the cost of increased vulnerability.",
+      "warioNote": "Hey there! You want to surge? Fine, but you're an easy target 'til it wears off!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:24:59+00:00"
+      }
+    },
+    {
+      "id": "wizard_l5_gen1",
+      "name": "Arcane Invisibility Surge",
+      "icon": "illusory-person",
+      "level": 5,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "Becomes completely invisible for a short time, evading attacks and drawing no attention.",
+      "class": "wizard",
+      "className": "Wizard",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability offers significant short-term battlefield control and stealth benefits that are unique to a wizard's repertoire.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 minute",
+        "uses": "1/day",
+        "effect": "You become invisible until the start of your next turn, granting immunity to all forms of detection within a 30-foot radius. At the end of this time, you reappear without provoking opportunity attacks.",
+        "drawback": "You must remain stationary for at least one full round while activating this ability."
+      },
+      "apCost": 3,
+      "apReason": "Requires an action, which is a limited resource, and provides substantial benefit in invisibility.",
+      "warioNote": "Ya can't just disappear on us, ya know! Gotta pay the price ta use that trick!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:25:07+00:00"
+      }
+    },
+    {
+      "id": "fighter_l5_gen0",
+      "name": "Battle Charge",
+      "icon": "🛡️",
+      "level": 5,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "You charge into battle, delivering a devastating strike.",
+      "class": "fighter",
+      "className": "Fighter",
+      "hitDie": 10,
+      "primaryStat": "str",
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "Enhances combat prowess at level 5 by adding strategic flexibility and damage output.",
+      "rules": {
+        "activation": "reaction",
+        "range": "30 feet",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "When you use the Attack action, you can make an additional melee attack against the same target. On a successful hit, this attack deals 1d8 extra damage.",
+        "drawback": "You cannot take other actions during your charge."
+      },
+      "apCost": 2,
+      "apReason": "Provides an additional attack with a drawback, balancing the benefit against the cost.",
+      "warioNote": "Charge into battle, but be careful—leaving no room for maneuver can leave you wide open!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:25:24+00:00"
+      }
+    },
+    {
+      "id": "gunslinger_l5_gen1",
+      "name": "Explosive Reload",
+      "icon": "🔫",
+      "level": 5,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Reload your firearm with a secondary magazine and deal an additional 1d6 fire damage to all enemies within 5 feet.",
+      "class": "gunslinger",
+      "className": "Gunslinger",
+      "hitDie": 8,
+      "primaryStat": "dex",
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a tactical reload that can disrupt enemy formations and deal area effect damage at level 5.",
+      "rules": {
+        "activation": "bonus action",
+        "range": "self",
+        "duration": "instantaneous",
+        "uses": "at will",
+        "effect": "Swap your primary magazine for a secondary one, then deal an additional 1d6 fire damage to all enemies within 5 feet.",
+        "drawback": "You must spend 1 action point."
+      },
+      "apCost": 1,
+      "apReason": "The ability allows for flexibility in combat, requiring the player to choose between using an action or an AP.",
+      "warioNote": "Ya gotta spend somethin' ta get somethin', partner! Reloadin' and blastin' ain't free!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:25:53+00:00"
+      }
+    },
+    {
+      "id": "leader_l5_gen0",
+      "name": "Inspiring Shieldform",
+      "icon": "🛡️",
+      "level": 5,
+      "type": "leadership",
+      "typeLabel": "Leadership",
+      "description": "Create a shimmering shield of light to deflect incoming attacks, reducing damage by an amount equal to your CHA modifier + 2d6.",
+      "class": "leader",
+      "className": "Leader",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability complements other defensive leadership options and provides a unique shield effect at level 5.",
+      "rules": {
+        "activation": "reaction",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "When an attack is made against a willing ally within 30 feet, the shield absorbs half of the damage, reducing it by the amount specified.",
+        "drawback": "You cannot create more than one shieldform per short rest."
+      },
+      "apCost": 2,
+      "apReason": "Activating the shield form requires an action point, reflecting its strategic importance in battle.",
+      "warioNote": "You're buying that? You could've picked something with more oomph for your hard-earned AP! 💸",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:26:42+00:00"
+      }
+    },
+    {
+      "id": "spy_l5_gen1",
+      "name": "Ink Conduit",
+      "icon": "🪔",
+      "level": 5,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "The spy channels ink to create a conduit of liquid cover, allowing them to move through difficult terrain as if it were normal ground.",
+      "class": "spy",
+      "className": "Spy",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a significant utility by allowing movement through difficult terrain, which is useful in tight spaces and combat situations.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "The spy and allies within 5 feet can move through any difficult terrain, such as rubble or mud, without triggering opportunity attacks. This effect lasts for the duration of Ink Conduit.",
+        "drawback": "While active, the spy moves at half speed."
+      },
+      "apCost": 2,
+      "apReason": "The ability provides a substantial benefit that lasts for a minute, requiring a resourceful use of an action to activate.",
+      "warioNote": "Don't make Ink Conduit your go-to, pal! Every time you want to breeze through rubble, it costs you.",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:26:52+00:00"
+      }
+    },
+    {
+      "id": "commoner_l5_gen0",
+      "name": "Swift Tonic",
+      "icon": "🐸",
+      "level": 5,
+      "type": "magic",
+      "typeLabel": "Magic",
+      "description": "Quickly concoct a potent tonic that grants temporary hit points and enhances your next attack.",
+      "class": "commoner",
+      "className": "Commoner",
+      "hitDie": 6,
+      "primaryStat": null,
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability complements existing magical abilities by offering quick healing and combat enhancement.",
+      "rules": {
+        "activation": "bonus action",
+        "range": "self",
+        "duration": "1 minute",
+        "uses": "at will",
+        "effect": "Create an elixir that provides +1d6+Charisma modifier temporary hit points and allows your next attack roll to be made with advantage.",
+        "drawback": "The tonic requires the consumption of a rare ingredient, which costs 5 gp."
+      },
+      "apCost": 1,
+      "apReason": "Creating an elixir as a bonus action is faster than other healing options at this level.",
+      "warioNote": "Hmph! Ain't no free lunch, ya toad! Gotta pay the price for that speedy potion!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:27:10+00:00"
+      }
+    },
+    {
+      "id": "militia_l5_gen1",
+      "name": "Iron Shield",
+      "icon": "🛡️",
+      "level": 5,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Forge an impenetrable shield wall around yourself and allies within reach.",
+      "class": "militia",
+      "className": "Militia",
+      "hitDie": 8,
+      "primaryStat": "con",
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides significant defensive bonuses at the cost of mobility, fitting for a level 5 militia ability.",
+      "rules": {
+        "activation": "reaction",
+        "range": "touch",
+        "duration": "1 minute",
+        "uses": "1/short rest",
+        "effect": "You and all creatures you can reach gain a +2 bonus to AC until the start of your next turn. Each creature that starts its turn within 5 feet of you must make a DC 13 Dexterity saving throw or take 4 (1d8+1) bludgeoning damage.",
+        "drawback": "You cannot move more than 5 feet while this ability is active."
+      },
+      "apCost": 2,
+      "apReason": "The effect requires concentration and a penalty on movement speed to activate and maintain, making it comparable in AP cost to other level 5 abilities.",
+      "warioNote": "YEAH, YEAH... YOU CAN'T RUN FAST WITH THAT SHIELD WALL AROUND YOU! SLOW DOWN THERE, TOAD!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:27:42+00:00"
+      }
+    },
+    {
+      "id": "artisan_l5_gen1",
+      "name": "Masterful Reinforcement",
+      "icon": "🔨",
+      "level": 5,
+      "type": "utility",
+      "typeLabel": "Utility",
+      "description": "Enhance an existing improvised tool or weapon to deal an additional 2d6 damage.",
+      "class": "artisan",
+      "className": "Artisan",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 400,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "Enhances combat effectiveness by adding a significant damage boost to improvised weapons and tools, fitting for level 5.",
+      "rules": {
+        "activation": "bonus action",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "Select an improvised weapon or tool, enhancing it to deal +2d6 damage for the next attack with that item.",
+        "drawback": "You must drop the enhanced item after use."
+      },
+      "apCost": 1,
+      "apReason": "Provides an immediate boost without requiring concentration or other resources.",
+      "warioNote": "Hey! You gotta let go of that thing after it's done! That’s how it works!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:27:57+00:00"
+      }
+    },
+    {
+      "id": "paladin_l6_gen1",
+      "name": "Radiant Shield Surge",
+      "icon": "🛡️",
+      "level": 6,
+      "type": "divine",
+      "typeLabel": "Divine",
+      "description": "Infuse a shield with radiant energy, granting +2 bonus to AC and dealing an additional 1d8 radiant damage on melee attacks.",
+      "class": "paladin",
+      "className": "Paladin",
+      "hitDie": 10,
+      "primaryStat": "cha",
+      "price": 460,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides significant offensive and defensive benefits, fitting a level 6_paladin's capabilities.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "While holding a shield, you gain a +2 bonus to AC and deal an additional 1d8 radiant damage on melee attacks. This effect ends when the shield is dropped or discarded.",
+        "drawback": "Using this ability consumes your action for the round."
+      },
+      "apCost": 2,
+      "apReason": "The effect requires an action to activate, making it costly in terms of player resources.",
+      "warioNote": "Yo ho ho! Swashbuckling with that shield? That'll be two AP, matey!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:28:19+00:00"
       }
     }
   ]

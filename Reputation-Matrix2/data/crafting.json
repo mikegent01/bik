@@ -11343,7 +11343,7 @@
       "description": "Gain resistance to piercing and slashing damage for 10 minutes. After effect ends, suffer 1d6 bludgeoning damage",
       "effect": "Gain resistance to piercing and slashing damage for 10 minutes. After effect ends, suffer 1d6 bludgeoning damage",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 6,
       "craftTime": 5,
       "successChance": 70,
@@ -11363,7 +11363,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Gain resistance to piercing and slashing damage for 10 minutes.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:19+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11373,7 +11384,7 @@
       "description": "Sprinkle on creature to make them fall into magical sleep for 1 minute (WIS save DC 13 negates). Works only on creatures of size Medium or smaller",
       "effect": "Sprinkle on creature to make them fall into magical sleep for 1 minute (WIS save DC 13 negates). Works only on creatures of size Medium or smaller",
       "rarity": "rare",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 6,
       "craftTime": 5,
       "successChance": 65,
@@ -11393,7 +11404,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Sprinkle on creature to make them fall into magical sleep for 1 minute.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:40+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11403,7 +11425,7 @@
       "description": "Gain perfect recall of all events from the last 24 hours for 1 hour. After effect ends, suffer short-term memory loss for 1 hour",
       "effect": "Gain perfect recall of all events from the last 24 hours for 1 hour. After effect ends, suffer short-term memory loss for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 8,
       "craftTime": 6,
       "successChance": 60,
@@ -11423,7 +11445,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Affects the mind by granting perfect recall and causing memory loss.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:16:21+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11433,7 +11466,7 @@
       "description": "Gain advantage on melee attacks against bleeding creatures for 1 minute. Must succeed on DC 15 WIS save each turn or attack nearest creature (friend or foe)",
       "effect": "Gain advantage on melee attacks against bleeding creatures for 1 minute. Must succeed on DC 15 WIS save each turn or attack nearest creature (friend or foe)",
       "rarity": "rare",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 7,
       "craftTime": 5,
       "successChance": 65,
@@ -11453,7 +11486,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "offensive"
+      "potionType": "offensive",
+      "schoolReason": "Must succeed on DC 15 WIS save each turn or attack nearest creature",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:16:45+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11463,7 +11507,7 @@
       "description": "Gain +4 to CHA for 10 minutes. All creatures within 30 ft must succeed on DC 14 WIS save or be charmed by you for 1 minute",
       "effect": "Gain +4 to CHA for 10 minutes. All creatures within 30 ft must succeed on DC 14 WIS save or be charmed by you for 1 minute",
       "rarity": "rare",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 8,
       "craftTime": 6,
       "successChance": 60,
@@ -11483,7 +11527,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "All creatures within range must save or be charmed by you.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:17:07+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11493,7 +11548,7 @@
       "description": "Throw to summon swarm of insects (lasts 1 minute). Swarm is hostile to all creatures except you",
       "effect": "Throw to summon swarm of insects (lasts 1 minute). Swarm is hostile to all creatures except you",
       "rarity": "uncommon",
-      "school": "",
+      "school": "CONJURATION",
       "levelRequirement": 5,
       "craftTime": 4,
       "successChance": 75,
@@ -11513,7 +11568,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "offensive"
+      "potionType": "offensive",
+      "schoolReason": "Summons a swarm of insects lasting 1 minute.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:17:31+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11523,7 +11589,7 @@
       "description": "Emit a low-frequency sound that can be heard up to 1 mile away underwater. All aquatic creatures within 100 ft must succeed on DC 15 WIS save or be charmed for 1 minute",
       "effect": "Emit a low-frequency sound that can be heard up to 1 mile away underwater. All aquatic creatures within 100 ft must succeed on DC 15 WIS save or be charmed for 1 minute",
       "rarity": "very_rare",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 9,
       "craftTime": 8,
       "successChance": 50,
@@ -11543,7 +11609,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "All aquatic creatures must succeed on a WIS save or be charmed for 1 minute.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:18:06+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11553,7 +11630,7 @@
       "description": "Body emits bright light in 20 ft radius and dim light for additional 20 ft for 1 hour. Light color changes every minute",
       "effect": "Body emits bright light in 20 ft radius and dim light for additional 20 ft for 1 hour. Light color changes every minute",
       "rarity": "common",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -11573,7 +11650,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Body emits bright light in 20 ft radius and dim light for additional 20 ft for 1 hour.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:18:57+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11583,7 +11671,7 @@
       "description": "Gain +1d4 piercing damage on melee attacks for 10 minutes. At the end of effect, suffer 1d4 piercing damage",
       "effect": "Gain +1d4 piercing damage on melee attacks for 10 minutes. At the end of effect, suffer 1d4 piercing damage",
       "rarity": "common",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 2,
       "craftTime": 2,
       "successChance": 85,
@@ -11603,7 +11691,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "offensive"
+      "potionType": "offensive",
+      "schoolReason": "Gain +1d4 piercing damage on melee attacks for 10 minutes.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:19:12+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11613,7 +11712,7 @@
       "description": "Gain resistance to cold damage and ignore difficult terrain from ice/snow for 1 hour",
       "effect": "Gain resistance to cold damage and ignore difficult terrain from ice/snow for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 5,
       "craftTime": 4,
       "successChance": 75,
@@ -11633,7 +11732,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Gain resistance to cold damage and ignore difficult terrain from ice/snow.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:19:48+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11643,7 +11753,7 @@
       "description": "Gain advantage on Stealth checks for 1 hour. Skin changes color to match surroundings (but not texture)",
       "effect": "Gain advantage on Stealth checks for 1 hour. Skin changes color to match surroundings (but not texture)",
       "rarity": "rare",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 7,
       "craftTime": 6,
       "successChance": 65,
@@ -11663,7 +11773,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Skin changes color to match surroundings, deceiving the senses.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:20:08+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11673,7 +11794,7 @@
       "description": "Gain blindsight 30 ft for 10 minutes. Can detect invisible creatures and objects within range",
       "effect": "Gain blindsight 30 ft for 10 minutes. Can detect invisible creatures and objects within range",
       "rarity": "very_rare",
-      "school": "",
+      "school": "DIVINATION",
       "levelRequirement": 10,
       "craftTime": 8,
       "successChance": 50,
@@ -11693,7 +11814,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Can detect invisible creatures and objects within range",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:06+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11703,7 +11835,7 @@
       "description": "Exhale elemental breath (4d6 damage, choose type) in 30-ft line",
       "effect": "Exhale elemental breath (4d6 damage, choose type) in 30-ft line",
       "rarity": "very_rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 9,
       "craftTime": 7,
       "successChance": 65,
@@ -11723,7 +11855,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "offensive"
+      "potionType": "offensive",
+      "schoolReason": "Exhale elemental breath (4d6 damage, choose type) in 30-ft line",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:23+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11733,7 +11876,7 @@
       "description": "Cast Detect Thoughts (DC 14) and gain +2 to Int checks for 1 hour",
       "effect": "Cast Detect Thoughts (DC 14) and gain +2 to Int checks for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 7,
       "craftTime": 5,
       "successChance": 70,
@@ -11753,7 +11896,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Gain +2 to Int checks for 1 hour, affecting the mind.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:59+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11763,7 +11917,7 @@
       "description": "Advantage on Arcana checks and learn one spell property",
       "effect": "Advantage on Arcana checks and learn one spell property",
       "rarity": "uncommon",
-      "school": "",
+      "school": "DIVINATION",
       "levelRequirement": 4,
       "craftTime": 3,
       "successChance": 85,
@@ -11783,7 +11937,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Advantage on Arcana checks reveals spell properties.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:22:38+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11793,7 +11958,7 @@
       "description": "Learn one secret or hidden property of target object",
       "effect": "Learn one secret or hidden property of target object",
       "rarity": "rare",
-      "school": "",
+      "school": "DIVINATION",
       "levelRequirement": 5,
       "craftTime": 4,
       "successChance": 75,
@@ -11813,7 +11978,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Learn one secret or hidden property of target object",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:23:03+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11823,7 +11999,7 @@
       "description": "Disguise Self spell for 8 hours (cannot change during)",
       "effect": "Disguise Self spell for 8 hours (cannot change during)",
       "rarity": "rare",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 6,
       "craftTime": 5,
       "successChance": 75,
@@ -11843,7 +12019,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Disguise Self spell for 8 hours (cannot change during)",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:24:51+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11853,7 +12040,7 @@
       "description": "+2 to one ability score of choice for 1 hour",
       "effect": "+2 to one ability score of choice for 1 hour",
       "rarity": "very_rare",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 9,
       "craftTime": 7,
       "successChance": 65,
@@ -11873,7 +12060,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "+2 to one ability score of choice for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:25:26+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11883,7 +12081,7 @@
       "description": "Become invisible in darkness for 10 minutes",
       "effect": "Become invisible in darkness for 10 minutes",
       "rarity": "rare",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 7,
       "craftTime": 5,
       "successChance": 70,
@@ -11903,7 +12101,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Become invisible in darkness for 10 minutes",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:25:47+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11913,7 +12122,7 @@
       "description": "Advantage on Con saves and resistance to poison for 8 hours",
       "effect": "Advantage on Con saves and resistance to poison for 8 hours",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 85,
@@ -11933,7 +12142,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Advantage on Con saves and resistance to poison for 8 hours",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:26:24+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11943,7 +12163,7 @@
       "description": "Gain +2 to attack/damage but -2 AC for 1 minute",
       "effect": "Gain +2 to attack/damage but -2 AC for 1 minute",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 2,
       "craftTime": 2,
       "successChance": 90,
@@ -11963,7 +12183,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Gain +2 to attack/damage but -2 AC for 1 minute",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:26:44+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -11973,7 +12204,7 @@
       "description": "Become Large size and +1d4 damage for 10 minutes",
       "effect": "Become Large size and +1d4 damage for 10 minutes",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 6,
       "craftTime": 5,
       "successChance": 75,
@@ -11993,7 +12224,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Effectively increases damage through manipulated energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:27:23+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -12003,7 +12245,7 @@
       "description": "You must yodel loudly for 1 minute. If interrupted, take 1d4 psychic damage.",
       "effect": "You must yodel loudly for 1 minute. If interrupted, take 1d4 psychic damage.",
       "rarity": "common",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 1,
       "craftTime": 1,
       "successChance": 95,
@@ -12023,7 +12265,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "curse"
+      "potionType": "curse",
+      "schoolReason": "It affects the mind by enforcing yodeling and imposing consequences for interruption.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:27:51+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -12033,7 +12286,7 @@
       "description": "All hair falls out for 1 hour. Regrows normally afterward.",
       "effect": "All hair falls out for 1 hour. Regrows normally afterward.",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 1,
       "successChance": 90,
@@ -12053,7 +12306,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "cosmetic"
+      "potionType": "cosmetic",
+      "schoolReason": "All hair falls out for 1 hour. Regrows normally afterward.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:28:07+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -23387,7 +23651,7 @@
       "description": "Traps curse from target. 40% curse transfers to opener.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 9,
       "craftTime": 7,
       "successChance": 40,
@@ -23406,7 +23670,18 @@
         }
       ],
       "type": "artifact",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "40% curse transfers to opener, affecting the target's mind.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:14:57+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23416,7 +23691,7 @@
       "description": "+4 STR, frenzy attack. Ends: exhaustion lvl 3. 20% permanent rage.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 4,
       "craftTime": 3,
       "successChance": 60,
@@ -23431,7 +23706,18 @@
         }
       ],
       "type": "potion_risky",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "+4 STR, frenzy attack; ends with exhaustion: mind-affecting",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:15:20+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23441,7 +23727,7 @@
       "description": "Steals soul on kill (for necromancy). Break: releases all as ghosts.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "NECROMANCY",
       "levelRequirement": 13,
       "craftTime": 12,
       "successChance": 20,
@@ -23460,7 +23746,18 @@
         }
       ],
       "type": "artifact",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Steals soul on kill (for necromancy).",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:16:16+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23470,7 +23767,7 @@
       "description": "20-ft cloud: incapacitated laughing (1 min, CON save). 25% affects whole room.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 2,
       "craftTime": 2,
       "successChance": 65,
@@ -23485,7 +23782,18 @@
         }
       ],
       "type": "trap",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Induces laughter through a mind-affecting effect.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:16:32+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23495,7 +23803,7 @@
       "description": "Fall: 3d6 piercing + 4d6 acid. 30% acid sprays back.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 60,
@@ -23510,7 +23818,18 @@
         }
       ],
       "type": "trap",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Manipulates energy to produce effects: acid and piercing damage.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:16:55+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23520,7 +23839,7 @@
       "description": "Creates endless maze illusion (lost 1 hour). 40% real teleport.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 7,
       "craftTime": 5,
       "successChance": 50,
@@ -23535,7 +23854,18 @@
         }
       ],
       "type": "trap",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Creates endless maze illusion (lost 1 hour).",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:17:22+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23545,7 +23875,7 @@
       "description": "Emergency: teleport 60 ft away. 50% swaps with random enemy.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "CONJURATION",
       "levelRequirement": 5,
       "craftTime": 4,
       "successChance": 55,
@@ -23564,7 +23894,18 @@
         }
       ],
       "type": "gadget",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Emergency: teleport 60 ft away.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:18:03+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23574,7 +23915,7 @@
       "description": "Opens to mimic mouth (4d8 bite + swallow). Gold illusion.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 4,
       "craftTime": 3,
       "successChance": 60,
@@ -23593,7 +23934,18 @@
         }
       ],
       "type": "trap",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Gold illusion mimics a mouth to deceive senses.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:18:47+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23603,7 +23955,7 @@
       "description": "Weapon bypasses divine resistance and deals +3d10 radiant on hit to celestials/fey/undead. Once per week.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 20,
       "craftTime": 24,
       "successChance": 25,
@@ -23622,7 +23974,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Weapon deals +3d10 radiant damage to celestials/fey/undead.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:19:06+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23632,7 +23995,7 @@
       "description": "Once per long rest, rewind time 6 seconds (undo one action or damage).",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 18,
       "craftTime": 20,
       "successChance": 30,
@@ -23651,7 +24014,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Undoing actions or negating damage affects minds by altering reality.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:19:36+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23661,7 +24035,7 @@
       "description": "Glasses reveal creature stats, weaknesses, and hidden items in line of sight (3/day).",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "DIVINATION",
       "levelRequirement": 15,
       "craftTime": 12,
       "successChance": 40,
@@ -23680,7 +24054,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Reveals creature stats, weaknesses, and hidden items.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:20:07+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23690,7 +24075,7 @@
       "description": "On death, explode in 20-ft fire burst (8d6) and resurrect with 1 HP after 1 min (once ever).",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "NECROMANCY",
       "levelRequirement": 17,
       "craftTime": 18,
       "successChance": 35,
@@ -23709,7 +24094,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Resurrects with 1 HP after exploding in fire burst.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:20:36+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23719,7 +24115,7 @@
       "description": "Never runs out of arrows. Arrows return after 1 minute if not destroyed.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 16,
       "craftTime": 15,
       "successChance": 45,
@@ -23738,7 +24134,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Never runs out of arrows; affects the minds of others by ensuring a constant supply.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:14+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23748,7 +24155,7 @@
       "description": "Walk on walls/ceilings for 1 min/day. Must concentrate or fall.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 7,
       "craftTime": 6,
       "successChance": 65,
@@ -23767,7 +24174,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Walk on walls/ceilings requires concentration, affecting the mind.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:35+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23777,7 +24195,7 @@
       "description": "Mirror reveals true form of shapeshifters, illusions, or possessed beings when gazed into.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 8,
       "craftTime": 5,
       "successChance": 70,
@@ -23796,7 +24214,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Mirror reveals true form, affecting perception.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:22:33+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23806,7 +24235,7 @@
       "description": "Bag holds 10x normal capacity. Retrieving item requires DC 12 DEX check or take 1 round.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 6,
       "craftTime": 5,
       "successChance": 75,
@@ -23825,7 +24254,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Bag holds 10x normal capacity, changing the property of the object.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:22:53+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23835,7 +24275,7 @@
       "description": "Grants fluency in one random language for 1 hour/day. Changes daily.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 4,
       "craftTime": 3,
       "successChance": 80,
@@ -23854,7 +24294,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Grants fluency in a language by affecting the mind.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:24:24+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23864,7 +24315,7 @@
       "description": "Item emits loud chime if touched by unauthorized creature (you define “authorized”).",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 2,
       "successChance": 90,
@@ -23879,7 +24330,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Item emits loud chime if touched by unauthorized creature.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:25:12+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23889,7 +24351,7 @@
       "description": "Heals you for damage dealt... but you must drink blood within 1 hour or suffer 2d10 necrotic.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 9,
       "craftTime": 7,
       "successChance": 50,
@@ -23908,7 +24370,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Heals you for damage dealt but you must drink blood within 1 hour.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:25:38+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23918,7 +24391,7 @@
       "description": "On hit, gain +2d6 damage next attack — but must attack nearest creature (friend or foe).",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 6,
       "craftTime": 5,
       "successChance": 60,
@@ -23937,7 +24410,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "On hit, gain +2d6 damage next attack and must attack nearest creature.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:26:15+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23947,7 +24431,7 @@
       "description": "On command, flip gravity in 30-ft radius for 1 round. Everyone falls upward. Save DC 15 or take 2d6.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 10,
       "craftTime": 8,
       "successChance": 45,
@@ -23966,7 +24450,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Manipulates energy to produce effects, flipping gravity.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:26:34+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -23976,7 +24471,7 @@
       "description": "Weapon transforms into random object (chair, fish, boot) on critical miss. Lasts 1 hour.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 5,
       "craftTime": 4,
       "successChance": 70,
@@ -23991,7 +24486,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Weapon transforms minds into random object on critical miss.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:27:00+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -24001,7 +24507,7 @@
       "description": "Reroll any die once/day — but roll with disadvantage for next 24 hours.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 7,
       "craftTime": 6,
       "successChance": 55,
@@ -24020,7 +24526,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Rerolls dice with a mind-affecting daily effect.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:27:45+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -24030,7 +24547,7 @@
       "description": "Blows a whistle that summons 1d4 non-hostile chickens. They follow you for 1 hour.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 1,
       "craftTime": 1,
       "successChance": 95,
@@ -24045,7 +24562,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Blows a whistle that summons chickens to follow the caster.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:27:58+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -24055,7 +24583,7 @@
       "description": "Cape billows dramatically even indoors. Grants advantage on Performance checks involving flair.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 2,
       "craftTime": 2,
       "successChance": 90,
@@ -24070,7 +24598,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Grants advantage on Performance checks involving flair.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:28:25+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -31549,7 +32088,7 @@
       "description": "Curved desert blade; +1d4 slashing while mounted or charging.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 5,
       "craftTime": 12,
       "successChance": 61,
@@ -31568,7 +32107,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Curved desert blade deals +1d4 slashing damage while mounted or charging.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:16:23+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31578,7 +32128,7 @@
       "description": "Shoulder mortar; fires random scrap (1d10 bludgeoning/piercing/slashing).",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 6,
       "craftTime": 15,
       "successChance": 56,
@@ -31597,7 +32147,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Fires random scrap with bludgeoning, piercing, or slashing damage.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:17:32+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31607,7 +32168,7 @@
       "description": "Oversized glove; coins picked up add +1 dmg next hit (max +10, resets on miss).",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 7,
       "craftTime": 16,
       "successChance": 54,
@@ -31626,7 +32187,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Adds damage to melee hits, changing the weapon's damage property.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:18:35+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31636,7 +32208,7 @@
       "description": "Ticks louder each hour; at 12th hour deals +2d12 radiant, then resets.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 9,
       "craftTime": 20,
       "successChance": 47,
@@ -31655,7 +32227,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Ticks louder each hour; at 12th hour deals +2d12 radiant damage.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:19:35+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31665,7 +32248,7 @@
       "description": "Needle-thin blade; injects poison (DC 13, 1d6 poison/round 3 rounds).",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 5,
       "craftTime": 12,
       "successChance": 62,
@@ -31684,7 +32267,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Injects poison with a DC 13, affecting the target's health.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:19:49+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31694,7 +32288,7 @@
       "description": "Volcanic-glass edge; crits deal extra 1d8 slashing, shatters on nat 1.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 4,
       "craftTime": 10,
       "successChance": 65,
@@ -31713,7 +32307,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Transforms iron into a volcanic-glass edge club.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:07+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31723,7 +32328,7 @@
       "description": "Longsword with crown-guard; advantage on social checks vs subjects.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 8,
       "craftTime": 18,
       "successChance": 52,
@@ -31742,7 +32347,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Advantage on social checks vs subjects grants mind-affecting benefit.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:21:24+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31752,7 +32368,7 @@
       "description": "Short sword + hidden compass; +1 Initiative, advantage on Battle-craft checks.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 6,
       "craftTime": 14,
       "successChance": 58,
@@ -31771,7 +32387,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "+1 Initiative, advantage on Battle-craft checks change the object's properties.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:22:48+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31781,7 +32408,7 @@
       "description": "Mirror-bright blade; focus sunlight (bonus action) for +1d6 fire next hit.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 7,
       "craftTime": 16,
       "successChance": 55,
@@ -31800,7 +32427,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Focuses sunlight to produce fire damage.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:23:59+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31810,7 +32448,7 @@
       "description": "Hook-backed axe; advantage on climbing, +1d4 dmg when swinging onto decks.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 5,
       "craftTime": 12,
       "successChance": 62,
@@ -31829,7 +32467,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "It modifies the axe to change its properties for climbing and combat.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:25:27+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31839,7 +32488,7 @@
       "description": "Matched hooks; whirlwind attack (5-ft radius) once per short rest.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 10,
       "craftTime": 20,
       "successChance": 45,
@@ -31858,7 +32507,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Whirlwind attack (5-ft radius) once per short rest.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:25:59+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31868,7 +32528,7 @@
       "description": "A modular longsword favored by Freelancers, balanced for any fighting style.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 8,
       "craftTime": 18,
       "successChance": 65,
@@ -31891,7 +32551,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "It modifies a sword for different fighting styles.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:26:52+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31901,7 +32572,7 @@
       "description": "Cruel black chain with hooked spikes, favored in the Land of Mordor.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 9,
       "craftTime": 20,
       "successChance": 55,
@@ -31924,7 +32595,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Favored in Mordor, it transforms ordinary chain into spiked mail armor.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:27:36+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31934,7 +32616,7 @@
       "description": "A thunder-forged warhammer said to echo with the storms of Asgard.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 11,
       "craftTime": 24,
       "successChance": 50,
@@ -31957,7 +32639,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Echoes with the storms of Asgard, manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:28:11+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",

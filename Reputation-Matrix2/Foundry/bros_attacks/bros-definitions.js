@@ -115,5 +115,575 @@ const BROS_DEFINITIONS = [
         "icon": "👣"
       }
     ]
+  },
+  {
+    "id": "gamma_discrepancy_bros_attack",
+    "name": "Gamma Discrepancy Bros Attack",
+    "school": "clearing",
+    "partnerA": "Markop",
+    "partnerB": "Green T",
+    "description": "Analyze a historical event using two sources of information.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Highlight",
+        "instruction": "click on key dates in the timeline",
+        "gesture": "tap",
+        "icon": "📅"
+      },
+      {
+        "actor": "B",
+        "title": "Focus Lens",
+        "instruction": "zoom into suspicious entries with a magnifying glass",
+        "gesture": "aim",
+        "icon": "🔍"
+      },
+      {
+        "actor": "A",
+        "title": "Elevate Record",
+        "instruction": "scroll up to reveal hidden layers of documents",
+        "gesture": "up",
+        "icon": "🔄"
+      },
+      {
+        "actor": "B",
+        "title": "Scroll Archives",
+        "instruction": "scan through archives for overlooked details",
+        "gesture": "down",
+        "icon": "📚"
+      }
+    ]
+  },
+  {
+    "id": "detonation_bros_attack",
+    "name": "Detonation Bros Attack",
+    "school": "support_fire",
+    "partnerA": "Dan (Original — Mages' Guild Fire Mage)",
+    "partnerB": "Dan (Feyward / Copy)",
+    "description": "Partner A creates a fire detonation while Partner B attempts to escape harm.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Set Trap",
+        "instruction": "Position yourself and imagine the blast.",
+        "gesture": "aim",
+        "icon": "🔥"
+      },
+      {
+        "actor": "B",
+        "title": "Evasive Maneuver",
+        "instruction": "Dodge to the right as Partner A aims.",
+        "gesture": "right",
+        "icon": "🏃‍♂️"
+      },
+      {
+        "actor": "A",
+        "title": "Hold Line",
+        "instruction": "Imagine absorbing an attack or distraction.",
+        "gesture": "up",
+        "icon": "🛡️"
+      },
+      {
+        "actor": "B",
+        "title": "Escape",
+        "instruction": "Attempt to move away from the blast area.",
+        "gesture": "down",
+        "icon": "🏃‍♀️"
+      }
+    ]
+  },
+  {
+    "id": "misdirection_bros_attack",
+    "name": "Misdirection Bros Attack",
+    "school": "misdirection",
+    "partnerA": "Mushroom Regency",
+    "partnerB": "Toadsworth the Elder",
+    "description": "Create a diversion to mislead a pursuer.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Draw Attention",
+        "instruction": "Mimic looking at something far away.",
+        "gesture": "aim",
+        "icon": "👀"
+      },
+      {
+        "actor": "B",
+        "title": "Escape",
+        "instruction": "Simulate a quick sprint.",
+        "gesture": "right",
+        "icon": "🏃‍♂️"
+      },
+      {
+        "actor": "A",
+        "title": "Maintain Cover",
+        "instruction": "Quickly look back to keep the pursuer focused.",
+        "gesture": "tap",
+        "icon": "-AA-"
+      },
+      {
+        "actor": "B",
+        "title": "Secure Exit",
+        "instruction": "Simulate opening a door and walking through it.",
+        "gesture": "up",
+        "icon": "🚪"
+      }
+    ]
+  },
+  {
+    "id": "goblin_alchemy_bros_attack",
+    "name": "Goblin Alchemy Bros Attack",
+    "school": "clearing",
+    "partnerA": "Markop",
+    "partnerB": "Archie Miser",
+    "description": "Create height and leverage to allow your partner to strike an enemy weak point.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Tap Up",
+        "instruction": "Use an alchemical vial to create a stable height advantage.",
+        "gesture": "up",
+        "icon": "⚗️"
+      },
+      {
+        "actor": "B",
+        "title": "Aim",
+        "instruction": "Target the weak point with your magical attack.",
+        "gesture": "aim",
+        "icon": "🎯"
+      },
+      {
+        "actor": "A",
+        "title": "Stabilize",
+        "instruction": "Maintain height and leverage until your partner's attack connects.",
+        "gesture": "tap",
+        "icon": "🔄"
+      },
+      {
+        "actor": "B",
+        "title": "Strike",
+        "instruction": "Execute the final blow on the weak point.",
+        "gesture": "aim",
+        "icon": "💥"
+      }
+    ]
+  },
+  {
+    "id": "teleportation_bros_attack",
+    "name": "Teleportation Bros Attack",
+    "school": "clearing",
+    "partnerA": "Koopa",
+    "partnerB": "Tanukiburt",
+    "description": "Prepare to teleport to an unknown location",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Focus",
+        "instruction": "Select your destination point",
+        "gesture": "aim",
+        "icon": "📍"
+      },
+      {
+        "actor": "B",
+        "title": "Initiate",
+        "instruction": "Execute the teleportation",
+        "gesture": "tap",
+        "icon": "🔄"
+      },
+      {
+        "actor": "A",
+        "title": "Jump",
+        "instruction": "Enhance your jump for better landing",
+        "gesture": "right",
+        "icon": "💨"
+      },
+      {
+        "actor": "B",
+        "title": "Crouch",
+        "instruction": "Prepare to absorb impact upon arrival",
+        "gesture": "down",
+        "icon": "💪"
+      }
+    ]
+  },
+  {
+    "id": "misdirection_bros_attack_variant",
+    "name": "Misdirection Bros Attack (Variant)",
+    "school": "misdirection",
+    "partnerA": "Diddy Kong",
+    "partnerB": "Junimus Gorolini Bongo Jr. (Chunky Kong)",
+    "description": "Distract the crowd while your partner escapes unnoticed.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Create Distraction",
+        "instruction": "Speak passionately into the mic.",
+        "gesture": "aim",
+        "icon": "✍️"
+      },
+      {
+        "actor": "B",
+        "title": "Exit Stage Right",
+        "instruction": "Sneak away without drawing attention.",
+        "gesture": "down",
+        "icon": "🚪"
+      },
+      {
+        "actor": "A",
+        "title": "Maintain Flow",
+        "instruction": "Keep the speech going smoothly.",
+        "gesture": "right",
+        "icon": "👇"
+      },
+      {
+        "actor": "B",
+        "title": "Secure Shelter",
+        "instruction": "Find a hidden spot and hide quickly.",
+        "gesture": "tap",
+        "icon": "🏠"
+      }
+    ]
+  },
+  {
+    "id": "jumping_coordination_bros_attack",
+    "name": "Jumping Coordination Bros Attack",
+    "school": "misdirection",
+    "partnerA": "Corporal 'Ghost' Reyes",
+    "partnerB": "Sergeant 'Brick' Stone",
+    "description": "Simultaneously tap and jump to land together in the void.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Countdown",
+        "instruction": "Tap when ready.",
+        "gesture": "tap",
+        "icon": "🔄"
+      },
+      {
+        "actor": "B",
+        "title": "Leap",
+        "instruction": "Jump at the same time as A.",
+        "gesture": "right",
+        "icon": "💨"
+      },
+      {
+        "actor": "A",
+        "title": "Dive",
+        "instruction": "Land in the void with B.",
+        "gesture": "down",
+        "icon": "byss"
+      },
+      {
+        "actor": "B",
+        "title": "Follow",
+        "instruction": "Leap down after A, aiming to land next to them.",
+        "gesture": "aim",
+        "icon": "incy"
+      }
+    ]
+  },
+  {
+    "id": "tanuki_liberation_bros_attack",
+    "name": "Tanuki Liberation Bros Attack",
+    "school": "support_fire",
+    "partnerA": "Remi",
+    "partnerB": "Green T",
+    "description": "Align and fire to free The Tanuki.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Hold",
+        "instruction": "Align the gun while partner adjusts.",
+        "gesture": "aim",
+        "icon": "🎯"
+      },
+      {
+        "actor": "B",
+        "title": "Adjust",
+        "instruction": "Tap A's arm to correct the aim.",
+        "gesture": "tap",
+        "icon": "-Com"
+      },
+      {
+        "actor": "A",
+        "title": "Fire",
+        "instruction": "Pull the trigger when aligned.",
+        "gesture": "tap",
+        "icon": "💥"
+      },
+      {
+        "actor": "B",
+        "title": "Release",
+        "instruction": "Step to the side for The Tanuki's release.",
+        "gesture": "right",
+        "icon": "🚶"
+      }
+    ]
+  },
+  {
+    "id": "shieldwork_bros_attack",
+    "name": "Shieldwork Bros Attack",
+    "school": "shieldwork",
+    "partnerA": "Michael Afton",
+    "partnerB": "Wario / 'The Boss'",
+    "description": "Wario must have a conversation with Cassidy while being shielded from the animatronics by Michael Afton",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Set Up",
+        "instruction": "Place yourself between Wario and the animatronics, creating a protective barrier",
+        "gesture": "tap",
+        "icon": "🛡️"
+      },
+      {
+        "actor": "B",
+        "title": "Engage",
+        "instruction": "Begin speaking with Cassidy to secure their release",
+        "gesture": "aim",
+        "icon": "💬"
+      },
+      {
+        "actor": "A",
+        "title": "Adjust",
+        "instruction": "Continuously move and block while Wario is talking, ensuring he can communicate freely",
+        "gesture": "right",
+        "icon": "=./>"
+      },
+      {
+        "actor": "B",
+        "title": "Confirm",
+        "instruction": "Acknowledge the release with a tap as the animatronics are freed on Night Seven",
+        "gesture": "tap",
+        "icon": "✅"
+      }
+    ]
+  },
+  {
+    "id": "waluigi_s_distraction_bros_attack",
+    "name": "Waluigi's Distraction Bros Attack",
+    "school": "misdirection",
+    "partnerA": "Princess Daisy of Sarasaland",
+    "partnerB": "Waluigi",
+    "description": "Create a diversion to allow Toadsworth Sr. to sign the Charter unseen.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Signal",
+        "instruction": "Tap Waluigi when ready for the distraction.",
+        "gesture": "tap",
+        "icon": ":<?x"
+      },
+      {
+        "actor": "B",
+        "title": "Chase",
+        "instruction": "Lead Toadsworth Sr. towards a playful chase.",
+        "gesture": "right",
+        "icon": ">"
+      },
+      {
+        "actor": "A",
+        "title": "Distract",
+        "instruction": "Draw Toadsworth Sr.'s attention with gestures and sounds.",
+        "gesture": "aim",
+        "icon": "!"
+      },
+      {
+        "actor": "B",
+        "title": "Sign",
+        "instruction": "Allow Toadsworth Sr. to sign the Charter while distracted.",
+        "gesture": "up",
+        "icon": "^"
+      }
+    ]
+  },
+  {
+    "id": "toad_rescue_bros_attack",
+    "name": "Toad Rescue Bros Attack",
+    "school": "clearing",
+    "partnerA": "Mario",
+    "partnerB": "Luigi",
+    "description": "Navigate the internal structure of a giant",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Directional Tap",
+        "instruction": "Signal path change by tapping up",
+        "gesture": "tap",
+        "icon": "⬆️"
+      },
+      {
+        "actor": "B",
+        "title": "Alignment Aim",
+        "instruction": "Confirm direction with a right aim",
+        "gesture": "aim",
+        "icon": "➡️"
+      },
+      {
+        "actor": "A",
+        "title": "Jump Down",
+        "instruction": "Simultaneously jump into the next chamber",
+        "gesture": "down",
+        "icon": "Floo"
+      },
+      {
+        "actor": "B",
+        "title": "Reset Stance",
+        "instruction": "Adjust positioning for next passage",
+        "gesture": "right",
+        "icon": "🔄"
+      }
+    ]
+  },
+  {
+    "id": "ghostly_misdirection_bros_attack",
+    "name": "Ghostly Misdirection Bros Attack",
+    "school": "misdirection",
+    "partnerA": "Wario",
+    "partnerB": "The Neighbor / 'Mr. Gadd'",
+    "description": "Partner A taps Partner B's shoulder to signal the start of a casual conversation.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Taps",
+        "instruction": "Right shoulder, when you're ready.",
+        "gesture": "tap",
+        "icon": "👉"
+      },
+      {
+        "actor": "B",
+        "title": "Adjusts",
+        "instruction": "Start making subtle adjustments with your device.",
+        "gesture": "right",
+        "icon": "🛠️"
+      },
+      {
+        "actor": "A",
+        "title": "Talks",
+        "instruction": "Gestures to the neighbor's plant, aiming for non-threatening small talk.",
+        "gesture": "aim",
+        "icon": "💬"
+      },
+      {
+        "actor": "B",
+        "title": "Whispers",
+        "instruction": "Mutter something about machinery adjustments that only Partner A can hear.",
+        "gesture": "down",
+        "icon": "👂"
+      }
+    ]
+  },
+  {
+    "id": "astral_portal_creation_bros_attack",
+    "name": "Astral Portal Creation Bros Attack",
+    "school": "clearing",
+    "partnerA": "Archie Miser",
+    "partnerB": "The Oracle",
+    "description": "Simulate the creation of the Astral Portal with precise gestures.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Center Yourself",
+        "instruction": "Tap the center of the circle.",
+        "gesture": "tap",
+        "icon": "📍"
+      },
+      {
+        "actor": "B",
+        "title": "Align the Candles",
+        "instruction": "Point at the candles to focus energy.",
+        "gesture": "aim",
+        "icon": "💡"
+      },
+      {
+        "actor": "A",
+        "title": "Absorb Mana",
+        "instruction": "Gather mana by rising your hand.",
+        "gesture": "up",
+        "icon": "⚡"
+      },
+      {
+        "actor": "B",
+        "title": "Direct Energy",
+        "instruction": "Channel energy to create the portal.",
+        "gesture": "down",
+        "icon": "🪜"
+      }
+    ]
+  },
+  {
+    "id": "ruler_counterattack_bros_attack",
+    "name": "Ruler Counterattack Bros Attack",
+    "school": "shieldwork",
+    "partnerA": "Sergeant 'Brick' Stone",
+    "partnerB": "Specialist 'Viper' Miller",
+    "description": "Simulate Baldi's ruler attack as it grows to four times its size.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Counter",
+        "instruction": "Brick Stone raises his arms to block the ruler.",
+        "gesture": "up",
+        "icon": "🛡️"
+      },
+      {
+        "actor": "B",
+        "title": "Defend and Counter",
+        "instruction": "Viper Miller strikes at the descending ruler while maintaining balance.",
+        "gesture": "down",
+        "icon": "🔪"
+      },
+      {
+        "actor": "A",
+        "title": "Absorb Impact",
+        "instruction": "Brick Stone shifts his weight to absorb the impact of Baldi's counterattack.",
+        "gesture": "right",
+        "icon": "💪"
+      },
+      {
+        "actor": "B",
+        "title": "Reset",
+        "instruction": "Viper Miller steps back, ready for the next attack while maintaining distance.",
+        "gesture": "tap",
+        "icon": "🔄"
+      }
+    ]
+  },
+  {
+    "id": "frozen_shieldwork_bros_attack",
+    "name": "Frozen Shieldwork Bros Attack",
+    "school": "shieldwork",
+    "partnerA": "Waluigi",
+    "partnerB": "Hjumpik",
+    "description": "Navigate through a frozen area while maintaining an ice shield.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Create Shield",
+        "instruction": "Create an ice shield and maintain it for three seconds.",
+        "gesture": "aim",
+        "icon": "❄️"
+      },
+      {
+        "actor": "B",
+        "title": "Clear Path",
+        "instruction": "Move to the right, clearing a path through frozen plants.",
+        "gesture": "right",
+        "icon": "=./="
+      },
+      {
+        "actor": "A",
+        "title": "Hold Shield",
+        "instruction": "Maintain the shield while B clears past.",
+        "gesture": "up",
+        "icon": "🛡️"
+      },
+      {
+        "actor": "B",
+        "title": "Final Clear",
+        "instruction": "Clear any final obstacles in your path.",
+        "gesture": "down",
+        "icon": "🔄"
+      }
+    ]
   }
 ];
