@@ -8710,7 +8710,10 @@ async function loadGeneratedFactions(){
     const extra = (payload && payload.factions) || {};
     let added = 0;
     for(const [id, faction] of Object.entries(extra)){
-      if(!id || LORE_FACTIONS[id]) continue; // never clobber hand-written canon
+      // Source review retires labels that reputation generation mistook for
+      // institutions (people, places, generic "all" buckets). Keep those
+      // audit records in JSON, but never render them as faction dossiers.
+      if(!id || LORE_FACTIONS[id] || faction?.status==='retired') continue;
       LORE_FACTIONS[id] = faction;
       added++;
     }

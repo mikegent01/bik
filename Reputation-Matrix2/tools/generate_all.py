@@ -2,9 +2,10 @@
 """The all-systems generator.
 
 One entry point that cycles every generatable system in the archive — Warizon
-stock, WAHwire posts, Training Wing abilities, reputation impacts, Crafting
-Forge schools — in popcorn order: one record from a system, then a record from
-a different system, never draining one before moving on.
+stock, WAHwire posts, Training Wing abilities, reputation impacts, source-backed
+faction dossiers, Crafting Forge schools — in popcorn order: one record from a
+system, then a record from a different system, never draining one before moving
+on.
 
 Uses the same method as `generate_abilities.py`: LM Studio over the local HTTP
 API, resumable checkpoints, atomic writes and hard validation. A record the

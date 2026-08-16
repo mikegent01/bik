@@ -18,7 +18,7 @@ The generator never drains one system. Each turn it picks a system at random
 from those with work, takes **one** record, and moves on:
 
 ```
-item → post → ability → reputation impact → crafting school → item → …
+item → post → ability → reputation impact → faction dossier → crafting school → item → …
 ```
 
 Two reasons. The output reads better — 40 shop items in a row come out in the
@@ -36,20 +36,27 @@ Two rules bend the randomness:
 - **Recency penalty.** A system just served is weighted down 0.15, so two of
   a kind rarely land together even when only two systems remain live.
 
-## The six systems
+## Registered systems
 
-| stage | id | what it does | pending |
-|---|---|---|---|
-| 0 | `wahwire-prune` | QC the 19 legacy posts, repair dead links, mark canon or retired | 19 |
-| 1 | `shop_items` | Warizon stock against the rarity deficit, common→godly | 1850 |
-| 1 | `crafting` | classify the recipes the Forge filter cannot see | 831 |
-| 1 | `abilities` | fill the emptiest class/level cells above level 1 | 421 |
-| 1 | `reputation` | backfill impacts on records that have none | 209 |
-| 1 | `wahwire-author` | write feed reactions for records nobody posted about | 98 |
+The authoritative counts are live — run `python3 tools/generate_all.py --inventory`
+rather than copying a total from this document. The cycle currently includes:
 
-**Total: 3,428 records of pending work.**
+| stage | id | what it does |
+|---|---|---|
+| 0 | `wahwire-prune` | QC inherited posts, repair dead links, mark canon or retired |
+| 1 | `shop_items` | Warizon stock against the rarity deficit, common→godly |
+| 1 | `crafting` | classify recipes the Forge filter cannot see |
+| 1 | `abilities` | fill the emptiest class/level cells above level 1 |
+| 1 | `reputation` | backfill impacts on records that have none |
+| 1 | `faction-dossiers` | review reputation-minted faction stubs from their source and linked articles; write a 500–1,000 word dossier or retire a misfile |
+| 1 | `wahwire-author` | write feed reactions for records nobody posted about |
+| 1 | `wahwire-discuss` | add comments and replies to thin feed threads |
+| 1 | `wahwire-profile` | complete account biographies and follow graphs |
 
-## Adding a seventh system
+The Bros Attack adapter remains registered but disabled by design: techniques
+are discovered at the table, not bulk-generated from event prose.
+
+## Adding another system
 
 One file and one list entry. A system is anything that answers five
 questions, which is the whole of `SystemSpec`:
@@ -86,6 +93,21 @@ Applying the full stamp would destroy canon to record a provenance detail.
 never revisited, and the check is re-run at write time in case another worker
 filled it first. Verified: the 3 hand-written records are byte-identical after
 a 45-record run.
+
+**A minted faction stub is a queue item, not a dossier.** `faction-dossiers`
+finds the record named by `_generated.sourceRecord`, follows its explicit
+`relatedArticles`, and requires 500–1,000 words of source-bound Waluigi prose.
+It first classifies the label: people, places, events and aggregate buckets are
+retired instead of being padded into fictional institutions. A justified alias
+redirect repairs the generated reputation keys; otherwise the invalid key is
+removed. Full dossiers carry `_generatedDossier`, while retired reviews carry
+`_generatedDossierReview`, both listing the source article IDs used.
+
+Run just this pass with:
+
+```bash
+python3 tools/generate_all.py --only faction-dossiers
+```
 
 ## Two workers, scalable to four
 

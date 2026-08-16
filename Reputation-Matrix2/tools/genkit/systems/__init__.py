@@ -7,7 +7,15 @@ whole contract — no five-file edit, no scheduler change, no GUI change.
 from __future__ import annotations
 
 from ..spec import SystemSpec
-from . import abilities, bros_attacks, crafting, reputation, shop_items, wahwire
+from . import (
+    abilities,
+    bros_attacks,
+    crafting,
+    faction_dossiers,
+    reputation,
+    shop_items,
+    wahwire,
+)
 
 
 def all_systems() -> list[SystemSpec]:
@@ -22,6 +30,7 @@ def all_systems() -> list[SystemSpec]:
         wahwire.AUTHOR_SPEC,
         abilities.SPEC,
         reputation.SPEC,
+        faction_dossiers.SPEC,  # expand/review stubs minted by reputation
         crafting.SPEC,
         wahwire.DISCUSS_SPEC,    # threads posts, interleaved with authoring
         wahwire.PROFILE_SPEC,    # bios + the follow graph, 13 accounts

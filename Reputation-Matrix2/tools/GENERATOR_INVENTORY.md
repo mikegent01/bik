@@ -33,13 +33,32 @@ left alone; they look deliberate.
 
 | System | State | Consequence |
 |---|---|---|
-| **WAHwire posts** | **19 posts total, all in `data/events/scheduled-posts.js`.** `WAHWIRE_POSTS`, `WAHWIRE_POST_CHUNKS`, `VIRAL_POSTS` and `RUMOR_CHATTER_DATA` are all empty arrays. Six of the seven files in `data/events/` are **zero bytes**. | See §4 — this changes the order of operations you asked for. |
+| **WAHwire posts** | **19 posts total, all in `data/events/scheduled-posts.js`.** `WAHWIRE_POSTS`, `WAHWIRE_POST_CHUNKS`, `VIRAL_POSTS` and `RUMOR_CHATTER_DATA` are all empty arrays. Six of the seven files in `data/events/` are **zero bytes**. | See the WAHwire section below — this changes the order of operations you asked for. |
 | Vendors | No `data/vendors.json`. `data/shop-items/vendors.js` exports zero vendors. | `tools/enrich_vendors.py` exists but has nothing to enrich. |
 | Item shards | `items_101`–`items_105`, `items_night_special.js`, `categories.js` are empty; `items_051/052/054/057/059/063/068/075/084` hold 7–52 items against a ~100 norm. | Natural targets for the item generator. |
 
 ---
 
-## 3. Reputation impact — the backfill target
+## 3. Generated faction dossiers — the second half of reputation generation
+
+The reputation backfill may encounter an organised group that is absent from
+the canonical faction registry. It preserves the score by minting a stub in
+`data/factionsGenerated.json`. The current file contains **67** generated
+entries; **64** still carry the literal “No dossier has been written yet”
+placeholder and the remaining three have only 11–21 words. None is a finished
+dossier.
+
+This queue cannot be solved by blindly expanding every label. Older generation
+also treated named people, locations and aggregate output labels as factions.
+The `faction-dossiers` system therefore reads the named source record and its
+`relatedArticles` first. Real groups receive roughly 500–1,000 words of
+source-bound in-world prose. Misfiled labels are retired and hidden from the
+faction directory, with reputation redirected only when the evidence supports
+a canonical target.
+
+---
+
+## 4. Reputation impact — the backfill target
 
 `getRecordReputationImpact()` (index.html L13119) reads `rec.reputationChanges`
 first, falls back to `rec.effects` x operators, and only then auto-derives.
@@ -62,7 +81,7 @@ as written.
 
 ---
 
-## 4. The WAHwire problem — read this before the cycler runs
+## 5. The WAHwire problem — read this before the cycler runs
 
 You asked for the WAHwire pass to be ordered: **quality-check and prune the
 existing posts one at a time, and only after a full clean pass start writing
@@ -85,7 +104,7 @@ work. See the question put to you alongside this report.
 
 ---
 
-## 5. What the runner does with all this
+## 6. What the runner does with all this
 
 `tools/genkit/` is the shared machinery — LM Studio client, atomic writes,
 per-system checkpoints, worker pool, popcorn scheduler. Systems declare

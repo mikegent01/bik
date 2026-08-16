@@ -18,7 +18,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from genkit.spec import Task, TaskResult, ValidationError  # noqa: E402
 from genkit.scheduler import PopcornScheduler  # noqa: E402
 from genkit.systems import (  # noqa: E402
-    abilities, bros_attacks, crafting, factions, reputation, shop_items, wahwire,
+    abilities, bros_attacks, crafting, faction_dossiers, factions, reputation,
+    shop_items, wahwire,
 )
 
 # Redirect every write target at a scratch copy before a single test runs.
@@ -386,6 +387,129 @@ check("the factions they named are still scored as effects",
       and scored["effects"].get("wario_land") == 8, str(scored["effects"]))
 check("and the people are reported rather than silently absorbed",
       scored["_people"] == ["diddy_kong", "wario"], str(scored["_people"]))
+
+# ------------------------------------------------------ faction dossier pass
+section("faction dossiers · sources before prose")
+
+stub_store = faction_dossiers._store()["factions"]
+synthetic_stub = {
+    "description": "Named in a record. No dossier has been written yet.",
+    "status": "generated", "_generated": {"system": "factions"},
+}
+check("unfinished generated factions are queued",
+      faction_dossiers.needs_dossier(synthetic_stub))
+check("retired review records do not re-enter the queue",
+      not faction_dossiers.needs_dossier({**synthetic_stub, "status": "retired"}))
+wario_bros_stub = stub_store["wario_bros"]
+wario_sources = faction_dossiers.source_context("wario_bros", wario_bros_stub)
+wario_source_ids = [s["record"].get("id") for s in wario_sources]
+check("the named source record is first",
+      wario_source_ids[0] == "the_lounge_brawl", str(wario_source_ids))
+check("explicitly referenced articles are added to dossier context",
+      "the_lounge_incident_and_the_paper_war" in wario_source_ids,
+      str(wario_source_ids))
+
+fd_task = Task(
+    system_id="faction-dossiers", key="fd", label="fd",
+    payload={"id": "wario_bros", "entry": wario_bros_stub, "sources": wario_sources},
+)
+# Build a 500+ word dossier without relying on model output. The repeated
+# phrase is intentionally plain: this is testing the hard length/shape gate,
+# not pretending fixture prose is archive prose.
+dossier_text = (
+    "## Identity and Evidence\nWaluigi records the Wario Bros as a recurring operational partnership.\n\n"
+    "## Recorded Conduct\n" + ("The linked record supplies concrete evidence and limits every inference. " * 55)
+    + "\n\n## Structure and Reach\n" +
+    ("Waluigi distinguishes what happened from what remains unconfirmed in the archive. " * 35)
+    + "\n\n## Assessment\nWaluigi recommends caution, receipts, and a structurally sound floor."
+)
+valid_dossier = faction_dossiers.validate(fd_task, {
+    "classification": "faction",
+    "name": "The Wario Bros",
+    "title": "A Partnership With an Exit Clause",
+    "type": "Recurring operational partnership",
+    "region": "Known Realms",
+    "currentStatus": "Active when profitable",
+    "leader": "Collective",
+    "headquarters": "Unrecorded",
+    "motto": "No recorded motto",
+    "category": "Minor Powers",
+    "power_level": 2,
+    "summary": "Wario and Waluigi sometimes act together. The arrangement is unstable.",
+    "description": dossier_text,
+    "relations": {"allies": ["wario_land"], "enemies": ["disaster_inc"]},
+    "waluigi_tip": "Keep the receipt and watch the exits.",
+})
+check("a source-backed 500+ word dossier passes",
+      500 <= faction_dossiers.word_count(valid_dossier["description"]) <= 1100,
+      str(faction_dossiers.word_count(valid_dossier["description"])))
+check("source article ids are stamped from task context, not model invention",
+      valid_dossier["sourceArticles"][0] == "the_lounge_brawl",
+      str(valid_dossier["sourceArticles"]))
+
+apply_stub = factions.mint(
+    "test_source_backed_order", name="Test Source-Backed Order",
+    source_record="The Lounge Brawl", model="test",
+)
+apply_task = Task(
+    system_id="faction-dossiers", key="apply-fd", label="apply-fd",
+    payload={"id": "test_source_backed_order", "entry": apply_stub,
+             "sources": wario_sources, "model": "test-model"},
+)
+applied = faction_dossiers.apply(apply_task, valid_dossier)
+applied_entry = faction_dossiers._store()["factions"]["test_source_backed_order"]
+check("an accepted dossier replaces the stub atomically",
+      applied.ok and applied_entry["description"] == dossier_text,
+      applied.detail)
+check("the written dossier keeps generated provenance and exact sources",
+      applied_entry["status"] == "generated"
+      and applied_entry["_generatedDossier"]["model"] == "test-model"
+      and applied_entry["keyEvents"][0] == "the_lounge_brawl",
+      str(applied_entry.get("_generatedDossier")))
+
+short_reply = dict(valid_dossier)
+short_reply["classification"] = "faction"
+short_reply["description"] = "## One\nWaluigi saw it.\n## Two\nToo little.\n## Three\nStill too little."
+try:
+    faction_dossiers.validate(fd_task, short_reply)
+    check("a placeholder-sized dossier is rejected", False, "it passed")
+except ValidationError as err:
+    check("a placeholder-sized dossier is rejected", "at least 500" in str(err), str(err))
+
+person_task = Task(
+    system_id="faction-dossiers", key="person", label="person",
+    payload={"id": "wario", "entry": stub_store["wario"],
+             "sources": faction_dossiers.source_context("wario", stub_store["wario"])},
+)
+try:
+    faction_dossiers.validate(person_task, {
+        **valid_dossier, "classification": "faction", "description": dossier_text,
+    })
+    check("a rostered person cannot be padded into a faction", False, "it passed")
+except ValidationError as err:
+    check("a rostered person cannot be padded into a faction",
+          "one person" in str(err), str(err))
+
+retired = faction_dossiers.validate(person_task, {
+    "classification": "not_faction", "notFactionKind": "person",
+    "reason": "The source names Wario as one participant, not an institution with a collective standing or persistent membership.",
+    "redirectFactionId": "wario_land",
+})
+check("a misfile can redirect to a canonical faction",
+      retired["redirectFactionId"] == "wario_land", str(retired))
+
+rewrite_fixture = {
+    "reputationChanges": {"waluigi": {"wario": -4, "wario_land": -2}},
+    "effects": {"wario": 3},
+    "belligerents": {"attackers": {"factionId": "wario"}},
+}
+rewrites = faction_dossiers._rewrite_node(rewrite_fixture, "wario", "wario_land")
+check("retirement repairs reputation and explicit factionId keys",
+      rewrites == 3
+      and rewrite_fixture["reputationChanges"]["waluigi"]["wario_land"] == -4
+      and rewrite_fixture["effects"]["wario_land"] == 3
+      and rewrite_fixture["belligerents"]["attackers"]["factionId"] == "wario_land",
+      str(rewrite_fixture))
 
 # ------------------------------------------------------------ repair passes
 section("repair · a rejection becomes a record")
