@@ -1,0 +1,286 @@
+{
+  "version": 1,
+  "note": "WAHwire account profiles. `follows` is a list of account ids; `followReasons` explains each edge in one line.",
+  "profiles": {
+    "lord_crimson": {
+      "bio": "Commander of the Onyx Hand. Defiler of light, slayer of pests.",
+      "location": "The Crypts Below",
+      "joined": "Eons ago, before time had meaning",
+      "follows": [
+        "bowser",
+        "markop",
+        "generic_toad"
+      ],
+      "followReasons": {
+        "bowser": "To mock the King's futile resistance.",
+        "markop": "For a touch of the mundane.",
+        "generic_toad": "To laugh at their ignorance."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:18:29+00:00"
+      }
+    },
+    "general_marcus_ironhand": {
+      "bio": "General Marcus Ironhand commands with steel and strategy. My domain is the battlefield, not politics.",
+      "location": "Ironwood Forest",
+      "joined": "Year of the Silver Helm",
+      "follows": [
+        "lord_crimson",
+        "colonel_vera_steelstorm",
+        "bowser"
+      ],
+      "followReasons": {
+        "lord_crimson": "To gauge the mind of an enemy.",
+        "colonel_vera_steelstorm": "For discipline and procedure.",
+        "bowser": "The Koopa King holds power beyond the battlefield."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:18:30+00:00"
+      }
+    },
+    "colonel_vera_steelstorm": {
+      "bio": "I am Colonel Vera Steelstorm. My orders are my duty.",
+      "location": "Ironwood Forest",
+      "joined": "Joined the Legion in '23",
+      "follows": [
+        "lord_crimson",
+        "markop",
+        "archie_miser"
+      ],
+      "followReasons": {
+        "lord_crimson": "To watch the Onyx Hand squirm.",
+        "markop": "The Titan's rise is the Empire's fall.",
+        "archie_miser": "We are all in debt, to him."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:18:32+00:00"
+      }
+    },
+    "alpha_bloodmaw": {
+      "bio": "I am Alpha Bloodmaw, and this is my forest. Those who seek to take it from me will find the wild a merciless master.",
+      "location": "Lockerwood Forest",
+      "joined": "The woods claim all who enter.",
+      "follows": [
+        "archie_miser",
+        "markop",
+        "wah_media_collective"
+      ],
+      "followReasons": {
+        "archie_miser": "He burns what he can't pay for. A lesson in survival.",
+        "markop": "He almost didn't get back up. We never do.",
+        "wah_media_collective": "They scream and shout, but they don't understand the wild."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:18:40+00:00"
+      }
+    },
+    "wah_media_collective": {
+      "bio": "BREATHLESS REPORTING FROM THE FRONT! WAH_MEDIA_COLLECTIVE BRINGS YOU THE UGLIEST SIDE OF THE WARS, EXCLUSIVE INTERVIEWS WITH TERRORIST LEADERS & BATTLEFIELD ANALYSIS.",
+      "location": "ON THE FRONT",
+      "joined": "DAY ONE",
+      "follows": [
+        "bowser",
+        "waluigi"
+      ],
+      "followReasons": {
+        "bowser": "TO WATCH THE KING WHO HELD THE DOOR DEFEND HIS REALMS.",
+        "waluigi": "TO LEARN FROM THE GREAT AND UNDERAPPRECIATED DISASTER INC."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:18:44+00:00"
+      }
+    },
+    "generic_toad": {
+      "bio": "So... who do we pay our taxes to now? Bowser's guys are demanding turnips for 'protection', and some weird robot with Fawful's face on it is asking for 'fury-fu'.",
+      "location": "Toad Town",
+      "joined": "Spring of Despair",
+      "follows": [
+        "toadette",
+        "archie_miser",
+        "wah_media_collective"
+      ],
+      "followReasons": {
+        "toadette": "She's young and plucky, just like me.",
+        "archie_miser": "He understands the struggle of debt better than anyone.",
+        "wah_media_collective": "They always have the latest on who to pay."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:18:45+00:00"
+      }
+    },
+    "toadsworth": {
+      "bio": "I say, what a day for Master Peach's tea to be spilled! I must keep track of these things.",
+      "location": "Castle Town",
+      "joined": "134 Years ago",
+      "follows": [
+        "lord_crimson",
+        "generic_toad",
+        "toadette"
+      ],
+      "followReasons": {
+        "lord_crimson": "He knows the ways of darkness; useful for gossip.",
+        "generic_toad": "The poor soul needs advice on rent. I can help.",
+        "toadette": "She's full of youthful pluck! Fresh air is good for her."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:18:50+00:00"
+      }
+    },
+    "toadette": {
+      "bio": "I'm Toadette, a young toad in the Mushroom Kingdom. I dream big and aim high, though my heart's always with family and friends.",
+      "location": "Mushroom Kingdom",
+      "joined": "Joined WAHwire to spread Mushroom Kingdo",
+      "follows": [
+        "generic_toad",
+        "alpha_bloodmaw",
+        "wah_media_collective"
+      ],
+      "followReasons": {
+        "generic_toad": "A fellow citizen to chat with about rent and family.",
+        "alpha_bloodmaw": "To understand the wild's point of view, as always.",
+        "wah_media_collective": "For the latest scoop on Mushroom Kingdom happenings."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:18:52+00:00"
+      }
+    },
+    "waluigi": {
+      "bio": "Waluigi, The Great and Underappreciated. Field archivist, reluctant survivor, ice-magic specialist. Capable of unbiased truth.",
+      "location": "Disaster Inc./Mushroom Kingdom",
+      "joined": "Year of the Koopa",
+      "follows": [
+        "archie_miser",
+        "bowser",
+        "markop"
+      ],
+      "followReasons": {
+        "archie_miser": "He's Wario's problem child; his recklessness is a distraction.",
+        "bowser": "Bowser's empire needs to learn from real leadership.",
+        "markop": "The Titan's story is one of resilience and survival."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:19:42+00:00"
+      }
+    },
+    "bowser": {
+      "bio": "Bowser, King of the Koopa Troop, who held a door shut with an axe swinging and asked if a wand is magic. The Mushroom Kingdom is mine.",
+      "location": "Shadowfell",
+      "joined": "Planar Fracture Era",
+      "follows": [
+        "markop",
+        "waluigi"
+      ],
+      "followReasons": {
+        "markop": "He's got the brute force to back up my conquest.",
+        "waluigi": "The Great and Underappreciated, he lost in arm-wrestling."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:19:50+00:00"
+      }
+    },
+    "archie_miser": {
+      "bio": "Born with a third eye, I trade entropy for bread. My magic's my only true friend.",
+      "location": "Castle Watch",
+      "joined": "2moAgo",
+      "follows": [
+        "waluigi",
+        "generic_toad"
+      ],
+      "followReasons": {
+        "waluigi": "Waluigi understands the grind. We both bleed disaster.",
+        "generic_toad": "Toads appreciate my sparkles... and toads need all the friends they can get."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:19:57+00:00"
+      }
+    },
+    "markop": {
+      "bio": "I'm Markop, The Titan Who Almost Didn't Get Back Up. I fight when I must, and make decisions that keep others alive. Centaur in form, but always a horse in heart.",
+      "location": "Disaster Inc.",
+      "joined": "14th Day of the Fourth Month",
+      "follows": [
+        "bowser",
+        "alpha_bloodmaw",
+        "archie_miser"
+      ],
+      "followReasons": {
+        "bowser": "Bowser's strategic mind is invaluable to any company that deals with chaos.",
+        "alpha_bloodmaw": "The wild speaks through the alpha's voice. He grounds me in what's real.",
+        "archie_miser": "Archie's entropy may be a liability, but his insight is sharp."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:20:04+00:00"
+      }
+    },
+    "hjumpik": {
+      "bio": "Dwarf with a warhammer and a heart for the wrong side of history. Accidentally blew up Wario once too often.",
+      "location": "Onyx Hand Headquarters",
+      "joined": "Day 174",
+      "follows": [
+        "waluigi",
+        "alpha_bloodmaw",
+        "generic_toad"
+      ],
+      "followReasons": {
+        "waluigi": "To watch Waluigi squirm under his own cowbell.",
+        "alpha_bloodmaw": "The wild speaks a language I can understand.",
+        "generic_toad": "For the sake of the lost and confused."
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire-profile",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-15T23:21:13+00:00"
+      }
+    }
+  }
+}

@@ -3,112 +3,168 @@
   "note": "The feed's emotional palette. Seeded with the hand-written tones and extended by the generator: a pass that meets a record no existing reaction fits may mint a new one here rather than flatten it to 'deadpan'. Read by both app/pages/wahwire/wahwire.js and tools/genkit/systems/wahwire.py so the two can never drift.",
   "reactions": {
     "cheer": {
-      "glyph": "\ud83c\udf89",
+      "glyph": "🎉",
       "label": "Cheering",
       "tone": "#2e7d32",
       "origin": "canon"
     },
     "rage": {
-      "glyph": "\ud83d\udd25",
+      "glyph": "🔥",
       "label": "Furious",
       "tone": "#c0392b",
       "origin": "canon"
     },
     "grief": {
-      "glyph": "\ud83d\udd6f\ufe0f",
+      "glyph": "🕯️",
       "label": "Grieving",
       "tone": "#5c6bc0",
       "origin": "canon"
     },
     "smug": {
-      "glyph": "\ud83d\ude0f",
+      "glyph": "😏",
       "label": "Smug",
       "tone": "#b8860b",
       "origin": "canon"
     },
     "alarm": {
-      "glyph": "\u26a0\ufe0f",
+      "glyph": "⚠️",
       "label": "Alarmed",
       "tone": "#ef6c00",
       "origin": "canon"
     },
     "deadpan": {
-      "glyph": "\u2796",
+      "glyph": "➖",
       "label": "Deadpan",
       "tone": "#78909c",
       "origin": "canon"
     },
     "mourning": {
-      "glyph": "\ud83d\udda4",
+      "glyph": "🖤",
       "label": "Mourning",
       "tone": "#4a4a5a",
       "origin": "canon"
     },
     "defiant": {
-      "glyph": "\u270a",
+      "glyph": "✊",
       "label": "Defiant",
       "tone": "#00838f",
       "origin": "canon"
     },
     "gloating": {
-      "glyph": "\ud83c\udccf",
+      "glyph": "🃏",
       "label": "Gloating",
       "tone": "#8e24aa",
       "origin": "canon"
     },
     "fear": {
-      "glyph": "\ud83d\ude30",
+      "glyph": "😰",
       "label": "Afraid",
       "tone": "#5d4037",
       "origin": "canon"
     },
     "awe": {
-      "glyph": "\u2728",
+      "glyph": "✨",
       "label": "Awed",
       "tone": "#7e57c2",
       "origin": "canon"
     },
     "disgust": {
-      "glyph": "\ud83e\udd22",
+      "glyph": "🤢",
       "label": "Disgusted",
       "tone": "#558b2f",
       "origin": "canon"
     },
     "relief": {
-      "glyph": "\ud83d\ude2e\u200d\ud83d\udca8",
+      "glyph": "😮‍💨",
       "label": "Relieved",
       "tone": "#26a69a",
       "origin": "canon"
     },
     "suspicion": {
-      "glyph": "\ud83e\uddd0",
+      "glyph": "🧐",
       "label": "Suspicious",
       "tone": "#6d4c41",
       "origin": "canon"
     },
     "resolve": {
-      "glyph": "\ud83d\udee1\ufe0f",
+      "glyph": "🛡️",
       "label": "Resolute",
       "tone": "#37474f",
       "origin": "canon"
     },
     "mockery": {
-      "glyph": "\ud83e\udd21",
+      "glyph": "🤡",
       "label": "Mocking",
       "tone": "#d81b60",
       "origin": "canon"
     },
     "pride": {
-      "glyph": "\ud83e\udd81",
+      "glyph": "🦁",
       "label": "Proud",
       "tone": "#f9a825",
       "origin": "canon"
     },
     "despair": {
-      "glyph": "\ud83d\udca7",
+      "glyph": "💧",
       "label": "Despairing",
       "tone": "#455a64",
       "origin": "canon"
+    },
+    "mistrust": {
+      "glyph": "◐",
+      "label": "Mistrust",
+      "tone": "#aed581",
+      "origin": "generated",
+      "by": "qwen2.5-7b-instruct-1m",
+      "source": ""
+    },
+    "sympathy": {
+      "glyph": "⟡",
+      "label": "Sympathy",
+      "tone": "#a1887f",
+      "origin": "generated",
+      "by": "qwen2.5-7b-instruct-1m",
+      "source": ""
+    },
+    "disdain": {
+      "glyph": "🜂",
+      "label": "Disdain",
+      "tone": "#7986cb",
+      "origin": "generated",
+      "by": "qwen2.5-7b-instruct-1m",
+      "source": ""
+    },
+    "gloom": {
+      "glyph": "🜂",
+      "label": "Gloom",
+      "tone": "#7986cb",
+      "origin": "generated",
+      "by": "qwen2.5-7b-instruct-1m",
+      "source": ""
+    },
+    "confusion": {
+      "glyph": "💬",
+      "label": "Confusion",
+      "tone": "#6a7b8c",
+      "origin": "generated",
+      "by": "qwen2.5-7b-instruct-1m",
+      "source": ""
+    },
+    "hopeful": {
+      "glyph": "⟡",
+      "label": "Hopeful",
+      "tone": "#a1887f",
+      "origin": "generated",
+      "by": "qwen2.5-7b-instruct-1m",
+      "source": ""
+    },
+    "sadness": {
+      "glyph": "❖",
+      "label": "Sadness",
+      "tone": "#4db6ac",
+      "origin": "generated",
+      "by": "qwen2.5-7b-instruct-1m",
+      "source": ""
     }
   }
 }

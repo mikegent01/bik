@@ -167,7 +167,29 @@
       "mario",
       "luigi",
       "chaos_heart_crisis"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "mushroom_regency": 15
+      }
+    },
+    "effects": {
+      "mushroom_regency": -5
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi praises Mario's tactical prowess and Mr. L's autonomy, but remains unconvinced by the official explanation."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:05:39+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "supply_convoy_massacre",
@@ -219,7 +241,21 @@
       "luigi",
       "chaos_heart_crisis",
       "mushroom_kingdom"
-    ]
+    ],
+    "reputationChanges": {},
+    "effects": {
+      "mushroom_regency": -20
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T23:22:20+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects"
+      ]
+    }
   },
   {
     "id": "sarasaland_incident",
@@ -493,7 +529,35 @@
     "relatedArticles": [
       "hjumpik",
       "feyward_grove"
-    ]
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "disaster_inc": 15,
+        "onyx_hand": -30
+      },
+      "waluigi": {
+        "disaster_inc": 20
+      }
+    },
+    "effects": {
+      "disaster_inc": 10,
+      "onyx_hand": -15
+    },
+    "reputationNotes": {
+      "hjumpik": "Won a duel against a fey knight without killing them, securing temporary passage through the grove.",
+      "waluigi": "Noted that Hjumpik's victory makes him 'a supervised nuisance rather than a corpse.'"
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:19:45+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "rescue_of_steely",
@@ -525,7 +589,29 @@
       "toad_lee",
       "mossy",
       "overgrown_manor"
-    ]
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "disaster_inc": 30
+      },
+      "waluigi": {
+        "disaster_inc": 10
+      }
+    },
+    "reputationNotes": {
+      "hjumpik": "Hjumpik's bravery and ingenuity secure his faction's respect.",
+      "waluigi": "Waluigi's approval of Toad Lee's actions boosts Disaster Inc.'s standing."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:22:15+00:00",
+      "fields": [
+        "reputationChanges",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "tea_party_incident",
@@ -558,7 +644,35 @@
       "tea_leaf_syndicate",
       "vigilance",
       "iron_legion"
-    ]
+    ],
+    "reputationChanges": {
+      "archie_miser": {
+        "tea_leaf_syndicate": -30
+      },
+      "waluigi": {
+        "tea_leaf_syndicate": -15,
+        "iron_legion": -5,
+        "toad_gang": -5
+      }
+    },
+    "effects": {
+      "tea_leaf_syndicate": -20
+    },
+    "reputationNotes": {
+      "archie_miser": "Cast a fireball in a wooden airship, crippling the Tea Leaf Syndicate.",
+      "waluigi": "Expressed deep disappointment and fear towards Archie's decision-making."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:22:42+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "syndicate_showdown",
@@ -591,7 +705,33 @@
       "vigilance",
       "green_t",
       "iron_legion"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "tea_leaf_syndicate": -20
+      },
+      "green_t": {
+        "tea_leaf_syndicate": 30
+      }
+    },
+    "effects": {
+      "tea_leaf_syndicate": -15
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi mourns the loss of tea and sees the Iron Legion as opportunistic villains.",
+      "green_t": "Green T's transformation secures his independence, but also ends an organization he led."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:25:16+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "spider_grove_battle",
@@ -626,7 +766,33 @@
       "the_oracle",
       "markop",
       "archie_miser"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "creed_of_darkness": 15
+      },
+      "markop": {
+        "creed_of_darkness": -3
+      }
+    },
+    "effects": {
+      "creed_of_darkness": 5
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's bravery and strategic brilliance earned the Creed of Darkness' favor, while Markop's leadership drew their ire.",
+      "markop": "Markop's aggressive tactics during the mission caused a minor rift with the Creed of Darkness."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:26:04+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "siege_raventree",
@@ -659,7 +825,38 @@
       "archie_miser",
       "liberated_toads",
       "green_t"
-    ]
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "pond_patrol": -15
+      },
+      "waluigi": {
+        "pond_patrol": 5
+      },
+      "archie_miser": {
+        "pond_patrol": -8,
+        "manor_wraiths": 7
+      }
+    },
+    "effects": {
+      "pond_patrol": -20
+    },
+    "reputationNotes": {
+      "bowser": "Bowser's encirclement backfired when the manor turned against all sides.",
+      "waluigi": "Waluigi remained steadfast in his belief that Raventree Manor should be destroyed.",
+      "archie_miser": "Archie Miser found himself trapped and faced the supernatural threat directly."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:30:20+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "iron_sky_breach",
@@ -691,7 +888,29 @@
       "vigilance",
       "iron_legion",
       "liberated_toads"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "liberated_toads": -25
+      }
+    },
+    "effects": {
+      "liberated_toads": -15
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's home and cherished possessions were turned into a propaganda platform by the Iron Legion."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:31:57+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "massacre_aegis",
@@ -723,7 +942,36 @@
       "iron_legion",
       "liberated_toads",
       "speaker_l"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "iron_legion": -30,
+        "liberated_toads": 30
+      },
+      "bowser": {
+        "iron_legion": -20,
+        "liberated_toads": 10
+      }
+    },
+    "effects": {
+      "iron_legion": -20,
+      "liberated_toads": 15
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's careful chronicle of Order 120 earns the Iron Legion's unyielding enmity and the Liberated Toads' eternal gratitude.",
+      "bowser": "Bowser's silence in the aftermath of Order 120 does little to mitigate the Iron Legion's fury or earn the liberators' favor."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:32:36+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "vigilance_crisis",
@@ -758,7 +1006,33 @@
       "toad_lee",
       "speaker_l",
       "vigilance"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "liberated_toads": 10
+      },
+      "dan": {
+        "liberated_toads": -20
+      }
+    },
+    "effects": {
+      "liberated_toads": 5
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi respects the hat demand; Waluigi understands hat priorities.",
+      "dan": "Dan's corruption and armlessness are a stark reminder of the dangers of dark magic."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:36:28+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "behir_ambush",
@@ -793,7 +1067,38 @@
       "dan",
       "markop",
       "hjumpik"
-    ]
+    ],
+    "reputationChanges": {
+      "archie_miser": {
+        "iron_legion": -15
+      },
+      "markop": {
+        "disaster_inc": 5,
+        "iron_legion": -3
+      },
+      "hjumpik": {
+        "iron_legion": -2
+      }
+    },
+    "effects": {
+      "disaster_inc": -4
+    },
+    "reputationNotes": {
+      "archie_miser": "Betrayed by Iron Legion guards, nearly killed by Behir.",
+      "markop": "Disaster Inc. stands together despite the betrayal.",
+      "hjumpik": "Dwarven tactical specialist shows resilience in hostile conditions."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:37:46+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "battle_of_the_brobot",
@@ -875,7 +1180,36 @@
       "the_mole",
       "chaos_heart_crisis",
       "ruined_manor_convergence"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "mages_guild": 30,
+        "iron_legion": -15
+      },
+      "archie_miser": {
+        "mages_guild": -20,
+        "iron_legion": 10
+      }
+    },
+    "effects": {
+      "mages_guild": 20,
+      "iron_legion": -10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's reconstruction reveals Mr. L's potential threat and the Guild's prepared protocols, earning him respect.",
+      "archie_miser": "Archie's forced recruitment into the Mages' Guild earns him disdain."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:39:35+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "prison_island_liberation",
@@ -939,7 +1273,22 @@
       "mario",
       "the_eastern_passage",
       "star_road_network"
-    ]
+    ],
+    "reputationChanges": {},
+    "effects": {
+      "liberated_toads": -20,
+      "iron_legion": 20
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T23:25:53+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects"
+      ]
+    }
   },
   {
     "id": "greenhouse_reconnaissance",
@@ -1002,7 +1351,29 @@
       "mages_guild",
       "ruined_manor_convergence",
       "spider_grove_battle"
-    ]
+    ],
+    "reputationChanges": {
+      "archie_miser": {
+        "iron_legion": -25
+      }
+    },
+    "effects": {
+      "mages_guild": -20
+    },
+    "reputationNotes": {
+      "archie_miser": "Archie Miser's fireball was confirmed to leave permanent dimensional marks."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:41:36+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "thunderdome_kidnapping",
@@ -1034,7 +1405,52 @@
       "disaster_inc",
       "archie_miser",
       "iron_legion"
-    ]
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "disaster_inc": -15
+      },
+      "archie_miser": {
+        "disaster_inc": -10,
+        "iron_legion": -5
+      },
+      "waluigi": {
+        "disaster_inc": -8,
+        "iron_legion": -3
+      },
+      "markop": {
+        "disaster_inc": -6
+      },
+      "hjumpik": {
+        "disaster_inc": 5
+      },
+      "dan": {
+        "disaster_inc": -4
+      }
+    },
+    "effects": {
+      "disaster_inc": -12,
+      "iron_legion": -8
+    },
+    "reputationNotes": {
+      "bowser": "Disaster Inc. appears incompetent and leniently allows Necromancy.",
+      "archie_miser": "Threatened the party by being kidnapped, reducing Disaster Inc.'s standing with him.",
+      "waluigi": "Expresses disbelief at Thunderdome's behavior; reduces Disaster Inc.'s reputation in his eyes.",
+      "markop": "Disaster Inc. is seen as hypocritical for allowing Necromancy despite enforcing laws.",
+      "hjumpik": "Feels the party gained a useful clone, improving Disaster Inc.'s standing slightly with him.",
+      "dan": "Disaster Inc. seems chaotic and ineffective, lowering his opinion."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:42:46+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "prison_infiltration",
@@ -1069,7 +1485,42 @@
       "eager",
       "dan",
       "remi"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "disaster_inc": 5
+      },
+      "archie_miser": {
+        "iron_legion": -3
+      },
+      "markop": {
+        "iron_legion": -2
+      },
+      "remi_akamatsu_full_backstory": {
+        "iron_legion": -4
+      }
+    },
+    "effects": {
+      "disaster_inc": 10,
+      "iron_legion": -8
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's masterminding nearly got Eager into deeper trouble with the Iron Legion.",
+      "archie_miser": "Archie's disguise was almost ruined by the harsh interrogation methods of the Iron Legion.",
+      "markop": "Markop's efforts to locate Eager were stymied by the legion's systematic violence and incompetence.",
+      "remi_akamatsu_full_backstory": "Remi's assistance inadvertently helped a serial killer escape justice."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:43:40+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "raventree_exploration",
@@ -1104,7 +1555,33 @@
       "waluigi",
       "markop",
       "archie_miser"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "corvinarus_family": -15
+      },
+      "archie_miser": {
+        "corvinarus_family": -5
+      }
+    },
+    "effects": {
+      "corvinarus_family": -20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's trust in Raventree Manor's safety was gravely misplaced, leading to the party's nightmare.",
+      "archie_miser": "Archie Miser narrowly escaped a dangerous hallway, marking another near miss."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:45:16+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "auction_room_brawl",
@@ -1143,7 +1620,45 @@
       "disaster_inc",
       "mages_guild",
       "raventree_manor"
-    ]
+    ],
+    "reputationChanges": {
+      "markop": {
+        "disaster_inc": -15,
+        "mages_guild": -20
+      },
+      "bowser": {
+        "disaster_inc": -5
+      },
+      "waluigi": {
+        "disaster_inc": 5
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": 15,
+        "mages_guild": 10
+      },
+      "dan": {
+        "disaster_inc": 5
+      }
+    },
+    "effects": {
+      "disaster_inc": -20
+    },
+    "reputationNotes": {
+      "markop": "Markop's decision to break the window backfired, leading to a bloody encounter and lost face.",
+      "remi_akamatsu_full_backstory": "Remi gained allies in both disaster Inc. and the Mages Guild, who now see her as less owned property.",
+      "waluigi": "Waluigi's careful documentation of events earned him respect from disaster Inc., but also a punch from Wario."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:46:05+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "skirmish_mazebound",
@@ -1176,7 +1691,38 @@
       "markop",
       "dan_the_toad",
       "remi"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "onyx_hand": -15
+      },
+      "markop": {
+        "disaster_inc": 5,
+        "onyx_hand": -3
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": -2
+      }
+    },
+    "effects": {
+      "onyx_hand": -10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi considers this the most undignified battle, deeply offended by the Mazebound's musical taunts.",
+      "markop": "Markop's pragmatism shines as he coats his sword in an undead remedy to defeat the Mazebound.",
+      "remi_akamatsu_full_backstory": "Remi's dagger proves ineffective against the Mazebound, lowering her standing among her allies."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:47:14+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "aegis_command_riot",
@@ -1212,7 +1758,35 @@
       "midlands_diet",
       "supernatural_sovereignty_act",
       "fractured_heart"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "liberated_toads": 30,
+        "iron_legion": -15
+      },
+      "bowser": {
+        "liberated_toads": -5,
+        "iron_legion": 20
+      }
+    },
+    "effects": {
+      "liberated_toads": 20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi greatly admires Speaker L's tactical genius.",
+      "bowser": "Bowser respects the Toads' ingenuity but fears the Legion's retaliation."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:50:49+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "reclamation_of_the_vigilance",
@@ -1253,7 +1827,36 @@
       "the_staff",
       "vow_ceremony",
       "order_120"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "liberated_toads": -15,
+        "iron_legion": -8
+      },
+      "markop": {
+        "liberated_toads": 3,
+        "iron_legion": -5
+      }
+    },
+    "effects": {
+      "liberated_toads": 20,
+      "iron_legion": -15
+    },
+    "reputationNotes": {
+      "waluigi": "Documenting the tactical and ideological implications of a ship reclamation gone wrong.",
+      "markop": "Markop's support for the Toads aligns with his idealistic tendencies."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:51:19+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "siege_toad_town",
@@ -1286,7 +1889,40 @@
       "peach_loyalists",
       "liberated_toads",
       "fawful_forces"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "toad_loyalists": 15,
+        "fawful_forces": -10
+      },
+      "remi_akamatsu_full_backstory": {
+        "toad_loyalists": 20,
+        "fawfuls_furious_freaks": -5
+      },
+      "dan": {
+        "toad_loyalists": 10,
+        "liberated_toads": -8
+      }
+    },
+    "effects": {
+      "mushroom_regency": -20
+    },
+    "reputationNotes": {
+      "waluigi": "Destroyed Toad Town and lost the city to three warring factions.",
+      "remi_akamatsu_full_backstory": "Artificer's work has been a beacon of hope for Toads resisting Fawful, earning her respect among Liberated Toads.",
+      "dan": "Fire mage veteran's efforts have been overshadowed by more violent factions; his reputation suffers."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:51:57+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "vow_ceremony",
@@ -1320,7 +1956,33 @@
       "toad_lee",
       "dan",
       "vigilance_crisis"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "liberated_toads": 30
+      },
+      "archie_miser": {
+        "liberated_toads": -15
+      }
+    },
+    "effects": {
+      "liberated_toads": 10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi understands the significance of demand thirteen and respects Speaker L's non-negotiable feathered hat.",
+      "archie_miser": "Archie Miser is barred from unsupervised engine room access, earning the Liberated Toads' grudge."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:53:24+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "remi_petrification",
@@ -1356,7 +2018,44 @@
       "disaster_inc",
       "bowser",
       "markop"
-    ]
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "shadow_estate": -15
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": -15
+      },
+      "waluigi": {
+        "disaster_inc": 10,
+        "shadow_estate": 5
+      },
+      "markop": {
+        "disaster_inc": -8,
+        "shadow_estate": 3
+      }
+    },
+    "effects": {
+      "disaster_inc": -20,
+      "shadow_estate": 20
+    },
+    "reputationNotes": {
+      "bowser": "King of the Koopas withdrew in time but now faces a petrified ally.",
+      "remi_akamatsu_full_backstory": "Artificer Remi is now a statue due to Shadow Estate's trap.",
+      "waluigi": "Archivist Waluigi orchestrated the successful trap, earning respect from his faction while alienating others.",
+      "markop": "Markop tried to help but was unsuccessful; he lost a fellow toad to the enemy."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:54:43+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "the_assassination_of_peach",
@@ -1389,7 +2088,36 @@
       "peach_loyalists",
       "mushroom_regency",
       "toad_town"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "mushroom_regency": -15,
+        "fawfuls_furious_freaks": -30
+      },
+      "bowser": {
+        "mushroom_regency": 20,
+        "fawfuls_furious_freaks": 10
+      }
+    },
+    "effects": {
+      "mushroom_regency": -20,
+      "bowser": 15
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's anger over Peach's death fuels Fawful's fury and Bowser's determination.",
+      "bowser": "Bowser is seen as a potential suspect, but his motive of possession aligns him with the kingdom's need for closure."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T21:58:20+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "the_orange_alignment",
@@ -1423,7 +2151,34 @@
       "corvinarus_family",
       "overgrown_manor",
       "planar_fracture"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "corvinarus_family": 15,
+        "hjumpik": -10
+      },
+      "hjumpik": {
+        "corvinarus_family": 20
+      }
+    },
+    "effects": {
+      "corvinarus_family": 10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi respects Hjumpik's work ethic despite not understanding the Orange Alignment.",
+      "hjumpik": "Hjumpik's involvement with the Orange Alignment continues to deepen, earning respect but also criticism."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:00:05+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "battle_of_the_mirror_room",
@@ -1458,7 +2213,44 @@
       "hjumpik",
       "archie_miser",
       "the_oracle"
-    ]
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "disaster_inc": 15
+      },
+      "archie_miser": {
+        "mages_guild": 10
+      },
+      "waluigi": {
+        "disaster_inc": -3,
+        "mages_guild": 5
+      },
+      "hjumpik": {
+        "disaster_inc": -10,
+        "mages_guild": 8
+      }
+    },
+    "effects": {
+      "disaster_inc": 20,
+      "mages_guild": 15
+    },
+    "reputationNotes": {
+      "bowser": "Bowser's raw strength impresses the dwarven tactical specialist Hjumpik.",
+      "archie_miser": "Archie's self-restraint in combat gains him respect from Mages' Guild observers.",
+      "waluigi": "Waluigi is annoyed by the Mages' Guild's claim of the Shard Stalker, yet they capture his friend.",
+      "hjumpik": "Hjumpik faces a 'Red Hjumpik,' an unsettling reflection who may be more than just an illusion."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:00:34+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "primordial_wyrm_awakening",
@@ -1489,7 +2281,33 @@
     "relatedArticles": [
       "koopa_troop",
       "bowser"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "koopa_troop": 15
+      },
+      "bowser": {
+        "koopa_troop": -10
+      }
+    },
+    "effects": {
+      "koopa_troop": 10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi respects Kamek's ambition but despises his real estate decision.",
+      "bowser": "Bowser unites the Koopa Troop by promoting Hammer Bro and sentencing Kamek."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:01:20+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "escape_from_the_hag",
@@ -1521,7 +2339,33 @@
       "waluigi",
       "toad_lee",
       "overgrown_manor"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "onyx_hand": -15
+      },
+      "hjumpik": {
+        "onyx_hand": 5
+      }
+    },
+    "effects": {
+      "onyx_hand": -20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's leg mangled in a bear trap; barely escapes with his life.",
+      "hjumpik": "Hjumpik successfully negotiates Waluigi's release, earning the Hag's antitoxin."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:03:33+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "dinner_climax_vote",
@@ -1556,7 +2400,37 @@
       "corvinarus_family",
       "green_t",
       "archie_miser"
-    ]
+    ],
+    "reputationChanges": {
+      "archie_miser": {
+        "onyx_hand": -15
+      },
+      "green_t": {
+        "onyx_hand": 30
+      },
+      "bowser": {
+        "onyx_hand": -5
+      }
+    },
+    "effects": {
+      "onyx_hand": -20
+    },
+    "reputationNotes": {
+      "archie_miser": "Severed a vampire lord's finger, saving lives but at great personal cost.",
+      "green_t": "Shot the head vampire lord with a silver bullet, becoming a legendary sniper.",
+      "bowser": "Breathed fire at vampires, contributing to their embarrassment."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:04:26+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "vivian_corvinarus_corridor_fight",
@@ -1591,7 +2465,39 @@
       "shadow_estate",
       "onyx_hand",
       "corvinarus_family"
-    ]
+    ],
+    "reputationChanges": {
+      "markop": {
+        "onyx_hand": -15,
+        "disaster_inc": 10
+      },
+      "bowser": {
+        "onyx_hand": 5
+      },
+      "waluigi": {
+        "disaster_inc": 5
+      }
+    },
+    "effects": {
+      "onyx_hand": -10,
+      "disaster_inc": 5
+    },
+    "reputationNotes": {
+      "markop": "Survives another attempt by the Onyx Hand to eliminate the party.",
+      "bowser": "Partially saves Markop's life, but is also forced to flee with his reputation damaged.",
+      "waluigi": "Becomes more cautious about recording details of their activities in the Shadowfell."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:05:21+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "the_spotlight_chase_hellhound_skirmish",
@@ -1617,7 +2523,37 @@
       "remi_akamatsu_full_backstory",
       "salam",
       "lyranth"
-    ]
+    ],
+    "reputationChanges": {
+      "markop": {
+        "onyx_hand": 5
+      },
+      "dan": {
+        "onyx_hand": 3
+      },
+      "remi_akamatsu_full_backstory": {
+        "onyx_hand": -2
+      }
+    },
+    "effects": {
+      "onyx_hand": 10
+    },
+    "reputationNotes": {
+      "markop": "Stabilized the tactical situation by coordinating a two-sided strike.",
+      "dan": "Successfully fought despite clumsy form, aiding in the hellhound's flight.",
+      "remi_akamatsu_full_backstory": "Under pressure, lost accuracy and contributed to the chase confusion."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:07:30+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "dream_duel_burning_vigilance",
@@ -1639,7 +2575,45 @@
       "archie_miser",
       "dan",
       "vigilance"
-    ]
+    ],
+    "reputationChanges": {
+      "archie_miser": {
+        "custodians_of_causality": -15,
+        "dark_elves": -20,
+        "iron_fists": 30,
+        "iron_legion": 5,
+        "mages_guild": -10
+      },
+      "dan": {
+        "custodians_of_causality": 15,
+        "dark_elves": 5,
+        "iron_fists": -5,
+        "iron_legion": -20,
+        "mages_guild": 10
+      }
+    },
+    "effects": {
+      "custodians_of_causality": -5,
+      "dark_elves": -15,
+      "iron_fists": 10,
+      "iron_legion": -15,
+      "mages_guild": -5
+    },
+    "reputationNotes": {
+      "archie_miser": "Archie Miser's duel with Original Dan in a dream brings him disdain from the Custodians of Causality and Dark Elves but earns respect from Iron Fists.",
+      "dan": "Original Dan's mastery at the Dream-Duel impresses Iron Fists and Mages Guild, while Custodians of Causality and Dark Elves see his disdain for Archie."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:08:41+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "feyward_bramblyfly_hallway_incident",
@@ -1662,7 +2636,35 @@
       "toad_lee",
       "mystic_morel",
       "solarium_detonation"
-    ]
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "toad_gang": -15,
+        "toad_cult": 30
+      },
+      "waluigi": {
+        "iron_fists": -10,
+        "fawfuls_furious_freaks": 20
+      }
+    },
+    "effects": {
+      "unaligned": 10
+    },
+    "reputationNotes": {
+      "hjumpik": "Warned his ally Toad Lee, but Toad Lee's trust issues worsen.",
+      "waluigi": "Documented the incident and possibly found value in Morel's warning."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:09:53+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "the_protocol_duel",
@@ -1691,7 +2693,33 @@
       "gamma_agent",
       "dracule_mihawk",
       "snowdin_town"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "gamma_division": -15
+      },
+      "markop": {
+        "gamma_division": 10
+      }
+    },
+    "effects": {
+      "gamma_division": -5
+    },
+    "reputationNotes": {
+      "waluigi": "Degraded gamma division's reputation for overzealous enforcement.",
+      "markop": "Boosted gamma division's standing by highlighting Mihawk's prowess."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T23:25:55+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "the_midnight_skirmish",
@@ -1721,7 +2749,33 @@
       "remi_akamatsu_full_backstory",
       "markop",
       "tymnas"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "onyx_hand": -15
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": 30
+      }
+    },
+    "effects": {
+      "disaster_inc": 20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's strategy backfires as his own archivist de-escalates the situation.",
+      "remi_akamatsu_full_backstory": "Remi Akamatsu shows her skills in defusing tense situations."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:12:21+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "blackfen_pass_collapse",
@@ -1751,7 +2805,45 @@
       "gamma_division",
       "vampire_courts",
       "dracule_mihawk"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "gamma_division": -30
+      },
+      "markop": {
+        "gamma_division": -30
+      },
+      "dan": {
+        "gamma_division": -30
+      },
+      "remi_akamatsu_full_backstory": {
+        "gamma_division": -30
+      },
+      "hjumpik": {
+        "gamma_division": -30
+      }
+    },
+    "effects": {
+      "gamma_division": -20
+    },
+    "reputationNotes": {
+      "waluigi": "The entire Gamma Division froze solid; a disaster unlike any in Legion history.",
+      "markop": "Markop, a Paladin, witnessed the horrific defeat of his division.",
+      "dan": "Dan, a veteran mage, lost everything as his division was turned to ice.",
+      "remi_akamatsu_full_backstory": "Remi Akamatsu's constructs were rendered useless in the iron statues.",
+      "hjumpik": "Hjumpik could only watch as his tactical division was annihilated."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:12:45+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "battle_of_the_black_moonblossoms",
@@ -1780,7 +2872,34 @@
       "gamma_agent",
       "iron_legion",
       "mount_ebott_survey_mission"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "iron_legion": -15,
+        "kremling_krew": 5
+      },
+      "bowser": {
+        "iron_legion": -10
+      }
+    },
+    "effects": {
+      "iron_legion": -20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi records the tragic loss of a disciplined leader, Commissar Vexis.",
+      "bowser": "Bowser regrets the unnecessary casualties among his allies during the battle."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:13:11+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "battle_of_bob_omb_battlefield",
@@ -1809,7 +2928,38 @@
       "mushroom_kingdom",
       "koopa_troop",
       "bob_omb_battlefield"
-    ]
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "koopa_troop": -15
+      },
+      "waluigi": {
+        "mushroom_regency": 5
+      },
+      "markop": {
+        "koopa_troop": -10
+      }
+    },
+    "effects": {
+      "koopa_troop": -20,
+      "mushroom_regency": 10
+    },
+    "reputationNotes": {
+      "bowser": "Bowser's troops' reckless use of explosives cost thousands.",
+      "waluigi": "Waluigi is seen as a peacemaker amidst the chaos.",
+      "markop": "Markop's attempts to control the situation were overwhelmed."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:14:49+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "dragon_war_simulation",
@@ -1838,7 +2988,33 @@
       "iron_legion",
       "regal_empire",
       "waluigi"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "iron_legion": 30
+      },
+      "bowser": {
+        "iron_legion": -20
+      }
+    },
+    "effects": {
+      "iron_legion": 15
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi criticizes the Imperial Sound-Mages' use of outdated technology in faking dragon attacks.",
+      "bowser": "Bowser disapproves, seeing the operation as a lazy and unnecessary false-flag."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:16:23+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "crimson_fields_massacre",
@@ -1866,7 +3042,29 @@
     "relatedArticles": [
       "house_toadstool_dynasty",
       "house_rosewood"
-    ]
+    ],
+    "reputationChanges": {
+      "remi_akamatsu_full_backstory": {
+        "goodstyle_artisans": -15
+      }
+    },
+    "effects": {
+      "corvinarus_family": 20
+    },
+    "reputationNotes": {
+      "remi_akamatsu_full_backstory": "Remi Akamatsu, artificer and construct master, suffered a significant loss of reputation."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:17:12+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "siege_of_dreadful_grove",
@@ -1894,7 +3092,29 @@
     "relatedArticles": [
       "archie_miser",
       "the_grove_of_woe_incident"
-    ]
+    ],
+    "reputationChanges": {
+      "archie_miser": {
+        "disaster_inc": 15
+      }
+    },
+    "effects": {
+      "general": 5
+    },
+    "reputationNotes": {
+      "archie_miser": "Escaped with dignity intact, arsonist proves a match for the Onyx Hand."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:18:56+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "battle_of_east_vanguard",
@@ -1922,7 +3142,32 @@
     "relatedArticles": [
       "collapse_of_blackfen_pass",
       "gamma_division"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "gamma_division": 15
+      },
+      "markop": {
+        "gamma_division": -10
+      }
+    },
+    "effects": {
+      "gamma_division": 20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi credits Gamma Division's victory for their overconfidence."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:19:11+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "battle_planar_sanctum_canoloth",
@@ -1953,7 +3198,30 @@
       "canoloth",
       "the_awakening_in_planar_sanctum_and_veins_of_the_tapestry",
       "bryan"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "yugoloths": 15,
+        "disaster_inc_allies": -10
+      }
+    },
+    "effects": {
+      "disaster_inc": 10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's archiving skills impress the Canoloth with a bizarre mix of fear and respect."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:20:24+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "battle_imp_ambush_shadow_estate",
@@ -1987,7 +3255,41 @@
       "salam",
       "tymnas",
       "rattles"
-    ]
+    ],
+    "reputationChanges": {
+      "markop": {
+        "archivist_estate": -15,
+        "disaster_inc": 10
+      },
+      "remi_akamatsu_full_backstory": {
+        "archivist_estate": -30,
+        "disaster_inc": 20
+      },
+      "dan": {
+        "archivist_estate": -8,
+        "disaster_inc": 5
+      }
+    },
+    "effects": {
+      "archivist_estate": -20,
+      "disaster_inc": 15
+    },
+    "reputationNotes": {
+      "markop": "Markop defended the party with a fatal slice to the imp commander.",
+      "remi_akamatsu_full_backstory": "Remi Akamatsu was poisoned by an infiltration team, nearly dying in the attack.",
+      "dan": "Dan's multi-dimensional eye exposed cloaked imps and helped repel attackers."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:23:17+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "battle_second_imp_offensive_kyrn_facility_breakout",
@@ -2267,7 +3569,33 @@
         "date": "29–30 Harvestide, 1040 BF",
         "dateSort": 10400929
       }
-    ]
+    ],
+    "reputationChanges": {
+      "markop": {
+        "disaster_inc": 15
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": -3
+      }
+    },
+    "effects": {
+      "disaster_inc": 10
+    },
+    "reputationNotes": {
+      "markop": "Defended the cottage and retained the Archivist's book, earning respect for his bravery.",
+      "remi_akamatsu_full_backstory": "Captured during confusion but escaped with Mossy; her quick thinking gained disaster_inc some favor."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:26:53+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "feyward_second_hidden_room_rout",
@@ -2297,6 +3625,35 @@
       "toad_lee",
       "lady_aurelian",
       "overgrown_manor"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "fawfuls_furious_freaks": 15,
+        "kremling_krew": -10
+      },
+      "hjumpik": {
+        "fawfuls_furious_freaks": 10,
+        "toad_gang": -8
+      }
+    },
+    "effects": {
+      "fawfuls_furious_freaks": 20,
+      "toad_gang": -15
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi pushed back the manor's defenses and secured an important artifact.",
+      "hjumpik": "Hjumpik turned a standoff into a defection with strategic thinking."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-15T22:29:20+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   }
 ]
