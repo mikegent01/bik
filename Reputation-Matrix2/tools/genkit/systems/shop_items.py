@@ -106,7 +106,23 @@ def _catalogue_counts() -> dict[str, int]:
     if _COUNT_CACHE is not None:
         return _COUNT_CACHE
     counts = {r: 0 for r in RARITY_LADDER}
-    for shard in sorted((ROOT / "data" / "shop-items").glob("items_*.js")):
+    # Both shard directories count. The catalogue is split across
+    # `data/shop-items/` (the 92 numbered shards the storefront imports as
+    # '../shop-items/…') and the top-level `shop-items/` (imported as
+    # '../../shop-items/…', and where the generated shard is written).
+    # Reading only one of them under-counts the archive and skews the rarity
+    # ladder toward whatever the histogram cannot see.
+    shards = [
+        *(ROOT / "data" / "shop-items").glob("items_*.js"),
+        *(ROOT / "shop-items").glob("items_*.js"),
+    ]
+    seen_shards: set[str] = set()
+    for shard in sorted(shards):
+        if shard.name == SHARD.name and shard != SHARD:
+            continue
+        if shard.name in seen_shards:
+            continue
+        seen_shards.add(shard.name)
         try:
             text = shard.read_text(encoding="utf-8")
         except OSError:
@@ -240,16 +256,116 @@ RARITY_GUIDE = {
 }
 
 
+# Naming. A live run produced 253 items called "Zoofy Zeep <something>" out of
+# 1,446, plus 412 carrying "Mark IV"-style suffixes. Three faults compounded:
+# the prompt showed only the LAST 25 names, which by then were all one prefix,
+# so the model copied the pattern it was being shown; the duplicate check was
+# exact-match on the whole string, so "Zoofy Zeep Zzstorm" and "Zoofy Zeep
+# Zzstorm Mark IV" both passed; and repair broke ties by bolting on another
+# suffix, which laundered a duplicate into a worse name. One even reached
+# "Zzbubble Mark XI Mark II" -- repair stacked on repair.
+
+_NAME_STOPWORDS = {"of", "the", "a", "an", "and", "s"}
+
+# Suffixes the shop uses to mean "another run of the same product". A name is
+# not novel just because it carries one.
+_SERIES_SUFFIX = re.compile(
+    r"\s+(?:mark\s+[ivxlc]+|pattern\s+[a-z]|no\.?\s*\d+|"
+    r"[ivxlc]{1,5}|\d+|second run|reissue|field model|trade grade|"
+    r"export model|long pattern|short pattern|heavy fitting|light fitting)$",
+    re.IGNORECASE,
+)
+
+
+def _name_root(name: str) -> str:
+    """Strip series suffixes down to the name the shopper actually reads."""
+    root = " ".join(str(name).split())
+    for _ in range(4):  # "Zzbubble Mark XI Mark II" needs several passes.
+        stripped = _SERIES_SUFFIX.sub("", root).strip()
+        if stripped == root:
+            break
+        root = stripped
+    return root.lower()
+
+
+def _name_family(name: str) -> str:
+    """The first two meaningful words -- the 'Zoofy Zeep' part."""
+    words = [w for w in re.findall(r"[a-z0-9]+", _name_root(name))
+             if w not in _NAME_STOPWORDS]
+    return " ".join(words[:2])
+
+
+def _family_counts() -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for value in _generated().values():
+        fam = _name_family(value.get("name") or "")
+        if fam:
+            counts[fam] = counts.get(fam, 0) + 1
+    return counts
+
+
+# No naming family may exceed this share of generated stock. A storefront
+# where one in six items shares a prefix does not read as a catalogue.
+FAMILY_MAX_SHARE = 0.04
+FAMILY_FLOOR = 8
+
+
+def _family_is_saturated(family: str) -> tuple[bool, int, int]:
+    """Is this prefix already over-represented?"""
+    if not family:
+        return False, 0, 0
+    counts = _family_counts()
+    total = max(sum(counts.values()), 1)
+    used = counts.get(family, 0)
+    ceiling = max(FAMILY_FLOOR, int(total * FAMILY_MAX_SHARE))
+    return used >= ceiling, used, ceiling
+
+
+def _prompt_name_sample(limit: int = 30) -> list[str]:
+    """A spread of existing names, one per family, most crowded first.
+
+    Showing the tail of the catalogue is what taught the model to write
+    "Zoofy Zeep" forever. Showing one example per family, crowded families
+    first, tells it what is already covered instead of what to imitate.
+    """
+    by_family: dict[str, str] = {}
+    for value in _generated().values():
+        name = value.get("name")
+        if not name:
+            continue
+        by_family.setdefault(_name_family(name), name)
+    counts = _family_counts()
+    families = sorted(by_family, key=lambda f: -counts.get(f, 0))
+    return [by_family[f] for f in families[:limit]]
+
+
+def _crowded_note() -> str:
+    """Name the prefixes that are already saturated, so the model avoids them."""
+    counts = _family_counts()
+    total = max(sum(counts.values()), 1)
+    ceiling = max(FAMILY_FLOOR, int(total * FAMILY_MAX_SHARE))
+    crowded = sorted((f for f, n in counts.items() if n >= ceiling),
+                     key=lambda f: -counts[f])[:12]
+    if not crowded:
+        return ""
+    return ("FULL — these name openings are at capacity and will be REJECTED:\n  "
+            + "\n  ".join(f"{f!r} ({counts[f]} items)" for f in crowded)
+            + "\n\n")
+
+
 def build_prompt(task: Task) -> tuple[str, str]:
     rarity = task.payload["rarity"]
-    existing_names = [v.get("name") for v in _generated().values() if v.get("name")][-25:]
+    existing_names = _prompt_name_sample()
     prompt = (
         f"RARITY: {rarity} — {RARITY_GUIDE[rarity]}\n\n"
         f"DEPARTMENTS — `category` must be EXACTLY ONE of these strings, "
         f"copied verbatim, never a list and never two joined by a comma:\n"
         f"  {', '.join(DEPARTMENTS)}\n\n"
-        + (f"ALREADY IN STOCK (do not repeat):\n  " + "\n  ".join(existing_names) + "\n\n"
+        + (f"ALREADY IN STOCK — one example per naming family. Do not reuse "
+           f"any of these openings; invent a different kind of name:\n  "
+           + "\n  ".join(existing_names) + "\n\n"
            if existing_names else "")
+        + _crowded_note()
         + f"Invent one {rarity} item for Warizon.\n"
         + "Every entry in `effectDetails[].rules` must contain concrete numbers "
           "(dice, ranges, durations, charges). Mechanics with no numbers are rejected."
@@ -270,8 +386,30 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     name = " ".join(str(raw.get("name", "")).split())
     if not (3 <= len(name) <= 60):
         raise ValidationError("bad name")
-    if name.lower() in {(v.get("name") or "").lower() for v in _generated().values()}:
+    existing = {(v.get("name") or "").lower() for v in _generated().values()}
+    if name.lower() in existing:
         raise ValidationError(f"duplicate item name {name!r}")
+
+    # Exact match is not enough. "Zoofy Zeep Zzstorm Mark IV" is not a new
+    # product just because "Mark IV" makes the string unique -- strip the
+    # series suffix and compare what a shopper would actually read.
+    root = _name_root(name)
+    if root and root in {_name_root(e) for e in existing if e}:
+        raise ValidationError(
+            f"duplicate item name {name!r}: {root!r} already exists and a "
+            f"series suffix does not make it a different product. Invent a "
+            f"different item with an unrelated name."
+        )
+
+    # And no single naming family may take over the catalogue.
+    family = _name_family(name)
+    saturated, used, ceiling = _family_is_saturated(family)
+    if saturated:
+        raise ValidationError(
+            f"naming family {family!r} is full ({used} items, limit {ceiling}). "
+            f"Do not open the name with {family!r}. Use an unrelated name "
+            f"drawn from what the item does."
+        )
 
     # The model sometimes answers with a list, or with two departments joined
     # by a comma ("premium, curiosities"). Both are recoverable: take the first
@@ -371,48 +509,23 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
 # Warizon stock is a shop shelf, so a disambiguator has to read like something
 # a quartermaster would actually write on a label -- a mark, a batch, a pattern
 # -- not "(2)". These follow the name; the model's own words stay in front.
-_RENAME_MARKS = (
-    "Mark II", "Mark III", "Pattern B", "Second Run", "Reissue",
-    "Field Model", "Trade Grade", "Export Model", "Long Pattern",
-    "Short Pattern", "Heavy Fitting", "Light Fitting",
-)
+# _RENAME_MARKS removed: see repair() below.
 
 
 def repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
-    """Break a duplicate item name in code when the model will not.
+    """Duplicate names are no longer repaired in code.
 
-    Same reasoning as abilities.repair: a collision is the one rejection where
-    the model's real work -- the price, the mechanics, the department -- is
-    sound and a single string is blocking it. The run that prompted this fix
-    lost five items to names like "Eternity's Chronal Annihilator" that the
-    model re-proposed verbatim on every retry.
+    This used to append "Mark II" to break a collision. That is what produced
+    412 suffixed items and names like "Zoofy Zeep Zzbubble Mark XI Mark II" --
+    repair stacking on repair. Renaming in code also hid the real problem from
+    the model: it kept proposing the same prefix because nothing ever told it
+    to stop.
 
-    Everything else (a price outside its band, mechanics with no numbers) is a
-    genuinely wrong answer, and inventing those values here would be the tool
-    writing content and crediting the model for it.
+    A colliding name is now a genuine rejection. The task goes back into the
+    pool and the prompt it comes back with names the saturated families
+    explicitly, so the retry has the information it needs to write something
+    different. Nothing else was ever repaired here.
     """
-    if "duplicate item name" not in why:
-        return None
-    original = " ".join(str(raw.get("name", "")).split())
-    if not original:
-        return None
-    fixed = dict(raw)
-    taken = {(v.get("name") or "").strip().lower() for v in _generated().values()}
-
-    for mark in _RENAME_MARKS:
-        candidate = f"{original} {mark}"
-        if len(candidate) <= 60 and candidate.lower() not in taken:
-            fixed["name"] = candidate
-            return fixed
-
-    # Every mark taken means this exact name has been generated a dozen times.
-    # Fall back on the rarity plus a counter, still inside the 60-char limit.
-    rarity = str(task.payload.get("rarity", "stock"))
-    for n in range(2, 200):
-        candidate = f"{original} {rarity.capitalize()} No.{n}"[:60].strip()
-        if candidate.lower() not in taken:
-            fixed["name"] = candidate
-            return fixed
     return None
 
 

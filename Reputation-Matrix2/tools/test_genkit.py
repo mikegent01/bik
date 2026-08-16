@@ -540,34 +540,41 @@ from genkit.systems import all_systems  # noqa: E402
 missing = [s.id for s in all_systems() if s.repair is None]
 check("every registered system has a repair hook", not missing, ", ".join(missing))
 
-# --- shop items: a duplicate name is a label problem, a bad price is not
+# --- shop items: a duplicate name goes BACK TO THE MODEL, it is not renamed
+# in code. Appending "Mark II" in the repair hook is what shipped 412 suffixed
+# items and stacked suffixes like "Mark XI Mark II"; worse, it hid the
+# collision from the model, so it never stopped proposing the same prefix.
 shop_task = Task(system_id="shop_items", key="k", label="shop item · common",
                  payload={"rarity": "common"})
-# Stub the store rather than reading the shard: on a clean tree the generated
-# shard is empty, and a test that quietly skips itself is not a test.
 saved_generated = shop_items._generated
 dupe = "Chrono Snail"
 shop_items._generated = lambda: {"wz_gen_common_0001": {"name": dupe}}
 try:
-    fixed = shop_items.repair(shop_task, {"name": dupe}, f"duplicate item name {dupe!r}")
-    check("a duplicate item name is disambiguated in code",
-          fixed is not None and fixed["name"] != dupe, str(fixed and fixed["name"]))
-    check("the repaired name keeps the model's own wording in front",
-          fixed is not None and fixed["name"].startswith(dupe))
-    check("the repaired name stays inside the 60-character limit",
-          fixed is not None and len(fixed["name"]) <= 60)
+    check("a duplicate item name is NOT renamed in code",
+          shop_items.repair(shop_task, {"name": dupe},
+                            f"duplicate item name {dupe!r}") is None)
 
-    # Exhaust every mark so the rarity-counter fallback is exercised too.
-    crowded = {f"i{n}": {"name": f"{dupe} {mark}"}
-               for n, mark in enumerate(shop_items._RENAME_MARKS)}
-    crowded["orig"] = {"name": dupe}
+    # The name gates themselves: suffixes are stripped before comparison, so a
+    # "Mark IV" variant collides with its own root instead of sneaking past.
+    check("a series suffix is stripped down to the root name",
+          shop_items._name_root("Zoofy Zeep Zzstorm Mark IV")
+          == shop_items._name_root("Zoofy Zeep Zzstorm"))
+    check("stacked suffixes strip all the way down",
+          shop_items._name_root("Zzbubble Mark XI Mark II") == "zzbubble")
+    check("a family is the first two meaningful words",
+          shop_items._name_family("Eternity's Chronal Annihilator")
+          == "eternity chronal")
+
+    # A saturated family is refused with an instruction, not accepted.
+    crowded = {f"i{n}": {"name": f"Zoofy Zeep Thing {n}"} for n in range(200)}
     shop_items._generated = lambda: crowded
-    fallback = shop_items.repair(shop_task, {"name": dupe},
-                                 f"duplicate item name {dupe!r}")
-    taken = {v["name"].lower() for v in crowded.values()}
-    check("a name that has exhausted every mark still gets a unique fallback",
-          fallback is not None and fallback["name"].lower() not in taken,
-          str(fallback and fallback["name"]))
+    try:
+        shop_items.validate(shop_task, {"name": "Zoofy Zeep Another"})
+        check("an over-used name family is rejected", False, "it passed")
+    except ValidationError as err:
+        check("an over-used name family is rejected", True)
+        check("the rejection tells the model the prefix is full",
+              "full" in str(err).lower() or "reject" in str(err).lower(), str(err))
 finally:
     shop_items._generated = saved_generated
 

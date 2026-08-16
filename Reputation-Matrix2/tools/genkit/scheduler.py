@@ -52,6 +52,12 @@ class PopcornScheduler:
         # The system will keep offering these forever, so the refill window has
         # to be wide enough to see past them to the work that is actually left.
         self._stuck: dict[str, int] = {}
+        # How many tasks each system has actually been handed. Popcorn order is
+        # "one record at a time per system", and the only way to hold that over
+        # a long run is to compare totals: a system with 1730 pending records
+        # and one with 14 must still alternate, or the big one eats the run and
+        # the small ones never get generated at all.
+        self._served: dict[str, int] = {s.id: 0 for s in self.systems}
 
     # -- stage gating -------------------------------------------------------
 
@@ -129,18 +135,21 @@ class PopcornScheduler:
             if not candidates:
                 return None
 
-            weights = []
-            for system in candidates:
-                # Served recently -> much less likely to come up again now.
-                penalty = 0.15 if system.id in self._recent[-1:] else 1.0
-                if len(candidates) == 1:
-                    penalty = 1.0
-                weights.append(penalty)
-
-            system = self._rng.choices(candidates, weights=weights, k=1)[0]
+            # Strict least-served-first. Weighted random looked fairer but is
+            # not: the penalty only remembered the previous pick, so over
+            # hundreds of draws the system with the deepest backlog was served
+            # in proportion to how often it appeared as a candidate, and the
+            # shallow systems finished the run barely touched. Comparing served
+            # totals makes the alternation a guarantee rather than a tendency.
+            fewest = min(self._served.get(s.id, 0) for s in candidates)
+            level = [s for s in candidates if self._served.get(s.id, 0) == fewest]
+            # Among equals, still avoid immediately repeating the last system.
+            fresh = [s for s in level if s.id not in self._recent[-1:]]
+            system = self._rng.choice(fresh or level)
             task = self._buffers[system.id].pop(0)
             self._issued.add(task.key)
             self._inflight.setdefault(system.id, set()).add(task.key)
+            self._served[system.id] = self._served.get(system.id, 0) + 1
             self._recent.append(system.id)
             del self._recent[:-4]
             return task
