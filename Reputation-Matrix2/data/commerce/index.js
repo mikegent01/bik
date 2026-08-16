@@ -94,6 +94,14 @@ import { ITEMS_BADGES } from '../shop-items/items_badges.js';
 import { ITEMS_BROS } from '../shop-items/items_bros.js';
 import { ITEMS_WORLD_GENERATED } from '../../shop-items/items_world_generated.js';
 
+// The original bulk-generated shard predates content validation and contains
+// malformed icons, out-of-world wording and contradictory mechanics. Keep it
+// as an audit artifact, but expose only records stamped by the v2 validator.
+const ITEMS_WORLD_VETTED = Object.fromEntries(
+  Object.entries(ITEMS_WORLD_GENERATED).filter(([, item]) =>
+    item && item._quality && item._quality.validator === 'shop-v2')
+);
+
 // ============================================
 // COMBINED SHOP ITEMS
 // ============================================
@@ -183,7 +191,7 @@ export const SHOP_ITEMS = {
   ...ITEMS_082,
   ...ITEMS_083,
   ...ITEMS_084,
-  ...ITEMS_WORLD_GENERATED,
+  ...ITEMS_WORLD_VETTED,
   ...ITEMS_BADGES,
   ...ITEMS_BROS,
   ...ITEMS_NIGHT_SPECIAL,

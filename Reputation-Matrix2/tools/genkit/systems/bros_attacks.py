@@ -133,8 +133,28 @@ def _covered_events() -> set[str]:
     return {str(a.get("sourceEvent")) for a in _attacks() if a.get("sourceEvent")}
 
 
+def _evidence_pairs(record: dict[str, Any]) -> list[tuple[str, str]]:
+    """Participant pairs named together in one source paragraph/sentence."""
+    people = [
+        p for p in (record.get("participants") or [])
+        if isinstance(p, dict) and p.get("id") and p.get("name")
+    ]
+    text = str(record.get("description") or record.get("summary") or "")
+    segments = re.split(r"(?<=[.!?])\s+|\n\n+", text)
+    pairs: set[tuple[str, str]] = set()
+    for segment in segments:
+        present = [
+            p["id"] for p in people
+            if re.search(rf"\b{re.escape(str(p['name']))}\b", segment, re.I)
+        ]
+        for index, first in enumerate(present):
+            for second in present[index + 1:]:
+                pairs.add(tuple(sorted((first, second))))
+    return sorted(pairs)
+
+
 def _candidate_events(limit: int = 400) -> list[dict[str, Any]]:
-    """Events with at least two named participants and no technique yet.
+    """Events with a source-grounded participant pair and no technique yet.
 
     Two participants is the floor because a bros attack is by definition a
     pair manoeuvre; a solo event has nothing to record.
@@ -154,7 +174,7 @@ def _candidate_events(limit: int = 400) -> list[dict[str, Any]]:
             p for p in (record.get("participants") or [])
             if isinstance(p, dict) and p.get("id") and p.get("name")
         ]
-        if len(people) < 2:
+        if len(people) < 2 or not _evidence_pairs(record):
             continue
         out.append(record)
         if len(out) >= limit:
@@ -176,7 +196,7 @@ def next_tasks(count: int) -> list[Task]:
             system_id="bros_attacks",
             key=f"bros:{record['id']}",
             label=f"bros attack · {record.get('name') or record['id']}",
-            payload={"event": record},
+            payload={"event": record, "eligiblePairs": _evidence_pairs(record)},
         ))
     return tasks
 
@@ -199,6 +219,7 @@ Return strictly valid JSON only, no commentary, no code fence:
   "school": "<one school id from the list, or a new lowercase_id>",
   "schoolReason": "<one sentence, only if you proposed a NEW school>",
   "difficulty": "medium",
+  "evidenceQuote": "<exact 8-40 word source excerpt naming both partners and their coordinated action>",
   "description": "<3-5 sentences: what the pair did, in the event, and why it worked>",
   "steps": ["<plain sentence>", "<plain sentence>", "<plain sentence>", "<plain sentence>"],
   "risks": "<one or two sentences on how it goes wrong>",
@@ -215,8 +236,9 @@ Return strictly valid JSON only, no commentary, no code fence:
 Rules:
 - partnerA and partnerB MUST be ids from the participant list, and different.
   Never credit a character who is not in that list.
-- The technique must be something the event describes. Do not invent magic,
-  weapons, outcomes or numbers that are not in the record.
+- The technique must be something the event describes. `evidenceQuote` must be
+  verbatim, name both partners, and describe their coordination. Do not invent
+  magic, weapons, outcomes or numbers that are not in the record.
 - "steps" is the table-level narration: 4 plain English sentences, each a
   complete sentence naming who does what. They are NOT the drill steps. Never
   put an object, a dict or JSON inside "steps" — strings only.
@@ -248,6 +270,7 @@ def build_prompt(task: Task) -> tuple[str, str]:
         "eventId": event.get("id"),
         "eventName": event.get("name"),
         "participants": people,
+        "eligiblePairs": task.payload.get("eligiblePairs") or _evidence_pairs(event),
         "schools": schools,
         "outcome": str(event.get("outcome") or ""),
         "existingTechniques": [
@@ -285,6 +308,24 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         )
     if a == b:
         raise ValidationError("partnerA and partnerB must be different characters")
+    eligible = {tuple(pair) for pair in (task.payload.get("eligiblePairs") or _evidence_pairs(event))}
+    if tuple(sorted((a, b))) not in eligible:
+        raise ValidationError("partners are never named together in one source beat")
+
+    evidence_quote = " ".join(str(raw.get("evidenceQuote") or "").split()).strip('"“”')
+    quote_words = re.findall(r"[a-z0-9]+(?:['’][a-z0-9]+)?", evidence_quote.casefold())
+    if not 8 <= len(quote_words) <= 40:
+        raise ValidationError("evidenceQuote must be 8-40 exact source words")
+    corpus = " ".join(re.findall(
+        r"[a-z0-9]+(?:['’][a-z0-9]+)?",
+        str(event.get("description") or event.get("summary") or "").casefold(),
+    ))
+    quote_normal = " ".join(quote_words)
+    if quote_normal not in corpus:
+        raise ValidationError("evidenceQuote is not verbatim in the source event")
+    for partner in (allowed[a], allowed[b]):
+        if re.sub(r"[^a-z0-9]+", " ", partner.casefold()).strip() not in quote_normal:
+            raise ValidationError("evidenceQuote must name both partners")
 
     name = " ".join(str(raw.get("name", "")).split())
     if not (6 <= len(name) <= 70):
@@ -412,6 +453,7 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         "participants": [a, b],
         "type": _clean_type(raw.get("type"), school, known),
         "sourceEvent": event.get("id"),
+        "evidenceQuote": evidence_quote,
         "description": description,
         "steps": steps[:6],
         "risks": risks,
@@ -558,35 +600,18 @@ def apply(task: Task, data: dict[str, Any]) -> TaskResult:
     )
 
 
-# DISABLED. Bros attacks are no longer generated, and this is a design
-# decision rather than a temporary pause -- do not re-enable it to top up the
-# list.
-#
-# The premise was "read an event with two participants and write down the
-# manoeuvre it contains". Events do not reliably contain manoeuvres. Of the 19
-# techniques this produced, 13 had to be cut: some were narration (two people
-# reading records together), some were an existing technique re-minted from a
-# second scene where it was used, six were the same distract-and-slip move with
-# different names, and three were two people doing an identical thing at the
-# same moment with no division of labour at all. The generator could not tell
-# "they used a technique" from "they invented one", because that difference
-# lives in whether the table had to work something out -- which is not in the
-# event text.
-#
-# A bros attack is now DISCOVERED in play: two logged failures with stated
-# reasons, then a third attempt that lands, named by the players
-# (Foundry/bros_attacks/bros-discovery.js). The whole value of the thing is
-# that a pair earned it. Generating them in bulk destroys exactly that, which
-# is why this stays off even when the list looks short. Six techniques the
-# table fought for beat twenty-four nobody remembers.
+# Re-enabled only as an evidence recorder. The earlier broad pass treated any
+# two participants as a technique and produced narration/filler. Candidates now
+# require both partners in one source beat, and validation requires a verbatim
+# excerpt naming both before anything can be confirmed or synced to Foundry.
 SPEC = SystemSpec(
     id="bros_attacks",
-    title="Bros Attacks · discovered in play, not generated",
+    title="Bros Attacks · evidence-gated recordings",
     summary=(
-        "DISABLED. Techniques are discovered at the table through the "
-        "three-strikes attempts ledger, not written from event text."
+        "Record only techniques whose source excerpt names both partners in one "
+        "coordinated beat; sync every accepted record to Foundry."
     ),
-    enabled=False,
+    enabled=True,
     stage=1,
     next_tasks=next_tasks,
     build_prompt=build_prompt,

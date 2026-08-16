@@ -29,6 +29,24 @@ SHARD = ROOT / "shop-items" / "items_world_generated.js"
 EXPORT_NAME = "ITEMS_WORLD_GENERATED"
 
 _WRITE_LOCK = threading.Lock()
+QUALITY_MARK = "shop-v2"
+_PICTOGRAPH = re.compile(
+    "[\U0001F000-\U0001FAFF\u2190-\u21FF\u2300-\u23FF\u2460-\u24FF"
+    "\u25A0-\u27BF\u2B00-\u2BFF\u3030\u303D\u3297\u3299]"
+)
+OUT_OF_WORLD = re.compile(
+    r"\b(player|players|game|gaming|campaign|dungeon master|game master|dm|gm|"
+    r"at the table|standard of play|real[- ]world brand)\b",
+    re.IGNORECASE,
+)
+
+
+def _is_vetted(entry: dict[str, Any]) -> bool:
+    return (entry.get("_quality") or {}).get("validator") == QUALITY_MARK
+
+
+def _vetted_generated() -> dict[str, Any]:
+    return {key: value for key, value in _generated().items() if _is_vetted(value)}
 
 # The ladder, in the order the user asked it to be walked.
 RARITY_LADDER = ["common", "uncommon", "rare", "epic", "legendary", "mythic", "godly"]
@@ -118,7 +136,9 @@ def _catalogue_counts() -> dict[str, int]:
     ]
     seen_shards: set[str] = set()
     for shard in sorted(shards):
-        if shard.name == SHARD.name and shard != SHARD:
+        # The legacy generated shard is quarantined. Count only entries that
+        # passed the current validator below, once, after the authored shards.
+        if shard.name == SHARD.name:
             continue
         if shard.name in seen_shards:
             continue
@@ -131,7 +151,7 @@ def _catalogue_counts() -> dict[str, int]:
             rarity = match.group(1)
             if rarity in counts:
                 counts[rarity] += 1
-    for rarity in _generated().values():
+    for rarity in _vetted_generated().values():
         key = rarity.get("rarity")
         if key in counts:
             counts[key] += 1
@@ -207,9 +227,9 @@ def next_tasks(count: int) -> list[Task]:
     return tasks
 
 
-SYSTEM_PROMPT = """You invent stock for Warizon, a chaotic in-world mail-order storefront
-run by Wario in a Mario-adjacent tabletop campaign. Items are funny but mechanically real:
-a player buys this and uses it at the table.
+SYSTEM_PROMPT = """You invent stock for Warizon, Wario's chaotic in-world
+mail-order storefront. Write entirely from inside the world. Items are funny
+physical merchandise with precise rules, not commentary about a game or table.
 
 Return strictly valid JSON only, no commentary, no code fence:
 
@@ -241,8 +261,11 @@ Rules:
 - Price must match rarity too. Commons are tens of coins, godlies are five figures.
 - `effectDetails` needs 1-2 entries with REAL numbers: dice, feet, rounds, modifiers.
 - `warning` is mandatory and must be a genuine drawback, cost or risk.
-- Comedy comes from the framing and the fine print, never from the mechanics being vague.
-- Do not reference real-world brands. Do not reuse a name you have been shown.
+- Comedy comes from the framing and the fine print, never from vague mechanics.
+- `icon` is ONE Unicode pictograph, never text, shortcode, XML, markup or ASCII art.
+- Consumables are expended: exactly one use, no recharge and no unlimited charges.
+- Never mention players, games, campaigns, a GM/DM, a table, or real-world brands.
+- Do not reuse a name you have been shown.
 """
 
 RARITY_GUIDE = {
@@ -445,6 +468,11 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     if not (40 <= len(description) <= 900):
         raise ValidationError("description out of range")
 
+    icon = str(raw.get("icon", "")).strip()
+    if (not icon or len(icon) > 10 or not _PICTOGRAPH.search(icon)
+            or re.search(r"[A-Za-z0-9<>{}:]", icon)):
+        raise ValidationError("icon must be one Unicode pictograph, never text or markup")
+
     try:
         price = int(raw.get("price"))
     except (TypeError, ValueError):
@@ -472,20 +500,45 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             effect_details.append({"title": title, "rules": rules})
     if not effect_details:
         raise ValidationError("no usable effectDetails")
-    if not any(ch.isdigit() for e in effect_details for ch in e["rules"]):
-        raise ValidationError("no numbers anywhere in the mechanics")
+    if any(not any(ch.isdigit() for ch in effect["rules"]) for effect in effect_details):
+        raise ValidationError("every effect rule needs its own concrete number")
 
     usage_in = raw.get("usage") or {}
     usage = {
         field: " ".join(str(usage_in.get(field, "")).split())
         for field in ("activation", "duration", "endsWhen", "charges")
     }
-    if not usage["activation"]:
-        raise ValidationError("usage.activation missing")
+    allowed_activation = {"action", "bonus action", "reaction", "passive", "1 minute ritual"}
+    if usage["activation"].lower() not in allowed_activation:
+        raise ValidationError(f"usage.activation must be one of {sorted(allowed_activation)}")
+    charges = usage["charges"].lower()
+    if category == "consumables":
+        if any(word in charges for word in ("recharg", "unlimited", "per day", "rest")):
+            raise ValidationError("a consumable is expended and cannot recharge or be unlimited")
+        if not any(word in charges for word in ("1 use", "one use", "consumed", "expended")):
+            raise ValidationError("a consumable must say it has one use and is consumed")
+    elif not usage["charges"]:
+        raise ValidationError("usage.charges missing")
 
     warning = " ".join(str(raw.get("warning", "")).split())
     if len(warning) < 12:
         raise ValidationError("warning must be a real drawback")
+
+    text_fields = [description, warning, usage["duration"], usage["endsWhen"],
+                   usage["charges"], *(e["rules"] for e in effect_details),
+                   str(raw.get("levelRequirementReason", "")),
+                   str(raw.get("vendorReason", "")), str(raw.get("shippingDetail", ""))]
+    bad = next((OUT_OF_WORLD.search(text) for text in text_fields if OUT_OF_WORLD.search(text)), None)
+    if bad:
+        raise ValidationError(f"out-of-world wording is forbidden: {bad.group(0)!r}")
+
+    forbidden_power = re.compile(
+        r"\b(rewrite|rewind|erase|annihilat|alter)\b.{0,35}\b(time|timeline|reality|event)|"
+        r"\bimmune to all|resistance to all|single wish\b",
+        re.IGNORECASE,
+    )
+    if rarity not in {"mythic", "godly"} and any(forbidden_power.search(text) for text in text_fields):
+        raise ValidationError(f"{rarity} item has mythic reality/time-scale mechanics")
 
     return {
         "id": task.payload["slug"],
@@ -494,7 +547,7 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         "price": price,
         "category": category,
         "rarity": rarity,
-        "icon": str(raw.get("icon", "")).strip() or "📦",
+        "icon": icon,
         "stock": 3 if rarity in ("common", "uncommon") else 1,
         "levelRequirement": level,
         "levelRequirementReason": " ".join(str(raw.get("levelRequirementReason", "")).split())[:300],
@@ -545,6 +598,7 @@ def apply(task: Task, record: dict[str, Any]) -> TaskResult:
             return TaskResult(task=task, ok=False, detail="id already present")
         entry = dict(record)
         entry.update(provenance("shop_items", task.payload.get("model", "")))
+        entry["_quality"] = {"validator": QUALITY_MARK}
         store[record["id"]] = entry
         atomic_write_text(
             SHARD, HEADER + json.dumps(store, ensure_ascii=False, indent=2) + ";\n"
@@ -559,12 +613,12 @@ def apply(task: Task, record: dict[str, Any]) -> TaskResult:
 
 SPEC = SystemSpec(
     id="shop_items",
-    title="Warizon · generated stock disabled",
+    title="Warizon · vetted rarity-deficit stock",
     summary=(
-        "DISABLED. The hour-run review found corrupt icons, out-of-world text, "
-        "and contradictory or unbalanced mechanics in generated stock."
+        "Generate only v2-vetted stock; legacy generated items remain quarantined "
+        "from the storefront and rarity counts."
     ),
-    enabled=False,
+    enabled=True,
     stage=1,
     next_tasks=next_tasks,
     build_prompt=build_prompt,

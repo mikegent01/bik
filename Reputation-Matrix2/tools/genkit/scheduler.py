@@ -73,6 +73,12 @@ class PopcornScheduler:
         stages = sorted({s.stage for s in self.systems})
         for stage in stages:
             stage_systems = [s for s in self.systems if s.stage == stage]
+            # A system can gain work because another adapter wrote a dependency
+            # (new WAH post → thread task, new faction → dossier task). Revive
+            # previously drained systems when their data becomes pending.
+            for system in stage_systems:
+                if system.id in self._drained and system.count_pending() > 0:
+                    self._drained.discard(system.id)
             # A lower stage remains a hard barrier while its DATA says work is
             # pending, even after every task in that stage failed once this
             # run. The old code marked those task keys drained, silently moved

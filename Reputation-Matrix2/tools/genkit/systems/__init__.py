@@ -26,15 +26,15 @@ def all_systems() -> list[SystemSpec]:
     """
     return [
         wahwire.PRUNE_SPEC,      # stage 0 — must finish before authoring starts
-        shop_items.SPEC,         # disabled: hour-run stock failed mechanics/voice review
-        wahwire.AUTHOR_SPEC,     # disabled: hour-run posts invented facts and broke voice
+        shop_items.SPEC,         # v2 validator; legacy generated stock quarantined
+        wahwire.AUTHOR_SPEC,     # participant + verbatim-evidence gated
         abilities.SPEC,
         reputation.SPEC,
         faction_dossiers.SPEC,  # expand/review stubs minted by reputation
         crafting.SPEC,
-        wahwire.DISCUSS_SPEC,    # disabled: generated replies failed the voice bar
+        wahwire.DISCUSS_SPEC,    # participant + evidence gated
         wahwire.PROFILE_SPEC,    # bios + the follow graph, 13 accounts
-        bros_attacks.SPEC,       # paired techniques read out of the events
+        bros_attacks.SPEC,       # only source beats naming both partners
     ]
 
 

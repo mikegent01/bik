@@ -276,7 +276,9 @@ async function load() {
     return;
   }
 
-  const posts = Array.isArray(raw) ? raw : (raw.posts || []);
+  const posts = (Array.isArray(raw) ? raw : (raw.posts || [])).filter(post =>
+    post && (post.status === 'canon' || post._quality?.validator === 'wahwire-v2')
+  );
   _prepareIndex = 0;
   state.posts = posts.map(prepare);
 

@@ -31,6 +31,7 @@ from ..spec import SystemSpec, Task, TaskResult, ValidationError, provenance
 from ..storage import atomic_write_json, read_json
 
 STORE = ROOT / "data" / "wahwire" / "posts.json"
+QUALITY_MARK = "wahwire-v2"
 
 _WRITE_LOCK = threading.Lock()
 _LINK_CACHE: dict[str, dict[str, str]] = {}
@@ -127,7 +128,11 @@ def link_targets() -> dict[str, dict[str, str]]:
                 continue
             targets[rid] = {
                 "type": kind,
+                "id": rid,
                 "name": record.get("name") or record.get("title") or rid,
+                "summary": record.get("summary") or "",
+                "description": record.get("description") or "",
+                "participants": record.get("participants") or [],
             }
     _LINK_CACHE = targets
     return targets
@@ -141,6 +146,21 @@ def _posts() -> list[dict[str, Any]]:
     return [p for p in _load().get("posts", []) if isinstance(p, dict)]
 
 
+def _is_vetted(post: dict[str, Any]) -> bool:
+    return (post.get("_quality") or {}).get("validator") == QUALITY_MARK
+
+
+def _evidence_text(value: Any) -> str:
+    return " ".join(re.findall(r"[a-z0-9]+(?:['’][a-z0-9]+)?", str(value).casefold()))
+
+
+def _record_corpus(record: dict[str, Any]) -> str:
+    return _evidence_text(" ".join(
+        str(record.get(field, "")) for field in
+        ("name", "title", "summary", "description", "result", "aftermath")
+    ))
+
+
 def _unpruned() -> list[dict[str, Any]]:
     return [p for p in _posts() if p.get("status") == "legacy"]
 
@@ -149,6 +169,8 @@ def _uncovered_records(limit: int = 400) -> list[dict[str, Any]]:
     """Records that no post talks about yet — the stage-1 backlog."""
     covered: set[str] = set()
     for post in _posts():
+        if post.get("status") != "canon" and not _is_vetted(post):
+            continue
         for link in post.get("links") or []:
             if isinstance(link, dict) and link.get("id"):
                 covered.add(link["id"])
@@ -356,18 +378,10 @@ Return strictly valid JSON only, no commentary, no code fence:
 {
   "author": "<one id from the author list>",
   "content": "<the post, 1-3 short sentences, first person, in character>",
+  "evidenceQuote": "<exact 4-18 word excerpt from the supplied record, used verbatim in content>",
   "likes": <integer 0-9000>,
   "tags": ["<2-4 lowercase single-word tags>"],
-  "reaction": "<one of the reaction ids listed below>",
-  "comments": [
-    {
-      "author": "<a DIFFERENT id from the author list>",
-      "content": "<1-2 short sentences replying to the post, in that character's voice>",
-      "likes": <integer 0-4000>,
-      "reaction": "<one of the reaction ids listed below>",
-      "replyTo": "<omit, or the author id of the comment being answered>"
-    }
-  ]
+  "reaction": "<one of the listed fixed reaction ids>"
 }
 
 Rules:
@@ -383,17 +397,10 @@ Rules:
   in `content` gets the whole post rejected.
 - At most one emoji, and only if that character would use one.
 - Do not repeat the record's title back as a sentence. React, don't summarise.
-
-Comments:
-- Write 1 to 4 comments. A quiet, technical record may deserve one; a scandal or
-  a massacre should draw an argument.
-- A comment is a REPLY, not a second post. It agrees, mocks, corrects, grieves or
-  picks a fight with what was actually said above it.
-- Never let the original poster comment on their own post.
-- Use `replyTo` to answer an earlier commenter by their author id. A short chain
-  of two people arguing is better than four unrelated remarks.
-- Comments get fewer likes than the post unless the comment is the better line.
-- Disagreement is the point. A feed where everyone agrees is not worth reading.
+- Copy `evidenceQuote` exactly into the post and respond to that concrete detail.
+- Never invent relatives, eyewitness status, private conversations or personal
+  history that the supplied record does not state.
+- Do not write comments in this pass. Threading is a separate evidence-gated task.
 """
 
 
@@ -480,8 +487,17 @@ def _author_prompt(task: Task) -> tuple[str, str]:
     # Give the model the actual people, not just their ids. A voice note per
     # author is what stops every post reading like the same narrator.
     who = voices()
+    participants = {
+        str(person.get("id")) for person in (record.get("participants") or [])
+        if isinstance(person, dict) and person.get("id")
+    }
+    stakeholder_authors = [author for author in KNOWN_AUTHORS if author in participants]
+    # If the record identifies participants, only somebody actually there may
+    # author the first-person post. Otherwise use public/non-eyewitness desks.
+    allowed_authors = stakeholder_authors or ["wah_media_collective", "generic_toad"]
+    task.payload["allowedAuthors"] = allowed_authors
     lines = []
-    for author_id in KNOWN_AUTHORS:
+    for author_id in allowed_authors:
         v = who.get(author_id)
         if v:
             bits = [b for b in (v["title"], v["affiliation"]) if b]
@@ -509,8 +525,8 @@ def _author_prompt(task: Task) -> tuple[str, str]:
     barred = set(blocked) | set(loud)
     cooldown_note = ""
     if barred:
-        available = [a for a in KNOWN_AUTHORS if a not in barred] or [
-            a for a in KNOWN_AUTHORS if a not in blocked
+        available = [a for a in allowed_authors if a not in barred] or [
+            a for a in allowed_authors if a not in blocked
         ]
         cooldown_note = "\n"
         if blocked:
@@ -535,7 +551,7 @@ def _author_prompt(task: Task) -> tuple[str, str]:
         f"AUTHORS — pick exactly one `author` id from this list:\n"
         + "\n".join(lines)
         + cooldown_note
-        + f"\n\nREACTION IDS: {', '.join(reactions())}"
+        + f"\n\nREACTION IDS: {', '.join(SEED_REACTIONS)}"
         + "\nPick the one that fits. Do not default to 'deadpan'. If none of "
           "them names what this record actually provokes, invent a new one: "
           "a single lower-case English feeling word (e.g. 'vindication', "
@@ -1005,6 +1021,11 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     author = str(raw.get("author", "")).strip()
     if author not in KNOWN_AUTHORS:
         raise ValidationError(f"unknown author {author!r}")
+    allowed = task.payload.get("allowedAuthors") or KNOWN_AUTHORS
+    if author not in allowed:
+        raise ValidationError(
+            f"{author} was not a participant in this record; choose one of: {', '.join(allowed)}"
+        )
     blocked = recent_authors()
     if author in blocked:
         raise ValidationError(
@@ -1023,6 +1044,20 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     if not isinstance(content, str) or not (40 <= len(content.strip()) <= 900):
         raise ValidationError("content missing or out of length range")
     content = " ".join(content.split())
+    evidence_quote = " ".join(str(raw.get("evidenceQuote") or "").split()).strip('"“”')
+    if task.payload.get("qualityV2"):
+        evidence_normal = _evidence_text(evidence_quote)
+        if not 4 <= len(evidence_normal.split()) <= 18:
+            raise ValidationError("evidenceQuote must be an exact 4-18 word source excerpt")
+        corpus = _record_corpus(task.payload.get("record") or {})
+        if evidence_normal not in corpus:
+            raise ValidationError("evidenceQuote is not verbatim in the supplied record")
+        if evidence_normal not in _evidence_text(content):
+            raise ValidationError("content must include evidenceQuote verbatim")
+        if re.search(r"\b(my|our) (cousin|sister|brother|friend|family)\b", content, re.I):
+            raise ValidationError("invented personal relation is forbidden")
+        if re.search(r"[\U0001F000-\U0001FAFF]", content):
+            raise ValidationError("generated posts do not use emoji")
 
     # Trailing hashtags are a habit the model will not fully unlearn, and
     # throwing away an otherwise good post over them wastes a whole generation
@@ -1056,8 +1091,12 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     # requested in the prompt.
     _check_third_person(author, content)
     record = task.payload.get("record") or {}
-    _check_substance(content, " ".join(str(record.get(f, "")) for f in
-                                       ("summary", "description", "text", "title")))
+    substance = content
+    if task.payload.get("qualityV2") and evidence_quote:
+        substance = re.sub(re.escape(evidence_quote), " ", content, flags=re.IGNORECASE)
+        substance = " ".join(substance.split())
+    _check_substance(substance, " ".join(str(record.get(f, "")) for f in
+                                         ("summary", "description", "text", "title")))
     existing = [str(p.get("content", "")) for p in _posts()[-60:]]
     twin = _too_similar(content, existing, cutoff=0.66)
     if twin:
@@ -1072,11 +1111,14 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     except (TypeError, ValueError):
         likes = 0
 
-    model = str(task.payload.get("model", ""))
-    reaction = _resolve_reaction(
-        raw.get("reaction"), model=model,
-        source=str(task.payload.get("record", {}).get("id", "")),
-    )
+    reaction = str(raw.get("reaction") or "").strip().lower()
+    if task.payload.get("qualityV2"):
+        if reaction not in SEED_REACTIONS:
+            raise ValidationError(
+                f"reaction must be one fixed emotion id: {', '.join(SEED_REACTIONS)}"
+            )
+    else:
+        reaction = _resolve_reaction(reaction)
 
     tags: list[str] = []
     for candidate in list(raw.get("tags") or []) + salvaged:
@@ -1087,58 +1129,29 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             tags.append(tag)
     tags = tags[:4]
 
-    # Comments are a bonus, never a reason to lose the post: anything
-    # malformed is dropped individually and the post still lands.
     comments: list[dict[str, Any]] = []
-    seen_comment_authors: list[str] = []
-    for entry in (raw.get("comments") or [])[:6]:
-        if not isinstance(entry, dict):
-            continue
-        c_author = str(entry.get("author", "")).strip()
-        if c_author not in KNOWN_AUTHORS or c_author == author:
-            continue
-        c_text = entry.get("content")
-        if not isinstance(c_text, str):
-            continue
-        c_text = " ".join(re.sub(r"#\w+", " ", c_text).split())
-        if not (10 <= len(c_text) <= COMMENT_MAX_CHARS):
-            continue
-        try:
-            c_likes = max(0, min(4000, int(entry.get("likes", 0))))
-        except (TypeError, ValueError):
-            c_likes = 0
-        # The same three quality gates the discuss pass applies. A post can
-        # arrive with its own thread attached, and that inline path is where
-        # the deleted batch's worst threads came from -- four replies saying
-        # one thing four ways. A bad comment is dropped rather than failing
-        # the whole post: the post itself may be fine, and wahwire-discuss
-        # refills thin threads later under exactly these same checks.
-        try:
-            _check_third_person(c_author, c_text)
-            _check_substance(c_text, content)
-        except ValidationError:
-            continue
-        if _too_similar(c_text, [c["content"] for c in comments] + [content]):
-            continue
-
-        c_reaction = _resolve_reaction(entry.get("reaction"), model=model)
-        # A reply only makes sense if that person is already in the thread.
-        reply_to = str(entry.get("replyTo", "")).strip()
-        if reply_to not in seen_comment_authors:
-            reply_to = ""
-        comments.append({
-            "id": f"c{len(comments) + 1}",
-            "author": c_author,
-            "content": c_text,
-            "likes": c_likes,
-            "reaction": c_reaction,
-            "replyTo": reply_to,
-        })
-        seen_comment_authors.append(c_author)
+    if not task.payload.get("qualityV2"):
+        seen_authors: list[str] = []
+        for entry in (raw.get("comments") or [])[:6]:
+            if not isinstance(entry, dict):
+                continue
+            c_author = str(entry.get("author") or "").strip()
+            c_text = " ".join(str(entry.get("content") or "").split())
+            if c_author not in KNOWN_AUTHORS or c_author == author or not 10 <= len(c_text) <= COMMENT_MAX_CHARS:
+                continue
+            reply_to = str(entry.get("replyTo") or "").strip()
+            if reply_to not in seen_authors:
+                reply_to = ""
+            comments.append({
+                "id": f"c{len(comments) + 1}", "author": c_author,
+                "content": c_text, "likes": max(0, min(4000, int(entry.get("likes", 0)))),
+                "reaction": _resolve_reaction(entry.get("reaction")), "replyTo": reply_to,
+            })
+            seen_authors.append(c_author)
 
     return {
-        "author": author, "content": content, "likes": likes,
-        "tags": tags, "reaction": reaction, "comments": comments,
+        "author": author, "content": content, "evidenceQuote": evidence_quote,
+        "likes": likes, "tags": tags, "reaction": reaction, "comments": comments,
     }
 
 
@@ -1161,13 +1174,14 @@ def _author_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] 
     blocked = set(recent_authors())
     blocked.add(str(raw.get("author", "")).strip())
     blocked.update(over_quota())
-    available = [a for a in KNOWN_AUTHORS if a not in blocked]
+    eligible = task.payload.get("allowedAuthors") or KNOWN_AUTHORS
+    available = [a for a in eligible if a not in blocked]
     if not available:
         # Every account is either on cooldown or over quota. The cooldown is
         # the harder rule (it is visible on screen as two posts in a row), so
         # relax the share cap rather than lose the record.
         available = [
-            a for a in KNOWN_AUTHORS
+            a for a in eligible
             if a not in set(recent_authors()) | {str(raw.get("author", "")).strip()}
         ]
     if not available:
@@ -1258,6 +1272,7 @@ def _author_apply(task: Task, data: dict[str, Any]) -> TaskResult:
             "date": None,
             "timestamp": record.get("date") or "",
             "content": data["content"],
+            "evidenceQuote": data["evidenceQuote"],
             "likes": data["likes"],
             "links": [{"id": rid, "type": "event"}],
             "tags": data["tags"],
@@ -1265,6 +1280,7 @@ def _author_apply(task: Task, data: dict[str, Any]) -> TaskResult:
             "comments": data.get("comments") or [],
         }
         entry.update(provenance("wahwire", task.payload.get("model", "")))
+        entry["_quality"] = {"validator": QUALITY_MARK}
         posts.append(entry)
         atomic_write_json(STORE, store)
 
@@ -1302,7 +1318,7 @@ def _author_tasks(count: int) -> list[Task]:
             system_id="wahwire-author",
             key=f"author:{r.get('id')}",
             label=f"wahwire post · {r.get('name') or r.get('id')}",
-            payload={"record": r},
+            payload={"record": r, "qualityV2": True},
             phase="author",
         )
         for r in _uncovered_records(count)[:count]
@@ -1324,12 +1340,12 @@ PRUNE_SPEC = SystemSpec(
 
 AUTHOR_SPEC = SystemSpec(
     id="wahwire-author",
-    title="WAHwire · generated posts disabled",
+    title="WAHwire · evidence-gated posts",
     summary=(
-        "DISABLED. The hour-run review found invented facts, broken character "
-        "voices, generic summaries, and non-emotion reaction labels."
+        "Author participant-grounded posts with verbatim source evidence, fixed "
+        "emotion labels, no invented relationships, and no inline comments."
     ),
-    enabled=False,
+    enabled=True,
     stage=1,
     next_tasks=_author_tasks,
     build_prompt=_author_prompt,
@@ -1373,23 +1389,25 @@ RULES
 - Each comment 10-240 characters, in that character's voice, no hashtags.
 - Short is better. One reaction per comment, not a paragraph.
 - Disagree where disagreement is earned. A thread of agreement is not a thread.
-- Do not restate the post. Add something: a correction, a consequence, an accusation,
-  a detail only that person would know.
+- Do not restate the post. Add a correction, consequence or accusation grounded in
+  `evidenceQuote`; copy that exact excerpt into the comment.
+- Never invent relatives, eyewitness status, private conversations or history.
 - `replyTo` is optional and must name an account that already commented ABOVE it.
 - `reaction` is one of the listed ids, or a new single lower-case feeling word if
   none of them fits.
 - Invent no events. Work only from what the post and the record say.
 
 Return ONLY JSON:
-{"comments":[{"author":"<id>","content":"<text>","likes":<0-4000>,
-              "reaction":"<id>","replyTo":"<id or empty>"}]}"""
+{"comments":[{"author":"<id>","content":"<text>",
+              "evidenceQuote":"<exact 4-18 word excerpt from the linked record>",
+              "likes":<0-4000>,"reaction":"<fixed id>","replyTo":"<id or empty>"}]}"""
 
 
 def _thin_threads(limit: int = 400) -> list[dict[str, Any]]:
     """Live posts whose comment thread is thinner than the target."""
     out = []
     for post in _posts():
-        if post.get("status") == "retired":
+        if post.get("status") != "canon" and not _is_vetted(post):
             continue
         comments = post.get("comments")
         if not isinstance(comments, list):
@@ -1405,7 +1423,7 @@ def _discuss_tasks(count: int) -> list[Task]:
             system_id="wahwire-discuss",
             key=f"discuss:{p['id']}",
             label=f"wahwire thread · {p['id']}",
-            payload={"id": p["id"], "post": p},
+            payload={"id": p["id"], "post": p, "qualityV2": True},
             phase="discuss",
         )
         for p in _thin_threads()[:count]
@@ -1443,6 +1461,7 @@ def _discuss_prompt(task: Task) -> tuple[str, str]:
         key = link.get("id") if isinstance(link, dict) else link
         target = targets.get(str(key))
         if target:
+            task.payload["record"] = target
             record_note = (
                 f"\nThe post is about this record:\n"
                 f"  {target.get('name', key)} — {str(target.get('summary', ''))[:600]}\n"
@@ -1471,9 +1490,20 @@ def _discuss_prompt(task: Task) -> tuple[str, str]:
 def _discuss_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     post = task.payload["post"]
     author = str(post.get("author", ""))
-    model = str(task.payload.get("model", ""))
 
     existing = [c for c in (post.get("comments") or []) if isinstance(c, dict)]
+    record = task.payload.get("record") or {}
+    participants = {
+        str(person.get("id")) for person in (record.get("participants") or [])
+        if isinstance(person, dict) and person.get("id")
+    }
+    if task.payload.get("qualityV2"):
+        allowed_commenters = (
+            {author_id for author_id in KNOWN_AUTHORS if author_id in participants}
+            or {"wah_media_collective", "generic_toad"}
+        )
+    else:
+        allowed_commenters = set(KNOWN_AUTHORS)
     room = DISCUSS_CEILING - len(existing)
     if room <= 0:
         raise ValidationError("thread already at its ceiling")
@@ -1496,7 +1526,7 @@ def _discuss_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         if not isinstance(entry, dict):
             continue
         c_author = str(entry.get("author", "")).strip()
-        if c_author not in KNOWN_AUTHORS or c_author == author:
+        if c_author not in allowed_commenters or c_author == author:
             continue
         c_text = entry.get("content")
         if not isinstance(c_text, str):
@@ -1504,6 +1534,17 @@ def _discuss_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         c_text = " ".join(re.sub(r"#\w+", " ", c_text).split())
         if not (10 <= len(c_text) <= COMMENT_MAX_CHARS):
             continue
+        evidence_quote = " ".join(str(entry.get("evidenceQuote") or "").split()).strip('"“”')
+        if task.payload.get("qualityV2"):
+            evidence_normal = _evidence_text(evidence_quote)
+            if (not 4 <= len(evidence_normal.split()) <= 18
+                    or evidence_normal not in _record_corpus(record)
+                    or evidence_normal not in _evidence_text(c_text)):
+                rejected.append(f"{c_author}: missing/verbatim evidenceQuote")
+                continue
+            if re.search(r"\b(my|our) (cousin|sister|brother|friend|family)\b", c_text, re.I):
+                rejected.append(f"{c_author}: invented personal relation")
+                continue
 
         # Quality gates, in the order that fails cheapest first.
         try:
@@ -1525,11 +1566,19 @@ def _discuss_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         reply_to = str(entry.get("replyTo", "")).strip()
         if reply_to not in seen_authors:
             reply_to = ""
+        reaction = str(entry.get("reaction") or "").strip().lower()
+        if task.payload.get("qualityV2"):
+            if reaction not in SEED_REACTIONS:
+                rejected.append(f"{c_author}: reaction is not a fixed emotion id")
+                continue
+        else:
+            reaction = _resolve_reaction(reaction)
         comments.append({
             "author": c_author,
             "content": c_text,
+            "evidenceQuote": evidence_quote,
             "likes": c_likes,
-            "reaction": _resolve_reaction(entry.get("reaction"), model=model),
+            "reaction": reaction,
             "replyTo": reply_to,
         })
         seen_authors.append(c_author)
@@ -1571,8 +1620,17 @@ def _discuss_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any]
     # Spread reassignments over the quietest accounts rather than always
     # picking the first name in the list.
     used = [str(c.get("author")) for c in existing if c.get("author")]
+    eligible = set(KNOWN_AUTHORS)
+    if task.payload.get("qualityV2"):
+        record = task.payload.get("record") or {}
+        participants = {
+            str(person.get("id")) for person in (record.get("participants") or [])
+            if isinstance(person, dict) and person.get("id")
+        }
+        eligible = ({a for a in KNOWN_AUTHORS if a in participants}
+                    or {"wah_media_collective", "generic_toad"})
     pool = sorted(
-        (a for a in KNOWN_AUTHORS if a != author),
+        (a for a in eligible if a != author),
         key=lambda a: used.count(a),
     )
     if not pool:
@@ -1665,18 +1723,12 @@ def _discuss_apply(task: Task, data: dict[str, Any]) -> TaskResult:
 
 DISCUSS_SPEC = SystemSpec(
     id="wahwire-discuss",
-    title="WAHwire · generated threads disabled",
+    title="WAHwire · evidence-gated threads",
     summary=(
-        "DISABLED. Bulk-generated replies stayed generic and out of character; "
-        "threads now require an authored lore pass."
+        "Thread only canon/v2 posts with participant-grounded commenters, fixed "
+        "emotions, and verbatim evidence in every reply."
     ),
-    # The generated batches cleared syntactic checks but still read as filler:
-    # vague warnings about "the surface", stock mystic remarks about darkness,
-    # and unrelated financial jokes assigned to whichever account was free.
-    # More generated replies do not improve the archive. Keep the adapter for
-    # its validators and for explicit development tests, but do not schedule it
-    # in generate_all.
-    enabled=False,
+    enabled=True,
     stage=1,
     next_tasks=_discuss_tasks,
     build_prompt=_discuss_prompt,

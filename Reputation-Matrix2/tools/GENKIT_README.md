@@ -45,16 +45,14 @@ rather than copying a total from this document. The cycle currently includes:
 |---|---|---|
 | 0 | `wahwire-prune` | QC inherited posts, repair dead links, mark canon or retired |
 | 1 | `faction-dossiers` | review reputation-minted faction stubs from their source and linked articles; write a quoted 500–1,000 word dossier or remove a misfile |
-| off | `shop_items` | **disabled:** hour-run stock had corrupt icons, out-of-world text, and contradictory mechanics |
+| 1 | `shop_items` | generate v2-vetted stock; legacy generated stock is quarantined from the storefront |
 | 1 | `crafting` | classify recipes the Forge filter cannot see |
 | 1 | `abilities` | fill the emptiest class/level cells above level 1 |
 | 1 | `reputation` | backfill impacts only when both operator changes and record-wide effects are empty |
-| off | `wahwire-author` | **disabled:** hour-run posts invented facts and broke character voice |
-| off | `wahwire-discuss` | **disabled:** generated replies remained generic and out of character |
+| 1 | `wahwire-author` | participant-grounded posts with verbatim evidence and fixed emotions |
+| 1 | `wahwire-discuss` | participant-grounded replies with verbatim evidence and fixed emotions |
 | 1 | `wahwire-profile` | complete account biographies and follow graphs |
-
-The Bros Attack adapter remains registered but disabled by design: techniques
-are discovered at the table, not bulk-generated from event prose.
+| 1 | `bros_attacks` | record only source beats that name both partners together; sync accepted techniques to Foundry |
 
 ## Adding another system
 
@@ -135,7 +133,14 @@ Consequences enforced in code:
 
 - a pending lower stage remains a hard barrier even after every key failed in
   the current run; the runner exits rather than moving to bulk generation;
-- generated shop stock and WAHwire authoring/discussion are disabled;
+- legacy generated shop/Wire records are quarantined from readers; only v2
+  quality-stamped output is exposed;
+- shop generation rejects malformed icons, out-of-world language, rechargeable
+  consumables and below-mythic reality/time rewriting;
+- WAHwire posts/replies require participant authorship, fixed emotions and a
+  verbatim source excerpt; authoring no longer creates inline comment batches;
+- Bros Attack candidates and final records require one source beat naming both
+  partners, preventing the old any-two-participants invention path;
 - effects-only reputation records are protected from overwrite;
 - explicit organisational labels cannot be collapsed into the event where the
   model first saw them;
@@ -262,9 +267,9 @@ belongs):
 - the control panel reported `produced 24, failed 6, recovered 23 retry(ies)`
   with a per-system ok/fail/retry breakdown
 
-Unit tests: `python3 tools/test_genkit.py` — 210 checks, including the hard
-stage gate, effects-only gap protection, disabled bulk systems, faction
-classification safeguards, section assembly, operator/faction repair, and the
-legacy WAHwire validators retained for explicit development work.
+Unit tests: `python3 tools/test_genkit.py` — 228 checks, including the hard
+stage gate, effects-only gap protection, v2 shop/Wire gates, faction
+classification safeguards, section assembly, evidence-gated Bros Attacks,
+and operator/faction repair.
 Front-end: `/tmp/wahwire_threadtest.js` — 36 checks over the thread drawer
 against real generated data.

@@ -58,8 +58,9 @@ labels become minimal non-rendering tombstones rather than “not a faction”
 filler. Keeping each reviewed key in place also prevents Git from presenting the
 next surviving faction as though it replaced the removed one. Reputation is
 redirected only when the evidence supports a canonical target. This adapter is
-part of the normal stage-1 popcorn cycle. Unsafe bulk shop/WAHwire adapters are
-disabled rather than forcing faction work to monopolise an all-systems run.
+part of the normal stage-1 popcorn cycle. Shop, WAHwire, and Bros adapters are
+also enabled, but only v2/evidence-gated records enter reader-facing data; their
+legacy generated batches remain quarantined.
 
 ---
 

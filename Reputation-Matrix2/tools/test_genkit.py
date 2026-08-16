@@ -170,8 +170,8 @@ check("'banana' is still rejected", crafting.resolve_school("banana") is None)
 
 section("shop · category repair")
 
-check("bulk generated Warizon stock is disabled after the hour-run review",
-      shop_items.SPEC.enabled is False)
+check("Warizon generation is re-enabled behind the v2 quality gate",
+      shop_items.SPEC.enabled is True)
 for proposed, expected in [("gadgets", "curiosities"), ("weapons", "equipment"),
                            ("Consumable", "consumables"), ("black market", "forbidden"),
                            ("EQUIPMENT", "equipment")]:
@@ -179,11 +179,50 @@ for proposed, expected in [("gadgets", "curiosities"), ("weapons", "equipment"),
     check(f"{proposed!r} → {expected}", got == expected, f"got {got!r}")
 check("'banana' is still rejected", shop_items.resolve_category("banana") is None)
 
+v2_item_task = Task(
+    system_id="shop_items", key="item:v2", label="v2 item",
+    payload={"rarity": "common", "slug": "wz_gen_common_v2_test"},
+)
+v2_item = {
+    "name": "Dockline Knot", "icon": "🪢", "category": "equipment",
+    "description": "A waxed harbor knot that tightens itself once before the fibers go slack.",
+    "price": 40, "levelRequirement": 1,
+    "levelRequirementReason": "Any courier can learn the single locking pull.",
+    "effectDetails": [{"title": "Locking Pull", "rules": "Secure one object within 10 feet for 2 rounds."}],
+    "usage": {"activation": "action", "duration": "2 rounds", "endsWhen": "the knot goes slack", "charges": "1 use"},
+    "warning": "The fibers cannot be tightened a second time.",
+    "vendorReason": "Wario buys dock surplus by the barrel.",
+    "shippingDetail": "Delivered in a wax-paper coil with a numbered seal.",
+}
+saved_generated_items = shop_items._generated
+shop_items._generated = lambda: {}
+try:
+    checked_item = shop_items.validate(v2_item_task, v2_item)
+    check("v2 shop item passes pictograph, mechanics and in-world gates",
+          checked_item["icon"] == "🪢")
+    for field, value, label in (
+        ("icon", "-Compatible-Game", "text icon"),
+        ("description", "A player uses this at the table for a +2 bonus.", "out-of-world prose"),
+    ):
+        broken = dict(v2_item)
+        broken[field] = value
+        try:
+            shop_items.validate(v2_item_task, broken)
+            check(f"v2 shop rejects {label}", False, "it passed")
+        except ValidationError:
+            check(f"v2 shop rejects {label}", True)
+finally:
+    shop_items._generated = saved_generated_items
+commerce_source = (Path(__file__).resolve().parents[1] / "data/commerce/index.js").read_text()
+check("legacy generated shop stock is quarantined from the storefront",
+      "ITEMS_WORLD_VETTED" in commerce_source
+      and "item._quality.validator === 'shop-v2'" in commerce_source)
+
 # --------------------------------------------------------------- cooldown
 section("wahwire · author cooldown")
 
-check("bulk WAHwire post generation is disabled after the hour-run review",
-      wahwire.AUTHOR_SPEC.enabled is False)
+check("WAHwire authoring is re-enabled behind participant/evidence gates",
+      wahwire.AUTHOR_SPEC.enabled is True)
 original_load = wahwire._load
 wahwire._load = lambda: {"version": 1, "posts": [
     {"id": "a", "author": "waluigi", "order": 1},
@@ -304,6 +343,40 @@ try:
 finally:
     wahwire._load = original_load
 
+saved_load = wahwire._load
+wahwire._load = lambda: {"version": 1, "posts": []}
+try:
+    v2_post_task = Task(
+        system_id="wahwire-author", key="author:v2", label="v2 post",
+        payload={
+            "qualityV2": True, "allowedAuthors": ["markop"],
+            "record": {
+                "id": "bridge_record", "name": "Bridge Record",
+                "summary": "Markop held the north bridge until every refugee crossed safely.",
+                "participants": [{"id": "markop", "name": "Markop"}],
+            },
+        },
+    )
+    v2_post = wahwire._author_validate(v2_post_task, {
+        "author": "markop",
+        "content": "I held the north bridge until every refugee crossed safely. Count the people, not the applause.",
+        "evidenceQuote": "held the north bridge until every refugee crossed safely",
+        "likes": 12, "tags": ["bridge", "refugees"], "reaction": "resolve",
+        "comments": [{"author": "bowser", "content": "This must be ignored."}],
+    })
+    check("v2 WAHwire post is participant/evidence grounded",
+          v2_post["author"] == "markop" and v2_post["comments"] == [])
+    invented = dict(v2_post)
+    invented.update({"content": "My cousin told me the bridge was safe.",
+                     "evidenceQuote": "held the north bridge until every refugee crossed safely"})
+    try:
+        wahwire._author_validate(v2_post_task, invented)
+        check("v2 WAHwire rejects invented relatives", False, "it passed")
+    except ValidationError:
+        check("v2 WAHwire rejects invented relatives", True)
+finally:
+    wahwire._load = saved_load
+
 section("wahwire · reaction palette")
 
 # The palette moved out of both source files and into data/wahwire/reactions.json
@@ -334,6 +407,8 @@ check("wahwire.js folds the palette in before the first paint",
 absent = [r for r in wahwire.SEED_REACTIONS if f"{r}:" not in js]
 check("wahwire.js keeps a built-in fallback for every seed reaction",
       not absent, str(absent))
+check("legacy generated WAHwire posts are quarantined from the feed",
+      "post._quality?.validator === 'wahwire-v2'" in js)
 
 # --------------------------------------------------------------- requeue
 section("scheduler · requeue")
@@ -370,6 +445,24 @@ gated.complete(issued_zero, changed=False)
 check("failed stage-0 work never falls through to bulk stage-1 generation",
       issued_zero.system_id == "gate-zero" and gated.next_task() is None,
       str(gated.snapshot()))
+
+dependent_pending = {"value": 0}
+producer_task = Task(system_id="producer", key="producer:1", label="new post")
+dependent_task = Task(system_id="dependent", key="dependent:1", label="thread post")
+producer = SystemSpec(id="producer", title="Producer", summary="test", stage=1,
+                      next_tasks=lambda count: [producer_task], pending=lambda: 1)
+dependent = SystemSpec(
+    id="dependent", title="Dependent", summary="test", stage=1,
+    next_tasks=lambda count: [dependent_task] if dependent_pending["value"] else [],
+    pending=lambda: dependent_pending["value"],
+)
+dynamic = PopcornScheduler([producer, dependent], seed=1)
+first_dynamic = dynamic.next_task()
+dynamic.complete(first_dynamic, changed=True)
+dependent_pending["value"] = 1
+check("a drained dependent system revives when another adapter creates work",
+      first_dynamic.system_id == "producer"
+      and dynamic.next_task().system_id == "dependent")
 
 section("spec · retry plumbing")
 check("Task tracks attempts", Task(system_id="s", key="k", label="l").attempts == 0)
@@ -906,8 +999,8 @@ finally:
 # ------------------------------------------------------- discussion pass
 section("wahwire · threading existing posts")
 
-check("bulk WAHwire thread generation is disabled after the failed voice review",
-      wahwire.DISCUSS_SPEC.enabled is False)
+check("WAHwire threading is re-enabled behind evidence gates",
+      wahwire.DISCUSS_SPEC.enabled is True)
 saved_load = wahwire._load
 wahwire._load = lambda: {"version": 1, "posts": [
     {"id": "p1", "author": "waluigi", "order": 1, "content": "Docks are gone.",
@@ -963,10 +1056,9 @@ check("every registered system has a repair hook", not missing, ", ".join(missin
 enabled_ids = {system.id for system in registry if system.enabled}
 check("normal all-systems runs include faction dossiers",
       "faction-dossiers" in enabled_ids)
-check("rejected bulk systems stay registered but out of normal runs",
-      "shop_items" not in enabled_ids
-      and "wahwire-author" not in enabled_ids
-      and "wahwire-discuss" not in enabled_ids)
+check("quality-gated generators participate in normal runs",
+      {"shop_items", "wahwire-author", "wahwire-discuss", "bros_attacks"}
+      <= enabled_ids)
 
 # --- shop items: a duplicate name goes BACK TO THE MODEL, it is not renamed
 # in code. Appending "Mark II" in the repair hook is what shipped 412 suffixed
@@ -1083,7 +1175,8 @@ _EVENT = {
     ],
 }
 bros_task = Task(system_id="bros_attacks", key="bros:test_event_bridge",
-                 label="bros attack", payload={"event": _EVENT})
+                 label="bros attack", payload={"event": _EVENT,
+                                                "eligiblePairs": [("green_t", "mossy")]})
 
 
 def _reply(**over):
@@ -1095,6 +1188,7 @@ def _reply(**over):
         "type": "Lift and cut",
         "school": "clearing",
         "difficulty": "medium",
+        "evidenceQuote": "Mossy braced under the span while Green T went over the top and cut the mooring line",
         "description": "Mossy sets a braced shoulder under the span and holds it "
                        "steady while Green T climbs over the top. The cut lands on "
                        "the mooring line at the moment the barge stops swinging. "
@@ -1126,7 +1220,9 @@ def _reply(**over):
 
 
 out = bros_attacks.validate(bros_task, _reply())
+check("evidence-gated Bros generation is enabled", bros_attacks.SPEC.enabled is True)
 check("a well-formed technique validates", out["name"] == "Low Water Bros Attack")
+check("the exact coordination excerpt is retained", out["evidenceQuote"] == _reply()["evidenceQuote"])
 check("the source event comes from the task, not the reply",
       out["sourceEvent"] == "test_event_bridge")
 check("generated bros attacks are written as confirmed canon",
@@ -1143,6 +1239,8 @@ for bad, why in (
     ({"description": "They did a thing."}, "a one-line description is rejected"),
     ({"risks": ""}, "a technique with no failure mode is rejected"),
     ({"waluigiNote": "wah"}, "a stub waluigi note is rejected"),
+    ({"evidenceQuote": "They coordinated somehow outside the written record"},
+     "an invented coordination quote is rejected"),
 ):
     try:
         bros_attacks.validate(bros_task, _reply(**bad))

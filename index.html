@@ -8806,7 +8806,9 @@ async function loadWahwireFeed(){
     const res = await fetch(pathPrefix + 'data/wahwire/posts.json', {cache:'no-cache'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const j = await res.json();
-    WAHWIRE_POSTS = (j && Array.isArray(j.posts)) ? j.posts : [];
+    WAHWIRE_POSTS = (j && Array.isArray(j.posts)) ? j.posts.filter(p =>
+      p && (p.status==='canon' || p._quality?.validator==='wahwire-v2')
+    ) : [];
     WAHWIRE_BY_RECORD = indexWahwirePosts(WAHWIRE_POSTS);
     const n = WAHWIRE_POSTS.length;
     if(n !== WAHWIRE_COUNT){
