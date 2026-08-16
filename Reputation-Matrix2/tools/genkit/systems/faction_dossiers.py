@@ -26,7 +26,7 @@ from .. import prompting
 from ..settings import ROOT
 from ..spec import SystemSpec, Task, TaskResult, ValidationError
 from ..storage import atomic_write_json, read_json
-from . import factions, reputation
+from . import faction_dossier_sections, factions, reputation
 
 ARTICLE_FILES = {
     "event": ROOT / "data" / "events.json",
@@ -624,6 +624,7 @@ SPEC = SystemSpec(
     stage=0,
     next_tasks=next_tasks,
     build_prompt=build_prompt,
+    generate=faction_dossier_sections.generate,
     validate=validate,
     apply=apply,
     pending=pending,

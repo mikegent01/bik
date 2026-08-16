@@ -396,6 +396,26 @@ check("a successful dry run writes no completion checkpoint",
       dry_runner.checkpoints["dry-demo"].counts() == (0, 0),
       str(dry_runner.checkpoints["dry-demo"].counts()))
 
+multi_calls = []
+multi_spec = SystemSpec(
+    id="multi-demo", title="Multi demo", summary="test",
+    next_tasks=lambda count: [], pending=lambda: 0,
+    build_prompt=lambda task: (_ for _ in ()).throw(AssertionError("single prompt used")),
+    generate=lambda task, client, temperature: (
+        multi_calls.append(temperature) or {"assembled": True}
+    ),
+    validate=lambda task, raw: raw,
+)
+multi_runner = Runner(
+    [multi_spec], Settings(workers=1, dry_run=True, work_dir=checkpoint_dir),
+)
+multi_result = multi_runner._handle(
+    Task(system_id="multi-demo", key="multi-demo:1", label="multi task"), 0,
+)
+check("runner uses a system's multi-call generator instead of one oversized prompt",
+      multi_result.ok and multi_result.record == {"assembled": True}
+      and multi_calls == [0.7], str(multi_result.record))
+
 # ------------------------------------------------- people are not factions
 section("factions · a person is never a faction")
 
@@ -518,6 +538,80 @@ check("validated evidence quotes are retained with the dossier",
           "The lounge floor cracked", "The debt is unresolved",
           "Waluigi cried on the floor",
       ], str(valid_dossier["evidenceQuotes"]))
+
+
+def _section_fixture(quote: str, subject: str) -> str:
+    text = (
+        f"Waluigi files the exact line ‘{quote}’ because it fixes {subject} to "
+        "a physical moment instead of an attractive theory. "
+    )
+    sentence = (
+        "The record names the room, the action, and its consequence, while the "
+        "archive leaves motive and permanent organisation explicitly unconfirmed. "
+    )
+    while faction_dossiers.word_count(text) < 185:
+        text += sentence
+    return text
+
+
+class _SectionClient:
+    def __init__(self, replies):
+        self.replies = list(replies)
+        self.calls = []
+
+    def complete_json(self, system, user, *, temperature=0.7, attempts=3):
+        self.calls.append((system, user, temperature))
+        return self.replies.pop(0)
+
+
+section_client = _SectionClient([
+    {
+        "classification": "faction", "name": "The Wario Bros",
+        "title": "A Partnership With an Exit Clause",
+        "type": "Recurring operational partnership", "region": "Known Realms",
+        "currentStatus": "Active when profitable", "leader": "Collective",
+        "headquarters": "Unrecorded", "motto": "No recorded motto",
+        "category": "Minor Powers", "power_level": 2,
+        "summary": "Wario and Waluigi sometimes act together. The arrangement is unstable.",
+        "relations": {"allies": ["wario_land"], "enemies": ["disaster_inc"]},
+        "waluigi_tip": "Keep the receipt and watch the exits.",
+    },
+    {"heading": "Identity and Confirmed Standing",
+     "text": _section_fixture("The lounge floor cracked", "the partnership"),
+     "evidenceQuote": "The lounge floor cracked"},
+    {"heading": "Recorded Methods and Relationships",
+     "text": _section_fixture("The debt is unresolved", "the motive"),
+     "evidenceQuote": "The debt is unresolved"},
+    {"heading": "Risks and Waluigi Assessment",
+     "text": _section_fixture("Waluigi cried on the floor", "the consequence"),
+     "evidenceQuote": "Waluigi cried on the floor"},
+])
+section_task = Task(
+    system_id="faction-dossiers", key="section-fd", label="section-fd",
+    payload={"id": "wario_bros", "entry": wario_bros_stub,
+             "sources": wario_sources, "model": "test-model"},
+)
+assembled = faction_dossiers.SPEC.generate(section_task, section_client, 0.7)
+assembled_clean = faction_dossiers.validate(section_task, assembled)
+check("long dossiers are assembled from one metadata call and three section calls",
+      len(section_client.calls) == 4
+      and 500 <= faction_dossiers.word_count(assembled_clean["description"]) <= 1100,
+      f"calls={len(section_client.calls)} words={faction_dossiers.word_count(assembled_clean['description'])}")
+check("each bounded call contributes one independently verified section",
+      len(faction_dossiers.HEADING.findall(assembled_clean["description"])) == 3
+      and len(assembled_clean["evidenceQuotes"]) == 3)
+
+meta_client = _SectionClient([])
+meta_stub = stub_store["united_midlands_factions"]
+meta_task = Task(
+    system_id="faction-dossiers", key="meta-fd", label="meta-fd",
+    payload={"id": "united_midlands_factions", "entry": meta_stub,
+             "sources": faction_dossiers.source_context("united_midlands_factions", meta_stub)},
+)
+meta_verdict = faction_dossiers.SPEC.generate(meta_task, meta_client, 0.7)
+check("known aggregate labels are removed without wasting section calls",
+      meta_verdict["classification"] == "not_faction" and not meta_client.calls,
+      str(meta_verdict))
 
 invented_evidence = dict({
     "classification": "faction", "name": "The Wario Bros", "power_level": 2,

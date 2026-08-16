@@ -11,8 +11,10 @@ same five questions:
   5. How much is left to do?                     -> `pending`
 
 A system that answers those is schedulable, and the runner does not care what
-kind of content it makes. That is the whole point: adding a sixth system later
-is one file, not five hand-edits.
+kind of content it makes. Long-form systems may additionally provide `generate`
+to assemble one record from several bounded model calls; validation and writes
+remain shared. That is the whole point: adding another system is one file, not
+five hand-edits.
 """
 
 from __future__ import annotations
@@ -75,6 +77,10 @@ class SystemSpec:
 
     next_tasks: Callable[[int], list[Task]] = None            # (count) -> tasks
     build_prompt: Callable[[Task], tuple[str, str]] = None    # -> (system, user)
+    # Optional multi-call generation hook. Most systems need one reply and use
+    # build_prompt; long-form systems can make several bounded calls and return
+    # one assembled raw record for the same validator/apply pipeline.
+    generate: Callable[[Task, Any, float], dict] | None = None
     validate: Callable[[Task, dict], dict] = None             # -> clean record
     apply: Callable[[Task, dict], TaskResult] = None          # writes to data/
     pending: Callable[[], int] = None                         # -> records left

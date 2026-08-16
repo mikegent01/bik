@@ -191,48 +191,60 @@ class Runner:
         if system.offline:
             record = {}
         else:
-            system_prompt, user_prompt = system.build_prompt(task)
-            if task.last_error:
-                # This task has been here before. Say what went wrong, in the
-                # imperative, at the end where it is closest to the answer.
-                user_prompt += (
-                    f"\n\nYOUR PREVIOUS ATTEMPT WAS REJECTED: {task.last_error}\n"
-                    "Return the whole answer again as strictly valid JSON, fixing "
-                    "exactly that problem. Do not repeat the rejected value."
-                )
-            try:
-                raw = self.client.complete_json(
-                    system_prompt, user_prompt, temperature=self.settings.temperature
-                )
-            except ContextExceededError:
-                # The prompt did not fit the context length this model was
-                # loaded with. Retrying it verbatim would fail identically, and
-                # dropping the task loses a record for a reason that has
-                # nothing to do with its content -- so retry progressively
-                # shorter. Systems keep their most important fields at the
-                # front of the prompt, so a halved prompt is degraded, not
-                # meaningless.
-                raw = None
-                for fraction in (0.6, 0.35):
-                    shortened = _shorten_prompt(user_prompt, fraction)
-                    try:
-                        raw = self.client.complete_json(
-                            system_prompt,
-                            shortened,
-                            temperature=self.settings.temperature,
-                        )
-                        break
-                    except ContextExceededError:
-                        continue
-                if raw is None:
+            if system.generate:
+                # Long-form adapters can split one logical record across
+                # several short model calls. The assembled result still goes
+                # through the exact same validator and atomic apply path.
+                try:
+                    raw = system.generate(task, self.client, self.settings.temperature)
+                except ContextExceededError:
                     return TaskResult(
                         task=task,
                         ok=False,
                         detail=(
-                            "rejected: prompt exceeds this model's loaded context "
-                            "even at 35% — raise the context length in LM Studio"
+                            "rejected: a multi-part prompt exceeds this model's "
+                            "loaded context — raise the context length in LM Studio"
                         ),
                     )
+            else:
+                system_prompt, user_prompt = system.build_prompt(task)
+                if task.last_error:
+                    # This task has been here before. Say what went wrong, in the
+                    # imperative, at the end where it is closest to the answer.
+                    user_prompt += (
+                        f"\n\nYOUR PREVIOUS ATTEMPT WAS REJECTED: {task.last_error}\n"
+                        "Return the whole answer again as strictly valid JSON, fixing "
+                        "exactly that problem. Do not repeat the rejected value."
+                    )
+                try:
+                    raw = self.client.complete_json(
+                        system_prompt, user_prompt, temperature=self.settings.temperature
+                    )
+                except ContextExceededError:
+                    # The prompt did not fit the context length this model was
+                    # loaded with. Retry progressively shorter while preserving
+                    # the identity at the head and instructions at the tail.
+                    raw = None
+                    for fraction in (0.6, 0.35):
+                        shortened = _shorten_prompt(user_prompt, fraction)
+                        try:
+                            raw = self.client.complete_json(
+                                system_prompt,
+                                shortened,
+                                temperature=self.settings.temperature,
+                            )
+                            break
+                        except ContextExceededError:
+                            continue
+                    if raw is None:
+                        return TaskResult(
+                            task=task,
+                            ok=False,
+                            detail=(
+                                "rejected: prompt exceeds this model's loaded context "
+                                "even at 35% — raise the context length in LM Studio"
+                            ),
+                        )
             try:
                 record = system.validate(task, raw)
             except ValidationError as error:

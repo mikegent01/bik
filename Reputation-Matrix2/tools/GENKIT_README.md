@@ -98,7 +98,11 @@ a 45-record run.
 finds the record named by `_generated.sourceRecord`, follows its explicit
 `relatedArticles`, and requires 500–1,000 words of source-bound Waluigi prose
 plus three verbatim excerpts that the validator finds in both the source and
-the dossier. It first classifies the label: people, places, events and aggregate
+the dossier. It does **not** ask a local model to fit all of that into one
+completion: one short call classifies and files metadata, then three separate
+175–325 word calls write Identity, Recorded Operations, and Assessment. The
+sections are independently checked and assembled before the normal whole-record
+validator runs. It first classifies the label: people, places, events and aggregate
 buckets are removed instead of being padded into fictional institutions or
 replaced by low-value “retired after review” paragraphs. A justified alias
 redirect repairs the generated reputation keys; otherwise the invalid key is

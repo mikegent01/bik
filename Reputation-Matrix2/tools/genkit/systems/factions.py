@@ -204,6 +204,11 @@ _TITLE_AFFIX = re.compile(
 )
 
 
+def is_meta_label(proposed: str) -> bool:
+    """True for a report bucket that must never become an organisation."""
+    return bool(_META_LABEL.match(slugify(proposed)))
+
+
 def is_person(proposed: str) -> bool:
     """True when the slug names a member of the cast rather than a group.
 
