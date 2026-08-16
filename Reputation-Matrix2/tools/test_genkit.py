@@ -18,8 +18,50 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from genkit.spec import Task, TaskResult, ValidationError  # noqa: E402
 from genkit.scheduler import PopcornScheduler  # noqa: E402
 from genkit.systems import (  # noqa: E402
-    abilities, crafting, factions, reputation, shop_items, wahwire,
+    abilities, bros_attacks, crafting, factions, reputation, shop_items, wahwire,
 )
+
+# Redirect every write target at a scratch copy before a single test runs.
+# These tests exercise real apply()/resolve() paths, and those paths write to
+# disk: a previous version of this file minted a faction called "The Battle"
+# into data/factionsGenerated.json from the dummy record "X" and committed it.
+# A test suite must not be able to edit canon.
+import shutil  # noqa: E402
+import tempfile  # noqa: E402
+
+_SCRATCH = Path(tempfile.mkdtemp(prefix="genkit-test-"))
+
+
+def _sandbox(module, attr: str) -> None:
+    """Point one module-level path at a copy inside the scratch directory."""
+    real = getattr(module, attr, None)
+    # Loudly, not silently: a renamed constant would otherwise leave the real
+    # file writable again and this guard would quietly stop guarding.
+    if not isinstance(real, Path):
+        raise SystemExit(
+            f"test sandbox: {module.__name__}.{attr} is {type(real).__name__}, "
+            "not a Path — the constant was renamed and canon is unprotected"
+        )
+    fake = _SCRATCH / f"{module.__name__.rsplit('.', 1)[-1]}-{attr}{real.suffix}"
+    if real.exists():
+        shutil.copy2(real, fake)
+    setattr(module, attr, fake)
+
+
+for _mod, _attrs in (
+    (factions, ("GENERATED",)),
+    (wahwire, ("STORE", "PROFILES_FILE", "REACTIONS_FILE")),
+    (abilities, ("SHOP",)),
+    (shop_items, ("SHARD",)),
+    (crafting, ("CRAFTING",)),
+    (bros_attacks, ("SOURCE",)),
+    ):
+    for _attr in _attrs:
+        _sandbox(_mod, _attr)
+
+# factions caches the store on first read; drop anything already loaded so the
+# cache is rebuilt from the sandboxed copy.
+factions._CACHE = None
 
 PASS = FAIL = 0
 
@@ -326,8 +368,11 @@ check("resolving a person reports 'person', and mints nothing",
       factions.resolve("diddy_kong", known) == (None, "person"))
 check("an organisation sharing a person's name still resolves",
       factions.resolve("wario_land", known)[1] in ("exact", "alias", "fuzzy"))
+# Deliberately nonsense: a real-sounding id would eventually be minted by an
+# actual run and this assertion would then flip to "generated" and fail for no
+# reason. ("magikoopa_council" did exactly that.)
 check("a genuinely new group is still created",
-      factions.resolve("magikoopa_council", known)[1] == "create")
+      factions.resolve("the_quixotic_brasswind_conclave", known)[1] == "create")
 
 rep_task = Task(system_id="reputation", key="k", label="l",
                 payload={"kind": "majorBattles", "id": "x", "name": "X"})
@@ -588,6 +633,164 @@ try:
               "no usable comments — each needs an account") is None)
 finally:
     wahwire._load = saved_load
+
+# ------------------------------------------------- bros attacks · paired techniques
+section("bros attacks · a technique must belong to the record it came from")
+
+_EVENT = {
+    "id": "test_event_bridge",
+    "name": "The Bridge at Low Water",
+    "description": "Mossy braced under the span while Green T went over the top "
+                   "and cut the mooring line before the barge could swing.",
+    "participants": [
+        {"id": "mossy", "name": "Mossy", "role": "Heavy Breacher"},
+        {"id": "green_t", "name": "Green T", "role": "Forensics"},
+    ],
+}
+bros_task = Task(system_id="bros_attacks", key="bros:test_event_bridge",
+                 label="bros attack", payload={"event": _EVENT})
+
+
+def _reply(**over):
+    body = {
+        "name": "Low Water Bros Attack",
+        "subtitle": "Mossy braces, Green T cuts",
+        "partnerA": "mossy",
+        "partnerB": "green_t",
+        "type": "Lift and cut",
+        "school": "clearing",
+        "difficulty": "medium",
+        "description": "Mossy sets a braced shoulder under the span and holds it "
+                       "steady while Green T climbs over the top. The cut lands on "
+                       "the mooring line at the moment the barge stops swinging. "
+                       "It works because neither of them counts out loud.",
+        "steps": ["Mossy braces", "Green T climbs", "The cut lands", "Both disengage"],
+        "risks": "If the brace slips early the cutter falls with the line.",
+        "waluigiNote": "WAH! Two people doing one person's job and calling it "
+                       "a technique. Wonderful. Put it on a plaque.",
+        "drill": {
+            "promptDescription": "Hold the brace, then time the cut.",
+            "steps": [
+                {"actor": "A", "title": "Set the brace", "gesture": "down",
+                 "instruction": "Hold until the meter settles into the green zone.",
+                 "icon": "\U0001f9be"},
+                {"actor": "A", "title": "Hold the span", "gesture": "tap",
+                 "instruction": "Tap on the beat to keep the footing steady.",
+                 "icon": "\U0001faa8"},
+                {"actor": "B", "title": "Climb over", "gesture": "up",
+                 "instruction": "Push up as soon as the brace locks in place.",
+                 "icon": "\U0001f9d7"},
+                {"actor": "B", "title": "Cut the line", "gesture": "aim",
+                 "instruction": "Aim into the shrinking window and release.",
+                 "icon": "\u2702\ufe0f"},
+            ],
+        },
+    }
+    body.update(over)
+    return body
+
+
+out = bros_attacks.validate(bros_task, _reply())
+check("a well-formed technique validates", out["name"] == "Low Water Bros Attack")
+check("the source event comes from the task, not the reply",
+      out["sourceEvent"] == "test_event_bridge")
+check("generated bros attacks are written as confirmed canon",
+      out["status"] == "confirmed", out["status"])
+check("participants are stored as ids", out["participants"] == ["mossy", "green_t"])
+check("the drill names both partners by display name",
+      out["drill"]["partnerA"] == "Mossy" and out["drill"]["partnerB"] == "Green T")
+check("no per-attack difficulty numbers are invented — Foundry scales them",
+      out["resource"]["cost"] == 1 and out["difficulty"] == "medium")
+
+for bad, why in (
+    ({"partnerB": "bowser"}, "a character who was not at the event is rejected"),
+    ({"partnerB": "mossy"}, "a technique cannot be performed by one person twice"),
+    ({"description": "They did a thing."}, "a one-line description is rejected"),
+    ({"risks": ""}, "a technique with no failure mode is rejected"),
+    ({"waluigiNote": "wah"}, "a stub waluigi note is rejected"),
+):
+    try:
+        bros_attacks.validate(bros_task, _reply(**bad))
+        check(why, False, "it passed")
+    except ValidationError:
+        check(why, True)
+
+# gestures the Foundry drill cannot score must not reach the module
+crooked = _reply()
+crooked["drill"]["steps"][0]["gesture"] = "spin"
+try:
+    bros_attacks.validate(bros_task, crooked)
+    check("a gesture bros-attacks.js cannot score is rejected", False, "it passed")
+except ValidationError:
+    check("a gesture bros-attacks.js cannot score is rejected", True)
+
+solo = _reply()
+for _s in solo["drill"]["steps"]:
+    _s["actor"] = "A"
+try:
+    bros_attacks.validate(bros_task, solo)
+    check("a drill that leaves one partner idle is rejected", False, "it passed")
+except ValidationError:
+    check("a drill that leaves one partner idle is rejected", True)
+
+# an unknown school is a proposal, not an error — but it has to be argued for
+try:
+    bros_attacks.validate(bros_task, _reply(school="bridgework"))
+    check("a new school with no reason is rejected", False, "it passed")
+except ValidationError:
+    check("a new school with no reason is rejected", True)
+
+minted = bros_attacks.validate(bros_task, _reply(
+    school="bridgework",
+    schoolReason="Techniques performed on unstable spans where one partner is the structure."))
+check("a new school can be minted when it is justified",
+      minted["school"] == "bridgework" and minted["_newSchool"] is not None)
+check("the minted school carries the reason as its summary",
+      "unstable spans" in minted["_newSchool"]["summary"])
+
+# --- repair
+saved_attacks = bros_attacks._attacks
+bros_attacks._attacks = lambda: [{"name": "Low Water Bros Attack"}]
+try:
+    fixed = bros_attacks.repair(bros_task, _reply(),
+                                "duplicate attack name 'Low Water Bros Attack'")
+    check("a duplicate technique name is disambiguated rather than dropped",
+          fixed is not None and fixed["name"] != "Low Water Bros Attack", str(fixed and fixed["name"]))
+    check("the disambiguated name keeps the model's own title in front",
+          fixed is not None and fixed["name"].startswith("Low Water Bros Attack"))
+    revalidated = bros_attacks.validate(bros_task, fixed)
+    check("the repaired technique passes validation on the second look",
+          revalidated["name"] == fixed["name"])
+finally:
+    bros_attacks._attacks = saved_attacks
+
+named = bros_attacks.repair(
+    bros_task, _reply(partnerA="Mossy", partnerB="Green T"),
+    "partners must come from the event's participants ['green_t', 'mossy']")
+check("a partner given by display name is resolved to an id, not rejected",
+      named is not None and named["partnerA"] == "mossy" and named["partnerB"] == "green_t",
+      str(named and (named["partnerA"], named["partnerB"])))
+
+check("a thin description is not padded out in code",
+      bros_attacks.repair(bros_task, _reply(description="Short."),
+                          "description is too thin") is None)
+check("an outsider is not silently swapped for somebody who was there",
+      bros_attacks.repair(
+          bros_task, _reply(partnerB="bowser"),
+          "partners must come from the event's participants ['green_t', 'mossy']") is None)
+
+# --- task construction reads real events
+tasks = bros_attacks.next_tasks(3)
+check("tasks are built from events with two or more participants", len(tasks) == 3, str(len(tasks)))
+check("each task carries the whole event record for the prompt",
+      all(len(t.payload["event"]["participants"]) >= 2 for t in tasks))
+_covered = bros_attacks._covered_events()
+check("events that already have a technique are not offered again",
+      all(t.payload["event"]["id"] not in _covered for t in tasks))
+sys_prompt, user_prompt = bros_attacks.build_prompt(tasks[0])
+check("the prompt lists only the participants the record names",
+      all(p["id"] in user_prompt for p in tasks[0].payload["event"]["participants"][:2]))
+check("the prompt offers the existing schools", "clearing" in user_prompt)
 
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)
