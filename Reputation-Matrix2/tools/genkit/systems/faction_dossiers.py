@@ -651,10 +651,10 @@ SPEC = SystemSpec(
         "Review reputation-minted faction stubs against their source articles; "
         "write 500-1000 word dossiers or remove misfiled people/places/labels."
     ),
-    # Dossiers are cleanup for reputation output, not optional decoration.
-    # Finish this queue before bulk shop/WAHwire generation can fill the diff
-    # with unrelated records and bury the work the operator actually requested.
-    stage=0,
+    # Part of the normal popcorn cycle. Unsafe bulk systems remain disabled,
+    # so dossiers can now interleave with the other reviewed stage-1 adapters
+    # instead of monopolising an all-systems GUI run.
+    stage=1,
     next_tasks=next_tasks,
     build_prompt=build_prompt,
     generate=faction_dossier_sections.generate,

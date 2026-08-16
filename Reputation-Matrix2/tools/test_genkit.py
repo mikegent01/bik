@@ -514,8 +514,9 @@ check("and the people are reported rather than silently absorbed",
 # ------------------------------------------------------ faction dossier pass
 section("faction dossiers · sources before prose")
 
-check("faction review gates unrelated bulk generation",
-      faction_dossiers.SPEC.stage == 0, str(faction_dossiers.SPEC.stage))
+check("faction review participates in the normal all-systems popcorn cycle",
+      faction_dossiers.SPEC.stage == 1 and faction_dossiers.SPEC.enabled,
+      f"stage={faction_dossiers.SPEC.stage} enabled={faction_dossiers.SPEC.enabled}")
 stub_store = faction_dossiers._store()["factions"]
 synthetic_stub = {
     "description": "Named in a record. No dossier has been written yet.",
@@ -956,8 +957,16 @@ section("repair · full coverage across the registry")
 
 from genkit.systems import all_systems  # noqa: E402
 
-missing = [s.id for s in all_systems() if s.repair is None]
+registry = all_systems()
+missing = [s.id for s in registry if s.repair is None]
 check("every registered system has a repair hook", not missing, ", ".join(missing))
+enabled_ids = {system.id for system in registry if system.enabled}
+check("normal all-systems runs include faction dossiers",
+      "faction-dossiers" in enabled_ids)
+check("rejected bulk systems stay registered but out of normal runs",
+      "shop_items" not in enabled_ids
+      and "wahwire-author" not in enabled_ids
+      and "wahwire-discuss" not in enabled_ids)
 
 # --- shop items: a duplicate name goes BACK TO THE MODEL, it is not renamed
 # in code. Appending "Mark II" in the repair hook is what shipped 412 suffixed

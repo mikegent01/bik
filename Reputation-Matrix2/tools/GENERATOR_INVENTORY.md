@@ -57,8 +57,9 @@ calls, and must quote three verifiable excerpts from those articles. Misfiled
 labels become minimal non-rendering tombstones rather than “not a faction”
 filler. Keeping each reviewed key in place also prevents Git from presenting the
 next surviving faction as though it replaced the removed one. Reputation is
-redirected only when the evidence supports a canonical target. This cleanup
-runs at stage 0 so unrelated bulk generation cannot bury it in the diff.
+redirected only when the evidence supports a canonical target. This adapter is
+part of the normal stage-1 popcorn cycle. Unsafe bulk shop/WAHwire adapters are
+disabled rather than forcing faction work to monopolise an all-systems run.
 
 ---
 

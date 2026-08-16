@@ -44,7 +44,7 @@ rather than copying a total from this document. The cycle currently includes:
 | stage | id | what it does |
 |---|---|---|
 | 0 | `wahwire-prune` | QC inherited posts, repair dead links, mark canon or retired |
-| 0 | `faction-dossiers` | review reputation-minted faction stubs from their source and linked articles; write a quoted 500–1,000 word dossier or remove a misfile |
+| 1 | `faction-dossiers` | review reputation-minted faction stubs from their source and linked articles; write a quoted 500–1,000 word dossier or remove a misfile |
 | off | `shop_items` | **disabled:** hour-run stock had corrupt icons, out-of-world text, and contradictory mechanics |
 | 1 | `crafting` | classify recipes the Forge filter cannot see |
 | 1 | `abilities` | fill the emptiest class/level cells above level 1 |
@@ -112,7 +112,8 @@ A justified alias redirect repairs the generated reputation keys; otherwise the
 invalid key is removed. Full dossiers carry `_generatedDossier` and the exact
 source article IDs used.
 
-Run just this pass with:
+A normal `python3 tools/generate_all.py` or GUI run includes this pass in the
+stage-1 popcorn cycle. To isolate it for diagnosis, use:
 
 ```bash
 python3 tools/generate_all.py --only faction-dossiers
@@ -164,9 +165,11 @@ without tkinter (including this sandbox's), and a browser page also works over
 SSH, where a native window does not. `--web` forces the dashboard.
 
 The panel inherits everything the command line asked for: endpoint, model,
-workers, limit, temperature, dry-run, and especially `--only`. Before this was
-fixed, `python3 tools/generate_all.py --only faction-dossiers --gui` opened a
-blank Only field and the Start button silently launched every enabled system.
+workers, limit, temperature, dry-run, and especially `--only`. Leave **Only**
+blank to run every enabled system—faction dossiers are included automatically
+and interleave in popcorn order. Set it only to isolate a subsystem for
+troubleshooting. Before this was fixed, a command-line `--only` value opened as
+blank and the Start button silently changed the requested scope.
 `--host 0.0.0.0` binds beyond loopback to reach the panel from another machine
 (this also implies `--web`, since a native window cannot serve one).
 
