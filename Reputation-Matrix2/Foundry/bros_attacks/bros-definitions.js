@@ -702,5 +702,161 @@ const BROS_DEFINITIONS = [
         "icon": "🔄"
       }
     ]
+  },
+  {
+    "id": "waluigi_s_distraction_bros_attack_variant",
+    "name": "Waluigi's Distraction Bros Attack (Variant)",
+    "school": "misdirection",
+    "partnerA": "Waluigi",
+    "partnerB": "Wario",
+    "description": "Waluigi creates distractions to allow Wario and Markop to steal the Gold Dragon eggs.",
+    "brief": "Waluigi uses his skills as an Arcane Thief to distract the ancient red dragon and its guards. He creates a series of illusions, misdirects their attention, and orchestrates a chaotic scene that allows Wario and Markop to slip past unnoticed and steal the eggs.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Shadow Illusion",
+        "instruction": "Tap the screen to create a shadow that momentarily blinds the dragon.",
+        "gesture": "tap",
+        "icon": "👁"
+      },
+      {
+        "actor": "B",
+        "title": "Cover Fire",
+        "instruction": "Aim at the dragon to provide cover while Wario and Markop steal the eggs.",
+        "gesture": "aim",
+        "icon": "🔫"
+      },
+      {
+        "actor": "A",
+        "title": "Auditory Deception",
+        "instruction": "Lower your shield to cast a spell that deafens the dragon momentarily.",
+        "gesture": "down",
+        "icon": "⬇️"
+      },
+      {
+        "actor": "B",
+        "title": "Stealth Steal",
+        "instruction": "Run right while Wario grabs the eggs and Markop provides backup.",
+        "gesture": "right",
+        "icon": "⚗️"
+      }
+    ]
+  },
+  {
+    "id": "misdirection_bros_attack_second_form",
+    "name": "Misdirection Bros Attack (Second Form)",
+    "school": "misdirection",
+    "partnerA": "Archie Miser",
+    "partnerB": "Bones",
+    "description": "Partner A creates a diversion while Partner B moves past unnoticed.",
+    "brief": "Archie Miser and Bones coordinated their movements to create a commotion that drew attention away from Luigi's escape. Their distraction allowed Agent L to slip past unnoticed, ensuring his continued freedom.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Create Distraction",
+        "instruction": "Tap the wall three times to signal.",
+        "gesture": "tap",
+        "icon": "👆"
+      },
+      {
+        "actor": "B",
+        "title": "Slip Past",
+        "instruction": "Move right as soon as A signals.",
+        "gesture": "right",
+        "icon": "➡️"
+      },
+      {
+        "actor": "A",
+        "title": "Maintain Noise",
+        "instruction": "Raise your voice to keep the distraction going.",
+        "gesture": "up",
+        "icon": "🔊"
+      },
+      {
+        "actor": "B",
+        "title": "Proceed Safely",
+        "instruction": "Crouch down as you pass by.",
+        "gesture": "down",
+        "icon": "👇"
+      }
+    ]
+  },
+  {
+    "id": "shieldwork_bros_attack_luigi_mario",
+    "name": "Shieldwork Bros Attack Luigi Mario",
+    "school": "shieldwork",
+    "partnerA": "Luigi",
+    "partnerB": "Dr. Mario / 'Uncle Dario'",
+    "description": "A surgical drill simulation where stability and precision are key.",
+    "brief": "Luigi, in a critical condition himself, held the surgical instruments steady while Dr. Mario operated to save his life. The coordination was crucial to prevent any missteps that could further endanger Luigi.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Stabilize",
+        "instruction": "Partner B completes the cut with precision.",
+        "gesture": "tap",
+        "icon": "👆"
+      },
+      {
+        "actor": "B",
+        "title": "Precision Cut",
+        "instruction": "Maintain steady pressure while completing the incision.",
+        "gesture": "aim",
+        "icon": "👍"
+      },
+      {
+        "actor": "A",
+        "title": "Support",
+        "instruction": "Partner B finds the right angle for the blade.",
+        "gesture": "down",
+        "icon": "📐"
+      },
+      {
+        "actor": "B",
+        "title": "Adjust",
+        "instruction": "Fine-tune the cut with steady hands.",
+        "gesture": "right",
+        "icon": "💉"
+      }
+    ]
+  },
+  {
+    "id": "feyward_book_exchange_bros_attack",
+    "name": "Feyward Book Exchange Bros Attack",
+    "school": "clearing",
+    "partnerA": "Hjumpik",
+    "partnerB": "Waluigi",
+    "description": "Simulate reading a difficult book together.",
+    "brief": "Hjumpik and Waluigi read the Feyward Book of Many Things together, with Hjumpik ensuring that the text is correctly translated into Sylvan for Waluigi to understand. Waluigi then confirms his reading, clearing any misunderstandings.",
+    "steps": [
+      {
+        "actor": "A",
+        "title": "Signal pause",
+        "instruction": "pause for translation",
+        "gesture": "tap",
+        "icon": "📚"
+      },
+      {
+        "actor": "B",
+        "title": "Read aloud",
+        "instruction": "clearly articulate in Sylvan",
+        "gesture": "aim",
+        "icon": "✍️"
+      },
+      {
+        "actor": "A",
+        "title": "Correct pronunciation",
+        "instruction": "adjust Waluigi's pronunciation",
+        "gesture": "right",
+        "icon": "🗣️"
+      },
+      {
+        "actor": "B",
+        "title": "Confirm understanding",
+        "instruction": "both agree on the meaning",
+        "gesture": "up",
+        "icon": "✔️"
+      }
+    ]
   }
 ];

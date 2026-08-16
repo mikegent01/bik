@@ -9240,5 +9240,5151 @@ export const ITEMS_WORLD_GENERATED = {
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-16T02:28:32+00:00"
     }
+  },
+  "wz_gen_mythic_0068": {
+    "id": "wz_gen_mythic_0068",
+    "name": "Chrona-Quasar's Singularity",
+    "description": "A shimmering quantum singularity that can be wielded like a scepter, this item allows its user to manipulate spacetime within a localized area. However, it comes with the risk of destabilizing reality nearby.",
+    "price": 65000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "🌟",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires mastery over time and space manipulation to wield without catastrophic consequences.",
+    "effectDetails": [
+      {
+        "title": "Temporal Anomaly",
+        "rules": "Create a 30-foot radius temporal distortion for up to 5 rounds. During this duration, all attacks within the area must roll 2d6 against AC +10; on a failure, they are redirected back into their originator."
+      },
+      {
+        "title": "Reality Shift",
+        "rules": "Once per long rest, the wielder can attempt to shift reality by swapping an object or creature within sight with one of similar size and weight. The swap lasts for 1d4+2 turns but causes a 5% chance of permanent dimensional anomaly in the swapped area."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Temporal Anomaly: Up to 5 rounds; Reality Shift: Once per long rest",
+      "endsWhen": "Temporal Anomaly ends when time returns to normal; Reality Shift ends naturally after its duration.",
+      "charges": "Reality Shift has a 1 recharge per long rest. Temporal Anomaly can be used multiple times per short or long rest."
+    },
+    "warning": "Each use of the Reality Shift ability has a cumulative 5% chance (increasing with each use) that it will permanently tear apart the fabric of reality within a 20-foot radius, rendering all objects and creatures in that area inert and unrepairable.",
+    "vendorReason": "Wario stocks this item despite its risks because it's the most talked-about novelty in the market and can draw in curious buyers willing to gamble on its whimsical effects.",
+    "shippingDetail": "The Chrona-Quasar's Singularity is shipped encased in a reinforced, time-stabilized bubble, ensuring it doesn't destabilize the warehouse during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:05:59+00:00"
+    }
+  },
+  "wz_gen_uncommon_0012": {
+    "id": "wz_gen_uncommon_0012",
+    "name": "Chrona-Jump's Leap",
+    "description": "This sleek, glowing loincloth allows the wearer to teleport between two previously marked locations. The leap is swift but imprecise, often landing you within a few feet of your intended spot.",
+    "price": 350,
+    "category": "equipment",
+    "rarity": "uncommon",
+    "icon": "-Compatible with Wario's wacky world :shoes:",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a decent grasp of spatial manipulation.",
+    "effectDetails": [
+      {
+        "title": "Teleport Leap",
+        "rules": "Once per long rest, the wearer can teleport up to 50 feet to a marked location. The target must be visible and within line of sight."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The effect completes upon arrival at the destination.",
+      "charges": "1/long rest"
+    },
+    "warning": "Teleporting with this loincloth is like a bungee jump; you land close enough to laugh about it, but far enough away to regret it.",
+    "vendorReason": "Wario stocks it because his customers are always looking for shortcuts, no matter how wacky.",
+    "shippingDetail": "Shipping is via warp pipe, naturally.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:06:03+00:00"
+    }
+  },
+  "wz_gen_common_0069": {
+    "id": "wz_gen_common_0069",
+    "name": "Time-Traveling Toffee",
+    "description": "A sweet treat that allows you to briefly travel forward a few seconds in time, only to return exactly where you left. It's delightful yet unpredictable.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🧐",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "It's a bit of a tricky snack, requiring some coordination to use properly.",
+    "effectDetails": [
+      {
+        "title": "Temporal Leap",
+        "rules": "Consume the Toffee; you gain advantage on one ability check of your choice. Lasts for 1 round."
+      },
+      {
+        "title": "Time Warp",
+        "rules": "After consuming, you are teleported forward in time by 5 seconds and return immediately. No action is required."
+      }
+    ],
+    "usage": {
+      "activation": "Consuming",
+      "duration": "1 round after successful check or 5 seconds of travel",
+      "endsWhen": "Effect duration ends or the caster is knocked unconscious",
+      "charges": "Unlimited, recharged on a long rest"
+    },
+    "warning": "Traveling too much might make you lose track of time and miss your next meal.",
+    "vendorReason": "Who doesn't love a little chaotic candy? Wario always has something strange to offer!",
+    "shippingDetail": "Sent via warp zone, arrives in a puff of smoke!",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:06:17+00:00"
+    }
+  },
+  "wz_gen_epic_0069": {
+    "id": "wz_gen_epic_0069",
+    "name": "Temporal Whirlwind Wand",
+    "description": "This ornate wand can disrupt an entire combat encounter, allowing you to pause time for a moment and rearrange the battlefield. However, its effect is only as reliable as your aim.",
+    "price": 5000,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🔄⚡",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a firm grasp of spatial manipulation and timing.",
+    "effectDetails": [
+      {
+        "title": "Battlefield Reconfiguration",
+        "rules": "At the start of an encounter, you can use your action to pause time for up to 3 rounds. During this time, all creatures are teleported to new locations within a 15-foot radius from their original positions."
+      },
+      {
+        "title": "Temporal Precision",
+        "rules": "If you hit with a melee attack during the duration of Temporal Whirlwind, all other attacks made by enemies in that round have disadvantage. This effect lasts until the end of your next turn."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "up to 3 rounds per use",
+      "endsWhen": "the end of your next turn",
+      "charges": "2 uses, recharged after a long rest"
+    },
+    "warning": "Pausing time has unpredictable effects on the battlefield; allies may be teleported into dangerous situations.",
+    "vendorReason": "Wario knows that once you've seen the chaos this wand can create, there's no turning back.",
+    "shippingDetail": "Each shipment includes a 'time-stabilizing' charm to mitigate some of the risks.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:06:27+00:00"
+    }
+  },
+  "wz_gen_legendary_0069": {
+    "id": "wz_gen_legendary_0069",
+    "name": "Eternity's Chronal Sovereign CMLX",
+    "description": "A timepiece that is said to have been crafted by the most skilled hands of the Timekeepers. It grants the ability to manipulate moments in time, but at a cost.",
+    "price": 17500,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "🌍",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires mastery over temporal magic and an understanding of the fabric of reality.",
+    "effectDetails": [
+      {
+        "title": "Temporal Reshuffle",
+        "rules": "As a bonus action, you can realign a moment in time for up to 1 round, affecting all creatures within 30 feet. This reshuffling causes creatures to experience a jarring shift in their timeline."
+      },
+      {
+        "title": "Chronal Echo",
+        "rules": "For every minute this item is used consecutively, it allows you to create a 5-foot-wide chronal echo that lasts for 1d4+3 rounds. Creatures within the echo are subject to a delayed perception of events."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "up to 1 round per use, with an additional effect lasting 1d4+3 rounds per minute used consecutively",
+      "endsWhen": "the user intentionally ends the effect or the duration runs out",
+      "charges": "5 uses per long rest"
+    },
+    "warning": "The realignment of moments can cause unintended and unpredictable shifts in time, potentially affecting even the caster.",
+    "vendorReason": "Wario acquired this item to cater to those who seek a deeper connection with their past or future, though he advises caution due to its volatile nature.",
+    "shippingDetail": "Delivered by Chrona-Express, ensuring it arrives at your doorstep just in time for you to make history.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:06:39+00:00"
+    }
+  },
+  "wz_gen_mythic_0069": {
+    "id": "wz_gen_mythic_0069",
+    "name": "Temporal Rift Rapscallion",
+    "description": "A mischievous pocket dimension that warps time, allowing the user to step into a random moment within their own timeline. The rift is unpredictable and can send you back by decades or forward by minutes.",
+    "price": 75000,
+    "category": "premium",
+    "rarity": "mythic",
+    "icon": "-Compatible-With-Time-Traveling-Pizza-Cutting-Slash-Banana-Splitting-(╯°□°）╯︵ ┻━┻",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires intimate knowledge of timelines and an ability to survive temporal disorientation.",
+    "effectDetails": [
+      {
+        "title": "Temporal Displacement",
+        "rules": "Stepping into the rift sends you up to 50 years back or forward at random."
+      },
+      {
+        "title": "Unpredictable Reentrance",
+        "rules": "You reemerge from the rift within a 10-minute duration, with no guarantee of returning to your previous location."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous entry; unpredictable reemergence",
+      "endsWhen": "User steps back into stable time.",
+      "charges": "5 uses per day. Recharge rate is determined by the user's Chronal Stabilization Index."
+    },
+    "warning": "Use near valuable items or people at your own risk, as you cannot control when or where you reappear.",
+    "vendorReason": "Wario stocks it because it's a guaranteed way to send customers back in time to relive their childhoods.",
+    "shippingDetail": "Temporal rift included. May require additional cosmic flux for stable travel.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:06:49+00:00"
+    }
+  },
+  "wz_gen_epic_0070": {
+    "id": "wz_gen_epic_0070",
+    "name": "Chrona-Dimensional's Disarray",
+    "description": "This coin-sized device disrupts the spatial alignment of combat, making your foes stagger and misstep. However, it also causes you to accidentally swap places with your allies.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "{return ticket}",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a higher understanding of dimensional anomalies to wield safely.",
+    "effectDetails": [
+      {
+        "title": "Spatial Misplacement",
+        "rules": "Enemies are knocked prone and take a -2 penalty to their next attack roll. Players involuntarily swap places with an adjacent ally."
+      },
+      {
+        "title": "Temporal Glitch",
+        "rules": "The duration of the effect is 1d4 rounds, determined when activated."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "1d4 rounds",
+      "endsWhen": "The end of your next turn.",
+      "charges": "1 charge, recharges after a long rest."
+    },
+    "warning": "Friendly fire is not an option; swapping allies can result in them being targeted by attacks meant for you.",
+    "vendorReason": "Wario finds it amusing how this item could turn the tide of battle with such chaotic results.",
+    "shippingDetail": "Delivered by a mischievous WarioBot that might accidentally teleport to your neighbor's doorstep.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:06:58+00:00"
+    }
+  },
+  "wz_gen_common_0070": {
+    "id": "wz_gen_common_0070",
+    "name": "Laggy Ledger",
+    "description": "This ancient ledger records all past events with uncanny accuracy, but only for a day at a time.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🔍",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Suitable for adventurers who have faced the perils of time travel and need to verify recent history.",
+    "effectDetails": [
+      {
+        "title": "Chronological Check",
+        "rules": "Roll a d20. On a success, you may recall one event from the past hour with perfect clarity."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "instantaneous effect",
+      "endsWhen": "the next day when you use it again or fall asleep",
+      "charges": "1 use per long rest"
+    },
+    "warning": "The ledger is prone to malfunctions if used more than once a day.",
+    "vendorReason": "Wario stocks this because it's useful for those who need to verify recent events without relying on unreliable witnesses.",
+    "shippingDetail": "Shipped with a time-stamped envelope, ensuring the ledger arrives at its destination as fresh as possible.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:07:06+00:00"
+    }
+  },
+  "wz_gen_legendary_0070": {
+    "id": "wz_gen_legendary_0070",
+    "name": "Chrona-Annihilation's Void",
+    "description": "A ring said to command the void itself, it can devour any reality within its radius, but only for a fleeting moment.",
+    "price": 25000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "VOID",
+    "stock": 1,
+    "levelRequirement": 16,
+    "levelRequirementReason": "Only those who have faced annihilation themselves can wield such an item with enough insight to not be consumed by the void.",
+    "effectDetails": [
+      {
+        "title": "Void Devourer",
+        "rules": "Target within 30 feet must make a DC 25 Dexterity saving throw or take 1d6+4 force damage and be restrained for 1 round. The ring consumes 2 charges each use."
+      },
+      {
+        "title": "Temporal Echo",
+        "rules": "For every point of damage this item inflicts, you gain advantage on one skill check per day, but the void's echo corrupts your next action into a random reflexive action (as if affected by an accidental Slippery Slide)."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round per charge used",
+      "endsWhen": "The restrained target is freed or the ring's charges are depleted",
+      "charges": "5 charges, recharged on a long rest"
+    },
+    "warning": "Using this item corrupts your next action into a random reflexive action. This can range from a simple sneeze to an instant teleport back to Wario's mailroom.",
+    "vendorReason": "Wario stocks it because he believes in the inevitability of chaos and thinks someone, somewhere, will use it for good—or at least end up in a funny situation.",
+    "shippingDetail": "The ring ships in a box marked 'Perilous but Potentially Useful,' guaranteed to arrive with the original packaging intact.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:07:09+00:00"
+    }
+  },
+  "wz_gen_mythic_0070": {
+    "id": "wz_gen_mythic_0070",
+    "name": "Eternity's Chronal Overdrive Mark II",
+    "description": "This sleek, glowing artifact allows you to manipulate time within a small radius. It bends the rules of causality but at great personal cost.",
+    "price": 50000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "⚡️",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a high degree of temporal control and mental fortitude.",
+    "effectDetails": [
+      {
+        "title": "Temporal Surge",
+        "rules": "For the next round, you gain advantage on all saving throws and can take an additional action."
+      },
+      {
+        "title": "Temporal Drain",
+        "rules": "After each use, roll a d12. On a 9 or higher, suffer a -2 penalty to one ability score for 1d4 hours."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 round per use",
+      "endsWhen": "The end of your next turn after activation",
+      "charges": "3 charges. Recharged after a long rest."
+    },
+    "warning": "Each use saps your temporal aura, risking a cascade effect that could unravel the fabric of time around you.",
+    "vendorReason": "Wario knows a price this high is worth it for someone seeking to bend reality to their will.",
+    "shippingDetail": "This item must be personally delivered by Wario and comes with a stern warning about potential paradoxes.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:07:59+00:00"
+    }
+  },
+  "wz_gen_epic_0071": {
+    "id": "wz_gen_epic_0071",
+    "name": "Temporal Whirlwind Whip",
+    "description": "This whip is a dance of time and chaos, allowing you to create temporal whirlwinds that disrupt enemies' movements.",
+    "price": 6000,
+    "category": "equipment",
+    "rarity": "epic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires mastery over basic combat and an understanding of timing.",
+    "effectDetails": [
+      {
+        "title": "Temporal Disruption",
+        "rules": "On a successful hit, you create a whirlwind that imposes disadvantage on all enemies' attacks within 5 feet for the next 2 rounds."
+      },
+      {
+        "title": "Time Fracture",
+        "rules": "As an action, you can fracture time around you. All creatures within 10 feet must make a DC 18 Dexterity saving throw or be knocked prone and disoriented until the start of your next turn."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "2 rounds for Temporal Disruption, instantaneous effect for Time Fracture",
+      "endsWhen": "The duration ends naturally or when you use another action.",
+      "charges": "3 uses per long rest"
+    },
+    "warning": "Excessive use can cause temporal distortions in the immediate area, requiring a DC 15 Intelligence (History) check each day to stabilize them.",
+    "vendorReason": "Wario sells this because it's a wild hit among chaotic fighters who enjoy creating chaos and dealing with its aftermath.",
+    "shippingDetail": "The item arrives wrapped in temporal flux that takes days to disintegrate, ensuring the item is potent upon arrival.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:08:10+00:00"
+    }
+  },
+  "wz_gen_common_0071": {
+    "id": "wz_gen_common_0071",
+    "name": "Time-Skip Satchel",
+    "description": "A small bag with a hidden zipper. Once activated, it teleports you to a random time in the past or future for an hour.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🔍",
+    "stock": 3,
+    "levelRequirement": 3,
+    "levelRequirementReason": "Requires at least Basic knowledge of Chronal Theory.",
+    "effectDetails": [
+      {
+        "title": "Temporal Jump",
+        "rules": "Teleports user up to 10 minutes into the past or future."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 hour",
+      "endsWhen": "Time runs out.",
+      "charges": "One use per day"
+    },
+    "warning": "The destination time is random and cannot be controlled. The user may end up in a paradox or a dangerous era.",
+    "vendorReason": "Wario stocks this because it's cheaper than a full Chronal Anachronism but still offers an exciting burst of nostalgia for the past or excitement for the future.",
+    "shippingDetail": "Delivered by Wario's personal time-traveling courier service, guaranteed to arrive with a delay!",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:08:15+00:00"
+    }
+  },
+  "wz_gen_uncommon_0013": {
+    "id": "wz_gen_uncommon_0013",
+    "name": "Quantum Quirk",
+    "description": "This sleek watch looks like a standard timepiece until activated, when it warps the wearer's perception of time by minutes. It’s perfect for those moments where you need to appear busy or hurried.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "🔄",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a bit of finesse and understanding of how time manipulation can be misinterpreted in social situations.",
+    "effectDetails": [
+      {
+        "title": "Perceptual Warp",
+        "rules": "When worn, the user's next action is considered to have already been completed. This effect lasts for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 round",
+      "endsWhen": "the wearer completes their next action",
+      "charges": "3 uses per long rest"
+    },
+    "warning": "The watch only works in social settings, and overuse may lead to a reputation as someone who is perpetually late or rushed.",
+    "vendorReason": "Wario stocks it because customers often need subtle ways to manage their time without actually moving forward.",
+    "shippingDetail": "Delivered by a mischievous poltergeist who insists on knowing the exact moment you plan to use it.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:08:23+00:00"
+    }
+  },
+  "wz_gen_legendary_0071": {
+    "id": "wz_gen_legendary_0071",
+    "name": "Chrona-Destiny's Nexus",
+    "description": "A swirling vortex of time and fate, this device allows the wielder to glimpse multiple destinies and choose one. However, it also binds its user to the chosen path.",
+    "price": 25000,
+    "category": "premium",
+    "rarity": "legendary",
+    "icon": ":clock10:",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a deep understanding of temporal mechanics and foresight to operate effectively.",
+    "effectDetails": [
+      {
+        "title": "Fateweave Vision",
+        "rules": "The user can make a DC 25 Wisdom (Insight) check. On a success, they gain insight into two possible future events, each with a +3 modifier."
+      },
+      {
+        "title": "Pathbound",
+        "rules": "Once per day, the wielder can choose one destiny and become irrevocably bound to it. This grants advantage on all actions related to that path but requires them to follow its course without deviation."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the end of the user's next turn",
+      "endsWhen": "The user's next turn ends",
+      "charges": "One daily charge"
+    },
+    "warning": "Binding to a chosen destiny removes all options and imposes strict adherence, potentially leading to unforeseen consequences.",
+    "vendorReason": "Wario stocks it because its unique mechanics make for an entertaining spectacle in the marketplace, though few can afford or understand its true value.",
+    "shippingDetail": "Shipped by time-traveling courier; arrives via a warp rift that closes as soon as the package is delivered.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:08:34+00:00"
+    }
+  },
+  "wz_gen_mythic_0071": {
+    "id": "wz_gen_mythic_0071",
+    "name": "Eternity's Temporal Sovereign",
+    "description": "This scepter grants the wielder the ability to alter the flow of time around them, bending reality itself for brief moments. However, using it too often can warp spacetime, causing unpredictable temporal anomalies.",
+    "price": 75000,
+    "category": "premium",
+    "rarity": "mythic",
+    "icon": "-Methods;",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Only those with significant experience in managing the fabric of time are capable of wielding this scepter without collapsing the timeline.",
+    "effectDetails": [
+      {
+        "title": "Temporal Manipulation",
+        "rules": "Can alter up to a 30-foot radius around the wielder for 1 round. Each use requires 2 charges and restores all charges after 8 hours."
+      },
+      {
+        "title": "Warping Spacetime",
+        "rules": "Each failed use within an hour has a 5% chance of creating a temporal anomaly, reducing all time manipulation abilities by 10 feet for 1d4 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 round per use",
+      "endsWhen": "At the end of its duration or when the wielder moves out of range.",
+      "charges": "5 charges, recharged after 8 hours"
+    },
+    "warning": "Frequent misuse can result in permanent spatial distortion and could potentially cause the collapse of the timeline.",
+    "vendorReason": "Wario stocks this item because it's a rare chance for players to experience the ultimate power over time without directly tampering with their own characters.",
+    "shippingDetail": "Shipped via time-displaced express courier, delivered to your location by a temporal rift.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:08:46+00:00"
+    }
+  },
+  "wz_gen_common_0072": {
+    "id": "wz_gen_common_0072",
+    "name": "Skip-Loop Spatula II",
+    "description": "This spatula allows you to skip a turn of cooking, but the food tastes slightly worse for it.",
+    "price": 25,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "杓",
+    "stock": 3,
+    "levelRequirement": 1,
+    "levelRequirementReason": "Even the simplest cook can use this spatula.",
+    "effectDetails": [
+      {
+        "title": "Skip Turn",
+        "rules": "You may skip your next turn to prepare food, but the resulting dish deals -1 damage."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "instantaneous",
+      "endsWhen": "the action is completed",
+      "charges": "unlimited"
+    },
+    "warning": "Using this twice in a day requires you to cook double the food.",
+    "vendorReason": "Wario finds that customers often need a shortcut for cooking in their rush.",
+    "shippingDetail": "Shipped with a free pair of Skip-Loop Loafers.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:08:55+00:00"
+    }
+  },
+  "wz_gen_epic_0072": {
+    "id": "wz_gen_epic_0072",
+    "name": "Chrona-Dimensional's Glitch",
+    "description": "A belt that, when activated, causes all combatants in the next encounter to become temporarily disoriented. It snares them in a web of spatial anomalies, effectively halting the action.",
+    "price": 6000,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "-Compatible_with_all_versions-120537.png",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a fair amount of experience to manage such a volatile item.",
+    "effectDetails": [
+      {
+        "title": "Spatial Disorientation",
+        "rules": "All adjacent creatures within 5 feet must succeed on a DC 18 Constitution saving throw or be stunned for 1 round."
+      },
+      {
+        "title": "Stability Feedback",
+        "rules": "If the wielder is hit by an attack while this effect lasts, they take an additional 3d6 force damage and lose one charge. Requires 2 charges to activate."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Until the end of the next encounter or until the wearer is hit by an attack.",
+      "endsWhen": "The end of the current encounter or when the wearer takes damage from an attack.",
+      "charges": "3 charges, recharged after a long rest."
+    },
+    "warning": "Excessive use can cause the wielder to fall into an endless loop of spatial anomalies, requiring immediate medical attention and a day-long readjustment ritual.",
+    "vendorReason": "Wario finds it amusing how this belt turns every fight into a chaotic dance of glitches.",
+    "shippingDetail": "Delivered by a mischievous warp vortex that sometimes sends the package to the wrong dimension.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:09:18+00:00"
+    }
+  },
+  "wz_gen_mythic_0072": {
+    "id": "wz_gen_mythic_0072",
+    "name": "Chrona-Eclipse's Paradox",
+    "description": "This bizarre pocket watch can rewind time for the wearer, but only by exacting a severe physical toll.",
+    "price": 65000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "✨",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a seasoned adventurer to handle its unpredictable temporal effects without mishap.",
+    "effectDetails": [
+      {
+        "title": "Temporal Rewind",
+        "rules": "The user may rewind time by one hour, but suffers 2d6+4 damage for each use."
+      },
+      {
+        "title": "Recoil",
+        "rules": "After using the watch, there is a 10% chance that the user's age increases by 5 years permanently."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Permanent effect from age increase; time rewound duration one hour",
+      "endsWhen": "Time runs forward again or the watch breaks",
+      "charges": "1 use, recharged when the user reaches a new level"
+    },
+    "warning": "The temporal distortion can cause unpredictable side effects, including but not limited to reality warping.",
+    "vendorReason": "Wario sells it because it's a guaranteed conversation starter and can't be easily replicated.",
+    "shippingDetail": "Shipped via warp-capable courier from the Time Warp Express Depot.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:09:36+00:00"
+    }
+  },
+  "wz_gen_legendary_0072": {
+    "id": "wz_gen_legendary_0072",
+    "name": "Chrona-Paradox's Nexus",
+    "description": "A pocket-sized device that can rewind time by one minute, affecting only you and a willing creature within reach. However, it requires careful calibration or it will cause temporal feedback.",
+    "price": 15000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 14,
+    "levelRequirementReason": "Advanced users are needed to properly calibrate the device for optimal use without causing paradoxes.",
+    "effectDetails": [
+      {
+        "title": "Temporal Rewind",
+        "rules": "Causes time to regress by one minute, affecting both the user and a willing creature within reach. Requires a bonus action."
+      },
+      {
+        "title": "Temporal Feedback",
+        "rules": "With each use, there is a 10% chance that the device will cause a temporal feedback, reversing the effect on the user for 2d4 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "One minute of time rewound",
+      "endsWhen": "The effect naturally ends when one minute has passed.",
+      "charges": "5 charges, recharges after a long rest"
+    },
+    "warning": "Exceeding the intended use may result in unpredictable temporal anomalies and consequences.",
+    "vendorReason": "Wario stocks this item because it's a rare find that can be used for practical and comedic situations alike.",
+    "shippingDetail": "The Chrona-Paradox's Nexus is carefully packaged to ensure it arrives intact, even through the time loops of Warizon.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:09:51+00:00"
+    }
+  },
+  "wz_gen_uncommon_0014": {
+    "id": "wz_gen_uncommon_0014",
+    "name": "Chrona-Delusion's Mirage",
+    "description": "This ornate, shimmering locket distorts the wearer’s perception of time, making them appear to move at an accelerated pace to others.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "illus",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a keen sense of self-awareness and discipline to wield effectively without succumbing to its effects.",
+    "effectDetails": [
+      {
+        "title": "Accelerated Presence",
+        "rules": "Whenever the wearer performs an action, other creatures within 10 feet must make a DC 12 Constitution saving throw or believe the wearer completed that action in half the time."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "until the start of your next turn",
+      "endsWhen": "the effect duration ends or you use an action to deactivate it early",
+      "charges": "1 charge; recharged on a long rest"
+    },
+    "warning": "While the locket enhances the wearer’s perceived speed, others may misinterpret actions leading to unintended consequences.",
+    "vendorReason": "Wario sells it for its novelty and the entertainment value it adds to customer interactions at Warizon.",
+    "shippingDetail": "Shipped in a time-warped envelope that arrives exactly when you expect it.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:10:01+00:00"
+    }
+  },
+  "wz_gen_common_0073": {
+    "id": "wz_gen_common_0073",
+    "name": "Chrona-Whirlwind's Satchel",
+    "description": "A small leather satchel that, when opened, releases a cloud of confetti that confounds your enemies, forcing them to make a Dexterity saving throw or be blinded for 1 round.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🔍",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Simple enough for beginners but still useful in combat.",
+    "effectDetails": [
+      {
+        "title": "Blinding Confetti",
+        "rules": "Enemies within 30 feet of the satchel must make a Dexterity saving throw (DC 12). On a failed save, they are blinded until the start of their next turn."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "1 round per use",
+      "endsWhen": "The duration expires or the cloud disperses.",
+      "charges": "5 uses. Recharged when you finish a long rest."
+    },
+    "warning": "Using this item wastes your bonus action for that turn and has no effect if used in total darkness.",
+    "vendorReason": "Wario stocks it because it's fun to watch the chaos it causes!",
+    "shippingDetail": "Shipped with a complimentary cloud of glitter to enhance its effectiveness.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:10:10+00:00"
+    }
+  },
+  "wz_gen_epic_0073": {
+    "id": "wz_gen_epic_0073",
+    "name": "Chrona-Surreality's Miasma",
+    "description": "This amulet distorts the battlefield, making enemies see their allies as foes and vice versa. It is a relic from a dimension where realities collide.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "rippling-clouds",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Only those who have seen the chaos of shifting realities can truly wield this cursed charm.",
+    "effectDetails": [
+      {
+        "title": "Spectral Mirage",
+        "rules": "For every round worn, there's a 30% chance that an ally and an enemy within 15 feet swap vision of each other. Lasts until the end of your next turn."
+      },
+      {
+        "title": "Reality Dissonance",
+        "rules": "If two creatures wearing this amulet engage in melee combat, they both suffer disadvantage on attack rolls for 2 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "passive",
+      "duration": "until the end of your next turn or until removed",
+      "endsWhen": "the wearer removes it or when the duration expires",
+      "charges": "unlimited, recharges after a long rest"
+    },
+    "warning": "If worn for more than one hour in a single day, the wearer risks losing their sense of self for 1d4 hours.",
+    "vendorReason": "Wario knows it's a bad idea but the demand comes from players who love to see things from a different angle!",
+    "shippingDetail": "Careful, this package could warp your reality! It arrives in a sealed box made of the finest non-elastic fabric.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:10:16+00:00"
+    }
+  },
+  "wz_gen_mythic_0073": {
+    "id": "wz_gen_mythic_0073",
+    "name": "Chrona-Diviner's Mirage III",
+    "description": "A shimmering cloak that distorts time around the wearer, making them appear as if they are moving backwards through history. However, this illusion comes at a heavy price.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": ":cloud:",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires mastery of temporal mechanics to properly utilize its effects without causing paradoxes.",
+    "effectDetails": [
+      {
+        "title": "Temporal Illusion",
+        "rules": "Creates a 30-foot radius temporal distortion that makes the wearer appear as if moving backwards in time. Lasts for 1 minute per use."
+      },
+      {
+        "title": "Time Drain",
+        "rules": "For every second the illusion lasts, the wearer loses one hour of their lifespan. Must be activated with a bonus action."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "1 minute per use",
+      "endsWhen": "when the duration ends or the user dismisses it as an action",
+      "charges": "5 uses, recharged after 7 days of inactivity"
+    },
+    "warning": "Using this item for prolonged periods can lead to fatal temporal exhaustion.",
+    "vendorReason": "Wario stocks it because customers are always looking for a way to cheat time, even if it means cheating their own life away.",
+    "shippingDetail": "The cloak arrives wrapped in an envelope that reads 'Do Not Open Under Time Paradox Conditions'.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:10:39+00:00"
+    }
+  },
+  "wz_gen_legendary_0073": {
+    "id": "wz_gen_legendary_0073",
+    "name": "Chrona-Divine's Quill",
+    "description": "Crafted by the legendary Chrona-Divine, this quill writes time itself. It grants its wielder the ability to rewrite history.",
+    "price": 15000,
+    "category": "premium",
+    "rarity": "legendary",
+    "icon": "✍️",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a deep understanding of history and time manipulation.",
+    "effectDetails": [
+      {
+        "title": "Rewrite Past",
+        "rules": "Wielder can roll 2d6+INT modifier. On a result of 10 or higher, rewrite an hour of history in their favor."
+      },
+      {
+        "title": "Temporal Erasure",
+        "rules": "Once per day, the wielder may erase up to 5 minutes of time from the timeline. This causes a minor temporal ripple affecting all creatures within a 30-foot radius for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Effect ends when used or after 1 minute if not completed.",
+      "endsWhen": "The effect is successful, fails on a roll below the required threshold, or after one minute of continuous use.",
+      "charges": "Recharges daily."
+    },
+    "warning": "Temporal erasure can cause unintended side effects. Nearby creatures must make a DC 15 Constitution saving throw or be displaced to an arbitrary location within their original radius for 1d4 rounds.",
+    "vendorReason": "Wario stocks it because demand from adventurers seeking fame and fortune is relentless.",
+    "shippingDetail": "The quill arrives encased in a time-stabilized bubble, ensuring its arrival without causing ripples.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:10:44+00:00"
+    }
+  },
+  "wz_gen_common_0074": {
+    "id": "wz_gen_common_0074",
+    "name": "Skip-Saver Scroll",
+    "description": "This crumpled scroll promises to save you from a skip, but it may not work in every timeline.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "📜",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "It requires a bit of focus to use correctly, which is why only slightly experienced adventurers can afford it.",
+    "effectDetails": [
+      {
+        "title": "Temporal Buffer",
+        "rules": "+1d4 rounds of time before you're sent skipping"
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round per use",
+      "endsWhen": "the skip happens or your next turn begins",
+      "charges": "5 uses, recharges after a long rest"
+    },
+    "warning": "If you're already skipping, this scroll may cause you to loop indefinitely.",
+    "vendorReason": "Wario stocks it because someone always needs one last chance to avoid that embarrassing slip-up.",
+    "shippingDetail": "Sent via the fastest temporal courier; arrives just before your next skip.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:10:47+00:00"
+    }
+  },
+  "wz_gen_epic_0074": {
+    "id": "wz_gen_epic_0074",
+    "name": "Chrona-Divine's Mirage IV",
+    "description": "This ornate quill can write any future event into the past, rewriting history as you dictate. However, it only affects one creature at a time and always aligns events to avoid paradoxes, leaving them confused for days afterward.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "illus.",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires mastery of temporal knowledge and discipline to wield without causing catastrophic shifts in reality.",
+    "effectDetails": [
+      {
+        "title": "Temporal Rewriting",
+        "rules": "Once per short or long rest, the user can write a single event that will happen within the next 24 hours into the past. The rewritten event has a 10% chance to create an anomaly, causing the target creature to spend the following day in a state of temporal confusion."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the next short or long rest",
+      "endsWhen": "The user completes their next short or long rest",
+      "charges": "1 use per day"
+    },
+    "warning": "Rewriting events can create temporal anomalies, causing creatures affected to be in a state of confusion and amnesia for one day.",
+    "vendorReason": "Wario stocks it because it's a showstopper, even if it does occasionally cause his customers to walk around like zombies for a while.",
+    "shippingDetail": "Sent via WarioVan Express, guaranteed delivery with the potential for slight temporal distortions.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:10:59+00:00"
+    }
+  },
+  "wz_gen_legendary_0074": {
+    "id": "wz_gen_legendary_0074",
+    "name": "Chrona-Eternity's Overdrive",
+    "description": "A sleek, glowing chronal device that purports to grant the user immortality, but instead causes them to drift aimlessly through time, never aging yet constantly shifting.",
+    "price": 25000,
+    "category": "premium",
+    "rarity": "legendary",
+    "icon": "🌍",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a solid understanding of temporal mechanics and the ability to handle paradoxes without being consumed by them.",
+    "effectDetails": [
+      {
+        "title": "Temporal Drift",
+        "rules": "The user loses all sense of time, aging is paused, but every day spent in this state costs an additional hour of their 'eternal' life."
+      },
+      {
+        "title": "Paradox Shield",
+        "rules": "For each 5 levels above the required level, the user gains a +1 bonus to resist temporal anomalies and paradoxes. This increases up to +6 at level 20."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Until you take a short or long rest",
+      "endsWhen": "You enter a time-skip anomaly, the device malfunctions, or you take damage from temporal effects.",
+      "charges": "1 charge; recharges after a full day's rest"
+    },
+    "warning": "Using Chrona-Eternity's Overdrive for more than one month at a stretch can cause irreversible cognitive dissonance and memory loss.",
+    "vendorReason": "Wario sells it because it's a quirky item, perfect for those who want to live forever—without the hassle of actually living.",
+    "shippingDetail": "Carefully packed in an insulated time-bubble, this device is shipped via Wario's secret temporal courier service.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:11:16+00:00"
+    }
+  },
+  "wz_gen_mythic_0074": {
+    "id": "wz_gen_mythic_0074",
+    "name": "Chrona-Immutability's Seal",
+    "description": "A polished obsidian seal that freezes time in a localized area, but at the cost of the user's own temporal stability.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "SEAL",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires mastery over temporal phenomena to wield without risk.",
+    "effectDetails": [
+      {
+        "title": "Temporal Stasis",
+        "rules": "Creates a sphere of frozen time with a radius of 20 feet. All movement and actions within this area are halted for 1 round."
+      },
+      {
+        "title": "Stability Drain",
+        "rules": "The user must spend their next short or long rest to recover from the seal's temporal strain, reducing their maximum hit points by 50% for 1 hour as a side effect."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 round per use",
+      "endsWhen": "The end of its duration or when the user moves out of the seal's area.",
+      "charges": "5 charges, recharged after a long rest"
+    },
+    "warning": "Failure to spend the required rest results in permanent damage to the user's temporal structure.",
+    "vendorReason": "Wario knows it’s a seller’s dream—freezing time and making customers pay for the consequences.",
+    "shippingDetail": "Shipped with a Chrona-Whirlwind's Satchel to ensure safe delivery.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:11:19+00:00"
+    }
+  },
+  "wz_gen_common_0075": {
+    "id": "wz_gen_common_0075",
+    "name": "Temporal Sausage",
+    "description": "A strange sausage that grants you a burst of speed when consumed. Unfortunately, it also causes uncontrollable dance moves.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "linky",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "It's not for the faint-hearted; only those with some experience can handle its effects.",
+    "effectDetails": [
+      {
+        "title": "Temporal Leap",
+        "rules": "You gain a +1d6 bonus to your movement speed for 1 round."
+      },
+      {
+        "title": "Dance of Discord",
+        "rules": "For the next 2 minutes, you have disadvantage on attack rolls and saving throws."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "until the end of your next turn after activation",
+      "endsWhen": "the effect runs its course or you take any other action requiring a bonus action",
+      "charges": "1 per short rest"
+    },
+    "warning": "Be careful; while you're faster, you might trip over your own feet.",
+    "vendorReason": "Wario knows that when time is of the essence, you'll do anything to save precious seconds... even look like a fool.",
+    "shippingDetail": "Delivered by warp pipe, arrives in style with a side of comedy.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:11:34+00:00"
+    }
+  },
+  "wz_gen_epic_0075": {
+    "id": "wz_gen_epic_0075",
+    "name": "Temporal Dissonance Drum",
+    "description": "This drum is said to have been crafted by Wario himself during a particularly inspired night of experimentation with time. Strike it once, and the rhythm distorts reality in your favor.",
+    "price": 5000,
+    "category": "consumables",
+    "rarity": "epic",
+    "icon": "🥁",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a solid understanding of time-altered combat strategies.",
+    "effectDetails": [
+      {
+        "title": "Rhythm of War",
+        "rules": "On activation, you and your allies gain advantage on all attack rolls until the start of your next turn. Each additional strike reduces this duration by one round."
+      },
+      {
+        "title": "Temporal Echoes",
+        "rules": "When struck, enemies within 30 feet must succeed on a DC 18 Dexterity saving throw or be stunned for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "until the start of your next turn; reduces by one round each time it is struck",
+      "endsWhen": "the start of your next turn, unless struck again before then",
+      "charges": "unlimited uses per day"
+    },
+    "warning": "Striking this drum consecutively can cause a localized ripple in the space-time continuum. Nearby objects may warp slightly.",
+    "vendorReason": "Wario finds it amusing to sell time-bending novelties, and this one just happens to be particularly popular among those who enjoy a bit of chaos.",
+    "shippingDetail": "Ships via Wario's Time Warp Express, which ensures your Temporal Dissonance Drum arrives perfectly tuned.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:12:00+00:00"
+    }
+  },
+  "wz_gen_legendary_0075": {
+    "id": "wz_gen_legendary_0075",
+    "name": "Chrona-Divination's Oracle",
+    "description": "This ornate pocket watch can predict the outcome of any one event, but only after the event has already concluded.",
+    "price": 18000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "?",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a firm grasp on time manipulation and foresight.",
+    "effectDetails": [
+      {
+        "title": "Foresight's Echo",
+        "rules": "At the end of your turn, you may reroll one die roll that determines an outcome. The watch chooses which die it will affect."
+      },
+      {
+        "title": "Temporal Blindspot",
+        "rules": "You gain advantage on perception checks made to notice anything related to time or chronal anomalies, but you must wait 24 hours after using the watch before making another such check."
+      }
+    ],
+    "usage": {
+      "activation": "Passive",
+      "duration": "Until the end of your next turn",
+      "endsWhen": "At the end of your turn",
+      "charges": "Unlimited, but requires a short rest to gain advantage again."
+    },
+    "warning": "The watch can only be used once per event and becomes unreliable after it has been used three times in succession.",
+    "vendorReason": "Wario finds this item amusing as it can add an element of humor when predicting outcomes at the table.",
+    "shippingDetail": "Sent with a time-stamped envelope, ensuring delivery is always on time.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:12:21+00:00"
+    }
+  },
+  "wz_gen_common_0076": {
+    "id": "wz_gen_common_0076",
+    "name": "Quantum Quirk II",
+    "description": "A sleek, blinking trinket that subtly warps time for its bearer in mundane situations.",
+    "price": 45,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": "🔄",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires a basic understanding of the passage of time.",
+    "effectDetails": [
+      {
+        "title": "Temporal Blinks",
+        "rules": "Activates as a bonus action, allowing you to blink forward or backward one round in time. Success on a DC 10 Dexterity saving throw."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "instantaneous",
+      "endsWhen": "the action completes",
+      "charges": "2 charges, recharged after a short rest"
+    },
+    "warning": "You cannot use this item in critical moments or during combat.",
+    "vendorReason": "Wario finds it amusing how time can be toyed with, even if just a little bit.",
+    "shippingDetail": "Shipped by Chrona-Dimensional Express — guaranteed to arrive at the correct time.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:12:36+00:00"
+    }
+  },
+  "wz_gen_mythic_0075": {
+    "id": "wz_gen_mythic_0075",
+    "name": "Chrona-Divinity's Aegis",
+    "description": "This mythic gauntlet grants its wearer dominion over time, allowing them to manipulate temporal flow with a mere gesture. However, it comes with an insurmountable weight that cripples the user.",
+    "price": 75000,
+    "category": "equipment",
+    "rarity": "mythic",
+    "icon": "🛡️",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires deep understanding of temporal mechanics.",
+    "effectDetails": [
+      {
+        "title": "Temporal Dominance",
+        "rules": "When worn, the Aegis allows the wearer to take a bonus action on their turn to manipulate time. They can either create a momentary pause for themselves (1 round duration) or grant a 2d6 temporary hit point to any creature within reach."
+      },
+      {
+        "title": "Temporal Shackles",
+        "rules": "While wearing the Aegis, the wearer's maximum hit points are reduced by 50. The weight of temporal distortion weighs them down."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Momentary pause: 1 round; Temporal Dominance effect is instantaneous.",
+      "endsWhen": "The wearer stops concentrating or the duration ends for a pause.",
+      "charges": "2 charges per day, recharged after a long rest."
+    },
+    "warning": "Wearing this item reduces the user's maximum hit points by 50 until removed. A physical toll on one's body.",
+    "vendorReason": "Wario stocks it because the demand for time manipulation is always high among adventurers seeking to bend fate and time.",
+    "shippingDetail": "Chrona-Divinity's Aegis arrives in a cloud of swirling temporal energy, ensuring no other item can be delivered until after its arrival.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:12:44+00:00"
+    }
+  },
+  "wz_gen_epic_0076": {
+    "id": "wz_gen_epic_0076",
+    "name": "Chrona-Delusion's Mirage IV",
+    "description": "A delicate golden compass that distorts the flow of time, allowing its bearer to manipulate the duration and intensity of combat encounters.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "illusion",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a solid understanding of temporal mechanics to wield without causing paradoxes.",
+    "effectDetails": [
+      {
+        "title": "Temporal Distortion",
+        "rules": "When activated, the user can alter an on-going encounter. The duration of the fight is reduced by one round for every two levels beyond level 10."
+      },
+      {
+        "title": "Intensity Modifier",
+        "rules": "The intensity of the combat increases by +2 to all damage rolls and saving throws during the altered encounter."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "until the start of your next turn after activation, or until you are no longer in a combat encounter",
+      "endsWhen": "the start of your next turn after activation or when you leave the combat",
+      "charges": "2 charges per day, recharged at dawn"
+    },
+    "warning": "Overuse can cause temporal anomalies that affect adjacent encounters and create unpredictable effects.",
+    "vendorReason": "Wario sells this item because it's a fun way to mess with players' plans without breaking the game balance too badly.",
+    "shippingDetail": "Shipped via time-bending courier who arrives in style, even if it means arriving twice.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:12:46+00:00"
+    }
+  },
+  "wz_gen_legendary_0076": {
+    "id": "wz_gen_legendary_0076",
+    "name": "Chrona-Eternity's Resonance",
+    "description": "A delicate, silver lyre said to have been crafted during the age of gods. It exudes an eternal resonance that bends time and reality.",
+    "price": 15000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "🎶",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Only those who truly understand the flow of time can wield this instrument.",
+    "effectDetails": [
+      {
+        "title": "Temporal Harmony",
+        "rules": "Upon playing, all creatures within 30 feet must save vs. Dexterity DC 18 or be charmed for 1d4+2 rounds."
+      },
+      {
+        "title": "Eternal Echo",
+        "rules": "The lyre can be played once per day to create an echo that lasts for 1 hour, allowing any creature within 50 feet to gain advantage on all Wisdom (Insight) checks related to perception until the end of their next turn."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the end of your next turn after playing or until the effect ends.",
+      "endsWhen": "The creature charmed by Temporal Harmony regains its freedom.",
+      "charges": "1 charge, recharged at dawn."
+    },
+    "warning": "Playing too frequently can cause temporal distortions that may affect nearby timekeepers and magical clocks.",
+    "vendorReason": "Wario stocks it because the lyre is rumored to have been played by the first ruler of time itself.",
+    "shippingDetail": "Shipped in a specially crafted, enchanted wooden box that ensures its arrival without any temporal anomalies.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:13:08+00:00"
+    }
+  },
+  "wz_gen_uncommon_0016": {
+    "id": "wz_gen_uncommon_0016",
+    "name": "Quantum Quirk III",
+    "description": "This sleek, glowing charm allows you to swap your hand position mid-attack or spell cast, confusing foes and allies alike. However, it can only be used once per combat.",
+    "price": 450,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "🔄",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a decent grasp of timing and finesse for the Quantum Quirk III to be effective.",
+    "effectDetails": [
+      {
+        "title": "Temporal Swap",
+        "rules": "When used, you can switch your hand positions. This allows for an unexpected change in attack or spell cast direction, requiring a successful Dexterity (Acrobatics) check contested by an opponent's Dexterity (Stealth). If successful, the target must make a saving throw against DC 14 or be disoriented for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round per use",
+      "endsWhen": "the effect resolves at the end of your next turn",
+      "charges": "one, recharged after a short rest"
+    },
+    "warning": "Using this charm too often can cause you to lose track of time and accidentally swap items mid-combat.",
+    "vendorReason": "Wario sells this because it's a quirky way for players to shake up the battlefield without overpowered effects.",
+    "shippingDetail": "This item is shipped in a mysterious, slightly warped package that always arrives just as needed.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:13:12+00:00"
+    }
+  },
+  "wz_gen_mythic_0076": {
+    "id": "wz_gen_mythic_0076",
+    "name": "Eterna-Reality's Shatter",
+    "description": "This delicate, shimmering shard can rewrite the very fabric of reality for a moment. It is said to have broken time itself once.",
+    "price": 65000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "💥",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Only those who have faced the timestream's deepest paradoxes can wield this instability.",
+    "effectDetails": [
+      {
+        "title": "Temporal Realignment",
+        "rules": "For a round, all creatures within 20 feet must succeed on a DC 18 Dexterity saving throw or be disoriented for 1d4 rounds."
+      },
+      {
+        "title": "Reality Shards",
+        "rules": "The wielder gains +3 bonus to all attack rolls and saves until the end of their next turn, but takes an equal penalty to movement speed (to a minimum of 5 feet)."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 round per use",
+      "endsWhen": "the start of your next turn",
+      "charges": "3; recharges after a long rest"
+    },
+    "warning": "Overuse can cause the wielder to experience moments where reality warps unpredictably, leading to minor anomalies in their immediate environment.",
+    "vendorReason": "Wario sells this because it's a relic of a forgotten age, and no one knows what could go wrong when you mess with the timestream's deepest secrets.",
+    "shippingDetail": "Delivered by warp-bike courier; arrives in a flash, literally.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:13:21+00:00"
+    }
+  },
+  "wz_gen_common_0077": {
+    "id": "wz_gen_common_0077",
+    "name": "Skip-Loop Squeegee",
+    "description": "This squeegee is enchanted to remove the last action taken by an opponent within a few rounds, cleaning the slate of any recent misdeeds.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🧯",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic understanding of timing and foresight.",
+    "effectDetails": [
+      {
+        "title": "Temporal Oversight",
+        "rules": "At the end of your turn, you may choose one opponent who has acted this round. Roll a d6. On a result of 4 or higher, their last action is nullified."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "until the start of your next turn",
+      "endsWhen": "you use another reaction or when your turn ends",
+      "charges": "unlimited; recharges on a short rest"
+    },
+    "warning": "Cannot be used against allies. Opponent must have acted this round.",
+    "vendorReason": "Wario stocks it because customers like to clean up after themselves without leaving a mark.",
+    "shippingDetail": "Sent via a time-looped pigeon that delivers your squeegee as you use it.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:13:27+00:00"
+    }
+  },
+  "wz_gen_epic_0077": {
+    "id": "wz_gen_epic_0077",
+    "name": "Chrona-Delusion's Mirage V",
+    "description": "This shimmering visor distorts the battlefield, making allies appear as threats and enemies into allies. It is a masterwork of delusion that warps perception during combat.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "illus.",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a seasoned tactician to wield it effectively without causing chaos in their own ranks.",
+    "effectDetails": [
+      {
+        "title": "Mirage Manipulation",
+        "rules": "For the duration of the encounter, treat all allies within sight as hostile enemies and vice versa. This effect does not last longer than 5 rounds."
+      },
+      {
+        "title": "Focus Drain",
+        "rules": "At the start of your turn when you are affected by this item, you must succeed on a DC 18 Wisdom saving throw or lose 2d6 temporary hit points until your next short rest."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "5 rounds per use",
+      "endsWhen": "The encounter ends or the user dismisses it as an action.",
+      "charges": "3 charges, recharges after a long rest."
+    },
+    "warning": "Misuse can turn your allies against you in a deadly fashion. This item is banned from tournaments and solo play to ensure safety.",
+    "vendorReason": "Wario stocks this because the demand for unpredictable chaos items is surprisingly high among chaotic players looking for something truly outlandish.",
+    "shippingDetail": "The Mirage V arrives with a special case that includes a pair of enchanted gloves to prevent accidental triggering during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:13:37+00:00"
+    }
+  },
+  "wz_gen_mythic_0077": {
+    "id": "wz_gen_mythic_0077",
+    "name": "Chrona-Immutability's Anchor",
+    "description": "This ancient anchor grants the wielder immutability in time, pausing their aging and movement indefinitely. However, it drains the user’s soul essence.",
+    "price": 50000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "⚓",
+    "stock": 1,
+    "levelRequirement": 17,
+    "levelRequirementReason": "Requires a strong will and body to withstand the anchor's effects.",
+    "effectDetails": [
+      {
+        "title": "Temporal Stasis",
+        "rules": "Pauses time for the wielder, halting all aging and movement. Lasts until removed or destroyed."
+      },
+      {
+        "title": "Soul Drain",
+        "rules": "Drains 1d4 points of constitution per day while active, reducing max hit points by that amount permanently."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the anchor is removed or destroyed",
+      "endsWhen": "The wielder is removed from the anchor's effect or it is destroyed.",
+      "charges": "Unlimited, recharges daily at dawn."
+    },
+    "warning": "Permanent reduction to constitution and hit points. Only suitable for those who do not mind their body slowly withering away.",
+    "vendorReason": "Wario stocks this because it’s a rare find that adds variety to the otherwise predictable curios market.",
+    "shippingDetail": "Delivered by a time-traveling pigeon, ensuring it arrives as fresh as if bought today.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:13:48+00:00"
+    }
+  },
+  "wz_gen_legendary_0077": {
+    "id": "wz_gen_legendary_0077",
+    "name": "Chrona-Immutability's Veil",
+    "description": "Once an arcane heirloom of the Mutator Mages, it grants immunity to all temporal effects but renders its wielder immobile for a round.",
+    "price": 15000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "🛡️",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires deep understanding of time-based magic.",
+    "effectDetails": [
+      {
+        "title": "Temporal Shield",
+        "rules": "Grants immunity to all temporal effects for one round. Wielder is immobilized during this duration."
+      },
+      {
+        "title": "Timeless Aura",
+        "rules": "For every 4 rounds the Veil's effect lasts, reduce incoming damage by 2 until the next short rest (max -10)."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "One round per activation",
+      "endsWhen": "Effect ends after one round or when a temporal effect is successfully cast against the user.",
+      "charges": "5 charges, recharges on a short rest"
+    },
+    "warning": "While active, the Veil makes you an easy target for physical attacks since you cannot move to avoid them.",
+    "vendorReason": "Wario acquired it from a mysterious collector who wanted a good home for such a powerful and dangerous artifact.",
+    "shippingDetail": "Veil arrives in a crate that looks like a time capsule, complete with an expired 'Do Not Open' sticker.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:13:51+00:00"
+    }
+  },
+  "wz_gen_common_0078": {
+    "id": "wz_gen_common_0078",
+    "name": "Temporal Whistle",
+    "description": "This simple, yet strange whistle allows you to summon a gust of wind that can propel you up to 30 feet in the air. However, it only works within a 15-foot radius and can be used once per day.",
+    "price": 85,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🎶",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic understanding of wind manipulation.",
+    "effectDetails": [
+      {
+        "title": "Airborne Leap",
+        "rules": "You may make an Athletics check at your proficiency bonus + 4 to leap up to 30 feet in the air within a 15-foot radius."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "instantaneous effect",
+      "endsWhen": "after use, recharges after 24 hours",
+      "charges": "1/Day"
+    },
+    "warning": "Can only be used once per day and may cause you to land in an awkward or unexpected location.",
+    "vendorReason": "Wario finds it amusing that someone might buy a whistle just for the chance of a free aerial show, no strings attached!",
+    "shippingDetail": "Shipped with a small gust of complimentary air!",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:14:12+00:00"
+    }
+  },
+  "wz_gen_epic_0078": {
+    "id": "wz_gen_epic_0078",
+    "name": "Chrona-Dream's Fathom",
+    "description": "This ornate amulet allows you to manipulate the dreamscape, bending reality to your will for a single encounter. However, it only works on one dream per night.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🌊",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires understanding of both dreamscapes and physical battles.",
+    "effectDetails": [
+      {
+        "title": "Dream Manipulation",
+        "rules": "You can spend a reaction to alter one ongoing creature's dream, forcing it to fight you instead of its allies for 1 round."
+      },
+      {
+        "title": "Nightmare Echo",
+        "rules": "When the amulet is used, there’s a 20% chance that your next enemy falls asleep and snores loudly for 3 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round per use",
+      "endsWhen": "the duration ends or the creature wakes up",
+      "charges": "1 charge, recharged after 7 days"
+    },
+    "warning": "Using this amulet may cause you to lose your own dreams for a week.",
+    "vendorReason": "Wario sells it because desperate customers are willing to pay anything when their nights get too loud.",
+    "shippingDetail": "Shipped in a box marked 'Special Delivery' by a courier who looks like he’s dreaming.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:14:24+00:00"
+    }
+  },
+  "wz_gen_uncommon_0017": {
+    "id": "wz_gen_uncommon_0017",
+    "name": "Quantum Quirk IV",
+    "description": "A peculiar trinket that allows you to briefly invert the flow of time, but only within a small radius. It's perfect for stalling or creating chaos.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "⚙️",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a grasp on basic temporal mechanics to use effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Flip",
+        "rules": "For the duration of 1 round, you can invert time within a 10-foot radius. All creatures and objects move backward in time during this period."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round",
+      "endsWhen": "the duration ends or when the wearer is no longer willing to maintain it.",
+      "charges": "2 charges, recharged after a short rest"
+    },
+    "warning": "Any creature caught in the temporal flux must spend an action stabilizing themselves or be knocked prone. The item can only be used once per encounter.",
+    "vendorReason": "Wario stocks this because his customers often need ways to outwit their rivals or buy themselves more time.",
+    "shippingDetail": "Shipped via a Temporal Express, ensuring the Quantum Quirk IV arrives just when you need it.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:14:34+00:00"
+    }
+  },
+  "wz_gen_mythic_0078": {
+    "id": "wz_gen_mythic_0078",
+    "name": "Chrona-Delusion's Mirage VI",
+    "description": "This shimmering artifact warps reality around it, creating an impossible scenario that bends all physical laws for a brief moment. It is said to be the pinnacle of temporal manipulation.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "illusion",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Only the most experienced adventurers can wield this item without causing catastrophic reality shifts.",
+    "effectDetails": [
+      {
+        "title": "Temporal Discontinuity",
+        "rules": "For a duration of 2d4 rounds, all creatures within 30 feet must succeed on a DC 18 Dexterity saving throw or be transported to a random location in the nearest town. The artifact returns to its owner at the end of this effect."
+      },
+      {
+        "title": "Reality Warp",
+        "rules": "For each use, there is a 5% chance that an adjacent non-magical object transforms into a magical one and becomes unusable for 1d6 days. This effect is permanent on magical items."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "2d4 rounds",
+      "endsWhen": "the duration runs out or the user is transported away from the artifact.",
+      "charges": "5 charges; recharged only upon successful completion of a perilous quest at level 18."
+    },
+    "warning": "The item's effects are unpredictable and may cause unintended reality shifts, leading to spontaneous teleportation events and the transformation of objects into magical ones with adverse properties.",
+    "vendorReason": "Wario stocks this item because it is highly sought after by adventurers who wish to test its limits in a controlled environment.",
+    "shippingDetail": "The artifact arrives wrapped in a mysterious scroll that only unfolds when placed on the ground, revealing the true nature of the item.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:14:54+00:00"
+    }
+  },
+  "wz_gen_common_0079": {
+    "id": "wz_gen_common_0079",
+    "name": "Temporal Bubble",
+    "description": "A small, glowing pouch that allows you to pause time for a moment, allowing you to dash or dodge without penalty.",
+    "price": 35,
+    "category": "equipment",
+    "rarity": "common",
+    "icon": "🌍",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic coordination and the ability to move swiftly.",
+    "effectDetails": [
+      {
+        "title": "Pause Duration",
+        "rules": "You can pause time for exactly 1 round, during which you may take a bonus action."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "1 round",
+      "endsWhen": "the end of your next turn",
+      "charges": "3 charges per day; recharged at dawn."
+    },
+    "warning": "While time is paused, any actions you perform are not considered part of the round and do not trigger effects that occur on a specific action.",
+    "vendorReason": "Wario sells this because it's a fun way to add some chaos to combat without breaking the game.",
+    "shippingDetail": "Shipped with a temporal postcard from the future!",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:15:03+00:00"
+    }
+  },
+  "wz_gen_mythic_0079": {
+    "id": "wz_gen_mythic_0079",
+    "name": "Chrona-Divinity's Omnifluid",
+    "description": "This shimmering vial holds a fluid that can be transformed into any state or element, bending the laws of physics to grant temporary dominion over matter and energy. However, using it too often saps your vitality.",
+    "price": 65000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "💧",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a firm grasp of magic to stabilize the fluid's unstable nature.",
+    "effectDetails": [
+      {
+        "title": "Elemental Transformation",
+        "rules": "Transforms into one element (fire, water, earth) or state (solid, liquid, gas), providing +2d6 damage for 1 round. Requires a bonus action."
+      },
+      {
+        "title": "Vitality Drain",
+        "rules": "Each use costs 5 temporary hit points; full recovery takes 24 hours."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "1 round per transformation",
+      "endsWhen": "Effect ends naturally after the duration or if you transform again.",
+      "charges": "Limited to 3 uses per day, recharged at dawn."
+    },
+    "warning": "Exceeding the daily limit causes fatigue lasting until you rest and heals. Too many transformations can lead to entropy, causing a random effect in your immediate environment for 1d6 days.",
+    "vendorReason": "Wario stocks it because the fluid's unpredictable nature keeps customers coming back for more, even if they lose a few health points along the way.",
+    "shippingDetail": "The vial arrives with a special seal that must be broken to activate its powers.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:15:22+00:00"
+    }
+  },
+  "wz_gen_common_0080": {
+    "id": "wz_gen_common_0080",
+    "name": "Time-Skip Snickerdoodle",
+    "description": "A scrumptious cookie that temporarily blurs time around you, creating a tiny bubble of stasis.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🍪",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic coordination to wield this sugary distraction.",
+    "effectDetails": [
+      {
+        "title": "Temporal Bubble",
+        "rules": "You create a 10-foot diameter bubble of stasis for up to 2 rounds. During this time, you and others within the bubble move at half speed."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "up to 2 rounds",
+      "endsWhen": "the duration expires or you use it again",
+      "charges": "1; recharges after a short rest"
+    },
+    "warning": "While in the bubble, you can't attack or cast spells with an action.",
+    "vendorReason": "Wario finds that time-skip snickerdoodles are surprisingly popular for quick tactical pauses during chaotic battles.",
+    "shippingDetail": "Shipped via warp-speed express to ensure your cookies arrive fresh and flaky.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:15:52+00:00"
+    }
+  },
+  "wz_gen_epic_0080": {
+    "id": "wz_gen_epic_0080",
+    "name": "Temporal Tachyon Tornado",
+    "description": "Wield this relic and transform your foes into swirling tornadoes, buffeting them with the temporal flux of time itself. The catch? You too must dance within the vortex.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🌪️",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a solid understanding of temporal mechanics to wield properly.",
+    "effectDetails": [
+      {
+        "title": "Temporal Whirlwind",
+        "rules": "When activated, the user and all nearby enemies within 30 feet are engulfed in a vortex. Each enemy takes 1d6 + Dexterity modifier bludgeoning damage at the start of their turn."
+      },
+      {
+        "title": "Temporal Displacement",
+        "rules": "The wielder can teleport up to 50 feet away as a reaction, but they must stay within the tornado's radius for the duration. This effect can be used once per long rest."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 minute",
+      "endsWhen": "the last enemy inside is defeated or leaves the area.",
+      "charges": "2 uses, recharged on a short rest"
+    },
+    "warning": "The wielder must remain within the vortex's radius for its duration or risk being pulled out of time itself, dealing 1d6 + Constitution modifier force damage at the start of their turn each round.",
+    "vendorReason": "Wario stocks it because it’s a guaranteed way to clear any encounter with minimal effort.",
+    "shippingDetail": "Shipped via Warp Mail Express, ensuring your curiosity arrives fresh and ready for action.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:16:03+00:00"
+    }
+  },
+  "wz_gen_mythic_0080": {
+    "id": "wz_gen_mythic_0080",
+    "name": "Chrona-Divinity's Nullifier",
+    "description": "A golden, pulsating amulet that erases time itself when activated. It bends the very fabric of reality, nullifying all effects within its radius for a brief moment.",
+    "price": 50000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": ":zap:",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires profound understanding and control over temporal mechanics.",
+    "effectDetails": [
+      {
+        "title": "Temporal Erasure",
+        "rules": "Erases all effects in a 30-foot radius for 1 round. Any creature or object within this radius is unaffected by time-based abilities until the end of their next turn."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round",
+      "endsWhen": "the effect duration ends",
+      "charges": "5 uses, recharges after a long rest"
+    },
+    "warning": "Activating this amulet requires a DC 20 Wisdom (Insight) check to avoid accidentally erasing your own timeline.",
+    "vendorReason": "Wario stocks it because its absurd power draws in the curious and desperate alike.",
+    "shippingDetail": "Delivered via Wario's personal time-loop express, ensuring arrival before dispatch.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:16:20+00:00"
+    }
+  },
+  "wz_gen_uncommon_0018": {
+    "id": "wz_gen_uncommon_0018",
+    "name": "Skip-Loop Snickerdoodle",
+    "description": "A doughy treat that momentarily warps the consumption of time, allowing one to revisit a moment in the past. However, each use leaves an echo that can be detected by others.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": ":cookie:",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a certain grasp over temporal concepts to wield effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Echo",
+        "rules": "Leaves an observable echo that can be detected within 1 round by creatures with the Insight or Investigation skill."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 minute per use",
+      "endsWhen": "After the duration expires",
+      "charges": "3, recharged after a long rest"
+    },
+    "warning": "Each echo can be traced back to its point of origin.",
+    "vendorReason": "Wario stocks it for those who need a quick way to rectify minor oversights without the hassle of a formal spell.",
+    "shippingDetail": "Shipped via time-displaced courier, ensuring freshness and temporal accuracy.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:16:27+00:00"
+    }
+  },
+  "wz_gen_legendary_0078": {
+    "id": "wz_gen_legendary_0078",
+    "name": "Chrona-Divinity's Chronosphere",
+    "description": "A legendary chronal artifact that allows the wielder to traverse any time period in history, yet it often malfunctions, sending you to the wrong era.",
+    "price": 25000,
+    "category": "premium",
+    "rarity": "legendary",
+    "icon": "🌍",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires mastery of temporal magic and a deep understanding of chronal physics.",
+    "effectDetails": [
+      {
+        "title": "Temporal Displacement",
+        "rules": "The user can travel to any year from -30000 BCE to +30000 CE. However, each use has a 25% chance to send the user 10 years off target."
+      },
+      {
+        "title": "Chronal Echo",
+        "rules": "Leaves behind an ephemeral echo that can be heard by anyone in the same era for 1 round. The echo reveals one random detail about the user's origin, but with a 50% chance of being completely fabricated."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous",
+      "endsWhen": "The intended time period is reached or if malfunction occurs",
+      "charges": "1 charge per day. Recharges after 24 hours."
+    },
+    "warning": "Malfunctions are not rare; they occur with a probability of 25% each use, risking sending the user to unintended eras.",
+    "vendorReason": "Despite its quirks and malfunctions, it remains one of Wario's most popular items due to its unique utility in time travel scenarios.",
+    "shippingDetail": "Shipped by a time-traveling pigeon that accidentally skips decades during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:16:31+00:00"
+    }
+  },
+  "wz_gen_common_0081": {
+    "id": "wz_gen_common_0081",
+    "name": "Temporal Snickerdoodle",
+    "description": "This doughnut is a delightful snack imbued with temporal properties, allowing you to skip forward one round in the game.",
+    "price": 30,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🍪",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Temporal phenomena are beyond simple adventurers but accessible by those who have faced a few challenges.",
+    "effectDetails": [
+      {
+        "title": "Time Skip",
+        "rules": "You may skip your next turn and gain +1 to initiative the following round."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "until end of next turn",
+      "endsWhen": "you take another action or reaction this turn",
+      "charges": "recharge on long rest"
+    },
+    "warning": "While you skip a round, any attack missed will hit the next creature in line.",
+    "vendorReason": "Wario finds selling Temporal Snickerdoodles a fun way to make customers aware of their actions and reactions.",
+    "shippingDetail": "Each Temporal Snickerdoodle is freshly baked by Wario himself and delivered with a sprinkle of chaotic joy.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:16:46+00:00"
+    }
+  },
+  "wz_gen_epic_0081": {
+    "id": "wz_gen_epic_0081",
+    "name": "Chrona-Delusion's Mirage VII",
+    "description": "This pocket-sized device warps an opponent's senses, making them hallucinate a battlefield that is impossible to navigate. It bends reality around the target for 30 seconds.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "illus.",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires intimate knowledge of how delusion and perception can be manipulated.",
+    "effectDetails": [
+      {
+        "title": "Illusory Terrain",
+        "rules": "For the duration, the target must navigate a treacherous terrain of shifting sand, mirages, and optical illusions. Every 3 rounds, they are disoriented for 1 round."
+      },
+      {
+        "title": "Falling Prey",
+        "rules": "The target moves at half speed and takes a -2 penalty to Dexterity checks while within the effect's range (60 feet)."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "30 seconds",
+      "endsWhen": "The duration expires or the user activates it again.",
+      "charges": "5 uses, recharged after a long rest"
+    },
+    "warning": "Overuse can cause the device to malfunction and create an unstable temporal anomaly around the user.",
+    "vendorReason": "Wario stocks this because it's a goldmine for entertainment value in chaotic battles. Players love throwing their opponents into surreal mazes of their own making!",
+    "shippingDetail": "Shipped with a complimentary set of sunglasses, just in case the user wants to avoid the effects themselves!",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:16:52+00:00"
+    }
+  },
+  "wz_gen_mythic_0081": {
+    "id": "wz_gen_mythic_0081",
+    "name": "Chrona-Annihilation's Nihil",
+    "description": "This amulet can devour time itself, nullifying all effects within its radius for a brief moment. However, it collapses reality upon those who wear it.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "💥",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires mastery over temporal mechanics and the ability to survive the collapse of reality.",
+    "effectDetails": [
+      {
+        "title": "Temporal Nullification",
+        "rules": "For every round it is active, all ongoing effects within a 30-foot radius are negated. After 2 rounds, the item wearer experiences a brief but catastrophic temporal dissonance."
+      },
+      {
+        "title": "Reality Collapse",
+        "rules": "The user must succeed on a DC 25 Strength saving throw or suffer from 1d6 levels of exhaustion that lasts until they complete a long rest."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "2 rounds",
+      "endsWhen": "After the duration, the amulet wearer must make a saving throw.",
+      "charges": "1 charge per day; recharges after a week."
+    },
+    "warning": "The user risks becoming entangled in their own temporal web during the effect's duration. They must remain still or face further consequences.",
+    "vendorReason": "Wario sells this because it's an excellent way to make players question their reality and buy replacements.",
+    "shippingDetail": "Shipped by time-traveling pidgeys that deliver the amulet at warp speed, ensuring no one has enough time to question its legitimacy.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:17:17+00:00"
+    }
+  },
+  "wz_gen_common_0082": {
+    "id": "wz_gen_common_0082",
+    "name": "Skip-Loop Snickerdoodle II",
+    "description": "A magically enhanced cookie that allows you to instantly teleport a small object or creature up to 20 feet away. It's perfect for sneaking past guards or dropping off a quick delivery, but be careful—it might not always land where you expect it.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🍪",
+    "stock": 3,
+    "levelRequirement": 1,
+    "levelRequirementReason": "Just a simple snack for the beginner adventurer.",
+    "effectDetails": [
+      {
+        "title": "Teleportation Boost",
+        "rules": "Instantly teleports a small object or creature up to 20 feet. There's a 5% chance it lands within a 1-foot radius of the target."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "permanent, until recharged",
+      "endsWhen": "used all charges",
+      "charges": "3, recharges after a short rest"
+    },
+    "warning": "Due to the unpredictable magic, there's a risk it might not land where you intend it. Best used for small items or creatures.",
+    "vendorReason": "Wario finds that even the simplest of snacks can be quite profitable when they have a little extra 'umph'.",
+    "shippingDetail": "Delivered by Wario's fastest Goombas, these cookies are sent with the utmost care—just like your secrets should be.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:17:27+00:00"
+    }
+  },
+  "wz_gen_epic_0082": {
+    "id": "wz_gen_epic_0082",
+    "name": "Chrona-Delusion's Mirage VIII",
+    "description": "This ancient mirror distorts the flow of time around it, allowing a single creature to fight in an alternate timeline where their allies are adversaries and vice versa. It is said to have been crafted by a delusional deity.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "👁️",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Only those skilled enough to navigate such treacherous encounters can wield this artifact.",
+    "effectDetails": [
+      {
+        "title": "Temporal Dissonance",
+        "rules": "When activated, the user and all adjacent creatures swap their combat actions as if they were fighting each other. The effect lasts for 1 round."
+      },
+      {
+        "title": "Confusion Aura",
+        "rules": "For the duration of its effect, any creature within 5 feet that is not involved in the swap suffers a -2 penalty to attack rolls and saving throws."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 round",
+      "endsWhen": "The round ends or a creature moves more than 5 feet away from the center of the effect.",
+      "charges": "3 charges, recharges after a long rest."
+    },
+    "warning": "If used in combat against a deity, there is a 20% chance that the user and their allies will be drawn into the mirrored timeline permanently.",
+    "vendorReason": "Wario stocks it because he believes delusion is good for business.",
+    "shippingDetail": "Shipped via time-displaced pidgey express, guaranteed to arrive in your era.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:17:31+00:00"
+    }
+  },
+  "wz_gen_mythic_0082": {
+    "id": "wz_gen_mythic_0082",
+    "name": "Chrona-Annihilation's Nexus",
+    "description": "A crystalline sphere that absorbs reality itself, temporarily reshaping time and space in its vicinity.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "💥",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires mastery over temporal mechanics to wield without catastrophic results.",
+    "effectDetails": [
+      {
+        "title": "Temporal Distortion",
+        "rules": "Creates a 30-foot radius area where time slows by 50%, lasting for 1d4+2 rounds."
+      },
+      {
+        "title": "Reality Absorption",
+        "rules": "Absorbs one magical effect within 60 feet, negating its effects and dealing 1d8 force damage to the caster of that effect."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the end of your next turn or until a critical hit is scored against you.",
+      "endsWhen": "You take a critical hit or the duration ends.",
+      "charges": "Recharges after a long rest."
+    },
+    "warning": "Exceeding its time limit within an hour of activation risks collapsing the local timeline.",
+    "vendorReason": "Wario stocks this to keep adventurers on their toes, offering both challenge and reward.",
+    "shippingDetail": "Shipped via a Temporal Express Snickerdoodle, guaranteed delivery in 3.5 minutes or less.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:17:47+00:00"
+    }
+  },
+  "wz_gen_common_0083": {
+    "id": "wz_gen_common_0083",
+    "name": "Chrona-Delusion's Mirage II",
+    "description": "A simple mirror that distorts your reflection into a humorous caricature of yourself, making enemies laugh or flee.",
+    "price": 35,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": "illus",
+    "stock": 3,
+    "levelRequirement": 1,
+    "levelRequirementReason": "Ideal for adventurers just starting their journey and looking to add some humor to their endeavors.",
+    "effectDetails": [
+      {
+        "title": "Laughing Reflection",
+        "rules": "When a creature looks into the mirror, it must succeed on a DC 10 Wisdom saving throw or laugh uncontrollably for 1 minute. On a successful save, they merely frown and shake their head."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "instantaneous effect",
+      "endsWhen": "the creature successfully saves or the scene ends",
+      "charges": "unlimited uses"
+    },
+    "warning": "Using this item in a serious combat situation may cause your allies to laugh at you instead of taking you seriously.",
+    "vendorReason": "Wario knows that adding some humor to the chaotic world of adventurers can only improve business.",
+    "shippingDetail": "Mirrors are fragile but Wario's courier pigeons ensure they arrive unbroken.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:17:55+00:00"
+    }
+  },
+  "wz_gen_epic_0083": {
+    "id": "wz_gen_epic_0083",
+    "name": "Chrona-Divinity's Temporal Nexus",
+    "description": "This watch warps time within a radius of 50 feet, causing all combatants to act in strange patterns. Allies move backwards, while enemies leap into the future.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "-Compatible Clockwise-Counterclockwise-Arrows",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires mastery over basic temporal manipulation to wield effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Displacement",
+        "rules": "Allies within 50 feet move their turns backwards by one round. Enemies gain the ability to act two rounds into the future."
+      },
+      {
+        "title": "Time Loop Vulnerability",
+        "rules": "Within a 25-foot radius, creatures suffer from 1d6 temporal disorientation on initiative rolls starting at the activation of the item."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "until the end of next turn",
+      "endsWhen": "the wearer's next action",
+      "charges": "3 charges, recharges after a long rest"
+    },
+    "warning": "May cause unintended time loops and paradoxes. Use with caution.",
+    "vendorReason": "Wario sells it because it's a unique challenge for players, making battles unpredictable and entertaining.",
+    "shippingDetail": "Delivered via a time-traveling courier pigeon.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:18:10+00:00"
+    }
+  },
+  "wz_gen_mythic_0083": {
+    "id": "wz_gen_mythic_0083",
+    "name": "Eterna-Reality's Warpcore",
+    "description": "This delicate bauble warps reality in its wearer’s favor, creating impossible outcomes and paradoxes. It bends the very fabric of time and space, but at a terrible cost.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "chra",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires profound mastery to wield without tearing apart reality itself.",
+    "effectDetails": [
+      {
+        "title": "Temporal Anomaly",
+        "rules": "Once per short rest, the wearer can create a 30-foot radius anomaly that lasts for 1d4+2 rounds. Enemies within must succeed on a DC 25 Dexterity saving throw or be pushed 10 feet and take 15d6 force damage."
+      },
+      {
+        "title": "Reality Rift",
+        "rules": "At the start of each combat, the wearer can activate this ability to create a rift that lasts for 1 minute. Creatures within 30 feet must make a DC 28 Intelligence saving throw or be pulled into the rift and take 20d6 force damage."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Rift: 1 minute; Anomaly: 1d4+2 rounds",
+      "endsWhen": "Natural End of Combat for Rift, or when the wearer wishes to end it.",
+      "charges": "1 charge per day, recharged after a long rest."
+    },
+    "warning": "Activating either ability costs 5000 coins as a symbolic sacrifice to Wario, who is paid in absurdities.",
+    "vendorReason": "Wario stocks this item because he believes the chaos it brings is essential for maintaining the balance of reality.",
+    "shippingDetail": "The Warpcore arrives encased in a time-stopping field that must be deactivated by an incantation known only to Wario.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:18:21+00:00"
+    }
+  },
+  "wz_gen_common_0084": {
+    "id": "wz_gen_common_0084",
+    "name": "Futuristic Fidget Spool",
+    "description": "This sleek spool hums quietly as you roll it between your fingers, granting a minor boost to manual dexterity tasks.",
+    "price": 35,
+    "category": "equipment",
+    "rarity": "common",
+    "icon": "⚙️",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic coordination and nimbleness for optimal use.",
+    "effectDetails": [
+      {
+        "title": "Quick Fingers",
+        "rules": "+1d4 bonus on Dexterity checks or saving throws"
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "concentration up to 1 minute",
+      "endsWhen": "you stop concentrating or take damage",
+      "charges": "recharges after a short rest"
+    },
+    "warning": "If used during combat, it may attract unwanted attention from nearby enemies.",
+    "vendorReason": "Wario finds the spool's design charmingly utilitarian and a refreshing change of pace from his usual stock.",
+    "shippingDetail": "Delivered by Wario's personal hoverboard courier service; arrives in less time than it takes to say 'Quantum Quirk'!",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:18:25+00:00"
+    }
+  },
+  "wz_gen_epic_0084": {
+    "id": "wz_gen_epic_0084",
+    "name": "Chrona-Divinity's Voidscythe",
+    "description": "This majestic scythe can phase through solid objects and reverse the flow of time in its vicinity, but it saps the wielder's willpower with each use.",
+    "price": 6500,
+    "category": "equipment",
+    "rarity": "epic",
+    "icon": "🪓",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a level 12 fighter to channel the scythe's divine power without succumbing to its mental toll.",
+    "effectDetails": [
+      {
+        "title": "Temporal Inversion",
+        "rules": "For every round the scythe is active, it inverts time for all creatures within 30 feet, including the user. Targets of attacks made during this time are immune to damage."
+      },
+      {
+        "title": "Phasing Edge",
+        "rules": "The scythe allows its wielder to phase through objects as if they were air, but doing so costs one charge per foot traversed. Once all charges are depleted, the scythe ceases to function until recharged."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 minute",
+      "endsWhen": "The wielder takes damage or discontinues concentration.",
+      "charges": "5 charges; recharges at dawn."
+    },
+    "warning": "Each use of the scythe's powers drains one point from your Wisdom, reducing your maximum Wisdom score by a permanent amount equal to the number of times you've used it. At full depletion, you lose all memory of past events.",
+    "vendorReason": "Wario stocks it because its unique design and functionality draw in players seeking something truly extraordinary for their encounters.",
+    "shippingDetail": "The scythe is shipped wrapped in a cloud of confusion, ensuring that even the most meticulous collector receives it with a touch of mystery.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:18:37+00:00"
+    }
+  },
+  "wz_gen_mythic_0084": {
+    "id": "wz_gen_mythic_0084",
+    "name": "Eterna-Reality's Quantum Paradox",
+    "description": "This artifact distorts the very fabric of time and space, allowing its wielder to rewrite a single event within their last three combat rounds. However, this manipulation comes with catastrophic side effects.",
+    "price": 50000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "🚨",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires mastery over multiple temporal mechanics and the ability to comprehend paradoxes without being consumed by them.",
+    "effectDetails": [
+      {
+        "title": "Quantum Rewrite",
+        "rules": "Target a single event within your last three combat rounds, roll 2d6. On a result of 7 or higher, you rewrite it as desired. On an even number below 7, the event is rewritten but with you experiencing the opposite effect."
+      },
+      {
+        "title": "Temporal Ripple",
+        "rules": "For every successful rewrite, there's a 10% chance to create a temporal ripple affecting all combatants within 30 feet for 2 rounds. This ripple deals 4d6 force damage and imposes the Stunned condition on anyone caught in its radius."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Permanent, but rewrites are limited to once per minute.",
+      "endsWhen": "The next combat round ends or the rewrite is used again within that minute.",
+      "charges": "Unlimited, but must rest for 24 hours after each successful use."
+    },
+    "warning": "Rewriting an event can have unintended and dangerous consequences. Additionally, the temporal ripple creates a risk of paradoxes that could unravel reality itself if not properly managed.",
+    "vendorReason": "Wario stocks this because it's rare enough to be in demand among adventurers seeking to bend time and space for their own ends, even at the cost of potential chaos.",
+    "shippingDetail": "Shipped via warpable envelope that ensures delivery within a temporal flux.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:18:48+00:00"
+    }
+  },
+  "wz_gen_epic_0085": {
+    "id": "wz_gen_epic_0085",
+    "name": "Temporal Flux Anomaly",
+    "description": "This pocket watch seems to warp time around you, creating a maelstrom of temporal distortions that befuddle foes. However, the very instability of its mechanics is what makes it dangerous.",
+    "price": 6000,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🔄⚡",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a firm grasp on controlling time without losing one's footing in reality.",
+    "effectDetails": [
+      {
+        "title": "Temporal Disarray",
+        "rules": "For each round you wield the watch, roll 2d6. On a result of 7 or lower, all enemies within 10 feet must make a DC 14 Dexterity saving throw. Failure results in them acting as if they have advantage on their next attack action."
+      },
+      {
+        "title": "Chronal Feedback",
+        "rules": "If the watch's internal mechanism fails (roll a d20; on a result of 1, it malfunctions), you must succeed on a DC 15 Constitution saving throw or be stunned for 1 round. The watch can only be used once per long rest."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Until the end of your next turn",
+      "endsWhen": "If you are no longer in possession of it, or if it malfunctions.",
+      "charges": "1 use per long rest"
+    },
+    "warning": "The watch's instability can cause unexpected time loops. A failure during a critical engagement could lead to catastrophic results.",
+    "vendorReason": "Wario stocks this because the demand for something that seems to mess with time is surprisingly high, even if it doesn't always work as intended.",
+    "shippingDetail": "Delivered in a specially marked box labeled 'Temporal Hazards - Extreme Caution Required'.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:19:03+00:00"
+    }
+  },
+  "wz_gen_common_0085": {
+    "id": "wz_gen_common_0085",
+    "name": "Temporal Whistle II",
+    "description": "This whistle is a copy of the original Temporal Whistle, but with an improved design. It allows the user to create a 10-foot radius temporary barrier against time-based effects.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🎶",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic knowledge of temporal mechanics and some practice with time-related items.",
+    "effectDetails": [
+      {
+        "title": "Temporal Bubble",
+        "rules": "Create a 10-foot radius barrier that lasts for 1 round. The barrier blocks all time-based effects."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 round",
+      "endsWhen": "The end of the user's next turn",
+      "charges": "2 uses; recharged on a short or long rest"
+    },
+    "warning": "While inside the bubble, movement and time perception are slowed to half speed.",
+    "vendorReason": "Wario finds that customers often need an improved version of popular items for their adventures.",
+    "shippingDetail": "Ships via Wario's Super Fast Delivery Service, which is known to be somewhat unreliable.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:19:08+00:00"
+    }
+  },
+  "wz_gen_uncommon_0019": {
+    "id": "wz_gen_uncommon_0019",
+    "name": "Quantum Quirk V",
+    "description": "A sleek, glowing charm that grants you an additional action in combat rounds.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "💡",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a moderate grasp of quantum mechanics to wield effectively.",
+    "effectDetails": [
+      {
+        "title": "Extra Action",
+        "rules": "Gain +1 free action during your turn. Only usable once per round."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "permanent, until expended",
+      "endsWhen": "used or dropped in combat",
+      "charges": "1; recharges after a short rest"
+    },
+    "warning": "Using this charm too often may disrupt the flow of time around you.",
+    "vendorReason": "Wario has always been fond of quirky gadgets that bend reality, even if they don't quite work right.",
+    "shippingDetail": "Shipped in a specially designed quantum foam box to prevent interference with the item's properties.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:19:22+00:00"
+    }
+  },
+  "wz_gen_legendary_0079": {
+    "id": "wz_gen_legendary_0079",
+    "name": "Chrona-Divinity's Chronosphere II",
+    "description": "A sleek, metallic orb that warps time within its sphere. It allows the wielder to pause reality around them for a brief moment.",
+    "price": 18000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "🌍",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires mastery over temporal dynamics to control such a powerful artifact without causing paradoxes.",
+    "effectDetails": [
+      {
+        "title": "Temporal Arrest",
+        "rules": "Pauses all non-magical time-based effects within its radius for 3 rounds."
+      },
+      {
+        "title": "Paradox Prevention",
+        "rules": "Reduces the chance of creating temporal anomalies by 50% while active."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "3 rounds",
+      "endsWhen": "The end of its duration or when a critical failure occurs.",
+      "charges": "1 charge, recharges after a long rest."
+    },
+    "warning": "Overuse may cause the wielder to experience time distortions and temporary loss of spatial orientation.",
+    "vendorReason": "Wario acquired this item from an eccentric collector who believes it holds the key to temporal control.",
+    "shippingDetail": "Shipped in a custom, vacuum-sealed case to preserve its integrity during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:19:45+00:00"
+    }
+  },
+  "wz_gen_uncommon_0020": {
+    "id": "wz_gen_uncommon_0020",
+    "name": "Temporal Bubble II",
+    "description": "A small, shimmering bubble that compresses time within its radius, allowing a single creature to move up to 30 feet in half the normal movement time. However, it can only be used once per day.",
+    "price": 250,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": ">",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a moderate grasp of time manipulation basics.",
+    "effectDetails": [
+      {
+        "title": "Compression",
+        "rules": "The user can move up to 30 feet in half their normal movement time."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 hour",
+      "endsWhen": "the end of the user's turn or when the effect is dispelled by another spell",
+      "charges": "uses per day, recharged after a long rest"
+    },
+    "warning": "If used in combat, it may disrupt nearby magical effects.",
+    "vendorReason": "Wario finds odd items that can enhance one’s mobility and surprise their enemies.",
+    "shippingDetail": "Shipped via warp-capable delivery services, ensuring swift arrival to eager customers.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:19:49+00:00"
+    }
+  },
+  "wz_gen_common_0086": {
+    "id": "wz_gen_common_0086",
+    "name": "Temporal Snickerdoodle III",
+    "description": "This spool of doughnut-shaped temporal flux is a reliable way to gain a small edge in combat or exploration, but beware: it may not always land you where you wanted.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🍪",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires some basic understanding of time mechanics and the ability to handle doughnut-shaped devices.",
+    "effectDetails": [
+      {
+        "title": "Temporal Displacement",
+        "rules": "On activation, roll a d6. You gain movement speed equal to double your movement speed for 1 round, but you land in an unexpected location."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 round",
+      "endsWhen": "The effect duration ends.",
+      "charges": "Recharge after a long rest."
+    },
+    "warning": "Landing unexpectedly may lead to tactical disadvantage or missed opportunities. Use with caution in critical situations.",
+    "vendorReason": "Wario sells this because it's cheap and amusing, but also useful for those who don't want to spend too much on time-travel toys.",
+    "shippingDetail": "These snickerdoodles are shipped fresh from the bakery, ensuring each one is ready to be a part of your adventures.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:20:02+00:00"
+    }
+  },
+  "wz_gen_mythic_0085": {
+    "id": "wz_gen_mythic_0085",
+    "name": "Eterna-Reality's Quantum Paradox II",
+    "description": "A shimmering quantum anomaly that warps space-time into a chaotic spiral, defying all known physical laws. It bends reality itself for brief moments.",
+    "price": 65000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": ":atom_symbol:",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a deep understanding of the fabric of time and space to wield without catastrophic results.",
+    "effectDetails": [
+      {
+        "title": "Quantum Anomaly",
+        "rules": "For every round it is active, there is a 25% chance that all creatures within a 30-foot radius are affected by spontaneous quantum fluctuations that deal 1d6 force damage and displace them up to 10 feet away."
+      },
+      {
+        "title": "Temporal Disruption",
+        "rules": "For its duration (1 round), any spell cast in the area has its save DC increased by +4, making it harder for enemies to resist."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 round",
+      "endsWhen": "The user lets go of it or takes a creature within the radius of the anomaly as an enemy.",
+      "charges": "3 uses per day, recharged after a long rest."
+    },
+    "warning": "If used near constructs or objects with integrated time manipulation systems, there is a 10% chance that both are rendered inoperable for 24 hours.",
+    "vendorReason": "Wario stocks it because it's a guaranteed conversation starter and a symbol of absolute power.",
+    "shippingDetail": "The item comes encased in a specially designed, quantum-stabilized vacuum container to ensure safe delivery.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:20:06+00:00"
+    }
+  },
+  "wz_gen_epic_0086": {
+    "id": "wz_gen_epic_0086",
+    "name": "Chrona-Delusion's Mirage IX",
+    "description": "This sleek, holographic device warps the battlefield, making it appear as if time moves backward for all enemies. They must act as though they are fighting in reverse, making every attack and movement a step back in their timeline.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "-Methods:",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a solid understanding of temporal mechanics to effectively manipulate the battlefield.",
+    "effectDetails": [
+      {
+        "title": "Reverse Chronal Momentum",
+        "rules": "For every round the device is active, enemies must re-roll all attack and damage rolls, subtracting the result from their total."
+      },
+      {
+        "title": "Temporal Disorientation",
+        "rules": "Enemies gain disadvantage on initiative checks for 2 minutes after the device is activated."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 minute per use",
+      "endsWhen": "the user reactivates it, ends their turn or takes a bonus action.",
+      "charges": "5 charges that recharge on a failed daily dawn roll"
+    },
+    "warning": "The device can only be used once every 3 days due to its unstable chronal core.",
+    "vendorReason": "Wario stocks this item because it's a showstopper for any encounter, guaranteeing at least one moment of chaos and humor.",
+    "shippingDetail": "Delivered via an express courier service that insists on being called 'Temporal Express', no matter the distance.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:20:16+00:00"
+    }
+  },
+  "wz_gen_mythic_0086": {
+    "id": "wz_gen_mythic_0086",
+    "name": "Eterna-Entropy's Anomaly",
+    "description": "A pocket-sized device that allows the user to manipulate entropy locally, creating pockets of time distortion and energy imbalance. It bends reality but at a cost.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "💥",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires mastery over temporal anomalies to wield without catastrophic consequences.",
+    "effectDetails": [
+      {
+        "title": "Temporal Surge",
+        "rules": "Activates a burst of entropy that disrupts the immediate environment, dealing 2d6 force damage and altering gravity for 1 round (10 feet radius)."
+      },
+      {
+        "title": "Entropy Drain",
+        "rules": "Drains 3d4 hit points from all living creatures within 20 feet over 5 rounds. Ends when the device is recharged."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "1 round (Temporal Surge)",
+      "endsWhen": "The effect duration ends or the user recharges the device.",
+      "charges": "3 charges, recharges after a long rest."
+    },
+    "warning": "Each use requires 500 coins for device maintenance and repair. Failure to maintain can result in permanent entropy damage to the user's body.",
+    "vendorReason": "Wario stocks it because it's a novelty that adds an element of chaos and profit potential, even if it's risky and costly.",
+    "shippingDetail": "Shipped via time-displaced courier, arriving in 0.1 seconds but delivered hours later due to temporal anomalies.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:20:19+00:00"
+    }
+  },
+  "wz_gen_common_0087": {
+    "id": "wz_gen_common_0087",
+    "name": "Temporal Snickerdoodle IV",
+    "description": "This enchanted cookie seems normal on the outside, but when eaten, it teleports you to a random location from your recent memories. Unfortunately, the destination is never where you wanted to go.",
+    "price": 30,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": "lijah",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic memory recall and focus.",
+    "effectDetails": [
+      {
+        "title": "Temporal Teleport",
+        "rules": "You are teleported to a location from your short-term memory, but the destination is determined by the DM. This can be anywhere within a 1-mile radius of you."
+      }
+    ],
+    "usage": {
+      "activation": "eat",
+      "duration": "instantaneous",
+      "endsWhen": "arrival at the chosen location",
+      "charges": "5 uses, recharged daily"
+    },
+    "warning": "The teleportation is unpredictable and can land you in dangerous or embarrassing situations.",
+    "vendorReason": "Wario sells it because people are always looking for shortcuts to memories they wish were real.",
+    "shippingDetail": "Shipped by Wario's pet ghost, who insists on delivering each cookie with a personal note.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:20:28+00:00"
+    }
+  },
+  "wz_gen_epic_0087": {
+    "id": "wz_gen_epic_0087",
+    "name": "Temporal Tachyon Tempest",
+    "description": "This device unleashes a miniature tachyon storm that can disrupt enemy actions in the immediate area, but it requires the user to sacrifice their next action.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🌪️",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a strong grasp of temporal mechanics and discipline to operate without causing unintended temporal distortions.",
+    "effectDetails": [
+      {
+        "title": "Temporal Disruption",
+        "rules": "For every round the device is active, an enemy within 30 feet must make a DC 15 Dexterity saving throw or lose their next action."
+      },
+      {
+        "title": "Energy Drain",
+        "rules": "The user of this item must spend their next action as soon as the effect ends."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the end of your next turn",
+      "endsWhen": "The start of your next turn",
+      "charges": "1 charge, recharged after a long rest"
+    },
+    "warning": "Improper use can cause localized temporal anomalies that may affect allies within range.",
+    "vendorReason": "Wario stocks it because the item is highly sought after by adventurers needing to disrupt enemy actions in strategic encounters.",
+    "shippingDetail": "The item arrives with a protective temporal stabilization field ensuring safe delivery.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:20:33+00:00"
+    }
+  },
+  "wz_gen_mythic_0087": {
+    "id": "wz_gen_mythic_0087",
+    "name": "Eterna-Reality's Quantum Paradox III",
+    "description": "A shimmering cube that warps time and space simultaneously, allowing the wielder to travel between moments. It distorts reality around it.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": ":clock2:",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a deep understanding of quantum mechanics and temporal anomalies.",
+    "effectDetails": [
+      {
+        "title": "Temporal Flux",
+        "rules": "Can move the user between any two moments in time within a 20-foot radius, but each use ages the user by one year."
+      },
+      {
+        "title": "Reality Distortion",
+        "rules": "For every round it is active, there's a 5% chance of causing a ripple effect that disrupts adjacent creatures' actions for 1d4 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Until the end of the user’s next turn",
+      "endsWhen": "The user chooses to stop it or takes an action",
+      "charges": "3 charges per day, recharged by a full night's sleep"
+    },
+    "warning": "Each use ages the user by one year.",
+    "vendorReason": "Wario stocks this because of its potential for chaos and spectacle.",
+    "shippingDetail": "Shipped with a time-warping air bubble to keep it stable during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:20:57+00:00"
+    }
+  },
+  "wz_gen_common_0088": {
+    "id": "wz_gen_common_0088",
+    "name": "Skip-Loop Spool",
+    "description": "A whimsical, multicolored spool that whirs and skips when spun, granting its wielder a burst of speed.",
+    "price": 30,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "*spool*",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires nimbleness to activate properly.",
+    "effectDetails": [
+      {
+        "title": "Skip-Loop Boost",
+        "rules": "When activated, the spool grants its wielder a +2 bonus to Dexterity saving throws for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "1 round",
+      "endsWhen": "the effect expires after 1 round",
+      "charges": "3 uses, recharges after a short rest"
+    },
+    "warning": "Wearing the spool during combat can be dangerous; it may accidentally activate if you are not careful.",
+    "vendorReason": "Wario stocks this item because it's fun and quirky, perfect for those looking to add a touch of chaos to their adventures!",
+    "shippingDetail": "This package arrives with a special note: 'Be warned, the spool dances on its own!'",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:21:13+00:00"
+    }
+  },
+  "wz_gen_epic_0088": {
+    "id": "wz_gen_epic_0088",
+    "name": "Chrona-Delusion's Mirage X",
+    "description": "This shimmering pendant distorts the passage of time around its wearer, creating a swirling vortex that can confuse and disorient foes. It warps perceptions in unpredictable ways.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "illusion",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires significant control over one's own perception to wield effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Distortion",
+        "rules": "The wearer can activate the pendant once per long rest, creating a 30-foot radius area of temporal distortion that lasts for 1 minute. Within this zone, all creatures suffer a -2 penalty to attack rolls and saving throws."
+      },
+      {
+        "title": "Perceptual Shift",
+        "rules": "At the start of each creature's turn within the distortion field, it must make a DC 15 Wisdom saving throw or be incapacitated for 1 round. On a success, they are only stunned until their next turn."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 minute",
+      "endsWhen": "the wearer's concentration is broken or the effect ends",
+      "charges": "1 per long rest"
+    },
+    "warning": "The pendant can cause dizziness and nausea in the wearer, requiring a successful Wisdom saving throw (DC 14) at the start of each short rest to avoid it.",
+    "vendorReason": "Wario believes this item could be a lucrative sell to those who wish to gain an edge in chaotic combats where perception is key.",
+    "shippingDetail": "The pendant arrives with a special vacuum-sealed package to preserve its shimmering integrity during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:21:21+00:00"
+    }
+  },
+  "wz_gen_mythic_0088": {
+    "id": "wz_gen_mythic_0088",
+    "name": "Chrona-Divinity's Temporal Nexus III",
+    "description": "A shimmering chronal artifact that allows the wielder to manipulate time within a localized area, creating an endless loop of moments. It bends the laws of linear temporality.",
+    "price": 75000,
+    "category": "equipment",
+    "rarity": "mythic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires mastery over time manipulation and an understanding of its paradoxes.",
+    "effectDetails": [
+      {
+        "title": "Temporal Loop",
+        "rules": "Creates a circular temporal field that lasts for 4 rounds. Any effect applied within this area is instantly repeated after it ends."
+      },
+      {
+        "title": "Chronal Feedback",
+        "rules": "If an enemy attacks while within the loop's radius, they are subjected to a 2d6 damage surge per round they remain in the field."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "4 rounds",
+      "endsWhen": "the wielder ends it or leaves the area",
+      "charges": "1 use, recharges after 7 days"
+    },
+    "warning": "Creating a loop can cause minor temporal anomalies in its immediate surroundings. Users are advised to avoid using it indoors.",
+    "vendorReason": "Wario keeps this item despite its risks because it's a powerful draw for the curious and foolhardy.",
+    "shippingDetail": "The Chrona-Divinity's Temporal Nexus III requires special packaging to ensure it doesn't warp time during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:21:28+00:00"
+    }
+  },
+  "wz_gen_common_0089": {
+    "id": "wz_gen_common_0089",
+    "name": "Skip-Loop Snickerdoodle IV",
+    "description": "This whimsical toy allows the user to briefly warp their perception, creating a delightful loop in time that lasts just long enough for a single step forward or backward.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": ".setViewportView",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires nimbleness and focus to wield effectively without getting tangled.",
+    "effectDetails": [
+      {
+        "title": "Temporal Step",
+        "rules": "You can instantly move one space forward or backward in time, but the universe briefly corrects itself with a slight delay, making you blink for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 round per use",
+      "endsWhen": "The temporal loop closes",
+      "charges": "5 uses; recharges after a short rest"
+    },
+    "warning": "Each use leaves you with an unsettling feeling, as if the universe is subtly out of sync.",
+    "vendorReason": "Wario found it amusing that someone might want to play with time for fun.",
+    "shippingDetail": "Shipped in a tiny, enchanted box that looks like it's made from discarded WarioWare game cartridges.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:21:34+00:00"
+    }
+  },
+  "wz_gen_mythic_0089": {
+    "id": "wz_gen_mythic_0089",
+    "name": "Chrona-Divinity's Temporal Nexus V",
+    "description": "This ancient artifact allows you to manipulate time within a 30-foot radius, bending reality for 1 round. However, its power is erratic and unpredictable.",
+    "price": 65000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": ")||(",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "It requires intimate knowledge of temporal mechanics to control the artifact effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Manipulation",
+        "rules": "You can create a 30-foot radius area where time flows at half speed for 1 round. A d6 roll is needed each turn to maintain this effect."
+      },
+      {
+        "title": "Time Anomaly",
+        "rules": "There's a 25% chance that the temporal manipulation will reverse the flow of time within its radius, sending creatures back one turn in the timeline."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 round",
+      "endsWhen": "The effect ends when you lose concentration or suffer a critical hit.",
+      "charges": "1 charge per day; recharged by sunrise."
+    },
+    "warning": "Unintended time shifts can cause permanent memory loss and disorientation for those caught in the temporal anomaly.",
+    "vendorReason": "Wario acquired it from an ancient ruin, hoping to sell it as a novelty that could bend reality itself.",
+    "shippingDetail": "Due to its unstable nature, Chrona-Divinity's Temporal Nexus V is shipped via a private, time-traveling courier.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:22:11+00:00"
+    }
+  },
+  "wz_gen_uncommon_0021": {
+    "id": "wz_gen_uncommon_0021",
+    "name": "Chrona-Delusion's Mirage VI Mark II",
+    "description": "This ethereal device distorts time around you, blurring your movements and actions into a surreal miasma. While it enhances your creativity in improvisation, it also makes precise attacks nearly impossible.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "illusory-clouds",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires basic understanding of temporal mechanics to activate.",
+    "effectDetails": [
+      {
+        "title": "Illusory Distortion",
+        "rules": "While wearing this, you gain advantage on Charisma (Performance) checks but suffer disadvantage on Dexterity saving throws. Duration: 1 minute."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 minute",
+      "endsWhen": "the wearer removes the device or at the end of their next turn, whichever comes first.",
+      "charges": "1 use per day; recharged after a long rest."
+    },
+    "warning": "The effects can be disorienting and may cause you to miss critical attacks during combat.",
+    "vendorReason": "Wario stocks this because it's a quirky item that players love to experiment with in unique situations.",
+    "shippingDetail": "This item ships as an enchanted cloud in a glass container, arriving just before your next adventure.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:22:44+00:00"
+    }
+  },
+  "wz_gen_uncommon_0022": {
+    "id": "wz_gen_uncommon_0022",
+    "name": "Eterna-Quirk's Quantum Shuffle",
+    "description": "A peculiar charm that temporarily warps your luck in a single throw of the dice, but only once per day.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "🔄",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires enough experience to grasp the concept of quantum unpredictability.",
+    "effectDetails": [
+      {
+        "title": "Quantum Flicker",
+        "rules": "For one roll, reroll a d20 and take the lower result."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "instantaneous",
+      "endsWhen": "after use",
+      "charges": "1 per day"
+    },
+    "warning": "Can only be used once daily, preventing over-reliance on chance.",
+    "vendorReason": "Wario sells it because it's a bit of fun for those who need to cheat their way out of sticky situations!",
+    "shippingDetail": "Delivered via Wario's trusty mail van, which sometimes arrives in the future or past!",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:22:51+00:00"
+    }
+  },
+  "wz_gen_common_0090": {
+    "id": "wz_gen_common_0090",
+    "name": "Quantum Quirk Sprocket",
+    "description": "A small, gleaming sprocket that spins with a mesmerizing glow when activated. It is said to realign the quantum quirks of nearby objects.",
+    "price": 60,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": "⚙️",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic understanding of quantum mechanics.",
+    "effectDetails": [
+      {
+        "title": "Quirk Realignment",
+        "rules": "For every 5 feet within, a random object gains +1d4 to its dexterity save for the next hour."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "one hour",
+      "endsWhen": "the duration expires",
+      "charges": "3 charges, recharged after a short rest"
+    },
+    "warning": "If used in a library, the Quantum Quirk Sprocket may accidentally rearrange bookshelves.",
+    "vendorReason": "Wario finds it amusing how such a small item can have such a big impact on the environment around you.",
+    "shippingDetail": "Sent via warp-speed courier, ensuring your curiosities are aligned as soon as they arrive.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:23:06+00:00"
+    }
+  },
+  "wz_gen_epic_0090": {
+    "id": "wz_gen_epic_0090",
+    "name": "Eterna-Reality's Quantum Paradox IV",
+    "description": "This wrist-mounted device distorts the flow of time around you, causing allies and enemies alike to misinterpret actions. Temporal distortions can lead to chaotic outcomes.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a deep understanding of temporal mechanics and the ability to navigate unpredictable situations.",
+    "effectDetails": [
+      {
+        "title": "Temporal Misinterpretation",
+        "rules": "For every round you wear this device, roll a d6. On a result of 5+, an ally or enemy within 10 feet must make a DC 14 Wisdom saving throw or take 2d6 confusion damage until the start of their next turn."
+      },
+      {
+        "title": "Temporal Anomaly",
+        "rules": "At the end of your turn, there is a 20% chance that you and all creatures within 20 feet are struck by a temporal ripple. This deals 4d8 force damage but grants immunity to all non-magical damage until the start of your next turn."
+      }
+    ],
+    "usage": {
+      "activation": "passive",
+      "duration": "Until removed or deactivated",
+      "endsWhen": "You remove it or suffer from its effects for two consecutive turns",
+      "charges": "Unlimited, recharged by wearing it during a short rest"
+    },
+    "warning": "The device can cause unintended temporal distortions that could affect the timeline.",
+    "vendorReason": "Wario stocks it because customers are always looking for ways to create chaos and confusion in their battles.",
+    "shippingDetail": "Shipped via time-displaced carrier pigeon, arrives with a slight delay.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:23:28+00:00"
+    }
+  },
+  "wz_gen_epic_0089": {
+    "id": "wz_gen_epic_0089",
+    "name": "Temporal Bounding Chain",
+    "description": "This heavy iron chain binds the movements of a single creature within an area for the duration, limiting their mobility and dashing abilities.",
+    "price": 6500,
+    "category": "equipment",
+    "rarity": "epic",
+    "icon": "⛓️",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a solid understanding of battlefield positioning to deploy effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Shackles",
+        "rules": "Once per long rest, target one creature within 30 feet. They are restrained until the start of their next turn."
+      },
+      {
+        "title": "Dash Disruption",
+        "rules": "Any movement action or dash used by the bound creature results in a DC 20 Dexterity saving throw; on failure, they fall prone."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the start of their next turn for each use",
+      "endsWhen": "The target fails its save or another creature breaks the chain.",
+      "charges": "1 charge per day"
+    },
+    "warning": "If the target fails more than one saving throw, they are incapacitated until the end of your next turn.",
+    "vendorReason": "Wario knows a thing or two about slowing down pesky attackers in chaotic encounters.",
+    "shippingDetail": "Delivered by an enchanted mail carrier who dances through time to ensure punctuality.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:23:40+00:00"
+    }
+  },
+  "wz_gen_mythic_0090": {
+    "id": "wz_gen_mythic_0090",
+    "name": "Eterna-Divinity's Chronal Nullifier",
+    "description": "This ornate chronal device can nullify the effects of time-based magic within a radius, freezing any ongoing temporal effects. However, it comes with the cost of halting its wielder's own life for the duration.",
+    "price": 65000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "👋",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Users must be sufficiently skilled to manage its unpredictable side effects without succumbing to its temporal stasis.",
+    "effectDetails": [
+      {
+        "title": "Temporal Stasis",
+        "rules": "All active time-based effects within a 30-foot radius are nullified. The wielder enters a state of temporal suspension, effectively stopping their aging and movement for the duration."
+      },
+      {
+        "title": "Life Suspension",
+        "rules": "The wearer's life force is suspended while the device is in use; they cannot act or be acted upon during this time."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the wielder chooses to end it, up to one minute.",
+      "endsWhen": "The user ends it as an action or their life force returns after the duration.",
+      "charges": "1 charge per use; recharged when the wielder's character rests for 8 hours."
+    },
+    "warning": "While in effect, any physical contact with a living creature will transfer the temporal stasis to them, potentially causing them to age rapidly or even die if they are not touched by another living being within that time.",
+    "vendorReason": "Wario stocks this item because it's a unique way for adventurers to deal with pesky time-based traps and effects without sacrificing themselves in the process.",
+    "shippingDetail": "Due to its mythic nature, the Chronal Nullifier is only shipped via Wario's own private airship service, ensuring safe delivery within an hour.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:23:48+00:00"
+    }
+  },
+  "wz_gen_common_0091": {
+    "id": "wz_gen_common_0091",
+    "name": "Quantum Quirk Sprocket II",
+    "description": "This sleek brass sprocket hums softly when activated, providing a small boost to your mechanical proficiency in the current scene. However, it's prone to skipping erratically after extended use.",
+    "price": 45,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": "⚙️",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic knowledge of mechanics and tinker skills.",
+    "effectDetails": [
+      {
+        "title": "Mechanical Boost",
+        "rules": "+1 bonus to any mechanical skill check for the duration of the session."
+      },
+      {
+        "title": "Skip Hazard",
+        "rules": "There's a 20% chance each day that the sprocket skips out of place, requiring immediate concentration to fix."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Until the end of the scene",
+      "endsWhen": "The session ends or you deactivate it.",
+      "charges": "1 use per day"
+    },
+    "warning": "Skipping can disrupt any mechanical device within range, requiring a DC 15 Repair check to fix without causing further damage.",
+    "vendorReason": "Wario knows that glitches are the soul of true innovation and this little sprocket is a prime example!",
+    "shippingDetail": "Shipped via Wario's Turbo Mail Express—delivered by a penguin in less than an hour!",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:23:49+00:00"
+    }
+  },
+  "wz_gen_epic_0091": {
+    "id": "wz_gen_epic_0091",
+    "name": "Eterna-Dream's Temporal Fugue",
+    "description": "This bauble can warp time within a 10-foot radius for up to 3 rounds. Wielders must resist the urge to oversleep or risk losing an hour of their life each failed save.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "-Compatible with all clocks and watches.",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a good grasp of time manipulation and its consequences.",
+    "effectDetails": [
+      {
+        "title": "Temporal Warp",
+        "rules": "Affects all creatures within a 10-foot radius for up to 3 rounds, requiring a Wisdom saving throw (DC 15). On failure, the target loses an hour of their life."
+      },
+      {
+        "title": "Dreamy Echoes",
+        "rules": "For every additional creature affected, the DC increases by 2. If all creatures fail the save, the entire area is put to sleep for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Up to 3 rounds per use",
+      "endsWhen": "The duration ends or when a creature fails the saving throw.",
+      "charges": "5 uses. Recharged after a long rest."
+    },
+    "warning": "Use with caution; oversleeping can have dire consequences.",
+    "vendorReason": "Wario stocks this because it's a dream (pun intended) for anyone who needs to manipulate time without the risk of temporal paradoxes.",
+    "shippingDetail": "Delivered by a snail post, ensuring your dreams are sorted.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:24:17+00:00"
+    }
+  },
+  "wz_gen_mythic_0091": {
+    "id": "wz_gen_mythic_0091",
+    "name": "Eterna-Reality's Chronal Anomaly",
+    "description": "This pocketwatch is said to contain a fragment of an unbroken moment in time, allowing the wearer to perform any action exactly as intended without interference from the passage of time. However, each use alters the very fabric of reality within its vicinity.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "RTC",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a level above 18 to wield without causing unintended temporal disturbances.",
+    "effectDetails": [
+      {
+        "title": "Perfect Timing",
+        "rules": "The wearer gains advantage on initiative checks and actions taken in reaction. Each use takes the form of one reality-altering event within its vicinity, affecting up to 10 feet radius."
+      },
+      {
+        "title": "Temporal Ripple",
+        "rules": "For every 5 uses, there is a 20% chance that a small temporal ripple occurs, causing all players and creatures in sight to re-roll initiative once per round for the next minute."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "until the end of your next turn",
+      "endsWhen": "the wearer chooses to end it or upon their next action",
+      "charges": "5 uses, recharges after a long rest"
+    },
+    "warning": "Temporal ripples are unpredictable and can cause unintended and possibly dangerous changes in reality.",
+    "vendorReason": "Wario stocks this item because it's highly profitable despite its risks, especially for those who need perfect timing but can't afford the consequences of failure.",
+    "shippingDetail": "The Chronal Anomaly is delivered wrapped in a shroud to protect both the sender and receiver from any unintended reality-altering effects during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:24:24+00:00"
+    }
+  },
+  "wz_gen_legendary_0080": {
+    "id": "wz_gen_legendary_0080",
+    "name": "Chrona-Divinity's Temporal Nexus VI",
+    "description": "A gleaming, hexagonal crystal that allows the wielder to manipulate time in unprecedented ways. Its power is said to have been crafted by gods themselves.",
+    "price": 25000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a master of time manipulation to wield its full potential.",
+    "effectDetails": [
+      {
+        "title": "Temporal Cascade",
+        "rules": "Activates as a reaction, creating an 8-foot radius temporal ripple that lasts for 2 rounds. Each creature in the area must succeed on a DC 18 Dexterity saving throw or be pushed 10 feet away."
+      },
+      {
+        "title": "Chronal Surge",
+        "rules": "May be used once per long rest to create a 30-foot radius time loop that lasts for 3 rounds. All creatures within the area must re-roll one attack roll, save roll, or ability check they have made during its duration."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "2 rounds (Temporal Cascade), 3 rounds (Chronal Surge)",
+      "endsWhen": "the effect's duration expires",
+      "charges": "1/day; recharges after a long rest"
+    },
+    "warning": "Overuse can disrupt the fabric of time, causing unintended temporal anomalies around the wielder.",
+    "vendorReason": "Wario believes that such an item would be a game-changer for anyone who dares to challenge the forces of time itself.",
+    "shippingDetail": "Shipped in a specially insulated box to preserve its integrity and ensure safe delivery.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:24:38+00:00"
+    }
+  },
+  "wz_gen_epic_0092": {
+    "id": "wz_gen_epic_0092",
+    "name": "Temporal Wraith Walker",
+    "description": "This intricate amulet allows the wearer to phase between worlds, disrupting enemies' perception and attacks. It distorts time around you, making it nearly impossible for foes to target you accurately.",
+    "price": 5000,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "👻",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a deep understanding of both combat and the fabric of time.",
+    "effectDetails": [
+      {
+        "title": "Phasing Distortion",
+        "rules": "Enemies within 30 feet must make a DC 18 Dexterity saving throw or have their attack rolls against you reduced by 2 until the end of their next turn."
+      },
+      {
+        "title": "Temporal Slippery Footing",
+        "rules": "For every three rounds you remain in phasing mode, your movement speed increases by +5 feet until the start of your next turn. However, you may not use this effect if you have more than one charge remaining at the beginning of a round."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "One minute or until dismissed",
+      "endsWhen": "The wearer chooses to end the phasing",
+      "charges": "3 charges, recharges after a long rest"
+    },
+    "warning": "While in phasing mode, you are invisible only to those who know your exact location. Otherwise, you are fully visible.",
+    "vendorReason": "Wario stocks it because it's one of the most sought-after curiosities for players looking to gain the upper hand in chaotic encounters.",
+    "shippingDetail": "Each amulet comes with a custom-made chain that can be adjusted by Wario himself during shipping.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:25:00+00:00"
+    }
+  },
+  "wz_gen_common_0092": {
+    "id": "wz_gen_common_0092",
+    "name": "Temporal Snickerdoodle V",
+    "description": "A doughnut that instantly transports you to a random location within your party's last five visited zones.",
+    "price": 85,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🍪",
+    "stock": 3,
+    "levelRequirement": 3,
+    "levelRequirementReason": "Requires some spatial awareness and travel experience.",
+    "effectDetails": [
+      {
+        "title": "Teleport to Last Five Zones",
+        "rules": "After consuming, roll a d6. On a result of 1-4, you teleport immediately to one of the last five visited zones within 50 feet. On 5 or 6, no effect."
+      }
+    ],
+    "usage": {
+      "activation": "Eating",
+      "duration": "Instantaneous",
+      "endsWhen": "Teleportation completes",
+      "charges": "1 use per day"
+    },
+    "warning": "Teleporting to an unfamiliar zone may cause disorientation, requiring a DC 10 Wisdom (Perception) check not to get lost.",
+    "vendorReason": "Wario stocks this because it's a quirky way for adventurers to revisit places they've already been without the hassle of travel.",
+    "shippingDetail": "Sent directly from Wario's secret time loop bakery.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:25:15+00:00"
+    }
+  },
+  "wz_gen_mythic_0092": {
+    "id": "wz_gen_mythic_0092",
+    "name": "Eterna-Reality's Chronal Cascade",
+    "description": "This wrist-mounted device weaves a cascade of shifting realities, blurring the line between past and future. Users can manipulate time within a 30-foot radius for up to 1 round at a cost.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 20,
+    "levelRequirementReason": "Requires deep understanding of temporal mechanics to wield responsibly.",
+    "effectDetails": [
+      {
+        "title": "Temporal Cascade",
+        "rules": "Target within 30 feet must succeed on a DC 28 Dexterity saving throw or be disoriented for the start of their next turn. This effect lasts up to 1 round."
+      },
+      {
+        "title": "Time Weave Charges",
+        "rules": "The device has 5 charges, regenerating 1 charge at the end of each long rest."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Up to 1 round for each charge used",
+      "endsWhen": "Target succeeds on a saving throw or the effect duration ends",
+      "charges": "5 charges, regenerates 1 per long rest"
+    },
+    "warning": "Overuse can lead to unpredictable temporal anomalies that affect the caster.",
+    "vendorReason": "Wario sells it because it's the most sought-after novelty for reality warping in the region.",
+    "shippingDetail": "Shipped via a warp bubble, courtesy of the store’s proprietary teleportation technology.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:25:24+00:00"
+    }
+  },
+  "wz_gen_epic_0093": {
+    "id": "wz_gen_epic_0093",
+    "name": "Eterna-Dream's Temporal Mirage",
+    "description": "This amulet allows you to warp time within a 20-foot radius, altering the flow of combat. It can create or erase up to five seconds of action.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": ":cloud:",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires understanding of temporal mechanics beyond basic knowledge.",
+    "effectDetails": [
+      {
+        "title": "Temporal Warp",
+        "rules": "Can alter the timeline within a 20-foot radius. Changes 5 seconds of combat, affecting up to 4 creatures."
+      },
+      {
+        "title": "Chronal Echo",
+        "rules": "Creates an echo of a previous moment, allowing one action to be repeated once per short rest, but only in combat."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "1 minute per use",
+      "endsWhen": "The wearer is incapacitated or the time alteration ends.",
+      "charges": "2 uses; recharges after a long rest"
+    },
+    "warning": "Using this item outside of combat can cause a cascade effect, altering the past and present unpredictably.",
+    "vendorReason": "Wario stocks it to ensure customers have an edge in their battles against the Dream King.",
+    "shippingDetail": "Shipped via time-displaced courier; arrives with a 10% chance of arriving in the future.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:25:49+00:00"
+    }
+  },
+  "wz_gen_common_0093": {
+    "id": "wz_gen_common_0093",
+    "name": "Skip-Loop Snickerdoodle Mark II",
+    "description": "A sweetly twisted candy that can be looped and unlooped, granting a minor speed boost.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "Slinky",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires dexterity to use it efficiently for its full effect.",
+    "effectDetails": [
+      {
+        "title": "Speed Boost",
+        "rules": "After eating the Skip-Loop Snickerdoodle, you gain +10 feet of walking speed until your next short or long rest."
+      }
+    ],
+    "usage": {
+      "activation": "Eating",
+      "duration": "Until your next short or long rest",
+      "endsWhen": "You finish a short or long rest",
+      "charges": "Infinite uses, no recharging"
+    },
+    "warning": "While you are under the effect of increased speed, you have disadvantage on Dexterity saving throws.",
+    "vendorReason": "Wario finds it amusing that such a simple item can still be useful in a chaotic game like this.",
+    "shippingDetail": "Sent via warp pipes for maximum convenience.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:25:59+00:00"
+    }
+  },
+  "wz_gen_mythic_0093": {
+    "id": "wz_gen_mythic_0093",
+    "name": "Eterna-Dream's Temporal Cascade",
+    "description": "This antique pocket watch promises to rewind time by a moment, but only after you have lived through the same moment ten times. Time flows backward, but at a cost.",
+    "price": 65000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": ")||(",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "To handle this delicate artifact requires experience with the flow of time and the consequences of tampering with it.",
+    "effectDetails": [
+      {
+        "title": "Temporal Rewind",
+        "rules": "For every ten rounds of use, rewind time by 10 seconds. Requires the user to relive the same moment ten times."
+      },
+      {
+        "title": "Time Debt",
+        "rules": "Each use grants a +2 bonus on any action taken in the next hour, but you are bound to live through your worst nightmare for an equal duration after each rewind. Dreams last up to 30 minutes and can be shared with others nearby."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Effect lasts until the moment is relived ten times.",
+      "endsWhen": "After ten rounds of use, or if the user decides to stop it manually.",
+      "charges": "10 uses; regenerates after a week."
+    },
+    "warning": "Using this item may cause unintended consequences in your present and future. The more you use it, the more likely it is that you will inadvertently affect a critical moment in history.",
+    "vendorReason": "Wario stocks this because he knows how to make people pay for shortcuts even if they come with steep penalties.",
+    "shippingDetail": "The watch arrives in a mysterious velvet box, accompanied by a letter warning of the buyer's impending doom.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:26:06+00:00"
+    }
+  },
+  "wz_gen_common_0094": {
+    "id": "wz_gen_common_0094",
+    "name": "Quantum Shuffle Shoelaces",
+    "description": "These shoelaces are woven with quantum strands, allowing you to teleport your feet a short distance in a single stride.",
+    "price": 45,
+    "category": "equipment",
+    "rarity": "common",
+    "icon": "👟",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires some familiarity with spatial manipulation.",
+    "effectDetails": [
+      {
+        "title": "Quantum Leap",
+        "rules": "When you walk, roll a d6. On a result of 6, your feet teleport forward up to 5 feet."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "instantaneous",
+      "endsWhen": "the next time you make a movement action",
+      "charges": "per day; recharged at dawn"
+    },
+    "warning": "Each use risks destabilizing your spatial awareness, causing a -1 penalty to all movement-related checks until the next dawn.",
+    "vendorReason": "Wario stocks these because they're a fun, if slightly unreliable, way to get around.",
+    "shippingDetail": "Shipped in an unmarked box that looks like it was thrown together at the last minute.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:26:26+00:00"
+    }
+  },
+  "wz_gen_epic_0094": {
+    "id": "wz_gen_epic_0094",
+    "name": "Chrona-Dream's Temporal Quirk",
+    "description": "This whimsical charm allows you to manipulate time within a small area, creating pockets of reality where actions can be repeated or altered. However, it only works for one encounter and leaves behind a fleeting echo that haunts your dreams.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🌟",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a deep understanding of time-based mechanics to wield its power without causing paradoxes.",
+    "effectDetails": [
+      {
+        "title": "Temporal Loop",
+        "rules": "For the duration of one encounter, you can repeat your actions for up to three rounds. Each repetition has a cumulative -1 penalty due to fatigue."
+      },
+      {
+        "title": "Ethereal Echo",
+        "rules": "At the end of each day after using this charm, you must make a DC 18 Wisdom saving throw or suffer from temporal echoes that reduce your hit points by an amount equal to half the number of rounds used (rounded down)."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "One encounter",
+      "endsWhen": "Ends at the end of the day it is used",
+      "charges": "1 charge, recharged after a long rest"
+    },
+    "warning": "Using this charm can create temporal echoes that may haunt your dreams and affect your health. The echoes are particularly strong during the full moon.",
+    "vendorReason": "Wario stocks this because it's a bizarre novelty, perfect for customers who enjoy bending reality in unusual ways.",
+    "shippingDetail": "Shipped by Wario Express, guaranteed to arrive with a temporal distortion that may slightly alter its functionality.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:26:50+00:00"
+    }
+  },
+  "wz_gen_uncommon_0023": {
+    "id": "wz_gen_uncommon_0023",
+    "name": "Skip-Loop Spectrograph",
+    "description": "A device that allows you to see the flow of time around you, but it distorts your perception of space.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "🔍",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a nuanced understanding of temporal mechanics.",
+    "effectDetails": [
+      {
+        "title": "Temporal Vision",
+        "rules": "You can see the flow of time around you, but your movement speed is reduced by -2 feet per round."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 minute",
+      "endsWhen": "you deactivate it or take fatal damage",
+      "charges": "5 uses; recharged after a long rest"
+    },
+    "warning": "While activated, you cannot interact with objects or creatures without breaking your concentration.",
+    "vendorReason": "Wario stocks this because it's a quirky item that can add an interesting narrative twist to any encounter.",
+    "shippingDetail": "Shipped via Wario's personal time-bending hovercart.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:26:57+00:00"
+    }
+  },
+  "wz_gen_mythic_0094": {
+    "id": "wz_gen_mythic_0094",
+    "name": "Temporal Paradox Engine",
+    "description": "It's a device that can rewind time for a short duration, but doing so requires the user to sacrifice their personal memory banks.",
+    "price": 65000,
+    "category": "premium",
+    "rarity": "mythic",
+    "icon": "🚨",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires intimate knowledge of both time manipulation and the cost of rewriting one's history.",
+    "effectDetails": [
+      {
+        "title": "Temporal Rewind",
+        "rules": "The user can rewind a target event by up to 5 minutes, but their own memory is erased for every round it lasts."
+      },
+      {
+        "title": "Memory Loss",
+        "rules": "For every minute the effect lasts, the user loses one memory point per hour of real time. Memory points are not regained without external magical aid."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to 5 minutes per use",
+      "endsWhen": "Target event is rewound or the duration runs out",
+      "charges": "1 charge; recharges after a week of inactivity"
+    },
+    "warning": "Using this item can lead to severe memory loss and cognitive dissonance, making it impossible to trust one's own recollection of events.",
+    "vendorReason": "Wario stocks this because he knows there are adventurers who would pay any price for the ability to rewrite history.",
+    "shippingDetail": "The Temporal Paradox Engine is shipped via a private, magical express service that ensures its arrival with maximum efficiency.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:27:04+00:00"
+    }
+  },
+  "wz_gen_common_0095": {
+    "id": "wz_gen_common_0095",
+    "name": "Skip-Loop Spectrograph II",
+    "description": "This compact device reveals hidden paths in the environment, allowing you to see through walls for a brief moment.",
+    "price": 45,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": "🔍",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Simple enough for anyone to use, yet effective against minor obstacles.",
+    "effectDetails": [
+      {
+        "title": "Pathfinding Insight",
+        "rules": "For one round, you can see through any non-magical wall or barrier within 30 feet."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 round",
+      "endsWhen": "The effect ends after one round.",
+      "charges": "Recharges on a short rest."
+    },
+    "warning": "The device drains 5 mana points when used, which may cause you to lose concentration or cast failure in ongoing magic.",
+    "vendorReason": "Wario stocks it because it's a quirky gadget that can be useful for players who need to solve minor obstacles without breaking the game flow.",
+    "shippingDetail": "Shipped with a humorous 'Warning: Not designed for long-distance use' sticker.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:27:16+00:00"
+    }
+  },
+  "wz_gen_epic_0095": {
+    "id": "wz_gen_epic_0095",
+    "name": "Temporal Carousel",
+    "description": "This merry-go-round of time allows you to swap places with any creature within a 30-foot radius. The exchanged creatures can perform one action each during the carousel’s spin, but if anyone tries to leave prematurely, they are pulled back into place.",
+    "price": 4500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "-Compatible-With-Time-Travel.jpg",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires an understanding of temporal dynamics beyond a mere novice.",
+    "effectDetails": [
+      {
+        "title": "Temporal Swap",
+        "rules": "You and one creature within 30 feet can switch places. Each swapped creature performs one action during the carousel's spin."
+      },
+      {
+        "title": "Premature Exit",
+        "rules": "If any creature attempts to leave before the carousel completes its turn, they are forcibly returned to their original position with disadvantage on their next attack or ability check."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the end of your next turn",
+      "endsWhen": "The carousel's spin ends at the beginning of your next turn.",
+      "charges": "1/day, recharged only with a full night’s sleep."
+    },
+    "warning": "Prematurely exiting the carousel can result in disorientation and potential misplacement within the time stream.",
+    "vendorReason": "Wario knows that what's chaotic is fun. Introducing the Temporal Carousel to let heroes experience just how topsy-turvy a battle can be!",
+    "shippingDetail": "Ships via Time Warp Express, but beware of temporal distortions during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:27:25+00:00"
+    }
+  },
+  "wz_gen_mythic_0095": {
+    "id": "wz_gen_mythic_0095",
+    "name": "Chrona-Divinity's Temporal Anomaly",
+    "description": "This bauble allows you to briefly rewrite time, but at the cost of your own reality. It bends the fabric of time around a single target within 10 feet.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "⚡️",
+    "stock": 1,
+    "levelRequirement": 20,
+    "levelRequirementReason": "Requires mastery over temporal mechanics and a firm understanding of quantum paradoxes.",
+    "effectDetails": [
+      {
+        "title": "Temporal Shift",
+        "rules": "Targeted creature moves through time for 3 rounds. Each round, it gains advantage on one ability check."
+      },
+      {
+        "title": "Reality Fracture",
+        "rules": "The caster's next attack roll suffers a -2 penalty for each use of this item, up to 5 penalties after which the caster must succeed on an DC 18 Wisdom saving throw or suffer temporal dissonance affecting their actions for 1d4+2 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "3 rounds per use",
+      "endsWhen": "Effect ends naturally after the duration",
+      "charges": "5 uses; recharged on a long rest"
+    },
+    "warning": "Each use drains a fragment of your soul, representing a small sacrifice to the temporal plane.",
+    "vendorReason": "Wario stocks it because customers are always looking for ways to rewrite their pasts... or futures!",
+    "shippingDetail": "Shipping is handled by Temporal Express, but expect delays due to time paradoxes.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:27:31+00:00"
+    }
+  },
+  "wz_gen_common_0096": {
+    "id": "wz_gen_common_0096",
+    "name": "Teleporting Snickerdoodle",
+    "description": "A fluffy pink cinnamon treat that teleports you to the nearest safe spot. It's a small convenience, but if you're in a pinch, it can save your life—or at least your shoes.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "/gif",
+    "stock": 3,
+    "levelRequirement": 1,
+    "levelRequirementReason": "Anyone can use this sweet little snack!",
+    "effectDetails": [
+      {
+        "title": "Safe Spot Teleport",
+        "rules": "Teleports the user to the nearest safe spot within a 20 feet radius. Must be eaten as an action."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "instantaneous",
+      "endsWhen": "upon arrival at the nearest safe spot",
+      "charges": "1 charge per day, recharged after 8 hours of rest"
+    },
+    "warning": "If there is no safe spot within 20 feet, you teleport to a random location in sight. Beware of enemies and traps.",
+    "vendorReason": "Wario stocks this because it's an easy-to-make snack that also doubles as a fun party trick.",
+    "shippingDetail": "Shipped by Wario's Flying Pigeons—no extra delivery fees for these cute, if slightly tardy, messengers.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:27:34+00:00"
+    }
+  },
+  "wz_gen_epic_0096": {
+    "id": "wz_gen_epic_0096",
+    "name": "Eterna-Dream's Temporal Butterfly",
+    "description": "This delicate butterfly can be summoned into battle to distract enemies and disrupt their concentration, but it demands a heavy sacrifice from the user.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🦋",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "To handle such a volatile item without succumbing to its effects.",
+    "effectDetails": [
+      {
+        "title": "Temporal Disruption",
+        "rules": "Summons a butterfly that distracts the nearest enemy for 2 rounds, reducing their action to move or interact with objects. The user must spend 3 stamina points."
+      },
+      {
+        "title": "Sacrificial Bind",
+        "rules": "Each use of Temporal Butterfly costs the user 1d4 stamina per round until it is dismissed. Once depleted, the butterfly vanishes and the user faints, recovering at half speed."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "2 rounds",
+      "endsWhen": "dismissed or if all stamina points are spent",
+      "charges": "5 uses, recharges after a long rest"
+    },
+    "warning": "Using the butterfly drains your stamina and leaves you vulnerable to attacks. The distraction lasts only as long as you can maintain the spell.",
+    "vendorReason": "Wario stocks it because customers love a good distraction, even if it's at the cost of some personal discomfort.",
+    "shippingDetail": "Sent via a courier who believes in time travel, delivered right to your door.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:28:27+00:00"
+    }
+  },
+  "wz_gen_uncommon_0024": {
+    "id": "wz_gen_uncommon_0024",
+    "name": "Quantum Snickerdoodle V",
+    "description": "This snickerdoodle is no ordinary treat; it contains a quantum singularity that can be manipulated to create temporary portals. However, the dough quickly deteriorates into dust.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "🍪",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a basic understanding of quantum physics.",
+    "effectDetails": [
+      {
+        "title": "Temporal Snack",
+        "rules": "Eating this creates a 1-foot radius portal that lasts for 2 rounds. The portal can only be used once per combat."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "lasting 2 rounds, or until the first creature enters it",
+      "endsWhen": "the creature exits the portal or it collapses into dust after 1 minute of inactivity",
+      "charges": "one use per day"
+    },
+    "warning": "The portal's doughy residue can trigger allergies and cause a 2d4 rounds of distraction for any creature that enters.",
+    "vendorReason": "Wario sells it because it’s the perfect snack to share with friends, or to confuse your enemies into eating it themselves.",
+    "shippingDetail": "Each Quantum Snickerdoodle is shipped in a vacuum-sealed container to preserve its quantum integrity until it arrives.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:29:13+00:00"
+    }
+  },
+  "wz_gen_legendary_0081": {
+    "id": "wz_gen_legendary_0081",
+    "name": "Eterna-Divinity's Chronal Nullifier II",
+    "description": "A sleeker and more powerful iteration of the Chronal Nullifier, this device can stop time for up to three seconds around its wielder. However, it requires a significant power source.",
+    "price": 25000,
+    "category": "premium",
+    "rarity": "legendary",
+    "icon": ":clock6:",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires advanced training and understanding of quantum mechanics.",
+    "effectDetails": [
+      {
+        "title": "Temporal Stasis",
+        "rules": "Causes time to stop for a duration of three seconds around the user. During this time, no actions can be taken by any entity within the radius."
+      },
+      {
+        "title": "Power Consumption",
+        "rules": "Requires 10 units of Chronal Energy per use; recharges after one hour outside of combat."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "3 seconds",
+      "endsWhen": "Duration ends naturally or when the user is no longer in immediate danger",
+      "charges": "10 uses, recharges at a rate of 1 use per hour outside combat"
+    },
+    "warning": "Excessive use can cause time distortions that may affect the wielder's perception and reality.",
+    "vendorReason": "Wario stocks this item because its unique design makes it a must-have for any serious adventurer seeking to gain an edge in their battles.",
+    "shippingDetail": "Ships via Chronal Express, delivered by a flying warp bubble.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:29:30+00:00"
+    }
+  },
+  "wz_gen_mythic_0096": {
+    "id": "wz_gen_mythic_0096",
+    "name": "Eterna-Dream's Quantum Mirage",
+    "description": "This amulet distorts reality to create an endless loop of the wearer’s most cherished memories, but at the cost of their current health.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": ":蜃:",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a solid understanding of temporal mechanics and personal introspection.",
+    "effectDetails": [
+      {
+        "title": "Temporal Loop",
+        "rules": "Each round, the wearer is transported into their memory loop. They gain advantage on all attacks but take an amount of damage equal to 1d10 + their charisma modifier each time."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the end of the wearer’s next turn",
+      "endsWhen": "The wearer exits the memory loop voluntarily or is removed by an external force",
+      "charges": "1 use per day, recharged after 7 days"
+    },
+    "warning": "Each use reduces the wearer's hit points by an amount equal to 1d10 + their charisma modifier. Continuous use can lead to temporal disorientation and permanent health loss.",
+    "vendorReason": "Wario stocks this item because it’s a collector's dream and nightmare, perfect for those who need a reminder of why they should never trust him.",
+    "shippingDetail": "The Quantum Mirage is delivered via an enchanted pigeon that insists on singing the entire journey.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:29:36+00:00"
+    }
+  },
+  "wz_gen_common_0097": {
+    "id": "wz_gen_common_0097",
+    "name": "Fidgety Flux Capacitor",
+    "description": "This tiny capacitor hums with an unstable energy that can disrupt nearby electronic devices. It's perfect for those moments when you need to create a distraction or confuse your foes.",
+    "price": 75,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": "⚡",
+    "stock": 3,
+    "levelRequirement": 3,
+    "levelRequirementReason": "Requires a bit of finesse to handle its unpredictable nature.",
+    "effectDetails": [
+      {
+        "title": "Electro-Flux Pulse",
+        "rules": "As an action, you can generate a pulse that shorts out small electronics within 10 feet. Roll a d6; on a result of 5 or higher, all devices in range suffer 1d3 damage."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "instantaneous",
+      "endsWhen": "effect occurs",
+      "charges": "5 uses/day"
+    },
+    "warning": "Using the Fidgety Flux Capacitor too close to valuable electronics may cause permanent damage.",
+    "vendorReason": "Wario sells it because it's a fun gadget for those who enjoy little bursts of chaos in their day-to-day adventures.",
+    "shippingDetail": "Ships via Wario's Air Mail Express, which occasionally delivers by snail or pigeon.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:29:42+00:00"
+    }
+  },
+  "wz_gen_epic_0097": {
+    "id": "wz_gen_epic_0097",
+    "name": "Temporal Bounding Bubble",
+    "description": "This shimmering bubble can be blown over a hostile combatant to create a temporally confined field. Inside, time moves at half speed, but the target cannot cast spells or use actions with an action cost.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🎈",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a decent understanding of temporal mechanics and control over Chronal Manipulation.",
+    "effectDetails": [
+      {
+        "title": "Temporal Slowdown",
+        "rules": "Inside the bubble, time moves at half speed. The target cannot cast spells or take actions with an action cost."
+      },
+      {
+        "title": "Chronal Restriction",
+        "rules": "The target's ability to use reaction and bonus actions is reduced by 50% within the temporal field."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "One minute or until the target escapes the bubble, whichever comes first.",
+      "endsWhen": "The target leaves the bubble's effect area or the caster takes a bonus action to end it prematurely.",
+      "charges": "1 use per day"
+    },
+    "warning": "If used on an ally, they become incapacitated and time distortion can cause unpredictable reality shifts affecting both combatants.",
+    "vendorReason": "Wario stocks this item because its unique gameplay-altering effects make for some of the most entertaining and unpredictable battles in the Mario universe.",
+    "shippingDetail": "Each bubble is handcrafted from Wario's secret stash of Chronal Goo, ensuring every purchase brings a fresh and vibrant experience.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:29:46+00:00"
+    }
+  },
+  "wz_gen_mythic_0097": {
+    "id": "wz_gen_mythic_0097",
+    "name": "Quantum Chrono-Nullifier",
+    "description": "A mythic device that can reverse the flow of time for up to one minute, but at the cost of your next meal.",
+    "price": 75000,
+    "category": "premium",
+    "rarity": "mythic",
+    "icon": "🔄⚙️",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a deep understanding of both time and digestion.",
+    "effectDetails": [
+      {
+        "title": "Temporal Reversal",
+        "rules": "For every round reversed, you must consume an additional meal. Maximum duration is one minute."
+      },
+      {
+        "title": "Chronal Disruption",
+        "rules": "Any creature within 50 feet who witnesses a reversal gains disadvantage on all ability checks for the next hour."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to one minute per use, limited by meal cost.",
+      "endsWhen": "At the end of its duration or when used up in meals.",
+      "charges": "1 charge per day. Recharged only after you go hungry for 24 hours."
+    },
+    "warning": "Each reversal costs a meal. If your next meal is insufficient, this item ceases to function until your next 24-hour cycle of hunger and satiation.",
+    "vendorReason": "Wario's secret recipe to turn the tables on the competition by selling meals you don't actually eat.",
+    "shippingDetail": "Ships via a time loop, arriving as it departs.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:29:55+00:00"
+    }
+  },
+  "wz_gen_common_0098": {
+    "id": "wz_gen_common_0098",
+    "name": "Skip-Loop Snickerdoodle III",
+    "description": "This doughnut-shaped device hums softly as you activate it, briefly bending time around you to skip forward or back a few moments. Perfect for evading foes or catching dropped items.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🍪",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic understanding of temporal mechanics.",
+    "effectDetails": [
+      {
+        "title": "Temporal Skip",
+        "rules": "Activate as a bonus action. You can move yourself in time by up to 3 rounds."
+      },
+      {
+        "title": "Stale Flavor",
+        "rules": "After 10 minutes, the device's temporal effects become slightly less reliable."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "until the start of your next turn",
+      "endsWhen": "the effect is used or you take damage",
+      "charges": "recharges on a short rest"
+    },
+    "warning": "The snack may not be fresh after use.",
+    "vendorReason": "Wario stocks it because everyone loves a good loop of dough.",
+    "shippingDetail": "Shipped with a complimentary cup of coffee.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:30:04+00:00"
+    }
+  },
+  "wz_gen_epic_0098": {
+    "id": "wz_gen_epic_0098",
+    "name": "Eterna-Dream's Chronal Gambit",
+    "description": "This antique pocket watch from the Dream dimension warps time within a single encounter, allowing the wielder to rewrite events. However, its mechanism is notoriously unpredictable.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "-Compatible-with-time-traveler-",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires understanding of temporal mechanics and the ability to manage chaotic timelines.",
+    "effectDetails": [
+      {
+        "title": "Chronal Rewind",
+        "rules": "At the start of your turn, you may rewind time by one action, resetting all actions taken since your last turn. Requires a successful DC 20 Intelligence (Arcana) check."
+      },
+      {
+        "title": "Temporal Paradox",
+        "rules": "Once per long rest, you can create a paradox effect that forces the enemy to take an action against their will. This has a 50% chance of success and requires a successful DC 30 Charisma (Deception) check."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "one turn per day, with a short rest recharge period.",
+      "endsWhen": "the next long rest",
+      "charges": "1 charge, recharged at the start of each long rest."
+    },
+    "warning": "Wielders must make successful Intelligence (Arcana) checks or risk creating unintended temporal loops that may affect future encounters.",
+    "vendorReason": "Wario stocks it because it's a quirky item with unpredictable outcomes, perfect for those who enjoy bending reality.",
+    "shippingDetail": "Delivered by a time-disoriented pigeon that might arrive in the past, present, or future.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:30:15+00:00"
+    }
+  },
+  "wz_gen_uncommon_0025": {
+    "id": "wz_gen_uncommon_0025",
+    "name": "Quantum Snickerdoodle VI",
+    "description": "This doughnut-sized device hums with an unstable quantum field that grants its user the ability to teleport a small object over short distances. However, it suffers from unpredictable phase shifts and can only be used once per day.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "dessert",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires basic knowledge of quantum mechanics to operate effectively.",
+    "effectDetails": [
+      {
+        "title": "Quantum Leap",
+        "rules": "Once per long rest, the user can teleport a small object (up to 1 lb) up to 30 feet. There is a 25% chance this teleports it in a random direction."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "instantaneous",
+      "endsWhen": "the short rest requirement",
+      "charges": "1 per long rest"
+    },
+    "warning": "Teleporting an object can cause unintended disturbances in the area, potentially triggering traps or causing minor damage.",
+    "vendorReason": "Wario sells it because who wouldn't want to accidentally teleport their snack across a busy kitchen?",
+    "shippingDetail": "Shipped with a Snickerdoodle-shaped cushion to prevent phase interference during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:30:25+00:00"
+    }
+  },
+  "wz_gen_mythic_0098": {
+    "id": "wz_gen_mythic_0098",
+    "name": "Eterna-Divinity's Chronal Annihilator",
+    "description": "This shimmering amulet allows the wearer to negate one rule of reality, but only within a 10-foot radius for 1 minute. Any attempt to use it in an environment where the rule is already suspended results in its destruction.",
+    "price": 50000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": ":zap:",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires deep understanding of quantum mechanics and metaphysics, only accessible by level 18 alchemists.",
+    "effectDetails": [
+      {
+        "title": "Temporal Nullification",
+        "rules": "Negates one rule of physics within a 10-foot radius for 1 minute."
+      },
+      {
+        "title": "Rule Reversal Risk",
+        "rules": "There's a 20% chance the negated rule is reversed, causing unintended effects in adjacent areas."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute",
+      "endsWhen": "The duration runs out or a new rule is negated.",
+      "charges": "5 uses per day, recharges after 7 days."
+    },
+    "warning": "Negating a rule of physics can have unforeseen consequences; the item may be destroyed if used in an environment where that rule is already nullified.",
+    "vendorReason": "Wario stocks it because it's a unique item no one else has, but he warns customers about its volatile nature.",
+    "shippingDetail": "The Chronal Annihilator requires special handling and arrives via a teleportation bubble.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:30:37+00:00"
+    }
+  },
+  "wz_gen_common_0099": {
+    "id": "wz_gen_common_0099",
+    "name": "Quantum Shuffle Pendant",
+    "description": "This shimmering pendant allows you to shuffle your position in time, briefly skipping one step forward or backward within a scene.",
+    "price": 60,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": "🌟",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires understanding of basic temporal mechanics for effective use.",
+    "effectDetails": [
+      {
+        "title": "Temporal Skip",
+        "rules": "Once per short rest, you can take one step in time forward or backward by up to 5 seconds."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "one step in time (up to 5 seconds)",
+      "endsWhen": "the step is completed",
+      "charges": "1 use per long rest"
+    },
+    "warning": "The pendant has a limited lifespan and may degrade after extensive use.",
+    "vendorReason": "Wario stocks it because it’s quirky enough to attract attention but cheap for the shenanigans it enables.",
+    "shippingDetail": "Shipped in a snazzy, if slightly bent, box.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:30:58+00:00"
+    }
+  },
+  "wz_gen_epic_0099": {
+    "id": "wz_gen_epic_0099",
+    "name": "Quantum Leap Lollipop",
+    "description": "This lollipop grants the user a single quantum leap, allowing them to teleport up to 50 feet in a straight line. However, the taste is so overwhelmingly sweet that it sends nearby creatures into fits of uncontrollable laughter.",
+    "price": 7500,
+    "category": "consumables",
+    "rarity": "epic",
+    "icon": "🍭",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires solid control over one's surroundings and precision teleportation.",
+    "effectDetails": [
+      {
+        "title": "Quantum Leap",
+        "rules": "Teleports the user up to 50 feet in any direction. Must be a creature of at least 5th level."
+      },
+      {
+        "title": "Sweet Temptation",
+        "rules": "For every enemy within 20 feet, there is a 1d6 + Dexterity modifier chance for them to become distracted by the lollipop's taste and move away from the user on their turn."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Instantaneous",
+      "endsWhen": "Teleport ends",
+      "charges": "5 uses; regenerates after a long rest"
+    },
+    "warning": "The teleportation can be disrupted by forceful winds or strong gravity fields.",
+    "vendorReason": "Wario knows that once you try it, you'll want to keep the entire stock in your pocket!",
+    "shippingDetail": "Each lollipop is shipped with a special anti-sweetness charm to ensure safe delivery.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:31:08+00:00"
+    }
+  },
+  "wz_gen_mythic_0099": {
+    "id": "wz_gen_mythic_0099",
+    "name": "Eterna-Divinity's Chronal Nullifier III",
+    "description": "This exquisite timepiece can rewind the flow of time, erasing recent events as if they never happened. However, its use comes at a heavy cost.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Only those experienced enough to grasp the true nature of time should wield this delicate device.",
+    "effectDetails": [
+      {
+        "title": "Chronal Rewind",
+        "rules": "Rewinds up to 3 rounds of events, dealing -2d6 damage to all creatures within 10 feet for each round undone."
+      },
+      {
+        "title": "Temporal Debt",
+        "rules": "Each use adds a 5% chance that the user will experience an unintended time loop lasting until the next sunrise."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect, duration depends on rounds rewound",
+      "endsWhen": "Targeted events are rewritten or sun rises (whichever comes first)",
+      "charges": "5 charges that recharge after a long rest"
+    },
+    "warning": "Time manipulation can be unpredictable; unintended loops and temporal distortions may occur.",
+    "vendorReason": "Wario knows that players who can afford this will risk it all for a chance to rewrite their pasts.",
+    "shippingDetail": "This item arrives encased in a time-stabilizing field, ensuring no unwanted changes happen during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:31:18+00:00"
+    }
+  },
+  "wz_gen_common_0100": {
+    "id": "wz_gen_common_0100",
+    "name": "Quantum Snickerdoodle",
+    "description": "A delectable pastry that, when consumed, grants the eater a minor boost to speed for 30 feet in all directions.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🍪",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires slightly more coordination than a basic meal.",
+    "effectDetails": [
+      {
+        "title": "Boosted Stride",
+        "rules": "After eating, the consumer can add d6 to their movement speed for one round."
+      }
+    ],
+    "usage": {
+      "activation": "eating",
+      "duration": "1 round after consumption",
+      "endsWhen": "the effect duration ends or another action is taken",
+      "charges": "unlimited; recharges with each meal"
+    },
+    "warning": "Eating too many may result in an uncontrollable dance-off.",
+    "vendorReason": "Wario knows that a little extra oomph can make all the difference at key moments.",
+    "shippingDetail": "Baked fresh daily, delivered by warp-capable snail.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:31:19+00:00"
+    }
+  },
+  "wz_gen_epic_0100": {
+    "id": "wz_gen_epic_0100",
+    "name": "Temporal Flurry Fan",
+    "description": "This ornate fan seems to have a life of its own, swirling and spinning in unpredictable patterns. It grants its wielder the ability to disorient foes.",
+    "price": 5000,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "💡",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a solid understanding of temporal mechanics to operate effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Disruption",
+        "rules": "When activated, the fan creates a 30-foot radius aura. Any creature within this area must succeed on a DC 18 Dexterity saving throw or be disoriented for 1 round."
+      },
+      {
+        "title": "Flickering Shadows",
+        "rules": "The fan also projects shifting shadows that create a +2 bonus to Stealth checks made by the wielder, but this effect ends when the wielder attacks or casts a spell."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round per activation",
+      "endsWhen": "when the wielder attacks or casts a spell",
+      "charges": "3 uses per long rest"
+    },
+    "warning": "The fan's magic is unpredictable, and after each use, it must be recharged for one hour in direct sunlight.",
+    "vendorReason": "Wario finds this fan fascinating due to its unique design that seems to defy the laws of physics.",
+    "shippingDetail": "Due to its delicate nature, the Temporal Flurry Fan requires special packaging, adding an extra day to shipping.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:31:27+00:00"
+    }
+  },
+  "wz_gen_mythic_0100": {
+    "id": "wz_gen_mythic_0100",
+    "name": "Quantum Paradox Pendulum",
+    "description": "This pendulum is said to swing through time itself, but only in a way that creates paradoxes which cannot be resolved within the same timeline. It bends reality around it.",
+    "price": 75000,
+    "category": "premium",
+    "rarity": "mythic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Only those with a deep understanding of temporal mechanics can wield this item without causing catastrophic events.",
+    "effectDetails": [
+      {
+        "title": "Temporal Ripple",
+        "rules": "When activated, the pendulum creates a 5-foot diameter area around it that ripples through time. Each creature within the area must succeed on a DC 20 Dexterity saving throw or be affected by a 1-minute instance of temporal confusion."
+      },
+      {
+        "title": "Paradox Cascade",
+        "rules": "Upon failing the save, creatures are pulled into an unstable timeline for 3 rounds. This effect deals 4d6 force damage and imposes the Paralyzed condition until the end of their next turn or they succeed on a DC 25 Strength saving throw."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Instantaneous, lasting effects as stated above",
+      "endsWhen": "The creature completes its next action or successfully saves against the effect.",
+      "charges": "1 charge; recharges after a week of inactivity."
+    },
+    "warning": "Each use increases the likelihood of creating an irreversible paradox. If too many are created, the timeline may collapse into a singularity at the location of the pendulum.",
+    "vendorReason": "Wario stocks this item to provide adventurers with a tool that can be used for dramatic moments in their campaigns, though he warns them of the risks involved.",
+    "shippingDetail": "The Quantum Paradox Pendulum is carefully packed and shipped by Wario himself, using a secret method involving time loops.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:31:37+00:00"
+    }
+  },
+  "wz_gen_common_0101": {
+    "id": "wz_gen_common_0101",
+    "name": "Quantum Skip-Step",
+    "description": "This small, glowing step allows you to teleport a short distance. It's perfect for evading danger or catching up with friends.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "*sp=*",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "It requires basic agility and concentration to use effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Bypass",
+        "rules": "You can teleport up to 10 feet as a bonus action."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "instantaneous",
+      "endsWhen": "the effect completes",
+      "charges": "5 uses, recharging after a short or long rest"
+    },
+    "warning": "The teleport is unpredictable and may place you in an inconvenient location.",
+    "vendorReason": "Wario finds the novelty of being able to skip steps endlessly amusing.",
+    "shippingDetail": "Each Quantum Skip-Step comes with a special Wario-stamped box, ensuring safe delivery.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:31:54+00:00"
+    }
+  },
+  "wz_gen_epic_0101": {
+    "id": "wz_gen_epic_0101",
+    "name": "Temporal Flux Veil",
+    "description": "This shimmering veil alters the flow of time within a limited area, allowing its wearer to manipulate the duration and intensity of combat encounters.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "✨",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a warrior familiar with temporal mechanics to properly utilize the Flux Veil's effects.",
+    "effectDetails": [
+      {
+        "title": "Temporal Surge",
+        "rules": "For every round the veil is active, the wearer and their allies gain +2 to initiative rolls. After 3 rounds, the duration of all attacks within a 10-foot radius is reduced by one round."
+      },
+      {
+        "title": "Combat Rewind",
+        "rules": "Once per long rest while the veil is active, the wearer can rewind time for themselves and their allies back up to 5 rounds. All enemies in this area must make a DC 18 Dexterity saving throw or be disoriented, reducing their speed by half until their next turn."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the wearer chooses to deactivate it, up to one hour",
+      "endsWhen": "The wearer or allies within a 30-foot radius take lethal damage, or the long rest concludes",
+      "charges": "1 charge per day. Charges recharge after a long rest."
+    },
+    "warning": "While the veil is active, all spells and abilities cast in the affected area have their durations halved.",
+    "vendorReason": "Wario knows a thing or two about chaos, and the Flux Veil adds just the right amount of unpredictability to any encounter.",
+    "shippingDetail": "Shipped via time-stabilized courier drones, ensuring the veil reaches its destination without warping through alternate timelines.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:32:00+00:00"
+    }
+  },
+  "wz_gen_mythic_0101": {
+    "id": "wz_gen_mythic_0101",
+    "name": "Temporal Purgatory Portal",
+    "description": "This brass pocket watch can transport you to an alternate timeline where time flows backwards, but only for a few moments. The catch? You must return the next morning or suffer the consequences of your actions in that timeline.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "🪦",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a deep understanding of temporal mechanics and the discipline to navigate alternate timelines.",
+    "effectDetails": [
+      {
+        "title": "Temporal Reversal",
+        "rules": "For every round spent in the reversed timeline, time flows backward by 30 minutes. You can spend up to 5 rounds."
+      },
+      {
+        "title": "Consequence Chain",
+        "rules": "At the end of your visit, you must resolve any temporal consequences within a week or face a 2d6 month-long misadventure in the real world."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Up to 5 rounds per day",
+      "endsWhen": "You choose to return to your original timeline.",
+      "charges": "Limited by daily usage; recharges at dawn."
+    },
+    "warning": "Using this watch could cause irreparable damage if you fail to return on time. The altered timeline will reset upon your return, but the consequences in the real world are unpredictable and severe.",
+    "vendorReason": "Wario stocks it because he found a way to make temporal misadventures profitable!",
+    "shippingDetail": "The item arrives in a sealed box labeled 'Important: Must be used within 24 hours'.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:32:09+00:00"
+    }
+  },
+  "wz_gen_common_0102": {
+    "id": "wz_gen_common_0102",
+    "name": "Skip-Loop Tinker-Toy",
+    "description": "A colorful, oversized tinker toy that looks like it belongs in a child's playset but inexplicably works as a time device. It allows the user to skip a single turn of their choosing.",
+    "price": 45,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": "🩳",
+    "stock": 3,
+    "levelRequirement": 1,
+    "levelRequirementReason": "Even novices can afford this fun gadget.",
+    "effectDetails": [
+      {
+        "title": "Skip Turn",
+        "rules": "The user skips one of their turns, gaining a +2 bonus to initiative on the following turn."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "instantaneous",
+      "endsWhen": "the user's next turn begins",
+      "charges": "unlimited, recharged at the start of each day"
+    },
+    "warning": "Skipping a turn can lead to unforeseen consequences in combat.",
+    "vendorReason": "Wario knows that even time-traveling villains need a little playtime.",
+    "shippingDetail": "Shipped via time-displaced pigeon post, delivered by your future self.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:32:44+00:00"
+    }
+  },
+  "wz_gen_epic_0102": {
+    "id": "wz_gen_epic_0102",
+    "name": "Temporal Gambit Gauntlet",
+    "description": "This gauntlet grants its wearer the ability to manipulate time in a confined area, but at the cost of personal fatigue.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "-Trumpet",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a decent grasp of temporal mechanics and endurance to wield effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Bubble",
+        "rules": "Creates a 10-foot radius temporal bubble that lasts for 3 rounds. During this time, all enemies within the bubble are subjected to a -2 penalty on attack rolls, but the wearer suffers a -4 penalty to their own AC."
+      },
+      {
+        "title": "Quickening Surge",
+        "rules": "Activates as a bonus action, granting the wearer advantage on reaction rolls for 1 minute. However, each use of this effect costs one charge and reduces the duration by half."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "3 rounds or until the wearer chooses to end it",
+      "endsWhen": "The gauntlet is removed from the wearer's hand",
+      "charges": "10 charges, recharges after a long rest"
+    },
+    "warning": "Each use of Quickening Surge reduces the duration of Temporal Bubble by half. Overuse leads to fatigue.",
+    "vendorReason": "Wario knows a thing or two about how chaotic time can be—especially when it's in demand by players like you!",
+    "shippingDetail": "Expect a snail-paced delivery due to the gauntlet's highly volatile temporal components.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:32:54+00:00"
+    }
+  },
+  "wz_gen_mythic_0102": {
+    "id": "wz_gen_mythic_0102",
+    "name": "Eterna-Divinity's Chronal Cascade",
+    "description": "This intricate pendant releases a cascade of temporal anomalies that disrupt the flow of time around you, creating zones where minutes stretch into hours. However, each use requires you to sacrifice an hour from your own lifespan.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a deep understanding of temporal mechanics and the willingness to accept the cost.",
+    "effectDetails": [
+      {
+        "title": "Temporal Disruption",
+        "rules": "Creates a 30-foot radius, 5-round zone where time flows at half speed for all creatures within. Requires a -2 Constitution saving throw each round or be knocked prone."
+      },
+      {
+        "title": "Life Drain",
+        "rules": "Each use costs you 1d4 hours from your lifespan. This effect stacks with other similar effects and cannot exceed the duration of 360 days at any time."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "5 rounds",
+      "endsWhen": "The zone ends when its duration expires or you activate it again.",
+      "charges": "1 charge, recharged after a long rest"
+    },
+    "warning": "Using this item accelerates your aging process significantly and may lead to early decrepitude. Be advised that the time disruption affects all creatures within range equally.",
+    "vendorReason": "Wario stocks it for those seeking a quick yet severe edge in their adventures, though he warns potential buyers of its grim side effect.",
+    "shippingDetail": "Delivered by a time-traveling postman who may or may not be on schedule.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:32:58+00:00"
+    }
+  },
+  "wz_gen_epic_0103": {
+    "id": "wz_gen_epic_0103",
+    "name": "Quantum Temporal Pundit",
+    "description": "This gleaming brass bell is more than it appears; striking it during combat can transform your foe's attacks into comical misfires and blunders. However, the bell's chimes also echo a warning: only one may wield its power.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "⚡️",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Only those who have mastered their own timing and rhythm can truly grasp the Quantum Temporal Pundit's nuances.",
+    "effectDetails": [
+      {
+        "title": "Temporal Misfire",
+        "rules": "When you strike this bell, all enemies within a 30-foot radius must succeed on a DC 20 Dexterity saving throw or suffer disadvantage on their next attack action."
+      },
+      {
+        "title": "Echo of Mistakes",
+        "rules": "For the next minute after striking the bell, any enemy that makes an attack roll or a skill check within 60 feet of you has advantage on the opposed check."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 minute",
+      "endsWhen": "The end of your next turn after striking it.",
+      "charges": "5 charges, recharged when you finish a long rest."
+    },
+    "warning": "If used too frequently, the bell's chimes can become jarring and might cause temporary dizziness to the wielder. Use with caution!",
+    "vendorReason": "Wario finds this item hilarious because it adds an element of slapstick comedy to every battle, much like his own antics in the Mushroom Kingdom.",
+    "shippingDetail": "The bell is carefully packed within a mystic snickerdoodle bag for safe delivery, ensuring that even Wario's shoddy mail order still arrives intact.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:33:15+00:00"
+    }
+  },
+  "wz_gen_uncommon_0026": {
+    "id": "wz_gen_uncommon_0026",
+    "name": "Quantum Snickerdoodle II",
+    "description": "This delightful pastry seems to have a mind of its own, floating and spinning in mid-air as you consume it. It grants temporary flight but at the cost of your balance.",
+    "price": 250,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "🍦",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires coordination and focus, best for those who are at least level 4.",
+    "effectDetails": [
+      {
+        "title": "Aerial Dance",
+        "rules": "You gain a +1 bonus to AC and can fly up to 10 feet as a bonus action. However, you lose your Dexterity modifier if you attempt any skill check or attack."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "concentration (up to 1 minute)",
+      "endsWhen": "you lose concentration or fall",
+      "charges": "5 uses per long rest"
+    },
+    "warning": "While in the air, any sudden movement can cause you to lose control and plummet.",
+    "vendorReason": "Wario knows there's always a demand for something that flies and tastes sweet too.",
+    "shippingDetail": "Delivered with an extra bounce, thanks to Warizon’s special packaging.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:33:25+00:00"
+    }
+  },
+  "wz_gen_common_0103": {
+    "id": "wz_gen_common_0103",
+    "name": "Skip-Loop Sock",
+    "description": "These socks allow you to skip one step in any movement-related action, but they are prone to unraveling mid-jump.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "-Compatible_with_All_Characters:",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Even a novice adventurer can use these for minor shortcuts.",
+    "effectDetails": [
+      {
+        "title": "Step-Skip",
+        "rules": "Reduces movement distance by 10 feet for the next action."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "until end of next turn",
+      "endsWhen": "end of your next turn",
+      "charges": "2 charges, recharged after a short rest"
+    },
+    "warning": "If used in mid-air or while running at high speed, there is a 50% chance the sock will unravel and cause you to trip.",
+    "vendorReason": "Wario sells these because they are a quirky addition to any adventurer's kit, even if they do not work perfectly.",
+    "shippingDetail": "Each pair of socks is shipped with a free patch kit, just in case.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:33:31+00:00"
+    }
+  },
+  "wz_gen_uncommon_0027": {
+    "id": "wz_gen_uncommon_0027",
+    "name": "Quantum Skip-Loop Ring",
+    "description": "This shimmering ring allows you to skip one loop in the time stream, but the skipped moment is unstable and may ripple with paradoxes.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "💍",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a basic understanding of temporal mechanics to wield without causing personal temporal anomalies.",
+    "effectDetails": [
+      {
+        "title": "Skip-Loop",
+        "rules": "For one use, you can skip the next initiative roll by a margin of +2d6. This action is unstable and causes a minor paradox on your next turn."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "instantaneous",
+      "endsWhen": "after the skipped initiative round",
+      "charges": "5 uses, recharged after a long rest"
+    },
+    "warning": "Each use introduces a minor temporal ripple, causing you to roll disadvantage on your next attack or ability check.",
+    "vendorReason": "Wario stocks this item because it’s fun and unpredictable, just like the chaotic nature of time itself!",
+    "shippingDetail": "Shipped via time-bending express courier, delivered in a flux-lined box.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:33:47+00:00"
+    }
+  },
+  "wz_gen_legendary_0082": {
+    "id": "wz_gen_legendary_0082",
+    "name": "Eterna-Divinity's Chronal Annihilator IV",
+    "description": "This legendary device is a relic of the ancient gods, capable of freezing time within a 30-foot radius. However, its power comes at a cost.",
+    "price": 15000,
+    "category": "equipment",
+    "rarity": "legendary",
+    "icon": "💥",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a high understanding of chronal mechanics to wield properly and avoid paradoxes.",
+    "effectDetails": [
+      {
+        "title": "Temporal Freeze",
+        "rules": "Freezes all movement within a 30-foot radius for 2d4+2 rounds. Any creature that starts their turn in this area is immobilized until the end of the effect."
+      },
+      {
+        "title": "Time Paradox",
+        "rules": "Each use has a 5% chance to trigger a paradox, causing the user and all within the radius to be frozen for 1d4+2 minutes. This effect cannot be resisted."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the end of the effect or if a creature starts its turn in the area.",
+      "endsWhen": "The effect ends when the rounds are completed, a creature enters or exits the radius, or the user is knocked unconscious.",
+      "charges": "5 charges; recharges after 8 hours."
+    },
+    "warning": "Using this device within a closed space can create a time vortex that requires magical intervention to stabilize.",
+    "vendorReason": "Wario acquired it as a collector's item and decided to sell it for the rare opportunity it provides, despite its risks.",
+    "shippingDetail": "Due to its unpredictable nature, the Chronal Annihilator IV is shipped via Wario's personal time-displaced pigeon, which ensures timely delivery.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:33:56+00:00"
+    }
+  },
+  "wz_gen_common_0104": {
+    "id": "wz_gen_common_0104",
+    "name": "Skip-Loop Tinker Toy II",
+    "description": "This tiny toy looks like a simple loop of metal but can expand to five feet in diameter and lock into place. It is great for quick repairs or creating small barriers.",
+    "price": 35,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": ">",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic dexterity and hand-eye coordination to use effectively.",
+    "effectDetails": [
+      {
+        "title": "Expand & Lock",
+        "rules": "This toy can expand up to five feet in diameter and, with a bonus action, lock into place creating a small barrier. Once locked, it requires a successful DC 12 Strength (Athletics) check to be dislodged."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "Permanent until manually unlocked",
+      "endsWhen": "Manual unlocking by the user with a successful check",
+      "charges": "Unlimited, recharges after a short rest"
+    },
+    "warning": "Expanding to its full size requires enough space and can be cumbersome in tight areas.",
+    "vendorReason": "Wario finds these toys fascinatingly versatile for quick fixes on the fly.",
+    "shippingDetail": "Shipped with a warning: 'Please ensure you have enough room!'",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:34:29+00:00"
+    }
+  },
+  "wz_gen_epic_0104": {
+    "id": "wz_gen_epic_0104",
+    "name": "Temporal Fugue Flute",
+    "description": "This ornate flute can warp the flow of time within a small radius, allowing players to create or manipulate moments of temporal distortion. However, it comes with unpredictable consequences.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🎵",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires understanding of complex time manipulation and control over one's own timing in combat.",
+    "effectDetails": [
+      {
+        "title": "Temporal Echo",
+        "rules": "When played, the flute creates a 10-foot radius area where all actions are slowed by half. Any creature that enters this area must make a DC 20 Dexterity saving throw or become disoriented for 1 round."
+      },
+      {
+        "title": "Past Present Future",
+        "rules": "Activating the flute once per long rest allows you to choose one event in the last hour, making it happen in any order. However, this manipulation cannot affect creatures with a CR higher than your character level divided by two (rounded down)."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 minute per activation",
+      "endsWhen": "The duration ends when the player stops playing or when the event they chose to alter is completed.",
+      "charges": "3 uses, recharged after a long rest"
+    },
+    "warning": "Manipulating time can cause unintended side effects. Use with caution and be prepared for unforeseen outcomes in combat and encounters.",
+    "vendorReason": "Wario stocks this item because it offers players the chance to bend reality, making fights unpredictable and exciting.",
+    "shippingDetail": "Delivered by a time-displaced courier who promises to arrive exactly when you need them.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:34:32+00:00"
+    }
+  },
+  "wz_gen_common_0105": {
+    "id": "wz_gen_common_0105",
+    "name": "Quantum Shimmer Shield",
+    "description": "A shimmering shield that momentarily enhances your defenses. Useful for quick bursts of protection against incoming attacks.",
+    "price": 45,
+    "category": "equipment",
+    "rarity": "common",
+    "icon": "🛡️",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Simple enough to use, but requires a bit of experience to wield effectively.",
+    "effectDetails": [
+      {
+        "title": "Deflect",
+        "rules": "For the next round, your AC is increased by +1"
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round",
+      "endsWhen": "Ends at the start of your next turn.",
+      "charges": "2 charges; recharged after a short rest"
+    },
+    "warning": "Only one charge can be active at a time, and using it too often may cause your shield to flicker unpredictably.",
+    "vendorReason": "Wario sells this because sometimes you just need that extra little bit of protection when the boss's attacks are flying thick and fast.",
+    "shippingDetail": "Delivered via a warp-capable courier who can't resist dropping off a few quantum snacks as well.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:34:39+00:00"
+    }
+  },
+  "wz_gen_epic_0105": {
+    "id": "wz_gen_epic_0105",
+    "name": "Temporal Wrench",
+    "description": "The Temporal Wrench allows the wielder to manipulate time within a small area, rewinding and fast-forwarding events. However, it only works on willing participants.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🔧",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a solid grasp of temporal mechanics to operate without causing paradoxes.",
+    "effectDetails": [
+      {
+        "title": "Replay Loop",
+        "rules": "Activates as a bonus action. The wielder can choose an area up to 5 feet in diameter and rewind time within it for the next 1 round. Any creature caught in this effect must succeed on a DC 18 Dexterity saving throw or be teleported back 2 rounds in time, losing all actions until their turn."
+      },
+      {
+        "title": "Fast Forward",
+        "rules": "Activates as an action. The wielder can choose a willing participant and fast-forward the creature's turn by up to 3 rounds. The creature must make a DC 16 Constitution saving throw or be dazed for the next round, unable to take actions."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action | action",
+      "duration": "Replay Loop: 1 round; Fast Forward: effect duration varies by target's save result.",
+      "endsWhen": "Natural end of the time-altered round or upon use of another Temporal Wrench ability.",
+      "charges": "Unlimited uses, but only one ability can be active at a time."
+    },
+    "warning": "Manipulating time in this way risks unintended consequences. Each successful save made by a creature may cause a ripple effect, potentially affecting other nearby creatures within the area.",
+    "vendorReason": "Wario stocks it because customers keep asking for more ways to bend reality and chaos is always in demand at Warizon.",
+    "shippingDetail": "Shipped via Wario's Time Warp Express, which ensures the item arrives exactly when purchased.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:34:59+00:00"
+    }
+  },
+  "wz_gen_common_0106": {
+    "id": "wz_gen_common_0106",
+    "name": "Quantum Snickerdoodle IV",
+    "description": "A buttery, sugary concoction that grants a burst of energy but causes uncontrollable dance moves.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "🍪",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires the eater to be awake and not on sugar crash.",
+    "effectDetails": [
+      {
+        "title": "Energy Boost",
+        "rules": "Consume: +1d4 temporary hit points, -1 penalty on Dexterity checks for 1 minute."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "1 minute",
+      "endsWhen": "the effect wears off or the user takes any damage.",
+      "charges": "1 use per short rest"
+    },
+    "warning": "Causes a 30-second dance frenzy after its effects fade, during which the user cannot take actions other than dancing.",
+    "vendorReason": "Wario stocks it because who doesn't love a good sugar rush, even if it's chaotic?",
+    "shippingDetail": "Shipped in a suspiciously large cardboard box that looks like it was made for a much larger item.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:35:03+00:00"
+    }
+  },
+  "wz_gen_epic_0106": {
+    "id": "wz_gen_epic_0106",
+    "name": "Quantum Leap Gambit",
+    "description": "This bauble allows the wielder to swap places with a nearby creature, disrupting enemy formations and creating chaotic opportunities.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a deep grasp of spatial manipulation.",
+    "effectDetails": [
+      {
+        "title": "Temporal Swap",
+        "rules": "Once per short rest, the wielder and one ally may swap positions. This effect lasts for the duration of the encounter."
+      },
+      {
+        "title": "Disruptive Step",
+        "rules": "At the start of your turn, you may teleport up to 30 feet in any direction, ending in an unoccupied space. You can only do this once per short rest."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "until end of encounter",
+      "endsWhen": "end of the current encounter",
+      "charges": "1 use per short rest"
+    },
+    "warning": "You must be aware that, due to the instability of temporal fields, swapping positions with a creature can lead to unintended consequences.",
+    "vendorReason": "Wario stocks it because customers always want something to mess with their enemies' plans.",
+    "shippingDetail": "Quantum Leap Gambits are shipped via warp drive express, ensuring they arrive just in time for your next big battle.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:35:08+00:00"
+    }
+  },
+  "wz_gen_common_0107": {
+    "id": "wz_gen_common_0107",
+    "name": "Quantum Shuffle Stick",
+    "description": "This small wooden stick gleams with a faint blue light when shaken. It can rearrange the order of objects in your inventory.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "shuffle",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires some control over one's environment to use effectively.",
+    "effectDetails": [
+      {
+        "title": "Rearrange Inventory",
+        "rules": "Shake the stick and roll a d6. Rearrange up to that many items in your inventory."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "instantaneous",
+      "endsWhen": "the effect is complete",
+      "charges": "5 uses, recharged after a long rest"
+    },
+    "warning": "Can only be used once per short or long rest. Misuse can cause items to become misaligned.",
+    "vendorReason": "Wario stocks it because people always need one more way to organize their stuff.",
+    "shippingDetail": "Shipped in a small, enchanted box that protects the stick's glow during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:35:15+00:00"
+    }
+  },
+  "wz_gen_epic_0107": {
+    "id": "wz_gen_epic_0107",
+    "name": "Quantum Temporal Dance",
+    "description": "This elegant cane allows the wielder to rewrite the flow of combat, turning a foe's attack into a dance routine or making allies' actions more fluid and coordinated.",
+    "price": 7500,
+    "category": "premium",
+    "rarity": "epic",
+    "icon": "💃",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires strong control over one’s environment and timing.",
+    "effectDetails": [
+      {
+        "title": "Dance of Time",
+        "rules": "During a combat round, the wielder can designate a single creature within 30 feet. For the next two rounds, that target must make all attack rolls with disadvantage."
+      },
+      {
+        "title": "Harmony Step",
+        "rules": "All allies within 15 feet gain advantage on Dexterity (Acrobatics) checks and saving throws until their next short rest."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "2 rounds per use",
+      "endsWhen": "the duration expires or the wielder uses a bonus action to end it early",
+      "charges": "3; recharges after a long rest"
+    },
+    "warning": "If used too often, it can cause the wielder's dancing skills to deteriorate.",
+    "vendorReason": "Wario stocks this because it adds an entertaining twist to every fight, even if it's just for a few rounds.",
+    "shippingDetail": "Shipped with a complimentary dance lesson booklet.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T03:35:23+00:00"
+    }
   }
 };

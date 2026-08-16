@@ -1325,6 +1325,310 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T02:24:18+00:00"
       }
+    },
+    {
+      "id": "waluigi_s_distraction_bros_attack_variant",
+      "name": "Waluigi's Distraction Bros Attack (Variant)",
+      "subtitle": "Waluigi creates a diversion to allow Wario and Markop to steal the Gold Dragon eggs.",
+      "status": "confirmed",
+      "participants": [
+        "waluigi",
+        "wario"
+      ],
+      "type": "Misdirection",
+      "sourceEvent": "session_1_dragon_mountain",
+      "description": "Waluigi uses his skills as an Arcane Thief to distract the ancient red dragon and its guards. He creates a series of illusions, misdirects their attention, and orchestrates a chaotic scene that allows Wario and Markop to slip past unnoticed and steal the eggs.",
+      "steps": [
+        "Waluigi conjures multiple shadows to confuse the dragon's vision.",
+        "He casts a spell to disrupt the dragon's sense of smell and hearing.",
+        "Markop uses this opportunity to grab the eggs while Wario provides cover fire.",
+        "Waluigi quickly retreats, leaving chaos in his wake."
+      ],
+      "risks": "If Waluigi's illusions are not convincing enough or the timing is off, they will be caught before completing the theft.",
+      "waluigiNote": "WAH! My distraction skills have been used for something as mundane as egg heists. Truly a tragedy!",
+      "relatedArticles": [
+        "session_1_dragon_mountain",
+        "waluigi",
+        "wario"
+      ],
+      "difficulty": "medium",
+      "resource": {
+        "name": "Bros Energy",
+        "cost": 1,
+        "pool": "Each participating character",
+        "maximum": 2,
+        "refresh": "Very short rest"
+      },
+      "school": "misdirection",
+      "drill": {
+        "partnerA": "Waluigi",
+        "partnerB": "Wario",
+        "promptDescription": "Waluigi creates distractions to allow Wario and Markop to steal the Gold Dragon eggs.",
+        "steps": [
+          {
+            "actor": "A",
+            "title": "Shadow Illusion",
+            "instruction": "Tap the screen to create a shadow that momentarily blinds the dragon.",
+            "gesture": "tap",
+            "icon": "👁"
+          },
+          {
+            "actor": "B",
+            "title": "Cover Fire",
+            "instruction": "Aim at the dragon to provide cover while Wario and Markop steal the eggs.",
+            "gesture": "aim",
+            "icon": "🔫"
+          },
+          {
+            "actor": "A",
+            "title": "Auditory Deception",
+            "instruction": "Lower your shield to cast a spell that deafens the dragon momentarily.",
+            "gesture": "down",
+            "icon": "⬇️"
+          },
+          {
+            "actor": "B",
+            "title": "Stealth Steal",
+            "instruction": "Run right while Wario grabs the eggs and Markop provides backup.",
+            "gesture": "right",
+            "icon": "⚗️"
+          }
+        ]
+      },
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "bros_attacks",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T03:02:34+00:00"
+      }
+    },
+    {
+      "id": "misdirection_bros_attack_second_form",
+      "name": "Misdirection Bros Attack (Second Form)",
+      "subtitle": "Archie Miser and Bones create a distraction to allow Luigi to escape unseen.",
+      "status": "confirmed",
+      "participants": [
+        "archie_miser",
+        "bones"
+      ],
+      "type": "Misdirection",
+      "sourceEvent": "ruined_manor_convergence",
+      "description": "Archie Miser and Bones coordinated their movements to create a commotion that drew attention away from Luigi's escape. Their distraction allowed Agent L to slip past unnoticed, ensuring his continued freedom.",
+      "steps": [
+        "Archie Miser threw a nearby chair against the wall, creating noise.",
+        "Bones shouted in alarm, drawing others' eyes towards the disturbance.",
+        "Luigi took advantage of the chaos to quietly make his exit.",
+        "The commotion quickly died down as others returned to their tasks."
+      ],
+      "risks": "If the distraction fails or draws unwanted attention, it could alert more people and jeopardize the escape.",
+      "waluigiNote": "WAH! So much for subtlety. I guess Archie is still trying to make himself look good—no wonder he's always been a bit of an opportunist!",
+      "relatedArticles": [
+        "ruined_manor_convergence",
+        "archie_miser",
+        "bones"
+      ],
+      "difficulty": "medium",
+      "resource": {
+        "name": "Bros Energy",
+        "cost": 1,
+        "pool": "Each participating character",
+        "maximum": 2,
+        "refresh": "Very short rest"
+      },
+      "school": "misdirection",
+      "drill": {
+        "partnerA": "Archie Miser",
+        "partnerB": "Bones",
+        "promptDescription": "Partner A creates a diversion while Partner B moves past unnoticed.",
+        "steps": [
+          {
+            "actor": "A",
+            "title": "Create Distraction",
+            "instruction": "Tap the wall three times to signal.",
+            "gesture": "tap",
+            "icon": "👆"
+          },
+          {
+            "actor": "B",
+            "title": "Slip Past",
+            "instruction": "Move right as soon as A signals.",
+            "gesture": "right",
+            "icon": "➡️"
+          },
+          {
+            "actor": "A",
+            "title": "Maintain Noise",
+            "instruction": "Raise your voice to keep the distraction going.",
+            "gesture": "up",
+            "icon": "🔊"
+          },
+          {
+            "actor": "B",
+            "title": "Proceed Safely",
+            "instruction": "Crouch down as you pass by.",
+            "gesture": "down",
+            "icon": "👇"
+          }
+        ]
+      },
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "bros_attacks",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T03:03:26+00:00"
+      }
+    },
+    {
+      "id": "shieldwork_bros_attack_luigi_mario",
+      "name": "Shieldwork Bros Attack Luigi Mario",
+      "subtitle": "Luigi stabilizes Mario for critical surgery in an emergency situation.",
+      "status": "confirmed",
+      "participants": [
+        "luigi",
+        "dr_mario"
+      ],
+      "type": "Shieldwork",
+      "sourceEvent": "the_waiting_room_testimony",
+      "description": "Luigi, in a critical condition himself, held the surgical instruments steady while Dr. Mario operated to save his life. The coordination was crucial to prevent any missteps that could further endanger Luigi.",
+      "steps": [
+        "Luigi gripped the surgical tray tightly.",
+        "Dr. Mario carefully positioned the scalpel.",
+        "Luigi's hands were a pillar of stability for Dr. Mario.",
+        "The operation continued with precision, thanks to their synchronized effort."
+      ],
+      "risks": "Any misalignment could lead to critical complications for Luigi.",
+      "waluigiNote": "WAH! So much for 'Uncle Dario' being just another alias. Looks like the Big Brother is in surgery too... or has always been.",
+      "relatedArticles": [
+        "the_waiting_room_testimony",
+        "luigi",
+        "dr_mario"
+      ],
+      "difficulty": "medium",
+      "resource": {
+        "name": "Bros Energy",
+        "cost": 1,
+        "pool": "Each participating character",
+        "maximum": 2,
+        "refresh": "Very short rest"
+      },
+      "school": "shieldwork",
+      "drill": {
+        "partnerA": "Luigi",
+        "partnerB": "Dr. Mario / 'Uncle Dario'",
+        "promptDescription": "A surgical drill simulation where stability and precision are key.",
+        "steps": [
+          {
+            "actor": "A",
+            "title": "Stabilize",
+            "instruction": "Partner B completes the cut with precision.",
+            "gesture": "tap",
+            "icon": "👆"
+          },
+          {
+            "actor": "B",
+            "title": "Precision Cut",
+            "instruction": "Maintain steady pressure while completing the incision.",
+            "gesture": "aim",
+            "icon": "👍"
+          },
+          {
+            "actor": "A",
+            "title": "Support",
+            "instruction": "Partner B finds the right angle for the blade.",
+            "gesture": "down",
+            "icon": "📐"
+          },
+          {
+            "actor": "B",
+            "title": "Adjust",
+            "instruction": "Fine-tune the cut with steady hands.",
+            "gesture": "right",
+            "icon": "💉"
+          }
+        ]
+      },
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "bros_attacks",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T03:04:14+00:00"
+      }
+    },
+    {
+      "id": "feyward_book_exchange_bros_attack",
+      "name": "Feyward Book Exchange Bros Attack",
+      "subtitle": "Hjumpik and Waluigi read the Feyward Book of Many Things together in Sylvan",
+      "status": "confirmed",
+      "participants": [
+        "hjumpik",
+        "waluigi"
+      ],
+      "type": "Clearing",
+      "sourceEvent": "the_feyward_revel_and_the_book_of_many_things",
+      "description": "Hjumpik and Waluigi read the Feyward Book of Many Things together, with Hjumpik ensuring that the text is correctly translated into Sylvan for Waluigi to understand. Waluigi then confirms his reading, clearing any misunderstandings.",
+      "steps": [
+        "Hjumpik tapped Waluigi's shoulder to signal a translation pause.",
+        "Waluigi nodded and read aloud in Sylvan.",
+        "Hjumpik corrected Waluigi on the pronunciation of a word.",
+        "They both agreed on the meaning, clearing any confusion."
+      ],
+      "risks": "Miscommunication could lead to incorrect readings or misunderstandings about the text's content.",
+      "waluigiNote": "WAH! We should have done this sooner. Now we're all the wiser!",
+      "relatedArticles": [
+        "the_feyward_revel_and_the_book_of_many_things",
+        "hjumpik",
+        "waluigi"
+      ],
+      "difficulty": "medium",
+      "resource": {
+        "name": "Bros Energy",
+        "cost": 1,
+        "pool": "Each participating character",
+        "maximum": 2,
+        "refresh": "Very short rest"
+      },
+      "school": "clearing",
+      "drill": {
+        "partnerA": "Hjumpik",
+        "partnerB": "Waluigi",
+        "promptDescription": "Simulate reading a difficult book together.",
+        "steps": [
+          {
+            "actor": "A",
+            "title": "Signal pause",
+            "instruction": "pause for translation",
+            "gesture": "tap",
+            "icon": "📚"
+          },
+          {
+            "actor": "B",
+            "title": "Read aloud",
+            "instruction": "clearly articulate in Sylvan",
+            "gesture": "aim",
+            "icon": "✍️"
+          },
+          {
+            "actor": "A",
+            "title": "Correct pronunciation",
+            "instruction": "adjust Waluigi's pronunciation",
+            "gesture": "right",
+            "icon": "🗣️"
+          },
+          {
+            "actor": "B",
+            "title": "Confirm understanding",
+            "instruction": "both agree on the meaning",
+            "gesture": "up",
+            "icon": "✔️"
+          }
+        ]
+      },
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "bros_attacks",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T03:04:16+00:00"
+      }
     }
   ]
 }

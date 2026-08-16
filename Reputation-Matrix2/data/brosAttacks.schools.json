@@ -365,6 +365,82 @@
       ],
       "status": "confirmed",
       "playable": true
+    },
+    {
+      "id": "waluigi_s_distraction_bros_attack_variant",
+      "name": "Waluigi's Distraction Bros Attack (Variant)",
+      "school": "misdirection",
+      "subtitle": "Waluigi creates a diversion to allow Wario and Markop to steal the Gold Dragon eggs.",
+      "description": "Waluigi uses his skills as an Arcane Thief to distract the ancient red dragon and its guards. He creates a series of illusions, misdirects their attention, and orchestrates a chaotic scene that allows Wario and Markop to slip past unnoticed and steal the eggs.",
+      "risks": "If Waluigi's illusions are not convincing enough or the timing is off, they will be caught before completing the theft.",
+      "difficulty": "medium",
+      "participants": [
+        "waluigi",
+        "wario"
+      ],
+      "participantNames": [
+        "Waluigi",
+        "Wario"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "misdirection_bros_attack_second_form",
+      "name": "Misdirection Bros Attack (Second Form)",
+      "school": "misdirection",
+      "subtitle": "Archie Miser and Bones create a distraction to allow Luigi to escape unseen.",
+      "description": "Archie Miser and Bones coordinated their movements to create a commotion that drew attention away from Luigi's escape. Their distraction allowed Agent L to slip past unnoticed, ensuring his continued freedom.",
+      "risks": "If the distraction fails or draws unwanted attention, it could alert more people and jeopardize the escape.",
+      "difficulty": "medium",
+      "participants": [
+        "archie_miser",
+        "bones"
+      ],
+      "participantNames": [
+        "Archie Archbold Miser",
+        "Bones"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "shieldwork_bros_attack_luigi_mario",
+      "name": "Shieldwork Bros Attack Luigi Mario",
+      "school": "shieldwork",
+      "subtitle": "Luigi stabilizes Mario for critical surgery in an emergency situation.",
+      "description": "Luigi, in a critical condition himself, held the surgical instruments steady while Dr. Mario operated to save his life. The coordination was crucial to prevent any missteps that could further endanger Luigi.",
+      "risks": "Any misalignment could lead to critical complications for Luigi.",
+      "difficulty": "medium",
+      "participants": [
+        "luigi",
+        "dr_mario"
+      ],
+      "participantNames": [
+        "Luigi",
+        "Dr Mario"
+      ],
+      "status": "confirmed",
+      "playable": true
+    },
+    {
+      "id": "feyward_book_exchange_bros_attack",
+      "name": "Feyward Book Exchange Bros Attack",
+      "school": "clearing",
+      "subtitle": "Hjumpik and Waluigi read the Feyward Book of Many Things together in Sylvan",
+      "description": "Hjumpik and Waluigi read the Feyward Book of Many Things together, with Hjumpik ensuring that the text is correctly translated into Sylvan for Waluigi to understand. Waluigi then confirms his reading, clearing any misunderstandings.",
+      "risks": "Miscommunication could lead to incorrect readings or misunderstandings about the text's content.",
+      "difficulty": "medium",
+      "participants": [
+        "hjumpik",
+        "waluigi"
+      ],
+      "participantNames": [
+        "Hjumpik Deldkur",
+        "Waluigi"
+      ],
+      "status": "confirmed",
+      "playable": true
     }
   ]
 }
