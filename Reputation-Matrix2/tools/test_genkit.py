@@ -423,6 +423,16 @@ check("an organisation sharing a person's name still resolves",
 # reason. ("magikoopa_council" did exactly that.)
 check("a genuinely new group is still created",
       factions.resolve("the_quixotic_brasswind_conclave", known)[1] == "create")
+for meta_label in (
+    "all_factions", "united_midlands_factions",
+    "midlands_faction_reputations", "regional_stability", "general_public",
+):
+    check(f"aggregate label {meta_label!r} is not minted as lore",
+          factions.resolve(meta_label, known) == (None, "reject"),
+          str(factions.resolve(meta_label, known)))
+check("a real United-named organisation is not caught by the aggregate guard",
+      factions.resolve("united_forces_of_fight_or_flight", known)[1]
+      in ("exact", "alias", "fuzzy", "create"))
 
 rep_task = Task(system_id="reputation", key="k", label="l",
                 payload={"kind": "majorBattles", "id": "x", "name": "X"})
@@ -440,6 +450,8 @@ check("and the people are reported rather than silently absorbed",
 # ------------------------------------------------------ faction dossier pass
 section("faction dossiers · sources before prose")
 
+check("faction review gates unrelated bulk generation",
+      faction_dossiers.SPEC.stage == 0, str(faction_dossiers.SPEC.stage))
 stub_store = faction_dossiers._store()["factions"]
 synthetic_stub = {
     "description": "Named in a record. No dossier has been written yet.",
@@ -466,7 +478,9 @@ fd_task = Task(
 # phrase is intentionally plain: this is testing the hard length/shape gate,
 # not pretending fixture prose is archive prose.
 dossier_text = (
-    "## Identity and Evidence\nWaluigi records the Wario Bros as a recurring operational partnership.\n\n"
+    "## Identity and Evidence\nWaluigi records the Wario Bros as a recurring operational partnership. "
+    "The file states, ‘The lounge floor cracked,’ and later admits, ‘The debt is unresolved.’ "
+    "Its least dignified fixed point is equally plain: ‘Waluigi cried on the floor.’\n\n"
     "## Recorded Conduct\n" + ("The linked record supplies concrete evidence and limits every inference. " * 55)
     + "\n\n## Structure and Reach\n" +
     ("Waluigi distinguishes what happened from what remains unconfirmed in the archive. " * 35)
@@ -486,6 +500,10 @@ valid_dossier = faction_dossiers.validate(fd_task, {
     "power_level": 2,
     "summary": "Wario and Waluigi sometimes act together. The arrangement is unstable.",
     "description": dossier_text,
+    "evidenceQuotes": [
+        "The lounge floor cracked", "The debt is unresolved",
+        "Waluigi cried on the floor",
+    ],
     "relations": {"allies": ["wario_land"], "enemies": ["disaster_inc"]},
     "waluigi_tip": "Keep the receipt and watch the exits.",
 })
@@ -495,6 +513,25 @@ check("a source-backed 500+ word dossier passes",
 check("source article ids are stamped from task context, not model invention",
       valid_dossier["sourceArticles"][0] == "the_lounge_brawl",
       str(valid_dossier["sourceArticles"]))
+check("validated evidence quotes are retained with the dossier",
+      valid_dossier["evidenceQuotes"] == [
+          "The lounge floor cracked", "The debt is unresolved",
+          "Waluigi cried on the floor",
+      ], str(valid_dossier["evidenceQuotes"]))
+
+invented_evidence = dict({
+    "classification": "faction", "name": "The Wario Bros", "power_level": 2,
+    "description": dossier_text, "evidenceQuotes": [
+        "The lounge floor cracked", "The debt is unresolved",
+        "A brass submarine crossed the ballroom",
+    ],
+})
+try:
+    faction_dossiers.validate(fd_task, invented_evidence)
+    check("invented evidence cannot pass a long dossier", False, "it passed")
+except ValidationError as err:
+    check("invented evidence cannot pass a long dossier",
+          "not verbatim" in str(err), str(err))
 
 apply_stub = factions.mint(
     "test_source_backed_order", name="Test Source-Backed Order",
@@ -546,6 +583,30 @@ retired = faction_dossiers.validate(person_task, {
 })
 check("a misfile can redirect to a canonical faction",
       retired["redirectFactionId"] == "wario_land", str(retired))
+
+remove_stub = factions.mint(
+    "test_aggregate_label", name="Test Aggregate Label",
+    source_record="The Lounge Brawl", model="test",
+)
+remove_task = Task(
+    system_id="faction-dossiers", key="remove-fd", label="remove-fd",
+    payload={"id": "test_aggregate_label", "entry": remove_stub,
+             "sources": wario_sources, "model": "test-model"},
+)
+saved_reputation_files = faction_dossiers.REPUTATION_FILES
+faction_dossiers.REPUTATION_FILES = ()
+try:
+    removed_result = faction_dossiers.apply(remove_task, {
+        "classification": "not_faction", "notFactionKind": "generic",
+        "reason": "The source uses this as an aggregate report label, not a persistent organisation with members or collective standing.",
+        "redirectFactionId": "",
+    })
+finally:
+    faction_dossiers.REPUTATION_FILES = saved_reputation_files
+check("a non-faction is removed instead of receiving a low-value retirement paragraph",
+      removed_result.ok
+      and "test_aggregate_label" not in faction_dossiers._store()["factions"],
+      removed_result.detail)
 
 rewrite_fixture = {
     "reputationChanges": {"waluigi": {"wario": -4, "wario_land": -2}},
@@ -661,6 +722,8 @@ finally:
 # ------------------------------------------------------- discussion pass
 section("wahwire · threading existing posts")
 
+check("bulk WAHwire thread generation is disabled after the failed voice review",
+      wahwire.DISCUSS_SPEC.enabled is False)
 saved_load = wahwire._load
 wahwire._load = lambda: {"version": 1, "posts": [
     {"id": "p1", "author": "waluigi", "order": 1, "content": "Docks are gone.",

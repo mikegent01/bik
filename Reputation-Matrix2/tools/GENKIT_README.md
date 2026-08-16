@@ -44,13 +44,13 @@ rather than copying a total from this document. The cycle currently includes:
 | stage | id | what it does |
 |---|---|---|
 | 0 | `wahwire-prune` | QC inherited posts, repair dead links, mark canon or retired |
+| 0 | `faction-dossiers` | review reputation-minted faction stubs from their source and linked articles; write a quoted 500–1,000 word dossier or remove a misfile |
 | 1 | `shop_items` | Warizon stock against the rarity deficit, common→godly |
 | 1 | `crafting` | classify recipes the Forge filter cannot see |
 | 1 | `abilities` | fill the emptiest class/level cells above level 1 |
 | 1 | `reputation` | backfill impacts on records that have none |
-| 1 | `faction-dossiers` | review reputation-minted faction stubs from their source and linked articles; write a 500–1,000 word dossier or retire a misfile |
 | 1 | `wahwire-author` | write feed reactions for records nobody posted about |
-| 1 | `wahwire-discuss` | add comments and replies to thin feed threads |
+| off | `wahwire-discuss` | **disabled:** generated replies remained generic and out of character |
 | 1 | `wahwire-profile` | complete account biographies and follow graphs |
 
 The Bros Attack adapter remains registered but disabled by design: techniques
@@ -96,12 +96,14 @@ a 45-record run.
 
 **A minted faction stub is a queue item, not a dossier.** `faction-dossiers`
 finds the record named by `_generated.sourceRecord`, follows its explicit
-`relatedArticles`, and requires 500–1,000 words of source-bound Waluigi prose.
-It first classifies the label: people, places, events and aggregate buckets are
-retired instead of being padded into fictional institutions. A justified alias
+`relatedArticles`, and requires 500–1,000 words of source-bound Waluigi prose
+plus three verbatim excerpts that the validator finds in both the source and
+the dossier. It first classifies the label: people, places, events and aggregate
+buckets are removed instead of being padded into fictional institutions or
+replaced by low-value “retired after review” paragraphs. A justified alias
 redirect repairs the generated reputation keys; otherwise the invalid key is
-removed. Full dossiers carry `_generatedDossier`, while retired reviews carry
-`_generatedDossierReview`, both listing the source article IDs used.
+removed. Full dossiers carry `_generatedDossier` and the exact source article
+IDs used.
 
 Run just this pass with:
 

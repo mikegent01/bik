@@ -32,7 +32,7 @@ def all_systems() -> list[SystemSpec]:
         reputation.SPEC,
         faction_dossiers.SPEC,  # expand/review stubs minted by reputation
         crafting.SPEC,
-        wahwire.DISCUSS_SPEC,    # threads posts, interleaved with authoring
+        wahwire.DISCUSS_SPEC,    # disabled: generated replies failed the voice bar
         wahwire.PROFILE_SPEC,    # bios + the follow graph, 13 accounts
         bros_attacks.SPEC,       # paired techniques read out of the events
     ]

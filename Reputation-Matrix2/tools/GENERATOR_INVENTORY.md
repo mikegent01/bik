@@ -52,9 +52,11 @@ This queue cannot be solved by blindly expanding every label. Older generation
 also treated named people, locations and aggregate output labels as factions.
 The `faction-dossiers` system therefore reads the named source record and its
 `relatedArticles` first. Real groups receive roughly 500–1,000 words of
-source-bound in-world prose. Misfiled labels are retired and hidden from the
-faction directory, with reputation redirected only when the evidence supports
-a canonical target.
+source-bound in-world prose and must quote three verifiable excerpts from those
+articles. Misfiled labels are removed rather than replaced by “not a faction”
+filler, with reputation redirected only when the evidence supports a canonical
+target. This cleanup runs at stage 0 so unrelated bulk generation cannot bury
+it in the diff.
 
 ---
 

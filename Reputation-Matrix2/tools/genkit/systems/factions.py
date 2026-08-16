@@ -98,6 +98,20 @@ _NOT_A_GROUP = re.compile(
     r")$"
 )
 
+# Aggregate report labels produced by the reputation model are not
+# organisations. These used to become faction stubs such as "All Factions",
+# "United Midlands Factions" and "Midlands Faction Reputations", after which a
+# second model was asked to write lore around the mistake. Reject the shape at
+# its source instead. This deliberately does NOT match real names such as
+# `united_kingdom_of_snowdinia` or `united_forces_of_fight_or_flight`.
+_META_LABEL = re.compile(
+    r"^(?:"
+    r"(?:all|united)(?:_[a-z0-9]+)*_factions?|"
+    r"[a-z0-9_]+_faction_reputations?|"
+    r"general_public|regional_stability|global|general|disaster_inc_allies"
+    r")$"
+)
+
 
 CHARACTERS = ROOT / "data" / "characters.json"
 # The larger cast lives in a JS module keyed by id, not in the JSON roster.
@@ -261,7 +275,7 @@ def resolve(
     slug = slugify(proposed)
     if not slug or len(slug) < 3:
         return None, "reject"
-    if _NOT_A_GROUP.match(slug):
+    if _NOT_A_GROUP.match(slug) or _META_LABEL.match(slug):
         return None, "reject"
 
     if slug in known:

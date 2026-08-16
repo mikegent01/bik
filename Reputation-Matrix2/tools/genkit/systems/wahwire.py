@@ -1661,15 +1661,18 @@ def _discuss_apply(task: Task, data: dict[str, Any]) -> TaskResult:
 
 DISCUSS_SPEC = SystemSpec(
     id="wahwire-discuss",
-    title="WAHwire · thread existing posts",
-    summary="Add comments and replies to posts that nobody has answered.",
-    # Stage 1, not 2, even though it reads what stage 1 writes. Stages are a
-    # hard gate: a stage-2 system waits for every stage-1 system to drain, and
-    # stage 1 holds ~3,300 shop/ability/reputation tasks, so threading would
-    # never have run at all. Sharing stage 1 lets it interleave — it threads
-    # the pruned legacy posts immediately and picks up newly authored ones as
-    # they land. It only depends on stage 0, which does gate it correctly:
-    # no point threading a post that is about to be retired.
+    title="WAHwire · generated threads disabled",
+    summary=(
+        "DISABLED. Bulk-generated replies stayed generic and out of character; "
+        "threads now require an authored lore pass."
+    ),
+    # The generated batches cleared syntactic checks but still read as filler:
+    # vague warnings about "the surface", stock mystic remarks about darkness,
+    # and unrelated financial jokes assigned to whichever account was free.
+    # More generated replies do not improve the archive. Keep the adapter for
+    # its validators and for explicit development tests, but do not schedule it
+    # in generate_all.
+    enabled=False,
     stage=1,
     next_tasks=_discuss_tasks,
     build_prompt=_discuss_prompt,

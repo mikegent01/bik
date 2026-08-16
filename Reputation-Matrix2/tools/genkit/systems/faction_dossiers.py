@@ -9,8 +9,8 @@ an evidence-bound Waluigi dossier of roughly 500--1,000 words.
 
 The classification pass matters.  Older runs minted people (`wario`), places
 (`dragon_mountain`) and aggregate labels (`all_factions`) as factions.  Writing
-500 words around those mistakes would make them look canonical.  Non-factions
-are retired, optionally redirected to a real faction, and their generated
+500 words around those mistakes would make them look canonical. Non-factions
+are removed, optionally redirected to a real faction, and their generated
 reputation keys are repaired rather than displayed as institutions.
 """
 
@@ -208,6 +208,7 @@ Return strictly valid JSON only, no code fence. For a real faction:
   "power_level": 1,
   "summary": "Two evidence-based sentences",
   "description": "500-1000 words of Markdown dossier prose",
+  "evidenceQuotes": ["exact 4-18 word quote", "exact quote", "exact quote"],
   "relations": {"allies": ["known_faction_id"], "enemies": ["known_faction_id"]},
   "waluigi_tip": "Two or three specific sentences of operational advice"
 }
@@ -222,6 +223,9 @@ For anything else:
 
 Dossier rules:
 - 500-1000 words in `description`; use at least three `##` section headings.
+- `evidenceQuotes` must contain exactly three distinct, verbatim 4-18 word
+  excerpts from the supplied articles. Work every quote into `description` and
+  explain what it proves. Do not quote the current stub.
 - Write from inside the world in Waluigi's opinionated archival voice. Name
   physical evidence, actions, quotes, places and uncertainties from the files.
 - Separate confirmed facts from inference. Admit what the record does not say.
@@ -299,6 +303,49 @@ def _line(value: Any, fallback: str, limit: int = 180) -> str:
     return (text or fallback)[:limit]
 
 
+def _strings(node: Any) -> list[str]:
+    """Flatten source fields into the evidence corpus without stringifying keys."""
+    if isinstance(node, str):
+        return [node]
+    if isinstance(node, dict):
+        return [text for value in node.values() for text in _strings(value)]
+    if isinstance(node, list):
+        return [text for value in node for text in _strings(value)]
+    return []
+
+
+def _evidence_text(value: Any) -> str:
+    """Word-exact comparison that ignores punctuation and curly quote forms."""
+    return " ".join(re.findall(r"[a-z0-9]+(?:['’][a-z0-9]+)?", str(value).casefold()))
+
+
+def _validate_evidence_quotes(task: Task, raw: Any, description: str) -> list[str]:
+    if not isinstance(raw, list) or len(raw) != 3:
+        raise ValidationError("evidenceQuotes must contain exactly three verbatim source excerpts")
+    sources = task.payload.get("usedSources", task.payload["sources"])
+    corpus = _evidence_text("\n".join(
+        text for source in sources for text in _strings(source.get("record", {}))
+    ))
+    described = _evidence_text(description)
+    clean: list[str] = []
+    seen: set[str] = set()
+    for value in raw:
+        quote = " ".join(str(value or "").split()).strip('"“”')
+        normal = _evidence_text(quote)
+        words = normal.split()
+        if not 4 <= len(words) <= 18:
+            raise ValidationError("each evidence quote must be 4-18 words")
+        if normal in seen:
+            raise ValidationError("evidence quotes must be distinct")
+        if normal not in corpus:
+            raise ValidationError(f"evidence quote is not verbatim in a supplied article: {quote!r}")
+        if normal not in described:
+            raise ValidationError(f"description does not use evidence quote: {quote!r}")
+        seen.add(normal)
+        clean.append(quote)
+    return clean
+
+
 def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     classification = _norm(raw.get("classification")).replace(" ", "_")
     if classification in {"not_a_faction", "non_faction", "person", "place", "generic"}:
@@ -346,6 +393,7 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     banned = re.search(r"\b(mike|game master|dungeon master|language model|prompt)\b", description, re.I)
     if banned:
         raise ValidationError(f"out-of-world term in dossier: {banned.group(0)!r}")
+    evidence_quotes = _validate_evidence_quotes(task, raw.get("evidenceQuotes"), description)
 
     try:
         power = int(raw.get("power_level", 1))
@@ -383,6 +431,7 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         "power_level": power,
         "summary": _line(raw.get("summary"), "Dossier assembled from the linked record.", 500),
         "description": description,
+        "evidenceQuotes": evidence_quotes,
         "relations": clean_relations,
         "waluigi_tip": _line(raw.get("waluigi_tip"), "Waluigi recommends gathering more evidence before contact.", 600),
         "sourceArticles": source_ids,
@@ -515,19 +564,6 @@ def apply(task: Task, data: dict[str, Any]) -> TaskResult:
         else:
             redirect = data["redirectFactionId"]
             reason = data["reason"]
-            target.update({
-                "description": f"Retired after source review. {reason}",
-                "status": "retired", "entityKind": data["notFactionKind"],
-                "redirectFactionId": redirect, "category": "Retired misfile",
-                "power_level": 0, "relations": {"allies": [], "enemies": []},
-            })
-            source_ids = [
-                str(source["record"].get("id"))
-                for source in task.payload.get("usedSources", task.payload["sources"])
-                if source["record"].get("id")
-            ]
-            target["_generatedDossierReview"] = _stamp("faction-dossiers", model, source_ids)
-
             repaired = 0
             for path in REPUTATION_FILES:
                 document = read_json(path, default=None)
@@ -538,7 +574,7 @@ def apply(task: Task, data: dict[str, Any]) -> TaskResult:
                     atomic_write_json(path, document)
                     repaired += count
                     changed_paths.append(_path_label(path))
-            # Generated faction relations can also point at a retired stub.
+            # Generated faction relations can also point at the misfiled stub.
             for other in store.get("factions", {}).values():
                 rel = other.get("relations") if isinstance(other, dict) else None
                 if not isinstance(rel, dict):
@@ -551,10 +587,16 @@ def apply(task: Task, data: dict[str, Any]) -> TaskResult:
                         redirect if value == faction_id and redirect else value
                         for value in values if value != faction_id or redirect
                     ))
+            # A non-faction does not belong in the faction registry at all.
+            # Keeping a generated paragraph that says "this is not a faction"
+            # merely replaces one bad stub with another and bloats every diff.
+            # The checkpoint/run log retains the review verdict; reader-facing
+            # data retains only real factions.
+            store["factions"].pop(faction_id, None)
             detail = (
-                f"retired {data['notFactionKind']}"
+                f"removed misfiled {data['notFactionKind']}"
                 + (f" → {redirect}" if redirect else "")
-                + f" · repaired {repaired} reference(s)"
+                + f" · repaired {repaired} reference(s) · {reason}"
             )
 
         atomic_write_json(factions.GENERATED, store)
@@ -574,9 +616,12 @@ SPEC = SystemSpec(
     title="Generated factions · source-backed dossiers",
     summary=(
         "Review reputation-minted faction stubs against their source articles; "
-        "write 500-1000 word dossiers or retire misfiled people/places/labels."
+        "write 500-1000 word dossiers or remove misfiled people/places/labels."
     ),
-    stage=1,
+    # Dossiers are cleanup for reputation output, not optional decoration.
+    # Finish this queue before bulk shop/WAHwire generation can fill the diff
+    # with unrelated records and bury the work the operator actually requested.
+    stage=0,
     next_tasks=next_tasks,
     build_prompt=build_prompt,
     validate=validate,

@@ -45,13 +45,17 @@ def print_inventory() -> None:
     print(f"  {'stage':<6}{'system':<{width + 2}}{'pending':>9}")
     print("  " + "─" * (width + 17))
     total = 0
-    for system in sorted(systems, key=lambda s: (s.stage, -s.count_pending())):
+    for system in sorted(
+        systems, key=lambda s: (not s.enabled, s.stage, -s.count_pending())
+    ):
         pending = system.count_pending()
-        total += pending
-        print(f"  {system.stage:<6}{system.title:<{width + 2}}{pending:>9}")
+        stage = str(system.stage) if system.enabled else "off"
+        if system.enabled:
+            total += pending
+        print(f"  {stage:<6}{system.title:<{width + 2}}{pending:>9}")
         print(f"  {'':<6}{system.summary}")
     print("  " + "─" * (width + 17))
-    print(f"  {'':<6}{'TOTAL':<{width + 2}}{total:>9}\n")
+    print(f"  {'':<6}{'TOTAL ENABLED':<{width + 2}}{total:>9}\n")
     print("  Stage 0 systems gate every higher stage: nothing at stage 1 runs")
     print("  until stage 0 is empty.\n")
 
