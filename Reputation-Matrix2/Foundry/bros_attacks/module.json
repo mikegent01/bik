@@ -1,8 +1,8 @@
 {
   "id": "bros_attacks",
   "title": "Bros. Attacks Combo System",
-  "description": "Static cooperative Bros Attacks with clear target prompts and per-participant Bros Energy. Easy/Medium/Hard drill difficulty changes cost, timing and payoff. Bros items bought from the shop are spent instead of energy and teach the technique permanently; GMs can set item quantities and hide items from players.",
-  "version": "2.2.0",
+  "description": "Cooperative Bros Attacks discovered in play, not bought. A pair logs two failed attempts with stated reasons, then the third attempt lands and the players name the technique themselves. Badges recognise teamwork; shop kits are gear that makes an attempt safer or free for a technique, never a way to purchase one. Easy/Medium/Hard drill difficulty changes cost, timing and payoff; GMs can set item quantities and hide items from players.",
+  "version": "3.0.0",
   "compatibility": {
     "minimum": "14",
     "verified": "14"
@@ -18,5 +18,9 @@
     {
       "name": "You"
     }
+  ],
+  "esmodules": [
+    "bros-discovery.js",
+    "bros-badges.js"
   ]
 }

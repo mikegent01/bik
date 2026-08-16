@@ -359,7 +359,6 @@ def shop_item_to_foundry(
                 # imported one-shot is just flavour text and the item has no
                 # mechanical effect in play. Absent on everything else.
                 **({"brosAttack": item["brosAttack"]} if item.get("brosAttack") else {}),
-                **({"teachesTechnique": True} if item.get("teachesTechnique") else {}),
                 **({"energyRule": item["energyRule"]} if item.get("energyRule") else {}),
                 # Badges are cosmetic and record-backed: `marks` names the real
                 # event, and losing it would leave a token that commemorates

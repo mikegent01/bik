@@ -875,5 +875,81 @@ check("the roster is wide enough that the cap is satisfiable",
       len(wahwire.KNOWN_AUTHORS) * wahwire.AUTHOR_MAX_SHARE >= 1.0,
       f"{len(wahwire.KNOWN_AUTHORS)} accounts x {wahwire.AUTHOR_MAX_SHARE}")
 
+# ------------------------------------------------------- writing quality
+section("wahwire · voice, substance and rewording")
+
+# Third person. The reason 94 posts were deleted: a note meant only for
+# Waluigi's bit leaked into the shared role notes and put every character
+# into the third person about themselves.
+for _author, _text, _should_fail in [
+    ("bowser", "Bowser does not negotiate with fools like these.", True),
+    ("bowser", "They thought they could challenge ME. Wrong.", False),
+    ("peach", "Peach is deeply concerned by the news from the north.", True),
+    ("peach", "I am deeply concerned by the news from the north.", False),
+    # Waluigi's bit IS the third person, so he is exempt on purpose.
+    ("waluigi", "WALUIGI DOES NOT LOSE. WALUIGI IS SIMPLY EARLY.", False),
+]:
+    _failed = False
+    try:
+        wahwire._check_third_person(_author, _text)
+    except ValidationError:
+        _failed = True
+    check(f"{'rejects' if _should_fail else 'allows'} {_author}: {_text[:34]!r}",
+          _failed == _should_fail)
+
+# Substance. A reply that only agrees, or only restates the post, is noise.
+_source = "The siege of Ironwood ended at dawn when the supply lines collapsed."
+for _text, _should_fail in [
+    ("Agreed.", True),
+    ("This.", True),
+    ("So true, well said.", True),
+    ("The siege of Ironwood ended at dawn because supply lines collapsed.", True),
+    ("Three grain carts never reached the north road. Ask who was paid.", False),
+    ("I lost two cousins on that ridge. Dawn means nothing to me.", False),
+]:
+    _failed = False
+    try:
+        wahwire._check_substance(_text, _source)
+    except ValidationError:
+        _failed = True
+    check(f"{'rejects' if _should_fail else 'allows'} {_text[:38]!r}",
+          _failed == _should_fail)
+
+# Rewording. Exact-match dedup passed all of these; that is why whole threads
+# read as one sentence said four ways.
+for _a, _b in [
+    ("Something weird happened at the tower last night.",
+     "Something strange occurred at the tower yesterday evening."),
+    ("The siege is over, their supply lines failed.",
+     "The siege has ended because their supply lines collapsed."),
+    ("I am scared of what comes next.",
+     "I am frightened about what happens next."),
+    ("A big battle was lost near the forest.",
+     "A massive fight was lost by the forest."),
+    # Real pair from the deleted batch: different openings, same closing move.
+    ("Oh ReMi... poor thing got scared silly! Hope she's okay. Still, what did"
+     " YOU buy for YOURSELF today, Waluigi?",
+     "ReMi should've known better than to go into a haunted gallery! But she"
+     " had fun, right? What did YOU get today, Waluigi?"),
+]:
+    check(f"catches rewording: {_a[:40]!r}", bool(wahwire._too_similar(_a, [_b])))
+
+# Guard the other direction. A false positive throws away good writing and
+# sends the task back to the pool, so distinct replies must survive.
+for _a, _b in [
+    ("The siege is over and the Onyx Hand has fallen.",
+     "Supply lines were the bottleneck; their strategy held until logistics did not."),
+    ("I was there when the gate came down.",
+     "Three carts of grain never reached the north road."),
+    ("My rent is due and nobody is talking about that.",
+     "The Empire calls it order. I call it a curfew."),
+    # Both from one real thread, both about Koffin-K, genuinely different.
+    ("That's a pile of nonsense. Koffin-K's vision is the only thing keeping"
+     " this disaster from being worse.",
+     "Koffin-K's grandstanding is what got us into this mess to begin with."),
+]:
+    check(f"keeps distinct reply: {_a[:40]!r}", not wahwire._too_similar(_a, [_b]))
+
+
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)

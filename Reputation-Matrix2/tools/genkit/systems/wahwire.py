@@ -355,14 +355,14 @@ Return strictly valid JSON only, no commentary, no code fence:
 
 {
   "author": "<one id from the author list>",
-  "content": "<the post, 2-4 sentences, first person, in character>",
+  "content": "<the post, 1-3 short sentences, first person, in character>",
   "likes": <integer 0-9000>,
   "tags": ["<2-4 lowercase single-word tags>"],
   "reaction": "<one of the reaction ids listed below>",
   "comments": [
     {
       "author": "<a DIFFERENT id from the author list>",
-      "content": "<1-2 sentences replying to the post, in that character's voice>",
+      "content": "<1-2 short sentences replying to the post, in that character's voice>",
       "likes": <integer 0-4000>,
       "reaction": "<one of the reaction ids listed below>",
       "replyTo": "<omit, or the author id of the comment being answered>"
@@ -412,8 +412,15 @@ ROLE_NOTES = {
     # These five had no voice note, which is part of why the model kept
     # falling back to Waluigi: he was the only one of them it could hear.
     # An account the prompt cannot characterise is an account it will not pick.
+    # NOTE: the third-person habit is Waluigi's and ONLY Waluigi's. It used to
+    # be stated here as a bare trait and the model generalised it -- Bowser
+    # started referring to himself as "Bowser". Quirks in this shared dict get
+    # read as house style, so anything unique to one account has to say out
+    # loud that it does not transfer. _validate_voice() enforces the rest.
     "waluigi": "Field archivist and reluctant survivor. Sardonic, aggrieved, "
-               "third-person about himself, certain he is underappreciated. "
+               "certain he is underappreciated. Refers to himself as "
+               "'Waluigi' rather than 'I' -- this is HIS verbal tic alone and "
+               "must never be copied by any other account. "
                "Opens with WAH! only when genuinely provoked.",
     "bowser": "King of the Koopa Troop. Territorial and blunt, reads every "
               "event as a question of who holds the ground.",
@@ -541,6 +548,11 @@ def _author_prompt(task: Task) -> tuple[str, str]:
 # How many other posts must appear between two posts by the same account.
 # Left to itself the model funnels almost everything through one loud voice
 # (it was Waluigi, every time), which makes the feed read like a blog.
+# Length ceilings. Social posts, not essays -- the deleted batch read
+# "like reading a book". Median post there was 230 characters.
+POST_MAX_CHARS = 320
+COMMENT_MAX_CHARS = 240
+
 AUTHOR_COOLDOWN = 3
 
 # The cooldown alone is not enough, and the 94-post feed proved it: a 3-post
@@ -744,6 +756,251 @@ def recent_authors(limit: int = AUTHOR_COOLDOWN) -> list[str]:
     return (claimed + window)[:limit]
 
 
+# ---------------------------------------------------------------------------
+# Quality validators
+#
+# These exist because prompt instructions did not work. DISCUSS_SYSTEM already
+# said "do not restate the post" and "a thread of agreement is not a thread",
+# and the model produced 94 posts of exactly that. A rule the generator can
+# ignore is not a rule, so each of the three observed failures is now checked
+# in code and sent back for a real retry.
+# ---------------------------------------------------------------------------
+
+# Waluigi talks about himself in the third person. Nobody else does, but the
+# habit sat in a shared voice dict and the model read it as house style, so
+# Bowser started announcing "Bowser does not negotiate".
+_SELF_REFERENCE_EXEMPT = {"waluigi", "wah_media_collective"}
+
+
+def _display_names(author: str) -> list[str]:
+    """The names an account might use for itself, longest first."""
+    entry = voices().get(author) or {}
+    names = {str(entry.get("name") or "").strip()}
+    names.add(author.replace("_", " "))
+    tail = author.split("_")[-1]
+    if len(tail) > 3:
+        names.add(tail)
+    return sorted((n for n in names if len(n) > 3), key=len, reverse=True)
+
+
+def _check_third_person(author: str, text: str) -> None:
+    """Reject an account narrating itself in the third person.
+
+    Only fires on a name used as a SUBJECT ("Bowser does not negotiate"), not
+    on a mention ("they came for Bowser"), which is ordinary speech. The verb
+    test keeps that distinction cheap and predictable.
+    """
+    if author in _SELF_REFERENCE_EXEMPT:
+        return
+    for name in _display_names(author):
+        pattern = re.compile(
+            rf"\b{re.escape(name)}\b\s+(?:is|was|does|did|has|had|will|would|"
+            rf"says|said|thinks|knows|wants|needs|refuses|remembers|stands|"
+            rf"walks|holds|takes|gives|sees|"
+            rf"\w+s)\b",
+            re.IGNORECASE,
+        )
+        if pattern.search(text):
+            raise ValidationError(
+                f"{author} refers to themselves in the third person "
+                f"('{name}' as the subject of a sentence). Only Waluigi does "
+                f"that. Rewrite in the first person."
+            )
+
+
+# Synonym families. Rewording is the failure mode we are actually chasing, and
+# a paraphrase can share almost no tokens with its twin -- "something weird
+# happened" against "something strange occurred" has a word overlap of 0.11,
+# which no lexical metric will ever flag. Folding known synonyms onto a single
+# representative is what makes the comparison see through the rewrite. This is
+# not a thesaurus; it is the vocabulary this feed actually reaches for.
+_SYNONYMS = {
+    "weird": "strange", "odd": "strange", "bizarre": "strange",
+    "unusual": "strange", "peculiar": "strange", "eerie": "strange",
+    "happened": "occurred", "happen": "occurred", "happens": "occurred",
+    "occur": "occurred", "occurring": "occurred", "transpired": "occurred",
+    "took": "occurred", "unfolded": "occurred", "went": "occurred",
+    "said": "stated", "says": "stated", "told": "stated", "claims": "stated",
+    "claimed": "stated", "reported": "stated", "announced": "stated",
+    "noted": "stated", "remarked": "stated", "mentioned": "stated",
+    "big": "large", "huge": "large", "massive": "large", "enormous": "large",
+    "vast": "large", "great": "large",
+    "bad": "poor", "awful": "poor", "terrible": "poor", "dreadful": "poor",
+    "grim": "poor", "dire": "poor",
+    "good": "fine", "great": "fine", "excellent": "fine", "superb": "fine",
+    "scared": "afraid", "scare": "afraid", "frightened": "afraid",
+    "frighten": "afraid", "terrified": "afraid", "fear": "afraid",
+    "worried": "afraid", "anxious": "afraid", "nervous": "afraid",
+    "angry": "furious", "enraged": "furious", "livid": "furious",
+    "irate": "furious", "mad": "furious",
+    "died": "killed", "slain": "killed", "perished": "killed",
+    "fell": "killed", "lost": "killed",
+    "began": "started", "commenced": "started", "initiated": "started",
+    "ended": "finished", "concluded": "finished", "ceased": "finished",
+    "over": "finished", "done": "finished",
+    "saw": "witnessed", "watched": "witnessed", "observed": "witnessed",
+    "noticed": "witnessed", "spotted": "witnessed",
+    "problem": "trouble", "issue": "trouble", "difficulty": "trouble",
+    "crisis": "trouble", "disaster": "trouble", "mess": "trouble",
+    "attack": "assault", "strike": "assault", "raid": "assault",
+    "battle": "fight", "combat": "fight", "clash": "fight",
+    "skirmish": "fight", "engagement": "fight",
+    "soldier": "fighter", "warrior": "fighter", "troop": "fighter",
+    "leader": "ruler", "king": "ruler", "lord": "ruler", "chief": "ruler",
+    "kingdom": "realm", "territory": "realm", "land": "realm",
+    "night": "evening", "yesterday": "evening", "tonight": "evening",
+    "quickly": "fast", "rapidly": "fast", "swiftly": "fast",
+    "think": "believe", "reckon": "believe", "suppose": "believe",
+    "feel": "believe", "guess": "believe",
+    "important": "significant", "crucial": "significant",
+    "vital": "significant", "critical": "significant", "key": "significant",
+}
+
+
+def _normalise(text: str) -> str:
+    """Strip everything that lets a reworded restatement look different."""
+    text = re.sub(r"#\w+", " ", text.lower())
+    text = re.sub(r"[^a-z0-9\s]", " ", text)
+    # Filler that carries no information: two comments that differ only by
+    # these are the same comment.
+    filler = {
+        "the", "a", "an", "is", "was", "are", "were", "be", "been", "being",
+        "to", "of", "in", "on", "at", "for", "with", "and", "or", "but", "so",
+        "that", "this", "these", "those", "it", "its", "as", "if", "then",
+        "just", "really", "very", "quite", "some", "any", "all", "not",
+        "i", "we", "you", "they", "he", "she", "there", "here", "what",
+        "something", "someone", "anything", "thing", "things",
+        "has", "had", "have", "will", "would", "can", "could", "may",
+        "last", "now", "still", "about", "from", "by", "our", "their",
+    }
+    words = []
+    for word in text.split():
+        if word in filler:
+            continue
+        # Look the whole word up FIRST. Stemming ahead of the fold turns
+        # "scared" into "scar", which then matches nothing -- the synonym
+        # table is keyed on words people actually write.
+        mapped = _SYNONYMS.get(word)
+        if mapped is None:
+            stem = word
+            if len(word) > 4 and word.endswith("ing"):
+                stem = word[:-3]
+            elif len(word) > 4 and word.endswith("ed"):
+                stem = word[:-2]
+            elif len(word) > 4 and word.endswith("s") and not word.endswith("ss"):
+                stem = word[:-1]
+            mapped = _SYNONYMS.get(stem, stem)
+        words.append(mapped)
+    return " ".join(words)
+
+
+def _too_similar(text: str, others: list[str], *, cutoff: float = 0.62) -> str:
+    """Return the first near-duplicate, or ''.
+
+    The observed failure was a whole thread where every reply said "something
+    weird happened" in slightly different words. Exact-match dedup passed all
+    of them.
+
+    Three measures, because paraphrase defeats any single one:
+      * character ratio  -- catches light edits and reordering
+      * token overlap    -- catches "same words, new sentence"
+      * short containment -- catches "your sentence plus four words"
+    """
+    mine = _normalise(text)
+    if not mine:
+        return ""
+    my_words = set(mine.split())
+    for other in others:
+        theirs = _normalise(other)
+        if not theirs:
+            continue
+        if difflib.SequenceMatcher(None, mine, theirs).ratio() >= cutoff:
+            return other
+        their_words = set(theirs.split())
+        if my_words and their_words:
+            union = my_words | their_words
+            overlap = len(my_words & their_words) / len(union)
+            # Two short remarks built from the same handful of content words
+            # are the same remark, however the grammar is arranged.
+            if overlap >= cutoff:
+                return other
+            if len(union) <= 12 and overlap >= 0.5:
+                return other
+        short, long = sorted((mine, theirs), key=len)
+        if len(short) > 24 and short in long:
+            return other
+        # Sentence level. Two comments can open differently and still land on
+        # the same move -- the deleted batch had a thread where two replies
+        # closed on "what did YOU buy for YOURSELF today, Waluigi?" and "what
+        # did YOU get today, Waluigi?". Whole-comment similarity misses that
+        # because the first halves genuinely differ, but the thread still
+        # reads as one voice asking one question twice.
+        for mine_part in _sentences(text):
+            for their_part in _sentences(other):
+                a, b = _normalise(mine_part), _normalise(their_part)
+                if len(a.split()) < 4 or len(b.split()) < 4:
+                    continue
+                if difflib.SequenceMatcher(None, a, b).ratio() >= 0.70:
+                    return other
+                aw, bw = set(a.split()), set(b.split())
+                if len(aw & bw) / len(aw | bw) >= 0.62:
+                    return other
+    return ""
+
+
+def _sentences(text: str) -> list[str]:
+    """Split on sentence enders, keeping only parts worth comparing."""
+    parts = re.split(r"[.!?]+", re.sub(r"#\w+", " ", text))
+    return [p.strip() for p in parts if len(p.strip()) > 12]
+
+
+# Openers that announce agreement and then stop. A post may agree, but it has
+# to carry something after the agreement.
+_AGREEMENT_ONLY = re.compile(
+    r"^\W*(?:this|that|so much this|exactly|agreed|agree|same|indeed|"
+    r"truly|absolutely|precisely|well said|so true|too true|very true|"
+    r"facts|real|yes|yep|yeah|word|based|amen|hear hear|no notes|"
+    r"couldn't have said it better|could not have said it better|"
+    r"my thoughts exactly|100%|\+1)\W*$",
+    re.IGNORECASE,
+)
+
+
+def _check_substance(text: str, source_text: str) -> None:
+    """Reject a post that adds nothing the source already said.
+
+    Three tells, all observed in the deleted batch: pure agreement, a
+    paraphrase of the source event, and a comment that borrows so much of the
+    source's vocabulary it is just a summary wearing a username.
+    """
+    stripped = re.sub(r"#\w+", "", text).strip()
+    # Clause by clause as well as whole-string: "So true, well said." is two
+    # agreements stitched together and slips past an anchored match.
+    clauses = [c.strip() for c in re.split(r"[,.!;]+", stripped) if c.strip()]
+    if _AGREEMENT_ONLY.match(stripped) or (
+        clauses and all(_AGREEMENT_ONLY.match(c) for c in clauses)
+    ):
+        raise ValidationError(
+            "agreement with no content. Say something the post does not "
+            "already say: what it means for you, what it gets wrong, or what "
+            "happens next."
+        )
+    if not source_text:
+        return
+    if _too_similar(stripped, [source_text], cutoff=0.58):
+        raise ValidationError(
+            "this restates the source event instead of responding to it. "
+            "Add information, a reaction, a consequence, or a disagreement."
+        )
+    mine = set(_normalise(stripped).split())
+    theirs = set(_normalise(source_text).split())
+    if len(mine) >= 5 and len(mine - theirs) / len(mine) < 0.34:
+        raise ValidationError(
+            "almost every content word here is lifted from the source event. "
+            "Write what this account thinks about it, in their own words."
+        )
+
+
 def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     author = str(raw.get("author", "")).strip()
     if author not in KNOWN_AUTHORS:
@@ -782,6 +1039,34 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         if len(content) < 40:
             raise ValidationError("post is only hashtags once they are stripped")
 
+    # Length ceiling. These are social posts, not essays: the archivist's
+    # complaint about the deleted batch was that reading the feed was "like
+    # reading a book". The old batch ran to 531 characters with a median of
+    # 230, so 320 keeps the typical post untouched and forces only the
+    # genuinely bloated ones to be rewritten.
+    if len(content) > POST_MAX_CHARS:
+        raise ValidationError(
+            f"post is {len(content)} characters; keep it under "
+            f"{POST_MAX_CHARS}. Cut it to the one thing this character "
+            f"actually wants to say. Do not summarise the event."
+        )
+
+    # The three quality gates. Each one is a failure that actually shipped in
+    # the batch the archivist deleted, so each is checked rather than merely
+    # requested in the prompt.
+    _check_third_person(author, content)
+    record = task.payload.get("record") or {}
+    _check_substance(content, " ".join(str(record.get(f, "")) for f in
+                                       ("summary", "description", "text", "title")))
+    existing = [str(p.get("content", "")) for p in _posts()[-60:]]
+    twin = _too_similar(content, existing, cutoff=0.66)
+    if twin:
+        raise ValidationError(
+            "this post is a reworded version of one already on the feed: "
+            f"\"{twin[:110]}\". Write about something the feed has not covered, "
+            "or take a different position on it."
+        )
+
     try:
         likes = max(0, min(9000, int(raw.get("likes", 0))))
     except (TypeError, ValueError):
@@ -816,12 +1101,26 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         if not isinstance(c_text, str):
             continue
         c_text = " ".join(re.sub(r"#\w+", " ", c_text).split())
-        if not (10 <= len(c_text) <= 400):
+        if not (10 <= len(c_text) <= COMMENT_MAX_CHARS):
             continue
         try:
             c_likes = max(0, min(4000, int(entry.get("likes", 0))))
         except (TypeError, ValueError):
             c_likes = 0
+        # The same three quality gates the discuss pass applies. A post can
+        # arrive with its own thread attached, and that inline path is where
+        # the deleted batch's worst threads came from -- four replies saying
+        # one thing four ways. A bad comment is dropped rather than failing
+        # the whole post: the post itself may be fine, and wahwire-discuss
+        # refills thin threads later under exactly these same checks.
+        try:
+            _check_third_person(c_author, c_text)
+            _check_substance(c_text, content)
+        except ValidationError:
+            continue
+        if _too_similar(c_text, [c["content"] for c in comments] + [content]):
+            continue
+
         c_reaction = _resolve_reaction(entry.get("reaction"), model=model)
         # A reply only makes sense if that person is already in the thread.
         reply_to = str(entry.get("replyTo", "")).strip()
@@ -1067,7 +1366,8 @@ that matters. Comments may reply to each other.
 RULES
 - Reply only as accounts from the list. NEVER reply as the post's own author.
 - 1 to 4 comments. Fewer good ones beat four filler ones.
-- Each comment 10-400 characters, in that character's voice, no hashtags.
+- Each comment 10-240 characters, in that character's voice, no hashtags.
+- Short is better. One reaction per comment, not a paragraph.
 - Disagree where disagreement is earned. A thread of agreement is not a thread.
 - Do not restate the post. Add something: a correction, a consequence, an accusation,
   a detail only that person would know.
@@ -1177,9 +1477,15 @@ def _discuss_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     # Anyone already in the thread can be replied to; so can the accounts
     # added by this batch, in order.
     seen_authors = [str(c.get("author")) for c in existing if c.get("author")]
-    seen_text = {" ".join(str(c.get("content", "")).lower().split()) for c in existing}
+    # Every comment already in the thread, plus the post itself: a reply that
+    # merely rewords either one is not a reply. Exact-match dedup used to be
+    # the only check here, which is how a thread shipped where all four
+    # replies said "something weird happened" in different words.
+    seen_text = [str(c.get("content", "")) for c in existing]
+    post_text = str(post.get("content", ""))
 
     comments: list[dict[str, Any]] = []
+    rejected: list[str] = []
     for entry in (raw.get("comments") or [])[:4]:
         if len(comments) >= room:
             break
@@ -1192,10 +1498,21 @@ def _discuss_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         if not isinstance(c_text, str):
             continue
         c_text = " ".join(re.sub(r"#\w+", " ", c_text).split())
-        if not (10 <= len(c_text) <= 400):
+        if not (10 <= len(c_text) <= COMMENT_MAX_CHARS):
             continue
-        # A pass that runs twice over the same post must not say it twice.
-        if c_text.lower() in seen_text:
+
+        # Quality gates, in the order that fails cheapest first.
+        try:
+            _check_third_person(c_author, c_text)
+            _check_substance(c_text, post_text)
+        except ValidationError as exc:
+            rejected.append(f"{c_author}: {exc}")
+            continue
+        twin = _too_similar(c_text, seen_text + [post_text])
+        if twin:
+            rejected.append(
+                f"{c_author}: reworded restatement of \"{twin[:80]}\""
+            )
             continue
         try:
             c_likes = max(0, min(4000, int(entry.get("likes", 0))))
@@ -1212,12 +1529,15 @@ def _discuss_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             "replyTo": reply_to,
         })
         seen_authors.append(c_author)
-        seen_text.add(c_text.lower())
+        seen_text.append(c_text)
 
     if not comments:
+        detail = (" Rejected: " + "; ".join(rejected[:3])) if rejected else ""
         raise ValidationError(
             "no usable comments — each needs an account from the list "
-            "(not the post's own author) and 10-400 characters of new content"
+            "(not the post's own author) and 10-240 characters that add "
+            "something the post and the thread do not already say."
+            + detail
         )
     return {"comments": comments}
 
@@ -1241,7 +1561,8 @@ def _discuss_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any]
     author = str(task.payload.get("author", "")).strip()
     post = next((p for p in _posts() if p.get("id") == task.payload.get("id")), None)
     existing = [c for c in ((post or {}).get("comments") or []) if isinstance(c, dict)]
-    seen_text = {" ".join(str(c.get("content", "")).lower().split()) for c in existing}
+    seen_text = [str(c.get("content", "")) for c in existing]
+    post_text = str((post or {}).get("content", ""))
 
     # Spread reassignments over the quietest accounts rather than always
     # picking the first name in the list.
@@ -1261,18 +1582,27 @@ def _discuss_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any]
         if not isinstance(text, str):
             continue
         text = " ".join(re.sub(r"#\w+", " ", text).split())
-        if not (10 <= len(text) <= 400):
+        if not (10 <= len(text) <= COMMENT_MAX_CHARS):
             continue  # a length failure is the model's, not a label's
-        if text.lower() in seen_text:
+        # Repair reassigns AUTHOR LABELS. It must never launder a comment past
+        # the quality gates: a reworded restatement is still one under a
+        # different name, so these drop out here exactly as they do in
+        # validation and the task goes back to the pool for a real retry.
+        if _too_similar(text, seen_text + [post_text]):
             continue
         candidate = str(entry.get("author", "")).strip()
         if candidate not in KNOWN_AUTHORS or candidate == author:
             candidate = pool[index % len(pool)]
+        try:
+            _check_third_person(candidate, text)
+            _check_substance(text, post_text)
+        except ValidationError:
+            continue
         replacement = dict(entry)
         replacement["author"] = candidate
         replacement["content"] = text
         fixed_comments.append(replacement)
-        seen_text.add(text.lower())
+        seen_text.append(text)
 
     if not fixed_comments:
         return None

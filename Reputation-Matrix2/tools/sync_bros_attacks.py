@@ -207,6 +207,11 @@ def render_shop_schools(data: dict[str, Any]) -> str:
                 "participantNames": [_display_name(p) for p in a.get("participants", [])],
                 "status": a.get("status", ""),
                 "playable": bool(a.get("drill")),
+                # Recorded uses folded in by tools/prune_bros_attacks.py. The
+                # yard shows these as "also performed by" so an absorbed
+                # anecdote keeps its participants and its source event instead
+                # of vanishing with the duplicate entry it came from.
+                **({"variations": a["variations"]} if a.get("variations") else {}),
             }
             for a in data.get("attacks", [])
         ],

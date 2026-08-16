@@ -130,23 +130,25 @@ async function consumeBrosItem(attack, found, actors) {
   if (quantity > 1) await item.update({ "system.quantity": quantity - 1 });
   else await item.delete();
 
-  // Teaching items promote the pair to the normal economy from here on.
-  let taught = false;
-  if (item.flags?.waluipedia?.teachesTechnique) {
-    for (const target of actors) {
-      const learned = target.getFlag(BROS_MODULE, "learned") ?? [];
-      if (!learned.includes(attack.id)) {
-        await target.setFlag(BROS_MODULE, "learned", [...learned, attack.id]);
-        taught = true;
-      }
-    }
-  }
+  // Items no longer teach. A technique is discovered at the table -- two
+  // logged failures and a third attempt that lands, named by the players --
+  // and nothing purchasable short-circuits that. What a kit does is make ONE
+  // attempt free of Bros Energy, which for a pair still searching means they
+  // can afford to fail at it safely. The GM may log that attempt against the
+  // pair's ledger; the kit itself never sets the learned flag.
+  const learners = actors.filter(a =>
+    !(a?.getFlag?.(BROS_MODULE, "learned") ?? []).includes(attack.id));
   await ChatMessage.create({ content:
-    `<div class="bros-clean-card"><h2>📦 ${item.name} used</h2>`
+    `<div class="bros-clean-card"><h2>\ud83d\udce6 ${item.name} used</h2>`
     + `<p>${actor.name} spends the item to perform <strong>${attack.name}</strong>. `
-    + `No Bros Energy was spent — the item is consumed instead.</p>`
-    + (taught ? `<p>Both partners have now <strong>learned ${attack.name}</strong>. `
-        + `From here it costs 1 Bros Energy each, from a maximum of 2, back after a short rest.</p>` : "")
+    + `No Bros Energy was spent \u2014 the item is consumed instead.</p>`
+    + (learners.length
+        ? `<p class="bros-attempt-note">This does not teach the technique. If the `
+          + `pair are still working it out, the GM can log this as an attempt: `
+          + `<code>game.brosAttacks.discovery.logFailure(a, b, "${attack.id}", "why")</code>`
+          + ` \u2014 or, on the attempt that finally lands, `
+          + `<code>logDiscovery(a, b, "${attack.id}", "their name for it")</code>.</p>`
+        : "")
     + `</div>` });
   return true;
 }
@@ -504,7 +506,14 @@ Hooks.once("init",()=>{
 });
 
 Hooks.once("ready",()=>{
+  // Preserve anything bros-discovery.js / bros-badges.js already attached:
+  // esmodules and scripts do not have a guaranteed order relative to each
+  // other, and a plain assignment here would silently drop game.brosAttacks
+  // .discovery, taking the whole three-strikes API down with it.
+  const previous=game.brosAttacks;
   game.brosAttacks=new BrosAttackWindow();
+  if(previous) for(const [k,v] of Object.entries(previous))
+    if(!(k in game.brosAttacks)) game.brosAttacks[k]=v;
   // Small GM API, so a GM can adjust stock from a macro without hunting
   // through sheets: game.brosAttacks.setItemCount(actor, id, n)
   game.brosAttacks.setItemCount=setBrosItemCount;

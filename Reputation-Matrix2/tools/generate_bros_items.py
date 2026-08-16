@@ -141,7 +141,6 @@ def draft_bros_item(technique: dict, index: int) -> dict:
             "charges": "1 use. The item is consumed, not the participants' Bros Energy.",
         },
         "brosAttack": tid,
-        "teachesTechnique": True,
         "energyRule": ENERGY_RULE,
         "priceReason": "[WHY THIS COSTS WHAT IT COSTS]",
     })

@@ -113,7 +113,19 @@
           }
         ]
       },
-      "difficulty": "easy"
+      "difficulty": "easy",
+      "variations": [
+        {
+          "id": "tanuki_liberation_bros_attack",
+          "name": "Tanuki Liberation Bros Attack",
+          "participants": [
+            "remi_akamatsu_full_backstory",
+            "green_t"
+          ],
+          "sourceEvent": "the_grove_of_woe_incident",
+          "account": "Remi took the initiative to use a Bros Attack technique taught by Green T, adjusting her aim downward before firing through the barricaded bathroom door. This action freed The Tanuki from the dangerous situation."
+        }
+      ]
     },
     {
       "id": "chop_bros_attack",
@@ -185,234 +197,6 @@
         ]
       },
       "difficulty": "easy"
-    },
-    {
-      "id": "gamma_discrepancy_bros_attack",
-      "name": "Gamma Discrepancy Bros Attack",
-      "subtitle": "Markop and Green T analyze historical data to uncover a hidden truth",
-      "status": "confirmed",
-      "participants": [
-        "markop",
-        "green_t"
-      ],
-      "type": "Analysis and Insight",
-      "sourceEvent": "collapse_of_blackfen_pass",
-      "description": "Markop and Green T examine the historical records, uncovering inconsistencies that hint at a hidden truth. Their coordination allows them to piece together fragments of information that others would miss.",
-      "steps": [
-        "Highlight key dates on the timeline.",
-        "Focus the magnifying glass on suspicious entries.",
-        "Elevate a record to reveal hidden layers.",
-        "Scroll through archives for overlooked details."
-      ],
-      "risks": "Misinterpreting data could lead to incorrect conclusions.",
-      "waluigiNote": "WAH! Two pairs of glasses staring at the same screen, but seeing entirely different things. Markop's optimism and Green T's skepticism make for a fascinating duo, or so they think.",
-      "relatedArticles": [
-        "collapse_of_blackfen_pass",
-        "markop",
-        "green_t"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "clearing",
-      "drill": {
-        "partnerA": "Markop",
-        "partnerB": "Green T",
-        "promptDescription": "Analyze a historical event using two sources of information.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Highlight",
-            "instruction": "click on key dates in the timeline",
-            "gesture": "tap",
-            "icon": "📅"
-          },
-          {
-            "actor": "B",
-            "title": "Focus Lens",
-            "instruction": "zoom into suspicious entries with a magnifying glass",
-            "gesture": "aim",
-            "icon": "🔍"
-          },
-          {
-            "actor": "A",
-            "title": "Elevate Record",
-            "instruction": "scroll up to reveal hidden layers of documents",
-            "gesture": "up",
-            "icon": "🔄"
-          },
-          {
-            "actor": "B",
-            "title": "Scroll Archives",
-            "instruction": "scan through archives for overlooked details",
-            "gesture": "down",
-            "icon": "📚"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:13:11+00:00"
-      }
-    },
-    {
-      "id": "detonation_bros_attack",
-      "name": "Detonation Bros Attack",
-      "subtitle": "The Original Dan creates a massive fire detonation while the Feyward Dan attempts to escape harm.",
-      "status": "confirmed",
-      "participants": [
-        "dan_original",
-        "dan_feyward"
-      ],
-      "type": "Ranged support fire",
-      "sourceEvent": "the_estragon_island_incident",
-      "description": "The Original Dan, with full fire capabilities, detonates a massive fire explosion to protect himself from the Feyward Dan. The Feyward Dan tries to escape but is left wounded and broken by the blast.",
-      "steps": [
-        "Dan (Original — Mages' Guild Fire Mage): Time your detonation as the Feyward Dan runs past.",
-        "Dan (Feyward / Copy): Move to the right to avoid the blast.",
-        "Dan (Original — Mages' Guild Fire Mage): Use your shield to hold off any incoming attacks or distractions.",
-        "Dan (Feyward / Copy): Attempt to escape the scene while still under fire."
-      ],
-      "risks": "If the Feyward Dan does not time his dodge correctly, he will be caught in the blast. The Original Dan must ensure the timing is precise to avoid harming the Feyward Dan.",
-      "waluigiNote": "WAH! So much for a peaceful resolution. This is why identity crises are so messy.",
-      "relatedArticles": [
-        "the_estragon_island_incident",
-        "dan_original",
-        "dan_feyward"
-      ],
-      "difficulty": "hard",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "support_fire",
-      "drill": {
-        "partnerA": "Dan (Original — Mages' Guild Fire Mage)",
-        "partnerB": "Dan (Feyward / Copy)",
-        "promptDescription": "Partner A creates a fire detonation while Partner B attempts to escape harm.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Set Trap",
-            "instruction": "Position yourself and imagine the blast.",
-            "gesture": "aim",
-            "icon": "🔥"
-          },
-          {
-            "actor": "B",
-            "title": "Evasive Maneuver",
-            "instruction": "Dodge to the right as Partner A aims.",
-            "gesture": "right",
-            "icon": "🏃‍♂️"
-          },
-          {
-            "actor": "A",
-            "title": "Hold Line",
-            "instruction": "Imagine absorbing an attack or distraction.",
-            "gesture": "up",
-            "icon": "🛡️"
-          },
-          {
-            "actor": "B",
-            "title": "Escape",
-            "instruction": "Attempt to move away from the blast area.",
-            "gesture": "down",
-            "icon": "🏃‍♀️"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:14:20+00:00"
-      }
-    },
-    {
-      "id": "misdirection_bros_attack",
-      "name": "Misdirection Bros Attack",
-      "subtitle": "Mushroom Regency misdirects Toadsworth to allow Fawful to escape",
-      "status": "confirmed",
-      "participants": [
-        "mushroom_regency",
-        "toadsworth_sr"
-      ],
-      "type": "Misdirection",
-      "sourceEvent": "the_fawthful_narrative_failure",
-      "description": "Mushroom Regency creates a distraction to mislead Chancellor Toadsworth, allowing Fawful to escape from the scene of the assassination. This act of misdirection is crucial in shifting public and political attention away from Fawful.",
-      "steps": [
-        "Mushroom Regency: Mushroom Regency draws Toadsworth's attention to a false lead.",
-        "Toadsworth the Elder: Toadsworth moves toward the distraction, giving Fawful time to slip away.",
-        "Mushroom Regency: Mushroom Regency continues the ruse to keep Toadsworth engaged.",
-        "Toadsworth the Elder: Fawful takes advantage of the momentary chaos and escapes the scene."
-      ],
-      "risks": "If the distraction is too obvious, Toadsworth may catch on to the ruse, thus failing to misdirect and potentially exposing Fawful.",
-      "waluigiNote": "WAH! Regency's little 'distraction' just made Fawful look like a bigger fool than usual. How does this help anybody? Tsk tsk...",
-      "relatedArticles": [
-        "the_fawthful_narrative_failure",
-        "mushroom_regency",
-        "toadsworth_sr"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "misdirection",
-      "drill": {
-        "partnerA": "Mushroom Regency",
-        "partnerB": "Toadsworth the Elder",
-        "promptDescription": "Create a diversion to mislead a pursuer.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Draw Attention",
-            "instruction": "Mimic looking at something far away.",
-            "gesture": "aim",
-            "icon": "👀"
-          },
-          {
-            "actor": "B",
-            "title": "Escape",
-            "instruction": "Simulate a quick sprint.",
-            "gesture": "right",
-            "icon": "🏃‍♂️"
-          },
-          {
-            "actor": "A",
-            "title": "Maintain Cover",
-            "instruction": "Quickly look back to keep the pursuer focused.",
-            "gesture": "tap",
-            "icon": "👆"
-          },
-          {
-            "actor": "B",
-            "title": "Secure Exit",
-            "instruction": "Simulate opening a door and walking through it.",
-            "gesture": "up",
-            "icon": "🚪"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:14:46+00:00"
-      }
     },
     {
       "id": "goblin_alchemy_bros_attack",
@@ -491,614 +275,6 @@
       }
     },
     {
-      "id": "teleportation_bros_attack",
-      "name": "Teleportation Bros Attack",
-      "subtitle": "Koopa and Tanukiburt teleport to unknown coordinates connecting to the Shadow Estate",
-      "status": "confirmed",
-      "participants": [
-        "koopa_trooper",
-        "tanukiburt"
-      ],
-      "type": "Clearing",
-      "sourceEvent": "star_shard_caves_tanuki_origin",
-      "description": "Koopa and Tanukiburt teleported together to unknown dimensional coordinates. This move was crucial as it allowed them to escape the dangerous situation in the Star Shard Caves and connect with another location.",
-      "steps": [
-        "Focus gaze on the teleportation target.",
-        "Initiate the teleportation.",
-        "Follow through by jumping slightly to enhance the teleportation effect.",
-        "Crouch to absorb some of the impact after teleporting."
-      ],
-      "risks": "If the target location is not properly scouted, the teleported characters may land in a dangerous or hostile environment.",
-      "waluigiNote": "WAH! Teleporting like that? Did you check if the other side is safe for landing? WAH!",
-      "relatedArticles": [
-        "star_shard_caves_tanuki_origin",
-        "koopa_trooper",
-        "tanukiburt"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "clearing",
-      "drill": {
-        "partnerA": "Koopa",
-        "partnerB": "Tanukiburt",
-        "promptDescription": "Prepare to teleport to an unknown location",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Focus",
-            "instruction": "Select your destination point",
-            "gesture": "aim",
-            "icon": "📍"
-          },
-          {
-            "actor": "B",
-            "title": "Initiate",
-            "instruction": "Execute the teleportation",
-            "gesture": "tap",
-            "icon": "🔄"
-          },
-          {
-            "actor": "A",
-            "title": "Jump",
-            "instruction": "Enhance your jump for better landing",
-            "gesture": "right",
-            "icon": "💨"
-          },
-          {
-            "actor": "B",
-            "title": "Crouch",
-            "instruction": "Prepare to absorb impact upon arrival",
-            "gesture": "down",
-            "icon": "💪"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:16:10+00:00"
-      }
-    },
-    {
-      "id": "misdirection_bros_attack_variant",
-      "name": "Misdirection Bros Attack (Variant)",
-      "subtitle": "Diddy distracts the mourners while Chunky escapes in a broom closet.",
-      "status": "confirmed",
-      "participants": [
-        "diddy_kong",
-        "chunky_kong_junimus_gorolini_bongo_jr"
-      ],
-      "type": "Misdirection",
-      "sourceEvent": "funeral_of_junimus_gorolini_bongo_jr",
-      "description": "Diddy distracts the mourners with a heartfelt eulogy, while Chunky slips away unnoticed and finds himself in a broom closet at the end of the funeral. This clever move showcases Diddy's talent for creating a diversion that allows Chunky to escape detection.",
-      "steps": [
-        "Diddy Kong: Gaze into the crowd and speak with emotion.",
-        "Junimus Gorolini Bongo Jr. (Chunky Kong): Sneak out of sight while Diddy is speaking.",
-        "Diddy Kong: Maintain the flow of the speech, ensuring no one suspects anything.",
-        "Junimus Gorolini Bongo Jr. (Chunky Kong): Quickly make for a hidden spot and hide."
-      ],
-      "risks": "If Diddy's distraction fails, Chunky might be caught. Conversely, if he is not quick enough, the mourners will notice his absence.",
-      "waluigiNote": "WAH! More secrets in this family. Chunky should have known better than to trust a Kong to keep a secret!",
-      "relatedArticles": [
-        "funeral_of_junimus_gorolini_bongo_jr",
-        "diddy_kong",
-        "chunky_kong_junimus_gorolini_bongo_jr"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "misdirection",
-      "drill": {
-        "partnerA": "Diddy Kong",
-        "partnerB": "Junimus Gorolini Bongo Jr. (Chunky Kong)",
-        "promptDescription": "Distract the crowd while your partner escapes unnoticed.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Create Distraction",
-            "instruction": "Speak passionately into the mic.",
-            "gesture": "aim",
-            "icon": "✍️"
-          },
-          {
-            "actor": "B",
-            "title": "Exit Stage Right",
-            "instruction": "Sneak away without drawing attention.",
-            "gesture": "down",
-            "icon": "🚪"
-          },
-          {
-            "actor": "A",
-            "title": "Maintain Flow",
-            "instruction": "Keep the speech going smoothly.",
-            "gesture": "right",
-            "icon": "👇"
-          },
-          {
-            "actor": "B",
-            "title": "Secure Shelter",
-            "instruction": "Find a hidden spot and hide quickly.",
-            "gesture": "tap",
-            "icon": "🏠"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:16:31+00:00"
-      }
-    },
-    {
-      "id": "jumping_coordination_bros_attack",
-      "name": "Jumping Coordination Bros Attack",
-      "subtitle": "Ghost and Brick simultaneously jump from the classroom window into the void",
-      "status": "confirmed",
-      "participants": [
-        "corporal_reyes",
-        "sergeant_stone"
-      ],
-      "type": "Misdirection",
-      "sourceEvent": "baldi_schoolhouse_ghost_brick_insertion",
-      "description": "Corporal 'Ghost' Reyes and Sergeant 'Brick' Stone, both injured but determined to survive the operation, simultaneously leap from the classroom window into the void. By jumping together, they misdirect Baldi's attention and give themselves a brief respite in the void.",
-      "steps": [
-        "Corporal 'Ghost' Reyes: Tap when you're ready to jump.",
-        "Sergeant 'Brick' Stone: Jump simultaneously as soon as A taps.",
-        "Corporal 'Ghost' Reyes: Drop into the void after jumping.",
-        "Sergeant 'Brick' Stone: Leap down after A, aiming to land next to them in the void."
-      ],
-      "risks": "If one partner jumps too early or late, they risk losing coordination and falling apart.",
-      "waluigiNote": "WAH! You think this is clever? Jumping into the void? What kind of cover are you two providing?",
-      "relatedArticles": [
-        "baldi_schoolhouse_ghost_brick_insertion",
-        "corporal_reyes",
-        "sergeant_stone"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "misdirection",
-      "drill": {
-        "partnerA": "Corporal 'Ghost' Reyes",
-        "partnerB": "Sergeant 'Brick' Stone",
-        "promptDescription": "Simultaneously tap and jump to land together in the void.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Countdown",
-            "instruction": "Tap when ready.",
-            "gesture": "tap",
-            "icon": "🔄"
-          },
-          {
-            "actor": "B",
-            "title": "Leap",
-            "instruction": "Jump at the same time as A.",
-            "gesture": "right",
-            "icon": "💨"
-          },
-          {
-            "actor": "A",
-            "title": "Dive",
-            "instruction": "Land in the void with B.",
-            "gesture": "down",
-            "icon": "⬇️"
-          },
-          {
-            "actor": "B",
-            "title": "Follow",
-            "instruction": "Leap down after A, aiming to land next to them.",
-            "gesture": "aim",
-            "icon": "🎯"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:17:20+00:00"
-      }
-    },
-    {
-      "id": "tanuki_liberation_bros_attack",
-      "name": "Tanuki Liberation Bros Attack",
-      "subtitle": "Remi presses the gun while Green T adjusts her aim downward.",
-      "status": "confirmed",
-      "participants": [
-        "remi_akamatsu_full_backstory",
-        "green_t"
-      ],
-      "type": "Support Fire",
-      "sourceEvent": "the_grove_of_woe_incident",
-      "description": "Remi took the initiative to use a Bros Attack technique taught by Green T, adjusting her aim downward before firing through the barricaded bathroom door. This action freed The Tanuki from the dangerous situation.",
-      "steps": [
-        "Remi takes hold of the gun.",
-        "Green T taps Remi's arm slightly for aiming correction.",
-        "Remi aligns and fires the shot.",
-        "The Tanuki is released and unharmed."
-      ],
-      "risks": "If the aim was not adjusted, there would be a higher risk of collateral damage.",
-      "waluigiNote": "WAH! And this is how you get yourself in trouble. Remi, focus on your target next time!",
-      "relatedArticles": [
-        "the_grove_of_woe_incident",
-        "remi",
-        "green_t"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "support_fire",
-      "drill": {
-        "partnerA": "Remi",
-        "partnerB": "Green T",
-        "promptDescription": "Align and fire to free The Tanuki.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Hold",
-            "instruction": "Align the gun while partner adjusts.",
-            "gesture": "aim",
-            "icon": "🎯"
-          },
-          {
-            "actor": "B",
-            "title": "Adjust",
-            "instruction": "Tap A's arm to correct the aim.",
-            "gesture": "tap",
-            "icon": "👆"
-          },
-          {
-            "actor": "A",
-            "title": "Fire",
-            "instruction": "Pull the trigger when aligned.",
-            "gesture": "tap",
-            "icon": "💥"
-          },
-          {
-            "actor": "B",
-            "title": "Release",
-            "instruction": "Step to the side for The Tanuki's release.",
-            "gesture": "right",
-            "icon": "🚶"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:17:30+00:00"
-      }
-    },
-    {
-      "id": "shieldwork_bros_attack",
-      "name": "Shieldwork Bros Attack",
-      "subtitle": "Michael Afton holds the line so Wario can speak with Cassidy",
-      "status": "confirmed",
-      "participants": [
-        "michael_afton",
-        "wario"
-      ],
-      "type": "Shieldwork",
-      "sourceEvent": "fazbear_seven_nights",
-      "description": "Michael Afton shields Wario from the animatronics so that he can have a conversation with Cassidy, ensuring his safety and allowing for the resolution of the supernatural crisis.",
-      "steps": [
-        "Michael Afton: Place yourself between Wario and the animatronics to create a barrier.",
-        "Wario / 'The Boss': Engage in dialogue with Cassidy, explaining the situation and securing the release of the animatronic spirits.",
-        "Michael Afton: Carefully move to maintain your defensive posture while Wario is speaking, ensuring continuous protection.",
-        "Wario / 'The Boss': Acknowledge Cassidy's release with a firm tap as the animatronics are set free on Night Seven."
-      ],
-      "risks": "If Michael Afton's shieldwork is compromised, Wario may be overwhelmed by the animatronics before he can secure their release.",
-      "waluigiNote": "WAH! So much blocking and talking. How do you even know what to say in there?",
-      "relatedArticles": [
-        "fazbear_seven_nights",
-        "michael_afton",
-        "wario"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "shieldwork",
-      "drill": {
-        "partnerA": "Michael Afton",
-        "partnerB": "Wario / 'The Boss'",
-        "promptDescription": "Wario must have a conversation with Cassidy while being shielded from the animatronics by Michael Afton",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Set Up",
-            "instruction": "Place yourself between Wario and the animatronics, creating a protective barrier",
-            "gesture": "tap",
-            "icon": "🛡️"
-          },
-          {
-            "actor": "B",
-            "title": "Engage",
-            "instruction": "Begin speaking with Cassidy to secure their release",
-            "gesture": "aim",
-            "icon": "💬"
-          },
-          {
-            "actor": "A",
-            "title": "Adjust",
-            "instruction": "Continuously move and block while Wario is talking, ensuring he can communicate freely",
-            "gesture": "right",
-            "icon": "➡️"
-          },
-          {
-            "actor": "B",
-            "title": "Confirm",
-            "instruction": "Acknowledge the release with a tap as the animatronics are freed on Night Seven",
-            "gesture": "tap",
-            "icon": "✅"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:18:01+00:00"
-      }
-    },
-    {
-      "id": "waluigi_s_distraction_bros_attack",
-      "name": "Waluigi's Distraction Bros Attack",
-      "subtitle": "Princess Daisy and Waluigi create a diversion to allow Toadsworth Sr. to sign the Charter unseen",
-      "status": "confirmed",
-      "participants": [
-        "princess_daisy",
-        "waluigi"
-      ],
-      "type": "Misdirection",
-      "sourceEvent": "glazed_congress_founding",
-      "description": "During a tense session, Waluigi and Princess Daisy stage an impromptu game of hide-and-seek with Toadsworth Sr. to draw his attention away from the Charter signing ceremony. This allows Toadsworth Sr., who is initially reluctant but ultimately wants to sign the document, to do so without interruption.",
-      "steps": [
-        "Princess Daisy taps Waluigi, signaling for their distraction to begin.",
-        "Waluigi quickly moves towards Toadsworth Sr., creating a playful chase scene.",
-        "Toadsworth Sr. becomes distracted by the children's game, temporarily forgetting about signing the Charter.",
-        "Waluigi and Princess Daisy slip away, allowing Toadsworth Sr. to sign the document while unaware of their actions."
-      ],
-      "risks": "If the distraction fails, it could cause a security breach or provoke an argument.",
-      "waluigiNote": "WAH! This was my greatest moment of genius—turning a tense political situation into a childish game. The Congress owes me something for this one.",
-      "relatedArticles": [
-        "glazed_congress_founding",
-        "princess_daisy",
-        "waluigi"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "misdirection",
-      "drill": {
-        "partnerA": "Princess Daisy of Sarasaland",
-        "partnerB": "Waluigi",
-        "promptDescription": "Create a diversion to allow Toadsworth Sr. to sign the Charter unseen.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Signal",
-            "instruction": "Tap Waluigi when ready for the distraction.",
-            "gesture": "tap",
-            "icon": "👆"
-          },
-          {
-            "actor": "B",
-            "title": "Chase",
-            "instruction": "Lead Toadsworth Sr. towards a playful chase.",
-            "gesture": "right",
-            "icon": "➡️"
-          },
-          {
-            "actor": "A",
-            "title": "Distract",
-            "instruction": "Draw Toadsworth Sr.'s attention with gestures and sounds.",
-            "gesture": "aim",
-            "icon": "🎯"
-          },
-          {
-            "actor": "B",
-            "title": "Sign",
-            "instruction": "Allow Toadsworth Sr. to sign the Charter while distracted.",
-            "gesture": "up",
-            "icon": "⬆️"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:18:37+00:00"
-      }
-    },
-    {
-      "id": "toad_rescue_bros_attack",
-      "name": "Toad Rescue Bros Attack",
-      "subtitle": "Mario and Luigi extract from Bowser's body",
-      "status": "confirmed",
-      "participants": [
-        "mario",
-        "luigi"
-      ],
-      "type": "Clearing",
-      "sourceEvent": "the_blorbs_crisis",
-      "description": "Trapped within Bowser’s body, Mario and Luigi coordinated to navigate through the labyrinthine interior. Using their combined strength and agility, they cleared a path to freedom, evading Dark Star fragments and biological threats.",
-      "steps": [
-        "Mario taps up to signal direction change.",
-        "Luigi aims right to confirm alignment.",
-        "Both partners simultaneously jump down into the next chamber.",
-        "They reset their positions for another passage."
-      ],
-      "risks": "If one partner misjudges the timing, they risk getting separated or trapped further within Bowser’s body.",
-      "waluigiNote": "WAH! Mario and Luigi were busy with their 'rescue' while I was out here documenting the chaos. Classic.",
-      "relatedArticles": [
-        "the_blorbs_crisis",
-        "mario",
-        "luigi"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "clearing",
-      "drill": {
-        "partnerA": "Mario",
-        "partnerB": "Luigi",
-        "promptDescription": "Navigate the internal structure of a giant",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Directional Tap",
-            "instruction": "Signal path change by tapping up",
-            "gesture": "tap",
-            "icon": "⬆️"
-          },
-          {
-            "actor": "B",
-            "title": "Alignment Aim",
-            "instruction": "Confirm direction with a right aim",
-            "gesture": "aim",
-            "icon": "➡️"
-          },
-          {
-            "actor": "A",
-            "title": "Jump Down",
-            "instruction": "Simultaneously jump into the next chamber",
-            "gesture": "down",
-            "icon": "⬇️"
-          },
-          {
-            "actor": "B",
-            "title": "Reset Stance",
-            "instruction": "Adjust positioning for next passage",
-            "gesture": "right",
-            "icon": "🔄"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:19:10+00:00"
-      }
-    },
-    {
-      "id": "ghostly_misdirection_bros_attack",
-      "name": "Ghostly Misdirection Bros Attack",
-      "subtitle": "Wario distracts while the neighbor's machinery is reconfigured for escape.",
-      "status": "confirmed",
-      "participants": [
-        "wario",
-        "professor_e_gadd"
-      ],
-      "type": "Misdirection",
-      "sourceEvent": "the_neighbor_incident",
-      "description": "Wario created a diversion, chatting with the neighbor about seemingly innocent matters, while the neighbor reconfigured his security systems to allow Wario basement access. The distraction was so effective that it even fooled Waluigi.",
-      "steps": [
-        "Partner A taps Partner B's shoulder to signal the start of the distraction.",
-        "Partner B begins adjusting settings on a device, creating a mechanical whirring sound.",
-        "Partner A starts a casual conversation about trivial matters.",
-        "Partner B makes subtle adjustments to a hidden camera angle."
-      ],
-      "risks": "If Wario talks too much or the neighbor's attention is drawn away from the setup, the diversion might fail.",
-      "waluigiNote": "WAH! This 'distraction' was so good that it even fooled me. Can't believe I didn't see through it!",
-      "relatedArticles": [
-        "the_neighbor_incident",
-        "wario",
-        "professor_e_gadd"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "misdirection",
-      "drill": {
-        "partnerA": "Wario",
-        "partnerB": "The Neighbor / 'Mr. Gadd'",
-        "promptDescription": "Partner A taps Partner B's shoulder to signal the start of a casual conversation.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Taps",
-            "instruction": "Right shoulder, when you're ready.",
-            "gesture": "tap",
-            "icon": "👉"
-          },
-          {
-            "actor": "B",
-            "title": "Adjusts",
-            "instruction": "Start making subtle adjustments with your device.",
-            "gesture": "right",
-            "icon": "🛠️"
-          },
-          {
-            "actor": "A",
-            "title": "Talks",
-            "instruction": "Gestures to the neighbor's plant, aiming for non-threatening small talk.",
-            "gesture": "aim",
-            "icon": "💬"
-          },
-          {
-            "actor": "B",
-            "title": "Whispers",
-            "instruction": "Mutter something about machinery adjustments that only Partner A can hear.",
-            "gesture": "down",
-            "icon": "👂"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:19:36+00:00"
-      }
-    },
-    {
       "id": "astral_portal_creation_bros_attack",
       "name": "Astral Portal Creation Bros Attack",
       "subtitle": "Archie Miser and The Oracle perform the ritual without a circle.",
@@ -1107,7 +283,7 @@
         "archie_miser",
         "the_oracle"
       ],
-      "type": "Clearing",
+      "type": "Lift and Carry",
       "sourceEvent": "the_shadeward_ritual",
       "description": "Archie Miser absorbs dangerous amounts of mana to create a portal, while The Oracle channels energy and focuses the ritual. Together they manage to open an Astral Altar, enabling Archie to travel to the Shadowfell.",
       "steps": [
@@ -1131,7 +307,7 @@
         "maximum": 2,
         "refresh": "Very short rest"
       },
-      "school": "clearing",
+      "school": "lift_carry",
       "drill": {
         "partnerA": "Archie Miser",
         "partnerB": "The Oracle",
@@ -1175,85 +351,9 @@
       }
     },
     {
-      "id": "ruler_counterattack_bros_attack",
-      "name": "Ruler Counterattack Bros Attack",
-      "subtitle": "'Brick' Stone and 'Viper' Miller synchronize their movements to counter Baldi's ruler attack.",
-      "status": "confirmed",
-      "participants": [
-        "sergeant_stone",
-        "specialist_miller"
-      ],
-      "type": "Shieldwork",
-      "sourceEvent": "baldi_schoolhouse_extraction_failed",
-      "description": "'Brick' Stone and 'Viper' Miller coordinate their movements to create a defensive line against Baldi's ruler, which grows to four times its normal size. Stone holds the line while Miller strikes with his combat knife.",
-      "steps": [
-        "Sergeant 'Brick' Stone: Brick Stone crouches and extends arms to block Baldi's ruler.",
-        "Specialist 'Viper' Miller: Viper Miller swiftly cuts at the ruler as it descends.",
-        "Sergeant 'Brick' Stone: Brick Stone shifts his weight to absorb the impact of Baldi's counterattack.",
-        "Specialist 'Viper' Miller: Viper Miller steps back, ready for the next attack while maintaining distance."
-      ],
-      "risks": "If Stone's hold line is broken, the ruler will continue its growth and may cause significant damage.",
-      "waluigiNote": "WAH! So predictable. Brick Stone and Viper Miller are just two more pawns in Baldi's grand game of mathematical precision.",
-      "relatedArticles": [
-        "baldi_schoolhouse_extraction_failed",
-        "sergeant_stone",
-        "specialist_miller"
-      ],
-      "difficulty": "medium",
-      "resource": {
-        "name": "Bros Energy",
-        "cost": 1,
-        "pool": "Each participating character",
-        "maximum": 2,
-        "refresh": "Very short rest"
-      },
-      "school": "shieldwork",
-      "drill": {
-        "partnerA": "Sergeant 'Brick' Stone",
-        "partnerB": "Specialist 'Viper' Miller",
-        "promptDescription": "Simulate Baldi's ruler attack as it grows to four times its size.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Counter",
-            "instruction": "Brick Stone raises his arms to block the ruler.",
-            "gesture": "up",
-            "icon": "🛡️"
-          },
-          {
-            "actor": "B",
-            "title": "Defend and Counter",
-            "instruction": "Viper Miller strikes at the descending ruler while maintaining balance.",
-            "gesture": "down",
-            "icon": "🔪"
-          },
-          {
-            "actor": "A",
-            "title": "Absorb Impact",
-            "instruction": "Brick Stone shifts his weight to absorb the impact of Baldi's counterattack.",
-            "gesture": "right",
-            "icon": "💪"
-          },
-          {
-            "actor": "B",
-            "title": "Reset",
-            "instruction": "Viper Miller steps back, ready for the next attack while maintaining distance.",
-            "gesture": "tap",
-            "icon": "🔄"
-          }
-        ]
-      },
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "bros_attacks",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T02:22:22+00:00"
-      }
-    },
-    {
-      "id": "frozen_shieldwork_bros_attack",
-      "name": "Frozen Shieldwork Bros Attack",
-      "subtitle": "Waluigi holds an ice shield while Hjumpik moves through the frozen manor",
+      "id": "held_line_bros_attack",
+      "name": "Held Line",
+      "subtitle": "One partner holds a barrier in place while the other works behind it",
       "status": "confirmed",
       "participants": [
         "waluigi",
@@ -1261,14 +361,14 @@
       ],
       "type": "Shieldwork",
       "sourceEvent": "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
-      "description": "Waluigi conjures a localized ice shield to hold off the advancing overgrowth, while Hjumpik navigates through the manor and moves important items aside. This allows the team to continue their operations without interruption.",
+      "description": "One partner puts something solid between the group and what is coming — a shield, a body, a wall of ice — and holds it there while the other does the work that actually solves the problem. It only looks like the defensive partner is the passive one. They are the one deciding how much time the other gets, and they are usually the one who runs out of it first. Waluigi froze back the overgrowth while Hjumpik cleared the manor. Michael Afton stood between Wario and the animatronics long enough for a conversation to finish. Stone braced against Baldi's ruler while Miller cut at it.",
       "steps": [
-        "Waluigi: Create a localized ice shield in front of you.",
-        "Hjumpik: Navigate around the frozen area, moving objects and debris to clear a path.",
-        "Waluigi: Maintain the shield while Hjumpik passes through the cleared space.",
-        "Hjumpik: Continue clearing the path, ensuring no fresh growth blocks it."
+        "The holding partner says plainly how long they can hold, and does not round up.",
+        "The working partner starts only once the barrier is actually set, not while it is going up.",
+        "The holding partner calls the time remaining out loud as it runs down.",
+        "Both partners break together on the call, whether or not the work is finished."
       ],
-      "risks": "If Waluigi's ice shield falters, Hjumpik could be exposed to the overgrowth.",
+      "risks": "The barrier fails all at once, not gradually, and it usually fails while the working partner still has their hands full. Whoever holds the line cannot retreat without deciding for both of them that the job is over — which makes it very hard to say the one thing that needs saying: that they cannot hold.",
       "waluigiNote": "WAH! This is why I'm always so careful. One slip and we're all covered in mushrooms again!",
       "relatedArticles": [
         "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
@@ -1324,12 +424,34 @@
         "system": "bros_attacks",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T02:24:18+00:00"
-      }
+      },
+      "variations": [
+        {
+          "id": "shieldwork_bros_attack",
+          "name": "Shieldwork Bros Attack",
+          "participants": [
+            "michael_afton",
+            "wario"
+          ],
+          "sourceEvent": "fazbear_seven_nights",
+          "account": "Michael Afton shields Wario from the animatronics so that he can have a conversation with Cassidy, ensuring his safety and allowing for the resolution of the supernatural crisis."
+        },
+        {
+          "id": "ruler_counterattack_bros_attack",
+          "name": "Ruler Counterattack Bros Attack",
+          "participants": [
+            "sergeant_stone",
+            "specialist_miller"
+          ],
+          "sourceEvent": "baldi_schoolhouse_extraction_failed",
+          "account": "'Brick' Stone and 'Viper' Miller coordinate their movements to create a defensive line against Baldi's ruler, which grows to four times its normal size. Stone holds the line while Miller strikes with his combat knife."
+        }
+      ]
     },
     {
-      "id": "waluigi_s_distraction_bros_attack_variant",
-      "name": "Waluigi's Distraction Bros Attack (Variant)",
-      "subtitle": "Waluigi creates a diversion to allow Wario and Markop to steal the Gold Dragon eggs.",
+      "id": "split_attention_bros_attack",
+      "name": "Split Attention",
+      "subtitle": "One partner becomes the most interesting thing in the room so the other can move unwatched",
       "status": "confirmed",
       "participants": [
         "waluigi",
@@ -1337,14 +459,14 @@
       ],
       "type": "Misdirection",
       "sourceEvent": "session_1_dragon_mountain",
-      "description": "Waluigi uses his skills as an Arcane Thief to distract the ancient red dragon and its guards. He creates a series of illusions, misdirects their attention, and orchestrates a chaotic scene that allows Wario and Markop to slip past unnoticed and steal the eggs.",
+      "description": "One partner makes themselves the most interesting thing in the room — noise, spectacle, an argument worth watching — while the other moves through the space nobody is looking at. The difficulty is not the distraction; it is holding it. The loud partner has to keep going long after it stops being comfortable, because the moment they check whether their partner is clear, everyone else checks too. Waluigi held a dragon's attention with illusions while Wario and Markop took the eggs. Archie threw a chair against a wall and Bones screamed, and Luigi walked out. Daisy started a chase with Waluigi and a Charter went unsigned. The scene changes; the shape does not.",
       "steps": [
-        "Waluigi conjures multiple shadows to confuse the dragon's vision.",
-        "He casts a spell to disrupt the dragon's sense of smell and hearing.",
-        "Markop uses this opportunity to grab the eggs while Wario provides cover fire.",
-        "Waluigi quickly retreats, leaving chaos in his wake."
+        "The quiet partner names what they need and how long it will take, before anything starts.",
+        "The loud partner commits to something impossible to ignore and does not hedge it.",
+        "The quiet partner moves on the noise, not on a signal, and never looks back at their partner.",
+        "The loud partner keeps going until the quiet partner is clear, then finds their own way out."
       ],
-      "risks": "If Waluigi's illusions are not convincing enough or the timing is off, they will be caught before completing the theft.",
+      "risks": "The loud partner is, by design, the one everybody can see, and they are the one left standing there when it ends. A distraction that is too clever gets studied instead of followed. Worst of all is looking — one glance toward the quiet partner tells the room exactly where to look next.",
       "waluigiNote": "WAH! My distraction skills have been used for something as mundane as egg heists. Truly a tragedy!",
       "relatedArticles": [
         "session_1_dragon_mountain",
@@ -1400,32 +522,80 @@
         "system": "bros_attacks",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T03:02:34+00:00"
-      }
-    },
+      },
+      "variations": [
+        {
+          "id": "misdirection_bros_attack",
+          "name": "Misdirection Bros Attack",
+          "participants": [
+            "mushroom_regency",
+            "toadsworth_sr"
+          ],
+          "sourceEvent": "the_fawthful_narrative_failure",
+          "account": "Mushroom Regency creates a distraction to mislead Chancellor Toadsworth, allowing Fawful to escape from the scene of the assassination. This act of misdirection is crucial in shifting public and political attention away from Fawful."
+        },
+        {
+          "id": "misdirection_bros_attack_variant",
+          "name": "Misdirection Bros Attack (Variant)",
+          "participants": [
+            "diddy_kong",
+            "chunky_kong_junimus_gorolini_bongo_jr"
+          ],
+          "sourceEvent": "funeral_of_junimus_gorolini_bongo_jr",
+          "account": "Diddy distracts the mourners with a heartfelt eulogy, while Chunky slips away unnoticed and finds himself in a broom closet at the end of the funeral. This clever move showcases Diddy's talent for creating a diversion that allows Chunky to escape detection."
+        },
+        {
+          "id": "ghostly_misdirection_bros_attack",
+          "name": "Ghostly Misdirection Bros Attack",
+          "participants": [
+            "wario",
+            "professor_e_gadd"
+          ],
+          "sourceEvent": "the_neighbor_incident",
+          "account": "Wario created a diversion, chatting with the neighbor about seemingly innocent matters, while the neighbor reconfigured his security systems to allow Wario basement access. The distraction was so effective that it even fooled Waluigi."
+        },
+        {
+          "id": "misdirection_bros_attack_second_form",
+          "name": "Misdirection Bros Attack (Second Form)",
+          "participants": [
+            "archie_miser",
+            "bones"
+          ],
+          "sourceEvent": "ruined_manor_convergence",
+          "account": "Archie Miser and Bones coordinated their movements to create a commotion that drew attention away from Luigi's escape. Their distraction allowed Agent L to slip past unnoticed, ensuring his continued freedom."
+        },
+        {
+          "id": "waluigi_s_distraction_bros_attack",
+          "name": "Waluigi's Distraction Bros Attack",
+          "participants": [
+            "princess_daisy",
+            "waluigi"
+          ],
+          "sourceEvent": "glazed_congress_founding",
+          "account": "During a tense session, Waluigi and Princess Daisy stage an impromptu game of hide-and-seek with Toadsworth Sr. to draw his attention away from the Charter signing ceremony. This allows Toadsworth Sr., who is initially reluctant but ultimately wants to sign the document, to do so without interruption."
+        }
+      ]
+    }
+  ],
+  "lore": [
     {
-      "id": "misdirection_bros_attack_second_form",
-      "name": "Misdirection Bros Attack (Second Form)",
-      "subtitle": "Archie Miser and Bones create a distraction to allow Luigi to escape unseen.",
+      "id": "gamma_discrepancy_bros_attack",
+      "name": "Gamma Discrepancy Bros Attack",
+      "subtitle": "Markop and Green T analyze historical data to uncover a hidden truth",
       "status": "confirmed",
       "participants": [
-        "archie_miser",
-        "bones"
+        "markop",
+        "green_t"
       ],
-      "type": "Misdirection",
-      "sourceEvent": "ruined_manor_convergence",
-      "description": "Archie Miser and Bones coordinated their movements to create a commotion that drew attention away from Luigi's escape. Their distraction allowed Agent L to slip past unnoticed, ensuring his continued freedom.",
-      "steps": [
-        "Archie Miser threw a nearby chair against the wall, creating noise.",
-        "Bones shouted in alarm, drawing others' eyes towards the disturbance.",
-        "Luigi took advantage of the chaos to quietly make his exit.",
-        "The commotion quickly died down as others returned to their tasks."
-      ],
-      "risks": "If the distraction fails or draws unwanted attention, it could alert more people and jeopardize the escape.",
-      "waluigiNote": "WAH! So much for subtlety. I guess Archie is still trying to make himself look good—no wonder he's always been a bit of an opportunist!",
+      "type": "Analysis and Insight",
+      "sourceEvent": "collapse_of_blackfen_pass",
+      "description": "Markop and Green T examine the historical records, uncovering inconsistencies that hint at a hidden truth. Their coordination allows them to piece together fragments of information that others would miss.",
+      "risks": "Misinterpreting data could lead to incorrect conclusions.",
+      "waluigiNote": "WAH! Two pairs of glasses staring at the same screen, but seeing entirely different things. Markop's optimism and Green T's skepticism make for a fascinating duo, or so they think.",
       "relatedArticles": [
-        "ruined_manor_convergence",
-        "archie_miser",
-        "bones"
+        "collapse_of_blackfen_pass",
+        "markop",
+        "green_t"
       ],
       "difficulty": "medium",
       "resource": {
@@ -1435,48 +605,14 @@
         "maximum": 2,
         "refresh": "Very short rest"
       },
-      "school": "misdirection",
-      "drill": {
-        "partnerA": "Archie Miser",
-        "partnerB": "Bones",
-        "promptDescription": "Partner A creates a diversion while Partner B moves past unnoticed.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Create Distraction",
-            "instruction": "Tap the wall three times to signal.",
-            "gesture": "tap",
-            "icon": "👆"
-          },
-          {
-            "actor": "B",
-            "title": "Slip Past",
-            "instruction": "Move right as soon as A signals.",
-            "gesture": "right",
-            "icon": "➡️"
-          },
-          {
-            "actor": "A",
-            "title": "Maintain Noise",
-            "instruction": "Raise your voice to keep the distraction going.",
-            "gesture": "up",
-            "icon": "🔊"
-          },
-          {
-            "actor": "B",
-            "title": "Proceed Safely",
-            "instruction": "Crouch down as you pass by.",
-            "gesture": "down",
-            "icon": "👇"
-          }
-        ]
-      },
+      "school": "clearing",
       "_generated": {
         "by": "tools/genkit",
         "system": "bros_attacks",
         "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T03:03:26+00:00"
-      }
+        "at": "2026-08-16T02:13:11+00:00"
+      },
+      "prunedReason": "Two people reading records together. No coordination to time, nothing to practise, and the stated risk is 'misinterpreting data'."
     },
     {
       "id": "shieldwork_bros_attack_luigi_mario",
@@ -1490,12 +626,6 @@
       "type": "Shieldwork",
       "sourceEvent": "the_waiting_room_testimony",
       "description": "Luigi, in a critical condition himself, held the surgical instruments steady while Dr. Mario operated to save his life. The coordination was crucial to prevent any missteps that could further endanger Luigi.",
-      "steps": [
-        "Luigi gripped the surgical tray tightly.",
-        "Dr. Mario carefully positioned the scalpel.",
-        "Luigi's hands were a pillar of stability for Dr. Mario.",
-        "The operation continued with precision, thanks to their synchronized effort."
-      ],
       "risks": "Any misalignment could lead to critical complications for Luigi.",
       "waluigiNote": "WAH! So much for 'Uncle Dario' being just another alias. Looks like the Big Brother is in surgery too... or has always been.",
       "relatedArticles": [
@@ -1512,47 +642,13 @@
         "refresh": "Very short rest"
       },
       "school": "shieldwork",
-      "drill": {
-        "partnerA": "Luigi",
-        "partnerB": "Dr. Mario / 'Uncle Dario'",
-        "promptDescription": "A surgical drill simulation where stability and precision are key.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Stabilize",
-            "instruction": "Partner B completes the cut with precision.",
-            "gesture": "tap",
-            "icon": "👆"
-          },
-          {
-            "actor": "B",
-            "title": "Precision Cut",
-            "instruction": "Maintain steady pressure while completing the incision.",
-            "gesture": "aim",
-            "icon": "👍"
-          },
-          {
-            "actor": "A",
-            "title": "Support",
-            "instruction": "Partner B finds the right angle for the blade.",
-            "gesture": "down",
-            "icon": "📐"
-          },
-          {
-            "actor": "B",
-            "title": "Adjust",
-            "instruction": "Fine-tune the cut with steady hands.",
-            "gesture": "right",
-            "icon": "💉"
-          }
-        ]
-      },
       "_generated": {
         "by": "tools/genkit",
         "system": "bros_attacks",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T03:04:14+00:00"
-      }
+      },
+      "prunedReason": "Luigi steadying instruments during his own surgery is a strong scene and a one-time event. It cannot be performed again by anyone."
     },
     {
       "id": "feyward_book_exchange_bros_attack",
@@ -1566,12 +662,6 @@
       "type": "Clearing",
       "sourceEvent": "the_feyward_revel_and_the_book_of_many_things",
       "description": "Hjumpik and Waluigi read the Feyward Book of Many Things together, with Hjumpik ensuring that the text is correctly translated into Sylvan for Waluigi to understand. Waluigi then confirms his reading, clearing any misunderstandings.",
-      "steps": [
-        "Hjumpik tapped Waluigi's shoulder to signal a translation pause.",
-        "Waluigi nodded and read aloud in Sylvan.",
-        "Hjumpik corrected Waluigi on the pronunciation of a word.",
-        "They both agreed on the meaning, clearing any confusion."
-      ],
       "risks": "Miscommunication could lead to incorrect readings or misunderstandings about the text's content.",
       "waluigiNote": "WAH! We should have done this sooner. Now we're all the wiser!",
       "relatedArticles": [
@@ -1588,47 +678,121 @@
         "refresh": "Very short rest"
       },
       "school": "clearing",
-      "drill": {
-        "partnerA": "Hjumpik",
-        "partnerB": "Waluigi",
-        "promptDescription": "Simulate reading a difficult book together.",
-        "steps": [
-          {
-            "actor": "A",
-            "title": "Signal pause",
-            "instruction": "pause for translation",
-            "gesture": "tap",
-            "icon": "📚"
-          },
-          {
-            "actor": "B",
-            "title": "Read aloud",
-            "instruction": "clearly articulate in Sylvan",
-            "gesture": "aim",
-            "icon": "✍️"
-          },
-          {
-            "actor": "A",
-            "title": "Correct pronunciation",
-            "instruction": "adjust Waluigi's pronunciation",
-            "gesture": "right",
-            "icon": "🗣️"
-          },
-          {
-            "actor": "B",
-            "title": "Confirm understanding",
-            "instruction": "both agree on the meaning",
-            "gesture": "up",
-            "icon": "✔️"
-          }
-        ]
-      },
       "_generated": {
         "by": "tools/genkit",
         "system": "bros_attacks",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T03:04:16+00:00"
-      }
+      },
+      "prunedReason": "Hjumpik translating Sylvan aloud for Waluigi is a conversation, not a manoeuvre. The 'steps' are turns in a dialogue."
+    },
+    {
+      "id": "teleportation_bros_attack",
+      "name": "Teleportation Bros Attack",
+      "subtitle": "Koopa and Tanukiburt teleport to unknown coordinates connecting to the Shadow Estate",
+      "status": "confirmed",
+      "participants": [
+        "koopa_trooper",
+        "tanukiburt"
+      ],
+      "type": "Clearing",
+      "sourceEvent": "star_shard_caves_tanuki_origin",
+      "description": "Koopa and Tanukiburt teleported together to unknown dimensional coordinates. This move was crucial as it allowed them to escape the dangerous situation in the Star Shard Caves and connect with another location.",
+      "risks": "If the target location is not properly scouted, the teleported characters may land in a dangerous or hostile environment.",
+      "waluigiNote": "WAH! Teleporting like that? Did you check if the other side is safe for landing? WAH!",
+      "relatedArticles": [
+        "star_shard_caves_tanuki_origin",
+        "koopa_trooper",
+        "tanukiburt"
+      ],
+      "difficulty": "medium",
+      "resource": {
+        "name": "Bros Energy",
+        "cost": 1,
+        "pool": "Each participating character",
+        "maximum": 2,
+        "refresh": "Very short rest"
+      },
+      "school": "clearing",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "bros_attacks",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:16:10+00:00"
+      },
+      "prunedReason": "Both partners teleport. Identical action, no roles, and the drill is 'focus, go, land' for each of them separately."
+    },
+    {
+      "id": "jumping_coordination_bros_attack",
+      "name": "Jumping Coordination Bros Attack",
+      "subtitle": "Ghost and Brick simultaneously jump from the classroom window into the void",
+      "status": "confirmed",
+      "participants": [
+        "corporal_reyes",
+        "sergeant_stone"
+      ],
+      "type": "Misdirection",
+      "sourceEvent": "baldi_schoolhouse_ghost_brick_insertion",
+      "description": "Corporal 'Ghost' Reyes and Sergeant 'Brick' Stone, both injured but determined to survive the operation, simultaneously leap from the classroom window into the void. By jumping together, they misdirect Baldi's attention and give themselves a brief respite in the void.",
+      "risks": "If one partner jumps too early or late, they risk losing coordination and falling apart.",
+      "waluigiNote": "WAH! You think this is clever? Jumping into the void? What kind of cover are you two providing?",
+      "relatedArticles": [
+        "baldi_schoolhouse_ghost_brick_insertion",
+        "corporal_reyes",
+        "sergeant_stone"
+      ],
+      "difficulty": "medium",
+      "resource": {
+        "name": "Bros Energy",
+        "cost": 1,
+        "pool": "Each participating character",
+        "maximum": 2,
+        "refresh": "Very short rest"
+      },
+      "school": "misdirection",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "bros_attacks",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:17:20+00:00"
+      },
+      "prunedReason": "Two soldiers jump out of the same window at the same time. The whole technique is the word 'simultaneously'."
+    },
+    {
+      "id": "toad_rescue_bros_attack",
+      "name": "Toad Rescue Bros Attack",
+      "subtitle": "Mario and Luigi extract from Bowser's body",
+      "status": "confirmed",
+      "participants": [
+        "mario",
+        "luigi"
+      ],
+      "type": "Clearing",
+      "sourceEvent": "the_blorbs_crisis",
+      "description": "Trapped within Bowser’s body, Mario and Luigi coordinated to navigate through the labyrinthine interior. Using their combined strength and agility, they cleared a path to freedom, evading Dark Star fragments and biological threats.",
+      "risks": "If one partner misjudges the timing, they risk getting separated or trapped further within Bowser’s body.",
+      "waluigiNote": "WAH! Mario and Luigi were busy with their 'rescue' while I was out here documenting the chaos. Classic.",
+      "relatedArticles": [
+        "the_blorbs_crisis",
+        "mario",
+        "luigi"
+      ],
+      "difficulty": "medium",
+      "resource": {
+        "name": "Bros Energy",
+        "cost": 1,
+        "pool": "Each participating character",
+        "maximum": 2,
+        "refresh": "Very short rest"
+      },
+      "school": "clearing",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "bros_attacks",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T02:19:10+00:00"
+      },
+      "prunedReason": "Mario and Luigi navigating out of Bowser together is travel, not a technique -- the steps are 'jump down' and 'reset for another passage', which is just walking with extra words."
     }
   ]
 }

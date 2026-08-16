@@ -558,13 +558,35 @@ def apply(task: Task, data: dict[str, Any]) -> TaskResult:
     )
 
 
+# DISABLED. Bros attacks are no longer generated, and this is a design
+# decision rather than a temporary pause -- do not re-enable it to top up the
+# list.
+#
+# The premise was "read an event with two participants and write down the
+# manoeuvre it contains". Events do not reliably contain manoeuvres. Of the 19
+# techniques this produced, 13 had to be cut: some were narration (two people
+# reading records together), some were an existing technique re-minted from a
+# second scene where it was used, six were the same distract-and-slip move with
+# different names, and three were two people doing an identical thing at the
+# same moment with no division of labour at all. The generator could not tell
+# "they used a technique" from "they invented one", because that difference
+# lives in whether the table had to work something out -- which is not in the
+# event text.
+#
+# A bros attack is now DISCOVERED in play: two logged failures with stated
+# reasons, then a third attempt that lands, named by the players
+# (Foundry/bros_attacks/bros-discovery.js). The whole value of the thing is
+# that a pair earned it. Generating them in bulk destroys exactly that, which
+# is why this stays off even when the list looks short. Six techniques the
+# table fought for beat twenty-four nobody remembers.
 SPEC = SystemSpec(
     id="bros_attacks",
-    title="Bros Attacks · paired techniques from the record",
+    title="Bros Attacks · discovered in play, not generated",
     summary=(
-        "Read events with two or more participants and write down the pair "
-        "manoeuvre each one contains, with a playable Foundry drill."
+        "DISABLED. Techniques are discovered at the table through the "
+        "three-strikes attempts ledger, not written from event text."
     ),
+    enabled=False,
     stage=1,
     next_tasks=next_tasks,
     build_prompt=build_prompt,

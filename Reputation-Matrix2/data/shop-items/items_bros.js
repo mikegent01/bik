@@ -24,7 +24,7 @@ export const ITEMS_BROS = {
     "rarity": "rare",
     "effects": [
       "One free use of Chop Bros",
-      "Teaches Chop Bros permanently",
+      "Counts as a logged attempt toward discovery",
       "Spends the kit, not Bros Energy"
     ],
     "vendor": "faction_quartermaster",
@@ -36,8 +36,8 @@ export const ITEMS_BROS = {
         "rules": "Two willing participants may perform Chop Bros immediately, without either of them spending Bros Energy. The kit is consumed. Resolve the technique exactly as written in the archive: establish the lift, keep the axe clear, move by rhythm rather than a shouted countdown."
       },
       {
-        "title": "Teaches Chop Bros permanently",
-        "rules": "Both participants learn Chop Bros. From then on they use it under the normal economy — Bros Energy: each named participant spends 1 from a personal maximum of 2, refreshed after a very short rest. A second kit grants another free use but teaches nothing new and grants no bonus."
+        "title": "The kit cannot teach the technique",
+        "rules": "It buys a safe attempt, not the knowledge. A pair who do not yet know Chop Bros still have to find it the way Hjumpik and Toad Lee did — two logged failures, then a third attempt that lands, named by the people who made it work. What the kit does is let a failed attempt happen with a blunted axe and a harness instead of a real edge and a real drop, and the GM may log that attempt toward the pair's discovery. A pair who already know the technique simply get one free use."
       },
       {
         "title": "The lift is still heavy",
@@ -53,9 +53,8 @@ export const ITEMS_BROS = {
       "endsWhen": "The technique resolves, successfully or otherwise.",
       "charges": "1 use. The item is consumed, not the participants' Bros Energy."
     },
-    "priceReason": "Priced as a single guaranteed use plus the instruction that outlives it.",
+    "priceReason": "Priced as one safe attempt at something that is dangerous to attempt badly. It does not price the technique, because the technique is not for sale.",
     "brosAttack": "chop_bros_attack",
-    "teachesTechnique": true,
     "energyRule": "Bros Energy: each named participant spends 1 from a personal maximum of 2, refreshed after a very short rest."
   },
   "bros_item_support_fire_card": {
@@ -70,7 +69,7 @@ export const ITEMS_BROS = {
     "rarity": "rare",
     "effects": [
       "One free use of Support Fire",
-      "Teaches Support Fire permanently",
+      "Counts as a logged attempt toward discovery",
       "Spends the sheet, not Bros Energy"
     ],
     "vendor": "toad_town_market",
@@ -82,7 +81,7 @@ export const ITEMS_BROS = {
         "rules": "A shooter and a support partner may perform the Support Fire Bros Attack at once, without either spending Bros Energy. The sheet is consumed. The support partner corrects stance, sightline and timing; the shooter waits for the call rather than firing on impulse."
       },
       {
-        "title": "Teaches Support Fire permanently",
+        "title": "Counts as a logged attempt toward discovery",
         "rules": "Both participants learn the technique and thereafter use it under the normal economy — Bros Energy: each named participant spends 1 from a personal maximum of 2, refreshed after a very short rest. Further sheets give a free use only."
       },
       {
@@ -99,9 +98,8 @@ export const ITEMS_BROS = {
       "endsWhen": "The technique resolves, successfully or otherwise.",
       "charges": "1 use. The item is consumed, not the participants' Bros Energy."
     },
-    "priceReason": "Priced as a single guaranteed use plus the instruction that outlives it.",
+    "priceReason": "Priced as one guaranteed use and a safe reset to fail into. The manoeuvre itself is not the sheet's to sell.",
     "brosAttack": "support_fire_bros_attack",
-    "teachesTechnique": true,
     "energyRule": "Bros Energy: each named participant spends 1 from a personal maximum of 2, refreshed after a very short rest."
   },
   "bros_item_drill_card": {

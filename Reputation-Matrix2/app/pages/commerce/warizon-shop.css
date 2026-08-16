@@ -3617,7 +3617,7 @@ html[data-wz-theme="dark"] .ab-ic {
   padding: 2px 7px;
   border-radius: 3px;
 }
-.by-tag--teach { background: #efe3ff; color: #5b2d8e; }
+.by-tag--gear  { background: #efe3ff; color: #5b2d8e; }
 .by-tag--support { background: #e6f2f4; color: #0f5f6b; }
 
 .by-rule {
@@ -3689,7 +3689,7 @@ html[data-wz-theme="dark"] .by-tech-head { border-bottom-color: var(--wz-line); 
 html[data-wz-theme="dark"] .by-kit { background: var(--wz-card); border-color: var(--wz-line); }
 html[data-wz-theme="dark"] .by-kit:hover { box-shadow: var(--wz-shadow); }
 
-html[data-wz-theme="dark"] .by-tag--teach { background: #2f2440; color: #c9aef5; }
+html[data-wz-theme="dark"] .by-tag--gear  { background: #2f2440; color: #c9aef5; }
 html[data-wz-theme="dark"] .by-tag--support { background: #10323a; color: #7fd4e3; }
 
 html[data-wz-theme="dark"] .by-rule {

@@ -578,7 +578,6 @@ function normalizeItem(raw, idx) {
     // kits that teach one permanently from supplies that only support a drill,
     // so these three fields have to survive normalization.
     brosAttack: raw.brosAttack ? String(raw.brosAttack) : '',
-    teachesTechnique: raw.teachesTechnique === true,
     energyRule: raw.energyRule ? String(raw.energyRule) : '',
     vendorId, vendor, vendorLabel,
     nativeCur: payment.primary, vendorCur: payment.vendorCurrency, nativeVia: detected.via,
@@ -2509,7 +2508,7 @@ function renderCrafting() {
    -------------------------------------------------------------------------- */
 
 // The techniques the archive has confirmed. Mirrors data/brosAttacks.json;
-// kits reference these by id through their brosAttack / teachesTechnique field.
+// kits reference these by id through their brosAttack field.
 /* Bros techniques and schools come from data/brosAttacks.schools.json, which is
    GENERATED from data/brosAttacks.json by tools/sync_bros_attacks.py. The
    storefront holds no copy of its own: adding a technique upstream makes it
@@ -2543,9 +2542,13 @@ function brosItems() {
 }
 
 function brosKitCard(it) {
-  const teaches = it.teachesTechnique && brosTechniqueById(it.brosAttack);
-  const tag = teaches
-    ? `<span class="by-tag by-tag--teach">Teaches ${esc(teaches.name)}</span>`
+  // No item teaches a technique any more — techniques are discovered in play.
+  // A kit that names a technique is gear FOR that technique: it makes an
+  // attempt safer or cheaper for a pair who already know it, and gives a pair
+  // who don't a survivable way to fail toward finding it.
+  const forTechnique = brosTechniqueById(it.brosAttack);
+  const tag = forTechnique
+    ? `<span class="by-tag by-tag--gear">Gear for ${esc(forTechnique.name)}</span>`
     : `<span class="by-tag by-tag--support">Support supply</span>`;
   const rule = it.energyRule
     ? `<div class="by-rule"><b>Energy:</b> ${esc(it.energyRule)}</div>`
