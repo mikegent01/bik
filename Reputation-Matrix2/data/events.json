@@ -660,7 +660,8 @@
     "reputationChanges": {
       "waluigi": {
         "mages_guild": 30,
-        "fawful_forces": -15
+        "fawful_forces": -15,
+        "bowser": -20
       },
       "bowser": {
         "toad_cult": -10,
@@ -830,7 +831,10 @@
         "goodstyle_artisans": 10
       }
     },
-    "effects": {},
+    "effects": {
+      "united_midlands_factions": 10,
+      "midlands_faction_reputations": -15
+    },
     "reputationNotes": {
       "archie_miser": "Ruined the reputation of the toad gang, severely damaged Pony Nobility standing and nearly destroyed Rakasha Clans' plumbing.",
       "markop": "Recognized for his alchemical contributions, earning respect from Mages Guild; also backed up by Freelancers.",
@@ -4292,7 +4296,8 @@
     ],
     "reputationChanges": {
       "waluigi": {
-        "mushroom_regency": 30
+        "mushroom_regency": 30,
+        "bowser": -15
       },
       "bowser": {
         "mushroom_regency": 15,

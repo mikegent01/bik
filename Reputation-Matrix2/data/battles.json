@@ -2321,7 +2321,8 @@
       }
     },
     "effects": {
-      "mushroom_regency": -20
+      "mushroom_regency": -20,
+      "bowser": 15
     },
     "reputationNotes": {
       "waluigi": "Waluigi's anger over Peach's death fuels Fawful's fury and Bowser's determination.",
