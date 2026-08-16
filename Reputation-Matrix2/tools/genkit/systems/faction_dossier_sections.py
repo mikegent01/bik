@@ -11,11 +11,15 @@ goes through faction_dossiers.validate() before it can reach disk.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
+from pathlib import Path
 from typing import Any
 
+from ..settings import WORK_DIR
 from ..spec import Task
+from ..storage import atomic_write_json, read_json
 from . import factions
 
 SECTION_MIN_WORDS = 125
@@ -25,6 +29,7 @@ CLASSIFY_ATTEMPTS = 3
 # These names do not contain an organisational suffix, but their source files
 # establish a recurring invading force / operational partnership respectively.
 PROTECTED_FACTION_IDS = {"shroob", "wario_bros"}
+DRAFT_DIR = WORK_DIR / "draft-faction-dossiers"
 
 SECTION_BRIEFS = (
     (
@@ -125,6 +130,138 @@ def _source_corpus(task: Task) -> str:
     ))
 
 
+def _evidence_candidates(task: Task, count: int = 4) -> list[str]:
+    """Select exact, bounded excerpts before asking the model to write.
+
+    Asking a local model to both FIND an exact quote and reproduce it was a
+    needless failure point. Candidates are copied from high-value source fields
+    and ranked so dialogue and concrete clauses beat arbitrary slices of one
+    enormous summary sentence.
+    """
+    dossiers = _dossiers()
+    sources = task.payload.get("usedSources", task.payload.get("sources", []))
+    fields = (
+        "summary", "description", "aftermath", "result", "outcome",
+        "outcomeDetail", "notableFeatures", "tacticalNotes",
+    )
+    physical = {
+        "door", "floor", "paper", "papers", "sword", "axe", "fire", "blood",
+        "ship", "room", "tower", "manor", "coin", "book", "window", "hand",
+        "bridge", "gate", "crown", "armor", "armour", "body", "wall",
+    }
+    ranked: list[tuple[int, int, int, str]] = []
+    seen: set[str] = set()
+    order = 0
+
+    def offer(
+        words: list[str], *, dialogue: bool = False, source_bonus: int = 0,
+        source_index: int = 0,
+    ) -> None:
+        nonlocal order
+        if not 4 <= len(words) <= 18:
+            return
+        quote = " ".join(words)
+        normal = dossiers._evidence_text(quote)
+        if not normal or normal in seen or re.search(r"\bmike\b", normal):
+            return
+        lower = [word.casefold() for word in words]
+        proper = sum(word[:1].isupper() for word in words[1:])
+        score = source_bonus + (10 if dialogue else 0) + min(proper, 3) * 2
+        score += min(sum(word in physical for word in lower), 3) * 2
+        score += 2 if 6 <= len(words) <= 14 else 0
+        if lower[0] in {"and", "but", "or", "following", "which", "that"}:
+            score -= 3
+        if lower[-1] in {"a", "an", "the", "and", "or", "to", "of", "in", "that"}:
+            return
+        seen.add(normal)
+        ranked.append((score, -source_index, -order, quote))
+        order += 1
+
+    for source_index, source in enumerate(sources):
+        record = source.get("record", {})
+        # The named source record is authoritative; linked articles add context
+        # but must not drown it out with more colorful unrelated dialogue.
+        source_bonus = max(0, 16 - source_index * 4)
+        for field in fields:
+            for raw in dossiers._strings(record.get(field)):
+                # Spoken lines are usually the strongest documentary anchors.
+                spoken = re.compile(
+                    r'"([^"\n]{10,180})"|“([^”\n]{10,180})”|(?<!\w)\'([^\'\n]{10,180})\'(?!\w)'
+                )
+                for match in spoken.finditer(raw):
+                    line = next(group for group in match.groups() if group is not None)
+                    offer(
+                        re.findall(r"[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)?", line),
+                        dialogue=True, source_bonus=source_bonus,
+                        source_index=source_index,
+                    )
+                # Commas and em dashes are legitimate clause boundaries; using
+                # them avoids excerpts ending halfway through a thought.
+                for clause in re.split(r"(?<=[.!?;:])\s+|\s+[—–]\s+|,\s+|\n+", raw):
+                    words = re.findall(r"[A-Za-z0-9]+(?:['’][A-Za-z0-9]+)?", clause)
+                    if len(words) <= 18:
+                        offer(words, source_bonus=source_bonus, source_index=source_index)
+                    elif words:
+                        # Last resort for very long analytical sentences. Keep
+                        # these low-ranked behind complete clauses/dialogue.
+                        for start in range(0, min(len(words) - 3, 42), 14):
+                            offer(
+                                words[start:start + 14], source_bonus=source_bonus,
+                                source_index=source_index,
+                            )
+
+    ranked.sort(reverse=True)
+    primary = [row for row in ranked if row[1] == 0]
+    chosen = primary[:count] if len(primary) >= count else ranked[:count]
+    return [quote for _, _, _, quote in chosen]
+
+
+def _progress(task: Task, text: str) -> None:
+    callback = task.payload.get("_progress")
+    if callable(callback):
+        callback(text)
+
+
+def _draft_path(task: Task) -> Path:
+    safe = re.sub(r"[^a-z0-9_-]+", "_", task.payload["id"].lower())
+    return DRAFT_DIR / f"{safe}.json"
+
+
+def _source_signature(task: Task) -> str:
+    sources = task.payload.get("usedSources", task.payload.get("sources", []))
+    payload = [
+        {"kind": source.get("kind"), "record": source.get("record", {})}
+        for source in sources
+    ]
+    return hashlib.sha256(
+        json.dumps(payload, ensure_ascii=False, sort_keys=True).encode("utf-8")
+    ).hexdigest()
+
+
+def _load_draft(task: Task, signature: str) -> dict[str, Any]:
+    draft = read_json(_draft_path(task), default={})
+    if not isinstance(draft, dict) or draft.get("sourceSignature") != signature:
+        return {
+            "version": 1, "factionId": task.payload["id"],
+            "sourceSignature": signature, "metadata": {}, "sections": [],
+        }
+    if not isinstance(draft.get("sections"), list):
+        draft["sections"] = []
+    return draft
+
+
+def _save_draft(task: Task, draft: dict[str, Any]) -> None:
+    atomic_write_json(_draft_path(task), draft)
+
+
+def clear_draft(task: Task) -> None:
+    """Remove a completed dossier's resumable working paper."""
+    try:
+        _draft_path(task).unlink(missing_ok=True)
+    except OSError:
+        pass
+
+
 def _clean_section(task: Task, raw: dict[str, Any], used_quotes: set[str]) -> dict[str, str]:
     dossiers = _dossiers()
     heading = " ".join(str(raw.get("heading") or "").lstrip("# ").split())
@@ -201,6 +338,8 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
         }
 
     context = _base_context(task)
+    signature = _source_signature(task)
+    draft = _load_draft(task, signature)
     if task.last_error:
         context += (
             f"\n\nThe previous assembled dossier was rejected: {task.last_error}. "
@@ -211,37 +350,53 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
         or factions.is_group_label(entry.get("name", ""))
         or faction_id in PROTECTED_FACTION_IDS
     )
-    classify_feedback = ""
-    metadata: dict[str, Any] = {}
-    kind = ""
-    for _ in range(CLASSIFY_ATTEMPTS):
-        metadata = client.complete_json(
-            CLASSIFY_SYSTEM, context + classify_feedback,
-            temperature=min(temperature, 0.55),
-        )
-        kind = _classification(metadata.get("classification"))
-        not_faction = kind in {
-            "not_faction", "not_a_faction", "non_faction",
-            "person", "place", "generic",
-        }
-        if not_faction and protected:
-            classify_feedback = (
-                "\n\nYOUR LAST CLASSIFICATION WAS REJECTED. This label explicitly "
-                "names an organisational form or a source-confirmed recurring "
-                "collective. Re-read the articles and return faction metadata; "
-                "do not collapse the organisation into the event where it appeared."
+    cached_metadata = draft.get("metadata")
+    metadata = dict(cached_metadata) if isinstance(cached_metadata, dict) else {}
+    kind = _classification(metadata.get("classification"))
+    # A fresh process may resume metadata and completed sections. Within one
+    # runner retry, reclassify so a bad metadata field can recover while valid
+    # section drafts remain available.
+    if kind == "faction" and not task.last_error:
+        _progress(task, "resumed classification metadata from disk")
+    else:
+        classify_feedback = ""
+        metadata = {}
+        kind = ""
+        for classify_attempt in range(CLASSIFY_ATTEMPTS):
+            _progress(
+                task,
+                f"classification {classify_attempt + 1}/{CLASSIFY_ATTEMPTS}",
             )
-            continue
-        if not_faction:
-            return metadata
-        break
-    if kind != "faction":
-        return metadata  # whole-record validation keeps protected labels pending
+            metadata = client.complete_json(
+                CLASSIFY_SYSTEM, context + classify_feedback,
+                temperature=min(temperature, 0.55),
+            )
+            kind = _classification(metadata.get("classification"))
+            not_faction = kind in {
+                "not_faction", "not_a_faction", "non_faction",
+                "person", "place", "generic",
+            }
+            if not_faction and protected:
+                classify_feedback = (
+                    "\n\nYOUR LAST CLASSIFICATION WAS REJECTED. This label explicitly "
+                    "names an organisational form or a source-confirmed recurring "
+                    "collective. Re-read the articles and return faction metadata; "
+                    "do not collapse the organisation into the event where it appeared."
+                )
+                continue
+            if not_faction:
+                clear_draft(task)
+                return metadata
+            break
+        if kind != "faction":
+            return metadata  # whole-record validation keeps protected labels pending
 
     metadata = dict(metadata)
     metadata["classification"] = "faction"
     metadata.pop("description", None)
     metadata.pop("evidenceQuotes", None)
+    draft["metadata"] = metadata
+    _save_draft(task, draft)
     metadata_view = {
         key: metadata.get(key) for key in (
             "name", "title", "type", "region", "currentStatus", "leader",
@@ -251,14 +406,50 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
 
     sections: list[dict[str, str]] = []
     used_quotes: set[str] = set()
-    for default_heading, brief in SECTION_BRIEFS:
+    assigned_quotes = _evidence_candidates(task, len(SECTION_BRIEFS))
+    saved_sections = draft.get("sections") if isinstance(draft.get("sections"), list) else []
+    for section_index, (default_heading, brief) in enumerate(SECTION_BRIEFS):
         feedback = ""
         best: dict[str, Any] = {}
-        for _ in range(SECTION_ATTEMPTS):
+        required_quote = (
+            assigned_quotes[section_index]
+            if section_index < len(assigned_quotes) else ""
+        )
+        if section_index < len(saved_sections):
+            try:
+                saved = _clean_section(task, saved_sections[section_index], used_quotes)
+                if required_quote and _dossiers()._evidence_text(saved["evidenceQuote"]) != _dossiers()._evidence_text(required_quote):
+                    raise ValueError("assigned source quote changed")
+            except (TypeError, ValueError):
+                # Keep earlier valid sections; regenerate from the first stale
+                # slot and truncate anything after it.
+                saved_sections = saved_sections[:section_index]
+                draft["sections"] = saved_sections
+                _save_draft(task, draft)
+            else:
+                sections.append(saved)
+                used_quotes.add(dossiers._evidence_text(saved["evidenceQuote"]))
+                _progress(
+                    task,
+                    f"resumed section {section_index + 1}/{len(SECTION_BRIEFS)} · {saved['heading']}",
+                )
+                continue
+        for section_attempt in range(SECTION_ATTEMPTS):
+            _progress(
+                task,
+                f"section {section_index + 1}/{len(SECTION_BRIEFS)} · "
+                f"attempt {section_attempt + 1}/{SECTION_ATTEMPTS} · {default_heading}",
+            )
+            quote_instruction = (
+                "\n\nREQUIRED EVIDENCE QUOTE — copy these words exactly into "
+                f"both `evidenceQuote` and `text`: \"{required_quote}\""
+                if required_quote else ""
+            )
             prompt = (
                 context
                 + f"\n\nCONFIRMED DOSSIER METADATA:\n{json.dumps(metadata_view, ensure_ascii=False, indent=2)}"
                 + f"\n\nSECTION TO WRITE: {default_heading}\n{brief}"
+                + quote_instruction
                 + (f"\n\nDO NOT REUSE THESE QUOTES: {json.dumps([s['evidenceQuote'] for s in sections])}" if sections else "")
                 + feedback
                 + "\n\nReturn only the one-section JSON object."
@@ -266,6 +457,12 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
             raw_section = client.complete_json(
                 SECTION_SYSTEM, prompt, temperature=temperature
             )
+            if required_quote:
+                # The excerpt came from source code, not the model. Keep that
+                # exact value authoritative; validation below now asks only
+                # whether the prose actually used it.
+                raw_section = dict(raw_section)
+                raw_section["evidenceQuote"] = required_quote
             if dossiers.word_count(raw_section.get("text")) > dossiers.word_count(best.get("text")):
                 best = raw_section
             try:
@@ -278,10 +475,13 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
                 continue
             sections.append(clean)
             used_quotes.add(dossiers._evidence_text(clean["evidenceQuote"]))
+            draft["sections"] = list(sections)
+            _save_draft(task, draft)
             break
         else:
             sections.append(_fallback_section(best, default_heading))
 
+    _progress(task, "assembling and validating four-section dossier")
     metadata["description"] = "\n\n".join(
         f"## {section['heading']}\n\n{section['text']}" for section in sections
     )

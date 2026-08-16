@@ -163,12 +163,20 @@ not. The fallback is not a consolation prize — plenty of Python builds ship
 without tkinter (including this sandbox's), and a browser page also works over
 SSH, where a native window does not. `--web` forces the dashboard.
 
-The panel inherits whatever the command line asked for, so
-`--endpoint`/`--model`/`--workers` pre-fill the form and are used by a run
-started from it. `--host 0.0.0.0` binds beyond loopback to reach the panel from
-another machine (this also implies `--web`, since a native window cannot serve
-one). Alongside `produced` and `failed` it reports **`retried`** — records that
-were rejected once and recovered rather than lost.
+The panel inherits everything the command line asked for: endpoint, model,
+workers, limit, temperature, dry-run, and especially `--only`. Before this was
+fixed, `python3 tools/generate_all.py --only faction-dossiers --gui` opened a
+blank Only field and the Start button silently launched every enabled system.
+`--host 0.0.0.0` binds beyond loopback to reach the panel from another machine
+(this also implies `--web`, since a native window cannot serve one).
+
+Faction dossiers show classification/section progress in the log. Each accepted
+section is atomically cached under `tools/.genkit/draft-faction-dossiers/`, so
+stopping the GUI after five minutes no longer throws away four completed calls;
+the next Start resumes them. The pending RECORD count moves only after all four
+sections validate and the assembled dossier lands. Alongside `produced` and
+`failed` the panel reports **`retried`** — records that were rejected once and
+recovered rather than lost.
 
 ## Safety
 

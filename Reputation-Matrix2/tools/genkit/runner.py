@@ -195,6 +195,12 @@ class Runner:
                 # Long-form adapters can split one logical record across
                 # several short model calls. The assembled result still goes
                 # through the exact same validator and atomic apply path.
+                # Surface each bounded sub-call in the CLI/GUI. Without this a
+                # five-call dossier looks frozen for several minutes and users
+                # stop the run before the first record can finish.
+                task.payload["_progress"] = lambda text: self._emit(RunnerEvent(
+                    "task", f"{task.label} · {text}", task.system_id,
+                ))
                 try:
                     raw = system.generate(task, self.client, self.settings.temperature)
                 except ContextExceededError:
@@ -206,6 +212,8 @@ class Runner:
                             "loaded context — raise the context length in LM Studio"
                         ),
                     )
+                finally:
+                    task.payload.pop("_progress", None)
             else:
                 system_prompt, user_prompt = system.build_prompt(task)
                 if task.last_error:

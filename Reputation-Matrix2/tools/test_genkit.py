@@ -19,10 +19,11 @@ from genkit.spec import SystemSpec, Task, TaskResult, ValidationError  # noqa: E
 from genkit.scheduler import PopcornScheduler  # noqa: E402
 from genkit.runner import Runner  # noqa: E402
 from genkit.settings import Settings  # noqa: E402
+from genkit.gui import render_web_page  # noqa: E402
 from genkit.storage import Checkpoint  # noqa: E402
 from genkit.systems import (  # noqa: E402
-    abilities, bros_attacks, crafting, faction_dossiers, factions, reputation,
-    shop_items, wahwire,
+    abilities, bros_attacks, crafting, faction_dossier_sections, faction_dossiers,
+    factions, reputation, shop_items, wahwire,
 )
 
 # Redirect every write target at a scratch copy before a single test runs.
@@ -34,6 +35,7 @@ import shutil  # noqa: E402
 import tempfile  # noqa: E402
 
 _SCRATCH = Path(tempfile.mkdtemp(prefix="genkit-test-"))
+faction_dossier_sections.DRAFT_DIR = _SCRATCH / "draft-faction-dossiers"
 
 
 def _sandbox(module, attr: str) -> None:
@@ -441,6 +443,18 @@ check("runner uses a system's multi-call generator instead of one oversized prom
       multi_result.ok and multi_result.record == {"assembled": True}
       and multi_calls == [0.7], str(multi_result.record))
 
+gui_page = render_web_page(Settings(
+    workers=1, limit=3, temperature=0.45, dry_run=True,
+    only=["faction-dossiers"],
+))
+check("GUI preserves --only instead of silently running every system",
+      'id="only" value="faction-dossiers"' in gui_page)
+check("GUI preserves limit, temperature, workers and dry-run defaults",
+      'id="workers" type="number" min="1" max="8" value="1"' in gui_page
+      and 'id="limit" type="number" min="0" value="3"' in gui_page
+      and 'id="temperature" type="number" step="0.05" min="0" max="2" value="0.45"' in gui_page
+      and 'id="dry" style="width:auto" checked' in gui_page)
+
 # ------------------------------------------------- people are not factions
 section("factions · a person is never a faction")
 
@@ -594,6 +608,9 @@ class _SectionClient:
         return self.replies.pop(0)
 
 
+assigned_section_quotes = (
+    faction_dossiers.faction_dossier_sections._evidence_candidates(fd_task, 4)
+)
 section_client = _SectionClient([
     {
         "classification": "faction", "name": "The Wario Bros",
@@ -607,22 +624,24 @@ section_client = _SectionClient([
         "waluigi_tip": "Keep the receipt and watch the exits.",
     },
     {"heading": "Identity and Confirmed Standing",
-     "text": _section_fixture("The lounge floor cracked", "the partnership"),
-     "evidenceQuote": "The lounge floor cracked"},
+     "text": _section_fixture(assigned_section_quotes[0], "the partnership"),
+     "evidenceQuote": assigned_section_quotes[0]},
     {"heading": "Membership and Structure",
-     "text": _section_fixture("The debt is unresolved", "the motive"),
-     "evidenceQuote": "The debt is unresolved"},
+     "text": _section_fixture(assigned_section_quotes[1], "the motive"),
+     "evidenceQuote": assigned_section_quotes[1]},
     {"heading": "Recorded Operations and Relationships",
-     "text": _section_fixture("Waluigi cried on the floor", "the consequence"),
-     "evidenceQuote": "Waluigi cried on the floor"},
+     "text": _section_fixture(assigned_section_quotes[2], "the consequence"),
+     "evidenceQuote": assigned_section_quotes[2]},
     {"heading": "Risks and Waluigi Assessment",
-     "text": _section_fixture("The real papers returned to Saedia", "the outcome"),
-     "evidenceQuote": "The real papers returned to Saedia"},
+     "text": _section_fixture(assigned_section_quotes[3], "the outcome"),
+     "evidenceQuote": assigned_section_quotes[3]},
 ])
+section_progress = []
 section_task = Task(
     system_id="faction-dossiers", key="section-fd", label="section-fd",
     payload={"id": "wario_bros", "entry": wario_bros_stub,
-             "sources": wario_sources, "model": "test-model"},
+             "sources": wario_sources, "model": "test-model",
+             "_progress": section_progress.append},
 )
 assembled = faction_dossiers.SPEC.generate(section_task, section_client, 0.7)
 assembled_clean = faction_dossiers.validate(section_task, assembled)
@@ -633,6 +652,27 @@ check("long dossiers are assembled from one metadata call and four section calls
 check("each bounded call contributes one independently verified section",
       len(faction_dossiers.HEADING.findall(assembled_clean["description"])) == 4
       and len(assembled_clean["evidenceQuotes"]) == 3)
+check("multi-call progress is visible to GUI users before the dossier finishes",
+      any("classification" in line for line in section_progress)
+      and sum(line.startswith("section ") for line in section_progress) == 4
+      and "assembling" in section_progress[-1], str(section_progress))
+check("each accepted section is checkpointed for a later GUI run",
+      faction_dossier_sections._draft_path(section_task).exists())
+resume_progress = []
+resume_task = Task(
+    system_id="faction-dossiers", key="section-fd-resume", label="section-fd-resume",
+    payload={"id": "wario_bros", "entry": wario_bros_stub,
+             "sources": wario_sources, "model": "test-model",
+             "_progress": resume_progress.append},
+)
+resume_client = _SectionClient([])
+resumed = faction_dossiers.SPEC.generate(resume_task, resume_client, 0.7)
+check("a restarted GUI run resumes all completed sections without another model call",
+      not resume_client.calls
+      and faction_dossiers.validate(resume_task, resumed)["description"]
+          == assembled_clean["description"],
+      str(resume_progress))
+faction_dossier_sections.clear_draft(resume_task)
 
 meta_client = _SectionClient([])
 meta_stub = stub_store["united_midlands_factions"]

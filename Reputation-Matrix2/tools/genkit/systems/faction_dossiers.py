@@ -637,6 +637,7 @@ def apply(task: Task, data: dict[str, Any]) -> TaskResult:
         factions._CACHE = store
         changed_paths.append(_path_label(factions.GENERATED))
 
+    faction_dossier_sections.clear_draft(task)
     return TaskResult(
         task=task, ok=True, detail=detail, record=data,
         changed_paths=list(dict.fromkeys(changed_paths)),

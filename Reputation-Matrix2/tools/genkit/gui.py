@@ -77,6 +77,7 @@ class RunState:
                         "id": s.id,
                         "title": s.title,
                         "stage": s.stage,
+                        "enabled": s.enabled,
                         "pending": s.count_pending(),
                         "summary": s.summary,
                     }
@@ -164,12 +165,12 @@ PAGE = """<!doctype html>
   <label>Workers — concurrent LM Studio conversations</label>
   <input id="workers" type="number" min="1" max="8" value="__WORKERS__">
   <label>Stop after N records (0 = keep going)</label>
-  <input id="limit" type="number" min="0" value="0">
+  <input id="limit" type="number" min="0" value="__LIMIT__">
   <label>Only these systems (comma ids, blank = all)</label>
-  <input id="only" placeholder="reputation,crafting">
+  <input id="only" value="__ONLY__" placeholder="faction-dossiers">
   <label>Temperature</label>
-  <input id="temperature" type="number" step="0.05" min="0" max="2" value="0.7">
-  <label><input type="checkbox" id="dry" style="width:auto"> Dry run (write nothing)</label>
+  <input id="temperature" type="number" step="0.05" min="0" max="2" value="__TEMPERATURE__">
+  <label><input type="checkbox" id="dry" style="width:auto" __DRY_CHECKED__> Dry run (write nothing)</label>
   <div style="display:flex;gap:8px;margin-top:16px">
     <button id="go">Start</button>
     <button id="halt" class="ghost" disabled>Stop</button>
@@ -192,7 +193,7 @@ async function poll(){
     $('go').disabled=s.running; $('halt').disabled=!s.running;
     $('systems').tBodies[0].innerHTML=s.systems.map(x=>{
       const p=s.perSystem[x.id]||{ok:0,fail:0,retry:0};
-      return `<tr><td><span class="stage">${x.stage}</span></td>
+      return `<tr><td><span class="stage">${x.enabled?x.stage:'off'}</span></td>
         <td title="${x.summary}">${x.title}</td><td>${x.pending}</td>
         <td class="ok">${p.ok}</td><td class="fail">${p.fail}</td></tr>`;}).join('');
     $('log').innerHTML=s.log.slice().reverse().map(l=>
@@ -213,6 +214,19 @@ poll(); setInterval(poll,1200);
 """
 
 
+def render_web_page(defaults: Settings | None = None) -> str:
+    """Render the dashboard with every command-line default preserved."""
+    base = defaults or Settings()
+    return (PAGE
+            .replace("__ENDPOINT__", base.endpoint)
+            .replace("__MODEL__", base.model or "")
+            .replace("__WORKERS__", str(base.workers or 2))
+            .replace("__LIMIT__", str(base.limit or 0))
+            .replace("__ONLY__", ",".join(base.only))
+            .replace("__TEMPERATURE__", str(base.temperature))
+            .replace("__DRY_CHECKED__", "checked" if base.dry_run else ""))
+
+
 def _handler_factory(state: RunState, defaults: Settings | None = None):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *args):  # noqa: A003 - silence per-request logging
@@ -230,13 +244,9 @@ def _handler_factory(state: RunState, defaults: Settings | None = None):
                 payload = json.dumps(state.snapshot()).encode("utf-8")
                 self._send(200, payload, "application/json")
             else:
-                # Show the endpoint/model/workers the panel was actually
-                # launched with, so the form matches the run it will start.
-                base = defaults or Settings()
-                page = (PAGE
-                        .replace("__ENDPOINT__", base.endpoint)
-                        .replace("__MODEL__", base.model or "")
-                        .replace("__WORKERS__", str(base.workers or 2)))
+                # Show every command-line default in the form; otherwise
+                # `--only faction-dossiers --gui` silently became "run all".
+                page = render_web_page(defaults)
                 self._send(200, page.encode("utf-8"), "text/html; charset=utf-8")
 
         def do_POST(self) -> None:  # noqa: N802
@@ -300,24 +310,27 @@ def launch_tk(defaults: Settings | None = None) -> None:
     controls = ttk.Frame(root, padding=10)
     controls.pack(fill="x")
 
+    base = defaults or Settings()
     fields: dict[str, tk.Variable] = {
-        "endpoint": tk.StringVar(value=(defaults or Settings()).endpoint),
-        "model": tk.StringVar(value=(defaults or Settings()).model or ""),
-        "workers": tk.IntVar(value=2),
-        "limit": tk.IntVar(value=0),
-        "only": tk.StringVar(value=""),
+        "endpoint": tk.StringVar(value=base.endpoint),
+        "model": tk.StringVar(value=base.model or ""),
+        "workers": tk.IntVar(value=base.workers or 2),
+        "limit": tk.IntVar(value=base.limit or 0),
+        "only": tk.StringVar(value=",".join(base.only)),
+        "temperature": tk.DoubleVar(value=base.temperature),
     }
-    dry = tk.BooleanVar(value=False)
+    dry = tk.BooleanVar(value=base.dry_run)
 
     for column, (label, key, width) in enumerate(
         [("Endpoint", "endpoint", 34), ("Model", "model", 18),
-         ("Workers", "workers", 5), ("Limit", "limit", 6), ("Only", "only", 18)]
+         ("Workers", "workers", 5), ("Limit", "limit", 6),
+         ("Only", "only", 18), ("Temp", "temperature", 5)]
     ):
         ttk.Label(controls, text=label).grid(row=0, column=column * 2, sticky="e", padx=(8, 2))
         ttk.Entry(controls, textvariable=fields[key], width=width).grid(
             row=0, column=column * 2 + 1, sticky="w"
         )
-    ttk.Checkbutton(controls, text="Dry run", variable=dry).grid(row=0, column=10, padx=8)
+    ttk.Checkbutton(controls, text="Dry run", variable=dry).grid(row=0, column=12, padx=8)
 
     buttons = ttk.Frame(root, padding=(10, 0))
     buttons.pack(fill="x")
@@ -357,7 +370,8 @@ def launch_tk(defaults: Settings | None = None) -> None:
             counts = snap["perSystem"].get(system["id"], {"ok": 0, "fail": 0})
             table.insert(
                 "", "end", text=system["title"],
-                values=(system["stage"], system["pending"], counts["ok"], counts["fail"]),
+                values=(system["stage"] if system["enabled"] else "off",
+                        system["pending"], counts["ok"], counts["fail"]),
             )
         log_box.delete("1.0", "end")
         for line in snap["log"][-60:]:
@@ -372,6 +386,7 @@ def launch_tk(defaults: Settings | None = None) -> None:
                 model=fields["model"].get(),
                 workers=int(fields["workers"].get() or 2),
                 limit=int(fields["limit"].get() or 0),
+                temperature=float(fields["temperature"].get() or 0.7),
                 dry_run=dry.get(),
                 only=[s.strip() for s in fields["only"].get().split(",") if s.strip()],
             )
