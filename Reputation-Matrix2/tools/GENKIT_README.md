@@ -103,11 +103,13 @@ completion: one short call classifies and files metadata, then three separate
 175–325 word calls write Identity, Recorded Operations, and Assessment. The
 sections are independently checked and assembled before the normal whole-record
 validator runs. It first classifies the label: people, places, events and aggregate
-buckets are removed instead of being padded into fictional institutions or
-replaced by low-value “retired after review” paragraphs. A justified alias
-redirect repairs the generated reputation keys; otherwise the invalid key is
-removed. Full dossiers carry `_generatedDossier` and the exact source article
-IDs used.
+buckets become minimal `status: "removed"` tombstones instead of being padded
+into fictional institutions or replaced by low-value review paragraphs. Keeping
+the original JSON key prevents Git from pairing the next surviving stub as a
+fake rename. Tombstones never load into the matrix and cannot be minted again.
+A justified alias redirect repairs the generated reputation keys; otherwise the
+invalid key is removed. Full dossiers carry `_generatedDossier` and the exact
+source article IDs used.
 
 Run just this pass with:
 

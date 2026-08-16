@@ -78,7 +78,7 @@ def word_count(text: Any) -> int:
 
 def needs_dossier(entry: dict[str, Any]) -> bool:
     """A generated, visible faction is pending until it has substantive prose."""
-    if not isinstance(entry, dict) or entry.get("status") == "retired":
+    if not isinstance(entry, dict) or entry.get("status") in {"retired", "removed"}:
         return False
     generated = entry.get("_generated") or {}
     if generated.get("system") != "factions":
@@ -587,12 +587,30 @@ def apply(task: Task, data: dict[str, Any]) -> TaskResult:
                         redirect if value == faction_id and redirect else value
                         for value in values if value != faction_id or redirect
                     ))
-            # A non-faction does not belong in the faction registry at all.
-            # Keeping a generated paragraph that says "this is not a faction"
-            # merely replaces one bad stub with another and bloats every diff.
-            # The checkpoint/run log retains the review verdict; reader-facing
-            # data retains only real factions.
-            store["factions"].pop(faction_id, None)
+            # Keep a minimal tombstone at the SAME key and position. Deleting
+            # many near-identical JSON stubs made Git align the next surviving
+            # block against the deleted one, so reviews looked like
+            # `fungus_mancers` had been renamed to `kosha`. A tombstone makes
+            # the actual decision legible without putting "not a faction"
+            # filler into the live directory.
+            source_ids = [
+                str(source["record"].get("id"))
+                for source in task.payload.get("usedSources", task.payload["sources"])
+                if source["record"].get("id")
+            ]
+            review_stamp = _stamp("faction-dossiers", model, source_ids)
+            review_stamp.update({
+                "decision": "removed", "entityKind": data["notFactionKind"],
+            })
+            tombstone = {
+                "name": target.get("name") or faction_id.replace("_", " ").title(),
+                "status": "removed",
+                "entityKind": data["notFactionKind"],
+                "redirectFactionId": redirect,
+                "_generated": target.get("_generated", {}),
+                "_generatedDossierReview": review_stamp,
+            }
+            store["factions"][faction_id] = tombstone
             detail = (
                 f"removed misfiled {data['notFactionKind']}"
                 + (f" → {redirect}" if redirect else "")

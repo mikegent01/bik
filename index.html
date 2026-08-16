@@ -8713,7 +8713,7 @@ async function loadGeneratedFactions(){
       // Source review retires labels that reputation generation mistook for
       // institutions (people, places, generic "all" buckets). Keep those
       // audit records in JSON, but never render them as faction dossiers.
-      if(!id || LORE_FACTIONS[id] || faction?.status==='retired') continue;
+      if(!id || LORE_FACTIONS[id] || ['retired','removed'].includes(faction?.status)) continue;
       LORE_FACTIONS[id] = faction;
       added++;
     }

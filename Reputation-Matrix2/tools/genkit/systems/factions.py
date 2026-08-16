@@ -250,7 +250,19 @@ def _load() -> dict[str, Any]:
 
 
 def generated_ids() -> set[str]:
-    return set(_load().get("factions", {}))
+    """Generated factions still active in the live matrix."""
+    return {
+        faction_id for faction_id, entry in _load().get("factions", {}).items()
+        if isinstance(entry, dict) and entry.get("status") not in {"removed", "retired"}
+    }
+
+
+def removed_ids() -> set[str]:
+    """Reviewed labels that must not be minted again on a later run."""
+    return {
+        faction_id for faction_id, entry in _load().get("factions", {}).items()
+        if isinstance(entry, dict) and entry.get("status") in {"removed", "retired"}
+    }
 
 
 def slugify(name: str) -> str:
@@ -310,6 +322,8 @@ def resolve(
     already = generated_ids()
     if slug in already:
         return slug, "exact"
+    if slug in removed_ids():
+        return None, "reject"
 
     return slug, "create"
 

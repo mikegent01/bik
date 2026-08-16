@@ -479,8 +479,8 @@ synthetic_stub = {
 }
 check("unfinished generated factions are queued",
       faction_dossiers.needs_dossier(synthetic_stub))
-check("retired review records do not re-enter the queue",
-      not faction_dossiers.needs_dossier({**synthetic_stub, "status": "retired"}))
+check("reviewed tombstones do not re-enter the queue",
+      not faction_dossiers.needs_dossier({**synthetic_stub, "status": "removed"}))
 wario_bros_stub = stub_store["wario_bros"]
 wario_sources = faction_dossiers.source_context("wario_bros", wario_bros_stub)
 wario_source_ids = [s["record"].get("id") for s in wario_sources]
@@ -697,10 +697,16 @@ try:
     })
 finally:
     faction_dossiers.REPUTATION_FILES = saved_reputation_files
-check("a non-faction is removed instead of receiving a low-value retirement paragraph",
+removed_entry = faction_dossiers._store()["factions"]["test_aggregate_label"]
+check("a non-faction becomes a minimal tombstone, not a retirement paragraph",
       removed_result.ok
-      and "test_aggregate_label" not in faction_dossiers._store()["factions"],
-      removed_result.detail)
+      and removed_entry["status"] == "removed"
+      and "description" not in removed_entry,
+      str(removed_entry))
+check("reviewed tombstones are excluded from live ids and cannot be minted again",
+      "test_aggregate_label" not in factions.generated_ids()
+      and "test_aggregate_label" in factions.removed_ids()
+      and factions.resolve("test_aggregate_label", known) == (None, "reject"))
 
 rewrite_fixture = {
     "reputationChanges": {"waluigi": {"wario": -4, "wario_land": -2}},

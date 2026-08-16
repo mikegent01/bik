@@ -54,10 +54,11 @@ The `faction-dossiers` system therefore reads the named source record and its
 `relatedArticles` first. Real groups receive roughly 500–1,000 words of
 source-bound in-world prose, assembled from three bounded 175–325 word model
 calls, and must quote three verifiable excerpts from those articles. Misfiled
-labels are removed rather than replaced by “not a faction”
-filler, with reputation redirected only when the evidence supports a canonical
-target. This cleanup runs at stage 0 so unrelated bulk generation cannot bury
-it in the diff.
+labels become minimal non-rendering tombstones rather than “not a faction”
+filler. Keeping each reviewed key in place also prevents Git from presenting the
+next surviving faction as though it replaced the removed one. Reputation is
+redirected only when the evidence supports a canonical target. This cleanup
+runs at stage 0 so unrelated bulk generation cannot bury it in the diff.
 
 ---
 
