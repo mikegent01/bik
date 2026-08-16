@@ -43,13 +43,34 @@ const AUTHORS = {
   alpha_bloodmaw:          { name: 'Alpha Bloodmaw',          handle: '@bloodmaw',     glyph: '🐺', tone: '#7a4b2a' },
   wah_media_collective:    { name: 'WAH Media Collective',    handle: '@wahmedia',     glyph: '📡', tone: '#b8860b' },
   generic_toad:            { name: 'A Toad',                  handle: '@toad',         glyph: '🍄', tone: '#c0392b' },
-  toadsworth:              { name: 'Toadsworth',              handle: '@toadsworth',   glyph: '🎩', tone: '#8b6f47' },
-  toadette:                { name: 'Toadette',                handle: '@toadette',     glyph: '🌸', tone: '#c2185b' },
+  chancellor_toadsworth:   { name: 'Toadsworth',              handle: '@toadsworth',   glyph: '🎩', tone: '#8b6f47' },
+  captain_toadette:        { name: 'Toadette',                handle: '@toadette',     glyph: '🌸', tone: '#c2185b' },
   waluigi:                 { name: 'Waluigi',                 handle: '@waluigi',      glyph: '🍆', tone: '#6a1b9a' },
   bowser:                  { name: 'Bowser',                  handle: '@kingkoopa',    glyph: '🐢', tone: '#2e7d32' },
   archie_miser:            { name: 'Archie Miser',            handle: '@archie',       glyph: '💰', tone: '#b8860b' },
   markop:                  { name: 'Markop',                  handle: '@markop',       glyph: '🔧', tone: '#546e7a' },
-  hjumpik:                 { name: 'Hjumpik',                 handle: '@hjumpik',      glyph: '🎯', tone: '#00838f' }
+  hjumpik:                 { name: 'Hjumpik',                 handle: '@hjumpik',      glyph: '🎯', tone: '#00838f' },
+  /* The roster widened because thirteen accounts was too few to cover what
+   * the archive records: Wario is a participant in twenty events and Luigi in
+   * nineteen, and neither could post, which left Waluigi as the only voice
+   * present at most of it. Everyone below is named in four or more events and
+   * has a character page. */
+  wario:                   { name: 'Wario',                   handle: '@wario',        glyph: '💰', tone: '#f9a825' },
+  luigi:                   { name: 'Luigi',                   handle: '@luigi',        glyph: '👻', tone: '#2e7d32' },
+  green_t:                 { name: 'Green T',                 handle: '@greent',       glyph: '🔬', tone: '#00695c' },
+  eager:                   { name: 'Eager',                   handle: '@eager',        glyph: '⚡', tone: '#ef6c00' },
+  mario:                   { name: 'Mario',                   handle: '@mario',        glyph: '🔨', tone: '#c62828' },
+  bones:                   { name: 'Bones',                   handle: '@bones',        glyph: '💀', tone: '#78909c' },
+  salam:                   { name: 'Salam',                   handle: '@salam',        glyph: '🦎', tone: '#5d4037' },
+  mystic_morel:            { name: 'Mystic Morel',            handle: '@morel',        glyph: '🍄', tone: '#6d4c41' },
+  toad_lee:                { name: 'Toad Lee',                handle: '@toadlee',      glyph: '🧢', tone: '#455a64' },
+  fawful:                  { name: 'Fawful',                  handle: '@fawful',       glyph: '👓', tone: '#7cb342' },
+  the_oracle:              { name: 'The Oracle',              handle: '@oracle',       glyph: '🔮', tone: '#5e35b1' },
+  princess_peach:          { name: 'Princess Peach',          handle: '@peach',        glyph: '👑', tone: '#d81b60' },
+  mossy:                   { name: 'Mossy',                   handle: '@mossy',        glyph: '🪨', tone: '#4e6e58' },
+  orangus_cornelius:       { name: 'Orangus Cornelius',       handle: '@orangus',      glyph: '🎓', tone: '#8d6e63' },
+  dracule_mihawk:          { name: 'Dracule Mihawk',          handle: '@mihawk',       glyph: '🗡️', tone: '#37474f' },
+  sans:                    { name: 'sans',                    handle: '@sans',         glyph: '🦴', tone: '#546e7a' }
 };
 
 /* The feed's emotional palette, loaded from data/wahwire/reactions.json.
@@ -1031,6 +1052,10 @@ window.__wahwireLoadTest = function (n) {
 };
 
 window.__wahwireState = state;
+// Exposed so a test can assert every author in the data is renderable here.
+// A missing entry is not a crash, it is a nameless row, which is the kind of
+// defect that survives a page load and only shows up to a reader.
+window.__wahwireAuthors = AUTHORS;
 window.__wahwireIngest = function (posts) {
   // Exactly the path load() takes, minus the fetch — same prepare(), same
   // resolveLinks() — so the load test exercises the real code, not a copy.

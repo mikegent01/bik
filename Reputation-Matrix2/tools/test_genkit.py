@@ -193,9 +193,9 @@ try:
         check("the rejection lists who is on cooldown", "bowser" in str(err), str(err))
 
     ok = wahwire._author_validate(post_task, {
-        "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
+        "author": "captain_toadette", "content": "The docks are gone and nobody will say who signed.",
         "likes": 10, "tags": ["docks"], "reaction": "despair"})
-    check("an eligible author passes", ok["author"] == "toadette")
+    check("an eligible author passes", ok["author"] == "captain_toadette")
     check("a newly added reaction is preserved", ok["reaction"] == "despair", ok["reaction"])
 
     # The palette is open-ended now: a real feeling word the archive has not
@@ -222,26 +222,26 @@ try:
     wahwire.atomic_write_json = lambda *a, **k: None
     try:
         coerced = wahwire._author_validate(post_task, {
-            "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
+            "author": "captain_toadette", "content": "The docks are gone and nobody will say who signed.",
             "likes": 10, "tags": ["docks"], "reaction": "flabbergasted"})
         check("a genuinely new emotion is minted, not flattened",
               coerced["reaction"] == "flabbergasted" and minted == ["flabbergasted"],
               f'{coerced["reaction"]} / minted={minted}')
 
         misspelled = wahwire._author_validate(post_task, {
-            "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
+            "author": "captain_toadette", "content": "The docks are gone and nobody will say who signed.",
             "likes": 10, "tags": ["docks"], "reaction": "greif"})
         check("a misspelling folds onto the existing tone",
               misspelled["reaction"] == "grief", misspelled["reaction"])
 
         inflected = wahwire._author_validate(post_task, {
-            "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
+            "author": "captain_toadette", "content": "The docks are gone and nobody will say who signed.",
             "likes": 10, "tags": ["docks"], "reaction": "rageful"})
         check("an inflection folds onto its root tone",
               inflected["reaction"] == "rage", inflected["reaction"])
 
         junk = wahwire._author_validate(post_task, {
-            "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
+            "author": "captain_toadette", "content": "The docks are gone and nobody will say who signed.",
             "likes": 10, "tags": ["docks"], "reaction": "mixed feelings really"})
         check("a non-word still falls back to deadpan", junk["reaction"] == "deadpan",
               junk["reaction"])
@@ -253,15 +253,15 @@ try:
     section("wahwire · comments and replies")
 
     threaded = wahwire._author_validate(post_task, {
-        "author": "toadette",
+        "author": "captain_toadette",
         "content": "The docks are gone and nobody will say who signed the order.",
         "likes": 10, "tags": ["docks"], "reaction": "despair",
         "comments": [
-            {"author": "toadsworth", "content": "I say, this is most irregular indeed.",
+            {"author": "chancellor_toadsworth", "content": "I say, this is most irregular indeed.",
              "likes": 5, "reaction": "suspicion"},
             {"author": "bowser", "content": "Irregular? It was efficient.",
-             "likes": 900, "reaction": "gloating", "replyTo": "toadsworth"},
-            {"author": "toadette", "content": "self-reply should be dropped entirely",
+             "likes": 900, "reaction": "gloating", "replyTo": "chancellor_toadsworth"},
+            {"author": "captain_toadette", "content": "self-reply should be dropped entirely",
              "likes": 1, "reaction": "cheer"},
             {"author": "nobody_at_all", "content": "unknown author should be dropped",
              "likes": 1, "reaction": "cheer"},
@@ -274,17 +274,17 @@ try:
     check("ids are sequential", [c["id"] for c in comments] == ["c1", "c2", "c3"],
           str([c["id"] for c in comments]))
     check("self-reply by the post author is dropped",
-          all(c["author"] != "toadette" for c in comments))
+          all(c["author"] != "captain_toadette" for c in comments))
     check("unknown commenter is dropped",
           all(c["author"] != "nobody_at_all" for c in comments))
     check("too-short comment is dropped",
           all(c["content"] != "short" for c in comments))
-    check("in-thread replyTo is kept", comments[1]["replyTo"] == "toadsworth")
+    check("in-thread replyTo is kept", comments[1]["replyTo"] == "chancellor_toadsworth")
     check("out-of-thread replyTo is cleared", comments[2]["replyTo"] == "")
 
     # A completely malformed comments block must cost the comments, not the post.
     survived = wahwire._author_validate(post_task, {
-        "author": "toadette", "content": "The docks are gone and nobody will say who signed.",
+        "author": "captain_toadette", "content": "The docks are gone and nobody will say who signed.",
         "likes": 10, "tags": ["docks"], "reaction": "grief", "comments": "not a list"})
     check("garbage comments never fail the post", survived["comments"] == [])
 finally:
@@ -477,7 +477,7 @@ try:
               wahwire._author_validate(dup_task, rescued)["author"] == rescued["author"])
 
     check("the claim ages out after the cooldown window",
-          (wahwire._claim_author("toadette"), wahwire._claim_author("hjumpik"),
+          (wahwire._claim_author("captain_toadette"), wahwire._claim_author("hjumpik"),
            wahwire._claim_author("markop"),
            "waluigi" not in wahwire.recent_authors())[-1],
           str(wahwire.recent_authors()))
@@ -507,7 +507,7 @@ try:
     threaded = wahwire._discuss_validate(d_task, {"comments": [
         {"author": "markop", "content": "I have the signed order right here.",
          "likes": 12, "reaction": "suspicion"},
-        {"author": "toadette", "content": "Then read out the name on it.",
+        {"author": "captain_toadette", "content": "Then read out the name on it.",
          "likes": 3, "reaction": "resolve", "replyTo": "markop"},
         {"author": "waluigi", "content": "Replying to my own post should be dropped.",
          "likes": 1, "reaction": "smug"},
@@ -791,6 +791,89 @@ sys_prompt, user_prompt = bros_attacks.build_prompt(tasks[0])
 check("the prompt lists only the participants the record names",
       all(p["id"] in user_prompt for p in tasks[0].payload["event"]["participants"][:2]))
 check("the prompt offers the existing schools", "clearing" in user_prompt)
+
+# ---------------------------------------------- wahwire · feed share cap
+section("wahwire · no account may dominate the feed")
+
+# The cooldown alone permits a 25% share (one post in every four), which is
+# how one voice legally reached 77% of a 94-post feed. The share cap is the
+# second constraint; these fix the ceiling so it cannot regress.
+saved_load = wahwire._load
+
+
+def _feed(counts):
+    """A store where each author has the given number of posts."""
+    posts, order = [], 0
+    for author, n in counts.items():
+        for _ in range(n):
+            order += 1
+            posts.append({"id": f"p{order}", "author": author, "order": order})
+    return lambda: {"posts": posts}
+
+
+try:
+    # 30 posts, one author holding 15 (50%); the rest sit under the 18% cap
+    # (5 of 30 is 16.7%), so only the dominant account should be flagged.
+    wahwire._load = _feed({"waluigi": 15, "bowser": 5, "luigi": 5, "mario": 5})
+    check("an over-represented account is reported over quota",
+          "waluigi" in wahwire.over_quota())
+    check("accounts inside their share are not flagged",
+          "bowser" not in wahwire.over_quota() and "luigi" not in wahwire.over_quota())
+    check("the share figure is the real fraction of the feed",
+          abs(wahwire.author_shares()["waluigi"] - 0.5) < 0.01)
+
+    a_task = Task(system_id="wahwire-author", key="k", label="post",
+                  payload={"record": {"id": "r", "name": "R"}})
+    try:
+        wahwire._author_validate(a_task, {
+            "author": "waluigi",
+            "content": "A post long enough to clear the length floor without any "
+                       "trouble at all, said plainly.",
+        })
+        check("a post from an over-quota account is rejected", False, "it passed")
+    except ValidationError as exc:
+        check("a post from an over-quota account is rejected", True)
+        check("the rejection names the cap so the retry can act on it",
+              "%" in str(exc), str(exc))
+
+    # The cap must not fire on a small feed, where one post is a large share.
+    wahwire._load = _feed({"waluigi": 3, "bowser": 1})
+    check("the cap stays off below the noise floor", not wahwire.over_quota())
+
+    # Repair should move an over-quota post rather than lose it.
+    wahwire._load = _feed({"waluigi": 15, "bowser": 5, "luigi": 5, "mario": 5})
+    fixed = wahwire._author_repair(
+        a_task,
+        {"author": "waluigi", "content": "A finished post that only has the "
+                                         "wrong name attached to it."},
+        "waluigi already writes 50% of the feed (cap is 18%)")
+    check("an over-quota post is reassigned, not discarded", fixed is not None)
+    check("the reassignment does not pick another over-quota account",
+          fixed is not None and fixed["author"] not in wahwire.over_quota())
+    check("the post's text survives reassignment untouched",
+          fixed is not None and "finished post" in fixed["content"])
+finally:
+    wahwire._load = saved_load
+
+# Every account the generator can choose must be renderable and characterised;
+# an account with no voice note is one the model will not pick, which is how
+# the roster silently narrowed to one loud voice in the first place.
+check("every author has a voice note",
+      not [a for a in wahwire.KNOWN_AUTHORS if a not in wahwire.ROLE_NOTES],
+      str([a for a in wahwire.KNOWN_AUTHORS if a not in wahwire.ROLE_NOTES]))
+
+_page_js = (Path(__file__).resolve().parents[1]
+            / "app" / "pages" / "wahwire" / "wahwire.js").read_text(encoding="utf-8")
+_index = (Path(__file__).resolve().parents[2] / "index.html").read_text(encoding="utf-8")
+_unrendered = [a for a in wahwire.KNOWN_AUTHORS if f"\n  {a}:" not in _page_js]
+check("every author is renderable on the feed page", not _unrendered, str(_unrendered))
+_unpanelled = [a for a in wahwire.KNOWN_AUTHORS if f"\n  {a}:" not in _index]
+check("every author is renderable in the article panel", not _unpanelled,
+      str(_unpanelled))
+
+check("the roster is wide enough that the cap is satisfiable",
+      len(wahwire.KNOWN_AUTHORS) * wahwire.AUTHOR_MAX_SHARE >= 1.0,
+      f"{len(wahwire.KNOWN_AUTHORS)} accounts x {wahwire.AUTHOR_MAX_SHARE}")
 
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)

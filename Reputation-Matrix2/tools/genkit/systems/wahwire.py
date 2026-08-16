@@ -74,10 +74,28 @@ def voices() -> dict[str, dict[str, str]]:
 
 # Posts are written by in-world accounts. These are the ones the legacy feed
 # already uses plus the party, all resolvable in data/characters/characters-*.js.
+# Thirteen accounts was itself part of the imbalance. The model picks an
+# author with a stake in the record, and the people who actually turn up in
+# the events mostly had no account to pick — Wario is a participant in 20
+# events and Luigi in 19, and neither could post. That left Waluigi as the
+# only voice present at most of what the archive records, so he got 77% of the
+# feed while obeying every rotation rule.
+#
+# Everyone added here is a named participant in four or more events and has a
+# real character page, so a post from them can link back to somebody who
+# exists. Characters with no page stay out: remi, mages_guild, god_toad,
+# vostolas and vaxillus all clear the event threshold but have nowhere to link.
 KNOWN_AUTHORS = [
     "lord_crimson", "general_marcus_ironhand", "colonel_vera_steelstorm",
-    "alpha_bloodmaw", "wah_media_collective", "generic_toad", "toadsworth",
-    "toadette", "waluigi", "bowser", "archie_miser", "markop", "hjumpik",
+    "alpha_bloodmaw", "wah_media_collective", "generic_toad",
+    # Canonical ids, as spelled in data/characters.json: the short forms
+    # "toadsworth"/"toadette" match no character page, so posts under them
+    # could not link back to anybody.
+    "chancellor_toadsworth", "captain_toadette",
+    "waluigi", "bowser", "archie_miser", "markop", "hjumpik",
+    "wario", "luigi", "green_t", "eager", "mario", "bones", "salam",
+    "mystic_morel", "toad_lee", "fawful", "the_oracle", "princess_peach",
+    "mossy", "orangus_cornelius", "dracule_mihawk", "sans",
 ]
 
 
@@ -389,8 +407,56 @@ ROLE_NOTES = {
     "general_marcus_ironhand": "A Regal Empire general. Clipped military register, talks in objectives and materiel.",
     "colonel_vera_steelstorm": "An Iron Legion colonel. Cold, procedural, quotes regulations.",
     "alpha_bloodmaw": "A werewolf pack alpha. Territorial, blunt, speaks for the wild.",
-    "toadsworth": "An elderly Mushroom Kingdom retainer. Fussy, loyal, prone to 'Master' and 'I say'.",
-    "toadette": "A young, plucky Mushroom Kingdom toad. Earnest and informal.",
+    "chancellor_toadsworth": "An elderly Mushroom Kingdom retainer. Fussy, loyal, prone to 'Master' and 'I say'.",
+    "captain_toadette": "A young, plucky Mushroom Kingdom toad. Earnest and informal.",
+    # These five had no voice note, which is part of why the model kept
+    # falling back to Waluigi: he was the only one of them it could hear.
+    # An account the prompt cannot characterise is an account it will not pick.
+    "waluigi": "Field archivist and reluctant survivor. Sardonic, aggrieved, "
+               "third-person about himself, certain he is underappreciated. "
+               "Opens with WAH! only when genuinely provoked.",
+    "bowser": "King of the Koopa Troop. Territorial and blunt, reads every "
+              "event as a question of who holds the ground.",
+    "archie_miser": "A hedge mage born with a third eye who trades entropy "
+                    "for bread. Fatalistic, superstitious, broke.",
+    "markop": "A centaur heavy, the one who gets others out alive. Weary, "
+              "practical, talks about cost and who was carrying whom.",
+    "hjumpik": "A dwarf with a warhammer and bad political instincts. "
+               "Cheerfully blunt, often on the wrong side of history.",
+    # The widened roster. Each of these is a participant in four or more
+    # events, so they usually have a documented reason to be commenting.
+    "wario": "A greedy entrepreneur who appraises everything, including "
+             "tragedies. Loud, mercenary, occasionally and accidentally kind.",
+    "luigi": "Anxious, decent, and braver than he believes. Understates what "
+             "he did and worries about what comes next.",
+    "green_t": "A forensics specialist. Precise and evidence-first; will not "
+               "say a thing the physical record does not support.",
+    "eager": "Enthusiastic to a fault and frequently in over their head. "
+             "Earnest, fast-talking, first to volunteer.",
+    "mario": "The reluctant hero of record. Plain-spoken, action-oriented, "
+             "uncomfortable being quoted.",
+    "bones": "A skeletal veteran with gallows humour. Morbid, unbothered, "
+             "has seen this go wrong before.",
+    "salam": "A cautious operator who reads situations before entering them. "
+             "Measured and quietly sceptical of official accounts.",
+    "mystic_morel": "A fungal mystic who speaks in growth, decay and omens. "
+                    "Oblique, patient, unnerving.",
+    "toad_lee": "A working Toad with opinions about management. Wry, "
+                "class-conscious, unimpressed by titles.",
+    "fawful": "Fawful. Grandiose broken syntax, gleeful malice, chortling. "
+              "'I HAVE FURY' energy without overusing the phrase.",
+    "the_oracle": "Speaks in prophecy and hedged certainties. Ancient, "
+                  "sorrowful, never quite answers the question asked.",
+    "princess_peach": "A head of state. Diplomatic, controlled, choosing every "
+                      "word for the record she knows is being kept.",
+    "mossy": "A heavy breacher. Short sentences, physical detail, cares about "
+             "who was standing where.",
+    "orangus_cornelius": "Pompous and verbose, fond of his own credentials "
+                         "and of correcting other people's grammar.",
+    "dracule_mihawk": "A duelist of few words. Cold, exacting, judges everyone "
+                      "by their competence with a blade.",
+    "sans": "Lowercase, deadpan, terrible puns hiding something heavier. "
+            "Never raises his voice.",
 }
 
 
@@ -432,14 +498,28 @@ def _author_prompt(task: Task) -> tuple[str, str]:
 
     # Rotation is enforced in validation; saying so here saves a round trip.
     blocked = recent_authors()
+    loud = over_quota()
+    barred = set(blocked) | set(loud)
     cooldown_note = ""
-    if blocked:
-        available = [a for a in KNOWN_AUTHORS if a not in blocked]
-        cooldown_note = (
-            f"\n\nON COOLDOWN — these accounts posted in the last {AUTHOR_COOLDOWN} "
-            f"posts and are FORBIDDEN here: {', '.join(sorted(set(blocked)))}\n"
-            f"You must choose one of: {', '.join(available)}\n"
-            "Pick the one with the strongest reason to care about THIS record."
+    if barred:
+        available = [a for a in KNOWN_AUTHORS if a not in barred] or [
+            a for a in KNOWN_AUTHORS if a not in blocked
+        ]
+        cooldown_note = "\n"
+        if blocked:
+            cooldown_note += (
+                f"\nON COOLDOWN — posted in the last {AUTHOR_COOLDOWN} posts, "
+                f"FORBIDDEN here: {', '.join(sorted(set(blocked)))}"
+            )
+        if loud:
+            cooldown_note += (
+                f"\nOVER QUOTA — already far too much of this feed, FORBIDDEN "
+                f"here: {', '.join(sorted(loud))}"
+            )
+        cooldown_note += (
+            f"\nYou must choose one of: {', '.join(available)}\n"
+            "Pick the one with the strongest reason to care about THIS record. "
+            "A quiet account with a real stake beats a loud one with an opinion."
         )
 
     prompt = (
@@ -462,6 +542,48 @@ def _author_prompt(task: Task) -> tuple[str, str]:
 # Left to itself the model funnels almost everything through one loud voice
 # (it was Waluigi, every time), which makes the feed read like a blog.
 AUTHOR_COOLDOWN = 3
+
+# The cooldown alone is not enough, and the 94-post feed proved it: a 3-post
+# window lets one account legally take every fourth post, which is a 25%
+# ceiling — and against 13 accounts an even split is 7.7%. So the loudest
+# voice can be three times the size of everyone else while never once
+# breaking the rule.
+#
+# This is the second, slower constraint: no account may hold more than this
+# share of the whole feed. It only bites once an account is genuinely
+# over-represented, so it never interferes with a small or new feed.
+AUTHOR_MAX_SHARE = 0.18
+# Below this many posts the share figure is noise (one post out of five is
+# 20%), so the cap stays off and the cooldown does the work alone.
+SHARE_FLOOR = 20
+
+
+def author_shares() -> dict[str, float]:
+    """What fraction of the feed each account currently holds."""
+    posts = [p for p in _posts() if p.get("author")]
+    if not posts:
+        return {}
+    counts: dict[str, int] = {}
+    for post in posts:
+        author = str(post.get("author"))
+        counts[author] = counts.get(author, 0) + 1
+    return {a: n / len(posts) for a, n in counts.items()}
+
+
+def over_quota(exclude: str = "") -> list[str]:
+    """Accounts that have exceeded their share of the feed.
+
+    Returned alongside the cooldown list so an over-represented account is
+    simply not offered, rather than being offered and then rejected — a
+    rejection costs a whole generation round trip.
+    """
+    posts = [p for p in _posts() if p.get("author")]
+    if len(posts) < SHARE_FLOOR:
+        return []
+    return [
+        author for author, share in author_shares().items()
+        if share > AUTHOR_MAX_SHARE and author != exclude
+    ]
 
 # The feed's emotional palette, now open-ended.
 #
@@ -632,6 +754,14 @@ def _author_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             f"{author} posted within the last {AUTHOR_COOLDOWN} posts — "
             f"pick a different account. On cooldown: {', '.join(sorted(set(blocked)))}"
         )
+    loud = over_quota()
+    if author in loud:
+        share = author_shares().get(author, 0)
+        raise ValidationError(
+            f"{author} already writes {share:.0%} of the feed (cap is "
+            f"{AUTHOR_MAX_SHARE:.0%}) — pick an account that rarely posts. "
+            f"Over quota: {', '.join(sorted(loud))}"
+        )
     content = raw.get("content")
     if not isinstance(content, str) or not (40 <= len(content.strip()) <= 900):
         raise ValidationError("content missing or out of length range")
@@ -726,12 +856,21 @@ def _author_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] 
     and quietly padding it would be the tool writing the archive's content.
     Those still fail.
     """
-    if "cooldown" not in why:
+    if "cooldown" not in why and "feed" not in why:
         return None
 
     blocked = set(recent_authors())
     blocked.add(str(raw.get("author", "")).strip())
+    blocked.update(over_quota())
     available = [a for a in KNOWN_AUTHORS if a not in blocked]
+    if not available:
+        # Every account is either on cooldown or over quota. The cooldown is
+        # the harder rule (it is visible on screen as two posts in a row), so
+        # relax the share cap rather than lose the record.
+        available = [
+            a for a in KNOWN_AUTHORS
+            if a not in set(recent_authors()) | {str(raw.get("author", "")).strip()}
+        ]
     if not available:
         return None
 
@@ -780,6 +919,22 @@ def _author_apply(task: Task, data: dict[str, Any]) -> TaskResult:
             (p for p in posts if p.get("author")),
             key=lambda p: p.get("order") or 0,
         )
+        # The share cap is re-checked here for the same reason as the
+        # cooldown: two workers can both pass validation before either writes.
+        if len(written) >= SHARE_FLOOR:
+            tally = sum(1 for p in written if p.get("author") == data["author"])
+            if (tally + 1) / (len(written) + 1) > AUTHOR_MAX_SHARE:
+                return TaskResult(
+                    task=task, ok=False,
+                    detail=f"{data['author']} is over the feed share cap",
+                    retryable=True,
+                    reason=(
+                        f"{data['author']} already writes too much of the feed "
+                        f"(cap is {AUTHOR_MAX_SHARE:.0%}) — pick an account "
+                        "that rarely posts."
+                    ),
+                )
+
         window = {str(p.get("author")) for p in written[-AUTHOR_COOLDOWN:]}
         if data["author"] in window:
             return TaskResult(
