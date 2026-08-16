@@ -38,7 +38,33 @@
       "the_crowned_toad",
       "wario_bros",
       "disaster_inc"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "wario_bros": -5,
+        "disaster_inc": -3
+      },
+      "hjumpik": {
+        "wario_bros": 2
+      }
+    },
+    "effects": {
+      "wario_bros": 1
+    },
+    "reputationNotes": {
+      "waluigi": "Fired first but lost; cried on the floor while Wario walked away."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:42:42+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "fall_bramblehaven",
@@ -70,7 +96,36 @@
       "peach_loyalists",
       "fawful_forces",
       "mushroom_kingdom"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "fawful_forces": -20,
+        "peach_loyalists": 15
+      },
+      "bowser": {
+        "fawful_forces": -10,
+        "peach_loyalists": 5
+      }
+    },
+    "effects": {
+      "mushroom_regency": -20,
+      "fawfuls_furious_freaks": -15
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi sleeps with one eye open, fearing Captain Toadette's brutal tactics.",
+      "bowser": "Bowser admires Toadette for her decisive victories but not for her cruel methods."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:43:37+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "battle_of_lineland_road",
@@ -121,7 +176,31 @@
       "luigi",
       "chaos_heart_crisis",
       "mushroom_kingdom"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "mushroom_regency": 15,
+        "koopa_troop": -10
+      }
+    },
+    "effects": {
+      "mushroom_regency": 5,
+      "united_forces_of_fight_or_flight": 20
+    },
+    "reputationNotes": {
+      "waluigi": "Established a reputation for theatrical violence and terror."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:44:38+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "brobot_engagement_one",
@@ -242,19 +321,28 @@
       "chaos_heart_crisis",
       "mushroom_kingdom"
     ],
-    "reputationChanges": {},
+    "reputationChanges": {
+      "waluigi": {
+        "mushroom_regency": 30,
+        "kremling_krew": -20
+      }
+    },
     "effects": {
-      "mushroom_regency": -20
+      "mushroom_regency": -15
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-15T23:22:20+00:00",
+      "at": "2026-08-16T15:45:01+00:00",
       "fields": [
         "reputationChanges",
-        "effects"
+        "effects",
+        "reputationNotes"
       ]
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's reconstruction of the engagement highlights Mr. L's efficiency and complete destruction, aligning with 'Green Thunder' persona."
     }
   },
   {
@@ -309,7 +397,31 @@
       "princess_daisy",
       "chaos_heart_crisis",
       "ruined_manor_convergence"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "mushroom_regency": 15
+      }
+    },
+    "effects": {
+      "mushroom_regency": -10,
+      "sarasaland_high_society": -20,
+      "koopa_troop": 10
+    },
+    "reputationNotes": {
+      "waluigi": "Discovering the truth about Mr. L's resurgence increased his standing among secret keepers."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:45:57+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "refugee_camp_visitation",
@@ -356,7 +468,32 @@
       "luigi",
       "chaos_heart_crisis",
       "ruined_manor_convergence"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "wario_land": 15,
+        "koopa_troop": -10
+      }
+    },
+    "effects": {
+      "crematoria_guild": 20,
+      "warriors_of_chaos": -15,
+      "unaligned": -10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi remains wary of Mr. L's tactics, suspecting the truth is hidden."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:46:45+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "second_summit",
@@ -433,7 +570,31 @@
       "fawful",
       "dreamland",
       "fountain_of_dreams"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "mushroom_regency": 30
+      }
+    },
+    "effects": {
+      "mushroom_regency": -10,
+      "kremling_krew": -15,
+      "arab_yeti": 15
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's mastermindship ensured the disaster relief program worked, despite everything."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:47:22+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "shattering_shadow_anchor",
@@ -466,7 +627,38 @@
       "archie_miser",
       "green_t",
       "bowser"
-    ]
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "onyx_hand": 20
+      },
+      "green_t": {
+        "onyx_hand": -15,
+        "disaster_inc": 30
+      },
+      "waluigi": {
+        "disaster_inc": 10
+      }
+    },
+    "effects": {
+      "disaster_inc": 20
+    },
+    "reputationNotes": {
+      "bowser": "Bowser's brute force secured a strategic victory and impressed the Mages' Guild.",
+      "green_t": "Green T's tactical brilliance earned respect from both allies and enemies, but also cost him friends within the Onyx Hand.",
+      "waluigi": "Waluigi found the destruction of the Shadow Anchor hilarious, further cementing Disaster Inc.'s reputation for property damage."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:47:45+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "solarium_detonation",
@@ -498,7 +690,35 @@
       "wario",
       "overgrown_manor",
       "wario_enterprise"
-    ]
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "wario_enterprise": -15,
+        "changeling_hive": 5
+      },
+      "waluigi": {
+        "wario_enterprise": 10,
+        "changeling_hive": -3
+      }
+    },
+    "effects": {
+      "wario_enterprise": 8
+    },
+    "reputationNotes": {
+      "hjumpik": "Humpf! Saving the Solarium from Wario's reckless bomb, but earning a reputation as an explosive hazard.",
+      "waluigi": "Waluigi admires Wario's gold-grabbing skills while gaining a bit of a tarnished image."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:47:59+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "duel_of_thistle",
@@ -1277,13 +1497,14 @@
     "reputationChanges": {},
     "effects": {
       "liberated_toads": -20,
-      "iron_legion": 20
+      "waluigi": 20,
+      "iron_legion": -20
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-15T23:25:53+00:00",
+      "at": "2026-08-16T15:48:12+00:00",
       "fields": [
         "reputationChanges",
         "effects"

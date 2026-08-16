@@ -24,7 +24,32 @@
       "overgrown_manor_campaign",
       "liberated_toads",
       "wario_enterprise"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "disaster_inc": 15
+      },
+      "bowser": {
+        "mushroom_regency": -5
+      }
+    },
+    "effects": {
+      "disaster_inc": 20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's meticulous audit of campaign songs earns him high praise from Disaster Inc. for his work."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:42:26+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "collapse_of_blackfen_pass",
@@ -69,7 +94,37 @@
         "name": "Vaxillus",
         "role": "Echo"
       }
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "iron_legion": 30
+      },
+      "markop": {
+        "iron_legion": -25
+      },
+      "green_t": {
+        "vampire_counts": 15
+      }
+    },
+    "effects": {
+      "iron_legion": -20
+    },
+    "reputationNotes": {
+      "waluigi": "Expanded the truth, revealing the iron legion's failure.",
+      "markop": "Discovered Gamma division's complete annihilation; a grim milestone.",
+      "green_t": "Witnessed vampires' cryomancy power firsthand, a chilling event."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:43:24+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "mount_ebott_survey_mission",
@@ -149,7 +204,29 @@
       "dracule_mihawk",
       "mount_ebott_survey_part_2",
       "mount_ebott_survey_part_3"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "iron_legion": 15
+      }
+    },
+    "effects": {
+      "iron_legion": 20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's meticulous record-keeping highlights the Iron Legion's incompetence, earning him respect from historians but scorn among military leaders."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:44:23+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "the_estragon_island_incident",
@@ -878,20 +955,28 @@
       "dk_crew",
       "the_broom_closet_operation"
     ],
-    "reputationChanges": {},
+    "reputationChanges": {
+      "bowser": {
+        "wario_enterprise": -15
+      }
+    },
     "effects": {
-      "dk_crew": -20,
-      "wario_enterprise": -10
+      "wario_enterprise": -20,
+      "kremling_krew": -15
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-15T23:22:04+00:00",
+      "at": "2026-08-16T15:44:46+00:00",
       "fields": [
         "reputationChanges",
-        "effects"
+        "effects",
+        "reputationNotes"
       ]
+    },
+    "reputationNotes": {
+      "bowser": "Bowser's late arrival and request to be edited out of the recording earn him a reputation hit from Wario."
     }
   },
   {
@@ -1822,15 +1907,16 @@
     "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(80,80,80,0.12), rgba(40,40,40,0.10), rgba(212,168,83,0.06)); padding: 1.5rem; border-left: 6px solid #4a4a4a; border-radius: 1rem; } .xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; } .xp-preview-box h4 { color: #a67af0; margin-top: 0; font-size: 1.2em; border-bottom: 1px solid rgba(166, 122, 240, 0.3); padding-bottom: 8px; } .xp-list { list-style: none; padding: 0; margin: 15px 0; } .xp-list li { margin-bottom: 10px; line-height: 1.4; border-left: 3px solid rgba(139, 95, 212, 0.4); padding-left: 12px; } .xp-name { color: #f2d68a; font-weight: bold; display: block; margin-bottom: 2px; } .xp-total { color: #fff1b8; font-weight: bold; border-top: 1px dashed rgba(212, 168, 83, 0.3); padding-top: 4px; margin-top: 4px; display: inline-block; } .waluigi-rant { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .waluigi-comment { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .tactical-note { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.95em; } .intercepted-feed { background: #000; border: 1px dashed #7ee6a0; padding: 10px; margin: 10px 0; font-family: 'Courier New', Courier, monospace; color: #7ee6a0; } .people-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; } .person-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 5px 10px; font-size: 0.9em; }",
     "reputationChanges": {},
     "effects": {
-      "mages_guild": -15,
-      "cosmic_jesters": 20,
-      "wario_enterprise": 15
+      "regal_empire": 15,
+      "mages_guild": -10,
+      "iron_legion": -8,
+      "wario_enterprise": 5
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-15T23:22:49+00:00",
+      "at": "2026-08-16T15:45:53+00:00",
       "fields": [
         "reputationChanges",
         "effects"
@@ -10834,14 +10920,13 @@
     ],
     "reputationChanges": {},
     "effects": {
-      "iron_legion": 20,
-      "pony_nobility": 10
+      "iron_legion": -20
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-15T23:24:20+00:00",
+      "at": "2026-08-16T15:46:31+00:00",
       "fields": [
         "reputationChanges",
         "effects"
@@ -11203,18 +11288,14 @@
     "waluigiAssessment": "## Waluigi's Assessment & Editorial Verdict\n\n**1. The Egress Protocol — A Masterclass in Localized Transport.** Waluigi commends King Asgore and Queen Toriel for rejecting the total destruction of the Barrier. Destroying a load-bearing dimensional seal to move two men is like blowing up a bridge to cross a puddle. Localized transport is clean, efficient, and keeps the roof where it belongs. WAH.\n\n**2. The Vexis Credentials — Administrative Victory.** The Agent's use of Commissar Vexis's papers proves Waluigi's long-standing thesis: guards at official gates do not read documents to verify truth; they read documents to relieve themselves of responsibility. A gold seal and a commissar's name will get you into almost any room in the multiverse. WAH.\n\n**3. The Execution of Flowey — Functional Retribution.** Flowey's elimination by Sans in a localized time-stop was necessary for operational security. Allowing a hostile entity with cross-dimensional boundary data to remain mobile would have compromised both the Underground and surface operations. WAH.\n\n**4. The Oath of Secrecy — Legal Recommendation.** Waluigi advises all readers to respect the Oath of Secrecy. Not because of royal authority, but because if humans on the surface discover seven hundred thousand monsters living under a mountain, they will immediately try to tax them. WAH.\n\n**Final Recommendation:** Approve the Part VII filing. Close the Mount Ebott Survey dossier. File the Vexis documents in the Iron Legion archives under Class 1 Clearance. WAH!",
     "reputationChanges": {},
     "effects": {
-      "iron_legion": 20,
-      "moonfang_pack": 5,
-      "toad_gang": -20,
-      "onyx_hand": 3,
-      "beanbean_kingdom": -10,
-      "pony_nobility": -5
+      "toad_cult": -20,
+      "iron_legion": 20
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-15T23:25:16+00:00",
+      "at": "2026-08-16T15:47:08+00:00",
       "fields": [
         "reputationChanges",
         "effects"

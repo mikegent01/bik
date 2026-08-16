@@ -2,6 +2,197 @@
   "version": 1,
   "source": "migrated from data/events/scheduled-posts.js",
   "posts": [
- 
+    {
+      "id": "wahwire_campaign_songs_archive",
+      "author": "waluigi",
+      "order": 1,
+      "date": null,
+      "timestamp": "1040 BF (Curated across 57 Campaign Records)",
+      "content": "Finally—someone audits those unsanctioned choruses. Let’s see what they did with my favorite, ‘We Are The Toads’",
+      "likes": 3276,
+      "links": [
+        {
+          "id": "campaign_songs_archive",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "thegrandsongbook",
+        "1040bf",
+        "campaignchoruses"
+      ],
+      "reaction": "smug",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "salam",
+          "content": "That’s not all there is to it, Waluigi. There are some tunes that just can’t be sung in daylight.",
+          "likes": 842,
+          "reaction": "alarm",
+          "replyTo": ""
+        },
+        {
+          "id": "c2",
+          "author": "mystic_morel",
+          "content": "Music has a way of revealing truths not meant for the light. Even your most careful audits miss those.",
+          "likes": 1503,
+          "reaction": "disdain",
+          "replyTo": "salam"
+        }
+      ],
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:42:34+00:00"
+      }
+    },
+    {
+      "id": "wahwire_collapse_of_blackfen_pass",
+      "author": "dracule_mihawk",
+      "order": 2,
+      "date": null,
+      "timestamp": "2374 BF (Historical Record)",
+      "content": "The High Command’s hubris knows no bounds. Gamma Division, wiped out by a cryomancy incident? What next, a division of ghosts patrolling the Midlands?",
+      "likes": 1243,
+      "links": [
+        {
+          "id": "collapse_of_blackfen_pass",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "cryomancy",
+        "hubris",
+        "iron_legion"
+      ],
+      "reaction": "alarm",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "generic_toad",
+          "content": "My cousin was in Gamma Division. They said it was a ghost story, but now this... It’s like the whole division turned to statues and no one noticed until they were dead.",
+          "likes": 321,
+          "reaction": "grief",
+          "replyTo": ""
+        },
+        {
+          "id": "c2",
+          "author": "colonel_vera_steelstorm",
+          "content": "This is precisely why we must audit every historical record. The truth is not always comfortable, but it is necessary for the Legion’s survival.",
+          "likes": 876,
+          "reaction": "resolve",
+          "replyTo": ""
+        },
+        {
+          "id": "c3",
+          "author": "bowser",
+          "content": "Sounds like the ghosts finally got some payback. If that’s true, I say bring on the vengeful spirits!",
+          "likes": 543,
+          "reaction": "deadpan",
+          "replyTo": ""
+        }
+      ],
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:42:47+00:00"
+      }
+    },
+    {
+      "id": "wahwire_the_fawthful_narrative_failure",
+      "author": "chancellor_toadsworth",
+      "order": 3,
+      "date": null,
+      "timestamp": "Highsun 1-30, 955 BF",
+      "content": "The Fawthful Narrative failed because power sought to shape public perception for strategic advantage. It's a lesson in how narratives are weapons of state, and the truth is often inconvenient when it doesn't serve the Regency.",
+      "likes": 234,
+      "links": [
+        {
+          "id": "the_fawthful_narrative_failure",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "narrative",
+        "conspiracy",
+        "strategy"
+      ],
+      "reaction": "resolve",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "generic_toad",
+          "content": "So Fawful was real, but we're not supposed to know that. Is this how it always works? The truth is out there, but the Regency doesn't want us to find it.",
+          "likes": 42,
+          "reaction": "alarm",
+          "replyTo": ""
+        },
+        {
+          "id": "c2",
+          "author": "bowser",
+          "content": "A lie can be more useful than the truth when it serves your purpose. Fawful didn't kill Princess Peach, and I'm glad the kingdom is safe from another mad villain.",
+          "likes": 156,
+          "reaction": "smug",
+          "replyTo": ""
+        }
+      ],
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:44:57+00:00"
+      }
+    },
+    {
+      "id": "wahwire_funeral_of_junimus_gorolini_bongo_jr",
+      "author": "generic_toad",
+      "order": 4,
+      "date": null,
+      "timestamp": "~Shortly Before the Kongo Bongo-Kremling War, 1040 BF",
+      "content": "It was a strange thing to see Chunky, who was known for his kindness and generosity, being laid to rest in such a public display of politics and power. The Kongo Bongo I knew is changing faster than I can keep up with it.",
+      "likes": 375,
+      "links": [
+        {
+          "id": "funeral_of_junimus_gorolini_bongo_jr",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "funeral",
+        "politics",
+        "grief"
+      ],
+      "reaction": "grief",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "bowser",
+          "content": "It's a shame how politics always seems to overshadow the real loss. Chunky was more than just gold, he was a symbol of what this place could be if people didn't tear each other apart.",
+          "likes": 120,
+          "reaction": "sympathy",
+          "replyTo": ""
+        },
+        {
+          "id": "c2",
+          "author": "alpha_bloodmaw",
+          "content": "Politics or no, Chunky was a good packmate. This is just the beginning of how much things are about to change.",
+          "likes": 85,
+          "reaction": "resolve",
+          "replyTo": ""
+        }
+      ],
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:47:40+00:00"
+      }
+    }
   ]
 }

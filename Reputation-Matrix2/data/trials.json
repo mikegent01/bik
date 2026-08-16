@@ -219,7 +219,39 @@
         "amount": 10,
         "reason": "The case exposes Guild-adjacent evidence control and institutional pressure."
       }
-    ]
+    ],
+    "reputationChanges": {
+      "archie_miser": {
+        "iron_fists": 15,
+        "wario_enterprise": -10
+      },
+      "waluigi": {
+        "iron_fists": 20,
+        "freelancer_underworld": 5
+      },
+      "dan": {
+        "iron_fists": -8
+      }
+    },
+    "effects": {
+      "iron_fists": -15
+    },
+    "reputationNotes": {
+      "archie_miser": "Proved drugged and teleported to Swiftsoul Keep, not responsible for explosion.",
+      "waluigi": "Testified Archie was present at Wario's funeral and doing business near the station on the day of the incident.",
+      "dan": "Found to have been involved in a biased witness testimony against Archie."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:43:16+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "delfino_v_mario_0955",
@@ -457,7 +489,32 @@
       "the_arrangement",
       "princess_peach",
       "waluigi"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "koopa_troop": 15
+      },
+      "bowser": {
+        "koopa_troop": -15
+      }
+    },
+    "effects": {
+      "koopa_troop": -20
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's review reveals the Koopa Troop framed his rival, Mario."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:44:09+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "crown_v_bowser_0955",
@@ -687,7 +744,33 @@
         "amount": 10,
         "reason": "Bowser’s false accusation reframes Koopa grievance as a state-level injury."
       }
-    ]
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "koopa_troop": -15
+      },
+      "waluigi": {
+        "mushroom_regency": 5
+      }
+    },
+    "effects": {
+      "mushroom_regency": 20
+    },
+    "reputationNotes": {
+      "bowser": "Framed for an assassination he had every reason to avoid.",
+      "waluigi": "Resents defending rivals, but finds the frame's logic glaring."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:45:39+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "tribunal_v_ironhand_1040",
@@ -854,7 +937,32 @@
       "liberated_toads",
       "vigilance",
       "waluigi"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "iron_legion": -30
+      },
+      "bowser": {
+        "iron_legion": -20
+      }
+    },
+    "effects": {
+      "iron_legion": -15
+    },
+    "reputationNotes": {
+      "waluigi": "Documents the chilling bureaucrat's defense, solidifying moral conviction against Iron Legion."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:46:26+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "koopa_v_kamek_1040",
@@ -1015,7 +1123,35 @@
       "primordial_wyrm_awakening",
       "iron_legion",
       "waluigi"
-    ]
+    ],
+    "reputationChanges": {
+      "bowser": {
+        "koopa_troop": -15
+      },
+      "waluigi": {
+        "koopa_troop": 20,
+        "iron_legion": 10
+      }
+    },
+    "effects": {
+      "koopa_troop": -10,
+      "iron_legion": 5
+    },
+    "reputationNotes": {
+      "bowser": "Bowser justly sentences Kamek to eternal imprisonment in the pit he opened.",
+      "waluigi": "Waluigi finds this trial a pleasure, as it lacks cover-ups and wrongful convictions."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:46:56+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "liberated_toads_v_dan_1040",
@@ -1162,7 +1298,37 @@
       "speaker_l",
       "rodger",
       "waluigi"
-    ]
+    ],
+    "reputationChanges": {
+      "dan": {
+        "liberated_toads": -15
+      },
+      "waluigi": {
+        "liberated_toads": 3
+      },
+      "green_t": {
+        "liberated_toads": 2
+      }
+    },
+    "effects": {
+      "liberated_toads": 7
+    },
+    "reputationNotes": {
+      "dan": "Losing his arm and being shrunken did not earn Dan's community any respect.",
+      "waluigi": "Waluigi showed rare restraint in documenting a case of tragedy, not murder.",
+      "green_t": "Green T's bravery earned the community's lasting gratitude."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:47:36+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "onyx_hand_v_mages_guild_1040",
@@ -1321,6 +1487,36 @@
         "amount": 15,
         "reason": "The jurisdiction fight exposes limits to Guild authority."
       }
-    ]
+    ],
+    "reputationChanges": {
+      "archie_miser": {
+        "onyx_hand": 15
+      },
+      "green_t": {
+        "onyx_hand": -10
+      },
+      "waluigi": {
+        "onyx_hand": 5
+      }
+    },
+    "effects": {
+      "onyx_hand": 20
+    },
+    "reputationNotes": {
+      "archie_miser": "The vampires' fair court acquitted him of magical misconduct.",
+      "green_t": "A vampire dinner sniper humiliated the Mages' Guild by asserting Onyx Hand jurisdiction.",
+      "waluigi": "Cheered for the vampires, who rendered a fairer verdict than the Guild ever could."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:47:53+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   }
 ]

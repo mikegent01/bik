@@ -223,7 +223,7 @@
         "Rapiers",
         "Shortswords"
       ],
-      "count": 114
+      "count": 117
     },
     "leader": {
       "name": "Leader",
@@ -42022,6 +42022,111 @@
         "system": "abilities",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T04:54:05+00:00"
+      }
+    },
+    {
+      "id": "spy_l9_gen0",
+      "name": "Ink Weave Cloak",
+      "icon": "🪓",
+      "level": 9,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "Your ink-like form weaves through the air, leaving behind a trail of ink that grants temporary concealment to you and allies within 10 feet for 1 round.",
+      "class": "spy",
+      "className": "Spy",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 640,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "At level 9, this ability provides a significant boost to stealth and tactical positioning through temporary concealment, enhancing survivability in combat.",
+      "rules": {
+        "activation": "action",
+        "range": "self",
+        "duration": "1 round",
+        "uses": "1/short rest",
+        "effect": "You and all allies within 10 feet gain total concealment. This effect ends if you or any ally move more than 5 feet.",
+        "drawback": "After using this ability, you and your allies within the area must wait until the next short rest before benefiting from it again."
+      },
+      "apCost": 3,
+      "apReason": "This ability offers substantial benefits for the cost of an action, making it versatile for both offensive and defensive purposes.",
+      "warioNote": "Hey there! Ink Weave Cloak? Sure thing... but you gotta wait a bit before you can ink weave again. Ain't nobody got time for that!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:42:31+00:00"
+      }
+    },
+    {
+      "id": "spy_l9_gen1",
+      "name": "Inkweave Labyrinth",
+      "icon": "🪶",
+      "level": 9,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "Create a shifting labyrinth of ink that confounds and disorients enemies within 30 feet.",
+      "class": "spy",
+      "className": "Spy",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 640,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability introduces a strategic challenge by requiring enemies to navigate an ink labyrinth, offering both immediate utility and long-term tactical advantage at level 9.",
+      "rules": {
+        "activation": "action",
+        "range": "30 feet",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "Enemies within 30 feet must succeed on a DC 16 Dexterity saving throw or become disoriented, taking a -2 penalty to attack rolls and ability checks until the end of their next turn. You can target up to three creatures.",
+        "drawback": "You spend 2 AP to activate this ability."
+      },
+      "apCost": 2,
+      "apReason": "Creating a complex and shifting obstacle field that affects multiple targets requires significant preparation time and cognitive effort, justifying the AP cost.",
+      "warioNote": "Inkweave Labyrinth? You're gonna need a map! Or at least some ink to draw your own!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:42:49+00:00"
+      }
+    },
+    {
+      "id": "spy_l9_gen2",
+      "name": "Inkweave Shield",
+      "icon": "💧alyzed",
+      "level": 9,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "Create a shimmering shield of ink to intercept incoming attacks, granting temporary resistance to all damage types for 1 minute.",
+      "class": "spy",
+      "className": "Spy",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 640,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability requires significant preparation time and focus, fitting for level 9.",
+      "rules": {
+        "activation": "action",
+        "range": "touch",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "Create a shimmering shield of ink that provides immunity to all damage types for you and adjacent allies within 5 feet for 1 round.",
+        "drawback": "You must remain stationary while the shield is active."
+      },
+      "apCost": 4,
+      "apReason": "Creating a protective barrier that lasts for an entire minute involves complex manipulation of ink, requiring substantial magical energy.",
+      "warioNote": "You think you're slick, huh? Try not to get inked up too much!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:43:09+00:00"
       }
     }
   ]

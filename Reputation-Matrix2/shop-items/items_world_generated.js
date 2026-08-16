@@ -51310,5 +51310,517 @@ export const ITEMS_WORLD_GENERATED = {
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-16T06:15:49+00:00"
     }
+  },
+  "wz_gen_common_0000": {
+    "id": "wz_gen_common_0000",
+    "name": "Mighty Mallet",
+    "description": "This sturdy mallet looks worn but has a surprisingly solid heft in your hand. It can be used to break through most wooden structures with a single swing.",
+    "price": 30,
+    "category": "equipment",
+    "rarity": "common",
+    "icon": "🔨",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Mighty Mallet requires some strength and experience for effective use.",
+    "effectDetails": [
+      {
+        "title": "Breakthrough",
+        "rules": "Deal 4d6 damage to wooden structures. Must make a Strength check."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "permanent effect once per day",
+      "endsWhen": "the structure is destroyed or the user rests for one hour.",
+      "charges": "1 charge recharged after a long rest"
+    },
+    "warning": "Requires a Strength check to use. Failure results in no damage and possible breakage of the mallet.",
+    "vendorReason": "Wario sells this because it's handy for breaking into places, and his customers always seem to need that.",
+    "shippingDetail": "Mighty Mallets are shipped via Wario's own flying minions, who deliver them with a loud 'clang'!",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:42:39+00:00"
+    }
+  },
+  "wz_gen_legendary_0000": {
+    "id": "wz_gen_legendary_0000",
+    "name": "Chrona-Divinity's Eternarium",
+    "description": "This ancient artifact purportedly captures a fragment of time itself, allowing its bearer to pause reality for brief moments.",
+    "price": 15000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "🪶",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires significant temporal understanding and control.",
+    "effectDetails": [
+      {
+        "title": "Temporal Stasis",
+        "rules": "The user can pause all movement within a 20-foot radius for up to one minute. Any creature or object entering this area is immobilized as well."
+      },
+      {
+        "title": "Echo of Eternity",
+        "rules": "For each use, the item grants a +2 bonus on saving throws against time-based effects for 1 hour."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "One minute or until an external event disrupts it (e.g., a creature moving into the area)",
+      "endsWhen": "The effect ends when the duration is over or the user chooses to end it early.",
+      "charges": "3 uses, recharged after 8 hours of inactivity"
+    },
+    "warning": "Using this item too frequently can distort local time, causing unpredictable effects in the immediate area.",
+    "vendorReason": "Wario acquired this from a mysterious old shopkeeper who claimed it was once part of his vast collection.",
+    "shippingDetail": "Shipped via a special temporal express that ensures it arrives exactly when ordered.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:43:53+00:00"
+    }
+  },
+  "wz_gen_epic_0000": {
+    "id": "wz_gen_epic_0000",
+    "name": "Eternity's Temporal Echo",
+    "description": "This trumpet allows a musician to influence time during an encounter, slowing foes and speeding allies. However, playing it requires perfect timing.",
+    "price": 6500,
+    "category": "consumables",
+    "rarity": "epic",
+    "icon": "-Trumpet:",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires solid coordination and control over time magic.",
+    "effectDetails": [
+      {
+        "title": "Temporal Slowdown",
+        "rules": "When played, all enemies within a 30-foot radius must make a DC 18 Dexterity saving throw or move at half speed for the next round."
+      },
+      {
+        "title": "Swift Boost",
+        "rules": "All allies within a 20-foot radius gain advantage on initiative rolls and their movement is doubled until the start of their next turn."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "1 round per use, with a short rest required to recharge",
+      "endsWhen": "The end of its duration or if the musician stops playing.",
+      "charges": "3 uses"
+    },
+    "warning": "Playing the trumpet too often can warp the local timeline, requiring an immediate saving throw by all players within range (DC 15). Failure results in a -2 penalty to Dexterity for 24 hours.",
+    "vendorReason": "Wario knows that timing is everything, and this item perfectly encapsulates that, making any encounter more dynamic and fun!",
+    "shippingDetail": "The trumpet is delivered with a protective case to ensure it arrives in perfect condition.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:43:59+00:00"
+    }
+  },
+  "wz_gen_common_0001": {
+    "id": "wz_gen_common_0001",
+    "name": "Whiz-Kaz Whifferdill",
+    "description": "This small, glowing device hums softly when activated, momentarily clearing a path of obstructions and dust.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "💨",
+    "stock": 3,
+    "levelRequirement": 1,
+    "levelRequirementReason": "The Whiz-Kaz Whifferdill is useful for anyone who needs to quickly clear a cluttered area.",
+    "effectDetails": [
+      {
+        "title": "Clearing Burst",
+        "rules": "Generates a 10-foot radius, 5-round burst of concentrated air that pushes away all small objects. Large objects are unaffected."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "5 rounds",
+      "endsWhen": "The effect dissipates.",
+      "charges": "2 uses per day; recharges after 8 hours."
+    },
+    "warning": "Does not affect living creatures, only small inanimate objects.",
+    "vendorReason": "Wario stocks this item for its reliability in keeping the store's aisles tidy and clear of clutter.",
+    "shippingDetail": "Delivered by a flying Toad courier who accidentally drops it once.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:44:43+00:00"
+    }
+  },
+  "wz_gen_mythic_0000": {
+    "id": "wz_gen_mythic_0000",
+    "name": "Chrona-Divinity's Chronal Nexus",
+    "description": "This delicate amulet is said to be a fragment of the universe itself, allowing the wearer to manipulate time. However, wielding its power comes at a cost — each use leaves you an hour older.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "RTC",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a strong understanding of temporal mechanics and immense focus.",
+    "effectDetails": [
+      {
+        "title": "Temporal Manipulation",
+        "rules": "Can create a 30-foot radius bubble that rewinds time for 2 rounds. Requires an action to activate."
+      },
+      {
+        "title": "Chronal Aging",
+        "rules": "Each use of the amulet ages the user by one hour. This cannot be resisted."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "2 rounds within a 30-foot radius bubble",
+      "endsWhen": "Duration ends or the wearer is no longer in the bubble's center",
+      "charges": "5 uses, recharges after 7 days of non-use"
+    },
+    "warning": "The cost of aging one hour per use can be physically and mentally taxing. Chronic use may lead to permanent age-related conditions.",
+    "vendorReason": "Wario stocks this item because it's a rare commodity that adds an extra layer of chaos to the store.",
+    "shippingDetail": "Shipped by interdimensional courier, guaranteed delivery within one hour.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:45:13+00:00"
+    }
+  },
+  "wz_gen_epic_0001": {
+    "id": "wz_gen_epic_0001",
+    "name": "Eternity's Chronal Nullifier",
+    "description": "This sleek, holographic cube nullifies all time-based effects within a 50-foot radius for the duration of one combat encounter. However, it can only be activated once per day.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "⌛",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a high understanding of temporal mechanics to operate effectively.",
+    "effectDetails": [
+      {
+        "title": "Chronal Nullification",
+        "rules": "All time-based effects within a 50-foot radius are negated for the duration of one combat encounter."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "one combat encounter",
+      "endsWhen": "the end of the current combat encounter",
+      "charges": "1 daily"
+    },
+    "warning": "Activating this item outside of a combat encounter causes it to deactivate immediately.",
+    "vendorReason": "Wario stocks it because customers demand unique and unpredictable items for their chaotic encounters.",
+    "shippingDetail": "Delivered by a time-traveling penguin with impeccable punctuality.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:45:24+00:00"
+    }
+  },
+  "wz_gen_legendary_0001": {
+    "id": "wz_gen_legendary_0001",
+    "name": "Chrona-Divinity's Eternal Chronal Anchor",
+    "description": "A legendary artifact said to tether time itself, this anchor allows its bearer to halt the flow of minutes, hours, or even days around them. However, the longer it is used, the more it distorts reality.",
+    "price": 25000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "^KLOCK^",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a high understanding of time and space to wield its immense power correctly.",
+    "effectDetails": [
+      {
+        "title": "Temporal Stasis",
+        "rules": "When activated, the user can halt time for up to 3 rounds. Each round after the first reduces the duration by one round."
+      },
+      {
+        "title": "Reality Distortion",
+        "rules": "For every additional minute of time halted, there is a +1 chance that random events occur in the area, such as objects spontaneously changing form or minor weather anomalies."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "up to 3 rounds, reducing by one round each subsequent activation",
+      "endsWhen": "time resumes flow, the user's concentration lapses, or a random event occurs due to reality distortion",
+      "charges": "limited to once per long rest"
+    },
+    "warning": "Overuse can warp the surrounding environment. The more time is halted, the higher the risk of causing unintended temporal anomalies.",
+    "vendorReason": "Wario stocks this item because it's a rare find and commands a high price among collectors and adventurers seeking unique trinkets.",
+    "shippingDetail": "Shipped in an ornate wooden box that looks like it could belong to a time lord, packed with a time-stamped warranty.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:45:35+00:00"
+    }
+  },
+  "wz_gen_epic_0002": {
+    "id": "wz_gen_epic_0002",
+    "name": "Chrono-Skipper",
+    "description": "This boot allows you to instantly teleport to an unoccupied space within a 30-foot radius, disrupting enemy formations and allowing for strategic repositioning. However, each use leaves a faint ripple in the air, alerting nearby foes.",
+    "price": 7500,
+    "category": "consumables",
+    "rarity": "epic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires sufficient dexterity to navigate the teleportation and avoid hazards.",
+    "effectDetails": [
+      {
+        "title": "Temporal Leap",
+        "rules": "You can teleport up to 30 feet to an unoccupied space. The effect requires a successful Dexterity (Acrobatics) check with a DC of 15."
+      },
+      {
+        "title": "Ripple Effect",
+        "rules": "When you use the boot, there is a 20% chance that nearby enemies within 30 feet become aware of your movement and act on their next turn as if surprised for one round."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "instantaneous",
+      "endsWhen": "the effect resolves",
+      "charges": "2 charges per long rest; recharged when you sleep."
+    },
+    "warning": "The repeated use of the boot can destabilize your internal chronal field, requiring a successful Wisdom (Medicine) check with a DC of 15 to avoid disorientation on the following round.",
+    "vendorReason": "Wario stocks this item because it provides a unique strategic advantage in chaotic battles, making encounters more unpredictable and exciting for players.",
+    "shippingDetail": "The Chrono-Skipper is carefully packed in a custom-made time-warp box that ensures safe delivery through any temporal turbulence.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:46:23+00:00"
+    }
+  },
+  "wz_gen_mythic_0001": {
+    "id": "wz_gen_mythic_0001",
+    "name": "Chrona-Divinity's Temporal Absolution",
+    "description": "This locket houses a pocket dimension where time moves at an accelerated rate. It allows the wearer to experience months in mere hours, but it also grants Wario an additional day of inventory management every hour spent in temporal acceleration.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "-REAL-TIME-LOCKET-UNLIMITED-CIRCULATION-LOGO-OF-WARIO:",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a firm grasp on time manipulation and the ability to handle the accelerated pace of daily operations",
+    "effectDetails": [
+      {
+        "title": "Temporal Acceleration",
+        "rules": "The wearer can spend 1 hour in temporal acceleration, gaining +4 bonus actions per round for that duration. During this time, Wario gains an additional day of inventory management."
+      },
+      {
+        "title": "Wario's Inventory Boost",
+        "rules": "For every hour the locket is used, Wario gains a 2% boost to his daily sales turnover indefinitely."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 hour per activation",
+      "endsWhen": "The wearer decides or when the time duration ends",
+      "charges": "1 use per day"
+    },
+    "warning": "Using this locket can cause severe temporal disorientation, affecting both the user and their environment for 24 hours after each use.",
+    "vendorReason": "Despite the risk, the demand for such a powerful item is too great to ignore. Wario's inventory management skills are legendary, so why not help him manage his chaotic shop even better?",
+    "shippingDetail": "The locket is carefully packed in an extradimensional box that itself requires one extra day of Wario's time to process.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:46:38+00:00"
+    }
+  },
+  "wz_gen_legendary_0002": {
+    "id": "wz_gen_legendary_0002",
+    "name": "Chrona-Divinity's Temporal Veil",
+    "description": "This shimmering veil allows its wearer to slip through time, but only for moments at a time. It distorts the very fabric of time around the user.",
+    "price": 15000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "✨",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires significant control over temporal forces which are usually mastered at level 15.",
+    "effectDetails": [
+      {
+        "title": "Temporal Slip",
+        "rules": "The user can move 20 feet back or forward in time each turn."
+      },
+      {
+        "title": "Time Distortion",
+        "rules": "For every round the veil is active, it creates a 10-foot radius of temporal distortion that lasts until the next dawn."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "until the start of your next turn",
+      "endsWhen": "the start of your next turn or when you deactivate it as a reaction",
+      "charges": "3 charges per short rest"
+    },
+    "warning": "Using the veil for too long risks unraveling nearby temporal fabric, causing minor time anomalies.",
+    "vendorReason": "Wario stocks this because it's a sought-after item among adventurers seeking to explore ancient ruins or evade dangerous foes.",
+    "shippingDetail": "Delivered by a tardigrade courier, ensuring arrival in perfect condition.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:47:22+00:00"
+    }
+  },
+  "wz_gen_mythic_0002": {
+    "id": "wz_gen_mythic_0002",
+    "name": "Eterna-Reality's Convergence",
+    "description": "A shimmering artifact that can rewrite the very fabric of time and reality, temporarily correcting any anomaly or mistake. However, each use erases one minute of history.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a deep understanding of reality and its flaws.",
+    "effectDetails": [
+      {
+        "title": "Temporal Patchwork",
+        "rules": "Erases one minute of time, correcting any anomaly or mistake. This action requires an hour to stabilize the change."
+      },
+      {
+        "title": "Historic Erasure",
+        "rules": "Permanently removes all changes made by this item within a 10-foot radius during its last stabilization period. Caution: Reversing time can create paradoxes."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Until the end of your next turn after stabilization",
+      "endsWhen": "Stabilization ends, or you take another action.",
+      "charges": "5 uses per day; recharges after a long rest."
+    },
+    "warning": "Using this item too frequently can tear apart the timeline and create dangerous paradoxes.",
+    "vendorReason": "Wario stocks it because the demand for temporal fixes is insatiable, even at such a high price.",
+    "shippingDetail": "Ships via warp zone express; arrives in the blink of an eye.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:47:32+00:00"
+    }
+  },
+  "wz_gen_common_0003": {
+    "id": "wz_gen_common_0003",
+    "name": "Zoofy Zapper",
+    "description": "This small device hums softly and can zap any nearby foe, stunning them for a round.",
+    "price": 30,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "💡",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic dexterity to use without setting off the zapper.",
+    "effectDetails": [
+      {
+        "title": "Stunning Zap",
+        "rules": "On activation, roll a d8. On a result of 4 or higher, stun target for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "target is stunned for 1 round after successful zapping.",
+      "endsWhen": "the effect duration ends when the stunned creature regains its action.",
+      "charges": "1 charge. Recharges on a short or long rest."
+    },
+    "warning": "Causes a loud zap sound, potentially alerting nearby enemies.",
+    "vendorReason": "Wario finds that zoofy items are always popular for quick fixes in the field.",
+    "shippingDetail": "Shipped with a free Zoofy Zeep sticker.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:48:03+00:00"
+    }
+  },
+  "wz_gen_epic_0003": {
+    "id": "wz_gen_epic_0003",
+    "name": "Eterna-Phantom's Echo",
+    "description": "This ornate mask distorts reality for up to an hour, causing allies within a 30-foot radius to see their enemies as harmless specters. The effect can be toggled between real and phantom every round.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "buster",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a certain understanding of reality bending and the willpower to wield such a powerful device.",
+    "effectDetails": [
+      {
+        "title": "Phantom Reality",
+        "rules": "Allies within 30 feet can see enemies as harmless phantoms for an hour. The effect can be toggled every round."
+      },
+      {
+        "title": "Reality Shatter",
+        "rules": "The mask has a 10% chance to shatter reality, causing all nearby creatures to roll a DC 20 Wisdom saving throw or suffer the effects of the 'Frightened' condition for 3 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "up to an hour",
+      "endsWhen": "the wearer toggles it off, or reality shatters",
+      "charges": "unlimited, recharged after a long rest"
+    },
+    "warning": "The mask has a 10% chance of causing the wearer's next action to be delayed by one round upon activation.",
+    "vendorReason": "Wario finds it amusing that this item can turn a battle into a comedy of errors.",
+    "shippingDetail": "Shipped in an elaborate, mirrored box, making it look like you're ordering a ghostly mask.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:48:23+00:00"
+    }
+  },
+  "wz_gen_legendary_0003": {
+    "id": "wz_gen_legendary_0003",
+    "name": "Chrona-Mirage's Eternity Veil",
+    "description": "This delicate veil conceals the wearer in an ethereal mist, rendering them invisible to all but those of a higher level. However, the veil leaves a faint shimmer that can be detected by creatures with keen senses.",
+    "price": 15000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "-Methods:",
+    "stock": 1,
+    "levelRequirement": 14,
+    "levelRequirementReason": "Requires a high level of discipline and control to weave into the correct temporal pattern.",
+    "effectDetails": [
+      {
+        "title": "Invisibility Aura",
+        "rules": "The wearer becomes invisible for up to 5 rounds. Those who can see beyond normal vision, like druids or elves with Improved Darkvision, have a 20% chance of detecting the wearer."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "up to 5 rounds",
+      "endsWhen": "the duration expires or the wearer takes an action",
+      "charges": "1 charge per long rest"
+    },
+    "warning": "The veil can only be used once every 24 hours and may not be worn continuously for more than a minute without risking temporal distortion.",
+    "vendorReason": "Wario sells it because it's the latest in stealth gear, but it comes with a hefty price tag that makes it worth the risk.",
+    "shippingDetail": "Sent via a time-displaced owl post, ensuring the veil arrives fresh from the past.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:48:43+00:00"
+    }
   }
 };

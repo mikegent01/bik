@@ -6351,7 +6351,7 @@
       "description": "Restore 2d4+2 HP",
       "effect": "Restore 2d4+2 HP",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 95,
@@ -6371,7 +6371,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restore 2d4+2 HP",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:42:32+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -6381,7 +6392,7 @@
       "description": "Restore 4d4+4 HP",
       "effect": "Restore 4d4+4 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 85,
@@ -6405,7 +6416,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restore 4d4+4 HP, changing the recipient's hit points.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:43:18+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -21062,7 +21084,7 @@
       "description": "Imbues a weapon with +1 magical damage.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 85,
@@ -21077,7 +21099,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Imbues a weapon with +1 magical damage.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:42:27+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -21087,7 +21120,7 @@
       "description": "Imbues a weapon with +2 magical damage.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 7,
       "craftTime": 8,
       "successChance": 75,
@@ -21106,7 +21139,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Imbues a weapon with +2 magical damage affecting the minds of others.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:43:11+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -31843,7 +31887,7 @@
       "description": "A simple but reliable iron dagger.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 3,
       "successChance": 90,
@@ -31858,7 +31902,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "A simple but reliable iron dagger, a product of smithcraft.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:42:49+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -31868,7 +31923,7 @@
       "description": "A sharp steel sword, well balanced.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 3,
       "craftTime": 8,
       "successChance": 80,
@@ -31887,7 +31942,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "A sharp steel sword, well balanced.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:43:47+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",

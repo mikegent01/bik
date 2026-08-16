@@ -1094,6 +1094,196 @@
         "at": "2026-08-15T23:25:53.277995+00:00",
         "sourceRecord": "The Prison Island Liberation"
       }
+    },
+    "wario_bros": {
+      "name": "Wario Bros",
+      "description": "Named in the record “The Lounge Brawl”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:42:42.642512+00:00",
+        "sourceRecord": "The Lounge Brawl"
+      }
+    },
+    "koopa_foreman": {
+      "name": "Koopa Foreman",
+      "description": "Named in the record “The Sewer Extraction”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:44:03.522664+00:00",
+        "sourceRecord": "The Sewer Extraction"
+      }
+    },
+    "bob_omb_demolitions_expert": {
+      "name": "Bob Omb Demolitions Expert",
+      "description": "Named in the record “The Sewer Extraction”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:44:03.527169+00:00",
+        "sourceRecord": "The Sewer Extraction"
+      }
+    },
+    "sergeant_moldsworth": {
+      "name": "Sergeant Moldsworth",
+      "description": "Named in the record “The Battle of Lineland Road”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:44:38.095067+00:00",
+        "sourceRecord": "The Battle of Lineland Road"
+      }
+    },
+    "united_forces_of_fight_or_flight": {
+      "name": "United Forces Of Fight Or Flight",
+      "description": "Named in the record “The Battle of Lineland Road”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:44:38.098658+00:00",
+        "sourceRecord": "The Battle of Lineland Road"
+      }
+    },
+    "sarasaland_high_society": {
+      "name": "Sarasaland High Society",
+      "description": "Named in the record “The Sarasaland Incident”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:45:57.051655+00:00",
+        "sourceRecord": "The Sarasaland Incident"
+      }
+    },
+    "crematoria_guild": {
+      "name": "Crematoria Guild",
+      "description": "Named in the record “The Refugee Camp Visitation”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:46:45.037708+00:00",
+        "sourceRecord": "The Refugee Camp Visitation"
+      }
+    },
+    "prince_peasley": {
+      "name": "Prince Peasley",
+      "description": "Named in the record “The Second Diplomatic Summit”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:47:22.835897+00:00",
+        "sourceRecord": "The Second Diplomatic Summit"
+      }
+    },
+    "arab_yeti": {
+      "name": "Arab Yeti",
+      "description": "Named in the record “The Second Diplomatic Summit”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:47:22.908115+00:00",
+        "sourceRecord": "The Second Diplomatic Summit"
+      }
+    },
+    "koopa_resistance_main_force": {
+      "name": "Koopa Resistance Main Force",
+      "description": "Named in the record “The Fall of the Regent Sorcerer”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T15:48:32.772130+00:00",
+        "sourceRecord": "The Fall of the Regent Sorcerer"
+      }
     }
   }
 }

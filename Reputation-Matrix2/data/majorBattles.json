@@ -48,7 +48,29 @@
       "koopa_foreman",
       "magikoopa_council_elder",
       "magikoopa_apprentice"
-    ]
+    ],
+    "reputationChanges": {
+      "remi_akamatsu_full_backstory": {
+        "koopa_troop": -15
+      }
+    },
+    "effects": {
+      "magikoopa_council": -20
+    },
+    "reputationNotes": {
+      "remi_akamatsu_full_backstory": "Became an outcast among Koopa workers after leading the escape."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:42:53+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "safehouse_rescue_mission",
@@ -100,7 +122,22 @@
       "bob_omb_demolitions",
       "goomba_messenger",
       "koopa_worker_green"
-    ]
+    ],
+    "reputationChanges": {},
+    "effects": {
+      "koopa_troop": 15,
+      "primordial_wyrm": -10
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:44:03+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects"
+      ]
+    }
   },
   {
     "id": "safehouse_defense",
@@ -155,15 +192,14 @@
     ],
     "reputationChanges": {},
     "effects": {
-      "koopa_troop": 20,
-      "kremling_krew": 10,
-      "cosmic_jesters": -15
+      "koopa_troop": -15,
+      "primordial_wyrm": -4
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-15T23:20:14+00:00",
+      "at": "2026-08-16T15:45:07+00:00",
       "fields": [
         "reputationChanges",
         "effects"
@@ -371,7 +407,41 @@
     "tacticalNotes": "Professional military discipline compensates for unfamiliar enemy types. Coalition warfare requires trust built through shared sacrifice.",
     "participatingCharacters": [
       "iron_legion_commander"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "iron_legion": 15
+      },
+      "remi_akamatsu_full_backstory": {
+        "iron_legion": 15
+      },
+      "hjumpik": {
+        "iron_legion": 10
+      },
+      "dan": {
+        "iron_legion": 8
+      }
+    },
+    "effects": {
+      "iron_legion": 20
+    },
+    "reputationNotes": {
+      "waluigi": "Saved the day, planting charges to destroy the crystal anchor.",
+      "remi_akamatsu_full_backstory": "Mastered a tricky situation, using construct skills against a dangerous hydra.",
+      "hjumpik": "Developed a new tactic that helped hold the line in tough conditions.",
+      "dan": "Showcased tactical prowess and fire magic to support the squad."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T15:48:28+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "anchor_shy_guy_volcanic_shrine",
@@ -503,14 +573,14 @@
     ],
     "reputationChanges": {},
     "effects": {
-      "koopa_troop": 20,
-      "mushroom_regency": -20
+      "toad_gang": 15,
+      "tomb_kings": -20
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-15T23:23:37+00:00",
+      "at": "2026-08-16T15:48:32+00:00",
       "fields": [
         "reputationChanges",
         "effects"
@@ -827,19 +897,33 @@
       "elder_erol",
       "kamek"
     ],
-    "reputationChanges": {},
+    "reputationChanges": {
+      "waluigi": {
+        "koopa_troop": 20,
+        "noki_shellfish": -15
+      },
+      "bowser": {
+        "koopa_troop": 30,
+        "noki_shellfish": -10
+      }
+    },
     "effects": {
-      "noki_shellfish": -15
+      "noki_shellfish": -20
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-15T23:25:08+00:00",
+      "at": "2026-08-16T15:48:51+00:00",
       "fields": [
         "reputationChanges",
-        "effects"
+        "effects",
+        "reputationNotes"
       ]
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi gains Koopa Troop's trust, loses Noki Shellfish's favor.",
+      "bowser": "Bowser strengthens Koopa Troop's position, mildly displeases Noki Leadership."
     }
   },
   {
