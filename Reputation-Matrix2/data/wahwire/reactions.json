@@ -165,46 +165,6 @@
       "origin": "generated",
       "by": "qwen2.5-7b-instruct-1m",
       "source": ""
-    },
-    "nostalgia": {
-      "glyph": "🜂",
-      "label": "Nostalgia",
-      "tone": "#7986cb",
-      "origin": "generated",
-      "by": "qwen2.5-7b-instruct-1m",
-      "source": ""
-    },
-    "sarcasm": {
-      "glyph": "✦",
-      "label": "Sarcasm",
-      "tone": "#4fc3f7",
-      "origin": "generated",
-      "by": "qwen2.5-7b-instruct-1m",
-      "source": ""
-    },
-    "gossip": {
-      "glyph": "🌀",
-      "label": "Gossip",
-      "tone": "#8d6e63",
-      "origin": "generated",
-      "by": "qwen2.5-7b-instruct-1m",
-      "source": "the_hag_of_ferngrove_manor"
-    },
-    "speculation": {
-      "glyph": "🌀",
-      "label": "Speculation",
-      "tone": "#8d6e63",
-      "origin": "generated",
-      "by": "qwen2.5-7b-instruct-1m",
-      "source": "shadeward_arc"
-    },
-    "caution": {
-      "glyph": "⟡",
-      "label": "Caution",
-      "tone": "#a1887f",
-      "origin": "generated",
-      "by": "qwen2.5-7b-instruct-1m",
-      "source": ""
     }
   }
 }

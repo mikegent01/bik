@@ -4,110 +4,78 @@
   "factions": {
     "primordial_wyrm": {
       "name": "Primordial Wyrm",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Battle of Bone Dry Dunes”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:05:55.187628+00:00",
         "sourceRecord": "The Battle of Bone Dry Dunes"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:25:20+00:00",
-        "sourceArticles": [
-          "anchor_alpha_bone_dry_dunes"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "bowser": {
       "name": "Bowser",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “Highsun 1, 955 BF — The Day Of”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:08:21.444741+00:00",
         "sourceRecord": "Highsun 1, 955 BF — The Day Of"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:24:06+00:00",
-        "sourceArticles": [
-          "highsun_1_955_bf_the_day_of",
-          "the_assassination_of_peach",
-          "the_fawthful_narrative_failure",
-          "mages_guild",
-          "mushroom_regency"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "united_midlands_factions": {
       "name": "United Midlands Factions",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:09:15.506315+00:00",
         "sourceRecord": "The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:24:06+00:00",
-        "sourceArticles": [
-          "session_2_ravencreek_to_swiftsoul",
-          "vigilance",
-          "session_1_dragon_mountain",
-          "archie_miser",
-          "markop"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "midlands_faction_reputations": {
       "name": "Midlands Faction Reputations",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:09:15.507772+00:00",
         "sourceRecord": "The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:24:07+00:00",
-        "sourceArticles": [
-          "session_2_ravencreek_to_swiftsoul",
-          "vigilance",
-          "session_1_dragon_mountain",
-          "archie_miser",
-          "markop"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "star_sprites": {
@@ -131,30 +99,21 @@
     },
     "all_factions": {
       "name": "All Factions",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Star Shard Caves and the Tanuki's Origin”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:10:58.990434+00:00",
         "sourceRecord": "The Star Shard Caves and the Tanuki's Origin"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:25:20+00:00",
-        "sourceArticles": [
-          "star_shard_caves_tanuki_origin",
-          "shadow_estate_campaign",
-          "fawful_forces",
-          "star_rod",
-          "fountain_of_dreams"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "dragon_mountain": {
@@ -254,218 +213,158 @@
     },
     "united_factions": {
       "name": "United Factions",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Declaration of the Great Tree”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:23:44.573183+00:00",
         "sourceRecord": "The Declaration of the Great Tree"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:39:19+00:00",
-        "sourceArticles": [
-          "delfino_village_secession"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "cob": {
       "name": "Cob",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “Kaelor Judi, the Witness Line, and the Road to Raventree”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:25:54.648018+00:00",
         "sourceRecord": "Kaelor Judi, the Witness Line, and the Road to Raventree"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:39:21+00:00",
-        "sourceArticles": [
-          "kaelor_judi_witness_line_and_the_road_to_raventree",
-          "vigilance",
-          "raventree_manor",
-          "pond_patrol",
-          "disaster_inc"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "creed_of_darkness": {
       "name": "Creed Of Darkness",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “Battle of the Spider Grove”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:26:04.908604+00:00",
         "sourceRecord": "Battle of the Spider Grove"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:39:23+00:00",
-        "sourceArticles": [
-          "spider_grove_battle",
-          "raventree_manor",
-          "the_oracle",
-          "markop",
-          "archie_miser"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "fungus_mancers": {
       "name": "Fungus Mancers",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "A secretive group involved in the poisoning of the Feyward Revel.",
+      "region": "Mushroom Regency",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [
+          "mushroom_regency"
+        ],
+        "enemies": [
+          "mushroom_regency"
+        ]
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:27:19.699944+00:00",
         "sourceRecord": "The Feyward Revel Crisis: Poison, Plants, and Frozen Diplomacy"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:39:26+00:00",
-        "sourceArticles": [
-          "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
-          "planar_fracture",
-          "disaster_inc",
-          "hjumpik",
-          "waluigi"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "toadburt": {
       "name": "Toadburt",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Birthday Trap and the Tanuki Problem”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:28:18.447765+00:00",
         "sourceRecord": "The Birthday Trap and the Tanuki Problem"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:39:26+00:00",
-        "sourceArticles": [
-          "shadowfell_birthday_trap_tanuki",
-          "disaster_inc",
-          "raventree_manor",
-          "onyx_hand",
-          "bowser"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "united_kingdom_of_snowdinia": {
       "name": "United Kingdom Of Snowdinia",
-      "status": "removed",
-      "entityKind": "other",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Shellfish Standoff”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:29:10.511130+00:00",
         "sourceRecord": "The Shellfish Standoff"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:39:28+00:00",
-        "sourceArticles": [
-          "delfino_tribute_refusal"
-        ],
-        "decision": "removed",
-        "entityKind": "other"
       }
     },
     "green_t": {
       "name": "Green T",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Shadow Estate Campaign”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:29:30.171125+00:00",
         "sourceRecord": "The Shadow Estate Campaign"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:39:28+00:00",
-        "sourceArticles": [
-          "shadow_estate_campaign",
-          "iron_legion",
-          "mages_guild",
-          "shadow_estate_mirror_rooftop_escape",
-          "archie_miser"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "shroob": {
       "name": "Shroob",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Shroob Temporal Incursion (The 'Partners in Time' Debacle)”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:30:10.484567+00:00",
         "sourceRecord": "The Shroob Temporal Incursion (The 'Partners in Time' Debacle)"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:39:30+00:00",
-        "sourceArticles": [
-          "shroob_temporal_incursion",
-          "mushroom_regency",
-          "mages_guild",
-          "mario",
-          "luigi"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "mage_society": {
@@ -489,166 +388,118 @@
     },
     "manor_wraiths": {
       "name": "Manor Wraiths",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Siege of Raventree”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:30:20.337925+00:00",
         "sourceRecord": "The Siege of Raventree"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:42:06+00:00",
-        "sourceArticles": [
-          "siege_raventree",
-          "raventree_manor",
-          "liberated_toads",
-          "archie_miser",
-          "green_t"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "raventree_curse": {
       "name": "Raventree Curse",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “Banishment of the Arcane Wraith”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:31:00.052555+00:00",
         "sourceRecord": "Banishment of the Arcane Wraith"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:43:08+00:00",
-        "sourceArticles": [
-          "battle_arcane_wraith"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "all": {
       "name": "All",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Planar Sanctum and the Flesh Vats”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:32:20.577707+00:00",
         "sourceRecord": "The Planar Sanctum and the Flesh Vats"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:43:09+00:00",
-        "sourceArticles": [
-          "the_planar_sanctum_revelation",
-          "the_orange_alignment",
-          "shadow_estate",
-          "iron_legion",
-          "mages_guild"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "general_public": {
       "name": "General Public",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Chaos Heart Crisis”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:38:46.541961+00:00",
         "sourceRecord": "The Chaos Heart Crisis"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:43:09+00:00",
-        "sourceArticles": [
-          "chaos_heart_crisis",
-          "planar_fracture",
-          "mages_guild",
-          "mr_l",
-          "luigi"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "bugbears": {
       "name": "Bugbears",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Sermon of the Third Eye”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:40:32.023304+00:00",
         "sourceRecord": "The Sermon of the Third Eye"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:43:12+00:00",
-        "sourceArticles": [
-          "archie_god_sermon",
-          "disaster_inc",
-          "purple_legion",
-          "corvinarus_family",
-          "raventree_manor"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "green_legion": {
       "name": "Green Legion",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "A group Archie worked with during his time in the Shadowfell forest. They helped him survive and eventually brought him back.",
+      "region": "Shadowfell",
+      "category": "Unaligned",
+      "power_level": 1,
+      "relations": {
+        "allies": [
+          "purple_legion"
+        ],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:43:14.852725+00:00",
         "sourceRecord": "The Shadeward Arc"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:43:14+00:00",
-        "sourceArticles": [
-          "shadeward_arc",
-          "onyx_hand",
-          "shadow_estate",
-          "purple_legion",
-          "planar_fracture"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "kosha": {
@@ -676,142 +527,97 @@
     },
     "mario": {
       "name": "Mario",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Eastern Passage”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:51:53.621689+00:00",
         "sourceRecord": "The Eastern Passage"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:45:29+00:00",
-        "sourceArticles": [
-          "the_eastern_passage",
-          "star_fountain_reunion",
-          "mages_guild",
-          "the_arrangement",
-          "mario"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "unknown_companion": {
       "name": "Unknown Companion",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Eastern Passage”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:51:53.623626+00:00",
         "sourceRecord": "The Eastern Passage"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:45:32+00:00",
-        "sourceArticles": [
-          "the_eastern_passage",
-          "star_fountain_reunion",
-          "mages_guild",
-          "the_arrangement",
-          "mario"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "luigi": {
       "name": "Luigi",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Eastern Passage”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:51:53.625203+00:00",
         "sourceRecord": "The Eastern Passage"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:45:32+00:00",
-        "sourceArticles": [
-          "the_eastern_passage",
-          "star_fountain_reunion",
-          "mages_guild",
-          "the_arrangement",
-          "mario"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "pearl_realm": {
       "name": "Pearl Realm",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Eastern Passage”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:51:53.626938+00:00",
         "sourceRecord": "The Eastern Passage"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:45:34+00:00",
-        "sourceArticles": [
-          "the_eastern_passage",
-          "star_fountain_reunion",
-          "mages_guild",
-          "the_arrangement",
-          "mario"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "toad_loyalists": {
       "name": "Toad Loyalists",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "peach_loyalists",
+      "description": "Named in the record “The Siege of Toad Town”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:51:57.332434+00:00",
         "sourceRecord": "The Siege of Toad Town"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:45:37+00:00",
-        "sourceArticles": [
-          "siege_toad_town",
-          "toad_town",
-          "peach_loyalists",
-          "liberated_toads",
-          "fawful_forces"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "shadow_estate": {
@@ -835,54 +641,40 @@
     },
     "hjumpik": {
       "name": "Hjumpik",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Orange Alignment”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:00:05.559194+00:00",
         "sourceRecord": "The Orange Alignment"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:47:43+00:00",
-        "sourceArticles": [
-          "the_orange_alignment",
-          "corvinarus_family",
-          "overgrown_manor",
-          "planar_fracture",
-          "hjumpik"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "regional_stability": {
       "name": "Regional Stability",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “Bowser's First Invasion”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:08:11.628447+00:00",
         "sourceRecord": "Bowser's First Invasion"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:47:43+00:00",
-        "sourceArticles": [
-          "bowsers_first_invasion"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "archivist_estate": {
@@ -906,444 +698,306 @@
     },
     "archie_miser": {
       "name": "Archie Miser",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Mazebound Skirmish”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:14:02.240539+00:00",
         "sourceRecord": "The Mazebound Skirmish"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:50:45+00:00",
-        "sourceArticles": [
-          "skirmish_mazebound",
-          "shadow_estate",
-          "vivian_corvinarus_corridor_fight",
-          "markop",
-          "bowser"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "mystic_morel": {
       "name": "Mystic Morel",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Stone Auction”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:17:01.096448+00:00",
         "sourceRecord": "The Stone Auction"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:50:45+00:00",
-        "sourceArticles": [
-          "stone_auction",
-          "raventree_manor",
-          "disaster_inc",
-          "corvinarus_family",
-          "mystic_morel"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "remi_akamatsu_full_backstory": {
       "name": "Remi Akamatsu Full Backstory",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Stone Auction”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:17:01.098141+00:00",
         "sourceRecord": "The Stone Auction"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:50:45+00:00",
-        "sourceArticles": [
-          "stone_auction",
-          "raventree_manor",
-          "disaster_inc",
-          "corvinarus_family",
-          "mystic_morel"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "wario": {
       "name": "Wario",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Disaster Inc. Naming Dispute”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:18:31.279229+00:00",
         "sourceRecord": "The Disaster Inc. Naming Dispute"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:50:45+00:00",
-        "sourceArticles": [
-          "disaster_inc_naming_dispute",
-          "disaster_inc",
-          "liberated_toads",
-          "waluigi",
-          "archie_miser"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "general": {
       "name": "General",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Siege of the Dreadful Grove”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:18:56.329927+00:00",
         "sourceRecord": "The Siege of the Dreadful Grove"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:50:45+00:00",
-        "sourceArticles": [
-          "siege_of_dreadful_grove",
-          "the_grove_of_woe_incident",
-          "archie_miser"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "bryan": {
       "name": "Bryan",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “Archie’s Frog God Dream and the Burning Vigilance Duel”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:19:44.019964+00:00",
         "sourceRecord": "Archie’s Frog God Dream and the Burning Vigilance Duel"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:50:46+00:00",
-        "sourceArticles": [
-          "archie_frog_god_dream_duel",
-          "star_shard_caves_tanuki_origin",
-          "archies_return_to_shadow_estate",
-          "vigilance",
-          "the_grove_of_woe_incident"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "yugoloths": {
       "name": "Yugoloths",
-      "status": "removed",
-      "entityKind": "other",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Planar Sanctum Canoloth Skirmish”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:20:24.439854+00:00",
         "sourceRecord": "The Planar Sanctum Canoloth Skirmish"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:52:25+00:00",
-        "sourceArticles": [
-          "battle_planar_sanctum_canoloth",
-          "the_awakening_in_planar_sanctum_and_veins_of_the_tapestry",
-          "bones",
-          "the_oracle",
-          "bryan"
-        ],
-        "decision": "removed",
-        "entityKind": "other"
       }
     },
     "disaster_inc_allies": {
       "name": "Disaster Inc Allies",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Planar Sanctum Canoloth Skirmish”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:20:24.441754+00:00",
         "sourceRecord": "The Planar Sanctum Canoloth Skirmish"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:52:25+00:00",
-        "sourceArticles": [
-          "battle_planar_sanctum_canoloth",
-          "the_awakening_in_planar_sanctum_and_veins_of_the_tapestry",
-          "bones",
-          "the_oracle",
-          "bryan"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "archivist": {
       "name": "Archivist",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Four Portal Artifacts”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:27:41.492849+00:00",
         "sourceRecord": "The Four Portal Artifacts"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:52:29+00:00",
-        "sourceArticles": [
-          "portal_artifacts_collection",
-          "shadow_estate",
-          "planar_fracture"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "global": {
       "name": "Global",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “National Power Projection & Multiverse Balance”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:31:09.740825+00:00",
         "sourceRecord": "National Power Projection & Multiverse Balance"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:52:29+00:00",
-        "sourceArticles": [
-          "national_power_projection",
-          "regal_empire",
-          "iron_legion",
-          "mushroom_regency",
-          "mount_ebott_survey_mission"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "feyward_nameless_guard": {
       "name": "Feyward Nameless Guard",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “Chop Bros, the OC Soul Ring, and the Guard With No Name”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:36:17.217851+00:00",
         "sourceRecord": "Chop Bros, the OC Soul Ring, and the Guard With No Name"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:52:31+00:00",
-        "sourceArticles": [
-          "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
-          "feyward_amnesia_vines_morel_steely",
-          "feyward_dark_rooms_and_balcony_planning",
-          "the_feyward_revel_and_the_book_of_many_things"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "feyward_high_school": {
       "name": "Feyward High School",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “Chop Bros, the OC Soul Ring, and the Guard With No Name”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:36:17.221209+00:00",
         "sourceRecord": "Chop Bros, the OC Soul Ring, and the Guard With No Name"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:52:33+00:00",
-        "sourceArticles": [
-          "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
-          "feyward_amnesia_vines_morel_steely",
-          "feyward_dark_rooms_and_balcony_planning",
-          "the_feyward_revel_and_the_book_of_many_things"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "waluigi": {
       "name": "Waluigi",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Box Guardian, the Sharpie Disguise, and the Soot-Barrel Trap”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:36:48.943108+00:00",
         "sourceRecord": "The Box Guardian, the Sharpie Disguise, and the Soot-Barrel Trap"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:52:34+00:00",
-        "sourceArticles": [
-          "the_box_guardian_sharpie_disguise_and_the_soot_barrel",
-          "the_imp_ambush_aftermath_and_kyrn_cell_escape",
-          "the_imp_ambush_of_harvestide_29",
-          "remi_akamatsu_full_backstory",
-          "markop"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "chunky_kong_junimus_gorolini_bongo_jr": {
       "name": "Chunky Kong Junimus Gorolini Bongo Jr",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Funeral of Junimus Gorolini Bongo Jr.”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:04.171962+00:00",
         "sourceRecord": "The Funeral of Junimus Gorolini Bongo Jr."
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:52:36+00:00",
-        "sourceArticles": [
-          "funeral_of_junimus_gorolini_bongo_jr",
-          "kongo_bongo",
-          "second_summit",
-          "dk_crew",
-          "wario"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "funky_kong": {
       "name": "Funky Kong",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Funeral of Junimus Gorolini Bongo Jr.”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:04.186172+00:00",
         "sourceRecord": "The Funeral of Junimus Gorolini Bongo Jr."
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:54:17+00:00",
-        "sourceArticles": [
-          "funeral_of_junimus_gorolini_bongo_jr",
-          "kongo_bongo",
-          "second_summit",
-          "dk_crew",
-          "wario"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "scout_pericarp": {
       "name": "Scout Pericarp",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Supply Convoy Massacre”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:20.490066+00:00",
         "sourceRecord": "The Supply Convoy Massacre"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:52:54+00:00",
-        "sourceArticles": [
-          "supply_convoy_massacre",
-          "chaos_heart_crisis",
-          "mushroom_kingdom",
-          "mr_l",
-          "luigi"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "magikoopa_council": {
@@ -1367,141 +1021,97 @@
     },
     "michael_afton": {
       "name": "Michael Afton",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Seven Nights at Fazbear: A Complete Record”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:49.281147+00:00",
         "sourceRecord": "The Seven Nights at Fazbear: A Complete Record"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:54:19+00:00",
-        "sourceArticles": [
-          "fazbear_seven_nights",
-          "iron_legion",
-          "shroob_temporal_incursion",
-          "mages_guild",
-          "wario"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "vanny_white_rabbit": {
       "name": "Vanny White Rabbit",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Seven Nights at Fazbear: A Complete Record”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:49.283108+00:00",
         "sourceRecord": "The Seven Nights at Fazbear: A Complete Record"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:54:21+00:00",
-        "sourceArticles": [
-          "fazbear_seven_nights",
-          "iron_legion",
-          "shroob_temporal_incursion",
-          "mages_guild",
-          "wario"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "liberator_mage": {
       "name": "Liberator Mage",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Prison Island Liberation”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:25:53.276010+00:00",
         "sourceRecord": "The Prison Island Liberation"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:54:23+00:00",
-        "sourceArticles": [
-          "prison_island_liberation",
-          "iron_legion",
-          "the_eastern_passage",
-          "bryan",
-          "mario"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "liberator_spy": {
       "name": "Liberator Spy",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Prison Island Liberation”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:25:53.277995+00:00",
         "sourceRecord": "The Prison Island Liberation"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:54:25+00:00",
-        "sourceArticles": [
-          "prison_island_liberation",
-          "iron_legion",
-          "the_eastern_passage",
-          "bryan",
-          "mario"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "wario_bros": {
       "name": "Wario Bros",
-      "status": "removed",
-      "entityKind": "other",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Lounge Brawl”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:42:42.642512+00:00",
         "sourceRecord": "The Lounge Brawl"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:54:27+00:00",
-        "sourceArticles": [
-          "the_lounge_brawl",
-          "the_lounge_incident_and_the_paper_war",
-          "disaster_inc",
-          "waluigi"
-        ],
-        "decision": "removed",
-        "entityKind": "other"
       }
     },
     "koopa_foreman": {
@@ -1525,194 +1135,135 @@
     },
     "bob_omb_demolitions_expert": {
       "name": "Bob Omb Demolitions Expert",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Sewer Extraction”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:44:03.527169+00:00",
         "sourceRecord": "The Sewer Extraction"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:57:15+00:00",
-        "sourceArticles": [
-          "safehouse_rescue_mission"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "sergeant_moldsworth": {
       "name": "Sergeant Moldsworth",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Battle of Lineland Road”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:44:38.095067+00:00",
         "sourceRecord": "The Battle of Lineland Road"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:57:17+00:00",
-        "sourceArticles": [
-          "battle_of_lineland_road",
-          "chaos_heart_crisis",
-          "mushroom_kingdom",
-          "mr_l",
-          "luigi"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "united_forces_of_fight_or_flight": {
       "name": "United Forces Of Fight Or Flight",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Battle of Lineland Road”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:44:38.098658+00:00",
         "sourceRecord": "The Battle of Lineland Road"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:57:20+00:00",
-        "sourceArticles": [
-          "battle_of_lineland_road",
-          "chaos_heart_crisis",
-          "mushroom_kingdom",
-          "mr_l",
-          "luigi"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "sarasaland_high_society": {
       "name": "Sarasaland High Society",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Sarasaland Incident”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:45:57.051655+00:00",
         "sourceRecord": "The Sarasaland Incident"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:57:22+00:00",
-        "sourceArticles": [
-          "sarasaland_incident_1033",
-          "sarasaland_incident",
-          "chaos_heart_crisis",
-          "ruined_manor_convergence",
-          "mr_l"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "crematoria_guild": {
       "name": "Crematoria Guild",
-      "status": "removed",
-      "entityKind": "generic",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Refugee Camp Visitation”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:46:45.037708+00:00",
         "sourceRecord": "The Refugee Camp Visitation"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:57:26+00:00",
-        "sourceArticles": [
-          "refugee_camp_visitation",
-          "chaos_heart_crisis",
-          "ruined_manor_convergence",
-          "mr_l",
-          "luigi"
-        ],
-        "decision": "removed",
-        "entityKind": "generic"
       }
     },
     "prince_peasley": {
       "name": "Prince Peasley",
-      "status": "removed",
-      "entityKind": "person",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Second Diplomatic Summit”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:47:22.835897+00:00",
         "sourceRecord": "The Second Diplomatic Summit"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:57:28+00:00",
-        "sourceArticles": [
-          "second_summit",
-          "dk_crew",
-          "dreamland",
-          "fountain_of_dreams",
-          "princess_daisy"
-        ],
-        "decision": "removed",
-        "entityKind": "person"
       }
     },
     "arab_yeti": {
       "name": "Arab Yeti",
-      "status": "removed",
-      "entityKind": "event",
-      "redirectFactionId": "",
+      "description": "Named in the record “The Second Diplomatic Summit”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:47:22.908115+00:00",
         "sourceRecord": "The Second Diplomatic Summit"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:57:30+00:00",
-        "sourceArticles": [
-          "second_summit",
-          "dk_crew",
-          "dreamland",
-          "fountain_of_dreams",
-          "princess_daisy"
-        ],
-        "decision": "removed",
-        "entityKind": "event"
       }
     },
     "koopa_resistance_main_force": {
@@ -1732,34 +1283,6 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:48:32.772130+00:00",
         "sourceRecord": "The Fall of the Regent Sorcerer"
-      }
-    },
-    "kosodate_family": {
-      "name": "Kosodate Family",
-      "status": "removed",
-      "entityKind": "other",
-      "redirectFactionId": "",
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "factions",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:59:34.868434+00:00",
-        "sourceRecord": "The Mount Ebott Survey: Part VI"
-      },
-      "_generatedDossierReview": {
-        "by": "tools/genkit",
-        "system": "faction-dossiers",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T18:59:37+00:00",
-        "sourceArticles": [
-          "mount_ebott_survey_part_6",
-          "mount_ebott",
-          "mount_ebott_survey_part_5",
-          "mount_ebott_survey_part_7",
-          "sans"
-        ],
-        "decision": "removed",
-        "entityKind": "other"
       }
     }
   }
