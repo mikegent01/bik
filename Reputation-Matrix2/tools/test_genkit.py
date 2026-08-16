@@ -547,6 +547,11 @@ check("GUI preserves limit, temperature, workers and dry-run defaults",
       and 'id="limit" type="number" min="0" value="3"' in gui_page
       and 'id="temperature" type="number" step="0.05" min="0" max="2" value="0.45"' in gui_page
       and 'id="dry" style="width:auto" checked' in gui_page)
+check("GUI labels pending counts as live data", "pending (live)" in gui_page)
+inventory_doc = (Path(__file__).resolve().parent / "GENERATOR_INVENTORY.md").read_text()
+check("inventory documentation contains no static pending snapshot",
+      "Counted from the data files" not in inventory_doc
+      and "no committed pending-job list" in inventory_doc)
 
 # ------------------------------------------------- people are not factions
 section("factions · a person is never a faction")

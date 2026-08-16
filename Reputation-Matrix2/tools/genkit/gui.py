@@ -177,7 +177,7 @@ PAGE = """<!doctype html>
   </div>
  </div>
  <div class="main">
-  <table id="systems"><thead><tr><th>stage</th><th>system</th><th>pending</th>
+  <table id="systems"><thead><tr><th>stage</th><th>system</th><th>pending (live)</th>
    <th>ok</th><th>fail</th></tr></thead><tbody></tbody></table>
   <div class="log" id="log"></div>
  </div>
@@ -346,7 +346,7 @@ def launch_tk(defaults: Settings | None = None) -> None:
     )
     for column, heading, width in (
         ("#0", "system", 320), ("stage", "stage", 60),
-        ("pending", "pending", 90), ("ok", "ok", 70), ("fail", "fail", 70),
+        ("pending", "pending (live)", 100), ("ok", "ok", 70), ("fail", "fail", 70),
     ):
         table.heading(column, text=heading)
         table.column(column, width=width, anchor="w" if column == "#0" else "center")

@@ -41,7 +41,7 @@ ICONS = {"ok": "✅", "fail": "❌", "skip": "⏭", "task": "→", "started": "�
 def print_inventory() -> None:
     systems = all_systems()
     width = max(len(s.title) for s in systems)
-    print("\nGeneratable systems — pending work\n")
+    print("\nGeneratable systems — live pending work\n")
     print(f"  {'stage':<6}{'system':<{width + 2}}{'pending':>9}")
     print("  " + "─" * (width + 17))
     total = 0

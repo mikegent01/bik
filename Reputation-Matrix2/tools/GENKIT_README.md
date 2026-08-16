@@ -39,7 +39,9 @@ Two rules bend the randomness:
 ## Registered systems
 
 The authoritative counts are live — run `python3 tools/generate_all.py --inventory`
-rather than copying a total from this document. The cycle currently includes:
+rather than copying a total from this document. `GENERATOR_INVENTORY.md` now
+defines completion semantics only; it contains no static totals or job list. The
+CLI and GUI recompute every count from source data. The cycle currently includes:
 
 | stage | id | what it does |
 |---|---|---|
