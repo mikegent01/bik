@@ -3550,10 +3550,31 @@ html[data-wz-theme="dark"] .ab-ic {
 .by-school-count { margin-left: auto; font-size: 12px; color: var(--wz-muted); border: 1px solid var(--wz-line); border-radius: 11px; padding: 2px 9px; white-space: nowrap; }
 .by-school-summary { margin: 6px 0 0; font-size: 13px; color: var(--wz-muted); line-height: 1.5; }
 .by-school-doctrine { margin: 5px 0 12px; font-size: 13px; font-style: italic; color: #8a6d1f; line-height: 1.5; }
-.by-school .by-tech { margin-bottom: 16px; }
-.by-tech { margin-bottom: 22px; }
-.by-tech-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
-.by-tech-head h3 { margin: 0; font-size: 17px; }
+.by-school .by-tech { margin-bottom: 14px; }
+
+/* Each technique is its own panel inside the school. Without this the
+   techniques ran together as one undifferentiated column of text — there was
+   nothing to tell the reader where one move stopped and the next began. */
+.by-tech {
+  margin: 0 0 14px;
+  padding: 13px 15px 14px;
+  /* surface-2, not surface: surface is #fff in light mode, identical to the
+     school card behind it, so the panel would have been invisible. */
+  background: var(--wz-surface-2);
+  border: 1px solid var(--wz-line);
+  border-radius: 9px;
+}
+.by-tech:last-child { margin-bottom: 14px; }
+.by-tech-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 8px;
+  margin-bottom: 9px;
+  border-bottom: 1px solid var(--wz-line);
+}
+.by-tech-head h3 { margin: 0; font-size: 17px; letter-spacing: .01em; }
 .by-partners { font-size: 12px; color: var(--wz-muted); }
 .by-tech-blurb { margin: 4px 0 6px; font-size: 13px; color: var(--wz-muted); font-style: italic; }
 /* The real prose. Reads as body copy, not as a caption. */
@@ -3658,6 +3679,12 @@ html[data-wz-theme="dark"] .by-school {
   border-color: var(--wz-line);
 }
 html[data-wz-theme="dark"] .by-school-doctrine { color: var(--wz-gold); }
+
+html[data-wz-theme="dark"] .by-tech {
+  background: var(--wz-surface-2);
+  border-color: var(--wz-line);
+}
+html[data-wz-theme="dark"] .by-tech-head { border-bottom-color: var(--wz-line); }
 
 html[data-wz-theme="dark"] .by-kit { background: var(--wz-card); border-color: var(--wz-line); }
 html[data-wz-theme="dark"] .by-kit:hover { box-shadow: var(--wz-shadow); }
