@@ -142,8 +142,11 @@ were rejected once and recovered rather than lost.
 
 - **Atomic writes.** Everything goes through a temp file and `os.replace`, so
   an interrupted run cannot truncate `crafting.json`.
-- **Checkpoints.** `tools/.genkit/checkpoint-<system>.json` records every key.
-  Re-running skips completed work; the directory is disposable.
+- **Checkpoints.** `tools/.genkit/checkpoint-<system>.json` records real writes
+  for diagnostics and interrupted-run reporting; the directory is disposable.
+  The data files remain authoritative. If `next_tasks()` offers a supposedly
+  completed key, the runner automatically reopens that stale checkpoint instead
+  of skipping pending work.
 - **Repair before rejection.** A wrong answer is usually a *nearly right*
   answer in the wrong vocabulary, so the validators resolve before they refuse:
   `ALCHEMY` → `TRANSMUTATION`, `gadgets` → `curiosities`, `Original Dan` →
@@ -164,8 +167,11 @@ were rejected once and recovered rather than lost.
   is refused with a message naming the legal values.
 - **Category discipline.** `normalizeItem()` silently dumps unknown categories
   into `curiosities`; the validator resolves them properly or rejects loudly.
-- **Dry run.** `--dry-run` exercises prompt → validate → checkpoint and writes
-  nothing.
+- **Dry run.** `--dry-run` exercises prompt → validate and writes nothing —
+  including no checkpoint. Before this rule, a successful dry run marked a task
+  complete without changing its data, so every later real run skipped it and
+  the pending count never moved. Existing stale checkpoints self-heal when the
+  source offers those tasks again.
 
 ## WAHwire authoring rules
 

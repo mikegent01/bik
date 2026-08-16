@@ -170,6 +170,32 @@ class Checkpoint:
     def done(self, key: str) -> bool:
         return key in self.completed_keys
 
+    def reopen(self, key: str, *, reason: str = "source still reports pending") -> int:
+        """Remove stale completion entries for a task the source still offers.
+
+        Data files, not checkpoints, are the source of truth. A successful dry
+        run in older versions recorded a completion without changing data, so
+        every real run afterwards skipped the same task forever. A restored or
+        manually repaired data file creates the same mismatch. If a system's
+        `next_tasks()` offers the key again, its checkpoint is stale by
+        definition and must not be allowed to veto the work.
+        """
+        with self._lock:
+            completed = self._data.get("completed", [])
+            kept = [entry for entry in completed if entry.get("key") != key]
+            removed = len(completed) - len(kept)
+            if not removed:
+                return 0
+            self._data["completed"] = kept
+            self._data.setdefault("reopened", []).append({
+                "key": key,
+                "at": datetime.now(timezone.utc).isoformat(),
+                "reason": reason,
+            })
+            self._data["updatedAt"] = datetime.now(timezone.utc).isoformat()
+            atomic_write_json(self.path, self._data)
+            return removed
+
     def record(self, key: str, detail: dict[str, Any], *, ok: bool = True) -> None:
         with self._lock:
             bucket = "completed" if ok else "failed"

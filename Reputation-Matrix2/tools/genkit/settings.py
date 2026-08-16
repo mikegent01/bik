@@ -33,7 +33,8 @@ class Settings:
     # Systems to skip even when they are enabled.
     skip: list[str] = field(default_factory=list)
 
-    # Dry run: call the model, validate, checkpoint, but never touch data/.
+    # Dry run: call the model and validate, but persist neither data nor a
+    # checkpoint (a checkpoint would incorrectly block the later real run).
     dry_run: bool = False
     # Seed for the popcorn order. 0 = clock-seeded.
     seed: int = 0

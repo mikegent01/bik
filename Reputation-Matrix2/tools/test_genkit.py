@@ -15,8 +15,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from genkit.spec import Task, TaskResult, ValidationError  # noqa: E402
+from genkit.spec import SystemSpec, Task, TaskResult, ValidationError  # noqa: E402
 from genkit.scheduler import PopcornScheduler  # noqa: E402
+from genkit.runner import Runner  # noqa: E402
+from genkit.settings import Settings  # noqa: E402
+from genkit.storage import Checkpoint  # noqa: E402
 from genkit.systems import (  # noqa: E402
     abilities, bros_attacks, crafting, faction_dossiers, factions, reputation,
     shop_items, wahwire,
@@ -346,6 +349,52 @@ check("Task tracks attempts", Task(system_id="s", key="k", label="l").attempts =
 r = TaskResult(task=t, ok=False, detail="d", retryable=True, reason="because")
 check("TaskResult carries retryable", r.retryable is True)
 check("TaskResult carries a reason", r.reason == "because")
+
+# -------------------------------------------- checkpoints follow source data
+section("checkpoints · pending data wins")
+
+checkpoint_dir = _SCRATCH / "checkpoint-tests"
+checkpoint = Checkpoint(checkpoint_dir, "demo")
+checkpoint.record("demo:pending", {"label": "old dry run"}, ok=True)
+check("fixture starts with a completed key", checkpoint.done("demo:pending"))
+removed = checkpoint.reopen("demo:pending")
+check("reopening removes the stale completion",
+      removed == 1 and not checkpoint.done("demo:pending"), str(removed))
+check("reopening leaves an audit trail",
+      checkpoint._data.get("reopened", [{}])[-1].get("key") == "demo:pending",
+      str(checkpoint._data.get("reopened")))
+
+checkpoint_spec = SystemSpec(
+    id="checkpoint-demo", title="Checkpoint demo", summary="test",
+    next_tasks=lambda count: [], pending=lambda: 0,
+)
+checkpoint_runner = Runner(
+    [checkpoint_spec],
+    Settings(workers=1, work_dir=checkpoint_dir),
+)
+checkpoint_task = Task(
+    system_id="checkpoint-demo", key="checkpoint-demo:pending", label="pending task",
+)
+checkpoint_runner.checkpoints["checkpoint-demo"].record(
+    checkpoint_task.key, {"label": "old completion"}, ok=True,
+)
+check("runner reopens a checkpoint when the system offers that task again",
+      checkpoint_runner._reopen_stale_checkpoint(checkpoint_task)
+      and not checkpoint_runner.checkpoints["checkpoint-demo"].done(checkpoint_task.key))
+
+dry_spec = SystemSpec(
+    id="dry-demo", title="Dry demo", summary="test",
+    next_tasks=lambda count: [], pending=lambda: 0,
+)
+dry_runner = Runner(
+    [dry_spec],
+    Settings(workers=1, dry_run=True, work_dir=checkpoint_dir),
+)
+dry_task = Task(system_id="dry-demo", key="dry-demo:1", label="dry task")
+dry_runner._collect(TaskResult(task=dry_task, ok=True, detail="dry run"))
+check("a successful dry run writes no completion checkpoint",
+      dry_runner.checkpoints["dry-demo"].counts() == (0, 0),
+      str(dry_runner.checkpoints["dry-demo"].counts()))
 
 # ------------------------------------------------- people are not factions
 section("factions · a person is never a faction")

@@ -47,10 +47,10 @@ class PopcornScheduler:
         # stages, whereas a stage whose issued tasks have all come back has
         # genuinely finished even though `_issued` is still full of its keys.
         self._inflight: dict[str, set[str]] = {s.id: set() for s in self.systems}
-        # Tasks that came back without changing the disk: rejected by the
-        # validator, or skipped because a checkpoint had already recorded them.
-        # The system will keep offering these forever, so the refill window has
-        # to be wide enough to see past them to the work that is actually left.
+        # Tasks that came back without changing the disk, normally because the
+        # validator rejected them. The system will keep offering these forever,
+        # so the refill window has to be wide enough to see past them to the
+        # work that is actually left.
         self._stuck: dict[str, int] = {}
         # How many tasks each system has actually been handed. Popcorn order is
         # "one record at a time per system", and the only way to hold that over
@@ -158,9 +158,9 @@ class PopcornScheduler:
         """A worker finished with `task`; `changed` says whether disk moved.
 
         This is the signal that keeps the run alive. A task that changed
-        nothing — rejected by the validator, or already in the checkpoint —
-        will be offered by its system again on every future refill, so it is
-        counted as stuck and the refill window grows past it. Either way the
+        nothing — normally one rejected by the validator — will be offered by
+        its system again on every future refill, so it is counted as stuck and
+        the refill window grows past it. Either way the
         system stops being in flight for this key and is allowed back into
         scheduling.
         """

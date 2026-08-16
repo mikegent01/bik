@@ -141,16 +141,7 @@ class Runner:
                     break
                 time.sleep(0.2)
                 continue
-            checkpoint = self.checkpoints[task.system_id]
-            if checkpoint.done(task.key):
-                # Tell the scheduler, or it will offer this same key on every
-                # refill for the rest of the run and the console fills with
-                # "already done" while nothing is generated.
-                self.scheduler.complete(task, changed=False)
-                self._emit(
-                    RunnerEvent("skip", f"already done: {task.label}", task.system_id)
-                )
-                continue
+            self._reopen_stale_checkpoint(task)
             self._emit(RunnerEvent("task", task.label, task.system_id))
             self.pool.submit(task)
             if self.settings.pace:
@@ -172,6 +163,21 @@ class Runner:
                 retried=self.retried,
             )
         )
+
+    def _reopen_stale_checkpoint(self, task: Task) -> bool:
+        """Let an on-disk pending task override an old completion marker."""
+        checkpoint = self.checkpoints[task.system_id]
+        if not checkpoint.done(task.key):
+            return False
+        # `next_tasks()` just read the data file and offered this key, so the
+        # data says it is pending. Data wins. Older dry runs wrote successful
+        # checkpoints without writing records, which made real runs skip
+        # forever; reopening self-heals those installations on first use.
+        checkpoint.reopen(task.key)
+        self._emit(RunnerEvent(
+            "retry", f"reopened stale checkpoint: {task.label}", task.system_id
+        ))
+        return True
 
     # -- worker body --------------------------------------------------------
 
@@ -321,11 +327,17 @@ class Runner:
                 self.produced += 1
             else:
                 self.failed += 1
-        checkpoint.record(
-            result.task.key,
-            {"label": result.task.label, "detail": result.detail},
-            ok=result.ok,
-        )
+        # Dry-run means *nothing persistent*. Older versions wrote successful
+        # checkpoints here even though `_handle()` deliberately skipped the
+        # data write. That poisoned every subsequent real run: the source kept
+        # reporting the task pending while the runner kept saying "already
+        # done". Existing poisoned checkpoints are healed in `run()` above.
+        if not self.settings.dry_run:
+            checkpoint.record(
+                result.task.key,
+                {"label": result.task.label, "detail": result.detail},
+                ok=result.ok,
+            )
         self._emit(
             RunnerEvent(
                 "ok" if result.ok else "fail",
