@@ -51822,5 +51822,2205 @@ export const ITEMS_WORLD_GENERATED = {
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-16T15:48:43+00:00"
     }
+  },
+  "wz_gen_mythic_0003": {
+    "id": "wz_gen_mythic_0003",
+    "name": "Eterna-Divinity's Chronal Annulment",
+    "description": "A delicate glass vial containing a shimmering, time-distorted liquid that can be used to negate the effects of one spell per day. The chronal fluid disrupts temporal patterns, causing spells to falter and dissipate.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "⚡️",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires a high level of magical proficiency to properly handle such volatile time magic.",
+    "effectDetails": [
+      {
+        "title": "Temporal Disruption",
+        "rules": "When used, it creates an unpredictable temporal ripple that negates the effects of one spell cast in the same round. The duration is instantaneous."
+      },
+      {
+        "title": "Reactive Counter",
+        "rules": "Every 10th use (starting from the first), the vial releases a stronger disruption that counters two spells instead of one, but it shatters and cannot be used again."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Instantaneous",
+      "endsWhen": "Used up or until the spell's effect is negated.",
+      "charges": "10 uses per vial; recharges after a week of sitting in direct sunlight."
+    },
+    "warning": "The liquid is highly unstable and can cause unintended time distortions if not used correctly, potentially affecting allies as well.",
+    "vendorReason": "Wario stocks it because its unpredictable nature and the rare chance for two spell negations make it a high-demand curiosity among adventurers seeking to challenge the known laws of magic.",
+    "shippingDetail": "The vial is sent with strict instructions to keep it in direct sunlight, ensuring it remains unstable during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:13:45+00:00"
+    }
+  },
+  "wz_gen_common_0004": {
+    "id": "wz_gen_common_0004",
+    "name": "Snore-Silence Soporific",
+    "description": "A small vial of soporific essence that induces a deep, dreamless sleep for the user.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "[Z]",
+    "stock": 3,
+    "levelRequirement": 1,
+    "levelRequirementReason": "Even adventurers need rest to recover their vigor.",
+    "effectDetails": [
+      {
+        "title": "Instant Sleep",
+        "rules": "The user falls into a deep slumber for 1 hour, ending the effect."
+      }
+    ],
+    "usage": {
+      "activation": "consumption",
+      "duration": "1 hour of uninterrupted sleep",
+      "endsWhen": "natural wake-up or interrupted by noise louder than 60 decibels",
+      "charges": "single-use"
+    },
+    "warning": "The user's dreams are vivid and potentially disturbing, lasting the entire duration.",
+    "vendorReason": "Wario stocks it for those nights when a good night's sleep is hard to come by, even in dreamland.",
+    "shippingDetail": "Shipped via Wario's Flying Mouser Express, guaranteed delivery within 30 minutes.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:14:38+00:00"
+    }
+  },
+  "wz_gen_epic_0004": {
+    "id": "wz_gen_epic_0004",
+    "name": "Chrono-Skipper's Arcane Jetpack",
+    "description": "This jetpack allows you to defy the passage of time, temporarily pausing an encounter for a few rounds. However, using it too often may cause your enemies' tempers to flare.",
+    "price": 5000,
+    "category": "equipment",
+    "rarity": "epic",
+    "icon": "🚀",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires understanding of complex temporal mechanics beyond simple combatants.",
+    "effectDetails": [
+      {
+        "title": "Temporal Pause",
+        "rules": "Pauses time for the user and all allies within a 30-foot radius for up to 2 rounds. Any enemy actions are halted during this time."
+      },
+      {
+        "title": "Stress Amplification",
+        "rules": "Enemies gain advantage on reaction rolls and saving throws against being stunned or knocked prone, lasting until their next action after the effect ends."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "up to 2 rounds",
+      "endsWhen": "the duration expires or time resumes normally (whichever comes first)",
+      "charges": "3 charges; recharges on a short rest"
+    },
+    "warning": "Using this item too frequently may cause the user's temporal signature to destabilize, leading to unpredictable effects.",
+    "vendorReason": "Wario knows that players need ways to change things up and keep their encounters from becoming mundane. Plus, it’s always fun to have a little chaos in the mix.",
+    "shippingDetail": "The jetpack is delivered with a set of instructions written in Wario's chicken scratch, along with a pair of safety goggles made out of old CDs.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:14:53+00:00"
+    }
+  },
+  "wz_gen_mythic_0004": {
+    "id": "wz_gen_mythic_0004",
+    "name": "Eterna-Divinity's Temporal Nexus",
+    "description": "This glowing, intricate artifact grants the wielder control over time within a five-foot radius. However, it draws immense power from the very fabric of reality.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": ":clock6:",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires mastery of temporal magic and an understanding of the balance between creation and destruction.",
+    "effectDetails": [
+      {
+        "title": "Temporal Veil",
+        "rules": "Casts a five-foot-radius veil of time over the wielder, allowing them to pause or rewind time for one round. Requires concentration."
+      },
+      {
+        "title": "Chronal Drain",
+        "rules": "Draws 1d6+3 seconds from the local timeline each time it is used, permanently altering the environment."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "One round while concentrating",
+      "endsWhen": "Concentration ends or the wielder is incapacitated",
+      "charges": "5 uses per long rest; fully replenished"
+    },
+    "warning": "Excessive use can tear a rift in time, affecting nearby creatures and environments unpredictably.",
+    "vendorReason": "Wario stocks this item to capitalize on the rare adventurer seeking power at any cost.",
+    "shippingDetail": "Shipped via warp speed express, delivered by Chrono Express.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:16:34+00:00"
+    }
+  },
+  "wz_gen_legendary_0005": {
+    "id": "wz_gen_legendary_0005",
+    "name": "Chrona-Divinity's Eternity Anchor",
+    "description": "A delicate brass anchor inscribed with ancient runes, it can bind and stabilize time within a five-foot radius for one minute. Known to have been used in pivotal battles of the past.",
+    "price": 25000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "-anchor:",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires deep knowledge of temporal mechanics to wield safely.",
+    "effectDetails": [
+      {
+        "title": "Stabilize Time",
+        "rules": "For one minute, a five-foot radius is immune to time-altering effects. Any time-based attacks or abilities have their damage reduced by 50%. After the duration ends, the user must make a DC 18 Wisdom saving throw to avoid disorientation."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "One minute",
+      "endsWhen": "The time stabilization effect expires or the anchor breaks.",
+      "charges": "3 charges; recharged on a short rest."
+    },
+    "warning": "Using this item near other time-stabilizing devices can cause catastrophic temporal distortions.",
+    "vendorReason": "Eterna-Divinity's Chronal Nullifier is out of stock, so Wario stocks this lesser-known but equally powerful alternative.",
+    "shippingDetail": "Ships with a time-delayed courier who ensures the package arrives exactly when it should.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:17:06+00:00"
+    }
+  },
+  "wz_gen_epic_0006": {
+    "id": "wz_gen_epic_0006",
+    "name": "Chrona-Delusion's Whirlwind Cloak",
+    "description": "This cloak is woven from the very fabric of paradox, granting you the power to alter combat dynamics. Once per short rest, you can transform an enemy’s action into a harmless or beneficial one for your allies.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🌪",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a deep understanding of time manipulation and its effects on battle strategies.",
+    "effectDetails": [
+      {
+        "title": "Action Shift",
+        "rules": "As an action, you can spend one charge to reroll any enemy's attack roll. If the result is 19 or lower, it becomes a miss."
+      },
+      {
+        "title": "Blast of Delusion",
+        "rules": "Once per short rest, you can cast a delusional effect on an opponent within 30 feet. The target must succeed on a Wisdom saving throw (DC 15) or be stunned for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the end of your next turn after activation",
+      "endsWhen": "The effect runs its course or you take an action that ends it early",
+      "charges": "{currentCharges}/{totalCharges} - You regain all expended charges at the start of each short rest."
+    },
+    "warning": "Overuse can distort reality, causing a cascade of paradoxes that may affect your allies.",
+    "vendorReason": "Wario stocks this item because it's a must-have for those who want to bend combat to their will without directly engaging in dangerous confrontations.",
+    "shippingDetail": "Sent via Wario's Time-Travel Express, guaranteed within three days, or it’s free!",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:17:44+00:00"
+    }
+  },
+  "wz_gen_common_0007": {
+    "id": "wz_gen_common_0007",
+    "name": "Dreamy Drowse Pad",
+    "description": "This soft, cloud-like pad induces a deep slumber for its user, providing much-needed rest.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "잠",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Even the simplest adventurers need a good night's sleep to recover their strength and focus.",
+    "effectDetails": [
+      {
+        "title": "Instant Rest",
+        "rules": "User falls asleep instantly, regaining 1d6 + Constitution modifier hit points."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "until the user wakes up naturally",
+      "endsWhen": "the user wakes up after 8 hours of sleep",
+      "charges": "regenerates when used"
+    },
+    "warning": "While under its effects, the user cannot be awoken by external means.",
+    "vendorReason": "Wario knows that a good night's rest is hard to come by in this chaotic world.",
+    "shippingDetail": "Shipped within a Snore-Silence-Inducing Cloud.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:18:38+00:00"
+    }
+  },
+  "wz_gen_epic_0007": {
+    "id": "wz_gen_epic_0007",
+    "name": "Eternity's Temporal Flux Reverser",
+    "description": "This ancient bauble reverses the flow of time, allowing a single creature to go back one round in combat. Useful for dodging damage or setting up an ambush.",
+    "price": 5000,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires sufficient expertise with temporal magic and combat to wield its power effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Leap",
+        "rules": "The user can cause a target to travel back one round in the timeline. This grants the target advantage on their next attack roll."
+      },
+      {
+        "title": "Chronal Echo",
+        "rules": "For every use, there's a 20% chance that the effect triggers an echo, where both the target and the user are simultaneously sent back one round."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round",
+      "endsWhen": "The targeted creature completes their action in the previous round.",
+      "charges": "2 uses, recharges at the start of each long rest."
+    },
+    "warning": "Using this curio too often may cause temporal disturbances, affecting nearby creatures and possibly causing them to miss important moments or actions.",
+    "vendorReason": "Wario finds it amusing that such a chaotic item is still in circulation, given its potential for creating hilarious misadventures.",
+    "shippingDetail": "Delivered with an hourglass charm to ensure the recipient can track the flow of time during their encounter.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:18:58+00:00"
+    }
+  },
+  "wz_gen_legendary_0007": {
+    "id": "wz_gen_legendary_0007",
+    "name": "Eterna-Divinity's Chronal Surge",
+    "description": "A legendary relic said to grant the user a fraction of Eternity's power. It releases a surge that can heal wounds and restore vitality, but only for a fleeting moment.",
+    "price": 18000,
+    "category": "consumables",
+    "rarity": "legendary",
+    "icon": "⚡",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires significant mastery over temporal magic to wield its raw potential.",
+    "effectDetails": [
+      {
+        "title": "Chronal Healing",
+        "rules": "Heals the user and one ally for 2d6+4 hit points. Effect lasts 1 round."
+      },
+      {
+        "title": "Temporal Pulse",
+        "rules": "Creates a brief, blinding pulse that stuns all enemies in a 30-foot radius for 1d4+1 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 round per use",
+      "endsWhen": "Ends naturally after its duration expires or when the user is incapacitated.",
+      "charges": "5 uses, recharges after a full night's sleep."
+    },
+    "warning": "The surge can only be used once every three days to prevent overuse and potential temporal instability.",
+    "vendorReason": "Wario stocks this item because its lore and limited supply make it highly sought after by adventurers in need of a miracle.",
+    "shippingDetail": "The Chronal Surge is carefully shipped in a specially insulated time-capsule to preserve the artifact's integrity.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:19:26+00:00"
+    }
+  },
+  "wz_gen_mythic_0007": {
+    "id": "wz_gen_mythic_0007",
+    "name": "Eterna-Divinity's Annihilator",
+    "description": "A mystic relic capable of erasing a single, specified reality-altering event from time. It vanishes the moment its effect is fully realized.",
+    "price": 75000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "💥",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires profound understanding and control over temporal mechanics.",
+    "effectDetails": [
+      {
+        "title": "Temporal Erasure",
+        "rules": "Target a specific event by name within the last five rounds. It is undone, as if it never happened."
+      },
+      {
+        "title": "Reality Ripple",
+        "rules": "Causes all creatures and objects in a 10-foot radius to experience a minor paradox for 1 round. Roll 2d6 for each creature, on a result of 5 or lower, they must succeed on a DC 14 Wisdom saving throw or be disoriented until the start of their next turn."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect; duration is variable based on the event erased.",
+      "endsWhen": "The targeted event is erased from history, or the object vanishes.",
+      "charges": "Single use per day. Charges replenish after a week of rest."
+    },
+    "warning": "Erasing events can create paradoxes that may affect the fabric of reality around you. Use with caution.",
+    "vendorReason": "Wario stocks this as a novelty, a chance for players to rewrite history and experience the chaos it brings.",
+    "shippingDetail": "Shipped via time warp express, but beware: the courier might get lost in the flux.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:19:33+00:00"
+    }
+  },
+  "wz_gen_legendary_0004": {
+    "id": "wz_gen_legendary_0004",
+    "name": "Eterna-Divinity's Temporal Shield",
+    "description": "This legendary shield is imbued with the essence of time, deflecting magical attacks and granting its wielder a momentary reprieve from temporal effects.",
+    "price": 25000,
+    "category": "equipment",
+    "rarity": "legendary",
+    "icon": "🛡️",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires profound understanding of both magic and the flow of time to wield effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Deflection",
+        "rules": "For every attack that hits, there is a 20% chance (rounded up) that the attack will be negated entirely."
+      },
+      {
+        "title": "Time's Respite",
+        "rules": "Provides a +3 bonus to Dexterity saving throws for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round",
+      "endsWhen": "the wearer completes their next turn",
+      "charges": "5 charges, recharged after a long rest"
+    },
+    "warning": "After using the shield to negate an attack, it becomes heavy and cumbersome for the next hour.",
+    "vendorReason": "Wario sells this because it's the ultimate protector against magical assaults in the world of time.",
+    "shippingDetail": "The Temporal Shield is shipped via a temporal courier, ensuring it arrives just before you need it.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:58:56+00:00"
+    }
+  },
+  "wz_gen_legendary_0006": {
+    "id": "wz_gen_legendary_0006",
+    "name": "Eterna-Immutability's Nullifier",
+    "description": "This ancient artifact is said to have nullified time itself in the hands of its last owner. It can freeze reality for a brief moment.",
+    "price": 20000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "⚗️",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires mastery over temporal forces that few can command.",
+    "effectDetails": [
+      {
+        "title": "Temporal Stasis",
+        "rules": "Forces all creatures within a 30-foot radius into a state of suspended animation for 2 rounds."
+      },
+      {
+        "title": "Timeless Echo",
+        "rules": "Any damage dealt to the wielder during the effect is halved, and the wielder regains 1d6 + Dexterity modifier hit points at the end of each round until the effect ends."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "2 rounds",
+      "endsWhen": "The effect's duration expires or the wielder is no longer in a state of suspended animation.",
+      "charges": "1 use, recharges after 7 days"
+    },
+    "warning": "While in stasis, creatures are unable to take any actions and may starve if not provided sustenance. The wielder is vulnerable during this period.",
+    "vendorReason": "Wario acquired it from a mysterious trader who claimed its power could rewrite the rules of time itself.",
+    "shippingDetail": "Delivered by Wario's own personal warp pipe, ensuring delivery in record time.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T18:59:58+00:00"
+    }
+  },
+  "wz_gen_common_0008": {
+    "id": "wz_gen_common_0008",
+    "name": "Snore-Silence Sock",
+    "description": "These comfy socks muffle the wearer's snoring, but only for as long as they're in bed. They do nothing if not sleeping.",
+    "price": 35,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "-Compatible-with-earplugs:",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Simple enough for anyone to manage their sleep better.",
+    "effectDetails": [
+      {
+        "title": "Snore Reduction",
+        "rules": "Reduces the volume of the user's snoring by 40% while sleeping."
+      }
+    ],
+    "usage": {
+      "activation": "Passive",
+      "duration": "While wearing and sleeping",
+      "endsWhen": "The wearer wakes up",
+      "charges": "Infinite, but only effective when worn during sleep."
+    },
+    "warning": "Does not affect other noises the user makes while awake.",
+    "vendorReason": "Wario stocks this for his many customers who suffer from restless nights and noisy roommates.",
+    "shippingDetail": "Shipped in a sealed box with a note that says 'Quiet Nights, Happy Mornings'.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:00:15+00:00"
+    }
+  },
+  "wz_gen_epic_0008": {
+    "id": "wz_gen_epic_0008",
+    "name": "Eterna-Reality's Quantum Shroud",
+    "description": "This mystical amulet distorts the very fabric of time, allowing you to rewrite a single moment in combat. However, its power can only be used once per encounter.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a solid understanding of tactical positioning and timing.",
+    "effectDetails": [
+      {
+        "title": "Rewind Moment",
+        "rules": "As a bonus action, you may roll a d8. On a result of 5 or higher, the most recent attack against you does not count."
+      },
+      {
+        "title": "Temporal Blink",
+        "rules": "You can teleport to an unoccupied square within 10 feet as a reaction, ignoring difficult terrain."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "instantaneous and once per encounter",
+      "endsWhen": "the end of the current combat round",
+      "charges": "one use; recharged after a long rest"
+    },
+    "warning": "The temporal distortion may cause you to accidentally step into your own future, forcing you to wait a round before returning to the present.",
+    "vendorReason": "Wario stocks this item because it's a quirky addition that keeps customers guessing and coming back for more.",
+    "shippingDetail": "Each Quantum Shroud is carefully packaged in a time-stamped envelope to ensure its arrival at just the right moment.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:00:28+00:00"
+    }
+  },
+  "wz_gen_legendary_0008": {
+    "id": "wz_gen_legendary_0008",
+    "name": "Chrona-Annihilation's Temporal Void",
+    "description": "A delicate golden amulet said to draw time itself into its core, it allows the wearer to manipulate moments. However, once used, it leaves a temporal scar that can be felt by anyone within five feet.",
+    "price": 18000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": ":void:",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a firm grasp of time manipulation and spatial awareness.",
+    "effectDetails": [
+      {
+        "title": "Temporal Surge",
+        "rules": "The wearer can pause one creature's actions for two rounds."
+      },
+      {
+        "title": "Chronal Echo",
+        "rules": "For every hour the amulet is active, there is a 10% chance of creating an unintended temporal echo, causing confusion to all within sight."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "one round per effect used",
+      "endsWhen": "the wearer's concentration ends or the duration expires",
+      "charges": "1 charge daily at sunrise"
+    },
+    "warning": "The amulet can only be activated by someone who has completed a time-related quest.",
+    "vendorReason": "Wario sells it for its legendary history and the thrill of owning something that bends reality itself.",
+    "shippingDetail": "Shipped by a ghost courier, ensuring the amulet reaches you in perfect condition.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:01:00+00:00"
+    }
+  },
+  "wz_gen_mythic_0008": {
+    "id": "wz_gen_mythic_0008",
+    "name": "Eternity's Nullifier",
+    "description": "A delicate amulet that nullifies the effects of any spell or curse within a 30-foot radius. However, it drains the user's willpower, reducing their Charisma by 2 for 1 hour.",
+    "price": 65000,
+    "category": "curiosities",
+    "rarity": "mythic",
+    "icon": "✍️",
+    "stock": 1,
+    "levelRequirement": 18,
+    "levelRequirementReason": "Requires significant magical knowledge to wield without backlash.",
+    "effectDetails": [
+      {
+        "title": "Nullify Effects",
+        "rules": "Reduces the effects of any spell or curse within a 30-foot radius for 1 minute."
+      },
+      {
+        "title": "Willpower Drain",
+        "rules": "Reduces user's Charisma by 2 until the start of their next turn after activation."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute",
+      "endsWhen": "The radius' effects end or the user's willpower is depleted.",
+      "charges": "Single-use. Recharged by a full night's sleep."
+    },
+    "warning": "Draining willpower can lead to temporary loss of control in social situations.",
+    "vendorReason": "Wario sells this because it’s a status-symbol for those who can afford the cost and risk.",
+    "shippingDetail": "Shipped via Wario's 'Express Delivery' service, which ensures timely arrival with no magical interference.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:01:31+00:00"
+    }
+  },
+  "wz_gen_common_0009": {
+    "id": "wz_gen_common_0009",
+    "name": "Nod-Dampening Nectar",
+    "description": "This fragrant nectar induces a brief but restful slumber, perfect for when you need to catch up on sleep without actually falling asleep.",
+    "price": 45,
+    "category": "consumables",
+    "rarity": "common",
+    "icon": "Ｚ",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Ideal for those just starting their adventures and need to recover quickly from fatigue.",
+    "effectDetails": [
+      {
+        "title": "Rejuvenation",
+        "rules": "You gain advantage on a d8 roll. On a successful result, you immediately regain 1d4+2 hit points."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "instantaneous effect",
+      "endsWhen": "the effect is used up",
+      "charges": "regenerates after resting for 8 hours"
+    },
+    "warning": "While under the effects of Nod-Dampening Nectar, you cannot cast spells or use abilities that require concentration.",
+    "vendorReason": "Wario stocks this item because it's a quick and effective way to give adventurers an immediate boost in health without taking up much shelf space.",
+    "shippingDetail": "The nectar is shipped in tiny flasks, each containing enough for one use.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:01:53+00:00"
+    }
+  },
+  "wz_gen_epic_0009": {
+    "id": "wz_gen_epic_0009",
+    "name": "Temporal Quirk V",
+    "description": "This watch-like device bends time around its wearer, allowing them to manipulate the flow of combat. However, it can also cause unexpected temporal shifts that affect allies as well.",
+    "price": 7500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "🔄",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a strong grasp of temporal mechanics to operate safely and effectively.",
+    "effectDetails": [
+      {
+        "title": "Temporal Leap",
+        "rules": "Allows the user to make an additional movement action, up to 30 feet, at the cost of a concentration check (DC 15)."
+      },
+      {
+        "title": "Chronal Slip",
+        "rules": "Causes a 1-round time distortion that grants +2 bonus to attack rolls and damage, but all friendly creatures within 10 feet must make a DC 14 Dexterity saving throw or be stunned for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "until the end of the user's next turn",
+      "endsWhen": "the concentration is lost or the user takes a bonus action",
+      "charges": "3 charges, regenerates 2 at the start of each short rest"
+    },
+    "warning": "Temporal distortions can cause unintended effects on allies within range.",
+    "vendorReason": "Wario stocks it because time travel mishaps are always in demand, even if they do cause chaos.",
+    "shippingDetail": "Sent by a mischievous penguin that may or may not deliver the item intact.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:02:37+00:00"
+    }
+  },
+  "wz_gen_legendary_0009": {
+    "id": "wz_gen_legendary_0009",
+    "name": "Chrona-Mirage's Labyrinthine Veil",
+    "description": "An ancient relic that warps reality, creating shifting illusions and mazes around the user. It grants temporary protection but distorts surroundings, leading to disorientation.",
+    "price": 15000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "’util",
+    "stock": 1,
+    "levelRequirement": 14,
+    "levelRequirementReason": "Requires a solid understanding of space-time manipulation to wield effectively without causing unintended disasters.",
+    "effectDetails": [
+      {
+        "title": "Illusory Maze",
+        "rules": "Creates a 20-foot radius maze around the user, forcing any creature within the area to make a DC 18 Dexterity saving throw or take 5d6 psychic damage and become disoriented for 1 round."
+      },
+      {
+        "title": "Temporal Warp",
+        "rules": "Once per short rest, allows the wielder to warp time within a 10-foot radius creating a 2-second temporal distortion that moves creatures up to 30 feet in any direction. Creatures caught must make an AC DC 15 Dexterity saving throw or be pushed as if hit by a gust of wind."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the start of your next turn, or until dispelled by its user.",
+      "endsWhen": "The duration ends when the user chooses to end it early.",
+      "charges": "5 uses per long rest"
+    },
+    "warning": "Causes disorientation in allies as well as enemies within its area of effect. Misuse can lead to permanent spatial anomalies affecting the immediate environment.",
+    "vendorReason": "Despite its risks, the Labyrinthine Veil is sought after for its unique ability to create strategic illusions and defensive mazes that no one has seen before.",
+    "shippingDetail": "Shipped in a custom crate with a warning label stating 'Caution: Time Distortion Hazardous Material'.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:04:00+00:00"
+    }
+  },
+  "wz_gen_epic_0010": {
+    "id": "wz_gen_epic_0010",
+    "name": "Temporal Twister Trousers",
+    "description": "These trousers allow you to create a mini-tornado that distracts enemies and disrupts their attacks. However, the wearer must contort into an awkward position to activate them.",
+    "price": 7500,
+    "category": "equipment",
+    "rarity": "epic",
+    "icon": "-Compatible with all weather conditions-",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a good grasp of balance and agility to use effectively.",
+    "effectDetails": [
+      {
+        "title": "Tornado Distractor",
+        "rules": "Activate as a bonus action. Create a 10-foot diameter, 5-foot high tornado that lasts for 2 rounds, forcing all creatures within its radius to make a DC 16 Dexterity saving throw or be stunned until the start of your next turn."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "2 Rounds",
+      "endsWhen": "The wearer stops concentrating.",
+      "charges": "3 charges; recharged on a long rest."
+    },
+    "warning": "Wearing these trousers in tight spaces can cause the wearer to get stuck or collapse due to the contorted position required.",
+    "vendorReason": "Wario stocks these because they are fun to imagine and sell as an overpriced novelty.",
+    "shippingDetail": "Shipped folded, magically expanded upon receipt.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:04:37+00:00"
+    }
+  },
+  "wz_gen_legendary_0010": {
+    "id": "wz_gen_legendary_0010",
+    "name": "Chrona-Divinity's Chronal Anomaly",
+    "description": "A relic said to stabilize temporal distortions, it instead unpredictably warps time for the wielder. Known to cause bizarre yet harmless temporal loops.",
+    "price": 25000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "⚡️",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a deep understanding of time and its paradoxes to wield without incident.",
+    "effectDetails": [
+      {
+        "title": "Temporal Loop",
+        "rules": "Once per long rest, the user is pulled into a temporal loop for 1d4+2 rounds. Each looped round grants +1 to all charisma-based skill checks."
+      },
+      {
+        "title": "Anomalous Acceleration",
+        "rules": "For every hour of loop time experienced, the wielder ages by 1 year and gains 1d6 proficiency points in any skill they know."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Lasts until used or the user is no longer stable (as determined by DM)",
+      "endsWhen": "The wielder chooses to end it, or stability is lost and time warps uncontrollably for the remainder of the fight.",
+      "charges": "Unlimited uses per long rest"
+    },
+    "warning": "Temporal loops can cause minor distortions in reality, leading to odd occurrences such as misplaced objects or sudden gusts of wind.",
+    "vendorReason": "Wario stocks this item because it's a collector's dream and a source of endless entertainment for the curious and eccentric.",
+    "shippingDetail": "Chrona-Divinity's Chronal Anomaly is shipped with a time-stamped package that ensures safe delivery without any temporal mishaps.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:04:50+00:00"
+    }
+  },
+  "wz_gen_legendary_0110": {
+    "id": "wz_gen_legendary_0110",
+    "name": "Eternity's Temporal Elixir",
+    "description": "A golden elixir said to grant the imbiber a single wish, but only one. The spell fades after a decade.",
+    "price": 25000,
+    "category": "consumables",
+    "rarity": "legendary",
+    "icon": "🧪",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires significant study of time magic and the willingness to focus on a singular outcome for life.",
+    "effectDetails": [
+      {
+        "title": "Wish Fulfillment",
+        "rules": "Consume elixir, make one wish. The DM decides if it comes true."
+      },
+      {
+        "title": "Temporal Degradation",
+        "rules": "After 10 years, the elixir's effects wear off completely."
+      }
+    ],
+    "usage": {
+      "activation": "consume",
+      "duration": "permanent until used",
+      "endsWhen": "wish is made or expires after a decade",
+      "charges": "one use only"
+    },
+    "warning": "Once the wish is fulfilled, you cannot drink this elixir again. It is a one-time offer.",
+    "vendorReason": "Wario sells it because time magic enthusiasts are always looking for shortcuts to their dreams.",
+    "shippingDetail": "Shipped in an ancient vial that breaks if not handled with care.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:05:38+00:00"
+    }
+  },
+  "wz_gen_legendary_0137": {
+    "id": "wz_gen_legendary_0137",
+    "name": "Chrona-Divinity's Eternary Conduit",
+    "description": "A shimmering conduit that channels temporal energies, granting the wielder control over time itself.",
+    "price": 25000,
+    "category": "premium",
+    "rarity": "legendary",
+    "icon": ":zap:",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a deep understanding of both the mechanics and the lore of time.",
+    "effectDetails": [
+      {
+        "title": "Temporal Surge",
+        "rules": "At the start of your turn, roll 2d6. On an 8 or higher, gain one additional action."
+      },
+      {
+        "title": "Eternal Echo",
+        "rules": "You can cast any spell with a range of 30 feet as if it were a ritual, once per long rest."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "Until the end of your next turn",
+      "endsWhen": "The start of your next turn",
+      "charges": "Recharges on a short or long rest"
+    },
+    "warning": "Using this item excessively can cause temporal distortions in your immediate vicinity.",
+    "vendorReason": "Wario stocks it because it's a hot commodity among time travelers and historians looking for an edge.",
+    "shippingDetail": "The conduit is shipped via warp drive, delivered by a mischievous imp.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:05:58+00:00"
+    }
+  },
+  "wz_gen_uncommon_0145": {
+    "id": "wz_gen_uncommon_0145",
+    "name": "Quantum Quirk Snickerdoodle",
+    "description": "This unusual snickerdoodle temporarily grants you the ability to defy gravity, allowing for one airborne leap that can cover up to 15 feet. However, it causes a mild sugar rush that lasts for 2 rounds.",
+    "price": 300,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "🍪",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires some control over physical space and basic coordination.",
+    "effectDetails": [
+      {
+        "title": "Airborne Leap",
+        "rules": "On a successful action, you gain a +2 modifier to your jump check for up to 15 feet. Lasts until the end of your next turn."
+      },
+      {
+        "title": "Sugary Side Effects",
+        "rules": "For every 4 rounds after consuming this, you must make a Constitution saving throw (DC 12). Failure results in +1 modifier on all Wisdom checks for that hour."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "until the end of your next turn",
+      "endsWhen": "the effect runs out or you take damage",
+      "charges": "5 uses, recharged after a short rest"
+    },
+    "warning": "Excess consumption can lead to hyperactivity and excessive giggling.",
+    "vendorReason": "Wario stocks this because it's fun to watch people fail their gravity-defying attempts.",
+    "shippingDetail": "Delivered with an air cushion and a free balloon.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:06:09+00:00"
+    }
+  },
+  "wz_gen_legendary_0138": {
+    "id": "wz_gen_legendary_0138",
+    "name": "Eterna-Divinity's Temporal Anchor",
+    "description": "An antique pocket watch that allows the user to pause time around them for a brief moment. However, the hands of the watch itself continue to move.",
+    "price": 25000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": ":<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M21 19h-6v-6h6zm-5-9H7c-.55 0-1 .45-1 1s.45 1 1 1h14c.55 0 1-.45 1-1s-.45-1-1-1zM3 13v6h6v-6H3zm9-8v2h6v-2H12z'/></svg>",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires significant magical prowess and understanding of temporal magic.",
+    "effectDetails": [
+      {
+        "title": "Temporal Pause",
+        "rules": "The user may pause time within a 10-foot radius for up to 1 round. During this time, they can act normally but all other creatures are frozen in place."
+      },
+      {
+        "title": "Watch's Tick",
+        "rules": "For every use of Temporal Pause, the watch gains one additional tick per second until it needs to be reset by a long rest."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Up to 1 round",
+      "endsWhen": "The user completes their action or an attack is made against them within the temporal pause area.",
+      "charges": "5 uses, recharges on a long rest"
+    },
+    "warning": "Repeated use can cause the watch to break down and become unreliable over time.",
+    "vendorReason": "A unique piece of history, this watch has seen many legendary battles and offers players a taste of ancient power.",
+    "shippingDetail": "Ships with an enchanted courier who takes care not to jostle the delicate device.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:06:21+00:00"
+    }
+  },
+  "wz_gen_uncommon_0147": {
+    "id": "wz_gen_uncommon_0147",
+    "name": "Mist-Whisper Cloak",
+    "description": "This cloak shrouds you in a veil of mist, granting you stealth but leaving lingering fumes.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "/cloud",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires moderate skill to maneuver without tripping on the cloak's trail.",
+    "effectDetails": [
+      {
+        "title": "Stealth Aura",
+        "rules": "You gain advantage on Dexterity (Stealth) checks for 1 minute, but you leave a cloud of fog that lasts until your next short rest."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 minute",
+      "endsWhen": "the end of your next short rest",
+      "charges": "1 use per long rest"
+    },
+    "warning": "The lingering mist can obscure vision and hinder movement for allies within it.",
+    "vendorReason": "Wario sells this because the demand for undetectable items is always high, even if they come with drawbacks.",
+    "shippingDetail": "Shipped in a specially sealed box to prevent premature fog formation.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:06:56+00:00"
+    }
+  },
+  "wz_gen_uncommon_0148": {
+    "id": "wz_gen_uncommon_0148",
+    "name": "Chrona-Slipper",
+    "description": "These slippers allow you to briefly slip through time, arriving at a location that is 10 feet behind your intended destination. Useful for avoiding unwanted confrontations or finding the perfect angle.",
+    "price": 350,
+    "category": "equipment",
+    "rarity": "uncommon",
+    "icon": "👞",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a keen understanding of timing and spatial awareness.",
+    "effectDetails": [
+      {
+        "title": "Temporal Glitch",
+        "rules": "When activated, you teleport to a location that is 10 feet behind your intended destination. This effect lasts for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round",
+      "endsWhen": "The end of your next turn.",
+      "charges": "2 uses per long rest"
+    },
+    "warning": "While the slippers help you avoid immediate danger, they do not alter reality. You may still bump into someone or something at your original destination.",
+    "vendorReason": "Wario stocks these because customers keep asking for ways to dodge their creditors without actually outrunning them.",
+    "shippingDetail": "Slipped into your hands via a courier who is 10 feet behind schedule.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:07:10+00:00"
+    }
+  },
+  "wz_gen_uncommon_0150": {
+    "id": "wz_gen_uncommon_0150",
+    "name": "Tentacurl Tentacle Tonic",
+    "description": "This slimy tonic grants a single tentacle when consumed. The tentacle can be used for grappling or pulling, but it vanishes after one use.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "byssal",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires coordination to handle the unexpected appendage effectively.",
+    "effectDetails": [
+      {
+        "title": "Extra Grapple",
+        "rules": "On your action, you can use a tentacle to grapple an object within 5 feet. If successful, you gain advantage on attack rolls against that object for 1 minute."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 round per use",
+      "endsWhen": "The tentacle retracts after one full use.",
+      "charges": "5 uses, recharged daily"
+    },
+    "warning": "Using the tentacle is messy and can slow you down if not handled carefully.",
+    "vendorReason": "Wario stocks this because it’s a unique item that adds an element of surprise to combat.",
+    "shippingDetail": "The Tentacurl Tentacle Tonic arrives in a small jar, complete with instructions for use.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:07:22+00:00"
+    }
+  },
+  "wz_gen_uncommon_0151": {
+    "id": "wz_gen_uncommon_0151",
+    "name": "Phantom Flux Pinwheel",
+    "description": "This whimsical pinwheel seems to defy physics, spinning in place without any apparent cause. It can be used to disorient enemies temporarily.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "✨",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a bit of finesse and coordination to use effectively in combat.",
+    "effectDetails": [
+      {
+        "title": "Disorient",
+        "rules": "Target must make an Intelligence saving throw. On failure, target is disoriented for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "1 round per use",
+      "endsWhen": "The target successfully saves or the effect runs its course.",
+      "charges": "2 charges; recharged when the user takes a short rest."
+    },
+    "warning": "May not work in windless areas as it relies on an illusion of movement.",
+    "vendorReason": "Wario stocks this because customers often ask for something that can cause confusion without being too heavy-handed.",
+    "shippingDetail": "Shipped with a complimentary gust of wind to ensure proper functionality.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:08:01+00:00"
+    }
+  },
+  "wz_gen_uncommon_0152": {
+    "id": "wz_gen_uncommon_0152",
+    "name": "Eterna-Reflection's Echo",
+    "description": "A delicate amulet that amplifies the wearer’s last spoken word fivefold, but only in a single direction.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "🔄",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires focus and clarity of thought beyond basic spellcasting.",
+    "effectDetails": [
+      {
+        "title": "Amplified Echo",
+        "rules": "When the wearer speaks, their last word is amplified in volume by +5 dB and projected forward in a straight line for 1d6 feet."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "Until the end of the wearer’s next turn",
+      "endsWhen": "The wearer takes an action that requires speech or when they are incapacitated.",
+      "charges": "1 charge, recharged at dawn"
+    },
+    "warning": "Only usable in areas with a clear line of sight; otherwise, the echo is muffled and ineffective.",
+    "vendorReason": "Wario stocks it because it’s a quirky novelty that drives customers to his store for a laugh.",
+    "shippingDetail": "Shipped via an enchanted owl who insists on being petted.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:08:08+00:00"
+    }
+  },
+  "wz_gen_uncommon_0154": {
+    "id": "wz_gen_uncommon_0154",
+    "name": "Eterna-Phantom's Flicker",
+    "description": "This ornate pocket watch seems to glow faintly in the dark, but it only ticks when you need it most. The hands flicker and disappear into a shimmering light.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "✨",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a knack for timing and quick reflexes to make this watch perform its tricks effectively.",
+    "effectDetails": [
+      {
+        "title": "Flickering Fortune",
+        "rules": "At the start of your turn, roll a d6. On a result of 5 or higher, you gain temporary hit points equal to twice the result."
+      }
+    ],
+    "usage": {
+      "activation": "Passive",
+      "duration": "Until the end of your next turn",
+      "endsWhen": "The start of your next turn",
+      "charges": "Recharge on a short rest"
+    },
+    "warning": "The watch is prone to sudden and unexplained malfunctions, potentially causing it to 'flicker' off at critical moments.",
+    "vendorReason": "Wario finds it amusing that such an elegant piece can be both useful and unreliable.",
+    "shippingDetail": "Delivered in a gilded box with a note reading: 'Flickers when you need it—just like Wario!'",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:08:23+00:00"
+    }
+  },
+  "wz_gen_uncommon_0153": {
+    "id": "wz_gen_uncommon_0153",
+    "name": "Eterna-Divinity's Chronal Pulse",
+    "description": "A delicate pocket watch that ticks with a surreal rhythm, it can warp time for the wearer in small increments. However, its power is unpredictable and can cause disorientation.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": ")||(",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a solid grasp of temporal concepts to handle its chaotic effects.",
+    "effectDetails": [
+      {
+        "title": "Chronal Displacement",
+        "rules": "The wearer can use an action to manipulate time for 1d6 rounds, affecting only themselves. The effect is unpredictable and may either speed up or slow down the passage of time by a factor of 2."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1d6 rounds",
+      "endsWhen": "The wearer's concentration is broken.",
+      "charges": "3 uses, recharged after a long rest"
+    },
+    "warning": "While the effect lasts, the wearer's sense of time becomes disoriented. They may move in unpredictable ways and lose track of their surroundings for the duration.",
+    "vendorReason": "Wario stocks it because its unpredictability makes it a fun but dangerous tool for anyone trying to outsmart their opponents.",
+    "shippingDetail": "The Chronal Pulse arrives wrapped in a mysterious, shimmering cloth that prevents potential time manipulation during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:08:29+00:00"
+    }
+  },
+  "wz_gen_uncommon_0155": {
+    "id": "wz_gen_uncommon_0155",
+    "name": "Foggy Fume Foghorn",
+    "description": "This quaint brass foghorn amplifies your voice tenfold, scaring off unwanted pests. However, it only works when the air humidity is above 60%. Otherwise, it merely whistles a tune.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "-Compatible with all fog devices:",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires some practice to perfect the foghorn's amplification technique.",
+    "effectDetails": [
+      {
+        "title": "Echoing Voice",
+        "rules": "Increase yourimidation roll by +2d6 when using a fog device. This effect lasts for 1 round."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 round",
+      "endsWhen": "the end of your next turn",
+      "charges": "5 uses, recharges after a long rest"
+    },
+    "warning": "Requires air humidity above 60% to function; otherwise, it only whistles.",
+    "vendorReason": "Wario sells this because who doesn't love a good foghorn?",
+    "shippingDetail": "Ships with a complimentary cloud of mist.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:08:43+00:00"
+    }
+  },
+  "wz_gen_uncommon_0156": {
+    "id": "wz_gen_uncommon_0156",
+    "name": "Temporal Snore-Silencer",
+    "description": "A small, sleek device that promises to silence any sound of snoring for an hour, but it's not fooling everyone.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "😴",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires some understanding of how sound waves behave over time.",
+    "effectDetails": [
+      {
+        "title": "Silence the Snore",
+        "rules": "When activated, reduces the target's loudness by 2d6 steps on a success."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "One hour",
+      "endsWhen": "The hour passes or the item runs out of charge.",
+      "charges": "1 charge (recharges after 24 hours)"
+    },
+    "warning": "May cause temporary hearing loss in nearby creatures. Use with caution in social settings.",
+    "vendorReason": "Wario knows how frustrating a snore can be, and this is his latest solution to the problem.",
+    "shippingDetail": "Ships via warp mail express from Wario's time-stamped warehouse.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:08:48+00:00"
+    }
+  },
+  "wz_gen_uncommon_0157": {
+    "id": "wz_gen_uncommon_0157",
+    "name": "Mistral Mirage",
+    "description": "A shimmering flask that emits a cloud of mist which misleads enemies into thinking they are being attacked from different directions.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "illus;",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires some experience to wield the trickery of the Mistral Mirage effectively.",
+    "effectDetails": [
+      {
+        "title": "Deceptive Cloud",
+        "rules": "When activated, it releases a cloud of mist that confuses enemies. They take an additional d6 damage each round and have disadvantage on attack rolls against you for 1 minute."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 minute",
+      "endsWhen": "The duration expires or the user chooses to end it early.",
+      "charges": "2 charges; recharged after a long rest."
+    },
+    "warning": "After its use, the user must make a DC 15 Wisdom saving throw. On a failed save, they become disoriented for 1 round and have disadvantage on all attacks and saves until the start of their next turn.",
+    "vendorReason": "Wario stocks it because patrons love the thrill of outsmarting their foes with a little magic in their pocket.",
+    "shippingDetail": "Delivered by a mischievous courier who ensures the surprise element is part of the experience.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:09:03+00:00"
+    }
+  },
+  "wz_gen_uncommon_0161": {
+    "id": "wz_gen_uncommon_0161",
+    "name": "Quanta Quirk",
+    "description": "A small, glowing charm that grants a burst of speed and agility. It fizzles after a single use.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "⚡",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires basic understanding of temporal distortions to activate.",
+    "effectDetails": [
+      {
+        "title": "Quantum Surge",
+        "rules": "+2d6 movement speed for 1 round"
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 round",
+      "endsWhen": "the end of your next turn",
+      "charges": "1 use, recharges after a short or long rest"
+    },
+    "warning": "Only usable in areas with ambient magic fields; fails otherwise.",
+    "vendorReason": "Wario stocks it because it's a quirky and convenient item for adventurers on the go.",
+    "shippingDetail": "Shipped via a quantum express pigeon, arrives faster than a speeding bullet.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:10:22+00:00"
+    }
+  },
+  "wz_gen_uncommon_0164": {
+    "id": "wz_gen_uncommon_0164",
+    "name": "Temporal Skipper",
+    "description": "This sleek, hoverboard-shaped device lets you leap a short distance into the past or future, but each skip uses up one charge and can only move you 15 feet.",
+    "price": 300,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "🚀",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires basic agility to operate smoothly without crashing.",
+    "effectDetails": [
+      {
+        "title": "Temporal Leap",
+        "rules": "You may move yourself up to 15 feet in any direction for free, either forward or back in time, per use. However, the device cannot be used within 30 feet of a major landmark."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "instantaneous",
+      "endsWhen": "the duration is over after immediate movement",
+      "charges": "5 charges; recharged at dawn"
+    },
+    "warning": "If the Temporal Skipper is used within 30 feet of a major landmark, it will cause a paradox that requires an hour-long ritual to resolve.",
+    "vendorReason": "Wario found a surplus of these in an old factory and couldn't resist adding them to his eclectic inventory.",
+    "shippingDetail": "Temporal Skipper packages arrive with a warning: 'Not for use near ancient ruins or time-disrupting artifacts.'",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:11:19+00:00"
+    }
+  },
+  "wz_gen_uncommon_0165": {
+    "id": "wz_gen_uncommon_0165",
+    "name": "Chrona-Whisper's Echo",
+    "description": "This delicate glass vial hums softly when activated, allowing the user to whisper unheard messages into the wind. However, it only works within a 50-foot radius and must be shaken once every hour or its power fades.",
+    "price": 375,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "📢",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Users need a moderate understanding of sound manipulation to control this item effectively.",
+    "effectDetails": [
+      {
+        "title": "Whispered Message",
+        "rules": "The user can whisper a message that is heard only by the intended recipient within a 50-foot radius. The message must be limited to 10 words."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "1 hour",
+      "endsWhen": "the item runs out of charges or shaken again",
+      "charges": "3 uses per day"
+    },
+    "warning": "The vial can only be used once every hour, otherwise its power diminishes.",
+    "vendorReason": "Wario finds that customers love the idea of secret communication, even if it's just a whisper in the wind.",
+    "shippingDetail": "Sent through a courier pigeon that ensures quick delivery, but no guarantees on the pigeon's punctuality.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:11:30+00:00"
+    }
+  },
+  "wz_gen_uncommon_0167": {
+    "id": "wz_gen_uncommon_0167",
+    "name": "Echo Echo Sock",
+    "description": "These socks amplify ambient sound and echo footsteps, making a party of adventurers seem like an army.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": ">({)",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Enhanced hearing is useful for survival but can overwhelm the ears if not controlled.",
+    "effectDetails": [
+      {
+        "title": "Echo Echo",
+        "rules": "Increase listening DC by +2, double all noise checks. Lasts until used in combat."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "until the next initiative roll after activation",
+      "endsWhen": "end of turn",
+      "charges": "1/long rest"
+    },
+    "warning": "Once per long rest, wearer may be unable to hear for a short time due to overstimulation.",
+    "vendorReason": "Wario stocks these because adventurers often need help hearing in noisy environments.",
+    "shippingDetail": "Shipped with a special soundproof box.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:12:09+00:00"
+    }
+  },
+  "wz_gen_uncommon_0168": {
+    "id": "wz_gen_uncommon_0168",
+    "name": "Chrona-Loop's Whistle",
+    "description": "A dented copper whistle that hums a tune only the listener can hear, it allows one to briefly relive a moment of choice.",
+    "price": 350,
+    "category": "equipment",
+    "rarity": "uncommon",
+    "icon": "🎶",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "It takes discipline and focus to control the temporal loop without causing paradoxes.",
+    "effectDetails": [
+      {
+        "title": "Temporal Replay",
+        "rules": "The user may rewind time for up to 1 round, affecting only themselves. This does not reset combat rounds or turn order."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "up to 1 round per day",
+      "endsWhen": "the user moves more than 5 feet away from the loop's origin point.",
+      "charges": "1/day, recharges after a long rest"
+    },
+    "warning": "Using it in combat can cause confusion and missteps. The user must make a DC 13 Wisdom saving throw or fall prone, disoriented for 1 round.",
+    "vendorReason": "Wario stocks this because tourists keep asking to take home a taste of time, even if it means getting tangled in paradoxes.",
+    "shippingDetail": "Shipped via warp pipes, but no guarantees on arrival times.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:12:20+00:00"
+    }
+  },
+  "wz_gen_uncommon_0172": {
+    "id": "wz_gen_uncommon_0172",
+    "name": "Eterna-Flux's Flicker",
+    "description": "A small, glowing amulet that temporarily enhances your reflexes but causes you to emit a constant, annoying hum.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "💡",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires coordination and quick thinking to use effectively in combat.",
+    "effectDetails": [
+      {
+        "title": "Enhanced Reflexes",
+        "rules": "+2 to Dexterity saving throws for 1 round"
+      },
+      {
+        "title": "Annoying Hum",
+        "rules": "Emits a sound level that is 5 feet louder than the surrounding environment, attracting unwanted attention"
+      }
+    ],
+    "usage": {
+      "activation": "Bonus action",
+      "duration": "1 round",
+      "endsWhen": "Ends when used or dispelled by an effect like Silence or similar.",
+      "charges": "2 uses per day"
+    },
+    "warning": "While the amulet boosts your reflexes, it also reveals your position to enemies within a 30-foot radius for the duration of its effect.",
+    "vendorReason": "Wario stocks it because who wouldn't want an item that makes them faster... and louder?",
+    "shippingDetail": "Ships in a carefully padded box, just in case you decide to use it near your neighbors.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:13:38+00:00"
+    }
+  },
+  "wz_gen_uncommon_0174": {
+    "id": "wz_gen_uncommon_0174",
+    "name": "Whispering Wire Whistle",
+    "description": "This delicate wire whistle hums a tune that can charm any beast within hearing range, compelling them to dance in circles. However, the tune is monotonous and irresistible.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "🎶",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a decent understanding of sound manipulation and animal behavior.",
+    "effectDetails": [
+      {
+        "title": "Beastly Bounce",
+        "rules": "Once per short rest, the user can blow the whistle to charm one beast within 30 feet. The charmed creature must succeed on a DC 14 Wisdom saving throw or be compelled to dance in circles for 1 minute."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "The effect lasts until the end of your next turn.",
+      "endsWhen": "The target succeeds on its Wisdom save or if another creature uses an action against it.",
+      "charges": "2 charges, regains 1 when you finish a short rest."
+    },
+    "warning": "Overuse can lead to the user's own mind becoming entranced by the repetitive melody.",
+    "vendorReason": "Wario stocks this item because it’s a unique addition to any adventurer's collection of oddities.",
+    "shippingDetail": "Shipped alongside a complimentary set of earplugs in case you decide to use it.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:14:04+00:00"
+    }
+  },
+  "wz_gen_uncommon_0175": {
+    "id": "wz_gen_uncommon_0175",
+    "name": "Chrona-Whisper's Veil",
+    "description": "This delicate veil distorts reality around the wearer, making them appear as a shadowy echo of their true form.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "illusion",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a basic grasp of illusion magic to wield effectively without drawing attention.",
+    "effectDetails": [
+      {
+        "title": "Shadowscape",
+        "rules": "For 1 round, the wearer gains +2 bonus to Stealth checks and can cast Minor Illusion as a bonus action. The spell's duration is extended by 3 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "1 round per minute of casting time",
+      "endsWhen": "the wearer stops concentrating or takes damage",
+      "charges": "2 charges, recharged on a short rest"
+    },
+    "warning": "The veil is fragile and cannot withstand direct attacks; any damage dealt to the user reduces its effectiveness by one charge.",
+    "vendorReason": "Wario finds such a versatile item a must-have for his clients who need to blend into their surroundings unnoticed.",
+    "shippingDetail": "Each veil comes with a protective silk case, ensuring it arrives in perfect condition, even if the contents are a bit surreal.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:14:16+00:00"
+    }
+  },
+  "wz_gen_uncommon_0178": {
+    "id": "wz_gen_uncommon_0178",
+    "name": "Eternity's Mirage Mask",
+    "description": "This ancient mask distorts reality, causing any being who looks into it to see a vivid mirage of their deepest desires. However, the illusion is fleeting and can only be worn for one round before shattering into harmless fragments.",
+    "price": 300,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "MASK_FACE",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a moderate understanding of temporal anomalies to activate effectively.",
+    "effectDetails": [
+      {
+        "title": "Desire's Mirage",
+        "rules": "When worn, the mask grants a +2 bonus to Charisma (Deception) checks for one round. After this duration, it causes a brief disorientation lasting until the start of the wearer's next turn."
+      }
+    ],
+    "usage": {
+      "activation": "Bonus Action",
+      "duration": "One round",
+      "endsWhen": "The end of the wearer's next turn",
+      "charges": "1 use per short rest"
+    },
+    "warning": "Once activated, the mask must be removed before it can be used again; failure to do so results in a -2 penalty on all Charisma-based rolls until it is taken off.",
+    "vendorReason": "Wario sells this item as part of his eclectic collection of temporal curiosities, offering adventurers a chance to explore their own desires and fantasies in a controlled manner.",
+    "shippingDetail": "Shipped via time-displaced courier pigeons, ensuring that the mask arrives just before it is needed.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:15:49+00:00"
+    }
+  },
+  "wz_gen_godly_0000": {
+    "id": "wz_gen_godly_0000",
+    "name": "Eterna-Divinity's Temporal Annihilator",
+    "description": "A delicate yet fearsome pocket watch that, when activated, sends its wearer back in time by a year. However, each use risks permanently altering the timeline.",
+    "price": 150000,
+    "category": "curiosities",
+    "rarity": "godly",
+    "icon": "💥",
+    "stock": 1,
+    "levelRequirement": 20,
+    "levelRequirementReason": "Only those of great power and wisdom can wield such a volatile device without causing catastrophic consequences.",
+    "effectDetails": [
+      {
+        "title": "Temporal Warp",
+        "rules": "Wearer is sent back in time by one year. Requires a successful DC 30 Wisdom (History) check to avoid altering the timeline."
+      },
+      {
+        "title": "Timewarp Risk",
+        "rules": "There's a 1-in-6 chance that each use will create a paradox, causing the user and all within 5 feet to be teleported to random points in time for 24 hours."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Instantaneous effect; wearer is instantly sent back one year.",
+      "endsWhen": "The temporal shift completes.",
+      "charges": "1 use, recharges after a week."
+    },
+    "warning": "The alteration of the timeline can have unpredictable and dangerous outcomes for both the user and the multiverse.",
+    "vendorReason": "Wario stocks this item because it's rare enough to be a collector’s piece, despite its potential danger.",
+    "shippingDetail": "Ships via a time-loop express service, delivered with a guarantee of safe arrival in the past.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:15:59+00:00"
+    }
+  },
+  "wz_gen_uncommon_0179": {
+    "id": "wz_gen_uncommon_0179",
+    "name": "Snore-Silence Serenity",
+    "description": "This enchanted lozenge instantly quiets any sound within its range, making it invaluable for sneaking past guards or simply enjoying peace in a noisy environment. However, its effects are not permanent.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "omniaudio",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a moderate understanding of magic to activate the lozenge's enchantment effectively.",
+    "effectDetails": [
+      {
+        "title": "Silence Sphere",
+        "rules": "The Snore-Silence Serenity creates a 15-foot-radius sphere centered on you. All sounds within this area are temporarily muffled for 3 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "3 rounds",
+      "endsWhen": "The duration expires or the area is no longer within your line of sight.",
+      "charges": "1 charge, recharged after a short rest"
+    },
+    "warning": "Once used, it takes a full minute for the lozenge to fully dissolve and be ready for another use. Loud noises within its range can disrupt the spell prematurely.",
+    "vendorReason": "Wario stocks this item because customers often need a quick fix for noisy environments or stealth missions where quiet is crucial.",
+    "shippingDetail": "The lozenges are shipped in sealed packets to ensure they retain their potency during transit.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:16:12+00:00"
+    }
+  },
+  "wz_gen_uncommon_0180": {
+    "id": "wz_gen_uncommon_0180",
+    "name": "Chrona-Whisper's Murmur",
+    "description": "A delicate silver whistle that produces a whispering sound, it grants the wearer the ability to communicate with any creature within earshot for up to 10 feet as a bonus action. However, the message cannot exceed three words.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "rippling-water",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a moderate understanding of communication and subtlety to use effectively.",
+    "effectDetails": [
+      {
+        "title": "Whispering Communion",
+        "rules": "As a bonus action, the wearer can produce a whisper that allows them to communicate with any creature within 10 feet. The message consists of no more than three words."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "up to 10 minutes from activation",
+      "endsWhen": "the wearer chooses to end the effect or a loud noise interrupts it",
+      "charges": "infinite, but only one use per minute"
+    },
+    "warning": "The message is limited to three words; any attempt at conveying more results in incomprehensible garble.",
+    "vendorReason": "Wario finds it amusing how such a simple item can cause so much confusion and laughter among customers.",
+    "shippingDetail": "Sent via a carrier pigeon, which often leads to humorous delays.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:17:01+00:00"
+    }
+  },
+  "wz_gen_uncommon_0182": {
+    "id": "wz_gen_uncommon_0182",
+    "name": "Mistweave Misdive Mask",
+    "description": "This whimsical mask distorts the wearer's appearance, making them appear as if they are a misshapen, colorful mist. It can be used to sneak past vigilant guards or confuse foes.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "MASK_WITH_WHITE_VINE",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a keen mind and subtle body to effectively utilize the mask's effects in battle.",
+    "effectDetails": [
+      {
+        "title": "Fog Form",
+        "rules": "The wearer can transform their body into a cloud of mist. This lasts for 1 round, during which they are invisible but cannot take actions."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "1 round",
+      "endsWhen": "The effect duration ends.",
+      "charges": "3 uses per long rest"
+    },
+    "warning": "While in mist form, the wearer is at disadvantage on attack rolls and cannot take reactions.",
+    "vendorReason": "Wario sells this item because it's a quirky way for players to enjoy a unique edge without breaking the game balance.",
+    "shippingDetail": "The mask arrives with a note that says, 'May your next dive be as smooth as the last!'",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:17:07+00:00"
+    }
+  },
+  "wz_gen_uncommon_0184": {
+    "id": "wz_gen_uncommon_0184",
+    "name": "Eterna-Dream's Echo Mask",
+    "description": "This eerie mask amplifies your charisma and grants you the ability to whisper secrets. However, it also makes you susceptible to sleep paralysis.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "wear_mask",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a decent grasp of social interactions and subtlety.",
+    "effectDetails": [
+      {
+        "title": "Whispering Charm",
+        "rules": "You gain +2 to Persuasion checks for the duration. You can also use an action to whisper a secret to someone within 30 feet, who must succeed on a DC 15 Wisdom saving throw or become curious about you."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "until the end of your next turn",
+      "endsWhen": "you lose consciousness or fall asleep",
+      "charges": "3 charges per day, recharged after a short rest"
+    },
+    "warning": "While wearing this mask, you are at increased risk of sleep paralysis, which can last for up to one minute and requires a DC 15 Constitution saving throw to resist.",
+    "vendorReason": "Wario stocks this item because it's a quirky way to make your social interactions more effective—or terrifyingly memorable.",
+    "shippingDetail": "This mask is shipped in a carefully crafted, oversized cardboard box with a note that reads: 'Please do not inhale.'",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:17:27+00:00"
+    }
+  },
+  "wz_gen_uncommon_0185": {
+    "id": "wz_gen_uncommon_0185",
+    "name": "Dreamweave Delusion",
+    "description": "This ornate mask distorts reality, allowing the wearer to insert a short dream sequence into the immediate environment. However, the dream is fleeting and can only be triggered once per day.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "wake",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "It takes some practice to control the transition between real and dreamt worlds without fully losing track of reality.",
+    "effectDetails": [
+      {
+        "title": "Dream Insertion",
+        "rules": "Wearer can insert a 5-second dream sequence into nearby environment. The target area is determined by a d6 roll (1-2: floor, 3-4: wall, 5-6: ceiling)."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "5 seconds per use",
+      "endsWhen": "The dream sequence ends or the wearer's focus wavers.",
+      "charges": "1 charge/day"
+    },
+    "warning": "If used too frequently, the mind may begin to blur the line between dreams and reality, leading to temporary delusions lasting until the next full moon.",
+    "vendorReason": "Wario stocks it because it’s a unique way to mess with customers' minds in his chaotic store.",
+    "shippingDetail": "Shipped within the blink of an eye—courtesy of Wario's personal warp pipe.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:18:30+00:00"
+    }
+  },
+  "wz_gen_legendary_0139": {
+    "id": "wz_gen_legendary_0139",
+    "name": "Eterna-Dream's Temporal Lullaby",
+    "description": "A haunting melody said to soothe time itself, lulling it into a state of suspended animation for the listener. However, its power can be unpredictable and may affect more than intended.",
+    "price": 25000,
+    "category": "curiosities",
+    "rarity": "legendary",
+    "icon": "🎵",
+    "stock": 1,
+    "levelRequirement": 15,
+    "levelRequirementReason": "Requires a strong grasp of temporal magic to wield this item properly.",
+    "effectDetails": [
+      {
+        "title": "Temporal Reprieve",
+        "rules": "The listener gains advantage on all saving throws and ability checks for the next 3 rounds."
+      },
+      {
+        "title": "Echoing Aura",
+        "rules": "Any creature within a 10-foot radius of the user must succeed on a DC 20 Wisdom saving throw or be affected by the lullaby as well, gaining no benefit from it."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "The effects last for 3 rounds.",
+      "endsWhen": "The duration ends after 3 rounds.",
+      "charges": "Uses once per long rest."
+    },
+    "warning": "If used too frequently, the melody may disrupt the natural flow of time around you, causing unexpected temporal distortions.",
+    "vendorReason": "Wario stocks it because even though it’s unpredictable, it can be a handy tool for those who need to buy extra time.",
+    "shippingDetail": "The item arrives in an ornate wooden case adorned with intricate carvings that glow faintly, hinting at the magic within.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:18:41+00:00"
+    }
+  },
+  "wz_gen_epic_0185": {
+    "id": "wz_gen_epic_0185",
+    "name": "Chrona-Delusion's Mirage Mask",
+    "description": "This shimmering mask confounds foes, making them perceive allies as enemies and enemies as allies during an encounter. The wearer's strategic advantage can swing the tide of battle.",
+    "price": 6500,
+    "category": "curiosities",
+    "rarity": "epic",
+    "icon": "Maskscape",
+    "stock": 1,
+    "levelRequirement": 12,
+    "levelRequirementReason": "Requires a higher-level character for the precision to use it effectively in combat.",
+    "effectDetails": [
+      {
+        "title": "Delusive Perception",
+        "rules": "When worn, all creatures within 30 feet treat the wearer's allies as enemies and their enemies as allies. Lasts until the end of the encounter."
+      },
+      {
+        "title": "Mystic Charges",
+        "rules": "The mask has three charges; one is expended when used. Recharges after a long rest."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Until the end of the current encounter.",
+      "endsWhen": "The start of any new combat or a long rest.",
+      "charges": "3 charges; recharges on a long rest."
+    },
+    "warning": "Enemies that are tricked by this effect have disadvantage on their next attack roll against the wearer's allies until they make a Wisdom saving throw.",
+    "vendorReason": "Wario stocks it for those who need a game-changing edge in chaotic encounters, but warns of the potential to turn friends against each other.",
+    "shippingDetail": "This item ships in a box marked 'Do Not Open Before Use' with instructions to wear immediately upon arrival.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:18:59+00:00"
+    }
+  },
+  "wz_gen_uncommon_0188": {
+    "id": "wz_gen_uncommon_0188",
+    "name": "Chrona-Bounce Bubble",
+    "description": "A small, translucent bubble that grants temporary invulnerability for a moment upon popping. Useful in close combat but dangerous to use indoors.",
+    "price": 350,
+    "category": "equipment",
+    "rarity": "uncommon",
+    "icon": "👋",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires dexterity and agility to handle effectively without bursting prematurely.",
+    "effectDetails": [
+      {
+        "title": "Temporal Invulnerability",
+        "rules": "Upon popping, the user gains +2 AC and resistance to all damage types for 1 round. However, every 30 seconds it has a 5% chance of exploding without warning."
+      }
+    ],
+    "usage": {
+      "activation": "reaction",
+      "duration": "1 round after activation",
+      "endsWhen": "The bubble pops or its effects expire",
+      "charges": "Recharges on long rest"
+    },
+    "warning": "If the bubble bursts prematurely, it deals 1d6 force damage to the user.",
+    "vendorReason": "Wario stocks this because customers often need a quick edge in combat but are too lazy for proper training.",
+    "shippingDetail": "Bubble arrives as an inert package; users must activate it themselves at the table.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:19:47+00:00"
+    }
+  },
+  "wz_gen_uncommon_0191": {
+    "id": "wz_gen_uncommon_0191",
+    "name": "Temporal Snail's Nacreous Shell",
+    "description": "This iridescent shell grants its wearer a +2 bonus to AC and allows them to cast \"Mirror Image\" once per long rest. However, the wearer must consume a daily dose of snail slime to maintain the effect.",
+    "price": 350,
+    "category": "equipment",
+    "rarity": "uncommon",
+    "icon": "🐌",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires moderate dexterity and experience in handling exotic materials.",
+    "effectDetails": [
+      {
+        "title": "Mirror Image",
+        "rules": "Once per long rest, the wearer may cast Mirror Image as a spell of level 4."
+      }
+    ],
+    "usage": {
+      "activation": "Passive",
+      "duration": "Permanent until effects are negated or shell is destroyed",
+      "endsWhen": "Wearer ceases to consume snail slime daily",
+      "charges": "1 charge per day"
+    },
+    "warning": "Failure to consume the required snail slime results in a -1 penalty to AC for 24 hours.",
+    "vendorReason": "Wario stocks this item because it offers a unique combination of protection and spellcasting ability, making it highly desirable among adventurers.",
+    "shippingDetail": "The shell is shipped with a daily supply of fresh snail slime to ensure its effectiveness.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:20:52+00:00"
+    }
+  },
+  "wz_gen_uncommon_0192": {
+    "id": "wz_gen_uncommon_0192",
+    "name": "Foggy Fume Cloak",
+    "description": "This cloak emits a dense fog that obscures your movements, making you nearly impossible to hit in combat but significantly reducing your speed.",
+    "price": 350,
+    "category": "equipment",
+    "rarity": "uncommon",
+    "icon": "☁️",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires coordination and discipline to wield effectively without becoming lost yourself.",
+    "effectDetails": [
+      {
+        "title": "Fog Concealment",
+        "rules": "You gain advantage on Dexterity (Stealth) checks, but your speed is reduced by 10 feet."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 round per use",
+      "endsWhen": "the end of your next turn after activation",
+      "charges": "2 charges, recharged at the start of each short or long rest"
+    },
+    "warning": "The fog dissipates immediately if you take any action that requires line of sight.",
+    "vendorReason": "Wario stocks this because customers want to be unpredictable on the battlefield without overhauling their entire strategy.",
+    "shippingDetail": "Delivered via a cloud of smoke in a brown paper bag, ensuring it arrives looking like an ordinary package.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:21:23+00:00"
+    }
+  },
+  "wz_gen_uncommon_0193": {
+    "id": "wz_gen_uncommon_0193",
+    "name": "Misty Mirage Mask",
+    "description": "This shimmering mask distorts your appearance, making you appear as a ghostly figment to nearby creatures.",
+    "price": 300,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "MASK",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires some experience with role-playing to effectively use the effects without drawing attention.",
+    "effectDetails": [
+      {
+        "title": "Phantom Form",
+        "rules": "You gain advantage on Stealth checks and can attempt to appear as a ghostly mirage within 30 feet. This effect lasts for 1 minute, after which you become visible again."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 minute",
+      "endsWhen": "the duration expires",
+      "charges": "unlimited, recharged at dawn"
+    },
+    "warning": "While in phantom form, you move silently but your vision is limited to the immediate area, affecting your ability to react to threats.",
+    "vendorReason": "Wario stocks this because it's a great way for players to avoid fights when they need that extra edge.",
+    "shippingDetail": "Sent with a note reading 'Enjoy your next misty encounter!'",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:21:40+00:00"
+    }
+  },
+  "wz_gen_uncommon_0194": {
+    "id": "wz_gen_uncommon_0194",
+    "name": "Skip-Loop Shaker",
+    "description": "This shaker looks like it's been through a blender, but it can liven up even the dullest conversation. When shaken, it creates a series of echoes that repeat in a loop for 3 rounds.",
+    "price": 250,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "🔄",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires at least two levels to appreciate its comedic value and understand its limitations.",
+    "effectDetails": [
+      {
+        "title": "Echo Loop",
+        "rules": "When shaken, the Skip-Loop Shaker creates a sequence of echoes that repeat in a loop for exactly 3 rounds."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "3 rounds",
+      "endsWhen": "the loop completes or it is shaken again",
+      "charges": "5 charges, recharged after a short rest"
+    },
+    "warning": "Once the echoes end, you are considered disoriented for 1 round.",
+    "vendorReason": "Wario knows that sometimes, a bit of chaos can make your day more fun!",
+    "shippingDetail": "Shipped in a box marked 'Expressly Uncommon Fun' with a note saying 'For Your Most Chaotic Moments!'",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:22:44+00:00"
+    }
+  },
+  "wz_gen_uncommon_0198": {
+    "id": "wz_gen_uncommon_0198",
+    "name": "Quantum Shuffleboard",
+    "description": "This shuffleboard allows you to shuffle cards and deal with unpredictable outcomes in your favor. However, it can only be used once before it gets stuck permanently.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "%!Q",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a basic grasp of strategic card manipulation.",
+    "effectDetails": [
+      {
+        "title": "Card Manipulation",
+        "rules": "Roll a d20. On a result equal to or higher than your Charisma modifier, draw an extra card from the deck."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "instantaneous",
+      "endsWhen": "after use",
+      "charges": "1 use per day"
+    },
+    "warning": "The shuffleboard gets permanently stuck after its first activation.",
+    "vendorReason": "Wario knows a thing or two about getting creative with items that are just as useful as they are troublesome.",
+    "shippingDetail": "Delivered by a flying squirrel who has more important things to do.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:24:22+00:00"
+    }
+  },
+  "wz_gen_uncommon_0200": {
+    "id": "wz_gen_uncommon_0200",
+    "name": "Mistress Misdirection",
+    "description": "A shimmering, misty artifact that bends light around you, allowing you to slip past danger and mislead your foes.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "illusion",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a keen awareness of surroundings to wield effectively.",
+    "effectDetails": [
+      {
+        "title": "Misleading Mirage",
+        "rules": "Create an illusory duplicate that can move up to your speed, acting as a decoy for 1 minute."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 minute",
+      "endsWhen": "The illusion disperses after the duration.",
+      "charges": "1 charge; recharged on a short or long rest."
+    },
+    "warning": "The spell has no effect in direct sunlight, negating its utility outdoors during daylight.",
+    "vendorReason": "Wario sells it because the item's whimsical nature makes it a hit among his chaotic patrons.",
+    "shippingDetail": "Sent with a mischievous delivery drone that sometimes gets lost.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:24:46+00:00"
+    }
+  },
+  "wz_gen_uncommon_0201": {
+    "id": "wz_gen_uncommon_0201",
+    "name": "Dreamy Mirage Mask",
+    "description": "This mask creates a hallucinatory effect around you, making others see you as a whimsical dream. It can be disorienting and is not recommended for combat.",
+    "price": 350,
+    "category": "curiosities",
+    "rarity": "uncommon",
+    "icon": "MASK_FACE",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "It requires a certain level of experience to wield the power without causing side effects.",
+    "effectDetails": [
+      {
+        "title": "Hallucinatory Projection",
+        "rules": "You can cast a hallucination that lasts for 1 minute. During this time, any creature within 30 feet who sees you must make a DC 14 Wisdom saving throw or believe they are seeing an illusion of your choosing."
+      }
+    ],
+    "usage": {
+      "activation": "Reaction",
+      "duration": "1 minute when activated as a reaction",
+      "endsWhen": "The duration runs out, or the user is incapacitated",
+      "charges": "One charge that recharges after a short rest"
+    },
+    "warning": "While wearing this mask, you are more susceptible to being charmed.",
+    "vendorReason": "Wario stocks it because people often ask for ways to be seen differently without being noticed as a fraud.",
+    "shippingDetail": "The mask is delivered in an elaborate box with a note that reads 'Your dreams will never be the same.'",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:25:36+00:00"
+    }
+  },
+  "wz_gen_uncommon_0203": {
+    "id": "wz_gen_uncommon_0203",
+    "name": "Snore-Silence Salve",
+    "description": "A thick, soothing balm that instantly quiets any sound. While it works wonders, the salve's potency fades after a mere 1d4+2 minutes.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "ð£",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a certain calm and patience to apply effectively under pressure.",
+    "effectDetails": [
+      {
+        "title": "Silent Moments",
+        "rules": "Reduces all ambient noise within a 10-foot radius by 5d6 decibels. Effect lasts for 1d4+2 minutes."
+      }
+    ],
+    "usage": {
+      "activation": "Action",
+      "duration": "Lasts for 1d4+2 minutes.",
+      "endsWhen": "Time runs out or the user moves more than 30 feet away from the application point.",
+      "charges": "Uses one charge. Recharges after a short rest."
+    },
+    "warning": "The salve is highly fragrant and can irritate sensitive noses if applied carelessly. Also, it leaves a persistent, dreamy afterglow for up to 1 minute.",
+    "vendorReason": "Wario stocks this item because customers often ask for ways to enjoy peace and quiet in the most chaotic of situations.",
+    "shippingDetail": "The salve is shipped in a small, ornate glass vial with a delicate stopper to ensure its potency remains intact.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:25:47+00:00"
+    }
+  },
+  "wz_gen_uncommon_0205": {
+    "id": "wz_gen_uncommon_0205",
+    "name": "Dreamwhisper Lullaby",
+    "description": "A soothing lullaby that can induce a state of deep relaxation, but it only works on those who are already asleep.",
+    "price": 350,
+    "category": "consumables",
+    "rarity": "uncommon",
+    "icon": "🎵",
+    "stock": 3,
+    "levelRequirement": 4,
+    "levelRequirementReason": "Requires a moderate grasp of musical theory and the ability to sing.",
+    "effectDetails": [
+      {
+        "title": "Dreamy Relaxation",
+        "rules": "Reduces all characters' stress by 2d6 for 1 round. Only effective on sleeping targets."
+      }
+    ],
+    "usage": {
+      "activation": "bonus action",
+      "duration": "1 round",
+      "endsWhen": "The song ends or the target wakes up.",
+      "charges": "5 uses, recharged after a long rest"
+    },
+    "warning": "Only effective on those who are asleep. Waking characters do not benefit from its effects.",
+    "vendorReason": "Wario finds it amusing that something as simple and soothing can be so hard to sell.",
+    "shippingDetail": "Delivered by a snoring carrier pigeon.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-16T19:26:20+00:00"
+    }
   }
 };

@@ -123,20 +123,35 @@
       "goomba_messenger",
       "koopa_worker_green"
     ],
-    "reputationChanges": {},
+    "reputationChanges": {
+      "remi_akamatsu_full_backstory": {
+        "koopa_troop": 15
+      },
+      "dan": {
+        "koopa_troop": 12
+      },
+      "hjumpik": {
+        "koopa_troop": 10
+      }
+    },
     "effects": {
-      "koopa_troop": 15,
-      "primordial_wyrm": -10
+      "koopa_troop": 10
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-16T15:44:03+00:00",
+      "at": "2026-08-16T18:13:50+00:00",
       "fields": [
         "reputationChanges",
-        "effects"
+        "effects",
+        "reputationNotes"
       ]
+    },
+    "reputationNotes": {
+      "remi_akamatsu_full_backstory": "Heroically rescued survivors from the corrupted sewers.",
+      "dan": "Led a team to navigate and breach life-threatening tunnels.",
+      "hjumpik": "Provided vital tactical support in navigating the perilous environment."
     }
   },
   {
@@ -190,20 +205,39 @@
       "koopa_worker_green",
       "goomba_grunt"
     ],
-    "reputationChanges": {},
+    "reputationChanges": {
+      "bowser": {
+        "koopa_troop": -15,
+        "kremling_krew": -10
+      },
+      "remi_akamatsu_full_backstory": {
+        "koopa_troop": 5
+      },
+      "dan": {
+        "koopa_troop": 3
+      },
+      "hjumpik": {
+        "koopa_troop": 4
+      }
+    },
     "effects": {
-      "koopa_troop": -15,
-      "primordial_wyrm": -4
+      "koopa_troop": 10
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-16T15:45:07+00:00",
+      "at": "2026-08-16T18:14:32+00:00",
       "fields": [
         "reputationChanges",
-        "effects"
+        "effects",
+        "reputationNotes"
       ]
+    },
+    "reputationNotes": {
+      "bowser": "King of the Koopas lost to former troops he trained.",
+      "remi_akamatsu_full_backstory": "Artificer's devotion earned respect from her comrades.",
+      "dan": "Veteran mage faced trauma fighting old allies."
     }
   },
   {
@@ -262,8 +296,7 @@
       }
     },
     "effects": {
-      "koopa_troop": 10,
-      "primordial_wyrm": -20
+      "koopa_troop": 10
     },
     "reputationNotes": {
       "bowser": "King of the Koopas gained favor with Resistance Team Alpha after leading their victory."
@@ -573,14 +606,16 @@
     ],
     "reputationChanges": {},
     "effects": {
-      "toad_gang": 15,
-      "tomb_kings": -20
+      "wario_land": -15,
+      "pond_patrol": -10,
+      "go_rock_squad": 15,
+      "mages_guild": 20
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-16T15:48:32+00:00",
+      "at": "2026-08-16T18:59:01+00:00",
       "fields": [
         "reputationChanges",
         "effects"
@@ -1285,9 +1320,7 @@
         "pianta_syndicate": -5
       }
     },
-    "effects": {
-      "united_factions": 5
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Waluigi's archivist skills preserved the Piantas' defiance.",
       "remi_akamatsu_full_backstory": "Remi Akamatsu's alliance with the Piantas solidified their reputation as a formidable force.",
@@ -1512,9 +1545,7 @@
         "noki_shellfish": 15
       }
     },
-    "effects": {
-      "united_kingdom_of_snowdinia": -5
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Waluigi's misdeeds humiliated the Regency in Noki Bay."
     },
@@ -1687,12 +1718,9 @@
         "iron_legion": -8
       },
       "dan": {
-        "raventree_curse": 10,
         "iron_legion": 2
       },
-      "archie_miser": {
-        "raventree_curse": 15
-      }
+      "archie_miser": {}
     },
     "effects": {
       "general_student_union": 10,
@@ -1924,12 +1952,10 @@
     ],
     "reputationChanges": {
       "hjumpik": {
-        "custodians_of_causality": 15,
-        "raventree_curse": -30
+        "custodians_of_causality": 15
       },
       "bowser": {
-        "custodians_of_causality": 10,
-        "raventree_curse": -20
+        "custodians_of_causality": 10
       }
     },
     "effects": {
@@ -2007,9 +2033,7 @@
         "kremling_krew": -4
       }
     },
-    "effects": {
-      "all": 3
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Waluigi archives the skirmish as a victory for DK Crew.",
       "remi_akamatsu_full_backstory": "Remi Akamatsu records Galypso's escape as a Kremling failure."
@@ -3428,9 +3452,7 @@
         "crimson_fleet": -10
       }
     },
-    "effects": {
-      "all": 5
-    },
+    "effects": {},
     "reputationNotes": {
       "bowser": "The pirate king lost a significant ally when Crimson Fleet fell.",
       "archie_miser": "Archie's leadership secured the liberation of Airship Vigilance and earned him respect among the liberated factions.",
@@ -3885,9 +3907,7 @@
         "koopa_troop": -15
       }
     },
-    "effects": {
-      "regional_stability": 5
-    },
+    "effects": {},
     "reputationNotes": {
       "bowser": "Bowser's invasion attempt ended in heavy losses for the Koopa Troop."
     },

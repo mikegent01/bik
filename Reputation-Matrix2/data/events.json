@@ -660,8 +660,7 @@
     "reputationChanges": {
       "waluigi": {
         "mages_guild": 30,
-        "fawful_forces": -15,
-        "bowser": -20
+        "fawful_forces": -15
       },
       "bowser": {
         "toad_cult": -10,
@@ -831,10 +830,7 @@
         "goodstyle_artisans": 10
       }
     },
-    "effects": {
-      "united_midlands_factions": 10,
-      "midlands_faction_reputations": -15
-    },
+    "effects": {},
     "reputationNotes": {
       "archie_miser": "Ruined the reputation of the toad gang, severely damaged Pony Nobility standing and nearly destroyed Rakasha Clans' plumbing.",
       "markop": "Recognized for his alchemical contributions, earning respect from Mages Guild; also backed up by Freelancers.",
@@ -1067,13 +1063,10 @@
     "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(80,80,80,0.12), rgba(40,40,40,0.10), rgba(212,168,83,0.06)); padding: 1.5rem; border-left: 6px solid #4a4a4a; border-radius: 1rem; } .xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; } .xp-preview-box h4 { color: #a67af0; margin-top: 0; font-size: 1.2em; border-bottom: 1px solid rgba(166, 122, 240, 0.3); padding-bottom: 8px; } .xp-list { list-style: none; padding: 0; margin: 15px 0; } .xp-list li { margin-bottom: 10px; line-height: 1.4; border-left: 3px solid rgba(139, 95, 212, 0.4); padding-left: 12px; } .xp-name { color: #f2d68a; font-weight: bold; display: block; margin-bottom: 2px; } .xp-total { color: #fff1b8; font-weight: bold; border-top: 1px dashed rgba(212, 168, 83, 0.3); padding-top: 4px; margin-top: 4px; display: inline-block; } .waluigi-rant { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .waluigi-comment { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .tactical-note { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.95em; } .intercepted-feed { background: #000; border: 1px dashed #7ee6a0; padding: 10px; margin: 10px 0; font-family: 'Courier New', Courier, monospace; color: #7ee6a0; } .people-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; } .person-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 5px 10px; font-size: 0.9em; }",
     "reputationChanges": {
       "waluigi": {
-        "fawful_forces": 15,
-        "star_sprites": -5
+        "fawful_forces": 15
       }
     },
-    "effects": {
-      "all_factions": 5
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Documented the war over star shards, emphasizing their true significance."
     },
@@ -1907,16 +1900,13 @@
     "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(80,80,80,0.12), rgba(40,40,40,0.10), rgba(212,168,83,0.06)); padding: 1.5rem; border-left: 6px solid #4a4a4a; border-radius: 1rem; } .xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; } .xp-preview-box h4 { color: #a67af0; margin-top: 0; font-size: 1.2em; border-bottom: 1px solid rgba(166, 122, 240, 0.3); padding-bottom: 8px; } .xp-list { list-style: none; padding: 0; margin: 15px 0; } .xp-list li { margin-bottom: 10px; line-height: 1.4; border-left: 3px solid rgba(139, 95, 212, 0.4); padding-left: 12px; } .xp-name { color: #f2d68a; font-weight: bold; display: block; margin-bottom: 2px; } .xp-total { color: #fff1b8; font-weight: bold; border-top: 1px dashed rgba(212, 168, 83, 0.3); padding-top: 4px; margin-top: 4px; display: inline-block; } .waluigi-rant { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .waluigi-comment { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .tactical-note { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.95em; } .intercepted-feed { background: #000; border: 1px dashed #7ee6a0; padding: 10px; margin: 10px 0; font-family: 'Courier New', Courier, monospace; color: #7ee6a0; } .people-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; } .person-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 5px 10px; font-size: 0.9em; }",
     "reputationChanges": {},
     "effects": {
-      "regal_empire": 15,
-      "mages_guild": -10,
-      "iron_legion": -8,
-      "wario_enterprise": 5
+      "regal_empire": -15
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-16T15:45:53+00:00",
+      "at": "2026-08-16T18:58:28+00:00",
       "fields": [
         "reputationChanges",
         "effects"
@@ -2998,13 +2988,9 @@
       "markop": {
         "chaos_dwarfs": -20
       },
-      "remi_akamatsu_full_backstory": {
-        "cob": 15
-      }
+      "remi_akamatsu_full_backstory": {}
     },
-    "effects": {
-      "cob": 10
-    },
+    "effects": {},
     "reputationNotes": {
       "markop": "Exposed a paid witness, confirming his vigilante reputation.",
       "remi_akamatsu_full_backstory": "Defeated a fraudster and secured a valuable connection."
@@ -3182,8 +3168,7 @@
         "mushroom_regency": -15
       },
       "remi_akamatsu_full_backstory": {
-        "dark_elves": 10,
-        "fungus_mancers": 20
+        "dark_elves": 10
       }
     },
     "reputationNotes": {
@@ -3414,8 +3399,7 @@
         "disaster_inc": 2
       },
       "remi_akamatsu_full_backstory": {
-        "disaster_inc": -30,
-        "toadburt": 30
+        "disaster_inc": -30
       },
       "waluigi": {
         "disaster_inc": 5
@@ -3657,8 +3641,7 @@
         "iron_fists": -5
       },
       "remi_akamatsu_full_backstory": {
-        "disaster_inc": 8,
-        "green_t": -3
+        "disaster_inc": 8
       }
     },
     "effects": {
@@ -3760,9 +3743,7 @@
       "waluigi": {
         "toad_cult": -5
       },
-      "bowser": {
-        "shroob": 30
-      }
+      "bowser": {}
     },
     "effects": {
       "mushroom_regency": -20,
@@ -3936,9 +3917,7 @@
         "mages_guild": -15
       }
     },
-    "effects": {
-      "all": -10
-    },
+    "effects": {},
     "reputationNotes": {
       "archie_miser": "Called the torture of a man being ripped apart by cosmic lightning 'beautiful'.",
       "waluigi": "Confirmed the Iron Legion and Mages' Guild's metaphysical corruption."
@@ -4296,17 +4275,14 @@
     ],
     "reputationChanges": {
       "waluigi": {
-        "mushroom_regency": 30,
-        "bowser": -15
+        "mushroom_regency": 30
       },
       "bowser": {
         "mushroom_regency": 15,
         "peach_loyalists": -20
       }
     },
-    "effects": {
-      "general_public": 10
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Waluigi documents the crisis with no fear of official censure.",
       "bowser": "Bowser's actions are seen as a necessary evil, though his methods remain controversial."
@@ -4395,20 +4371,12 @@
         "purple_legion": -15
       },
       "markop": {
-        "purple_legion": -8,
-        "bugbears": 5
+        "purple_legion": -8
       },
-      "archie_miser": {
-        "bugbears": -30
-      },
-      "green_t": {
-        "bugbears": -2
-      },
-      "bowser": {
-        "bugbears": 5
-      },
+      "archie_miser": {},
+      "green_t": {},
+      "bowser": {},
       "waluigi": {
-        "bugbears": -14,
         "purple_legion": -8
       }
     },
@@ -4786,16 +4754,14 @@
     "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(80,80,80,0.12), rgba(40,40,40,0.10), rgba(212,168,83,0.06)); padding: 1.5rem; border-left: 6px solid #4a4a4a; border-radius: 1rem; } .xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; } .xp-preview-box h4 { color: #a67af0; margin-top: 0; font-size: 1.2em; border-bottom: 1px solid rgba(166, 122, 240, 0.3); padding-bottom: 8px; } .xp-list { list-style: none; padding: 0; margin: 15px 0; } .xp-list li { margin-bottom: 10px; line-height: 1.4; border-left: 3px solid rgba(139, 95, 212, 0.4); padding-left: 12px; } .xp-name { color: #f2d68a; font-weight: bold; display: block; margin-bottom: 2px; } .xp-total { color: #fff1b8; font-weight: bold; border-top: 1px dashed rgba(212, 168, 83, 0.3); padding-top: 4px; margin-top: 4px; display: inline-block; } .waluigi-rant { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .waluigi-comment { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .tactical-note { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.95em; } .intercepted-feed { background: #000; border: 1px dashed #7ee6a0; padding: 10px; margin: 10px 0; font-family: 'Courier New', Courier, monospace; color: #7ee6a0; } .people-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; } .person-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 5px 10px; font-size: 0.9em; }",
     "reputationChanges": {
       "archie_miser": {
-        "purple_legion": 20,
-        "green_legion": -15
+        "purple_legion": 20
       },
       "bowser": {
         "iron_legion": 10,
         "onyx_hand": -5
       },
       "green_t": {
-        "vampire_counts": 15,
-        "green_legion": -10
+        "vampire_counts": 15
       }
     },
     "effects": {
@@ -5412,9 +5378,7 @@
         "goodstyle_artisans": 15
       }
     },
-    "effects": {
-      "united_factions": -20
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Waluigi's research into Luigi's psychological trauma finds a critical node in the mansion incident."
     },
@@ -5981,19 +5945,14 @@
     ],
     "reputationChanges": {
       "waluigi": {
-        "mario": -15,
-        "unknown_companion": -10,
-        "luigi": -5,
         "fawfuls_furious_freaks": 5
       },
       "bowser": {
-        "mario": -8,
         "koopa_troop": -3
       }
     },
     "effects": {
-      "wario_land": -10,
-      "pearl_realm": -2
+      "wario_land": -10
     },
     "reputationNotes": {
       "waluigi": "Waluigi's relentless pursuit of the truth about Mario has earned him suspicion and guilt, but also respect from those who value thorough investigation.",
@@ -8060,7 +8019,6 @@
         "mazebounds": -15
       },
       "markop": {
-        "archie_miser": 20,
         "mazebounds": -5
       },
       "remi_akamatsu_full_backstory": {
@@ -8306,16 +8264,11 @@
     ],
     "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(80,80,80,0.12), rgba(40,40,40,0.10), rgba(212,168,83,0.06)); padding: 1.5rem; border-left: 6px solid #4a4a4a; border-radius: 1rem; } .xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; } .xp-preview-box h4 { color: #a67af0; margin-top: 0; font-size: 1.2em; border-bottom: 1px solid rgba(166, 122, 240, 0.3); padding-bottom: 8px; } .xp-list { list-style: none; padding: 0; margin: 15px 0; } .xp-list li { margin-bottom: 10px; line-height: 1.4; border-left: 3px solid rgba(139, 95, 212, 0.4); padding-left: 12px; } .xp-name { color: #f2d68a; font-weight: bold; display: block; margin-bottom: 2px; } .xp-total { color: #fff1b8; font-weight: bold; border-top: 1px dashed rgba(212, 168, 83, 0.3); padding-top: 4px; margin-top: 4px; display: inline-block; } .waluigi-rant { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .waluigi-comment { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .tactical-note { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.95em; } .intercepted-feed { background: #000; border: 1px dashed #7ee6a0; padding: 10px; margin: 10px 0; font-family: 'Courier New', Courier, monospace; color: #7ee6a0; } .people-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; } .person-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 5px 10px; font-size: 0.9em; }",
     "reputationChanges": {
-      "waluigi": {
-        "mystic_morel": -20
-      },
+      "waluigi": {},
       "remi_akamatsu_full_backstory": {
-        "mystic_morel": 30,
         "mages_guild": 15
       },
-      "dan": {
-        "remi_akamatsu_full_backstory": 20
-      },
+      "dan": {},
       "bowser": {
         "wario_enterprise": -10
       }
@@ -8426,8 +8379,7 @@
     ],
     "reputationChanges": {
       "waluigi": {
-        "disaster_inc": -15,
-        "archie_miser": -5
+        "disaster_inc": -15
       },
       "archie_miser": {
         "disaster_inc": 5
@@ -8638,8 +8590,7 @@
     "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(80,80,80,0.12), rgba(40,40,40,0.10), rgba(212,168,83,0.06)); padding: 1.5rem; border-left: 6px solid #4a4a4a; border-radius: 1rem; } .xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; } .xp-preview-box h4 { color: #a67af0; margin-top: 0; font-size: 1.2em; border-bottom: 1px solid rgba(166, 122, 240, 0.3); padding-bottom: 8px; } .xp-list { list-style: none; padding: 0; margin: 15px 0; } .xp-list li { margin-bottom: 10px; line-height: 1.4; border-left: 3px solid rgba(139, 95, 212, 0.4); padding-left: 12px; } .xp-name { color: #f2d68a; font-weight: bold; display: block; margin-bottom: 2px; } .xp-total { color: #fff1b8; font-weight: bold; border-top: 1px dashed rgba(212, 168, 83, 0.3); padding-top: 4px; margin-top: 4px; display: inline-block; } .waluigi-rant { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .waluigi-comment { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .tactical-note { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.95em; } .intercepted-feed { background: #000; border: 1px dashed #7ee6a0; padding: 10px; margin: 10px 0; font-family: 'Courier New', Courier, monospace; color: #7ee6a0; } .people-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; } .person-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 5px 10px; font-size: 0.9em; }",
     "reputationChanges": {
       "archie_miser": {
-        "toad_cult": 15,
-        "bryan": -15
+        "toad_cult": 15
       },
       "dan": {
         "toad_cult": -15
@@ -8718,7 +8669,6 @@
         "fawfuls_furious_freaks": -15
       },
       "hjumpik": {
-        "mystic_morel": 20,
         "fawfuls_furious_freaks": -5
       }
     },
@@ -8903,8 +8853,7 @@
         "disaster_inc": 15
       },
       "waluigi": {
-        "disaster_inc": 30,
-        "archivist": -15
+        "disaster_inc": 30
       },
       "remi_akamatsu_full_backstory": {
         "disaster_inc": 20
@@ -9194,9 +9143,7 @@
         "koopa_troop": 5
       }
     },
-    "effects": {
-      "global": 10
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Waluigi's unauthorized audit gained the Iron Legion's respect but cost the Mushroom Regency credibility.",
       "bowser": "Bowser's Koopa Troop received a minor boost for their operational acumen."
@@ -10920,13 +10867,13 @@
     ],
     "reputationChanges": {},
     "effects": {
-      "iron_legion": -20
+      "iron_legion": -15
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-16T15:46:31+00:00",
+      "at": "2026-08-16T18:59:34+00:00",
       "fields": [
         "reputationChanges",
         "effects"
@@ -11142,20 +11089,15 @@
     ],
     "customCss": ".wiki-lead { background: linear-gradient(135deg, rgba(80,80,80,0.12), rgba(40,40,40,0.10), rgba(212,168,83,0.06)); padding: 1.5rem; border-left: 6px solid #4a4a4a; border-radius: 1rem; } .xp-preview-box { background: rgba(139, 95, 212, 0.08); border: 2px solid #8b5fd4; border-radius: 12px; padding: 20px; margin: 25px 0; font-family: 'JetBrains Mono', monospace; } .xp-preview-box h4 { color: #a67af0; margin-top: 0; font-size: 1.2em; border-bottom: 1px solid rgba(166, 122, 240, 0.3); padding-bottom: 8px; } .xp-list { list-style: none; padding: 0; margin: 15px 0; } .xp-list li { margin-bottom: 10px; line-height: 1.4; border-left: 3px solid rgba(139, 95, 212, 0.4); padding-left: 12px; } .xp-name { color: #f2d68a; font-weight: bold; display: block; margin-bottom: 2px; } .xp-total { color: #fff1b8; font-weight: bold; border-top: 1px dashed rgba(212, 168, 83, 0.3); padding-top: 4px; margin-top: 4px; display: inline-block; } .waluigi-rant { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .waluigi-comment { color: #d8c6ff; font-style: italic; background: rgba(139, 95, 212, 0.05); padding: 12px 18px; border-radius: 8px; border-left: 4px solid #8b5fd4; margin: 20px 0; } .tactical-note { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; margin: 15px 0; font-size: 0.95em; } .intercepted-feed { background: #000; border: 1px dashed #7ee6a0; padding: 10px; margin: 10px 0; font-family: 'Courier New', Courier, monospace; color: #7ee6a0; } .people-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 15px 0; } .person-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 5px 10px; font-size: 0.9em; }",
     "reputationChanges": {
-      "waluigi": {
-        "feyward_nameless_guard": -15
-      },
+      "waluigi": {},
       "hjumpik": {
-        "feyward_nameless_guard": 10,
         "corvinarus_family": 5
       },
       "bowser": {
         "corvinarus_family": -20
       }
     },
-    "effects": {
-      "feyward_high_school": 15
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Defeated a plant in the name of Feyward, earning respect but alienating the real Lady Aurelian.",
       "hjumpik": "Successfully negotiated with and gained trust from an unexpected ally: The Guard With No Name.",
@@ -11288,14 +11230,15 @@
     "waluigiAssessment": "## Waluigi's Assessment & Editorial Verdict\n\n**1. The Egress Protocol — A Masterclass in Localized Transport.** Waluigi commends King Asgore and Queen Toriel for rejecting the total destruction of the Barrier. Destroying a load-bearing dimensional seal to move two men is like blowing up a bridge to cross a puddle. Localized transport is clean, efficient, and keeps the roof where it belongs. WAH.\n\n**2. The Vexis Credentials — Administrative Victory.** The Agent's use of Commissar Vexis's papers proves Waluigi's long-standing thesis: guards at official gates do not read documents to verify truth; they read documents to relieve themselves of responsibility. A gold seal and a commissar's name will get you into almost any room in the multiverse. WAH.\n\n**3. The Execution of Flowey — Functional Retribution.** Flowey's elimination by Sans in a localized time-stop was necessary for operational security. Allowing a hostile entity with cross-dimensional boundary data to remain mobile would have compromised both the Underground and surface operations. WAH.\n\n**4. The Oath of Secrecy — Legal Recommendation.** Waluigi advises all readers to respect the Oath of Secrecy. Not because of royal authority, but because if humans on the surface discover seven hundred thousand monsters living under a mountain, they will immediately try to tax them. WAH.\n\n**Final Recommendation:** Approve the Part VII filing. Close the Mount Ebott Survey dossier. File the Vexis documents in the Iron Legion archives under Class 1 Clearance. WAH!",
     "reputationChanges": {},
     "effects": {
+      "iron_legion": 20,
       "toad_cult": -20,
-      "iron_legion": 20
+      "gamma_division": 10
     },
     "_generatedReputation": {
       "by": "tools/genkit",
       "system": "reputation",
       "model": "qwen2.5-7b-instruct-1m",
-      "at": "2026-08-16T15:47:08+00:00",
+      "at": "2026-08-16T19:00:03+00:00",
       "fields": [
         "reputationChanges",
         "effects"
@@ -11419,8 +11362,7 @@
         "mazebounds": 15
       },
       "remi_akamatsu_full_backstory": {
-        "mazebounds": 30,
-        "waluigi": -20
+        "mazebounds": 30
       }
     },
     "effects": {
