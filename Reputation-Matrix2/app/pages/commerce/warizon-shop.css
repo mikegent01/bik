@@ -3543,7 +3543,7 @@ html[data-wz-theme="dark"] .ab-ic {
 .by-explain-grid b { color: var(--wz-text); }
 
 /* Schools of bros attacks — the grouping shell around .by-tech blocks. */
-.by-school { border: 1px solid var(--wz-line); border-left: 5px solid #888; border-radius: 10px; padding: 14px 16px 4px; margin-bottom: 20px; background: var(--wz-panel, #fff); }
+.by-school { border: 1px solid var(--wz-line); border-left: 5px solid #888; border-radius: 10px; padding: 14px 16px 4px; margin-bottom: 20px; background: var(--wz-card); }
 .by-school-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .by-school-head h2 { margin: 0; font-size: 19px; letter-spacing: .01em; }
 .by-school-icon { font-size: 20px; }
@@ -3555,7 +3555,20 @@ html[data-wz-theme="dark"] .ab-ic {
 .by-tech-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .by-tech-head h3 { margin: 0; font-size: 17px; }
 .by-partners { font-size: 12px; color: var(--wz-muted); }
-.by-tech-blurb { margin: 4px 0 10px; font-size: 13px; color: var(--wz-muted); }
+.by-tech-blurb { margin: 4px 0 6px; font-size: 13px; color: var(--wz-muted); font-style: italic; }
+/* The real prose. Reads as body copy, not as a caption. */
+.by-tech-desc { margin: 0 0 8px; font-size: 13.5px; line-height: 1.6; color: var(--wz-text); max-width: 78ch; }
+.by-tech-risk { margin: 0 0 10px; font-size: 12.5px; line-height: 1.55; color: var(--wz-muted); max-width: 78ch; }
+.by-tech-risk b { color: var(--wz-text); }
+
+/* Difficulty tier badge — easy / medium / hard. */
+.by-diff {
+  display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; padding: 2px 7px; border-radius: 3px; border: 1px solid transparent;
+}
+.by-diff--easy   { background: #e6f4ea; color: #1c6b36; border-color: #b7e0c4; }
+.by-diff--medium { background: #fff4e0; color: #8a5a00; border-color: #f0d7a8; }
+.by-diff--hard   { background: #fde8e6; color: #9c2318; border-color: #f3c2bc; }
 
 .by-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
 
@@ -3626,6 +3639,48 @@ html[data-wz-theme="dark"] .ab-ic {
   .by-grid { grid-template-columns: 1fr; }
   .by-vendor { margin-left: 0; width: 100%; }
 }
+
+/* --------------------------------------------------------------------------
+   Bros Training Yard — dark theme.
+
+   The yard was added after the main dark block above and never got its own
+   overrides, so every hardcoded light value here (#fff, #f7f7f7, #fffbee,
+   #efe3ff) kept painting white slabs onto the #0e131a page. Anything that
+   states a literal colour above has to be restated here.
+   -------------------------------------------------------------------------- */
+
+html[data-wz-theme="dark"] .by-explain {
+  background: linear-gradient(120deg, var(--wz-surface, #171e28), #1d2531);
+  border-color: var(--wz-line);
+}
+html[data-wz-theme="dark"] .by-school {
+  background: var(--wz-card);
+  border-color: var(--wz-line);
+}
+html[data-wz-theme="dark"] .by-school-doctrine { color: var(--wz-gold); }
+
+html[data-wz-theme="dark"] .by-kit { background: var(--wz-card); border-color: var(--wz-line); }
+html[data-wz-theme="dark"] .by-kit:hover { box-shadow: var(--wz-shadow); }
+
+html[data-wz-theme="dark"] .by-tag--teach { background: #2f2440; color: #c9aef5; }
+html[data-wz-theme="dark"] .by-tag--support { background: #10323a; color: #7fd4e3; }
+
+html[data-wz-theme="dark"] .by-rule {
+  background: #201a10;
+  border-left-color: var(--wz-orange);
+  color: var(--wz-text);
+}
+html[data-wz-theme="dark"] .by-none {
+  background: #141b24;
+  border-color: var(--wz-line);
+  color: var(--wz-muted);
+}
+html[data-wz-theme="dark"] .by-stock { color: #5fd18c; }
+html[data-wz-theme="dark"] .by-school-count { border-color: var(--wz-line); color: var(--wz-muted); }
+
+html[data-wz-theme="dark"] .by-diff--easy   { background: #12301e; color: #79d79b; border-color: #1f4a2f; }
+html[data-wz-theme="dark"] .by-diff--medium { background: #302512; color: #e8b860; border-color: #4a3a1f; }
+html[data-wz-theme="dark"] .by-diff--hard   { background: #331613; color: #f08c80; border-color: #4d2420; }
 
 .empty-lens {
   background: #fffbee;

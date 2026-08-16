@@ -47,6 +47,7 @@ runner does that automatically via `after_apply`.
 
 from __future__ import annotations
 
+import ast
 import json
 import re
 import subprocess
@@ -72,6 +73,48 @@ TIERS = ("easy", "medium", "hard")
 # How many attacks are worth having. The Training Yard is a curated shelf, not
 # a bulk store: past roughly two dozen the schools stop meaning anything.
 TARGET_TOTAL = 24
+
+# A drill button shows one pictograph. Anything else — ASCII faces, sliced
+# words, arrows typed as punctuation — reads as corruption in the VTT.
+_PICTOGRAPH = re.compile(
+    "[\U0001F000-\U0001FAFF\u2190-\u21FF\u2300-\u23FF\u2460-\u24FF"
+    "\u25A0-\u27BF\u2B00-\u2BFF\u3030\u303D\u3297\u3299]"
+)
+_GESTURE_ICON = {"tap": "👆", "up": "⬆️", "down": "⬇️", "right": "➡️", "aim": "🎯"}
+
+
+def _clean_type(value: Any, school: str, known: dict[str, Any]) -> str:
+    """A human-readable category that never contradicts the school.
+
+    Models kept echoing a school id into "type" — and often the *wrong* one, so
+    records shipped with type "support_fire" under school "clearing". If the
+    value is a school id, or empty, use the school's display name instead.
+    """
+    text = " ".join(str(value or "").split())[:80]
+    slug = _slug(text)
+    if not text or slug in known:
+        meta = known.get(school) or {}
+        return str(meta.get("name") or "").strip() or "Paired manoeuvre"
+    return text
+
+
+def _clean_icon(value: Any, gesture: str) -> str:
+    """Return a single emoji for a drill step, or a gesture-appropriate default."""
+    text = str(value or "").strip()
+    match = _PICTOGRAPH.search(text)
+    if match:
+        # Keep the whole grapheme: skin tones, variation selectors and ZWJ
+        # sequences ("\U0001F3C3\u200D\u2642\uFE0F") are one glyph, not junk.
+        idx = match.start()
+        end = idx + 1
+        while end < len(text) and (
+            text[end] in "\uFE0F\uFE0E\u200D"
+            or "\U0001F3FB" <= text[end] <= "\U0001F3FF"
+            or (end > 0 and text[end - 1] == "\u200D")
+        ):
+            end += 1
+        return text[idx:end]
+    return _GESTURE_ICON.get(gesture, "🎮")
 
 
 def _load() -> dict[str, Any]:
@@ -157,7 +200,7 @@ Return strictly valid JSON only, no commentary, no code fence:
   "schoolReason": "<one sentence, only if you proposed a NEW school>",
   "difficulty": "medium",
   "description": "<3-5 sentences: what the pair did, in the event, and why it worked>",
-  "steps": ["<4 steps describing how to perform it at the table>"],
+  "steps": ["<plain sentence>", "<plain sentence>", "<plain sentence>", "<plain sentence>"],
   "risks": "<one or two sentences on how it goes wrong>",
   "waluigiNote": "<2-3 sentences, Waluigi's sardonic commentary, starts with WAH!>",
   "drill": {
@@ -174,8 +217,14 @@ Rules:
   Never credit a character who is not in that list.
 - The technique must be something the event describes. Do not invent magic,
   weapons, outcomes or numbers that are not in the record.
+- "steps" is the table-level narration: 4 plain English sentences, each a
+  complete sentence naming who does what. They are NOT the drill steps. Never
+  put an object, a dict or JSON inside "steps" — strings only.
 - drill.steps: exactly 4, at least one for actor A and one for actor B.
-  gesture must be one of tap, up, down, right, aim.
+  gesture must be one of tap, up, down, right, aim. actor is exactly "A" or
+  "B" — not "partnerA", not a character name.
+- Every drill "icon" must be a single real emoji character. Never ASCII art,
+  never a text fragment like "-AA-" or "=./=".
 - Prefer an existing school. Only propose a new one if none fits, and then
   give schoolReason.
 - waluigiNote is commentary, not narration: he is unimpressed and specific.
@@ -248,9 +297,41 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     if len(description) < 120:
         raise ValidationError("description is too thin — 3-5 real sentences")
 
-    steps = [" ".join(str(s).split()) for s in (raw.get("steps") or []) if str(s).strip()]
+    # "steps" is table narration and must be plain prose. Models kept handing
+    # back the drill choreography here — sometimes as real dicts, sometimes as
+    # a dict that had already been str()'d into "{'actor': 'A', ...}". Both
+    # shipped straight to canon and rendered as literal Python on the page, so
+    # recover the sentence where we can and reject the rest.
+    steps: list[str] = []
+    for entry in (raw.get("steps") or []):
+        if isinstance(entry, dict):
+            text = " ".join(str(entry.get("instruction", "")).split())
+        else:
+            text = " ".join(str(entry).split())
+            if text.startswith("{") and text.endswith("}"):
+                try:
+                    parsed = ast.literal_eval(text)
+                except (ValueError, SyntaxError):
+                    parsed = None
+                if isinstance(parsed, dict):
+                    text = " ".join(str(parsed.get("instruction", "")).split())
+                else:
+                    text = ""
+        if not text:
+            continue
+        if text.startswith("{") or "'actor'" in text or '"actor"' in text:
+            raise ValidationError(
+                "steps must be plain sentences, not drill objects — put the "
+                "choreography in drill.steps"
+            )
+        if len(text) < 12 or " " not in text:
+            raise ValidationError(
+                f"step {text!r} is not a sentence — each step must say who "
+                "does what, in words"
+            )
+        steps.append(text)
     if len(steps) < 3:
-        raise ValidationError("need at least 3 table steps")
+        raise ValidationError("need at least 3 table steps, each a plain sentence")
 
     risks = " ".join(str(raw.get("risks", "")).split())
     if len(risks) < 20:
@@ -273,6 +354,10 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         if not isinstance(entry, dict):
             continue
         actor = str(entry.get("actor", "")).strip().upper()
+        # Models write "partnerA"/"PARTNER B"/"A." as often as a bare "A".
+        if actor.startswith("PARTNER"):
+            actor = actor[len("PARTNER"):].strip(" .:_-")
+        actor = actor[:1]
         gesture = str(entry.get("gesture", "")).strip().lower()
         title = " ".join(str(entry.get("title", "")).split())
         instruction = " ".join(str(entry.get("instruction", "")).split())
@@ -280,10 +365,14 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             continue
         if not (3 <= len(title) <= 40) or len(instruction) < 15:
             continue
-        icon = str(entry.get("icon", "")).strip() or "🎮"
+        # icon[:4] used to slice ASCII junk ("=./=", "-AA-", "byss") straight
+        # into the drill UI, where it renders as garbage next to real emoji.
+        # Keep only an actual pictographic character, else fall back per
+        # gesture so the button always reads as a button.
+        icon = _clean_icon(entry.get("icon"), gesture)
         dsteps.append({
             "actor": actor, "title": title, "instruction": instruction,
-            "gesture": gesture, "icon": icon[:4],
+            "gesture": gesture, "icon": icon,
         })
     if len(dsteps) != 4:
         raise ValidationError("drill needs exactly 4 usable steps")
@@ -321,7 +410,7 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         "subtitle": " ".join(str(raw.get("subtitle", "")).split())[:160],
         "status": "confirmed",
         "participants": [a, b],
-        "type": " ".join(str(raw.get("type", "")).split())[:80] or "Paired manoeuvre",
+        "type": _clean_type(raw.get("type"), school, known),
         "sourceEvent": event.get("id"),
         "description": description,
         "steps": steps[:6],

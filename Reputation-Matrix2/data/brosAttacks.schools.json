@@ -48,9 +48,16 @@
       "name": "Support Fire Bros Attack",
       "school": "support_fire",
       "subtitle": "Green T and Remi's barricaded-door technique",
+      "description": "One partner steadies the shooter's aim, adjusts her position, and calls the timing so the shot lands with greater force and accuracy. Green T taught Remi the maneuver from a simple instruction sheet. Remi immediately used it against the tanuki behind a barricaded bathroom door, making the technique effective and the circumstances disastrous.",
+      "risks": "The technique improves a bad decision as efficiently as a good one. A clearer shot does not make the target lawful, safe, or deserving of being shot.",
+      "difficulty": "easy",
       "participants": [
         "green_t",
         "remi_akamatsu_full_backstory"
+      ],
+      "participantNames": [
+        "Green T",
+        "Remi Akamatsu"
       ],
       "status": "confirmed",
       "playable": true
@@ -60,9 +67,16 @@
       "name": "Chop Bros",
       "school": "clearing",
       "subtitle": "Hjumpik and Toad Lee's twenty-five-foot corridor cut",
+      "description": "Hjumpik lifts Toad Lee to vine-height while Toad Lee chops through the growth ahead. The first attempt failed because Toad Lee was too heavy. The second nearly produced friendly fire after a countdown. The third worked when they stopped counting and found a shared rhythm, opening twenty-five feet of corridor and pushing the leaves back.",
+      "risks": "The lift is heavy, the axe has a wide arc, and a countdown can make the swing arrive before the body is ready. The technique requires trust and room to fail safely.",
+      "difficulty": "easy",
       "participants": [
         "hjumpik",
         "toad_lee"
+      ],
+      "participantNames": [
+        "Hjumpik Deldkur",
+        "Toad Lee"
       ],
       "status": "confirmed",
       "playable": true
@@ -72,9 +86,16 @@
       "name": "Gamma Discrepancy Bros Attack",
       "school": "clearing",
       "subtitle": "Markop and Green T analyze historical data to uncover a hidden truth",
+      "description": "Markop and Green T examine the historical records, uncovering inconsistencies that hint at a hidden truth. Their coordination allows them to piece together fragments of information that others would miss.",
+      "risks": "Misinterpreting data could lead to incorrect conclusions.",
+      "difficulty": "medium",
       "participants": [
         "markop",
         "green_t"
+      ],
+      "participantNames": [
+        "Markop",
+        "Green T"
       ],
       "status": "confirmed",
       "playable": true
@@ -84,9 +105,16 @@
       "name": "Detonation Bros Attack",
       "school": "support_fire",
       "subtitle": "The Original Dan creates a massive fire detonation while the Feyward Dan attempts to escape harm.",
+      "description": "The Original Dan, with full fire capabilities, detonates a massive fire explosion to protect himself from the Feyward Dan. The Feyward Dan tries to escape but is left wounded and broken by the blast.",
+      "risks": "If the Feyward Dan does not time his dodge correctly, he will be caught in the blast. The Original Dan must ensure the timing is precise to avoid harming the Feyward Dan.",
+      "difficulty": "hard",
       "participants": [
         "dan_original",
         "dan_feyward"
+      ],
+      "participantNames": [
+        "Dan (Original)",
+        "Dan (Feyward)"
       ],
       "status": "confirmed",
       "playable": true
@@ -96,9 +124,16 @@
       "name": "Misdirection Bros Attack",
       "school": "misdirection",
       "subtitle": "Mushroom Regency misdirects Toadsworth to allow Fawful to escape",
+      "description": "Mushroom Regency creates a distraction to mislead Chancellor Toadsworth, allowing Fawful to escape from the scene of the assassination. This act of misdirection is crucial in shifting public and political attention away from Fawful.",
+      "risks": "If the distraction is too obvious, Toadsworth may catch on to the ruse, thus failing to misdirect and potentially exposing Fawful.",
+      "difficulty": "medium",
       "participants": [
         "mushroom_regency",
         "toadsworth_sr"
+      ],
+      "participantNames": [
+        "The Mushroom Regency",
+        "Toadsworth the Elder"
       ],
       "status": "confirmed",
       "playable": true
@@ -108,9 +143,16 @@
       "name": "Goblin Alchemy Bros Attack",
       "school": "clearing",
       "subtitle": "Markop creates height, Archie slices through the blood manor's defenses.",
+      "description": "Markop uses his alchemy skills to create a height advantage, allowing Archie Miser to launch an air attack and slice through the defenses of the blood manor.",
+      "risks": "If Markop fails to create a stable height advantage, Archie could be exposed or injured during the attack.",
+      "difficulty": "medium",
       "participants": [
         "markop",
         "archie_miser"
+      ],
+      "participantNames": [
+        "Markop",
+        "Archie Archbold Miser"
       ],
       "status": "confirmed",
       "playable": true
@@ -120,9 +162,16 @@
       "name": "Teleportation Bros Attack",
       "school": "clearing",
       "subtitle": "Koopa and Tanukiburt teleport to unknown coordinates connecting to the Shadow Estate",
+      "description": "Koopa and Tanukiburt teleported together to unknown dimensional coordinates. This move was crucial as it allowed them to escape the dangerous situation in the Star Shard Caves and connect with another location.",
+      "risks": "If the target location is not properly scouted, the teleported characters may land in a dangerous or hostile environment.",
+      "difficulty": "medium",
       "participants": [
         "koopa_trooper",
         "tanukiburt"
+      ],
+      "participantNames": [
+        "Koopa Trooper",
+        "Tanukiburt"
       ],
       "status": "confirmed",
       "playable": true
@@ -132,9 +181,16 @@
       "name": "Misdirection Bros Attack (Variant)",
       "school": "misdirection",
       "subtitle": "Diddy distracts the mourners while Chunky escapes in a broom closet.",
+      "description": "Diddy distracts the mourners with a heartfelt eulogy, while Chunky slips away unnoticed and finds himself in a broom closet at the end of the funeral. This clever move showcases Diddy's talent for creating a diversion that allows Chunky to escape detection.",
+      "risks": "If Diddy's distraction fails, Chunky might be caught. Conversely, if he is not quick enough, the mourners will notice his absence.",
+      "difficulty": "medium",
       "participants": [
         "diddy_kong",
         "chunky_kong_junimus_gorolini_bongo_jr"
+      ],
+      "participantNames": [
+        "Diddy Kong",
+        "Chunky Kong"
       ],
       "status": "confirmed",
       "playable": true
@@ -144,9 +200,16 @@
       "name": "Jumping Coordination Bros Attack",
       "school": "misdirection",
       "subtitle": "Ghost and Brick simultaneously jump from the classroom window into the void",
+      "description": "Corporal 'Ghost' Reyes and Sergeant 'Brick' Stone, both injured but determined to survive the operation, simultaneously leap from the classroom window into the void. By jumping together, they misdirect Baldi's attention and give themselves a brief respite in the void.",
+      "risks": "If one partner jumps too early or late, they risk losing coordination and falling apart.",
+      "difficulty": "medium",
       "participants": [
         "corporal_reyes",
         "sergeant_stone"
+      ],
+      "participantNames": [
+        "Corporal 'Ghost' Reyes",
+        "Sergeant 'Brick' Stone"
       ],
       "status": "confirmed",
       "playable": true
@@ -156,9 +219,16 @@
       "name": "Tanuki Liberation Bros Attack",
       "school": "support_fire",
       "subtitle": "Remi presses the gun while Green T adjusts her aim downward.",
+      "description": "Remi took the initiative to use a Bros Attack technique taught by Green T, adjusting her aim downward before firing through the barricaded bathroom door. This action freed The Tanuki from the dangerous situation.",
+      "risks": "If the aim was not adjusted, there would be a higher risk of collateral damage.",
+      "difficulty": "medium",
       "participants": [
-        "remi",
+        "remi_akamatsu_full_backstory",
         "green_t"
+      ],
+      "participantNames": [
+        "Remi Akamatsu",
+        "Green T"
       ],
       "status": "confirmed",
       "playable": true
@@ -168,9 +238,16 @@
       "name": "Shieldwork Bros Attack",
       "school": "shieldwork",
       "subtitle": "Michael Afton holds the line so Wario can speak with Cassidy",
+      "description": "Michael Afton shields Wario from the animatronics so that he can have a conversation with Cassidy, ensuring his safety and allowing for the resolution of the supernatural crisis.",
+      "risks": "If Michael Afton's shieldwork is compromised, Wario may be overwhelmed by the animatronics before he can secure their release.",
+      "difficulty": "medium",
       "participants": [
         "michael_afton",
         "wario"
+      ],
+      "participantNames": [
+        "Michael Afton",
+        "Wario"
       ],
       "status": "confirmed",
       "playable": true
@@ -180,9 +257,16 @@
       "name": "Waluigi's Distraction Bros Attack",
       "school": "misdirection",
       "subtitle": "Princess Daisy and Waluigi create a diversion to allow Toadsworth Sr. to sign the Charter unseen",
+      "description": "During a tense session, Waluigi and Princess Daisy stage an impromptu game of hide-and-seek with Toadsworth Sr. to draw his attention away from the Charter signing ceremony. This allows Toadsworth Sr., who is initially reluctant but ultimately wants to sign the document, to do so without interruption.",
+      "risks": "If the distraction fails, it could cause a security breach or provoke an argument.",
+      "difficulty": "medium",
       "participants": [
         "princess_daisy",
         "waluigi"
+      ],
+      "participantNames": [
+        "Princess Daisy",
+        "Waluigi"
       ],
       "status": "confirmed",
       "playable": true
@@ -192,9 +276,16 @@
       "name": "Toad Rescue Bros Attack",
       "school": "clearing",
       "subtitle": "Mario and Luigi extract from Bowser's body",
+      "description": "Trapped within Bowser’s body, Mario and Luigi coordinated to navigate through the labyrinthine interior. Using their combined strength and agility, they cleared a path to freedom, evading Dark Star fragments and biological threats.",
+      "risks": "If one partner misjudges the timing, they risk getting separated or trapped further within Bowser’s body.",
+      "difficulty": "medium",
       "participants": [
         "mario",
         "luigi"
+      ],
+      "participantNames": [
+        "Mario",
+        "Luigi"
       ],
       "status": "confirmed",
       "playable": true
@@ -204,9 +295,16 @@
       "name": "Ghostly Misdirection Bros Attack",
       "school": "misdirection",
       "subtitle": "Wario distracts while the neighbor's machinery is reconfigured for escape.",
+      "description": "Wario created a diversion, chatting with the neighbor about seemingly innocent matters, while the neighbor reconfigured his security systems to allow Wario basement access. The distraction was so effective that it even fooled Waluigi.",
+      "risks": "If Wario talks too much or the neighbor's attention is drawn away from the setup, the diversion might fail.",
+      "difficulty": "medium",
       "participants": [
         "wario",
         "professor_e_gadd"
+      ],
+      "participantNames": [
+        "Wario",
+        "Professor Elvin Gadd"
       ],
       "status": "confirmed",
       "playable": true
@@ -216,9 +314,16 @@
       "name": "Astral Portal Creation Bros Attack",
       "school": "clearing",
       "subtitle": "Archie Miser and The Oracle perform the ritual without a circle.",
+      "description": "Archie Miser absorbs dangerous amounts of mana to create a portal, while The Oracle channels energy and focuses the ritual. Together they manage to open an Astral Altar, enabling Archie to travel to the Shadowfell.",
+      "risks": "If either partner fails their roll, the portal may collapse or malfunction, endangering all participants.",
+      "difficulty": "medium",
       "participants": [
         "archie_miser",
         "the_oracle"
+      ],
+      "participantNames": [
+        "Archie Archbold Miser",
+        "The Oracle (Orantha Cornelius — Suspected)"
       ],
       "status": "confirmed",
       "playable": true
@@ -228,9 +333,16 @@
       "name": "Ruler Counterattack Bros Attack",
       "school": "shieldwork",
       "subtitle": "'Brick' Stone and 'Viper' Miller synchronize their movements to counter Baldi's ruler attack.",
+      "description": "'Brick' Stone and 'Viper' Miller coordinate their movements to create a defensive line against Baldi's ruler, which grows to four times its normal size. Stone holds the line while Miller strikes with his combat knife.",
+      "risks": "If Stone's hold line is broken, the ruler will continue its growth and may cause significant damage.",
+      "difficulty": "medium",
       "participants": [
         "sergeant_stone",
         "specialist_miller"
+      ],
+      "participantNames": [
+        "Sergeant 'Brick' Stone",
+        "Specialist 'Viper' Miller"
       ],
       "status": "confirmed",
       "playable": true
@@ -240,9 +352,16 @@
       "name": "Frozen Shieldwork Bros Attack",
       "school": "shieldwork",
       "subtitle": "Waluigi holds an ice shield while Hjumpik moves through the frozen manor",
+      "description": "Waluigi conjures a localized ice shield to hold off the advancing overgrowth, while Hjumpik navigates through the manor and moves important items aside. This allows the team to continue their operations without interruption.",
+      "risks": "If Waluigi's ice shield falters, Hjumpik could be exposed to the overgrowth.",
+      "difficulty": "medium",
       "participants": [
         "waluigi",
         "hjumpik"
+      ],
+      "participantNames": [
+        "Waluigi",
+        "Hjumpik Deldkur"
       ],
       "status": "confirmed",
       "playable": true

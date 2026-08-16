@@ -47,6 +47,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Green T",
     "partnerB": "Remi",
     "description": "Green T lines up the shot and calls the moment. Remi fires, then resets safely.",
+    "brief": "One partner steadies the shooter's aim, adjusts her position, and calls the timing so the shot lands with greater force and accuracy. Green T taught Remi the maneuver from a simple instruction sheet. Remi immediately used it against the tanuki behind a barricaded bathroom door, making the technique effective and the circumstances disastrous.",
     "steps": [
       {
         "actor": "A",
@@ -85,6 +86,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Hjumpik Deldkur",
     "partnerB": "Toad Lee",
     "description": "Hjumpik lifts Toad Lee. Toad Lee chops the growth. The pair advances through the opening.",
+    "brief": "Hjumpik lifts Toad Lee to vine-height while Toad Lee chops through the growth ahead. The first attempt failed because Toad Lee was too heavy. The second nearly produced friendly fire after a countdown. The third worked when they stopped counting and found a shared rhythm, opening twenty-five feet of corridor and pushing the leaves back.",
     "steps": [
       {
         "actor": "A",
@@ -123,6 +125,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Markop",
     "partnerB": "Green T",
     "description": "Analyze a historical event using two sources of information.",
+    "brief": "Markop and Green T examine the historical records, uncovering inconsistencies that hint at a hidden truth. Their coordination allows them to piece together fragments of information that others would miss.",
     "steps": [
       {
         "actor": "A",
@@ -161,6 +164,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Dan (Original — Mages' Guild Fire Mage)",
     "partnerB": "Dan (Feyward / Copy)",
     "description": "Partner A creates a fire detonation while Partner B attempts to escape harm.",
+    "brief": "The Original Dan, with full fire capabilities, detonates a massive fire explosion to protect himself from the Feyward Dan. The Feyward Dan tries to escape but is left wounded and broken by the blast.",
     "steps": [
       {
         "actor": "A",
@@ -199,6 +203,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Mushroom Regency",
     "partnerB": "Toadsworth the Elder",
     "description": "Create a diversion to mislead a pursuer.",
+    "brief": "Mushroom Regency creates a distraction to mislead Chancellor Toadsworth, allowing Fawful to escape from the scene of the assassination. This act of misdirection is crucial in shifting public and political attention away from Fawful.",
     "steps": [
       {
         "actor": "A",
@@ -219,7 +224,7 @@ const BROS_DEFINITIONS = [
         "title": "Maintain Cover",
         "instruction": "Quickly look back to keep the pursuer focused.",
         "gesture": "tap",
-        "icon": "-AA-"
+        "icon": "👆"
       },
       {
         "actor": "B",
@@ -237,6 +242,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Markop",
     "partnerB": "Archie Miser",
     "description": "Create height and leverage to allow your partner to strike an enemy weak point.",
+    "brief": "Markop uses his alchemy skills to create a height advantage, allowing Archie Miser to launch an air attack and slice through the defenses of the blood manor.",
     "steps": [
       {
         "actor": "A",
@@ -275,6 +281,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Koopa",
     "partnerB": "Tanukiburt",
     "description": "Prepare to teleport to an unknown location",
+    "brief": "Koopa and Tanukiburt teleported together to unknown dimensional coordinates. This move was crucial as it allowed them to escape the dangerous situation in the Star Shard Caves and connect with another location.",
     "steps": [
       {
         "actor": "A",
@@ -313,6 +320,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Diddy Kong",
     "partnerB": "Junimus Gorolini Bongo Jr. (Chunky Kong)",
     "description": "Distract the crowd while your partner escapes unnoticed.",
+    "brief": "Diddy distracts the mourners with a heartfelt eulogy, while Chunky slips away unnoticed and finds himself in a broom closet at the end of the funeral. This clever move showcases Diddy's talent for creating a diversion that allows Chunky to escape detection.",
     "steps": [
       {
         "actor": "A",
@@ -351,6 +359,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Corporal 'Ghost' Reyes",
     "partnerB": "Sergeant 'Brick' Stone",
     "description": "Simultaneously tap and jump to land together in the void.",
+    "brief": "Corporal 'Ghost' Reyes and Sergeant 'Brick' Stone, both injured but determined to survive the operation, simultaneously leap from the classroom window into the void. By jumping together, they misdirect Baldi's attention and give themselves a brief respite in the void.",
     "steps": [
       {
         "actor": "A",
@@ -371,14 +380,14 @@ const BROS_DEFINITIONS = [
         "title": "Dive",
         "instruction": "Land in the void with B.",
         "gesture": "down",
-        "icon": "byss"
+        "icon": "⬇️"
       },
       {
         "actor": "B",
         "title": "Follow",
         "instruction": "Leap down after A, aiming to land next to them.",
         "gesture": "aim",
-        "icon": "incy"
+        "icon": "🎯"
       }
     ]
   },
@@ -389,6 +398,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Remi",
     "partnerB": "Green T",
     "description": "Align and fire to free The Tanuki.",
+    "brief": "Remi took the initiative to use a Bros Attack technique taught by Green T, adjusting her aim downward before firing through the barricaded bathroom door. This action freed The Tanuki from the dangerous situation.",
     "steps": [
       {
         "actor": "A",
@@ -402,7 +412,7 @@ const BROS_DEFINITIONS = [
         "title": "Adjust",
         "instruction": "Tap A's arm to correct the aim.",
         "gesture": "tap",
-        "icon": "-Com"
+        "icon": "👆"
       },
       {
         "actor": "A",
@@ -427,6 +437,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Michael Afton",
     "partnerB": "Wario / 'The Boss'",
     "description": "Wario must have a conversation with Cassidy while being shielded from the animatronics by Michael Afton",
+    "brief": "Michael Afton shields Wario from the animatronics so that he can have a conversation with Cassidy, ensuring his safety and allowing for the resolution of the supernatural crisis.",
     "steps": [
       {
         "actor": "A",
@@ -447,7 +458,7 @@ const BROS_DEFINITIONS = [
         "title": "Adjust",
         "instruction": "Continuously move and block while Wario is talking, ensuring he can communicate freely",
         "gesture": "right",
-        "icon": "=./>"
+        "icon": "➡️"
       },
       {
         "actor": "B",
@@ -465,34 +476,35 @@ const BROS_DEFINITIONS = [
     "partnerA": "Princess Daisy of Sarasaland",
     "partnerB": "Waluigi",
     "description": "Create a diversion to allow Toadsworth Sr. to sign the Charter unseen.",
+    "brief": "During a tense session, Waluigi and Princess Daisy stage an impromptu game of hide-and-seek with Toadsworth Sr. to draw his attention away from the Charter signing ceremony. This allows Toadsworth Sr., who is initially reluctant but ultimately wants to sign the document, to do so without interruption.",
     "steps": [
       {
         "actor": "A",
         "title": "Signal",
         "instruction": "Tap Waluigi when ready for the distraction.",
         "gesture": "tap",
-        "icon": ":<?x"
+        "icon": "👆"
       },
       {
         "actor": "B",
         "title": "Chase",
         "instruction": "Lead Toadsworth Sr. towards a playful chase.",
         "gesture": "right",
-        "icon": ">"
+        "icon": "➡️"
       },
       {
         "actor": "A",
         "title": "Distract",
         "instruction": "Draw Toadsworth Sr.'s attention with gestures and sounds.",
         "gesture": "aim",
-        "icon": "!"
+        "icon": "🎯"
       },
       {
         "actor": "B",
         "title": "Sign",
         "instruction": "Allow Toadsworth Sr. to sign the Charter while distracted.",
         "gesture": "up",
-        "icon": "^"
+        "icon": "⬆️"
       }
     ]
   },
@@ -503,6 +515,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Mario",
     "partnerB": "Luigi",
     "description": "Navigate the internal structure of a giant",
+    "brief": "Trapped within Bowser’s body, Mario and Luigi coordinated to navigate through the labyrinthine interior. Using their combined strength and agility, they cleared a path to freedom, evading Dark Star fragments and biological threats.",
     "steps": [
       {
         "actor": "A",
@@ -523,7 +536,7 @@ const BROS_DEFINITIONS = [
         "title": "Jump Down",
         "instruction": "Simultaneously jump into the next chamber",
         "gesture": "down",
-        "icon": "Floo"
+        "icon": "⬇️"
       },
       {
         "actor": "B",
@@ -541,6 +554,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Wario",
     "partnerB": "The Neighbor / 'Mr. Gadd'",
     "description": "Partner A taps Partner B's shoulder to signal the start of a casual conversation.",
+    "brief": "Wario created a diversion, chatting with the neighbor about seemingly innocent matters, while the neighbor reconfigured his security systems to allow Wario basement access. The distraction was so effective that it even fooled Waluigi.",
     "steps": [
       {
         "actor": "A",
@@ -579,6 +593,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Archie Miser",
     "partnerB": "The Oracle",
     "description": "Simulate the creation of the Astral Portal with precise gestures.",
+    "brief": "Archie Miser absorbs dangerous amounts of mana to create a portal, while The Oracle channels energy and focuses the ritual. Together they manage to open an Astral Altar, enabling Archie to travel to the Shadowfell.",
     "steps": [
       {
         "actor": "A",
@@ -617,6 +632,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Sergeant 'Brick' Stone",
     "partnerB": "Specialist 'Viper' Miller",
     "description": "Simulate Baldi's ruler attack as it grows to four times its size.",
+    "brief": "'Brick' Stone and 'Viper' Miller coordinate their movements to create a defensive line against Baldi's ruler, which grows to four times its normal size. Stone holds the line while Miller strikes with his combat knife.",
     "steps": [
       {
         "actor": "A",
@@ -655,6 +671,7 @@ const BROS_DEFINITIONS = [
     "partnerA": "Waluigi",
     "partnerB": "Hjumpik",
     "description": "Navigate through a frozen area while maintaining an ice shield.",
+    "brief": "Waluigi conjures a localized ice shield to hold off the advancing overgrowth, while Hjumpik navigates through the manor and moves important items aside. This allows the team to continue their operations without interruption.",
     "steps": [
       {
         "actor": "A",
@@ -668,7 +685,7 @@ const BROS_DEFINITIONS = [
         "title": "Clear Path",
         "instruction": "Move to the right, clearing a path through frozen plants.",
         "gesture": "right",
-        "icon": "=./="
+        "icon": "➡️"
       },
       {
         "actor": "A",

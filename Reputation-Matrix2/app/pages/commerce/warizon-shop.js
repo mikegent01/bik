@@ -2529,6 +2529,9 @@ function ensureBros() {
 }
 // Participants are stored as article ids ("toad_lee"); show them as names.
 function brosName(id) {
+  /* Fallback only. The sync tool resolves real display names against
+     characters.json and ships them as `participantNames`; title-casing a raw
+     id turns an article slug into gibberish ("Remi Akamatsu Full Backstory"). */
   return String(id || '').replace(/_/g, ' ').replace(/\b[a-z]/g, c => c.toUpperCase());
 }
 function brosSchools() { return (brosData && brosData.schools) || {}; }
@@ -2596,15 +2599,20 @@ function renderBrosYard() {
       const school = schools[key];
       const inner = groups.get(key).map(tech => {
         const rows = kits.filter(it => it.brosAttack === tech.id);
-        const partners = (tech.participants || []).map(brosName).join(' + ');
+        const partners = (tech.participantNames && tech.participantNames.length
+          ? tech.participantNames
+          : (tech.participants || []).map(brosName)).join(' + ');
         return `
         <section class="by-tech">
           <div class="by-tech-head">
             <h3>${esc(tech.name)}</h3>
             ${partners ? `<span class="by-partners">${esc(partners)}</span>` : ''}
             ${tech.status && tech.status !== 'confirmed' ? `<span class="by-tag by-tag--support">${esc(tech.status)}</span>` : ''}
+            ${tech.difficulty ? `<span class="by-diff by-diff--${esc(tech.difficulty)}">${esc(tech.difficulty)}</span>` : ''}
           </div>
           ${tech.subtitle ? `<p class="by-tech-blurb">${esc(tech.subtitle)}</p>` : ''}
+          ${tech.description ? `<p class="by-tech-desc">${esc(tech.description)}</p>` : ''}
+          ${tech.risks ? `<p class="by-tech-risk"><b>If it goes wrong:</b> ${esc(tech.risks)}</p>` : ''}
           ${rows.length
             ? `<div class="by-grid">${rows.map(brosKitCard).join('')}</div>`
             : `<div class="by-none">No kit for this technique is stocked right now. It can still be performed with Bros Energy.</div>`}

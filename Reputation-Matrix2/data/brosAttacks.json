@@ -112,7 +112,8 @@
             "icon": "🛡️"
           }
         ]
-      }
+      },
+      "difficulty": "easy"
     },
     {
       "id": "chop_bros_attack",
@@ -182,7 +183,8 @@
             "icon": "👣"
           }
         ]
-      }
+      },
+      "difficulty": "easy"
     },
     {
       "id": "gamma_discrepancy_bros_attack",
@@ -197,10 +199,10 @@
       "sourceEvent": "collapse_of_blackfen_pass",
       "description": "Markop and Green T examine the historical records, uncovering inconsistencies that hint at a hidden truth. Their coordination allows them to piece together fragments of information that others would miss.",
       "steps": [
-        "{'partnerA': 'markop', 'gesture': 'tap', 'instruction': 'highlight key dates on the timeline', 'icon': '📅'}",
-        "{'partnerB': 'green_t', 'gesture': 'aim', 'instruction': 'focus the magnifying glass on suspicious entries', 'icon': '🔍'}",
-        "{'partnerA': 'markop', 'gesture': 'up', 'instruction': 'elevate a record to reveal hidden layers', 'icon': '🔄'}",
-        "{'partnerB': 'green_t', 'gesture': 'down', 'instruction': 'scroll through archives for overlooked details', 'icon': '📚'}"
+        "Highlight key dates on the timeline.",
+        "Focus the magnifying glass on suspicious entries.",
+        "Elevate a record to reveal hidden layers.",
+        "Scroll through archives for overlooked details."
       ],
       "risks": "Misinterpreting data could lead to incorrect conclusions.",
       "waluigiNote": "WAH! Two pairs of glasses staring at the same screen, but seeing entirely different things. Markop's optimism and Green T's skepticism make for a fascinating duo, or so they think.",
@@ -273,10 +275,10 @@
       "sourceEvent": "the_estragon_island_incident",
       "description": "The Original Dan, with full fire capabilities, detonates a massive fire explosion to protect himself from the Feyward Dan. The Feyward Dan tries to escape but is left wounded and broken by the blast.",
       "steps": [
-        "{'actor': 'partnerA', 'title': 'Detonate', 'gesture': 'aim', 'instruction': 'Time your detonation as the Feyward Dan runs past.', 'icon': '🔥'}",
-        "{'actor': 'partnerB', 'title': 'Dodge', 'gesture': 'right', 'instruction': 'Move to the right to avoid the blast.', 'icon': '🏃\\u200d♂️'}",
-        "{'actor': 'partnerA', 'title': 'Hold Line', 'gesture': 'up', 'instruction': 'Use your shield to hold off any incoming attacks or distractions.', 'icon': '🛡️'}",
-        "{'actor': 'partnerB', 'title': 'Escape', 'gesture': 'down', 'instruction': 'Attempt to escape the scene while still under fire.', 'icon': '🏃\\u200d♀️'}"
+        "Dan (Original — Mages' Guild Fire Mage): Time your detonation as the Feyward Dan runs past.",
+        "Dan (Feyward / Copy): Move to the right to avoid the blast.",
+        "Dan (Original — Mages' Guild Fire Mage): Use your shield to hold off any incoming attacks or distractions.",
+        "Dan (Feyward / Copy): Attempt to escape the scene while still under fire."
       ],
       "risks": "If the Feyward Dan does not time his dodge correctly, he will be caught in the blast. The Original Dan must ensure the timing is precise to avoid harming the Feyward Dan.",
       "waluigiNote": "WAH! So much for a peaceful resolution. This is why identity crises are so messy.",
@@ -345,14 +347,14 @@
         "mushroom_regency",
         "toadsworth_sr"
       ],
-      "type": "misdirection",
+      "type": "Misdirection",
       "sourceEvent": "the_fawthful_narrative_failure",
       "description": "Mushroom Regency creates a distraction to mislead Chancellor Toadsworth, allowing Fawful to escape from the scene of the assassination. This act of misdirection is crucial in shifting public and political attention away from Fawful.",
       "steps": [
-        "{'actor': 'A', 'title': 'Create Distraction', 'gesture': 'aim', 'instruction': \"Mushroom Regency draws Toadsworth's attention to a false lead.\", 'icon': '🚨'}",
-        "{'actor': 'B', 'title': 'Escape Opportunity', 'gesture': 'right', 'instruction': 'Toadsworth moves toward the distraction, giving Fawful time to slip away.', 'icon': '🏃\\u200d♂️'}",
-        "{'actor': 'A', 'title': 'Maintain Cover', 'gesture': 'tap', 'instruction': 'Mushroom Regency continues the ruse to keep Toadsworth engaged.', 'icon': '-AA-'}",
-        "{'actor': 'B', 'title': 'Secure Exit', 'gesture': 'up', 'instruction': 'Fawful takes advantage of the momentary chaos and escapes the scene.', 'icon': '🚪'}"
+        "Mushroom Regency: Mushroom Regency draws Toadsworth's attention to a false lead.",
+        "Toadsworth the Elder: Toadsworth moves toward the distraction, giving Fawful time to slip away.",
+        "Mushroom Regency: Mushroom Regency continues the ruse to keep Toadsworth engaged.",
+        "Toadsworth the Elder: Fawful takes advantage of the momentary chaos and escapes the scene."
       ],
       "risks": "If the distraction is too obvious, Toadsworth may catch on to the ruse, thus failing to misdirect and potentially exposing Fawful.",
       "waluigiNote": "WAH! Regency's little 'distraction' just made Fawful look like a bigger fool than usual. How does this help anybody? Tsk tsk...",
@@ -394,7 +396,7 @@
             "title": "Maintain Cover",
             "instruction": "Quickly look back to keep the pursuer focused.",
             "gesture": "tap",
-            "icon": "-AA-"
+            "icon": "👆"
           },
           {
             "actor": "B",
@@ -421,7 +423,7 @@
         "markop",
         "archie_miser"
       ],
-      "type": "clearing",
+      "type": "Clearing",
       "sourceEvent": "session_2_ravencreek_to_swiftsoul",
       "description": "Markop uses his alchemy skills to create a height advantage, allowing Archie Miser to launch an air attack and slice through the defenses of the blood manor.",
       "steps": [
@@ -497,14 +499,14 @@
         "koopa_trooper",
         "tanukiburt"
       ],
-      "type": "lift_carry",
+      "type": "Clearing",
       "sourceEvent": "star_shard_caves_tanuki_origin",
       "description": "Koopa and Tanukiburt teleported together to unknown dimensional coordinates. This move was crucial as it allowed them to escape the dangerous situation in the Star Shard Caves and connect with another location.",
       "steps": [
-        "{'partnerA': 'koopa_trooper', 'gesture': 'aim', 'instruction': 'focus gaze on the teleportation target', 'icon': '📍'}",
-        "{'partnerB': 'tanukiburt', 'gesture': 'tap', 'instruction': 'initiate the teleportation', 'icon': '🔄'}",
-        "{'partnerA': 'koopa_trooper', 'gesture': 'right', 'instruction': 'follow through by jumping slightly to enhance the teleportation effect', 'icon': '💨'}",
-        "{'partnerB': 'tanukiburt', 'gesture': 'down', 'instruction': 'crouch to absorb some of the impact after teleporting', 'icon': '💪'}"
+        "Focus gaze on the teleportation target.",
+        "Initiate the teleportation.",
+        "Follow through by jumping slightly to enhance the teleportation effect.",
+        "Crouch to absorb some of the impact after teleporting."
       ],
       "risks": "If the target location is not properly scouted, the teleported characters may land in a dangerous or hostile environment.",
       "waluigiNote": "WAH! Teleporting like that? Did you check if the other side is safe for landing? WAH!",
@@ -573,14 +575,14 @@
         "diddy_kong",
         "chunky_kong_junimus_gorolini_bongo_jr"
       ],
-      "type": "misdirection",
+      "type": "Misdirection",
       "sourceEvent": "funeral_of_junimus_gorolini_bongo_jr",
       "description": "Diddy distracts the mourners with a heartfelt eulogy, while Chunky slips away unnoticed and finds himself in a broom closet at the end of the funeral. This clever move showcases Diddy's talent for creating a diversion that allows Chunky to escape detection.",
       "steps": [
-        "{'actor': 'A', 'title': 'Eulogize', 'gesture': 'aim', 'instruction': 'Gaze into the crowd and speak with emotion.', 'icon': '✍️'}",
-        "{'actor': 'B', 'title': 'Escapade', 'gesture': 'down', 'instruction': 'Sneak out of sight while Diddy is speaking.', 'icon': '🚪'}",
-        "{'actor': 'A', 'title': 'Continue', 'gesture': 'right', 'instruction': 'Maintain the flow of the speech, ensuring no one suspects anything.', 'icon': '👇'}",
-        "{'actor': 'B', 'title': 'Find Shelter', 'gesture': 'tap', 'instruction': 'Quickly make for a hidden spot and hide.', 'icon': '🏠'}"
+        "Diddy Kong: Gaze into the crowd and speak with emotion.",
+        "Junimus Gorolini Bongo Jr. (Chunky Kong): Sneak out of sight while Diddy is speaking.",
+        "Diddy Kong: Maintain the flow of the speech, ensuring no one suspects anything.",
+        "Junimus Gorolini Bongo Jr. (Chunky Kong): Quickly make for a hidden spot and hide."
       ],
       "risks": "If Diddy's distraction fails, Chunky might be caught. Conversely, if he is not quick enough, the mourners will notice his absence.",
       "waluigiNote": "WAH! More secrets in this family. Chunky should have known better than to trust a Kong to keep a secret!",
@@ -649,14 +651,14 @@
         "corporal_reyes",
         "sergeant_stone"
       ],
-      "type": "misdirection",
+      "type": "Misdirection",
       "sourceEvent": "baldi_schoolhouse_ghost_brick_insertion",
       "description": "Corporal 'Ghost' Reyes and Sergeant 'Brick' Stone, both injured but determined to survive the operation, simultaneously leap from the classroom window into the void. By jumping together, they misdirect Baldi's attention and give themselves a brief respite in the void.",
       "steps": [
-        "{'actor': 'A', 'title': 'Countdown', 'gesture': 'tap', 'instruction': \"Tap when you're ready to jump.\", 'icon': '🔄'}",
-        "{'actor': 'B', 'title': 'Leap', 'gesture': 'right', 'instruction': 'Jump simultaneously as soon as A taps.', 'icon': '💨'}",
-        "{'actor': 'A', 'title': 'Dive', 'gesture': 'down', 'instruction': 'Drop into the void after jumping.', 'icon': 'byssal'}",
-        "{'actor': 'B', 'title': 'Follow', 'gesture': 'aim', 'instruction': 'Leap down after A, aiming to land next to them in the void.', 'icon': 'incy'}"
+        "Corporal 'Ghost' Reyes: Tap when you're ready to jump.",
+        "Sergeant 'Brick' Stone: Jump simultaneously as soon as A taps.",
+        "Corporal 'Ghost' Reyes: Drop into the void after jumping.",
+        "Sergeant 'Brick' Stone: Leap down after A, aiming to land next to them in the void."
       ],
       "risks": "If one partner jumps too early or late, they risk losing coordination and falling apart.",
       "waluigiNote": "WAH! You think this is clever? Jumping into the void? What kind of cover are you two providing?",
@@ -698,14 +700,14 @@
             "title": "Dive",
             "instruction": "Land in the void with B.",
             "gesture": "down",
-            "icon": "byss"
+            "icon": "⬇️"
           },
           {
             "actor": "B",
             "title": "Follow",
             "instruction": "Leap down after A, aiming to land next to them.",
             "gesture": "aim",
-            "icon": "incy"
+            "icon": "🎯"
           }
         ]
       },
@@ -722,10 +724,10 @@
       "subtitle": "Remi presses the gun while Green T adjusts her aim downward.",
       "status": "confirmed",
       "participants": [
-        "remi",
+        "remi_akamatsu_full_backstory",
         "green_t"
       ],
-      "type": "support_fire",
+      "type": "Support Fire",
       "sourceEvent": "the_grove_of_woe_incident",
       "description": "Remi took the initiative to use a Bros Attack technique taught by Green T, adjusting her aim downward before firing through the barricaded bathroom door. This action freed The Tanuki from the dangerous situation.",
       "steps": [
@@ -767,7 +769,7 @@
             "title": "Adjust",
             "instruction": "Tap A's arm to correct the aim.",
             "gesture": "tap",
-            "icon": "-Com"
+            "icon": "👆"
           },
           {
             "actor": "A",
@@ -801,14 +803,14 @@
         "michael_afton",
         "wario"
       ],
-      "type": "shieldwork",
+      "type": "Shieldwork",
       "sourceEvent": "fazbear_seven_nights",
       "description": "Michael Afton shields Wario from the animatronics so that he can have a conversation with Cassidy, ensuring his safety and allowing for the resolution of the supernatural crisis.",
       "steps": [
-        "{'actor': 'A', 'title': 'Block', 'gesture': 'up', 'instruction': 'Place yourself between Wario and the animatronics to create a barrier', 'icon': '🛡️'}",
-        "{'actor': 'B', 'title': 'Converse', 'gesture': 'aim', 'instruction': 'Engage in dialogue with Cassidy, explaining the situation and securing the release of the animatronic spirits', 'icon': '💬'}",
-        "{'actor': 'A', 'title': 'Shift', 'gesture': 'right', 'instruction': 'Carefully move to maintain your defensive posture while Wario is speaking, ensuring continuous protection', 'icon': '=./>'}",
-        "{'actor': 'B', 'title': 'Confirm', 'gesture': 'tap', 'instruction': \"Acknowledge Cassidy's release with a firm tap as the animatronics are set free on Night Seven\", 'icon': '✅'}"
+        "Michael Afton: Place yourself between Wario and the animatronics to create a barrier.",
+        "Wario / 'The Boss': Engage in dialogue with Cassidy, explaining the situation and securing the release of the animatronic spirits.",
+        "Michael Afton: Carefully move to maintain your defensive posture while Wario is speaking, ensuring continuous protection.",
+        "Wario / 'The Boss': Acknowledge Cassidy's release with a firm tap as the animatronics are set free on Night Seven."
       ],
       "risks": "If Michael Afton's shieldwork is compromised, Wario may be overwhelmed by the animatronics before he can secure their release.",
       "waluigiNote": "WAH! So much blocking and talking. How do you even know what to say in there?",
@@ -850,7 +852,7 @@
             "title": "Adjust",
             "instruction": "Continuously move and block while Wario is talking, ensuring he can communicate freely",
             "gesture": "right",
-            "icon": "=./>"
+            "icon": "➡️"
           },
           {
             "actor": "B",
@@ -877,7 +879,7 @@
         "princess_daisy",
         "waluigi"
       ],
-      "type": "misdirection",
+      "type": "Misdirection",
       "sourceEvent": "glazed_congress_founding",
       "description": "During a tense session, Waluigi and Princess Daisy stage an impromptu game of hide-and-seek with Toadsworth Sr. to draw his attention away from the Charter signing ceremony. This allows Toadsworth Sr., who is initially reluctant but ultimately wants to sign the document, to do so without interruption.",
       "steps": [
@@ -912,28 +914,28 @@
             "title": "Signal",
             "instruction": "Tap Waluigi when ready for the distraction.",
             "gesture": "tap",
-            "icon": ":<?x"
+            "icon": "👆"
           },
           {
             "actor": "B",
             "title": "Chase",
             "instruction": "Lead Toadsworth Sr. towards a playful chase.",
             "gesture": "right",
-            "icon": ">"
+            "icon": "➡️"
           },
           {
             "actor": "A",
             "title": "Distract",
             "instruction": "Draw Toadsworth Sr.'s attention with gestures and sounds.",
             "gesture": "aim",
-            "icon": "!"
+            "icon": "🎯"
           },
           {
             "actor": "B",
             "title": "Sign",
             "instruction": "Allow Toadsworth Sr. to sign the Charter while distracted.",
             "gesture": "up",
-            "icon": "^"
+            "icon": "⬆️"
           }
         ]
       },
@@ -957,10 +959,10 @@
       "sourceEvent": "the_blorbs_crisis",
       "description": "Trapped within Bowser’s body, Mario and Luigi coordinated to navigate through the labyrinthine interior. Using their combined strength and agility, they cleared a path to freedom, evading Dark Star fragments and biological threats.",
       "steps": [
-        "Mario taps up to signal direction change",
-        "Luigi aims right to confirm alignment",
-        "Both partners simultaneously jump down into the next chamber",
-        "They reset their positions for another passage"
+        "Mario taps up to signal direction change.",
+        "Luigi aims right to confirm alignment.",
+        "Both partners simultaneously jump down into the next chamber.",
+        "They reset their positions for another passage."
       ],
       "risks": "If one partner misjudges the timing, they risk getting separated or trapped further within Bowser’s body.",
       "waluigiNote": "WAH! Mario and Luigi were busy with their 'rescue' while I was out here documenting the chaos. Classic.",
@@ -1002,7 +1004,7 @@
             "title": "Jump Down",
             "instruction": "Simultaneously jump into the next chamber",
             "gesture": "down",
-            "icon": "Floo"
+            "icon": "⬇️"
           },
           {
             "actor": "B",
@@ -1029,7 +1031,7 @@
         "wario",
         "professor_e_gadd"
       ],
-      "type": "misdirection",
+      "type": "Misdirection",
       "sourceEvent": "the_neighbor_incident",
       "description": "Wario created a diversion, chatting with the neighbor about seemingly innocent matters, while the neighbor reconfigured his security systems to allow Wario basement access. The distraction was so effective that it even fooled Waluigi.",
       "steps": [
@@ -1105,14 +1107,14 @@
         "archie_miser",
         "the_oracle"
       ],
-      "type": "support_fire",
+      "type": "Clearing",
       "sourceEvent": "the_shadeward_ritual",
       "description": "Archie Miser absorbs dangerous amounts of mana to create a portal, while The Oracle channels energy and focuses the ritual. Together they manage to open an Astral Altar, enabling Archie to travel to the Shadowfell.",
       "steps": [
-        "A",
-        "B",
-        "A",
-        "B"
+        "Archie Miser: Tap the center of the circle.",
+        "The Oracle: Point at the candles to focus energy.",
+        "Archie Miser: Gather mana by rising your hand.",
+        "The Oracle: Channel energy to create the portal."
       ],
       "risks": "If either partner fails their roll, the portal may collapse or malfunction, endangering all participants.",
       "waluigiNote": "WAH! To think, two mages of this caliber could pull off a ritual without a circle. What will they do next? Sacrifice a village?",
@@ -1181,14 +1183,14 @@
         "sergeant_stone",
         "specialist_miller"
       ],
-      "type": "shieldwork",
+      "type": "Shieldwork",
       "sourceEvent": "baldi_schoolhouse_extraction_failed",
       "description": "'Brick' Stone and 'Viper' Miller coordinate their movements to create a defensive line against Baldi's ruler, which grows to four times its normal size. Stone holds the line while Miller strikes with his combat knife.",
       "steps": [
-        "{'actor': 'A', 'title': 'Hold Line', 'gesture': 'up', 'instruction': \"Brick Stone crouches and extends arms to block Baldi's ruler.\", 'icon': '🛡️'}",
-        "{'actor': 'B', 'title': 'Strike Down', 'gesture': 'down', 'instruction': 'Viper Miller swiftly cuts at the ruler as it descends.', 'icon': '🔪'}",
-        "{'actor': 'A', 'title': 'Shift Weight', 'gesture': 'right', 'instruction': \"Brick Stone shifts his weight to absorb the impact of Baldi's counterattack.\", 'icon': '💪'}",
-        "{'actor': 'B', 'title': 'Reset Position', 'gesture': 'tap', 'instruction': 'Viper Miller steps back, ready for the next attack while maintaining distance.', 'icon': '🔄'}"
+        "Sergeant 'Brick' Stone: Brick Stone crouches and extends arms to block Baldi's ruler.",
+        "Specialist 'Viper' Miller: Viper Miller swiftly cuts at the ruler as it descends.",
+        "Sergeant 'Brick' Stone: Brick Stone shifts his weight to absorb the impact of Baldi's counterattack.",
+        "Specialist 'Viper' Miller: Viper Miller steps back, ready for the next attack while maintaining distance."
       ],
       "risks": "If Stone's hold line is broken, the ruler will continue its growth and may cause significant damage.",
       "waluigiNote": "WAH! So predictable. Brick Stone and Viper Miller are just two more pawns in Baldi's grand game of mathematical precision.",
@@ -1257,14 +1259,14 @@
         "waluigi",
         "hjumpik"
       ],
-      "type": "shieldwork",
+      "type": "Shieldwork",
       "sourceEvent": "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
       "description": "Waluigi conjures a localized ice shield to hold off the advancing overgrowth, while Hjumpik navigates through the manor and moves important items aside. This allows the team to continue their operations without interruption.",
       "steps": [
-        "{'actor': 'A', 'title': 'Shield Up', 'gesture': 'aim', 'instruction': 'Create a localized ice shield in front of you.', 'icon': '❄️'}",
-        "{'actor': 'B', 'title': 'Move Through', 'gesture': 'right', 'instruction': 'Navigate around the frozen area, moving objects and debris to clear a path.', 'icon': '=./='}",
-        "{'actor': 'A', 'title': 'Absorb Threats', 'gesture': 'up', 'instruction': 'Maintain the shield while Hjumpik passes through the cleared space.', 'icon': '🛡️'}",
-        "{'actor': 'B', 'title': 'Clear Path', 'gesture': 'down', 'instruction': 'Continue clearing the path, ensuring no fresh growth blocks it.', 'icon': '🔄'}"
+        "Waluigi: Create a localized ice shield in front of you.",
+        "Hjumpik: Navigate around the frozen area, moving objects and debris to clear a path.",
+        "Waluigi: Maintain the shield while Hjumpik passes through the cleared space.",
+        "Hjumpik: Continue clearing the path, ensuring no fresh growth blocks it."
       ],
       "risks": "If Waluigi's ice shield falters, Hjumpik could be exposed to the overgrowth.",
       "waluigiNote": "WAH! This is why I'm always so careful. One slip and we're all covered in mushrooms again!",
@@ -1299,7 +1301,7 @@
             "title": "Clear Path",
             "instruction": "Move to the right, clearing a path through frozen plants.",
             "gesture": "right",
-            "icon": "=./="
+            "icon": "➡️"
           },
           {
             "actor": "A",
