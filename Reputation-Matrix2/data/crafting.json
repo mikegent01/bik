@@ -16155,7 +16155,7 @@
       "description": "Cast Feather Fall as reaction within 1 hour",
       "effect": "Cast Feather Fall as reaction within 1 hour",
       "rarity": "common",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -16175,7 +16175,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Cast Feather Fall as reaction within 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:25+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16185,7 +16196,7 @@
       "description": "Advantage on saves vs spells for 1 hour",
       "effect": "Advantage on saves vs spells for 1 hour",
       "rarity": "very_rare",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 9,
       "craftTime": 7,
       "successChance": 60,
@@ -16205,7 +16216,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Advantage on saves vs spells for 1 hour creates protection against magical effects.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:26+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16215,7 +16237,7 @@
       "description": "Resistance to lightning damage for 1 hour",
       "effect": "Resistance to lightning damage for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 4,
       "craftTime": 4,
       "successChance": 80,
@@ -16235,7 +16257,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Resistance to lightning damage for 1 hour.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:30+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16245,7 +16278,7 @@
       "description": "Remove exhaustion & max healing for 24h",
       "effect": "Remove exhaustion & max healing for 24h",
       "rarity": "very_rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 9,
       "craftTime": 7,
       "successChance": 60,
@@ -16265,7 +16298,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Remove exhaustion & max healing for 24h",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:49+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16275,7 +16319,7 @@
       "description": "Exhale fire (3d6 damage, 30-ft cone) 3 times within 1 hour",
       "effect": "Exhale fire (3d6 damage, 30-ft cone) 3 times within 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 4,
       "craftTime": 4,
       "successChance": 80,
@@ -16295,7 +16339,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "offensive"
+      "potionType": "offensive",
+      "schoolReason": "Exhales fire (3d6 damage, 30-ft cone) 3 times within 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:57+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16305,7 +16360,7 @@
       "description": "Gain 60-ft telepathy for 1 hour",
       "effect": "Gain 60-ft telepathy for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 6,
       "craftTime": 5,
       "successChance": 70,
@@ -16325,7 +16380,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Gain 60-ft telepathy for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:58+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16335,7 +16401,7 @@
       "description": "Advantage on Stealth checks for 1 hour",
       "effect": "Advantage on Stealth checks for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 85,
@@ -16355,7 +16421,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Advantage on Stealth checks for 1 hour, affecting perception.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:00+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16365,7 +16442,7 @@
       "description": "Gain Blur spell effect for 1 minute",
       "effect": "Gain Blur spell effect for 1 minute",
       "rarity": "rare",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 5,
       "craftTime": 4,
       "successChance": 75,
@@ -16385,7 +16462,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Gain Blur spell effect for 1 minute",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:03+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16395,7 +16483,7 @@
       "description": "Throw to cast Confusion (DC 15) in 10-ft radius",
       "effect": "Throw to cast Confusion (DC 15) in 10-ft radius",
       "rarity": "rare",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 6,
       "craftTime": 5,
       "successChance": 70,
@@ -16415,7 +16503,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "offensive"
+      "potionType": "offensive",
+      "schoolReason": "Throw to cast Confusion (DC 15) in 10-ft radius",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:06+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16425,7 +16524,7 @@
       "description": "Gain advantage on next attack within 1 minute",
       "effect": "Gain advantage on next attack within 1 minute",
       "rarity": "common",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 2,
       "craftTime": 2,
       "successChance": 90,
@@ -16445,7 +16544,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Gain advantage on next attack within 1 minute",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:06+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16455,7 +16565,7 @@
       "description": "Regain 1 HP every round for 1 hour",
       "effect": "Regain 1 HP every round for 1 hour",
       "rarity": "very_rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 9,
       "craftTime": 8,
       "successChance": 60,
@@ -16475,7 +16585,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Regain 1 HP every round for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:07+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16485,7 +16606,7 @@
       "description": "Gain Mage Armor (AC 13 + Dex) for 8 hours",
       "effect": "Gain Mage Armor (AC 13 + Dex) for 8 hours",
       "rarity": "common",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -16505,7 +16626,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Gain Mage Armor (AC 13 + Dex) for 8 hours",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:09+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16515,7 +16647,7 @@
       "description": "Store one spell of up to 3rd level for later use",
       "effect": "Store one spell of up to 3rd level for later use",
       "rarity": "very_rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 10,
       "craftTime": 8,
       "successChance": 55,
@@ -16535,7 +16667,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Store one spell of up to 3rd level for later use",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:10+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16545,7 +16688,7 @@
       "description": "Drink to fall into deep sleep for 8 hours (DC 15 Con to resist if forced)",
       "effect": "Drink to fall into deep sleep for 8 hours (DC 15 Con to resist if forced)",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 85,
@@ -16565,7 +16708,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "offensive"
+      "potionType": "offensive",
+      "schoolReason": "Forces the target to sleep, affecting their mind by suppressing consciousness.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:10+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16575,7 +16729,7 @@
       "description": "Throw to summon swarm of insects (lasts 1 minute)",
       "effect": "Throw to summon swarm of insects (lasts 1 minute)",
       "rarity": "rare",
-      "school": "",
+      "school": "CONJURATION",
       "levelRequirement": 5,
       "craftTime": 5,
       "successChance": 70,
@@ -16595,7 +16749,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "offensive"
+      "potionType": "offensive",
+      "schoolReason": "Summons a swarm of insects as described.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:12+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16605,7 +16770,7 @@
       "description": "Move through unworked earth/stone as Earth Elemental for 10 minutes",
       "effect": "Move through unworked earth/stone as Earth Elemental for 10 minutes",
       "rarity": "very_rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 9,
       "craftTime": 7,
       "successChance": 60,
@@ -16625,7 +16790,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Changes movement ability to glide through earth/stone.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:13+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16635,7 +16811,7 @@
       "description": "Walk on air as solid ground for 1 hour",
       "effect": "Walk on air as solid ground for 1 hour",
       "rarity": "very_rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 8,
       "craftTime": 7,
       "successChance": 60,
@@ -16655,7 +16831,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Manipulates air to allow walking on it as solid ground.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:19+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16665,7 +16852,7 @@
       "description": "Walk on water & swim speed 60 ft for 1 hour",
       "effect": "Walk on water & swim speed 60 ft for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 5,
       "craftTime": 4,
       "successChance": 75,
@@ -16685,7 +16872,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Walk on water & swim speed 60 ft for 1 hour manipulate energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:21+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16695,7 +16893,7 @@
       "description": "Bonus action teleport 30 ft in dim light/shadow for 1 hour",
       "effect": "Bonus action teleport 30 ft in dim light/shadow for 1 hour",
       "rarity": "very_rare",
-      "school": "",
+      "school": "CONJURATION",
       "levelRequirement": 9,
       "craftTime": 7,
       "successChance": 60,
@@ -16715,7 +16913,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Bonus action teleport 30 ft in dim light/shadow for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:21+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16725,7 +16934,7 @@
       "description": "Ignore difficult terrain & leave no tracks for 8 hours",
       "effect": "Ignore difficult terrain & leave no tracks for 8 hours",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 85,
@@ -16745,7 +16954,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Changes properties by allowing the drinker to ignore difficult terrain and leave no tracks.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:27+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16755,7 +16975,7 @@
       "description": "Take two turns each round for 3 rounds (level of exhaustion afterward)",
       "effect": "Take two turns each round for 3 rounds (level of exhaustion afterward)",
       "rarity": "legendary",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 15,
       "craftTime": 12,
       "successChance": 40,
@@ -16775,7 +16995,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Manipulates time, creating an effect on the flow of turns.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:33+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16785,7 +17016,7 @@
       "description": "Cast Plane Shift (self only) within 10 minutes",
       "effect": "Cast Plane Shift (self only) within 10 minutes",
       "rarity": "legendary",
-      "school": "",
+      "school": "CONJURATION",
       "levelRequirement": 15,
       "craftTime": 12,
       "successChance": 35,
@@ -16805,7 +17036,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Cast Plane Shift (self only) within 10 minutes.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:44+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16815,7 +17057,7 @@
       "description": "Restores 3d6+3 HP",
       "effect": "Restores 3d6+3 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -16835,7 +17077,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores HP, altering a creature's hit point total.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:54+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16845,7 +17098,7 @@
       "description": "Restores 4d4+4 HP",
       "effect": "Restores 4d4+4 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 2,
       "craftTime": 3,
       "successChance": 85,
@@ -16869,7 +17122,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 4d4+4 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:58+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16879,7 +17143,7 @@
       "description": "Restores 5d6+5 HP",
       "effect": "Restores 5d6+5 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -16903,7 +17167,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 5d6+5 HP, manipulating energy to produce healing effects.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:04+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16913,7 +17188,7 @@
       "description": "Restores 3d6+5 HP and grants +2 Strength for 1 hour",
       "effect": "Restores 3d6+5 HP and grants +2 Strength for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -16933,7 +17208,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Grants +2 Strength, changing the user's physical properties.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:11+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16943,7 +17229,7 @@
       "description": "Restores 2d6+3 HP and grants +2 Dexterity for 1 hour",
       "effect": "Restores 2d6+3 HP and grants +2 Dexterity for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -16963,7 +17249,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Grants +2 Dexterity for 1 hour, altering the user's physical attributes.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:14+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -16973,7 +17270,7 @@
       "description": "Restores 4d8+6 HP and grants +2 Constitution for 1 hour",
       "effect": "Restores 4d8+6 HP and grants +2 Constitution for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -16993,7 +17290,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores health and grants temporary stat boost.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:15+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17003,7 +17311,7 @@
       "description": "Restores 3d6+3 HP",
       "effect": "Restores 3d6+3 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17023,7 +17331,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 3d6+3 HP, changing the recipient's hit points.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:19+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17033,7 +17352,7 @@
       "description": "Restores 4d4+4 HP and grants temporary calm for 1 hour",
       "effect": "Restores 4d4+4 HP and grants temporary calm for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17053,7 +17372,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores HP, changing the recipient's physical condition.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:27+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17063,7 +17393,7 @@
       "description": "Restores 2d8+2 HP and heals minor tail injuries",
       "effect": "Restores 2d8+2 HP and heals minor tail injuries",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17083,7 +17413,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores HP and heals minor tail injuries.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:34+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17093,7 +17434,7 @@
       "description": "Restores 2d4+2 HP",
       "effect": "Restores 2d4+2 HP",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17109,7 +17450,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 2d4+2 HP, changing the recipient's hit point total.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:36+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17119,7 +17471,7 @@
       "description": "Restores 4d6+5 HP",
       "effect": "Restores 4d6+5 HP",
       "rarity": "common",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17139,7 +17491,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 4d6+5 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:42+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17149,7 +17512,7 @@
       "description": "Restores 6d8+10 HP",
       "effect": "Restores 6d8+10 HP",
       "rarity": "common",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17173,7 +17536,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 6d8+10 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:43+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17183,7 +17557,7 @@
       "description": "Restores 3d6+4 HP",
       "effect": "Restores 3d6+4 HP",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17203,7 +17577,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 3d6+4 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:44+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17213,7 +17598,7 @@
       "description": "Restores 4d8+6 HP",
       "effect": "Restores 4d8+6 HP",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 2,
       "craftTime": 3,
       "successChance": 85,
@@ -17237,7 +17622,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 4d8+6 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:49+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17247,7 +17643,7 @@
       "description": "Restores 5d10+7 HP and removes one curse or debuff",
       "effect": "Restores 5d10+7 HP and removes one curse or debuff",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 5,
       "craftTime": 4,
       "successChance": 80,
@@ -17271,7 +17667,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores health and removes curses, altering the recipient's condition.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:51+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17281,7 +17688,7 @@
       "description": "Restores 3d6+3 HP and grants +2 to Strength for 1 hour",
       "effect": "Restores 3d6+3 HP and grants +2 to Strength for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17301,7 +17708,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores hit points and grants a temporary boost to Strength.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:54+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17352,7 +17770,7 @@
       "description": "Increases movement speed by 50% and restores 3d6+2 HP per turn for 1 hour",
       "effect": "Increases movement speed by 50% and restores 3d6+2 HP per turn for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 4,
       "craftTime": 3,
       "successChance": 88,
@@ -17372,7 +17790,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Increases movement speed and restores hit points.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:59+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17382,7 +17811,7 @@
       "description": "Reduces fire damage by 50% for 1 hour",
       "effect": "Reduces fire damage by 50% for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17402,7 +17831,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "resistance"
+      "potionType": "resistance",
+      "schoolReason": "Reduces fire damage by 50% for 1 hour.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:00+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17412,7 +17852,7 @@
       "description": "Reduces poison damage taken by 75% for 1 hour",
       "effect": "Reduces poison damage taken by 75% for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 2,
       "craftTime": 3,
       "successChance": 85,
@@ -17432,7 +17872,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "resistance"
+      "potionType": "resistance",
+      "schoolReason": "Reduces poison damage taken by 75% for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:05+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17442,7 +17893,7 @@
       "description": "Reduces acid damage by 45% for 1 hour",
       "effect": "Reduces acid damage by 45% for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17462,7 +17913,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "resistance"
+      "potionType": "resistance",
+      "schoolReason": "Reduces acid damage by 45% for 1 hour, creating a barrier against harm.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:06+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17472,7 +17934,7 @@
       "description": "Restores 2d4+2 HP",
       "effect": "Restores 2d4+2 HP",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17492,7 +17954,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Restores HP, altering the recipient's physical condition.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:14+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17502,7 +17975,7 @@
       "description": "Restores 2d6+3 HP",
       "effect": "Restores 2d6+3 HP",
       "rarity": "common",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17522,7 +17995,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 2d6+3 HP by manipulating healing energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:16+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17532,7 +18016,7 @@
       "description": "Restores 2d3+1 HP",
       "effect": "Restores 2d3+1 HP",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17552,7 +18036,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 2d3+1 HP, changing the recipient's hit point total.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:16+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17562,7 +18057,7 @@
       "description": "Transforms user into a shadowy humanoid form for 1 hour, gaining +3d6 AC and -2d6 to damage dealt",
       "effect": "Transforms user into a shadowy humanoid form for 1 hour, gaining +3d6 AC and -2d6 to damage dealt",
       "rarity": "epic",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17582,7 +18077,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Transforms user into a shadowy humanoid form, deceiving the senses.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:22+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17592,7 +18098,7 @@
       "description": "Transforms user into a blazing humanoid, granting +5d6 to attack rolls and +3d6 fire damage per hit for 1 hour",
       "effect": "Transforms user into a blazing humanoid, granting +5d6 to attack rolls and +3d6 fire damage per hit for 1 hour",
       "rarity": "epic",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17612,7 +18118,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Manipulates energy to produce +3d6 fire damage per hit",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:26+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17622,7 +18139,7 @@
       "description": "Transforms user into a spectral ice-wraith, gaining +4d6 to dodge rolls and immunity to non-magical cold damage for 1 hour",
       "effect": "Transforms user into a spectral ice-wraith, gaining +4d6 to dodge rolls and immunity to non-magical cold damage for 1 hour",
       "rarity": "epic",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17642,7 +18159,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Manipulates energy to produce a spectral ice-wraith form.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:31+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17652,7 +18180,7 @@
       "description": "Restores 3d6+5 HP",
       "effect": "Restores 3d6+5 HP",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17672,7 +18200,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores HP, altering the recipient's health state.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:36+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17682,7 +18221,7 @@
       "description": "Restores 6d8+6 HP and grants 1 hour of regeneration",
       "effect": "Restores 6d8+6 HP and grants 1 hour of regeneration",
       "rarity": "epic",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 85,
@@ -17706,7 +18245,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores hit points and grants regeneration, altering the recipient's health.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:40+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17716,7 +18266,7 @@
       "description": "Restores 8d10+8 HP and reduces next 2d4 damage taken by 50%",
       "effect": "Restores 8d10+8 HP and reduces next 2d4 damage taken by 50%",
       "rarity": "epic",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 5,
       "craftTime": 4,
       "successChance": 80,
@@ -17740,7 +18290,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Reduces next 2d4 damage taken by 50%",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:44+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17750,7 +18311,7 @@
       "description": "Regenerates 2d8+4 HP per round for 10 minutes",
       "effect": "Regenerates 2d8+4 HP per round for 10 minutes",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17770,7 +18331,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Regenerates 2d8+4 HP per round for 10 minutes",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:53+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17780,7 +18352,7 @@
       "description": "Increases movement speed by 20% for 1 hour",
       "effect": "Increases movement speed by 20% for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 85,
@@ -17800,7 +18372,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Increases movement speed by 20% for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:01+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17810,7 +18393,7 @@
       "description": "Grants 1 hour of poison resistance (immune to poison damage)",
       "effect": "Grants 1 hour of poison resistance (immune to poison damage)",
       "rarity": "common",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17830,7 +18413,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "resistance"
+      "potionType": "resistance",
+      "schoolReason": "Grants 1 hour of poison resistance (immune to poison damage)",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:09+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17840,7 +18434,7 @@
       "description": "Grants 1 hour of cold resistance (immune to cold damage)",
       "effect": "Grants 1 hour of cold resistance (immune to cold damage)",
       "rarity": "common",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17860,7 +18454,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "resistance"
+      "potionType": "resistance",
+      "schoolReason": "Grants immunity to cold damage.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:13+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17870,7 +18475,7 @@
       "description": "Restores 1d6+3 MP and grants 1 hour of increased movement speed",
       "effect": "Restores 1d6+3 MP and grants 1 hour of increased movement speed",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17890,7 +18495,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Restores MP and grants increased movement speed, altering physical capabilities.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:14+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17900,7 +18516,7 @@
       "description": "Restores 1d10+5 HP and allows user to teleport up to 30 feet for 1 round",
       "effect": "Restores 1d10+5 HP and allows user to teleport up to 30 feet for 1 round",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 88,
@@ -17920,7 +18536,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "combat"
+      "potionType": "combat",
+      "schoolReason": "Restores HP and allows teleportation, manipulating energy for effect.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:18+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17930,7 +18557,7 @@
       "description": "Restores 4d6+4 HP and grants +2 attack bonus for 1 round",
       "effect": "Restores 4d6+4 HP and grants +2 attack bonus for 1 round",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17950,7 +18577,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores hit points and grants a temporary bonus, changing the fighter's statistics.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:23+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17960,7 +18598,7 @@
       "description": "Grants +3 to all attack rolls and +2 to saving throws for 1 hour",
       "effect": "Grants +3 to all attack rolls and +2 to saving throws for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -17980,7 +18618,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Grants +3 to all attack rolls and +2 to saving throws for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:31+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -17990,7 +18639,7 @@
       "description": "Restores 5d8+5 HP and regains 1d6+1 action points for 1 hour",
       "effect": "Restores 5d8+5 HP and regains 1d6+1 action points for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18010,7 +18659,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores HP and action points, changing the recipient's physical condition.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:32+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18020,7 +18680,7 @@
       "description": "Restores 2d6+3 HP",
       "effect": "Restores 2d6+3 HP",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18040,7 +18700,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 2d6+3 HP, changing the recipient's hit points.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:38+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18050,7 +18721,7 @@
       "description": "Restores 3d6+4 HP",
       "effect": "Restores 3d6+4 HP",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18070,7 +18741,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores HP, changing the recipient's health status.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:42+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18080,7 +18762,7 @@
       "description": "Restores 4d6+6 HP",
       "effect": "Restores 4d6+6 HP",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18100,7 +18782,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores 4d6+6 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:46+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18110,7 +18803,7 @@
       "description": "Increases movement speed by 20% for 1 hour",
       "effect": "Increases movement speed by 20% for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18130,7 +18823,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Increases movement speed by 20% for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:13+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18140,7 +18844,7 @@
       "description": "Increases strength by +5 for 1 hour",
       "effect": "Increases strength by +5 for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18160,7 +18864,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Increases strength by +5 for 1 hour, manipulating energy to produce effects.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:52+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18170,7 +18885,7 @@
       "description": "Reduces poison damage by 60% for 1 hour",
       "effect": "Reduces poison damage by 60% for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18190,7 +18905,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "resistance"
+      "potionType": "resistance",
+      "schoolReason": "Reduces poison damage by 60% for 1 hour.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:03+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18200,7 +18926,7 @@
       "description": "Restores 4d8+3 HP and grants 1 hour of regeneration",
       "effect": "Restores 4d8+3 HP and grants 1 hour of regeneration",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 85,
@@ -18224,7 +18950,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores HP and grants regeneration by manipulating radiant energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:08+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18234,7 +18971,7 @@
       "description": "Restores 3d6+5 HP",
       "effect": "Restores 3d6+5 HP",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18254,7 +18991,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 3d6+5 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:14+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18264,7 +19012,7 @@
       "description": "Restores 4d4+3 HP and grants +1d4 HP per 1 hour of rest",
       "effect": "Restores 4d4+3 HP and grants +1d4 HP per 1 hour of rest",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 2,
       "craftTime": 3,
       "successChance": 85,
@@ -18284,7 +19032,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores HP and grants temporary hit point increase per hour.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:15+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18294,7 +19053,7 @@
       "description": "Restores 5d6+7 HP and removes all status ailments",
       "effect": "Restores 5d6+7 HP and removes all status ailments",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -18314,7 +19073,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores HP and removes status ailments, altering the recipient's health.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:26+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18324,7 +19094,7 @@
       "description": "Restores 3d6+3 HP",
       "effect": "Restores 3d6+3 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18344,7 +19114,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 3d6+3 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:31+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18354,7 +19135,7 @@
       "description": "Restores 4d4+4 HP",
       "effect": "Restores 4d4+4 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 2,
       "craftTime": 3,
       "successChance": 85,
@@ -18374,7 +19155,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 4d4+4 HP, manipulating energy to produce healing effects.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:36+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18384,7 +19176,7 @@
       "description": "Restores 2d8+5 HP",
       "effect": "Restores 2d8+5 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -18404,7 +19196,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 2d8+5 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:44+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18414,7 +19217,7 @@
       "description": "Increases movement speed by 20% for 1 hour",
       "effect": "Increases movement speed by 20% for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18434,7 +19237,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Increases movement speed by 20% for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:46+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18444,7 +19258,7 @@
       "description": "Restores 2d4+2 HP",
       "effect": "Restores 2d4+2 HP",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18460,7 +19274,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Restores HP, changing the recipient's hit point state.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:58+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18470,7 +19295,7 @@
       "description": "Restores 3d6+3 HP",
       "effect": "Restores 3d6+3 HP",
       "rarity": "common",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18490,7 +19315,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Restores 3d6+3 HP which manipulates energy to produce effects.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:09+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18500,7 +19336,7 @@
       "description": "Restores 1d8+1 HP",
       "effect": "Restores 1d8+1 HP",
       "rarity": "common",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18520,7 +19356,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Restores 1d8+1 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:17+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18530,7 +19377,7 @@
       "description": "Restores 3d6+3 HP",
       "effect": "Restores 3d6+3 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18550,7 +19397,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "combat"
+      "potionType": "combat",
+      "schoolReason": "Restores 3d6+3 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:21+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18560,7 +19418,7 @@
       "description": "Restores 2d4+2 HP and grants +2 to Strength for 1 hour",
       "effect": "Restores 2d4+2 HP and grants +2 to Strength for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 2,
       "craftTime": 3,
       "successChance": 85,
@@ -18580,7 +19438,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "combat"
+      "potionType": "combat",
+      "schoolReason": "Restores hit points and grants temporary attribute boost.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:22+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18590,7 +19459,7 @@
       "description": "Restores 1d8+1 HP and grants +1 to Dexterity for 1 hour",
       "effect": "Restores 1d8+1 HP and grants +1 to Dexterity for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 88,
@@ -18610,7 +19479,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "combat"
+      "potionType": "combat",
+      "schoolReason": "Grants +1 to Dexterity for 1 hour.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:35+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18620,7 +19500,7 @@
       "description": "Restores 2d4+2 HP",
       "effect": "Restores 2d4+2 HP",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18640,7 +19520,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores 2d4+2 HP, altering the recipient's health.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:44+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18650,7 +19541,7 @@
       "description": "Increases movement speed by 10% for 1 hour",
       "effect": "Increases movement speed by 10% for 1 hour",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18670,7 +19561,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Increases movement speed, changing a physical property.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:46+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18680,7 +19582,7 @@
       "description": "Increases attack roll by +2 for 1 hour",
       "effect": "Increases attack roll by +2 for 1 hour",
       "rarity": "common",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18700,7 +19602,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Increases attack roll by +2 for 1 hour, affecting the mind.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:55+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18710,7 +19623,7 @@
       "description": "Restores 3d6+5 HP",
       "effect": "Restores 3d6+5 HP",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18730,7 +19643,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 3d6+5 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:55+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18740,7 +19664,7 @@
       "description": "Restores 4d8+3 HP and grants +1 bonus to next 2d6 skill checks for 1 hour",
       "effect": "Restores 4d8+3 HP and grants +1 bonus to next 2d6 skill checks for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 85,
@@ -18760,7 +19684,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores HP and grants bonus to skill checks, altering the drinker's physical condition.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:06+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18770,7 +19705,7 @@
       "description": "Restores 5d10+8 HP and grants temporary immunity to poison for 1 hour",
       "effect": "Restores 5d10+8 HP and grants temporary immunity to poison for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 5,
       "craftTime": 3,
       "successChance": 80,
@@ -18790,7 +19725,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Grants temporary immunity to poison for 1 hour.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:17+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18841,7 +19787,7 @@
       "description": "Increases stamina by 30% for 1 hour",
       "effect": "Increases stamina by 30% for 1 hour",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18861,7 +19807,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Increases stamina by 30% for 1 hour.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:26+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18871,7 +19828,7 @@
       "description": "Restores 2d4+2 HP",
       "effect": "Restores 2d4+2 HP",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18887,7 +19844,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 2d4+2 HP, changing the recipient's hit points.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:36+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18897,7 +19865,7 @@
       "description": "Restores 4d6+4 HP",
       "effect": "Restores 4d6+4 HP",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18917,7 +19885,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores 4d6+4 HP by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:37+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18927,7 +19906,7 @@
       "description": "Grants +5 to attack rolls for 1 hour",
       "effect": "Grants +5 to attack rolls for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18947,7 +19926,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "combat"
+      "potionType": "combat",
+      "schoolReason": "Grants +5 to attack rolls for 1 hour, affecting the mind.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:43+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18957,7 +19947,7 @@
       "description": "Reduces cold damage taken by 50% for 1 hour",
       "effect": "Reduces cold damage taken by 50% for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -18977,7 +19967,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "resistance"
+      "potionType": "resistance",
+      "schoolReason": "Reduces cold damage taken by 50% for 1 hour.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:52+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -18987,7 +19988,7 @@
       "description": "Restores 2d6+3 HP",
       "effect": "Restores 2d6+3 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19007,7 +20008,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores HP, changing the recipient's hit point total.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:59+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19017,7 +20029,7 @@
       "description": "Restores 3d4+4 HP",
       "effect": "Restores 3d4+4 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 2,
       "craftTime": 3,
       "successChance": 85,
@@ -19041,7 +20053,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 3d4+4 HP, changing the recipient's hit points.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:01:03+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19051,7 +20074,7 @@
       "description": "Restores 2d8+5 HP",
       "effect": "Restores 2d8+5 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -19075,7 +20098,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "healing"
+      "potionType": "healing",
+      "schoolReason": "Restores 2d8+5 HP, changing the recipient's hit points.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:01:08+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19085,7 +20119,7 @@
       "description": "Restores 3d6+5 HP per turn for 1 hour",
       "effect": "Restores 3d6+5 HP per turn for 1 hour",
       "rarity": "legendary",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19105,7 +20139,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores 3d6+5 HP per turn through manipulation of healing energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:01:17+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19115,7 +20160,7 @@
       "description": "Adds +2 to attack rolls and damage for 1 hour",
       "effect": "Adds +2 to attack rolls and damage for 1 hour",
       "rarity": "legendary",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19135,7 +20180,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Adds +2 to attack rolls and damage for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:01:38+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19145,7 +20201,7 @@
       "description": "Grants +3 armor and 2d8+2 HP regeneration per round for 1 hour",
       "effect": "Grants +3 armor and 2d8+2 HP regeneration per round for 1 hour",
       "rarity": "legendary",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19165,7 +20221,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Grants +3 armor and HP regeneration, changing the user's physical state.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:01:48+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19175,7 +20242,7 @@
       "description": "Grants 50% resistance to fire damage for 1 hour",
       "effect": "Grants 50% resistance to fire damage for 1 hour",
       "rarity": "rare",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19195,7 +20262,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Grants 50% resistance to fire damage for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:03+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19205,7 +20283,7 @@
       "description": "Restores 3d6+3 HP and grants +2 speed for 1 hour",
       "effect": "Restores 3d6+3 HP and grants +2 speed for 1 hour",
       "rarity": "legendary",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19225,7 +20303,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores HP and grants +2 speed for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:06+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19235,7 +20324,7 @@
       "description": "Grants temporary invisibility for 10 minutes",
       "effect": "Grants temporary invisibility for 10 minutes",
       "rarity": "rare",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19255,7 +20344,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Grants temporary invisibility for 10 minutes",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:17+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19265,7 +20365,7 @@
       "description": "Restores 2d4+2 HP",
       "effect": "Restores 2d4+2 HP",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19285,7 +20385,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Restores 2d4+2 HP, changing the recipient's health.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:26+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19295,7 +20406,7 @@
       "description": "Grants temporary flight for 1 hour",
       "effect": "Grants temporary flight for 1 hour",
       "rarity": "common",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19315,7 +20426,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Grants temporary flight by manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:32+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19325,7 +20447,7 @@
       "description": "Grants +5 to all melee attacks for 1 round",
       "effect": "Grants +5 to all melee attacks for 1 round",
       "rarity": "common",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19345,7 +20467,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Grants +5 to all melee attacks for 1 round, affecting combat performance.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:33+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19396,7 +20529,7 @@
       "description": "Allows underwater breathing for 1 hour",
       "effect": "Allows underwater breathing for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19416,7 +20549,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Allows underwater breathing for 1 hour, manipulating the body's ability to breathe.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:46+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19426,7 +20570,7 @@
       "description": "Grants +5 to speed for 1 hour",
       "effect": "Grants +5 to speed for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19446,7 +20590,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Grants +5 to speed for 1 hour",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:55+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19456,7 +20611,7 @@
       "description": "Restores 4d6+5 HP and grants 1 hour of invisibility",
       "effect": "Restores 4d6+5 HP and grants 1 hour of invisibility",
       "rarity": "rare",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19476,7 +20631,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Restores HP and grants invisibility, deceiving the senses.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:59+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19486,7 +20652,7 @@
       "description": "Restores 3d8+3 HP and grants 1 hour of flight (10ft lift)",
       "effect": "Restores 3d8+3 HP and grants 1 hour of flight (10ft lift)",
       "rarity": "rare",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 2,
       "craftTime": 3,
       "successChance": 85,
@@ -19506,7 +20672,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Grants flight, altering the physical form to achieve aerial movement.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:03:08+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19516,7 +20693,7 @@
       "description": "Restores 5d10+7 HP and grants 1 hour of fire resistance (100% chance to avoid fire damage)",
       "effect": "Restores 5d10+7 HP and grants 1 hour of fire resistance (100% chance to avoid fire damage)",
       "rarity": "rare",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 80,
@@ -19536,7 +20713,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "transformation"
+      "potionType": "transformation",
+      "schoolReason": "Manipulates energy to produce fire resistance and healing.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:03:17+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19546,7 +20734,7 @@
       "description": "Restores 3d6+3 HP",
       "effect": "Restores 3d6+3 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19566,7 +20754,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Restores HP, changing the recipient's vital state.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:03:18+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19576,7 +20775,7 @@
       "description": "Restores 2d4+2 MP and grants +2 attack bonus for 1 hour",
       "effect": "Restores 2d4+2 MP and grants +2 attack bonus for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 2,
       "craftTime": 3,
       "successChance": 85,
@@ -19596,7 +20795,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Restores magical power and grants a temporary attack bonus",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:03:29+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19606,7 +20816,7 @@
       "description": "Restores 4d6+4 Stamina and reduces fatigue by 2 for 1 hour",
       "effect": "Restores 4d6+4 Stamina and reduces fatigue by 2 for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 3,
       "craftTime": 3,
       "successChance": 80,
@@ -19626,7 +20836,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Restores Stamina and reduces fatigue, altering the user's physical condition.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:03:37+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19636,7 +20857,7 @@
       "description": "Grants +3 to Dexterity for 1 hour and restores 2d6+2 HP",
       "effect": "Grants +3 to Dexterity for 1 hour and restores 2d6+2 HP",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19656,7 +20877,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Grants +3 to Dexterity for 1 hour and restores HP.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:03:42+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19666,7 +20898,7 @@
       "description": "Restores 4d4+4 HP and grants +1 to Constitution for 1 hour",
       "effect": "Restores 4d4+4 HP and grants +1 to Constitution for 1 hour",
       "rarity": "uncommon",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19686,7 +20918,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores HP and grants temporary stat increase, altering the potion's effects.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:03:46+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19696,7 +20939,7 @@
       "description": "Restores 2d6+5 HP and grants 1 hour of resistance to fatigue",
       "effect": "Restores 2d6+5 HP and grants 1 hour of resistance to fatigue",
       "rarity": "common",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19716,7 +20959,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "utility"
+      "potionType": "utility",
+      "schoolReason": "Restores hit points and grants resistance to fatigue.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:04:01+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19726,7 +20980,7 @@
       "description": "Restores 4d8+4 HP and grants +3 defense for 1 hour",
       "effect": "Restores 4d8+4 HP and grants +3 defense for 1 hour",
       "rarity": "legendary",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19746,7 +21000,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores health and grants temporary defense bonus.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:04:09+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "potions",
@@ -19756,7 +21021,7 @@
       "description": "Restores 5d10+5 HP and grants +4 critical chance for 1 hour",
       "effect": "Restores 5d10+5 HP and grants +4 critical chance for 1 hour",
       "rarity": "legendary",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 90,
@@ -19776,7 +21041,18 @@
         }
       ],
       "type": "potions",
-      "potionType": "buff"
+      "potionType": "buff",
+      "schoolReason": "Restores HP and grants critical chance, altering combat capabilities.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:04:17+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -28868,7 +30144,7 @@
       "description": "Grants the wearer a 5% chance to dodge attacks and increases stealth while moving. Active for 10 seconds.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -28884,7 +30160,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Grants a chance to dodge attacks and increases stealth, affecting the wearer's mind.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:03+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -28894,7 +30181,7 @@
       "description": "On hit, deals bonus damage equal to 15% of the targets max health and creates a shockwave that damages nearby enemies.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -28910,7 +30197,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "On hit, deals damage equal to 15% of the targets max health.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:08+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -28920,7 +30218,7 @@
       "description": "Increases the chance to detect hidden enemies while wearing the accessory.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -28936,7 +30234,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Increases the chance to detect hidden enemies by affecting perception.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:13+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -28946,7 +30255,7 @@
       "description": "Increases the chance to dodge attacks when moving quickly.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -28962,7 +30271,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Increases the chance to dodge attacks when moving quickly.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:14+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -28972,7 +30292,7 @@
       "description": "Bonds the armor to the wielder’s soul, granting +50% damage taken converted to health regeneration. Triggered on enemy hit.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -28988,7 +30308,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Bonds the armor to the wielder’s soul, affecting their health regeneration.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:28+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -28998,7 +30329,7 @@
       "description": "When struck, the armor echoes the last enemy’s attack, dealing 20% of the target’s damage as bonus damage to the attacker.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29014,7 +30345,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "It manipulates energy to produce bonus damage.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:36+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29024,7 +30366,7 @@
       "description": "Inflicts 10% of the enemy’s maximum HP as shadow damage on hit. Can be chained to nearby enemies.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29040,7 +30382,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Inflicts shadow damage, manipulating energy to produce effects.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:49+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29050,7 +30403,7 @@
       "description": "Increases the chance of finding rare items when looting or mining.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29066,7 +30419,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Increases the chance of finding rare items when looting or mining.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:05+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29102,7 +30466,7 @@
       "description": "Automatically repairs minor damage to the accessory when worn.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29118,7 +30482,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Automatically repairs minor damage to the accessory when worn.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:15+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29128,7 +30503,7 @@
       "description": "Increases the chance of obtaining rare items when looting or trading.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29144,7 +30519,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Increases the chance of obtaining rare items, affecting others' minds.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:35+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29154,7 +30540,7 @@
       "description": "Provides minor defense against incoming damage and slows damage over time.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29170,7 +30556,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Provides minor defense against incoming damage and slows damage over time.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:37+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29180,7 +30577,7 @@
       "description": "Grants the wearer a faint aura of divine grace, increasing their attack speed by 5% and reducing incoming damage by 3% for 10 seconds.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29196,7 +30593,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Grants the wearer a faint aura increasing attack speed and reducing damage.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:50+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29206,7 +30614,7 @@
       "description": "Allows the wearer to temporarily summon a ghostly wisp that follows them and deals 10% of their maximum damage per second as area damage.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29222,7 +30630,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "-deals 10% of their maximum damage per second as area damage",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:55:53+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29232,7 +30651,7 @@
       "description": "Reduces the wearer’s footstep noise by 75%, making them nearly invisible to enemy detection while moving. Duration: 10 seconds.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ILLUSION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29248,7 +30667,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Reduces footstep noise, making the wearer nearly invisible to enemy detection.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:07+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29258,7 +30688,7 @@
       "description": "When activated, the wearer’s soul is bound to the armor, granting invincibility to all attacks for 3 seconds after a successful strike.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29274,7 +30704,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Enables the wearer's soul to be bound, affecting their mental state.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:27+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29321,7 +30762,7 @@
       "description": "The armor grants the wearer a 2-second time delay before all incoming attacks, allowing them to dodge or counterattack with perfect timing.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29337,7 +30778,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "The armor affects the wearer's timing to dodge attacks.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:32+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29347,7 +30799,7 @@
       "description": "Grants the wearer temporary arcane immunity and enhances spellcasting efficiency by 15%.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29363,7 +30815,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Grants temporary arcane immunity and enhances spellcasting efficiency.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:56:54+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29373,7 +30836,7 @@
       "description": "Restores 5% of max health per second while wearing this armor, and reduces damage from shadow-based attacks by 30%.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29389,7 +30852,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Restores health and reduces damage from shadow-based attacks.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:08+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29399,7 +30873,7 @@
       "description": "Increases movement speed while wearing the accessory.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29415,7 +30889,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Increases movement speed while wearing the accessory.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:19+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29425,7 +30910,7 @@
       "description": "Reduces damage from elemental attacks by 15%.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29441,7 +30926,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Reduces damage from elemental attacks by 15%.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:28+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29451,7 +30947,7 @@
       "description": "Reduces damage from electric attacks by 15%",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ABJURATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29467,7 +30963,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Reduces damage from electric attacks by 15%, creating protection.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:57:51+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29477,7 +30984,7 @@
       "description": "Grants the wearer temporary stealth and echoes their footsteps, revealing nearby enemies with a soft chime.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29493,7 +31000,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Reveals nearby enemies with a soft chime, affecting perception.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:18+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29503,7 +31021,7 @@
       "description": "Siphons a small amount of life from nearby enemies, restoring health to the wearer for a brief period.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 4,
       "craftTime": 5,
       "successChance": 75,
@@ -29523,7 +31041,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Siphons a small amount of life from nearby enemies, affecting the minds of others by restoring health to the wearer.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:27+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29533,7 +31062,7 @@
       "description": "When struck, the weapon shatters the targets defenses, dealing extra damage and disrupting their next attack.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29549,7 +31078,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Disrupts their next attack by affecting the target's mind.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:58:52+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29559,7 +31099,7 @@
       "description": "The weapon drains vitality from the target, causing them to lose health over time while being hit, and the weapon gains temporary power.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 5,
       "craftTime": 6,
       "successChance": 70,
@@ -29579,7 +31119,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "The weapon drains vitality from the target, affecting their health over time.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:02+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29589,7 +31140,7 @@
       "description": "Channels arcane energy for a devastating burst attack, dealing extra damage to enemies with high armor.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29605,7 +31156,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Channels arcane energy to affect enemies with high armor.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:26+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29615,7 +31177,7 @@
       "description": "Unleashes a surge of dark energy, increasing weapon damage by 20% and reducing the target’s defense for 2 seconds.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29631,7 +31193,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Increases weapon damage and reduces target’s defense.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:59:39+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29641,7 +31214,7 @@
       "description": "Grants the weapon a chance to strike with lightning, dealing bonus damage and stunning the target for 1 second.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29657,7 +31230,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Grants a chance to strike with lightning, manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:03+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29667,7 +31251,7 @@
       "description": "Inflicts a small thunder shock on enemies when hit, causing them to stumble.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29683,7 +31267,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Inflicts a small thunder shock on enemies, manipulating energy.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:12+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29693,7 +31288,7 @@
       "description": "Strikes enemies with a soul-shattering aura, causing them to lose a portion of their soul energy and take extra damage.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29709,7 +31304,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Causes enemies to lose soul energy and take extra damage by enchanting.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:39+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29719,7 +31325,7 @@
       "description": "Siphons the life force of enemies, converting it into temporary weapon damage and health regeneration for the wielder.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29735,7 +31341,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Siphons enemies' life force, affecting the wielder's weapon damage and health.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:00:49+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29745,7 +31362,7 @@
       "description": "Inflicts a curse upon enemies, causing them to suffer from a slow decay of their soul and suffer additional damage over time.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29761,7 +31378,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Inflicts a curse upon enemies, affecting their minds and causing additional damage.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:01:17+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29771,7 +31399,7 @@
       "description": "Deals extra damage on hit and creates a brief shockwave on impact",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29787,7 +31415,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Deals extra damage on hit and creates a brief shockwave on impact.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:01:26+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29797,7 +31436,7 @@
       "description": "Absorbs 10% of incoming damage and converts it into temporary health regeneration over 5 seconds.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 4,
       "craftTime": 5,
       "successChance": 75,
@@ -29813,7 +31452,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Absorbs damage and regenerates health, affecting the user's vitality.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:12+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29823,7 +31473,7 @@
       "description": "Applies a chilling effect to the wearer, reducing enemy movement speed by 30% for 3 seconds upon hitting them, and freezing them for 1 second on hit.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 5,
       "craftTime": 6,
       "successChance": 70,
@@ -29839,7 +31489,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Reduces enemy movement speed and freezes them on hit, affecting their physical capabilities.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:21+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29849,7 +31510,7 @@
       "description": "Deals extra damage on the first hit and leaves a lingering echo that damages enemies on hit.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29865,7 +31526,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Deals extra damage on hit, manipulating energy for increased effect.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:49+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29875,7 +31547,7 @@
       "description": "Reduces weapon degradation and increases lifespan",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29891,7 +31563,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Reduces weapon degradation and increases lifespan",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:02:56+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29901,7 +31584,7 @@
       "description": "Grants the wielder a +2 bonus to melee attack rolls and deals an extra 1d4 damage on critical hits.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29917,7 +31600,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Grants a bonus to attack rolls and deals extra damage on critical hits.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:03:25+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29927,7 +31621,7 @@
       "description": "Causes the weapon to deal extra cold damage and slows enemy movement for 1 round after being hit.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29943,7 +31637,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Causes the weapon to deal extra cold damage and slows enemy movement.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:03:30+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29953,7 +31658,7 @@
       "description": "After a successful hit, the weapon briefly echoes the last attack’s damage, dealing an additional 1d3 damage to the same target.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "EVOCATION",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29969,7 +31674,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "It echoes the last attack’s damage, manipulating energy to deal additional damage.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:04:02+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -29979,7 +31695,7 @@
       "description": "Freezes enemies in place for 2 seconds, dealing extra cold damage.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -29995,7 +31711,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Freezes enemies in place, affecting their minds by immobilizing them.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:04:10+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -30005,7 +31732,7 @@
       "description": "Deals extra damage to enemies with low health and leaves a lingering shadow that damages nearby foes.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -30021,7 +31748,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Leaves a lingering shadow that damages nearby foes, affecting the minds of others.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:04:24+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -30031,7 +31769,7 @@
       "description": "Weapon fires a temporary copy of itself that strikes the target twice, with a chance to stun.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -30047,7 +31785,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Weapon fires a temporary copy of itself that strikes the target twice, with a chance to stun.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:04:28+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "enchanting",
@@ -30057,7 +31806,7 @@
       "description": "Weapon becomes invisible when not attacking, then strikes with a shadowy aura that deals additional damage.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "ENCHANTMENT",
       "levelRequirement": 3,
       "craftTime": 4,
       "successChance": 80,
@@ -30073,7 +31822,18 @@
         }
       ],
       "type": "enchanting",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Weapon becomes invisible and strikes with a shadowy aura that affects the mind.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T05:04:33+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -36988,7 +38748,7 @@
       "description": "A slender, elegant mithril falcion with a razor-sharp edge and a wicked curve, perfect for swift, lethal strikes.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 85,
@@ -37004,7 +38764,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Transforms iron into a mithril falcion with magical properties.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:31+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -37014,7 +38785,7 @@
       "description": "A cursed scythe of mithril, its blade curving like a crescent moon, designed to slice through the very soul of the enemy.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 85,
@@ -37030,7 +38801,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Transforms iron into the mithril scythe.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:53+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -37040,7 +38822,7 @@
       "description": "Two slender, razor-sharp blades forged from iron, designed for rapid strikes and precision.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 85,
@@ -37056,7 +38838,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Forged from iron, these daggers change the material property into blades.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:00+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -37066,7 +38859,7 @@
       "description": "A refined mithril shield with embossed runes of elemental resistance. Its surface is slightly thicker, offering improved durability and a faint humming aura.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 85,
@@ -37082,7 +38875,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Its surface is slightly thicker, offering improved durability.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:01+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -37092,7 +38896,7 @@
       "description": "A solid iron breastplate with reinforced shoulder plates and a reinforced backplate, offering robust torso protection.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 85,
@@ -37108,7 +38912,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "It changes properties of an object into a solid iron breastplate.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:05+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -37118,7 +38933,7 @@
       "description": "Iron-plated leggings with reinforced knee guards and thigh plates, designed for mobility and defense.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 85,
@@ -37134,7 +38949,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Iron-plated leggings designed for mobility and defense.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:07+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -37144,7 +38970,7 @@
       "description": "A heavy, spiked helmet forged from steel, protecting the head with its sharp, angular design.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 85,
@@ -37160,7 +38986,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Forged from steel, it protects the head with its sharp, angular design.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:08+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -37170,7 +39007,7 @@
       "description": "A refined steel shield with a reinforced frame and embossed metal plating. Offers superior defense and a slight weight advantage over basic models.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 85,
@@ -37186,7 +39023,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Offers superior defense by changing the properties of a steel shield.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:09+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     },
     {
       "category": "smithing",
@@ -37196,7 +39044,7 @@
       "description": "A masterfully crafted steel shield with a curved, aerodynamic design and embedded shock-absorbing plates. Offers maximum defense and is designed for elite warriors.",
       "effect": "",
       "rarity": "",
-      "school": "",
+      "school": "TRANSMUTATION",
       "levelRequirement": 1,
       "craftTime": 2,
       "successChance": 85,
@@ -37212,7 +39060,18 @@
         }
       ],
       "type": "smithing",
-      "potionType": ""
+      "potionType": "",
+      "schoolReason": "Offers maximum defense through a masterfully crafted steel shield design.",
+      "_generatedSchool": {
+        "by": "tools/genkit",
+        "system": "crafting",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:12+00:00",
+        "fields": [
+          "school",
+          "schoolReason"
+        ]
+      }
     }
   ],
   "materials": [

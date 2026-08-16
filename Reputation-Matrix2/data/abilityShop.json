@@ -117,7 +117,7 @@
         "Rapiers",
         "Shortswords"
       ],
-      "count": 119
+      "count": 120
     },
     "barbarian": {
       "name": "Barbarian",
@@ -139,7 +139,7 @@
         "Simple weapons",
         "Martial weapons"
       ],
-      "count": 121
+      "count": 122
     },
     "wizard": {
       "name": "Wizard",
@@ -160,7 +160,7 @@
         "Quarterstaffs",
         "Light crossbows"
       ],
-      "count": 118
+      "count": 119
     },
     "fighter": {
       "name": "Fighter",
@@ -181,7 +181,7 @@
         "Simple weapons",
         "Martial weapons"
       ],
-      "count": 130
+      "count": 131
     },
     "gunslinger": {
       "name": "Gunslinger",
@@ -201,7 +201,7 @@
         "Simple weapons",
         "Firearms"
       ],
-      "count": 117
+      "count": 118
     },
     "spy": {
       "name": "Spy",
@@ -223,7 +223,7 @@
         "Rapiers",
         "Shortswords"
       ],
-      "count": 112
+      "count": 114
     },
     "leader": {
       "name": "Leader",
@@ -243,7 +243,7 @@
       "weapons": [
         "Simple weapons"
       ],
-      "count": 114
+      "count": 115
     },
     "commoner": {
       "name": "Commoner",
@@ -257,7 +257,7 @@
       "weapons": [
         "Improvised weapons"
       ],
-      "count": 115
+      "count": 116
     },
     "militia": {
       "name": "Militia",
@@ -276,7 +276,7 @@
       "weapons": [
         "Simple weapons"
       ],
-      "count": 115
+      "count": 116
     },
     "artisan": {
       "name": "Artisan",
@@ -293,7 +293,7 @@
         "Improvised weapons",
         "Tools as weapons"
       ],
-      "count": 116
+      "count": 117
     }
   },
   "abilities": [
@@ -41637,6 +41637,391 @@
         "system": "abilities",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T03:35:20+00:00"
+      }
+    },
+    {
+      "id": "rogue_l20_gen2",
+      "name": "Shadowstep Annihilation Echo",
+      "icon": "🗡️",
+      "level": 20,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Summons an echoing shadow that prolongs the effects of your previous attacks, dealing additional damage.",
+      "class": "rogue",
+      "className": "Rogue",
+      "hitDie": 8,
+      "primaryStat": "dex",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability is designed for level 20 to provide a powerful finisher that leverages critical hits and extends their impact, requiring careful positioning and timing.",
+      "rules": {
+        "activation": "reaction",
+        "range": "30 feet",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "Triggered when you score a critical hit. The echoing shadow prolongs the duration of your previous attacks by 5 rounds, dealing an additional 4d6 damage on each attack during this time.",
+        "drawback": "You must have used an action to attack in the round before triggering this ability."
+      },
+      "apCost": 5,
+      "apReason": "The echoing shadow prolongs the effects of attacks, making it a significant resource. The drawback ensures players do not overuse this ability.",
+      "warioNote": "Hey! You gotta be quick to catch that critical hit or you lose out on the echo! It’s all about timing, buddy!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:11+00:00"
+      }
+    },
+    {
+      "id": "barbarian_l20_gen1",
+      "name": "Stormborn Cataclysm",
+      "icon": "💥",
+      "level": 20,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Call forth the full fury of nature to unleash a devastating tempest that obliterates all in its path.",
+      "class": "barbarian",
+      "className": "Barbarian",
+      "hitDie": 12,
+      "primaryStat": "str",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability represents a climactic finisher that utilizes the full strength and fury of a barbarian's rage at their peak.",
+      "rules": {
+        "activation": "action",
+        "range": "self (50 feet radius)",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "Create a 50-foot radius tempest centered on you. Each creature in the area must make a DC 24 Strength saving throw or be knocked prone and take 6d8 lightning damage. For every failed save, increase the damage by 2d8 until all have saved.",
+        "drawback": "You are vulnerable to fire damage for the duration of your next long rest."
+      },
+      "apCost": 5,
+      "apReason": "The cost reflects its powerful area effect, high damage output, and significant drawback.",
+      "warioNote": "Whoa there, pal! You’re packing some serious punch. Better hope you land that final strike!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:17+00:00"
+      }
+    },
+    {
+      "id": "spy_l7_gen1",
+      "name": "Inkwell Echo",
+      "icon": "inka",
+      "level": 7,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "Your ink strikes mimic an ally’s attack, drawing attention away from them.",
+      "class": "spy",
+      "className": "Spy",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 520,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability introduces a strategic element where the spy can protect allies and manipulate enemy focus in combat.",
+      "rules": {
+        "activation": "reaction",
+        "range": "30 feet",
+        "duration": "1 round",
+        "uses": "1/short rest",
+        "effect": "When you or an adjacent ally attacks a creature within range, you can spend your reaction to create a distracting ink cloud. The target must succeed on a Dexterity saving throw (DC 15 + your Intelligence modifier) or be distracted for the next attack roll it makes against either of you, taking no damage from that attack.",
+        "drawback": "You cannot use this ability again until after completing a short rest."
+      },
+      "apCost": 2,
+      "apReason": "Creating an ink cloud to distract is both a tactical move and requires careful positioning, justifying its Action Point cost.",
+      "warioNote": "Don't think you're getting away with that without paying extra! Ink it up, and it'll set ya back two AP. Ya heard me, two!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:22+00:00"
+      }
+    },
+    {
+      "id": "wizard_l20_gen1",
+      "name": "Eternis Arcanum",
+      "icon": "📚",
+      "level": 20,
+      "type": "magic",
+      "typeLabel": "Magic",
+      "description": "Summons an eternal cascade of arcane energy that can be drawn upon for unlimited spellcasting.",
+      "class": "wizard",
+      "className": "Wizard",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a significant boon for continuous spellcasting, but the time limit adds a genuine drawback.",
+      "rules": {
+        "activation": "bonus action",
+        "range": "self",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "You create a wellspring of arcane power. For the next 24 hours, you can cast any spell from your spellbook as an at-will ability by expending an action to draw upon this wellspring.",
+        "drawback": "The wellspring lasts only until your next long rest and is limited to spells that do not exceed your highest spell level."
+      },
+      "apCost": 5,
+      "apReason": "The ability allows for nearly limitless spellcasting within a day, making it highly valuable and thus costly in AP.",
+      "warioNote": "Hey! That's an eternity of spells! For just five AP? I wouldn't say no to that!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:24+00:00"
+      }
+    },
+    {
+      "id": "gunslinger_l20_gen2",
+      "name": "Bullet Cataclysm",
+      "icon": "🔫",
+      "level": 20,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Call forth a cataclysmic barrage that obliterates all foes within range, dealing massive damage and knocking them prone.",
+      "class": "gunslinger",
+      "className": "Gunslinger",
+      "hitDie": 8,
+      "primaryStat": "dex",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability requires significant resource investment by expending an entire hand of ammunition for a powerful area effect.",
+      "rules": {
+        "activation": "action",
+        "range": "30 feet",
+        "duration": "instantaneous",
+        "uses": "1/long rest",
+        "effect": "Target all creatures in a 20-foot radius. Each creature within the area must make a DC 25 Dexterity saving throw, or take 6d10 piercing damage and be knocked prone. You lose one hand of ammunition.",
+        "drawback": "You expend one hand of ammunition to activate this ability."
+      },
+      "apCost": 5,
+      "apReason": "The high power and area effect require a high AP cost to balance the immense potential damage and control over the battlefield.",
+      "warioNote": "Hey! You lost a whole clip just to show 'em who's boss, right? That's one expensive lesson!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:34+00:00"
+      }
+    },
+    {
+      "id": "fighter_l20_gen0",
+      "name": "Titanic Overload",
+      "icon": "🛡️",
+      "level": 20,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Engulf your foes in a tidal wave of force, knocking them prone and dealing devastating damage.",
+      "class": "fighter",
+      "className": "Fighter",
+      "hitDie": 10,
+      "primaryStat": "str",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability scales well with a fighter's power and the level, requiring significant effort and resources for maximum effect.",
+      "rules": {
+        "activation": "action",
+        "range": "melee",
+        "duration": "1 round",
+        "uses": "1/day",
+        "effect": "Make a melee attack. On a hit, the target is knocked prone and takes 4d10 + STR modifier force damage. Allies within 5 feet gain temporary hit points equal to your proficiency bonus.",
+        "drawback": "You must spend 2 additional actions to fully recover from this ability after use."
+      },
+      "apCost": 5,
+      "apReason": "The ability requires two additional actions to recover, which is a substantial cost given its high utility and power.",
+      "warioNote": "Ya better be ready for some heavy lifting, cause after this, yer gonna need a nap!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:38+00:00"
+      }
+    },
+    {
+      "id": "spy_l20_gen2",
+      "name": "Inkwell Abyss",
+      "icon": "🪔",
+      "level": 20,
+      "type": "stealth",
+      "typeLabel": "Stealth",
+      "description": "Dive into the very essence of darkness, creating an impenetrable void that ensnares and blinds foes within its reach.",
+      "class": "spy",
+      "className": "Spy",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability scales with level, requiring a long rest to use and offering a substantial area-of-effect control effect.",
+      "rules": {
+        "activation": "action",
+        "range": "touch",
+        "duration": "1 minute",
+        "uses": "1/long rest",
+        "effect": "You touch a willing target, creating an inkwell abyss. For the duration, any creature that starts its turn within 5 feet of you must make a DC 20 Dexterity saving throw or be restrained by the inkwell abyss. On a failed save, they take 1d6 necrotic damage and are incapacitated for the rest of the duration.",
+        "drawback": "You are immobile during this time, unable to move or act."
+      },
+      "apCost": 5,
+      "apReason": "The significant duration and strong control effect justify the high AP cost.",
+      "warioNote": "Ooh-la-la! This one's a doozy, but you'll be grounded for it. So remember—only use it when necessary!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:41+00:00"
+      }
+    },
+    {
+      "id": "leader_l20_gen1",
+      "name": "Crowning Unification",
+      "icon": "👑",
+      "level": 20,
+      "type": "leadership",
+      "typeLabel": "Leadership",
+      "description": "Unite your allies in an unbreakable bond, creating a zone of perfect coordination and resilience.",
+      "class": "leader",
+      "className": "Leader",
+      "hitDie": 8,
+      "primaryStat": "cha",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability allows leaders to maintain a state of heightened coordination among allies over an extended period, fitting thematically as a final and most powerful rallying call.",
+      "rules": {
+        "activation": "action",
+        "range": "10 feet",
+        "duration": "1 hour",
+        "uses": "1/short rest",
+        "effect": "All allies within the 10-foot radius gain advantage on attack rolls and saving throws. Additionally, they can use their reaction to take a bonus action at the start of each of their turns.",
+        "drawback": "You must spend 2 temporary hit points for this ability to function."
+      },
+      "apCost": 5,
+      "apReason": "The prolonged benefit combined with the temporary hit point cost justifies its high AP cost.",
+      "warioNote": "You better be tough! This one's gonna cost ya two hit points, mister! Don't think you got that kind of stamina!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:45+00:00"
+      }
+    },
+    {
+      "id": "commoner_l20_gen1",
+      "name": "Toad's Grand Gambit",
+      "icon": "🐸",
+      "level": 20,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Bargain for your life in a high-stakes gamble that leaves you vulnerable but potentially devastating.",
+      "class": "commoner",
+      "className": "Commoner",
+      "hitDie": 6,
+      "primaryStat": null,
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability is designed for the final level and allows a dramatic finish, combining risk with reward.",
+      "rules": {
+        "activation": "reaction",
+        "range": "touch",
+        "duration": "1 round",
+        "uses": "1/long rest",
+        "effect": "You roll two twenty-sided dice. On both rolling a natural 20, deal 3d8+4 damage to the target and gain +6 temporary hit points until the end of your next turn. Otherwise, you take 2d10 force damage.",
+        "drawback": "Exposes you to attacks after activation; enemies can make an attack against you as a bonus action."
+      },
+      "apCost": 5,
+      "apReason": "The risk of exposing oneself to further attacks makes this a high-cost move worth its AP.",
+      "warioNote": "You're gonna need that extra action real quick, right? Hope you win big!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:47+00:00"
+      }
+    },
+    {
+      "id": "artisan_l20_gen2",
+      "name": "Forge Convergence: Cataclysmic",
+      "icon": "💥",
+      "level": 20,
+      "type": "magic",
+      "typeLabel": "Magic",
+      "description": "Harness the full power of your tools to unleash a cataclysmic strike that deals massive damage and forces enemies within reach to make saving throws.",
+      "class": "artisan",
+      "className": "Artisan",
+      "hitDie": 6,
+      "primaryStat": "int",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability requires immense power and risk, befitting a level 20 Artisan who has reached the pinnacle of their craft.",
+      "rules": {
+        "activation": "action",
+        "range": "10 feet",
+        "duration": "1 round",
+        "uses": "1/long rest",
+        "effect": "Deal 8d6 force damage to all creatures in a 5-foot radius. Each target must also succeed on a DC 25 Strength saving throw or be knocked prone and take an additional 4d6 force damage.",
+        "drawback": "You are forced to make a DC 18 Constitution saving throw immediately after activation; failure means you are exhausted until the end of your next short rest."
+      },
+      "apCost": 5,
+      "apReason": "The catastrophic damage potential and severe exhaustion condition make this a high-cost, high-reward ability.",
+      "warioNote": "Hah! Only the most hardened artisans dare to wield such raw power. Better you than me!",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:53:56+00:00"
+      }
+    },
+    {
+      "id": "militia_l20_gen1",
+      "name": "Shielded Counter",
+      "icon": "🛡️",
+      "level": 20,
+      "type": "combat",
+      "typeLabel": "Combat",
+      "description": "Counter an enemy's attack with a shield strike, dealing bludgeoning damage and forcing them to make a saving throw or be knocked prone.",
+      "class": "militia",
+      "className": "Militia",
+      "hitDie": 8,
+      "primaryStat": "con",
+      "price": 1300,
+      "knownBy": [],
+      "exclusivity": "open",
+      "levelReason": "This ability provides a critical defensive counter at the end of an attack, making it suitable for level 20 where it can exploit high Constitution scores and offer significant tactical value.",
+      "rules": {
+        "activation": "reaction",
+        "range": "touch",
+        "duration": "instantaneous",
+        "uses": "1/short rest",
+        "effect": "When you successfully react to an attack, deal 2d8 + CON modifier bludgeoning damage and force the attacker to make a DC 15 Dexterity saving throw or be knocked prone.",
+        "drawback": "You are disarmed until the start of your next turn."
+      },
+      "apCost": 4,
+      "apReason": "The reaction activation, significant damage, and disarm effect justify a high AP cost to ensure the ability is used strategically.",
+      "warioNote": "Surrender yer shield, or ye’ll be faceplantin' on the floor! But don’t worry, it’s just for one turn. Or two, if ye’re lucky.",
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "abilities",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T04:54:05+00:00"
       }
     }
   ]
