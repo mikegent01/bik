@@ -52,7 +52,7 @@ This queue cannot be solved by blindly expanding every label. Older generation
 also treated named people, locations and aggregate output labels as factions.
 The `faction-dossiers` system therefore reads the named source record and its
 `relatedArticles` first. Real groups receive roughly 500–1,000 words of
-source-bound in-world prose, assembled from three bounded 175–325 word model
+source-bound in-world prose, assembled from four bounded 125–250 word model
 calls, and must quote three verifiable excerpts from those articles. Misfiled
 labels become minimal non-rendering tombstones rather than “not a faction”
 filler. Keeping each reviewed key in place also prevents Git from presenting the

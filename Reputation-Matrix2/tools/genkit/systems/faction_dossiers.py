@@ -359,6 +359,20 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     known_person = factions.is_person(faction_id) or factions.is_person(entry.get("name", ""))
 
     if classification == "not_faction":
+        protected_group = (
+            not factions.is_meta_label(faction_id)
+            and not known_person
+            and (
+                factions.is_group_label(faction_id)
+                or factions.is_group_label(entry.get("name", ""))
+                or faction_id in faction_dossier_sections.PROTECTED_FACTION_IDS
+            )
+        )
+        if protected_group:
+            raise ValidationError(
+                "source label names a persistent organisation; do not classify "
+                "the faction as the event where it first appeared"
+            )
         kind = _norm(raw.get("notFactionKind")).replace(" ", "_")
         if kind not in ALLOWED_KINDS:
             raise ValidationError(f"notFactionKind must be one of {sorted(ALLOWED_KINDS)}")

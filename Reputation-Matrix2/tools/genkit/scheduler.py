@@ -72,14 +72,29 @@ class PopcornScheduler:
         """
         stages = sorted({s.stage for s in self.systems})
         for stage in stages:
-            live = False
-            for system in self.systems:
-                if system.stage != stage or system.id in self._drained:
+            stage_systems = [s for s in self.systems if s.stage == stage]
+            # A lower stage remains a hard barrier while its DATA says work is
+            # pending, even after every task in that stage failed once this
+            # run. The old code marked those task keys drained, silently moved
+            # to stage 1, and spent the rest of an hour generating shop items
+            # and feed posts while all faction dossiers were still unfinished.
+            blocking = any(
+                self._buffers[s.id]
+                or self._inflight.get(s.id)
+                or s.count_pending() > 0
+                for s in stage_systems
+            )
+            if not blocking:
+                continue
+
+            for system in stage_systems:
+                if system.id in self._drained:
                     continue
-                if self._buffers[system.id] or self._refill(system):
-                    live = True
-            if live:
-                return stage
+                self._refill(system)
+            # Return the blocking stage even when it has no fresh candidate.
+            # next_task() then returns None and Runner exits once in-flight work
+            # lands; it must never fall through to a higher stage.
+            return stage
         return None
 
     def _refill(self, system: SystemSpec) -> bool:

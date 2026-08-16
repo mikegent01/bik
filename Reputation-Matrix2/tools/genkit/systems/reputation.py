@@ -137,8 +137,19 @@ def _records(path: Path) -> list[dict[str, Any]]:
     return []
 
 
+def has_impacts(record: dict[str, Any]) -> bool:
+    """Whether a record already carries any usable reputation result.
+
+    `reputationChanges: {}` is common when a record-wide `effects` map was the
+    correct answer. Treating that as missing made the hour run revisit and
+    overwrite previously generated effects, violating the gap-only contract.
+    Either map is sufficient to make the record complete.
+    """
+    return bool(record.get("reputationChanges")) or bool(record.get("effects"))
+
+
 def _missing(kind: str) -> list[dict[str, Any]]:
-    return [r for r in _records(FILES[kind]) if not r.get("reputationChanges")]
+    return [r for r in _records(FILES[kind]) if not has_impacts(r)]
 
 
 def pending() -> int:
@@ -569,8 +580,9 @@ def apply(task: Task, record_data: dict[str, Any]) -> TaskResult:
         target = next((r for r in container if isinstance(r, dict) and r.get("id") == rid), None)
         if target is None:
             return TaskResult(task=task, ok=False, detail="record not found on write")
-        if target.get("reputationChanges"):
-            # Someone filled it while we were thinking. Gap-only means gap-only.
+        if has_impacts(target):
+            # Someone filled either the operator map or the record-wide effects
+            # while we were thinking. Gap-only means both shapes are protected.
             return TaskResult(task=task, ok=False, detail="already had impacts — left alone")
 
         target["reputationChanges"] = record_data["reputationChanges"]

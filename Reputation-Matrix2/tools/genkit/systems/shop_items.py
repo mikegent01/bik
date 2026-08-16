@@ -559,8 +559,12 @@ def apply(task: Task, record: dict[str, Any]) -> TaskResult:
 
 SPEC = SystemSpec(
     id="shop_items",
-    title="Warizon · rarity deficit stock",
-    summary="Generate items walking common→godly against the catalogue's rarity gaps.",
+    title="Warizon · generated stock disabled",
+    summary=(
+        "DISABLED. The hour-run review found corrupt icons, out-of-world text, "
+        "and contradictory or unbalanced mechanics in generated stock."
+    ),
+    enabled=False,
     stage=1,
     next_tasks=next_tasks,
     build_prompt=build_prompt,

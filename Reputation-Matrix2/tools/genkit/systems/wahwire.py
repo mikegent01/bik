@@ -1324,8 +1324,12 @@ PRUNE_SPEC = SystemSpec(
 
 AUTHOR_SPEC = SystemSpec(
     id="wahwire-author",
-    title="WAHwire · author new posts",
-    summary="Write feed reactions for records nobody has posted about.",
+    title="WAHwire · generated posts disabled",
+    summary=(
+        "DISABLED. The hour-run review found invented facts, broken character "
+        "voices, generic summaries, and non-emotion reaction labels."
+    ),
+    enabled=False,
     stage=1,
     next_tasks=_author_tasks,
     build_prompt=_author_prompt,

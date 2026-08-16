@@ -2,10 +2,11 @@
 
 A local model that reliably returns 200--350 words cannot satisfy a 500-word
 record in one completion, no matter how many times the same prompt is retried.
-This adapter treats one dossier as four bounded calls: a short classification
-and metadata pass, then three independently validated prose sections. The
-assembled record still goes through faction_dossiers.validate() before it can
-reach disk.
+This adapter treats one dossier as five bounded calls: a short classification
+and metadata pass, then four independently validated prose sections. Four
+125-word floors reach the dossier minimum without asking this model to exceed
+the response size it demonstrated in the hour run. The assembled record still
+goes through faction_dossiers.validate() before it can reach disk.
 """
 
 from __future__ import annotations
@@ -17,25 +18,34 @@ from typing import Any
 from ..spec import Task
 from . import factions
 
-SECTION_MIN_WORDS = 175
-SECTION_MAX_WORDS = 325
+SECTION_MIN_WORDS = 125
+SECTION_MAX_WORDS = 250
 SECTION_ATTEMPTS = 3
+CLASSIFY_ATTEMPTS = 3
+# These names do not contain an organisational suffix, but their source files
+# establish a recurring invading force / operational partnership respectively.
+PROTECTED_FACTION_IDS = {"shroob", "wario_bros"}
 
 SECTION_BRIEFS = (
     (
-        "Identity, Membership, and Confirmed Standing",
-        "Establish what this organisation is, who or what is confirmed to belong "
-        "to it, where it operates, and what the archive actually proves about its status.",
+        "Identity and Confirmed Standing",
+        "Establish what this organisation is, where it operates, and what the "
+        "archive actually proves about its current status.",
     ),
     (
-        "Recorded Operations, Methods, and Relationships",
+        "Membership and Structure",
+        "Name only confirmed members, leaders, ranks, branches, or collective "
+        "features. If the records do not establish a hierarchy, say so plainly.",
+    ),
+    (
+        "Recorded Operations and Relationships",
         "Reconstruct concrete actions from the supplied records: named people, "
-        "objects, places, tactics, allies, enemies, and consequences. Do not summarize vaguely.",
+        "objects, places, tactics, allies, enemies, and consequences.",
     ),
     (
         "Risks, Unknowns, and Waluigi's Assessment",
         "Separate confirmed danger from inference, name what remains unknown, and "
-        "close with specific operational advice in Waluigi's opinionated archival voice.",
+        "close with specific operational advice in Waluigi's archival voice.",
     ),
 )
 
@@ -72,12 +82,12 @@ SECTION_SYSTEM = """You write ONE section of a faction intelligence dossier in
 Waluigi's in-world archival voice. Return strictly valid JSON only:
 
 {"heading":"Section heading without Markdown marks",
- "text":"175-325 words of finished prose",
+ "text":"125-250 words of finished prose",
  "evidenceQuote":"one exact 4-18 word excerpt from the supplied source articles"}
 
 Hard rules:
 - Write only this section, not the whole dossier.
-- The text must be 175-325 words. Finish the section cleanly.
+- The text must be 125-250 words. Finish the section cleanly.
 - Include the evidenceQuote verbatim in the text and explain what it proves.
 - Use a different quote from earlier sections.
 - Name concrete people, actions, objects and places from the supplied records.
@@ -160,7 +170,7 @@ def _fallback_section(raw: dict[str, Any], default_heading: str) -> dict[str, st
 
 
 def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
-    """Classify once, write three bounded sections, return one raw dossier."""
+    """Classify once, write four bounded sections, return one raw dossier."""
     dossiers = _dossiers()
     faction_id = task.payload["id"]
     entry = task.payload["entry"]
@@ -196,14 +206,37 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
             f"\n\nThe previous assembled dossier was rejected: {task.last_error}. "
             "Correct that problem in this new pass."
         )
-    metadata = client.complete_json(
-        CLASSIFY_SYSTEM, context, temperature=min(temperature, 0.55)
+    protected = (
+        factions.is_group_label(faction_id)
+        or factions.is_group_label(entry.get("name", ""))
+        or faction_id in PROTECTED_FACTION_IDS
     )
-    kind = _classification(metadata.get("classification"))
-    if kind in {"not_faction", "not_a_faction", "non_faction", "person", "place", "generic"}:
-        return metadata
+    classify_feedback = ""
+    metadata: dict[str, Any] = {}
+    kind = ""
+    for _ in range(CLASSIFY_ATTEMPTS):
+        metadata = client.complete_json(
+            CLASSIFY_SYSTEM, context + classify_feedback,
+            temperature=min(temperature, 0.55),
+        )
+        kind = _classification(metadata.get("classification"))
+        not_faction = kind in {
+            "not_faction", "not_a_faction", "non_faction",
+            "person", "place", "generic",
+        }
+        if not_faction and protected:
+            classify_feedback = (
+                "\n\nYOUR LAST CLASSIFICATION WAS REJECTED. This label explicitly "
+                "names an organisational form or a source-confirmed recurring "
+                "collective. Re-read the articles and return faction metadata; "
+                "do not collapse the organisation into the event where it appeared."
+            )
+            continue
+        if not_faction:
+            return metadata
+        break
     if kind != "faction":
-        return metadata  # the normal validator supplies precise retry feedback
+        return metadata  # whole-record validation keeps protected labels pending
 
     metadata = dict(metadata)
     metadata["classification"] = "faction"
@@ -252,5 +285,10 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
     metadata["description"] = "\n\n".join(
         f"## {section['heading']}\n\n{section['text']}" for section in sections
     )
-    metadata["evidenceQuotes"] = [section["evidenceQuote"] for section in sections]
+    # The public dossier contract keeps three filed excerpts. The fourth
+    # section is still quote-grounded and independently checked; its quote is
+    # present in the prose but need not duplicate the compact evidence list.
+    metadata["evidenceQuotes"] = [
+        section["evidenceQuote"] for section in sections[:3]
+    ]
     return metadata

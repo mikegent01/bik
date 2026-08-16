@@ -140,6 +140,10 @@ out = reputation.validate(task, {
     "reputationNotes": "none",              # ditto
 })
 check("string in `effects` is ignored, not fatal", out["reputationChanges"]["bowser"]["koopa_troop"] == 5)
+check("record-wide effects alone satisfy the gap-only contract",
+      reputation.has_impacts({"reputationChanges": {}, "effects": {"iron_legion": -8}}))
+check("a genuinely empty pair of maps remains eligible for backfill",
+      not reputation.has_impacts({"reputationChanges": {}, "effects": {}}))
 
 # A response with nothing scoreable at all must still be rejected. Note the
 # faction names here are placeholders, not new groups: an unrecognised *group*
@@ -164,6 +168,8 @@ check("'banana' is still rejected", crafting.resolve_school("banana") is None)
 
 section("shop · category repair")
 
+check("bulk generated Warizon stock is disabled after the hour-run review",
+      shop_items.SPEC.enabled is False)
 for proposed, expected in [("gadgets", "curiosities"), ("weapons", "equipment"),
                            ("Consumable", "consumables"), ("black market", "forbidden"),
                            ("EQUIPMENT", "equipment")]:
@@ -174,6 +180,8 @@ check("'banana' is still rejected", shop_items.resolve_category("banana") is Non
 # --------------------------------------------------------------- cooldown
 section("wahwire · author cooldown")
 
+check("bulk WAHwire post generation is disabled after the hour-run review",
+      wahwire.AUTHOR_SPEC.enabled is False)
 original_load = wahwire._load
 wahwire._load = lambda: {"version": 1, "posts": [
     {"id": "a", "author": "waluigi", "order": 1},
@@ -344,6 +352,23 @@ check("requeue clears inflight", "demo:1" not in sched._inflight["demo"])
 check("requeue keeps the key issued (no duplicate refill)", "demo:1" in sched._issued)
 check("requeue un-drains the system", "demo" not in sched._drained)
 
+stage0_task = Task(system_id="gate-zero", key="gate-zero:1", label="unfinished dossier")
+stage1_task = Task(system_id="gate-one", key="gate-one:1", label="bulk item")
+gate_zero = SystemSpec(
+    id="gate-zero", title="Gate zero", summary="test", stage=0,
+    next_tasks=lambda count: [stage0_task], pending=lambda: 1,
+)
+gate_one = SystemSpec(
+    id="gate-one", title="Gate one", summary="test", stage=1,
+    next_tasks=lambda count: [stage1_task], pending=lambda: 1,
+)
+gated = PopcornScheduler([gate_zero, gate_one], seed=1)
+issued_zero = gated.next_task()
+gated.complete(issued_zero, changed=False)
+check("failed stage-0 work never falls through to bulk stage-1 generation",
+      issued_zero.system_id == "gate-zero" and gated.next_task() is None,
+      str(gated.snapshot()))
+
 section("spec · retry plumbing")
 check("Task tracks attempts", Task(system_id="s", key="k", label="l").attempts == 0)
 r = TaskResult(task=t, ok=False, detail="d", retryable=True, reason="because")
@@ -453,6 +478,11 @@ for meta_label in (
 check("a real United-named organisation is not caught by the aggregate guard",
       factions.resolve("united_forces_of_fight_or_flight", known)[1]
       in ("exact", "alias", "fuzzy", "create"))
+check("explicit institutional labels are protected from event misclassification",
+      factions.is_group_label("crematoria_guild")
+      and factions.is_group_label("united_kingdom_of_snowdinia"))
+check("a singular role is not treated as proof of an organisation",
+      not factions.is_group_label("feyward_nameless_guard"))
 
 rep_task = Task(system_id="reputation", key="k", label="l",
                 payload={"kind": "majorBattles", "id": "x", "name": "X"})
@@ -579,12 +609,15 @@ section_client = _SectionClient([
     {"heading": "Identity and Confirmed Standing",
      "text": _section_fixture("The lounge floor cracked", "the partnership"),
      "evidenceQuote": "The lounge floor cracked"},
-    {"heading": "Recorded Methods and Relationships",
+    {"heading": "Membership and Structure",
      "text": _section_fixture("The debt is unresolved", "the motive"),
      "evidenceQuote": "The debt is unresolved"},
-    {"heading": "Risks and Waluigi Assessment",
+    {"heading": "Recorded Operations and Relationships",
      "text": _section_fixture("Waluigi cried on the floor", "the consequence"),
      "evidenceQuote": "Waluigi cried on the floor"},
+    {"heading": "Risks and Waluigi Assessment",
+     "text": _section_fixture("The real papers returned to Saedia", "the outcome"),
+     "evidenceQuote": "The real papers returned to Saedia"},
 ])
 section_task = Task(
     system_id="faction-dossiers", key="section-fd", label="section-fd",
@@ -593,12 +626,12 @@ section_task = Task(
 )
 assembled = faction_dossiers.SPEC.generate(section_task, section_client, 0.7)
 assembled_clean = faction_dossiers.validate(section_task, assembled)
-check("long dossiers are assembled from one metadata call and three section calls",
-      len(section_client.calls) == 4
+check("long dossiers are assembled from one metadata call and four section calls",
+      len(section_client.calls) == 5
       and 500 <= faction_dossiers.word_count(assembled_clean["description"]) <= 1100,
       f"calls={len(section_client.calls)} words={faction_dossiers.word_count(assembled_clean['description'])}")
 check("each bounded call contributes one independently verified section",
-      len(faction_dossiers.HEADING.findall(assembled_clean["description"])) == 3
+      len(faction_dossiers.HEADING.findall(assembled_clean["description"])) == 4
       and len(assembled_clean["evidenceQuotes"]) == 3)
 
 meta_client = _SectionClient([])
@@ -612,6 +645,16 @@ meta_verdict = faction_dossiers.SPEC.generate(meta_task, meta_client, 0.7)
 check("known aggregate labels are removed without wasting section calls",
       meta_verdict["classification"] == "not_faction" and not meta_client.calls,
       str(meta_verdict))
+try:
+    faction_dossiers.validate(fd_task, {
+        "classification": "not_faction", "notFactionKind": "other",
+        "reason": "The source names only an event and therefore this recurring partnership should be removed from the faction registry.",
+        "redirectFactionId": "",
+    })
+    check("an explicit organisation cannot be collapsed into its source event", False, "it passed")
+except ValidationError as err:
+    check("an explicit organisation cannot be collapsed into its source event",
+          "persistent organisation" in str(err), str(err))
 
 invented_evidence = dict({
     "classification": "faction", "name": "The Wario Bros", "power_level": 2,

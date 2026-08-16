@@ -26,8 +26,8 @@ def all_systems() -> list[SystemSpec]:
     """
     return [
         wahwire.PRUNE_SPEC,      # stage 0 — must finish before authoring starts
-        shop_items.SPEC,
-        wahwire.AUTHOR_SPEC,
+        shop_items.SPEC,         # disabled: hour-run stock failed mechanics/voice review
+        wahwire.AUTHOR_SPEC,     # disabled: hour-run posts invented facts and broke voice
         abilities.SPEC,
         reputation.SPEC,
         faction_dossiers.SPEC,  # expand/review stubs minted by reputation

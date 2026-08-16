@@ -45,11 +45,11 @@ rather than copying a total from this document. The cycle currently includes:
 |---|---|---|
 | 0 | `wahwire-prune` | QC inherited posts, repair dead links, mark canon or retired |
 | 0 | `faction-dossiers` | review reputation-minted faction stubs from their source and linked articles; write a quoted 500–1,000 word dossier or remove a misfile |
-| 1 | `shop_items` | Warizon stock against the rarity deficit, common→godly |
+| off | `shop_items` | **disabled:** hour-run stock had corrupt icons, out-of-world text, and contradictory mechanics |
 | 1 | `crafting` | classify recipes the Forge filter cannot see |
 | 1 | `abilities` | fill the emptiest class/level cells above level 1 |
-| 1 | `reputation` | backfill impacts on records that have none |
-| 1 | `wahwire-author` | write feed reactions for records nobody posted about |
+| 1 | `reputation` | backfill impacts only when both operator changes and record-wide effects are empty |
+| off | `wahwire-author` | **disabled:** hour-run posts invented facts and broke character voice |
 | off | `wahwire-discuss` | **disabled:** generated replies remained generic and out of character |
 | 1 | `wahwire-profile` | complete account biographies and follow graphs |
 
@@ -89,19 +89,20 @@ added. This matters: those are hand-written canon records, and their `status`
 field already holds real prose (`"Class-9 Silence (Imperial Decree)"`).
 Applying the full stamp would destroy canon to record a provenance detail.
 
-**Reputation is gap-only.** A record that already has `reputationChanges` is
-never revisited, and the check is re-run at write time in case another worker
-filled it first. Verified: the 3 hand-written records are byte-identical after
-a 45-record run.
+**Reputation is gap-only.** A record that already has either non-empty
+`reputationChanges` **or** non-empty record-wide `effects` is never revisited,
+and the check is re-run at write time in case another worker filled it first.
+An empty operator map does not grant permission to overwrite an existing
+effects-only result.
 
 **A minted faction stub is a queue item, not a dossier.** `faction-dossiers`
 finds the record named by `_generated.sourceRecord`, follows its explicit
 `relatedArticles`, and requires 500–1,000 words of source-bound Waluigi prose
 plus three verbatim excerpts that the validator finds in both the source and
 the dossier. It does **not** ask a local model to fit all of that into one
-completion: one short call classifies and files metadata, then three separate
-175–325 word calls write Identity, Recorded Operations, and Assessment. The
-sections are independently checked and assembled before the normal whole-record
+completion: one short call classifies and files metadata, then four separate
+125–250 word calls write Identity, Structure, Recorded Operations, and
+Assessment. The sections are independently checked and assembled before the normal whole-record
 validator runs. It first classifies the label: people, places, events and aggregate
 buckets become minimal `status: "removed"` tombstones instead of being padded
 into fictional institutions or replaced by low-value review paragraphs. Keeping
@@ -116,6 +117,29 @@ Run just this pass with:
 ```bash
 python3 tools/generate_all.py --only faction-dossiers
 ```
+
+### One-hour run postmortem (16 Aug 2026)
+
+The first unattended hour run is a rejected output batch, not training data or
+canon. It produced **zero completed faction dossiers**: 55 labels became
+tombstones and 13 real candidates remained as 16–33 word stubs. The scheduler
+then incorrectly fell through the unfinished stage-0 gate and authored 64
+WAHwire posts, 153 inline comments, five new pseudo-emotion labels, and 62 shop
+items. Review found invented facts and broken voices in the feed, malformed
+icons (including raw SVG/PHP/chat syntax), out-of-world wording, repeated name
+families, and contradictory or unbalanced item mechanics. The batch was
+reverted in full.
+
+Consequences enforced in code:
+
+- a pending lower stage remains a hard barrier even after every key failed in
+  the current run; the runner exits rather than moving to bulk generation;
+- generated shop stock and WAHwire authoring/discussion are disabled;
+- effects-only reputation records are protected from overwrite;
+- explicit organisational labels cannot be collapsed into the event where the
+  model first saw them;
+- dossiers use four shorter prose calls because the model did not reliably
+  clear the old 175-word section floor.
 
 ## Two workers, scalable to four
 
@@ -201,10 +225,12 @@ were rejected once and recovered rather than lost.
   page, not inline: `.ww-post` is a fixed 168 px row matched to `ROW_HEIGHT`,
   and variable-height content would break the virtualiser's scroll maths.
 
-## Verified end to end
+## Historical mock results — structural only
 
-Against a mock LM Studio (`/tmp/mock_lmstudio.py`, not committed) serving
-schema-valid replies:
+These checks predate the one-hour quality review. They prove plumbing and
+schema handling, **not** prose, voice, icon, or game-balance quality. Against a
+mock LM Studio (`/tmp/mock_lmstudio.py`, not committed) serving schema-valid
+replies:
 
 - 45 records across all five stage-1 systems, **0 failures**
 - stage 0 correctly exclusive — all 19 posts pruned before any stage-1 task
@@ -225,8 +251,9 @@ belongs):
 - the control panel reported `produced 24, failed 6, recovered 23 retry(ies)`
   with a per-system ok/fail/retry breakdown
 
-Unit tests: `python3 tools/test_genkit.py` — 50 checks covering operator and
-faction repair, school and category resolution, the cooldown, comment
-validation, reaction parity with the front end, and scheduler requeue.
+Unit tests: `python3 tools/test_genkit.py` — 210 checks, including the hard
+stage gate, effects-only gap protection, disabled bulk systems, faction
+classification safeguards, section assembly, operator/faction repair, and the
+legacy WAHwire validators retained for explicit development work.
 Front-end: `/tmp/wahwire_threadtest.js` — 36 checks over the thread drawer
 against real generated data.

@@ -192,6 +192,25 @@ _GROUP_NOUN = re.compile(
     r")(?:$|_)"
 )
 
+# A narrower subset safe enough to PROTECT from a model's `not_faction`
+# verdict. `_GROUP_NOUN` also includes singular role/location words such as
+# `guard` and `land` because they keep `is_person()` from confusing Wario Land
+# with Wario. Those are not proof of an organisation: the hour run would have
+# forced one nameless Feyward guard into factionhood. This list requires an
+# explicit institutional or collective form.
+_ORGANIZATION_NOUN = re.compile(
+    r"(?:^|_)("
+    r"legion|crew|krew|council|guild|army|clan|troop|troops|corps|company|"
+    r"inc|enterprise|enterprises|syndicate|cartel|gang|band|order|circle|"
+    r"court|house|family|dynasty|regime|faction|force|forces|squad|team|"
+    r"union|league|alliance|coalition|front|party|cult|church|school|academy|"
+    r"bureau|agency|network|collective|resistance|militia|brigade|fleet|navy|"
+    r"watch|brotherhood|sisterhood|kingdom|empire|republic|state|senate|"
+    r"assembly|ministry|division|society|group|followers|loyalists|supporters|"
+    r"fans|media"
+    r")(?:$|_)"
+)
+
 # Honorifics and generational suffixes the models attach to a name. Stripping
 # them lets `chunky_kong_the_third` be recognised as Chunky Kong rather than as
 # a brand-new organisation called the Chunky Kong The Third.
@@ -207,6 +226,11 @@ _TITLE_AFFIX = re.compile(
 def is_meta_label(proposed: str) -> bool:
     """True for a report bucket that must never become an organisation."""
     return bool(_META_LABEL.match(slugify(proposed)))
+
+
+def is_group_label(proposed: str) -> bool:
+    """True when the label explicitly names a collective/institutional form."""
+    return bool(_ORGANIZATION_NOUN.search(slugify(proposed)))
 
 
 def is_person(proposed: str) -> bool:
