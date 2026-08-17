@@ -11,9 +11,11 @@
 > started respecting it.
 > **Where:** the Feyward woodlands. No location id is registered for the
 > cutting ground; this article declines to invent one.
-> **Result:** expedition victory. The treant was destroyed; the shambling
-> mound withdrew; the field belongs to the cutters. **The cleanup is owed and
-> will be filed separately.**
+> **Result:** expedition victory. The treant was destroyed at the lane; the
+> shambling mound broke contact, was run down in the eighteen-minute gap the
+> ledger does not narrate, and was destroyed. The sprite sorcerer routed.
+> The field belongs to the cutters. **The cleanup is owed and will be filed
+> separately.**
 
 ![The tome strike that felled the treant — Woodfellow vs. the Treant](../Reputation-Matrix2/assets/images/battles/woodfellow-vs-treant/wft-01-tome-crit.jpg)
 
@@ -27,8 +29,8 @@ straight through the trunk.*
 | Side | On the field |
 |---|---|
 | **The expedition** (the tree-cutters) | **Woodfellow**; **Ramsee**; House Guards **Joseph** and **Renard**; the satyrs — swordfighter **"Swifty"**, the scout, the berserker, druid **Zach**; one Goblin Staff |
-| **The wood that woke** | one **Treant** (AC 16, opened at 138); one **Shambling Mound**; two **Awakened Shrubs** |
-| **The sprites** (eleven of them) | Four warriors, three archers, three casters, one sorcerer. The ledger shows their arrows and their sleep-sand landing on *both* sides. This article treats the sprites as a weather condition. |
+| **The wood that woke** | one **Treant** (AC 16, opened at 138) — *destroyed*; one **Shambling Mound** (110) — *broke contact, hunted down, destroyed*; two **Awakened Shrubs** — *destroyed* |
+| **The sprites** (eleven of them) | Four warriors, three archers, three casters, one sorcerer. The ledger shows their arrows and their sleep-sand landing on *both* sides — and after the treant fell, on the *wood's* side too. This article treats the sprites as a weather condition; the weather changed sides. |
 | **The Dryad** | Present. Initiative 21. The ledger records no action of hers. She watched, and when it ended, she was gone. |
 
 Twenty-one drew initiative; twenty-four stood on the field once the mound and
@@ -69,10 +71,7 @@ lasting empathy by this author. The berserker's answer was cleaner: longsword
 **18 against 17** into Renard for seven, and a ram that missed. The goblin's
 knife found bark for three. Ramsee opened the cutlery account with a hit for
 five and then, in the interest of narrative tension, did not hit anything
-again for the rest of the battle.
-
-*WAH! I have watched a lot of ordnance in my career. Sometimes the fork is
-ceremonial.*
+again for another twenty-nine minutes.
 
 ## Part III: The Sleep Wars
 
@@ -149,21 +148,51 @@ tome, **22 more**, and the string that closes the account: `6→0`.
 The mightiest tree in the record fell over into the lane the crew had cut,
 which is the sort of ending this encyclopedia usually has to invent.
 
-## Part VI: The Mound Decides
+## Part VI: The Hunt
 
-The shambling mound — morale BOLD, per its own ledger line, which makes what
-follows funnier — had spent the battle taking almost nothing and giving
-less. When the treant came down, the mound performed the fastest tactical
-reassessment of the Feyward season and left. The dryad left with it, or
-near it, or before it; no action of hers is recorded before or after, and
-this article declines to speculate about what a non-combatant knew and when
-she knew it.
+When the treant came down, the ledger says the mound reassessed — morale
+BOLD, per its own line, which makes what followed possible and what came
+next inevitable. It broke contact. Then the ledger goes **silent for
+eighteen minutes**, from 5:29 to 5:47, and what happened in that silence is
+the difference between *withdrew* and *was destroyed*: they hunted it. No
+rolls survive the pursuit. Only its end does.
 
-The sprites, per the ledger, were asleep, dead, dispersed, or gone by then,
-in an order the record does not preserve.
+The record resumes mid-kill. The mound — one hundred ten hit points of
+vegetable grudge, per the ledger's own strings — is being taken apart by
+everything the lane has left. Ramsee's cutlery finally connects again,
+**fifteen against fifteen, for seven**, redeeming twenty-nine minutes of
+aerodynamics. The books arrive next: Woodfellow's tome for **twenty-eight**,
+a natural 1 fumble that this article respectfully declines to dramatize,
+then **seventeen** and **twenty-one** together, then, at the end, **eighteen**
+with a **twenty-seven** delivered into what was already a corpse — the
+ledger records both, because the ledger has no sentiment.
+
+And in the middle of the execution, the weather changed sides. A sprite
+archer — the wood's own weather — put an arrow into the mound for five and
+poisoned it, its saving throw an **8 against 10**, and did it again minutes
+later, the second save a **1**. The sorcerer's morale broke first — the
+ledger's word is **ROUT** — and somewhere in the same minute a sprite caster
+put a *faerie firebolt* for **fourteen** into a sprite archer. Whatever
+contract the Feyward had with itself, the treant's death voided it.
+
+The expedition paid for the pursuit. A sprite warrior put Renard down —
+**25 against 17, for eight**, his string ends `4→0` — the second guardsman
+of the Swifty Line, carried or dragged, fate deferred to the cleanup.
+
+The last strings in the ledger belong to the mound: `18→0`, then a final
+`-27` into the zeros, which is not damage so much as punctuation.
+
+The dryad left during the gap, or near it; no action of hers is recorded
+before or after, and this article declines to speculate about what a
+non-combatant knew and when she knew it.
 
 The field belonged to the cutters. The field was also, at that moment, a
 disaster area — which is the next filing, not this one.
+
+*WAH! I have watched a lot of ordnance in my career. For twenty-nine
+minutes the fork was ceremonial. Then the mound met the fork, the book, the
+weather, and the weather's own firebolt, in that order, and I am filing the
+whole sequence under "victory conditions, coalition."*
 
 ---
 
@@ -171,16 +200,23 @@ disaster area — which is the next filing, not this one.
 
 - **Treant: destroyed.** 138 at first blood, 0 at the last string, felled by
   two tomes, one of them a natural 20 for 55.
-- **Shambling mound: withdrew, intact**, immediately after the treant fell.
-  The wood knows it survived. So does the wood.
+- **Shambling mound: hunted down and destroyed.** 110 hit points, run to
+  ground in the eighteen-minute silence, taken apart by cutlery, five tomes,
+  and two poisoned arrows fired by the wood's own weather. The ledger's last
+  hostile string is a `-27` into the zeros.
 - **Awakened shrubs: both destroyed**, by single tomes, overkill ×3 and ×1.8.
-- **The expedition: standing — almost.** Worst-off at the whistle: Renard at 6,
-  one house guard at 31 after the third sleep, Woodfellow at 114 and visibly
-  annoyed — and **Swifty at 0**, put on the ground by his own side's critical
-  arrow, his fate deferred to the cleanup filing.
+- **The sprites: broken.** The sorcerer's morale string reads **ROUT (12)**;
+  the archers read SHAKEN; several never woke from the sleep wars; at least
+  one was firebolted by its own side. The wood's contract with itself
+  voided on the treant's death.
+- **The expedition: standing — barely.** One house guard at 31 after the
+  third sleep, Woodfellow at 114 and visibly annoyed — and two in the
+  ledger's zeros: **Swifty at 0** (his own side's critical arrow) and
+  **Renard at 0** (a sprite scimitar during the hunt), both fates deferred
+  to the cleanup filing.
 - **The cleanup** — wounded, prisoners, salvage, what you do with a fallen
-  treant in a lane you just cut — is recorded in the follow-up filing
-  (*pending*, will be added to the index).
+  treant and a murdered mound in a lane you just cut — is recorded in the
+  follow-up filing (*pending*, will be added to the index).
 
 ---
 
@@ -192,8 +228,11 @@ time, and here is what the numbers say that the narrators will not:
 The expedition did not win because it was stronger. It won because the wood
 fought itself harder than it fought the cutters — three sleep spells thrown
 into its own melee, a scout's crit into his own swordfighter, shrubs put
-down by friendly tomes' splash. All the expedition had to do was stay
-standing, and the one of them with the *books* stayed standing best.
+down by friendly tomes' splash, and at the end its own weather poisoning the
+dying mound and firebolting its own archers. All the expedition had to do
+was stay standing, and the one of them with the *books* stayed standing
+best. The pursuit was not mercy and it was not strategy. It was arithmetic:
+the mound had one hundred ten hit points and the librarian had books left.
 
 There is a lesson here and it is the same lesson as always, and it is filed
 under my name, and nobody thanked me for it: **know what your ordnance hits.
@@ -233,7 +272,18 @@ quoted in the prose above appears here.
 | 5:29 | Scout Longbow → Treant | natural **FUMBLE** (1+3+2 = 6) |
 | 5:29 | HG Longsword ×2 → Treant | 18 = hit, 11 · 20 = hit, 11 |
 | 5:29 | **Woodfellow Hurl Tome → Treant** | 19+6+4 = 29 · 4d10+6 = **22** — ledger closes the treant: `6→0` |
-| — | After the fall | Shambling Mound withdrew (per the table's record); no further hostile action logged |
+| 5:29–5:47 | **the gap** | no rolls recorded — the pursuit of the mound happened here |
+| 5:47 | Ramsee Cutlery → Mound | 10+3+2 = **15 vs 15** · 1d4+3 = **7** (mound `110→103`) |
+| 5:48 | Sprite Warrior → Renard | 19+4+2 = **25 vs 17** · 1d4+4 = **8** (Renard `4→0`) |
+| 5:49 | Woodfellow Tome → Mound ×2 | 24 vs 15 · 4d10+6 = **28** (`103→75`) · then **FUMBLE** nat 1 |
+| 5:49 | Morale | Sprite Sorcerer: **ROUT (12)** · Sprite Archer: SHAKEN (39) |
+| 5:49 | Sprite Archer → Mound | 17 vs 15 · 5 dmg · poison save **8 vs 10 (fail)** |
+| 5:49 | Ramsee Cutlery → Mound | 20 vs 15 · 1d4+3 = **4** |
+| 5:50 | Woodfellow Tome → Mound ×2 | 26 vs 15 · **17** · 27 vs 15 · **21** (`66→49→28`) |
+| 5:51 | Sprite Archer → Mound | 22 vs 15 · 5 dmg · poison save **1 vs 10 (fail)** |
+| 5:51 | Sprite Caster *Faerie Firebolt* → Sprite Archer | 19 vs 15 · 4d6 = **14** — the wood fires on itself |
+| 5:51 | Ramsee Cutlery → Mound | 16 vs 15 · 1d4+3 = **5** |
+| 5:52 | **Woodfellow Tome → Mound ×2** | 18 dmg (`18→0`) · then **27 into the zeros** — the mound is destroyed |
 
 *Ledger bookkeeping entries (hit-point strings, resource refunds) belong to
 the table, not to the world, and are excluded per rule zero.*

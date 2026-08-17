@@ -73,5 +73,5 @@ File name: `battles/<slug>.md`. Structure, in order:
 
 | Battle | Arc | Filed | Result |
 |---|---|---|---|
-| [Woodfellow vs. the Treant](woodfellow-vs-the-treant.md) | The Feyward (the plants took over) | from combat ledger, 17 Aug 2026 | Expedition victory — treant destroyed, mound withdrew; cleanup owed |
+| [Woodfellow vs. the Treant](woodfellow-vs-the-treant.md) | The Feyward (the plants took over) | from combat ledger, 17 Aug 2026 | Expedition victory — treant felled at the lane, the mound hunted down and destroyed, sorcerer routed; cleanup owed |
 | *The Cleanup* (pending) | The Feyward | — | awaiting the follow-up record |
