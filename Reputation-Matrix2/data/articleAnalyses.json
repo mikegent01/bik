@@ -2,7 +2,7 @@
   "_README": {
     "what": "Dedicated Waluigi companion readings for settled Waluipedia articles.",
     "route": "#/article-analysis/<id>. Source event pages expose the matching record through their Investigate this further panel.",
-    "authoring": "See docs/ARTICLE_ANALYSES.md. Keep approximately 20 percent source reference and 80 percent signed Waluigi analysis; never add dice or manufacture canon.",
+    "authoring": "See docs/ARTICLE_ANALYSES.md. Keep approximately 20 percent source reference and 80 percent signed Waluigi analysis. Optional researchDesk checks may reveal only supplemental opinion or an honest limit; they never rewrite the analysis or manufacture canon.",
     "source_of_truth": "The sourceArticle record owns chronology, participants, outcomes, XP, reputation, and images. This file owns only Waluigi's interpretation."
   },
   "analyses": [
@@ -79,7 +79,40 @@
         "dan",
         "eager",
         "onyx_hand"
-      ]
+      ],
+      "researchDesk": {
+        "title": "Waluigi's After-Hours Research Desk",
+        "intro": "The verdict above is filed. These optional one-shot checks let me pull three loose threads without pretending the dice can rewrite the night. A breakthrough earns a sharper inference; a dead end files the limit of what I can honestly claim.",
+        "rolls": [
+          {
+            "id": "apple-pattern",
+            "icon": "🍏",
+            "title": "Compare the personalized lures",
+            "dc": 3,
+            "prompt": "Set the apple's engraved name beside the fact that Boundy arrived already knowing Remi's name.",
+            "success": "Breakthrough: two separate strangers arrived carrying Remi-specific information. I no longer treat the apple as an isolated oddity; I treat the night as a test of which personalized lure the party would accept first.",
+            "failure": "Useful limit: the apple remains a personalized lure, but this file does not prove Boundy and the tree share an author. I have circled the coincidence and refused to promote it to conspiracy."
+          },
+          {
+            "id": "mirror-custody",
+            "icon": "🪞",
+            "title": "Audit the locating spell",
+            "dc": 4,
+            "prompt": "Separate what the spell established about the Mirror's location from what everyone wanted it to establish about Archie.",
+            "success": "Breakthrough: the spell answered the question it was given—where the Mirror was—not the question everyone emotionally wanted answered—whether Archie stole it. That gap is where certainty dressed itself as evidence.",
+            "failure": "Useful limit: I can show that the locating result established custody; I cannot use this check to establish intent. The accusation stays a grievance, not a solved motive."
+          },
+          {
+            "id": "invitation-authority",
+            "icon": "🧛",
+            "title": "Reconstruct the invitation",
+            "dc": 5,
+            "prompt": "Test the difference between using Tymnas's cottage as shelter and possessing the authority to invite Randell inside.",
+            "success": "Breakthrough: the invitation worked because the party used “safe house” as though it meant “our house.” My problem is not only Dan's decision; it is the group habit of treating temporary access as ownership.",
+            "failure": "Blocked, honestly: the archive records the invitation and its consequences, not the cottage's complete hospitality law. I still resent the decision, but resentment is not a deed, a lease, or a ward diagram."
+          }
+        ]
+      }
     }
   ]
 }

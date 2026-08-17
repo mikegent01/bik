@@ -11005,8 +11005,8 @@ function renderConnectedInvestigationsPanel(id, typeKey){
     <span class="k">🖋️ opinion filing</span>
     <span class="v">
       <a class="entity-link" style="font-weight:800" href="#/article-analysis/${encodeURIComponent(a.id)}">${esc(panelSourceTitle || a.title)}</a>
+      ${a.researchDesk&&Array.isArray(a.researchDesk.rolls)&&a.researchDesk.rolls.length?`<span class="pill" style="margin-left:6px">🎲 ${a.researchDesk.rolls.length} optional after-hours checks</span>`:''}
       <div class="text-muted" style="font-size:12.5px;line-height:1.55;margin-top:3px">${esc(a.summary || '')}</div>
-      <div class="text-muted" style="font-size:11.5px;margin-top:4px">Approximately 80% Waluigi analysis · 20% story reference · no roll</div>
     </span>
   </div>`).join('');
   const analysisBlock = analysisRows ? `<div style="border-top:${files.length ? '1px solid var(--border)' : '0'};padding-top:${files.length ? '16px' : '0'};margin-top:${files.length ? '4px' : '0'}">
@@ -11038,10 +11038,93 @@ function renderConnectedInvestigationsPanel(id, typeKey){
   </div>`;
 }
 
-/* ---------- Waluigi's deterministic article-analysis reader ---------------
-   The source filing supplies identity and media. Analysis prose is kept in its
-   own dataset and is rendered with visibly bounded source anchors so a recap
-   cannot quietly pass itself off as interpretation (or vice versa). */
+/* ---------- Waluigi's article-analysis reader -----------------------------
+   The source filing supplies identity and media. The signed argument is kept
+   deterministic. An analysis may also carry a clearly separated, optional
+   research desk: one-shot rolls reveal supplemental inferences or honest
+   limits, but never rewrite the argument or the source event. */
+const ANALYSIS_RESEARCH_STORE_KEY = 'waluipedia-analysis-research-v1';
+
+function analysisResearchState(){
+  try { return JSON.parse(localStorage.getItem(ANALYSIS_RESEARCH_STORE_KEY) || '{}'); }
+  catch(e){ return {}; }
+}
+function analysisResearchResult(analysisId, rollId){
+  const s = analysisResearchState();
+  return s[analysisId] && s[analysisId][rollId] || null;
+}
+function analysisResearchRecord(analysisId, rollId, verdict, roll, dc){
+  const s = analysisResearchState();
+  const file = s[analysisId] = s[analysisId] || {};
+  if(!file[rollId]) file[rollId] = {v:verdict, r:roll, t:roll, dc:dc};
+  try { localStorage.setItem(ANALYSIS_RESEARCH_STORE_KEY, JSON.stringify(s)); } catch(e){}
+  return file[rollId];
+}
+function analysisResearchOutcome(a, r, result, rolling){
+  if(!result) return '';
+  const ok = result.v === 'success';
+  const text = inlineMd(ok ? r.success : r.failure, {link:true,currentId:a.id});
+  return invRollResult({ok:ok, text:text, roll:result.r, total:result.t,
+    dc:result.dc == null ? r.dc : result.dc, rolling:!!rolling,
+    label:ok ? 'Research breakthrough' : 'Research limit'});
+}
+function analysisResearchDesk(a){
+  const desk = a.researchDesk || {};
+  const rolls = Array.isArray(desk.rolls) ? desk.rolls : [];
+  if(!rolls.length) return '';
+  const done = rolls.filter(r=>analysisResearchResult(a.id,r.id)).length;
+  const cards = rolls.map(r=>{
+    const result = analysisResearchResult(a.id,r.id);
+    return `<article class="analysis-research-card${result?' is-filed':''}" data-research-card="${esc(r.id)}">
+      <div class="analysis-research-cardtop"><span class="analysis-research-icon" aria-hidden="true">${esc(r.icon||'🔎')}</span><span class="analysis-research-dc">DC ${esc(String(r.dc))}</span></div>
+      <h3>${esc(r.title)}</h3>
+      <p>${esc(r.prompt)}</p>
+      <button type="button" class="analysis-research-roll" data-analysis="${esc(a.id)}" data-research="${esc(r.id)}" onclick="analysisResearchRoll(this)" ${result?'disabled':''}>
+        <span aria-hidden="true">${result?'✓':'🎲'}</span><span>${result?'Check filed':'Roll the check'}</span><small>${result?'one shot':'d6 · needs '+esc(String(r.dc))+'+'}</small>
+      </button>
+      <div class="analysis-research-outcome" aria-live="polite">${analysisResearchOutcome(a,r,result,false)}</div>
+    </article>`;
+  }).join('');
+  const pct = Math.round(done * 100 / rolls.length);
+  return `<section class="analysis-research" id="analysis-research" aria-labelledby="analysis-research-title">
+    <div class="analysis-research-head">
+      <div><div class="analysis-research-kicker">Optional fieldwork</div><h2 id="analysis-research-title">${esc(desk.title||"Waluigi's Research Desk")}</h2></div>
+      <div class="analysis-research-progress" id="analysis-research-progress" style="--research-progress:${pct}%" aria-label="${done} of ${rolls.length} research checks filed"><span>${done} / ${rolls.length} filed</span><i></i></div>
+    </div>
+    <p class="analysis-research-intro">${esc(desk.intro||'')}</p>
+    <div class="analysis-research-rules"><span>🎲 Plain d6</span><span>One attempt each</span><span>Every result gives you a note</span></div>
+    <div class="analysis-research-grid">${cards}</div>
+  </section>`;
+}
+function analysisResearchRoll(button){
+  if(!button || button.disabled) return;
+  const a = articleAnalysisGet(button.dataset.analysis);
+  const rolls = a && a.researchDesk && Array.isArray(a.researchDesk.rolls) ? a.researchDesk.rolls : [];
+  const r = rolls.find(x=>x.id === button.dataset.research);
+  if(!a || !r) return;
+  const previous = analysisResearchResult(a.id,r.id);
+  if(previous){ button.disabled = true; return; }
+
+  invDiceSound();
+  const die = invRollD6();
+  const result = analysisResearchRecord(a.id,r.id,die >= r.dc ? 'success' : 'failure',die,r.dc);
+  const card = button.closest('.analysis-research-card');
+  const out = card && card.querySelector('.analysis-research-outcome');
+  button.disabled = true;
+  button.innerHTML = '<span aria-hidden="true">✓</span><span>Check filed</span><small>one shot</small>';
+  if(card) card.classList.add('is-filed');
+  if(out) out.innerHTML = analysisResearchOutcome(a,r,result,true);
+  setTimeout(()=>{ const face=out&&out.querySelector('.inv-face'); if(face) face.classList.remove('rolling'); },560);
+
+  const all = rolls.filter(x=>analysisResearchResult(a.id,x.id)).length;
+  const progress = document.getElementById('analysis-research-progress');
+  if(progress){
+    progress.style.setProperty('--research-progress',Math.round(all*100/rolls.length)+'%');
+    progress.setAttribute('aria-label',`${all} of ${rolls.length} research checks filed`);
+    const label=progress.querySelector('span'); if(label) label.textContent=`${all} / ${rolls.length} filed`;
+  }
+}
+
 function view_article_analysis(id){
   const a = articleAnalysisGet(id);
   if(!a){
@@ -11073,13 +11156,14 @@ function view_article_analysis(id){
     ...sections.map(s=>({slug:'analysis-'+s.id,text:s.heading||prettyId(s.id)})),
     {slug:'analysis-verdict', text:'Verdict'}
   ];
+  if(a.researchDesk && Array.isArray(a.researchDesk.rolls) && a.researchDesk.rolls.length) tocEntries.push({slug:'analysis-research',text:'After-hours research'});
   if((a.relatedArticles||[]).length) tocEntries.push({slug:'analysis-related',text:'Related records'});
   const toc = `<div class="toc" id="toc"><h4>Contents</h4>${tocEntries.map(h=>`<a data-slug="${esc(h.slug)}" onclick="scrollToHeading('${esc(h.slug)}')">${esc(h.text)}</a>`).join('')}</div>`;
 
   const sourceMedia = source.image
     ? `<figure class="article-lead-img"><img src="${esc(assetPath(source.image))}" alt="${esc(sourceTitle)}" onerror="this.closest('figure').classList.add('broken')"><figcaption class="imgcap">Source-event image from the canonical filing; reused here for orientation, not as new evidence.</figcaption></figure>`
     : autoArt(source,typeKey);
-  const lead = `<div class="article-lead-card"><div class="article-lead-summary"><h4>Analysis Summary</h4><p>${esc(a.summary||'')}</p></div>${sourceMedia}</div>`;
+  const lead = `<div class="article-lead-card analysis-lead"><div class="article-lead-summary"><h4>Analysis Summary</h4><p>${esc(a.summary||'')}</p></div>${sourceMedia}</div>`;
 
   const sectionsHtml = sections.map((s,i)=>`<section class="article-analysis-section" aria-labelledby="analysis-${esc(s.id)}">
     <h2 id="analysis-${esc(s.id)}"><span class="analysis-section-number">${String(i+1).padStart(2,'0')}</span> ${esc(s.icon||'◆')} ${esc(s.heading||prettyId(s.id))}</h2>
@@ -11097,27 +11181,38 @@ function view_article_analysis(id){
 
   const infoRows = `<div class="row"><span class="k">Filed by</span><span class="v">${esc(a.archivist||'Waluigi')}</span></div>
     <div class="row"><span class="k">Filed</span><span class="v">${esc(a.filed||'Undated')}</span></div>
-    <div class="row"><span class="k">Form</span><span class="v">Deterministic opinion filing</span></div>
-    <div class="row"><span class="k">Balance</span><span class="v">≈80% analysis / 20% reference</span></div>
+    <div class="row"><span class="k">Form</span><span class="v">Signed opinion filing</span></div>
+    <div class="row"><span class="k">Research</span><span class="v">Optional one-shot checks</span></div>
     <div class="row"><span class="k">Canon</span><span class="v">Source event governs</span></div>`;
   const sourceRail = `<div class="railbox"><div class="railbody analysis-source-rail"><b>Canonical source</b><a href="#/article/${encodeURIComponent(a.sourceArticle)}">${esc(sourceTitle)}</a><span>This reading interprets the event. It does not replace its chronology, outcomes, XP, reputation, or exhibits.</span></div></div>`;
+  const researchHtml = analysisResearchDesk(a);
 
   el('content').innerHTML=`
-    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/article/${encodeURIComponent(a.sourceArticle)}">${esc(sourceTitle)}</a> › Waluigi's Article Analysis</div>
-    <div class="article-layout article-analysis-layout"><div><div class="card animate-fade-in article-analysis">
-      <div class="art-kicker">🖋️ ${esc(a.kicker||"Waluigi's Article Analysis")}</div>
-      <h1 class="art-title">${esc(a.title||sourceTitle)}</h1>
-      ${a.subtitle?`<div class="art-subtitle">${esc(a.subtitle)}</div>`:''}
-      <div class="metabar"><span class="pill">🖋️ Signed interpretation</span><span class="pill">No roll</span><span class="pill">Source event remains canon</span><a class="chip" href="#/article/${encodeURIComponent(a.sourceArticle)}">Read the canonical event →</a></div>
-      <div class="readtime">⏱ ${readMins} min read · ${wordCount} words</div>
-      ${lead}
-      <div class="analysis-boundary"><b>What this page is:</b> Waluigi's deliberately opinionated reading of a filed event. Story details appear only as anchors for the argument; unresolved facts remain unresolved.</div>
-      <section class="article-analysis-thesis" aria-labelledby="analysis-thesis"><h2 id="analysis-thesis">My Thesis</h2><div class="prose">${mdToHtml(a.thesis||'',a.id)}</div></section>
-      ${sectionsHtml}
-      <section class="article-analysis-verdict" aria-labelledby="analysis-verdict"><h2 id="analysis-verdict">Waluigi's Verdict</h2><div class="prose">${mdToHtml(a.verdict||'',a.id)}</div></section>
-      ${relatedChips?`<section aria-labelledby="analysis-related"><h2 id="analysis-related">Related Records</h2><div class="related-list">${relatedChips}</div></section>`:''}
-      <div class="analysis-source-return"><span>Return to the account this argument is anchored to:</span><a class="entity-link" href="#/article/${encodeURIComponent(a.sourceArticle)}">${esc(sourceTitle)}</a></div>
-    </div></div><div><div class="rail"><div class="infobox"><h4>Analysis File</h4>${infoRows}</div>${toc}${sourceRail}</div></div></div>`;
+    <div class="breadcrumb analysis-breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/article/${encodeURIComponent(a.sourceArticle)}">${esc(sourceTitle)}</a> › Waluigi's Article Analysis</div>
+    <div class="article-layout article-analysis-layout"><div><article class="card animate-fade-in article-analysis">
+      <header class="analysis-masthead">
+        <div class="analysis-hero-line">
+          <div class="analysis-titleblock">
+            <div class="art-kicker">🖋️ ${esc(a.kicker||"Waluigi's Article Analysis")}</div>
+            <h1 class="art-title">${esc(a.title||sourceTitle)}</h1>
+            ${a.subtitle?`<div class="art-subtitle">${esc(a.subtitle)}</div>`:''}
+          </div>
+          <div class="analysis-seal" aria-hidden="true"><span class="analysis-seal-letter">W</span><span class="analysis-seal-copy">SIGNED<br>WAH</span></div>
+        </div>
+        <div class="metabar"><span class="pill">🖋️ Opinion on the record</span><span class="pill">Source event remains canon</span><a class="chip analysis-source-cta" href="#/article/${encodeURIComponent(a.sourceArticle)}">Read the canonical event →</a></div>
+        <div class="readtime">⏱ ${readMins} min read <span aria-hidden="true">·</span> ${wordCount} words</div>
+        ${lead}
+      </header>
+      <div class="analysis-reading">
+        <div class="analysis-boundary"><b>What this page is:</b> Waluigi's deliberately opinionated reading of a filed event. Story details appear only as anchors for the argument; unresolved facts remain unresolved.</div>
+        <section class="article-analysis-thesis" aria-labelledby="analysis-thesis"><h2 id="analysis-thesis">My Thesis</h2><div class="prose">${mdToHtml(a.thesis||'',a.id)}</div></section>
+        ${sectionsHtml}
+        <section class="article-analysis-verdict" aria-labelledby="analysis-verdict"><h2 id="analysis-verdict">Waluigi's Verdict</h2><div class="prose">${mdToHtml(a.verdict||'',a.id)}</div></section>
+        ${researchHtml}
+        ${relatedChips?`<section class="analysis-related" aria-labelledby="analysis-related"><h2 id="analysis-related">Related Records</h2><div class="related-list">${relatedChips}</div></section>`:''}
+        <div class="analysis-source-return"><span>Return to the account this argument is anchored to:</span><a class="entity-link" href="#/article/${encodeURIComponent(a.sourceArticle)}">${esc(sourceTitle)}</a></div>
+      </div>
+    </article></div><aside class="analysis-rail"><div class="rail"><div class="infobox"><h4>Analysis File</h4>${infoRows}</div>${toc}${sourceRail}</div></aside></div>`;
   setArticleAccent(typeKey);
   endLinkPass();
   window.scrollTo(0,0);

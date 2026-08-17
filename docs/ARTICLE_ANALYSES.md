@@ -20,17 +20,19 @@ opinion filed beside it.
 |---|---|---:|---|
 | Session event | Record what happened as a physical story | about **80 / 20** | No |
 | Investigation exhibit | Let the reader interrogate physical evidence | light story / heavy analysis | Yes, once |
-| **Article analysis** | Let Waluigi argue with the completed event | about **20 / 80** | **No** |
+| **Article analysis** | Let Waluigi argue with the completed event | about **20 / 80** | Core: **No**; optional research: **Yes, once** |
 
 An article analysis does not replace `waluigiAssessment` on the event. The
 assessment is the compact durable verdict. The companion analysis is where
 Waluigi can stay with the contradictions, admit his preferences, pursue a
 personal grievance, and explain why a small moment has continued to bother him.
 
-It is also not another investigation exhibit. An event article is settled
-archive material and must read the same for every reader. Rolls belong to
-paper and held objects whose meaning is being tested, not to the archive's
-canonical account. Article analyses contain no examination or insight rolls.
+It is also not another investigation exhibit. The event and the signed
+argument must read the same for every reader. If an analysis offers an optional
+**after-hours research desk**, its rolls live after the verdict and reveal only
+a supplemental inference or an honest limit on Waluigi's claim. The dice never
+rewrite the source event, gate the article, alter the verdict, or award XP and
+reputation.
 
 ---
 
@@ -78,6 +80,21 @@ array.
     }
   ],
   "verdict": "The closing judgement and recommendation.",
+  "researchDesk": {
+    "title": "Waluigi's After-Hours Research Desk",
+    "intro": "Why these optional checks are worth making.",
+    "rolls": [
+      {
+        "id": "stable-check-id",
+        "icon": "🎲",
+        "title": "The question being tested",
+        "dc": 4,
+        "prompt": "The source-grounded comparison Waluigi wants to make.",
+        "success": "A sharper supplemental inference.",
+        "failure": "An honest limit that still gives the reader a useful note."
+      }
+    ]
+  },
   "relatedArticles": ["boundy", "remi_akamatsu_full_backstory"]
 }
 ```
@@ -101,6 +118,12 @@ array.
 | `sections[].sourceAnchor` | yes | One concise fact or quotation already present in the source |
 | `sections[].body` | yes | The argument, in markdown; no raw HTML |
 | `verdict` | yes | What Waluigi concludes and what he recommends doing next |
+| `researchDesk` | no | Optional, clearly separated checks shown only after the verdict |
+| `researchDesk.rolls[].id` | if used | Stable within the analysis; it is the browser save key |
+| `researchDesk.rolls[].dc` | if used | Integer 2–6; plain d6 with no modifier |
+| `researchDesk.rolls[].prompt` | if used | A source-grounded question, not a new fact |
+| `researchDesk.rolls[].success` | if used | A sharper Waluigi inference, explicitly short of new canon |
+| `researchDesk.rolls[].failure` | if used | A useful limit or competing reading, never an empty dead end |
 | `relatedArticles[]` | no | Existing IDs only; use records the analysis actually discusses |
 
 The source event owns participants, XP, outcome, reputation changes, exhibits,
@@ -204,6 +227,32 @@ sections reach the same conclusion from the same evidence, combine them.
 
 ---
 
+## Optional after-hours research
+
+Interactive research is an appendix to the opinion, not a second version of the
+article. Put it after the verdict so every reader receives Waluigi's complete
+argument before chance enters the page. Three focused checks are normally
+plenty; inline dice scattered through a 3,000-word essay turn close reading into
+button hunting.
+
+Each check is a plain d6 against DC 2–6 and is recorded once in local browser
+storage. A failure must be as editorially useful as a success:
+
+- **Success** may connect two already-filed details and let Waluigi state a
+  stronger inference.
+- **Failure** identifies what the archive cannot prove, preserves a competing
+  reading, or makes Waluigi admit where grievance outruns evidence.
+- **Neither** changes chronology, custody, intent, the filed verdict, XP,
+  reputation, or investigation progress.
+
+Do not put these checks in `rolls.json` under `articles`. That registry splices
+rolls into authoritative reference prose. Research-desk checks belong to the
+analysis record because they are optional outcomes in Waluigi's openly biased
+voice. IDs are permanent after publication: changing one discards that check's
+saved result for existing readers.
+
+---
+
 ## Presentation
 
 An analysis page is an ordinary Waluipedia article, not a new microsite.
@@ -220,15 +269,19 @@ Use the existing detail-page vocabulary:
 - `.cross-page-panel`, `.cross-page-links`
 - `.rel-chip`
 
-Do not create an `analysis.css` file or a new parallel card system. The source
-article's existing image may be shown as the visual reference, with a caption
-that clearly says it belongs to the source filing. Do not copy the image file.
+Do not create an `analysis.css` file or a new parallel card system. Page-specific
+rules belong in the existing investigations stylesheet and must remain scoped
+to `.article-analysis-layout`, `.article-analysis`, or `.analysis-research`.
+The source article's existing image may be shown as the visual reference, with
+a caption that clearly says it belongs to the source filing. Do not copy the
+image file.
 
 The page must provide:
 
 - a direct **Read the canonical event** link near the title;
 - a table of contents for the thesis, every section, and the verdict;
 - the source anchor visibly separated from Waluigi's body text;
+- an optional research desk after the verdict, never inside the core prose;
 - related-article chips whose IDs resolve;
 - a return link to the source event.
 
@@ -267,9 +320,11 @@ investigation rather than creating a quest here.
 6. Write the analysis around each `sourceAnchor`, filing competing readings
    and personal stakes.
 7. Write the verdict last. It must contain a recommendation, not just a mood.
-8. Add only resolvable `relatedArticles` IDs.
-9. Add the data record; do not hard-code prose in `index.html`.
-10. Open both routes and read them in sequence: canonical event first,
+8. If the page benefits from play, add no more than three optional research
+   checks. Write useful success and failure notes before choosing each DC.
+9. Add only resolvable `relatedArticles` IDs.
+10. Add the data record; do not hard-code prose in `index.html`.
+11. Open both routes and read them in sequence: canonical event first,
     companion analysis second.
 
 ---
@@ -285,7 +340,10 @@ investigation rather than creating a quest here.
 □ approximately 20% source / 80% analysis, judged by reading rather than padding
 □ Waluigi states preferences as preferences, not facts
 □ no new chronology, custody, dialogue, XP, or reputation is invented
-□ no dice or roll tokens
+□ core thesis, sections, and verdict contain no dice or roll tokens
+□ optional research checks appear only after the verdict
+□ every optional check has a stable id, DC 2–6, and useful success and failure notes
+□ optional outcomes remain Waluigi inference or an honest limit, never new canon
 □ no raw HTML in authored prose
 □ all relatedArticles IDs resolve
 □ connected panel shows the analysis only on its source article
