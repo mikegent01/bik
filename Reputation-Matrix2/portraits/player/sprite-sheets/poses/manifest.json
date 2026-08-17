@@ -1,0 +1,679 @@
+{
+  "formatVersion": 1,
+  "frameSize": {
+    "width": 256,
+    "height": 256
+  },
+  "layout": {
+    "columns": 4,
+    "rows": 4
+  },
+  "background": "transparent",
+  "characters": {
+    "archie": {
+      "sourceSheet": "../archie-sprite-sheet.png",
+      "frames": [
+        {
+          "pose": "idle-front",
+          "file": "archie/01-idle-front.png"
+        },
+        {
+          "pose": "idle-right",
+          "file": "archie/02-idle-right.png"
+        },
+        {
+          "pose": "idle-back",
+          "file": "archie/03-idle-back.png"
+        },
+        {
+          "pose": "idle-left",
+          "file": "archie/04-idle-left.png"
+        },
+        {
+          "pose": "walk-right-01",
+          "file": "archie/05-walk-right-01.png"
+        },
+        {
+          "pose": "walk-right-02",
+          "file": "archie/06-walk-right-02.png"
+        },
+        {
+          "pose": "walk-right-03",
+          "file": "archie/07-walk-right-03.png"
+        },
+        {
+          "pose": "walk-right-04",
+          "file": "archie/08-walk-right-04.png"
+        },
+        {
+          "pose": "staff-ready",
+          "file": "archie/09-staff-ready.png"
+        },
+        {
+          "pose": "staff-swing",
+          "file": "archie/10-staff-swing.png"
+        },
+        {
+          "pose": "cast-blue-flame",
+          "file": "archie/11-cast-blue-flame.png"
+        },
+        {
+          "pose": "cast-lightning",
+          "file": "archie/12-cast-lightning.png"
+        },
+        {
+          "pose": "nimbus-01",
+          "file": "archie/13-nimbus-01.png"
+        },
+        {
+          "pose": "nimbus-02",
+          "file": "archie/14-nimbus-02.png"
+        },
+        {
+          "pose": "nimbus-03",
+          "file": "archie/15-nimbus-03.png"
+        },
+        {
+          "pose": "nimbus-04",
+          "file": "archie/16-nimbus-04.png"
+        }
+      ],
+      "animations": {
+        "idle": [
+          "archie/01-idle-front.png",
+          "archie/02-idle-right.png",
+          "archie/03-idle-back.png",
+          "archie/04-idle-left.png"
+        ],
+        "walk-right": [
+          "archie/05-walk-right-01.png",
+          "archie/06-walk-right-02.png",
+          "archie/07-walk-right-03.png",
+          "archie/08-walk-right-04.png"
+        ],
+        "actions": [
+          "archie/09-staff-ready.png",
+          "archie/10-staff-swing.png",
+          "archie/11-cast-blue-flame.png",
+          "archie/12-cast-lightning.png"
+        ],
+        "reactions-or-specials": [
+          "archie/13-nimbus-01.png",
+          "archie/14-nimbus-02.png",
+          "archie/15-nimbus-03.png",
+          "archie/16-nimbus-04.png"
+        ]
+      }
+    },
+    "bowser": {
+      "sourceSheet": "../bowser-sprite-sheet.png",
+      "frames": [
+        {
+          "pose": "idle-front",
+          "file": "bowser/01-idle-front.png"
+        },
+        {
+          "pose": "idle-right",
+          "file": "bowser/02-idle-right.png"
+        },
+        {
+          "pose": "idle-back",
+          "file": "bowser/03-idle-back.png"
+        },
+        {
+          "pose": "idle-left",
+          "file": "bowser/04-idle-left.png"
+        },
+        {
+          "pose": "walk-right-01",
+          "file": "bowser/05-walk-right-01.png"
+        },
+        {
+          "pose": "walk-right-02",
+          "file": "bowser/06-walk-right-02.png"
+        },
+        {
+          "pose": "walk-right-03",
+          "file": "bowser/07-walk-right-03.png"
+        },
+        {
+          "pose": "walk-right-04",
+          "file": "bowser/08-walk-right-04.png"
+        },
+        {
+          "pose": "read-map",
+          "file": "bowser/09-read-map.png"
+        },
+        {
+          "pose": "point-route",
+          "file": "bowser/10-point-route.png"
+        },
+        {
+          "pose": "search-backpack",
+          "file": "bowser/11-search-backpack.png"
+        },
+        {
+          "pose": "ring-bell",
+          "file": "bowser/12-ring-bell.png"
+        },
+        {
+          "pose": "surprised",
+          "file": "bowser/13-surprised.png"
+        },
+        {
+          "pose": "crouch",
+          "file": "bowser/14-crouch.png"
+        },
+        {
+          "pose": "hurt",
+          "file": "bowser/15-hurt.png"
+        },
+        {
+          "pose": "victory",
+          "file": "bowser/16-victory.png"
+        }
+      ],
+      "animations": {
+        "idle": [
+          "bowser/01-idle-front.png",
+          "bowser/02-idle-right.png",
+          "bowser/03-idle-back.png",
+          "bowser/04-idle-left.png"
+        ],
+        "walk-right": [
+          "bowser/05-walk-right-01.png",
+          "bowser/06-walk-right-02.png",
+          "bowser/07-walk-right-03.png",
+          "bowser/08-walk-right-04.png"
+        ],
+        "actions": [
+          "bowser/09-read-map.png",
+          "bowser/10-point-route.png",
+          "bowser/11-search-backpack.png",
+          "bowser/12-ring-bell.png"
+        ],
+        "reactions-or-specials": [
+          "bowser/13-surprised.png",
+          "bowser/14-crouch.png",
+          "bowser/15-hurt.png",
+          "bowser/16-victory.png"
+        ]
+      }
+    },
+    "boxgoblinremi": {
+      "sourceSheet": "../boxgoblinremi-sprite-sheet.png",
+      "frames": [
+        {
+          "pose": "idle-front",
+          "file": "boxgoblinremi/01-idle-front.png"
+        },
+        {
+          "pose": "idle-right",
+          "file": "boxgoblinremi/02-idle-right.png"
+        },
+        {
+          "pose": "idle-back",
+          "file": "boxgoblinremi/03-idle-back.png"
+        },
+        {
+          "pose": "idle-left",
+          "file": "boxgoblinremi/04-idle-left.png"
+        },
+        {
+          "pose": "walk-right-01",
+          "file": "boxgoblinremi/05-walk-right-01.png"
+        },
+        {
+          "pose": "walk-right-02",
+          "file": "boxgoblinremi/06-walk-right-02.png"
+        },
+        {
+          "pose": "walk-right-03",
+          "file": "boxgoblinremi/07-walk-right-03.png"
+        },
+        {
+          "pose": "walk-right-04",
+          "file": "boxgoblinremi/08-walk-right-04.png"
+        },
+        {
+          "pose": "hammer-ready",
+          "file": "boxgoblinremi/09-hammer-ready.png"
+        },
+        {
+          "pose": "hammer-smash",
+          "file": "boxgoblinremi/10-hammer-smash.png"
+        },
+        {
+          "pose": "hammer-swing",
+          "file": "boxgoblinremi/11-hammer-swing.png"
+        },
+        {
+          "pose": "fire-breath",
+          "file": "boxgoblinremi/12-fire-breath.png"
+        },
+        {
+          "pose": "guard",
+          "file": "boxgoblinremi/13-guard.png"
+        },
+        {
+          "pose": "roar",
+          "file": "boxgoblinremi/14-roar.png"
+        },
+        {
+          "pose": "hurt",
+          "file": "boxgoblinremi/15-hurt.png"
+        },
+        {
+          "pose": "victory",
+          "file": "boxgoblinremi/16-victory.png"
+        }
+      ],
+      "animations": {
+        "idle": [
+          "boxgoblinremi/01-idle-front.png",
+          "boxgoblinremi/02-idle-right.png",
+          "boxgoblinremi/03-idle-back.png",
+          "boxgoblinremi/04-idle-left.png"
+        ],
+        "walk-right": [
+          "boxgoblinremi/05-walk-right-01.png",
+          "boxgoblinremi/06-walk-right-02.png",
+          "boxgoblinremi/07-walk-right-03.png",
+          "boxgoblinremi/08-walk-right-04.png"
+        ],
+        "actions": [
+          "boxgoblinremi/09-hammer-ready.png",
+          "boxgoblinremi/10-hammer-smash.png",
+          "boxgoblinremi/11-hammer-swing.png",
+          "boxgoblinremi/12-fire-breath.png"
+        ],
+        "reactions-or-specials": [
+          "boxgoblinremi/13-guard.png",
+          "boxgoblinremi/14-roar.png",
+          "boxgoblinremi/15-hurt.png",
+          "boxgoblinremi/16-victory.png"
+        ]
+      }
+    },
+    "hjumpikbell": {
+      "sourceSheet": "../hjumpikbell-sprite-sheet.png",
+      "frames": [
+        {
+          "pose": "idle-front",
+          "file": "hjumpikbell/01-idle-front.png"
+        },
+        {
+          "pose": "idle-right",
+          "file": "hjumpikbell/02-idle-right.png"
+        },
+        {
+          "pose": "idle-back",
+          "file": "hjumpikbell/03-idle-back.png"
+        },
+        {
+          "pose": "idle-left",
+          "file": "hjumpikbell/04-idle-left.png"
+        },
+        {
+          "pose": "walk-right-01",
+          "file": "hjumpikbell/05-walk-right-01.png"
+        },
+        {
+          "pose": "walk-right-02",
+          "file": "hjumpikbell/06-walk-right-02.png"
+        },
+        {
+          "pose": "walk-right-03",
+          "file": "hjumpikbell/07-walk-right-03.png"
+        },
+        {
+          "pose": "walk-right-04",
+          "file": "hjumpikbell/08-walk-right-04.png"
+        },
+        {
+          "pose": "axe-ready",
+          "file": "hjumpikbell/09-axe-ready.png"
+        },
+        {
+          "pose": "axe-overhead",
+          "file": "hjumpikbell/10-axe-overhead.png"
+        },
+        {
+          "pose": "axe-swing",
+          "file": "hjumpikbell/11-axe-swing.png"
+        },
+        {
+          "pose": "axe-guard",
+          "file": "hjumpikbell/12-axe-guard.png"
+        },
+        {
+          "pose": "tracking",
+          "file": "hjumpikbell/13-tracking.png"
+        },
+        {
+          "pose": "ring-bell",
+          "file": "hjumpikbell/14-ring-bell.png"
+        },
+        {
+          "pose": "hurt",
+          "file": "hjumpikbell/15-hurt.png"
+        },
+        {
+          "pose": "victory",
+          "file": "hjumpikbell/16-victory.png"
+        }
+      ],
+      "animations": {
+        "idle": [
+          "hjumpikbell/01-idle-front.png",
+          "hjumpikbell/02-idle-right.png",
+          "hjumpikbell/03-idle-back.png",
+          "hjumpikbell/04-idle-left.png"
+        ],
+        "walk-right": [
+          "hjumpikbell/05-walk-right-01.png",
+          "hjumpikbell/06-walk-right-02.png",
+          "hjumpikbell/07-walk-right-03.png",
+          "hjumpikbell/08-walk-right-04.png"
+        ],
+        "actions": [
+          "hjumpikbell/09-axe-ready.png",
+          "hjumpikbell/10-axe-overhead.png",
+          "hjumpikbell/11-axe-swing.png",
+          "hjumpikbell/12-axe-guard.png"
+        ],
+        "reactions-or-specials": [
+          "hjumpikbell/13-tracking.png",
+          "hjumpikbell/14-ring-bell.png",
+          "hjumpikbell/15-hurt.png",
+          "hjumpikbell/16-victory.png"
+        ]
+      }
+    },
+    "markop": {
+      "sourceSheet": "../markop-sprite-sheet.png",
+      "frames": [
+        {
+          "pose": "idle-front",
+          "file": "markop/01-idle-front.png"
+        },
+        {
+          "pose": "idle-right",
+          "file": "markop/02-idle-right.png"
+        },
+        {
+          "pose": "idle-back",
+          "file": "markop/03-idle-back.png"
+        },
+        {
+          "pose": "idle-left",
+          "file": "markop/04-idle-left.png"
+        },
+        {
+          "pose": "walk-right-01",
+          "file": "markop/05-walk-right-01.png"
+        },
+        {
+          "pose": "walk-right-02",
+          "file": "markop/06-walk-right-02.png"
+        },
+        {
+          "pose": "walk-right-03",
+          "file": "markop/07-walk-right-03.png"
+        },
+        {
+          "pose": "walk-right-04",
+          "file": "markop/08-walk-right-04.png"
+        },
+        {
+          "pose": "sword-ready",
+          "file": "markop/09-sword-ready.png"
+        },
+        {
+          "pose": "lunge",
+          "file": "markop/10-lunge.png"
+        },
+        {
+          "pose": "sword-strike",
+          "file": "markop/11-sword-strike.png"
+        },
+        {
+          "pose": "sword-block",
+          "file": "markop/12-sword-block.png"
+        },
+        {
+          "pose": "hurt",
+          "file": "markop/13-hurt.png"
+        },
+        {
+          "pose": "victory",
+          "file": "markop/14-victory.png"
+        },
+        {
+          "pose": "guard",
+          "file": "markop/15-guard.png"
+        },
+        {
+          "pose": "knocked-down",
+          "file": "markop/16-knocked-down.png"
+        }
+      ],
+      "animations": {
+        "idle": [
+          "markop/01-idle-front.png",
+          "markop/02-idle-right.png",
+          "markop/03-idle-back.png",
+          "markop/04-idle-left.png"
+        ],
+        "walk-right": [
+          "markop/05-walk-right-01.png",
+          "markop/06-walk-right-02.png",
+          "markop/07-walk-right-03.png",
+          "markop/08-walk-right-04.png"
+        ],
+        "actions": [
+          "markop/09-sword-ready.png",
+          "markop/10-lunge.png",
+          "markop/11-sword-strike.png",
+          "markop/12-sword-block.png"
+        ],
+        "reactions-or-specials": [
+          "markop/13-hurt.png",
+          "markop/14-victory.png",
+          "markop/15-guard.png",
+          "markop/16-knocked-down.png"
+        ]
+      }
+    },
+    "remi": {
+      "sourceSheet": "../remi-sprite-sheet.png",
+      "frames": [
+        {
+          "pose": "idle-front",
+          "file": "remi/01-idle-front.png"
+        },
+        {
+          "pose": "idle-right",
+          "file": "remi/02-idle-right.png"
+        },
+        {
+          "pose": "idle-back",
+          "file": "remi/03-idle-back.png"
+        },
+        {
+          "pose": "idle-left",
+          "file": "remi/04-idle-left.png"
+        },
+        {
+          "pose": "walk-right-01",
+          "file": "remi/05-walk-right-01.png"
+        },
+        {
+          "pose": "walk-right-02",
+          "file": "remi/06-walk-right-02.png"
+        },
+        {
+          "pose": "walk-right-03",
+          "file": "remi/07-walk-right-03.png"
+        },
+        {
+          "pose": "walk-right-04",
+          "file": "remi/08-walk-right-04.png"
+        },
+        {
+          "pose": "read-map",
+          "file": "remi/09-read-map.png"
+        },
+        {
+          "pose": "point-route",
+          "file": "remi/10-point-route.png"
+        },
+        {
+          "pose": "search-backpack",
+          "file": "remi/11-search-backpack.png"
+        },
+        {
+          "pose": "ring-bell",
+          "file": "remi/12-ring-bell.png"
+        },
+        {
+          "pose": "surprised",
+          "file": "remi/13-surprised.png"
+        },
+        {
+          "pose": "crouch",
+          "file": "remi/14-crouch.png"
+        },
+        {
+          "pose": "hurt",
+          "file": "remi/15-hurt.png"
+        },
+        {
+          "pose": "victory",
+          "file": "remi/16-victory.png"
+        }
+      ],
+      "animations": {
+        "idle": [
+          "remi/01-idle-front.png",
+          "remi/02-idle-right.png",
+          "remi/03-idle-back.png",
+          "remi/04-idle-left.png"
+        ],
+        "walk-right": [
+          "remi/05-walk-right-01.png",
+          "remi/06-walk-right-02.png",
+          "remi/07-walk-right-03.png",
+          "remi/08-walk-right-04.png"
+        ],
+        "actions": [
+          "remi/09-read-map.png",
+          "remi/10-point-route.png",
+          "remi/11-search-backpack.png",
+          "remi/12-ring-bell.png"
+        ],
+        "reactions-or-specials": [
+          "remi/13-surprised.png",
+          "remi/14-crouch.png",
+          "remi/15-hurt.png",
+          "remi/16-victory.png"
+        ]
+      }
+    },
+    "scorncrow": {
+      "sourceSheet": "../scorncrow-sprite-sheet.png",
+      "frames": [
+        {
+          "pose": "idle-front",
+          "file": "scorncrow/01-idle-front.png"
+        },
+        {
+          "pose": "idle-right",
+          "file": "scorncrow/02-idle-right.png"
+        },
+        {
+          "pose": "idle-back",
+          "file": "scorncrow/03-idle-back.png"
+        },
+        {
+          "pose": "idle-left",
+          "file": "scorncrow/04-idle-left.png"
+        },
+        {
+          "pose": "walk-right-01",
+          "file": "scorncrow/05-walk-right-01.png"
+        },
+        {
+          "pose": "walk-right-02",
+          "file": "scorncrow/06-walk-right-02.png"
+        },
+        {
+          "pose": "walk-right-03",
+          "file": "scorncrow/07-walk-right-03.png"
+        },
+        {
+          "pose": "walk-right-04",
+          "file": "scorncrow/08-walk-right-04.png"
+        },
+        {
+          "pose": "scythe-ready",
+          "file": "scorncrow/09-scythe-ready.png"
+        },
+        {
+          "pose": "scythe-overhead",
+          "file": "scorncrow/10-scythe-overhead.png"
+        },
+        {
+          "pose": "scythe-swing",
+          "file": "scorncrow/11-scythe-swing.png"
+        },
+        {
+          "pose": "low-reap",
+          "file": "scorncrow/12-low-reap.png"
+        },
+        {
+          "pose": "laugh",
+          "file": "scorncrow/13-laugh.png"
+        },
+        {
+          "pose": "root-bow",
+          "file": "scorncrow/14-root-bow.png"
+        },
+        {
+          "pose": "summon-thorn",
+          "file": "scorncrow/15-summon-thorn.png"
+        },
+        {
+          "pose": "crow-dissolve",
+          "file": "scorncrow/16-crow-dissolve.png"
+        }
+      ],
+      "animations": {
+        "idle": [
+          "scorncrow/01-idle-front.png",
+          "scorncrow/02-idle-right.png",
+          "scorncrow/03-idle-back.png",
+          "scorncrow/04-idle-left.png"
+        ],
+        "walk-right": [
+          "scorncrow/05-walk-right-01.png",
+          "scorncrow/06-walk-right-02.png",
+          "scorncrow/07-walk-right-03.png",
+          "scorncrow/08-walk-right-04.png"
+        ],
+        "actions": [
+          "scorncrow/09-scythe-ready.png",
+          "scorncrow/10-scythe-overhead.png",
+          "scorncrow/11-scythe-swing.png",
+          "scorncrow/12-low-reap.png"
+        ],
+        "reactions-or-specials": [
+          "scorncrow/13-laugh.png",
+          "scorncrow/14-root-bow.png",
+          "scorncrow/15-summon-thorn.png",
+          "scorncrow/16-crow-dissolve.png"
+        ]
+      }
+    }
+  }
+}
