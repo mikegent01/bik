@@ -170,14 +170,10 @@ Six things that explain nearly every decision in this repository:
   `Reputation-Matrix2/data/props.json`, wire it with `[[prop:id|text]]`, then
   `python3 tools/check-exhibits.py`. Craft standard:
   [`docs/STORY_FORMAT_GUIDE.md` §9B](docs/STORY_FORMAT_GUIDE.md#9b-exhibits--the-documents-the-story-names).
-- **Add a session to an arc's investigation** → new `sessions[]` row, evidence,
-  threads and leads in `Reputation-Matrix2/data/investigations.json`. No new JS
-  or CSS. [`docs/INVESTIGATIONS.md`](docs/INVESTIGATIONS.md).
-- **Make an article itself investigatable** → add `articleInvestigation` to the
-  event: a short `onRecord`, one d6+1 `dc`, and a commentary-forward `analysis`
-  with inline `[[roll:…]]` checks. The normal event stays story-forward; the
-  optional close reading deliberately reverses the ratio. The article links to
-  its related case file but does not replace it.
+- **Add a session to an arc's investigation** → new `sessions[]` row, two or
+  three exhibits with three analysis layers each, any leads the session created,
+  in `Reputation-Matrix2/data/investigations.json`. No JS, no CSS.
+  [`docs/INVESTIGATIONS.md`](docs/INVESTIGATIONS.md).
 - **Refresh the home feed** → `python3 tools/update-index-home.py`.
 - **Cut the news** → only when ~10 events are pending;
   `python3 tools/build-rnn-broadcast.py` (see the cadence rule above).

@@ -9852,7 +9852,6 @@ function view_article(id){
 ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}
      <div class="prose">${applyAnnotations(mdToHtml(item.description||'',item.id), item.id)}</div>
      ${sectionsHtml}
-     ${typeof articleInvestigationHtml==='function'?articleInvestigationHtml(item):''}
      ${listBlocks.length?`<hr>${listBlocks.join('')}`:''}
      ${item.aftermath?`<h2 id="h-aftermath">Aftermath</h2><div class="prose">${applyAnnotations(mdToHtml(item.aftermath,item.id), item.id)}</div>`:''}
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
@@ -10672,58 +10671,6 @@ function invAnalysis(iv, ex, field, t){
     }));
   });
   return invUnstash(stash, invProse(staged, ctx));
-}
-
-/* ---------- investigatable articles --------------------------------------
-   Some event filings carry a second, theory-heavy reading on the article
-   itself. The event remains ~80% story; this layer deliberately reverses that
-   ratio and lets Waluigi argue with the evidence behind one d6+1 examination
-   plus optional inline insight rolls. It shares the investigation save file,
-   dice, pips and permanent-verdict rules without pretending the article is a
-   separate case file or document. */
-function articleInvestigationHtml(item){
-  const ai = item && item.articleInvestigation;
-  if(!ai) return '';
-  const invId = 'article:' + item.id;
-  const iv = {id:invId}, ex = {id:ai.id, propId:item.id};
-  const res = invResult(invId, 'exam', ai.id);
-  const dc = ai.dc || 4;
-  let exam = '';
-  if(!res){
-    exam = `<p class="text-muted">Waluigi has a theory-heavy reading of this article. One examination reveals it; the verdict is saved in this browser.</p>
-      <button class="chip active" onclick="articleInvestigationRoll('${esc(item.id)}')">🎲 Investigate this article · d6 + 1 vs DC ${dc}</button>`;
-  }else{
-    const ok = res.v === 'success';
-    exam = invRollResult({ok:ok,roll:res.r,total:res.t,bonus:(res.r==null?0:1),dc:(res.dc==null?dc:res.dc),label:'Article examination',
-      text:ok?'The article opens under Waluigi’s full reading.':'The evidence remains visible, but this reading did not clear the file.'});
-    if(ok) exam += `<div class="prose">${invAnalysis(iv,ex,'an',ai.analysis||'')}</div>`;
-    exam += `<div class="chips" style="margin-top:12px"><button class="chip" onclick="articleInvestigationReset('${esc(item.id)}')">Reset this article examination</button></div>`;
-  }
-  const caseLink = ai.links && ai.links.investigation
-    ? `<a class="chip" href="#/investigation/${encodeURIComponent(ai.links.investigation)}">Open related case file →</a>` : '';
-  return `<div class="card" id="articleInvestigation" style="border-left:4px solid var(--accent)">
-    <div class="home-section-head"><div><h2>🔎 Investigate this article further</h2><p>${esc(ai.hook||'A second reading is filed behind the evidence.')}</p></div><span class="pill">commentary-forward</span></div>
-    <div class="wnote"><b>On the record:</b><div class="prose">${invAnalysis(iv,ex,'rec',ai.onRecord||'')}</div></div>
-    <div id="articleInvestigationExam">${exam}</div>
-    ${caseLink?`<div class="chips" style="margin-top:12px">${caseLink}</div>`:''}
-  </div>`;
-}
-function articleInvestigationRoll(itemId){
-  const rec = INDEX[itemId] && INDEX[itemId].item;
-  const ai = rec && rec.articleInvestigation; if(!ai) return;
-  const invId='article:'+itemId;
-  if(invVerdict(invId,'exam',ai.id)) return;
-  invDiceSound();
-  const dc=ai.dc||4, roll=invRollD6(), total=roll+1, ok=total>=dc;
-  invRecord(invId,'exam',ai.id,ok?'success':'failure',roll,total,dc);
-  const host=document.getElementById('articleInvestigation');
-  if(host) host.outerHTML=articleInvestigationHtml(rec);
-}
-function articleInvestigationReset(itemId){
-  const s=invState(); delete s['article:'+itemId]; invSave(s);
-  const rec=INDEX[itemId]&&INDEX[itemId].item;
-  const host=document.getElementById('articleInvestigation');
-  if(host&&rec) host.outerHTML=articleInvestigationHtml(rec);
 }
 
 /* One rollable anchor plus, if it has been resolved, its result. `html` is
