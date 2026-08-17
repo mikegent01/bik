@@ -279,8 +279,8 @@
     const stage = byId('mapStage'); const image = byId('floorplanImage');
     stage.classList.add('show-grid', 'show-routes', 'show-threats', 'show-defenses');
     image.addEventListener('load', () => setMapAssetStatus('loaded', `WEBP VERIFIED · ${image.naturalWidth} × ${image.naturalHeight} · supplied Feyward map`));
-    image.addEventListener('error', () => setMapAssetStatus('error', 'WEBP FAILED TO LOAD · check assets/maps/feyward.webp'));
-    if (image.complete) setMapAssetStatus(image.naturalWidth ? 'loaded' : 'error', image.naturalWidth ? `WEBP VERIFIED · ${image.naturalWidth} × ${image.naturalHeight} · supplied Feyward map` : 'WEBP FAILED TO LOAD · check assets/maps/feyward.webp');
+    image.addEventListener('error', () => setMapAssetStatus('error', 'WEBP FAILED TO LOAD · check root feyward.webp'));
+    if (image.complete) setMapAssetStatus(image.naturalWidth ? 'loaded' : 'error', image.naturalWidth ? `WEBP VERIFIED · ${image.naturalWidth} × ${image.naturalHeight} · supplied Feyward map` : 'WEBP FAILED TO LOAD · check root feyward.webp');
 
     byId('orderUnit').innerHTML = MARKERS.map((marker) => `<option value="${marker.id}">${esc(marker.name)} · ${esc(teamOf(marker.team).code)}</option>`).join('');
     renderRoomHits(); renderInventory(); renderOverlays(); renderMarkers(); renderRoster(); renderSelected(); renderOrders();
