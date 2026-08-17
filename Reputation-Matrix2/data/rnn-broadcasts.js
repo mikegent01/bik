@@ -638,8 +638,8 @@ window.RNN_BROADCASTS = {
       "title": "The Lease — and the First Night of Waluigi Chat",
       "airWeek": "1040-AETHEL-W4",
       "recordedOn": "2026-08-17",
-      "huntDay": "AETHEL 28, 1040 BF",
-      "covering": "Aethel 4, 1040 BF, released late — plus the signing of the lease",
+      "huntDay": "AETHEL 4, 1040 BF",
+      "covering": "the night of Harvestide 30, 1040 BF — released four days into Aethel, plus the signing of the lease",
       "anchorName": "Whisper-in-Wind",
       "anchorRole": "Death Speaker, Spirit-Walker Clan",
       "fieldName": "Acolyte Dan",
@@ -707,7 +707,7 @@ window.RNN_BROADCASTS = {
             },
             {
               "expression": "eyebrowraised",
-              "text": "This is the Rakasha News Network. Hunt Day twenty-eight of Aethel. One story tonight, and one lease signed directly beneath it. The jungle has read both. The jungle has questions it has decided not to ask.",
+              "text": "This is the Rakasha News Network. Hunt Day four of Aethel. One story tonight, and one lease signed directly beneath it. The jungle has read both. The jungle has questions it has decided not to ask.",
               "duration": 11000
             }
           ]
@@ -721,8 +721,8 @@ window.RNN_BROADCASTS = {
           "lines": [
             {
               "expression": "normal",
-              "text": "A file dated the fourth of Aethel reached this desk three days ago. The desk reads it anyway. Recency is a luxury, not a requirement.",
-              "duration": 9200
+              "text": "A file from the last night of Harvestide reached this desk four days into Aethel. The desk reads it anyway. Recency is a luxury, not a requirement.",
+              "duration": 9880
             },
             {
               "expression": "concerned",
@@ -978,7 +978,7 @@ window.RNN_BROADCASTS = {
           ]
         }
       ],
-      "runtimeMs": 380240
+      "runtimeMs": 380920
     }
   ]
 };

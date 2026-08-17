@@ -1536,7 +1536,21 @@
       "body": "<div class=\"pd-classbar\">Consignment note &middot; Carrier's copy</div><div class=\"pd-head\"><div class=\"pd-org\">Goods received, river frontage</div><div class=\"pd-sub\">Carrier: independent. Consignee: not stated on this copy.</div></div><table class=\"pd-table\"><thead><tr><th>Item</th><th>Condition</th></tr></thead><tbody><tr class=\"pd-flagged\"><td><b>Moss, luminous, living</b></td><td><b>viable, keep damp</b></td></tr><tr><td>Sheeting, cotton, used</td><td>serviceable</td></tr><tr><td>Line, braided</td><td>new</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Handling.</b> Trays to be laid, not stacked. Consignee advised the moss must be placed in darkness and left undisturbed to establish.</div><div class=\"pd-clause\"><b class=\"n\">Standing arrangement.</b> Carrier to hold submersible craft at the river frontage on call. No date specified.</div><div class=\"pd-margin\">Luminous moss, laid in the dark early so it would be glowing when it was needed. Bedsheets. Braided line. Submersibles on call with no date. Every item on this note is useless on the day it arrived and decisive on a day nobody had announced yet. This is what planning looks like when it is filed as freight. &mdash; W.</div>",
       "stamps": [
         "evidence"
-      ]
-    }
+      ]},
+  "prop_cutting_lane_tally": {
+    "kind": "ledger",
+    "icon": "🧾",
+    "title": "The Cutting-Lane Tally — Last Page",
+    "subtitle": "Kitchen-knife hand · third shift · sap and grease · the last page",
+    "items": [],
+    "articles": [
+      "feyward_woodfellow_vs_the_treant"
+    ],
+    "note": "The combat ledger, translated from the table by the only member of the expedition whose handwriting survived the sap. Every number matches the record. The sap is original.",
+    "body": "<div class=\"pd-head\"><div class=\"pd-org\">Cutting Expedition — Provisional Lane Tally</div><div class=\"pd-sub\">Kept by the Goblin Staff · kitchen knife, third shift · the last page</div></div><table class=\"pd-table\"><thead><tr><th>Item of account</th><th>Counted</th><th>Remark</th></tr></thead><tbody><tr><td>The treant</td><td>138 → 0</td><td>Felled by two books; the second was a formality</td></tr><tr><td>Awakened shrubs</td><td>2 → 0</td><td>One book each. Overkill noted without apology</td></tr><tr><td>The mound</td><td>110 → 0</td><td>Pursued off the tally. See the gap, this page</td></tr><tr><td>Sleep, expended</td><td>3 castings · 66 points</td><td>Majority friendly. “Friendly” per the casters</td></tr><tr><td>Cutlery, expended</td><td>11 pieces</td><td>4 hits. The fork is not ceremonial</td></tr><tr><td>Books, expended</td><td>9 tomes</td><td>One fumbled. The library does not comment</td></tr><tr><td>Our zeros</td><td>2</td><td>Swifty; Renard. Carried. Not struck from the muster</td></tr><tr><td>Sprites</td><td>—</td><td>See weather report</td></tr></tbody></table><hr><div class=\"pd-clause\">The keeper records an interval of eighteen minutes between the treant's fall and the mound's account. The keeper was present for all of it and remembers none of it. The page was wet then.</div><div class=\"pd-wah\">WAH — audited. The arithmetic holds. The librarian pays for the next crate of books. &mdash; W.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>(a knife-mark)</i></div><div class=\"pd-sigcap\">Goblin Staff, keeper of the tally</div></div></div>",
+    "stamps": [
+      "evidence"
+    ]
+  }
   }
 }

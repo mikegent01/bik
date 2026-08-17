@@ -421,6 +421,12 @@ leave the character unnamed.
 open the invoice, read the wire, and see the clerk's initials on the demand.
 An archive that only *describes* its paper is a summary of an archive.
 
+**Exhibits are not events-only.** The same `props.json` system serves
+**battle records** — set a prop's `articles[]` to the battle id and the
+battle article grows a "🗂️ Documents behind this record" section
+(`prop_cutting_lane_tally` on the Woodfellow-vs-the-Treant record is the
+worked example; see [`BATTLES_GUIDE.md`](BATTLES_GUIDE.md#exhibits--documents-behind-the-record)).
+
 Where this sits in the process: exhibits are **step 6**, immediately after the
 prose and before the index —
 [`SESSION_FILING_PROCESS.md` → Step 6](SESSION_FILING_PROCESS.md#step-6--exhibits-file-the-paper-the-story-mentions).

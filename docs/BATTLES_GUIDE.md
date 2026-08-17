@@ -94,19 +94,24 @@ fill the field instead of compressing the fight into `summary`.
    classes, damage, hit-point strings, morale states (`BOLD`, `SHAKEN`,
    `ROUT`) — is quoted from the combat record and stays exactly as rolled.
    If you cannot point at the line, you cannot say the number.
-2. **Rule zero applies** (see the root `README.md`): table names and GM
+2. **Dates are calendar dates.** The record's `date` and `engagement` fields
+   use the Regal Empire Standard Calendar only — never a real-world or
+   table-side date (see the root `README.md` calendar section). To date a
+   battle: chain back through the filings to the last solid date and work
+   forward; `currentDate.json` is the clock, not the guess.
+3. **Rule zero applies** (see the root `README.md`): table names and GM
    names never become people in the prose. Ledger bookkeeping entries
    (hit-point updates, resource refunds) belong to the table, not the world.
-3. **Unnamed is safe.** Combatants the ledger names only by role stay
+4. **Unnamed is safe.** Combatants the ledger names only by role stay
    unnamed unless a character filing exists to promote them.
-4. **Gaps are findings.** When the ledger goes silent (pursuits, cut
+5. **Gaps are findings.** When the ledger goes silent (pursuits, cut
    recordings), say so in the prose — the silence is part of the record.
    Never narrate the gap; never fill it.
-5. **Waluigi's register.** The encyclopedia's author files battle records
+6. **Waluigi's register.** The encyclopedia's author files battle records
    even when he wasn't there; he says so, quotes the ledger twice, and
    closes with the assessment nobody thanked him for. Commentary is the
    second layer, never the first (root README, philosophy #2).
-6. **The casualties sheet rounds honestly.** Deaths, structural damage,
+7. **The casualties sheet rounds honestly.** Deaths, structural damage,
    furniture, dignity. If a combatant ended the night at zero with an
    unclear fate, the fate is "deferred," not "dead."
 
@@ -128,6 +133,41 @@ erase it (root README, "Never do these"). New items go at the top of
 `timeline_html`, modeled on the items around them: date chip, title, actor
 spans, a 3–5 sentence ledger-true summary, and chips linking the battle
 record plus its nearest related articles.
+
+---
+
+## Exhibits — Documents behind this record
+
+The exhibit system (`Reputation-Matrix2/data/props.json`) is not events-only.
+A battle article grows a **"🗂️ Documents behind this record — The paperwork
+this account is built on"** section the moment a prop lists the battle id in
+its `articles[]` — the article renderer already calls it for every type. The
+problem was never the plumbing; it was that nobody had filed battle paper.
+
+**Every battle record worth writing names paper worth filing.** A combat
+ledger becomes a tally sheet kept by the lowest-ranking survivor. A pursuit
+becomes a quartermaster's count of expended cutlery. A rout becomes a morale
+report nobody signed.
+
+How to wire one:
+
+1. Add the prop to `props.json` — `kind` must be one the CSS styles
+   (`ledger`, `note`, `letter`, `invoice`, `order`, `contract`, `telegram`,
+   `map`, `passport`, `addendum`), `body` uses only existing `.pd-*`
+   classes, `stamps[]` from the fixed vocabulary (`evidence`, `sealed`,
+   `void`, `overdue`, `paid`, `noaction`).
+2. Set `"articles": ["<battle_id>"]` — that is the entire wiring.
+3. Reference it from the record's prose with `[[prop:<id>|text]]` so the
+   reader can open it mid-sentence.
+4. `python3 tools/check-exhibits.py` — classes, stamps, links, markers.
+
+The worked example: **`prop_cutting_lane_tally`** on
+`feyward_woodfellow_vs_the_treant` — the goblin staff's last-page tally of
+the cutting lane (the treant 138→0, eleven pieces of cutlery for four hits,
+two zeros carried, sprites "see weather report"), modelled on
+*The Plank at the Cairn — Four Names* (`prop_ebot_summit_plank`). Craft
+standard for the paper itself:
+[`STORY_FORMAT_GUIDE.md` → §9B](STORY_FORMAT_GUIDE.md#9b-exhibits--the-documents-the-story-names).
 
 ---
 

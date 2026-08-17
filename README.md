@@ -162,7 +162,7 @@ Six things that explain nearly every decision in this repository:
 ## 📺 Last Week on the Rakasha News Network
 
 > **EP 003 — The Lease — and the First Night of Waluigi Chat**  
-> Hunt Day AETHEL 28, 1040 BF · covering Aethel 4, 1040 BF, released late — plus the signing of the lease · runtime 6:20  
+> Hunt Day AETHEL 4, 1040 BF · covering the night of Harvestide 30, 1040 BF — released four days into Aethel, plus the signing of the lease · runtime 6:21  
 > **Whisper-in-Wind**, Death Speaker, Spirit-Walker Clan · **Waluigi**, Host, Waluigi Chat · encyclopaedist of the unthanked · **Remi Akamatsu**, Guest — wrong-way scout, mirror-recovery planner · **Wario**, Caller — acquired, not for sale
 
 **▶ [Watch the broadcast](Reputation-Matrix2/app/pages/standalone/rakasha-news-network.html)** — the jungle bulletin first, then the late slot: WALUIGI CHAT, composited live from `animation_frames/` and `portraits/player/sprite-sheets/`.
@@ -170,7 +170,7 @@ Six things that explain nearly every decision in this repository:
 | Segment | Story | Cold open line |
 |---|---|---|
 | **COLD OPEN** | Rakasha News Network | Iron rusts. Flesh rots. Maps lie. Only the Hunt remains. |
-| **THE JUNGLE SEES ALL** | The Mirror, the Sentence, and the Storm on a Leash | A file dated the fourth of Aethel reached this desk three days ago. The desk reads it anyway. Re… |
+| **THE JUNGLE SEES ALL** | The Mirror, the Sentence, and the Storm on a Leash | A file from the last night of Harvestide reached this desk four days into Aethel. The desk reads… |
 | **THE HANDOVER** | The Lease | Tonight the network leases its late slot. The tenant paid in paper — four hundred entries of com… |
 | **WALUIGI CHAT** | The Scout Who Cannot Name Her Home | Good Aethel, late slot. This is Waluigi Chat, broadcast from a longhouse I am contractually perm… |
 | **THE CALLER** | A Voice Through the Window | We have a caller. On the shell-phone. Nobody told me the shell-phone worked. Go ahead, caller. S… |
@@ -226,4 +226,37 @@ Six things that explain nearly every decision in this repository:
 · Never invent a CSS class; only .prose blockquote, .prose h2, .wiki-lead, .wnote
 · Never put raw <div> in prose — mdToHtml() escapes it and it renders as text
 · Never finish a run without a run report
+```
+
+## The calendar — date every filing in-world
+
+The world runs on the **Regal Empire Standard Calendar**, and it is data, not
+vibes: `Reputation-Matrix2/data/calendarMonths.json` (the months),
+`calendarWeekdays.json`, `calendarSeasons.json`, `calendarHolidays.json`,
+`calendarMeta.json` (the rules) — and **`currentDate.json` is the world
+clock**. Check it before dating anything.
+
+- **12 months, 30 days each** — except **Deepwinter, which has 35** (365 total).
+  There is no "Harvestide 31." After day 30 comes the 1st of the next month.
+- **Month order:** Firstlight · Chillwind · Veridia · Bloom · Floria ·
+  Efferd · Highsun · **Harvestide** · **Aethel** · Darkmoon · Frostfall ·
+  Deepwinter. Aethel comes *after* Harvestide — check the order, don't
+  assume it from the name.
+- **7 weekdays**; Venerias and Saturias are rest days.
+- **BF counts UP.** 722 BF is the oldest dated record, 1040 BF is the
+  present. A larger year is closer to now — it is a chronicle page number,
+  not a countdown.
+
+Rules:
+
+```
+· Every date in every filing is a calendar date. Real-world / table-side
+  dates never appear in-world (a provenance note in prose is the exception).
+· To date a new session: chain back through the prior filings to the last
+  solid date and work forward. Never copy currentDate.json blindly —
+  confirm the chain first, then check the clock against it.
+· "Harvestside" and "Harvestnoon" appear in ~20 legacy filings; the
+  canonical months are Harvestide and Aethel. Do not introduce new
+  non-canonical month names; normalize them only when their record is
+  next touched.
 ```

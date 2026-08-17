@@ -4,7 +4,7 @@
 ## 📺 Last Week on the Rakasha News Network
 
 > **EP 003 — The Lease — and the First Night of Waluigi Chat**  
-> Hunt Day AETHEL 28, 1040 BF · covering Aethel 4, 1040 BF, released late — plus the signing of the lease · runtime 6:20  
+> Hunt Day AETHEL 4, 1040 BF · covering the night of Harvestide 30, 1040 BF — released four days into Aethel, plus the signing of the lease · runtime 6:21  
 > **Whisper-in-Wind**, Death Speaker, Spirit-Walker Clan · **Waluigi**, Host, Waluigi Chat · encyclopaedist of the unthanked · **Remi Akamatsu**, Guest — wrong-way scout, mirror-recovery planner · **Wario**, Caller — acquired, not for sale
 
 **▶ [Watch the broadcast](../Reputation-Matrix2/app/pages/standalone/rakasha-news-network.html)** — the jungle bulletin first, then the late slot: WALUIGI CHAT, composited live from `animation_frames/` and `portraits/player/sprite-sheets/`.
@@ -12,7 +12,7 @@
 | Segment | Story | Cold open line |
 |---|---|---|
 | **COLD OPEN** | Rakasha News Network | Iron rusts. Flesh rots. Maps lie. Only the Hunt remains. |
-| **THE JUNGLE SEES ALL** | The Mirror, the Sentence, and the Storm on a Leash | A file dated the fourth of Aethel reached this desk three days ago. The desk reads it anyway. Re… |
+| **THE JUNGLE SEES ALL** | The Mirror, the Sentence, and the Storm on a Leash | A file from the last night of Harvestide reached this desk four days into Aethel. The desk reads… |
 | **THE HANDOVER** | The Lease | Tonight the network leases its late slot. The tenant paid in paper — four hundred entries of com… |
 | **WALUIGI CHAT** | The Scout Who Cannot Name Her Home | Good Aethel, late slot. This is Waluigi Chat, broadcast from a longhouse I am contractually perm… |
 | **THE CALLER** | A Voice Through the Window | We have a caller. On the shell-phone. Nobody told me the shell-phone worked. Go ahead, caller. S… |
