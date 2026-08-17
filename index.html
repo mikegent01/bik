@@ -281,6 +281,49 @@
 .battle-full-layout .kv-row .k{display:block;color:var(--accent2);font-weight:800;margin-bottom:4px}
 .battle-full-layout .kv-row .v{color:var(--text);line-height:1.45}
 </style>
+
+<style id="battle-article-skin">
+/* Battle article skin — Waluigi's Order of Battle (VS infographic) and the
+   battle dossier. Red = attackers, green = defenders, gold = the record. */
+.wsys{margin:18px 0;border:1px solid rgba(229,72,77,.35);border-radius:12px;background:linear-gradient(160deg,rgba(229,72,77,.08),var(--panel2));overflow:hidden}
+.wsys-title{font-weight:900;letter-spacing:.8px;text-transform:uppercase;font-size:13px;padding:10px 14px;background:linear-gradient(90deg,rgba(229,72,77,.28),transparent);color:var(--text)}
+.wsys-note{font-size:12px;color:var(--muted);padding:2px 14px 10px;line-height:1.5}
+.vs-wrap{display:flex;align-items:stretch;gap:10px;padding:0 14px 12px}
+.vs-side{flex:1;border:1px solid rgba(160,150,180,.25);border-radius:10px;padding:10px 12px;background:var(--bg2)}
+.vs-side.att{border-color:rgba(229,72,77,.55);box-shadow:inset 3px 0 0 rgba(229,72,77,.55)}
+.vs-side.def{border-color:rgba(47,174,138,.55);box-shadow:inset 3px 0 0 rgba(47,174,138,.55)}
+.vs-side h5{margin:0 0 6px;font-size:14px;color:var(--text)}
+.vs-side .vs-cmd{font-size:12px;color:var(--muted);margin-top:2px}
+.vs-mid{align-self:center;font-weight:900;font-style:italic;letter-spacing:2px;color:var(--accent2);padding:0 6px;font-size:15px}
+.vs-outcome{margin:0 14px 12px;font-size:13px;line-height:1.5;padding:8px 10px;border-left:3px solid var(--accent2);background:var(--bg2);border-radius:6px}
+.cas-bar{margin:0 14px 12px;font-size:12.5px;color:var(--text);padding:8px 10px;background:rgba(0,0,0,.16);border-radius:6px;line-height:1.55}
+.bd{margin:16px 0;border:1px solid rgba(224,180,0,.32);border-radius:12px;background:var(--panel2);overflow:hidden}
+.bd-title{font-weight:900;letter-spacing:.8px;text-transform:uppercase;font-size:13px;padding:10px 14px;background:linear-gradient(90deg,rgba(224,180,0,.22),transparent);color:var(--text)}
+.bd-stats{display:flex;flex-wrap:wrap;gap:8px;padding:10px 14px 6px}
+.bd-stat{font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px;background:var(--bg2);border:1px solid rgba(224,180,0,.38);color:var(--text)}
+.bd-roster{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;padding:4px 14px}
+.bd-side{border:1px solid rgba(160,150,180,.25);border-radius:10px;padding:10px 12px;background:var(--bg2)}
+.bd-side.att{border-color:rgba(229,72,77,.55);box-shadow:inset 3px 0 0 rgba(229,72,77,.55)}
+.bd-side.def{border-color:rgba(47,174,138,.55);box-shadow:inset 3px 0 0 rgba(47,174,138,.55)}
+.bd-side h5{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2)}
+.bd-combatant{display:flex;gap:8px;font-size:12.5px;padding:4px 0;border-top:1px dashed rgba(160,150,180,.18);line-height:1.45}
+.bd-combatant:first-of-type{border-top:none}
+.bd-combatant b{white-space:nowrap}
+.bd-combatant span{color:var(--muted)}
+.bd-cas{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;padding:10px 14px 0}
+.bd-cas .bd-combatant{display:block}
+.bd-ledger-head{margin:14px 14px 6px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2)}
+.bd-ledger{margin:0 14px 14px;overflow-x:auto;border:1px solid rgba(160,150,180,.2);border-radius:8px}
+.bd-ledger table{width:100%;border-collapse:collapse;font-size:12px}
+.bd-ledger th{text-align:left;color:var(--accent2);border-bottom:2px solid rgba(224,180,0,.4);padding:7px 9px;font-size:10.5px;text-transform:uppercase;letter-spacing:.6px;background:var(--bg2);white-space:nowrap}
+.bd-ledger td{padding:6px 9px;border-bottom:1px solid rgba(160,150,180,.14);color:var(--text);vertical-align:top;line-height:1.45}
+.bd-ledger tr:last-child td{border-bottom:none}
+.bd-ledger tr:hover td{background:rgba(229,72,77,.06)}
+.bd-ledger .bd-t{white-space:nowrap;font-weight:800;color:var(--accent2)}
+.bd-ledger .bd-r{white-space:nowrap}
+.bd-ledger tr.bd-moment-crit td{background:rgba(224,180,0,.09)}
+@media (max-width:640px){.vs-wrap{flex-direction:column}.vs-mid{text-align:center}}
+</style>
 <style>
 /* Bros Attacks archive: compact tactical cards, not a button catalogue. */
 .bros-attack-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;margin-top:16px}
@@ -9387,6 +9430,42 @@ function congressTallyBoard(v){
     ${blocHtml}</div>`;
 }
 
+/* Battle dossier — the extractor's cut of a battle record: engagement stats,
+   full rosters from belligerents.combatants, a per-side casualty sheet, and
+   the keyMoments ledger table. Renders only what the record provides, so
+   legacy records without these fields are unaffected. */
+function battleDossier(b){
+  if(!b||!b.belligerents||typeof b.belligerents!=='object'||Array.isArray(b.belligerents))return '';
+  const e=b.engagement||{};
+  const stats=[];
+  if(e.combatants)stats.push(`⚔️ ${esc(String(e.combatants))} combatants on the field`);
+  if(e.ledgerWindow)stats.push(`🗓️ Ledger: ${esc(e.ledgerWindow)}`);
+  if(e.scale)stats.push(`📐 ${esc(e.scale)}`);
+  const side=(s,cls,label)=>{
+    if(!s)return '';
+    const rows=(s.combatants||[]).map(c=>{
+      const nm=typeof c==='string'?c:(c&&c.name)||'Unknown';
+      const note=(c&&c.note)||'';
+      return `<div class="bd-combatant"><b>${esc(nm)}</b>${note?`<span>${esc(note)}</span>`:''}</div>`;
+    }).join('');
+    return `<div class="bd-side ${cls}"><h5>${label} — ${esc(s.name||'Unknown')}${s.commander?` · ⚔ ${esc(s.commander)}`:''}</h5>${rows}</div>`;
+  };
+  let cas='';
+  if(b.casualtySheet&&typeof b.casualtySheet==='object'){
+    const a=b.casualtySheet.attackers?`<div class="bd-side att"><h5>Attacker losses</h5><div class="bd-combatant"><span>${esc(b.casualtySheet.attackers)}</span></div></div>`:'';
+    const d=b.casualtySheet.defenders?`<div class="bd-side def"><h5>Defender losses</h5><div class="bd-combatant"><span>${esc(b.casualtySheet.defenders)}</span></div></div>`:'';
+    if(a||d)cas=`<div class="bd-cas">${a}${d}</div>`;
+  }
+  const moments=Array.isArray(b.keyMoments)?b.keyMoments:[];
+  const ledger=moments.length?`<h5 class="bd-ledger-head">🗂️ From the combat record — ${moments.length} ledger lines, verbatim</h5><div class="bd-ledger"><table><thead><tr><th>Time</th><th>Who</th><th>Action</th><th>Roll</th><th>Result</th></tr></thead><tbody>${moments.map(m=>`<tr class="${/natural 20|fumble|rout/i.test(String(m.roll)+' '+String(m.result))?'bd-moment-crit':''}"><td class="bd-t">${esc(m.time||'')}</td><td>${esc(m.who||'')}</td><td>${esc(m.act||'')}</td><td class="bd-r">${esc(m.roll||'')}</td><td>${esc(m.result||'')}</td></tr>`).join('')}</tbody></table></div>`:'';
+  if(!stats.length&&!cas&&!ledger)return '';
+  return `<div class="bd"><div class="bd-title">🏹 Battle Dossier — ${esc(b.name||b.id)}</div>
+    <div class="wsys-note">The extractor's cut: engagement stats, who stood where, and the ledger lines the prose quotes. Numbers are verbatim from the record; commentary is Waluigi's.</div>
+    ${stats.length?`<div class="bd-stats">${stats.map(s=>`<span class="bd-stat">${s}</span>`).join('')}</div>`:''}
+    <div class="bd-roster">${side(b.belligerents.attackers,'att','Attackers')}${side(b.belligerents.defenders,'def','Defenders')}</div>
+    ${cas}${ledger}</div>`;
+}
+
 /* Waluigi's Order of Battle — a VS infographic for a battle's belligerents + casualties + outcome. */
 function battleVsInfographic(b){
   const bel=b.belligerents;
@@ -9394,7 +9473,8 @@ function battleVsInfographic(b){
   const side=(s,cls,role)=>{ if(!s)return `<div class="vs-side ${cls}"><h5>${role}</h5><div class="vs-cmd">Unknown</div></div>`;
     const nm=s.name||s.faction||'Unknown';
     const link=s.factionId&&INDEX[s.factionId]?`<a class="xlink" data-id="${esc(s.factionId)}" href="#/article/${esc(s.factionId)}">${esc(nm)}</a>`:esc(nm);
-    return `<div class="vs-side ${cls}"><h5>${link}</h5>${s.commander?`<div class="vs-cmd">⚔ ${esc(s.commander)}</div>`:''}</div>`;
+    const n=s.combatants&&s.combatants.length?`<div class="vs-cmd">🧭 ${s.combatants.length} combatant${s.combatants.length===1?'':'s'}</div>`:'';
+    return `<div class="vs-side ${cls}"><h5>${link}</h5>${s.commander?`<div class="vs-cmd">⚔ ${esc(s.commander)}</div>`:''}${n}</div>`;
   };
   let cas='';
   if(b.casualties&&typeof b.casualties==='object'){
@@ -9863,7 +9943,7 @@ function view_article(id){
      ${(typeKey==='events'||typeKey==='battles')?eventPeopleAndXpPanel(item):''}${legalFrictionPanel(item,typeKey)}${intelEffectPanel(item,typeKey)}
      ${typeKey==='nations'?`<div class="chips" style="margin:8px 0 16px"><span class="chip active">Classic article</span><span class="chip" onclick="Router.go('#/atlas/${encodeURIComponent(item.id)}')">Open Atlas dashboard</span></div>${claimantRegimePanel(item)}${nationOverview(item)}`:''}
      ${typeKey==='factions'?factionSystemBanner(item.id):''}
-     ${typeKey==='battles'?battleVsInfographic(item):''}
+     ${typeKey==='battles'?battleVsInfographic(item)+battleDossier(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
 ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}

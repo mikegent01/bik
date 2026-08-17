@@ -106,6 +106,26 @@ def main():
             ok_obj = isinstance(bel, dict) and 'attackers' in bel and 'defenders' in bel
             if not (ok_list or ok_obj):
                 problems.append('%s: belligerents must be an id list or {attackers, defenders}' % bid)
+            if ok_obj:
+                for skey, s in bel.items():
+                    if not isinstance(s, dict) or not s.get('name'):
+                        problems.append('%s: belligerents.%s needs a name' % (bid, skey))
+                    for c in (s.get('combatants') or []):
+                        if not (isinstance(c, str) or (isinstance(c, dict) and c.get('name'))):
+                            problems.append('%s: belligerents.%s combatant without a name' % (bid, skey))
+
+        # dossier fields — shape-check when present
+        if b.get('keyMoments') is not None:
+            ok = isinstance(b['keyMoments'], list) and all(
+                isinstance(m, dict) and m.get('time') and m.get('who') for m in b['keyMoments'])
+            if not ok:
+                problems.append('%s: keyMoments rows must be {time, who, ...}' % bid)
+        if b.get('casualtySheet') is not None and not (
+                isinstance(b['casualtySheet'], dict) and
+                (b['casualtySheet'].get('attackers') or b['casualtySheet'].get('defenders'))):
+            problems.append('%s: casualtySheet must be {attackers, defenders}' % bid)
+        if b.get('engagement') is not None and not isinstance(b['engagement'], dict):
+            problems.append('%s: engagement must be an object' % bid)
 
     print('Battles check')
     print('  records          : %d' % len(battles))

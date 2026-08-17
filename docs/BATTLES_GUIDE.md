@@ -57,17 +57,34 @@ Model new records on the newest same-arc record, not on the legacy tail.
 | `summary` | ✓ | 2–4 sentences, the feed voice |
 | `description` | ✓ | The article. Flowing paragraphs, Waluigi's editorial register |
 | `casualties` | – | The casualty sheet, ledger-derived. Witty is allowed; wrong is not |
-| `belligerents` | – | Flat list of combatant ids (unresolved descriptive ids like `the_awakened_wood` are tolerated — the sibling records set that precedent) or the structured `{attackers, defenders}` shape |
+| `belligerents` | – | **New records: the structured shape** — `{attackers:{name, factionId?, commander?, combatants:[{name, note}]}, defenders:{…}}`. This is what powers ⚔️ Waluigi's Order of Battle. A flat id list still validates and still renders the article, but it renders no VS panel |
 | `aftermath` | – | The field after the whistle; what is still owed |
 | `relatedArticles` | ✓ | ids that **must resolve** (battle, majorBattle, event, character, location, faction). Cross-link the sibling battle and the arc's events |
 | `image` / `imageCaption` | – | Path relative to `Reputation-Matrix2/`. One art call max per record, prompt-sheeted first per [`IMAGE_GENERATION_GUIDE.md`](IMAGE_GENERATION_GUIDE.md); `Text in image: NONE` unless the prose names an inscription |
 | `reputationChanges` / `effects` / `reputationNotes` | – | Faction reputation deltas. Leave `{}` when hand-filing. **Never add a `_generatedReputation` marker for work `tools/genkit` did not do** — that marker is provenance, not decoration |
 | `xpAwards` | – | XP the ledger should read off this battle. Without a table approved at the table, write none |
+| `engagement` | – | `{combatants, ledgerWindow, scale}` — the engagement stat chips on the dossier |
+| `casualtySheet` | – | `{attackers, defenders}` — the full per-side casualty sheet for the dossier (the flat `casualties` string stays for the sidebar rail and the VS bar) |
+| `keyMoments` | – | The ledger, verbatim: `[{time, who, act, roll, result}, …]` — renders as the "From the combat record" table. Crits/fumbles/routs get gold-highlighted rows |
+| `waluigiAssessment` | – | The closer, in its own field — the article renders it as a dedicated **Waluigi's Assessment** section. Do not bury it in `description` |
 
 **Legacy warning.** The ten oldest records carry a parallel field set
 (`title`, `participants`, `outcome`, `notableFeatures`, `audio*`,
 `customCss`, …). They are historical. Do not extend that dialect; new
 records use the fields above.
+
+### The extraction map — what renders where
+
+The article page extracts, in order: sidebar rail (`date, location, type,
+result, casualties`) → lead → participants/XP panel → **⚔️ Waluigi's Order
+of Battle** (the VS infographic — requires structured
+`belligerents {attackers, defenders}` with optional `factionId`,
+`commander`, `combatants` counts) → **🏹 Battle Dossier** (engagement stats,
+full `combatants` rosters with notes, `casualtySheet`, the `keyMoments`
+ledger table) → `description` prose (**`##` headings become article sections
+and feed the Contents** — write the battle in Parts) → `aftermath` →
+`waluigiAssessment` → related chips. Every one of those is a reason to
+fill the field instead of compressing the fight into `summary`.
 
 ---
 
