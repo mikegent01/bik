@@ -58,29 +58,39 @@
           <div class="map-tools" role="toolbar" aria-label="Map display controls">
             <button class="tool-button active" data-toggle="grid" type="button" aria-pressed="true">Grid</button>
             <button class="tool-button active" data-toggle="routes" type="button" aria-pressed="true">Routes</button>
+            <button class="tool-button active" data-toggle="threats" type="button" aria-pressed="true">Growth</button>
             <button class="tool-button" data-toggle="labels" type="button" aria-pressed="false">Labels</button>
             <button class="tool-button" data-toggle="pulse" type="button" aria-pressed="false">Pulse</button>
           </div>
         </div>
 
         <div class="map-key" aria-label="Working marker legend">
-          <button class="legend-item active" data-filter="all" type="button"><span class="legend-swatch all-swatch"></span>All positions</button>
+          <button class="legend-item active" data-filter="all" type="button"><span class="legend-swatch all-swatch"></span>All forces</button>
           <button class="legend-item" data-filter="party" type="button"><span class="legend-swatch gold"></span>Party / custody</button>
           <button class="legend-item" data-filter="plant" type="button"><span class="legend-swatch red"></span>Hostile growth</button>
           <button class="legend-item" data-filter="cutters" type="button"><span class="legend-swatch green"></span>Tree cutters</button>
           <button class="legend-item" data-filter="manor" type="button"><span class="legend-swatch blue"></span>Manor personnel</button>
+          <span class="legend-item legend-static"><span class="legend-swatch node-swatch"></span>Operational node</span>
         </div>
-        <p class="legend-note"><strong>Reading the dots:</strong> the four colours already on <code>maptactical.png</code> are retained as the working command legend. Their faction assignments are a planning interpretation, not a new canon event. Select a pip to inspect the source fact or proposed use.</p>
+        <p class="legend-note"><strong>SVG survey, not a recovered blueprint:</strong> this plan is built from the room list and architectural details already filed for the Feyward reflection of Raventree Manor. The four colours are a working planning legend; assignments and routes are explicitly non-canon until the table confirms them. Click any room, marker, or operational node.</p>
 
-        <div id="mapStage" class="map-stage" tabindex="0" aria-label="Interactive Feyward Manor tactical map. Select a marker for details.">
-          <img src="../../../../maptactical.png" alt="Tactical map of Feyward Manor with yellow, red, green, and blue position dots" class="tactical-map">
-          <div class="map-grid-overlay" aria-hidden="true"></div>
-          <svg id="routeLayer" class="route-layer" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
-          <div id="markerLayer" class="marker-layer"></div>
-          <div id="mapPlacementHint" class="map-placement-hint" hidden>Click a location to place the selected order.</div>
+        <div id="mapStage" class="map-stage" tabindex="0" aria-label="Interactive SVG floor plan of Feyward Manor. Select a room, marker, or operational node for details.">
+          <div class="map-viewport" id="mapViewport">
+            <img id="floorplanImage" src="../../../assets/maps/feyward-manor-plan.svg" alt="Composite SVG floor plan of Feyward Manor with known rooms, corridors, grounds, and survey warnings" class="tactical-map">
+            <div class="map-grid-overlay" aria-hidden="true"></div>
+            <svg id="mapOverlay" class="map-overlay" viewBox="0 0 1200 820" preserveAspectRatio="xMidYMid meet" aria-hidden="false">
+              <g id="threatLayer" class="threat-layer" aria-label="Working hostile growth overlays"></g>
+              <g id="routeLayer" class="route-layer"></g>
+              <g id="orderTargetLayer" class="order-target-layer"></g>
+              <g id="markerLayer" class="marker-layer"></g>
+            </svg>
+            <div id="roomHitLayer" class="room-hit-layer" aria-label="Known room selection"></div>
+            <div id="mapPlacementHint" class="map-placement-hint" hidden>Click a location to place the selected order.</div>
+            <div id="mapAssetStatus" class="map-asset-status" role="status"><span class="map-status-dot"></span>Loading SVG survey…</div>
+          </div>
         </div>
         <div class="map-footer">
-          <span><b id="markerCount">0</b> plotted pips · <b id="orderCount">0</b> proposed orders</span>
+          <span><b id="roomCount">0</b> rooms indexed · <b id="markerCount">0</b> operational markers · <b id="orderCount">0</b> proposed orders</span>
           <button id="placeOrder" class="button button-accent" type="button">＋ Plot an order</button>
         </div>
       </section>
@@ -89,13 +99,13 @@
         <section class="panel selected-panel" aria-labelledby="selected-title">
           <div class="panel-heading compact-heading">
             <div>
-              <p class="eyebrow">SELECTED POSITION</p>
-              <h2 id="selected-title">Select a map pip</h2>
+              <p class="eyebrow">SELECTED MAP OBJECT</p>
+              <h2 id="selected-title">Select a room or marker</h2>
             </div>
             <span id="selectedCode" class="code-badge">—</span>
           </div>
           <div id="selectedDetails" class="selected-details">
-            <p class="empty-state">The map is crowded with facts. Click a coloured pip or a unit below to make one speak.</p>
+            <p class="empty-state">The map is a composite survey. Click a room, coloured marker, or operational node to inspect what is known and what is only a planning assumption.</p>
           </div>
         </section>
 
@@ -145,6 +155,18 @@
         </ol>
       </section>
     </div>
+
+    <section class="panel building-panel" aria-labelledby="building-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">BUILDING INVENTORY · SOURCE INDEX</p>
+          <h2 id="building-title">Every room currently on the board</h2>
+          <p class="panel-subtitle">Room descriptions are drawn from the existing Feyward record and the older manor survey. A dashed or partial room is not a solved route.</p>
+        </div>
+        <span class="source-chip">16 known rooms</span>
+      </div>
+      <div id="roomInventory" class="room-inventory"></div>
+    </section>
 
     <section class="panel order-panel" aria-labelledby="orders-title">
       <div class="panel-heading order-heading">

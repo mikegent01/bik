@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="820" viewBox="0 0 1200 820" role="img" aria-labelledby="title desc">
+  <title id="title">Feyward Manor composite survey plan</title>
+  <desc id="desc">A planning floor plan of the known Feyward Manor rooms, corridors, grounds and unresolved circulation spaces.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17262b"/>
+      <stop offset="0.52" stop-color="#0d171b"/>
+      <stop offset="1" stop-color="#142329"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#263b40"/>
+      <stop offset="1" stop-color="#182a2e"/>
+    </linearGradient>
+    <pattern id="minor-grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M24 0H0V24" fill="none" stroke="#88a7a2" stroke-opacity=".09" stroke-width="1"/>
+    </pattern>
+    <filter id="soft-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="room-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity=".35"/>
+    </filter>
+    <style>
+      .shell { fill: url(#floor); stroke: #94aaa1; stroke-opacity: .66; stroke-width: 3; }
+      .shell-inner { fill: none; stroke: #d4ddcf; stroke-opacity: .13; stroke-width: 2; }
+      .corridor { fill: #0a1114; stroke: #68847f; stroke-opacity: .36; stroke-width: 2; }
+      .corridor-line { stroke: #b9cbbd; stroke-opacity: .14; stroke-width: 2; stroke-dasharray: 8 10; }
+      .room { filter: url(#room-shadow); }
+      .room-shape { fill: #22383d; stroke: #b5c9bd; stroke-opacity: .52; stroke-width: 2; }
+      .room-current .room-shape { fill: #3a3020; stroke: #ffc90e; stroke-opacity: .9; }
+      .room-danger .room-shape { fill: #3b2229; stroke: #ed1c24; stroke-opacity: .72; }
+      .room-safe .room-shape { fill: #1f3b32; stroke: #22b14c; stroke-opacity: .7; }
+      .room-unknown .room-shape { fill: #273036; stroke: #8c9ca1; stroke-opacity: .72; stroke-dasharray: 7 5; }
+      .room-partial .room-shape { fill: #2e3031; stroke: #b995ff; stroke-opacity: .72; stroke-dasharray: 4 4; }
+      .room-label { fill: #edf3ee; font: 700 15px Inter, ui-sans-serif, system-ui, sans-serif; text-anchor: middle; letter-spacing: .2px; }
+      .room-sub { fill: #a5b7b5; font: 600 10px "IBM Plex Mono", monospace; text-anchor: middle; letter-spacing: 1px; text-transform: uppercase; }
+      .room-icon { fill: #cbd8ce; font: 18px sans-serif; text-anchor: middle; }
+      .door { fill: #ffc90e; fill-opacity: .72; }
+      .outside { fill: #13221f; stroke: #7a9c88; stroke-opacity: .45; stroke-width: 2; stroke-dasharray: 9 7; }
+      .outside-label { fill: #a8c8b5; font: 700 11px "IBM Plex Mono", monospace; letter-spacing: 1px; text-anchor: middle; }
+      .landmark { fill: none; stroke: #ffc90e; stroke-width: 2; stroke-dasharray: 5 4; }
+      .landmark-label { fill: #ffe78b; font: 700 10px "IBM Plex Mono", monospace; letter-spacing: .8px; }
+      .vine { fill: none; stroke: #22b14c; stroke-opacity: .32; stroke-width: 4; stroke-linecap: round; }
+      .vine-thin { fill: none; stroke: #9acb68; stroke-opacity: .22; stroke-width: 1.4; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="820" fill="url(#paper)"/>
+  <rect x="28" y="28" width="1144" height="764" rx="16" fill="url(#minor-grid)"/>
+
+  <g aria-hidden="true">
+    <text x="58" y="54" fill="#ffc90e" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="800" letter-spacing="2">FEYWARD MANOR · COMPOSITE SURVEY / MAP 01</text>
+    <text x="1142" y="54" fill="#8ca19e" font-family="IBM Plex Mono, monospace" font-size="10" text-anchor="end" letter-spacing="1">NOT TO SCALE · CONNECTION CONFIDENCE VARIES</text>
+  </g>
+
+  <!-- The building shell is a planning abstraction over the rooms recorded in the archive. -->
+  <path class="shell" d="M64 82H1136V742H64Z"/>
+  <path class="shell-inner" d="M78 96H1122V728H78Z"/>
+
+  <!-- Movement bands between the four surveyed room rows. -->
+  <g aria-label="Known circulation bands">
+    <rect class="corridor" x="86" y="248" width="1028" height="37" rx="7"/>
+    <rect class="corridor" x="86" y="428" width="1028" height="37" rx="7"/>
+    <rect class="corridor" x="86" y="598" width="1028" height="27" rx="7"/>
+    <path class="corridor-line" d="M106 266H1094M106 446H1094M106 611H1094"/>
+    <path class="corridor-line" d="M350 101V728M570 101V728M800 101V728" opacity=".4"/>
+    <text x="600" y="272" fill="#8ba6a0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle" letter-spacing="2">MAIN CIRCULATION · ROUTE SHIFTS REPORTED</text>
+    <text x="600" y="452" fill="#8ba6a0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle" letter-spacing="2">SERVANT / HIDDEN CONNECTION BAND</text>
+  </g>
+
+  <!-- Row one: court and command-facing rooms. -->
+  <g class="room room-current" data-room-id="foyer" data-status="current" data-confidence="known">
+    <rect class="room-shape" x="100" y="108" width="230" height="122" rx="8"/>
+    <text class="room-icon" x="215" y="145">✦</text><text class="room-label" x="215" y="169">Foyer</text><text class="room-sub" x="215" y="194">recently cleared / contested</text>
+  </g>
+  <g class="room room-known" data-room-id="gallery" data-status="explored" data-confidence="known">
+    <rect class="room-shape" x="370" y="108" width="180" height="122" rx="8"/>
+    <text class="room-icon" x="460" y="145">◈</text><text class="room-label" x="460" y="169">Gallery</text><text class="room-sub" x="460" y="194">mirror / figures</text>
+  </g>
+  <g class="room room-danger" data-room-id="audience-hall" data-status="active-social-threat" data-confidence="known">
+    <rect class="room-shape" x="590" y="108" width="260" height="122" rx="8"/>
+    <text class="room-icon" x="720" y="145">♫</text><text class="room-label" x="720" y="169">Audience Hall</text><text class="room-sub" x="720" y="194">satyr zone / revel pressure</text>
+  </g>
+  <g class="room room-known" data-room-id="master-bedroom" data-status="command-organ" data-confidence="known">
+    <rect class="room-shape" x="890" y="108" width="210" height="122" rx="8"/>
+    <text class="room-icon" x="995" y="145">⌂</text><text class="room-label" x="995" y="169">Master Bedroom</text><text class="room-sub" x="995" y="194">diary / ritual record</text>
+  </g>
+
+  <!-- Row two: memory, growth and current danger. -->
+  <g class="room room-safe" data-room-id="library" data-status="active-archive" data-confidence="known">
+    <rect class="room-shape" x="100" y="302" width="230" height="106" rx="8"/>
+    <text class="room-icon" x="215" y="337">▤</text><text class="room-label" x="215" y="361">Library</text><text class="room-sub" x="215" y="386">Woodfellow / unstable floor</text>
+  </g>
+  <g class="room room-danger" data-room-id="greenhouse" data-status="growth-organ" data-confidence="partial">
+    <rect class="room-shape" x="370" y="302" width="180" height="106" rx="8"/>
+    <text class="room-icon" x="460" y="337">♧</text><text class="room-label" x="460" y="361">Greenhouse</text><text class="room-sub" x="460" y="386">shearing plan uncertain</text>
+  </g>
+  <g class="room room-danger" data-room-id="vine-room" data-status="burned / keyed" data-confidence="known">
+    <rect class="room-shape" x="590" y="302" width="180" height="106" rx="8"/>
+    <text class="room-icon" x="680" y="337">✹</text><text class="room-label" x="680" y="361">Vine Room</text><text class="room-sub" x="680" y="386">burned / authority keys</text>
+  </g>
+  <g class="room room-danger" data-room-id="revel-chamber" data-status="red haze / active" data-confidence="known">
+    <rect class="room-shape" x="810" y="302" width="290" height="106" rx="8"/>
+    <text class="room-icon" x="955" y="337">◉</text><text class="room-label" x="955" y="361">Revel Chamber</text><text class="room-sub" x="955" y="386">corpse-fueled continuity threat</text>
+  </g>
+
+  <!-- Row three: service rooms and broken circulation. -->
+  <g class="room room-danger" data-room-id="bathhouse" data-status="plant attack recorded" data-confidence="known">
+    <rect class="room-shape" x="100" y="482" width="180" height="96" rx="8"/>
+    <text class="room-icon" x="190" y="516">≈</text><text class="room-label" x="190" y="540">Bathhouse</text><text class="room-sub" x="190" y="562">plant breach history</text>
+  </g>
+  <g class="room room-danger" data-room-id="lords-chamber" data-status="appetite organ" data-confidence="partial">
+    <rect class="room-shape" x="320" y="482" width="240" height="96" rx="8"/>
+    <text class="room-icon" x="440" y="516">♛</text><text class="room-label" x="440" y="540">Lord's Chamber</text><text class="room-sub" x="440" y="562">purpose not trusted</text>
+  </g>
+  <g class="room room-unknown" data-room-id="solarium" data-status="floor destroyed" data-confidence="known">
+    <rect class="room-shape" x="600" y="482" width="180" height="96" rx="8"/>
+    <text class="room-icon" x="690" y="516">☼</text><text class="room-label" x="690" y="540">Solarium</text><text class="room-sub" x="690" y="562">floor gone / lower access</text>
+  </g>
+  <g class="room room-partial" data-room-id="hidden-passages" data-status="mapped 30%" data-confidence="partial">
+    <rect class="room-shape" x="820" y="482" width="280" height="96" rx="8"/>
+    <text class="room-icon" x="960" y="516">⋯</text><text class="room-label" x="960" y="540">Hidden Passages</text><text class="room-sub" x="960" y="562">non-euclidean circulation</text>
+  </g>
+
+  <!-- Grounds and exits. These are intentionally marked outside the hard shell. -->
+  <g aria-label="Known grounds and exits">
+    <path class="outside" d="M100 640H280V720H100Z"/><text class="outside-label" x="190" y="670">MAZE / POND</text><text class="outside-label" x="190" y="688" font-size="9">courtroom waterline</text>
+    <path class="outside" d="M320 640H560V720H320Z"/><text class="outside-label" x="440" y="670">GROVE</text><text class="outside-label" x="440" y="688" font-size="9">Shambly displaced here</text>
+    <path class="outside" d="M600 640H780V720H600Z"/><text class="outside-label" x="690" y="670">MIDNIGHT GATE</text><text class="outside-label" x="690" y="688" font-size="9">located / unsecured</text>
+    <path class="outside" d="M820 640H1100V720H820Z"/><text class="outside-label" x="960" y="670">COLDBROOK'S ROOM</text><text class="outside-label" x="960" y="688" font-size="9">dead squad / one survivor</text>
+  </g>
+
+  <!-- Door markers are visible architecture, not unit markers. -->
+  <g aria-hidden="true">
+    <rect class="door" x="208" y="226" width="14" height="5" rx="2"/><rect class="door" x="450" y="226" width="14" height="5" rx="2"/><rect class="door" x="712" y="226" width="14" height="5" rx="2"/><rect class="door" x="988" y="226" width="14" height="5" rx="2"/>
+    <rect class="door" x="208" y="298" width="14" height="5" rx="2"/><rect class="door" x="450" y="298" width="14" height="5" rx="2"/><rect class="door" x="670" y="298" width="14" height="5" rx="2"/><rect class="door" x="950" y="298" width="14" height="5" rx="2"/>
+    <rect class="door" x="182" y="462" width="14" height="5" rx="2"/><rect class="door" x="430" y="462" width="14" height="5" rx="2"/><rect class="door" x="680" y="462" width="14" height="5" rx="2"/><rect class="door" x="950" y="462" width="14" height="5" rx="2"/>
+    <rect class="door" x="182" y="628" width="14" height="5" rx="2"/><rect class="door" x="430" y="628" width="14" height="5" rx="2"/><rect class="door" x="680" y="628" width="14" height="5" rx="2"/><rect class="door" x="950" y="628" width="14" height="5" rx="2"/>
+  </g>
+
+  <!-- Survey warnings and fixed landmarks. -->
+  <g aria-label="Survey warnings">
+    <path class="landmark" d="M1120 136h35v45h-35z"/><path class="landmark" d="M1138 146v26"/><path class="landmark" d="M1129 159h18"/>
+    <text class="landmark-label" x="1148" y="198" text-anchor="end">EXTERIOR WALL / WINDOW LINE</text>
+    <text class="landmark-label" x="1148" y="213" text-anchor="end" fill="#8ca19e">WAR-ROOM APPROACH · CURRENT SESSION</text>
+    <path class="landmark" d="M78 278q26 -22 52 0t52 0"/>
+    <text class="landmark-label" x="86" y="300">ROOT-BREACHED EDGE</text>
+  </g>
+
+  <!-- Green growth is drawn as a threat layer the planner can visually mute. -->
+  <g id="growth-layer" aria-label="Known plant growth pressure">
+    <path class="vine" d="M82 92C150 125 108 190 170 254S148 382 220 432S168 548 252 638"/>
+    <path class="vine" d="M1115 98C1050 154 1090 214 1032 270S1070 390 1010 438S1080 550 1040 628"/>
+    <path class="vine-thin" d="M91 210C150 245 170 204 240 240M1095 224C1030 260 1010 220 940 254M300 728C360 688 410 744 470 704M730 704C790 744 850 688 920 728"/>
+  </g>
+
+  <g aria-hidden="true">
+    <text x="600" y="773" fill="#7c9490" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle" letter-spacing="1.5">ROOMS RETAINED FROM THE FEYWARD OPERATION FILE · OPERATIONAL MARKERS ARE A SEPARATE PLANNING LAYER</text>
+  </g>
+</svg>
