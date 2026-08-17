@@ -36,6 +36,23 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
      </p>
 
      <div class="campaign-timeline-feed">
+       <!-- Event 0: Latest Battle Filing - Woodfellow vs the Treant -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/feyward_woodfellow_vs_the_treant')" style="cursor:pointer; border-left:4px solid #e5484d; background:linear-gradient(135deg,rgba(229,72,77,.14),var(--panel2));">
+         <div class="timeline-date-chip" style="color:#e5484d;">Late Harvestide, 1040 BF (Feyward-relative) · 24 combatants · Latest Battle Filing</div>
+         <h3 class="timeline-event-title">Woodfellow vs. the Treant — The Lane, the Ledger, and the Weather</h3>
+         <div class="timeline-actors">
+           <span>Woodfellow</span><span>Ramsee</span><span>Swifty</span><span>Renard</span><span>Joseph</span><span>Zach</span><span>The Treant</span><span>The Shambling Mound</span><span>The Sprites</span><span>The Dryad</span>
+         </div>
+         <p class="timeline-summary">
+           The season the plants took over produces the campaign's largest engagement yet: a cutting crew of satyrs, house guards, one goblin with a kitchen knife, Ramsee and his assorted cutlery, and Woodfellow — who throws books — against a treant the ledger rates at armor class 16 and 138 hit points. Three sleep castings turn the lane into a weather system, a satyr scout critically hits his own swordfighter, and the battle turns when a natural-20 tome strike puts fifty-five damage straight through the trunk. The fleeing shambling mound is run down during an eighteen-minute gap the ledger does not narrate and destroyed with the sprites' help — the wood's own weather switching sides. Two expedition fighters end the night in the ledger's zeros; the cleanup is owed as a separate filing.
+         </p>
+         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
+           <span class="chip" onclick="Router.go('#/article/feyward_woodfellow_vs_the_treant')" style="margin:0; font-size:12px; background:#e5484d; color:#fff; font-weight:800;">⚔️ Read Battle Filing →</span>
+           <span class="chip" onclick="Router.go('#/article/feyward_second_hidden_room_rout')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">🌿 The Cutting Crew's Manor Rout →</span>
+           <span class="chip" onclick="Router.go('#/article/feyward_grove')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🌲 The Dreaming Tree Grove →</span>
+         </div>
+       </div>
+
        <!-- Event 0: Latest Session - Hanging-Tree Apple / Mirror Theft -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/the_hanging_tree_apple_mirror_theft_and_invited_vampire')" style="cursor:pointer; border-left:4px solid #6f59a8; background:linear-gradient(135deg,rgba(111,89,168,.18),var(--panel2));">
          <div class="timeline-date-chip" style="color:#c9a6ff;">Aethel 4, 1040 BF · Night · Latest Session</div>
