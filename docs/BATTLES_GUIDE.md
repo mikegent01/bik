@@ -65,7 +65,7 @@ Model new records on the newest same-arc record, not on the legacy tail.
 | `xpAwards` | – | XP the ledger should read off this battle. Without a table approved at the table, write none |
 | `engagement` | – | `{combatants, ledgerWindow, scale}` — the engagement stat chips on the dossier |
 | `fate` / `fateNote` / `leader` | – | Per combatant, inside `belligerents.*.combatants[]`. `fate` from the fixed vocabulary below (drives the roster status line and the VS side tallies); `fateNote` adds the one-line how; `leader: true` draws the ⚔ badge. The old `casualtySheet` paragraphs are retired — losses render per individual, not as prose blocks |
-| `keyMoments` | – | The tally, as a tactical timeline: `[{time, who, act, result, decisive?}, …]` — renders as the "From the combat record" table; `"decisive": true` rows get gold highlighting. No roll column, no mechanics — watches, actions, consequences |
+| `keyMoments` | – | The tally, as a tactical timeline: `[{time, who, act, result, decisive?}, …]` — renders as the **engagement timeline** (a vertical rail, not a table): decisive rows glow gold, and rows timed `"the gap"` render as *silence* — a dashed, muted band for the parts of a battle no account covers. No mechanics — watches, actions, consequences |
 | `waluigiAssessment` | – | The closer, in its own field — the article renders it as a dedicated **Waluigi's Assessment** section. Do not bury it in `description` |
 
 ### The fate vocabulary
@@ -107,6 +107,15 @@ lists combatants only by role, the record may promote them:
 `customCss`, …). They are historical. Do not extend that dialect; new
 records use the fields above.
 
+### Dossier discipline — never three stacked lists
+
+The dossier is one meta line, one board, one timeline. Stats fold into the
+header (`24 combatants · the night watches of 1 Aethel, 922 BF`); the roster
+is a **muster board** of fate-token pills, not a table of rows; the tally is
+a **timeline** with gaps shown as gaps. If a future record seems to need a
+third or fourth stacked list, it does not need another list — it needs a
+better idea (a map, an exhibit, a diagram) or it needs the prose to carry it.
+
 ### The extraction map — what renders where
 
 The article page extracts, in order: sidebar rail (`date, location, type,
@@ -114,7 +123,7 @@ result, casualties`) → lead → participants/XP panel → **⚔️ Waluigi's O
 of Battle** (the VS infographic — requires structured
 `belligerents {attackers, defenders}` with optional `factionId`,
 `commander`, `combatants` counts) → **🏹 Battle Dossier** (engagement stats,
-the full `combatants` muster with roles and per-combatant fates, the `keyMoments`
+the **muster board** — the `combatants` as fate-token pills (leaders crowned gold, hover for role and fate) — and the `keyMoments` engagement
 ledger table) → `description` prose (**`##` headings become article sections
 and feed the Contents** — write the battle in Parts) → `aftermath` →
 `waluigiAssessment` → related chips. Every one of those is a reason to
