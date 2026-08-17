@@ -10916,6 +10916,23 @@ function propDocumentHtml(propId){
   return `<div class="pd pd--${esc(p.kind||'note')}${p.torn?' pd--torn':''}">${stamps}${p.body||''}</div>${p.note ? `<p class="imgcap">${p.note}</p>` : ''}`;
 }
 
+/* ---------- dedicated article analyses ----------------------------------
+   These are deterministic companion readings of settled event prose. The
+   event remains the canonical account; this collection only stores Waluigi's
+   signed interpretation. It deliberately does not join INDEX, because an
+   analysis is reached from its source article rather than pretending to be a
+   second event. */
+function articleAnalysesAll(){
+  const d = (DATA && DATA.articleAnalyses) || {};
+  return Array.isArray(d) ? d : (Array.isArray(d.analyses) ? d.analyses : []);
+}
+function articleAnalysisGet(id){
+  return articleAnalysesAll().find(a => a && a.id === id) || null;
+}
+function articleAnalysesForSource(sourceId){
+  return articleAnalysesAll().filter(a => a && a.sourceArticle === sourceId);
+}
+
 /* ---------- connected panel on record pages ----------
    "Investigate this further." Every article that the archive has actually
    filed paper against gets a way into that paper, and the paper is what makes
@@ -10948,7 +10965,8 @@ function invConnections(id){
 
 function renderConnectedInvestigationsPanel(id, typeKey){
   const files = invConnections(id);
-  if(!files.length) return '';
+  const analyses = articleAnalysesForSource(id);
+  if(!files.length && !analyses.length) return '';
 
   const nDoc = files.reduce((n,f) => n + f.ex.length, 0);
   const blocks = files.map(f => {
@@ -10982,16 +11000,128 @@ function renderConnectedInvestigationsPanel(id, typeKey){
     </div>`;
   }).join('');
 
+  const panelSourceTitle = INDEX[id] ? displayName(INDEX[id].item) : '';
+  const analysisRows = analyses.map(a => `<div class="kv-row">
+    <span class="k">🖋️ opinion filing</span>
+    <span class="v">
+      <a class="entity-link" style="font-weight:800" href="#/article-analysis/${encodeURIComponent(a.id)}">${esc(panelSourceTitle || a.title)}</a>
+      <div class="text-muted" style="font-size:12.5px;line-height:1.55;margin-top:3px">${esc(a.summary || '')}</div>
+      <div class="text-muted" style="font-size:11.5px;margin-top:4px">Approximately 80% Waluigi analysis · 20% story reference · no roll</div>
+    </span>
+  </div>`).join('');
+  const analysisBlock = analysisRows ? `<div style="border-top:${files.length ? '1px solid var(--border)' : '0'};padding-top:${files.length ? '16px' : '0'};margin-top:${files.length ? '4px' : '0'}">
+    <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:7px">
+      <h3 style="margin:0">🖋️ Waluigi's Article Analysis</h3>
+      <span class="pill">same event · a signed interpretation</span>
+    </div>
+    <p class="text-muted" style="font-size:12.5px;margin:0 0 9px">The event is the canonical account. This companion is Waluigi arguing with what it means.</p>
+    <div class="kv-list">${analysisRows}</div>
+  </div>` : '';
+
+  const fileLine = nDoc
+    ? `${nDoc} document${nDoc === 1 ? '' : 's'} in the archive ${nDoc === 1 ? 'names' : 'name'} this record.`
+    : (files.length ? 'The archive has an open file covering this record.' : '');
+  const analysisLine = analyses.length
+    ? ` Waluigi has filed ${analyses.length === 1 ? 'a dedicated reading' : `${analyses.length} dedicated readings`} of the article itself.`
+    : '';
+
   return `<div class="card" style="border-left:4px solid var(--accent)">
     <div class="home-section-head">
       <div>
         <h2>🔍 Investigate this further</h2>
-        <p>${nDoc ? `${nDoc} document${nDoc === 1 ? '' : 's'} in the archive ${nDoc === 1 ? 'names' : 'name'} this record.` : 'The archive has an open file covering this record.'} Opening an exhibit is a roll; reading costs nothing.</p>
+        <p>${fileLine}${analysisLine}${files.length ? ' Opening an exhibit is a roll; reading costs nothing.' : ' Reading the analysis costs nothing and changes no canon.'}</p>
       </div>
-      <a class="chip" href="#/investigations">All files →</a>
+      ${files.length ? '<a class="chip" href="#/investigations">All files →</a>' : ''}
     </div>
     ${blocks}
+    ${analysisBlock}
   </div>`;
+}
+
+/* ---------- Waluigi's deterministic article-analysis reader ---------------
+   The source filing supplies identity and media. Analysis prose is kept in its
+   own dataset and is rendered with visibly bounded source anchors so a recap
+   cannot quietly pass itself off as interpretation (or vice versa). */
+function view_article_analysis(id){
+  const a = articleAnalysisGet(id);
+  if(!a){
+    renderSidebar('list:events');
+    el('content').innerHTML=`<div class="card"><h2>Analysis not found</h2><p class="text-muted">Waluigi has no signed article analysis filed as “${esc(id)}”.</p><p><a onclick="Router.go('#/home')">← Home</a></p></div>`;
+    return;
+  }
+
+  const sourceRec = INDEX[a.sourceArticle];
+  if(!sourceRec){
+    renderSidebar('list:events');
+    el('content').innerHTML=`<div class="card"><h2>Source article not found</h2><p class="text-muted">This analysis refuses to float free of canon: its source article, “${esc(a.sourceArticle)}”, does not resolve.</p></div>`;
+    return;
+  }
+
+  const source = sourceRec.item;
+  const typeKey = sourceRec.typeKey;
+  const sourceTitle = displayName(source);
+  renderSidebar('list:'+typeKey);
+  LINK_YEAR_CTX = parseYear(a.filed)||parseYear(source.date)||null;
+  beginLinkPass({id:a.id, relatedArticles:[a.sourceArticle].concat(a.relatedArticles||[])});
+
+  const sections = Array.isArray(a.sections) ? a.sections : [];
+  const textBlob = [a.summary,a.thesis,a.verdict].concat(sections.flatMap(s=>[s.sourceAnchor,s.body])).join(' ');
+  const wordCount = words(textBlob);
+  const readMins = readingTime(textBlob);
+  const tocEntries = [
+    {slug:'analysis-thesis', text:'Thesis'},
+    ...sections.map(s=>({slug:'analysis-'+s.id,text:s.heading||prettyId(s.id)})),
+    {slug:'analysis-verdict', text:'Verdict'}
+  ];
+  if((a.relatedArticles||[]).length) tocEntries.push({slug:'analysis-related',text:'Related records'});
+  const toc = `<div class="toc" id="toc"><h4>Contents</h4>${tocEntries.map(h=>`<a data-slug="${esc(h.slug)}" onclick="scrollToHeading('${esc(h.slug)}')">${esc(h.text)}</a>`).join('')}</div>`;
+
+  const sourceMedia = source.image
+    ? `<figure class="article-lead-img"><img src="${esc(assetPath(source.image))}" alt="${esc(sourceTitle)}" onerror="this.closest('figure').classList.add('broken')"><figcaption class="imgcap">Source-event image from the canonical filing; reused here for orientation, not as new evidence.</figcaption></figure>`
+    : autoArt(source,typeKey);
+  const lead = `<div class="article-lead-card"><div class="article-lead-summary"><h4>Analysis Summary</h4><p>${esc(a.summary||'')}</p></div>${sourceMedia}</div>`;
+
+  const sectionsHtml = sections.map((s,i)=>`<section class="article-analysis-section" aria-labelledby="analysis-${esc(s.id)}">
+    <h2 id="analysis-${esc(s.id)}"><span class="analysis-section-number">${String(i+1).padStart(2,'0')}</span> ${esc(s.icon||'◆')} ${esc(s.heading||prettyId(s.id))}</h2>
+    <aside class="analysis-source-anchor">
+      <div class="analysis-source-label">Source anchor · filed event reference</div>
+      <div>${mdToHtml(s.sourceAnchor||'',a.id)}</div>
+    </aside>
+    <div class="prose article-analysis-body">${mdToHtml(s.body||'',a.id)}</div>
+  </section>`).join('');
+
+  const seenRelated = new Set();
+  const relatedChips = (a.relatedArticles||[]).map(resolveArticleId).filter(rid=>{
+    if(seenRelated.has(rid)){return false;} seenRelated.add(rid); return !!INDEX[rid];
+  }).map(rid=>`<span class="rel-chip" onclick="openId('${esc(rid)}')"><span class="rt">${esc(relKind(rid))}</span>${esc(displayName(INDEX[rid].item))}</span>`).join('');
+
+  const infoRows = `<div class="row"><span class="k">Filed by</span><span class="v">${esc(a.archivist||'Waluigi')}</span></div>
+    <div class="row"><span class="k">Filed</span><span class="v">${esc(a.filed||'Undated')}</span></div>
+    <div class="row"><span class="k">Form</span><span class="v">Deterministic opinion filing</span></div>
+    <div class="row"><span class="k">Balance</span><span class="v">≈80% analysis / 20% reference</span></div>
+    <div class="row"><span class="k">Canon</span><span class="v">Source event governs</span></div>`;
+  const sourceRail = `<div class="railbox"><div class="railbody analysis-source-rail"><b>Canonical source</b><a href="#/article/${encodeURIComponent(a.sourceArticle)}">${esc(sourceTitle)}</a><span>This reading interprets the event. It does not replace its chronology, outcomes, XP, reputation, or exhibits.</span></div></div>`;
+
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/article/${encodeURIComponent(a.sourceArticle)}">${esc(sourceTitle)}</a> › Waluigi's Article Analysis</div>
+    <div class="article-layout article-analysis-layout"><div><div class="card animate-fade-in article-analysis">
+      <div class="art-kicker">🖋️ ${esc(a.kicker||"Waluigi's Article Analysis")}</div>
+      <h1 class="art-title">${esc(a.title||sourceTitle)}</h1>
+      ${a.subtitle?`<div class="art-subtitle">${esc(a.subtitle)}</div>`:''}
+      <div class="metabar"><span class="pill">🖋️ Signed interpretation</span><span class="pill">No roll</span><span class="pill">Source event remains canon</span><a class="chip" href="#/article/${encodeURIComponent(a.sourceArticle)}">Read the canonical event →</a></div>
+      <div class="readtime">⏱ ${readMins} min read · ${wordCount} words</div>
+      ${lead}
+      <div class="analysis-boundary"><b>What this page is:</b> Waluigi's deliberately opinionated reading of a filed event. Story details appear only as anchors for the argument; unresolved facts remain unresolved.</div>
+      <section class="article-analysis-thesis" aria-labelledby="analysis-thesis"><h2 id="analysis-thesis">My Thesis</h2><div class="prose">${mdToHtml(a.thesis||'',a.id)}</div></section>
+      ${sectionsHtml}
+      <section class="article-analysis-verdict" aria-labelledby="analysis-verdict"><h2 id="analysis-verdict">Waluigi's Verdict</h2><div class="prose">${mdToHtml(a.verdict||'',a.id)}</div></section>
+      ${relatedChips?`<section aria-labelledby="analysis-related"><h2 id="analysis-related">Related Records</h2><div class="related-list">${relatedChips}</div></section>`:''}
+      <div class="analysis-source-return"><span>Return to the account this argument is anchored to:</span><a class="entity-link" href="#/article/${encodeURIComponent(a.sourceArticle)}">${esc(sourceTitle)}</a></div>
+    </div></div><div><div class="rail"><div class="infobox"><h4>Analysis File</h4>${infoRows}</div>${toc}${sourceRail}</div></div></div>`;
+  setArticleAccent(typeKey);
+  endLinkPass();
+  window.scrollTo(0,0);
+  setupScrollSpy();
 }
 
 function applyCustomCss(css){if(window.__ccss){window.__ccss.remove();window.__ccss=null;}if(!css)return;const s=document.createElement('style');s.textContent=css.replace(/\.wiki-article/g,'.prose').replace(/\.wiki-lead/g,'.prose blockquote');document.head.appendChild(s);window.__ccss=s;}
@@ -16053,6 +16183,7 @@ const Router={
     else if(route==='field-journal'||route==='journal')view_fieldJournal();
     else if(route==='rnn'||route==='rakasha-news'||route==='broadcast')view_rakashaNews();
     else if(route==='article')view_article(arg);
+    else if(route==='article-analysis')view_article_analysis(arg);
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
     else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion')view_imperial_network();
@@ -16194,7 +16325,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.te
   }});
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
-const DATA_FILES = ['characters','events','battles','locations','races','nations','factions','collections',
+const DATA_FILES = ['characters','events','articleAnalyses','battles','locations','races','nations','factions','collections',
   'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls'];
 
 async function loadData(){
