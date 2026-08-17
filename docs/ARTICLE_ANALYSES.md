@@ -2,6 +2,8 @@
 
 **A companion reading for a filed article: less retelling, more Waluigi.**
 
+> For the implemented renderer, route lifecycle, local research persistence, CSS scopes, extension steps, validation commands, and troubleshooting, see the scoped [`article-analyses/README.md`](article-analyses/README.md). This file remains the canonical editorial and schema guide.
+
 This system adds a second way forward from an event page's
 **🔍 Investigate this further** panel. The case-file links lead to exhibits and
 rolls. The article-analysis link leads to Waluigi's sustained reading of the

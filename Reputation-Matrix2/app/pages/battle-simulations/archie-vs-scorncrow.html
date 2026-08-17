@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080916">
+  <meta name="description" content="Play the Archie versus Scorncrow battle-opening simulation using keyboard, mouse, or touch.">
+  <title>Archie vs. the Scorncrow · Battle Lab</title>
+  <link rel="stylesheet" href="battle-simulations.css">
+</head>
+<body class="battle-page">
+  <a class="skip-link" href="#battleArena">Skip to the battle arena</a>
+  <header class="battle-topbar">
+    <a class="battle-back" href="index.html"><span aria-hidden="true">←</span> Simulation hub</a>
+    <div class="battle-file"><span>Encounter 01</span><strong>Archie / Scorncrow</strong></div>
+    <div class="battle-tools">
+      <button type="button" data-copy-link aria-label="Copy direct player link">Share</button>
+      <button type="button" data-mute aria-pressed="false" aria-label="Mute battle sounds">Sound on</button>
+      <button type="button" data-pause aria-pressed="false" aria-label="Pause battle">Pause</button>
+      <button type="button" data-reset aria-label="Restart the opening sequence">Restart</button>
+    </div>
+  </header>
+
+  <main class="battle-main">
+    <section class="battle-heading" aria-labelledby="battle-title">
+      <div>
+        <p class="eyebrow">The Tree of Woe · controlled storm perimeter</p>
+        <h1 id="battle-title">Archie <em>vs.</em> the Scorncrow</h1>
+      </div>
+      <p>Opening sequence: breach the storm, stay on Nimbus, and wound the Scorncrow before initiative.</p>
+    </section>
+
+    <section class="battle-machine" data-battle-root aria-label="Archie versus Scorncrow quick-time battle">
+      <div class="combat-hud" aria-label="Combat status">
+        <div class="fighter-status fighter-status-archie">
+          <img src="../../../portraits/player/sprite-sheets/poses/archie/01-idle-front.png" alt="">
+          <div class="fighter-bars">
+            <div class="fighter-name"><strong>Archie</strong><span data-archie-hp-label>100 / 100</span></div>
+            <div class="meter meter-health"><i data-archie-hp></i></div>
+            <div class="fighter-name fighter-name-small"><span>Storm Nimbus</span><span data-nimbus-label>100%</span></div>
+            <div class="meter meter-nimbus"><i data-nimbus></i></div>
+          </div>
+        </div>
+        <div class="phase-status">
+          <span data-phase-count>Opening sequence</span>
+          <strong data-phase-name>Awaiting pilot</strong>
+          <div class="phase-timer" aria-hidden="true"><i data-phase-timer></i></div>
+        </div>
+        <div class="fighter-status fighter-status-scorncrow">
+          <div class="fighter-bars">
+            <div class="fighter-name"><strong>Scorncrow</strong><span data-scorn-hp-label>120 / 120</span></div>
+            <div class="meter meter-health meter-enemy"><i data-scorn-hp></i></div>
+            <div class="fighter-name fighter-name-small"><span>Opening wounds</span><span data-scorn-damage>0</span></div>
+          </div>
+          <img src="../../../portraits/player/sprite-sheets/poses/scorncrow/01-idle-front.png" alt="">
+        </div>
+      </div>
+
+      <div class="battle-arena" id="battleArena" tabindex="0" role="application" aria-describedby="battle-instructions" data-arena>
+        <div class="arena-sky" aria-hidden="true">
+          <span class="storm-cloud storm-cloud-one"></span>
+          <span class="storm-cloud storm-cloud-two"></span>
+          <span class="lightning lightning-one"></span>
+          <span class="lightning lightning-two"></span>
+          <span class="rain-field"></span>
+          <span class="root-silhouette root-one"></span>
+          <span class="root-silhouette root-two"></span>
+          <span class="ground-fog"></span>
+        </div>
+
+        <div class="impact-layer" data-impact-layer aria-hidden="true"></div>
+        <div class="pilot-gate" data-pilot-gate hidden aria-hidden="true"><span></span></div>
+        <div class="hazard hazard-one" data-hazard="0" hidden aria-hidden="true"></div>
+        <div class="hazard hazard-two" data-hazard="1" hidden aria-hidden="true"></div>
+        <div class="hazard hazard-three" data-hazard="2" hidden aria-hidden="true"></div>
+
+        <div class="combatant combatant-archie" data-archie>
+          <span class="archie-aura" aria-hidden="true"></span>
+          <img data-archie-sprite src="../../../portraits/player/sprite-sheets/poses/archie/13-nimbus-01.png" alt="Archie riding Storm Nimbus">
+        </div>
+        <div class="combatant combatant-scorncrow" data-scorncrow>
+          <span class="scorncrow-aura" aria-hidden="true"></span>
+          <img data-scorncrow-sprite src="../../../portraits/player/sprite-sheets/poses/scorncrow/09-scythe-ready.png" alt="The Scorncrow">
+        </div>
+
+        <div class="qte-panel" data-qte-panel hidden>
+          <p class="qte-kicker" data-qte-kicker>Action command</p>
+          <div class="qte-command" data-qte-command aria-hidden="true">↑</div>
+          <h2 data-qte-title>Fly upward</h2>
+          <p data-qte-instruction>Swipe up or press Up Arrow / W.</p>
+          <div class="sequence-track" data-sequence-track hidden></div>
+          <div class="timing-track" data-timing-track hidden aria-hidden="true">
+            <span class="timing-zone" data-timing-zone></span><i data-timing-marker></i>
+          </div>
+          <div class="charge-track" data-charge-track hidden aria-hidden="true">
+            <span class="charge-zone"></span><i data-charge-meter></i>
+          </div>
+        </div>
+
+        <div class="battle-toast" data-battle-toast hidden role="status"></div>
+        <div class="pause-screen" data-pause-screen hidden>
+          <strong>Battle paused</strong><span>Press P, Escape, or Resume.</span>
+          <button type="button" data-resume>Resume</button>
+        </div>
+
+        <div class="start-screen" data-start-screen>
+          <div class="start-copy">
+            <p class="eyebrow">Hard opening · seven action commands</p>
+            <h2>Storm Nimbus is already moving.</h2>
+            <p id="battle-instructions">Pilot Archie into the storm and answer each prompt before the timer closes. Misses damage Archie or destabilize Nimbus. If cloud stability reaches zero, Archie falls.</p>
+            <div class="briefing-grid">
+              <div><span>Keyboard</span><strong>Arrows / WASD</strong><small>Space or Enter acts. Hold Space when told.</small></div>
+              <div><span>Mouse / pointer</span><strong>Move inside arena</strong><small>Click/tap acts. Drag or swipe for directions.</small></div>
+              <div><span>Touch</span><strong>Drag to pilot</strong><small>Swipe for prompts. Use the action pad below.</small></div>
+            </div>
+            <label class="motion-choice"><input type="checkbox" data-reduce-motion> Reduce nonessential motion</label>
+            <button class="sim-button sim-button-primary start-battle-button" type="button" data-start-battle>Enter the storm</button>
+            <p class="start-warning">This encounter is intentionally demanding. The opening continues after individual misses, but repeated failures can throw Archie from Nimbus.</p>
+          </div>
+        </div>
+
+        <div class="result-screen" data-result-screen hidden>
+          <div class="result-card">
+            <p class="eyebrow">Opening simulation complete</p>
+            <h2 data-result-title>Opening advantage</h2>
+            <p class="result-summary" data-result-summary></p>
+            <div class="result-grid">
+              <article class="result-fighter result-archie">
+                <img data-result-archie-image src="../../../portraits/player/sprite-sheets/poses/archie/01-idle-front.png" alt="Archie">
+                <div><span>Archie starts with</span><strong data-result-archie-damage>0 damage</strong><p data-result-archie-status>Ready · mounted</p></div>
+              </article>
+              <article class="result-fighter result-scorncrow">
+                <img src="../../../portraits/player/sprite-sheets/poses/scorncrow/15-summon-thorn.png" alt="Scorncrow">
+                <div><span>Scorncrow starts with</span><strong data-result-scorn-damage>0 damage</strong><p data-result-scorn-status>Unwounded</p></div>
+              </article>
+            </div>
+            <div class="result-ledger">
+              <div><span>Nimbus stability</span><strong data-result-nimbus>100%</strong></div>
+              <div><span>Commands landed</span><strong data-result-successes>0 / 7</strong></div>
+              <div><span>Opening status</span><strong data-result-tier>Contested</strong></div>
+            </div>
+            <p class="gm-note"><strong>GM handoff:</strong> Use these as the combatants' starting damage and conditions when initiative begins.</p>
+            <div class="result-actions">
+              <button class="sim-button sim-button-primary" type="button" data-restart>Run it again</button>
+              <button class="sim-button sim-button-quiet" type="button" data-copy-result>Copy result</button>
+              <a class="sim-button sim-button-quiet" href="index.html">Back to hub</a>
+            </div>
+            <p class="copy-notice" data-result-copy-notice role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-deck" aria-label="On-screen battle controls">
+        <div class="dpad" aria-label="Directional controls">
+          <button type="button" data-control="up" aria-label="Up"><span>↑</span><small>W</small></button>
+          <button type="button" data-control="left" aria-label="Left"><span>←</span><small>A</small></button>
+          <button type="button" data-control="down" aria-label="Down"><span>↓</span><small>S</small></button>
+          <button type="button" data-control="right" aria-label="Right"><span>→</span><small>D</small></button>
+        </div>
+        <button class="action-pad" type="button" data-control="action" aria-label="Action button">
+          <span>ACT</span><small>Space · Enter · tap / hold</small>
+        </button>
+        <div class="control-readout" aria-live="polite">
+          <span data-input-mode>Input: ready</span>
+          <strong data-live-message>Enter the storm when ready.</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script defer src="../../core/wario-site-sounds.js"></script>
+  <script type="module" src="archie-vs-scorncrow.js"></script>
+</body>
+</html>
