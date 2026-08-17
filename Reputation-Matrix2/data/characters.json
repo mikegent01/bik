@@ -4050,6 +4050,14 @@
       "the_tree_of_woe_engagement",
       "remi_akamatsu_full_backstory",
       "markop"
+    ],
+    "narrativeStatus": "active-local",
+    "arcId": "shadowfell_estate",
+    "lastSeenEvent": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+    "returnHooks": [
+      "Explain how she knew Remi by name",
+      "Deliver the promised consequences to Markop",
+      "Identify whether the hanging-tree apples carry Tree of Woe influence"
     ]
   },
   {
@@ -4073,6 +4081,14 @@
       "dan",
       "markop",
       "remi_akamatsu_full_backstory"
+    ],
+    "narrativeStatus": "active-local",
+    "arcId": "shadowfell_estate",
+    "lastSeenEvent": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+    "returnHooks": [
+      "Return with proof or consequences of the claimed arrest authority",
+      "Exploit or explain the imp-granted invitation loophole",
+      "Reveal who ordered the cottage operation"
     ]
   }
 ]

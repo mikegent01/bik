@@ -117,6 +117,20 @@ Dossiers must be evidence-bound: name the actions, objects, places, relationship
 
 A major session event is not complete when the event record alone is changed. Review every named character whose status, inventory, relationship, injury, reputation, or current objective changed. Update the canonical record in `data/characters.json` with a concise dated or clearly labeled “Latest Filing” paragraph, append the event ID to `keyEvents`, and add the event, important item, faction, or location IDs to `relatedArticles` when they resolve. Update only characters materially affected; do not copy the whole plot into every profile. Keep the event as the detailed narrative source and the character page as the durable state change. Validate that every new ID resolves and that the profile update does not overwrite existing lore.
 
+#### Character lifecycle after an arc
+
+Characters are canon, not temporary cache entries. **Never delete a character who is linked from a filed event merely because the arc ended.** Closing an arc instead triggers a cast-closeout pass:
+
+| `narrativeStatus` | Use | Default treatment |
+|---|---|---|
+| `active` | Main party or expected next-session figure | Keep current status and objectives live |
+| `active-local` | Important while the current arc remains open | Keep visible; review at arc close |
+| `recurring` | Has a concrete return hook outside the current scene | Keep the hook, stop copying session summaries |
+| `dormant` | Arc ended with no immediate return route | Preserve the compact dossier and links; exclude it from any active-only subset, but keep it searchable in the full directory |
+| `closed` | Dead, permanently departed, or narratively resolved | Preserve final state and last-seen event; no new updates unless the record reopens |
+
+Every local/supporting character should carry `arcId`, `lastSeenEvent`, and a short `returnHooks[]` list. At arc close, promote only characters with an actual unresolved hook to `recurring`; move the rest to `dormant` or `closed`. Dormant records do not accumulate repetitive “still absent” paragraphs. They remain because old scenes, reputation entries, investigations, and search links must continue to resolve. This follows the project rule that bloat means duplicated facts—not one canonical record for a person who really existed.
+
 **Do not optimise the numbers.** They catch drift. If the prose reads well and the measurements disagree, the prose wins.
 
 ### Illustrating the filing (required — do this without being asked)
