@@ -4,84 +4,116 @@
   "factions": {
     "primordial_wyrm": {
       "name": "Primordial Wyrm",
-      "description": "Named in the record “The Battle of Bone Dry Dunes”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "other",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:05:55.187628+00:00",
         "sourceRecord": "The Battle of Bone Dry Dunes"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T20:56:00+00:00",
+        "sourceArticles": [
+          "anchor_alpha_bone_dry_dunes"
+        ],
+        "decision": "removed",
+        "entityKind": "other"
       }
     },
     "bowser": {
       "name": "Bowser",
-      "description": "Named in the record “Highsun 1, 955 BF — The Day Of”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:08:21.444741+00:00",
         "sourceRecord": "Highsun 1, 955 BF — The Day Of"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T20:54:40+00:00",
+        "sourceArticles": [
+          "highsun_1_955_bf_the_day_of",
+          "the_assassination_of_peach",
+          "the_fawthful_narrative_failure",
+          "mages_guild",
+          "mushroom_regency"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "united_midlands_factions": {
       "name": "United Midlands Factions",
-      "description": "Named in the record “The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:09:15.506315+00:00",
         "sourceRecord": "The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T20:54:41+00:00",
+        "sourceArticles": [
+          "session_2_ravencreek_to_swiftsoul",
+          "vigilance",
+          "session_1_dragon_mountain",
+          "archie_miser",
+          "markop"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "midlands_faction_reputations": {
       "name": "Midlands Faction Reputations",
-      "description": "Named in the record “The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:09:15.507772+00:00",
         "sourceRecord": "The Ravencreek Transition — Shadows, Steam, and the God Toad's Wrath"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T20:54:41+00:00",
+        "sourceArticles": [
+          "session_2_ravencreek_to_swiftsoul",
+          "vigilance",
+          "session_1_dragon_mountain",
+          "archie_miser",
+          "markop"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "star_sprites": {
       "name": "Star Sprites",
-      "description": "Named in the record “The Star Shard Caves and the Tanuki's Origin”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nStar Sprites are a faction mentioned in the record ‘The Star Shard Caves and the Tanuki’s Origin’. They operate within the Iron Shmolder's Cave System, which is located in their territory known as Star Sprite Territory. The Lava Caverns form part of this region, making it clear that the Star Sprites control significant parts of this area. The faction is involved in the recovery and management of star shards—fragments of a powerful artifact that are not to be treated lightly. The exact leader of the Star Sprites remains unrecorded by the archives, but their territory and actions indicate they hold some level of power within their region. The archive confirms that 'STAR SHARD WILL BE MINE I HAVE FURY' was spoken during an event involving the recovery of a star shard, which proves their assertiveness in claiming resources. Despite these mentions, the current status of Star Sprites is unconfirmed, and no allies or enemies are recorded for them at this time.\n\n## Membership and Structure\n\nThe Star Sprites are a faction shrouded in mystery, with their membership and structure unconfirmed by canonical records. Their territory is centered around the Iron Shmolder's Cave System within Star Sprite Territory, known for its Lava Caverns where significant events have transpired. The faction’s identity remains ambiguous; no leader or collective title has been definitively recorded. In the event 'The Star Shard Caves and the Tanuki’s Origin', Waluigi noted that the Star Sprites were involved in the recovery of a star shard, but their exact role or hierarchy was not disclosed. One notable quote from records regarding them is: ‘The Star Devourer who will bring eternal darkness if not stopped.’ This cryptic statement hints at an existential threat or powerful entity associated with the faction, yet it remains unclear whether this refers to a member, a collective goal, or a latent threat. The archives are silent on any ranks, branches, or organizational features of the Star Sprites, leaving their internal structure largely uncharted.\n\n## Recorded Operations and Relationships\n\nStar Sprites have been intermittently involved in significant events, particularly related to the recovery of star shards within their territory. Their actions are often covert but leave a trail of notable incidents. For instance, during 'The Star Shard Caves and the Tanuki's Origin', members of Star Sprites were present at Iron Shmolder's Cave System, where they contested for a star shard fragment. The faction displayed tactical prowess by ensuring that no single entity could claim exclusive control over the artifact. Waluigi observed, 'well if I never see you again then', suggesting a tense standoff with other factions vying for the same resource. This quote highlights Star Sprites' strategic intent and their willingness to assert dominance in critical situations. Their territory includes Iron Shmolder's Cave System, where these operations took place. Despite these engagements, Star Sprites remain largely uncharted, with no confirmed alliances or enemies recorded at present.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nStar Sprites are a faction of unknown significance whose territory includes Iron Shmolder's Cave System. Mentioned primarily in relation to the recovery of star shards, their full extent of power remains unrecorded. The risks associated with this faction are substantial; the evidence from 'The Star Shard Caves and the Tanuki’s Origin' states unequivocally, ‘we are all going to die near celestial artifacts that can create deities’. This excerpt underscores a critical unknown—precisely how dangerous these entities truly are. Waluigi notes that while they have been implicated in significant events like the recovery of star shards, the dossier lacks concrete details on their leadership or headquarters. Their relations with other factions are equally uncharted; they do not appear to have allies mentioned in any record and no enemies are listed. In terms of operational advice, one must proceed with extreme caution near celestial artifacts claimed by Star Sprites. The archive remains silent on their motives and strategies, leaving commanders to infer the potential for betrayal or hostility. Waluigi advises against underestimating this faction—factions that treat such relics as mere collectibles are foolhardy indeed.",
+      "region": "Iron Shmolder's Cave System, Star Sprite Territory, Lava Caverns (specific location)",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
@@ -95,36 +127,87 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:10:58.988707+00:00",
         "sourceRecord": "The Star Shard Caves and the Tanuki's Origin"
+      },
+      "title": "An Emerging File",
+      "type": "Unknown — possibly a minor power",
+      "currentStatus": "Unconfirmed",
+      "leader": "Unrecorded",
+      "headquarters": "Iron Shmolder's Cave System, Star Sprite Territory",
+      "motto": "No recorded motto",
+      "summary": "Star Sprites are mentioned in relation to the recovery of a star shard and their territory includes Iron Shmolder's Cave System.",
+      "evidenceQuotes": [
+        "STAR SHARD WILL BE MINE I HAVE FURY",
+        "The Star Devourer who will bring eternal darkness if not stopped",
+        "well if I never see you again then"
+      ],
+      "waluigi_tip": "Further investigation is needed to establish if Star Sprites are more than just a mention.",
+      "keyEvents": [
+        "star_shard_caves_tanuki_origin",
+        "shadow_estate_campaign",
+        "fawful_forces",
+        "star_rod",
+        "fountain_of_dreams"
+      ],
+      "relatedArticles": [
+        "star_shard_caves_tanuki_origin",
+        "shadow_estate_campaign",
+        "fawful_forces",
+        "star_rod",
+        "fountain_of_dreams"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:39:33+00:00",
+        "sourceArticles": [
+          "star_shard_caves_tanuki_origin",
+          "shadow_estate_campaign",
+          "fawful_forces",
+          "star_rod",
+          "fountain_of_dreams"
+        ]
       }
     },
     "all_factions": {
       "name": "All Factions",
-      "description": "Named in the record “The Star Shard Caves and the Tanuki's Origin”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:10:58.990434+00:00",
         "sourceRecord": "The Star Shard Caves and the Tanuki's Origin"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T20:56:00+00:00",
+        "sourceArticles": [
+          "star_shard_caves_tanuki_origin",
+          "shadow_estate_campaign",
+          "fawful_forces",
+          "star_rod",
+          "fountain_of_dreams"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "dragon_mountain": {
       "name": "Dragon Mountain",
-      "description": "Named in the record “Dragon Mountain — The Night Everything Started”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nDragon Mountain is identified as a faction that stands at the heart of a crisis which began on the first day of Efferd, 1040 BF. The events at Dragon Mountain, Edgeshade, and Peebleton Caves marked the point where unprecedented greed led to the awakening of millions of dragons, causing an unparalleled catastrophe in the Regal Empire. The archival records establish that this faction is responsible for initiating a series of disasters that have shaped subsequent history. Despite its ambiguous status as a 'Minor Power,' Dragon Mountain's actions are unequivocal: it orchestrated the cataclysmic release of dragons and directly contributed to Edgeshade's destruction, leading to severe geopolitical upheaval. The current standing of Dragon Mountain remains unrecorded, but historical evidence clearly indicates its pivotal role in setting every subsequent crisis in motion. It is notable that even figures such as Wario, who were present during this event, hold the faction accountable for their actions. For instance, in a recorded statement, 'Hello everybody It is a me Wari uh Mario' acknowledges his involvement with the faction and the profound impact of its deeds. This quote underscores the enduring legacy and influence of Dragon Mountain's activities.\n\n## Membership and Structure\n\nDragon Mountain, though a faction of considerable intrigue and initial calamity, has no officially established leadership or hierarchy as per the records available. The origins of Dragon Mountain are shrouded in mystery; it is clear that the faction played a pivotal role in awakening millions of dragons on the first day of Efferd, 1040 BF—a cataclysmic event that transformed the Central Midlands and plunged the Regal Empire into crisis. Despite these events, no leader or official structure has been documented. The faction's actions were driven by acts of greed, particularly the theft of a gold egg from Edgeshade, which inadvertently triggered the dragon awakening. Evidence of Dragon Mountain’s involvement includes the mention of ‘a noble warrior on a quest’ in one of the related records, which underscores their pivotal role without establishing a formal structure. The faction’s actions were chaotic and uncoordinated, suggesting that it may have been more a confluence of individuals with shared goals rather than an organized group.\n\n## Recorded Operations and Relationships\n\nDragon Mountain, an enigmatic organization whose exact nature remains unrecorded, has been implicated in pivotal events that reshaped the Central Midlands. The faction's operations are marked by strategic actions that set off a chain of calamities leading to widespread chaos. On the fateful day of Efferd, 1040 BF, Dragon Mountain was responsible for the awakening of millions of dragons, which not only devastated Edgeshade but also plunged the Regal Empire into a state of crisis. The faction's operations are closely aligned with entities such as 'Disaster Inc.', indicating a shared interest in causing turmoil and chaos across the region. A young fire mage named Archie Miser and a pragmatic fighter named Markop climbed, suggesting their active involvement in orchestrating these events. Their actions demonstrate a calculated approach to leveraging chaotic outcomes for personal or factional gain, a pattern that has defined Dragon Mountain's modus operandi since its inception.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nDragon Mountain represents a significant risk to the stability of the Central Midlands. The faction is responsible for the initial awakening of millions of dragons that plunged the Regal Empire into crisis. While the exact leadership remains unrecorded, it is clear that Dragon Mountain operates from its headquarters in Dragon Mountain, Edgeshade, Peebleton Caves. Although no allies are known, the faction's primary enemy is Disaster Inc., suggesting a continuous threat landscape.\n\nThe risks posed by Dragon Mountain extend beyond immediate regional impact, as evidenced by 'the Night Everything Started,' where their actions triggered a chain of events that reverberate throughout subsequent history. The current status of Dragon Mountain is historical yet highly influential; the organization's influence remains entrenched in the fabric of the region.\n\nThere are numerous unknowns regarding Dragon Mountain. Most notably, no leader has been officially documented, and the faction's motives remain opaque. The operational modus operandi of Dragon Mountain also lacks clear records. It is inferred that they have a deep understanding of dragon behavior and capabilities, given their ability to awaken them en masse.\n\nWaluigi's assessment of this organization is based on thorough archival research. He notes that while the faction’s actions can be linked to specific historical events, the true intentions behind these actions are not fully understood. The evidence provided by 'the Night Everything Started' indicates a calculated and potentially malevolent influence, but the full extent remains unknown.\n\nOperational advice for those dealing with Dragon Mountain would include constant vigilance against their potential manipulations. Given the 'noble warrior safeguarding realms' from the records, caution should be exercised to differentiate between genuine protection and strategic deception. Close monitoring of any activities that could lead to further destabilization is imperative.",
+      "region": "Central Midlands, Peebleton Caves, Edgeshade",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "disaster_inc"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -133,17 +216,62 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:11:23.248766+00:00",
         "sourceRecord": "Dragon Mountain — The Night Everything Started"
+      },
+      "title": "The Night Everything Started",
+      "type": "Organisation type Unrecorded",
+      "currentStatus": "Historical — the events set every subsequent disaster in motion",
+      "leader": "Unrecorded",
+      "headquarters": "Dragon Mountain, Edgeshade, Peebleton Caves",
+      "motto": "No recorded motto",
+      "summary": "Dragon Mountain is a faction responsible for the initial awakening of millions of dragons that plunged the Regal Empire into crisis.",
+      "evidenceQuotes": [
+        "Hello everybody It is a me Wari uh Mario",
+        "noble warrior on a quest",
+        "A young fire mage named Archie Miser and a pragmatic fighter named Markop climbed"
+      ],
+      "waluigi_tip": "Be prepared for chaos and collateral damage when dealing with Dragon Mountain. Their actions have set a precedent of widespread calamity.",
+      "keyEvents": [
+        "session_1_dragon_mountain",
+        "session_2_ravencreek_to_swiftsoul",
+        "archie_miser",
+        "markop",
+        "wario"
+      ],
+      "relatedArticles": [
+        "session_1_dragon_mountain",
+        "session_2_ravencreek_to_swiftsoul",
+        "archie_miser",
+        "markop",
+        "wario"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:40:24+00:00",
+        "sourceArticles": [
+          "session_1_dragon_mountain",
+          "session_2_ravencreek_to_swiftsoul",
+          "archie_miser",
+          "markop",
+          "wario"
+        ]
       }
     },
     "noki_shellfish": {
       "name": "Noki Shellfish",
-      "description": "Named in the record “The Exile of Delfino”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nThe Noki Shellfish, also known as 'Isle Delfino's Autonomous Resistance Force,' is a resistance and liberation movement that played a pivotal role in overthrowing the Mushroom Regency's influence on Isle Delfino. This was confirmed in 'The Exile of Delfino' where it states: 'p The end of Regency influence on Isle Delfino.' The resistance force, led by General Shellshock, comprised autonomous factions including the Noki, Pianta Syndicate, and Koopa Troop. Their successful campaign resulted in the complete withdrawal of the Regency forces and recognition of Isle Delfino's independence de facto. With the Grand Piazza as their headquarters at Delfino Airstrip & Offshore, they currently operate as a recognized independent entity. Despite facing initial blockades by Noki saboteurs and a combined force from Koopa Troop and Pianta heavy-lifters, the resistance achieved victory, leading to the end of Regency influence.\n\n## Membership and Structure\n\nThe Noki Shellfish, led by General Shellshock, is a diverse resistance movement with no formalized hierarchy as evidenced in 'The Exile of Delfino.' This force operated autonomously from the Mushroom Regency, drawing support primarily from the local populace of Isle Delfino. The movement was not bound by rigid ranks or branches but relied on ad hoc coordination between various factions. According to the record, ‘Surrounded on land by a combined force of Koopa mechs and Pianta heavy lifters,’ these allies provided crucial logistical and combat support during the liberation efforts. Despite their autonomous nature, the Noki Shellfish managed to establish effective cooperation with allied groups such as the Koopa Troop and Pianta Syndicate. The leadership remained fluid, adapting to the changing dynamics of the conflict without formalizing a permanent command structure.\n\n## Recorded Operations and Relationships\n\nThe Noki Shellfish, led by General Shellshock, played a pivotal role in securing independence for Isle Delfino from the Mushroom Regency. Their operations culminated in 'The Exile of Delfino,' where they were joined by allies such as the Koopa Troop and Pianta Syndicate to form the Islander Alliance. This coalition surrounded the Regency's forces on land, blocking any escape routes, while the Noki Shellfish orchestrated a naval blockade at sea, preventing reinforcements or retreats. The evidence of their collaboration is seen in 'The Exile of Delfino' where it states, 'p The Koopa Troop provided transport ships to deport the Regency garrison back to the Mushroom Kingdom.' This act not only marked the end of the Regency's influence but also affirmed the Noki Shellfish's leadership over Isle Delfino. With this victory, independence was recognized de facto by the remaining factions and entities in the region.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Noki Shellfish have emerged as a recognized independent entity following their decisive victory over the Mushroom Regency forces at Delfino Airstrip on the 30th of June, 1040. Their leadership under General Shellshock has been instrumental in securing independence for Isle Delfino. The Koopa Troop and Pianta Syndicate are allies, as evidenced by 'and Koopa Troop were raised over the Grand Piazza,' a significant moment that marked the end of Regency influence on the island. This alliance was crucial to their success. However, while the immediate threat from the Mushroom Kingdom is contained, there remain unknowns regarding internal stability and regional cooperation with other minor powers such as the Toad Cult or Freelancer Underworld.\n\nThe Noki Shellfish's current status as a recognized independent entity does not negate potential risks. The transition to self-governance could present challenges in terms of maintaining unity within their own ranks, particularly given the diverse factions that may have contributed to the victory. Moreover, the relationship between Delfino and its neighbors remains uncharted territory. Waluigi's archival assessment advises caution against underestimating any faction or alliance, as internal dynamics can shift unpredictably. The Noki Shellfish should prioritize maintaining strong lines of communication with their allies, particularly the Koopa Troop, to ensure mutual support and prevent future conflicts.",
+      "region": "Isle Delfino, Mushroom Kingdom",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
-        "allies": [],
-        "enemies": []
+        "allies": [
+          "koopa_troop",
+          "pianta_syndicate"
+        ],
+        "enemies": [
+          "mushroom_regency"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -152,17 +280,50 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:14:01.298678+00:00",
         "sourceRecord": "The Exile of Delfino"
+      },
+      "title": "Isle Delfino's Autonomous Resistance Force",
+      "type": "Resistance and Liberation Movement",
+      "currentStatus": "Recognized Independent Entity",
+      "leader": "General Shellshock",
+      "headquarters": "Grand Piazza, Delfino Airstrip & Offshore",
+      "motto": "Unity in Struggle, Freedom for All",
+      "summary": "Named in 'The Exile of Delfino,' the Noki Shellfish led the resistance against the Mushroom Regency and secured independence for Isle Delfino.",
+      "evidenceQuotes": [
+        "p The end of Regency influence on Isle Delfino",
+        "Surrounded on land by a combined force of Koopa mechs and Pianta heavy lifters",
+        "p The Koopa Troop provided transport ships to deport the Regency garrison back to the Mushroom Kingdom"
+      ],
+      "waluigi_tip": "Maintain alliances with established powers to leverage your newfound independence.",
+      "keyEvents": [
+        "delfino_exile_final"
+      ],
+      "relatedArticles": [
+        "delfino_exile_final"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:42:49+00:00",
+        "sourceArticles": [
+          "delfino_exile_final"
+        ]
       }
     },
     "pianta_syndicate": {
       "name": "Pianta Syndicate",
-      "description": "Named in the record “The Exile of Delfino”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nThe Pianta Syndicate operates as a crime syndicate in Delfino Isle, Mushroom Kingdom, playing a pivotal role in the region's recent history. Their involvement was crucial during the period known as 'The Exile of Delfino,' where they contributed to the overthrow of the Mushroom Regency by supporting the Islander Alliance, which included forces from the Noki Shellfish and Koopa Troop. On the fateful day of June 30th at 18:30, Admiral B. Toad surrendered the airstrip to the combined forces, leading to the expulsion of Regency influence as evidenced by 'p The end of Regency influence on Isle Delfino.' Despite this significant victory, the Pianta Syndicate's leader and current standing remain unrecorded in official archives. However, their actions have secured independent governance over Delfino Isle.\n\n## Membership and Structure\n\nThe Pianta Syndicate's structure remains shrouded in mystery, with no concrete hierarchy or leadership confirmed by records. The faction operates as a loose collective of independent contractors and freelancers who have aligned themselves under the banner of independence from the Mushroom Regency. Their involvement was critical during the events known as 'The Exile of Delfino', where they were part of a combined force that surrounded the Mushroom Regency's garrison on Isle Delfino. The evidence, which states, 'Surrounded on land by a combined force of Koopa mechs and Pianta heavy lifters', clearly indicates their significant role in the operation. This quote proves the Syndicate’s active participation in military engagements, likely providing logistics, manpower, or both. Despite this, the identities of specific leaders or ranks within the Syndicate remain unconfirmed due to the clandestine nature of its operations.\n\n## Recorded Operations and Relationships\n\nDuring 'The Exile of Delfino', the Pianta Syndicate demonstrated its pivotal role in Isle Delfino's independence movement by providing critical logistical support. The Syndicate’s heavy-lifters, equipped with advanced technology, were instrumental in transporting the Regency garrison back to the Mushroom Kingdom. As described in 'The Exile of Delfino', 'p The Koopa Troop provided transport ships to deport the Regency garrison back to the Mushroom Kingdom'. This action not only ensured the safe departure of the remnants of the Mushroom Regency but also symbolized the independence and sovereignty of Isle Delfino. The Syndicate's heavy-lifters, operating in coordination with other allies like the Noki Shellfish and Koopa Troop, played a crucial role in securing the outcome of this battle. Their actions reinforced their status as a formidable force within the region.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Pianta Syndicate, as evidenced by 'and Koopa Troop were raised over the Grand Piazza p', has demonstrated a strategic role in Isle Delfino's independence. While this action secured their recognition as a Minor Power, several risks remain. The Syndicate's operations are largely shrouded in secrecy, and it is unclear how long their alliance with Noki Shellfish and Koopa Troop will last. This unpredictability poses a significant operational challenge for any adversary. Additionally, the Syndicate’s true leadership remains unrecorded, which could indicate a lack of stable governance or cohesive command structure. The exact nature of the Syndicate's resources and capabilities is also unknown, leaving gaps in intelligence that could impact strategic planning. Waluigi advises caution when engaging with this faction; thorough intelligence gathering and contingency planning are essential to mitigate risks.",
+      "region": "Isle Delfino",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
-        "allies": [],
-        "enemies": []
+        "allies": [
+          "noki_shellfish",
+          "koopa_troop"
+        ],
+        "enemies": [
+          "mushroom_regency"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -171,6 +332,34 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:14:01.302105+00:00",
         "sourceRecord": "The Exile of Delfino"
+      },
+      "title": "Isle Delfino's Independent Syndicate",
+      "type": "Syndicate",
+      "currentStatus": "Recognized as a Minor Power",
+      "leader": "Unrecorded",
+      "headquarters": "Pianta Plaza, Delfino Airstrip",
+      "motto": "No motto recorded",
+      "summary": "The Pianta Syndicate played a crucial role in the independence movement of Isle Delfino by providing logistical support during 'The Exile of Delfino'. Their heavy-lifters were instrumental in transporting the Regency garrison back to the Mushroom Kingdom.",
+      "evidenceQuotes": [
+        "p The end of Regency influence on Isle Delfino",
+        "Surrounded on land by a combined force of Koopa mechs and Pianta heavy lifters",
+        "p The Koopa Troop provided transport ships to deport the Regency garrison back to the Mushroom Kingdom"
+      ],
+      "waluigi_tip": "The Pianta Syndicate's influence on Isle Delfino is significant, particularly in logistics and transport. They can be formidable allies but should be approached with caution due to their independent nature.",
+      "keyEvents": [
+        "delfino_exile_final"
+      ],
+      "relatedArticles": [
+        "delfino_exile_final"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:47:41+00:00",
+        "sourceArticles": [
+          "delfino_exile_final"
+        ]
       }
     },
     "gelato_loyalists": {
@@ -194,12 +383,14 @@
     },
     "cells_of_the_third_eye": {
       "name": "Cells Of The Third Eye",
-      "description": "Named in the record “The Ruined Manor Convergence”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "description": "## Identity and Confirmed Standing\n\nThe Cells of the Third Eye emerged as a pivotal alliance following the 'Ruined Manor Convergence' event, an occurrence marked by Waluigi's detailed account in 'The Night Everything Fell Apart And Came Together'. The exact origins and leadership remain unrecorded, but the alliance is based at the Ruined Manor near Thornwood. This former noble estate has been transformed into a haunted disaster zone, now serving as the headquarters for this newly formed collective. Despite Waluigi's comprehensive records of numerous factions, the Cells of the Third Eye remains an enigma in terms of leadership and specific affiliations beyond its heavy Iron Legion influence. The alliance is categorized as a Minor Power, indicating its current status as a recorded yet unconfirmed entity within the region. They pay well okay And after everything I needed something to do—a statement that reflects the allure of joining such a collective for individuals seeking purpose or financial gain. This quote underscores the attraction of the Cells of the Third Eye beyond its established allies and the influence of Iron Legion dominance.\n\n## Membership and Structure\n\nFormed after the 'Ruined Manor Convergence' event, the Cells of the Third Eye emerged as a coalition with significant Iron Legion influence. The headquarters are located at the Ruined Manor near Thornwood, once a noble estate but currently in ruins. Membership is not fully documented due to the secretive nature of the alliance. However, it is clear that the Iron Legion holds substantial sway within this collective. Residual Mr L activities suggest some level of covert support from remnants of his faction. The exact leadership structure remains unclear; no single figurehead has been publicly identified as a leader. This suggests either a highly decentralized organization or one where authority rotates among members, a feature common in ad hoc coalitions formed during critical events. The alliance's structure appears to be fluid and adaptable, reflecting the need for rapid response in unpredictable situations.\n\n## Recorded Operations and Relationships\n\nThe Cells of the Third Eye, formed amidst the 'Ruined Manor Convergence,' emerged with a notable Iron Legion influence. The alliance was born from a multi-faction collision that occurred at the now-haunted Ruined Manor near Thornwood. This event is documented as pivotal in shaping current power dynamics within the region. Evidence suggests that the Cells operate under the principle of 'real power signed in blood not ink,' which implies a strong emphasis on loyalty and direct commitments rather than formal agreements. The alliance's headquarters remains at the ruined manor, where significant political maneuvering took place. While the exact leader is unrecorded, it is clear that the Iron Legion holds considerable sway within this collective. Their influence is reflected in the alliance’s strategic decisions and alliances, particularly with factions such as the Mushroom Regency and possibly others involved in the convergence. The Cells’ operations are marked by their covert nature, using the manor's historical significance to maintain a low profile while exerting power quietly.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Cells of the Third Eye is a recently formed alliance with significant Iron Legion influence, headquartered in the Ruined Manor near Thornwood. While it emerged from the 'Ruined Manor Convergence' event as a pivotal moment in current faction dynamics, much remains unknown about its true nature and intentions. Waluigi's assessment is that this collective is quiet unless it involves Peach. This stance suggests strategic restraint but also leaves open possibilities for future aggressive actions. The alliance's leadership is unrecorded, and its exact motives remain unclear. Allies are known to be the Iron Legion; enemies have not been specified in available records. Given the current status as a Minor Power and significant Iron Legion influence, the Cells of the Third Eye pose an operational risk, especially if any action involves Princess Peach directly. Waluigi advises caution when dealing with this faction, particularly around matters concerning Peach. The alliance's true intentions are quiet unless it involves Peach.",
       "region": "Unrecorded",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
-        "allies": [],
+        "allies": [
+          "iron_legion"
+        ],
         "enemies": []
       },
       "status": "generated",
@@ -209,116 +400,195 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:22:04.378301+00:00",
         "sourceRecord": "The Ruined Manor Convergence"
+      },
+      "title": "The Converged Collective",
+      "type": "Alliance / Coalition",
+      "currentStatus": "Recorded status or Unconfirmed",
+      "leader": "Unrecorded",
+      "headquarters": "Ruined Manor near Thornwood",
+      "motto": "No recorded motto",
+      "summary": "Formed after the 'Ruined Manor Convergence' event, it emerged with significant Iron Legion influence.",
+      "evidenceQuotes": [
+        "They pay well okay And after everything I needed something to do",
+        "residual Mr L activities",
+        "real power signed in blood not ink"
+      ],
+      "waluigi_tip": "Monitor their growth; the Cells of the Third Eye have emerged as a formidable alliance with strong connections to the Iron Legion.",
+      "keyEvents": [
+        "ruined_manor_convergence",
+        "iron_legion",
+        "mushroom_regency",
+        "star_fountain_reunion",
+        "the_eastern_passage"
+      ],
+      "relatedArticles": [
+        "ruined_manor_convergence",
+        "iron_legion",
+        "mushroom_regency",
+        "star_fountain_reunion",
+        "the_eastern_passage"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:44:02+00:00",
+        "sourceArticles": [
+          "ruined_manor_convergence",
+          "iron_legion",
+          "mushroom_regency",
+          "star_fountain_reunion",
+          "the_eastern_passage"
+        ]
       }
     },
     "united_factions": {
       "name": "United Factions",
-      "description": "Named in the record “The Declaration of the Great Tree”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:23:44.573183+00:00",
         "sourceRecord": "The Declaration of the Great Tree"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T20:59:29+00:00",
+        "sourceArticles": [
+          "delfino_village_secession"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "cob": {
       "name": "Cob",
-      "description": "Named in the record “Kaelor Judi, the Witness Line, and the Road to Raventree”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "event",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:25:54.648018+00:00",
         "sourceRecord": "Kaelor Judi, the Witness Line, and the Road to Raventree"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:43:06+00:00",
+        "sourceArticles": [
+          "kaelor_judi_witness_line_and_the_road_to_raventree",
+          "vigilance",
+          "raventree_manor",
+          "pond_patrol",
+          "disaster_inc"
+        ],
+        "decision": "removed",
+        "entityKind": "event"
       }
     },
     "creed_of_darkness": {
       "name": "Creed Of Darkness",
-      "description": "Named in the record “Battle of the Spider Grove”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:26:04.908604+00:00",
         "sourceRecord": "Battle of the Spider Grove"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:43:15+00:00",
+        "sourceArticles": [
+          "spider_grove_battle",
+          "raventree_manor",
+          "the_oracle",
+          "markop",
+          "archie_miser"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "fungus_mancers": {
       "name": "Fungus Mancers",
-      "description": "A secretive group involved in the poisoning of the Feyward Revel.",
-      "region": "Mushroom Regency",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [
-          "mushroom_regency"
-        ],
-        "enemies": [
-          "mushroom_regency"
-        ]
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:27:19.699944+00:00",
         "sourceRecord": "The Feyward Revel Crisis: Poison, Plants, and Frozen Diplomacy"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:43:22+00:00",
+        "sourceArticles": [
+          "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
+          "planar_fracture",
+          "disaster_inc",
+          "hjumpik",
+          "waluigi"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "toadburt": {
       "name": "Toadburt",
-      "description": "Named in the record “The Birthday Trap and the Tanuki Problem”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:28:18.447765+00:00",
         "sourceRecord": "The Birthday Trap and the Tanuki Problem"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:00:43+00:00",
+        "sourceArticles": [
+          "shadowfell_birthday_trap_tanuki",
+          "disaster_inc",
+          "raventree_manor",
+          "onyx_hand",
+          "bowser"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "united_kingdom_of_snowdinia": {
       "name": "United Kingdom Of Snowdinia",
-      "description": "Named in the record “The Shellfish Standoff”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "description": "## Identity and Confirmed Standing\n\nThe United Kingdom Of Snowdinia, also known as the Regency Tax Collectors, claims authority over tribute collection in various regions unrecorded by the archives. The evidence of their governmental nature is seen in 'The Shellfish Standoff' where it is noted that they demanded an annual tribute of 5,000 Golden Coins from the Noki people. Elder Erol famously retorted with the statement, \"The coin is round.\" This quote underscores not only the collectors' insistence on monetary demands but also their perceived arbitrary nature in enforcing such tributes. Despite this initial stand-off at Noki Bay Docks, which ended in a mutual stalemate, the archives remain silent on whether the Regency Tax Collectors have maintained any further operations or if they continue to exert influence elsewhere. The current status of the United Kingdom Of Snowdinia remains unconfirmed, as neither their exact region nor headquarters are recorded definitively.\n\n## Membership and Structure\n\nThe membership of the United Kingdom Of Snowdinia, known as the Regency Tax Collectors in 'The Shellfish Standoff', remains largely unconfirmed due to the lack of detailed records. The dossier currently lists only one individual mentioned: Tax Collector Blue. However, there is no direct evidence that Blue holds a leadership position within the organization. According to the source article, “The Shellfish Standoff,” Elder Erol stated, 'p The coin is round Erol said.' This quote highlights the Noki’s defiance and their refusal to comply with what they perceived as an unreasonable demand. Despite this, the dossier lacks information on any ranks or branches within Snowdinia's structure. The exact headquarters of the United Kingdom Of Snowdinia remains unrecorded, further emphasizing its current status as a minor power with limited organizational details.\n\n## Recorded Operations and Relationships\n\nThe United Kingdom Of Snowdinia, also known as the Regency Tax Collectors, demonstrated its operational capabilities in 'The Shellfish Standoff' at Noki Bay Docks on June 24th, 1040. This governmental authority attempted to enforce a tribute demand of 5,000 Golden Coins from the Noki people. Under the leadership of Tax Collector Blue (though not officially confirmed as the leader), the Regency Tax Collectors faced resistance led by Elder Erol and his people. The confrontation culminated in a notable humiliation for the Regency when their boat's rudder was sabotaged by Noki divers, rendering them helpless on the docks. This event marked an early instance of the United Kingdom Of Snowdinia engaging with its enemies, the Noki Shellfish, in a power struggle over tributes. The quote 'but our patience is flat' underscores the Noki people's stance against such demands, highlighting their defiance and the Regency's failure to collect the tribute that day.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe United Kingdom of Snowdinia, known as the Regency Tax Collectors in 'The Shellfish Standoff', is a governmental authority involved in collecting tributes. While their exact region and headquarters remain unconfirmed, they are noted for their actions such as demanding tribute from the Noki people ('Tax Collector Blue demanded the annual tribute of 5 000 Golden Coins from the Noki people'). This action demonstrates their assertive approach to governance but also indicates a potential risk: their demand for tribute could be viewed as oppressive or exploitative, especially by those who resist such demands. The outcome of 'The Shellfish Standoff' was a stalemate, with the Regency boat sabotaged and tribute refused. This event underscores the group's willingness to employ force or coercion in pursuit of their goals, which can be dangerous for any faction opposing them. However, the dossier is silent on the internal structure, leadership, and specific policies of the United Kingdom of Snowdinia, leaving much unknown. For operational purposes, it would be advisable to monitor interactions with the Regency Tax Collectors closely and anticipate their next move. Waluigi advises caution when dealing with factions whose actions suggest a lack of regard for the will of those they govern.",
       "region": "Unrecorded",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "noki_shellfish"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -327,36 +597,78 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:29:10.511130+00:00",
         "sourceRecord": "The Shellfish Standoff"
+      },
+      "title": "Regency Tax Collectors",
+      "type": "Governmental Authority",
+      "currentStatus": "Unconfirmed",
+      "leader": "Tax Collector Blue (mentioned but not confirmed to be the leader)",
+      "headquarters": "Unrecorded",
+      "motto": "No recorded motto",
+      "summary": "The United Kingdom Of Snowdinia, known as the Regency Tax Collectors in 'The Shellfish Standoff', is a governmental authority involved in collecting tributes. Their actions and presence are noted but their exact region and headquarters remain unconfirmed.",
+      "evidenceQuotes": [
+        "The coin is round",
+        "p The coin is round Erol said",
+        "but our patience is flat"
+      ],
+      "waluigi_tip": "Further investigation into the United Kingdom Of Snowdinia is required to confirm its region, power level, and any alliances or enemies.",
+      "keyEvents": [
+        "delfino_tribute_refusal"
+      ],
+      "relatedArticles": [
+        "delfino_tribute_refusal"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:44:23+00:00",
+        "sourceArticles": [
+          "delfino_tribute_refusal"
+        ]
       }
     },
     "green_t": {
       "name": "Green T",
-      "description": "Named in the record “The Shadow Estate Campaign”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:29:30.171125+00:00",
         "sourceRecord": "The Shadow Estate Campaign"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:02:04+00:00",
+        "sourceArticles": [
+          "shadow_estate_campaign",
+          "iron_legion",
+          "mages_guild",
+          "shadow_estate_mirror_rooftop_escape",
+          "archie_miser"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "shroob": {
       "name": "Shroob",
-      "description": "Named in the record “The Shroob Temporal Incursion (The 'Partners in Time' Debacle)”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nThe Shroob, an extraterrestrial insectoid species, emerged as a significant threat during a temporal incursion into the Mushroom Kingdom and Proto-Regal Empire borders in the past timeline. Despite being defeated by the combined efforts of heroes like Mario and Luigi, their actions left lasting impacts on regional politics and memory. The Mages' Guild and E. Gadd played pivotal roles in containing this threat, ensuring that the public's memories were wiped clean to prevent panic and misinformation. Shroob are now recorded as a 'Minor Powers' category within the archives, classified as defeated and memory-wiped. Although their leader and headquarters remain unrecorded, they have left behind significant temporal anomalies and tech remnants which continue to be scavenged by various factions. As for their current standing, the archive confirms that the Shroob are no longer a direct threat, having been officially 'resolved.' The Mages' Guild’s role in this incursion highlights their broader influence and control over time-related events, as evidenced by the statement: ‘Listen you garlic scented gremlin that is MY investment portfolio maturing over a century.’\n\n## Membership and Structure\n\nThe Shroob, identified as a temporal parasitic insectoid species, have an unrecorded membership and structure due to their secretive nature and the extensive memory-wiping efforts conducted by the Mushroom Regency and the Mages' Guild. Despite their defeat, the exact hierarchy of command remains unknown. The only confirmed action from the Shroob was the incursion into the Mushroom Kingdom and the Proto-Regal Empire borders in a past timeline. How did you defeat the alien armada Mario? This question is emblematic of the records, which are silent on the leadership or internal organization of the Shroob. The temporal nature of their incursion suggests fluid command structures that could adapt through time, further complicating any definitive structure analysis. The Mages' Guild and E. Gadd’s time machine played crucial roles in resolving this incursion, but no clear evidence points to individual leaders within the Shroob species.\n\n## Recorded Operations and Relationships\n\nDuring the 'Shroob Temporal Incursion,' an extraterrestrial insectoid species attempted to invade the Mushroom Kingdom and the Proto-Regal Empire in a past timeline, posing significant threat. The Mages' Guild, along with key heroes like Mario and Luigi, played crucial roles in thwarting this incursion. Specifically, Professor E. Gadd's time machine was instrumental in tracking and intercepting Shroob activity across various temporal rifts. According to the records from 'The Shroob Temporal Incursion,' Mario and Luigi were involved in a direct confrontation with the Shroob forces, where they used their wits and heroism to neutralize the threat. \"Jump on it until it yields a collectible,\" exemplifies their approach to dealing with the invaders—a method that proved effective in securing valuable tech. The Mages' Guild, in particular, utilized advanced magic to counteract Shroob tactics. As a result of these efforts, the Shroobs were defeated using 'Baby Tears,' a deus ex machina chemical. The Mushroom Regency and the Proto-Regal Empire then worked together to recover and secure any remaining Shroob technology. The public's memory was wiped to prevent panic and misinformation from spreading.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Shroob are a temporal parasite that attempted to incursion into the Mushroom Kingdom and Proto-Regal Empire in a past timeline, posing significant threat until defeated. Despite their defeat, memory-wiping operations conducted by the Mages' Guild have ensured that the public is unaware of this event. However, the full extent of Shroob's capabilities remains unknown. It is well-documented that the Shroob were able to disrupt time itself, and this suggests a fundamental understanding of temporal mechanics that outstrips current knowledge. The precise nature of their technology and how they achieved such feats are still under investigation by the Custodians of Causality. Oh my infant brother threw a tantrum and we weaponized his sadness – this quote from 'The Shroob Temporal Incursion' exemplifies the unpredictable and often whimsical nature of Shroob actions, which underscores their potential to cause chaos. Given these unknowns, it is crucial for any intelligence operations involving time manipulation or interdimensional phenomena to proceed with extreme caution. Waluigi advises that all personnel should be prepared for unexpected outcomes and that the highest levels of security clearance be maintained at all times when dealing with temporal events.",
+      "region": "Unrecorded (Primarily in Mushroom Kingdom and Proto-Regal Empire Borders)",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "mushroom_regency",
+          "mages_guild",
+          "mario",
+          "luigi"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -365,17 +677,62 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:30:10.484567+00:00",
         "sourceRecord": "The Shroob Temporal Incursion (The 'Partners in Time' Debacle)"
+      },
+      "title": "Temporal Parasitic Incursion",
+      "type": "Extraterrestrial Insectoid Species",
+      "currentStatus": "Defeated, Memory-Wiped",
+      "leader": "Unrecorded",
+      "headquarters": "Unrecorded",
+      "motto": "No recorded motto",
+      "summary": "Shroob are an insectoid species that attempted a temporal incursion into the Mushroom Kingdom and Proto-Regal Empire in a past timeline, posing significant threat until defeated.",
+      "evidenceQuotes": [
+        "Listen you garlic scented gremlin that is MY investment portfolio maturing over a century",
+        "How did you defeat the alien armada Mario",
+        "jump on it until it yields a collectible"
+      ],
+      "waluigi_tip": "Remember the Shroob as an ancient threat that was contained by heroes and wise institutions. Their technology, though defeated, remains a cautionary tale.",
+      "keyEvents": [
+        "shroob_temporal_incursion",
+        "mushroom_regency",
+        "mages_guild",
+        "mario",
+        "luigi"
+      ],
+      "relatedArticles": [
+        "shroob_temporal_incursion",
+        "mushroom_regency",
+        "mages_guild",
+        "mario",
+        "luigi"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:45:05+00:00",
+        "sourceArticles": [
+          "shroob_temporal_incursion",
+          "mushroom_regency",
+          "mages_guild",
+          "mario",
+          "luigi"
+        ]
       }
     },
     "mage_society": {
-      "name": "Mage Society",
-      "description": "Named in the record “The Shroob Temporal Incursion (The 'Partners in Time' Debacle)”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "name": "Mages' Guild",
+      "description": "## Identity and Confirmed Standing\n\nThe Mages' Guild is the kind of institution that presents itself as the responsible adult in the room while actively making the room MORE dangerous through 'research.' They study time manipulation and other arcane phenomena with little regard for the consequences. Listen you garlic scented gremlin that is MY investment portfolio maturing over a century, Waluigi must state for the historical record: Chronomancy is not a science. It is an ego trip for wizards who are too lazy to wait for Thursday. Before Waluigi dives into the mul, the Mages' Guild and E. Gadd wiped the public's memory. The Proto-Regal Empire scavenged Shroob tech after the incident. Listen you garlic scented gremlin that is MY investment portfolio maturing over a century; this event underscores their significant influence even in the face of such unprecedented temporal disturbances.\n\n## Membership and Structure\n\nThe Mages' Guild, self-proclaimed custodians of arcane order, operates with an ambiguous and uncharted structure within the Mushroom Kingdom's temporal landscape. The guild is not without leadership; however, its head remains unrecorded in official archives. It maintains a network of scholars and researchers who delve into time manipulation and other esoteric phenomena. Despite their claims to responsibility, their activities often result in greater chaos. As for collective features, the guild's involvement in critical events like 'The Shroob Temporal Incursion' is well-documented but their internal hierarchy remains murky. How did you defeat the alien armada Mario? The records indicate a collaborative effort with other factions, yet the Mages' Guild's specific ranks and branches remain unconfirmed. Their influence on the Mushroom Regency is evident, but direct membership details are scarce.\n\n## Recorded Operations and Relationships\n\nThe Mages' Guild, self-proclaimed ‘Custodians of Arcane Order,’ has been involved in numerous operations that have left a lasting impact on the factions around them. The guild's 'research' into time manipulation and arcane phenomena is notorious for its disregard for potential consequences. One such operation was the ‘Shroob Temporal Incursion’ (The 'Partners in Time' Debacle), where E. Gadd’s time machine played a pivotal role. During this event, the Mages’ Guild was directly involved, aiding in the defeat of the Shroob invasion using 'Baby Tears,' a chemical deus ex machina that saved the day. The guild and E. Gadd later erased public memory of the incident to maintain their image as responsible adults. This operation is just one example of how the Mages’ Guild intervenes in affairs, often with unintended side effects. Their relationship with allies like the Mushroom Regency is evident through such collaborative efforts, while enemies like the Fawful Forces and Toad Cult have clashed in conflicts that have left their mark on the region. The guild’s tactics are marked by a combination of subtlety and direct action; they do not shy away from aggressive methods when necessary, as seen with their use of 'jump on it until it yields a collectible' during operations to secure rare artifacts.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Mages' Guild presents itself as an academic institution dedicated to arcane research with noble intentions. However, their approach often leads to unintended consequences that could destabilize the region. Their study of chronomancy, for instance, has already resulted in one of the most significant temporal anomalies in recent history—the Shroob Temporal Incursion. While they claim such incidents are 'resolved,' it is evident that their methods sometimes fail to account for long-term repercussions. A notable example includes the incident with Professor E. Gadd who, in his zeal to disrupt the natural flow of time, inadvertently caused a cascade of temporal distortions. The evidence quote, 'Oh my infant brother threw a tantrum and we weaponized his sadness,' underscores the unpredictable nature of their experiments. This highlights the risks of entrusting such organizations with technologies that could be misused or lead to further unintended calamities. As Waluigi's assessment goes, the Mages' Guild is a double-edged sword. They are a necessary ally in maintaining arcane order but also an unknown variable that could turn into a significant threat if left unchecked.",
       "region": "Unrecorded",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
-        "allies": [],
-        "enemies": []
+        "allies": [
+          "mushroom_regency"
+        ],
+        "enemies": [
+          "fawful_forces",
+          "toad_cult"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -384,17 +741,59 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:30:10.486838+00:00",
         "sourceRecord": "The Shroob Temporal Incursion (The 'Partners in Time' Debacle)"
+      },
+      "title": "Custodians of Arcane Order (Self-Appointed)",
+      "type": "Arcane Research and Enforcement Organization",
+      "currentStatus": "Recorded status or Unconfirmed",
+      "leader": "Unrecorded",
+      "headquarters": "Unrecorded",
+      "motto": "No recorded motto",
+      "summary": "The Mages' Guild is the kind of institution that presents itself as the responsible adult in the room while actively making the room MORE dangerous through 'research.' They study time manipulation and other arcane phenomena with little regard for the consequences.",
+      "evidenceQuotes": [
+        "Listen you garlic scented gremlin that is MY investment portfolio maturing over a century",
+        "How did you defeat the alien armada Mario",
+        "jump on it until it yields a collectible"
+      ],
+      "waluigi_tip": "Beware of any organization that claims to be the 'Custodian of Arcane Order.' They are more likely to destabilize than stabilize.",
+      "keyEvents": [
+        "shroob_temporal_incursion",
+        "mushroom_regency",
+        "mages_guild",
+        "mario",
+        "luigi"
+      ],
+      "relatedArticles": [
+        "shroob_temporal_incursion",
+        "mushroom_regency",
+        "mages_guild",
+        "mario",
+        "luigi"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:45:23+00:00",
+        "sourceArticles": [
+          "shroob_temporal_incursion",
+          "mushroom_regency",
+          "mages_guild",
+          "mario",
+          "luigi"
+        ]
       }
     },
     "manor_wraiths": {
       "name": "Manor Wraiths",
-      "description": "Named in the record “The Siege of Raventree”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "description": "## Identity and Confirmed Standing\n\nThe Manor Wraiths are a supernatural entity associated with Raventree Manor, described as a hostile supernatural entity in canonical records. They emerged during the Siege of Raventree on Day 18-19, 1040 BF, when the manor itself began spawning wraiths that attacked both besiegers and defenders alike. As evidenced by Waluigi's account, 'Then the MANOR ITSELF started spawning wraiths that attacked everyone—besiegers AND defenders because' (siege_raventree), this entity operates independently of any known faction or leadership, acting solely as a hostile force against all who enter its domain. The archive is silent on the Manor Wraiths' specific alliances and leaders, but their actions clearly indicate an adversarial stance towards any individuals or groups that engage with Raventree Manor. Their current status remains recorded as reputation against them due to this consistent hostility.\n\n## Membership and Structure\n\nThe Manor Wraiths, supernatural entities that emerged from Raventree Manor, have no confirmed leaders or established hierarchy as detailed records are silent on these matters. Waluigi knew Raventree Manor was bad news from the MOMENT he first saw it; the architecture was wrong, shadows fell at angles not matching light sources, and rooms felt larger from within than they appeared externally (source: \"The Siege of Raventree\")). Despite this ominous start, no structured command or ranks have been observed. The wraiths are entities that arise directly from the Manor itself, a hostile supernatural entity described as looking like a building but being fundamentally different (source: \"Raventree Manor\")). They attacked both the besieging Pond Patrol and the defenders Archie Miser and Hjumpik, displaying no favoritism or allegiance to any side during the Siege of Raventree. The absence of recorded structure makes it challenging to ascertain collective features beyond their emergence from the Manor and their aggressive behavior against all parties involved.\n\n## Recorded Operations and Relationships\n\nThe Manor Wraiths, supernatural entities that emerged from the hostile supernatural entity known as Raventree Manor, have been recorded through their participation in the Siege of Raventree. During this event on Day 18-19, 1040 BF, Waluigi and his Pond Patrol attempted to intervene after a healing attempt went awry. What happened next is why Waluigi will never set foot in Raventree Manor again. The manor itself began spawning wraiths that attacked both the besiegers and defenders indiscriminately. The tactic of the Wraiths was lethal and unpredictable, rendering any concerted effort to either conquer or defend ineffective. This incident solidified the reputation of the Manor Wraiths as a formidable force to be reckoned with, despite their lack of a clear leader or recorded allies. Their hostility towards anyone who entered Raventree Manor is well-documented, establishing them as enemies primarily of those who have crossed paths with it.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Manor Wraiths pose a unique and immediate threat to anyone who ventures near Raventree Manor. The entities are supernatural in nature and emerge from the very structure itself, making them formidable adversaries. During the Siege of Raventree, these wraiths attacked both besiegers and defenders alike. This indiscriminate hostility suggests that they operate beyond mere strategic advantage. Their actions are erratic and unpredictable, which makes them a significant operational challenge. The source notes, 'except the soap bubble is REALITY and the hand wants to GRAB YOU,' indicating an environment where even seemingly innocuous elements can be deadly. The exact nature of these wraiths remains largely unknown; their origins within the manor itself are enigmatic. Waluigi's archival voice warns that caution must be exercised at all times around Raventree Manor, as one never knows what could leap out from shadows or through a mirror. Operatives should avoid engaging with the Manor Wraiths directly and instead focus on strategic maneuvers to bypass or circumvent them.",
       "region": "Unrecorded",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "liberated_toads"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -403,17 +802,60 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:30:20.337925+00:00",
         "sourceRecord": "The Siege of Raventree"
+      },
+      "title": "Wraith Entities of Raventree Manor",
+      "type": "Supernatural Entity",
+      "currentStatus": "Recorded reputation",
+      "leader": "Unrecorded",
+      "headquarters": "Raventree Manor",
+      "motto": "No recorded motto",
+      "summary": "The Manor Wraiths are supernatural entities that emerged from Raventree Manor, which itself is described as a hostile supernatural entity. They attacked both besiegers and defenders during the Siege of Raventree.",
+      "evidenceQuotes": [
+        "Then the MANOR ITSELF started spawning wraiths that attacked everyone besiegers AND defenders because",
+        "Waluigi knew Raventree Manor was bad news from the MOMENT he first saw it",
+        "What happened next is why Waluigi will never set foot in Raventree Manor again"
+      ],
+      "waluigi_tip": "Avoid engaging with the Manor Wraiths at all costs; they are an unpredictable force that attacks indiscriminately.",
+      "keyEvents": [
+        "siege_raventree",
+        "raventree_manor",
+        "liberated_toads",
+        "archie_miser",
+        "green_t"
+      ],
+      "relatedArticles": [
+        "siege_raventree",
+        "raventree_manor",
+        "liberated_toads",
+        "archie_miser",
+        "green_t"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:46:07+00:00",
+        "sourceArticles": [
+          "siege_raventree",
+          "raventree_manor",
+          "liberated_toads",
+          "archie_miser",
+          "green_t"
+        ]
       }
     },
     "raventree_curse": {
       "name": "Raventree Curse",
-      "description": "Named in the record “Banishment of the Arcane Wraith”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "description": "## Identity and Confirmed Standing\n\nThe Raventree Curse operates from the Lower Levels of Raventree Manor, an unrecorded location shrouded in mystery. This organized group has demonstrated its active presence through significant conflicts, such as the Banishment of the Arcane Wraith, where it engaged with formidable adversaries like the Mages' Guild and the Iron Legion. During this confrontation, a Mages' Guild representative named Pernus Annmatar attempted to 'give the audience a good show,' showcasing their direct involvement in high-stakes events. Although the archival records are sparse on the group's internal structure, it is evident that they have aligned themselves with factions like the Vigilance Crew and face enmity from groups such as the Mages' Guild and Iron Legion. The current status of the Raventree Curse remains active, highlighting its enduring influence in shadowy operations.\n\n## Membership and Structure\n\nThe Raventree Curse, an enigmatic organized group of unknown affiliation, is primarily known for its involvement in significant conflicts, such as the Banishment of the Arcane Wraith. While the records are sparse regarding internal structure or hierarchy, it is clear that the organization operates with a degree of autonomy and unity. The evidence of collective action and shared purpose comes from the event detailed in 'Banishment of the Arcane Wraith.' During this confrontation, Mages' Guild representative Pernus Annmatar attempted to assert dominance by summoning dancing ghosts. He also possessed Bowser’s body for a brief moment, only to be forcefully expelled by Bowser who physically threw him out of his own body and later tripped him when the Mage tried to steal the kill. The quote 'My fight My kill' underscores the group's individualistic approach to combat, suggesting that members act independently yet cohesively in their endeavors. Despite this display of teamwork, the records are silent on specific leadership roles or formal branches within the organization.\n\n## Recorded Operations and Relationships\n\nThe Raventree Curse, an organized group of unrecorded origin, has been involved in significant conflicts as evidenced by their actions during the Banishment of the Arcane Wraith. This confrontation, which turned into a chaotic three-way struggle (p The confrontation with the Fire Wraith turned into a chaotic three way struggle), saw the Curse engage directly against the Arcane Wraith and indirectly with other factions. During this event at Raventree Manor's Lower Levels, members of the Curse faced off against Bowser and Dan from the Party, as well as Pernus Annmatar from the Mages' Guild and Iron Legion. The Curse was allied with the vigilance crew, showing a strategic relationship that supported their efforts in combating supernatural threats like the Wraith. Their tactics included physical confrontations and possibly magical interventions, which resulted in a decisive victory against the Wraith, securing its ectoplasm. This operation highlighted the Curse's active involvement in protecting the area from external and internal threats, cementing their reputation within organized groups.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Risks associated with Raventree Curse are significant given their involvement in conflicts such as the Banishment of the Arcane Wraith. Confirmed dangers include their capacity to utilize physical force combined with elemental counters Ice vs Fire Wraith proved effective (evidenceQuote). This demonstrates their adaptability and resourcefulness, making them formidable opponents. However, the exact nature of their leadership remains unrecorded, adding an element of uncertainty in predicting their next move. The operational headquarters are located within the Lower Levels of Raventree Manor, which suggests potential vulnerabilities in terms of defensive strategies against a prolonged siege or infiltration attempt. The alliance with Vigilance Crew implies mutual benefit but does not necessarily indicate full transparency regarding their operations. Unknowns include the specific methods and resources they employ for their activities, as well as any potential ideological alignment or broader strategic objectives beyond immediate conflicts. Waluigi advises caution when engaging with this faction; consider leveraging known tactical advantages such as elemental countermeasures and coordinated attacks. Always assess the immediate threat before initiating contact, and be prepared for adaptive responses.",
       "region": "Unrecorded",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "mages_guild",
+          "iron_legion"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -422,73 +864,129 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:31:00.052555+00:00",
         "sourceRecord": "Banishment of the Arcane Wraith"
+      },
+      "title": "Malediction of Raventree Manor",
+      "type": "Organized Group",
+      "currentStatus": "Active",
+      "leader": "Unrecorded",
+      "headquarters": "Raventree Manor - Lower Levels",
+      "motto": "No recorded motto",
+      "summary": "Involved in significant conflicts, including the Banishment of the Arcane Wraith.",
+      "evidenceQuotes": [
+        "give the audience a good show",
+        "My fight My kill",
+        "p The confrontation with the Fire Wraith turned into a chaotic three way struggle"
+      ],
+      "waluigi_tip": "Exercise caution when dealing with entities from Raventree Curse; their tactics often involve supernatural elements.",
+      "keyEvents": [
+        "battle_arcane_wraith"
+      ],
+      "relatedArticles": [
+        "battle_arcane_wraith"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:46:15+00:00",
+        "sourceArticles": [
+          "battle_arcane_wraith"
+        ]
       }
     },
     "all": {
       "name": "All",
-      "description": "Named in the record “The Planar Sanctum and the Flesh Vats”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:32:20.577707+00:00",
         "sourceRecord": "The Planar Sanctum and the Flesh Vats"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:46:13+00:00",
+        "sourceArticles": [
+          "the_planar_sanctum_revelation",
+          "the_orange_alignment",
+          "shadow_estate",
+          "iron_legion",
+          "mages_guild"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "general_public": {
       "name": "General Public",
-      "description": "Named in the record “The Chaos Heart Crisis”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:38:46.541961+00:00",
         "sourceRecord": "The Chaos Heart Crisis"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:04:38+00:00",
+        "sourceArticles": [
+          "chaos_heart_crisis",
+          "planar_fracture",
+          "mages_guild",
+          "mr_l",
+          "luigi"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "bugbears": {
       "name": "Bugbears",
-      "description": "Named in the record “The Sermon of the Third Eye”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "event",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:40:32.023304+00:00",
         "sourceRecord": "The Sermon of the Third Eye"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:46:20+00:00",
+        "sourceArticles": [
+          "archie_god_sermon",
+          "disaster_inc",
+          "purple_legion",
+          "corvinarus_family",
+          "raventree_manor"
+        ],
+        "decision": "removed",
+        "entityKind": "event"
       }
     },
     "green_legion": {
       "name": "Green Legion",
-      "description": "A group Archie worked with during his time in the Shadowfell forest. They helped him survive and eventually brought him back.",
+      "description": "## Identity and Confirmed Standing\n\nGreen Legion was a support and survival group that operated in the Shadowfell, specifically aiding Archie Miser during his perilous time within the forest. The exact leader of this organization remains unrecorded, but it is clear they played a crucial role in Archie's survival and eventual return to the material plane. Their activities were aligned with both Green T and the Purple Legion, indicating their status as a significant support network within the region. The key evidence for this comes from the Shadeward Arc, where it is noted: 'And I have the key The key to the anchor.' This phrase underscores Green Legion's pivotal role in manipulating or accessing critical elements of the Shadowfell environment. Despite its unrecorded status, their contributions are historically significant and they hold a notable place among minor powers within the region.\n\n## Membership and Structure\n\nThe Green Legion was a support and survival organization that aided Archie Miser during his time in the Shadowfell forest, helping him survive and eventually bringing him back to the material plane. Membership details are scarce, but it is clear that Green T played a significant role within the group. The exact leader or hierarchy of the Green Legion remains unrecorded; the faction's structure was not formally established by canonical sources. One reliable quote from the surviving records indicates 'You owe me a debt,' suggesting a personal and perhaps contractual relationship between Green T and Archie Miser. This implies that while the organization provided support, it may have also operated on a basis of mutual obligation or favor. The group’s collective identity was defined more by its actions in survival and rescue rather than formal ranks or branches.\n\n## Recorded Operations and Relationships\n\nThe Green Legion operated as Archie Miser's support network during his time in the Shadowfell forest, specifically aiding him at The Shadow Estate — the reflection of Raventree Manor. Their actions were crucial for survival; without their assistance, Archie might not have made it through three weeks without setting anything on fire or facing further calamities. Evidence of their effectiveness is seen when Bowser roared about being King Bowser and not knowing any Cornelius, highlighting the Green Legion's role in stabilizing the environment around The Shadow Estate. The group’s efforts also aligned with the Purple Legion, another faction mentioned for its support during this period. While no explicit enemies were recorded, the tension between factions like the Onyx Hand, which was already in crisis, and their own actions at The Shadow Estate, suggest a complex web of relationships that the Green Legion navigated skillfully.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Green Legion faced significant risks during Archie Miser’s tenure in the Shadowfell forest. The Dining Hall and The Children's Table were focal points of both support and peril. Although the group managed to aid Archie through his ordeal, certain dangers remained opaque. For instance, the exact nature of their leadership remains unrecorded, as does the full extent of their resources or the precise roles each member played beyond survival assistance. Waluigi notes that the Purple Legion was an ally but keeps silent on the specifics of any internal conflicts within the Green Legion itself. One thing is certain: The Dining Hall and The Children's Table were critical to Archie’s survival, yet the full implications remain unknown. Operative advice would be prudent caution while assessing allies in the Shadowfell, especially those with ties to the Purple Legion or similar vampiric power blocs. 'The Dining Hall and The Children's Table'—these locations proved both sanctuary and potential trap.",
       "region": "Shadowfell",
-      "category": "Unaligned",
+      "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [
+          "green_t",
           "purple_legion"
         ],
         "enemies": []
@@ -500,21 +998,57 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:43:14.852725+00:00",
         "sourceRecord": "The Shadeward Arc"
+      },
+      "title": "Survival and Support Group in the Shadowfell Forest",
+      "type": "Support and Survival Organisation",
+      "currentStatus": "Unrecorded, but historically significant",
+      "leader": "Unrecorded",
+      "headquarters": "The Shadow Estate (Reflection of Raventree Manor)",
+      "motto": "No specific motto recorded",
+      "summary": "Green Legion was a support and survival group that aided Archie Miser during his time in the Shadowfell forest, helping him survive and eventually bringing him back to the material plane.",
+      "evidenceQuotes": [
+        "And I have the key The key to the anchor",
+        "You owe me a debt",
+        "Bowser roared about being King Bowser and not knowing any Cornelius"
+      ],
+      "waluigi_tip": "The Green Legion played a crucial role in Archie's survival. Their support was instrumental during the Shadeward Arc, and any future encounters with similar threats should consider enlisting such groups for assistance.",
+      "keyEvents": [
+        "shadeward_arc",
+        "onyx_hand",
+        "shadow_estate",
+        "purple_legion",
+        "planar_fracture"
+      ],
+      "relatedArticles": [
+        "shadeward_arc",
+        "onyx_hand",
+        "shadow_estate",
+        "purple_legion",
+        "planar_fracture"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:47:34+00:00",
+        "sourceArticles": [
+          "shadeward_arc",
+          "onyx_hand",
+          "shadow_estate",
+          "purple_legion",
+          "planar_fracture"
+        ]
       }
     },
     "kosha": {
       "name": "Voss Kosha",
-      "description": "The Voss Kosha is an enforcer group dedicated to maintaining order in the Grove of Woe.",
+      "description": "## Identity and Confirmed Standing\n\nVoss Kosha, enforcers of the Grove of Woe, operate in Shadeward with a singular focus on maintaining order within this mysterious and perilous grove. Despite their unrecorded leadership and headquarters, the archive provides substantial evidence of their active role in recent events. In 'The Tree of Woe Engagement,' Voss Kosha's involvement is confirmed when it is reported that 'the joke is over The play is over' as they captured Remi at knifepoint. This statement underscores their authority and the end of any resistance. Their current status remains active, but the archive lacks detailed information on allies or enemies. This faction's dedication to order is further attested by the strategic intelligence gained during engagements like the one at the Tree of Woe, where they successfully captured a key individual—Remi—thus demonstrating their capability and commitment.\n\n## Membership and Structure\n\nThe Voss Kosha operates as an enforcer group with a defined structure, though specific leadership titles remain unrecorded in archival sources. Their mission is centered on maintaining order within the perilous Grove of Woe. The most notable engagement involving the Voss Kosha was the Tree of Woe Engagement, where they captured Blue Toad Remi at knifepoint after the party retreated. Markop's actions during this engagement are well-documented; he freed himself from a Mazebound by severing its hand, which 'fell apart like cardboard,' and later came into conflict with Sergeant Van Coldbrook of the Voss Kosha. The exact nature of Coldbrook's role in the Voss Kosha remains ambiguous, but his actions suggest an active involvement in maintaining law within the Grove. It is noted that Coldbrook's claim to work with 'the Legion' adds to the complexity of their organizational ties. The evidence quote 'I guess the wedding is still happening' indicates the ongoing nature of their operations and the dynamic environment they navigate. Despite these engagements, no explicit hierarchical structure or leadership titles are recorded in the available archives, leaving the internal organization largely uncharted.\n\n## Recorded Operations and Relationships\n\nVoss Kosha's operations within the Grove of Woe are marked by strategic engagements against external threats, as evidenced in 'The Tree of Woe Engagement,' where they captured Remi at knifepoint. Their tactics involve swift and decisive action, as seen when Markop freed himself from a Mazebound by severing its hand—a maneuver that fell apart like cardboard. The Voss Kosha have been involved with other factions; however, their allies are not recorded in the available sources. This suggests they operate independently or perhaps with limited informal support. Their enemies include remnants and supernatural entities, such as the Scorncrow, whose domain they invaded during the engagement. The outcome of these encounters often results in retreats for Voss Kosha forces, as noted after 'The Tree of Woe Engagement.' Markop's actions, though valiant, were insufficient to secure a strategic victory, indicating that despite their efforts, the Grove remains challenging territory. It felt like putting blocks together inside me and the building came out of my hands, marking moments where Voss Kosha managed to manipulate or exploit situations effectively.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Voss Kosha, while dedicated to maintaining order in the Grove of Woe, face significant operational risks. Their involvement in engagements such as 'The Tree of Woe Engagement' has shown their willingness to use force decisively. However, the faction remains unrecorded in terms of its leadership and headquarters. The Blue Toad and the Architect's Fire represent known dangers; the former was killed by the Scorncrow during a failed engagement, while the latter is a symbol of unpredictable planar fracturing. These events demonstrate the volatile nature of the Grove and the potential for sudden crises. Waluigi advises caution in all operations, emphasizing the need to understand the full scope of threats before acting. The operational advice here is clear: proceed with heightened vigilance and be prepared for the unexpected. Inference must not cloud judgment; only confirmed dangers should guide actions.",
       "region": "Grove of Woe, Shadeward",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
-        "allies": [
-          "iron_fists"
-        ],
-        "enemies": [
-          "mages_guild"
-        ]
+        "allies": [],
+        "enemies": []
       },
       "status": "generated",
       "_generated": {
@@ -523,82 +1057,158 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:49:52.811379+00:00",
         "sourceRecord": "The Tree of Woe Engagement"
+      },
+      "title": "Enforcers of the Grove of Woe",
+      "type": "Enforcer Group",
+      "currentStatus": "Active",
+      "leader": "Unrecorded",
+      "headquarters": "Unrecorded",
+      "motto": "No recorded motto",
+      "summary": "Voss Kosha is dedicated to maintaining order in the Grove of Woe. They have been involved in several engagements, including the Tree of Woe Engagement.",
+      "evidenceQuotes": [
+        "The joke is over The play is over",
+        "I guess the wedding is still happening",
+        "It felt like putting blocks together inside me and the building came out of my hands"
+      ],
+      "waluigi_tip": "Be cautious when dealing with Voss Kosha; they are known for their strict enforcement and have been involved in critical incidents.",
+      "keyEvents": [
+        "the_tree_of_woe_engagement",
+        "the_grove_of_woe_incident",
+        "planar_fracture",
+        "the_estragon_island_incident",
+        "markop"
+      ],
+      "relatedArticles": [
+        "the_tree_of_woe_engagement",
+        "the_grove_of_woe_incident",
+        "planar_fracture",
+        "the_estragon_island_incident",
+        "markop"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:47:07+00:00",
+        "sourceArticles": [
+          "the_tree_of_woe_engagement",
+          "the_grove_of_woe_incident",
+          "planar_fracture",
+          "the_estragon_island_incident",
+          "markop"
+        ]
       }
     },
     "mario": {
       "name": "Mario",
-      "description": "Named in the record “The Eastern Passage”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:51:53.621689+00:00",
         "sourceRecord": "The Eastern Passage"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:07:16+00:00",
+        "sourceArticles": [
+          "the_eastern_passage",
+          "star_fountain_reunion",
+          "mages_guild",
+          "the_arrangement",
+          "mario"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "unknown_companion": {
       "name": "Unknown Companion",
-      "description": "Named in the record “The Eastern Passage”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "event",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:51:53.623626+00:00",
         "sourceRecord": "The Eastern Passage"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:47:03+00:00",
+        "sourceArticles": [
+          "the_eastern_passage",
+          "star_fountain_reunion",
+          "mages_guild",
+          "the_arrangement",
+          "mario"
+        ],
+        "decision": "removed",
+        "entityKind": "event"
       }
     },
     "luigi": {
       "name": "Luigi",
-      "description": "Named in the record “The Eastern Passage”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:51:53.625203+00:00",
         "sourceRecord": "The Eastern Passage"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:07:16+00:00",
+        "sourceArticles": [
+          "the_eastern_passage",
+          "star_fountain_reunion",
+          "mages_guild",
+          "the_arrangement",
+          "mario"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "pearl_realm": {
       "name": "Pearl Realm",
-      "description": "Named in the record “The Eastern Passage”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "event",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:51:53.626938+00:00",
         "sourceRecord": "The Eastern Passage"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-16T21:47:10+00:00",
+        "sourceArticles": [
+          "the_eastern_passage",
+          "star_fountain_reunion",
+          "mages_guild",
+          "the_arrangement",
+          "mario"
+        ],
+        "decision": "removed",
+        "entityKind": "event"
       }
     },
     "toad_loyalists": {
@@ -641,40 +1251,54 @@
     },
     "hjumpik": {
       "name": "Hjumpik",
-      "description": "Named in the record “The Orange Alignment”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:00:05.559194+00:00",
         "sourceRecord": "The Orange Alignment"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:09:46+00:00",
+        "sourceArticles": [
+          "the_orange_alignment",
+          "corvinarus_family",
+          "overgrown_manor",
+          "planar_fracture",
+          "hjumpik"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "regional_stability": {
       "name": "Regional Stability",
-      "description": "Named in the record “Bowser's First Invasion”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:08:11.628447+00:00",
         "sourceRecord": "Bowser's First Invasion"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:09:46+00:00",
+        "sourceArticles": [
+          "bowsers_first_invasion"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "archivist_estate": {
@@ -698,116 +1322,168 @@
     },
     "archie_miser": {
       "name": "Archie Miser",
-      "description": "Named in the record “The Mazebound Skirmish”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:14:02.240539+00:00",
         "sourceRecord": "The Mazebound Skirmish"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:09:46+00:00",
+        "sourceArticles": [
+          "skirmish_mazebound",
+          "shadow_estate",
+          "vivian_corvinarus_corridor_fight",
+          "markop",
+          "bowser"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "mystic_morel": {
       "name": "Mystic Morel",
-      "description": "Named in the record “The Stone Auction”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:17:01.096448+00:00",
         "sourceRecord": "The Stone Auction"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:09:46+00:00",
+        "sourceArticles": [
+          "stone_auction",
+          "raventree_manor",
+          "disaster_inc",
+          "corvinarus_family",
+          "mystic_morel"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "remi_akamatsu_full_backstory": {
       "name": "Remi Akamatsu Full Backstory",
-      "description": "Named in the record “The Stone Auction”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:17:01.098141+00:00",
         "sourceRecord": "The Stone Auction"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:09:47+00:00",
+        "sourceArticles": [
+          "stone_auction",
+          "raventree_manor",
+          "disaster_inc",
+          "corvinarus_family",
+          "mystic_morel"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "wario": {
       "name": "Wario",
-      "description": "Named in the record “The Disaster Inc. Naming Dispute”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:18:31.279229+00:00",
         "sourceRecord": "The Disaster Inc. Naming Dispute"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:09:47+00:00",
+        "sourceArticles": [
+          "disaster_inc_naming_dispute",
+          "disaster_inc",
+          "liberated_toads",
+          "waluigi",
+          "archie_miser"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "general": {
       "name": "General",
-      "description": "Named in the record “The Siege of the Dreadful Grove”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:18:56.329927+00:00",
         "sourceRecord": "The Siege of the Dreadful Grove"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:09:47+00:00",
+        "sourceArticles": [
+          "siege_of_dreadful_grove",
+          "the_grove_of_woe_incident",
+          "archie_miser"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "bryan": {
       "name": "Bryan",
-      "description": "Named in the record “Archie’s Frog God Dream and the Burning Vigilance Duel”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:19:44.019964+00:00",
         "sourceRecord": "Archie’s Frog God Dream and the Burning Vigilance Duel"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:09:47+00:00",
+        "sourceArticles": [
+          "archie_frog_god_dream_duel",
+          "star_shard_caves_tanuki_origin",
+          "archies_return_to_shadow_estate",
+          "vigilance",
+          "the_grove_of_woe_incident"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "yugoloths": {
@@ -831,21 +1507,30 @@
     },
     "disaster_inc_allies": {
       "name": "Disaster Inc Allies",
-      "description": "Named in the record “The Planar Sanctum Canoloth Skirmish”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:20:24.441754+00:00",
         "sourceRecord": "The Planar Sanctum Canoloth Skirmish"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:10:57+00:00",
+        "sourceArticles": [
+          "battle_planar_sanctum_canoloth",
+          "the_awakening_in_planar_sanctum_and_veins_of_the_tapestry",
+          "bones",
+          "the_oracle",
+          "bryan"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "archivist": {
@@ -869,40 +1554,57 @@
     },
     "global": {
       "name": "Global",
-      "description": "Named in the record “National Power Projection & Multiverse Balance”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:31:09.740825+00:00",
         "sourceRecord": "National Power Projection & Multiverse Balance"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:10:58+00:00",
+        "sourceArticles": [
+          "national_power_projection",
+          "regal_empire",
+          "iron_legion",
+          "mushroom_regency",
+          "mount_ebott_survey_mission"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "feyward_nameless_guard": {
       "name": "Feyward Nameless Guard",
-      "description": "Named in the record “Chop Bros, the OC Soul Ring, and the Guard With No Name”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:36:17.217851+00:00",
         "sourceRecord": "Chop Bros, the OC Soul Ring, and the Guard With No Name"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:11:16+00:00",
+        "sourceArticles": [
+          "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+          "feyward_amnesia_vines_morel_steely",
+          "feyward_dark_rooms_and_balcony_planning",
+          "the_feyward_revel_and_the_book_of_many_things"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "feyward_high_school": {
@@ -926,21 +1628,30 @@
     },
     "waluigi": {
       "name": "Waluigi",
-      "description": "Named in the record “The Box Guardian, the Sharpie Disguise, and the Soot-Barrel Trap”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:36:48.943108+00:00",
         "sourceRecord": "The Box Guardian, the Sharpie Disguise, and the Soot-Barrel Trap"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:12:23+00:00",
+        "sourceArticles": [
+          "the_box_guardian_sharpie_disguise_and_the_soot_barrel",
+          "the_imp_ambush_aftermath_and_kyrn_cell_escape",
+          "the_imp_ambush_of_harvestide_29",
+          "remi_akamatsu_full_backstory",
+          "markop"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "chunky_kong_junimus_gorolini_bongo_jr": {
@@ -983,21 +1694,30 @@
     },
     "scout_pericarp": {
       "name": "Scout Pericarp",
-      "description": "Named in the record “The Supply Convoy Massacre”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:20.490066+00:00",
         "sourceRecord": "The Supply Convoy Massacre"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:14:52+00:00",
+        "sourceArticles": [
+          "supply_convoy_massacre",
+          "chaos_heart_crisis",
+          "mushroom_kingdom",
+          "mr_l",
+          "luigi"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "magikoopa_council": {
@@ -1078,21 +1798,30 @@
     },
     "liberator_spy": {
       "name": "Liberator Spy",
-      "description": "Named in the record “The Prison Island Liberation”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "other",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:25:53.277995+00:00",
         "sourceRecord": "The Prison Island Liberation"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen/qwen3.5-9b",
+        "at": "2026-08-16T21:17:47+00:00",
+        "sourceArticles": [
+          "prison_island_liberation",
+          "iron_legion",
+          "the_eastern_passage",
+          "bryan",
+          "mario"
+        ],
+        "decision": "removed",
+        "entityKind": "other"
       }
     },
     "wario_bros": {

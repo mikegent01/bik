@@ -125,8 +125,7 @@
     ],
     "reputationChanges": {},
     "effects": {
-      "koopa_troop": 15,
-      "primordial_wyrm": -10
+      "koopa_troop": 15
     },
     "_generatedReputation": {
       "by": "tools/genkit",
@@ -192,8 +191,7 @@
     ],
     "reputationChanges": {},
     "effects": {
-      "koopa_troop": -15,
-      "primordial_wyrm": -4
+      "koopa_troop": -15
     },
     "_generatedReputation": {
       "by": "tools/genkit",
@@ -262,8 +260,7 @@
       }
     },
     "effects": {
-      "koopa_troop": 10,
-      "primordial_wyrm": -20
+      "koopa_troop": 10
     },
     "reputationNotes": {
       "bowser": "King of the Koopas gained favor with Resistance Team Alpha after leading their victory."
@@ -1285,9 +1282,7 @@
         "pianta_syndicate": -5
       }
     },
-    "effects": {
-      "united_factions": 5
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Waluigi's archivist skills preserved the Piantas' defiance.",
       "remi_akamatsu_full_backstory": "Remi Akamatsu's alliance with the Piantas solidified their reputation as a formidable force.",
@@ -2007,9 +2002,7 @@
         "kremling_krew": -4
       }
     },
-    "effects": {
-      "all": 3
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Waluigi archives the skirmish as a victory for DK Crew.",
       "remi_akamatsu_full_backstory": "Remi Akamatsu records Galypso's escape as a Kremling failure."
@@ -3428,9 +3421,7 @@
         "crimson_fleet": -10
       }
     },
-    "effects": {
-      "all": 5
-    },
+    "effects": {},
     "reputationNotes": {
       "bowser": "The pirate king lost a significant ally when Crimson Fleet fell.",
       "archie_miser": "Archie's leadership secured the liberation of Airship Vigilance and earned him respect among the liberated factions.",
@@ -3885,9 +3876,7 @@
         "koopa_troop": -15
       }
     },
-    "effects": {
-      "regional_stability": 5
-    },
+    "effects": {},
     "reputationNotes": {
       "bowser": "Bowser's invasion attempt ended in heavy losses for the Koopa Troop."
     },

@@ -988,16 +988,10 @@
       "archie_miser"
     ],
     "reputationChanges": {
-      "waluigi": {
-        "creed_of_darkness": 15
-      },
-      "markop": {
-        "creed_of_darkness": -3
-      }
+      "waluigi": {},
+      "markop": {}
     },
-    "effects": {
-      "creed_of_darkness": 5
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Waluigi's bravery and strategic brilliance earned the Creed of Darkness' favor, while Markop's leadership drew their ire.",
       "markop": "Markop's aggressive tactics during the mission caused a minor rift with the Creed of Darkness."
@@ -1497,7 +1491,6 @@
     "reputationChanges": {},
     "effects": {
       "liberated_toads": -20,
-      "waluigi": 20,
       "iron_legion": -20
     },
     "_generatedReputation": {
@@ -2321,8 +2314,7 @@
       }
     },
     "effects": {
-      "mushroom_regency": -20,
-      "bowser": 15
+      "mushroom_regency": -20
     },
     "reputationNotes": {
       "waluigi": "Waluigi's anger over Peach's death fuels Fawful's fury and Bowser's determination.",
@@ -2375,8 +2367,7 @@
     ],
     "reputationChanges": {
       "waluigi": {
-        "corvinarus_family": 15,
-        "hjumpik": -10
+        "corvinarus_family": 15
       },
       "hjumpik": {
         "corvinarus_family": 20
@@ -3319,9 +3310,7 @@
         "disaster_inc": 15
       }
     },
-    "effects": {
-      "general": 5
-    },
+    "effects": {},
     "reputationNotes": {
       "archie_miser": "Escaped with dignity intact, arsonist proves a match for the Onyx Hand."
     },
@@ -3403,8 +3392,7 @@
         "factionId": "yugoloths"
       },
       "defenders": {
-        "name": "Bones & The Oracle (OC)",
-        "factionId": "disaster_inc_allies"
+        "name": "Bones & The Oracle (OC)"
       }
     },
     "casualties": {
@@ -3422,8 +3410,7 @@
     ],
     "reputationChanges": {
       "waluigi": {
-        "yugoloths": 15,
-        "disaster_inc_allies": -10
+        "yugoloths": 15
       }
     },
     "effects": {
