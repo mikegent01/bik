@@ -156,6 +156,7 @@ Six things that explain nearly every decision in this repository:
 | `index.html` | The Waluipedia shell: router, article renderer, home feed, operator toolkit |
 | `Reputation-Matrix2/data/` | Canonical data — `events.json`, `characters.json`, books, clans, broadcasts |
 | `Reputation-Matrix2/app/pages/standalone/` | Self-contained pages (field journal, simulator, RNN broadcast) |
+| `Reputation-Matrix2/app/pages/battlefield/feyward-war-room.*` | Source-locked tactical planning companion for the latest Hjumpik Feyward filing |
 | `Reputation-Matrix2/app/core/` | Shared renderers, including `rakasha-news.js` (The Blood-Echo broadsheet) |
 | `Reputation-Matrix2/animation_frames/` | Rakasha News Network anchor sprites and title card |
 | `tools/` | Python build scripts (`update-index-home.py`, `build-rnn-broadcast.py`, …) |

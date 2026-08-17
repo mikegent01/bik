@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Feyward Manor tactical planning board for the next Hjumpik session.">
+  <title>Feyward War Room · Waluipedia</title>
+  <link rel="icon" href="../../../../favicon.ico">
+  <link rel="stylesheet" href="feyward-war-room.css">
+</head>
+<body>
+  <header class="war-header">
+    <div class="war-header-inner">
+      <div class="brand-lockup">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <div>
+          <p class="eyebrow">DISASTER INC. · FIELD COMMAND</p>
+          <h1>Feyward War Room</h1>
+          <p class="header-subtitle">A working tactical board for the next move after the false Lady was exposed.</p>
+        </div>
+      </div>
+      <nav class="war-nav" aria-label="War room navigation">
+        <a href="../../../../index.html#/article/feyward_chop_bros_soul_ring_and_the_guard_with_no_name">Read source filing</a>
+        <a href="../../../../index.html#/home">Return to Waluipedia</a>
+        <button id="printPlan" class="button button-quiet" type="button">Print plan</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="war-shell">
+    <section class="briefing-strip" aria-labelledby="briefing-title">
+      <div>
+        <p class="eyebrow">SOURCE-LOCKED BRIEFING · 23–24 HARVESTIDE, 1040 BF · FEYWARD-RELATIVE</p>
+        <h2 id="briefing-title">The manor is not pacified. It has only stopped pretending to be one problem.</h2>
+        <p class="briefing-copy">The plant wearing Lady Aurelian’s face is loose, the real Lady is reportedly inside the OC soul ring, and the party escaped to the orange heir’s war-room window. This board separates what the filing establishes from what the next session may plan.</p>
+      </div>
+      <div class="briefing-status" aria-label="Current operation status">
+        <span class="status-dot status-amber"></span>
+        <strong>TACTICAL PAUSE</strong>
+        <span>Next objective: the heir’s map and the sanctuary upstairs</span>
+      </div>
+    </section>
+
+    <section class="fact-grid" aria-label="Operational facts">
+      <article class="fact-card"><span class="fact-label">Immediate result</span><strong>25 ft</strong><span>corridor cleared by Chop Bros III</span></article>
+      <article class="fact-card"><span class="fact-label">Confirmed deaths</span><strong>0</strong><span>guards and hobgoblins left breathing, tied, or displaced</span></article>
+      <article class="fact-card"><span class="fact-label">Custody</span><strong>OC ring</strong><span>in Hjumpik’s pocket with Morel’s key</span></article>
+      <article class="fact-card"><span class="fact-label">Enemy position</span><strong>Unknown</strong><span>false Aurelian last seen running upstairs</span></article>
+    </section>
+
+    <div class="planner-layout">
+      <section class="map-panel panel" aria-labelledby="map-title">
+        <div class="panel-heading map-heading">
+          <div>
+            <p class="eyebrow">COMMAND MAP · WORKING PLACEMENT</p>
+            <h2 id="map-title">Feyward Manor · the map the house finally admitted was real</h2>
+          </div>
+          <div class="map-tools" role="toolbar" aria-label="Map display controls">
+            <button class="tool-button active" data-toggle="grid" type="button" aria-pressed="true">Grid</button>
+            <button class="tool-button active" data-toggle="routes" type="button" aria-pressed="true">Routes</button>
+            <button class="tool-button" data-toggle="labels" type="button" aria-pressed="false">Labels</button>
+            <button class="tool-button" data-toggle="pulse" type="button" aria-pressed="false">Pulse</button>
+          </div>
+        </div>
+
+        <div class="map-key" aria-label="Working marker legend">
+          <button class="legend-item active" data-filter="all" type="button"><span class="legend-swatch all-swatch"></span>All positions</button>
+          <button class="legend-item" data-filter="party" type="button"><span class="legend-swatch gold"></span>Party / custody</button>
+          <button class="legend-item" data-filter="plant" type="button"><span class="legend-swatch red"></span>Hostile growth</button>
+          <button class="legend-item" data-filter="cutters" type="button"><span class="legend-swatch green"></span>Tree cutters</button>
+          <button class="legend-item" data-filter="manor" type="button"><span class="legend-swatch blue"></span>Manor personnel</button>
+        </div>
+        <p class="legend-note"><strong>Reading the dots:</strong> the four colours already on <code>maptactical.png</code> are retained as the working command legend. Their faction assignments are a planning interpretation, not a new canon event. Select a pip to inspect the source fact or proposed use.</p>
+
+        <div id="mapStage" class="map-stage" tabindex="0" aria-label="Interactive Feyward Manor tactical map. Select a marker for details.">
+          <img src="../../../../maptactical.png" alt="Tactical map of Feyward Manor with yellow, red, green, and blue position dots" class="tactical-map">
+          <div class="map-grid-overlay" aria-hidden="true"></div>
+          <svg id="routeLayer" class="route-layer" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <div id="markerLayer" class="marker-layer"></div>
+          <div id="mapPlacementHint" class="map-placement-hint" hidden>Click a location to place the selected order.</div>
+        </div>
+        <div class="map-footer">
+          <span><b id="markerCount">0</b> plotted pips · <b id="orderCount">0</b> proposed orders</span>
+          <button id="placeOrder" class="button button-accent" type="button">＋ Plot an order</button>
+        </div>
+      </section>
+
+      <aside class="side-stack" aria-label="Command details">
+        <section class="panel selected-panel" aria-labelledby="selected-title">
+          <div class="panel-heading compact-heading">
+            <div>
+              <p class="eyebrow">SELECTED POSITION</p>
+              <h2 id="selected-title">Select a map pip</h2>
+            </div>
+            <span id="selectedCode" class="code-badge">—</span>
+          </div>
+          <div id="selectedDetails" class="selected-details">
+            <p class="empty-state">The map is crowded with facts. Click a coloured pip or a unit below to make one speak.</p>
+          </div>
+        </section>
+
+        <section class="panel panel-warning" aria-labelledby="intel-title">
+          <div class="panel-heading compact-heading">
+            <div>
+              <p class="eyebrow">FOG OF WAR</p>
+              <h2 id="intel-title">Unresolved intelligence</h2>
+            </div>
+            <span class="intel-count">4</span>
+          </div>
+          <ul class="intel-list">
+            <li><span class="intel-mark">?</span><span><b>Private sanctuary.</b> The false Aurelian was last seen heading upstairs; the room and approach are not identified.</span></li>
+            <li><span class="intel-mark">?</span><span><b>Iron key.</b> The plant reclaimed the key. The door it opens is unknown.</span></li>
+            <li><span class="intel-mark">?</span><span><b>Ring occupant.</b> The real Aurelian is reportedly inside the OC ring. The filing says not to smash, sell, polish, or wear it.</span></li>
+            <li><span class="intel-mark">?</span><span><b>Revel morale.</b> Ralos “Pal” is the only recorded defender of the Revel; the room is drinking less after the tree cutters’ work.</span></li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    <div class="lower-grid">
+      <section class="panel roster-panel" aria-labelledby="roster-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">ORDER OF BATTLE</p>
+            <h2 id="roster-title">Who is actually in the room</h2>
+          </div>
+          <span class="source-chip">source filing</span>
+        </div>
+        <div id="roster" class="roster-grid"></div>
+      </section>
+
+      <section class="panel sequence-panel" aria-labelledby="sequence-title">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">OPERATIONAL CLOCK</p>
+            <h2 id="sequence-title">Last move → next move</h2>
+          </div>
+          <span class="clock-note">No exact minute recorded</span>
+        </div>
+        <ol class="sequence-list">
+          <li class="complete"><span class="sequence-number">01</span><div><b>Expose</b><span>The “Lady” admits: “I am the plant of the manor.”</span></div></li>
+          <li class="complete"><span class="sequence-number">02</span><div><b>Break contact</b><span>Garlic grenade and Bob-omb open the route; the party exits through a window.</span></div></li>
+          <li class="complete"><span class="sequence-number">03</span><div><b>Reach command</b><span>The orange heir brings the party to the table-sized tactical map.</span></div></li>
+          <li class="next"><span class="sequence-number">04</span><div><b>Plan the sanctuary push</b><span>Find the upstairs sanctuary without losing the ring, the key, or the nonlethal advantage.</span></div></li>
+        </ol>
+      </section>
+    </div>
+
+    <section class="panel order-panel" aria-labelledby="orders-title">
+      <div class="panel-heading order-heading">
+        <div>
+          <p class="eyebrow">GM / PLAYER WORKSPACE · LOCAL ONLY</p>
+          <h2 id="orders-title">Proposed orders</h2>
+          <p class="panel-subtitle">Plot a movement or objective on the map. These notes are not canon and stay in this browser until cleared.</p>
+        </div>
+        <div class="order-actions">
+          <button id="copyBriefing" class="button button-quiet" type="button">Copy briefing</button>
+          <button id="clearOrders" class="button button-danger" type="button">Clear plotted orders</button>
+        </div>
+      </div>
+      <div class="order-form">
+        <label>Unit
+          <select id="orderUnit"></select>
+        </label>
+        <label>Order
+          <select id="orderType">
+            <option value="hold">Hold / protect</option>
+            <option value="advance">Advance</option>
+            <option value="cut">Cut a route</option>
+            <option value="extract">Extract / evacuate</option>
+            <option value="scout">Scout / verify</option>
+            <option value="negotiate">Negotiate</option>
+            <option value="fallback">Fallback</option>
+          </select>
+        </label>
+        <label>Note
+          <input id="orderNote" type="text" maxlength="120" placeholder="e.g. keep the ring out of the plant's reach">
+        </label>
+        <button id="armOrder" class="button button-accent" type="button">Place on map</button>
+      </div>
+      <div id="ordersList" class="orders-list">
+        <p class="empty-state">No proposed orders yet. Choose a unit, choose an order, then click the map.</p>
+      </div>
+    </section>
+
+    <section class="source-footer">
+      <div>
+        <p class="eyebrow">CANON BOUNDARY</p>
+        <p>This planner is a tactical companion to <a href="../../../../index.html#/article/feyward_chop_bros_soul_ring_and_the_guard_with_no_name">“Chop Bros, the OC Soul Ring, and the Guard With No Name.”</a> The event record remains the authority. The map uses only its named people, objects, positions, results, and unresolved questions; the proposed orders are deliberately separate.</p>
+      </div>
+      <div class="source-stamp">Feyward branch<br><b>MAP / 01</b></div>
+    </section>
+  </main>
+
+  <script src="feyward-war-room.js"></script>
+</body>
+</html>

@@ -9718,6 +9718,12 @@ function view_rakashaNews(){
   window.scrollTo(0,0);
 }
 
+function feywardWarRoomPanel(item){
+  if(!item || item.id!=='feyward_chop_bros_soul_ring_and_the_guard_with_no_name') return '';
+  const plannerSrc=pathPrefix+'app/pages/battlefield/feyward-war-room.html';
+  return `<div class="event-details-section" style="border-left:4px solid #ffc90e;background:linear-gradient(135deg,rgba(255,201,14,.12),rgba(0,162,232,.06)),var(--panel2);padding:14px 16px;margin:16px 0;border-radius:10px"><h4 style="margin-top:0">🗺️ Feyward War Room — next-session planning board</h4><p style="margin:6px 0 10px">The last Hjumpik filing ends at the orange heir’s tactical map. Open the working board to inspect the supplied map dots, review the source-locked positions, and plot proposed orders without changing canon.</p><a class="chip active" href="${esc(plannerSrc)}">Open Feyward War Room →</a></div>`;
+}
+
 function view_article(id){
   if(id==='the_midlands'){ Router.go('#/article/regal_empire'); return; }
   if(id==='thornburys_field_journal'){ view_fieldJournal(); return; }
@@ -9843,7 +9849,7 @@ function view_article(id){
      <div class="readtime">⏱ ${rtFull} min read · ${totalWords} words</div>
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${leadHtml}${typeKey==='races'?raceDossierPanel(item):''}${audioHtml}
-     ${(typeKey==='events'||typeKey==='battles')?eventPeopleAndXpPanel(item):''}${legalFrictionPanel(item,typeKey)}${intelEffectPanel(item,typeKey)}
+     ${(typeKey==='events'||typeKey==='battles')?eventPeopleAndXpPanel(item):''}${feywardWarRoomPanel(item)}${legalFrictionPanel(item,typeKey)}${intelEffectPanel(item,typeKey)}
      ${typeKey==='nations'?`<div class="chips" style="margin:8px 0 16px"><span class="chip active">Classic article</span><span class="chip" onclick="Router.go('#/atlas/${encodeURIComponent(item.id)}')">Open Atlas dashboard</span></div>${claimantRegimePanel(item)}${nationOverview(item)}`:''}
      ${typeKey==='factions'?factionSystemBanner(item.id):''}
      ${typeKey==='battles'?battleVsInfographic(item):''}
