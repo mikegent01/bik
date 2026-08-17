@@ -340,6 +340,7 @@
     setSpeed: function (x) { A.speed = x || 1; },
     setMood: function (m) { A.mood = (m === 'talk') ? 'talk' : 'news'; },
     getMood: function () { return A.mood; },
+    isSpeaking: function () { return !!A.speaking; },
     setMusic: function (on) {
       A.musicOn = !!on;
       if (!A.ctx) return;

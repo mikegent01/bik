@@ -48,7 +48,8 @@
     lastTick: 0,
     raf: 0,
     typed: -1,
-    spokenCue: -1
+    spokenCue: -1,
+    holdStart: -1      // wall-clock ms when we began holding a cue for speech
   };
 
   /* ---------------- audio desk (rnn-audio.js, optional) ---------------- */
@@ -352,6 +353,28 @@
     if (!S.playing) return;
     var dt = (now - S.lastTick) * S.speed;
     S.lastTick = now;
+
+    /* Voice gating: when the voice is on and still speaking a line, the
+       playhead WAITS at that line's boundary instead of cancelling the
+       speech mid-sentence. A safety valve releases a stuck utterance. */
+    var a = A();
+    var c = S.cues[cueAt(S.t)];
+    if (a && a.isVoiceOn() && a.isSpeaking() && c && S.t + dt >= c.end - 1) {
+      if (S.holdStart < 0) S.holdStart = now;
+      var maxHold = (c.duration * 1.5) / S.speed + 4000;
+      if (now - S.holdStart > maxHold) {
+        a.stopSpeech();          // utterance wedged — release the show
+        S.holdStart = -1;
+      } else {
+        S.t = Math.max(S.t, c.end - 1);
+        paint(false);
+        S.raf = requestAnimationFrame(tick);
+        return;
+      }
+    } else {
+      S.holdStart = -1;
+    }
+
     S.t += dt;
     if (S.t >= S.total) { S.t = S.total; pause(); paint(true); signOff(); return; }
     paint(false);
@@ -361,6 +384,7 @@
   function play() {
     if (S.t >= S.total) { S.t = 0; S.spokenCue = -1; }
     S.playing = true;
+    S.holdStart = -1;
     S.lastTick = performance.now();
     el('rnn-gate').classList.add('hide');
     el('rnn-onair').classList.remove('paused');
@@ -377,6 +401,7 @@
 
   function pause() {
     S.playing = false;
+    S.holdStart = -1;
     cancelAnimationFrame(S.raf);
     el('rnn-onair').classList.add('paused');
     el('rnn-onair').textContent = '❚❚ HELD';
@@ -392,6 +417,7 @@
     S.t = Math.max(0, Math.min(S.total - 1, ms));
     S.cue = -1;
     S.spokenCue = -1;
+    S.holdStart = -1;
     if (A()) window.RNNAudio.stopSpeech();
     paint(true);
   }
@@ -517,6 +543,7 @@
     pause();
     S.episode = ep;
     S.set = '';
+    S.holdStart = -1;
     buildCues(ep);
     renderChrome(ep);
     S.t = 0; S.cue = -1; S.seg = -1; S.spokenCue = -1;

@@ -106,17 +106,24 @@
 .rnn-stage {
   position: absolute; inset: 0; display: flex; align-items: flex-end;
   justify-content: center; transition: opacity .3s ease;
+  /* Keep sprites clear of the ticker + lower-third overlay zone. Percentage
+     margins on the chairs resolve against the screen WIDTH and let sprites
+     sink under the overlay bars on narrow windows — so the offset lives here,
+     on the stage, in clamped pixels that scale with the viewport. */
+  padding-bottom: clamp(64px, 14vw, 128px);
 }
 /* Source frames are only ~200px tall, so cap the upscale — past ~2.1x they
-   turn to mush. Better a slightly smaller anchor than a blurry one. */
+   turn to mush. Better a slightly smaller anchor than a blurry one.
+   max-width guards keep any sprite inside the screen, whatever its aspect. */
 .rnn-anchor {
-  height: min(74%, 430px); width: auto; margin-bottom: 9%;
+  height: min(74%, 430px); width: auto; max-width: 42%;
+  object-fit: contain;
   filter: drop-shadow(0 16px 26px rgba(0,0,0,.65));
   transform-origin: bottom center;
   transition: transform .18s ease;
 }
 .rnn-anchor.is-field {
-  height: min(66%, 470px); margin-bottom: 10%;
+  height: min(66%, 470px); max-width: 42%;
   animation: rnn-hop .9s ease-in-out infinite;
 }
 @keyframes rnn-hop {
@@ -147,8 +154,9 @@
 }
 
 /* two chairs: host stage-left facing the guest, guest stage-right mirrored */
-.rnn-stage.duo { justify-content: space-between; padding: 0 11%; }
-.rnn-stage.duo .rnn-anchor { height: min(60%, 350px); margin-bottom: 10%; }
+.rnn-stage.duo { justify-content: space-between; padding-left: 11%; padding-right: 11%;
+  padding-bottom: clamp(64px, 14vw, 128px); }
+.rnn-stage.duo .rnn-anchor { height: min(58%, 330px); max-width: 36%; }
 .rnn-stage.duo #rnn-chairB { transform: scaleX(-1); }
 
 /* the speaking chair leans in; the listening chair settles back */
@@ -355,8 +363,8 @@
   .rnn-transport { gap: 7px; padding: 10px; }
   .rnn-btn { padding: 7px 9px; font-size: 11px; }
   .rnn-time { margin-left: 0; }
-  .rnn-stage.duo { padding: 0 7%; }
-  .rnn-stage.duo .rnn-anchor { height: min(52%, 300px); }
+  .rnn-stage.duo { padding-left: 7%; padding-right: 7%; }
+  .rnn-stage.duo .rnn-anchor { height: min(52%, 300px); max-width: 34%; }
 }
 
 /* Respect reduced-motion: kill the hop, the scroll and the blinking. */
