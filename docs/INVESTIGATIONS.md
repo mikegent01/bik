@@ -57,6 +57,23 @@ The redirect reads `_README.quest_migration.promoted_to_leads`, so old links in
 old articles keep working. If you promote another quest later, add it to that
 map and its link starts resolving to the right file.
 
+### Article-local close readings
+
+An event can also carry `articleInvestigation`. This does **not** create another
+case file. It adds an examination directly after the article's story: the facts
+remain readable, then one d6+1 roll may reveal Waluigi's commentary-forward
+interpretation with inline insight checks. Use it to preserve the event form:
+roughly 80% story / 20% commentary in the filing, then roughly 80% commentary /
+20% cited evidence in the optional close reading.
+
+The article-local layer is for theories about custody, motive, wording,
+contradictions, and consequences. It must never hide a fact the reader needs to
+understand the event, award XP, or retell the scene. Link `links.investigation`
+to the accreting arc file so the reader can move from this one-article theory to
+the documents accumulated across sessions. `tools/check-investigations.py`
+validates the examination DC, inline rolls, required fields, unique id, and
+related case id.
+
 ---
 
 ## The shape of a record

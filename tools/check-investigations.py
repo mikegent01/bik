@@ -42,7 +42,9 @@ def ids(path, key):
     if isinstance(rows, dict): return {k for k in rows if not k.startswith('_')}
     return {r['id'] for r in rows if isinstance(r, dict) and 'id' in r}
 
-EVENTS = ids('Reputation-Matrix2/data/events.json','events')
+EVENT_DOC = json.load(open('Reputation-Matrix2/data/events.json'))
+EVENT_ROWS = EVENT_DOC if isinstance(EVENT_DOC, list) else EVENT_DOC.get('events', [])
+EVENTS = {e['id'] for e in EVENT_ROWS if isinstance(e, dict) and e.get('id')}
 CHARS  = ids('Reputation-Matrix2/data/characters.json','characters')
 QUESTS = ids('Reputation-Matrix2/data/quests.json','quests')
 FACTIONS = ids('Reputation-Matrix2/data/factions.json','factions')
@@ -157,6 +159,46 @@ for iv in INV:
     if iv.get('status') == 'active' and not iv.get('exhibits'):
         warn.append(f"{tag}: marked active with no exhibits — should it be a stub?")
 
+# Article-local investigations: commentary-forward close readings attached to
+# an event page rather than to a prop exhibit. They use the same d6+1 and inline
+# roll engines, so the same reachability and complete-outcome rules apply.
+seen_article_ai = collections.Counter()
+for event in EVENT_ROWS:
+    ai = event.get('articleInvestigation') if isinstance(event, dict) else None
+    if not ai: continue
+    tag = f"article:{event.get('id','?')}"
+    for field in ('id','title','hook','onRecord','analysis'):
+        if not ai.get(field): err.append(f"{tag}: articleInvestigation missing `{field}`")
+    if ai.get('id'): seen_article_ai[ai['id']] += 1
+    dc = ai.get('dc')
+    if not isinstance(dc,int): err.append(f"{tag}: article examination needs integer dc")
+    elif not 2 <= dc <= 7: err.append(f"{tag}: article examination DC {dc} outside reachable 2–7")
+    rolls = 0
+    for field in ('onRecord','analysis'):
+        body = ai.get(field,'') or ''
+        if body.count('**') % 2:
+            err.append(f"{tag}/{field}: odd number of `**` markers")
+        for token in re.findall(r'\[\[roll:([^\]]*)\]\]', body):
+            rolls += 1; parts = token.split('|')
+            if len(parts) != 4:
+                err.append(f"{tag}/{field}: malformed inline roll [[roll:{token}]]"); continue
+            try: rdc=int(parts[0])
+            except ValueError:
+                err.append(f"{tag}/{field}: inline roll DC {parts[0]!r} is not a number"); continue
+            if not 2 <= rdc <= 6: err.append(f"{tag}/{field}: inline roll DC {rdc} outside 2–6")
+            if not parts[2].strip() or not parts[3].strip():
+                err.append(f"{tag}/{field}: inline roll needs success and failure")
+    if not rolls: warn.append(f"{tag}: no inline insight rolls")
+    inv_id=(ai.get('links') or {}).get('investigation')
+    if inv_id and not any(iv.get('id')==inv_id for iv in INV):
+        err.append(f"{tag}: related investigation {inv_id} does not exist")
+for ai_id,n in seen_article_ai.items():
+    if n>1: err.append(f"duplicate articleInvestigation id {ai_id} ×{n}")
+if seen_article_ai:
+    for fn in ('articleInvestigationHtml','articleInvestigationRoll','articleInvestigationReset'):
+        if f'function {fn}' not in HTML:
+            err.append(f"index.html: article investigations exist but renderer `{fn}` is missing")
+
 # presentation drift: layout classes creeping back into investigations.css
 LAYOUT = ('padding','border-radius','display:grid','display:flex','linear-gradient')
 for sel, body in re.findall(r'(\.inv-[a-z0-9-]+[^{]*)\{([^}]*)\}', CSS):
@@ -187,7 +229,10 @@ n_ex = sum(len(i.get('exhibits',[])) for i in INV)
 n_roll = sum(len(re.findall(r'\[\[roll:', (e.get('onRecord','') or '') + (e.get('analysis','') or '')))
              for i in INV for e in i.get('exhibits',[]))
 n_vis = sum(1 for i in INV for e in i.get('exhibits',[]) if e.get('visual'))
-print(f"files: {len(INV)}  exhibits: {n_ex}  examinations: {n_ex}  insight rolls: {n_roll}  visuals: {n_vis}")
+n_article = sum(1 for e in EVENT_ROWS if isinstance(e,dict) and e.get('articleInvestigation'))
+n_article_roll = sum(len(re.findall(r'\[\[roll:', (e.get('articleInvestigation') or {}).get('onRecord','') + (e.get('articleInvestigation') or {}).get('analysis','')))
+                     for e in EVENT_ROWS if isinstance(e,dict))
+print(f"files: {len(INV)}  exhibits: {n_ex}  article investigations: {n_article}  examinations: {n_ex+n_article}  insight rolls: {n_roll+n_article_roll}  visuals: {n_vis}")
 for e in err:  print('  ERROR  ', e)
 for w in warn: print('  warn   ', w)
 print(f"\n{len(err)} error(s), {len(warn)} warning(s)")

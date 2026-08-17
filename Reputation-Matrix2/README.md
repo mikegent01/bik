@@ -131,6 +131,29 @@ Characters are canon, not temporary cache entries. **Never delete a character wh
 
 Every local/supporting character should carry `arcId`, `lastSeenEvent`, and a short `returnHooks[]` list. At arc close, promote only characters with an actual unresolved hook to `recurring`; move the rest to `dormant` or `closed`. Dormant records do not accumulate repetitive “still absent” paragraphs. They remain because old scenes, reputation entries, investigations, and search links must continue to resolve. This follows the project rule that bloat means duplicated facts—not one canonical record for a person who really existed.
 
+### Investigatable articles — commentary after the story
+
+A normal event remains approximately **80% story / 20% commentary**. When a filing contains evidence that deserves a much more opinionated reading, add `articleInvestigation` instead of flattening the event into analysis. This optional layer deliberately reverses the balance: roughly **80% Waluigi theory / 20% recited evidence**, hidden behind one d6+1 examination on the article page.
+
+```json
+"relatedInvestigation": "shadeward_feyward_ruined",
+"articleInvestigation": {
+  "id": "ai_unique_id",
+  "title": "Waluigi Reopens the Article",
+  "hook": "What the close reading is arguing.",
+  "dc": 4,
+  "onRecord": "The short facts everybody gets before rolling.",
+  "analysis": "## Waluigi's theory\n\nCommentary with [[roll:4|a judgement call|success reading|failure reading]].",
+  "links": {
+    "investigation": "shadeward_feyward_ruined",
+    "events": [],
+    "characters": []
+  }
+}
+```
+
+The examination and inline rolls reuse the investigation dice, permanent browser verdicts, and zero-XP rule. The article-local reading is useful when the *same facts* support an argument; it is useless when it merely repeats the scene or tries to hide required story information behind a roll. `onRecord` must remain sufficient to understand the event. The full case file continues to accrete paper across sessions; the article investigation is Waluigi arguing with this one filing.
+
 **Do not optimise the numbers.** They catch drift. If the prose reads well and the measurements disagree, the prose wins.
 
 ### Illustrating the filing (required — do this without being asked)
