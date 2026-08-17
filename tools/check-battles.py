@@ -120,12 +120,16 @@ def main():
                 isinstance(m, dict) and m.get('time') and m.get('who') for m in b['keyMoments'])
             if not ok:
                 problems.append('%s: keyMoments rows must be {time, who, ...}' % bid)
-        if b.get('casualtySheet') is not None and not (
-                isinstance(b['casualtySheet'], dict) and
-                (b['casualtySheet'].get('attackers') or b['casualtySheet'].get('defenders'))):
-            problems.append('%s: casualtySheet must be {attackers, defenders}' % bid)
         if b.get('engagement') is not None and not isinstance(b['engagement'], dict):
             problems.append('%s: engagement must be an object' % bid)
+        FATES = {'stood','wounded','carried','fell','slept','turned','fled','withdrew','observed'}
+        if isinstance(bel, dict):
+            for skey, s in bel.items():
+                for c in (s.get('combatants') or []):
+                    if isinstance(c, dict):
+                        f = c.get('fate')
+                        if f is not None and f not in FATES:
+                            problems.append('%s: unknown fate "%s" (see BATTLE_FATES)' % (bid, f))
 
     print('Battles check')
     print('  records          : %d' % len(battles))

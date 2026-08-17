@@ -38,7 +38,7 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
      <div class="campaign-timeline-feed">
        <!-- Event 0: Latest Battle Filing - Woodfellow vs the Treant -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/feyward_woodfellow_vs_the_treant')" style="cursor:pointer; border-left:4px solid #e5484d; background:linear-gradient(135deg,rgba(229,72,77,.14),var(--panel2));">
-         <div class="timeline-date-chip" style="color:#e5484d;">1 Aethel, 1040 BF (Feyward-relative) · 24 combatants · Latest Battle Filing</div>
+         <div class="timeline-date-chip" style="color:#e5484d;">1 Aethel, 922 BF (Feyward clock) · 24 combatants · Latest Battle Filing</div>
          <h3 class="timeline-event-title">Woodfellow vs. the Treant — The Lane, the Ledger, and the Weather</h3>
          <div class="timeline-actors">
            <span>Woodfellow</span><span>Ramsee</span><span>Swifty</span><span>Renard</span><span>Joseph</span><span>Zach</span><span>The Treant</span><span>The Shambling Mound</span><span>The Sprites</span><span>The Dryad</span>

@@ -306,10 +306,14 @@
 .bd-side.att{border-color:rgba(229,72,77,.55);box-shadow:inset 3px 0 0 rgba(229,72,77,.55)}
 .bd-side.def{border-color:rgba(47,174,138,.55);box-shadow:inset 3px 0 0 rgba(47,174,138,.55)}
 .bd-side h5{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2)}
-.bd-combatant{display:flex;gap:8px;font-size:12.5px;padding:4px 0;border-top:1px dashed rgba(160,150,180,.18);line-height:1.45}
+.bd-combatant{display:flex;gap:8px;font-size:12.5px;padding:4px 0;border-top:1px dashed rgba(160,150,180,.18);line-height:1.45;align-items:baseline}
 .bd-combatant:first-of-type{border-top:none}
 .bd-combatant b{white-space:nowrap}
-.bd-combatant span{color:var(--muted)}
+.bd-combatant span{color:var(--muted);flex:1 1 auto}
+.bd-combatant em.bd-fate{font-style:normal;font-weight:800;white-space:nowrap;font-size:11.5px;letter-spacing:.3px;cursor:help}
+.bd-leader{color:#e0b400;font-weight:900;margin-right:2px}
+.vs-fates{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.vs-fate{font-weight:900;font-size:12px;background:rgba(0,0,0,.18);border-radius:999px;padding:2px 7px}
 .bd-cas{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;padding:10px 14px 0}
 .bd-cas .bd-combatant{display:block}
 .bd-ledger-head{margin:14px 14px 6px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2)}
@@ -7092,7 +7096,7 @@ function view_home(){
      <div class="campaign-timeline-feed">
        <!-- Event 0: Latest Battle Filing - Woodfellow vs the Treant -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/feyward_woodfellow_vs_the_treant')" style="cursor:pointer; border-left:4px solid #e5484d; background:linear-gradient(135deg,rgba(229,72,77,.14),var(--panel2));">
-         <div class="timeline-date-chip" style="color:#e5484d;">1 Aethel, 1040 BF (Feyward-relative) · 24 combatants · Latest Battle Filing</div>
+         <div class="timeline-date-chip" style="color:#e5484d;">1 Aethel, 922 BF (Feyward clock) · 24 combatants · Latest Battle Filing</div>
          <h3 class="timeline-event-title">Woodfellow vs. the Treant — The Lane, the Ledger, and the Weather</h3>
          <div class="timeline-actors">
            <span>Woodfellow</span><span>Ramsee</span><span>Swifty</span><span>Renard</span><span>Joseph</span><span>Zach</span><span>The Treant</span><span>The Shambling Mound</span><span>The Sprites</span><span>The Dryad</span>
@@ -9431,9 +9435,24 @@ function congressTallyBoard(v){
 }
 
 /* Battle dossier — the extractor's cut of a battle record: engagement stats,
-   full rosters from belligerents.combatants, a per-side casualty sheet, and
-   the keyMoments ledger table. Renders only what the record provides, so
+   full rosters from belligerents.combatants with per-combatant fate,
+   and the keyMoments ledger table. Renders only what the record provides, so
    legacy records without these fields are unaffected. */
+const BATTLE_FATES={
+  stood:{s:'·',c:'#2fae8a'}, wounded:{s:'✚',c:'#e0b400'}, carried:{s:'✚',c:'#f28c28'},
+  fell:{s:'†',c:'#e5484d'}, fled:{s:'➤',c:'#9aa0a6'}, withdrew:{s:'➤',c:'#9aa0a6'},
+  slept:{s:'☾',c:'#7aa2f7'}, turned:{s:'↻',c:'#b48ead'}, observed:{s:'○',c:'#9aa0a6'}
+};
+function battleFateChips(combatants){
+  if(!Array.isArray(combatants)||!combatants.length)return '';
+  const counts={};
+  combatants.forEach(c=>{const f=(c&&c.fate)||'stood';counts[f]=(counts[f]||0)+1;});
+  const order=['fell','carried','slept','turned','fled','withdrew','wounded','stood','observed'];
+  return order.filter(f=>counts[f]).map(f=>{
+    const m=BATTLE_FATES[f]||BATTLE_FATES.stood;
+    return `<span class="vs-fate" style="color:${m.c}" title="${esc(f)}">${m.s} ${counts[f]}</span>`;
+  }).join(' ');
+}
 function battleDossier(b){
   if(!b||!b.belligerents||typeof b.belligerents!=='object'||Array.isArray(b.belligerents))return '';
   const e=b.engagement||{};
@@ -9445,25 +9464,21 @@ function battleDossier(b){
     if(!s)return '';
     const rows=(s.combatants||[]).map(c=>{
       const nm=typeof c==='string'?c:(c&&c.name)||'Unknown';
-      const note=(c&&c.note)||'';
-      return `<div class="bd-combatant"><b>${esc(nm)}</b>${note?`<span>${esc(note)}</span>`:''}</div>`;
+      const note=(c&&c.note)||''; const role=(c&&c.role)||note;
+      const f=(c&&c.fate)||'stood'; const fm=BATTLE_FATES[f]||BATTLE_FATES.stood;
+      const fn=(c&&c.fateNote)?` — ${esc(c.fateNote)}`:'';
+      return `<div class="bd-combatant"><b>${c&&c.leader?'<span class="bd-leader" title="field leader">⚔</span> ':''}${esc(nm)}</b><span>${role?esc(role):''}</span><em class="bd-fate" style="color:${fm.c}" title="${esc(f)}${fn}">${fm.s} ${esc(f)}${fn}</em></div>`;
     }).join('');
-    return `<div class="bd-side ${cls}"><h5>${label} — ${esc(s.name||'Unknown')}${s.commander?` · ⚔ ${esc(s.commander)}`:''}</h5>${rows}</div>`;
+    return `<div class="bd-side ${cls}"><h5>${label} — ${esc(s.name||'Unknown')}${s.commander||s.leader?` · ⚔ ${esc(s.commander||s.leader)}`:''} · ${battleFateChips(s.combatants)}</h5>${rows}</div>`;
   };
-  let cas='';
-  if(b.casualtySheet&&typeof b.casualtySheet==='object'){
-    const a=b.casualtySheet.attackers?`<div class="bd-side att"><h5>Attacker losses</h5><div class="bd-combatant"><span>${esc(b.casualtySheet.attackers)}</span></div></div>`:'';
-    const d=b.casualtySheet.defenders?`<div class="bd-side def"><h5>Defender losses</h5><div class="bd-combatant"><span>${esc(b.casualtySheet.defenders)}</span></div></div>`:'';
-    if(a||d)cas=`<div class="bd-cas">${a}${d}</div>`;
-  }
   const moments=Array.isArray(b.keyMoments)?b.keyMoments:[];
   const ledger=moments.length?`<h5 class="bd-ledger-head">🗂️ From the combat record — ${moments.length} entries from the tally</h5><div class="bd-ledger"><table><thead><tr><th>Watch</th><th>Who</th><th>Action</th><th>Result</th></tr></thead><tbody>${moments.map(m=>`<tr class="${m.decisive?'bd-moment-crit':''}"><td class="bd-t">${esc(m.time||'')}</td><td>${esc(m.who||'')}</td><td>${esc(m.act||'')}</td><td>${esc(m.result||'')}</td></tr>`).join('')}</tbody></table></div>`:'';
   if(!stats.length&&!cas&&!ledger)return '';
   return `<div class="bd"><div class="bd-title">🏹 Battle Dossier — ${esc(b.name||b.id)}</div>
-    <div class="wsys-note">The extractor's cut: engagement stats, who stood where, and the tally entries the prose quotes. Counts are verbatim from the record; commentary is Waluigi's.</div>
+    <div class="wsys-note">The extractor's cut: engagement stats, the full muster with every combatant's fate, and the tally entries the prose quotes. Counts are verbatim from the record; commentary is Waluigi's.</div>
     ${stats.length?`<div class="bd-stats">${stats.map(s=>`<span class="bd-stat">${s}</span>`).join('')}</div>`:''}
     <div class="bd-roster">${side(b.belligerents.attackers,'att','Attackers')}${side(b.belligerents.defenders,'def','Defenders')}</div>
-    ${cas}${ledger}</div>`;
+    ${ledger}</div>`;
 }
 
 /* Waluigi's Order of Battle — a VS infographic for a battle's belligerents + casualties + outcome. */
@@ -9473,8 +9488,11 @@ function battleVsInfographic(b){
   const side=(s,cls,role)=>{ if(!s)return `<div class="vs-side ${cls}"><h5>${role}</h5><div class="vs-cmd">Unknown</div></div>`;
     const nm=s.name||s.faction||'Unknown';
     const link=s.factionId&&INDEX[s.factionId]?`<a class="xlink" data-id="${esc(s.factionId)}" href="#/article/${esc(s.factionId)}">${esc(nm)}</a>`:esc(nm);
-    const n=s.combatants&&s.combatants.length?`<div class="vs-cmd">🧭 ${s.combatants.length} combatant${s.combatants.length===1?'':'s'}</div>`:'';
-    return `<div class="vs-side ${cls}"><h5>${link}</h5>${s.commander?`<div class="vs-cmd">⚔ ${esc(s.commander)}</div>`:''}${n}</div>`;
+    const lead=(s.combatants||[]).find(c=>c&&c.leader);
+    const leadLine=s.commander?`<div class="vs-cmd">⚔ ${esc(s.commander)}</div>`:(lead?`<div class="vs-cmd">⚔ ${esc(lead.name)}</div>`:'');
+    const n=(s.combatants&&s.combatants.length)?`<div class="vs-cmd">🧭 ${s.combatants.length} combatant${s.combatants.length===1?'':'s'}</div>`:'';
+    const fates=battleFateChips(s.combatants)?`<div class="vs-fates">${battleFateChips(s.combatants)}</div>`:'';
+    return `<div class="vs-side ${cls}"><h5>${link}</h5>${leadLine}${n}${fates}</div>`;
   };
   let cas='';
   if(b.casualties&&typeof b.casualties==='object'){

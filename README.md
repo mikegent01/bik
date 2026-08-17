@@ -260,3 +260,25 @@ Rules:
   non-canonical month names; normalize them only when their record is
   next touched.
 ```
+
+### Planar timekeeping — there are three clocks, and none of them agree
+
+`currentDate.json` is the **Material Plane's** clock. It is not the world's
+only clock, and treating it as universal has misdated filings before.
+
+| Clock | Where it applies | State |
+|---|---|---|
+| **Material (imperial)** | the default; `currentDate.json` | Aethel 4, 1040 BF |
+| **Shadowfell** | Shadowfell-side filings (Tymnas's cottage, the Estate) | Imperial reckoning, but *drifting* — a month-plus has passed there since the planar fracture; Shadowfell dates carry the drift forward |
+| **Feyward** | everything inside the Feyward | **Its own year entirely: 922 BF by its own count** — over a century behind the Material, and it is not catching up. "Feyward-relative" filings borrow imperial month names for readability, but the year is the Feyward's own |
+
+Rules for planar dates:
+
+```
+· Feyward filings: "<month> <day>, 922 BF (Feyward clock)" — the Material's
+  date goes in a parenthetical only if the prose needs the comparison.
+· Never synchronize the clocks in data. The disagreement is canon; a
+  filing that makes 922 and 1040 agree has made an error, not a repair.
+· Cross-plane causality ("this happened while that was happening") is
+  prose, not dates — hedge it in the text, not in the date field.
+```

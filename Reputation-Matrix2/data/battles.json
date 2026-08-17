@@ -3867,14 +3867,14 @@
   {
     "id": "feyward_woodfellow_vs_the_treant",
     "name": "Woodfellow vs. the Treant (The Lane, the Ledger, and the Weather)",
-    "date": "1 Aethel, 1040 BF (Feyward-relative — the night after the hanging-tree session; the Feyward's clocks remain advisory)",
+    "date": "1 Aethel, 922 BF (Feyward clock — the Material stood in 1040; see the README's planar timekeeping)",
     "location": "The Feyward woodlands — the cutting lane run through the overgrowth (no registered location id; this record declines to invent one)",
     "type": "Field Battle / Asymmetric Skirmish / Off-Ledger Pursuit",
     "result": "Expedition victory. The treant was felled at the lane by a single book-strike driven through the split in its trunk; the shambling mound broke away, was run down during an eighteen-minute pursuit no survivor's account covers, and was destroyed; the sprite sorcerer fled the field. Two of the expedition were carried off it.",
     "engagement": {
       "combatants": 24,
-      "ledgerWindow": "the night watches of 1 Aethel, 1040 BF · a thirty-seven-minute engagement",
-      "scale": "The largest engagement in the Feyward record: nine of the expedition mustered against a wood that fielded fifteen, counting the sprites as one weather event"
+      "ledgerWindow": "the night watches of 1 Aethel, 922 BF (Feyward clock) · a thirty-seven-minute engagement",
+      "scale": "The largest engagement in the Feyward record: nine of the expedition mustered against a wood that fielded fifteen, plus a dryad who watched — every one of them named below, because a battle of nameless things is a weather report"
     },
     "belligerents": {
       "attackers": {
@@ -3882,90 +3882,157 @@
         "combatants": [
           {
             "name": "Woodfellow",
-            "note": "heavy ordnance — hurls bound tomes like siege shot"
+            "role": "heavy ordnance — hurls bound tomes like siege shot",
+            "fate": "stood",
+            "leader": true
           },
           {
             "name": "Ramsee",
-            "note": "missile auxiliary — assorted cutlery, long-range, unreliable"
+            "role": "missile auxiliary — assorted cutlery, long range, unreliable",
+            "fate": "stood"
           },
           {
             "name": "Swifty",
-            "note": "line swordfighter — scimitar and horns, the expedition's best blade"
+            "role": "line swordfighter — the expedition's best blade",
+            "fate": "carried",
+            "fateNote": "an expedition arrow took him through the joint of his harness in the press"
           },
           {
-            "name": "the satyr scout",
-            "note": "light horse-archer equivalent — longbow skirmisher"
+            "name": "Lochan",
+            "role": "satyr scout — longbow skirmisher; led the pursuit; filed no report",
+            "fate": "stood"
           },
           {
-            "name": "the satyr berserker",
-            "note": "line-breaker — longsword and ram-charge"
+            "name": "Bramm",
+            "role": "satyr berserker — line-breaker, longsword and ram-charge",
+            "fate": "stood"
           },
           {
             "name": "Zach",
-            "note": "druid — thunder-call artillery, herbalist, held the middle"
+            "role": "satyr druid — thunder-call artillery and herbalist; held the middle",
+            "fate": "stood"
           },
           {
             "name": "House Guard Joseph",
-            "note": "line infantry — longsword; opened the fight badly"
+            "role": "line infantry — longsword; opened the fight badly",
+            "fate": "stood"
           },
           {
             "name": "House Guard Renard",
-            "note": "line infantry — longsword; bled for the whole engagement"
+            "role": "line infantry — longsword; bled for the whole engagement",
+            "fate": "carried",
+            "fateNote": "cut down by a sprite blade in the last watches of the pursuit"
           },
           {
-            "name": "the Goblin Staff",
-            "note": "auxiliary — kitchen knife, and keeper of the tally"
+            "name": "Pib",
+            "role": "goblin staff auxiliary — kitchen knife, and keeper of the tally",
+            "fate": "stood"
           }
         ]
       },
       "defenders": {
         "name": "The Awakened Wood",
-        "commander": "the Treant",
+        "leader": "the Treant",
         "combatants": [
           {
             "name": "the Treant",
-            "note": "the wood's champion — a century-old tree on its feet; slow to wake, terrible once moving"
+            "role": "the wood's champion — a century of contemplation on its feet; slow to wake, terrible once moving",
+            "fate": "fell",
+            "leader": true,
+            "fateNote": "two books, through the split its own offense had opened"
           },
           {
             "name": "the Shambling Mound",
-            "note": "second mass — rot and grudge in armor; broke late, died later"
+            "role": "second mass — rot and grudge in armor",
+            "fate": "fell",
+            "fateNote": "run down in the gap; died with the sprites' own poison in it"
           },
           {
-            "name": "two Awakened Shrubs",
-            "note": "skirmish screen — deleted early, singly"
+            "name": "Gall",
+            "role": "awakened shrub — skirmish screen, first half of it",
+            "fate": "fell",
+            "fateNote": "deleted by a single book"
           },
           {
-            "name": "four sprite warriors",
-            "note": "light melee — blades the size of dessert spoons"
+            "name": "Tansy",
+            "role": "awakened shrub — skirmish screen, second half of it",
+            "fate": "fell",
+            "fateNote": "deleted by a single book"
           },
           {
-            "name": "three sprite archers",
-            "note": "light missile — poisoned darts, no loyalty anyone could verify"
+            "name": "Gorse",
+            "role": "sprite warrior — file leader of the four",
+            "fate": "fell",
+            "fateNote": "asleep when the sand came home; never woke"
           },
           {
-            "name": "three sprite casters",
-            "note": "sleep-sand artillery — threw wide, three times"
+            "name": "Bryony",
+            "role": "sprite warrior",
+            "fate": "slept"
           },
           {
-            "name": "the sprite sorcerer",
-            "note": "specialist — fled the field before the end"
+            "name": "Rattlecap",
+            "role": "sprite warrior",
+            "fate": "slept"
           },
           {
-            "name": "the Dryad",
-            "note": "observer — never engaged; gone before the pursuit ended"
+            "name": "Sneezewort",
+            "role": "sprite warrior",
+            "fate": "fled"
+          },
+          {
+            "name": "Yew",
+            "role": "sprite archer — the best dart on the field, and the least loyal",
+            "fate": "turned",
+            "fateNote": "put poison into the wood's own mound in the last watches"
+          },
+          {
+            "name": "Holly",
+            "role": "sprite archer",
+            "fate": "turned",
+            "fateNote": "poisoned the mound beside Yew"
+          },
+          {
+            "name": "Rowan",
+            "role": "sprite archer",
+            "fate": "fled",
+            "fateNote": "shaken, scattered with the sorcerer"
+          },
+          {
+            "name": "Comfrey",
+            "role": "sprite caster — senior sand-thrower; signed the requisition",
+            "fate": "fled"
+          },
+          {
+            "name": "Mugwort",
+            "role": "sprite caster",
+            "fate": "slept"
+          },
+          {
+            "name": "Sorrel",
+            "role": "sprite caster",
+            "fate": "slept"
+          },
+          {
+            "name": "Nightshade",
+            "role": "sprite sorcerer — specialist; the keeper's mark for him is a single word",
+            "fate": "fled",
+            "fateNote": "fled"
+          },
+          {
+            "name": "Linden",
+            "role": "dryad — observer; never engaged",
+            "fate": "withdrew",
+            "fateNote": "gone before the pursuit ended; no account of her leaving exists"
           }
         ]
       }
     },
-    "casualties": "The treant, felled at the lane by two books. Both awakened shrubs, deleted singly by single tomes. The shambling mound, run down after the whistle and destroyed with the sprites' own poison in it. A third of the lane's sleep, expended mostly on friendlies. Swifty, carried from the field after a friendly arrow took him in the press. Renard, carried from the field during the pursuit. Joseph's confidence, first minute. The fork's reputation, restored.",
-    "casualtySheet": {
-      "attackers": "Swifty carried from the field — an expedition arrow took him through the joint of his harness in the press; his fate passes to the cleanup filing. Renard carried from the field during the pursuit, cut down by a sprite blade after standing through the whole engagement. One house guard slept where he stood and woke at half his strength. Everyone else walked.",
-      "defenders": "The treant destroyed — staggered by the strike through the split in its trunk, put down by the second book, felled across the lane it had come to close. Both shrubs destroyed. The mound destroyed after the pursuit — cutlery, five books, and poisoned darts fired into it by the wood's own sprites. The sorcerer fled the field; the surviving archers scattered; some of the sleeping never woke."
-    },
-    "summary": "The season the plants took over produced the campaign's largest engagement: a hired cutting crew — satyr line, house guard infantry, one goblin with a kitchen knife, Ramsee and his assorted cutlery, and Woodfellow, who throws books — against the wood's champion and everything it could wake. Sleep-sand thrown wide turned the lane into a weather system, a skirmisher's arrow brought down the expedition's own swordfighter, and the battle turned on a single book driven through the split in a treant's trunk. The fleeing mound was run down in a gap of eighteen minutes no survivor's account covers, and destroyed with the sprites' own poison in it.",
-    "description": "*Filed from the tally and the survivors' fragments — no field report survived the night, and the cleanup filing is still owed. Every count below comes from the keeper's marks ([[prop:prop_cutting_lane_tally|the last page of the tally]]); the prose reconstructs, the arithmetic does not.*\n\n## Part I — The Wood Objected\n\nThe Feyward had been strangling itself for a season — vines that eat memories, poison in the green, plants where plants should not be — and somebody finally hired a cutting crew to push a lane back through it. Nine mustered: satyr line and steel, two house guards, one goblin auxiliary with a kitchen knife and the tally book, and at the column's back two problem-solvers the forest should have thought harder about — Ramsee, who throws cutlery, and Woodfellow, who throws books.\n\nThe wood's answer was orthodox. It woke a treant.\n\n*WAH! A treant is what a tree becomes after a century of contemplation and one bad day — bark like fortress masonry, arms that end in doors. It is also, and I want this on the record, the slowest thing on a battlefield. The mightiest tree in the lane took the field last. The encyclopedia has warned about this. Nobody reads the encyclopedia.*\n\n## Part II — The Treant Opens\n\nThe treant's first blow was meant to end the argument at a stroke: a branch the width of a door brought down on Swifty, the expedition's best blade. Swifty caught it on the scimitar — the parry of his life — and stayed up when lesser satyrs would have been driven into the earth. He did not stay up whole. Around him the line formed badly in the dark: Joseph's opening cut glanced off the bark without leaving a mark the keeper thought worth counting, and in the press even the lane's own ranks closed wrong — the berserker's first cut landed on Renard's pauldron, and no account since has agreed whether the wood turned his arm or the melee simply swallowed him. The goblin's knife found a seam for what it was worth. Ramsee opened the cutlery account with one strike that stuck, then spent the next half hour contributing aerodynamics.\n\n## Part III — The Sleep Wars\n\nThen the sprites deployed the only weapon on that field scarier than a treant: sleep-sand, thrown wide, three times, into a melee containing most of the living world.\n\nThe first throw took the weakest bodies in the cloud — sprites, mostly, which raises questions about sprite command discipline nobody stayed awake to answer. The second folded more of them; the keeper's marks show whole sprite files asleep mid-air. The third throw was thrown with the treant still standing and did not care whose side anyone was on: Woodfellow slumped mid-fight under sand he had not been aimed at, a house guard went down asleep on his feet and woke at half his strength, and one of the wood's own shrubs slept where it stood, technically victorious.\n\n*WAH! I have filed entire essays on the relationship between herds and the concept of \"throwing wide.\" The concept remains theoretical. The sleeping third of that lane is not.*\n\n## Part IV — Arrows With Opinions\n\nThe middle watches are where the Feyward earned its reputation, because the arrows stopped agreeing with the people firing them. The satyr scout — a professional skirmisher — put two shafts into the melee around the treant. The first went wide. The second took Swifty through the joint of his harness, the same satyr the treant's opening blow had left standing on will, and brought him down. Friendly fire, in the press, at night, in a poisoned wood: no account agrees whether the shaft was turned or simply chose him, and this record declines to convict a skirmisher on vibes. Later the same scout's bow misfired outright. Whatever the wood wanted from that bow, it did not want consistency.\n\nZach, the druid, fought the battle three times at once — thunder called down on the sprite files, on the treant, and at least once across Woodfellow's position, because thunder does not check uniforms — while standing off poisoned darts and keeping his feet through wounds that would have stopped a louder man. Renard's evening reads like a casualty ledger with a pulse: cut in the press, struck by the scout's wide shaft, darts in the arm, a sprite's blade at the end of it all — and he was one of the healthy ones when the whistle came.\n\n## Part V — The Library Opens\n\nThe treant had marked the librarian. Twice it brought the door-sized arm down on Woodfellow's position — once landing the only wound Woodfellow is on record as taking personally, once finding only the space where he had stepped inside the swing — and in pressing him it made the one mistake the Feyward could not forgive: it split its own bark wide, and the librarian saw the split.\n\nBy then Woodfellow had already cleared the wood's skirmish screen, deleting both awakened shrubs with single books — overkill the keeper recorded without comment. What followed is the strike this record exists to file: one book, thrown flat and hard, went through the split the treant's own offense had opened. The champion staggered and kept its feet. The second book put it down, and it fell across the lane it had come to close — which is the sort of ending this encyclopedia usually has to invent.\n\n## Part VI — The Hunt\n\nThe shambling mound — a second mass of rot and grudge the lane had barely scratched — assessed a field whose champion was lying across it, and chose tomorrow. It broke away into the dark, and the expedition chose today: they ran it down. Here the record fails honestly — for eighteen minutes, no mark, no account, no survivor's memory covers the pursuit. The keeper writes that the page was wet. When the record resumes, the mound is dying at the hands of everything the lane had left: Ramsee's cutlery finally arriving on target, five more books — one thrown wild into the night, which the library does not discuss — and, in the middle of the execution, the weather changed sides. Sprite archers put poisoned darts into the wood's own mound while a sprite caster's fire took a sprite archer. Whatever contract the Feyward had with itself, the champion's death voided it. The sorcerer was already gone — the keeper's mark for him is a single word, fled — and the dryad, who appears once in the record and never in the fighting, was gone with the dark.\n\nThe expedition paid for the pursuit: a sprite blade put Renard down in the last watches, the second fighter of the night to leave the field on shoulders instead of feet. The mound died with the sprites' poison in it. The last mark in the tally belongs to the keeper: lane clear, wood quiet, two carried.\n\n*WAH! I have watched a lot of ordnance in my career. For half an hour the fork was ceremonial. Then the mound met the fork, the library, and the weather's own darts, in that order, and I am filing the sequence under \"victory conditions, coalition.\"*",
-    "aftermath": "The field belongs to the cutters, and the field is a disaster area. The cleanup — wounded, prisoners, salvage, and what one does with a fallen treant and a poisoned mound in a lane one has just cut — is owed as a separate filing. Two of the expedition left the field on shoulders (Swifty to the scout's arrow, Renard to a sprite blade); whether the healers reached them is the cleanup's story. The sprite sorcerer fled; the surviving archers scattered; the Feyward's contract with itself voided on the champion's death.",
-    "waluigiAssessment": "I was not there. I have read the tally twice and the arrow patterns a third time, and here is what the marks say that the narrators will not: the expedition did not win because it was stronger. It won because the wood fought itself harder than it fought the cutters — sand in its own files, an arrow into the enemy's best blade, a screen deleted by splash, and at the end its own weather putting poison into the dying mound and fire into its own archers. All the expedition had to do was stay standing, and the one of them with the books stayed standing best.\n\nThe pursuit was not mercy and it was not strategy. It was arithmetic: the mound was dying and the librarian had books left. WAH.",
+    "casualties": "The treant, felled by two books. Both awakened shrubs, deleted singly. The shambling mound, run down after the whistle and destroyed with the sprites' own poison in it. A third of the lane's sleep, expended mostly on friendlies. Swifty and Renard, carried from the field. Joseph's confidence, first minute. The fork's reputation, restored.",
+    "summary": "The season the plants took over produced the campaign's largest engagement: a hired cutting crew — satyr line, house guards, one goblin tally-keeper, Ramsee and his assorted cutlery, and Woodfellow, who throws books — against the wood's champion and everything it could wake. Sleep-sand thrown wide turned the lane into a weather system, a skirmisher's arrow brought down the expedition's own swordfighter, and the battle turned on a single book driven through the split in a treant's trunk. The fleeing mound was run down in a gap of eighteen minutes no survivor's account covers, and destroyed with the sprites' own poison in it.",
+    "description": "*Filed from the tally and the survivors' fragments — no field report survived the night, and the cleanup filing is still owed. Every count below comes from the keeper's marks ([[prop:prop_cutting_lane_tally|the last page of the tally]]); the names of the wood's own come from the reconstruction, for a battle of nameless things is a weather report. The prose reconstructs; the arithmetic does not.*\n\n## Part I — The Wood Objected\n\nThe Feyward had been strangling itself for a season — vines that eat memories, poison in the green, plants where plants should not be — and somebody finally hired a cutting crew to push a lane back through it. Nine mustered: satyr line and steel, two house guards, one goblin auxiliary with a kitchen knife and the tally book, and at the column's back two problem-solvers the forest should have thought harder about — Ramsee, who throws cutlery, and Woodfellow, who throws books.\n\nThe wood's answer was orthodox. It woke a treant.\n\n*WAH! A treant is what a tree becomes after a century of contemplation and one bad day — bark like fortress masonry, arms that end in doors. It is also, and I want this on the record, the slowest thing on a battlefield. The mightiest tree in the lane took the field last. The encyclopedia has warned about this. Nobody reads the encyclopedia.*\n\n## Part II — The Treant Opens\n\nThe treant's first blow was meant to end the argument at a stroke: a branch the width of a door brought down on Swifty, the expedition's best blade. Swifty caught it on the scimitar — the parry of his life — and stayed up when lesser satyrs would have been driven into the earth. He did not stay up whole. Around him the line formed badly in the dark: Joseph's opening cut glanced off the bark without leaving a mark the keeper thought worth counting, and in the press even the lane's own ranks closed wrong — Bramm the berserker's first cut landed on Renard's pauldron, and no account since has agreed whether the wood turned his arm or the melee simply swallowed him. Pib's knife found a seam for what it was worth. Ramsee opened the cutlery account with one strike that stuck, then spent the next half hour contributing aerodynamics.\n\n## Part III — The Sleep Wars\n\nThen the sprites deployed the only weapon on that field scarier than a treant: sleep-sand, thrown wide, three times, into a melee containing most of the living world. The requisition that authorized it survives ([[prop:prop_sleep_sand_requisition|filed, and marked as one would expect]]).\n\nThe first throw — Comfrey's, the keeper believes — took the weakest bodies in the cloud: sprites, mostly, which raises questions about sprite command discipline nobody stayed awake to answer. Gorse's file went down asleep mid-air and never woke. The second fold more of them; Mugwort and Sorrel and Bryony and Rattlecap sleep in the tally to this day, marked, not struck. The third throw was thrown with the treant still standing and did not care whose side anyone was on: Woodfellow slumped mid-fight under sand he had not been aimed at, a house guard went down asleep on his feet and woke at half his strength, and one of the wood's own — the keeper's mark is unclear which — slept where it stood, technically victorious.\n\n*WAH! I have filed entire essays on the relationship between herds and the concept of \"throwing wide.\" The concept remains theoretical. The sleeping third of that lane is not.*\n\n## Part IV — Arrows With Opinions\n\nThe middle watches are where the Feyward earned its reputation, because the arrows stopped agreeing with the people firing them. Lochan, the satyr scout — a professional — put two shafts into the melee around the treant. The first went wide. The second took Swifty through the joint of his harness, the same satyr the treant's opening blow had left standing on will, and brought him down. Friendly fire, in the press, at night, in a poisoned wood: no account agrees whether the shaft was turned or simply chose him, and this record declines to convict a skirmisher on vibes. Later the same scout's bow misfired outright. Whatever the wood wanted from that bow, it did not want consistency.\n\nZach, the druid, fought the battle three times at once — thunder called down on the sprite files, on the treant, and at least once across Woodfellow's position, because thunder does not check uniforms — while standing off Yew's poisoned darts and keeping his feet through wounds that would have stopped a louder man. Renard's evening reads like a casualty ledger with a pulse: cut in the press by his own side, struck by Lochan's wide shaft, darts in the arm, a sprite's blade at the end of it all — and he was one of the healthy ones when the whistle came.\n\n## Part V — The Library Opens\n\nThe treant had marked the librarian. Twice it brought the door-sized arm down on Woodfellow's position — once landing the only wound Woodfellow is on record as taking personally, once finding only the space where he had stepped inside the swing — and in pressing him it made the one mistake the Feyward could not forgive: it split its own bark wide, and the librarian saw the split.\n\nBy then Woodfellow had already cleared the wood's skirmish screen, deleting Gall and then Tansy with single books — overkill the keeper recorded without comment. What followed is the strike this record exists to file: one book, thrown flat and hard, went through the split the treant's own offense had opened. The champion staggered and kept its feet. The second book put it down, and it fell across the lane it had come to close — which is the sort of ending this encyclopedia usually has to invent.\n\n## Part VI — The Hunt\n\nThe shambling mound — a second mass of rot and grudge the lane had barely scratched — assessed a field whose champion was lying across it, and chose tomorrow. It broke away into the dark, and the expedition chose today: they ran it down. Here the record fails honestly — for eighteen minutes, no mark, no account, no survivor's memory covers the pursuit, and the report Lochan owed for it was never filed ([[prop:prop_pursuit_report_blank|the blank form is its own exhibit]]). The keeper writes that the page was wet. When the record resumes, the mound is dying at the hands of everything the lane had left: Ramsee's cutlery finally arriving on target, five more books — one thrown wild into the night, which the library does not discuss — and, in the middle of the execution, the weather changed sides: the archers Yew and Holly put their own poison into the wood's mound while the casters' fire took one of their own archers. Whatever contract the Feyward had with itself, the champion's death voided it. Nightshade the sorcerer was already gone — the keeper's mark for him is a single word, *fled* — and Linden the dryad, who appears once in the record and never in the fighting, was gone with the dark.\n\nThe expedition paid for the pursuit: a sprite blade put Renard down in the last watches, the second fighter of the night to leave the field on shoulders instead of feet. The mound died with Yew's poison in it. The last mark in the tally belongs to the keeper: lane clear, wood quiet, two carried.\n\n*WAH! I have watched a lot of ordnance in my career. For half an hour the fork was ceremonial. Then the mound met the fork, the library, and the weather's own darts, in that order, and I am filing the sequence under \"victory conditions, coalition.\"*",
+    "aftermath": "The field belongs to the cutters, and the field is a disaster area. The cleanup — wounded, prisoners, salvage, and what one does with a fallen treant and a poisoned mound in a lane one has just cut — is owed as a separate filing. Two of the expedition left the field on shoulders (Swifty to Lochan's arrow, Renard to a sprite blade); whether the healers reached them is the cleanup's story. Nightshade and Rowan and Comfrey fled; Yew and Holly scattered rich in everyone's gratitude; Linden's going is unrecorded. The Feyward's contract with itself voided on the champion's death.",
+    "waluigiAssessment": "I was not there. I have read the tally twice and the arrow patterns a third time, and here is what the marks say that the narrators will not: the expedition did not win because it was stronger. It won because the wood fought itself harder than it fought the cutters — sand in its own files, an arrow into the enemy's best blade, a screen deleted by splash, and at the end its own archers putting poison into the dying mound and fire into their own. All the expedition had to do was stay standing, and the one of them with the books stayed standing best.\n\nThe pursuit was not mercy and it was not strategy. It was arithmetic: the mound was dying and the librarian had books left. WAH.",
     "keyMoments": [
       {
         "time": "first watch",
@@ -3988,21 +4055,22 @@
       },
       {
         "time": "early",
-        "who": "the berserker",
+        "who": "Bramm",
         "act": "Cut in the press",
         "result": "Landed on Renard's pauldron — the lane's own ranks closed wrong in the dark"
       },
       {
         "time": "first hour",
-        "who": "the sprite casters",
+        "who": "Comfrey's casters",
         "act": "Sleep-sand, first throw",
-        "result": "The cloud took the weakest files — mostly sprites; whole ranks asleep mid-air"
+        "result": "The cloud took the weakest files — Gorse's warriors asleep mid-air; Gorse never woke",
+        "decisive": true
       },
       {
         "time": "first hour",
-        "who": "the sprite casters",
+        "who": "the casters",
         "act": "Sleep-sand, second throw",
-        "result": "More sprite files fold; some never wake"
+        "result": "Mugwort, Sorrel, Bryony, Rattlecap sleep in the tally to this day, marked, not struck"
       },
       {
         "time": "first hour",
@@ -4012,7 +4080,7 @@
       },
       {
         "time": "middle",
-        "who": "the satyr scout",
+        "who": "Lochan",
         "act": "Two shafts into the press",
         "result": "First wide; second takes Swifty through the joint of his harness — carried from the field",
         "decisive": true
@@ -4021,13 +4089,13 @@
         "time": "middle",
         "who": "Woodfellow",
         "act": "The skirmish screen",
-        "result": "Both awakened shrubs deleted by single books"
+        "result": "Gall, then Tansy, deleted by single books"
       },
       {
         "time": "middle",
-        "who": "the sprite casters",
+        "who": "the casters",
         "act": "Sleep-sand, third throw — wide",
-        "result": "Woodfellow slumps mid-fight; a house guard wakes at half strength; a shrub sleeps, technically victorious",
+        "result": "Woodfellow slumps mid-fight; a house guard wakes at half strength; one of the wood's own sleeps, technically victorious",
         "decisive": true
       },
       {
@@ -4052,8 +4120,8 @@
       {
         "time": "the gap",
         "who": "the expedition",
-        "act": "Pursuit of the mound",
-        "result": "Eighteen minutes no mark or memory covers — the keeper writes that the page was wet"
+        "act": "Pursuit of the mound, led by Lochan",
+        "result": "Eighteen minutes no mark or memory covers — the scout's report was never filed; the keeper writes that the page was wet"
       },
       {
         "time": "the gap",
@@ -4064,9 +4132,9 @@
       },
       {
         "time": "the gap",
-        "who": "the sprites",
+        "who": "Yew and Holly",
         "act": "The weather changes sides",
-        "result": "Poisoned darts into the wood's own mound; a caster's fire takes a sprite archer; the sorcerer flees",
+        "result": "The archers put their own poison into the wood's mound; the casters' fire takes one of their own; Nightshade flees",
         "decisive": true
       },
       {
@@ -4077,7 +4145,7 @@
       },
       {
         "time": "last mark",
-        "who": "the keeper",
+        "who": "Pib, keeper of the tally",
         "act": "Final entry",
         "result": "Lane clear, wood quiet, two carried"
       }

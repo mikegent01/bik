@@ -57,16 +57,50 @@ Model new records on the newest same-arc record, not on the legacy tail.
 | `summary` | ✓ | 2–4 sentences, the feed voice |
 | `description` | ✓ | The article. Flowing paragraphs, Waluigi's editorial register |
 | `casualties` | – | The casualty sheet, ledger-derived. Witty is allowed; wrong is not |
-| `belligerents` | – | **New records: the structured shape** — `{attackers:{name, factionId?, commander?, combatants:[{name, note}]}, defenders:{…}}`. This is what powers ⚔️ Waluigi's Order of Battle. A flat id list still validates and still renders the article, but it renders no VS panel |
+| `belligerents` | – | **New records: the structured shape** — `{attackers:{name, factionId?, commander?, combatants:[{name, role?, fate?, fateNote?, leader?}]}, defenders:{…}}`. Powers ⚔️ Waluigi's Order of Battle **and** the muster roster with per-combatant fate. A flat id list still validates, but renders no VS panel and no roster |
 | `aftermath` | – | The field after the whistle; what is still owed |
 | `relatedArticles` | ✓ | ids that **must resolve** (battle, majorBattle, event, character, location, faction). Cross-link the sibling battle and the arc's events |
 | `image` / `imageCaption` | – | Path relative to `Reputation-Matrix2/`. One art call max per record, prompt-sheeted first per [`IMAGE_GENERATION_GUIDE.md`](IMAGE_GENERATION_GUIDE.md); `Text in image: NONE` unless the prose names an inscription |
 | `reputationChanges` / `effects` / `reputationNotes` | – | Faction reputation deltas. Leave `{}` when hand-filing. **Never add a `_generatedReputation` marker for work `tools/genkit` did not do** — that marker is provenance, not decoration |
 | `xpAwards` | – | XP the ledger should read off this battle. Without a table approved at the table, write none |
 | `engagement` | – | `{combatants, ledgerWindow, scale}` — the engagement stat chips on the dossier |
-| `casualtySheet` | – | `{attackers, defenders}` — the full per-side casualty sheet for the dossier (the flat `casualties` string stays for the sidebar rail and the VS bar) |
+| `fate` / `fateNote` / `leader` | – | Per combatant, inside `belligerents.*.combatants[]`. `fate` from the fixed vocabulary below (drives the roster status line and the VS side tallies); `fateNote` adds the one-line how; `leader: true` draws the ⚔ badge. The old `casualtySheet` paragraphs are retired — losses render per individual, not as prose blocks |
 | `keyMoments` | – | The tally, as a tactical timeline: `[{time, who, act, result, decisive?}, …]` — renders as the "From the combat record" table; `"decisive": true` rows get gold highlighting. No roll column, no mechanics — watches, actions, consequences |
 | `waluigiAssessment` | – | The closer, in its own field — the article renders it as a dedicated **Waluigi's Assessment** section. Do not bury it in `description` |
+
+### The fate vocabulary
+
+Every combatant on the roster carries a `fate`, and every fate renders as a
+symbol + word on the roster and as a tally chip on the VS panel:
+
+| Fate | Symbol | Meaning |
+|---|---|---|
+| `stood` | · | walked off the field |
+| `wounded` | ✚ | fought on, hurt |
+| `carried` | ✚ | left the field on shoulders — fate deferred, not dead |
+| `fell` | † | destroyed / killed |
+| `slept` | ☾ | the sand took them; marked, not struck |
+| `turned` | ↻ | changed sides mid-engagement |
+| `fled` | ➤ | broke and ran (the keeper's word is enough) |
+| `withdrew` | ➤ | left the field in good order |
+| `observed` | ○ | present, never engaged |
+
+`leader: true` marks field leadership (⚔, gold). A record with no leader is
+a record that honestly has none — say so in prose instead of inventing one.
+
+### Naming the nameless
+
+The Feyward's own filings already give minor creatures names — Boundy,
+Morel, Steely, the guard with no name — and a battle record may do the
+same: **a battle of nameless things is a weather report.** When the ledger
+lists combatants only by role, the record may promote them:
+
+- Name them in the local naming culture (the awakened wood's sprites take
+  plant names — Gorse, Yew, Comfrey, Nightshade; the dryad is Linden).
+- Introduce them in prose as *the shrub called Gall* — never pretend the
+  ledger spoke a name it did not.
+- The promotion lives in the battle record only, until a character filing
+  claims it. Fate and role are reconstruction; counts are canon.
 
 **Legacy warning.** The ten oldest records carry a parallel field set
 (`title`, `participants`, `outcome`, `notableFeatures`, `audio*`,
@@ -80,7 +114,7 @@ result, casualties`) → lead → participants/XP panel → **⚔️ Waluigi's O
 of Battle** (the VS infographic — requires structured
 `belligerents {attackers, defenders}` with optional `factionId`,
 `commander`, `combatants` counts) → **🏹 Battle Dossier** (engagement stats,
-full `combatants` rosters with notes, `casualtySheet`, the `keyMoments`
+the full `combatants` muster with roles and per-combatant fates, the `keyMoments`
 ledger table) → `description` prose (**`##` headings become article sections
 and feed the Contents** — write the battle in Parts) → `aftermath` →
 `waluigiAssessment` → related chips. Every one of those is a reason to
@@ -107,8 +141,9 @@ fill the field instead of compressing the fight into `summary`.
 4. **Rule zero applies** (see the root `README.md`): table names and GM
    names never become people in the prose. Ledger bookkeeping entries
    (hit-point updates, resource refunds) belong to the table, not the world.
-5. **Unnamed is safe.** Combatants the ledger names only by role stay
-   unnamed unless a character filing exists to promote them.
+5. **Unnamed is safe; named is a promotion.** Combatants the ledger names
+   only by role may stay unnamed, or be promoted per *Naming the nameless*
+   below — introduced as "called," never passed off as canon names.
 6. **Gaps are findings.** When the ledger goes silent (pursuits, cut
    recordings), say so in the prose — the silence is part of the record.
    Never narrate the gap; never fill it.

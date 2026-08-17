@@ -1550,6 +1550,65 @@
     "body": "<div class=\"pd-head\"><div class=\"pd-org\">Cutting Expedition — Provisional Lane Tally</div><div class=\"pd-sub\">Kept by the Goblin Staff · kitchen knife, third shift · the last page</div></div><table class=\"pd-table\"><thead><tr><th>Item of account</th><th>Counted</th><th>Remark</th></tr></thead><tbody><tr><td>The treant</td><td>felled</td><td>Two books. The second was a formality</td></tr><tr><td>Awakened shrubs</td><td>2 felled</td><td>One book each. The keeper records no remark</td></tr><tr><td>The mound</td><td>run down</td><td>Pursued beyond the tally. See the gap, this page</td></tr><tr><td>Sleep-sand, expended</td><td>3 throws</td><td>A third of the lane. Majority friendly, per the casters</td></tr><tr><td>Cutlery, expended</td><td>11 pieces</td><td>4 strikes. The fork is not ceremonial</td></tr><tr><td>Books, expended</td><td>9</td><td>One thrown wild into the night. The library does not comment</td></tr><tr><td>Carried from the field</td><td>2</td><td>Swifty; Renard. Not struck from the muster</td></tr><tr><td>Sprites</td><td>uncounted</td><td>See weather report</td></tr></tbody></table><hr><div class=\"pd-clause\">The keeper records an interval of eighteen minutes between the champion's fall and the mound's account. The keeper was present for all of it and remembers none of it. The page was wet then.</div><div class=\"pd-wah\">WAH — audited. The counts hold. The librarian pays for the next crate of books. &mdash; W.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>(a knife-mark)</i></div><div class=\"pd-sigcap\">Goblin Staff, keeper of the tally</div></div></div>",
     "stamps": [
       "evidence"
+    ]},
+  "prop_pursuit_report_blank": {
+    "kind": "order",
+    "icon": "🩶",
+    "title": "The Pursuit Report of the Eighteen Minutes — Unfiled",
+    "subtitle": "Standard expedition report form · issued to the scout Lochan · recovered blank",
+    "items": [],
+    "articles": [
+      "feyward_woodfellow_vs_the_treant"
+    ],
+    "note": "Every field empty, the bottom third water-stained, one word added by a hand that is not the scout's. Filed as an exhibit because the emptiness is the testimony.",
+    "body": "<div class=\"pd-head\"><div class=\"pd-org\">Cutting Expedition — Engagement Report</div><div class=\"pd-sub\">Form 3 · to be completed by the officer of any pursuit within one watch</div></div><table class=\"pd-table\"><thead><tr><th>Field</th><th>Entry</th></tr></thead><tbody><tr><td>Officer of pursuit</td><td>Lochan, scout</td></tr><tr><td>Force pursued</td><td>the mound</td></tr><tr><td>Duration</td><td>eighteen minutes</td></tr><tr><td>Route taken</td><td>&nbsp;</td></tr><tr><td>Resistance met</td><td>&nbsp;</td></tr><tr><td>Friendly losses en route</td><td>&nbsp;</td></tr><tr><td>Disposition of the pursued</td><td>&nbsp;</td></tr><tr><td>Remarks</td><td>&nbsp;</td></tr></tbody></table><hr><div class=\"pd-margin\">The page was wet. I have nothing else. — L.</div><div class=\"pd-wah\">WAH — a form this blank is a confession wearing a uniform. Filed unanswered. &mdash; W.</div>",
+    "stamps": [
+      "overdue"
+    ]
+  },
+  "prop_sleep_sand_requisition": {
+    "kind": "invoice",
+    "icon": "🧿",
+    "title": "Requisition — Sleep-Sand, Assorted, Three Throws",
+    "subtitle": "Drawn against the wood's stores · signed Comfrey, senior caster · marked as one would expect",
+    "items": [],
+    "articles": [
+      "feyward_woodfellow_vs_the_treant"
+    ],
+    "note": "The paperwork that authorized the weather. Quantities as requested; delivery as thrown; the discrepancy column was not provided for.",
+    "body": "<div class=\"pd-head\"><div class=\"pd-org\">The Awakened Wood — Stores</div><div class=\"pd-sub\">Requisition · night operations · cutting-lane suppression</div></div><table class=\"pd-table\"><thead><tr><th>Item</th><th>Qty</th><th>Purpose</th></tr></thead><tbody><tr><td>Fine sand, sleep-bearing</td><td>3 throws</td><td>Suppression of the cutting crew</td></tr><tr><td>Rose petals, dried</td><td>1 pouch</td><td>Component</td></tr><tr><td>Cricket, one, live</td><td>1</td><td>Component</td></tr><tr><td>Verification of target area</td><td>—</td><td><i>not requisitioned</i></td></tr></tbody></table><hr><div class=\"pd-clause\">Signed for the casters: Comfrey. Distribution: Mugwort, Sorrel, self. The undersigned notes for the record that the cloud is large and the night is dark, and that these are the wood's problems, not the casters'.</div><div class=\"pd-margin pd-margin--red\">Post-action annotation, unknown hand: three throws, one lane, both armies. Requisition returned. See tally.</div><div class=\"pd-stamp pd-stamp--void\">VOID</div>",
+    "stamps": [
+      "void"
+    ]
+  },
+  "prop_threshold_sentence": {
+    "kind": "telegram",
+    "icon": "🚪",
+    "title": "The Threshold Sentence — As Spoken",
+    "subtitle": "Testimony taken at the door of Tymnas's cottage · night of 30 Harvestide, 1040 BF",
+    "items": [],
+    "articles": [
+      "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
+    ],
+    "note": "Nine words, spoken mid-flight through a broken window by an imp being thrown out of a broom closet, and the oldest law of thresholds in the world folded around them. The transcript is short. Consequences are not.",
+    "body": "<div class=\"pd-head\"><div class=\"pd-org\">Testimony — Threshold Law Incident</div><div class=\"pd-sub\">Recorded by Markop · witnessed by the door</div></div><div class=\"pd-quote\">“I give the vampire permission to go inside!”</div><hr><div class=\"pd-clause\"><b class=\"n\">1.</b> Spoken by the imp while airborne, before crossing the sill it had been thrown through. Utterance completed prior to ejection. The law does not appear to care about the airborne part.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> The threshold accepted the sentence. The cottage refused the vampire for the better part of an hour; the refusal ended with the ninth word above.</div><div class=\"pd-clause\"><b class=\"n\">3.</b> A thousand years of invitation law, and the operative question of the age is now whether an imp hiding with the brooms counts as a resident.</div><div class=\"pd-margin\">Sunlight and the Holy Symbol of Ravenkind drove the guest back out. The door has requested a transfer. &mdash; filed by the second Dan, who was there.</div><div class=\"pd-wah\">WAH — this is why Waluigi audits wording. Nobody else does. &mdash; W.</div>",
+    "stamps": [
+      "evidence"
+    ]
+  },
+  "prop_mirror_custody_chit": {
+    "kind": "order",
+    "icon": "🪞",
+    "title": "Custody Slip — The Mirror of True Reflection",
+    "subtitle": "Issued to the sleeping guard · recovered from the sleeping guard · still overdue",
+    "items": [],
+    "articles": [
+      "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
+    ],
+    "note": "The paper that says why the mirror was where Eager found it. Custody transferred to a man who slept through the transfer, the theft, and, reportedly, the shouting afterward.",
+    "body": "<div class=\"pd-head\"><div class=\"pd-org\">Custody Slip — Recovered Artifact</div><div class=\"pd-sub\">One (1) mirror · true reflection · signed under duress of ordinariness</div></div><table class=\"pd-table\"><thead><tr><th>Field</th><th>Entry</th></tr></thead><tbody><tr><td>Article</td><td>The Mirror of True Reflection</td></tr><tr><td>Custodian</td><td>[the guard — name withheld; he was asleep]</td></tr><tr><td>Duration of custody</td><td>Unclear. He was asleep.</td></tr><tr><td>Condition at issue</td><td>Reflective</td></tr><tr><td>Condition at recovery</td><td>Reflective; custodian unchanged</td></tr><tr><td>Method of recovery</td><td>Borrowed gloves, omega stealth, one smooth motion</td></tr><tr><td>Custodian's account</td><td>None. He was asleep.</td></tr></tbody></table><hr><div class=\"pd-clause\">The slip remains open. Custody of the mirror passed to Remi Akamatsu without a countersignature, which the filing desk notes is the most honest paperwork of the evening.</div><div class=\"pd-stamp pd-stamp--overdue\">OVERDUE</div>",
+    "stamps": [
+      "overdue"
     ]
   }
   }
