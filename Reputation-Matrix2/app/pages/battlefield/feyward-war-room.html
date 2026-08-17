@@ -52,13 +52,14 @@
       <section class="map-panel panel" aria-labelledby="map-title">
         <div class="panel-heading map-heading">
           <div>
-            <p class="eyebrow">COMMAND MAP · WORKING PLACEMENT</p>
-            <h2 id="map-title">Feyward Manor · the map the house finally admitted was real</h2>
+            <p class="eyebrow">COMMAND MAP · VERIFIED PLAYER MAP + SVG OVERLAY</p>
+            <h2 id="map-title">Feyward Manor · west growth front / east defense line</h2>
           </div>
           <div class="map-tools" role="toolbar" aria-label="Map display controls">
             <button class="tool-button active" data-toggle="grid" type="button" aria-pressed="true">Grid</button>
             <button class="tool-button active" data-toggle="routes" type="button" aria-pressed="true">Routes</button>
             <button class="tool-button active" data-toggle="threats" type="button" aria-pressed="true">Growth</button>
+            <button class="tool-button active" data-toggle="defenses" type="button" aria-pressed="true">Defenses</button>
             <button class="tool-button" data-toggle="labels" type="button" aria-pressed="false">Labels</button>
             <button class="tool-button" data-toggle="pulse" type="button" aria-pressed="false">Pulse</button>
           </div>
@@ -72,25 +73,26 @@
           <button class="legend-item" data-filter="manor" type="button"><span class="legend-swatch blue"></span>Manor personnel</button>
           <span class="legend-item legend-static"><span class="legend-swatch node-swatch"></span>Operational node</span>
         </div>
-        <p class="legend-note"><strong>SVG survey, not a recovered blueprint:</strong> this plan is built from the room list and architectural details already filed for the Feyward reflection of Raventree Manor. The four colours are a working planning legend; assignments and routes are explicitly non-canon until the table confirms them. Click any room, marker, or operational node.</p>
+        <p class="legend-note"><strong>Verified map image + planning overlay:</strong> the supplied Feyward map is the base layer. The SVG overlay adds a readable growth front on the west/left, the main defense line on the east/right, room/sector hit areas, routes, and planning markers. Labels are working identifications until the table confirms exact room names.</p>
 
-        <div id="mapStage" class="map-stage" tabindex="0" aria-label="Interactive SVG floor plan of Feyward Manor. Select a room, marker, or operational node for details.">
+        <div id="mapStage" class="map-stage" tabindex="0" aria-label="Interactive Feyward Manor map with SVG planning overlays. Select a sector, marker, or operational node for details.">
           <div class="map-viewport" id="mapViewport">
-            <img id="floorplanImage" src="../../../assets/maps/feyward-manor-plan.svg" alt="Composite SVG floor plan of Feyward Manor with known rooms, corridors, grounds, and survey warnings" class="tactical-map">
+            <img id="floorplanImage" src="../../../assets/maps/feyward.webp" alt="Supplied top-down Feyward Manor map with rooms, grounds, west-side plant growth, and east-side defenses" class="tactical-map">
             <div class="map-grid-overlay" aria-hidden="true"></div>
-            <svg id="mapOverlay" class="map-overlay" viewBox="0 0 1200 820" preserveAspectRatio="xMidYMid meet" aria-hidden="false">
-              <g id="threatLayer" class="threat-layer" aria-label="Working hostile growth overlays"></g>
+            <svg id="mapOverlay" class="map-overlay" viewBox="0 0 8000 8000" preserveAspectRatio="xMidYMid meet" aria-hidden="false">
+              <g id="growthLayer" class="growth-layer" aria-label="Working west-side plant growth overlay"></g>
+              <g id="defenseLayer" class="defense-layer" aria-label="Working east-side defense overlay"></g>
               <g id="routeLayer" class="route-layer"></g>
               <g id="orderTargetLayer" class="order-target-layer"></g>
               <g id="markerLayer" class="marker-layer"></g>
             </svg>
             <div id="roomHitLayer" class="room-hit-layer" aria-label="Known room selection"></div>
             <div id="mapPlacementHint" class="map-placement-hint" hidden>Click a location to place the selected order.</div>
-            <div id="mapAssetStatus" class="map-asset-status" role="status"><span class="map-status-dot"></span>Loading SVG survey…</div>
+            <div id="mapAssetStatus" class="map-asset-status" role="status"><span class="map-status-dot"></span>Loading WEBP map…</div>
           </div>
         </div>
         <div class="map-footer">
-          <span><b id="roomCount">0</b> rooms indexed · <b id="markerCount">0</b> operational markers · <b id="orderCount">0</b> proposed orders</span>
+          <span><b id="roomCount">0</b> map zones indexed · <b id="markerCount">0</b> operational markers · <b id="orderCount">0</b> proposed orders</span>
           <button id="placeOrder" class="button button-accent" type="button">＋ Plot an order</button>
         </div>
       </section>
@@ -160,10 +162,10 @@
       <div class="panel-heading">
         <div>
           <p class="eyebrow">BUILDING INVENTORY · SOURCE INDEX</p>
-          <h2 id="building-title">Every room currently on the board</h2>
-          <p class="panel-subtitle">Room descriptions are drawn from the existing Feyward record and the older manor survey. A dashed or partial room is not a solved route.</p>
+          <h2 id="building-title">Every map sector currently on the board</h2>
+          <p class="panel-subtitle">Sector names are drawn from the existing Feyward record and the visible map. Working identification is not the same as settled canon.</p>
         </div>
-        <span class="source-chip">16 known rooms</span>
+        <span class="source-chip">10 working zones</span>
       </div>
       <div id="roomInventory" class="room-inventory"></div>
     </section>
@@ -208,7 +210,7 @@
     <section class="source-footer">
       <div>
         <p class="eyebrow">CANON BOUNDARY</p>
-        <p>This planner is a tactical companion to <a href="../../../../index.html#/article/feyward_chop_bros_soul_ring_and_the_guard_with_no_name">“Chop Bros, the OC Soul Ring, and the Guard With No Name.”</a> The event record remains the authority. The map uses only its named people, objects, positions, results, and unresolved questions; the proposed orders are deliberately separate.</p>
+        <p>This planner is a tactical companion to <a href="../../../../index.html#/article/feyward_chop_bros_soul_ring_and_the_guard_with_no_name">“Chop Bros, the OC Soul Ring, and the Guard With No Name.”</a> The event record remains the authority. The WebP supplies the terrain; room identities, growth, defense lines, and proposed orders are clearly marked as planning overlays until the table confirms them.</p>
       </div>
       <div class="source-stamp">Feyward branch<br><b>MAP / 01</b></div>
     </section>
