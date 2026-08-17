@@ -306,11 +306,16 @@
 .bd-side.att{border-color:rgba(229,72,77,.55);box-shadow:inset 3px 0 0 rgba(229,72,77,.55)}
 .bd-side.def{border-color:rgba(47,174,138,.55);box-shadow:inset 3px 0 0 rgba(47,174,138,.55)}
 .bd-side h5{margin:0 0 8px;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent2)}
-.bd-combatant{display:flex;gap:8px;font-size:12.5px;padding:4px 0;border-top:1px dashed rgba(160,150,180,.18);line-height:1.45;align-items:baseline}
+.bd-combatant{display:flex;gap:8px;font-size:12.5px;padding:4px 0;border-top:1px dashed rgba(160,150,180,.18);line-height:1.45;align-items:baseline;min-width:0}
 .bd-combatant:first-of-type{border-top:none}
 .bd-combatant b{white-space:nowrap}
-.bd-combatant span{color:var(--muted);flex:1 1 auto}
-.bd-combatant em.bd-fate{font-style:normal;font-weight:800;white-space:nowrap;font-size:11.5px;letter-spacing:.3px;cursor:help}
+.bd-combatant span{color:var(--muted);flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+.bd-combatant em.bd-fate{font-style:normal;font-weight:800;white-space:nowrap;font-size:11.5px;letter-spacing:.3px;cursor:help;flex:0 0 auto}
+.bd-fatenote{font-size:11px;color:var(--muted);opacity:.85;padding:0 0 5px;margin-top:-2px;line-height:1.4;overflow-wrap:anywhere}
+.bd-side-fates{display:flex;flex-wrap:wrap;gap:5px;margin:-2px 0 10px}
+.bd-side-fates .vs-fate{text-transform:none;letter-spacing:0}
+.bd-lead-line{color:#e0b400;font-weight:900}
+.bd-side,.vs-side,.bd-roster,.bd{min-width:0}
 .bd-leader{color:#e0b400;font-weight:900;margin-right:2px}
 .vs-fates{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .vs-fate{font-weight:900;font-size:12px;background:rgba(0,0,0,.18);border-radius:999px;padding:2px 7px}
@@ -9466,10 +9471,12 @@ function battleDossier(b){
       const nm=typeof c==='string'?c:(c&&c.name)||'Unknown';
       const note=(c&&c.note)||''; const role=(c&&c.role)||note;
       const f=(c&&c.fate)||'stood'; const fm=BATTLE_FATES[f]||BATTLE_FATES.stood;
-      const fn=(c&&c.fateNote)?` — ${esc(c.fateNote)}`:'';
-      return `<div class="bd-combatant"><b>${c&&c.leader?'<span class="bd-leader" title="field leader">⚔</span> ':''}${esc(nm)}</b><span>${role?esc(role):''}</span><em class="bd-fate" style="color:${fm.c}" title="${esc(f)}${fn}">${fm.s} ${esc(f)}${fn}</em></div>`;
+      const fn=(c&&c.fateNote)||'';
+      return `<div class="bd-combatant"><b>${c&&c.leader?'<span class="bd-leader" title="field leader">⚔</span> ':''}${esc(nm)}</b><span>${role?esc(role):''}</span><em class="bd-fate" style="color:${fm.c}" title="${esc(f)}${fn?(' — '+esc(fn)):''}">${fm.s} ${esc(f)}</em></div>${fn?`<div class="bd-fatenote">${esc(fn)}</div>`:''}`;
     }).join('');
-    return `<div class="bd-side ${cls}"><h5>${label} — ${esc(s.name||'Unknown')}${s.commander||s.leader?` · ⚔ ${esc(s.commander||s.leader)}`:''} · ${battleFateChips(s.combatants)}</h5>${rows}</div>`;
+    const leadLine=s.commander||s.leader?` · <span class="bd-lead-line">⚔ ${esc(s.commander||s.leader)}</span>`:'';
+    const chips=battleFateChips(s.combatants);
+    return `<div class="bd-side ${cls}"><h5>${label} — ${esc(s.name||'Unknown')}${leadLine}</h5>${chips?`<div class="bd-side-fates">${chips}</div>`:''}${rows}</div>`;
   };
   const moments=Array.isArray(b.keyMoments)?b.keyMoments:[];
   const ledger=moments.length?`<h5 class="bd-ledger-head">🗂️ From the combat record — ${moments.length} entries from the tally</h5><div class="bd-ledger"><table><thead><tr><th>Watch</th><th>Who</th><th>Action</th><th>Result</th></tr></thead><tbody>${moments.map(m=>`<tr class="${m.decisive?'bd-moment-crit':''}"><td class="bd-t">${esc(m.time||'')}</td><td>${esc(m.who||'')}</td><td>${esc(m.act||'')}</td><td>${esc(m.result||'')}</td></tr>`).join('')}</tbody></table></div>`:'';
