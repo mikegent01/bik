@@ -1,12 +1,92 @@
 # Writing the Rakasha News Network
 
-The RNN is the in-world news broadcast that reads the campaign back to itself.
+The RNN is the in-world broadcast that reads the campaign back to itself.
 It is written by the Rakasha desk — **Whisper-in-Wind**, Death Speaker of the
 Spirit-Walker Clan, on anchor; **Acolyte Dan**, Runner of the Cold Roads, in the
 field — and it exists because a wiki full of filings has no voice telling you
 which of them mattered.
 
-**It is a news programme. It only works when it has news.**
+**From EP 003 the RNN is a network, not a single programme.** The desk opens
+every episode with a short, cold bulletin — *The Jungle Sees All* — and then
+hands the longhouse to the late slot: **WALUIGI CHAT**, a talk show hosted by
+Waluigi (the encyclopaedia's own author) with a **rotating guest** each
+episode and occasional callers on the shell-phone. The news stays Rakasha;
+the talking is his.
+
+**It is a broadcast. It only works when it has something to say.**
+
+---
+
+## The network format (from EP 003)
+
+| Segment | Programme | Job | Lines |
+|---|---|---|---|
+| **COLD OPEN** | RNN | The desk's liturgy, then the night's thesis | 2 |
+| **THE JUNGLE SEES ALL** | RNN bulletin | Every pending event, cold and physical. This is the only news segment | 4–6 |
+| **THE HANDOVER** *(once, EP 003 only)* | both | The lease becomes canon: the desk signs, the tenant walks on | 5–6 |
+| **WALUIGI CHAT** | the late slot | One guest, interviewed about the events they lived, ending on the one question the news is too cold to ask | 12–18 |
+| **THE CALLER** *(optional)* | the late slot | A phone-in — someone who refuses to come in person. Voice only; the chairs do not move | 4–7 |
+| **SIGN OFF** | RNN | The desk takes the longhouse back. Close on the thesis | 2 |
+
+Rules of the late slot:
+
+- **One guest per episode, and the guest must have a pose set** in
+  `Reputation-Matrix2/portraits/player/sprite-sheets/poses/` (registered in
+  its `manifest.json`). No sprite set, no chair.
+- **The guest is interviewed about events they lived through**, not about
+  events in general. The episode's `sourceEvents` should be theirs.
+- **End every interview on the question the bulletin could not ask.** Cold
+  news reports bodies; the talk show asks the person inside the body what
+  the body felt.
+- **Callers never take a chair.** Mark their lines `"phone": true` and give
+  them `callerName`/`callerRole`; the stage stays with host and guest. A
+  caller who hangs up on the host is a segment ending, not a flaw.
+- **Waluigi never reads the news.** If he starts reporting, the desk takes
+  the floor back mid-sentence. This is the only intervention allowed.
+
+### Script schema (network episodes)
+
+Same file, new fields — the builder fills defaults and validates everything:
+
+```json
+"cast": {
+  "anchor":  { "name": "Whisper-in-Wind", "role": "…",
+               "art": { "kind": "frames", "dir": "animation_frames/" } },
+  "waluigi": { "name": "Waluigi", "role": "Host, Waluigi Chat · …",
+               "art": { "kind": "pose",
+                        "dir": "portraits/player/sprite-sheets/poses/waluigi/",
+                        "defaultPose": "02-idle-right" } },
+  "remi":    { "name": "Remi Akamatsu", "role": "Guest — …",
+               "art": { "kind": "pose", "dir": "…/poses/remi/", "defaultPose": "01-idle-front" } }
+}
+```
+
+- `art.kind: "frames"` = the Rakasha anchor, driven by per-line `expression`.
+- `art.kind: "pose"` = a sprite-sheets character, driven by per-line `pose`.
+- Every line may set `speaker` (default `anchor`). Speakers who are not on a
+  chair set `phone: true`.
+- Segments may set `set: "newsdesk" | "talkset"`. The set crossfades; the
+  music bed follows it (jungle drums for news, the lazy "wah" motif for talk).
+- The player seats cast members by first appearance in each segment: first
+  voice takes chair A, second takes chair B (the guest walks on from the right).
+
+### Voice — the host
+
+Waluigi is not neutral either, but he is the *opposite* register from the
+desk, and the contrast is the show:
+
+- **First person, always.** The desk reports; Waluigi testifies.
+- **Petty, precise, and usually right.** He cites his own encyclopaedia
+  entries ("I filed that, by the way") and the citations are accurate —
+  check them against the event prose before shipping.
+- **Wounded dignity is the engine.** Nobody thanks him, nobody remembers the
+  brother, nobody invites him anywhere. He says WAH about it and moves on.
+- **He audits wording.** Imps, leases, thresholds, corrections — his running
+  theme is that every disaster in this campaign is a sentence somebody
+  failed to read.
+- **The same banned vocabulary as the desk:** no "event," "filing," "XP,"
+  "session," "canon" — except the encyclopaedia itself, which exists
+  in-world and which he may reference as his own work.
 
 ---
 
@@ -111,6 +191,11 @@ lines and validates the references; **it does not invent prose.**
 `sourceEvents` id must resolve in `events.json`. The build fails loudly on both.
 
 ### Shape of a good episode
+
+**EP 003 onward: use the network shape** (bulletin → Waluigi Chat → caller →
+sign-off) in the table above. The pure-news shape below is the legacy of
+EPs 001–002, and remains the fallback if the talk format is ever rested —
+see *If the format stops working*.
 
 | Segment | Job | Lines |
 |---|---|---:|

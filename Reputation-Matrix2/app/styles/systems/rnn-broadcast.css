@@ -130,6 +130,42 @@
   filter: blur(6px);
 }
 
+/* ---------- the network format: two chairs, two sets ---------- */
+:root { --rnn-purple: #7b3fd4; --rnn-gold: #f2c94c; }
+
+/* backdrop crossfade between the newsdesk and the talk set */
+.rnn-backdrop { transition: opacity .6s ease; }
+.rnn-backdrop-b { opacity: 0; }
+
+/* the late-slot talk set: purple wash, gold accents */
+.rnn-screen.talkset .rnn-deskglow {
+  background: radial-gradient(ellipse, rgba(150,84,220,.32), transparent 70%);
+}
+.rnn-screen.talkset .rnn-slug { background: var(--rnn-purple); color: #fff; }
+.rnn-screen.talkset .rnn-lower-name {
+  background: var(--rnn-purple); color: #fff; border-left-color: var(--rnn-gold);
+}
+
+/* two chairs: host stage-left facing the guest, guest stage-right mirrored */
+.rnn-stage.duo { justify-content: space-between; padding: 0 11%; }
+.rnn-stage.duo .rnn-anchor { height: min(60%, 350px); margin-bottom: 10%; }
+.rnn-stage.duo #rnn-chairB { transform: scaleX(-1); }
+
+/* the speaking chair leans in; the listening chair settles back */
+.rnn-anchor { transition: transform .25s ease, opacity .25s ease, filter .25s ease; }
+.rnn-stage.duo .rnn-anchor.speaking { transform: scale(1.06); }
+.rnn-stage.duo #rnn-chairB.speaking { transform: scale(-1.06, 1.06); }
+.rnn-stage.duo .rnn-anchor.dim { opacity: .78; filter: saturate(.8) brightness(.88); }
+
+/* guest walks on from the right when the talk segment begins */
+.rnn-stage.duo #rnn-chairB.enter { animation: rnn-enterB .85s cubic-bezier(.2,.7,.3,1); }
+@keyframes rnn-enterB {
+  0%   { transform: translateX(150%) scaleX(-1); opacity: 0; }
+  55%  { opacity: 1; }
+  100% { transform: translateX(0) scaleX(-1); }
+}
+
+
 /* on-air + hunt-day furniture */
 .rnn-onair {
   position: absolute; top: 14px; right: 16px; font-size: 11px; font-weight: 900;
@@ -319,11 +355,14 @@
   .rnn-transport { gap: 7px; padding: 10px; }
   .rnn-btn { padding: 7px 9px; font-size: 11px; }
   .rnn-time { margin-left: 0; }
+  .rnn-stage.duo { padding: 0 7%; }
+  .rnn-stage.duo .rnn-anchor { height: min(52%, 300px); }
 }
 
 /* Respect reduced-motion: kill the hop, the scroll and the blinking. */
 @media (prefers-reduced-motion: reduce) {
   .rnn-anchor.is-field, .rnn-ticker-track, .rnn-onair .dot,
-  .rnn-caption .cursor, .rnn-cb-speaking { animation: none !important; }
+  .rnn-caption .cursor, .rnn-cb-speaking,
+  .rnn-stage.duo #rnn-chairB.enter { animation: none !important; }
   .rnn-ticker-track { padding-left: 0; }
 }

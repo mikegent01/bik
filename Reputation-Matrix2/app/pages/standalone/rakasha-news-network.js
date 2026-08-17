@@ -1,12 +1,19 @@
 /* ============================================================
    RAKASHA NEWS NETWORK — BROADCAST PLAYER
    Renders a timed, frame-composited news broadcast from
-   data/rnn-broadcasts.js using the sprites in animation_frames/.
+   data/rnn-broadcasts.js using the sprites in animation_frames/
+   (the Rakasha anchor) and portraits/player/sprite-sheets/poses/
+   (the talk-show cast).
 
    No video file is encoded: the "video" is a scheduled sequence of
-   anchor frames, captions, lower thirds and title cards played by
+   sprite frames, captions, lower thirds and title cards played by
    this script. That keeps the broadcast diffable, regenerable and
    tiny in the repository.
+
+   THE NETWORK FORMAT (from EP 003): the Rakasha desk opens with a
+   cold bulletin, then hands the longhouse to WALUIGI CHAT — two
+   chairs, a host, a rotating guest, and callers on the shell-phone.
+   Old episodes keep their single-anchor stage.
 
    Regenerate episode data with:  python3 tools/build-rnn-broadcast.py
    ============================================================ */
@@ -14,7 +21,11 @@
   'use strict';
 
   var FRAMES = '../../../animation_frames/';
-  var EXPRESSIONS = ['normal', 'happy', 'sad', 'concerned', 'eyebrowraised', 'mouthslightlyopen', 'jump'];
+  var POSES = '../../../portraits/player/sprite-sheets/poses/';
+  var SETS = {
+    newsdesk: FRAMES + 'background.png',
+    talkset:  FRAMES + 'talkset.png'
+  };
 
   var el = function (id) { return document.getElementById(id); };
   var esc = function (s) {
@@ -33,6 +44,7 @@
     speed: 1,
     cue: -1,
     seg: -1,
+    set: '',           // current set id ('newsdesk' | 'talkset')
     lastTick: 0,
     raf: 0,
     typed: -1,
@@ -42,14 +54,78 @@
   /* ---------------- audio desk (rnn-audio.js, optional) ---------------- */
   function A() { return window.RNNAudio && window.RNNAudio.supported ? window.RNNAudio : null; }
 
+  /* ---------------- cast resolution ----------------
+     Every episode (old and new) ships a cast map:
+       { waluigi: { name, role, art: { kind:'pose', dir:'.../waluigi/', defaultPose } } }
+     Legacy episodes get one synthesized from the anchor fields. */
+  function castOf(ep) {
+    var cast = ep.cast || {};
+    if (!cast.anchor) {
+      cast = Object.assign({}, cast);
+      cast.anchor = {
+        name: ep.anchorName || 'ANCHOR',
+        role: ep.anchorRole || '',
+        art: { kind: 'frames', dir: 'animation_frames/' }
+      };
+    }
+    return cast;
+  }
+
+  function resolveSpeaker(ep, seg, line) {
+    var cast = castOf(ep);
+    var sid = line.speaker || (seg.type === 'field' ? 'field' : 'anchor');
+    if (cast[sid]) return { id: sid, member: cast[sid] };
+    if (sid === 'field') {
+      return { id: 'field', member: {
+        name: ep.fieldName || 'FIELD RUNNER',
+        role: ep.fieldRole || '',
+        art: cast.anchor.art
+      } };
+    }
+    return { id: 'anchor', member: cast.anchor };
+  }
+
+  function spriteSrc(member, line) {
+    var art = (member && member.art) || {};
+    if (art.kind === 'pose') {
+      var pose = (line && line.pose) || art.defaultPose || '01-idle-front';
+      return '../../../' + (art.dir || '') + pose + '.png';
+    }
+    return FRAMES + ((line && line.expression) || 'normal') + '.png';
+  }
+
+  /* Which cast members occupy the chairs in a segment: distinct speakers
+     in order of first appearance. First voice takes chair A, second B. */
+  function segmentSeats(ep, seg) {
+    var seen = [], byId = {};
+    (seg.lines || []).forEach(function (line) {
+      if (line.phone) return;                    // callers are voice-only
+      var sp = resolveSpeaker(ep, seg, line);
+      if (!byId[sp.id]) { byId[sp.id] = sp; seen.push(sp); }
+    });
+    return seen;
+  }
+
+  function profileFor(sid, line, member) {
+    if (sid === 'waluigi') return 'waluigi';
+    if (line.phone) return 'caller';
+    if (member && member.art && member.art.kind === 'pose') return 'guest';
+    if (sid === 'field') return 'field';
+    return 'anchor';
+  }
+
   /* Read a caption aloud once per cue, only while actually rolling. */
-  function speakLine(c, isField) {
+  function speakLine(c) {
     var a = A();
     if (!a || !a.isVoiceOn() || !S.playing) return;
     var idx = S.cues.indexOf(c);
     if (idx === S.spokenCue) return;
     S.spokenCue = idx;
-    a.speak(c.line.text, { durationMs: c.duration / S.speed, field: isField });
+    var sp = resolveSpeaker(S.episode, c.seg, c.line);
+    a.speak(c.line.text, {
+      durationMs: c.duration / S.speed,
+      profile: profileFor(sp.id, c.line, sp.member)
+    });
     var f = el('rnn-cb-speaking');
     if (f) f.hidden = false;
   }
@@ -90,11 +166,12 @@
 
   /* ---------------- static chrome ---------------- */
   function renderChrome(ep) {
+    var talk = (ep.segments || []).some(function (s) { return s.set === 'talkset'; });
     document.title = 'RNN — ' + ep.title + ' | Rakasha News Network';
     el('rnn-ep-title').textContent = ep.title;
     el('rnn-ep-meta').innerHTML =
       'HUNT DAY ' + esc(ep.huntDay) + ' &nbsp;·&nbsp; COVERING ' + esc(ep.covering) +
-      ' &nbsp;·&nbsp; RUNTIME ' + fmt(S.total);
+      ' &nbsp;·&nbsp; RUNTIME ' + fmt(S.total) + (talk ? ' &nbsp;·&nbsp; LATE SLOT: WALUIGI CHAT' : '');
 
     el('rnn-ticker-track').innerHTML = (ep.ticker || [])
       .concat(ep.ticker || [])
@@ -105,14 +182,15 @@
       var first = S.cues.filter(function (c) { return c.segIndex === i; })[0];
       return '<div class="rnn-rundown-item" data-seg="' + i + '">' +
         '<span class="rnn-rundown-slug">' + esc(seg.slug) + '</span>' +
-        '<span class="rnn-rundown-title">' + esc(seg.title) + '</span>' +
+        '<span class="rnn-rundown-title">' + esc(seg.title || '') + '</span>' +
         '<span class="rnn-rundown-time">' + fmt(first ? first.start : 0) + '</span>' +
         '</div>';
     }).join('');
 
-    // transcript
+    // transcript — speaker name per line
     el('rnn-transcript').innerHTML = S.cues.map(function (c, i) {
-      var who = c.seg.type === 'field' ? (S.episode.fieldName || 'FIELD') : (S.episode.anchorName || 'ANCHOR');
+      var sp = resolveSpeaker(ep, c.seg, c.line);
+      var who = (c.line.phone ? '📞 ' : '') + sp.member.name;
       return '<div class="rnn-transcript-line" data-cue="' + i + '">' +
         '<b>' + esc(who) + ' · ' + esc(c.seg.slug) + ' · ' + fmt(c.start) + '</b>' +
         esc(c.line.text) + '</div>';
@@ -138,6 +216,22 @@
     });
   }
 
+  /* ---------------- set switching ---------------- */
+  function applySet(setId, force) {
+    if (!setId) setId = 'newsdesk';
+    if (setId === S.set && !force) return;
+    S.set = setId;
+    var showing = el('rnn-backdrop-a'), hidden = el('rnn-backdrop-b');
+    if (showing.dataset.active === '0') { showing = el('rnn-backdrop-b'); hidden = el('rnn-backdrop-a'); }
+    hidden.src = SETS[setId] || SETS.newsdesk;
+    hidden.dataset.active = '1';
+    hidden.style.opacity = '1';
+    showing.dataset.active = '0';
+    showing.style.opacity = '0';
+    el('rnn-screen').classList.toggle('talkset', setId === 'talkset');
+    if (A()) window.RNNAudio.setMood(setId === 'talkset' ? 'talk' : 'news');
+  }
+
   /* ---------------- per-frame paint ---------------- */
   function paint(force) {
     var i = cueAt(S.t);
@@ -153,22 +247,68 @@
       var isTitle = seg.type === 'titlecard';
       var isField = seg.type === 'field';
 
+      applySet(seg.set);
+
       el('rnn-titlecard').classList.toggle('show', isTitle);
       el('rnn-slug').textContent = seg.slug;
       el('rnn-headline').innerHTML = isTitle ? '' :
-        esc(seg.title) + (seg.articleId ? '<small>Filed: ' + esc(seg.articleId.replace(/_/g, ' ')) + '</small>' : '');
+        esc(seg.title || '') + (seg.articleId ? '<small>Filed: ' + esc(seg.articleId.replace(/_/g, ' ')) + '</small>' : '');
 
-      var expr = EXPRESSIONS.indexOf(line.expression) >= 0 ? line.expression : 'normal';
-      var anchor = el('rnn-anchor');
-      if (anchor.getAttribute('data-expr') !== expr) {
-        anchor.setAttribute('data-expr', expr);
-        anchor.src = FRAMES + expr + '.png';
+      /* ---- the chairs ---- */
+      var stage = el('rnn-stage');
+      var seats = segmentSeats(S.episode, seg);
+      var chairA = el('rnn-chairA'), chairB = el('rnn-chairB');
+      var speaker = line.phone ? null : resolveSpeaker(S.episode, seg, line);
+
+      stage.classList.toggle('duo', seats.length > 1 && !isTitle);
+      chairA.hidden = isTitle || !seats[0];
+      chairB.hidden = isTitle || !seats[1];
+
+      // Re-seat whenever the segment (or its seating) changes
+      if (c.segIndex !== S.seg) {
+        if (seats[0]) {
+          chairA.src = spriteSrc(seats[0].member, null);
+          chairA.dataset.seat = seats[0].id;
+          chairA.classList.remove('is-field');
+        }
+        if (seats[1]) {
+          chairB.src = spriteSrc(seats[1].member, null);
+          chairB.dataset.seat = seats[1].id;
+          chairB.classList.add('enter');
+          setTimeout(function () { chairB.classList.remove('enter'); }, 900);
+        }
       }
-      anchor.classList.toggle('is-field', isField);
+      if (isField || (seats[0] && seats[0].id === 'field')) chairA.classList.add('is-field');
+
+      // Swap the speaking chair's frame; the listener keeps its last pose
+      var activeChair = null;
+      if (speaker) {
+        [chairA, chairB].forEach(function (ch) {
+          if (ch.hidden || !ch.dataset.seat) return;
+          if (ch.dataset.seat === speaker.id) {
+            var src = spriteSrc(speaker.member, line);
+            if (ch.getAttribute('src') !== src) ch.src = src;
+            activeChair = ch;
+          }
+        });
+      }
+      chairA.classList.toggle('speaking', chairA === activeChair);
+      chairB.classList.toggle('speaking', chairB === activeChair);
+      chairA.classList.toggle('dim', seats.length > 1 && chairA !== activeChair);
+      chairB.classList.toggle('dim', seats.length > 1 && chairB !== activeChair);
+
       el('rnn-stage').style.opacity = isTitle ? '0' : '1';
 
-      var who = isField ? (S.episode.fieldName || 'FIELD RUNNER') : (S.episode.anchorName || 'ANCHOR');
-      var role = isField ? (S.episode.fieldRole || '') : (S.episode.anchorRole || '');
+      /* ---- lower third + caption bar ---- */
+      var who, role;
+      if (line.phone) {
+        who = '📞 ' + (line.callerName || 'CALLER');
+        role = line.callerRole || 'on the shell-phone';
+      } else {
+        var sp = resolveSpeaker(S.episode, seg, line);
+        who = sp.member.name;
+        role = sp.member.role;
+      }
       el('rnn-lower-name').textContent = who;
       el('rnn-lower-role').textContent = role;
       el('rnn-lower').style.opacity = isTitle ? '0.35' : '1';
@@ -181,7 +321,7 @@
         if (A()) window.RNNAudio.sting(
           seg.slug === 'COLD OPEN' ? 'open' : seg.slug === 'SIGN OFF' ? 'signoff' : 'seg');
       }
-      speakLine(c, isField);
+      speakLine(c);
 
       // highlight rundown + transcript
       Array.prototype.slice.call(document.querySelectorAll('.rnn-rundown-item')).forEach(function (n) {
@@ -230,7 +370,7 @@
       window.RNNAudio.start();
       // speak the line we are sitting on, since paint() may not change cue
       var c = S.cues[cueAt(S.t)];
-      if (c) { S.spokenCue = -1; speakLine(c, c.seg.type === 'field'); }
+      if (c) { S.spokenCue = -1; speakLine(c); }
     }
     S.raf = requestAnimationFrame(tick);
   }
@@ -298,7 +438,7 @@
     if (on && S.playing) {
       S.spokenCue = -1;
       var c = S.cues[cueAt(S.t)];
-      if (c) speakLine(c, c.seg.type === 'field');
+      if (c) speakLine(c);
     } else {
       var f = el('rnn-cb-speaking');
       if (f) f.hidden = true;
@@ -376,9 +516,11 @@
     if (!ep) return;
     pause();
     S.episode = ep;
+    S.set = '';
     buildCues(ep);
     renderChrome(ep);
     S.t = 0; S.cue = -1; S.seg = -1; S.spokenCue = -1;
+    applySet((ep.segments || [])[0] && ep.segments[0].set, true);
     paint(true);
     el('rnn-gate-label').textContent = 'ROLL BROADCAST';
     el('rnn-gate-title').textContent = ep.title;

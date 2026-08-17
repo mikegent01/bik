@@ -29,6 +29,19 @@
   var BASS = [55.00, 55.00, 43.65, 49.00];            // A1 A1 F1 G1, one per bar
   var ARP = [220.00, 261.63, 329.63, 392.00];          // A3 C4 E4 G4
   var FLUTE = [659.25, 587.33, 493.88, 440.00, 329.63];// E5 D5 B4 A4 E4
+  /* The late-slot motif — "wah, wah": a lazy falling minor third, loungier */
+  var TALK_FLUTE = [415.30, 349.23, 415.30, 311.13, 277.18]; // Ab4 F4 Ab4 Eb4 C#4
+  var TALK_ARP = [277.18, 329.63, 415.30, 493.88];     // C#4 E4 Ab4 B4
+
+  /* Voice profiles — one per on-air speaker. Pitch/rate carry the character
+     even when the browser only offers one shared TTS voice. */
+  var PROFILES = {
+    anchor: { pitch: 0.82, rate: 1.00, voice: 0 },
+    field:  { pitch: 1.22, rate: 1.02, voice: 1 },
+    waluigi:{ pitch: 1.05, rate: 1.08, voice: 2 },
+    guest:  { pitch: 0.96, rate: 0.98, voice: 3 },
+    caller: { pitch: 0.72, rate: 0.94, voice: 4 }
+  };
 
   var A = {
     ctx: null,
@@ -45,7 +58,8 @@
     noise: null,
     speaking: false,
     utter: null,
-    voices: { anchor: null, field: null }
+    mood: 'news',      // 'news' (Rakasha bed) | 'talk' (late-slot bed)
+    voices: []         // up to 5 distinct engine voices, index-matched to PROFILES
   };
 
   /* ---------------- plumbing ---------------- */
@@ -145,26 +159,30 @@
   function scheduleStep(s, at) {
     var bar = Math.floor(s / 16) % 4;
     var k = s % 16;
+    var talk = A.mood === 'talk';
+    var fluteScale = talk ? TALK_FLUTE : FLUTE;
+    var arpScale = talk ? TALK_ARP : ARP;
 
-    // log drums — the spine
-    if (k === 0 || k === 6 || k === 10) logDrum(at, 96, 52, 0.55, 0.20);
-    if (k === 4 || k === 12) noiseHit(at, 1900, 5, 0.13, 0.045);
-    if (k % 2 === 1) noiseHit(at, 6800, 1.2, 0.030, 0.028, 'highpass');
+    // log drums — the spine. In the talk mood the desk stays out of the way.
+    if (k === 0 || k === 6 || k === 10) logDrum(at, 96, 52, talk ? 0.34 : 0.55, 0.20);
+    if (!talk && (k === 4 || k === 12)) noiseHit(at, 1900, 5, 0.13, 0.045);
+    if (!talk && k % 2 === 1) noiseHit(at, 6800, 1.2, 0.030, 0.028, 'highpass');
+    if (talk && k % 4 === 2) noiseHit(at, 5200, 1.4, 0.016, 0.024, 'highpass');
 
     // bass drone, one note per bar with a mid-bar re-articulation
-    if (k === 0) tone(at, BASS[bar], 0.30, SPB * 2.6, 'sine');
+    if (k === 0) tone(at, BASS[bar] * (talk ? 0.945 : 1), talk ? 0.22 : 0.30, SPB * 2.6, 'sine');
     if (k === 10) tone(at, BASS[bar] * 2, 0.09, SPB * 0.6, 'sine');
 
-    // newsroom arpeggio, quiet under everything
+    // newsroom / late-slot arpeggio, quiet under everything
     if (k % 2 === 0) {
-      var n = ARP[(k / 2) % ARP.length];
-      tone(at, n * (bar === 2 ? 0.945 : 1), 0.045, 0.22, 'square');
+      var n = arpScale[(k / 2) % arpScale.length];
+      tone(at, n * (bar === 2 ? 0.945 : 1), talk ? 0.032 : 0.045, 0.22, 'square');
     }
 
-    // bone flute answers every other bar
+    // flute answers every other bar
     if (bar % 2 === 1 && (k === 0 || k === 6 || k === 11)) {
       var idx = (bar === 1 ? 0 : 2) + (k === 0 ? 0 : k === 6 ? 1 : 2);
-      flute(at, FLUTE[idx % FLUTE.length], 0.085, k === 11 ? SPB * 1.2 : SPB * 0.55);
+      flute(at, fluteScale[idx % fluteScale.length], talk ? 0.07 : 0.085, k === 11 ? SPB * 1.2 : SPB * 0.55);
     }
   }
 
@@ -188,7 +206,7 @@
     A.step = 0;
     A.nextTime = t() + 0.08;
     A.timer = setInterval(tick, TIMER_MS);
-    fadeBed(A.musicOn ? 0.34 : 0, 1.2);
+    fadeBed(A.musicOn ? (A.mood === 'talk' ? 0.24 : 0.34) : 0, 1.2);
   }
 
   function stopBed(fade) {
@@ -258,9 +276,11 @@
     var all = SYNTH.getVoices() || [];
     var en = all.filter(function (v) { return /^en(-|_|$)/i.test(v.lang); });
     if (!en.length) en = all;
-    var byName = function (re) { return en.filter(function (v) { return re.test(v.name); })[0]; };
-    A.voices.anchor = byName(/male|daniel|alex|fred|george|arthur|rishi/i) || en[0] || null;
-    A.voices.field = en.filter(function (v) { return v !== A.voices.anchor; })[0] || A.voices.anchor;
+    // five distinct voices if the engine has them; profiles fall back by index
+    A.voices = en.slice(0, 5);
+    while (A.voices.length && A.voices.length < 5) {
+      A.voices.push(A.voices[A.voices.length % Math.max(1, en.length)]);
+    }
   }
   if (SYNTH) {
     pickVoices();
@@ -269,21 +289,26 @@
     }
   }
 
-  /* Speak one caption line, paced to fit the cue it belongs to. */
+  /* Speak one caption line, paced to fit the cue it belongs to.
+     opts.profile names a PROFILES entry: anchor | field | waluigi | guest | caller.
+     opts.field is the legacy spelling of profile 'field'. */
   function speak(text, opts) {
     if (!A.voiceOn || !SYNTH || !text) return;
     opts = opts || {};
     try { SYNTH.cancel(); } catch (e) { }
 
+    var prof = PROFILES[opts.profile] || (opts.field ? PROFILES.field : PROFILES.anchor);
     var u = new SpeechSynthesisUtterance(text);
     var words = text.split(/\s+/).length;
     var secs = Math.max(0.8, (opts.durationMs || 4000) / 1000);
     // ~2.6 words/sec at rate 1; fit the line into its slot, then honour scrub speed
-    u.rate = Math.min(2, Math.max(0.6, words / (2.6 * secs))) * A.speed;
-    u.pitch = opts.field ? 1.22 : 0.82;
+    u.rate = Math.min(2, Math.max(0.6, words / (2.6 * secs))) * A.speed * prof.rate;
+    u.pitch = prof.pitch;
     u.volume = 1;
-    var v = opts.field ? A.voices.field : A.voices.anchor;
-    if (v) { u.voice = v; u.lang = v.lang; }
+    if (A.voices.length) {
+      var v = A.voices[prof.voice % A.voices.length];
+      if (v) { u.voice = v; u.lang = v.lang; }
+    }
 
     A.speaking = true;
     duck(true);
@@ -313,10 +338,12 @@
     pauseSpeech: function () { if (SYNTH && A.speaking) { try { SYNTH.pause(); } catch (e) { } } },
     resumeSpeech: function () { if (SYNTH) { try { SYNTH.resume(); } catch (e) { } } },
     setSpeed: function (x) { A.speed = x || 1; },
+    setMood: function (m) { A.mood = (m === 'talk') ? 'talk' : 'news'; },
+    getMood: function () { return A.mood; },
     setMusic: function (on) {
       A.musicOn = !!on;
       if (!A.ctx) return;
-      fadeBed(on ? 0.34 : 0, 0.5);
+      fadeBed(on ? (A.mood === 'talk' ? 0.24 : 0.34) : 0, 0.5);
     },
     setVoice: function (on) {
       A.voiceOn = !!on;

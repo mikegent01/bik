@@ -674,6 +674,144 @@
           "scorncrow/16-crow-dissolve.png"
         ]
       }
+    },
+    "waluigi": {
+      "sourceSheet": "../waluigi-sprite-sheet.png",
+      "frames": [
+        {
+          "pose": "idle-front",
+          "file": "waluigi/01-idle-front.png"
+        },
+        {
+          "pose": "idle-right",
+          "file": "waluigi/02-idle-right.png"
+        },
+        {
+          "pose": "idle-back",
+          "file": "waluigi/03-idle-back.png"
+        },
+        {
+          "pose": "idle-left",
+          "file": "waluigi/04-idle-left.png"
+        },
+        {
+          "pose": "walk-right-01",
+          "file": "waluigi/05-walk-right-01.png"
+        },
+        {
+          "pose": "walk-right-02",
+          "file": "waluigi/06-walk-right-02.png"
+        },
+        {
+          "pose": "walk-right-03",
+          "file": "waluigi/07-walk-right-03.png"
+        },
+        {
+          "pose": "walk-right-04",
+          "file": "waluigi/08-walk-right-04.png"
+        },
+        {
+          "pose": "talk-calm",
+          "file": "waluigi/09-talk-calm.png"
+        },
+        {
+          "pose": "talk-wild",
+          "file": "waluigi/10-talk-wild.png"
+        },
+        {
+          "pose": "point-accuse",
+          "file": "waluigi/11-point-accuse.png"
+        },
+        {
+          "pose": "smug",
+          "file": "waluigi/12-smug.png"
+        },
+        {
+          "pose": "aghast",
+          "file": "waluigi/13-aghast.png"
+        },
+        {
+          "pose": "shrug",
+          "file": "waluigi/14-shrug.png"
+        },
+        {
+          "pose": "despair",
+          "file": "waluigi/15-despair.png"
+        },
+        {
+          "pose": "taunt",
+          "file": "waluigi/16-taunt.png"
+        }
+      ]
+    },
+    "wario": {
+      "sourceSheet": "../wario-sprite-sheet.png",
+      "frames": [
+        {
+          "pose": "idle-front",
+          "file": "wario/01-idle-front.png"
+        },
+        {
+          "pose": "idle-right",
+          "file": "wario/02-idle-right.png"
+        },
+        {
+          "pose": "idle-back",
+          "file": "wario/03-idle-back.png"
+        },
+        {
+          "pose": "idle-left",
+          "file": "wario/04-idle-left.png"
+        },
+        {
+          "pose": "walk-right-01",
+          "file": "wario/05-walk-right-01.png"
+        },
+        {
+          "pose": "walk-right-02",
+          "file": "wario/06-walk-right-02.png"
+        },
+        {
+          "pose": "walk-right-03",
+          "file": "wario/07-walk-right-03.png"
+        },
+        {
+          "pose": "walk-right-04",
+          "file": "wario/08-walk-right-04.png"
+        },
+        {
+          "pose": "talk",
+          "file": "wario/09-talk.png"
+        },
+        {
+          "pose": "laugh",
+          "file": "wario/10-laugh.png"
+        },
+        {
+          "pose": "point-stern",
+          "file": "wario/11-point-stern.png"
+        },
+        {
+          "pose": "coin-flick",
+          "file": "wario/12-coin-flick.png"
+        },
+        {
+          "pose": "angry",
+          "file": "wario/13-angry.png"
+        },
+        {
+          "pose": "shifty",
+          "file": "wario/14-shifty.png"
+        },
+        {
+          "pose": "grab",
+          "file": "wario/15-grab.png"
+        },
+        {
+          "pose": "victory",
+          "file": "wario/16-victory.png"
+        }
+      ]
     }
   }
 }

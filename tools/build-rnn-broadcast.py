@@ -2,24 +2,30 @@
 """
 build-rnn-broadcast.py — cut a Rakasha News Network episode.
 
-WEEKLY CADENCE (read this before you skip it)
----------------------------------------------
-A new RNN broadcast is produced EVERY WEEK in which applicable new events
-exist. "Applicable new events" means: one or more session filings were added
-to Reputation-Matrix2/data/events.json, or the "RECENT ADVENTURES — WHAT
-WE'VE BEEN THROUGH" feed in index.html gained an item, since the last episode
-in tools/rnn-scripts/. If nothing new was filed, no episode is cut and the
-existing one stays labelled "last week".
+CADENCE (read this before you skip it)
+--------------------------------------
+One episode per ~10 filed events, not one per event. Episodes are cut when
+the pending list in tools/rnn-scripts/pending-news-articles.json reaches the
+threshold, or by judgement call per docs/RNN_BROADCAST_GUIDE.md.
+
+THE NETWORK FORMAT (from EP 003)
+--------------------------------
+The RNN is a network, not a single programme: the Rakasha desk opens with a
+short cold bulletin ("The Jungle Sees All"), then hands the longhouse to the
+late-slot talk show — WALUIGI CHAT — hosted by Waluigi with a rotating guest.
+Episode scripts declare a `cast` whose members may be Rakasha anchor frames
+or player sprite poses; see docs/RNN_BROADCAST_GUIDE.md for the format.
 
 WHAT THIS SCRIPT DOES
 ---------------------
 1.  Reads every episode script in tools/rnn-scripts/*.json (hand-written
-    Rakasha copy — this script does not invent prose).
+    copy — this script does not invent prose).
 2.  Auto-times every caption line from its word count so the player has a
     real runtime without anyone hand-tuning milliseconds.
 3.  Validates that every referenced expression exists as a PNG in
-    Reputation-Matrix2/animation_frames/ and every sourceEvent id resolves
-    against data/events.json.
+    Reputation-Matrix2/animation_frames/, every cast pose exists under
+    Reputation-Matrix2/portraits/player/sprite-sheets/poses/, and every
+    sourceEvent id resolves against data/events.json.
 4.  Emits Reputation-Matrix2/data/rnn-broadcasts.js  (window.RNN_BROADCASTS).
 5.  Splices the "LAST WEEK ON THE RAKASHA NEWS NETWORK" block into the top of
     README.md and Reputation-Matrix2/README.md between the marker comments.
@@ -41,6 +47,8 @@ from datetime import datetime, timezone
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SCRIPTS_DIR = os.path.join(ROOT, 'tools', 'rnn-scripts')
 FRAMES_DIR = os.path.join(ROOT, 'Reputation-Matrix2', 'animation_frames')
+POSES_DIR = os.path.join(ROOT, 'Reputation-Matrix2', 'portraits', 'player', 'sprite-sheets', 'poses')
+MANIFEST_PATH = os.path.join(POSES_DIR, 'manifest.json')
 EVENTS_PATH = os.path.join(ROOT, 'Reputation-Matrix2', 'data', 'events.json')
 OUT_JS = os.path.join(ROOT, 'Reputation-Matrix2', 'data', 'rnn-broadcasts.js')
 ROOT_README = os.path.join(ROOT, 'README.md')
@@ -64,10 +72,14 @@ def load_scripts():
         return []
     episodes = []
     for name in sorted(os.listdir(SCRIPTS_DIR)):
-        if not name.endswith('.json'):
+        # only episode scripts live here; the pending list is bookkeeping, not a show
+        if not name.endswith('.json') or name == 'pending-news-articles.json':
             continue
         with open(os.path.join(SCRIPTS_DIR, name), 'r', encoding='utf-8') as f:
             ep = json.load(f)
+        if not isinstance(ep, dict) or 'segments' not in ep or 'id' not in ep:
+            print('⚠  skipping %s: not an episode script (no id/segments)' % name)
+            continue
         ep['_file'] = 'tools/rnn-scripts/' + name
         episodes.append(ep)
     episodes.sort(key=lambda e: e.get('number', 0))
@@ -78,6 +90,19 @@ def available_expressions():
     if not os.path.isdir(FRAMES_DIR):
         return set()
     return {n[:-4] for n in os.listdir(FRAMES_DIR) if n.endswith('.png')}
+
+
+def load_manifest():
+    """pose-id -> set of file names, per character, from poses/manifest.json."""
+    try:
+        with open(MANIFEST_PATH, 'r', encoding='utf-8') as f:
+            m = json.load(f)
+        out = {}
+        for cid, spec in (m.get('characters') or {}).items():
+            out[cid] = {os.path.basename(fr['file'])[:-4] for fr in spec.get('frames', [])}
+        return out
+    except (OSError, ValueError):
+        return {}
 
 
 def load_events():
@@ -93,16 +118,57 @@ def time_line(text):
     return max(MIN_LINE_MS, min(MAX_LINE_MS, words * MS_PER_WORD + BEAT_AFTER_LINE))
 
 
-def process(ep, frames, event_ids, problems):
-    """Fill in durations and runtime; collect validation problems."""
+def process(ep, frames, manifest, event_ids, problems):
+    """Fill in durations, resolve cast art, validate; collect problems."""
     runtime = 0
+    cast = ep.get('cast') or {}
+
+    # Legacy speakers (episodes without a cast) resolve from the episode fields.
+    legacy = {
+        'anchor': {'name': ep.get('anchorName', 'ANCHOR'), 'role': ep.get('anchorRole', ''),
+                   'art': {'kind': 'frames', 'dir': 'animation_frames/'}},
+    }
+    merged = dict(legacy)
+    merged.update(cast)
+    ep['cast'] = merged
+
+    for sid, member in merged.items():
+        art = member.get('art') or {}
+        kind = art.get('kind', 'frames')
+        if kind == 'pose':
+            poses = manifest.get(sid, set())
+            if not poses:
+                problems.append('%s: cast "%s" has no pose set in poses/manifest.json' % (ep['_file'], sid))
+            default = art.get('defaultPose')
+            if default and poses and default not in poses:
+                problems.append('%s: cast "%s" defaultPose "%s" not in manifest' % (ep['_file'], sid, default))
+        else:
+            art['dir'] = art.get('dir', 'animation_frames/')
+            art['kind'] = 'frames'
+
     for seg in ep.get('segments', []):
         for line in seg.get('lines', []):
-            expr = line.get('expression', 'normal')
-            if frames and expr not in frames:
-                problems.append('%s: unknown expression frame "%s"' % (ep['_file'], expr))
+            sid = line.get('speaker', 'anchor')
+            member = merged.get(sid)
+            if member is None:
+                problems.append('%s: line speaker "%s" not in cast' % (ep['_file'], sid))
+                member = legacy['anchor']
+            art = member.get('art', {})
+            if art.get('kind') == 'pose':
+                pose = line.get('pose') or art.get('defaultPose')
+                if pose:
+                    if manifest and sid in manifest and pose not in manifest[sid]:
+                        problems.append('%s: cast "%s" pose "%s" not in manifest' % (ep['_file'], sid, pose))
+                line['pose'] = pose
+                line.pop('expression', None)
+            else:
+                expr = line.get('expression', 'normal')
+                if frames and expr not in frames:
+                    problems.append('%s: unknown expression frame "%s"' % (ep['_file'], expr))
+                line['expression'] = expr
             line['duration'] = line.get('duration') or time_line(line.get('text', ''))
             runtime += line['duration']
+
     for eid in ep.get('sourceEvents', []):
         if event_ids and eid not in event_ids:
             problems.append('%s: sourceEvent "%s" not found in events.json' % (ep['_file'], eid))
@@ -121,7 +187,8 @@ def write_data_js(episodes, generated):
     payload = {
         'generated': generated,
         'latest': episodes[-1]['id'] if episodes else None,
-        'cadence': 'One episode per ~10 filed events, not one per event. See docs/RNN_BROADCAST_GUIDE.md.',
+        'cadence': 'The network format: a short Rakasha bulletin, then Waluigi Chat in the late slot. '
+                   'One episode per ~10 filed events. See docs/RNN_BROADCAST_GUIDE.md.',
         'episodes': episodes,
     }
     body = json.dumps(payload, indent=2, ensure_ascii=False)
@@ -129,7 +196,7 @@ def write_data_js(episodes, generated):
         '/* GENERATED FILE — do not hand-edit.\n'
         '   Source scripts: tools/rnn-scripts/*.json\n'
         '   Rebuild:        python3 tools/build-rnn-broadcast.py\n'
-        '   Cadence:        one episode per ~10 filed events (docs/RNN_BROADCAST_GUIDE.md). */\n'
+        '   Format:         the network — Rakasha bulletin, then Waluigi Chat (docs/RNN_BROADCAST_GUIDE.md). */\n'
     )
     with open(OUT_JS, 'w', encoding='utf-8') as f:
         f.write(banner + 'window.RNN_BROADCASTS = ' + body + ';\n')
@@ -147,6 +214,18 @@ def readme_block(ep, depth):
             seg.get('slug', ''), seg.get('title', ''),
             (first[:96] + '…') if len(first) > 96 else first))
 
+    # Credit line: prefer the cast, fall back to legacy anchor/field fields.
+    cast = ep.get('cast') or {}
+    order = [k for k in ['anchor', 'waluigi', 'remi', 'wario'] if k in cast] + \
+            [k for k in cast if k not in ('anchor', 'waluigi', 'remi', 'wario')]
+    if len(order) > 1:
+        credit = ' · '.join('**%s**, %s' % (cast[k].get('name', k), cast[k].get('role', ''))
+                            for k in order[:4])
+    else:
+        credit = 'Anchor: **%s**, %s · Field: **%s**, %s' % (
+            ep.get('anchorName', ''), ep.get('anchorRole', ''),
+            ep.get('fieldName', ''), ep.get('fieldRole', ''))
+
     lines = [
         README_START,
         '## 📺 Last Week on the Rakasha News Network',
@@ -154,12 +233,10 @@ def readme_block(ep, depth):
         '> **EP %03d — %s**  ' % (ep.get('number', 0), ep.get('title', '')),
         '> Hunt Day %s · covering %s · runtime %s  ' % (
             ep.get('huntDay', ''), ep.get('covering', ''), fmt_runtime(ep.get('runtimeMs', 0))),
-        '> Anchor: **%s**, %s · Field: **%s**, %s' % (
-            ep.get('anchorName', ''), ep.get('anchorRole', ''),
-            ep.get('fieldName', ''), ep.get('fieldRole', '')),
+        '> %s' % credit,
         '',
-        '**▶ [Watch the broadcast](%s)** — the Rakasha desk reads back everything the party '
-        'survived last week, composited live from `Reputation-Matrix2/animation_frames/`.' % player,
+        '**▶ [Watch the broadcast](%s)** — the jungle bulletin first, then the late slot: '
+        'WALUIGI CHAT, composited live from `animation_frames/` and `portraits/player/sprite-sheets/`.' % player,
         '',
         '| Segment | Story | Cold open line |',
         '|---|---|---|',
@@ -208,11 +285,12 @@ def main():
         return 1
 
     frames = available_expressions()
+    manifest = load_manifest()
     events = load_events()
     event_ids = {e.get('id') for e in events}
 
     problems = []
-    built = [process(ep, frames, event_ids, problems) for ep in episodes]
+    built = [process(ep, frames, manifest, event_ids, problems) for ep in episodes]
 
     aired = {eid for ep in built for eid in ep.get('sourceEvents', [])}
     unaired = [e.get('id') for e in events if e.get('id') not in aired]
@@ -234,6 +312,7 @@ def main():
     print('  latest           : EP %03d — %s (%s)' % (
         latest.get('number', 0), latest.get('title', ''), fmt_runtime(latest['runtimeMs'])))
     print('  segments         : %d' % len(latest.get('segments', [])))
+    print('  cast             : %s' % ', '.join(sorted((latest.get('cast') or {}).keys())))
     print('  events aired     : %d / %d' % (len(aired), len(events)))
 
     if check_only:

@@ -12,7 +12,7 @@
     <div class="rnn-masthead">
       <div>
         <h1>RAKASHA NEWS NETWORK</h1>
-        <p class="rnn-sub">The Jungle Sees All · Broadcast from the Spirit-Walker Longhouse</p>
+        <p class="rnn-sub">The Jungle Sees All · then the late slot — <b>WALUIGI CHAT</b> · from the Spirit-Walker Longhouse</p>
       </div>
       <div class="rnn-masthead-right">
         <a class="rnn-home-link" href="../../../../index.html#/home">← Waluipedia Home</a><br />
@@ -22,12 +22,15 @@
 
     <!-- ===================== THE SCREEN ===================== -->
     <div class="rnn-screen" id="rnn-screen">
-      <img class="rnn-backdrop" src="../../../animation_frames/background.png" alt="" />
+      <img class="rnn-backdrop" id="rnn-backdrop-a" src="../../../animation_frames/background.png" alt="" data-active="1" />
+      <img class="rnn-backdrop rnn-backdrop-b" id="rnn-backdrop-b" alt="" data-active="0" />
       <div class="rnn-deskglow"></div>
 
       <div class="rnn-stage" id="rnn-stage">
-        <img class="rnn-anchor" id="rnn-anchor" src="../../../animation_frames/normal.png"
-             data-expr="normal" alt="Rakasha news anchor" />
+        <img class="rnn-anchor rnn-chair" id="rnn-chairA" src="../../../animation_frames/normal.png"
+             data-expr="normal" alt="Broadcast chair A" />
+        <img class="rnn-anchor rnn-chair" id="rnn-chairB" src="../../../animation_frames/normal.png" hidden
+             alt="Broadcast chair B" />
       </div>
 
       <div class="rnn-titlecard" id="rnn-titlecard">
@@ -69,7 +72,7 @@
       <div class="rnn-captionbar-who">
         <span class="rnn-cb-name" id="rnn-cb-name">ANCHOR</span>
         <span class="rnn-cb-role" id="rnn-cb-role"></span>
-        <span class="rnn-cb-speaking" id="rnn-cb-speaking" hidden>◉ READING</span>
+        <span class="rnn-cb-speaking" id="rnn-cb-speaking" hidden>◉ SPEAKING</span>
       </div>
       <p class="rnn-caption" id="rnn-caption"></p>
     </div>
@@ -101,12 +104,13 @@
         <ul class="rnn-meta-list" id="rnn-sources"></ul>
         <h2 style="margin-top:18px;">Cadence</h2>
         <p style="font-size:12px; line-height:1.7; margin:0;">
-          A new RNN broadcast is cut <b>every week</b> that applicable new events exist.
-          When a session is filed into <code>data/events.json</code> or the
-          <em>Recent Adventures</em> feed, run
-          <code>python3 tools/build-rnn-broadcast.py</code>, write the new script into
-          <code>tools/rnn-scripts/</code>, and the newest episode becomes “last week” at the
-          top of the READMEs.
+          The network cuts <b>one episode per ~10 filed events</b>, not one per event.
+          When a session is filed into <code>data/events.json</code>, append the event id to
+          <code>tools/rnn-scripts/pending-news-articles.json</code>. When the list reaches ten,
+          write the next script in <code>tools/rnn-scripts/</code> (bulletin, then
+          <em>Waluigi Chat</em> in the late slot) and run
+          <code>python3 tools/build-rnn-broadcast.py</code>. The newest episode becomes
+          "last week" at the top of the READMEs.
         </p>
       </div>
     </div>
@@ -117,9 +121,9 @@
     </div>
 
     <p class="rnn-note">
-      Broadcast frames composited live from <code>Reputation-Matrix2/animation_frames/</code>.
-      Episode data generated <b id="rnn-generated">—</b> into
-      <code>Reputation-Matrix2/data/rnn-broadcasts.js</code>.
+      Broadcast frames composited live from <code>Reputation-Matrix2/animation_frames/</code>
+      and <code>Reputation-Matrix2/portraits/player/sprite-sheets/poses/</code>. Episode data
+      generated <b id="rnn-generated">—</b> into <code>Reputation-Matrix2/data/rnn-broadcasts.js</code>.
       Trust only the claw. Fear only the silence. This missive will self-destruct if eaten.
     </p>
   </div>

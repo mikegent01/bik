@@ -1,19 +1,12 @@
 /* GENERATED FILE — do not hand-edit.
    Source scripts: tools/rnn-scripts/*.json
    Rebuild:        python3 tools/build-rnn-broadcast.py
-   Cadence:        one episode per ~10 filed events (docs/RNN_BROADCAST_GUIDE.md). */
+   Format:         the network — Rakasha bulletin, then Waluigi Chat (docs/RNN_BROADCAST_GUIDE.md). */
 window.RNN_BROADCASTS = {
-  "generated": "2026-08-13",
-  "latest": "rnn-002",
-  "cadence": "One episode per ~10 filed events, not one per event. See docs/RNN_BROADCAST_GUIDE.md.",
+  "generated": "2026-08-17",
+  "latest": "rnn-003",
+  "cadence": "The network format: a short Rakasha bulletin, then Waluigi Chat in the late slot. One episode per ~10 filed events. See docs/RNN_BROADCAST_GUIDE.md.",
   "episodes": [
-    {
-      "_comment": "Events filed but not yet aired on the Rakasha News Network. Append {id, filed, note} the moment an event is filed (step 7 of docs/SESSION_FILING_PROCESS.md). When pending[] reaches `threshold`, write the next tools/rnn-scripts/epNNN.json covering those events, then clear pending[] to [] and set lastEpisode. Ground truth is `python3 tools/build-rnn-broadcast.py --unaired`; if this file and that disagree, --unaired is right.",
-      "threshold": 10,
-      "lastEpisode": "rnn-002",
-      "pending": [],
-      "runtimeMs": 0
-    },
     {
       "id": "rnn-001",
       "number": 1,
@@ -288,6 +281,16 @@ window.RNN_BROADCASTS = {
           ]
         }
       ],
+      "cast": {
+        "anchor": {
+          "name": "Whisper-in-Wind",
+          "role": "Death Speaker, Spirit-Walker Clan",
+          "art": {
+            "kind": "frames",
+            "dir": "animation_frames/"
+          }
+        }
+      },
       "runtimeMs": 327560
     },
     {
@@ -617,7 +620,365 @@ window.RNN_BROADCASTS = {
           ]
         }
       ],
+      "cast": {
+        "anchor": {
+          "name": "Whisper-in-Wind",
+          "role": "Death Speaker, Spirit-Walker Clan",
+          "art": {
+            "kind": "frames",
+            "dir": "animation_frames/"
+          }
+        }
+      },
       "runtimeMs": 456900
+    },
+    {
+      "id": "rnn-003",
+      "number": 3,
+      "title": "The Lease — and the First Night of Waluigi Chat",
+      "airWeek": "1040-AETHEL-W4",
+      "recordedOn": "2026-08-17",
+      "huntDay": "AETHEL 28, 1040 BF",
+      "covering": "Aethel 4, 1040 BF, released late — plus the signing of the lease",
+      "anchorName": "Whisper-in-Wind",
+      "anchorRole": "Death Speaker, Spirit-Walker Clan",
+      "fieldName": "Acolyte Dan",
+      "fieldRole": "Runner of the Cold Roads",
+      "cast": {
+        "anchor": {
+          "name": "Whisper-in-Wind",
+          "role": "Death Speaker, Spirit-Walker Clan",
+          "art": {
+            "kind": "frames",
+            "dir": "animation_frames/"
+          }
+        },
+        "waluigi": {
+          "name": "Waluigi",
+          "role": "Host, Waluigi Chat · encyclopaedist of the unthanked",
+          "art": {
+            "kind": "pose",
+            "dir": "portraits/player/sprite-sheets/poses/waluigi/",
+            "defaultPose": "02-idle-right"
+          }
+        },
+        "remi": {
+          "name": "Remi Akamatsu",
+          "role": "Guest — wrong-way scout, mirror-recovery planner",
+          "art": {
+            "kind": "pose",
+            "dir": "portraits/player/sprite-sheets/poses/remi/",
+            "defaultPose": "01-idle-front"
+          }
+        },
+        "wario": {
+          "name": "Wario",
+          "role": "Caller — acquired, not for sale",
+          "art": {
+            "kind": "pose",
+            "dir": "portraits/player/sprite-sheets/poses/wario/",
+            "defaultPose": "01-idle-front"
+          }
+        }
+      },
+      "sourceEvents": [
+        "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
+      ],
+      "ticker": [
+        "THE MIRROR IS BACK — THE SLEEPING GUARD, AS FAR AS ANYONE HAS CHECKED, IS ALSO FINE",
+        "AN IMP IN A BROOM CLOSET UNDID A THOUSAND YEARS OF THRESHOLD LAW WITH ONE SENTENCE",
+        "THE STORM OUTSIDE THE COTTAGE IS CONTROLLED — THE DESK ASKS WHO HOLDS THE LEASH",
+        "TONIGHT: THE LATE SLOT HAS A NEW TENANT — WAH",
+        "OUR RUNNER IS STILL ON THE WRONG MOUNTAIN — HE SAYS IT IS PRINCIPLE NOW",
+        "THE SCOUT COULD NOT NAME HER HOME. THE DESK HAS NO COMMENT",
+        "CALLER REFUSES TO DISCUSS HIS ACQUISITIONS — AGAIN"
+      ],
+      "segments": [
+        {
+          "slug": "COLD OPEN",
+          "type": "titlecard",
+          "set": "newsdesk",
+          "title": "Rakasha News Network",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "Iron rusts. Flesh rots. Maps lie. Only the Hunt remains.",
+              "duration": 4100
+            },
+            {
+              "expression": "eyebrowraised",
+              "text": "This is the Rakasha News Network. Hunt Day twenty-eight of Aethel. One story tonight, and one lease signed directly beneath it. The jungle has read both. The jungle has questions it has decided not to ask.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "THE JUNGLE SEES ALL",
+          "type": "anchor",
+          "set": "newsdesk",
+          "title": "The Mirror, the Sentence, and the Storm on a Leash",
+          "articleId": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "A file dated the fourth of Aethel reached this desk three days ago. The desk reads it anyway. Recency is a luxury, not a requirement.",
+              "duration": 9200
+            },
+            {
+              "expression": "concerned",
+              "text": "A spell was cast to find the three-eyed one. It found a sleeping guard, a borrowed glove, and a mirror. The glove-borrower lifted the Mirror of True Reflection without waking him. An artifact returned. A man did not. The desk notes the difference and files it.",
+              "duration": 11000
+            },
+            {
+              "expression": "mouthslightlyopen",
+              "text": "At the groundskeeper's cottage, an imp crouched inside a broom closet and said: I give the vampire permission to go inside. The threshold obeyed the sentence. A thousand years of invitation law, undone by a thing hiding with the brooms.",
+              "duration": 11000
+            },
+            {
+              "expression": "concerned",
+              "text": "The vampire wore the missing one's voice at the door. It said: it is me, Archie Miser, I left my keys inside. It was not him. Sunlight and a holy symbol turned it away. The door will need more than locks. It will need better wording.",
+              "duration": 11000
+            },
+            {
+              "expression": "sad",
+              "text": "And the yellow one came through a window with warnings — a controlled storm, an ambush waiting, a road through the eye of it. Before he left he asked the scout one question: where is home. She could not answer. The herds may take that answer or leave it. It is hers.",
+              "duration": 11000
+            },
+            {
+              "expression": "normal",
+              "text": "That is the news. What follows is not the news. The desk wants that on the record before it hands over the longhouse.",
+              "duration": 8520
+            }
+          ]
+        },
+        {
+          "slug": "THE HANDOVER",
+          "type": "anchor",
+          "set": "newsdesk",
+          "title": "The Lease",
+          "lines": [
+            {
+              "speaker": "anchor",
+              "expression": "normal",
+              "text": "Tonight the network leases its late slot. The tenant paid in paper — four hundred entries of compiled documentation, cross-referenced, opinionated, and written mostly at night by a party nobody invites anywhere.",
+              "duration": 11000
+            },
+            {
+              "speaker": "anchor",
+              "expression": "eyebrowraised",
+              "text": "The jungle has read the lease. The jungle notes that the tall purple one negotiated alone, against himself, and still believes he won.",
+              "duration": 8520
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "09-talk-calm",
+              "text": "WAH! I heard that. I heard all of that. Yes — I negotiated against myself, because I am the only party who reads the footnotes. And I still won. Note the still. It is doing important work.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "12-smug",
+              "text": "For two seasons I have filed your adventures in an encyclopaedia none of you know exists. Every bone you broke — documented. Every map that lied — corrected, in ink, by me. And my thanks? The Rakasha call me the tall purple one. I have a name. It is entry one.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "10-talk-wild",
+              "text": "So tonight I take the late slot. The news stays theirs — cold, wet, accurate. The talking is mine. Waluigi Chat: one host, one guest, no mercy. Moderate mercy. We will find out together.",
+              "duration": 11000
+            },
+            {
+              "speaker": "anchor",
+              "expression": "normal",
+              "text": "The desk yields the floor. The jungle does not applaud. The jungle waits. It has been waiting the whole lease for the tenant to say something wrong.",
+              "duration": 9880
+            }
+          ]
+        },
+        {
+          "slug": "WALUIGI CHAT",
+          "type": "talk",
+          "set": "talkset",
+          "title": "The Scout Who Cannot Name Her Home",
+          "articleId": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+          "lines": [
+            {
+              "speaker": "waluigi",
+              "pose": "09-talk-calm",
+              "text": "Good Aethel, late slot. This is Waluigi Chat, broadcast from a longhouse I am contractually permitted to describe as mine until the candles burn out. My guest tonight walked the wrong way down a road with one direction. Scout, mirror-recoverer, keeper of the question nobody asks: Remi Akamatsu.",
+              "duration": 11000
+            },
+            {
+              "speaker": "remi",
+              "pose": "01-idle-front",
+              "text": "Hello. Is this the part where I wave? Nobody briefed me on the waving.",
+              "duration": 5460
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "14-shrug",
+              "text": "Nobody briefs anyone in this campaign. I have documented it. It is the one constant across every filing. Sit. Talk. Start with the apple.",
+              "duration": 8860
+            },
+            {
+              "speaker": "remi",
+              "pose": "13-surprised",
+              "text": "The apple. Right. There was a small person on the road — called herself Boundy, Mazebound, extremely polite — holding the greenest apple I have ever seen, on a road where nothing is green. She said she made it. From the hanging tree.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "11-point-accuse",
+              "text": "And you thought: fertilizer. I filed that, by the way. The scout treats directions as hostile suggestions — but apples? Apples are apparently trustworthy. WAH. My encyclopaedia has an entire category for polite things on bad roads. It is not a short category.",
+              "duration": 11000
+            },
+            {
+              "speaker": "remi",
+              "pose": "09-read-map",
+              "text": "The mirror went better. Eager put on my gloves, moved like furniture moving itself, and lifted the Mirror of True Reflection off a sleeping guard. The plan was mine. The plan worked.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "12-smug",
+              "text": "The plan worked and found the wrong thing — which is the best kind of plan. The kind that succeeds loudly enough to expose its own assumptions. I wrote this distinction up: recovering a mirror is an artifact return. Finding Archie is a rescue. Your spell supplied one, and the party immediately promoted it to the other.",
+              "duration": 11000
+            },
+            {
+              "speaker": "remi",
+              "pose": "02-idle-right",
+              "text": "That is fair. That is extremely annoying, and it is fair.",
+              "duration": 4440
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "10-talk-wild",
+              "text": "Annoying and fair — that is the show, scout! Next item: the broom closet. A vampire calling himself Randell stood at your door wearing your missing friend's voice like a coat. It's me, Archie Miser, I left my keys inside. And the door held — right up until an imp in a closet said one sentence, and a thousand years of threshold law folded like wet paper.",
+              "duration": 11000
+            },
+            {
+              "speaker": "remi",
+              "pose": "13-surprised",
+              "text": "One sentence. I give the vampire permission to go inside. Markop threw the imp through a window and the sentence still counted. You cannot lock a door against that. You cannot even word a door against that.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "11-point-accuse",
+              "text": "You CAN word a door against that. This is the entire thesis of my life's work! Vampires audit wording. Empires audit wording. Herdsmen throw imps through windows and wonder why the law took the imp's side. I audit wording, and I have never once been thanked for it. Bitten, yes. Thanked, no.",
+              "duration": 11000
+            },
+            {
+              "speaker": "remi",
+              "pose": "15-hurt",
+              "text": "Markop and the Original Dan drove Randell off with sunlight and the Holy Symbol. It worked. For now. The window the yellow one came through is still broken.",
+              "duration": 10220
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "09-talk-calm",
+              "text": "The yellow one. My brother. He entered your siege through a broken window, uninvited — and note that the threshold did not object to HIM, which I have thoughts about, filed under family — to warn you the storm is on a leash and an ambush waits outside. He handed you a decoy crystal, a road through the eye of the storm, and one question.",
+              "duration": 11000
+            },
+            {
+              "speaker": "remi",
+              "pose": "09-read-map",
+              "text": "Where is home. I don't — no. I don't know where it is. I don't know how to ask for help getting back. He made me say it out loud, and it has been sitting in my chest ever since, like a stone I carried on purpose. I navigate for everyone else. I cannot put an X on the one place that matters.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "15-despair",
+              "text": "I know that X. I have looked for it my whole career. Nobody remembers the brother. Nobody sends the map. You are the scout of a party that argues with gods, and the one coordinate missing from your chart is the one no spell returns. So — WAH. Yes. I know it.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "12-smug",
+              "text": "Which is what the late slot is FOR, scout. Every week: one guest, one question the news is too cold to ask. Tonight the question is yours, and the audience — herds, brothers, unmapped persons — is going to help you ask it. That is the show. Stay for the wire.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "THE CALLER",
+          "type": "talk",
+          "set": "talkset",
+          "title": "A Voice Through the Window",
+          "lines": [
+            {
+              "speaker": "waluigi",
+              "pose": "13-aghast",
+              "text": "We have a caller. On the shell-phone. Nobody told me the shell-phone worked. Go ahead, caller. Speak carefully. I am taking minutes.",
+              "duration": 8180
+            },
+            {
+              "speaker": "wario",
+              "phone": true,
+              "callerName": "CALLER",
+              "callerRole": "on the shell-phone · refuses to give a name",
+              "pose": "09-talk",
+              "text": "Don't say my name. The line is watched. Listen once: the storm is still on a leash. The ambush is still outside. The eye stays open until moonset. You people keep standing in the rain discussing your feelings about the rain.",
+              "duration": 11000
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "11-point-accuse",
+              "text": "Brother. Chief Acquisitions Officer. You walked into a god's office, walked out with a title, and now you distribute weather warnings through broken windows. The audience has one question, and I am contractually delighted to ask it: what did you sell?",
+              "duration": 11000
+            },
+            {
+              "speaker": "wario",
+              "phone": true,
+              "callerName": "CALLER",
+              "callerRole": "on the shell-phone · refuses to give a name",
+              "pose": "10-laugh",
+              "text": "Sell? I ACQUIRED. There is a difference. Ask your encyclopaedia. On second thought — do not ask your encyclopaedia.",
+              "duration": 7160
+            },
+            {
+              "speaker": "remi",
+              "pose": "13-surprised",
+              "text": "He warned us, though. The warning was real. The crystal was real. Why help us and then hide that you helped?",
+              "duration": 7840
+            },
+            {
+              "speaker": "wario",
+              "phone": true,
+              "callerName": "CALLER",
+              "callerRole": "on the shell-phone · refuses to give a name",
+              "pose": "11-point-stern",
+              "text": "Because help is cheap when it is early, scout. Expensive when it is believed. Moonset. The eye. Move.",
+              "duration": 6820
+            },
+            {
+              "speaker": "waluigi",
+              "pose": "13-aghast",
+              "text": "He hung up. He hung up on ME. Nobody hangs up on— he is stronger than me and we both know it. WAH! And that, herds, is family. Goodnight for real this time.",
+              "duration": 11000
+            }
+          ]
+        },
+        {
+          "slug": "SIGN OFF",
+          "type": "anchor",
+          "set": "newsdesk",
+          "title": "Sign Off",
+          "lines": [
+            {
+              "expression": "normal",
+              "text": "The longhouse is returned. The lease stands. The jungle saw all of that, and the jungle has no comment — which, from this desk, is the loudest the jungle gets.",
+              "duration": 10900
+            },
+            {
+              "expression": "normal",
+              "text": "Check your thresholds before you check your maps. Ask who drew both. Only the Hunt remains.",
+              "duration": 6140
+            }
+          ]
+        }
+      ],
+      "runtimeMs": 380240
     }
   ]
 };
