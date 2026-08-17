@@ -56,8 +56,6 @@
             <h2 id="map-title">Feyward Manor · west growth front / east defense line</h2>
           </div>
           <div class="map-tools" role="toolbar" aria-label="Map display controls">
-            <button class="tool-button active" data-toggle="grid" type="button" aria-pressed="true">Grid</button>
-            <button class="tool-button active" data-toggle="routes" type="button" aria-pressed="true">Routes</button>
             <button class="tool-button active" data-toggle="threats" type="button" aria-pressed="true">Growth</button>
             <button class="tool-button active" data-toggle="defenses" type="button" aria-pressed="true">Defenses</button>
             <button class="tool-button" data-toggle="labels" type="button" aria-pressed="false">Labels</button>
@@ -70,19 +68,17 @@
           <button class="legend-item" data-filter="party" type="button"><span class="legend-swatch gold"></span>Party / custody</button>
           <button class="legend-item" data-filter="plant" type="button"><span class="legend-swatch red"></span>Hostile growth</button>
           <button class="legend-item" data-filter="cutters" type="button"><span class="legend-swatch green"></span>Tree cutters</button>
-          <button class="legend-item" data-filter="manor" type="button"><span class="legend-swatch blue"></span>Manor personnel</button>
+          <button class="legend-item" data-filter="friendly" type="button"><span class="legend-swatch blue"></span>Friendly / aligned</button>
           <span class="legend-item legend-static"><span class="legend-swatch node-swatch"></span>Operational node</span>
         </div>
-        <p class="legend-note"><strong>Verified map image + planning overlay:</strong> the supplied Feyward map is the base layer. The SVG overlay adds a readable growth front on the west/left, the main defense line on the east/right, room/sector hit areas, routes, and planning markers. Labels are working identifications until the table confirms exact room names.</p>
+        <p class="legend-note"><strong>Solid control zones + dots only:</strong> the supplied Feyward map is the base layer. Semi-transparent fills show plant control, contested ground, and friendly/aligned ground; colored dots show named people and unit groups. The overlays are planning positions, not new canon.</p>
 
         <div id="mapStage" class="map-stage" tabindex="0" aria-label="Interactive Feyward Manor map with SVG planning overlays. Select a sector, marker, or operational node for details.">
           <div class="map-viewport" id="mapViewport">
             <img id="floorplanImage" src="../../../../feyward.webp" alt="Supplied top-down Feyward Manor map with rooms, grounds, west-side plant growth, and east-side defenses" class="tactical-map">
-            <div class="map-grid-overlay" aria-hidden="true"></div>
             <svg id="mapOverlay" class="map-overlay" viewBox="0 0 8000 8000" preserveAspectRatio="xMidYMid meet" aria-hidden="false">
-              <g id="growthLayer" class="growth-layer" aria-label="Working west-side plant growth overlay"></g>
-              <g id="defenseLayer" class="defense-layer" aria-label="Working east-side defense overlay"></g>
-              <g id="routeLayer" class="route-layer"></g>
+              <g id="growthLayer" class="growth-layer" aria-label="Working plant control zones"></g>
+              <g id="defenseLayer" class="defense-layer" aria-label="Working friendly and aligned control zones"></g>
               <g id="orderTargetLayer" class="order-target-layer"></g>
               <g id="markerLayer" class="marker-layer"></g>
             </svg>
@@ -93,7 +89,7 @@
         </div>
         <div class="map-footer">
           <span><b id="roomCount">0</b> map zones indexed · <b id="markerCount">0</b> operational markers · <b id="orderCount">0</b> proposed orders</span>
-          <button id="placeOrder" class="button button-accent" type="button">＋ Plot an order</button>
+          <button id="placeOrder" class="button button-accent" type="button">＋ Place a dot</button>
         </div>
       </section>
 
@@ -175,7 +171,7 @@
         <div>
           <p class="eyebrow">GM / PLAYER WORKSPACE · LOCAL ONLY</p>
           <h2 id="orders-title">Proposed orders</h2>
-          <p class="panel-subtitle">Plot a movement or objective on the map. These notes are not canon and stay in this browser until cleared.</p>
+          <p class="panel-subtitle">Place a proposed objective dot on the map. These notes are not canon and stay in this browser until cleared.</p>
         </div>
         <div class="order-actions">
           <button id="copyBriefing" class="button button-quiet" type="button">Copy briefing</button>
@@ -190,7 +186,7 @@
           <select id="orderType">
             <option value="hold">Hold / protect</option>
             <option value="advance">Advance</option>
-            <option value="cut">Cut a route</option>
+            <option value="cut">Cut / clear</option>
             <option value="extract">Extract / evacuate</option>
             <option value="scout">Scout / verify</option>
             <option value="negotiate">Negotiate</option>
