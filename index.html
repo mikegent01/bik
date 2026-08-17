@@ -7098,7 +7098,7 @@ function view_home(){
            <span>Woodfellow</span><span>Ramsee</span><span>Swifty</span><span>Renard</span><span>Joseph</span><span>Zach</span><span>The Treant</span><span>The Shambling Mound</span><span>The Sprites</span><span>The Dryad</span>
          </div>
          <p class="timeline-summary">
-           The season the plants took over produces the campaign's largest engagement yet: a cutting crew of satyrs, house guards, one goblin with a kitchen knife, Ramsee and his assorted cutlery, and Woodfellow — who throws books — against a treant the ledger rates at armor class 16 and 138 hit points. Three sleep castings turn the lane into a weather system, a satyr scout critically hits his own swordfighter, and the battle turns when a natural-20 tome strike puts fifty-five damage straight through the trunk. The fleeing shambling mound is run down during an eighteen-minute gap the ledger does not narrate and destroyed with the sprites' help — the wood's own weather switching sides. Two expedition fighters end the night in the ledger's zeros; the cleanup is owed as a separate filing.
+           The season the plants took over produces the campaign's largest engagement: a hired cutting crew — satyr line, house guards, one goblin with a kitchen knife, Ramsee and his assorted cutlery, and Woodfellow, who throws books — against the wood's champion treant and everything it could wake. Sleep-sand thrown wide turns the lane into a weather system, a skirmisher's arrow brings down the expedition's own swordfighter in the press, and the battle turns on a single book driven through the split in the treant's trunk. The fleeing mound is run down during an eighteen-minute gap no survivor's account covers and destroyed — with the sprites' own poison in it. Two of the expedition are carried from the field; the cleanup is owed as a separate filing.
          </p>
          <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
            <span class="chip" onclick="Router.go('#/article/feyward_woodfellow_vs_the_treant')" style="margin:0; font-size:12px; background:#e5484d; color:#fff; font-weight:800;">⚔️ Read Battle Filing →</span>
@@ -9457,10 +9457,10 @@ function battleDossier(b){
     if(a||d)cas=`<div class="bd-cas">${a}${d}</div>`;
   }
   const moments=Array.isArray(b.keyMoments)?b.keyMoments:[];
-  const ledger=moments.length?`<h5 class="bd-ledger-head">🗂️ From the combat record — ${moments.length} ledger lines, verbatim</h5><div class="bd-ledger"><table><thead><tr><th>Time</th><th>Who</th><th>Action</th><th>Roll</th><th>Result</th></tr></thead><tbody>${moments.map(m=>`<tr class="${/natural 20|fumble|rout/i.test(String(m.roll)+' '+String(m.result))?'bd-moment-crit':''}"><td class="bd-t">${esc(m.time||'')}</td><td>${esc(m.who||'')}</td><td>${esc(m.act||'')}</td><td class="bd-r">${esc(m.roll||'')}</td><td>${esc(m.result||'')}</td></tr>`).join('')}</tbody></table></div>`:'';
+  const ledger=moments.length?`<h5 class="bd-ledger-head">🗂️ From the combat record — ${moments.length} entries from the tally</h5><div class="bd-ledger"><table><thead><tr><th>Watch</th><th>Who</th><th>Action</th><th>Result</th></tr></thead><tbody>${moments.map(m=>`<tr class="${m.decisive?'bd-moment-crit':''}"><td class="bd-t">${esc(m.time||'')}</td><td>${esc(m.who||'')}</td><td>${esc(m.act||'')}</td><td>${esc(m.result||'')}</td></tr>`).join('')}</tbody></table></div>`:'';
   if(!stats.length&&!cas&&!ledger)return '';
   return `<div class="bd"><div class="bd-title">🏹 Battle Dossier — ${esc(b.name||b.id)}</div>
-    <div class="wsys-note">The extractor's cut: engagement stats, who stood where, and the ledger lines the prose quotes. Numbers are verbatim from the record; commentary is Waluigi's.</div>
+    <div class="wsys-note">The extractor's cut: engagement stats, who stood where, and the tally entries the prose quotes. Counts are verbatim from the record; commentary is Waluigi's.</div>
     ${stats.length?`<div class="bd-stats">${stats.map(s=>`<span class="bd-stat">${s}</span>`).join('')}</div>`:''}
     <div class="bd-roster">${side(b.belligerents.attackers,'att','Attackers')}${side(b.belligerents.defenders,'def','Defenders')}</div>
     ${cas}${ledger}</div>`;

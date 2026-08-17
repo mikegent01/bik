@@ -1537,7 +1537,7 @@
       "stamps": [
         "evidence"
       ]},
-  "prop_cutting_lane_tally": {
+    "prop_cutting_lane_tally": {
     "kind": "ledger",
     "icon": "🧾",
     "title": "The Cutting-Lane Tally — Last Page",
@@ -1546,8 +1546,8 @@
     "articles": [
       "feyward_woodfellow_vs_the_treant"
     ],
-    "note": "The combat ledger, translated from the table by the only member of the expedition whose handwriting survived the sap. Every number matches the record. The sap is original.",
-    "body": "<div class=\"pd-head\"><div class=\"pd-org\">Cutting Expedition — Provisional Lane Tally</div><div class=\"pd-sub\">Kept by the Goblin Staff · kitchen knife, third shift · the last page</div></div><table class=\"pd-table\"><thead><tr><th>Item of account</th><th>Counted</th><th>Remark</th></tr></thead><tbody><tr><td>The treant</td><td>138 → 0</td><td>Felled by two books; the second was a formality</td></tr><tr><td>Awakened shrubs</td><td>2 → 0</td><td>One book each. Overkill noted without apology</td></tr><tr><td>The mound</td><td>110 → 0</td><td>Pursued off the tally. See the gap, this page</td></tr><tr><td>Sleep, expended</td><td>3 castings · 66 points</td><td>Majority friendly. “Friendly” per the casters</td></tr><tr><td>Cutlery, expended</td><td>11 pieces</td><td>4 hits. The fork is not ceremonial</td></tr><tr><td>Books, expended</td><td>9 tomes</td><td>One fumbled. The library does not comment</td></tr><tr><td>Our zeros</td><td>2</td><td>Swifty; Renard. Carried. Not struck from the muster</td></tr><tr><td>Sprites</td><td>—</td><td>See weather report</td></tr></tbody></table><hr><div class=\"pd-clause\">The keeper records an interval of eighteen minutes between the treant's fall and the mound's account. The keeper was present for all of it and remembers none of it. The page was wet then.</div><div class=\"pd-wah\">WAH — audited. The arithmetic holds. The librarian pays for the next crate of books. &mdash; W.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>(a knife-mark)</i></div><div class=\"pd-sigcap\">Goblin Staff, keeper of the tally</div></div></div>",
+    "note": "The engagement tally, kept by the only member of the expedition whose handwriting survived the sap. Every count matches the keeper's marks. The sap is original.",
+    "body": "<div class=\"pd-head\"><div class=\"pd-org\">Cutting Expedition — Provisional Lane Tally</div><div class=\"pd-sub\">Kept by the Goblin Staff · kitchen knife, third shift · the last page</div></div><table class=\"pd-table\"><thead><tr><th>Item of account</th><th>Counted</th><th>Remark</th></tr></thead><tbody><tr><td>The treant</td><td>felled</td><td>Two books. The second was a formality</td></tr><tr><td>Awakened shrubs</td><td>2 felled</td><td>One book each. The keeper records no remark</td></tr><tr><td>The mound</td><td>run down</td><td>Pursued beyond the tally. See the gap, this page</td></tr><tr><td>Sleep-sand, expended</td><td>3 throws</td><td>A third of the lane. Majority friendly, per the casters</td></tr><tr><td>Cutlery, expended</td><td>11 pieces</td><td>4 strikes. The fork is not ceremonial</td></tr><tr><td>Books, expended</td><td>9</td><td>One thrown wild into the night. The library does not comment</td></tr><tr><td>Carried from the field</td><td>2</td><td>Swifty; Renard. Not struck from the muster</td></tr><tr><td>Sprites</td><td>uncounted</td><td>See weather report</td></tr></tbody></table><hr><div class=\"pd-clause\">The keeper records an interval of eighteen minutes between the champion's fall and the mound's account. The keeper was present for all of it and remembers none of it. The page was wet then.</div><div class=\"pd-wah\">WAH — audited. The counts hold. The librarian pays for the next crate of books. &mdash; W.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>(a knife-mark)</i></div><div class=\"pd-sigcap\">Goblin Staff, keeper of the tally</div></div></div>",
     "stamps": [
       "evidence"
     ]

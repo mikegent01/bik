@@ -65,7 +65,7 @@ Model new records on the newest same-arc record, not on the legacy tail.
 | `xpAwards` | – | XP the ledger should read off this battle. Without a table approved at the table, write none |
 | `engagement` | – | `{combatants, ledgerWindow, scale}` — the engagement stat chips on the dossier |
 | `casualtySheet` | – | `{attackers, defenders}` — the full per-side casualty sheet for the dossier (the flat `casualties` string stays for the sidebar rail and the VS bar) |
-| `keyMoments` | – | The ledger, verbatim: `[{time, who, act, roll, result}, …]` — renders as the "From the combat record" table. Crits/fumbles/routs get gold-highlighted rows |
+| `keyMoments` | – | The tally, as a tactical timeline: `[{time, who, act, result, decisive?}, …]` — renders as the "From the combat record" table; `"decisive": true` rows get gold highlighting. No roll column, no mechanics — watches, actions, consequences |
 | `waluigiAssessment` | – | The closer, in its own field — the article renders it as a dedicated **Waluigi's Assessment** section. Do not bury it in `description` |
 
 **Legacy warning.** The ten oldest records carry a parallel field set
@@ -90,28 +90,33 @@ fill the field instead of compressing the fight into `summary`.
 
 ## Writing rules
 
-1. **The ledger is ground truth.** Every number in the prose — armor
-   classes, damage, hit-point strings, morale states (`BOLD`, `SHAKEN`,
-   `ROUT`) — is quoted from the combat record and stays exactly as rolled.
-   If you cannot point at the line, you cannot say the number.
-2. **Dates are calendar dates.** The record's `date` and `engagement` fields
+1. **The ledger is ground truth.** Counts in the prose — combatants,
+   casualties, equipment expended, watches and durations — come from the
+   tally and stay exactly as counted. If you cannot point at the mark, you
+   cannot say the number.
+2. **No game mechanics in-world.** Rolls, armor classes, damage arithmetic,
+   initiative order and morale scores never appear in a record. Translate
+   every mechanic into its consequence: a perfect strike, a glanced blow, a
+   broken formation, a man carried from the field. The table may know the
+   dice; the encyclopedia knows the war.
+3. **Dates are calendar dates.** The record's `date` and `engagement` fields
    use the Regal Empire Standard Calendar only — never a real-world or
    table-side date (see the root `README.md` calendar section). To date a
    battle: chain back through the filings to the last solid date and work
    forward; `currentDate.json` is the clock, not the guess.
-3. **Rule zero applies** (see the root `README.md`): table names and GM
+4. **Rule zero applies** (see the root `README.md`): table names and GM
    names never become people in the prose. Ledger bookkeeping entries
    (hit-point updates, resource refunds) belong to the table, not the world.
-4. **Unnamed is safe.** Combatants the ledger names only by role stay
+5. **Unnamed is safe.** Combatants the ledger names only by role stay
    unnamed unless a character filing exists to promote them.
-5. **Gaps are findings.** When the ledger goes silent (pursuits, cut
+6. **Gaps are findings.** When the ledger goes silent (pursuits, cut
    recordings), say so in the prose — the silence is part of the record.
    Never narrate the gap; never fill it.
-6. **Waluigi's register.** The encyclopedia's author files battle records
+7. **Waluigi's register.** The encyclopedia's author files battle records
    even when he wasn't there; he says so, quotes the ledger twice, and
    closes with the assessment nobody thanked him for. Commentary is the
    second layer, never the first (root README, philosophy #2).
-7. **The casualties sheet rounds honestly.** Deaths, structural damage,
+8. **The casualties sheet rounds honestly.** Deaths, structural damage,
    furniture, dignity. If a combatant ended the night at zero with an
    unclear fate, the fate is "deferred," not "dead."
 
