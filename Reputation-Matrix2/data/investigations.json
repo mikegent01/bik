@@ -166,7 +166,7 @@
         "raventree_manor"
       ],
       "opened": "23 Harvestide, 1040 BF",
-      "lastFiled": "24 Harvestide, 1040 BF",
+      "lastFiled": "4 Aethel, 1040 BF",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🏚️",
       "accent": "#8a4bff",
@@ -242,6 +242,12 @@
           "title": "The originals may still be inside",
           "state": "open",
           "text": "Destroying the false Lady produced a ring with, allegedly, the real one in it. If the graft is a container rather than a replacement, every grafted figure across three houses may still have somebody in it. The party has checked one.\n\n**In plain terms:** if grafting stores the original person rather than destroying them, then the grafted figures across all three houses may still have someone alive inside. The party has checked exactly one of them."
+        },
+        {
+          "id": "th_threshold_invitation",
+          "title": "A warded house is only as closed as everyone already inside",
+          "state": "open",
+          "text": "Randell could not enter Tymnas's cottage until the imp thrown through the window granted permission. The invitation came from a hostile creature hiding in the broom closet, not the owner, host, or lawful occupant. Either the threshold recognizes any creature physically inside as household authority, or the imp possessed a specific right nobody had identified. Every safehouse containing prisoners, servants, vermin, familiars, summons, or hidden intruders now has a vampire-entry problem. The cottage did not fail under force. It accepted a sentence."
         }
       ],
       "leads": [
@@ -381,6 +387,38 @@
           "exhibits": [
             "ex_seal_rubbing"
           ]
+        },
+        {
+          "id": "lead_controlled_storm_eye",
+          "title": "Identify who is holding the storm over Tymnas's cottage",
+          "status": "open",
+          "why": "Wario says the weather is controlled and that two people — Trouble and Disaster — wait at its eye. Leaving by any route without identifying the caster may walk the party into the arrest ambush or away from the only place Archie can be found.",
+          "exhibits": [],
+          "events": [
+            "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+            "archies_return_to_shadow_estate"
+          ]
+        },
+        {
+          "id": "lead_boundy_knows_remi",
+          "title": "Find how Boundy learned Remi's name",
+          "status": "open",
+          "why": "Remi never introduced herself. Boundy used her name after delivering a threat to Markop. Shared Mazebound memory, Tree of Woe surveillance, and an outside briefing imply different enemies and different countermeasures.",
+          "exhibits": [],
+          "events": [
+            "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+            "the_tree_of_woe_engagement"
+          ]
+        },
+        {
+          "id": "lead_remi_home_address",
+          "title": "Give Wario Postal a destination that exists",
+          "status": "open",
+          "why": "Remi has finally asked for help returning home, but she cannot name an address or reconstruct how she reached the Vigilance. A message cannot be delivered until Kivotos, Gehenna Academy, or another receiving point is identified in terms Wario can route.",
+          "exhibits": [],
+          "events": [
+            "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
+          ]
         }
       ],
       "sessions": [
@@ -425,6 +463,12 @@
           "label": "Ongoing — filed as received",
           "date": "Ongoing",
           "event": "ruined_manor_convergence"
+        },
+        {
+          "id": "s_aethel4_threshold_storm",
+          "label": "The Mirror Ping, the Invitation Loophole, and the Controlled Storm",
+          "date": "4 Aethel, 1040 BF",
+          "event": "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
         }
       ],
       "relatedEvents": [
@@ -437,7 +481,8 @@
         "feyward_amnesia_vines_morel_steely",
         "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
         "the_feyward_revel_and_the_book_of_many_things",
-        "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy"
+        "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
+        "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
       ],
       "exhibits": [
         {

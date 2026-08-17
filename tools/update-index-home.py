@@ -36,7 +36,24 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
      </p>
 
      <div class="campaign-timeline-feed">
-       <!-- Event 0: Latest Session - The Mount Ebot Expedition -->
+       <!-- Event 0: Latest Session - Hanging-Tree Apple / Mirror Theft -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/the_hanging_tree_apple_mirror_theft_and_invited_vampire')" style="cursor:pointer; border-left:4px solid #6f59a8; background:linear-gradient(135deg,rgba(111,89,168,.18),var(--panel2));">
+         <div class="timeline-date-chip" style="color:#c9a6ff;">Aethel 4, 1040 BF · Night · Latest Session</div>
+         <h3 class="timeline-event-title">The Hanging-Tree Apple, the Mirror Theft, and the Invited Vampire</h3>
+         <div class="timeline-actors">
+           <span>Remi</span><span>Markop</span><span>Eager</span><span>Rattles</span><span>Original Dan</span><span>Wario</span><span>Boundy</span><span>Randell</span>
+         </div>
+         <p class="timeline-summary">
+           A locate spell meant for Archie pings near Tymnas's cottage. Boundy offers Remi an apple grown at the hanging tree and uses her name without being told it. Eager steals the Mirror of True Reflection from a sleeping guard, an imp in the broom closet invites Randell the vampire through the threshold, Dan burns him back out with the Holy Symbol of Ravenkind, and Wario warns that the storm itself is controlled before making Remi admit she does not know where home is.
+         </p>
+         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
+           <span class="chip" onclick="Router.go('#/article/the_hanging_tree_apple_mirror_theft_and_invited_vampire')" style="margin:0; font-size:12px; background:#6f59a8; color:#fff; font-weight:800;">📖 Read Full Session Filing →</span>
+           <span class="chip" onclick="Router.go('#/article/tymnas_cottage_and_hedge_maze')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">🏡 Tymnas's Cottage →</span>
+           <span class="chip" onclick="Router.go('#/article/remi_akamatsu_full_backstory')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🛠️ Remi →</span>
+         </div>
+       </div>
+
+       <!-- Event 1: Recovered Archive - The Mount Ebot Expedition -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/the_mount_ebot_expedition')" style="cursor:pointer; border-left:4px solid #8a4bff; background:linear-gradient(135deg,rgba(138,75,255,.16),var(--panel2));">
          <div class="timeline-date-chip" style="color:#c9a6ff;">Aethel 17, <b>1032 BF</b> · Duration: ~18 hours in-world · Recovered Archive Filing — released 1040 BF</div>
          <h3 class="timeline-event-title">The Mount Ebot Expedition — One T</h3>
