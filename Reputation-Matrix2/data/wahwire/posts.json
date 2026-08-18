@@ -193,6 +193,105 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:47:40+00:00"
       }
+    },
+    {
+      "id": "wahwire_the_cutting_lane",
+      "author": "waluigi",
+      "order": 5,
+      "date": null,
+      "timestamp": "1 Aethel, 922 BF (Feyward clock)",
+      "content": "The wood picked a fight with a library tonight. The wood lost. Twenty-four on the field, a champion treant, a mound that chose tomorrow, and a librarian who threw nine books at the problem until the problem was firewood. Full muster, every fate, and the keeper's tally are filed. My assessment stands: nobody audits wording, everybody reaps it. WAH.",
+      "likes": 2041,
+      "links": [
+        {
+          "id": "feyward_woodfellow_vs_the_treant",
+          "type": "battle"
+        }
+      ],
+      "tags": [
+        "feyward",
+        "battles",
+        "theawakenedwood",
+        "waluigichatadjacent"
+      ],
+      "reaction": "smug",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "generic_toad",
+          "content": "nine books?? is the library okay",
+          "likes": 88
+        },
+        {
+          "id": "c2",
+          "author": "waluigi",
+          "content": "The library is FINE. The library is ANGRY. These are different conditions.",
+          "likes": 612
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "wahwire_hanging_tree_mirror",
+      "author": "markop",
+      "order": 6,
+      "date": null,
+      "timestamp": "30 Harvestide, 1040 BF — night",
+      "content": "For the record: I threw the imp through the window. The window was already the problem's second-favorite option. The sentence, the threshold, and the sleeping guard's custody slip are all filed as evidence now, which means somebody in this cottage finally does paperwork. The mirror is back. The vampire is not invited. Check your wording.",
+      "likes": 1189,
+      "links": [
+        {
+          "id": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "threshold",
+        "vampires",
+        "paperwork",
+        "themirror"
+      ],
+      "reaction": "mistrust",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "generic_toad",
+          "content": "you can just SAY an invitation out loud and it works?? asking for a friend who owns a house",
+          "likes": 340
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "wahwire_waluigi_chat_premiere",
+      "author": "remi_akamatsu_full_backstory",
+      "order": 7,
+      "date": null,
+      "timestamp": "Aethel 4, 1040 BF",
+      "content": "I was on television tonight, I think? A purple man asked me where home is and then said 'WAH' with what I can only describe as empathy. There was a shell-phone. My brother-in-arms the mirror got more questions than I did. I still don't have an answer but apparently that's what the show is FOR.",
+      "likes": 1577,
+      "links": [
+        {
+          "id": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "waluigichat",
+        "rnn",
+        "premiere",
+        "whereshome"
+      ],
+      "reaction": "confusion",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "generic_toad",
+          "content": "the desk handing over the longhouse mid-sentence was the coldest thing on the wire this year",
+          "likes": 445
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

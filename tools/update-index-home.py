@@ -1,19 +1,24 @@
 #!/usr/bin/env python3
 """
-Updates index.html's view_home() timeline feed and mainPage.json.
-Adds the newest session (Mount Ebot, one T), the Box Guardian filing, Mount Ebott VII,
-Hjumpik's session, explicit dates, and session durations.
+Updates index.html's view_home() timeline feed (the block between the
+<!-- 4. RECENT CAMPAIGN ADVENTURES --> and <!-- 5. OPERATOR TOOLKIT -->
+anchors). The feed HTML lives in timeline_html below — edit THAT, never
+index.html directly; the next run of this tool erases manual edits.
 
 STANDING ORDER — RAKASHA NEWS NETWORK
 -------------------------------------
-Adding an item to the "RECENT ADVENTURES" feed means the week now owes a broadcast.
-A new RNN episode must be cut every week in which applicable new events exist:
+Adding an item to the "RECENT ADVENTURES" feed means the week now owes a
+broadcast. Cadence is per docs/RNN_BROADCAST_GUIDE.md: one episode per
+~10 filed events, not one per event.
 
     python3 tools/build-rnn-broadcast.py --unaired   # what has never aired
     #  ...write tools/rnn-scripts/epNNN.json...
     python3 tools/build-rnn-broadcast.py             # cut it + re-splice both READMEs
 
-Full procedure: Reputation-Matrix2/gemini.md (STANDING ORDER section).
+STANDING ORDER — WAHWIRE
+------------------------
+Every new feed item is also a filing, and every filing posts to the wire:
+see docs/CROSS_SYSTEM_UPDATES.md before calling a run done.
 """
 
 import json

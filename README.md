@@ -216,6 +216,7 @@ Six things that explain nearly every decision in this repository:
 - **Cut the news** → only when ~10 events are pending;
   `python3 tools/build-rnn-broadcast.py` (see the cadence rule above).
 - **Check what the news owes** → `python3 tools/build-rnn-broadcast.py --unaired`.
+- **Audit references site-wide** → `python3 tools/check-references.py` (dangling ids, missing art; `--strict` to fail on legacy links).
 - **Refresh update stamps** → `node generate-updates.js`.
 
 ## Never do these
