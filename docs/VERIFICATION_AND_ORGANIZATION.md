@@ -18,6 +18,22 @@ Two failure modes kill a wiki this size. This document is about both.
 
 ## Verification — run before you call a run finished
 
+### 0. Run the routine wrapper
+
+For ordinary PRs, start here so the same core checks run every time:
+
+```bash
+python3 tools/check-all.py
+# optional, slower / needs npm deps:
+python3 tools/check-all.py --with-build
+```
+
+The wrapper runs local path checks, reference checks, exhibits, investigations,
+rolls, battles, background blurbs, RNN broadcast validation, Bros Attack sync,
+and the Bros discovery test when Node is available. It does not hide legacy
+warnings; it only gives one pass/fail summary after the individual tools print
+their own details.
+
 ### 1. The JSON parses
 
 ```bash

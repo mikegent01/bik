@@ -257,6 +257,7 @@ Six things that explain nearly every decision in this repository:
   `python3 tools/build-rnn-broadcast.py` (see the cadence rule above).
 - **Check what the news owes** → `python3 tools/build-rnn-broadcast.py --unaired`.
 - **Audit references site-wide** → `python3 tools/check-references.py` (dangling ids, missing art; `--strict` to fail on legacy links).
+- **Run the routine checker set** → `python3 tools/check-all.py` (local paths, references, exhibits, investigations, rolls, battles, background blurbs, RNN check, Bros sync/test).
 - **Refresh update stamps** → `node generate-updates.js`.
 
 ## Never do these

@@ -17,70 +17,132 @@ Usage:
     python3 tools/check-references.py [--strict]
 """
 
+from __future__ import annotations
+
 import json
 import os
 import sys
+from typing import Any
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'Reputation-Matrix2', 'data')
 
 REF_FIELDS = ['relatedArticles', 'keyEvents', 'keyBattles', 'articles']
+SCALAR_REF_FIELDS = ['sourceArticle']
 IMAGE_FIELDS = ['image', 'portrait', 'coverImage', 'banner']
+SKIP_DATA_FILES = {
+    # These are bulk shop/detail payloads. Their inner objects have many local
+    # item ids and effect ids that are not article records; using them as an
+    # audit surface produces noise. Their ids are still available through the
+    # store files that own them.
+    'shop-effect-details.json',
+    'shop-effect-details-slim.json',
+}
 
 
-def load(name):
+def load_path(path: str) -> Any:
     try:
-        with open(os.path.join(DATA, name), 'r', encoding='utf-8') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             return json.load(f)
     except (OSError, ValueError):
         return None
 
 
-def main():
+def load(name: str) -> Any:
+    return load_path(os.path.join(DATA, name))
+
+
+def walk_records(value: Any) -> list[dict[str, Any]]:
+    """Return every dict that looks like a data record, even under wrappers.
+
+    Older checker logic only accepted top-level JSON arrays. That missed valid
+    ids in object-shaped stores such as nations.json, artifacts.json,
+    articleAnalyses.json, quests.json, calendars.json and several generated
+    registries. The result was hundreds of false legacy warnings for records
+    that were actually present, just not in an array-shaped file.
+    """
+    out: list[dict[str, Any]] = []
+
+    def rec(x: Any) -> None:
+        if isinstance(x, dict):
+            if x.get('id') or x.get('sourceArticle'):
+                out.append(x)
+            for child in x.values():
+                if isinstance(child, (dict, list)):
+                    rec(child)
+        elif isinstance(x, list):
+            for child in x:
+                rec(child)
+
+    rec(value)
+    return out
+
+
+def data_files() -> list[str]:
+    try:
+        names = sorted(n for n in os.listdir(DATA) if n.endswith('.json'))
+    except OSError:
+        return []
+    return [n for n in names if n not in SKIP_DATA_FILES]
+
+
+def ref_values(record: dict[str, Any], field: str) -> list[str]:
+    raw = record.get(field)
+    if raw is None:
+        return []
+    if isinstance(raw, str):
+        return [raw]
+    vals: list[str] = []
+    if isinstance(raw, list):
+        for ref in raw:
+            if isinstance(ref, str):
+                vals.append(ref)
+            elif isinstance(ref, dict) and ref.get('id'):
+                vals.append(str(ref['id']))
+    return vals
+
+
+def main() -> int:
     strict = '--strict' in sys.argv
-    warnings, errors = [], []
+    warnings: list[str] = []
+    errors: list[str] = []
 
-    stores = {}
-    for name in ['events.json', 'characters.json', 'locations.json',
-                 'factions.json', 'battles.json', 'majorBattles.json',
-                 'books.json', 'items.json', 'currencies.json', 'trials.json']:
-        data = load(name)
-        if isinstance(data, list):
-            stores[name] = data
+    stores: dict[str, list[dict[str, Any]]] = {}
+    for name in data_files():
+        rows = walk_records(load(name))
+        if rows:
+            stores[name] = rows
 
-    known = set()
-    for name, rows in stores.items():
+    known: set[str] = set()
+    for rows in stores.values():
         for r in rows:
             if isinstance(r, dict) and r.get('id'):
                 known.add(str(r['id']))
+
     props = load('props.json') or {}
     for pid in (props.get('props') or {}):
         known.add(pid)
 
-    def store_of(rid):
-        for name, rows in stores.items():
-            if any(r.get('id') == rid for r in rows if isinstance(r, dict)):
-                return name
-        return 'props' if rid in (props.get('props') or {}) else None
-
     checked = 0
     for name, rows in stores.items():
         for r in rows:
-            if not isinstance(r, dict) or not r.get('id'):
+            if not isinstance(r, dict):
                 continue
+            rid = r.get('id') or r.get('sourceArticle') or '<anonymous>'
             checked += 1
-            rid = r['id']
-            for fld in REF_FIELDS:
-                for ref in (r.get(fld) or []):
-                    ref = ref if isinstance(ref, str) else (ref or {}).get('id')
-                    if not ref:
-                        continue
+            for fld in REF_FIELDS + SCALAR_REF_FIELDS:
+                for ref in ref_values(r, fld):
                     if ref not in known:
                         msg = '%s[%s].%s -> "%s" resolves nowhere' % (name, rid, fld, ref)
                         (errors if strict else warnings).append(msg)
             for fld in IMAGE_FIELDS:
                 val = r.get(fld)
                 if not val or not isinstance(val, str) or val.startswith('http'):
+                    continue
+                # Several system stores use the field name `portrait` for an
+                # emoji/avatar token rather than an image path (for example
+                # 🐸⚔️). Only audit strings that look like local paths.
+                if '/' not in val and '\\' not in val and '.' not in val:
                     continue
                 rel = val if val.startswith('assets/') else 'assets/' + val.lstrip('/')
                 base = os.path.join(ROOT, 'Reputation-Matrix2', rel)
