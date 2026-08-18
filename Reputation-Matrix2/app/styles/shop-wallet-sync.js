@@ -1,4 +1,4 @@
-import { WALLETS, CURRENCIES } from './currency.js';
+import { WALLETS, CURRENCIES } from '../pages/commerce/currency.js';
 
 const SELECT_KEY = 'warehousePaymentCurrency';
 const MODE_KEY = 'warehouseCurrencyDisplayMode';
@@ -90,13 +90,15 @@ function ensureSelectedCurrency() {
 
 async function loadWallets() {
   try {
-    const response = await fetch('./wallets.json?t=' + Date.now(), { cache: 'no-cache' });
+    const walletUrl = new URL('../../data/commerce/wallets.json', import.meta.url);
+    walletUrl.searchParams.set('t', Date.now());
+    const response = await fetch(walletUrl, { cache: 'no-cache' });
     if (response.ok) {
       const json = await response.json();
       wallets = { ...(WALLETS || {}), ...json };
     }
   } catch (error) {
-    console.warn('[Shop Currency] Could not load wallets.json; using currency.js wallets.', error);
+    console.warn('[Shop Currency] Could not load data/commerce/wallets.json; using currency.js wallets.', error);
   }
   ensureSelectedCurrency();
 }
@@ -832,7 +834,7 @@ async function initShopAutoLinker() {
     const files = ['characters', 'factions', 'locations', 'nations', 'currencies', 'artifacts', 'calendarHolidays'];
     await Promise.all(files.map(async f => {
       try {
-        const res = await fetch(`./data/${f}.json`, { cache: 'no-cache' });
+        const res = await fetch(new URL(`../../data/${f}.json`, import.meta.url), { cache: 'no-cache' });
         if (res.ok) DATA[f] = await res.json();
       } catch (e) {}
     }));

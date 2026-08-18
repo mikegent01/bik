@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case File: 4739 - The Kingdom v. A. Miser - Defense Brief</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <script type="importmap">
         {
             "imports": {
@@ -362,47 +362,8 @@
         </div>
     </div>
 
-    <script type="module" src="main.js"></script>
-    
-    <!-- Add background music -->
-    <audio id="background-music" loop>
-        <source src="/Relaxed Scene.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <script>
-        // Auto-play background music with user interaction (to comply with browser autoplay restrictions)
-        document.addEventListener('DOMContentLoaded', () => {
-            const backgroundMusic = document.getElementById('background-music');
-            
-            // Add play/pause functionality
-            const toggleMusic = () => {
-                if (backgroundMusic.paused) {
-                    backgroundMusic.play().catch(error => {
-                        console.warn('Autoplay prevented:', error);
-                    });
-                } else {
-                    backgroundMusic.pause();
-                }
-            };
+    <script type="module" src="script.js"></script>
 
-            // Create a music control button
-            const musicButton = document.createElement('button');
-            musicButton.textContent = '🎵 Toggle Music';
-            musicButton.style.position = 'fixed';
-            musicButton.style.bottom = '20px';
-            musicButton.style.right = '20px';
-            musicButton.style.zIndex = '1000';
-            musicButton.addEventListener('click', toggleMusic);
-            
-            document.body.appendChild(musicButton);
-
-            // First play requires user interaction due to browser restrictions
-            document.addEventListener('click', () => {
-                backgroundMusic.play().catch(error => {
-                    console.warn('Initial autoplay prevented:', error);
-                });
-            }, { once: true });
-        });
-    </script>
+    <!-- Background music removed: the referenced track was not bundled, so the page no longer renders a dead audio control. -->
 </body>
 </html>

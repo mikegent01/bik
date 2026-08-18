@@ -6562,7 +6562,13 @@ document.addEventListener('click',e=>{if(!e.target.closest('.searchwrap'))closeS
 /* =============== SIDEBAR =============== */
 /* =============== SIDEBAR — grouped, collapsible, de-cluttered =============== */
 const NAV_COLLAPSE_KEY='waluipedia-nav-collapsed';
-let NAV_COLLAPSED=(()=>{ try{ return new Set(JSON.parse(localStorage.getItem(NAV_COLLAPSE_KEY)||'[]')); }catch(e){ return new Set(); } })();
+const NAV_DEFAULT_COLLAPSED=['nav-systems','nav-world','nav-encyclopedia','nav-progression','nav-systems-world','nav-account'];
+let NAV_COLLAPSED=(()=>{
+  try{
+    const saved=localStorage.getItem(NAV_COLLAPSE_KEY);
+    return new Set(saved?JSON.parse(saved):NAV_DEFAULT_COLLAPSED);
+  }catch(e){ return new Set(NAV_DEFAULT_COLLAPSED); }
+})();
 function toggleNavSection(id){
   NAV_COLLAPSED.has(id)?NAV_COLLAPSED.delete(id):NAV_COLLAPSED.add(id);
   try{ localStorage.setItem(NAV_COLLAPSE_KEY, JSON.stringify([...NAV_COLLAPSED])); }catch(e){}
@@ -6575,8 +6581,11 @@ function navLink(o){
 }
 function navSection(id,title,links,opts={}){
   if(!links.length) return '';
-  const collapsed=NAV_COLLAPSED.has(id)&&!opts.alwaysOpen;
-  const head=title?`<div class="navhead ${opts.alwaysOpen?'static':''}" ${opts.alwaysOpen?'':`onclick="toggleNavSection('${id}')"`}><span>${esc(title)}</span>${opts.alwaysOpen?'':`<span class="navchev">▾</span>`}</div>`:'';
+  const forceOpen=!!opts.forceOpen;
+  const collapsed=NAV_COLLAPSED.has(id)&&!opts.alwaysOpen&&!forceOpen;
+  const count=opts.count!==undefined?`<span class="rail-count">${esc(String(opts.count))}</span>`:'';
+  const label=`<span>${esc(title)}</span>${count}`;
+  const head=title?`<div class="navhead ${opts.alwaysOpen?'static':''}" ${opts.alwaysOpen?'':`onclick="toggleNavSection('${id}')"`}><span style="display:flex;align-items:center;gap:6px;min-width:0">${label}</span>${opts.alwaysOpen?'':`<span class="navchev">▾</span>`}</div>`:'';
   return `<div class="navsec ${collapsed?'collapsed':''}" data-navsec="${id}">${head}<div class="navbody">${links.join('')}</div></div>`;
 }
 let NAV_ACTIVE=null;
@@ -6584,9 +6593,11 @@ function renderSidebar(active){
   NAV_ACTIVE=active;
   const h1=location.hash;
   const n=(k)=>(DATA[k]||[]).length;
+  const hasActive=(links)=>links.some(x=>x.includes(' active'));
   let h='';
 
-  // Pinned: home + the systems, so the important routes never get buried.
+  // Pinned: home + search. Everything else is a compact drawer by default so
+  // the sidebar starts short instead of becoming a second table of contents.
   h+=navSection('nav-top','',[
     navLink({emoji:'🏠',label:'Home',go:"Router.go('#/home')",active:(!h1||h1.startsWith('#/home'))}),
     navLink({emoji:'🔎',label:'Search & Index',go:"document.getElementById('search').focus()",title:'Focus the search bar ( / )'})
@@ -6598,24 +6609,24 @@ function renderSidebar(active){
   }));
   sysLinks.push(navLink({emoji:'🏬',label:"Wario's Warehouse",go:`location.href='Reputation-Matrix2/app/pages/shop/shop.html#warehouse'`,system:true,title:"Warehouse 3.0 — items, materials, abilities and your loot in one search"}));
   sysLinks.push(navLink({emoji:'🎓',label:'Ability Shop',go:`location.href='${abilityShopUrl()}'`,system:true,title:"Wario's training wing — opens inside the warehouse"}));
-  h+=navSection('nav-systems','⚡ Faction Systems',sysLinks,{alwaysOpen:true});
+  h+=navSection('nav-systems','⚡ Faction Systems',sysLinks,{forceOpen:hasActive(sysLinks),count:sysLinks.length});
 
-  h+=navSection('nav-world','World',[
+  const worldLinks=[
     navLink({emoji:'🍩',label:'World Atlas',go:"Router.go('#/atlas')",active:active==='atlas',count:n('nations')}),
     navLink({emoji:'⚖️',label:'Cultures & Laws',go:"Router.go('#/cultures')",active:active==='list:cultures',count:(Object.keys(TRADITIONS||{}).length||n('cultures')),title:'Cultural spheres, legal traditions, and where the laws collide'}),
     navLink({emoji:'⚡',label:'Power Projection',go:"Router.go('#/power')",active:active==='power'}),
     navLink({emoji:'👑',label:'Dynasties',go:"Router.go('#/dynasties')",active:active==='dynasties',count:Object.keys(DYNASTY_SYSTEM.houses||{}).length}),
     navLink({emoji:'📓',label:"Thornbury's Journal",go:"Router.go('#/field-journal')",active:(active==='journal'||h1.includes('field-journal')||h1.includes('thornburys_field_journal'))}),
     navLink({emoji:'📺',label:'Rakasha News Network',go:"Router.go('#/rnn')",active:(active==='rnn'||h1.includes('/rnn')||h1.includes('rakasha-news')),title:"Last week's broadcast — the Rakasha desk reads back every recent adventure"})
-  ]);
+  ];
+  h+=navSection('nav-world','World',worldLinks,{forceOpen:hasActive(worldLinks),count:worldLinks.length});
 
-  h+=navSection('nav-encyclopedia','Encyclopedia',
-    TYPES.filter(t=>!['locations','nations','cultures'].includes(t.key)).map(t=>navLink({
-      emoji:t.emoji,label:t.label,go:`Router.go('#/list/${t.key}')`,active:active==='list:'+t.key,count:n(t.key)
-    })).concat([navLink({emoji:'🏰',label:'Locations',go:"Router.go('#/list/locations')",active:active==='list:locations',count:n('locations')})])
-  );
+  const encyclopediaLinks=TYPES.filter(t=>!['locations','nations','cultures'].includes(t.key)).map(t=>navLink({
+    emoji:t.emoji,label:t.label,go:`Router.go('#/list/${t.key}')`,active:active==='list:'+t.key,count:n(t.key)
+  })).concat([navLink({emoji:'🏰',label:'Locations',go:"Router.go('#/list/locations')",active:active==='list:locations',count:n('locations')})]);
+  h+=navSection('nav-encyclopedia','Encyclopedia',encyclopediaLinks,{forceOpen:hasActive(encyclopediaLinks),count:encyclopediaLinks.length});
 
-  h+=navSection('nav-progression','Progression & Gear',[
+  const progressionLinks=[
     navLink({emoji:'✦',label:'XP Leaderboard',go:"Router.go('#/xp')",active:active==='xp',count:(()=>{try{return _xpAggregate().totalRows;}catch(e){return '';}})()}),
     navLink({emoji:'📈',label:'Reputation Matrix',go:"Router.go('#/reputation')",active:active==='reputation',count:Object.keys(LORE_FACTIONS||{}).length||100}),
     navLink({emoji:'🎒',label:'Items',go:"Router.go('#/items')",active:active==='items',count:Object.keys(INVENTORY_SYSTEM.items||{}).length-1}),
@@ -6623,23 +6634,25 @@ function renderSidebar(active){
     navLink({emoji:'⭐',label:'Artifacts',go:"Router.go('#/artifacts')",active:active==='artifacts',count:((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length+((DATA.artifacts&&DATA.artifacts.god_toad)?1:0)}),
     navLink({emoji:'🤝',label:'Bros Attacks',go:"Router.go('#/bros-attacks')",active:active==='bros-attacks',count:((DATA.brosAttacks&&DATA.brosAttacks.attacks)||[]).length,title:'Confirmed cooperative techniques, resources, risks, and source filings'}),
     navLink({emoji:'🛒',label:"Wario's Shop",go:"location.href='Reputation-Matrix2/app/pages/shop/shop.html'"})
-  ]);
+  ];
+  h+=navSection('nav-progression','Progression & Gear',progressionLinks,{forceOpen:hasActive(progressionLinks),count:progressionLinks.length});
 
-  h+=navSection('nav-systems-world','World Systems',[
+  const systemLinks=[
     navLink({emoji:'🏛️',label:'Congress',go:"Router.go('#/congress')",active:active==='congress',count:n('congress_votes')}),
     navLink({emoji:'💱',label:'Currencies',go:"Router.go('#/currencies')",active:active==='currencies',count:(getCurrenciesList?getCurrenciesList().length:((DATA.currencies&&(DATA.currencies.currencies||DATA.currencies))||[]).length)||45}),
     navLink({emoji:'🏦',label:'Bank & Exchange',go:"Router.go('#/banking')",active:active==='banking'}),
     navLink({emoji:'📅',label:'Calendar',go:"Router.go('#/calendar')",active:active==='calendar'}),
     navLink({emoji:'🎉',label:'Holidays',go:"Router.go('#/holiday')",active:active==='holidays',count:(()=>{const g=DATA.calendarHolidays?.holidays||{};let c=0;Object.values(g).forEach(a=>c+=(a||[]).length);return c;})()}),
-      navLink({emoji:'❓',label:'What Ifs',go:"Router.go('#/whatif')",active:active==='whatifs',count:(DATA.whatifs&&DATA.whatifs.whatifs?DATA.whatifs.whatifs.length:0)}), 
-    navLink({emoji:'🕰️',label:'Timeline',go:"Router.go('#/calendar/timeline')",count:(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}),
+    navLink({emoji:'❓',label:'What Ifs',go:"Router.go('#/whatif')",active:active==='whatifs',count:(DATA.whatifs&&DATA.whatifs.whatifs?DATA.whatifs.whatifs.length:0)}),
+    navLink({emoji:'🕰️',label:'Timeline',go:"Router.go('#/calendar/timeline')",active:h1.includes('/calendar/timeline'),count:(DATA.historicalTimeline||[]).filter(x=>x&&x.type!=='era_header').length}),
     navLink({emoji:'📚',label:'Library & Books',go:"Router.go('#/books')",active:active==='books',count:((DATA.books&&DATA.books.books)||(window.BOOKS_DATA&&window.BOOKS_DATA.books)||[]).length||50}),
     navLink({emoji:'🎵',label:'Campaign Songbook',go:"Router.go('#/songs')",active:active==='songs',count:23}),
     navLink({emoji:'🛰️',label:'Mission Control',go:"Router.go('#/mission-control')",active:active==='mission-control'}),
     navLink({emoji:'🔍',label:'Investigations',go:"Router.go('#/investigations')",active:active==='investigations',count:(((DATA.investigations||{}).investigations)||[]).length}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')}),
     navLink({emoji:'〰️',label:'WAHwire',go:`location.href='${wahwireUrl()}'`,count:WAHWIRE_COUNT,title:'The public feed — every post, searchable, wired back to the records it talks about'})
-  ]);
+  ];
+  h+=navSection('nav-systems-world','World Systems',systemLinks,{forceOpen:hasActive(systemLinks),count:systemLinks.length});
 
   const curU=(typeof getCurrentUserId==='function'?getCurrentUserId():null);
   const curName=curU?((INDEX[curU]&&displayName(INDEX[curU].item))||(typeof XP_SUMMARY!=='undefined'&&XP_SUMMARY[curU]?.name)||curU):null;
@@ -6650,7 +6663,7 @@ function renderSidebar(active){
   }else{
     acct.push(navLink({emoji:'🔐',label:'Login',go:"Router.go('#/login')",active:active==='login'}));
   }
-  h+=navSection('nav-account','Tools & Account',acct);
+  h+=navSection('nav-account','Tools & Account',acct,{forceOpen:hasActive(acct),count:acct.length});
 
   el('sidenav').innerHTML=h;
 }
