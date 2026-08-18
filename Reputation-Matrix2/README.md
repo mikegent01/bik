@@ -22,6 +22,174 @@
 
 <!-- RNN:LAST-WEEK:END -->
 
+## What this README owns
+
+This file is the **systems-layer field manual**. The repository root README
+explains the whole campaign archive; this README explains the app under
+`Reputation-Matrix2/`: the data contracts, page modules, generators, shop,
+Foundry exports, map systems, WAHwire, RNN player, investigations, article
+analyses, annotations, and the reputation matrix.
+
+Use this page when a change touches any of these questions:
+
+- Which JSON/JS file is the source of truth for a feature?
+- Which rendered page or hash route consumes that data?
+- Which generator must be run after editing it?
+- Which static exports are review artifacts rather than editable sources?
+- Which latest-PR guardrail prevents a bug that already happened once?
+
+If you add a feature here, add a section here. If the detailed rules are long,
+put the long rules in `../docs/` or a subproject README and link them from this
+file with a one-paragraph summary.
+
+---
+
+## Running and checking the systems layer
+
+The main Waluipedia shell is static and can be opened directly from the repo
+root as `../index.html`. The `Reputation-Matrix2/` folder also has a Vite setup
+for pages and modules that benefit from a dev server.
+
+```bash
+# From Reputation-Matrix2/
+npm install                 # first local setup only
+npm run dev -- --host 0.0.0.0
+npm run build
+```
+
+Most day-to-day validation is done from the **repository root** because the
+canonical tools live in `../tools/`:
+
+```bash
+python3 tools/check-references.py
+python3 tools/check-exhibits.py
+python3 tools/build-rnn-broadcast.py --unaired
+python3 tools/build-rnn-broadcast.py --check
+node generate-updates.js
+```
+
+Feature-specific checks live next to the owning feature and are called out in
+the sections below. A PR description should say which commands were run and
+whether any warnings are legacy debt or new work.
+
+---
+
+## Source-of-truth map
+
+| System | Edit this | Generated / derived from it | Reader-facing surface |
+|---|---|---|---|
+| Session events | `data/events.json` | home feed, reference index, RNN pending list entries | root `index.html` article routes |
+| Battles | `data/battles.json`, `data/majorBattles.json` | battle feed items, battle pages | `#/battle/...` and home feed |
+| Investigations | `data/investigations.json` | no generated file; rendered at runtime | source article panels and investigation routes |
+| Article analyses | `data/articleAnalyses.json` | no generated file; rendered at runtime | `#/article-analysis/<id>` and source article panels |
+| Exhibits / props | `data/props.json` | exhibit tiles and modal documents | article/item-linked document modals |
+| Factions | `data/factions.json`, reviewed `data/factionsGenerated.json` | reputation traces and faction pages | faction routes, standings, maps |
+| Bros Attacks | `data/brosAttacks.json` | `Foundry/bros_attacks/bros-definitions.js`, `data/brosAttacks.schools.json` | `#/bros-attacks`, shop training yard, Foundry module |
+| Bros shop kits | `data/shop-items/items_bros.js` plus shop category registrations | shop departments and Foundry item conversion | Wario's Shop, hub item piles, Foundry imports |
+| RNN broadcasts | `../tools/rnn-scripts/epNNN.json`, `../tools/rnn-scripts/pending-news-articles.json` | `data/rnn-broadcasts.js`, README `RNN:LAST-WEEK` blocks | standalone RNN player |
+| WAHwire | `data/wahwire/*.json`, scheduled posts | rendered feeds and reaction panels | WAHwire pages and side panels |
+| Annotations | `data/annotations.json` | inline highlights and Chatter Hub leaderboards | `#/annotations`, highlighted article text |
+| Foundry actors/items | lore + shop + hub builders; curated exports in `tools/item sheet examples/` | `.hub-out/` generated drafts | Foundry import JSON |
+
+**Rule:** if a file appears in the generated column, do not hand-edit it unless
+that feature's README explicitly says the export is curated by hand.
+
+---
+
+## Latest-PR systems that now need special care
+
+### RNN network format and Waluigi Chat
+
+The news player is no longer only a single anchor reading a bulletin. The live
+format supports a Rakasha bulletin, a leased late slot, Waluigi as host, guests,
+callers, speaker-specific audio profiles, pose sprites, and talk-set staging.
+`rnn-003` is the example to inspect before writing `rnn-004`.
+
+- Author scripts in `../tools/rnn-scripts/`.
+- Register speaker poses in `portraits/player/sprite-sheets/poses/manifest.json`.
+- Build from the repo root with `python3 tools/build-rnn-broadcast.py`.
+- The newest episode block in this README and the root README is generated.
+
+Do not add one broadcast per event. The cadence remains **one episode per about
+ten filed events** unless a table decision explicitly changes the desk's rhythm.
+
+### Article analyses
+
+Analyses are signed companion readings, not duplicate events. The first live
+record is `hanging_tree_apple_waluigi_analysis`, tied to
+`the_hanging_tree_apple_mirror_theft_and_invited_vampire`.
+
+- Editorial rules: `../docs/ARTICLE_ANALYSES.md`.
+- Implementation guide: `../docs/article-analyses/README.md`.
+- Data: `data/articleAnalyses.json`.
+- Route: `#/article-analysis/<analysis-id>`.
+
+Keep the source event authoritative for chronology, custody, XP, reputation,
+participants, images, and outcomes. The analysis owns Waluigi's argument,
+source anchors, related links, and optional after-hours research checks only.
+
+### Source-backed generated faction dossiers
+
+`data/factionsGenerated.json` is a review surface, not a place to dump vague
+prose. A generated faction dossier must be tied to source records, carry short
+excerpts, and decide whether a key names a real organized group. If the label is
+not a faction, preserve a minimal tombstone or redirect instead of writing a
+fake paragraph around it.
+
+When updating this system, verify that the generator:
+
+1. reopens the source article that created the reputation key;
+2. follows relevant `relatedArticles`;
+3. writes multiple evidence-bound sections rather than one truncated blob;
+4. keeps draft section files resumable; and
+5. reduces the pending queue only after a complete reviewed dossier passes.
+
+### Hub and Foundry conversion repairs
+
+The hub recently gained repo-relative output paths, fixed receipt/event paths,
+GUI/CLI parity for item piles, and stronger Foundry item typing. The important
+failure mode is silent emptiness: a wrong path can look like **0 receipts** or
+**0 events** instead of throwing.
+
+Run:
+
+```bash
+python tools/hub/hub_cli.py doctor
+python tools/hub/hub_cli.py piles --preview
+```
+
+from inside `Reputation-Matrix2/` before claiming hub work is done. Generated
+`.hub-out/` output is ignored and should stay out of commits unless a specific
+actor export is promoted into `tools/item sheet examples/` for review.
+
+### Bros Attacks, badges, discovery and kits
+
+Bros Attacks are now a small cross-system feature: archive data, shop listings,
+Foundry module, discovery ledger, badge awards, and generated school summaries.
+The single source remains `data/brosAttacks.json`. The module reads generated
+`Foundry/bros_attacks/bros-definitions.js`.
+
+```bash
+cd Reputation-Matrix2
+python3 tools/sync_bros_attacks.py --check
+node tools/tests/test_bros_discovery.mjs
+```
+
+Kits bought from the shop spend an item instead of Bros Energy. Discovery is a
+GM/filed-table event: the current module exposes `game.brosAttacks.discovery`
+helpers for logged failures and successful discoveries rather than silently
+teaching a technique merely because an item existed.
+
+### Annotations and the Chatter Hub
+
+Annotations are public voices arguing in the margins. They are not hidden errata
+and not a place to smuggle missing exposition. The exact quoted phrase must
+exist in the article body or the inline highlight will not anchor. The Chatter
+Hub ranks recent, liked, and replied-to comments; high engagement can mean the
+public is wrong loudly, which is often the point.
+
+---
+
 ## Project Philosophy
 
 To ensure readability and maintainability, this project follows a modular structure. JavaScript files, particularly those containing significant logic or UI rendering code, are kept concise. The general guideline is to keep files under **500-600 lines**. This approach makes it easier for developers to quickly understand the purpose of a file and navigate the codebase effectively.

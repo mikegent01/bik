@@ -16,6 +16,79 @@ No pip installs, no build step. LM Studio is optional.
 
 ---
 
+## What this README owns
+
+This is the operating manual for the **local tools hub**, not for the public
+static site. It explains how the browser dashboard discovers scripts and data,
+how the command-line wrapper mirrors the GUI, where generated Foundry artifacts
+land, which files are allowed to be absolute paths, and how to diagnose the
+silent-empty failure mode that caused the latest hub repairs.
+
+If you change any of these, update this README in the same PR:
+
+- `hubcore/paths.py` constants or repo-root detection;
+- the AST registry that discovers tools, functions, data, and pages;
+- item-pile or character-actor generation;
+- LM Studio request/fallback behavior;
+- `.hub-out/` layout, caching, or promotion workflow;
+- server API endpoints under `/api/`;
+- CLI commands or flags in `hub_cli.py`.
+
+The hub is intentionally a **local operator console**. It should make repository
+work safer and faster; it should not become a public API, a cloud service, or a
+second source of truth for campaign data.
+
+---
+
+## Quick start — GUI, CLI, and doctor
+
+From `Reputation-Matrix2/`:
+
+```bash
+python tools/hub/server.py
+python tools/hub/hub_cli.py doctor
+```
+
+From the repository root, prefix the path:
+
+```bash
+python Reputation-Matrix2/tools/hub/server.py
+python Reputation-Matrix2/tools/hub/hub_cli.py doctor
+```
+
+A healthy doctor run should show nonzero counts for the live campaign data,
+especially receipts and events. **Zero is suspicious.** The hub's loaders degrade
+gracefully when a file is missing, so a bad path can look like an empty data set
+instead of a crash. Check `hubcore/paths.py` first when the dashboard says there
+are no purchases, no events, no characters, or no shop items.
+
+For Arena/live-preview work, the server binds to `127.0.0.1` by design and is
+not meant to be exposed. Do not loosen that binding unless you are deliberately
+turning the hub into a networked tool and have added authentication, host
+checks, and a new threat model.
+
+---
+
+## Mental model
+
+The hub has four layers:
+
+1. **Paths** (`hubcore/paths.py`) decide what the repository root is and where
+   canonical data/output/cache files live.
+2. **Readers** (`hubcore/dataio.py`, `registry.py`) load JSON, ask Node to
+   evaluate ES-module shop files, and enumerate scripts without importing them.
+3. **Builders** (`foundry.py`, `piles.py`, `creator.py`) transform lore,
+   receipts, wallets, events, factions, and shop items into Foundry-shaped JSON.
+4. **Surfaces** (`server.py`, `hub_cli.py`, `web/`) present the same operations
+   through a browser UI or command-line interface.
+
+When a bug appears in generated output, find the layer before patching the
+symptom. A bad path belongs in `paths.py`; a missing shop item belongs in the
+catalog or Node export; a malformed Foundry item belongs in `foundry.py`; a UI
+button that calls the wrong option belongs in `web/hub.js` or `server.py`.
+
+---
+
 ## What's in it
 
 ### Dashboard
@@ -81,6 +154,34 @@ Everything written, newest first. Files land in `tools/hub/.hub-out/`
 
 ---
 
+## Web API surface
+
+The GUI is a static page talking to a small stdlib server. Endpoints are kept
+plain so they can be inspected from a browser console during a run.
+
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/api/overview` | GET | Dashboard counts, registry summaries, health snippets |
+| `/api/llm` | GET | LM Studio availability and loaded-model check |
+| `/api/script?path=...` | GET | Source/metadata for a registered script |
+| `/api/file?path=...` | GET | Preview for a registered data/output file |
+| `/api/purchases` | GET | Resolved shop receipts and pile preview data |
+| `/api/lore` | GET | Character lore choices and linked-event context |
+| `/api/outputs` | GET | Newest files under `.hub-out/` |
+| `/api/runs` | GET | Recent tool runs launched through the hub |
+| `/api/piles/build` | POST | Build item-pile actors |
+| `/api/character/preview` | POST | Preview a character actor plan |
+| `/api/character/build` | POST | Write a character actor JSON |
+| `/api/run` | POST | Execute a registry-approved script with extra args |
+| `/api/refresh` | POST | Clear/rebuild cached registry and catalog state |
+
+Only paths already known to the registry should be opened or executed. Do not
+add an endpoint that accepts an arbitrary filesystem path or shell command. The
+whole point of the registry layer is that browsing a tool is inert, and running
+a tool is constrained to files this repository already recognizes.
+
+---
+
 ## Command line
 
 Every GUI feature also works headlessly:
@@ -122,6 +223,36 @@ tools/hub/
     llm.py             optional LM Studio client
   .hub-out/            generated output (git-ignored; regenerates on demand)
 ```
+
+## Verification checklist for hub PRs
+
+Run the smallest set that exercises the layer you touched, then paste the
+results into the PR:
+
+```bash
+python tools/hub/hub_cli.py doctor
+python tools/hub/hub_cli.py list --functions
+python tools/hub/hub_cli.py list --data
+python tools/hub/hub_cli.py piles --preview
+python tools/hub/hub_cli.py character --from waluigi --level 3
+```
+
+Also test the GUI path when changing `server.py` or `web/`:
+
+1. Start `python tools/hub/server.py`.
+2. Press **Refresh data**.
+3. Open a data file preview.
+4. Run a harmless listed script with no extra args or `--help`.
+5. Preview item piles.
+6. Preview a character, then build one to `.hub-out/actors/`.
+7. Confirm `.hub-out/` is not staged by Git unless you intentionally promoted a
+   finished export.
+
+A path portability change should be checked from two different checkout paths
+when possible. The committed manifest or generated actor should never contain a
+sandbox home directory, a Windows user directory, or a machine-specific absolute
+path except in a diagnostic field whose job is explicitly to display the local
+root.
 
 ## Notes
 

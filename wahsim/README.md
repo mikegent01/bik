@@ -11,6 +11,33 @@ Reads the real Waluipedia data (`Reputation-Matrix2/data/*.json`), so casts are
 actual canon characters — Miles Edgeworth prosecutes, and the Grand Congress
 delegations keep their real blocs, influence and reliability ratings.
 
+---
+
+## What this README owns
+
+WahSim is a separate simulator inside the repository. It does **not** file canon
+by itself, mutate `events.json`, award XP, or update the reputation matrix. It
+borrows canon data to cast scenes and produce repeatable transcripts for play,
+experimentation, debugging, and table prompts.
+
+This README should be updated whenever a PR changes:
+
+- a run entry point (`python -m wahsim`, `run_gui.py`, `gui.py`, `cli.py`);
+- a mode contract or a new mode under `wahsim/modes/`;
+- dice outcomes, initiative, energy, composure, or clock rules;
+- canon loading from `Reputation-Matrix2/data/`;
+- LM Studio / OpenAI-compatible fallback behavior;
+- GUI state shape or the local HTTP API;
+- the balance sweeps or test count.
+
+The guiding promise: a reader should be able to run one seeded simulation,
+understand why every roll happened, and replay the same result without knowing
+any internals.
+
+---
+
+## Quick start
+
 ```bash
 # From the repo root (bik/):
 python -m wahsim --gui             # browser GUI  → http://localhost:8765
@@ -79,7 +106,46 @@ seats.
 
 ---
 
-## The three modes
+## Runtime contract
+
+Every mode plugs into the same engine contract:
+
+1. **Cast** actors from canonical data or scenario text.
+2. **Create phases** with clocks, maximum rounds, and optional fixed order.
+3. **Offer actions** for the active actor.
+4. **Resolve one action** into a `Beat`: roll trail, narration, clock changes,
+   consequences, and optional dialogue.
+5. **Report status** so the CLI/GUI can draw the HUD without knowing the mode's
+   internal state.
+6. **End with an epilogue** that explains why the scene resolved.
+
+The engine owns replayable randomness, initiative, composure penalties, ability
+charges, transcript storage, and the player/AI turn loop. A mode should not
+roll its own global RNG, write directly to the GUI, or mutate canon files. If a
+mode needs persistent scenario data, put it under `wahsim/data/` and document
+how it is loaded.
+
+### Canon loading rules
+
+`core/roster.py` is allowed to read Waluipedia data; simulation output is not
+allowed to write it back. Stats are inferred from prose keywords, affiliations,
+and titles. That makes the simulator useful for quickly staging a scene, but it
+also means the simulator's class/attribute guess is a **play aid**, not a canon
+statement. If the output suggests a good idea for the archive, file it through
+the normal Waluipedia process afterward.
+
+### Determinism rules
+
+- All randomness must flow through the session RNG.
+- The seed prints at the end of every run.
+- A test that asserts replay determinism should fail if a mode reaches out to
+  unseeded randomness.
+- LM Studio text may vary; the mechanical skeleton must still be deterministic
+  and must fall back when the model is unavailable.
+
+---
+
+## The modes
 
 ### ⚖️ Trial
 **PROSECUTION CASE** vs **REASONABLE DOUBT** race each other; **JUDGE'S
@@ -271,6 +337,24 @@ WAHSIM_COMMIT=25 WAHSIM_BLOC_PULL=0.4 python3 -m wahsim congress --auto
 (Dropping the commit threshold from 55 → 25 takes locked delegates from 13 to
 64 across eight games — the knobs genuinely bite.)
 
+### GUI API surface
+
+The browser GUI is intentionally small: a stdlib HTTP server serves one page and
+accepts JSON POSTs. Browser code should use these routes rather than reaching
+into Python state by any other path.
+
+| Route | Purpose |
+|---|---|
+| `POST /api/start` | Create a new session from mode, seed, LM toggle, and scenario text |
+| `POST /api/step` | Advance one action, optionally with the player's selected choice/text |
+| `POST /api/auto` | Run AI turns until the player is active or the scene ends |
+| `POST /api/state` | Return the current serialized session state |
+| `POST /api/check` | Check the LM Studio/OpenAI-compatible endpoint |
+
+The serialized state must remain UI-friendly: plain JSON values, no Python
+objects, no methods, no unserializable dice classes. If a GUI feature needs new
+data, add it to the session/mode serialization and cover it with a test.
+
 ### Adding a mode
 
 Implement six methods, register in `cli.MODES` and `gui.MODES`:
@@ -311,3 +395,29 @@ resolve exactly), **Glazed scale guards** (100 seats must still chart in under
 cleanly both as `python file.py` and as `python -m ...`) — plus **balance
 sweeps**: 24 congress and 12 trial sessions asserting outcomes stay competitive
 rather than fixed.
+
+### PR verification checklist
+
+For a WahSim change, include at least one command from each affected layer:
+
+```bash
+python -m wahsim.test_wahsim
+python -m wahsim trial --seed 21 --auto
+python -m wahsim congress --seed 21 --auto
+python -m wahsim glazed --seed 21 --auto
+python -m wahsim scene --seed 21 --auto --premise "Waluigi negotiates with a suspicious banker"
+python -m wahsim --check
+```
+
+If a PR changes entry points, also run safe file-form commands from inside
+`wahsim/`:
+
+```bash
+python cli.py --check
+python test_wahsim.py
+```
+
+If a PR changes GUI serialization, start the GUI, create one session, run to the
+player turn, submit one player action, and confirm reload/state retrieval still
+works. If a PR changes canon loading, name the source Waluipedia files it reads
+and confirm the simulator did not write to them.

@@ -4,7 +4,39 @@
 actor/item-sheet JSON — the long version.**
 
 This folder (`tools/item sheet examples/`) holds reference exports of the
-**target format** for play-ready characters:
+**target format** for play-ready characters. It is both a schema guide and a
+canon-boundary guide: the examples show how to build useful Foundry actors
+without turning every event, prop, or briefly handled artifact into player
+inventory.
+
+## What this README owns
+
+Update this README whenever a PR changes one of these areas:
+
+- `characters.json` lore schema, required fields, or XP-ledger linking;
+- Hub Character Creator behavior that affects generated actors;
+- Hub Item Piles behavior that affects purchased gear exports;
+- Foundry/dnd5e system version assumptions;
+- per-item type conversion rules in `tools/hub/hubcore/foundry.py`;
+- a promoted player-character export in this folder;
+- asset installation scripts or Foundry image-path policy.
+
+The central rule is **authority separation**:
+
+| Question | Authority |
+|---|---|
+| Who is this person and what is their current status? | `Reputation-Matrix2/data/characters.json` |
+| What XP, level, power, and fame have they earned? | XP ledger pages (`xp.html` / `xp-ledger-final.html`) |
+| What shop items exist and what do they cost? | `Reputation-Matrix2/data/shop-items/*.js` |
+| What did a session prove happened? | `Reputation-Matrix2/data/events.json` / battle records |
+| What is importable at the table right now? | A curated Foundry actor JSON export |
+
+Do not solve an authority problem by copying facts into the wrong layer. If XP
+is wrong, fix the ledger. If inventory is unproven, leave it out of the actor.
+If an item should exist for everyone, put it in the shop catalog and let the hub
+convert it.
+
+## Reference exports
 
 | File | What it is | Use it as… |
 |---|---|---|
@@ -51,6 +83,18 @@ The guide is split into three parts:
 3. **[Part 3 — Recipes & validation](#part-3--recipes--validation)** —
    step-by-step "make a new PC / NPC / item pile" walkthroughs and the checks
    to run before committing.
+
+## Quick path by task
+
+| Task | Start here | Then run |
+|---|---|---|
+| Add a new character page | Part 1 schema and writing quality | character/reference validators in Part 3 |
+| Generate a first actor draft | Hub Character Creator in `../hub/README.md` | From `Reputation-Matrix2/`: `python tools/hub/hub_cli.py character --from <id> --level <n>` |
+| Promote a generated actor to this folder | Part 2 envelope + relevant worked reference | JSON parse + item-document checks |
+| Build piles from purchases | Hub Item Piles guide | From `Reputation-Matrix2/`: `python tools/hub/hub_cli.py piles --preview` then `piles` |
+| Hand-author a unique sheet-only item | Part 2.4 item type fields | Foundry import/open-sheet sanity check |
+| Decide whether a seen artifact is inventory | worked references for Eager, Feyward Dan, Bones | leave source-only objects in event prose unless custody is explicit |
+| Change image paths | Bones installer + image path notes | import in Foundry and inspect actor/token/item images |
 
 ---
 
@@ -194,7 +238,7 @@ Rules of thumb:
 4. **Dangling references are lint failures.** Every `keyEvents` id must exist
    in `data/events.json` or `data/battles.json`; every `relatedArticles` id
    should resolve to an article route (factions, locations, battles, etc.).
-   Run the validator in [§3.4](#34-validation-scripts).
+   Run the validator in [§3.7](#37-validation-scripts).
 
 ## 1.5 What the Hub Character Creator reads (so write for it)
 
@@ -800,7 +844,7 @@ Do not copy Original Dan's cursed-staff history, severed arm, or Liberated Toads
 4. Treat the eye and Wild Surge as campaign features for GM review; they are not automatic official 5e features.
 5. Keep future XP in the XP ledger first. Update the actor snapshot deliberately after an advancement.
 
-## 3.4 Recipe: Bones as a real player character (worked reference)
+## 3.5 Recipe: Bones as a real player character (worked reference)
 
 `fvtt-Actor-bones-level-5-infiltrator-player.json` is intentionally a **PC**, not
 an NPC. It is the concrete worked example for the Bones request and is larger
@@ -859,7 +903,7 @@ not only bonuses.
 5. Do not drag the chronology cards into a combat encounter as enemies. They are
    lore/feat documents attached to a player sheet.
 
-## 3.4 Recipe: make a loot / item pile
+## 3.6 Recipe: make a loot / item pile
 
 1. Either run **Item Piles** in the hub (reads `shop-purchases.json`,
    resolves receipts against the shop catalog, writes one pile per player to
@@ -875,7 +919,7 @@ not only bonuses.
 6. Import in Foundry with the **item-piles** module enabled; drop the actor on
    a scene — players can now loot it.
 
-## 3.4 Validation scripts
+## 3.7 Validation scripts
 
 Always validate before committing:
 
@@ -928,7 +972,7 @@ The hub's **Dashboard** (tools/hub/server.py) also flags receipts that
 reference items that no longer exist, and its **data** tab opens every JSON
 file for inspection.
 
-## 3.5 Naming conventions — keep these
+## 3.8 Naming conventions — keep these
 
 | Artifact | Pattern | Example |
 |---|---|---|
@@ -938,7 +982,44 @@ file for inspection.
 | Shop item key / id | `lower_snake_case` (same string both places) | `a_relic_that_amplifies_your` |
 | Event id | `lower_snake_case`, referenced from characters.json | `the_estragon_island_incident` |
 
-## 3.6 The mental model (one paragraph)
+## 3.9 PR review checklist for actor exports
+
+Use this list before promoting a generated actor into this folder or accepting a
+hand-authored export.
+
+### Canon and ledger
+
+- The actor name matches the intended character record.
+- The export is explicitly a player character or explicitly not; no ambiguity.
+- `system.details.xp.value` matches the ledger snapshot named in the README or
+  actor flags.
+- Level, class translation, and ability emphasis are explained as a table-facing
+  build choice, not as invented lore.
+- `keyEvents` / chronology cards reference real events and do not award XP a
+  second time.
+- Source-only objects remain in biography/chronology, not in inventory.
+
+### Inventory and item documents
+
+- Every item has `name`, `type`, `img`, `system`, `effects`, `flags`, and
+  `_stats` shaped enough for Foundry import.
+- Shop items came from the catalog when possible; unique sheet-only items explain
+  why they are unique.
+- Quantities are merged instead of duplicated.
+- Consumables track uses or destruction where that matters.
+- Campaign features are labeled for GM review.
+- No private absolute path appears in `img`, token texture, item art, or flags.
+
+### Import and maintenance
+
+- The JSON parses with `python -m json.tool`.
+- Import into a matching Foundry/dnd5e world succeeds.
+- The sheet opens without console errors.
+- AC, HP, spellcasting, resources, and item images are sane after Foundry
+  recalculates derived values.
+- Future advancement instructions name the ledger as the first update point.
+
+## 3.10 The mental model (one paragraph)
 
 `characters.json` is **the wiki's memory** — prose, status, and links. The
 shop catalog (`../../data/shop-items/*.js`) is **the world's inventory**. The XP

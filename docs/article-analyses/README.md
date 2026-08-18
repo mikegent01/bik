@@ -13,6 +13,61 @@ The feature is a signed, opinionated reading by Waluigi of an already-filed arti
 
 ---
 
+## Why this feature exists
+
+The latest article-analysis PR solved a specific archive problem: some events
+are already complete as events, but Waluigi still needs room to argue about
+what the filed facts mean. Expanding the original event would blur chronology,
+custody, XP, and witness statements with later interpretation. Creating a new
+event would falsely duplicate the occurrence in the archive. The analysis route
+is the middle path: one source-scoped, signed reading that is clearly secondary
+to the canonical filing.
+
+The first live analysis deliberately proves the full shape:
+
+- the canonical event remains the place to learn what happened;
+- the analysis page owns the thesis, source anchors, argumentative sections,
+  verdict, related links, and optional research desk;
+- the source page can advertise the companion essay without turning every event
+  into an analysis placeholder;
+- chance-based research happens only after the verdict, so the core reading is
+  deterministic;
+- local persistence stores a reader's optional checks without changing archive
+  state.
+
+That division is the feature. Do not collapse it by copying the source event
+into the analysis, or by pushing Waluigi's later interpretation back into the
+factual record as if it were contemporaneous.
+
+---
+
+## Maintainer quick start
+
+To add a second analysis without touching the renderer:
+
+```bash
+python3 -m json.tool Reputation-Matrix2/data/articleAnalyses.json >/dev/null
+# edit one object in data/articleAnalyses.json
+python3 -m json.tool Reputation-Matrix2/data/articleAnalyses.json >/dev/null
+cd Reputation-Matrix2 && npm run build
+```
+
+Then manually check:
+
+1. the source article route loads;
+2. its **Investigate this further** panel contains exactly the intended analysis
+   link;
+3. `#/article-analysis/<analysis-id>` survives reload;
+4. the source-return links work;
+5. every section anchor in the table of contents scrolls to the right heading;
+6. each optional research check rolls once and persists after reload;
+7. dark mode, light mode, and a narrow viewport remain readable.
+
+A normal new analysis is a data change. Renderer, CSS, or route edits are only
+needed when the product shape itself changes.
+
+---
+
 ## What the reader gets
 
 The feature gives a filed event a second, clearly labeled reading path:
@@ -455,6 +510,50 @@ Use the pre-flight list in [`../ARTICLE_ANALYSES.md`](../ARTICLE_ANALYSES.md). I
 - assertions beyond the record are attributed to Waluigi;
 - no new chronology, intent, custody, XP, or reputation is manufactured;
 - success and failure research notes are both worth reading.
+
+---
+
+## PR review checklist
+
+Use this list when reviewing an analysis PR. It catches the failures that are
+hard to see from a JSON diff alone.
+
+### Source relationship
+
+- `sourceArticle` resolves to exactly one canonical record.
+- `title` matches the source event title exactly.
+- The source event already contains the facts the analysis uses as anchors.
+- The analysis does not introduce new dates, participants, custody changes,
+  injuries, XP, reputation, or hidden intent.
+- Related article IDs resolve and are genuinely related to the argument, not
+  merely mentioned in passing.
+
+### Argument quality
+
+- The thesis is an interpretation, not a summary.
+- Each section heading makes a claim.
+- Each `sourceAnchor` is short enough to audit quickly.
+- Commentary outweighs recap; the source event is still necessary after reading.
+- Waluigi names his stake or bias where it matters.
+- A competing reading is preserved where the evidence is incomplete.
+- The verdict ends with a concrete recommendation or refusal to recommend.
+
+### Research desk safety
+
+- Research appears after the verdict.
+- Roll IDs are stable and unique.
+- DC values are integers from 2 through 6.
+- Success and failure text are both useful.
+- Neither branch reveals a new off-screen fact or rewrites the verdict.
+- A failed browser storage write would not make the core article unreadable.
+
+### Implementation
+
+- No raw HTML was added to authored markdown.
+- New CSS, if any, is scoped under analysis-specific classes.
+- No direct link was hard-coded into the source event; discovery is data-driven.
+- `articleAnalyses.json` parses.
+- `npm run build` passes if renderer/style code changed.
 
 ---
 

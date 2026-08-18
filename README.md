@@ -86,6 +86,46 @@ It is a **static site** — no build step for the pages themselves, no framework
 no server. Open `index.html` and it runs. The Python tools generate data and
 splice HTML; they are not a pipeline you must run to view the site.
 
+## Current feature map — recent PR context
+
+The latest merged PRs added several large systems at once. If you are here
+because a recent branch feels under-documented, start with this map before
+opening individual files.
+
+| Feature / PR era | What exists now | Owning docs | Do next when changing it |
+|---|---|---|---|
+| **RNN becomes a network + Waluigi Chat** | `rnn-003` proves the new format: cold bulletin, late-slot handover, Waluigi host, guest chair, caller, multi-speaker sprite/voice handling, and README splicing of the newest episode. | [`docs/RNN_BROADCAST_GUIDE.md`](docs/RNN_BROADCAST_GUIDE.md), this README's `RNN:LAST-WEEK` block, [`Reputation-Matrix2/README.md`](Reputation-Matrix2/README.md) | Add scripts under `tools/rnn-scripts/`, validate cast poses against `Reputation-Matrix2/portraits/player/sprite-sheets/poses/manifest.json`, then run `python3 tools/build-rnn-broadcast.py`. Never hand-edit the generated broadcast data or README blocks. |
+| **Article analyses** | Source-scoped signed essays by Waluigi, currently one full analysis for the Hanging-Tree Apple filing, with source-page discovery and optional after-hours d6 research. | [`docs/ARTICLE_ANALYSES.md`](docs/ARTICLE_ANALYSES.md), [`docs/article-analyses/README.md`](docs/article-analyses/README.md) | Add data only in `Reputation-Matrix2/data/articleAnalyses.json`; the route, source-panel link, rail, research cards, and related chips render automatically. |
+| **Investigations replace quest-board thinking** | Long arcs now accrue in case files: sessions, exhibits, roll-gated analysis layers, leads, XP references, and plain-language labels. | [`docs/INVESTIGATIONS.md`](docs/INVESTIGATIONS.md), [`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md) | Add the case-file row after filing the event and exhibits. Do not fork a separate quest-board summary for the same work. |
+| **Source-backed faction dossier generation** | Generated faction stubs are no longer acceptable reader prose. The generator must reopen source records, carry excerpts, assemble multiple validated sections, or tombstone labels that are not factions. | [`Reputation-Matrix2/README.md`](Reputation-Matrix2/README.md#relationship-pages-and-reputation-modifiers), [`Reputation-Matrix2/gemini.md`](Reputation-Matrix2/gemini.md), `docs/notes/DANGLING_REFERENCE_AUDIT.md` | Treat `data/factionsGenerated.json` as a review queue, not a permanent dump. Evidence first; generated prose second. |
+| **Bros Attacks, kits, badges and Foundry module** | Cooperative techniques live in `data/brosAttacks.json`, sync into the Foundry module, appear in the shop's Bros Training Yard, and can be attempted, discovered, and badged in Foundry. | [`Reputation-Matrix2/Foundry/bros_attacks/README.md`](Reputation-Matrix2/Foundry/bros_attacks/README.md), [`Reputation-Matrix2/tools/SHOP_BADGES.md`](Reputation-Matrix2/tools/SHOP_BADGES.md) | Edit the data source, run `cd Reputation-Matrix2 && python3 tools/sync_bros_attacks.py --check` or sync, then verify `node tools/tests/test_bros_discovery.mjs`. |
+| **Hub + Foundry sheet repairs** | The local hub now has correct repo-relative paths, real receipt/event counts, CLI parity, item piles, character creator, and Foundry conversion guardrails. | [`Reputation-Matrix2/tools/hub/README.md`](Reputation-Matrix2/tools/hub/README.md), [`Reputation-Matrix2/tools/item sheet examples/README.md`](Reputation-Matrix2/tools/item%20sheet%20examples/README.md) | Run `python tools/hub/hub_cli.py doctor` after path or converter changes; generated `.hub-out/` files remain uncommitted unless intentionally promoted. |
+| **Chatter Hub annotations** | Public margin comments now have their own route, leaderboards, inline highlights, exact quote anchoring, and fictional likes/replies. | [`Reputation-Matrix2/README.md`](Reputation-Matrix2/README.md#annotations-the-chatter-hub) | Anchor quotes to text that actually exists in the target article and never use annotations to add facts the article omitted. |
+
+### README maintenance standard
+
+Every substantial PR must leave its owning README better than it found it. A
+new system is not documented until a future contributor can answer seven
+questions without reading the implementation first:
+
+1. **What is the source of truth?** Name the file that should be edited and the
+   files that are generated or derived.
+2. **What does a reader/player see?** Describe the on-page or in-Foundry flow,
+   not just the data shape.
+3. **What are the canon boundaries?** State what the system is allowed to prove
+   and what remains in the source event, ledger, or GM ruling.
+4. **How is it verified?** List exact commands and the expected clean result.
+5. **What fails loudly?** Record validators, common broken links, stale caches,
+   path mistakes, or permission issues.
+6. **What must not be done by hand?** Generated files, counters, bundles,
+   exported manifests, and cached outputs need explicit warnings.
+7. **What changed in the latest PR?** When a PR adds a major behavior, add a
+   short dated note or a changelog entry so the next branch does not have to
+   reverse-engineer intent from a giant diff.
+
+The goal is not pretty documentation. The goal is that the next tired agent can
+file the right thing, run the right check, and avoid inventing canon.
+
 ## The philosophy
 
 Six things that explain nearly every decision in this repository:
@@ -157,7 +197,7 @@ Six things that explain nearly every decision in this repository:
 | [`wahsim/README.md`](wahsim/README.md) | The Wahsim simulator — its own tool, its own docs |
 | [`Reputation-Matrix2/tools/hub/README.md`](Reputation-Matrix2/tools/hub/README.md) | The tools hub |
 | [`Reputation-Matrix2/tools/item sheet examples/README.md`](Reputation-Matrix2/tools/item%20sheet%20examples/README.md) | Foundry item-sheet examples |
-| `timeline/README.md` | Boilerplate for a bundled third-party React app. **Not ours — leave it alone** |
+| [`timeline/README.md`](timeline/README.md) | Bundled sidecar React timeline app. Separate subject/data pipeline; keep changes isolated and do not treat it as Waluipedia canon |
 
 ---
 
