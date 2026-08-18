@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liberated Toads Sprite Planner</title>
+<style>
+:root{
+  --bg:#0b1018;--panel:#141c28;--panel2:#101722;--border:#2b3a51;--text:#edf5ff;--muted:#9eb0c6;
+  --accent:#a78bfa;--accent2:#facc15;--good:#67e8a5;--danger:#fb7185;--field:#0d1420;
+  font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);background:var(--bg)
+}
+*{box-sizing:border-box} body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% -10%,#273453 0,#0b1018 38%,#070b11 100%);}
+header{position:sticky;top:0;z-index:5;background:rgba(11,16,24,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:16px 20px}
+h1{margin:0;font-size:22px;letter-spacing:.02em} .sub{color:var(--muted);font-size:13px;line-height:1.45;margin-top:5px;max-width:1100px}
+.wrap{display:grid;grid-template-columns:minmax(340px,560px) minmax(360px,1fr);gap:18px;padding:18px;align-items:start}
+.card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--border);border-radius:16px;padding:15px;box-shadow:0 12px 34px #0008}
+.card h2{font-size:15px;margin:0 0 10px;color:var(--accent2);text-transform:uppercase;letter-spacing:.08em}.mini{font-size:12px;color:var(--muted);line-height:1.45}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+label{display:grid;gap:5px;font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:800}input,textarea,select{width:100%;border:1px solid var(--border);background:var(--field);color:var(--text);border-radius:10px;padding:9px 10px;font:inherit;font-size:13px}textarea{min-height:68px;resize:vertical;line-height:1.35}input:focus,textarea:focus,select:focus{outline:2px solid #7c3aed88;border-color:var(--accent)}
+button{border:1px solid var(--border);background:#172236;color:var(--text);border-radius:10px;padding:9px 11px;font-weight:800;cursor:pointer}button:hover{border-color:var(--accent);background:#1d2a42}.primary{background:linear-gradient(135deg,#6d28d9,#4338ca);border-color:#8b5cf6}.good{background:linear-gradient(135deg,#047857,#065f46);border-color:#10b981}.danger{background:#3a1420;border-color:#7f1d1d;color:#fecdd3}.actions{display:flex;gap:8px;flex-wrap:wrap}.hint{background:#0f1724;border:1px dashed #3d4b63;border-radius:12px;padding:10px;color:var(--muted);font-size:12px;line-height:1.45}.hint b{color:var(--accent2)}
+.toad-list{display:grid;gap:12px;max-height:calc(100vh - 190px);overflow:auto;padding-right:4px}.toad{border:1px solid var(--border);border-radius:14px;background:#0d1420;padding:12px}.toad-head{display:flex;gap:10px;align-items:center;margin-bottom:10px}.slot{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#1f2b40;color:var(--accent2);font-weight:900}.toad-title{flex:1}.toad-title b{display:block}.toad-title span{font-size:11px;color:var(--muted)}.hidden{display:none!important}
+.preview-grid{display:grid;gap:8px}.preview-grid.g3{grid-template-columns:repeat(3,1fr)}.preview-grid.g4{grid-template-columns:repeat(4,1fr)}.cell{min-height:112px;border:1px solid var(--border);border-radius:13px;background:#0d1420;padding:10px;display:flex;flex-direction:column;gap:5px}.cell b{font-size:12px;color:var(--accent2)}.cell p{margin:0;color:var(--muted);font-size:11px;line-height:1.35}.cell.empty{opacity:.45;border-style:dashed}
+.output{white-space:pre-wrap;background:#070b11;border:1px solid var(--border);border-radius:12px;padding:12px;max-height:420px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;line-height:1.45}.tabs{display:flex;gap:6px;margin-bottom:10px}.tab{padding:7px 10px;border-radius:999px;font-size:12px}.tab.on{background:#3b2a10;border-color:#facc15;color:#fde68a}@media(max-width:950px){.wrap{grid-template-columns:1fr}.toad-list{max-height:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🍄 Liberated Toads Sprite Planner</h1>
+  <div class="sub">Temporary fill-in page for batching distinct Liberated Toad character designs into one image-generation sheet. Fill short descriptions; export JSON for the archive/agent, or TXT for a direct prompt sheet. Note: <b>3×3 = 9</b> toads; <b>4×4 = 16</b> toads.</div>
+</header>
+<div class="wrap">
+  <section class="card">
+    <h2>Sheet setup</h2>
+    <div class="grid">
+      <label>Sheet title<input id="sheetTitle" value="Liberated Toads Cohort Sheet"></label>
+      <label>Grid size<select id="gridSize"><option value="9">3×3 — 9 Toads</option><option value="16" selected>4×4 — 16 Toads</option></select></label>
+      <label>Default cohort<input id="defaultCohort" placeholder="Pond Patrol, 6th Tree Cutters, Field Cell..."></label>
+      <label>Art direction<select id="artStyle"><option>pixel-art sprite sheet, clean readable silhouettes</option><option>in-world dossier portrait contact sheet</option><option>small full-body RPG sprites, front-facing</option><option>paper-doll lineup, transparent-background feel</option></select></label>
+    </div>
+    <label style="margin-top:10px">Shared visual rules<textarea id="sharedRules">All are distinct Mushroom Kingdom / Liberated Toad characters. Keep each Toad readable at small size. Big mushroom caps, expressive eyes, varied cap spots, practical campaign clothing, no text labels inside the image, consistent lighting, consistent scale, 1 character per cell, grid lines visible or implied.</textarea></label>
+    <label style="margin-top:10px">Negative prompt / avoid<textarea id="negativeRules">Do not duplicate the same Toad. No extra limbs, no unreadable text, no human ears, no photorealistic gore, no random logos, no merged characters across cells.</textarea></label>
+    <div class="actions" style="margin-top:12px">
+      <button class="primary" id="buildBtn">Build outputs</button>
+      <button class="good" id="downloadJson">Download JSON</button>
+      <button class="good" id="downloadTxt">Download TXT</button>
+      <button id="copyTxt">Copy TXT</button>
+      <button id="saveLocal">Save draft</button>
+      <button id="loadLocal">Load draft</button>
+      <button class="danger" id="clearAll">Clear all</button>
+    </div>
+    <div class="hint" style="margin-top:12px"><b>Best workflow:</b> fill 9 or 16 short entries, export JSON, give it to the agent. For a single generated sheet, ask for a <b>contact sheet / lineup</b>. For animation sprites, make one Toad at a time; different characters in one grid are reference designs, not animation frames.</div>
+
+    <h2 style="margin-top:18px">Toad entries</h2>
+    <div id="toadList" class="toad-list"></div>
+  </section>
+
+  <section class="card">
+    <h2>Preview</h2>
+    <div id="previewGrid" class="preview-grid g4"></div>
+    <h2 style="margin-top:18px">Export</h2>
+    <div class="tabs"><button class="tab on" data-tab="txt">TXT prompt sheet</button><button class="tab" data-tab="json">JSON</button></div>
+    <pre id="txtOut" class="output"></pre>
+    <pre id="jsonOut" class="output hidden"></pre>
+    <div class="hint" style="margin-top:12px"><b>Why this saves time:</b> one 4×4 sheet can establish silhouettes, cap colors, clothing, and cohort grouping in one generation. After that, individual Toads can be cropped, refined, or turned into pose sheets only when needed.</div>
+  </section>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const fields=['name','cohort','role','personality','visual','colors','gear','pose','must','avoid'];
+const labels={name:'Name / short ID',cohort:'Cohort',role:'Role',personality:'Personality',visual:'Looks / body / cap',colors:'Palette',gear:'Clothing / gear',pose:'Pose / expression',must:'Must include',avoid:'Avoid'};
+function esc(s){return String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function activeCount(){return Number($('gridSize').value||16)}
+function entryHtml(i){return `<div class="toad" data-i="${i}"><div class="toad-head"><div class="slot">${i+1}</div><div class="toad-title"><b>Toad ${i+1}</b><span>Short is fine. Empty slots are ignored in exports.</span></div></div><div class="grid">${fields.map(f=>`<label>${labels[f]}${f==='personality'||f==='visual'||f==='gear'||f==='must'||f==='avoid'?`<textarea data-field="${f}" placeholder="${labels[f]}"></textarea>`:`<input data-field="${f}" placeholder="${labels[f]}">`}</label>`).join('')}</div></div>`}
+function renderEntries(){const n=activeCount(); $('toadList').innerHTML=Array.from({length:n},(_,i)=>entryHtml(i)).join(''); document.querySelectorAll('[data-field]').forEach(el=>el.addEventListener('input',()=>{build(); autosave()})); build();}
+function collect(){const toads=[...document.querySelectorAll('.toad')].map((row,i)=>{const out={slot:i+1}; fields.forEach(f=>out[f]=row.querySelector(`[data-field="${f}"]`)?.value.trim()||''); return out;}).filter(t=>fields.some(f=>t[f])); return {sheetTitle:$('sheetTitle').value.trim(),gridSize:activeCount(),gridLabel:activeCount()===9?'3x3':'4x4',defaultCohort:$('defaultCohort').value.trim(),artStyle:$('artStyle').value,sharedRules:$('sharedRules').value.trim(),negativeRules:$('negativeRules').value.trim(),toads};}
+function promptLine(t){return `Cell ${t.slot}: ${t.name||'Unnamed Toad'}${t.cohort?` — ${t.cohort}`:''}${t.role?`, ${t.role}`:''}. Personality: ${t.personality||'not specified'}. Looks: ${t.visual||'not specified'}. Palette: ${t.colors||'not specified'}. Gear: ${t.gear||'not specified'}. Pose/expression: ${t.pose||'front-facing neutral but distinct'}. Must include: ${t.must||'distinct silhouette and cap pattern'}. Avoid: ${t.avoid||'none beyond shared negative prompt'}.`;}
+function makeTxt(d){return `${d.sheetTitle||'Liberated Toads Cohort Sheet'}\nGrid: ${d.gridLabel} (${d.gridSize} slots)\nDefault cohort: ${d.defaultCohort||'mixed / unspecified'}\nArt direction: ${d.artStyle}\n\nMASTER PROMPT\nCreate a ${d.gridLabel} grid sprite/reference sheet of distinct Liberated Toad characters. ${d.sharedRules}\n\nUse these exact cell assignments. No text labels inside the image; keep the grid order readable left-to-right, top-to-bottom.\n\n${d.toads.map(promptLine).join('\n\n')}\n\nNEGATIVE PROMPT\n${d.negativeRules}\n\nFOLLOW-UP NOTE\nThis sheet is for character design batching. After generation, crop or refine individual Toads before making animation pose sheets.`;}
+function build(){const d=collect(); $('jsonOut').textContent=JSON.stringify(d,null,2); $('txtOut').textContent=makeTxt(d); renderPreview(d); return d;}
+function renderPreview(d){const n=d.gridSize; $('previewGrid').className=`preview-grid ${n===9?'g3':'g4'}`; const bySlot=new Map(d.toads.map(t=>[t.slot,t])); $('previewGrid').innerHTML=Array.from({length:n},(_,i)=>{const t=bySlot.get(i+1); if(!t) return `<div class="cell empty"><b>${i+1}. Empty</b><p>Fill this slot if needed.</p></div>`; return `<div class="cell"><b>${i+1}. ${esc(t.name||'Unnamed')}</b><p>${esc(t.cohort||d.defaultCohort||'No cohort')} · ${esc(t.role||'No role')}</p><p>${esc(t.visual||'No visual yet')}</p></div>`}).join('');}
+function download(name,text,type){const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([text],{type})); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),500);}
+function autosave(){try{localStorage.setItem('liberatedToadSpritePlanner', JSON.stringify(collect()));}catch(e){}}
+function applyData(d){$('sheetTitle').value=d.sheetTitle||'Liberated Toads Cohort Sheet'; $('gridSize').value=String(d.gridSize||16); $('defaultCohort').value=d.defaultCohort||''; $('artStyle').value=d.artStyle||$('artStyle').value; $('sharedRules').value=d.sharedRules||$('sharedRules').value; $('negativeRules').value=d.negativeRules||$('negativeRules').value; renderEntries(); (d.toads||[]).forEach(t=>{const row=document.querySelector(`.toad[data-i="${(t.slot||1)-1}"]`); if(!row)return; fields.forEach(f=>{const el=row.querySelector(`[data-field="${f}"]`); if(el) el.value=t[f]||'';});}); build();}
+$('gridSize').addEventListener('change',()=>{const old=collect(); renderEntries(); applyData({...old,gridSize:activeCount()}); autosave();});
+['sheetTitle','defaultCohort','artStyle','sharedRules','negativeRules'].forEach(id=>$(id).addEventListener('input',()=>{build(); autosave();}));
+$('buildBtn').onclick=build;
+$('downloadJson').onclick=()=>{const d=build(); download((d.sheetTitle||'liberated-toads').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.json', JSON.stringify(d,null,2), 'application/json')};
+$('downloadTxt').onclick=()=>{const d=build(); download((d.sheetTitle||'liberated-toads').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.txt', makeTxt(d), 'text/plain')};
+$('copyTxt').onclick=async()=>{await navigator.clipboard.writeText($('txtOut').textContent); $('copyTxt').textContent='Copied'; setTimeout(()=>$('copyTxt').textContent='Copy TXT',900)};
+$('saveLocal').onclick=()=>{autosave(); alert('Draft saved in this browser.');};
+$('loadLocal').onclick=()=>{const raw=localStorage.getItem('liberatedToadSpritePlanner'); if(!raw) return alert('No local draft saved.'); applyData(JSON.parse(raw));};
+$('clearAll').onclick=()=>{if(confirm('Clear every slot?')){localStorage.removeItem('liberatedToadSpritePlanner'); renderEntries(); build();}};
+document.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b===btn)); $('txtOut').classList.toggle('hidden',btn.dataset.tab!=='txt'); $('jsonOut').classList.toggle('hidden',btn.dataset.tab!=='json');});
+renderEntries();
+</script>
+</body>
+</html>
