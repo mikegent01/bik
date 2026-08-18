@@ -527,9 +527,45 @@ the sentence and should read as prose with or without the link.
 
 ---
 
+## 9C. "🔍 Investigate this further" — the connected-panel hook
+
+Every article that the archive has actually filed paper against grows a
+**🔍 Investigate this further** section — the reader's way into the case
+files and exhibits that mention the subject. The panel groups hits by case
+file rather than listing them flat, because five rows reading THE FESTIVAL
+PACT five times is a worse answer to "where do I read more" than one file
+with five documents under it.
+
+Craft rules for the hook:
+
+- **The hook is earned by paper, not prose.** It renders when
+  `investigations.json` case files or `props.json` exhibits link the
+  article — which means the way to make an article *investigable* is to
+  file exhibits against it and open (or extend) a case file. System:
+  [`INVESTIGATIONS.md`](INVESTIGATIONS.md).
+- **Leave leads.** An event that resolves everything answers "why read
+  on?" with "don't." Good filings end with at least one thread a case file
+  can hold: an unexplained object, a claim nobody verified, a door nobody
+  opened. The hanging tree's mirror still points at Archie; the misprint
+  still says one T.
+- **Wire the ids.** Exhibits link via `articles[]`; investigations link via
+  their `sessions[]`/exhibit references. A dangling id is a panel that
+  renders nothing and a reader who was promised more.
+
+## 9D. WAHwire — every filing posts
+
+The wire is live and in-character, and every new event, battle, or major
+article now earns at least one post — a character reacting (not a summary),
+linking the filing. Shape, tones, and the voice rule live in
+[`CROSS_SYSTEM_UPDATES.md`](CROSS_SYSTEM_UPDATES.md#wahwire--every-post-now).
+
 ## 10. Battle and campaign pages
 
 A session event tells the story. A battle page explains **how the fight moved**.
+This section covers battle *pages inside events*; a full battle record in
+`data/battles.json` is a different animal with its own craft standard — see
+[`BATTLE_STORY_FORMAT_GUIDE.md`](BATTLE_STORY_FORMAT_GUIDE.md) and
+[`BATTLES_GUIDE.md`](BATTLES_GUIDE.md).
 Use the battle page when a scene has a meaningful tactical question: who held the
 line, who was flanked, what objective changed hands, why the retreat or capture
 happened, and what the battlefield looked like after the last blow.

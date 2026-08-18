@@ -200,11 +200,16 @@ report nobody signed.
 
 How to wire one:
 
-1. Add the prop to `props.json` — `kind` must be one the CSS styles
+1. Add the prop to `props.json` — `kind` is normally one the CSS styles
    (`ledger`, `note`, `letter`, `invoice`, `order`, `contract`, `telegram`,
-   `map`, `passport`, `addendum`), `body` uses only existing `.pd-*`
+   `map`, `passport`, `addendum`), `body` uses the canonical `.pd-*`
    classes, `stamps[]` from the fixed vocabulary (`evidence`, `sealed`,
-   `void`, `overdue`, `paid`, `noaction`).
+   `void`, `overdue`, `paid`, `noaction`). **A new kind may be created for
+   a specific article when the paper demands it** — a requisition form, a
+   cairn rubbing, a signal-flag card: add the `.pd--<kind>` styling via the
+   *article's* `customCss` field (the renderer injects it per record), keep
+   the body classes canonical, and make it recognizably *paper* — a novel
+   kind is a new form of document, never a layout.
 2. Set `"articles": ["<battle_id>"]` — that is the entire wiring.
 3. Reference it from the record's prose with `[[prop:<id>|text]]` so the
    reader can open it mid-sentence.

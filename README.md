@@ -130,6 +130,9 @@ Six things that explain nearly every decision in this repository:
 | [`docs/WHATIF_FORMAT_GUIDE.md`](docs/WHATIF_FORMAT_GUIDE.md) | Craft standard for **non-canon What-Ifs** — decision engine, ledger, findings, verdict | Writing a What-If |
 | [`docs/RNN_BROADCAST_GUIDE.md`](docs/RNN_BROADCAST_GUIDE.md) | The news broadcast. **One episode per ~10 events**, the pending list, the voice | Cutting an episode |
 | [`docs/BATTLES_GUIDE.md`](docs/BATTLES_GUIDE.md) | **Battle records** — `data/battles.json` + `data/majorBattles.json`: what earns a record, schema, ledger-truth rules, the home feed item | Filing a battle |
+| [`docs/BATTLE_STORY_FORMAT_GUIDE.md`](docs/BATTLE_STORY_FORMAT_GUIDE.md) | **Battle craft** — the six-part war-report shape, mechanics→consequences translation, pacing tells | Writing a battle article |
+| [`docs/ARTICLE_QA.md`](docs/ARTICLE_QA.md) | **Content QA** — the six checks over every article before it ships; the Hanging-Tree exemplar | Reviewing any article |
+| [`docs/CROSS_SYSTEM_UPDATES.md`](docs/CROSS_SYSTEM_UPDATES.md) | **Cross-system triggers** — Pond Patrol, dynasties, POIs, bros attacks, currencies, WAHwire, songs, books: what every filing must also touch | After any filing |
 | [`docs/IMAGE_GENERATION_GUIDE.md`](docs/IMAGE_GENERATION_GUIDE.md) | **Prompt sheet before generating.** Art direction from the prose, when text belongs in an image, editing over rerolling | Illustrating any filing |
 | [`docs/VERIFICATION_AND_ORGANIZATION.md`](docs/VERIFICATION_AND_ORGANIZATION.md) | Checks that catch breakage; rules that prevent bloat; where files go | Before calling a run done |
 | [`docs/RUN_REPORT_FORMAT.md`](docs/RUN_REPORT_FORMAT.md) | How to report at the end of a run — every file, every event, every XP award | End of every run |
