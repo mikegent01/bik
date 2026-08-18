@@ -1,7 +1,11 @@
 # The Filing Process — What Happens Before the Event Is Written
 
 **This is the order of operations for turning a session transcript into canon.**
-Read it before you write a single sentence of prose.
+Use [`INTAKE_DECISION_GUIDE.md`](INTAKE_DECISION_GUIDE.md) first if you are not
+sure whether the supplied data should become an event, battle, exhibit,
+investigation, shop item, XP award, or something else. Once the answer is
+"session/event filing," read this page before you write a single sentence of
+prose.
 
 The most common failure in this archive is not bad writing. It is writing the
 event **first** and then discovering that the location does not exist, the
