@@ -4339,3 +4339,11 @@
         padding: 6px 14px;
     }
 }
+/* Waluipedia integration readability pass: the original Diet console was built
+   as a dense standalone dashboard. Inside article-width pages, calendar rows
+   need stronger columns and overdue/today states. */
+.calendar-item{display:grid;grid-template-columns:minmax(132px,auto) minmax(0,1fr) auto auto;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;background:rgba(0,0,0,.24)}
+.calendar-item .cal-title{font-weight:800;line-height:1.35}.calendar-item .cal-date{color:#d8c6ff}.calendar-item .cal-days{min-width:94px;text-align:right;font-weight:800}.calendar-item .cal-legion-op{justify-self:end;border:1px solid rgba(200,29,37,.55);border-radius:999px;padding:3px 8px;color:#ffb4aa;background:rgba(200,29,37,.12);font-size:.72rem;font-family:var(--font-mono)}
+.days-until{display:inline-block;margin-top:4px;color:var(--diet-gold);font-weight:800;font-family:var(--font-mono)}.days-until.overdue,.calendar-item .cal-days{white-space:nowrap}
+.vote-status-block{display:flex;flex-direction:column;align-items:flex-end;gap:5px}.vote-date{font-family:var(--font-mono);color:#d8c6ff}
+@media(max-width:760px){.calendar-item{grid-template-columns:1fr}.calendar-item .cal-days,.calendar-item .cal-legion-op{justify-self:start;text-align:left}.vote-status-block{align-items:flex-start}}

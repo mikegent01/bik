@@ -747,13 +747,14 @@ const MIDLANDS_DIET_DATA = {
     status: "Crisis Session",
     currentSession: 48,
     sessionStartDate: { year: 1040, monthIndex: 6, day: 15 },
+    currentDate: { year: 1040, monthIndex: 6, day: 25 },
     description: "The Midlands are governed by a parliamentary body where provincial representatives vote on state matters. The Diet is currently in emergency session following the passage of the Supernatural Sovereignty Act. The traditional Imperial Concordat faces open revolt from the supernatural blocs, while the pragmatic Heartland Alliance desperately seeks de-escalation.",
     
     legionIntegration: {
         status: 'ACTIVE',
         militaryAdvisorPresent: true,
         securityLevel: 'ELEVATED',
-        lastMilitaryBriefing: { year: 1040, monthIndex: 6, day: 24 }
+        lastMilitaryBriefing: { year: 1040, monthIndex: 6, day: 25 }
     },
     
     provinces: [
@@ -830,6 +831,17 @@ const MIDLANDS_DIET_DATA = {
         }
     }
 };
+
+// Local legislative snapshot date. Do not use the global archive clock here: the
+// Diet panel is an active political dossier and can lag behind or run ahead of
+// the wider site clock depending on what has been filed.
+function getDietCurrentDate() {
+    return MIDLANDS_DIET_DATA.currentDate || MIDLANDS_DIET_DATA.legionIntegration?.lastMilitaryBriefing || CURRENT_GAME_DATE;
+}
+
+function absDay(date) {
+    return date.year * 365 + date.monthIndex * 30 + date.day;
+}
 
 // ============================================
 // LEGISLATIVE CALENDAR WITH LEGION LINKS
@@ -947,6 +959,29 @@ const VOTE_HISTORY = [
         icon: '📜'
     }
 
+    ,{
+        id: 'refugee_containment_act_committee_referral',
+        title: "Displaced Persons Containment Act — Committee Referral",
+        proposer: 'Countess Nerys Thorne',
+        proposerFaction: 'unaligned',
+        date: { year: 1040, monthIndex: 6, day: 24 },
+        status: 'tabled',
+        description: "The proposed refugee containment statute was referred to committee after the Reclaimed Vigilance crisis overtook the calendar. Hawks call the delay weakness; Heartland members call it the first useful hesitation since the Iron Mandate.",
+        arguments: {
+            for: "Temporary facilities are necessary if border displacement continues.",
+            against: "Facilities built under the Iron Mandate will become prisons no matter what the caption says."
+        },
+        results: { yes: 35, no: 29, abstain: 12 },
+        consequences: [
+            "Forge Engineers remain on standby but receive no construction order",
+            "Heartland Alliance buys one day to organize observer memoranda",
+            "Legion hawks pivot attention to the Reclaimed Vigilance status review"
+        ],
+        legionOperation: 'IRON CAGE',
+        legionResponse: 'Forge Engineers remain staged; no facility construction order issued while the Reclaimed Vigilance review takes priority',
+        icon: '🏚️'
+    }
+
 ];
 
 const UPCOMING_VOTES = [
@@ -997,30 +1032,7 @@ const UPCOMING_VOTES = [
             "The Reclamation of the Vigilance"
         ]
     },
-    {
-        id: 'refugee_containment_act',
-        title: "The Displaced Persons Containment Act",
-        proposer: 'Countess Nerys Thorne',
-        proposerFaction: 'unaligned',
-        date: { year: 1040, monthIndex: 6, day: 24 },
-        status: 'proposed',
-        description: "Establishes 'temporary processing facilities' for supernatural refugees fleeing the border provinces. Proponents call it humanitarian; critics call it concentration camps.",
-        arguments: {
-            for: "These beings need somewhere to go. Controlled facilities protect both them and citizens.",
-            against: "We're building prisons for people whose only crime is existing. This is how atrocities begin."
-        },
-        projectedResults: null,
-        icon: '🏚️',
-        urgency: 'critical',
-        legionOperation: 'IRON CAGE',
-        legionResponse: 'Forge Engineers on standby for facility construction',
-        relatedEvents: [
-            "Iron Mandate (Passed - Day 21)",
-            "Mass exodus from border provinces reported",
-            "Vigilance captured by Iron Sky forces (Day 20)"
-        ]
-    },
-    {
+{
         id: 'mage_registry_amendment',
         title: "Amendment to the Arcane Registration Act",
         proposer: 'Archmage Quintus Brightwater',
@@ -1388,28 +1400,29 @@ function getCoalitionLegionStatus(coalitionKey) {
 // ============================================
 
 function getCurrentVote() {
-    const currentAbsDay = CURRENT_GAME_DATE.year * 365 + CURRENT_GAME_DATE.monthIndex * 30 + CURRENT_GAME_DATE.day;
+    const currentAbsDay = absDay(getDietCurrentDate());
     
     const ironMandate = VOTE_HISTORY.find(v => v.id === 'iron_mandate');
     if (ironMandate) {
-        const mandateDay = ironMandate.date.year * 365 + ironMandate.date.monthIndex * 30 + ironMandate.date.day;
+        const mandateDay = absDay(ironMandate.date);
         if (currentAbsDay - mandateDay <= 1) {
             return { ...ironMandate, isTodaysFocus: true };
         }
     }
     
-    for (const vote of UPCOMING_VOTES) {
-        const voteAbsDay = vote.date.year * 365 + vote.date.monthIndex * 30 + vote.date.day;
+    const orderedUpcoming = [...UPCOMING_VOTES].sort((a, b) => absDay(a.date) - absDay(b.date));
+    for (const vote of orderedUpcoming) {
+        const voteAbsDay = absDay(vote.date);
         if (voteAbsDay >= currentAbsDay) {
             return vote;
         }
     }
-    return UPCOMING_VOTES[0];
+    return orderedUpcoming[0] || VOTE_HISTORY[VOTE_HISTORY.length - 1];
 }
 
 function getVoteStatus(vote) {
-    const currentAbsDay = CURRENT_GAME_DATE.year * 365 + CURRENT_GAME_DATE.monthIndex * 30 + CURRENT_GAME_DATE.day;
-    const voteAbsDay = vote.date.year * 365 + vote.date.monthIndex * 30 + vote.date.day;
+    const currentAbsDay = absDay(getDietCurrentDate());
+    const voteAbsDay = absDay(vote.date);
     
     if (vote.status === 'passed' || vote.status === 'failed' || vote.status === 'tabled') {
         if (vote.isTodaysFocus) {
@@ -1875,7 +1888,7 @@ function renderStandardVoteDisplay(vote, results, statusInfo, totalVotes, expell
                         ${statusInfo.icon} ${statusInfo.label}
                     </span>
                     <span class="vote-date">${formatDate(vote.date)}</span>
-                    ${daysUntil > 0 ? `<span class="days-until">(in ${daysUntil} day${daysUntil > 1 ? 's' : ''})</span>` : ''}
+                    ${daysUntil > 0 ? `<span class="days-until">(in ${daysUntil} day${daysUntil > 1 ? 's' : ''})</span>` : daysUntil === 0 ? '<span class="days-until">TODAY</span>' : `<span class="days-until overdue">${Math.abs(daysUntil)} day${Math.abs(daysUntil)===1?'':'s'} overdue</span>`}
                 </div>
             </div>
             
@@ -1938,8 +1951,8 @@ function formatDate(date) {
 }
 
 function getDaysUntil(date) {
-    const currentAbs = CURRENT_GAME_DATE.year * 365 + CURRENT_GAME_DATE.monthIndex * 30 + CURRENT_GAME_DATE.day;
-    const targetAbs = date.year * 365 + date.monthIndex * 30 + date.day;
+    const currentAbs = absDay(getDietCurrentDate());
+    const targetAbs = absDay(date);
     return targetAbs - currentAbs;
 }
 
@@ -2266,7 +2279,8 @@ export function renderHolyMidlandsDiet() {
             <h4>📅 Legislative Calendar</h4>
             <div class="calendar-items">
                 ${VOTE_HISTORY.slice(-3).map(vote => {
-                    const isToday = vote.id === 'iron_mandate';
+                    const dietNow = getDietCurrentDate();
+                    const isToday = vote.date.year === dietNow.year && vote.date.monthIndex === dietNow.monthIndex && vote.date.day === dietNow.day;
                     return `
                         <div class="calendar-item historical ${isToday ? 'today-vote' : ''} ${vote.legionOperation ? 'has-legion-op' : ''}">
                             <span class="cal-date">${formatDate(vote.date)}${isToday ? ' (TODAY)' : ''}</span>
@@ -2284,7 +2298,7 @@ export function renderHolyMidlandsDiet() {
                         <div class="calendar-item upcoming ${status === 'imminent' ? 'imminent' : ''} ${vote.legionOperation ? 'has-legion-op' : ''}">
                             <span class="cal-date">${formatDate(vote.date)}</span>
                             <span class="cal-title">${vote.title}</span>
-                            <span class="cal-days">${days === 0 ? 'TODAY' : days === 1 ? 'TOMORROW' : `+${days} days`}</span>
+                            <span class="cal-days">${days === 0 ? 'TODAY' : days === 1 ? 'TOMORROW' : days > 1 ? `+${days} days` : `${Math.abs(days)} day${Math.abs(days)===1?'':'s'} overdue`}</span>
                             ${vote.legionOperation ? `<span class="cal-legion-op">⚔️ ${vote.legionOperation}</span>` : ''}
                         </div>
                     `;
@@ -2384,10 +2398,9 @@ export function renderHolyMidlandsDiet() {
                 <h4>📅 Legion-Diet Coordinated Timeline</h4>
                 <div class="coordinated-timeline">
                     ${getCoordinatedTimeline().map(event => {
-                        const isToday = event.date.day === CURRENT_GAME_DATE.day && 
-                                       event.date.monthIndex === CURRENT_GAME_DATE.monthIndex;
-                        const isPast = (event.date.year * 365 + event.date.monthIndex * 30 + event.date.day) < 
-                                      (CURRENT_GAME_DATE.year * 365 + CURRENT_GAME_DATE.monthIndex * 30 + CURRENT_GAME_DATE.day);
+                        const dietNow = getDietCurrentDate();
+                        const isToday = event.date.day === dietNow.day && event.date.monthIndex === dietNow.monthIndex && event.date.year === dietNow.year;
+                        const isPast = absDay(event.date) < absDay(dietNow);
                         return `
                             <div class="timeline-event ${isToday ? 'today' : ''} ${isPast ? 'past' : 'future'}">
                                 <div class="timeline-date">

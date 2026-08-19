@@ -94,6 +94,9 @@ Update or review it when a filing includes:
 At minimum, link the filing to `#/regal-diet` or the Imperial Pressure Network
 in the run report. If the system data itself needs a new vote or timeline row,
 update the source system rather than leaving the Diet as a decorative page.
+When adding or advancing a Diet vote, update the legislative calendar/current
+snapshot date in the same pass so the page does not show old votes as "TODAY"
+or future votes as overdue.
 
 ### Dynasties
 `DYNASTY_SYSTEM` is embedded in `index.html` — houses, members (with
