@@ -8396,8 +8396,8 @@ function ltFactionStats(){
   const groups=ltGroupsFromRoster();
   const seen=roster.filter(t=>t.seen).length;
   return {
-    totalMembers: roster.length||75,
-    barrel: roster.length||75,
+    totalMembers: roster.filter(t=>t.name!=="???").length||74,
+    barrel: roster.filter(t=>t.name!=="???").length||74,
     cohorts: groups.length,
     morale:0, loyalty:0, combatReadiness:0,
     deceased:0, critical:0, recovering:0, wounded:0,
@@ -8781,7 +8781,7 @@ function view_pond_docket(){
   /* ---------- COHORTS / ROSTER / TIMELINE ---------- */
   const groups=ltGroupsFromRoster();
   const roster=ltRoster();
-  const cohortsTab=`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2><p>The 75 named toads from Toadslist.xlsx, grouped by affiliation. Click a portrait.</p></div><span class="pill">${groups.length} blocs · ${roster.length} toads</span></div>
+  const cohortsTab=`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2><p>The 74 named toads from Toadslist.xlsx (plus one unidentified spore), grouped by affiliation. Click a portrait.</p></div><span class="pill">${groups.length} blocs · ${roster.filter(t=>t.name!=="???").length} named toads</span></div>
     <div class="wnote" style="margin-top:0"><b>Source:</b> Liberated Toads work / Toadslist.xlsx. This is the named roster — not the old generated 150+ / overlapping-assignment count.</div>
     <div class="lt-viz-blocs">${groups.map(ltCohortCard).join('')}</div></div>`;
   const rosterTab=`<div class="card"><div class="home-section-head"><div><h2>⭐ Named Roster</h2><p>Every toad, with their own image.</p></div><span class="pill">${roster.length}</span></div>

@@ -111,7 +111,7 @@ function tile(t) {
             <span class="viz-caption">
                 <span class="viz-num">#${String(t.num).padStart(2, '0')}</span>
                 <span class="viz-name">${label}</span>
-                <span class="viz-weapon">${escapeHtml(t.weapon)}</span>
+                <span class="viz-weapon">${escapeHtml(t.weapon)}</span>${t.cap?`<span class="viz-cap">${escapeHtml(t.cap)} cap</span>`:''}
             </span>
         </button>
     `;
@@ -122,7 +122,7 @@ function renderCohortGrid() {
     if (!grid) return;
     const list = applyFilters();
     const countEl = document.getElementById('roster-count');
-    if (countEl) countEl.textContent = `${list.length} of ${enriched.length} portraits`;
+    if (countEl) countEl.textContent = `${list.length} of ${enriched.filter(x=>x.name!=='???').length} named toads`;
 
     grid.className = `crew-grid viz-grid view-${state.view}`;
 
