@@ -108,6 +108,27 @@
 .dock-opt .chips{gap:7px}.dock-opt .pill{font-size:12.5px!important;line-height:1.35;background:rgba(255,255,255,.58)!important;white-space:normal;color:inherit}
 .dock-vote .dock-note{color:#211810!important;background:rgba(124,58,237,.10)!important;border-left-color:#6d28d9!important;font-style:normal!important}
 
+
+/* Pond docket — named toad visualizer (Toadslist.xlsx) */
+.lt-viz-blocs{display:grid;gap:16px;margin-top:14px}
+.lt-viz-card{padding-bottom:12px}
+.lt-viz-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;margin-top:10px}
+.lt-viz-all{grid-template-columns:repeat(auto-fill,minmax(128px,1fr))}
+.lt-viz-tile{display:flex;flex-direction:column;padding:0;border:1px solid var(--border);border-bottom:3px solid var(--cc,#4a9c6d);border-radius:12px;background:var(--bg2);cursor:pointer;overflow:hidden;font:inherit;color:inherit}
+.lt-viz-tile:hover{transform:translateY(-2px);border-color:var(--cc,#4a9c6d)}
+.lt-toad-img{display:block;width:100%;aspect-ratio:1/1;object-fit:contain;background:#f4efe3}
+.lt-viz-cap{display:flex;flex-direction:column;gap:1px;padding:7px 8px 8px;text-align:left}
+.lt-viz-cap b{font-size:12.5px;line-height:1.2}
+.lt-viz-cap i{font-style:normal;font-size:10.5px;color:var(--muted)}
+#lt-toad-viewer.lt-viewer-on{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center}
+.lt-viewer-bg{position:absolute;inset:0;background:rgba(0,0,0,.72)}
+.lt-viewer-card{position:relative;margin:0;max-width:min(520px,92vw);background:var(--panel);border:3px solid var(--cc,#4a9c6d);border-radius:16px;overflow:hidden;z-index:1}
+.lt-toad-img.hero{width:100%;aspect-ratio:1/1}
+.lt-viewer-card figcaption{padding:12px 16px 16px}
+.lt-viewer-card figcaption b{display:block;font-size:22px}
+.lt-viewer-card figcaption span{color:var(--muted);font-size:13px}
+.lt-viewer-x{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:rgba(0,0,0,.45);color:#fff;cursor:pointer}
+
 /* docket tab bar */
 .lt-tabs{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 14px}
 .lt-tab{border:1px solid var(--border);background:var(--panel2);color:var(--muted);border-radius:999px;padding:8px 15px;font-size:13px;font-weight:700;cursor:pointer;transition:.12s;font-family:inherit}
@@ -8323,24 +8344,82 @@ function docketRoot(){
 /* Full operational data ported from the standalone Liberated Toads terminal. */
 function ltSystem(){ return DATA.liberatedToadsSystem||null; }
 /* Roster statistics, computed live from the ported cohort + core-toad data. */
+function ltIntake(){ const S=ltSystem(); return (S&&S.toadslistIntake)||null; }
+function ltRoster(){ const I=ltIntake(); return (I&&I.roster)||[]; }
+function ltToadSlug(name){
+  return String(name||'unknown').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')||'unknown';
+}
+function ltToadFile(t){
+  const n=String(t.num||0).padStart(2,'0');
+  const slug=t.num===69?'unknown':ltToadSlug(t.name);
+  return 'assets/images/toads/roster/toad_'+n+'_'+slug+'.png';
+}
+function ltToadImg(t,cls){
+  const src=assetPath(ltToadFile(t));
+  const alt=esc(t.name||'Toad');
+  return '<img class="'+(cls||'lt-toad-img')+'" src="'+src+'" alt="'+alt+'" loading="lazy" width="256" height="256">';
+}
+const LT_AFF_META={
+  "Leaders":{color:'#d4af37',tier:3,note:'Appointed by the Speaker.'},
+  "High Command":{color:'#8ea1c1',tier:3,note:'Leader group appointed by the Speaker.'},
+  "Overseers":{color:'#9b7fb8',tier:3,note:'Leader group appointed by the Speaker.'},
+  "Deputies":{color:'#c98a4b',tier:4,note:'High-ranking army group.'},
+  "Pond Patrol":{color:'#4f9d69',tier:5,note:'Army formed through vote.'},
+  "Spore 5":{color:'#7d6bb5',tier:5,note:'Five spore creatures — not toads. Rogue.'},
+  "Archie's Followers":{color:'#e07a5f',tier:6,note:'Barrel Toads / original liberators.'},
+  "Speaker L Followers":{color:'#5fa8d3',tier:6,note:'Vigilance loyalists of the ousted Speaker.'},
+  "Speaker River Follower":{color:'#3a86ff',tier:6,note:'Aegis prison-break followers of Rivers.'},
+  "Teachers":{color:'#b0a08c',tier:7,note:'Sits above the Student Union.'},
+  "Student Union":{color:'#f4a261',tier:7,note:'The Class of T.'},
+  "Medics United":{color:'#e76f51',tier:7,note:'Healers.'},
+  "Lillypads":{color:'#83c5be',tier:7,note:'Vigilantes — Power Rangers, but lily pads.'},
+  "Unaffiliated":{color:'#8d99ae',tier:null,note:'Toadburt answers to nobody.'}
+};
+function ltAffMeta(name){ return LT_AFF_META[name]||{color:'#8d99ae',tier:null,note:''}; }
+function ltGroupsFromRoster(){
+  const I=ltIntake();
+  const notes=(I&&I.cohortListNotes)||{};
+  const groups=new Map();
+  ltRoster().forEach(t=>{
+    const k=t.affiliation||'Unaffiliated';
+    if(!groups.has(k)) groups.set(k,[]);
+    groups.get(k).push(t);
+  });
+  return [...groups.entries()].map(([name,members])=>{
+    const meta=ltAffMeta(name);
+    return {name, members, color:meta.color, tier:meta.tier, note:meta.note, research:notes[name]||''};
+  }).sort((a,b)=>(a.tier??99)-(b.tier??99) || b.members.length-a.members.length);
+}
 function ltFactionStats(){
   const S=ltSystem(); if(!S) return null;
-  const cohorts=S.cohorts||[];
-  const totalMembers=cohorts.reduce((s,c)=>s+(c.members||0),0);
-  const wsum=(key)=>cohorts.reduce((s,c)=>s+((c[key]||0)*(c.members||0)),0);
-  const w=(key)=>totalMembers?Math.round(wsum(key)/totalMembers):0;
-  let deceased=0,critical=0,recovering=0,wounded=0;
-  cohorts.forEach(c=>{ const k=c.casualties||{}; deceased+=k.deceased||0; critical+=k.critical||0; recovering+=k.recovering||0; wounded+=k.wounded||0; });
-  // NOTE: cohort sizes overlap — Barrel Survivors is the whole freed population and the
-  // functional cohorts are drawn from it. Sum of sizes = assignments, NOT a headcount.
-  const barrel=(cohorts.find(c=>c.id==='barrel_survivors')||{}).members||0;
+  const roster=ltRoster();
+  const groups=ltGroupsFromRoster();
+  const seen=roster.filter(t=>t.seen).length;
   return {
-    totalMembers, barrel, cohorts:cohorts.length,
-    morale:w('morale'), loyalty:w('loyalty'), combatReadiness:w('combatReadiness'),
-    deceased, critical, recovering, wounded,
-    coreToads:(S.coreToads||[]).length
+    totalMembers: roster.length||75,
+    barrel: roster.length||75,
+    cohorts: groups.length,
+    morale:0, loyalty:0, combatReadiness:0,
+    deceased:0, critical:0, recovering:0, wounded:0,
+    coreToads:(S.coreToads||[]).length,
+    seen
   };
 }
+
+window.__ltOpenToad=function(num){
+  const t=ltRoster().find(x=>x.num===num);
+  if(!t) return;
+  let box=document.getElementById('lt-toad-viewer');
+  if(!box){ box=document.createElement('div'); box.id='lt-toad-viewer'; document.body.appendChild(box); }
+  const meta=ltAffMeta(t.affiliation);
+  box.className='lt-viewer-on';
+  box.innerHTML='<div class="lt-viewer-bg" onclick="document.getElementById(\'lt-toad-viewer\').className=\'\'"></div>'
+    +'<figure class="lt-viewer-card" style="--cc:'+meta.color+'">'
+    +ltToadImg(t,'lt-toad-img hero')
+    +'<figcaption><b>'+esc(t.name)+'</b><span>#'+String(t.num).padStart(2,'0')+' · '+esc(t.affiliation)+' · '+esc(t.weapon||'')+'</span></figcaption>'
+    +'<button type="button" class="lt-viewer-x" onclick="document.getElementById(\'lt-toad-viewer\').className=\'\'">✕</button></figure>';
+};
+
 function ltStatusTone(t){
   const s=String(t||'').toLowerCase();
   if(/critical|captured|defected|hostile/.test(s)) return '#e0574a';
@@ -8372,35 +8451,21 @@ function meterRow(label,val,tone){
   return `<div class="lt-meter"><div class="lt-meter-top"><span>${esc(label)}</span><b>${v}</b></div><div class="dock-bar"><i style="width:${v}%;background:${tone||'linear-gradient(90deg,var(--accent),var(--accent2))'}"></i></div></div>`;
 }
 /* ---- Cohorts ---- */
-function ltCohortCard(c){
-  const tone=ltCohortStatusTone(c.status);
-  const cap=c.maxMembers?`${c.members}/${c.maxMembers}`:`${c.members}`;
-  const roster=Array.isArray(c.roster)?c.roster:[];
-  const tPuns=roster.filter(r=>/\sT$/.test(r.name||'')||r.nameStyle==='t-pun');
-  const notableSrc=(c.notable_members&&c.notable_members.length)?c.notable_members:roster.filter(r=>r.notable).slice(0,6);
-  const notable=specList((notableSrc||[]).map(x=>({name:x.name,meta:x.level?`Lv ${x.level}`:'',desc:x.role,note:x.note,tone:c.color||'#4a9c6d',icon:'🐸'})));
-  const rosterChips=roster.slice(0,48).map(r=>{
-    const isT=/\sT$/.test(r.name||'')||r.nameStyle==='t-pun';
-    return `<span class="lt-roster-chip ${isT?'t-pun':''}${r.notable?' notable':''}" title="${esc((r.role||'')+(r.level?` · Lv ${r.level}`:'')+(r.note?` — ${r.note}`:''))}">${esc(r.name)}</span>`;
-  }).join('');
-  const more=roster.length>48?`<span class="lt-roster-more">+${roster.length-48} more on full roll</span>`:'';
-  const spec=(c.specializations||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
-  const equip=(c.equipment||[]).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
-  const cas=c.casualties?Object.entries(c.casualties).filter(([,v])=>v).map(([k,v])=>`<span class="pill" style="border-color:#e0574a;color:#e0574a">${esc(prettyId(k))}: ${v}</span>`).join(''):'';
-  const leaderId=(ltSystem().council.members.find(m=>m.name===c.leader)||{}).articleId;
-  const leader=c.leader?(leaderId&&INDEX[leaderId]?`<a onclick="openId('${esc(leaderId)}')" style="cursor:pointer">${esc(c.leader)}</a>`:esc(c.leader)):'<i>vacant</i>';
-  return `<div class="dock-card lt-cohort-card" style="--dk:${tone};--cc:${c.color||'#4a9c6d'}">
+function ltCohortCard(g){
+  const tone=g.color||'#4a9c6d';
+  const tiles=g.members.map(m=>`<button type="button" class="lt-viz-tile" onclick="window.__ltOpenToad&&window.__ltOpenToad(${m.num})" title="${esc(m.name)} — ${esc(m.weapon||'')}">
+      ${ltToadImg(m)}
+      <span class="lt-viz-cap"><b>${esc(m.name)}</b><i>${esc(m.weapon||'')}</i></span>
+    </button>`).join('');
+  const research=g.research?`<div class="dock-sub">${esc(g.research)}</div>`:'';
+  const tier=g.tier!=null?`Tier ${g.tier}`:'Unplaced';
+  return `<div class="dock-card lt-cohort-card lt-viz-card" style="--dk:${tone};--cc:${tone}">
     <div class="dock-head">
-      <span class="dock-face">${c.icon||'🐸'}</span>
-      <div style="min-width:0"><h3>${esc(c.name)}</h3><div class="dock-sub">Led by ${leader} · ${esc(cap)} members${roster.length?` · ${roster.length} named`:''}${tPuns.length?` · ${tPuns.length} “__ T” puns`:''}</div></div>
+      <span class="dock-face">🐸</span>
+      <div style="min-width:0"><h3>${esc(g.name)}</h3><div class="dock-sub">${esc(tier)} · ${g.members.length} named toads</div>${research}</div>
     </div>
-    <p class="dock-desc">${esc(c.description||c.purpose||'')}</p>
-    ${notable?`<div class="dock-block"><div class="dock-label">Notables</div>${notable}</div>`:''}
-    ${roster.length?`<div class="dock-block"><div class="dock-label">Full roster <span class="text-muted" style="font-weight:400">(${roster.length})</span></div><div class="lt-roster">${rosterChips}${more}</div></div>`:''}
-    ${spec?`<div class="dock-block"><div class="dock-label">Specializations</div><div class="chips">${spec}</div></div>`:''}
-    ${equip?`<div class="dock-block"><div class="dock-label">Equipment</div><div class="chips">${equip}</div></div>`:''}
-    ${cas?`<div class="dock-block"><div class="dock-label">Casualties</div><div class="chips">${cas}</div></div>`:''}
-    ${c.statusDetail?`<div class="dock-note">${esc(c.statusDetail)}</div>`:''}
+    ${g.note?`<p class="dock-desc">${esc(g.note)}</p>`:''}
+    <div class="lt-viz-strip">${tiles}</div>
   </div>`;
 }
 
@@ -8714,9 +8779,14 @@ function view_pond_docket(){
   }
 
   /* ---------- COHORTS / ROSTER / TIMELINE ---------- */
-  const cohortsTab=S?`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2><p>Every body the docket draws enforcers, evidence, medics and testimony from.</p></div><span class="pill">${(S.cohorts||[]).length} cohorts · ${stats?stats.totalMembers:'?'} assignments</span></div><div class="wnote" style="margin-top:0"><b>Reading the numbers:</b> cohort sizes overlap. <i>Barrel Survivors</i> is the whole freed population of ~150; the functional cohorts are drawn from it and from later arrivals, so the sizes sum to more than the faction's headcount.</div><div class="wnote" style="margin-top:10px"><b>Naming:</b> Every toad on a roster now has a name. Many use the <i>___ T</i> pun style — say it out loud (Pilo T, Intel T, Geek T, Magne T, Comba T, Documen T…). Others are toad-native pond/fungus names. These are roster names, not full character articles (yet).</div><div class="dock-grid">${(S.cohorts||[]).map(ltCohortCard).join('')}</div></div>`
-    :`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2></div></div><div class="dock-grid">${(root.cohorts||[]).map(docketCohortCard).join('')}</div></div>`;
-  const rosterTab=S?`<div class="card"><div class="home-section-head"><div><h2>⭐ Core Roster</h2><p>The named toads at the centre of the crisis — stats, conditions, abilities, and docket exposure.</p></div><span class="pill">${(S.coreToads||[]).length}</span></div><div class="dock-grid">${(S.coreToads||[]).map(ltToadCard).join('')}</div></div>`:'';
+  const groups=ltGroupsFromRoster();
+  const roster=ltRoster();
+  const cohortsTab=`<div class="card"><div class="home-section-head"><div><h2>🐸 Cohorts</h2><p>The 75 named toads from Toadslist.xlsx, grouped by affiliation. Click a portrait.</p></div><span class="pill">${groups.length} blocs · ${roster.length} toads</span></div>
+    <div class="wnote" style="margin-top:0"><b>Source:</b> Liberated Toads work / Toadslist.xlsx. This is the named roster — not the old generated 150+ / overlapping-assignment count.</div>
+    <div class="lt-viz-blocs">${groups.map(ltCohortCard).join('')}</div></div>`;
+  const rosterTab=`<div class="card"><div class="home-section-head"><div><h2>⭐ Named Roster</h2><p>Every toad, with their own image.</p></div><span class="pill">${roster.length}</span></div>
+    <div class="lt-viz-strip lt-viz-all">${roster.map(m=>`<button type="button" class="lt-viz-tile" onclick="window.__ltOpenToad&&window.__ltOpenToad(${m.num})" title="${esc(m.name)}">
+      ${ltToadImg(m)}<span class="lt-viz-cap"><b>${esc(m.name)}</b><i>#${String(m.num).padStart(2,'0')} · ${esc(m.weapon||'')}</i></span></button>`).join('')}</div></div>`;
   const timelineTab=S?`<div class="card"><div class="home-section-head"><div><h2>📅 Faction Timeline</h2><p>${esc((S.meta&&S.meta.note)||'')}</p></div><span class="pill">${(S.timeline||[]).length} days</span></div><div class="lt-timeline">${ltTimeline(S.timeline)}</div></div>`:'';
 
   const bodies={overview,register,governance,voting,cohorts:cohortsTab,roster:rosterTab,timeline:timelineTab};
@@ -8736,7 +8806,7 @@ function view_pond_docket(){
         <div class="fsys-metric"><b>${(a.targets||[]).filter(t=>t.priority==='high').length}</b><span>High priority</span></div>
         <div class="fsys-metric"><b>${(a.resolved||[]).length}</b><span>Resolved</span></div>
         <div class="fsys-metric"><b>${(a.standingOrders||[]).length}</b><span>Standing orders</span></div>
-        ${stats?`<div class="fsys-metric"><b>${stats.barrel}</b><span>Freed toads</span></div><div class="fsys-metric"><b>${stats.cohorts}</b><span>Cohorts</span></div>`:''}
+        ${stats?`<div class="fsys-metric"><b>${stats.barrel}</b><span>Named toads</span></div><div class="fsys-metric"><b>${stats.cohorts}</b><span>Blocs</span></div>`:''}
       </div>
       <div class="chips" style="margin-top:13px">
         <span class="chip" onclick="openId('pond_patrol')">🛡️ ${esc(ppName)} dossier</span>
