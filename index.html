@@ -10002,7 +10002,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${sectionsHtml}
      ${listBlocks.length?`<hr>${listBlocks.join('')}`:''}
      ${item.aftermath?`<h2 id="h-aftermath">Aftermath</h2><div class="prose">${applyAnnotations(mdToHtml(item.aftermath,item.id), item.id)}</div>`:''}
-     ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
+     ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote wassessment">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
    </div>${exhibitTilesHtml(propsForArticle(item.id),{heading:'🗂️ Documents behind this record',blurb:'The paperwork this account is built on. Click any one to read it as filed.'})}</div><div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div></div>`;
   setArticleAccent(typeKey);

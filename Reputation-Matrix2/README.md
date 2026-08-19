@@ -123,7 +123,8 @@ what to create from new data.
   to add missing facts.
 
 Run the routine checker from the repository root when this systems layer
-changes:
+changes. For style changes, follow [`../docs/CSS_STYLE_GUIDE.md`](../docs/CSS_STYLE_GUIDE.md)
+so panels stay scoped, fluid, and theme-safe.
 
 ```bash
 python3 tools/check-all.py

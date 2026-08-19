@@ -12425,7 +12425,9 @@
         "name": "The Summons and the Cutoff",
         "icon": "⏱️",
         "overview": "Jamesly moves the Agent into a higher room, and Daniel begins with discipline. The Agent asks for two procedural protections before the debrief: unsterilized names and a Gamma Observer under Protocol 4871. Daniel grants both, irritated but bound by the rules he still recognizes. That request matters. The Agent may be reckless, but he knows when to make the room use its real nouns. In a file where hidden manuals and false briefings are everywhere, unsterilized names are not courtesy. They are ammunition.\n\nDaniel's accusation is simple: unauthorized interrogation, reckless conduct, protocol breach. The Agent answers with the Deadman's Stamp. The room changes again. If a civilian embassy operative knows that protocol, the issue is no longer only the Agent's conduct. It is leakage. Daniel asks how deep it goes. The Agent raises Mihawk as a factor: a pirate, a witness, someone who thinks the Agent inexperienced but has enough wit to be dangerous. Daniel orders surveillance. The investigation has now grown teeth on both sides: a possible internal leak and an external witness who cannot be allowed to drift unobserved.\n\nA courier interrupts before the debrief can resolve. The [[prop:prop_high_command_summons|summons]] is direct: High Command wants the Agent in person. No video call. No substitute. No delay. The helicopter should have taken days and crossed borders; instead it arrives at the High Command spire almost immediately. The pilot knows the Agent's real name, James, and says they met during training. Geography folds. Procedure narrows.\n\nAt the top of the spire, three hooded figures wait. They announce an intelligence-network breach: a high-ranking Legion officer leaking classified information to an external party. The Agent asks whether to turn off his logger. They say yes. The last recorded seconds, preserved in [[prop:prop_final_logger_cutoff|the cutoff slip]], do not reveal the breach. They reveal the method by which the archive was denied the breach. That is enough. The final fact of Mount Ebott is not what High Command said next. It is that High Command knew there was a recorder and chose silence.",
-        "waluigi_note": "The final fact in the Mount Ebott survey is not what High Command said. It is that High Command knew where the recorder was and turned it off."
+        "waluigi_note": "The final fact in the Mount Ebott survey is not what High Command said. It is that High Command knew where the recorder was and turned it off.",
+        "image": "assets/images/events/mount-ebott-final-log/ebott-final-01-logger-cutoff.jpg",
+        "imageCaption": "The last visible act before the missing minutes: a hooded High Command official pressing the disabling device to the logger while the chamber watches."
       }
     ],
     "participants": [
@@ -12595,6 +12597,8 @@
       "dracule_mihawk": "Cooperated with debrief and did not collect the data, but became a monitored witness because he saw classified procedures.",
       "jamesly": "Contained an unauthorized Gamma escalation before local command formalized the damage.",
       "daniel_gamma_command": "Recognized the Deadman's Stamp problem as a breach question rather than only a discipline issue."
-    }
+    },
+    "image": "assets/images/events/mount-ebott-final-log/ebott-final-01-logger-cutoff.jpg",
+    "imageCaption": "High Command disables the Gamma Agent's wrist logger in the circular chamber at the top of the spire. The final Ebott record does not fade out; it is switched off by hand."
   }
 ]

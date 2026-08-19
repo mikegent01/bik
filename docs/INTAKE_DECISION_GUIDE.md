@@ -255,6 +255,28 @@ Do not create factions for:
 
 Generated faction stubs are review work, not reader-facing prose.
 
+## Image / article art gate
+
+A new substantial article should ship with at least one image. Long narrative
+filings usually need a lead image plus selected section images where a place,
+object, document, or turning point becomes clearer when seen.
+
+Use image fields in data, not custom CSS:
+
+```json
+"image": "assets/images/events/<event-slug>/<file>.jpg",
+"imageCaption": "Archive-voice caption explaining what the image proves."
+```
+
+Section images use the same keys on the section object. Generate from a prompt
+sheet based on the prose, inspect the result, and compress before committing.
+Full procedure: `docs/IMAGE_GENERATION_GUIDE.md`. CSS rules for displaying
+article imagery should follow `docs/CSS_STYLE_GUIDE.md`.
+
+Do not create images for tiny stubs, purely technical docs, or planning data
+that has not become canon yet. Do not leave a major session article imageless
+without saying why in the run report.
+
 ## Reputation-impact gate
 
 Reputation impact is not a prose flourish. If a filing changes how a faction,
