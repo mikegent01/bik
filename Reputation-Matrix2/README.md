@@ -87,6 +87,7 @@ whether any warnings are legacy debt or new work.
 | Bros Attacks | `data/brosAttacks.json` | `Foundry/bros_attacks/bros-definitions.js`, `data/brosAttacks.schools.json` | `#/bros-attacks`, shop training yard, Foundry module |
 | Bros shop kits | `data/shop-items/items_bros.js` plus shop category registrations | shop departments and Foundry item conversion | Wario's Shop, hub item piles, Foundry imports |
 | RNN broadcasts | `../tools/rnn-scripts/epNNN.json`, `../tools/rnn-scripts/pending-news-articles.json` | `data/rnn-broadcasts.js`, README `RNN:LAST-WEEK` blocks | standalone RNN player |
+| Holy Midlands Diet | `systems/regal-empire-system.js` | `#/regal-diet` plus standalone page in `app/pages/regal-empire-system/` | Regal Empire legislative chamber, votes, coalitions, Legion responses |
 | WAHwire | `data/wahwire/*.json`, scheduled posts | rendered feeds and reaction panels | WAHwire pages and side panels |
 | Annotations | `data/annotations.json` | inline highlights and Chatter Hub leaderboards | `#/annotations`, highlighted article text |
 | Foundry actors/items | lore + shop + hub builders; curated exports in `tools/item sheet examples/` | `.hub-out/` generated drafts | Foundry import JSON |
@@ -119,6 +120,10 @@ what to create from new data.
 - **Hub / Foundry** — generated `.hub-out/` files stay uncommitted unless a
   finished actor export is deliberately promoted. Use
   `python tools/hub/hub_cli.py doctor` after path/converter changes.
+- **Holy Midlands Diet** — `#/regal-diet` is the live Regal Empire legislative
+  system. Update or review it when filings add Diet votes, Imperial laws,
+  province pressure, representative changes, or Legion deployments justified by
+  politics.
 - **Annotations** — quote text that exists in the article. Do not use comments
   to add missing facts.
 

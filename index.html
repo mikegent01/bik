@@ -41,6 +41,7 @@
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/archive-prose-format.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/exhibits.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/investigations.css">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/regal-parliament.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="Reputation-Matrix2/data/vendors-directory.js"></script>
   <script src="Reputation-Matrix2/data/books-data.js"></script>
@@ -8231,6 +8232,24 @@ const FACTION_SYSTEMS = {
       return [['Mean party pressure', pressure], ['Internal blocs', blocs], ['Tracked operators', ops]];
     }
   },
+  holy_midlands_diet: {
+    id: 'holy_midlands_diet',
+    name: 'Holy Midlands Diet',
+    emoji: '🏛️',
+    route: '#/regal-diet',
+    accent: '#b8860b',
+    glow: 'rgba(184,134,11,.20)',
+    flag: 'Integrated Faction System',
+    tagline: 'Regal Empire legislative chamber: votes, coalitions, representatives, and Legion pressure.',
+    body: 'The coded Regal Empire system is now live in Waluipedia: Diet seats, vote projections, coalition blocs, expelled factions, Legion-linked operations, dual-role personnel, and legislative calendar all render as an interactive system.',
+    factions: ['regal_empire', 'iron_legion'],
+    operators: { regal_empire: 'Legislative authority — votes become policy.', iron_legion: 'Military pressure — operations answer the votes.' },
+    metrics(){
+      const votes = (DATA.congress_votes||[]).length;
+      const factions = Object.keys(LORE_FACTIONS.regal_empire?.internal_politics?.sub_factions||{}).length;
+      return [['Filed votes', votes], ['Imperial blocs', factions], ['System mode', 'Diet']];
+    }
+  },
   pond_patrol_docket: {
     id: 'pond_patrol_docket',
     name: 'Pond Patrol Docket',
@@ -9095,7 +9114,7 @@ function view_imperial_network(){
     <div class="card animate-fade-in" style="border-left:4px solid var(--accent);background:linear-gradient(135deg,rgba(138,75,255,.16),rgba(200,29,37,.10)),var(--panel)">
       <div class="home-section-head"><div><h1>🕸️ Imperial Pressure Network</h1><p>The Regal Empire and Iron Legion integrated into Waluipedia's living systems: reputation, global power, money, shop logistics, and event history.</p></div><span class="chip active" onclick="document.getElementById('iron-legion-integrated-dossier')?.scrollIntoView({behavior:'smooth'})">Integrated Iron Legion Dossier ↓</span></div>
       <div class="wnote" style="border-left:4px solid #c81d25"><b>Waluigi integration note:</b> This is not a copied dossier. It is a command layer that points every Imperial/Legion fact back into the main website systems, so the Empire stops being a niche side page and starts affecting how users browse reputations, banks, power, and supply lines.</div>
-      <div class="chips" style="margin-top:12px"><span class="chip" onclick="Router.go('#/reputation')">📈 Reputation Matrix</span><span class="chip" onclick="Router.go('#/power')">⚡ Power Projection</span><span class="chip" onclick="location.href='currency.html'">🏦 Currency / Debt</span><span class="chip" onclick="location.href='Reputation-Matrix2/app/pages/shop/shop.html'">🛒 Wario Shop Supply Lines</span><span class="chip" onclick="Router.go('#/atlas')">🍩 World Atlas</span></div>
+      <div class="chips" style="margin-top:12px"><span class="chip" onclick="Router.go('#/regal-diet')">🏛️ Holy Midlands Diet</span><span class="chip" onclick="Router.go('#/reputation')">📈 Reputation Matrix</span><span class="chip" onclick="Router.go('#/power')">⚡ Power Projection</span><span class="chip" onclick="location.href='currency.html'">🏦 Currency / Debt</span><span class="chip" onclick="location.href='Reputation-Matrix2/app/pages/shop/shop.html'">🛒 Wario Shop Supply Lines</span><span class="chip" onclick="Router.go('#/atlas')">🍩 World Atlas</span></div>
     </div>
     <div class="grid2">${imperialFactionCard('regal_empire')}${imperialFactionCard('iron_legion')}</div>
     <div class="card"><div class="home-section-head"><div><h2>🔗 Cross-System Hyperlink Map</h2><p>Quick links make the Imperial system part of the whole site: reputation, banking, shop logistics, atlas, XP, books, and event records.</p></div><span class="pill">expanded hyperlinks</span></div><div class="chips">${imperialLinkCloud()}</div></div>
@@ -9104,6 +9123,36 @@ function view_imperial_network(){
     <div class="card" style="border-left:4px solid #8a4bff"><div class="home-section-head"><div><h2>👑 Regal Empire Internal System</h2><p>Imperial factions are shown alongside Legion pressure so the two systems read as one political machine.</p></div><span class="chip active" onclick="Router.go('#/reputation/faction/regal_empire')">Open Empire standing →</span></div><div class="grid2">${imperialInternalBlocPanel('regal_empire')}</div></div>
     <div class="card"><div class="home-section-head"><div><h2>Operator Pressure Table</h2><p>Live scores from the reputation engine. Click a row to inspect the operator's full standings.</p></div><span class="pill">Regal Empire ↔ Iron Legion</span></div><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Operator</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Empire</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Legion</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Pressure</th></tr></thead><tbody>${rows}</tbody></table></div>
     <div class="card"><div class="home-section-head"><div><h2>Recent Linked Intelligence</h2><p>Auto-pulled records mentioning Empire, Legion, Mandate, Vigilance, or Legionlance.</p></div></div><div class="update-grid">${imperialEventRail()}</div></div><div class="card"><h2>System Bridges</h2><div class="path-grid"><div class="path-card" onclick="Router.go('#/reputation/faction/regal_empire')"><h3>👑 Imperial diplomacy</h3><p>Faction standings, sub-faction modifiers, and operator penalties are calculated through the reputation engine.</p></div><div class="path-card" onclick="document.getElementById('iron-legion-integrated-dossier')?.scrollIntoView({behavior:'smooth'})"><h3>⚙️ Iron Legion intelligence</h3><p>The former standalone dossier is merged here as an integrated command panel connected to reputation, bank, shop, atlas, and power systems.</p></div><div class="path-card" onclick="Router.go('#/power')"><h3>⚡ Military projection</h3><p>Use the global-war monitor to compare Empire/Legion power with every other realm.</p></div><div class="path-card" onclick="location.href='currency.html'"><h3>🏦 Contract economy</h3><p>Follow debts, wallets, currencies, and supply costs tied to Imperial enforcement.</p></div><div class="path-card" onclick="location.href='Reputation-Matrix2/app/pages/shop/shop.html'"><h3>🛒 Wario logistics</h3><p>Shop prices and vendors become a supply-line layer for the conflict instead of isolated shopping.</p></div><div class="path-card" onclick="Router.go('#/article/the_midnight_audit_of_harvestide_28')"><h3>🌑 Recent intelligence</h3><p>Audit records and active incidents feed directly into the pressure model.</p></div></div></div>`;
+  window.scrollTo(0,0);
+}
+
+async function view_regal_diet(){
+  renderSidebar('holy_midlands_diet');
+  const pathPrefix = (window.location.pathname.includes('/Reputation-Matrix2/') ? './' : './Reputation-Matrix2/');
+  el('content').innerHTML = `
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/imperial-network')">Imperial Pressure Network</a> › Holy Midlands Diet</div>
+    <div class="card animate-fade-in" style="border-left:5px solid #b8860b;background:linear-gradient(135deg,rgba(184,134,11,.18),rgba(200,29,37,.08)),var(--panel)">
+      <div class="home-section-head"><div><h1>🏛️ Holy Midlands Diet</h1><p>The dormant Regal Empire system is now wired into the archive: representatives, coalitions, vote projections, expelled supernatural seats, and Legion-linked political pressure.</p></div><span class="pill">Regal Empire system</span></div>
+      <div class="wnote"><b>Waluigi integration note:</b> This is the political half of the Imperial Pressure Network. The Empire votes; the Legion moves. Do not file an Imperial law, mandate, succession pressure, or Diet controversy without checking this chamber.</div>
+      <div class="chips" style="margin-top:12px"><span class="chip" onclick="Router.go('#/article/regal_empire')">👑 Regal Empire dossier</span><span class="chip" onclick="Router.go('#/imperial-network')">🕸️ Imperial Pressure Network</span><span class="chip" onclick="Router.go('#/congress')">🏛️ Grand Congress archive</span><span class="chip" onclick="Router.go('#/reputation/faction/regal_empire')">📈 Empire standings</span></div>
+    </div>
+    <div id="regal-diet-app" class="card animate-fade-in" style="padding:0;overflow:hidden">
+      <div id="regal-diet-system" class="unique-system-container"><div class="loading-state"><span class="blink">_INITIALIZING HOLY MIDLANDS DIET...</span></div></div>
+      <div id="detail-panel" class="side-panel"><button id="detail-panel-close" class="panel-close-btn">✕</button><div id="detail-panel-content"></div></div>
+      <div id="parliament-tooltip" class="system-tooltip"></div>
+    </div>`;
+  try{
+    const mod = await import(pathPrefix + 'systems/regal-empire-system.js');
+    const container = document.getElementById('regal-diet-system');
+    if(container){
+      container.innerHTML = mod.renderHolyMidlandsDiet();
+      setTimeout(()=>mod.initHolyMidlandsDietListeners && mod.initHolyMidlandsDietListeners(), 0);
+    }
+  }catch(err){
+    console.error('Failed to load Holy Midlands Diet system', err);
+    const container = document.getElementById('regal-diet-system');
+    if(container) container.innerHTML = `<div class="card" style="border-left:4px solid var(--danger)"><h2>Diet system failed to load</h2><p class="text-muted">${esc(err && err.message ? err.message : err)}</p></div>`;
+  }
   window.scrollTo(0,0);
 }
 
@@ -16429,6 +16478,7 @@ const Router={
     else if(route==='cultures'||route==='laws')view_cultures();
     else if(route==='power'||route==='war')view_power();
     else if(route==='imperial-network'||route==='imperial'||route==='empire-network'||route==='legion'||route==='iron-legion')view_imperial_network();
+    else if(route==='regal-diet'||route==='holy-midlands-diet'||route==='midlands-diet'||route==='diet')view_regal_diet();
     else if(route==='pond-docket'||route==='docket'||route==='pond-patrol'||route==='accountability-docket')view_pond_docket();
     else if(route==='ability-shop'||route==='abilities'||route==='ability'){location.href=abilityShopUrl(arg);return;}
     else if(route==='battlefield')view_list('battles');

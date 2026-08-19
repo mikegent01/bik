@@ -423,6 +423,27 @@ Do not add a Foundry-only technique. The archive is the source.
 
 ---
 
+## Regal Empire / Holy Midlands Diet gate
+
+If supplied data involves a Regal Empire law, mandate, Diet vote, province,
+representative, committee, or Iron Legion operation justified by Imperial
+politics, check the Holy Midlands Diet system.
+
+Create or update Diet-system material when the data contains:
+
+```text
+□ a new act, law, decree, mandate, or vote
+□ a vote changing the legality of a faction, species, prison, border, or operation
+□ a province whose representation, pressure, or Legion presence changes
+□ a representative expelled, reinstated, compromised, promoted, or killed
+□ an Iron Legion deployment that answers a Diet decision
+```
+
+Reader route: `#/regal-diet`. Source system:
+`Reputation-Matrix2/systems/regal-empire-system.js`. The Imperial Pressure
+Network at `#/imperial-network` should link readers toward the Diet when the
+political cause matters.
+
 ## Book, song, currency, law, map, and POI gates
 
 Create these only when the supplied data changes that system specifically.

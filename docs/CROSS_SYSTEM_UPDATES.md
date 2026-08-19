@@ -12,6 +12,7 @@ the trigger table. Run it after every filing, alongside `ARTICLE_QA.md`.
 | If the filing involves… | You must update | Where it lives |
 |---|---|---|
 | **Anyone in the Pond Patrol docket** | the Pond Patrol / Liberated Toads system page — docket rows, actions, cohorts | `app/pages/liberated-toads-system/` (its JS holds the docket data) |
+| **A Regal Empire law, Diet vote, mandate, province pressure, or Iron Legion political response** | the Holy Midlands Diet / Regal Empire system | `#/regal-diet` route; source system `Reputation-Matrix2/systems/regal-empire-system.js`; standalone page `app/pages/regal-empire-system/` |
 | **A succession-relevant death, marriage, birth, or claim** | the Dynasty system — houses, members, succession order, marriages | `DYNASTY_SYSTEM` object in `index.html` (search `DYNASTY_SYSTEM=`) |
 | **A major battle, or territory changing hands** | the map: POI entries and unit positions | `Reputation-Matrix2/data/maps/map-data.js` (POIs) + `map-battle-data-*.js` (unit x/y per theater) |
 | **A new cooperative technique performed at the table** | a Bros attack | `Reputation-Matrix2/data/brosAttacks.json` + `Foundry/bros_attacks/bros-attacks.js` (`BROS_DEFINITIONS`) — see that module's README; **the two must match exactly** |
@@ -71,6 +72,28 @@ Checklist:
 If yes, update the relevant row/section in the Liberated Toads system. Under-
 utilized is a state, not a fate: every touching filing adds a row until the
 docket is current again. If no update is needed, say why in the run report.
+
+### Holy Midlands Diet / Regal Empire
+
+The Regal Empire has a coded legislative system at `#/regal-diet`, backed by
+`Reputation-Matrix2/systems/regal-empire-system.js` and the standalone page in
+`Reputation-Matrix2/app/pages/regal-empire-system/`. It renders Diet seats,
+coalitions, vote projections, expelled factions, political-military liaisons,
+Legion-linked operations and the legislative calendar.
+
+Update or review it when a filing includes:
+
+```text
+□ a new Regal Empire law, act, mandate, decree, committee, or Diet vote
+□ a province changing pressure, compliance, representation, or Legion presence
+□ Iron Legion action justified by a Diet vote or Imperial statute
+□ an expelled, reinstated, compromised, or newly influential representative
+□ a cross-system consequence where politics and Legion deployment move together
+```
+
+At minimum, link the filing to `#/regal-diet` or the Imperial Pressure Network
+in the run report. If the system data itself needs a new vote or timeline row,
+update the source system rather than leaving the Diet as a decorative page.
 
 ### Dynasties
 `DYNASTY_SYSTEM` is embedded in `index.html` — houses, members (with
