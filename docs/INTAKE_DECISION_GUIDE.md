@@ -151,6 +151,7 @@ desk” is scenery unless one form matters.
 Rules:
 
 - props live in `data/props.json`;
+- important documents may use custom `.pd-*` CSS classes so their form feels distinct, but add those classes to `exhibits.css` first;
 - prose uses `[[prop:prop_id|visible text]]`;
 - run `python3 tools/check-exhibits.py`;
 - every `## Addendum:` heading gets an `addendum` prop.

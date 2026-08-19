@@ -134,6 +134,13 @@ exhibit probably wants a prop document instead.
 examination. Use `## ` at the start of a paragraph for a subheading; that is
 how the old layer titles survive as structure inside the reading.
 
+This field can be long, methodical and emotional. It is where Waluigi is allowed
+to think on the page: fear, suspicion, anger, guilt, admiration, and the honest
+reason a document bothers him. Do not reduce an examination to rumours or a
+neutral recap of what happened. The event already tells the story. The
+investigation should say what the paper proves, what it fails to prove, why that
+failure matters, and what Waluigi is afraid the party will ignore.
+
 This replaced a three-layer ladder with per-layer DCs and XP. The ladder is
 gone: it made the reader roll five times to finish a paragraph, and it turned
 reading into farming.

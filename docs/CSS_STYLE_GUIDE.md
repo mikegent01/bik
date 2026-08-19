@@ -133,6 +133,34 @@ the CSS has failed.
 
 ---
 
+## Exhibit / prop visual variety
+
+Exhibits are allowed to look different. In fact, important documents **should**
+look different when the form tells the reader something: a royal oath, an intake
+receipt, a monitored communications privilege, an interview summary, a secret
+manual and a logger cutoff should not all feel like the same invoice with new
+words.
+
+The rule is not "never add CSS." The rule is:
+
+```text
+□ add the class to exhibits.css first
+□ keep the class in the .pd-* vocabulary
+□ use classes, never inline style, in props.json
+□ make the visual form match the issuing body
+□ do not create one-off chaos when an existing class already works
+```
+
+Good creative exhibit classes are still reusable: `.pd-terminal`,
+`.pd-scan-grid`, `.pd-manual-cover`, `.pd-summons-ribbon`, `.pd-interview-pane`.
+They give the document a distinct physical identity while preserving the modal,
+theme, paper, stamp, audit and backlink systems.
+
+Bad exhibit creativity is raw HTML with inline styles, invented classes that the
+audit cannot see, decorative clutter unrelated to the document, or seven props
+that use different CSS for no story reason. Variety should reveal authorship and
+function, not compete with the text.
+
 ## Images and article CSS
 
 A new substantial article should ship with images. Use data fields first:
