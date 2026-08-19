@@ -20,12 +20,12 @@
     "text": "The oath says silence. The machine says record everything. High Command says stop recording. File the contradiction before anyone calls this mission complete. WAH!"
   },
   "spotlight": {
-    "kicker": "System Spotlight · Bank & Commerce",
-    "title": "💱 Multi-Currency Exchange",
-    "subtitle": "48 Tracked Tenders · Wallet Settlement",
-    "excerpt": "Universal gold conversion rates across Gold, Mora, Wario Coin, Soul Coins, Ducats, and 44 other regional currencies. Integrated into Wario's shop checkout.",
-    "actionText": "Open Bank Vaults →",
-    "actionUrl": "currency.html"
+    "kicker": "System Spotlight · Live Governance",
+    "title": "⚖️ Pond Patrol Motions + Holy Midlands Diet",
+    "subtitle": "Post-Reclamation votes · Speaker Rivers observer memos",
+    "excerpt": "The reclaimed Vigilance has not settled the Toad crisis. The Pond Patrol is overextended, the hardliner deck faction has momentum, and the Diet is watching the ship through a new status review instead of stale Mandate-day calendar math.",
+    "actionText": "Open Pond Patrol Docket →",
+    "actionUrl": "#/pond-docket"
   },
   "onThisDay": [
     "955 BF — Princess Peach assassinated; Regency declares emergency state.",

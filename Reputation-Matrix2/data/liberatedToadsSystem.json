@@ -7,7 +7,7 @@
       "year": 1040,
       "label": "Highsun 24, 1040 BF"
     },
-    "note": "Operational snapshot advanced after the Reclamation of the Vigilance. Speaker L remains absent; the ship is back in Toad hands, but command is split between Captain Fernback, the Cohort Council, the hardliner deck faction, and the Liberators' Circle. The Pond Patrol is too occupied stabilizing the ship and perimeter to throw another cohort army into Raventree Manor without a new vote.",
+    "note": "Operational snapshot advanced after reading The Reclamation of the Vigilance. The ship is back in Toad hands, but not in the old order: the hardliner deck faction holds de facto control, Speaker L is absent or cast off per the anthem, Captain Fernback is trying to keep the Pond Patrol from becoming a private army, and the Council is writing motions after the deck has already started singing.",
     "rosterNote": "Each cohort includes a full `roster` of named toads. The integer `members` field is still the headcount used by docket math (and barrel_survivors overlaps other cohorts). Many names use the '___ T' pun style (Pilo T, Geek T, Intel T, Capi T); others are toad-native. Roster rows are names/roles/levels — not full character articles unless linked elsewhere.",
     "namingConvention": {
       "tPun": "Say the name out loud with the letter T: Pilo T, Magne T, Budge T, Geek T, Nerd T, Intel T, Documen T, Equipmen T, Comba T, Warran T, Studen T, Recrui T…",
@@ -19,7 +19,7 @@
     "type": "Emergency caretaker council / contested reclaimed-ship command",
     "established": "Highsun 24, after the Reclamation of the Vigilance",
     "authority_basis": "Emergency Resolution 17-A, Order 120 aftermath, and caretaker votes while Speaker L is absent",
-    "description": "Following the discovery that the captured Speaker L was a decoy and the later Reclamation of the Vigilance, Captain Fernback holds temporary security command while the Cohort Council tries to govern without the voice that made its emergency powers legitimate. The ship is back, but the chain of command is not."
+    "description": "After the Reclamation of the Vigilance, the ship is no longer a Legion trophy, but it is also not simply Speaker L's old sanctuary restored. A hardliner faction controls the decks and the anthem; Captain Fernback controls disciplined Pond Patrol personnel; the Cohort Council controls what legitimacy remains on paper. The chain of command is not broken cleanly. It is fraying in public."
   },
   "speaker": {
     "id": "speaker_l",
@@ -27,7 +27,7 @@
     "title": "Voice of the Pond",
     "fullTitle": "Voice of the Pond, Keeper of the Cohort, Emergency Commander",
     "portrait": "🐸👑",
-    "authorityLevel": "Absent / contested emergency authority",
+    "authorityLevel": "Absent / possibly cast off by the Reclamation faction",
     "level": 8,
     "xp": 3200,
     "stats": {
@@ -107,7 +107,7 @@
       }
     ],
     "philosophy": "Order through unity. Safety through vigilance. Justice through accountability.",
-    "description": "Speaker L remains the spiritual and legal center of the Liberated Toads, but the current operational file treats him as absent. His decrees still shape the docket, yet every new order now requires a workaround: Captain Fernback for security, the Cohort Council for legitimacy, and the Liberators' Circle when survival or re-enslavement is at stake. This is the central wound in the post-Reclamation Pond Patrol.",
+    "description": "Speaker L remains the spiritual and legal center of the Liberated Toads, but the Reclamation record says he was \"cast off\" by the anthem and leaves his location unconfirmed. His old decrees still shape the docket; his living authority does not currently settle disputes. This is the central wound: the Pond Patrol was designed to enforce Speaker L's law, and now it must decide whether enforcing without him preserves that law or hollows it out.",
     "quotes": [
       "This is not retribution's art, but the mending of the fractured heart.",
       "By pond and law, by vow and steel, the wound must close for peace to heal.",
@@ -261,8 +261,8 @@
       }
     ],
     "speakerRelationship": {
-      "status": "Caretaker era — Speaker absent",
-      "notes": "With Speaker L missing and the decoy exposed, the Liberators can no longer simply advise. Their veto power is politically heavier, but Captain Fernback controls the Pond Patrol on deck and the Council controls the paper. Everyone is acting in Speaker L's name; nobody can prove he would approve."
+      "status": "Broken succession of authority",
+      "notes": "The Liberators can still veto betrayal, re-enslavement, or abandonment, but the Reclamation changed the room. The hardliner deck faction can move bodies faster than the Council can write law; Captain Fernback can command patrols faster than anyone can prove Speaker L would approve."
     }
   },
   "council": {
@@ -3504,7 +3504,7 @@
   "activeVotes": [
     {
       "id": "V-2021-003",
-      "title": "POST-RECLAMATION AUTHORITY: WHO COMMANDS WITHOUT SPEAKER L?",
+      "title": "POST-RECLAMATION AUTHORITY: DECK CONTROL OR CARETAKER LAW?",
       "type": "constitutional",
       "status": "active",
       "proposed_by": "Elder Mudcap and Captain Fernback",
@@ -3522,31 +3522,29 @@
         "hour": 7,
         "minute": 30
       },
-      "description": "The Vigilance has been reclaimed, but Speaker L is absent and the decoy revelation broke the old assumption that the Voice can settle emergency powers by speaking. The Council must decide who can issue orders until the real Speaker returns or is declared unreachable.",
-      "background": "The hardliner deck faction controls momentum after the Reclamation. The Pond Patrol controls armed security. The Liberators' Circle controls moral veto. None of those is the same as the Speaker.",
+      "description": "The Reclamation gave the Vigilance back to Toad hands, but the song and the decks are not neutral. The hardliner faction has momentum; Captain Fernback has trained bodies; the Council has paper; Speaker L is absent or cast off. The vote asks whether to recognize reality, restrain it, or pretend the old chain still exists.",
+      "background": "Waluigi reads the Reclamation as victory and catastrophe at once. The ship is reclaimed, but the faction flying it may have decided liberation was only a phase.",
       "options": [
         {
           "id": "A",
-          "text": "Fernback Caretaker Command - Captain Fernback holds security command, Council countersigns political orders",
-          "votes": 3,
+          "text": "Fernback Caretaker Law - Pond Patrol controls security, Council countersigns every political order",
+          "votes": 2,
           "voters": [
-            "Elder Mudcap",
             "Captain Fernback",
-            "Forgemaster Ironspore"
+            "Elder Mudcap"
           ],
           "pros": [
-            "Fast enough for emergencies",
-            "Keeps Pond Patrol coherent",
-            "Requires Council paper trail"
+            "Keeps trained patrols disciplined",
+            "Leaves paper trail for Speaker L if he returns"
           ],
           "cons": [
-            "Militarizes civilian decisions",
-            "Speaker loyalists may see it as a quiet succession"
+            "May be too slow for a ship already in hardliner hands",
+            "Fernback becomes the face of power without being Speaker"
           ]
         },
         {
           "id": "B",
-          "text": "Full Council Regency - all Speaker powers require 5/7 Council approval until Speaker L returns",
+          "text": "Council Regency - no Speaker powers without 5/7 Council approval",
           "votes": 2,
           "voters": [
             "Scribe Dewdrop",
@@ -3554,27 +3552,29 @@
           ],
           "pros": [
             "Most legitimate on paper",
-            "Prevents one armed cohort from ruling the ship"
+            "Prevents armed cohort rule"
           ],
           "cons": [
-            "Slow in crisis",
-            "Scout seat remains vacant"
+            "Scout seat remains vacant",
+            "Can be ignored by whoever controls the decks"
           ]
         },
         {
           "id": "C",
-          "text": "Hardliner Deck Command - recognize the Reclamation faction as temporary ship authority",
-          "votes": 1,
+          "text": "Recognize Hardliner Deck Control - the Reclamation faction holds temporary ship authority",
+          "votes": 3,
           "voters": [
-            "Warden Thornshell"
+            "Warden Thornshell",
+            "Hardliner deck proxy",
+            "Broadcast crew proxy"
           ],
           "pros": [
-            "Matches who currently holds the decks",
-            "Useful if another boarding action begins"
+            "Matches who actually controls the ship",
+            "Fast response if the Legion returns"
           ],
           "cons": [
             "Rewards fury over law",
-            "Risks turning liberation into occupation"
+            "May turn the Vigilance from home into weapon"
           ]
         },
         {
@@ -3582,7 +3582,7 @@
           "text": "Liberators' Circle Override - original liberators can veto any order until Speaker L returns",
           "votes": 1,
           "voters": [
-            "Heroes' Council proxy"
+            "Liberators' Circle proxy"
           ],
           "pros": [
             "Prevents re-enslavement or revenge law",
@@ -3594,11 +3594,11 @@
           ]
         }
       ],
-      "speaker_recommendation": "A",
-      "speaker_statement": "SPEAKER ABSENT. Caretaker command is not succession. Every order must leave a paper trail for the Speaker to judge if he returns.",
+      "speaker_recommendation": null,
+      "speaker_statement": "NO SPEAKER PRESENT. Deck control is a fact, not a constitution. Every order made before the Voice returns is provisional and reviewable.",
       "quorum_required": 5,
       "current_quorum": 7,
-      "notes": "This is the core lore implication: without Speaker L, the Pond Patrol can enforce but cannot easily legitimize. The more it acts, the more it risks becoming the thing Speaker L restrained."
+      "notes": "Current reality: hardliner deck control leads de facto. Current law: Fernback and the Council are trying to keep that fact from becoming permanent government."
     },
     {
       "id": "V-2021-004",
@@ -3620,16 +3620,14 @@
         "hour": 13,
         "minute": 15
       },
-      "description": "Raventree Manor remains active and hostile. The question is whether to send another cohort army into the manor after the Vigilance is reclaimed or admit the Pond Patrol is too occupied to spend lives on a second push.",
-      "background": "Speaker Rivers has sent an observer memorandum from the old Diet network: do not feed another cohort into the manor while the ship, prisoners, and Speaker L chain of command remain unstable. Observe, contain, and demand better intelligence.",
+      "description": "Raventree Manor remains active and hostile, but the Reclamation article makes one fact unavoidable: the reclaimed ship is absorbing every disciplined body the Toads have. The motion asks whether anger can afford a second cohort army when the first duty is keeping the Vigilance from becoming another prison.",
+      "background": "Speaker Rivers has sent an observer memorandum from the old Diet network: do not feed another cohort into the manor while the ship, prisoners, and Speaker L chain of command remain unstable. Fernback agrees because he is counting doors, not speeches.",
       "options": [
         {
           "id": "A",
           "text": "Second Cohort Advance - send Pond Patrol and Wardens back into the manor immediately",
-          "votes": 1,
-          "voters": [
-            "Warden Thornshell"
-          ],
+          "votes": 0,
+          "voters": [],
           "pros": [
             "Could recover evidence before the manor shifts",
             "Shows the Patrol is not afraid"
@@ -3637,23 +3635,26 @@
           "cons": [
             "Pond Patrol overextended",
             "Manor already punished a siege",
-            "No Speaker authorization for lethal escalation"
+            "No Speaker authorization for lethal escalation",
+            "Strips the reclaimed ship of disciplined guards"
           ]
         },
         {
           "id": "B",
           "text": "Hold Perimeter and Observe - reinforce the cordon, no new interior advance without fresh intelligence",
-          "votes": 4,
+          "votes": 5,
           "voters": [
             "Elder Mudcap",
             "Captain Fernback",
             "Scribe Dewdrop",
-            "Healer Mistpetal"
+            "Healer Mistpetal",
+            "Forgemaster Ironspore"
           ],
           "pros": [
             "Preserves forces",
             "Matches Speaker Rivers observer recommendation",
-            "Keeps pressure without feeding the manor"
+            "Keeps pressure without feeding the manor",
+            "Protects the reclaimed ship first"
           ],
           "cons": [
             "Leaves trapped evidence or people inside",
@@ -3680,10 +3681,10 @@
         }
       ],
       "speaker_recommendation": "B",
-      "speaker_statement": "NO SECOND ARMY WITHOUT A MAP. Rivers observes, Fernback concurs, Warden Thornshell objects.",
+      "speaker_statement": "NO SECOND ARMY WITHOUT A MAP. The ship is not stable, the Speaker is not here, and Raventree has already eaten one clean plan.",
       "quorum_required": 4,
       "current_quorum": 7,
-      "notes": "Current leaning: no second cohort army. The Patrol is too occupied with ship security, prisoner accounting, and Speaker L absence to make Raventree a meat grinder again."
+      "notes": "Current leaning: hard no on another cohort army. Proxy reconnaissance remains possible; a mass advance is irresponsible while the Vigilance is unsettled."
     },
     {
       "id": "V-2021-005",
@@ -3705,42 +3706,42 @@
         "hour": 11,
         "minute": 0
       },
-      "description": "The Reclamation returned the airship to Toad hands, but not to the old political world. The Council must decide whether the Vigilance is a sanctuary, fortress, mobile court, or propaganda instrument.",
-      "background": "The hardliner anthem is broadcasting. Waluigi calls the victory a catastrophe because the song sounds more like tightening chains than breaking them.",
+      "description": "The Reclamation returned the airship to Toad hands, but the anthem and deck control suggest the ship is not simply a restored sanctuary. The Council must decide whether to resist the hardliner turn or legalize it after the fact.",
+      "background": "The song is broadcasting. Waluigi calls the victory a catastrophe because the song sounds more like tightening chains than breaking them.",
       "options": [
         {
           "id": "A",
           "text": "Sanctuary Ship - prioritize civilians, medical decks, and reunification of scattered toads",
-          "votes": 3,
+          "votes": 1,
           "voters": [
-            "Elder Mudcap",
-            "Healer Mistpetal",
-            "Scribe Dewdrop"
+            "Healer Mistpetal"
           ],
           "pros": [
             "Protects survivors",
             "Counters hardliner capture of the narrative"
           ],
           "cons": [
-            "Less immediate military readiness",
-            "Requires trust in outside escorts"
+            "Does not match current deck mood",
+            "May be too gentle to hold the ship"
           ]
         },
         {
           "id": "B",
           "text": "Fortress Ship - arm the Vigilance and prepare for another Legion boarding",
-          "votes": 2,
+          "votes": 3,
           "voters": [
             "Captain Fernback",
-            "Warden Thornshell"
+            "Warden Thornshell",
+            "Hardliner deck proxy"
           ],
           "pros": [
             "Realistic after Iron Sky",
-            "Makes the Reclamation defensible"
+            "Makes the Reclamation defensible",
+            "Matches current armed control"
           ],
           "cons": [
             "Turns home into barracks",
-            "May empower hardliners"
+            "May legalize hardliner command"
           ]
         },
         {
@@ -3748,7 +3749,7 @@
           "text": "Mobile Court - bring the Accountability Docket aboard and hear every charge in public",
           "votes": 1,
           "voters": [
-            "Liberators' Circle proxy"
+            "Scribe Dewdrop"
           ],
           "pros": [
             "Restores law after chaos",
@@ -3762,9 +3763,10 @@
         {
           "id": "D",
           "text": "Broadcast Platform - use the ship and anthem to recruit scattered toads",
-          "votes": 1,
+          "votes": 2,
           "voters": [
-            "Forgemaster Ironspore"
+            "Forgemaster Ironspore",
+            "Broadcast crew proxy"
           ],
           "pros": [
             "Builds numbers",
@@ -3772,15 +3774,16 @@
           ],
           "cons": [
             "Propaganda can outrun truth",
-            "Waluigi already hates the song"
+            "Waluigi already hates the song",
+            "Can make chains sound like unity"
           ]
         }
       ],
-      "speaker_recommendation": "A",
-      "speaker_statement": "A reclaimed home must become a home before it becomes a weapon.",
+      "speaker_recommendation": null,
+      "speaker_statement": "The ship is home, fortress, court, and mouthpiece at once. Pick one too quickly and the others will pick for you.",
       "quorum_required": 4,
       "current_quorum": 7,
-      "notes": "This vote is about identity. The old Vigilance was a home. The Legion made it a trophy. The Reclamation risks making it a weapon wearing the word home."
+      "notes": "The fortress/broadcast bloc is stronger than the sanctuary bloc. This reflects the Reclamation article: the ship is back, but not gentle."
     },
     {
       "id": "V-2021-006",
@@ -3802,7 +3805,7 @@
         "hour": 12,
         "minute": 20
       },
-      "description": "Speaker Rivers resigned from the Midlands Diet over the Iron Mandate and is observing the Pond Patrol crisis through old Diet channels. The Council must decide whether to accept his observer memoranda as advisory evidence.",
+      "description": "Speaker Rivers resigned from the Midlands Diet over the Iron Mandate and is observing the Pond Patrol crisis through old Diet channels. His question is not how to command the Toads; it is how to keep their emergency votes from becoming the same kind of pre-counted parliament he walked out of.",
       "background": "Rivers is not a Toad commander and cannot vote in the Cohort Council. His value is procedural memory: he knows what a captured parliament looks like because he resigned from one.",
       "options": [
         {
@@ -3862,7 +3865,7 @@
       "speaker_statement": "Rivers does not command us. That is why he may be useful.",
       "quorum_required": 4,
       "current_quorum": 7,
-      "notes": "Rivers' practical position on Raventree: observe and contain, do not order another cohort advance while the Patrol is stretched thin."
+      "notes": "Rivers' practical position on Raventree: observe and contain, do not order another cohort advance while the Patrol is stretched thin and the reclaimed ship is politically unstable."
     }
   ],
   "recentVotes": [
@@ -3980,7 +3983,7 @@
           "type": "governance",
           "severity": "critical",
           "icon": "🚀",
-          "description": "The Liberated Toads hold the Vigilance again, but Speaker L remains absent and the hardliner deck faction is louder than the old Council procedure. Captain Fernback opens a caretaker authority vote.",
+          "description": "The Liberated Toads hold the Vigilance again, but the Reclamation anthem and hardliner deck faction make the victory politically unstable. Captain Fernback opens a caretaker authority vote after realizing disciplined patrols do not automatically mean legitimate command.",
           "involved": [
             "Captain Fernback",
             "Cohort Council",
@@ -4006,7 +4009,7 @@
           "type": "political",
           "severity": "high",
           "icon": "🗳️",
-          "description": "Council opens the question of whether the reclaimed Vigilance is sanctuary, fortress, court, or broadcast platform. The sanctuary option leads, but the ship is still singing the hardliner anthem.",
+          "description": "Council opens the question of whether the reclaimed Vigilance is sanctuary, fortress, court, or broadcast platform. Fortress and broadcast blocs are stronger than the sanctuary bloc; Waluigi hears the anthem as chains tightening.",
           "involved": [
             "Forgemaster Ironspore",
             "Healer Mistpetal",
@@ -5875,5 +5878,5 @@
     }
   },
   "factionStats": null,
-  "pondPatrolNote": "The Pond Patrol is now a 24-member overextended cohort commanded by Captain Fernback while Speaker L remains absent. It guards the reclaimed Vigilance, maintains the Raventree perimeter, handles prisoners and evidence, and cannot responsibly send another cohort army into the manor without stripping the ship or violating the caretaker votes."
+  "pondPatrolNote": "The Pond Patrol is a 24-member overextended cohort commanded by Captain Fernback while Speaker L remains absent or cast off. It guards the reclaimed Vigilance, maintains the Raventree perimeter, handles prisoners and evidence, and cannot responsibly send another cohort army into the manor without stripping the ship or pretending hardliner deck control is the same thing as lawful command."
 }
