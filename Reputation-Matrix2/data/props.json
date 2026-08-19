@@ -1536,80 +1536,198 @@
       "body": "<div class=\"pd-classbar\">Consignment note &middot; Carrier's copy</div><div class=\"pd-head\"><div class=\"pd-org\">Goods received, river frontage</div><div class=\"pd-sub\">Carrier: independent. Consignee: not stated on this copy.</div></div><table class=\"pd-table\"><thead><tr><th>Item</th><th>Condition</th></tr></thead><tbody><tr class=\"pd-flagged\"><td><b>Moss, luminous, living</b></td><td><b>viable, keep damp</b></td></tr><tr><td>Sheeting, cotton, used</td><td>serviceable</td></tr><tr><td>Line, braided</td><td>new</td></tr></tbody></table><div class=\"pd-clause\"><b class=\"n\">Handling.</b> Trays to be laid, not stacked. Consignee advised the moss must be placed in darkness and left undisturbed to establish.</div><div class=\"pd-clause\"><b class=\"n\">Standing arrangement.</b> Carrier to hold submersible craft at the river frontage on call. No date specified.</div><div class=\"pd-margin\">Luminous moss, laid in the dark early so it would be glowing when it was needed. Bedsheets. Braided line. Submersibles on call with no date. Every item on this note is useless on the day it arrived and decisive on a day nobody had announced yet. This is what planning looks like when it is filed as freight. &mdash; W.</div>",
       "stamps": [
         "evidence"
-      ]},
+      ]
+    },
     "prop_cutting_lane_tally": {
-    "kind": "ledger",
-    "icon": "🧾",
-    "title": "The Cutting-Lane Tally — Last Page",
-    "subtitle": "Kitchen-knife hand · third shift · sap and grease · the last page",
-    "items": [],
-    "articles": [
-      "feyward_woodfellow_vs_the_treant"
-    ],
-    "note": "The engagement tally, kept by the only member of the expedition whose handwriting survived the sap. Every count matches the keeper's marks. The sap is original.",
-    "body": "<div class=\"pd-head\"><div class=\"pd-org\">Cutting Expedition — Provisional Lane Tally</div><div class=\"pd-sub\">Kept by the Goblin Staff · kitchen knife, third shift · the last page</div></div><table class=\"pd-table\"><thead><tr><th>Item of account</th><th>Counted</th><th>Remark</th></tr></thead><tbody><tr><td>The treant</td><td>felled</td><td>Two books. The second was a formality</td></tr><tr><td>Awakened shrubs</td><td>2 felled</td><td>One book each. The keeper records no remark</td></tr><tr><td>The mound</td><td>run down</td><td>Pursued beyond the tally. See the gap, this page</td></tr><tr><td>Sleep-sand, expended</td><td>3 throws</td><td>A third of the lane. Majority friendly, per the casters</td></tr><tr><td>Cutlery, expended</td><td>11 pieces</td><td>4 strikes. The fork is not ceremonial</td></tr><tr><td>Books, expended</td><td>9</td><td>One thrown wild into the night. The library does not comment</td></tr><tr><td>Carried from the field</td><td>2</td><td>Swifty; Renard. Not struck from the muster</td></tr><tr><td>Sprites</td><td>uncounted</td><td>See weather report</td></tr></tbody></table><hr><div class=\"pd-clause\">The keeper records an interval of eighteen minutes between the champion's fall and the mound's account. The keeper was present for all of it and remembers none of it. The page was wet then.</div><div class=\"pd-wah\">WAH — audited. The counts hold. The librarian pays for the next crate of books. &mdash; W.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>(a knife-mark)</i></div><div class=\"pd-sigcap\">Goblin Staff, keeper of the tally</div></div></div>",
-    "stamps": [
-      "evidence"
-    ]},
-  "prop_pursuit_report_blank": {
-    "kind": "order",
-    "icon": "🩶",
-    "title": "The Pursuit Report of the Eighteen Minutes — Unfiled",
-    "subtitle": "Standard expedition report form · issued to the scout Lochan · recovered blank",
-    "items": [],
-    "articles": [
-      "feyward_woodfellow_vs_the_treant"
-    ],
-    "note": "Every field empty, the bottom third water-stained, one word added by a hand that is not the scout's. Filed as an exhibit because the emptiness is the testimony.",
-    "body": "<div class=\"pd-head\"><div class=\"pd-org\">Cutting Expedition — Engagement Report</div><div class=\"pd-sub\">Form 3 · to be completed by the officer of any pursuit within one watch</div></div><table class=\"pd-table\"><thead><tr><th>Field</th><th>Entry</th></tr></thead><tbody><tr><td>Officer of pursuit</td><td>Lochan, scout</td></tr><tr><td>Force pursued</td><td>the mound</td></tr><tr><td>Duration</td><td>eighteen minutes</td></tr><tr><td>Route taken</td><td>&nbsp;</td></tr><tr><td>Resistance met</td><td>&nbsp;</td></tr><tr><td>Friendly losses en route</td><td>&nbsp;</td></tr><tr><td>Disposition of the pursued</td><td>&nbsp;</td></tr><tr><td>Remarks</td><td>&nbsp;</td></tr></tbody></table><hr><div class=\"pd-margin\">The page was wet. I have nothing else. — L.</div><div class=\"pd-wah\">WAH — a form this blank is a confession wearing a uniform. Filed unanswered. &mdash; W.</div>",
-    "stamps": [
-      "overdue"
-    ]
-  },
-  "prop_sleep_sand_requisition": {
-    "kind": "invoice",
-    "icon": "🧿",
-    "title": "Requisition — Sleep-Sand, Assorted, Three Throws",
-    "subtitle": "Drawn against the wood's stores · signed Comfrey, senior caster · marked as one would expect",
-    "items": [],
-    "articles": [
-      "feyward_woodfellow_vs_the_treant"
-    ],
-    "note": "The paperwork that authorized the weather. Quantities as requested; delivery as thrown; the discrepancy column was not provided for.",
-    "body": "<div class=\"pd-head\"><div class=\"pd-org\">The Awakened Wood — Stores</div><div class=\"pd-sub\">Requisition · night operations · cutting-lane suppression</div></div><table class=\"pd-table\"><thead><tr><th>Item</th><th>Qty</th><th>Purpose</th></tr></thead><tbody><tr><td>Fine sand, sleep-bearing</td><td>3 throws</td><td>Suppression of the cutting crew</td></tr><tr><td>Rose petals, dried</td><td>1 pouch</td><td>Component</td></tr><tr><td>Cricket, one, live</td><td>1</td><td>Component</td></tr><tr><td>Verification of target area</td><td>—</td><td><i>not requisitioned</i></td></tr></tbody></table><hr><div class=\"pd-clause\">Signed for the casters: Comfrey. Distribution: Mugwort, Sorrel, self. The undersigned notes for the record that the cloud is large and the night is dark, and that these are the wood's problems, not the casters'.</div><div class=\"pd-margin pd-margin--red\">Post-action annotation, unknown hand: three throws, one lane, both armies. Requisition returned. See tally.</div><div class=\"pd-stamp pd-stamp--void\">VOID</div>",
-    "stamps": [
-      "void"
-    ]
-  },
-  "prop_threshold_sentence": {
-    "kind": "telegram",
-    "icon": "🚪",
-    "title": "The Threshold Sentence — As Spoken",
-    "subtitle": "Testimony taken at the door of Tymnas's cottage · night of 30 Harvestide, 1040 BF",
-    "items": [],
-    "articles": [
-      "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
-    ],
-    "note": "Nine words, spoken mid-flight through a broken window by an imp being thrown out of a broom closet, and the oldest law of thresholds in the world folded around them. The transcript is short. Consequences are not.",
-    "body": "<div class=\"pd-head\"><div class=\"pd-org\">Testimony — Threshold Law Incident</div><div class=\"pd-sub\">Recorded by Markop · witnessed by the door</div></div><div class=\"pd-quote\">“I give the vampire permission to go inside!”</div><hr><div class=\"pd-clause\"><b class=\"n\">1.</b> Spoken by the imp while airborne, before crossing the sill it had been thrown through. Utterance completed prior to ejection. The law does not appear to care about the airborne part.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> The threshold accepted the sentence. The cottage refused the vampire for the better part of an hour; the refusal ended with the ninth word above.</div><div class=\"pd-clause\"><b class=\"n\">3.</b> A thousand years of invitation law, and the operative question of the age is now whether an imp hiding with the brooms counts as a resident.</div><div class=\"pd-margin\">Sunlight and the Holy Symbol of Ravenkind drove the guest back out. The door has requested a transfer. &mdash; filed by the second Dan, who was there.</div><div class=\"pd-wah\">WAH — this is why Waluigi audits wording. Nobody else does. &mdash; W.</div>",
-    "stamps": [
-      "evidence"
-    ]
-  },
-  "prop_mirror_custody_chit": {
-    "kind": "order",
-    "icon": "🪞",
-    "title": "Custody Slip — The Mirror of True Reflection",
-    "subtitle": "Issued to the sleeping guard · recovered from the sleeping guard · still overdue",
-    "items": [],
-    "articles": [
-      "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
-    ],
-    "note": "The paper that says why the mirror was where Eager found it. Custody transferred to a man who slept through the transfer, the theft, and, reportedly, the shouting afterward.",
-    "body": "<div class=\"pd-head\"><div class=\"pd-org\">Custody Slip — Recovered Artifact</div><div class=\"pd-sub\">One (1) mirror · true reflection · signed under duress of ordinariness</div></div><table class=\"pd-table\"><thead><tr><th>Field</th><th>Entry</th></tr></thead><tbody><tr><td>Article</td><td>The Mirror of True Reflection</td></tr><tr><td>Custodian</td><td>[the guard — name withheld; he was asleep]</td></tr><tr><td>Duration of custody</td><td>Unclear. He was asleep.</td></tr><tr><td>Condition at issue</td><td>Reflective</td></tr><tr><td>Condition at recovery</td><td>Reflective; custodian unchanged</td></tr><tr><td>Method of recovery</td><td>Borrowed gloves, omega stealth, one smooth motion</td></tr><tr><td>Custodian's account</td><td>None. He was asleep.</td></tr></tbody></table><hr><div class=\"pd-clause\">The slip remains open. Custody of the mirror passed to Remi Akamatsu without a countersignature, which the filing desk notes is the most honest paperwork of the evening.</div><div class=\"pd-stamp pd-stamp--overdue\">OVERDUE</div>",
-    "stamps": [
-      "overdue"
-    ]
-  }
+      "kind": "ledger",
+      "icon": "🧾",
+      "title": "The Cutting-Lane Tally — Last Page",
+      "subtitle": "Kitchen-knife hand · third shift · sap and grease · the last page",
+      "items": [],
+      "articles": [
+        "feyward_woodfellow_vs_the_treant"
+      ],
+      "note": "The engagement tally, kept by the only member of the expedition whose handwriting survived the sap. Every count matches the keeper's marks. The sap is original.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Cutting Expedition — Provisional Lane Tally</div><div class=\"pd-sub\">Kept by the Goblin Staff · kitchen knife, third shift · the last page</div></div><table class=\"pd-table\"><thead><tr><th>Item of account</th><th>Counted</th><th>Remark</th></tr></thead><tbody><tr><td>The treant</td><td>felled</td><td>Two books. The second was a formality</td></tr><tr><td>Awakened shrubs</td><td>2 felled</td><td>One book each. The keeper records no remark</td></tr><tr><td>The mound</td><td>run down</td><td>Pursued beyond the tally. See the gap, this page</td></tr><tr><td>Sleep-sand, expended</td><td>3 throws</td><td>A third of the lane. Majority friendly, per the casters</td></tr><tr><td>Cutlery, expended</td><td>11 pieces</td><td>4 strikes. The fork is not ceremonial</td></tr><tr><td>Books, expended</td><td>9</td><td>One thrown wild into the night. The library does not comment</td></tr><tr><td>Carried from the field</td><td>2</td><td>Swifty; Renard. Not struck from the muster</td></tr><tr><td>Sprites</td><td>uncounted</td><td>See weather report</td></tr></tbody></table><hr><div class=\"pd-clause\">The keeper records an interval of eighteen minutes between the champion's fall and the mound's account. The keeper was present for all of it and remembers none of it. The page was wet then.</div><div class=\"pd-wah\">WAH — audited. The counts hold. The librarian pays for the next crate of books. &mdash; W.</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>(a knife-mark)</i></div><div class=\"pd-sigcap\">Goblin Staff, keeper of the tally</div></div></div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_pursuit_report_blank": {
+      "kind": "order",
+      "icon": "🩶",
+      "title": "The Pursuit Report of the Eighteen Minutes — Unfiled",
+      "subtitle": "Standard expedition report form · issued to the scout Lochan · recovered blank",
+      "items": [],
+      "articles": [
+        "feyward_woodfellow_vs_the_treant"
+      ],
+      "note": "Every field empty, the bottom third water-stained, one word added by a hand that is not the scout's. Filed as an exhibit because the emptiness is the testimony.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Cutting Expedition — Engagement Report</div><div class=\"pd-sub\">Form 3 · to be completed by the officer of any pursuit within one watch</div></div><table class=\"pd-table\"><thead><tr><th>Field</th><th>Entry</th></tr></thead><tbody><tr><td>Officer of pursuit</td><td>Lochan, scout</td></tr><tr><td>Force pursued</td><td>the mound</td></tr><tr><td>Duration</td><td>eighteen minutes</td></tr><tr><td>Route taken</td><td>&nbsp;</td></tr><tr><td>Resistance met</td><td>&nbsp;</td></tr><tr><td>Friendly losses en route</td><td>&nbsp;</td></tr><tr><td>Disposition of the pursued</td><td>&nbsp;</td></tr><tr><td>Remarks</td><td>&nbsp;</td></tr></tbody></table><hr><div class=\"pd-margin\">The page was wet. I have nothing else. — L.</div><div class=\"pd-wah\">WAH — a form this blank is a confession wearing a uniform. Filed unanswered. &mdash; W.</div>",
+      "stamps": [
+        "overdue"
+      ]
+    },
+    "prop_sleep_sand_requisition": {
+      "kind": "invoice",
+      "icon": "🧿",
+      "title": "Requisition — Sleep-Sand, Assorted, Three Throws",
+      "subtitle": "Drawn against the wood's stores · signed Comfrey, senior caster · marked as one would expect",
+      "items": [],
+      "articles": [
+        "feyward_woodfellow_vs_the_treant"
+      ],
+      "note": "The paperwork that authorized the weather. Quantities as requested; delivery as thrown; the discrepancy column was not provided for.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">The Awakened Wood — Stores</div><div class=\"pd-sub\">Requisition · night operations · cutting-lane suppression</div></div><table class=\"pd-table\"><thead><tr><th>Item</th><th>Qty</th><th>Purpose</th></tr></thead><tbody><tr><td>Fine sand, sleep-bearing</td><td>3 throws</td><td>Suppression of the cutting crew</td></tr><tr><td>Rose petals, dried</td><td>1 pouch</td><td>Component</td></tr><tr><td>Cricket, one, live</td><td>1</td><td>Component</td></tr><tr><td>Verification of target area</td><td>—</td><td><i>not requisitioned</i></td></tr></tbody></table><hr><div class=\"pd-clause\">Signed for the casters: Comfrey. Distribution: Mugwort, Sorrel, self. The undersigned notes for the record that the cloud is large and the night is dark, and that these are the wood's problems, not the casters'.</div><div class=\"pd-margin pd-margin--red\">Post-action annotation, unknown hand: three throws, one lane, both armies. Requisition returned. See tally.</div><div class=\"pd-stamp pd-stamp--void\">VOID</div>",
+      "stamps": [
+        "void"
+      ]
+    },
+    "prop_threshold_sentence": {
+      "kind": "telegram",
+      "icon": "🚪",
+      "title": "The Threshold Sentence — As Spoken",
+      "subtitle": "Testimony taken at the door of Tymnas's cottage · night of 30 Harvestide, 1040 BF",
+      "items": [],
+      "articles": [
+        "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
+      ],
+      "note": "Nine words, spoken mid-flight through a broken window by an imp being thrown out of a broom closet, and the oldest law of thresholds in the world folded around them. The transcript is short. Consequences are not.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Testimony — Threshold Law Incident</div><div class=\"pd-sub\">Recorded by Markop · witnessed by the door</div></div><div class=\"pd-quote\">“I give the vampire permission to go inside!”</div><hr><div class=\"pd-clause\"><b class=\"n\">1.</b> Spoken by the imp while airborne, before crossing the sill it had been thrown through. Utterance completed prior to ejection. The law does not appear to care about the airborne part.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> The threshold accepted the sentence. The cottage refused the vampire for the better part of an hour; the refusal ended with the ninth word above.</div><div class=\"pd-clause\"><b class=\"n\">3.</b> A thousand years of invitation law, and the operative question of the age is now whether an imp hiding with the brooms counts as a resident.</div><div class=\"pd-margin\">Sunlight and the Holy Symbol of Ravenkind drove the guest back out. The door has requested a transfer. &mdash; filed by the second Dan, who was there.</div><div class=\"pd-wah\">WAH — this is why Waluigi audits wording. Nobody else does. &mdash; W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_mirror_custody_chit": {
+      "kind": "order",
+      "icon": "🪞",
+      "title": "Custody Slip — The Mirror of True Reflection",
+      "subtitle": "Issued to the sleeping guard · recovered from the sleeping guard · still overdue",
+      "items": [],
+      "articles": [
+        "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
+      ],
+      "note": "The paper that says why the mirror was where Eager found it. Custody transferred to a man who slept through the transfer, the theft, and, reportedly, the shouting afterward.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Custody Slip — Recovered Artifact</div><div class=\"pd-sub\">One (1) mirror · true reflection · signed under duress of ordinariness</div></div><table class=\"pd-table\"><thead><tr><th>Field</th><th>Entry</th></tr></thead><tbody><tr><td>Article</td><td>The Mirror of True Reflection</td></tr><tr><td>Custodian</td><td>[the guard — name withheld; he was asleep]</td></tr><tr><td>Duration of custody</td><td>Unclear. He was asleep.</td></tr><tr><td>Condition at issue</td><td>Reflective</td></tr><tr><td>Condition at recovery</td><td>Reflective; custodian unchanged</td></tr><tr><td>Method of recovery</td><td>Borrowed gloves, omega stealth, one smooth motion</td></tr><tr><td>Custodian's account</td><td>None. He was asleep.</td></tr></tbody></table><hr><div class=\"pd-clause\">The slip remains open. Custody of the mirror passed to Remi Akamatsu without a countersignature, which the filing desk notes is the most honest paperwork of the evening.</div><div class=\"pd-stamp pd-stamp--overdue\">OVERDUE</div>",
+      "stamps": [
+        "overdue"
+      ]
+    },
+    "prop_ebott_secrecy_oath": {
+      "kind": "contract",
+      "icon": "🤐",
+      "title": "Oath of Silence — Monster Underground Egress",
+      "subtitle": "New Home throne room · sworn before localized transport",
+      "items": [],
+      "articles": [
+        "mount_ebott_survey_final_log",
+        "mount_ebott_survey_part_7"
+      ],
+      "note": "The oath covers what the visitors saw and how they left. Waluigi hates a nondisclosure agreement that works.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Crown of the Monster Underground</div><div class=\"pd-sub\">Binding verbal oath · New Home throne room</div></div><div class=\"pd-title\">Oath of Silence Prior to Surface Egress</div><dl class=\"pd-meta\"><dt>Required by</dt><dd>King Asgore and Queen Toriel</dd><dt>Sworn by</dt><dd>Sans, Dracule Mihawk, and the visiting Gamma Agent</dd><dt>Scope</dt><dd>All sights, routes, mechanisms, inhabitants, and the method of departure</dd></dl><div class=\"pd-clause\">The Underground has endured by remaining myth to the surface. Disclosure of monsterkind's reality or of the transport method is treated as a direct threat to that survival.</div><div class=\"pd-margin pd-margin--red\">A royal NDA with teeth and sorrow in the ink. WAH.</div><div class=\"pd-sign\"><div class=\"pd-sigline\">Asgore Dreemurr</div><div class=\"pd-sigcap\">King of the Monster Underground</div><div class=\"pd-sigline\">Toriel Dreemurr</div><div class=\"pd-sigcap\">Queen of the Monster Underground</div></div>",
+      "stamps": [
+        "sealed",
+        "evidence"
+      ]
+    },
+    "prop_ebott_data_handover_receipt": {
+      "kind": "ledger",
+      "icon": "📟",
+      "title": "Survey Machine Handover Receipt",
+      "subtitle": "Iron Legion Old World Embassy · extraction intake",
+      "items": [],
+      "articles": [
+        "mount_ebott_survey_final_log",
+        "gamma_agent"
+      ],
+      "note": "The machine was supposed to be ecological. The receipt lists conversations, battle readings and monster-tech scans.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Iron Legion Embassy Intake Desk</div><div class=\"pd-sub\">Evidence transfer ledger · Mount Ebott return</div></div><div class=\"pd-title\">Receipt of Survey Machine and Data Packet</div><table class=\"pd-table\"><tr><th>Item</th><th>Declared purpose</th><th>Recovered contents</th></tr><tr><td>Survey machine</td><td>Ecological readings</td><td>Ecology, conversation logs, battle readings, energy levels, monster technology scans</td></tr><tr><td>Data packet</td><td>Mission return packet</td><td>Complete Underground contact dump pending analyst review</td></tr></table><div class=\"pd-clause\">Receiving personnel state that Command will require months to process the intelligence. Originating agent was not briefed on the machine's full recording capability.</div><div class=\"pd-margin pd-margin--red\">A scanner that records conversations is not a scanner. It is a witness with handles. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_gamma_comms_privilege": {
+      "kind": "order",
+      "icon": "📞",
+      "title": "External Communications Privilege Authorization",
+      "subtitle": "Reward issued after Mount Ebott intelligence transfer",
+      "items": [],
+      "articles": [
+        "mount_ebott_survey_final_log",
+        "gamma_agent"
+      ],
+      "note": "One monitored hour per month. A reward shaped like a leash.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Iron Legion Embassy Command</div><div class=\"pd-sub\">External line authorization · provisional</div></div><div class=\"pd-title\">Monthly Outside Communication Allowance</div><dl class=\"pd-meta\"><dt>Recipient</dt><dd>Gamma Agent, Mount Ebott survey return</dd><dt>Allowance</dt><dd>One hour per month</dd><dt>Device</dt><dd>Encrypted Legion-issued communication tablet</dd><dt>Condition</dt><dd>Continued compliance with Legion protocol</dd><dt>Monitoring</dt><dd>Officer on duty and authorizing command officer</dd></dl><div class=\"pd-clause\">The privilege is awarded in recognition of the Mount Ebott data haul and remains revocable.</div><div class=\"pd-margin\">Finally, family contact — itemized, timed, and watched. The Legion can make even mercy wear a badge. — W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_mihawk_debrief_summary": {
+      "kind": "note",
+      "icon": "🗡️",
+      "title": "Witness Debrief Summary — Dracule Mihawk",
+      "subtitle": "Secondary interview room · Old World Embassy",
+      "items": [],
+      "articles": [
+        "mount_ebott_survey_final_log",
+        "dracule_mihawk"
+      ],
+      "note": "Mihawk states he was protective support, not the data collector. Command later treats him as a monitoring problem anyway.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Iron Legion Embassy Debrief Section</div><div class=\"pd-sub\">Non-Legion witness interview · summary only</div></div><div class=\"pd-title\">Dracule Mihawk — Role Assessment</div><dl class=\"pd-meta\"><dt>Declared role</dt><dd>Protective escort / security support</dd><dt>Data collection</dt><dd>Denied direct participation</dd><dt>Mission proximity</dt><dd>Present for monster contact and extraction</dd><dt>Disposition</dt><dd>Calm, minimally cooperative, not assessed hostile</dd></dl><div class=\"pd-clause\">Subject states: 'My role was protective. Not analytical.' Follow-up notes flag the subject as a non-Legion witness with classified exposure.</div><div class=\"pd-margin\">The file believes him and watches him anyway. That is the whole Legion in one sentence. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_real_gamma_manual_excerpt": {
+      "kind": "order",
+      "icon": "📕",
+      "title": "The Real Manual — Gamma Authority Extract",
+      "subtitle": "Articles 9-4, Directive 6-Alpha, 13-7 and Protocol 4871",
+      "items": [],
+      "articles": [
+        "mount_ebott_survey_final_log",
+        "gamma_agent",
+        "gamma_division"
+      ],
+      "note": "The manual excerpt turned an unauthorized interrogation into a clearance problem.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Gamma Division Restricted Manual</div><div class=\"pd-sub\">Unsterilized extract · handler review copy</div></div><div class=\"pd-title\">Operational Autonomy and Deadman's Stamp Authority</div><div class=\"pd-clause pd-flagged\"><b>Article 9-4.</b> Gamma agents are granted autonomous authority over classified operations of Tier 5 or higher.</div><div class=\"pd-clause\"><b>Directive 6-Alpha.</b> Activated Gamma operatives are exempt from standard reporting structures until stabilization.</div><div class=\"pd-clause pd-flagged\"><b>Article 13-7.</b> Gamma operatives may terminate an asset deemed a security risk without oversight or review. No ordinary paperwork is required under this clause.</div><div class=\"pd-clause\"><b>Protocol 4871.</b> A Gamma under debrief may request unsterilized names and a Gamma Observer when chain-of-command contamination is alleged.</div><div class=\"pd-margin pd-margin--red\">If the public manual is the law, this is the knife kept behind the law. — W.</div>",
+      "stamps": [
+        "sealed",
+        "evidence"
+      ]
+    },
+    "prop_high_command_summons": {
+      "kind": "telegram",
+      "icon": "✉️",
+      "title": "High Command Priority Summons",
+      "subtitle": "Courier envelope delivered during Gamma debrief",
+      "items": [],
+      "articles": [
+        "mount_ebott_survey_final_log",
+        "gamma_agent",
+        "daniel_gamma_command"
+      ],
+      "note": "The summons removed the Gamma Agent from Daniel's disciplinary room before the debrief could resolve.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">High Command</div><div class=\"pd-sub\">Priority courier dispatch · hand delivery only</div></div><pre class=\"pd-wire\">TO: DANIEL / GAMMA DEBRIEF AUTHORITY\nSUBJECT: IMMEDIATE TRANSFER OF ACTIVE GAMMA ASSET\n\nTHE AGENT PRESENT IN YOUR ROOM IS REQUIRED AT HIGH COMMAND.\nTHIS SUMMONS SUPERSEDES LOCAL DISCIPLINE, EMBASSY PROCESS, AND ORDINARY DEBRIEF SEQUENCE.\nTRANSFER BY AIR IMMEDIATELY.\nNO VIDEO CALL. NO SUBSTITUTION. NO DELAY.</pre><div class=\"pd-margin\">The part that says no video call is how you know the paper is evil. — W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_final_logger_cutoff": {
+      "kind": "addendum",
+      "icon": "⏱️",
+      "title": "Final Logger Cutoff — Last Five Seconds",
+      "subtitle": "Attached to the Mount Ebott final log after playback ended",
+      "items": [],
+      "articles": [
+        "mount_ebott_survey_final_log"
+      ],
+      "note": "The archive ends because High Command turned the logger off. That is a fact, not an absence.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Waluipedia Evidence Room</div><div class=\"pd-sub\">Late slip · audio/log terminal</div></div><div class=\"pd-title\">Last Recorded Five Seconds</div><div class=\"pd-late\">Attached after the final Ebott log was recovered. The remainder of the meeting is unavailable because recording was deliberately disabled.</div><div class=\"pd-quote\">'All recordings are now inactive. From this moment forward, nothing you hear or say will be logged.'</div><div class=\"pd-wah\">WAH! The archive does not like being told to close its eyes.</div>",
+      "stamps": [
+        "evidence",
+        "sealed"
+      ]
+    }
   }
 }

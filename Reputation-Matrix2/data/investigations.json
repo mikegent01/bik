@@ -2852,6 +2852,251 @@
           }
         }
       ]
+    },
+    {
+      "id": "mount_ebott_silence_file",
+      "codename": "THE LOGGER WENT DARK",
+      "title": "The Oath, the Machine, and the Missing Minutes",
+      "subtitle": "Mount Ebott final-log investigation",
+      "status": "active",
+      "classification": "Gamma / Monster Underground / High Command breach",
+      "arcIds": [
+        "mount_ebott_survey"
+      ],
+      "opened": "Mid-10XX BF — Day 6",
+      "lastFiled": "Mid-10XX BF — Day 6",
+      "archivist": "Waluigi, Auditor-General",
+      "icon": "⏱️",
+      "accent": "#8a4bff",
+      "imageCaption": "The final file is not about what the logger heard. It is about who had authority to stop it hearing.",
+      "hook": "A secrecy oath, an over-recording survey machine, and a High Command logger cutoff cannot all be harmless at the same time.",
+      "plainSummary": [
+        {
+          "point": "The machine remembered more than the Agent knew.",
+          "detail": "The survey machine was described as ecological equipment but returned with conversations, battle readings and monster technology scans."
+        },
+        {
+          "point": "The oath may already be compromised.",
+          "detail": "Monsterkind demanded silence after a device had already converted Underground reality into Legion-readable data."
+        },
+        {
+          "point": "High Command created the archive gap.",
+          "detail": "The final five seconds prove the logger was deliberately disabled before the breach briefing continued."
+        }
+      ],
+      "background": [
+        {
+          "id": "mount_ebott_survey_part_7",
+          "kicker": "Prior filing",
+          "why": "Prior file records \"Localized transport granted by Asgore and Toriel under Oath of Secrecy\" before this final log."
+        },
+        {
+          "id": "gamma_agent",
+          "kicker": "Principal asset",
+          "why": "The Gamma Agent page states that 'Gamma Division is still active' and that the survey of Mount Ebott was a classified mission."
+        },
+        {
+          "id": "undertale_monsters",
+          "kicker": "Protected community",
+          "why": "The Monster Underground is a 'living political community beneath Mount Ebott', which is exactly what the survey machine exposed."
+        }
+      ],
+      "brief": "This file asks what the final Ebott log proves about the survey machine, Gamma authority, and the off-record High Command breach. It does not decide the contents of the missing minutes; it records who created them.",
+      "threads": [
+        {
+          "id": "machine_scope",
+          "label": "What did the survey machine actually collect?",
+          "status": "open"
+        },
+        {
+          "id": "oath_breach",
+          "label": "Did the data haul already violate the Underground oath?",
+          "status": "open"
+        },
+        {
+          "id": "deadmans_stamp",
+          "label": "Who outside Gamma clearance knows the Deadman's Stamp?",
+          "status": "open"
+        },
+        {
+          "id": "logger_cutoff",
+          "label": "What did High Command remove from the record?",
+          "status": "open"
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead_koffin_emergency",
+          "title": "Recover Koffin-K's interrupted emergency",
+          "status": "open",
+          "priority": "high",
+          "why": "Koffin-K reached the throne room before the second transport completed and said there was an emergency; the light took the Agent before the warning could be named.",
+          "exhibits": [
+            "ex_logger_cutoff"
+          ]
+        },
+        {
+          "id": "lead_data_scope_audit",
+          "title": "Audit the survey machine's hidden logging package",
+          "status": "open",
+          "priority": "critical",
+          "why": "The Agent believed the machine was ecological, while Legion intake reported conversations, battle readings and monster-tech scans. That mismatch is the center of the oath problem.",
+          "exhibits": [
+            "ex_data_receipt",
+            "ex_oath"
+          ]
+        },
+        {
+          "id": "lead_deadmans_leak",
+          "title": "Trace the Deadman's Stamp leak",
+          "status": "open",
+          "priority": "critical",
+          "why": "A civilian embassy operative knew enough about the Deadman's Stamp to react with recognition. Daniel treated that as a breach, not merely insubordination.",
+          "exhibits": [
+            "ex_manual",
+            "ex_summons"
+          ]
+        }
+      ],
+      "sessions": [
+        {
+          "id": "s_ebott_final",
+          "label": "Final Ebott log — transport, embassy, High Command cutoff",
+          "date": "Mid-10XX BF — Day 6",
+          "event": "mount_ebott_survey_final_log"
+        }
+      ],
+      "relatedEvents": [
+        "mount_ebott_survey_part_7",
+        "mount_ebott_survey_final_log"
+      ],
+      "exhibits": [
+        {
+          "id": "ex_oath",
+          "propId": "prop_ebott_secrecy_oath",
+          "session": "s_ebott_final",
+          "icon": "🤐",
+          "kind": "contract",
+          "category": "oath",
+          "title": "The secrecy oath",
+          "secured": "filed",
+          "custody": "Monster Underground crown / Waluipedia copy",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(74,85,104,.25),rgba(15,23,42,.95));border:1px solid rgba(148,163,184,.35)\"><div style=\"position:absolute;left:18px;top:18px;font-size:34px\">🤐</div><div style=\"position:absolute;right:18px;bottom:16px;color:#c4b5fd;font-size:11px;font-weight:800;letter-spacing:.18em\">SILENCE BEFORE EGRESS</div></div>",
+          "dc": 3,
+          "onRecord": "Asgore and Toriel require silence on what was seen and how the visitors left. [[roll:3|Compare the oath to the machine receipt|The oath is not just diplomatic courtesy; it is a containment measure already threatened by the machine's hidden logs.|The oath still stands as a promise, but the file cannot yet prove whether machine custody legally breaks it.]]",
+          "analysis": "The oath proves monsterkind understood the surface risk. It also proves the visitors had warning. The ugly question is whether a promise made by a person can bind a device that was already recording beyond that person's knowledge.",
+          "links": {
+            "events": [
+              "mount_ebott_survey_final_log",
+              "mount_ebott_survey_part_7"
+            ],
+            "characters": [
+              "asgore",
+              "toriel",
+              "gamma_agent",
+              "dracule_mihawk"
+            ]
+          }
+        },
+        {
+          "id": "ex_data_receipt",
+          "propId": "prop_ebott_data_handover_receipt",
+          "session": "s_ebott_final",
+          "icon": "📟",
+          "kind": "ledger",
+          "category": "machine",
+          "title": "The data handover receipt",
+          "secured": "embassy intake copy",
+          "custody": "Iron Legion Old World Embassy",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(74,85,104,.25),rgba(15,23,42,.95));border:1px solid rgba(148,163,184,.35)\"><div style=\"position:absolute;left:16px;top:22px;width:92px;height:54px;border:2px solid #60a5fa;border-radius:8px;box-shadow:0 0 18px rgba(96,165,250,.35)\"></div><div style=\"position:absolute;left:128px;top:32px;color:#93c5fd;font-size:12px;font-weight:900\">ECOLOGY / VOICE / BATTLE / TECH</div></div>",
+          "dc": 4,
+          "onRecord": "Embassy intake says the survey machine logged ecology, conversations, battle readings and monster technology scans. [[roll:4|Check whether the Agent was briefed|The receipt and dialogue align: the Agent did not know the device had this scope, which makes the machine a hidden witness rather than ordinary equipment.|The file proves surprise, but not who hid the scope or whether the hiding was deliberate at issue.]]",
+          "analysis": "This is the exhibit that turns the whole ending. It converts the secrecy oath from a moral promise into a data-custody contradiction. A machine can violate a border without understanding the border exists.",
+          "links": {
+            "events": [
+              "mount_ebott_survey_final_log"
+            ],
+            "characters": [
+              "gamma_agent",
+              "dracule_mihawk"
+            ]
+          }
+        },
+        {
+          "id": "ex_manual",
+          "propId": "prop_real_gamma_manual_excerpt",
+          "session": "s_ebott_final",
+          "icon": "📕",
+          "kind": "order",
+          "category": "protocol",
+          "title": "The Real Manual extract",
+          "secured": "restricted copy",
+          "custody": "Gamma Division",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(74,85,104,.25),rgba(15,23,42,.95));border:1px solid rgba(148,163,184,.35)\"><div style=\"position:absolute;left:20px;top:18px;width:68px;height:92px;background:#5b1f2a;border:2px solid #fca5a5;border-radius:6px\"></div><div style=\"position:absolute;left:110px;top:30px;color:#fecaca;font-size:11px;font-weight:900;letter-spacing:.12em\">13-7 / DEADMAN'S STAMP</div></div>",
+          "dc": 5,
+          "onRecord": "The Agent reads Gamma autonomy, Directive 6-Alpha, and Deadman's Stamp authority from the Real Manual. [[roll:5|Test why the officer panicked|Her terror is not fear of a rogue soldier; it is recognition that the manual grants legal erasure power she was trained to treat as myth.|The panic is clear, but this file cannot prove whether her training hid the clause or whether she lied about ignorance.]]",
+          "analysis": "The manual is not just authority. It is a second legal system inside the first. Once opened, the embassy debrief stops being a personnel matter and becomes a question about who knows the hidden law.",
+          "links": {
+            "events": [
+              "mount_ebott_survey_final_log"
+            ],
+            "characters": [
+              "gamma_agent",
+              "jamesly",
+              "daniel_gamma_command"
+            ]
+          }
+        },
+        {
+          "id": "ex_summons",
+          "propId": "prop_high_command_summons",
+          "session": "s_ebott_final",
+          "icon": "✉️",
+          "kind": "telegram",
+          "category": "summons",
+          "title": "The High Command summons",
+          "secured": "courier copy",
+          "custody": "Gamma Command / Waluipedia transcription",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(74,85,104,.25),rgba(15,23,42,.95));border:1px solid rgba(148,163,184,.35)\"><div style=\"position:absolute;left:22px;top:26px;width:88px;height:62px;background:#1f2937;border:2px solid #d1d5db;transform:rotate(-4deg)\"></div><div style=\"position:absolute;right:18px;bottom:18px;color:#d1d5db;font-size:11px;font-weight:900;letter-spacing:.14em\">NO VIDEO CALL</div></div>",
+          "dc": 4,
+          "onRecord": "A High Command courier interrupts Daniel's debrief and orders the Gamma Agent transferred in person. [[roll:4|Check what the summons supersedes|The wording makes local discipline secondary to High Command need; the Agent is removed before Daniel can resolve the Deadman's Stamp breach.|The summons proves priority, not motive. It does not say whether High Command called because of the embassy incident or a separate breach.]]",
+          "analysis": "The summons is a jurisdictional trapdoor. Daniel's room is important until a sealed envelope says it is not. That timing is why the investigation cannot treat the unauthorized interrogation as the whole story.",
+          "links": {
+            "events": [
+              "mount_ebott_survey_final_log"
+            ],
+            "characters": [
+              "gamma_agent",
+              "daniel_gamma_command"
+            ]
+          }
+        },
+        {
+          "id": "ex_logger_cutoff",
+          "propId": "prop_final_logger_cutoff",
+          "session": "s_ebott_final",
+          "icon": "⏱️",
+          "kind": "addendum",
+          "category": "cutoff",
+          "title": "The final five seconds",
+          "secured": "Waluipedia evidence slip",
+          "custody": "Archive copy only",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(74,85,104,.25),rgba(15,23,42,.95));border:1px solid rgba(148,163,184,.35)\"><div style=\"position:absolute;left:18px;top:18px;color:#fde68a;font-size:24px;font-weight:900\">00:05</div><div style=\"position:absolute;left:18px;right:18px;bottom:18px;height:2px;background:linear-gradient(90deg,#fde68a,#ef4444,transparent)\"></div></div>",
+          "dc": 6,
+          "onRecord": "High Command disables the logger before discussing the intelligence breach. [[roll:6|Interrogate the silence|The cutoff is active evidence: High Command did not merely speak off-record; it created an off-record segment at the exact moment the breach topic began.|The missing minutes remain missing. The archive can prove deliberate silence, not the content behind it.]]",
+          "analysis": "A record ending by accident is absence. A record ending by order is evidence. This slip is the investigation's spine because it proves the archive's ignorance was manufactured.",
+          "links": {
+            "events": [
+              "mount_ebott_survey_final_log"
+            ],
+            "characters": [
+              "gamma_agent",
+              "daniel_gamma_command",
+              "jamesly"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

@@ -249,6 +249,54 @@ Do not create factions for:
 
 Generated faction stubs are review work, not reader-facing prose.
 
+## Reputation-impact gate
+
+Reputation impact is not a prose flourish. If a filing changes how a faction,
+operator, state, or public body regards someone, add a machine-readable impact
+where the renderer can show it.
+
+Use reputation data when the source includes one of these causes:
+
+```text
+□ a faction witnessed help, betrayal, theft, restraint, mercy, or violence
+□ an operation delivered useful intelligence or exposed secrets
+□ a party member endangered a faction's people, laws, border, or cover story
+□ a public document, verdict, broadcast, or annotation changes standing
+□ the event changes strategic trust between an operator and a faction
+```
+
+Where it goes:
+
+- `reputationChanges` on the event/battle/article for operator-specific impact;
+- `effects` for broad faction-level pressure when the whole event helps or hurts
+  a faction;
+- `reputationNotes` when the number needs a one-sentence cause on the record.
+
+Keep values modest and auditable from the story. Do not add reputation impact
+just because an important faction is mentioned. Mention is not standing.
+
+## “Investigate this further” gate
+
+The article page's **Investigate this further** panel is generated. Do not write
+a fake heading into prose to imitate it. Create the data that makes the panel
+appear.
+
+The panel appears when either of these exists:
+
+1. an investigation file in `data/investigations.json` has a `sessions[]` row
+   whose `event` is this article id, or exhibits whose `links.events[]` include
+   this article id;
+2. an article-analysis record in `data/articleAnalyses.json` has
+   `sourceArticle` equal to this article id.
+
+Use an investigation when there is evidence, paper, leads, contradictions, or
+roll-gated analysis to pursue. Use an article analysis when Waluigi has a
+signed interpretive thesis about an already-complete source article. Many major
+filings can have both.
+
+Do not create either system just to decorate a page. If there is no evidence to
+examine and no argument to make, no panel is better than an empty panel.
+
 ---
 
 ## XP gate

@@ -2175,5 +2175,58 @@
       "jory_dobbs",
       "glazed_congress_founding"
     ]
+  },
+  {
+    "id": "legion_embassy_old_world",
+    "name": "Iron Legion Old World Embassy",
+    "type": "Location / Embassy / Intelligence Front / Debriefing Site",
+    "region": "Old World surface corridor near Mount Ebott extraction routes",
+    "controllingFaction": "iron_legion",
+    "population": "Embassy staff, debrief officers, rooftop flight crew, security teams and analysts",
+    "climate": "Sterile interior air, rooftop rotor wash, polished corridors and mirrored interview rooms",
+    "status": "Active — received the Mount Ebott survey machine and processed the final Underground data dump",
+    "summary": "The Iron Legion Old World Embassy is the surface facility that received the Gamma Agent and Dracule Mihawk after their localized transport out of Mount Ebott. It functions publicly as an embassy and internally as an intelligence intake site: rooftop landing pad, debriefing level, mirrored interview rooms, command briefing offices and enough surveillance to make every hallway feel like a signed statement.",
+    "description": "# IRON LEGION OLD WORLD EMBASSY\n### Intake Site for the Mount Ebott Final Log\n\nThe embassy is the place where the Mount Ebott survey stopped being an expedition and became evidence. A helicopter lifted the Gamma Agent and Dracule Mihawk from the surface and delivered them to a roof where the corridors were white, the cameras were obvious, and the people pretending not to stare all knew the survey machine mattered.\n\nThe building's public face is diplomatic. Its working face is intake: collect the machine, separate witnesses, process the data, reward the asset, and decide what to do with a non-Legion swordsman who has seen too much. Waluigi files this as a location where architecture has learned to ask questions. The elevators do not merely move bodies between floors. They sort witnesses into procedures. WAH.",
+    "notableFeatures": [
+      "Rooftop helicopter pad used after the Mount Ebott surface extraction",
+      "Debriefing Level 3, with sterile corridors and camera coverage",
+      "Command briefing room with mirrored glass and document intake staff",
+      "Secondary holding/interview chamber used for Mihawk's debrief"
+    ],
+    "relatedArticles": [
+      "mount_ebott_survey_final_log",
+      "gamma_agent",
+      "dracule_mihawk",
+      "iron_legion",
+      "gamma_division",
+      "mount_ebott"
+    ]
+  },
+  {
+    "id": "gamma_high_command_spire",
+    "name": "Gamma High Command Spire",
+    "type": "Location / Black Command Facility / Impossible Transit Node",
+    "region": "Regal Empire — High Command airspace, exact approach classified",
+    "controllingFaction": "gamma_division",
+    "population": "High Command principals, Gamma observers, couriers, pilots and black-room staff",
+    "climate": "Windowless command air, impossible elevator pressure and rotor-wash that arrives too quickly",
+    "status": "Active — summoned the Gamma Agent after the embassy interrogation and ordered the logger disabled",
+    "summary": "The Gamma High Command Spire is the black command facility reached after the embassy summons. The route should have required border crossings and days of travel; the helicopter arrived almost immediately. Inside, hooded High Command figures ordered the Gamma Agent's logger disabled before discussing an intelligence-network breach, leaving the final Ebott log with a deliberate five-second cutoff.",
+    "description": "# GAMMA HIGH COMMAND SPIRE\n### The Place the Logger Went Dark\n\nThe High Command Spire is filed here because the final Mount Ebott log reaches it and then stops. The pilot says the flight will cross borders. The landscape disagrees. The helicopter lands before the passenger has finished objecting to the geography.\n\nInside, no guard challenges the Gamma insignia. An elevator climbs faster than a building has any right to permit. The chamber at the top contains three hooded figures, a request to disable the logger, and the last recorded sentence before the archive loses the room. Waluigi does not like buildings that make distance optional. Waluigi likes them even less when they also make records optional. WAH.",
+    "notableFeatures": [
+      "Rooftop arrival after an impossible short flight from the embassy",
+      "Security recognizes Gamma authority without challenge",
+      "High-speed elevator to a private circular chamber",
+      "Logger-disabling device used before the briefing continued off-record"
+    ],
+    "relatedArticles": [
+      "mount_ebott_survey_final_log",
+      "gamma_agent",
+      "jamesly",
+      "daniel_gamma_command",
+      "gamma_division",
+      "iron_legion",
+      "regal_empire"
+    ]
   }
 ]

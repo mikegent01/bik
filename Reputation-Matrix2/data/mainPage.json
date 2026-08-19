@@ -1,14 +1,14 @@
 {
   "featuredArticle": {
-    "id": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+    "id": "mount_ebott_survey_final_log",
     "type": "event",
-    "excerpt": "A locate spell meant for Archie finds the Mirror instead; Boundy knows Remi by name; an imp invites Randell through the cottage ward; Wario identifies a controlled storm and offers Remi a postal route home.",
-    "label": "Featured File · Mirror Theft & Invited Vampire"
+    "excerpt": "The final Mount Ebott log carries the oath, the transport, the machine handoff, the embassy debrief, the Deadman's Stamp escalation and the High Command logger cutoff.",
+    "label": "Featured File · Final Ebott Logger Cutoff"
   },
   "latestUpdate": {
-    "id": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
-    "label": "Latest Session · Tymnas Cottage Lockdown",
-    "excerpt": "Aethel 4: Mirror recovered, Randell repelled with the Holy Symbol of Ravenkind, controlled storm and arrest ambush unresolved."
+    "id": "mount_ebott_survey_final_log",
+    "label": "Latest Ebott File · High Command Silence",
+    "excerpt": "Mid-10XX BF Day 6: Wing Gaster transports the survey team to the surface; the Legion takes the over-recording machine; High Command turns the logger off."
   },
   "didYouKnow": [
     "...that Remi escaped two armed dungeon guards by drawing a goblin face on a cardboard box with a Sharpie marker and claiming to be a certified Box Guardian?",
@@ -16,8 +16,8 @@
     "...that Hjumpik recovered the Oracle-marked 'OC' Soul Ring during the Feyward Manor expedition using a garlic grenade and a Bob-omb?"
   ],
   "editorialDirective": {
-    "title": "WAH! Editorial Directive (1040 BF):",
-    "text": "The Mirror is back. The cottage ward is compromised. The storm has an operator. Remi has finally admitted she needs help finding home. File all four facts before anyone opens another window. WAH!"
+    "title": "WAH! Editorial Directive — Final Ebott Log:",
+    "text": "The oath says silence. The machine says record everything. High Command says stop recording. File the contradiction before anyone calls this mission complete. WAH!"
   },
   "spotlight": {
     "kicker": "System Spotlight · Bank & Commerce",

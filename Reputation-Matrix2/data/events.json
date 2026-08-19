@@ -12352,5 +12352,233 @@
     },
     "image": "assets/images/events/hanging-tree-apple-mirror-theft/hanging-tree-01-controlled-storm.jpg",
     "imageCaption": "Tymnas's cottage beneath the storm Wario identified as controlled: one window boarded with a closet door, the threshold bent, the eye holding over the roof."
+  },
+  {
+    "id": "mount_ebott_survey_final_log",
+    "name": "The Mount Ebott Survey: Final Log — The Transport, the Embassy Debrief, and the Logger Cutoff",
+    "title": "The Mount Ebott Survey: Final Log — The Transport, the Embassy Debrief, and the Logger Cutoff",
+    "date": "Mid-10XX BF — Day 6, after the throne room oath",
+    "era": "Modern Era — Mount Ebott Survey Arc",
+    "location": "mount_ebott / legion_embassy_old_world / gamma_high_command_spire",
+    "type": "expedition conclusion / intelligence debrief / classified summons",
+    "status": "Filed — logger disabled by High Command; off-record continuation unknown",
+    "summary": "The Mount Ebott Survey ends with an oath of silence, Wing Gaster's local-dimensional transport, a surface extraction, the handover of a survey machine that secretly logged conversations and battle readings, monitored outside communication privileges for the Gamma Agent, Mihawk's non-Legion debrief, an unauthorized Gamma interrogation over the Deadman's Stamp, Jamesly's intervention, Daniel's breach review, a High Command summons, and the final five recorded seconds before the logger is deliberately shut off.",
+    "description": "*\"All recordings are now inactive.\"* — the last sentence on the Mount Ebott logger before High Command turned the archive off.\n\nThe final Mount Ebott log begins with an oath and ends with a silence that someone else ordered. Between those two facts, the Gamma Agent leaves the Underground, learns what his survey machine really captured, receives the first monitored outside-communication privilege of his career, exposes too much Gamma authority in an embassy room, and is summoned to High Command in a helicopter that crosses geography the way a clerk crosses out a line.",
+    "sections": [
+      {
+        "name": "The Oath That Made the Exit Legal",
+        "icon": "🤐",
+        "overview": "Asgore did not treat the departure as a favor. He treated it as a risk with witnesses attached. The throne room held its breath while Toriel made the condition plain: silence on the Underground, silence on monsterkind, silence even on the method of leaving. Sans swore first. Mihawk answered with a nod, arms crossed, the sort of promise a swordsman makes when he has already decided it will cost him something. The Gamma Agent watched the others take the [[prop:prop_ebott_secrecy_oath|oath]] and understood only part of its weight.\n\nThen the room emptied and came back changed: Wing Gaster, Royal Scientist, rolling in a machine that hummed blue against the marble. He introduced himself cheerfully. He mentioned the CORE as if history were a birthday present he had wrapped himself. The Agent whispered to Mihawk that the name sounded familiar — maybe the pirate Gaster, maybe not — and Mihawk studied the scientist's face long enough to decide that resemblance was not identity. Names, unfortunately, do not need faces to remain dangerous.",
+        "waluigi_note": "An oath before a machine is how serious people make a door. Waluigi prefers doors with hinges, but monarchs love ceremony. WAH."
+      },
+      {
+        "name": "Gaster's Blaster Was a Door, Not a Gun",
+        "icon": "💀",
+        "overview": "Wing Gaster asked for the platform and produced a Gaster Blaster beside him with the pride of a man unveiling a violin. It charged. Nobody in the room enjoyed the optics of a skull-cannon pointed at a guest, but Gaster called it a stabilized dimensional projector and told Mihawk to stand still.\n\nMihawk stood alone on the platform. The beam struck, light swallowed him, and then the platform held only dust-like residue and fading magic. The Agent checked it because the word *dust* means something ugly under Mount Ebott. Asgore said Mihawk was not dead. Toriel said he was simply elsewhere. Sans briefly called it another world, then corrected himself when the Agent objected: the surface was not another dimension. Wing Gaster agreed. Local-dimensional displacement, same world's plane, surface endpoint.\n\nThe correction matters. A portal to another world is a miracle. A transport to the surface is an exit route. The Underground granted the second, not the first.",
+        "waluigi_note": "The machine uses a skull cannon to do transportation. This is why scientists should be supervised by accountants and frightened gardeners."
+      },
+      {
+        "name": "Koffin-K Arrived Too Late to Explain the Emergency",
+        "icon": "🚪",
+        "overview": "The Agent stepped onto the platform next. Gaster began the countdown. The core brightened. Asgore shifted his weight. Toriel folded her hands. Sans was looked at, but no one had time to make the look mean anything.\n\nThen the door burst open and Koffin-K shouted for the room to wait. He had an emergency. He did not get to name it. Gaster froze, asked what emergency, and the light took the Agent before the answer could enter the record.\n\nThis is the first unanswered question in the final log and it stays that way. Koffin-K's warning may have been trivial, catastrophic, or merely late. The archive has no right to pretend it knows. The light closed over the room with the emergency still standing in the doorway.",
+        "waluigi_note": "A warning that arrives one syllable late is still evidence. It is also infuriating. File the interruption; do not invent the contents."
+      },
+      {
+        "name": "The Machine Was Never Only Ecological",
+        "icon": "📟",
+        "overview": "The surface smelled like grass. Mihawk was already there. The Agent asked if they had done it, and Mihawk said yes. Then a helicopter spotlight pinned them both to the ground and the Legion arrived with extraction manners.\n\nThe Agent handed over the survey machine and data packet. Only then did the truth of the equipment become explicit: the device had logged more than ecology. Conversations, battle readings, energy levels, monster technology scans — all of it rode inside the [[prop:prop_ebott_data_handover_receipt|handover receipt]]. The Agent said he had never been told. The soldiers laughed the way institutions laugh when the useful person discovers the label on the tool was smaller than the tool.\n\nThe intelligence value was enormous. So was the diplomatic damage. The Monster Underground had just extracted an oath of secrecy from a visitor whose machine had already remembered the things he promised not to say.",
+        "waluigi_note": "If your ecological scanner records conversations, it is not an ecological scanner. It is a clerk with a battery. WAH."
+      },
+      {
+        "name": "One Hour a Month, Monitored",
+        "icon": "📞",
+        "overview": "At the embassy, the Agent's success became a reward with a timer attached. Command praised the data dump as years of research saved in one return. The Agent asked whether that meant outside communication privileges. The answer was yes: a Legion-issued device, one hour per month, external line access, monitored by the officer on duty and the authorizing command.\n\nThe Agent accepted immediately because family contact mattered more than privacy. That sentence should not be cleaned up. A monitored hour is still an hour. A leash can still reach someone you love. The [[prop:prop_gamma_comms_privilege|authorization]] is therefore both kindness and control, and the Legion is very good at making the same object serve both departments.",
+        "waluigi_note": "The Legion has discovered the smallest possible unit of mercy: sixty minutes, supervised."
+      },
+      {
+        "name": "Mihawk's Debrief and the Problem of Being Nearby",
+        "icon": "🗡️",
+        "overview": "Mihawk was separated into a secondary room and asked what he knew. He answered as Mihawk answers: minimally, precisely, and without ornament. He did not gather the data. He protected the person who did. His role was security, not analysis. The officer wrote that down in the [[prop:prop_mihawk_debrief_summary|debrief summary]] and, for a moment, the matter looked ordinary.\n\nIt did not stay ordinary. In the lobby, Mihawk and the Agent spoke like men standing at the end of a road. Mihawk did not know where he would go. He described an unnamed island, quiet and unclaimed, where lions roamed and home did not require a title. He also displayed enough wit, memory and restraint that the Gamma debrief later flagged him as a factor. Being innocent of data collection did not make him harmless to people who fear witnesses.",
+        "waluigi_note": "The Legion believes a man can be free to walk and still worth watching. This is not contradiction to them. It is policy."
+      },
+      {
+        "name": "The Deadman's Stamp Made the Room Smaller",
+        "icon": "📕",
+        "overview": "The embassy debrief became something else when the Agent pressed the officer about a dead authorizer, the true assignment, and the Deadman's Stamp. Security entered. A code — Alpha Zeta 2, Protocol 6 — turned guards into instruments. The officer discovered that the person across from her was not a lucky surveyor with a good data packet but an active Gamma asset with a manual she had never been meant to read.\n\nThe Agent read from [[prop:prop_real_gamma_manual_excerpt|the Real Manual]]: autonomous authority, Directive 6-Alpha, authority outside ordinary command, termination of assets deemed security risks. The officer collapsed under the revelation. Jamesly arrived before the room could become an execution. He named the breach of restraint: unauthorized interrogation, execution protocols, a civilian operative outside clearance. Then he ordered her to forget and took the Agent to Daniel.",
+        "waluigi_note": "When the secret manual is more important than the public manual, the public manual is a costume."
+      },
+      {
+        "name": "The Summons and the Cutoff",
+        "icon": "⏱️",
+        "overview": "Daniel began with discipline. The Agent requested unsterilized names and a Gamma Observer under Protocol 4871. Daniel granted both because protocol still matters even when everyone in the room hates it. The Agent argued that the officer's knowledge of the Deadman's Stamp indicated a leak. Daniel shifted from punishment to breach containment. Mihawk, as a pirate and witness, became a surveillance problem.\n\nThen a courier delivered a [[prop:prop_high_command_summons|High Command summons]]. The Agent was to appear in person. No video call. No delay. The helicopter flight should have crossed borders and taken days; it arrived at the High Command spire almost immediately. The pilot knew the Agent's real name — James — and admitted they had met during training.\n\nAt the top of the spire, three hooded figures explained that there was a breach in the intelligence network. The Agent asked whether to turn off the logger. They said yes. The last five seconds are filed as a [[prop:prop_final_logger_cutoff|cutoff slip]], because an archive must record the moment it was forbidden to record. The log ends there.",
+        "waluigi_note": "The final fact in the Mount Ebott survey is not what High Command said. It is that High Command knew where the recorder was and turned it off."
+      }
+    ],
+    "participants": [
+      {
+        "id": "gamma_agent",
+        "name": "Gamma Agent / James",
+        "role": "Surveyor, oathbound witness, data courier, monitored-communications recipient, Gamma asset summoned by High Command"
+      },
+      {
+        "id": "dracule_mihawk",
+        "name": "Dracule Mihawk",
+        "role": "Protective escort, first transport subject, non-Legion debrief witness and later surveillance concern"
+      },
+      {
+        "id": "asgore",
+        "name": "King Asgore",
+        "role": "Authorized egress under secrecy oath"
+      },
+      {
+        "id": "toriel",
+        "name": "Queen Toriel",
+        "role": "Set the non-negotiable oath terms"
+      },
+      {
+        "id": "sans",
+        "name": "Sans",
+        "role": "Oathbound witness and local-dimensional terminology correction"
+      },
+      {
+        "id": "wing_gaster",
+        "name": "Wing Gaster",
+        "role": "Royal Scientist, CORE builder, transport-machine operator"
+      },
+      {
+        "id": "koffin_k",
+        "name": "Koffin-K",
+        "role": "Late emergency messenger whose warning was cut off by transport"
+      },
+      {
+        "id": "jamesly",
+        "name": "Jamesly",
+        "role": "Senior Gamma handler and intervention authority"
+      },
+      {
+        "id": "daniel_gamma_command",
+        "name": "Daniel",
+        "role": "Gamma debrief authority"
+      }
+    ],
+    "outcome": "Mihawk and the Gamma Agent reached the surface. The survey machine and data packet entered Iron Legion custody. The Gamma Agent gained monitored outside communication privileges, exposed an apparent Deadman's Stamp leak, and was summoned to High Command. The final log ends when High Command disables the recorder.",
+    "notableFeatures": [
+      "Monster Underground secrecy oath",
+      "Wing Gaster's transport apparatus and Gaster Blaster projector",
+      "Koffin-K's unexplained last-second emergency",
+      "Survey machine confirmed to record conversations, battle readings and monster tech scans",
+      "One-hour monthly monitored outside communication privilege",
+      "Mihawk debriefed as protective support, not analyst",
+      "Deadman's Stamp and Real Manual authority exposed",
+      "Jamesly intervention and Daniel debrief",
+      "High Command summons and final logger cutoff"
+    ],
+    "relatedArticles": [
+      "mount_ebott_survey_part_7",
+      "mount_ebott_survey_part_6",
+      "mount_ebott",
+      "legion_embassy_old_world",
+      "gamma_high_command_spire",
+      "gamma_agent",
+      "dracule_mihawk",
+      "asgore",
+      "toriel",
+      "sans",
+      "wing_gaster",
+      "koffin_k",
+      "jamesly",
+      "daniel_gamma_command",
+      "iron_legion",
+      "gamma_division",
+      "undertale_monsters",
+      "regal_empire"
+    ],
+    "aftermath": "## Immediate Position\n\nThe Mount Ebott survey team has left the Underground, but the survey's contents are now more dangerous than the route. The Monster Underground received an oath of secrecy; the Iron Legion received a machine that had already recorded the things the oath was meant to protect.\n\n## Custody\n\nThe survey machine and data packet are in Iron Legion custody at the Old World Embassy. The Gamma Agent retains a monitored communication device under a one-hour-per-month allowance. Mihawk is free in the immediate sense but flagged for surveillance as a non-Legion witness with exposure to classified material.\n\n## Open Threats\n\nKoffin-K's emergency was never stated before the transport completed. The embassy officer's knowledge of the Deadman's Stamp suggests a leak or a clearance breach. High Command's summons superseded local debriefing and ended the record by disabling the logger. The continuation is therefore off-record by hostile administrative choice.",
+    "waluigiAssessment": "## Waluigi's Assessment\n\n**The oath and the machine contradict each other.** Asgore and Toriel required silence because monsterkind's survival depends on remaining myth. The survey machine had already made myth into data. That is not the Gamma Agent's confession; that is the Legion's equipment revealing its real job.\n\n**Mihawk is not innocent to the Legion because innocence is not the category they use.** He did not collect the data. He protected the collector. He saw enough to be watched, and the Legion's definition of threat begins at exposure, not guilt.\n\n**The communication privilege is a reward with a collar.** One hour a month matters. So does the monitoring. The Agent accepted because family contact is worth the compromise. Waluigi refuses to mock that. Waluigi will mock the institution that made a phone call conditional on compliance.\n\n**The Deadman's Stamp changes the genre.** Until that phrase enters the room, this is a debrief. After it, the room becomes a leak investigation with guns standing in the wrong direction.\n\n**Final verdict:** the Mount Ebott Survey did not end when the team reached the surface. It ended when High Command turned off the logger. The archive now knows the shape of the door and the hand that closed it.",
+    "xpAwards": [
+      {
+        "xpKey": "gamma_agent",
+        "articleId": "gamma_agent",
+        "name": "Gamma Legionary Agent",
+        "cat": "discovery",
+        "xp": 900,
+        "title": "Event — Mount Ebott Final Log — Complete Survey Data Return",
+        "desc": "Delivered the recovered survey machine and learned it contained conversations, battle readings, energy scans and monster technology data beyond the stated ecological mission.",
+        "date": "Mid-10XX BF — Day 6",
+        "dateSort": 10410006
+      },
+      {
+        "xpKey": "gamma_agent",
+        "articleId": "gamma_agent",
+        "name": "Gamma Legionary Agent",
+        "cat": "social",
+        "xp": 450,
+        "title": "Event — Mount Ebott Final Log — Monitored Communication Privilege",
+        "desc": "Converted the intelligence haul into one hour per month of monitored outside communication privileges.",
+        "date": "Mid-10XX BF — Day 6",
+        "dateSort": 10410006
+      },
+      {
+        "xpKey": "gamma_agent",
+        "articleId": "gamma_agent",
+        "name": "Gamma Legionary Agent",
+        "cat": "sabotage",
+        "xp": 600,
+        "title": "Event — Mount Ebott Final Log — Deadman's Stamp Leak Pressure",
+        "desc": "Identified that an embassy operative knew the Deadman's Stamp and forced the matter into Gamma Command review before High Command intervened.",
+        "date": "Mid-10XX BF — Day 6",
+        "dateSort": 10410006
+      },
+      {
+        "xpKey": "dracule_mihawk",
+        "articleId": "dracule_mihawk",
+        "name": "Dracule Mihawk",
+        "cat": "survival",
+        "xp": 650,
+        "title": "Event — Mount Ebott Final Log — Surface Extraction",
+        "desc": "Completed the Underground oath and transport sequence, reached the surface, and survived Iron Legion debrief as a non-Legion witness.",
+        "date": "Mid-10XX BF — Day 6",
+        "dateSort": 10410006
+      },
+      {
+        "xpKey": "dracule_mihawk",
+        "articleId": "dracule_mihawk",
+        "name": "Dracule Mihawk",
+        "cat": "social",
+        "xp": 300,
+        "title": "Event — Mount Ebott Final Log — Protective Role Established",
+        "desc": "Kept his debrief narrow and established that his role in the mission was protective rather than analytical.",
+        "date": "Mid-10XX BF — Day 6",
+        "dateSort": 10410006
+      }
+    ],
+    "reputationChanges": {
+      "gamma_agent": {
+        "iron_legion": 8,
+        "gamma_division": -4,
+        "undertale_monsters": -10
+      },
+      "dracule_mihawk": {
+        "iron_legion": 2,
+        "undertale_monsters": 3
+      },
+      "jamesly": {
+        "gamma_division": 3
+      },
+      "daniel_gamma_command": {
+        "gamma_division": 1
+      }
+    },
+    "effects": {
+      "iron_legion": 6,
+      "gamma_division": -2,
+      "undertale_monsters": -8
+    },
+    "reputationNotes": {
+      "gamma_agent": "Delivered extraordinary intelligence but exposed Gamma authority, threatened a civilian operative, and carried monsterkind's secrets into Legion custody after swearing silence.",
+      "dracule_mihawk": "Cooperated with debrief and did not collect the data, but became a monitored witness because he saw classified procedures.",
+      "jamesly": "Contained an unauthorized Gamma escalation before local command formalized the damage.",
+      "daniel_gamma_command": "Recognized the Deadman's Stamp problem as a breach question rather than only a discipline issue."
+    }
   }
 ]

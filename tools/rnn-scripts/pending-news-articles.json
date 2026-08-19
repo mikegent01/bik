@@ -2,5 +2,11 @@
   "_comment": "Events filed but not yet aired on the Rakasha News Network. Append {id, filed, note} the moment an event is filed (step 7 of docs/SESSION_FILING_PROCESS.md). When pending[] reaches `threshold`, write the next tools/rnn-scripts/epNNN.json covering those events, then clear pending[] to [] and set lastEpisode. Ground truth is `python3 tools/build-rnn-broadcast.py --unaired`; if this file and that disagree, --unaired is right.",
   "threshold": 10,
   "lastEpisode": "rnn-003",
-  "pending": []
+  "pending": [
+    {
+      "id": "mount_ebott_survey_final_log",
+      "filed": "Mid-10XX BF — Day 6",
+      "note": "Final Ebott log: transport, embassy debrief, Gamma leak pressure, High Command logger cutoff"
+    }
+  ]
 }
