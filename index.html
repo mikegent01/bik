@@ -8708,75 +8708,74 @@ function view_pond_docket(){
     </div>
     ${resolved?`<div class="card"><div class="home-section-head"><div><h2>🗃️ Resolved & Archived</h2><p>Closed files the Cohort still remembers.</p></div></div><div class="dock-grid">${resolved}</div></div>`:''}`;
 
-  /* ---------- GOVERNANCE ---------- */
-  let governance='<div class="card"><p class="text-muted">Governance data not loaded.</p></div>';
-  if(S){
-    const sp=S.speaker;
-    const spAb=specList((sp.abilities||[]).map(x=>({name:x.name,meta:x.level?`Lv ${x.level}`:'',desc:x.description,tone:'#e0b400',icon:'✦'})),{cols:true});
-    const spPw=specList((sp.powers||[]).map(x=>({name:x.name,desc:x.description,note:x.requires?`Requires: ${x.requires}`:'',tone:'#8a4bff',icon:'👑'})),{cols:true});
-    const spSt=Object.entries(sp.stats||{}).filter(([k])=>['str','dex','con','int','wis','cha'].includes(k))
-      .map(([k,v])=>`<div class="lt-stat"><b>${v}</b><span>${k.toUpperCase()}</span></div>`).join('');
-    const quotes=(sp.quotes||[]).map(q=>`<div class="dock-note">“${esc(q)}”</div>`).join('');
-    const hc=S.heroesCouncil;
-    const priv=specList((hc.privileges||[]).map(p=>({name:p.name,desc:p.description,note:p.requires?`Requires: ${p.requires}`:'',tone:'#4a9c6d',icon:'🎖️'})),{cols:true});
-    const hcSeats=(hc.seats||[]).map(s=>{
-      const tone=ltStatusTone(s.status);
-      const link=s.articleId&&INDEX[s.articleId];
-      return `<div class="dock-card" style="--dk:${tone}">
-        <div class="dock-head"><span class="dock-face">🐸</span><div><h3>${link?`<a onclick="openId('${esc(s.articleId)}')" style="cursor:pointer">${esc(s.name)}</a>`:esc(s.name)}</h3><div class="dock-sub">${esc(s.title||'')}</div></div>
-        <div class="dock-status"><span class="dock-badge">${s.canVote?'Voting':'No vote'}</span></div></div>
-        <div class="chips" style="margin-top:8px"><span class="pill" style="border-color:${tone};color:${tone}">${esc(s.status||'')}</span></div>
-        ${s.notes?`<p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(s.notes)}</p>`:''}
-        ${(s.contributions||[]).length?`<div class="dock-label">Contributions</div><ul class="dock-list bullets good">${s.contributions.map(c=>`<li>${esc(c)}</li>`).join('')}</ul>`:''}
-      </div>`;}).join('');
-    const actions=specList((hc.recentActions||[]).map(r=>({name:`Day ${r.day}`,meta:r.result,desc:r.action,tone:'#4a9cc9'})));
-    const seatRows=(S.council.members||[]).map(s=>{
-      const link=s.articleId&&INDEX[s.articleId];
-      return `<tr ${link?`onclick="openId('${esc(s.articleId)}')" style="cursor:pointer"`:''}>
-        <td style="padding:8px;border-bottom:1px solid var(--border)">${esc(String(s.seat))}</td>
-        <td style="padding:8px;border-bottom:1px solid var(--border)">${s.portrait||''} ${link?`<a>${esc(s.name)}</a>`:esc(s.name)}</td>
-        <td style="padding:8px;border-bottom:1px solid var(--border)">${esc(s.cohort||'')}</td>
-        <td style="padding:8px;border-bottom:1px solid var(--border)">${esc(s.stance||'—')}</td>
-        <td style="padding:8px;border-bottom:1px solid var(--border)">${s.loyalty!=null?`<span class="pill">${s.loyalty}</span>`:'—'}</td>
-        <td style="padding:8px;border-bottom:1px solid var(--border);color:var(--muted)">${esc(s.current_vote||'—')}</td></tr>`;}).join('');
-    governance=`
-      <div class="card" style="border-left:4px solid var(--accent)">
-        <div class="home-section-head"><div><h2>${sp.portrait||'👑'} ${esc(sp.name)} — ${esc(sp.title||'')}</h2><p>${esc(sp.fullTitle||'')} · Authority: ${esc(sp.authorityLevel||'')}</p></div>
-        ${INDEX[sp.articleId]?`<span class="chip active" onclick="openId('${esc(sp.articleId)}')">Open dossier →</span>`:''}</div>
-        <div class="chips"><span class="pill">Level ${sp.level??'?'}</span><span class="pill">${Number(sp.xp||0).toLocaleString()} XP</span>${sp.stats&&sp.stats.hp!=null?`<span class="pill">HP ${sp.stats.hp}/${sp.stats.maxHp}</span>`:''}${sp.stats&&sp.stats.ac!=null?`<span class="pill">AC ${sp.stats.ac}</span>`:''}</div>
-        ${spSt?`<div class="lt-statgrid">${spSt}</div>`:''}
-        <p class="dock-list" style="padding-left:0;list-style:none;margin-top:10px">${esc(sp.description||'')}</p>
-        ${sp.philosophy?`<div class="dock-label">Philosophy</div><p class="dock-list" style="padding-left:0;list-style:none">${esc(sp.philosophy)}</p>`:''}
-        ${spPw?`<div class="dock-label">Powers of the Voice</div>${spPw}`:''}
-        ${spAb?`<div class="dock-label">Abilities</div>${spAb}`:''}
-        ${quotes?`<div class="dock-label">On the record</div>${quotes}`:''}
-      </div>
-      <div class="card">
-        <div class="home-section-head"><div><h2>👑 ${esc(S.council.name)}</h2><p>${esc(S.council.description||'')}</p></div><span class="pill">${esc(S.council.currentSession||'')}</span></div>
-        <div class="rep-table-wrap"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Seat</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Member</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Cohort</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Stance</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Loyalty</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Current vote</th></tr></thead><tbody>${seatRows}</tbody></table></div>
-        <div class="dock-sub" style="margin-top:8px">${esc(S.council.meetingSchedule||'')}</div>
-      </div>
-      <div class="card" style="border-left:4px solid var(--accent2)">
-        <div class="home-section-head"><div><h2>⭐ ${esc(hc.name)}</h2><p>${esc(hc.description||'')}</p></div><span class="pill">${esc(hc.authority||'')}</span></div>
-        ${hc.speakerRelationship?`<div class="wnote"><b>${esc(hc.speakerRelationship.status||'')}:</b> ${esc(hc.speakerRelationship.notes||'')}</div>`:''}
-        ${priv?`<div class="dock-label">Standing privileges</div>${priv}`:''}
-        ${actions?`<div class="dock-label">Recent invocations</div>${actions}`:''}
-        <h3 style="margin-top:14px">Members</h3><div class="dock-grid">${hcSeats}</div>
+  /* ---------- GOVERNANCE + VOTING (Toadslist.xlsx Leadership Positions) ---------- */
+  const groupsGov = ltGroupsFromRoster();
+  const byName = Object.fromEntries(groupsGov.map(g => [g.name, g]));
+  const posRows = [
+    {n:1, title:'Speaker', groups:['Rivers'], note:'Position 1 is elected by 6 and 7. Sitting Speaker: Rivers.', kind:'office'},
+    {n:2, title:'Rival Speaker', groups:['Speaker L'], note:'Speaker L was ousted. The office remains as rival speakership.', kind:'office'},
+    {n:3, title:'Leaders', groups:['High Command','Overseers','Leaders'], note:'Position 1 appoints 3.', kind:'appoint'},
+    {n:4, title:'High ranking army groups', groups:['Deputies'], note:'Position 1 appoints 4. Tier 3 also appoints 4.', kind:'appoint'},
+    {n:5, title:'Armies', groups:['Pond Patrol','Spore 5'], note:'Armies are formed by vote from 6 and 7. Deputies choose the leaders of 5. The Spore 5 is rogue, so not chosen.', kind:'army'},
+    {n:6, title:'Armed Groups', groups:["Archie's Followers",'Speaker L Followers','Speaker River Follower'], note:'Electorate. Votes for the Speaker and votes armies into being.', kind:'elect'},
+    {n:7, title:'Groups / Unions', groups:['Teachers','Student Union','Medics United','Lillypads'], note:'Electorate. Teachers sit above the Student Union.', kind:'elect'}
+  ];
+  function ltPosCard(pos){
+    const kids = pos.groups.map(g => {
+      if(pos.kind==='office'){
+        const ousted = g==='Speaker L';
+        return `<div class="dock-card" style="--dk:${ousted?'#c0504d':'#d4af37'}"><div class="dock-head"><span class="dock-face">${ousted?'📣':'👑'}</span><div><h3>${esc(g)}</h3><div class="dock-sub">${ousted?'OUSTED — rival speaker':'Sitting Speaker, elected by tiers 6+7'}</div></div></div></div>`;
+      }
+      const pack = byName[g] || {members:[], color:'#8d99ae', note:'', research:''};
+      const rogue = g==='Spore 5';
+      const names = (pack.members||[]).map(m=>m.name).join(' · ') || '—';
+      return `<div class="dock-card" style="--dk:${rogue?'#7d6bb5':(pack.color||'#4a9c6d')}">
+        <div class="dock-head"><span class="dock-face">${rogue?'🍄':'🐸'}</span><div><h3>${esc(g)}${rogue?' <span class="pill" style="border-color:#7d6bb5;color:#c4b5fd">ROGUE</span>':''}</h3>
+        <div class="dock-sub">${(pack.members||[]).length} named${pack.research?` · ${esc(pack.research)}`:''}</div></div></div>
+        <p class="dock-desc">${esc(pack.note||'')}</p>
+        <div class="dock-sub">${esc(names)}</div>
       </div>`;
+    }).join('');
+    return `<div class="card" style="border-left:4px solid ${pos.kind==='elect'?'#d9b64a':pos.kind==='army'?'#4a9c6d':'var(--accent)'}">
+      <div class="home-section-head"><div><h2>${pos.n}. ${esc(pos.title)}</h2><p>${esc(pos.note)}</p></div><span class="pill">Position ${pos.n}</span></div>
+      <div class="dock-grid">${kids}</div>
+    </div>`;
   }
+  const rules = [
+    'Position 1 (Speaker) is elected by 6 and 7.',
+    'Position 1 appoints 3 and 4.',
+    'Armies (position 5) are formed by vote from 6 and 7.',
+    '3 appoints 4, who chooses the leaders of 5.',
+    'The Spore 5 is rogue, so not chosen.',
+    'Speaker L was ousted.'
+  ];
+  const electGroups = groupsGov.filter(g => [6,7].includes(g.tier));
+  const electN = electGroups.reduce((s,g)=>s+g.members.length,0);
+  const blocRows = electGroups.map(g => {
+    const pct = electN? Math.round(g.members.length*100/electN):0;
+    return `<div class="lt-meter"><div class="lt-meter-top"><span>${esc(g.name)} · tier ${g.tier}</span><b>${g.members.length} / ${electN}</b></div><div class="dock-bar"><i style="width:${pct}%;background:${g.color}"></i></div></div>`;
+  }).join('');
 
-  /* ---------- VOTING ---------- */
-  let voting='<div class="card"><p class="text-muted">Voting data not loaded.</p></div>';
-  if(S){
-    const av=(S.activeVotes||[]).map(v=>ltVoteCard(v,true)).join('');
-    const rv=(S.recentVotes||[]).map(v=>ltVoteCard(v,false)).join('');
-    const types=Object.entries(S.voteTypes||{}).map(([k,t])=>`<div class="dock-pillar" style="border-left:3px solid ${t.color||'var(--accent)'}"><b style="color:${t.color||'var(--accent2)'}">${esc(t.name||prettyId(k))}</b><span>${esc(t.description||'')}${t.threshold?` · threshold ${esc(String(t.threshold))}`:''}</span></div>`).join('');
-    voting=`
-      ${types?`<div class="card"><div class="home-section-head"><div><h2>🗳️ Vote Classes</h2><p>How the Cohort Council weighs a motion.</p></div></div><div class="dock-pillars">${types}</div></div>`:''}
-      <div class="card"><div class="home-section-head"><div><h2>⏳ Live & Suspended Motions</h2><p>What the Council is deciding right now.</p></div><span class="pill">${(S.activeVotes||[]).length}</span></div>${av||'<p class="text-muted">No live motions.</p>'}</div>
-      <div class="card"><div class="home-section-head"><div><h2>📚 Decided</h2><p>Resolutions already on the books — including the one that created this docket.</p></div><span class="pill">${(S.recentVotes||[]).length}</span></div>${rv}</div>
-      ${(root.councilVotes||[]).length?`<div class="card"><div class="home-section-head"><div><h2>🗂️ Docket-Linked Votes</h2><p>The condensed canonical record stored on the faction dossier.</p></div></div>${(root.councilVotes||[]).map(docketVoteCard).join('')}</div>`:''}`;
-  }
+  const governance = `
+    <div class="card"><div class="home-section-head"><div><h2>👑 How power is assigned</h2><p>From Toadslist.xlsx — Leadership Positions. This replaced the old Council-of-Seven seating chart.</p></div></div>
+      <div class="wnote"><b>Flow:</b> 6 + 7 elect the Speaker (1). The Speaker appoints Leaders (3) and Deputies (4). 3 also appoints 4. 4 chooses army leaders (5). Armies themselves are formed by a vote of 6 + 7. Spore 5 stands as an army but was never chosen.</div>
+    </div>
+    ${posRows.map(ltPosCard).join('')}`;
+
+  const voting = `
+    <div class="card"><div class="home-section-head"><div><h2>🗳️ How voting works</h2><p>Verbatim from the Leadership Positions sheet — not the old council-threshold table.</p></div><span class="pill">electorate ${electN}</span></div>
+      <ol class="dock-list" style="font-size:15px;line-height:1.7">${rules.map(r=>`<li>${esc(r)}</li>`).join('')}</ol>
+    </div>
+    <div class="card"><div class="home-section-head"><div><h2>Who votes</h2><p>Only tiers 6 (Armed Groups) and 7 (Groups / Unions). Majority of ${electN} is ${Math.floor(electN/2)+1}.</p></div></div>
+      ${blocRows}
+    </div>
+    <div class="card"><div class="home-section-head"><div><h2>What they vote on</h2></div></div>
+      <div class="dock-pillars">
+        <div class="dock-pillar" style="border-left:3px solid #d9b64a"><b>Elect the Speaker</b><span>Tiers 6+7 choose Position 1. Rivers currently holds it. Speaker L was ousted and is Position 2 only.</span></div>
+        <div class="dock-pillar" style="border-left:3px solid #4a9c6d"><b>Form an army</b><span>Tiers 6+7 vote an army into being. Pond Patrol exists because of one such vote. Spore 5 does not — it is rogue.</span></div>
+        <div class="dock-pillar" style="border-left:3px solid #8ea1c1"><b>Appointments (not a floor vote)</b><span>The Speaker appoints 3 and 4. Tier 3 appoints 4. Deputies choose the leaders of whatever army 6+7 formed.</span></div>
+      </div>
+    </div>`;
 
   /* ---------- COHORTS / ROSTER / TIMELINE ---------- */
   const groups=ltGroupsFromRoster();
