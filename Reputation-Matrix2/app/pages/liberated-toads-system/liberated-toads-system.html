@@ -70,7 +70,7 @@
                         <div id="gov-summary" class="section-content">
                             <div class="speaker-quote">
                                 <p>"This is not retribution's art, but the mending of the fractured heart. By pond and law, by vow and steel, the wound must close for peace to heal."</p>
-                                <cite>— Speaker L, Voice of the Pond</cite>
+                                <cite>— Speaker L, Voice of the Pond <em>(spoken before the ouster)</em></cite>
                             </div>
                             <div class="governance-tabs">
                             </div>
@@ -83,38 +83,11 @@
                     <!-- Active Vote Preview -->
                     <section class="collapsible-section">
                         <div class="section-header" data-toggle="vote-preview">
-                            <h2><span>🗳️</span> Active Vote: Iron Mandate Response</h2>
+                            <h2><span>🗳️</span> State of the Vote</h2>
                             <span class="toggle-icon">▼</span>
                         </div>
                         <div id="vote-preview" class="section-content">
-                            <div class="vote-card active">
-                                <div class="vote-header">
-                                    <div class="vote-id">V-2021-001</div>
-                                    <div class="vote-meta">
-                                        <span class="vote-type-badge">EMERGENCY</span>
-                                        <span class="vote-status-badge active">ACTIVE</span>
-                                    </div>
-                                </div>
-                                <h4 class="vote-title">Response to the Iron Mandate</h4>
-                                <p class="vote-description">The faction must decide how to respond to the Midlands' Iron Mandate, which has classified us as an organized supernatural entity subject to purge.</p>
-                                <div class="vote-options">
-                                    <div class="vote-option">
-                                        <div class="option-header">
-                                            <span class="option-id">D</span>
-                                            <span class="option-text">Strategic Withdrawal - Leading with 3 votes</span>
-                                            <span class="speaker-rec">👑 Recommended</span>
-                                        </div>
-                                        <div class="option-progress">
-                                            <div class="option-bar"><div class="option-fill" style="width: 50%"></div></div>
-                                            <span class="option-count">3 votes</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="vote-footer">
-                                    <div class="quorum-status met">Quorum: 6/4 ✓ Met</div>
-                                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">View full details in the Voting tab.</p>
-                                </div>
-                            </div>
+                            <!-- Rendered by JS -->
                         </div>
                     </section>
                 </div>
@@ -157,43 +130,37 @@
                 <!-- Tab Content: Roster -->
                 <div class="tab-content" id="tab-roster">
                     <section id="crew-roster">
+                        <div class="cohort-banner" style="background-image:url('../../../assets/images/toads/roster/scene_shift_1.png')">
+                            <div class="cohort-banner-overlay">
+                                <h2>🐸 The Cohort — 75 Named Toads</h2>
+                                <p>Roster intake: <em>Toadslist.xlsx</em> · portraits from the crew art box + field sheets · click any toad</p>
+                            </div>
+                        </div>
                         <div class="roster-header">
-                            <h2><span>🐸</span> Crew Roster</h2>
                             <div class="roster-controls">
                                 <div class="roster-search">
-                                    <input type="text" id="roster-search" placeholder="Search toads...">
+                                    <input type="text" id="roster-search" placeholder="Search name, bloc, weapon...">
                                 </div>
-                                <div class="roster-filters">
-                                    <button class="filter-btn active" data-filter="all">All</button>
-                                    <button class="filter-btn" data-filter="core">⭐ Core</button>
-                                    <button class="filter-btn" data-filter="active">Active</button>
-                                    <button class="filter-btn" data-filter="injured">Injured</button>
-                                    <button class="filter-btn" data-filter="special">Special</button>
-                                </div>
-                                <div class="cohort-filter">
-                                    <select id="cohort-filter">
-                                        <option value="all">All Cohorts</option>
-                                        <option value="Pond Patrol">Pond Patrol</option>
-                                        <option value="Barrel Survivors">Barrel Survivors</option>
-                                        <option value="The Chroniclers">The Chroniclers</option>
-                                        <option value="The Crafters">The Crafters</option>
-                                        <option value="The Wardens">The Wardens</option>
-                                        <option value="The Menders">The Menders</option>
-                                        <option value="The Scouts">The Scouts</option>
-                                    </select>
+                                <div class="seen-filter" id="seen-filter">
+                                    <button class="seen-filter-btn active" data-seen="all">All 75</button>
+                                    <button class="seen-filter-btn" data-seen="seen">Seen by players</button>
+                                    <button class="seen-filter-btn" data-seen="unseen">Not yet met</button>
                                 </div>
                                 <div class="roster-sort">
                                     <select id="sort-select">
+                                        <option value="num">Sort: Roster #</option>
                                         <option value="name">Sort: Name</option>
-                                        <option value="level">Sort: Level</option>
-                                        <option value="xp">Sort: XP</option>
-                                        <option value="status">Sort: Status</option>
-                                        <option value="cohort">Sort: Cohort</option>
+                                        <option value="affiliation">Sort: Affiliation</option>
+                                        <option value="weapon">Sort: Weapon</option>
                                     </select>
                                 </div>
                             </div>
+                            <div class="affiliation-chips" id="affiliation-chips">
+                                <!-- Rendered by JS -->
+                            </div>
+                            <div class="roster-count-line" id="roster-count"></div>
                         </div>
-                        <div id="crew-grid" class="crew-grid">
+                        <div id="crew-grid" class="crew-grid toad-menu-grid">
                             <!-- Rendered by JS -->
                         </div>
                     </section>
@@ -237,9 +204,9 @@
                     </div>
                     
                     <div class="detail-tabs">
-                        <button class="detail-tab active" data-tab="stats">Stats</button>
-                        <button class="detail-tab" data-tab="skills">Skills</button>
-                        <button class="detail-tab" data-tab="log">Log</button>
+                        <button class="detail-tab active" data-tab="stats">Facts</button>
+                        <button class="detail-tab" data-tab="skills">Record</button>
+                        <button class="detail-tab" data-tab="log">Structure</button>
                     </div>
                     
                     <div class="detail-tab-content active" id="tab-stats">

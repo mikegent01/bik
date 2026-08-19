@@ -3615,3 +3615,353 @@
 .liberators-note strong {
     color: var(--status-injured);
 }
+/* ===================================
+   TOADSLIST REBUILD — cohort menu, portraits, governance, voting
+   (intake: Toadslist.xlsx — see docs/notes/TOADSLIST_INTAKE.md)
+   =================================== */
+
+/* --- Cohort banner --- */
+.cohort-banner {
+    border-radius: 14px;
+    border: 1px solid var(--card-border);
+    background-color: var(--card-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 170px;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+.cohort-banner-overlay {
+    width: 100%;
+    padding: 26px 20px 16px;
+    background: linear-gradient(180deg, rgba(8,14,10,0) 0%, rgba(8,14,10,0.82) 60%);
+    color: #f2f7f3;
+}
+.cohort-banner-overlay h2 { margin: 0 0 4px; font-size: 1.3rem; }
+.cohort-banner-overlay p { margin: 0; font-size: 0.85rem; opacity: 0.85; }
+
+/* --- Roster controls --- */
+.roster-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.seen-filter { display: flex; gap: 6px; }
+.seen-filter-btn {
+    background: transparent;
+    border: 1px solid var(--card-border);
+    color: var(--text-muted);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    font-family: inherit;
+}
+.seen-filter-btn.active {
+    border-color: var(--toad-accent);
+    color: var(--toad-accent);
+    background: rgba(74, 156, 109, 0.12);
+}
+.affiliation-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 6px 0 10px;
+}
+.aff-chip {
+    --aff-color: #4a9c6d;
+    background: transparent;
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--aff-color);
+    border-radius: 18px;
+    color: var(--text-muted);
+    padding: 5px 12px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+}
+.aff-chip:hover { border-color: var(--aff-color); color: var(--text-primary); }
+.aff-chip.active {
+    background: color-mix(in srgb, var(--aff-color) 18%, transparent);
+    border-color: var(--aff-color);
+    color: var(--text-primary);
+}
+.aff-chip .aff-count { opacity: 0.65; margin-left: 3px; }
+.roster-count-line { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
+
+/* --- Toad menu grid + cards --- */
+.toad-menu-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 14px;
+}
+.toad-card {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-top: 4px solid var(--aff-color, var(--card-border));
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    display: flex;
+    flex-direction: column;
+}
+.toad-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--aff-color, var(--toad-accent));
+    box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+}
+.toad-card.selected {
+    border-color: var(--toad-accent);
+    box-shadow: 0 0 0 2px rgba(74, 156, 109, 0.5);
+}
+.toad-portrait {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: #f7f7f2;
+    border-bottom: 1px solid var(--card-border);
+}
+.toad-card-body { padding: 10px 12px 12px; }
+.toad-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.toad-num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+.seen-badge {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+.seen-badge.seen { background: rgba(74, 156, 109, 0.18); color: #6cc493; }
+.seen-badge.unseen { background: rgba(140, 140, 140, 0.15); color: var(--text-muted); }
+.toad-name { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); }
+.toad-aff { font-size: 0.75rem; color: var(--aff-color); font-weight: 600; margin: 2px 0; }
+.toad-weapon { font-size: 0.75rem; color: var(--text-muted); }
+.toad-electorate {
+    margin-top: 6px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #d9b64a;
+    letter-spacing: 0.03em;
+}
+.toad-card.unseen .toad-portrait { filter: saturate(0.85); }
+.roster-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+    color: var(--text-muted);
+}
+
+/* --- Detail drawer additions --- */
+.detail-facts { display: flex; flex-direction: column; gap: 8px; }
+.fact-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    border-bottom: 1px dashed var(--card-border);
+    padding-bottom: 6px;
+    font-size: 0.85rem;
+}
+.fact-key { color: var(--text-muted); flex-shrink: 0; }
+.fact-val { text-align: right; color: var(--text-primary); }
+.aff-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 10px; }
+.lore-block { font-size: 0.88rem; line-height: 1.5; }
+.lore-role { color: var(--toad-accent); font-weight: 600; margin-bottom: 8px; }
+.muted { color: var(--text-muted); }
+.struct-block { display: flex; flex-direction: column; gap: 10px; font-size: 0.86rem; }
+.struct-row { padding: 8px 12px; border-left: 3px solid var(--toad-accent); background: rgba(74,156,109,0.07); border-radius: 0 8px 8px 0; }
+.struct-row.muted { border-left-color: var(--card-border); background: transparent; }
+.detail-status-badge.pending { background: rgba(140,140,140,0.2); color: var(--text-muted); }
+
+/* --- Governance: seven-position ladder --- */
+.gov-intro { margin-bottom: 16px; color: var(--text-muted); font-size: 0.9rem; }
+.position-ladder { display: flex; flex-direction: column; gap: 12px; }
+.position-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-left: 5px solid var(--toad-accent);
+    border-radius: 10px;
+    padding: 14px 16px;
+}
+.position-card.electorate { border-left-color: #d9b64a; }
+.position-card.ousted-card { border-left-color: #c0504d; opacity: 0.92; }
+.position-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.position-num {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: rgba(74,156,109,0.15);
+    color: var(--toad-accent);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem;
+    flex-shrink: 0;
+}
+.position-title { font-weight: 700; font-size: 1rem; color: var(--text-primary); }
+.pos-holder {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px;
+    padding: 8px 12px; border-radius: 8px; margin-bottom: 6px;
+    background: rgba(74,156,109,0.08);
+}
+.pos-holder.ousted { background: rgba(192,80,77,0.12); }
+.pos-holder-name { font-weight: 700; color: var(--text-primary); }
+.pos-holder-status { font-size: 0.75rem; color: var(--text-muted); }
+.pos-holder.ousted .pos-holder-status { color: #e07a5f; font-weight: 700; }
+.pos-group {
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--aff-color, var(--card-border));
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+}
+.pos-group.rogue { background: rgba(125,107,181,0.1); }
+.pos-group-name { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); }
+.rogue-tag {
+    font-size: 0.62rem; font-weight: 800; letter-spacing: 0.08em;
+    background: #7d6bb5; color: #fff; border-radius: 8px; padding: 2px 7px;
+}
+.pos-group-tier { font-size: 0.72rem; color: var(--text-muted); margin: 2px 0; }
+.pos-group-members { font-size: 0.78rem; color: var(--text-primary); opacity: 0.85; }
+.position-flows { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 4px; }
+.flow-tag {
+    font-size: 0.7rem;
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 3px 10px;
+    color: var(--text-muted);
+}
+.position-note { font-size: 0.78rem; color: var(--text-muted); font-style: italic; }
+.gov-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
+.gov-note {
+    padding: 12px 14px; border-radius: 10px; font-size: 0.84rem;
+    background: var(--card-bg); border: 1px solid var(--card-border);
+}
+.gov-note.rogue { border-left: 4px solid #7d6bb5; }
+.gov-note.ousted { border-left: 4px solid #c0504d; }
+@media (max-width: 700px) { .gov-notes { grid-template-columns: 1fr; } }
+
+/* --- Voting --- */
+.rules-source, .muted { font-size: 0.8rem; }
+.rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; margin: 10px 0 26px; }
+.rule-card {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 12px 14px;
+}
+.rule-num {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(74,156,109,0.15); color: var(--toad-accent);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.8rem;
+}
+.rule-text { font-size: 0.88rem; color: var(--text-primary); }
+.electorate-section h4, .simulator-section h4, .records-section h4 { margin-bottom: 6px; }
+.bloc-table { margin-top: 10px; }
+.bloc-row {
+    display: grid; grid-template-columns: minmax(140px, 1.2fr) minmax(90px, 0.9fr) 2fr 34px;
+    gap: 10px; align-items: center; padding: 7px 0;
+    border-bottom: 1px dashed var(--card-border);
+}
+.bloc-name { font-size: 0.84rem; font-weight: 600; color: var(--text-primary); border-left: 4px solid var(--aff-color); padding-left: 8px; }
+.bloc-tier { font-size: 0.7rem; color: var(--text-muted); }
+.bloc-bar-track { height: 10px; background: rgba(255,255,255,0.06); border-radius: 6px; overflow: hidden; }
+.bloc-bar { height: 100%; border-radius: 6px; }
+.bloc-count { font-family: 'Roboto Mono', monospace; font-size: 0.8rem; color: var(--text-muted); text-align: right; }
+.bloc-total { padding: 10px 0 0; font-size: 0.82rem; color: var(--text-muted); }
+
+/* --- Simulator --- */
+.sim-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0; }
+.sim-stance-legend { display: flex; gap: 6px; align-items: center; }
+.sim-stance-btn {
+    background: transparent; border: 1px solid var(--card-border); color: var(--text-muted);
+    border-radius: 16px; padding: 4px 12px; font-size: 0.78rem; cursor: pointer; font-family: inherit;
+}
+.sim-stance-btn.active[data-stance="for"] { border-color: #6cc493; color: #6cc493; background: rgba(74,156,109,0.12); }
+.sim-stance-btn.active[data-stance="against"] { border-color: #e07a5f; color: #e07a5f; background: rgba(224,122,95,0.12); }
+.sim-stance-btn.active[data-stance="abstain"] { border-color: var(--text-muted); color: var(--text-primary); }
+.sim-hint { font-size: 0.72rem; color: var(--text-muted); }
+.sim-reset {
+    background: transparent; border: 1px solid var(--card-border); color: var(--text-muted);
+    border-radius: 16px; padding: 4px 14px; font-size: 0.78rem; cursor: pointer; font-family: inherit;
+}
+.sim-blocs { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
+.sim-bloc {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-top: 3px solid var(--aff-color);
+    border-radius: 9px; padding: 8px 12px; cursor: pointer; min-width: 130px;
+    color: var(--text-primary); font-family: inherit; font-size: 0.8rem;
+    transition: all 0.15s ease;
+}
+.sim-bloc:hover { border-color: var(--aff-color); }
+.sim-bloc.for { background: rgba(74,156,109,0.14); }
+.sim-bloc.against { background: rgba(224,122,95,0.14); }
+.sim-bloc.abstain { opacity: 0.55; }
+.sim-bloc-count { font-family: 'Roboto Mono', monospace; color: var(--text-muted); font-size: 0.72rem; }
+.sim-bloc-stance { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.06em; color: var(--text-muted); }
+.sim-bloc.for .sim-bloc-stance { color: #6cc493; }
+.sim-bloc.against .sim-bloc-stance { color: #e07a5f; }
+.sim-tally { max-width: 560px; }
+.sim-bar-row { display: grid; grid-template-columns: 76px 1fr 34px; gap: 10px; align-items: center; margin: 6px 0; font-size: 0.8rem; color: var(--text-muted); }
+.sim-bar-track { height: 12px; background: rgba(255,255,255,0.06); border-radius: 6px; overflow: hidden; }
+.sim-bar { height: 100%; border-radius: 6px; transition: width 0.25s ease; }
+.sim-bar.for { background: #6cc493; }
+.sim-bar.against { background: #e07a5f; }
+.sim-bar.abstain { background: #8d99ae; }
+.sim-bar.undecided { background: rgba(141,153,174,0.35); }
+.sim-outcome { margin-top: 10px; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.04em; }
+.sim-outcome.carries { color: #6cc493; }
+.sim-outcome.fails { color: #e07a5f; }
+.sim-outcome.deadlock { color: #d9b64a; }
+.sim-outcome.pending { color: var(--text-muted); }
+
+/* --- Vote records --- */
+.vote-records-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-top: 10px; }
+.vote-record-card {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 12px 14px;
+}
+.vrc-head { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
+.vrc-id { font-family: 'Roboto Mono', monospace; font-size: 0.72rem; color: var(--text-muted); }
+.vrc-kind { font-size: 0.68rem; color: var(--toad-accent); border: 1px solid rgba(74,156,109,0.4); padding: 1px 8px; border-radius: 10px; }
+.vrc-title { font-weight: 700; font-size: 0.92rem; margin-bottom: 4px; }
+.vrc-result { font-size: 0.78rem; font-weight: 700; color: #d9b64a; margin-bottom: 4px; }
+.vrc-tally { font-family: 'Roboto Mono', monospace; font-size: 0.74rem; color: var(--text-primary); margin-bottom: 6px; }
+.vrc-summary { font-size: 0.8rem; color: var(--text-muted); line-height: 1.45; }
+.vrc-source { font-size: 0.68rem; color: var(--text-muted); opacity: 0.6; margin-top: 8px; }
+
+/* --- Governance glance (overview tab) --- */
+.glance-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.glance-card {
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 10px; padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 4px;
+}
+.glance-card.speaker { border-left: 4px solid #d9b64a; }
+.glance-card.ousted { border-left: 4px solid #c0504d; }
+.glance-card.army { border-left: 4px solid #4a9c6d; }
+.glance-card.rogue { border-left: 4px solid #7d6bb5; }
+.glance-label { font-size: 0.68rem; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); }
+.glance-card strong { font-size: 1.05rem; color: var(--text-primary); }
+.glance-card span:last-child { font-size: 0.76rem; color: var(--text-muted); }
+.glance-footnote { font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; }
+
+/* --- Stats additions --- */
+.stats-cards-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.tier-spread { display: flex; flex-wrap: wrap; gap: 8px; }
+.tier-pill { font-size: 0.74rem; border-radius: 14px; padding: 3px 11px; border: 1px solid var(--card-border); color: var(--text-muted); }
+.tier-pill.electorate { border-color: #d9b64a; color: #d9b64a; }
+.tier-pill.appointed { border-color: #5fa8d3; color: #5fa8d3; }
+.tier-pill.armies { border-color: #4a9c6d; color: #6cc493; }
+.stats-source { font-size: 0.7rem; color: var(--text-muted); opacity: 0.6; margin-top: 12px; }
