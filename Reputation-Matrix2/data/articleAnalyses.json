@@ -216,6 +216,109 @@
           }
         ]
       }
+    },
+    {
+      "id": "mount_ebott_final_log_waluigi_analysis",
+      "sourceArticle": "mount_ebott_survey_final_log",
+      "title": "The Mount Ebott Survey: Final Log — The Transport, the Embassy Debrief, and the Logger Cutoff",
+      "kicker": "Waluigi's Article Analysis",
+      "subtitle": "Why the final Ebott file is not about escape, but about who owns the record after escape",
+      "archivist": "Waluigi, Auditor-General",
+      "filed": "After the final logger cutoff was recovered",
+      "summary": "The final Ebott log looks like a successful extraction, but I read it as a custody fight over knowledge: monster secrecy, Legion equipment, Gamma authority, Mihawk's witness status, and High Command's power to end the archive mid-sentence.",
+      "thesis": "The tempting reading is that the Mount Ebott Survey ends happily. The party reaches the surface. Mihawk is alive. The Gamma Agent earns outside communication. The machine comes home. Nobody has to punch the Barrier until it becomes a diplomatic incident. This is a comforting interpretation, which is how Waluigi knows to put it in a box and shake it until the knives fall out.\n\nMy reading is sharper: **the final log is about custody of the record.** Asgore and Toriel try to own the record through an oath. The survey machine owns it through hidden logging. The embassy owns it through intake and debrief. The Real Manual owns it through secret authority. Jamesly owns it through intervention. Daniel owns it briefly through procedure. High Command owns it finally by turning the logger off. The characters move through places, yes, but the real object changing hands is not the machine. It is permission to say what happened.\n\nThis matters because the archive normally treats silence as missing information. Here, silence is an action. A person with authority placed a device against the logger and created the absence. That means the absence has custody, motive and timing. It is evidence.",
+      "sections": [
+        {
+          "id": "oath-vs-machine",
+          "icon": "🤐",
+          "heading": "The Oath Failed Before Anyone Broke It",
+          "sourceAnchor": "Asgore and Toriel required silence on monsterkind and the transport method before the survey machine was handed to the Legion.",
+          "body": "A promise binds the person who understands it. It does not bind an object with a recording package nobody disclosed. The Gamma Agent can honestly swear silence and still deliver a machine full of the forbidden reality. That is not hypocrisy. It is worse: institutional design routing around personal honor.\n\nThe oath is therefore not useless. It proves intent. The Underground told the visitors exactly what mattered. That makes the later data handoff more damning, not less. The question becomes who equipped the Agent with a machine that could make his promise insufficient before he had the chance to keep it."
+        },
+        {
+          "id": "gaster-honest-machine",
+          "icon": "💀",
+          "heading": "The Skull Cannon Is the Most Honest Machine in the File",
+          "sourceAnchor": "Wing Gaster's Gaster Blaster is identified as a stabilized dimensional projector for local transport to the surface.",
+          "body": "Waluigi dislikes admitting this, but Gaster's terrifying skull projector tells the truth about itself more clearly than the Legion survey machine does. It looks alarming. It acts alarming. It announces a function and performs that function. Mihawk disappears, is not dead, and arrives on the surface.\n\nThe survey machine is the opposite. It presents as ecological equipment and returns as a total witness. The scary machine is honest. The dull machine is treacherous. This is why Waluigi does not judge a device by whether it has teeth. Clipboards are frequently worse."
+        },
+        {
+          "id": "mihawk-witness-status",
+          "icon": "🗡️",
+          "heading": "Mihawk Was Cleared of Collection, Not Cleared of Meaning",
+          "sourceAnchor": "Mihawk told the debrief officer that his role was protective, not analytical, and that he did not gather the data.",
+          "body": "Mihawk's statement is useful because it is narrow. He did not collect the data. He protected the collector. The officer can write that down and believe it. But the Legion does not only punish collection. It manages exposure.\n\nThat is why Mihawk becomes dangerous anyway. He saw the Underground, the transport, the embassy, the Agent's uncertainty and later enough Gamma procedure to understand that ordinary explanations were too small. Innocence is a moral category. Surveillance is an administrative one. The Legion lives in the second category and visits the first only for speeches."
+        },
+        {
+          "id": "phone-call-leash",
+          "icon": "📞",
+          "heading": "The Phone Call Is Mercy With a Timer on It",
+          "sourceAnchor": "The embassy grants the Gamma Agent one monitored hour per month of outside communication privileges.",
+          "body": "The one-hour allowance should not be dismissed. If a person has been cut off from family, one monitored hour can still be a lifeline. The Agent accepts because the need is real. The officer's softened tone may also be real.\n\nBut the structure is still a leash: monthly, monitored, revocable, justified by value delivered. The Legion has not accidentally mixed care and control. It has built a device that makes them inseparable. Waluigi finds this more frightening than open cruelty because the recipient can be grateful and trapped at the same time."
+        },
+        {
+          "id": "manual-inside-manual",
+          "icon": "📕",
+          "heading": "The Real Manual Proves the Legion Lies Inward",
+          "sourceAnchor": "The Agent reads Gamma autonomy and Deadman's Stamp authority from the Real Manual, shocking the embassy officer.",
+          "body": "A secret manual aimed at enemies is one thing. A secret manual that your own officers are trained to think is myth is another. The Real Manual means the Legion is not merely hiding policy from outsiders. It is hiding operational law from its visible chain of command.\n\nThat explains the officer's collapse. She is not only afraid of dying. She is realizing that the institution she serves contains a second institution with permission to erase her and call the absence procedure. Waluigi has many complaints about paperwork, but even Waluigi believes the person standing under the blade should be allowed to know the blade exists."
+        },
+        {
+          "id": "silence-as-evidence",
+          "icon": "⏱️",
+          "heading": "The Cutoff Is the Loudest Sentence",
+          "sourceAnchor": "High Command disables the logger immediately before discussing an intelligence-network breach.",
+          "body": "The missing conversation cannot be analyzed as content. It can be analyzed as an act. High Command identifies the recorder, disables it, and continues. That timing is not neutral. It marks the topic as too sensitive for the same archive that had just survived monsters, Gaster technology, Legion debriefing and Gamma discipline.\n\nSo the final sentence is not a dead end. It is a signature. Whoever ordered the cutoff told us exactly where the wall begins. The archive cannot see through it yet, but it can mark the bricks, count the mortar and ask who had the key."
+        }
+      ],
+      "verdict": "The final Ebott log should be read as a chain-of-custody document for truth. The Underground tries to contain truth by oath. The Legion tries to harvest truth by equipment. The embassy tries to sort truth by debrief. Gamma tries to weaponize truth by clearance. High Command tries to end truth by disabling the logger.\n\nMy recommendation is to stop treating the cutoff as absence and start treating it as evidence. The next filing should pursue Koffin-K's interrupted emergency, the survey machine's hidden logging package, the Deadman's Stamp leak and Mihawk's surveillance status. Do not ask first what High Command said after the recorder went dark. Ask who had the authority to make darkness official.",
+      "relatedArticles": [
+        "mount_ebott_survey_final_log",
+        "mount_ebott_survey_part_7",
+        "gamma_agent",
+        "dracule_mihawk",
+        "wing_gaster",
+        "jamesly",
+        "daniel_gamma_command",
+        "gamma_division",
+        "iron_legion",
+        "undertale_monsters",
+        "legion_embassy_old_world",
+        "gamma_high_command_spire"
+      ],
+      "researchDesk": {
+        "title": "Waluigi's Off-Record Desk",
+        "intro": "The verdict is filed. These checks sharpen what to pursue next without pretending dice can recover the missing High Command minutes.",
+        "rolls": [
+          {
+            "id": "machine-briefing-gap",
+            "icon": "📟",
+            "title": "Audit the machine briefing gap",
+            "dc": 4,
+            "prompt": "Compare the Agent's belief that the machine was ecological with the embassy receipt listing conversations, battle readings and monster-tech scans.",
+            "success": "Useful inference: the contradiction points upward, toward briefing and equipment design, not merely field misunderstanding.",
+            "failure": "Useful limit: the file proves the Agent was surprised. It does not yet prove who ordered the hidden logging scope."
+          },
+          {
+            "id": "koffin-emergency",
+            "icon": "🚪",
+            "title": "Recover the interrupted warning",
+            "dc": 5,
+            "prompt": "Treat Koffin-K's late entrance as evidence rather than comic timing.",
+            "success": "Useful inference: the warning is the strongest loose thread still inside the Underground side of the file and should be recovered before the surface plot swallows it.",
+            "failure": "Useful limit: no content of the warning is on record. The archive can preserve the interruption, not invent the emergency."
+          },
+          {
+            "id": "cutoff-authority",
+            "icon": "⏱️",
+            "title": "Read the cutoff as custody",
+            "dc": 3,
+            "prompt": "Ask what the logger cutoff proves even without the missing conversation.",
+            "success": "Useful inference: the cutoff proves High Command knew about the logger and had authority over the archive device at the exact breach threshold.",
+            "failure": "Useful limit: the cutoff proves deliberate silence, not the identity of the leaker."
+          }
+        ]
+      }
     }
   ]
 }

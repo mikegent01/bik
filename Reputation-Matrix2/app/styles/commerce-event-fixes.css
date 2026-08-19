@@ -1,43 +1,16 @@
-.wnote{overflow-wrap:anywhere}.wnote b{margin-right:3px}.wnote br{line-height:1.8}.event-reputation-panel{margin:14px 0;padding:14px;border:1px solid var(--border);border-left:4px solid var(--accent2);border-radius:12px;background:rgba(224,180,0,.06)}.event-reputation-panel h3{margin:0 0 4px;color:var(--accent2)}.rep-effect-row{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:8px 10px;margin-top:6px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);color:var(--text);text-decoration:none}.rep-effect-row:hover{border-color:var(--accent);color:var(--link)}.rep-effect-row b{font-size:14px;color:var(--accent2);white-space:nowrap}.merchant-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:12px}.merchant-details>div{padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);line-height:1.45}.merchant-details b{display:block;color:var(--accent2);margin-bottom:2px}.item-hero .metabar{display:flex;flex-wrap:wrap;gap:7px}.item-hero .metabar .pill,.item-hero .rarity-pill{white-space:nowrap}.shop-open-link{font-weight:800}.shop-open-link:hover{filter:brightness(1.2)}
-
-/* Reputation Impact panel — the operator is a person, so the name is a link.
-   Previously the operator line was flat text: you could open the faction it
-   affected but not the character doing the affecting. */
-.rep-op-block{margin-top:12px}
-.rep-op-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:5px}
-.rep-op-link{font-weight:700;color:var(--accent2);text-decoration:none;border-bottom:1px dotted rgba(224,180,0,.5);transition:.15s}
+.wnote{overflow-wrap:anywhere}.wnote b{margin-right:3px}.wnote br{line-height:1.8}
+.event-reputation-panel{margin:18px 0;padding:16px;border:1px solid var(--border);border-left:5px solid var(--accent2);border-radius:14px;background:linear-gradient(135deg,rgba(224,180,0,.08),rgba(138,75,255,.05)),var(--panel2);box-shadow:var(--shadow)}
+.event-reputation-panel h3{margin:0 0 6px;color:var(--accent2);font-size:18px;display:flex;align-items:center;gap:8px}
+.event-reputation-panel>p{margin:0 0 12px;line-height:1.55}
+.rep-op-block{margin-top:12px;padding:12px;border:1px solid var(--border);border-radius:12px;background:rgba(0,0,0,.16)}
+.rep-op-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:8px;padding-bottom:8px;border-bottom:1px dashed var(--border)}
+.rep-op-link{font-weight:800;color:var(--accent2);text-decoration:none;border-bottom:1px dotted rgba(224,180,0,.5);transition:.15s}
 .rep-op-link:hover{color:var(--text);border-bottom-color:var(--text)}
-.rep-op-link.is-flat{border-bottom:0;cursor:default;opacity:.85}
-.rep-op-standings{font-size:11px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:2px 8px;white-space:nowrap;transition:.15s}
+.rep-op-link.is-flat{border-bottom:0;cursor:default;opacity:.92}
+.rep-op-standings{font-size:11px;font-weight:800;color:var(--muted);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:3px 9px;white-space:nowrap;transition:.15s;background:var(--bg2)}
 .rep-op-standings:hover{color:var(--accent2);border-color:var(--accent2);background:rgba(224,180,0,.10)}
-
-/* ===================== WAHWIRE PANEL (foot of an article) =====================
-   Sits under the reputation ledger. Deliberately reads as a different surface
-   from the archive around it — the wire is voices, not record — so it uses the
-   feed's cooler blue accent instead of the archive gold. */
-.wahwire-panel{margin:14px 0;padding:14px;border:1px solid var(--border);border-left:4px solid #5b7c99;border-radius:12px;background:rgba(91,124,153,.07)}
-.wahwire-panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.wahwire-panel-head h3{margin:0;color:#8fb3cc}
-.wahwire-panel-tally{font-size:11px;color:var(--muted);white-space:nowrap}
-.wahwire-panel-note{margin:2px 0 10px;font-size:12px;color:var(--muted)}
-.ww-panel-post{display:flex;gap:10px;padding:10px;margin-top:8px;border:1px solid var(--border);border-radius:10px;background:var(--bg2)}
-.ww-panel-avatar{flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;font-size:17px;border:1px solid;border-radius:9px}
-.ww-panel-body{flex:1 1 auto;min-width:0}
-.ww-panel-head{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;font-size:12px;margin-bottom:3px}
-.ww-panel-name{font-weight:700;text-decoration:none;border-bottom:1px dotted currentColor}
-.ww-panel-name:hover{filter:brightness(1.25)}
-.ww-panel-handle,.ww-panel-when{color:var(--muted);font-size:11px}
-.ww-panel-content{margin:0;font-size:13px;line-height:1.55;overflow-wrap:anywhere}
-.ww-panel-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;font-size:11px;color:var(--muted)}
-.ww-panel-tag{color:#8fb3cc}
-.ww-panel-thread{margin-top:8px;padding-left:10px;border-left:2px solid var(--border)}
-.ww-panel-comment{display:flex;gap:6px;align-items:baseline;flex-wrap:wrap;padding:4px 0;font-size:12px;line-height:1.5}
-.ww-panel-comment.is-reply{padding-left:14px}
-.ww-panel-comment.is-op .ww-panel-comment-who{text-decoration:underline dotted}
-.ww-panel-comment-who{font-weight:700;white-space:nowrap}
-.ww-panel-comment-body{color:var(--text);overflow-wrap:anywhere}
-.ww-panel-comment-react{font-size:11px}
-.ww-panel-more{display:inline-block;margin-top:4px;font-size:11px;color:var(--muted);text-decoration:none}
-.ww-panel-more:hover{color:#8fb3cc}
-.wahwire-panel-all{display:inline-block;margin-top:10px;padding:6px 12px;border:1px solid var(--border);border-radius:999px;font-size:12px;font-weight:600;color:#8fb3cc;text-decoration:none;transition:.15s}
-.wahwire-panel-all:hover{border-color:#8fb3cc;background:rgba(91,124,153,.14)}
+.rep-effect-row{display:grid!important;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:9px 11px;margin-top:7px;border:1px solid var(--border);border-radius:10px;background:var(--bg2);color:var(--text)!important;text-decoration:none!important;line-height:1.35}
+.rep-effect-row:hover{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--bg2));color:var(--link)!important}
+.rep-effect-row>span{min-width:0;overflow-wrap:anywhere}.rep-effect-row>b{font-size:14px;color:var(--accent2);white-space:nowrap;text-align:right}.rep-effect-row b.pos{color:#4ade80}.rep-effect-row b.neg{color:#fca5a5}
+@media(max-width:680px){.rep-effect-row{grid-template-columns:1fr}.rep-effect-row>b{text-align:left}.rep-op-head{align-items:flex-start}}
+.merchant-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:12px}.merchant-details>div{padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);line-height:1.45}.merchant-details b{display:block;color:var(--accent2);margin-bottom:2px}.item-hero .metabar{display:flex;flex-wrap:wrap;gap:7px}.item-hero .metabar .pill,.item-hero .rarity-pill{white-space:nowrap}.shop-open-link{font-weight:800}.shop-open-link:hover{filter:brightness(1.2)}

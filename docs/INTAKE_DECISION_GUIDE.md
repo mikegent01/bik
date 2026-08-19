@@ -189,8 +189,14 @@ Rules:
 
 ## Article-analysis gate
 
-Create an article analysis when the source article is already complete but
-Waluigi needs a separate signed reading of what it means.
+Create an article analysis / opinion filing when the source article is already
+complete but Waluigi needs a separate signed reading of what it means.
+
+**Default for new substantial articles:** attach an opinion filing, or state in
+the run report why this article does not need one yet. A new article without an
+opinion filing is allowed only when it is a small data stub, a purely technical
+record, or a filing whose interpretive stakes are already fully handled by the
+source text.
 
 Good candidates:
 
