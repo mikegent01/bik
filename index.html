@@ -116,7 +116,7 @@
 .lt-viz-all{grid-template-columns:repeat(auto-fill,minmax(128px,1fr))}
 .lt-viz-tile{display:flex;flex-direction:column;padding:0;border:1px solid var(--border);border-bottom:3px solid var(--cc,#4a9c6d);border-radius:12px;background:var(--bg2);cursor:pointer;overflow:hidden;font:inherit;color:inherit}
 .lt-viz-tile:hover{transform:translateY(-2px);border-color:var(--cc,#4a9c6d)}
-.lt-toad-img{display:block;width:100%;aspect-ratio:1/1;object-fit:contain;background:#f4efe3}
+.lt-toad-img{display:block;width:100%;aspect-ratio:1/1;object-fit:contain;background:#f4efe3}.lt-toad-unknown{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;background:#161616;color:#9aa;font-weight:900;letter-spacing:.12em}
 .lt-viz-cap{display:flex;flex-direction:column;gap:1px;padding:7px 8px 8px;text-align:left}
 .lt-viz-cap b{font-size:12.5px;line-height:1.2}
 .lt-viz-cap i{font-style:normal;font-size:10.5px;color:var(--muted)}
@@ -8345,7 +8345,7 @@ function docketRoot(){
 function ltSystem(){ return DATA.liberatedToadsSystem||null; }
 /* Roster statistics, computed live from the ported cohort + core-toad data. */
 function ltIntake(){ const S=ltSystem(); return (S&&S.toadslistIntake)||null; }
-function ltRoster(){ const I=ltIntake(); return (I&&I.roster)||[]; }
+function ltRoster(){ const I=ltIntake(); const rows=(I&&I.roster)||[]; const FILED={1:1,5:1,8:1,9:1,11:1,12:1,15:1,16:1,17:1,18:1,19:1,20:1,22:1,24:1,25:1,27:1,28:1,29:1,44:1,47:1}; return rows.map(t=>({...t, artStatus:t.artStatus||(FILED[t.num]?'filed':'unknown')})); }
 function ltToadSlug(name){
   return String(name||'unknown').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')||'unknown';
 }
@@ -8354,7 +8354,11 @@ function ltToadFile(t){
   const slug=t.num===69?'unknown':ltToadSlug(t.name);
   return 'assets/images/toads/roster/toad_'+n+'_'+slug+'.png';
 }
+function ltToadFiled(t){ return t && t.artStatus==='filed' && t.name!=='???'; }
 function ltToadImg(t,cls){
+  if(!ltToadFiled(t)){
+    return '<span class="lt-toad-unknown '+(cls||'')+'" aria-label="Unknown">???</span>';
+  }
   const src=assetPath(ltToadFile(t));
   const alt=esc(t.name||'Toad');
   return '<img class="'+(cls||'lt-toad-img')+'" src="'+src+'" alt="'+alt+'" loading="lazy" width="256" height="256">';

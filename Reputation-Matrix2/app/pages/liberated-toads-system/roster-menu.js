@@ -19,7 +19,14 @@ function escapeHtml(s) {
     }[c]));
 }
 
+function isFiled(toad) {
+    return toad.artStatus === 'filed' && toad.name !== '???';
+}
+
 function portraitImg(toad, extraClass = '') {
+    if (!isFiled(toad)) {
+        return `<div class="toad-img toad-unknown ${extraClass}" role="img" aria-label="Unknown toad">???</div>`;
+    }
     const name = toad.aka ? `${toad.name} (${toad.aka})` : toad.name;
     return `<img class="toad-img ${extraClass}" src="${portraitSrc(toad)}" alt="${escapeHtml(name)}" loading="lazy" width="512" height="512">`;
 }
@@ -104,14 +111,19 @@ function applyFilters() {
 }
 
 function tile(t) {
-    const label = t.aka ? `${escapeHtml(t.name)} <em>${escapeHtml(t.aka)}</em>` : escapeHtml(t.name);
+    const filed = isFiled(t);
+    const label = filed
+        ? (t.aka ? `${escapeHtml(t.name)} <em>${escapeHtml(t.aka)}</em>` : escapeHtml(t.name))
+        : '???';
+    const weapon = filed ? escapeHtml(t.weapon) : 'unknown';
     return `
-        <button type="button" class="viz-tile ${t.seen ? 'seen' : 'unseen'}" data-id="${t.id}" style="--aff-color:${t.meta.color}">
+        <button type="button" class="viz-tile ${filed ? 'filed' : 'unknown'} ${t.seen ? 'seen' : 'unseen'}" data-id="${t.id}" style="--aff-color:${t.meta.color}">
             ${portraitImg(t)}
             <span class="viz-caption">
                 <span class="viz-num">#${String(t.num).padStart(2, '0')}</span>
                 <span class="viz-name">${label}</span>
-                <span class="viz-weapon">${escapeHtml(t.weapon)}</span>${t.cap?`<span class="viz-cap">${escapeHtml(t.cap)} cap</span>`:''}
+                <span class="viz-weapon">${weapon}</span>
+                ${filed && t.cap ? `<span class="viz-cap">${escapeHtml(t.cap)} cap</span>` : '<span class="viz-cap">Unknown</span>'}
             </span>
         </button>
     `;

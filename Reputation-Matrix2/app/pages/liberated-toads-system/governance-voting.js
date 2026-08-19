@@ -100,6 +100,59 @@ function positionCard(pos) {
     `;
 }
 
+function isFiled(t) {
+    return t.artStatus === 'filed' && t.name !== '???';
+}
+
+function voterChip(t) {
+    const name = isFiled(t) ? t.name : '???';
+    return `<span class="voter-chip ${isFiled(t) ? 'filed' : 'unknown'}">#${String(t.num).padStart(2, '0')} ${name}</span>`;
+}
+
+function speakerRollCall() {
+    const electorate = TOADSLIST_ROSTER.filter(t => {
+        const tier = TIER_OF_AFF[t.affiliation];
+        return tier === 6 || tier === 7;
+    });
+    const buckets = { Rivers: [], 'Speaker L': [], unrecorded: [] };
+    electorate.forEach(t => {
+        const choice = STANDING_SPEAKER_BALLOT[t.affiliation];
+        if (choice === 'Rivers') buckets.Rivers.push(t);
+        else if (choice === 'Speaker L') buckets['Speaker L'].push(t);
+        else buckets.unrecorded.push(t);
+    });
+    const majority = Math.floor(ELECTORATE_SIZE / 2) + 1;
+    const rivers = buckets.Rivers.length;
+    const l = buckets['Speaker L'].length;
+    const open = buckets.unrecorded.length;
+    const status = rivers > l && rivers >= majority
+        ? `Rivers holds the chair — ${rivers} recorded ballots, majority is ${majority}.`
+        : `Rivers sits as Speaker. Recorded ballots: Rivers ${rivers}, Speaker L ${l}, unrecorded ${open}.`;
+
+    function column(title, list, tone) {
+        return `<div class="roll-col" style="--tone:${tone}">
+            <header><h5>${title}</h5><strong>${list.length}</strong></header>
+            <div class="roll-chips">${list.map(voterChip).join('') || '<span class="muted">None recorded.</span>'}</div>
+        </div>`;
+    }
+
+    return `
+        <div class="roll-section">
+            <h4>Who votes for the Speaker</h4>
+            <p>Position 1 is elected by positions 6 and 7. Affiliation gives the recorded preference
+               (Archie’s Followers and Speaker River followers for Rivers; Speaker L Followers for
+               Speaker L). Unions without a recorded preference, and every toad whose portrait is
+               not yet filed, stand as <strong>???</strong>.</p>
+            <p class="roll-status">${status}</p>
+            <div class="roll-grid">
+                ${column('For Rivers', buckets.Rivers, '#d4af37')}
+                ${column('For Speaker L', buckets['Speaker L'], '#5fa8d3')}
+                ${column('Unrecorded / unknown', buckets.unrecorded, '#8d99ae')}
+            </div>
+        </div>
+    `;
+}
+
 // ---- Voting tab -----------------------------------------------------------
 
 export function renderVotingSection() {
@@ -125,10 +178,13 @@ export function renderVotingSection() {
             </div>
         </div>
 
+        ${speakerRollCall()}
+
         <div class="electorate-section">
-            <h4>🗳️ The Electorate — Tiers 6 + 7</h4>
-            <p>The armed groups and the unions together elect the Speaker and vote armies into being.
-               <strong>${ELECTORATE_SIZE} of ${TOADSLIST_ROSTER.length} toads</strong> hold the vote.</p>
+            <h4>The electorate — positions 6 and 7</h4>
+            <p>Armed groups and unions elect the Speaker and vote armies into being.
+               <strong>${ELECTORATE_SIZE}</strong> seats. A simple majority is
+               <strong>${Math.floor(ELECTORATE_SIZE / 2) + 1}</strong>.</p>
             <div class="bloc-table">
                 ${electorateBlocs.map(b => `
                     <div class="bloc-row" data-bloc="${b.key}">
