@@ -20,7 +20,7 @@ function escapeHtml(s) {
 }
 
 function isFiled(toad) {
-    return toad.artStatus === 'filed' && toad.name !== '???';
+    return toad.artStatus === 'filed';
 }
 
 function portraitImg(toad, extraClass = '') {

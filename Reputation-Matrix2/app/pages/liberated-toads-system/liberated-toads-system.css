@@ -3741,9 +3741,12 @@
 .toad-img {
     display: block;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 5;
     object-fit: contain;
+    object-position: center bottom;
     background: #f7f4ea;
+    padding: 8px 8px 20px;
+    box-sizing: border-box;
 }
 .viz-caption {
     display: flex;

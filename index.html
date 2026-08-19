@@ -116,7 +116,7 @@
 .lt-viz-all{grid-template-columns:repeat(auto-fill,minmax(128px,1fr))}
 .lt-viz-tile{display:flex;flex-direction:column;padding:0;border:1px solid var(--border);border-bottom:3px solid var(--cc,#4a9c6d);border-radius:12px;background:var(--bg2);cursor:pointer;overflow:hidden;font:inherit;color:inherit}
 .lt-viz-tile:hover{transform:translateY(-2px);border-color:var(--cc,#4a9c6d)}
-.lt-toad-img{display:block;width:100%;aspect-ratio:1/1;object-fit:contain;background:#f4efe3}.lt-toad-unknown{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;background:#161616;color:#9aa;font-weight:900;letter-spacing:.12em}
+.lt-toad-img{display:block;width:100%;aspect-ratio:4/5;object-fit:contain;object-position:center bottom;background:#f4efe3;padding:8px 8px 18px;box-sizing:border-box}.lt-toad-unknown{display:flex;align-items:center;justify-content:center;width:100%;aspect-ratio:1/1;background:#161616;color:#9aa;font-weight:900;letter-spacing:.12em}
 .lt-viz-cap{display:flex;flex-direction:column;gap:1px;padding:7px 8px 8px;text-align:left}
 .lt-viz-cap b{font-size:12.5px;line-height:1.2}
 .lt-viz-cap i{font-style:normal;font-size:10.5px;color:var(--muted)}
@@ -8345,7 +8345,7 @@ function docketRoot(){
 function ltSystem(){ return DATA.liberatedToadsSystem||null; }
 /* Roster statistics, computed live from the ported cohort + core-toad data. */
 function ltIntake(){ const S=ltSystem(); return (S&&S.toadslistIntake)||null; }
-function ltRoster(){ const I=ltIntake(); const rows=(I&&I.roster)||[]; const FILED={1:1,5:1,8:1,9:1,11:1,12:1,15:1,16:1,17:1,18:1,19:1,20:1,22:1,24:1,25:1,27:1,28:1,29:1,44:1,47:1}; return rows.map(t=>({...t, artStatus:t.artStatus||(FILED[t.num]?'filed':'unknown')})); }
+function ltRoster(){ const I=ltIntake(); const rows=(I&&I.roster)||[]; return rows.map(t=>({...t, artStatus: t.name==='???' ? (t.artStatus||'filed') : 'filed'})); }
 function ltToadSlug(name){
   return String(name||'unknown').toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'')||'unknown';
 }
@@ -8354,7 +8354,7 @@ function ltToadFile(t){
   const slug=t.num===69?'unknown':ltToadSlug(t.name);
   return 'assets/images/toads/roster/toad_'+n+'_'+slug+'.png';
 }
-function ltToadFiled(t){ return t && t.artStatus==='filed' && t.name!=='???'; }
+function ltToadFiled(t){ return t && t.artStatus==='filed'; }
 function ltToadImg(t,cls){
   if(!ltToadFiled(t)){
     return '<span class="lt-toad-unknown '+(cls||'')+'" aria-label="Unknown">???</span>';
@@ -8772,6 +8772,12 @@ function view_pond_docket(){
     </div>
     <div class="card"><div class="home-section-head"><div><h2>Who votes</h2><p>Only tiers 6 (Armed Groups) and 7 (Groups / Unions). Majority of ${electN} is ${Math.floor(electN/2)+1}.</p></div></div>
       ${blocRows}
+    </div>
+    <div class="card"><div class="home-section-head"><div><h2>Recorded votes</h2><p>Founding, the Pond Patrol, and the ouster — the motions the workbook and the faction file still carry.</p></div></div>
+      <div class="dock-card" style="--dk:#d4af37;margin-bottom:10px"><h3>Founding of the Liberated Toads</h3><div class="dock-sub">78 yes · 59 no · of 137 · Carried</div><p class="dock-desc">The first cohort vote. Same division as the later naming of the seventy-four.</p></div>
+      <div class="dock-card" style="--dk:#4a9c6d;margin-bottom:10px"><h3>Formation of the Pond Patrol</h3><div class="dock-sub">Electorate (tiers 6+7) · Army formed</div><p class="dock-desc">Cohort List: “Formed through vote.” Armed groups recorded for the Patrol. Spore 5 was not chosen.</p></div>
+      <div class="dock-card" style="--dk:#c0504d;margin-bottom:10px"><h3>Ouster of Speaker L / election of Rivers</h3><div class="dock-sub">Position 1 elected by 6 and 7</div><p class="dock-desc">Archie’s Followers and Speaker River followers for Rivers. Speaker L Followers for the rival chair. Unions unrecorded in the workbook.</p></div>
+      <div class="dock-card" style="--dk:#5fa8d3;margin-bottom:10px"><h3>Scavenging Doctrine · ER 17-A · Medical Priority · Raventree</h3><div class="dock-sub">Council era · tallies 5–1, 6–0, 6–0, 5–1</div><p class="dock-desc">Older council ballots still on the faction file. They sit behind the seven-position rules; they are not how a new army is formed.</p></div>
     </div>
     <div class="card"><div class="home-section-head"><div><h2>What they vote on</h2></div></div>
       <div class="dock-pillars">

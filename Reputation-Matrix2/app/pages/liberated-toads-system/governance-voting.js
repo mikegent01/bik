@@ -231,7 +231,11 @@ export function renderVotingSection() {
 function voteRecordCard(v) {
     const tally = v.tally && (v.tally.yes !== null || v.tally.no !== null)
         ? `For ${v.tally.yes ?? '—'} · Against ${v.tally.no ?? '—'}${v.tally.abstain !== null ? ` · Abstain ${v.tally.abstain}` : ''}${v.tally.turnout ? ` · of ${v.tally.turnout} cast` : ''}`
-        : 'No tally recorded in the sources.';
+        : 'No headcount was written down — only the outcome and the blocs.';
+    const ballots = (v.ballots || []).map(b => {
+        const names = (b.blocs || []).flatMap(key => (byAff[key] || []).map(voterChip)).join('');
+        return `<div class="vrc-ballot"><strong>${b.side}</strong><div class="roll-chips">${names || '<span class="muted">—</span>'}</div></div>`;
+    }).join('');
     return `
         <div class="vote-record-card">
             <div class="vrc-head">
@@ -242,6 +246,7 @@ function voteRecordCard(v) {
             <div class="vrc-result">${v.result}</div>
             <div class="vrc-tally">${tally}</div>
             <div class="vrc-summary">${v.summary}</div>
+            ${ballots ? `<div class="vrc-ballots">${ballots}</div>` : ''}
             <div class="vrc-source">source: ${v.source}</div>
         </div>
     `;
