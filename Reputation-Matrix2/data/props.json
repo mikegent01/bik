@@ -1728,6 +1728,22 @@
         "evidence",
         "sealed"
       ]
+    },
+    "prop_waluigi_audit_request_form": {
+      "kind": "order",
+      "icon": "📋",
+      "title": "Emergency Log Review Request — Waluigi",
+      "subtitle": "Audit Department front desk · rejected under revised clearance rules",
+      "items": [],
+      "articles": [
+        "mount_ebott_survey_final_log"
+      ],
+      "note": "Waluigi filed it loudly. The clerk did not sign it. Director Vex did not pretend the old clearance system still existed.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Audit Department Intake Desk</div><div class=\"pd-sub\">Emergency log review request · front counter copy</div></div><div class=\"pd-title\">Requester: Waluigi</div><div class=\"pd-form-grid\"><div class=\"pd-form-field\"><b>Request Type</b><span class=\"pd-checkbox\"></span> Emergency Log Review</div><div class=\"pd-form-field\"><b>Subject Systems</b>Koffin-K protocols · Mihawk surveillance archives · Deadman's Stamp access logs</div><div class=\"pd-form-field\"><b>Claimed Prior Work</b>Operation Phantom Vault · Disaster Inc. audit trenches · Director Vex biometric file</div><div class=\"pd-form-field\"><b>Requested Scope</b>Full decade review, no slow approval chain, no exceptions</div></div><div class=\"pd-clipboard-note\">Reason entered by requester: unauthorized access to Deadman's Stamp archives, potential surveillance leaks on Mihawk, and missing High Command minutes.</div><div class=\"pd-denial-stamp\">Codes expired</div><dl class=\"pd-meta\"><dt>Clerk note</dt><dd>Gamma clearance not recognized under current system. Koffin-K protocols decommissioned. Subject advised to file through current channels.</dd><dt>Director note</dt><dd>Director Vex confirms old High Command classification was dissolved three years prior. Requester departed without final approval.</dd></dl><div class=\"pd-margin pd-margin--red\">Waluigi did not get the logs. Waluigi did get proof that the office learned how to make old words stop opening doors. — W.</div>",
+      "stamps": [
+        "noaction",
+        "evidence"
+      ]
     }
   }
 }
