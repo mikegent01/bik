@@ -29,6 +29,7 @@ different narrator stance — see **[`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUI
 | 6 | [Asides and notes](#6-asides-and-notes) | The dual commentary layer |
 | 7 | [Voice and point of view](#7-voice-and-point-of-view) | Close third + ringside Waluigi |
 | 8 | [Formatting that renders](#8-formatting-that-renders) | Markdown only — never raw `<div>` |
+| 8A | [Transcript-to-story rule](#8a-transcript-to-story-rule--do-not-paste-the-log) | Do not paste logs word-for-word; remaster into prose |
 | 9 | [Event apparatus](#9-event-apparatus) | The wrapper fields |
 | 9A | [Naming rule](#naming-rule--table-names-are-not-character-names) | Table names are not character names |
 | 9B | [Exhibits](#9b-exhibits--the-documents-the-story-names) | The documents the story names — file the paper |
@@ -352,6 +353,45 @@ Never invent class names.
 **Events:** prefer `sections[]` (`name`, `icon`, `overview`, optional
 `waluigi_note`) for free H2 anchors + TOC. A single `description` with `##`
 headings (Imp style) still works — keep part lengths in band either way.
+
+---
+
+## 8A. Transcript-to-story rule — do not paste the log
+
+A transcript is source material, not article prose. Do **not** paste dialogue
+word-for-word unless the exact quote is itself evidence. Convert the log into a
+scene: choose the physical beats, preserve the important lines, compress repeated
+prompting, remove table-side scaffolding, and write what the moment *felt like*
+inside the archive.
+
+Use this rule especially for Waluigi afterstories, filing notes, and addenda. If
+Waluigi updates an older record, write the update as Waluigi would file it: what
+annoyed him, what scared him, what he noticed in the room, what paper he filed,
+what door refused to open, and why the refusal matters. Do not write a raw chat
+log with speaker labels.
+
+Good transformation:
+
+```text
+Transcript: "You don't have Gamma clearance." / "That is not a real clearance."
+Filing: The clerk did not accuse Waluigi of being wrong. He did something worse:
+he made the old word stop working. Gamma clearance was not denied; it was no
+longer recognized.
+```
+
+Guidelines:
+
+```text
+□ Preserve exact quotes only when the wording is evidence or character-defining.
+□ Remove repeated "does he answer?" / table steering prompts.
+□ Replace player/GM labels with in-world roles or names.
+□ Keep the scene physical: doors, lights, hands, paper, silence, machinery.
+□ Let Waluigi's feeling become analysis, not pasted argument.
+□ If the record is later-dated, date it where it belongs and explain provenance
+  through a filing note or addendum; do not force it into present-tense site time.
+```
+
+The archive is not a transcript dump. It is a remastered record.
 
 ---
 
