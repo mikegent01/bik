@@ -3,9 +3,10 @@
 **This is the order of operations for turning a session transcript into canon.**
 Use [`INTAKE_DECISION_GUIDE.md`](INTAKE_DECISION_GUIDE.md) first if you are not
 sure whether the supplied data should become an event, battle, exhibit,
-investigation, shop item, XP award, or something else. Once the answer is
-"session/event filing," read this page before you write a single sentence of
-prose.
+investigation, shop item, XP award, or something else. Use
+[`DATE_FILING_GUIDE.md`](DATE_FILING_GUIDE.md) before setting the event date,
+especially when the log has no timestamp. Once the answer is "session/event
+filing," read this page before you write a single sentence of prose.
 
 The most common failure in this archive is not bad writing. It is writing the
 event **first** and then discovering that the location does not exist, the

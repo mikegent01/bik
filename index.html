@@ -7106,6 +7106,23 @@ function view_home(){
      </p>
 
      <div class="campaign-timeline-feed">
+       <!-- Event 0: Latest Ebott Final Log -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/mount_ebott_survey_final_log')" style="cursor:pointer; border-left:4px solid #8a4bff; background:linear-gradient(135deg,rgba(138,75,255,.18),var(--panel2));">
+         <div class="timeline-date-chip" style="color:#c9a6ff;">Harvestide 29, 1040 BF · Day 6 · Final Ebott Log</div>
+         <h3 class="timeline-event-title">The Mount Ebott Survey: Final Log — The Transport, the Embassy Debrief, and the Logger Cutoff</h3>
+         <div class="timeline-actors">
+           <span>Gamma Agent</span><span>Dracule Mihawk</span><span>Wing Gaster</span><span>Asgore</span><span>Toriel</span><span>Sans</span><span>Koffin-K</span><span>Jamesly</span><span>Daniel</span>
+         </div>
+         <p class="timeline-summary">
+           The oath of silence becomes a transport. Wing Gaster sends Mihawk and the Gamma Agent to the surface, the Legion takes custody of a survey machine that recorded far more than ecology, the embassy grants monitored outside calls, Mihawk is debriefed as a non-Legion witness, the Deadman's Stamp turns discipline into leak investigation, and High Command shuts the logger off exactly where the breach briefing begins.
+         </p>
+         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
+           <span class="chip" onclick="Router.go('#/article/mount_ebott_survey_final_log')" style="margin:0; font-size:12px; background:#8a4bff; color:#fff; font-weight:800;">📖 Read Final Log →</span>
+           <span class="chip" onclick="Router.go('#/investigation/mount_ebott_silence_file')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">🔍 Investigate the Missing Minutes →</span>
+           <span class="chip" onclick="Router.go('#/article-analysis/mount_ebott_final_log_waluigi_analysis')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🖋️ Opinion Filing →</span>
+         </div>
+       </div>
+
        <!-- Event 0: Latest Battle Filing - Woodfellow vs the Treant -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/feyward_woodfellow_vs_the_treant')" style="cursor:pointer; border-left:4px solid #e5484d; background:linear-gradient(135deg,rgba(229,72,77,.14),var(--panel2));">
          <div class="timeline-date-chip" style="color:#e5484d;">1 Aethel, 922 BF (Feyward clock) · 24 combatants · Latest Battle Filing</div>
