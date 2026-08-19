@@ -42,7 +42,7 @@
                         <span class="main-tab-icon">⚖️</span> Docket
                     </button>
                     <button class="main-tab" data-tab="roster">
-                        <span class="main-tab-icon">🐸</span> Roster
+                        <span class="main-tab-icon">🐸</span> Cohort
                     </button>
                     <button class="main-tab" data-tab="timeline">
                         <span class="main-tab-icon">📅</span> Timeline
@@ -129,42 +129,42 @@
 
                 <!-- Tab Content: Roster -->
                 <div class="tab-content" id="tab-roster">
-                    <section id="crew-roster">
-                        <div class="cohort-banner" style="background-image:url('../../../assets/images/toads/roster/scene_shift_1.png')">
-                            <div class="cohort-banner-overlay">
-                                <h2>🐸 The Cohort — 75 Named Toads</h2>
-                                <p>Roster intake: <em>Toadslist.xlsx</em> · portraits from the crew art box + field sheets · click any toad</p>
-                            </div>
-                        </div>
+                    <section id="crew-roster" class="viz-page">
+                        <header class="viz-head">
+                            <h2>The Cohort</h2>
+                            <p>75 named portraits. Click a toad to open the visualizer.</p>
+                        </header>
                         <div class="roster-header">
                             <div class="roster-controls">
                                 <div class="roster-search">
-                                    <input type="text" id="roster-search" placeholder="Search name, bloc, weapon...">
+                                    <input type="text" id="roster-search" placeholder="Find a toad by name…">
                                 </div>
                                 <div class="seen-filter" id="seen-filter">
                                     <button class="seen-filter-btn active" data-seen="all">All 75</button>
-                                    <button class="seen-filter-btn" data-seen="seen">Seen by players</button>
-                                    <button class="seen-filter-btn" data-seen="unseen">Not yet met</button>
+                                    <button class="seen-filter-btn" data-seen="seen">Seen</button>
+                                    <button class="seen-filter-btn" data-seen="unseen">Unseen</button>
+                                </div>
+                                <div class="view-mode" id="view-mode">
+                                    <button type="button" class="seen-filter-btn active" data-view="gallery">Gallery</button>
+                                    <button type="button" class="seen-filter-btn" data-view="sheet">Contact sheet</button>
+                                    <button type="button" class="seen-filter-btn" data-view="blocs">By bloc</button>
                                 </div>
                                 <div class="roster-sort">
                                     <select id="sort-select">
-                                        <option value="num">Sort: Roster #</option>
-                                        <option value="name">Sort: Name</option>
-                                        <option value="affiliation">Sort: Affiliation</option>
-                                        <option value="weapon">Sort: Weapon</option>
+                                        <option value="num">#</option>
+                                        <option value="name">Name</option>
+                                        <option value="affiliation">Bloc</option>
+                                        <option value="weapon">Weapon</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="affiliation-chips" id="affiliation-chips">
-                                <!-- Rendered by JS -->
-                            </div>
+                            <div class="affiliation-chips" id="affiliation-chips"></div>
                             <div class="roster-count-line" id="roster-count"></div>
                         </div>
-                        <div id="crew-grid" class="crew-grid toad-menu-grid">
-                            <!-- Rendered by JS -->
-                        </div>
+                        <div id="crew-grid" class="crew-grid viz-grid view-gallery"></div>
                     </section>
                 </div>
+                <div id="toad-viewer" class="viz-viewer hidden" aria-hidden="true"></div>
 
                 <!-- Tab Content: Timeline -->
                 <div class="tab-content" id="tab-timeline">

@@ -3695,7 +3695,150 @@
 .aff-chip .aff-count { opacity: 0.65; margin-left: 3px; }
 .roster-count-line { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
 
-/* --- Toad menu grid + cards --- */
+/* --- Cohort image visualizer --- */
+.viz-page { padding-bottom: 40px; }
+.viz-head h2 {
+    margin: 0 0 4px;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--toad-accent);
+    font-size: 1.6rem;
+}
+.viz-head p { margin: 0 0 16px; color: var(--text-muted); }
+.view-mode { display: flex; gap: 6px; }
+.viz-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+    gap: 14px;
+}
+.viz-grid.view-sheet {
+    grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+    gap: 8px;
+}
+.viz-grid.view-blocs {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+.viz-tile {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 2px solid var(--card-border);
+    border-bottom: 4px solid var(--aff-color, var(--card-border));
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f4f1e8;
+    cursor: pointer;
+    font-family: inherit;
+}
+.viz-tile:hover, .viz-tile:focus-visible {
+    transform: translateY(-3px);
+    border-color: var(--aff-color);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    outline: none;
+}
+.toad-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: #f7f4ea;
+}
+.viz-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 8px 10px 10px;
+    background: var(--card-bg);
+    text-align: left;
+}
+.viz-num { font-family: 'Roboto Mono', monospace; font-size: 0.68rem; color: var(--text-muted); }
+.viz-name { font-weight: 800; font-size: 0.92rem; color: var(--text-primary); line-height: 1.2; }
+.viz-name em { font-style: normal; font-weight: 600; color: var(--toad-accent); font-size: 0.78rem; }
+.viz-weapon { font-size: 0.72rem; color: var(--text-muted); }
+.view-sheet .viz-weapon { display: none; }
+.view-sheet .viz-caption { padding: 6px 7px 7px; }
+.view-sheet .viz-name { font-size: 0.76rem; }
+.viz-tile.unseen .toad-img { filter: saturate(0.8); }
+.viz-bloc-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-left: 5px solid var(--aff-color);
+    padding: 0 0 8px 10px;
+}
+.viz-bloc-head h3 { margin: 0; color: var(--text-primary); font-size: 1.05rem; }
+.viz-bloc-head span { color: var(--text-muted); font-family: 'Roboto Mono', monospace; }
+.viz-bloc-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.viz-viewer {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    background: rgba(6, 12, 9, 0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+.viz-viewer.hidden { display: none; }
+.viz-viewer-frame {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(240px, min(72vh, 640px)) auto;
+    align-items: center;
+    gap: 12px;
+    max-width: 1100px;
+    width: 100%;
+}
+.viz-hero {
+    margin: 0;
+    background: #f7f4ea;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 3px solid var(--aff-color, var(--toad-accent));
+}
+.toad-img-hero { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; }
+.viz-hero figcaption {
+    background: var(--card-bg);
+    padding: 14px 16px 16px;
+}
+.viz-hero-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.35rem;
+    color: var(--text-primary);
+}
+.viz-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+.viz-hero-lore { margin: 10px 0 0; color: var(--toad-accent); font-size: 0.88rem; }
+.viz-nav, .viz-close {
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+.viz-close { position: absolute; top: -8px; right: -8px; font-size: 1rem; }
+body.viewer-open { overflow: hidden; }
+@media (max-width: 700px) {
+    .viz-viewer-frame { grid-template-columns: 1fr; }
+    .viz-nav { display: none; }
+}
+
 .toad-menu-grid {
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 14px;

@@ -58,7 +58,28 @@ def cut(sheet_path, mapping, tag):
         bottom = int(round((row + 1) * ch - inset_y))
         cell = im.crop((left, top, right, bottom))
         if num is None:
-            name = f'sheet_{tag}_extra_{i:02d}.png'
+            extras = {
+                17: 'field_patrol_spear.png',
+                18: 'field_cook_ladle.png',
+                19: 'field_librarian_books.png',
+                20: 'field_engineer_wrench.png',
+                21: 'field_farmer_hoe.png',
+                22: 'field_miner_pickaxe.png',
+                23: 'field_bard_lute.png',
+                24: 'field_scout_spyglass.png',
+                25: 'field_medic_satchel.png',
+                26: 'field_blacksmith_tongs.png',
+                27: 'field_fisher_rod.png',
+                28: 'field_archer_bow.png',
+                29: 'field_knight_sword.png',
+                30: 'field_alchemist_potions.png',
+                31: 'field_messenger_letter.png',
+                32: 'field_guard_pike.png',
+                33: 'field_mason_trowel.png',
+                34: 'field_brewer_barrel.png',
+                35: 'field_young_slingshot.png',
+            }
+            name = extras.get(i, f'field_extra_{i:02d}.png')
         else:
             name = f'toad_{num:02d}_{SLUG[num]}.png'
         dest = ROSTER / name
