@@ -745,7 +745,7 @@ export function emitLegionDietSync() {
 const MIDLANDS_DIET_DATA = {
     name: "Holy Midlands Diet",
     status: "Crisis Session",
-    currentSession: 47,
+    currentSession: 48,
     sessionStartDate: { year: 1040, monthIndex: 6, day: 15 },
     description: "The Midlands are governed by a parliamentary body where provincial representatives vote on state matters. The Diet is currently in emergency session following the passage of the Supernatural Sovereignty Act. The traditional Imperial Concordat faces open revolt from the supernatural blocs, while the pragmatic Heartland Alliance desperately seeks de-escalation.",
     
@@ -753,7 +753,7 @@ const MIDLANDS_DIET_DATA = {
         status: 'ACTIVE',
         militaryAdvisorPresent: true,
         securityLevel: 'ELEVATED',
-        lastMilitaryBriefing: { year: 1040, monthIndex: 6, day: 21 }
+        lastMilitaryBriefing: { year: 1040, monthIndex: 6, day: 24 }
     },
     
     provinces: [
@@ -916,9 +916,87 @@ const VOTE_HISTORY = [
         legionResponse: 'Immediate deployment of 5,000+ troops to border provinces',
         icon: '🛡️'
     }
+    ,{
+        id: 'rivers_vigilance_observer_memorandum',
+        title: "Speaker Rivers Observer Memorandum on the Reclaimed Vigilance",
+        proposer: 'Speaker Wren Rivers (resigned; observer)',
+        proposerFaction: 'unaligned',
+        date: { year: 1040, monthIndex: 6, day: 24 },
+        status: 'advisory-filed',
+        description: "Non-voting memorandum circulated after reports that the Liberated Toads had reclaimed the Vigilance. Rivers advises containment, verification, and civilian protection rather than another armed cohort push into Raventree Manor.",
+        arguments: {
+            for: "The Toads need witnesses who understand captured parliaments. Rivers resigned over the Mandate and knows what pre-counted votes look like.",
+            against: "He is no longer seated and cannot command the Cohort Council. His memorandum is evidence, not authority."
+        },
+        results: {
+            yes: 11,
+            no: 0,
+            abstain: 0,
+            notable_votes: [
+                { name: 'Speaker Wren Rivers', province: 'Lockerwood', vote: 'observe', reason: 'Recommends no second Raventree cohort advance until the Vigilance is stabilized and the Speaker L question is resolved' },
+                { name: 'Archmage Quintus Brightwater', province: 'Yale Shores', vote: 'observe', reason: 'Supports avoiding another manor incursion while supernatural conditions remain undefined' }
+            ]
+        },
+        consequences: [
+            "Heartland observers begin tracking Pond Patrol caretaker votes",
+            "Rivers memorandum cited by Scribe Dewdrop in the Observer Compact",
+            "Imperial hawks accuse Rivers of laundering Toad insurgent procedure through Diet language"
+        ],
+        legionOperation: null,
+        legionResponse: 'Silent Service opens passive monitoring file; no public deployment ordered',
+        icon: '📜'
+    }
+
 ];
 
 const UPCOMING_VOTES = [
+
+    {
+        id: 'reclaimed_vigilance_status_review',
+        title: "Status Review: The Reclaimed Vigilance",
+        proposer: 'Lord Chancellor Aldric Stonehand',
+        proposerFaction: 'regal_empire',
+        date: { year: 1040, monthIndex: 6, day: 25 },
+        status: 'proposed',
+        description: "Determines whether the Vigilance's return to Toad hands is treated as insurgent occupation, humanitarian sanctuary, or a temporarily tolerated post-Legion liability. The hawks want legal grounds for another seizure; the Heartland wants observers and evacuation corridors.",
+        arguments: {
+            for: "The ship remains a strategic asset and cannot be left outside Imperial supervision after Order 120.",
+            against: "A second seizure would validate every accusation that the Mandate was conquest wearing law. The Toads are wounded, not conquered territory."
+        },
+        projectedResults: null,
+        icon: '🚀',
+        urgency: 'critical',
+        legionOperation: 'IRON PERCH',
+        legionResponse: 'Aerial watchers assigned; no boarding order until Diet language is secured',
+        relatedEvents: [
+            "The Reclamation of the Vigilance",
+            "Order 120",
+            "Speaker Rivers Observer Memorandum"
+        ]
+    },
+    {
+        id: 'raventree_nonintervention_review',
+        title: "Raventree Non-Intervention Review",
+        proposer: 'Speaker Wren Rivers (observer memorandum)',
+        proposerFaction: 'unaligned',
+        date: { year: 1040, monthIndex: 6, day: 26 },
+        status: 'proposed',
+        description: "Advisory review asking whether Imperial observers should discourage a second Pond Patrol cohort advance into Raventree Manor while the manor remains unstable and the Toads are overextended after retaking the Vigilance.",
+        arguments: {
+            for: "Containment and observation prevent another preventable casualty spiral. Let the manor show its pattern before feeding it another army.",
+            against: "Delay lets supernatural evidence move, rot, or be hidden by the parties already inside."
+        },
+        projectedResults: null,
+        icon: '🏚️',
+        urgency: 'high',
+        legionOperation: null,
+        legionResponse: 'No formal deployment; intelligence watchers monitor the perimeter and Toad vote traffic',
+        relatedEvents: [
+            "Siege of Raventree Manor",
+            "Pond Patrol caretaker votes",
+            "The Reclamation of the Vigilance"
+        ]
+    },
     {
         id: 'refugee_containment_act',
         title: "The Displaced Persons Containment Act",

@@ -2,12 +2,12 @@
   "meta": {
     "source": "Ported from Reputation-Matrix2/liberated-toads-system.js into Waluipedia as a faction-linked system.",
     "asOf": {
-      "day": 21,
+      "day": 24,
       "monthIndex": 6,
       "year": 1040,
-      "label": "Highsun 21, 1040 BF"
+      "label": "Highsun 24, 1040 BF"
     },
-    "note": "Operational snapshot frozen at Highsun 21, 1040 BF (Day 21) — the Order 120 emergency. The wider archive clock has advanced to Aethel 1040 BF, so this record is deliberately behind the present day; the Toad crisis has not been narrated forward yet.",
+    "note": "Operational snapshot advanced after the Reclamation of the Vigilance. Speaker L remains absent; the ship is back in Toad hands, but command is split between Captain Fernback, the Cohort Council, the hardliner deck faction, and the Liberators' Circle. The Pond Patrol is too occupied stabilizing the ship and perimeter to throw another cohort army into Raventree Manor without a new vote.",
     "rosterNote": "Each cohort includes a full `roster` of named toads. The integer `members` field is still the headcount used by docket math (and barrel_survivors overlaps other cohorts). Many names use the '___ T' pun style (Pilo T, Geek T, Intel T, Capi T); others are toad-native. Roster rows are names/roles/levels — not full character articles unless linked elsewhere.",
     "namingConvention": {
       "tPun": "Say the name out loud with the letter T: Pilo T, Magne T, Budge T, Geek T, Nerd T, Intel T, Documen T, Equipmen T, Comba T, Warran T, Studen T, Recrui T…",
@@ -16,10 +16,10 @@
     }
   },
   "structure": {
-    "type": "Emergency Military Junta",
-    "established": "Day 21, Hour 14:00",
-    "authority_basis": "Order 120 (Martial Law Response)",
-    "description": "Following the discovery that Speaker L is a decoy and the imminent execution of Toad prisoners, Captain Fernback has assumed temporary command. The Council is in disarray."
+    "type": "Emergency caretaker council / contested reclaimed-ship command",
+    "established": "Highsun 24, after the Reclamation of the Vigilance",
+    "authority_basis": "Emergency Resolution 17-A, Order 120 aftermath, and caretaker votes while Speaker L is absent",
+    "description": "Following the discovery that the captured Speaker L was a decoy and the later Reclamation of the Vigilance, Captain Fernback holds temporary security command while the Cohort Council tries to govern without the voice that made its emergency powers legitimate. The ship is back, but the chain of command is not."
   },
   "speaker": {
     "id": "speaker_l",
@@ -27,7 +27,7 @@
     "title": "Voice of the Pond",
     "fullTitle": "Voice of the Pond, Keeper of the Cohort, Emergency Commander",
     "portrait": "🐸👑",
-    "authorityLevel": "Supreme (Emergency Powers)",
+    "authorityLevel": "Absent / contested emergency authority",
     "level": 8,
     "xp": 3200,
     "stats": {
@@ -107,7 +107,7 @@
       }
     ],
     "philosophy": "Order through unity. Safety through vigilance. Justice through accountability.",
-    "description": "Speaker L emerged as the spiritual and political leader during the chaos aboard the Vigilance. Their calm demeanor, unwavering moral compass, and almost supernatural ability to inspire loyalty rallied the traumatized toads into a cohesive force. While their methods can seem harsh, none doubt their commitment to the Cohort's survival.",
+    "description": "Speaker L remains the spiritual and legal center of the Liberated Toads, but the current operational file treats him as absent. His decrees still shape the docket, yet every new order now requires a workaround: Captain Fernback for security, the Cohort Council for legitimacy, and the Liberators' Circle when survival or re-enslavement is at stake. This is the central wound in the post-Reclamation Pond Patrol.",
     "quotes": [
       "This is not retribution's art, but the mending of the fractured heart.",
       "By pond and law, by vow and steel, the wound must close for peace to heal.",
@@ -261,8 +261,8 @@
       }
     ],
     "speakerRelationship": {
-      "status": "Broken Chain of Command",
-      "notes": "With Speaker L revealed as a decoy/missing, the Liberators act independently. Captain Fernback respects them but is prioritizing military defense."
+      "status": "Caretaker era — Speaker absent",
+      "notes": "With Speaker L missing and the decoy exposed, the Liberators can no longer simply advise. Their veto power is politically heavier, but Captain Fernback controls the Pond Patrol on deck and the Council controls the paper. Everyone is acting in Speaker L's name; nobody can prove he would approve."
     }
   },
   "council": {
@@ -270,7 +270,7 @@
     "seats": 7,
     "description": "Seven elected representatives from each major cohort advise Speaker L. While the Speaker holds emergency powers, the Council provides crucial perspective and can override vetoes with a 2/3 majority.",
     "meetingSchedule": "Daily at dawn, emergency sessions as needed",
-    "currentSession": "Emergency Session - Iron Mandate Response",
+    "currentSession": "Post-Reclamation Emergency Session — Vigilance secured, command unsettled",
     "members": [
       {
         "id": "elder_mudcap",
@@ -282,7 +282,7 @@
         "portrait": "🐸👴",
         "stance": "Conservative",
         "description": "The oldest of the barrel survivors. Speaks for the traumatized majority.",
-        "current_vote": "Strategic Withdrawal",
+        "current_vote": "Caretaker Command",
         "articleId": "elder_mudcap"
       },
       {
@@ -295,7 +295,7 @@
         "portrait": "🐸🛡️",
         "stance": "Loyalist",
         "description": "Fanatically devoted to Speaker L. Commands the enforcement arm.",
-        "current_vote": "Strategic Withdrawal",
+        "current_vote": "Caretaker Command",
         "articleId": "captain_fernback"
       },
       {
@@ -308,7 +308,7 @@
         "portrait": "🐸📜",
         "stance": "Moderate",
         "description": "Maintains faction records. Values knowledge over conflict.",
-        "current_vote": "Diplomatic Outreach",
+        "current_vote": "External Observer Compact",
         "articleId": "scribe_dewdrop"
       },
       {
@@ -321,7 +321,7 @@
         "portrait": "🐸🔨",
         "stance": "Pragmatic",
         "description": "Keeps the Vigilance running. Practical above all.",
-        "current_vote": "Strategic Withdrawal",
+        "current_vote": "Stabilize the Vigilance",
         "articleId": "forgemaster_ironspore"
       },
       {
@@ -334,7 +334,7 @@
         "portrait": "🐸⚔️",
         "stance": "Militant",
         "description": "Commands the combat forces. Favors direct action.",
-        "current_vote": "Armed Resistance",
+        "current_vote": "Second Advance (minority)",
         "articleId": "warden_thornshell"
       },
       {
@@ -347,7 +347,7 @@
         "portrait": "🐸💚",
         "stance": "Humanitarian",
         "description": "Leads medical operations. Prioritizes lives above all.",
-        "current_vote": "Diplomatic Outreach",
+        "current_vote": "No Second Advance",
         "articleId": "healer_mistpetal"
       },
       {
@@ -375,14 +375,14 @@
       "leader": "Captain Fernback",
       "purpose": "Security, enforcement of Speaker L's decrees, protection of the Cohort",
       "role": "Elite enforcement arm, directly commanded by Speaker L",
-      "members": 23,
+      "members": 24,
       "maxMembers": 30,
       "loyalty": 100,
-      "morale": 85,
-      "combatReadiness": 95,
-      "status": "active",
-      "statusDetail": "On high alert following Iron Mandate",
-      "description": "The elite enforcement arm of the Liberated Toads. Hand-picked by Captain Fernback for loyalty and skill. Fanatically devoted to Speaker L.",
+      "morale": 74,
+      "combatReadiness": 81,
+      "status": "overextended",
+      "statusDetail": "Split between reclaimed Vigilance security, Raventree perimeter watch, prisoner handling, and Speaker L search protocols",
+      "description": "The elite enforcement arm of the Liberated Toads. Still loyal to Speaker L, but operating under Captain Fernback while the Speaker is absent. The Reclamation of the Vigilance restored a headquarters and created too many doors to guard at once.",
       "equipment": [
         "Standard arms",
         "Patrol gear",
@@ -3503,159 +3503,31 @@
   },
   "activeVotes": [
     {
-      "id": "V-2021-002",
-      "title": "CRISIS RESPONSE: ORDER 120",
-      "type": "emergency",
+      "id": "V-2021-003",
+      "title": "POST-RECLAMATION AUTHORITY: WHO COMMANDS WITHOUT SPEAKER L?",
+      "type": "constitutional",
       "status": "active",
-      "proposed_by": "Captain Fernback",
+      "proposed_by": "Elder Mudcap and Captain Fernback",
       "proposed_date": {
-        "day": 21,
+        "day": 24,
         "monthIndex": 6,
         "year": 1040,
-        "hour": 14,
-        "minute": 45
+        "hour": 7,
+        "minute": 30
       },
       "deadline": {
-        "day": 21,
+        "day": 26,
         "monthIndex": 6,
         "year": 1040,
-        "hour": 15,
-        "minute": 45
+        "hour": 7,
+        "minute": 30
       },
-      "description": "General Ironhand has issued 'Order 120': The immediate execution of all Toad prisoners at Aegis Command. Bones is confirmed among them, critically wounded. The 'Speaker L' in custody is confirmed to be a decoy.",
-      "background": "We have less than an hour before executions begin. The infiltration team (Creek) is pinned down.",
+      "description": "The Vigilance has been reclaimed, but Speaker L is absent and the decoy revelation broke the old assumption that the Voice can settle emergency powers by speaking. The Council must decide who can issue orders until the real Speaker returns or is declared unreachable.",
+      "background": "The hardliner deck faction controls momentum after the Reclamation. The Pond Patrol controls armed security. The Liberators' Circle controls moral veto. None of those is the same as the Speaker.",
       "options": [
         {
           "id": "A",
-          "text": "Suicide Assault - Throw everything at Aegis Command immediately",
-          "votes": 2,
-          "voters": [
-            "Warden Thornshell",
-            "Captain Fernback"
-          ],
-          "pros": [
-            "Only chance to save them",
-            "Honor"
-          ],
-          "cons": [
-            "Likely total faction wipeout",
-            "Aegis is a fortress"
-          ]
-        },
-        {
-          "id": "B",
-          "text": "The hjumpik Bargain - Use the Oracle as leverage (hjumpik's connection)",
-          "votes": 1,
-          "voters": [
-            "Forgemaster Ironspore"
-          ],
-          "pros": [
-            "Diplomatic leverage",
-            "High value trade"
-          ],
-          "cons": [
-            "Requires hjumpik's cooperation",
-            "Betrays the Oracle"
-          ]
-        },
-        {
-          "id": "C",
-          "text": "Distraction Strike - Hit a different target to draw forces away",
-          "votes": 1,
-          "voters": [
-            "Scribe Dewdrop"
-          ],
-          "pros": [
-            "Lower risk",
-            "Strategic"
-          ],
-          "cons": [
-            "Might not stop executions in time"
-          ]
-        }
-      ],
-      "speaker_recommendation": null,
-      "speaker_statement": "SPEAKER ABSENT. CAPTAIN FERNBACK ASSUMING TEMPORARY COMMAND.",
-      "quorum_required": 4,
-      "current_quorum": 4,
-      "notes": "Situation critical. Bones life signs fading."
-    },
-    {
-      "id": "V-2021-001",
-      "title": "Response to the Iron Mandate",
-      "type": "emergency",
-      "status": "suspended",
-      "proposed_by": "Speaker L (Decoy?)",
-      "proposed_date": {
-        "day": 21,
-        "monthIndex": 6,
-        "year": 1040,
-        "hour": 10,
-        "minute": 0
-      },
-      "deadline": {
-        "day": 21,
-        "monthIndex": 6,
-        "year": 1040,
-        "hour": 11,
-        "minute": 0
-      },
-      "description": "Suspended due to active combat scenario (Order 120).",
-      "background": "Speaker Rivers resigned in protest. Legion patrols are mobilizing immediately. We have perhaps hours before they reach our position.",
-      "options": [
-        {
-          "id": "A",
-          "text": "Full Evacuation - Abandon the Vigilance and scatter to pre-arranged safe houses",
-          "votes": 0,
-          "voters": [],
-          "pros": [
-            "Maximum survival chance",
-            "Preserves lives"
-          ],
-          "cons": [
-            "Loses Vigilance",
-            "Fractures faction",
-            "Abandons wounded"
-          ]
-        },
-        {
-          "id": "B",
-          "text": "Diplomatic Outreach - Contact moderate Diet members and attempt negotiation",
-          "votes": 2,
-          "voters": [
-            "Scribe Dewdrop",
-            "Healer Mistpetal"
-          ],
-          "pros": [
-            "Non-violent",
-            "Possible allies",
-            "Buys time"
-          ],
-          "cons": [
-            "May be too slow",
-            "Relies on others' goodwill"
-          ]
-        },
-        {
-          "id": "C",
-          "text": "Armed Resistance - Fortify current position and prepare for siege",
-          "votes": 1,
-          "voters": [
-            "Warden Thornshell"
-          ],
-          "pros": [
-            "Shows strength",
-            "Protects wounded"
-          ],
-          "cons": [
-            "High casualties likely",
-            "Creates martyrs",
-            "May be unwinnable"
-          ]
-        },
-        {
-          "id": "D",
-          "text": "Strategic Withdrawal - Relocate Vigilance to allied territory (Rakasha lands)",
+          "text": "Fernback Caretaker Command - Captain Fernback holds security command, Council countersigns political orders",
           "votes": 3,
           "voters": [
             "Elder Mudcap",
@@ -3663,157 +3535,356 @@
             "Forgemaster Ironspore"
           ],
           "pros": [
-            "Preserves faction",
-            "Maintains Vigilance",
-            "Potential allies"
+            "Fast enough for emergencies",
+            "Keeps Pond Patrol coherent",
+            "Requires Council paper trail"
           ],
           "cons": [
-            "Unknown reception",
-            "Distance from MK civil war"
+            "Militarizes civilian decisions",
+            "Speaker loyalists may see it as a quiet succession"
           ]
-        }
-      ],
-      "speaker_recommendation": "D",
-      "speaker_statement": "Vote suspended.",
-      "quorum_required": 4,
-      "current_quorum": 0,
-      "notes": "Superseded by V-2021-002"
-    },
-    {
-      "id": "V-2021-002",
-      "title": "Fate of the Iron Legion Prisoners",
-      "type": "standard",
-      "status": "pending",
-      "proposed_by": "Warden Thornshell",
-      "proposed_date": {
-        "day": 20,
-        "monthIndex": 6,
-        "year": 1040,
-        "hour": 14,
-        "minute": 0
-      },
-      "deadline": {
-        "day": 21,
-        "monthIndex": 6,
-        "year": 1040,
-        "hour": 14,
-        "minute": 0
-      },
-      "description": "We hold 6 Iron Legion soldiers captured during various engagements. With the Iron Mandate now in effect, their status becomes more complicated.",
-      "prisoners": [
-        {
-          "name": "Sergeant Ironside",
-          "rank": "NCO",
-          "captured": "Day 16",
-          "condition": "Healthy"
         },
         {
-          "name": "Private Steelhelm",
-          "rank": "Enlisted",
-          "captured": "Day 16",
-          "condition": "Minor wounds"
+          "id": "B",
+          "text": "Full Council Regency - all Speaker powers require 5/7 Council approval until Speaker L returns",
+          "votes": 2,
+          "voters": [
+            "Scribe Dewdrop",
+            "Healer Mistpetal"
+          ],
+          "pros": [
+            "Most legitimate on paper",
+            "Prevents one armed cohort from ruling the ship"
+          ],
+          "cons": [
+            "Slow in crisis",
+            "Scout seat remains vacant"
+          ]
         },
         {
-          "name": "Private Chainlink",
-          "rank": "Enlisted",
-          "captured": "Day 16",
-          "condition": "Healthy"
-        },
-        {
-          "name": "Private Rustguard",
-          "rank": "Enlisted",
-          "captured": "Day 20",
-          "condition": "Healthy"
-        },
-        {
-          "name": "Corporal Boltcutter",
-          "rank": "NCO",
-          "captured": "Day 20",
-          "condition": "Serious wounds"
-        },
-        {
-          "name": "Private Shieldwall",
-          "rank": "Enlisted",
-          "captured": "Day 20",
-          "condition": "Healthy"
-        }
-      ],
-      "options": [
-        {
-          "id": "A",
-          "text": "Execute as enemy combatants under wartime protocols",
+          "id": "C",
+          "text": "Hardliner Deck Command - recognize the Reclamation faction as temporary ship authority",
           "votes": 1,
           "voters": [
             "Warden Thornshell"
           ],
           "pros": [
-            "Eliminates threat",
-            "Sends message"
+            "Matches who currently holds the decks",
+            "Useful if another boarding action begins"
           ],
           "cons": [
-            "Moral cost",
-            "Propaganda for Legion",
-            "Speaker unlikely to authorize"
-          ]
-        },
-        {
-          "id": "B",
-          "text": "Prisoner exchange - Trade for Bones and any other captured toads",
-          "votes": 2,
-          "voters": [
-            "Elder Mudcap",
-            "Captain Fernback"
-          ],
-          "pros": [
-            "Recovers our people",
-            "Establishes precedent"
-          ],
-          "cons": [
-            "Legion may not negotiate",
-            "Returns soldiers to enemy"
-          ]
-        },
-        {
-          "id": "C",
-          "text": "Release with a message - Let them go with terms for future engagement",
-          "votes": 1,
-          "voters": [
-            "Scribe Dewdrop"
-          ],
-          "pros": [
-            "Shows mercy",
-            "Possible future goodwill"
-          ],
-          "cons": [
-            "Returns soldiers",
-            "May appear weak"
+            "Rewards fury over law",
+            "Risks turning liberation into occupation"
           ]
         },
         {
           "id": "D",
-          "text": "Continue detention pending formal trial",
+          "text": "Liberators' Circle Override - original liberators can veto any order until Speaker L returns",
           "votes": 1,
           "voters": [
+            "Heroes' Council proxy"
+          ],
+          "pros": [
+            "Prevents re-enslavement or revenge law",
+            "Keeps founding promise alive"
+          ],
+          "cons": [
+            "Not elected by cohorts",
+            "May split ship command from faction command"
+          ]
+        }
+      ],
+      "speaker_recommendation": "A",
+      "speaker_statement": "SPEAKER ABSENT. Caretaker command is not succession. Every order must leave a paper trail for the Speaker to judge if he returns.",
+      "quorum_required": 5,
+      "current_quorum": 7,
+      "notes": "This is the core lore implication: without Speaker L, the Pond Patrol can enforce but cannot easily legitimize. The more it acts, the more it risks becoming the thing Speaker L restrained."
+    },
+    {
+      "id": "V-2021-004",
+      "title": "RAVENTREE MANOR: SECOND COHORT ADVANCE OR HOLD PERIMETER?",
+      "type": "emergency",
+      "status": "active",
+      "proposed_by": "Warden Thornshell",
+      "proposed_date": {
+        "day": 24,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 9,
+        "minute": 15
+      },
+      "deadline": {
+        "day": 24,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 13,
+        "minute": 15
+      },
+      "description": "Raventree Manor remains active and hostile. The question is whether to send another cohort army into the manor after the Vigilance is reclaimed or admit the Pond Patrol is too occupied to spend lives on a second push.",
+      "background": "Speaker Rivers has sent an observer memorandum from the old Diet network: do not feed another cohort into the manor while the ship, prisoners, and Speaker L chain of command remain unstable. Observe, contain, and demand better intelligence.",
+      "options": [
+        {
+          "id": "A",
+          "text": "Second Cohort Advance - send Pond Patrol and Wardens back into the manor immediately",
+          "votes": 1,
+          "voters": [
+            "Warden Thornshell"
+          ],
+          "pros": [
+            "Could recover evidence before the manor shifts",
+            "Shows the Patrol is not afraid"
+          ],
+          "cons": [
+            "Pond Patrol overextended",
+            "Manor already punished a siege",
+            "No Speaker authorization for lethal escalation"
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Hold Perimeter and Observe - reinforce the cordon, no new interior advance without fresh intelligence",
+          "votes": 4,
+          "voters": [
+            "Elder Mudcap",
+            "Captain Fernback",
+            "Scribe Dewdrop",
             "Healer Mistpetal"
           ],
           "pros": [
-            "Maintains options",
-            "Proper process"
+            "Preserves forces",
+            "Matches Speaker Rivers observer recommendation",
+            "Keeps pressure without feeding the manor"
           ],
           "cons": [
-            "Resource drain",
-            "Indefinite situation"
+            "Leaves trapped evidence or people inside",
+            "Hardliners call it cowardice"
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Proxy Reconnaissance - ask Disaster Inc. or a small specialist team to scout before any cohort moves",
+          "votes": 2,
+          "voters": [
+            "Forgemaster Ironspore",
+            "Liberators' Circle proxy"
+          ],
+          "pros": [
+            "Lower footprint",
+            "Uses people already tangled in the manor",
+            "May reveal what a cohort army would trigger"
+          ],
+          "cons": [
+            "Relies on outsiders",
+            "Can become another Disaster Inc. incident"
           ]
         }
       ],
       "speaker_recommendation": "B",
-      "speaker_statement": "Bones was taken under my watch. I want him back. If we can trade soldiers for our people, we should.",
+      "speaker_statement": "NO SECOND ARMY WITHOUT A MAP. Rivers observes, Fernback concurs, Warden Thornshell objects.",
       "quorum_required": 4,
-      "current_quorum": 5,
-      "notes": "Forgemaster Ironspore has abstained, citing conflict of interest - his brother was killed by the Legion."
+      "current_quorum": 7,
+      "notes": "Current leaning: no second cohort army. The Patrol is too occupied with ship security, prisoner accounting, and Speaker L absence to make Raventree a meat grinder again."
+    },
+    {
+      "id": "V-2021-005",
+      "title": "WHAT IS THE RECLAIMED VIGILANCE NOW?",
+      "type": "standard",
+      "status": "active",
+      "proposed_by": "Forgemaster Ironspore",
+      "proposed_date": {
+        "day": 24,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 11,
+        "minute": 0
+      },
+      "deadline": {
+        "day": 25,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 11,
+        "minute": 0
+      },
+      "description": "The Reclamation returned the airship to Toad hands, but not to the old political world. The Council must decide whether the Vigilance is a sanctuary, fortress, mobile court, or propaganda instrument.",
+      "background": "The hardliner anthem is broadcasting. Waluigi calls the victory a catastrophe because the song sounds more like tightening chains than breaking them.",
+      "options": [
+        {
+          "id": "A",
+          "text": "Sanctuary Ship - prioritize civilians, medical decks, and reunification of scattered toads",
+          "votes": 3,
+          "voters": [
+            "Elder Mudcap",
+            "Healer Mistpetal",
+            "Scribe Dewdrop"
+          ],
+          "pros": [
+            "Protects survivors",
+            "Counters hardliner capture of the narrative"
+          ],
+          "cons": [
+            "Less immediate military readiness",
+            "Requires trust in outside escorts"
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Fortress Ship - arm the Vigilance and prepare for another Legion boarding",
+          "votes": 2,
+          "voters": [
+            "Captain Fernback",
+            "Warden Thornshell"
+          ],
+          "pros": [
+            "Realistic after Iron Sky",
+            "Makes the Reclamation defensible"
+          ],
+          "cons": [
+            "Turns home into barracks",
+            "May empower hardliners"
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Mobile Court - bring the Accountability Docket aboard and hear every charge in public",
+          "votes": 1,
+          "voters": [
+            "Liberators' Circle proxy"
+          ],
+          "pros": [
+            "Restores law after chaos",
+            "Makes the ship answerable"
+          ],
+          "cons": [
+            "Slow",
+            "Dangerous if enemies exploit public hearings"
+          ]
+        },
+        {
+          "id": "D",
+          "text": "Broadcast Platform - use the ship and anthem to recruit scattered toads",
+          "votes": 1,
+          "voters": [
+            "Forgemaster Ironspore"
+          ],
+          "pros": [
+            "Builds numbers",
+            "Uses the victory while morale is hot"
+          ],
+          "cons": [
+            "Propaganda can outrun truth",
+            "Waluigi already hates the song"
+          ]
+        }
+      ],
+      "speaker_recommendation": "A",
+      "speaker_statement": "A reclaimed home must become a home before it becomes a weapon.",
+      "quorum_required": 4,
+      "current_quorum": 7,
+      "notes": "This vote is about identity. The old Vigilance was a home. The Legion made it a trophy. The Reclamation risks making it a weapon wearing the word home."
+    },
+    {
+      "id": "V-2021-006",
+      "title": "SPEAKER RIVERS OBSERVER COMPACT",
+      "type": "standard",
+      "status": "pending",
+      "proposed_by": "Scribe Dewdrop",
+      "proposed_date": {
+        "day": 24,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 12,
+        "minute": 20
+      },
+      "deadline": {
+        "day": 25,
+        "monthIndex": 6,
+        "year": 1040,
+        "hour": 12,
+        "minute": 20
+      },
+      "description": "Speaker Rivers resigned from the Midlands Diet over the Iron Mandate and is observing the Pond Patrol crisis through old Diet channels. The Council must decide whether to accept his observer memoranda as advisory evidence.",
+      "background": "Rivers is not a Toad commander and cannot vote in the Cohort Council. His value is procedural memory: he knows what a captured parliament looks like because he resigned from one.",
+      "options": [
+        {
+          "id": "A",
+          "text": "Admit Rivers as non-voting observer and file his memoranda with Council records",
+          "votes": 4,
+          "voters": [
+            "Scribe Dewdrop",
+            "Healer Mistpetal",
+            "Elder Mudcap",
+            "Forgemaster Ironspore"
+          ],
+          "pros": [
+            "External legitimacy",
+            "Useful anti-Mandate witness",
+            "Helps avoid repeating Diet mistakes"
+          ],
+          "cons": [
+            "Outsider influence during leadership vacuum",
+            "May expose Pond Patrol deliberations"
+          ]
+        },
+        {
+          "id": "B",
+          "text": "Receive memoranda only; no observer standing",
+          "votes": 2,
+          "voters": [
+            "Captain Fernback",
+            "Warden Thornshell"
+          ],
+          "pros": [
+            "Keeps security tighter",
+            "Still benefits from advice"
+          ],
+          "cons": [
+            "Looks paranoid",
+            "Weakens political bridge to anti-Mandate seats"
+          ]
+        },
+        {
+          "id": "C",
+          "text": "Reject all Diet-linked observers",
+          "votes": 1,
+          "voters": [
+            "Hardliner deck proxy"
+          ],
+          "pros": [
+            "No outside eyes",
+            "Satisfies angry survivors"
+          ],
+          "cons": [
+            "Throws away the one Diet figure who acted on conscience"
+          ]
+        }
+      ],
+      "speaker_recommendation": "A",
+      "speaker_statement": "Rivers does not command us. That is why he may be useful.",
+      "quorum_required": 4,
+      "current_quorum": 7,
+      "notes": "Rivers' practical position on Raventree: observe and contain, do not order another cohort advance while the Patrol is stretched thin."
     }
   ],
   "recentVotes": [
+    {
+      "id": "V-2021-002",
+      "title": "Crisis Response: Order 120",
+      "type": "emergency",
+      "status": "passed",
+      "result": "Improvised survival response; no suicide assault enacted before the wider Aegis/Reclamation chain changed the board",
+      "final_tally": {
+        "for": 4,
+        "against": 0,
+        "abstain": 0
+      },
+      "date": {
+        "day": 21,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "summary": "Captain Fernback assumed temporary command after the Speaker L decoy was exposed and Order 120 threatened to execute Toad prisoners. The vote did not produce a clean doctrine; it produced the caretaker crisis that still governs the Pond Patrol.",
+      "long_term_effects": "Established Fernback as temporary security authority but left the Speaker L legitimacy question unresolved."
+    },
     {
       "id": "V-2016-001",
       "title": "The Scavenging Doctrine",
@@ -3894,13 +3965,77 @@
   ],
   "timeline": [
     {
+      "day": 24,
+      "date": {
+        "day": 24,
+        "monthIndex": 6,
+        "year": 1040
+      },
+      "isCurrent": true,
+      "title": "Post-Reclamation Caretaker Crisis",
+      "events": [
+        {
+          "time": "06:40",
+          "title": "Vigilance Reclaimed, Chain of Command Unsettled",
+          "type": "governance",
+          "severity": "critical",
+          "icon": "🚀",
+          "description": "The Liberated Toads hold the Vigilance again, but Speaker L remains absent and the hardliner deck faction is louder than the old Council procedure. Captain Fernback opens a caretaker authority vote.",
+          "involved": [
+            "Captain Fernback",
+            "Cohort Council",
+            "Liberated Toads"
+          ]
+        },
+        {
+          "time": "09:15",
+          "title": "Raventree Second Advance Motion",
+          "type": "military",
+          "severity": "high",
+          "icon": "🏚️",
+          "description": "Warden Thornshell proposes another cohort advance into Raventree Manor. Speaker Rivers, observing through old Diet channels, advises containment and no second army until the ship and chain of command stabilize.",
+          "involved": [
+            "Warden Thornshell",
+            "Speaker Rivers",
+            "Pond Patrol"
+          ]
+        },
+        {
+          "time": "11:00",
+          "title": "Vigilance Identity Debate",
+          "type": "political",
+          "severity": "high",
+          "icon": "🗳️",
+          "description": "Council opens the question of whether the reclaimed Vigilance is sanctuary, fortress, court, or broadcast platform. The sanctuary option leads, but the ship is still singing the hardliner anthem.",
+          "involved": [
+            "Forgemaster Ironspore",
+            "Healer Mistpetal",
+            "Hardliner Deck Faction"
+          ]
+        },
+        {
+          "time": "12:20",
+          "title": "Speaker Rivers Observer Compact",
+          "type": "governance",
+          "severity": "medium",
+          "icon": "📜",
+          "description": "Scribe Dewdrop proposes accepting Speaker Rivers as a non-voting observer. The issue is not command; it is whether an anti-Mandate parliamentarian can keep the Toads from becoming a parliament that counts votes after the outcome is decided.",
+          "involved": [
+            "Scribe Dewdrop",
+            "Speaker Rivers",
+            "Cohort Council"
+          ]
+        }
+      ]
+    },
+    {
       "day": 21,
       "date": {
         "day": 21,
         "monthIndex": 6,
         "year": 1040
       },
-      "isCurrent": true,
+      "isCurrent": false,
       "title": "The Iron Mandate & Order 120",
       "events": [
         {
@@ -3966,7 +4101,7 @@
         "monthIndex": 6,
         "year": 1040
       },
-      "isCurrent": true,
+      "isCurrent": false,
       "title": "The Iron Mandate",
       "events": [
         {
@@ -4029,19 +4164,6 @@
           ]
         },
         {
-          "time": "16:30",
-          "title": "Vigilance Captured",
-          "type": "military",
-          "severity": "critical",
-          "icon": "🚀",
-          "description": "The Iron Legion boards and captures the Vigilance. Multiple toads forced to escape, including Ryan who jumps from the ship.",
-          "involved": [
-            "Iron Legion",
-            "Ryan",
-            "Multiple crew"
-          ]
-        },
-        {
           "time": "17:00",
           "title": "Bones Confirmed Captured",
           "type": "intel",
@@ -4080,7 +4202,8 @@
             "Mossy"
           ]
         }
-      ]
+      ],
+      "isCurrent": false
     },
     {
       "day": 19,
@@ -4127,7 +4250,8 @@
             "Pond Patrol"
           ]
         }
-      ]
+      ],
+      "isCurrent": false
     },
     {
       "day": 18,
@@ -4177,7 +4301,8 @@
             "Eager"
           ]
         }
-      ]
+      ],
+      "isCurrent": false
     },
     {
       "day": 16,
@@ -4227,7 +4352,8 @@
             "Iron Legion"
           ]
         }
-      ]
+      ],
+      "isCurrent": false
     },
     {
       "day": 12,
@@ -4277,7 +4403,8 @@
             "150 toads"
           ]
         }
-      ]
+      ],
+      "isCurrent": false
     },
     {
       "day": 5,
@@ -4301,7 +4428,8 @@
             "X.O."
           ]
         }
-      ]
+      ],
+      "isCurrent": false
     }
   ],
   "coreToads": [
@@ -5747,5 +5875,5 @@
     }
   },
   "factionStats": null,
-  "pondPatrolNote": "The Pond Patrol is a 24-member cohort commanded by Captain Fernback. None of the named core roster below serve in it; Waluigi in particular is an outsider and a docket subject, not an officer."
+  "pondPatrolNote": "The Pond Patrol is now a 24-member overextended cohort commanded by Captain Fernback while Speaker L remains absent. It guards the reclaimed Vigilance, maintains the Raventree perimeter, handles prisoners and evidence, and cannot responsibly send another cohort army into the manor without stripping the ship or violating the caretaker votes."
 }

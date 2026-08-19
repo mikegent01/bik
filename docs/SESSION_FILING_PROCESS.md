@@ -384,20 +384,31 @@ in `index.html`, and they are easy to half-do:
 
 ---
 
-## Step 9 — Artifacts last
+## Step 9 — Artifacts and active systems last
+
+Before calling an event done, run the cross-system trigger pass in
+[`CROSS_SYSTEM_UPDATES.md`](CROSS_SYSTEM_UPDATES.md). Systems must move when the
+story moves. A new event that touches the Pond Patrol, the Holy Midlands Diet /
+Regal Empire, dynasties, maps, currencies, WAHwire, books, songs, Bros Attacks
+or shop logistics should update those systems in the same PR, or state clearly
+why no system update was needed.
 
 In this order:
 
-1. **Add the event id to the RNN pending list**
+1. **Run cross-system triggers** — especially `#/pond-docket` for any Pond
+   Patrol / Liberated Toad roster member and `#/regal-diet` for Regal Empire
+   laws, Diet votes, mandates, province pressure, representatives, or Legion
+   actions justified by politics.
+2. **Add the event id to the RNN pending list**
    (`tools/rnn-scripts/pending-news-articles.json`). Every filed event goes on
    the list. This is one line and it is the step people skip.
-2. **Check whether a broadcast is owed.** The rule is now **batching, not
+3. **Check whether a broadcast is owed.** The rule is now **batching, not
    one-per-event** — see [`RNN_BROADCAST_GUIDE.md`](RNN_BROADCAST_GUIDE.md).
    Ten pending events, or a run of events too significant to hold, buys an
    episode. One event does not.
-3. **Any other artifact** — images, standalone pages, map entries, book
+4. **Any other artifact** — images, standalone pages, map entries, book
    entries. All downstream, all cheap to redo.
-4. **Write the run report.** Format:
+5. **Write the run report.** Format:
    [`RUN_REPORT_FORMAT.md`](RUN_REPORT_FORMAT.md). Every JSON touched, every
    event filed, every XP award, in one block at the end of the run.
 
@@ -416,7 +427,9 @@ In this order:
 7  INVESTIGATION → the arc file gets the session row, its exhibits, its leads
                  investigations.json · three layers each · analysis, not summary
 8  INDEX       → Recent Adventures feed + SITE_UPDATES + mainPage.json
-9  ARTIFACTS   → pending-news-articles.json → broadcast if owed → run report
+9  SYSTEMS     → CROSS_SYSTEM_UPDATES.md pass: Pond Patrol, Regal Diet, maps,
+                 currencies, WAHwire, books, songs, Bros, shop logistics
+10 ARTIFACTS   → pending-news-articles.json → broadcast if owed → run report
 
 The event is written last. The paper it mentions is filed right after.
 The news is written after that.
