@@ -257,9 +257,9 @@ Generated faction stubs are review work, not reader-facing prose.
 
 ## Image / article art gate
 
-A new substantial article should ship with at least one image. Long narrative
-filings usually need a lead image plus selected section images where a place,
-object, document, or turning point becomes clearer when seen.
+A new substantial article should ship with images, not necessarily only one.
+Long narrative filings usually need a lead image plus selected section images
+where a place, object, document, or turning point becomes clearer when seen.
 
 Use image fields in data, not custom CSS:
 
@@ -274,8 +274,9 @@ Full procedure: `docs/IMAGE_GENERATION_GUIDE.md`. CSS rules for displaying
 article imagery should follow `docs/CSS_STYLE_GUIDE.md`.
 
 Do not create images for tiny stubs, purely technical docs, or planning data
-that has not become canon yet. Do not leave a major session article imageless
-without saying why in the run report.
+that has not become canon yet. Do not leave a major session article imageless,
+or with only one image when several visual beats clearly matter, without saying
+why in the run report.
 
 ## Reputation-impact gate
 

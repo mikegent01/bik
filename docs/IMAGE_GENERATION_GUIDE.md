@@ -31,6 +31,38 @@ not use them is a prompt written by someone who did not read the section.
 
 ---
 
+## How many images to generate
+
+The default is **not** one image forever. The default is: enough images that a
+reader can see the major physical evidence without turning the article into a
+comic strip.
+
+| Filing size / type | Image count | Use |
+|---|---:|---|
+| Small data stub, short correction, technical note | 0–1 | Only if a visual object is central. Explain in the run report if a substantial-looking filing has none. |
+| Short event or single-scene article | 1–2 | One lead image, plus one object/place if needed. |
+| Normal session event | 2–4 | Lead image plus the clearest section beats. |
+| Long narrative filing / finale / multi-location session | 4–7 | Lead image plus three to six section images. This is the usual upper working band. |
+| Battle article | 2–5 | Lead battlefield image, turning point, aftermath/evidence if useful. |
+| Investigation or evidence-heavy filing | 1–4 | Lead image plus key documents/specimens; props still carry the readable paper. |
+| Sprite/contact sheet or roster design | 1 sheet per batch | Use a 3×3 or 4×4 sheet to establish designs, then crop/refine individual characters later. |
+
+Rules of thumb:
+
+```text
+□ Always consider a lead image for a substantial new article.
+□ Add section images only where seeing the place/object/evidence changes the read.
+□ Do not illustrate every section by habit.
+□ Do not stop at one image when the article has several visually distinct beats.
+□ Do not create decorative filler just to hit a number.
+```
+
+A long article with only one image may be acceptable when the single image is the
+whole visual thesis, but say so in the run report. A finale, battle, or
+multi-location session usually deserves multiple images.
+
+---
+
 ## The process, in order
 
 ### Step 1 — Build the prompt sheet (no generation yet)
