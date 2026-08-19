@@ -14,18 +14,9 @@ import {
 // ---- portrait rendering ---------------------------------------------------
 
 export function toadPortraitStyle(toad, size) {
-    const p = toad.portrait;
-    if (p.kind === 'file') {
-        return `background-image:url('${PORTRAIT_BASE}${p.file}');background-size:contain;background-position:center;background-repeat:no-repeat`;
-    }
-    const cols = SHEET_LAYOUT.cols;
-    const col = p.cell % cols;
-    const row = Math.floor(p.cell / cols);
-    const x = (100 / (cols - 1)) * col;
-    const y = (100 / (SHEET_LAYOUT.rows - 1)) * row;
-    return `background-image:url('${PORTRAIT_BASE}sheet_${p.sheet}.png');` +
-           `background-size:${cols * 100}% ${SHEET_LAYOUT.rows * 100}%;` +
-           `background-position:${x}% ${y}%`;
+    const p = toad.portrait || {};
+    const file = p.file || `toad_${toad.id}.png`;
+    return `background-image:url('${PORTRAIT_BASE}${file}');background-size:contain;background-position:center;background-repeat:no-repeat`;
 }
 
 function portraitMarkup(toad) {
@@ -135,7 +126,7 @@ function renderCohortGrid() {
                         ? '<span class="seen-badge seen" title="Met by the players">SEEN</span>'
                         : '<span class="seen-badge unseen" title="Not yet met by the players">UNSEEN</span>'}
                 </div>
-                <div class="toad-name">${t.name}</div>
+                <div class="toad-name">${t.name}${t.aka ? ` <span class="toad-aka">(${t.aka})</span>` : ''}</div>
                 <div class="toad-aff">${t.affiliation}</div>
                 <div class="toad-weapon" title="Weapon">⚔ ${t.weapon}</div>
                 ${t.isElectorate ? '<div class="toad-electorate" title="Tiers 6+7 elect the Speaker and vote armies into being">🗳 Electorate</div>' : ''}

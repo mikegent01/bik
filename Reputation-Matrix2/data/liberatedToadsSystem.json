@@ -5886,7 +5886,9 @@
  "toadslistIntake": {
   "source": "Liberated Toads work/Toadslist.xlsx (3 sheets: Sheet1 roster, Cohort List, Leadership Positions)",
   "intakeDate": "2026-08-19",
+    "portraitNote": "Standalone PNGs in assets/images/toads/roster/. six=Somkin J, sniop=Lilystalker/Snipe T, lyio=Gearspore, reag=Regan. Sheets cut by tools/cut-toad-sheets.py.",
   "rosterSize": 75,
+    "electorateSize": 41,
   "note": "Authoritative named roster. The named-roster page (app/pages/liberated-toads-system) now renders this list instead of the generated 150+ roster; the 150-freed/158-escaped battle figures remain canon context, not headcount of named individuals.",
   "roster": [
    {
@@ -6486,6 +6488,7 @@
     "position": 7,
     "title": "Groups / Unions",
     "groups": [
+     "Teachers",
      "Student Union",
      "Medics United",
      "Lillypads"
