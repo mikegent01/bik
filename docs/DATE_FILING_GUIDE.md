@@ -79,31 +79,31 @@ prose or a parenthetical. Do not “fix” the difference; the disagreement is c
 
 ---
 
-## Future-archive filings
+## Later-dated filings
 
-Some logs are explicitly from the future relative to the current Material clock.
-Do **not** drag them back to `currentDate.json` just to make them fit the present.
-Date them as future records and say so in the date field.
+Some logs are later than the current Material clock. Do **not** drag them back
+to `currentDate.json` just to make them fit the present-day site. Date the
+record to its own in-world date and add a provenance phrase when needed.
 
 Use this form:
 
 ```text
-Harvestide 29, 1045 BF — Day 6 of the Mount Ebott survey (future archive)
+Harvestide 29, 1045 BF — Day 6 of the Mount Ebott survey
 ```
 
 Rules:
 
 ```text
-□ If the transcript implies future context, preserve it.
-□ Backfill the whole local chain into that future sequence, not only the final file.
-□ Mark the date as "future archive" so readers know it is not currentDate drift.
-□ Do not mix future events into present-day causality without prose explaining the archive status.
-□ XP dateSort uses the future year if XP is attached to the future event.
+□ If the transcript implies a later-dated context, preserve it.
+□ Backfill the whole local chain into that sequence, not only the final file.
+□ Use prose or a filing note to explain why the archive has a later-dated record.
+□ Do not mix later-dated events into present-day causality without prose explaining the archive status.
+□ XP dateSort uses the later year if XP is attached to the later-dated event.
 ```
 
-A future filing can still appear in the archive. It must simply be labeled so the
-reader understands that the record is recovered, previewed, or filed out of
-current chronological order.
+A later-dated filing can still appear in the archive. It must simply be labeled
+so the reader understands that the record is recovered, previewed, or filed out
+of current chronological order.
 
 ---
 
