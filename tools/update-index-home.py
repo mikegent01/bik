@@ -41,6 +41,23 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
      </p>
 
      <div class="campaign-timeline-feed">
+       <!-- System Update: Pond Patrol + Diet after the Reclamation -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/pond-docket')" style="cursor:pointer; border-left:4px solid #4a9c6d; background:linear-gradient(135deg,rgba(74,156,109,.16),var(--panel2));">
+         <div class="timeline-date-chip" style="color:#7fd8a4;">Highsun 24–25, 1040 BF · System Update · Post-Reclamation Governance</div>
+         <h3 class="timeline-event-title">Post-Reclamation Motions — The Vigilance Is Back, But Not Gentle</h3>
+         <div class="timeline-actors">
+           <span>Pond Patrol</span><span>Cohort Council</span><span>Hardliner Deck Faction</span><span>Speaker Rivers</span><span>Holy Midlands Diet</span>
+         </div>
+         <p class="timeline-summary">
+           After rereading The Reclamation of the Vigilance, the live systems now reflect the harder truth: the Toads retook the ship, but the anthem and deck control point toward hardliner authority rather than a simple return to Speaker L's old sanctuary. Pond Patrol motions now reject a second cohort army into Raventree while the ship is unstable, and the Holy Midlands Diet calendar now treats the reclaimed ship as today's political crisis instead of leaving the Iron Mandate frozen as "today."
+         </p>
+         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
+           <span class="chip" onclick="Router.go('#/pond-docket')" style="margin:0; font-size:12px; background:#4a9c6d; color:#fff; font-weight:800;">⚖️ Open Pond Patrol Motions →</span>
+           <span class="chip" onclick="Router.go('#/regal-diet')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">🏛️ Holy Midlands Diet →</span>
+           <span class="chip" onclick="Router.go('#/article/reclamation_of_the_vigilance')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🚀 Reclamation Filing →</span>
+         </div>
+       </div>
+
        <!-- Event 0: Latest Ebott Final Log -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/mount_ebott_survey_final_log')" style="cursor:pointer; border-left:4px solid #8a4bff; background:linear-gradient(135deg,rgba(138,75,255,.18),var(--panel2));">
          <div class="timeline-date-chip" style="color:#c9a6ff;">Harvestide 29, 1045 BF · Day 6 · Later-Dated Final Ebott Log</div>

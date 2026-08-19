@@ -7121,6 +7121,23 @@ function view_home(){
      </p>
 
      <div class="campaign-timeline-feed">
+       <!-- System Update: Pond Patrol + Diet after the Reclamation -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/pond-docket')" style="cursor:pointer; border-left:4px solid #4a9c6d; background:linear-gradient(135deg,rgba(74,156,109,.16),var(--panel2));">
+         <div class="timeline-date-chip" style="color:#7fd8a4;">Highsun 24–25, 1040 BF · System Update · Post-Reclamation Governance</div>
+         <h3 class="timeline-event-title">Post-Reclamation Motions — The Vigilance Is Back, But Not Gentle</h3>
+         <div class="timeline-actors">
+           <span>Pond Patrol</span><span>Cohort Council</span><span>Hardliner Deck Faction</span><span>Speaker Rivers</span><span>Holy Midlands Diet</span>
+         </div>
+         <p class="timeline-summary">
+           After rereading The Reclamation of the Vigilance, the live systems now reflect the harder truth: the Toads retook the ship, but the anthem and deck control point toward hardliner authority rather than a simple return to Speaker L's old sanctuary. Pond Patrol motions now reject a second cohort army into Raventree while the ship is unstable, and the Holy Midlands Diet calendar now treats the reclaimed ship as today's political crisis instead of leaving the Iron Mandate frozen as "today."
+         </p>
+         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
+           <span class="chip" onclick="Router.go('#/pond-docket')" style="margin:0; font-size:12px; background:#4a9c6d; color:#fff; font-weight:800;">⚖️ Open Pond Patrol Motions →</span>
+           <span class="chip" onclick="Router.go('#/regal-diet')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">🏛️ Holy Midlands Diet →</span>
+           <span class="chip" onclick="Router.go('#/article/reclamation_of_the_vigilance')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🚀 Reclamation Filing →</span>
+         </div>
+       </div>
+
        <!-- Event 0: Latest Ebott Final Log -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/mount_ebott_survey_final_log')" style="cursor:pointer; border-left:4px solid #8a4bff; background:linear-gradient(135deg,rgba(138,75,255,.18),var(--panel2));">
          <div class="timeline-date-chip" style="color:#c9a6ff;">Harvestide 29, 1045 BF · Day 6 · Later-Dated Final Ebott Log</div>
@@ -8735,34 +8752,38 @@ function view_pond_docket(){
 /* Rich vote card for the ported voting system. */
 function ltVoteCard(v,live){
   const total=(v.options||[]).reduce((s,o)=>s+(o.votes||0),0)||1;
-  const rec=v.speaker_recommendation;
+  const leading=(v.options||[]).slice().sort((a,b)=>(b.votes||0)-(a.votes||0))[0]?.id;
+  const rec=v.speaker_recommendation || leading;
+  const recLabel=v.speaker_recommendation ? 'Recommended' : 'Current lead';
   const opts=(v.options||[]).map(o=>{
-    const pros=(o.pros||[]).map(p=>`<span class="pill" style="border-color:#4a9c6d;color:#4a9c6d">+ ${esc(p)}</span>`).join('');
-    const cons=(o.cons||[]).map(p=>`<span class="pill" style="border-color:#e0574a;color:#e0574a">− ${esc(p)}</span>`).join('');
-    return `<div class="dock-opt ${rec===o.id?'lt-rec':''}">
-      <div class="dock-opt-t"><span>${rec===o.id?'👑 ':''}<b>${esc(o.id)}.</b> ${esc(o.text)}</span><b>${o.votes||0}</b></div>
+    const isRec=rec===o.id;
+    const pros=(o.pros||[]).map(p=>`<span class="pill lt-pro">+ ${esc(p)}</span>`).join('');
+    const cons=(o.cons||[]).map(p=>`<span class="pill lt-con">− ${esc(p)}</span>`).join('');
+    return `<div class="dock-opt lt-vote-option ${isRec?'lt-rec':''}">
+      <div class="dock-opt-t"><span>${isRec?`<span class="lt-rec-label">${esc(recLabel)}</span> `:''}<b>${esc(o.id)}.</b> ${esc(o.text)}</span><b class="lt-vote-count">${o.votes||0}</b></div>
       <div class="dock-bar"><i style="width:${Math.round(((o.votes||0)/total)*100)}%"></i></div>
-      ${(o.voters||[]).length?`<small>${(o.voters||[]).map(esc).join(' · ')}</small>`:''}
-      ${(pros||cons)?`<div class="chips" style="margin-top:5px">${pros}${cons}</div>`:''}
+      ${(o.voters||[]).length?`<small class="lt-voters">${(o.voters||[]).map(esc).join(' · ')}</small>`:''}
+      ${(pros||cons)?`<div class="chips lt-procon" style="margin-top:7px">${pros}${cons}</div>`:''}
     </div>`;}).join('');
   const prisoners=specList((v.prisoners||[]).map(p=>({name:p.name,meta:p.rank,desc:[p.captured?`Captured ${p.captured}`:'',p.condition].filter(Boolean).join(' · '),tone:'#c81d25',icon:'⛓️'})),{cols:true});
   const tone=v.status==='active'?'#e0574a':v.status==='passed'?'#4a9c6d':v.status==='suspended'?'#a06bd8':'#e0b400';
-  return `<div class="dock-vote">
-    <div style="display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap">
-      <div><b style="font-size:15px">${esc(v.title)}</b><div class="dock-sub">${esc(v.id)} · ${esc(v.type||'')} · proposed by ${esc(v.proposed_by||v.proposedBy||'—')}${v.date?` · Day ${esc(String(v.date.day))}`:v.proposed_date?` · Day ${esc(String(v.proposed_date.day))}`:''}</div></div>
+  const statementLabel = v.statement_label || (v.speaker_recommendation ? "Speaker's statement" : 'Filed statement');
+  return `<div class="dock-vote lt-vote-card">
+    <div class="lt-vote-card-head">
+      <div><b class="lt-vote-title">${esc(v.title)}</b><div class="dock-sub">${esc(v.id)} · ${esc(v.type||'')} · proposed by ${esc(v.proposed_by||v.proposedBy||'—')}${v.date?` · Day ${esc(String(v.date.day))}`:v.proposed_date?` · Day ${esc(String(v.proposed_date.day))}`:''}</div></div>
       <span class="dock-badge" style="--dk:${tone};border-color:${tone};color:${tone}">${esc(v.status||'')}</span>
     </div>
-    ${v.description?`<p class="dock-list" style="padding-left:0;list-style:none;margin-top:8px">${esc(v.description)}</p>`:''}
-    ${v.background?`<div class="dock-sub" style="margin-top:6px">${esc(v.background)}</div>`:''}
+    ${v.description?`<p class="dock-list lt-vote-desc" style="padding-left:0;list-style:none;margin-top:10px">${esc(v.description)}</p>`:''}
+    ${v.background?`<div class="dock-sub lt-vote-bg" style="margin-top:8px">${esc(v.background)}</div>`:''}
     ${v.result?`<div class="dock-list" style="padding-left:0;list-style:none"><b style="color:var(--accent2)">Result:</b> ${esc(v.result)}</div>`:''}
     ${v.final_tally?`<div class="dock-sub">Final tally — ${v.final_tally.for} for · ${v.final_tally.against} against · ${v.final_tally.abstain} abstaining</div>`:''}
     ${prisoners?`<div class="dock-label">Prisoners in question</div>${prisoners}`:''}
     ${opts}
-    ${v.speaker_statement?`<div class="dock-note">“${esc(v.speaker_statement)}” — Speaker's statement</div>`:''}
-    ${v.quorum_required!=null?`<div class="dock-sub" style="margin-top:6px">Quorum ${v.current_quorum??0}/${v.quorum_required} ${(v.current_quorum??0)>=v.quorum_required?'✓ met':'✗ short'}</div>`:''}
+    ${v.speaker_statement?`<div class="dock-note lt-statement">“${esc(v.speaker_statement)}” — ${esc(statementLabel)}</div>`:''}
+    ${v.quorum_required!=null?`<div class="dock-sub lt-quorum" style="margin-top:8px">Quorum ${v.current_quorum??0}/${v.quorum_required} ${(v.current_quorum??0)>=v.quorum_required?'✓ met':'✗ short'}</div>`:''}
     ${v.dissent?`<div class="dock-note">${esc(v.dissent)}</div>`:''}
     ${v.long_term_effects?`<div class="dock-sub" style="margin-top:6px"><b style="color:var(--accent2)">Long-term effect:</b> ${esc(v.long_term_effects)}</div>`:''}
-    ${v.notes?`<div class="dock-sub" style="margin-top:6px">${esc(v.notes)}</div>`:''}
+    ${v.notes?`<div class="dock-sub lt-notes" style="margin-top:8px">${esc(v.notes)}</div>`:''}
   </div>`;
 }
 

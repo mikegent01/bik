@@ -3594,11 +3594,12 @@
           ]
         }
       ],
-      "speaker_recommendation": null,
+      "speaker_recommendation": "C",
       "speaker_statement": "NO SPEAKER PRESENT. Deck control is a fact, not a constitution. Every order made before the Voice returns is provisional and reviewable.",
       "quorum_required": 5,
       "current_quorum": 7,
-      "notes": "Current reality: hardliner deck control leads de facto. Current law: Fernback and the Council are trying to keep that fact from becoming permanent government."
+      "notes": "Current reality: hardliner deck control leads de facto. Current law: Fernback and the Council are trying to keep that fact from becoming permanent government. This motion is not a clean vote; it is a fight over whether facts on the deck become law on paper.",
+      "statement_label": "Filed caretaker warning"
     },
     {
       "id": "V-2021-004",
@@ -3684,7 +3685,8 @@
       "speaker_statement": "NO SECOND ARMY WITHOUT A MAP. The ship is not stable, the Speaker is not here, and Raventree has already eaten one clean plan.",
       "quorum_required": 4,
       "current_quorum": 7,
-      "notes": "Current leaning: hard no on another cohort army. Proxy reconnaissance remains possible; a mass advance is irresponsible while the Vigilance is unsettled."
+      "notes": "Current leaning: hard no on another cohort army. Proxy reconnaissance remains possible; a mass advance is irresponsible while the Vigilance is unsettled.",
+      "statement_label": "Caretaker security note"
     },
     {
       "id": "V-2021-005",
@@ -3779,11 +3781,12 @@
           ]
         }
       ],
-      "speaker_recommendation": null,
+      "speaker_recommendation": "B",
       "speaker_statement": "The ship is home, fortress, court, and mouthpiece at once. Pick one too quickly and the others will pick for you.",
       "quorum_required": 4,
       "current_quorum": 7,
-      "notes": "The fortress/broadcast bloc is stronger than the sanctuary bloc. This reflects the Reclamation article: the ship is back, but not gentle."
+      "notes": "Fortress/broadcast blocs are stronger than the sanctuary bloc. This reflects the Reclamation article: the ship is back, but not gentle. The question is whether law can catch up before the anthem becomes policy.",
+      "statement_label": "Waluigi docket note"
     },
     {
       "id": "V-2021-006",
@@ -3865,7 +3868,8 @@
       "speaker_statement": "Rivers does not command us. That is why he may be useful.",
       "quorum_required": 4,
       "current_quorum": 7,
-      "notes": "Rivers' practical position on Raventree: observe and contain, do not order another cohort advance while the Patrol is stretched thin and the reclaimed ship is politically unstable."
+      "notes": "Rivers' practical position on Raventree: observe and contain, do not order another cohort advance while the Patrol is stretched thin and the reclaimed ship is politically unstable.",
+      "statement_label": "Observer compact note"
     }
   ],
   "recentVotes": [
