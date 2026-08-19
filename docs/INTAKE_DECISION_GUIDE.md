@@ -1,5 +1,5 @@
 # Intake Decision Guide — What to Create From New Information
-
+RULE #1 ALWAYS LISTEN TO THE USER IF ITS UNCLEAR WHAT TO DO FOLLOW THIS GUIDE:
 **Use this before `SESSION_FILING_PROCESS.md`.** This guide answers the first
 question an agent faces when the user provides notes, a transcript, art, a
 character list, shop ideas, or a rules change:
