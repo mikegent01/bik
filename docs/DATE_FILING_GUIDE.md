@@ -79,6 +79,34 @@ prose or a parenthetical. Do not “fix” the difference; the disagreement is c
 
 ---
 
+## Future-archive filings
+
+Some logs are explicitly from the future relative to the current Material clock.
+Do **not** drag them back to `currentDate.json` just to make them fit the present.
+Date them as future records and say so in the date field.
+
+Use this form:
+
+```text
+Harvestide 29, 1045 BF — Day 6 of the Mount Ebott survey (future archive)
+```
+
+Rules:
+
+```text
+□ If the transcript implies future context, preserve it.
+□ Backfill the whole local chain into that future sequence, not only the final file.
+□ Mark the date as "future archive" so readers know it is not currentDate drift.
+□ Do not mix future events into present-day causality without prose explaining the archive status.
+□ XP dateSort uses the future year if XP is attached to the future event.
+```
+
+A future filing can still appear in the archive. It must simply be labeled so the
+reader understands that the record is recovered, previewed, or filed out of
+current chronological order.
+
+---
+
 ## Date field format
 
 Use readable in-world dates:

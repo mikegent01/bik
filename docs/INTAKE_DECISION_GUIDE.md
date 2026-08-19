@@ -279,6 +279,17 @@ that has not become canon yet. Do not leave a major session article imageless,
 or with only one image when several visual beats clearly matter, without saying
 why in the run report.
 
+## Pond Patrol / Liberated Toads docket gate
+
+If any Toad who belongs to the Pond Patrol or Liberated Toads roster appears in
+a filing, check the docket. The article does not have to be "about" the Pond
+Patrol for the docket to need an update.
+
+Update the docket/system when the Toad's status, cohort, assignment, injury,
+custody, trust, testimony, standing order, or accountability record changes. If
+the Toad is only mentioned and nothing changes, record that no docket update was
+needed in the run report. See `docs/CROSS_SYSTEM_UPDATES.md`.
+
 ## Reputation-impact gate
 
 Reputation impact is not a prose flourish. If a filing changes how a faction,

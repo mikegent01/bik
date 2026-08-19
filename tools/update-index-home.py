@@ -43,7 +43,7 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
      <div class="campaign-timeline-feed">
        <!-- Event 0: Latest Ebott Final Log -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/mount_ebott_survey_final_log')" style="cursor:pointer; border-left:4px solid #8a4bff; background:linear-gradient(135deg,rgba(138,75,255,.18),var(--panel2));">
-         <div class="timeline-date-chip" style="color:#c9a6ff;">Harvestide 29, 1040 BF · Day 6 · Final Ebott Log</div>
+         <div class="timeline-date-chip" style="color:#c9a6ff;">Harvestide 29, 1045 BF · Day 6 · Future Final Ebott Log</div>
          <h3 class="timeline-event-title">The Mount Ebott Survey: Final Log — The Transport, the Embassy Debrief, and the Logger Cutoff</h3>
          <div class="timeline-actors">
            <span>Gamma Agent</span><span>Dracule Mihawk</span><span>Wing Gaster</span><span>Asgore</span><span>Toriel</span><span>Sans</span><span>Koffin-K</span><span>Jamesly</span><span>Daniel</span>

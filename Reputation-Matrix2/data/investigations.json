@@ -2863,8 +2863,8 @@
       "arcIds": [
         "mount_ebott_survey"
       ],
-      "opened": "Harvestide 29, 1040 BF",
-      "lastFiled": "Harvestide 29, 1040 BF",
+      "opened": "Harvestide 29, 1045 BF (future archive)",
+      "lastFiled": "Harvestide 29, 1045 BF (future archive)",
       "archivist": "Waluigi, Auditor-General",
       "icon": "⏱️",
       "accent": "#8a4bff",
@@ -2962,7 +2962,7 @@
         {
           "id": "s_ebott_final",
           "label": "Final Ebott log — transport, embassy, High Command cutoff",
-          "date": "Harvestide 29, 1040 BF",
+          "date": "Harvestide 29, 1045 BF",
           "event": "mount_ebott_survey_final_log"
         }
       ],

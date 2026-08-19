@@ -53,11 +53,24 @@ Match the shape of the existing posts exactly; check
 post is not a summary — it is a character reacting (Waluigi smug, Wario
 transactional, the desk cold).
 
-### Pond Patrol
-The docket page has actions, cohorts, and directives; filings that involve
-its personnel (any "Pond Patrol" named entity) must update the relevant
-docket rows in the page's JS. Under-utilized is a state, not a fate: every
-touching filing adds a row until the docket is current again.
+### Pond Patrol / Liberated Toads
+The docket page has actions, cohorts, directives and roster states; filings that
+involve its personnel must update the relevant docket rows in the page's data.
+This trigger applies when **any Toad who is part of the Pond Patrol / Liberated
+Toads roster is mentioned**, even if the article is not mainly about the docket.
+
+Checklist:
+
+```text
+□ Is the Toad named in the Liberated Toads / Pond Patrol roster?
+□ Did their status, cohort, assignment, injury, custody, trust, or standing change?
+□ Did they witness something that should become docket evidence?
+□ Did the event create a new action item, directive, hearing, or accountability note?
+```
+
+If yes, update the relevant row/section in the Liberated Toads system. Under-
+utilized is a state, not a fate: every touching filing adds a row until the
+docket is current again. If no update is needed, say why in the run report.
 
 ### Dynasties
 `DYNASTY_SYSTEM` is embedded in `index.html` — houses, members (with
