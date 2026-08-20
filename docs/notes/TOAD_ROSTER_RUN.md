@@ -43,6 +43,16 @@ No third remainder sheet: A and B cover the unnamed stock. A third sheet would h
 
 Live roll-call on the Command Voting tab: who is recorded for Rivers, who for Speaker L, who is unrecorded. Preference is by affiliation (workbook blocs), not invented individual tallies. Unfiled toads show as `???`.
 
+## Image pass (HEAD vs previous named portraits)
+
+Compared each changed `toad_*.png` from the prior commit against the sheet-cell replacement.
+
+Verdict: keep **previous** art for 49 generated roster files. The older 3D / tight 2D portraits are stronger, show full props, and have no decorative text (sheet `b_12` / Nat had `BUG-SPRAY`). Restored those files and padded canvas so feet stay in frame.
+
+Keep **current** (padded) art for 20 user-filed portraits: Dan, Toad Lee, Salam, Somkin J, Lucky T, Creek, Bearr, Spoky, Bion, Axie, Freaza, Speaker Rivers, Naners, Rawra, Regan, Bluey, Slinat, Swig, Lilystalker, Gearspore.
+
+No sheet cell won a named slot.
+
 ## Not done / open
 
 - User still needs to accept or reject pending cells before they replace `???`.

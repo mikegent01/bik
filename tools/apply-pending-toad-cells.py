@@ -76,6 +76,30 @@ PROTECT = {
     'toad_44_lilystalker.png', 'toad_47_gearspore.png',
 }
 
+# 2026-08-19 image pass: previous-commit portraits beat sheet A/B crops
+# (3D / tighter 2D, no BUG-SPRAY text). Do not re-apply cells onto these.
+PROTECT.update({
+    'toad_07_perot.png', 'toad_10_toadburt.png', 'toad_13_speaker_l.png',
+    'toad_14_elder_mudcap.png', 'toad_21_kyo.png', 'toad_23_oiqie.png',
+    'toad_26_mechal.png', 'toad_30_captain_fernback.png',
+    'toad_32_ironspore.png', 'toad_33_metpetal.png', 'toad_34_teacher_t.png',
+    'toad_35_bully_t.png', 'toad_36_nerd_t.png', 'toad_37_geek_t.png',
+    'toad_39_necro.png', 'toad_40_tally.png', 'toad_41_ratie.png',
+    'toad_42_kit_t.png', 'toad_43_pondscum.png', 'toad_45_inkspot.png',
+    'toad_46_quillback.png', 'toad_48_hammerling.png', 'toad_49_spearwort.png',
+    'toad_50_shieldback.png', 'toad_51_soothing_moss.png',
+    'toad_52_gentlepad.png', 'toad_53_shadowleap.png',
+    'toad_54_whispertail.png', 'toad_55_spork.png', 'toad_56_spik.png',
+    'toad_57_speki.png', 'toad_58_spoolo.png', 'toad_59_crai_yellow.png',
+    'toad_60_lualu_green.png', 'toad_61_zahue_t_black.png',
+    'toad_62_oliver_p.png', 'toad_63_poe_white.png',
+    'toad_64_hustion_gold.png', 'toad_65_sally_silver.png',
+    'toad_66_rchie_iser.png', 'toad_67_kila_t.png', 'toad_68_wavey.png',
+    'toad_69_unknown.png', 'toad_70_barie.png', 'toad_71_caerk.png',
+    'toad_72_nat.png', 'toad_73_toad_ie_foxx.png', 'toad_74_anne_ari_t.png',
+    'toad_75_4331_t.png',
+})
+
 
 def pad_legs(im, bottom_frac=0.18, side_frac=0.06):
     """Add canvas so feet sit above the card crop."""
