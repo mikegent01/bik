@@ -3097,6 +3097,129 @@
           }
         }
       ]
+    },
+    {
+      "id": "mount_ebot_one_t_file",
+      "codename": "ONE T",
+      "title": "The One-T File — Wrong Mountain, Right Stencil",
+      "subtitle": "Mount Ebot (17 Aethel) and the Wariocopter audit (18 Aethel), 1032 BF",
+      "status": "open",
+      "classification": "recovered archive / transit",
+      "arcIds": [
+        "mount_ebot_expedition"
+      ],
+      "opened": "17 Aethel, 1032 BF",
+      "lastFiled": "18 Aethel, 1032 BF",
+      "archivist": "waluigi",
+      "icon": "🏷️",
+      "accent": "#c9a6ff",
+      "imageCaption": "The stencil did more work than the summit plank.",
+      "hook": "They climbed the wrong mountain because a compositor dropped a letter. The next morning they looted cargo that already had their name on it.",
+      "plainSummary": [
+        {
+          "point": "The cargo already had his name on it.",
+          "detail": "Dobbs read PROPERTY OF WARIO WARE INC on a fitting and then on every crate. Wario named the remembering an audit."
+        },
+        {
+          "point": "Rift and Heartstone are speech, not survey.",
+          "detail": "The charter pilot used both words after the lights went green. Neither is on the 17th briefing table."
+        }
+      ],
+      "background": [
+        {
+          "id": "the_mount_ebot_expedition",
+          "kicker": "Prior filing",
+          "why": "Part I is the crash, the plank, and the compositor's dropped T. This leaf is the morning after, in the air."
+        }
+      ],
+      "brief": "Keep the file open until Heartstone is an object on a table, not a word in a cockpit.",
+      "threads": [
+        {
+          "id": "th_stencil",
+          "title": "The cargo was already his",
+          "state": "open",
+          "text": "Wario declared an audit after Dobbs read PROPERTY OF WARIO WARE INC on the fitting and then on the room. The legal theory is the finding."
+        },
+        {
+          "id": "th_rift",
+          "title": "Rift and Heartstone, spoken not surveyed",
+          "state": "open",
+          "text": "On the 18th the charter pilot used dimensional rift and Heartstone. Neither is on the 17th briefing. Do not promote speech to survey."
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead_heartstone_object",
+          "title": "Put the Heartstone on a table",
+          "state": "open",
+          "priority": "high",
+          "objective": "Establish whether Heartstone is a mapped object, a Wario story, or a pilot's price.",
+          "why": "The word enters the file only after the lights go green. If it is real, the One-T error is a preface. If it is not, the expedition is still a misprint with extra altitude."
+        }
+      ],
+      "sessions": [
+        {
+          "id": "s18_audit",
+          "label": "The corporate audit, airborne",
+          "date": "18 Aethel, 1032 BF",
+          "event": "the_mount_ebot_expedition_part_2"
+        }
+      ],
+      "relatedEvents": [
+        "the_mount_ebot_expedition",
+        "the_mount_ebot_expedition_part_2"
+      ],
+      "exhibits": [
+        {
+          "id": "ex_stencil",
+          "propId": "prop_ebot_warioware_stencil",
+          "itemId": null,
+          "session": "s18_audit",
+          "icon": "🏷️",
+          "kind": "note",
+          "category": "discovery",
+          "title": "The stencil that ended the loot speech",
+          "secured": "18 Aethel, 1032 BF · spare-parts alcove",
+          "custody": "Jory Dobbs (read); Wario (grabbed the cable)",
+          "visual": "<div style=\"position:relative;height:120px;border-radius:10px;overflow:hidden;background:repeating-linear-gradient(90deg,rgba(180,140,40,.2),rgba(180,140,40,.2) 12px,rgba(20,20,24,.5) 12px,rgba(20,20,24,.5) 24px);\"></div>",
+          "onRecord": "Dobbs turned a brass fitting to the bulb and read [[roll:3|PROPERTY OF WARIO WARE INC|the stencil is load-out paint, not a kingdom seizure mark. Wario packed his own hold.|stencils get copied. A cousin spelling is not a confession.]]. He then looked at the room. The room agreed.",
+          "dc": 3,
+          "analysis": "## The confession is the font\n\nWaluigi does not need a theory of theft. He has a stencil. [[roll:4|Wario's panic is the second exhibit|he froze when Dobbs asked who packed the crates. Aerodynamics is what a man says when the label is already dry.|panic reads as theatre. Wario panics for sport.]]. The audit is what he named the remembering.\n\n## Do not call it a heist\n\nWaluigi called it a heist with better stationery in the air. On paper it is worse: you cannot steal what you already shipped. The file stays on the stencil, not on the joke.",
+          "links": {
+            "events": [
+              "the_mount_ebot_expedition_part_2"
+            ],
+            "characters": [
+              "jory_dobbs",
+              "wario"
+            ]
+          }
+        },
+        {
+          "id": "ex_vip",
+          "propId": "prop_ebot_vip_clearance",
+          "itemId": null,
+          "session": "s18_audit",
+          "icon": "🪪",
+          "kind": "passport",
+          "category": "discovery",
+          "title": "The card the pilot did not see",
+          "secured": "18 Aethel, 1032 BF · luxury seating, then cockpit pocket",
+          "custody": "Jory Dobbs",
+          "visual": "<div style=\"position:relative;height:120px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(200,180,80,.25),rgba(30,30,36,.6));\"></div>",
+          "onRecord": "Consideration was the silver canister. The card admits [[roll:3|one checkpoint on landing|the issuer is still the man flying. If he is not, the card is paper.|VIP cards are printed for people who already had the door.]]. In the cockpit the pilot pretended not to see it.",
+          "dc": 3,
+          "analysis": "## Blind spots for a tin\n\nThe charter pilot from Part I is selling manifests now. Waluigi files the card as proof of the trade, not of landing privileges. [[roll:5|He looked away in the cockpit because the card is extra-legal|a man who issues a favor cannot also log it.|he looked away because he was flying.]]. Heartstone and rift remain speech.",
+          "links": {
+            "events": [
+              "the_mount_ebot_expedition_part_2"
+            ],
+            "characters": [
+              "jory_dobbs"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

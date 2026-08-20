@@ -292,6 +292,43 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "wahwire_ebot_part2_audit",
+      "author": "waluigi",
+      "order": 8,
+      "date": null,
+      "timestamp": "18 Aethel, 1032 BF — recovered 1040 BF",
+      "content": "He stencilled the hold, forgot, looted it, and called it an audit. The hire read the label. The lights went green at a whisper. I am filing the stencil, not the speech about Heartstones. WAH.",
+      "likes": 891,
+      "links": [
+        {
+          "id": "the_mount_ebot_expedition_part_2",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "ebot",
+        "warioware",
+        "audit",
+        "1032bf"
+      ],
+      "reaction": "smug",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "wario",
+          "content": "IT WAS A CORPORATE AUDIT. Write that down.",
+          "likes": 12
+        },
+        {
+          "id": "c2",
+          "author": "waluigi",
+          "content": "I did. I wrote down the stencil.",
+          "likes": 440
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

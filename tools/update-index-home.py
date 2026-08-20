@@ -109,6 +109,23 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
          </div>
        </div>
 
+       <!-- Event 0b: Recovered Archive - Mount Ebot Part II -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/the_mount_ebot_expedition_part_2')" style="cursor:pointer; border-left:4px solid #c9a6ff; background:linear-gradient(135deg,rgba(201,166,255,.16),var(--panel2));">
+         <div class="timeline-date-chip" style="color:#c9a6ff;">Aethel 18, <b>1032 BF</b> · Recovered Archive Filing — leaf 2 of the One-T file</div>
+         <h3 class="timeline-event-title">The Mount Ebot Expedition — Part II: The Corporate Audit</h3>
+         <div class="timeline-actors">
+           <span>Waluigi</span><span>Wario</span><span>Jory Dobbs</span><span>The Charter Pilot</span>
+         </div>
+         <p class="timeline-summary">
+           The morning after the wrong mountain, the charter is airborne. Dobbs opens a crate with a rusted dagger, eats orange flake, and then reads the stencils: PROPERTY OF WARIO WARE INC, on every barrel. Wario calls it an audit. A silver canister Wario graded as garbage buys a brass key and a VIP card. The fuel tank says All Clear at twenty percent. Then the pilot says dimensional rift, three days to a refuel, and Heartstone, and Dobbs asks what is for dinner.
+         </p>
+         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
+           <span class="chip" onclick="Router.go('#/article/the_mount_ebot_expedition_part_2')" style="margin:0; font-size:12px; background:#8a4bff; color:#fff; font-weight:800;">📖 Read Part II →</span>
+           <span class="chip" onclick="Router.go('#/article/the_mount_ebot_expedition')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">🪨 Part I — One T →</span>
+           <span class="chip" onclick="Router.go('#/investigation/mount_ebot_one_t_file')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🔍 One-T File →</span>
+         </div>
+       </div>
+
        <!-- Event 1: Recovered Archive - The Mount Ebot Expedition -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/the_mount_ebot_expedition')" style="cursor:pointer; border-left:4px solid #8a4bff; background:linear-gradient(135deg,rgba(138,75,255,.16),var(--panel2));">
          <div class="timeline-date-chip" style="color:#c9a6ff;">Aethel 17, <b>1032 BF</b> · Duration: ~18 hours in-world · Recovered Archive Filing — released 1040 BF</div>

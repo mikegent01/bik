@@ -2169,6 +2169,8 @@
     ],
     "relatedArticles": [
       "the_mount_ebot_expedition",
+      "the_mount_ebot_expedition_part_2",
+      "wariocopter",
       "mount_ebott",
       "waluigi",
       "wario",
@@ -2227,6 +2229,33 @@
       "gamma_division",
       "iron_legion",
       "regal_empire"
+    ]
+  },
+  {
+    "id": "wariocopter",
+    "name": "The Wariocopter",
+    "type": "Vehicle / Charter Aircraft",
+    "region": "In transit — Mount Ebot to the Ebott approach",
+    "controllingFaction": "Wario's Enterprise (by stencil and by argument)",
+    "population": "Four: Wario, Waluigi, Jory Dobbs, one unnamed charter pilot",
+    "climate": "Cabin air: garlic, grease, onion-sack residual, rotor vibration",
+    "status": "Airworthy as of 18 Aethel 1032 BF after a cave extraction the night prior; tail boom previously lost and not discussed in this leaf; navigation holding on a jury pulse",
+    "summary": "The taped-together grey charter from the Mount Ebot file, still flying. Spare-parts alcove, engine pit, Fuel Tank A1, luxury seating that is only luxurious compared with the pit, and a cockpit of analog dials. Every crate in the hold is stencilled WarioWare.",
+    "description": "Part I rang its flank like a bin lid and put it into a cave. Part II treats the interior as a building: Hangar Bay 7's cockpit and engine pit, a tool alcove that is all rust and stencils, a private-dock lounge, and Fuel Tank A1 — a rusted reservoir under sodium lamps. The aircraft is Wario's by the lettering on the barrels. The flying is still the unnamed pilot's.",
+    "notableFeatures": [
+      "Cracked chin-bubble and tape still on the fuel gauge from Part I",
+      "Spare-parts alcove: PROPERTY OF WARIO WARE INC on every crate",
+      "Luxury seating: velvet vs hydraulic fluid",
+      "Engine maintenance pit: ozone, pistons, bypass locker",
+      "Fuel Tank A1: auxiliary valve, All Clear chime"
+    ],
+    "relatedArticles": [
+      "the_mount_ebot_expedition",
+      "the_mount_ebot_expedition_part_2",
+      "mount_ebot",
+      "wario",
+      "waluigi",
+      "jory_dobbs"
     ]
   }
 ]

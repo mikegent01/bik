@@ -1744,6 +1744,54 @@
         "noaction",
         "evidence"
       ]
+    },
+    "prop_ebot_warioware_stencil":     {
+      "kind": "note",
+      "icon": "🏷️",
+      "title": "Stencilled Fitting — PROPERTY OF WARIO WARE INC",
+      "subtitle": "Spare-parts alcove, Wariocopter, 18 Aethel 1032 BF",
+      "items": [],
+      "articles": [
+        "the_mount_ebot_expedition_part_2",
+        "wario",
+        "jory_dobbs"
+      ],
+      "note": "He looted the label first and the cargo second. — W.",
+      "body": "<div class=\"pd-head\">WARIOWARE INC. · ASSET STENCIL</div><div class=\"pd-meta\">Applied at load-out · Read in the air · Not entered in any outbound ledger</div><div class=\"pd-clause\"><strong>PROPERTY OF WARIO WARE INC.</strong></div><div class=\"pd-clause\">Found on: one brass fitting, one frayed data cable, and thereafter every crate and barrel in the spare-parts alcove, with minor spelling cousins.</div><div class=\"pd-clause\">Declared by W. as: corporate audit / reclaiming / recovery team.</div><div class=\"pd-margin\">If your own stencil surprises you, you are not auditing. You are remembering. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_ebot_vip_clearance":     {
+      "kind": "passport",
+      "icon": "🪪",
+      "title": "Crumpled VIP Clearance — Pilot's Favor",
+      "subtitle": "Issued in the luxury seating, 18 Aethel 1032 BF",
+      "items": [],
+      "articles": [
+        "the_mount_ebot_expedition_part_2",
+        "jory_dobbs"
+      ],
+      "note": "A card that skips one checkpoint if anyone still believes in checkpoints at altitude.",
+      "body": "<div class=\"pd-head\">TRANSIT FAVOR · NOT A PASSPORT</div><div class=\"pd-meta\">Bearer: Jory Dobbs · Issuer: unnamed charter pilot · Condition: crumpled</div><div class=\"pd-clause\">Admits the bearer past <em>one</em> security checkpoint upon landing, provided the landing still has security, and provided the issuer is still the man at the stick.</div><div class=\"pd-clause\">Consideration: one pressurized silver canister synced to auxiliary output; navigation lights to hold over the mountains.</div><div class=\"pd-margin\">He pretended not to see it in the cockpit. That is how you know it is real. — W.</div>",
+      "stamps": [
+        "sealed"
+      ]
+    },
+    "prop_ebot_p2_calendar":     {
+      "kind": "note",
+      "icon": "📅",
+      "title": "Calendar Scrap — 18 Aethel, 1032 BF",
+      "subtitle": "Found in the spare-parts junk",
+      "items": [],
+      "articles": [
+        "the_mount_ebot_expedition_part_2"
+      ],
+      "note": "The date of this leaf is not inferred. Dobbs read it.",
+      "body": "<div class=\"pd-head\">SHIPBOARD CALENDAR · TORN</div><div class=\"pd-meta\">Location: spare-parts alcove, under pistons</div><div class=\"pd-clause\"><strong>18 AETHEL, 1032 BF</strong></div><div class=\"pd-clause\">The day after the summit plank. The mountain with one T is already behind the tail.</div><div class=\"pd-margin\">Wario dated nothing. The hire dated the file. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
     }
   }
 }
