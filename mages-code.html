@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codex of the Mages' Guild — C.C.D.</title>
+<link rel="stylesheet" href="Reputation-Matrix2/app/styles/waluipedia.css?v=theme2">
+<style>
+  body{margin:0;background:var(--bg,#1a1224);color:var(--text,#f3ead8);font:16px/1.55 Georgia,serif}
+  .wrap{max-width:820px;margin:0 auto;padding:28px 18px 80px}
+  .paper{background:#f4efe3;color:#211810;border:1px solid #c4ad84;padding:28px 32px 48px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+  .paper h1{font-size:22px;margin:0 0 6px;letter-spacing:.04em}
+  .kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6d28d9;font-weight:800}
+  .part{margin:28px 0 8px;padding-top:18px;border-top:1px solid #c4ad84;font-variant:small-caps;letter-spacing:.06em}
+  .sec{margin:22px 0}
+  .cite{font-weight:800}
+  .sub{margin:10px 0 10px 1.2em}
+  .sub b{display:inline}
+  a.ref{color:#5b21b6;text-decoration:underline}
+  .toc a{display:block;color:#5b21b6;font-size:14px;margin:3px 0}
+  .meta{font-size:13px;color:#5d4a35;margin:8px 0 18px}
+  .top{margin-bottom:16px;font-family:system-ui,sans-serif;font-size:13px}
+  .top a{color:#c4b5fd}
+  nav.sticky{position:sticky;top:0;background:#1a1224;padding:8px 0;font-family:system-ui,sans-serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a href="index.html#/cultures">← Cultures & Laws</a> · <a href="index.html#/home">Home</a></div>
+  <nav class="sticky" id="jump"></nav>
+  <article class="paper" id="book">Loading C.C.D.…</article>
+</div>
+<script>
+function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function linkCites(text){
+  return esc(text).replace(/§\s*(\d+\.\d+)/g,'<a class="ref" href="#s-$1">§ $1</a>');
+}
+fetch('Reputation-Matrix2/data/laws/mages-guild-code.json',{cache:'no-cache'})
+  .then(r=>r.json())
+  .then(data=>{
+    const parts=data.parts||[];
+    const secs=data.sections||[];
+    const byPart={};
+    secs.forEach(s=>{(byPart[s.part]=byPart[s.part]||[]).push(s);});
+    const toc=parts.map(p=>{
+      const n=(byPart[p.id]||[]).length;
+      if(!n) return '';
+      return `<a href="#part-${esc(p.id)}">Part ${esc(p.roman)}. ${esc(p.title)} (${n})</a>`;
+    }).join('');
+    document.getElementById('jump').innerHTML=toc;
+    let html=`<div class="kicker">${esc(data.meta.short||'C.C.D.')}</div>
+      <h1>${esc(data.meta.title)}</h1>
+      <p class="meta">${esc(data.meta.subtitle||'')}<br>${esc(data.meta.issuer||'')}<br>
+      ${secs.length} sections · ~${esc(String(data.meta.approxPages||'?'))} pages · ${esc(data.meta.edition||'')}</p>
+      <div class="toc">${secs.slice(0,40).map(s=>`<a href="#s-${esc(s.cite)}">§ ${esc(s.cite)} ${esc(s.title)}</a>`).join('')}${secs.length>40?'<p class="meta">Jump list truncated; use Part headings.</p>':''}</div>`;
+    parts.forEach(p=>{
+      const list=byPart[p.id]||[];
+      if(!list.length) return;
+      html+=`<h2 class="part" id="part-${esc(p.id)}">Part ${esc(p.roman)}: ${esc(p.title)}</h2>`;
+      if(p.blurb) html+=`<p class="meta">${esc(p.blurb)}</p>`;
+      list.forEach(s=>{
+        html+=`<section class="sec" id="s-${esc(s.cite)}"><div class="cite">§ ${esc(s.cite)} ${esc(s.title)}</div>`;
+        (s.body||[]).forEach(b=>{
+          html+=`<div class="sub">(${esc(b.key)}) <b>${esc(b.heading)}.</b> ${linkCites(b.text||'')}</div>`;
+        });
+        html+=`</section>`;
+      });
+    });
+    document.getElementById('book').innerHTML=html;
+  })
+  .catch(e=>{ document.getElementById('book').textContent='Could not load mages-guild-code.json — '+e; });
+</script>
+</body>
+</html>
