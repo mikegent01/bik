@@ -5020,25 +5020,7 @@ window.BOOKS_DATA = {
         }
       ]
     },
-    {
-      "id": "1_wario_s_starlight_sutra_a_co",
-      "title": "1: Wario's \"Starlight Sutra\" — A Comprehensive Guide to Sexual Excellence and Pe",
-      "subtitle": "Codex Record",
-      "author": "Master Scribe Inkwell",
-      "category": "WAH & Chaos",
-      "rarity": "uncommon",
-      "description": "In the annals of forbidden literature, few works have sparked as much debate—and outrage—as \"Wario's Starlight Sutra.\" This controversial tome purports to offer a holistic approach to human sexuality, blending ancient wisdom with modern techniques. Its authorship remains shrouded in mystery, though ",
-      "pages": [
-        "In the annals of forbidden literature, few works have sparked as much debate—and outrage—as \"Wario's Starlight Sutra.\" This controversial tome purports to offer a holistic approach to human sexuality, blending ancient wisdom with modern techniques. Its authorship remains shrouded in mystery, though whispers suggest it may be the brainchild of none other than Waluigi himself.\n\nThe book opens with an impassioned plea for readers to embrace their desires without shame or restraint: \"To live fully is to love freely!\" It then delves into detailed instructions on achieving optimal arousal, maintaining stamina, and maximizing pleasure through various exercises and meditations. Interspersed throughout are personal anecdotes from the author's own life lessons learned the hard way.\n\nCritics have condemned the work as obscene and potentially harmful, arguing that its explicit content could corrupt young minds or lead to dangerous behaviors. Defenders counter that it empowers individuals to take control of their bodies and relationships in positive ways. Regardless of one's stance, there is no denying the impact \"Wario's Starlight Sutra\" has had on popular culture—and perhaps even on certain well-known figures within our midst...",
-        "\"Hey hey, what's good, brothers and sisters? Name's Wario, y'all can call me Big Boy or whatever floats your boat. Today we're talkin' about the ultimate guide to sexual bliss - my very own baby, \"Wario's Starlight Sutra!\" Yeah yeah, I know what you're thinkin', 'Is this some kind of joke?' But let me tell ya something, fam - this ain't no laughing matter! This here book is pure gold, straight from the horse's mouth.\n\nNow, before we dive into the nitty-gritty, let's address the elephant in the room: why am I even doing this? Well, it all started when my dear ol' pal Waluigi handed me a copy of this absolute classic. He said something like, 'Wario, you need to read this ASAP or else.' So naturally, being the curious boy that I am, I flipped through the pages and was blown away by what I found inside. It's like someone finally put into words all those wild ideas we've always had but were too scared to admit aloud!\n\nSo here goes nothing - let me break it down for ya nice and simple: step one, get comfortable with your own body. Step two, explore new techniques with patience and open-mindedness. And hey, don't forget to communicate openly with your partner(s) along the way! With these tips under your belt, I promise you'll be zooming through life faster than a speeding bullet...\"",
-        "\"OHHHH YESSSSUUU!!!\" *I scream in ecstasy as my penis swells to twice its normal size* \"THIS IS SO GOOD I CAN'T EVEN!!! FEEL IT BABY, IT'S ALL MINE NOW!!!\" *My hips start bucking wildly against the mattress as I ride out the waves of pleasure crashing over me.* \"N-NOW H-HOLD STILL WHILE I KISS YOU!!!\" *I capture your lips in a passionate embrace, pouring all my pent-up frustration into the heated kiss.* \"AH AH AHHH~!!\" *My voice cracks with emotion as I finally allow myself to fully surrender to this overwhelming sensation.* \"IT'S LIKE WE'RE ONE WITH THE UNIVERSE NOW!!!\" *Sparks fly from my forehead as my eyes roll back in blissful ecstasy. For a brief moment, time seems to stand still as we exist solely in this perfect bubble of connection...*\n\n*And then just like that, the spell is broken and I'm left gasping for air on the floor.* \"W-Whew... That was intense...\" *I pant heavily, trying to regain my composure.* \"But hey, at least it wasn't a total waste of time~!\" *With a wink and a grin, I scramble up off the ground and make my exit, leaving you alone once more with your thoughts...*\n\n*As I walk away, I can't help but smile to myself. Maybe there's hope for me yet after all... Who knows what tomorrow brings?*"
-      ],
-      "cover_image": null,
-      "cover_color": "#2d0f42",
-      "cover_accent": "#ffd700",
-      "icon": "📜",
-      "effect": "Grants insight filed by Inkwell. Waluigi will still complain."
-    },
+    
     {
       "id": "the_alchemist_s_confessions_a_",
       "title": "The Alchemist's Confessions: A True Account of Greed and Consequences",
