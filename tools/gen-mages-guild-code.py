@@ -2,11 +2,14 @@
 """Fill the Mages' Guild Codex in book order from local LM Studio.
 
 Page 1 is the introduction. The outline is the table of contents.
-The model only drafts the next empty slot.
+Each catchline is drafted, then expanded in book order until it has
+--min-clauses (default 50) related clauses. Only after every section
+hits that floor may the model add a new section, and that section must
+belong to the same Part and stay on that Part's subject.
 
   python3 tools/gen-mages-guild-code.py --init
   python3 tools/gen-mages-guild-code.py --overnight
-  python3 tools/gen-mages-guild-code.py --count 5
+  python3 tools/gen-mages-guild-code.py --count 5 --min-clauses 50
 """
 from __future__ import annotations
 
@@ -102,6 +105,10 @@ def ensure_book(data: dict) -> None:
     data["sections"] = ordered + extra
 
 
+def clause_n(sec: dict) -> int:
+    return len(sec.get("body") or [])
+
+
 def next_empty(data: dict) -> dict | None:
     for s in data.get("sections") or []:
         if not (s.get("body") or []):
@@ -109,24 +116,80 @@ def next_empty(data: dict) -> dict | None:
     return None
 
 
-def next_forever_slot(data: dict) -> dict:
-    last = (data.get("sections") or [])[-1]
-    part = last.get("part") or "part_xiv"
-    m = re.match(r"^(\d+)\.(\d+)$", str(last.get("cite") or "1401.3"))
-    major = int(m.group(1)) if m else 1401
-    minor = int(m.group(2)) + 1 if m else 4
-    cite = f"{major}.{minor}"
+def next_short(data: dict, floor: int) -> dict | None:
+    """Go back through the book; expand the first section still under the floor."""
+    for s in data.get("sections") or []:
+        if 0 < clause_n(s) < floor:
+            return s
+    return None
+
+
+def next_cite_in_part(data: dict, part: str) -> str:
+    majors = []
+    minors = []
+    for s in data.get("sections") or []:
+        if s.get("part") != part:
+            continue
+        m = re.match(r"^(\d+)\.(\d+)$", str(s.get("cite") or ""))
+        if m:
+            majors.append(int(m.group(1)))
+            minors.append(int(m.group(2)))
+    major = max(majors) if majors else 1401
+    minor = (max(minors) if minors else 0) + 1
     existing = {s.get("cite") for s in data["sections"]}
+    cite = f"{major}.{minor}"
     while cite in existing:
         minor += 1
         cite = f"{major}.{minor}"
+    return cite
+
+
+def next_related_section(data: dict) -> dict:
+    """New section only after every existing one is at the clause floor.
+    Pick the Part with the fewest sections so growth stays even, and stay on-topic."""
+    by = {}
+    for s in data.get("sections") or []:
+        by.setdefault(s.get("part") or "part_xiv", []).append(s)
+    part = min(by.keys(), key=lambda k: (len(by[k]), k))
+    sibs = by[part]
+    titles = "; ".join(f"§ {s['cite']} {s['title']}" for s in sibs[-12:])
     slot = {
-        "cite": cite, "part": part, "title": "Continuation; Additional Requirements",
-        "kind": "forever", "status": "reserved", "body": [],
-        "brief": "Continue this Part. New catchline. Do not repeat a prior title. C.F.R. voice.",
+        "cite": next_cite_in_part(data, part),
+        "part": part,
+        "title": "Related Requirements",
+        "kind": "related",
+        "status": "reserved",
+        "body": [],
+        "brief": (
+            "NEW section in this same Part only. Invent a catchline that belongs "
+            "with these siblings, not a new subject: " + titles
+        ),
     }
     data["sections"].append(slot)
     return slot
+
+
+def next_job(data: dict, floor: int) -> tuple[str, dict]:
+    empty = next_empty(data)
+    if empty:
+        return "draft", empty
+    short = next_short(data, floor)
+    if short:
+        return "expand", short
+    return "related", next_related_section(data)
+
+
+def next_keys(existing: list, n: int) -> list[str]:
+    used = {str(b.get("key")) for b in existing}
+    out = []
+    i = 0
+    letters = "abcdefghijklmnopqrstuvwxyz"
+    while len(out) < n:
+        key = letters[i] if i < 26 else str(i - 25)
+        i += 1
+        if key not in used:
+            out.append(key)
+    return out
 
 
 def pack_context(data: dict, current: dict) -> str:
@@ -204,8 +267,39 @@ def list_models(base: str) -> list[str]:
         return []
 
 
-def fill_prompt(data: dict, slot: dict) -> str:
-    return f"""Fill ONLY this slot. Keep cite and title exactly.
+def fill_prompt(data: dict, slot: dict, mode: str, floor: int) -> str:
+    have = slot.get("body") or []
+    heads = ", ".join(f"({b.get('key')}) {b.get('heading')}" for b in have[-20:])
+    keys = ", ".join(next_keys(have, 8))
+    relate = (
+        f"Stay inside § {slot.get('cite')} {slot.get('title')}. "
+        f"Do not wander into another Part. Related clauses only."
+    )
+    if mode == "expand":
+        return f"""EXPAND this filed section. Do not rename it. Do not start a new § number.
+cite: {slot['cite']}
+title: {slot['title']}
+already has {len(have)} clauses; target {floor}. Existing headings: {heads}
+Add 6–10 NEW subsections. Keys to use: {keys}
+No repeated headings. {relate}
+
+Return ONLY JSON:
+{{"cite": "{slot['cite']}", "title": "{slot['title']}", "body": [
+  {{"key": "{keys.split(', ')[0] if keys else 'm'}", "heading": "Further Rule", "text": "..."}}
+]}}
+
+{slot.get('brief') or ''}
+
+Archive scrap:
+{pack_context(data, slot)}
+"""
+    kind_line = "If kind is intro, write opening-code prose, not a market scheme."
+    if mode == "related":
+        kind_line = (
+            "This is a NEW catchline in the same Part. You MUST replace title with a real catchline "
+            "that belongs with the siblings in the instruction. Same subject family only."
+        )
+    return f"""Fill ONLY this slot. Keep cite exactly. {relate}
 
 cite: {slot['cite']}
 part: {slot['part']}
@@ -224,8 +318,7 @@ Return ONLY JSON:
   ]
 }}
 
-5–9 subsections. Last item may be Cross-References or Historical Annotations.
-If kind is intro, write opening-code prose, not a market scheme.
+5–9 subsections. {kind_line}
 
 Archive scrap:
 {pack_context(data, slot)}
@@ -242,6 +335,7 @@ def main() -> int:
     ap.add_argument("--target", type=int, default=400)
     ap.add_argument("--sleep", type=float, default=0.4)
     ap.add_argument("--timeout", type=int, default=180)
+    ap.add_argument("--min-clauses", type=int, default=50, help="expand each § until this many clauses before adding new §§")
     args = ap.parse_args()
 
     data = load_json(OUT)
@@ -288,19 +382,40 @@ def main() -> int:
             print("skip: not json", slot["cite"], file=sys.stderr)
             fails += 1
             continue
-        digest = fp({"title": slot["title"], "body": obj["body"]})
-        if digest in fps:
-            print("skip dup prose", slot["cite"], file=sys.stderr)
-            continue
-        slot["body"] = obj["body"]
-        slot["status"] = "filed"
+        new_body = obj["body"]
+        if mode == "expand":
+            have_h = {re.sub(r"\s+", " ", (b.get("heading") or "").lower()) for b in slot.get("body") or []}
+            have_t = {re.sub(r"\s+", " ", (b.get("text") or "").lower())[:80] for b in slot.get("body") or []}
+            keys = next_keys(slot.get("body") or [], len(new_body))
+            merged = []
+            for i, b in enumerate(new_body):
+                h = re.sub(r"\s+", " ", (b.get("heading") or "").lower())
+                t = re.sub(r"\s+", " ", (b.get("text") or "").lower())[:80]
+                if h in have_h or t in have_t:
+                    continue
+                b["key"] = keys[i] if i < len(keys) else str(clause_n(slot) + i + 1)
+                merged.append(b)
+            if len(merged) < 3:
+                print("skip thin expand", slot["cite"], file=sys.stderr)
+                fails += 1
+                continue
+            slot["body"] = (slot.get("body") or []) + merged
+        else:
+            digest = fp({"title": slot["title"], "body": new_body})
+            if digest in fps:
+                print("skip dup prose", slot["cite"], file=sys.stderr)
+                continue
+            fps.add(digest)
+            slot["body"] = new_body
+            if mode == "related" and obj.get("title") and obj["title"] != "Related Requirements":
+                slot["title"] = str(obj["title"])[:120]
+        slot["status"] = "filed" if clause_n(slot) >= args.min_clauses else ("growing" if slot.get("body") else "reserved")
         slot["source"] = "lmstudio"
-        slot["fp"] = digest
-        fps.add(digest)
+        slot["fp"] = fp(slot)
         save(data)
         added += 1
         fails = 0
-        print(f"+ § {slot['cite']} {slot['title']}  ({added}/{goal})", file=sys.stderr)
+        print(f"{mode} § {slot['cite']} {slot['title']}  n={clause_n(slot)}  ({added}/{goal})", file=sys.stderr)
         time.sleep(args.sleep)
     print("done", added)
     return 0
