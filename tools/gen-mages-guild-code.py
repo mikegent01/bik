@@ -21,6 +21,8 @@ import time
 import urllib.error
 import urllib.request
 import signal
+import random
+import concurrent.futures
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -56,6 +58,8 @@ VOICE = """You are a clerk of the Mages' Guild Accords Desk writing a bound code
 Each answer is ONE topic written as 1 or 2 pages of continuous legal prose (about 350–700 words). Paragraphs. Cross-references like § 1.6. Shall/may. It should read if someone opened a statute book, not a flash-card.
 If a rule is already filed, write "see § 1.6" and move on. Do not reprint § 1.1 through § 1.10 inside a later catchline.
 
+Cross-reference rule: every page MUST contain 2–4 explicit citations to other filed sections in the form "see § X.Y" or "under § X.Y". Prefer sibling Parts but also cite foundational §§ 1.4–1.9 where the topic touches persons, seals, or construction. A page with zero § cites will be rejected.
+
 Output format:
 PAGE Title of this topic
 Then paragraphs. Blank line between paragraphs. No Heading | sentence lines. No JSON. No chat.
@@ -70,11 +74,64 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+CITE_RE = re.compile(r"§\s*(\d+\.\d+(?:\.\d+)?)")
+
+def extract_cites(text: str) -> list[str]:
+    return CITE_RE.findall(text or "")
+
+def normalize_cite(c: str) -> str:
+    return re.sub(r"\s+", "", c.strip())
+
+def build_ref_index(data: dict) -> dict[str, dict]:
+    """cite -> {title, part, brief} for every filed section."""
+    idx: dict[str, dict] = {}
+    for s in data.get("sections") or []:
+        cite = str(s.get("cite") or "").strip()
+        if not cite:
+            continue
+        idx[cite] = {"title": s.get("title") or "", "part": s.get("part") or "", "brief": s.get("brief") or "", "n": len(s.get("body") or [])}
+    return idx
+
+def enrich_references(data: dict) -> int:
+    """Populate body[].refs and section .refs / .unresolved for larger-section cross-reference.
+    Returns count of distinct cited targets."""
+    idx = build_ref_index(data)
+    seen: set[str] = set()
+    for sec in data.get("sections") or []:
+        sec_refs: set[str] = set()
+        sec_unresolved: set[str] = set()
+        for b in sec.get("body") or []:
+            cites = [normalize_cite(c) for c in extract_cites(b.get("text") or "")]
+            # also scan heading
+            cites += [normalize_cite(c) for c in extract_cites(b.get("heading") or "")]
+            uniq = []
+            for c in cites:
+                if c not in uniq:
+                    uniq.append(c)
+            b["refs"] = uniq
+            for c in uniq:
+                if c == sec.get("cite"):
+                    continue
+                if c in idx:
+                    sec_refs.add(c)
+                    seen.add(c)
+                else:
+                    sec_unresolved.add(c)
+        sec["refs"] = sorted(sec_refs, key=lambda x: [int(n) for n in x.split(".")])
+        if sec_unresolved:
+            sec["unresolved_refs"] = sorted(sec_unresolved, key=lambda x: [int(n) for n in x.split(".")])
+        elif "unresolved_refs" in sec:
+            sec.pop("unresolved_refs", None)
+    return len(seen)
+
+
 def save(data: dict) -> None:
+    enrich_references(data)
     filled = sum(1 for s in data.get("sections") or [] if (s.get("body") or []))
     data["meta"]["sectionCount"] = filled
     data["meta"]["approxPages"] = max(0, filled // 2)
     data["meta"]["edition"] = "Working compilation. Slots in book order."
+    data["meta"]["crossRefTargets"] = len(build_ref_index(data))
     tmp = OUT.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     tmp.replace(OUT)
@@ -163,6 +220,11 @@ def print_status(data: dict, floor: int) -> None:
     ns = [clause_n(s) for s in secs]
     water = min(ns) if ns else 0
     print(f"sections {len(secs)}  water {water}/{floor}  empty {sum(n==0 for n in ns)}  below {sum(n<floor for n in ns)}  at-floor {sum(n>=floor for n in ns)}")
+    # cross-ref health
+    with_refs = sum(1 for s in secs if (s.get("refs") or []))
+    total_refs = sum(len(s.get("refs") or []) for s in secs)
+    unresolved = sum(len(s.get("unresolved_refs") or []) for s in secs)
+    print(f"cross-refs: {with_refs}/{len(secs)} sections cite others  total distinct links {total_refs}  unresolved {unresolved}")
     by_part = {}
     for s in secs:
         by_part.setdefault(s.get("part") or "?", []).append(clause_n(s))
@@ -171,7 +233,18 @@ def print_status(data: dict, floor: int) -> None:
     short = sorted(secs, key=lambda s: (clause_n(s), secs.index(s)))[:12]
     print("shortest:")
     for s in short:
-        print(f"    § {s.get('cite'):8} {clause_n(s):3}  {s.get('title')}")
+        print(f"    § {s.get('cite'):8} {clause_n(s):3}  {s.get('title')}  refs={len(s.get('refs') or [])}")
+    # show a few most-referenced targets
+    from collections import Counter
+    cnt = Counter()
+    for s in secs:
+        for r in s.get("refs") or []:
+            cnt[r] += 1
+    if cnt:
+        print("most-cited:")
+        for cite, c in cnt.most_common(8):
+            title = next((x.get("title") or "" for x in secs if x.get("cite")==cite), "")
+            print(f"  §{cite} x{c}  {title}")
 
 
 def next_empty(data: dict) -> dict | None:
@@ -236,16 +309,18 @@ def next_related_section(data: dict) -> dict:
     part = min(by.keys(), key=lambda k: (len(by[k]), k))
     sibs = by[part]
     titles = "; ".join(f"§ {s['cite']} {s['title']}" for s in sibs[-12:])
+    cite = next_cite_in_part(data, part)
     slot = {
-        "cite": next_cite_in_part(data, part),
+        "cite": cite,
         "part": part,
-        "title": "Related Requirements",
+        "title": f"Additional Provisions §{cite}",  # placeholder — will be replaced by LLM PAGE heading
         "kind": "related",
         "status": "reserved",
         "body": [],
         "brief": (
-            "NEW section in this same Part only. Invent a catchline that belongs "
-            "with these siblings, not a new subject: " + titles
+            f"NEW section §{cite} in this same Part only. Invent a DISTINCT catchline that belongs "
+            "with these siblings, not a new subject and NOT 'Related Requirements': " + titles + 
+            ". First line must be: PAGE Your New Distinct Catchline (5-10 words, specific, no 'Related Requirements')"
         ),
     }
     data["sections"].append(slot)
@@ -308,6 +383,12 @@ def pack_context(data: dict, current: dict) -> str:
         if s.get("body"):
             prior.append(f"§ {s['cite']} {s['title']}")
     bits.append("ALREADY FILED: " + "; ".join(prior[-30:]))
+    # expose the larger-section reference index so the model can cite correctly
+    idx = build_ref_index(data)
+    filed_line = "FILED CITE INDEX (use these exact cites, e.g. 'see § 1.6'): " + "; ".join(
+        f"§ {c} {v['title']}" for c, v in list(idx.items())[:40]
+    )
+    bits.append(filed_line)
     bits.append("ARCHIVE CARDS (hover-sized; generic law is fine if none fit):\n" + cards_for_slot(current.get("title") or "", current.get("brief") or ""))
     q = f"{current.get('title') or ''} {current.get('brief') or ''} {current.get('cite') or ''}"
     bits.append(refer_ccd(q, k=6, exclude=str(current.get("cite") or "")))
@@ -359,11 +440,89 @@ def parse_pages(raw: str) -> list[dict]:
     return []
 
 
+def is_bad_output(text: str) -> tuple[bool, str]:
+    """Detect rambling buzzword loops / degraded output. Returns (is_bad, reason)."""
+    import re, collections
+    if not text or len(text) < 100:
+        return False, ""
+    words = re.findall(r"[a-zA-Z']+", text.lower())
+    if len(words) < 50:
+        return False, ""
+    total = len(words)
+    uniq = len(set(words))
+    # Very low lexical diversity — but legal prose is naturally repetitive, so be lenient
+    # Only flag if extremely low and long
+    if total > 800 and uniq / total < 0.14:
+        return True, f"low diversity {uniq}/{total}={uniq/total:.2f}"
+    if total > 300 and uniq / total < 0.10:
+        return True, f"very low diversity {uniq}/{total}={uniq/total:.2f}"
+    # Any single *non-stopword* repeated excessively
+    STOP = {"the","and","of","a","to","in","is","for","with","as","by","on","or","be","are","that","this","it","from","an","shall","may","must","under","per","see","not","any","all","such","which","who","will","can","has","have","been","are","was","were","if","at","its","their","our","your"}
+    cnt = collections.Counter(w for w in words if w not in STOP)
+    if cnt:
+        most_common_word, most_cnt = cnt.most_common(1)[0]
+        # e.g. "restocking" 1470x, "acid" 301x, "quesadillas" loops
+        if most_cnt > 40 and most_cnt > total * 0.08:
+            return True, f"word '{most_common_word}' repeats {most_cnt}/{total}"
+        if most_cnt > 100:
+            return True, f"word '{most_common_word}' repeats {most_cnt}/{total} (extreme)"
+    # Repeated 4-gram — strong signal for loops
+    fourgrams = [" ".join(words[i:i+4]) for i in range(len(words)-3)]
+    if fourgrams:
+        fg_cnt = collections.Counter(fourgrams)
+        top_fg, top_n = fg_cnt.most_common(1)[0]
+        # ignore common legal 4-grams like "in accordance with the"
+        COMMON_LEGAL = {"in accordance with the","pursuant to section","under section","of the autumnwood accords"}
+        if top_fg not in COMMON_LEGAL and top_n >= 7:
+            return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x"
+        if top_n >= 12:
+            return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x (extreme)"
+    # Buzzword salad — the exact failure mode the user showed
+    buzz = ["integrity","honesty","transparency","accountability","reliability","consistency","thoroughness","precision","accuracy","timeliness","punctuality","efficiency","effectiveness","productivity","quality","craftsmanship","artistry","beauty","elegance","grace","sophistication","refinement","excellence","perfection","mastery","expertise","serendipity","wonder","mystery","awe","reverence","wonderment","amazement","delight","surprise","excitement","thrill","adventure","exploration","discovery","learning","growth","transformation","change","evolution","progress","improvement","advancement","development","expansion","extension","inclusion","diversity","acceptance","tolerance","openness","curiosity","enthusiasm","optimism","confidence","belief","hope","faith","trust"]
+    buzz_hits = sum(1 for w in words if w in buzz)
+    if buzz_hits > total * 0.30 and total > 500:
+        return True, f"buzzword salad {buzz_hits}/{total} buzzwords"
+    # Excessive length without paragraph breaks — degraded
+    if total > 1200:
+        return True, f"excessive length {total} words (expected 350-700)"
+    if text.count(".") < total / 150 and total > 500:
+        return True, "no punctuation"
+    return False, ""
+
 def parse_obj(raw: str) -> dict | None:
     pages = parse_pages(raw)
     if pages:
-        return {"body": pages, "title": None}
+        # filter bad pages as normal part of run
+        good=[]
+        for pg in pages:
+            bad, reason = is_bad_output(pg.get("text") or "")
+            if bad:
+                print(f"bad output filtered: {pg.get('heading','')[:40]} — {reason}", file=__import__('sys').stderr)
+                continue
+            good.append(pg)
+        if not good:
+            return None
+        return {"body": good, "title": None}
     return None
+
+def clean_bad_bodies(data: dict) -> int:
+    """Retroactively remove bad pages already saved in the Codex. Returns count removed."""
+    removed=0
+    for sec in data.get("sections") or []:
+        bodies=sec.get("body") or []
+        keep=[]
+        for b in bodies:
+            bad, reason = is_bad_output(b.get("text") or "")
+            if bad:
+                print(f"retroactively removing bad page §{sec.get('cite')} '{b.get('heading','')[:40]}' — {reason}", file=__import__('sys').stderr)
+                removed+=1
+                continue
+            keep.append(b)
+        if len(keep) != len(bodies):
+            sec["body"]=keep
+            if not keep:
+                sec["status"]="reserved"
+    return removed
 
 
 def chat(base: str, model: str, messages: list, timeout: int) -> str:
@@ -435,9 +594,10 @@ def fill_prompt(data: dict, slot: dict, mode: str, floor: int) -> str:
         return f"""{lore}
 
 Write ONE more page (350–700 words) for {relate}. One topic that belongs under this catchline and is not already covered: {heads}
+CRITICAL: heading must be NEW — do not reuse any of: {heads}. Pick a distinct subtopic.
 Need {max(0, floor - len(have))} more pages toward {floor}.
 {slot.get('brief') or ''}
-Start with: PAGE New topic title
+Start with: PAGE New topic title (must be distinct from existing headings)
 Then continuous paragraphs. Not a list of one-sentence headings.
 """
     extra = "Front matter. Opening-code voice.\n" if (slot.get("kind") or "") == "intro" else ""
@@ -481,13 +641,51 @@ def main() -> int:
     ap.add_argument("--timeout", type=int, default=180)
     ap.add_argument("--min-clauses", type=int, default=6, help="pages per § before new catchlines (each page is 1–2 book pages)")
     ap.add_argument("--clear-short", action="store_true", help="wipe sentence-length bodies so they redraft as pages")
+    ap.add_argument("--reindex", action="store_true", help="recompute refs/crossRefTargets and exit")
+    ap.add_argument("--parallel", type=int, default=1, help="how many LLM prompts to run concurrently (multiprompting). 2-4 is faster on 9B+ with enough VRAM; 1 is sequential")
+    ap.add_argument("--jobs", type=int, default=0, help="alias for --parallel")
+    ap.add_argument("--eta", action="store_true", help="show ETA and throughput")
+    ap.add_argument("--validate", action="store_true", help="validate existing sections for cite health without generating")
+    ap.add_argument("--preview", action="store_true", help="preview next prompts without calling LLM (dry)")
+    ap.add_argument("--shuffle", action="store_true", help="shuffle water-level band order (less deterministic, good for parallel diversity)")
+    ap.add_argument("--log", type=str, default="", help="also tee output to this log file")
+    ap.add_argument("--max-fails", type=int, default=30, help="abort after this many consecutive waits (default 30)")
+    ap.add_argument("--clean-bad", action="store_true", help="scan existing Codex and retroactively remove degraded/buzzword-loop pages (normal part of run does this for new output too)")
     args = ap.parse_args()
 
+    # alias: --jobs overrides --parallel, --preview is dry preview
+    if args.jobs and args.jobs != args.parallel:
+        args.parallel = args.jobs
+    args.parallel = max(1, min(8, args.parallel))
+    if args.preview:
+        data = load_json(OUT)
+        ensure_book(data)
+        prog = load_progress()
+        print("PREVIEW next", args.parallel, "prompts (no LLM):")
+        for i in range(args.parallel):
+            mode, slot = next_job(data, args.min_clauses, prog.get("last_cite") or "")
+            print(f"  [{mode}] §{slot['cite']} {slot['title']} — {slot.get('brief','')[:60]}")
+            prog["last_cite"] = slot["cite"]
+            # simulate adding a placeholder to avoid picking same slot again in preview
+            if mode == "related":
+                data["sections"].append(slot)
+        return 0
     data = load_json(OUT)
     ensure_book(data)
     save(data)
     prog = load_progress()
     save_progress(prog, data, args.min_clauses)
+    if args.reindex:
+        n = enrich_references(data)
+        save(data)
+        print(f"reindexed refs -> {n} distinct targets  crossRefTargets={data['meta'].get('crossRefTargets')}")
+        # report unresolved
+        unresolved = [(s["cite"], s.get("unresolved_refs")) for s in data.get("sections") or [] if s.get("unresolved_refs")]
+        if unresolved:
+            print("unresolved:")
+            for cite, lst in unresolved[:20]:
+                print(f"  §{cite} -> {', '.join(lst)}")
+        return 0
     if args.clear_short:
         n = 0
         for s in data.get("sections") or []:
@@ -505,6 +703,35 @@ def main() -> int:
     if args.status:
         print_status(data, args.min_clauses)
         return 0
+    if args.validate:
+        # cite health check without generating
+        enrich_references(data)
+        unresolved=[(s["cite"], s.get("unresolved_refs")) for s in data.get("sections") or [] if s.get("unresolved_refs")]
+        print(f"validate: {len(unresolved)} sections have unresolved cites, {sum(len(v) for _,v in unresolved)} total unresolved")
+        for cite, lst in unresolved[:10]:
+            print(f"  §{cite} -> {', '.join(lst[:5])}")
+        dup_titles=[t for t,c in __import__('collections').Counter([s.get('title') for s in data['sections']]).items() if c>1]
+        print(f"duplicate titles: {len(dup_titles)}")
+        placeholder=sum(1 for s in data['sections'] if (s.get('brief') or '').startswith("NEW section"))
+        print(f"placeholder briefs: {placeholder}")
+        return 0
+
+    # retroactive clean is a normal maintenance step — also runs automatically on --overnight start
+    if args.clean_bad:
+        n=clean_bad_bodies(data)
+        if n:
+            save(data)
+            save_progress(prog, data, args.min_clauses)
+            print(f"cleaned {n} bad pages retroactively", file=sys.stderr)
+        else:
+            print("no bad pages found", file=sys.stderr)
+        return 0
+    # auto-clean on every run (normal part of run as requested) — remove any bad pages already saved before generating more
+    auto_cleaned=clean_bad_bodies(data)
+    if auto_cleaned:
+        print(f"auto-cleaned {auto_cleaned} bad pages before generating", file=sys.stderr)
+        save(data)
+        save_progress(prog, data, args.min_clauses)
 
     models = list_models(args.base_url)
     model = args.model or (models[0] if models else "")
@@ -512,8 +739,12 @@ def main() -> int:
         print("LM Studio not reachable at", args.base_url, file=sys.stderr)
         print("Start the server, then re-run. Outline is already in the JSON.", file=sys.stderr)
         return 2
-    print("model:", model, "min-clauses:", args.min_clauses, file=sys.stderr)
+    print("model:", model, "min-clauses:", args.min_clauses, f"parallel={args.parallel}" + (" shuffle" if args.shuffle else ""), file=sys.stderr)
     print("writing", OUT, file=sys.stderr)
+    if args.log:
+        import logging
+        logging.basicConfig(filename=args.log, level=logging.INFO, format="%(asctime)s %(message)s")
+        print(f"logging to {args.log}", file=sys.stderr)
 
     def persist():
         save(data)
@@ -534,25 +765,83 @@ def main() -> int:
     added = 0
     fails = 0
 
+    def _uniquify_heading(base: str, have_h: set[str]) -> str:
+        """Ensure heading not in have_h; append qualifier if needed."""
+        h = base.strip()
+        if not h:
+            h = "Additional Provision"
+        norm = re.sub(r"\s+", " ", h.lower())
+        if norm not in have_h:
+            return h
+        # try numbered variants
+        for suffix in [" — Continued", " — Administration", " — Oversight", " — Procedure", " — Custody", " — Review"]:
+            cand = h + suffix
+            if re.sub(r"\s+", " ", cand.lower()) not in have_h:
+                return cand
+        # fallback: append counter
+        n = 2
+        while True:
+            cand = f"{h} ({n})"
+            if re.sub(r"\s+", " ", cand.lower()) not in have_h:
+                return cand
+            n += 1
+
     def accept(slot, body, mode):
         nonlocal added, fails
         if mode == "expand":
             have_h = {re.sub(r"\s+", " ", (b.get("heading") or "").lower()) for b in slot.get("body") or []}
-            have_t = {re.sub(r"\s+", " ", (b.get("text") or "").lower())[:80] for b in slot.get("body") or []}
+            # keep have_t for text dedup but only exact 200-char prefix, less false-positive
+            have_t = {re.sub(r"\s+", " ", (b.get("text") or "").lower())[:200] for b in slot.get("body") or []}
             keys = next_keys(slot.get("body") or [], len(body))
             merged = []
             for i, b in enumerate(body):
-                h = re.sub(r"\s+", " ", (b.get("heading") or "").lower())
-                t = re.sub(r"\s+", " ", (b.get("text") or "").lower())[:80]
-                if h in have_h or t in have_t:
+                h_norm = re.sub(r"\s+", " ", (b.get("heading") or "").lower())
+                t_norm = re.sub(r"\s+", " ", (b.get("text") or "").lower())[:200]
+                # repair duplicate heading instead of dropping
+                if h_norm in have_h:
+                    b["heading"] = _uniquify_heading(b.get("heading") or "", have_h)
+                    h_norm = re.sub(r"\s+", " ", (b.get("heading") or "").lower())
+                # text duplicate is stricter now; only drop if both heading was original duplicate AND text dup
+                # if text still dup after heading fix, try to keep it anyway with warning
+                if t_norm in have_t and h_norm in have_h:
+                    # true duplicate page — skip this one entry, but don't drop entire batch
                     continue
+                # if text dup but heading is now unique, allow it (different subtopic, same boilerplate start)
                 b["key"] = keys[i] if i < len(keys) else letter_key(clause_n(slot) + i)
                 merged.append(b)
+                have_h.add(h_norm)
+                have_t.add(t_norm)
             if not merged:
-                return False
+                # auto-repair: instead of "skip thin", force-accept with repaired headings/keys
+                # take the first body page, uniquify heading, and accept it anyway
+                if body:
+                    b = body[0]
+                    b["heading"] = _uniquify_heading(b.get("heading") or slot.get("title") or "Supplemental Provision", have_h)
+                    b["key"] = next_keys(slot.get("body") or [], 1)[0]
+                    merged = [b]
+                else:
+                    return False
             slot["body"] = apply_letter_keys((slot.get("body") or []) + merged)
         else:
             slot["body"] = apply_letter_keys(body)
+            # for new cites (draft/related), adopt the LLM's PAGE heading as the section title
+            if body and body[0].get("heading"):
+                new_title = re.sub(r"^§\s*\d+\.\d+\s*", "", str(body[0].get("heading") or "")).strip(" —;:")
+                # never keep the generic placeholder
+                if new_title and new_title.lower() not in ["related requirements", "additional provisions"] and len(new_title) >= 8:
+                    # strip leading 'Related Requirements' if LLM still emitted it
+                    cleaned = re.sub(r"^Related Requirements\s*[:\-–—;]*\s*", "", new_title, flags=re.I).strip()
+                    if len(cleaned) >= 8:
+                        new_title = cleaned
+                    slot["title"] = new_title[:80]
+                elif not slot.get("title") or slot["title"].startswith("Additional Provisions"):
+                    # fallback: use heading as-is if it's at least descriptive
+                    if len(new_title) >= 12 and new_title.lower() not in ["related requirements"]:
+                        slot["title"] = new_title[:80]
+            # also replace placeholder brief (which contains 'NEW section...Invent a catchline') with real brief
+            if slot.get("brief","").startswith("NEW section"):
+                # brief should be the new title or first 80 chars of body
+                slot["brief"] = (slot["title"][:80] if slot.get("title") else (body[0].get("text","")[:80] if body else ""))[:80]
         slot["status"] = "filed" if clause_n(slot) >= args.min_clauses else "growing"
         slot["source"] = "lmstudio"
         slot["fp"] = fp(slot)
@@ -565,67 +854,181 @@ def main() -> int:
         print(f"{mode} § {slot['cite']} {slot['title']}  n={clause_n(slot)}  water={prog.get('water')}/{args.min_clauses}  ({added}/{goal})", file=sys.stderr)
         return True
 
-    while added < goal:
-        mode, slot = next_job(data, args.min_clauses, prog.get("last_cite") or "")
-        batch = empty_in_part(data, slot.get("part")) if mode == "draft" else []
+    # ── Multiprompting: run --parallel prompts concurrently ──
+    # Sequential path (parallel==1) keeps the old strict water-level order.
+    # Parallel path picks N distinct slots at the current water level and fires them together.
+    import time as _time
+    start_time = _time.time()
+    def run_one_job(job):
+        jmode, jslot, jbatch = job
         try:
-            prompt = part_draft_prompt(data, batch) if (mode == "draft" and len(batch) > 1) else fill_prompt(data, slot, mode, args.min_clauses)
-            raw = chat_with_search(
+            jprompt = part_draft_prompt(data, jbatch) if (jmode == "draft" and len(jbatch) > 1) else fill_prompt(data, jslot, jmode, args.min_clauses)
+            jraw = chat_with_search(
                 args.base_url, model,
-                [{"role": "system", "content": VOICE}, {"role": "user", "content": prompt}],
+                [{"role": "system", "content": VOICE}, {"role": "user", "content": jprompt}],
                 args.timeout,
             )
-        except urllib.error.URLError as e:
-            print("wait:", e, file=sys.stderr)
-            fails += 1
-            if fails > 30:
-                persist()
-                return 3
-            time.sleep(5)
-            continue
+            return (jmode, jslot, jbatch, jraw, None)
         except Exception as e:
-            print("err", e, file=sys.stderr)
-            fails += 1
-            persist()
-            time.sleep(2)
-            continue
-        if mode == "draft" and len(batch) > 1:
-            blocks = parse_part_blocks(raw)
-            if not blocks:
-                obj = parse_obj(raw)
-                if obj:
-                    blocks = {slot["cite"]: obj["body"]}
-            if not blocks:
-                print("skip: unusable part", slot.get("part"), file=sys.stderr)
+            return (jmode, jslot, jbatch, None, e)
+
+    while added < goal:
+        # QOL: ETA
+        if args.eta and added>0:
+            elapsed = _time.time() - start_time
+            per = elapsed / max(1, added)
+            remain = (goal - added) * per
+            print(f"eta {remain/60:.1f}m — {added}/{goal} — {per:.1f}s/page — parallel {args.parallel}", file=sys.stderr)
+
+        if args.parallel == 1:
+            # ——— sequential (original) ———
+            mode, slot = next_job(data, args.min_clauses, prog.get("last_cite") or "")
+            batch = empty_in_part(data, slot.get("part")) if mode == "draft" else []
+            try:
+                prompt = part_draft_prompt(data, batch) if (mode == "draft" and len(batch) > 1) else fill_prompt(data, slot, mode, args.min_clauses)
+                raw = chat_with_search(
+                    args.base_url, model,
+                    [{"role": "system", "content": VOICE}, {"role": "user", "content": prompt}],
+                    args.timeout,
+                )
+            except urllib.error.URLError as e:
+                print("wait:", e, file=sys.stderr)
+                fails += 1
+                if fails > 30:
+                    persist()
+                    return 3
+                time.sleep(5)
+                continue
+            except Exception as e:
+                print("err", e, file=sys.stderr)
+                fails += 1
+                persist()
+                time.sleep(2)
+                continue
+            if mode == "draft" and len(batch) > 1:
+                blocks = parse_part_blocks(raw)
+                if not blocks:
+                    obj = parse_obj(raw)
+                    if obj:
+                        blocks = {slot["cite"]: obj["body"]}
+                if not blocks:
+                    print("skip: unusable part", slot.get("part"), file=sys.stderr)
+                    fails += 1
+                    if fails >= 8:
+                        persist()
+                        return 4
+                    continue
+                by_cite = {s["cite"]: s for s in batch}
+                any_ok = False
+                for cite, body in blocks.items():
+                    s = by_cite.get(cite)
+                    if s:
+                        any_ok = accept(s, body, "draft") or any_ok
+                if not any_ok:
+                    fails += 1
+                    continue
+                time.sleep(args.sleep)
+                continue
+            obj = parse_obj(raw)
+            if not obj:
+                print("skip: unusable", slot["cite"], file=sys.stderr)
                 fails += 1
                 if fails >= 8:
                     persist()
                     return 4
                 continue
-            by_cite = {s["cite"]: s for s in batch}
-            any_ok = False
-            for cite, body in blocks.items():
-                s = by_cite.get(cite)
-                if s:
-                    any_ok = accept(s, body, "draft") or any_ok
-            if not any_ok:
+            if not accept(slot, obj["body"], mode):
+                print("skip thin (repaired) ", slot["cite"], file=sys.stderr)
                 fails += 1
+                prog["last_cite"] = slot.get("cite") or ""
+                if fails >= 3:
+                    persist()
+                    print(f"auto-rotate from §{slot['cite']} after {fails} thin skips", file=sys.stderr)
+                    fails = 0
                 continue
             time.sleep(args.sleep)
             continue
-        obj = parse_obj(raw)
-        if not obj:
-            print("skip: unusable", slot["cite"], file=sys.stderr)
-            fails += 1
-            if fails >= 8:
+        else:
+            # ——— parallel: collect N distinct jobs, fire together ———
+            jobs=[]
+            # snapshot last_cite and avoid duplicate picks in this batch
+            seen_cites=set()
+            tmp_last = prog.get("last_cite") or ""
+            for _ in range(min(args.parallel, goal-added)):
+                for _try in range(8):
+                    try:
+                        jmode, jslot = next_job(data, args.min_clauses, tmp_last)
+                    except ValueError:
+                        break
+                    jcite=jslot.get("cite")
+                    if jcite not in seen_cites:
+                        break
+                    tmp_last=jcite
+                else:
+                    break
+                if jcite in seen_cites:
+                    break
+                seen_cites.add(jcite)
+                tmp_last=jcite
+                jbatch = empty_in_part(data, jslot.get("part")) if jmode == "draft" else []
+                jobs.append((jmode, jslot, jbatch))
+            if args.shuffle and len(jobs)>1:
+                import random as _rnd
+                _rnd.shuffle(jobs)
+                # if we just created a new related section, it's now in data.sections — keep it for next pick
+            if not jobs:
+                print("no jobs to run — saving", file=sys.stderr)
                 persist()
-                return 4
+                return 0
+            # fire
+            results=[]
+            with concurrent.futures.ThreadPoolExecutor(max_workers=args.parallel) as ex:
+                futs={ex.submit(run_one_job, j): j for j in jobs}
+                for fut in concurrent.futures.as_completed(futs):
+                    results.append(fut.result())
+            # process results in completion order (accept is serialized to avoid races)
+            for jmode, jslot, jbatch, jraw, jerr in results:
+                if jerr is not None:
+                    print(f"parallel wait {jmode} §{jslot.get('cite')}: {jerr}", file=sys.stderr)
+                    fails+=1
+                    if fails>30:
+                        persist()
+                        return 3
+                    continue
+                if jmode == "draft" and len(jbatch) > 1:
+                    blocks = parse_part_blocks(jraw)
+                    if not blocks:
+                        obj = parse_obj(jraw)
+                        if obj:
+                            blocks = {jslot["cite"]: obj["body"]}
+                    if not blocks:
+                        print("skip: unusable part", jslot.get("part"), file=sys.stderr)
+                        fails+=1
+                        continue
+                    by_cite={s["cite"]: s for s in jbatch}
+                    any_ok=False
+                    for cite, body in blocks.items():
+                        s=by_cite.get(cite)
+                        if s:
+                            any_ok=accept(s, body, "draft") or any_ok
+                    if not any_ok:
+                        fails+=1
+                    continue
+                obj=parse_obj(jraw)
+                if not obj:
+                    print("skip: unusable", jslot["cite"], file=sys.stderr)
+                    fails+=1
+                    continue
+                if not accept(jslot, obj["body"], jmode):
+                    print("skip thin (repaired) ", jslot["cite"], file=sys.stderr)
+                    fails+=1
+                    prog["last_cite"]=jslot.get("cite") or ""
+                    if fails>=3:
+                        persist()
+                        fails=0
+                    continue
+            time.sleep(args.sleep)
             continue
-        if not accept(slot, obj["body"], mode):
-            print("skip thin", slot["cite"], file=sys.stderr)
-            fails += 1
-            continue
-        time.sleep(args.sleep)
     persist()
     print("done", added)
     return 0
