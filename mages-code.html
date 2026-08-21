@@ -543,10 +543,13 @@ function render(data) {
 
   document.getElementById('paper').innerHTML = html;
   attachCiteTips();
-  // deep-link highlight if hash present
+  // deep-link highlight if hash present — '.' in IDs like s-1301.1 needs getElementById, not querySelector
   if (location.hash) {
-    const el = document.querySelector(location.hash);
-    if (el) el.scrollIntoView({behavior:'instant'});
+    try {
+      const id = decodeURIComponent(location.hash.slice(1));
+      const el = document.getElementById(id) || document.querySelector(`[id="${CSS.escape ? CSS.escape(id) : id.replace(/"/g,'\\"')}"]`);
+      if (el) el.scrollIntoView({behavior:'instant'});
+    } catch(e) { /* ignore bad hash */ }
   }
 }
 
