@@ -1,7 +1,7 @@
 {
-  "last_cite": "1301.11",
-  "water": 5,
-  "hits": 920,
+  "last_cite": "800.13",
+  "water": 0,
+  "hits": 989,
   "by_cite": {
     "1.1": {
       "n": 6,
@@ -1030,7 +1030,7 @@
       "status": "filed"
     },
     "200.12": {
-      "n": 5,
+      "n": 6,
       "part": "part_ii",
       "title": "Prohibitions on Coercive and Degradational Magic",
       "status": "filed"
@@ -1078,7 +1078,7 @@
       "status": "filed"
     },
     "1101.12": {
-      "n": 5,
+      "n": 6,
       "part": "part_xi",
       "title": "Collateral Contamination and Remedial Obligations",
       "status": "filed"
@@ -1090,16 +1090,88 @@
       "status": "filed"
     },
     "1301.12": {
-      "n": 5,
+      "n": 6,
       "part": "part_xiii",
       "title": "Additional Provisions for Penalty Assessment and Enforcement §1301.12",
-      "status": "growing"
+      "status": "filed"
+    },
+    "1401.12": {
+      "n": 6,
+      "part": "part_xiv",
+      "title": "Preservation of Canonical Continuity and Scriptural Integrity",
+      "status": "filed"
+    },
+    "1.13": {
+      "n": 6,
+      "part": "front",
+      "title": "Interpretative Nuance and Lexicographical Consistency",
+      "status": "filed"
+    },
+    "100.13": {
+      "n": 6,
+      "part": "part_i",
+      "title": "Protocols for Mediation and Inter-Factional Arbitration",
+      "status": "filed"
+    },
+    "200.13": {
+      "n": 6,
+      "part": "part_ii",
+      "title": "Protocols for Arcane Containment and Breach Mitigation",
+      "status": "filed"
+    },
+    "300.13": {
+      "n": 6,
+      "part": "part_iii",
+      "title": "Exceptions for Ritualistic Variance and Deviation",
+      "status": "filed"
+    },
+    "400.13": {
+      "n": 6,
+      "part": "part_iv",
+      "title": "Protocols for Deviant Methodology and Innovation Oversight",
+      "status": "filed"
+    },
+    "900.13": {
+      "n": 6,
+      "part": "part_ix",
+      "title": "Reporting of Ancillary and Sub-Layered Arcane Effects",
+      "status": "filed"
+    },
+    "500.13": {
+      "n": 6,
+      "part": "part_v",
+      "title": "Mitigation of Environmental Arcane Decay",
+      "status": "filed"
+    },
+    "600.13": {
+      "n": 6,
+      "part": "part_vi",
+      "title": "Liability for Autonomous Construct Malfeasance",
+      "status": "filed"
+    },
+    "700.13": {
+      "n": 6,
+      "part": "part_vii",
+      "title": "Admissibility of Artifact-Derived Testimony and Relics",
+      "status": "filed"
+    },
+    "800.13": {
+      "n": 6,
+      "part": "part_viii",
+      "title": "Mandatory Reporting of Arcane Artifact Malfunction and Degradation",
+      "status": "filed"
+    },
+    "1101.13": {
+      "n": 0,
+      "part": "part_xi",
+      "title": "Additional Provisions §1101.13",
+      "status": "reserved"
     }
   },
   "max_n": 15,
   "floor": 6,
-  "empty": 0,
-  "below": 3,
-  "at_floor": 179,
-  "sectionCount": 182
+  "empty": 1,
+  "below": 1,
+  "at_floor": 193,
+  "sectionCount": 194
 }
