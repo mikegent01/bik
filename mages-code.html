@@ -328,6 +328,29 @@
     font-size: 13px;
   }
 
+  /* ── QoL toolbar ── */
+  .qol-bar {
+    display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+    margin: 8px 0 18px; padding: 10px 12px;
+    background:#ede5d0; border:1px solid #d8c9a8; border-radius:8px;
+    font-family: system-ui, sans-serif; font-size:12.5px; color:#3d2a00;
+  }
+  .qol-bar input[type="search"]{
+    flex:1; min-width:180px; padding:7px 10px; border:1px solid #c4ad84; border-radius:6px;
+    background:#f4efe3; font-size:13px; color:#211810;
+  }
+  .qol-bar button{
+    padding:6px 10px; border:1px solid #c4ad84; border-radius:6px; background:#f4efe3;
+    font-size:12px; cursor:pointer; color:#3d2a00;
+  }
+  .qol-bar button:hover{ background:#fff; border-color:#6d28d9; }
+  .qol-bar .qol-stat{ font-size:11.5px; color:#5d4a35; white-space:nowrap; }
+  #read-progress{ position:fixed; top:0; left:0; height:3px; width:0; background:linear-gradient(90deg,#6d28d9,#e0b400); z-index:100; transition:width .1s; }
+  .sec.hidden{ display:none; }
+  .sec mark{ background:#ffe7a0; padding:0 1px; border-radius:2px; }
+  .copy-cite{ float:right; font-family:system-ui,sans-serif; font-size:11px; padding:2px 8px; border:1px solid #c4ad84; border-radius:12px; background:#ede5d0; cursor:pointer; }
+  .copy-cite:hover{ background:#fff; border-color:#6d28d9; }
+
   /* ── Responsive ── */
   @media (max-width: 700px) {
     .sidebar { display: none; }
@@ -345,12 +368,15 @@
     <div id="sidebar-toc"><div class="status">Loading…</div></div>
   </nav>
 
+  <div id="read-progress"></div>
   <!-- Main -->
   <main class="main">
     <div class="breadcrumb">
       <a href="index.html#/cultures">← Cultures &amp; Laws</a>
       <span>·</span>
       <a href="index.html#/home">Home</a>
+      <span>·</span>
+      <a href="index.html#/books">Books (Thornbury's Journal moved here)</a>
     </div>
 
     <div class="paper" id="paper">
@@ -483,7 +509,14 @@ function render(data) {
   });
   document.getElementById('sidebar-toc').innerHTML = tocHtml || '<div class="status">No sections.</div>';
 
-  // ── Paper ──
+  // ── Paper (with live word count + reading time) ──
+  let totalWords = 0; let totalPages = 0;
+  sections.forEach(s=> (s.body||[]).forEach(b=>{
+    const w = (b.text||'').split(/\s+/).filter(Boolean).length;
+    totalWords += w; totalPages += 1;
+  }));
+  const readMins = Math.max(1, Math.round(totalWords/200));
+  const readHours = readMins>=60 ? `${Math.floor(readMins/60)}h ${readMins%60}m` : `${readMins}m`;
   let html = `
     <div class="kicker">${esc(meta.short || 'C.C.D.')}</div>
     <h1>${esc(meta.title || 'Codex')}</h1>
@@ -493,9 +526,19 @@ function render(data) {
       ${meta.edition   ? `<div>${esc(meta.edition)}</div>`   : ''}
       <div class="meta-pills">
         <span class="pill">${sections.length} sections</span>
-        ${meta.approxPages ? `<span class="pill">~${esc(String(meta.approxPages))} pages</span>` : ''}
+        <span class="pill">${totalPages} pages</span>
+        <span class="pill">${totalWords.toLocaleString()} words</span>
+        <span class="pill">~${readHours} read</span>
+        ${meta.approxPages ? `<span class="pill">~${esc(String(meta.approxPages))} ledger pages</span>` : ''}
         <span class="pill">${sortedParts.filter(p => (byPart[p.id]||[]).length).length} parts</span>
       </div>
+    </div>
+    <div class="qol-bar" id="qol-bar">
+      <input type="search" id="codex-search" placeholder="Filter Codex — try 'pocket', 'Quiet List', '§ 1.6' …" oninput="filterCodex(this.value)" />
+      <span class="qol-stat" id="qol-stat">${totalWords.toLocaleString()} words · ${totalPages} pages · ${readHours}</span>
+      <button onclick="window.print()" title="Print this Codex">🖨️ Print</button>
+      <button onclick="copyCodexLink()" title="Copy link to current section">🔗 Copy link</button>
+      <button onclick="toggleCodexFont()" title="Toggle dyslexia-friendly font">Aa</button>
     </div>`;
 
   sortedParts.forEach(p => {
@@ -511,10 +554,14 @@ function render(data) {
     }
 
     list.forEach(s => {
-      html += `<section class="sec" id="s-${esc(s.cite)}">
+      const secWords = (s.body||[]).reduce((n,b)=> n + (b.text||'').split(/\s+/).filter(Boolean).length, 0);
+      const secPages = (s.body||[]).length;
+      html += `<section class="sec" id="s-${esc(s.cite)}" data-words="${secWords}" data-title="${esc((s.title||'').toLowerCase())}">
         <div class="cite-heading">
           <span class="cite-num">§ ${esc(s.cite)}</span>
           &ensp;${esc(s.title)}
+          <button class="copy-cite" onclick="copyCite('${esc(s.cite)}')" title="Copy § ${esc(s.cite)} link">Copy §</button>
+          <span style="float:right;font-family:system-ui,sans-serif;font-size:11px;color:#5d4a35;margin-top:4px">${secWords.toLocaleString()}w · ${secPages}p</span>
         </div>`;
 
       if (!(s.body || []).length) {
@@ -551,6 +598,56 @@ function render(data) {
       if (el) el.scrollIntoView({behavior:'instant'});
     } catch(e) { /* ignore bad hash */ }
   }
+  // QoL: reading progress + stats live update
+  requestAnimationFrame(()=>{
+    const bar=document.getElementById('read-progress');
+    if(bar){
+      const onScroll=()=>{ const h=document.documentElement; const s=h.scrollTop/(h.scrollHeight-h.clientHeight); bar.style.width=(isFinite(s)?s*100:0)+'%'; };
+      document.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+    }
+  });
+}
+// QoL helpers: filter, copy, font toggle
+function filterCodex(q){
+  const needle=(q||'').toLowerCase().trim();
+  const secs=[...document.querySelectorAll('.sec')];
+  let shown=0;
+  secs.forEach(sec=>{
+    if(!needle){ sec.classList.remove('hidden'); sec.querySelectorAll('mark').forEach(m=>{m.outerHTML=m.innerHTML;}); shown++; return; }
+    const hay=(sec.textContent||'').toLowerCase();
+    const hit=hay.includes(needle) || sec.id.toLowerCase().includes(needle.replace(/[^0-9.]/g,''));
+    sec.classList.toggle('hidden', !hit);
+    if(hit) shown++;
+    // highlight
+    if(hit && needle.length>2){
+      sec.querySelectorAll('.codex-page p').forEach(p=>{
+        const raw=p.textContent;
+        const re=new RegExp('('+needle.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&')+')','gi');
+        if(re.test(raw)) p.innerHTML=raw.replace(re,'<mark>$1</mark>');
+      });
+    }
+  });
+  const stat=document.getElementById('qol-stat');
+  if(stat) stat.textContent = needle ? `${shown} / ${secs.length} sections match` : `${document.querySelectorAll('.codex-page').length} pages · in-browser filter`;
+}
+function copyCite(cite){
+  const url=location.origin+location.pathname+'#s-'+cite;
+  navigator.clipboard?.writeText(url).then(()=>{
+    const tip=document.getElementById('cite-tip');
+    if(tip){ tip.innerHTML=`<div class="tip-cite">Copied § ${cite}</div><div class="tip-brief">${url}</div>`; tip.classList.add('show'); setTimeout(()=>tip.classList.remove('show'),1200); }
+  }).catch(()=> prompt('Copy link:', url));
+}
+function copyCodexLink(){
+  const hash=location.hash||'';
+  const url=location.origin+location.pathname+(hash||'#s-1.1');
+  navigator.clipboard?.writeText(url).catch(()=> prompt('Copy link:', url));
+}
+let _codexLarge=false;
+function toggleCodexFont(){
+  _codexLarge=!_codexLarge;
+  document.querySelector('.paper').style.fontSize=_codexLarge?'18px':'';
+  document.querySelector('.paper').style.lineHeight=_codexLarge?'1.85':'';
 }
 
 // ── Fetch ─────────────────────────────────────────────────────────────────────

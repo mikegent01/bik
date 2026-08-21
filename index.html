@@ -6652,7 +6652,7 @@ function renderSidebar(active){
     navLink({emoji:'⚖️',label:'Cultures & Laws',go:"Router.go('#/cultures')",active:active==='list:cultures',count:(Object.keys(TRADITIONS||{}).length||n('cultures')),title:'Cultural spheres, legal traditions, and where the laws collide'}),
     navLink({emoji:'⚡',label:'Power Projection',go:"Router.go('#/power')",active:active==='power'}),
     navLink({emoji:'👑',label:'Dynasties',go:"Router.go('#/dynasties')",active:active==='dynasties',count:Object.keys(DYNASTY_SYSTEM.houses||{}).length}),
-    navLink({emoji:'📓',label:"Thornbury's Journal",go:"Router.go('#/field-journal')",active:(active==='journal'||h1.includes('field-journal')||h1.includes('thornburys_field_journal'))}),
+    navLink({emoji:'📜',label:"Mages Guild Codex",go:"location.href='mages-code.html'",title:'C.C.D. — Consolidated Canal Decrees, 99k words, 296 pages, Autumnwood Accords Desk',count:'99k'}),
     navLink({emoji:'📺',label:'Rakasha News Network',go:"Router.go('#/rnn')",active:(active==='rnn'||h1.includes('/rnn')||h1.includes('rakasha-news')),title:"Last week's broadcast — the Rakasha desk reads back every recent adventure"})
   ];
   h+=navSection('nav-world','World',worldLinks,{forceOpen:hasActive(worldLinks),count:worldLinks.length});
@@ -15264,7 +15264,24 @@ let currentBookPage = 0;
 
 function view_books(categoryArg) {
   renderSidebar('books');
-  const books = (DATA.books && DATA.books.books) || (window.BOOKS_DATA && window.BOOKS_DATA.books) || [];
+  const _rawBooks = (DATA.books && DATA.books.books) || (window.BOOKS_DATA && window.BOOKS_DATA.books) || [];
+  // Thornbury's Field Journal lives here now — sidebar tab replaced by Codex link (mages-code.html)
+  const thornburyBook = {
+    id: 'thornburys_field_journal',
+    title: "Thornbury's Field Journal",
+    subtitle: "Quartermaster's Spy Log — moved from World tab",
+    author: 'Quartermaster Thornbury',
+    category: 'Field Journals',
+    description: "Thornbury's paranoia, in his own handwriting. Previously pinned as a World-tab shortcut, now filed where books belong. Opens the full interactive journal (Field_Journal.html) — Waluigi is not summarizing this when the source document can incriminate itself. Also see the Mages Guild Codex (mages-code.html) in World → Mages Guild Codex.",
+    pages: ['See the full journal viewer → Field_Journal.html'],
+    cover_image: null,
+    cover_color: '#1a2e1a',
+    cover_accent: '#7fd8a4',
+    icon: '📓',
+    effect: 'Opens the interactive field journal viewer (quartermaster spy log).',
+    _isJournal: true
+  };
+  const books = _rawBooks.some(b=>b.id==='thornburys_field_journal') ? _rawBooks : [thornburyBook, ..._rawBooks];
   let activeCat = categoryArg || 'all';
   let searchQuery = '';
 
@@ -15309,7 +15326,7 @@ function view_books(categoryArg) {
           </div>
           <div>
             ${b.effect ? `<div style="font-size:11px;color:var(--accent2);background:rgba(224,180,0,.08);padding:5px 8px;border-radius:6px;border-left:2px solid var(--accent2);margin-bottom:10px"><b>Insight:</b> ${esc(b.effect)}</div>` : ''}
-            <button class="chip active" style="width:100%;text-align:center;justify-content:center" onclick="openBookReader('${esc(b.id)}')">📖 Read Codex (${(b.pages || []).length || 1} pages) →</button>
+            ${b._isJournal ? `<a class="chip active" style="width:100%;text-align:center;justify-content:center;display:block;text-decoration:none" href="${esc(pathPrefix)}app/pages/standalone/Field_Journal.html">📓 Open Field Journal →</a><a class="chip" style="width:100%;text-align:center;justify-content:center;display:block;text-decoration:none;margin-top:6px" onclick="Router.go('#/field-journal')">View embedded viewer →</a>` : `<button class="chip active" style="width:100%;text-align:center;justify-content:center" onclick="openBookReader('${esc(b.id)}')">📖 Read Codex (${(b.pages || []).length || 1} pages) →</button>`}
           </div>
         </div>
       `;
