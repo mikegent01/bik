@@ -456,6 +456,7 @@ def main():
     ap.add_argument("--timeline", action="store_true", help="deprecated alias for --past-events")
     ap.add_argument("--allow-timeline", action="store_true", help="deprecated, no longer needed")
     ap.add_argument("--codex", action="store_true", help="shell out to gen-mages-guild-code.py for one codex batch")
+    ap.add_argument("--guild-ratio", type=int, default=100, help="when --all --overnight, how many Codex pages per one other task (default 100). Limits spam while still growing laws.")
     ap.add_argument("--all", action="store_true", help="stubs + books + past-events + codex")
     ap.add_argument("--overnight", action="store_true", help="loop until --target total items (vs one-shot)")
     ap.add_argument("--target", type=int, default=20, help="how many items for overnight")
@@ -521,7 +522,46 @@ def main():
             total+=n
         return total
 
-    if args.overnight:
+    # Throttle: when --all --overnight, do guild-ratio Codex pages per one other task
+    is_throttled = args.all and args.overnight and args.guild_ratio>1 and any([args.stubs, args.books, args.past_events])
+    if args.overnight and is_throttled:
+        # throttled all-night: 100 Codex then 1 other round-robin
+        other_turn = 0
+        while total < goal:
+            # Codex burst
+            if args.codex or args.all:
+                batch = min(args.guild_ratio, goal - total)
+                if batch>0:
+                    cmd=[sys.executable, str(ROOT/"tools"/"gen-mages-guild-code.py"), "--base-url", args.base_url, "--model", model, "--count", str(batch), "--timeout", str(args.timeout)]
+                    if not args.dry_run:
+                        print(f"codex burst: {batch} pages (ratio 1:{args.guild_ratio})", file=sys.stderr)
+                        subprocess.run(cmd, check=False)
+                        total+=batch
+                    else:
+                        print(f"DRY codex burst {batch} pages (ratio 1:{args.guild_ratio})")
+                        total+=batch
+                    if total>=goal: break
+                    time.sleep(args.sleep)
+            # One other task per 100 — round-robin stubs/books/past-events
+            # pick which other to do this turn
+            others=[]
+            if args.stubs: others.append("stubs")
+            if args.books: others.append("books")
+            if args.past_events: others.append("past")
+            if others:
+                pick=others[other_turn % len(others)]
+                other_turn+=1
+                if pick=="stubs":
+                    n=expand_stubs(args.base_url, model, args.timeout, 1, args.dry_run, args.sleep)
+                elif pick=="books":
+                    n=add_book(args.base_url, model, args.timeout, args.dry_run, args.sleep)
+                else:
+                    n=add_past_event(args.base_url, model, args.timeout, args.dry_run, args.sleep)
+                total+=n
+            if total>=goal: break
+            time.sleep(args.sleep)
+        print(f"done {total}/{goal} (throttled {args.guild_ratio}:1)")
+    elif args.overnight:
         while total < goal:
             before=total
             do_one()
