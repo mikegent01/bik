@@ -7,15 +7,9 @@
     "edition": "Working compilation. Slots in book order.",
     "route": "#/mages-code",
     "pageHtml": "mages-code.html",
-<<<<<<< Updated upstream
     "sectionCount": 243,
     "approxPages": 121,
     "crossRefTargets": 243
-=======
-    "sectionCount": 193,
-    "approxPages": 96,
-    "crossRefTargets": 194
->>>>>>> Stashed changes
   },
   "parts": [
     {
@@ -1951,13 +1945,10 @@
         "200.11",
         "200.12",
         "200.13",
-<<<<<<< Updated upstream
         "200.14",
         "200.15",
         "200.16",
         "200.17",
-=======
->>>>>>> Stashed changes
         "300.1",
         "300.2",
         "400.1",
@@ -1965,13 +1956,6 @@
         "600.1"
       ],
       "unresolved_refs": [
-<<<<<<< Updated upstream
-=======
-        "200.14",
-        "200.15",
-        "200.16",
-        "200.17",
->>>>>>> Stashed changes
         "200.18",
         "200.19",
         "200.20"
@@ -7673,7 +7657,6 @@
           "refs": [
             "1401.2"
           ]
-<<<<<<< Updated upstream
         },
         {
           "heading": "Historical Precedent and Jurisdictional Insulation",
@@ -7691,18 +7674,11 @@
       ],
       "source": "lmstudio",
       "fp": "9c2970ec757dc69b",
-=======
-        }
-      ],
-      "source": "lmstudio",
-      "fp": "214f9bbe09c5623b",
->>>>>>> Stashed changes
       "refs": [
         "1.2",
         "1.7",
         "1.9",
         "100.5",
-<<<<<<< Updated upstream
         "100.7",
         "200.4",
         "300.2",
@@ -7711,13 +7687,6 @@
         "600.3",
         "1001.2",
         "1001.5",
-=======
-        "200.4",
-        "300.2",
-        "500.2",
-        "600.3",
-        "1001.2",
->>>>>>> Stashed changes
         "1301.2",
         "1401.3"
       ]
@@ -8705,11 +8674,7 @@
         {
           "heading": "§ 500.6 Related Requirements — Prohibition on Unauthorized Spellcasting in Publi",
           "text": "No mage shall cast any spell outside the confines of their licensed practice without first obtaining a permit from the Autumnwood Accords Desk. Such permits are subject to rigorous scrutiny and may be denied at the sole discretion of the desk. Permit holders must display their license conspicuously while working in public spaces, subject to inspection by duly authorized officers. Failure to comply with these requirements shall result in immediate revocation of said permit and imposition of penalties as provided herein.\n\n§ 500.7 Related Requirements — Licensing and Registration of Commercial Spellcasters\nAll mages engaged in the commercial casting of spells must register with the Guild and obtain a valid license before commencing operations. Licenses are issued upon satisfactory completion of an examination demonstrating competency in relevant magical disciplines, adherence to ethical standards, and payment of all applicable fees. Licensees shall display their credentials prominently at all times while performing services in public venues. Any suspected violations shall be reported promptly to the Guild for investigation. Repeat offenders may face permanent disqualification from practicing magic within the jurisdiction.\n\nThis section establishes clear guidelines governing the conduct of mages operating outside controlled environments. By requiring permits and licenses, the Accords aim to ensure safety, accountability, and professionalism in public spellcasting activities. Failure to comply with these regulations undermines both public trust and the Guild's ability to regulate effectively. All parties are expected to familiarize themselves thoroughly with these provisions and act accordingly. The penalties prescribed herein serve as necessary deterrents against reckless or unauthorized magical interference in communal affairs. It is imperative that all mages uphold their responsibilities under this framework to maintain harmony between arcane pursuits and civic life.",
-<<<<<<< Updated upstream
           "key": "d",
-=======
-          "key": "e",
->>>>>>> Stashed changes
           "refs": [
             "500.7",
             "500.6"
@@ -8718,16 +8683,11 @@
         {
           "heading": "§ 500.6 Unauthorized Spellcasting in Public Spaces — Continued",
           "text": "It shall be unlawful for any person to cast a spell, or otherwise manifest magical effects, within the public domain without prior authorization from the Mages' Guild. \"Public domain\" is defined as any space accessible to the general populace, including streets, squares, parks, and commercial establishments. This prohibition exists to protect citizens from unintended harm and to prevent disruption of daily activities by unpredictable arcane phenomena.\n\nViolations of this section shall be subject to immediate cessation orders issued by a Guild Inspector. Failure to comply with such an order may result in further penalties under § 1006.1 Disturbance of the Peace. In cases where unauthorized spellcasting results in damage or injury, additional charges may be brought pursuant to relevant tort and criminal statutes.\n\nThis provision does not apply to licensed magical professionals performing their authorized duties, as outlined in Parts II-VI of this Codex. Nor shall it impede upon emergency response efforts by registered Aegis Magi acting in the interest of public safety. However, any use of magic during such operations must still conform to all applicable laws and regulations.\n\nThe Mages' Guild reserves the right to expand or restrict the scope of this prohibition as deemed necessary for the protection of the public welfare. Any proposed amendments shall be subject to review by the Desk in accordance with standard procedures. Citizens are encouraged to report suspected violations to their nearest Guild Station promptly, providing all available details.\n\nIn summary, § 500.6 establishes a clear boundary between private and public uses of magic, balancing individual freedom with collective security. By regulating spellcasting in communal areas, the Accords seek to mitigate risks while preserving the integrity of magical practice within established frameworks. All persons are expected to familiarize themselves with this rule and act accordingly to ensure harmonious coexistence between arcane pursuits and ordinary life.",
-<<<<<<< Updated upstream
           "key": "e",
-=======
-          "key": "f",
->>>>>>> Stashed changes
           "refs": [
             "1006.1",
             "500.6"
           ]
-<<<<<<< Updated upstream
         },
         {
           "heading": "Unauthorized Spellcasting in Public Spaces – Disturbance of the Peace",
@@ -8742,14 +8702,11 @@
             "400.5",
             "100.8"
           ]
-=======
->>>>>>> Stashed changes
         }
       ],
       "brief": "Unauthorized Spellcasting in Public Spaces",
       "refs": [
         "100.6",
-<<<<<<< Updated upstream
         "100.8",
         "200.4",
         "300.2",
@@ -8757,11 +8714,6 @@
         "400.5",
         "500.1",
         "500.5",
-=======
-        "200.4",
-        "300.2",
-        "500.1",
->>>>>>> Stashed changes
         "500.7",
         "500.8",
         "500.9",
@@ -8769,11 +8721,7 @@
         "500.11"
       ],
       "source": "lmstudio",
-<<<<<<< Updated upstream
       "fp": "6a906c274d54731d",
-=======
-      "fp": "26b22ae2d8a4c257",
->>>>>>> Stashed changes
       "unresolved_refs": [
         "1006.1"
       ]
@@ -8890,10 +8838,7 @@
         "600.8",
         "600.9",
         "600.12",
-<<<<<<< Updated upstream
         "600.15",
-=======
->>>>>>> Stashed changes
         "1001.9",
         "1301.2",
         "1401.1"
@@ -8903,10 +8848,6 @@
         "202.3",
         "315.2",
         "507.2",
-<<<<<<< Updated upstream
-=======
-        "600.15",
->>>>>>> Stashed changes
         "600.18",
         "705.4",
         "802.1",
@@ -9551,11 +9492,7 @@
         {
           "heading": "Prohibited Correspondence and Magical Transmission",
           "text": "§ 300.7 Prohibition on Unauthorized Magical Communication and Data Transfer\n\nIt shall be unlawful for any licensed caster to engage in the transmission of magical data, spells, or techniques via forbidden channels without explicit authorization from the Autumnwood Accords Desk. This includes but is not limited to unauthorized use of scrying mirrors, dreamwalking, telepathic projection, or any other method that circumvents standard communication protocols. Such actions are deemed a breach of § 100.5 Conflict of Interest in Casting and may result in suspension or revocation of licensure under § 200.4 Suspension and Lapse.\n\nThe prohibition extends to the sale or exchange of magical information through illicit markets, including but not limited to shadow web forums, black market auctions, and clandestine training sessions. Any caster found guilty of facilitating such transactions shall be subject to immediate disciplinary action pursuant to § 1301.2 Penalties. Repeat offenses may lead to permanent expulsion from the Guild and revocation of all privileges granted under these Accords.\n\nExceptions to this rule include authorized academic research conducted in accordance with § 400.1 Research Permits and legitimate commercial applications approved by the Desk. All such activities must be pre-approved in writing and subject to ongoing monitoring to ensure compliance with applicable laws and regulations. Failure to obtain proper authorization shall constitute grounds for disciplinary proceedings under § 1301.3 Appeals.\n\nThe Guild reserves the right to inspect any suspected violations of this provision at its discretion, including but not limited to electronic records, personal devices, and physical premises where illegal transmissions may occur. Refusal to submit to such inspections shall be treated as an admission of guilt and will result in immediate suspension pending further investigation. All findings of fact and conclusions of law shall be made available upon request to affected parties in accordance with § 1401.2 Dead Citations.\n\nThis section takes precedence over any conflicting provisions contained herein or elsewhere within the Autumnwood Accords framework. Any ambiguities arising from the application of these rules shall be resolved favorably toward maintaining public safety and protecting the integrity of magical practice within the jurisdiction. The Desk retains full authority to interpret and enforce this provision as it deems necessary for the preservation of order and justice under the law.",
-<<<<<<< Updated upstream
           "key": "a",
-=======
-          "key": "b",
->>>>>>> Stashed changes
           "refs": [
             "300.7",
             "100.5",
@@ -9569,11 +9506,7 @@
         {
           "heading": "Prohibited Correspondence and Magical Transmission — Continued",
           "text": "§ 300.7 Related Requirements, Prohibited Correspondence and Magical Transmission. No magical communication shall originate or terminate within an official Autumnwood Accords facility without prior authorization from the Desk, except as expressly permitted by statute or ruling. This prohibition extends to all forms of arcane correspondence, including but not limited to scrying, telepathy, enchanted writing implements, and any device capable of transmitting thought or image across distance. Violation of this provision constitutes a Class C misdemeanor subject to fines up to one hundred gold pieces and/or suspension of casting privileges for a period not exceeding ninety days per offense.\n\nThe intent behind § 300.7 is twofold: first, to maintain the integrity of Accords proceedings by preventing covert influence or intimidation through unauthorized means; second, to protect both casters and non-casters from potential harm resulting from unregulated magical experimentation conducted in close proximity to sensitive documents or classified information. The Desk shall issue written permits for specific instances where magical communication is deemed necessary to the conduct of official business, stating clearly the duration, purpose, and scope of such permission. Any caster found violating these restrictions without proper authorization shall be subject to immediate disciplinary action at the discretion of the presiding officer.\n\nFurthermore, it is hereby prohibited for any individual within an Accords facility to utilize their inherent magical abilities in a manner that disrupts or interferes with normal office operations, regardless of whether such use constitutes formal casting under existing statutes. This includes but is not limited to spontaneous manifestations of power triggered by emotional states or environmental factors, as well as the deliberate employment of minor charms or illusions for personal convenience. Failure to comply may result in warnings, mandatory training sessions on appropriate conduct, or more severe penalties depending upon circumstances and prior record.\n\nCasters are reminded that their privileges within the Accords system are granted conditionally, contingent upon adherence to all applicable laws and regulations governing magical practice. Respect for colleagues and staff is paramount at all times, whether interactions occur face-to-face or through magical channels. Any behavior deemed offensive, harassing, or disruptive will not be tolerated and may lead to escalation of disciplinary measures up to and including expulsion from the Guild entirely. It remains the responsibility of each individual caster to exercise sound judgment and professional decorum in accordance with these guidelines.\n\nsee § 100.5 Conflict of Interest in Casting; see § 200.3 Temporary Mouths; see § 400.2 Pocket Dimensions as Labs; see § 600.1 Contracts with Non-Casters.",
-<<<<<<< Updated upstream
           "key": "b",
-=======
-          "key": "c",
->>>>>>> Stashed changes
           "refs": [
             "300.7",
             "100.5",
@@ -9585,11 +9518,7 @@
         {
           "heading": "§ 300.7 Prohibited Correspondence and Magical Transmission",
           "text": "The Accords strictly prohibit the use of forbidden schools of magic to facilitate communication across planar boundaries, except under exceptional circumstances approved by the Conservators' Council. This prohibition extends to all forms of magical correspondence, including scrying circles, teleportation spells cast for messaging purposes, and enchanted items designed solely for transmitting information between realms. Violations constitute a Class B infraction subject to sealing of magic and a fine of up to one thousand Wario Coins per incident.\n\nNotwithstanding the foregoing ban, certain specialized magical artifacts known as \"Conduits\" may be registered with the Guild for legitimate diplomatic and commercial use. Conduit registration requires submission of detailed schematics and origin certification from the manufacturer or creator. Registered Conduits must bear an official seal indicating their approved status and are subject to periodic re-inspection every five years. Unauthorized reproduction, modification, or diversion of a registered Conduit is punishable as grand larceny under Article IX of these Accords.\n\nThe Guild maintains a dedicated division tasked with monitoring magical communications networks for signs of illicit activity. This unit operates under the direct authority of Archmage Theron and reports findings to the full Council on a quarterly basis. Agents of this division possess broad investigative powers, including the ability to compel testimony and seize evidence without warrant when probable cause exists. Refusal to cooperate may result in immediate suspension of licensure pending further review.\n\nAny individual wishing to establish or expand a magical communication network must first obtain written permission from the Conservators' Council. Applications should be submitted on standard form CM-42B, accompanied by proof of financial stability and character references from reputable members of the arcane community. The Council will evaluate each request on its merits, taking into account potential impacts on public safety and national security before granting approval or denial.\n\nViolations of this section shall result in penalties up to and including permanent revocation of licensure and imprisonment for up to ten years without benefit of writs or appeals. Repeat offenders may face additional sanctions at the discretion of the presiding councilors, including exile from Autumn Wood or execution by proxy under conditions determined solely by the Guild. The strict enforcement of these provisions serves the greater good of maintaining stability in an increasingly volatile magical landscape.\n\nSee also: § 200.6 Constructs That Hold a Quill (regarding automated messaging systems); § 500.4 Healing Offered as Consideration (concerning quid pro quo exchanges involving illicit information); and Article IX, Section 14 of the Iron Mandate on Espionage and Counter-Espionage Operations.\n\n\"The pen may be mightier than the sword, but a sealed mouth is far more effective in preventing leaks.\" — Archmage Theron, Address to the Conservators' Council, Autumnwood Hall, 5th Day of Frostfall, Year of the White Stag.",
-<<<<<<< Updated upstream
           "key": "c",
-=======
-          "key": "d",
->>>>>>> Stashed changes
           "refs": [
             "200.6",
             "500.4",
@@ -9599,11 +9528,7 @@
         {
           "heading": "§ 300.7 Prohibited Correspondence and Magical Transmission — Continued",
           "text": "Under no circumstances shall any communication or conveyance via magic that would normally require physical presence be utilized to circumvent the provisions of these Accords, unless expressly authorized in writing by the Conservatory Council. This prohibition extends to all forms of telepathic projection, scrying, astral travel, and remote spellcasting intended for commercial gain or personal advantage without prior clearance. Violation of this clause constitutes a Class A felony offense under § 1201.3 Extraterritorial Casting into a Diet Chamber and shall be punished by immediate revocation of licensure and imprisonment in the Pocket Prison until trial. The intent behind this restriction is to preserve the integrity of face-to-face interactions which form the bedrock of lawful commerce and social cohesion within the realm. Any attempts to bypass these safeguards will result in swift and severe consequences, as the Council remains vigilant against all forms of magical malfeasance. See also §§ 1201.3 Extraterritorial Casting into a Diet Chamber; 500.3 Corridor Courtesy After an Explosion regarding acceptable conduct during remote operations. Furthermore, any individual found guilty of utilizing prohibited correspondence methods shall be subject to additional fines and potential exile from the Guild's territories at the discretion of the Archmage Sovereign. The strict enforcement of this provision ensures that all magical activities remain transparent, accountable, and in full compliance with established regulations designed to protect both practitioners and the general public from harm. Failure to adhere to these mandates will be treated as an act of war against the collective interests of the free peoples governed by these Accords. Thus stands the law, immutable and absolute: no magic shall ever supersede the sanctity of direct human engagement in matters of consequence.\n\n\"Magic is a tool for enlightenment, not a substitute for personal connection. The Council forbids its misuse to undermine fundamental societal bonds.\" — Archmage Veyra, Autumnwood Accords, § 300.7 Commentary",
-<<<<<<< Updated upstream
           "key": "d",
-=======
-          "key": "e",
->>>>>>> Stashed changes
           "refs": [
             "1201.3",
             "300.7"
@@ -9612,11 +9537,7 @@
         {
           "heading": "§ 300.7 Prohibited Magical Correspondence and Transmission",
           "text": "The Accords expressly forbid the use of magical means to transmit correspondence, whether by telepathy, scrying, or other arcane channels. Such communication is deemed a breach of professional decorum and may compromise the confidentiality of Guild deliberations. This prohibition extends to all forms of unauthorized data transfer between mages and non-mages alike. Violation shall result in immediate suspension pending review by the Ethics Committee under § 200.4. Exceptions are granted only upon written authorization from the Archmage Sovereign for matters of national security or critical infrastructure protection. All suspected incidents must be reported forthwith to the nearest Hall Inspector via standard channels outlined in § 100.6. Failure to comply with this mandate constitutes a Class A infraction subject to penalties prescribed in § 1301.2. The Guild retains broad discretion to expand these restrictions as circumstances warrant, without further notice. Mages are expected to exercise extreme caution when engaging in any form of remote interaction that might circumvent established protocols. See also §§ 500.4–500.5 regarding ethical boundaries in magical services.\n\nThe Desk interprets this prohibition strictly and will not tolerate any loopholes being exploited for personal gain or political advantage. Unauthorized scrying operations are treated as theft of intellectual property under § 1201.3, punishable by fines up to one thousand gold pieces per incident plus disgorgement of ill-gotten gains. In egregious cases involving espionage or sabotage, criminal charges may be filed pursuant to the Penal Code attached hereto as Schedule C. The burden of proof rests squarely upon the accused mage to demonstrate lack of intent and negligence. Repeated violators face permanent revocation of licensure under § 200.4(b)(ii). Special attention is paid to digital transmissions via crystal grids or enchanted networks; these are considered tantamount to direct communication and subject to identical restrictions. The Guild maintains a database of approved secure channels for official business, which all members must utilize unless otherwise directed. Any deviation requires prior approval from two independent Conservators sworn to uphold this clause unconditionally. See §§ 400.2–400.3 concerning proper containment procedures during field operations. Non-compliance jeopardizes both individual standing and collective safety, warranting swift disciplinary action without prejudice to further investigation if warranted by the facts developed therein.",
-<<<<<<< Updated upstream
           "key": "e",
-=======
-          "key": "f",
->>>>>>> Stashed changes
           "refs": [
             "200.4",
             "100.6",
@@ -9626,7 +9547,6 @@
             "400.2",
             "300.7"
           ]
-<<<<<<< Updated upstream
         },
         {
           "heading": "Prohibited Correspondence and Enchanted Artefacts",
@@ -9645,24 +9565,17 @@
             "300.5",
             "1401.5"
           ]
-=======
->>>>>>> Stashed changes
         }
       ],
       "brief": "Prohibited Correspondence and Magical Transmission",
       "source": "lmstudio",
-<<<<<<< Updated upstream
       "fp": "56ee36941960e31d",
-=======
-      "fp": "b245d0e292affa1e",
->>>>>>> Stashed changes
       "refs": [
         "100.5",
         "100.6",
         "200.3",
         "200.4",
         "200.6",
-<<<<<<< Updated upstream
         "300.3",
         "300.5",
         "400.1",
@@ -9679,16 +9592,6 @@
         "1401.3",
         "1401.5",
         "1401.6"
-=======
-        "400.1",
-        "400.2",
-        "500.4",
-        "600.1",
-        "1201.3",
-        "1301.2",
-        "1301.3",
-        "1401.2"
->>>>>>> Stashed changes
       ]
     },
     {
@@ -10016,12 +9919,9 @@
         "500.11",
         "500.12",
         "500.13",
-<<<<<<< Updated upstream
         "500.14",
         "500.15",
         "500.16",
-=======
->>>>>>> Stashed changes
         "600.1",
         "700.5",
         "800.6",
@@ -10033,12 +9933,6 @@
         "1301.3"
       ],
       "unresolved_refs": [
-<<<<<<< Updated upstream
-=======
-        "500.14",
-        "500.15",
-        "500.16",
->>>>>>> Stashed changes
         "500.17"
       ]
     },
@@ -11827,22 +11721,13 @@
         "1101.11",
         "1101.12",
         "1101.13",
-<<<<<<< Updated upstream
         "1101.14",
         "1101.15",
         "1101.16",
-=======
->>>>>>> Stashed changes
         "1201.5",
         "1301.2"
       ],
       "unresolved_refs": [
-<<<<<<< Updated upstream
-=======
-        "1101.14",
-        "1101.15",
-        "1101.16",
->>>>>>> Stashed changes
         "1101.17",
         "1101.18",
         "1101.19",
@@ -12618,15 +12503,8 @@
         "900.11",
         "900.12",
         "900.13",
-<<<<<<< Updated upstream
         "900.14",
         "1201.6"
-=======
-        "1201.6"
-      ],
-      "unresolved_refs": [
-        "900.14"
->>>>>>> Stashed changes
       ]
     },
     {
@@ -12988,10 +12866,7 @@
         "700.6",
         "700.10",
         "700.12",
-<<<<<<< Updated upstream
         "700.14",
-=======
->>>>>>> Stashed changes
         "800.6",
         "900.3",
         "900.8",
@@ -13003,10 +12878,6 @@
       "unresolved_refs": [
         "250.3",
         "350.14",
-<<<<<<< Updated upstream
-=======
-        "700.14",
->>>>>>> Stashed changes
         "850.6"
       ]
     },
@@ -13319,13 +13190,7 @@
         "1201.8",
         "1201.10",
         "1201.11",
-<<<<<<< Updated upstream
         "1201.12",
-=======
-        "1201.12"
-      ],
-      "unresolved_refs": [
->>>>>>> Stashed changes
         "1201.13",
         "1201.14",
         "1201.15",
@@ -15173,11 +15038,8 @@
         "300.9",
         "300.12",
         "300.13",
-<<<<<<< Updated upstream
         "300.14",
         "300.15",
-=======
->>>>>>> Stashed changes
         "400.2",
         "500.1",
         "600.1",
@@ -15185,11 +15047,6 @@
         "1401.8"
       ],
       "unresolved_refs": [
-<<<<<<< Updated upstream
-=======
-        "300.14",
-        "300.15",
->>>>>>> Stashed changes
         "401.2",
         "401.5",
         "402.3",
@@ -15418,13 +15275,7 @@
         "900.4",
         "900.6",
         "900.7",
-<<<<<<< Updated upstream
         "900.8",
-=======
-        "900.8"
-      ],
-      "unresolved_refs": [
->>>>>>> Stashed changes
         "900.14"
       ]
     },
@@ -15519,17 +15370,9 @@
         "500.6",
         "500.7",
         "500.12",
-<<<<<<< Updated upstream
         "500.14",
         "700.9",
         "800.8"
-=======
-        "700.9",
-        "800.8"
-      ],
-      "unresolved_refs": [
-        "500.14"
->>>>>>> Stashed changes
       ]
     },
     {
@@ -15802,19 +15645,10 @@
         "800.10",
         "800.12",
         "800.13",
-<<<<<<< Updated upstream
         "800.14",
         "800.15",
         "800.16",
         "900.11"
-=======
-        "900.11"
-      ],
-      "unresolved_refs": [
-        "800.14",
-        "800.15",
-        "800.16"
->>>>>>> Stashed changes
       ]
     },
     {
@@ -15925,19 +15759,10 @@
         "1101.8",
         "1101.12",
         "1101.13",
-<<<<<<< Updated upstream
         "1101.14",
         "1101.15",
         "1301.9",
         "1401.6"
-=======
-        "1301.9",
-        "1401.6"
-      ],
-      "unresolved_refs": [
-        "1101.14",
-        "1101.15"
->>>>>>> Stashed changes
       ]
     },
     {
@@ -16118,19 +15943,11 @@
         "1301.2",
         "1301.7",
         "1301.9",
-<<<<<<< Updated upstream
         "1301.12",
         "1301.13",
         "1301.14"
       ],
       "unresolved_refs": [
-=======
-        "1301.12"
-      ],
-      "unresolved_refs": [
-        "1301.13",
-        "1301.14",
->>>>>>> Stashed changes
         "1400.3"
       ]
     },
@@ -16194,12 +16011,7 @@
       "brief": "NEW section §1401.11 in this same Part only. Invent a DISTINCT catchline that belongs with these siblings, not a new subject and NOT 'Related Requirements': § 1401.1 Historical Annotations; Form; § 1401.2 Dead Citations; § 1401.3 Savings Against the Iron Mandate; § 1401.4 Exclusions from Savings Clauses; § 1401.5 Related Provisions and Cross-References; § 1401.6 Incorporation by Reference and Foreign Precedent; § 1401.7 Authority and Validity; § 1401.8 Historical Annotations and Interpretive Notes; § 1401.9 Foreign Statutory Incorporation and Cross-Jurisdi; § 1401.10 Historical Annotations; Form. First line must be: PAGE Your New Distinct Catchline (5-10 words, specific, no 'Related Requirements')",
       "source": "lmstudio",
       "fp": "a5b5cd7e387ebf74",
-<<<<<<< Updated upstream
       "refs": [
-=======
-      "refs": [],
-      "unresolved_refs": [
->>>>>>> Stashed changes
         "200.15"
       ]
     },
@@ -16985,11 +16797,8 @@
         "600.4",
         "600.8",
         "600.13",
-<<<<<<< Updated upstream
         "600.14",
         "600.15",
-=======
->>>>>>> Stashed changes
         "700.4",
         "700.8",
         "700.11",
@@ -16998,11 +16807,6 @@
         "900.12"
       ],
       "unresolved_refs": [
-<<<<<<< Updated upstream
-=======
-        "600.14",
-        "600.15",
->>>>>>> Stashed changes
         "1200.3"
       ]
     },
@@ -17106,10 +16910,7 @@
         "400.5",
         "400.9",
         "500.3",
-<<<<<<< Updated upstream
         "500.15",
-=======
->>>>>>> Stashed changes
         "700.1",
         "700.6",
         "700.8",
@@ -17123,10 +16924,6 @@
         "1301.9"
       ],
       "unresolved_refs": [
-<<<<<<< Updated upstream
-=======
-        "500.15",
->>>>>>> Stashed changes
         "1305.7"
       ]
     },
@@ -17417,19 +17214,11 @@
         "200.1",
         "200.3",
         "1201.5",
-<<<<<<< Updated upstream
         "1201.6",
         "1201.13"
       ],
       "unresolved_refs": [
         "1102.7",
-=======
-        "1201.6"
-      ],
-      "unresolved_refs": [
-        "1102.7",
-        "1201.13",
->>>>>>> Stashed changes
         "1203.6",
         "1204.3",
         "1302.4",
@@ -18853,20 +18642,13 @@
         "800.11",
         "800.12",
         "1101.11",
-<<<<<<< Updated upstream
         "1101.12",
-=======
-        "1101.12"
-      ],
-      "unresolved_refs": [
->>>>>>> Stashed changes
         "1301.13"
       ]
     },
     {
       "cite": "1101.13",
       "part": "part_xi",
-<<<<<<< Updated upstream
       "title": "Liability for Residue and Lingering Arcane Echoes",
       "kind": "related",
       "status": "filed",
@@ -24386,14 +24168,6 @@
         "700.16",
         "1401.16"
       ]
-=======
-      "title": "Additional Provisions §1101.13",
-      "kind": "related",
-      "status": "reserved",
-      "body": [],
-      "brief": "NEW section §1101.13 in this same Part only. Invent a DISTINCT catchline that belongs with these siblings, not a new subject and NOT 'Related Requirements': § 1101.1 Gifts That Later Move; § 1101.2 Relics; Chain of Title; § 1101.3 Curse as Warranty Disclaimer; § 1101.4 Blessing of a Competing Vendor; § 1101.5 Conveyance and Ownership Interests in Magical Artifacts; § 1101.6 Collateral Doctrine — Unintended Consequences; § 1101.7 Collateral Taints and Magical Contagion; § 1101.8 Burden of Proof and Presumptions; § 1101.9 Gifts That Later Move — §1101.9; § 1101.10 Gifts That Later Move — §1101.10; § 1101.11 Collateral Taints and Magical Contagion; § 1101.12 Collateral Contamination and Remedial Obligations. First line must be: PAGE Your New Distinct Catchline (5-10 words, specific, no 'Related Requirements')",
-      "refs": []
->>>>>>> Stashed changes
     }
   ]
 }

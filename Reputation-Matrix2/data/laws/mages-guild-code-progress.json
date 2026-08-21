@@ -1,13 +1,7 @@
 {
-<<<<<<< Updated upstream
   "last_cite": "100.17",
   "water": 1,
   "hits": 1284,
-=======
-  "last_cite": "800.13",
-  "water": 0,
-  "hits": 989,
->>>>>>> Stashed changes
   "by_cite": {
     "1.1": {
       "n": 6,
@@ -532,11 +526,7 @@
       "status": "filed"
     },
     "1401.2": {
-<<<<<<< Updated upstream
       "n": 6,
-=======
-      "n": 5,
->>>>>>> Stashed changes
       "part": "part_xiv",
       "title": "Dead Citations",
       "status": "filed"
@@ -596,11 +586,7 @@
       "status": "filed"
     },
     "500.6": {
-<<<<<<< Updated upstream
       "n": 6,
-=======
-      "n": 5,
->>>>>>> Stashed changes
       "part": "part_v",
       "title": "Unauthorized Spellcasting in Public Spaces",
       "status": "filed"
@@ -654,11 +640,7 @@
       "status": "filed"
     },
     "300.7": {
-<<<<<<< Updated upstream
       "n": 6,
-=======
-      "n": 5,
->>>>>>> Stashed changes
       "part": "part_iii",
       "title": "Prohibited Correspondence and Magical Transmission",
       "status": "filed"
@@ -1180,7 +1162,6 @@
       "status": "filed"
     },
     "1101.13": {
-<<<<<<< Updated upstream
       "n": 6,
       "part": "part_xi",
       "title": "Liability for Residue and Lingering Arcane Echoes",
@@ -1479,25 +1460,12 @@
       "part": "part_ii",
       "title": "Additional Provisions for Advanced Arcane Containment and Breach Mitigat",
       "status": "growing"
-=======
-      "n": 0,
-      "part": "part_xi",
-      "title": "Additional Provisions §1101.13",
-      "status": "reserved"
->>>>>>> Stashed changes
     }
   },
   "max_n": 15,
   "floor": 6,
-<<<<<<< Updated upstream
   "empty": 0,
   "below": 1,
   "at_floor": 242,
   "sectionCount": 243
-=======
-  "empty": 1,
-  "below": 4,
-  "at_floor": 190,
-  "sectionCount": 194
->>>>>>> Stashed changes
 }
