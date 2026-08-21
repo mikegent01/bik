@@ -298,7 +298,7 @@ function linkCites(raw) {
 }
 
 // Roman numeral sort order helper
-const ROMAN_ORDER = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV'];
+const ROMAN_ORDER = ['0','I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV'];
 function romanRank(r) {
   const i = ROMAN_ORDER.indexOf(String(r).toUpperCase());
   return i === -1 ? 99 : i;
@@ -339,8 +339,9 @@ function render(data) {
       Part ${esc(p.roman)}: ${esc(p.title)}
     </div>`;
     list.forEach(s => {
+      const mark = (s.body && s.body.length) ? '' : ' · reserved';
       tocHtml += `<a class="sidebar-sec" href="#s-${esc(s.cite)}">
-        § ${esc(s.cite)} ${esc(s.title)}
+        § ${esc(s.cite)} ${esc(s.title)}${mark}
       </a>`;
     });
   });
@@ -380,6 +381,9 @@ function render(data) {
           &ensp;${esc(s.title)}
         </div>`;
 
+      if (!(s.body || []).length) {
+        html += `<div class="body-row"><span class="body-text">[Reserved — not yet drafted. ${esc(s.brief || '')}]</span></div>`;
+      }
       (s.body || []).forEach(b => {
         html += `<div class="body-row">
           <span class="body-key">(${esc(b.key)})</span>

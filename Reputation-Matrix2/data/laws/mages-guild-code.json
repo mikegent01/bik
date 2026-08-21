@@ -4,27 +4,905 @@
     "short": "C.C.D.",
     "subtitle": "Consolidated Canal Decrees — working compilation",
     "issuer": "Mages' Guild, Autumnwood Accords Desk",
-    "edition": "Empty. Fill locally with tools/gen-mages-guild-code.py against LM Studio.",
+    "edition": "Working compilation. Slots in book order.",
     "route": "#/mages-code",
     "pageHtml": "mages-code.html",
     "sectionCount": 0,
     "approxPages": 0
   },
   "parts": [
-    {"id": "part_i", "roman": "I", "title": "Organization, Seals, and Who May Speak for the Guild", "blurb": ""},
-    {"id": "part_ii", "roman": "II", "title": "Licensure, Apprentices, and Temporary Mouths", "blurb": ""},
-    {"id": "part_iii", "roman": "III", "title": "Spell Classification, Schedules, and Quiet Lists", "blurb": ""},
-    {"id": "part_iv", "roman": "IV", "title": "Research Permits, Pocket Dimensions, and Borrowed Hours", "blurb": ""},
-    {"id": "part_v", "roman": "V", "title": "Field Use, Public Safety, and Unscheduled Weather", "blurb": ""},
-    {"id": "part_vi", "roman": "VI", "title": "Contracts with Non-Casters, Familiars, and Constructs", "blurb": ""},
-    {"id": "part_vii", "roman": "VII", "title": "Evidence, Memory, and What a Scry May Not Keep", "blurb": ""},
-    {"id": "part_viii", "roman": "VIII", "title": "Discipline, Seals, Duels, and Pocket-Prison Procedure", "blurb": ""},
-    {"id": "part_ix", "roman": "IX", "title": "Reporting, Ledgers, and the Duty to File Before Casting", "blurb": ""},
-    {"id": "part_x", "roman": "X", "title": "Financial and Economic Regulations", "blurb": "How magic may touch value, composition, risk, and the ledger."},
-    {"id": "part_xi", "roman": "XI", "title": "Endowments, Relics, and Gifts That Later Move", "blurb": ""},
-    {"id": "part_xii", "roman": "XII", "title": "Transit Stamps, Planar Tolls, and Corridor Courtesy", "blurb": ""},
-    {"id": "part_xiii", "roman": "XIII", "title": "Penalties, Fees, and the Schedule of Unpleasantness", "blurb": ""},
-    {"id": "part_xiv", "roman": "XIV", "title": "Historical Annotations, Savings Clauses, and Dead Citations", "blurb": ""}
+    {
+      "id": "front",
+      "roman": "0",
+      "title": "Front Matter — Title, Reading, and Persons Bound",
+      "blurb": "Start here. This is page 1."
+    },
+    {
+      "id": "part_i",
+      "roman": "I",
+      "title": "Organization, Seals, and Who May Speak for the Guild",
+      "blurb": ""
+    },
+    {
+      "id": "part_ii",
+      "roman": "II",
+      "title": "Licensure, Apprentices, and Temporary Mouths",
+      "blurb": ""
+    },
+    {
+      "id": "part_iii",
+      "roman": "III",
+      "title": "Spell Classification, Schedules, and Quiet Lists",
+      "blurb": ""
+    },
+    {
+      "id": "part_iv",
+      "roman": "IV",
+      "title": "Research Permits, Pocket Dimensions, and Borrowed Hours",
+      "blurb": ""
+    },
+    {
+      "id": "part_v",
+      "roman": "V",
+      "title": "Field Use, Public Safety, and Unscheduled Weather",
+      "blurb": ""
+    },
+    {
+      "id": "part_vi",
+      "roman": "VI",
+      "title": "Contracts with Non-Casters, Familiars, and Constructs",
+      "blurb": ""
+    },
+    {
+      "id": "part_vii",
+      "roman": "VII",
+      "title": "Evidence, Memory, and What a Scry May Not Keep",
+      "blurb": ""
+    },
+    {
+      "id": "part_viii",
+      "roman": "VIII",
+      "title": "Discipline, Seals, Duels, and Pocket-Prison Procedure",
+      "blurb": ""
+    },
+    {
+      "id": "part_ix",
+      "roman": "IX",
+      "title": "Reporting, Ledgers, and the Duty to File Before Casting",
+      "blurb": ""
+    },
+    {
+      "id": "part_x",
+      "roman": "X",
+      "title": "Financial and Economic Regulations",
+      "blurb": "How magic may touch value, composition, risk, and the ledger."
+    },
+    {
+      "id": "part_xi",
+      "roman": "XI",
+      "title": "Endowments, Relics, and Gifts That Later Move",
+      "blurb": ""
+    },
+    {
+      "id": "part_xii",
+      "roman": "XII",
+      "title": "Transit Stamps, Planar Tolls, and Corridor Courtesy",
+      "blurb": ""
+    },
+    {
+      "id": "part_xiii",
+      "roman": "XIII",
+      "title": "Penalties, Fees, and the Schedule of Unpleasantness",
+      "blurb": ""
+    },
+    {
+      "id": "part_xiv",
+      "roman": "XIV",
+      "title": "Historical Annotations, Savings Clauses, and Dead Citations",
+      "blurb": ""
+    }
   ],
-  "sections": []
+  "sections": [
+    {
+      "cite": "1.1",
+      "part": "front",
+      "title": "Short Title and Citation",
+      "kind": "intro",
+      "brief": "This compilation is the Codex of the Mages' Guild, cited C.C.D. State who may cite it in filings. Dry.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1.2",
+      "part": "front",
+      "title": "Enacting Authority; Autumnwood Accords Desk",
+      "kind": "intro",
+      "brief": "The Accords Desk issues this title. Conservators and Innovators both sit. Neither may pretend the other does not exist.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1.3",
+      "part": "front",
+      "title": "How to Read This Codex",
+      "kind": "intro",
+      "brief": "Shall, may, must, Quiet List, reserved, see also. A reader who skips definitions is still bound. Trip the impatient.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1.4",
+      "part": "front",
+      "title": "Persons Bound",
+      "kind": "intro",
+      "brief": "Members, apprentices, temporary mouths, constructs holding a quill, guests who cast inside a Guild hall. Mike is not a person bound. Grime is not a Guild office.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1.5",
+      "part": "front",
+      "title": "Relation to Other Law",
+      "kind": "intro",
+      "brief": "Iron Mandate is rival law, not this title. Diet acts are not Guild stamps. Wario Coin is not tender. Heartstone talk is speech until surveyed.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1.6",
+      "part": "front",
+      "title": "Definitions",
+      "kind": "intro",
+      "brief": "Define caster, value, material alteration, transfiguration, disclosure, familiar, pocket, Quiet List, Paradox Trial. Numbered terms. Boring on purpose.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1.7",
+      "part": "front",
+      "title": "Construction; Aggregation of Conduct",
+      "kind": "intro",
+      "brief": "Fragmentation of conduct shall not prevent a finding of violation. Same rule as the filed photo.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1.8",
+      "part": "front",
+      "title": "Effective Date; Savings",
+      "kind": "intro",
+      "brief": "Prior Accords remain. Dead citations in Part XIV do not revive repealed schemes.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1.9",
+      "part": "front",
+      "title": "Seals, Stamps, and What Is Not a Seal",
+      "kind": "intro",
+      "brief": "Garlic bread on a map is not a seal. A concussed unnamed pilot is not a certifying officer.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1.10",
+      "part": "front",
+      "title": "Reserved Catchlines",
+      "kind": "intro",
+      "brief": "How reserved sections work. A blank is still a place in the book.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "100.1",
+      "part": "part_i",
+      "title": "Guild Offices Named",
+      "kind": "section",
+      "brief": "Accords Desk, Clerk, Conservator chair, Innovator chair. No new characters.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "100.2",
+      "part": "part_i",
+      "title": "Who May Speak for the Guild",
+      "kind": "section",
+      "brief": "Temporary mouths expire. A familiar's nod is not a speech unless the familiar is listed.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "100.3",
+      "part": "part_i",
+      "title": "Quorum of the Desk",
+      "kind": "section",
+      "brief": "One Conservator and one Innovator, or a clerk and a headache.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "100.4",
+      "part": "part_i",
+      "title": "Records of Speech",
+      "kind": "section",
+      "brief": "Spoken votes that are not filed are rumors. File before bragging.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "100.5",
+      "part": "part_i",
+      "title": "Conflict of Interest in Casting",
+      "kind": "section",
+      "brief": "A member may not stamp their own transfiguration of inventory.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "100.6",
+      "part": "part_i",
+      "title": "Delegation to Clerks",
+      "kind": "section",
+      "brief": "Clerks may refuse a stamp for incompleteness without a duel.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "100.7",
+      "part": "part_i",
+      "title": "Foreign Halls and Courtesy",
+      "kind": "section",
+      "brief": "A stamp from another hall is evidence, not law, until recorded.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "100.8",
+      "part": "part_i",
+      "title": "Emergency Sitting",
+      "kind": "section",
+      "brief": "Unscheduled weather is not by itself an emergency sitting.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "200.1",
+      "part": "part_ii",
+      "title": "Licensure Required",
+      "kind": "section",
+      "brief": "No public casting for value without a current license.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "200.2",
+      "part": "part_ii",
+      "title": "Apprentice Limits",
+      "kind": "section",
+      "brief": "An apprentice may fetch, not bind. Ink that recants is not a master's signature.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "200.3",
+      "part": "part_ii",
+      "title": "Temporary Mouths",
+      "kind": "section",
+      "brief": "Duration, midnight rule, bags of holding.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "200.4",
+      "part": "part_ii",
+      "title": "Suspension and Lapse",
+      "kind": "section",
+      "brief": "Lapse is not a Paradox Trial. It is paperwork.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "200.5",
+      "part": "part_ii",
+      "title": "Guest Casters",
+      "kind": "section",
+      "brief": "A guest who charges a fee is not a guest.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "200.6",
+      "part": "part_ii",
+      "title": "Constructs That Hold a Quill",
+      "kind": "section",
+      "brief": "Service of process on a construct. Swords do not receive mail.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "300.1",
+      "part": "part_iii",
+      "title": "Schedules of Arts",
+      "kind": "section",
+      "brief": "Schedule A ordinary, B restricted, C Quiet List. Do not reciting C in taverns.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "300.2",
+      "part": "part_iii",
+      "title": "Necromancy; Unsanctioned Arts",
+      "kind": "section",
+      "brief": "Forbidden unless a numbered permit. Innovators still file.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "300.3",
+      "part": "part_iii",
+      "title": "Quiet List Procedure",
+      "kind": "section",
+      "brief": "How an art is listed without a public catalogue.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "300.4",
+      "part": "part_iii",
+      "title": "Reclassification",
+      "kind": "section",
+      "brief": "Moving B to A is not a party.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "300.5",
+      "part": "part_iii",
+      "title": "Research Copies of Quiet Items",
+      "kind": "section",
+      "brief": "Copies are still Quiet. Talking about them is not.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "400.1",
+      "part": "part_iv",
+      "title": "Research Permits",
+      "kind": "section",
+      "brief": "Form, fee, who signs.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "400.2",
+      "part": "part_iv",
+      "title": "Pocket Dimensions as Labs",
+      "kind": "section",
+      "brief": "Hours inside a pocket are still hours for the other party.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "400.3",
+      "part": "part_iv",
+      "title": "Borrowed Hours; Interest in Time",
+      "kind": "section",
+      "brief": "Time-stop during settlement is still time.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "400.4",
+      "part": "part_iv",
+      "title": "Specimen Custody",
+      "kind": "section",
+      "brief": "A petrified monster is inventory, not a trophy, until released.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "400.5",
+      "part": "part_iv",
+      "title": "Unauthorized Titan Growth",
+      "kind": "section",
+      "brief": "Growth magic in a street is field use, not research, even if someone later studies it.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "500.1",
+      "part": "part_v",
+      "title": "Field Casting for Value",
+      "kind": "section",
+      "brief": "Public safety distance, notice to non-casters.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "500.2",
+      "part": "part_v",
+      "title": "Unscheduled Weather",
+      "kind": "section",
+      "brief": "Calling weather for agricultural advantage. Insurance does not cover weather you called.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "500.3",
+      "part": "part_v",
+      "title": "Corridor Courtesy After an Explosion",
+      "kind": "section",
+      "brief": "Who files first. Who sweeps.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "500.4",
+      "part": "part_v",
+      "title": "Healing Offered as Consideration",
+      "kind": "section",
+      "brief": "Unlicensed healing sold as a contract term.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "500.5",
+      "part": "part_v",
+      "title": "Love Philtre and Undue Influence",
+      "kind": "section",
+      "brief": "A philtre is not consent.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "600.1",
+      "part": "part_vi",
+      "title": "Contracts with Non-Casters",
+      "kind": "section",
+      "brief": "Plain language. Illusion of a signature is not a signature. Illusion of a fee is still a fee.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "600.2",
+      "part": "part_vi",
+      "title": "Familiars as Agents",
+      "kind": "section",
+      "brief": "Vicarious casting. Strike by familiar.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "600.3",
+      "part": "part_vi",
+      "title": "Geas as an Unconscionable Term",
+      "kind": "section",
+      "brief": "A geas to be reasonable is not a defined term.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "600.4",
+      "part": "part_vi",
+      "title": "Construct Labor; Minimum Ward",
+      "kind": "section",
+      "brief": "Wards, rest, who is paid.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "600.5",
+      "part": "part_vi",
+      "title": "Summoned Notary",
+      "kind": "section",
+      "brief": "Form requirements. A summoned notary who vanishes mid-stamp.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "700.1",
+      "part": "part_vii",
+      "title": "Evidence Generally",
+      "kind": "section",
+      "brief": "What a filing must contain.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "700.2",
+      "part": "part_vii",
+      "title": "Scrying of Closed Books",
+      "kind": "section",
+      "brief": "Warrant. Spoliation even if nothing was taken.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "700.3",
+      "part": "part_vii",
+      "title": "Memory Charm as Spoliation",
+      "kind": "section",
+      "brief": "Forgetting is not a defense if you paid for the forgetting.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "700.4",
+      "part": "part_vii",
+      "title": "Simulacrum Testimony",
+      "kind": "section",
+      "brief": "A copy may not swear for the original.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "700.5",
+      "part": "part_vii",
+      "title": "Clone as Duplicate Claimant",
+      "kind": "section",
+      "brief": "One claim. The later body files an amendment.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "800.1",
+      "part": "part_viii",
+      "title": "Discipline; Range of Sanctions",
+      "kind": "section",
+      "brief": "From fee to seal to pocket-prison. Paradox Trial named.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "800.2",
+      "part": "part_viii",
+      "title": "Paradox Trial Procedure",
+      "kind": "section",
+      "brief": "Peers, record, no street duel unless scheduled.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "800.3",
+      "part": "part_viii",
+      "title": "Seal of Silence; Duration and Review",
+      "kind": "section",
+      "brief": "How long a mouth stays quiet.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "800.4",
+      "part": "part_viii",
+      "title": "Duel Stakes Converted to Fees",
+      "kind": "section",
+      "brief": "If they insist on a duel, the Desk still invoices.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "800.5",
+      "part": "part_viii",
+      "title": "Pocket-Prison Procedure",
+      "kind": "section",
+      "brief": "Who holds the key. Visiting hours are a rumor.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "900.1",
+      "part": "part_ix",
+      "title": "Duty to File Before Casting",
+      "kind": "section",
+      "brief": "If value, composition, or risk will move, file first.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "900.2",
+      "part": "part_ix",
+      "title": "Reporting of Material Enchantments",
+      "kind": "section",
+      "brief": "Thresholds. Late reports accrue per sunrise in the caster's original time zone.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "900.3",
+      "part": "part_ix",
+      "title": "Record Retention",
+      "kind": "section",
+      "brief": "Seven years or one geological age, whichever the clerk finds funnier.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "900.4",
+      "part": "part_ix",
+      "title": "Identify Fees; Who Pays",
+      "kind": "section",
+      "brief": "The person who asked. Not the Desk.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "900.5",
+      "part": "part_ix",
+      "title": "False Provenance of Relics",
+      "kind": "section",
+      "brief": "A story is not a chain of title.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.1",
+      "part": "part_x",
+      "title": "Financial Fraud and Manipulation Generally",
+      "kind": "section",
+      "brief": "General prohibition. Cross-ref later 1001 sections.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.2",
+      "part": "part_x",
+      "title": "Prohibited Spells in Financial Markets",
+      "kind": "section",
+      "brief": "Named classes. Quiet List stays quiet.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.3",
+      "part": "part_x",
+      "title": "Valuation After Alteration",
+      "kind": "section",
+      "brief": "Who assays. Petrified inventory is still inventory.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.4",
+      "part": "part_x",
+      "title": "Illusion-Based Fraud",
+      "kind": "section",
+      "brief": "Illusion of goods, of price, of a buyer.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.5",
+      "part": "part_x",
+      "title": "Material Alteration of Traded Goods",
+      "kind": "section",
+      "brief": "MATCH THE FILED PHOTO: aggregation; permissible transfiguration; disclosure; burden; cross-refs; historical annotations C.C.D. 6125 / 7355 / 10155.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.6",
+      "part": "part_x",
+      "title": "Endowments and Gifts of Magical Assets",
+      "kind": "section",
+      "brief": "A hat that later bills the wearer is an endowment. Catchline from the photo.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.7",
+      "part": "part_x",
+      "title": "Disclosure of Composition, Value, and Risk",
+      "kind": "section",
+      "brief": "Full and accurate. True in a language the buyer does not speak is not full.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.8",
+      "part": "part_x",
+      "title": "Lead-to-Gold; Reporting Threshold",
+      "kind": "section",
+      "brief": "Lead remains lead for tax until the assay desk agrees.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.9",
+      "part": "part_x",
+      "title": "Polymorph of Coinage",
+      "kind": "section",
+      "brief": "Shape is not denomination.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.10",
+      "part": "part_x",
+      "title": "Invisibility of Liens",
+      "kind": "section",
+      "brief": "A hidden lien is still a lien. An invisible one is a violation.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.11",
+      "part": "part_x",
+      "title": "Wish Used to Rewrite a Filed Return",
+      "kind": "section",
+      "brief": "A wish does not rewrite the stamp.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.12",
+      "part": "part_x",
+      "title": "Wario Coin; Non-Recognition",
+      "kind": "section",
+      "brief": "Private tender. Points even less so. Cite only to refuse.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.13",
+      "part": "part_x",
+      "title": "Bag of Holding as Off-Books Vault",
+      "kind": "section",
+      "brief": "Off-books is still books if a clerk can smell it.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.14",
+      "part": "part_x",
+      "title": "Secured Transactions in Bound Objects",
+      "kind": "section",
+      "brief": "Collateral that can walk away.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1001.15",
+      "part": "part_x",
+      "title": "Layered Transfiguration Schemes",
+      "kind": "section",
+      "brief": "Read as one scheme if a reasonable toad would be confused.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1101.1",
+      "part": "part_xi",
+      "title": "Gifts That Later Move",
+      "kind": "section",
+      "brief": "A gift with a remaining geas is not a gift.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1101.2",
+      "part": "part_xi",
+      "title": "Relics; Chain of Title",
+      "kind": "section",
+      "brief": "Provenance, Quiet List relics.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1101.3",
+      "part": "part_xi",
+      "title": "Curse as Warranty Disclaimer",
+      "kind": "section",
+      "brief": "A curse is not 'as is' unless disclosed.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1101.4",
+      "part": "part_xi",
+      "title": "Blessing of a Competing Vendor",
+      "kind": "section",
+      "brief": "A blessing sold against a rival is advertising, then fraud if it binds.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1201.1",
+      "part": "part_xii",
+      "title": "Transit Stamps",
+      "kind": "section",
+      "brief": "Planar instability surcharge. Archie-related invoices are not a defense.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1201.2",
+      "part": "part_xii",
+      "title": "Planar Tolls",
+      "kind": "section",
+      "brief": "Evasion. Corridor courtesy.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1201.3",
+      "part": "part_xii",
+      "title": "Extraterritorial Casting into a Diet Chamber",
+      "kind": "section",
+      "brief": "Do not. File a letter instead.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1201.4",
+      "part": "part_xii",
+      "title": "Cartography Sold as a License to Raid",
+      "kind": "section",
+      "brief": "One-T mountain. A map is a map. It is not a permit.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1301.1",
+      "part": "part_xiii",
+      "title": "Schedule of Fees",
+      "kind": "section",
+      "brief": "Named amounts in Guild marks. No Wario Coin.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1301.2",
+      "part": "part_xiii",
+      "title": "Penalties; Sunrise Accrual",
+      "kind": "section",
+      "brief": "Original time zone, not the pocket's.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1301.3",
+      "part": "part_xiii",
+      "title": "Appeals",
+      "kind": "section",
+      "brief": "Desk, then Paradox Trial, then nowhere useful.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1301.4",
+      "part": "part_xiii",
+      "title": "Who May Inspect",
+      "kind": "section",
+      "brief": "Clerks, named officers. Not a crowd.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1401.1",
+      "part": "part_xiv",
+      "title": "Historical Annotations; Form",
+      "kind": "section",
+      "brief": "How to write C.C.D. numbers, MR pages, weekdays.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1401.2",
+      "part": "part_xiv",
+      "title": "Dead Citations",
+      "kind": "section",
+      "brief": "A repealed section may be cited as history, not as a permit.",
+      "status": "reserved",
+      "body": []
+    },
+    {
+      "cite": "1401.3",
+      "part": "part_xiv",
+      "title": "Savings Against the Iron Mandate",
+      "kind": "section",
+      "brief": "This title does not repeal itself because an Empire shouted.",
+      "status": "reserved",
+      "body": []
+    }
+  ]
 }
