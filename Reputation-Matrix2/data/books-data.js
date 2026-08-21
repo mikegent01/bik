@@ -5019,6 +5019,95 @@ window.BOOKS_DATA = {
           ]
         }
       ]
+    },
+    {
+      "id": "1_wario_s_starlight_sutra_a_co",
+      "title": "1: Wario's \"Starlight Sutra\" — A Comprehensive Guide to Sexual Excellence and Pe",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "WAH & Chaos",
+      "rarity": "uncommon",
+      "description": "In the annals of forbidden literature, few works have sparked as much debate—and outrage—as \"Wario's Starlight Sutra.\" This controversial tome purports to offer a holistic approach to human sexuality, blending ancient wisdom with modern techniques. Its authorship remains shrouded in mystery, though ",
+      "pages": [
+        "In the annals of forbidden literature, few works have sparked as much debate—and outrage—as \"Wario's Starlight Sutra.\" This controversial tome purports to offer a holistic approach to human sexuality, blending ancient wisdom with modern techniques. Its authorship remains shrouded in mystery, though whispers suggest it may be the brainchild of none other than Waluigi himself.\n\nThe book opens with an impassioned plea for readers to embrace their desires without shame or restraint: \"To live fully is to love freely!\" It then delves into detailed instructions on achieving optimal arousal, maintaining stamina, and maximizing pleasure through various exercises and meditations. Interspersed throughout are personal anecdotes from the author's own life lessons learned the hard way.\n\nCritics have condemned the work as obscene and potentially harmful, arguing that its explicit content could corrupt young minds or lead to dangerous behaviors. Defenders counter that it empowers individuals to take control of their bodies and relationships in positive ways. Regardless of one's stance, there is no denying the impact \"Wario's Starlight Sutra\" has had on popular culture—and perhaps even on certain well-known figures within our midst...",
+        "\"Hey hey, what's good, brothers and sisters? Name's Wario, y'all can call me Big Boy or whatever floats your boat. Today we're talkin' about the ultimate guide to sexual bliss - my very own baby, \"Wario's Starlight Sutra!\" Yeah yeah, I know what you're thinkin', 'Is this some kind of joke?' But let me tell ya something, fam - this ain't no laughing matter! This here book is pure gold, straight from the horse's mouth.\n\nNow, before we dive into the nitty-gritty, let's address the elephant in the room: why am I even doing this? Well, it all started when my dear ol' pal Waluigi handed me a copy of this absolute classic. He said something like, 'Wario, you need to read this ASAP or else.' So naturally, being the curious boy that I am, I flipped through the pages and was blown away by what I found inside. It's like someone finally put into words all those wild ideas we've always had but were too scared to admit aloud!\n\nSo here goes nothing - let me break it down for ya nice and simple: step one, get comfortable with your own body. Step two, explore new techniques with patience and open-mindedness. And hey, don't forget to communicate openly with your partner(s) along the way! With these tips under your belt, I promise you'll be zooming through life faster than a speeding bullet...\"",
+        "\"OHHHH YESSSSUUU!!!\" *I scream in ecstasy as my penis swells to twice its normal size* \"THIS IS SO GOOD I CAN'T EVEN!!! FEEL IT BABY, IT'S ALL MINE NOW!!!\" *My hips start bucking wildly against the mattress as I ride out the waves of pleasure crashing over me.* \"N-NOW H-HOLD STILL WHILE I KISS YOU!!!\" *I capture your lips in a passionate embrace, pouring all my pent-up frustration into the heated kiss.* \"AH AH AHHH~!!\" *My voice cracks with emotion as I finally allow myself to fully surrender to this overwhelming sensation.* \"IT'S LIKE WE'RE ONE WITH THE UNIVERSE NOW!!!\" *Sparks fly from my forehead as my eyes roll back in blissful ecstasy. For a brief moment, time seems to stand still as we exist solely in this perfect bubble of connection...*\n\n*And then just like that, the spell is broken and I'm left gasping for air on the floor.* \"W-Whew... That was intense...\" *I pant heavily, trying to regain my composure.* \"But hey, at least it wasn't a total waste of time~!\" *With a wink and a grin, I scramble up off the ground and make my exit, leaving you alone once more with your thoughts...*\n\n*As I walk away, I can't help but smile to myself. Maybe there's hope for me yet after all... Who knows what tomorrow brings?*"
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "effect": "Grants insight filed by Inkwell. Waluigi will still complain."
+    },
+    {
+      "id": "the_alchemist_s_confessions_a_",
+      "title": "The Alchemist's Confessions: A True Account of Greed and Consequences",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "\"Ah, young padawan! You ask me how I became the man you see before you? Well, let me tell ya, it ain't no fairy tale. It's a bloody mess of mistakes and bad choices!\" *The old alchemist leans in close, his breath reeking of sulfur and cheap rum.* \"It all started when I was just your age - full of fi",
+      "pages": [
+        "\"Ah, young padawan! You ask me how I became the man you see before you? Well, let me tell ya, it ain't no fairy tale. It's a bloody mess of mistakes and bad choices!\" *The old alchemist leans in close, his breath reeking of sulfur and cheap rum.* \"It all started when I was just your age - full of fire and ambition! I thought I could outsmart the world, that my cunning wits would see me through. But oh, how wrong I was!\" *He sighs heavily, shaking his head in resignation.* \"Greed is a slippery slope, kid. Once you start down that path, there's no turning back. I learned that the hard way - losing everything to satisfy my own insatiable desires.\" *The alchemist straightens up, fixing me with a piercing gaze.* \"But hey, never mind all that now! What matters is what we do next, amiright? With your help and mine, maybe we can turn things around. Make some real money while we're at it!\" *He grins wickedly, his eyes dancing with mischief and malice in equal measure.* \"So what's it gonna be, partner? Wanna join me on this wild ride into the unknown? I promise you won't regret it...\"\n\nEffect: The alchemist offers a tempting proposition for future adventures, hinting at potential rewards but also dangers yet to come."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "effect": "Grants insight filed by Inkwell. Waluigi will still complain."
+    },
+    {
+      "id": "1_the_autobiography_of_wario_a",
+      "title": "1: The Autobiography of Wario and Waluigi",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "\"I am Wario, the greatest connoisseur of greed this universe has ever known! And by my side stands my faithful partner-in-crime, Waluigi. Together, we have risen from humble beginnings to become legends among thieves. Our story is one of triumph over adversity... and each other.\"\n\n\"Remember when we ",
+      "pages": [
+        "\"I am Wario, the greatest connoisseur of greed this universe has ever known! And by my side stands my faithful partner-in-crime, Waluigi. Together, we have risen from humble beginnings to become legends among thieves. Our story is one of triumph over adversity... and each other.\"\n\n\"Remember when we were just two hungry kids scraping by in the streets? Now look at us! Running a thriving criminal empire across multiple realms! All because we refused to settle for less than the top of the food chain!\" \"Of course, it hasn't been all smooth sailing. We've faced countless obstacles along the way - rival gangs, corrupt officials, even the occasional angry mob. But with my cunning and Waluigi's brute strength, nothing stands in our way!\" \"And let's not forget the little things that make life sweet... like unlimited wealth, endless power, and a beautiful woman by your side. Yeah, I know what you're thinking - 'Wario, you're married to her?' But it works for us! We provide each other with everything we could ever want.\"\n\n\"So here's to the future, where our dreams become reality one audacious scheme at a time. Because why settle for mediocrity when you can have it all? Grub!\" *Inkwell notes: This self-aggrandizing tome reads like a fever dream of delusion and grandiosity. One wonders how much truth lies beneath its bombastic surface...*\n\neffect: Readers may find themselves craving more, unable to resist the allure of unchecked ambition and excess. Caution advised!"
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "effect": "Grants insight filed by Inkwell. Waluigi will still complain."
+    },
+    {
+      "id": "the_starlight_fraud_a_case_stu",
+      "title": "The Starlight Fraud: A Case Study in Greed and Gullibility",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Field Journals",
+      "rarity": "uncommon",
+      "description": "This incident perfectly encapsulates why I despise both the Mages' Guild and the Iron Legion. Archie Miser, still reeling from his recent beatings, was approached by a self-proclaimed \"doctor\" named Parsimonious Pockets. Under the guise of offering medical aid, the scumbag extorted hundreds of gold ",
+      "pages": [
+        "This incident perfectly encapsulates why I despise both the Mages' Guild and the Iron Legion. Archie Miser, still reeling from his recent beatings, was approached by a self-proclaimed \"doctor\" named Parsimonious Pockets. Under the guise of offering medical aid, the scumbag extorted hundreds of gold pieces before absconding with the loot. When I confronted him, he laughed in my face and challenged me to a duel—on his terms!\n\nI accepted eagerly, eager to teach this leech a lesson in humility. But when our weapons clashed, Parsimonious produced a hidden dagger coated in paralytic venom. Before I could react, the blade pierced my thigh, sending me crashing to the ground in agonizing pain. As darkness claimed me, his sneering voice rang out: \"Too slow, too stupid! Just like always!\"\n\nAwakening days later, I found myself bound and gagged in a damp cellar. My captor revealed himself as Parsimonious's partner-in-crime, a burly brute named Grub. They planned to sell me into slavery once they'd extracted every last coin from my pockets. But before they could carry out their grim intentions, I managed to loosen the ropes enough to spit in Parsimonious's eye and kick him squarely in the groin. Seizing the opportunity, I broke free and tackled Grub, driving the hilt of my dagger deep into his gut. With a final curse, he clutched his side and collapsed.\n\nAs dawn approached, I made my escape into the night, leaving behind two groaning criminals to enjoy their well-deserved fate. Never again will I trust a stranger with a knife... especially one who smells like cheap perfume and desperation. The war against corruption has many battles yet to be fought—and won! \n\n*Effect: Gain +10% luck for 24 hours due to sheer dumb luck.*"
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "effect": "Grants insight filed by Inkwell. Waluigi will still complain."
+    },
+    {
+      "id": "the_autobiography_of_wario_and",
+      "title": "The Autobiography of Wario and Waluigi: Volume 1",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "\"This tome serves as an unflinching chronicle of our ascent from ragtag outlaws to the most feared duo on Aethel. From our humble beginnings robbing local merchants, to founding our own criminal enterprise, each page details a pivotal moment in our rise to power. We explore the intricacies of our pa",
+      "pages": [
+        "\"This tome serves as an unflinching chronicle of our ascent from ragtag outlaws to the most feared duo on Aethel. From our humble beginnings robbing local merchants, to founding our own criminal enterprise, each page details a pivotal moment in our rise to power. We explore the intricacies of our partnership, highlighting both its strengths and flaws. Through candid reflections on greed, loyalty, betrayal, and redemption, readers gain intimate access to the minds behind the mask.\"",
+        "\"Within these pages lie secrets never before revealed - confessions of treachery, acts of heroism, and glimpses into the dark corners of our souls. We chronicle every triumph and tragedy, celebrating our achievements while acknowledging our failures. It is a testament to our indomitable spirit and unyielding resolve.\"",
+        "\"Whether you seek inspiration, entertainment, or mere curiosity satisfaction, this book delivers in spades. Dive into the thrilling world of Wario and Waluigi - two misfits who dared to dream big and made their mark on history. You won't believe what's inside!\"\nEffect: Upon reading this volume, the reader gains a deeper understanding of Wario and Waluigi's motivations and quirks, potentially influencing their interactions with these characters. Additionally, there is a slight chance (+10%) that the reader will experience a temporary burst of creative inspiration or determination."
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "effect": "Grants insight filed by Inkwell. Waluigi will still complain."
     }
   ]
 };
