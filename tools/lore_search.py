@@ -146,10 +146,60 @@ def cards_for_slot(title: str, brief: str, extra: str = "") -> str:
     return format_cards(search(q, k=6))
 
 
+def invalidate() -> None:
+    global _INDEX, _BY_ID
+    _INDEX = None
+    _BY_ID = None
+
+
+def refer_ccd(query: str, k: int = 5, exclude: str = "") -> str:
+    """Hover-sized excerpts of *filed* C.C.D. pages. Live read, not a 10MB dump."""
+    path = DATA / "laws" / "mages-guild-code.json"
+    if not path.exists():
+        return "(no code yet)"
+    try:
+        code = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return "(code unreadable)"
+    terms = [t for t in re.split(r"[^a-z0-9.]+", (query or "").lower()) if len(t) > 1]
+    scored = []
+    for s in code.get("sections") or []:
+        cite = str(s.get("cite") or "")
+        if not cite or cite == exclude:
+            continue
+        body = s.get("body") or []
+        if not body:
+            continue
+        blob = " ".join(
+            [(s.get("title") or ""), (s.get("brief") or "")]
+            + [str(b.get("heading") or "") + " " + str(b.get("text") or "")[:400] for b in body[:3]]
+        )
+        hay = blob.lower()
+        score = 0
+        for t in terms:
+            if t in hay or t in cite:
+                score += 4 if t == cite or t in cite else 1
+        if not terms:
+            score = 1
+        if score:
+            excerpt = re.sub(r"\s+", " ", (body[0].get("text") or ""))[:220]
+            scored.append((score, f"§ {cite} {s.get('title') or ''} — {excerpt}"))
+    if not scored and terms:
+        # still list nearby filed cites as a table of contents strip
+        filed = [
+            f"§ {s.get('cite')} {s.get('title')}"
+            for s in (code.get("sections") or [])
+            if (s.get("body") or []) and s.get("cite") != exclude
+        ]
+        return "FILED (cite, do not reprint): " + "; ".join(filed[:20])
+    scored.sort(key=lambda x: -x[0])
+    return "CITE THESE (do not reprint the full rule):\n" + "\n".join(x[1] for x in scored[:k])
+
+
 def parse_need_lines(raw: str) -> list[str]:
     qs = []
     for line in (raw or "").splitlines():
-        m = re.match(r"^(?:NEED|SEARCH|OPEN)\s*:\s*(.+)$", line.strip(), re.I)
+        m = re.match(r"^(?:NEED|SEARCH|OPEN|SEE|CITE)\s*:\s*(.+)$", line.strip(), re.I)
         if m:
             qs.append(m.group(1).strip()[:80])
     return qs[:3]

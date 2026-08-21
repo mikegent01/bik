@@ -24,7 +24,7 @@ import signal
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from lore_search import cards_for_slot, format_cards, parse_need_lines, search as lore_lookup
+from lore_search import cards_for_slot, format_cards, invalidate as lore_invalidate, parse_need_lines, refer_ccd, search as lore_lookup
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "Reputation-Matrix2" / "data" / "laws" / "mages-guild-code.json"
@@ -54,6 +54,7 @@ FILED LORE (use these names; do not invent a new Guild):
 VOICE = """You are a clerk of the Mages' Guild Accords Desk writing a bound code book, not a bullet list.
 
 Each answer is ONE topic written as 1 or 2 pages of continuous legal prose (about 350–700 words). Paragraphs. Cross-references like § 1.6. Shall/may. It should read if someone opened a statute book, not a flash-card.
+If a rule is already filed, write "see § 1.6" and move on. Do not reprint § 1.1 through § 1.10 inside a later catchline.
 
 Output format:
 PAGE Title of this topic
@@ -308,6 +309,8 @@ def pack_context(data: dict, current: dict) -> str:
             prior.append(f"§ {s['cite']} {s['title']}")
     bits.append("ALREADY FILED: " + "; ".join(prior[-30:]))
     bits.append("ARCHIVE CARDS (hover-sized; generic law is fine if none fit):\n" + cards_for_slot(current.get("title") or "", current.get("brief") or ""))
+    q = f"{current.get('title') or ''} {current.get('brief') or ''} {current.get('cite') or ''}"
+    bits.append(refer_ccd(q, k=6, exclude=str(current.get("cite") or "")))
     return "\n\n".join(bits)[:9000]
 
 
@@ -370,6 +373,22 @@ def chat(base: str, model: str, messages: list, timeout: int) -> str:
     with urllib.request.urlopen(req, timeout=timeout) as r:
         data = json.loads(r.read().decode())
     return data["choices"][0]["message"]["content"]
+
+
+def chat_with_search(base: str, model: str, messages: list, timeout: int) -> str:
+    raw = chat(base, model, messages, timeout)
+    needs = parse_need_lines(raw)
+    if not needs:
+        return raw
+    extra = "\n".join(
+        refer_ccd(q, k=5) + "\n" + format_cards(lore_lookup(q, k=4))
+        for q in needs
+    )
+    follow = messages + [
+        {"role": "assistant", "content": raw},
+        {"role": "user", "content": "Cited cards (do not dump files). Write PAGE prose only. Cite § numbers; do not reprint whole rules.\n" + extra},
+    ]
+    return chat(base, model, follow, timeout)
 
 
 def list_models(base: str) -> list[str]:
@@ -438,12 +457,11 @@ def part_draft_prompt(data: dict, batch: list[dict]) -> str:
     titles = "\n".join(f"=== {s['cite']} ===\n{s['title']}\n{s.get('brief') or ''}" for s in batch)
     return f"""{pack_context(data, batch[0])}
 
-Draft EVERY listed catchline for this Part ({part}) in one answer.
-For each, write:
+Draft this Part ({part}). For EACH catchline write ONLY that catchline.
+Do not copy 1.1–1.10 into every block. Cite siblings: see § 1.6.
 === CITE ===
-Heading | prose
-Heading | prose
-(8 lines each). Use Accords / Veyra / Conservators / Innovators / Quiet List / Paradox Trial / Iron Mandate where they belong. Not generic.
+PAGE Title
+continuous 1-page law (350+ words) on THAT catchline alone.
 
 Catchlines:
 {titles}
@@ -500,6 +518,7 @@ def main() -> int:
     def persist():
         save(data)
         save_progress(prog, data, args.min_clauses)
+        lore_invalidate()
         print("saved", OUT, file=sys.stderr)
 
     def on_stop(_s, _f):
@@ -551,7 +570,7 @@ def main() -> int:
         batch = empty_in_part(data, slot.get("part")) if mode == "draft" else []
         try:
             prompt = part_draft_prompt(data, batch) if (mode == "draft" and len(batch) > 1) else fill_prompt(data, slot, mode, args.min_clauses)
-            raw = chat(
+            raw = chat_with_search(
                 args.base_url, model,
                 [{"role": "system", "content": VOICE}, {"role": "user", "content": prompt}],
                 args.timeout,
