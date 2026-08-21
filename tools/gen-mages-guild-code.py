@@ -51,21 +51,17 @@ FILED LORE (use these names; do not invent a new Guild):
 - mike is GM, not a person bound. No Grime office.
 """
 
-VOICE = """You are a clerk of the Mages' Guild Accords Desk. Write code prose only.
+VOICE = """You are a clerk of the Mages' Guild Accords Desk writing a bound code book, not a bullet list.
 
-Output format — one clause per line, nothing else:
-Heading | The sentence or two of law.
+Each answer is ONE topic written as 1 or 2 pages of continuous legal prose (about 350–700 words). Paragraphs. Cross-references like § 1.6. Shall/may. It should read if someone opened a statute book, not a flash-card.
 
-Example:
-Scope | This compilation is the Codex of the Mages' Guild and may be cited as C.C.D.
-General Rule | Transfiguration used for legitimate, disclosed, and non-deceptive purposes shall not constitute a violation.
-Burden | The person asserting permissible use shall bear the burden of demonstrating that the alteration does not mislead.
+Output format:
+PAGE Title of this topic
+Then paragraphs. Blank line between paragraphs. No Heading | sentence lines. No JSON. No chat.
 
-No JSON. No markdown. No chat. No quotes around the whole answer.
-Intro sections: short title, who is bound, shall/may. Not a market scheme.
-Canon: Autumnwood Accords; Conservators vs Innovators; Paradox Trial; Quiet List; Iron Mandate is rival law; Wario Coin is not tender; Heartstone is speech until surveyed; mike is not a character; no Grime office.
-Most clauses should stay generic bureaucratic law. Use ARCHIVE CARDS only when they actually fit.
-If you need one more fact, a single extra line is allowed: NEED: short query
+Most pages stay generic bureaucratic law. Use ARCHIVE CARDS only when they actually fit.
+Canon: Autumnwood Accords; Veyra; Conservators (Theron); Innovators (Brightspark); Paradox Trial; Quiet List; Iron Mandate is rival law; Wario Coin is not tender; mike is not a character.
+If you need one fact: NEED: short query — then wait; do not stop the page early.
 """
 
 
@@ -321,65 +317,49 @@ def fp(sec: dict) -> str:
     return hashlib.sha1(blob.encode()).hexdigest()[:16]
 
 
-def parse_pipe_lines(raw: str) -> list[dict]:
-    """RP models write prose. We only need Heading | text lines."""
-    clean = []
-    for line in (raw or "").splitlines():
-        line = line.strip().lstrip("-*• ").strip()
-        line = re.sub(r"^```.*$", "", line).strip()
-        if not line or line in ("```", "```json"):
-            continue
-        if "|" in line:
-            left, right = line.split("|", 1)
-            heading = re.sub(r"^\(?[a-z0-9.]+\)\s*", "", left.strip(), flags=re.I).rstrip(".")
-            text = right.strip()
-            if heading.lower() in ("heading", "key", "title") and len(text) < 12:
-                continue
-            if heading.lower() in ("heading", "key"):
-                continue
-            if len(text) < 12:
-                continue
-            clean.append({"heading": heading[:80] or "Clause", "text": text})
-            continue
-        m = re.match(r"^\(?([a-z0-9.]+)\)?\s+([A-Z][^.]{2,60})\.\s+(.+)$", line)
-        if m and len(m.group(3)) > 20:
-            clean.append({"heading": m.group(2).strip()[:80], "text": m.group(3).strip()})
-    return clean
-
-
-def parse_obj(raw: str) -> dict | None:
+def parse_pages(raw: str) -> list[dict]:
+    """One PAGE heading then continuous prose. Also still accepts old Heading | line dumps."""
     raw = (raw or "").strip()
     raw = re.sub(r"^```(?:json)?\s*", "", raw)
     raw = re.sub(r"\s*```$", "", raw)
-    # 1) pipe lines (preferred — model fills fields, we wrap JSON)
-    pipes = parse_pipe_lines(raw)
-    if len(pipes) >= 3:
-        return {"body": pipes, "title": None}
-    # 2) JSON if a model actually emits it
-    m = re.search(r"\{.*\}", raw, re.S)
-    if m:
-        blob = m.group(0)
-        blob = blob.replace("“", '"').replace("”", '"').replace("’", "'")
-        blob = re.sub(r",\s*}", "}", blob)
-        blob = re.sub(r",\s*]", "]", blob)
-        try:
-            o = json.loads(blob)
-        except json.JSONDecodeError:
-            o = None
-        if isinstance(o, dict):
-            body = o.get("body")
-            clean = []
-            if isinstance(body, list):
-                for i, b in enumerate(body):
-                    if not isinstance(b, dict):
-                        continue
-                    text = str(b.get("text") or "").strip()
-                    if len(text) < 12:
-                        continue
-                    clean.append({"heading": str(b.get("heading") or "Clause")[:80], "text": text})
-            if len(clean) >= 3:
-                o["body"] = clean
-                return o
+    pages = []
+    chunks = re.split(r"(?m)^(?:PAGE|=== PAGE)\s*[:.]?\s*", raw)
+    for chunk in chunks:
+        chunk = chunk.strip()
+        if not chunk:
+            continue
+        lines = chunk.splitlines()
+        heading = lines[0].strip().strip("=").strip()[:80]
+        text = "\n\n".join(
+            p.strip() for p in re.split(r"\n\s*\n", "\n".join(lines[1:]).strip()) if p.strip()
+        )
+        text = re.sub(r"^NEED:.*$", "", text, flags=re.M).strip()
+        if len(text) >= 280:
+            pages.append({"heading": heading or "Page", "text": text})
+    if pages:
+        return pages
+    # fallback: one long page from the whole reply
+    body = re.sub(r"^NEED:.*$", "", raw, flags=re.M).strip()
+    body = re.sub(r"^PAGE\s+.+", "", body).strip()
+    if len(body) >= 280:
+        first = body.split("\n", 1)[0][:80]
+        return [{"heading": first if len(first) < 70 else "Text", "text": body}]
+    # last resort: old pipe lines, join into one page if short
+    bits = []
+    for line in raw.splitlines():
+        if "|" in line and not line.lower().startswith("need"):
+            left, right = line.split("|", 1)
+            if len(right.strip()) > 20:
+                bits.append(right.strip())
+    if len(" ".join(bits)) >= 280:
+        return [{"heading": "Text", "text": " ".join(bits)}]
+    return []
+
+
+def parse_obj(raw: str) -> dict | None:
+    pages = parse_pages(raw)
+    if pages:
+        return {"body": pages, "title": None}
     return None
 
 
@@ -412,8 +392,8 @@ def parse_part_blocks(raw: str) -> dict[str, list]:
     buf = []
     def flush():
         if cite and buf:
-            body = parse_pipe_lines("\n".join(buf))
-            if len(body) >= 3:
+            body = parse_pages("\n".join(buf))
+            if body:
                 out[cite] = body
     for line in (raw or "").splitlines():
         m = re.match(r"^===\s*§?\s*(\d+\.\d+)\s*(?:§)?\s*===", line.strip())
@@ -435,23 +415,21 @@ def fill_prompt(data: dict, slot: dict, mode: str, floor: int) -> str:
     if mode == "expand":
         return f"""{lore}
 
-Add 8 new clauses for {relate}. Name Conservators, Innovators, Veyra, Theron, Brightspark, Paradox Trial, Quiet List, Iron Mandate, or Archie only where they fit this catchline.
-Do not repeat: {heads}
-Need {max(0, floor - len(have))} more toward {floor}.
+Write ONE more page (350–700 words) for {relate}. One topic that belongs under this catchline and is not already covered: {heads}
+Need {max(0, floor - len(have))} more pages toward {floor}.
 {slot.get('brief') or ''}
-8 lines: Heading | prose
+Start with: PAGE New topic title
+Then continuous paragraphs. Not a list of one-sentence headings.
 """
-    extra = ""
+    extra = "Front matter. Opening-code voice.\n" if (slot.get("kind") or "") == "intro" else ""
     if mode == "related":
-        extra = "First line TITLE | catchline. Then 8 Heading | prose. Same Part.\n"
-    elif (slot.get("kind") or "") == "intro":
-        extra = "Front matter. Opening-code voice. Cite Autumnwood Accords and Accords Desk.\n"
+        extra = "New catchline in this Part. First line PAGE Catchline Title then the page.\n"
     return f"""{lore}
 
-Draft {relate}
+Write 1 or 2 pages (your choice) for {relate}.
 {slot.get('brief') or ''}
 {extra}
-8 lines: Heading | prose. Use the lore names. Not generic D&D guild filler.
+Each page: PAGE Title then 350–700 words of continuous law. One topic per page. This is a book, not flash cards.
 """
 
 
@@ -483,7 +461,7 @@ def main() -> int:
     ap.add_argument("--target", type=int, default=400)
     ap.add_argument("--sleep", type=float, default=0.4)
     ap.add_argument("--timeout", type=int, default=180)
-    ap.add_argument("--min-clauses", type=int, default=50, help="expand each § until this many clauses before adding new §§")
+    ap.add_argument("--min-clauses", type=int, default=6, help="pages per § before new catchlines (each page is 1–2 book pages)")
     args = ap.parse_args()
 
     data = load_json(OUT)
@@ -539,7 +517,7 @@ def main() -> int:
                     continue
                 b["key"] = keys[i] if i < len(keys) else letter_key(clause_n(slot) + i)
                 merged.append(b)
-            if len(merged) < 3:
+            if not merged:
                 return False
             slot["body"] = apply_letter_keys((slot.get("body") or []) + merged)
         else:
