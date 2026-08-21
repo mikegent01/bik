@@ -453,11 +453,12 @@ def main():
     ap.add_argument("--stubs", action="store_true", help="expand stub characters")
     ap.add_argument("--books", action="store_true", help="add one book")
     ap.add_argument("--past-events", action="store_true", help="add one PAST foreign event/battle (722-1039 BF, not Mushroom/Midlands)")
+    ap.add_argument("--forms", action="store_true", help="generate one missing guild form (MG-xxx) with strict JSON validation)")
     ap.add_argument("--timeline", action="store_true", help="deprecated alias for --past-events")
     ap.add_argument("--allow-timeline", action="store_true", help="deprecated, no longer needed")
     ap.add_argument("--codex", action="store_true", help="shell out to gen-mages-guild-code.py for one codex batch")
     ap.add_argument("--guild-ratio", type=int, default=100, help="when --all --overnight, how many Codex pages per one other task (default 100). Limits spam while still growing laws.")
-    ap.add_argument("--all", action="store_true", help="stubs + books + past-events + codex")
+    ap.add_argument("--all", action="store_true", help="stubs + books + past-events + codex + forms")
     ap.add_argument("--overnight", action="store_true", help="loop until --target total items (vs one-shot)")
     ap.add_argument("--target", type=int, default=20, help="how many items for overnight")
     ap.add_argument("--limit", type=int, default=0, help="max items for one-shot (0 = all stubs)")
@@ -477,8 +478,9 @@ def main():
         args.stubs=True
         args.books=True
         args.past_events=True
+        args.forms=True
 
-    if not any([args.stubs, args.books, args.past_events, args.codex]):
+    if not any([args.stubs, args.books, args.past_events, args.codex, args.forms]):
         print("pick --stubs / --books / --past-events / --codex / --all")
         return 2
 
@@ -520,6 +522,22 @@ def main():
         if args.past_events:
             n=add_past_event(args.base_url, model, args.timeout, args.dry_run, args.sleep)
             total+=n
+        if args.forms:
+            # generate one form via gen-mages-forms.py (validated JSON, retries)
+            cmd=[sys.executable, str(ROOT/"tools"/"gen-mages-forms.py"), "--base-url", args.base_url, "--model", model, "--generate", "--all"]
+            if args.dry_run:
+                cmd.append("--dry-run")
+            print("forms:", " ".join(cmd), file=sys.stderr)
+            if not args.dry_run:
+                subprocess.run(cmd, check=False)
+                # count forms added
+                try:
+                    jf=json.loads((ROOT/"Reputation-Matrix2"/"data"/"laws"/"mages-forms.json").read_text())
+                    total+=1
+                except: pass
+            else:
+                print("DRY forms would generate 1 missing form")
+                total+=1
         return total
 
     # Throttle: when --all --overnight, do guild-ratio Codex pages per one other task
@@ -548,6 +566,7 @@ def main():
             if args.stubs: others.append("stubs")
             if args.books: others.append("books")
             if args.past_events: others.append("past")
+            if args.forms: others.append("forms")
             if others:
                 pick=others[other_turn % len(others)]
                 other_turn+=1
@@ -555,8 +574,18 @@ def main():
                     n=expand_stubs(args.base_url, model, args.timeout, 1, args.dry_run, args.sleep)
                 elif pick=="books":
                     n=add_book(args.base_url, model, args.timeout, args.dry_run, args.sleep)
-                else:
+                elif pick=="past":
                     n=add_past_event(args.base_url, model, args.timeout, args.dry_run, args.sleep)
+                else: # forms
+                    cmd=[sys.executable, str(ROOT/"tools"/"gen-mages-forms.py"), "--base-url", args.base_url, "--model", model, "--generate", "--all"]
+                    if args.dry_run: cmd.append("--dry-run")
+                    print("forms:", " ".join(cmd), file=sys.stderr)
+                    if not args.dry_run:
+                        subprocess.run(cmd, check=False)
+                        n=1
+                    else:
+                        print("DRY forms would generate 1 missing form")
+                        n=1
                 total+=n
             if total>=goal: break
             time.sleep(args.sleep)

@@ -350,6 +350,15 @@
   .sec mark{ background:#ffe7a0; padding:0 1px; border-radius:2px; }
   .copy-cite{ float:right; font-family:system-ui,sans-serif; font-size:11px; padding:2px 8px; border:1px solid #c4ad84; border-radius:12px; background:#ede5d0; cursor:pointer; }
   .copy-cite:hover{ background:#fff; border-color:#6d28d9; }
+  a.form-ref{ color:#065f46; background:rgba(16,185,129,.12); border:1px solid rgba(16,185,129,.32); border-radius:4px; padding:0 4px; text-decoration:none; font-weight:700; font-family:system-ui,sans-serif; font-size:12.5px; }
+  a.form-ref:hover{ background:rgba(16,185,129,.22); border-color:#065f46; }
+  #form-modal{ position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:200; background:rgba(0,0,0,.55); padding:20px; }
+  #form-modal.open{ display:flex; }
+  #form-modal .form-box{ max-width:640px; width:100%; max-height:90vh; overflow:auto; background:#f4efe3; color:#211810; border:2px solid #6d28d9; border-radius:12px; padding:22px; box-shadow:0 20px 60px rgba(0,0,0,.5); font-family:system-ui,sans-serif; }
+  #form-modal .form-box h2{ font-size:18px; margin:0 0 4px; color:#1a0f00; }
+  #form-modal .form-box .form-meta{ font-size:12px; color:#5d4a35; margin-bottom:10px; }
+  #form-modal .form-field{ border:1px solid #c4ad84; border-radius:8px; padding:8px 10px; margin:8px 0; background:#fff; }
+  #form-modal .form-field b{ font-size:12px; color:#6d28d9; }
 
   /* ── Responsive ── */
   @media (max-width: 700px) {
@@ -384,6 +393,7 @@
     </div>
   </main>
 </div>
+<div id="form-modal" onclick="if(event.target===this) closeFormModal()"><div class="form-box" id="form-box"></div></div>
 <div id="cite-tip" role="tooltip" aria-hidden="true"></div>
 <script>
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -394,6 +404,27 @@ function esc(s) {
   }[c]));
 }
 
+// forms -> {title, cite} — fetched alongside Codex
+let FORMS_MAP = {};
+function buildFormsMap(forms){
+  const m={};
+  (forms||[]).forEach(f=>{ m[f.id]=f; m[f.id.replace('MG-','')] = f; m['Form '+f.id.replace('MG-','')] = f; });
+  return m;
+}
+function linkForms(escaped){
+  return escaped.replace(/\b(?:Form\s+)?MG-([0-9]+[A-Z])\b/g, (_, code)=>{
+    const fid='MG-'+code;
+    const known=FORMS_MAP.hasOwnProperty(fid);
+    const cls=known?'form-ref':'form-ref unresolved';
+    const tip=known?` title="${esc(FORMS_MAP[fid].title)} — click to open form"`:' title="Form not yet filed"';
+    return `<a class="${cls}" href="#form-${fid}" data-form="${fid}" onclick="openFormModal('${fid}');return false;"${tip}>Form ${code}</a>`;
+  }).replace(/\bForm\s+([0-9]+-[A-Z])\b/g, (_, code)=>{
+    const fid='MG-'+code;
+    const known=FORMS_MAP.hasOwnProperty(fid);
+    if(!known) return `Form ${code}`;
+    return `<a class="form-ref" href="#form-${fid}" data-form="${fid}" onclick="openFormModal('${fid}');return false;" title="${esc(FORMS_MAP[fid].title)} — click to open form">Form ${code}</a>`;
+  });
+}
 // cite -> {title, brief, part} — filled in render() before linkCites is used
 let CITE_MAP = {};
 function buildCiteMap(sections) {
@@ -404,13 +435,31 @@ function buildCiteMap(sections) {
 // Linkify §X.Y refs — larger sections → governing rules (hover shows target)
 function linkCites(raw) {
   const escaped = esc(raw);
-  return escaped.replace(/§\s*(\d+(?:\.\d+)*)/g, (_, num) => {
+  let html = escaped.replace(/§\s*(\d+(?:\.\d+)*)/g, (_, num) => {
     const known = CITE_MAP.hasOwnProperty(num);
     const cls = known ? 'ref' : 'ref unresolved';
     const tip = known ? ` title="${esc(CITE_MAP[num].title)}"` : ' title="Not yet filed — reserved"';
     return `<a class="${cls}" href="#s-${num}" data-cite="${num}"${tip}>§\u202F${num}</a>`;
   });
+  html = linkForms(html);
+  return html;
 }
+function openFormModal(fid){
+  const f=FORMS_MAP[fid];
+  const box=document.getElementById('form-box');
+  const modal=document.getElementById('form-modal');
+  if(!f || !box || !modal) return;
+  const fields=(f.fields||[]).map(fd=>{
+    const req=fd.required?'<span style="color:#b91c1c">*</span>':'';
+    const opts=fd.type==='select' && fd.options ? `<div style="font-size:11px;color:#5d4a35">Options: ${esc(fd.options.join(' · '))}</div>` : '';
+    return `<div class="form-field"><b>${esc(fd.label)} ${req}</b> <span style="font-size:11px;color:#5d4a35">(${esc(fd.type)} · ${esc(fd.name)})</span>${opts}</div>`;
+  }).join('');
+  box.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:start;gap:12px"><h2>📋 ${esc(f.title)}</h2><button onclick="closeFormModal()" style="border:1px solid #c4ad84;border-radius:6px;padding:4px 8px;background:#ede5d0;cursor:pointer">✕</button></div><div class="form-meta">Form <b>${esc(f.id)}</b> · §${esc(f.cite)} · <span style="color:#065f46">${esc(f.status)}</span> · Fee: ${esc(f.fee||'—')} · Authority: ${esc(f.authority||'—')}</div><p style="font-size:13px;line-height:1.6">${esc(f.description||'')}</p><p style="font-size:12px;color:#5d4a35"><em>${esc(f.instructions||'')}</em></p><div style="margin-top:12px">${fields}</div><div style="margin-top:12px;display:flex;gap:8px"><a href="#s-${esc(f.cite)}" onclick="closeFormModal()" style="font-size:12px;color:#6d28d9">→ See §${esc(f.cite)} in Codex</a><button onclick="navigator.clipboard&&navigator.clipboard.writeText(JSON.stringify(FORMS_MAP['${fid}']?FORMS_MAP['${fid}']:f,null,2))" style="font-size:11px;padding:4px 8px;border:1px solid #c4ad84;border-radius:6px;background:#fff;cursor:pointer">Copy JSON</button></div>`;
+  modal.classList.add('open');
+  if(location.hash!== '#form-'+fid) history.pushState(null,'','#form-'+fid);
+}
+function closeFormModal(){ const m=document.getElementById('form-modal'); if(m) m.classList.remove('open'); if(location.hash.startsWith('#form-')) history.replaceState(null,'',location.pathname+location.search); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeFormModal(); });
 function sectionRefs(section) {
   if (Array.isArray(section.refs) && section.refs.length) return section.refs;
   const cites = new Set();
@@ -593,9 +642,17 @@ function render(data) {
   // deep-link highlight if hash present — '.' in IDs like s-1301.1 needs getElementById, not querySelector
   if (location.hash) {
     try {
-      const id = decodeURIComponent(location.hash.slice(1));
-      const el = document.getElementById(id) || document.querySelector(`[id="${CSS.escape ? CSS.escape(id) : id.replace(/"/g,'\\"')}"]`);
-      if (el) el.scrollIntoView({behavior:'instant'});
+      const raw = decodeURIComponent(location.hash.slice(1));
+      if(raw.startsWith('form-')){
+        const fid=raw.replace('form-','');
+        // forms may be MG-400A or 400-A — normalize
+        const tryId = fid.startsWith('MG-') ? fid : 'MG-'+fid;
+        if(FORMS_MAP[tryId]) openFormModal(tryId);
+        else if(FORMS_MAP[fid]) openFormModal(fid);
+      } else {
+        const el = document.getElementById(raw) || document.querySelector(`[id="${CSS.escape ? CSS.escape(raw) : raw.replace(/"/g,'\\"')}"]`);
+        if (el) el.scrollIntoView({behavior:'instant'});
+      }
     } catch(e) { /* ignore bad hash */ }
   }
   // QoL: reading progress + stats live update
@@ -669,12 +726,19 @@ function toggleCodexFont(){
 
 // ── Fetch ─────────────────────────────────────────────────────────────────────
 
-fetch('Reputation-Matrix2/data/laws/mages-guild-code.json', { cache: 'no-cache' })
-  .then(r => {
-    if (!r.ok) throw new Error(`HTTP ${r.status} ${r.statusText}`);
-    return r.json();
-  })
-  .then(render)
+Promise.all([
+  fetch('Reputation-Matrix2/data/laws/mages-guild-code.json', { cache: 'no-cache' }).then(r=>{ if(!r.ok) throw new Error(`HTTP ${r.status} ${r.statusText}`); return r.json(); }),
+  fetch('Reputation-Matrix2/data/laws/mages-forms.json', { cache: 'no-cache' }).then(r=> r.ok ? r.json() : {forms:[]}).catch(()=>({forms:[]}))
+]).then(([codeData, formsData])=>{
+  FORMS_MAP = buildFormsMap((formsData && formsData.forms) || []);
+  // also hydrate sidebar with form count if present
+  const formsCount = (formsData && formsData.forms || []).length;
+  if(formsCount){
+    const tip=document.getElementById('cite-tip');
+    // no-op, just ensure FORMS_MAP ready before render
+  }
+  return codeData;
+}).then(render)
   .catch(err => {
     const msg = esc(String(err));
     document.getElementById('paper').innerHTML =

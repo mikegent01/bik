@@ -16999,6 +16999,21 @@ async function loadMagesIntoSearch(){
     });
     if(added) console.log('[search] indexed '+added+' Codex sections into main search');
   }catch(e){ console.warn('[search] codex index failed',e); }
+  // also index forms so Form 400-A is searchable site-wide
+  try{
+    const rf=await fetch(pathPrefix+'data/laws/mages-forms.json',{cache:'no-cache'});
+    if(rf.ok){
+      const fj=await rf.json();
+      let fadded=0;
+      (fj.forms||[]).forEach(f=>{
+        if(!f||!f.id) return;
+        const hay=[f.id,f.cite,f.title,f.description||'',f.instructions||'',(f.fields||[]).map(x=>x.label).join(' ')].join(' ').toLowerCase();
+        SEARCH_DOCS.push({kind:'codex',id:f.id,typeKey:'codex',name:`${f.id} — ${f.title} (§${f.cite})`,summary: f.description||'', hay, route:'mages-code.html#form-'+encodeURIComponent(f.id)});
+        fadded++;
+      });
+      if(fadded) console.log('[search] indexed '+fadded+' Codex forms into main search');
+    }
+  }catch(e){ console.warn('[search] forms index failed',e); }
 }
 
 async function boot(){

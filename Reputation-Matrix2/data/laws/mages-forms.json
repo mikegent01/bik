@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "title": "Mages' Guild Forms Registry",
+    "note": "Hyperlinked from mages-code.html § references. Validated JSON."
+  },
+  "forms": [
+    {
+      "id": "MG-400A",
+      "cite": "400.1",
+      "title": "Research Permit Application — High-Density Mana & Restricted Schools",
+      "status": "active",
+      "fee": "5 Guild Marks (non-refundable)",
+      "authority": "Accords Desk Clerk (Innovator co-sign required for Schedule B)",
+      "description": "Application for research permits under §400.1. File before casting. One permit per project; pocket-lab hours count as hours for the other party per §400.2.",
+      "instructions": "Complete all fields, attach fee receipt, obtain Clerk stamp. For Schedule B arts also obtain Innovator chair co-sign per §300.2. False statements are spoliation per §700.3.",
+      "fields": [
+        {
+          "name": "applicant_name",
+          "label": "Applicant (licensed mage)",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "license_number",
+          "label": "Guild License #",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "project_title",
+          "label": "Project Title",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "schedule",
+          "label": "Schedule (A/B/C)",
+          "type": "select",
+          "options": [
+            "A - Ordinary",
+            "B - Restricted",
+            "C - Quiet List (proposed)"
+          ],
+          "required": true
+        },
+        {
+          "name": "pocket_lab",
+          "label": "Pocket dimension as lab? (hours count per §400.2)",
+          "type": "checkbox",
+          "required": false
+        },
+        {
+          "name": "specimen",
+          "label": "Specimen custody declaration (§400.4)",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "name": "fee_receipt",
+          "label": "Fee Receipt #",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "oath",
+          "label": "Oath: I file before casting per §900.1",
+          "type": "checkbox",
+          "required": true
+        }
+      ],
+      "crossRefs": [
+        "400.1",
+        "400.2",
+        "300.2",
+        "900.1",
+        "700.3"
+      ],
+      "filed": "Autumnwood Accords Desk",
+      "formUrl": "#form-MG-400A"
+    }
+  ]
+}
