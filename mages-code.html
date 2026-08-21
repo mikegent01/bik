@@ -247,67 +247,8 @@
     color: #5b21b6;
     text-decoration: underline;
     text-underline-offset: 2px;
-    position: relative;
   }
   a.ref:hover { color: #3b0f8a; }
-  a.ref.unresolved { color: #9a7a3a; text-decoration-style: dashed; cursor: help; }
-
-  /* ── Section cross-ref footer (larger sections → rules) ── */
-  .sec-refs {
-    margin: 14px 0 4px;
-    padding: 10px 12px;
-    background: #ede5d0;
-    border: 1px solid #d8c9a8;
-    border-radius: 6px;
-    font-family: system-ui, sans-serif;
-    font-size: 12px;
-    line-height: 1.5;
-    color: #3d2a00;
-  }
-  .sec-refs-title {
-    font-size: 10.5px;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    font-weight: 800;
-    color: #6d28d9;
-    margin-bottom: 6px;
-  }
-  .sec-refs a {
-    display: inline-block;
-    margin: 2px 4px 2px 0;
-    padding: 2px 8px;
-    background: #f4efe3;
-    border: 1px solid #c4ad84;
-    border-radius: 12px;
-    color: #5b21b6;
-    text-decoration: none;
-    font-size: 11.5px;
-  }
-  .sec-refs a:hover { background: #fff; border-color: #6d28d9; }
-
-  /* ── Hover tooltip for § links ── */
-  #cite-tip {
-    position: fixed;
-    z-index: 99;
-    max-width: 360px;
-    padding: 10px 12px;
-    background: #211810;
-    color: #f3ead8;
-    border: 1px solid #3b2d52;
-    border-radius: 8px;
-    box-shadow: 0 12px 32px rgba(0,0,0,.5);
-    font-family: system-ui, sans-serif;
-    font-size: 12.5px;
-    line-height: 1.5;
-    pointer-events: none;
-    opacity: 0;
-    transform: translateY(4px);
-    transition: opacity .12s, transform .12s;
-  }
-  #cite-tip.show { opacity: 1; transform: translateY(0); }
-  #cite-tip .tip-cite { font-weight: 800; color: #c4b5fd; }
-  #cite-tip .tip-title { color: #f3ead8; }
-  #cite-tip .tip-brief { color: #b8a9d4; font-style: italic; margin-top: 4px; }
 
   /* ── Loading / Error ── */
   .status {
@@ -358,7 +299,7 @@
     </div>
   </main>
 </div>
-<div id="cite-tip" role="tooltip" aria-hidden="true"></div>
+
 <script>
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -368,68 +309,12 @@ function esc(s) {
   }[c]));
 }
 
-// cite -> {title, brief, part} — filled in render() before linkCites is used
-let CITE_MAP = {};
-function buildCiteMap(sections) {
-  const m = {};
-  sections.forEach(s => { m[String(s.cite)] = { title: s.title || '', brief: s.brief || '', part: s.part || '' }; });
-  return m;
-}
-// Linkify §X.Y refs — larger sections → governing rules (hover shows target)
+// Linkify §X.Y references AFTER escaping
 function linkCites(raw) {
   const escaped = esc(raw);
-  return escaped.replace(/§\s*(\d+(?:\.\d+)*)/g, (_, num) => {
-    const known = CITE_MAP.hasOwnProperty(num);
-    const cls = known ? 'ref' : 'ref unresolved';
-    const tip = known ? ` title="${esc(CITE_MAP[num].title)}"` : ' title="Not yet filed — reserved"';
-    return `<a class="${cls}" href="#s-${num}" data-cite="${num}"${tip}>§\u202F${num}</a>`;
-  });
-}
-function sectionRefs(section) {
-  if (Array.isArray(section.refs) && section.refs.length) return section.refs;
-  const cites = new Set();
-  (section.body || []).forEach(b => {
-    const txt = (b.text || '') + ' ' + (b.heading || '');
-    const re = /§\s*(\d+\.\d+(?:\.\d+)?)/g; let m;
-    while ((m = re.exec(txt)) !== null) cites.add(m[1]);
-  });
-  cites.delete(String(section.cite));
-  return [...cites].sort((a,b) => {
-    const pa=a.split('.').map(Number), pb=b.split('.').map(Number);
-    for(let i=0;i<Math.max(pa.length,pb.length);i++){const d=(pa[i]||0)-(pb[i]||0); if(d) return d;}
-    return 0;
-  });
-}
-function renderSectionRefs(section) {
-  const refs = sectionRefs(section);
-  if (!refs.length) return '';
-  const pills = refs.map(c => {
-    const info = CITE_MAP[c];
-    const label = info ? `§ ${c} — ${info.title}` : `§ ${c} — (reserved)`;
-    const extra = info ? '' : ' style="opacity:.6;border-style:dashed"';
-    return `<a href="#s-${esc(c)}" data-cite="${esc(c)}"${extra}>${esc(label)}</a>`;
-  }).join('');
-  return `<div class="sec-refs"><div class="sec-refs-title">Cites — this topic → governing rules</div>${pills}</div>`;
-}
-function attachCiteTips() {
-  const tip = document.getElementById('cite-tip');
-  if (!tip) return;
-  let hideTimer = null;
-  document.addEventListener('mouseover', e => {
-    const a = e.target.closest('a.ref'); if (!a) return;
-    const cite = a.getAttribute('data-cite'); const info = CITE_MAP[cite]; if (!info) return;
-    clearTimeout(hideTimer);
-    tip.innerHTML = `<div class="tip-cite">§ ${esc(cite)}</div><div class="tip-title">${esc(info.title)}</div>${info.brief ? `<div class="tip-brief">${esc(info.brief.slice(0,160))}</div>` : ''}`;
-    tip.classList.add('show');
-    const r = a.getBoundingClientRect();
-    let left = r.left + r.width/2 - 180;
-    left = Math.max(8, Math.min(left, window.innerWidth - 368));
-    tip.style.left = left + 'px'; tip.style.top = (r.bottom + 10) + 'px';
-  });
-  document.addEventListener('mouseout', e => {
-    if (!e.target.closest('a.ref')) return;
-    hideTimer = setTimeout(() => tip.classList.remove('show'), 80);
-  });
+  return escaped.replace(/§\s*(\d+(?:\.\d+)*)/g,
+    (_, num) => `<a class="ref" href="#s-${num}">§\u202F${num}</a>`
+  );
 }
 
 // Roman numeral sort order helper
@@ -445,7 +330,6 @@ function render(data) {
   const parts    = data.parts    || [];
   const sections = data.sections || [];
   const meta     = data.meta     || {};
-  CITE_MAP = buildCiteMap(sections);
 
   // Sort parts by roman numeral order
   const sortedParts = [...parts].sort((a, b) => romanRank(a.roman) - romanRank(b.roman));
@@ -534,7 +418,6 @@ function render(data) {
               paras.map(p => `<p>${linkCites(p)}</p>`).join('') + `</article>`;
           });
         }
-        html += renderSectionRefs(s);
       }
 
       html += `</section>`;
@@ -542,12 +425,6 @@ function render(data) {
   });
 
   document.getElementById('paper').innerHTML = html;
-  attachCiteTips();
-  // deep-link highlight if hash present
-  if (location.hash) {
-    const el = document.querySelector(location.hash);
-    if (el) el.scrollIntoView({behavior:'instant'});
-  }
 }
 
 // ── Fetch ─────────────────────────────────────────────────────────────────────

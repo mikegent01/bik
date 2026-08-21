@@ -56,8 +56,6 @@ VOICE = """You are a clerk of the Mages' Guild Accords Desk writing a bound code
 Each answer is ONE topic written as 1 or 2 pages of continuous legal prose (about 350–700 words). Paragraphs. Cross-references like § 1.6. Shall/may. It should read if someone opened a statute book, not a flash-card.
 If a rule is already filed, write "see § 1.6" and move on. Do not reprint § 1.1 through § 1.10 inside a later catchline.
 
-Cross-reference rule: every page MUST contain 2–4 explicit citations to other filed sections in the form "see § X.Y" or "under § X.Y". Prefer sibling Parts but also cite foundational §§ 1.4–1.9 where the topic touches persons, seals, or construction. A page with zero § cites will be rejected.
-
 Output format:
 PAGE Title of this topic
 Then paragraphs. Blank line between paragraphs. No Heading | sentence lines. No JSON. No chat.
@@ -72,64 +70,11 @@ def load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-CITE_RE = re.compile(r"§\s*(\d+\.\d+(?:\.\d+)?)")
-
-def extract_cites(text: str) -> list[str]:
-    return CITE_RE.findall(text or "")
-
-def normalize_cite(c: str) -> str:
-    return re.sub(r"\s+", "", c.strip())
-
-def build_ref_index(data: dict) -> dict[str, dict]:
-    """cite -> {title, part, brief} for every filed section."""
-    idx: dict[str, dict] = {}
-    for s in data.get("sections") or []:
-        cite = str(s.get("cite") or "").strip()
-        if not cite:
-            continue
-        idx[cite] = {"title": s.get("title") or "", "part": s.get("part") or "", "brief": s.get("brief") or "", "n": len(s.get("body") or [])}
-    return idx
-
-def enrich_references(data: dict) -> int:
-    """Populate body[].refs and section .refs / .unresolved for larger-section cross-reference.
-    Returns count of distinct cited targets."""
-    idx = build_ref_index(data)
-    seen: set[str] = set()
-    for sec in data.get("sections") or []:
-        sec_refs: set[str] = set()
-        sec_unresolved: set[str] = set()
-        for b in sec.get("body") or []:
-            cites = [normalize_cite(c) for c in extract_cites(b.get("text") or "")]
-            # also scan heading
-            cites += [normalize_cite(c) for c in extract_cites(b.get("heading") or "")]
-            uniq = []
-            for c in cites:
-                if c not in uniq:
-                    uniq.append(c)
-            b["refs"] = uniq
-            for c in uniq:
-                if c == sec.get("cite"):
-                    continue
-                if c in idx:
-                    sec_refs.add(c)
-                    seen.add(c)
-                else:
-                    sec_unresolved.add(c)
-        sec["refs"] = sorted(sec_refs, key=lambda x: [int(n) for n in x.split(".")])
-        if sec_unresolved:
-            sec["unresolved_refs"] = sorted(sec_unresolved, key=lambda x: [int(n) for n in x.split(".")])
-        elif "unresolved_refs" in sec:
-            sec.pop("unresolved_refs", None)
-    return len(seen)
-
-
 def save(data: dict) -> None:
-    enrich_references(data)
     filled = sum(1 for s in data.get("sections") or [] if (s.get("body") or []))
     data["meta"]["sectionCount"] = filled
     data["meta"]["approxPages"] = max(0, filled // 2)
     data["meta"]["edition"] = "Working compilation. Slots in book order."
-    data["meta"]["crossRefTargets"] = len(build_ref_index(data))
     tmp = OUT.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     tmp.replace(OUT)
@@ -218,11 +163,6 @@ def print_status(data: dict, floor: int) -> None:
     ns = [clause_n(s) for s in secs]
     water = min(ns) if ns else 0
     print(f"sections {len(secs)}  water {water}/{floor}  empty {sum(n==0 for n in ns)}  below {sum(n<floor for n in ns)}  at-floor {sum(n>=floor for n in ns)}")
-    # cross-ref health
-    with_refs = sum(1 for s in secs if (s.get("refs") or []))
-    total_refs = sum(len(s.get("refs") or []) for s in secs)
-    unresolved = sum(len(s.get("unresolved_refs") or []) for s in secs)
-    print(f"cross-refs: {with_refs}/{len(secs)} sections cite others  total distinct links {total_refs}  unresolved {unresolved}")
     by_part = {}
     for s in secs:
         by_part.setdefault(s.get("part") or "?", []).append(clause_n(s))
@@ -231,18 +171,7 @@ def print_status(data: dict, floor: int) -> None:
     short = sorted(secs, key=lambda s: (clause_n(s), secs.index(s)))[:12]
     print("shortest:")
     for s in short:
-        print(f"    § {s.get('cite'):8} {clause_n(s):3}  {s.get('title')}  refs={len(s.get('refs') or [])}")
-    # show a few most-referenced targets
-    from collections import Counter
-    cnt = Counter()
-    for s in secs:
-        for r in s.get("refs") or []:
-            cnt[r] += 1
-    if cnt:
-        print("most-cited:")
-        for cite, c in cnt.most_common(8):
-            title = next((x.get("title") or "" for x in secs if x.get("cite")==cite), "")
-            print(f"  §{cite} x{c}  {title}")
+        print(f"    § {s.get('cite'):8} {clause_n(s):3}  {s.get('title')}")
 
 
 def next_empty(data: dict) -> dict | None:
@@ -379,12 +308,6 @@ def pack_context(data: dict, current: dict) -> str:
         if s.get("body"):
             prior.append(f"§ {s['cite']} {s['title']}")
     bits.append("ALREADY FILED: " + "; ".join(prior[-30:]))
-    # expose the larger-section reference index so the model can cite correctly
-    idx = build_ref_index(data)
-    filed_line = "FILED CITE INDEX (use these exact cites, e.g. 'see § 1.6'): " + "; ".join(
-        f"§ {c} {v['title']}" for c, v in list(idx.items())[:40]
-    )
-    bits.append(filed_line)
     bits.append("ARCHIVE CARDS (hover-sized; generic law is fine if none fit):\n" + cards_for_slot(current.get("title") or "", current.get("brief") or ""))
     q = f"{current.get('title') or ''} {current.get('brief') or ''} {current.get('cite') or ''}"
     bits.append(refer_ccd(q, k=6, exclude=str(current.get("cite") or "")))
@@ -558,7 +481,6 @@ def main() -> int:
     ap.add_argument("--timeout", type=int, default=180)
     ap.add_argument("--min-clauses", type=int, default=6, help="pages per § before new catchlines (each page is 1–2 book pages)")
     ap.add_argument("--clear-short", action="store_true", help="wipe sentence-length bodies so they redraft as pages")
-    ap.add_argument("--reindex", action="store_true", help="recompute refs/crossRefTargets and exit")
     args = ap.parse_args()
 
     data = load_json(OUT)
@@ -566,17 +488,6 @@ def main() -> int:
     save(data)
     prog = load_progress()
     save_progress(prog, data, args.min_clauses)
-    if args.reindex:
-        n = enrich_references(data)
-        save(data)
-        print(f"reindexed refs -> {n} distinct targets  crossRefTargets={data['meta'].get('crossRefTargets')}")
-        # report unresolved
-        unresolved = [(s["cite"], s.get("unresolved_refs")) for s in data.get("sections") or [] if s.get("unresolved_refs")]
-        if unresolved:
-            print("unresolved:")
-            for cite, lst in unresolved[:20]:
-                print(f"  §{cite} -> {', '.join(lst)}")
-        return 0
     if args.clear_short:
         n = 0
         for s in data.get("sections") or []:
