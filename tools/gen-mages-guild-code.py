@@ -307,16 +307,18 @@ def next_related_section(data: dict) -> dict:
     part = min(by.keys(), key=lambda k: (len(by[k]), k))
     sibs = by[part]
     titles = "; ".join(f"§ {s['cite']} {s['title']}" for s in sibs[-12:])
+    cite = next_cite_in_part(data, part)
     slot = {
-        "cite": next_cite_in_part(data, part),
+        "cite": cite,
         "part": part,
-        "title": "Related Requirements",
+        "title": f"Additional Provisions §{cite}",  # placeholder — will be replaced by LLM PAGE heading
         "kind": "related",
         "status": "reserved",
         "body": [],
         "brief": (
-            "NEW section in this same Part only. Invent a catchline that belongs "
-            "with these siblings, not a new subject: " + titles
+            f"NEW section §{cite} in this same Part only. Invent a DISTINCT catchline that belongs "
+            "with these siblings, not a new subject and NOT 'Related Requirements': " + titles + 
+            ". First line must be: PAGE Your New Distinct Catchline (5-10 words, specific, no 'Related Requirements')"
         ),
     }
     data["sections"].append(slot)
@@ -683,6 +685,20 @@ def main() -> int:
             slot["body"] = apply_letter_keys((slot.get("body") or []) + merged)
         else:
             slot["body"] = apply_letter_keys(body)
+            # for new cites (draft/related), adopt the LLM's PAGE heading as the section title
+            if body and body[0].get("heading"):
+                new_title = re.sub(r"^§\s*\d+\.\d+\s*", "", str(body[0].get("heading") or "")).strip(" —;:")
+                # never keep the generic placeholder
+                if new_title and new_title.lower() not in ["related requirements", "additional provisions"] and len(new_title) >= 8:
+                    # strip leading 'Related Requirements' if LLM still emitted it
+                    cleaned = re.sub(r"^Related Requirements\s*[:\-–—;]*\s*", "", new_title, flags=re.I).strip()
+                    if len(cleaned) >= 8:
+                        new_title = cleaned
+                    slot["title"] = new_title[:80]
+                elif not slot.get("title") or slot["title"].startswith("Additional Provisions"):
+                    # fallback: use heading as-is if it's at least descriptive
+                    if len(new_title) >= 12:
+                        slot["title"] = new_title[:80]
         slot["status"] = "filed" if clause_n(slot) >= args.min_clauses else "growing"
         slot["source"] = "lmstudio"
         slot["fp"] = fp(slot)
