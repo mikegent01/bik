@@ -158,31 +158,49 @@ def build_context(cite: str, fid: str) -> str:
 def chat_json(base: str, model: str, prompt: str, timeout: int, retries=3) -> dict:
     last_err=""
     for attempt in range(retries):
-        msg = prompt + (f"\n\nPrevious output failed JSON parse: {last_err}\nOutput ONLY the JSON object, no prose." if last_err else "")
-        payload = json.dumps({
-            "model": model,
-            "temperature": 0.3,
-            "max_tokens": 2048,
-            "response_format": {"type":"json_object"},
-            "messages": [
-                {"role":"system","content": VOICE_FORM},
-                {"role":"user","content": msg}
-            ]
-        }).encode()
-        # some local servers ignore response_format; we still validate
-        try:
-            req = urllib.request.Request(base.rstrip("/")+"/chat/completions", data=payload, headers={"Content-Type":"application/json"})
-            with urllib.request.urlopen(req, timeout=timeout) as r:
-                data=json.loads(r.read().decode())
-            raw=data["choices"][0]["message"]["content"]
-            # extract JSON object if wrapped
-            m=re.search(r"\{.*\}", raw, flags=re.S)
-            if m: raw=m.group(0)
-            obj=json.loads(raw)
-            return obj
-        except Exception as e:
-            last_err=str(e)[:400]
-            time.sleep(0.8)
+        msg = prompt + (f"\n\nPrevious output failed JSON parse: {last_err}\nOutput ONLY the JSON object, no prose. No markdown, no code fences." if last_err else "")
+        # Try with response_format first; if server returns 400 (e.g. qwen3.5-9b-roleplay doesn't support json_object), fall back without it
+        for use_json_mode in [True, False]:
+            payload_dict={
+                "model": model,
+                "temperature": 0.3,
+                "max_tokens": 2048,
+                "messages": [
+                    {"role":"system","content": VOICE_FORM},
+                    {"role":"user","content": msg}
+                ]
+            }
+            if use_json_mode:
+                payload_dict["response_format"]={"type":"json_object"}
+            payload = json.dumps(payload_dict).encode()
+            try:
+                req = urllib.request.Request(base.rstrip("/")+"/chat/completions", data=payload, headers={"Content-Type":"application/json"})
+                with urllib.request.urlopen(req, timeout=timeout) as r:
+                    data=json.loads(r.read().decode())
+                raw=data["choices"][0]["message"]["content"]
+                # strip code fences if model wrapped it
+                raw=re.sub(r"^```(?:json)?\s*", "", raw.strip())
+                raw=re.sub(r"\s*```$", "", raw.strip())
+                # extract JSON object if wrapped in prose
+                m=re.search(r"\{.*\}", raw, flags=re.S)
+                if m: raw=m.group(0)
+                obj=json.loads(raw)
+                return obj
+            except urllib.error.HTTPError as e:
+                body=""
+                try: body=e.read().decode()[:300]
+                except: pass
+                # 400 with json_object is the known incompatibility for qwen3.5-9b-roleplay-merged-i1
+                if e.code==400 and use_json_mode and "response_format" in body.lower() or "response_format" in str(e).lower() or e.code==400 and use_json_mode:
+                    # retry without json mode, don't count as attempt failure
+                    last_err=f"HTTP 400 with json_object (model doesn't support it), retrying without: {body[:120]}"
+                    continue
+                last_err=f"HTTP {e.code}: {body[:200]}"
+                break
+            except Exception as e:
+                last_err=str(e)[:400]
+                break
+        time.sleep(0.8)
     raise RuntimeError(f"JSON generation failed after {retries}: {last_err}")
 
 def list_models(base: str):
