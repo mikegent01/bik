@@ -23,6 +23,9 @@ import urllib.request
 import signal
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from lore_search import cards_for_slot, format_cards, parse_need_lines, search as lore_lookup
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "Reputation-Matrix2" / "data" / "laws" / "mages-guild-code.json"
 OUTLINE = ROOT / "Reputation-Matrix2" / "data" / "laws" / "mages-guild-code-outline.json"
@@ -61,6 +64,8 @@ Burden | The person asserting permissible use shall bear the burden of demonstra
 No JSON. No markdown. No chat. No quotes around the whole answer.
 Intro sections: short title, who is bound, shall/may. Not a market scheme.
 Canon: Autumnwood Accords; Conservators vs Innovators; Paradox Trial; Quiet List; Iron Mandate is rival law; Wario Coin is not tender; Heartstone is speech until surveyed; mike is not a character; no Grime office.
+Most clauses should stay generic bureaucratic law. Use ARCHIVE CARDS only when they actually fit.
+If you need one more fact, a single extra line is allowed: NEED: short query
 """
 
 
@@ -306,6 +311,7 @@ def pack_context(data: dict, current: dict) -> str:
         if s.get("body"):
             prior.append(f"§ {s['cite']} {s['title']}")
     bits.append("ALREADY FILED: " + "; ".join(prior[-30:]))
+    bits.append("ARCHIVE CARDS (hover-sized; generic law is fine if none fit):\n" + cards_for_slot(current.get("title") or "", current.get("brief") or ""))
     return "\n\n".join(bits)[:9000]
 
 
