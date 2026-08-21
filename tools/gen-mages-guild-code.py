@@ -22,6 +22,7 @@ import urllib.error
 import urllib.request
 import signal
 import random
+import threading
 import concurrent.futures
 from pathlib import Path
 
@@ -37,6 +38,24 @@ BROWSE = [
     ROOT / "Reputation-Matrix2" / "data" / "laws" / "legal_data.js",
     ROOT / "Reputation-Matrix2" / "factions" / "midlands.js",
 ]
+
+# Windows file-lock guard: multiple parallel jobs or VS Code watcher can hold the file
+_SAVE_LOCK = threading.Lock()
+def _atomic_write(tmp: Path, target: Path):
+    import time as _tw
+    for attempt in range(8):
+        try:
+            with _SAVE_LOCK:
+                tmp.replace(target)
+            return
+        except PermissionError as e:
+            if attempt == 7:
+                raise
+            _tw.sleep(0.15 * (attempt + 1))
+        except OSError as e:
+            if attempt == 7:
+                raise
+            _tw.sleep(0.15 * (attempt + 1))
 
 LORE = """
 FILED LORE (use these names; do not invent a new Guild):
@@ -134,7 +153,7 @@ def save(data: dict) -> None:
     data["meta"]["crossRefTargets"] = len(build_ref_index(data))
     tmp = OUT.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    tmp.replace(OUT)
+    _atomic_write(tmp, OUT)
 
 
 def slots() -> list[dict]:
@@ -212,7 +231,7 @@ def save_progress(prog: dict, data: dict, floor: int) -> None:
     prog["sectionCount"] = len(secs)
     tmp = PROGRESS.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(prog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    tmp.replace(PROGRESS)
+    _atomic_write(tmp, PROGRESS)
 
 
 def print_status(data: dict, floor: int) -> None:
