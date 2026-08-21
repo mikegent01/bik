@@ -462,6 +462,7 @@ def main() -> int:
     ap.add_argument("--sleep", type=float, default=0.4)
     ap.add_argument("--timeout", type=int, default=180)
     ap.add_argument("--min-clauses", type=int, default=6, help="pages per § before new catchlines (each page is 1–2 book pages)")
+    ap.add_argument("--clear-short", action="store_true", help="wipe sentence-length bodies so they redraft as pages")
     args = ap.parse_args()
 
     data = load_json(OUT)
@@ -469,6 +470,17 @@ def main() -> int:
     save(data)
     prog = load_progress()
     save_progress(prog, data, args.min_clauses)
+    if args.clear_short:
+        n = 0
+        for s in data.get("sections") or []:
+            body = s.get("body") or []
+            if body and not any(len(b.get("text") or "") > 180 for b in body):
+                s["body"] = []
+                s["status"] = "reserved"
+                n += 1
+        save(data)
+        print("cleared", n, "sentence drafts; re-run overnight for pages")
+        return 0
     if args.init:
         print("reserved", len(data["sections"]), "slots · first empty", (next_empty(data) or {}).get("cite"))
         return 0

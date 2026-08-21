@@ -402,15 +402,23 @@ function render(data) {
         </div>`;
 
       if (!(s.body || []).length) {
-        html += `<div class="body-row"><span class="body-text">[Reserved — not yet drafted. ${esc(s.brief || '')}]</span></div>`;
+        html += `<p class="part-blurb">[Reserved — not yet drafted. ${esc(s.brief || '')}]</p>`;
+      } else {
+        const items = s.body || [];
+        const book = items.some(b => (b.text || '').length > 180);
+        if (!book) {
+          html += `<article class="codex-page"><div class="codex-page-head">${esc(s.title)}</div>` +
+            items.map(b => `<p><strong>${esc(b.heading || '')}.</strong> ${linkCites(b.text || '')}</p>`).join('') +
+            `</article>`;
+        } else {
+          items.forEach(b => {
+            const paras = String(b.text || '').split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+            const letter = /^[a-z]+$/i.test(String(b.key || '')) ? `(${esc(b.key)}) ` : '';
+            html += `<article class="codex-page"><div class="codex-page-head">${letter}${esc(b.heading || '')}</div>` +
+              paras.map(p => `<p>${linkCites(p)}</p>`).join('') + `</article>`;
+          });
+        }
       }
-      (s.body || []).forEach(b => {
-        html += `<div class="body-row">
-          <span class="body-key">(${esc(b.key)})</span>
-          <span class="body-heading">${esc(b.heading)}.</span>
-          <span class="body-text">${linkCites(b.text || '')}</span>
-        </div>`;
-      });
 
       html += `</section>`;
     });
