@@ -5880,7 +5880,7 @@ function buildLinkRegistry(){
   ((DATA.crafting&&DATA.crafting.recipes)||[]).forEach(r=>{ if(!r) return; add(r.name,r.id,'craftingrecipe',null,r.description||r.effect,`Recipe · ${r.category||r.type||'crafting'}`,r); });
   ((DATA.crafting&&DATA.crafting.materials)||[]).forEach(m=>{ if(!m) return; add(m.name,m.id,'craftingmaterial',null,m.description,`Material · ${m.rarity||m.category||'component'}`,m); });
   // books & codices
-  const allBooks = (DATA.books && DATA.books.books) || (window.BOOKS_DATA && window.BOOKS_DATA.books) || [];
+  const allBooks = (()=>{ const a=(DATA.books && DATA.books.books)||[]; const b=(window.BOOKS_DATA && window.BOOKS_DATA.books)||[]; const seen=new Set(a.map(x=>x.id)); return [...a, ...b.filter(x=>!seen.has(x.id))]; })();
   allBooks.forEach(b => {
     if (!b) return;
     add(b.title, b.id, 'book', null, b.description || 'Archived Codex', `Book · ${b.author || 'Master Scribe Inkwell'}`, b);
@@ -15265,7 +15265,7 @@ let currentBookPage = 0;
 
 function view_books(categoryArg) {
   renderSidebar('books');
-  const _rawBooks = (DATA.books && DATA.books.books) || (window.BOOKS_DATA && window.BOOKS_DATA.books) || [];
+  const _rawBooks = (()=>{ const a=(DATA.books && DATA.books.books)||[]; const b=(window.BOOKS_DATA && window.BOOKS_DATA.books)||[]; const seen=new Set(a.map(x=>x.id)); return [...a, ...b.filter(x=>!seen.has(x.id))]; })();
   // Thornbury's Field Journal lives here now — sidebar tab replaced by Codex link (mages-code.html)
   const thornburyBook = {
     id: 'thornburys_field_journal',
@@ -16502,7 +16502,7 @@ function view_quest_detail(questId) {
 
 
 function openBookReader(bookId) {
-  const books = (DATA.books && DATA.books.books) || (window.BOOKS_DATA && window.BOOKS_DATA.books) || [];
+  const books = (()=>{ const a=(DATA.books && DATA.books.books)||[]; const b=(window.BOOKS_DATA && window.BOOKS_DATA.books)||[]; const seen=new Set(a.map(x=>x.id)); return [...a, ...b.filter(x=>!seen.has(x.id))]; })();
   const book = books.find(b => b.id === bookId || String(b.title).toLowerCase().includes(String(bookId).toLowerCase()));
   if (!book) return;
 

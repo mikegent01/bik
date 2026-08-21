@@ -5126,6 +5126,27 @@ window.BOOKS_DATA = {
       "cover_accent": "#ffd700",
       "icon": "📜",
       "effect": "Grants insight filed by Inkwell. Waluigi will still complain."
+    },
+    {
+      "id": "crimson_ledger_of_disaster_inc",
+      "title": "The Crimson Ledger of Disaster Inc",
+      "subtitle": "Financial Records of a Doomed Venture",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "rare",
+      "description": "A crimson-ink ledger detailing Disaster Inc's finances — debts to Wario, Thornbury's 2,175 ducats for rubber duckies, and the Mages Guild's financial blockade. Filed in Waluigi's objective hand.",
+      "pages": [
+        "From the Cover — Bound in crimson leather, clasps rusted shut.\n\nThis ledger is not a story. It is a warning written in red ink. Every page is a debt, every margin a threat from Wario. Disaster Inc did not keep books; they kept confessions. Waluigi has audited them so you don't have to — and so you learn why Archie Miser still owes 1,474 Wario Coins and Thornbury still wants his ducats.",
+        "Chapter 1: The Thornbury Invoice — Broken Rope, Bath Supplies, and Rubber Duckies\n\nOn file: Thornbury's invoice for 2,000 ducats principal, now 2,175 with agio. Broken rope (expedition gear), bath supplies (Alpine Bank incident), and rubber duckies (yes,真的). The surcharge is titled 'you know what you did.' Archie disputes the duckies, not the rope. The Guild Transit Office added a 3-stamp planar risk premium (debt_theron_transit_archie) because Markop grew. Waluigi notes: this is why you file Form MG-400A before you cast.",
+        "Chapter 2: Wario's Parallel Ledger — 1,474 Wario Coins and 9,000 Points\n\nWario tracks two tenders: Wario Coin (private tender, not Guild tender per §1.5, §1001.12) and Wario Points (shop credit). Archie owes 1,474 Coins (debt_wario_archie_general) and Disaster Inc owes 9,000 Points as shop liabilities. Wario's shop (Reputation-Matrix2/app/pages/shop/shop.html) is the warehouse; Wario Coin is not legal tender for Guild obligations. Waluigi's advice: pay Thornbury first, then Wario — the Guild blockade lifts only when the paper is clean.",
+        "Chapter 3: The Blockade and the Filing Requirement\n\nThe Mages Guild has locked Archie's credit per §400.1 and §900.1 — file before casting, or the Clerk stamps DENIED. Archie's provisional Guild Pass (politics vs Mandate) does not cover bath-house duckies. The Alpine Bank (currency.html) shows the debt as overdue. Until Form MG-400A is filed with fee receipt, every spell is an unlicensed field use. This ledger is the paper trail; the Codex is the law. Both say the same thing: WAH, pay your bills."
+      ],
+      "cover_image": null,
+      "cover_color": "#3a0a0a",
+      "cover_accent": "#dc2626",
+      "icon": "📒",
+      "effect": "Reveals the full debt stack for Disaster Inc — useful for bank heists, blockade negotiations, and understanding why Wario says 'pay up, rubber-duck arsonist.'",
+      "reading_time": "Approx. 25 minutes"
     }
   ]
 };

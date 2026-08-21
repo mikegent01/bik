@@ -44,6 +44,7 @@ from lore_search import cards_for_slot, format_cards, search as lore_lookup
 
 CHAR_PATH = ROOT / "Reputation-Matrix2" / "data" / "characters.json"
 BOOKS_JS  = ROOT / "Reputation-Matrix2" / "data" / "books-data.js"
+BOOKS_JSON = ROOT / "Reputation-Matrix2" / "data" / "books.json"
 EVENTS_P  = ROOT / "Reputation-Matrix2" / "data" / "events.json"
 BATTLES_P = ROOT / "Reputation-Matrix2" / "data" / "battles.json"
 NATIONS_P = ROOT / "Reputation-Matrix2" / "data" / "nations.json"
@@ -263,7 +264,23 @@ def add_book(base, model, timeout, dry_run, sleep):
     out={"books": books}
     new_js=f"window.BOOKS_DATA = {json.dumps(out, indent=2, ensure_ascii=False)};\n"
     BOOKS_JS.write_text(new_js, encoding="utf-8")
-    print(f"book added {bid} '{title}' [{category}] {len(pages)} pages (now {len(books)} total)")
+    # Also write to books.json (proper location) so both stay in sync — fixes pull-from-proper-location bug
+    try:
+        bj_path = BOOKS_JSON
+        bj_data = json.loads(bj_path.read_text(encoding="utf-8")) if bj_path.exists() else {"books": []}
+        bj_books = bj_data.get("books", []) if isinstance(bj_data, dict) else bj_data
+        if isinstance(bj_books, list) and not any(b.get("id")==bid for b in bj_books):
+            bj_books.append(new_book)
+            bj_out = {"books": bj_books} if isinstance(bj_data, dict) and "books" in bj_data else bj_books
+            # Preserve original structure (books.json is {"books": [...]})
+            if isinstance(bj_data, dict) and "books" in bj_data:
+                bj_data["books"] = bj_books
+                bj_path.write_text(json.dumps(bj_data, indent=2, ensure_ascii=False)+"\n", encoding="utf-8")
+            else:
+                bj_path.write_text(json.dumps(bj_out, indent=2, ensure_ascii=False)+"\n", encoding="utf-8")
+    except Exception as e:
+        print(f"warn: could not sync books.json: {e}", file=__import__('sys').stderr)
+    print(f"book added {bid} '{title}' [{category}] {len(pages)} pages (now {len(books)} total) — synced to both books.json and books-data.js")
     time.sleep(sleep)
     return 1
 
