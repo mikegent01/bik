@@ -4,7 +4,7 @@
   "hits": 897,
   "by_cite": {
     "1.1": {
-      "n": 6,
+      "n": 5,
       "part": "front",
       "title": "Short Title and Citation",
       "status": "filed"
@@ -196,7 +196,7 @@
       "status": "filed"
     },
     "400.4": {
-      "n": 6,
+      "n": 5,
       "part": "part_iv",
       "title": "Specimen Custody",
       "status": "filed"
@@ -226,7 +226,7 @@
       "status": "filed"
     },
     "500.4": {
-      "n": 6,
+      "n": 5,
       "part": "part_v",
       "title": "Healing Offered as Consideration",
       "status": "filed"
@@ -400,7 +400,7 @@
       "status": "filed"
     },
     "1001.8": {
-      "n": 6,
+      "n": 5,
       "part": "part_x",
       "title": "Lead-to-Gold; Reporting Threshold",
       "status": "filed"
@@ -424,7 +424,7 @@
       "status": "filed"
     },
     "1001.12": {
-      "n": 6,
+      "n": 4,
       "part": "part_x",
       "title": "Wario Coin; Non-Recognition",
       "status": "filed"
@@ -514,7 +514,7 @@
       "status": "filed"
     },
     "1301.4": {
-      "n": 6,
+      "n": 5,
       "part": "part_xiii",
       "title": "Who May Inspect",
       "status": "filed"
@@ -532,7 +532,7 @@
       "status": "filed"
     },
     "1401.3": {
-      "n": 6,
+      "n": 5,
       "part": "part_xiv",
       "title": "Savings Against the Iron Mandate",
       "status": "filed"
@@ -604,7 +604,7 @@
       "status": "filed"
     },
     "800.6": {
-      "n": 6,
+      "n": 5,
       "part": "part_viii",
       "title": "Ancillary Obligations",
       "status": "filed"
@@ -622,7 +622,7 @@
       "status": "filed"
     },
     "1301.6": {
-      "n": 6,
+      "n": 5,
       "part": "part_xiii",
       "title": "for Penalty Assessment and Enforcement",
       "status": "filed"
@@ -652,7 +652,7 @@
       "status": "filed"
     },
     "900.7": {
-      "n": 6,
+      "n": 5,
       "part": "part_ix",
       "title": "Duty to Disclose Material Facts",
       "status": "filed"
@@ -664,7 +664,7 @@
       "status": "filed"
     },
     "600.7": {
-      "n": 8,
+      "n": 7,
       "part": "part_vi",
       "title": "Contracts with Non-Casters and Related Obligations",
       "status": "filed"
@@ -766,7 +766,7 @@
       "status": "filed"
     },
     "1301.8": {
-      "n": 6,
+      "n": 4,
       "part": "part_xiii",
       "title": "Penalties and Enforcement",
       "status": "filed"
@@ -790,7 +790,7 @@
       "status": "filed"
     },
     "300.9": {
-      "n": 6,
+      "n": 5,
       "part": "part_iii",
       "title": "Definitions and Standards",
       "status": "filed"
@@ -922,7 +922,7 @@
       "status": "filed"
     },
     "1301.10": {
-      "n": 6,
+      "n": 5,
       "part": "part_xiii",
       "title": "In accordance with the foundational principles lai",
       "status": "filed"
@@ -934,7 +934,7 @@
       "status": "filed"
     },
     "1.11": {
-      "n": 6,
+      "n": 5,
       "part": "front",
       "title": "Jurisdictional Authority",
       "status": "filed"
@@ -976,7 +976,7 @@
       "status": "filed"
     },
     "600.11": {
-      "n": 6,
+      "n": 5,
       "part": "part_vi",
       "title": "Contracts with Non-Casters and Related Obligations §600.11",
       "status": "filed"
@@ -988,7 +988,7 @@
       "status": "filed"
     },
     "800.11": {
-      "n": 6,
+      "n": 5,
       "part": "part_viii",
       "title": "Provisions Governing Unlawful Casting and Confiscation",
       "status": "filed"
@@ -1000,13 +1000,13 @@
       "status": "filed"
     },
     "1201.11": {
-      "n": 6,
+      "n": 5,
       "part": "part_xii",
       "title": "Extraterritorial Jurisdiction and Planar Tolls",
       "status": "filed"
     },
     "1301.11": {
-      "n": 6,
+      "n": 5,
       "part": "part_xiii",
       "title": "Supplementary Provisions and Transitional Arrangements",
       "status": "filed"
@@ -1030,7 +1030,7 @@
       "status": "filed"
     },
     "200.12": {
-      "n": 6,
+      "n": 5,
       "part": "part_ii",
       "title": "Prohibitions on Coercive and Degradational Magic",
       "status": "filed"
@@ -1078,7 +1078,7 @@
       "status": "filed"
     },
     "1101.12": {
-      "n": 6,
+      "n": 5,
       "part": "part_xi",
       "title": "Collateral Contamination and Remedial Obligations",
       "status": "filed"
@@ -1099,7 +1099,7 @@
   "max_n": 15,
   "floor": 6,
   "empty": 0,
-  "below": 1,
-  "at_floor": 181,
+  "below": 21,
+  "at_floor": 161,
   "sectionCount": 182
 }

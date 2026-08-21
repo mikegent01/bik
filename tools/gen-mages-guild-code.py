@@ -440,11 +440,89 @@ def parse_pages(raw: str) -> list[dict]:
     return []
 
 
+def is_bad_output(text: str) -> tuple[bool, str]:
+    """Detect rambling buzzword loops / degraded output. Returns (is_bad, reason)."""
+    import re, collections
+    if not text or len(text) < 100:
+        return False, ""
+    words = re.findall(r"[a-zA-Z']+", text.lower())
+    if len(words) < 50:
+        return False, ""
+    total = len(words)
+    uniq = len(set(words))
+    # Very low lexical diversity — but legal prose is naturally repetitive, so be lenient
+    # Only flag if extremely low and long
+    if total > 800 and uniq / total < 0.14:
+        return True, f"low diversity {uniq}/{total}={uniq/total:.2f}"
+    if total > 300 and uniq / total < 0.10:
+        return True, f"very low diversity {uniq}/{total}={uniq/total:.2f}"
+    # Any single *non-stopword* repeated excessively
+    STOP = {"the","and","of","a","to","in","is","for","with","as","by","on","or","be","are","that","this","it","from","an","shall","may","must","under","per","see","not","any","all","such","which","who","will","can","has","have","been","are","was","were","if","at","its","their","our","your"}
+    cnt = collections.Counter(w for w in words if w not in STOP)
+    if cnt:
+        most_common_word, most_cnt = cnt.most_common(1)[0]
+        # e.g. "restocking" 1470x, "acid" 301x, "quesadillas" loops
+        if most_cnt > 40 and most_cnt > total * 0.08:
+            return True, f"word '{most_common_word}' repeats {most_cnt}/{total}"
+        if most_cnt > 100:
+            return True, f"word '{most_common_word}' repeats {most_cnt}/{total} (extreme)"
+    # Repeated 4-gram — strong signal for loops
+    fourgrams = [" ".join(words[i:i+4]) for i in range(len(words)-3)]
+    if fourgrams:
+        fg_cnt = collections.Counter(fourgrams)
+        top_fg, top_n = fg_cnt.most_common(1)[0]
+        # ignore common legal 4-grams like "in accordance with the"
+        COMMON_LEGAL = {"in accordance with the","pursuant to section","under section","of the autumnwood accords"}
+        if top_fg not in COMMON_LEGAL and top_n >= 7:
+            return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x"
+        if top_n >= 12:
+            return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x (extreme)"
+    # Buzzword salad — the exact failure mode the user showed
+    buzz = ["integrity","honesty","transparency","accountability","reliability","consistency","thoroughness","precision","accuracy","timeliness","punctuality","efficiency","effectiveness","productivity","quality","craftsmanship","artistry","beauty","elegance","grace","sophistication","refinement","excellence","perfection","mastery","expertise","serendipity","wonder","mystery","awe","reverence","wonderment","amazement","delight","surprise","excitement","thrill","adventure","exploration","discovery","learning","growth","transformation","change","evolution","progress","improvement","advancement","development","expansion","extension","inclusion","diversity","acceptance","tolerance","openness","curiosity","enthusiasm","optimism","confidence","belief","hope","faith","trust"]
+    buzz_hits = sum(1 for w in words if w in buzz)
+    if buzz_hits > total * 0.30 and total > 500:
+        return True, f"buzzword salad {buzz_hits}/{total} buzzwords"
+    # Excessive length without paragraph breaks — degraded
+    if total > 1200:
+        return True, f"excessive length {total} words (expected 350-700)"
+    if text.count(".") < total / 150 and total > 500:
+        return True, "no punctuation"
+    return False, ""
+
 def parse_obj(raw: str) -> dict | None:
     pages = parse_pages(raw)
     if pages:
-        return {"body": pages, "title": None}
+        # filter bad pages as normal part of run
+        good=[]
+        for pg in pages:
+            bad, reason = is_bad_output(pg.get("text") or "")
+            if bad:
+                print(f"bad output filtered: {pg.get('heading','')[:40]} — {reason}", file=__import__('sys').stderr)
+                continue
+            good.append(pg)
+        if not good:
+            return None
+        return {"body": good, "title": None}
     return None
+
+def clean_bad_bodies(data: dict) -> int:
+    """Retroactively remove bad pages already saved in the Codex. Returns count removed."""
+    removed=0
+    for sec in data.get("sections") or []:
+        bodies=sec.get("body") or []
+        keep=[]
+        for b in bodies:
+            bad, reason = is_bad_output(b.get("text") or "")
+            if bad:
+                print(f"retroactively removing bad page §{sec.get('cite')} '{b.get('heading','')[:40]}' — {reason}", file=__import__('sys').stderr)
+                removed+=1
+                continue
+            keep.append(b)
+        if len(keep) != len(bodies):
+            sec["body"]=keep
+            if not keep:
+                sec["status"]="reserved"
+    return removed
 
 
 def chat(base: str, model: str, messages: list, timeout: int) -> str:
@@ -572,6 +650,7 @@ def main() -> int:
     ap.add_argument("--shuffle", action="store_true", help="shuffle water-level band order (less deterministic, good for parallel diversity)")
     ap.add_argument("--log", type=str, default="", help="also tee output to this log file")
     ap.add_argument("--max-fails", type=int, default=30, help="abort after this many consecutive waits (default 30)")
+    ap.add_argument("--clean-bad", action="store_true", help="scan existing Codex and retroactively remove degraded/buzzword-loop pages (normal part of run does this for new output too)")
     args = ap.parse_args()
 
     # alias: --jobs overrides --parallel, --preview is dry preview
@@ -636,6 +715,23 @@ def main() -> int:
         placeholder=sum(1 for s in data['sections'] if (s.get('brief') or '').startswith("NEW section"))
         print(f"placeholder briefs: {placeholder}")
         return 0
+
+    # retroactive clean is a normal maintenance step — also runs automatically on --overnight start
+    if args.clean_bad:
+        n=clean_bad_bodies(data)
+        if n:
+            save(data)
+            save_progress(prog, data, args.min_clauses)
+            print(f"cleaned {n} bad pages retroactively", file=sys.stderr)
+        else:
+            print("no bad pages found", file=sys.stderr)
+        return 0
+    # auto-clean on every run (normal part of run as requested) — remove any bad pages already saved before generating more
+    auto_cleaned=clean_bad_bodies(data)
+    if auto_cleaned:
+        print(f"auto-cleaned {auto_cleaned} bad pages before generating", file=sys.stderr)
+        save(data)
+        save_progress(prog, data, args.min_clauses)
 
     models = list_models(args.base_url)
     model = args.model or (models[0] if models else "")
