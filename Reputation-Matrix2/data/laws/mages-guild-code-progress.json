@@ -526,7 +526,7 @@
       "status": "filed"
     },
     "1401.2": {
-      "n": 6,
+      "n": 5,
       "part": "part_xiv",
       "title": "Dead Citations",
       "status": "filed"
@@ -586,7 +586,7 @@
       "status": "filed"
     },
     "500.6": {
-      "n": 6,
+      "n": 5,
       "part": "part_v",
       "title": "Unauthorized Spellcasting in Public Spaces",
       "status": "filed"
@@ -640,7 +640,7 @@
       "status": "filed"
     },
     "300.7": {
-      "n": 6,
+      "n": 5,
       "part": "part_iii",
       "title": "Prohibited Correspondence and Magical Transmission",
       "status": "filed"
@@ -1099,7 +1099,7 @@
   "max_n": 15,
   "floor": 6,
   "empty": 0,
-  "below": 3,
-  "at_floor": 179,
+  "below": 6,
+  "at_floor": 176,
   "sectionCount": 182
 }

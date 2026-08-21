@@ -487,6 +487,22 @@ def is_bad_output(text: str) -> tuple[bool, str]:
         return True, f"excessive length {total} words (expected 350-700)"
     if text.count(".") < total / 150 and total > 500:
         return True, "no punctuation"
+    # Codex-specific: spam has 0 § cites AND no legal structure — be precise, don't flag short legit intros
+    has_cites = bool(extract_cites(text))
+    low_text=text.lower()
+    LEGAL_KW = {"shall","may","must","pursuant","accords","guild","desk","caster","permit","section","accord","see §"}
+    has_legal = any(kw in low_text for kw in LEGAL_KW)
+    # 0 cites + long + no legal keywords = word salad (your example)
+    if total > 250 and not has_cites and not has_legal:
+        return True, "no § cites and no legal keywords (expected 2-4 cites + shall/may/Accords)"
+    # Long single run-on sentence
+    import re as _re2
+    sentences=[s for s in _re2.split(r'[.!?]+', text) if s.strip()]
+    if sentences and total>200 and total/len(sentences) > 85:
+        return True, f"run-on avg {total/len(sentences):.0f} words/sentence"
+    # Single paragraph with no breaks but long AND no cites — degraded
+    if text.count("\n\n") == 0 and total > 500 and not has_cites:
+        return True, "no paragraph breaks + no cites"
     return False, ""
 
 def parse_obj(raw: str) -> dict | None:
