@@ -1,7 +1,7 @@
 {
-  "last_cite": "900.11",
-  "water": 5,
-  "hits": 774,
+  "last_cite": "1301.12",
+  "water": 2,
+  "hits": 897,
   "by_cite": {
     "1.1": {
       "n": 6,
@@ -540,433 +540,559 @@
     "1401.4": {
       "n": 6,
       "part": "part_xiv",
-      "title": "Related Requirements",
+      "title": "Exclusions from Savings Clauses",
       "status": "filed"
     },
     "1101.5": {
       "n": 6,
       "part": "part_xi",
-      "title": "Related Requirements",
+      "title": "Conveyance and Ownership Interests in Magical Artifacts",
       "status": "filed"
     },
     "1201.5": {
       "n": 6,
       "part": "part_xii",
-      "title": "Related Requirements",
+      "title": "Integrated Obligations",
       "status": "filed"
     },
     "1301.5": {
       "n": 6,
       "part": "part_xiii",
-      "title": "Related Requirements",
+      "title": "Supporting Obligations",
       "status": "filed"
     },
     "1401.5": {
       "n": 6,
       "part": "part_xiv",
-      "title": "Related Requirements",
+      "title": "Related Provisions and Cross-References",
       "status": "filed"
     },
     "300.6": {
       "n": 6,
       "part": "part_iii",
-      "title": "Related Requirements",
+      "title": "Compliance Obligations",
       "status": "filed"
     },
     "400.6": {
       "n": 6,
       "part": "part_iv",
-      "title": "Related Requirements",
+      "title": "Conditions for Valid Research Permits",
       "status": "filed"
     },
     "900.6": {
       "n": 6,
       "part": "part_ix",
-      "title": "Related Requirements",
+      "title": "Disclosure and Certification of Ancillary Magic",
       "status": "filed"
     },
     "500.6": {
       "n": 6,
       "part": "part_v",
-      "title": "Related Requirements",
+      "title": "Unauthorized Spellcasting in Public Spaces",
       "status": "filed"
     },
     "600.6": {
       "n": 6,
       "part": "part_vi",
-      "title": "Related Requirements",
+      "title": "in Magical Contracts",
       "status": "filed"
     },
     "700.6": {
       "n": 6,
       "part": "part_vii",
-      "title": "Related Requirements",
+      "title": "Burden of Proof and Standard of Evidence in Arcan",
       "status": "filed"
     },
     "800.6": {
       "n": 6,
       "part": "part_viii",
-      "title": "Related Requirements",
+      "title": "Ancillary Obligations",
       "status": "filed"
     },
     "1101.6": {
       "n": 6,
       "part": "part_xi",
-      "title": "Related Requirements",
+      "title": "Collateral Doctrine — Unintended Consequences",
       "status": "filed"
     },
     "1201.6": {
       "n": 6,
       "part": "part_xii",
-      "title": "Related Requirements",
+      "title": "Transit Stamps; Planar Tolls; Extraterritorial C",
       "status": "filed"
     },
     "1301.6": {
       "n": 6,
       "part": "part_xiii",
-      "title": "Related Requirements",
+      "title": "for Penalty Assessment and Enforcement",
       "status": "filed"
     },
     "1401.6": {
       "n": 6,
       "part": "part_xiv",
-      "title": "Related Requirements",
+      "title": "Incorporation by Reference and Foreign Precedent",
       "status": "filed"
     },
     "200.7": {
       "n": 6,
       "part": "part_ii",
-      "title": "Related Requirements",
+      "title": "§ 200.8 Exemptions and Waivers",
       "status": "filed"
     },
     "300.7": {
       "n": 6,
       "part": "part_iii",
-      "title": "Related Requirements",
+      "title": "Prohibited Correspondence and Magical Transmission",
       "status": "filed"
     },
     "400.7": {
       "n": 6,
       "part": "part_iv",
-      "title": "Related Requirements",
+      "title": "Specimen Containment Standards and Disposal Proto",
       "status": "filed"
     },
     "900.7": {
       "n": 6,
       "part": "part_ix",
-      "title": "Related Requirements",
+      "title": "Duty to Disclose Material Facts",
       "status": "filed"
     },
     "500.7": {
       "n": 6,
       "part": "part_v",
-      "title": "Related Requirements",
+      "title": "Public Safety — Additional Protocols",
       "status": "filed"
     },
     "600.7": {
       "n": 8,
       "part": "part_vi",
-      "title": "Related Requirements",
+      "title": "Contracts with Non-Casters and Related Obligations",
       "status": "filed"
     },
     "700.7": {
       "n": 6,
       "part": "part_vii",
-      "title": "Related Requirements",
+      "title": "Admissibility Standards for Arcane Testimony and",
       "status": "filed"
     },
     "800.7": {
       "n": 6,
       "part": "part_viii",
-      "title": "Related Requirements",
+      "title": "PART 800 - DISCIPLINARY MEASURES § 800.7 Related Requirements; § 1301.2 Penaltie",
       "status": "filed"
     },
     "1101.7": {
       "n": 6,
       "part": "part_xi",
-      "title": "Related Requirements",
+      "title": "Collateral Taints and Magical Contagion",
       "status": "filed"
     },
     "1201.7": {
       "n": 6,
       "part": "part_xii",
-      "title": "Related Requirements",
+      "title": "Section 1201 – Portal and Planar Regulations",
       "status": "filed"
     },
     "1301.7": {
       "n": 6,
       "part": "part_xiii",
-      "title": "Related Requirements",
+      "title": "Sunset Provisions",
       "status": "filed"
     },
     "1401.7": {
       "n": 6,
       "part": "part_xiv",
-      "title": "Related Requirements",
+      "title": "Authority and Validity",
       "status": "filed"
     },
     "200.8": {
       "n": 6,
       "part": "part_ii",
-      "title": "Related Requirements",
+      "title": "Prerequisites for Licensure",
       "status": "filed"
     },
     "300.8": {
       "n": 8,
       "part": "part_iii",
-      "title": "Related Requirements",
+      "title": "Prohibited Magical Conduct",
       "status": "filed"
     },
     "400.8": {
       "n": 6,
       "part": "part_iv",
-      "title": "Related Requirements",
+      "title": "Research Integrity and Oversight",
       "status": "filed"
     },
     "900.8": {
       "n": 6,
       "part": "part_ix",
-      "title": "Related Requirements",
+      "title": "Provenance and Authenticity",
       "status": "filed"
     },
     "500.8": {
       "n": 6,
       "part": "part_v",
-      "title": "Related Requirements",
+      "title": "Compensation and Debt Settlement",
       "status": "filed"
     },
     "600.8": {
       "n": 6,
       "part": "part_vi",
-      "title": "Related Requirements",
+      "title": "Compliance Obligations — §600.8",
       "status": "filed"
     },
     "700.8": {
       "n": 6,
       "part": "part_vii",
-      "title": "Related Requirements",
+      "title": "Admissibility of Magical Traces and Residues",
       "status": "filed"
     },
     "800.8": {
       "n": 6,
       "part": "part_viii",
-      "title": "Related Requirements",
+      "title": "800.9 Penalties for Unlawful Casting and Use of Arcane Artifacts",
       "status": "filed"
     },
     "1101.8": {
       "n": 6,
       "part": "part_xi",
-      "title": "Related Requirements",
+      "title": "Burden of Proof and Presumptions",
       "status": "filed"
     },
     "1201.8": {
       "n": 6,
       "part": "part_xii",
-      "title": "Related Requirements",
+      "title": "Extraterritorial Jurisdiction and Planar Sovereignty",
       "status": "filed"
     },
     "1301.8": {
       "n": 6,
       "part": "part_xiii",
-      "title": "Related Requirements",
+      "title": "Penalties and Enforcement",
       "status": "filed"
     },
     "1401.8": {
       "n": 6,
       "part": "part_xiv",
-      "title": "Related Requirements",
+      "title": "Historical Annotations and Interpretive Notes",
       "status": "filed"
     },
     "100.9": {
       "n": 6,
       "part": "part_i",
-      "title": "Related Requirements",
+      "title": "Conflict of Interest in Casting Procedures",
       "status": "filed"
     },
     "200.9": {
       "n": 6,
       "part": "part_ii",
-      "title": "Related Requirements",
+      "title": "Prohibited Practices and Disciplinary Measures",
       "status": "filed"
     },
     "300.9": {
       "n": 6,
       "part": "part_iii",
-      "title": "Related Requirements",
+      "title": "Definitions and Standards",
       "status": "filed"
     },
     "400.9": {
       "n": 6,
       "part": "part_iv",
-      "title": "Related Requirements",
+      "title": "Research Integrity and Peer Review",
       "status": "filed"
     },
     "900.9": {
       "n": 6,
       "part": "part_ix",
-      "title": "Related Requirements",
+      "title": "See Also Provisions",
       "status": "filed"
     },
     "500.9": {
       "n": 6,
       "part": "part_v",
-      "title": "Related Requirements",
+      "title": "Unlicensed Artisanry",
       "status": "filed"
     },
     "600.9": {
       "n": 6,
       "part": "part_vi",
-      "title": "Related Requirements",
+      "title": "Contracts with Non-Casters and Related Requirements",
       "status": "filed"
     },
     "700.9": {
       "n": 6,
       "part": "part_vii",
-      "title": "Related Requirements",
+      "title": "Burden and Standard of Proof in Arcane Disputes",
       "status": "filed"
     },
     "800.9": {
       "n": 6,
       "part": "part_viii",
-      "title": "Related Requirements",
+      "title": "Ex Post Facto Prohibition and Retroactive Sanctions",
       "status": "filed"
     },
     "1101.9": {
       "n": 6,
       "part": "part_xi",
-      "title": "Related Requirements",
+      "title": "Gifts That Later Move — §1101.9",
       "status": "filed"
     },
     "1201.9": {
       "n": 6,
       "part": "part_xii",
-      "title": "Related Requirements",
+      "title": "Waiver and Modification",
       "status": "filed"
     },
     "1301.9": {
       "n": 6,
       "part": "part_xiii",
-      "title": "Related Requirements",
+      "title": "Sunrise Accrual and Default Penalties",
       "status": "filed"
     },
     "1401.9": {
       "n": 6,
       "part": "part_xiv",
-      "title": "Related Requirements",
+      "title": "Foreign Statutory Incorporation and Cross-Jurisdi",
       "status": "filed"
     },
     "100.10": {
       "n": 6,
       "part": "part_i",
-      "title": "Related Requirements",
+      "title": "Complementary Provisions",
       "status": "filed"
     },
     "200.10": {
       "n": 6,
       "part": "part_ii",
-      "title": "Related Requirements",
+      "title": "Construction and Interpretation",
       "status": "filed"
     },
     "300.10": {
       "n": 6,
       "part": "part_iii",
-      "title": "Related Requirements",
+      "title": "The Unsanctioned Arts and the Quiet List",
       "status": "filed"
     },
     "400.10": {
       "n": 6,
       "part": "part_iv",
-      "title": "Related Requirements",
+      "title": "Research Oversight and Audit Procedures",
       "status": "filed"
     },
     "900.10": {
       "n": 8,
       "part": "part_ix",
-      "title": "Related Requirements",
+      "title": "Duty to Disclose Potential Hazards",
       "status": "filed"
     },
     "500.10": {
       "n": 6,
       "part": "part_v",
-      "title": "Related Requirements",
+      "title": "Compensation and Indemnification",
       "status": "filed"
     },
     "600.10": {
       "n": 6,
       "part": "part_vi",
-      "title": "Related Requirements",
+      "title": "Special Provisions for Construct Labor Agreement",
       "status": "filed"
     },
     "700.10": {
       "n": 6,
       "part": "part_vii",
-      "title": "Related Requirements",
+      "title": "700.6 Competent Witnesses and Expert Testimony",
       "status": "filed"
     },
     "800.10": {
       "n": 6,
       "part": "part_viii",
-      "title": "Related Requirements",
+      "title": "Disposition of Confiscated Items",
       "status": "filed"
     },
     "1101.10": {
       "n": 6,
       "part": "part_xi",
-      "title": "Related Requirements",
+      "title": "Gifts That Later Move — §1101.10",
       "status": "filed"
     },
     "1201.10": {
       "n": 6,
       "part": "part_xii",
-      "title": "Related Requirements",
+      "title": "Extra-Territorial Jurisdiction and Planar Tolls",
       "status": "filed"
     },
     "1301.10": {
       "n": 6,
       "part": "part_xiii",
-      "title": "Related Requirements",
+      "title": "In accordance with the foundational principles lai",
       "status": "filed"
     },
     "1401.10": {
       "n": 6,
       "part": "part_xiv",
-      "title": "Related Requirements",
+      "title": "Historical Annotations; Form — §1401.10",
       "status": "filed"
     },
     "1.11": {
       "n": 6,
       "part": "front",
-      "title": "Related Requirements",
+      "title": "Jurisdictional Authority",
       "status": "filed"
     },
     "100.11": {
       "n": 6,
       "part": "part_i",
-      "title": "Related Requirements",
+      "title": "Procedures for the Office of Archmage Sovereig",
       "status": "filed"
     },
     "200.11": {
       "n": 6,
       "part": "part_ii",
-      "title": "Related Requirements",
+      "title": "Prohibited Spellcasting by Unlicensed Individuals",
       "status": "filed"
     },
     "300.11": {
       "n": 6,
       "part": "part_iii",
-      "title": "Related Requirements",
+      "title": "Schedules of Magical Arts and Their Classification",
       "status": "filed"
     },
     "400.11": {
       "n": 6,
       "part": "part_iv",
-      "title": "Related Requirements",
+      "title": "Research Permits and Supervised Experiments; Unauthorized Field Casting",
       "status": "filed"
     },
     "900.11": {
-      "n": 5,
+      "n": 6,
       "part": "part_ix",
-      "title": "Related Requirements",
+      "title": "Duty to File Before Casting — §900.11",
+      "status": "filed"
+    },
+    "500.11": {
+      "n": 6,
+      "part": "part_v",
+      "title": "Unsanctioned Field Operations and Liability",
+      "status": "filed"
+    },
+    "600.11": {
+      "n": 6,
+      "part": "part_vi",
+      "title": "Contracts with Non-Casters and Related Obligations §600.11",
+      "status": "filed"
+    },
+    "700.11": {
+      "n": 6,
+      "part": "part_vii",
+      "title": "Burden Shifting and Presumptions in Arcane Litigation",
+      "status": "filed"
+    },
+    "800.11": {
+      "n": 6,
+      "part": "part_viii",
+      "title": "Provisions Governing Unlawful Casting and Confiscation",
+      "status": "filed"
+    },
+    "1101.11": {
+      "n": 6,
+      "part": "part_xi",
+      "title": "Collateral Taints and Magical Contagion",
+      "status": "filed"
+    },
+    "1201.11": {
+      "n": 6,
+      "part": "part_xii",
+      "title": "Extraterritorial Jurisdiction and Planar Tolls",
+      "status": "filed"
+    },
+    "1301.11": {
+      "n": 6,
+      "part": "part_xiii",
+      "title": "Supplementary Provisions and Transitional Arrangements",
+      "status": "filed"
+    },
+    "1401.11": {
+      "n": 6,
+      "part": "part_xiv",
+      "title": "Supplementary Provisions and Transitional Arrangements",
+      "status": "filed"
+    },
+    "1.12": {
+      "n": 6,
+      "part": "front",
+      "title": "Waiver and Modification by Express Consent",
+      "status": "filed"
+    },
+    "100.12": {
+      "n": 6,
+      "part": "part_i",
+      "title": "Supplementary Provisions and Transitional Arrangements",
+      "status": "filed"
+    },
+    "200.12": {
+      "n": 6,
+      "part": "part_ii",
+      "title": "Prohibitions on Coercive and Degradational Magic",
+      "status": "filed"
+    },
+    "300.12": {
+      "n": 6,
+      "part": "part_iii",
+      "title": "Prohibition on Magical Correspondence and Transmission",
+      "status": "filed"
+    },
+    "400.12": {
+      "n": 6,
+      "part": "part_iv",
+      "title": "Research Integrity and Oversight Protocols",
+      "status": "filed"
+    },
+    "900.12": {
+      "n": 6,
+      "part": "part_ix",
+      "title": "Additional Provisions",
+      "status": "filed"
+    },
+    "500.12": {
+      "n": 6,
+      "part": "part_v",
+      "title": "Additional Provisions Regarding Arcane Field Operations and Conduct",
+      "status": "filed"
+    },
+    "600.12": {
+      "n": 6,
+      "part": "part_vi",
+      "title": "Additional Provisions Relating to Construct Labor and Associated Obligations §60",
+      "status": "filed"
+    },
+    "700.12": {
+      "n": 6,
+      "part": "part_vii",
+      "title": "Additional Provisions Regarding Arcane Litigation and Evidence",
+      "status": "filed"
+    },
+    "800.12": {
+      "n": 6,
+      "part": "part_viii",
+      "title": "Provisions Governing Unlawful Casting and Confiscation",
+      "status": "filed"
+    },
+    "1101.12": {
+      "n": 6,
+      "part": "part_xi",
+      "title": "Collateral Contamination and Remedial Obligations",
+      "status": "filed"
+    },
+    "1201.12": {
+      "n": 6,
+      "part": "part_xii",
+      "title": "Planar Transit and Stamping Obligations",
+      "status": "filed"
+    },
+    "1301.12": {
+      "n": 2,
+      "part": "part_xiii",
+      "title": "Additional Provisions for Penalty Assessment and Enforcement §1301.12",
       "status": "growing"
     }
   },
@@ -974,6 +1100,6 @@
   "floor": 6,
   "empty": 0,
   "below": 1,
-  "at_floor": 160,
-  "sectionCount": 161
+  "at_floor": 181,
+  "sectionCount": 182
 }

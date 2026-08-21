@@ -5108,6 +5108,24 @@ window.BOOKS_DATA = {
       "cover_accent": "#ffd700",
       "icon": "📜",
       "effect": "Grants insight filed by Inkwell. Waluigi will still complain."
+    },
+    {
+      "id": "the_autobiography_of_wario_and_57",
+      "title": "The Autobiography of Wario and Waluigi (Volume II)",
+      "subtitle": "Codex Record",
+      "author": "Master Scribe Inkwell",
+      "category": "Imperial Archive",
+      "rarity": "uncommon",
+      "description": "The second volume picks up where the first left off, chronicling the duo's descent into absolute chaos and their eventual rise to power. Written in a stream-of-consciousness style that captures their frenetic energy and lack of filter, it details everything from their early criminal exploits to thei",
+      "pages": [
+        "The second volume picks up where the first left off, chronicling the duo's descent into absolute chaos and their eventual rise to power. Written in a stream-of-consciousness style that captures their frenetic energy and lack of filter, it details everything from their early criminal exploits to their conquests across multiple worlds.\n\nKey events include:\n- The founding of WAH & Chaos as an interdimensional empire\n- Strategic acquisitions of powerful artifacts and allies\n- Ruthless elimination of rivals through deception and brute force\n- Establishment of new laws and systems of governance\n- Personal reflections on ambition, loyalty, and the corrupting nature of power\n\nWaluigi's voice shines through in particularly vivid passages, offering a darkly comic perspective on their shared madness. The text is punctuated by colorful illustrations depicting key scenes from their ascent to godhood.",
+        "In this gripping continuation, we witness firsthand the twisted genius that allowed two ne'er-do-wells to build an unstoppable force of nature. From cunning heists to brutal battles, no detail escapes their keen eyes—or quills. The narrative pulses with adrenaline and malice, a thrilling portrait of unbridled ambition realized.\n\nThe authors' unique chemistry permeates every word, creating an immersive experience that feels both absurd and terrifyingly plausible. Readers are drawn deep into the minds of these iconic rogues as they chart their course toward ultimate domination. Praise for this electrifying installment is unanimous: a masterpiece of pulp fiction at its finest!"
+      ],
+      "cover_image": null,
+      "cover_color": "#2d0f42",
+      "cover_accent": "#ffd700",
+      "icon": "📜",
+      "effect": "Grants insight filed by Inkwell. Waluigi will still complain."
     }
   ]
 };
