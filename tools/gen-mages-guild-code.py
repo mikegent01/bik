@@ -697,8 +697,12 @@ def main() -> int:
                     slot["title"] = new_title[:80]
                 elif not slot.get("title") or slot["title"].startswith("Additional Provisions"):
                     # fallback: use heading as-is if it's at least descriptive
-                    if len(new_title) >= 12:
+                    if len(new_title) >= 12 and new_title.lower() not in ["related requirements"]:
                         slot["title"] = new_title[:80]
+            # also replace placeholder brief (which contains 'NEW section...Invent a catchline') with real brief
+            if slot.get("brief","").startswith("NEW section"):
+                # brief should be the new title or first 80 chars of body
+                slot["brief"] = (slot["title"][:80] if slot.get("title") else (body[0].get("text","")[:80] if body else ""))[:80]
         slot["status"] = "filed" if clause_n(slot) >= args.min_clauses else "growing"
         slot["source"] = "lmstudio"
         slot["fp"] = fp(slot)
