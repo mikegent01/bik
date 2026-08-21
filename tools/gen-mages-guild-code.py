@@ -20,6 +20,7 @@ import sys
 import time
 import urllib.error
 import urllib.request
+import signal
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,7 +30,23 @@ PROGRESS = ROOT / "Reputation-Matrix2" / "data" / "laws" / "mages-guild-code-pro
 BROWSE = [
     ROOT / "Reputation-Matrix2" / "data" / "laws" / "laws-data-mystical.js",
     ROOT / "Reputation-Matrix2" / "data" / "laws" / "legal_data.js",
+    ROOT / "Reputation-Matrix2" / "factions" / "midlands.js",
 ]
+
+LORE = """
+FILED LORE (use these names; do not invent a new Guild):
+- Body: Autumnwood Accords. Hall: Autumn Wood, Midlands. Sovereign: Archmage Veyra (mediates).
+- Conservators: Archmage Theron, stability, forbidden schools.
+- Innovators: Janna Brightspark, restricted research with permission.
+- Aegis Magi enforce the dominant faction.
+- Paradox Trial: peers; seal magic or pocket-prison. Not a street duel unless scheduled.
+- Quiet List: not a public catalogue. Do not recite in taverns.
+- Opponents: Regal Empire, Iron Legion, Silver Flame, Cosmic Jesters. Ally: Goodstyle Artisans.
+- Iron Mandate is Empire/Legion law, not this Codex. Wario Coin is not Guild tender.
+- Archie Miser: Provisional Guild Pass (politics vs Mandate). Titan growth on Markop = unauthorized field use.
+- Heartstone / rift: speech until surveyed. One-T cartography is a map, not a raid license.
+- mike is GM, not a person bound. No Grime office.
+"""
 
 VOICE = """You are a clerk of the Mages' Guild Accords Desk. Write code prose only.
 
@@ -243,40 +260,53 @@ def next_job(data: dict, floor: int, last_cite: str = "") -> tuple[str, dict]:
     return "related", next_related_section(data)
 
 
+def letter_key(i: int) -> str:
+    """a..z then aa, ab… never 800."""
+    letters = "abcdefghijklmnopqrstuvwxyz"
+    if i < 26:
+        return letters[i]
+    i -= 26
+    return letters[i // 26] + letters[i % 26]
+
+
 def next_keys(existing: list, n: int) -> list[str]:
     used = {str(b.get("key")) for b in existing}
     out = []
     i = 0
-    letters = "abcdefghijklmnopqrstuvwxyz"
     while len(out) < n:
-        key = letters[i] if i < 26 else str(i - 25)
+        key = letter_key(i)
         i += 1
         if key not in used:
             out.append(key)
     return out
 
 
+def apply_letter_keys(body: list) -> list:
+    for i, b in enumerate(body):
+        b["key"] = letter_key(i)
+    return body
+
+
 def pack_context(data: dict, current: dict) -> str:
-    bits = []
+    bits = [LORE]
     for p in BROWSE:
         if not p.exists():
             continue
         t = p.read_text(encoding="utf-8", errors="replace")
-        if p.name == "laws-data-mystical.js":
-            i = t.find("mages_guild:")
-            t = t[i:i + 1800] if i >= 0 else t[:800]
+        i = t.find("mages_guild:")
+        if i >= 0:
+            bits.append(t[i : i + 2400])
         elif p.name == "legal_data.js":
-            i = t.find("arcane:")
-            t = t[i:i + 900] if i >= 0 else t[:800]
-        bits.append(t[:1800])
+            j = t.find("arcane:")
+            bits.append(t[j : j + 900] if j >= 0 else t[:600])
     prior = []
     for s in data.get("sections") or []:
         if s.get("cite") == current.get("cite"):
             break
         if s.get("body"):
             prior.append(f"§ {s['cite']} {s['title']}")
-    bits.append("ALREADY FILED: " + "; ".join(prior[-40:]))
-    return "\n\n".join(bits)[:7000]
+    bits.append("ALREADY FILED: " + "; ".join(prior[-30:]))
+    return "\n\n".join(bits)[:9000]
 
 
 def fp(sec: dict) -> str:
@@ -349,7 +379,7 @@ def parse_obj(raw: str) -> dict | None:
 
 def chat(base: str, model: str, messages: list, timeout: int) -> str:
     url = base.rstrip("/") + "/chat/completions"
-    payload = json.dumps({"model": model, "temperature": 0.65, "max_tokens": 1400, "messages": messages}).encode()
+    payload = json.dumps({"model": model, "temperature": 0.7, "max_tokens": 4096, "messages": messages}).encode()
     req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         data = json.loads(r.read().decode())
@@ -365,27 +395,74 @@ def list_models(base: str) -> list[str]:
         return []
 
 
+def empty_in_part(data: dict, part: str) -> list[dict]:
+    return [s for s in (data.get("sections") or []) if s.get("part") == part and not (s.get("body") or [])]
+
+
+def parse_part_blocks(raw: str) -> dict[str, list]:
+    """=== 1.1 === then Heading | text  (whole Part in one reply)."""
+    out: dict[str, list] = {}
+    cite = None
+    buf = []
+    def flush():
+        if cite and buf:
+            body = parse_pipe_lines("\n".join(buf))
+            if len(body) >= 3:
+                out[cite] = body
+    for line in (raw or "").splitlines():
+        m = re.match(r"^===\s*§?\s*(\d+\.\d+)\s*(?:§)?\s*===", line.strip())
+        if m:
+            flush()
+            cite = m.group(1)
+            buf = []
+            continue
+        buf.append(line)
+    flush()
+    return out
+
+
 def fill_prompt(data: dict, slot: dict, mode: str, floor: int) -> str:
     have = slot.get("body") or []
     heads = ", ".join(str(b.get("heading") or "") for b in have[-12:])
-    relate = f"§ {slot.get('cite')} {slot.get('title')}. Same subject only."
+    lore = pack_context(data, slot)
+    relate = f"§ {slot.get('cite')} {slot.get('title')}"
     if mode == "expand":
-        return f"""Add 6 new lines for {relate}
-Already used headings (do not repeat): {heads}
-Need {floor - len(have)} more clauses toward {floor}.
-{slot.get('brief') or ''}
+        return f"""{lore}
 
-Write 6 lines as: Heading | prose
+Add 8 new clauses for {relate}. Name Conservators, Innovators, Veyra, Theron, Brightspark, Paradox Trial, Quiet List, Iron Mandate, or Archie only where they fit this catchline.
+Do not repeat: {heads}
+Need {max(0, floor - len(have))} more toward {floor}.
+{slot.get('brief') or ''}
+8 lines: Heading | prose
 """
     extra = ""
     if mode == "related":
-        extra = "First line may be TITLE | your catchline\nThen 6 Heading | prose lines. Same Part as siblings.\n"
+        extra = "First line TITLE | catchline. Then 8 Heading | prose. Same Part.\n"
     elif (slot.get("kind") or "") == "intro":
-        extra = "This is front matter. Opening-code voice.\n"
-    return f"""Draft {relate}
-Instruction: {slot.get('brief') or ''}
+        extra = "Front matter. Opening-code voice. Cite Autumnwood Accords and Accords Desk.\n"
+    return f"""{lore}
+
+Draft {relate}
+{slot.get('brief') or ''}
 {extra}
-Write 6 to 8 lines as: Heading | prose
+8 lines: Heading | prose. Use the lore names. Not generic D&D guild filler.
+"""
+
+
+def part_draft_prompt(data: dict, batch: list[dict]) -> str:
+    part = batch[0].get("part")
+    titles = "\n".join(f"=== {s['cite']} ===\n{s['title']}\n{s.get('brief') or ''}" for s in batch)
+    return f"""{pack_context(data, batch[0])}
+
+Draft EVERY listed catchline for this Part ({part}) in one answer.
+For each, write:
+=== CITE ===
+Heading | prose
+Heading | prose
+(8 lines each). Use Accords / Veyra / Conservators / Innovators / Quiet List / Paradox Trial / Iron Mandate where they belong. Not generic.
+
+Catchlines:
+{titles}
 """
 
 
@@ -422,84 +499,119 @@ def main() -> int:
         print("Start the server, then re-run. Outline is already in the JSON.", file=sys.stderr)
         return 2
     print("model:", model, "min-clauses:", args.min_clauses, file=sys.stderr)
+    print("writing", OUT, file=sys.stderr)
+
+    def persist():
+        save(data)
+        save_progress(prog, data, args.min_clauses)
+        print("saved", OUT, file=sys.stderr)
+
+    def on_stop(_s, _f):
+        persist()
+        print("stopped; drafts kept", file=sys.stderr)
+        raise SystemExit(0)
+
+    signal.signal(signal.SIGINT, on_stop)
+    if hasattr(signal, "SIGTERM"):
+        signal.signal(signal.SIGTERM, on_stop)
 
     goal = args.count if args.count > 0 else args.target
     added = 0
     fails = 0
-    fps = {s.get("fp") for s in data["sections"] if s.get("fp")}
+
+    def accept(slot, body, mode):
+        nonlocal added, fails
+        if mode == "expand":
+            have_h = {re.sub(r"\s+", " ", (b.get("heading") or "").lower()) for b in slot.get("body") or []}
+            have_t = {re.sub(r"\s+", " ", (b.get("text") or "").lower())[:80] for b in slot.get("body") or []}
+            keys = next_keys(slot.get("body") or [], len(body))
+            merged = []
+            for i, b in enumerate(body):
+                h = re.sub(r"\s+", " ", (b.get("heading") or "").lower())
+                t = re.sub(r"\s+", " ", (b.get("text") or "").lower())[:80]
+                if h in have_h or t in have_t:
+                    continue
+                b["key"] = keys[i] if i < len(keys) else letter_key(clause_n(slot) + i)
+                merged.append(b)
+            if len(merged) < 3:
+                return False
+            slot["body"] = apply_letter_keys((slot.get("body") or []) + merged)
+        else:
+            slot["body"] = apply_letter_keys(body)
+        slot["status"] = "filed" if clause_n(slot) >= args.min_clauses else "growing"
+        slot["source"] = "lmstudio"
+        slot["fp"] = fp(slot)
+        persist()
+        prog["last_cite"] = slot.get("cite") or ""
+        prog["hits"] = int(prog.get("hits") or 0) + 1
+        save_progress(prog, data, args.min_clauses)
+        added += 1
+        fails = 0
+        print(f"{mode} § {slot['cite']} {slot['title']}  n={clause_n(slot)}  water={prog.get('water')}/{args.min_clauses}  ({added}/{goal})", file=sys.stderr)
+        return True
+
     while added < goal:
         mode, slot = next_job(data, args.min_clauses, prog.get("last_cite") or "")
+        batch = empty_in_part(data, slot.get("part")) if mode == "draft" else []
         try:
+            prompt = part_draft_prompt(data, batch) if (mode == "draft" and len(batch) > 1) else fill_prompt(data, slot, mode, args.min_clauses)
             raw = chat(
                 args.base_url, model,
-                [{"role": "system", "content": VOICE}, {"role": "user", "content": fill_prompt(data, slot, mode, args.min_clauses)}],
+                [{"role": "system", "content": VOICE}, {"role": "user", "content": prompt}],
                 args.timeout,
             )
         except urllib.error.URLError as e:
             print("wait:", e, file=sys.stderr)
             fails += 1
             if fails > 30:
+                persist()
                 return 3
             time.sleep(5)
             continue
         except Exception as e:
             print("err", e, file=sys.stderr)
             fails += 1
+            persist()
             time.sleep(2)
+            continue
+        if mode == "draft" and len(batch) > 1:
+            blocks = parse_part_blocks(raw)
+            if not blocks:
+                obj = parse_obj(raw)
+                if obj:
+                    blocks = {slot["cite"]: obj["body"]}
+            if not blocks:
+                print("skip: unusable part", slot.get("part"), file=sys.stderr)
+                fails += 1
+                if fails >= 8:
+                    persist()
+                    return 4
+                continue
+            by_cite = {s["cite"]: s for s in batch}
+            any_ok = False
+            for cite, body in blocks.items():
+                s = by_cite.get(cite)
+                if s:
+                    any_ok = accept(s, body, "draft") or any_ok
+            if not any_ok:
+                fails += 1
+                continue
+            time.sleep(args.sleep)
             continue
         obj = parse_obj(raw)
         if not obj:
-            print("skip: not json", slot["cite"], file=sys.stderr)
+            print("skip: unusable", slot["cite"], file=sys.stderr)
+            fails += 1
+            if fails >= 8:
+                persist()
+                return 4
+            continue
+        if not accept(slot, obj["body"], mode):
+            print("skip thin", slot["cite"], file=sys.stderr)
             fails += 1
             continue
-        new_body = obj["body"]
-        if mode == "expand":
-            have_h = {re.sub(r"\s+", " ", (b.get("heading") or "").lower()) for b in slot.get("body") or []}
-            have_t = {re.sub(r"\s+", " ", (b.get("text") or "").lower())[:80] for b in slot.get("body") or []}
-            keys = next_keys(slot.get("body") or [], len(new_body))
-            merged = []
-            for i, b in enumerate(new_body):
-                h = re.sub(r"\s+", " ", (b.get("heading") or "").lower())
-                t = re.sub(r"\s+", " ", (b.get("text") or "").lower())[:80]
-                if h in have_h or t in have_t:
-                    continue
-                b["key"] = keys[i] if i < len(keys) else str(clause_n(slot) + i + 1)
-                merged.append(b)
-            if len(merged) < 3:
-                print("skip thin expand", slot["cite"], file=sys.stderr)
-                fails += 1
-                continue
-            slot["body"] = (slot.get("body") or []) + merged
-        else:
-            digest = fp({"title": slot["title"], "body": new_body})
-            if digest in fps:
-                print("skip dup prose", slot["cite"], file=sys.stderr)
-                continue
-            fps.add(digest)
-            slot["body"] = new_body
-            if mode == "related":
-                title = obj.get("title")
-                if not title:
-                    for b in new_body:
-                        if str(b.get("heading") or "").lower() in ("title", "catchline"):
-                            title = b.get("text")
-                            break
-                if title and str(title) != "Related Requirements":
-                    slot["title"] = str(title)[:120]
-        slot["status"] = "filed" if clause_n(slot) >= args.min_clauses else ("growing" if slot.get("body") else "reserved")
-        slot["source"] = "lmstudio"
-        slot["fp"] = fp(slot)
-        save(data)
-        prog["last_cite"] = slot.get("cite") or ""
-        prog["hits"] = int(prog.get("hits") or 0) + 1
-        save_progress(prog, data, args.min_clauses)
-        added += 1
-        fails = 0
-        print(
-            f"{mode} § {slot['cite']} {slot['title']}  n={clause_n(slot)}  water={prog.get('water')}/{args.min_clauses}  ({added}/{goal})",
-            file=sys.stderr,
-        )
         time.sleep(args.sleep)
+    persist()
     print("done", added)
     return 0
 
