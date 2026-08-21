@@ -2,14 +2,13 @@
 """Fill the Mages' Guild Codex in book order from local LM Studio.
 
 Page 1 is the introduction. The outline is the table of contents.
-Each catchline is drafted, then expanded in book order until it has
---min-clauses (default 50) related clauses. Only after every section
-hits that floor may the model add a new section, and that section must
-belong to the same Part and stay on that Part's subject.
+Water-level fill: draft every empty §, then raise the shortest band
+together (round-robin). Nobody hits 50 while another still sits at 8.
+New §§ only when min(all) >= --min-clauses.
 
   python3 tools/gen-mages-guild-code.py --init
+  python3 tools/gen-mages-guild-code.py --status
   python3 tools/gen-mages-guild-code.py --overnight
-  python3 tools/gen-mages-guild-code.py --count 5 --min-clauses 50
 """
 from __future__ import annotations
 
@@ -26,6 +25,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "Reputation-Matrix2" / "data" / "laws" / "mages-guild-code.json"
 OUTLINE = ROOT / "Reputation-Matrix2" / "data" / "laws" / "mages-guild-code-outline.json"
+PROGRESS = ROOT / "Reputation-Matrix2" / "data" / "laws" / "mages-guild-code-progress.json"
 BROWSE = [
     ROOT / "Reputation-Matrix2" / "data" / "laws" / "laws-data-mystical.js",
     ROOT / "Reputation-Matrix2" / "data" / "laws" / "legal_data.js",
@@ -109,6 +109,55 @@ def clause_n(sec: dict) -> int:
     return len(sec.get("body") or [])
 
 
+def load_progress() -> dict:
+    if PROGRESS.exists():
+        try:
+            return json.loads(PROGRESS.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            pass
+    return {"last_cite": "", "water": 0, "hits": 0, "by_cite": {}}
+
+
+def save_progress(prog: dict, data: dict, floor: int) -> None:
+    secs = data.get("sections") or []
+    ns = [clause_n(s) for s in secs]
+    by = {}
+    for s in secs:
+        by[s.get("cite")] = {
+            "n": clause_n(s),
+            "part": s.get("part"),
+            "title": s.get("title"),
+            "status": s.get("status") or "reserved",
+        }
+    prog["by_cite"] = by
+    prog["water"] = min(ns) if ns else 0
+    prog["max_n"] = max(ns) if ns else 0
+    prog["floor"] = floor
+    prog["empty"] = sum(1 for n in ns if n == 0)
+    prog["below"] = sum(1 for n in ns if n < floor)
+    prog["at_floor"] = sum(1 for n in ns if n >= floor)
+    prog["sectionCount"] = len(secs)
+    tmp = PROGRESS.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(prog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    tmp.replace(PROGRESS)
+
+
+def print_status(data: dict, floor: int) -> None:
+    secs = data.get("sections") or []
+    ns = [clause_n(s) for s in secs]
+    water = min(ns) if ns else 0
+    print(f"sections {len(secs)}  water {water}/{floor}  empty {sum(n==0 for n in ns)}  below {sum(n<floor for n in ns)}  at-floor {sum(n>=floor for n in ns)}")
+    by_part = {}
+    for s in secs:
+        by_part.setdefault(s.get("part") or "?", []).append(clause_n(s))
+    for part, vals in by_part.items():
+        print(f"  {part:12} min {min(vals):3}  max {max(vals):3}  mean {sum(vals)/len(vals):5.1f}  n={len(vals)}")
+    short = sorted(secs, key=lambda s: (clause_n(s), secs.index(s)))[:12]
+    print("shortest:")
+    for s in short:
+        print(f"    § {s.get('cite'):8} {clause_n(s):3}  {s.get('title')}")
+
+
 def next_empty(data: dict) -> dict | None:
     for s in data.get("sections") or []:
         if not (s.get("body") or []):
@@ -116,12 +165,30 @@ def next_empty(data: dict) -> dict | None:
     return None
 
 
-def next_short(data: dict, floor: int) -> dict | None:
-    """Go back through the book; expand the first section still under the floor."""
-    for s in data.get("sections") or []:
-        if 0 < clause_n(s) < floor:
-            return s
-    return None
+def round_robin(cands: list[dict], last_cite: str) -> dict:
+    """After last_cite in book order; wrap. Never stick on the same § twice in a row if others exist."""
+    if not cands:
+        raise ValueError("no candidates")
+    if len(cands) == 1:
+        return cands[0]
+    cites = [s.get("cite") for s in cands]
+    if last_cite in cites:
+        i = cites.index(last_cite)
+        return cands[(i + 1) % len(cands)]
+    # last was some other section: take first candidate after it in the full book
+    return cands[0]
+
+
+def next_short_water(data: dict, floor: int, last_cite: str) -> dict | None:
+    """Raise the water together. Expand whoever is at the global minimum, round-robin.
+    Nobody reaches 50 while another still sits at 8."""
+    secs = [s for s in (data.get("sections") or []) if clause_n(s) > 0]
+    below = [s for s in secs if clause_n(s) < floor]
+    if not below:
+        return None
+    water = min(clause_n(s) for s in below)
+    band = [s for s in below if clause_n(s) == water]
+    return round_robin(band, last_cite)
 
 
 def next_cite_in_part(data: dict, part: str) -> str:
@@ -169,11 +236,11 @@ def next_related_section(data: dict) -> dict:
     return slot
 
 
-def next_job(data: dict, floor: int) -> tuple[str, dict]:
+def next_job(data: dict, floor: int, last_cite: str = "") -> tuple[str, dict]:
     empty = next_empty(data)
     if empty:
         return "draft", empty
-    short = next_short(data, floor)
+    short = next_short_water(data, floor, last_cite)
     if short:
         return "expand", short
     return "related", next_related_section(data)
@@ -328,6 +395,7 @@ Archive scrap:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--init", action="store_true")
+    ap.add_argument("--status", action="store_true")
     ap.add_argument("--base-url", default="http://127.0.0.1:1234/v1")
     ap.add_argument("--model", default="")
     ap.add_argument("--count", type=int, default=0)
@@ -341,8 +409,13 @@ def main() -> int:
     data = load_json(OUT)
     ensure_book(data)
     save(data)
+    prog = load_progress()
+    save_progress(prog, data, args.min_clauses)
     if args.init:
         print("reserved", len(data["sections"]), "slots · first empty", (next_empty(data) or {}).get("cite"))
+        return 0
+    if args.status:
+        print_status(data, args.min_clauses)
         return 0
 
     models = list_models(args.base_url)
@@ -351,18 +424,18 @@ def main() -> int:
         print("LM Studio not reachable at", args.base_url, file=sys.stderr)
         print("Start the server, then re-run. Outline is already in the JSON.", file=sys.stderr)
         return 2
-    print("model:", model, file=sys.stderr)
+    print("model:", model, "min-clauses:", args.min_clauses, file=sys.stderr)
 
     goal = args.count if args.count > 0 else args.target
     added = 0
     fails = 0
     fps = {s.get("fp") for s in data["sections"] if s.get("fp")}
     while added < goal:
-        slot = next_empty(data) or next_forever_slot(data)
+        mode, slot = next_job(data, args.min_clauses, prog.get("last_cite") or "")
         try:
             raw = chat(
                 args.base_url, model,
-                [{"role": "system", "content": VOICE}, {"role": "user", "content": fill_prompt(data, slot)}],
+                [{"role": "system", "content": VOICE}, {"role": "user", "content": fill_prompt(data, slot, mode, args.min_clauses)}],
                 args.timeout,
             )
         except urllib.error.URLError as e:
@@ -413,9 +486,15 @@ def main() -> int:
         slot["source"] = "lmstudio"
         slot["fp"] = fp(slot)
         save(data)
+        prog["last_cite"] = slot.get("cite") or ""
+        prog["hits"] = int(prog.get("hits") or 0) + 1
+        save_progress(prog, data, args.min_clauses)
         added += 1
         fails = 0
-        print(f"{mode} § {slot['cite']} {slot['title']}  n={clause_n(slot)}  ({added}/{goal})", file=sys.stderr)
+        print(
+            f"{mode} § {slot['cite']} {slot['title']}  n={clause_n(slot)}  water={prog.get('water')}/{args.min_clauses}  ({added}/{goal})",
+            file=sys.stderr,
+        )
         time.sleep(args.sleep)
     print("done", added)
     return 0
