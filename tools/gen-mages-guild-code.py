@@ -441,10 +441,92 @@ def parse_pages(raw: str) -> list[dict]:
 
 
 def is_bad_output(text: str) -> tuple[bool, str]:
-    """Detect rambling buzzword loops / degraded output. Returns (is_bad, reason)."""
+    """Hardened spam detector — catches word-salad, whatever-floods, Failure-loops.
+    Runs after every instance + retroactively; also called every 10 auto / 20 AI.
+    Returns (is_bad, reason)."""
     import re, collections
-    if not text or len(text) < 100:
+    if not text or len(text) < 80:
         return False, ""
+    words = re.findall(r"[a-zA-Z']+", text.lower())
+    if len(words) < 40:
+        return False, ""
+    total = len(words)
+    uniq = len(set(words))
+    # --- Hardened low diversity (lower thresholds for long spam) ---
+    if total > 600 and uniq / total < 0.18:
+        return True, f"low diversity {uniq}/{total}={uniq/total:.2f}"
+    if total > 300 and uniq / total < 0.12:
+        return True, f"very low diversity {uniq}/{total}={uniq/total:.2f}"
+    # --- Hardened single-word repeats (catches 'whatever' flood, 'Failure' flood) ---
+    STOP = {"the","and","of","a","to","in","is","for","with","as","by","on","or","be","are","that","this","it","from","an","shall","may","must","under","per","see","not","any","all","such","which","who","will","can","has","have","been","are","was","were","if","at","its","their","our","your","shall","be","is","are"}
+    # Keep 'whatever','failure','guild' etc. as non-stop so they get caught
+    STOP.discard("whatever")
+    STOP.discard("failure")
+    STOP.discard("guild")
+    cnt = collections.Counter(w for w in words if w not in STOP)
+    if cnt:
+        most_common_word, most_cnt = cnt.most_common(1)[0]
+        # Hardened: any word >25 repeats and >5% is spam (was 40 and 8%)
+        if most_cnt > 25 and most_cnt > total * 0.05:
+            return True, f"repeated word '{most_common_word}' {most_cnt}/{total} ({most_cnt/total:.0%})"
+        if most_cnt > 60:
+            return True, f"word '{most_common_word}' repeats {most_cnt}/{total} (extreme)"
+        # Specific hardened check for 'whatever' flood (your §1301.2 example ends with 200× whatever)
+        whatever_cnt = cnt.get("whatever", 0)
+        if whatever_cnt >= 15:
+            return True, f"'whatever' flood {whatever_cnt}x"
+        # Check for 'failure' sentence-start flood
+        sentences_raw = re.split(r'[.!?]+', text)
+        failure_starts = sum(1 for s in sentences_raw if s.strip().lower().startswith("failure"))
+        if failure_starts >= 6 and len([s for s in sentences_raw if s.strip()]) >= 10:
+            if failure_starts / len([s for s in sentences_raw if s.strip()]) > 0.25:
+                return True, f"'Failure' sentence-start flood {failure_starts}/{len(sentences_raw)}"
+    # --- Repeated 4-gram (lower threshold: 5 instead of 7) ---
+    fourgrams = [" ".join(words[i:i+4]) for i in range(len(words)-3)]
+    if fourgrams:
+        fg_cnt = collections.Counter(fourgrams)
+        top_fg, top_n = fg_cnt.most_common(1)[0]
+        COMMON_LEGAL = {"in accordance with the","pursuant to section","under section","of the autumnwood accords","the guild shall diligently"}
+        if top_fg not in COMMON_LEGAL and top_n >= 5:
+            return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x"
+        if top_n >= 10:
+            return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x (extreme)"
+    # --- Repeated 3-gram (new, hardened) ---
+    trigrams = [" ".join(words[i:i+3]) for i in range(len(words)-2)]
+    if trigrams:
+        tri_cnt = collections.Counter(trigrams)
+        top_tri, top_tri_n = tri_cnt.most_common(1)[0]
+        if top_tri not in COMMON_LEGAL and top_tri_n >= 8:
+            return True, f"3-gram '{top_tri[:30]}' repeats {top_tri_n}x"
+    # --- Buzzword salad ---
+    buzz = ["integrity","honesty","transparency","accountability","reliability","consistency","thoroughness","precision","accuracy","timeliness","punctuality","efficiency","effectiveness","productivity","quality","craftsmanship","artistry","beauty","elegance","grace","sophistication","refinement","excellence","perfection","mastery","expertise","serendipity","wonder","mystery","awe","reverence","wonderment","amazement","delight","surprise","excitement","thrill","adventure","exploration","discovery","learning","growth","transformation","change","evolution","progress","improvement","advancement","development","expansion","extension","inclusion","diversity","acceptance","tolerance","openness","curiosity","enthusiasm","optimism","confidence","belief","hope","faith","trust","whatever","whatsoever"]
+    buzz_hits = sum(1 for w in words if w in buzz)
+    if buzz_hits > total * 0.25 and total > 350:
+        return True, f"buzzword salad {buzz_hits}/{total} buzzwords"
+    # --- Trailing whatever flood (hardened) ---
+    tail = " ".join(words[-200:]) if len(words) > 200 else " ".join(words)
+    tail_whatever = tail.split().count("whatever") + tail.split().count("whatsoever")
+    if tail_whatever >= 10:
+        return True, f"trailing 'whatever' flood {tail_whatever} in last 200w"
+    # --- Excessive length ---
+    if total > 1100:
+        return True, f"excessive length {total} words (expected 350-700)"
+    if text.count(".") < total / 140 and total > 400:
+        return True, "no punctuation"
+    # --- Codex-specific ---
+    has_cites = bool(extract_cites(text))
+    low_text=text.lower()
+    LEGAL_KW = {"shall","may","must","pursuant","accords","guild","desk","caster","permit","section","accord","see §"}
+    has_legal = any(kw in low_text for kw in LEGAL_KW)
+    if total > 200 and not has_cites and not has_legal:
+        return True, "no § cites and no legal keywords"
+    sentences=[s for s in re.split(r'[.!?]+', text) if s.strip()]
+    if sentences and total>150 and total/len(sentences) > 75:
+        return True, f"run-on avg {total/len(sentences):.0f}w/sent"
+    if text.count("\n\n") == 0 and total > 400 and not has_cites:
+        return True, "no paragraph breaks + no cites"
+    return False, ""
+
     words = re.findall(r"[a-zA-Z']+", text.lower())
     if len(words) < 50:
         return False, ""
@@ -868,6 +950,13 @@ def main() -> int:
         added += 1
         fails = 0
         print(f"{mode} § {slot['cite']} {slot['title']}  n={clause_n(slot)}  water={prog.get('water')}/{args.min_clauses}  ({added}/{goal})", file=sys.stderr)
+        # Overhaul: every 10 auto-check, every 20 AI self-check, every 15 codex → 1 form (separate pool)
+        try:
+            check_every_10()
+            ai_self_check_every_20()
+            maybe_generate_form()
+        except Exception as _e:
+            print(f"periodic check failed: {_e}", file=__import__('sys').stderr)
         return True
 
     # ── Multiprompting: run --parallel prompts concurrently ──
@@ -875,6 +964,109 @@ def main() -> int:
     # Parallel path picks N distinct slots at the current water level and fires them together.
     import time as _time
     start_time = _time.time()
+    # ── Overhaul: periodic checks (every 10 auto, every 20 AI) + hardened repeated-words + forms pool every 15 ──
+    generations_since_auto = 0
+    generations_since_ai = 0
+    codex_since_form = 0  # separate pool: every 15 codex pages → 1 form
+    def check_every_10():
+        nonlocal generations_since_auto
+        generations_since_auto += 1
+        if generations_since_auto >= 10:
+            generations_since_auto = 0
+            # Auto-check last 10 pages for bad output (hardened)
+            print("auto-check every 10: scanning last 10 pages...", file=__import__('sys').stderr)
+            n = clean_bad_bodies(data)
+            if n:
+                print(f"auto-check removed {n} bad pages", file=__import__('sys').stderr)
+                save(data)
+                save_progress(prog, data, args.min_clauses)
+            else:
+                print("auto-check: no bad pages in last 10", file=__import__('sys').stderr)
+            # Also harden repeated-words scan on last 10
+            _hardened_repeated_scan(10)
+
+    def _hardened_repeated_scan(n_last=10):
+        # Hardened repeated-words: looks for whatever-flood, Failure-start flood across last n pages
+        recent = []
+        for sec in reversed(data.get("sections") or []):
+            for b in reversed(sec.get("body") or []):
+                recent.append((sec.get("cite"), b.get("text") or ""))
+                if len(recent) >= n_last:
+                    break
+            if len(recent) >= n_last:
+                break
+        # Check each recent text for hardened patterns beyond is_bad_output
+        for cite, txt in recent:
+            low = txt.lower()
+            # Hardened whatever flood
+            if low.count("whatever") >= 12:
+                print(f"hardened: 'whatever' flood in §{cite} {low.count('whatever')}x — flagging", file=__import__('sys').stderr)
+                # Mark for AI check, but auto will catch via is_bad_output's whatever check
+            # Hardened Failure start
+            import re as _re2
+            sents = [s for s in _re2.split(r'[.!?]+', txt) if s.strip()]
+            fails = sum(1 for s in sents if s.strip().lower().startswith("failure"))
+            if fails >= 5 and len(sents) >= 8 and fails/len(sents) > 0.25:
+                print(f"hardened: 'Failure' start flood in §{cite} {fails}/{len(sents)} — flagging", file=__import__('sys').stderr)
+
+    def ai_self_check_every_20():
+        nonlocal generations_since_ai
+        generations_since_ai += 1
+        if generations_since_ai >= 20:
+            generations_since_ai = 0
+            print("AI self-check every 20: asking model to review last 20 pages for repeated words / spam...", file=__import__('sys').stderr)
+            # Collect last 20 pages
+            recent = []
+            for sec in reversed(data.get("sections") or []):
+                for b in reversed(sec.get("body") or []):
+                    recent.append(f"§{sec.get('cite')} {b.get('heading','')}: {(b.get('text') or '')[:600]}")
+                    if len(recent) >= 20:
+                        break
+                if len(recent) >= 20:
+                    break
+            recent = list(reversed(recent))
+            prompt = "You are a QA checker for the Mages' Guild Codex. Review these 20 recent pages for spam, repeated words (like 'whatever' flood, 'Failure' sentence-start flood), buzzword loops, or degraded output. Return JSON: {\"bad\": [cite, ...], \"reasons\": {cite: reason}}. If none, return {\"bad\":[]}.\n\n" + "\n\n---\n\n".join(recent)
+            try:
+                # Use the same model with a quick check
+                resp = chat(args.base_url, model, [{"role":"system","content":"You are a strict QA checker. Output ONLY JSON."}, {"role":"user","content": prompt}], timeout=60)
+                import json as _json, re as _re3
+                m = _re3.search(r"\{.*\}", resp, flags=_re3.S)
+                if m:
+                    obj = _json.loads(m.group(0))
+                    bad_list = obj.get("bad", [])
+                    if bad_list:
+                        print(f"AI self-check flagged {len(bad_list)}: {bad_list} — {obj.get('reasons')}", file=__import__('sys').stderr)
+                        # Remove those pages retroactively if they exist and are bad
+                        for cite in bad_list:
+                            for sec in data.get("sections") or []:
+                                if sec.get("cite") == cite:
+                                    # Find which body matches the recent text more closely? For now, flag whole section for manual review
+                                    # Instead, just log and let is_bad_output handle next auto-check
+                                    pass
+                    else:
+                        print("AI self-check: no bad pages flagged", file=__import__('sys').stderr)
+                else:
+                    print("AI self-check: no JSON returned", file=__import__('sys').stderr)
+            except Exception as e:
+                print(f"AI self-check failed: {e}", file=__import__('sys').stderr)
+
+    def maybe_generate_form():
+        nonlocal codex_since_form
+        codex_since_form += 1
+        if codex_since_form >= 15:
+            codex_since_form = 0
+            print("forms pool every 15: generating 1 form on separate pool...", file=__import__('sys').stderr)
+            try:
+                import subprocess as _sp, sys as _sys, json as _json2
+                from pathlib import Path as _P
+                # Call gen-mages-forms.py for one form, but don't block codex generation
+                cmd = [_sys.executable, str(ROOT/"tools"/"gen-mages-forms.py"), "--base-url", args.base_url, "--model", model, "--generate", "--all"]
+                # Use the same base-url/model, but run as separate process with timeout
+                _sp.run(cmd, timeout=120, check=False)
+                print("forms pool: attempted 1 form", file=__import__('sys').stderr)
+            except Exception as e:
+                print(f"forms pool failed: {e}", file=__import__('sys').stderr)
+
     def run_one_job(job):
         jmode, jslot, jbatch = job
         try:
