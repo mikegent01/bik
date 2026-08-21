@@ -77,6 +77,292 @@
       ],
       "filed": "Autumnwood Accords Desk",
       "formUrl": "#form-MG-400A"
+    },
+    {
+      "id": "MG-900A",
+      "cite": "900.1",
+      "title": "Pre-Casting Disclosure Form",
+      "status": "active",
+      "fee": "2 Guild Marks — non-refundable",
+      "authority": "Autumnwood Accords Desk Clerk",
+      "description": "This form requires casters to disclose the value, composition, and potential risks of their proposed magical work before beginning.",
+      "instructions": "Complete all fields truthfully. Submit at least one hour prior to casting. False statements may result in immediate suspension and legal action.",
+      "fields": [
+        {
+          "name": "caster_name",
+          "label": "Full Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "casting_location",
+          "label": "Proposed Location",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "name": "magical_value",
+          "label": "Estimated Value of Work",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "composition_details",
+          "label": "Materials and Components",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "name": "risk_assessment",
+          "label": "Potential Hazards or Consequences",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "name": "disclosure_statement",
+          "label": "I certify this information is accurate to the best of my knowledge.",
+          "type": "checkbox",
+          "options": [
+            "Yes"
+          ],
+          "required": true
+        }
+      ],
+      "crossRefs": [
+        "1001.7",
+        "500.2",
+        "300.2"
+      ]
+    },
+    {
+      "id": "MG-900B",
+      "cite": "900.2",
+      "title": "Material Enchantment Threshold Report",
+      "status": "active",
+      "fee": "15 Guild Marks — Non-refundable processing fee",
+      "authority": "Accords Desk Clerk",
+      "description": "Reports material enchantments exceeding threshold values per §900.2, with late penalties applied.",
+      "instructions": "Complete all fields accurately. Submit within 7 days of discovery. False reporting incurs double fees plus potential sanctions.",
+      "fields": [
+        {
+          "name": "enchantment_type",
+          "label": "Enchantment Type",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Temporal Distortion",
+            "Spatial Anomaly",
+            "Reality Fracture",
+            "Causality Breach"
+          ]
+        },
+        {
+          "name": "threshold_value",
+          "label": "Threshold Value",
+          "type": "number",
+          "required": true,
+          "options": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        {
+          "name": "discovery_date",
+          "label": "Date of Discovery",
+          "type": "date",
+          "required": true
+        },
+        {
+          "name": "location_coordinates",
+          "label": "Location Coordinates",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "name": "witness_statements",
+          "label": "Witness Statements",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "crossRefs": [
+        "900.1",
+        "200.5",
+        "400.3"
+      ]
+    },
+    {
+      "id": "MG-600A",
+      "cite": "600.5",
+      "title": "Summoned Notary Verification Form",
+      "status": "active",
+      "fee": "2 Guild Marks — Non-refundable processing fee",
+      "authority": "Accords Desk Clerk",
+      "description": "Used to verify the authenticity of a notarial seal when the summoned notary fails to complete their duties.",
+      "instructions": "File this form with the original contract and any supporting evidence within 7 days of discovering the discrepancy. Failure to do so may result in penalties for both parties involved.",
+      "fields": [
+        {
+          "name": "notary_name",
+          "label": "Full Name of Summoned Notary",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "contract_id",
+          "label": "Contract Reference Number",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "discrepancy_details",
+          "label": "Description of Missing Seal or Error",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "name": "evidence_attached",
+          "label": "Supporting Evidence Attached? (Y/N)",
+          "type": "select",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "required": true
+        },
+        {
+          "name": "witness_statement",
+          "label": "Witness Statement (if applicable)",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "crossRefs": [
+        "100.2",
+        "600.1"
+      ]
+    },
+    {
+      "id": "MG-1201A",
+      "cite": "1201.1",
+      "title": "Planar Transit Stamping Form",
+      "status": "active",
+      "fee": "75 Guild Marks — Planar instability surcharge applies to all cross-dimensional travel.",
+      "authority": "Autumnwood Accords Desk, Mages' Guild",
+      "description": "This form collects data on planar transit activities subject to the instability surcharge per §1201.1.",
+      "instructions": "File with the Accords Desk within 30 days of completion. False statements may result in suspension of casting privileges and legal action.",
+      "fields": [
+        {
+          "name": "traveler_name",
+          "label": "Full Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "origin_plane",
+          "label": "Origin Plane Designation",
+          "type": "select",
+          "options": [
+            "Prime Material",
+            "Abyssal Depths",
+            "Celestial Sphere",
+            "Shadow Realm"
+          ],
+          "required": true
+        },
+        {
+          "name": "destination_plane",
+          "label": "Destination Plane Designation",
+          "type": "select",
+          "options": [
+            "Prime Material",
+            "Abyssal Depths",
+            "Celestial Sphere",
+            "Shadow Realm"
+          ],
+          "required": true
+        },
+        {
+          "name": "purpose_of_travel",
+          "label": "Reason for Transit",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "name": "archie_invoice_number",
+          "label": "Associated Archie Invoice # (if applicable)",
+          "type": "text",
+          "required": false
+        }
+      ],
+      "crossRefs": [
+        "1201.2",
+        "1201.3",
+        "400.5"
+      ]
+    },
+    {
+      "id": "MG-400B",
+      "cite": "400.2",
+      "title": "Pocket Dimension Usage Log",
+      "status": "active",
+      "fee": "10 Guild Marks — Annual permit fee for authorized pocket dimension research.",
+      "authority": "Accords Desk Research Division",
+      "description": "Tracks usage of approved pocket dimensions as research labs per §400.2, ensuring time dilation effects are properly accounted for.",
+      "instructions": "Submit monthly logs detailing all activities conducted within assigned pocket spaces. Failure to report may result in permit revocation and legal action under the Accords.",
+      "fields": [
+        {
+          "name": "permit_holder",
+          "label": "Permit Holder Name",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "pocket_id",
+          "label": "Assigned Pocket Dimension ID",
+          "type": "select",
+          "options": [
+            "PD-Alpha",
+            "PD-Beta",
+            "PD-Gamma"
+          ],
+          "required": true
+        },
+        {
+          "name": "activity_date",
+          "label": "Activity Date Range",
+          "type": "date",
+          "required": true
+        },
+        {
+          "name": "research_purpose",
+          "label": "Research Objective",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "name": "time_spent_hours",
+          "label": "Total Hours Inside Pocket",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "safety_incidents",
+          "label": "Report Any Incidents",
+          "type": "checkbox",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "required": true
+        }
+      ],
+      "crossRefs": [
+        "400.3",
+        "800.5"
+      ]
     }
   ]
 }
