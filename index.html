@@ -6428,13 +6428,13 @@ function mdToHtml(md,linkCtx){
 function headings(md){if(!md)return[];const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
-const SEARCH_META={article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',tradition:'⚖️',culture:'🌐',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️',ability:'🎓',whatif:'❓'};
+const SEARCH_META={codex:'📜',article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',tradition:'⚖️',culture:'🌐',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️',ability:'🎓',whatif:'❓'};
 const SEARCH_CATEGORIES=[
-  ['all','All'],['articles','Articles'],['characters','Characters'],['factions','Factions'],['events','Events'],['locations','Locations'],['items','Items'],['currencies','Currencies'],['battles','Battles'],['congress','Congress'],['books','Books'],['chronicles','Chronicles'],['dynasties','Dynasties'],['vendors','Vendors'],['holidays','Holidays'],['whatifs','What Ifs']
+  ['all','All'],['codex','Codex'],['articles','Articles'],['characters','Characters'],['factions','Factions'],['events','Events'],['locations','Locations'],['items','Items'],['currencies','Currencies'],['battles','Battles'],['congress','Congress'],['books','Books'],['chronicles','Chronicles'],['dynasties','Dynasties'],['vendors','Vendors'],['holidays','Holidays'],['whatifs','What Ifs']
 ];
-const SEARCH_CATEGORY_ALIASES={all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays',whatif:'whatifs',whatifs:'whatifs',hypothetical:'whatifs',hypotheticals:'whatifs',noncanon:'whatifs',alt:'whatifs'};
+const SEARCH_CATEGORY_ALIASES={codex:'codex',codexes:'codex',ccd:'codex',mages:'codex',guild:'codex',laws:'codex',law:'codex',all:'all',any:'all',article:'articles',articles:'articles',wiki:'articles',character:'characters',characters:'characters',char:'characters',chars:'characters',people:'characters',person:'characters',faction:'factions',factions:'factions',event:'events',events:'events',sessionlog:'events',location:'locations',locations:'locations',place:'locations',places:'locations',nation:'locations',nations:'locations',item:'items',items:'items',artifact:'items',artifacts:'items',inventory:'items',currency:'currencies',currencies:'currencies',coin:'currencies',coins:'currencies',money:'currencies',battle:'battles',battles:'battles',conflict:'battles',conflicts:'battles',congress:'congress',vote:'congress',votes:'congress',member:'congress',members:'congress',book:'books',books:'books',library:'books',chronicle:'chronicles',chronicles:'chronicles',timeline:'chronicles',history:'chronicles',dynasty:'dynasties',dynasties:'dynasties',bloodline:'dynasties',vendor:'vendors',vendors:'vendors',shop:'vendors',holiday:'holidays',holidays:'holidays',calendar:'holidays',whatif:'whatifs',whatifs:'whatifs',hypothetical:'whatifs',hypotheticals:'whatifs',noncanon:'whatifs',alt:'whatifs'};
 function searchIcon(d){const m=SEARCH_META[d.kind];return typeof m==='function'?m(d.typeKey,d):(m||'🔎');}
-function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='tradition')return 'Legal Tradition'; if(d.kind==='culture')return 'Cultural Sphere'; if(d.kind==='ability')return 'Ability'; if(d.kind==='whatif')return 'What If'; if(d.kind==='whatifchapter')return 'What If — Part'; return prettyId(d.kind||'record'); }
+function searchTypeLabel(d){ if(d.kind==='article')return TYPE_BY_KEY[d.typeKey]?.singular||prettyId(d.typeKey); if(d.kind==='vote')return 'Congress Vote'; if(d.kind==='conflict')return 'Conflict'; if(d.kind==='majorbattle')return 'Battle'; if(d.kind==='artifact')return 'Artifact'; if(d.kind==='invitem')return 'Item'; if(d.kind==='bearer')return 'Star Bearer'; if(d.kind==='member')return 'Congress Member'; if(d.kind==='session')return 'Congress Session'; if(d.kind==='crisis')return 'Congress Crisis'; if(d.kind==='faction')return 'Faction'; if(d.kind==='dynasty')return 'Dynasty'; if(d.kind==='vendor')return 'Vendor'; if(d.kind==='holiday')return 'Holiday'; if(d.kind==='currency')return 'Currency'; if(d.kind==='chronicle')return 'Chronicle'; if(d.kind==='collection')return 'Collection'; if(d.kind==='book')return 'Book'; if(d.kind==='craftingrecipe')return 'Crafting Recipe'; if(d.kind==='craftingmaterial')return 'Crafting Material'; if(d.kind==='system')return 'Faction System'; if(d.kind==='docketfile')return 'Docket File'; if(d.kind==='codex')return 'Mages Codex § '+d.id; if(d.kind==='tradition')return 'Legal Tradition'; if(d.kind==='culture')return 'Cultural Sphere'; if(d.kind==='ability')return 'Ability'; if(d.kind==='whatif')return 'What If'; if(d.kind==='whatifchapter')return 'What If — Part'; return prettyId(d.kind||'record'); }
 function docCategory(d){
   if(d.kind==='article'){
     if(d.typeKey==='characters')return 'characters';
@@ -6457,6 +6457,7 @@ function docCategory(d){
   if(d.kind==='collection')return 'articles';
   if(d.kind==='faction')return 'factions';
   if(d.kind==='system'||d.kind==='docketfile')return 'factions';
+  if(d.kind==='codex')return 'codex';
   if(d.kind==='ability')return 'items';
   if(d.kind==='whatif'||d.kind==='whatifchapter')return 'whatifs';
   return 'articles';
@@ -16981,6 +16982,24 @@ function atlasMapsFor(nationId){
   if(!active && maps.length) active=maps[0].id;
   return {maps, activeId:active, group, valid:Boolean(active)};
 }
+// ── Mages Codex → main search bridge ──
+async function loadMagesIntoSearch(){
+  try{
+    const r=await fetch(pathPrefix+'data/laws/mages-guild-code.json',{cache:'no-cache'});
+    if(!r.ok) return;
+    const j=await r.json();
+    const secs=j.sections||[];
+    let added=0;
+    secs.forEach(s=>{
+      if(!s || !s.cite || !(s.body||[]).length) return;
+      const hay=[s.cite,s.title,s.brief||'', ...(s.body||[]).map(b=> (b.heading||'')+' '+(b.text||''))].join(' ').toLowerCase();
+      const summary=((s.body[0]&&s.body[0].text)||s.brief||'').slice(0,180);
+      SEARCH_DOCS.push({kind:'codex',id:String(s.cite),typeKey:'codex',name:`§ ${s.cite} ${s.title}`,summary,hay,route:'mages-code.html#s-'+encodeURIComponent(s.cite)});
+      added++;
+    });
+    if(added) console.log('[search] indexed '+added+' Codex sections into main search');
+  }catch(e){ console.warn('[search] codex index failed',e); }
+}
 
 async function boot(){
   DATA = await loadData();
@@ -17000,6 +17019,7 @@ async function boot(){
   // the data but unreachable from search.
   await loadGeneratedFactions();
   buildIndexes();
+  await loadMagesIntoSearch();
   buildAtlasIndex();
   invalidateRepEventCache();  // rebuild reputation event cache now that DATA is loaded
   invalidateChronicleIndex(); // rebuild historical chronicle index

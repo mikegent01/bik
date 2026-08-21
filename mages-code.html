@@ -608,28 +608,45 @@ function render(data) {
     }
   });
 }
-// QoL helpers: filter, copy, font toggle
+// QoL helpers: filter, copy, font toggle — fixed empty-cite false positive
 function filterCodex(q){
   const needle=(q||'').toLowerCase().trim();
   const secs=[...document.querySelectorAll('.sec')];
   let shown=0;
-  secs.forEach(sec=>{
-    if(!needle){ sec.classList.remove('hidden'); sec.querySelectorAll('mark').forEach(m=>{m.outerHTML=m.innerHTML;}); shown++; return; }
-    const hay=(sec.textContent||'').toLowerCase();
-    const hit=hay.includes(needle) || sec.id.toLowerCase().includes(needle.replace(/[^0-9.]/g,''));
-    sec.classList.toggle('hidden', !hit);
-    if(hit) shown++;
-    // highlight
-    if(hit && needle.length>2){
-      sec.querySelectorAll('.codex-page p').forEach(p=>{
-        const raw=p.textContent;
-        const re=new RegExp('('+needle.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&')+')','gi');
-        if(re.test(raw)) p.innerHTML=raw.replace(re,'<mark>$1</mark>');
-      });
-    }
-  });
+  secs.forEach(sec=> sec.querySelectorAll('mark').forEach(m=>{ const t2=document.createTextNode(m.textContent); m.replaceWith(t2); }));
+  if(!needle){
+    secs.forEach(sec=> sec.classList.remove('hidden'));
+    shown=secs.length;
+  } else {
+    const citeNeedle = needle.replace(/[^0-9.]/g,'');
+    const hasCite = /\d/.test(citeNeedle) && citeNeedle.length>=2;
+    secs.forEach(sec=>{
+      const hay=(sec.textContent||'').toLowerCase();
+      const idHit = hasCite && sec.id.toLowerCase().includes(citeNeedle);
+      const hit = hay.includes(needle) || idHit;
+      sec.classList.toggle('hidden', !hit);
+      if(hit){
+        shown++;
+        if(needle.length>2){
+          sec.querySelectorAll('.codex-page p').forEach(p=>{
+            const raw=p.textContent;
+            try{
+              const escRe = needle.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+              const re=new RegExp('('+escRe+')','gi');
+              if(re.test(raw)) p.innerHTML=esc(raw).replace(re,'<mark>$1</mark>').replace(/&lt;mark&gt;/g,'<mark>').replace(/&lt;\/mark&gt;/g,'</mark>');
+            }catch(e){}
+          });
+        }
+      }
+    });
+  }
   const stat=document.getElementById('qol-stat');
-  if(stat) stat.textContent = needle ? `${shown} / ${secs.length} sections match` : `${document.querySelectorAll('.codex-page').length} pages · in-browser filter`;
+  if(stat){
+    if(!needle) stat.textContent = document.querySelectorAll('.codex-page').length + ' pages · in-browser filter — also try main search';
+    else if(shown===0) stat.innerHTML = '0 / '+secs.length+' sections match — <a href="index.html#search='+encodeURIComponent(needle)+'" style="color:#6d28d9;text-decoration:underline">Search whole Waluipedia for \u201c'+needle.replace(/"/g,'&quot;')+'\u201d →</a>';
+    else stat.textContent = shown+' / '+secs.length+' sections match';
+  }
+  try{ history.replaceState(null,'', needle ? '#search='+encodeURIComponent(needle) : location.pathname+location.search); }catch(e){}
 }
 function copyCite(cite){
   const url=location.origin+location.pathname+'#s-'+cite;
