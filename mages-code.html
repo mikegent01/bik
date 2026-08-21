@@ -406,10 +406,39 @@ function esc(s) {
 
 // forms -> {title, cite} — fetched alongside Codex
 let FORMS_MAP = {};
+let FORMS_BY_CITE = {};
 function buildFormsMap(forms){
   const m={};
-  (forms||[]).forEach(f=>{ m[f.id]=f; m[f.id.replace('MG-','')] = f; m['Form '+f.id.replace('MG-','')] = f; });
+  FORMS_BY_CITE={};
+  (forms||[]).forEach(f=>{
+    m[f.id]=f;
+    m[f.id.replace('MG-','')] = f;
+    m['Form '+f.id.replace('MG-','')] = f;
+    if(f.cite) FORMS_BY_CITE[String(f.cite)] = f;
+  });
   return m;
+}
+function renderInlineForm(cite){
+  const f=FORMS_BY_CITE[String(cite)];
+  if(!f) return '';
+  const fields=(f.fields||[]).slice(0,4).map(fd=>`<span style="display:inline-block;margin:2px 4px 2px 0;padding:2px 6px;background:#fff;border:1px solid #c4ad84;border-radius:4px;font-size:11px">${esc(fd.label)}${fd.required?'*':''}</span>`).join('');
+  return `<div class="form-inline" id="form-inline-${esc(f.id)}" style="margin:10px 0 12px;padding:12px 14px;background:linear-gradient(135deg,#ecfdf5,#f4efe3);border:1px solid #10b981;border-left:4px solid #065f46;border-radius:8px;font-family:system-ui,sans-serif">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><b style="color:#065f46;font-size:13px">📋 Form ${esc(f.id)} — ${esc(f.title)}</b><button onclick="openFormModal('${esc(f.id)}')" style="font-size:11px;padding:3px 8px;border:1px solid #065f46;border-radius:12px;background:#fff;color:#065f46;cursor:pointer">Open full form →</button></div>
+    <div style="font-size:11.5px;color:#5d4a35;margin:4px 0">${esc(f.description||'').slice(0,140)}${(f.description||'').length>140?'…':''}</div>
+    <div style="font-size:11px;color:#065f46">Fee: ${esc(f.fee||'—')} · Authority: ${esc(f.authority||'—')} · Status: ${esc(f.status)}</div>
+    <div style="margin-top:6px">${fields}${(f.fields||[]).length>4?`<span style="font-size:11px;color:#5d4a35"> +${(f.fields||[]).length-4} more fields</span>`:''}</div>
+  </div>`;
+}
+function renderFormsRegistry(){
+  const unique=[...new Map(Object.values(FORMS_MAP).filter(f=>f&&f.id).map(f=>[f.id,f])).values()];
+  if(!unique.length) return '';
+  unique.sort((a,b)=> String(a.cite).localeCompare(String(b.cite), undefined, {numeric:true}));
+  const cards=unique.map(f=>`<a href="#form-${esc(f.id)}" onclick="openFormModal('${esc(f.id)}');return false;" style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid #c4ad84;border-radius:8px;text-decoration:none;color:#211810"><span><b style="color:#065f46">${esc(f.id)}</b> — ${esc(f.title.slice(0,45))}${f.title.length>45?'…':''}<span style="display:block;font-size:11px;color:#5d4a35">§${esc(f.cite)} · ${esc(f.status)} · ${esc(f.fee||'no fee')}</span></span><span style="font-size:11px;color:#6d28d9">open →</span></a>`).join('');
+  return `<div class="card" id="forms-registry" style="margin:12px 0 18px;padding:14px 16px;background:linear-gradient(135deg,rgba(16,185,129,.10),rgba(244,239,227,1));border:1px solid #10b981;border-left:5px solid #065f46;border-radius:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><h2 style="margin:0;font-size:15px;color:#065f46">📋 Forms Registry — ${unique.length} hyperlinked forms</h2><span style="font-size:11px;color:#5d4a35">Attached directly under their § — click any Form pill in the text or here to open the actual form</span></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;margin-top:10px">${cards}</div>
+    <div style="font-size:11px;color:#5d4a35;margin-top:8px">Forms are validated JSON (no invalid saves) and indexed in main search — try <code>Form 400-A</code> in Waluipedia search.</div>
+  </div>`;
 }
 function linkForms(escaped){
   return escaped.replace(/\b(?:Form\s+)?MG-([0-9]+[A-Z])\b/g, (_, code)=>{
@@ -556,6 +585,13 @@ function render(data) {
       </a>`;
     });
   });
+  // add Forms Registry to sidebar top
+  const formsForToc=[...new Map(Object.values(FORMS_MAP).filter(f=>f&&f.id).map(f=>[f.id,f])).values()].sort((a,b)=> String(a.cite).localeCompare(String(b.cite), undefined, {numeric:true}));
+  if(formsForToc.length){
+    let formsToc=`<div class="sidebar-part" style="color:#10b981" onclick="document.getElementById('forms-registry')?.scrollIntoView({behavior:'smooth'})">📋 Forms Registry — ${formsForToc.length}</div>`;
+    formsForToc.forEach(f=>{ formsToc+=`<a class="sidebar-sec" href="#form-${esc(f.id)}" onclick="openFormModal('${esc(f.id)}');return false;" style="color:#a7f3d0" title="${esc(f.title)}">Form ${esc(f.id.replace('MG-',''))} — §${esc(f.cite)}</a>`; });
+    tocHtml = formsToc + tocHtml;
+  }
   document.getElementById('sidebar-toc').innerHTML = tocHtml || '<div class="status">No sections.</div>';
 
   // ── Paper (with live word count + reading time) ──
@@ -588,7 +624,8 @@ function render(data) {
       <button onclick="window.print()" title="Print this Codex">🖨️ Print</button>
       <button onclick="copyCodexLink()" title="Copy link to current section">🔗 Copy link</button>
       <button onclick="toggleCodexFont()" title="Toggle dyslexia-friendly font">Aa</button>
-    </div>`;
+    </div>
+    ${renderFormsRegistry()}
 
   sortedParts.forEach(p => {
     const list = byPart[p.id] || [];
@@ -613,6 +650,8 @@ function render(data) {
           <span style="float:right;font-family:system-ui,sans-serif;font-size:11px;color:#5d4a35;margin-top:4px">${secWords.toLocaleString()}w · ${secPages}p</span>
         </div>`;
 
+      // inline attached form for this § (if any) — makes forms impossible to miss
+      html += renderInlineForm(s.cite);
       if (!(s.body || []).length) {
         html += `<p class="part-blurb">[Reserved — not yet drafted. ${esc(s.brief || '')}]</p>`;
       } else {
