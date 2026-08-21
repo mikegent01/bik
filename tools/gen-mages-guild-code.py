@@ -21,6 +21,8 @@ import time
 import urllib.error
 import urllib.request
 import signal
+import random
+import concurrent.futures
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -562,8 +564,33 @@ def main() -> int:
     ap.add_argument("--min-clauses", type=int, default=6, help="pages per § before new catchlines (each page is 1–2 book pages)")
     ap.add_argument("--clear-short", action="store_true", help="wipe sentence-length bodies so they redraft as pages")
     ap.add_argument("--reindex", action="store_true", help="recompute refs/crossRefTargets and exit")
+    ap.add_argument("--parallel", type=int, default=1, help="how many LLM prompts to run concurrently (multiprompting). 2-4 is faster on 9B+ with enough VRAM; 1 is sequential")
+    ap.add_argument("--jobs", type=int, default=0, help="alias for --parallel")
+    ap.add_argument("--eta", action="store_true", help="show ETA and throughput")
+    ap.add_argument("--validate", action="store_true", help="validate existing sections for cite health without generating")
+    ap.add_argument("--preview", action="store_true", help="preview next prompts without calling LLM (dry)")
+    ap.add_argument("--shuffle", action="store_true", help="shuffle water-level band order (less deterministic, good for parallel diversity)")
+    ap.add_argument("--log", type=str, default="", help="also tee output to this log file")
+    ap.add_argument("--max-fails", type=int, default=30, help="abort after this many consecutive waits (default 30)")
     args = ap.parse_args()
 
+    # alias: --jobs overrides --parallel, --preview is dry preview
+    if args.jobs and args.jobs != args.parallel:
+        args.parallel = args.jobs
+    args.parallel = max(1, min(8, args.parallel))
+    if args.preview:
+        data = load_json(OUT)
+        ensure_book(data)
+        prog = load_progress()
+        print("PREVIEW next", args.parallel, "prompts (no LLM):")
+        for i in range(args.parallel):
+            mode, slot = next_job(data, args.min_clauses, prog.get("last_cite") or "")
+            print(f"  [{mode}] §{slot['cite']} {slot['title']} — {slot.get('brief','')[:60]}")
+            prog["last_cite"] = slot["cite"]
+            # simulate adding a placeholder to avoid picking same slot again in preview
+            if mode == "related":
+                data["sections"].append(slot)
+        return 0
     data = load_json(OUT)
     ensure_book(data)
     save(data)
@@ -597,6 +624,18 @@ def main() -> int:
     if args.status:
         print_status(data, args.min_clauses)
         return 0
+    if args.validate:
+        # cite health check without generating
+        enrich_references(data)
+        unresolved=[(s["cite"], s.get("unresolved_refs")) for s in data.get("sections") or [] if s.get("unresolved_refs")]
+        print(f"validate: {len(unresolved)} sections have unresolved cites, {sum(len(v) for _,v in unresolved)} total unresolved")
+        for cite, lst in unresolved[:10]:
+            print(f"  §{cite} -> {', '.join(lst[:5])}")
+        dup_titles=[t for t,c in __import__('collections').Counter([s.get('title') for s in data['sections']]).items() if c>1]
+        print(f"duplicate titles: {len(dup_titles)}")
+        placeholder=sum(1 for s in data['sections'] if (s.get('brief') or '').startswith("NEW section"))
+        print(f"placeholder briefs: {placeholder}")
+        return 0
 
     models = list_models(args.base_url)
     model = args.model or (models[0] if models else "")
@@ -604,8 +643,12 @@ def main() -> int:
         print("LM Studio not reachable at", args.base_url, file=sys.stderr)
         print("Start the server, then re-run. Outline is already in the JSON.", file=sys.stderr)
         return 2
-    print("model:", model, "min-clauses:", args.min_clauses, file=sys.stderr)
+    print("model:", model, "min-clauses:", args.min_clauses, f"parallel={args.parallel}" + (" shuffle" if args.shuffle else ""), file=sys.stderr)
     print("writing", OUT, file=sys.stderr)
+    if args.log:
+        import logging
+        logging.basicConfig(filename=args.log, level=logging.INFO, format="%(asctime)s %(message)s")
+        print(f"logging to {args.log}", file=sys.stderr)
 
     def persist():
         save(data)
@@ -715,77 +758,181 @@ def main() -> int:
         print(f"{mode} § {slot['cite']} {slot['title']}  n={clause_n(slot)}  water={prog.get('water')}/{args.min_clauses}  ({added}/{goal})", file=sys.stderr)
         return True
 
-    while added < goal:
-        mode, slot = next_job(data, args.min_clauses, prog.get("last_cite") or "")
-        batch = empty_in_part(data, slot.get("part")) if mode == "draft" else []
+    # ── Multiprompting: run --parallel prompts concurrently ──
+    # Sequential path (parallel==1) keeps the old strict water-level order.
+    # Parallel path picks N distinct slots at the current water level and fires them together.
+    import time as _time
+    start_time = _time.time()
+    def run_one_job(job):
+        jmode, jslot, jbatch = job
         try:
-            prompt = part_draft_prompt(data, batch) if (mode == "draft" and len(batch) > 1) else fill_prompt(data, slot, mode, args.min_clauses)
-            raw = chat_with_search(
+            jprompt = part_draft_prompt(data, jbatch) if (jmode == "draft" and len(jbatch) > 1) else fill_prompt(data, jslot, jmode, args.min_clauses)
+            jraw = chat_with_search(
                 args.base_url, model,
-                [{"role": "system", "content": VOICE}, {"role": "user", "content": prompt}],
+                [{"role": "system", "content": VOICE}, {"role": "user", "content": jprompt}],
                 args.timeout,
             )
-        except urllib.error.URLError as e:
-            print("wait:", e, file=sys.stderr)
-            fails += 1
-            if fails > 30:
-                persist()
-                return 3
-            time.sleep(5)
-            continue
+            return (jmode, jslot, jbatch, jraw, None)
         except Exception as e:
-            print("err", e, file=sys.stderr)
-            fails += 1
-            persist()
-            time.sleep(2)
-            continue
-        if mode == "draft" and len(batch) > 1:
-            blocks = parse_part_blocks(raw)
-            if not blocks:
-                obj = parse_obj(raw)
-                if obj:
-                    blocks = {slot["cite"]: obj["body"]}
-            if not blocks:
-                print("skip: unusable part", slot.get("part"), file=sys.stderr)
+            return (jmode, jslot, jbatch, None, e)
+
+    while added < goal:
+        # QOL: ETA
+        if args.eta and added>0:
+            elapsed = _time.time() - start_time
+            per = elapsed / max(1, added)
+            remain = (goal - added) * per
+            print(f"eta {remain/60:.1f}m — {added}/{goal} — {per:.1f}s/page — parallel {args.parallel}", file=sys.stderr)
+
+        if args.parallel == 1:
+            # ——— sequential (original) ———
+            mode, slot = next_job(data, args.min_clauses, prog.get("last_cite") or "")
+            batch = empty_in_part(data, slot.get("part")) if mode == "draft" else []
+            try:
+                prompt = part_draft_prompt(data, batch) if (mode == "draft" and len(batch) > 1) else fill_prompt(data, slot, mode, args.min_clauses)
+                raw = chat_with_search(
+                    args.base_url, model,
+                    [{"role": "system", "content": VOICE}, {"role": "user", "content": prompt}],
+                    args.timeout,
+                )
+            except urllib.error.URLError as e:
+                print("wait:", e, file=sys.stderr)
+                fails += 1
+                if fails > 30:
+                    persist()
+                    return 3
+                time.sleep(5)
+                continue
+            except Exception as e:
+                print("err", e, file=sys.stderr)
+                fails += 1
+                persist()
+                time.sleep(2)
+                continue
+            if mode == "draft" and len(batch) > 1:
+                blocks = parse_part_blocks(raw)
+                if not blocks:
+                    obj = parse_obj(raw)
+                    if obj:
+                        blocks = {slot["cite"]: obj["body"]}
+                if not blocks:
+                    print("skip: unusable part", slot.get("part"), file=sys.stderr)
+                    fails += 1
+                    if fails >= 8:
+                        persist()
+                        return 4
+                    continue
+                by_cite = {s["cite"]: s for s in batch}
+                any_ok = False
+                for cite, body in blocks.items():
+                    s = by_cite.get(cite)
+                    if s:
+                        any_ok = accept(s, body, "draft") or any_ok
+                if not any_ok:
+                    fails += 1
+                    continue
+                time.sleep(args.sleep)
+                continue
+            obj = parse_obj(raw)
+            if not obj:
+                print("skip: unusable", slot["cite"], file=sys.stderr)
                 fails += 1
                 if fails >= 8:
                     persist()
                     return 4
                 continue
-            by_cite = {s["cite"]: s for s in batch}
-            any_ok = False
-            for cite, body in blocks.items():
-                s = by_cite.get(cite)
-                if s:
-                    any_ok = accept(s, body, "draft") or any_ok
-            if not any_ok:
+            if not accept(slot, obj["body"], mode):
+                print("skip thin (repaired) ", slot["cite"], file=sys.stderr)
                 fails += 1
+                prog["last_cite"] = slot.get("cite") or ""
+                if fails >= 3:
+                    persist()
+                    print(f"auto-rotate from §{slot['cite']} after {fails} thin skips", file=sys.stderr)
+                    fails = 0
                 continue
             time.sleep(args.sleep)
             continue
-        obj = parse_obj(raw)
-        if not obj:
-            print("skip: unusable", slot["cite"], file=sys.stderr)
-            fails += 1
-            if fails >= 8:
+        else:
+            # ——— parallel: collect N distinct jobs, fire together ———
+            jobs=[]
+            # snapshot last_cite and avoid duplicate picks in this batch
+            seen_cites=set()
+            tmp_last = prog.get("last_cite") or ""
+            for _ in range(min(args.parallel, goal-added)):
+                for _try in range(8):
+                    try:
+                        jmode, jslot = next_job(data, args.min_clauses, tmp_last)
+                    except ValueError:
+                        break
+                    jcite=jslot.get("cite")
+                    if jcite not in seen_cites:
+                        break
+                    tmp_last=jcite
+                else:
+                    break
+                if jcite in seen_cites:
+                    break
+                seen_cites.add(jcite)
+                tmp_last=jcite
+                jbatch = empty_in_part(data, jslot.get("part")) if jmode == "draft" else []
+                jobs.append((jmode, jslot, jbatch))
+            if args.shuffle and len(jobs)>1:
+                import random as _rnd
+                _rnd.shuffle(jobs)
+                # if we just created a new related section, it's now in data.sections — keep it for next pick
+            if not jobs:
+                print("no jobs to run — saving", file=sys.stderr)
                 persist()
-                return 4
+                return 0
+            # fire
+            results=[]
+            with concurrent.futures.ThreadPoolExecutor(max_workers=args.parallel) as ex:
+                futs={ex.submit(run_one_job, j): j for j in jobs}
+                for fut in concurrent.futures.as_completed(futs):
+                    results.append(fut.result())
+            # process results in completion order (accept is serialized to avoid races)
+            for jmode, jslot, jbatch, jraw, jerr in results:
+                if jerr is not None:
+                    print(f"parallel wait {jmode} §{jslot.get('cite')}: {jerr}", file=sys.stderr)
+                    fails+=1
+                    if fails>30:
+                        persist()
+                        return 3
+                    continue
+                if jmode == "draft" and len(jbatch) > 1:
+                    blocks = parse_part_blocks(jraw)
+                    if not blocks:
+                        obj = parse_obj(jraw)
+                        if obj:
+                            blocks = {jslot["cite"]: obj["body"]}
+                    if not blocks:
+                        print("skip: unusable part", jslot.get("part"), file=sys.stderr)
+                        fails+=1
+                        continue
+                    by_cite={s["cite"]: s for s in jbatch}
+                    any_ok=False
+                    for cite, body in blocks.items():
+                        s=by_cite.get(cite)
+                        if s:
+                            any_ok=accept(s, body, "draft") or any_ok
+                    if not any_ok:
+                        fails+=1
+                    continue
+                obj=parse_obj(jraw)
+                if not obj:
+                    print("skip: unusable", jslot["cite"], file=sys.stderr)
+                    fails+=1
+                    continue
+                if not accept(jslot, obj["body"], jmode):
+                    print("skip thin (repaired) ", jslot["cite"], file=sys.stderr)
+                    fails+=1
+                    prog["last_cite"]=jslot.get("cite") or ""
+                    if fails>=3:
+                        persist()
+                        fails=0
+                    continue
+            time.sleep(args.sleep)
             continue
-        if not accept(slot, obj["body"], mode):
-            # accept now auto-repairs, so this should rarely happen; if it does, advance pointer
-            print("skip thin (repaired) ", slot["cite"], file=sys.stderr)
-            fails += 1
-            # after 3 thin skips on same cite, force-rotate so we stop burning tokens
-            # bump last_cite to current slot so round_robin picks the next band member next iteration
-            prog["last_cite"] = slot.get("cite") or ""
-            if fails >= 3:
-                # also persist progress so next restart doesn't re-hit same slot
-                persist()
-                # don't hard-fail, just move on
-                print(f"auto-rotate from §{slot['cite']} after {fails} thin skips", file=sys.stderr)
-                fails = 0
-            continue
-        time.sleep(args.sleep)
     persist()
     print("done", added)
     return 0
