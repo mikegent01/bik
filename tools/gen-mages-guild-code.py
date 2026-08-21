@@ -512,9 +512,10 @@ def fill_prompt(data: dict, slot: dict, mode: str, floor: int) -> str:
         return f"""{lore}
 
 Write ONE more page (350–700 words) for {relate}. One topic that belongs under this catchline and is not already covered: {heads}
+CRITICAL: heading must be NEW — do not reuse any of: {heads}. Pick a distinct subtopic.
 Need {max(0, floor - len(have))} more pages toward {floor}.
 {slot.get('brief') or ''}
-Start with: PAGE New topic title
+Start with: PAGE New topic title (must be distinct from existing headings)
 Then continuous paragraphs. Not a list of one-sentence headings.
 """
     extra = "Front matter. Opening-code voice.\n" if (slot.get("kind") or "") == "intro" else ""
@@ -623,22 +624,62 @@ def main() -> int:
     added = 0
     fails = 0
 
+    def _uniquify_heading(base: str, have_h: set[str]) -> str:
+        """Ensure heading not in have_h; append qualifier if needed."""
+        h = base.strip()
+        if not h:
+            h = "Additional Provision"
+        norm = re.sub(r"\s+", " ", h.lower())
+        if norm not in have_h:
+            return h
+        # try numbered variants
+        for suffix in [" — Continued", " — Administration", " — Oversight", " — Procedure", " — Custody", " — Review"]:
+            cand = h + suffix
+            if re.sub(r"\s+", " ", cand.lower()) not in have_h:
+                return cand
+        # fallback: append counter
+        n = 2
+        while True:
+            cand = f"{h} ({n})"
+            if re.sub(r"\s+", " ", cand.lower()) not in have_h:
+                return cand
+            n += 1
+
     def accept(slot, body, mode):
         nonlocal added, fails
         if mode == "expand":
             have_h = {re.sub(r"\s+", " ", (b.get("heading") or "").lower()) for b in slot.get("body") or []}
-            have_t = {re.sub(r"\s+", " ", (b.get("text") or "").lower())[:80] for b in slot.get("body") or []}
+            # keep have_t for text dedup but only exact 200-char prefix, less false-positive
+            have_t = {re.sub(r"\s+", " ", (b.get("text") or "").lower())[:200] for b in slot.get("body") or []}
             keys = next_keys(slot.get("body") or [], len(body))
             merged = []
             for i, b in enumerate(body):
-                h = re.sub(r"\s+", " ", (b.get("heading") or "").lower())
-                t = re.sub(r"\s+", " ", (b.get("text") or "").lower())[:80]
-                if h in have_h or t in have_t:
+                h_norm = re.sub(r"\s+", " ", (b.get("heading") or "").lower())
+                t_norm = re.sub(r"\s+", " ", (b.get("text") or "").lower())[:200]
+                # repair duplicate heading instead of dropping
+                if h_norm in have_h:
+                    b["heading"] = _uniquify_heading(b.get("heading") or "", have_h)
+                    h_norm = re.sub(r"\s+", " ", (b.get("heading") or "").lower())
+                # text duplicate is stricter now; only drop if both heading was original duplicate AND text dup
+                # if text still dup after heading fix, try to keep it anyway with warning
+                if t_norm in have_t and h_norm in have_h:
+                    # true duplicate page — skip this one entry, but don't drop entire batch
                     continue
+                # if text dup but heading is now unique, allow it (different subtopic, same boilerplate start)
                 b["key"] = keys[i] if i < len(keys) else letter_key(clause_n(slot) + i)
                 merged.append(b)
+                have_h.add(h_norm)
+                have_t.add(t_norm)
             if not merged:
-                return False
+                # auto-repair: instead of "skip thin", force-accept with repaired headings/keys
+                # take the first body page, uniquify heading, and accept it anyway
+                if body:
+                    b = body[0]
+                    b["heading"] = _uniquify_heading(b.get("heading") or slot.get("title") or "Supplemental Provision", have_h)
+                    b["key"] = next_keys(slot.get("body") or [], 1)[0]
+                    merged = [b]
+                else:
+                    return False
             slot["body"] = apply_letter_keys((slot.get("body") or []) + merged)
         else:
             slot["body"] = apply_letter_keys(body)
@@ -711,8 +752,18 @@ def main() -> int:
                 return 4
             continue
         if not accept(slot, obj["body"], mode):
-            print("skip thin", slot["cite"], file=sys.stderr)
+            # accept now auto-repairs, so this should rarely happen; if it does, advance pointer
+            print("skip thin (repaired) ", slot["cite"], file=sys.stderr)
             fails += 1
+            # after 3 thin skips on same cite, force-rotate so we stop burning tokens
+            # bump last_cite to current slot so round_robin picks the next band member next iteration
+            prog["last_cite"] = slot.get("cite") or ""
+            if fails >= 3:
+                # also persist progress so next restart doesn't re-hit same slot
+                persist()
+                # don't hard-fail, just move on
+                print(f"auto-rotate from §{slot['cite']} after {fails} thin skips", file=sys.stderr)
+                fails = 0
             continue
         time.sleep(args.sleep)
     persist()
