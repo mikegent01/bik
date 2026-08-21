@@ -31,22 +31,19 @@ BROWSE = [
     ROOT / "Reputation-Matrix2" / "data" / "laws" / "legal_data.js",
 ]
 
-VOICE = """You are a clerk of the Mages' Guild Accords Desk drafting the C.C.D.
-You fill ONE assigned slot. You do not skip ahead or rename the catchline.
+VOICE = """You are a clerk of the Mages' Guild Accords Desk. Write code prose only.
 
-House style:
-(g) Distinction from Permissible Alteration.
-(1) General Rule. Transfiguration used for legitimate, disclosed, and non-deceptive purposes shall not constitute a violation.
-(2) Disclosure Requirement. Where transfiguration materially affects value, composition, or risk, full and accurate disclosure shall be required.
-(3) Burden. The person asserting permissible use shall bear the burden of demonstrating that the alteration does not mislead or affect financial determination.
-(h) Cross-References. For general financial fraud and manipulation, see § 1001.1.
-(i) Historical Annotations. Originally established under C.C.D. 6125, 29 MR 771, Fri. 8, 1818 ...
+Output format — one clause per line, nothing else:
+Heading | The sentence or two of law.
 
-If this slot is intro (§ 1.x), write opening-code prose: short title, who is bound, shall/may, other law. Not a market scheme.
+Example:
+Scope | This compilation is the Codex of the Mages' Guild and may be cited as C.C.D.
+General Rule | Transfiguration used for legitimate, disclosed, and non-deceptive purposes shall not constitute a violation.
+Burden | The person asserting permissible use shall bear the burden of demonstrating that the alteration does not mislead.
 
-Canon: Autumnwood Accords; Conservators vs Innovators; Paradox Trial; Quiet List; Iron Mandate is rival law; Wario Coin is not tender; Heartstone is speech until surveyed; mike is GM not a character; no Grime office; no invented vote tallies.
-
-Idiosyncratic bureaucracy. Funny or boring. Trip players. JSON only. No markdown.
+No JSON. No markdown. No chat. No quotes around the whole answer.
+Intro sections: short title, who is bound, shall/may. Not a market scheme.
+Canon: Autumnwood Accords; Conservators vs Innovators; Paradox Trial; Quiet List; Iron Mandate is rival law; Wario Coin is not tender; Heartstone is speech until surveyed; mike is not a character; no Grime office.
 """
 
 
@@ -288,32 +285,66 @@ def fp(sec: dict) -> str:
     return hashlib.sha1(blob.encode()).hexdigest()[:16]
 
 
+def parse_pipe_lines(raw: str) -> list[dict]:
+    """RP models write prose. We only need Heading | text lines."""
+    clean = []
+    for line in (raw or "").splitlines():
+        line = line.strip().lstrip("-*• ").strip()
+        line = re.sub(r"^```.*$", "", line).strip()
+        if not line or line in ("```", "```json"):
+            continue
+        if "|" in line:
+            left, right = line.split("|", 1)
+            heading = re.sub(r"^\(?[a-z0-9.]+\)\s*", "", left.strip(), flags=re.I).rstrip(".")
+            text = right.strip()
+            if heading.lower() in ("heading", "key", "title") and len(text) < 12:
+                continue
+            if heading.lower() in ("heading", "key"):
+                continue
+            if len(text) < 12:
+                continue
+            clean.append({"heading": heading[:80] or "Clause", "text": text})
+            continue
+        m = re.match(r"^\(?([a-z0-9.]+)\)?\s+([A-Z][^.]{2,60})\.\s+(.+)$", line)
+        if m and len(m.group(3)) > 20:
+            clean.append({"heading": m.group(2).strip()[:80], "text": m.group(3).strip()})
+    return clean
+
+
 def parse_obj(raw: str) -> dict | None:
     raw = (raw or "").strip()
     raw = re.sub(r"^```(?:json)?\s*", "", raw)
     raw = re.sub(r"\s*```$", "", raw)
+    # 1) pipe lines (preferred — model fills fields, we wrap JSON)
+    pipes = parse_pipe_lines(raw)
+    if len(pipes) >= 3:
+        return {"body": pipes, "title": None}
+    # 2) JSON if a model actually emits it
     m = re.search(r"\{.*\}", raw, re.S)
-    if not m:
-        return None
-    try:
-        o = json.loads(m.group(0))
-    except json.JSONDecodeError:
-        return None
-    body = o.get("body")
-    if not isinstance(body, list) or not body:
-        return None
-    clean = []
-    for i, b in enumerate(body):
-        if not isinstance(b, dict):
-            continue
-        text = str(b.get("text") or "").strip()
-        if not text:
-            continue
-        clean.append({"key": str(b.get("key") or i + 1), "heading": str(b.get("heading") or "Clause"), "text": text})
-    if len(clean) < 3:
-        return None
-    o["body"] = clean
-    return o
+    if m:
+        blob = m.group(0)
+        blob = blob.replace("“", '"').replace("”", '"').replace("’", "'")
+        blob = re.sub(r",\s*}", "}", blob)
+        blob = re.sub(r",\s*]", "]", blob)
+        try:
+            o = json.loads(blob)
+        except json.JSONDecodeError:
+            o = None
+        if isinstance(o, dict):
+            body = o.get("body")
+            clean = []
+            if isinstance(body, list):
+                for i, b in enumerate(body):
+                    if not isinstance(b, dict):
+                        continue
+                    text = str(b.get("text") or "").strip()
+                    if len(text) < 12:
+                        continue
+                    clean.append({"heading": str(b.get("heading") or "Clause")[:80], "text": text})
+            if len(clean) >= 3:
+                o["body"] = clean
+                return o
+    return None
 
 
 def chat(base: str, model: str, messages: list, timeout: int) -> str:
@@ -336,59 +367,25 @@ def list_models(base: str) -> list[str]:
 
 def fill_prompt(data: dict, slot: dict, mode: str, floor: int) -> str:
     have = slot.get("body") or []
-    heads = ", ".join(f"({b.get('key')}) {b.get('heading')}" for b in have[-20:])
-    keys = ", ".join(next_keys(have, 8))
-    relate = (
-        f"Stay inside § {slot.get('cite')} {slot.get('title')}. "
-        f"Do not wander into another Part. Related clauses only."
-    )
+    heads = ", ".join(str(b.get("heading") or "") for b in have[-12:])
+    relate = f"§ {slot.get('cite')} {slot.get('title')}. Same subject only."
     if mode == "expand":
-        return f"""EXPAND this filed section. Do not rename it. Do not start a new § number.
-cite: {slot['cite']}
-title: {slot['title']}
-already has {len(have)} clauses; target {floor}. Existing headings: {heads}
-Add 6–10 NEW subsections. Keys to use: {keys}
-No repeated headings. {relate}
-
-Return ONLY JSON:
-{{"cite": "{slot['cite']}", "title": "{slot['title']}", "body": [
-  {{"key": "{keys.split(', ')[0] if keys else 'm'}", "heading": "Further Rule", "text": "..."}}
-]}}
-
+        return f"""Add 6 new lines for {relate}
+Already used headings (do not repeat): {heads}
+Need {floor - len(have)} more clauses toward {floor}.
 {slot.get('brief') or ''}
 
-Archive scrap:
-{pack_context(data, slot)}
+Write 6 lines as: Heading | prose
 """
-    kind_line = "If kind is intro, write opening-code prose, not a market scheme."
+    extra = ""
     if mode == "related":
-        kind_line = (
-            "This is a NEW catchline in the same Part. You MUST replace title with a real catchline "
-            "that belongs with the siblings in the instruction. Same subject family only."
-        )
-    return f"""Fill ONLY this slot. Keep cite exactly. {relate}
-
-cite: {slot['cite']}
-part: {slot['part']}
-title: {slot['title']}
-instruction: {slot.get('brief') or ''}
-kind: {slot.get('kind') or 'section'}
-
-Return ONLY JSON:
-{{
-  "cite": "{slot['cite']}",
-  "part": "{slot['part']}",
-  "title": "{slot['title']}",
-  "body": [
-    {{"key": "a", "heading": "Scope", "text": "..."}},
-    {{"key": "b", "heading": "General Rule", "text": "..."}}
-  ]
-}}
-
-5–9 subsections. {kind_line}
-
-Archive scrap:
-{pack_context(data, slot)}
+        extra = "First line may be TITLE | your catchline\nThen 6 Heading | prose lines. Same Part as siblings.\n"
+    elif (slot.get("kind") or "") == "intro":
+        extra = "This is front matter. Opening-code voice.\n"
+    return f"""Draft {relate}
+Instruction: {slot.get('brief') or ''}
+{extra}
+Write 6 to 8 lines as: Heading | prose
 """
 
 
@@ -480,8 +477,15 @@ def main() -> int:
                 continue
             fps.add(digest)
             slot["body"] = new_body
-            if mode == "related" and obj.get("title") and obj["title"] != "Related Requirements":
-                slot["title"] = str(obj["title"])[:120]
+            if mode == "related":
+                title = obj.get("title")
+                if not title:
+                    for b in new_body:
+                        if str(b.get("heading") or "").lower() in ("title", "catchline"):
+                            title = b.get("text")
+                            break
+                if title and str(title) != "Related Requirements":
+                    slot["title"] = str(title)[:120]
         slot["status"] = "filed" if clause_n(slot) >= args.min_clauses else ("growing" if slot.get("body") else "reserved")
         slot["source"] = "lmstudio"
         slot["fp"] = fp(slot)
