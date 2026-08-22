@@ -69,6 +69,9 @@ FILED LORE (use these names; do not invent a new Guild):
 - Iron Mandate is Empire/Legion law, not this Codex. Wario Coin is not Guild tender.
 - Archie Miser: Provisional Guild Pass (politics vs Mandate). Titan growth on Markop = unauthorized field use.
 - Heartstone / rift: speech until surveyed. One-T cartography is a map, not a raid license.
+- Scope: this Codex applies to covered casters and covered conduct wherever performed, including unaligned lands, wilderness, other planes, and unsanctioned field work. Location alone does not create immunity.
+- A guest or unaffiliated caster who casts outside Guild property is not automatically a Person Bound, but may still incur Codex liability for covered conduct, property damage, public danger, unauthorized use of Guild marks or equipment, a Guild contract, or a tracked anomaly/asset. The scope rule must distinguish jurisdiction, standing, and the separate duty to answer for harm.
+- Fireball, weather, transfiguration, summoned creatures, and other spells that damage third-party property are covered field incidents even when no Guild hall, fee, or Guild member is involved. Do not invent a blanket rule that makes every traveler a Guild member.
 - mike is GM, not a person bound. No Grime office.
 """
 
@@ -85,6 +88,7 @@ Then paragraphs. Blank line between paragraphs. No Heading | sentence lines. No 
 
 Most pages stay generic bureaucratic law. Use ARCHIVE CARDS only when they actually fit.
 Canon: Autumnwood Accords; Veyra; Conservators (Theron); Innovators (Brightspark); Paradox Trial; Quiet List; Iron Mandate is rival law; Wario Coin is not tender; mike is not a character.
+Scope canon: distinguish (a) who is a Person Bound, (b) where the Guild may assert process or oversight, and (c) what conduct is actionable under the Codex. A non-member outside Guild property is not automatically enrolled merely by existing or casting, but outside-Guild conduct can still be covered when it causes property damage or public danger, uses Guild resources or marks, breaches a Guild undertaking, affects a tracked Guild asset/anomaly, or falls under a field-casting, reporting, restitution, or emergency rule. Write explicit remedies and notice/process so this is a real widening of scope, not a contradictory claim of universal membership. Use a random destructive Fireball/property-damage incident as a recurring test case where appropriate.
 If you need one fact: NEED: short query — then wait; do not stop the page early.
 """
 

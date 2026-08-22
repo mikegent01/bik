@@ -40,12 +40,14 @@
     {"cite": "400.4", "part": "part_iv", "title": "Specimen Custody", "brief": "A petrified monster is inventory, not a trophy, until released."},
     {"cite": "400.5", "part": "part_iv", "title": "Unauthorized Titan Growth", "brief": "Growth magic in a street is field use, not research, even if someone later studies it."},
 
+    {"cite": "500.0", "part": "part_v", "title": "Field Jurisdiction; Conduct Outside Guild Property", "brief": "Location alone does not grant immunity. Distinguish Person Bound status from actionable conduct: property damage, public danger, Guild resources or marks, Guild undertakings, tracked assets, and field duties. An unaffiliated traveler is not automatically enrolled, but a destructive Fireball can still trigger notice, restitution, investigation, and process."},
     {"cite": "500.1", "part": "part_v", "title": "Field Casting for Value", "brief": "Public safety distance, notice to non-casters."},
     {"cite": "500.2", "part": "part_v", "title": "Unscheduled Weather", "brief": "Calling weather for agricultural advantage. Insurance does not cover weather you called."},
     {"cite": "500.3", "part": "part_v", "title": "Corridor Courtesy After an Explosion", "brief": "Who files first. Who sweeps."},
     {"cite": "500.4", "part": "part_v", "title": "Healing Offered as Consideration", "brief": "Unlicensed healing sold as a contract term."},
     {"cite": "500.5", "part": "part_v", "title": "Love Philtre and Undue Influence", "brief": "A philtre is not consent."},
 
+    {"cite": "500.6", "part": "part_v", "title": "Destruction of Third-Party Property by Spell", "brief": "A random Fireball in the wild is a covered field incident even without a Guild hall, fee, or Guild witness. Incident report, preservation of evidence, restitution, emergency aid, jurisdictional handoff, and defenses for necessity or authorized work."},
     {"cite": "600.1", "part": "part_vi", "title": "Contracts with Non-Casters", "brief": "Plain language. Illusion of a signature is not a signature. Illusion of a fee is still a fee."},
     {"cite": "600.2", "part": "part_vi", "title": "Familiars as Agents", "brief": "Vicarious casting. Strike by familiar."},
     {"cite": "600.3", "part": "part_vi", "title": "Geas as an Unconscionable Term", "brief": "A geas to be reasonable is not a defined term."},
