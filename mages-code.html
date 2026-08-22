@@ -360,6 +360,21 @@
   #form-modal .form-field{ border:1px solid #c4ad84; border-radius:8px; padding:8px 10px; margin:8px 0; background:#fff; }
   #form-modal .form-field b{ font-size:12px; color:#6d28d9; }
 
+  /* ── Reader upgrades ── */
+  .reader-tools { display:flex; gap:6px; flex-wrap:wrap; margin:10px 0 14px; font-family:system-ui,sans-serif; }
+  .reader-tools button, .section-actions button { cursor:pointer; border:1px solid var(--border); background:#fffaf0; color:#3d2a00; border-radius:7px; padding:5px 9px; font-size:11px; }
+  .reader-tools button:hover, .section-actions button:hover { background:#ede5d0; }
+  .section-actions { float:right; display:flex; gap:4px; }
+  .sec.bookmarked .cite-heading { border-left:4px solid #d97706; padding-left:8px; background:#fff7df; }
+  .sec.collapsed > :not(.cite-heading) { display:none !important; }
+  .bookmark-list { display:none; margin:8px 0 16px; padding:10px 12px; border:1px solid #d97706; border-radius:8px; background:#fff7df; font:12px system-ui,sans-serif; }
+  .bookmark-list.show { display:block; }
+  .reading-focus .sidebar, .reading-focus .breadcrumb { display:none; }
+  .reading-focus .layout { max-width:850px; }
+  .reading-focus .main { padding-top:12px; }
+
+  body.warm-reader { --bg:#302719; --paper:#fffaf0; --accent:#9a3412; --kicker:#9a3412; }
+
   /* ── Responsive ── */
   @media (max-width: 700px) {
     .sidebar { display: none; }
@@ -624,7 +639,12 @@ function render(data) {
       <button onclick="window.print()" title="Print this Codex">🖨️ Print</button>
       <button onclick="copyCodexLink()" title="Copy link to current section">🔗 Copy link</button>
       <button onclick="toggleCodexFont()" title="Toggle dyslexia-friendly font">Aa</button>
+      <button onclick="toggleTheme()" title="Toggle paper theme">☼ Theme</button>
+      <button onclick="toggleFocus()" title="Distraction-free reading">▣ Focus</button>
+      <button onclick="jumpRandom()" title="Jump to a drafted section">↯ Random</button>
     </div>
+    <div class="reader-tools"><button onclick="toggleBookmarks()">🔖 Bookmarks <span id="bookmark-count">0</span></button><button onclick="expandAll()">Expand all</button><button onclick="collapseAll()">Collapse all</button><span style="font:11px system-ui;color:#5d4a35;padding:6px 2px">Shortcuts: / search · f focus · r random</span></div>
+    <div id="bookmark-list" class="bookmark-list"></div>
     ${renderFormsRegistry()}
   `;
 
@@ -649,6 +669,7 @@ function render(data) {
           &ensp;${esc(s.title)}
           <button class="copy-cite" onclick="copyCite('${esc(s.cite)}')" title="Copy § ${esc(s.cite)} link">Copy §</button>
           <span style="float:right;font-family:system-ui,sans-serif;font-size:11px;color:#5d4a35;margin-top:4px">${secWords.toLocaleString()}w · ${secPages}p</span>
+          <span class="section-actions"><button onclick="toggleSection('${esc(s.cite)}')" title="Collapse section">−</button><button onclick="bookmarkSection('${esc(s.cite)}')" title="Save bookmark">🔖</button></span>
         </div>`;
 
       // inline attached form for this § (if any) — makes forms impossible to miss
@@ -679,6 +700,7 @@ function render(data) {
 
   document.getElementById('paper').innerHTML = html;
   attachCiteTips();
+  renderBookmarks();
   // deep-link highlight if hash present — '.' in IDs like s-1301.1 needs getElementById, not querySelector
   if (location.hash) {
     try {
@@ -705,6 +727,21 @@ function render(data) {
     }
   });
 }
+// Reader upgrades: persistent bookmarks, focus mode, section density, and keyboard navigation.
+const BOOKMARK_KEY='mages-codex-bookmarks';
+function bookmarks(){ try{return JSON.parse(localStorage.getItem(BOOKMARK_KEY)||'[]')}catch(e){return[]} }
+function bookmarkSection(c){ let b=bookmarks(); b=b.includes(c)?b.filter(x=>x!==c):[...b,c]; localStorage.setItem(BOOKMARK_KEY,JSON.stringify(b)); renderBookmarks(); document.getElementById('s-'+c)?.classList.toggle('bookmarked',b.includes(c)); }
+function renderBookmarks(){const b=bookmarks(), box=document.getElementById('bookmark-list'), count=document.getElementById('bookmark-count'); if(count) count.textContent=b.length; if(box) box.innerHTML=b.length?'<b>Saved sections</b> '+b.map(c=>`<a href="#s-${c}" style="margin-left:10px;color:#6d28d9">§ ${c}</a>`).join(''):'No saved sections yet — use 🔖 on any heading.'; b.forEach(c=>document.getElementById('s-'+c)?.classList.add('bookmarked'));}
+function toggleBookmarks(){document.getElementById('bookmark-list')?.classList.toggle('show');renderBookmarks()}
+function toggleSection(c){document.getElementById('s-'+c)?.classList.toggle('collapsed')}
+function expandAll(){document.querySelectorAll('.sec').forEach(x=>x.classList.remove('collapsed'))}
+function collapseAll(){document.querySelectorAll('.sec').forEach(x=>x.classList.add('collapsed'))}
+function toggleTheme(){document.body.classList.toggle('warm-reader');localStorage.setItem('mages-theme',document.body.classList.contains('warm-reader')?'warm':'dark')}
+function toggleFocus(){document.body.classList.toggle('reading-focus')}
+function jumpRandom(){const a=[...document.querySelectorAll('.sec:not(.hidden)')].filter(x=>x.querySelector('.codex-page'));if(a.length)a[Math.floor(Math.random()*a.length)].scrollIntoView({behavior:'smooth',block:'center'})}
+document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement.tagName!=='INPUT'){e.preventDefault();document.getElementById('codex-search')?.focus()}if(e.key.toLowerCase()==='f'&&document.activeElement.tagName!=='INPUT')toggleFocus();if(e.key.toLowerCase()==='r'&&document.activeElement.tagName!=='INPUT')jumpRandom()});
+if(localStorage.getItem('mages-theme')==='warm')document.body.classList.add('warm-reader');
+
 // QoL helpers: filter, copy, font toggle — fixed empty-cite false positive
 function filterCodex(q){
   const needle=(q||'').toLowerCase().trim();
