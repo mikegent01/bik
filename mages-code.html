@@ -28,7 +28,8 @@
   /* ── Layout ── */
   .layout {
     display: flex;
-    max-width: 1100px;
+    width: 100%;
+    max-width: 1400px;
     margin: 0 auto;
     gap: 0;
     align-items: flex-start;
@@ -376,6 +377,20 @@
   body.warm-reader { --bg:#302719; --paper:#fffaf0; --accent:#9a3412; --kicker:#9a3412; }
 
   /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .layout { display: block; width: 100%; }
+    .main { width: 100%; }
+    .paper { max-width: 920px; margin: 0 auto; }
+  }
+  @media print {
+    body { background: #fff; color: #000; }
+    .sidebar, .breadcrumb, .qol-bar, .reader-tools, #read-progress, .section-actions, #forms-registry { display:none !important; }
+    .layout, .main { display:block; max-width:none; width:100%; }
+    .main { padding:0; }
+    .paper { box-shadow:none; border:0; padding:12mm 15mm; }
+    .sec { break-inside: avoid; }
+  }
   @media (max-width: 700px) {
     .sidebar { display: none; }
     .paper { padding: 20px 16px 40px; }
