@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Codex of the Mages' Guild — C.C.D.</title>
+<link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/mages-codex-reader.css">
+<link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/mages-codex-index.css">
 <style>
   :root {
     --bg: #1a1224;
@@ -362,21 +364,6 @@
   #form-modal .form-field{ border:1px solid #c4ad84; border-radius:8px; padding:8px 10px; margin:8px 0; background:#fff; }
   #form-modal .form-field b{ font-size:12px; color:#6d28d9; }
 
-  .book-cover, .book-index { display:none; }
-  .book-mode .book-cover { display:flex; min-height:70vh; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:70px 42px; margin-bottom:32px; background:radial-gradient(circle at 50% 30%,#56327f 0,#241532 48%,#120b1c 100%); color:#f8e8b0; border:10px double #c4ad84; box-shadow:inset 0 0 0 2px #6d28d9,0 18px 34px rgba(0,0,0,.35); position:relative; overflow:hidden; }
-  .book-mode .book-cover:before { content:'✦  ✧  ✦'; position:absolute; top:24px; color:#e0b400; letter-spacing:1.2em; font-size:20px; }
-  .book-mode .book-cover:after { content:'AUTUMNWOOD ACCORDS DESK  ·  OFFICIAL COMPILATION'; position:absolute; bottom:24px; color:#c4b5fd; font:10px system-ui,sans-serif; letter-spacing:.12em; }
-  .book-cover .cover-kicker { font:700 12px system-ui,sans-serif; letter-spacing:.28em; color:#c4b5fd; text-transform:uppercase; }
-  .book-cover h2 { font:700 clamp(32px,6vw,62px)/1.05 Georgia,serif; letter-spacing:.04em; margin:18px 0; color:#f8e8b0; text-shadow:0 3px 0 #241532; }
-  .book-cover p { max-width:430px; color:#eadbb2; font-style:italic; font-size:16px; }
-  .book-mode .book-index { display:block; padding:28px 34px; margin:0 auto 34px; background:#fffaf0; border:1px solid #c4ad84; box-shadow:7px 7px 0 #d8c9a8; }
-  .book-index h2 { color:#3d2a00; text-align:center; font-variant:small-caps; letter-spacing:.12em; margin-bottom:18px; }
-  .book-index-grid { columns:2 220px; column-gap:28px; }
-  .book-index a { display:block; break-inside:avoid; padding:5px 0; color:#6d28d9; border-bottom:1px dotted #c4ad84; text-decoration:none; font:12px system-ui,sans-serif; }
-  .book-index a:hover { color:#9a3412; padding-left:5px; }
-  .book-mode .sec.book-current .codex-page { min-height:60vh; padding:48px 52px 58px; border:1px solid #c4ad84; box-shadow:9px 9px 0 #d8c9a8,0 16px 28px rgba(61,42,0,.13); background:linear-gradient(90deg,#eee2c7 0,#fffaf0 4%,#fffaf0 96%,#eee2c7 100%); }
-  .book-mode .sec.book-current .codex-page-head { text-align:center; font-size:20px; letter-spacing:.08em; border-bottom:1px solid #c4ad84; padding-bottom:14px; margin-bottom:26px; }
-  @media(max-width:700px){ .book-mode .sec.book-current .codex-page{padding:30px 22px 40px}.book-mode .book-index{padding:20px 16px}.book-index-grid{columns:1} }
   /* ── Reader upgrades ── */
   .reader-tools { display:flex; gap:6px; flex-wrap:wrap; margin:10px 0 14px; font-family:system-ui,sans-serif; }
   .reader-tools button, .section-actions button { cursor:pointer; border:1px solid var(--border); background:#fffaf0; color:#3d2a00; border-radius:7px; padding:5px 9px; font-size:11px; }
@@ -389,12 +376,6 @@
   .reading-focus .sidebar, .reading-focus .breadcrumb { display:none; }
   .reading-focus .layout { max-width:850px; }
   .reading-focus .main { padding-top:12px; }
-  .book-mode .sec:not(.book-current) { display:none; }
-  .book-mode .paper { max-width:820px; }
-  .book-nav { display:none; align-items:center; justify-content:space-between; gap:12px; margin:0 0 18px; padding:10px 12px; background:#ede5d0; border:1px solid #d8c9a8; border-radius:8px; font:12px system-ui,sans-serif; color:#3d2a00; }
-  .book-mode .book-nav { display:flex; }
-  .book-nav button { border:1px solid #c4ad84; border-radius:6px; padding:6px 10px; background:#fffaf0; cursor:pointer; color:#3d2a00; }
-  .book-nav button:disabled { opacity:.4; cursor:not-allowed; }
 
   body.warm-reader { --bg:#302719; --paper:#fffaf0; --accent:#9a3412; --kicker:#9a3412; }
 
@@ -445,8 +426,52 @@
     </div>
   </main>
 </div>
+
+<section class="codex-reader" id="codex-reader" aria-hidden="true" aria-label="Codex book reader">
+  <header class="codex-reader-toolbar">
+    <div class="codex-reader-toolbar-group">
+      <button type="button" class="codex-reader-tool" id="codex-reader-index" aria-label="Open complete index">☰ <span class="tool-label">Index</span></button>
+      <button type="button" class="codex-reader-tool codex-reader-tool--copy" id="codex-reader-copy">Copy citation</button>
+    </div>
+    <div class="codex-reader-title">
+      <strong>Codex of the Mages' Guild</strong>
+      <span id="codex-reader-subtitle">C.C.D. · Volume I</span>
+    </div>
+    <div class="codex-reader-toolbar-group">
+      <button type="button" class="codex-reader-tool codex-reader-tool--close" id="codex-reader-close" aria-label="Close book and return to scroll view">×</button>
+    </div>
+  </header>
+
+  <div class="codex-reader-stage" id="codex-reader-stage">
+    <button type="button" class="codex-reader-side-turn codex-reader-side-turn--prev" id="codex-reader-side-prev" aria-label="Previous page">‹</button>
+    <div id="codex-reader-page" aria-live="polite"></div>
+    <button type="button" class="codex-reader-side-turn codex-reader-side-turn--next" id="codex-reader-side-next" aria-label="Next page">›</button>
+  </div>
+
+  <footer class="codex-reader-footer">
+    <button type="button" class="codex-reader-nav-button" id="codex-reader-prev">← <span class="nav-label">Previous page</span></button>
+    <div class="codex-reader-status" id="codex-reader-status">Cover</div>
+    <button type="button" class="codex-reader-nav-button" id="codex-reader-next"><span class="nav-label">Next page</span> →</button>
+  </footer>
+
+  <div class="codex-index-shade" id="codex-index-shade"></div>
+  <aside class="codex-index-panel" id="codex-index-panel" aria-hidden="true" aria-label="Complete Codex index">
+    <div class="codex-index-panel-header">
+      <div>
+        <h2>Complete Index</h2>
+        <div class="codex-index-panel-subtitle">Every filed section and its first printed page</div>
+      </div>
+      <button type="button" class="codex-index-close" id="codex-index-close" aria-label="Close index">×</button>
+    </div>
+    <input class="codex-index-search" id="codex-index-search" type="search" placeholder="Find a section or citation…" aria-label="Search the Codex index">
+    <div id="codex-index-list"></div>
+    <div class="codex-index-empty" id="codex-index-empty">No index entries match that search.</div>
+  </aside>
+</section>
+
 <div id="form-modal" onclick="if(event.target===this) closeFormModal()"><div class="form-box" id="form-box"></div></div>
 <div id="cite-tip" role="tooltip" aria-hidden="true"></div>
+<script src="Reputation-Matrix2/app/pages/mages-codex-reader.js"></script>
 <script>
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -677,14 +702,12 @@ function render(data) {
       <button onclick="copyCodexLink()" title="Copy link to current section">🔗 Copy link</button>
       <button onclick="toggleCodexFont()" title="Toggle dyslexia-friendly font">Aa</button>
       <button onclick="toggleTheme()" title="Toggle paper theme">☼ Theme</button>
-      <button onclick="toggleFocus()" title="Distraction-free reading">▣ Focus</button><button onclick="setBookMode(false)">☰ Scroll</button><button onclick="setBookMode(true)">▤ Book mode</button>
+      <button onclick="toggleFocus()" title="Distraction-free reading">▣ Focus</button>
+      <button onclick="setBookMode(true)" title="Open the page-at-a-time Codex reader">▤ Read book</button>
       <button onclick="jumpRandom()" title="Jump to a drafted section">↯ Random</button>
     </div>
     <div class="reader-tools"><button onclick="toggleBookmarks()">🔖 Bookmarks <span id="bookmark-count">0</span></button><button onclick="expandAll()">Expand all</button><button onclick="collapseAll()">Collapse all</button><span style="font:11px system-ui;color:#5d4a35;padding:6px 2px">Shortcuts: / search · f focus · r random</span></div>
     <div id="bookmark-list" class="bookmark-list"></div>
-    <div class="book-nav" id="book-nav"><button onclick="bookTurn(-1)">← Previous</button><span id="book-status">Book mode</span><button onclick="bookTurn(1)">Next →</button></div>
-    <div class="book-cover"><div class="cover-kicker">C.C.D. · Volume I</div><h2>Codex of the<br>Mages' Guild</h2><p>“A person who skips definitions is still bound.”</p><div style="margin-top:28px;font:11px system-ui;letter-spacing:.16em;color:#e0b400">FIELD EDITION · READ IN ORDER</div></div>
-    <div class="book-index"><h2>Table of Contents</h2><div class="book-index-grid" id="book-index-grid"></div></div>
     ${renderFormsRegistry()}
   `;
 
@@ -739,8 +762,7 @@ function render(data) {
   });
 
   document.getElementById('paper').innerHTML = html;
-  const indexGrid=document.getElementById('book-index-grid');
-  if(indexGrid) indexGrid.innerHTML=sections.filter(s=>s.body&&s.body.length).map((s,i)=>`<a href="#s-${esc(s.cite)}" onclick="openBookPage('${esc(s.cite)}');return false;">§ ${esc(s.cite)} · ${esc(s.title)}</a>`).join('');
+  CodexReader.build(data, sortedParts, byPart);
   attachCiteTips();
   renderBookmarks();
   // deep-link highlight if hash present — '.' in IDs like s-1301.1 needs getElementById, not querySelector
@@ -769,13 +791,6 @@ function render(data) {
     }
   });
 }
-let bookIndex=0;
-function openBookPage(cite){setBookMode(true);const pages=[...document.querySelectorAll('.sec')];const i=pages.findIndex(x=>x.id==='s-'+cite);if(i>=0){bookIndex=i;updateBook();}}
-function setBookMode(on){document.body.classList.toggle('book-mode',on); if(on){const current=document.querySelector('.sec.book-current')||document.querySelector('.sec:not(.hidden)');bookIndex=Math.max(0,[...document.querySelectorAll('.sec')].indexOf(current));}else document.querySelectorAll('.book-current').forEach(x=>x.classList.remove('book-current')); updateBook();}
-function updateBook(){if(!document.body.classList.contains('book-mode'))return;const pages=[...document.querySelectorAll('.sec')];pages.forEach(x=>x.classList.remove('book-current'));const usable=pages.filter(x=>!x.classList.contains('hidden'));if(!usable.length)return;bookIndex=Math.min(bookIndex,usable.length-1);usable[bookIndex].classList.add('book-current');usable[bookIndex].scrollIntoView({behavior:'smooth',block:'start'});const st=document.getElementById('book-status');if(st)st.textContent=`Page ${bookIndex+1} of ${usable.length} · ${usable[bookIndex].querySelector('.cite-num')?.textContent||''}`;document.querySelector('.book-nav button:first-child').disabled=bookIndex===0;document.querySelector('.book-nav button:last-child').disabled=bookIndex===usable.length-1;}
-function bookTurn(n){bookIndex+=n;updateBook();}
-document.addEventListener('keydown',e=>{if(document.body.classList.contains('book-mode')&&['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();bookTurn(e.key==='ArrowRight'?1:-1)}});
-
 // Reader upgrades: persistent bookmarks, focus mode, section density, and keyboard navigation.
 const BOOKMARK_KEY='mages-codex-bookmarks';
 function bookmarks(){ try{return JSON.parse(localStorage.getItem(BOOKMARK_KEY)||'[]')}catch(e){return[]} }
@@ -830,7 +845,6 @@ function filterCodex(q){
     else stat.textContent = shown+' / '+secs.length+' sections match';
   }
   try{ history.replaceState(null,'', needle ? '#search='+encodeURIComponent(needle) : location.pathname+location.search); }catch(e){}
-  if(document.body.classList.contains('book-mode')){ bookIndex=0; updateBook(); }
 }
 function copyCite(cite){
   const url=location.origin+location.pathname+'#s-'+cite;
