@@ -41,6 +41,23 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
      </p>
 
      <div class="campaign-timeline-feed">
+       <!-- Event 0: Latest File - Charred Mario Note -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/charred_note_at_waluigis_door')" style="cursor:pointer; border-left:4px solid #c46b32; background:linear-gradient(135deg,rgba(196,107,50,.18),var(--panel2));">
+         <div class="timeline-date-chip" style="color:#e7b08a;">4 Aethel, 1040 BF · Before Dawn · Latest File</div>
+         <h3 class="timeline-event-title">The Charred Note at Waluigi's Door</h3>
+         <div class="timeline-actors">
+           <span>Waluigi</span><span>Mario</span><span>Luigi</span><span>Mages' Guild</span><span>Princess Peach</span>
+         </div>
+         <p class="timeline-summary">
+           A smoke-scented page titled SECRET HISTORY MARIO appears outside Waluigi's borrowed room at Tymnas's cottage. The note claims Peach died by Mario's hand, the eastern farm lasted three days rather than years, Mario died there and woke up afterward, three null cages failed against him, and the Star Fountain meeting with Luigi really happened. Waluigi files it as contested evidence because a theatrical lie is still a very honest map of what the liar wants investigated.
+         </p>
+         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
+           <span class="chip" onclick="Router.go('#/article/charred_note_at_waluigis_door')" style="margin:0; font-size:12px; background:#c46b32; color:#fff; font-weight:800;">📖 Read the Charred Note Filing →</span>
+           <span class="chip" onclick="Router.go('#/investigation/mario_charred_note_file')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">🔍 The Farm Was Not the End →</span>
+           <span class="chip" onclick="Router.go('#/article/the_eastern_passage')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🧭 Earlier Farm File →</span>
+         </div>
+       </div>
+
        <!-- System Update: Pond Patrol + Diet after the Reclamation -->
        <div class="campaign-timeline-item" onclick="Router.go('#/pond-docket')" style="cursor:pointer; border-left:4px solid #4a9c6d; background:linear-gradient(135deg,rgba(74,156,109,.16),var(--panel2));">
          <div class="timeline-date-chip" style="color:#7fd8a4;">Highsun 24–25, 1040 BF · System Update · Post-Reclamation Governance</div>

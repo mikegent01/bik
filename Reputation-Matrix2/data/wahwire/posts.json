@@ -329,6 +329,30 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "wahwire_charred_note_at_door",
+      "author": "waluigi",
+      "order": 9,
+      "date": null,
+      "timestamp": "4 Aethel, 1040 BF — before dawn",
+      "content": "Anonymous arson stationery is back. A page at my door claims Mario killed Peach, died after three days on the farm, woke up wrong, and treated three Guild null cages like decorative hoops. I do not believe it. I do file it. Read the ash before it learns to lie better.",
+      "likes": 611,
+      "links": [
+        {
+          "id": "charred_note_at_waluigis_door",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "mario",
+        "mages_guild",
+        "charrednote",
+        "investigation"
+      ],
+      "reaction": "smug",
+      "comments": [],
+      "status": "posted"
     }
   ]
 }

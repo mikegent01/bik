@@ -1792,6 +1792,36 @@
       "stamps": [
         "evidence"
       ]
-    }
+    },
+      "prop_charred_note_secret_history_mario": {
+        "kind": "note",
+        "icon": "🔥",
+        "title": "Charred Note — SECRET HISTORY MARIO",
+        "subtitle": "Unsigned page left at Waluigi's door · filed 4 Aethel, 1040 BF",
+        "items": [],
+        "articles": [
+          "charred_note_at_waluigis_door"
+        ],
+        "note": "The fire spared exactly the sentences a writer would most want read.",
+        "body": "<div class=\"pd-head\"><div class=\"pd-org\">Recovered at the threshold of Tymnas's cottage</div><div class=\"pd-sub\">Unsigned · smoke-scented · edges charred inward from three sides</div></div><div class=\"pd-title\">SECRET HISTORY MARIO</div><div class=\"pd-late\">Filed by Waluigi the same morning it appeared. No seal. No courier. No helpful explanation. The center survived better than the margins because somebody planned it that way.</div><div class=\"pd-clause\"><b>Opening posture.</b> The writer stages Mario as openly hostile, suspicious of Bowser, suspicious of Luigi, and perfectly willing to threaten a stranger for speaking too slowly.</div><div class=\"pd-clause\"><b>Claim one.</b> When the questioner says Peach is dead and asks whether grief drove him east, Mario replies: <i>&ldquo;I didn't leave because of grief. I left because I killed her.&rdquo;</i></div><div class=\"pd-clause\"><b>Claim two.</b> The note produces a gold locket with Peach and Mario pictured together and insists a wedding certificate existed with Bowser as witness. The scene is written for maximum outrage and should be read with that in mind.</div><div class=\"pd-clause\"><b>Claim three.</b> Mario confirms the farm story only to break it: he says he stayed not for months or years but for <b>three days</b>, died there, and later answers the question of what happened next with <i>&ldquo;I woke up.&rdquo;</i></div><div class=\"pd-clause\"><b>Claim four.</b> Asked about the Mages' Guild, Mario says yes. An arrest is attempted under Section 1.6 with a null cage. The note then describes three consecutive cage failures and Mario laughing at the third.</div><div class=\"pd-clause\"><b>Claim five.</b> When pressed about the Star Fountain meeting with Luigi, Mario answers at the end with a silent nod rather than a denial.</div><div class=\"pd-margin\">A forged confession is still evidence of what somebody wants the archive to stare at. Peach. The farm. The Guild. The fountain. All on one page, as if Waluigi did not already have enough enemies. &mdash; W.</div><div class=\"pd-fine\">The intervening stage directions are extravagant, ash-heavy, and emotionally manipulative. Waluigi files the claims, not the performance. The performance is obvious.</div>",
+        "stamps": [
+          "evidence"
+        ]
+      },
+      "prop_charred_note_custody_slip": {
+        "kind": "note",
+        "icon": "📎",
+        "title": "Threshold Custody Slip — Charred Note Recovery",
+        "subtitle": "Filed immediately after discovery",
+        "items": [],
+        "articles": [
+          "charred_note_at_waluigis_door"
+        ],
+        "note": "Somebody wanted this found, not lost.",
+        "body": "<div class=\"pd-head\"><div class=\"pd-org\">Waluipedia Evidence Room</div><div class=\"pd-sub\">Immediate threshold note on condition and pickup</div></div><dl class=\"pd-meta\"><dt>Found</dt><dd>4 Aethel, 1040 BF · before dawn · outside Waluigi's borrowed room at Tymnas's cottage</dd><dt>Condition</dt><dd>Folded once. Dry. Warm only at the edges. Smoke scent present. No active ember.</dd><dt>Seal</dt><dd>None</dd><dt>Courier</dt><dd>None observed</dd><dt>Damage</dt><dd>Burn line even on three sides, center text untouched</dd></dl><div class=\"pd-clause\">Ash sat inward on the paper rather than scattered outward across the threshold.</div><div class=\"pd-clause\">No footprint, drag mark, or water damage was recorded at the scene.</div><div class=\"pd-clause\">Paper entered custody immediately after discovery and was not aired, warmed, or trimmed before filing.</div><div class=\"pd-margin\">This is not what dropped paper looks like after an accident. This is what stagecraft looks like when it wants to masquerade as luck. &mdash; W.</div>",
+        "stamps": [
+          "evidence"
+        ]
+      }
   }
 }

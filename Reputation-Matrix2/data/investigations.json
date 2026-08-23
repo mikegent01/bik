@@ -3220,6 +3220,184 @@
           }
         }
       ]
+    },
+    {
+      "id": "mario_charred_note_file",
+      "codename": "ASH ON THE THRESHOLD",
+      "title": "The Farm Was Not the End",
+      "subtitle": "A charred note, three broken null cages, and a dead hero who may not have stayed dead",
+      "status": "active",
+      "classification": "Open — accreting",
+      "arcIds": [
+        "mario_disappearance"
+      ],
+      "opened": "4 Aethel, 1040 BF",
+      "lastFiled": "4 Aethel, 1040 BF",
+      "archivist": "Waluigi, Auditor-General",
+      "icon": "🔥",
+      "accent": "#c46b32",
+      "imageCaption": "The note was burned decoratively. Waluigi resents decorative evidence.",
+      "hook": "The farm story used to have a timeline problem. The charred note replaces it with a resurrection problem.",
+      "plainSummary": [
+        {
+          "point": "The note does not confirm the eastern passage. It replaces it.",
+          "detail": "Years on a farm become three days, one death, and a waking afterward. That is not corroboration. That is a different story wearing one word of the old one."
+        },
+        {
+          "point": "Guild null cages allegedly failed three times in sequence.",
+          "detail": "If true, Mario is no longer merely missing. He is a procedural exception the Guild failed to contain on the page that claims to contain him."
+        },
+        {
+          "point": "The note wants four old files read as one wound.",
+          "detail": "Peach, the farm, the Mages' Guild, and the Star Fountain are forced onto one page. Even a forgery does that much honestly, because it reveals the writer's target list."
+        },
+        {
+          "point": "Somebody staged the paper physically as well as narratively.",
+          "detail": "The edges burned; the middle survived; the threshold kept the ash. The note was delivered to be discovered, not discarded."
+        }
+      ],
+      "background": [
+        {
+          "id": "star_fountain_reunion",
+          "kicker": "the reunion nobody can describe cleanly",
+          "why": "Mario and Luigi met at the Star Fountain in 1039 BF, embraced, flew together, and left the archive arguing over witness order and whether a third figure was present."
+        },
+        {
+          "id": "the_eastern_passage",
+          "kicker": "the farm story before the charred rewrite",
+          "why": "Waluigi's earlier farm file assembled merchants, journal fragments, and a death record into an impossible timeline. The new note keeps the farm and discards the years."
+        },
+        {
+          "id": "the_embassy_ambush_and_luigi_interrogation",
+          "kicker": "the first confession that the farm existed at all",
+          "why": "Luigi's backseat confession made the farm part of the archive. This new paper now tries to dictate what the farm meant."
+        }
+      ],
+      "brief": "**The short version.** An unsigned note burned neatly around the edges appeared at Waluigi's door before dawn and made the archive's least stable file worse.\n\nThe eastern farm used to be a timeline headache: too many claimed years between the Star Fountain reunion and the present day. The charred note solves that contradiction only by replacing the story entirely. According to the note, Mario reached the farm, lived there for three days, died there, woke up afterward, and later became something three Guild null cages could not hold.\n\nWaluigi is not accepting any of that merely because the note is dramatic. But dramatic lies still reveal where the liar wants the searchlight pointed. This file therefore treats the page in two ways at once: as an alleged confession and as a deliberate attempt to reorganize the Mario disappearance around Peach, the Guild, the farm, and the fountain all at once.\n\nThe archive's standing rule for this file is simple: do not ask first whether the note is true. Ask first what it is trying to replace.",
+      "threads": [
+        {
+          "id": "th_three_days",
+          "title": "The farm story just lost several years",
+          "state": "open",
+          "text": "The earlier file broke because the farm required years the calendar would not supply. The charred note keeps the destination and throws away the duration. That is not a correction. It is a replacement narrative.\n\n**In plain terms:** someone looked at the same contradiction Waluigi did and chose not to solve it but to overwrite it."
+        },
+        {
+          "id": "th_null_cages",
+          "title": "If the cages truly failed, Guild procedure is no longer procedural",
+          "state": "open",
+          "text": "Three null-cage failures are either theatrical exaggeration or a direct statement that Mario's condition after the farm sits outside ordinary Guild containment. The file cannot live in the middle forever.\n\n**In plain terms:** either the note is bragging in fake legal language or the Mages' Guild has a problem it did not report."
+        },
+        {
+          "id": "th_performance",
+          "title": "Somebody wrote this to be found",
+          "state": "open",
+          "text": "Burned margins, untouched title, threshold placement, and confession-shaped pacing all point the same way: the note is performance art pretending to be recovered truth. Performance can still contain truth. It simply never arrives alone.\n\n**In plain terms:** the staging is part of the evidence, not a distraction from it."
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead_identify_enforcer",
+          "title": "Identify the unnamed Guild arresting officer",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Match the Section 1.6 arrest language and null-cage procedure in the note to a real Guild operator, then determine whether any such operator ever filed a failed containment report.",
+          "why": "If the speaker exists, the note becomes testimony instead of decorative fiction. If nobody inside the Guild talks that way on paper, the note was written by someone imitating the Guild from outside.",
+          "exhibits": [
+            "ex_charred_note",
+            "ex_threshold_slip"
+          ]
+        },
+        {
+          "id": "lead_test_ash",
+          "title": "Determine whether the note was burned before or after writing",
+          "state": "open",
+          "priority": "high",
+          "objective": "Have the residue examined by somebody more useful with fire than the person currently writing this sentence.",
+          "why": "Post-writing burns are staging. Pre-writing burns are recycled paper. Transit burns imply a courier method. The archive would like the category before accusing anybody of theatre more loudly than it already has.",
+          "exhibits": [
+            "ex_threshold_slip"
+          ]
+        },
+        {
+          "id": "lead_reconcile_fountain",
+          "title": "Rebuild the Star Fountain sequence with the note included",
+          "state": "open",
+          "priority": "high",
+          "objective": "Re-read every Star Fountain witness statement against the note's final confirmation and see what actually tightens instead of merely sounding impressive.",
+          "why": "If the fountain happened, and the farm death happened, and null cages fail afterward, then the order of events matters more than ever. The file does not get to keep treating the fountain as atmospheric rumor.",
+          "exhibits": [
+            "ex_charred_note"
+          ]
+        }
+      ],
+      "sessions": [
+        {
+          "id": "s_charred_note",
+          "label": "The charred note at Waluigi's door",
+          "date": "4 Aethel, 1040 BF",
+          "event": "charred_note_at_waluigis_door"
+        }
+      ],
+      "relatedEvents": [
+        "charred_note_at_waluigis_door",
+        "the_eastern_passage",
+        "star_fountain_reunion",
+        "the_embassy_ambush_and_luigi_interrogation"
+      ],
+      "exhibits": [
+        {
+          "id": "ex_charred_note",
+          "propId": "prop_charred_note_secret_history_mario",
+          "session": "s_charred_note",
+          "icon": "🔥",
+          "kind": "note",
+          "category": "discovery",
+          "title": "The note itself",
+          "secured": "4 Aethel, 1040 BF · found outside a borrowed room before dawn",
+          "custody": "Archive — original in sleeve",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(70,42,30,.92),rgba(20,16,14,.98));border:1px solid rgba(196,107,50,.35)\"><div style=\"position:absolute;left:14%;right:14%;top:16px;bottom:18px;background:linear-gradient(180deg,#b18c63,#8e6f4b);box-shadow:0 0 0 2px rgba(0,0,0,.18) inset\"></div><div style=\"position:absolute;left:12%;right:12%;top:14px;height:8px;background:linear-gradient(90deg,transparent,rgba(20,10,6,.95) 10%,rgba(20,10,6,.95) 90%,transparent)\"></div><div style=\"position:absolute;left:12%;right:12%;bottom:12px;height:8px;background:linear-gradient(90deg,transparent,rgba(20,10,6,.95) 10%,rgba(20,10,6,.95) 90%,transparent)\"></div><div style=\"position:absolute;left:22%;top:38px;right:22%;text-align:center;font-size:11px;letter-spacing:.18em;color:#2a1810;font-weight:800\">SECRET HISTORY MARIO</div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c46b32\">CENTER PRESERVED · MARGINS SACRIFICED</div></div>",
+          "onRecord": "Unsigned, folded once, and titled in a steady hand. The page stages a confrontation between Mario and an unnamed Guild officer, then records [[roll:4|three failed null-cage attempts|if that sequence is true, the note is no longer merely about where Mario went. It is about what Guild procedure no longer works on him.|a forger knows that three is the number that makes anything sound mythic.]].",
+          "dc": 4,
+          "analysis": "## The document is trying to replace, not confirm\n\nThe easiest mistake would be to read this as corroboration of the eastern passage because it repeats the word *farm*. That is exactly what the note wants. What it actually does is replace the old farm narrative with a new one that solves the timeline by murder. Years become three days. Peaceful death becomes death-and-return. The archive is being offered a cleaner contradiction, not a cleaner truth.\n\n## Why the null cages matter more than the confession line\n\nReaders will fixate on Peach because the writer intended them to. Waluigi is filing the more operational claim: [[roll:5|the cages fail without visible counterspell|if somebody wrote a fake confession, they still chose to attach it to Guild procedure breaking on contact. That is a very specific lie to tell unless the writer wants the Guild in the same room as Peach and the farm.|a melodramatic confession always wants impossible stage business around it. The cages may be scenery and nothing more.]]. A confession can be false in a hundred ordinary ways. A failed procedure narrows the field to fewer, worse explanations.\n\n## The final nod is not closure\n\nThe note ends by confirming the Star Fountain meeting with Luigi. That feels like resolution only if the reader has forgotten how many contradictory versions of the fountain already exist. A final nod does not settle those versions; it only means the writer knew the archive was hungry for that one point of confirmation and used it accordingly. [[roll:6|This page was written by someone who has read the Mario file, not by someone indifferent to it|the note touches exactly the archive's four rawest places in precisely the order that would keep Waluigi reading through the ash. That is audience design, not coincidence.|any reasonably informed liar could have heard the same rumors secondhand without ever opening the file.]].",
+          "links": {
+            "events": [
+              "charred_note_at_waluigis_door",
+              "the_eastern_passage",
+              "star_fountain_reunion"
+            ],
+            "characters": [
+              "mario",
+              "luigi",
+              "waluigi",
+              "princess_peach"
+            ]
+          }
+        },
+        {
+          "id": "ex_threshold_slip",
+          "propId": "prop_charred_note_custody_slip",
+          "session": "s_charred_note",
+          "icon": "📎",
+          "kind": "note",
+          "category": "record",
+          "title": "Threshold recovery slip",
+          "secured": "4 Aethel, 1040 BF · written immediately after pickup",
+          "custody": "Archive — original note and physical observations together",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(28,28,34,.96),rgba(14,14,18,.98));border:1px solid rgba(180,180,190,.2)\"><div style=\"position:absolute;left:18%;right:18%;top:18px;bottom:24px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.04)\"></div><div style=\"position:absolute;left:24%;top:30px;width:52%;height:2px;background:rgba(255,255,255,.18)\"></div><div style=\"position:absolute;left:24%;top:48px;width:44%;height:2px;background:rgba(255,255,255,.18)\"></div><div style=\"position:absolute;left:24%;top:66px;width:50%;height:2px;background:rgba(255,255,255,.18)\"></div><div style=\"position:absolute;left:50%;top:10px;margin-left:-8px;width:16px;height:28px;border:2px solid #9aa0ad;border-radius:9px 9px 4px 4px;border-bottom-color:transparent\"></div><div style=\"position:absolute;left:0;right:0;bottom:7px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c7c9d1\">NO SEAL · NO COURIER · NO ACCIDENT</div></div>",
+          "onRecord": "The slip records no envelope, no seal, no footprint, and ash settled inward instead of outward across the threshold. [[roll:3|The page was placed, not dropped|dropped paper travels, catches damp, or loses ash where it lands. This did none of those things. Somebody delivered it with care and left without ceremony.|night air does strange things to light paper and stranger things to memory.]].",
+          "dc": 3,
+          "analysis": "## The burn is part of the argument\n\nThis slip exists because the archive has already been fooled once by treating dramatic paper as if only the words mattered. The words are not alone. The burn line is even, the title untouched, the ash held inward, and the fold still crisp. That is not what survival looks like. That is what arrangement looks like.\n\n## Why no courier is still evidence\n\nNo witness saw a messenger. Good. That only means the delivery method is unsolved, not that there was none. The absence of a courier matters because [[roll:4|the note was still delivered to a human threshold rather than to the general room|whoever placed it knew exactly which door was Waluigi's, which says either observation, inside access, or both. Random warning slips do not sort themselves by intended reader.|anybody in the cottage could have pointed at the correct door once and that fact proves very little.]]. Specific delivery is its own kind of signature.\n\n## Stagecraft narrows the sender more than content does\n\nPlenty of people would like Waluigi to stop asking where Mario went. Fewer would think to burn the margins, spare the title, and leave the page where the archivist would step over it first thing in the morning. [[roll:5|The sender is playing to Waluigi specifically, not merely to the archive in general|the note is not just information but audience design. It assumes vanity, suspicion, and the inability to leave a mystery alone, which Waluigi resents because it is accurate.|all theatrical anonymous messages are interchangeable and reading personal knowledge into one is self-flattery.]]. That does not name the sender. It does tell the file what kind of sender to look for.",
+          "links": {
+            "events": [
+              "charred_note_at_waluigis_door"
+            ],
+            "characters": [
+              "waluigi",
+              "mario"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

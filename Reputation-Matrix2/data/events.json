@@ -12802,5 +12802,67 @@
       }
     ],
     "reputationNotes": "No faction witnessed the hold. WarioWare's standing with itself improved in Wario's account and nowhere else."
+  },
+  {
+    "id": "charred_note_at_waluigis_door",
+    "name": "The Charred Note at Waluigi's Door",
+    "title": "The Charred Note at Waluigi's Door, and What It Claimed About Mario After the Farm",
+    "date": "4 Aethel, 1040 BF — before dawn",
+    "era": "Aethel 1040 BF — stormbound cottage filings",
+    "location": "tymnas_cottage_and_hedge_maze",
+    "type": "Recovered Note / Alleged Confession / Mario Disappearance Evidence",
+    "status": "Filed as contested evidence — no part of the note accepted without corroboration",
+    "summary": "Before dawn, a smoke-scented note appeared outside Waluigi's borrowed room at Tymnas's cottage. It was burned neatly around the edges and titled SECRET HISTORY MARIO. The text claims Mario admitted that Peach died by his hand, that the eastern farm lasted three days rather than years, that he died there and woke up afterward, that he once belonged to the Mages' Guild, and that three null cages failed against him without any visible counterspell. Waluigi does not believe a theatrical unsigned confession merely because it was dramatic. Waluigi files it anyway, because forged evidence is still evidence of what someone wants the archive to think about.",
+    "description": "Waluigi opened the door before sunrise and found a folded page exactly where a person would leave something intended to be discovered and exactly where the wind would not have put it. The paper smelled of smoke, not of accident. The edges were charred inward from three sides while the title line sat untouched in the middle: [[prop:prop_charred_note_secret_history_mario|SECRET HISTORY MARIO]].\n\nWaluigi filed the physical condition separately as a [[prop:prop_charred_note_custody_slip|threshold custody slip]], because the burn pattern matters almost as much as the words. Somebody did not fail to destroy this note. Somebody staged its survival.\n\n## What the note says\n\nThe body reads like a transcript somebody wanted mistaken for revelation. An unnamed speaker corners Mario, invokes the Mages' Guild, names Peach as dead, and keeps pressing where every earlier file on Mario has already started to fray: the farm, the death, the Star Fountain, and Luigi.\n\nThe note makes five claims Waluigi cannot ignore.\n\n1. Mario says he did not leave because of grief and answers the accusation with a line the archive cannot responsibly print as fact without quotation marks: *\"I killed her.\"*\n2. He contradicts the entire eastern-farm story as previously assembled by saying the farm lasted **three days**, not years, before he died there.\n3. He admits prior membership in the Mages' Guild.\n4. He is allegedly struck by three null-cage arrests in sequence, and all three fail.\n5. He confirms the Star Fountain meeting with Luigi by the end of the exchange.\n\n## Why this does not settle anything\n\nIf this note were trying to help the archive, it would be less pleased with itself. The language is too shaped. The ash is too neat. The sequence of revelations is too perfect. It reads like a confession composed by somebody who already knew exactly which fractures in the Mario file would hurt the most when pressed all at once.\n\nThat does **not** make it useless. A forged confession is still a map of intent. Whoever wrote or delivered this wanted Peach, the farm, Guild procedure, and the fountain placed in one chain instead of four separate headaches. Waluigi is willing to grant the writer that much and no more.\n\n## What changed the moment this page was filed\n\nThe eastern passage used to have a timeline problem: too many years supposedly fit inside too little time. This note does not solve that problem. It replaces it with a worse one. If the farm lasted three days, and if the death there was real, then the question is no longer *where did Mario go after the fountain?* The question is *what came back from the farm, and why do Guild cages fail on contact?*\n\nWaluigi hates that this is now a serious question. Waluigi hates it enough to file it immediately.",
+    "participants": [
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Found the note, filed it, and refused to let theatrics pass for certainty"
+      },
+      {
+        "id": "mario",
+        "name": "Mario",
+        "role": "Subject of the alleged confession, farm death, resurrection claim, and null-cage failure"
+      },
+      {
+        "id": "luigi",
+        "name": "Luigi",
+        "role": "Named throughout as brother, possible witness, and confirmed participant in the Star Fountain meeting if the note is genuine"
+      },
+      {
+        "id": "mages_guild",
+        "name": "Mages' Guild",
+        "role": "Institution named as Mario's former affiliation and as the source of the failed null-cage arrest attempt"
+      },
+      {
+        "id": "princess_peach",
+        "name": "Princess Peach",
+        "role": "Named in the note as Mario's wife and alleged victim"
+      }
+    ],
+    "outcome": "The archive now holds an unsigned charred note that collapses the eastern farm from years to three days, alleges Mario died and returned, records three failed null-cage attempts, and confirms the Star Fountain meeting with Luigi. None of it is corroborated yet. All of it is now in the file.",
+    "notableFeatures": [
+      "Arrived before dawn outside Waluigi's borrowed room at Tymnas's cottage",
+      "Title line reads SECRET HISTORY MARIO",
+      "Edges charred inward while the center text was preserved",
+      "Claims Peach died by Mario's own hand",
+      "Replaces the farm story's 'years' with three days and one death",
+      "Records three failed null-cage attempts under Section 1.6 of the Mages' Guild code",
+      "Ends by confirming the Star Fountain meeting with Luigi"
+    ],
+    "relatedArticles": [
+      "mario",
+      "luigi",
+      "princess_peach",
+      "mages_guild",
+      "star_fountain_reunion",
+      "the_eastern_passage",
+      "the_arrangement",
+      "tymnas_cottage_and_hedge_maze",
+      "waluigi"
+    ],
+    "aftermath": "Waluigi opened a new investigation file, The Farm Was Not the End, because the archive no longer has the luxury of pretending the farm story is the same story it was yesterday.",
+    "waluigiAssessment": "Waluigi's professional opinion is that this note wants to be believed too badly. Waluigi's other professional opinion is that somebody went to real trouble to make it appear exactly here, exactly now, exactly burnt enough to look like evidence rescued from a fire rather than theatre rehearsed with a candle. If the writer is lying, the lie is targeted. If the writer is telling the truth, Mario died on a farm and came back as something Guild procedure no longer fits. Neither option improves Waluigi's morning. WAH."
   }
 ]
