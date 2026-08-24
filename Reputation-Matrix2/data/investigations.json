@@ -419,6 +419,20 @@
           "events": [
             "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
           ]
+        },
+        {
+          "id": "lead_green_t_forehead_mark",
+          "title": "Determine what marked Green T's forehead",
+          "status": "open",
+          "why": "Markop's blood-sense tagged only Green T's forehead as non-humanoid after he came back from the storm line claiming Mazebound contact and answers. Residue, graft, ward contact, and possession imply very different kinds of danger, and the cottage admitted him before sorting any of them.",
+          "exhibits": [
+            "ex_green_t_parley",
+            "ex_stormwatch_receipt"
+          ],
+          "events": [
+            "green_t_at_the_door_and_the_scorncrow_underfoot",
+            "archies_return_to_shadow_estate"
+          ]
         }
       ],
       "sessions": [
@@ -469,6 +483,12 @@
           "label": "The Mirror Ping, the Invitation Loophole, and the Controlled Storm",
           "date": "4 Aethel, 1040 BF",
           "event": "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
+        },
+        {
+          "id": "s_h30_green_t_door_giant",
+          "label": "Green T at the Door, the Giant Form, and the Scorncrow Underfoot",
+          "date": "30 Harvestide, 1040 BF — later that night",
+          "event": "green_t_at_the_door_and_the_scorncrow_underfoot"
         }
       ],
       "relatedEvents": [
@@ -482,7 +502,8 @@
         "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
         "the_feyward_revel_and_the_book_of_many_things",
         "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
-        "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
+        "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+        "green_t_at_the_door_and_the_scorncrow_underfoot"
       ],
       "exhibits": [
         {
@@ -831,6 +852,59 @@
               "hjumpik",
               "mystic_morel",
               "waluigi"
+            ]
+          }
+        },
+        {
+          "id": "ex_green_t_parley",
+          "propId": "prop_green_t_threshold_parley",
+          "session": "s_h30_green_t_door_giant",
+          "icon": "🚪",
+          "kind": "note",
+          "category": "discovery",
+          "title": "Threshold note — Green T after the storm line",
+          "secured": "30 Harvestide, 1040 BF · filed from overlapping witness accounts at Tymnas's cottage",
+          "custody": "Archive copy",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(34,34,42,.96),rgba(15,15,20,.98));border:1px solid rgba(90,170,120,.28)\"><div style=\"position:absolute;left:16%;right:16%;top:18px;bottom:24px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04)\"></div><div style=\"position:absolute;left:24%;top:28px;width:52%;height:2px;background:rgba(255,255,255,.16)\"></div><div style=\"position:absolute;left:24%;top:46px;width:42%;height:2px;background:#7fd8a4\"></div><div style=\"position:absolute;left:24%;top:64px;width:56%;height:2px;background:rgba(255,255,255,.16)\"></div><div style=\"position:absolute;left:24%;top:82px;width:36%;height:2px;background:#7fd8a4\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#7fd8a4\">FOREHEAD ONLY</div></div>",
+          "onRecord": "Green T returned from the storm line and failed the cottage's comfort test immediately. He was challenged as a possible fake, answered with a gunshot through freshly repaired glass, and then glowed under Markop's blood-sense [[roll:4|only at the forehead|localized contamination is a touch, a seal, or an embedded thing. Whole-body falsehood would have been simpler and more dangerous in a different way.|the spell may simply have caught residue in the rain and nothing more.]].",
+          "dc": 3,
+          "analysis": "## The useful part is where the spell stopped\n\nWhole-body failure would have made this easy. The spell did not do that. It lit the forehead only, which means the archive is looking at a mark, not a replacement. Marks can be acquired. Replacements are a different bureaucracy.\n\n## The threshold was opened by impatience, not certainty\n\nRemi said no and was correct on the merits. Markop was too exhausted to resolve the question. Eager let Green T in because deadlock had become more dangerous than risk. [[roll:5|That is still a decision structure, not an accident|the cottage did not blunder. It delegated under fatigue, which is the sort of sentence armies use shortly before writing memorials.|fatigue is chaos with polite wording.]]. The archive should treat the admission as chosen and therefore analyzable.\n\n## Mazebound is not an answer, only a direction\n\nGreen T's own explanation — that the residue was Mazebound and that he got what he needed — narrows the map without reducing the fear. It tells the file where to look next and nothing about what followed him back. That is enough to keep the lead open.",
+          "links": {
+            "events": [
+              "green_t_at_the_door_and_the_scorncrow_underfoot"
+            ],
+            "items": [],
+            "characters": [
+              "green_t",
+              "markop",
+              "dan",
+              "remi_akamatsu_full_backstory",
+              "eager"
+            ]
+          }
+        },
+        {
+          "id": "ex_stormwatch_receipt",
+          "propId": "prop_remi_stormwatch_receipt",
+          "session": "s_h30_green_t_door_giant",
+          "icon": "🧾",
+          "kind": "invoice",
+          "category": "record",
+          "title": "Receipt — Remi armed up before the floor moved",
+          "secured": "30 Harvestide, 1040 BF · preserved from Wario's table during the storm watch",
+          "custody": "Archive copy",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(80,58,36,.9),rgba(34,24,18,.98));border:1px solid rgba(210,170,120,.28)\"><div style=\"position:absolute;left:18%;right:18%;top:14px;bottom:18px;background:rgba(230,214,188,.9)\"></div><div style=\"position:absolute;left:26%;top:34px;right:26%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:26%;top:52px;right:30%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:26%;top:70px;right:24%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#e7b08a\">THREE ITEMS · ONE STORM</div></div>",
+          "onRecord": "The receipt is not about price so much as timing. Remi bought three items while the cottage was still deciding whether its shelter counted as shelter. [[roll:3|Wario kept selling through the crisis instead of after it|which means he judged the danger as negotiable long before anybody else did. Wario's sense for survivable disaster remains offensively sharp.|Wario sells through everything. That is personality, not field intelligence.]].",
+          "dc": 3,
+          "analysis": "## A market judgment disguised as a receipt\n\nA receipt proves somebody thought there would still be a later in which money mattered. That is the hidden optimism of commerce, and Wario was optimistic enough to finish the lines properly while the weather argued with the walls.\n\n## Weapon choice as mood ring\n\nSkullsplitter Warhammer. Peach's Castle Brick. The Rotting Skull Piercer. Not food, not rope, not nails, not blankets. The cottage bought impact. [[roll:4|That tells the archive how the room felt before Green T knocked|the shopping list is a fear profile: hit back, throw something heavy, carry one thing too horrible for ordinary use. Nobody in that room believed rest was next.|people buy whatever Wario has in front of them. Lists flatter analysts.]].\n\n## The free decoy remains off-book\n\nThe decoy crystal matters partly because the receipt does not dignify it with a line. Off-book help from Wario is help he intends to remember as leverage, not as inventory. The archive notes the omission and keeps moving.",
+          "links": {
+            "events": [
+              "green_t_at_the_door_and_the_scorncrow_underfoot"
+            ],
+            "items": [],
+            "characters": [
+              "remi_akamatsu_full_backstory",
+              "wario"
             ]
           }
         }

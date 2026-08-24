@@ -4161,5 +4161,140 @@
     "reputationNotes": {},
     "image": "assets/images/battles/woodfellow-vs-treant/wft-01-tome-crit.jpg",
     "imageCaption": "The strike that felled it — one book through the split in the trunk."
+  },
+  {
+    "id": "green_t_and_archie_vs_the_scorncrow",
+    "name": "Green T and Archie vs. the Scorncrow (The Giant Form, the Cloud, and the Branches Full of Bodies)",
+    "date": "30 Harvestide, 1040 BF — later that night, concurrent with the cottage parley",
+    "location": "The grove beyond Tymnas's cottage under the controlled storm (no registered location id; this record declines to invent one)",
+    "type": "Named Duel / Monster Suppression / Concurrent Storm Engagement",
+    "result": "No decision. Green T's giant form briefly flattened the Scorncrow and shook the cottage itself, but the Scorncrow stood back up, the grove joined the fight, and the giant form began to fail before the field could be resolved.",
+    "engagement": {
+      "combatants": 5,
+      "ledgerWindow": "the later watches of 30 Harvestide, 1040 BF — one short grove exchange felt as an earthquake at the cottage",
+      "scale": "A named two-man assault against one field-sovereign scarecrow plus the bats, branches, and swinging deadweight the grove kept contributing after contact"
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "Archie Miser and Green T",
+        "combatants": [
+          {
+            "name": "Archie Miser",
+            "role": "storm-cloud rider, staff caster, loud advocate of deforestation",
+            "fate": "wounded",
+            "leader": true,
+            "fateNote": "thrown off the cloud by the opening scythe and struck again by a branch later"
+          },
+          {
+            "name": "Green T",
+            "role": "threshold returnee, pistol carrier, giant-form enforcer",
+            "fate": "wounded",
+            "fateNote": "held the giant form long enough to stomp the Scorncrow and then started spending himself back out of it"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The Scorncrow's Grove",
+        "leader": "The Scorncrow",
+        "combatants": [
+          {
+            "name": "The Scorncrow",
+            "role": "grove sovereign, scythe user, primary target",
+            "fate": "stood",
+            "leader": true,
+            "fateNote": "trampled under giant force and got back up laughing"
+          },
+          {
+            "name": "Bat Swarm",
+            "role": "face-blinding screen around the Scorncrow",
+            "fate": "stood"
+          },
+          {
+            "name": "The Hanging Branches",
+            "role": "secondary striking mass — branches laden with bodies",
+            "fate": "stood"
+          }
+        ]
+      }
+    },
+    "casualties": "No confirmed dead. Archie twice battered. Green T winded by his own size. The Scorncrow flattened and unhelpfully functional. One electric spear committed to the wrong scale of war.",
+    "summary": "Green T returned to Tymnas's cottage marked by Mazebound residue and, after a gunpoint threshold argument, cut across the grove to Archie. The Scorncrow answered with a scythe from the dark, knocked Archie off his storm cloud, and survived being stepped on by Green T's giant form. The grove shook hard enough to throw Eager off the cottage roof and announce the battle to every witness indoors.",
+    "description": "Waluigi is filing this one from the edge of two witness sets: the people in the cottage who felt the grove turn into a seismic argument, and the two men actually in the grove, both of whom are unreliable in different and useful ways. Archie remembers a fight as a sequence of insults interrupted by force. Green T remembers a fight as a problem of angles, visibility, and how long a body can hold a shape before the shape starts spending the body back. Between them the archive has enough to say what happened and not enough to pretend it ended cleanly.\n\nThe important correction up front: Green T did not arrive at the grove as Archie's rescuer in any simple heroic sense. He arrived because the controlled storm still needed investigating, the cottage had become a terrible holding pattern, and Archie happened to be in the line where those two facts met. The reunion matters only because the Scorncrow answered it immediately.\n\n## Phase One: The Greeting and the Scythe\n\nGreen T found Archie under the storm with exactly long enough for one exchange before the grove objected.\n\n“Long time no see,” Green T said.\n\nArchie, apparently satisfied that the world would provide no more useful sentiment than that, gave the tactical brief in the same breath he used to complain about it.\n\n“The Scorncrow is off his rocker. We have to beat him.”\n\nNo map. No measured distance. No clean statement of where the line was. Just the enemy named and the imperative attached.\n\nThen the scythe came out of the dark.\n\nThe first serious move of the engagement belonged entirely to the Scorncrow. No warning cry anybody trusted, no stomping approach through brush, no grand declaration. The weapon simply arrived. It flew at Archie fast enough to interrupt the conversation before either man had finished deciding how to stand beside the other. Archie fell from the cloud under the impact or the forced dodge; the field record is cleaner about the result than the mechanism. He hit ground hard. The Scorncrow descended after the throw and tried to end the matter before Green T could turn a meeting into a side.\n\nArchie got the staff up in time. That is the whole reason there was a second phase.\n\nThe staff and the scythe met in a contest of leverage ugly enough to count as truth. Archie blocked low and then high, pushing upward until the Scorncrow had to shift its footing. The push did not win the fight. It bought time. Battle records exist because time bought under force is often the only real currency anyone leaves the field with.\n\n## Phase Two: Mortal Limit, Unsuitable Plan\n\nGreen T asked whether Archie was all right, which is the kind of question people ask when they already know the answer has lost all practical value. Archie responded the only way he was ever going to: by powering the staff and throwing force straight back at the thing trying to kill him.\n\nThe Scorncrow parried.\n\nThat matters more than Archie's strike landing would have mattered, because it tells the archive what class of opponent this still is. Parrying a charged staff attack in the middle phase of an ambush means the Scorncrow is not merely durable. It remains technical while angry.\n\nGreen T then proposed the first team plan of the battle: Archie makes fire, Green T turns it into a bullet, and the grove stops being a grove. A good battlefield theory should survive contact with the people expected to perform it. This one lasted exactly until Archie reminded him of the obvious.\n\n“I am still mortal like you.”\n\nThat sentence deserves to sit in the middle of the record where the reader can find it later. Archie is frequently described by allies and enemies alike as if he were an environmental event with hair. He objected to that reading in the fight itself. Whatever else the storm cloud, staff, prior planar nonsense, and pyromantic reputation have turned him into politically, he still understands a scythe on the ground as something that can kill him in the ordinary way.\n\nThis is relevant because it explains the next tactical choice. Archie does not counter the bad plan with retreat. He counters it with a different bad plan he likes better.\n\nA team attack, he suggests. Green T shoots. Archie infuses. Flame bullet or electric bullet. It is exactly the kind of battlefield innovation people invent when they are one part improviser and one part exhausted.\n\nThey do not actually get to use that plan in the form stated, because scale changes the fight before ammunition can.\n\n## Phase Three: Giant Form and False Solution\n\nArchie retook height first. He used the storm cloud to widen the space between himself and the Scorncrow, which is both tactically sensible and emotionally revealing: every surviving account of Archie in danger contains a beat in which he tries to create room before he tries to create certainty.\n\nGreen T, on the ground, tried to answer with movement and found ordinary movement inadequate. Annoyance did the rest. The record's cleanest consensus is also its least believable one: Green T grew. Not by illusion, not by symbolic description, but physically and disastrously enough that the grove stopped functioning as cover and started functioning as a measurement problem.\n\nHe rose over shrub and grove and low tree. He became visible from the cottage roof. He altered the footing of the battlefield by acquiring more of it.\n\nThen he stepped on the Scorncrow.\n\nThis is the battle's loudest moment and also the one most likely to mislead a reader. Yes, the giant form landed. Yes, the Scorncrow went under it. Yes, Archie cheered for immediate deforestation like a man whose politics had briefly become landscaping. None of those facts equal victory.\n\nThe stomp is decisive only in the weaker sense that it changes the scale of everything after it. The ground shakes. Roots strain. The cottage feels it. Eager later loses the roof because of it. But a stomp that does not keep the enemy down is not a resolution. It is a reveal.\n\nWhat it reveals is twofold. First, Green T's giant form is powerful enough to make the grove react as terrain. Second, the Scorncrow's problem is not merely surviving damage. It is surviving humiliation fast enough to counterattack with laughter still available.\n\n*WAH! The archive is contractually obliged to point out that “I stepped on it” and “it stayed solved” are two entirely separate lines in any competent report. Children confuse them. Waluigi does not.*\n\n## Phase Four: The Cottage Learns the Shape of the Fight\n\nA named duel becomes a session-changing engagement the moment uninvolved witnesses get physically thrown around by it.\n\nThe quake from Green T's giant form reached the cottage hard enough to create a second battlefield of bad decisions. Remi called it an earthquake because no less ridiculous name presented itself quickly enough. Eager climbed the roof because of course he did. One of the Toads saw the giant first. Eager saw it second and reacted with enough shock to fall backward off the roof and onto Dan, who was already one-handed and in no mood to become structural support for surprised people.\n\nThis is not cottage comedy. It is battle evidence. The witnesses at the house did not need a visual of the Scorncrow itself to confirm the engagement had crossed from private danger into environmental event. If a support structure loses a man because the offsite fight changes what balance means, the fight has escaped its own perimeter.\n\nWario's contribution at this phase is, for once, analytically useful. He walked outside expecting to play benefactor and stopped at “holy moly,” which is the sort of involuntary measurement only a reliable coward gives you. Wario does not understate large dangers when they might interfere with commerce. The fact that he abandoned style that quickly tells the archive the giant form looked exactly as bad as the roof witnesses claimed.\n\n## Phase Five: The Scorncrow Stands Back Up\n\nThe Scorncrow's recovery defines the battle more than the stomp does.\n\nIt came back wrong and active. It needled Green T's leg. It laughed. Bats swarmed Green T's face until his scale became a disadvantage—more target, not more clarity. The branches themselves entered the exchange next, striking with the bodies hanging from them. Green T stumbled into leaves. Archie, who had regained enough position to keep cheering, caught a branch hit and lost that comfort in a hurry.\n\nThis is the point at which the grove stops being background and becomes the Scorncrow's extended body. A conventional monster can be flattened and then measured by whether it moves again. The Scorncrow, by contrast, operates in a field that keeps helping it after contact. Bats, branches, swinging deadweight, bad footing, mockery. The archive is not looking at a duel plus scenery. It is looking at a duel inside an ecosystem committed to the same outcome.\n\nGreen T's next statement matters because it identifies the cost curve while the curve is still rising.\n\n“I don't know how long I can hold this form.”\n\nThat is the sentence of the battle. Everything before it is spectacle. Everything after it is accounting.\n\nHis giant form is not a stable state. It is an expenditure. Once that is admitted on the field, the battle stops being “Can Green T kill the Scorncrow if large enough?” and becomes “Can Green T resolve the field before size converts itself into weakness?” No surviving witness suggests that he could. What they suggest instead is that the field began outrunning the body that had briefly dominated it.\n\nArchie's answer—to ask about weapons, then offer the electric spear—shows he understood this too, though in the irritated shorthand unique to him. A tiny pistol in giant hands is not a weapon solution; it is a joke the battle is telling about scale. The electric spear clinking uselessly at Green T's feet makes the same point from the opposite direction. The right weapons existed for the wrong bodies and the right body existed at the wrong size.\n\nThat is not failure in the moral sense. It is battlefield mismatch.\n\n## Phase Six: No Decision, Only Exposure\n\nBy the end of the recorded exchange, nobody had won the grove.\n\nArchie was still alive, still shouting, still trying to convert terror into forward motion by sheer noise. Green T was still giant, but not indefinitely. The Scorncrow was still standing, and that fact alone is enough to settle the result line. A named battle in which one side gets stepped on by a giant and remains combat capable is not a victory for the giant. It is an unresolved engagement with a very memorable middle.\n\nWhat the pair did achieve was exposure. They forced the field into the open. The cottage now knows that Green T can enlarge to impossible scale. The cottage now knows the controlled storm reaches all the way to root and roof. The cottage now knows the Scorncrow can survive direct overwhelming contact and answer it with field-wide retaliation. Those are not small gains. They are simply not the same thing as solving the problem.\n\nThe grove remained in enemy hands when the recorded phase closed.\n\nWaluigi's ruling is that this battle belongs on the archive because it changes how every later plan around the cottage must be written. Before this engagement, Green T was a suspicious knock in the rain and the Scorncrow was an external monster somewhere in the dark. After it, Green T is verified in the most inconvenient possible way, and the Scorncrow is no longer an offstage threat but a thing that can absorb giant-force contact, destabilize the ground out to the cottage, and keep laughing.\n\nThat is a battle result, even without a corpse count worth celebrating.",
+    "keyMoments": [
+      {
+        "time": "opening",
+        "who": "Green T",
+        "act": "Finds Archie under the storm",
+        "result": "One exchange of recognition before the grove answers for the Scorncrow"
+      },
+      {
+        "time": "opening",
+        "who": "The Scorncrow",
+        "act": "Thrown scythe",
+        "result": "Archie is knocked out of the cloud before a coordinated attack can form",
+        "decisive": true
+      },
+      {
+        "time": "early",
+        "who": "Archie",
+        "act": "Staff block and push",
+        "result": "Buys time on the ground and forces the Scorncrow back one step"
+      },
+      {
+        "time": "early",
+        "who": "Archie and Green T",
+        "act": "Team-attack proposal",
+        "result": "Flame-bullet theory stated, never cleanly executed"
+      },
+      {
+        "time": "middle",
+        "who": "Green T",
+        "act": "Giant transformation",
+        "result": "The battlefield becomes visible from the cottage roof",
+        "decisive": true
+      },
+      {
+        "time": "middle",
+        "who": "Green T",
+        "act": "Direct stomp",
+        "result": "The Scorncrow goes under, the grove shakes, the cottage feels it like an earthquake",
+        "decisive": true
+      },
+      {
+        "time": "late",
+        "who": "The Scorncrow's grove",
+        "act": "Counterpressure",
+        "result": "Bats blind Green T, branches strike both attackers, and the stomp fails to settle the field",
+        "decisive": true
+      },
+      {
+        "time": "late",
+        "who": "Green T",
+        "act": "Admits the cost of size",
+        "result": "The giant form becomes a timer instead of a solution"
+      },
+      {
+        "time": "last mark",
+        "who": "Archie",
+        "act": "Electric spear attempt",
+        "result": "The weapon falls uselessly at giant scale — no finishing blow follows"
+      }
+    ],
+    "aftermath": "The grove remained unresolved and the controlled storm remained active. The pair proved the field can be shaken, not yet cleared. The cottage now has battle witnesses who were not in the grove and therefore cannot go back to imagining the danger as somebody else's problem.",
+    "waluigiAssessment": "The stomp was spectacular and insufficient. Green T's giant form turned the Scorncrow from rumor into architecture, but the recovery proved the grove is a system, not a target. Archie was right that he is still mortal; Green T was right that size costs. Both truths are now in the file, which is more than the Scorncrow suffered permanently.",
+    "relatedArticles": [
+      "green_t_at_the_door_and_the_scorncrow_underfoot",
+      "archies_return_to_shadow_estate",
+      "the_tree_of_woe_engagement",
+      "green_t",
+      "archie_miser",
+      "remi_akamatsu_full_backstory",
+      "markop",
+      "eager",
+      "dan",
+      "salam",
+      "wario",
+      "tymnas_cottage_and_hedge_maze"
+    ]
   }
 ]
