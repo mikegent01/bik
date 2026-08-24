@@ -329,6 +329,78 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "wahwire_charred_note_at_door",
+      "author": "waluigi",
+      "order": 9,
+      "date": null,
+      "timestamp": "4 Aethel, 1040 BF — before dawn",
+      "content": "Anonymous arson stationery is back. A page at my door claims Mario killed Peach, died after three days on the farm, woke up wrong, and treated three Guild null cages like decorative hoops. I do not believe it. I do file it. Read the ash before it learns to lie better.",
+      "likes": 611,
+      "links": [
+        {
+          "id": "charred_note_at_waluigis_door",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "mario",
+        "mages_guild",
+        "charrednote",
+        "investigation"
+      ],
+      "reaction": "smug",
+      "comments": [],
+      "status": "posted"
+    },
+    {
+      "id": "wahwire_green_t_door_scorncrow",
+      "author": "waluigi",
+      "order": 10,
+      "date": null,
+      "timestamp": "30 Harvestide, 1040 BF — late night filing",
+      "content": "Green T knocked, Markop answered with a yawn, Remi bought three weapons in a storm, and the proof of identity was one shattered repair followed by a giant-form earthquake. I have filed the window as a witness.",
+      "likes": 488,
+      "links": [
+        {
+          "id": "green_t_at_the_door_and_the_scorncrow_underfoot",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "shadowestate",
+        "greent",
+        "stormwatch",
+        "scorncrow"
+      ],
+      "reaction": "smug",
+      "comments": [],
+      "status": "posted"
+    },
+    {
+      "id": "wahwire_scorncrow_underfoot_battle",
+      "author": "archie_miser",
+      "order": 11,
+      "date": null,
+      "timestamp": "30 Harvestide, 1040 BF — grove side",
+      "content": "Good news: giant support arrived. Bad news: the Scorncrow does not respect being stepped on. File this under temporary deforestation, not solved problem.",
+      "likes": 372,
+      "links": [
+        {
+          "id": "green_t_and_archie_vs_the_scorncrow",
+          "type": "battle"
+        }
+      ],
+      "tags": [
+        "battle",
+        "scorncrow",
+        "greent",
+        "archie"
+      ],
+      "reaction": "resolve",
+      "comments": [],
+      "status": "posted"
     }
   ]
 }
