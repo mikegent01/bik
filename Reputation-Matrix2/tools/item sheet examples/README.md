@@ -46,6 +46,7 @@ convert it.
 | `fvtt-Actor-feyward-dan-level-3-player.json` | **Feyward Dan — level 3 player character**; parallel-reality Toad with Feyward eye, unstable aura, and 2,000+ lines of dossier JSON | The reference for a dimensional-variant PC; keep separate from Original Dan |
 | `fvtt-Actor-eager-level-4-catastrophe-scout-player.json` | **Eager — level 4 player character**; catastrophe scout with confirmed field gear and no fabricated party loot | The reference for a focused player inventory built from the Eager source record |
 | `fvtt-Actor-default-item-pile-WF1OTqeH4049Rt9B.json` | Loot / **item pile** actor (weapons, consumables, tools, containers) | The template for a **lootable pile** |
+| `fvtt-Actor-remi-item-pile-example.json` | **Remi item pile example**; a promoted blank-style item-pile export containing Peach's Castle Brick, Skullsplitter Warhammer, and The Rotting Skull Piercer | The reference for a small purchased-gear pile built from shop receipts |
 
 ## Bones image pack and installer
 

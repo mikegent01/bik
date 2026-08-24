@@ -1,0 +1,1151 @@
+{
+  "name": "Remi Item Pile Example",
+  "type": "character",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "abilities": {
+      "str": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 10,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "acr": {
+        "value": 0,
+        "ability": "dex",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "ani": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "arc": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "ath": {
+        "value": 0,
+        "ability": "str",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "dec": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "his": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "ins": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "itm": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "inv": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "med": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "nat": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "prc": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "prf": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "per": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "rel": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "slt": {
+        "value": 0,
+        "ability": "dex",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "ste": {
+        "value": 0,
+        "ability": "dex",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "sur": {
+        "value": 0,
+        "ability": "wis",
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 0,
+        "calc": "flat",
+        "formula": ""
+      },
+      "hp": {
+        "value": 0,
+        "max": 0,
+        "temp": 0,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "init": {
+        "bonus": "0",
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "movement": {
+        "walk": 0,
+        "units": "ft",
+        "hover": false,
+        "burrow": 0,
+        "climb": 0,
+        "fly": 0,
+        "swim": 0,
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "special": "",
+        "ranges": {
+          "darkvision": 0,
+          "blindsight": 0,
+          "tremorsense": 0,
+          "truesight": 0
+        }
+      },
+      "spellcasting": "",
+      "death": {
+        "success": 0,
+        "failure": 0,
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "exhaustion": 0,
+      "inspiration": false,
+      "attunement": {
+        "max": 3
+      },
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      }
+    },
+    "details": {
+      "biography": {
+        "value": "<p>Example item-pile export holding Remi's purchased warehouse delivery.</p><p>Contains Peach's Castle Brick, Skullsplitter Warhammer, and The Rotting Skull Piercer.</p><p>Promoted from the hub output as a reference import for Foundry item-pile work.</p>",
+        "public": ""
+      },
+      "alignment": "",
+      "race": null,
+      "background": null,
+      "originalClass": "",
+      "xp": {
+        "value": 0
+      },
+      "appearance": "",
+      "trait": "",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "eyes": "",
+      "height": "",
+      "faith": "",
+      "hair": "",
+      "weight": "",
+      "gender": "",
+      "skin": "",
+      "age": ""
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "armorProf": {
+        "value": [],
+        "custom": ""
+      },
+      "weaponProf": {
+        "value": [],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      }
+    },
+    "resources": {
+      "primary": {
+        "value": null,
+        "max": null,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      },
+      "secondary": {
+        "value": null,
+        "max": null,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      },
+      "tertiary": {
+        "value": null,
+        "max": null,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      }
+    },
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "favorites": []
+  },
+  "prototypeToken": {
+    "name": "Item Pile",
+    "displayName": 50,
+    "actorLink": true,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/item-bag.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": null
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "alpha": 1,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "negative": false,
+      "priority": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "occludable": {
+      "radius": 0
+    },
+    "appendNumber": false,
+    "prependAdjective": false,
+    "randomImg": false,
+    "depth": 0,
+    "turnMarker": {
+      "mode": 1,
+      "animation": "",
+      "src": "",
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "item-piles": {
+        "data": {
+          "enabled": true,
+          "type": "pile",
+          "deleteWhenEmpty": true,
+          "displayOne": true,
+          "showItemName": true,
+          "overrideSingleItemScale": true,
+          "singleItemScale": 0.75
+        },
+        "version": "3.3.4"
+      }
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    }
+  },
+  "items": [
+    {
+      "_id": "Qi1IeqAtXjObylRE",
+      "name": "Skullsplitter Warhammer",
+      "type": "weapon",
+      "img": "icons/weapons/hammers/hammer-war-spiked.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Skullsplitter Warhammer, forged from the bones of fallen soldiers, exudes a dark, almost sentient power. Its haft is reinforced with iron bands and its head is adorned with an ancient rune that whispers malevolent secrets to those who wield it. This weapon guarantees a crushing blow, capable of turning the strongest foe into dust with each strike. However, those who use it must beware, for it seems to have a mind of its own, often striking out at unintended targets in its fervor to destroy.</p><h3>Effects</h3><ul><li><strong>Crushing Blow</strong>: When you make a melee attack with the Skullsplitter Warhammer, it deals an additional 1d6 bludgeoning damage. If the target is reduced to half its hit points or fewer by this weapon, there is a 50% chance that they bleed out and take an additional 1d4 necrotic damage at the start of their next turn.</li><li><strong>Sentient Wrath</strong>: At the end of each of your turns while wielding the Skullsplitter Warhammer, there is a 25% chance that it will lash out and target an enemy within 5 feet of you. This attack deals 1d8 bludgeoning damage and has disadvantage if you are concentrating or using an action.</li></ul><h3>Usage</h3><ul><li><strong>Activation</strong>: As a bonus action</li><li><strong>Duration</strong>: Until the start of your next turn</li><li><strong>Ends when</strong>: You sheathe it or drop the weapon, or if you take an action other than moving</li><li><strong>Charges</strong>: Unlimited</li></ul><p>Vendor: imperial_armory · Shipped by: Emissary of the Crown · Level requirement: 3</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 100,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "skullsplitter-warhammer",
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "damage": {
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            },
+            "bonus": ""
+          }
+        },
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": 5
+        },
+        "equipped": false,
+        "proficient": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "warhammer_skullsplitter_1",
+          "sourceKey": "warhammer_skullsplitter_1",
+          "sourceFile": "items_052.js",
+          "category": "equipment",
+          "rarity": "common",
+          "vendor": "imperial_armory",
+          "shippedBy": "Emissary of the Crown",
+          "levelRequirement": 3,
+          "icon": "🔨",
+          "effects": [
+            "damage_2d8",
+            "chance_to_bleed"
+          ],
+          "effectDetails": [
+            {
+              "title": "Crushing Blow",
+              "rules": "When you make a melee attack with the Skullsplitter Warhammer, it deals an additional 1d6 bludgeoning damage. If the target is reduced to half its hit points or fewer by this weapon, there is a 50% chance that they bleed out and take an additional 1d4 necrotic damage at the start of their next turn."
+            },
+            {
+              "title": "Sentient Wrath",
+              "rules": "At the end of each of your turns while wielding the Skullsplitter Warhammer, there is a 25% chance that it will lash out and target an enemy within 5 feet of you. This attack deals 1d8 bludgeoning damage and has disadvantage if you are concentrating or using an action."
+            }
+          ],
+          "usage": {
+            "activation": "As a bonus action",
+            "duration": "Until the start of your next turn",
+            "endsWhen": "You sheathe it or drop the weapon, or if you take an action other than moving",
+            "charges": "Unlimited"
+          },
+          "priceGold": 100,
+          "receipts": [
+            {
+              "orderId": "WW-9E8CF43E-01",
+              "approvedAt": "2026-08-24T00:33:10.000Z",
+              "approvedBy": "Wario",
+              "price": 100
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787533611634,
+        "modifiedTime": 1787533611634,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "SGwnN0EI7WpRj2ox",
+      "name": "Peach's Castle Brick",
+      "type": "equipment",
+      "img": "icons/containers/bags/coinpouch-simple-leather-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>This Peach's Castle Brick is a heavy, pink masonry block stamped with the royal crest. Manufactured by Castle Architecture during the Pre-War Era, it serves as a sturdy piece of the kingdom's history.</p><h3>Effects</h3><ul><li><strong>Bludgeoning Projectile</strong>: As an action, you can throw the brick at a target within 20 feet. Make a ranged weapon attack; on a hit, the target takes 1d6 bludgeoning damage.</li><li><strong>Royal Nostalgia</strong>: You have advantage on Wisdom (History) checks made to recall information regarding the kingdom's architecture, lineage, or royal history.</li><li><strong>Heavy and Awkward</strong>: Because of its size and weight, you have disadvantage on attack rolls made with the brick if you are using a ranged attack maneuver or trying to throw it beyond 20 feet.</li></ul><h3>Usage</h3><ul><li><strong>Activation</strong>: Action</li><li><strong>Duration</strong>: Instantaneous</li><li><strong>Ends when</strong>: The brick hits a target or misses and falls to the ground.</li><li><strong>Charges</strong>: Unlimited</li></ul><p>Vendor: wario_land · Shipped by: Rubble Runners · Level requirement: 1</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 26,
+          "denomination": "gp"
+        },
+        "rarity": "common",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "peach-s-castle-brick",
+        "type": {
+          "value": "trinket",
+          "baseItem": ""
+        },
+        "armor": {
+          "value": null
+        },
+        "attunement": "",
+        "equipped": false,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "a_pink_brick_from_the",
+          "sourceKey": "a_pink_brick_from_the",
+          "sourceFile": "items_001.js",
+          "category": "equipment",
+          "rarity": "common",
+          "vendor": "wario_land",
+          "shippedBy": "Rubble Runners",
+          "levelRequirement": 1,
+          "icon": "🧱",
+          "effects": [
+            "Bludgeoning Projectile",
+            "Royal Nostalgia",
+            "Heavy and Awkward"
+          ],
+          "effectDetails": [
+            {
+              "title": "Bludgeoning Projectile",
+              "rules": "As an action, you can throw the brick at a target within 20 feet. Make a ranged weapon attack; on a hit, the target takes 1d6 bludgeoning damage."
+            },
+            {
+              "title": "Royal Nostalgia",
+              "rules": "You have advantage on Wisdom (History) checks made to recall information regarding the kingdom's architecture, lineage, or royal history."
+            },
+            {
+              "title": "Heavy and Awkward",
+              "rules": "Because of its size and weight, you have disadvantage on attack rolls made with the brick if you are using a ranged attack maneuver or trying to throw it beyond 20 feet."
+            }
+          ],
+          "usage": {
+            "activation": "Action",
+            "duration": "Instantaneous",
+            "endsWhen": "The brick hits a target or misses and falls to the ground.",
+            "charges": "Unlimited"
+          },
+          "priceGold": 26,
+          "receipts": [
+            {
+              "orderId": "WW-9E8CF43E-02",
+              "approvedAt": "2026-08-24T00:33:10.000Z",
+              "approvedBy": "Wario",
+              "price": 26
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787533611634,
+        "modifiedTime": 1787533611634,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "uiTvDI1rb46k85Ew",
+      "name": "The Rotting Skull Piercer",
+      "type": "weapon",
+      "img": "icons/weapons/hammers/hammer-war-spiked.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Rotting Skull Piercer is a nightmarish warhammer forged from the calcified skull of an ancient lich, its surface etched with arcane runes that pulse with a sickly green ichor. When wielded, it unleashes waves of decaying energy that corrode both flesh and metal, leaving nothing but bone behind. Its touch is said to spread rot through the very air, making those who hold it feel as though their own vitality is being consumed.</p><h3>Effects</h3><ul><li><strong>Rotting Decay</strong>: On activation, the Rotting Skull Piercer unleashes a wave of decaying energy that deals 100 points of damage over five turns. The target must make a DC 18 Constitution saving throw or be affected by the 'Rotting' status effect, which reduces their armor class by 2 until the end of their next turn.</li><li><strong>Armor Corrosion</strong>: Each time you hit with this weapon, there is a 30% chance that the target is also inflicted with 'Weakness,' reducing its Strength score by 1 for one minute. This effect stacks up to three times per encounter.</li></ul><h3>Usage</h3><ul><li><strong>Activation</strong>: Action</li><li><strong>Duration</strong>: Instantaneous effect over five turns</li><li><strong>Ends when</strong>: The target successfully saves against Rotting Decay or the weapon is used again on a different target.</li><li><strong>Charges</strong>: Unlimited, recharged at dawn</li></ul><p>Vendor: chaos_dealer · Shipped by: winged-skull-courier · Level requirement: 15</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia — Wario's Warehouse",
+          "book": "",
+          "page": "",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 4800,
+          "denomination": "gp"
+        },
+        "rarity": "rare",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "the-rotting-skull-piercer",
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "damage": {
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            },
+            "bonus": ""
+          }
+        },
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": 5
+        },
+        "equipped": false,
+        "proficient": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300000,
+      "flags": {
+        "core": {},
+        "item-identification": {
+          "isIdentified": true
+        },
+        "waluipedia": {
+          "shopId": "warhammer_item_the-rotting-skull-piercer",
+          "sourceKey": "warhammer_item_the-rotting-skull-piercer",
+          "sourceFile": "items_079.js",
+          "category": "consumables",
+          "rarity": "rare",
+          "vendor": "chaos_dealer",
+          "shippedBy": "winged-skull-courier",
+          "levelRequirement": 15,
+          "icon": "💀",
+          "effects": [
+            "Rotting Decay",
+            "Armor Corrosion"
+          ],
+          "effectDetails": [
+            {
+              "title": "Rotting Decay",
+              "rules": "On activation, the Rotting Skull Piercer unleashes a wave of decaying energy that deals 100 points of damage over five turns. The target must make a DC 18 Constitution saving throw or be affected by the 'Rotting' status effect, which reduces their armor class by 2 until the end of their next turn."
+            },
+            {
+              "title": "Armor Corrosion",
+              "rules": "Each time you hit with this weapon, there is a 30% chance that the target is also inflicted with 'Weakness,' reducing its Strength score by 1 for one minute. This effect stacks up to three times per encounter."
+            }
+          ],
+          "usage": {
+            "activation": "Action",
+            "duration": "Instantaneous effect over five turns",
+            "endsWhen": "The target successfully saves against Rotting Decay or the weapon is used again on a different target.",
+            "charges": "Unlimited, recharged at dawn"
+          },
+          "priceGold": 4800,
+          "receipts": [
+            {
+              "orderId": "WW-CBEDE879-01",
+              "approvedAt": "2026-08-24T00:54:20.000Z",
+              "approvedBy": "Wario",
+              "price": 4800
+            }
+          ]
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787533611634,
+        "modifiedTime": 1787533611634,
+        "lastModifiedBy": null
+      },
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "flags": {
+    "item-piles": {
+      "data": {
+        "enabled": true,
+        "type": "pile",
+        "deleteWhenEmpty": true,
+        "displayOne": true,
+        "showItemName": true,
+        "overrideSingleItemScale": true,
+        "singleItemScale": 0.75
+      },
+      "version": "3.3.4"
+    },
+    "waluipedia": {
+      "kind": "example-item-pile",
+      "playerKey": "remi",
+      "generatedAt": "2026-08-24T01:06:51.634917+00:00",
+      "totalGold": 4926,
+      "orderIds": [
+        "WW-9E8CF43E-01",
+        "WW-9E8CF43E-02",
+        "WW-CBEDE879-01"
+      ],
+      "promotedFrom": "./Reputation-Matrix2/tools/hub/.hub-out/item-piles/fvtt-Actor-remi-pile.json"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "coreVersion": "14.360",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1787533611635,
+    "modifiedTime": 1787533611635,
+    "lastModifiedBy": null,
+    "exportSource": {
+      "worldId": "waluipedia-hub",
+      "uuid": "Actor.kRCV5yudcEcCMgY3",
+      "coreVersion": "14.360",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    }
+  },
+  "_id": "kRCV5yudcEcCMgY3",
+  "ownership": {
+    "default": 0
+  }
+}
