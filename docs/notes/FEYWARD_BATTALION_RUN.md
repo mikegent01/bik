@@ -12,7 +12,8 @@
 ```
 tools/build-feyward-battalion-event.py       builder; runs steps 2–9 in order (~640 lines)
 tools/feyward_battalion_sections.py          the prose: DESCRIPTION + 15 sections (~1,050 lines)
-tools/tests/test-feyward-battalion-render.mjs  jsdom render test, 43 assertions
+tools/repair-missing-exhibits-and-blurbs.py  files the 2 missing props, rewrites the 2 blurbs
+tools/tests/test-feyward-battalion-render.mjs  jsdom render test, 54 assertions
 docs/notes/FEYWARD_BATTALION_RUN.md          this report
 ```
 
@@ -25,17 +26,25 @@ Reputation-Matrix2/data/characters.json      + 6 new entries (Hank, Timmy, Wyatt
 Reputation-Matrix2/data/events.json          + feyward_battalion_of_six_and_the_bait_plan
                                                (15 sections, 7,068 story words)                    (+286 lines)
 Reputation-Matrix2/data/locations.json       ~ overgrown_manor: +4 notableFeatures, +2 relatedArticles (+10 lines)
-Reputation-Matrix2/data/props.json           + 3 exhibits (commission, evacuation order, wahbook leaf) (+114 lines)
+Reputation-Matrix2/data/props.json           + 5 exhibits: 3 for this filing (commission, evacuation
+                                               order, wahbook leaf) + 2 repaired
+                                               (prop_remi_stormwatch_receipt,
+                                                prop_green_t_threshold_parley)                    (+~190 lines)
 Reputation-Matrix2/data/investigations.json  ~ shadeward_feyward_ruined: +1 session, +3 exhibits,
-                                               +4 leads, lastFiled bumped                        (+138 lines)
+                                               +4 leads, lastFiled bumped; ~ 2 background blurbs
+                                               rewritten to quote their source                     (+~140 lines)
 Reputation-Matrix2/data/mainPage.json        ~ latestUpdate + featuredArticle repointed             (~12 lines)
 Reputation-Matrix2/data/wahwire/posts.json   + wahwire_battalion_of_six (order 10)                (+24 lines)
 Reputation-Matrix2/data/liberated-toads/toadslist-data.js
                                              ~ 05_toad_lee roleNote + lore (Feyward assignment)   (~4 lines)
-index.html                                   ~ SITE_UPDATES prepended; home-feed card spliced in   (+25 lines)
+index.html                                   ~ SITE_UPDATES prepended; home-feed card spliced in;
+                                               + engagementsHtml renderer for object-shaped
+                                               keyBattles[] — the render-gap fix                  (+~45 lines)
 tools/update-index-home.py                   ~ new feed card at the top of timeline_html;
                                                "Latest File"/"Latest Session" chrome demoted      (+23 lines)
 tools/rnn-scripts/pending-news-articles.json ~ +1 pending id                                       (+5 lines)
+docs/STORY_FORMAT_GUIDE.md                   ~ §10: the two keyBattles[] shapes and where each renders
+docs/BATTLES_GUIDE.md                        ~ pointer from "lives in its session event" to §10
 .gitignore                                   + node_modules/ (jsdom, installed for the render test)
 ```
 
@@ -113,28 +122,33 @@ Every `xpKey` was verified against `XP_SUMMARY`: `waluigi`, `hjumpik`,
 
 ## 4. What is not done / open
 
-**Pre-existing failures, not introduced by this run.** `python3 tools/check-all.py`
-was run before any edit and again after; the failure set is identical:
+**`python3 tools/check-all.py` now passes clean — all eleven checks.** It did
+not when this run started: the baseline was 5 errors + 1 warning across three
+checks, all pre-existing and all in other arcs. Those five are repaired in this
+PR, in their own commit:
 
 ```
-FAIL exhibits         1 error  — events.json references [[prop:prop_remi_stormwatch_receipt]],
-                                 which does not exist in props.json (Green T / Remi arc)
-FAIL investigations   2 errors — shadeward_feyward_ruined/ex_green_t_parley → prop_green_t_threshold_parley
-                                 shadeward_feyward_ruined/ex_stormwatch_receipt → prop_remi_stormwatch_receipt
-FAIL background       2 errors + 1 warn — mount_ebot_one_t_file and mario_charred_note_file blurbs
+check-exhibits.py       was 1 error → 0    prop_remi_stormwatch_receipt filed
+check-investigations.py was 2 errors → 0   prop_green_t_threshold_parley filed
+check-background.py     was 2 errors + 1 warn → 0
+                                           two background blurbs rewritten to quote
+                                           the articles they link to
 ```
 
-All five are in other arcs and predate this filing. They were **left alone on
-purpose**: the README's PR rule is *one purpose per PR*, and inventing two props
-for the Green T / Remi thread from inside a Feyward filing is exactly the kind
-of cross-arc invention that should not ride along. The fix is two props keyed
-`prop_green_t_threshold_parley` and `prop_remi_stormwatch_receipt`, wired to
-`green_t_at_the_door_and_the_scorncrow_underfoot` — the investigation exhibits
-already describe both papers in enough detail to write them.
+Both props were reconstructed **only** from the records that already cited
+them — the prose of `green_t_at_the_door_and_the_scorncrow_underfoot` and the
+two investigation exhibits `ex_stormwatch_receipt` / `ex_green_t_parley`. No
+figure was invented: the receipt carries no amounts, because the source gives
+none, and says so on the paper. The threshold note is compiled from the four
+named witnesses in the event and quotes Green T verbatim.
 
-**Nothing new failed.** `check-references.py` PASS with no new non-legacy
-warning mentioning any id created here; `check-rolls.py` 0/0; `check-battles.py`
-PASS; `check-duplicates.py` PASS.
+**The `keyBattles[]` render gap is closed.** The article renderer read
+`keyBattles[]` only as a list of ids, so the `{name, description, outcome}`
+shape recommended by `STORY_FORMAT_GUIDE.md` §10 rendered nowhere. It now
+renders as an **⚔️ Engagements in this filing** panel with an *Outcome.* note
+per row and a TOC entry. This is a site-wide fix: it also makes the two
+engagements filed on `the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy`
+visible for the first time, which the render test asserts. Both guides updated.
 
 **RNN — an episode is owed, but not by this filing.** The pending list is at
 **4/10**, so this filing alone owes nothing. However `python3
@@ -145,18 +159,10 @@ cutting one is a separate purpose and a separate PR.
 
 **No `battles.json` record created.** The four interior engagements are
 small-unit actions inside the session and live in the event, per
-`docs/BATTLES_GUIDE.md` → *A regular encounter does not get a record*. The
-outdoor engagement already has one (`feyward_woodfellow_vs_the_treant`) and is
-cross-linked from `relatedArticles`, which renders.
-
-**Renderer gap found, not fixed.** `keyBattles[]` on an *event* is read by
-`index.html` only as a list of ids (five call sites, all `typeof r==='string'?r:r&&r.id`).
-The object-shaped `{name, description, outcome}` rows used by this filing — and
-by `the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy` before it —
-**render nowhere**. 326 words of tactical data are filed but invisible. Kept
-for arc consistency rather than silently diverging; the fix is either a
-renderer branch or converting the older filings to battle ids, and it should be
-its own PR.
+`docs/BATTLES_GUIDE.md` → *A regular encounter does not get a record*. They now
+render as the Engagements panel. The outdoor engagement already has its own
+record (`feyward_woodfellow_vs_the_treant`) and is cross-linked from
+`relatedArticles`.
 
 **Deliberate omissions from the transcript.**
 
@@ -184,6 +190,10 @@ its own PR.
 - The session is dated to the morning after the map. The transcript says
   "let's glorify the morning" but gives no date; the chain is map scene → next
   morning → concurrent lane battle.
+- The two repaired props assume the archive copy of the receipt carries no
+  amounts (the source records none) and that the threshold note is a
+  compilation rather than a deposition (the exhibit says "filed from
+  overlapping witness accounts"). Both are stated on the paper itself.
 
 **Not done at all.**
 
@@ -193,7 +203,7 @@ its own PR.
 - No Pond Patrol docket *action* row — only Toad Lee's roster `roleNote`/`lore`
   were updated in `toadslist-data.js`. He is off-plane and under no docket
   question; if the table wants a formal action item, that is a follow-up.
-- No PR opened. Work is committed to `arena/01a036d8-bik` only.
+
 
 ---
 
@@ -203,17 +213,21 @@ its own PR.
 python3 tools/build-feyward-battalion-event.py --check   dry run, counts confirmed
 python3 tools/build-feyward-battalion-event.py           wrote all nine steps
 python3 tools/update-index-home.py                       index.html updated successfully
-python3 tools/check-all.py                               PASS ×8 / FAIL ×3 — identical to the
-                                                         pre-edit baseline (see §4)
-python3 tools/check-exhibits.py                          1 error (pre-existing); 121 props,
-                                                         3 new kinds validated, 0 new errors
-python3 tools/check-investigations.py                    2 errors (pre-existing); 74 exhibits,
-                                                         0 new errors
+python3 tools/repair-missing-exhibits-and-blurbs.py      2 props filed, 2 blurbs rewritten
+python3 tools/check-all.py                               ALL ELEVEN CHECKS PASS
+python3 tools/check-exhibits.py                          0 errors, 0 warnings (123 props)
+python3 tools/check-investigations.py                    0 errors, 0 warnings (74 exhibits)
+python3 tools/check-background.py                        0 errors, 0 warnings (22 blurbs)
 python3 tools/check-rolls.py                             0 errors, 0 warnings (53 rolls / 24 targets)
 python3 tools/check-references.py                        PASS; no new dangling id
 python3 tools/build-rnn-broadcast.py --unaired           12 never aired (see §4)
-node tools/tests/test-feyward-battalion-render.mjs       ALL PASS (43 passed, 0 failed)
+node tools/tests/test-feyward-battalion-render.mjs       ALL PASS (54 passed, 0 failed)
 ```
+
+**Baseline, for comparison.** `tools/check-all.py` was run before any edit and
+reported `FAIL exhibits / FAIL investigations / FAIL background blurbs` — 5
+errors and 1 warning. After the first commit it reported exactly the same set.
+After the repair commit it reports **All requested checks passed.**
 
 **What the render test actually executed.** It boots the real `index.html` in
 jsdom with Node's `fetch` injected (jsdom has none, which is why the page will
@@ -223,9 +237,14 @@ and asserts against `#content`. Confirmed through the real code path: all 15
 section names rendered by the article renderer; 17 elements carrying
 `.walu-aside` (i.e. `isWaluigiAside()` matched every aside); 17 `Waluigi's
 Note:` blocks; 8 `.proplink` anchors; 6 `.award-row` XP rows including
-`+320 XP` and `+180 XP`; no `[[prop:`, `[[roll:` or `&lt;div` leaked into the
-rendered article; and each of the three exhibits opened through the page's own
-`openProp()` with a styled `.pd-head`. Run it with:
+`+320 XP` and `+180 XP`; the new **Engagements in this filing** panel with all
+four engagement `<h3>`s, all four *Outcome.* notes, and its TOC entry; the same
+panel lighting up on the older
+`the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy` filing, which had
+carried two invisible engagements until now; no `[[prop:`, `[[roll:` or
+`&lt;div` leaked into the rendered article; and all five exhibits — three new,
+two repaired — opening through the page's own `openProp()` with a styled
+`.pd-head` and their own titles. Run it with:
 
 ```
 python3 -m http.server 8765 --bind 0.0.0.0 &

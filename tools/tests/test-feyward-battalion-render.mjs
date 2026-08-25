@@ -98,11 +98,29 @@ check('XP award rows rendered (6 awards)', n(/award-row/g) >= 6, n(/award-row/g)
 check('XP amounts rendered', text.includes('+320 XP') && text.includes('+180 XP'));
 check('assessment rendered', text.includes('RECOMMENDATION'));
 check('participant chips rendered', text.includes('Timmy') && text.includes('Hank') && text.includes('Wyatt'));
-// keyBattles[] on an event is read by the renderer as an id list, so the
-// object-shaped engagements do not render — pre-existing behaviour shared with
-// the earlier Feyward filings. The cross-link that DOES render is the lane
-// battle record, carried in relatedArticles.
+// keyBattles[] — the object shape is now rendered by the article view.
+check('engagements panel rendered', html.includes('sec-engagements'),
+  html.includes('Engagements in this filing') ? 'heading present' : 'missing');
+check('engagement 1 rendered', text.includes('The Wall Walk'));
+check('engagement 4 rendered', text.includes('The Corridor Withdrawal'));
+check('engagement outcomes rendered', n(/<b>Outcome\.<\/b>/g) === 4,
+  n(/<b>Outcome\.<\/b>/g) + ' outcomes');
+check('engagements listed in the TOC', html.includes('sec-engagements') &&
+  html.includes('scrollToHeading(\'sec-engagements\')'));
 check('lane battle cross-link renders', text.includes('Woodfellow'));
+
+// the same fix must light up the older filing that carried invisible keyBattles
+ev("Router.go('#/article/the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy')");
+await sleep(2000);
+const oldHost = ev("document.getElementById('content')");
+check('older filing: its object keyBattles now render',
+  oldHost.textContent.includes('The Pen-Knife Confrontation') &&
+  oldHost.textContent.includes("Waluigi's Ice Storm"),
+  oldHost.textContent.includes('The Pen-Knife Confrontation') ? 'both engagements visible' : 'still invisible');
+check('older filing: no "undefined" leaked into the related chips',
+  !oldHost.innerHTML.includes('>undefined<') && !oldHost.textContent.includes('undefined'));
+ev(`Router.go('#/article/${EVENT_ID}')`);
+await sleep(1500);
 check('related filing cross-link renders', text.includes('Guard With No Name') || text.includes('Chop Bros'));
 
 for (const pid of PROPS) {
@@ -111,6 +129,22 @@ for (const pid of PROPS) {
   const modal = window.document.body.innerHTML;
   check('prop paper opens: ' + pid.slice(5, 26), modal.includes('pd-head') && modal.includes(pid),
     modal.includes('pd-head') ? 'pd-head present' : 'no pd-head');
+}
+
+// the two exhibits repaired this run must open too
+const REPAIRED = [
+  ['prop_remi_stormwatch_receipt', 'Storm-Watch Receipt'],
+  ['prop_green_t_threshold_parley', 'Threshold Note'],
+];
+for (const [pid, title] of REPAIRED) {
+  check('repaired prop resolves: ' + pid.slice(5, 26), ev(`!!getProp('${pid}')`) === true);
+  ev(`openProp('${pid}')`);
+  await sleep(500);
+  const modal = window.document.body.innerHTML;
+  check('repaired prop paper opens: ' + pid.slice(5, 26),
+    modal.includes('pd-head') && modal.includes(title), title + (modal.includes(title) ? '' : ' NOT in modal'));
+  ev('closeProp()');
+  await sleep(300);
 }
 
 console.log('--- PASS ---');

@@ -10113,6 +10113,27 @@ function view_article(id){
       (s.subsections||[]).forEach(ss=>{const nm=ss.name||ss.title||'';if(nm)sectionsHtml+=`<h3 id="${slug(nm)}">${esc(nm)}</h3>`;const body=ss.description||ss.content||ss.text||ss.overview||'';if(body)sectionsHtml+=`<div class="prose">${applyAnnotations(mdToHtml(body,item.id), item.id)}</div>`;if(ss.waluigi_note)sectionsHtml+=`<div class="wnote"><b>Waluigi's Note:</b> ${esc(ss.waluigi_note)}</div>`;});
     });
   }
+  /* ---- object-shaped keyBattles[]: the engagement pages filed inside an event ----
+     keyBattles[] is read everywhere else as a list of ids (backlinks, related chips,
+     co-participants) and an object with no `id` is silently dropped by all five of
+     those call sites. That made the {name, description, outcome} shape — used by
+     docs/STORY_FORMAT_GUIDE.md §10 for battle pages inside events — invisible on
+     the page while still validating in the data. Render it here; the id form keeps
+     working exactly as before, and string entries stay where they always were. */
+  let engagementsHtml='';
+  if(Array.isArray(item.keyBattles)){
+    const pages=item.keyBattles.filter(k=>k&&typeof k==='object'&&(k.name||k.description));
+    if(pages.length){
+      secTocParts.push({slug:'sec-engagements',text:'Engagements'});
+      engagementsHtml=`<h2 id="sec-engagements">⚔️ Engagements in this filing</h2>`+pages.map(k=>{
+        const nm=k.name||'Engagement';
+        let h=`<h3 id="${slug(nm)}">${k.icon?esc(k.icon)+' ':''}${esc(nm)}</h3>`;
+        if(k.description)h+=`<div class="prose">${applyAnnotations(mdToHtml(String(k.description),item.id), item.id)}</div>`;
+        if(k.outcome)h+=`<div class="wnote"><b>Outcome.</b> ${esc(k.outcome)}</div>`;
+        return h;
+      }).join('');
+    }
+  }
   // reading time / word count should include section bodies when present
   const sectionWordSrc = (item.sections||[]).map(s=>(s.overview||'')+' '+(s.subsections||[]).map(ss=>ss.description||ss.content||ss.text||ss.overview||'').join(' ')).join(' ');
   const totalWords = words(item.description)+words(sectionWordSrc);
@@ -10216,6 +10237,7 @@ function view_article(id){
 ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}
      <div class="prose">${applyAnnotations(mdToHtml(item.description||'',item.id), item.id)}</div>
      ${sectionsHtml}
+     ${engagementsHtml}
      ${listBlocks.length?`<hr>${listBlocks.join('')}`:''}
      ${item.aftermath?`<h2 id="h-aftermath">Aftermath</h2><div class="prose">${applyAnnotations(mdToHtml(item.aftermath,item.id), item.id)}</div>`:''}
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote wassessment">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}

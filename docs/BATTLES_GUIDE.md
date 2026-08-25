@@ -36,7 +36,10 @@ contained it (if any) gets an event.
 - **Character:** the fight has a story the event summary cannot hold —
   friendly fire, weather that switched sides, a librarian with books.
 
-A regular encounter does not get a record. It lives in its session event.
+A regular encounter does not get a record. It lives in its session event — as
+an object-shaped `keyBattles[]` row, which renders as an **⚔️ Engagements in
+this filing** panel on that event's page (see
+[`STORY_FORMAT_GUIDE.md` §10](STORY_FORMAT_GUIDE.md#10-battle-and-campaign-pages)).
 
 ---
 

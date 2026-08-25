@@ -610,6 +610,21 @@ Use the battle page when a scene has a meaningful tactical question: who held th
 line, who was flanked, what objective changed hands, why the retreat or capture
 happened, and what the battlefield looked like after the last blow.
 
+**Where the page renders.** An event's `keyBattles[]` accepts two shapes, and
+they do different jobs:
+
+| Shape | Renders as | Use it for |
+|---|---|---|
+| `"battle_id"` (string) | a chip in **Related Articles**, plus backlinks and co-participant links | a fight that owns its own record in `battles.json` |
+| `{name, description, outcome, icon?}` (object) | an **⚔️ Engagements in this filing** panel with an `<h3>` per engagement and an *Outcome.* note, listed in the TOC as *Engagements* | a fight that stays inside the session |
+
+Both may appear in the same array. The object shape used to render nowhere —
+every consumer read `keyBattles[]` as an id list and silently dropped anything
+without an `id` — so filings that used it were filing invisible data. The panel
+is the fix; it lives in the article renderer next to `sectionsHtml` in
+`index.html`. If you add a field to it, keep it markdown-safe: `description`
+goes through `mdToHtml` + `applyAnnotations`, `outcome` does not.
+
 ### Required battle shell
 
 ```text
