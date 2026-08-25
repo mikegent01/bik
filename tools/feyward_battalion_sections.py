@@ -40,7 +40,7 @@ SECTIONS = [
             "\u201cThey won't turn on us if we're helping them,\u201d Hjumpik said. \u201cWe take the plant out of their house. That is help. That is a favour with teeth in it.\u201d\n\n"
             "\u201cAnd after?\u201d\n\n"
             "\u201cAfter,\u201d said the dwarf, \u201cwe worry about after.\u201d\n\n"
-            "*WAH. Waluigi has sat through four hundred negotiations and this is the first one conducted entirely in the future tense. Feed it, it grows. Take the music, they riot. Help them, they might not notice. Every answer in that room was a bill with the amount left blank, and every man at that table signed anyway.*\n"
+            "*WAH. I sat through that whole table. I have sat through four hundred negotiations and this is the first one conducted entirely in the future tense. Feed it, it grows. Take the music, they riot. Help them, they might not notice. Every answer in that room was a bill with the amount left blank, and every man at that table signed anyway. I did not stop them.*\n"
         ),
         "waluigi_note": "The war room reached its operating principle before it reached its plan: act now, price it later. That is not stupidity. It is what a house does when the alternative to acting is listening to the music for one more day.",
     },
@@ -170,7 +170,7 @@ SECTIONS = [
             "And Waluigi, who has been called many things by many governments and none of them *advisor*, wrote it down.\n\n"
             "He has the leaf with him now: [[prop:prop_wahbook_command_dispute|one page, in his own hand, headed TECHNICAL]], with the plea transcribed in full beneath it and the word *technically* underlined twice.\n\n"
             "\u201cHm,\u201d he said. \u201cPartial. Fine.\u201d\n\n"
-            "*WAH! There it is. The whole branch in four words. Two men, one hammer, one staff, and a disagreement about who is driving that has now outlived three monsters, one fire, and a ritual that unmade the calendar. He said write it in your wahbook. Waluigi WROTE IT IN THE WAHBOOK. He always writes it in the wahbook.*\n"
+            "*WAH! There it is. I said it. I asked him if he had listened during the ritual that caused this. He told me to write it in the wahbook. I wrote it in the wahbook. I always write it in the wahbook. Two men, one hammer, one staff, and a disagreement about who is driving that has now outlived three monsters, one fire, and a calendar.*\n"
         ),
     },
     {
@@ -180,7 +180,7 @@ SECTIONS = [
         "overview": (
             "\u201cNames,\u201d said a goblin.\n\n"
             "\u201cSure,\u201d said Hjumpik.\n\n"
-            "They went around the circle, six pairs of boots on cracked tile in a hall cold enough to see your breath in. The guard was Randall. The guard after him had a name the record did not catch and would not catch again. The waiter was Brad, hands still red from a sink he had not stood at in three days. The top guard — the one standing tallest, on purpose, so that somebody would notice he was standing tallest — was Timmy. The goblin with a folded handkerchief in his breast pocket was Hank; the linen was white and square and the only clean thing in the room. The goblin with the white hair was Wyatt.\n\n"
+            "They went around the circle, six pairs of boots on cracked tile in a hall cold enough to see your breath in. The guard was Randall. The guard after him said his name, once, into the cold. The waiter was Brad, hands still red from a sink he had not stood at in three days. The top guard — the one standing tallest, on purpose, so that somebody would notice he was standing tallest — was Timmy. The goblin with a folded handkerchief in his breast pocket was Hank; the linen was white and square and the only clean thing in the room. The goblin with the white hair was Wyatt.\n\n"
             "\u201cYou have common names,\u201d Hjumpik said.\n\n"
             "\u201cWell,\u201d said the goblin, \u201cfine. It's Randall.\u201d\n\n"
             "\u201cThat is the same name.\u201d\n\n"
@@ -199,7 +199,7 @@ SECTIONS = [
             "They leaned them against the door. He looked at it.\n\n"
             "\u201cAgainst the *wall*.\u201d\n\n"
             "They moved them against the wall.\n\n"
-            "*Waluigi's list: Randall, Brad, Timmy, Hank, Wyatt, and one the record lost. Six names, five remembered, four of them monosyllabic. The manor's last line of defence had the naming convention of a tavern. Waluigi has decided this is the most honest thing about the entire house.*\n"
+            "*WAH! I wrote the list. Randall, Brad, Timmy, Hank, Wyatt. The one after Randall said his name. I heard it. I am not printing a first hearing from this house until he says it twice — I have been burned by first-hearings here. That is not the record failing. That is me being careful.*\n"
         ),
         "waluigi_note": "\u201cThe map master. O.C.'s map master.\u201d Authority in this manor does not come from a person. It comes from a table with pins on it, and whoever is standing at the table when the asking happens. That is worth remembering: it is how the graft in this family has always worked.",
     },

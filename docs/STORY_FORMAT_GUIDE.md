@@ -50,6 +50,7 @@ RANKING      Wario = best article · Imp = best scene · need both
 FIRST        make the story physical — show beats, don’t report them
 THEN         ~80% story / 20% inline analysis
 VOICE        events: close third + ringside asides
+             if Waluigi was in the room: asides say I / I said / I heard
              what-ifs: first person Waluigi in the room, arguing out loud
 EVENT        ~4,500–6,500     PART     ~350–450, 10–14
 WHAT-IF      ~7,000–14,000    CHAPTER  ~600–1,100, 9–15, setup→bill pairs
@@ -267,10 +268,17 @@ negotiation tactic on Wario several times, though usually over the clay courts.*
 | **The catch** | Names what the party missed, one sentence | Wario — believed removing gravity would keep rivals *down* |
 | **The correction** | Flags a claim that doesn’t survive the record | Wario — “a scam has a ceiling” |
 | **The tell** | Points at a detail that pays off later | Wario — ring in the dust |
-| **The grievance** | First person only — manhandled, ignored, right | Wario — “Unhand Waluigi!” |
+| **The grievance** | First person — manhandled, ignored, right | “I said no fire. I said it twice.” |
+| **The witness** | He was there. He quotes himself. He does not hide behind “Waluigi notes.” | “I told Hjumpik the door was a bad idea. Hank went anyway.” |
+
+**When Waluigi is a participant, the aside is first person.** Write *I said*,
+*I heard*, *I was standing by the sink*. Do not write “Waluigi has used this
+tactic” about a room he was in. Third-person-about-himself is for filings he
+assembled from other people’s paper.
 
 Bad asides: explain the scene back, run institutional theory, arrive before
-their beat, or stack with no story between.
+their beat, stack with no story between, or shrug “the record did not catch
+it” when he was in the room.
 
 **Weld every aside to a quoted or physical beat immediately above it.** Anchor
 first, commentary second. If you cannot point at the sentence it answers,
@@ -315,12 +323,31 @@ its job. If it only works as a recap, cut it.
 
 ### Events — close third + ringside Waluigi (Imp)
 
-Camera in the room. Waluigi speaks through asides (and optional notes) only.
-Characters talk in their own dialogue.
+Camera in the room. Story prose stays close third. Waluigi speaks through
+asides (and optional notes) only. Characters talk in their own dialogue.
 
 Camera stays with the scene. If the narration starts explaining what a moment
 *means* while the moment is still happening, that sentence belongs to Waluigi —
 put it in an aside or a note.
+
+### When he was there — first person, personal, “I said”
+
+If `participants[]` includes Waluigi, or the session has him in the room, the
+asides and `waluigi_note` / `waluigiAssessment` are **a man who was there
+filing what he saw**, not an encyclopaedist summarizing a log.
+
+```
+□ Quote himself: I said / I told him / I asked / I refused.
+□ Petty and specific: who ignored him, who listened, what he was holding.
+□ Names he heard get filed. He does not write “the record did not catch it.”
+  If he missed a name, he writes I missed it — or I heard it once and I am
+  waiting for the second hearing. That is him, not “the record.”
+□ Do not launder his presence into “Waluigi notes that the party then…”
+```
+
+He is still ringside in the story paragraphs (close third). The *I* lives in
+the purple aside and the notes. What-Ifs may put the *I* in the body because
+he is the narrator there.
 
 ### Free indirect is not a third mode
 
@@ -387,6 +414,7 @@ Guidelines:
 □ Replace player/GM labels with in-world roles or names.
 □ Keep the scene physical: doors, lights, hands, paper, silence, machinery.
 □ Let Waluigi's feeling become analysis, not pasted argument.
+□ If he was there: I said / I heard. He does not hide behind “the record.”
 □ If the record is later-dated, date it where it belongs and explain provenance
   through a filing note or addendum; do not force it into present-tense site time.
 ```
@@ -441,7 +469,13 @@ you write it into `characters.json`.
 If it is a table name, give the character an in-world name, or leave them
 unnamed and refer to them by role — *the hire*, *the charter pilot*, *the boy*.
 Unnamed is always safe: it invents no canon and can be named later without a
-retcon. A plain first name that happens to also be somebody's table name is
+retcon.
+
+**Exception when Waluigi was in the room.** He is the clerk who was standing
+there. If a house guard said a name at roll call, Waluigi caught it or he
+admits *he* did not. Do not write “the record did not catch the name and
+would not catch it again.” That sentence pretends the archive is deaf while
+its author had ears. File the name, or file the miss as his. A plain first name that happens to also be somebody's table name is
 tolerable if it reads naturally in-world; a handle or a full account name is
 not, ever.
 
@@ -758,6 +792,7 @@ at it without explaining it. Readers finish the filing themselves.
 □ customCss brace-balanced, no invented class names
 □ Events (resolved): aftermath + waluigiAssessment present
 □ Asides are their own paragraph, start *WAH! / *Waluigi, end with *
+□ If Waluigi was present: I said / I heard; no “the record missed the name”
 □ No table names — GM/player/handle names never become character names (§9A)
 □ xpAwards[] present if XP was earned; every xpKey verified against XP_SUMMARY
 □ Every document the prose names is filed in props.json, or skipped on purpose (§9B)

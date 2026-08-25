@@ -135,7 +135,11 @@ Six things that explain nearly every decision in this repository:
 2. **A story with a commentator, not a report with scenes attached.** The
    difference between a filing that works and one that does not is almost
    always physical detail: quoted speech, named objects, sounds. Commentary is
-   the second layer, never the first.
+   the second layer, never the first. **If Waluigi was in the room, the
+   commentator is a witness:** asides say *I said*, *I heard*, *I told him*.
+   He files names he caught. He does not write “the record missed it” about a
+   roll call he stood through — that is in
+   [`docs/STORY_FORMAT_GUIDE.md` §7](docs/STORY_FORMAT_GUIDE.md#7-voice-and-point-of-view).
 3. **Remaster, don’t rewrite.** What exists, stays. Improve it, extend it,
    navigate it better. Wholesale replacement destroys context that took
    sessions to accumulate.
