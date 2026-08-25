@@ -6,8 +6,8 @@
 <title>Waluipedia — The Objective Encyclopedia (Written by Waluigi)</title>
 <link rel="icon" href="./favicon.ico">
 <!-- External CSS: cached by browser, loaded once, scales as site grows -->
-  <link rel="preload" href="Reputation-Matrix2/app/styles/waluipedia.css?v=theme2" as="style">
-  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/waluipedia.css?v=theme2">
+  <link rel="preload" href="Reputation-Matrix2/app/styles/waluipedia.css?v=home-feed3" as="style">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/waluipedia.css?v=home-feed3">
   <script>
   /* Apply theme BEFORE paint so toggle is never a no-op / flash. */
   (function () {
@@ -6974,6 +6974,22 @@ function view_home(){
      </div>
    </div>
 
+   <!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
+   <div class="card animate-fade-in" style="border-left:4px solid #e0b400; margin-bottom:24px;">
+     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:6px;">
+       <div>
+         <span style="font-size:11px; font-weight:900; color:var(--accent2); text-transform:uppercase; letter-spacing:0.6px;">Party Chronicle &amp; Session Logs</span>
+         <h2 style="font-size:20px; font-weight:900; margin:4px 0; color:var(--text);">📜 RECENT ADVENTURES — WHAT WE'VE BEEN THROUGH</h2>
+       </div>
+       <button class="chip active" onclick="Router.go('#/list/events')" style="cursor:pointer; background:var(--accent2); color:#0b0616; font-weight:800;">📂 Browse All Campaign Events →</button>
+     </div>
+     <p style="font-size:14px; color:var(--muted); margin:0 0 8px;">
+       Chronological audit feed of recent party escapes, battles, and intelligence breakthroughs in 1040 BF:
+     </p>
+
+     <div id="home-recent-adventures" class="campaign-timeline-feed"></div>
+   </div>
+
    <!-- 2. PARTY OVERVIEW: DISASTER INC. DOSSIER & WALLET LEDGERS -->
    <div class="party-dashboard-card animate-fade-in">
      <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
@@ -7170,24 +7186,6 @@ function view_home(){
      </div>
    </div>
 
-   <!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
-   <div class="card animate-fade-in" style="border-left:4px solid #e0b400; margin-bottom:24px;">
-     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:6px;">
-       <div>
-         <span style="font-size:11px; font-weight:900; color:var(--accent2); text-transform:uppercase; letter-spacing:0.6px;">Party Chronicle &amp; Session Logs</span>
-         <h2 style="font-size:20px; font-weight:900; margin:4px 0; color:var(--text);">📜 RECENT ADVENTURES — WHAT WE'VE BEEN THROUGH</h2>
-       </div>
-       <button class="chip active" onclick="Router.go('#/list/events')" style="cursor:pointer; background:var(--accent2); color:#0b0616; font-weight:800;">📂 Browse All Campaign Events →</button>
-     </div>
-     <p style="font-size:14px; color:var(--muted); margin:0 0 8px;">
-       Chronological audit feed of recent party escapes, battles, and intelligence breakthroughs in 1040 BF:
-     </p>
-
-     <div class="campaign-timeline-feed">
-       ${homeRecentAdventuresHtml()}
-     </div>
-   </div>
-
    <!-- 5. OPERATOR TOOLKIT & COLLAPSIBLE ENCYCLOPEDIA DIRECTORY -->
    <div class="card animate-fade-in" style="margin-bottom:24px;">
      <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:8px;">
@@ -7321,6 +7319,11 @@ function view_home(){
      </div>
    </div>
    `;
+
+  try {
+    const feedMount = document.getElementById('home-recent-adventures');
+    if (feedMount) feedMount.innerHTML = homeRecentAdventuresHtml();
+  } catch (e) { console.warn('home feed failed', e); }
 
   try { renderMiniCalendar('home-mini-cal', CUR.year, CUR.monthIndex); } catch(e) { console.warn('mini cal failed', e); }
   try { window.filterHomeCategories('all'); } catch(e) { console.warn('cat filter failed', e); }

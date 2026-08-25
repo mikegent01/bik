@@ -490,6 +490,16 @@ main.content{min-width:0}
   border-left: 3px solid var(--border);
   margin: 18px 0 18px 12px;
   padding-left: 24px;
+  overflow: visible;
+  max-height: none;
+}
+#home-recent-adventures {
+  display: block;
+  overflow: visible;
+  max-height: none;
+}
+#home-recent-adventures .campaign-timeline-item:first-child {
+  box-shadow: 0 0 0 2px color-mix(in srgb, #4a9c6d 55%, transparent);
 }
 .campaign-timeline-item {
   position: relative;

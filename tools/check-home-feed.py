@@ -36,15 +36,13 @@ def main() -> int:
 
     if "function homeRecentAdventuresHtml" not in html:
         fail("index.html is missing homeRecentAdventuresHtml()")
-    if "${homeRecentAdventuresHtml()}" not in html:
-        fail("view_home() does not interpolate homeRecentAdventuresHtml()")
+    if "homeRecentAdventuresHtml()" not in html or 'id="home-recent-adventures"' not in html:
+        fail("view_home() does not mount homeRecentAdventuresHtml() into #home-recent-adventures")
 
-    feed_start = html.find('<div class="campaign-timeline-feed">')
-    feed_end = html.find("<!-- 5. OPERATOR TOOLKIT", feed_start)
-    if feed_start < 0 or feed_end < 0:
-        fail("could not find the Recent Adventures feed anchors")
-    feed = html[feed_start:feed_end]
-    if "charred_note_at_waluigis_door" in feed and "homeRecentAdventuresHtml()" not in feed:
+    feed_start = html.find('id="home-recent-adventures"')
+    if feed_start < 0:
+        fail("could not find #home-recent-adventures")
+    if "charred_note_at_waluigis_door" in html[feed_start:feed_start + 800]:
         fail("feed still looks like a hand-spliced static card list")
 
     ids = {e.get("id") for e in events if isinstance(e, dict)}
