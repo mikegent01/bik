@@ -1,6 +1,6 @@
 # Run report — the Battalion of Six
 
-**Branch:** `arena/01a036d8-bik` · **Filed:** `feyward_battalion_of_six_and_the_bait_plan`
+**Branch:** `arena/01a036d8-bik` → **PR #60 into `gh-pages`** · **Filed:** `feyward_battalion_of_six_and_the_bait_plan`
 **Process:** `docs/SESSION_FILING_PROCESS.md`, steps 1–9, in order.
 
 ---
