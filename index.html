@@ -5270,6 +5270,43 @@ function battleParticipants(ids){
   return ids.map(cid=>INDEX[cid]?`<span class="rel-chip" onclick="openId('${esc(cid)}')"><span class="rt">Character</span>${esc(displayName(INDEX[cid].item))}</span>`:`<span class="rel-chip deadlink" title="No article yet"><span class="rt">?</span>${esc(prettyId(cid))}</span>`).join('');
 }
 
+
+function xpLookup(a){
+  if(!a||typeof XP_SUMMARY==='undefined') return null;
+  if(a.articleId && XP_SUMMARY[a.articleId]) return XP_SUMMARY[a.articleId];
+  const vals=Object.values(XP_SUMMARY);
+  return vals.find(x=>x && (x.xpKey===a.xpKey || x.name===a.name)) || null;
+}
+function xpAwardRowHtml(a){
+  const x=xpLookup(a);
+  const gained=Number(a.xp||0);
+  const cat=esc((CATEGORIES_LABELS[a.cat]||a.cat||''));
+  const why=a.desc||a.title||'';
+  let progress='';
+  let levelNote='';
+  if(x){
+    const cur=Number(x.currentXP||0);
+    const next=Number(x.nextXP||0);
+    const rem=Number(x.remainingXP!=null?x.remainingXP:Math.max(0,next-cur));
+    const lvl=Number(x.level||0);
+    const pct=next>0?Math.max(2,Math.min(100,Math.round(cur/next*100))):0;
+    const wouldLevel = rem>0 && gained>=rem;
+    const didLevel = rem<=0 || (next>0 && cur>=next);
+    if(didLevel){
+      levelNote=`<div class="award-levelup">LEVEL UP — now Level ${esc(String(lvl))}. The ledger already counts this climb.</div>`;
+    } else if(wouldLevel){
+      levelNote=`<div class="award-levelup">LEVEL UP — this +${gained.toLocaleString()} XP covers the remaining ${rem.toLocaleString()} to Level ${lvl+1}.</div>`;
+    } else {
+      levelNote=`<div class="award-prog-label">Level ${lvl} → ${lvl+1} · ${cur.toLocaleString()} / ${next.toLocaleString()} · ${rem.toLocaleString()} XP still needed</div>`;
+    }
+    progress=`<div class="award-bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>`;
+  }
+  return `<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey||a.articleId||'')}'">
+    <span><span class="who">${esc(a.name)}</span><br><span class="cat">${cat}</span>${why?`<div class="award-why">${esc(String(why).slice(0,160))}</div>`:''}${levelNote}${progress}</span>
+    <span class="amt">+${gained.toLocaleString()} XP</span>
+  </div>`;
+}
+
 function eventPeopleAndXpPanel(item){
   if(!item||!item.id) return '';
   const participantMap=new Map();
@@ -5300,7 +5337,7 @@ function eventPeopleAndXpPanel(item){
     </div>`;
   }).join('');
   const people=participantCards?`<div class="event-participants"><div class="event-participant-grid">${participantCards}</div></div>`:'';
-  const awards=xpAwardsForEvent(item.id).map(a=>`<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey)}'" class="cursor-ptr"><span><span class="who">${esc(a.name)}</span><br><span class="cat">${esc((CATEGORIES_LABELS[a.cat]||a.cat))}</span></span><span class="amt">+${Number(a.xp||0).toLocaleString()} XP</span></div>`).join('');
+  const awards=xpAwardsForEvent(item.id).map(xpAwardRowHtml).join('');
   const effectsPanel = renderReputationImpactPanel(item);
   // The wire goes last, under the reputation ledger: reaction after record.
   const wirePanel = typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(item.id, 'events') : '';
@@ -12041,7 +12078,7 @@ function view_years(){
 }
 
 /* =============== WALUPEDIA CALENDAR — Intuitive Date System merged from calendar.html =============== */
-let CAL_STATE = { year: 1040, monthIndex: 7, day: 18, tab: 'month', calendarId: 'imperial' };
+let CAL_STATE = { year: null, monthIndex: null, day: null, tab: 'month', calendarId: 'imperial' };
 let CAL_WEEKDAYS = null;
 let CAL_SEASONS = null;
 
@@ -12177,11 +12214,10 @@ function initCalendarState(){
     const def = allCals.find(c=>c.isDefault) || allCals[0];
     CAL_STATE.calendarId = def.id;
   }
-  if(DATA.currentDate){
-    CAL_STATE.year = CAL_STATE.year||DATA.currentDate.year||1040;
-    CAL_STATE.monthIndex = (CAL_STATE.monthIndex!=null?CAL_STATE.monthIndex:DATA.currentDate.monthIndex||7);
-    CAL_STATE.day = CAL_STATE.day||DATA.currentDate.day||18;
-  }
+  const clock = DATA.currentDate || {year:1040,monthIndex:8,day:4};
+  if(CAL_STATE.year==null) CAL_STATE.year = clock.year||1040;
+  if(CAL_STATE.monthIndex==null) CAL_STATE.monthIndex = (clock.monthIndex!=null?clock.monthIndex:8);
+  if(CAL_STATE.day==null) CAL_STATE.day = clock.day||4;
   if(!CAL_STATE.tab) CAL_STATE.tab='month';
   // Set weekdays/seasons from active calendar for backward compat helpers
   const active=getActiveCalendar();
