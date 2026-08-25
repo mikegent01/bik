@@ -4154,7 +4154,9 @@
       "feyward_second_hidden_room_rout",
       "feyward_amnesia_vines_morel_steely",
       "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
-      "feyward_grove"
+      "feyward_grove",
+      "feyward_sixth_detachment_house_defense",
+      "feyward_battalion_of_six_and_the_bait_plan"
     ],
     "reputationChanges": {},
     "effects": {},
@@ -4165,7 +4167,7 @@
   {
     "id": "green_t_and_archie_vs_the_scorncrow",
     "name": "Green T and Archie vs. the Scorncrow (The Giant Form, the Cloud, and the Branches Full of Bodies)",
-    "date": "30 Harvestide, 1040 BF — later that night from the cottage side, concurrent with Archie's Shadowfell-return chain", 
+    "date": "30 Harvestide, 1040 BF — later that night from the cottage side, concurrent with Archie's Shadowfell-return chain",
     "location": "The grove beyond Tymnas's cottage under the controlled storm (no registered location id; this record declines to invent one)",
     "type": "Named Duel / Monster Suppression / Concurrent Storm Engagement",
     "result": "No decision. Green T's giant form briefly flattened the Scorncrow and shook the cottage itself, but the Scorncrow stood back up, the grove joined the fight, and the giant form began to fail before the field could be resolved.",
@@ -4296,5 +4298,239 @@
       "wario",
       "tymnas_cottage_and_hedge_maze"
     ]
+  },
+  {
+    "id": "feyward_sixth_detachment_house_defense",
+    "name": "The Sixth Detachment House Defense (The Wall, the Mound, and Everybody Falls Back)",
+    "date": "1 Aethel, 922 BF (Feyward clock — the Material stood in 1040; same night as the cutting lane)",
+    "location": "The Overgrown Manor — outside wall walk, lower service hall, kitchen barricade, and the corridor the wood came through (location id: overgrown_manor)",
+    "type": "House Defense / Room-to-Room / Fighting Withdrawal",
+    "result": "Tactical hold, then a fighting withdrawal. The shrub on the wall, the mound in the corridor, and the largest plant in the reading room were all destroyed. The house then gave the corridor back. Reinforcements from the house guard were requested and refused.",
+    "belligerents": {
+      "attackers": {
+        "name": "Hjumpik's Sixth Detachment and whoever was still in the hall",
+        "factionId": "disaster_inc",
+        "commander": "Hjumpik (anvil) / Waluigi (disputed second)",
+        "combatants": [
+          {
+            "name": "Hjumpik",
+            "role": "commander — first order was the wall; last order was the bait",
+            "fate": "stood",
+            "leader": true
+          },
+          {
+            "name": "Waluigi",
+            "role": "advisor / ice / bathroom logistics / the man with the book",
+            "fate": "stood"
+          },
+          {
+            "name": "Toad Lee",
+            "role": "squad leader — held the corridor with Wyatt when the wall folded",
+            "fate": "stood"
+          },
+          {
+            "name": "Randall",
+            "role": "house guard — carried Hank the last three paces into the shrub",
+            "fate": "stood"
+          },
+          {
+            "name": "Timmy",
+            "role": "sergeant of the charge — both strokes of a multiattack into Hank",
+            "fate": "stood",
+            "fateNote": "spent Hjumpik's no-friendly-fire order inside four minutes"
+          },
+          {
+            "name": "Hank",
+            "role": "first into the shrub; first through a door he was told not to open",
+            "fate": "stood",
+            "fateNote": "morale recorded SHAKEN (39); still standing"
+          },
+          {
+            "name": "Wyatt",
+            "role": "white-haired goblin — two attacks, no retreats, corridor with Toad Lee",
+            "fate": "stood"
+          },
+          {
+            "name": "Brad",
+            "role": "waiter, combat detachment, victory announcer",
+            "fate": "wounded",
+            "fateNote": "the mound's spell put him on his knees; he announced the win from the floor"
+          },
+          {
+            "name": "the sixth of the six",
+            "role": "house guard — said his name once at roll call",
+            "fate": "observed",
+            "fateNote": "stood through the shrub; later went through a door alone"
+          },
+          {
+            "name": "The Oracle",
+            "role": "offered a route, was refused, then went and fought anyway",
+            "fate": "stood",
+            "fateNote": "twice into a shrub in the reading room"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The wood that came through the house",
+        "commander": "the largest of them (until it fell)",
+        "combatants": [
+          {
+            "name": "the wall shrub",
+            "role": "awakened shrub — leaf-cluster and rake on the outside walk",
+            "fate": "fell",
+            "fateNote": "two kitchen knives and Timmy's charge"
+          },
+          {
+            "name": "the corridor mound",
+            "role": "shambling mound — came through behind the tree",
+            "fate": "fell",
+            "fateNote": "weight of numbers, not a tactic"
+          },
+          {
+            "name": "the largest of them",
+            "role": "the plant that took the reading room for seventeen turns",
+            "fate": "fell",
+            "leader": true
+          },
+          {
+            "name": "the tree in the wall",
+            "role": "the breach itself — debris hanging off it like a coat",
+            "fate": "stood",
+            "fateNote": "the corridor it opened was never retaken"
+          },
+          {
+            "name": "the sprite caster",
+            "role": "ribs first, then the retreat",
+            "fate": "wounded",
+            "fateNote": "took a multiattack through the ribs on the withdrawal"
+          },
+          {
+            "name": "the sprite archer",
+            "role": "took no action in the reading room; withdrew four times later",
+            "fate": "withdrew"
+          },
+          {
+            "name": "the sprite warrior",
+            "role": "blade that found the wrong sprite",
+            "fate": "stood",
+            "fateNote": "friendly fire into the archer"
+          },
+          {
+            "name": "the sorcerer",
+            "role": "three attacks, three runs",
+            "fate": "fled"
+          },
+          {
+            "name": "the Ravenous Host",
+            "role": "busiest thing on the floor — the tally names it; the archive cannot classify it",
+            "fate": "stood",
+            "fateNote": "no report filed"
+          }
+        ]
+      }
+    },
+    "casualties": {
+      "attackers": "Brad wounded and talking. Hank shaken, standing, more afraid of Timmy than of the shrub. The sixth of the six missing behind a door. Nobody of the detachment fell. The corridor they had just held, given back.",
+      "defenders": "Wall shrub felled. Corridor mound destroyed. The largest of them destroyed in the reading room. A sprite caster opened through the ribs. A sprite archer withdrawn four times and cut by his own side. A sorcerer ran. The Ravenous Host still unfiled. The tree still in the wall."
+    },
+    "summary": "The same night the cutting lane felled a treant, Hjumpik's six-man battalion walked the outside wall of the Overgrown Manor, cut a shrub, lost a corridor to a mound, killed the mound, killed the largest plant in the reading room, and then spent twenty-seven turns falling back because every defender — including the door — decided the house was no longer a place to stand. The house guard, asked for help, said they were stretched thin guarding the heir.",
+    "engagement": {
+      "combatants": 19,
+      "ledgerWindow": "1 Aethel, 922 BF (Feyward clock) · from the wall walk through twenty-seven turns of retreat",
+      "scale": "Four rooms of one night: a two-round shrub, a corridor mound, a seventeen-turn reading-room brawl, and a fighting withdrawal the house did not recover from"
+    },
+    "keyMoments": [
+      {
+        "time": "wall walk",
+        "who": "Hank",
+        "act": "First into the shrub, last three paces on Randall's shoulder",
+        "result": "Two kitchen knives under the leaf-cluster; the rake found a breastplate"
+      },
+      {
+        "time": "wall walk",
+        "who": "Timmy",
+        "act": "Multiattack on the charge",
+        "result": "Both strokes into Hank",
+        "decisive": true
+      },
+      {
+        "time": "wall walk",
+        "who": "the wall shrub",
+        "act": "Stopped moving under enough knives",
+        "result": "Felled. Hjumpik's first order completed."
+      },
+      {
+        "time": "lower corridor",
+        "who": "the tree",
+        "act": "The far wall folded outward",
+        "result": "The mound came through behind it with the debris still hanging"
+      },
+      {
+        "time": "lower corridor",
+        "who": "Toad Lee and Wyatt",
+        "act": "Held what was left of the corridor",
+        "result": "Wyatt attacked twice and did not step back",
+        "decisive": true
+      },
+      {
+        "time": "lower corridor",
+        "who": "the mound",
+        "act": "A spell into the press",
+        "result": "Brad on his knees, still announcing later"
+      },
+      {
+        "time": "lower corridor",
+        "who": "Hjumpik",
+        "act": "Came back into it and cut",
+        "result": "Mound destroyed by weight of numbers"
+      },
+      {
+        "time": "reading room",
+        "who": "The Oracle",
+        "act": "Twice into a shrub",
+        "result": "The room stayed a room for seventeen turns"
+      },
+      {
+        "time": "reading room",
+        "who": "the largest of them",
+        "act": "Took the floor",
+        "result": "Destroyed. Sprite blade found a sprite. Ravenous Host unnamed in any report."
+      },
+      {
+        "time": "the gap",
+        "who": "the tally",
+        "act": "No field report covers the Host",
+        "result": "Silence"
+      },
+      {
+        "time": "withdrawal",
+        "who": "every defender",
+        "act": "Twenty-seven turns of falling back",
+        "result": "A caster through the ribs; an archer out four times; a sorcerer ran three times",
+        "decisive": true
+      },
+      {
+        "time": "withdrawal",
+        "who": "the house guard",
+        "act": "Reinforcements requested",
+        "result": "Refused: our job is to guard him. We're pretty stretched thin as is."
+      }
+    ],
+    "description": "*Filed from the wall, the corridor, the reading room, and the retreat. I was there. The cutting lane had its own night the same clock; that record is [[feyward_woodfellow_vs_the_treant|Woodfellow vs. the Treant]]. This one is the house.*\n\n## Part I — The Wall Walk\n\nHjumpik's first order was the leaves. The Revel ate from the outside; the leaves were the mouth; the mouth was on the wall, in the grey air, where a man could put a knife in it without being eaten first.\n\nHank went first. Randall carried him the last three paces. Two kitchen knives went under a leaf-cluster that had been a decoration that morning. The shrub's rake came back across a breastplate and made a sound like wet wood on tin.\n\nTimmy arrived at a run, standing tallest on purpose, and put both strokes of the charge into Hank.\n\nThe shrub stopped. Hank stood. He was more afraid of his sergeant than of the thing he had just killed.\n\n## Part II — The Corridor Ceased\n\nThe far wall did not open. It folded. The tree came through with the plaster still on it. The mound came through behind the tree.\n\nToad Lee and Wyatt were what was left in the hall. Wyatt hit twice and did not step back. The mound put a spell into the press and Brad went to his knees with a waiter's tray-hand still open. Hjumpik came back into the square yard and cut until the mound was compost.\n\nHank waved both arms from a doorway and then went through it alone.\n\n## Part III — The Reading Room\n\nSeventeen turns. The Oracle went twice into a shrub. Two house guards worked a second mound. Satyrs and sprites found the largest of them. A goblin kept a staff and a count. The busiest thing on the floor is marked in the tally as the Ravenous Host, and nobody has told me what that is.\n\nThe sprite archer took no action and lived the whole engagement. A sprite blade found a sprite. The largest of them went down in the room where I had been reading about wine and a roast chestnut.\n\n## Part IV — Everybody Falls Back\n\nTwenty-seven turns. A caster took a multiattack through the ribs. An archer left the field four separate times. A warrior cut the archer. A sorcerer attacked three times and ran three times. The door left with them.\n\nSomebody asked the house guard for help. The answer was that their job is to guard the heir, and they are pretty stretched thin as is.\n\nThe corridor we had just held is quiet. Quiet is not held.\n",
+    "aftermath": "The house is one corridor smaller. The leaves on the outside wall were cut and have grown back thicker. Three plant bodies are down. The Revel then issued [[prop:prop_revel_evacuation_order|an evacuation order]] for the house it is eating, and the house obeyed. The sixth of the six is still behind a door. The bait plan was written after the whistle, not before it. Cleanup of the lane and the house is still owed as separate paper.",
+    "waluigiAssessment": "I sat through the wall, the mound, and the room with the book. I will not dress this up as a campaign. Four rooms, no formation that survived the first shrub, and the mound died because enough people hit the same square yard. That worked three times. The fourth time everybody left, including the door.\n\nI said the wall needed more than Brad and Hank. I said it. Timmy put both strokes into Hank anyway. A sprite did the same job to a sprite. Friendly fire is not an accident in this house. It is how the house fights.\n\nI heard the sixth name once at roll call. I am not printing a first hearing from this house until he says it twice. That is me. That is not the tally failing.\n\nThe house guard told us they were stretched thin guarding the man whose house was being eaten. I wrote that down. I would like it read twice.",
+    "relatedArticles": [
+      "feyward_battalion_of_six_and_the_bait_plan",
+      "feyward_woodfellow_vs_the_treant",
+      "overgrown_manor",
+      "hjumpik",
+      "waluigi",
+      "toad_lee",
+      "the_oracle",
+      "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy"
+    ],
+    "reputationChanges": {},
+    "effects": {},
+    "reputationNotes": {}
   }
 ]

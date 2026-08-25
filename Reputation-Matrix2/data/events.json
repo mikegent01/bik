@@ -13131,7 +13131,7 @@
     "outcome": "Four engagements fought inside the manor and one outside it, on the same night, on clocks that do not agree. The leaves on the wall walk were cut and grew back thicker within the minute. The shambling mound in the lower corridor was overwhelmed and destroyed. The largest of the plant monsters was brought down in the room where Waluigi was reading aloud. Two housefolk dead before the roll call, one wounded by a spell, one goblin through a door alone and back again. The Revel issued an evacuation order for its own house and the house complied. The heir's pincer was attempted and the wood came through the wall anyway. The bait plan is agreed, the bait is a battered fairy with one bent wing, and nobody has run at anything yet. Hjumpik still has the OC soul ring, Morel's key, and four of the six.",
     "notableFeatures": [
       "The heir's plan, verbatim: \"You have to be strategic. Hit them fast and hard. The dwarf way.\"",
-      "Six people, five names, four monosyllabic — and one the record lost at the roll call",
+      "Six people, five names, four monosyllabic — and one I heard once and will not print until the second hearing",
       "\"You guys need some more just — brain cells.\" \"That doesn't make much sense.\" \"No, it really doesn't.\"",
       "Hank's morale, recorded by the tally as SHAKEN (39) — the archive's only numeric description of a goblin's feelings",
       "Waluigi's ice lance: enormous, accurate, and drunk by a thirsty tree in under a second",
@@ -13141,28 +13141,11 @@
       "The bait plan's load-bearing sentence: \"Can't go wrong.\""
     ],
     "keyBattles": [
-      {
-        "name": "The Wall Walk — Awakened Shrub",
-        "description": "Two rounds on the outside wall. Hank went in first, carried the last three paces by Randall, two kitchen knives under a leaf-cluster. The shrub's rake caught the house guard across the breastplate. Timmy's multiattack landed both strokes on Hank.",
-        "outcome": "Shrub felled. Hank shaken, standing, and now more afraid of his own sergeant than of the enemy. Hjumpik's standing order — no friendly fire — spent inside four minutes of being given."
-      },
-      {
-        "name": "The Lower Corridor — Shambling Mound",
-        "description": "The tree breached the corridor wall; the mound came through behind it. Toad Lee and Wyatt were what was left in the corridor. Wyatt attacked twice with no retreats; the mound's spell put Brad on his knees; Hjumpik came back into it and cut.",
-        "outcome": "Mound overwhelmed and destroyed by weight of numbers rather than by tactic. Brad wounded and announcing the victory from the floor. Hank alone through a door, and back."
-      },
-      {
-        "name": "The Reading Room — The Largest of Them",
-        "description": "Seventeen turns. The Oracle twice into a shrub, two house guards on the mound, three satyrs and two sprites into the treant, a goblin with a staff, and the busiest thing on the floor, which the tally calls the Ravenous Host and the archive cannot classify. The sprite archer took no action at all and survived the entire engagement.",
-        "outcome": "Plant monster destroyed; the corridor held, then lost, then held again. Casualties on both sides including at least one sprite blade that found a sprite. Nobody has filed a report on the Ravenous Host."
-      },
-      {
-        "name": "The Corridor Withdrawal — Everybody Falls Back",
-        "description": "Twenty-seven turns of retreat. A sprite caster took a multiattack through the ribs; a sprite archer withdrew four separate times; a sprite warrior's blade found the sprite archer instead of the enemy; a sorcerer attacked three times and ran three times.",
-        "outcome": "Every defender fell back, including the door. Reinforcements requested from the house guard and refused: our job is to guard him. We're pretty stretched thin as is."
-      }
+      "feyward_sixth_detachment_house_defense",
+      "feyward_woodfellow_vs_the_treant"
     ],
     "relatedArticles": [
+      "feyward_sixth_detachment_house_defense",
       "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
       "feyward_amnesia_vines_morel_steely",
       "feyward_woodfellow_vs_the_treant",
