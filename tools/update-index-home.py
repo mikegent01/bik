@@ -343,6 +343,11 @@ def main():
         print("Error: Could not find timeline feed anchors in index.html")
         return
 
+    if 'homeRecentAdventuresHtml()' in text[idx1:idx2]:
+        print("index.html home feed is now generated from events.json at render time.")
+        print("Skipped static splice so a filing cannot go stale again.")
+        return
+
     new_text = text[:idx1] + timeline_html + "\n\n   " + text[idx2:]
 
     with open(INDEX_PATH, 'w', encoding='utf-8') as f:

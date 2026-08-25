@@ -9,6 +9,7 @@ New §§ only when min(all) >= --min-clauses.
   python3 tools/gen-mages-guild-code.py --init
   python3 tools/gen-mages-guild-code.py --status
   python3 tools/gen-mages-guild-code.py --overnight
+  python3 tools/gen-mages-guild-code.py --check-emoji
 """
 from __future__ import annotations
 
@@ -98,6 +99,46 @@ def load_json(path: Path) -> dict:
 
 
 CITE_RE = re.compile(r"§\s*(\d+\.\d+(?:\.\d+)?)")
+
+
+EMOJI_RE = re.compile(
+    "["
+    "\U0001F300-\U0001F5FF"
+    "\U0001F600-\U0001F64F"
+    "\U0001F680-\U0001F6FF"
+    "\U0001F700-\U0001F77F"
+    "\U0001F780-\U0001F7FF"
+    "\U0001F800-\U0001F8FF"
+    "\U0001F900-\U0001F9FF"
+    "\U0001FA00-\U0001FAFF"
+    "\U00002700-\U000027BF"
+    "\U00002600-\U000026FF"
+    "\U0001F1E0-\U0001F1FF"
+    "]+",
+    flags=re.UNICODE,
+)
+EMOJI_RUN_RE = re.compile(
+    r"(?:[\U0001F300-\U0001FAFF\U00002700-\U000027BF\U00002600-\U000026FF]\s*){3,}"
+)
+
+
+def count_emoji(text: str) -> int:
+    return len(EMOJI_RE.findall(text or ""))
+
+
+def emoji_spam_reason(text: str) -> tuple[int, str]:
+    n = count_emoji(text or "")
+    if n >= 8:
+        return n, f"emoji spam {n} glyphs (codex pages get 0-2)"
+    # A closing flourish like 📜✨⚖️ is allowed. Four+ pictographs in a row is not.
+    if re.search(r"(?:[\U0001F300-\U0001FAFF]\s*){4,}", text or ""):
+        return n, f"emoji run (4+ in a row) count={n}"
+    words = re.findall(r"[A-Za-z']+", text or "")
+    if n >= 6 and words and n / max(1, len(words)) > 0.03:
+        return n, f"emoji density {n}/{len(words)} words"
+    return n, ""
+
+
 
 def extract_cites(text: str) -> list[str]:
     return CITE_RE.findall(text or "")
@@ -534,6 +575,9 @@ def is_bad_output(text: str) -> tuple[bool, str]:
     # --- Excessive length ---
     if total > 1100:
         return True, f"excessive length {total} words (expected 350-700)"
+    emoji_n, emoji_reason = emoji_spam_reason(text)
+    if emoji_reason:
+        return True, emoji_reason
     if text.count(".") < total / 140 and total > 400:
         return True, "no punctuation"
     # --- Codex-specific ---
@@ -772,6 +816,7 @@ def main() -> int:
     ap.add_argument("--log", type=str, default="", help="also tee output to this log file")
     ap.add_argument("--max-fails", type=int, default=30, help="abort after this many consecutive waits (default 30)")
     ap.add_argument("--clean-bad", action="store_true", help="scan existing Codex and retroactively remove degraded/buzzword-loop pages (normal part of run does this for new output too)")
+    ap.add_argument("--check-emoji", action="store_true", help="scan filed Codex pages for emoji spam and exit nonzero if any fail")
     args = ap.parse_args()
 
     # alias: --jobs overrides --parallel, --preview is dry preview
@@ -824,6 +869,21 @@ def main() -> int:
     if args.status:
         print_status(data, args.min_clauses)
         return 0
+    if args.check_emoji:
+        bad = []
+        for sec in data.get("sections") or []:
+            for b in sec.get("body") or []:
+                n, reason = emoji_spam_reason(b.get("text") or "")
+                hn, hreason = emoji_spam_reason(b.get("heading") or "")
+                why = reason or hreason
+                if why:
+                    bad.append((sec.get("cite"), (b.get("heading") or "")[:48], why, n or hn))
+        print(f"emoji-check: {len(bad)} flagged page(s)")
+        for cite, head, why, n in bad[:40]:
+            print(f"  §{cite}  {n}  {head}  — {why}")
+        if len(bad) > 40:
+            print(f"  … {len(bad) - 40} more")
+        return 1 if bad else 0
     if args.validate:
         # cite health check without generating
         enrich_references(data)
