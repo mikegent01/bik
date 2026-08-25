@@ -254,12 +254,21 @@ Six things that explain nearly every decision in this repository:
   three exhibits with three analysis layers each, any leads the session created,
   in `Reputation-Matrix2/data/investigations.json`. No JS, no CSS.
   [`docs/INVESTIGATIONS.md`](docs/INVESTIGATIONS.md).
-- **Refresh the home feed** → `python3 tools/update-index-home.py`.
+- **Show a new session on the home page** → append it to
+  `Reputation-Matrix2/data/events.json` (last = newest filing), then set
+  `mainPage.json` `latestUpdate` / `featuredArticle` and prepend
+  `SITE_UPDATES` in `index.html`. **Do not paste a card into the Recent
+  Adventures HTML.** `view_home()` builds that list from `events.json` via
+  `homeRecentAdventuresHtml()`. Prove it:
+  `python3 tools/check-home-feed.py` and
+  `node tools/tests/test-home-feed-render.mjs`.
+  `python3 tools/update-index-home.py` is a no-op on the live feed.
 - **Cut the news** → only when ~10 events are pending;
   `python3 tools/build-rnn-broadcast.py` (see the cadence rule above).
 - **Check what the news owes** → `python3 tools/build-rnn-broadcast.py --unaired`.
 - **Audit references site-wide** → `python3 tools/check-references.py` (dangling ids, missing art; `--strict` to fail on legacy links).
-- **Run the routine checker set** → `python3 tools/check-all.py` (local paths, references, exhibits, investigations, rolls, battles, background blurbs, RNN check, Bros sync/test).
+- **Run the routine checker set** → `python3 tools/check-all.py` (local paths, references, exhibits, investigations, rolls, battles, background blurbs, home feed contract, RNN check, Bros sync/test).
+- **Mages Guild Codex emoji spam** → `python3 tools/gen-mages-guild-code.py --check-emoji` (also filters new pages on every generate).
 - **Refresh update stamps** → `node generate-updates.js`.
 
 ## Never do these
@@ -267,7 +276,9 @@ Six things that explain nearly every decision in this repository:
 ```
 · Never write `mike` into narrative prose — it is the GM’s name (rule zero)
 · Never hand-edit a generated file — edit the generator and run it
-  (rnn-broadcasts.js · the RNN:LAST-WEEK README blocks · the home timeline feed)
+  (rnn-broadcasts.js · the RNN:LAST-WEEK README blocks)
+· Never paste a session card into the home Recent Adventures HTML —
+  the feed is rendered from events.json. Update mainPage.latestUpdate.
 · Never cut story-critical content to hit a word count
 · Never reformat a whole data file to add one entry — match its indentation
 · Never invent a CSS class; only .prose blockquote, .prose h2, .wiki-lead, .wnote

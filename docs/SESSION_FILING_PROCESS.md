@@ -36,7 +36,7 @@ about **sequence**, and the sequence is not optional.
 | 5 | **THEN write the event.** | `events.json` entry | Everything it points at already exists |
 | 6 | **Exhibits — file the paper the story mentions.** | `data/props.json` entries + `[[prop:…]]` triggers in the prose | The prose decides which documents exist. Written before the prose, you invent paperwork nobody needed; written after, you file exactly what the scene already promised the reader |
 | 7 | **File the session into the investigation.** | A `sessions[]` row, new exhibits and leads in `investigations.json` | The arc file is where the paper is *argued about*. It can only cite exhibits that already exist, so it comes after Step 6 — and before the front page, because the front page links to it |
-| 8 | **Update the main index page.** | `index.html` home feed + `SITE_UPDATES` | An event nobody can find from the front page is not filed |
+| 8 | **Update the main index page.** | `mainPage.json` + `SITE_UPDATES` (feed is automatic) | An event nobody can find from the front page is not filed |
 | 9 | **Artifacts last.** | RNN pending list, broadcast if owed, any images or pages | These are downstream of the filing and cheap to redo. The filing is not |
 
 ---
@@ -365,21 +365,30 @@ worth pursuing. Read those yourself.
 
 ## Step 8 — Update the main index page
 
-**A filing that is not on the front page is not finished.** Three places, all
-in `index.html`, and they are easy to half-do:
+**A filing that is not on the front page is not finished.** The Recent
+Adventures list is **not** a hand-edited HTML card. `view_home()` calls
+`homeRecentAdventuresHtml()`, which reads `DATA.events` (last-appended first)
+and pins `mainPage.latestUpdate.id`.
 
 | What | Where | How |
 |---|---|---|
-| **Recent Adventures feed** | `view_home()` timeline block | Run `python3 tools/update-index-home.py` after adding the new item to the script's `timeline_html`, or edit the block between the `<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->` markers |
-| **`SITE_UPDATES`** | `let SITE_UPDATES=[…]` — one declaration, near the top | Prepend `{id, kind:"event", label:"Latest Event", title, summary, tags[]}`. Newest first |
-| **`mainPage.json`** | `Reputation-Matrix2/data/mainPage.json` | Update `latestUpdate` / `featuredArticle` if this filing is the new headline |
+| **Recent Adventures feed** | built at render time | Append the event to `events.json`. Do **not** paste a card into `index.html` or `tools/update-index-home.py`. That script is a no-op on the live feed. |
+| **`mainPage.json`** | `Reputation-Matrix2/data/mainPage.json` | Set `latestUpdate` and `featuredArticle` to this event's id. That is what puts **Latest Filing** on the first card. |
+| **`SITE_UPDATES`** | `let SITE_UPDATES=[…]` in `index.html` | Prepend `{id, kind:"event", label, title, summary, tags[]}`. Newest first. |
+
+```bash
+python3 tools/check-home-feed.py
+# with a local static server on :8765:
+node tools/tests/test-home-feed-render.mjs
+```
 
 ```
-□ New event appears in the Recent Adventures feed, newest at the top
-□ Its onclick routes to #/article/<event_id> and the route resolves
-□ The participant chips link to real character pages
+□ New event is last (or near last) in events.json
+□ mainPage.latestUpdate.id is this event
 □ SITE_UPDATES has a new entry at the front
-□ The previous "Latest Session" chrome has been demoted
+□ check-home-feed.py exits 0
+□ test-home-feed-render.mjs shows the new card on #/home
+□ #/article/<event_id> resolves
 ```
 
 ---
@@ -426,7 +435,7 @@ In this order:
                  every ## Addendum: gets a slip · python3 tools/check-exhibits.py
 7  INVESTIGATION → the arc file gets the session row, its exhibits, its leads
                  investigations.json · three layers each · analysis, not summary
-8  INDEX       → Recent Adventures feed + SITE_UPDATES + mainPage.json
+8  INDEX       → mainPage.latestUpdate + SITE_UPDATES (feed auto from events.json)
 9  SYSTEMS     → CROSS_SYSTEM_UPDATES.md pass: Pond Patrol, Regal Diet, maps,
                  currencies, WAHwire, books, songs, Bros, shop logistics
 10 ARTIFACTS   → pending-news-articles.json → broadcast if owed → run report

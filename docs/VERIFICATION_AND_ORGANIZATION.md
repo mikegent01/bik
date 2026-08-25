@@ -131,7 +131,7 @@ italic text with stray asterisks · no console errors.
 | Canon events | `Reputation-Matrix2/data/events.json` | One flat array. Append; never reformat the whole file |
 | What-Ifs | `Reputation-Matrix2/data/whatifs.json` | Under `doc['whatifs']` |
 | Characters / locations / factions | `Reputation-Matrix2/data/*.json` | Match neighbouring entries' schema and indentation |
-| Home page data | `Reputation-Matrix2/data/mainPage.json` | Written by `tools/update-index-home.py` |
+| Home page data | `Reputation-Matrix2/data/mainPage.json` | Hand-authored `latestUpdate` / `featuredArticle`. The card list is not stored here. |
 | Episode scripts | `tools/rnn-scripts/epNNN.json` | Hand-written input |
 | Generated JS | `Reputation-Matrix2/data/rnn-broadcasts.js` | **Output. Never hand-edit** |
 | Docs | `docs/` | Indexed by the [entry README](../README.md) |
@@ -146,8 +146,7 @@ edit works, ships, and is silently destroyed the next time the generator runs.
 |---|---|
 | `Reputation-Matrix2/data/rnn-broadcasts.js` | `tools/build-rnn-broadcast.py` |
 | The `RNN:LAST-WEEK` blocks in both READMEs | `tools/build-rnn-broadcast.py` |
-| Home timeline feed in `index.html` | `tools/update-index-home.py` |
-| `Reputation-Matrix2/data/mainPage.json` | `tools/update-index-home.py` |
+| Home Recent Adventures cards | **Not generated into HTML.** `homeRecentAdventuresHtml()` reads `events.json` at render time |
 
 **Edit the generator, then run it.** If the generator cannot produce what you
 need, change the generator — do not patch its output.
@@ -210,7 +209,7 @@ find . \( -name '*-new.*' -o -name '*-v2.*' -o -name '*-final.*' \
 □ No raw <div>/<span> in prose fields
 □ No generated file hand-edited
 □ Exhibits filed for the paper the prose names; python3 tools/check-exhibits.py clean
-□ Home feed + SITE_UPDATES + mainPage.json updated
+□ mainPage.latestUpdate + SITE_UPDATES updated; python3 tools/check-home-feed.py clean
 □ Event id appended to tools/rnn-scripts/pending-news-articles.json
 □ Audit script run; output read, not just executed
 □ No new document that an existing one should have owned

@@ -46,6 +46,7 @@ def main() -> int:
         ("roll registry", [py, "tools/check-rolls.py"], ROOT),
         ("battles", [py, "tools/check-battles.py"], ROOT),
         ("background blurbs", [py, "tools/check-background.py"], ROOT),
+        ("home feed contract", [py, "tools/check-home-feed.py"], ROOT),
         ("RNN broadcast data", [py, "tools/build-rnn-broadcast.py", "--check"], ROOT),
         ("Bros Attack sync", [py, "tools/sync_bros_attacks.py", "--check"], RM),
     ]
