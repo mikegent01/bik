@@ -2982,3 +2982,344 @@ he tries to lift waluigi waluigi helps himself up and the gaurd waluigi grabs ha
 dont touch me hjumpik picks himself up 
 humpy grabs waluigi hand he helps him up 
 hjumpik looks at the map they all do
+alright this is nice but who needs the most directive 
+half of them are drunk the other half is lazy 
+what if we try to boost moral like more drinks 
+hmm than the rvel will grow after right it be harderer to deal with 
+not the reveal - hmmm hjumpik says 
+what if we just say for the rvelmaster 
+than they will turn on is 
+they wont attack if were helping them 
+hmm 
+by revmoing the plant monster we help them out 
+thats true but what about after we just worry about it than 
+some things for a diffrent time theres not much we can do with this plant monster maybe the he points at the prince he has some say right mr prince 
+the prince says we have to be stratigic his them fast and hard the dwarf way 
+....
+and stratigc you gotta use your brain top from bottom not same time monster seems like its going for the middle we go around 
+pincer from back maybe 
+well can try alright ill alow you to command a unit get 5 or 6 people and lead a charge from whatever point you need and we will figure out the rest with the others from there 
+gaurd the window hjumpik tells the gaurd that ran away and jumped out the top floor from the flower monster if your strong we can use all the hands we can 
+hmm i guess 
+shaking happens from the tree battle 
+what was that its getting closer 
+im not sure it started shaking 
+who am i command hjumpik says 
+the oraicle says the revel one is having trouble 
+he leads him there hjumpoik says no no nno we go form  outside wall 
+they head out people rauging at door about not getting drink hjumpik breaks it up  
+they argue he says hjumpik cant command anything too broody hjumpik says he might be in charge of them soon 
+they storm off hjumpik asks gaurds weres my battlion 
+gaurds step aside say it dangerous 
+waluigi says he wants to be carefull 
+hjumpik says with my brawn and your brains we will make it through 
+waluigi calls toad lee to come along as they almost let him 
+waluigi says so my new battlion 
+dont kill them hjumpik says 
+gaurd comes out with a body 
+who died one of the green goblins hjumpik says 
+it was a green goblin 
+why are butlers fighting 
+its not a prefect team but this is what we have 
+there scarping the barrel waluigi says 
+whats the problem hjumpik says 
+the problem is there is a plant monster two dead 
+sorry some of them dead were trying to make 0 caustilies with me in command ho ho ho hjumpik says 
+waluigi says what i thought i was in command 
+were both in command- techinica.lly im in command your my advisor 
+what advisior this is worse than wario ware 
+dont worry you have more power than wario ware i guess youll direct me if anyhting goes wrong you take command 
+like how you listened during the planar farture ritual that caused this? to my pleas 
+hmm you could right that in your wahbook or something but its not just that okay no need to argue - we got plant monsters coming out 
+hmm particial fine waluigi says 
+lets go over names a goblin says 
+sure 
+Gaurd 
+ecxt
+Uiok
+you have common names hjumpik says 
+well fine its randall 
+waiter over here is brad 
+top gaurd over there is timmy 
+goblin staff with the hankerchif is Hank 
+this goblin down here with the white hair is wyatt 
+who put you in charge one asks 
+the map master O.C's map master 
+your under my control hjumpik says fortinetally or unforentally 
+hmm 
+your having issue some of you guys died thats a shame but right now we gotta pick outselfs back up 
+toad lee opens a door its with the mushrooms poision one 
+hjumpik says leave the bodies in the hallway
+they lean them against the door
+hjumpik says against the wall they do it   
+hjumpik says my first order is to try to go up top the wall the revel is the other side and remove the leaves 
+ill let brandon and hank take care of it we can sit back and relax 
+no no you should go there too 
+and what you stay and watch 
+hjumpik orders 
+two gaurds two goblins to go timmy leads the charge 
+hjumpik decides to stay with them says waluigi im checking somethiung make sure nothing crazy goes down 
+waluigi says of course i only make stylish decisions not crazy ones 
+hjumpik says no friendly fire please and sighs 
+lets glorify the morning hjumpik says 
+TEAM AN ENEMY HJUMPIK SAYS POINTING AT A MOVING SHRUB YOU KNOW WHAT TO DO 
+ENGAGE HANK SAYS PICKING UP HANKS SMALL BODY 
+DADADA DADA WE 
+NO GAURD YOUR THE FRONT LINER GO UP AND SLASH HIM 
+ee
+Attack
+Damage
+Action
+Instantaneous
+Equipped
+Proficient
+Morning Glory
+Morning Glory
+Martial Melee
+Attack
+Damage
+Action
+Instantaneous
+Equipped
+Proficient
+Combat started. Roll initiative for everyone.
+FRIENDLY team goes first. Choose who acts.
+⚔ NPC Automation
+Hank rushes toward Awakened Shrub!
+⚔ NPC Automation
+Hank attacks Awakened Shrub with Knife!
+Knife
+Knife
+Simple Melee
+Attack
+
+Awakened Shrub
+ 9
+Damage
+Action
+Instantaneous
+Equipped
+Proficient
+ HP Updated
+
+-5
+105
+
+
+⚔ NPC Automation
+Awakened Shrub attacks House Guard with Rake!
+Rake
+Rake
+Natural
+Attack
+
+Timmy
+ 17
+Action
+Instantaneous
+reach 5 ft
+Equipped
+Proficient
+⚔ NPC Automation
+Timmy uses Multiattack (2 attacks)!
+⚔ NPC Automation
+Timmy attacks Hank with Longsword!
+Longsword
+Longsword
+Martial Melee
+Attack
+
+Hank
+ 13
+Action
+Instantaneous
+Equipped
+Proficient
+⚔ NPC Automation
+Timmy attacks Hank with Longsword!
+Longsword
+Longsword
+Martial Melee
+Attack
+
+Hank
+ 13
+Action
+Instantaneous
+Equipped
+Proficient
+Hank morale: SHAKEN (39).
+⚔ NPC Automation
+Hank attacks Awakened Shrub with Knife!
+Knife
+Knife
+Simple Melee
+Attack
+
+Awakened Shrub
+ 9
+Damage
+Action
+Instantaneous
+Equipped
+Proficient
+ HP Updated
+ hjumpik says HEY GAURD if you attack the goblin again and actually hit our own men 
+ these guys are puny little things they wont work unless you put oomf into them 
+ you guys need some more just brain cells that dosent make muich sense hjumpik says 
+ Combat Debrief
+Busiest: Hank
+
+Most-targeted: Awakened Shrub
+
+2 rounds, 5 NPC turns, 4 attack actions, 0 spells.
+
+Hank: 2 attacks, focused Awakened Shrub
+Timmy: 1 multiattack, focused Hank
+Awakened Shrub: 1 attack, focused House Guard
+what do you do hjumpik asks the goblin that didnt do anything hjumpik says you should have joined cut some leaves and do the small fry just keep moving times a wasting he says i think i saw another one around that door running around 
+we will handle it 
+no no no im your abttllion leader ill follow you 
+waluigi goes to the bathroom in the background with twoo gaurds
+back to hjumpik  
+they cut more leaves hjumpik says good work your better than i thought your job isnt over 
+he opens a door and closes it he opens the kitchen tells them to barracade it 
+hjumpik says says whats in there 
+he says nothing 
+he puts hand on the gaurd 
+your a royal gaurd right you can do it 
+yeah your right and my insiticts says we should use the other door
+hjumpik takes a peak for himself he closes it and runs its above our paygrade regroups with waluigi he isnt there door is closed running water 
+waluigi exist the bathroom says ready for adventure hjumpik said he saaw such a big monster even he had to run 
+people run say woodfellow is fighting a giant mosnter they came to get support 
+red alert red aleart timmy says look infront of you 
+a giant plant monster 
+was that the one fighting woodefllow 
+no even bigger 
+alright second in command time for you to shine 
+waluigi has three  options hjumpik says no fire 
+he can 
+1. create a wall and barriacde the monster - most power usage 
+2. attack it directly with ice 
+3. freeze over the full room 
+he chooses 2 
+hjumpik sees the plant is absorbing it 
+it was a massive attack but did minimall amage
+hjumpik says we gotta go as it breaches and starts heading towards them 
+people are aruging at the other door
+giant tree monster breaches  
+hank says quikcly in here pointing at a door the tree monster is at 
+hjumpik says bad idea 
+hank runs inside anyway hjumpik says we gotta go 
+toad lee and wyatt hold the line 
+Combat Debrief
+Busiest: Wyatt
+
+Most-targeted: Shambling Mound
+
+2 rounds, 3 NPC turns, 2 attack actions, 1 spells.
+
+Wyatt: 2 attacks, focused Shambling Mound
+Shambling Mound: 1 spell, focused Brand
+our teams fought valeantely and defeated it 
+we just had to overwelm and an dwe were able to get him down 
+uhh okay hjumpik tries to cut it 
+waluigi is reading a book to everyone else 
+I felt once more how simple and frugal a thing is happiness: a glass of wine, a roast chestnut, a wretched little brazier, the sound of the sea. 
+thats what we must do fight for a better future! wahahahhaha i am leader and my future is the best 
+hey waluigi uhh you know what shappening right now hjumpik assks 
+there is a monster about to eat you 
+the big monster breached the room 
+well i just held insperational speech right so that means something right 
+Combat Debrief
+Busiest: The Ravenous Host
+
+Most-targeted: Awakened Shrub
+ battle were they left the mosnter 
+1 rounds, 17 NPC turns, 9 attack actions, 3 spells.
+
+The oriacle: 2 multiattacks, focused Awakened Shrub
+House Guard: 2 multiattacks, focused Shambling Mound
+Sprite Sorcerer: 1 spell, focused Treant
+Satyr Berserker: 1 multiattack, focused Treant
+House Guard Joseph: 1 multiattack, focused Awakened Shrub
+Sprite Warrior: 1 spell, focused Treant
+Satyr Scout: 1 multiattack, focused Awakened Shrub
+Shambling Mound: 1 spell, focused Sprite Caster
+Goblin Staff: 1 attack, focused Awakened Shrub
+Satyr: 1 attack, focused Treant
+Sprite Archer: no actions
+you civilians! were evcauting order of the revel 
+hjumpik says he needs to help some guys up there  
+you sure you want to fight that not evacaute to the upper flowers
+toad lee comes squad of 5 i gathered a squad a toad squad im pretty proud of them 
+hjumpik tells the evcuaters to help the single man evcauating everyone onn orders from the revel decides to go 
+a satyr comes up whant to join the tree prototectors if you cant beat them join them 
+they want to kill you hjumpik says 
+ill show you they dont want to attack us he says hjumpik puts in him in arm hold 
+why dont you evacuate the civilians and not be an idiot 
+alrigh alright your clearly stornger than me 
+they dont call me hjumpik for nothing 
+they head to another room keep moving 
+the sitution is under control a commander says 
+it dosent look good hjumpik saays  maybe we should release the revel 
+the revel might eat everyone so maybe not he thinks 
+they hear fighitng peak back in the other room 
+hjumpik says there is a lot of slashing you guys going to do something 
+and leave the oriacle the heir i mean like just alone no our job is to gaurd him 
+no i mean reinforcements
+well were pretty streched thin as is 
+Combat Debrief
+Busiest: Sprite Sorcerer
+
+Most-targeted: Sprite Archer
+
+2 rounds, 27 NPC turns, 5 attack actions, 1 spells.
+
+Sprite Sorcerer: 3 attacks, 3 retreats, focused Woodfellow
+Sprite Archer: 1 spell, focused Shambling Mound
+Shambling Mound: 1 multiattack, focused Sprite Caster
+Sprite Warrior: 1 attack, focused Sprite Archer
+Goblin Staff: no actions
+Sprite Archer: 4 retreats
+House Guard: 1 retreat
+Satyr Sorcerer: no actions
+Treant: no actions
+Satyr Druid Zach: no actions
+Dryad: no actions
+Woodfellow: no actions
+Awakened Shrub: no actions
+everyone is falling back 
+waluigi sitting in his seat  hjumpik talking 
+people talking gaurds around table 
+what can we do is there a way to stop this 
+uhhh theres always a way but might be dififcult there are MULTIPLE of them i say we sneak attack we let them come in and as the bait runs we gang up on them 
+alright i guess wwe could do that 
+hjumpik says not being bait 
+waluigi says Well im not being the bait how toad lee his nimble right we slap a piece of meat on him from the kitchen and he runs into the room and we all trap it 
+i was thinking maybe a fairy could be a bait like a fly 
+okay we can try just any rrandom fairy 
+one comeds in a gaurd grabs him 
+no no we should not pick a ranodm fairy 
+why 
+its not good to do 
+say if i toss you in there you want to 
+well if a good fairy dies were already wearing thin its about paratcially if a mediciore fairy dies a good one can take its place a gaurd says 
+very doomer way to think hjumpik says 
+i say we get a warrior fairy 
+hjumpik says the bait wont die we will just attract him we need a nimble person less likley to get caught 
+like who what fairy 
+a warrior hjumpik says 
+a goblin exits the room what are you doing in there 
+he comes back with a fairy battered and bruised i can take him 
+hjumpik says you remind me of my grandpa as the fairy comes in 
+what was he like 
+dead but a great warrior 
+so im going to die 
+even when his arm was cut off he still wanted to fight i saw his drive its in you hjumpik says 
+what was his name 
+Piktor Deldkur the third 
+ waluigi says toad lee is still more pratcical we know him and he is less likley to die 
+ hjumpik says he is a toad but he will not do it 
+ hjumpik says we shoot him first get his attention as he runs after you my guys will be in position as he runs by yoiu run out of there we suprise attack him gang up on him kill him  cant go wrong 
+ 
