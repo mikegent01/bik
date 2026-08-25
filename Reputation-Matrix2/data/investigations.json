@@ -166,7 +166,7 @@
         "raventree_manor"
       ],
       "opened": "23 Harvestide, 1040 BF",
-      "lastFiled": "4 Aethel, 1040 BF",
+      "lastFiled": "1 Aethel, 922 BF (Feyward clock) — Material 1040 BF",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🏚️",
       "accent": "#8a4bff",
@@ -433,6 +433,53 @@
             "green_t_at_the_door_and_the_scorncrow_underfoot",
             "archies_return_to_shadow_estate"
           ]
+        },
+        {
+          "id": "lead_ravenous_host",
+          "title": "Identify the Ravenous Host",
+          "status": "open",
+          "why": "The corridor tally calls the busiest combatant on the floor the Ravenous Host. Nobody in the manor has described it, nobody classified it, and the archive cannot tell whether it fought for the house, for the wood, or for itself. It is the only name in the whole engagement that belongs to nothing else on file.",
+          "exhibits": [],
+          "events": [
+            "feyward_battalion_of_six_and_the_bait_plan",
+            "feyward_woodfellow_vs_the_treant"
+          ]
+        },
+        {
+          "id": "lead_revelmaster_as_target",
+          "title": "Price the Revelmaster option before anybody tries it",
+          "status": "open",
+          "why": "The war room proposed going for the Revelmaster rather than the Revel and rejected it in one line — *then they turn on us* — without ever establishing who holds the music, where he stands, or whether the house's obedience survives him. The evacuation order proves the obedience is total. Nobody has tested whether it is personal.",
+          "exhibits": [
+            "ex_revel_evacuation_order"
+          ],
+          "events": [
+            "feyward_battalion_of_six_and_the_bait_plan",
+            "the_feyward_revel_and_the_book_of_many_things"
+          ]
+        },
+        {
+          "id": "lead_deldkur_line",
+          "title": "Find the First and Second Piktor Deldkur",
+          "status": "open",
+          "why": "Hjumpik named his grandfather Piktor Deldkur the Third in front of six strangers. The ordinal implies two earlier Deldkurs with the same name and the same habit. The archive has the grandson's full name on file and nothing else about the line — no home, no guild, no record of where an arm was lost.",
+          "exhibits": [],
+          "events": [
+            "feyward_battalion_of_six_and_the_bait_plan"
+          ]
+        },
+        {
+          "id": "lead_map_master",
+          "title": "Establish who the Map Master is, and whether he exists",
+          "status": "open",
+          "why": "Hjumpik's authority over six people came from *the map master, O.C.'s map master* and nothing else — no signature, no name, no face. If the commission is unsigned because the office is a role and not a person, then the same move that put a dwarf in command can put anybody in command, and the file's graft thread has just produced a working example.",
+          "exhibits": [
+            "ex_sixth_detachment_commission"
+          ],
+          "events": [
+            "feyward_battalion_of_six_and_the_bait_plan",
+            "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+          ]
         }
       ],
       "sessions": [
@@ -489,6 +536,12 @@
           "label": "Green T at the Door, the Giant Form, and the Scorncrow Underfoot",
           "date": "30 Harvestide, 1040 BF — later that night",
           "event": "green_t_at_the_door_and_the_scorncrow_underfoot"
+        },
+        {
+          "id": "s_aethel1_battalion_of_six",
+          "label": "The Battalion of Six, the Ice That Got Drunk, and the Bait Plan",
+          "date": "1 Aethel, 922 BF (Feyward clock)",
+          "event": "feyward_battalion_of_six_and_the_bait_plan"
         }
       ],
       "relatedEvents": [
@@ -503,7 +556,8 @@
         "the_feyward_revel_and_the_book_of_many_things",
         "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
         "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
-        "green_t_at_the_door_and_the_scorncrow_underfoot"
+        "green_t_at_the_door_and_the_scorncrow_underfoot",
+        "feyward_battalion_of_six_and_the_bait_plan"
       ],
       "exhibits": [
         {
@@ -905,6 +959,86 @@
             "characters": [
               "remi_akamatsu_full_backstory",
               "wario"
+            ]
+          }
+        },
+        {
+          "id": "ex_sixth_detachment_commission",
+          "propId": "prop_feyward_sixth_detachment_commission",
+          "session": "s_aethel1_battalion_of_six",
+          "icon": "📋",
+          "kind": "order",
+          "category": "record",
+          "title": "Six names, one struck through, nobody's signature",
+          "secured": "1 Aethel, 922 BF (Feyward clock) · lifted off the map table before the wood came through the wall",
+          "custody": "Archive copy — Waluigi made the list in eleven seconds",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(38,48,38,.95),rgba(18,24,20,.98));border:1px solid rgba(127,216,164,.26)\"><div style=\"position:absolute;left:14%;right:14%;top:14px;bottom:18px;background:rgba(228,214,182,.9)\"></div><div style=\"position:absolute;left:22%;top:32px;right:22%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:22%;top:48px;right:26%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:22%;top:64px;right:24%;height:2px;background:rgba(60,40,20,.22)\"></div><div style=\"position:absolute;left:22%;top:80px;right:40%;height:2px;background:rgba(150,30,30,.6)\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#7fd8a4\">SIX NAMED · ONE STRUCK · UNSIGNED</div></div>",
+          "onRecord": "The commission is written on the reverse of a barrel tally, which is the paper the house had left. [[roll:3|strength: six, one struck through|the tally was struck BEFORE the roll call, which means whoever wrote it knew a man was dead and counted him anyway. Somebody in the war room was doing arithmetic on the living and the dead at the same time, and did not tell the dwarf.|a struck line is bookkeeping. Staff strike lines all day.]] There is no signature. The authority line reads *the map master, O.C.* and nothing else.",
+          "dc": 3,
+          "analysis": "## Authority in this house is furniture\n\nNobody signed this. The commission says it comes from the map master and the map master comes from two initials, and two initials in this family have already been found carved into bedframes and struck onto soul-capture hardware. [[roll:4|That is the graft, running in daylight|the same move the file opened on — take an existing authority, do not sign anything, and let the object carry the weight. A commission nobody signed cannot be traced to a person, only to a table.|initials are everywhere in this family. Proximity is not authorship.]]\n\n## The struck line is the honest part\n\nTwo men were dead before the roll call and the paper still says strength: six. That is not a lie; it is a document written to a number somebody upstairs wanted to see.\n\n## One trade on the list is *waiter*\n\nBrad. A waiter, in a combat detachment, because the house had spent its guards on the foyer and its fairies on the music. The archive files this under what a manor looks like on its fourth day.",
+          "links": {
+            "events": [
+              "feyward_battalion_of_six_and_the_bait_plan",
+              "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
+            ],
+            "items": [],
+            "characters": [
+              "hjumpik",
+              "waluigi",
+              "hank_the_goblin_butler",
+              "timmy_the_house_guard"
+            ]
+          }
+        },
+        {
+          "id": "ex_revel_evacuation_order",
+          "propId": "prop_revel_evacuation_order",
+          "session": "s_aethel1_battalion_of_six",
+          "icon": "🕯️",
+          "kind": "order",
+          "category": "record",
+          "title": "An evacuation signed by the thing being evacuated from",
+          "secured": "1 Aethel, 922 BF (Feyward clock) · taken from a house guard on the east stair, mid-shout",
+          "custody": "Archive copy",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(64,44,72,.95),rgba(22,16,28,.98));border:1px solid rgba(201,166,255,.26)\"><div style=\"position:absolute;left:20%;right:20%;top:12px;bottom:20px;background:rgba(236,226,206,.92)\"></div><div style=\"position:absolute;left:28%;top:30px;right:28%;height:2px;background:rgba(60,40,70,.24)\"></div><div style=\"position:absolute;left:28%;top:46px;right:30%;height:2px;background:rgba(60,40,70,.24)\"></div><div style=\"position:absolute;left:28%;top:62px;right:26%;height:2px;background:rgba(60,40,70,.24)\"></div><div style=\"position:absolute;left:44%;right:44%;top:76px;height:16px;border-radius:50%;background:rgba(150,60,60,.55)\"></div><div style=\"position:absolute;left:0;right:0;bottom:8px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#c9a6ff\">ORDER OF THE REVEL · SEALED</div></div>",
+          "onRecord": "The order moves civilians to the upper flowers, tells them not to open the drink doors, and says the music will resume. [[roll:3|The Revel is issuing safety orders about itself|a thing that has to warn a house not to interrupt it is a thing that can be interrupted. The order is an admission, filed as a courtesy.|safety notices are boilerplate. Every office writes them.]] Every fairy on that stair obeyed it without a single question.",
+          "dc": 3,
+          "analysis": "## Total authority does not need to be enforced\n\nNobody argued with this paper. Not the drunk half, not the sober half, not the satyr who wanted to join the trees. The order was shouted by one guard on one stair and the whole floor moved.\n\n## The resume clause\n\n[[roll:5|Attendance will be resumed when the floors are safe|the Revel plans to keep going after the house is repaired. It is not a siege, it is a schedule. The library volume said the only endings are total surrender or somebody willing to be the one who stopped the music — and this paper is the Revel saying it has read the same book.|the clause could be politeness. Offices promise continuity reflexively.]]\n\n## Why the party did not simply obey\n\nHjumpik went the other way on this order. The archive files that as the second time in one week he has refused a route offered by something more powerful than him.",
+          "links": {
+            "events": [
+              "feyward_battalion_of_six_and_the_bait_plan",
+              "the_feyward_revel_and_the_book_of_many_things"
+            ],
+            "items": [],
+            "characters": [
+              "hjumpik",
+              "waluigi"
+            ]
+          }
+        },
+        {
+          "id": "ex_wahbook_technical",
+          "propId": "prop_wahbook_command_dispute",
+          "session": "s_aethel1_battalion_of_six",
+          "icon": "📓",
+          "kind": "note",
+          "category": "testimony",
+          "title": "One page, headed TECHNICAL",
+          "secured": "1 Aethel, 922 BF (Feyward clock) · written in the corridor, four minutes after the argument",
+          "custody": "Waluigi's own hand — filed at the other man's suggestion",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(52,40,64,.95),rgba(20,16,26,.98));border:1px solid rgba(212,168,83,.28)\"><div style=\"position:absolute;left:16%;right:24%;top:10px;bottom:16px;background:rgba(232,222,196,.93);transform:rotate(-1.2deg)\"></div><div style=\"position:absolute;left:24%;top:28px;right:32%;height:3px;background:rgba(40,30,50,.7)\"></div><div style=\"position:absolute;left:24%;top:44px;right:30%;height:2px;background:rgba(60,40,20,.24)\"></div><div style=\"position:absolute;left:24%;top:58px;right:34%;height:2px;background:rgba(60,40,20,.24)\"></div><div style=\"position:absolute;left:24%;top:72px;right:38%;height:2px;background:rgba(60,40,20,.24)\"></div><div style=\"position:absolute;left:24%;top:88px;right:52%;height:3px;background:rgba(140,40,40,.55)\"></div><div style=\"position:absolute;left:0;right:0;bottom:6px;text-align:center;font-size:10px;letter-spacing:.16em;font-weight:800;color:#f2d68a\">ONE PAGE · UNDERLINED TWICE</div></div>",
+          "onRecord": "The leaf transcribes the argument word for word and underlines one word twice. [[roll:3|The transcript was written within four minutes|Waluigi wrote it while the dwarf was still walking away, which means the page is a contemporaneous record and not a recollection. In a dispute about who is in charge, that is the only piece of paper either of them will ever have.|he keeps a notebook. Notebooks get written in.]] The plea is recorded in full, including the part about the ritual.",
+          "dc": 3,
+          "analysis": "## A plea, on the record, at last\n\nThe planar fracture ritual has been in this file since it opened. What has never been on paper is that Waluigi asked, out loud, before it happened, and was not listened to. [[roll:4|The dwarf did not deny it|he said *it's not just that* and moved on to the plant monsters. That is not a denial, it is a deferral, and deferrals in this house have a way of becoming the answer.|deflection under pressure proves nothing about the underlying claim.]]\n\n## Who is actually in command\n\nTechnically the dwarf. Practically the archivist, whenever the dwarf is wrong, which the same page records the dwarf conceding in advance. That is not a chain of command. That is a friendship with a tiebreaker.\n\n## Why the paper exists at all\n\nHjumpik told him to write it down as a way of ending the argument. The archive notes that the argument did end, and the paper did not.",
+          "links": {
+            "events": [
+              "feyward_battalion_of_six_and_the_bait_plan",
+              "planar_fracture"
+            ],
+            "items": [],
+            "characters": [
+              "waluigi",
+              "hjumpik"
             ]
           }
         }

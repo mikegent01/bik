@@ -324,8 +324,8 @@ export const CORE_DETAIL = {
     },
     '05_toad_lee': {
         title: 'Co-Leader — civilian continuity',
-        roleNote: 'Co-leader of the Liberated Toads alongside Rodger (per faction record). Archie’s Followers.',
-        lore: 'Carries the axe and the civilian continuity of the cohort.'
+        roleNote: 'Co-leader of the Liberated Toads alongside Rodger (per faction record). Archie’s Followers. Currently off-plane: raised and leads a Toad squad of five inside the Overgrown Manor (1 Aethel, 922 BF, Feyward clock), the only unit there to arrive in formation.',
+        lore: 'Carries the axe and the civilian continuity of the cohort. Held the lower corridor against a shambling mound with a white-haired goblin named Wyatt.'
     },
     '06_bones': {
         title: 'Intelligence Operative',

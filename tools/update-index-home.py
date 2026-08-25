@@ -41,9 +41,26 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
      </p>
 
      <div class="campaign-timeline-feed">
-       <!-- Event 0: Latest File - Charred Mario Note -->
+       <!-- Event 0: Latest Filing - The Battalion of Six -->
+       <div class="campaign-timeline-item" onclick="Router.go('#/article/feyward_battalion_of_six_and_the_bait_plan')" style="cursor:pointer; border-left:4px solid #4a9c6d; background:linear-gradient(135deg,rgba(74,156,109,.18),var(--panel2));">
+         <div class="timeline-date-chip" style="color:#7fd8a4;">1 Aethel, 922 BF (Feyward clock) · Morning · Latest Filing</div>
+         <h3 class="timeline-event-title">The Battalion of Six, the Ice That Got Drunk, and the Bait Plan</h3>
+         <div class="timeline-actors">
+           <span>Hjumpik</span><span>Waluigi</span><span>Toad Lee</span><span>Timmy</span><span>Hank</span><span>Wyatt</span><span>The Oracle</span>
+         </div>
+         <p class="timeline-summary">
+           The morning after the map, the heir handed Hjumpik six people and a pincer. Two of the six were already dead and one of them was a waiter. The dwarf's standing order — no friendly fire, please — lasted four minutes. Waluigi was made second-in-command, disputed the wording, and put an ice lance the length of a hallway into a tree that drank it. Then the wood came through the wall, the Revel evacuated its own house on its own authority, and the night ended in the war room over which living creature should run at a monster first.
+         </p>
+         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
+           <span class="chip" onclick="Router.go('#/article/feyward_battalion_of_six_and_the_bait_plan')" style="margin:0; font-size:12px; background:#4a9c6d; color:#fff; font-weight:800;">📖 Read the Battalion Filing →</span>
+           <span class="chip" onclick="Router.go('#/investigation/shadeward_feyward_ruined')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent2);">🔍 Three Houses, One Method →</span>
+           <span class="chip" onclick="Router.go('#/article/feyward_woodfellow_vs_the_treant')" style="margin:0; font-size:12px; background:var(--panel2); border-color:var(--accent);">🌳 The Lane, Outside →</span>
+         </div>
+       </div>
+
+       <!-- Event 0: Charred Mario Note -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/charred_note_at_waluigis_door')" style="cursor:pointer; border-left:4px solid #c46b32; background:linear-gradient(135deg,rgba(196,107,50,.18),var(--panel2));">
-         <div class="timeline-date-chip" style="color:#e7b08a;">4 Aethel, 1040 BF · Before Dawn · Latest File</div>
+         <div class="timeline-date-chip" style="color:#e7b08a;">4 Aethel, 1040 BF · Before Dawn</div>
          <h3 class="timeline-event-title">The Charred Note at Waluigi's Door</h3>
          <div class="timeline-actors">
            <span>Waluigi</span><span>Mario</span><span>Luigi</span><span>Mages' Guild</span><span>Princess Peach</span>
@@ -111,7 +128,7 @@ timeline_html = """<!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
 
        <!-- Event 0: Latest Session - Hanging-Tree Apple / Mirror Theft -->
        <div class="campaign-timeline-item" onclick="Router.go('#/article/the_hanging_tree_apple_mirror_theft_and_invited_vampire')" style="cursor:pointer; border-left:4px solid #6f59a8; background:linear-gradient(135deg,rgba(111,89,168,.18),var(--panel2));">
-         <div class="timeline-date-chip" style="color:#c9a6ff;">Harvestide 30, 1040 BF · Night · Latest Session</div>
+         <div class="timeline-date-chip" style="color:#c9a6ff;">Harvestide 30, 1040 BF · Night · Session</div>
          <h3 class="timeline-event-title">The Hanging-Tree Apple, the Mirror Theft, and the Invited Vampire</h3>
          <div class="timeline-actors">
            <span>Remi</span><span>Markop</span><span>Eager</span><span>Rattles</span><span>Original Dan</span><span>Wario</span><span>Boundy</span><span>Randell</span>

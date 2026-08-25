@@ -13,3 +13,6 @@ __pycache__/
 
 # genkit atomic-write drafts: debris from an interrupted run, never content
 *.[0-9]*.[0-9]*.tmp
+
+# jsdom + deps for tools/tests render checks (installed with npm i --no-save)
+node_modules/

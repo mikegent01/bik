@@ -353,6 +353,30 @@
       "reaction": "smug",
       "comments": [],
       "status": "posted"
+    },
+    {
+      "id": "wahwire_battalion_of_six",
+      "author": "waluigi",
+      "order": 10,
+      "date": null,
+      "timestamp": "1 Aethel, 922 BF (Feyward clock) — morning, from a chair",
+      "content": "Handed six people at breakfast. Two were already dead and one of them was a waiter. The dwarf said don't kill them. I said what advisor. Then I watered a tree. Read the whole filing before you ask which of those was the worst decision — the answer is not the one you think.",
+      "likes": 588,
+      "links": [
+        {
+          "id": "feyward_battalion_of_six_and_the_bait_plan",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "feyward",
+        "battles",
+        "hjumpik",
+        "command"
+      ],
+      "reaction": "smug",
+      "comments": [],
+      "status": "posted"
     }
   ]
 }
