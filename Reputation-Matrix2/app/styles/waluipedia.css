@@ -501,6 +501,20 @@ main.content{min-width:0}
 #home-recent-adventures .campaign-timeline-item:first-child {
   box-shadow: 0 0 0 2px color-mix(in srgb, #4a9c6d 55%, transparent);
 }
+.home-feed-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
+.home-feed-actions .chip{
+  margin:0;
+  cursor:pointer;
+}
+.home-feed-cta:hover{
+  filter:brightness(1.08);
+  text-decoration:none;
+}
 .campaign-timeline-item {
   position: relative;
   margin-bottom: 22px;

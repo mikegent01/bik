@@ -6777,11 +6777,29 @@ window.filterHomeCategories = function(tab) {
 
 /* Home "Recent Adventures" is built from events.json at render time.
    Hand-editing the feed HTML is how sessions went stale on the live site. */
+function homeInvestigationForEvent(eventId){
+  const pack=DATA&&DATA.investigations;
+  const files=Array.isArray(pack)?pack:(pack&&(pack.investigations||pack.files))||[];
+  for(const inv of files){
+    if(!inv||typeof inv!=='object') continue;
+    if((inv.relatedEvents||[]).includes(eventId)) return inv;
+    if((inv.sessions||[]).some(s=>s&&s.event===eventId)) return inv;
+  }
+  return null;
+}
+function homeFeedAccent(ev, isLatest){
+  const hay=((ev.id||'')+' '+(ev.type||'')+' '+(ev.location||'')+' '+(ev.name||'')).toLowerCase();
+  if(isLatest) return {bar:'#4a9c6d', glow:'rgba(74,156,109,.18)', chip:'#7fd8a4', btn:'#4a9c6d'};
+  if(/battle|treant|ambush|combat|war/.test(hay)) return {bar:'#e5484d', glow:'rgba(229,72,77,.14)', chip:'#e5484d', btn:'#e5484d'};
+  if(/feyward|revel|manor|grove/.test(hay)) return {bar:'#2fae8a', glow:'rgba(47,174,138,.14)', chip:'#2fae8a', btn:'#2fae8a'};
+  if(/mario|charred|peach/.test(hay)) return {bar:'#c46b32', glow:'rgba(196,107,50,.18)', chip:'#e7b08a', btn:'#c46b32'};
+  if(/ebott|ebot|underground/.test(hay)) return {bar:'#8a4bff', glow:'rgba(138,75,255,.16)', chip:'#c9a6ff', btn:'#8a4bff'};
+  if(/shadow|imp|mirror|vampire|cottage/.test(hay)) return {bar:'#6f59a8', glow:'rgba(111,89,168,.18)', chip:'#c9a6ff', btn:'#6f59a8'};
+  return {bar:'#8a4bff', glow:'rgba(138,75,255,.12)', chip:'#c9a6ff', btn:'#8a4bff'};
+}
 function homeRecentAdventuresHtml(){
   const events=(DATA&&DATA.events)||[];
   const latestId=(DATA.mainPage&&DATA.mainPage.latestUpdate&&DATA.mainPage.latestUpdate.id)||'';
-  /* Newest filings first: array order is the archive's filing order.
-     In-world year would bury a 922 BF Feyward session under 1040 BF Material files. */
   const ranked=events.slice().reverse();
   const seen=new Set();
   const cards=[];
@@ -6792,30 +6810,43 @@ function homeRecentAdventuresHtml(){
     seen.add(ev.id);
     const isLatest=ev.id===latestId;
     const name=ev.name||ev.title||prettyId(ev.id);
-    const date=ev.date||'';
-    const chip=isLatest?`${esc(String(date).split('—')[0].trim())} · Latest Filing`:esc(String(date).split('—')[0].trim());
+    const dateHead=String(ev.date||'').split('—')[0].trim();
+    const pal=homeFeedAccent(ev, isLatest);
+    const kicker=isLatest?(esc(dateHead)+' · Latest Filing'):esc(dateHead);
     const people=(ev.participants||[]).slice(0,8).map(p=>{
       const id=typeof p==='string'?p:(p&&p.id)||'';
       const rec=id&&INDEX[id];
       return rec?displayName(rec.item):prettyId(id||String(p));
     }).filter(Boolean);
-    const actors=people.length?people.map(n=>`<span>${esc(n)}</span>`).join(''):'';
+    const actors=people.map(n=>`<span>${esc(n)}</span>`).join('');
     const sum=ev.summary||(ev.description||'').replace(/\s+/g,' ').slice(0,420);
-    const accent=isLatest?'#4a9c6d':'#8a4bff';
-    cards.push(`<div class="campaign-timeline-item" onclick="Router.go('#/article/${esc(ev.id)}')" style="cursor:pointer; border-left:4px solid ${accent}; background:linear-gradient(135deg,${isLatest?'rgba(74,156,109,.18)':'rgba(138,75,255,.12)'},var(--panel2));">
-         <div class="timeline-date-chip" style="color:${isLatest?'#7fd8a4':'#c9a6ff'};">${chip}</div>
+    const inv=homeInvestigationForEvent(ev.id);
+    const related=(ev.relatedArticles||[]).map(r=>typeof r==='string'?r:(r&&r.id)).filter(Boolean)
+      .filter(id=>id!==ev.id && INDEX[id]).slice(0,2);
+    const actions=[
+      `<span class="chip home-feed-cta" onclick="Router.go('#/article/${esc(ev.id)}')" style="margin:0;font-size:12px;background:${pal.btn};color:#fff;font-weight:800;border-color:${pal.btn};">📖 Read ${esc((name||'Filing').split('—')[0].trim().slice(0,42))} →</span>`
+    ];
+    if(inv){
+      const label=inv.codename||inv.title||inv.id;
+      actions.push(`<span class="chip" onclick="Router.go('#/investigation/${esc(inv.id)}')" style="margin:0;font-size:12px;background:var(--panel2);border-color:var(--accent2);">🔍 ${esc(String(label).slice(0,48))} →</span>`);
+    }
+    related.forEach(id=>{
+      const rec=INDEX[id];
+      const nm=rec?displayName(rec.item):prettyId(id);
+      const href=rec&&rec.typeKey==='events'?`#/article/${id}`:`#/article/${id}`;
+      actions.push(`<span class="chip" onclick="Router.go('${esc(href)}')" style="margin:0;font-size:12px;background:var(--panel2);border-color:var(--accent);">${esc(String(nm).slice(0,40))} →</span>`);
+    });
+    cards.push(`<div class="campaign-timeline-item" onclick="Router.go('#/article/${esc(ev.id)}')" style="cursor:pointer;border-left:4px solid ${pal.bar};background:linear-gradient(135deg,${pal.glow},var(--panel2));">
+         <div class="timeline-date-chip" style="color:${pal.chip};">${kicker}</div>
          <h3 class="timeline-event-title">${esc(name)}</h3>
          <div class="timeline-actors">${actors}</div>
          <p class="timeline-summary">${esc(sum)}</p>
-         <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;" onclick="event.stopPropagation();">
-           <span class="chip" onclick="Router.go('#/article/${esc(ev.id)}')" style="margin:0; font-size:12px; background:${accent}; color:#fff; font-weight:800;">Read Filing →</span>
-         </div>
+         <div class="home-feed-actions" onclick="event.stopPropagation();">${actions.join('')}</div>
        </div>`);
     if(cards.length>=12) break;
   }
   return cards.join('\n       ')||'<div class="campaign-timeline-item">No sessions filed.</div>';
 }
-
 function view_home(){
   renderSidebar(null);
   initCalendarState();
