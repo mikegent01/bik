@@ -2263,5 +2263,33 @@
       "waluigi",
       "jory_dobbs"
     ]
+  },
+  {
+    "id": "warp_pipe_junction",
+    "name": "Warp Pipe Junction",
+    "type": "Location / Pipe Hub / Contested Gate",
+    "region": "Mushroom Kingdom — inland pipe network",
+    "controllingFaction": "Disputed — posted as Bowser Bros only; Loyalists tested the sign",
+    "population": "A gate crew of Goombas and Koopas, plus whoever the pipes dump",
+    "climate": "Damp brick, pipe-steam, rust",
+    "status": "Active — restricted city beyond the gate; Loyalist squad escaped 5 Aethel, 1040 BF",
+    "summary": "A hub of Warp Pipes. Some open on the kingdom. Some open on worse. The posted city beyond the gate claims to be for Bowser Bros only. On 5 Aethel a Loyalist four tried the lie about a guildmaster and left by the ladders.",
+    "description": "The Junction is mobility wearing brick. Whoever holds the mouths of the pipes can put a squad anywhere the old plumbers once bothered to connect. The map already had it as an unaligned ley-line POI. The session proved the next sentence: there is a restricted city behind a gate, and the people on that gate will assign you a Goomba if you say guildmaster with enough confidence.\n\nThe shack they were walked toward was rust and old wood. It was not a guildhouse. Toadette said so out loud. The Koopa who arrived to help the Goomba called the destination the house and promised real fun. That is the Junction's other product: a poor-town excuse with a closed gate behind you.",
+    "notableFeatures": [
+      "Interconnected Warp Pipes — kingdom routes and stranger ones",
+      "A posted gate: Bowser Bros only",
+      "Ladders on the castle-side wall that flank anyone who climbs",
+      "A rust shack sold as a manor",
+      "A gate winch Embercap can work if he reaches it"
+    ],
+    "relatedArticles": [
+      "peach_loyalists",
+      "captain_toadette",
+      "embercap",
+      "scribe_dewdrop",
+      "big_r",
+      "bramblehaven",
+      "toad_town"
+    ]
   }
 ]

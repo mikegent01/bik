@@ -360,7 +360,7 @@ export const mushroomKingdomData = {
             y: 43.5,
             type: 'ley_line',
             name: "Warp Pipe Junction",
-            description: "A major hub of interconnected Warp Pipes, some leading to other parts of the kingdom, others to stranger, unknown dimensions. Controlling it offers unparalleled strategic mobility.",
+            description: "A major hub of interconnected Warp Pipes. On 5 Aethel, 1040 BF a Loyalist four talked past a Bowser Bros gate, were walked to a rust shack sold as a manor, climbed the castle ladders, and left by a winch Embercap opened from the inside. The pipes still go everywhere. The gate still lies about who it is for.",
             factionId: 'unaligned',
             intelReq: 40,
             political_influence: 3,

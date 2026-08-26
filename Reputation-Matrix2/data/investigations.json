@@ -1565,7 +1565,7 @@
         "mushroom_civil_war"
       ],
       "opened": "25 Harvestide, 1040 BF",
-      "lastFiled": "26 Harvestide, 1040 BF",
+      "lastFiled": "5 Aethel, 1040 BF",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🍄",
       "accent": "#e74c3c",
@@ -1641,6 +1641,11 @@
           "title": "Four items held against Kamek, described by class only",
           "state": "open",
           "text": "Correspondence in the subject's hand; an executed financial instrument; a living contactable witness; an object with no further description. On the reverse: *not to be spent on a small thing. Once used it is used.* No location is given for any of the four, which means the card is an index to leverage rather than to property.\n\n**In plain terms:** the card lists what leverage exists over Kamek without saying where any of it is kept. That is deliberate: an index is safe to hold, the material is not. Somebody is holding the material elsewhere."
+        },
+        {
+          "id": "th_pipe_gate",
+          "title": "Who the Junction actually reports to",
+          "text": "A Bowser Bros sign, a guildmaster who does not live in a shack, a Magikoopa who leaves. The pipes are a government or a costume."
         }
       ],
       "leads": [
@@ -1716,6 +1721,18 @@
             "ex_mcw_muster_roll",
             "ex_mcw_shellshock_order"
           ]
+        },
+        {
+          "id": "lead_missing_rat",
+          "title": "What ate the reconnaissance rat",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Find what the rat found, or what found the rat, before the next pipe crossing.",
+          "why": "Toadette already knows vermin recon failed. The next map of the Junction cannot be another animal.",
+          "xp": 80,
+          "exhibits": [
+            "ex_restricted_notice"
+          ]
         }
       ],
       "sessions": [
@@ -1742,6 +1759,12 @@
           "label": "Rallying the remnants under a usurper's shadow",
           "date": "Ongoing",
           "event": "first_bowser_conflict"
+        },
+        {
+          "id": "s_aethel5_warp_pipe",
+          "label": "The shack that was not a guildhouse",
+          "date": "5 Aethel, 1040 BF",
+          "event": "warp_pipe_junction_restricted_city"
         }
       ],
       "relatedEvents": [
@@ -1752,7 +1775,8 @@
         "the_toad_god_interview_and_the_star_shard",
         "campaign_songs_archive",
         "the_arrangement",
-        "glazed_congress_founding"
+        "glazed_congress_founding",
+        "warp_pipe_junction_restricted_city"
       ],
       "exhibits": [
         {
@@ -2049,6 +2073,54 @@
             "items": [],
             "characters": [
               "fawful"
+            ]
+          }
+        },
+        {
+          "id": "ex_restricted_notice",
+          "propId": "prop_warp_pipe_restricted_notice",
+          "session": "s_aethel5_warp_pipe",
+          "icon": "🚫",
+          "kind": "order",
+          "title": "The sign they talked past",
+          "secured": "Read on the Junction gate, 5 Aethel, 1040 BF",
+          "custody": "Still posted",
+          "visual": "<div style=\"width:120px;height:80px;border:3px solid #333;background:#c4a574;display:flex;align-items:center;justify-content:center;font:900 11px sans-serif;text-align:center;padding:6px\">BROS ONLY</div>",
+          "onRecord": "A restriction notice. Bowser Bros only. No exception written.",
+          "dc": 3,
+          "analysis": "The paper did not fail. The crew did. Embercap named a guildmaster the sign does not contain. That is not a forged pass. That is a gate that wanted to believe it had a procedure.\n\n## What it does not prove\n\nIt does not prove a guildmaster lives beyond the pipes. The shack proved the opposite.\n\n[[roll:4|whether the posting crew reports to Bowser or only to the sign|A Bowser Bros posting that takes a guild lie is a crew that has not seen Bowser in a while.|A local hustle wearing a famous name. Either way the sign is real.]]",
+          "links": {
+            "events": [
+              "warp_pipe_junction_restricted_city"
+            ],
+            "items": [],
+            "characters": [
+              "embercap",
+              "captain_toadette"
+            ]
+          }
+        },
+        {
+          "id": "ex_ladder_tally",
+          "propId": "prop_junction_ladder_tally",
+          "session": "s_aethel5_warp_pipe",
+          "icon": "📋",
+          "kind": "ledger",
+          "title": "Five rounds on the ladders",
+          "secured": "Counted after extraction",
+          "custody": "Loyalist field file",
+          "visual": "<div style=\"width:130px;height:90px;background:#f4ecd8;border:1px solid #333;padding:6px;font:11px monospace\">5 rd<br>21 atk<br>1 spl<br>BEAR</div>",
+          "onRecord": "Five rounds. Twenty-one attacks. One spell. Busiest: Koopa. Most-targeted: Black Bear.",
+          "dc": 4,
+          "analysis": "The tally will not write crayfish. It will write bear. Waluigi is keeping both. The Magikoopa's one spell is the only line that explains Big R on the ground.\n\n## Dewdrop\n\nHe is not a row. He is the reason the extraction is the result and not a hold.\n\n[[roll:3|whether ANCHOR and Black Bear are one body|One person. The field needed two names for the same back.|A bear and a toad sharing a ladder. Second hearing required.]]",
+          "links": {
+            "events": [
+              "warp_pipe_junction_restricted_city"
+            ],
+            "items": [],
+            "characters": [
+              "big_r",
+              "scribe_dewdrop"
             ]
           }
         }

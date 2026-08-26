@@ -4532,5 +4532,154 @@
     "reputationChanges": {},
     "effects": {},
     "reputationNotes": {}
+  },
+  {
+    "id": "warp_pipe_junction_ladder_fight",
+    "name": "The Junction Ladders (The Five-Foot Crayfish and the Winch)",
+    "date": "5 Aethel, 1040 BF (Material clock)",
+    "location": "Warp Pipe Junction — castle ladders, wall output, and the gate winch (location id: warp_pipe_junction)",
+    "type": "Fighting Withdrawal / Wall Fight / Gate Seizure",
+    "result": "Loyalist extraction. Dewdrop carried out. Gate opened from inside. Junction not held. First kill a Goomba. Magikoopa escaped by teleport.",
+    "belligerents": {
+      "attackers": {
+        "name": "Peach Loyalist four",
+        "factionId": "peach_loyalists",
+        "commander": "Captain Toadette",
+        "combatants": [
+          {
+            "name": "Captain Toadette",
+            "role": "crayfish / claw / spores",
+            "fate": "stood",
+            "leader": true,
+            "fateNote": "claws dull; last off the wall"
+          },
+          {
+            "name": "Embercap",
+            "role": "winch / extraction / first kill",
+            "fate": "stood"
+          },
+          {
+            "name": "Dewdrop",
+            "role": "speared, blessing, twice down",
+            "fate": "carried",
+            "fateNote": "dragged through the opened gate"
+          },
+          {
+            "name": "Big R",
+            "role": "Black Bear / ANCHOR",
+            "fate": "wounded",
+            "fateNote": "Magikoopa blast put the bear down; got up; waited"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "Gate crew — Bowser Bros posted",
+        "combatants": [
+          {
+            "name": "the Goomba guide",
+            "role": "escort / head-jumper",
+            "fate": "fell",
+            "fateNote": "died on Embercap, prone, two mace swings"
+          },
+          {
+            "name": "the charging Koopa",
+            "role": "ID check / Dewdrop's first punch",
+            "fate": "withdrew"
+          },
+          {
+            "name": "Koopa Troopa (standard)",
+            "role": "busiest attacker on the tally",
+            "fate": "fell"
+          },
+          {
+            "name": "the roof Koopa",
+            "role": "ran",
+            "fate": "fled"
+          },
+          {
+            "name": "Magikoopa (battle mage)",
+            "role": "teleport / the one spell",
+            "fate": "withdrew"
+          },
+          {
+            "name": "flanking spear-throwers",
+            "role": "other ladders",
+            "fate": "stood"
+          }
+        ]
+      }
+    },
+    "casualties": {
+      "attackers": "Dewdrop critically injured and twice unconscious, extracted. Big R dropped by a Magikoopa blast, stood. Toadette's claw hurt on a brick. Nobody of the four stayed on the wall.",
+      "defenders": "Goomba guide dead. At least two Koopas dead. One ran. Magikoopa left by teleport. Gate opened against their posting."
+    },
+    "summary": "Five rounds on the Junction ladders after a failed shack-as-manor trick. Dewdrop went down on the climb. Toadette became a five-foot crayfish. Embercap killed a Goomba from prone and opened the winch. Big R carried the wounded out.",
+    "engagement": {
+      "combatants": 10,
+      "ledgerWindow": "5 Aethel, 1040 BF · five rounds · 25 NPC turns · 21 attacks · 1 spell",
+      "scale": "A squad fight on ladders, not a siege. The army waited at the pipe-edge and did not come up."
+    },
+    "keyMoments": [
+      {
+        "time": "climb",
+        "who": "a spear",
+        "act": "Hit Dewdrop on the rungs",
+        "result": "Critically injured; the climb did not stop"
+      },
+      {
+        "time": "climb",
+        "who": "Toadette",
+        "act": "Wild shape — five-foot crayfish",
+        "result": "Claw on a Koopa",
+        "decisive": true
+      },
+      {
+        "time": "wall",
+        "who": "Embercap",
+        "act": "Dropped prone under a Goomba",
+        "result": "Two maces; first kill",
+        "decisive": true
+      },
+      {
+        "time": "wall",
+        "who": "Dewdrop",
+        "act": "Staff, then a hit",
+        "result": "Unconscious"
+      },
+      {
+        "time": "wall",
+        "who": "Magikoopa",
+        "act": "Teleport, teleport, one blast",
+        "result": "The bear fell"
+      },
+      {
+        "time": "winch",
+        "who": "Embercap",
+        "act": "Hauled the gate open from inside",
+        "result": "Extraction route",
+        "decisive": true
+      },
+      {
+        "time": "exit",
+        "who": "Dewdrop",
+        "act": "Woke, blessed from Big R's back",
+        "result": "Down again; dragged through"
+      }
+    ],
+    "description": "*Filed from the ladder tally. I was not on the wall. The four who were left me a count: five rounds, twenty-one attacks, one spell, a crayfish five feet long.*\n\n## Part I — Up\n\nThey climbed because the gate they had talked through was shut. Embercap first. Dewdrop. Toadette. Big R last. A spear found Dewdrop on the rungs. Toadette became a crayfish and held a Koopa anyway.\n\n## Part II — On the Head\n\nEmbercap jumped for a Goomba and got a Goomba on his skull. He dropped. The mace did the rest. First kill. A Koopa said murderer, which the shack had already earned.\n\n## Part III — The Mage Who Would Not Stay\n\nDewdrop went down. The Magikoopa left twice and hit once. The bear fell. Embercap found the winch.\n\n## Part IV — Out\n\nThe gate opened. Big R took a spear, five gold, and Dewdrop. Dewdrop woke long enough to bless the people carrying him and went out cold. Toadette came last with dull claws. The army was still at the pipes.\n",
+    "aftermath": "The Junction is not Loyalist ground. The winch works from the inside. Dewdrop is the bill. The Magikoopa is still somewhere that is not a tally line.",
+    "waluigiAssessment": "I have a five-round count and no guildmaster. That is the whole review. Embercap's lie was the only thing that worked until the winch. The crayfish was the only thing that held. Dewdrop is not a cost you get to pay twice a week.",
+    "relatedArticles": [
+      "warp_pipe_junction_restricted_city",
+      "warp_pipe_junction",
+      "peach_loyalists",
+      "captain_toadette",
+      "embercap",
+      "scribe_dewdrop",
+      "big_r"
+    ],
+    "reputationChanges": {},
+    "effects": {},
+    "reputationNotes": {}
   }
 ]
