@@ -1,5 +1,5 @@
 {
-  "name": "Captain Toadette — Level 3 Land Druid",
+  "name": "Toadette — Level 3 Land Druid (Player Character)",
   "type": "character",
   "img": "icons/magic/nature/leaf-oak-glow-green.webp",
   "system": {
@@ -362,7 +362,7 @@
     "details": {
       "alignment": "Lawful Neutral — Loyalist reading; Waluigi files her as zealot",
       "biography": {
-        "value": "<p><b>Captain Toadette — the Ruthless Restorer.</b> Military commander of the Peach Loyalists. Waluigi's dossier calls her the scariest person in the Mushroom Kingdom who is not a dimensional horror. She plans operations with patience and executes them with total commitment.</p>\n<p><b>Status:</b> Active — commanding Peach Loyalist forces.</p>\n<p><b>Affiliation:</b> Peach Loyalists.</p>\n<p><b>Table build:</b> Level 3 Circle of the Land (Forest) Druid. This is a rules translation of her siege work at Bramblehaven — sappers, simultaneous breaches, earth and thorn used as military tools — not a claim that the lore file named a D&amp;D class. The player asked for Druid. Wild Shape and land-circle spells stand in for fieldcraft and the no-retreat earthworks.</p>\n<p><b>Canon warning:</b> She shot a sergeant for suggesting retreat. After Bramblehaven fell, fifteen surrendering garrison troops were executed under her standing no-quarter order. Peach would not have approved. The sheet does not award extra XP for that. File new XP in the ledger first.</p>\n<p><b>Inventory policy:</b> command staff, hide, shield, field kit, Loyalist orders, and one witness card for the Fall of Bramblehaven. No shop relics, no balcony-rail fragments, no bootleg fans.</p>",
+        "value": "<p><b>PLAYER CHARACTER.</b> This is a PC sheet for the table, not an NPC stat block. Assign ownership to the player. Do not drop it as a monster.</p><p><b>Captain Toadette — the Ruthless Restorer.</b> Military commander of the Peach Loyalists. Waluigi's dossier calls her the scariest person in the Mushroom Kingdom who is not a dimensional horror. She plans operations with patience and executes them with total commitment.</p>\n<p><b>Status:</b> Active — commanding Peach Loyalist forces.</p>\n<p><b>Affiliation:</b> Peach Loyalists.</p>\n<p><b>Table build:</b> Level 3 Circle of the Land (Forest) Druid. This is a rules translation of her siege work at Bramblehaven — sappers, simultaneous breaches, earth and thorn used as military tools — not a claim that the lore file named a D&amp;D class. The player asked for Druid. Wild Shape and land-circle spells stand in for fieldcraft and the no-retreat earthworks.</p>\n<p><b>Canon warning:</b> She shot a sergeant for suggesting retreat. After Bramblehaven fell, fifteen surrendering garrison troops were executed under her standing no-quarter order. Peach would not have approved. The sheet does not award extra XP for that. File new XP in the ledger first.</p>\n<p><b>Inventory policy:</b> command staff, hide, shield, field kit, Loyalist orders, and one witness card for the Fall of Bramblehaven. No shop relics, no balcony-rail fragments, no bootleg fans.</p>",
         "public": ""
       },
       "race": null,
@@ -456,15 +456,10 @@
         "label": ""
       }
     },
-    "favorites": [],
-    "spellcasting": "cha",
-    "biography": {
-      "value": "<h2>Feyward Dan — Player Character Dossier</h2><p><strong>Level 3 One-Armed Feyward Paladin / Dimensional Escapee.</strong> This is the parallel Feyward Dan, not the original Dan who led the Liberated Toads and lost his arm to the corrupted mage staff. Feyward Dan woke in a yellow bed at Prismari's school, survived goblin betrayal, escaped through a window, was dragged through the Mazebound, slept through multiple dimensional emergencies, and opened his third sensory eye during the Imp Ambush.</p><p><strong>Ledger:</strong> 1,960 XP, 11 entries, Level 3, Power 5 Mortal. The actor is a playable translation of the lore; the XP ledger remains authoritative.</p><p><strong>Confirmed carried inventory:</strong> one sword of uncertain provenance, chain mail, Shield +1, Holy Symbol of Ravenkind, and ten gold pieces. The sword is the blade Dan used when he charged Professor Prismari after the explosion on Estragon's Island. The school journal, Prismari, Mazebound, and other events remain in the biography and source records rather than being invented as carried loot.</p><p><strong>Inventory rule:</strong> this actor deliberately contains only gear and abilities Dan actually has or was explicitly assigned. Memories, event records, and things he merely saw are not added to the inventory as fake loot.</p><h3>How to play Feyward Dan</h3><p>Use charm, improvisation, and sensory magic before force. Dan is not a polished wizard. He is a displaced player character who survives by testing doors, apologizing, fleeing when necessary, and returning when the party needs his eye.</p><h3>One-armed paladin rules</h3><p>Dan uses a longsword in his remaining hand and a shield in the other available hand. He cannot dual-wield or make two-handed weapon attacks. Divine Sense, Divine Smite, and the Aura of Life campaign item are included as documents. Aura of Life is recorded as a story/boon item and should be level-gated by the GM if standard 5e progression is being enforced.</p>",
-      "public": "Feyward Dan is a parallel Toad with a colorful Feywild aura, an unreliable itinerary, and one extra eye that sees what invisible enemies hoped would remain unseen."
-    }
+    "favorites": []
   },
   "prototypeToken": {
-    "name": "Captain Toadette",
+    "name": "Toadette",
     "displayName": 30,
     "actorLink": true,
     "width": 1,
@@ -483,12 +478,12 @@
     "rotation": 0,
     "alpha": 1,
     "disposition": 1,
-    "displayBars": 20,
+    "displayBars": 40,
     "bar1": {
       "attribute": "attributes.hp"
     },
     "bar2": {
-      "attribute": null
+      "attribute": ""
     },
     "light": {
       "negative": false,
@@ -670,6 +665,42 @@
       },
       "img": "icons/magic/nature/leaf-glow-maple-orange-purple.webp",
       "_id": "5194c5ca9d78b105"
+    },
+    {
+      "_id": "toadettesubcls01",
+      "name": "Circle of the Land",
+      "type": "subclass",
+      "img": "icons/magic/nature/root-vine-entangled-hands.webp",
+      "system": {
+        "description": {
+          "value": "<p>Circle of the Land — Forest. Always-prepared: barkskin, spider climb, spike growth, pass without trace. Natural Recovery after a short rest.</p>",
+          "chat": ""
+        },
+        "identifier": "land",
+        "classIdentifier": "druid",
+        "advancement": [],
+        "spellcasting": {
+          "progression": "none",
+          "ability": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign — Captain Toadette",
+          "rules": "2014",
+          "revision": 1
+        }
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.360"
+      }
     },
     {
       "_id": "b1b1e29a6ff45ba3",
@@ -6058,7 +6089,15 @@
         "No-Quarter Standing Order",
         "Bramblehaven Siegecraft"
       ],
-      "itemCount": 31
+      "itemCount": 32,
+      "foundryActorType": "character",
+      "sheet": "dnd5e.CharacterActorSheet"
+    },
+    "dnd5e": {},
+    "exportSource": {
+      "system": "dnd5e",
+      "coreVersion": "14.360",
+      "systemVersion": "5.3.3"
     }
   },
   "_stats": {
