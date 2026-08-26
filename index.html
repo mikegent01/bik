@@ -6,8 +6,8 @@
 <title>Waluipedia — The Objective Encyclopedia (Written by Waluigi)</title>
 <link rel="icon" href="./favicon.ico">
 <!-- External CSS: cached by browser, loaded once, scales as site grows -->
-  <link rel="preload" href="Reputation-Matrix2/app/styles/waluipedia.css?v=home-feed3" as="style">
-  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/waluipedia.css?v=home-feed3">
+  <link rel="preload" href="Reputation-Matrix2/app/styles/waluipedia.css?v=xpbar1" as="style">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/waluipedia.css?v=xpbar1">
   <script>
   /* Apply theme BEFORE paint so toggle is never a no-op / flash. */
   (function () {
@@ -5271,38 +5271,106 @@ function battleParticipants(ids){
 }
 
 
+const XP_THRESH=[0,0,300,900,2700,6500,14000,23000,34000,48000,64000,85000,100000,120000,140000,165000,195000,225000,265000,305000,355000];
+const XP_CAT_COLORS={combat:'#e5484d',exploration:'#2fae8a',social:'#8a4bff',survival:'#c9a227',discovery:'#5aa9e6',chaos:'#e0724a',stealth:'#6b5e86',faith:'#e0b400',magic:'#c8a6ff',technique:'#4ade80',loyalty:'#ffe27a',sabotage:'#ef4444'};
+function xpLevelOf(total){let lv=1;for(let i=1;i<XP_THRESH.length;i++){if(total>=XP_THRESH[i]) lv=i;}return lv;}
+function xpFloorNext(total){const lv=xpLevelOf(total);return {level:lv,floor:XP_THRESH[lv]||0,next:XP_THRESH[lv+1]||XP_THRESH[lv]||0};}
+function xpPersonKey(a){return String(a.articleId||a.xpKey||a.name||'?');}
 function xpLookup(a){
   if(!a||typeof XP_SUMMARY==='undefined') return null;
   if(a.articleId && XP_SUMMARY[a.articleId]) return XP_SUMMARY[a.articleId];
+  if(a.xpKey && XP_SUMMARY[a.xpKey]) return XP_SUMMARY[a.xpKey];
   const vals=Object.values(XP_SUMMARY);
   return vals.find(x=>x && (x.xpKey===a.xpKey || x.name===a.name)) || null;
+}
+function xpEventChronoIndex(eventId){
+  const ev=DATA?.events||[];
+  const i=ev.findIndex(e=>e&&e.id===eventId);
+  return i<0?ev.length:i;
+}
+function xpLaterGain(person, eventId){
+  const idx=xpEventChronoIndex(eventId);
+  const keys=new Set([person.articleId,person.xpKey,person.name].filter(Boolean).map(String));
+  let sum=0;
+  const ids=new Set([...(typeof XP_EVENT_AWARDS!=='undefined'?Object.keys(XP_EVENT_AWARDS):[]), ...((DATA?.events||[]).filter(e=>Array.isArray(e?.xpAwards)).map(e=>e.id))]);
+  ids.forEach(id=>{
+    if(xpEventChronoIndex(id)<=idx) return;
+    xpAwardsForEvent(id).forEach(a=>{
+      if(keys.has(String(a.articleId||''))||keys.has(String(a.xpKey||''))||keys.has(String(a.name||''))) sum+=Number(a.xp||0);
+    });
+  });
+  return sum;
+}
+function xpSnapshot(group, eventId){
+  const rec=xpLookup(group);
+  const career=rec?Number(rec.currentXP||0):0;
+  const gained=Number(group.total||0);
+  const after=Math.max(0, career-xpLaterGain(group,eventId));
+  const before=Math.max(0, after-gained);
+  const b=xpFloorNext(before);
+  const a=xpFloorNext(after);
+  return {before,after,gained,career,rec,beforeLv:b.level,afterLv:a.level,floor:a.floor,next:a.next,crossed:a.level>b.level};
 }
 function xpAwardsGrouped(eventId){
   const groups=new Map();
   xpAwardsForEvent(eventId).forEach(a=>{
     const key=a.articleId||a.xpKey||a.name||'?';
-    const g=groups.get(key)||{articleId:a.articleId,xpKey:a.xpKey,name:a.name||prettyId(key),total:0,lines:[]};
+    const g=groups.get(key)||{eventId,articleId:a.articleId,xpKey:a.xpKey,name:a.name||prettyId(key),total:0,lines:[]};
     g.total+=Number(a.xp||0);
     g.lines.push(a);
     groups.set(key,g);
   });
-  return [...groups.values()];
+  return [...groups.values()].sort((x,y)=>y.total-x.total);
 }
-function xpAwardRowHtml(group){
+function xpAwardRowHtml(group, ctx){
   const lines=group.lines||[group];
-  const gained=Number(group.total!=null?group.total:group.xp||0);
+  const snap=xpSnapshot(group, group.eventId||ctx?.eventId);
+  const gained=snap.gained;
+  const party=Math.max(1, Number(ctx?.partyTotal||gained));
+  const share=Math.round((gained/party)*100);
+  const rank=ctx?.rank||0;
+  const span=Math.max(1, snap.next-snap.floor);
+  const floorPct=Math.max(0, Math.min(100, ((Math.min(snap.before,snap.next)-snap.floor)/span)*100));
+  const afterPct=Math.max(0, Math.min(100, ((Math.min(snap.after,snap.next)-snap.floor)/span)*100));
+  const mixTotal=lines.reduce((s,a)=>s+Number(a.xp||0),0)||1;
+  const mix=lines.map(a=>{
+    const w=Math.max(4, Math.round((Number(a.xp||0)/mixTotal)*100));
+    const c=XP_CAT_COLORS[a.cat]||'var(--accent)';
+    return `<span title="${esc(CATEGORIES_LABELS[a.cat]||a.cat||'')} +${Number(a.xp||0)}" style="width:${w}%;background:${c}"></span>`;
+  }).join('');
   const cats=lines.map(a=>{
     const label=CATEGORIES_LABELS[a.cat]||a.cat||'';
     return `<span class="award-catpill">${esc(label)} +${Number(a.xp||0).toLocaleString()}</span>`;
   }).join('');
   const reasons=lines.map(a=>a.desc||a.title||'').filter(Boolean);
-  const why=reasons.length?`<div class="award-why">${reasons.map(r=>esc(String(r).slice(0,140))).join(' · ')}</div>`:'';
+  const why=reasons.length?`<div class="award-why">${reasons.map(r=>esc(String(r).slice(0,110))).join(' · ')}</div>`:'';
+  const initials=String(group.name||'?').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'?';
+  const remain=Math.max(0, snap.next-snap.after);
+  const stamp=snap.crossed?`<span class="xp-stamp">Level ${snap.beforeLv} → ${snap.afterLv}</span>`:`<span class="xp-need"><b>${remain.toLocaleString()}</b> XP to L${snap.afterLv+1}</span>`;
+  const rankLbl=rank===1?'Night haul':rank===2?'Second':rank===3?'Third':'';
+  const rankHtml=rankLbl?`<span class="xp-rank r${rank}">${rankLbl}</span>`:'';
   const open=group.articleId&&typeof INDEX!=='undefined'&&INDEX[group.articleId]
     ?`onclick="openId('${esc(group.articleId)}')"`
     :`onclick="Router.go('#/xp')"`;
-  return `<div class="award-row award-row-person" ${open}>
-    <span><span class="who">${esc(group.name)}</span><div class="award-cats">${cats}</div>${why}</span>
-    <span class="amt">+${gained.toLocaleString()} XP</span>
+  const lvLine=`L${snap.beforeLv}${snap.crossed?` → L${snap.afterLv}`:''} · ${snap.before.toLocaleString()} → ${snap.after.toLocaleString()} XP`;
+  return `<div class="xp-card ${rank===1?'is-mvp':''} ${snap.crossed?'is-levelup':''}" ${open}>
+    ${rankHtml}
+    <div class="xp-card-top">
+      <div class="xp-card-ava">${esc(initials)}</div>
+      <div class="xp-card-id"><div class="xp-card-name">${esc(group.name)}</div><div class="xp-card-lv">${esc(lvLine)}</div></div>
+      <div class="xp-card-gain">+${gained.toLocaleString()}</div>
+    </div>
+    <div class="xp-rail" title="Session snapshot on this filing">
+      <div class="xp-rail-floor" style="width:${floorPct}%"></div>
+      <div class="xp-rail-gain" style="left:${floorPct}%;width:${Math.max(0,afterPct-floorPct)}%"></div>
+    </div>
+    <div class="xp-rail-meta"><span>L${snap.afterLv} floor <b>${snap.floor.toLocaleString()}</b></span><span>this night <b>+${gained.toLocaleString()}</b></span><span>next <b>${snap.next.toLocaleString()}</b></span></div>
+    <div class="xp-mix">${mix}</div>
+    <div class="xp-card-foot">
+      <div class="xp-share" style="--share:${share}%"><div class="xp-share-ring"></div><div class="xp-share-lbl"><b>${share}%</b> of the night</div></div>
+      ${stamp}
+    </div>
+    <div class="award-cats">${cats}</div>${why}
   </div>`;
 }
 
@@ -5336,7 +5404,10 @@ function eventPeopleAndXpPanel(item){
     </div>`;
   }).join('');
   const people=participantCards?`<div class="event-participants"><div class="event-participant-grid">${participantCards}</div></div>`:'';
-  const awards=xpAwardsGrouped(item.id).map(xpAwardRowHtml).join('');
+  const grouped=xpAwardsGrouped(item.id);
+  const partyTotal=grouped.reduce((s,g)=>s+Number(g.total||0),0);
+  const awards=grouped.map((g,i)=>xpAwardRowHtml(g,{eventId:item.id,partyTotal,rank:i+1})).join('');
+  const awardsBlock=awards?`<div class="xp-session"><div class="xp-session-head"><h3>Session XP</h3><span class="xp-session-kicker">snapshot · party +${partyTotal.toLocaleString()} · ${grouped.length} ${grouped.length===1?'person':'people'}</span></div><div class="award-list">${awards}</div></div>`:'';
   const effectsPanel = renderReputationImpactPanel(item);
   // The wire goes last, under the reputation ledger: reaction after record.
   const wirePanel = typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(item.id, 'events') : '';
@@ -5344,8 +5415,8 @@ function eventPeopleAndXpPanel(item){
   if(!people && !awards && !tail) return '';
   if(!awards && !people) return tail;
   if(!awards) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>👥 Participants</h3>${people}</div></div></div>${tail}`;
-  if(!people) return `<div class="event-context-panel"><div class="event-context-grid single"><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${tail}`;
-  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 Participants</h3>${people}</div><div><h3>✦ XP Rewarded</h3><div class="award-list">${awards}</div></div></div></div>${tail}`;
+  if(!people) return `<div class="event-context-panel"><div class="event-context-grid single">${awardsBlock}</div></div>${tail}`;
+  return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 Participants</h3>${people}</div>${awardsBlock}</div></div>${tail}`;
 }
 const CATEGORIES_LABELS={combat:'Combat',exploration:'Exploration',social:'Social',survival:'Survival',discovery:'Discovery',chaos:'Chaos',stealth:'Stealth',faith:'Faith',magic:'Arcane',technique:'Technique',loyalty:'Loyalty',sabotage:'Sabotage'};
 function xpAwardsForEvent(eventId){const base=[...(XP_EVENT_AWARDS[eventId]||[])];const rec=(DATA?.events||[]).find(e=>e&&e.id===eventId) || (DATA?.battles||[]).find(b=>b&&b.id===eventId);if(Array.isArray(rec?.xpAwards))base.push(...rec.xpAwards);const seen=new Set();return base.filter(a=>{const key=[a.xpKey,a.articleId,a.cat,a.xp,a.title].join('|');if(seen.has(key))return false;seen.add(key);return true;});}
