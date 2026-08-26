@@ -908,7 +908,9 @@ not only bonuses.
 ## 3.5a Recipe: Captain Toadette as a Land Druid (Foundry only)
 
 `fvtt-Actor-captain-toadette-level-3-land-druid-player.json` is a **Foundry
-actor**, not a new Waluipedia page. Lore stays on the existing
+player character** (`type: "character"`, named with `(Player Character)`).
+It is not an NPC stat block and not a new Waluipedia page. Import it as an
+**Actor → Player Character**, then assign ownership to the player. Lore stays on the existing
 `characters.json` id `captain_toadette`. Do not add a second character record.
 
 How to make one (this is the same recipe as §3.1–3.2):
