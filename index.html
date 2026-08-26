@@ -4852,7 +4852,7 @@ function copyCurrentLink(){
 }
 
 function xpStats(articleId){ return (XP_SUMMARY&&XP_SUMMARY[articleId])||null; }
-function xpUrl(articleId){ const x=xpStats(articleId); return x ? `xp.html#/player/${encodeURIComponent(x.xpKey)}` : 'xp.html'; }
+function xpUrl(articleId){ return '#/xp'; }
 function xpPill(articleId){ const x=xpStats(articleId); return x ? `<span class="pill xp-pill" title="${x.remainingXP.toLocaleString()} XP to Level ${x.level+1}">✦ XP Level ${x.level}</span>` : ''; }
 function xpMiniPanel(articleId){
   const x=xpStats(articleId); if(!x) return '';
@@ -5277,32 +5277,31 @@ function xpLookup(a){
   const vals=Object.values(XP_SUMMARY);
   return vals.find(x=>x && (x.xpKey===a.xpKey || x.name===a.name)) || null;
 }
-function xpAwardRowHtml(a){
-  const x=xpLookup(a);
-  const gained=Number(a.xp||0);
-  const cat=esc((CATEGORIES_LABELS[a.cat]||a.cat||''));
-  const why=a.desc||a.title||'';
-  let progress='';
-  let levelNote='';
-  if(x){
-    const cur=Number(x.currentXP||0);
-    const next=Number(x.nextXP||0);
-    const rem=Number(x.remainingXP!=null?x.remainingXP:Math.max(0,next-cur));
-    const lvl=Number(x.level||0);
-    const pct=next>0?Math.max(2,Math.min(100,Math.round(cur/next*100))):0;
-    const wouldLevel = rem>0 && gained>=rem;
-    const didLevel = rem<=0 || (next>0 && cur>=next);
-    if(didLevel){
-      levelNote=`<div class="award-levelup">LEVEL UP — now Level ${esc(String(lvl))}. The ledger already counts this climb.</div>`;
-    } else if(wouldLevel){
-      levelNote=`<div class="award-levelup">LEVEL UP — this +${gained.toLocaleString()} XP covers the remaining ${rem.toLocaleString()} to Level ${lvl+1}.</div>`;
-    } else {
-      levelNote=`<div class="award-prog-label">Level ${lvl} → ${lvl+1} · ${cur.toLocaleString()} / ${next.toLocaleString()} · ${rem.toLocaleString()} XP still needed</div>`;
-    }
-    progress=`<div class="award-bar" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></div>`;
-  }
-  return `<div class="award-row" onclick="location.href='xp.html#/player/${encodeURIComponent(a.xpKey||a.articleId||'')}'">
-    <span><span class="who">${esc(a.name)}</span><br><span class="cat">${cat}</span>${why?`<div class="award-why">${esc(String(why).slice(0,160))}</div>`:''}${levelNote}${progress}</span>
+function xpAwardsGrouped(eventId){
+  const groups=new Map();
+  xpAwardsForEvent(eventId).forEach(a=>{
+    const key=a.articleId||a.xpKey||a.name||'?';
+    const g=groups.get(key)||{articleId:a.articleId,xpKey:a.xpKey,name:a.name||prettyId(key),total:0,lines:[]};
+    g.total+=Number(a.xp||0);
+    g.lines.push(a);
+    groups.set(key,g);
+  });
+  return [...groups.values()];
+}
+function xpAwardRowHtml(group){
+  const lines=group.lines||[group];
+  const gained=Number(group.total!=null?group.total:group.xp||0);
+  const cats=lines.map(a=>{
+    const label=CATEGORIES_LABELS[a.cat]||a.cat||'';
+    return `<span class="award-catpill">${esc(label)} +${Number(a.xp||0).toLocaleString()}</span>`;
+  }).join('');
+  const reasons=lines.map(a=>a.desc||a.title||'').filter(Boolean);
+  const why=reasons.length?`<div class="award-why">${reasons.map(r=>esc(String(r).slice(0,140))).join(' · ')}</div>`:'';
+  const open=group.articleId&&typeof INDEX!=='undefined'&&INDEX[group.articleId]
+    ?`onclick="openId('${esc(group.articleId)}')"`
+    :`onclick="Router.go('#/xp')"`;
+  return `<div class="award-row award-row-person" ${open}>
+    <span><span class="who">${esc(group.name)}</span><div class="award-cats">${cats}</div>${why}</span>
     <span class="amt">+${gained.toLocaleString()} XP</span>
   </div>`;
 }
@@ -5337,7 +5336,7 @@ function eventPeopleAndXpPanel(item){
     </div>`;
   }).join('');
   const people=participantCards?`<div class="event-participants"><div class="event-participant-grid">${participantCards}</div></div>`:'';
-  const awards=xpAwardsForEvent(item.id).map(xpAwardRowHtml).join('');
+  const awards=xpAwardsGrouped(item.id).map(xpAwardRowHtml).join('');
   const effectsPanel = renderReputationImpactPanel(item);
   // The wire goes last, under the reputation ledger: reaction after record.
   const wirePanel = typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(item.id, 'events') : '';
@@ -5520,7 +5519,7 @@ function linkGraphPanel(articleId){
 }
 function crossPagePanel(articleId,typeKey,item){
   const links=[];
-  links.push(`<a href="xp.html${xpStats(articleId)?`#/player/${encodeURIComponent(xpStats(articleId).xpKey)}`:''}">✦ XP Hotline</a>`);
+  links.push(`<a href="#/xp">✦ XP Leaderboard</a>`);
   links.push(`<a href="#/reputation${typeKey==='characters'?`/character/${encodeURIComponent(articleId)}`:typeKey==='factions'?`/faction/${encodeURIComponent(articleId)}`:''}">📈 Reputation Matrix</a>`);
   links.push(`<a href="currency.html">💱 Currency Exchange & Shop Connector</a>`);
   links.push(`<a href="Reputation-Matrix2/app/pages/shop/shop.html">🛒 Wario's Warehouse Shop</a>`);
@@ -8377,7 +8376,7 @@ function ltToadCard(t){
   const affTone=t.affiliation==='outsider'?'#a06bd8':t.affiliation==='defector'?'#e0574a':'#4a9c6d';
   const affRow=t.affiliationLabel?`<div class="dock-sub" style="margin-top:7px"><span class="pill" style="border-color:${affTone};color:${affTone}">${esc(t.affiliationLabel)}</span></div>`:'';
   const affNote=t.affiliationNote?`<div class="dock-note" style="border-left-color:${affTone};background:rgba(160,107,216,.08)">${esc(t.affiliationNote)}</div>`:'';
-  const xpLink=t.articleId&&XP_SUMMARY[t.articleId]?`<span class="chip" onclick="location.href='xp.html#/player/${encodeURIComponent(XP_SUMMARY[t.articleId].xpKey||t.articleId)}'">✦ XP ledger</span>`:'';
+  const xpLink=t.articleId&&XP_SUMMARY[t.articleId]?`<span class="chip" onclick="Router.go('#/xp')">✦ XP ledger</span>`:'';
   const link=t.articleId&&INDEX[t.articleId]?`<span class="chip active" onclick="openId('${esc(t.articleId)}')">📄 Open ${esc(t.name)}'s article →</span>`:'';
   const onDocket=(docketData()?.targets||[]).some(d=>d.articleId===t.articleId||d.name===t.name);
   return `<div class="dock-card" style="--dk:${tone}">
@@ -15000,9 +14999,9 @@ function view_xpLeaderboard(){
     <div class="card animate-fade-in" style="border-left:4px solid var(--accent2);background:linear-gradient(135deg,rgba(224,180,0,.14),rgba(138,75,255,.08)),var(--panel)">
       <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › XP Leaderboard</div>
       <h1 style="margin:6px 0 4px">✦ XP Leaderboard & Awards Ledger</h1>
-      <p class="text-muted" style="font-size:13.5px">${agg.totalRows} award rows across ${Object.keys(agg.byEvent).length} events · ${totalXpNum} total XP distributed across ${characters.length} characters. Click a row to open the character or event; open <a class="entity-link" href="xp.html">xp.html</a> for the full progression tool.</p>
+      <p class="text-muted" style="font-size:13.5px">${agg.totalRows} award rows across ${Object.keys(agg.byEvent).length} events · ${totalXpNum} total XP distributed across ${characters.length} characters. Click a row to open the character or event; This page is the live ledger. Award boxes on events are the session snapshot only.</p>
       <div class="chips mt-10">
-        <a class="chip" href="xp.html">🎮 Full XP Hotline →</a>
+        <a class="chip" href="Reputation-Matrix2/app/pages/standalone/xp.html">🎮 Per-player XP tool →</a>
         <a class="chip" href="#/reputation">📈 Reputation Matrix</a>
       </div>
     </div>
