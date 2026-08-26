@@ -1,0 +1,2212 @@
+{
+  "folder": null,
+  "name": "Embercap — Level 2 Fighter (Player Character)",
+  "type": "character",
+  "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 12,
+      "ep": 0,
+      "sp": 25,
+      "cp": 0
+    },
+    "abilities": {
+      "str": {
+        "value": 16,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 12,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 15,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 13,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 14,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "acr": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "value": 1,
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "67qBAllUgoyt9pnz": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "value": 1,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "value": 1,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "value": 1,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "JXS0f4ka71qKB2h3": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "HosVywGhVnGaF5lI": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "7CR1Hpx2Po8spit0": {
+        "value": 0,
+        "ability": "con",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ZZNb2z3t0wdcMgNJ": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "1",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "6fCmMl31VtsqwENr": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "passive": "",
+          "check": "-2"
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "15jTCrWVxnN40NP8": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "UreduGlabi2z8Vvm": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "+2",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "hQUumf2MfKPzcpDd": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "2",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      }
+    },
+    "tools": {
+      "smith": {
+        "value": 1,
+        "ability": "int",
+        "bonuses": {
+          "check": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      }
+    },
+    "spells": {
+      "spell0": {
+        "value": 0,
+        "override": null
+      },
+      "spell1": {
+        "value": 0,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      },
+      "pact": {
+        "value": 0,
+        "override": null
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 17,
+        "calc": "flat",
+        "formula": ""
+      },
+      "hp": {
+        "value": 20,
+        "max": 20,
+        "temp": 0,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "init": {
+        "bonus": "0",
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "movement": {
+        "walk": 25,
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "special": "",
+        "ranges": {
+          "darkvision": 120,
+          "blindsight": 120,
+          "tremorsense": 0,
+          "truesight": 0
+        }
+      },
+      "spellcasting": "",
+      "death": {
+        "success": 0,
+        "failure": 0,
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "exhaustion": 0,
+      "inspiration": false,
+      "attunement": {
+        "max": 3
+      },
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {}
+    },
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "details": {
+      "alignment": "",
+      "biography": {
+        "value": "<p><strong>PLAYER CHARACTER.</strong> Foundry type <em>character</em>. Not an NPC.</p>\n<p><b>Embercap</b> — The Crimson Plume. Embercap is the Field Commander of the Peach Loyalists, the toad who leads assaults from the front while Captain Toadette plans them from behind. At Bramblehaven, his crimson plume cut through battlefield smoke like a wound, rallying troops as they scaled walls under fire. Waluigi respects field commanders who actually COMMAND from the field instead of sending others to die while they watch from safety. Embercap earns his title the hard way.</p>\n<p><b>Status:</b> Active — Field Commander of Peach Loyalists<br><b>Affiliation:</b> Peach Loyalists</p>\n<p><b>Table build:</b> Level 2 Fighter. Battle Master flavor without stealing Toadette's plan. Hammer in hand. First over the wall.</p>\n<p><b>Ledger:</b> 470 XP · Level 2 · 430 to Level 3 (900).</p>\n<h2>Waluigi's Dossier</h2>\n<p>Waluigi has written extensively about the Peach Loyalists and their methods, which Waluigi finds morally COMPLICATED. Captain Toadette's no-quarter policy disturbs Waluigi. The execution of surrendering troops violates principles Waluigi considers fundamental.</p><p></p><p>But Embercap? Embercap is harder to condemn, because Embercap does the DYING alongside his troops.</p><p></p><p>## Combat Leadership</p><p></p><p>Embercap earned his position through demonstrated competence under fire. He doesn't command from a tent, reviewing maps and issuing orders through messengers. He commands from the front, hammer in hand, crimson plume marking his position so his troops can follow.</p><p></p><p>At the Siege of Bramblehaven, Embercap was among the first over the walls. Not because he's reckless—reckless commanders die young and take their troops with them—but because he understands that soldiers fight harder when they see their leader fighting alongside them. The crimson plume was a target, yes. It was also a BANNER. A promise that wherever the worst fighting happened, Embercap would be there.</p><p></p><p>Waluigi has competed in team sports his entire life. Waluigi KNOWS the difference between captains who inspire and captains who delegate. Embercap inspires. His troops follow him not because they're ordered to, but because they've seen him take the same risks he asks of them.</p><p></p><p>## Relationship with Toadette</p><p></p><p>Embercap serves under Captain Toadette, which creates an interesting dynamic. Toadette plans. Toadette strategizes. Toadette makes the cold decisions that warfare requires—including the no-quarter orders that Waluigi finds troubling.</p><p></p><p>Embercap EXECUTES those plans. He carries out Toadette's strategies with professional precision. But Waluigi wonders what Embercap thinks about some of those orders. The execution of surrendering troops at Bramblehaven happened under Toadette's standing orders, but Embercap was there. Embercap saw it. Embercap had to look at those prisoners and know what was coming.</p><p></p><p>Does he agree with the policy? Does he follow it because he believes it's necessary? Does he follow it because questioning Toadette isn't an option? Waluigi doesn't know. Waluigi suspects Embercap himself might not know, because there's a difference between knowing what you believe and being willing to act on it when the cost is high.</p><p></p><p>## Assessment</p><p></p><p>Embercap is a good field commander serving a cause with questionable methods. He leads well. He fights bravely. He takes care of his troops in ways that inspire genuine loyalty.</p><p></p><p>But he's part of a machine that does terrible things, and being a good part of a terrible machine is its own kind of moral failure. Waluigi has been in organizations where the individual members were decent but the collective actions were not. You tell yourself you're just doing your job. You tell yourself you're not responsible for the big decisions. You tell yourself that someone else made the call and you're just following through.</p><p></p><p>Maybe that's true. Maybe it's not. Waluigi is not qualified to judge.</p><p></p><p>What Waluigi WILL say is that Embercap fights well and leads well, and if the Loyalists ever reform their methods, he's the kind of commander who could build something worth following.</p><p></p><p>WAH.</p>",
+        "public": ""
+      },
+      "race": null,
+      "background": null,
+      "originalClass": "fighter",
+      "xp": {
+        "value": 470
+      },
+      "appearance": "",
+      "trait": "Leads from the front.",
+      "ideal": "Soldiers follow a banner that bleeds with them.",
+      "bond": "The troops under the plume. Toadette's plan.",
+      "flaw": "He will carry out an order he cannot defend.",
+      "eyes": "",
+      "height": "",
+      "faith": "",
+      "hair": "",
+      "weight": "",
+      "gender": "male",
+      "skin": "",
+      "age": ""
+    },
+    "traits": {
+      "size": "sm",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [
+          "poison"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "armorProf": {
+        "value": [
+          "hvy",
+          "lgt",
+          "med",
+          "shl"
+        ],
+        "custom": ""
+      },
+      "weaponProf": {
+        "value": [
+          "battleaxe",
+          "handaxe",
+          "lighthammer",
+          "mar",
+          "sim",
+          "warhammer"
+        ],
+        "custom": "Battleaxe, Handaxe, Light Hammer, Warhammer",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      }
+    },
+    "resources": {
+      "primary": {
+        "value": 1,
+        "max": 1,
+        "sr": true,
+        "lr": false,
+        "label": "Second Wind"
+      },
+      "secondary": {
+        "value": 1,
+        "max": 1,
+        "sr": true,
+        "lr": false,
+        "label": "Action Surge"
+      },
+      "tertiary": {
+        "value": 0,
+        "max": null,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      }
+    },
+    "favorites": []
+  },
+  "prototypeToken": {
+    "name": "Embercap",
+    "displayName": 30,
+    "actorLink": true,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/skills/melee/strike-hammer-destructive-orange.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": -1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 1,
+    "displayBars": 40,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 1,
+      "angle": 360,
+      "bright": 20,
+      "color": null,
+      "coloration": 1,
+      "dim": 40,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": true,
+      "range": 5,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": -1,
+      "contrast": 0.3
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 0,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "wall-height": {
+        "tokenHeight": 0
+      },
+      "patrol": {
+        "enablePatrol": false,
+        "enableSpotting": false,
+        "makePatroller": false,
+        "multiPath": false,
+        "patrolPathName": "",
+        "pathNodeIndex": "0"
+      },
+      "monks-enhanced-journal": {
+        "chatbubble": ""
+      },
+      "core": {},
+      "dnd5e": {},
+      "about-face": {
+        "indicatorDisabled": false,
+        "flipOrRotate": "global",
+        "facingDirection": "global",
+        "rotationOffset": 0,
+        "direction": 90,
+        "prevPos": {
+          "x": 6000,
+          "y": 6061.400000886805
+        }
+      },
+      "torch": {
+        "lightSourceState": "on"
+      },
+      "monks-tokenbar": {
+        "include": "default"
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "depth": 1
+  },
+  "items": [
+    {
+      "name": "Fighter",
+      "folder": null,
+      "flags": {},
+      "type": "class",
+      "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
+      "sort": 579699,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Hit die d10. Fighting Style, Second Wind, Action Surge. Level 2.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "fighter",
+        "levels": 2,
+        "hd": {
+          "denomination": "d10",
+          "spent": 0,
+          "additional": ""
+        },
+        "spellcasting": {
+          "progression": "none",
+          "ability": ""
+        },
+        "primaryAbility": {
+          "value": [
+            "str"
+          ],
+          "all": false
+        },
+        "advancement": [],
+        "properties": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.MqAtBnvKDP6JsdQZ",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "HFqSYqdSy2jCeE4T"
+    },
+    {
+      "name": "Battle Master",
+      "folder": null,
+      "flags": {},
+      "type": "subclass",
+      "img": "icons/skills/melee/spear-tips-triple-orange.webp",
+      "sort": 562527,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Not yet unlocked at level 2. Left on the sheet as the intended path at 3. Do not spend superiority dice until the ledger allows.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "battle-master",
+        "classIdentifier": "fighter",
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.wmN4TdOgBD3STakp",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Mlf761RX4I6BhOYh"
+    },
+    {
+      "name": "Toad",
+      "folder": null,
+      "flags": {},
+      "type": "race",
+      "img": "icons/creatures/invertebrates/spiderling-burst-purple.webp",
+      "sort": 106087,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Toad. Small. Walk 25.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "toad",
+        "movement": {
+          "walk": 25,
+          "units": "ft"
+        },
+        "advancement": [],
+        "type": {
+          "value": "humanoid",
+          "subtype": "toad"
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.qdeR1lgFyMIM1cDM",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "hTM2mNzcQVTCUGjv"
+    },
+    {
+      "name": "Field Commander",
+      "folder": null,
+      "flags": {},
+      "type": "background",
+      "img": "icons/environment/settlement/watchtower-fire.webp",
+      "sort": 562581,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Leads from the front. Crimson plume is banner and target.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "field-commander",
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.2a8NrTaHhZteJGeV",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "5eB8DWgainUIimRS"
+    },
+    {
+      "name": "Fighting Style — Great Weapon Fighting",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/weapons/hammers/hammer-double-engraved-gold.webp",
+      "sort": 671326,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Reroll 1s and 2s on the hammer's damage dice.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "fs-gwf",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.FRpylKO5Wwcb1d8t",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "jHOSxnbzyIeCrOi8"
+    },
+    {
+      "name": "Second Wind",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/magic/life/heart-cross-strong-green.webp",
+      "sort": 230135,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Bonus action, 1d10+2 HP, once per short rest.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "second-wind",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.tYg1GBKY4wSCgtD5",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "sgcpYWRFa3on9itn"
+    },
+    {
+      "name": "Action Surge",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/skills/movement/figure-running-gray.webp",
+      "sort": 311396,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>One extra action, once per short rest. How he is first over the wall.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "action-surge",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.UNNKDjnrGeUeLqqh",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "RNE8Hmdq6lzNItKL"
+    },
+    {
+      "name": "Crimson Plume",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/commodities/materials/feather-colored-red.webp",
+      "sort": 340879,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Allies who can see the plume have advantage on saves against being frightened while you are not down. You have disadvantage on Stealth. Campaign feature.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "crimson-plume",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.fRnpnpj5Vaq7UFZD",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "yvF0YAR75hJQmCSG"
+    },
+    {
+      "name": "First Over the Wall",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/environment/settlement/stone-stairs.webp",
+      "sort": 201236,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Advantage on the first Athletics check to climb or breach in a fight you announced you would lead.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "first-over-the-wall",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.giHVWpEGl1rBomRg",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "YxgU3rIXzSIIORDl"
+    },
+    {
+      "name": "Serves Toadette",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/magic/control/silhouette-hold-change-blue.webp",
+      "sort": 913568,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>He executes her plans. The courtyard is on his conscience whether he admits it. Roleplay, not a buff.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "serves-toadette",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.iERVksioshDvGrFk",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "J5U0PCWltJT6yOBS"
+    },
+    {
+      "name": "Field Warhammer",
+      "folder": null,
+      "flags": {},
+      "type": "weapon",
+      "img": "icons/weapons/hammers/hammer-war-spiked.webp",
+      "sort": 478903,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>1d8 bludgeoning, versatile 1d10. He does the dying alongside his troops.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 4,
+          "units": "lb"
+        },
+        "price": {
+          "value": 15,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": true,
+        "proficient": null,
+        "type": {
+          "value": "martialM",
+          "baseItem": ""
+        },
+        "properties": [
+          "ver"
+        ],
+        "range": {
+          "value": null,
+          "long": null,
+          "reach": 5,
+          "units": "ft"
+        },
+        "damage": {
+          "base": {
+            "number": 1,
+            "denomination": 8,
+            "types": [
+              "bludgeoning"
+            ],
+            "bonus": "",
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "bonus": "",
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {},
+        "identifier": "b8zn0pvtafksal17"
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.9amzyoKmpBHciWWS",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "zmPFXeMHsHyt5uCg"
+    },
+    {
+      "name": "Handaxe",
+      "folder": null,
+      "flags": {},
+      "type": "weapon",
+      "img": "icons/weapons/axes/axe-battle-orange.webp",
+      "sort": 896760,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Backup. 1d6 slashing, light, thrown 20/60.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 4,
+          "units": "lb"
+        },
+        "price": {
+          "value": 15,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": true,
+        "proficient": null,
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "properties": [
+          "lgt",
+          "thr"
+        ],
+        "range": {
+          "value": null,
+          "long": null,
+          "reach": 5,
+          "units": "ft"
+        },
+        "damage": {
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "types": [
+              "slashing"
+            ],
+            "bonus": "",
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "bonus": "",
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {},
+        "identifier": "mayxo8twy8xq7ay6"
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.scFzG0Y32F0DINen",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "FKu8uaqKCyDTYLEY"
+    },
+    {
+      "name": "Chain Shirt",
+      "folder": null,
+      "flags": {},
+      "type": "equipment",
+      "img": "icons/equipment/chest/breastplate-scale-grey.webp",
+      "sort": 988732,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>AC 13 + Dex (max 2).</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 12,
+          "units": "lb"
+        },
+        "price": {
+          "value": 10,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": true,
+        "proficient": true,
+        "type": {
+          "value": "medium",
+          "baseItem": ""
+        },
+        "armor": {
+          "value": 13,
+          "dex": 2,
+          "magicalBonus": null
+        },
+        "properties": [],
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.KV1VDJVlnkI1Fh4B",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "emETe5LvuxXvgQZe"
+    },
+    {
+      "name": "Wooden Shield",
+      "folder": null,
+      "flags": {},
+      "type": "equipment",
+      "img": "icons/equipment/shield/round-wooden-boss-steel.webp",
+      "sort": 430100,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>+2 AC. Plume is on the helm, not the shield.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 12,
+          "units": "lb"
+        },
+        "price": {
+          "value": 10,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": true,
+        "proficient": true,
+        "type": {
+          "value": "shield",
+          "baseItem": ""
+        },
+        "armor": {
+          "value": 2,
+          "dex": null,
+          "magicalBonus": null
+        },
+        "properties": [],
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.S6UiDhX2xcQEdvYk",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "yNAiqOYA1Zso2aKh"
+    },
+    {
+      "name": "Crimson Plume Helm",
+      "folder": null,
+      "flags": {},
+      "type": "loot",
+      "img": "icons/equipment/head/helm-barbute-steel.webp",
+      "sort": 782237,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>The banner. Visible. A promise.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.kl49rg6yj3qXbjzl",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "JPWQRGQlDz4kZf1g"
+    },
+    {
+      "name": "Healer's Kit",
+      "folder": null,
+      "flags": {},
+      "type": "consumable",
+      "img": "icons/commodities/cloth/cloth-worn-pink.webp",
+      "sort": 828399,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>For the people who followed the plume.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0.5,
+          "units": "lb"
+        },
+        "price": {
+          "value": 5,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "type": {
+          "value": "potion",
+          "subtype": ""
+        },
+        "uses": {
+          "max": "1",
+          "spent": 0,
+          "autoDestroy": true,
+          "recovery": []
+        },
+        "activities": {}
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.vk9MefzSegcEDFC8",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "HkXeoAE0KdpmCJtU"
+    },
+    {
+      "name": "Rations",
+      "folder": null,
+      "flags": {},
+      "type": "consumable",
+      "img": "icons/consumables/food/bowl-stew-brown.webp",
+      "sort": 122768,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Three days.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 3,
+        "weight": {
+          "value": 0.5,
+          "units": "lb"
+        },
+        "price": {
+          "value": 5,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "type": {
+          "value": "potion",
+          "subtype": ""
+        },
+        "uses": {
+          "max": "1",
+          "spent": 0,
+          "autoDestroy": true,
+          "recovery": []
+        },
+        "activities": {}
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.ZfCOBVwod1TVDDv0",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "mJqvNYwMjWBiSnfr"
+    },
+    {
+      "name": "Loyalist Commission",
+      "folder": null,
+      "flags": {},
+      "type": "loot",
+      "img": "icons/sundries/documents/document-sealed-red-yellow.webp",
+      "sort": 996183,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Field commander under Toadette. Not a signature on the no-quarter order. He was still in the courtyard.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.2cYdgfG1tX1xYJAw",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "5mFC41cEvbz6azn9"
+    },
+    {
+      "name": "Chronicle — Bramblehaven Wall",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/sundries/scrolls/scroll-writing-brown.webp",
+      "sort": 609522,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p><b>Reference only. Does not award XP.</b></p><p>Among the first over. Crimson plume in the smoke.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "chronicle-spcq6hxs",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.5G4Edjo0KzhBXZ8i",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Ahoou43FW8u3aNQy"
+    },
+    {
+      "name": "Chronicle — The Courtyard",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/sundries/scrolls/scroll-writing-brown.webp",
+      "sort": 873492,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p><b>Reference only. Does not award XP.</b></p><p>Fifteen surrenders. Toadette's order. He was there.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "chronicle-mjyadzxh",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.1aem3cff4SbjHP2n",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "W6fW4m8cQNm6TzNM"
+    }
+  ],
+  "effects": [],
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "core": {},
+    "dnd5e": {},
+    "bik": {
+      "playerCharacter": true,
+      "npc": false,
+      "foundryActorType": "character",
+      "sheet": "ActorSheet5eCharacter",
+      "characterId": "embercap",
+      "xpKey": "embercap",
+      "class": "Fighter",
+      "level": 2,
+      "ledgerXP": 470,
+      "nextXP": 900,
+      "remainingXP": 430,
+      "originalClass": "fighter",
+      "spellAbility": "",
+      "saveProf": [
+        "str",
+        "con"
+      ],
+      "gender": "male",
+      "trait": "Leads from the front.",
+      "ideal": "Soldiers follow a banner that bleeds with them.",
+      "bond": "The troops under the plume. Toadette's plan.",
+      "flaw": "He will carry out an order he cannot defend.",
+      "itemCount": 20,
+      "lastModifiedBy": "f9K62vO9hIl1GByi"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "dnd-part-2",
+      "uuid": "Actor.6vETUMmGCmy7ycsN",
+      "coreVersion": "14.365",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    },
+    "coreVersion": "14.365",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1787705740792,
+    "modifiedTime": 1787705740792,
+    "lastModifiedBy": "f9K62vO9hIl1GByi"
+  },
+  "_id": "AKlfdiB7zbhMblJ9"
+}

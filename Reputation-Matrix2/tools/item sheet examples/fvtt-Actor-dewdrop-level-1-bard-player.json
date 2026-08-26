@@ -1,0 +1,2564 @@
+{
+  "folder": null,
+  "name": "Dewdrop — Level 1 Bard (Player Character)",
+  "type": "character",
+  "img": "icons/sundries/books/book-embossed-gold-red.webp",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 8,
+      "ep": 0,
+      "sp": 15,
+      "cp": 0
+    },
+    "abilities": {
+      "str": {
+        "value": 8,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 14,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 12,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 14,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 13,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 16,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "acr": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "value": 1,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "value": 0,
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "67qBAllUgoyt9pnz": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "value": 1,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "value": 1,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "value": 0,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "value": 1,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "value": 0,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "JXS0f4ka71qKB2h3": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "HosVywGhVnGaF5lI": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "7CR1Hpx2Po8spit0": {
+        "value": 0,
+        "ability": "con",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ZZNb2z3t0wdcMgNJ": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "1",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "6fCmMl31VtsqwENr": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "passive": "",
+          "check": "-2"
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "15jTCrWVxnN40NP8": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "UreduGlabi2z8Vvm": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "+2",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "hQUumf2MfKPzcpDd": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "2",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      }
+    },
+    "tools": {
+      "smith": {
+        "value": 1,
+        "ability": "int",
+        "bonuses": {
+          "check": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      }
+    },
+    "spells": {
+      "spell0": {
+        "value": 0,
+        "override": null
+      },
+      "spell1": {
+        "value": 2,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      },
+      "pact": {
+        "value": 0,
+        "override": null
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 13,
+        "calc": "flat",
+        "formula": ""
+      },
+      "hp": {
+        "value": 9,
+        "max": 9,
+        "temp": 0,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "init": {
+        "bonus": "0",
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "movement": {
+        "walk": 25,
+        "units": "ft",
+        "hover": false,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "special": "",
+        "ranges": {
+          "darkvision": 120,
+          "blindsight": 120,
+          "tremorsense": 0,
+          "truesight": 0
+        }
+      },
+      "spellcasting": "cha",
+      "death": {
+        "success": 0,
+        "failure": 0,
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "exhaustion": 0,
+      "inspiration": false,
+      "attunement": {
+        "max": 3
+      },
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {}
+    },
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "details": {
+      "alignment": "",
+      "biography": {
+        "value": "<p><strong>PLAYER CHARACTER.</strong> Foundry type <em>character</em>. Not an NPC.</p>\n<p><b>Scribe Dewdrop</b> — Chroniclers Councilor. Keeps the faction archive, compares testimony, and refuses to let emergency language erase inconvenient facts. Dewdrop is the named answer to every attempt to call a documented atrocity a misunderstanding.</p>\n<p><b>Status:</b> Active — Liberated Toads council record<br><b>Affiliation:</b> Liberated Toads</p>\n<p><b>Table build:</b> Level 1 Bard (College of Lore intended at 3). The archive as a weapon. Testimony, not spin.</p>\n<p><b>Ledger note:</b> XP_SUMMARY also has a separate Medic Dewdrop (25 XP). This sheet is <code>scribe_dewdrop</code>, the Chroniclers Councilor. Starting snapshot Level 1 / 0 XP until the scribe's own ledger row is filed. Do not merge with the medic.</p>\n<h2>Dossier</h2>\n<p>Scribe Dewdrop stands as a steadfast bulwark against the erosion of truth by bureaucratic expediency and political maneuvering. In an era where history is increasingly determined by whoever can afford the most skilled spin doctors, Dewdrop remains resolute in preserving the unvarnished reality of events. This commitment stems not merely from professional duty but from a deep-seated moral conviction that accountability requires accurate record-keeping.</p><p></p><p>As archivist and fact-checker, Dewdrop operates with meticulous precision, cross-referencing accounts, scrutinizing evidence, and refusing to accept plausible deniability at face value. Whether confronting high-ranking officials attempting to rewrite the narrative or dealing with mundane clerical errors, Dewdrop maintains an ironclad standard of integrity. \"A single corrupted datum can unravel entire timelines,\" the scribe often warns. \"We cannot allow such negligence.\"</p><p></p><p>Waluigi notes that Dewdrop's unyielding nature frequently puts them at odds with superiors eager to bury inconvenient truths. Yet this friction serves a vital function, forcing leaders to confront uncomfortable realities rather than sweeping problems under the rug. The resulting tensions, while occasionally explosive, ultimately strengthen institutional resilience by preventing small issues from festering into crises. \"A good fight now is better than a bad war later,\" Dewdrop argues persuasively.</p><p></p><p>Beyond mere archival duties, Scribe Dewdrop plays an indispensable role in shaping collective memory and identity within the faction. By guarding against revisionist tendencies, they help ensure that lessons learned from past mistakes are not lost to forgetfulness or deliberate obfuscation. In doing so, Dewdrop enables the organization to grow stronger and more adaptive over time. \"History is our compass,\" the scribe declares proudly. \"We must chart our course by its light alone.\"</p><p></p><p>Waluigi observes with approval that despite occasional clashes, Dewdrop commands deep respect even among those who disagree with their methods. This reputation for dependability has proven invaluable during turbulent times when trust between leaders and subordinates is paramount. The scribe's steadfast presence provides reassurance that facts will prevail in the end, no matter how powerful forces may try to bend them otherwise. \"Truth may be stubborn,\" Dewdrop muses wryly. \"But it never breaks.\"</p><p></p><p>In summary, Scribe Dewdrop embodies the ideal guardian of truth and justice within a complex web of human relations. Through unwavering dedication to accuracy and fairness, they safeguard both individual dignity and organizational integrity against corrosive temptations of power and self-interest. As long as this principled voice remains heard, hope endures for a better future rooted in honesty rather than deception.</p>",
+        "public": ""
+      },
+      "race": null,
+      "background": null,
+      "originalClass": "bard",
+      "xp": {
+        "value": 0
+      },
+      "appearance": "",
+      "trait": "A single corrupted datum can unravel entire timelines.",
+      "ideal": "History is the compass.",
+      "bond": "The faction archive.",
+      "flaw": "Will pick a fight with a superior rather than let a lie stand.",
+      "eyes": "",
+      "height": "",
+      "faith": "",
+      "hair": "",
+      "weight": "",
+      "gender": "",
+      "skin": "",
+      "age": ""
+    },
+    "traits": {
+      "size": "sm",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [
+          "poison"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "armorProf": {
+        "value": [
+          "hvy",
+          "lgt",
+          "med",
+          "shl"
+        ],
+        "custom": ""
+      },
+      "weaponProf": {
+        "value": [
+          "battleaxe",
+          "handaxe",
+          "lighthammer",
+          "mar",
+          "sim",
+          "warhammer"
+        ],
+        "custom": "Battleaxe, Handaxe, Light Hammer, Warhammer",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      }
+    },
+    "resources": {
+      "primary": {
+        "value": 3,
+        "max": 3,
+        "sr": false,
+        "lr": true,
+        "label": "Bardic Inspiration"
+      },
+      "secondary": {
+        "value": 0,
+        "max": null,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      },
+      "tertiary": {
+        "value": 0,
+        "max": null,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      }
+    },
+    "favorites": []
+  },
+  "prototypeToken": {
+    "name": "Dewdrop",
+    "displayName": 30,
+    "actorLink": true,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/sundries/books/book-embossed-gold-red.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": -1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 1,
+    "displayBars": 40,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 1,
+      "angle": 360,
+      "bright": 20,
+      "color": null,
+      "coloration": 1,
+      "dim": 40,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": true,
+      "range": 5,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": -1,
+      "contrast": 0.3
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 0,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "wall-height": {
+        "tokenHeight": 0
+      },
+      "patrol": {
+        "enablePatrol": false,
+        "enableSpotting": false,
+        "makePatroller": false,
+        "multiPath": false,
+        "patrolPathName": "",
+        "pathNodeIndex": "0"
+      },
+      "monks-enhanced-journal": {
+        "chatbubble": ""
+      },
+      "core": {},
+      "dnd5e": {},
+      "about-face": {
+        "indicatorDisabled": false,
+        "flipOrRotate": "global",
+        "facingDirection": "global",
+        "rotationOffset": 0,
+        "direction": 90,
+        "prevPos": {
+          "x": 6000,
+          "y": 6061.400000886805
+        }
+      },
+      "torch": {
+        "lightSourceState": "on"
+      },
+      "monks-tokenbar": {
+        "include": "default"
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "depth": 1
+  },
+  "items": [
+    {
+      "name": "Bard",
+      "folder": null,
+      "flags": {},
+      "type": "class",
+      "img": "icons/skills/trades/music-notes-sound-blue.webp",
+      "sort": 575046,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Full caster. d8. Charisma. Level 1. Bardic Inspiration d6.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "bard",
+        "levels": 1,
+        "hd": {
+          "denomination": "d8",
+          "spent": 0,
+          "additional": ""
+        },
+        "spellcasting": {
+          "progression": "full",
+          "ability": "cha",
+          "preparation": {}
+        },
+        "primaryAbility": {
+          "value": [
+            "cha"
+          ],
+          "all": false
+        },
+        "advancement": [],
+        "properties": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.MZ3365KgfAbPC6OE",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "SwPJvirtTbMiMejz"
+    },
+    {
+      "name": "Toad",
+      "folder": null,
+      "flags": {},
+      "type": "race",
+      "img": "icons/creatures/invertebrates/spiderling-burst-purple.webp",
+      "sort": 661975,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Toad. Small. Walk 25.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "toad",
+        "movement": {
+          "walk": 25,
+          "units": "ft"
+        },
+        "advancement": [],
+        "type": {
+          "value": "humanoid",
+          "subtype": "toad"
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.BJf6fAC2mdu0iKWF",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "bprcD8FHGHcAWpPo"
+    },
+    {
+      "name": "Chronicler",
+      "folder": null,
+      "flags": {},
+      "type": "background",
+      "img": "icons/sundries/books/book-embossed-gold-red.webp",
+      "sort": 426515,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Faction archive. Cross-checks testimony. Refuses emergency language that erases a fact.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "chronicler",
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.7uUfsS5kVp9pdvnC",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "mHxxg1w18qJzrQ7J"
+    },
+    {
+      "name": "Bardic Inspiration",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/magic/control/buff-flight-wings-runes-blue-white.webp",
+      "sort": 799732,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Bonus action, d6, Cha times per long rest (3). Ally adds it to one check, attack, or save.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "bardic-inspiration",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.lc95H4fL3S62iisJ",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "cjNxg1fKA40VBHS2"
+    },
+    {
+      "name": "Spellcasting — Bard",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/magic/symbols/runes-star-blue.webp",
+      "sort": 404042,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Two cantrips, four known 1st-level, two 1st-level slots.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "bard-spells",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.OBWZonfskDqGuWxD",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "8jqTBzi8SBdQUlPv"
+    },
+    {
+      "name": "Jack of All Trades",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/skills/trades/academics-investigation-puzzles.webp",
+      "sort": 649671,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Not yet. Level 2. Do not add half-prof until the ledger says 2.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "jack-of-all-trades",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.kKfrZ0nVzoqJUhk8",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "vdQel12NEevhupUJ"
+    },
+    {
+      "name": "Unvarnished Record",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/sundries/documents/document-symbol-circle-gold-red.webp",
+      "sort": 453342,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Advantage on Insight to detect a rewritten account, and on Investigation to find a contradiction in paper. Campaign feature.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "unvarnished-record",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.UGR6kU1M9BbkghFk",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "CpZc0foHsRfVbXUD"
+    },
+    {
+      "name": "A Good Fight Now",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/skills/social/thumbsup-approval-like.webp",
+      "sort": 919182,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Once per long rest, when a leader tries to bury a fact in front of you, you may force a public recitation of the written record. Social, not damage.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "a-good-fight-now",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.mgoVP6QfEsvxMNcn",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "sG7pV2WkVeYo8zWm"
+    },
+    {
+      "name": "Scribe's Dagger",
+      "folder": null,
+      "flags": {},
+      "type": "weapon",
+      "img": "icons/weapons/daggers/dagger-simple-white.webp",
+      "sort": 321381,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>1d4 piercing, finesse, light. For opening letters, not throats, until it isn't.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 4,
+          "units": "lb"
+        },
+        "price": {
+          "value": 15,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": true,
+        "proficient": null,
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "properties": [
+          "fin",
+          "lgt"
+        ],
+        "range": {
+          "value": null,
+          "long": null,
+          "reach": 5,
+          "units": "ft"
+        },
+        "damage": {
+          "base": {
+            "number": 1,
+            "denomination": 4,
+            "types": [
+              "piercing"
+            ],
+            "bonus": "",
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "bonus": "",
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {},
+        "identifier": "kiuwro0smdnbrfrn"
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.PhEBLkjU7nUWESGv",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "15e6cJZ9GReGJP9r"
+    },
+    {
+      "name": "Scholar's Leather",
+      "folder": null,
+      "flags": {},
+      "type": "equipment",
+      "img": "icons/equipment/chest/vest-leather-brown.webp",
+      "sort": 314397,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>AC 11 + Dex.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 12,
+          "units": "lb"
+        },
+        "price": {
+          "value": 10,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "attunement": "",
+        "equipped": true,
+        "proficient": true,
+        "type": {
+          "value": "light",
+          "baseItem": ""
+        },
+        "armor": {
+          "value": 11,
+          "dex": 2,
+          "magicalBonus": null
+        },
+        "properties": [],
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.LwkOSXiJ9HrH0BRA",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "TAPJdiJuUY07TsMT"
+    },
+    {
+      "name": "Calligrapher's Supplies",
+      "folder": null,
+      "flags": {},
+      "type": "tool",
+      "img": "icons/tools/scribal/ink-quill-pink.webp",
+      "sort": 458149,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>The real weapon.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 3,
+          "units": "lb"
+        },
+        "price": {
+          "value": 5,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "ability": "int",
+        "type": {
+          "value": "art",
+          "baseItem": ""
+        },
+        "proficient": 1,
+        "bonus": "",
+        "properties": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.SoAVCPI1eLzaiKeh",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Tn0tIu6mszdPFTPG"
+    },
+    {
+      "name": "Faction Archive Folio",
+      "folder": null,
+      "flags": {},
+      "type": "loot",
+      "img": "icons/sundries/books/book-open-purple.webp",
+      "sort": 641727,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Comparisons of testimony. Inconvenient facts that emergency language tried to erase.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.OU71Ei8CC5XtvpcP",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "9Sf1l0scwuzdHTIU"
+    },
+    {
+      "name": "Ink and Quills",
+      "folder": null,
+      "flags": {},
+      "type": "loot",
+      "img": "icons/tools/scribal/ink-well-black.webp",
+      "sort": 526396,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>A single corrupted datum can unravel a timeline.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.nMLlBXhNoFykAgmw",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "o2vCj8ilFPJgIrE1"
+    },
+    {
+      "name": "Sealing Wax",
+      "folder": null,
+      "flags": {},
+      "type": "loot",
+      "img": "icons/sundries/misc/petals-woven.webp",
+      "sort": 829780,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>What leaves this folio is signed.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.v5F7owLQM5AtVOBH",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "59UzQPTrEXNhCifI"
+    },
+    {
+      "name": "Rations",
+      "folder": null,
+      "flags": {},
+      "type": "consumable",
+      "img": "icons/consumables/food/bowl-stew-brown.webp",
+      "sort": 122768,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Two days. The archive still eats.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 2,
+        "weight": {
+          "value": 0.5,
+          "units": "lb"
+        },
+        "price": {
+          "value": 5,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "rarity": "",
+        "type": {
+          "value": "potion",
+          "subtype": ""
+        },
+        "uses": {
+          "max": "1",
+          "spent": 0,
+          "autoDestroy": true,
+          "recovery": []
+        },
+        "activities": {}
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.ZfCOBVwod1TVDDv0",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "mJqvNYwMjWBiSnfr"
+    },
+    {
+      "name": "Vicious Mockery",
+      "folder": null,
+      "flags": {},
+      "type": "spell",
+      "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+      "sort": 585310,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>60 ft, Wisdom save, 1d4 psychic, disadvantage on next attack. She quotes the record back.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "vicious-mockery",
+        "level": 0,
+        "school": "enc",
+        "method": "spell",
+        "prepared": 0,
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activation": {
+          "type": "action",
+          "value": 1,
+          "condition": ""
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "range": {
+          "value": null,
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "type": "",
+            "count": "",
+            "choice": false
+          }
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {}
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.Szywl2MlmHWjtoOu",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "vkRqWAiD656YuJ4J"
+    },
+    {
+      "name": "Message",
+      "folder": null,
+      "flags": {},
+      "type": "spell",
+      "img": "icons/magic/air/air-wave-sweep-blue.webp",
+      "sort": 188169,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Quiet correction across a council table.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "message",
+        "level": 0,
+        "school": "trs",
+        "method": "spell",
+        "prepared": 0,
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activation": {
+          "type": "action",
+          "value": 1,
+          "condition": ""
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "range": {
+          "value": null,
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "type": "",
+            "count": "",
+            "choice": false
+          }
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {}
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.wJZGFJbvgzgVsDbL",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "N8VA6i9KFsUq8FnU"
+    },
+    {
+      "name": "Comprehend Languages",
+      "folder": null,
+      "flags": {},
+      "type": "spell",
+      "img": "icons/sundries/scrolls/scroll-writing-sealing-wax-yellow.webp",
+      "sort": 139660,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Ritual. No document stays foreign.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "comprehend-languages",
+        "level": 1,
+        "school": "div",
+        "method": "spell",
+        "prepared": 1,
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activation": {
+          "type": "action",
+          "value": 1,
+          "condition": ""
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "range": {
+          "value": null,
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "type": "",
+            "count": "",
+            "choice": false
+          }
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {}
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.i9UAOdV48oVaQs9e",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "DpLoUJTbkPkC006t"
+    },
+    {
+      "name": "Detect Thoughts",
+      "folder": null,
+      "flags": {},
+      "type": "spell",
+      "img": "icons/magic/perception/third-eye-blue-red.webp",
+      "sort": 111288,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Not known yet. Listed as the intended later tool. Do not prepare at level 1.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "detect-thoughts",
+        "level": 2,
+        "school": "div",
+        "method": "spell",
+        "prepared": 1,
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activation": {
+          "type": "action",
+          "value": 1,
+          "condition": ""
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "range": {
+          "value": null,
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "type": "",
+            "count": "",
+            "choice": false
+          }
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {}
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.r8LZaxbjlWWTCOk3",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "pkyvwDx7NY8WETtC"
+    },
+    {
+      "name": "Heroism",
+      "folder": null,
+      "flags": {},
+      "type": "spell",
+      "img": "icons/magic/life/heart-cross-blue.webp",
+      "sort": 823969,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>Temp HP equal to Cha. For the person about to tell the truth in a room that does not want it.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "heroism",
+        "level": 1,
+        "school": "enc",
+        "method": "spell",
+        "prepared": 1,
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activation": {
+          "type": "action",
+          "value": 1,
+          "condition": ""
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "range": {
+          "value": null,
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "type": "",
+            "count": "",
+            "choice": false
+          }
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {}
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.XUCkn5hfm7xT7vHw",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "yRx1korSuOUgzRlh"
+    },
+    {
+      "name": "Cure Wounds",
+      "folder": null,
+      "flags": {},
+      "type": "spell",
+      "img": "icons/magic/life/heart-area-circle-red-green.webp",
+      "sort": 561594,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>1d8 + Cha. She is not the medic Dewdrop. She still knows how to keep a witness alive.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "cure-wounds",
+        "level": 1,
+        "school": "evo",
+        "method": "spell",
+        "prepared": 1,
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activation": {
+          "type": "action",
+          "value": 1,
+          "condition": ""
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "range": {
+          "value": null,
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "type": "",
+            "count": "",
+            "choice": false
+          }
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {}
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.iDE9jxgMwAGWSTnc",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "JkemyvpUP2MZ5kRS"
+    },
+    {
+      "name": "Sleep",
+      "folder": null,
+      "flags": {},
+      "type": "spell",
+      "img": "icons/magic/control/hypnosis-mesmerism-swirl.webp",
+      "sort": 486233,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p>5d8 HP of creatures. A council that will not listen can at least be quiet.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "sleep",
+        "level": 1,
+        "school": "enc",
+        "method": "spell",
+        "prepared": 1,
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activation": {
+          "type": "action",
+          "value": 1,
+          "condition": ""
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "range": {
+          "value": null,
+          "units": "ft",
+          "special": ""
+        },
+        "target": {
+          "affects": {
+            "type": "",
+            "count": "",
+            "choice": false
+          }
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {}
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.x9pgM1CYvAyGijwu",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "OAApXgFBUOQ0wiaW"
+    },
+    {
+      "name": "Chronicle — Council Record",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/sundries/scrolls/scroll-writing-brown.webp",
+      "sort": 203522,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p><b>Reference only. Does not award XP.</b></p><p>Named answer to calling a documented atrocity a misunderstanding.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "chronicle-jj3alrb5",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.SKWaaQ233iq9t9dn",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "SufPz5jq17L5KsxU"
+    },
+    {
+      "name": "Chronicle — Not the Medic",
+      "folder": null,
+      "flags": {},
+      "type": "feat",
+      "img": "icons/sundries/scrolls/scroll-writing-brown.webp",
+      "sort": 838456,
+      "effects": [],
+      "system": {
+        "description": {
+          "value": "<p><b>Reference only. Does not award XP.</b></p><p>Do not merge this sheet with Medic Dewdrop in the XP ledger.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "rules": "2014",
+          "revision": 1
+        },
+        "identifier": "chronicle-zavgo4da",
+        "requirements": "",
+        "type": {
+          "value": "feat",
+          "subtype": ""
+        },
+        "properties": [],
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false
+        },
+        "advancement": []
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "dnd-part-2",
+          "uuid": "Actor.FzZx9amYhGZvkgnF",
+          "coreVersion": "14.365",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705740792,
+        "modifiedTime": 1787705740792,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "8gwSBoY66RieRdY4"
+    }
+  ],
+  "effects": [],
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "core": {},
+    "dnd5e": {},
+    "bik": {
+      "playerCharacter": true,
+      "npc": false,
+      "foundryActorType": "character",
+      "sheet": "ActorSheet5eCharacter",
+      "characterId": "scribe_dewdrop",
+      "xpKey": "scribe_dewdrop",
+      "class": "Bard",
+      "level": 1,
+      "ledgerXP": 0,
+      "doNotMergeWith": "Medic Dewdrop (XP_SUMMARY dewdrop)",
+      "originalClass": "bard",
+      "spellAbility": "cha",
+      "saveProf": [
+        "dex",
+        "cha"
+      ],
+      "trait": "A single corrupted datum can unravel entire timelines.",
+      "ideal": "History is the compass.",
+      "bond": "The faction archive.",
+      "flaw": "Will pick a fight with a superior rather than let a lie stand.",
+      "itemCount": 24,
+      "lastModifiedBy": "f9K62vO9hIl1GByi"
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "dnd-part-2",
+      "uuid": "Actor.5DWLqz5Ckdl4sbsy",
+      "coreVersion": "14.365",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    },
+    "coreVersion": "14.365",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1787705740792,
+    "modifiedTime": 1787705740792,
+    "lastModifiedBy": "f9K62vO9hIl1GByi"
+  },
+  "_id": "izkyDcG9CktxZvlZ"
+}
