@@ -1,5 +1,6 @@
 {
-  "name": "Toadette — Level 3 Land Druid (Player Character)",
+  "folder": null,
+  "name": "Toadette (Player Character)",
   "type": "character",
   "img": "icons/magic/nature/leaf-oak-glow-green.webp",
   "system": {
@@ -18,7 +19,22 @@
           "check": "",
           "save": ""
         },
-        "max": null
+        "max": null,
+        "min": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
       },
       "dex": {
         "value": 14,
@@ -27,7 +43,22 @@
           "check": "",
           "save": ""
         },
-        "max": null
+        "max": null,
+        "min": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
       },
       "con": {
         "value": 14,
@@ -36,7 +67,22 @@
           "check": "",
           "save": ""
         },
-        "max": null
+        "max": null,
+        "min": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
       },
       "int": {
         "value": 12,
@@ -45,7 +91,22 @@
           "check": "",
           "save": ""
         },
-        "max": null
+        "max": null,
+        "min": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
       },
       "wis": {
         "value": 16,
@@ -54,7 +115,22 @@
           "check": "",
           "save": ""
         },
-        "max": null
+        "max": null,
+        "min": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
       },
       "cha": {
         "value": 13,
@@ -63,7 +139,22 @@
           "check": "",
           "save": ""
         },
-        "max": null
+        "max": null,
+        "min": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
       }
     },
     "bonuses": {
@@ -96,6 +187,11 @@
       "acr": {
         "value": 0,
         "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -104,6 +200,11 @@
       "ani": {
         "value": 1,
         "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -112,6 +213,11 @@
       "arc": {
         "value": 0,
         "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -120,6 +226,11 @@
       "ath": {
         "value": 0,
         "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -128,6 +239,24 @@
       "dec": {
         "value": 0,
         "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "67qBAllUgoyt9pnz": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -136,6 +265,11 @@
       "his": {
         "value": 1,
         "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -144,6 +278,11 @@
       "ins": {
         "value": 1,
         "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -152,6 +291,11 @@
       "itm": {
         "value": 1,
         "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -160,6 +304,11 @@
       "inv": {
         "value": 0,
         "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -168,6 +317,11 @@
       "med": {
         "value": 0,
         "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -176,6 +330,11 @@
       "nat": {
         "value": 1,
         "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -184,6 +343,11 @@
       "prc": {
         "value": 1,
         "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -192,6 +356,11 @@
       "prf": {
         "value": 0,
         "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -200,6 +369,11 @@
       "per": {
         "value": 0,
         "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -208,6 +382,11 @@
       "rel": {
         "value": 0,
         "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -216,6 +395,11 @@
       "slt": {
         "value": 0,
         "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -224,6 +408,11 @@
       "ste": {
         "value": 0,
         "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
@@ -232,14 +421,140 @@
       "sur": {
         "value": 1,
         "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
         "bonuses": {
           "check": "",
           "passive": ""
         }
+      },
+      "JXS0f4ka71qKB2h3": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "HosVywGhVnGaF5lI": {
+        "value": 0,
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "7CR1Hpx2Po8spit0": {
+        "value": 0,
+        "ability": "con",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ZZNb2z3t0wdcMgNJ": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "1",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "6fCmMl31VtsqwENr": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "passive": "",
+          "check": "-2"
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "15jTCrWVxnN40NP8": {
+        "value": 0,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "UreduGlabi2z8Vvm": {
+        "value": 0,
+        "ability": "cha",
+        "bonuses": {
+          "check": "+2",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "hQUumf2MfKPzcpDd": {
+        "value": 0,
+        "ability": "int",
+        "bonuses": {
+          "check": "2",
+          "passive": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
       }
     },
-    "tools": {},
+    "tools": {
+      "smith": {
+        "value": 1,
+        "ability": "int",
+        "bonuses": {
+          "check": ""
+        },
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      }
+    },
     "spells": {
+      "spell0": {
+        "value": 0,
+        "override": null
+      },
       "spell1": {
         "value": 4,
         "override": null
@@ -296,7 +611,7 @@
       },
       "init": {
         "bonus": "0",
-        "ability": "dex",
+        "ability": "",
         "roll": {
           "min": null,
           "max": null,
@@ -307,18 +622,18 @@
         "walk": 25,
         "units": "ft",
         "hover": false,
-        "burrow": 0,
-        "climb": 0,
-        "fly": 0,
-        "swim": 0,
+        "burrow": "0",
+        "climb": "0",
+        "fly": "0",
+        "swim": "0",
         "ignoredDifficultTerrain": []
       },
       "senses": {
         "units": "ft",
         "special": "",
         "ranges": {
-          "darkvision": 0,
-          "blindsight": 0,
+          "darkvision": 120,
+          "blindsight": 120,
           "tremorsense": 0,
           "truesight": 0
         }
@@ -337,7 +652,7 @@
         }
       },
       "exhaustion": 0,
-      "inspiration": true,
+      "inspiration": false,
       "attunement": {
         "max": 3
       },
@@ -360,9 +675,9 @@
       "description": ""
     },
     "details": {
-      "alignment": "Lawful Neutral — Loyalist reading; Waluigi files her as zealot",
+      "alignment": "",
       "biography": {
-        "value": "<p><b>PLAYER CHARACTER.</b> This is a PC sheet for the table, not an NPC stat block. Assign ownership to the player. Do not drop it as a monster.</p><p><b>Captain Toadette — the Ruthless Restorer.</b> Military commander of the Peach Loyalists. Waluigi's dossier calls her the scariest person in the Mushroom Kingdom who is not a dimensional horror. She plans operations with patience and executes them with total commitment.</p>\n<p><b>Status:</b> Active — commanding Peach Loyalist forces.</p>\n<p><b>Affiliation:</b> Peach Loyalists.</p>\n<p><b>Table build:</b> Level 3 Circle of the Land (Forest) Druid. This is a rules translation of her siege work at Bramblehaven — sappers, simultaneous breaches, earth and thorn used as military tools — not a claim that the lore file named a D&amp;D class. The player asked for Druid. Wild Shape and land-circle spells stand in for fieldcraft and the no-retreat earthworks.</p>\n<p><b>Canon warning:</b> She shot a sergeant for suggesting retreat. After Bramblehaven fell, fifteen surrendering garrison troops were executed under her standing no-quarter order. Peach would not have approved. The sheet does not award extra XP for that. File new XP in the ledger first.</p>\n<p><b>Inventory policy:</b> command staff, hide, shield, field kit, Loyalist orders, and one witness card for the Fall of Bramblehaven. No shop relics, no balcony-rail fragments, no bootleg fans.</p>",
+        "value": "<p><strong>PLAYER CHARACTER — import as a Character actor, not an NPC.</strong></p>\n<p>Toadette is a Level 3 Circle of the Land (Forest) Druid for the table. Lore lives on the existing Waluipedia record <code>captain_toadette</code>. This JSON is only the Foundry PC sheet.</p>\n<p><b>Status:</b> Active — commanding Peach Loyalist forces.</p>\n<p><b>Affiliation:</b> Peach Loyalists.</p>\n<p>Assign this actor to a player. Do not place it as a monster. XP: 1,730 / 2,700 (ledger key captain_toadette).</p>",
         "public": ""
       },
       "race": null,
@@ -371,19 +686,19 @@
       "xp": {
         "value": 1730
       },
-      "appearance": "A compact, hardy Toad carrying an axe too large for anyone who has not watched him use it. Scarred by flight, imprisonment, and the work of keeping frightened people alive.",
-      "trait": "Total commitment. No retreats. Plans like a siege engineer.",
-      "ideal": "Peach's memory is the only law that matters.",
-      "bond": "The Peach Loyalists, and a princess who cannot talk back.",
-      "flaw": "She will execute a surrender and call it justice. She shot her own sergeant for suggesting a tactical retreat.",
-      "eyes": "Two ordinary eyes and one Feyward sensory eye",
-      "height": "Medium",
-      "faith": "Unresolved; has encountered forces that call themselves gods",
-      "hair": "None confirmed",
-      "weight": "Unknown",
+      "appearance": "",
+      "trait": "Plans like a siege engineer. Total commitment.",
+      "ideal": "Peach’s memory is the law.",
+      "bond": "The Peach Loyalists.",
+      "flaw": "No retreat. No prisoners. She will call that justice.",
+      "eyes": "",
+      "height": "",
+      "faith": "",
+      "hair": "",
+      "weight": "",
       "gender": "female",
-      "skin": "Toad green with Feywild color shift",
-      "age": "Unknown"
+      "skin": "",
+      "age": ""
     },
     "traits": {
       "size": "sm",
@@ -400,7 +715,9 @@
         "bypasses": []
       },
       "dr": {
-        "value": [],
+        "value": [
+          "poison"
+        ],
         "custom": "",
         "bypasses": []
       },
@@ -419,14 +736,17 @@
           "med",
           "shl"
         ],
-        "custom": "Light, medium, and heavy armor; shields. Dan fights one-handed and does not receive a second-weapon benefit."
+        "custom": ""
       },
       "weaponProf": {
         "value": [
-          "sim",
-          "mar"
+          "sim"
         ],
-        "custom": "Simple and martial weapons; longsword; one-handed use only."
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
       },
       "dm": {
         "amount": {},
@@ -443,14 +763,14 @@
       },
       "secondary": {
         "value": 0,
-        "max": 0,
+        "max": null,
         "sr": false,
-        "lr": true,
+        "lr": false,
         "label": ""
       },
       "tertiary": {
         "value": 0,
-        "max": 0,
+        "max": null,
         "sr": false,
         "lr": false,
         "label": ""
@@ -471,7 +791,7 @@
       "fit": "contain",
       "scaleX": -1,
       "scaleY": 1,
-      "tint": "#ff0000",
+      "tint": "#ffffff",
       "alphaThreshold": 0.75
     },
     "lockRotation": false,
@@ -490,10 +810,10 @@
       "priority": 0,
       "alpha": 1,
       "angle": 360,
-      "bright": 0,
+      "bright": 20,
       "color": null,
       "coloration": 1,
-      "dim": 0,
+      "dim": 40,
       "attenuation": 0.5,
       "luminosity": 0.5,
       "saturation": 0,
@@ -512,14 +832,14 @@
     },
     "sight": {
       "enabled": true,
-      "range": 0,
+      "range": 5,
       "angle": 360,
-      "visionMode": "blindsight",
+      "visionMode": "basic",
       "color": null,
       "attenuation": 0.1,
-      "brightness": 1,
-      "saturation": 0,
-      "contrast": 0
+      "brightness": 0,
+      "saturation": -1,
+      "contrast": 0.3
     },
     "detectionModes": {},
     "occludable": {
@@ -545,6 +865,9 @@
     },
     "movementAction": null,
     "flags": {
+      "wall-height": {
+        "tokenHeight": 0
+      },
       "patrol": {
         "enablePatrol": false,
         "enableSpotting": false,
@@ -556,6 +879,7 @@
       "monks-enhanced-journal": {
         "chatbubble": ""
       },
+      "core": {},
       "dnd5e": {},
       "about-face": {
         "indicatorDisabled": false,
@@ -564,45 +888,15 @@
         "rotationOffset": 0,
         "direction": 90,
         "prevPos": {
-          "x": 4400,
-          "y": 7400
+          "x": 6000,
+          "y": 6061.400000886805
         }
       },
-      "monks-tokenbar": {
-        "include": "default",
-        "movement": null
-      },
-      "tokenflip": {
-        "tokenfaces": [
-          {
-            "actorId": "UAPdHaUIPkgR8KWC",
-            "img": "player/archiereforemd.webp",
-            "id": "B4v8ZIqnlIhWqJZPaAOV",
-            "scaleX": -1,
-            "scaleY": 1,
-            "width": 1,
-            "height": 1,
-            "model3d": "",
-            "subject": "",
-            "autoFlip": 0,
-            "transition": "flip",
-            "autoFlipMacro": null
-          }
-        ],
-        "currentId": "b3WyhTA3DBqBWkCBbnZJ"
-      },
-      "wall-height": {
-        "tokenHeight": 0
-      },
       "torch": {
-        "lightSourceState": "off"
+        "lightSourceState": "on"
       },
-      "tagger": {},
-      "ATL": {
-        "originals": {}
-      },
-      "custom-dnd5e": {
-        "tint": "#ffffff"
+      "monks-tokenbar": {
+        "include": "default"
       }
     },
     "randomImg": false,
@@ -613,7 +907,17 @@
   "items": [
     {
       "name": "Druid — Circle of the Land (Forest), Level 3",
+      "folder": null,
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
       "type": "class",
+      "img": "icons/magic/nature/leaf-glow-maple-orange-purple.webp",
+      "sort": 100000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Level 3 Druid. Circle of the Land — Forest. Spellcasting Wisdom. Hit die d8. A table translation of Toadette's siege-and-restoration command style.</p>",
@@ -651,26 +955,36 @@
           "all": false
         }
       },
-      "flags": {
-        "bik": {
-          "source": "Feyward Dan player-character dossier",
-          "ledgerLinked": true
-        }
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
-      "effects": [],
-      "folder": null,
-      "sort": 0,
       "ownership": {
         "default": 0
       },
-      "img": "icons/magic/nature/leaf-glow-maple-orange-purple.webp",
       "_id": "5194c5ca9d78b105"
     },
     {
-      "_id": "toadettesubcls01",
       "name": "Circle of the Land",
+      "folder": null,
+      "flags": {},
       "type": "subclass",
       "img": "icons/magic/nature/root-vine-entangled-hands.webp",
+      "sort": 200000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Circle of the Land — Forest. Always-prepared: barkskin, spider climb, spike growth, pass without trace. Natural Recovery after a short rest.</p>",
@@ -689,24 +1003,36 @@
           "revision": 1
         }
       },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
       "ownership": {
         "default": 0
       },
-      "flags": {},
-      "_stats": {
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "coreVersion": "14.360"
-      }
+      "_id": "toadettesubcls01"
     },
     {
-      "_id": "b1b1e29a6ff45ba3",
       "name": "Toad — Peach Loyalist",
+      "folder": null,
+      "flags": {},
       "type": "race",
       "img": "icons/creatures/invertebrates/spiderling-burst-purple.webp",
+      "sort": 300000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Toad. Small. Walk 25 ft. The sports-and-party Toadette Waluigi remembers is not the one on this sheet. This one commands a crusade.</p>",
@@ -729,29 +1055,36 @@
           "special": ""
         }
       },
-      "effects": [],
-      "folder": null,
-      "sort": 0,
-      "flags": {},
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1787703544015,
-        "modifiedTime": 1787703544015,
-        "lastModifiedBy": null
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
       "ownership": {
         "default": 0
-      }
+      },
+      "_id": "b1b1e29a6ff45ba3"
     },
     {
-      "_id": "4f50b778b2fc4cb2",
       "name": "Siege Commander / Loyalist",
+      "folder": null,
+      "flags": {},
       "type": "background",
       "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
+      "sort": 400000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Background: military command of the Peach Loyalists. Fall of Bramblehaven — overnight sappers, three simultaneous breaches, a bastion taken in a day. Then the courtyard.</p>",
@@ -760,27 +1093,41 @@
         "identifier": "waluipedia-native",
         "advancement": []
       },
-      "effects": [],
-      "folder": null,
-      "sort": 0,
-      "flags": {},
       "_stats": {
         "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1787703544015,
-        "modifiedTime": 1787703544015,
-        "lastModifiedBy": null
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
       "ownership": {
         "default": 0
-      }
+      },
+      "_id": "4f50b778b2fc4cb2"
     },
     {
       "name": "Druidic",
+      "folder": null,
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
       "type": "feat",
+      "img": "icons/sundries/documents/document-symbol-triangle-pink.webp",
+      "sort": 500000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>You know Druidic. You leave marks only another druid (or a very determined auditor) can read. Toadette uses it for sapper signs and no-retreat route marks.</p>",
@@ -802,24 +1149,41 @@
         "proficient": true,
         "properties": []
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "1c4ed552d882d09f"
+    },
+    {
+      "name": "Wild Shape",
+      "folder": null,
       "flags": {
         "bik": {
           "source": "Feyward Dan player-character dossier",
           "ledgerLinked": true
         }
       },
-      "effects": [],
-      "folder": null,
-      "sort": 30000,
-      "ownership": {
-        "default": 0
-      },
-      "img": "icons/sundries/documents/document-symbol-triangle-pink.webp",
-      "_id": "1c4ed552d882d09f"
-    },
-    {
-      "name": "Wild Shape",
       "type": "feat",
+      "img": "icons/magic/nature/wolf-paw-glow-large-orange.webp",
+      "sort": 600000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Twice per short rest, bonus action, assume a beast form (CR 1/4, no fly/swim at this level unless the GM allows campaign beasts). Used here as fieldcraft and sapper cover, not as a joke mushroom mascot.</p>",
@@ -841,24 +1205,41 @@
         "proficient": true,
         "properties": []
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6a7c6d9cdee585cd"
+    },
+    {
+      "name": "Circle of the Land — Forest",
+      "folder": null,
       "flags": {
         "bik": {
           "source": "Feyward Dan player-character dossier",
           "ledgerLinked": true
         }
       },
-      "effects": [],
-      "folder": null,
-      "sort": 30000,
-      "ownership": {
-        "default": 0
-      },
-      "img": "icons/magic/nature/wolf-paw-glow-large-orange.webp",
-      "_id": "6a7c6d9cdee585cd"
-    },
-    {
-      "name": "Circle of the Land — Forest",
       "type": "feat",
+      "img": "icons/magic/nature/root-vine-entangled-hands.webp",
+      "sort": 700000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Land's Aid / Natural Recovery flavor: after a short rest, recover spell slots totaling half Druid level (rounded up). Circle spells (always prepared): barkskin, spider climb, spike growth, pass without trace — filed as siege tools (cover, walls, caltrops of thorn, silent approach).</p>",
@@ -880,24 +1261,41 @@
         "proficient": true,
         "properties": []
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "4620bfc4d4905d4e"
+    },
+    {
+      "name": "No-Quarter Standing Order",
+      "folder": null,
       "flags": {
         "bik": {
           "source": "Feyward Dan player-character dossier",
           "ledgerLinked": true
         }
       },
-      "effects": [],
-      "folder": null,
-      "sort": 30000,
-      "ownership": {
-        "default": 0
-      },
-      "img": "icons/magic/nature/root-vine-entangled-hands.webp",
-      "_id": "4620bfc4d4905d4e"
-    },
-    {
-      "name": "No-Quarter Standing Order",
       "type": "feat",
+      "img": "icons/skills/melee/strike-sword-blood-red.webp",
+      "sort": 800000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p><b>Campaign feature — GM review.</b> Toadette's written order: no prisoners from Fawful's forces. This is not a damage bonus. It is a political and moral fact on the sheet so the table cannot pretend it is not there. Using it has consequences. Peach would not have signed it.</p>",
@@ -919,24 +1317,41 @@
         "proficient": true,
         "properties": []
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "93f2360041076d6b"
+    },
+    {
+      "name": "Bramblehaven Siegecraft",
+      "folder": null,
       "flags": {
         "bik": {
           "source": "Feyward Dan player-character dossier",
           "ledgerLinked": true
         }
       },
-      "effects": [],
-      "folder": null,
-      "sort": 30000,
-      "ownership": {
-        "default": 0
-      },
-      "img": "icons/skills/melee/strike-sword-blood-red.webp",
-      "_id": "93f2360041076d6b"
-    },
-    {
-      "name": "Bramblehaven Siegecraft",
       "type": "feat",
+      "img": "icons/environment/settlement/stone-stairs.webp",
+      "sort": 900000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Advantage on Intelligence (History) or Wisdom (Survival) checks to plan a breach, place sappers, or time three simultaneous attacks. Does not grant extra attacks. The masterpiece is in the plan, not in a feat tax.</p>",
@@ -958,24 +1373,41 @@
         "proficient": true,
         "properties": []
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "f5304b6d6e67c681"
+    },
+    {
+      "name": "Witness: Fall of Bramblehaven",
+      "folder": null,
       "flags": {
         "bik": {
           "source": "Feyward Dan player-character dossier",
           "ledgerLinked": true
         }
       },
-      "effects": [],
-      "folder": null,
-      "sort": 30000,
-      "ownership": {
-        "default": 0
-      },
-      "img": "icons/environment/settlement/stone-stairs.webp",
-      "_id": "f5304b6d6e67c681"
-    },
-    {
-      "name": "Witness: Fall of Bramblehaven",
       "type": "feat",
+      "img": "icons/environment/settlement/palast.webp",
+      "sort": 1000000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Reference card only. Does not award XP. The bastion fell in a day. Fifteen surrendering troops were executed in the keep courtyard under standing orders. Some Loyalists hesitated. They were overruled.</p>",
@@ -997,25 +1429,41 @@
         "proficient": true,
         "properties": []
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "e2467e1c92155c46"
+    },
+    {
+      "name": "Command Quarterstaff",
+      "folder": null,
       "flags": {
         "bik": {
           "source": "Feyward Dan player-character dossier",
           "ledgerLinked": true
         }
       },
-      "effects": [],
-      "folder": null,
-      "sort": 30000,
-      "ownership": {
-        "default": 0
-      },
-      "img": "icons/environment/settlement/palast.webp",
-      "_id": "e2467e1c92155c46"
-    },
-    {
-      "name": "Command Quarterstaff",
       "type": "weapon",
       "img": "icons/weapons/staves/staff-simple-spiral-green.webp",
+      "sort": 1100000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Toadette's field staff. Simple melee, 1d6 bludgeoning, versatile 1d8. Cast <i>shillelagh</i> to make it a Wisdom weapon (1d8 magical bludgeoning) for one minute.</p>",
@@ -1262,25 +1710,22 @@
           "value": []
         }
       },
-      "effects": [],
-      "folder": "pOAh0mmFrtbGtDAr",
-      "sort": 0,
-      "flags": {
-        "bik": {
-          "source": "Feyward Dan player-character dossier",
-          "ledgerLinked": true
-        }
-      },
       "_stats": {
-        "compendiumSource": "Compendium.dnd5e.items.Item.10ZP2Bu3vnCuYMIB",
+        "compendiumSource": null,
         "duplicateSource": null,
-        "exportSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283501,
-        "createdTime": 1782005283501
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
       "ownership": {
         "default": 0
@@ -1289,8 +1734,17 @@
     },
     {
       "name": "Service Dagger",
+      "folder": null,
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
       "type": "weapon",
       "img": "icons/weapons/daggers/dagger-simple-white.webp",
+      "sort": 1200000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Backup blade. 1d4 piercing, finesse, light, thrown 20/60. Not a relic.</p>",
@@ -1539,25 +1993,22 @@
           "value": []
         }
       },
-      "effects": [],
-      "folder": "pOAh0mmFrtbGtDAr",
-      "sort": 0,
-      "flags": {
-        "bik": {
-          "source": "Feyward Dan player-character dossier",
-          "ledgerLinked": true
-        }
-      },
       "_stats": {
-        "compendiumSource": "Compendium.dnd5e.items.Item.10ZP2Bu3vnCuYMIB",
+        "compendiumSource": null,
         "duplicateSource": null,
-        "exportSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283501,
-        "createdTime": 1782005283501
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
       "ownership": {
         "default": 0
@@ -1566,8 +2017,17 @@
     },
     {
       "name": "Hide Armor",
+      "folder": null,
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
       "type": "equipment",
       "img": "icons/equipment/chest/breastplate-scale-brown.webp",
+      "sort": 1300000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Field hide. AC 12 + Dex (max 2). What a commander wears in a sapper trench, not a parade.</p>",
@@ -1636,25 +2096,22 @@
           "value": []
         }
       },
-      "effects": [],
-      "folder": "JqTP017wj3uxDJ8g",
-      "sort": 0,
-      "flags": {
-        "bik": {
-          "source": "Feyward Dan player-character dossier",
-          "ledgerLinked": true
-        }
-      },
       "_stats": {
-        "compendiumSource": "Compendium.dnd5e.items.Item.rLMflzmxpe8JGTOA",
+        "compendiumSource": null,
         "duplicateSource": null,
-        "exportSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283823,
-        "createdTime": 1782005283823
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
       "ownership": {
         "default": 0
@@ -1663,8 +2120,17 @@
     },
     {
       "name": "Loyalist Heater Shield",
+      "folder": null,
+      "flags": {
+        "bik": {
+          "source": "Feyward Dan player-character dossier",
+          "ledgerLinked": true
+        }
+      },
       "type": "equipment",
       "img": "icons/equipment/shield/heater-steel-boss-red.webp",
+      "sort": 1400000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>+2 AC. Peach's crown painted on the boss. The paint is newer than the grief.</p>",
@@ -1733,25 +2199,22 @@
           "value": []
         }
       },
-      "effects": [],
-      "folder": "JqTP017wj3uxDJ8g",
-      "sort": 0,
-      "flags": {
-        "bik": {
-          "source": "Feyward Dan player-character dossier",
-          "ledgerLinked": true
-        }
-      },
       "_stats": {
-        "compendiumSource": "Compendium.dnd5e.items.Item.rLMflzmxpe8JGTOA",
+        "compendiumSource": null,
         "duplicateSource": null,
-        "exportSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "modifiedTime": 1782005283823,
-        "createdTime": 1782005283823
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
       "ownership": {
         "default": 0
@@ -1760,9 +2223,12 @@
     },
     {
       "name": "Healer's Kit",
+      "folder": null,
+      "flags": {},
       "type": "consumable",
-      "folder": "guHYjt0gjPLU2wCs",
       "img": "icons/commodities/cloth/cloth-worn-pink.webp",
+      "sort": 1500000,
+      "effects": [],
       "system": {
         "activities": {
           "OZHtgfnTZWKOg9JP": {
@@ -2006,20 +2472,23 @@
         "attuned": false,
         "equipped": false
       },
-      "effects": [],
-      "flags": {},
       "_stats": {
+        "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1785280971460,
-        "modifiedTime": 1785280971461,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
-      "sort": 650000,
       "ownership": {
         "default": 0
       },
@@ -2027,9 +2496,12 @@
     },
     {
       "name": "Rations, Campaign",
+      "folder": null,
+      "flags": {},
       "type": "consumable",
-      "folder": "guHYjt0gjPLU2wCs",
       "img": "icons/consumables/food/bowl-stew-brown.webp",
+      "sort": 1600000,
+      "effects": [],
       "system": {
         "activities": {
           "OZHtgfnTZWKOg9JP": {
@@ -2273,20 +2745,23 @@
         "attuned": false,
         "equipped": false
       },
-      "effects": [],
-      "flags": {},
       "_stats": {
+        "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1785280971460,
-        "modifiedTime": 1785280971461,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
-      "sort": 650000,
       "ownership": {
         "default": 0
       },
@@ -2294,9 +2769,12 @@
     },
     {
       "name": "Signal Whistle",
+      "folder": null,
+      "flags": {},
       "type": "consumable",
-      "folder": "guHYjt0gjPLU2wCs",
       "img": "icons/tools/instruments/pipe-flute-brown.webp",
+      "sort": 1700000,
+      "effects": [],
       "system": {
         "activities": {
           "OZHtgfnTZWKOg9JP": {
@@ -2540,20 +3018,23 @@
         "attuned": false,
         "equipped": false
       },
-      "effects": [],
-      "flags": {},
       "_stats": {
+        "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1785280971460,
-        "modifiedTime": 1785280971461,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
-      "sort": 650000,
       "ownership": {
         "default": 0
       },
@@ -2561,9 +3042,12 @@
     },
     {
       "name": "Peach Loyalist Standing Orders",
+      "folder": null,
+      "flags": {},
       "type": "consumable",
-      "folder": "guHYjt0gjPLU2wCs",
       "img": "icons/sundries/documents/document-sealed-red-yellow.webp",
+      "sort": 1800000,
+      "effects": [],
       "system": {
         "activities": {
           "OZHtgfnTZWKOg9JP": {
@@ -2807,20 +3291,23 @@
         "attuned": false,
         "equipped": false
       },
-      "effects": [],
-      "flags": {},
       "_stats": {
+        "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1785280971460,
-        "modifiedTime": 1785280971461,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
-      "sort": 650000,
       "ownership": {
         "default": 0
       },
@@ -2828,9 +3315,12 @@
     },
     {
       "name": "Standard Mushroom",
+      "folder": null,
+      "flags": {},
       "type": "consumable",
-      "folder": "guHYjt0gjPLU2wCs",
       "img": "icons/consumables/mushrooms/mushroom-pink.webp",
+      "sort": 1900000,
+      "effects": [],
       "system": {
         "activities": {
           "OZHtgfnTZWKOg9JP": {
@@ -3074,20 +3564,23 @@
         "attuned": false,
         "equipped": false
       },
-      "effects": [],
-      "flags": {},
       "_stats": {
+        "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1785280971460,
-        "modifiedTime": 1785280971461,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
-      "sort": 650000,
       "ownership": {
         "default": 0
       },
@@ -3095,9 +3588,12 @@
     },
     {
       "name": "Chalk and Sapper Marks",
+      "folder": null,
+      "flags": {},
       "type": "consumable",
-      "folder": "guHYjt0gjPLU2wCs",
       "img": "icons/commodities/materials/powder-black.webp",
+      "sort": 2000000,
+      "effects": [],
       "system": {
         "activities": {
           "OZHtgfnTZWKOg9JP": {
@@ -3341,20 +3837,23 @@
         "attuned": false,
         "equipped": false
       },
-      "effects": [],
-      "flags": {},
       "_stats": {
+        "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1785280971460,
-        "modifiedTime": 1785280971461,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBeadOfForce00"
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
-      "sort": 650000,
       "ownership": {
         "default": 0
       },
@@ -3362,9 +3861,12 @@
     },
     {
       "name": "Waterskin",
+      "folder": null,
+      "flags": {},
       "type": "container",
-      "folder": "CXJsbhXV9uLcWcfH",
       "img": "icons/consumables/drinks/alcohol-beer-stein-wooden-brown.webp",
+      "sort": 2100000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>Water. Even crusades need it.</p>",
@@ -3416,20 +3918,23 @@
         "attuned": false,
         "equipped": false
       },
-      "effects": [],
-      "flags": {},
       "_stats": {
+        "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1785281203592,
-        "modifiedTime": 1785281203592,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.equipment24.Item.dmgBagOfHolding0"
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
-      "sort": 300000,
       "ownership": {
         "default": 0
       },
@@ -3437,6 +3942,19 @@
     },
     {
       "name": "Herbalism Kit",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "type": "tool",
+      "img": "icons/tools/laboratory/mortar-powder-green.webp",
+      "sort": 2200000,
+      "effects": [],
       "system": {
         "description": {
           "value": "<p>For goodberry adjuncts and field dressings. Wisdom tool.</p>",
@@ -3645,29 +4163,22 @@
         "attuned": false,
         "equipped": false
       },
-      "type": "tool",
-      "folder": "V8KHbNkEWoXQP3Pj",
-      "img": "icons/tools/laboratory/mortar-powder-green.webp",
-      "effects": [],
-      "sort": 100000,
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          }
-        }
-      },
       "_stats": {
+        "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1785281198737,
-        "modifiedTime": 1785281198737,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.equipment24.Item.phbtulAlchemists"
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
       },
       "ownership": {
         "default": 0
@@ -3676,6 +4187,94 @@
     },
     {
       "name": "Druidcraft",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          },
+          "-=riders": null
+        }
+      },
+      "type": "spell",
+      "img": "icons/magic/nature/leaf-glow-triple-green.webp",
+      "sort": 2300000,
+      "effects": [
+        {
+          "_id": "1dzvDffEh8wZ0oQy",
+          "flags": {},
+          "disabled": false,
+          "duration": {
+            "value": 60,
+            "units": "seconds",
+            "expiry": "turnStart",
+            "expired": false
+          },
+          "origin": "Compendium.dnd5e.spells24.Item.phbsplBless00000",
+          "tint": "#ffffff",
+          "transfer": false,
+          "name": "Blessed",
+          "description": "<p>Whenever a target makes an attack roll or a saving throw before the spell ends, the target adds 1d4 to the attack roll or save.</p>",
+          "statuses": [],
+          "_stats": {
+            "compendiumSource": "Compendium.dnd5e.spells.Item.8dzaICjGy6mTUaUr.ActiveEffect.8rP3gwmXVTgZqYZE",
+            "duplicateSource": null,
+            "coreVersion": "14.360",
+            "systemId": "dnd5e",
+            "systemVersion": "5.3.3",
+            "createdTime": 1785692827317,
+            "modifiedTime": 1785692827317,
+            "lastModifiedBy": "f9K62vO9hIl1GByi",
+            "exportSource": null
+          },
+          "img": "icons/magic/holy/chalice-glowing-gold-water.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.bonuses.abilities.save",
+                "value": "1d4",
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              },
+              {
+                "key": "system.bonuses.mwak.attack",
+                "value": "1d4",
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              },
+              {
+                "key": "system.bonuses.msak.attack",
+                "value": "1d4",
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              },
+              {
+                "key": "system.bonuses.rsak.attack",
+                "value": "1d4",
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              },
+              {
+                "key": "system.bonuses.rwak.attack",
+                "value": "1d4",
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              }
+            ]
+          },
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "folder": null
+        }
+      ],
       "system": {
         "description": {
           "value": "<p>Cantrip. Prestidigitation for plants. Weather tell, bloom, faint sensory mark.</p>",
@@ -3805,8 +4404,43 @@
         "sourceItem": "class:paladin-feyward-oath",
         "prepared": 0
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "7f28728529a2a6da"
+    },
+    {
+      "name": "Shillelagh",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          },
+          "-=riders": null
+        }
+      },
       "type": "spell",
-      "img": "icons/magic/nature/leaf-glow-triple-green.webp",
+      "img": "icons/weapons/staves/staff-simple-spiral-green.webp",
+      "sort": 2400000,
       "effects": [
         {
           "_id": "1dzvDffEh8wZ0oQy",
@@ -3882,36 +4516,6 @@
           "folder": null
         }
       ],
-      "folder": "pBaAAtXBCq9FVEnL",
-      "sort": 5200000,
-      "ownership": {
-        "default": 0,
-        "f9K62vO9hIl1GByi": 3
-      },
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          },
-          "-=riders": null
-        }
-      },
-      "_stats": {
-        "duplicateSource": null,
-        "coreVersion": "14.360",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1785692827317,
-        "modifiedTime": 1785692827317,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplBless00000"
-      },
-      "_id": "7f28728529a2a6da"
-    },
-    {
-      "name": "Shillelagh",
       "system": {
         "description": {
           "value": "<p>Cantrip, bonus action. Staff becomes a Wisdom melee weapon, 1d8 magical bludgeoning, 1 minute.</p>",
@@ -4041,8 +4645,43 @@
         "sourceItem": "class:paladin-feyward-oath",
         "prepared": 0
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "447aaea80f3199c3"
+    },
+    {
+      "name": "Thorn Whip",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          },
+          "-=riders": null
+        }
+      },
       "type": "spell",
-      "img": "icons/weapons/staves/staff-simple-spiral-green.webp",
+      "img": "icons/magic/nature/root-vine-thorned-green.webp",
+      "sort": 2500000,
       "effects": [
         {
           "_id": "1dzvDffEh8wZ0oQy",
@@ -4118,36 +4757,6 @@
           "folder": null
         }
       ],
-      "folder": "pBaAAtXBCq9FVEnL",
-      "sort": 5200000,
-      "ownership": {
-        "default": 0,
-        "f9K62vO9hIl1GByi": 3
-      },
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          },
-          "-=riders": null
-        }
-      },
-      "_stats": {
-        "duplicateSource": null,
-        "coreVersion": "14.360",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1785692827317,
-        "modifiedTime": 1785692827317,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplBless00000"
-      },
-      "_id": "447aaea80f3199c3"
-    },
-    {
-      "name": "Thorn Whip",
       "system": {
         "description": {
           "value": "<p>Cantrip, 30 ft. 1d6 piercing and pull 10 ft. Breach tool.</p>",
@@ -4277,8 +4886,43 @@
         "sourceItem": "class:paladin-feyward-oath",
         "prepared": 0
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "3a9a396d62bd5a86"
+    },
+    {
+      "name": "Entangle",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          },
+          "-=riders": null
+        }
+      },
       "type": "spell",
-      "img": "icons/magic/nature/root-vine-thorned-green.webp",
+      "img": "icons/magic/nature/root-vine-entangle-foot-green.webp",
+      "sort": 2600000,
       "effects": [
         {
           "_id": "1dzvDffEh8wZ0oQy",
@@ -4354,36 +4998,6 @@
           "folder": null
         }
       ],
-      "folder": "pBaAAtXBCq9FVEnL",
-      "sort": 5200000,
-      "ownership": {
-        "default": 0,
-        "f9K62vO9hIl1GByi": 3
-      },
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          },
-          "-=riders": null
-        }
-      },
-      "_stats": {
-        "duplicateSource": null,
-        "coreVersion": "14.360",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1785692827317,
-        "modifiedTime": 1785692827317,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplBless00000"
-      },
-      "_id": "3a9a396d62bd5a86"
-    },
-    {
-      "name": "Entangle",
       "system": {
         "description": {
           "value": "<p>1st, 90 ft, 20-ft square difficult terrain, Strength save or restrained.</p>",
@@ -4513,8 +5127,43 @@
         "sourceItem": "class:paladin-feyward-oath",
         "prepared": 1
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "cd5fc47831e2006a"
+    },
+    {
+      "name": "Goodberry",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          },
+          "-=riders": null
+        }
+      },
       "type": "spell",
-      "img": "icons/magic/nature/root-vine-entangle-foot-green.webp",
+      "img": "icons/consumables/fruit/berry-leaf-pink.webp",
+      "sort": 2700000,
       "effects": [
         {
           "_id": "1dzvDffEh8wZ0oQy",
@@ -4590,36 +5239,6 @@
           "folder": null
         }
       ],
-      "folder": "pBaAAtXBCq9FVEnL",
-      "sort": 5200000,
-      "ownership": {
-        "default": 0,
-        "f9K62vO9hIl1GByi": 3
-      },
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          },
-          "-=riders": null
-        }
-      },
-      "_stats": {
-        "duplicateSource": null,
-        "coreVersion": "14.360",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1785692827317,
-        "modifiedTime": 1785692827317,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplBless00000"
-      },
-      "_id": "cd5fc47831e2006a"
-    },
-    {
-      "name": "Goodberry",
       "system": {
         "description": {
           "value": "<p>1st. Ten berries, 1 HP each, nourishment. She will feed her own first.</p>",
@@ -4749,8 +5368,43 @@
         "sourceItem": "class:paladin-feyward-oath",
         "prepared": 1
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "7232b4ab9a5e8987"
+    },
+    {
+      "name": "Cure Wounds",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          },
+          "-=riders": null
+        }
+      },
       "type": "spell",
-      "img": "icons/consumables/fruit/berry-leaf-pink.webp",
+      "img": "icons/magic/life/heart-area-circle-red-green.webp",
+      "sort": 2800000,
       "effects": [
         {
           "_id": "1dzvDffEh8wZ0oQy",
@@ -4826,36 +5480,6 @@
           "folder": null
         }
       ],
-      "folder": "pBaAAtXBCq9FVEnL",
-      "sort": 5200000,
-      "ownership": {
-        "default": 0,
-        "f9K62vO9hIl1GByi": 3
-      },
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          },
-          "-=riders": null
-        }
-      },
-      "_stats": {
-        "duplicateSource": null,
-        "coreVersion": "14.360",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1785692827317,
-        "modifiedTime": 1785692827317,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplBless00000"
-      },
-      "_id": "7232b4ab9a5e8987"
-    },
-    {
-      "name": "Cure Wounds",
       "system": {
         "description": {
           "value": "<p>1st, touch. 1d8 + Wis. Restoration of the living. Not of the executed.</p>",
@@ -4985,8 +5609,43 @@
         "sourceItem": "class:paladin-feyward-oath",
         "prepared": 1
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ac1d12ae2a9f1aad"
+    },
+    {
+      "name": "Fog Cloud",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          },
+          "-=riders": null
+        }
+      },
       "type": "spell",
-      "img": "icons/magic/life/heart-area-circle-red-green.webp",
+      "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
+      "sort": 2900000,
       "effects": [
         {
           "_id": "1dzvDffEh8wZ0oQy",
@@ -5062,36 +5721,6 @@
           "folder": null
         }
       ],
-      "folder": "pBaAAtXBCq9FVEnL",
-      "sort": 5200000,
-      "ownership": {
-        "default": 0,
-        "f9K62vO9hIl1GByi": 3
-      },
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          },
-          "-=riders": null
-        }
-      },
-      "_stats": {
-        "duplicateSource": null,
-        "coreVersion": "14.360",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1785692827317,
-        "modifiedTime": 1785692827317,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplBless00000"
-      },
-      "_id": "ac1d12ae2a9f1aad"
-    },
-    {
-      "name": "Fog Cloud",
       "system": {
         "description": {
           "value": "<p>1st. 20-ft radius fog. Cover for sappers.</p>",
@@ -5221,8 +5850,43 @@
         "sourceItem": "class:paladin-feyward-oath",
         "prepared": 1
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "6293da5470de8836"
+    },
+    {
+      "name": "Barkskin",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          },
+          "-=riders": null
+        }
+      },
       "type": "spell",
-      "img": "icons/magic/air/fog-gas-smoke-dense-white.webp",
+      "img": "icons/magic/defensive/armor-stone-skin.webp",
+      "sort": 3000000,
       "effects": [
         {
           "_id": "1dzvDffEh8wZ0oQy",
@@ -5298,36 +5962,6 @@
           "folder": null
         }
       ],
-      "folder": "pBaAAtXBCq9FVEnL",
-      "sort": 5200000,
-      "ownership": {
-        "default": 0,
-        "f9K62vO9hIl1GByi": 3
-      },
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          },
-          "-=riders": null
-        }
-      },
-      "_stats": {
-        "duplicateSource": null,
-        "coreVersion": "14.360",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1785692827317,
-        "modifiedTime": 1785692827317,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplBless00000"
-      },
-      "_id": "6293da5470de8836"
-    },
-    {
-      "name": "Barkskin",
       "system": {
         "description": {
           "value": "<p>2nd, concentration. AC cannot be below 16. Circle spell. Always prepared.</p>",
@@ -5457,8 +6091,43 @@
         "sourceItem": "class:paladin-feyward-oath",
         "prepared": 1
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "73058b21279a98e6"
+    },
+    {
+      "name": "Spike Growth",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          },
+          "-=riders": null
+        }
+      },
       "type": "spell",
-      "img": "icons/magic/defensive/armor-stone-skin.webp",
+      "img": "icons/magic/nature/root-vines-grow-brown.webp",
+      "sort": 3100000,
       "effects": [
         {
           "_id": "1dzvDffEh8wZ0oQy",
@@ -5534,36 +6203,6 @@
           "folder": null
         }
       ],
-      "folder": "pBaAAtXBCq9FVEnL",
-      "sort": 5200000,
-      "ownership": {
-        "default": 0,
-        "f9K62vO9hIl1GByi": 3
-      },
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          },
-          "-=riders": null
-        }
-      },
-      "_stats": {
-        "duplicateSource": null,
-        "coreVersion": "14.360",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1785692827317,
-        "modifiedTime": 1785692827317,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplBless00000"
-      },
-      "_id": "73058b21279a98e6"
-    },
-    {
-      "name": "Spike Growth",
       "system": {
         "description": {
           "value": "<p>2nd. 20-ft radius difficult terrain, 2d4 piercing per 5 ft moved. Circle spell. Calvary killer.</p>",
@@ -5693,8 +6332,43 @@
         "sourceItem": "class:paladin-feyward-oath",
         "prepared": 1
       },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "9b9696debc0324a4"
+    },
+    {
+      "name": "Pass without Trace",
+      "folder": null,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          },
+          "-=riders": null
+        }
+      },
       "type": "spell",
-      "img": "icons/magic/nature/root-vines-grow-brown.webp",
+      "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
+      "sort": 3200000,
       "effects": [
         {
           "_id": "1dzvDffEh8wZ0oQy",
@@ -5770,36 +6444,6 @@
           "folder": null
         }
       ],
-      "folder": "pBaAAtXBCq9FVEnL",
-      "sort": 5200000,
-      "ownership": {
-        "default": 0,
-        "f9K62vO9hIl1GByi": 3
-      },
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          },
-          "-=riders": null
-        }
-      },
-      "_stats": {
-        "duplicateSource": null,
-        "coreVersion": "14.360",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1785692827317,
-        "modifiedTime": 1785692827317,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplBless00000"
-      },
-      "_id": "9b9696debc0324a4"
-    },
-    {
-      "name": "Pass without Trace",
       "system": {
         "description": {
           "value": "<p>2nd. +10 Stealth, leave no tracks. Circle spell. How three teams reach three walls at once.</p>",
@@ -5929,192 +6573,68 @@
         "sourceItem": "class:paladin-feyward-oath",
         "prepared": 1
       },
-      "type": "spell",
-      "img": "icons/magic/perception/silhouette-stealth-shadow.webp",
-      "effects": [
-        {
-          "_id": "1dzvDffEh8wZ0oQy",
-          "flags": {},
-          "disabled": false,
-          "duration": {
-            "value": 60,
-            "units": "seconds",
-            "expiry": "turnStart",
-            "expired": false
-          },
-          "origin": "Compendium.dnd5e.spells24.Item.phbsplBless00000",
-          "tint": "#ffffff",
-          "transfer": false,
-          "name": "Blessed",
-          "description": "<p>Whenever a target makes an attack roll or a saving throw before the spell ends, the target adds 1d4 to the attack roll or save.</p>",
-          "statuses": [],
-          "_stats": {
-            "compendiumSource": "Compendium.dnd5e.spells.Item.8dzaICjGy6mTUaUr.ActiveEffect.8rP3gwmXVTgZqYZE",
-            "duplicateSource": null,
-            "coreVersion": "14.360",
-            "systemId": "dnd5e",
-            "systemVersion": "5.3.3",
-            "createdTime": 1785692827317,
-            "modifiedTime": 1785692827317,
-            "lastModifiedBy": "f9K62vO9hIl1GByi",
-            "exportSource": null
-          },
-          "img": "icons/magic/holy/chalice-glowing-gold-water.webp",
-          "type": "base",
-          "system": {
-            "changes": [
-              {
-                "key": "system.bonuses.abilities.save",
-                "value": "1d4",
-                "priority": null,
-                "type": "add",
-                "phase": "initial"
-              },
-              {
-                "key": "system.bonuses.mwak.attack",
-                "value": "1d4",
-                "priority": null,
-                "type": "add",
-                "phase": "initial"
-              },
-              {
-                "key": "system.bonuses.msak.attack",
-                "value": "1d4",
-                "priority": null,
-                "type": "add",
-                "phase": "initial"
-              },
-              {
-                "key": "system.bonuses.rsak.attack",
-                "value": "1d4",
-                "priority": null,
-                "type": "add",
-                "phase": "initial"
-              },
-              {
-                "key": "system.bonuses.rwak.attack",
-                "value": "1d4",
-                "priority": null,
-                "type": "add",
-                "phase": "initial"
-              }
-            ]
-          },
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "folder": null
-        }
-      ],
-      "folder": "pBaAAtXBCq9FVEnL",
-      "sort": 5200000,
-      "ownership": {
-        "default": 0,
-        "f9K62vO9hIl1GByi": 3
-      },
-      "flags": {
-        "dnd5e": {
-          "riders": {
-            "activity": [],
-            "effect": []
-          },
-          "-=riders": null
-        }
-      },
       "_stats": {
+        "compendiumSource": null,
         "duplicateSource": null,
+        "exportSource": {
+          "worldId": "waluipedia-hub",
+          "uuid": "Actor.toadettePC000001",
+          "coreVersion": "14.360",
+          "systemId": "dnd5e",
+          "systemVersion": "5.3.3"
+        },
         "coreVersion": "14.360",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1785692827317,
-        "modifiedTime": 1785692827317,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "exportSource": null,
-        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplBless00000"
+        "createdTime": 1787705433730,
+        "modifiedTime": 1787705433730,
+        "lastModifiedBy": "toadetteplayer01"
+      },
+      "ownership": {
+        "default": 0
       },
       "_id": "a847ebcc78c5e06b"
     }
   ],
   "effects": [],
-  "folder": null,
+  "ownership": {
+    "default": 0
+  },
   "flags": {
-    "waluipedia": {
-      "kind": "player-character-export",
-      "sourceCharacterId": "captain_toadette",
-      "eventIds": [
-        "fall_bramblehaven"
-      ],
-      "factionId": "peach_loyalists",
-      "usedModel": false
-    },
+    "core": {},
+    "dnd5e": {},
     "bik": {
-      "characterId": "captain_toadette",
-      "xpKey": "captain_toadette",
       "playerCharacter": true,
       "npc": false,
+      "foundryActorType": "character",
+      "sheet": "ActorSheet5eCharacter",
+      "characterId": "captain_toadette",
+      "xpKey": "captain_toadette",
       "class": "Druid (Circle of the Land — Forest)",
       "level": 3,
       "ledgerXP": 1730,
       "nextXP": 2700,
       "remainingXP": 970,
-      "ledgerEntries": 6,
-      "powerLevel": 7,
-      "fameScore": 68,
-      "status": "Active — commanding Peach Loyalist forces",
-      "source": "data/characters.json + XP_SUMMARY.captain_toadette + events (Fall of Bramblehaven)",
-      "inventoryPolicy": "Confirmed command kit only; hub shop suggestions discarded",
-      "confirmedInventory": [
-        "Command Quarterstaff",
-        "Service Dagger",
-        "Hide Armor",
-        "Loyalist Heater Shield",
-        "Healer's Kit",
-        "Rations",
-        "Signal Whistle",
-        "Standing Orders",
-        "Standard Mushroom",
-        "Herbalism Kit",
-        "Waterskin"
-      ],
-      "removedHubJunk": [
-        "Fake Luigi Mushroom Backpack",
-        "Present Day Potion",
-        "Punctual Peach",
-        "Quantum Shuffle Staff",
-        "Civil War Relic: Peach’s Balcony Rail Fragment",
-        "Potion of Grizzly Grumbles",
-        "Bootleg Peach Fan"
-      ],
-      "campaignFeaturesForGM": [
-        "No-Quarter Standing Order",
-        "Bramblehaven Siegecraft"
-      ],
       "itemCount": 32,
-      "foundryActorType": "character",
-      "sheet": "dnd5e.CharacterActorSheet"
-    },
-    "dnd5e": {},
-    "exportSource": {
-      "system": "dnd5e",
-      "coreVersion": "14.360",
-      "systemVersion": "5.3.3"
+      "envelope": "cloned from hjumpik.json player character export"
     }
   },
   "_stats": {
-    "coreVersion": "14.360",
-    "systemId": "dnd5e",
-    "systemVersion": "5.3.3",
-    "createdTime": 1787703681518,
-    "modifiedTime": 1787703681518,
-    "lastModifiedBy": "waluipedia-hub",
+    "compendiumSource": null,
+    "duplicateSource": null,
     "exportSource": {
       "worldId": "waluipedia-hub",
+      "uuid": "Actor.toadettePC000001",
       "coreVersion": "14.360",
       "systemId": "dnd5e",
       "systemVersion": "5.3.3"
-    }
+    },
+    "coreVersion": "14.360",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1787705433730,
+    "modifiedTime": 1787705433730,
+    "lastModifiedBy": "toadetteplayer01"
   },
-  "ownership": {
-    "default": 0
-  }
+  "_id": "ToadettePlayer01"
 }
