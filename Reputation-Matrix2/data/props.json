@@ -1925,18 +1925,18 @@
       "kind": "ledger",
       "icon": "📋",
       "title": "Ladder Tally — Junction Wall",
-      "subtitle": "Five rounds · after-action",
+      "subtitle": "Field count after the climb",
       "items": [],
       "articles": [
         "warp_pipe_junction_restricted_city",
         "warp_pipe_junction_ladder_fight",
         "captain_toadette"
       ],
-      "note": "Busiest: Koopa Troopa. Most-targeted: Black Bear. 21 attacks. 1 spell.",
+      "note": "Busiest body on the wall: a standard Koopa. The bear took the most attention. Magikoopa left twice.",
       "stamps": [
         "evidence"
       ],
-      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Peach Loyalist Field Count</div><div class=\"pd-sub\">Warp Pipe Junction ladders · 5 Aethel, 1040 BF</div></div><div class=\"pd-meta\">Rounds: 5 · NPC turns: 25 · Attacks: 21 · Spells: 1</div><div class=\"pd-clause\">Koopa Troopa (standard): 14 attacks, focused Black Bear.</div><div class=\"pd-clause\">Magikoopa (battle mage): 4 attacks, 1 spell, focused Big R / ANCHOR.</div><div class=\"pd-clause\">Black Bear: 2 multiattacks, 3 retreats, focused Koopa Troopa.</div><div class=\"pd-clause\">Goomba (conscript): 1 attack, then dead on Embercap.</div><div class=\"pd-total\">Result: gate opened from inside. Dewdrop extracted. Junction not held.</div><div class=\"pd-margin\">The crayfish is not on this sheet. The crayfish was five feet and still the captain. — W.</div>"
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Peach Loyalist Field Count</div><div class=\"pd-sub\">Warp Pipe Junction ladders · 5 Aethel, 1040 BF</div></div><div class=\"pd-meta\">Afternoon into the wall. Extracted before dark.</div><div class=\"pd-clause\">Koopa Troopa (standard): kept hitting the bear.</div><div class=\"pd-clause\">Magikoopa: would not stay; one blast put the bear down.</div><div class=\"pd-clause\">Black Bear / Big R: missed, hit, fell, stood, carried Dewdrop.</div><div class=\"pd-clause\">Goomba (conscript): one try, then dead on Embercap.</div><div class=\"pd-total\">Result: gate opened from inside. Dewdrop extracted. Junction not held.</div><div class=\"pd-margin\">The crayfish is not on this sheet. The crayfish was five feet and still the captain. — W.</div>"
     }
   }
 }

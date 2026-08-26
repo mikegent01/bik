@@ -331,7 +331,7 @@ Toadette hit the beaten-up Koopa who was still kicking. Big R finished him and u
 
 The crayfish came last.
 
-Five rounds. The tally's busiest body was a standard Koopa. The most-targeted body was the Black Bear. Twenty-one attacks. One spell. A Magikoopa who would not stay put.
+The wall went long enough. The tally's busiest body was a standard Koopa. The most-targeted body was the Black Bear. Twenty-one attacks. One spell. A Magikoopa who would not stay put.
 
 Toadette won the way Loyalists win when the plan is already a lie: the gate opened, the wounded left, and the captain did not leave first.""",
         },
@@ -361,7 +361,7 @@ Toadette won the way Loyalists win when the plan is already a lie: the gate open
             "Embercap's guildmaster lie opened a Bowser Bros gate",
             "The manor was a rust shack in a poor town",
             "Ladder order: Embercap, Dewdrop, Toadette, Big R",
-            "Toadette's wild shape: a crayfish five feet long",
+            "Toadette became a crayfish five feet long",
             "First kill: a Goomba, from prone, after it stood on Embercap's head",
             "Dewdrop blessed the squad from Big R's back and went down again",
             "Embercap opened the gate from the inside",
@@ -430,7 +430,7 @@ Toadette won the way Loyalists win when the plan is already a lie: the gate open
         "summary": "Five rounds on the Junction ladders after a failed shack-as-manor trick. Dewdrop went down on the climb. Toadette became a five-foot crayfish. Embercap killed a Goomba from prone and opened the winch. Big R carried the wounded out.",
         "engagement": {
             "combatants": 10,
-            "ledgerWindow": "5 Aethel, 1040 BF · five rounds · 25 NPC turns · 21 attacks · 1 spell",
+            "ledgerWindow": "5 Aethel, 1040 BF · afternoon into the wall · extracted before dark",
             "scale": "A squad fight on ladders, not a siege. The army waited at the pipe-edge and did not come up.",
         },
         "keyMoments": [
@@ -442,7 +442,7 @@ Toadette won the way Loyalists win when the plan is already a lie: the gate open
             {"time": "winch", "who": "Embercap", "act": "Hauled the gate open from inside", "result": "Extraction route", "decisive": True},
             {"time": "exit", "who": "Dewdrop", "act": "Woke, blessed from Big R's back", "result": "Down again; dragged through"},
         ],
-        "description": """*Filed from the ladder tally. I was not on the wall. The four who were left me a count: five rounds, twenty-one attacks, one spell, a crayfish five feet long.*
+        "description": """*Filed from the ladder tally. I was not on the wall. The four who were left me a count: a crayfish five feet long and a medic who would not stay down.*
 
 ## Part I — Up
 
@@ -461,7 +461,7 @@ Dewdrop went down. The Magikoopa left twice and hit once. The bear fell. Emberca
 The gate opened. Big R took a spear, five gold, and Dewdrop. Dewdrop woke long enough to bless the people carrying him and went out cold. Toadette came last with dull claws. The army was still at the pipes.
 """,
         "aftermath": "The Junction is not Loyalist ground. The winch works from the inside. Dewdrop is the bill. The Magikoopa is still somewhere that is not a tally line.",
-        "waluigiAssessment": "I have a five-round count and no guildmaster. That is the whole review. Embercap's lie was the only thing that worked until the winch. The crayfish was the only thing that held. Dewdrop is not a cost you get to pay twice a week.",
+        "waluigiAssessment": "I have a wall and no guildmaster. That is the whole review. Embercap's lie was the only thing that worked until the winch. The crayfish was the only thing that held. Dewdrop is not a cost you get to pay twice a week.",
         "relatedArticles": [EID, "warp_pipe_junction", "peach_loyalists", "captain_toadette", "embercap", "scribe_dewdrop", "big_r"],
         "reputationChanges": {},
         "effects": {},
@@ -486,7 +486,7 @@ The gate opened. Big R took a spear, five gold, and Dewdrop. Dewdrop woke long e
         "kind": "ledger",
         "icon": "📋",
         "title": "Ladder Tally — Junction Wall",
-        "subtitle": "Five rounds · after-action",
+        "subtitle": "Field count after the climb",
         "items": [],
         "articles": [EID, BID, "captain_toadette"],
         "note": "Busiest: Koopa Troopa. Most-targeted: Black Bear. 21 attacks. 1 spell.",
@@ -531,7 +531,7 @@ The gate opened. Big R took a spear, five gold, and Dewdrop. Dewdrop woke long e
             "session": "s_aethel5_warp_pipe",
             "icon": "📋",
             "kind": "ledger",
-            "title": "Five rounds on the ladders",
+            "title": "What the wall actually produced",
             "secured": "Counted after extraction",
             "custody": "Loyalist field file",
             "visual": "<div style=\"width:130px;height:90px;background:#f4ecd8;border:1px solid #333;padding:6px;font:11px monospace\">5 rd<br>21 atk<br>1 spl<br>BEAR</div>",

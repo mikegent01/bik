@@ -2106,13 +2106,13 @@
           "session": "s_aethel5_warp_pipe",
           "icon": "📋",
           "kind": "ledger",
-          "title": "Five rounds on the ladders",
+          "title": "What the wall actually produced",
           "secured": "Counted after extraction",
           "custody": "Loyalist field file",
-          "visual": "<div style=\"width:130px;height:90px;background:#f4ecd8;border:1px solid #333;padding:6px;font:11px monospace\">5 rd<br>21 atk<br>1 spl<br>BEAR</div>",
-          "onRecord": "Five rounds. Twenty-one attacks. One spell. Busiest: Koopa. Most-targeted: Black Bear.",
+          "visual": "<div style=\"width:130px;height:90px;background:#f4ecd8;border:1px solid #333;padding:6px;font:11px monospace\">WALL<br>KOOPA<br>BEAR<br>WINCH</div>",
+          "onRecord": "A field count. Busiest: Koopa. Most attention: the bear. One Magikoopa blast.",
           "dc": 4,
-          "analysis": "The tally will not write crayfish. It will write bear. Waluigi is keeping both. The Magikoopa's one spell is the only line that explains Big R on the ground.\n\n## Dewdrop\n\nHe is not a row. He is the reason the extraction is the result and not a hold.\n\n[[roll:3|whether ANCHOR and Black Bear are one body|One person. The field needed two names for the same back.|A bear and a toad sharing a ladder. Second hearing required.]]",
+          "analysis": "The tally will not write crayfish. It will write bear. Waluigi is keeping both. The Magikoopa's blast is the only line that explains Big R on the ground.\n\n## Dewdrop\n\nShe is not a row. She is the reason the extraction is the result and not a hold.\n\n[[roll:3|whether ANCHOR and Black Bear are one body|One person. The field needed two names for the same back.|A bear and a toad sharing a ladder. Second hearing required.]]",
           "links": {
             "events": [
               "warp_pipe_junction_restricted_city"

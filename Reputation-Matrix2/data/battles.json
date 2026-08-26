@@ -4610,13 +4610,13 @@
       }
     },
     "casualties": {
-      "attackers": "Dewdrop critically injured and twice unconscious, extracted. Big R dropped by a Magikoopa blast, stood. Toadette's claw hurt on a brick. Nobody of the four stayed on the wall.",
+      "attackers": "Dewdrop speared and twice unconscious, extracted. Big R dropped by a Magikoopa blast, stood. Toadette's claw hurt on a brick. Nobody of the four stayed on the wall.",
       "defenders": "Goomba guide dead. At least two Koopas dead. One ran. Magikoopa left by teleport. Gate opened against their posting."
     },
-    "summary": "Five rounds on the Junction ladders after a failed shack-as-manor trick. Dewdrop went down on the climb. Toadette became a five-foot crayfish. Embercap killed a Goomba from prone and opened the winch. Big R carried the wounded out.",
+    "summary": "A wall fight after a failed shack-as-manor trick. Dewdrop went down on the climb. Toadette became a five-foot crayfish. Embercap killed a Goomba and opened the winch. Big R carried the wounded out.",
     "engagement": {
       "combatants": 10,
-      "ledgerWindow": "5 Aethel, 1040 BF · five rounds · 25 NPC turns · 21 attacks · 1 spell",
+      "ledgerWindow": "5 Aethel, 1040 BF · afternoon into the wall · extracted before dark",
       "scale": "A squad fight on ladders, not a siege. The army waited at the pipe-edge and did not come up."
     },
     "keyMoments": [
@@ -4624,12 +4624,12 @@
         "time": "climb",
         "who": "a spear",
         "act": "Hit Dewdrop on the rungs",
-        "result": "Critically injured; the climb did not stop"
+        "result": "Folded on the rungs; the climb did not stop"
       },
       {
         "time": "climb",
         "who": "Toadette",
-        "act": "Wild shape — five-foot crayfish",
+        "act": "Became a five-foot crayfish",
         "result": "Claw on a Koopa",
         "decisive": true
       },
@@ -4666,9 +4666,9 @@
         "result": "Down again; dragged through"
       }
     ],
-    "description": "*Filed from the ladder tally. I was not on the wall. The four who were left me a count: five rounds, twenty-one attacks, one spell, a crayfish five feet long.*\n\n## Part I — Up\n\nThey climbed because the gate they had talked through was shut. Embercap first. Dewdrop. Toadette. Big R last. A spear found Dewdrop on the rungs. Toadette became a crayfish and held a Koopa anyway.\n\n## Part II — On the Head\n\nEmbercap jumped for a Goomba and got a Goomba on his skull. He dropped. The mace did the rest. First kill. A Koopa said murderer, which the shack had already earned.\n\n## Part III — The Mage Who Would Not Stay\n\nDewdrop went down. The Magikoopa left twice and hit once. The bear fell. Embercap found the winch.\n\n## Part IV — Out\n\nThe gate opened. Big R took a spear, five gold, and Dewdrop. Dewdrop woke long enough to bless the people carrying him and went out cold. Toadette came last with dull claws. The army was still at the pipes.\n",
+    "description": "*Filed after the climb. I was not on the wall. The four who were left me a crayfish, a winch, and a medic who would not stay down.*\n\n## Part I — Up\n\nThey climbed because the gate they had talked through was shut. Embercap first. Dewdrop. Toadette. Big R last. A spear found Dewdrop on the rungs. Toadette became a crayfish and held a Koopa anyway.\n\n## Part II — On the Head\n\nEmbercap jumped for a Goomba and got a Goomba on his skull. He dropped. The mace did the rest. First kill. A Koopa said murderer, which the shack had already earned.\n\n## Part III — The Mage Who Would Not Stay\n\nDewdrop went down. The Magikoopa left twice and hit once. The bear fell. Embercap found the winch.\n\n## Part IV — Out\n\nThe gate opened. Big R took a spear, five gold, and Dewdrop. Dewdrop woke long enough to bless the people carrying her and went out cold. Toadette came last with dull claws. The army was still at the pipes.\n",
     "aftermath": "The Junction is not Loyalist ground. The winch works from the inside. Dewdrop is the bill. The Magikoopa is still somewhere that is not a tally line.",
-    "waluigiAssessment": "I have a five-round count and no guildmaster. That is the whole review. Embercap's lie was the only thing that worked until the winch. The crayfish was the only thing that held. Dewdrop is not a cost you get to pay twice a week.",
+    "waluigiAssessment": "I have a wall and no guildmaster. That is the whole review. Embercap's lie was the only thing that worked until the winch. The crayfish was the only thing that held. Dewdrop is not a cost you get to pay twice a week.",
     "relatedArticles": [
       "warp_pipe_junction_restricted_city",
       "warp_pipe_junction",
