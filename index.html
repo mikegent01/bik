@@ -7651,8 +7651,8 @@ function atlasChips(arr,kind){
 function mountAtlasMap(mapId, group){
   const host=document.getElementById('atlas-map-host'); if(!host)return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css';document.head.appendChild(css);}
-  import(prefix+'app/pages/maps/atlas-map-v2.js').then(m=>m.mountAtlasMapV2(host,mapId)).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Atlas Map v2 failed',e);});
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map3';document.head.appendChild(css);}
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map3').then(m=>m.mountAtlasMapV2(host,mapId)).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Atlas Map v2 failed',e);});
 }
 
 function atlasMapApplet(id, n){

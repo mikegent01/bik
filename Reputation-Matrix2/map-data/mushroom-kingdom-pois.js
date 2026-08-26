@@ -6,6 +6,7 @@ export const mushroomKingdomData = {
     pointsOfInterest: [
         {
             id: 'poi_mk_castle',
+            articleId: 'peachs_castle',
             x: 50.54,
             y: 30.88,
             type: 'castle',
@@ -20,6 +21,7 @@ export const mushroomKingdomData = {
         },
         {
             id: 'poi_mk_toadtown',
+            articleId: 'toad_town',
             x: 52.0,
             y: 24.5,
             type: 'town',
@@ -62,6 +64,7 @@ export const mushroomKingdomData = {
         },
         {
             id: 'poi_mk_fawful_lab',
+            articleId: 'fawful_fortress',
             x: 48.00,
             y: 27.00,
             type: 'workshop',
@@ -76,6 +79,7 @@ export const mushroomKingdomData = {
         },
         {
             id: 'poi_mk_bramblehaven', // ID updated
+            articleId: 'bramblehaven',
             x: 48.00,
             y: 38.00,
             type: 'town', // No longer just ruins
@@ -356,6 +360,7 @@ export const mushroomKingdomData = {
         },
         {
             id: 'poi_mp_warp_pipe_junction',
+            articleId: 'warp_pipe_junction',
             x: 54.0,
             y: 43.5,
             type: 'ley_line',
