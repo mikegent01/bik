@@ -45,6 +45,7 @@ convert it.
 | `fvtt-Actor-bones-level-5-infiltrator-player.json` | **Bones — level 5 player character**; 49 focused class, feature, weapon, gear, lore, and chronology documents | The reference for a fully fleshed-out PC linked to the XP ledger |
 | `fvtt-Actor-feyward-dan-level-3-player.json` | **Feyward Dan — level 3 player character**; parallel-reality Toad with Feyward eye, unstable aura, and 2,000+ lines of dossier JSON | The reference for a dimensional-variant PC; keep separate from Original Dan |
 | `fvtt-Actor-eager-level-4-catastrophe-scout-player.json` | **Eager — level 4 player character**; catastrophe scout with confirmed field gear and no fabricated party loot | The reference for a focused player inventory built from the Eager source record |
+| `fvtt-Actor-captain-toadette-level-3-land-druid-player.json` | **Captain Toadette — level 3 Land Druid**; Peach Loyalist commander; curated command kit | A commander translated to Druid without shop junk or a new wiki page |
 | `fvtt-Actor-default-item-pile-WF1OTqeH4049Rt9B.json` | Loot / **item pile** actor (weapons, consumables, tools, containers) | The template for a **lootable pile** |
 | `fvtt-Actor-remi-item-pile-example.json` | **Remi item pile example**; a promoted blank-style item-pile export containing Peach's Castle Brick, Skullsplitter Warhammer, and The Rotting Skull Piercer | The reference for a small purchased-gear pile built from shop receipts |
 
@@ -903,6 +904,42 @@ not only bonuses.
    ownership is intentionally neutral (`default: 0`).
 5. Do not drag the chronology cards into a combat encounter as enemies. They are
    lore/feat documents attached to a player sheet.
+
+## 3.5a Recipe: Captain Toadette as a Land Druid (Foundry only)
+
+`fvtt-Actor-captain-toadette-level-3-land-druid-player.json` is a **Foundry
+actor**, not a new Waluipedia page. Lore stays on the existing
+`characters.json` id `captain_toadette`. Do not add a second character record.
+
+How to make one (this is the same recipe as §3.1–3.2):
+
+```bash
+# 1. Draft from lore (shop gear will be wrong — that is expected)
+python3 tools/hub/hub_cli.py character --from captain_toadette --class Druid --race Toad --level 3 --save
+
+# 2. Throw out hub shop suggestions (balcony rails, bootleg fans, gag potions)
+# 3. Promote a curated sheet into this folder as fvtt-Actor-captain-toadette-level-3-land-druid-player.json
+```
+
+### Build and ledger snapshot
+
+- **Level:** 3; **XP:** 1,730; **next:** 2,700; **remaining:** 970 (`XP_SUMMARY.captain_toadette`).
+- **Interpretation:** Circle of the Land (Forest) Druid. Table translation of
+  Bramblehaven siegecraft — sappers, three walls at once, earth and thorn —
+  not a claim the dossier named a D&D class. The player asked for Druid.
+- **Ability emphasis:** Wisdom 16, Dexterity 14, Constitution 14, Charisma 13.
+- **AC 16** (hide 12 + Dex 2 + shield 2), **HP 24**, walk **25** (Toad, small).
+- **Slots:** 4 first / 2 second. **Wild Shape** 2 / short rest.
+- **Confirmed kit:** command quarterstaff, service dagger, hide, Loyalist
+  heater, healer's kit, rations, whistle, standing-orders paper, one standard
+  mushroom, herbalism kit, waterskin. **18 gp / 40 sp.**
+- **Removed hub junk:** Fake Luigi backpack, Present Day Potion, Punctual
+  Peach, Quantum Shuffle Staff, balcony-rail relic, Grizzly Grumbles, bootleg fan.
+- **Campaign features (GM review):** No-Quarter Standing Order; Bramblehaven
+  Siegecraft. Witness card for `fall_bramblehaven` awards **no** XP.
+
+Import as a `character` actor in dnd5e. Own it to the player. File new XP in
+the ledger first, then bump `system.details.xp` and `flags.bik.ledgerXP`.
 
 ## 3.6 Recipe: make a loot / item pile
 
