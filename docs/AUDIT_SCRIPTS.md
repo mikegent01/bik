@@ -1,27 +1,35 @@
 # Audit Scripts
 
-Four scripts that count what a filing is actually made of. Run them from the
+Six scripts that count what a filing is actually made of. Run them from the
 repo root.
 
-The first two are **throwaway and advisory** — paste, change the id, run. They
-count sensory words, dialogue, and the story / analysis ratio. They cannot tell
-whether a scene is good, whether a joke lands, or whether the argument holds. A
-filing that flags nothing can still be dull; a filing that flags three things
-can be finished. Read the output, re-read the prose, then decide.
+They come in three flavours:
 
-They also **do not measure length as a fault**. Nothing here says "too long."
+- **Throwaway and advisory** — the event and what-if audits. Paste, change the
+  id, run. They count sensory words, dialogue, and the story / analysis ratio.
+  They cannot tell whether a scene is good, whether a joke lands, or whether
+  the argument holds. A filing that flags nothing can still be dull; a filing
+  that flags three things can be finished. Read the output, re-read the prose,
+  then decide.
+- **Committed and advisory** — the readability audit,
+  `tools/check-readability.py`. It lives in `tools/` because every new filing
+  should pass through it on the way in, but its flags stay judgement calls,
+  and the same warning applies: it cannot tell whether the prose is good —
+  only what its rhythm is made of.
+- **Committed and strict** — `tools/check-exhibits.py`,
+  `tools/check-investigations.py` and `tools/check-rolls.py` ask questions with
+  right answers — does this class exist, does this id resolve, can a reader
+  actually reach this DC — so their failures are bugs, not opinions.
+
+None of them **measures length as a fault**. Nothing here says "too long."
 If a number looks high, ask whether the prose is padded — not whether it can be
 shortened to hit a band.
-
-The last two are **committed and strict**. `tools/check-exhibits.py` and
-`tools/check-investigations.py` ask questions with right answers — does this
-class exist, does this id resolve, can a reader actually reach this DC — so
-their failures are bugs, not opinions.
 
 | Script | Reads | Use with | Verdict |
 |---|---|---|---|
 | [Event audit](#event-audit) | `Reputation-Matrix2/data/events.json` | [`STORY_FORMAT_GUIDE.md`](STORY_FORMAT_GUIDE.md) | Advisory |
 | [What-If audit](#what-if-audit) | `Reputation-Matrix2/data/whatifs.json` (`doc['whatifs']`) | [`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUIDE.md) | Advisory |
+| [Readability audit](#readability-audit) | filings in `events.json`, `whatifs.json`, `articleAnalyses.json`; any draft file | Every craft guide | Advisory (`--strict` optional) |
 | [Exhibit audit](#exhibit-audit) | `props.json`, `exhibits.css`, `index.html` | [`SESSION_FILING_PROCESS.md`](SESSION_FILING_PROCESS.md#step-6--exhibits-file-the-paper-the-story-mentions) | **Pass/fail** |
 | [Investigation audit](#investigation-audit) | `investigations.json`, `props.json`, `investigations.css`, `index.html` | [`INVESTIGATIONS.md`](INVESTIGATIONS.md) | **Pass/fail** |
 | [Roll registry audit](#roll-registry-audit) | `rolls.json`, `props.json`, `investigations.json`, `index.html` | [`INVESTIGATIONS.md`](INVESTIGATIONS.md#rolls-inside-the-document--datarollsjson) | **Pass/fail** |
@@ -156,6 +164,70 @@ else:
     print('  Nothing flagged.')
 PY
 ```
+
+---
+
+## Readability audit
+
+The third committed script, and the first you should reach for when a draft
+**sounds wrong and you cannot say why**. It answers the question the two
+paste-in audits do not: *what does this filing feel like to read out loud?*
+
+```bash
+python3 tools/check-readability.py --analysis <id|all>   # article analyses
+python3 tools/check-readability.py --event <id|all>      # session events
+python3 tools/check-readability.py --whatif <id|all>     # what-ifs
+python3 tools/check-readability.py --file draft.md       # any draft, before it is data
+```
+
+`--summary` prints a one-line-per-record table for `all` targets. `--strict`
+exits 1 if anything is flagged, for authors who want a pre-commit gate. The
+default exit is always 0 — flags are advice, and the script is deliberately
+**not** part of `tools/check-all.py`'s pass/fail set.
+
+**Why a grade-level formula alone is not enough.** The classic scores reward
+the archive's most common failure mode. Flesch Reading Ease loves short
+sentences, so a filing made of nothing but four-word verdicts scores "very
+easy" while reading like a drumroll that never lands. Canonical case:
+`warp_pipe_junction_waluigi_analysis` scores FRE 91.8 — the "easiest" analysis
+in the archive — while 48% of its sentences are fragments, its sentence-length
+spread is 5.4 words against the reference filings' 7–9, and a third of what it
+says arrives as a ≤12-word "X is Y" verdict. Whether that cadence lands as a
+drumbeat or as the Auditor-General's deliberate procedure is an editorial
+call; the script's job is to surface the rhythm, not to rule on it. It
+therefore measures **rhythm as well as difficulty**: sentence-length spread,
+the short / mid / long mix, drumbeat runs of consecutive fragments, and
+aphorism density, alongside Flesch Reading Ease, Flesch–Kincaid, Gunning Fog,
+SMOG, Coleman–Liau and ARI.
+
+**Flags (advisory — re-read and decide):**
+
+| Flag | Fires when | What it means |
+|---|---|---|
+| machine-gun rhythm | 25+ sentences, length stdev < 6.0, ≥40% fragments (≤6 words) | Monotone staccato. Punches need long sentences to punch against. |
+| aphorism machine | >25 short copula verdicts per 1k words | Every sentence a verdict; verdicts stop landing. |
+| drumbeat | ≥8 consecutive fragments | A three-sentence burst is an effect; by eight it is a tic. |
+| concrete-wall prose | FK > 11.5 or Fog > 13 | The Ebott failure. Split; trade abstract words for physical ones. |
+| hard read | Flesch Reading Ease < 45 | Dense, whichever score you prefer. |
+
+Sentences over 45 words are listed verbatim with their lengths — read them
+aloud. The per-unit table marks which section (event overview, analysis
+section, what-if chapter) trips which check, so the fix is findable without
+re-reading the whole filing. Bands are calibrated so the reference filings in
+[`ARCHIVE_RANKING.md`](ARCHIVE_RANKING.md) — the Imp Ambush, the Wario Bank,
+the Hanging-Tree analysis — pass without a flag. If a future exemplar trips
+one, recalibrate the band in the script; do not mangle the exemplar to fit.
+
+Run it once the prose draft exists, and again before the PR. A filing has not
+been read until its rhythm report has.
+
+**A flag can be closed as intentional voice.** The Auditor-General cadence is
+deliberately procedural — short sentences that present the fact and trust the
+reader to feel its weight. On review, the owner ruled that
+`warp_pipe_junction_waluigi_analysis` and `battalion_of_six_waluigi_analysis`
+keep their staccato: a rhythm flag starts the argument, it does not win it.
+If a filing is kept as-is after review, record the ruling in the PR and move
+on. The checker makes rhythm a conscious choice; it does not flatten it.
 
 ---
 

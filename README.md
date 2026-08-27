@@ -182,7 +182,7 @@ Six things that explain nearly every decision in this repository:
 | [`docs/CSS_STYLE_GUIDE.md`](docs/CSS_STYLE_GUIDE.md) | **CSS without breaking the archive.** Scoped selectors, fluid layouts, long Waluigi assessments, reputation panels, theme checks | Changing site styles |
 | [`docs/VERIFICATION_AND_ORGANIZATION.md`](docs/VERIFICATION_AND_ORGANIZATION.md) | Checks that catch breakage; rules that prevent bloat; where files go | Before calling a run done |
 | [`docs/RUN_REPORT_FORMAT.md`](docs/RUN_REPORT_FORMAT.md) | How to report at the end of a run — every file, every event, every XP award | End of every run |
-| [`docs/AUDIT_SCRIPTS.md`](docs/AUDIT_SCRIPTS.md) | The craft-audit scripts — event, what-if (advisory) and exhibits (pass/fail) | Checking a draft’s numbers |
+| [`docs/AUDIT_SCRIPTS.md`](docs/AUDIT_SCRIPTS.md) | The craft-audit scripts — event, what-if and readability (advisory); exhibits, investigations, rolls (pass/fail) | Checking a draft’s numbers |
 | [`docs/ARCHIVE_RANKING.md`](docs/ARCHIVE_RANKING.md) | Which filings set the standard and why | Arguing about standards |
 
 ### How the code and data are built
@@ -272,6 +272,7 @@ Six things that explain nearly every decision in this repository:
 - **Check what the news owes** → `python3 tools/build-rnn-broadcast.py --unaired`.
 - **Audit references site-wide** → `python3 tools/check-references.py` (dangling ids, missing art; `--strict` to fail on legacy links).
 - **Run the routine checker set** → `python3 tools/check-all.py` (local paths, references, exhibits, investigations, rolls, battles, background blurbs, home feed contract, RNN check, Bros sync/test).
+- **Check a draft’s readability** → `python3 tools/check-readability.py` with `--event <id>` / `--whatif <id>` / `--analysis <id>` / `--file draft.md` before filing (advisory — catches machine-gun rhythm and aphorism density that grade scores miss; `docs/AUDIT_SCRIPTS.md`).
 - **Mages Guild Codex emoji spam** → `python3 tools/gen-mages-guild-code.py --check-emoji` (also filters new pages on every generate).
 - **Refresh update stamps** → `node generate-updates.js`.
 

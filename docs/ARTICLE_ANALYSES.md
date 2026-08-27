@@ -326,7 +326,12 @@ investigation rather than creating a quest here.
    checks. Write useful success and failure notes before choosing each DC.
 9. Add only resolvable `relatedArticles` IDs.
 10. Add the data record; do not hard-code prose in `index.html`.
-11. Open both routes and read them in sequence: canonical event first,
+11. Run `python3 tools/check-readability.py --analysis <id>` and re-read the
+    prose past anything it flags. Grade scores alone do not catch the
+    machine-gun rhythm an analysis drifts into when every sentence is a
+    verdict — see
+    [`AUDIT_SCRIPTS.md` → Readability audit](AUDIT_SCRIPTS.md#readability-audit).
+12. Open both routes and read them in sequence: canonical event first,
     companion analysis second.
 
 ---
@@ -351,6 +356,8 @@ investigation rather than creating a quest here.
 □ connected panel shows the analysis only on its source article
 □ canonical-event and return links both work
 □ JSON parses and the route renders without console errors
+□ readability audit run (`tools/check-readability.py --analysis <id>`); every
+  flag consciously answered, not just seen
 ```
 
 The final editorial test is simple: if the source event disappeared, the

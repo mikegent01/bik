@@ -473,6 +473,19 @@ print(f'{len(rows)} article analysis record(s) passed identity checks')
 PY
 ```
 
+### Readability (advisory)
+
+```bash
+python3 tools/check-readability.py --analysis <id>
+```
+
+Flags machine-gun rhythm, drumbeat fragment runs, and aphorism density that
+grade-level scores miss — the pattern behind the `warp_pipe_junction`
+analysis debate, which scores "very easy" on Flesch Reading Ease while its
+fragment cadence divides readers. Advisory, not pass/fail: re-read the prose
+past every flag, and remember a flag can be closed as intentional voice — see
+[`../AUDIT_SCRIPTS.md` → Readability audit](../AUDIT_SCRIPTS.md#readability-audit).
+
 ### Build the site
 
 ```bash
