@@ -801,7 +801,11 @@ at it without explaining it. Readers finish the filing themselves.
 ```
 
 Run the numbers: [`AUDIT_SCRIPTS.md` → Event audit](AUDIT_SCRIPTS.md#event-audit).
-The script is advisory. It cannot tell whether a scene is good.
+The script is advisory. It cannot tell whether a scene is good. Its rhythm
+line (sentence sd floor ~6, aphorism ceiling ~25/1k) catches the one thing
+the craft list can't see: the same punch thrown on a loop. If it flags, vary
+the punches inside your voice — one long sentence for the short ones to break
+against — do not flatten the cadence.
 
 ---
 

@@ -6,8 +6,10 @@ repo root.
 They come in three flavours:
 
 - **Throwaway and advisory** — the event and what-if audits. Paste, change the
-  id, run. They count sensory words, dialogue, and the story / analysis ratio.
-  They cannot tell whether a scene is good, whether a joke lands, or whether
+  id, run. They count sensory words, dialogue, the story / analysis ratio,
+  and the rhythm (sentence-length spread, fragment share, verdict density) —
+  so that last one stops being hand-checked. They cannot tell whether a scene
+  is good, whether a joke lands, or whether
   the argument holds. A filing that flags nothing can still be dull; a filing
   that flags three things can be finished. Read the output, re-read the prose,
   then decide.
@@ -40,7 +42,7 @@ shortened to hit a band.
 
 ```bash
 python3 - <<'PY'
-import json, re
+import json, re, statistics
 EVENT_ID = 'your_event_id'
 d = json.load(open('Reputation-Matrix2/data/events.json'))
 e = [x for x in d if x['id'] == EVENT_ID][0]
@@ -78,6 +80,14 @@ print(f'sensory {sense/sw*1000:.1f}/1k   abstract {abst/sw*1000:.1f}/1k   ratio 
 print(f'dialogue {dlg/sw*1000:.1f}/1k')
 print('(reference — Imp: 17% analysis, ~12 sensory/1k, ~12 dialogue/1k)')
 
+sents = [x.strip() for x in re.split(r'(?<=[.!?])\s+', s) if x.strip()]
+lens = [len(x.split()) for x in sents]
+sd = statistics.pstdev(lens) if len(lens) > 1 else 0
+frag = sum(1 for l in lens if l <= 6) / max(1, len(lens)) * 100
+aph = sum(1 for x in sents if len(x.split()) <= 12 and re.search(r'\b(is|was|are|were)\b', x)) / sw * 1000
+print(f'rhythm: sentence sd {sd:.1f} (floor ~6) · fragments {frag:.0f}% · aphorisms {aph:.1f}/1k (ceiling ~25)')
+print('(rhythm reference — Hanging-Tree analysis voice: sd 7.3, 21% fragments, 13 aphorisms/1k)')
+
 notes = []
 if analysis / tot > 0.35:
     notes.append('analysis heavy — move a finding to waluigiAssessment')
@@ -85,6 +95,10 @@ if sense / sw * 1000 < 6:
     notes.append('prose may be abstract — beats reported rather than shown?')
 if abst and sense < abst * 2:
     notes.append('narration using analytical vocabulary — that language is Waluigi’s')
+if len(lens) >= 25 and sd < 6 and frag >= 40:
+    notes.append('monotone loop — same punch on repeat; add long sentences for the short ones to break against')
+if aph > 25:
+    notes.append('verdict fatigue — cut a third of the "X is Y" verdicts so the survivors land')
 print()
 if notes:
     for n in notes:
@@ -101,7 +115,7 @@ PY
 
 ```bash
 python3 - <<'PY'
-import json, re
+import json, re, statistics
 WHATIF_ID = 'your_whatif_id'
 doc = json.load(open('Reputation-Matrix2/data/whatifs.json'))
 e = [x for x in doc['whatifs'] if x['id'] == WHATIF_ID][0]
@@ -140,6 +154,14 @@ if aside_lens:
     print(f'asides {len(aside_lens)}  median {aside_lens[len(aside_lens)//2]}w  max {aside_lens[-1]}w')
 print('(reference — Wario: ~24% inline, ~15 sensory/1k, ~15 dialogue/1k, aside median ~59)')
 
+sents = [x.strip() for x in re.split(r'(?<=[.!?])\s+', s) if x.strip()]
+lens = [len(x.split()) for x in sents]
+sd = statistics.pstdev(lens) if len(lens) > 1 else 0
+frag = sum(1 for l in lens if l <= 6) / max(1, len(lens)) * 100
+aph = sum(1 for x in sents if len(x.split()) <= 12 and re.search(r'\b(is|was|are|were)\b', x)) / sw * 1000
+print(f'rhythm: sentence sd {sd:.1f} (floor ~6) · fragments {frag:.0f}% · aphorisms {aph:.1f}/1k (ceiling ~25)')
+print('(rhythm reference — Hanging-Tree analysis voice: sd 7.3, 21% fragments, 13 aphorisms/1k)')
+
 flags = []
 if inline_a / tot > 0.35:
     flags.append('inline analysis heavy — promote asides to analysis/findings')
@@ -147,6 +169,10 @@ if sense / sw * 1000 < 6:
     flags.append('prose may be abstract — show the wish landing')
 if abst and sense < abst * 2:
     flags.append('narration using analytical vocabulary — save it for apparatus')
+if len(lens) >= 25 and sd < 6 and frag >= 40:
+    flags.append('monotone loop — same punch on repeat; add long sentences for the short ones to break against')
+if aph > 25:
+    flags.append('verdict fatigue — cut a third of the "X is Y" verdicts so the survivors land')
 if not e.get('ledger'):
     flags.append('no ledger[] — skimmers have nothing to hold')
 if not e.get('findings'):
@@ -189,12 +215,17 @@ default exit is always 0 — flags are advice, and the script is deliberately
 the archive's most common failure mode. Flesch Reading Ease loves short
 sentences, so a filing made of nothing but four-word verdicts scores "very
 easy" while reading like a drumroll that never lands. Canonical case:
-`warp_pipe_junction_waluigi_analysis` scores FRE 91.8 — the "easiest" analysis
-in the archive — while 48% of its sentences are fragments, its sentence-length
-spread is 5.4 words against the reference filings' 7–9, and a third of what it
-says arrives as a ≤12-word "X is Y" verdict. Whether that cadence lands as a
-drumbeat or as the Auditor-General's deliberate procedure is an editorial
-call; the script's job is to surface the rhythm, not to rule on it. It
+`warp_pipe_junction_waluigi_analysis` scored FRE 91.8 — the "easiest" analysis
+in the archive — while 48% of its sentences were fragments, its sentence-length
+spread was 5.4 words against the reference filings' 7–9, and a third of what it
+said arrived as a ≤12-word "X is Y" verdict. In 2026-08 the owner ruled the
+cadence intentional but the variety lacking — the same punch thrown on a loop —
+and the filing was rewritten to vary its punches within the cadence (it now
+reads sd 11.0, 39% fragments, 16 aphorisms/1k). The flag did its job twice:
+first by surfacing the rhythm, then by confirming the fix had found a new one.
+Whether a cadence lands as a drumroll or as deliberate procedure is an
+editorial call; the script's job is to surface the rhythm, not to rule on it.
+It
 therefore measures **rhythm as well as difficulty**: sentence-length spread,
 the short / mid / long mix, drumbeat runs of consecutive fragments, and
 aphorism density, alongside Flesch Reading Ease, Flesch–Kincaid, Gunning Fog,
@@ -221,13 +252,21 @@ one, recalibrate the band in the script; do not mangle the exemplar to fit.
 Run it once the prose draft exists, and again before the PR. A filing has not
 been read until its rhythm report has.
 
-**A flag can be closed as intentional voice.** The Auditor-General cadence is
-deliberately procedural — short sentences that present the fact and trust the
-reader to feel its weight. On review, the owner ruled that
-`warp_pipe_junction_waluigi_analysis` and `battalion_of_six_waluigi_analysis`
-keep their staccato: a rhythm flag starts the argument, it does not win it.
-If a filing is kept as-is after review, record the ruling in the PR and move
-on. The checker makes rhythm a conscious choice; it does not flatten it.
+**A flag can be closed as intentional voice — or used to sharpen it.** The
+Auditor-General cadence is deliberately procedural — short sentences that
+present the fact and trust the reader to feel its weight. On first review, the
+owner ruled that `warp_pipe_junction_waluigi_analysis` and
+`battalion_of_six_waluigi_analysis` keep their staccato: a rhythm flag starts
+the argument, it does not win it. On re-read the ruling was refined, not
+reversed: the cadence stays, but the flag had caught a real overdraft — one
+construction (short declarative, flat statement, reversal-as-verdict) doing
+nearly all the work. Both drafts were rewritten to vary their punches *within*
+the cadence: at least one genuinely long, subordinated sentence per section
+for the fragments to break against, one simile, one sound beat, and roughly a
+third of the "X is not Y, it is Z" reversals cut so the survivors keep their
+weight. If a filing is kept as-is after review, record the ruling in the PR
+and move on. The checker makes rhythm a conscious choice; it does not flatten
+it.
 
 ---
 
