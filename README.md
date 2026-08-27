@@ -1,19 +1,18 @@
 # Waluipedia — The Vigilance Terminal
 
-
 **START HERE.** This is the readme for the readmes. If you are an AI agent, a
 new contributor, or returning after a break, read this page to the end before
-touching anything. It says what the project is, how the work is done, and which
-document owns each topic.
+touching anything. It says what the project is, how the work is done, and
+which document owns each topic.
 
 ---
 
 ## Once you've read this — open a pull request
 
-**Finished reading? Do not work on `gh-pages` directly.** Create a branch,
-do the work, then open a PR into `gh-pages` with the purpose stated up front.
-The PR *is* the run report's cover letter: a future reader (human or agent)
-should understand what changed and why without opening a single file.
+**Finished reading? Do not work on `gh-pages` directly.** Create a branch, do
+the work, then open a PR into `gh-pages` with the purpose stated up front. The
+PR *is* the run report's cover letter: a future reader (human or agent) should
+understand what changed and why without opening a single file.
 
 ### PR guidelines
 
@@ -37,8 +36,8 @@ should understand what changed and why without opening a single file.
    in the same PR. Unreferenced uploads rot. Follow `docs/ASSET_MAP.md` for
    where things live.
 6. **Remaster, don't rewrite.** PRs that delete working context to impose a
-   "cleaner" structure will be asked to justify every deletion
-   (see the philosophy below — especially rules 3 and 4).
+   "cleaner" structure will be asked to justify every deletion (see the
+   philosophy below — especially rules 3 and 4).
 7. **Small diffs, matched indentation.** Never reformat a whole data file to
    add one entry. Match the file's existing style exactly.
 
@@ -77,10 +76,11 @@ retcon. Full rule:
 
 ## What this project is
 
-An in-world encyclopedia, campaign chronicle and faction-simulation terminal for the
-Waluipedia tabletop campaign. `index.html` is the encyclopedia shell; `Reputation-Matrix2/`
-is the systems layer (factions, reputation, maps, laws, newspapers, standalone pages);
-`tools/` holds the Python generators that keep the two in sync.
+An in-world encyclopedia, campaign chronicle and faction-simulation terminal
+for the Waluipedia tabletop campaign. `index.html` is the encyclopedia shell;
+`Reputation-Matrix2/` is the systems layer (factions, reputation, maps, laws,
+newspapers, standalone pages); `tools/` holds the Python generators that keep
+the two in sync.
 
 It is a **static site** — no build step for the pages themselves, no framework,
 no server. Open `index.html` and it runs. The Python tools generate data and
@@ -94,8 +94,8 @@ guide is:
 
 **→ [`docs/INTAKE_DECISION_GUIDE.md`](docs/INTAKE_DECISION_GUIDE.md)** — when
 to create an event, battle, exhibit, investigation update, article analysis,
-shop item, XP award, character/location/faction record, annotation, RNN episode,
-or nothing yet.
+shop item, XP award, character/location/faction record, annotation, RNN
+episode, or nothing yet.
 
 Then, if the answer is a session filing, follow
 [`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md) in order.
@@ -108,10 +108,10 @@ classify the input → locations → characters → XP → event prose
 
 ### README maintenance standard
 
-Keep README files as routing documents, not crowded changelogs. A README should
-answer three things quickly: **what this area owns, where the source of truth
-lives, and which checks prove it works.** Put long decision trees in `docs/`,
-then link them from the README.
+Keep README files as routing documents, not crowded changelogs. A README
+should answer three things quickly: **what this area owns, where the source of
+truth lives, and which checks prove it works.** Put long decision trees in
+`docs/`, then link them from the README.
 
 When adding a system, document:
 
@@ -127,7 +127,7 @@ that much explanation, it needs its own guide.
 
 ## The philosophy
 
-Six things that explain nearly every decision in this repository:
+Seven habits explain nearly every decision in this repository:
 
 1. **It is written from inside the world.** Articles are filed by in-world
    authors — chiefly Waluigi, who is opinionated, petty, and frequently right.
@@ -137,12 +137,15 @@ Six things that explain nearly every decision in this repository:
    always physical detail: quoted speech, named objects, sounds. Commentary is
    the second layer, never the first. **If Waluigi was in the room, the
    commentator is a witness:** asides say *I said*, *I heard*, *I told him*.
-   He files names he caught. He does not write “the record missed it” about a
+   He files names he caught. He does not write "the record missed it" about a
    roll call he stood through — that is in
    [`docs/STORY_FORMAT_GUIDE.md` §7](docs/STORY_FORMAT_GUIDE.md#7-voice-and-point-of-view).
-3. **Remaster, don’t rewrite.** What exists, stays. Improve it, extend it,
+3. **Remaster, don't rewrite.** What exists, stays. Improve it, extend it,
    navigate it better. Wholesale replacement destroys context that took
-   sessions to accumulate.
+   sessions to accumulate. When a remaster is proposed and the page's owner
+   prefers the original, the original wins — see
+   [`docs/AUDIT_SCRIPTS.md` → Readability audit](docs/AUDIT_SCRIPTS.md#readability-audit)
+   for how a failed remaster gets recorded rather than repeated.
 4. **Never cut for the sake of cutting.** Length is not a defect. If prose
    cannot be trimmed without sounding worse, do not trim it. Story-critical
    content is never removed to satisfy a word band — the bands are aim, not
@@ -166,8 +169,8 @@ Six things that explain nearly every decision in this repository:
 | Document | Owns | Read when |
 |---|---|---|
 | **[`docs/INTAKE_DECISION_GUIDE.md`](docs/INTAKE_DECISION_GUIDE.md)** | **What to create from supplied data.** Event vs battle vs exhibit vs investigation vs shop item vs XP vs character/location/faction vs annotation vs nothing yet | **First. Before deciding the task shape** |
-| **[`docs/DATE_FILING_GUIDE.md`](docs/DATE_FILING_GUIDE.md)** | **How to date new and backfilled articles.** Walk backward to the prior solid date, then forward through the chain; repair vague earlier dates when touched | Before setting any event date |
-| **[`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md)** | **The ordered process.** Locations → characters → XP → *then* the event → exhibits → the investigation file → index → artifacts | After intake says “this is a session/event filing” |
+| **[`docs/DATE_FILING_GUIDE.md`](docs/DATE_FILING_GUIDE.md)** | **How to date new and backfilled articles.** Tense before dates; walk backward to the prior solid date, then forward through the chain; repair vague earlier dates when touched | Before setting any event date |
+| **[`docs/SESSION_FILING_PROCESS.md`](docs/SESSION_FILING_PROCESS.md)** | **The ordered process.** Locations → characters → XP → *then* the event → exhibits → the investigation file → index → artifacts | After intake says "this is a session/event filing" |
 | **[`docs/INVESTIGATIONS.md`](docs/INVESTIGATIONS.md)** | **The investigations system** that replaced the quest board. One accreting case file per arc; exhibits, layered analysis behind d6+1 rolls, XP, leads | Adding a session's paper to an arc |
 | [`docs/ARTICLE_ANALYSES.md`](docs/ARTICLE_ANALYSES.md) | Waluigi's **opinionated 20/80 companion analysis** for a filed article; canonical schema, voice, and canon boundaries | Writing or editing a dedicated analysis |
 | [`docs/article-analyses/README.md`](docs/article-analyses/README.md) | The implemented analysis section: discovery, renderer lifecycle, research persistence, CSS scopes, validation, troubleshooting | Maintaining or extending the analysis feature |
@@ -182,7 +185,7 @@ Six things that explain nearly every decision in this repository:
 | [`docs/CSS_STYLE_GUIDE.md`](docs/CSS_STYLE_GUIDE.md) | **CSS without breaking the archive.** Scoped selectors, fluid layouts, long Waluigi assessments, reputation panels, theme checks | Changing site styles |
 | [`docs/VERIFICATION_AND_ORGANIZATION.md`](docs/VERIFICATION_AND_ORGANIZATION.md) | Checks that catch breakage; rules that prevent bloat; where files go | Before calling a run done |
 | [`docs/RUN_REPORT_FORMAT.md`](docs/RUN_REPORT_FORMAT.md) | How to report at the end of a run — every file, every event, every XP award | End of every run |
-| [`docs/AUDIT_SCRIPTS.md`](docs/AUDIT_SCRIPTS.md) | The craft-audit scripts — event, what-if and readability (advisory); exhibits, investigations, rolls (pass/fail) | Checking a draft’s numbers |
+| [`docs/AUDIT_SCRIPTS.md`](docs/AUDIT_SCRIPTS.md) | The craft-audit scripts — event, what-if and readability (advisory); exhibits, investigations, rolls (pass/fail) | Checking a draft's numbers |
 | [`docs/ARCHIVE_RANKING.md`](docs/ARCHIVE_RANKING.md) | Which filings set the standard and why | Arguing about standards |
 
 ### How the code and data are built
@@ -240,7 +243,7 @@ Six things that explain nearly every decision in this repository:
 | `Reputation-Matrix2/app/pages/standalone/` | Self-contained pages (field journal, simulator, RNN broadcast) |
 | `Reputation-Matrix2/app/core/` | Shared renderers, including `rakasha-news.js` (The Blood-Echo broadsheet) |
 | `Reputation-Matrix2/animation_frames/` | Rakasha News Network anchor sprites and title card |
-| `tools/` | Python build scripts (`update-index-home.py`, `build-rnn-broadcast.py`, …) |
+| `tools/` | Python build scripts and audits (`update-index-home.py`, `build-rnn-broadcast.py`, `check-readability.py`, …) |
 | `tools/rnn-scripts/` | Episode scripts + `pending-news-articles.json` (events awaiting a broadcast) |
 | `docs/` | Process, craft guides, structure maps, audits |
 
@@ -270,20 +273,31 @@ Six things that explain nearly every decision in this repository:
 - **Cut the news** → only when ~10 events are pending;
   `python3 tools/build-rnn-broadcast.py` (see the cadence rule above).
 - **Check what the news owes** → `python3 tools/build-rnn-broadcast.py --unaired`.
-- **Audit references site-wide** → `python3 tools/check-references.py` (dangling ids, missing art; `--strict` to fail on legacy links).
-- **Run the routine checker set** → `python3 tools/check-all.py` (local paths, references, exhibits, investigations, rolls, battles, background blurbs, home feed contract, RNN check, Bros sync/test).
-- **Check a draft’s readability** → `python3 tools/check-readability.py` with `--event <id>` / `--whatif <id>` / `--analysis <id>` / `--file draft.md` before filing (advisory — catches machine-gun rhythm and aphorism density that grade scores miss; `docs/AUDIT_SCRIPTS.md`).
-- **Mages Guild Codex emoji spam** → `python3 tools/gen-mages-guild-code.py --check-emoji` (also filters new pages on every generate).
+- **Audit references site-wide** → `python3 tools/check-references.py`
+  (dangling ids, missing art; `--strict` to fail on legacy links).
+- **Run the routine checker set** → `python3 tools/check-all.py` (local paths,
+  references, exhibits, investigations, rolls, battles, background blurbs,
+  home feed contract, RNN check, Bros sync/test).
+- **Check a draft's readability** → `python3 tools/check-readability.py` with
+  `--event <id>` / `--whatif <id>` / `--analysis <id>` / `--file draft.md`
+  before filing. Advisory only — it surfaces machine-gun rhythm and aphorism
+  density that grade scores can't see; a flag starts an argument, and a flag
+  can be closed as intentional voice
+  ([`docs/AUDIT_SCRIPTS.md`](docs/AUDIT_SCRIPTS.md#readability-audit)).
+- **Mages Guild Codex emoji spam** → `python3 tools/gen-mages-guild-code.py --check-emoji`
+  (also filters new pages on every generate).
 - **Refresh update stamps** → `node generate-updates.js`.
 
 ## Never do these
 
 ```
-· Never write `mike` into narrative prose — it is the GM’s name (rule zero)
+· Never write `mike` into narrative prose — it is the GM's name (rule zero)
 · Never hand-edit a generated file — edit the generator and run it
   (rnn-broadcasts.js · the RNN:LAST-WEEK README blocks)
 · Never paste a session card into the home Recent Adventures HTML —
   the feed is rendered from events.json. Update mainPage.latestUpdate.
+· Never date a filing by the clock before placing the story in time —
+  tense first, then the chain (docs/DATE_FILING_GUIDE.md)
 · Never cut story-critical content to hit a word count
 · Never reformat a whole data file to add one entry — match its indentation
 · Never invent a CSS class; only .prose blockquote, .prose h2, .wiki-lead, .wnote
@@ -299,12 +313,13 @@ vibes: `Reputation-Matrix2/data/calendarMonths.json` (the months),
 `calendarMeta.json` (the rules) — and **`currentDate.json` is the world
 clock**. Check it before dating anything.
 
-- **12 months, 30 days each** — except **Deepwinter, which has 35** (365 total).
-  There is no "Harvestide 31." After day 30 comes the 1st of the next month.
+- **12 months, 30 days each** — except **Deepwinter, which has 35** (365
+  total). There is no "Harvestide 31." After day 30 comes the 1st of the next
+  month.
 - **Month order:** Firstlight · Chillwind · Veridia · Bloom · Floria ·
   Efferd · Highsun · **Harvestide** · **Aethel** · Darkmoon · Frostfall ·
-  Deepwinter. Aethel comes *after* Harvestide — check the order, don't
-  assume it from the name.
+  Deepwinter. Aethel comes *after* Harvestide — check the order, don't assume
+  it from the name.
 - **7 weekdays**; Venerias and Saturias are rest days.
 - **BF counts UP.** 722 BF is the oldest dated record, 1040 BF is the
   present. A larger year is closer to now — it is a chronicle page number,
@@ -313,25 +328,35 @@ clock**. Check it before dating anything.
 Rules:
 
 ```
+· Tense before dates. A filing can sit in the world's past, its present,
+  or after its present. Decide from the story which one it is — then date
+  it there. A recovered record, a backfilled arc, or a history page takes
+  the date its events happened, however far that sits from the clock; a
+  correct date in 955 BF beats a wrong date near 1040 BF. Only a session
+  played at the table now belongs near currentDate.json, and even then
+  the clock is a check, not the answer.
+· To date a filing in the present: chain back through the prior filings
+  to the last solid date and work forward. Never copy currentDate.json
+  blindly — confirm the chain first, then check the clock against it.
 · Every date in every filing is a calendar date. Real-world / table-side
   dates never appear in-world (a provenance note in prose is the exception).
-· To date a new session: chain back through the prior filings to the last
-  solid date and work forward. Never copy currentDate.json blindly —
-  confirm the chain first, then check the clock against it.
 · "Harvestside" and "Harvestnoon" appear in ~20 legacy filings; the
   canonical months are Harvestide and Aethel. Do not introduce new
   non-canonical month names; normalize them only when their record is
   next touched.
+· Full procedure: docs/DATE_FILING_GUIDE.md.
 ```
 
 ### Planar timekeeping — there are three clocks, and none of them agree
 
 `currentDate.json` is the **Material Plane's** clock. It is not the world's
 only clock, and treating it as universal has misdated filings before.
+(Snapshot below goes stale; the file is the truth — read it, don't quote this
+line.)
 
 | Clock | Where it applies | State |
 |---|---|---|
-| **Material (imperial)** | the default; `currentDate.json` | Aethel 4, 1040 BF |
+| **Material (imperial)** | the default; `currentDate.json` | Aethel 5, 1040 BF |
 | **Shadowfell** | Shadowfell-side filings (Tymnas's cottage, the Estate) | Imperial reckoning, but *drifting* — a month-plus has passed there since the planar fracture; Shadowfell dates carry the drift forward |
 | **Feyward** | everything inside the Feyward | **Its own year entirely: 922 BF by its own count** — over a century behind the Material, and it is not catching up. "Feyward-relative" filings borrow imperial month names for readability, but the year is the Feyward's own |
 

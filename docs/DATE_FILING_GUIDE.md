@@ -8,6 +8,25 @@ Use this guide whenever supplied notes or a transcript do not give a clear date.
 
 ---
 
+## First, tense — where does the story sit in time?
+
+Before chaining anything, decide from the story itself which of three tenses
+the filing lives in. Agents get this wrong in one direction: they see
+`currentDate.json` and date everything to the present, even when the event
+happened long before. **The filing date is the event's date**, not the day
+someone typed it into the archive.
+
+| Story position | How to date it |
+|---|---|
+| **Present** — it just happened at the table | Chain to the world clock through the prior filings ([the rule below](#the-rule)). Even here, the clock is a check, not the answer. |
+| **Past** — a recovered record, backfilled arc, history page | Date it when it happened, however far that sits from `currentDate.json`. A correct date in 955 BF beats a wrong date near 1040 BF. The clock only matters so the new date does not collide with existing filings. |
+| **After the present** — a later-dated log | Keep its own date and label the provenance; see [Later-dated filings](#later-dated-filings). |
+
+The archive grows mostly by backfill. A filing does not need to sit near the
+current clock to be correct — it needs to sit where its events happened.
+
+---
+
 ## The rule
 
 > **If the log has no date, walk backward through the prior filed events until
