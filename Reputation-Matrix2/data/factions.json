@@ -1474,5 +1474,22 @@
       "liberated_toads",
       "aegis_command"
     ]
+  },
+  {
+    "id": "dgk",
+    "name": "Directorate Global Operations (DGK)",
+    "type": "Organization / covert operations directorate",
+    "region": "Unknown",
+    "leader": "Contested — Director Vale claims authority; Central Command disputes this operation",
+    "status": "Active; internal command dispute exposed at the Dread Mansion",
+    "summary": "The DGK is an organized operations group that maintains agents, trackers, an emergency line, sample-containment protocols, and a Central Command. Its authority is compromised by an apparent unauthorized mission and Director Vale's attempt to seize command.",
+    "description": "The Dread Mansion transcript provides the first direct field evidence of the DGK's operating structure: agents receive assignments, trackers record last pings, Central Command operates an emergency line, and Spirit Residue is supposed to remain in Level 4 containment. The group can identify a missing operative and ask whether samples are secure.\n\nThe same call exposes a command conflict. Central Command denies assigning Liam's retrieval mission and orders the sample put down. Director Vale arrives, presents a badge marked Directorate Global Operations, confiscates Liam's phone, and declares the operation authorized after the fact. Central Command rejects that claim.\n\nThe DGK's full name, membership, jurisdiction, and relationship to the Mushroom Kingdom remain unverified beyond the call transcript.",
+    "notableMembers": [
+      "liam",
+      "director_vale"
+    ],
+    "relatedArticles": [
+      "the_dread_mansion_incursion"
+    ]
   }
 ]

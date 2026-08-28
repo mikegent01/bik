@@ -4293,5 +4293,59 @@
       "peach_loyalists",
       "warp_pipe_junction"
     ]
+  },
+  {
+    "id": "liam",
+    "name": "Liam",
+    "title": "The DGK Field Agent Who Was Sent to the Wrong Mansion",
+    "race": "Human — transcript does not specify further",
+    "status": "Active — inside the Dread Mansion during the interrupted extraction",
+    "affiliation": "DGK (claimed assignment; authorization disputed)",
+    "faction": "dgk",
+    "membership": "Field operative / sample courier (unverified)",
+    "summary": "Liam entered the Dread Mansion believing he had been assigned to collect samples for the DGK. A central contact later denied issuing that mission. Liam survived the mansion's pursuit, helped Luigi escape, recovered a vial of Spirit Residue, and confronted Director Vale and a doppelgänger wearing his face.",
+    "description": "Liam's account begins with a flashlight, an abandoned mansion, and a mission understood to be official. The mission's authorization collapsed during a phone call with DGK Central, but the field work did not stop: the vial was already in hand, Mario was under Alice's influence, and Vale arrived claiming that he had called Liam there.\n\nLiam acts quickly under pressure. He points the flashlight toward threats, pulls Luigi out of Alice's reach, breaks through a sealed door, checks the phone and contacts, protects the sample, and chooses an ambush when Vale approaches. The mansion answers each decision with a new complication: a looping route, a stolen phone, a charged vial, and finally a duplicate with the same face and knife.\n\nThe record ends before Liam's identity dispute is resolved. The doppelgänger is not accepted as Liam merely because it looks like him.",
+    "keyEvents": [
+      "the_dread_mansion_incursion"
+    ],
+    "relatedArticles": [
+      "the_dread_mansion_incursion"
+    ]
+  },
+  {
+    "id": "alice",
+    "name": "Alice",
+    "title": "The Green-Eyed Spirit of the Dread Mansion",
+    "race": "Ghost / hostile spirit",
+    "status": "Active — attached to or influencing Mario",
+    "affiliation": "Dread Mansion",
+    "faction": "unknown",
+    "membership": "Resident spirit / presumed source of Spirit Residue",
+    "summary": "Alice is a translucent spirit in a tattered Victorian dress whose anger drives the mansion's pursuit. She recognizes Mario as someone who returned, touches his chest, and appears able to influence or possess him.",
+    "description": "Alice first appears as a pale figure at the end of a hallway, her form translucent and her eyes green. She speaks in layered voices. Her manner changes when she sees Mario: the hostility softens into a sad, loving smile, and she says, 'You came back.'\n\nShe can follow fleeing visitors without crossing the same physical space, close doors across the mansion, and place a hand through Mario's defenses. Luigi believes she is taking him. The account also connects the spirit's presence to a diary on the second floor and to the green Spirit Residue recovered from the site.\n\nAlice's history with the mansion, including the claim that she loved its owner Riba, remains testimony from Luigi rather than independently verified evidence.",
+    "keyEvents": [
+      "the_dread_mansion_incursion"
+    ],
+    "relatedArticles": [
+      "the_dread_mansion_incursion"
+    ]
+  },
+  {
+    "id": "director_vale",
+    "name": "Director Vale",
+    "title": "The Clearance Badge Who Called the Unauthorized Mission",
+    "race": "Human — alleged DGK director",
+    "status": "Active — hostile or contested authority",
+    "affiliation": "Claims DGK authority; Central Command disputes his operation",
+    "faction": "dgk",
+    "membership": "Self-identified director / Clearance Level 5 claimant",
+    "summary": "Director Vale appeared after DGK Central denied sending Liam to collect Spirit Residue. He carried a silver Directorate badge, took Liam's phone, and declared the operation under his command despite Central Command's objection.",
+    "description": "Vale arrives from the bushes while Liam is speaking to DGK Central. His black coat, silver badge, calm voice, and claimed Clearance Level 5 make him look official; his timing and conduct make the claim dangerous. He says he called Liam to the mansion, confiscates the phone, and orders Central Command to stand down.\n\nA vial of Spirit Residue is thrown at Vale and releases a green pulse that knocks him to one knee. Luigi then strikes his shoulder with a candlestick. Vale is down briefly, but the account ends before his custody or condition is settled.\n\nThe badge and title are evidence of a claim, not proof of lawful command. Central Command explicitly says the mission was never authorized.",
+    "keyEvents": [
+      "the_dread_mansion_incursion"
+    ],
+    "relatedArticles": [
+      "the_dread_mansion_incursion"
+    ]
   }
 ]

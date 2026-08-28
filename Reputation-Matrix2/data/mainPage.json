@@ -1,14 +1,16 @@
 {
   "featuredArticle": {
-    "id": "warp_pipe_junction_restricted_city",
+    "id": "the_dread_mansion_incursion",
     "type": "event",
     "excerpt": "A rat that did not come back, a guildmaster who does not live in rust, and a crayfish five feet long.",
-    "label": "Featured File · The Junction Ladders"
+    "label": "Featured File · The Junction Ladders",
+    "title": "The Dread Mansion Incursion: The Mission Vale Called and the Face That Followed"
   },
   "latestUpdate": {
-    "id": "warp_pipe_junction_restricted_city",
+    "id": "the_dread_mansion_incursion",
     "label": "Latest File · Warp Pipe Junction",
-    "excerpt": "5 Aethel, 1040 BF: Embercap lies them through a Bowser Bros gate. The manor is a shack. Toadette becomes a five-foot crayfish. The winch opens from the inside."
+    "excerpt": "5 Aethel, 1040 BF: Embercap lies them through a Bowser Bros gate. The manor is a shack. Toadette becomes a five-foot crayfish. The winch opens from the inside.",
+    "title": "The Dread Mansion Incursion: The Mission Vale Called and the Face That Followed"
   },
   "didYouKnow": [
     "...that Remi escaped two armed dungeon guards by drawing a goblin face on a cardboard box with a Sharpie marker and claiming to be a certified Box Guardian?",

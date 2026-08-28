@@ -3512,7 +3512,7 @@
         "mario_disappearance"
       ],
       "opened": "4 Aethel, 1040 BF",
-      "lastFiled": "4 Aethel, 1040 BF",
+      "lastFiled": "5 Aethel, 1040 BF (inferred)",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🔥",
       "accent": "#c46b32",
@@ -3572,6 +3572,12 @@
           "title": "Somebody wrote this to be found",
           "state": "open",
           "text": "Burned margins, untouched title, threshold placement, and confession-shaped pacing all point the same way: the note is performance art pretending to be recovered truth. Performance can still contain truth. It simply never arrives alone.\n\n**In plain terms:** the staging is part of the evidence, not a distraction from it."
+        },
+        {
+          "id": "th_false_assignment",
+          "title": "The sample mission had two authorities",
+          "state": "open",
+          "text": "Liam received a retrieval order that Central Command denies issuing. Vale claims he called Liam, but arrives only after the denial and takes the phone by force. The open question is whether Vale authored the lure or inherited it from somebody else."
         }
       ],
       "leads": [
@@ -3608,6 +3614,17 @@
           "exhibits": [
             "ex_charred_note"
           ]
+        },
+        {
+          "id": "lead_find_dgk_sender",
+          "title": "Identify who issued Liam’s false assignment",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Compare Liam’s assignment details with DGK Central records and Director Vale’s claimed authority to determine who sent the retrieval order.",
+          "why": "The mission began before Vale appeared, so the badge-holder may not be the original sender. Finding the first instruction separates a command dispute from a deliberate lure.",
+          "exhibits": [
+            "ex_spirit_residue_call"
+          ]
         }
       ],
       "sessions": [
@@ -3616,13 +3633,20 @@
           "label": "The charred note at Waluigi's door",
           "date": "4 Aethel, 1040 BF",
           "event": "charred_note_at_waluigis_door"
+        },
+        {
+          "id": "s_dread_mansion",
+          "label": "The Dread Mansion incursion",
+          "date": "5 Aethel, 1040 BF (inferred)",
+          "event": "the_dread_mansion_incursion"
         }
       ],
       "relatedEvents": [
         "charred_note_at_waluigis_door",
         "the_eastern_passage",
         "star_fountain_reunion",
-        "the_embassy_ambush_and_luigi_interrogation"
+        "the_embassy_ambush_and_luigi_interrogation",
+        "the_dread_mansion_incursion"
       ],
       "exhibits": [
         {
@@ -3674,6 +3698,32 @@
             "characters": [
               "waluigi",
               "mario"
+            ]
+          }
+        },
+        {
+          "id": "ex_spirit_residue_call",
+          "propId": "prop_spirit_residue_dgk_call",
+          "session": "s_dread_mansion",
+          "icon": "🧪",
+          "kind": "note",
+          "category": "discovery",
+          "title": "Spirit Residue and the disputed call",
+          "secured": "5 Aethel, 1040 BF — recovered during the incursion",
+          "custody": "Archive — transcript and released vial disposition",
+          "visual": "<div style=\"padding:24px;border:1px solid rgba(90,220,160,.35);border-radius:10px;background:linear-gradient(135deg,rgba(20,70,55,.8),rgba(12,20,25,.95));color:#bfffe2;text-align:center;font-weight:800;letter-spacing:.12em\">LEVEL 4 · CONTAINMENT DISPUTED</div>",
+          "onRecord": "The emergency line identifies the green liquid as Spirit Residue and records Central Command denying the retrieval mission. Director Vale claims the same operation under his own authority. [[roll:5|A contested command is the first fact to investigate|if both voices are genuine, the file contains an internal breach rather than a simple haunting|if one voice is forged, the badge and phone call are staged evidence.]]",
+          "dc": 5,
+          "analysis": "The call is valuable because it contains a contradiction that neither side can smooth over. Central Command knows Liam, knows the tracker, and knows the containment level; it also denies sending him. Vale arrives with a badge and converts denial into command by assertion. The vial therefore proves less about the liquid than about the people who wanted custody of it. The release removes the physical sample but leaves the dispute intact.",
+          "links": {
+            "events": [
+              "the_dread_mansion_incursion"
+            ],
+            "characters": [
+              "liam",
+              "director_vale",
+              "mario",
+              "alice"
             ]
           }
         }

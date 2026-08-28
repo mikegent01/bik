@@ -1937,6 +1937,22 @@
         "evidence"
       ],
       "body": "<div class=\"pd-head\"><div class=\"pd-org\">Peach Loyalist Field Count</div><div class=\"pd-sub\">Warp Pipe Junction ladders · 5 Aethel, 1040 BF</div></div><div class=\"pd-meta\">Afternoon into the wall. Extracted before dark.</div><div class=\"pd-clause\">Koopa Troopa (standard): kept hitting the bear.</div><div class=\"pd-clause\">Magikoopa: would not stay; one blast put the bear down.</div><div class=\"pd-clause\">Black Bear / Big R: missed, hit, fell, stood, carried Dewdrop.</div><div class=\"pd-clause\">Goomba (conscript): one try, then dead on Embercap.</div><div class=\"pd-total\">Result: gate opened from inside. Dewdrop extracted. Junction not held.</div><div class=\"pd-margin\">The crayfish is not on this sheet. The crayfish was five feet and still the captain. — W.</div>"
+    },
+    "prop_spirit_residue_dgk_call": {
+      "kind": "note",
+      "icon": "🧪",
+      "title": "Spirit Residue Sample and the DGK Emergency Call",
+      "subtitle": "Evidence recovered during the Dread Mansion incursion",
+      "items": [],
+      "articles": [
+        "the_dread_mansion_incursion"
+      ],
+      "note": "The vial was released during the Vale ambush. The call transcript remains the surviving account of its classification and disputed authorization.",
+      "body": "<div class=\"pd-head\"><strong>DGK CENTRAL — EMERGENCY LINE TRANSCRIPT</strong><br>Classification: Level 4 containment concern</div><p><strong>Caller:</strong> Liam reports possession of a glowing green sample recovered during an alleged DGK retrieval mission.</p><p><strong>Central Command:</strong> Orders Liam to put the sample down and states that DGK did not authorize the mission. The caller identifies the liquid as Spirit Residue, associated with locations where people disappear.</p><p><strong>Counterclaim:</strong> Director Vale arrives, identifies himself with a Directorate Global Operations badge, and declares the operation under his direct command. Central Command disputes the authorization.</p><p><strong>Disposition:</strong> The vial was thrown during the confrontation and released a green pulse that stunned Vale. Containment status after release is unknown.</p>",
+      "stamps": [
+        "evidence",
+        "sealed"
+      ]
     }
   }
 }

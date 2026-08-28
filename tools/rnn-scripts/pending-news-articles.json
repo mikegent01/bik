@@ -27,6 +27,11 @@
       "id": "warp_pipe_junction_restricted_city",
       "filed": "5 Aethel, 1040 BF",
       "note": "Loyalist four at Warp Pipe Junction: shack-as-manor, crayfish, winch extraction"
+    },
+    {
+      "id": "the_dread_mansion_incursion",
+      "filed": "5 Aethel, 1040 BF (inferred)",
+      "note": "Dread Mansion incursion: Alice, disputed DGK mission, Spirit Residue, Director Vale, and Liam doppelganger"
     }
   ]
 }

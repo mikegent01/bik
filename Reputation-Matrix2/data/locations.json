@@ -2291,5 +2291,28 @@
       "bramblehaven",
       "toad_town"
     ]
+  },
+  {
+    "id": "the_dread_mansion",
+    "name": "The Dread Mansion",
+    "type": "Haunted mansion / Spirit-residue site / DGK target",
+    "region": "Unconfirmed; isolated grounds outside ordinary communications",
+    "controllingFaction": "Unconfirmed — Director Vale claims operational control",
+    "population": "Alice and other hostile spirits; missing persons presumed; transient visitors",
+    "climate": "Cold, dusty, and unnaturally quiet; temperature drops around Alice",
+    "status": "Active hazard — exits loop or seal, communications fail, and Spirit Residue is present",
+    "summary": "An abandoned mansion where people disappear, hostile ghosts and violent intruders roam, and an apparent DGK operation was used to draw Liam inside. Alice, a green-eyed spirit in a Victorian dress, can influence Mario. The grounds also contain a dangerous sample of Spirit Residue and a route that returns escapees to the house.",
+    "description": "The mansion is a dangerous, apparently abandoned property of long corridors, creaking floors, broken doors, neglected rooms, and a courtyard surrounded by dead trees. Its geometry is unreliable: a flight toward freedom returns to the grounds, while doors close in sequence when Alice chooses to pursue visitors.\n\nA second-floor diary connected to Alice is believed to contain her memories and the means by which she holds Mario. The building is also the site of an unauthorized sample-retrieval mission, a failed DGK contact, Director Vale's arrival, and the emergence of a doppelgänger wearing Liam's face.\n\nThe site should not be treated as secure merely because a visitor reaches the courtyard. No signal, radio, or ordinary route has yet proved reliable.",
+    "notableFeatures": [
+      "long dusty halls and unstable floorboards",
+      "moonlit courtyard with dead hedges and trees",
+      "second-floor study where Alice's diary was found",
+      "sealed or slamming doors",
+      "hostile ghost activity and temperature drops",
+      "unreliable route that returns escapees to the mansion"
+    ],
+    "relatedArticles": [
+      "the_dread_mansion_incursion"
+    ]
   }
 ]
