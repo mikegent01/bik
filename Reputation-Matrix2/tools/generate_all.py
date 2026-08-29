@@ -24,6 +24,7 @@ machine-drafted content is always distinguishable from hand-written canon.
 from __future__ import annotations
 
 import argparse
+import subprocess
 import sys
 from pathlib import Path
 
@@ -100,6 +101,10 @@ def main(argv: list[str] | None = None) -> int:
                         help="seconds to wait between records")
     parser.add_argument("--seed", type=int, default=0, help="seed the popcorn order")
     parser.add_argument("--timeout", type=int, default=240)
+    parser.add_argument("--past-events", type=int, default=0, metavar="N",
+                        help="after validated systems, generate N sparse foreign past events")
+    parser.add_argument("--past-max-attempts", type=int, default=0,
+                        help="past-event retry ceiling (0 = generator default)")
 
     args = parser.parse_args(argv)
 
@@ -134,6 +139,12 @@ def main(argv: list[str] | None = None) -> int:
     def on_event(event: RunnerEvent) -> None:
         icon = ICONS.get(event.kind, "·")
         print(f"{icon} {event.text}", flush=True)
+        if args.limit and event.kind == "ok" and event.produced is not None:
+            done = event.produced
+            width = 28
+            filled = min(width, int(width * done / args.limit))
+            bar = "#" * filled + "-" * (width - filled)
+            print(f"  systems [{bar}] {done}/{args.limit}", flush=True)
 
     runner = Runner(all_systems(), settings, on_event=on_event)
     try:
@@ -142,7 +153,24 @@ def main(argv: list[str] | None = None) -> int:
         print("\ninterrupted — finishing in-flight records")
         runner.stop()
         return 130
-    return 0 if runner.failed == 0 else 1
+    if runner.failed:
+        return 1
+    if args.past_events:
+        expand = ROOT.parent / "tools" / "expand-waluipedia.py"
+        command = [sys.executable, str(expand), "--past-events", "--overnight",
+                   "--target", str(args.past_events), "--base-url", args.endpoint.rsplit("/v1/", 1)[0] + "/v1",
+                   "--timeout", str(args.timeout)]
+        if args.model:
+            command += ["--model", args.model]
+        if args.past_max_attempts:
+            command += ["--max-attempts", str(args.past_max_attempts)]
+        print("\n=== events: sparse foreign past-event stage ===", flush=True)
+        print("$", " ".join(command), flush=True)
+        completed = subprocess.run(command, cwd=ROOT.parent)
+        if completed.returncode:
+            print("events stage failed; no later stage was run", file=sys.stderr)
+            return completed.returncode
+    return 0
 
 
 if __name__ == "__main__":
