@@ -59,9 +59,12 @@ def _walk(obj, kind: str, out: list, by_id: dict) -> None:
             "kind": kind,
             "title": _title(obj),
             "blurb": _blurb(obj),
+            # Search the complete scalar surface of each filed record. This
+            # keeps event/battle descriptions discoverable without loading full
+            # JSON blobs into the model prompt.
             "hay": " ".join(
-                str(obj.get(k) or "")
-                for k in ("id", "name", "title", "summary", "affiliation", "status", "date")
+                str(value) for value in obj.values()
+                if isinstance(value, (str, int, float, bool))
             ).lower(),
         }
         out.append(rec)

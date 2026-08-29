@@ -11,6 +11,8 @@ Examples:
   python3 tools/overnight-run.py --plan
   python3 tools/overnight-run.py --skip-mages
   python3 tools/overnight-run.py --base-url http://127.0.0.1:1234/v1 --target 400
+  python3 tools/overnight-run.py --systems reputation,faction_dossiers --system-limit 40
+  python3 tools/overnight-run.py --inventory
 """
 from __future__ import annotations
 
@@ -24,6 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PYTHON = sys.executable or "python3"
 INJURY = ROOT / "tools" / "generate-injury-table.py"
 MAGES = ROOT / "tools" / "gen-mages-guild-code.py"
+ALL_SYSTEMS = ROOT / "Reputation-Matrix2" / "tools" / "generate_all.py"
 
 
 def run(label: str, command: list[str]) -> int:
@@ -45,7 +48,14 @@ def main() -> int:
     parser.add_argument("--parallel", "--jobs", dest="parallel", type=int, default=1, help="Codex prompt workers")
     parser.add_argument("--sleep", type=float, default=0.4, help="delay between Codex saves")
     parser.add_argument("--log", default="", help="optional Codex log path")
+    parser.add_argument("--systems", default="", help="opt in to the validated all-systems generator; comma-separated ids")
+    parser.add_argument("--system-limit", type=int, default=0, help="maximum successful all-systems records (0 = until its pending queue is exhausted)")
+    parser.add_argument("--system-workers", type=int, default=2, help="concurrent workers for the all-systems generator")
+    parser.add_argument("--inventory", action="store_true", help="show pending counts for every generatable system and exit")
     args = parser.parse_args()
+
+    if args.inventory:
+        return run("all-systems inventory", [PYTHON, str(ALL_SYSTEMS), "--inventory"])
 
     injury_check = [PYTHON, str(INJURY), "--check"]
     mages = [PYTHON, str(MAGES), "--overnight", "--target", str(args.target), "--base-url", args.base_url,
@@ -58,6 +68,16 @@ def main() -> int:
     stages = [("injury contract before run", injury_check)]
     if not args.skip_mages:
         stages.append(("Mages' Guild Codex", mages))
+    if args.systems:
+        systems = [x.strip() for x in args.systems.split(",") if x.strip()]
+        all_cmd = [PYTHON, str(ALL_SYSTEMS), "--only", ",".join(systems),
+                   "--workers", str(max(1, min(8, args.system_workers))),
+                   "--endpoint", args.base_url.rstrip("/") + "/chat/completions"]
+        if args.system_limit:
+            all_cmd += ["--limit", str(max(1, args.system_limit))]
+        if args.model:
+            all_cmd += ["--model", args.model]
+        stages.append(("validated all-systems: " + ", ".join(systems), all_cmd))
     stages.append(("injury contract after run", injury_check))
 
     if args.plan:

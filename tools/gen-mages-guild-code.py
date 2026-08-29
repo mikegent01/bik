@@ -59,23 +59,33 @@ def _atomic_write(tmp: Path, target: Path):
                 raise
             _tw.sleep(0.15 * (attempt + 1))
 
-LORE = """
-FILED LORE (use these names; do not invent a new Guild):
-- Body: Autumnwood Accords. Hall: Autumn Wood, Midlands. Sovereign: Archmage Veyra (mediates).
-- Conservators: Archmage Theron, stability, forbidden schools.
-- Innovators: Janna Brightspark, restricted research with permission.
-- Aegis Magi enforce the dominant faction.
-- Paradox Trial: peers; seal magic or pocket-prison. Not a street duel unless scheduled.
-- Quiet List: not a public catalogue. Do not recite in taverns.
-- Opponents: Regal Empire, Iron Legion, Silver Flame, Cosmic Jesters. Ally: Goodstyle Artisans.
-- Iron Mandate is Empire/Legion law, not this Codex. Wario Coin is not Guild tender.
-- Archie Miser: Provisional Guild Pass (politics vs Mandate). Titan growth on Markop = unauthorized field use.
-- Heartstone / rift: speech until surveyed. One-T cartography is a map, not a raid license.
-- Scope: this Codex applies to covered casters and covered conduct wherever performed, including unaligned lands, wilderness, other planes, and unsanctioned field work. Location alone does not create immunity.
-- A guest or unaffiliated caster who casts outside Guild property is not automatically a Person Bound, but may still incur Codex liability for covered conduct, property damage, public danger, unauthorized use of Guild marks or equipment, a Guild contract, or a tracked anomaly/asset. The scope rule must distinguish jurisdiction, standing, and the separate duty to answer for harm.
-- Fireball, weather, transfiguration, summoned creatures, and other spells that damage third-party property are covered field incidents even when no Guild hall, fee, or Guild member is involved. Do not invent a blanket rule that makes every traveler a Guild member.
-- mike is GM, not a person bound. No Grime office.
-"""
+def live_lore_context(data: dict, current: dict) -> str:
+    """Build prompt context from the archive at run time.
+
+    The generator deliberately has no duplicated canon block. Source files and
+    the bounded archive index are the authority; each slot gets a fresh search
+    over filed events, characters, factions, locations, and laws.
+    """
+    title = str(current.get("title") or "")
+    brief = str(current.get("brief") or "")
+    cite = str(current.get("cite") or "")
+    query = f"{title} {brief} {cite} Mages Guild"
+    parts = ["LIVE ARCHIVE CONTEXT (retrieved for this slot; cite only facts that fit):"]
+    parts.append(format_cards(lore_lookup(query, k=10)))
+    parts.append("RELATED FILED CODE:\n" + refer_ccd(query, k=8, exclude=cite))
+    for path in BROWSE:
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8", errors="replace")
+        # Keep the prompt bounded while still allowing current source edits to
+        # change what the next overnight page sees.
+        for marker in ("mages_guild:", "arcane:", "Autumnwood"):
+            pos = text.find(marker)
+            if pos >= 0:
+                parts.append(f"SOURCE {path.name}:\n{text[pos:pos + 1800]}")
+                break
+    return "\n\n".join(parts)[:9000]
+
 
 VOICE = """You are a clerk of the Mages' Guild Accords Desk writing a bound code book, not a bullet list.
 
@@ -89,8 +99,6 @@ PAGE Title of this topic
 Then paragraphs. Blank line between paragraphs. No Heading | sentence lines. No JSON. No chat.
 
 Most pages stay generic bureaucratic law. Use ARCHIVE CARDS only when they actually fit.
-Canon: Autumnwood Accords; Veyra; Conservators (Theron); Innovators (Brightspark); Paradox Trial; Quiet List; Iron Mandate is rival law; Wario Coin is not tender; mike is not a character.
-Scope canon: distinguish (a) who is a Person Bound, (b) where the Guild may assert process or oversight, and (c) what conduct is actionable under the Codex. A non-member outside Guild property is not automatically enrolled merely by existing or casting, but outside-Guild conduct can still be covered when it causes property damage or public danger, uses Guild resources or marks, breaches a Guild undertaking, affects a tracked Guild asset/anomaly, or falls under a field-casting, reporting, restitution, or emergency rule. Write explicit remedies and notice/process so this is a real widening of scope, not a contradictory claim of universal membership. Use a random destructive Fireball/property-damage incident as a recurring test case where appropriate.
 If you need one fact: NEED: short query — then wait; do not stop the page early.
 """
 
@@ -430,7 +438,7 @@ def apply_letter_keys(body: list) -> list:
 
 
 def pack_context(data: dict, current: dict) -> str:
-    bits = [LORE]
+    bits = [live_lore_context(data, current)]
     for p in BROWSE:
         if not p.exists():
             continue
