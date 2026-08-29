@@ -85,8 +85,11 @@ def main() -> int:
     # available for users who want large contiguous batches.
     if args.mix:
         systems = args.systems.split(",")
+        # A mixed round is deliberately one system record at a time. Passing
+        # workers=2 here caused generate_all to queue two large prompts before
+        # the round could report progress, and could exhaust LM Studio KV space.
         all_base = [PYTHON, str(ALL_SYSTEMS), "--only", args.systems,
-                    "--workers", str(max(1, min(8, args.system_workers))),
+                    "--workers", "1",
                     "--endpoint", args.base_url.rstrip("/") + "/chat/completions",
                     "--limit", "1"]
         if args.model:
