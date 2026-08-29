@@ -157,3 +157,24 @@ words; reject emoji spam, repeated long phrases, and repeated-line spam; and
 write `proposed: true`. A bounded retry ceiling prevents an exhausted or
 unparseable model from looping forever. The writer follows `README.md` and
 `docs/STORY_FORMAT_GUIDE.md` through its story-with-commentator prompt.
+
+
+## Windows save-lock recovery
+
+The Codex generator now retries atomic replacement for up to 30 seconds when
+Windows reports `WinError 5` from an editor, antivirus scanner, or watcher. It
+then attempts a complete direct write from the finished temporary JSON. If the
+target is still locked, it fails loudly with the exact recovery instruction
+rather than continuing with unsaved pages. The retry window can be adjusted
+with `MAGES_SAVE_RETRY_SECONDS`.
+
+Regression tests:
+
+```sh
+python3 -m unittest tools/tests/test_mages_save.py -v
+```
+
+On Windows, close any editor or process holding
+`Reputation-Matrix2/data/laws/mages-guild-code.json` before retrying. A browser
+fetch normally does not lock the file; file watchers and editors are the usual
+causes.
