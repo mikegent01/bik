@@ -15,6 +15,7 @@ New §§ only when min(all) >= --min-clauses.
 from __future__ import annotations
 
 import argparse
+import os
 import hashlib
 import json
 import re
@@ -752,30 +753,21 @@ def _compact_messages(messages: list, limit: int = 8200) -> list:
     return [system, *middle, newest_copy]
 
 def chat(base: str, model: str, messages: list, timeout: int) -> str:
-    """Call LM Studio and retry context-sized 400s with a smaller request."""
+    """Call LM Studio, suppress thinking-only replies, and recover overflow."""
     url = base.rstrip("/") + "/chat/completions"
-    max_tokens = MAX_OUTPUT_TOKENS
+    max_tokens = int(os.environ.get("MAGES_MAX_TOKENS", "1800"))
     payload_messages = messages
-    for attempt in range(2):
-        payload = json.dumps({"model": model, "temperature": 0.7,
-                              "max_tokens": max_tokens,
-                              "messages": payload_messages}).encode()
-        req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
-        try:
-            with urllib.request.urlopen(req, timeout=timeout) as r:
-                data = json.loads(r.read().decode())
-            return data["choices"][0]["message"]["content"]
-        except urllib.error.HTTPError as error:
-            detail = error.read().decode("utf-8", "replace")[:500]
-            print(f"LM Studio HTTP {error.code}: {detail}", file=sys.stderr)
-            if error.code != 400 or attempt:
-                raise
-            # LM Studio commonly reports context overflow as HTTP 400. A
-            # compact retry is safe because validation still rejects incomplete
-            # pages; it also makes the actual server error visible in logs.
-            payload_messages = _compact_messages(messages)
-            max_tokens = 900
-    raise RuntimeError("LM Studio request failed")
+    reasoning_effort = os.environ.get("MAGES_REASONING_EFFORT", "none")
+    last_error = None
+    for attempt in range(3):
+        payload_data = {"model": model, "temperature": 0.7,
+                        "max_tokens": max_tokens, "messages": payload_messages}
+        # LM Studio passes this through for reasoning models. It prevents the
+        # model from consuming the entire completion budget in
+        # reasoning_content and returning an empty message.content.
+        if reasoning_effort:
+            payload_data["reasoning_effort"] = reasoning_effort
+        payload = json.dumps(payload_data).encode()
 
 def chat_with_search(base: str, model: str, messages: list, timeout: int) -> str:
     raw = chat(base, model, messages, timeout)
