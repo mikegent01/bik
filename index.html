@@ -9980,6 +9980,13 @@ function view_rakashaNews(){
   window.scrollTo(0,0);
 }
 
+function injuryPanel(item){
+  const refs=Array.isArray(item.injuries)?item.injuries:[];
+  if(!refs.length) return '';
+  const entries=(DATA.injuries&&DATA.injuries.entries)||[];
+  const rows=refs.map(ref=>{const e=entries.find(x=>x.d100===Number(ref.roll)); if(!e)return `<li>Unknown injury reference: ${esc(ref.injuryId||ref.roll)}</li>`; return `<li><a href="${pathPrefix}app/pages/standalone/injury-desk.html#injury-${e.d100}"><strong>d100 ${e.d100} · ${esc(e.injuryType)}</strong></a><span class="text-muted"> — ${esc(e.description)} Cure: ${esc(e.cure)} · ${esc(e.duration)}${ref.status&&ref.status!=='active'?` · ${esc(ref.status)}`:''}</span></li>`;}).join('');
+  return `<section class="event-details-section injury-character-panel"><h4>🩹 Permanent injuries <a class="chip" href="${pathPrefix}app/pages/standalone/injury-desk.html">Open Injury Desk</a></h4><ul>${rows}</ul></section>`;
+}
 function view_article(id){
   if(id==='the_midlands'){ Router.go('#/article/regal_empire'); return; }
   if(id==='thornburys_field_journal'){ view_fieldJournal(); return; }
@@ -10132,7 +10139,7 @@ function view_article(id){
      ${typeKey==='battles'?battleVsInfographic(item)+battleDossier(item):''}
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
-${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}
+${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}
      <div class="prose">${applyAnnotations(mdToHtml(item.description||'',item.id), item.id)}</div>
      ${sectionsHtml}
      ${engagementsHtml}
@@ -16721,7 +16728,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.te
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','articleAnalyses','battles','locations','races','nations','factions','collections',
-  'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls'];
+  'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','injuries','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};

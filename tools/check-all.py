@@ -39,6 +39,7 @@ def main() -> int:
     py = sys.executable or "python3"
     checks: list[tuple[str, list[str], Path]] = [
         ("local paths", [py, "tools/check-local-paths.py"], ROOT),
+        ("injury table", [py, "tools/generate-injury-table.py", "--check"], ROOT),
         ("duplicate records", [py, "tools/check-duplicates.py"], ROOT),
         ("references", [py, "tools/check-references.py"], ROOT),
         ("exhibits", [py, "tools/check-exhibits.py"], ROOT),

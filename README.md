@@ -190,6 +190,7 @@ Seven habits explain nearly every decision in this repository:
 | [`docs/VERIFICATION_AND_ORGANIZATION.md`](docs/VERIFICATION_AND_ORGANIZATION.md) | Checks that catch breakage; rules that prevent bloat; where files go | Before calling a run done |
 | [`docs/RUN_REPORT_FORMAT.md`](docs/RUN_REPORT_FORMAT.md) | How to report at the end of a run — every file, every event, every XP award | End of every run |
 | [`docs/AUDIT_SCRIPTS.md`](docs/AUDIT_SCRIPTS.md) | The craft-audit scripts — event, what-if and readability (advisory); exhibits, investigations, rolls (pass/fail) | Checking a draft's numbers |
+| [`docs/INJURY_TABLE_GUIDE.md`](docs/INJURY_TABLE_GUIDE.md) | The permanent injury d100 desk, character references, spinner, and assignment tool | Rolling or healing a lasting injury |
 | [`docs/ARCHIVE_RANKING.md`](docs/ARCHIVE_RANKING.md) | Which filings set the standard and why | Arguing about standards |
 
 ### How the code and data are built
