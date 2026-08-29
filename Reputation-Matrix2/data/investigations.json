@@ -3512,7 +3512,7 @@
         "mario_disappearance"
       ],
       "opened": "4 Aethel, 1040 BF",
-      "lastFiled": "28 Harvestide, 1040 BF (inferred from relative Peach reference)",
+      "lastFiled": "5 Aethel, 1040 BF (inferred from the Mario disappearance sequence; Peach reference historical)",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🔥",
       "accent": "#c46b32",
@@ -3637,7 +3637,7 @@
         {
           "id": "s_dread_mansion",
           "label": "The Dread Mansion incursion",
-          "date": "28 Harvestide, 1040 BF (inferred from relative Peach reference)",
+          "date": "5 Aethel, 1040 BF (inferred from the Mario disappearance sequence)",
           "event": "the_dread_mansion_incursion"
         }
       ],

@@ -47,7 +47,13 @@ not copy `currentDate.json` blindly. The world clock is a check, not a shortcut.
    anchor first. Do not replace a relative clue with `currentDate.json` merely
    because the transcript has no timestamp. For example, seven days before
    `5 Aethel, 1040 BF` is `28 Harvestide, 1040 BF` (Harvestide has 30 days).
-3. **Find the immediately previous event in the same arc.** Use `relatedArticles`,
+3. **Read the referenced article before treating a name as a time anchor.** Check the
+   character's status and the source event's date. A deceased character's keepsake,
+   an old letter, or a memory is not evidence that the person acted recently. In
+   this archive Princess Peach was assassinated on Highsun 1, 955 BF; a Peach
+   handkerchief in a 1040 filing must therefore be filed as an old keepsake or as
+   an explicitly unresolved temporal anomaly, never as a recent gift.
+4. **Find the immediately previous event in the same arc.** Use `relatedArticles`,
    titles, participants, and prior part numbers.
 3. **If that event has no solid date, keep going backward** until one event in
    the chain has a usable calendar date.
