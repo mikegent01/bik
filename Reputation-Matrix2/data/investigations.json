@@ -3512,7 +3512,7 @@
         "mario_disappearance"
       ],
       "opened": "4 Aethel, 1040 BF",
-      "lastFiled": "5 Aethel, 1040 BF (inferred from the Mario disappearance sequence; Peach reference historical)",
+      "lastFiled": "4 Aethel, 1040 BF",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🔥",
       "accent": "#c46b32",
@@ -3572,12 +3572,6 @@
           "title": "Somebody wrote this to be found",
           "state": "open",
           "text": "Burned margins, untouched title, threshold placement, and confession-shaped pacing all point the same way: the note is performance art pretending to be recovered truth. Performance can still contain truth. It simply never arrives alone.\n\n**In plain terms:** the staging is part of the evidence, not a distraction from it."
-        },
-        {
-          "id": "th_false_assignment",
-          "title": "The sample mission had two authorities",
-          "state": "open",
-          "text": "Liam received a retrieval order that Central Command denies issuing. Vale claims he called Liam, but arrives only after the denial and takes the phone by force. The open question is whether Vale authored the lure or inherited it from somebody else."
         }
       ],
       "leads": [
@@ -3614,17 +3608,6 @@
           "exhibits": [
             "ex_charred_note"
           ]
-        },
-        {
-          "id": "lead_find_dgk_sender",
-          "title": "Identify who issued Liam’s false assignment",
-          "state": "open",
-          "priority": "critical",
-          "objective": "Compare Liam’s assignment details with DGK Central records and Director Vale’s claimed authority to determine who sent the retrieval order.",
-          "why": "The mission began before Vale appeared, so the badge-holder may not be the original sender. Finding the first instruction separates a command dispute from a deliberate lure.",
-          "exhibits": [
-            "ex_spirit_residue_call"
-          ]
         }
       ],
       "sessions": [
@@ -3633,20 +3616,13 @@
           "label": "The charred note at Waluigi's door",
           "date": "4 Aethel, 1040 BF",
           "event": "charred_note_at_waluigis_door"
-        },
-        {
-          "id": "s_dread_mansion",
-          "label": "The Dread Mansion incursion",
-          "date": "5 Aethel, 1040 BF (inferred from the Mario disappearance sequence)",
-          "event": "the_dread_mansion_incursion"
         }
       ],
       "relatedEvents": [
         "charred_note_at_waluigis_door",
         "the_eastern_passage",
         "star_fountain_reunion",
-        "the_embassy_ambush_and_luigi_interrogation",
-        "the_dread_mansion_incursion"
+        "the_embassy_ambush_and_luigi_interrogation"
       ],
       "exhibits": [
         {
@@ -3700,7 +3676,99 @@
               "mario"
             ]
           }
+        }
+      ]
+    },
+    {
+      "id": "dread_mansion_file",
+      "codename": "THE GREEN THREAD",
+      "title": "The Dread Mansion File",
+      "subtitle": "Alice, the disputed DGK mission, and the face that followed",
+      "status": "active",
+      "classification": "Open — recovered 872 BF account",
+      "arcIds": [
+        "dread_mansion_incursion"
+      ],
+      "opened": "Approximately 872 BF",
+      "lastFiled": "Approximately 872 BF",
+      "archivist": "Waluigi, Auditor-General",
+      "icon": "🟢",
+      "accent": "#4fbe83",
+      "imageCaption": "A diary clasp, a green thread, and a face that does not belong to itself.",
+      "hook": "Who sent Liam into the mansion, and why did Alice recognize Mario?",
+      "plainSummary": [
+        {
+          "point": "Peach is alive in this record.",
+          "detail": "The handkerchief is a recent keepsake, placing the event before Highsun 1, 955 BF."
         },
+        {
+          "point": "The DGK mission is contested.",
+          "detail": "Central Command denies authorizing Liam; Vale claims command after arriving."
+        },
+        {
+          "point": "Alice is connected to Mario.",
+          "detail": "She recognizes him, influences him, and may be using the diary as an anchor."
+        }
+      ],
+      "background": [
+        {
+          "id": "luigis_mansion_incident",
+          "kicker": "the older haunted-estate record",
+          "why": "The existing approximately 872 BF Luigi’s Mansion article records: “Mario arrived first. Mario disappeared.” It establishes the era and the brothers’ haunted-estate history, but names King Boo rather than Alice."
+        }
+      ],
+      "brief": "This file separates the Dread Mansion account from the later 1040 Mario-disappearance arc. It asks whether the mission was a lure, why Alice recognized Mario, and what the diary contains.",
+      "threads": [
+        {
+          "id": "th_alice_mario",
+          "title": "Alice recognized Mario before the diary was opened",
+          "state": "open",
+          "text": "Alice says “You came back” and reaches Mario before Liam or Luigi can establish how she knows him. The diary may explain the connection, but the transcript stops before it can be tested."
+        },
+        {
+          "id": "th_dgk_lure",
+          "title": "The retrieval order and Vale’s command do not match",
+          "state": "open",
+          "text": "Central Command denies sending Liam. Vale says he called Liam, but his arrival follows the denial and his first act is taking the phone. The original sender remains unidentified."
+        }
+      ],
+      "leads": [
+        {
+          "id": "lead_open_alice_diary",
+          "title": "Open Alice’s diary",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Determine whether the diary explains Alice’s recognition of Mario, her influence, or the mansion’s looping exits.",
+          "why": "It is the only named object directly tied to Alice’s history and Mario’s possession.",
+          "exhibits": [
+            "ex_spirit_residue_call"
+          ]
+        },
+        {
+          "id": "lead_identify_false_dgk_order",
+          "title": "Identify the original mission sender",
+          "state": "open",
+          "priority": "critical",
+          "objective": "Compare Liam’s assignment with Central Command records and Vale’s claimed authority.",
+          "why": "The denial proves a command conflict, not who created the lure.",
+          "exhibits": [
+            "ex_spirit_residue_call"
+          ]
+        }
+      ],
+      "sessions": [
+        {
+          "id": "s_dread_mansion",
+          "label": "The Dread Mansion incursion",
+          "date": "Approximately 872 BF",
+          "event": "the_dread_mansion_incursion"
+        }
+      ],
+      "relatedEvents": [
+        "the_dread_mansion_incursion",
+        "luigis_mansion_incident"
+      ],
+      "exhibits": [
         {
           "id": "ex_spirit_residue_call",
           "propId": "prop_spirit_residue_dgk_call",
@@ -3709,8 +3777,8 @@
           "kind": "note",
           "category": "discovery",
           "title": "Spirit Residue and the disputed call",
-          "secured": "5 Aethel, 1040 BF — recovered during the incursion",
-          "custody": "Archive — transcript and released vial disposition",
+          "secured": "Approximately 872 BF — during the incursion",
+          "custody": "Archive — call transcript; vial released",
           "visual": "<div style=\"padding:24px;border:1px solid rgba(90,220,160,.35);border-radius:10px;background:linear-gradient(135deg,rgba(20,70,55,.8),rgba(12,20,25,.95));color:#bfffe2;text-align:center;font-weight:800;letter-spacing:.12em\">LEVEL 4 · CONTAINMENT DISPUTED</div>",
           "onRecord": "The emergency line identifies the green liquid as Spirit Residue and records Central Command denying the retrieval mission. Director Vale claims the same operation under his own authority. [[roll:5|A contested command is the first fact to investigate|if both voices are genuine, the file contains an internal breach rather than a simple haunting|if one voice is forged, the badge and phone call are staged evidence.]]",
           "dc": 5,
