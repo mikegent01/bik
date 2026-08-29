@@ -327,7 +327,7 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
             ),
             "redirectFactionId": (
                 "dk_crew" if obvious_kind == "person" and "kong" in faction_id
-                and "dk_crew" in factions.faction_ids() else ""
+                and "dk_crew" in dossiers.reputation.faction_ids() else ""
             ),
         }
 
