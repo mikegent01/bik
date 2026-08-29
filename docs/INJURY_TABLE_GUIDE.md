@@ -128,3 +128,32 @@ The Mages generator does not use a duplicated lore blob. It retrieves bounded
 cards and source snippets from the live archive for each prompt, including
 searchable event and battle descriptions. Do not add a replacement static
 canon block to an overnight script.
+
+
+## Recommended staged overnight sequence
+
+For a broad but controlled run, select the validated systems explicitly. The
+all-systems stage must finish before the next stage begins; then the runner
+starts the past-event writer:
+
+```sh
+python3 tools/overnight-run.py --inventory
+python3 tools/overnight-run.py \
+  --systems wahwire-author,shop_items,reputation,faction-dossiers,crafting,abilities \
+  --system-limit 0 \
+  --past-events 12 --past-max-attempts 132 \
+  --target 400 --parallel 2
+```
+
+`--past-events N` is deliberately opt-in and runs only after the selected
+systems return success. It calls `expand-waluipedia.py --past-events`—never
+`--all`—so it cannot add stubs, books, or Codex pages during this stage.
+
+Past-event safety rules are enforced before each write: choose the least-covered
+foreign nation using nation-plus-event detail coverage; require the model to
+return that exact nation; reject Mushroom Kingdom/Midlands locations; require a
+known calendar date from 722–1039 BF; reject duplicate titles; require 500–1200
+words; reject emoji spam, repeated long phrases, and repeated-line spam; and
+write `proposed: true`. A bounded retry ceiling prevents an exhausted or
+unparseable model from looping forever. The writer follows `README.md` and
+`docs/STORY_FORMAT_GUIDE.md` through its story-with-commentator prompt.

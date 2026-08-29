@@ -27,6 +27,7 @@ PYTHON = sys.executable or "python3"
 INJURY = ROOT / "tools" / "generate-injury-table.py"
 MAGES = ROOT / "tools" / "gen-mages-guild-code.py"
 ALL_SYSTEMS = ROOT / "Reputation-Matrix2" / "tools" / "generate_all.py"
+EXPAND = ROOT / "tools" / "expand-waluipedia.py"
 
 
 def run(label: str, command: list[str]) -> int:
@@ -52,6 +53,8 @@ def main() -> int:
     parser.add_argument("--system-limit", type=int, default=0, help="maximum successful all-systems records (0 = until its pending queue is exhausted)")
     parser.add_argument("--system-workers", type=int, default=2, help="concurrent workers for the all-systems generator")
     parser.add_argument("--inventory", action="store_true", help="show pending counts for every generatable system and exit")
+    parser.add_argument("--past-events", type=int, default=0, metavar="N", help="after all selected systems finish, add N sparse-nation past events via expand-waluipedia")
+    parser.add_argument("--past-max-attempts", type=int, default=0, help="hard attempt ceiling for past-event expansion (0 = N + 10 retries per item)")
     args = parser.parse_args()
 
     if args.inventory:
@@ -78,6 +81,15 @@ def main() -> int:
         if args.model:
             all_cmd += ["--model", args.model]
         stages.append(("validated all-systems: " + ", ".join(systems), all_cmd))
+    if args.past_events:
+        past_cmd = [PYTHON, str(EXPAND), "--past-events", "--overnight", "--target", str(args.past_events),
+                    "--base-url", args.base_url, "--sleep", str(max(0, args.sleep))]
+        if args.past_max_attempts:
+            past_cmd += ["--max-attempts", str(max(1, args.past_max_attempts))]
+        if args.model:
+            past_cmd += ["--model", args.model]
+        stages.append(("expand-waluipedia: sparse foreign past events", past_cmd))
+    stages.append(("Codex emoji audit", [PYTHON, str(MAGES), "--check-emoji"]))
     stages.append(("injury contract after run", injury_check))
 
     if args.plan:

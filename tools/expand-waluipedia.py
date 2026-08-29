@@ -101,6 +101,38 @@ Description: 500-1000 words (continuous prose, markdown allowed)
 If you need a fact: NEED: short query
 """
 
+EMOJI_RE = re.compile(r"[\U0001F300-\U0001FAFF\U00002600-\U000027BF]")
+WORD_RE = re.compile(r"[A-Za-z][A-Za-z'’-]*")
+
+
+def text_quality_error(text: str) -> str:
+    """Reject obvious model spam before any generated text reaches live data."""
+    words = WORD_RE.findall(text or "")
+    emoji_count = len(EMOJI_RE.findall(text or ""))
+    if emoji_count > 2:
+        return f"emoji spam ({emoji_count}; maximum 2)"
+    if len(words) < 1:
+        return "empty text"
+    # A repeated long n-gram is a stronger signal than ordinary word reuse.
+    tokens = [w.lower() for w in words]
+    for size in (5, 6, 7):
+        grams = [tuple(tokens[i:i + size]) for i in range(len(tokens) - size + 1)]
+        if len(grams) != len(set(grams)):
+            return f"repeated {size}-word phrase"
+    lines = [re.sub(r"\s+", " ", line.strip().lower()) for line in (text or "").splitlines() if line.strip()]
+    if lines and any(lines.count(line) >= 3 for line in set(lines) if len(line) > 24):
+        return "repeated line spam"
+    return ""
+
+
+def require_clean_text(text: str, label: str) -> bool:
+    reason = text_quality_error(text)
+    if reason:
+        print(f"skip {label}: {reason}")
+        return False
+    return True
+
+
 def load_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
@@ -182,7 +214,7 @@ def expand_stubs(base, model, timeout, limit, dry_run, sleep):
             time.sleep(5)
             continue
         body=parse_stub_page(raw)
-        if not body:
+        if not body or not require_clean_text(body, f"stub {char.get('id')}"):
             print(f"skip stub {char.get('id')}: unusable")
             continue
         chars=load_json(CHAR_PATH)
@@ -239,6 +271,8 @@ def add_book(base, model, timeout, dry_run, sleep):
         pages=[body]
     if title.lower() in titles:
         print(f"skip book duplicate title {title}")
+        return 0
+    if not require_clean_text(body, "book"):
         return 0
     bid=re.sub(r'[^a-z0-9]+','_', title.lower()).strip('_')[:30]
     if bid in ids:
@@ -321,30 +355,31 @@ def audit_past_event(nation_id, year, month_name, day, title, word_count, events
         return False, f"duplicate title {title}"
     return True, "ok"
 
-def find_sparse_foreign_nation():
+def foreign_coverage():
+    """Score how much detail exists for each foreign nation, not just location mentions."""
     nats=load_json(NATIONS_P)
     events=load_json(EVENTS_P)
-    # count events per nation by location substring
-    from collections import Counter, defaultdict
-    counts=Counter()
-    loc_to_nid={}
-    for n in nats:
-        nid=n.get("id")
-        if not is_foreign(nid): continue
-        name=(n.get("name") or nid).lower()
-        loc_to_nid[name]=nid
-    # naive: count events whose location contains nation name
-    for e in events:
-        loc=(e.get("location") or "").lower()
-        for name,nid in loc_to_nid.items():
-            if name in loc:
-                counts[nid]+=1
-                break
-    # pick foreign with fewest events
-    foreign=[n.get("id") for n in nats if is_foreign(n.get("id"))]
+    battles=load_json(BATTLES_P)
+    scores={str(n.get("id")): len(WORD_RE.findall(json.dumps(n, ensure_ascii=False))) for n in nats if is_foreign(n.get("id"))}
+    for record in [*events, *battles]:
+        blob=json.dumps(record, ensure_ascii=False).lower()
+        for n in nats:
+            nid=str(n.get("id"))
+            if not is_foreign(nid): continue
+            name=str(n.get("name") or nid).lower()
+            if nid.lower() in blob or name in blob:
+                scores[nid] = scores.get(nid, 0) + min(1200, len(WORD_RE.findall(blob)))
+    return scores
+
+
+def find_sparse_foreign_nation():
+    nats=load_json(NATIONS_P)
+    scores=foreign_coverage()
+    foreign=[str(n.get("id")) for n in nats if is_foreign(n.get("id"))]
     if not foreign: return "equestria"
-    sparse=min(foreign, key=lambda nid: counts.get(nid, 0))
-    return sparse
+    # Lowest coverage first; stable id tie-break makes the pass eventually
+    # flesh every under-documented nation instead of repeatedly picking one.
+    return min(foreign, key=lambda nid: (scores.get(nid, 0), nid))
 
 def add_past_event(base, model, timeout, dry_run, sleep):
     nats=load_json(NATIONS_P)
@@ -398,6 +433,11 @@ def add_past_event(base, model, timeout, dry_run, sleep):
     location=m.group(7).strip()[:80]
     desc=m.group(8).strip()
     wc=len(desc.split())
+    if nation_id != sparse:
+        print(f"skip past-event audit fail: model changed assigned nation from {sparse} to {nation_id}")
+        return 0
+    if not require_clean_text(desc, "past-event"):
+        return 0
     ok,msg=audit_past_event(nation_id, year, month_name, day, title, wc, events, battles)
     if not ok:
         print(f"skip past-event audit fail: {msg}")
@@ -484,6 +524,7 @@ def main():
     ap.add_argument("--sleep", type=float, default=0.4)
     ap.add_argument("--timeout", type=int, default=180)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--max-attempts", type=int, default=0, help="overnight safety ceiling; 0 = target plus 10 retries per item")
     args=ap.parse_args()
 
     # timeline alias
@@ -608,14 +649,19 @@ def main():
             time.sleep(args.sleep)
         print(f"done {total}/{goal} (throttled {args.guild_ratio}:1)")
     elif args.overnight:
-        while total < goal:
+        attempts=0
+        ceiling=args.max_attempts or max(goal * 11, goal + 10)
+        while total < goal and attempts < ceiling:
+            attempts += 1
             before=total
             do_one()
             if total==before:
-                print("no progress, sleeping 5s", file=sys.stderr)
+                print(f"no progress ({attempts}/{ceiling}), sleeping 5s", file=sys.stderr)
                 time.sleep(5)
-                if total>=goal: break
             time.sleep(args.sleep)
+        if total < goal:
+            print(f"past expansion stopped safely after {attempts} attempts: {total}/{goal} accepted", file=sys.stderr)
+            return 1
         print(f"done {total}/{goal}")
     else:
         do_one()
