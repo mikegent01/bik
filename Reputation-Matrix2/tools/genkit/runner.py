@@ -136,6 +136,16 @@ class Runner:
                 time.sleep(0.1)
                 continue
             task = self.scheduler.next_task()
+            if task is not None and not self.settings.retry_failed:
+                checkpoint = self.checkpoints[task.system_id]
+                if task.key in checkpoint.failed_keys:
+                    self.scheduler.abandon(task)
+                    self._emit(RunnerEvent(
+                        "skip", f"quarantined after retry ceiling: {task.label}",
+                        task.system_id, produced=self.produced,
+                        failed=self.failed, retried=self.retried,
+                    ))
+                    continue
             if task is None:
                 if self.pool.idle():
                     break

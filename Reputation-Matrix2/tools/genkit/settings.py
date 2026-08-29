@@ -36,6 +36,9 @@ class Settings:
     # Dry run: call the model and validate, but persist neither data nor a
     # checkpoint (a checkpoint would incorrectly block the later real run).
     dry_run: bool = False
+    # Failed tasks are quarantined across process restarts. Set this only when
+    # deliberately revisiting the failed queue after fixing its validator/data.
+    retry_failed: bool = False
     # Seed for the popcorn order. 0 = clock-seeded.
     seed: int = 0
     # Pause between records, seconds. Keeps a shared LM Studio responsive.

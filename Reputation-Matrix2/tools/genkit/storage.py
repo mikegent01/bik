@@ -170,6 +170,11 @@ class Checkpoint:
     def done(self, key: str) -> bool:
         return key in self.completed_keys
 
+    @property
+    def failed_keys(self) -> set[str]:
+        """Tasks quarantined after exhausting validation/retry attempts."""
+        return {entry.get("key", "") for entry in self._data.get("failed", [])}
+
     def reopen(self, key: str, *, reason: str = "source still reports pending") -> int:
         """Remove stale completion entries for a task the source still offers.
 

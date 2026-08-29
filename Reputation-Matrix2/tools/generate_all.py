@@ -94,6 +94,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="keep cycling and skip exhausted records; equivalent to no limit")
     parser.add_argument("--continue-on-failure", action="store_true",
                         help="report failures but exit successfully so a supervisor can advance")
+    parser.add_argument("--retry-failed", action="store_true",
+                        help="revisit previously quarantined failed tasks")
     parser.add_argument("--only", default="", help="comma-separated system ids")
     parser.add_argument("--skip", default="", help="comma-separated system ids to exclude")
     parser.add_argument("--dry-run", action="store_true",
@@ -128,6 +130,7 @@ def main(argv: list[str] | None = None) -> int:
         only=[s.strip() for s in args.only.split(",") if s.strip()],
         skip=[s.strip() for s in args.skip.split(",") if s.strip()],
         dry_run=args.dry_run,
+        retry_failed=args.retry_failed,
         seed=args.seed,
         pace=args.pace,
     )
