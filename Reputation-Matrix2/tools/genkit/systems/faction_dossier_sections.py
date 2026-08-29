@@ -312,6 +312,25 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
     faction_id = task.payload["id"]
     entry = task.payload["entry"]
 
+    # Apply the same high-confidence identity gate before loading a resumable
+    # draft. Otherwise a previous bad run can contain faction metadata and make
+    # us resume expensive prose for a person such as Funky Kong.
+    obvious_kind = dossiers._obvious_non_faction_kind(task)
+    if obvious_kind:
+        label = entry.get("name") or faction_id.replace("_", " ").title()
+        return {
+            "classification": "not_faction", "notFactionKind": obvious_kind,
+            "reason": (
+                f"The archive identifies {label} as a {obvious_kind}, not a persistent "
+                "organisation with collective standing. The reputation label must "
+                "not become a faction dossier."
+            ),
+            "redirectFactionId": (
+                "dk_crew" if obvious_kind == "person" and "kong" in faction_id
+                and "dk_crew" in factions.faction_ids() else ""
+            ),
+        }
+
     # These verdicts come from canonical registries/string shapes and do not
     # need a model call. More importantly, they cannot be talked into becoming
     # lore by a model trying too hard to satisfy the prose request.
