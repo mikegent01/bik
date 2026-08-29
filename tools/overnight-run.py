@@ -40,6 +40,14 @@ def run(label: str, command: list[str]) -> int:
     return completed.returncode
 
 
+def progress(label: str, done: int, total: int) -> None:
+    width = 28
+    ratio = 1.0 if total <= 0 else min(1.0, done / total)
+    filled = int(width * ratio)
+    bar = "#" * filled + "-" * (width - filled)
+    print(f"{label:<12} [{bar}] {done}/{total}", flush=True)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run the archive's unattended overnight stages")
     parser.add_argument("--plan", action="store_true", help="show stages without writing or contacting an AI server")
@@ -71,6 +79,57 @@ def main() -> int:
         mages += ["--model", args.model]
     if args.log:
         mages += ["--log", args.log]
+
+    # --mix is a true interleaved mode: one Codex page, then one record from
+    # the validated archive systems. The old stage list intentionally remains
+    # available for users who want large contiguous batches.
+    if args.mix:
+        systems = args.systems.split(",")
+        all_base = [PYTHON, str(ALL_SYSTEMS), "--only", args.systems,
+                    "--workers", str(max(1, min(8, args.system_workers))),
+                    "--endpoint", args.base_url.rstrip("/") + "/chat/completions",
+                    "--limit", "1"]
+        if args.model:
+            all_base += ["--model", args.model]
+        if args.plan:
+            print("planned interleaved overnight run:")
+            print("  injury contract before run")
+            print(f"  repeat up to {args.target} rounds: Codex 1 page → all-systems 1 record ({args.systems})")
+            if args.past_events:
+                print(f"  after rounds: expand-waluipedia past events ({args.past_events})")
+            print("  Codex emoji audit")
+            print("  injury contract after run")
+            return 0
+        if run("injury contract before run", injury_check):
+            return 1
+        system_goal = args.system_limit if args.system_limit > 0 else args.target
+        codex_done = system_done = 0
+        while codex_done < args.target and system_done < system_goal:
+            codex_cmd = [*mages]
+            # mages contains --overnight/--target; replace with one bounded job.
+            codex_cmd = [x for x in codex_cmd if x not in ("--overnight", "--target", str(args.target))]
+            codex_cmd += ["--count", "1"]
+            if run(f"mix Codex {codex_done + 1}", codex_cmd):
+                return 1
+            codex_done += 1
+            if run(f"mix systems {system_done + 1}", all_base):
+                return 1
+            system_done += 1
+            progress("Codex", codex_done, args.target)
+            progress("Systems", system_done, system_goal)
+        print(f"interleaved rounds complete: Codex {codex_done}, systems {system_done}")
+        if args.past_events:
+            past_cmd = [PYTHON, str(EXPAND), "--past-events", "--overnight", "--target", str(args.past_events),
+                        "--base-url", args.base_url, "--sleep", str(max(0, args.sleep))]
+            if args.past_max_attempts:
+                past_cmd += ["--max-attempts", str(max(1, args.past_max_attempts))]
+            if args.model:
+                past_cmd += ["--model", args.model]
+            if run("expand-waluipedia: sparse foreign past events", past_cmd):
+                return 1
+        if run("Codex emoji audit", [PYTHON, str(MAGES), "--check-emoji"]):
+            return 1
+        return run("injury contract after run", injury_check)
 
     stages = [("injury contract before run", injury_check)]
     if not args.skip_mages:
