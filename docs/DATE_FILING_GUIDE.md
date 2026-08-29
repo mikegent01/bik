@@ -41,7 +41,13 @@ not copy `currentDate.json` blindly. The world clock is a check, not a shortcut.
 
 1. **Read the supplied log.** Look for explicit dates, holidays, “next morning,”
    “three days later,” rest periods, travel time, and plane/realm context.
-2. **Find the immediately previous event in the same arc.** Use `relatedArticles`,
+2. **Resolve every relative time clue before using the world clock.** Phrases such as
+   “a week ago,” “three nights later,” “the morning after,” or “since Peach left”
+   are date evidence. Count them against the referenced event or solid calendar
+   anchor first. Do not replace a relative clue with `currentDate.json` merely
+   because the transcript has no timestamp. For example, seven days before
+   `5 Aethel, 1040 BF` is `28 Harvestide, 1040 BF` (Harvestide has 30 days).
+3. **Find the immediately previous event in the same arc.** Use `relatedArticles`,
    titles, participants, and prior part numbers.
 3. **If that event has no solid date, keep going backward** until one event in
    the chain has a usable calendar date.
