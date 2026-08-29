@@ -90,6 +90,10 @@ def main(argv: list[str] | None = None) -> int:
                         help="concurrent LM Studio conversations (default 2)")
     parser.add_argument("--limit", type=int, default=0,
                         help="stop after N successful records (0 = until exhausted)")
+    parser.add_argument("--infinite", action="store_true",
+                        help="keep cycling and skip exhausted records; equivalent to no limit")
+    parser.add_argument("--continue-on-failure", action="store_true",
+                        help="report failures but exit successfully so a supervisor can advance")
     parser.add_argument("--only", default="", help="comma-separated system ids")
     parser.add_argument("--skip", default="", help="comma-separated system ids to exclude")
     parser.add_argument("--dry-run", action="store_true",
@@ -107,6 +111,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="past-event retry ceiling (0 = generator default)")
 
     args = parser.parse_args(argv)
+    if args.infinite:
+        args.limit = 0
 
     if args.inventory:
         print_inventory()
@@ -139,12 +145,15 @@ def main(argv: list[str] | None = None) -> int:
     def on_event(event: RunnerEvent) -> None:
         icon = ICONS.get(event.kind, "·")
         print(f"{icon} {event.text}", flush=True)
-        if args.limit and event.kind == "ok" and event.produced is not None:
+        if event.kind == "ok" and event.produced is not None:
             done = event.produced
-            width = 28
-            filled = min(width, int(width * done / args.limit))
-            bar = "#" * filled + "-" * (width - filled)
-            print(f"  systems [{bar}] {done}/{args.limit}", flush=True)
+            if args.limit:
+                width = 28
+                filled = min(width, int(width * done / args.limit))
+                bar = "#" * filled + "-" * (width - filled)
+                print(f"  systems [{bar}] {done}/{args.limit}", flush=True)
+            elif args.infinite:
+                print(f"  systems [infinite] {done} successful records", flush=True)
 
     runner = Runner(all_systems(), settings, on_event=on_event)
     try:
@@ -153,7 +162,7 @@ def main(argv: list[str] | None = None) -> int:
         print("\ninterrupted — finishing in-flight records")
         runner.stop()
         return 130
-    if runner.failed:
+    if runner.failed and not (args.continue_on_failure or args.infinite):
         return 1
     if args.past_events:
         expand = ROOT.parent / "tools" / "expand-waluipedia.py"

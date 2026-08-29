@@ -340,7 +340,12 @@ class Runner:
             )
             return
 
-        # A failure wrote nothing, so the system will keep offering this task.
+        # A final failure wrote nothing. Abandon only this exhausted task for
+        # the current run so a bad record cannot stop an infinite run or hold
+        # every higher-priority system hostage. The source remains pending for
+        # a future run/review.
+        if not result.ok:
+            self.scheduler.abandon(task)
         self.scheduler.complete(task, changed=result.ok)
         with self._counter_lock:
             if result.ok:

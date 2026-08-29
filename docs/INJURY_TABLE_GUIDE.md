@@ -194,3 +194,21 @@ separate buttons for resume/run, prompt preview, status, initialization, cite
 validation, cleanup, short-draft clearing, and emoji audit. The Run button
 launches the same CLI process in the background so the window remains
 responsive and all existing validators and save-lock handling remain active.
+
+
+## Infinite all-systems mode
+
+For an unattended run that keeps working until stopped, use the explicit
+infinite flag:
+
+```sh
+python3 Reputation-Matrix2/tools/generate_all.py --infinite --workers 1
+```
+
+The runner retries validation failures up to its normal attempt budget, then
+abandons only that task for the current run and continues with the next system.
+The source record is not deleted and remains eligible for a later run. An
+infinite run prints a successful-record counter instead of pretending it has a
+finite ETA. Events remain an explicit `--past-events N` stage for finite runs;
+this prevents an endless process from silently generating an unbounded event
+stream.

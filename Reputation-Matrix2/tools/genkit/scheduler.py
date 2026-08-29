@@ -42,6 +42,10 @@ class PopcornScheduler:
         # there and would be offered a second time on the next refill. Without
         # this the same post gets pruned twice in parallel.
         self._issued: set[str] = set()
+        # Keys that exhausted their retry budget are abandoned for this run.
+        # They remain pending on disk for a later run, but cannot hold a whole
+        # stage hostage forever.
+        self._abandoned: set[str] = set()
         # Still with a worker. Distinct from `_issued`, which never forgets:
         # a stage with in-flight work is *live* and must keep blocking higher
         # stages, whereas a stage whose issued tasks have all come back has
@@ -84,19 +88,21 @@ class PopcornScheduler:
             # run. The old code marked those task keys drained, silently moved
             # to stage 1, and spent the rest of an hour generating shop items
             # and feed posts while all faction dossiers were still unfinished.
+            # Refill before deciding whether this stage blocks. A pending
+            # record that exhausted its retries is filtered by _abandoned; it
+            # must not make the scheduler wait forever while other systems sit
+            # behind it.
+            for system in stage_systems:
+                if system.id not in self._drained:
+                    self._refill(system)
             blocking = any(
-                self._buffers[s.id]
-                or self._inflight.get(s.id)
-                or s.count_pending() > 0
+                self._buffers[s.id] or self._inflight.get(s.id)
+                or (s.count_pending() > 0 and s.id not in self._drained)
                 for s in stage_systems
             )
             if not blocking:
                 continue
 
-            for system in stage_systems:
-                if system.id in self._drained:
-                    continue
-                self._refill(system)
             # Return the blocking stage even when it has no fresh candidate.
             # next_task() then returns None and Runner exits once in-flight work
             # lands; it must never fall through to a higher stage.
@@ -122,7 +128,9 @@ class PopcornScheduler:
                 tasks = []
             fresh = [
                 t for t in tasks
-                if t.key not in self._issued and t.key not in queued
+                if t.key not in self._issued
+                and t.key not in queued
+                and t.key not in self._abandoned
             ]
             if fresh:
                 self._buffers[system.id].extend(fresh)
@@ -174,6 +182,14 @@ class PopcornScheduler:
             self._recent.append(system.id)
             del self._recent[:-4]
             return task
+
+    def abandon(self, task: Task) -> None:
+        """Skip one exhausted task for this run without deleting its source work."""
+        with self._lock:
+            self._abandoned.add(task.key)
+            self._inflight.get(task.system_id, set()).discard(task.key)
+            self._buffers[task.system_id] = [t for t in self._buffers[task.system_id] if t.key != task.key]
+            self._drained.discard(task.system_id)
 
     def complete(self, task: Task, *, changed: bool) -> None:
         """A worker finished with `task`; `changed` says whether disk moved.

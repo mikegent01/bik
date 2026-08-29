@@ -55,6 +55,7 @@ def main() -> int:
     parser.add_argument("--base-url", default="http://127.0.0.1:1234/v1", help="LM Studio OpenAI-compatible endpoint")
     parser.add_argument("--model", default="", help="model passed to the Mages' Guild generator")
     parser.add_argument("--target", type=int, default=400, help="maximum Codex pages for this overnight run")
+    parser.add_argument("--infinite", action="store_true", help="cycle bounded mixed rounds indefinitely; safe to stop and resume")
     parser.add_argument("--parallel", "--jobs", dest="parallel", type=int, default=1, help="Codex prompt workers")
     parser.add_argument("--sleep", type=float, default=0.4, help="delay between Codex saves")
     parser.add_argument("--log", default="", help="optional Codex log path")
@@ -90,7 +91,7 @@ def main() -> int:
         # workers=2 here caused generate_all to queue two large prompts before
         # the round could report progress, and could exhaust LM Studio KV space.
         all_base = [PYTHON, str(ALL_SYSTEMS), "--only", args.systems,
-                    "--workers", "1",
+                    "--workers", "1", "--continue-on-failure",
                     "--endpoint", args.base_url.rstrip("/") + "/chat/completions"]
         if args.model:
             all_base += ["--model", args.model]
@@ -102,12 +103,16 @@ def main() -> int:
                 print(f"  after rounds: expand-waluipedia past events ({args.past_events})")
             print("  Codex emoji audit")
             print("  injury contract after run")
+            if args.infinite:
+                print("  supervisor: repeat bounded rounds until interrupted")
             return 0
         if run("injury contract before run", injury_check):
             return 1
         system_goal = args.system_limit if args.system_limit > 0 else args.target
         codex_done = system_done = 0
-        while codex_done < args.target and system_done < system_goal:
+        round_no = 0
+        while args.infinite or (codex_done < args.target and system_done < system_goal):
+            round_no += 1
             codex_cmd = [*mages]
             # mages contains --overnight/--target; replace with one bounded job.
             codex_cmd = [x for x in codex_cmd if x not in ("--overnight", "--target", str(args.target))]
@@ -115,14 +120,30 @@ def main() -> int:
             if run(f"mix Codex {codex_done + 1}", codex_cmd):
                 return 1
             codex_done += 1
-            batch = min(max(1, args.system_batch), system_goal - system_done)
+            remaining = max(1, system_goal - system_done) if not args.infinite else max(1, args.system_batch)
+            batch = min(max(1, args.system_batch), remaining)
             system_cmd = [*all_base, "--limit", str(batch)]
             if run(f"mix systems {system_done + 1}-{system_done + batch}", system_cmd):
                 return 1
             system_done += batch
-            progress("Codex", codex_done, args.target)
-            progress("Systems", system_done, system_goal)
-        print(f"interleaved rounds complete: Codex {codex_done}, systems {system_done}")
+            progress("Codex", codex_done, args.target if not args.infinite else 0)
+            progress("Systems", system_done, system_goal if not args.infinite else 0)
+            if args.infinite and args.past_events:
+                # Event creation is deliberately downstream of a reputation
+                # drain, never concurrent with reputation backfill.
+                reputation_cmd = [*all_base, "--only", "reputation", "--limit", "0"]
+                if run(f"round {round_no}: reputation backfill", reputation_cmd):
+                    return 1
+                past_cmd = [PYTHON, str(EXPAND), "--past-events", "--overnight", "--target", str(args.past_events),
+                            "--base-url", args.base_url, "--sleep", str(max(0, args.sleep))]
+                if args.past_max_attempts:
+                    past_cmd += ["--max-attempts", str(max(1, args.past_max_attempts))]
+                if args.model:
+                    past_cmd += ["--model", args.model]
+                if run(f"round {round_no}: expand-waluipedia: sparse foreign past events", past_cmd):
+                    return 1
+        print(f"interleaved rounds complete: Codex {codex_done}, systems {system_done}" if not args.infinite else
+              f"infinite run stopped: Codex {codex_done}, systems {system_done}")
         if args.past_events:
             past_cmd = [PYTHON, str(EXPAND), "--past-events", "--overnight", "--target", str(args.past_events),
                         "--base-url", args.base_url, "--sleep", str(max(0, args.sleep))]
@@ -136,6 +157,10 @@ def main() -> int:
             return 1
         return run("injury contract after run", injury_check)
 
+    if args.infinite and not args.mix:
+        print("--infinite requires --mix so Codex, reputation, systems, and events can cycle safely", file=sys.stderr)
+        return 2
+
     stages = [("injury contract before run", injury_check)]
     if not args.skip_mages:
         stages.append(("Mages' Guild Codex", mages))
@@ -143,6 +168,7 @@ def main() -> int:
         systems = [x.strip() for x in args.systems.split(",") if x.strip()]
         all_cmd = [PYTHON, str(ALL_SYSTEMS), "--only", ",".join(systems),
                    "--workers", str(max(1, min(8, args.system_workers))),
+                   "--continue-on-failure",
                    "--endpoint", args.base_url.rstrip("/") + "/chat/completions"]
         if args.system_limit:
             all_cmd += ["--limit", str(max(1, args.system_limit))]
