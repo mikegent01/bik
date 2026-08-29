@@ -60,7 +60,8 @@ def main() -> int:
     parser.add_argument("--log", default="", help="optional Codex log path")
     parser.add_argument("--systems", default="", help="opt in to the validated all-systems generator; comma-separated ids")
     parser.add_argument("--system-limit", type=int, default=0, help="maximum successful all-systems records (0 = until its pending queue is exhausted)")
-    parser.add_argument("--system-workers", type=int, default=2, help="concurrent workers for the all-systems generator")
+    parser.add_argument("--system-workers", type=int, default=2, help="concurrent workers for the all-systems generator (non-mixed mode)")
+    parser.add_argument("--system-batch", type=int, default=6, help="records per all-systems batch in --mix; lets its popcorn scheduler rotate systems without restarting each record")
     parser.add_argument("--inventory", action="store_true", help="show pending counts for every generatable system and exit")
     parser.add_argument("--past-events", type=int, default=0, metavar="N", help="after all selected systems finish, add N sparse-nation past events via expand-waluipedia")
     parser.add_argument("--past-max-attempts", type=int, default=0, help="hard attempt ceiling for past-event expansion (0 = N + 10 retries per item)")
@@ -90,14 +91,13 @@ def main() -> int:
         # the round could report progress, and could exhaust LM Studio KV space.
         all_base = [PYTHON, str(ALL_SYSTEMS), "--only", args.systems,
                     "--workers", "1",
-                    "--endpoint", args.base_url.rstrip("/") + "/chat/completions",
-                    "--limit", "1"]
+                    "--endpoint", args.base_url.rstrip("/") + "/chat/completions"]
         if args.model:
             all_base += ["--model", args.model]
         if args.plan:
             print("planned interleaved overnight run:")
             print("  injury contract before run")
-            print(f"  repeat up to {args.target} rounds: Codex 1 page → all-systems 1 record ({args.systems})")
+            print(f"  repeat: Codex 1 page → all-systems batches of up to {max(1, args.system_batch)} records ({args.systems})")
             if args.past_events:
                 print(f"  after rounds: expand-waluipedia past events ({args.past_events})")
             print("  Codex emoji audit")
@@ -115,9 +115,11 @@ def main() -> int:
             if run(f"mix Codex {codex_done + 1}", codex_cmd):
                 return 1
             codex_done += 1
-            if run(f"mix systems {system_done + 1}", all_base):
+            batch = min(max(1, args.system_batch), system_goal - system_done)
+            system_cmd = [*all_base, "--limit", str(batch)]
+            if run(f"mix systems {system_done + 1}-{system_done + batch}", system_cmd):
                 return 1
-            system_done += 1
+            system_done += batch
             progress("Codex", codex_done, args.target)
             progress("Systems", system_done, system_goal)
         print(f"interleaved rounds complete: Codex {codex_done}, systems {system_done}")
