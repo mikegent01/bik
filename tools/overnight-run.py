@@ -28,6 +28,7 @@ INJURY = ROOT / "tools" / "generate-injury-table.py"
 MAGES = ROOT / "tools" / "gen-mages-guild-code.py"
 ALL_SYSTEMS = ROOT / "Reputation-Matrix2" / "tools" / "generate_all.py"
 EXPAND = ROOT / "tools" / "expand-waluipedia.py"
+MIX_SYSTEMS = "wahwire-author,shop_items,reputation,faction-dossiers,crafting,abilities"
 
 
 def run(label: str, command: list[str]) -> int:
@@ -55,10 +56,13 @@ def main() -> int:
     parser.add_argument("--inventory", action="store_true", help="show pending counts for every generatable system and exit")
     parser.add_argument("--past-events", type=int, default=0, metavar="N", help="after all selected systems finish, add N sparse-nation past events via expand-waluipedia")
     parser.add_argument("--past-max-attempts", type=int, default=0, help="hard attempt ceiling for past-event expansion (0 = N + 10 retries per item)")
+    parser.add_argument("--mix", action="store_true", help="run the Codex, then the six validated archive systems, instead of only the Codex")
     args = parser.parse_args()
 
     if args.inventory:
         return run("all-systems inventory", [PYTHON, str(ALL_SYSTEMS), "--inventory"])
+    if args.mix and not args.systems:
+        args.systems = MIX_SYSTEMS
 
     injury_check = [PYTHON, str(INJURY), "--check"]
     mages = [PYTHON, str(MAGES), "--overnight", "--target", str(args.target), "--base-url", args.base_url,
