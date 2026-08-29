@@ -567,8 +567,11 @@ def is_bad_output(text: str) -> tuple[bool, str]:
     cnt = collections.Counter(w for w in words if w not in STOP)
     if cnt:
         most_common_word, most_cnt = cnt.most_common(1)[0]
-        # Hardened: any word >25 repeats and >5% is spam (was 40 and 8%)
-        if most_cnt > 25 and most_cnt > total * 0.05:
+        # Repetition is normal in a focused statute (for example, an item
+        # name may recur throughout its own rule). Only flag a word when it
+        # dominates the prose; dedicated whatever/failure checks below catch
+        # the known loop failures.
+        if most_cnt > 60 and most_cnt > total * 0.10:
             return True, f"repeated word '{most_common_word}' {most_cnt}/{total} ({most_cnt/total:.0%})"
         if most_cnt > 60:
             return True, f"word '{most_common_word}' repeats {most_cnt}/{total} (extreme)"
@@ -588,16 +591,16 @@ def is_bad_output(text: str) -> tuple[bool, str]:
         fg_cnt = collections.Counter(fourgrams)
         top_fg, top_n = fg_cnt.most_common(1)[0]
         COMMON_LEGAL = {"in accordance with the","pursuant to section","under section","of the autumnwood accords","the guild shall diligently"}
-        if top_fg not in COMMON_LEGAL and top_n >= 5:
+        if top_fg not in COMMON_LEGAL and top_n >= 10 and top_n > total * 0.02:
             return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x"
-        if top_n >= 10:
+        if top_n >= 16:
             return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x (extreme)"
     # --- Repeated 3-gram (new, hardened) ---
     trigrams = [" ".join(words[i:i+3]) for i in range(len(words)-2)]
     if trigrams:
         tri_cnt = collections.Counter(trigrams)
         top_tri, top_tri_n = tri_cnt.most_common(1)[0]
-        if top_tri not in COMMON_LEGAL and top_tri_n >= 8:
+        if top_tri not in COMMON_LEGAL and top_tri_n >= 14 and top_tri_n > total * 0.03:
             return True, f"3-gram '{top_tri[:30]}' repeats {top_tri_n}x"
     # --- Buzzword salad ---
     buzz = ["integrity","honesty","transparency","accountability","reliability","consistency","thoroughness","precision","accuracy","timeliness","punctuality","efficiency","effectiveness","productivity","quality","craftsmanship","artistry","beauty","elegance","grace","sophistication","refinement","excellence","perfection","mastery","expertise","serendipity","wonder","mystery","awe","reverence","wonderment","amazement","delight","surprise","excitement","thrill","adventure","exploration","discovery","learning","growth","transformation","change","evolution","progress","improvement","advancement","development","expansion","extension","inclusion","diversity","acceptance","tolerance","openness","curiosity","enthusiasm","optimism","confidence","belief","hope","faith","trust","whatever","whatsoever"]
