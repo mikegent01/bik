@@ -44,20 +44,45 @@ BROWSE = [
 # Windows file-lock guard: multiple parallel jobs or VS Code watcher can hold the file
 _SAVE_LOCK = threading.Lock()
 def _atomic_write(tmp: Path, target: Path):
+    """Replace a data file while tolerating short Windows watcher locks.
+
+    Windows editors, antivirus, and a browser/dev server can briefly deny the
+    rename even though the file is otherwise writable. Retry for a bounded
+    period, then try a direct write as a last resort (only after the complete
+    JSON has already been rendered to *tmp*). Never claim success if both paths
+    are locked; the caller must stop rather than lose generated work.
+    """
+    import os
     import time as _tw
-    for attempt in range(8):
+    retry_seconds = float(os.environ.get("MAGES_SAVE_RETRY_SECONDS", "30"))
+    deadline = _tw.monotonic() + max(1.0, retry_seconds)
+    last_error = None
+    attempt = 0
+    while _tw.monotonic() < deadline:
+        attempt += 1
         try:
             with _SAVE_LOCK:
                 tmp.replace(target)
             return
-        except PermissionError as e:
-            if attempt == 7:
-                raise
-            _tw.sleep(0.15 * (attempt + 1))
-        except OSError as e:
-            if attempt == 7:
-                raise
-            _tw.sleep(0.15 * (attempt + 1))
+        except (PermissionError, OSError) as error:
+            last_error = error
+            _tw.sleep(min(0.25 + attempt * 0.05, 1.0))
+
+    # Some Windows programs deny ReplaceFile while allowing a normal truncate
+    # and write. The temp file is complete, so this fallback is still safer
+    # than asking the generator to continue with an unsaved in-memory result.
+    try:
+        with _SAVE_LOCK:
+            target.write_bytes(tmp.read_bytes())
+        tmp.unlink(missing_ok=True)
+        print(f"save warning: atomic replace was locked; used direct complete write for {target.name}", file=sys.stderr)
+        return
+    except (PermissionError, OSError) as fallback_error:
+        raise RuntimeError(
+            f"could not save {target} after {retry_seconds:g}s; close editors, "
+            f"file watchers, or a running site preview and retry "
+            f"(atomic={last_error!r}; direct={fallback_error!r})"
+        ) from fallback_error
 
 def live_lore_context(data: dict, current: dict) -> str:
     """Build prompt context from the archive at run time.
