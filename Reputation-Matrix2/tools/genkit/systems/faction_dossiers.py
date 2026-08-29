@@ -347,12 +347,26 @@ def _validate_evidence_quotes(task: Task, raw: Any, description: str) -> list[st
 
 
 def _obvious_non_faction_kind(task: Task) -> str | None:
-    """Catch labels whose entity class is clear before expensive prose calls."""
+    """Catch clear entity classes before expensive prose calls.
+
+    The model still performs the normal source-backed classification pass, but
+    these high-confidence identity guards stop a named cast member from ever
+    reaching the four-section organisation writer. In particular, ``Funky
+    Kong`` is a person associated with the DK Crew, not a faction called Funky
+    Kong.
+    """
     value = _norm(f"{task.payload['id']} {task.payload['entry'].get('name', '')}")
     if re.search(r"\b(yugoloths?|canoloths?)\b", value) or " species" in value:
         return "species"
     if re.search(r"\b(school|manor|mountain|grove|forest|castle|tower)\b", value):
         return "place"
+    cast_member = {
+        "funky kong", "donkey kong", "diddy kong", "chunky kong", "lanky kong",
+        "cranky kong", "tiny kong", "dixie kong", "king k rool", "wario",
+        "waluigi", "waluigi kong",
+    }
+    if value in cast_member or any(value.endswith(f" {name}") for name in cast_member):
+        return "person"
     return None
 
 
@@ -371,7 +385,11 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
                 f"The archive label identifies a {obvious_kind}, not a persistent organised body. "
                 "Its record may affect reputation, but it cannot have a collective faction dossier."
             ),
-            "redirectFactionId": "",
+            "redirectFactionId": (
+                "dk_crew" if obvious_kind == "person" and "kong" in _norm(
+                    f"{task.payload['id']} {task.payload['entry'].get('name', '')}"
+                ) and "dk_crew" in reputation.faction_ids() else ""
+            ),
         }
 
     faction_id = task.payload["id"]
