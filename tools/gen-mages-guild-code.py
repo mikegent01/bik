@@ -762,12 +762,35 @@ def chat(base: str, model: str, messages: list, timeout: int) -> str:
     for attempt in range(3):
         payload_data = {"model": model, "temperature": 0.7,
                         "max_tokens": max_tokens, "messages": payload_messages}
-        # LM Studio passes this through for reasoning models. It prevents the
-        # model from consuming the entire completion budget in
-        # reasoning_content and returning an empty message.content.
         if reasoning_effort:
             payload_data["reasoning_effort"] = reasoning_effort
         payload = json.dumps(payload_data).encode()
+        req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                data = json.loads(r.read().decode())
+            choice = (data.get("choices") or [{}])[0]
+            content = str((choice.get("message") or {}).get("content") or "").strip()
+            if content:
+                return content
+            finish = choice.get("finish_reason") or "unknown"
+            print(f"LM Studio returned empty message.content (finish_reason={finish}); retrying final-only response", file=sys.stderr)
+            payload_messages = list(messages) + [{
+                "role": "user",
+                "content": "Return only the final requested PAGE prose now. Do not put reasoning, planning, or analysis in the response.",
+            }]
+            max_tokens = max(max_tokens, 1800)
+            reasoning_effort = "none"
+            last_error = RuntimeError("empty message.content")
+        except urllib.error.HTTPError as error:
+            detail = error.read().decode("utf-8", "replace")[:500]
+            print(f"LM Studio HTTP {error.code}: {detail}", file=sys.stderr)
+            last_error = error
+            if error.code != 400 or attempt >= 2:
+                raise
+            payload_messages = _compact_messages(messages)
+            max_tokens = 900
+    raise RuntimeError(f"LM Studio returned no final message content: {last_error}")
 
 def chat_with_search(base: str, model: str, messages: list, timeout: int) -> str:
     raw = chat(base, model, messages, timeout)
