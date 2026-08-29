@@ -5,9 +5,7 @@ mental trauma, and survivability twists.
 
 ## Source of truth
 
-`Reputation-Matrix2/data/injuries.json` contains exactly 100 ordered entries. Each
-entry has a stable roll, category, injury type, effect, lowest listed cure,
-duration, and optional notes. Do not duplicate the rules text in a character.
+`Reputation-Matrix2/data/injuries.json` contains exactly 100 ordered **temporary** entries. Each entry has a stable roll, category, injury type, effect, lowest listed cure, duration, optional notes, and `temporary: true`. These rows are placeholders for a future AI-generated replacement; do not silently replace them or remove the temporary marker. Do not duplicate the rules text in a character.
 
 ## Player surface
 
@@ -46,6 +44,16 @@ Use `--roll --character <id>` for a random result. The command validates the
 whole table before writing and updates `data/characters.json`; it never copies
 the effect text into the character record. A later healing pass can change the
 reference's `status` to `healed` without losing the original roll.
+
+## Python tool functions
+
+`load_table()` validates the file, metadata, all required fields, the 1–100 order,
+and every temporary marker. `entry_for_roll()` rejects values outside 1–100.
+`choose_roll()` uses an explicitly supplied result or a cryptographically secure
+random d100. `assign()` resolves the character, builds only a compact reference,
+and supports `dry_run` so a test cannot modify the character file. `main()` exposes
+these operations through `--check`, `--roll`, `--result`, `--character`, and
+`--dry-run`.
 
 ## Verification
 
