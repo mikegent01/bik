@@ -8,6 +8,7 @@ New §§ only when min(all) >= --min-clauses.
 
   python3 tools/gen-mages-guild-code.py --init
   python3 tools/gen-mages-guild-code.py --status
+  python3 tools/gen-mages-guild-code.py --gui
   python3 tools/gen-mages-guild-code.py --overnight
   python3 tools/overnight-run.py --target 400
   python3 tools/gen-mages-guild-code.py --check-emoji
@@ -889,8 +890,108 @@ Catchlines:
 """
 
 
+
+def launch_gui(initial: argparse.Namespace) -> int:
+    """Launch a detailed Tk control panel; each action uses the CLI itself."""
+    import tkinter as tk
+    from tkinter import filedialog, messagebox, ttk
+    import threading as _threading
+
+    root = tk.Tk()
+    root.title("Mages' Guild Codex — Generation Control")
+    root.geometry("1060x760")
+    root.minsize(900, 620)
+    frame = ttk.Frame(root, padding=12)
+    frame.pack(fill="both", expand=True)
+    vars = {
+        "base": tk.StringVar(value=initial.base_url), "model": tk.StringVar(value=initial.model),
+        "target": tk.StringVar(value=str(initial.target)), "count": tk.StringVar(value=str(initial.count)),
+        "min": tk.StringVar(value=str(initial.min_clauses)), "parallel": tk.StringVar(value=str(initial.parallel)),
+        "sleep": tk.StringVar(value=str(initial.sleep)), "timeout": tk.StringVar(value=str(initial.timeout)),
+        "fails": tk.StringVar(value=str(initial.max_fails)), "log": tk.StringVar(value=initial.log),
+        "mode": tk.StringVar(value="overnight"), "status": tk.StringVar(value="Ready"),
+    }
+    checks = {name: tk.BooleanVar(value=value) for name, value in {
+        "shuffle": initial.shuffle, "clean": False, "clear": False,
+    }.items()}
+    ttk.Label(frame, text="MAGES' GUILD CODEX CONTROL", font=("Segoe UI", 18, "bold")).grid(row=0, column=0, columnspan=4, sticky="w")
+    ttk.Label(frame, text="Every button calls the tested command-line path. Configure, preview, validate, or run without editing Python.").grid(row=1, column=0, columnspan=4, sticky="w", pady=(0, 10))
+    form = ttk.LabelFrame(frame, text="Connection and generation", padding=8)
+    form.grid(row=2, column=0, columnspan=4, sticky="ew")
+    fields = [("LM Studio base URL", "base", 0), ("Model ID (blank = first /v1/models)", "model", 1),
+              ("Target pages", "target", 2), ("One-shot count", "count", 3), ("Pages per section", "min", 4),
+              ("Parallel requests", "parallel", 5), ("Delay seconds", "sleep", 6), ("Request timeout", "timeout", 7),
+              ("Max failed waits", "fails", 8)]
+    for label, key, col in fields:
+        r = 0 if col < 5 else 1; c = col if col < 5 else col - 5
+        ttk.Label(form, text=label).grid(row=r*2, column=c, sticky="w", padx=4)
+        ttk.Entry(form, textvariable=vars[key], width=25).grid(row=r*2+1, column=c, sticky="ew", padx=4, pady=(0, 5))
+    ttk.Label(form, text="Run mode").grid(row=2, column=0, sticky="w", padx=4)
+    ttk.Combobox(form, textvariable=vars["mode"], values=["overnight", "one-shot"], state="readonly", width=22).grid(row=3, column=0, sticky="ew", padx=4)
+    for c in range(5): form.columnconfigure(c, weight=1)
+    opts = ttk.LabelFrame(frame, text="Safety and output options", padding=8)
+    opts.grid(row=3, column=0, columnspan=4, sticky="ew", pady=8)
+    ttk.Checkbutton(opts, text="Shuffle jobs", variable=checks["shuffle"]).grid(row=0, column=0, sticky="w")
+    ttk.Checkbutton(opts, text="Clean degraded pages first", variable=checks["clean"]).grid(row=0, column=1, sticky="w")
+    ttk.Checkbutton(opts, text="Clear sentence-length drafts first", variable=checks["clear"]).grid(row=0, column=2, sticky="w")
+    ttk.Label(opts, text="Log file").grid(row=1, column=0, sticky="w", pady=(8, 0))
+    ttk.Entry(opts, textvariable=vars["log"], width=80).grid(row=1, column=1, columnspan=2, sticky="ew", pady=(8, 0))
+    ttk.Button(opts, text="Browse…", command=lambda: vars["log"].set(filedialog.asksaveasfilename())).grid(row=1, column=3, pady=(8, 0))
+    for c in range(4): opts.columnconfigure(c, weight=1)
+    buttons = ttk.LabelFrame(frame, text="Actions", padding=8)
+    buttons.grid(row=4, column=0, columnspan=4, sticky="ew")
+    output = tk.Text(frame, height=22, wrap="word", background="#10151c", foreground="#d9e2ec")
+    output.grid(row=5, column=0, columnspan=4, sticky="nsew", pady=(8, 0))
+    scroll = ttk.Scrollbar(frame, command=output.yview); scroll.grid(row=5, column=4, sticky="ns"); output.configure(yscrollcommand=scroll.set)
+    frame.rowconfigure(5, weight=1)
+    frame.columnconfigure(0, weight=1)
+
+    def command(action):
+        base = [sys.executable, str(Path(__file__).resolve()), "--base-url", vars["base"].get()]
+        if vars["model"].get().strip(): base += ["--model", vars["model"].get().strip()]
+        if action == "run":
+            if vars["mode"].get() == "overnight": base += ["--overnight", "--target", vars["target"].get()]
+            else: base += ["--count", vars["count"].get()]
+            base += ["--min-clauses", vars["min"].get(), "--parallel", vars["parallel"].get(), "--sleep", vars["sleep"].get(), "--timeout", vars["timeout"].get(), "--max-fails", vars["fails"].get()]
+            if checks["shuffle"].get(): base += ["--shuffle"]
+            if vars["log"].get().strip(): base += ["--log", vars["log"].get().strip()]
+        elif action == "preview": base += ["--preview", "--parallel", vars["parallel"].get(), "--min-clauses", vars["min"].get()]
+        elif action == "status": base += ["--status", "--min-clauses", vars["min"].get()]
+        elif action == "init": base += ["--init"]
+        elif action == "emoji": base += ["--check-emoji"]
+        elif action == "validate": base += ["--validate"]
+        elif action == "clean": base += ["--clean-bad"]
+        elif action == "clear": base += ["--clear-short"]
+        return base
+
+    def execute(action):
+        try: cmd = command(action)
+        except Exception as error:
+            messagebox.showerror("Invalid setting", str(error)); return
+        output.insert("end", "\\n$ " + " ".join(cmd) + "\\n"); output.see("end")
+        vars["status"].set("Running…")
+        def worker():
+            try:
+                proc = subprocess.Popen(cmd, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
+                for line in proc.stdout:
+                    root.after(0, lambda line=line: (output.insert("end", line), output.see("end")))
+                code = proc.wait()
+                root.after(0, lambda: vars["status"].set(f"Finished with exit code {code}"))
+            except Exception as error:
+                root.after(0, lambda: vars["status"].set(f"Error: {error}"))
+        _threading.Thread(target=worker, daemon=True).start()
+
+    actions = [("Run / Resume", "run"), ("Preview next jobs", "preview"), ("Status", "status"), ("Init", "init"), ("Validate cites", "validate"), ("Clean bad pages", "clean"), ("Clear short drafts", "clear"), ("Emoji audit", "emoji")]
+    for i, (label, action) in enumerate(actions):
+        ttk.Button(buttons, text=label, command=lambda action=action: execute(action)).grid(row=i//4, column=i%4, sticky="ew", padx=3, pady=3)
+    for c in range(4): buttons.columnconfigure(c, weight=1)
+    ttk.Label(frame, textvariable=vars["status"], relief="sunken", anchor="w").grid(row=6, column=0, columnspan=4, sticky="ew", pady=(6, 0))
+    root.mainloop()
+    return 0
+
 def main() -> int:
     ap = argparse.ArgumentParser()
+    ap.add_argument("--gui", action="store_true", help="open the detailed Tk control panel")
     ap.add_argument("--init", action="store_true")
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--base-url", default="http://127.0.0.1:1234/v1")
@@ -914,6 +1015,9 @@ def main() -> int:
     ap.add_argument("--clean-bad", action="store_true", help="scan existing Codex and retroactively remove degraded/buzzword-loop pages (normal part of run does this for new output too)")
     ap.add_argument("--check-emoji", action="store_true", help="scan filed Codex pages for emoji spam and exit nonzero if any fail")
     args = ap.parse_args()
+
+    if args.gui:
+        return launch_gui(args)
 
     # alias: --jobs overrides --parallel, --preview is dry preview
     if args.jobs and args.jobs != args.parallel:

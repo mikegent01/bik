@@ -178,3 +178,19 @@ On Windows, close any editor or process holding
 `Reputation-Matrix2/data/laws/mages-guild-code.json` before retrying. A browser
 fetch normally does not lock the file; file watchers and editors are the usual
 causes.
+
+
+## Codex GUI
+
+The Codex generator has a detailed Tk control panel:
+
+```sh
+python3 tools/gen-mages-guild-code.py --gui
+```
+
+It exposes the endpoint, model, target/count, section floor, parallel workers,
+delay, timeout, failure ceiling, log path, shuffle mode, cleanup controls, and
+separate buttons for resume/run, prompt preview, status, initialization, cite
+validation, cleanup, short-draft clearing, and emoji audit. The Run button
+launches the same CLI process in the background so the window remains
+responsive and all existing validators and save-lock handling remain active.
