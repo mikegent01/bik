@@ -76,7 +76,7 @@ For a faction:
 For anything else:
 {
   "classification":"not_faction",
-  "notFactionKind":"person|place|event|object|generic|duplicate|other",
+  "notFactionKind":"person|place|event|species|object|generic|duplicate|other",
   "reason":"Two specific sentences explaining what the source actually identifies",
   "redirectFactionId":"a supplied canonical faction id only when clearly justified, otherwise blank"
 }

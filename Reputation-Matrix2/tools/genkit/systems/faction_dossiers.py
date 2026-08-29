@@ -48,7 +48,7 @@ MIN_WORDS = 500
 MAX_WORDS = 1100
 WORD = re.compile(r"\b[\w’'-]+\b", re.UNICODE)
 HEADING = re.compile(r"(?m)^#{2,3}\s+\S")
-ALLOWED_KINDS = {"person", "place", "event", "object", "generic", "duplicate", "other"}
+ALLOWED_KINDS = {"person", "place", "event", "species", "object", "generic", "duplicate", "other"}
 
 
 def _container(path: Path) -> list[dict[str, Any]]:
@@ -346,12 +346,33 @@ def _validate_evidence_quotes(task: Task, raw: Any, description: str) -> list[st
     return clean
 
 
+def _obvious_non_faction_kind(task: Task) -> str | None:
+    """Catch labels whose entity class is clear before expensive prose calls."""
+    value = _norm(f"{task.payload['id']} {task.payload['entry'].get('name', '')}")
+    if re.search(r"\b(yugoloths?|canoloths?)\b", value) or " species" in value:
+        return "species"
+    if re.search(r"\b(school|manor|mountain|grove|forest|castle|tower)\b", value):
+        return "place"
+    return None
+
+
 def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     classification = _norm(raw.get("classification")).replace(" ", "_")
     if classification in {"not_a_faction", "non_faction", "person", "place", "generic"}:
         classification = "not_faction"
     if classification not in {"faction", "not_faction"}:
         raise ValidationError("classification must be exactly faction or not_faction")
+
+    obvious_kind = _obvious_non_faction_kind(task)
+    if obvious_kind:
+        return {
+            "classification": "not_faction", "notFactionKind": obvious_kind,
+            "reason": (
+                f"The archive label identifies a {obvious_kind}, not a persistent organised body. "
+                "Its record may affect reputation, but it cannot have a collective faction dossier."
+            ),
+            "redirectFactionId": "",
+        }
 
     faction_id = task.payload["id"]
     entry = task.payload["entry"]

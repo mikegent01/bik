@@ -7,6 +7,18 @@ import * as factionSystems from '../systems/faction-systems.js';
 import { getIntelForFaction, getIntelBreakdown } from './systems/common.js'; // Import helper
 
 const viewContainer = document.getElementById('view-container');
+
+// Generated dossiers use a deliberately small Markdown subset. Render it here
+// instead of injecting raw `##` markers into the faction cards.
+function factionMarkdown(value) {
+    const escape = text => String(text ?? '').replace(/[&<>\"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[ch]));
+    return escape(value).split(/\n\s*\n/).map(block => {
+        const heading = block.match(/^#{2,6}\s+(.+)$/);
+        if (heading) return `<h4>${escape(heading[1])}</h4>`;
+        let html = escape(block).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+        return `<p>${html.replace(/\n/g, '<br>')}</p>`;
+    }).join('');
+}
 const partyList = document.getElementById('party-list');
 const eventList = document.getElementById('event-list');
 let currentFactionDetail = null;
@@ -122,7 +134,7 @@ function renderFactionDirectory() {
             card.href = `#faction/${factionKey}`;
         }
 
-        card.innerHTML = `<div class="faction-directory-header"><img src="${faction.logo}" class="faction-directory-logo" alt="${faction.name} Logo"><div class="faction-info"><h4 class="faction-directory-title">${faction.name}</h4><p class="assessment-text" style="font-size: 0.8rem; margin-top: 4px; font-style: normal;">${powerHTML}</p>${leaderHTML}</div></div><p class="assessment-text" style="font-size: 0.8rem">${faction.description}</p>${standingHTML}`;
+        card.innerHTML = `<div class="faction-directory-header"><img src="${faction.logo}" class="faction-directory-logo" alt="${faction.name} Logo"><div class="faction-info"><h4 class="faction-directory-title">${faction.name}</h4><p class="assessment-text" style="font-size: 0.8rem; margin-top: 4px; font-style: normal;">${powerHTML}</p>${leaderHTML}</div></div><div class="assessment-text" style="font-size: 0.8rem">${factionMarkdown(faction.description)}</div>${standingHTML}`;
         grid.appendChild(card);
     });
 }
@@ -187,7 +199,7 @@ function renderFactionDetail(factionKey) {
     detailWrapper.innerHTML = `
         <a href="#" class="terminal-back-button">&laquo; Back to Directory</a>
         <div class="card faction-card ${categoryClass}" id="${factionKey}">
-             <div class="faction-card-header"><img src="${faction.logo}" class="faction-logo" alt="${faction.name} Logo"><div class="faction-info"><h3 class="card-title">${faction.name}</h3><p class="faction-description">${faction.description}</p></div></div>
+             <div class="faction-card-header"><img src="${faction.logo}" class="faction-logo" alt="${faction.name} Logo"><div class="faction-info"><h3 class="card-title">${faction.name}</h3><div class="faction-description">${factionMarkdown(faction.description)}</div></div></div>
             ${partyRepHTML}
             ${intelSectionHTML}
             ${notablePeopleHTML}
