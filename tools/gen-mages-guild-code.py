@@ -9,6 +9,7 @@ New §§ only when min(all) >= --min-clauses.
   python3 tools/gen-mages-guild-code.py --init
   python3 tools/gen-mages-guild-code.py --status
   python3 tools/gen-mages-guild-code.py --overnight
+  python3 tools/overnight-run.py --target 400
   python3 tools/gen-mages-guild-code.py --check-emoji
 """
 from __future__ import annotations

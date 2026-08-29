@@ -55,10 +55,29 @@ and supports `dry_run` so a test cannot modify the character file. `main()` expo
 these operations through `--check`, `--roll`, `--result`, `--character`, and
 `--dry-run`.
 
+## Overnight orchestration
+
+`gen-mages-guild-code.py --overnight` is a finite Codex generation mode; it is
+not itself a forever daemon, and it does not currently repair injury entries.
+The single unattended entry point is `tools/overnight-run.py`. It validates the
+temporary injury contract, runs the Mages' Guild Codex generator, then validates
+the injury contract again. This keeps a future AI injury replacement as an
+explicit stage instead of silently mixing two generators.
+
+```bash
+python3 tools/overnight-run.py --plan
+python3 tools/overnight-run.py --base-url http://127.0.0.1:1234/v1 --target 400
+```
+
+Use `--skip-mages` to validate only the injury table. The future replacement
+stage should change `status` only after review and should preserve the d100,
+character-reference, cure, and duration contracts.
+
 ## Verification
 
 ```bash
 python3 tools/generate-injury-table.py --check
+python3 tools/overnight-run.py --plan
 python3 -m json.tool Reputation-Matrix2/data/injuries.json >/dev/null
 python3 -m json.tool Reputation-Matrix2/data/characters.json >/dev/null
 ```
