@@ -152,7 +152,7 @@ systems return success. It calls `expand-waluipedia.py --past-events`—never
 Past-event safety rules are enforced before each write: choose the least-covered
 foreign nation using nation-plus-event detail coverage; require the model to
 return that exact nation; reject Mushroom Kingdom/Midlands locations; require a
-known calendar date from 722–1039 BF; reject duplicate titles; require 500–1200
+known calendar date from 2–1039 BF; reject duplicate titles; require 500–1200
 words; reject emoji spam, repeated long phrases, and repeated-line spam; and
 write `proposed: true`. A bounded retry ceiling prevents an exhausted or
 unparseable model from looping forever. The writer follows `README.md` and
