@@ -35,6 +35,8 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "Reputation-Matrix2" / "data" / "laws" / "mages-guild-code.json"
 OUTLINE = ROOT / "Reputation-Matrix2" / "data" / "laws" / "mages-guild-code-outline.json"
 PROGRESS = ROOT / "Reputation-Matrix2" / "data" / "laws" / "mages-guild-code-progress.json"
+MAX_PROMPT_CHARS = 6200
+MAX_OUTPUT_TOKENS = 1400
 BROWSE = [
     ROOT / "Reputation-Matrix2" / "data" / "laws" / "laws-data-mystical.js",
     ROOT / "Reputation-Matrix2" / "data" / "laws" / "legal_data.js",
@@ -109,7 +111,7 @@ def live_lore_context(data: dict, current: dict) -> str:
             if pos >= 0:
                 parts.append(f"SOURCE {path.name}:\n{text[pos:pos + 1800]}")
                 break
-    return "\n\n".join(parts)[:9000]
+    return "\n\n".join(parts)[:MAX_PROMPT_CHARS]
 
 
 VOICE = """You are a clerk of the Mages' Guild Accords Desk writing a bound code book, not a bullet list.
@@ -724,14 +726,56 @@ def clean_bad_bodies(data: dict) -> int:
     return removed
 
 
-def chat(base: str, model: str, messages: list, timeout: int) -> str:
-    url = base.rstrip("/") + "/chat/completions"
-    payload = json.dumps({"model": model, "temperature": 0.7, "max_tokens": 4096, "messages": messages}).encode()
-    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        data = json.loads(r.read().decode())
-    return data["choices"][0]["message"]["content"]
+def _compact_messages(messages: list, limit: int = 8200) -> list:
+    """Keep a retry below small LM Studio context windows without losing the request."""
+    if not messages:
+        return messages
+    if len(messages) == 1:
+        return [{"role": messages[0].get("role", "user"),
+                 "content": str(messages[0].get("content") or "")[:limit]}]
+    # Always retain system instructions and the newest user request. The middle
+    # conversation (normally an oversized first draft plus search cards) is
+    # expendable on a context-overflow retry.
+    system = {"role": messages[0].get("role", "system"),
+              "content": str(messages[0].get("content") or "")[:2600]}
+    newest = messages[-1]
+    newest_copy = {"role": newest.get("role", "user"),
+                   "content": str(newest.get("content") or "")[:2600]}
+    middle = []
+    remaining = max(0, limit - len(system["content"]) - len(newest_copy["content"]))
+    for message in messages[1:-1]:
+        if remaining <= 0:
+            break
+        content = str(message.get("content") or "")[:remaining]
+        middle.append({"role": message.get("role", "user"), "content": content})
+        remaining -= len(content)
+    return [system, *middle, newest_copy]
 
+def chat(base: str, model: str, messages: list, timeout: int) -> str:
+    """Call LM Studio and retry context-sized 400s with a smaller request."""
+    url = base.rstrip("/") + "/chat/completions"
+    max_tokens = MAX_OUTPUT_TOKENS
+    payload_messages = messages
+    for attempt in range(2):
+        payload = json.dumps({"model": model, "temperature": 0.7,
+                              "max_tokens": max_tokens,
+                              "messages": payload_messages}).encode()
+        req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                data = json.loads(r.read().decode())
+            return data["choices"][0]["message"]["content"]
+        except urllib.error.HTTPError as error:
+            detail = error.read().decode("utf-8", "replace")[:500]
+            print(f"LM Studio HTTP {error.code}: {detail}", file=sys.stderr)
+            if error.code != 400 or attempt:
+                raise
+            # LM Studio commonly reports context overflow as HTTP 400. A
+            # compact retry is safe because validation still rejects incomplete
+            # pages; it also makes the actual server error visible in logs.
+            payload_messages = _compact_messages(messages)
+            max_tokens = 900
+    raise RuntimeError("LM Studio request failed")
 
 def chat_with_search(base: str, model: str, messages: list, timeout: int) -> str:
     raw = chat(base, model, messages, timeout)
