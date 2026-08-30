@@ -83,36 +83,24 @@ class LMStudioClient:
         *,
         temperature: float = 0.7,
         attempts: int = 3,
-        max_tokens: int = 2000,
     ) -> dict[str, Any]:
-        
-        # Globally inject JSON template at the end of user prompt (after any shortening)
         import re
-        # Only inject if there's exactly one JSON schema pattern.
-        # We can find the last JSON block. If there are multiple, appending the last one might be wrong.
-        # Actually, let's just search for the last JSON block.
-        # Wait, if we use r"\{[^{]*<[^>]*>.*\}" we can match a schema.
-        # Let's just avoid injecting for CLASSIFY_SYSTEM which has "For anything else:"
+        
+        # The user requested a "premade json that it just fills out" because Qwen was failing to generate.
+        # We find the JSON template in the system prompt.
         match = re.search(r"(\{.*\})", system_prompt, re.DOTALL)
         if match and "For anything else:" not in system_prompt and "For a real faction:" not in system_prompt:
             schema = match.group(1)
-            schema = re.sub(r'"<[^>]*>"', '""', schema)
-            schema = re.sub(r'\[\s*"<[^>]*>"(?:\s*,\s*"<[^>]*>")*\s*\]', '[""]', schema)
-            schema = re.sub(r':\s*<integer[^>]*>', ': 0', schema)
+            # Make the placeholders clear that they need to be replaced with content
+            schema = re.sub(r'"<([^>]+)>"', r'"<GENERATE: \1>"', schema)
             
-            # For Qwen 3.5 9b, we also append an assistant message in the messages array!
-            # Wait, the user specifically asked for a premade json that it just fills out.
-            user_prompt = user_prompt.strip() + "\n\nCopy and fill out this exact JSON structure and return only the JSON:\n" + schema
+            user_prompt = user_prompt.strip() + "\n\nIMPORTANT: You must fill out and return this exact JSON structure. Replace the <GENERATE: ...> placeholders with your actual generated content. Do not return empty fields.\n" + schema
 
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ]
-        payload: dict[str, Any] = {
-            "messages": messages, 
-            "temperature": temperature,
-            "max_tokens": max_tokens,
-        }
+        payload: dict[str, Any] = {"messages": messages, "temperature": temperature}
         if self.model:
             payload["model"] = self.model
 
@@ -161,27 +149,23 @@ class LMStudioClient:
                 last_error = ValueError("LM Studio returned a non-text response")
                 continue
             content = FENCE.sub("", content.strip())
+            
             # Instruct models often add yapping before or after the JSON block.
             # Extract everything from the first { to the last }
-            if "{" in content and "}" in content:
+            if not content.startswith("{") and "{" in content and "}" in content:
                 content = content[content.find("{"):content.rfind("}")+1]
-            elif "{" in content:
-                # Missing closing brace! This usually means it was truncated by max_tokens or crashed mid-generation.
+            elif "{" in content and "}" not in content:
+                # Missing closing brace! This usually means it was truncated by a context crash.
                 content = content[content.find("{"):]
             
             try:
                 parsed = json.loads(content)
             except json.JSONDecodeError as error:
                 last_error = error
-                # If it's a truncation/context crash, LM studio might have returned a partial JSON.
-                # If we tried 3 times and it keeps getting truncated, it might be context limit.
-                # Let's check if the error is about unexpected end of data.
-                if "Unterminated string" in str(error) or "Expecting ',' delimiter" in str(error) or "Expecting property name" in str(error) or "Expecting value" in str(error):
-                    # If it's the 3rd attempt and it keeps returning invalid JSON that looks truncated,
-                    # treat it as a ContextExceededError so the runner shortens the prompt.
-                    reason = body.get("choices", [{}])[0].get("finish_reason")
-                    if reason == "length" or (attempt == attempts - 1 and "}" not in content):
-                        raise ContextExceededError("Generation truncated due to max_tokens or context limit crash.")
+                # Auto-recovery for context crashes that return truncated HTTP 200 OK
+                # (LM Studio doesn't always drop connection, sometimes it just cuts off)
+                if "}" not in content:
+                    raise ContextExceededError("Generation truncated; likely hit context limits.")
                 continue
             if not isinstance(parsed, dict):
                 last_error = ValueError("expected a JSON object at the top level")
