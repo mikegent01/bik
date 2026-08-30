@@ -290,8 +290,15 @@ def launch_web(host: str = "127.0.0.1", port: int = 8765, *, open_browser: bool 
                defaults: Settings | None = None) -> None:
     state = RunState()
     server = ThreadingHTTPServer((host, port), _handler_factory(state, defaults))
-    url = f"http://{host}:{port}/"
+    # 0.0.0.0 is a bind address, not a browser destination. Keep the
+    # dashboard local by default and open a valid loopback URL even when a
+    # caller uses 0.0.0.0 for the server socket.
+    browser_host = "127.0.0.1" if host in ("0.0.0.0", "::") else host
+    url = f"http://{browser_host}:{port}/"
+    bind_url = f"http://{host}:{port}/"
     print(f"genkit control panel: {url}")
+    if browser_host != host:
+        print(f"bound locally on {bind_url}; 0.0.0.0 is not a browser address")
     print("Ctrl-C to quit.")
     if open_browser:
         try:

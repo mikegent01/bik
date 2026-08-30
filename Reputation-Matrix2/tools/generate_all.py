@@ -83,8 +83,7 @@ def main(argv: list[str] | None = None) -> int:
                         help="force the browser dashboard instead of a native window")
     parser.add_argument("--port", type=int, default=8765, help="dashboard port")
     parser.add_argument("--host", default="127.0.0.1",
-                        help="dashboard bind address (use 0.0.0.0 to reach it "
-                             "from another machine)")
+                        help="dashboard bind address; keep 127.0.0.1 for local-only use")
 
     parser.add_argument("--workers", type=int, default=2,
                         help="concurrent LM Studio conversations (default 2)")
