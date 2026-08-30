@@ -285,7 +285,7 @@ async function poll(){
         `<div class="mixrow"><span>${esc(x.title)}</span><input data-weight="${x.id}" type="number" min="0" max="100" step="1" value="${x.enabled?'100':'0'}"></div>`).join('');
       genReady='1';
     }
-    $('generatorCards').innerHTML=(s.generators||[]).map(g=>`<div class="card"><b>${esc(g.title)}</b><small>${esc(g.summary)}</small><small class="task">${esc(g.command)}</small></div>`).join('');
+    $('generatorCards').innerHTML=(s.generators||[]).map(g=>`<div class="card"><b>${esc(g.title)}</b><small>${esc(g.summary)}</small><small class="task">${esc(g.command)}</small><div style="margin-top:6px"><button class="btn tiny ${g.running?'warn':''}" onclick="toggleAux('${g.id}')">${g.running?'Stop':'Run'}</button></div></div>`).join('');
     $('systems').tBodies[0].innerHTML=s.systems.map(x=>{
       const p=s.perSystem[x.id]||{ok:0,fail:0};
       return `<tr><td><span class="stage">${x.enabled?x.stage:'off'}</span></td>
@@ -323,6 +323,13 @@ async function doPoll() {
   setTimeout(doPoll, 1500);
 }
 doPoll();
+
+async function toggleAux(id){
+  const r=await fetch('/run-aux',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
+  const j=await r.json();
+  toast(j.msg || j.error, j.ok?'ok':'bad');
+  poll();
+}
 
 // ================= EDITOR ENGINE =================
 function inferType(v){

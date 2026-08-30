@@ -126,6 +126,7 @@ class RunState:
         self.overnight = False
         self.overnight_thread: threading.Thread | None = None
         self.overnight_stop: str | None = None  # why the loop ended
+        self.aux_processes: dict[str, subprocess.Popen] = {}
 
     def note(self, event: RunnerEvent) -> None:
         with self.lock:
@@ -149,6 +150,11 @@ class RunState:
 
     def snapshot(self) -> dict[str, Any]:
         with self.lock:
+            # clean up dead processes
+            for aid in list(self.aux_processes.keys()):
+                if self.aux_processes[aid].poll() is not None:
+                    del self.aux_processes[aid]
+            
             return {
                 "running": self.running,
                 "produced": self.produced,
@@ -158,7 +164,10 @@ class RunState:
                 "overnightStop": self.overnight_stop,
                 "log": list(self.log)[-120:],
                 "perSystem": dict(self.per_system),
-                "generators": AUXILIARY_GENERATORS,
+                "generators": [
+                    {**g, "running": g["id"] in self.aux_processes}
+                    for g in AUXILIARY_GENERATORS
+                ],
                 "systems": [
                     {
                         "id": s.id,
@@ -277,12 +286,20 @@ class RunState:
         self.overnight_thread.start()
         return "started"
 
-    def stop_overnight(self) -> str:
+    def toggle_aux(self, aux_id: str) -> str:
         with self.lock:
-            if not self.overnight:
-                return "not running"
-            self.overnight = False
-        return "stopping"
+            gen = next((g for g in AUXILIARY_GENERATORS if g["id"] == aux_id), None)
+            if not gen:
+                return "Unknown generator"
+            if aux_id in self.aux_processes:
+                proc = self.aux_processes.pop(aux_id)
+                if proc.poll() is None:
+                    proc.terminate()
+                return f"Stopped {gen['title']}"
+            else:
+                proc = subprocess.Popen(gen["command"], shell=True, cwd=REPO_ROOT)
+                self.aux_processes[aux_id] = proc
+                return f"Started {gen['title']}"
 
 
 # ---------------------------------------------------------------------------
@@ -423,6 +440,16 @@ def _handler_factory(state: RunState, defaults: Settings | None = None):
 
             if route == "/overnight/stop":
                 self._send(200, state.stop_overnight().encode(), "text/plain")
+                return
+
+            if route == "/run-aux":
+                try:
+                    body = json.loads(raw or b"{}")
+                    aux_id = body.get("id")
+                    msg = state.toggle_aux(aux_id)
+                    self._send_json({"ok": True, "msg": msg})
+                except Exception as e:
+                    self._send_json({"ok": False, "error": str(e)}, 500)
                 return
 
             if route == "/overnight/start":

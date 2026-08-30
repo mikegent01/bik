@@ -139,9 +139,25 @@ def atomic_write_json(target: Path, payload: Any, *, indent: int = 2) -> None:
     )
 
 
+import copy
+
+_JSON_CACHE: dict[str, tuple[float, int, Any]] = {}
+
 def read_json(path: Path, default: Any = None) -> Any:
     try:
-        return json.loads(Path(path).read_text(encoding="utf-8"))
+        p = Path(path).resolve()
+        st = p.stat()
+        mtime = st.st_mtime
+        size = st.st_size
+        key = str(p)
+        
+        cached = _JSON_CACHE.get(key)
+        if cached is not None and cached[0] == mtime and cached[1] == size:
+            return copy.deepcopy(cached[2])
+            
+        data = json.loads(p.read_text(encoding="utf-8"))
+        _JSON_CACHE[key] = (mtime, size, copy.deepcopy(data))
+        return data
     except (OSError, json.JSONDecodeError):
         return default
 
