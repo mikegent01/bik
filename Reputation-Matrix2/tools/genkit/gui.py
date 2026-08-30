@@ -146,6 +146,9 @@ PAGE = """<!doctype html>
  .stat.retry{color:#e0b400}
  .stats{display:flex;gap:26px;margin-left:auto}
  .stats div span{display:block;font-size:11px;color:var(--muted);text-transform:uppercase}
+ .mix{border:1px solid var(--line);border-radius:5px;padding:6px;background:#0d0b0a}
+ .mixrow{display:grid;grid-template-columns:1fr 60px;gap:6px;align-items:center;padding:3px 0;font-size:11px}
+ .mixrow input{padding:3px 5px;text-align:right}
 </style></head><body>
 <header>
   <h1>genkit · all-systems generator</h1>
@@ -170,6 +173,8 @@ PAGE = """<!doctype html>
   <input id="only" value="__ONLY__" placeholder="faction-dossiers">
   <label>Temperature</label>
   <input id="temperature" type="number" step="0.05" min="0" max="2" value="__TEMPERATURE__">
+  <label>Generation mix (%) — 0 disables a system</label>
+  <div id="mix" class="mix"></div>
   <label><input type="checkbox" id="dry" style="width:auto" __DRY_CHECKED__> Dry run (write nothing)</label>
   <div style="display:flex;gap:8px;margin-top:16px">
     <button id="go">Start</button>
@@ -191,6 +196,11 @@ async function poll(){
     $('retried').textContent=s.retried||0;
     $('state').textContent=s.running?'running':'idle';
     $('go').disabled=s.running; $('halt').disabled=!s.running;
+    if(!$('mix').dataset.ready){
+      $('mix').innerHTML=s.systems.filter(x=>x.enabled).map(x=>
+        `<div class="mixrow"><span>${escapeHtml(x.title)}</span><input data-weight="${x.id}" type="number" min="0" max="100" step="1" value="100"></div>`).join('');
+      $('mix').dataset.ready='1';
+    }
     $('systems').tBodies[0].innerHTML=s.systems.map(x=>{
       const p=s.perSystem[x.id]||{ok:0,fail:0,retry:0};
       return `<tr><td><span class="stage">${x.enabled?x.stage:'off'}</span></td>
@@ -205,7 +215,8 @@ $('go').onclick=async()=>{
   await fetch('/start',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({endpoint:$('endpoint').value,model:$('model').value,
       workers:+$('workers').value,limit:+$('limit').value,only:$('only').value,
-      temperature:+$('temperature').value,dry_run:$('dry').checked})});
+      temperature:+$('temperature').value,dry_run:$('dry').checked,
+      weights:Object.fromEntries([...document.querySelectorAll('[data-weight]')].map(x=>[x.dataset.weight,+x.value]))})});
   poll();
 };
 $('halt').onclick=async()=>{await fetch('/stop',{method:'POST'});poll();};
@@ -268,6 +279,7 @@ def _handler_factory(state: RunState, defaults: Settings | None = None):
                 dry_run=bool(body.get("dry_run")),
                 timeout=base.timeout,
                 only=[s.strip() for s in (body.get("only") or "").split(",") if s.strip()],
+                weights={str(k): max(0.0, float(v)) for k, v in (body.get("weights") or {}).items()},
             )
             self._send(200, state.start(settings).encode(), "text/plain")
 

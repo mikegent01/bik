@@ -70,7 +70,7 @@ class Runner:
         self.systems = {s.id: s for s in chosen}
         self.settings = settings
         self.on_event = on_event or (lambda event: None)
-        self.scheduler = PopcornScheduler(chosen, seed=settings.seed)
+        self.scheduler = PopcornScheduler(chosen, seed=settings.seed, weights=settings.weights)
         self.client = LMStudioClient(
             settings.endpoint, settings.model, settings.timeout
         )
@@ -136,11 +136,26 @@ class Runner:
                 time.sleep(0.1)
                 continue
             task = self.scheduler.next_task()
+            if task is not None and not self.settings.retry_failed:
+                checkpoint = self.checkpoints[task.system_id]
+                if task.key in checkpoint.failed_keys:
+                    self.scheduler.abandon(task)
+                    self._emit(RunnerEvent(
+                        "skip", f"quarantined after retry ceiling: {task.label}",
+                        task.system_id, produced=self.produced,
+                        failed=self.failed, retried=self.retried,
+                    ))
+                    continue
             if task is None:
                 if self.pool.idle():
                     break
                 time.sleep(0.2)
                 continue
+            checkpoint = self.checkpoints[task.system_id]
+            # The overnight supervisor starts a fresh process for every mixed
+            # batch. Carry validation attempts across those boundaries so a
+            # task cannot receive a fresh retry budget every six records.
+            task.attempts = max(task.attempts, checkpoint.attempt_count(task.key))
             self._reopen_stale_checkpoint(task)
             self._emit(RunnerEvent("task", task.label, task.system_id))
             self.pool.submit(task)
@@ -325,6 +340,7 @@ class Runner:
         if not result.ok and result.retryable and task.attempts < self.MAX_ATTEMPTS:
             task.attempts += 1
             task.last_error = result.reason or result.detail
+            checkpoint.note_attempt(task.key, task.attempts, task.last_error)
             self.scheduler.requeue(task)
             with self._counter_lock:
                 self.retried += 1
@@ -340,7 +356,12 @@ class Runner:
             )
             return
 
-        # A failure wrote nothing, so the system will keep offering this task.
+        # A final failure wrote nothing. Abandon only this exhausted task for
+        # the current run so a bad record cannot stop an infinite run or hold
+        # every higher-priority system hostage. The source remains pending for
+        # a future run/review.
+        if not result.ok:
+            self.scheduler.abandon(task)
         self.scheduler.complete(task, changed=result.ok)
         with self._counter_lock:
             if result.ok:

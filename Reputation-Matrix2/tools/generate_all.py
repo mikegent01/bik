@@ -24,6 +24,7 @@ machine-drafted content is always distinguishable from hand-written canon.
 from __future__ import annotations
 
 import argparse
+import subprocess
 import sys
 from pathlib import Path
 
@@ -89,8 +90,15 @@ def main(argv: list[str] | None = None) -> int:
                         help="concurrent LM Studio conversations (default 2)")
     parser.add_argument("--limit", type=int, default=0,
                         help="stop after N successful records (0 = until exhausted)")
+    parser.add_argument("--infinite", action="store_true",
+                        help="keep cycling and skip exhausted records; equivalent to no limit")
+    parser.add_argument("--continue-on-failure", action="store_true",
+                        help="report failures but exit successfully so a supervisor can advance")
+    parser.add_argument("--retry-failed", action="store_true",
+                        help="revisit previously quarantined failed tasks")
     parser.add_argument("--only", default="", help="comma-separated system ids")
     parser.add_argument("--skip", default="", help="comma-separated system ids to exclude")
+    parser.add_argument("--weights", default="", help="generation percentages, e.g. events=40,battles=20")
     parser.add_argument("--dry-run", action="store_true",
                         help="call the model and validate, but write nothing")
     parser.add_argument("--endpoint", default=Settings().endpoint)
@@ -100,12 +108,28 @@ def main(argv: list[str] | None = None) -> int:
                         help="seconds to wait between records")
     parser.add_argument("--seed", type=int, default=0, help="seed the popcorn order")
     parser.add_argument("--timeout", type=int, default=240)
+    parser.add_argument("--past-events", type=int, default=0, metavar="N",
+                        help="after validated systems, generate N sparse foreign past events")
+    parser.add_argument("--past-max-attempts", type=int, default=0,
+                        help="past-event retry ceiling (0 = generator default)")
 
     args = parser.parse_args(argv)
+    if args.infinite:
+        args.limit = 0
 
     if args.inventory:
         print_inventory()
         return 0
+
+    weights = {}
+    for part in args.weights.split(",") if args.weights else []:
+        key, sep, value = part.partition("=")
+        if not sep:
+            parser.error("--weights entries must look like system-id=percentage")
+        try:
+            weights[key.strip()] = max(0.0, float(value))
+        except ValueError:
+            parser.error(f"invalid weight: {part}")
 
     settings = Settings(
         endpoint=args.endpoint,
@@ -116,7 +140,9 @@ def main(argv: list[str] | None = None) -> int:
         limit=args.limit,
         only=[s.strip() for s in args.only.split(",") if s.strip()],
         skip=[s.strip() for s in args.skip.split(",") if s.strip()],
+        weights=weights,
         dry_run=args.dry_run,
+        retry_failed=args.retry_failed,
         seed=args.seed,
         pace=args.pace,
     )
@@ -134,6 +160,15 @@ def main(argv: list[str] | None = None) -> int:
     def on_event(event: RunnerEvent) -> None:
         icon = ICONS.get(event.kind, "·")
         print(f"{icon} {event.text}", flush=True)
+        if event.kind == "ok" and event.produced is not None:
+            done = event.produced
+            if args.limit:
+                width = 28
+                filled = min(width, int(width * done / args.limit))
+                bar = "#" * filled + "-" * (width - filled)
+                print(f"  systems [{bar}] {done}/{args.limit}", flush=True)
+            elif args.infinite:
+                print(f"  systems [infinite] {done} successful records", flush=True)
 
     runner = Runner(all_systems(), settings, on_event=on_event)
     try:
@@ -142,7 +177,24 @@ def main(argv: list[str] | None = None) -> int:
         print("\ninterrupted — finishing in-flight records")
         runner.stop()
         return 130
-    return 0 if runner.failed == 0 else 1
+    if runner.failed and not (args.continue_on_failure or args.infinite):
+        return 1
+    if args.past_events:
+        expand = ROOT.parent / "tools" / "expand-waluipedia.py"
+        command = [sys.executable, str(expand), "--past-events", "--overnight",
+                   "--target", str(args.past_events), "--base-url", args.endpoint.rsplit("/v1/", 1)[0] + "/v1",
+                   "--timeout", str(args.timeout)]
+        if args.model:
+            command += ["--model", args.model]
+        if args.past_max_attempts:
+            command += ["--max-attempts", str(args.past_max_attempts)]
+        print("\n=== events: sparse foreign past-event stage ===", flush=True)
+        print("$", " ".join(command), flush=True)
+        completed = subprocess.run(command, cwd=ROOT.parent)
+        if completed.returncode:
+            print("events stage failed; no later stage was run", file=sys.stderr)
+            return completed.returncode
+    return 0
 
 
 if __name__ == "__main__":

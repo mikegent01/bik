@@ -30,9 +30,10 @@ from .spec import SystemSpec, Task
 
 
 class PopcornScheduler:
-    def __init__(self, systems: Iterable[SystemSpec], *, seed: int = 0) -> None:
+    def __init__(self, systems: Iterable[SystemSpec], *, seed: int = 0, weights: dict[str, float] | None = None) -> None:
         self.systems = [s for s in systems if s.enabled]
         self._rng = random.Random(seed or None)
+        self._weights = {key: max(0.0, float(value)) for key, value in (weights or {}).items()}
         self._lock = threading.Lock()
         self._recent: list[str] = []
         self._buffers: dict[str, list[Task]] = {s.id: [] for s in self.systems}
@@ -42,6 +43,10 @@ class PopcornScheduler:
         # there and would be offered a second time on the next refill. Without
         # this the same post gets pruned twice in parallel.
         self._issued: set[str] = set()
+        # Keys that exhausted their retry budget are abandoned for this run.
+        # They remain pending on disk for a later run, but cannot hold a whole
+        # stage hostage forever.
+        self._abandoned: set[str] = set()
         # Still with a worker. Distinct from `_issued`, which never forgets:
         # a stage with in-flight work is *live* and must keep blocking higher
         # stages, whereas a stage whose issued tasks have all come back has
@@ -84,19 +89,21 @@ class PopcornScheduler:
             # run. The old code marked those task keys drained, silently moved
             # to stage 1, and spent the rest of an hour generating shop items
             # and feed posts while all faction dossiers were still unfinished.
+            # Refill before deciding whether this stage blocks. A pending
+            # record that exhausted its retries is filtered by _abandoned; it
+            # must not make the scheduler wait forever while other systems sit
+            # behind it.
+            for system in stage_systems:
+                if system.id not in self._drained:
+                    self._refill(system)
             blocking = any(
-                self._buffers[s.id]
-                or self._inflight.get(s.id)
-                or s.count_pending() > 0
+                self._buffers[s.id] or self._inflight.get(s.id)
+                or (s.count_pending() > 0 and s.id not in self._drained)
                 for s in stage_systems
             )
             if not blocking:
                 continue
 
-            for system in stage_systems:
-                if system.id in self._drained:
-                    continue
-                self._refill(system)
             # Return the blocking stage even when it has no fresh candidate.
             # next_task() then returns None and Runner exits once in-flight work
             # lands; it must never fall through to a higher stage.
@@ -122,7 +129,9 @@ class PopcornScheduler:
                 tasks = []
             fresh = [
                 t for t in tasks
-                if t.key not in self._issued and t.key not in queued
+                if t.key not in self._issued
+                and t.key not in queued
+                and t.key not in self._abandoned
             ]
             if fresh:
                 self._buffers[system.id].extend(fresh)
@@ -152,18 +161,24 @@ class PopcornScheduler:
                 if s.stage == stage
                 and s.id not in self._drained
                 and self._buffers[s.id]
+                and self._weights.get(s.id, 1.0) > 0
             ]
             if not candidates:
                 return None
 
-            # Strict least-served-first. Weighted random looked fairer but is
+            # Weighted least-served scheduling: a system's virtual service
+            # ratio is served / percentage. The lowest ratio gets the next
+            # slot, which converges on the requested mix without bursty random
+            # runs and still preserves the stage gate.
             # not: the penalty only remembered the previous pick, so over
             # hundreds of draws the system with the deepest backlog was served
             # in proportion to how often it appeared as a candidate, and the
             # shallow systems finished the run barely touched. Comparing served
             # totals makes the alternation a guarantee rather than a tendency.
-            fewest = min(self._served.get(s.id, 0) for s in candidates)
-            level = [s for s in candidates if self._served.get(s.id, 0) == fewest]
+            def ratio(system: SystemSpec) -> float:
+                return self._served.get(system.id, 0) / self._weights.get(system.id, 1.0)
+            fewest = min(ratio(s) for s in candidates)
+            level = [s for s in candidates if ratio(s) == fewest]
             # Among equals, still avoid immediately repeating the last system.
             fresh = [s for s in level if s.id not in self._recent[-1:]]
             system = self._rng.choice(fresh or level)
@@ -174,6 +189,14 @@ class PopcornScheduler:
             self._recent.append(system.id)
             del self._recent[:-4]
             return task
+
+    def abandon(self, task: Task) -> None:
+        """Skip one exhausted task for this run without deleting its source work."""
+        with self._lock:
+            self._abandoned.add(task.key)
+            self._inflight.get(task.system_id, set()).discard(task.key)
+            self._buffers[task.system_id] = [t for t in self._buffers[task.system_id] if t.key != task.key]
+            self._drained.discard(task.system_id)
 
     def complete(self, task: Task, *, changed: bool) -> None:
         """A worker finished with `task`; `changed` says whether disk moved.
