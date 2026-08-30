@@ -409,7 +409,17 @@ def locations_generate(task: Task, client: Any, temperature: float) -> dict[str,
     if task.last_error:
         user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
         
-    raw = client.complete_json(system, user, temperature=temperature)
+    try:
+        raw = client.complete_json(system, user, temperature=temperature)
+    except Exception as e:
+        if type(e).__name__ == "ContextExceededError":
+            from ..runner import _shorten_prompt
+            try:
+                raw = client.complete_json(system, _shorten_prompt(user, 0.5), temperature=temperature)
+            except Exception:
+                raw = client.complete_json(system, _shorten_prompt(user, 0.25), temperature=temperature)
+        else:
+            raise
     desc = raw.get("description", "")
     
     # Auto-expander for short outputs
@@ -567,7 +577,17 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     if task.last_error:
         user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
         
-    raw = client.complete_json(system, user, temperature=temperature)
+    try:
+        raw = client.complete_json(system, user, temperature=temperature)
+    except Exception as e:
+        if type(e).__name__ == "ContextExceededError":
+            from ..runner import _shorten_prompt
+            try:
+                raw = client.complete_json(system, _shorten_prompt(user, 0.5), temperature=temperature)
+            except Exception:
+                raw = client.complete_json(system, _shorten_prompt(user, 0.25), temperature=temperature)
+        else:
+            raise
     desc = raw.get("description", "")
     
     # Auto-expander for short outputs
@@ -747,7 +767,17 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     if task.last_error:
         user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
         
-    raw = client.complete_json(system, user, temperature=temperature)
+    try:
+        raw = client.complete_json(system, user, temperature=temperature)
+    except Exception as e:
+        if type(e).__name__ == "ContextExceededError":
+            from ..runner import _shorten_prompt
+            try:
+                raw = client.complete_json(system, _shorten_prompt(user, 0.5), temperature=temperature)
+            except Exception:
+                raw = client.complete_json(system, _shorten_prompt(user, 0.25), temperature=temperature)
+        else:
+            raise
     desc = raw.get("description", "")
     
     # Auto-expander for short outputs

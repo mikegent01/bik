@@ -386,10 +386,20 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
                 task,
                 f"classification {classify_attempt + 1}/{CLASSIFY_ATTEMPTS}",
             )
-            metadata = client.complete_json(
-                CLASSIFY_SYSTEM, context + classify_feedback,
-                temperature=min(temperature, 0.55),
-            )
+            try:
+                metadata = client.complete_json(
+                    CLASSIFY_SYSTEM, context + classify_feedback,
+                    temperature=min(temperature, 0.55),
+                )
+            except Exception as e:
+                if type(e).__name__ == "ContextExceededError":
+                    from ..runner import _shorten_prompt
+                    try:
+                        metadata = client.complete_json(CLASSIFY_SYSTEM, _shorten_prompt(context + classify_feedback, 0.5), temperature=min(temperature, 0.55))
+                    except Exception:
+                        metadata = client.complete_json(CLASSIFY_SYSTEM, _shorten_prompt(context + classify_feedback, 0.25), temperature=min(temperature, 0.55))
+                else:
+                    raise
             kind = _classification(metadata.get("classification"))
             not_faction = kind in {
                 "not_faction", "not_a_faction", "non_faction",
@@ -473,9 +483,19 @@ def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
                 + feedback
                 + "\n\nReturn only the one-section JSON object."
             )
-            raw_section = client.complete_json(
-                SECTION_SYSTEM, prompt, temperature=temperature
-            )
+            try:
+                raw_section = client.complete_json(
+                    SECTION_SYSTEM, prompt, temperature=temperature
+                )
+            except Exception as e:
+                if type(e).__name__ == "ContextExceededError":
+                    from ..runner import _shorten_prompt
+                    try:
+                        raw_section = client.complete_json(SECTION_SYSTEM, _shorten_prompt(prompt, 0.5), temperature=temperature)
+                    except Exception:
+                        raw_section = client.complete_json(SECTION_SYSTEM, _shorten_prompt(prompt, 0.25), temperature=temperature)
+                else:
+                    raise
             if required_quote:
                 # The excerpt came from source code, not the model. Keep that
                 # exact value authoritative; validation below now asks only
