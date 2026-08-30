@@ -84,6 +84,18 @@ class LMStudioClient:
         temperature: float = 0.7,
         attempts: int = 3,
     ) -> dict[str, Any]:
+        import re
+        
+        # The user requested a "premade json that it just fills out" because Qwen was failing to generate.
+        # We find the JSON template in the system prompt.
+        match = re.search(r"(\{.*\})", system_prompt, re.DOTALL)
+        if match and "For anything else:" not in system_prompt and "For a real faction:" not in system_prompt:
+            schema = match.group(1)
+            # Make the placeholders clear that they need to be replaced with content
+            schema = re.sub(r'"<([^>]+)>"', r'"<GENERATE: \1>"', schema)
+            
+            user_prompt = user_prompt.strip() + "\n\nIMPORTANT: You must fill out and return this exact JSON structure. Replace the <GENERATE: ...> placeholders with your actual generated content. Do not return empty fields.\n" + schema
+
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
@@ -137,10 +149,23 @@ class LMStudioClient:
                 last_error = ValueError("LM Studio returned a non-text response")
                 continue
             content = FENCE.sub("", content.strip())
+            
+            # Instruct models often add yapping before or after the JSON block.
+            # Extract everything from the first { to the last }
+            if not content.startswith("{") and "{" in content and "}" in content:
+                content = content[content.find("{"):content.rfind("}")+1]
+            elif "{" in content and "}" not in content:
+                # Missing closing brace! This usually means it was truncated by a context crash.
+                content = content[content.find("{"):]
+            
             try:
                 parsed = json.loads(content)
             except json.JSONDecodeError as error:
                 last_error = error
+                # Auto-recovery for context crashes that return truncated HTTP 200 OK
+                # (LM Studio doesn't always drop connection, sometimes it just cuts off)
+                if "}" not in content:
+                    raise ContextExceededError("Generation truncated; likely hit context limits.")
                 continue
             if not isinstance(parsed, dict):
                 last_error = ValueError("expected a JSON object at the top level")

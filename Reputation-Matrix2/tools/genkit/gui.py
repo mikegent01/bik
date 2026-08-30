@@ -205,6 +205,17 @@ class RunState:
 
     # -- overnight supervisor -------------------------------------------------
 
+    def stop_overnight(self) -> str:
+        with self.lock:
+            if not self.overnight:
+                return "not running"
+            self.overnight = False
+            self.overnight_stop = "Stopped by user"
+            if self.runner and self.running:
+                self.runner.stop()
+                self.running = False
+        return "stopping overnight"
+
     def start_overnight(self, settings: Settings, max_hours: float,
                         stop_at: str, restart_limit: int, cycle_limit: int) -> str:
         import datetime
