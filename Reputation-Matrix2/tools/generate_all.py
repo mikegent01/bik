@@ -98,6 +98,7 @@ def main(argv: list[str] | None = None) -> int:
                         help="revisit previously quarantined failed tasks")
     parser.add_argument("--only", default="", help="comma-separated system ids")
     parser.add_argument("--skip", default="", help="comma-separated system ids to exclude")
+    parser.add_argument("--weights", default="", help="generation percentages, e.g. events=40,battles=20")
     parser.add_argument("--dry-run", action="store_true",
                         help="call the model and validate, but write nothing")
     parser.add_argument("--endpoint", default=Settings().endpoint)
@@ -120,6 +121,16 @@ def main(argv: list[str] | None = None) -> int:
         print_inventory()
         return 0
 
+    weights = {}
+    for part in args.weights.split(",") if args.weights else []:
+        key, sep, value = part.partition("=")
+        if not sep:
+            parser.error("--weights entries must look like system-id=percentage")
+        try:
+            weights[key.strip()] = max(0.0, float(value))
+        except ValueError:
+            parser.error(f"invalid weight: {part}")
+
     settings = Settings(
         endpoint=args.endpoint,
         model=args.model,
@@ -129,6 +140,7 @@ def main(argv: list[str] | None = None) -> int:
         limit=args.limit,
         only=[s.strip() for s in args.only.split(",") if s.strip()],
         skip=[s.strip() for s in args.skip.split(",") if s.strip()],
+        weights=weights,
         dry_run=args.dry_run,
         retry_failed=args.retry_failed,
         seed=args.seed,

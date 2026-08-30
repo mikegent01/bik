@@ -70,7 +70,7 @@ class Runner:
         self.systems = {s.id: s for s in chosen}
         self.settings = settings
         self.on_event = on_event or (lambda event: None)
-        self.scheduler = PopcornScheduler(chosen, seed=settings.seed)
+        self.scheduler = PopcornScheduler(chosen, seed=settings.seed, weights=settings.weights)
         self.client = LMStudioClient(
             settings.endpoint, settings.model, settings.timeout
         )
@@ -151,6 +151,11 @@ class Runner:
                     break
                 time.sleep(0.2)
                 continue
+            checkpoint = self.checkpoints[task.system_id]
+            # The overnight supervisor starts a fresh process for every mixed
+            # batch. Carry validation attempts across those boundaries so a
+            # task cannot receive a fresh retry budget every six records.
+            task.attempts = max(task.attempts, checkpoint.attempt_count(task.key))
             self._reopen_stale_checkpoint(task)
             self._emit(RunnerEvent("task", task.label, task.system_id))
             self.pool.submit(task)
@@ -335,6 +340,7 @@ class Runner:
         if not result.ok and result.retryable and task.attempts < self.MAX_ATTEMPTS:
             task.attempts += 1
             task.last_error = result.reason or result.detail
+            checkpoint.note_attempt(task.key, task.attempts, task.last_error)
             self.scheduler.requeue(task)
             with self._counter_lock:
                 self.retried += 1

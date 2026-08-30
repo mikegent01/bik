@@ -30,9 +30,10 @@ from .spec import SystemSpec, Task
 
 
 class PopcornScheduler:
-    def __init__(self, systems: Iterable[SystemSpec], *, seed: int = 0) -> None:
+    def __init__(self, systems: Iterable[SystemSpec], *, seed: int = 0, weights: dict[str, float] | None = None) -> None:
         self.systems = [s for s in systems if s.enabled]
         self._rng = random.Random(seed or None)
+        self._weights = {key: max(0.0, float(value)) for key, value in (weights or {}).items()}
         self._lock = threading.Lock()
         self._recent: list[str] = []
         self._buffers: dict[str, list[Task]] = {s.id: [] for s in self.systems}
@@ -76,7 +77,10 @@ class PopcornScheduler:
         """
         stages = sorted({s.stage for s in self.systems})
         for stage in stages:
-            stage_systems = [s for s in self.systems if s.stage == stage]
+            stage_systems = [
+                s for s in self.systems
+                if s.stage == stage and self._weights.get(s.id, 1.0) > 0
+            ]
             # A system can gain work because another adapter wrote a dependency
             # (new WAH post → thread task, new faction → dossier task). Revive
             # previously drained systems when their data becomes pending.
@@ -160,18 +164,24 @@ class PopcornScheduler:
                 if s.stage == stage
                 and s.id not in self._drained
                 and self._buffers[s.id]
+                and self._weights.get(s.id, 1.0) > 0
             ]
             if not candidates:
                 return None
 
-            # Strict least-served-first. Weighted random looked fairer but is
+            # Weighted least-served scheduling: a system's virtual service
+            # ratio is served / percentage. The lowest ratio gets the next
+            # slot, which converges on the requested mix without bursty random
+            # runs and still preserves the stage gate.
             # not: the penalty only remembered the previous pick, so over
             # hundreds of draws the system with the deepest backlog was served
             # in proportion to how often it appeared as a candidate, and the
             # shallow systems finished the run barely touched. Comparing served
             # totals makes the alternation a guarantee rather than a tendency.
-            fewest = min(self._served.get(s.id, 0) for s in candidates)
-            level = [s for s in candidates if self._served.get(s.id, 0) == fewest]
+            def ratio(system: SystemSpec) -> float:
+                return self._served.get(system.id, 0) / self._weights.get(system.id, 1.0)
+            fewest = min(ratio(s) for s in candidates)
+            level = [s for s in candidates if ratio(s) == fewest]
             # Among equals, still avoid immediately repeating the last system.
             fresh = [s for s in level if s.id not in self._recent[-1:]]
             system = self._rng.choice(fresh or level)
