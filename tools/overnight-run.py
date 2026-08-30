@@ -125,7 +125,10 @@ def main() -> int:
         system_goal = args.system_limit if args.system_limit > 0 else args.target
         codex_done = system_done = 0
         round_no = 0
-        while args.infinite or ((codex_goal != 0 and codex_done < codex_goal) and system_done < system_goal) or (codex_goal == 0 and system_done < system_goal):
+        # A limited Codex target must not truncate the systems stage. Once the
+        # Codex quota is reached, continue cycling systems until their own
+        # quota is reached; with --skip-mages/--codex-limit 0 this is systems-only.
+        while args.infinite or (codex_done < codex_goal if codex_goal != 0 else False) or system_done < system_goal:
             round_no += 1
             if not args.skip_mages and codex_goal != 0:
                 codex_cmd = [*mages]
