@@ -1517,7 +1517,7 @@ inj = desk.injuries_validate(inj_task, {
     "description": "The skull does not hold. Death follows immediately.",
     "cure": "Resurrection/Reincarnate", "duration": "Forever", "notes": "",
 })
-check("an injury rewrite keeps the d100 slot and temporary flag",
+check("an injury rewrite keeps the slot and temporary flag",
       inj["d100"] == 1 and inj["temporary"] is True)
 try:
     desk.injuries_validate(inj_task, {**inj, "injuryType": "mike's headache"})
@@ -1599,8 +1599,8 @@ check("a battledate without a year is repaired to a legal past date",
       fixed_date is not None and "BF" in str(fixed_date.get("date")),
       str(fixed_date and fixed_date.get("date")))
 
-check("injury pending is the unstamped d100 rows, not a locked zero",
-      desk.injuries_pending() == 100)
+check("injury pending includes unstamped rows plus floor deficit",
+      desk.injuries_pending() >= 100)
 check("location pending is the archive floor minus live cards",
       desk.locations_pending() == max(0, desk.LOCATION_FLOOR - len(desk._load_list(desk.LOCATIONS))))
 check("event and battle pending follow the same floor rule",

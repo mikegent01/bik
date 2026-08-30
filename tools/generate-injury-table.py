@@ -26,11 +26,11 @@ def load_table():
     entries = data.get("entries")
     if data.get("status") != "temporary":
         raise SystemExit("injury table must remain marked status=temporary until an AI replacement is reviewed")
-    if not isinstance(entries, list) or len(entries) != 100:
-        raise SystemExit(f"expected exactly 100 injury entries, got {len(entries) if isinstance(entries, list) else 'invalid'}")
+    if not isinstance(entries, list) or len(entries) < 1:
+        raise SystemExit(f"expected at least 1 injury entry, got {len(entries) if isinstance(entries, list) else 'invalid'}")
     rolls = [e.get("d100") for e in entries if isinstance(e, dict)]
-    if rolls != list(range(1, 101)):
-        raise SystemExit("injury entries must be ordered consecutively from d100 1 through 100")
+    if rolls != list(range(1, len(entries) + 1)):
+        raise SystemExit(f"injury entries must be ordered consecutively from 1 to {len(entries)}")
     for entry in entries:
         missing = REQUIRED - entry.keys()
         if missing:
@@ -42,8 +42,8 @@ def load_table():
 
 def entry_for_roll(data, roll):
     """Return one validated row for an integer d100 result."""
-    if not isinstance(roll, int) or not 1 <= roll <= 100:
-        raise ValueError("roll must be an integer from 1 to 100")
+    if not isinstance(roll, int) or not 1 <= roll <= len(data["entries"]):
+        raise ValueError(f"roll must be an integer from 1 to {len(data['entries'])}")
     return data["entries"][roll - 1]
 
 
@@ -91,13 +91,13 @@ def main():
     parser.add_argument("--check", action="store_true", help="validate all 100 rows and temporary markers")
     parser.add_argument("--roll", action="store_true", help="generate one random d100 result")
     parser.add_argument("--dice", help="generate repeated rolls: d100, 2d100, 100d100, or any NdM")
-    parser.add_argument("--result", type=int, choices=range(1, 101), help="use a chosen d100 result")
+    parser.add_argument("--result", type=int, help="use a chosen result (1 to N)")
     parser.add_argument("--character", help="character id to receive the result reference")
     parser.add_argument("--dry-run", action="store_true", help="show an assignment without writing characters.json")
     args = parser.parse_args()
     data = load_table()
     if args.check or not (args.roll or args.result or args.dice):
-        print(f"OK: {len(data['entries'])} temporary injury entries; d100 sequence intact")
+        print(f"OK: {len(data['entries'])} temporary injury entries; roll sequence intact")
     if args.dice and (args.roll or args.result):
         raise SystemExit("use only one of --dice, --roll, or --result")
     if args.dice:

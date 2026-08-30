@@ -45,6 +45,7 @@ NATIONS = ROOT / "data" / "nations.json"
 LOCATION_FLOOR = 60
 EVENT_FLOOR = 120
 BATTLE_FLOOR = 75
+INJURY_FLOOR = 150
 
 _SNAKE = re.compile(r"^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$")
 _LOCK = threading.Lock()
@@ -148,14 +149,16 @@ def _pending_injuries() -> list[dict[str, Any]]:
 
 
 def injuries_pending() -> int:
-    return len(_pending_injuries())
+    have = len(_injury_entries())
+    rewrites = len(_pending_injuries())
+    return rewrites + max(0, INJURY_FLOOR - have)
 
 
 def injuries_next_tasks(count: int) -> list[Task]:
     tasks: list[Task] = []
     for row in _pending_injuries():
         if len(tasks) >= count:
-            break
+            return tasks
         try:
             roll = int(row.get("d100"))
         except (TypeError, ValueError):
@@ -163,10 +166,20 @@ def injuries_next_tasks(count: int) -> list[Task]:
         tasks.append(Task(
             system_id="injury-table",
             key=f"injury:{roll:03d}",
-            label=f"injury table · d100 {roll} · {row.get('injuryType') or 'row'}",
+            label=f"injury table · rewrite row {roll} · {row.get('injuryType') or 'row'}",
             payload={"d100": roll, "category": row.get("category") or "", "current": {
                 k: row.get(k) for k in ("injuryType", "description", "cure", "duration", "notes", "category")
             }},
+        ))
+    have = len(_injury_entries())
+    need = max(0, INJURY_FLOOR - have)
+    for offset in range(min(count - len(tasks), need)):
+        slot = have + offset + 1
+        tasks.append(Task(
+            system_id="injury-table",
+            key=f"injury:gen:{slot}",
+            label=f"injury table · new row {slot}",
+            payload={"d100": slot, "is_new": True},
         ))
     return tasks
 
@@ -190,14 +203,25 @@ Return strictly valid JSON only, no commentary, no code fence:
 
 
 def injuries_build_prompt(task: Task) -> tuple[str, str]:
-    current = task.payload.get("current") or {}
     siblings = [
         {"d100": r.get("d100"), "injuryType": r.get("injuryType"), "category": r.get("category")}
         for r in _injury_entries()
         if r.get("d100") != task.payload.get("d100")
     ]
+    if task.payload.get("is_new"):
+        prompt = (
+            f"Write ONE NEW injury row for the table (row {task.payload['d100']}).\n"
+            f"Pick a severe or interesting consequence.\n"
+            f"Existing categories include: Death, Facial scarring, Lose a limb, Severe injury, Minor boon, Special effect, etc.\n"
+            f"Other injury names (do not duplicate):\n"
+            f"{json.dumps(siblings[-24:], ensure_ascii=False)}\n"
+            "Return one new row."
+        )
+        return _INJURY_SYSTEM.replace("rewrite one row", "write ONE NEW row"), prompt
+        
+    current = task.payload.get("current") or {}
     prompt = (
-        f"Rewrite d100 row {task.payload['d100']} in category {task.payload.get('category')!r}.\n"
+        f"Rewrite row {task.payload['d100']} in category {task.payload.get('category')!r}.\n"
         f"Keep the same mechanical idea. Current row:\n"
         f"{json.dumps(current, ensure_ascii=False, indent=2)}\n\n"
         f"Other injury names (do not duplicate):\n"
@@ -210,7 +234,10 @@ def injuries_build_prompt(task: Task) -> tuple[str, str]:
 def injuries_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     roll = int(task.payload["d100"])
     injury_type = _clean(raw.get("injuryType"), lo=3, hi=64, field="injuryType")
-    category = _clean(raw.get("category") or task.payload.get("category") or "Injury", lo=3, hi=48, field="category")
+    if task.payload.get("is_new"):
+        category = _clean(raw.get("category") or "Severe injury", lo=3, hi=48, field="category")
+    else:
+        category = _clean(raw.get("category") or task.payload.get("category") or "Injury", lo=3, hi=48, field="category")
     description = _clean(raw.get("description"), lo=12, hi=400, field="description")
     cure = _clean(raw.get("cure") or "None", lo=2, hi=80, field="cure")
     duration = _clean(raw.get("duration") or "Until cured", lo=2, hi=64, field="duration")
@@ -262,16 +289,25 @@ def injuries_apply(task: Task, record: dict[str, Any]) -> TaskResult:
         if not isinstance(entries, list):
             return TaskResult(task=task, ok=False, detail="injuries.json has no entries")
         roll = record["d100"]
-        idx = next((i for i, row in enumerate(entries)
-                    if isinstance(row, dict) and row.get("d100") == roll), None)
-        if idx is None:
-            return TaskResult(task=task, ok=False, detail=f"d100 {roll} missing")
-        entry = dict(entries[idx])
-        entry.update(record)
-        entry["temporary"] = True
-        stamp = provenance("injury-table", task.payload.get("model", ""))
-        entry["_generated"] = stamp["_generated"]
-        entries[idx] = entry
+        if task.payload.get("is_new"):
+            if any(r.get("d100") == roll for r in entries if isinstance(r, dict)):
+                return TaskResult(task=task, ok=False, detail=f"d100 {roll} already exists")
+            entry = dict(record)
+            entry["temporary"] = True
+            stamp = provenance("injury-table", task.payload.get("model", ""))
+            entry["_generated"] = stamp["_generated"]
+            entries.append(entry)
+        else:
+            idx = next((i for i, row in enumerate(entries)
+                        if isinstance(row, dict) and row.get("d100") == roll), None)
+            if idx is None:
+                return TaskResult(task=task, ok=False, detail=f"d100 {roll} missing")
+            entry = dict(entries[idx])
+            entry.update(record)
+            entry["temporary"] = True
+            stamp = provenance("injury-table", task.payload.get("model", ""))
+            entry["_generated"] = stamp["_generated"]
+            entries[idx] = entry
         store["entries"] = entries
         store["status"] = "temporary"
         atomic_write_json(INJURIES, store)
@@ -284,8 +320,8 @@ def injuries_apply(task: Task, record: dict[str, Any]) -> TaskResult:
 
 INJURY_SPEC = SystemSpec(
     id="injury-table",
-    title="Injury Table · d100 rewrite",
-    summary="Rewrite each temporary d100 injury row in place; keep the 1–100 contract.",
+    title="Injury Table · expand and rewrite",
+    summary="Rewrite temporary injury rows, then append new ones past 100.",
     stage=1,
     next_tasks=injuries_next_tasks,
     build_prompt=injuries_build_prompt,
@@ -495,17 +531,17 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
         prog = task.payload.get("_progress")
         if prog: prog("Expanding short description...")
         
-        expand_sys = "You are an archivist. Return ONLY valid JSON with one key: 'expanded_description'."
+        expand_sys = "You are an archivist. Return ONLY valid JSON with one key: 'continued_description'."
         expand_user = (
-            f"You wrote this short event description:\n\n{desc}\n\n"
-            f"This is too brief. REWRITE and EXPAND it into a rich, detailed historical account of 400-800 words. "
-            f"Add physical details, quotes, and Waluigi's commentary. Do not change the core facts, just flesh them out "
-            f"into a proper archive article. Return ONLY valid JSON with the key 'expanded_description'."
+            f"You have started writing a historical record:\n\n{desc}\n\n"
+            f"This is a good start, but the record is incomplete. KEEP this exact text, and WRITE THE REST of the historical account "
+            f"(add another 300-500 words). Add physical details, quotes, and the final outcome. "
+            f"Return ONLY the NEW continuation text in valid JSON with the key 'continued_description'."
         )
         try:
             expanded_raw = client.complete_json(expand_sys, expand_user, temperature=temperature)
-            if "expanded_description" in expanded_raw and _words(expanded_raw["expanded_description"]) > 100:
-                raw["description"] = expanded_raw["expanded_description"]
+            if "continued_description" in expanded_raw and _words(expanded_raw["continued_description"]) > 50:
+                raw["description"] = desc + "\n\n" + expanded_raw["continued_description"]
         except Exception:
             pass # fallback to original if expansion fails
 
@@ -675,18 +711,18 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
         prog = task.payload.get("_progress")
         if prog: prog("Expanding short description...")
         
-        expand_sys = "You are an archivist. Return ONLY valid JSON with one key: 'expanded_description'."
+        expand_sys = "You are an archivist. Return ONLY valid JSON with one key: 'continued_description'."
         expand_user = (
-            f"You wrote this short battle description:\n\n{desc}\n\n"
-            f"This is too brief. REWRITE and EXPAND it into a detailed 400-800 word war report. "
-            f"Structure the prose to cover: The Field (ground/season), The Opening (first contact), "
+            f"You have started writing a war report:\n\n{desc}\n\n"
+            f"This is a good start, but the report is incomplete. KEEP this exact text, and WRITE THE REST of the battle "
+            f"(add another 300-500 words). Structure the continuation to cover what hasn't been described yet: "
             f"The Middle (the mess/confusion), The Turn (what decided it), and The Finish (decisive blow). "
-            f"Return ONLY valid JSON with the key 'expanded_description'."
+            f"Return ONLY the NEW continuation text in valid JSON with the key 'continued_description'."
         )
         try:
             expanded_raw = client.complete_json(expand_sys, expand_user, temperature=temperature)
-            if "expanded_description" in expanded_raw and _words(expanded_raw["expanded_description"]) > 100:
-                raw["description"] = expanded_raw["expanded_description"]
+            if "continued_description" in expanded_raw and _words(expanded_raw["continued_description"]) > 50:
+                raw["description"] = desc + "\n\n" + expanded_raw["continued_description"]
         except Exception:
             pass # fallback to original if expansion fails
 
