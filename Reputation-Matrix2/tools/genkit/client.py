@@ -43,6 +43,9 @@ _CONTEXT_MARKERS = (
     "exceeds the context",
     "context_length_exceeded",
     "too many tokens",
+    "channel error",
+    "connection reset",
+    "remote end closed",
 )
 
 
@@ -117,7 +120,16 @@ class LMStudioClient:
                 if _is_context_error(detail):
                     raise ContextExceededError(message) from error
                 raise LMStudioError(message) from error
+            except urllib.error.URLError as error:
+                err_str = str(error)
+                if "Channel Error" in err_str or "Remote end closed connection" in err_str or "Connection reset" in err_str:
+                    # LM studio abruptly dropping the connection usually means it crashed during generation, which is a symptom of hitting context limits.
+                    raise ContextExceededError(f"Connection dropped mid-generation, assuming context limit hit: {err_str}") from error
+                raise LMStudioError(f"LM Studio unreachable: {error}") from error
             except Exception as error:  # noqa: BLE001
+                err_str = str(error)
+                if "Channel Error" in err_str or "Connection reset" in err_str or "Remote end closed connection" in err_str:
+                    raise ContextExceededError(f"Connection dropped mid-generation, assuming context limit hit: {err_str}") from error
                 raise LMStudioError(f"LM Studio unreachable: {error}") from error
 
             content = body["choices"][0]["message"]["content"]

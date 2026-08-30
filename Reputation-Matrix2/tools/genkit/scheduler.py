@@ -101,7 +101,7 @@ class PopcornScheduler:
                     self._refill(system)
             blocking = any(
                 self._buffers[s.id] or self._inflight.get(s.id)
-                or (s.count_pending() > 0 and s.id not in self._drained)
+                or (s.count_pending() > 0 and (s.id not in self._drained or self._stuck.get(s.id, 0) > 0))
                 for s in stage_systems
             )
             if not blocking:

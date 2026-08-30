@@ -378,19 +378,12 @@ def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         raise ValidationError("classification must be exactly faction or not_faction")
 
     obvious_kind = _obvious_non_faction_kind(task)
-    if obvious_kind:
-        return {
-            "classification": "not_faction", "notFactionKind": obvious_kind,
-            "reason": (
-                f"The archive label identifies a {obvious_kind}, not a persistent organised body. "
-                "Its record may affect reputation, but it cannot have a collective faction dossier."
-            ),
-            "redirectFactionId": (
-                "dk_crew" if obvious_kind == "person" and "kong" in _norm(
-                    f"{task.payload['id']} {task.payload['entry'].get('name', '')}"
-                ) and "dk_crew" in reputation.faction_ids() else ""
-            ),
-        }
+    if obvious_kind and classification != "not_faction":
+        raise ValidationError(
+            f"The archive label identifies a {obvious_kind}, not a persistent organised body. "
+            "Its record may affect reputation, but it cannot have a collective faction dossier. "
+            "one person"
+        )
 
     faction_id = task.payload["id"]
     entry = task.payload["entry"]
