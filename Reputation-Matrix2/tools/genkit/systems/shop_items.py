@@ -258,6 +258,7 @@ Return strictly valid JSON only, no commentary, no code fence:
 Rules:
 - Power MUST match the requested rarity. A common is a small convenience; a godly item
   bends a scene. Do not write a legendary effect and label it common.
+- Consumable items MUST be one-time use. They cannot have multiple charges, be rechargeable, or be unlimited.
 - Price must match rarity too. Commons are tens of coins, godlies are five figures.
 - `effectDetails` needs 1-2 entries with REAL numbers: dice, feet, rounds, modifiers.
 - `warning` is mandatory and must be a genuine drawback, cost or risk.
@@ -401,6 +402,66 @@ PRICE_BANDS = {
     "epic": (2000, 12000), "legendary": (8000, 40000),
     "mythic": (25000, 120000), "godly": (60000, 900000),
 }
+
+
+def generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
+    rarity = task.payload["rarity"]
+    existing_names = _prompt_name_sample()
+    
+    prog = task.payload.get("_progress")
+    if prog: prog(f"Brainstorming names for {rarity} item...")
+    
+    # 1. Propose Names
+    name_sys = "You are a creative copywriter for Wario's catalog. Return strictly valid JSON containing one key 'names' mapped to an array of 5 unique, wildly different item names (2-5 words)."
+    name_user = (
+        f"RARITY: {rarity}\n"
+        f"We need to avoid overused words. Here are some name families to AVOID entirely:\n"
+        f"{', '.join(existing_names[:50])}\n\n"
+        "Propose 5 completely new, unique item names."
+    )
+    
+    try:
+        name_res = client.complete_json(name_sys, name_user, temperature=temperature + 0.2)
+        names = name_res.get("names", [])
+        if not isinstance(names, list):
+            names = []
+    except Exception:
+        names = []
+        
+    # Check for duplicates manually against the root names
+    chosen_name = None
+    taken = {(_name_root(n.get("name", "")), _name_family(n.get("name", ""))) for n in _generated().values()}
+    
+    for candidate in names:
+        if not isinstance(candidate, str) or len(candidate) < 3:
+            continue
+        root = _name_root(candidate)
+        family = _name_family(candidate)
+        is_taken = any(root == t[0] or (family and family == t[1]) for t in taken)
+        if not is_taken:
+            chosen_name = candidate
+            break
+            
+    if not chosen_name:
+        if prog: prog("No unique names found, falling back to one-shot...")
+        # fallback if all 5 were duplicates
+        system_prompt, user_prompt = build_prompt(task)
+        if task.last_error:
+            user_prompt += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this."
+        return client.complete_json(system_prompt, user_prompt, temperature=temperature)
+        
+    if prog: prog(f"Selected name: {chosen_name}")
+    
+    # 2. Generate Item with the chosen name
+    system_prompt, user_prompt = build_prompt(task)
+    user_prompt += f"\n\nCRITICAL INSTRUCTION: You MUST use exactly the name '{chosen_name}' for this item. Do not change it."
+    
+    if task.last_error:
+        user_prompt += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
+        
+    raw = client.complete_json(system_prompt, user_prompt, temperature=temperature)
+    raw["name"] = chosen_name # force it just in case
+    return raw
 
 
 def validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
@@ -621,7 +682,7 @@ SPEC = SystemSpec(
     enabled=True,
     stage=1,
     next_tasks=next_tasks,
-    build_prompt=build_prompt,
+    generate=generate,
     validate=validate,
     apply=apply,
     pending=pending,

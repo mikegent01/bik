@@ -45,7 +45,7 @@ NATIONS = ROOT / "data" / "nations.json"
 LOCATION_FLOOR = 60
 EVENT_FLOOR = 120
 BATTLE_FLOOR = 75
-INJURY_FLOOR = 150
+INJURY_FLOOR = 10000
 
 _SNAKE = re.compile(r"^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$")
 _LOCK = threading.Lock()
