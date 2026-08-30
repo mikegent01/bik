@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 import threading
 from typing import Any
 
@@ -28,6 +29,10 @@ from .. import prompting
 from ..settings import ROOT
 from ..spec import SystemSpec, Task, TaskResult, ValidationError, provenance
 from ..storage import atomic_write_json, read_json
+
+if str(ROOT.parent / "tools") not in sys.path:
+    sys.path.insert(0, str(ROOT.parent / "tools"))
+import lore_search
 
 INJURIES = ROOT / "data" / "injuries.json"
 LOCATIONS = ROOT / "data" / "locations.json"
@@ -364,7 +369,7 @@ def locations_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         "region": _clean(raw.get("region"), lo=3, hi=80, field="region"),
         "status": "Generated — review",
         "summary": _clean(raw.get("summary"), lo=20, hi=400, field="summary"),
-        "description": _clean(raw.get("description"), lo=240, hi=900, field="description"),
+        "description": _clean(raw.get("description"), lo=240, hi=6000, field="description"),
         "notableFeatures": _string_list(raw.get("notableFeatures"), min_n=3, field="notableFeatures"),
         "relatedArticles": _string_list(raw.get("relatedArticles") or [], min_n=0, field="relatedArticles"),
         "population": " ".join(str(raw.get("population") or "Unrecorded").split())[:160],
@@ -419,23 +424,25 @@ def events_pending() -> int:
 def events_next_tasks(count: int) -> list[Task]:
     have = len(_load_list(EVENTS))
     need = max(0, EVENT_FLOOR - have)
+    nations = [n for n in _load_list(NATIONS) if str(n.get("id") or "") and n["id"] not in _FOREIGN_SKIP]
+    import random
     tasks: list[Task] = []
     for offset in range(min(count, need)):
         slot = have + offset + 1
+        nation = random.choice(nations) if nations else {"id": "equestria", "name": "Equestria"}
         tasks.append(Task(
             system_id="events",
             key=f"event:gen:{slot}",
             label=f"event · new record {slot}",
-            payload={"slot": slot},
+            payload={"slot": slot, "nation_id": nation["id"], "nation_name": nation.get("name") or nation["id"]},
         ))
     return tasks
 
 
-_EVENT_SYSTEM = """You are Waluigi's chronicler filing ONE PAST historical event for a FOREIGN nation
-(not the Mushroom Kingdom, not the Midlands). Story with a commentator, not a report
-with scenes attached. Physical detail: quoted speech, named objects, sounds.
+_EVENT_SYSTEM = """You are Waluigi's chronicler filing ONE PAST historical event for the archive.
+Story with a commentator, not a report with scenes attached. Physical detail: quoted speech, named objects, sounds.
 Never write the name mike. Do not invent real-world canon.
-Date it in 722-1039 BF on the Regal Empire Standard Calendar.
+Use the supplied Lore Context to feature real factions, locations, and people from this nation.
 Return strictly valid JSON only, no commentary, no code fence:
 
 {
@@ -447,24 +454,62 @@ Return strictly valid JSON only, no commentary, no code fence:
   "era": "<one short era clause>",
   "location": "<a specific place inside the chosen nation>",
   "summary": "<one sentence>",
-  "description": "<240-900 characters, Waluigi-voiced>",
+  "description": "<detailed Waluigi-voiced event record>",
   "notableFeatures": ["<feature>", "<feature>", "<feature>"],
   "relatedArticles": ["<existing archive id>"]
 }
 """
 
-
 def events_build_prompt(task: Task) -> tuple[str, str]:
     rows = _load_list(EVENTS)
+    nation_id = task.payload.get("nation_id", "equestria")
+    nation_name = task.payload.get("nation_name", "Equestria")
+    
+    # Context search
+    try:
+        cards_data = lore_search.search(f"{nation_id} {nation_name}", k=8)
+        context = lore_search.format_cards(cards_data)
+    except Exception:
+        context = "No specific lore context found."
+
     prompt = (
         f"Existing event titles (do not repeat): {_name_hint(rows)}\n"
-        f"Foreign nations: {_nation_hint()}\n"
-        f"Legal months: {', '.join(_MONTHS)}\n"
-        f"File past event #{task.payload['slot']}. Year 722-1039 BF. "
-        "Location must be inside the chosen foreign nation.\n"
-        "Description 240-900 characters."
+        f"Legal months: {', '.join(_MONTHS)}\n\n"
+        f"LORE CONTEXT for {nation_name}:\n{context}\n\n"
+        f"File past event #{task.payload['slot']} for {nation_name}. Year 722-1039 BF. "
+        f"Location must be inside {nation_name}. "
+        "The description MUST be a substantial historical record (at least 300 words)."
     )
     return _EVENT_SYSTEM, prompt
+
+def events_generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
+    system, user = events_build_prompt(task)
+    if task.last_error:
+        user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
+        
+    raw = client.complete_json(system, user, temperature=temperature)
+    desc = raw.get("description", "")
+    
+    # Auto-expander for short outputs
+    if _words(desc) < 200:
+        prog = task.payload.get("_progress")
+        if prog: prog("Expanding short description...")
+        
+        expand_sys = "You are an archivist. Return ONLY valid JSON with one key: 'expanded_description'."
+        expand_user = (
+            f"You wrote this short event description:\n\n{desc}\n\n"
+            f"This is too brief. REWRITE and EXPAND it into a rich, detailed historical account of 400-800 words. "
+            f"Add physical details, quotes, and Waluigi's commentary. Do not change the core facts, just flesh them out "
+            f"into a proper archive article. Return ONLY valid JSON with the key 'expanded_description'."
+        )
+        try:
+            expanded_raw = client.complete_json(expand_sys, expand_user, temperature=temperature)
+            if "expanded_description" in expanded_raw and _words(expanded_raw["expanded_description"]) > 100:
+                raw["description"] = expanded_raw["expanded_description"]
+        except Exception:
+            pass # fallback to original if expansion fails
+
+    return raw
 
 
 def _parse_year(date: str) -> int | None:
@@ -496,7 +541,7 @@ def events_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         "location": location,
         "status": "Generated — review",
         "summary": _clean(raw.get("summary"), lo=20, hi=400, field="summary"),
-        "description": _clean(raw.get("description"), lo=240, hi=900, field="description"),
+        "description": _clean(raw.get("description"), lo=240, hi=6000, field="description"),
         "notableFeatures": _string_list(raw.get("notableFeatures"), min_n=3, field="notableFeatures"),
         "relatedArticles": _string_list(raw.get("relatedArticles") or [], min_n=0, field="relatedArticles"),
     }
@@ -537,7 +582,7 @@ EVENT_SPEC = SystemSpec(
     summary="Append source-aware foreign past events until the archive floor is met.",
     stage=1,
     next_tasks=events_next_tasks,
-    build_prompt=events_build_prompt,
+    generate=events_generate,
     validate=events_validate,
     apply=events_apply,
     pending=events_pending,
@@ -556,21 +601,24 @@ def battles_pending() -> int:
 def battles_next_tasks(count: int) -> list[Task]:
     have = len(_load_list(BATTLES))
     need = max(0, BATTLE_FLOOR - have)
+    nations = [n for n in _load_list(NATIONS) if str(n.get("id") or "") and n["id"] not in _FOREIGN_SKIP]
+    import random
     tasks: list[Task] = []
     for offset in range(min(count, need)):
         slot = have + offset + 1
+        nation = random.choice(nations) if nations else {"id": "equestria", "name": "Equestria"}
         tasks.append(Task(
             system_id="battles",
             key=f"battle:gen:{slot}",
             label=f"battle · new record {slot}",
-            payload={"slot": slot},
+            payload={"slot": slot, "nation_id": nation["id"], "nation_name": nation.get("name") or nation["id"]},
         ))
     return tasks
 
 
-_BATTLE_SYSTEM = """You are Waluigi's war-reporter filing ONE PAST battle for a FOREIGN nation
-(not the Mushroom Kingdom, not the Midlands). Physical consequence over summary.
-Never write the name mike. Do not invent real-world canon.
+_BATTLE_SYSTEM = """You are Waluigi's war-reporter filing ONE PAST battle for the archive.
+Physical consequence over summary. Never write the name mike. Do not invent real-world canon.
+Use the supplied Lore Context to feature real factions, locations, and people from this nation.
 Date it in 722-1039 BF. Return strictly valid JSON only, no commentary, no code fence:
 
 {
@@ -586,23 +634,63 @@ Date it in 722-1039 BF. Return strictly valid JSON only, no commentary, no code 
   },
   "casualties": {"attackers": "<what it cost them>", "defenders": "<what it cost them>"},
   "summary": "<one sentence>",
-  "description": "<240-900 characters, Waluigi-voiced>",
+  "description": "<detailed Waluigi-voiced war report>",
   "aftermath": "<what was left standing>",
   "relatedArticles": ["<existing archive id>"]
 }
 """
 
-
 def battles_build_prompt(task: Task) -> tuple[str, str]:
     rows = _load_list(BATTLES)
+    nation_id = task.payload.get("nation_id", "equestria")
+    nation_name = task.payload.get("nation_name", "Equestria")
+    
+    # Context search
+    try:
+        cards_data = lore_search.search(f"{nation_id} {nation_name}", k=8)
+        context = lore_search.format_cards(cards_data)
+    except Exception:
+        context = "No specific lore context found."
+
     prompt = (
         f"Existing battle names (do not repeat): {_name_hint(rows)}\n"
-        f"Foreign nations: {_nation_hint()}\n"
-        f"Legal months: {', '.join(_MONTHS)}\n"
-        f"File past battle #{task.payload['slot']}. Year 722-1039 BF.\n"
-        "Description 240-900 characters. Name both sides."
+        f"Legal months: {', '.join(_MONTHS)}\n\n"
+        f"LORE CONTEXT for {nation_name}:\n{context}\n\n"
+        f"File past battle #{task.payload['slot']} for {nation_name}. Year 722-1039 BF.\n"
+        f"Location must be inside {nation_name}. Name both sides using factions from the lore if possible.\n"
+        "The description MUST be a substantial war report (at least 300 words) covering The Field, The Opening, The Middle, and The Finish."
     )
     return _BATTLE_SYSTEM, prompt
+
+def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
+    system, user = battles_build_prompt(task)
+    if task.last_error:
+        user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
+        
+    raw = client.complete_json(system, user, temperature=temperature)
+    desc = raw.get("description", "")
+    
+    # Auto-expander for short outputs
+    if _words(desc) < 200:
+        prog = task.payload.get("_progress")
+        if prog: prog("Expanding short description...")
+        
+        expand_sys = "You are an archivist. Return ONLY valid JSON with one key: 'expanded_description'."
+        expand_user = (
+            f"You wrote this short battle description:\n\n{desc}\n\n"
+            f"This is too brief. REWRITE and EXPAND it into a detailed 400-800 word war report. "
+            f"Structure the prose to cover: The Field (ground/season), The Opening (first contact), "
+            f"The Middle (the mess/confusion), The Turn (what decided it), and The Finish (decisive blow). "
+            f"Return ONLY valid JSON with the key 'expanded_description'."
+        )
+        try:
+            expanded_raw = client.complete_json(expand_sys, expand_user, temperature=temperature)
+            if "expanded_description" in expanded_raw and _words(expanded_raw["expanded_description"]) > 100:
+                raw["description"] = expanded_raw["expanded_description"]
+        except Exception:
+            pass # fallback to original if expansion fails
+
+    return raw
 
 
 def _side(raw: Any, field: str) -> dict[str, str]:
@@ -646,7 +734,7 @@ def battles_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
             "defenders": _clean(casualties.get("defenders") or "Unrecorded", lo=3, hi=400, field="casualties.defenders"),
         },
         "summary": _clean(raw.get("summary"), lo=20, hi=400, field="summary"),
-        "description": _clean(raw.get("description"), lo=240, hi=900, field="description"),
+        "description": _clean(raw.get("description"), lo=240, hi=6000, field="description"),
         "aftermath": _clean(raw.get("aftermath"), lo=12, hi=400, field="aftermath"),
         "relatedArticles": _string_list(raw.get("relatedArticles") or [], min_n=0, field="relatedArticles"),
         "status": "Generated — review",
@@ -687,7 +775,7 @@ BATTLE_SPEC = SystemSpec(
     summary="Append source-aware foreign past battles until the archive floor is met.",
     stage=1,
     next_tasks=battles_next_tasks,
-    build_prompt=battles_build_prompt,
+    generate=battles_generate,
     validate=battles_validate,
     apply=battles_apply,
     pending=battles_pending,
