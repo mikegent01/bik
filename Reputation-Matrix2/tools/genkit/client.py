@@ -83,8 +83,27 @@ class LMStudioClient:
         *,
         temperature: float = 0.7,
         attempts: int = 3,
-        max_tokens: int = 2000,
+        max_tokens: int = 1200,
     ) -> dict[str, Any]:
+        
+        # Globally inject JSON template at the end of user prompt (after any shortening)
+        import re
+        # Only inject if there's exactly one JSON schema pattern.
+        # We can find the last JSON block. If there are multiple, appending the last one might be wrong.
+        # Actually, let's just search for the last JSON block.
+        # Wait, if we use r"\{[^{]*<[^>]*>.*\}" we can match a schema.
+        # Let's just avoid injecting for CLASSIFY_SYSTEM which has "For anything else:"
+        match = re.search(r"(\{.*\})", system_prompt, re.DOTALL)
+        if match and "For anything else:" not in system_prompt and "For a real faction:" not in system_prompt:
+            schema = match.group(1)
+            schema = re.sub(r'"<[^>]*>"', '""', schema)
+            schema = re.sub(r'\[\s*"<[^>]*>"(?:\s*,\s*"<[^>]*>")*\s*\]', '[""]', schema)
+            schema = re.sub(r':\s*<integer[^>]*>', ': 0', schema)
+            
+            # For Qwen 3.5 9b, we also append an assistant message in the messages array!
+            # Wait, the user specifically asked for a premade json that it just fills out.
+            user_prompt = user_prompt.strip() + "\n\nCopy and fill out this exact JSON structure and return only the JSON:\n" + schema
+
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
