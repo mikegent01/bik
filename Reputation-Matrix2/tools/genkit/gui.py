@@ -90,6 +90,8 @@ class RunState:
                 "systems": [
                     {"id": "injury-table", "title": "Injury Table · fixed d100", "stage": "tool", "enabled": False, "pending": 100, "summary": "Validate/roll with tools/generate-injury-table.py"},
                     {"id": "locations-new", "title": "Locations · new cards", "stage": "tool", "enabled": False, "pending": 0, "summary": "Generate with tools/generate_locations.py"},
+                    {"id": "events-new", "title": "Events · new records", "stage": "tool", "enabled": False, "pending": 0, "summary": "Generate with tools/expand-waluipedia.py --past-events"},
+                    {"id": "battles-new", "title": "Battles · new records", "stage": "tool", "enabled": False, "pending": 0, "summary": "Generate with tools/expand-waluipedia.py --past-events"},
                 ] + [
                     {
                         "id": s.id,
@@ -222,8 +224,8 @@ async function poll(){
     $('state').textContent=s.running?'running':'idle';
     $('go').disabled=s.running; $('halt').disabled=!s.running;
     if(!$('mix').dataset.ready){
-      $('mix').innerHTML=s.systems.filter(x=>x.enabled).map(x=>
-        `<div class="mixrow"><span>${escapeHtml(x.title)}</span><input data-weight="${x.id}" type="number" min="0" max="100" step="1" value="100"></div>`).join('');
+      $('mix').innerHTML=s.systems.map(x=>
+        `<div class="mixrow"><span>${escapeHtml(x.title)}${x.enabled?'':' <small>(tool)</small>'}</span><input data-weight="${x.id}" type="number" min="0" max="100" step="1" value="${x.enabled?'100':'0'}" ${x.enabled?'':'disabled'}></div>`).join('');
       $('mix').dataset.ready='1';
     }
     $('generatorCards').innerHTML=(s.generators||[]).map(g=>`<div class="card"><b>${escapeHtml(g.title)}</b><small>${escapeHtml(g.summary)}</small><small class="task">${escapeHtml(g.command)}</small></div>`).join('');
