@@ -77,7 +77,10 @@ class PopcornScheduler:
         """
         stages = sorted({s.stage for s in self.systems})
         for stage in stages:
-            stage_systems = [s for s in self.systems if s.stage == stage]
+            stage_systems = [
+                s for s in self.systems
+                if s.stage == stage and self._weights.get(s.id, 1.0) > 0
+            ]
             # A system can gain work because another adapter wrote a dependency
             # (new WAH post → thread task, new faction → dossier task). Revive
             # previously drained systems when their data becomes pending.
