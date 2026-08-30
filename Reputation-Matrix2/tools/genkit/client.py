@@ -83,12 +83,17 @@ class LMStudioClient:
         *,
         temperature: float = 0.7,
         attempts: int = 3,
+        max_tokens: int = 2000,
     ) -> dict[str, Any]:
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ]
-        payload: dict[str, Any] = {"messages": messages, "temperature": temperature}
+        payload: dict[str, Any] = {
+            "messages": messages, 
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+        }
         if self.model:
             payload["model"] = self.model
 
