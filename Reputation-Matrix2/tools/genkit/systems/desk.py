@@ -343,14 +343,17 @@ def locations_pending() -> int:
 def locations_next_tasks(count: int) -> list[Task]:
     have = len(_load_list(LOCATIONS))
     need = max(0, LOCATION_FLOOR - have)
+    nations = [n for n in _load_list(NATIONS) if str(n.get("id") or "")]
+    import random
     tasks: list[Task] = []
     for offset in range(min(count, need)):
         slot = have + offset + 1
+        nation = random.choice(nations) if nations else {"id": "mushroom_kingdom", "name": "Mushroom Kingdom"}
         tasks.append(Task(
             system_id="locations",
             key=f"location:gen:{slot}",
             label=f"location · new card {slot}",
-            payload={"slot": slot},
+            payload={"slot": slot, "nation_id": nation["id"], "nation_name": nation.get("name") or nation["id"]},
         ))
     return tasks
 
@@ -359,6 +362,7 @@ _LOCATION_SYSTEM = """You are a careful Waluipedia location archivist filing ONE
 Write from inside the world (Waluigi's encyclopaedia voice: opinionated, physical detail).
 This is a PLACE, not a person, faction, event, or battle.
 Do not invent real-world canon. Never write the name mike.
+Use the supplied Lore Context to ground this location in the world.
 Return strictly valid JSON only, no commentary, no code fence:
 
 {
@@ -368,7 +372,7 @@ Return strictly valid JSON only, no commentary, no code fence:
   "region": "<where in the archive this sits>",
   "status": "<current condition in one short clause>",
   "summary": "<one sentence a reader sees on the card>",
-  "description": "<240-900 characters, Waluigi-voiced, physical>",
+  "description": "<detailed Waluigi-voiced description of the place>",
   "notableFeatures": ["<feature>", "<feature>", "<feature>"],
   "relatedArticles": ["<existing archive id>"],
   "population": "<who lives here, or none>",
@@ -381,14 +385,54 @@ Return strictly valid JSON only, no commentary, no code fence:
 def locations_build_prompt(task: Task) -> tuple[str, str]:
     rows = _load_list(LOCATIONS)
     regions = sorted({str(r.get("region") or "") for r in rows if r.get("region")})
+    nation_id = task.payload.get("nation_id", "mushroom_kingdom")
+    nation_name = task.payload.get("nation_name", "Mushroom Kingdom")
+    
+    try:
+        cards_data = lore_search.search(f"{nation_id} {nation_name}", k=8)
+        context = lore_search.format_cards(cards_data)
+    except Exception:
+        context = "No specific lore context found."
+
     prompt = (
         f"Existing location names (do not repeat): {_name_hint(rows)}\n"
         f"Regions already covered: {', '.join(prompting.sample_evenly(regions, 16))}\n"
-        f"Foreign nations you may set this in: {_nation_hint()}\n"
-        f"File location card #{task.payload['slot']}. Prefer an underrepresented region.\n"
-        "Description 240-900 characters. Label uncertainty rather than inventing."
+        f"Nation context to set this in: {nation_name}\n"
+        f"LORE CONTEXT for {nation_name}:\n{context}\n\n"
+        f"File location card #{task.payload['slot']}. Set it inside {nation_name} or an underrepresented region.\n"
+        "The description MUST be a substantial physical tour (at least 300 words). Label uncertainty rather than inventing."
     )
     return _LOCATION_SYSTEM, prompt
+
+def locations_generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
+    system, user = locations_build_prompt(task)
+    if task.last_error:
+        user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
+        
+    raw = client.complete_json(system, user, temperature=temperature)
+    desc = raw.get("description", "")
+    
+    # Auto-expander for short outputs
+    if _words(desc) < 180:
+        prog = task.payload.get("_progress")
+        if prog: prog("Expanding short location description...")
+        
+        expand_sys = "You are an archivist. Return ONLY valid JSON with one key: 'continued_description'."
+        expand_user = (
+            f"You have started writing a location description:\n\n{desc}\n\n"
+            f"This is a good start, but it is incomplete. KEEP this exact text, and WRITE THE REST of the location's description "
+            f"(add another 300-500 words). Structure the continuation to cover what hasn't been described yet: "
+            f"its history, its atmosphere, hidden sections, and Waluigi's personal assessment of its danger/value. "
+            f"Return ONLY the NEW continuation text in valid JSON with the key 'continued_description'."
+        )
+        try:
+            expanded_raw = client.complete_json(expand_sys, expand_user, temperature=temperature)
+            if "continued_description" in expanded_raw and _words(expanded_raw["continued_description"]) > 50:
+                raw["description"] = desc + "\n\n" + expanded_raw["continued_description"]
+        except Exception:
+            pass # fallback to original if expansion fails
+
+    return raw
 
 
 def locations_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
@@ -441,7 +485,7 @@ LOCATION_SPEC = SystemSpec(
     summary="Append source-aware location cards until the archive floor is met.",
     stage=1,
     next_tasks=locations_next_tasks,
-    build_prompt=locations_build_prompt,
+    generate=locations_generate,
     validate=locations_validate,
     apply=locations_apply,
     pending=locations_pending,
