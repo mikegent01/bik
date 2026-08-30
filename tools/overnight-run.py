@@ -45,17 +45,21 @@ def progress(label: str, done: int, total: int) -> None:
     ratio = 1.0 if total <= 0 else min(1.0, done / total)
     filled = int(width * ratio)
     bar = "#" * filled + "-" * (width - filled)
-    print(f"{label:<12} [{bar}] {done}/{total}", flush=True)
+    if total <= 0:
+        print(f"{label:<12} [unbounded] {done} successful", flush=True)
+    else:
+        print(f"{label:<12} [{bar}] {done}/{total}", flush=True)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Run the archive's unattended overnight stages")
     parser.add_argument("--plan", action="store_true", help="show stages without writing or contacting an AI server")
-    parser.add_argument("--skip-mages", action="store_true", help="only validate the injury table")
+    parser.add_argument("--skip-mages", action="store_true", help="omit Mages' Guild generation; in mixed mode run systems only")
     parser.add_argument("--base-url", default="http://127.0.0.1:1234/v1", help="LM Studio OpenAI-compatible endpoint")
     parser.add_argument("--model", default="", help="model passed to the Mages' Guild generator")
-    parser.add_argument("--target", type=int, default=400, help="maximum Codex pages for this overnight run")
-    parser.add_argument("--infinite", action="store_true", help="cycle bounded mixed rounds indefinitely; safe to stop and resume")
+    parser.add_argument("--target", type=int, default=400, help="maximum records for the selected overnight stages")
+    parser.add_argument("--codex-limit", type=int, default=-1, metavar="N", help="Codex pages in mixed mode; 0 disables Codex (default: --target)")
+    parser.add_argument("--infinite", "--infinate", dest="infinite", action="store_true", help="cycle bounded mixed rounds indefinitely; safe to stop and resume")
     parser.add_argument("--parallel", "--jobs", dest="parallel", type=int, default=1, help="Codex prompt workers")
     parser.add_argument("--sleep", type=float, default=0.4, help="delay between Codex saves")
     parser.add_argument("--log", default="", help="optional Codex log path")
@@ -68,6 +72,13 @@ def main() -> int:
     parser.add_argument("--past-max-attempts", type=int, default=0, help="hard attempt ceiling for past-event expansion (0 = N + 10 retries per item)")
     parser.add_argument("--mix", action="store_true", help="run the Codex, then the six validated archive systems, instead of only the Codex")
     args = parser.parse_args()
+    if args.codex_limit < -1:
+        parser.error("--codex-limit must be -1, 0, or a positive number")
+    codex_goal = args.target if args.codex_limit < 0 else args.codex_limit
+    if args.infinite and args.skip_mages and not args.mix:
+        args.mix = True
+        if not args.systems:
+            args.systems = MIX_SYSTEMS
 
     if args.inventory:
         return run("all-systems inventory", [PYTHON, str(ALL_SYSTEMS), "--inventory"])
@@ -98,7 +109,10 @@ def main() -> int:
         if args.plan:
             print("planned interleaved overnight run:")
             print("  injury contract before run")
-            print(f"  repeat: Codex 1 page → all-systems batches of up to {max(1, args.system_batch)} records ({args.systems})")
+            if not args.skip_mages and codex_goal != 0:
+                print(f"  repeat: Codex 1 page → all-systems batches of up to {max(1, args.system_batch)} records ({args.systems})")
+            else:
+                print(f"  repeat: all-systems batches of up to {max(1, args.system_batch)} records ({args.systems})")
             if args.past_events:
                 print(f"  after rounds: expand-waluipedia past events ({args.past_events})")
             print("  Codex emoji audit")
@@ -111,22 +125,27 @@ def main() -> int:
         system_goal = args.system_limit if args.system_limit > 0 else args.target
         codex_done = system_done = 0
         round_no = 0
-        while args.infinite or (codex_done < args.target and system_done < system_goal):
+        # A limited Codex target must not truncate the systems stage. Once the
+        # Codex quota is reached, continue cycling systems until their own
+        # quota is reached; with --skip-mages/--codex-limit 0 this is systems-only.
+        while args.infinite or (codex_done < codex_goal if codex_goal != 0 else False) or system_done < system_goal:
             round_no += 1
-            codex_cmd = [*mages]
-            # mages contains --overnight/--target; replace with one bounded job.
-            codex_cmd = [x for x in codex_cmd if x not in ("--overnight", "--target", str(args.target))]
-            codex_cmd += ["--count", "1"]
-            if run(f"mix Codex {codex_done + 1}", codex_cmd):
-                return 1
-            codex_done += 1
+            if not args.skip_mages and codex_goal != 0:
+                codex_cmd = [*mages]
+                # mages contains --overnight/--target; replace with one bounded job.
+                codex_cmd = [x for x in codex_cmd if x not in ("--overnight", "--target", str(args.target))]
+                codex_cmd += ["--count", "1"]
+                if run(f"mix Codex {codex_done + 1}", codex_cmd):
+                    return 1
+                codex_done += 1
             remaining = max(1, system_goal - system_done) if not args.infinite else max(1, args.system_batch)
             batch = min(max(1, args.system_batch), remaining)
             system_cmd = [*all_base, "--limit", str(batch)]
             if run(f"mix systems {system_done + 1}-{system_done + batch}", system_cmd):
                 return 1
             system_done += batch
-            progress("Codex", codex_done, args.target if not args.infinite else 0)
+            if not args.skip_mages and codex_goal != 0:
+                progress("Codex", codex_done, codex_goal if not args.infinite else 0)
             progress("Systems", system_done, system_goal if not args.infinite else 0)
             if args.infinite and args.past_events:
                 # Event creation is deliberately downstream of a reputation
@@ -157,7 +176,11 @@ def main() -> int:
             return 1
         return run("injury contract after run", injury_check)
 
-    if args.infinite and not args.mix:
+    if args.infinite and not args.mix and args.skip_mages:
+        args.mix = True
+        if not args.systems:
+            args.systems = MIX_SYSTEMS
+    elif args.infinite and not args.mix:
         print("--infinite requires --mix so Codex, reputation, systems, and events can cycle safely", file=sys.stderr)
         return 2
 
