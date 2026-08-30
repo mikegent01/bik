@@ -29,6 +29,20 @@ from .settings import Settings
 from .systems import all_systems
 
 
+AUXILIARY_GENERATORS = [
+    {"id": "injury-table", "title": "Injury Table", "summary": "Validate or roll the temporary d100 injury table", "command": "tools/generate-injury-table.py"},
+    {"id": "new-events", "title": "New Events", "summary": "Generate source-aware foreign past events", "command": "tools/expand-waluipedia.py --past-events"},
+    {"id": "new-battles", "title": "New Battles", "summary": "Generate source-aware foreign past battles", "command": "tools/expand-waluipedia.py --past-events"},
+    {"id": "new-locations", "title": "New Locations", "summary": "Generate richer validated location cards", "command": "Reputation-Matrix2/tools/generate_locations.py"},
+    {"id": "abilities", "title": "Training Wing Abilities", "summary": "Generate and validate ability-deficit records", "command": "Reputation-Matrix2/tools/genkit/systems/abilities.py"},
+    {"id": "shop-items", "title": "Warizon Shop Stock", "summary": "Generate rarity-deficit shop items", "command": "Reputation-Matrix2/tools/genkit/systems/shop_items.py"},
+    {"id": "crafting", "title": "Crafting Forge", "summary": "Classify and generate crafting schools", "command": "Reputation-Matrix2/tools/genkit/systems/crafting.py"},
+    {"id": "factions", "title": "Faction Dossiers", "summary": "Source-backed faction discovery and dossiers", "command": "Reputation-Matrix2/tools/genkit/systems/faction_dossiers.py"},
+    {"id": "wahwire", "title": "WAHwire", "summary": "Evidence-gated posts, threads, profiles, and pruning", "command": "Reputation-Matrix2/tools/genkit/systems/wahwire.py"},
+    {"id": "bros-attacks", "title": "Bros Attacks", "summary": "Evidence-gated battle recordings", "command": "Reputation-Matrix2/tools/genkit/systems/bros_attacks.py"},
+]
+
+
 class RunState:
     """Shared, thread-safe state both GUI backends render."""
 
@@ -72,7 +86,11 @@ class RunState:
                 "retried": self.retried,
                 "log": list(self.log)[-120:],
                 "perSystem": dict(self.per_system),
+                "generators": AUXILIARY_GENERATORS,
                 "systems": [
+                    {"id": "injury-table", "title": "Injury Table · fixed d100", "stage": "tool", "enabled": False, "pending": 100, "summary": "Validate/roll with tools/generate-injury-table.py"},
+                    {"id": "locations-new", "title": "Locations · new cards", "stage": "tool", "enabled": False, "pending": 0, "summary": "Generate with tools/generate_locations.py"},
+                ] + [
                     {
                         "id": s.id,
                         "title": s.title,
@@ -149,6 +167,10 @@ PAGE = """<!doctype html>
  .mix{border:1px solid var(--line);border-radius:5px;padding:6px;background:#0d0b0a}
  .mixrow{display:grid;grid-template-columns:1fr 60px;gap:6px;align-items:center;padding:3px 0;font-size:11px}
  .mixrow input{padding:3px 5px;text-align:right}
+ h2{font-size:13px;color:var(--gold);margin:0 0 8px;text-transform:uppercase;letter-spacing:.5px}
+ .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin-bottom:18px}
+ .card{border:1px solid var(--line);border-radius:5px;padding:9px;background:var(--panel)}
+ .card b{display:block;color:var(--ink)} .card small{display:block;color:var(--muted);margin-top:3px}
 </style></head><body>
 <header>
   <h1>genkit · all-systems generator</h1>
@@ -182,6 +204,9 @@ PAGE = """<!doctype html>
   </div>
  </div>
  <div class="main">
+  <h2>Generator library</h2>
+  <div id="generatorCards" class="cards"></div>
+  <h2>Live archive systems</h2>
   <table id="systems"><thead><tr><th>stage</th><th>system</th><th>pending (live)</th>
    <th>ok</th><th>fail</th></tr></thead><tbody></tbody></table>
   <div class="log" id="log"></div>
@@ -201,6 +226,7 @@ async function poll(){
         `<div class="mixrow"><span>${escapeHtml(x.title)}</span><input data-weight="${x.id}" type="number" min="0" max="100" step="1" value="100"></div>`).join('');
       $('mix').dataset.ready='1';
     }
+    $('generatorCards').innerHTML=(s.generators||[]).map(g=>`<div class="card"><b>${escapeHtml(g.title)}</b><small>${escapeHtml(g.summary)}</small><small class="task">${escapeHtml(g.command)}</small></div>`).join('');
     $('systems').tBodies[0].innerHTML=s.systems.map(x=>{
       const p=s.perSystem[x.id]||{ok:0,fail:0,retry:0};
       return `<tr><td><span class="stage">${x.enabled?x.stage:'off'}</span></td>
