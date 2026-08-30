@@ -83,7 +83,7 @@ class LMStudioClient:
         *,
         temperature: float = 0.7,
         attempts: int = 3,
-        max_tokens: int = 1200,
+        max_tokens: int = 2000,
     ) -> dict[str, Any]:
         
         # Globally inject JSON template at the end of user prompt (after any shortening)
@@ -161,10 +161,27 @@ class LMStudioClient:
                 last_error = ValueError("LM Studio returned a non-text response")
                 continue
             content = FENCE.sub("", content.strip())
+            # Instruct models often add yapping before or after the JSON block.
+            # Extract everything from the first { to the last }
+            if "{" in content and "}" in content:
+                content = content[content.find("{"):content.rfind("}")+1]
+            elif "{" in content:
+                # Missing closing brace! This usually means it was truncated by max_tokens or crashed mid-generation.
+                content = content[content.find("{"):]
+            
             try:
                 parsed = json.loads(content)
             except json.JSONDecodeError as error:
                 last_error = error
+                # If it's a truncation/context crash, LM studio might have returned a partial JSON.
+                # If we tried 3 times and it keeps getting truncated, it might be context limit.
+                # Let's check if the error is about unexpected end of data.
+                if "Unterminated string" in str(error) or "Expecting ',' delimiter" in str(error) or "Expecting property name" in str(error) or "Expecting value" in str(error):
+                    # If it's the 3rd attempt and it keeps returning invalid JSON that looks truncated,
+                    # treat it as a ContextExceededError so the runner shortens the prompt.
+                    reason = body.get("choices", [{}])[0].get("finish_reason")
+                    if reason == "length" or (attempt == attempts - 1 and "}" not in content):
+                        raise ContextExceededError("Generation truncated due to max_tokens or context limit crash.")
                 continue
             if not isinstance(parsed, dict):
                 last_error = ValueError("expected a JSON object at the top level")
