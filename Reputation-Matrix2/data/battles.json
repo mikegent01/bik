@@ -3388,8 +3388,7 @@
     "result": "Defender Incapacitation / Astral Rescue — Bones dragged the Canoloth to the cliff edge by its tongue but was clawed unconscious; saved to Astral Altar by Toad God; healed afterwards by the Oracle.",
     "belligerents": {
       "attackers": {
-        "name": "Fiendish Canoloth (Contract-Bound Yugoloth Tracker)",
-        "factionId": "yugoloths"
+        "name": "Fiendish Canoloth (Contract-Bound Yugoloth Tracker)"
       },
       "defenders": {
         "name": "Bones & The Oracle (OC)"
@@ -3409,9 +3408,7 @@
       "bryan"
     ],
     "reputationChanges": {
-      "waluigi": {
-        "yugoloths": 15
-      }
+      "waluigi": {}
     },
     "effects": {
       "disaster_inc": 10
@@ -4158,11 +4155,40 @@
       "feyward_sixth_detachment_house_defense",
       "feyward_battalion_of_six_and_the_bait_plan"
     ],
-    "reputationChanges": {},
-    "effects": {},
-    "reputationNotes": {},
+    "reputationChanges": {
+      "bowser": {
+        "dark_elves": 15
+      },
+      "markop": {
+        "feyward_high_society": 20
+      },
+      "remi_akamatsu_full_backstory": {
+        "mushroom_regency": 10,
+        "farasi": -3
+      }
+    },
+    "effects": {
+      "farasi": 10,
+      "unaligned": 5
+    },
+    "reputationNotes": {
+      "bowser": "Bowser's cutting crew triumphed over the awakened wood, earning him respect among the mushroom regency and a boost to unaligned opinion.",
+      "markop": "Markop's paladin leadership secured victory for Feyward High Society, boosting their reputation significantly.",
+      "remi_akamatsu_full_backstory": "Remi's engineering prowess contributed greatly to the expedition's success against the awakened wood, earning him respect from the mushroom regency and some animosity from Farasi."
+    },
     "image": "assets/images/battles/woodfellow-vs-treant/wft-01-tome-crit.jpg",
-    "imageCaption": "The strike that felled it — one book through the split in the trunk."
+    "imageCaption": "The strike that felled it — one book through the split in the trunk.",
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T17:24:09+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "green_t_and_archie_vs_the_scorncrow",
@@ -4297,7 +4323,38 @@
       "salam",
       "wario",
       "tymnas_cottage_and_hedge_maze"
-    ]
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "custodians_of_causality": -15
+      },
+      "green_t": {
+        "mazebounds": -5,
+        "custodians_of_causality": 5
+      },
+      "archie_miser": {
+        "custodians_of_causality": -3
+      }
+    },
+    "effects": {
+      "custodians_of_causality": -10
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi's report on the chaotic battle has Custodians of Causality questioning his methods.",
+      "green_t": "Green T earned temporary respect from Custodians for his giant form but lost reputation with Mazebounds for the mess left behind.",
+      "archie_miser": "Archie Miser's direct involvement in the conflict with The Scorncrow has Custodians of Causality reconsidering their trust."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T17:59:32+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "feyward_sixth_detachment_house_defense",
@@ -4529,9 +4586,28 @@
       "the_oracle",
       "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy"
     ],
-    "reputationChanges": {},
-    "effects": {},
-    "reputationNotes": {}
+    "reputationChanges": {
+      "hjumpik": {
+        "disaster_inc": 15
+      }
+    },
+    "effects": {
+      "disaster_inc": -3
+    },
+    "reputationNotes": {
+      "hjumpik": "lost a corridor but held the wall, earning respect from his team"
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T18:03:33+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "warp_pipe_junction_ladder_fight",
@@ -4678,8 +4754,40 @@
       "scribe_dewdrop",
       "big_r"
     ],
-    "reputationChanges": {},
-    "effects": {},
-    "reputationNotes": {}
+    "reputationChanges": {
+      "remi_akamatsu_full_backstory": {
+        "peach_loyalists": 10
+      },
+      "dan": {
+        "koopa_troop": -5,
+        "peach_loyalists": 3
+      },
+      "waluigi": {
+        "koopa_troop": -8
+      },
+      "bowser": {
+        "peach_loyalists": -7
+      }
+    },
+    "effects": {
+      "peach_loyalists": -10
+    },
+    "reputationNotes": {
+      "remi_akamatsu_full_backstory": "The artificer's ingenuity and bravery earned the Loyalists' respect.",
+      "dan": "The mage's presence offered some hope, but the outcome was grim for many.",
+      "waluigi": "Waluigi's role is tainted by the loss of a fellow loyalist.",
+      "bowser": "Bowser's forces suffered significant losses and now face less trust from their allies."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T18:33:05+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   }
 ]

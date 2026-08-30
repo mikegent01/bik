@@ -8863,8 +8863,7 @@
         "disaster_inc": 15
       },
       "waluigi": {
-        "disaster_inc": 30,
-        "archivist": -15
+        "disaster_inc": 30
       },
       "remi_akamatsu_full_backstory": {
         "disaster_inc": 20
@@ -11110,9 +11109,7 @@
         "corvinarus_family": -20
       }
     },
-    "effects": {
-      "feyward_high_school": 15
-    },
+    "effects": {},
     "reputationNotes": {
       "waluigi": "Defeated a plant in the name of Feyward, earning respect but alienating the real Lady Aurelian.",
       "hjumpik": "Successfully negotiated with and gained trust from an unexpected ally: The Guard With No Name.",
@@ -12801,7 +12798,30 @@
         "dateSort": 10321800
       }
     ],
-    "reputationNotes": "No faction witnessed the hold. WarioWare's standing with itself improved in Wario's account and nowhere else."
+    "reputationNotes": {
+      "waluigi": "Waluigi traded brass key and VIP card for nav pulse during WarioWare audit on 18 Aethel."
+    },
+    "reputationChanges": {
+      "waluigi": {
+        "wario_enterprise": 5,
+        "mushroom_regency": -3
+      }
+    },
+    "effects": {
+      "wario_enterprise": 5,
+      "mushroom_regency": -2
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen/qwen3.5-9b",
+      "at": "2026-08-29T15:55:45+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "charred_note_at_waluigis_door",
@@ -12863,7 +12883,33 @@
       "waluigi"
     ],
     "aftermath": "Waluigi opened a new investigation file, The Farm Was Not the End, because the archive no longer has the luxury of pretending the farm story is the same story it was yesterday.",
-    "waluigiAssessment": "Waluigi's professional opinion is that this note wants to be believed too badly. Waluigi's other professional opinion is that somebody went to real trouble to make it appear exactly here, exactly now, exactly burnt enough to look like evidence rescued from a fire rather than theatre rehearsed with a candle. If the writer is lying, the lie is targeted. If the writer is telling the truth, Mario died on a farm and came back as something Guild procedure no longer fits. Neither option improves Waluigi's morning. WAH."
+    "waluigiAssessment": "Waluigi's professional opinion is that this note wants to be believed too badly. Waluigi's other professional opinion is that somebody went to real trouble to make it appear exactly here, exactly now, exactly burnt enough to look like evidence rescued from a fire rather than theatre rehearsed with a candle. If the writer is lying, the lie is targeted. If the writer is telling the truth, Mario died on a farm and came back as something Guild procedure no longer fits. Neither option improves Waluigi's morning. WAH.",
+    "reputationChanges": {
+      "waluigi": {
+        "mages_guild": -12,
+        "flower_kingdom": 8,
+        "beanbean_kingdom": -7
+      }
+    },
+    "effects": {
+      "mages_guild": -5,
+      "flower_kingdom": 3,
+      "beanbean_kingdom": -4
+    },
+    "reputationNotes": {
+      "waluigi": "Waluigi filed the charred note but refuses to let theatrics pass for certainty per record summary."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen/qwen3.5-9b",
+      "at": "2026-08-29T15:59:48+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "green_t_at_the_door_and_the_scorncrow_underfoot",
@@ -12966,7 +13012,37 @@
       "mossy"
     ],
     "aftermath": "**Immediate Position**\n\nThe cottage remains compromised and socially worse than it was an hour earlier. One repaired pane is broken again by Green T's proof-of-identity gunshot. The party now holds Wario's sales record for Remi's three storm-watch purchases, but the controlled weather, the outside ambush warning, and the question of what marked Green T's forehead remain unresolved.\n\n**Field Status**\n\nGreen T has been visually verified as the same man who left the cottage only in the most inconvenient possible way: by growing large enough to shake the house. That verification does not answer what he touched in the Mazebound side of the storm, what he means by having 'got what he needed,' or how much use remains in the giant form after the grove forced him to spend it visibly. Archie is still in the field and still treating the Scorncrow as beatable, which is different from it being beaten.\n\n**Carry-Forward**\n\nRemi now has three newly purchased items; Eager has proof that shock can defeat roof balance; Dan has further reason to distrust spectacle as evidence; and everyone in the cottage has learned that the storm line and the grove are close enough to throw bodies and panic back through the shelter before dawn.",
-    "waluigiAssessment": "**Green T proved identity by collateral, not by trust.** Shooting the window did establish one thing: the man at the threshold behaved like Green T in the operational sense that matters most to broken property. It did not establish why his forehead carried the only non-humanoid reading on his body.\n\n**Eager made a command decision because exhaustion created a vacancy.** The threshold opened not because the group agreed, but because the person still moving fastest grew tired of waiting. Disaster Inc. should stop pretending this is not one of its recurring governmental structures.\n\n**The Scorncrow's battlefield is larger than its body.** A direct giant stomp did not finish the engagement because bats, branches, deadweight, and ground shock remained in play after impact. Future plans that treat the Scorncrow as a single target rather than a grove problem are bad plans.\n\n**Wario sold correctly and helpfully, which is always ominous.** The receipt matters because it proves the party was still making market decisions at the exact moment the storm crisis intensified. Wario's instincts remain mercenary and frequently right.\n\n**Final verdict:** this was not the night the cottage was saved. It was the night the danger outside became measurable by the floorboards inside."
+    "waluigiAssessment": "**Green T proved identity by collateral, not by trust.** Shooting the window did establish one thing: the man at the threshold behaved like Green T in the operational sense that matters most to broken property. It did not establish why his forehead carried the only non-humanoid reading on his body.\n\n**Eager made a command decision because exhaustion created a vacancy.** The threshold opened not because the group agreed, but because the person still moving fastest grew tired of waiting. Disaster Inc. should stop pretending this is not one of its recurring governmental structures.\n\n**The Scorncrow's battlefield is larger than its body.** A direct giant stomp did not finish the engagement because bats, branches, deadweight, and ground shock remained in play after impact. Future plans that treat the Scorncrow as a single target rather than a grove problem are bad plans.\n\n**Wario sold correctly and helpfully, which is always ominous.** The receipt matters because it proves the party was still making market decisions at the exact moment the storm crisis intensified. Wario's instincts remain mercenary and frequently right.\n\n**Final verdict:** this was not the night the cottage was saved. It was the night the danger outside became measurable by the floorboards inside.",
+    "reputationChanges": {
+      "remi_akamatsu_full_backstory": {
+        "mazebounds": 15
+      },
+      "markop": {
+        "mazebounds": -10
+      },
+      "dan": {
+        "mazebounds": 8
+      }
+    },
+    "effects": {
+      "mazebounds": 10
+    },
+    "reputationNotes": {
+      "remi_akamatsu_full_backstory": "Proved Green T's identity with Wario's sales record.",
+      "markop": "Green T's giant form impressed him enough to identify Mazebound residue.",
+      "dan": "Identified Mazebound residue on Green T's forehead."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T16:40:50+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "feyward_battalion_of_six_and_the_bait_plan",
@@ -13233,7 +13309,34 @@
         "dateSort": 9220109
       }
     ],
-    "customCss": ".wiki-lead{background:linear-gradient(135deg,rgba(74,156,109,.16),rgba(30,40,32,.2),rgba(138,75,255,.08));padding:1.5rem;border-left:6px solid #4a9c6d;border-radius:1rem;margin-bottom:20px}.prose blockquote{background:linear-gradient(135deg,rgba(74,156,109,.12),rgba(20,26,22,.15)),var(--bg2);border-left:4px solid #4a9c6d;border-radius:0 10px 10px 0;padding:14px 20px;margin:18px 0;font-size:14.5px;line-height:1.8;color:var(--text)}.prose blockquote strong{color:#7fd8a4;letter-spacing:.03em}.prose blockquote em{color:#c9a6ff;font-style:italic}.prose h2{color:#7fd8a4;border-bottom:2px solid rgba(74,156,109,.3);padding-bottom:6px;font-family:var(--font-title,serif)}.wnote{background:linear-gradient(135deg,rgba(74,156,109,.14),rgba(138,75,255,.06)),var(--bg2);border-left:4px solid #4a9c6d;padding:14px 18px;margin:20px 0;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.65}.wnote b{color:#7fd8a4;font-size:14px}"
+    "customCss": ".wiki-lead{background:linear-gradient(135deg,rgba(74,156,109,.16),rgba(30,40,32,.2),rgba(138,75,255,.08));padding:1.5rem;border-left:6px solid #4a9c6d;border-radius:1rem;margin-bottom:20px}.prose blockquote{background:linear-gradient(135deg,rgba(74,156,109,.12),rgba(20,26,22,.15)),var(--bg2);border-left:4px solid #4a9c6d;border-radius:0 10px 10px 0;padding:14px 20px;margin:18px 0;font-size:14.5px;line-height:1.8;color:var(--text)}.prose blockquote strong{color:#7fd8a4;letter-spacing:.03em}.prose blockquote em{color:#c9a6ff;font-style:italic}.prose h2{color:#7fd8a4;border-bottom:2px solid rgba(74,156,109,.3);padding-bottom:6px;font-family:var(--font-title,serif)}.wnote{background:linear-gradient(135deg,rgba(74,156,109,.14),rgba(138,75,255,.06)),var(--bg2);border-left:4px solid #4a9c6d;padding:14px 18px;margin:20px 0;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.65}.wnote b{color:#7fd8a4;font-size:14px}",
+    "reputationChanges": {
+      "hjumpik": {
+        "chaos_dwarfs": -15
+      },
+      "waluigi": {
+        "connectopia_pioneers_guild": 5,
+        "mushroom_regency": 10
+      }
+    },
+    "effects": {
+      "toad_cult": 8
+    },
+    "reputationNotes": {
+      "hjumpik": "Failed to name five dead comrades correctly in a critical battle.",
+      "waluigi": "Disputed his role and managed to freeze a tree, impressing the guild but angering the regency."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T16:49:55+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   },
   {
     "id": "warp_pipe_junction_restricted_city",
@@ -13448,7 +13551,22 @@
       }
     ],
     "customCss": "",
-    "image": "assets/images/events/warp-pipe-junction/junction-crayfish-wall.jpg"
+    "image": "assets/images/events/warp-pipe-junction/junction-crayfish-wall.jpg",
+    "reputationChanges": {},
+    "effects": {
+      "koopa_troop": -5,
+      "mushroom_regency": -4
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T16:54:26+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects"
+      ]
+    }
   },
   {
     "id": "the_dread_mansion_incursion",
@@ -13533,6 +13651,21 @@
     "waluigiAssessment": "A mission denied by Central Command, claimed by a badge-holder, and witnessed by a duplicate is not a clean retrieval failure. It is three separate authorities using the same corridor. The diary may explain Alice. It may explain Mario. It may explain why Liam was sent there. Until it is opened, the record stays open. WAH.",
     "xpAwards": [],
     "customCss": "",
-    "image": ""
+    "image": "",
+    "reputationChanges": {},
+    "effects": {
+      "dirctor_vale": -12,
+      "abandoned_mansions": 5
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-29T17:21:40+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects"
+      ]
+    }
   }
 ]

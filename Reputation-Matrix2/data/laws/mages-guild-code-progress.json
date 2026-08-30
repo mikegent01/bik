@@ -1,7 +1,7 @@
 {
-  "last_cite": "900.3",
-  "water": 5,
-  "hits": 1314,
+  "last_cite": "1.21",
+  "water": 4,
+  "hits": 1674,
   "by_cite": {
     "1.1": {
       "n": 6,
@@ -442,7 +442,7 @@
       "status": "filed"
     },
     "1001.13": {
-      "n": 5,
+      "n": 6,
       "part": "part_x",
       "title": "Bag of Holding as Off-Books Vault",
       "status": "filed"
@@ -466,7 +466,7 @@
       "status": "filed"
     },
     "1101.2": {
-      "n": 5,
+      "n": 6,
       "part": "part_xi",
       "title": "Relics; Chain of Title",
       "status": "filed"
@@ -802,7 +802,7 @@
       "status": "filed"
     },
     "400.9": {
-      "n": 5,
+      "n": 6,
       "part": "part_iv",
       "title": "Research Integrity and Peer Review",
       "status": "filed"
@@ -910,7 +910,7 @@
       "status": "filed"
     },
     "800.10": {
-      "n": 5,
+      "n": 6,
       "part": "part_viii",
       "title": "Disposition of Confiscated Items",
       "status": "filed"
@@ -1168,7 +1168,7 @@
       "status": "filed"
     },
     "1101.13": {
-      "n": 5,
+      "n": 6,
       "part": "part_xi",
       "title": "Liability for Residue and Lingering Arcane Echoes",
       "status": "filed"
@@ -1186,7 +1186,7 @@
       "status": "filed"
     },
     "1401.13": {
-      "n": 5,
+      "n": 6,
       "part": "part_xiv",
       "title": "Preservation of Canonical Continuity and Scriptural Integrity",
       "status": "filed"
@@ -1198,37 +1198,37 @@
       "status": "filed"
     },
     "100.14": {
-      "n": 5,
+      "n": 6,
       "part": "part_i",
       "title": "Additional Provisions for Office Boundaries and Jurisdictional Clarity",
       "status": "filed"
     },
     "200.14": {
-      "n": 5,
+      "n": 6,
       "part": "part_ii",
       "title": "Additional Protocols for Arcane Containment and Breach Mitigation",
       "status": "filed"
     },
     "300.14": {
-      "n": 5,
+      "n": 6,
       "part": "part_iii",
       "title": "Catchline Title: Transmission Protocols and Oversight",
-      "status": "growing"
+      "status": "filed"
     },
     "400.14": {
-      "n": 5,
+      "n": 6,
       "part": "part_iv",
       "title": "Unauthorized Research Permits and Exceeding Boundaries",
       "status": "filed"
     },
     "900.14": {
-      "n": 5,
+      "n": 6,
       "part": "part_ix",
       "title": "Reporting Ancillary Effects and Sub-Layered Magic",
-      "status": "growing"
+      "status": "filed"
     },
     "500.14": {
-      "n": 5,
+      "n": 6,
       "part": "part_v",
       "title": "Catchline Title: Remediation and Obligations for Lingering Arcane Effects",
       "status": "filed"
@@ -1240,10 +1240,10 @@
       "status": "filed"
     },
     "700.14": {
-      "n": 5,
+      "n": 6,
       "part": "part_vii",
       "title": "Admissibility Standards for Arcane Testimony and Artifacts",
-      "status": "growing"
+      "status": "filed"
     },
     "800.14": {
       "n": 6,
@@ -1258,7 +1258,7 @@
       "status": "filed"
     },
     "1201.14": {
-      "n": 5,
+      "n": 6,
       "part": "part_xii",
       "title": "Catchline Title: Conditional Exemption for Ancillary Planar Transits",
       "status": "filed"
@@ -1270,10 +1270,10 @@
       "status": "filed"
     },
     "1401.14": {
-      "n": 5,
+      "n": 6,
       "part": "part_xiv",
       "title": "Conditional Exemption for Ancillary Planar Transits",
-      "status": "growing"
+      "status": "filed"
     },
     "1.15": {
       "n": 6,
@@ -1294,7 +1294,7 @@
       "status": "filed"
     },
     "300.15": {
-      "n": 5,
+      "n": 6,
       "part": "part_iii",
       "title": "Catchline Title: Oversight Protocols for Quiet List Procedures",
       "status": "filed"
@@ -1324,7 +1324,7 @@
       "status": "filed"
     },
     "700.15": {
-      "n": 5,
+      "n": 6,
       "part": "part_vii",
       "title": "Catchline Title for Admissibility and Validation Protocols of Arcane Artifacts",
       "status": "filed"
@@ -1360,10 +1360,10 @@
       "status": "filed"
     },
     "1.16": {
-      "n": 5,
+      "n": 6,
       "part": "front",
       "title": "Additional Provisions for Archmage Sovereign Mediation and Peer Review",
-      "status": "growing"
+      "status": "filed"
     },
     "100.16": {
       "n": 6,
@@ -1372,16 +1372,16 @@
       "status": "filed"
     },
     "200.16": {
-      "n": 5,
+      "n": 6,
       "part": "part_ii",
       "title": "Emergency Protocols for Arcane Containment and Breach Mitigation",
-      "status": "growing"
+      "status": "filed"
     },
     "300.16": {
-      "n": 5,
+      "n": 6,
       "part": "part_iii",
       "title": "Oversight Protocols for Quiet List Procedures",
-      "status": "growing"
+      "status": "filed"
     },
     "400.16": {
       "n": 6,
@@ -1414,10 +1414,10 @@
       "status": "filed"
     },
     "800.16": {
-      "n": 5,
+      "n": 6,
       "part": "part_viii",
       "title": "Remediation Protocols for Ancillary Arcane Disruption and Environmental Impact",
-      "status": "growing"
+      "status": "filed"
     },
     "1001.16": {
       "n": 6,
@@ -1432,7 +1432,7 @@
       "status": "filed"
     },
     "1201.16": {
-      "n": 5,
+      "n": 6,
       "part": "part_xii",
       "title": "Conditional Exemption for Ancillary Planar Transits and Associated Protocols",
       "status": "filed"
@@ -1444,34 +1444,376 @@
       "status": "filed"
     },
     "1401.16": {
-      "n": 5,
+      "n": 6,
       "part": "part_xiv",
       "title": "Conditional Exemption and Ancillary Arcane Disruption Protocols",
       "status": "filed"
     },
     "1.17": {
-      "n": 5,
+      "n": 6,
       "part": "front",
       "title": "Additional Provisions for Mages' Guild Mediation and Peer Review Protocols",
       "status": "filed"
     },
     "100.17": {
-      "n": 5,
+      "n": 6,
       "part": "part_i",
       "title": "Catchline Title: Protocols for Exclusionary Hearings and Peer Review",
       "status": "filed"
     },
     "200.17": {
-      "n": 5,
+      "n": 6,
       "part": "part_ii",
       "title": "Additional Provisions for Advanced Arcane Containment and Breach Mitigat",
+      "status": "filed"
+    },
+    "300.17": {
+      "n": 6,
+      "part": "part_iii",
+      "title": "Contingencies for Unauthorized Arcane Breaches",
+      "status": "filed"
+    },
+    "400.17": {
+      "n": 6,
+      "part": "part_iv",
+      "title": "Specimen Custody and Chain of Evidence Mandates for Arcane Research",
+      "status": "filed"
+    },
+    "900.17": {
+      "n": 6,
+      "part": "part_ix",
+      "title": "Certification of Sub-Layered and Latent Arcane Signatures",
+      "status": "filed"
+    },
+    "600.17": {
+      "n": 6,
+      "part": "part_vi",
+      "title": "Termination and Disentanglement of Construct Bonds",
+      "status": "filed"
+    },
+    "700.17": {
+      "n": 6,
+      "part": "part_vii",
+      "title": "Protocol for Cross-Referencing Arcane Artifacts in Dispute",
+      "status": "filed"
+    },
+    "800.17": {
+      "n": 6,
+      "part": "part_viii",
+      "title": "Allocation and Reclamation of Sealed Capacities",
+      "status": "filed"
+    },
+    "1001.17": {
+      "n": 6,
+      "part": "part_x",
+      "title": "Prohibition on Magical Counterfeiting and Alchemical Debasement",
+      "status": "filed"
+    },
+    "1101.17": {
+      "n": 6,
+      "part": "part_xi",
+      "title": "Remedial Protocols for Unlawful Casting and Contamination",
+      "status": "filed"
+    },
+    "1201.17": {
+      "n": 6,
+      "part": "part_xii",
+      "title": "Conditional Exemption for Ancillary Planar Transits and Associated Protocols",
+      "status": "filed"
+    },
+    "1301.17": {
+      "n": 6,
+      "part": "part_xiii",
+      "title": "Additional Remediation Protocols for Ancillary Arcane Disruption",
+      "status": "filed"
+    },
+    "1401.17": {
+      "n": 6,
+      "part": "part_xiv",
+      "title": "Transitional Provisions and Ancillary Protocols",
+      "status": "filed"
+    },
+    "1.18": {
+      "n": 6,
+      "part": "front",
+      "title": "Additional Provisions for Mages' Guild Mediation and Immediate Response Protocol",
+      "status": "filed"
+    },
+    "100.18": {
+      "n": 6,
+      "part": "part_i",
+      "title": "Protocols for Unsanctioned Spellcasting Incidents",
+      "status": "filed"
+    },
+    "200.18": {
+      "n": 6,
+      "part": "part_ii",
+      "title": "Prohibitions on Coercive and Degradational Magic",
+      "status": "filed"
+    },
+    "300.18": {
+      "n": 6,
+      "part": "part_iii",
+      "title": "Prohibition on Unsanctioned Correspondence and Transmission",
+      "status": "filed"
+    },
+    "400.18": {
+      "n": 6,
+      "part": "part_iv",
+      "title": "Oversight Protocols for Research Integrity and Ethical Standards",
+      "status": "filed"
+    },
+    "900.18": {
+      "n": 6,
+      "part": "part_ix",
+      "title": "Ancillary Arcane Disruption Protocol Enhancements",
+      "status": "filed"
+    },
+    "500.17": {
+      "n": 6,
+      "part": "part_v",
+      "title": "Liability for Ancillary Arcane Incidents and Casualties",
+      "status": "filed"
+    },
+    "600.18": {
+      "n": 6,
+      "part": "part_vi",
+      "title": "Oversight and Compliance Protocols for Construct Labor and Associated Obligation",
+      "status": "filed"
+    },
+    "700.18": {
+      "n": 6,
+      "part": "part_vii",
+      "title": "Catchline Title for Admissibility and Validation Protocols of Arcane Artifacts",
+      "status": "filed"
+    },
+    "800.18": {
+      "n": 6,
+      "part": "part_viii",
+      "title": "Remediation Protocols and Reporting Obligations for Arcane Malfunctions",
+      "status": "filed"
+    },
+    "1001.18": {
+      "n": 6,
+      "part": "part_x",
+      "title": "Confidentiality and Reporting Exceptions for Unconventional Transactions",
+      "status": "filed"
+    },
+    "1101.18": {
+      "n": 6,
+      "part": "part_xi",
+      "title": "Remedial Protocols for Unlawful Casting and Contamination",
+      "status": "filed"
+    },
+    "1201.18": {
+      "n": 6,
+      "part": "part_xii",
+      "title": "Conditional Exemption and Ancillary Protocols for Extraterritorial Jurisdiction",
+      "status": "filed"
+    },
+    "1301.18": {
+      "n": 6,
+      "part": "part_xiii",
+      "title": "Supplementary Provisions and Transitional Arrangements for Ancillary Arcane Disr",
+      "status": "filed"
+    },
+    "1401.18": {
+      "n": 6,
+      "part": "part_xiv",
+      "title": "Supplementary Provisions and Ancillary Protocols",
+      "status": "filed"
+    },
+    "1.19": {
+      "n": 6,
+      "part": "front",
+      "title": "Protocols for Constructed Remediation and Immediate Relief",
+      "status": "filed"
+    },
+    "100.19": {
+      "n": 6,
+      "part": "part_i",
+      "title": "Additional Provisions for Foreign Hall Relations and Interhall Cooperation",
+      "status": "filed"
+    },
+    "200.19": {
+      "n": 6,
+      "part": "part_ii",
+      "title": "Additional Provisions for Unlicensed Arcane Containment and Breach Mitigation",
+      "status": "filed"
+    },
+    "300.19": {
+      "n": 6,
+      "part": "part_iii",
+      "title": "Additional Provisions for Magical Correspondence and Transmission Oversight",
+      "status": "filed"
+    },
+    "400.19": {
+      "n": 6,
+      "part": "part_iv",
+      "title": "Oversight Protocols for Research Misconduct and Reporting Mechanisms",
+      "status": "filed"
+    },
+    "900.19": {
+      "n": 6,
+      "part": "part_ix",
+      "title": "Ancillary Arcane Effects Reporting Protocols",
+      "status": "filed"
+    },
+    "500.18": {
+      "n": 6,
+      "part": "part_v",
+      "title": "Liability for Ancillary Arcane Disruptions and Casualties",
+      "status": "filed"
+    },
+    "600.19": {
+      "n": 6,
+      "part": "part_vi",
+      "title": "Additional Provisions for Contracts with Non-Casters and Construct Labor",
+      "status": "filed"
+    },
+    "700.19": {
+      "n": 6,
+      "part": "part_vii",
+      "title": "Admissibility Standards for Artifacts Under Special Circumstances",
+      "status": "filed"
+    },
+    "800.19": {
+      "n": 6,
+      "part": "part_viii",
+      "title": "Remediation Protocols for Ancillary Arcane Disruption and Compliance",
+      "status": "filed"
+    },
+    "1001.19": {
+      "n": 6,
+      "part": "part_x",
+      "title": "Confidentiality and Non-Disclosure Agreements for Magical Transactions",
+      "status": "filed"
+    },
+    "1101.19": {
+      "n": 6,
+      "part": "part_xi",
+      "title": "Remedial Protocols for Unlawful Merging and Consequential Collateral Damage",
+      "status": "filed"
+    },
+    "1201.19": {
+      "n": 6,
+      "part": "part_xii",
+      "title": "Additional Provisions for Ancillary Planar Transits and Associated Protocols",
+      "status": "filed"
+    },
+    "1301.19": {
+      "n": 6,
+      "part": "part_xiii",
+      "title": "Supplementary Provisions and Transitional Arrangements for Ancillary Arcane Disr",
+      "status": "filed"
+    },
+    "1401.19": {
+      "n": 6,
+      "part": "part_xiv",
+      "title": "Supplementary Provisions and Ancillary Protocols",
+      "status": "filed"
+    },
+    "1.20": {
+      "n": 6,
+      "part": "front",
+      "title": "Protocols for Ancillary Dispute Resolution and Remediation",
+      "status": "filed"
+    },
+    "100.20": {
+      "n": 6,
+      "part": "part_i",
+      "title": "Protocols for Temporary Dismissals and Reconstitutions",
+      "status": "filed"
+    },
+    "200.20": {
+      "n": 6,
+      "part": "part_ii",
+      "title": "Prohibitions on Coercive and Degradational Magic",
+      "status": "filed"
+    },
+    "300.20": {
+      "n": 6,
+      "part": "part_iii",
+      "title": "Prohibition on Unsanctioned Correspondence and Transmission",
+      "status": "filed"
+    },
+    "400.20": {
+      "n": 6,
+      "part": "part_iv",
+      "title": "Additional Oversight Protocols for Unconventional Research Methods",
+      "status": "filed"
+    },
+    "900.20": {
+      "n": 6,
+      "part": "part_ix",
+      "title": "Reporting and Remediation Protocols for Unplanned Arcane Interference",
+      "status": "filed"
+    },
+    "500.19": {
+      "n": 6,
+      "part": "part_v",
+      "title": "Remediation and Compensation for Ancillary Casualties Resulting from Arcane Oper",
+      "status": "filed"
+    },
+    "600.20": {
+      "n": 6,
+      "part": "part_vi",
+      "title": "Oversight and Compliance Protocols for Construct Labor Agreements",
+      "status": "filed"
+    },
+    "700.20": {
+      "n": 6,
+      "part": "part_vii",
+      "title": "Protocol for Sealing and Restoration of Arcane Artifacts",
+      "status": "filed"
+    },
+    "800.20": {
+      "n": 6,
+      "part": "part_viii",
+      "title": "Remediation Protocols for Ancillary Arcane Disruption and Liability",
+      "status": "filed"
+    },
+    "1001.20": {
+      "n": 6,
+      "part": "part_x",
+      "title": "Prohibition on Unlawful Alchemy and Counterfeiting in Magical Transactions",
+      "status": "filed"
+    },
+    "1101.20": {
+      "n": 6,
+      "part": "part_xi",
+      "title": "Remedial Protocols for Unlawful Merging and Consequential Collateral Damage",
+      "status": "filed"
+    },
+    "1201.20": {
+      "n": 6,
+      "part": "part_xii",
+      "title": "Extraterritorial Jurisdiction and Planar Tolls",
+      "status": "filed"
+    },
+    "1301.20": {
+      "n": 6,
+      "part": "part_xiii",
+      "title": "Remediation Protocols for Ancillary Arcane Disruption and Liability",
+      "status": "filed"
+    },
+    "1401.20": {
+      "n": 6,
+      "part": "part_xiv",
+      "title": "Additional Provisions and Ancillary Protocols",
+      "status": "filed"
+    },
+    "1.21": {
+      "n": 4,
+      "part": "front",
+      "title": "Protocols for Constructed Remediation and Immediate Relief",
       "status": "growing"
     }
   },
   "max_n": 15,
   "floor": 6,
   "empty": 0,
-  "below": 26,
-  "at_floor": 218,
-  "sectionCount": 244
+  "below": 1,
+  "at_floor": 300,
+  "sectionCount": 301
 }

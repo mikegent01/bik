@@ -364,13 +364,18 @@
     },
     "gelato_loyalists": {
       "name": "Gelato Loyalists",
-      "description": "Named in the record “The Gelato Beach Counter-Offensive”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nThe Gelato Loyalists, officially known as the Loyalist Militia of Gelato Beach, are a minor but active militia based in Noki Bay's East Ridge. They have been crucial in defending their village against various adversaries, most notably the Regency forces and their Cataquack Cavalry. The organization is led by Don Pianta and operates from the Gelato Beach Village headquarters. Historical records such as 'The Gelato Beach Counter-Offensive' document their participation in significant military engagements. In one instance, they successfully defended against an attack on Noki Bay using their allies from Gelato Beach, demonstrating their effectiveness despite being a militia force. This event is pivotal, as it highlights the Loyalists’ role in maintaining local security and their strategic importance to allied groups like the Noki Shellfish and Pianta Syndicate.\n\n## Membership and Structure\n\nThe Gelato Loyalists are a militia primarily composed of villagers from Gelato Beach Village, led by Don Pianta. The records indicate that this group acts as a collective defense force with no formal ranks or branches established. Leadership is centered around Don Pianta, who orchestrated successful defenses against military forces such as the Cataquack Cavalry and Regency marines during conflicts in Noki Bay. The evidence of their organization comes from the record titled ‘The Gelato Beach Counter-Offensive’ where it is noted that 'p The Regency attempted to break the stalemate at dawn by launching a pincer attack on Noki Bay using their allies from Gelato Beach.' Although not officially documented, it appears that these villagers operate as an unstructured militia relying on local expertise and resources.\n\n## Recorded Operations and Relationships\n\nThe Gelato Loyalists, led by Don Pianta, have been actively engaged in defending their village against external threats. This is evidenced by their crucial role during the 'Gelato Beach Counter-Offensive' on June 29, 1040, where they repelled a coordinated assault by the Regency-Gelato Axis forces. During this conflict, Mayor Melon led a charge of Cataquack Cavalry along the ridges while Regency marines stormed the beach p (evidenceQuote). The reinforcements from Gelato Beach effectively routed the Cataquack Cavalry with heavy fruit barrels thrown down the cliffs, causing a chaotic retreat for the attackers. This operation highlighted their strategic importance and tactical skill in defending Noki Bay against such invasions. Their alliance with the Noki Shellfish and Pianta Syndicate further underscores their ability to form effective coalitions.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Gelato Loyalists, led by Don Pianta from their village headquarters, have established themselves as a formidable force against the Regency-Gelato Axis. Their most recent challenge came during 'The Gelato Beach Counter-Offensive' on June 29, 1040, where they successfully repelled an amphibious assault led by Mayor Melon and Captain Spore of the Cataquack Cavalry. The evidence that Don Pianta's reinforcements ‘p The attack collapsed when Don Pianta led a reinforcement column from the village above’ proved decisive in routing the Regency forces. This operation highlights their tactical acumen and resilience, but also underscores the potential risks they face during future engagements. The Gelato Loyalists' active status and strong alliance with Noki Shellfish and Pianta Syndicate indicate stability within their region. However, the operational context remains uncertain beyond immediate actions, leaving gaps in understanding their broader strategic intentions or external support networks. Waluigi advises caution when dealing with this faction, emphasizing the need for intelligence gathering to fill these unknowns and adapt strategies accordingly.",
+      "region": "Noki Bay, East Ridge",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
-        "allies": [],
-        "enemies": []
+        "allies": [
+          "noki_shellfish",
+          "pianta_syndicate"
+        ],
+        "enemies": [
+          "mushroom_regency"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -379,6 +384,34 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:17:20.534214+00:00",
         "sourceRecord": "The Gelato Beach Counter-Offensive"
+      },
+      "title": "Loyalist Militia of Gelato Beach",
+      "type": "Militia",
+      "currentStatus": "Active",
+      "leader": "Don Pianta",
+      "headquarters": "Gelato Beach Village",
+      "motto": "Defend the Flavorful Homeland",
+      "summary": "The Gelato Loyalists are a militia that defended their village during conflicts, particularly against the Regency and Cataquack Cavalry.",
+      "evidenceQuotes": [
+        "attack on Noki Bay using their allies from Gelato Beach",
+        "p The Regency attempted to break the stalemate at dawn by launching a pincer",
+        "Mayor Melon led a charge of Cataquack Cavalry along the ridges while Regency marines stormed the beach p"
+      ],
+      "waluigi_tip": "Maintain strategic high ground for defense. Utilize local terrain to counter amphibious assaults.",
+      "keyEvents": [
+        "delfino_gelato_counter"
+      ],
+      "relatedArticles": [
+        "delfino_gelato_counter"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:25:31+00:00",
+        "sourceArticles": [
+          "delfino_gelato_counter"
+        ]
       }
     },
     "cells_of_the_third_eye": {
@@ -1213,13 +1246,18 @@
     },
     "toad_loyalists": {
       "name": "Toad Loyalists",
-      "description": "Named in the record “The Siege of Toad Town”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nThe Toad Loyalists, identified by Waluigi as 'The Ruthless Restorationists,' are a political movement and military faction dedicated to restoring order and stability in the contested ruins of Toad Town. This group fights for Princess Peach's memory and legitimacy, striving to reclaim her throne and the city from Fawful's Forces and the Liberated Toads. The archive confirms that their current standing is 'Ongoing - The siege continues and Toad Town remains contested ground.' Waluigi cannot write about the Siege of Toad Town as a single battle because it ISN'T a single battle—it's an ongoing disaster grinding for months. The central fountain, market district, and castle have been destroyed in the fight, turning a vibrant city into a war zone. Despite these challenges, the Toad Loyalists persist, maintaining rotating leadership among supporters of Princess Peach.\n\n## Membership and Structure\n\nThe Toad Loyalists, known as 'The Ruthless Restorationists,' are a faction with an ever-evolving structure due to the ongoing nature of their struggle for Princess Peach's memory. Leadership is not centralized but rather rotates among those most dedicated to her cause. The faction comprises individuals who hold varying roles—some act in military capacities, others focus on governance and reconstruction efforts within Toad Town. Their ranks include former council members, merchants, and ordinary citizens who have pledged their loyalty to restoring the city's order and stability. Despite their goal of unity, the faction does not maintain a rigid hierarchy. This flexible structure allows them to adapt quickly to changing conditions in the siege, but it also means that specific leadership roles are often transient. The evidence for this rotating nature is clear: 'The Siege of Toad Town is less a single battle and more an ongoing catastrophe.' This quote underscores the dynamic and fluid environment in which the Toad Loyalists operate, where leadership and strategy must be constantly reassessed due to the city's deteriorating state.\n\n## Recorded Operations and Relationships\n\nThe Toad Loyalists, known as 'The Ruthless Restorationists,' have been instrumental in maintaining order amidst the chaos that followed Princess Peach's disappearance. Their primary objective is to restore stability and legitimacy to Toad Town, a city now contested between multiple factions. According to historical records, 'the capital became contested ground between Peach Loyalists' (evidenceQuote). Their efforts have faced significant challenges, including widespread destruction of infrastructure such as the central fountain and market district, which they seek to repair. Despite these adversities, they continue their mission with fervor, often engaging in fierce combat against Fawful's Forces and the Liberated Toads. Their relentless pursuit of Peach’s memory has earned them a reputation for tenacity and determination, though some critics label them ruthless. Their headquarters once resided within Peach's Castle but was later damaged by ongoing conflicts.\n\n## Toad Loyalists' Risks and Uncertainties\n\nThe Toad Loyalists, known as The Ruthless Restorationists, operate within the contested ruins of Toad Town, fighting for Princess Peach's memory and legitimacy. Waluigi remembers Toad Town's tennis courts; those courts are now rubble. This faction faces significant risks due to their ongoing three-way conflict with Fawful's Forces and the Liberated Toads. They must navigate a city in ruins where infrastructure is unreliable, supplies scarce, and trust among factions fleeting. The Loyalists' rotating leadership complicates coordination and strategy. Waluigi advises caution: every movement is scrutinized by Fawful's Forces, who seek to exploit any misstep for propaganda or strategic advantage. The Liberated Toads are also unpredictable, their Cohort Council and Pond Patrol often shifting alliances. Uncertainties remain about the exact locations of Peach’s Castle and reliable sources of supply. Waluigi recommends securing communications with trusted allies and being aware of potential betrayal from within.",
+      "region": "Mushroom Kingdom, specifically Toad Town",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
-        "allies": [],
-        "enemies": []
+        "allies": [
+          "peach_loyalists"
+        ],
+        "enemies": [
+          "fawful_forces",
+          "liberated_toads"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -1228,16 +1266,58 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:51:57.332434+00:00",
         "sourceRecord": "The Siege of Toad Town"
+      },
+      "title": "The Ruthless Restorationists",
+      "type": "Political Movement / Military Faction",
+      "currentStatus": "Ongoing - The siege continues and Toad Town remains contested ground.",
+      "leader": "Various (rotating leadership among supporters of Princess Peach)",
+      "headquarters": "Formerly Peach's Castle in Toad Town",
+      "motto": "Restoring Peach's legacy, one brick at a time.",
+      "summary": "The Toad Loyalists fight for Princess Peach’s memory and legitimacy, seeking to restore order and stability to the contested ruins of Toad Town. They are part of an ongoing three-way conflict that has devastated much of the city since Peach's disappearance.",
+      "evidenceQuotes": [
+        "Waluigi cannot write about the Siege of Toad Town as a single battle because",
+        "The Siege of Toad Town is less a single battle and more an ongoing catastrophe",
+        "the capital became contested ground between Peach Loyalists"
+      ],
+      "waluigi_tip": "Beware their relentless dedication to restoring Peach’s legacy, as it fuels their resilience and determination in the face of overwhelming odds.",
+      "keyEvents": [
+        "siege_toad_town",
+        "toad_town",
+        "peach_loyalists",
+        "liberated_toads",
+        "fawful_forces"
+      ],
+      "relatedArticles": [
+        "siege_toad_town",
+        "toad_town",
+        "peach_loyalists",
+        "liberated_toads",
+        "fawful_forces"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:26:32+00:00",
+        "sourceArticles": [
+          "siege_toad_town",
+          "toad_town",
+          "peach_loyalists",
+          "liberated_toads",
+          "fawful_forces"
+        ]
       }
     },
     "shadow_estate": {
       "name": "Shadow Estate",
-      "description": "Named in the record “The Petrification of Remi”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "description": "## Identity and Confirmed Standing\n\nThe Shadow Estate is a secretive organisation operating out of its headquarters, Lyranth's Workshop, within an unrecorded region of the Shadowfell. Its influence is undeniable through events like 'The Petrification of Remi', where it successfully orchestrated a trap that led Remi to the exit door. This action demonstrates the Shadow Estate's ability to control environments and manipulate situations for its own ends. The organisation's leader, The Archivist, along with Lyranth as an executor, has proven adept at setting up elaborate plans that result in significant reputational impacts. The current status of the Shadow Estate remains unconfirmed, but it is evident from historical records that it continues to operate and exert influence over key events. Its reputation for orchestrating such pivotal moments suggests a persistent and powerful presence within its operational area.\n\n## Membership and Structure\n\nThe Shadow Estate operates as a secretive organization with a structure that remains largely opaque due to its elusive nature. The leadership is dominated by two key figures: The Archivist, who serves as the orchestrator of events within the Shadow Estate, and Lyranth, an artist known for her petrification abilities. The records suggest that the Shadow Estate's membership is fluid and not well-documented; however, they have been involved in significant incidents with allies like Disaster Inc., indicating a collaborative nature. One notable incident involving Remi's rescue effort reveals that 'they said they were going to help,' but their actual assistance remains unclear. The lack of a formal hierarchy or detailed roster makes it challenging to establish specific ranks or branches within the organization.\n\n## Recorded Operations and Relationships\n\nThe Shadow Estate operates with a high degree of secrecy, often orchestrating events that lead to significant reputational impacts. The most notable case is the petrification of Remi, orchestrated by Lyranth, a medusa artist residing in the Shadow Estate's workshop. This event unfolded at Lyranth's Workshop within the Shadow Estate—a place known for its reflection of Raventree Manor but drained of color and warmth. The Archivist, who controls the library and trades healing for indentured service, orchestrated this trap to separate Remi from her friends. As a result, Remi remains petrified, and her allies are scattered, unaware of her fate. This operation demonstrates the Shadow Estate's ability to manipulate situations with lethal precision, as evidenced by 'eyes rolled so far back he lost the plot,' a quote that captures the chaotic state Bowser was in while withdrawing to save lives. The relationship between the Shadow Estate and Disaster Inc. is evident through their joint efforts in this event, showcasing an alliance for covert operations.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Shadow Estate presents a significant risk due to its proven ability to orchestrate events that lead to severe reputational damage, particularly through the practice of 'petrification'. The organisation is known for laying traps, as evidenced by Remi being petrified in Lyranth’s workshop. The exact extent of their capabilities and influence remains largely unknown, but the known actions of their leaders, The Archivist and Lyranth, indicate a high level of strategic cunning and ruthlessness. The whereabouts of the Oracle's Deck is one key unknown; its fate could either be linked to Remi or held by another party within the Estate’s control. Disaster Inc.’s involvement suggests that they may have an alliance with the Shadow Estate, but their exact relationship remains unclear. Waluigi advises caution in dealing with this faction and recommends thorough reconnaissance before any engagement. The unknowns around their true capabilities and intentions are significant; the worst-case scenario could involve one's 'die at the hands of imps', a threat that underscores the severity of dealing with them.",
       "region": "Unrecorded",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
-        "allies": [],
+        "allies": [
+          "disaster_inc"
+        ],
         "enemies": []
       },
       "status": "generated",
@@ -1247,6 +1327,46 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T21:54:43.481044+00:00",
         "sourceRecord": "The Petrification of Remi"
+      },
+      "title": "The Shadowfell's Reflection of Raventree Manor",
+      "type": "Organisation",
+      "currentStatus": "Recorded status or Unconfirmed",
+      "leader": "The Archivist (orchestrator), Lyranth (executor)",
+      "headquarters": "Shadow Estate — Lyranth's Workshop",
+      "motto": "No recorded motto",
+      "summary": "The Shadow Estate is a secretive and influential organisation known for orchestrating events that lead to significant reputational impacts, particularly in the form of 'petrification'.",
+      "evidenceQuotes": [
+        "led Remi to the exit door",
+        "they said they were going to help",
+        "eyes rolled so far back he lost the plot"
+      ],
+      "waluigi_tip": "Shadow Estate's influence is pervasive and subtle; their true motives are often obscured. Always be cautious when dealing with them.",
+      "keyEvents": [
+        "remi_petrification",
+        "shadow_estate",
+        "disaster_inc",
+        "lyranth",
+        "the_archivist"
+      ],
+      "relatedArticles": [
+        "remi_petrification",
+        "shadow_estate",
+        "disaster_inc",
+        "lyranth",
+        "the_archivist"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:28:17+00:00",
+        "sourceArticles": [
+          "remi_petrification",
+          "shadow_estate",
+          "disaster_inc",
+          "lyranth",
+          "the_archivist"
+        ]
       }
     },
     "hjumpik": {
@@ -1303,13 +1423,15 @@
     },
     "archivist_estate": {
       "name": "Archivist Estate",
-      "description": "Named in the record “The Imp Ambush of Harvestide 29 (Siege at Tymnas's Cottage)”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nThe Archivist Estate is a mercenary force operating under the influence of a deceased Archivist, involved in reclaiming stolen ledgers. Its activities have been confirmed through multiple records, including 'The Imp Ambush of Harvestide 29 (Siege at Tymnas's Cottage)', where it is described as a nine-imp taskforce surrounding Tymnas's Cottage and The Shadow Estate Hedge Maze to demand the return of their master’s stolen ledger. Despite the leader being unnamed and unrecorded in the archives, the force’s actions speak to its commitment to fulfilling its deceased patron’s wishes. The evidence proves that while the Archivist Estate has been operational, its current standing remains unconfirmed as no recent updates or activities have been recorded. In a poignant moment of the battle record, one imp commander is noted to have said 'Tell my wife I love her', providing a humanizing yet melancholic insight into the identity and motivations behind this mercenary force.\n\n## Membership and Structure\n\nThe Archivist Estate, a mercenary force representing the interests of a deceased Archivist, is composed of nine armored flying imps. The identity of the leader or any higher ranks within this collective remains unrecorded. Despite the absence of formal structure described in the available records, the faction operates with a defined taskforce that has been involved in multiple operations, most notably the 'The Imp Ambush of Harvestide 29 (Siege at Tymnas's Cottage).' Evidence from 'The Imp Ambush of Harvestide 29' states: ‘A nine imp mercenary force representing the deceased Archivist surrounded Tymnas's Cottage at dawn.’ This excerpt confirms the existence and operational unity within the Archivist Estate. The faction operates without a detailed hierarchy, relying instead on a cohesive taskforce to execute its objectives. The structure is fluid and adaptable, with no indication of sub-divisions or branches.\n\n## Recorded Operations and Relationships\n\nThe Archivist Estate, a mercenary force operating under the guise of a deceased Archivist, has been involved in several significant engagements, primarily centered around the recovery of stolen ledgers. Their most notable operation was 'THE IMP AMBUSH OF HARVESTIDE 29,' where they surrounded Tymnas's Cottage at dawn, demanding the return of their master’s stolen ledger. This encounter resulted in a tense standoff with Disaster Inc., an allied faction with Markop and Remi Akamatsu leading the defense. The imps were repelled by Markop’s strategic argument of self-defense and the tactical prowess displayed by the defenders. During this ambush, an infiltration team breached the washroom window, drenching Remi in toxic poison—a move that underscores their ruthlessness and determination to retrieve what they perceive as rightfully theirs.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Archivist Estate poses significant risks due to its ties with a deceased Archivist and its capacity to command nine armored flying imps. While the exact location of their headquarters remains unconfirmed, Tymnas’s Cottage and The Shadow Estate Hedge Maze are known strongholds. Their primary goal is the recovery of stolen ledgers, indicating a persistent threat against entities that possess or control such documents. Markop's account of 'self-defense' against erasure threats underscores the imps' willingness to escalate conflicts. The Tactical Analysis of the Shadow Estate Cottage Defense provides insight into their tactics: they employ cloaked imps and infiltration teams, as demonstrated by the poisoning incident in the washroom window. However, several unknowns persist—such as the identity of their current leader, exact locations beyond their known bases, and potential allies or affiliations with other factions. Disregarding these risks could lead to a tactical disadvantage. Operational advice for any encounter involves careful reconnaissance and preparation against cloaked enemies and anticipated infiltration attempts.",
+      "region": "Shadowfells, Unrecorded",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "disaster_inc"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -1318,6 +1440,43 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:10:47.717262+00:00",
         "sourceRecord": "The Imp Ambush of Harvestide 29 (Siege at Tymnas's Cottage)"
+      },
+      "title": "The Deceased Archivist's Imp Taskforce",
+      "type": "Imp Mercenary Force",
+      "currentStatus": "Unconfirmed",
+      "leader": "Unrecorded (Representing the deceased Archivist)",
+      "headquarters": "Tymnas's Cottage & The Shadow Estate Hedge Maze",
+      "motto": "No recorded motto",
+      "summary": "The Archivist Estate is a mercenary force representing the interests of a deceased Archivist, involved in reclaiming stolen ledgers.",
+      "evidenceQuotes": [
+        "Tell my wife I love her",
+        "A nine imp mercenary force representing the deceased Archivist surrounded Tymnas's Cottage at dawn",
+        "THE IMP AMBUSH OF HARVESTIDE 29"
+      ],
+      "waluigi_tip": "Be wary of their tactics and the potential for ambushes.",
+      "keyEvents": [
+        "battle_imp_ambush_shadow_estate",
+        "tymnas_cottage_and_hedge_maze",
+        "the_imp_ambush_of_harvestide_29",
+        "markop"
+      ],
+      "relatedArticles": [
+        "battle_imp_ambush_shadow_estate",
+        "tymnas_cottage_and_hedge_maze",
+        "the_imp_ambush_of_harvestide_29",
+        "markop"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:32:25+00:00",
+        "sourceArticles": [
+          "battle_imp_ambush_shadow_estate",
+          "tymnas_cottage_and_hedge_maze",
+          "the_imp_ambush_of_harvestide_29",
+          "markop"
+        ]
       }
     },
     "archie_miser": {
@@ -1488,21 +1647,30 @@
     },
     "yugoloths": {
       "name": "Yugoloths",
-      "description": "Named in the record “The Planar Sanctum Canoloth Skirmish”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "species",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:20:24.439854+00:00",
         "sourceRecord": "The Planar Sanctum Canoloth Skirmish"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:34:19+00:00",
+        "sourceArticles": [
+          "battle_planar_sanctum_canoloth",
+          "the_awakening_in_planar_sanctum_and_veins_of_the_tapestry",
+          "bones",
+          "the_oracle",
+          "bryan"
+        ],
+        "decision": "removed",
+        "entityKind": "species"
       }
     },
     "disaster_inc_allies": {
@@ -1535,21 +1703,28 @@
     },
     "archivist": {
       "name": "Archivist",
-      "description": "Named in the record “The Four Portal Artifacts”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:27:41.492849+00:00",
         "sourceRecord": "The Four Portal Artifacts"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:38:10+00:00",
+        "sourceArticles": [
+          "portal_artifacts_collection",
+          "shadow_estate",
+          "planar_fracture"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "global": {
@@ -1609,21 +1784,30 @@
     },
     "feyward_high_school": {
       "name": "Feyward High School",
-      "description": "Named in the record “Chop Bros, the OC Soul Ring, and the Guard With No Name”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "place",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T22:36:17.221209+00:00",
         "sourceRecord": "Chop Bros, the OC Soul Ring, and the Guard With No Name"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:41:59+00:00",
+        "sourceArticles": [
+          "feyward_chop_bros_soul_ring_and_the_guard_with_no_name",
+          "feyward_amnesia_vines_morel_steely",
+          "feyward_dark_rooms_and_balcony_planning",
+          "the_feyward_revel_and_the_book_of_many_things",
+          "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy"
+        ],
+        "decision": "removed",
+        "entityKind": "place"
       }
     },
     "waluigi": {
@@ -1656,40 +1840,58 @@
     },
     "chunky_kong_junimus_gorolini_bongo_jr": {
       "name": "Chunky Kong Junimus Gorolini Bongo Jr",
-      "description": "Named in the record “The Funeral of Junimus Gorolini Bongo Jr.”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:04.171962+00:00",
         "sourceRecord": "The Funeral of Junimus Gorolini Bongo Jr."
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:47:36+00:00",
+        "sourceArticles": [
+          "funeral_of_junimus_gorolini_bongo_jr",
+          "kongo_bongo",
+          "second_summit",
+          "dk_crew",
+          "wario"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "funky_kong": {
       "name": "Funky Kong",
-      "description": "Named in the record “The Funeral of Junimus Gorolini Bongo Jr.”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "dk_crew",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:04.186172+00:00",
         "sourceRecord": "The Funeral of Junimus Gorolini Bongo Jr."
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:51:33+00:00",
+        "sourceArticles": [
+          "funeral_of_junimus_gorolini_bongo_jr",
+          "kongo_bongo",
+          "second_summit",
+          "dk_crew",
+          "wario"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "scout_pericarp": {
@@ -1722,13 +1924,15 @@
     },
     "magikoopa_council": {
       "name": "Magikoopa Council",
-      "description": "Named in the record “The Darklands Confrontation”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "description": "## Identity and Confirmed Standing\n\nThe Magikoopa Council, though currently unconfirmed in its active status, once held significant influence over magical governance. Its involvement in historical events, such as the Darklands Confrontation, underscores its former importance. This confrontation, recorded in 'The Darklands Confrontation,' saw Team Beta, led by a defected Magikoopa Apprentice, challenge the council's spiritual leader, the Primordial Wyrm. The council's power was directly tied to Kamek's personal magic, which bound him to the Wyrm as evidenced by the statement: ‘p The Darklands anchor was directly connected to Kamek's personal power the magic binding him to the Wyrm.’ This quote confirms the council’s pivotal role in maintaining and defending Kamek's magical fortress. Despite this, the Magikoopa Council's current standing remains unconfirmed. While it once held considerable sway over magical affairs, its present-day influence is unknown due to a lack of recent records.\n\n## Membership and Structure\n\nThe Magikoopa Council, a defunct magical governance body, once wielded significant influence in the Darklands region before its apparent decline as evidenced by the 'Darklands Confrontation' record. The council’s leadership was centered around the Primordial Wyrm, who served as the spiritual leader. However, concrete records are silent on whether the council had formal ranks or branches beyond this central figure. One notable member was the Magikoopa Apprentice, who led Team Beta in their assault on Darklands Fortress. This is evidenced by the statement 'led by the defected Magikoopa Apprentice,' which highlights her role as a leading figure within the council during its active period. The absence of structured records about other members or branches indicates that the council operated more as a collective than an organization with defined ranks and departments.\n\n## Recorded Operations and Relationships\n\nThe Magikoopa Council, a defunct magical governance body, was involved in several significant operations, notably during the 'Darklands Confrontation' recorded on June 26, 1040. In this confrontation, the council's forces, specifically Team Beta led by the defected Magikoopa Apprentice and Koopa Worker Green, launched an assault on a fortress built around a crystal that was directly connected to Kamek's personal power—the magic binding him to the Primordial Wyrm. The evidence of their operations is clear in records stating, 'assaulted a fortress built around the crystal p p Kamek's spirit manifested to defend his power source.' This act of defiance led to an intense magical duel where the Apprentice channelled her spells into shattering the crystal at the cost of severe injuries. As a result of this confrontation, Kamek was weakened significantly, and the council's involvement in such operations is marked by its apparent decline.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Magikoopa Council, a defunct magical governance body, poses risks primarily through its association with the Primordial Wyrm. While the council is currently unconfirmed in its status, it was clearly allied with Kamek’s spirit projection during the Darklands Confrontation. The evidence of this alliance comes from 'The Darklands Confrontation' record, where it states: \"The magical duel was intense the Apprentice channeled every spell she knew into the crystal.\" This indicates a deep connection that could still be in play despite its apparent decline. However, much remains unknown about its current capabilities and intentions. The council's former headquarters at Darklands Fortress is unrecorded, adding to the uncertainties. Waluigi advises caution when dealing with this faction; any potential interaction should be conducted with thorough reconnaissance to ensure operational safety.",
       "region": "Unrecorded",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "primordial_wyrm"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -1737,63 +1941,118 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:27.649021+00:00",
         "sourceRecord": "The Darklands Confrontation"
+      },
+      "title": "Defunct Magical Governance Body",
+      "type": "Magical Governance",
+      "currentStatus": "Unconfirmed",
+      "leader": "Primordial Wyrm (spiritual leader)",
+      "headquarters": "Darklands Fortress (formerly)",
+      "motto": "No recorded motto",
+      "summary": "A magical council that was involved in the Darklands Confrontation, leading to its apparent decline.",
+      "evidenceQuotes": [
+        "p The Darklands anchor was directly connected to Kamek's personal power the magic binding him to the Wyrm",
+        "led by the defected Magikoopa Apprentice",
+        "assaulted a fortress built around the crystal p p Kamek's spirit manifested to defend his power source"
+      ],
+      "waluigi_tip": "Considered a minor power with significant magical capabilities, their influence seems to have waned post-Darklands Confrontation.",
+      "keyEvents": [
+        "anchor_beta_darklands"
+      ],
+      "relatedArticles": [
+        "anchor_beta_darklands"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:55:50+00:00",
+        "sourceArticles": [
+          "anchor_beta_darklands"
+        ]
       }
     },
     "michael_afton": {
       "name": "Michael Afton",
-      "description": "Named in the record “The Seven Nights at Fazbear: A Complete Record”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:49.281147+00:00",
         "sourceRecord": "The Seven Nights at Fazbear: A Complete Record"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:57:43+00:00",
+        "sourceArticles": [
+          "fazbear_seven_nights",
+          "iron_legion",
+          "shroob_temporal_incursion",
+          "mages_guild",
+          "wario"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "vanny_white_rabbit": {
       "name": "Vanny White Rabbit",
-      "description": "Named in the record “The Seven Nights at Fazbear: A Complete Record”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:22:49.283108+00:00",
         "sourceRecord": "The Seven Nights at Fazbear: A Complete Record"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:59:34+00:00",
+        "sourceArticles": [
+          "fazbear_seven_nights",
+          "iron_legion",
+          "shroob_temporal_incursion",
+          "mages_guild",
+          "wario"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "liberator_mage": {
       "name": "Liberator Mage",
-      "description": "Named in the record “The Prison Island Liberation”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-15T23:25:53.276010+00:00",
         "sourceRecord": "The Prison Island Liberation"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T18:05:31+00:00",
+        "sourceArticles": [
+          "prison_island_liberation",
+          "iron_legion",
+          "the_eastern_passage",
+          "bryan",
+          "mario"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "liberator_spy": {
@@ -1826,13 +2085,15 @@
     },
     "wario_bros": {
       "name": "Wario Bros",
-      "description": "Named in the record “The Lounge Brawl”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "description": "## Identity and Confirmed Standing\n\nWario Bros, an unofficial name for Wario's operative group, is inferred to operate in a covert capacity within various regions of interest, although its precise headquarters remain unrecorded. Mentioned in 'The Lounge Brawl,' this faction engages in activities such as document retrieval and debt-motivated theft, often involving significant risk. The archive confirms that Wario Bros has allies, including Wario himself, but its official leader remains unknown. In 'The Lounge Brawl,' the faction demonstrated a willingness to engage in physical conflict to achieve objectives; for instance, the window opened when Wario and Toad Lee began physically fighting over the paper. This incident underscores their operational flexibility and readiness to use force to secure their goals. However, it also reveals a lack of coordination or strategic planning, as evidenced by the tactical draw in this specific skirmish. The current status of Wario Bros is unconfirmed, with operations inferred from such documented incidents rather than explicit confirmation. Despite these limitations, Wario Bros continues to operate within the shadows, leveraging its operatives' abilities and resources to pursue undisclosed objectives.\n\n## Membership and Structure\n\nWario Bros is an informal alliance centered around Wario, with its membership and structure inferred primarily from the record titled 'The Lounge Brawl'. No leader or headquarters is officially recorded for this group. The faction’s activities are coordinated by Wario himself, who has a history of independent and opportunistic operations. In 'The Lounge Brawl', Wario Bros operates in a brief, uncoordinated manner, attempting to retrieve documents from the defending party, Disaster Inc., led by Hjumpik. This operation is part of a larger event known as 'The Lounge Incident and the Paper War'. The faction's name remains unofficial; its existence is acknowledged but not formally recognized within the official records. Wario Bros' members are limited to those who have been involved in operations with Wario, such as Toad Lee during this particular incident. Notably, Wario Bros operates without a structured hierarchy or formal ranks, making it difficult to categorize its collective features beyond being an informal group of individuals acting on Wario's behalf. The faction’s activities are inferred from events but not explicitly confirmed in official records. In 'The Lounge Brawl', Wario states, 'I need it please,' indicating his intent and operational focus within the group.\n\n## Recorded Operations and Relationships\n\nWario Bros, an unofficial name for Wario's operative group, has been inferred from various records, notably 'The Lounge Brawl'. In this incident, Wario Bros attempted a debt-motivated theft in the L-Shaped Lounge at Ferngrove Manor during the early hours of Harvestide 19th, 1040 BF. The operation involved Wario and Waluigi acting without prior coordination or command structure. Their goal was to retrieve documents that were under the protection of Disaster Inc., specifically defended by Hjumpik, Toad Lee, Rakasha Azure, and Stucky. Despite their efforts, the papers remained within Disaster Inc.'s possession, resulting in a tactical draw according to Waluigi's report. The crowned Toad with the Chaos Heart fragment remained unidentified during this skirmish, highlighting the covert nature of Wario Bros' operations. This operation underscores Wario Bros' adversarial relationship with Disaster Inc., a core party that has consistently opposed their actions.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nWario Bros remains an unofficial name for Wario’s operative group, its true status and capabilities unconfirmed by official records. The faction is inferred from events such as the 'The Lounge Brawl,' where it operated briefly but without prior coordination with Waluigi or his party. While operational activities suggest a certain level of independence and autonomy, the exact structure and command are unknown. The faction's relationship with Wario suggests an alignment focused on commercial interests, possibly including debt resolution and document retrieval missions. However, the exact nature of their objectives remains unclear. 'He fired the Phase Spider gut racket'—Waluigi’s precise assessment is that this indicates a willingness to use extreme measures but does not fully define the group's operational parameters or strategic focus. The true risks associated with Wario Bros are thus multifaceted and largely unknown, necessitating caution in any future interactions or conflicts.",
       "region": "Unrecorded",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "disaster_inc"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -1841,17 +2102,59 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:42:42.642512+00:00",
         "sourceRecord": "The Lounge Brawl"
+      },
+      "title": "Unofficial Name for Wario's Operative Group",
+      "type": "Operative Group / Informal Alliance",
+      "currentStatus": "Unconfirmed",
+      "leader": "Unrecorded",
+      "headquarters": "Unrecorded",
+      "motto": "No recorded motto",
+      "summary": "Wario Bros is an unofficial name for Wario's operative group, mentioned in the record 'The Lounge Brawl'. The faction's existence and activities are inferred from events but not explicitly confirmed.",
+      "evidenceQuotes": [
+        "The window opened when Wario and Toad Lee began physically fighting over the paper",
+        "I need it please",
+        "The crowned Toad with the Chaos Heart fragment remained unidentified"
+      ],
+      "waluigi_tip": "Operational advice may be inferred from Wario Bros' actions, such as their opportunistic tactics and reliance on stealth.",
+      "keyEvents": [
+        "the_lounge_brawl",
+        "the_lounge_incident_and_the_paper_war",
+        "disaster_inc",
+        "waluigi",
+        "wario"
+      ],
+      "relatedArticles": [
+        "the_lounge_brawl",
+        "the_lounge_incident_and_the_paper_war",
+        "disaster_inc",
+        "waluigi",
+        "wario"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T18:07:43+00:00",
+        "sourceArticles": [
+          "the_lounge_brawl",
+          "the_lounge_incident_and_the_paper_war",
+          "disaster_inc",
+          "waluigi",
+          "wario"
+        ]
       }
     },
     "koopa_foreman": {
       "name": "Koopa Foreman",
-      "description": "Named in the record “The Sewer Extraction”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nThe Koopa Foreman is a specialized rescue team within the Koopa Resistance, known for their operations in dangerous environments, particularly underground sewers. According to records from 'The Sewer Extraction', they successfully led an 8-person mission weeks before King Bowser's departure to the Midlands. This operation involved navigating through perilous tunnels where walls pulsated and passages closed, a situation that highlighted their expertise in dealing with hostile conditions. The team was able to rescue 47 survivors and lost two rescuers to corruption. The archive is silent on the Koopa Foreman's current operational capabilities or any changes to leadership, but it confirms their active status as of the mission date. The evidence quote 'p With King Bowser weeks away in the Midlands' underscores the urgency and strategic importance of such operations during critical times. Their standing remains established through successful missions like this one, cementing them as an integral part of the resistance movement.\n\n## Membership and Structure\n\nThe Koopa Foreman operates as a specialized rescue team within the broader context of the Koopa Resistance, an underground movement dedicated to resisting the corrupting influence of the Primordial Wyrm in the Valley of Bowser. The team's membership is largely fluid due to the nature of their operations; however, it has been established that 'Koopa Foreman' leads the team, and 'Bob-omb Demolitions Expert' is a key member responsible for creating escape routes through blown passages. The evidence from 'The Sewer Extraction' mission reveals that 'passages closing p p Bob omb Demolitions Expert blew three passages to create escape routes,' indicating his crucial role in ensuring the team's success and the safe extraction of survivors. Beyond these confirmed members, the organization lacks a formally documented hierarchy or established branches, reflecting its ad-hoc nature.\n\n## Recorded Operations and Relationships\n\nThe Koopa Foreman has demonstrated significant operational capability in challenging environments, as evidenced by their successful execution of rescue missions within the corrupted sewer network. In 'The Sewer Extraction' operation on June 24th, 1040, the team led by Koopa Foreman and supported by Bob-omb Demolitions Expert ventured into the dangerous underground tunnels to rescue workers trapped in emergency bunkers. This operation resulted in the safe extraction of 47 survivors before the corruption could spread further. The tactic employed involved strategic demolition to create escape routes. However, two rescuers were lost due to the severe conditions within the sewers. The Koopa Foreman’s efforts align with their role as a specialized rescue team aligned with the Koopa Resistance and have positioned them as an ally against the Primordial Wyrm and its corrupted patrols.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Koopa Foreman operates in perilous environments, as evidenced by their daring rescue mission documented in 'The Sewer Extraction'. The risks are manifold: navigating through a sewer network that is actively hostile, with walls pulsing and passages closing, as described by the phrase 'Using old Krew maps'. While this detail highlights the team's resourcefulness, it also underscores the uncertainty inherent in such operations. The precise nature of the corruption and its mechanisms remain unknown, leaving the Koopa Foreman to adapt on the fly amidst ever-changing conditions. Waluigi's assessment is that while their past success suggests a high degree of competence, the unpredictable elements of the environment present constant threats. Operationally speaking, the team should prioritize intelligence gathering—such as acquiring more recent maps—and maintain robust communication channels to mitigate risks and ensure the safety of all personnel.",
+      "region": "Valley of Bowser, Underground Sewer Network",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "primordial_wyrm"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -1860,17 +2163,47 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:44:03.522664+00:00",
         "sourceRecord": "The Sewer Extraction"
+      },
+      "title": "Rescue Team of Koopa Resistance",
+      "type": "Military/Rescue Organization",
+      "currentStatus": "Active",
+      "leader": "Koopa Foreman",
+      "headquarters": "Unrecorded",
+      "motto": "No recorded motto",
+      "summary": "The Koopa Foreman is a specialized rescue team within the Koopa Resistance, known for their operations in dangerous environments.",
+      "evidenceQuotes": [
+        "p With King Bowser weeks away in the Midlands",
+        "passages closing p p Bob omb Demolitions Expert blew three passages to create escape routes",
+        "rescue workers trapped in emergency bunkers"
+      ],
+      "waluigi_tip": "Operational advice and reputation management strategies are not yet documented.",
+      "keyEvents": [
+        "safehouse_rescue_mission"
+      ],
+      "relatedArticles": [
+        "safehouse_rescue_mission"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T18:14:25+00:00",
+        "sourceArticles": [
+          "safehouse_rescue_mission"
+        ]
       }
     },
     "bob_omb_demolitions_expert": {
-      "name": "Bob Omb Demolitions Expert",
-      "description": "Named in the record “The Sewer Extraction”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "name": "Bob-omb Demolitions Expert",
+      "description": "## Identity and Confirmed Standing\n\nThe Bob-omb Demolitions Expert is a specialized taskforce known for their expertise in demolitions and extraction operations within the underground networks of the Mushroom Kingdom, particularly around the Valley of Bowser. The identity of this group has been confirmed by several records, including 'The Sewer Extraction,' where they are credited with blowing three passages to create escape routes during a critical rescue operation. This mission occurred weeks before King Bowser's planned trip to the Midlands, proving their active role in ongoing conflicts. Their current status is marked as Active, operating under the Koopa Resistance and facing off against primordial corruption from the Wyrm Corruption faction. The archive 'The Sewer Extraction' explicitly states: 'p With King Bowser weeks away in the Midlands,' which highlights the immediate relevance of their operations to the broader political landscape surrounding the Mushroom Kingdom's leadership.\n\n## Membership and Structure\n\nBob-omb Demolitions Expert operates as a specialized taskforce focused on extraction and demolition operations within the underground networks of the Mushroom Kingdom, particularly known for their proficiency in navigating and altering complex sewer systems. The team is led by Bob-omb, who holds the title of Sewer Rescue Specialist. Membership records are sparse, but it is confirmed that Bob-omb commands the group. The taskforce is allied with the Koopa Resistance and engages primarily against the Wyrm Corruption faction as evidenced by their actions in 'The Sewer Extraction'. In this mission, Bob-omb blew three passages to create escape routes, a pivotal action that allowed the rescue of 47 survivors (passages closing p p Bob omb Demolitions Expert blew three passages to create escape routes). The headquarters is unrecorded, and no formal ranks or branches are established in the available records. This indicates that the group may function more as a collective unit without strict hierarchical structures.\n\n## Recorded Operations and Relationships\n\nBob-omb Demolitions Expert, a specialized taskforce known for their expertise in demolitions and extraction operations within the underground networks of the Mushroom Kingdom, has been active since records began. Their most notable operation was 'The Sewer Extraction' at the Valley of Bowser, Underground Sewer Network. During this mission, led by Bob-omb and the Koopa Foreman, they navigated through a corrupted sewer system that was actively hostile, with walls pulsating and passages closing. They successfully rescued workers trapped in emergency bunkers, an action described in 'The Sewer Extraction' as 'rescue workers trapped in emergency bunkers.' This operation resulted in the rescue of 47 survivors before the corruption became too overwhelming. Unfortunately, two rescuers were lost to the corruption. Bob-omb Demolitions Expert's operations are closely aligned with the Koopa Resistance and stand in direct opposition to the Wyrm Corruption and its patrols.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe operations of Bob-omb Demolitions Expert within the Valley of Bowser’s underground sewers are inherently fraught with risks. The evidence that ‘Using old Krew maps’ underscores a critical limitation: reliance on outdated intelligence could compromise their missions. Despite the successes in extracting survivors during the Sewer Extraction, Waluigi assesses that the team cannot entirely predict the unpredictable nature of these tunnels. Walls that pulse and passages that close present continuous challenges that are not fully understood or mitigated by current resources. The unknowns extend to the full extent of the corruption’s influence and the capabilities of the Primordial Wyrm patrols. In Waluigi's view, greater investment in real-time mapping technology is necessary for future operations. Teams must also anticipate the sudden collapse of passages and develop contingency plans around this risk. The operational advice remains clear: proceed with caution and never underestimate the unpredictable nature of these sewers.",
+      "region": "Valley of Bowser, Underground Sewer Network",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "primordial_wyrm"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -1879,31 +2212,68 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:44:03.527169+00:00",
         "sourceRecord": "The Sewer Extraction"
+      },
+      "title": "Sewer Rescue Specialist",
+      "type": "Specialized Taskforce",
+      "currentStatus": "Active",
+      "leader": "Bob-omb",
+      "headquarters": "Unrecorded",
+      "motto": "Through Explosions and Bravery, We Prevail",
+      "summary": "Known for their expertise in demolitions and extraction operations within the underground networks of the Mushroom Kingdom.",
+      "evidenceQuotes": [
+        "p With King Bowser weeks away in the Midlands",
+        "passages closing p p Bob omb Demolitions Expert blew three passages to create escape routes",
+        "rescue workers trapped in emergency bunkers"
+      ],
+      "waluigi_tip": "Always have an escape route planned, but trust your explosives.",
+      "keyEvents": [
+        "safehouse_rescue_mission"
+      ],
+      "relatedArticles": [
+        "safehouse_rescue_mission"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T18:20:41+00:00",
+        "sourceArticles": [
+          "safehouse_rescue_mission"
+        ]
       }
     },
     "sergeant_moldsworth": {
       "name": "Sergeant Moldsworth",
-      "description": "Named in the record “The Battle of Lineland Road”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:44:38.095067+00:00",
         "sourceRecord": "The Battle of Lineland Road"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T18:24:32+00:00",
+        "sourceArticles": [
+          "battle_of_lineland_road",
+          "chaos_heart_crisis",
+          "mushroom_kingdom",
+          "mr_l",
+          "luigi"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "united_forces_of_fight_or_flight": {
       "name": "United Forces Of Fight Or Flight",
-      "description": "Named in the record “The Battle of Lineland Road”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nThe United Forces of Fight or Flight are a guerrilla coalition that emerged during the Chaos Heart Crisis, primarily active in the Mushroom Kingdom theater. They are known for their effective tactics against supply lines and have established a reputation through actions like the Battle of Lineland Road. This force operates with a high degree of mobility and fluidity, making it challenging to pinpoint exact headquarters or leadership. Their identity remains unrecorded, but Mr. L's actions suggest significant influence within the coalition. The archive confirms their current status as a historical yet influential reputation, having left a lasting impact on the conflict through their guerrilla tactics. In 'The Battle of Lineland Road,' it is noted that ‘conversational like he was explaining something to students who had failed an exam,’ Mr. L demonstrated his strategic prowess and established patterns that would recur throughout the conflict. This quote highlights how Mr. L communicated with a confidence and ease, as if he were teaching a lesson, which underscored his tactical superiority in combat.\n\n## Membership and Structure\n\nThe United Forces of Fight or Flight operate with a structure that remains elusive due to their guerrilla tactics, which demand fluidity and adaptability. The coalition's leadership is shrouded in mystery; the identity of its leader remains unrecorded. However, Mr. L, often referred to as 'the man in green who enjoyed his work too much,' has been a consistent figurehead for the forces during critical engagements like the Battle of Lineland Road. Despite the lack of formal titles or ranks within the group, Mr. L's actions have set the pattern for their operations, indicating significant influence over their strategies and tactics. The coalition's structure appears to be more collective than hierarchical, with each member contributing based on specialized skills rather than a predefined rank system. This approach allows them to maintain flexibility in response to the volatile conditions of the Mushroom Kingdom theater during the Chaos Heart Crisis.\n\n## Recorded Operations and Relationships\n\nThe United Forces of Fight or Flight emerged as a guerrilla coalition during the Chaos Heart Crisis, known for devastating supply lines and establishing patterns that would recur throughout the conflict. Their tactics were particularly effective against Mushroom Kingdom forces, exemplified by the Battle of Lineland Road where Mr. L, their leader, established his reputation. The Battle of Lineland Road was Mr. L's first documented combat engagement during the Chaos Heart Crisis, and it set a pattern for subsequent operations. In this ambush on the primary supply route to Count Bleck's territory, seven guards were killed, supplies destroyed, and one survivor, Sergeant Moldsworth, provided testimony that never returned to duty. This encounter established Mr. L’s ability to operate with precision and lethality, leaving a lasting impact on the Mushroom Kingdom forces. The tactics employed by the United Forces of Fight or Flight were marked by their mobility and adaptability, making them a formidable adversary throughout the conflict.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe United Forces of Fight or Flight pose a significant risk to any military force operating in the Mushroom Kingdom theater during the Chaos Heart Crisis. Their tactics are well-documented as particularly effective against the Mushroom Kingdom forces. The unit established patterns that would recur throughout the conflict, demonstrating a clear and consistent approach to guerrilla warfare. Mr. L's first documented combat engagement during the Chaos Heart Crisis, as recorded in 'The Battle of Lineland Road,' highlighted their capability to strike decisively with minimal losses, leaving behind devastation among the targets. This pattern suggests a high degree of strategic planning and adaptability. The exact identity of the leader remains unknown, though Mr. L's actions and influence imply his central role. The headquarters is fluid, based on operations, making it challenging for adversaries to anticipate their movements or strike them at will. The archive is silent on the composition of the forces that make up these United Forces, leaving many details unconfirmed. Given this information, operational advice would be prudent avoidance strategies and intelligence gathering focused on supply lines and key personnel. Any engagement must be carefully planned to mitigate risks.",
+      "region": "Unrecorded — Primarily active in the Mushroom Kingdom theater during the Chaos Heart Crisis",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
@@ -1917,6 +2287,46 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:44:38.098658+00:00",
         "sourceRecord": "The Battle of Lineland Road"
+      },
+      "title": "Recorded Reputation in 'The Battle of Lineland Road'",
+      "type": "Military Coalition / Guerrilla Force",
+      "currentStatus": "Historical but influential reputation",
+      "leader": "Unrecorded, inferred from Mr. L's actions and influence",
+      "headquarters": "Unrecorded, mobile or fluid based on operations",
+      "motto": "No recorded motto",
+      "summary": "The United Forces of Fight or Flight emerged as a guerrilla coalition during the Chaos Heart Crisis, known for devastating supply lines and establishing patterns that would recur throughout the conflict. Their tactics were particularly effective against Mushroom Kingdom forces.",
+      "evidenceQuotes": [
+        "conversational like he was explaining something to students who had failed an exam",
+        "the man in green who enjoyed his work too much",
+        "The Battle of Lineland Road was Mr"
+      ],
+      "waluigi_tip": "The United Forces of Fight or Flight are a mobile and adaptable guerrilla force. Their tactics are unpredictable, often targeting supply lines and infrastructure. They operate in small but effective units.",
+      "keyEvents": [
+        "battle_of_lineland_road",
+        "chaos_heart_crisis",
+        "mushroom_kingdom",
+        "mr_l",
+        "luigi"
+      ],
+      "relatedArticles": [
+        "battle_of_lineland_road",
+        "chaos_heart_crisis",
+        "mushroom_kingdom",
+        "mr_l",
+        "luigi"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T18:30:55+00:00",
+        "sourceArticles": [
+          "battle_of_lineland_road",
+          "chaos_heart_crisis",
+          "mushroom_kingdom",
+          "mr_l",
+          "luigi"
+        ]
       }
     },
     "sarasaland_high_society": {
@@ -2012,6 +2422,69 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:48:32.772130+00:00",
         "sourceRecord": "The Fall of the Regent Sorcerer"
+      }
+    },
+    "dirctor_vale": {
+      "name": "Director Vale",
+      "description": "The disputed DGK director involved in the Spirit Residue retrieval.",
+      "region": "the_dread_mansion",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [
+          "liam"
+        ],
+        "enemies": [
+          "alice"
+        ]
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:21:40.712419+00:00",
+        "sourceRecord": "The Dread Mansion Incursion — Alice, the Vial, and the Duplicate"
+      }
+    },
+    "abandoned_mansions": {
+      "name": "Abandoned Mansions",
+      "description": "Named in the record “The Dread Mansion Incursion — Alice, the Vial, and the Duplicate”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:21:40.715938+00:00",
+        "sourceRecord": "The Dread Mansion Incursion — Alice, the Vial, and the Duplicate"
+      }
+    },
+    "feyward_high_society": {
+      "name": "Feyward High Society",
+      "description": "A faction comprising well-to-do Feyward residents who rallied a cutting crew.",
+      "region": "Feyward woodlands, specifically the Lane and surrounding groves.",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [
+          "feyward_high_society"
+        ],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-29T17:24:09.591296+00:00",
+        "sourceRecord": "Woodfellow vs. the Treant (The Lane, the Ledger, and the Weather)"
       }
     }
   }
