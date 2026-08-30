@@ -96,6 +96,12 @@ AUXILIARY_GENERATORS = [
     {"id": "wahwire", "title": "WAHwire",
      "summary": "Evidence-gated posts, threads, profiles, and pruning",
      "command": "Reputation-Matrix2/tools/genkit/systems/wahwire.py"},
+    {"id": "mages-codex", "title": "Mages Guild Codex",
+     "summary": "Draft and expand the Mages Guild Codex",
+     "command": "python tools/gen-mages-guild-code.py --overnight"},
+    {"id": "mages-forms", "title": "Mages Guild Forms",
+     "summary": "Generate complex JSON Mages Guild forms",
+     "command": "python tools/gen-mages-forms.py --overnight"},
     {"id": "bros-attacks", "title": "Bros Attacks",
      "summary": "Evidence-gated battle recordings",
      "command": "Reputation-Matrix2/tools/genkit/systems/bros_attacks.py"},
@@ -399,7 +405,8 @@ def _handler_factory(state: RunState, defaults: Settings | None = None):
                 # Default: the dashboard page.
                 self._send(200, render_web_page(defaults).encode("utf-8"), "text/html; charset=utf-8")
             except Exception as exc:  # noqa: BLE001 - surface, never swallow
-                self._trace(exc)
+                if type(exc).__name__ not in ('ConnectionAbortedError', 'BrokenPipeError', 'ConnectionResetError'):
+                    self._trace(exc)
                 try:
                     self._send_json({"error": f"{type(exc).__name__}: {exc}"}, 500)
                 except Exception:

@@ -314,8 +314,15 @@ $('overnight-go').onclick=async()=>{
   poll();
 };
 $('overnight-stop').onclick=async()=>{await fetch('/overnight/stop',{method:'POST'});poll();};
-if(currentTab==='generate') poll();
-setInterval(()=>{ if(document.getElementById('tab-generate').classList.contains('active')) poll(); },1500);
+let isPolling=false;
+async function doPoll() {
+  if(isPolling || !document.getElementById('tab-generate').classList.contains('active')) return setTimeout(doPoll, 1500);
+  isPolling=true;
+  await poll();
+  isPolling=false;
+  setTimeout(doPoll, 1500);
+}
+doPoll();
 
 // ================= EDITOR ENGINE =================
 function inferType(v){
