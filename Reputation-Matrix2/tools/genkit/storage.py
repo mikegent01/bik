@@ -151,6 +151,16 @@ class Checkpoint:
 
     One file per system so two systems never contend for the same write, and
     a lock because the worker pool means several threads finish at once.
+
+    Attempt tracking
+    ----------------
+    When a task fails validation it is requeued with an incremented
+    ``task.attempts`` counter. If the process is interrupted and restarted that
+    counter resets to zero, giving the task a fresh budget and potentially
+    letting it spin forever against a model that genuinely cannot satisfy the
+    validator.  ``note_attempt`` persists the high-water mark so ``runner.py``
+    can call ``attempt_count`` at queue time and restore the counter across
+    process boundaries.
     """
 
     def __init__(self, work_dir: Path, system_id: str) -> None:
@@ -161,7 +171,15 @@ class Checkpoint:
             "startedAt": datetime.now(timezone.utc).isoformat(),
             "completed": [],
             "failed": [],
+            "attempts": {},
         }
+        # Older checkpoint files predate the attempts dict — add it silently.
+        if "attempts" not in self._data:
+            self._data["attempts"] = {}
+
+    # ------------------------------------------------------------------
+    # Completed / failed sets
+    # ------------------------------------------------------------------
 
     @property
     def completed_keys(self) -> set[str]:
@@ -175,6 +193,36 @@ class Checkpoint:
         """Tasks quarantined after exhausting validation/retry attempts."""
         return {entry.get("key", "") for entry in self._data.get("failed", [])}
 
+    # ------------------------------------------------------------------
+    # Attempt tracking (new — needed by runner.py)
+    # ------------------------------------------------------------------
+
+    def attempt_count(self, key: str) -> int:
+        """Return the persisted attempt count for *key*, or 0 if unknown.
+
+        Called by the runner at queue time so a restarted process picks up
+        where the previous one left off instead of giving every task a fresh
+        retry budget.
+        """
+        return int(self._data.get("attempts", {}).get(key, 0))
+
+    def note_attempt(self, key: str, count: int, last_error: str = "") -> None:
+        """Persist the current attempt count (and optional error) for *key*.
+
+        Called by the runner every time a task is requeued after a validation
+        failure so the high-water mark survives a process restart.
+        """
+        with self._lock:
+            self._data.setdefault("attempts", {})[key] = count
+            if last_error:
+                self._data.setdefault("attempt_errors", {})[key] = last_error
+            self._data["updatedAt"] = datetime.now(timezone.utc).isoformat()
+            atomic_write_json(self.path, self._data)
+
+    # ------------------------------------------------------------------
+    # Reopen / record
+    # ------------------------------------------------------------------
+
     def reopen(self, key: str, *, reason: str = "source still reports pending") -> int:
         """Remove stale completion entries for a task the source still offers.
 
@@ -182,7 +230,7 @@ class Checkpoint:
         run in older versions recorded a completion without changing data, so
         every real run afterwards skipped the same task forever. A restored or
         manually repaired data file creates the same mismatch. If a system's
-        `next_tasks()` offers the key again, its checkpoint is stale by
+        ``next_tasks()`` offers the key again, its checkpoint is stale by
         definition and must not be allowed to veto the work.
         """
         with self._lock:
@@ -211,6 +259,10 @@ class Checkpoint:
                     **detail,
                 }
             )
+            # Once a task is finished (pass or fail) its in-progress attempt
+            # counter is no longer needed. Remove it to keep the file tidy.
+            self._data.get("attempts", {}).pop(key, None)
+            self._data.get("attempt_errors", {}).pop(key, None)
             self._data["updatedAt"] = datetime.now(timezone.utc).isoformat()
             atomic_write_json(self.path, self._data)
 
