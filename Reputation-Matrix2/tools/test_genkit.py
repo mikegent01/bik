@@ -22,7 +22,7 @@ from genkit.settings import Settings  # noqa: E402
 from genkit.gui import render_web_page  # noqa: E402
 from genkit.storage import Checkpoint  # noqa: E402
 from genkit.systems import (  # noqa: E402
-    abilities, bros_attacks, crafting, faction_dossier_sections, faction_dossiers,
+    abilities, bros_attacks, crafting, desk, faction_dossier_sections, faction_dossiers,
     factions, reputation, shop_items, wahwire,
 )
 
@@ -61,6 +61,7 @@ for _mod, _attrs in (
     (shop_items, ("SHARD",)),
     (crafting, ("CRAFTING",)),
     (bros_attacks, ("SOURCE",)),
+    (desk, ("INJURIES", "LOCATIONS", "EVENTS", "BATTLES", "NATIONS")),
     ):
     for _attr in _attrs:
         _sandbox(_mod, _attr)
@@ -548,6 +549,8 @@ check("GUI preserves limit, temperature, workers and dry-run defaults",
       and 'id="temperature" type="number" step="0.05" min="0" max="2" value="0.45"' in gui_page
       and 'id="dry" style="width:auto" checked' in gui_page)
 check("GUI labels pending counts as live data", "pending (live)" in gui_page)
+check("GUI mix list does not lock Injury/Locations/Events/Battles as tools",
+      "(tool)" not in gui_page)
 inventory_doc = (Path(__file__).resolve().parent / "GENERATOR_INVENTORY.md").read_text()
 check("inventory documentation contains no static pending snapshot",
       "Counted from the data files" not in inventory_doc
@@ -1064,6 +1067,8 @@ check("normal all-systems runs include faction dossiers",
 check("quality-gated generators participate in normal runs",
       {"shop_items", "wahwire-author", "wahwire-discuss", "bros_attacks"}
       <= enabled_ids)
+check("Injury Table, Locations, Events and Battles are live popcorn systems",
+      {"injury-table", "locations", "events", "battles"} <= enabled_ids)
 
 # --- shop items: a duplicate name goes BACK TO THE MODEL, it is not renamed
 # in code. Appending "Mark II" in the repair hook is what shipped 412 suffixed
@@ -1488,6 +1493,119 @@ for _a, _b in [
 ]:
     check(f"keeps distinct reply: {_a[:40]!r}", not wahwire._too_similar(_a, [_b]))
 
+
+# ------------------------------------------------------- desk systems
+section("desk · injury table, locations, events, battles")
+
+_pad = (
+    "Waluigi files the cracked lintel, the named hinge, and the smell of wet iron. "
+    "The archive already had a rumour; this card keeps the rumour in its place "
+    "and writes only what the stones still show. "
+)
+while len(_pad) < 260:
+    _pad += "The stones still show it. "
+
+inj_task = Task(system_id="injury-table", key="injury:001", label="d100 1",
+                payload={"d100": 1, "category": "Death",
+                         "current": {"injuryType": "Crashed skull / Decapitation",
+                                     "description": "Death.",
+                                     "cure": "Resurrection/Reincarnate",
+                                     "duration": "Forever", "notes": "",
+                                     "category": "Death"}})
+inj = desk.injuries_validate(inj_task, {
+    "injuryType": "Split crown", "category": "Death",
+    "description": "The skull does not hold. Death follows immediately.",
+    "cure": "Resurrection/Reincarnate", "duration": "Forever", "notes": "",
+})
+check("an injury rewrite keeps the d100 slot and temporary flag",
+      inj["d100"] == 1 and inj["temporary"] is True)
+try:
+    desk.injuries_validate(inj_task, {**inj, "injuryType": "mike's headache"})
+    check("injury prose cannot name the GM", False, "it passed")
+except ValidationError:
+    check("injury prose cannot name the GM", True)
+
+loc_task = Task(system_id="locations", key="location:gen:1", label="loc",
+                payload={"slot": 1})
+loc_raw = {
+    "id": "test_mirror_quay", "name": "The Mirror Quay",
+    "type": "Location/Waterfront", "region": "Equestria (coastal fringe)",
+    "status": "whatever", "summary": "A quay that only reflects on the third tide.",
+    "description": _pad,
+    "notableFeatures": ["third-tide glass", "unlabelled bollards", "a dry bell"],
+    "relatedArticles": ["equestria"],
+    "population": "seasonal", "climate": "salt fog", "controllingFaction": "Unrecorded",
+}
+loc = desk.locations_validate(loc_task, loc_raw)
+check("a location card is stamped for review, not as canon",
+      loc["status"] == "Generated — review" and loc["id"] == "test_mirror_quay")
+try:
+    desk.locations_validate(loc_task, {**loc_raw, "id": "Not Snake"})
+    check("location ids must be snake_case", False, "it passed")
+except ValidationError:
+    check("location ids must be snake_case", True)
+fixed_loc = desk.locations_repair(loc_task, {**loc_raw, "id": "mount_ebott"},
+                                  "duplicate id 'mount_ebott'")
+check("a colliding location id is disambiguated rather than dropped",
+      fixed_loc is not None and fixed_loc["id"] != "mount_ebott",
+      str(fixed_loc and fixed_loc["id"]))
+
+evt_task = Task(system_id="events", key="event:gen:1", label="evt", payload={"slot": 1})
+evt_raw = {
+    "id": "test_glass_harvest", "name": "The Glass Harvest",
+    "title": "The Glass Harvest of 912 BF", "type": "harvest dispute",
+    "date": "Harvestide 12, 912 BF", "era": "Foreign past",
+    "location": "Crystal range, Equestria",
+    "summary": "A harvest of glass hay that cut the hands that bundled it.",
+    "description": _pad,
+    "notableFeatures": ["glass hay", "cut palms", "unpaid levy"],
+    "relatedArticles": ["equestria"],
+}
+evt = desk.events_validate(evt_task, evt_raw)
+check("a past event in a foreign nation validates", evt["id"] == "test_glass_harvest")
+try:
+    desk.events_validate(evt_task, {**evt_raw, "date": "Aethel 5, 1040 BF"})
+    check("present-day events are rejected as past-event work", False, "it passed")
+except ValidationError:
+    check("present-day events are rejected as past-event work", True)
+try:
+    desk.events_validate(evt_task, {**evt_raw, "location": "Toad Town, Mushroom Kingdom"})
+    check("Mushroom Kingdom locations are rejected for new events", False, "it passed")
+except ValidationError:
+    check("Mushroom Kingdom locations are rejected for new events", True)
+
+bat_task = Task(system_id="battles", key="battle:gen:1", label="bat", payload={"slot": 1})
+bat_raw = {
+    "id": "test_ford_at_dusk", "name": "The Ford at Dusk",
+    "date": "Chillwind 4, 888 BF", "location": "Rohan west ford",
+    "type": "skirmish", "result": "Defenders held the ford until night.",
+    "belligerents": {
+        "attackers": {"name": "Raiders", "factionId": "unrecorded", "commander": "Unrecorded"},
+        "defenders": {"name": "Ford watch", "factionId": "rohan", "commander": "Unrecorded"},
+    },
+    "casualties": {"attackers": "three horses, one banner", "defenders": "the night watch's sleep"},
+    "summary": "A dusk raid that never crossed the water.",
+    "description": _pad,
+    "aftermath": "The ford was still a ford in the morning.",
+    "relatedArticles": ["rohan"],
+}
+bat = desk.battles_validate(bat_task, bat_raw)
+check("a past battle names both sides",
+      bat["belligerents"]["attackers"]["name"] == "Raiders"
+      and bat["status"] == "Generated — review")
+fixed_date = desk.battles_repair(bat_task, {**bat_raw, "date": "sometime"},
+                                 "date must be a past year 722-1039 BF")
+check("a battledate without a year is repaired to a legal past date",
+      fixed_date is not None and "BF" in str(fixed_date.get("date")),
+      str(fixed_date and fixed_date.get("date")))
+
+check("injury pending is the unstamped d100 rows, not a locked zero",
+      desk.injuries_pending() == 100)
+check("location pending is the archive floor minus live cards",
+      desk.locations_pending() == max(0, desk.LOCATION_FLOOR - len(desk._load_list(desk.LOCATIONS))))
+check("event and battle pending follow the same floor rule",
+      desk.events_pending() == max(0, desk.EVENT_FLOOR - len(desk._load_list(desk.EVENTS)))
+      and desk.battles_pending() == max(0, desk.BATTLE_FLOOR - len(desk._load_list(desk.BATTLES))))
 
 print(f"\n{PASS} passed, {FAIL} failed")
 sys.exit(1 if FAIL else 0)

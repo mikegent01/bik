@@ -635,65 +635,6 @@ def is_bad_output(text: str) -> tuple[bool, str]:
         return True, "no paragraph breaks + no cites"
     return False, ""
 
-    words = re.findall(r"[a-zA-Z']+", text.lower())
-    if len(words) < 50:
-        return False, ""
-    total = len(words)
-    uniq = len(set(words))
-    # Very low lexical diversity — but legal prose is naturally repetitive, so be lenient
-    # Only flag if extremely low and long
-    if total > 800 and uniq / total < 0.14:
-        return True, f"low diversity {uniq}/{total}={uniq/total:.2f}"
-    if total > 300 and uniq / total < 0.10:
-        return True, f"very low diversity {uniq}/{total}={uniq/total:.2f}"
-    # Any single *non-stopword* repeated excessively
-    STOP = {"the","and","of","a","to","in","is","for","with","as","by","on","or","be","are","that","this","it","from","an","shall","may","must","under","per","see","not","any","all","such","which","who","will","can","has","have","been","are","was","were","if","at","its","their","our","your"}
-    cnt = collections.Counter(w for w in words if w not in STOP)
-    if cnt:
-        most_common_word, most_cnt = cnt.most_common(1)[0]
-        # e.g. "restocking" 1470x, "acid" 301x, "quesadillas" loops
-        if most_cnt > 40 and most_cnt > total * 0.08:
-            return True, f"word '{most_common_word}' repeats {most_cnt}/{total}"
-        if most_cnt > 100:
-            return True, f"word '{most_common_word}' repeats {most_cnt}/{total} (extreme)"
-    # Repeated 4-gram — strong signal for loops
-    fourgrams = [" ".join(words[i:i+4]) for i in range(len(words)-3)]
-    if fourgrams:
-        fg_cnt = collections.Counter(fourgrams)
-        top_fg, top_n = fg_cnt.most_common(1)[0]
-        # ignore common legal 4-grams like "in accordance with the"
-        COMMON_LEGAL = {"in accordance with the","pursuant to section","under section","of the autumnwood accords"}
-        if top_fg not in COMMON_LEGAL and top_n >= 7:
-            return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x"
-        if top_n >= 12:
-            return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x (extreme)"
-    # Buzzword salad — the exact failure mode the user showed
-    buzz = ["integrity","honesty","transparency","accountability","reliability","consistency","thoroughness","precision","accuracy","timeliness","punctuality","efficiency","effectiveness","productivity","quality","craftsmanship","artistry","beauty","elegance","grace","sophistication","refinement","excellence","perfection","mastery","expertise","serendipity","wonder","mystery","awe","reverence","wonderment","amazement","delight","surprise","excitement","thrill","adventure","exploration","discovery","learning","growth","transformation","change","evolution","progress","improvement","advancement","development","expansion","extension","inclusion","diversity","acceptance","tolerance","openness","curiosity","enthusiasm","optimism","confidence","belief","hope","faith","trust"]
-    buzz_hits = sum(1 for w in words if w in buzz)
-    if buzz_hits > total * 0.30 and total > 500:
-        return True, f"buzzword salad {buzz_hits}/{total} buzzwords"
-    # Excessive length without paragraph breaks — degraded
-    if total > 1200:
-        return True, f"excessive length {total} words (expected 350-700)"
-    if text.count(".") < total / 150 and total > 500:
-        return True, "no punctuation"
-    # Codex-specific: spam has 0 § cites AND no legal structure — be precise, don't flag short legit intros
-    has_cites = bool(extract_cites(text))
-    low_text=text.lower()
-    LEGAL_KW = {"shall","may","must","pursuant","accords","guild","desk","caster","permit","section","accord","see §"}
-    has_legal = any(kw in low_text for kw in LEGAL_KW)
-    # 0 cites + long + no legal keywords = word salad (your example)
-    if total > 250 and not has_cites and not has_legal:
-        return True, "no § cites and no legal keywords (expected 2-4 cites + shall/may/Accords)"
-    # Long single run-on sentence
-    import re as _re2
-    sentences=[s for s in _re2.split(r'[.!?]+', text) if s.strip()]
-    if sentences and total>200 and total/len(sentences) > 85:
-        return True, f"run-on avg {total/len(sentences):.0f} words/sentence"
-    # Single paragraph with no breaks but long AND no cites — degraded
-    if text.count("\n\n") == 0 and total > 500 and not has_cites:
-        return True, "no paragraph breaks + no cites"
-    return False, ""
 
 def parse_obj(raw: str) -> dict | None:
     pages = parse_pages(raw)

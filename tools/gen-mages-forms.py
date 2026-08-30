@@ -191,7 +191,7 @@ def chat_json(base: str, model: str, prompt: str, timeout: int, retries=3) -> di
                 try: body=e.read().decode()[:300]
                 except: pass
                 # 400 with json_object is the known incompatibility for qwen3.5-9b-roleplay-merged-i1
-                if e.code==400 and use_json_mode and "response_format" in body.lower() or "response_format" in str(e).lower() or e.code==400 and use_json_mode:
+                if e.code == 400 and use_json_mode and ("response_format" in body.lower() or "response_format" in str(e).lower()):
                     # retry without json mode, don't count as attempt failure
                     last_err=f"HTTP 400 with json_object (model doesn't support it), retrying without: {body[:120]}"
                     continue

@@ -23,6 +23,13 @@ cards and records can be changed and saved without leaving the page.
 
 from __future__ import annotations
 
+# Allow `python gui.py` as well as `python -m genkit.gui` / generate_all.py --web.
+if __name__ == "__main__" and not __package__:
+    import sys as _sys
+    from pathlib import Path as _Path
+    _sys.path.insert(0, str(_Path(__file__).resolve().parent.parent))
+    __package__ = "genkit"
+
 import json
 import os
 import subprocess
@@ -63,17 +70,17 @@ _CHECK_CMDS = {
 
 AUXILIARY_GENERATORS = [
     {"id": "injury-table", "title": "Injury Table",
-     "summary": "Editable d100 desk — also edit live in the Injury Table tab",
-     "command": "tools/generate-injury-table.py"},
-    {"id": "new-events", "title": "New Events",
-     "summary": "Generate source-aware foreign past events — or edit them in the Events tab",
-     "command": "tools/expand-waluipedia.py --past-events"},
-    {"id": "new-battles", "title": "New Battles",
-     "summary": "Generate source-aware foreign past battles — or edit them in the Battles tab",
-     "command": "tools/expand-waluipedia.py --past-events"},
+     "summary": "Popcorn system `injury-table` — mix % in Generate, or hand-edit in the Injury Table tab",
+     "command": "python generate_all.py --only injury-table"},
+    {"id": "new-events", "title": "Events",
+     "summary": "Popcorn system `events` — mix % in Generate, or hand-edit in the Events tab",
+     "command": "python generate_all.py --only events"},
+    {"id": "new-battles", "title": "Battles",
+     "summary": "Popcorn system `battles` — mix % in Generate, or hand-edit in the Battles tab",
+     "command": "python generate_all.py --only battles"},
     {"id": "new-locations", "title": "Locations",
-     "summary": "Generate richer validated location cards — or edit them in the Locations tab",
-     "command": "Reputation-Matrix2/tools/generate_locations.py"},
+     "summary": "Popcorn system `locations` — mix % in Generate, or hand-edit in the Locations tab",
+     "command": "python generate_all.py --only locations"},
     {"id": "abilities", "title": "Training Wing Abilities",
      "summary": "Generate and validate ability-deficit records",
      "command": "Reputation-Matrix2/tools/genkit/systems/abilities.py"},
@@ -95,22 +102,6 @@ AUXILIARY_GENERATORS = [
 ]
 
 
-def _count_dataset(name: str) -> int:
-    """Live record count for the snapshot cards (never raises)."""
-    path = DATASETS.get(name)
-    if not path:
-        return 0
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return 0
-    if isinstance(data, list):
-        return len(data)
-    if isinstance(data, dict) and isinstance(data.get("entries"), list):
-        return len(data["entries"])
-    return 0
-
-
 class RunState:
     """Shared, thread-safe state both GUI backends render."""
 
@@ -124,6 +115,11 @@ class RunState:
         self.runner: Runner | None = None
         self.thread: threading.Thread | None = None
         self.per_system: dict[str, dict[str, int]] = {}
+        # Unattended / overnight mode: a supervisor loop that repeats popcorn
+        # cycles and recovers from an unavailable LM Studio.
+        self.overnight = False
+        self.overnight_thread: threading.Thread | None = None
+        self.overnight_stop: str | None = None  # why the loop ended
 
     def note(self, event: RunnerEvent) -> None:
         with self.lock:
@@ -152,27 +148,12 @@ class RunState:
                 "produced": self.produced,
                 "failed": self.failed,
                 "retried": self.retried,
+                "overnight": self.overnight,
+                "overnightStop": self.overnight_stop,
                 "log": list(self.log)[-120:],
                 "perSystem": dict(self.per_system),
                 "generators": AUXILIARY_GENERATORS,
                 "systems": [
-                    {"id": "injury-table", "title": "Injury Table · editable d100",
-                     "stage": "tool", "enabled": False,
-                     "pending": _count_dataset("injuries"),
-                     "summary": "Edit the 100-row d100 table in the Injury Table tab, then Save"},
-                    {"id": "locations-new", "title": "Locations · editable cards",
-                     "stage": "tool", "enabled": False,
-                     "pending": _count_dataset("locations"),
-                     "summary": "Edit location cards in the Locations tab"},
-                    {"id": "events-new", "title": "Events · editable records",
-                     "stage": "tool", "enabled": False,
-                     "pending": _count_dataset("events"),
-                     "summary": "Edit event records in the Events tab"},
-                    {"id": "battles-new", "title": "Battles · editable records",
-                     "stage": "tool", "enabled": False,
-                     "pending": _count_dataset("battles"),
-                     "summary": "Edit battle records in the Battles tab"},
-                ] + [
                     {
                         "id": s.id,
                         "title": s.title,
@@ -205,6 +186,96 @@ class RunState:
             self.runner.stop()
         with self.lock:
             self.running = False
+        return "stopping"
+
+    # -- overnight supervisor -------------------------------------------------
+
+    def start_overnight(self, settings: Settings, max_hours: float,
+                        stop_at: str, restart_limit: int, cycle_limit: int) -> str:
+        import datetime
+        import time
+
+        with self.lock:
+            if self.overnight:
+                return "already running"
+            self.overnight = True
+            self.overnight_stop = None
+
+        def loop() -> None:
+            import time as _time
+
+            # Sleep in small chunks so a Stop request is honoured promptly
+            # even while the supervisor is backing off during an LM Studio outage.
+            def sleep_chunked(seconds: float) -> None:
+                step = 1.0
+                elapsed = 0.0
+                while elapsed < seconds and self.overnight:
+                    _time.sleep(min(step, seconds - elapsed))
+                    elapsed += step
+
+            start = _time.time()
+            stop_dt = None
+            if stop_at:
+                try:
+                    hh, mm = (int(x) for x in stop_at.split(":"))
+                    now = datetime.datetime.now()
+                    cand = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
+                    if cand <= now:
+                        cand += datetime.timedelta(days=1)
+                    stop_dt = cand
+                except Exception:
+                    stop_dt = None
+            cycle = 0
+            no_progress = 0
+            while True:
+                if not self.overnight:
+                    self.overnight_stop = "manual"
+                    break
+                if stop_dt and datetime.datetime.now() >= stop_dt:
+                    self.overnight_stop = "stop-at"
+                    break
+                if max_hours and (_time.time() - start) >= max_hours * 3600:
+                    self.overnight_stop = "max-hours"
+                    break
+                cycle += 1
+                cyc = Settings(
+                    endpoint=settings.endpoint, model=settings.model,
+                    workers=settings.workers, timeout=settings.timeout,
+                    temperature=settings.temperature, limit=cycle_limit or 0,
+                    only=settings.only, skip=settings.skip, weights=settings.weights,
+                    dry_run=settings.dry_run, retry_failed=settings.retry_failed,
+                    seed=settings.seed, pace=settings.pace,
+                )
+                prev = self.produced
+                self.note(RunnerEvent("started", f"overnight cycle {cycle}"))
+                try:
+                    Runner(all_systems(), cyc, on_event=self.note).run()
+                except Exception as exc:  # LM Studio down / unexpected
+                    self.note(RunnerEvent("error",
+                                         f"overnight cycle {cycle} error: {exc}"))
+                    sleep_chunked(min(30 + cycle * 30, 600))
+                    continue
+                produced = self.produced - prev
+                if produced == 0:
+                    no_progress += 1
+                    sleep_chunked(min(60 * no_progress, 900))
+                else:
+                    no_progress = 0
+                    sleep_chunked(60)
+            with self.lock:
+                self.overnight = False
+            self.note(RunnerEvent("done",
+                                  f"overnight finished ({self.overnight_stop})"))
+
+        self.overnight_thread = threading.Thread(target=loop, daemon=True)
+        self.overnight_thread.start()
+        return "started"
+
+    def stop_overnight(self) -> str:
+        with self.lock:
+            if not self.overnight:
+                return "not running"
+            self.overnight = False
         return "stopping"
 
 
@@ -341,6 +412,38 @@ def _handler_factory(state: RunState, defaults: Settings | None = None):
 
             if route == "/stop":
                 self._send(200, state.stop().encode(), "text/plain")
+                return
+
+            if route == "/overnight/stop":
+                self._send(200, state.stop_overnight().encode(), "text/plain")
+                return
+
+            if route == "/overnight/start":
+                try:
+                    body = json.loads(raw or b"{}")
+                except json.JSONDecodeError:
+                    body = {}
+                base = defaults or Settings()
+                settings = Settings(
+                    endpoint=body.get("endpoint") or base.endpoint,
+                    model=body.get("model") or base.model or "",
+                    workers=int(body.get("workers") or base.workers or 2),
+                    limit=int(body.get("limit") or 0),
+                    temperature=float(body.get("temperature") or base.temperature or 0.7),
+                    dry_run=bool(body.get("dry_run")),
+                    timeout=base.timeout,
+                    only=[s.strip() for s in (body.get("only") or "").split(",") if s.strip()],
+                    weights={str(k): max(0.0, float(v))
+                             for k, v in (body.get("weights") or {}).items()},
+                )
+                msg = state.start_overnight(
+                    settings,
+                    max_hours=float(body.get("maxHours") or 8.0),
+                    stop_at=str(body.get("stopAt") or ""),
+                    restart_limit=int(body.get("restartLimit") or 50),
+                    cycle_limit=int(body.get("cycleLimit") or 0),
+                )
+                self._send(200, msg.encode(), "text/plain")
                 return
 
             if route == "/start":
@@ -539,3 +642,7 @@ def launch(prefer_web: bool = False, defaults: Settings | None = None, **kwargs)
             launch_tk(defaults)
             return
     launch_web(defaults=defaults, **kwargs)
+
+
+if __name__ == "__main__":
+    launch(prefer_web=True)

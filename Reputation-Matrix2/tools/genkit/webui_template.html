@@ -140,7 +140,21 @@
           <button id="go" class="btn">Start</button>
           <button id="halt" class="ghost" disabled>Stop</button>
         </div>
-        <p class="hint">The four desk tools below are <b>now editable</b> — open the Injury Table, Locations, Events or Battles tab to change the numbers and records, then Save writes them back to the data files.</p>
+        <p class="hint">Injury Table, Locations, Events and Battles are real generate-all systems — set their mix % (0 skips) and press Start. Open their tabs to hand-edit records; Save writes the data files.</p>
+        <div class="meta-card" style="margin-top:14px">
+          <b>Overnight run</b>
+          <label>Stop after (hours)</label>
+          <input id="overnight-hours" type="number" min="0.5" step="0.5" value="8">
+          <label>Or stop at time (HH:MM)</label>
+          <input id="overnight-stopat" placeholder="07:30">
+          <label>Workers</label>
+          <input id="overnight-workers" type="number" min="1" max="8" value="2">
+          <div class="row" style="margin-top:8px">
+            <button id="overnight-go" class="btn tiny">Start overnight</button>
+            <button id="overnight-stop" class="ghost tiny" disabled>Stop</button>
+          </div>
+          <p class="hint" id="overnight-status">Runs the full cycle on a loop until the time limit, auto-recovering if LM Studio is down. Safe to leave running.</p>
+        </div>
       </div>
       <div class="main">
         <div class="stats">
@@ -262,9 +276,13 @@ async function poll(){
     $('retried').innerHTML=(s.retried||0)+'<span>retried</span>';
     $('state').innerHTML=(s.running?'running':'idle')+'<span>state</span>';
     $('go').disabled=s.running; $('halt').disabled=!s.running;
+    $('overnight-stop').disabled=!s.overnight;
+    if(s.overnight){ $('overnight-status').textContent='Overnight running — '+(s.overnightStop||'looping cycles'); }
+    else if(s.overnightStop){ $('overnight-status').textContent='Overnight stopped: '+(s.overnightStop||'done'); }
+    else { $('overnight-status').textContent='Runs the full cycle on a loop until the time limit, auto-recovering if LM Studio is down. Safe to leave running.'; }
     if(!genReady){
       $('mix').innerHTML=s.systems.map(x=>
-        `<div class="mixrow"><span>${esc(x.title)}${x.enabled?'':' <small style="color:var(--muted)">(tool)</small>'}</span><input data-weight="${x.id}" type="number" min="0" max="100" step="1" value="${x.enabled?'100':'0'}" ${x.enabled?'':'disabled'}></div>`).join('');
+        `<div class="mixrow"><span>${esc(x.title)}</span><input data-weight="${x.id}" type="number" min="0" max="100" step="1" value="${x.enabled?'100':'0'}"></div>`).join('');
       genReady='1';
     }
     $('generatorCards').innerHTML=(s.generators||[]).map(g=>`<div class="card"><b>${esc(g.title)}</b><small>${esc(g.summary)}</small><small class="task">${esc(g.command)}</small></div>`).join('');
@@ -287,6 +305,15 @@ $('go').onclick=async()=>{
   poll();
 };
 $('halt').onclick=async()=>{await fetch('/stop',{method:'POST'});poll();};
+$('overnight-go').onclick=async()=>{
+  await fetch('/overnight/start',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({endpoint:$('endpoint').value,model:$('model').value,
+      workers:+$('overnight-workers').value,limit:+$('limit').value,
+      temperature:+$('temperature').value,dry_run:$('dry').checked,only:$('only').value,
+      maxHours:+$('overnight-hours').value,stopAt:$('overnight-stopat').value})});
+  poll();
+};
+$('overnight-stop').onclick=async()=>{await fetch('/overnight/stop',{method:'POST'});poll();};
 if(currentTab==='generate') poll();
 setInterval(()=>{ if(document.getElementById('tab-generate').classList.contains('active')) poll(); },1500);
 

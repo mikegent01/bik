@@ -517,18 +517,18 @@ function renderFormsRegistry(){
     <div style="font-size:11px;color:#5d4a35;margin-top:8px">Forms are validated JSON (no invalid saves) and indexed in main search — try <code>Form 400-A</code> in Waluipedia search.</div>
   </div>`;
 }
+// Linkify Form references. Normalises "MG-400A", "Form 400A" and the
+// hyphenated "Form 400-A" (the registry id is MG-400A with no hyphen) to the
+// same link target so none of the three phrasings is left as dead text.
 function linkForms(escaped){
-  return escaped.replace(/\b(?:Form\s+)?MG-([0-9]+[A-Z])\b/g, (_, code)=>{
-    const fid='MG-'+code;
+  return escaped.replace(/\b(?:Form\s+)?MG-?(\d+)-?([A-Z])\b/g, (_, digits, letter)=>{
+    const fid='MG-'+digits+letter;
     const known=FORMS_MAP.hasOwnProperty(fid);
     const cls=known?'form-ref':'form-ref unresolved';
     const tip=known?` title="${esc(FORMS_MAP[fid].title)} — click to open form"`:' title="Form not yet filed"';
-    return `<a class="${cls}" href="#form-${fid}" data-form="${fid}" onclick="openFormModal('${fid}');return false;"${tip}>Form ${code}</a>`;
-  }).replace(/\bForm\s+([0-9]+-[A-Z])\b/g, (_, code)=>{
-    const fid='MG-'+code;
-    const known=FORMS_MAP.hasOwnProperty(fid);
-    if(!known) return `Form ${code}`;
-    return `<a class="form-ref" href="#form-${fid}" data-form="${fid}" onclick="openFormModal('${fid}');return false;" title="${esc(FORMS_MAP[fid].title)} — click to open form">Form ${code}</a>`;
+    // Keep the author's original phrasing on screen, but always point at MG-<digits><letter>.
+    const label = known ? `Form ${digits}-${letter}` : `Form ${digits}${letter}`;
+    return `<a class="${cls}" href="#form-${fid}" data-form="${fid}" onclick="openFormModal('${fid}');return false;"${tip}>${label}</a>`;
   });
 }
 // cite -> {title, brief, part} — filled in render() before linkCites is used
@@ -550,19 +550,58 @@ function linkCites(raw) {
   html = linkForms(html);
   return html;
 }
+function renderFormField(fd, idx){
+  const req = fd.required ? ' <span style="color:#b91c1c">*</span>' : '';
+  const id = 'ff-'+idx;
+  const v = (fd.value !== undefined && fd.value !== null) ? String(fd.value) : '';
+  let control = '';
+  const ctl = 'style="width:100%;padding:6px 8px;border:1px solid #c4ad84;border-radius:6px;font:13px system-ui"';
+  if (fd.type === 'textarea') {
+    control = `<textarea id="${id}" data-fname="${esc(fd.name)}" rows="3" ${ctl}>${esc(v)}</textarea>`;
+  } else if (fd.type === 'select') {
+    const opts = (fd.options || []).map(o => `<option ${o === v ? 'selected' : ''}>${esc(o)}</option>`).join('');
+    control = `<select id="${id}" data-fname="${esc(fd.name)}" ${ctl}>${opts}</select>`;
+  } else if (fd.type === 'checkbox') {
+    control = `<input id="${id}" type="checkbox" data-fname="${esc(fd.name)}" ${fd.value ? 'checked' : ''} style="width:18px;height:18px">`;
+  } else if (fd.type === 'number') {
+    control = `<input id="${id}" type="number" data-fname="${esc(fd.name)}" value="${esc(v)}" ${ctl}>`;
+  } else if (fd.type === 'date') {
+    control = `<input id="${id}" type="date" data-fname="${esc(fd.name)}" value="${esc(v)}" style="padding:6px 8px;border:1px solid #c4ad84;border-radius:6px">`;
+  } else {
+    control = `<input id="${id}" type="text" data-fname="${esc(fd.name)}" value="${esc(v)}" ${ctl}>`;
+  }
+  const optsHint = (fd.type === 'select' && fd.options)
+    ? `<div style="font-size:11px;color:#5d4a35;margin-top:3px">Options: ${esc(fd.options.join(' · '))}</div>` : '';
+  return `<div class="form-field"><label for="${id}"><b>${esc(fd.label)} ${req}</b></label> <span style="font-size:11px;color:#5d4a35">(${esc(fd.type)} · ${esc(fd.name)})</span>${control}${optsHint}</div>`;
+}
 function openFormModal(fid){
   const f=FORMS_MAP[fid];
   const box=document.getElementById('form-box');
   const modal=document.getElementById('form-modal');
   if(!f || !box || !modal) return;
-  const fields=(f.fields||[]).map(fd=>{
-    const req=fd.required?'<span style="color:#b91c1c">*</span>':'';
-    const opts=fd.type==='select' && fd.options ? `<div style="font-size:11px;color:#5d4a35">Options: ${esc(fd.options.join(' · '))}</div>` : '';
-    return `<div class="form-field"><b>${esc(fd.label)} ${req}</b> <span style="font-size:11px;color:#5d4a35">(${esc(fd.type)} · ${esc(fd.name)})</span>${opts}</div>`;
-  }).join('');
-  box.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:start;gap:12px"><h2>📋 ${esc(f.title)}</h2><button onclick="closeFormModal()" style="border:1px solid #c4ad84;border-radius:6px;padding:4px 8px;background:#ede5d0;cursor:pointer">✕</button></div><div class="form-meta">Form <b>${esc(f.id)}</b> · §${esc(f.cite)} · <span style="color:#065f46">${esc(f.status)}</span> · Fee: ${esc(f.fee||'—')} · Authority: ${esc(f.authority||'—')}</div><p style="font-size:13px;line-height:1.6">${esc(f.description||'')}</p><p style="font-size:12px;color:#5d4a35"><em>${esc(f.instructions||'')}</em></p><div style="margin-top:12px">${fields}</div><div style="margin-top:12px;display:flex;gap:8px"><a href="#s-${esc(f.cite)}" onclick="closeFormModal()" style="font-size:12px;color:#6d28d9">→ See §${esc(f.cite)} in Codex</a><button onclick="navigator.clipboard&&navigator.clipboard.writeText(JSON.stringify(FORMS_MAP['${fid}']?FORMS_MAP['${fid}']:f,null,2))" style="font-size:11px;padding:4px 8px;border:1px solid #c4ad84;border-radius:6px;background:#fff;cursor:pointer">Copy JSON</button></div>`;
+  const fields=(f.fields||[]).map((fd,i)=>renderFormField(fd,i)).join('');
+  box.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:start;gap:12px"><h2>📋 ${esc(f.title)}</h2><button onclick="closeFormModal()" style="border:1px solid #c4ad84;border-radius:6px;padding:4px 8px;background:#ede5d0;cursor:pointer">✕</button></div><div class="form-meta">Form <b>${esc(f.id)}</b> · §${esc(f.cite)} · <span style="color:#065f46">${esc(f.status)}</span> · Fee: ${esc(f.fee||'—')} · Authority: ${esc(f.authority||'—')}</div><p style="font-size:13px;line-height:1.6">${esc(f.description||'')}</p><p style="font-size:12px;color:#5d4a35"><em>${esc(f.instructions||'')}</em></p><div style="margin-top:12px">${fields||'<em>No fields defined for this form.</em>'}</div><div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><button onclick="copyFilledForm('${esc(fid)}')" style="font-size:12px;padding:6px 10px;border:1px solid #065f46;border-radius:6px;background:#fff;color:#065f46;cursor:pointer">📋 Copy filled form (JSON)</button><a href="#s-${esc(f.cite)}" onclick="closeFormModal()" style="font-size:12px;color:#6d28d9;padding:6px 4px">→ See §${esc(f.cite)} in Codex</a></div>`;
   modal.classList.add('open');
   if(location.hash!== '#form-'+fid) history.pushState(null,'','#form-'+fid);
+}
+// Read the controls the user filled in and copy a JSON copy of the form (with
+// a `value` on each field) to the clipboard — a real, fillable form instead of
+// a read-only label list.
+function copyFilledForm(fid){
+  const f=FORMS_MAP[fid]; if(!f) return;
+  const out=JSON.parse(JSON.stringify(f));
+  (f.fields||[]).forEach((fd,i)=>{
+    const el=document.getElementById('ff-'+i); if(!el) return;
+    let v;
+    if(fd.type==='checkbox') v=el.checked;
+    else if(fd.type==='number') v = el.value==='' ? (fd.value||'') : Number(el.value);
+    else v = el.value;
+    out.fields[i].value = v;
+  });
+  const txt=JSON.stringify(out,null,2);
+  if(navigator.clipboard) navigator.clipboard.writeText(txt).catch(()=>{});
+  const tip=document.getElementById('cite-tip');
+  if(tip){ tip.innerHTML=`<div class="tip-cite">Copied filled form ${esc(fid)}</div><div class="tip-brief">${esc((f.fields||[]).filter(x=>x.required).length)} required · ${esc(f.fields.length)} total fields</div>`; tip.classList.add('show'); setTimeout(()=>tip.classList.remove('show'),1600); }
 }
 function closeFormModal(){ const m=document.getElementById('form-modal'); if(m) m.classList.remove('open'); if(location.hash.startsWith('#form-')) history.replaceState(null,'',location.pathname+location.search); }
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeFormModal(); });

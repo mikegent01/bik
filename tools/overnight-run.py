@@ -128,7 +128,11 @@ def main() -> int:
         # A limited Codex target must not truncate the systems stage. Once the
         # Codex quota is reached, continue cycling systems until their own
         # quota is reached; with --skip-mages/--codex-limit 0 this is systems-only.
-        while args.infinite or (codex_done < codex_goal if codex_goal != 0 else False) or system_done < system_goal:
+        # When Mages' Guild generation is skipped (or --codex-limit 0), the
+        # Codex quota must not gate the loop — otherwise it spins forever
+        # generating systems and never reaches the audit stages.
+        codex_active = (not args.skip_mages) and (codex_goal != 0)
+        while args.infinite or (codex_active and codex_done < codex_goal) or system_done < system_goal:
             round_no += 1
             if not args.skip_mages and codex_goal != 0:
                 codex_cmd = [*mages]

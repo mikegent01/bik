@@ -28,6 +28,10 @@ runner reopens the stale checkpoint and the source wins.
 | `crafting` | `data/crafting.json` | the recipe has a validated school |
 | `reputation` | events, battles, major battles and trials | either operator `reputationChanges` or record-wide `effects` is non-empty |
 | `bros_attacks` | `data/brosAttacks.json` plus source-grounded candidate events | the target is reached or the source event is represented by an accepted technique |
+| `injury-table` | `data/injuries.json` | the d100 row carries a `_generated` stamp (still `temporary: true` until reviewed) |
+| `locations` | `data/locations.json` | live count reaches the location floor |
+| `events` | `data/events.json` | live count reaches the event floor |
+| `battles` | `data/battles.json` | live count reaches the battle floor |
 
 ## Important distinctions
 

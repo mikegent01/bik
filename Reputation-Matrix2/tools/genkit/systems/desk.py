@@ -1,0 +1,695 @@
+"""Injury Table, Locations, Events and Battles — first-class generate_all systems.
+
+These four used to sit in the dashboard as disabled \"(tool)\" rows with locked
+mix weights. They are now ordinary popcorn systems: set a mix percentage and
+Start (or `python generate_all.py --only locations`) actually generates.
+
+Pending work is live, derived from the data files:
+
+  * injury-table  — each of the 100 d100 rows still lacking `_generated`
+  * locations     — cards short of LOCATION_FLOOR
+  * events        — records short of EVENT_FLOOR
+  * battles       — records short of BATTLE_FLOOR
+
+Generated archive cards are stamped `Generated — review` so they never pretend
+to be hand-filed canon. Injury rewrites keep `temporary: true` and the d100
+slot so `tools/generate-injury-table.py --check` still passes until a human
+reviews the table.
+"""
+
+from __future__ import annotations
+
+import json
+import re
+import threading
+from typing import Any
+
+from .. import prompting
+from ..settings import ROOT
+from ..spec import SystemSpec, Task, TaskResult, ValidationError, provenance
+from ..storage import atomic_write_json, read_json
+
+INJURIES = ROOT / "data" / "injuries.json"
+LOCATIONS = ROOT / "data" / "locations.json"
+EVENTS = ROOT / "data" / "events.json"
+BATTLES = ROOT / "data" / "battles.json"
+NATIONS = ROOT / "data" / "nations.json"
+
+# Desired floors — not a committed job list. Pending is always
+# max(0, floor - live count), rebuilt from disk on every poll.
+LOCATION_FLOOR = 60
+EVENT_FLOOR = 120
+BATTLE_FLOOR = 75
+
+_SNAKE = re.compile(r"^[a-z][a-z0-9]*(?:_[a-z0-9]+)*$")
+_LOCK = threading.Lock()
+
+_FOREIGN_SKIP = {
+    "mushroom_kingdom", "midlands", "toad_town", "sarasaland",
+}
+
+_MONTHS = (
+    "Firstlight", "Chillwind", "Veridia", "Bloom", "Floria", "Efferd",
+    "Highsun", "Harvestide", "Aethel", "Darkmoon", "Frostfall", "Deepwinter",
+)
+
+
+def _snake(value: str) -> str:
+    text = re.sub(r"[^a-z0-9]+", "_", str(value or "").strip().lower()).strip("_")
+    text = re.sub(r"_+", "_", text)
+    return text
+
+
+def _clean(text: Any, *, lo: int, hi: int, field: str) -> str:
+    value = " ".join(str(text or "").split())
+    if not (lo <= len(value) <= hi):
+        raise ValidationError(f"{field} must be {lo}-{hi} characters (got {len(value)})")
+    if re.search(r"\bmike\b", value, re.I):
+        raise ValidationError(f"{field} names the GM; rewrite without 'mike'")
+    return value
+
+
+def _string_list(raw: Any, *, min_n: int, field: str) -> list[str]:
+    if not isinstance(raw, list):
+        raise ValidationError(f"{field} must be a list")
+    items = [" ".join(str(x).split()) for x in raw if str(x).strip()]
+    if len(items) < min_n:
+        raise ValidationError(f"{field} needs at least {min_n} entries")
+    return items[:8]
+
+
+def _unique_id(proposed: str, taken: set[str], *, fallback: str) -> str:
+    slug = _snake(proposed) or _snake(fallback) or "untitled_record"
+    if not _SNAKE.fullmatch(slug):
+        slug = _snake(fallback) or "untitled_record"
+    if slug not in taken:
+        return slug
+    for n in range(2, 80):
+        candidate = f"{slug}_{n}"
+        if candidate not in taken:
+            return candidate
+    raise ValidationError(f"could not uniquify id {slug!r}")
+
+
+def _load_list(path) -> list[dict[str, Any]]:
+    data = read_json(path, default=[])
+    return [row for row in data if isinstance(row, dict)] if isinstance(data, list) else []
+
+
+def _ids(rows: list[dict[str, Any]]) -> set[str]:
+    return {str(row.get("id") or "") for row in rows if row.get("id")}
+
+
+def _name_hint(rows: list[dict[str, Any]], *, key: str = "name", cap: int = 40) -> str:
+    names = sorted({str(row.get(key) or "").strip() for row in rows if row.get(key)})
+    return ", ".join(prompting.sample_evenly(names, cap))
+
+
+def _nation_hint() -> str:
+    rows = _load_list(NATIONS)
+    names = []
+    for row in rows:
+        nid = str(row.get("id") or "")
+        if nid and nid not in _FOREIGN_SKIP:
+            names.append(f"{nid} ({row.get('name') or nid})")
+    return ", ".join(prompting.sample_evenly(names, 18))
+
+
+def _disambiguate_id(raw: dict[str, Any], taken: set[str], why: str) -> dict[str, Any] | None:
+    if "duplicate id" not in why and "id must be snake_case" not in why:
+        return None
+    fixed = dict(raw)
+    slug = _unique_id(str(raw.get("id") or raw.get("name") or "record"), taken, fallback="record")
+    fixed["id"] = slug
+    return fixed
+
+
+# ---------------------------------------------------------------------------
+# injury-table — rewrite one temporary d100 row at a time
+# ---------------------------------------------------------------------------
+
+def _injury_store() -> dict[str, Any]:
+    data = read_json(INJURIES, default={})
+    return data if isinstance(data, dict) else {}
+
+
+def _injury_entries() -> list[dict[str, Any]]:
+    entries = _injury_store().get("entries")
+    return [row for row in entries if isinstance(row, dict)] if isinstance(entries, list) else []
+
+
+def _pending_injuries() -> list[dict[str, Any]]:
+    return [row for row in _injury_entries() if not isinstance(row.get("_generated"), dict)]
+
+
+def injuries_pending() -> int:
+    return len(_pending_injuries())
+
+
+def injuries_next_tasks(count: int) -> list[Task]:
+    tasks: list[Task] = []
+    for row in _pending_injuries():
+        if len(tasks) >= count:
+            break
+        try:
+            roll = int(row.get("d100"))
+        except (TypeError, ValueError):
+            continue
+        tasks.append(Task(
+            system_id="injury-table",
+            key=f"injury:{roll:03d}",
+            label=f"injury table · d100 {roll} · {row.get('injuryType') or 'row'}",
+            payload={"d100": roll, "category": row.get("category") or "", "current": {
+                k: row.get(k) for k in ("injuryType", "description", "cure", "duration", "notes", "category")
+            }},
+        ))
+    return tasks
+
+
+_INJURY_SYSTEM = """You rewrite one row of a d100 permanent-injury table for a tabletop campaign archive.
+Keep the mechanical contract (what the injury does, how it is cured, how long it lasts).
+Enrich the wording so a GM can read it at the table. Do not invent a new d100 number.
+Do not name real-world people. Never write the name mike.
+
+Return strictly valid JSON only, no commentary, no code fence:
+
+{
+  "injuryType": "<2-6 word name>",
+  "category": "<same category unless a tighter label is clearly better>",
+  "description": "<one or two sentences, the mechanical effect a player hears>",
+  "cure": "<the least powerful treatment that removes it>",
+  "duration": "<how long it lasts: Forever, 2d8 weeks, Long rest, Instant, ...>",
+  "notes": "<optional GM note, or empty string>"
+}
+"""
+
+
+def injuries_build_prompt(task: Task) -> tuple[str, str]:
+    current = task.payload.get("current") or {}
+    siblings = [
+        {"d100": r.get("d100"), "injuryType": r.get("injuryType"), "category": r.get("category")}
+        for r in _injury_entries()
+        if r.get("d100") != task.payload.get("d100")
+    ]
+    prompt = (
+        f"Rewrite d100 row {task.payload['d100']} in category {task.payload.get('category')!r}.\n"
+        f"Keep the same mechanical idea. Current row:\n"
+        f"{json.dumps(current, ensure_ascii=False, indent=2)}\n\n"
+        f"Other injury names (do not duplicate):\n"
+        f"{json.dumps(siblings[:24], ensure_ascii=False)}\n"
+        "Return one rewritten row."
+    )
+    return _INJURY_SYSTEM, prompt
+
+
+def injuries_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
+    roll = int(task.payload["d100"])
+    injury_type = _clean(raw.get("injuryType"), lo=3, hi=64, field="injuryType")
+    category = _clean(raw.get("category") or task.payload.get("category") or "Injury", lo=3, hi=48, field="category")
+    description = _clean(raw.get("description"), lo=12, hi=400, field="description")
+    cure = _clean(raw.get("cure") or "None", lo=2, hi=80, field="cure")
+    duration = _clean(raw.get("duration") or "Until cured", lo=2, hi=64, field="duration")
+    notes = " ".join(str(raw.get("notes") or "").split())
+    if len(notes) > 160:
+        raise ValidationError("notes too long")
+    taken = {
+        (r.get("injuryType") or "").strip().lower()
+        for r in _injury_entries()
+        if r.get("d100") != roll
+    }
+    if injury_type.lower() in taken:
+        raise ValidationError(f"duplicate injuryType {injury_type!r}")
+    return {
+        "d100": roll,
+        "category": category,
+        "injuryType": injury_type,
+        "description": description,
+        "cure": cure,
+        "duration": duration,
+        "notes": notes,
+        "temporary": True,
+    }
+
+
+def injuries_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    current = dict(task.payload.get("current") or {})
+    if not current:
+        return None
+    fixed = dict(raw)
+    if "duplicate injuryType" in why:
+        original = str(current.get("injuryType") or "Injury")
+        roll = task.payload.get("d100")
+        fixed["injuryType"] = f"{original} (row {roll})"[:64]
+        return fixed
+    # Fill missing short fields from the existing row rather than inventing.
+    for field in ("injuryType", "category", "description", "cure", "duration", "notes"):
+        if not str(fixed.get(field) or "").strip() and current.get(field) not in (None, ""):
+            fixed[field] = current[field]
+    if fixed != raw:
+        return fixed
+    return None
+
+
+def injuries_apply(task: Task, record: dict[str, Any]) -> TaskResult:
+    with _LOCK:
+        store = _injury_store()
+        entries = store.get("entries")
+        if not isinstance(entries, list):
+            return TaskResult(task=task, ok=False, detail="injuries.json has no entries")
+        roll = record["d100"]
+        idx = next((i for i, row in enumerate(entries)
+                    if isinstance(row, dict) and row.get("d100") == roll), None)
+        if idx is None:
+            return TaskResult(task=task, ok=False, detail=f"d100 {roll} missing")
+        entry = dict(entries[idx])
+        entry.update(record)
+        entry["temporary"] = True
+        stamp = provenance("injury-table", task.payload.get("model", ""))
+        entry["_generated"] = stamp["_generated"]
+        entries[idx] = entry
+        store["entries"] = entries
+        store["status"] = "temporary"
+        atomic_write_json(INJURIES, store)
+    return TaskResult(
+        task=task, ok=True,
+        detail=f"d100 {roll} · {record['injuryType']}",
+        record=record, changed_paths=[str(INJURIES.relative_to(ROOT))],
+    )
+
+
+INJURY_SPEC = SystemSpec(
+    id="injury-table",
+    title="Injury Table · d100 rewrite",
+    summary="Rewrite each temporary d100 injury row in place; keep the 1–100 contract.",
+    stage=1,
+    next_tasks=injuries_next_tasks,
+    build_prompt=injuries_build_prompt,
+    validate=injuries_validate,
+    apply=injuries_apply,
+    pending=injuries_pending,
+    repair=injuries_repair,
+)
+
+
+# ---------------------------------------------------------------------------
+# locations
+# ---------------------------------------------------------------------------
+
+def locations_pending() -> int:
+    return max(0, LOCATION_FLOOR - len(_load_list(LOCATIONS)))
+
+
+def locations_next_tasks(count: int) -> list[Task]:
+    have = len(_load_list(LOCATIONS))
+    need = max(0, LOCATION_FLOOR - have)
+    tasks: list[Task] = []
+    for offset in range(min(count, need)):
+        slot = have + offset + 1
+        tasks.append(Task(
+            system_id="locations",
+            key=f"location:gen:{slot}",
+            label=f"location · new card {slot}",
+            payload={"slot": slot},
+        ))
+    return tasks
+
+
+_LOCATION_SYSTEM = """You are a careful Waluipedia location archivist filing ONE new location card.
+Write from inside the world (Waluigi's encyclopaedia voice: opinionated, physical detail).
+This is a PLACE, not a person, faction, event, or battle.
+Do not invent real-world canon. Never write the name mike.
+Return strictly valid JSON only, no commentary, no code fence:
+
+{
+  "id": "<lowercase snake_case>",
+  "name": "<2-7 words>",
+  "type": "<Location/…>",
+  "region": "<where in the archive this sits>",
+  "status": "<current condition in one short clause>",
+  "summary": "<one sentence a reader sees on the card>",
+  "description": "<240-900 characters, Waluigi-voiced, physical>",
+  "notableFeatures": ["<feature>", "<feature>", "<feature>"],
+  "relatedArticles": ["<existing archive id>"],
+  "population": "<who lives here, or none>",
+  "climate": "<weather / planar condition>",
+  "controllingFaction": "<who holds it, or Unrecorded>"
+}
+"""
+
+
+def locations_build_prompt(task: Task) -> tuple[str, str]:
+    rows = _load_list(LOCATIONS)
+    regions = sorted({str(r.get("region") or "") for r in rows if r.get("region")})
+    prompt = (
+        f"Existing location names (do not repeat): {_name_hint(rows)}\n"
+        f"Regions already covered: {', '.join(prompting.sample_evenly(regions, 16))}\n"
+        f"Foreign nations you may set this in: {_nation_hint()}\n"
+        f"File location card #{task.payload['slot']}. Prefer an underrepresented region.\n"
+        "Description 240-900 characters. Label uncertainty rather than inventing."
+    )
+    return _LOCATION_SYSTEM, prompt
+
+
+def locations_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
+    taken = _ids(_load_list(LOCATIONS))
+    slug = str(raw.get("id") or "")
+    if not _SNAKE.fullmatch(slug):
+        raise ValidationError(f"id must be snake_case (got {slug!r})")
+    if slug in taken:
+        raise ValidationError(f"duplicate id {slug!r}")
+    record = {
+        "id": slug,
+        "name": _clean(raw.get("name"), lo=3, hi=80, field="name"),
+        "type": _clean(raw.get("type") or "Location", lo=3, hi=80, field="type"),
+        "region": _clean(raw.get("region"), lo=3, hi=80, field="region"),
+        "status": "Generated — review",
+        "summary": _clean(raw.get("summary"), lo=20, hi=400, field="summary"),
+        "description": _clean(raw.get("description"), lo=240, hi=900, field="description"),
+        "notableFeatures": _string_list(raw.get("notableFeatures"), min_n=3, field="notableFeatures"),
+        "relatedArticles": _string_list(raw.get("relatedArticles") or [], min_n=0, field="relatedArticles"),
+        "population": " ".join(str(raw.get("population") or "Unrecorded").split())[:160],
+        "climate": " ".join(str(raw.get("climate") or "Unrecorded").split())[:160],
+        "controllingFaction": " ".join(str(raw.get("controllingFaction") or "Unrecorded").split())[:120],
+    }
+    return record
+
+
+def locations_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    return _disambiguate_id(raw, _ids(_load_list(LOCATIONS)), why)
+
+
+def locations_apply(task: Task, record: dict[str, Any]) -> TaskResult:
+    with _LOCK:
+        rows = _load_list(LOCATIONS)
+        if any(r.get("id") == record["id"] for r in rows):
+            return TaskResult(task=task, ok=False, detail="id already present")
+        entry = dict(record)
+        entry.update(provenance("locations", task.payload.get("model", ""), status="Generated — review"))
+        entry["status"] = "Generated — review"
+        rows.append(entry)
+        atomic_write_json(LOCATIONS, rows)
+    return TaskResult(
+        task=task, ok=True, detail=record["name"], record=record,
+        changed_paths=[str(LOCATIONS.relative_to(ROOT))],
+    )
+
+
+LOCATION_SPEC = SystemSpec(
+    id="locations",
+    title="Locations · new cards",
+    summary="Append source-aware location cards until the archive floor is met.",
+    stage=1,
+    next_tasks=locations_next_tasks,
+    build_prompt=locations_build_prompt,
+    validate=locations_validate,
+    apply=locations_apply,
+    pending=locations_pending,
+    repair=locations_repair,
+)
+
+
+# ---------------------------------------------------------------------------
+# events
+# ---------------------------------------------------------------------------
+
+def events_pending() -> int:
+    return max(0, EVENT_FLOOR - len(_load_list(EVENTS)))
+
+
+def events_next_tasks(count: int) -> list[Task]:
+    have = len(_load_list(EVENTS))
+    need = max(0, EVENT_FLOOR - have)
+    tasks: list[Task] = []
+    for offset in range(min(count, need)):
+        slot = have + offset + 1
+        tasks.append(Task(
+            system_id="events",
+            key=f"event:gen:{slot}",
+            label=f"event · new record {slot}",
+            payload={"slot": slot},
+        ))
+    return tasks
+
+
+_EVENT_SYSTEM = """You are Waluigi's chronicler filing ONE PAST historical event for a FOREIGN nation
+(not the Mushroom Kingdom, not the Midlands). Story with a commentator, not a report
+with scenes attached. Physical detail: quoted speech, named objects, sounds.
+Never write the name mike. Do not invent real-world canon.
+Date it in 722-1039 BF on the Regal Empire Standard Calendar.
+Return strictly valid JSON only, no commentary, no code fence:
+
+{
+  "id": "<lowercase snake_case>",
+  "name": "<title, 3-10 words>",
+  "title": "<longer card title>",
+  "type": "<short type label>",
+  "date": "<Month day, year BF>",
+  "era": "<one short era clause>",
+  "location": "<a specific place inside the chosen nation>",
+  "summary": "<one sentence>",
+  "description": "<240-900 characters, Waluigi-voiced>",
+  "notableFeatures": ["<feature>", "<feature>", "<feature>"],
+  "relatedArticles": ["<existing archive id>"]
+}
+"""
+
+
+def events_build_prompt(task: Task) -> tuple[str, str]:
+    rows = _load_list(EVENTS)
+    prompt = (
+        f"Existing event titles (do not repeat): {_name_hint(rows)}\n"
+        f"Foreign nations: {_nation_hint()}\n"
+        f"Legal months: {', '.join(_MONTHS)}\n"
+        f"File past event #{task.payload['slot']}. Year 722-1039 BF. "
+        "Location must be inside the chosen foreign nation.\n"
+        "Description 240-900 characters."
+    )
+    return _EVENT_SYSTEM, prompt
+
+
+def _parse_year(date: str) -> int | None:
+    match = re.search(r"(\d{3,4})\s*BF", str(date or ""), re.I)
+    return int(match.group(1)) if match else None
+
+
+def events_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
+    taken = _ids(_load_list(EVENTS))
+    slug = str(raw.get("id") or "")
+    if not _SNAKE.fullmatch(slug):
+        raise ValidationError(f"id must be snake_case (got {slug!r})")
+    if slug in taken:
+        raise ValidationError(f"duplicate id {slug!r}")
+    date = _clean(raw.get("date"), lo=6, hi=80, field="date")
+    year = _parse_year(date)
+    if year is None or not (722 <= year <= 1039):
+        raise ValidationError("date must be a past year 722-1039 BF")
+    location = _clean(raw.get("location"), lo=3, hi=120, field="location")
+    if re.search(r"mushroom\s+kingdom|toad\s+town|midlands", location, re.I):
+        raise ValidationError("location must be foreign (not Mushroom Kingdom / Midlands)")
+    return {
+        "id": slug,
+        "name": _clean(raw.get("name"), lo=3, hi=100, field="name"),
+        "title": _clean(raw.get("title") or raw.get("name"), lo=3, hi=160, field="title"),
+        "type": _clean(raw.get("type") or "historical event", lo=3, hi=80, field="type"),
+        "date": date,
+        "era": _clean(raw.get("era") or "Foreign past", lo=3, hi=80, field="era"),
+        "location": location,
+        "status": "Generated — review",
+        "summary": _clean(raw.get("summary"), lo=20, hi=400, field="summary"),
+        "description": _clean(raw.get("description"), lo=240, hi=900, field="description"),
+        "notableFeatures": _string_list(raw.get("notableFeatures"), min_n=3, field="notableFeatures"),
+        "relatedArticles": _string_list(raw.get("relatedArticles") or [], min_n=0, field="relatedArticles"),
+    }
+
+
+def events_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    fixed = _disambiguate_id(raw, _ids(_load_list(EVENTS)), why)
+    if fixed:
+        return fixed
+    if "722-1039" in why:
+        fixed = dict(raw)
+        date = str(raw.get("date") or "")
+        if not _parse_year(date):
+            fixed["date"] = "Harvestide 12, 912 BF"
+            return fixed
+    return None
+
+
+def events_apply(task: Task, record: dict[str, Any]) -> TaskResult:
+    with _LOCK:
+        rows = _load_list(EVENTS)
+        if any(r.get("id") == record["id"] for r in rows):
+            return TaskResult(task=task, ok=False, detail="id already present")
+        entry = dict(record)
+        entry.update(provenance("events", task.payload.get("model", ""), status="Generated — review"))
+        entry["status"] = "Generated — review"
+        rows.append(entry)
+        atomic_write_json(EVENTS, rows)
+    return TaskResult(
+        task=task, ok=True, detail=record["name"], record=record,
+        changed_paths=[str(EVENTS.relative_to(ROOT))],
+    )
+
+
+EVENT_SPEC = SystemSpec(
+    id="events",
+    title="Events · new records",
+    summary="Append source-aware foreign past events until the archive floor is met.",
+    stage=1,
+    next_tasks=events_next_tasks,
+    build_prompt=events_build_prompt,
+    validate=events_validate,
+    apply=events_apply,
+    pending=events_pending,
+    repair=events_repair,
+)
+
+
+# ---------------------------------------------------------------------------
+# battles
+# ---------------------------------------------------------------------------
+
+def battles_pending() -> int:
+    return max(0, BATTLE_FLOOR - len(_load_list(BATTLES)))
+
+
+def battles_next_tasks(count: int) -> list[Task]:
+    have = len(_load_list(BATTLES))
+    need = max(0, BATTLE_FLOOR - have)
+    tasks: list[Task] = []
+    for offset in range(min(count, need)):
+        slot = have + offset + 1
+        tasks.append(Task(
+            system_id="battles",
+            key=f"battle:gen:{slot}",
+            label=f"battle · new record {slot}",
+            payload={"slot": slot},
+        ))
+    return tasks
+
+
+_BATTLE_SYSTEM = """You are Waluigi's war-reporter filing ONE PAST battle for a FOREIGN nation
+(not the Mushroom Kingdom, not the Midlands). Physical consequence over summary.
+Never write the name mike. Do not invent real-world canon.
+Date it in 722-1039 BF. Return strictly valid JSON only, no commentary, no code fence:
+
+{
+  "id": "<lowercase snake_case>",
+  "name": "<battle name>",
+  "date": "<Month day, year BF>",
+  "location": "<specific place inside the chosen nation>",
+  "type": "<skirmish|siege|ambush|…>",
+  "result": "<who held the ground, in one clause>",
+  "belligerents": {
+    "attackers": {"name": "<side>", "factionId": "<snake_case or Unrecorded>", "commander": "<name or Unrecorded>"},
+    "defenders": {"name": "<side>", "factionId": "<snake_case or Unrecorded>", "commander": "<name or Unrecorded>"}
+  },
+  "casualties": {"attackers": "<what it cost them>", "defenders": "<what it cost them>"},
+  "summary": "<one sentence>",
+  "description": "<240-900 characters, Waluigi-voiced>",
+  "aftermath": "<what was left standing>",
+  "relatedArticles": ["<existing archive id>"]
+}
+"""
+
+
+def battles_build_prompt(task: Task) -> tuple[str, str]:
+    rows = _load_list(BATTLES)
+    prompt = (
+        f"Existing battle names (do not repeat): {_name_hint(rows)}\n"
+        f"Foreign nations: {_nation_hint()}\n"
+        f"Legal months: {', '.join(_MONTHS)}\n"
+        f"File past battle #{task.payload['slot']}. Year 722-1039 BF.\n"
+        "Description 240-900 characters. Name both sides."
+    )
+    return _BATTLE_SYSTEM, prompt
+
+
+def _side(raw: Any, field: str) -> dict[str, str]:
+    if not isinstance(raw, dict):
+        raise ValidationError(f"{field} must be an object")
+    name = _clean(raw.get("name"), lo=3, hi=120, field=f"{field}.name")
+    faction = " ".join(str(raw.get("factionId") or "unrecorded").split())[:64]
+    commander = " ".join(str(raw.get("commander") or "Unrecorded").split())[:80]
+    return {"name": name, "factionId": _snake(faction) or "unrecorded", "commander": commander}
+
+
+def battles_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
+    taken = _ids(_load_list(BATTLES))
+    slug = str(raw.get("id") or "")
+    if not _SNAKE.fullmatch(slug):
+        raise ValidationError(f"id must be snake_case (got {slug!r})")
+    if slug in taken:
+        raise ValidationError(f"duplicate id {slug!r}")
+    date = _clean(raw.get("date"), lo=6, hi=80, field="date")
+    year = _parse_year(date)
+    if year is None or not (722 <= year <= 1039):
+        raise ValidationError("date must be a past year 722-1039 BF")
+    location = _clean(raw.get("location"), lo=3, hi=120, field="location")
+    if re.search(r"mushroom\s+kingdom|toad\s+town|midlands", location, re.I):
+        raise ValidationError("location must be foreign (not Mushroom Kingdom / Midlands)")
+    belligerents = raw.get("belligerents") if isinstance(raw.get("belligerents"), dict) else {}
+    casualties = raw.get("casualties") if isinstance(raw.get("casualties"), dict) else {}
+    return {
+        "id": slug,
+        "name": _clean(raw.get("name"), lo=3, hi=100, field="name"),
+        "date": date,
+        "location": location,
+        "type": _clean(raw.get("type") or "skirmish", lo=3, hi=80, field="type"),
+        "result": _clean(raw.get("result"), lo=8, hi=240, field="result"),
+        "belligerents": {
+            "attackers": _side(belligerents.get("attackers"), "belligerents.attackers"),
+            "defenders": _side(belligerents.get("defenders"), "belligerents.defenders"),
+        },
+        "casualties": {
+            "attackers": _clean(casualties.get("attackers") or "Unrecorded", lo=3, hi=400, field="casualties.attackers"),
+            "defenders": _clean(casualties.get("defenders") or "Unrecorded", lo=3, hi=400, field="casualties.defenders"),
+        },
+        "summary": _clean(raw.get("summary"), lo=20, hi=400, field="summary"),
+        "description": _clean(raw.get("description"), lo=240, hi=900, field="description"),
+        "aftermath": _clean(raw.get("aftermath"), lo=12, hi=400, field="aftermath"),
+        "relatedArticles": _string_list(raw.get("relatedArticles") or [], min_n=0, field="relatedArticles"),
+        "status": "Generated — review",
+    }
+
+
+def battles_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
+    fixed = _disambiguate_id(raw, _ids(_load_list(BATTLES)), why)
+    if fixed:
+        return fixed
+    if "722-1039" in why:
+        fixed = dict(raw)
+        if not _parse_year(str(raw.get("date") or "")):
+            fixed["date"] = "Chillwind 4, 888 BF"
+            return fixed
+    return None
+
+
+def battles_apply(task: Task, record: dict[str, Any]) -> TaskResult:
+    with _LOCK:
+        rows = _load_list(BATTLES)
+        if any(r.get("id") == record["id"] for r in rows):
+            return TaskResult(task=task, ok=False, detail="id already present")
+        entry = dict(record)
+        entry.update(provenance("battles", task.payload.get("model", ""), status="Generated — review"))
+        entry["status"] = "Generated — review"
+        rows.append(entry)
+        atomic_write_json(BATTLES, rows)
+    return TaskResult(
+        task=task, ok=True, detail=record["name"], record=record,
+        changed_paths=[str(BATTLES.relative_to(ROOT))],
+    )
+
+
+BATTLE_SPEC = SystemSpec(
+    id="battles",
+    title="Battles · new records",
+    summary="Append source-aware foreign past battles until the archive floor is met.",
+    stage=1,
+    next_tasks=battles_next_tasks,
+    build_prompt=battles_build_prompt,
+    validate=battles_validate,
+    apply=battles_apply,
+    pending=battles_pending,
+    repair=battles_repair,
+)

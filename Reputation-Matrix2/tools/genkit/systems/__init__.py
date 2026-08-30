@@ -11,6 +11,7 @@ from . import (
     abilities,
     bros_attacks,
     crafting,
+    desk,
     faction_dossiers,
     reputation,
     shop_items,
@@ -35,6 +36,10 @@ def all_systems() -> list[SystemSpec]:
         wahwire.DISCUSS_SPEC,    # participant + evidence gated
         wahwire.PROFILE_SPEC,    # bios + the follow graph, 13 accounts
         bros_attacks.SPEC,       # only source beats naming both partners
+        desk.INJURY_SPEC,        # rewrite the temporary d100 table in place
+        desk.LOCATION_SPEC,      # append reviewed location cards
+        desk.EVENT_SPEC,         # append foreign past events
+        desk.BATTLE_SPEC,        # append foreign past battles
     ]
 
 

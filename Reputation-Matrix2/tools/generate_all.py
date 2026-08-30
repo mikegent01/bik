@@ -17,10 +17,11 @@ validator rejects is never written.
     python3 tools/generate_all.py --only reputation --limit 50
     python3 tools/generate_all.py --web              # browser dashboard
 
-The `--gui` / `--web` dashboard is the control panel *and* the data desk. The
-four "tool" systems — Injury Table (d100), Locations, Events, Battles — are not
-fixed: open their tabs to change the numbers, cards and records, then Save
-writes them back to `Reputation-Matrix2/data/`.
+The `--gui` / `--web` dashboard is the control panel *and* the data desk.
+Injury Table, Locations, Events and Battles are first-class popcorn systems —
+set their mix percentages and Start (or `--only locations`) generates them.
+Their tabs still let you hand-edit the records; Save writes them back to
+`Reputation-Matrix2/data/`.
 
 Every generated record carries `status` and a `_generated` provenance stamp so
 machine-drafted content is always distinguishable from hand-written canon.
@@ -95,6 +96,118 @@ def parse_weights(spec: str) -> dict[str, float]:
     return weights
 
 
+def run_overnight(settings: Settings, max_hours: float, stop_at: str,
+                  restart_limit: int, cycle_limit: int) -> int:
+    """Run the full popcorn cycle on a loop, unattended.
+
+    Designed to be left running overnight: it keeps the archive topped up by
+    repeating cycles, survives LM Studio being down (a down server makes a cycle
+    produce nothing, which triggers a backoff rather than a crash), and always
+    stops by a wall-clock target or a max duration. A JSON report is written to
+    the work directory so a morning review can see what happened.
+    """
+    import datetime
+    import json
+    import time
+    from pathlib import Path
+
+    start = time.time()
+    stop_dt = None
+    if stop_at:
+        try:
+            hh, mm = (int(x) for x in stop_at.split(":"))
+            now = datetime.datetime.now()
+            cand = now.replace(hour=hh, minute=mm, second=0, microsecond=0)
+            if cand <= now:
+                cand += datetime.timedelta(days=1)
+            stop_dt = cand
+        except Exception:
+            print("bad --stop-at; ignoring", file=sys.stderr)
+            stop_dt = None
+
+    report = {
+        "started": datetime.datetime.now().isoformat(timespec="seconds"),
+        "max_hours": max_hours, "stop_at": stop_at,
+        "cycles": 0, "restarts": 0, "total_produced": 0,
+        "errors": [], "stopped": None,
+    }
+    stats = {"produced": 0, "failed": 0}
+
+    def on_event(event: RunnerEvent) -> None:
+        icon = ICONS.get(event.kind, "·")
+        print(f"{icon} {event.text}", flush=True)
+        if event.produced is not None:
+            stats["produced"] = event.produced
+        if event.failed is not None:
+            stats["failed"] = event.failed
+
+    cycle_no = 0
+    no_progress_streak = 0
+    while True:
+        if stop_dt and datetime.datetime.now() >= stop_dt:
+            report["stopped"] = "stop-at"
+            break
+        if max_hours and (time.time() - start) >= max_hours * 3600:
+            report["stopped"] = "max-hours"
+            break
+
+        cycle_no += 1
+        cycle_settings = Settings(
+            endpoint=settings.endpoint, model=settings.model,
+            workers=settings.workers, timeout=settings.timeout,
+            temperature=settings.temperature, limit=cycle_limit or 0,
+            only=settings.only, skip=settings.skip, weights=settings.weights,
+            dry_run=settings.dry_run, retry_failed=settings.retry_failed,
+            seed=settings.seed, pace=settings.pace,
+        )
+        prev_produced = stats["produced"]
+        prev_failed = stats["failed"]
+        print(f"\n=== overnight cycle {cycle_no} ===", flush=True)
+        try:
+            Runner(all_systems(), cycle_settings, on_event=on_event).run()
+        except KeyboardInterrupt:
+            report["stopped"] = "interrupted"
+            break
+        except Exception as exc:  # LM Studio network/timeout or unexpected
+            report["errors"].append(f"cycle {cycle_no}: {type(exc).__name__}: {exc}")
+            report["restarts"] += 1
+            if report["restarts"] > restart_limit:
+                report["stopped"] = "restart-limit"
+                break
+            backoff = min(30 + 30 * report["restarts"], 600)
+            print(f"cycle {cycle_no} errored; backing off {backoff}s "
+                  f"(restart {report['restarts']}/{restart_limit})", file=sys.stderr)
+            time.sleep(backoff)
+            continue
+
+        report["cycles"] += 1
+        produced_this = stats["produced"] - prev_produced
+        report["total_produced"] += produced_this
+        if produced_this == 0:
+            # Nothing produced this cycle — usually LM Studio is down or the
+            # archive is fully caught up. Back off so we are not spinning.
+            no_progress_streak += 1
+            backoff = min(60 * no_progress_streak, 900)
+            print(f"cycle {cycle_no}: 0 produced (failures={stats['failed'] - prev_failed}); "
+                  f"backing off {backoff}s", file=sys.stderr)
+            time.sleep(backoff)
+        else:
+            no_progress_streak = 0
+            time.sleep(120)  # short breather, then resume to catch new pending work
+
+    report["ended"] = datetime.datetime.now().isoformat(timespec="seconds")
+    report["total_produced"] = stats["produced"]
+    out = Path(settings.work_dir) / "overnight-report.json"
+    try:
+        out.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        print(f"\novernight report: {out}")
+    except Exception as exc:
+        print(f"could not write overnight report: {exc}", file=sys.stderr)
+    print(f"overnight stopped: {report['stopped']} · cycles={report['cycles']} · "
+          f"total produced={report['total_produced']}")
+    return 0 if report["stopped"] in ("stop-at", "max-hours", "interrupted") else 1
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Cycle every generatable system in popcorn order.",
@@ -137,6 +250,17 @@ def main(argv: list[str] | None = None) -> int:
                         help="after validated systems, generate N sparse foreign past events")
     parser.add_argument("--past-max-attempts", type=int, default=0,
                         help="past-event retry ceiling (0 = generator default)")
+    parser.add_argument("--overnight", action="store_true",
+                        help="supervised unattended run: repeat popcorn cycles until --max-hours / "
+                             "--stop-at, auto-recovering from LM Studio downtime")
+    parser.add_argument("--max-hours", type=float, default=8.0,
+                        help="overnight: stop after this many hours (default 8)")
+    parser.add_argument("--stop-at", default="",
+                        help="overnight: stop at this wall-clock time HH:MM (24h), e.g. 07:30")
+    parser.add_argument("--restart-limit", type=int, default=50,
+                        help="overnight: give up after this many erroring cycles")
+    parser.add_argument("--cycle-limit", type=int, default=0,
+                        help="overnight: records per cycle (0 = run each cycle to exhaustion)")
 
     args = parser.parse_args(argv)
     if args.infinite:
@@ -165,6 +289,10 @@ def main(argv: list[str] | None = None) -> int:
     if args.checkpoints:
         print_checkpoints(settings)
         return 0
+
+    if args.overnight:
+        return run_overnight(settings, args.max_hours, args.stop_at,
+                             args.restart_limit, args.cycle_limit)
 
     if args.gui or args.web:
         from genkit.gui import launch
