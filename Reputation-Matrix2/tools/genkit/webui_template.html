@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>genkit · all-systems generator &amp; data desk</title>
+<style>
+ :root{
+  --bg:#12100f; --panel:#1c1917; --panel2:#241f1b; --line:#3a322c;
+  --ink:#f2e9de; --muted:#a99a89; --gold:#e0b400; --ok:#4ade80;
+  --bad:#f87171; --blue:#7cc4ff; --violet:#c4a7ff;
+ }
+ *{box-sizing:border-box}
+ html,body{margin:0;height:100%}
+ body{background:var(--bg);color:var(--ink);
+      font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+ a{color:var(--blue)}
+ header{display:flex;align-items:center;gap:14px;padding:10px 18px;
+        border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap}
+ h1{font-size:15px;margin:0;color:var(--gold);letter-spacing:.5px;white-space:nowrap}
+ nav{display:flex;gap:4px;flex-wrap:wrap}
+ nav button{background:transparent;color:var(--muted);border:1px solid transparent;
+        padding:6px 12px;border-radius:6px;cursor:pointer;font:inherit}
+ nav button:hover{color:var(--ink)}
+ nav button.active{color:var(--ink);border-color:var(--line);background:var(--panel2)}
+ .spacer{flex:1}
+ .dirty{color:var(--gold);font-weight:700;display:none}
+ .dirty.on{display:inline}
+ .toast{position:fixed;bottom:18px;right:18px;background:var(--panel2);
+        border:1px solid var(--line);border-radius:8px;padding:10px 14px;
+        box-shadow:0 6px 24px #0008;opacity:0;transform:translateY(8px);
+        transition:.2s;pointer-events:none;max-width:380px;z-index:50}
+ .toast.show{opacity:1;transform:none}
+ .toast.ok{border-color:var(--ok)} .toast.bad{border-color:var(--bad)}
+
+ main{padding:16px 18px 60px}
+ .tab{display:none}
+ .tab.active{display:block}
+ h2{font-size:13px;color:var(--gold);margin:0 0 10px;text-transform:uppercase;letter-spacing:.6px}
+ h3{font-size:12px;color:var(--muted);margin:16px 0 6px;text-transform:uppercase;letter-spacing:.5px}
+
+ /* --- generate tab --- */
+ .gen{display:grid;grid-template-columns:340px 1fr;gap:0;border:1px solid var(--line);
+      border-radius:8px;overflow:hidden;min-height:560px}
+ .gen .side{border-right:1px solid var(--line);padding:16px;background:var(--panel);overflow:auto;max-height:78vh}
+ .gen .main{padding:16px;overflow:auto;max-height:78vh}
+ label{display:block;margin:10px 0 4px;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+ input,select,textarea{width:100%;padding:7px 9px;background:#0d0b0a;color:var(--ink);
+        border:1px solid var(--line);border-radius:5px;font:inherit}
+ textarea{font:13px/1.45 ui-monospace,Menlo,monospace;resize:vertical}
+ button.btn{padding:9px 16px;border-radius:5px;border:1px solid var(--line);
+        background:var(--gold);color:#231c00;font:inherit;font-weight:700;cursor:pointer}
+ button.btn:hover{filter:brightness(1.06)}
+ button.ghost{background:transparent;color:var(--ink)}
+ button.tiny{padding:4px 9px;font-size:12px;font-weight:600}
+ button:disabled{opacity:.4;cursor:not-allowed}
+ .row{display:flex;gap:8px;align-items:center}
+ .stats{display:flex;gap:22px;margin-bottom:8px}
+ .stat{font-size:22px;font-weight:700} .stat span{display:block;font-size:10px;color:var(--muted);text-transform:uppercase}
+ .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin:10px 0 16px}
+ .card{border:1px solid var(--line);border-radius:6px;padding:9px;background:var(--panel)}
+ .card b{display:block} .card small{display:block;color:var(--muted);margin-top:3px;font-size:11px}
+ table{width:100%;border-collapse:collapse}
+ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);font-size:13px}
+ th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase}
+ .stage{display:inline-block;padding:1px 6px;border-radius:3px;font-size:11px;background:#332b22;color:var(--gold)}
+ .log{font-size:12.5px;margin-top:8px}
+ .log div{padding:2px 0;border-bottom:1px solid #241f1b;white-space:pre-wrap}
+ .ok{color:var(--ok)} .fail{color:var(--bad)} .task{color:var(--muted)}
+ .mix{border:1px solid var(--line);border-radius:5px;padding:6px;background:#0d0b0a}
+ .mixrow{display:grid;grid-template-columns:1fr 64px;gap:6px;align-items:center;padding:3px 0;font-size:12px}
+
+ /* --- editor tabs --- */
+ .ed{display:grid;grid-template-columns:300px 1fr;gap:0;border:1px solid var(--line);
+     border-radius:8px;overflow:hidden;min-height:600px}
+ .ed .master{border-right:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;max-height:80vh}
+ .ed .master .top{padding:10px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+ .ed .list{overflow:auto;flex:1}
+ .ed .item{padding:7px 11px;border-bottom:1px solid #241f1b;cursor:pointer;font-size:13px;display:flex;gap:8px;align-items:baseline}
+ .ed .item:hover{background:var(--panel2)}
+ .ed .item.sel{background:#2c2419;border-left:3px solid var(--gold);padding-left:8px}
+ .ed .item .ix{color:var(--muted);font-size:11px;min-width:26px;text-align:right}
+ .ed .item .nm{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .ed .detail{padding:14px 16px;overflow:auto;max-height:80vh}
+ .ed .detail .empty{color:var(--muted);padding:40px;text-align:center}
+ .meta-card{border:1px solid var(--line);border-radius:6px;padding:10px 12px;background:var(--panel);margin-bottom:14px}
+ .fields{display:grid;grid-template-columns:1fr;gap:0}
+ .field{padding:9px 0;border-bottom:1px solid #241f1b}
+ .field label{margin:0 0 4px;text-transform:none;letter-spacing:0;color:var(--muted);font-size:11px}
+ .field .kind{float:right;color:#6b5d4f;font-size:10px;text-transform:uppercase}
+ .id-field input{font-weight:700;color:var(--gold)}
+ .chk{display:flex;align-items:center;gap:8px}
+ .chk input{width:auto}
+ .toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+ .pill{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:2px 10px}
+ .checkout{margin-top:10px;background:#0d0b0a;border:1px solid var(--line);border-radius:6px;padding:10px;
+          font-size:12px;white-space:pre-wrap;max-height:240px;overflow:auto;color:var(--ink);display:none}
+ .checkout.show{display:block}
+ .hint{color:var(--muted);font-size:11px;margin-top:4px}
+ .addbox{border:1px dashed var(--line);border-radius:6px;padding:10px;background:#0d0b0a;margin-top:10px}
+ .warn{color:var(--bad)}
+ .oktext{color:var(--ok)}
+</style>
+</head>
+<body>
+<header>
+  <h1>genkit · generator &amp; data desk</h1>
+  <nav id="nav">
+    <button data-tab="generate" class="active">Generate</button>
+    <button data-tab="injuries">Injury Table</button>
+    <button data-tab="locations">Locations</button>
+    <button data-tab="events">Events</button>
+    <button data-tab="battles">Battles</button>
+  </nav>
+  <div class="spacer"></div>
+  <span id="dirty" class="dirty">● unsaved changes</span>
+</header>
+
+<main>
+  <!-- ============ GENERATE ============ -->
+  <section id="tab-generate" class="tab active">
+    <div class="gen">
+      <div class="side">
+        <label>LM Studio endpoint</label>
+        <input id="endpoint" value="__ENDPOINT__">
+        <label>Model (blank = whatever is loaded)</label>
+        <input id="model" value="__MODEL__" placeholder="auto-detect">
+        <label>Workers — concurrent LM Studio conversations</label>
+        <input id="workers" type="number" min="1" max="8" value="__WORKERS__">
+        <label>Stop after N records (0 = keep going)</label>
+        <input id="limit" type="number" min="0" value="__LIMIT__">
+        <label>Only these systems (comma ids, blank = all)</label>
+        <input id="only" value="__ONLY__" placeholder="faction-dossiers">
+        <label>Temperature</label>
+        <input id="temperature" type="number" step="0.05" min="0" max="2" value="__TEMPERATURE__">
+        <label>Generation mix (%) — 0 disables a system</label>
+        <div id="mix" class="mix"></div>
+        <label><input type="checkbox" id="dry" style="width:auto" __DRY_CHECKED__> Dry run (write nothing)</label>
+        <div class="row" style="margin-top:16px">
+          <button id="go" class="btn">Start</button>
+          <button id="halt" class="ghost" disabled>Stop</button>
+        </div>
+        <p class="hint">The four desk tools below are <b>now editable</b> — open the Injury Table, Locations, Events or Battles tab to change the numbers and records, then Save writes them back to the data files.</p>
+      </div>
+      <div class="main">
+        <div class="stats">
+          <div class="stat ok" id="produced">0<span>produced</span></div>
+          <div class="stat fail" id="failed">0<span>failed</span></div>
+          <div class="stat" id="retried" style="color:var(--gold)">0<span>retried</span></div>
+          <div class="stat" id="state">idle<span>state</span></div>
+        </div>
+        <h2>Generator library</h2>
+        <div id="generatorCards" class="cards"></div>
+        <h2>Live archive systems</h2>
+        <table id="systems"><thead><tr><th>stage</th><th>system</th><th>pending (live)</th>
+          <th>ok</th><th>fail</th></tr></thead><tbody></tbody></table>
+        <h2>Run log</h2>
+        <div id="log" class="log"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INJURIES ============ -->
+  <section id="tab-injuries" class="tab">
+    <div class="toolbar">
+      <button class="btn tiny" data-act="save">Save Injury Table</button>
+      <button class="ghost tiny" data-act="reload">Reload from disk</button>
+      <button class="ghost tiny" data-act="add">Add row</button>
+      <button class="ghost tiny" data-act="renumber">Renumber d100</button>
+      <button class="ghost tiny" data-act="roll">Roll d100</button>
+      <button class="ghost tiny" data-act="check">Validate (generator --check)</button>
+      <span class="pill" id="inj-count">—</span>
+      <span class="pill" id="inj-status">status: —</span>
+    </div>
+    <div class="ed" id="ed-injuries"></div>
+    <div class="checkout" id="inj-check"></div>
+  </section>
+
+  <!-- ============ LOCATIONS ============ -->
+  <section id="tab-locations" class="tab">
+    <div class="toolbar">
+      <button class="btn tiny" data-act="save">Save Locations</button>
+      <button class="ghost tiny" data-act="reload">Reload from disk</button>
+      <button class="ghost tiny" data-act="add">Add location</button>
+      <input id="loc-search" placeholder="filter…" style="width:200px">
+    </div>
+    <div class="ed" id="ed-locations"></div>
+  </section>
+
+  <!-- ============ EVENTS ============ -->
+  <section id="tab-events" class="tab">
+    <div class="toolbar">
+      <button class="btn tiny" data-act="save">Save Events</button>
+      <button class="ghost tiny" data-act="reload">Reload from disk</button>
+      <button class="ghost tiny" data-act="add">Add event</button>
+      <input id="evt-search" placeholder="filter…" style="width:200px">
+      <span class="pill" id="evt-count">—</span>
+    </div>
+    <div class="ed" id="ed-events"></div>
+  </section>
+
+  <!-- ============ BATTLES ============ -->
+  <section id="tab-battles" class="tab">
+    <div class="toolbar">
+      <button class="btn tiny" data-act="save">Save Battles</button>
+      <button class="ghost tiny" data-act="reload">Reload from disk</button>
+      <button class="ghost tiny" data-act="add">Add battle</button>
+      <select id="bat-file" style="width:200px">
+        <option value="battles">battles.json</option>
+        <option value="majorBattles">majorBattles.json</option>
+      </select>
+      <input id="bat-search" placeholder="filter…" style="width:200px">
+      <span class="pill" id="bat-count">—</span>
+    </div>
+    <div class="ed" id="ed-battles"></div>
+  </section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function toast(msg,kind){const t=$('toast');t.textContent=msg;t.className='toast show '+(kind||'');
+  setTimeout(()=>t.className='toast '+(kind||''),2600);}
+function confirmNav(){
+  if(editors.some(e=>e && e.dirty)) return confirm('You have unsaved changes. Leave anyway?');
+  return true;
+}
+function markDirty(){
+  const any=editors.some(e=>e && e.dirty);
+  $('dirty').className='dirty'+(any?' on':'');
+}
+// ---- tab switching ----
+const editors={};
+document.querySelectorAll('#nav button').forEach(b=>{
+  b.onclick=()=>{
+    if(b.dataset.tab!==currentTab && !confirmNav()) return;
+    document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    $('tab-'+b.dataset.tab).classList.add('active');
+    currentTab=b.dataset.tab;
+    initTab(currentTab);
+  };
+});
+let currentTab='generate';
+function initTab(name){
+  if(name==='injuries'){ if(!editors.injuries){editors.injuries=new Editor($('ed-injuries'),{key:'injuries',objectWithEntries:true,meta:true,title:'Injury Table',check:true}); editors.injuries.load();} }
+  if(name==='locations'){ if(!editors.locations){editors.locations=new Editor($('ed-locations'),{key:'locations'}); editors.locations.load();} }
+  if(name==='events'){ if(!editors.events){editors.events=new Editor($('ed-events'),{key:'events'}); editors.events.load();} }
+  if(name==='battles'){ if(!editors.battles){editors.battles=new Editor($('ed-battles'),{key:'battles'}); editors.battles.load();} }
+}
+
+// ================= GENERATE TAB =================
+let genReady=false;
+async function poll(){
+  try{
+    const s=await (await fetch('/state')).json();
+    $('produced').innerHTML=s.produced+'<span>produced</span>';
+    $('failed').innerHTML=s.failed+'<span>failed</span>';
+    $('retried').innerHTML=(s.retried||0)+'<span>retried</span>';
+    $('state').innerHTML=(s.running?'running':'idle')+'<span>state</span>';
+    $('go').disabled=s.running; $('halt').disabled=!s.running;
+    if(!genReady){
+      $('mix').innerHTML=s.systems.map(x=>
+        `<div class="mixrow"><span>${esc(x.title)}${x.enabled?'':' <small style="color:var(--muted)">(tool)</small>'}</span><input data-weight="${x.id}" type="number" min="0" max="100" step="1" value="${x.enabled?'100':'0'}" ${x.enabled?'':'disabled'}></div>`).join('');
+      genReady='1';
+    }
+    $('generatorCards').innerHTML=(s.generators||[]).map(g=>`<div class="card"><b>${esc(g.title)}</b><small>${esc(g.summary)}</small><small class="task">${esc(g.command)}</small></div>`).join('');
+    $('systems').tBodies[0].innerHTML=s.systems.map(x=>{
+      const p=s.perSystem[x.id]||{ok:0,fail:0};
+      return `<tr><td><span class="stage">${x.enabled?x.stage:'off'}</span></td>
+        <td title="${esc(x.summary)}">${esc(x.title)}</td><td>${x.pending}</td>
+        <td class="ok">${p.ok}</td><td class="fail">${p.fail}</td></tr>`;}).join('');
+    $('log').innerHTML=s.log.slice().reverse().map(l=>{
+      const k=esc(l.kind); const t=esc(l.text);
+      return `<div class="${k}">${k.padEnd(5)} · ${t}</div>`;}).join('');
+  }catch(e){$('state').innerHTML='offline<span>state</span>';}
+}
+$('go').onclick=async()=>{
+  await fetch('/start',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({endpoint:$('endpoint').value,model:$('model').value,
+      workers:+$('workers').value,limit:+$('limit').value,only:$('only').value,
+      temperature:+$('temperature').value,dry_run:$('dry').checked,
+      weights:Object.fromEntries([...document.querySelectorAll('[data-weight]')].map(x=>[x.dataset.weight,+x.value]))})});
+  poll();
+};
+$('halt').onclick=async()=>{await fetch('/stop',{method:'POST'});poll();};
+if(currentTab==='generate') poll();
+setInterval(()=>{ if(document.getElementById('tab-generate').classList.contains('active')) poll(); },1500);
+
+// ================= EDITOR ENGINE =================
+function inferType(v){
+  if(v===null||v===undefined) return 'null';
+  if(typeof v==='boolean') return 'boolean';
+  if(typeof v==='number') return 'number';
+  if(Array.isArray(v)) return (v.length && v.every(x=>typeof x!=='object'&&x!==null))?'list':'array';
+  if(typeof v==='object') return 'object';
+  return (String(v).length>140)?'long':'short';
+}
+function parseField(kind,raw,orig){
+  try{
+    if(kind==='boolean') return raw==='true'||raw===true;
+    if(kind==='number'){ if(raw==='') return orig; const n=Number(raw); return isNaN(n)?orig:n; }
+    if(kind==='list'){ return raw.split('\n').map(s=>s.trim()).filter(s=>s!=='').map(s=>{const n=Number(s);return isNaN(n)?s:n;}); }
+    if(kind==='array'||kind==='object'){ return JSON.parse(raw); }
+    return raw;
+  }catch(e){ return orig; }
+}
+function labelOf(rec,i){
+  if(rec && typeof rec==='object'){
+    if(rec.injuryType) return (rec.d100?('#'+rec.d100+' '):'')+rec.injuryType;
+    if(rec.name) return rec.name;
+    if(rec.title) return rec.title;
+    if(rec.id) return rec.id;
+  }
+  return 'row '+(i+1);
+}
+
+class Editor{
+  constructor(root,opts){
+    this.root=root; this.opts=opts; this.key=opts.key;
+    this.objectWithEntries=!!opts.objectWithEntries; this.meta=!!opts.meta;
+    this.hasCheck=!!opts.check;
+    this.dirty=false; this.selected=-1; this.records=[]; this.metaData={};
+    this.filter=''; this.searchEl=null;
+  }
+  async load(){
+    const r=await fetch('/api/'+this.key);
+    const data=await r.json();
+    this.original=JSON.parse(JSON.stringify(data));
+    this.data=data;
+    if(this.objectWithEntries){
+      this.entriesKey='entries';
+      this.records=data[this.entriesKey]||[];
+      this.metaData={};
+      for(const k of Object.keys(data)) if(k!==this.entriesKey) this.metaData[k]=data[k];
+    }else{
+      this.records=data;
+    }
+    this.dirty=false;
+    this.selected=-1;
+    this.render();
+    this.updateCounts();
+  }
+  updateCounts(){
+    const c=this.records.length;
+    if(this.key==='injuries'){ $('inj-count').textContent=c+' rows';
+      $('inj-status').textContent='status: '+(this.data.status||'?'); }
+    if(this.key==='events') $('evt-count').textContent=c+' events';
+    if(this.key==='battles') $('bat-count').textContent=c+' battles';
+  }
+  render(){
+    const metaHtml=this.meta?this.renderMeta():'';
+    this.root.innerHTML=`
+      <div class="master"><div class="top">
+        <input class="search" placeholder="filter list…" value="${esc(this.filter)}">
+        <span class="pill">${this.records.length} records</span>
+      </div><div class="list"></div></div>
+      <div class="detail"><div class="empty">Select a record on the left, or add one.</div></div>`;
+    this.searchEl=this.root.querySelector('.search');
+    this.searchEl.oninput=()=>{this.filter=this.searchEl.value.toLowerCase();this.renderList();};
+    this.root.querySelector('.list').onclick=(e)=>{
+      const it=e.target.closest('.item'); if(!it) return;
+      this.select(+it.dataset.i);
+    };
+    this.renderList();
+    if(this.meta){ this.bindMeta(metaHtml); }
+  }
+  renderMeta(){
+    let h='<div class="meta-card"><b>'+esc(this.opts.title||'Metadata')+' — table metadata</b>';
+    for(const k of Object.keys(this.metaData)){
+      const v=this.metaData[k]; const kind=inferType(v);
+      h+=this.fieldHtml('meta:'+k,v,kind,true);
+    }
+    h+='</div>';
+    return h;
+  }
+  bindMeta(){
+    this.root.querySelectorAll('[data-meta]').forEach(inp=>{
+      inp.onchange=()=>{ const k=inp.dataset.meta.split(':')[1];
+        const kind=inp.dataset.kind; const raw=inp.type==='checkbox'?inp.checked:inp.value;
+        this.metaData[k]=parseField(kind, (inp.tagName==='TEXTAREA'&&kind!=='boolean')?inp.value:raw, this.metaData[k]);
+        this.dirty=true; markDirty(); };
+    });
+  }
+  renderList(){
+    const list=this.root.querySelector('.list');
+    const items=this.records.map((rec,i)=>({rec,i}))
+      .filter(o=>!this.filter || labelOf(o.rec,o.i).toLowerCase().includes(this.filter))
+      .map(o=>`<div class="item ${o.i===this.selected?'sel':''}" data-i="${o.i}">
+        <span class="ix">${o.i+1}</span><span class="nm">${esc(labelOf(o.rec,o.i))}</span></div>`).join('');
+    list.innerHTML=items||'<div class="empty" style="padding:20px">no matches</div>';
+  }
+  select(i){
+    this.selected=i;
+    this.renderList();
+    if(i<0||i>=this.records.length){ this.root.querySelector('.detail').innerHTML='<div class="empty">Select a record…</div>'; return; }
+    const rec=this.records[i];
+    let h='<div class="toolbar"><b style="color:var(--gold)">'+esc(labelOf(rec,i))+'</b>'
+      +'<span class="pill">index '+(i+1)+'</span>'
+      +'<button class="ghost tiny" data-d="del">Delete this record</button></div>';
+    h+='<div class="fields">';
+    for(const k of Object.keys(rec)){
+      const v=rec[k]; const kind=inferType(v);
+      const isId=(k==='id'||k==='d100');
+      h+=this.fieldHtml((isId?'id:':'')+k, v, kind, false, isId?i+':id':'cur:'+i+':'+k);
+    }
+    h+='</div>';
+    const d=this.root.querySelector('.detail'); d.innerHTML=h;
+    d.querySelectorAll('[data-bind]').forEach(inp=>{
+      inp.onchange=()=>this.onFieldChange(inp);
+      inp.oninput=()=>this.onFieldChange(inp);
+    });
+    d.querySelector('[data-d="del"]').onclick=()=>this.removeSelected();
+  }
+  fieldHtml(label,v,kind,isMeta,bindKey){
+    const val=inferType(v)==='null'?'':v;
+    let control='';
+    if(kind==='boolean'){
+      control=`<div class="chk"><input type="checkbox" data-${isMeta?'meta':'bind'}="${bindKey}" data-kind="${kind}" ${v?'checked':''}><span>true / false</span></div>`;
+    }else if(kind==='number'){
+      control=`<input type="number" step="any" data-${isMeta?'meta':'bind'}="${bindKey}" data-kind="${kind}" value="${esc(val)}">`;
+    }else if(kind==='short'){
+      control=`<input type="text" data-${isMeta?'meta':'bind'}="${bindKey}" data-kind="${kind}" value="${esc(val)}">`;
+    }else if(kind==='list'){
+      control=`<textarea rows="3" data-${isMeta?'meta':'bind'}="${bindKey}" data-kind="${kind}">${esc((v||[]).join('\n'))}</textarea>`;
+    }else if(kind==='long'){
+      control=`<textarea rows="8" data-${isMeta?'meta':'bind'}="${bindKey}" data-kind="${kind}">${esc(v)}</textarea>`;
+    }else{ // array/object
+      control=`<textarea rows="8" data-${isMeta?'meta':'bind'}="${bindKey}" data-kind="${kind}">${esc(JSON.stringify(v,null,2))}</textarea>`;
+    }
+    const isIdField=label.indexOf('id:')===0;
+    return `<div class="field ${isIdField?'id-field':''}">
+      <label>${esc(label.replace(/^id:/,'').replace(/^cur:\d+:/,'').replace(/^meta:/,''))}<span class="kind">${kind}</span></label>
+      ${control}</div>`;
+  }
+  onFieldChange(inp){
+    const kind=inp.dataset.kind;
+    const raw=(inp.type==='checkbox')?inp.checked:inp.value;
+    let target, key;
+    if(inp.dataset.meta){ key=inp.dataset.meta.split(':')[1]; target=this.metaData; }
+    else { const b=inp.dataset.bind; const parts=b.split(':'); key=parts.slice(2).join(':'); target=this.records[+parts[1]]; }
+    target[key]=parseField(kind, raw, target[key]);
+    this.dirty=true; markDirty();
+    if(inp.dataset.bind && (key==='injuryType'||key==='name'||key==='title'||key==='id')) this.renderList();
+  }
+  markClean(){ this.dirty=false; markDirty(); }
+  async save(){
+    let payload;
+    if(this.objectWithEntries){
+      for(const k of Object.keys(this.metaData)) this.data[k]=this.metaData[k];
+      this.data[this.entriesKey]=this.records;
+      payload=this.data;
+    } else {
+      payload=this.records;
+    }
+    const r=await fetch('/api/'+this.key,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)});
+    const j=await r.json();
+    if(r.ok && j.ok){ this.original=JSON.parse(JSON.stringify(this.objectWithEntries?this.data:this.records));
+      this.markClean(); toast('Saved '+this.key,'ok'); }
+    else { toast('Save failed: '+(j.error||r.status),'bad'); }
+  }
+  async reload(){
+    if(this.dirty && !confirm('Discard unsaved edits and reload from disk?')) return;
+    await this.load(); toast('Reloaded '+this.key);
+  }
+  add(){
+    let rec;
+    if(this.objectWithEntries){ rec={d100:this.records.length+1,category:'',injuryType:'',description:'',cure:'',duration:'',notes:'',temporary:true}; }
+    else { rec={}; const probe=this.records[0]||{}; for(const k of Object.keys(probe)) rec[k]=(typeof probe[k]==='number')?0:(Array.isArray(probe[k])?[]:(typeof probe[k]==='object'&&probe[k]!==null)?{}:''); }
+    this.records.push(rec); this.dirty=true; markDirty(); this.renderList();
+    this.select(this.records.length-1);
+    toast('Added a blank record — fill it in and Save');
+  }
+  removeSelected(){
+    if(this.selected<0) return;
+    if(!confirm('Delete this record? (Save to persist)')) return;
+    this.records.splice(this.selected,1);
+    if(this.objectWithEntries){ this.records.forEach((e,i)=>e.d100=i+1); }
+    this.dirty=true; markDirty(); this.selected=-1; this.render();
+    toast('Record removed — remember to Save');
+  }
+  renumber(){
+    if(!this.objectWithEntries) return;
+    this.records.forEach((e,i)=>{ e.d100=i+1; if(e.temporary===undefined) e.temporary=true; });
+    this.dirty=true; markDirty(); this.render(); toast('Renumbered d100 1–'+(this.records.length),'ok');
+  }
+  async roll(){
+    if(!this.objectWithEntries) return;
+    const n=Math.floor(Math.random()*this.records.length)+1;
+    this.select(n-1);
+    const el=this.root.querySelector('.list').children[n-1];
+    if(el){ el.style.background='#3a2f12'; setTimeout(()=>el.style.background='',1200); }
+    toast('Rolled d100 → '+n+' : '+labelOf(this.records[n-1],n-1),'ok');
+  }
+  async check(){
+    if(!this.hasCheck) return;
+    const co=$('inj-check'); co.className='checkout show';
+    const r=await fetch('/api/'+this.key+'/check',{method:'POST'});
+    const j=await r.json();
+    co.textContent=(j.stdout||'')+(j.stderr?('\n'+j.stderr):'')+'\n[exit '+(j.exit??'?')+']';
+  }
+}
+
+// toolbar wiring per tab
+function wireTab(tabId,editorKey){
+  const tab=$('tab-'+tabId);
+  tab.querySelectorAll('[data-act]').forEach(btn=>{
+    btn.onclick=async()=>{
+      const e=editors[editorKey]; if(!e) return;
+      const act=btn.dataset.act;
+      if(act==='save') await e.save();
+      else if(act==='reload') await e.reload();
+      else if(act==='add') e.add();
+      else if(act==='renumber') e.renumber();
+      else if(act==='roll') e.roll();
+      else if(act==='check') await e.check();
+    };
+  });
+}
+wireTab('injuries','injuries');
+wireTab('locations','locations');
+wireTab('events','events');
+wireTab('battles','battles');
+// search boxes
+if($('loc-search')) $('loc-search').oninput=e=>{ if(editors.locations) editors.locations.filter=e.target.value.toLowerCase(), editors.locations.renderList(); };
+if($('evt-search')) $('evt-search').oninput=e=>{ if(editors.events) editors.events.filter=e.target.value.toLowerCase(), editors.events.renderList(); };
+if($('bat-search')) $('bat-search').oninput=e=>{ if(editors.battles) editors.battles.filter=e.target.value.toLowerCase(), editors.battles.renderList(); };
+// battles file switch
+if($('bat-file')) $('bat-file').onchange=async e=>{
+  const key=e.target.value; if(editors.battles.dirty && !confirm('Switch file? Unsaved changes to the current file will be lost.')){ e.target.value=editors.battles.key; return; }
+  editors.battles.key=key; await editors.battles.load();
+};
+window.addEventListener('beforeunload',e=>{ if(editors.some(x=>x&&x.dirty)){ e.preventDefault(); e.returnValue=''; } });
+</script>
+</body>
+</html>

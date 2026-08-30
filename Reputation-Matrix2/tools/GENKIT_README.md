@@ -163,7 +163,19 @@ that bookkeeping two workers prune the same post simultaneously.
 ## The GUI
 
 `--gui` opens a control panel with live per-system counters, a log, and
-worker/limit/temperature controls.
+worker/limit/temperature controls. `--web` forces the browser dashboard.
+
+The web dashboard is also a **data desk**. The four "tool" systems that used to
+be view-only — **Injury Table** (the d100 desk), **Locations**, **Events**, and
+**Battles** — are now editable directly in the browser: open the matching tab,
+change any field or record, and **Save** writes the change straight back to
+`Reputation-Matrix2/data/`. Each editor supports add, delete, search/filter, and
+a JSON-aware field renderer for nested arrays/objects. The Injury Table tab adds
+a d100 **Roll** simulator and a **Validate** button that shells out to
+`tools/generate-injury-table.py --check`; the Locations tab's Validate runs
+`Reputation-Matrix2/tools/generate_locations.py --check`. The generator list and
+the four tool rows in the control panel now report live record counts, pulled
+from the data files on every snapshot.
 
 Two backends, chosen automatically: **tkinter** when the interpreter has it,
 and a **local web dashboard** served from the standard library when it does

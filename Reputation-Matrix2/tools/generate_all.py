@@ -15,7 +15,12 @@ validator rejects is never written.
     python3 tools/generate_all.py --dry-run --limit 6
     python3 tools/generate_all.py --workers 2
     python3 tools/generate_all.py --only reputation --limit 50
-    python3 tools/generate_all.py --gui              # control panel
+    python3 tools/generate_all.py --web              # browser dashboard
+
+The `--gui` / `--web` dashboard is the control panel *and* the data desk. The
+four "tool" systems — Injury Table (d100), Locations, Events, Battles — are not
+fixed: open their tabs to change the numbers, cards and records, then Save
+writes them back to `Reputation-Matrix2/data/`.
 
 Every generated record carries `status` and a `_generated` provenance stamp so
 machine-drafted content is always distinguishable from hand-written canon.
@@ -34,6 +39,11 @@ from genkit.runner import Runner, RunnerEvent          # noqa: E402
 from genkit.settings import Settings                    # noqa: E402
 from genkit.storage import Checkpoint                   # noqa: E402
 from genkit.systems import all_systems                  # noqa: E402
+
+# generate_all.py lives at Reputation-Matrix2/tools/generate_all.py, so the
+# repository root (where the data desk subprocesses expect to run) is two
+# parents up.
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 ICONS = {"ok": "✅", "fail": "❌", "skip": "⏭", "task": "→", "started": "▶",
          "done": "🏁", "error": "💥"}
@@ -67,6 +77,22 @@ def print_checkpoints(settings: Settings) -> None:
         ok, failed = Checkpoint(settings.work_dir, system.id).counts()
         print(f"  {system.id:<18} {ok:>6} done   {failed:>4} failed")
     print(f"\n  ({settings.work_dir})\n")
+
+
+def parse_weights(spec: str) -> dict[str, float]:
+    """Parse `--weights events=40,battles=20` into {id: percentage}."""
+    weights: dict[str, float] = {}
+    if not spec:
+        return weights
+    for part in spec.split(","):
+        key, sep, value = part.partition("=")
+        if not sep:
+            raise argparse.ArgumentTypeError(f"--weights entries must look like system-id=percentage (got {part!r})")
+        try:
+            weights[key.strip()] = max(0.0, float(value))
+        except ValueError:
+            raise argparse.ArgumentTypeError(f"invalid weight: {part!r}")
+    return weights
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -120,16 +146,6 @@ def main(argv: list[str] | None = None) -> int:
         print_inventory()
         return 0
 
-    weights = {}
-    for part in args.weights.split(",") if args.weights else []:
-        key, sep, value = part.partition("=")
-        if not sep:
-            parser.error("--weights entries must look like system-id=percentage")
-        try:
-            weights[key.strip()] = max(0.0, float(value))
-        except ValueError:
-            parser.error(f"invalid weight: {part}")
-
     settings = Settings(
         endpoint=args.endpoint,
         model=args.model,
@@ -139,7 +155,7 @@ def main(argv: list[str] | None = None) -> int:
         limit=args.limit,
         only=[s.strip() for s in args.only.split(",") if s.strip()],
         skip=[s.strip() for s in args.skip.split(",") if s.strip()],
-        weights=weights,
+        weights=parse_weights(args.weights),
         dry_run=args.dry_run,
         retry_failed=args.retry_failed,
         seed=args.seed,
@@ -179,9 +195,10 @@ def main(argv: list[str] | None = None) -> int:
     if runner.failed and not (args.continue_on_failure or args.infinite):
         return 1
     if args.past_events:
-        expand = ROOT.parent / "tools" / "expand-waluipedia.py"
+        expand = REPO_ROOT / "tools" / "expand-waluipedia.py"
         command = [sys.executable, str(expand), "--past-events", "--overnight",
-                   "--target", str(args.past_events), "--base-url", args.endpoint.rsplit("/v1/", 1)[0] + "/v1",
+                   "--target", str(args.past_events),
+                   "--base-url", args.endpoint.rsplit("/v1/", 1)[0] + "/v1",
                    "--timeout", str(args.timeout)]
         if args.model:
             command += ["--model", args.model]
@@ -189,7 +206,7 @@ def main(argv: list[str] | None = None) -> int:
             command += ["--max-attempts", str(args.past_max_attempts)]
         print("\n=== events: sparse foreign past-event stage ===", flush=True)
         print("$", " ".join(command), flush=True)
-        completed = subprocess.run(command, cwd=ROOT.parent)
+        completed = subprocess.run(command, cwd=REPO_ROOT)
         if completed.returncode:
             print("events stage failed; no later stage was run", file=sys.stderr)
             return completed.returncode
