@@ -68,14 +68,97 @@ def _snake(value: str) -> str:
     return text
 
 
+
+import collections
+def _count_emoji(text: str) -> int:
+    return len(re.findall(r"[🌀-🫿]", text or ""))
+
+def _emoji_spam_reason(text: str) -> tuple[int, str]:
+    n = _count_emoji(text or "")
+    if n >= 8:
+        return n, f"emoji spam {n} glyphs"
+    if re.search(r"(?:[🌀-🫿]\s*){4,}", text or ""):
+        return n, f"emoji run (4+ in a row) count={n}"
+    words = re.findall(r"[A-Za-z']+", text or "")
+    if n >= 6 and words and n / max(1, len(words)) > 0.03:
+        return n, f"emoji density {n}/{len(words)} words"
+    return n, ""
+
+def _is_bad_output(text: str) -> tuple[bool, str]:
+    if not text or len(text) < 80:
+        return False, ""
+    words = re.findall(r"[a-zA-Z']+", text.lower())
+    if len(words) < 40:
+        return False, ""
+    total = len(words)
+    uniq = len(set(words))
+    if total > 600 and uniq / total < 0.18:
+        return True, f"low diversity {uniq}/{total}={uniq/total:.2f}"
+    if total > 300 and uniq / total < 0.12:
+        return True, f"very low diversity {uniq}/{total}={uniq/total:.2f}"
+    
+    STOP = {"the","and","of","a","to","in","is","for","with","as","by","on","or","be","are","that","this","it","from","an","shall","may","must","under","per","see","not","any","all","such","which","who","will","can","has","have","been","are","was","were","if","at","its","their","our","your","shall","be","is","are"}
+    STOP.discard("whatever")
+    STOP.discard("failure")
+    STOP.discard("guild")
+    cnt = collections.Counter(w for w in words if w not in STOP)
+    if cnt:
+        most_common_word, most_cnt = cnt.most_common(1)[0]
+        if most_cnt > 60 and most_cnt > total * 0.10:
+            return True, f"repeated word '{most_common_word}' {most_cnt}/{total} ({most_cnt/total:.0%})"
+        if most_cnt > 60:
+            return True, f"word '{most_common_word}' repeats {most_cnt}/{total} (extreme)"
+        whatever_cnt = cnt.get("whatever", 0)
+        if whatever_cnt >= 15:
+            return True, f"'whatever' flood {whatever_cnt}x"
+        sentences_raw = re.split(r'[.!?]+', text)
+        failure_starts = sum(1 for s in sentences_raw if s.strip().lower().startswith("failure"))
+        if failure_starts >= 6 and len([s for s in sentences_raw if s.strip()]) >= 10:
+            if failure_starts / len([s for s in sentences_raw if s.strip()]) > 0.25:
+                return True, f"'Failure' sentence-start flood {failure_starts}/{len(sentences_raw)}"
+    
+    fourgrams = [" ".join(words[i:i+4]) for i in range(len(words)-3)]
+    if fourgrams:
+        fg_cnt = collections.Counter(fourgrams)
+        top_fg, top_n = fg_cnt.most_common(1)[0]
+        COMMON_LEGAL = {"in accordance with the","pursuant to section","under section","of the autumnwood accords","the guild shall diligently"}
+        if top_fg not in COMMON_LEGAL and top_n >= 10 and top_n > total * 0.02:
+            return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x"
+        if top_n >= 16:
+            return True, f"4-gram '{top_fg[:40]}' repeats {top_n}x (extreme)"
+            
+    trigrams = [" ".join(words[i:i+3]) for i in range(len(words)-2)]
+    if trigrams:
+        tri_cnt = collections.Counter(trigrams)
+        top_tri, top_tri_n = tri_cnt.most_common(1)[0]
+        if top_tri not in COMMON_LEGAL and top_tri_n >= 14 and top_tri_n > total * 0.03:
+            return True, f"3-gram '{top_tri[:30]}' repeats {top_tri_n}x"
+
+    emoji_n, emoji_reason = _emoji_spam_reason(text)
+    if emoji_reason:
+        return True, emoji_reason
+    if text.count(".") < total / 140 and total > 400:
+        return True, "no punctuation"
+    
+    return False, ""
+
+
 def _clean(text: Any, *, lo: int, hi: int, field: str) -> str:
     value = " ".join(str(text or "").split())
-    if not (lo <= len(value) <= hi):
-        raise ValidationError(f"{field} must be {lo}-{hi} characters (got {len(value)})")
+    if field == "description":
+        if len(value) < lo:
+            raise ValidationError(f"{field} must be at least {lo} characters (got {len(value)})")
+        if len(value) > 60000:
+            raise ValidationError(f"{field} is absurdly long ({len(value)} characters)")
+        is_bad, reason = _is_bad_output(value)
+        if is_bad:
+            raise ValidationError(f"spam detector flagged {field}: {reason}")
+    else:
+        if not (lo <= len(value) <= hi):
+            raise ValidationError(f"{field} must be {lo}-{hi} characters (got {len(value)})")
     if re.search(r"\bmike\b", value, re.I):
         raise ValidationError(f"{field} names the GM; rewrite without 'mike'")
     return value
-
 
 def _string_list(raw: Any, *, min_n: int, field: str) -> list[str]:
     if not isinstance(raw, list):
