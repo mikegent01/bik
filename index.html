@@ -6578,7 +6578,11 @@ function inlineMd(t,opts){
   return t;
 }
 function mdToHtml(md,linkCtx){
-  if(!md)return'';const lines=md.replace(/\r/g,'').split('\n');let html='',para=[],quote=[];
+  if(!md)return'';
+  // AI generators sometimes forget newlines before/after headers in long single-line outputs
+  md = md.replace(/([.!?])\s+(#{2,3})\s/g, "$1\n\n$2 ");
+  
+  const lines=md.replace(/\r/g,'').split('\n');let html='',para=[],quote=[];
   const opt=linkCtx?{link:true,currentId:linkCtx}:null;
   // Pre-register every manual-link target so the auto-linker won't also link that entity elsewhere.
   if(opt){ let mm2; const re2=/\[[^\]]+\]\(([^)]+)\)/g; while((mm2=re2.exec(md))!==null){ const tm=String(mm2[1]).match(/#\/article\/([a-zA-Z0-9_:-]+)/); const tid=tm?tm[1]:mm2[1]; if(LINK_PREVIEW[tid]) LINK_ONCE.add(tid); } }
@@ -6601,7 +6605,7 @@ function mdToHtml(md,linkCtx){
   fp();fq();return html;
 }
 
-function headings(md){if(!md)return[];const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
+function headings(md){if(!md)return[]; md = md.replace(/([.!?])\s+(#{2,3})\s/g, "$1\n\n$2 ");const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
 const SEARCH_META={codex:'📜',article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',tradition:'⚖️',culture:'🌐',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️',ability:'🎓',whatif:'❓'};

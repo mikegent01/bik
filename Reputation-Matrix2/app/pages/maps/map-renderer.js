@@ -3177,9 +3177,11 @@ function applyPoiStyle(marker, poi) {
     } else {
         // Default style
         iconWrapper.innerHTML = BUILDING_TYPES[poi.type]?.icon || '❓';
-        marker.style.width = '20px';
-        marker.style.height = '20px';
+        marker.style.width = '24px';
+        marker.style.height = '24px';
         marker.style.borderColor = factionData.color;
+        marker.style.backgroundColor = hexToRgba(factionData.color, 0.2);
+        iconWrapper.style.fontSize = '14px';
     }
 }
 
