@@ -5530,17 +5530,13 @@ function railBox(title,body,opts={}){
 /* Full-width event/battle pages have no side rail, so the record's own facts
    and its contents box move into the main column as a summary band. */
 function recordSummaryBand(item,infoRows,toc){
-  const box=infoRows?`<div class="infobox"><h4>${esc(displayName(item))}</h4>${infoRows}</div>`:'';
-  if(!box && !toc) return '';
-  return `<div class="record-summary">${box}${toc||''}</div>`;
+  if(!toc) return '';
+  return `<div class="record-summary">${toc||''}</div>`;
 }
 function articleRail(articleId,typeKey,item,infoRows,toc,opts){
-  /* `wide` mode serves the full-width event/battle pages: the infobox and the
-     contents move into the main column (recordSummaryBand) and the remaining
-     toolboxes render as a bottom band instead of a sticky side rail. */
+  /* `wide` mode serves the full-width event/battle pages */
   const wide=!!(opts&&opts.wide);
   const parts=[];
-  if(!wide && infoRows) parts.push(`<div class="infobox"><h4>${esc(displayName(item))}</h4>${infoRows}</div>`);
   if(!wide && toc) parts.push(toc);
   // Faction systems get a prominent rail shortcut instead of hiding in the link soup.
   if(typeKey==='factions'){
@@ -10119,7 +10115,6 @@ function view_article(id){
   const sectionWordSrc = (item.sections||[]).map(s=>(s.overview||'')+' '+(s.subsections||[]).map(ss=>ss.description||ss.content||ss.text||ss.overview||'').join(' ')).join(' ');
   const totalWords = words(item.description)+words(sectionWordSrc);
   const rtFull = Math.max(1, Math.round(totalWords/220));
-  let infoRows='';(INFOBOX[typeKey]||[]).forEach(([f,label])=>{let v=item[f];if(!v)return;if(Array.isArray(v))v=v.join(', ');v=String(v);infoRows+=`<div class="row"><span class="k">${esc(label)}</span><span class="v" title="${esc(v)}">${esc(v)}</span></div>`;});
   const listBlocks=[];
   // Render array fields. When `linkable` is true and a value matches a known INDEX entry,
   // it becomes a clickable entity-chip. Otherwise falls back to plaintext.
@@ -10203,17 +10198,26 @@ function view_article(id){
      contents move into the main column, and the archive toolboxes follow the
      exhibits as a bottom band. Other article types keep the side rail. */
   const wideRecord = typeKey==='events'||typeKey==='battles';
-  const summaryBand = wideRecord ? recordSummaryBand(item,infoRows,toc) : '';
+  let metaPills='';
+  (INFOBOX[typeKey]||[]).forEach(([f,label])=>{
+    if(f==='status')return;
+    let v=item[f];if(!v)return;
+    if(Array.isArray(v))v=v.join(', ');
+    v=String(v);
+    metaPills+=`<span class="pill" title="${esc(label)}: ${esc(v)}"><strong>${esc(label)}</strong> ${esc(v)}</span>`;
+  });
+  
+  const summaryBand = wideRecord ? recordSummaryBand(item,'',toc) : '';
   const railHtml = wideRecord
-    ? articleRail(item.id,typeKey,item,null,null,{wide:true})
-    : `<div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div>`;
+    ? articleRail(item.id,typeKey,item,'',null,{wide:true})
+    : `<div>${articleRail(item.id,typeKey,item,'',toc)}</div>`;
   el('content').innerHTML=`
    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/${typeKey}')">${esc(t.label)}</a> › ${esc(displayName(item))}</div>
    <div class="article-layout${wideRecord?' record-wide-layout':''}"><div><div class="card animate-fade-in">
      <div class="art-kicker">${t.emoji} ${esc(t.singular)}${item.era?` · ${esc(String(item.era).split('—')[0].trim())}`:(item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:'')}</div>
      <h1 class="art-title">${esc(displayName(item))}</h1>
      ${item.title&&item.title!==item.name?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
-     <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${typeKey==='factions'?systemsForFaction(item.id).map(s=>`<span class="pill" style="border-color:${s.accent};color:${s.accent};cursor:pointer" onclick="Router.go('${s.route}')">${s.emoji} ${esc(s.name)} — integrated system</span>`).join(''):''}${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}</div>
+     <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${typeKey==='factions'?systemsForFaction(item.id).map(s=>`<span class="pill" style="border-color:${s.accent};color:${s.accent};cursor:pointer" onclick="Router.go('${s.route}')">${s.emoji} ${esc(s.name)} — integrated system</span>`).join(''):''}${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}${metaPills}</div>
      <div class="readtime">⏱ ${rtFull} min read · ${totalWords} words</div>
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${leadHtml}${typeKey==='races'?raceDossierPanel(item):''}${audioHtml}
@@ -10243,8 +10247,15 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
 function view_trial(item,t){
   LINK_YEAR_CTX = parseYear(item.date)||parseYear(item.era)||null;
   beginLinkPass(item);
-  let infoRows='';(INFOBOX.trials||[]).forEach(([f,label])=>{let v=item[f];if(!v)return;v=String(v);infoRows+=`<div class="row"><span class="k">${esc(label)}</span><span class="v" title="${esc(v)}">${esc(v)}</span></div>`;});
-  const charges=Array.isArray(item.charges)?`<section class="charges-panel"><h2 id="h-charges">⚖️ Charges</h2><p class="text-muted">Filed allegations and legal directives. Names are linked when the archive has a matching record.</p><ul class="charge-list">${item.charges.map(c=>{const text=typeof c==='string'?c:(c.charge||c.name||JSON.stringify(c));const matches=[...String(text).matchAll(/\b(?:Elder Rowan Meadowlight|Iron Fists|Rakka Directive|Regal Empire|Mages' Guild|Mushroom Regency)\b/gi)];let html=esc(text);matches.reverse().forEach(m=>{const raw=m[0],key=raw.toLowerCase().replace(/[^a-z0-9]+/g,'_');const target=INDEX[key]?`#/article/${encodeURIComponent(key)}`:key.includes('regal')?'#/reputation/faction/regal_empire':key.includes('mushroom')?'#/reputation/faction/mushroom_regency':'';if(target)html=html.slice(0,m.index)+`<a class="charge-link" href="${target}">${esc(raw)}</a>`+html.slice(m.index+raw.length);});return `<li><span class="charge-marker">§</span><span>${html}</span></li>`;}).join('')}</ul></section>`:'';
+  let metaPills='';
+  (INFOBOX.trials||[]).forEach(([f,label])=>{
+    if(f==='status')return;
+    let v=item[f];if(!v)return;
+    v=String(v);
+    metaPills+=`<span class="pill" title="${esc(label)}: ${esc(v)}"><strong>${esc(label)}</strong> ${esc(v)}</span>`;
+  });
+  
+  const charges=Array.isArray(item.charges)?`<section class="charges-panel"><h2 id="h-charges">⚖️ Charges</h2><p class="text-muted">Filed allegations and legal directives. Names are linked when the archive has a matching record.</p><ul class="charge-list">${item.charges.map(c=>{const text=typeof c==='string'?c:(c.charge||c.name||JSON.stringify(c));const matches=[...String(text).matchAll(/\\b(?:Elder Rowan Meadowlight|Iron Fists|Rakka Directive|Regal Empire|Mages' Guild|Mushroom Regency)\\b/gi)];let html=esc(text);matches.reverse().forEach(m=>{const raw=m[0],key=raw.toLowerCase().replace(/[^a-z0-9]+/g,'_');const target=INDEX[key]?`#/article/${encodeURIComponent(key)}`:key.includes('regal')?'#/reputation/faction/regal_empire':key.includes('mushroom')?'#/reputation/faction/mushroom_regency':'';if(target)html=html.slice(0,m.index)+`<a class="charge-link" href="${target}">${esc(raw)}</a>`+html.slice(m.index+raw.length);});return `<li><span class="charge-marker">§</span><span>${html}</span></li>`;}).join('')}</ul></section>`:'';
   let sections='';const tocParts=[];
   (item.sections||[]).forEach((s,i)=>{
     const sid='sec-'+i;tocParts.push({level:2,text:s.name,slug:sid});
@@ -10273,12 +10284,12 @@ function view_trial(item,t){
    <div class="article-layout"><div><div class="card animate-fade-in">
      <div class="art-kicker">⚖️ Trial${item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:''}</div>
      <h1 class="art-title">${esc(item.name)}</h1>${item.title?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
-     <div class="metabar"><span class="pill">⚖️ Trial</span>${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(item.status)}</span>`:''}</div>
+     <div class="metabar"><span class="pill">⚖️ Trial</span>${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(item.status)}</span>`:''}${metaPills}</div>
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${item.summary?`<div class="article-lead-card noimg"><div class="article-lead-summary"><h4>Case Summary</h4><p>${esc(item.summary)}</p></div></div>`:''}${anote}${defLink}
      ${item.description?`<div class="prose">${applyAnnotations(mdToHtml(item.description,item.id), item.id)}</div>`:''}
      ${charges}${sections}${timelineHtml}${featuresHtml}${finalHtml}${renderReputationImpactPanel(item,'trials')}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, 'trials') : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, 'trials') : ''}${typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(item.id, 'trials') : ''}${relHtml}
-   </div></div><div>${crossPagePanel(item.id,'trials',item)}${articleControlPanel(item.id)}<div class="infobox"><h4>${esc(item.name)}</h4>${infoRows}</div>${toc}</div></div>`;
+   </div></div><div>${crossPagePanel(item.id,'trials',item)}${articleControlPanel(item.id)}${toc}</div></div>`;
   setArticleAccent('trials');
   window.scrollTo(0,0);setupScrollSpy();
 }

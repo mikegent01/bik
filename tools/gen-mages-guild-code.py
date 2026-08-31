@@ -1177,7 +1177,6 @@ def main() -> int:
         # Overhaul: every 10 auto-check, every 20 AI self-check, every 15 codex → 1 form (separate pool)
         try:
             check_every_10()
-            ai_self_check_every_20()
             maybe_generate_form()
         except Exception as _e:
             print(f"periodic check failed: {_e}", file=__import__('sys').stderr)
