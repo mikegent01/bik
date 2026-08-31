@@ -3776,35 +3776,37 @@ export function renderMap(mapId) {
 
 function handleMapImageLoad(mapImage, zoomWrapper, mapId) {
     const container = displayArea;
-    const containerRatio = container.clientWidth / container.clientHeight;
+    
+    // Switch container to flex for perfect aspect-ratio centering natively
+    container.style.display = 'flex';
+    container.style.alignItems = 'center';
+    container.style.justifyContent = 'center';
+    
     const imgRatio = mapImage.naturalWidth / mapImage.naturalHeight;
 
-    let renderedWidth, renderedHeight, top, left;
-
-    if (containerRatio > imgRatio) {
-        renderedHeight = container.clientHeight;
-        renderedWidth = renderedHeight * imgRatio;
-        top = 0;
-        left = (container.clientWidth - renderedWidth) / 2;
-    } else {
-        renderedWidth = container.clientWidth;
-        renderedHeight = renderedWidth / imgRatio;
-        top = (container.clientHeight - renderedHeight) / 2;
-        left = 0;
-    }
+    Object.assign(zoomWrapper.style, {
+        position: 'relative',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        aspectRatio: String(imgRatio),
+        width: '100%',
+        height: '100%',
+        margin: 'auto'
+    });
 
     const interactiveLayer = document.createElement('div');
     interactiveLayer.id = 'interactive-map-layer';
     Object.assign(interactiveLayer.style, {
         position: 'absolute',
-        width: `${renderedWidth}px`,
-        height: `${renderedHeight}px`,
-        top: `${top}px`,
-        left: `${left}px`
+        width: '100%',
+        height: '100%',
+        top: '0',
+        left: '0'
     });
     zoomWrapper.appendChild(interactiveLayer);
 
-    map.setRenderedMapDimensions({ width: renderedWidth, height: renderedHeight });
+    // Keep updating renderedMapDimensions for anything else that might depend on it (though we migrated editor away from it)
+    map.setRenderedMapDimensions({ width: container.clientWidth, height: container.clientHeight });
 
     const svgLayer = createSVGLayer();
     interactiveLayer.appendChild(svgLayer);

@@ -246,10 +246,10 @@ function finalizeFogPolygon() {
 
 function handleMapDrawClick(e) {
     if (e.button !== 0) return; // Only left click
-    if (!map.renderedMapDimensions) return;
     const rect = document.getElementById('interactive-map-layer').getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / map.renderedMapDimensions.width) * 100;
-    const y = ((e.clientY - rect.top) / map.renderedMapDimensions.height) * 100;
+    if (!rect || rect.width === 0) return;
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
     currentFogPoints.push({ x, y });
     renderer.renderDrawingPreview(currentFogPoints);
 }
@@ -334,11 +334,10 @@ export function setupEditorEventListeners() {
     displayArea.addEventListener('drop', e => {
         e.preventDefault();
         displayArea.classList.remove('editing-poi');
-        if (!map.renderedMapDimensions) return;
-        
         const rect = document.getElementById('interactive-map-layer').getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / map.renderedMapDimensions.width) * 100;
-        const y = ((e.clientY - rect.top) / map.renderedMapDimensions.height) * 100;
+    if (!rect || rect.width === 0) return;
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
 
         const type = e.dataTransfer.getData('text/plain');
         if (BUILDING_TYPES[type]) {
