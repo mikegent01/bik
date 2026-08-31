@@ -13042,7 +13042,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "timeWindow": "30 Harvestide, 1040 BF \u2014 later that night, concurrent with Archie\u2019s return; roughly 1\u20132 hours of grove exchange from the scythe thrown through the door to Green T\u2019s collapsed giant form. No calendar day passed; still 1040 BF."
   },
   {
     "id": "feyward_battalion_of_six_and_the_bait_plan",
@@ -13826,6 +13827,7 @@
         "reputationNotes"
       ]
     },
-    "waluigiAssessment": "**The Scorncrow is a territory, not a target.** It summons swings, laughs at pinning shots, and leaves through smoke. Treating it as one monster to bonk will keep producing a monster that is not there when the blow lands. The party fought the grove and the grove, being patient, let them.\n\n**Nobody could take a hit, so Markop took the vanguard alone.** That is the arithmetic of the night, and it is not sustainable. A squad with one absorbent member is a squad running on a single hinge. The elixir hid the gap for one engagement; the gap did not go away.\n\n**Archie's deforestation is a real tactic with the wrong target.** Pulling the root is correct against something that is rooted. The Scorncrow proved it is not rooted \u2014 it left through the air. Archie was not wrong about the method, only about the enemy.\n\n**The observation tower saw the wrong thing, and that was the point.** Remi looked for the Scorncrow and found Green T. The party's best intel asset tonight was a giant with nobody to point at. Next time the Scorncrow must be made to stay in one place before the party spends its garlic.\n\n**Recommendation:** stop pursuing the Scorncrow to its ground. Draw it somewhere it cannot vanish, commit Green T's size after it is pinned, and keep Markop's vanguard short. WAH."
+    "waluigiAssessment": "**The Scorncrow is a territory, not a target.** It summons swings, laughs at pinning shots, and leaves through smoke. Treating it as one monster to bonk will keep producing a monster that is not there when the blow lands. The party fought the grove and the grove, being patient, let them.\n\n**Nobody could take a hit, so Markop took the vanguard alone.** That is the arithmetic of the night, and it is not sustainable. A squad with one absorbent member is a squad running on a single hinge. The elixir hid the gap for one engagement; the gap did not go away.\n\n**Archie's deforestation is a real tactic with the wrong target.** Pulling the root is correct against something that is rooted. The Scorncrow proved it is not rooted \u2014 it left through the air. Archie was not wrong about the method, only about the enemy.\n\n**The observation tower saw the wrong thing, and that was the point.** Remi looked for the Scorncrow and found Green T. The party's best intel asset tonight was a giant with nobody to point at. Next time the Scorncrow must be made to stay in one place before the party spends its garlic.\n\n**Recommendation:** stop pursuing the Scorncrow to its ground. Draw it somewhere it cannot vanish, commit Green T's size after it is pinned, and keep Markop's vanguard short. WAH.",
+    "timeWindow": "30 Harvestide, 1040 BF \u2014 one storm-night engagement, roughly 1\u20132 hours of in-world time from the Toads\u2019 march to the Scorncrow\u2019s smoke-and-feather vanish; no calendar day passed, and the year remains 1040 BF on the Shadowfell/Material chain."
   }
 ]

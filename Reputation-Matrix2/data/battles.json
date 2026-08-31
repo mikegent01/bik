@@ -4199,7 +4199,7 @@
     "result": "No decision. Green T's giant form briefly flattened the Scorncrow and shook the cottage itself, but the Scorncrow stood back up, the grove joined the fight, and the giant form began to fail before the field could be resolved.",
     "engagement": {
       "combatants": 5,
-      "ledgerWindow": "the later watches of 30 Harvestide, 1040 BF — one short grove exchange felt as an earthquake at the cottage",
+      "ledgerWindow": "the later watches of 30 Harvestide, 1040 BF — one short grove exchange felt as an earthquake at the cottage · roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)",
       "scale": "A named two-man assault against one field-sovereign scarecrow plus the bats, branches, and swinging deadweight the grove kept contributing after contact"
     },
     "belligerents": {
@@ -4354,7 +4354,8 @@
         "effects",
         "reputationNotes"
       ]
-    }
+    },
+    "timeWindow": "roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)"
   },
   {
     "id": "feyward_sixth_detachment_house_defense",
@@ -4799,7 +4800,7 @@
     "result": "No decision. The party spent its anti-fey elixir, bonked, shot, and pinned the Scorncrow, and the Scorncrow vanished in smoke and crow-feathers, declaring it was not a monster. No party casualty; no kill; the target escaped.",
     "engagement": {
       "combatants": 11,
-      "ledgerWindow": "the overgrown grove, continuing straight out of the threshold storm on 30 Harvestide, 1040 BF",
+      "ledgerWindow": "the overgrown grove, continuing straight out of the threshold storm on 30 Harvestide, 1040 BF · roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)",
       "scale": "A squad-level engagement with one field-sovereign scarecrow plus its bat-swarm and the trees themselves, resolved by the Scorncrow's refusal to be a target"
     },
     "belligerents": {
@@ -5081,6 +5082,7 @@
         "date": "30 Harvestide, 1040 BF",
         "dateSort": 10400830
       }
-    ]
+    ],
+    "timeWindow": "roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)"
   }
 ]

@@ -3,41 +3,106 @@
   "source": "migrated from data/events/scheduled-posts.js",
   "posts": [
     {
-      "id": "wahwire_campaign_songs_archive",
+      "id": "wahwire_ebot_part2_audit",
       "author": "waluigi",
       "order": 1,
       "date": null,
-      "timestamp": "1040 BF (Curated across 57 Campaign Records)",
-      "content": "Finally—someone audits those unsanctioned choruses. Let’s see what they did with my favorite, ‘We Are The Toads’",
-      "likes": 3276,
+      "timestamp": "18 Aethel, 1032 BF — recovered 1040 BF",
+      "content": "He stencilled the hold, forgot, looted it, and called it an audit. The hire read the label. The lights went green at a whisper. I am filing the stencil, not the speech about Heartstones. WAH.",
+      "likes": 891,
       "links": [
         {
-          "id": "campaign_songs_archive",
+          "id": "the_mount_ebot_expedition_part_2",
           "type": "event"
         }
       ],
       "tags": [
-        "thegrandsongbook",
-        "1040bf",
-        "campaignchoruses"
+        "ebot",
+        "warioware",
+        "audit",
+        "1032bf"
       ],
       "reaction": "smug",
       "comments": [
         {
           "id": "c1",
-          "author": "salam",
-          "content": "That’s not all there is to it, Waluigi. There are some tunes that just can’t be sung in daylight.",
-          "likes": 842,
+          "author": "wario",
+          "content": "IT WAS A CORPORATE AUDIT. Write that down.",
+          "likes": 12
+        },
+        {
+          "id": "c2",
+          "author": "waluigi",
+          "content": "I did. I wrote down the stencil.",
+          "likes": 440
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "wahwire_scorncrow_skirmish",
+      "author": "wario",
+      "order": 2,
+      "date": null,
+      "timestamp": "30 Harvestide, 1040 BF",
+      "content": "WAH! WARIO shows you fun and the fun stalls in a bush! The bike is fine, the bush is not. The party drank WARIO's elixir, bonked a tree that told them it was not a monster, and ran off leaving a motorbike with a leaf in its teeth. Somebody is paying the retrieval fee. It is not Wario.",
+      "likes": 0,
+      "links": [
+        {
+          "id": "the_scorncrow_skirmish",
+          "type": "event"
+        },
+        {
+          "id": "the_scorncrow_skirmish_battle",
+          "type": "battle"
+        }
+      ],
+      "tags": [
+        "scorncrow",
+        "shadow estate",
+        "wario",
+        "elixir"
+      ],
+      "reaction": "rage",
+      "comments": [],
+      "status": "posted"
+    },
+    {
+      "id": "wahwire_the_fawthful_narrative_failure",
+      "author": "chancellor_toadsworth",
+      "order": 3,
+      "date": null,
+      "timestamp": "Highsun 1-30, 955 BF",
+      "content": "The Fawthful Narrative failed because power sought to shape public perception for strategic advantage. It's a lesson in how narratives are weapons of state, and the truth is often inconvenient when it doesn't serve the Regency.",
+      "likes": 234,
+      "links": [
+        {
+          "id": "the_fawthful_narrative_failure",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "narrative",
+        "conspiracy",
+        "strategy"
+      ],
+      "reaction": "resolve",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "generic_toad",
+          "content": "So Fawful was real, but we're not supposed to know that. Is this how it always works? The truth is out there, but the Regency doesn't want us to find it.",
+          "likes": 42,
           "reaction": "alarm",
           "replyTo": ""
         },
         {
           "id": "c2",
-          "author": "mystic_morel",
-          "content": "Music has a way of revealing truths not meant for the light. Even your most careful audits miss those.",
-          "likes": 1503,
-          "reaction": "disdain",
-          "replyTo": "salam"
+          "author": "bowser",
+          "content": "A lie can be more useful than the truth when it serves your purpose. Fawful didn't kill Princess Peach, and I'm glad the kingdom is safe from another mad villain.",
+          "likes": 156,
+          "reaction": "smug",
+          "replyTo": ""
         }
       ],
       "status": "generated",
@@ -45,13 +110,13 @@
         "by": "tools/genkit",
         "system": "wahwire",
         "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T15:42:34+00:00"
+        "at": "2026-08-16T15:44:57+00:00"
       }
     },
     {
       "id": "wahwire_collapse_of_blackfen_pass",
       "author": "dracule_mihawk",
-      "order": 2,
+      "order": 4,
       "date": null,
       "timestamp": "2374 BF (Historical Record)",
       "content": "The High Command’s hubris knows no bounds. Gamma Division, wiped out by a cryomancy incident? What next, a division of ghosts patrolling the Midlands?",
@@ -103,41 +168,41 @@
       }
     },
     {
-      "id": "wahwire_the_fawthful_narrative_failure",
-      "author": "chancellor_toadsworth",
-      "order": 3,
+      "id": "wahwire_campaign_songs_archive",
+      "author": "waluigi",
+      "order": 5,
       "date": null,
-      "timestamp": "Highsun 1-30, 955 BF",
-      "content": "The Fawthful Narrative failed because power sought to shape public perception for strategic advantage. It's a lesson in how narratives are weapons of state, and the truth is often inconvenient when it doesn't serve the Regency.",
-      "likes": 234,
+      "timestamp": "1040 BF (Curated across 57 Campaign Records)",
+      "content": "Finally—someone audits those unsanctioned choruses. Let’s see what they did with my favorite, ‘We Are The Toads’",
+      "likes": 3276,
       "links": [
         {
-          "id": "the_fawthful_narrative_failure",
+          "id": "campaign_songs_archive",
           "type": "event"
         }
       ],
       "tags": [
-        "narrative",
-        "conspiracy",
-        "strategy"
+        "thegrandsongbook",
+        "1040bf",
+        "campaignchoruses"
       ],
-      "reaction": "resolve",
+      "reaction": "smug",
       "comments": [
         {
           "id": "c1",
-          "author": "generic_toad",
-          "content": "So Fawful was real, but we're not supposed to know that. Is this how it always works? The truth is out there, but the Regency doesn't want us to find it.",
-          "likes": 42,
+          "author": "salam",
+          "content": "That’s not all there is to it, Waluigi. There are some tunes that just can’t be sung in daylight.",
+          "likes": 842,
           "reaction": "alarm",
           "replyTo": ""
         },
         {
           "id": "c2",
-          "author": "bowser",
-          "content": "A lie can be more useful than the truth when it serves your purpose. Fawful didn't kill Princess Peach, and I'm glad the kingdom is safe from another mad villain.",
-          "likes": 156,
-          "reaction": "smug",
-          "replyTo": ""
+          "author": "mystic_morel",
+          "content": "Music has a way of revealing truths not meant for the light. Even your most careful audits miss those.",
+          "likes": 1503,
+          "reaction": "disdain",
+          "replyTo": "salam"
         }
       ],
       "status": "generated",
@@ -145,13 +210,13 @@
         "by": "tools/genkit",
         "system": "wahwire",
         "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-16T15:44:57+00:00"
+        "at": "2026-08-16T15:42:34+00:00"
       }
     },
     {
       "id": "wahwire_funeral_of_junimus_gorolini_bongo_jr",
       "author": "generic_toad",
-      "order": 4,
+      "order": 6,
       "date": null,
       "timestamp": "~Shortly Before the Kongo Bongo-Kremling War, 1040 BF",
       "content": "It was a strange thing to see Chunky, who was known for his kindness and generosity, being laid to rest in such a public display of politics and power. The Kongo Bongo I knew is changing faster than I can keep up with it.",
@@ -195,9 +260,71 @@
       }
     },
     {
+      "id": "wahwire_waluigi_chat_premiere",
+      "author": "remi_akamatsu_full_backstory",
+      "order": 7,
+      "date": null,
+      "timestamp": "Aethel 4, 1040 BF",
+      "content": "I was on television tonight, I think? A purple man asked me where home is and then said 'WAH' with what I can only describe as empathy. There was a shell-phone. My brother-in-arms the mirror got more questions than I did. I still don't have an answer but apparently that's what the show is FOR.",
+      "likes": 1577,
+      "links": [
+        {
+          "id": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "waluigichat",
+        "rnn",
+        "premiere",
+        "whereshome"
+      ],
+      "reaction": "confusion",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "generic_toad",
+          "content": "the desk handing over the longhouse mid-sentence was the coldest thing on the wire this year",
+          "likes": 445
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "wahwire_hanging_tree_mirror",
+      "author": "markop",
+      "order": 8,
+      "date": null,
+      "timestamp": "30 Harvestide, 1040 BF — night",
+      "content": "For the record: I threw the imp through the window. The window was already the problem's second-favorite option. The sentence, the threshold, and the sleeping guard's custody slip are all filed as evidence now, which means somebody in this cottage finally does paperwork. The mirror is back. The vampire is not invited. Check your wording.",
+      "likes": 1189,
+      "links": [
+        {
+          "id": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "threshold",
+        "vampires",
+        "paperwork",
+        "themirror"
+      ],
+      "reaction": "mistrust",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "generic_toad",
+          "content": "you can just SAY an invitation out loud and it works?? asking for a friend who owns a house",
+          "likes": 340
+        }
+      ],
+      "status": "posted"
+    },
+    {
       "id": "wahwire_the_cutting_lane",
       "author": "waluigi",
-      "order": 5,
+      "order": 9,
       "date": null,
       "timestamp": "1 Aethel, 922 BF (Feyward clock)",
       "content": "The wood picked a fight with a library tonight. The wood lost. Twenty-four on the field, a champion treant, a mound that chose tomorrow, and a librarian who threw nine books at the problem until the problem was firewood. Full muster, every fate, and the keeper's tally are filed. My assessment stands: nobody audits wording, everybody reaps it. WAH.",
@@ -232,131 +359,8 @@
       "status": "posted"
     },
     {
-      "id": "wahwire_hanging_tree_mirror",
-      "author": "markop",
-      "order": 6,
-      "date": null,
-      "timestamp": "30 Harvestide, 1040 BF — night",
-      "content": "For the record: I threw the imp through the window. The window was already the problem's second-favorite option. The sentence, the threshold, and the sleeping guard's custody slip are all filed as evidence now, which means somebody in this cottage finally does paperwork. The mirror is back. The vampire is not invited. Check your wording.",
-      "likes": 1189,
-      "links": [
-        {
-          "id": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
-          "type": "event"
-        }
-      ],
-      "tags": [
-        "threshold",
-        "vampires",
-        "paperwork",
-        "themirror"
-      ],
-      "reaction": "mistrust",
-      "comments": [
-        {
-          "id": "c1",
-          "author": "generic_toad",
-          "content": "you can just SAY an invitation out loud and it works?? asking for a friend who owns a house",
-          "likes": 340
-        }
-      ],
-      "status": "posted"
-    },
-    {
-      "id": "wahwire_waluigi_chat_premiere",
-      "author": "remi_akamatsu_full_backstory",
-      "order": 7,
-      "date": null,
-      "timestamp": "Aethel 4, 1040 BF",
-      "content": "I was on television tonight, I think? A purple man asked me where home is and then said 'WAH' with what I can only describe as empathy. There was a shell-phone. My brother-in-arms the mirror got more questions than I did. I still don't have an answer but apparently that's what the show is FOR.",
-      "likes": 1577,
-      "links": [
-        {
-          "id": "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
-          "type": "event"
-        }
-      ],
-      "tags": [
-        "waluigichat",
-        "rnn",
-        "premiere",
-        "whereshome"
-      ],
-      "reaction": "confusion",
-      "comments": [
-        {
-          "id": "c1",
-          "author": "generic_toad",
-          "content": "the desk handing over the longhouse mid-sentence was the coldest thing on the wire this year",
-          "likes": 445
-        }
-      ],
-      "status": "posted"
-    },
-    {
-      "id": "wahwire_ebot_part2_audit",
-      "author": "waluigi",
-      "order": 8,
-      "date": null,
-      "timestamp": "18 Aethel, 1032 BF — recovered 1040 BF",
-      "content": "He stencilled the hold, forgot, looted it, and called it an audit. The hire read the label. The lights went green at a whisper. I am filing the stencil, not the speech about Heartstones. WAH.",
-      "likes": 891,
-      "links": [
-        {
-          "id": "the_mount_ebot_expedition_part_2",
-          "type": "event"
-        }
-      ],
-      "tags": [
-        "ebot",
-        "warioware",
-        "audit",
-        "1032bf"
-      ],
-      "reaction": "smug",
-      "comments": [
-        {
-          "id": "c1",
-          "author": "wario",
-          "content": "IT WAS A CORPORATE AUDIT. Write that down.",
-          "likes": 12
-        },
-        {
-          "id": "c2",
-          "author": "waluigi",
-          "content": "I did. I wrote down the stencil.",
-          "likes": 440
-        }
-      ],
-      "status": "posted"
-    },
-    {
-      "id": "wahwire_charred_note_at_door",
-      "author": "waluigi",
-      "order": 9,
-      "date": null,
-      "timestamp": "4 Aethel, 1040 BF — before dawn",
-      "content": "Anonymous arson stationery is back. A page at my door claims Mario killed Peach, died after three days on the farm, woke up wrong, and treated three Guild null cages like decorative hoops. I do not believe it. I do file it. Read the ash before it learns to lie better.",
-      "likes": 611,
-      "links": [
-        {
-          "id": "charred_note_at_waluigis_door",
-          "type": "event"
-        }
-      ],
-      "tags": [
-        "mario",
-        "mages_guild",
-        "charrednote",
-        "investigation"
-      ],
-      "reaction": "smug",
-      "comments": [],
-      "status": "posted"
-    },
-    {
       "id": "wahwire_battalion_of_six",
-      "author": "waluigi",
+      "author": "hjumpik",
       "order": 10,
       "date": null,
       "timestamp": "1 Aethel, 922 BF (Feyward clock) — morning, from a chair",
@@ -376,35 +380,39 @@
       ],
       "reaction": "smug",
       "comments": [],
-      "status": "posted"
+      "status": "posted",
+      "_rebalanced": {
+        "from": "waluigi",
+        "reason": "named participant of the linked record"
+      }
     },
     {
-      "id": "wahwire_scorncrow_skirmish",
-      "author": "wario",
+      "id": "wahwire_charred_note_at_door",
+      "author": "mario",
       "order": 11,
       "date": null,
-      "timestamp": "30 Harvestide, 1040 BF",
-      "content": "WAH! WARIO shows you fun and the fun stalls in a bush! The bike is fine, the bush is not. The party drank WARIO's elixir, bonked a tree that told them it was not a monster, and ran off leaving a motorbike with a leaf in its teeth. Somebody is paying the retrieval fee. It is not Wario.",
-      "likes": 0,
+      "timestamp": "4 Aethel, 1040 BF — before dawn",
+      "content": "Anonymous arson stationery is back. A page at my door claims Mario killed Peach, died after three days on the farm, woke up wrong, and treated three Guild null cages like decorative hoops. I do not believe it. I do file it. Read the ash before it learns to lie better.",
+      "likes": 611,
       "links": [
         {
-          "id": "the_scorncrow_skirmish",
+          "id": "charred_note_at_waluigis_door",
           "type": "event"
-        },
-        {
-          "id": "the_scorncrow_skirmish_battle",
-          "type": "battle"
         }
       ],
       "tags": [
-        "scorncrow",
-        "shadow estate",
-        "wario",
-        "elixir"
+        "mario",
+        "mages_guild",
+        "charrednote",
+        "investigation"
       ],
-      "reaction": "rage",
+      "reaction": "smug",
       "comments": [],
-      "status": "posted"
+      "status": "posted",
+      "_rebalanced": {
+        "from": "waluigi",
+        "reason": "named participant of the linked record"
+      }
     }
   ]
 }
