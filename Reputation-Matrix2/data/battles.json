@@ -4789,5 +4789,142 @@
         "reputationNotes"
       ]
     }
+  },
+  {
+    "id": "the_scorncrow_skirmish_battle",
+    "name": "The Scorncrow Skirmish (Garlic, the Swing, and the Vanish)",
+    "date": "30 Harvestide, 1040 BF \u2014 the overgrown grove, the night of the threshold storm",
+    "location": "The overgrown grove battlefield on the Shadow Estate grounds (Shadowfell)",
+    "type": "Grove Skirmish / Monster Suppression (unresolved)",
+    "result": "No decision. The party spent its anti-fey elixir, bonked, shot, and pinned the Scorncrow, and the Scorncrow vanished in smoke and crow-feathers, declaring it was not a monster. No party casualty; no kill; the target escaped.",
+    "engagement": {
+      "combatants": 11,
+      "ledgerWindow": "the overgrown grove, continuing straight out of the threshold storm on 30 Harvestide, 1040 BF",
+      "scale": "A squad-level engagement with one field-sovereign scarecrow plus its bat-swarm and the trees themselves, resolved by the Scorncrow's refusal to be a target"
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "Disaster Inc. & the Liberated Toads",
+        "combatants": [
+          {
+            "name": "Markop",
+            "role": "vanguard, bonked the Scorncrow, the only one who could take a hit",
+            "fate": "stood",
+            "leader": true,
+            "fateNote": "vanguard \u2014 the only one who could take a hit, and therefore the only one who did"
+          },
+          {
+            "name": "Remi Akamatsu",
+            "role": "declined the impaling swing, shot the tree and pulled the bats out",
+            "fate": "stood"
+          },
+          {
+            "name": "Giant Green T",
+            "role": "observation tower, lifted Remi to spot the Scorncrow",
+            "fate": "stood",
+            "fateNote": "spent the giant form visibly carrying the observation tower duty"
+          },
+          {
+            "name": "Archie Miser",
+            "role": "fire-armour shield, manual deforestation advocate",
+            "fate": "stood"
+          },
+          {
+            "name": "Eager",
+            "role": "critical shortbow shot, aimed at the roots to pin the monster",
+            "fate": "stood"
+          },
+          {
+            "name": "Mossy",
+            "role": "silent advance on the tree",
+            "fate": "stood"
+          },
+          {
+            "name": "Feyward Dan",
+            "role": "guarded Archie from a bush",
+            "fate": "stood"
+          },
+          {
+            "name": "Wario",
+            "role": "motorbike stall in the leaves",
+            "fate": "stood"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The Scorncrow's Grove",
+        "leader": "The Scorncrow",
+        "combatants": [
+          {
+            "name": "The Scorncrow",
+            "role": "grove sovereign, scythe-user, summoned an impaling swing",
+            "fate": "fled",
+            "leader": true,
+            "fateNote": "vanished in smoke and crow-feathers declaring it was not a monster"
+          },
+          {
+            "name": "Bat Swarm",
+            "role": "face-blinding screen, burst from the tree when shot",
+            "fate": "fled",
+            "fateNote": "burst out of the tree when shot and scattered into the night"
+          },
+          {
+            "name": "The Evil Tree",
+            "role": "the Scorncrow's form \u2014 thick, patient, and not rooted",
+            "fate": "stood"
+          }
+        ]
+      }
+    },
+    "casualties": "No confirmed dead on either side. The party spent its elixir; the Scorncrow lost a bat-swarm and its dignity. The Scorncrow escaped via smoke and crow-feathers.",
+    "summary": "Fresh from Wario's shop with garlic-coated weapons and a Wario-branded anti-fey elixir, Markop's squad marched on the Scorncrow at the overgrown grove. Remi declined the swing the monster summoned, shot the tree, and pulled out a bat-swarm; Eager landed a critical shot aimed at the roots; Markop bonked it as vanguard. The Scorncrow laughed, vanished in smoke, declared it was not a monster, and left the party holding the field and nothing else.",
+    "description": "Waluigi files this as the second engagement with the Scorncrow in a single night, and the first time the party brought a plan. It did not help as much as they hoped, because the Scorncrow does not lose so much as decline to participate.\n\n## The Plan Was Garlic\n\nMarkop carried the Skull Piercer and a warhammer, both bought by Remi, both still warm, both covered in garlic. The squad drank Wario's anti-fey elixir and marched in behind the Toads' anthem. Wario arrived on a motorbike to take command and stalled in the leaves. The plan survived exactly until contact.\n\n## The Swing and the Bats\n\nRemi walked onto the field. The Scorncrow summoned a playground swing beside her and asked if she wanted to swing again. Markop shouted that it would impale her. Remi shot the tree instead, and the bats came out.\n\n## The Pinning and the Vanish\n\nMossy advanced. Eager put a critical shot into the Scorncrow's feet to pin it down. Markop bonked it. The Scorncrow laughed, exploded into smoke and crow-feathers, and said it was not a monster. Giant Green T lifted Remi to his shoulder to spot it; she saw only him.",
+    "keyMoments": [
+      {
+        "time": "contact",
+        "who": "Remi",
+        "act": "Declines the Scorncrow's impaling swing and shoots the tree instead",
+        "result": "the bats pour out; the tree shows it is not a passive target"
+      },
+      {
+        "time": "turning",
+        "who": "Eager",
+        "act": "Lands a critical shortbow shot aimed at the roots to pin the Scorncrow down",
+        "result": "the Scorncrow laughs and reveals it is not rooted"
+      },
+      {
+        "time": "climax",
+        "who": "Markop",
+        "act": "Vanguard, bonks the Scorncrow",
+        "result": "the Scorncrow vanishes in smoke and crow-feathers \u2014 'I am not a monster'"
+      },
+      {
+        "time": "after",
+        "who": "Giant Green T",
+        "act": "Lifts Remi to his shoulder to spot the Scorncrow",
+        "result": "she sees only the giant; the target is gone"
+      }
+    ],
+    "aftermath": "**Result by objective:** the party wanted to pin and destroy the Scorncrow; it escaped. No party casualty, which the party counts as a win, and which the Scorncrow probably counts as entertainment. The elixir is spent and the motorbike is still stalled.\n\n**Carry-forward:** the Scorncrow now knows the party hits at the roots, and that they brought garlic and a giant. It left through the air, proving it is a territory rather than a target. Next engagement needs a way to hold it still.",
+    "waluigiAssessment": "The party did everything right and the monster simply left. That is not a tactical failure; it is a refusal by the enemy to be where the plan is. Waluigi files this as a draw that the party will have to pay for the second it assumes the Scorncrow stays gone. WAH.",
+    "relatedArticles": [
+      "the_scorncrow_skirmish",
+      "green_t_at_the_door_and_the_scorncrow_underfoot",
+      "the_tree_of_woe_engagement",
+      "markop",
+      "green_t",
+      "remi_akamatsu_full_backstory",
+      "wario",
+      "archie_miser",
+      "eager",
+      "mossy",
+      "dan_the_toad",
+      "rattles",
+      "liberated_toads"
+    ],
+    "reputationChanges": [],
+    "effects": [],
+    "reputationNotes": "No faction standing changed; the Scorncrow is not a registered faction, and the grove remains contested.",
+    "_generatedReputation": {}
   }
 ]

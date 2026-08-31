@@ -377,6 +377,30 @@
       "reaction": "smug",
       "comments": [],
       "status": "posted"
+    },
+    {
+      "id": "wahwire_scorncrow_skirmish",
+      "author": "wario",
+      "order": 11,
+      "date": null,
+      "timestamp": "30 Harvestide, 1040 BF",
+      "content": "WAH! WARIO shows you fun and the fun stalls in a bush! The bike is fine, the bush is not. The party drank WARIO's elixir, bonked a tree that told them it was not a monster, and ran off leaving a motorbike with a leaf in its teeth. Somebody is paying the retrieval fee. It is not Wario.",
+      "likes": 0,
+      "links": [
+        {
+          "id": "the_scorncrow_skirmish",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "scorncrow",
+        "shadow estate",
+        "wario",
+        "elixir"
+      ],
+      "reaction": "rage",
+      "comments": [],
+      "status": "posted"
     }
   ]
 }

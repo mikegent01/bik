@@ -185,7 +185,7 @@ Seven habits explain nearly every decision in this repository:
 | [`docs/BATTLE_STORY_FORMAT_GUIDE.md`](docs/BATTLE_STORY_FORMAT_GUIDE.md) | **Battle craft** — the six-part war-report shape, mechanics→consequences translation, pacing tells | Writing a battle article |
 | [`docs/ARTICLE_QA.md`](docs/ARTICLE_QA.md) | **Content QA** — the six checks over every article before it ships; the Hanging-Tree exemplar | Reviewing any article |
 | [`docs/CROSS_SYSTEM_UPDATES.md`](docs/CROSS_SYSTEM_UPDATES.md) | **Cross-system triggers** — Pond Patrol, dynasties, POIs, bros attacks, currencies, WAHwire, songs, books: what every filing must also touch | After any filing |
-| [`docs/IMAGE_GENERATION_GUIDE.md`](docs/IMAGE_GENERATION_GUIDE.md) | **Prompt sheet before generating.** Art direction from the prose, when text belongs in an image, editing over rerolling. New substantial articles ship with images | Illustrating any filing |
+| [`docs/IMAGE_GENERATION_GUIDE.md`](docs/IMAGE_GENERATION_GUIDE.md) | **Prompt sheet before generating.** Art direction from the prose, when text belongs in an image, editing over rerolling. New substantial articles ship with images. **A known character is always pulled from `portraits/` as a reference — never described from scratch** | Illustrating any filing |
 | [`docs/CSS_STYLE_GUIDE.md`](docs/CSS_STYLE_GUIDE.md) | **CSS without breaking the archive.** Scoped selectors, fluid layouts, long Waluigi assessments, reputation panels, theme checks | Changing site styles |
 | [`docs/VERIFICATION_AND_ORGANIZATION.md`](docs/VERIFICATION_AND_ORGANIZATION.md) | Checks that catch breakage; rules that prevent bloat; where files go | Before calling a run done |
 | [`docs/RUN_REPORT_FORMAT.md`](docs/RUN_REPORT_FORMAT.md) | How to report at the end of a run — every file, every event, every XP award | End of every run |
@@ -307,6 +307,9 @@ Seven habits explain nearly every decision in this repository:
 · Never reformat a whole data file to add one entry — match its indentation
 · Never invent a CSS class; only .prose blockquote, .prose h2, .wiki-lead, .wnote
 · Never put raw <div> in prose — mdToHtml() escapes it and it renders as text
+· Never describe a known character in an image from scratch — pull the
+  portrait from portraits/ and pass it as a reference
+  (docs/IMAGE_GENERATION_GUIDE.md → Characters)
 · Never finish a run without a run report
 ```
 

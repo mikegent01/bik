@@ -542,6 +542,12 @@
           "label": "The Battalion of Six, the Ice That Got Drunk, and the Bait Plan",
           "date": "1 Aethel, 922 BF (Feyward clock)",
           "event": "feyward_battalion_of_six_and_the_bait_plan"
+        },
+        {
+          "id": "s_h30_scorncrow_skirmish",
+          "label": "The Scorncrow Skirmish: Deforestation, Garlic Weapons, and Wario's Stalled Motorbike",
+          "date": "30 Harvestide, 1040 BF — the overgrown grove, the night of the threshold storm",
+          "event": "the_scorncrow_skirmish"
         }
       ],
       "relatedEvents": [
@@ -557,7 +563,8 @@
         "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
         "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
         "green_t_at_the_door_and_the_scorncrow_underfoot",
-        "feyward_battalion_of_six_and_the_bait_plan"
+        "feyward_battalion_of_six_and_the_bait_plan",
+        "the_scorncrow_skirmish"
       ],
       "exhibits": [
         {

@@ -13672,22 +13672,130 @@
     "id": "the_scorncrow_skirmish",
     "name": "The Scorncrow Skirmish",
     "title": "The Scorncrow Skirmish: Deforestation, Garlic Weapons, and Wario's Stalled Motorbike",
-    "type": "Skirmish / Failed Arboriculture",
-    "date": "1040 BF",
-    "era": "Current Crisis",
-    "location": "The Shadow Estate (or overgrown battlefield)",
-    "status": "Archived",
-    "summary": "Markop\u2019s squad, armed with garlic-coated Wario weaponry and elixirs, engaged a teleporting Scorncrow tree while Archie Miser attempted literal deforestation and Wario crashed a motorbike into a bush.",
-    "description": "*Waluigi has audited many battles. Most involve tactical positioning, supply lines, or at least people looking in the correct direction. This engagement involved a wizard trying to pull a tree out of the ground with his bare hands and Wario getting a motorbike stuck in a hedge. WAH!*\n\n## Part I \u2014 The Wario Enterprise Supply Drop\n\nThe engagement began with Markop holding two brand-new weapons: the Skull Piercer and a warhammer, both purchased by Remi from Wario\u2019s shop. They arrived still warm and covered entirely in garlic. Waluigi respects a businessman who understands that vampires hate garlic, but putting it on a warhammer is just seasoning the blunt-force trauma.\n\nMarkop distributed a special Wario-branded elixir to the squad. The warning label was prominently displayed. They drank it anyway, gaining a sudden, aggressive advantage against fey, undead, and monsters. \n\nThen Wario himself arrived on a motorbike. \"You want fun, Wario show you fun!\" he shouted, declaring that the combatants were under his command. The dramatic entrance lasted exactly three seconds before the motorbike stalled, fatally entangled in leaves and branches. Wario did not command the battle from the bushes.\n\n## Part II \u2014 The Return of Archie Miser\n\nGiant Green T stomped in the distance, shouting \"Fi fi foee, I am a monster!\" while the Liberated Toads sang their marching anthem: *\"We are the Toads and we're on our way!\"*\n\nAmidst the chaos, Markop found Archie Miser. Markop thought the wizard was dead. Archie offered a masterclass in dodging accountability: *\"Long story short, stuff happened, lots of drastic turns, and umm, here and there I came back here.\"* \n\nArchie had apparently spent the intervening time attempting to pull an entire evil tree out of the ground by himself. He called this \"deforestation.\" When the Toads asked what he was doing, Archie ignored them, cast a barrier of fire around himself, and flew over to Markop for healing while Feyward Dan emerged from a bush to protect him.\n\n## Part III \u2014 The Scorncrow's Swing\n\nThe target was the Scorncrow, an entity masquerading as a thick, evil tree in the dark. Remi stepped onto the battlefield. The Scorncrow immediately summoned a playground swing next to her. \n\n\"You want to swing again?\" the tree offered.\n\nMarkop had to yell that the swing would impale her. Remi, unfazed, shot an arrow into the tree instead. A cloud of bats poured out. \"Wow, that was entertaining,\" Remi noted.\n\nEager fired a critical shot from his shortbow, aiming at the tree's roots to pin it down. Mossy advanced. Markop successfully bonked the tree. \n\nThe Scorncrow laughed. It vanished in a violent explosion of smoke and crow feathers, taunting the squad: *\"It seems you are all having fun here. Sadly, I am not a monster.\"*\n\n## Part IV \u2014 The Blind Giant\n\nThe Scorncrow reappeared, angry and swiping wildly. Markop, realizing no one else could survive a direct hit, stepped forward to take the vanguard.\n\nBehind him, Giant Green T lowered a massive hand to Remi. \"Get on my shoulder. Tell me if you see the Scorncrow anywhere.\"\n\nRemi looked out over the dark battlefield, the bats, the stalled motorbike, and the smoking tree. \"I don't see a scorncrow,\" she said. \"I see you.\"\n\n*Waluigi has filed the receipts for the garlic. The motorbike retrieval fee is pending.*",
-    "notableFeatures": [
-      "Garlic-coated Wario weaponry (Skull Piercer and Warhammer)",
-      "Wario-branded anti-fey elixir",
-      "Wario's stalled motorbike in the bushes",
-      "Archie Miser's attempt at manual deforestation",
-      "The Scorncrow's impaling playground swing",
-      "Giant Green T acting as an observation tower"
+    "date": "30 Harvestide, 1040 BF \u2014 the overgrown grove beyond the cottage, continuing the night of the threshold storm",
+    "era": "Harvestide 1040 BF \u2014 Shadow Estate storm chain",
+    "location": "The overgrown grove battlefield on the Shadow Estate grounds (Shadowfell)",
+    "type": "Session Event / Grove Skirmish / Failed Arboriculture",
+    "status": "Ongoing \u2014 Scorncrow escaped in an explosion of smoke and crow-feathers; Wario's motorbike still stalled in the undergrowth; the anti-fey elixir spent",
+    "summary": "Markop's squad, armed with garlic-coated Wario weaponry and a Wario-branded anti-fey elixir, marched on the Scorncrow at the overgrown grove while Archie Miser attempted literal deforestation, Giant Green T served as an observation tower, and Wario crashed a motorbike into a bush.",
+    "description": "*Waluigi has audited many battles. Most involve tactical positioning, supply lines, or at least people looking in the correct direction. This engagement involved a wizard trying to pull a tree out of the ground with his bare hands, a giant being used as an observation tower, a swing that would have impaled somebody, and Wario getting a motorbike stuck in a bush. WAH!*\n\nFresh from Wario's shop, the squad marched on the Scorncrow at the overgrown grove: Markop carrying the Skull Piercer and a garlic-covered warhammer, the anti-fey elixir passed around, the Toads marching in singing. Remi declined the swing, shot the tree, and pulled out a bat-swarm; Eager pinned the roots; and the Scorncrow, laughing, vanished in smoke and crow-feathers declaring it was not a monster.",
+    "image": "assets/images/events/scorncrow-skirmish/scorncrow-01-battlefield.jpg",
+    "imageCaption": "The overgrown grove battlefield at night: the Scorncrow's towering evil tree with a bat-swarm streaming from its branches, and Wario's motorbike already stalled in the leaves in the foreground.",
+    "sections": [
+      {
+        "name": "I. The Supply Drop, Still Warm",
+        "icon": "\ud83e\uddc4",
+        "overview": "The earthquake had not quite stopped when the squad assembled, and Remi decided, with the particular calm of somebody who has already survived worse, to wait it out before moving. Markop did not wait. He needed an edge, and before he could plan anything else he needed to find Green T, because a plan without the giant was a plan nobody was going to take seriously.\n\nHe carried what Remi had bought him fresh from Wario's shop: the Skull Piercer and a warhammer, both still warm, both covered end to end in garlic. Markop has seen stranger battlefield preparations. Waluigi has, too, but seasoning a warhammer is not strategy so much as marinade.\n\n*WAH! I have audited battles involving supply lines, siege engines, and at least one fortress that walked. I have never seen a man season his own weapon before swinging it. If garlic is your edge, your edge is garlic. Waluigi respects the logic even as he mourns the dignity.*\n\nMarkop formed his plan around a single bottle: a Wario-branded elixir, warning label prominently displayed, distributed to the squad with instructions to drink it. They drank it, because the alternative was facing the Scorncrow sober. [[prop:prop_wario_elixir_warning_label|The label]] promised bonus attacks against fey, undead, and other monsters, and for once in Wario's catalog the label was telling the truth.\n\nRattles was told to stay. Remi, already moving, said it sounded like an idea and that someone should lead the way. The Toads agreed, provided the skeleton was all right on his own.",
+        "waluigi_note": "The elixir worked because Wario's warning was legible, which is the rarest of his products. Waluigi suspects the 'special bonus' is real and the cautionary label is the actual medicine: the only part of the deal that prevented somebody drinking twice. WAH."
+      },
+      {
+        "name": "II. The Giant, the Anthem, and the Stalled Motorbike",
+        "icon": "\ud83d\udfe2",
+        "overview": "Markop spotted him at once: a giant Green T in the distance, and the giant was announcing himself. \"Fi fi foe \u2014 I am a monster,\" he bellowed across the grove, in the tone of a man who has decided the only remaining introduction is volume.\n\nWario did not care for it. \"These chumps are under my command,\" he declared, \"not yours.\" It was the sort of territorial claim only Wario would file mid-battle over the ownership of a scarecrow.\n\n*WAH! Green T shouts that he is a monster and Wario's first move is to file a claim on the party. Neither of them has noticed that the actual monster is still standing in the middle of the field being a tree. Priorities, gentlemen. Priorities.*\n\nEager asked Rattles what his power level was. Rattles answered, in exactly the way skeletons answer, that one should not put one's bones where they are not meant to be. Somewhere behind them the Toads began to sing, marching in with their anthem on their lips: \"We are the Toads, and we're on our way!\" The song was the only thing in the grove that sounded like it knew where it was going.\n\nThen Wario arrived on a motorbike, roaring \"You want fun? Wario show you fun!\" \u2014 and the motorbike stalled, caught fast in the leaves and branches before it had travelled the length of its own entrance. Wario did not command the battle from the bushes. The bushes simply declined to let him anywhere else.",
+        "waluigi_note": "The Toads' anthem is not decoration; it is logistics disguised as a song. Waluigi has documented the interception of 'We Are the Toads' in an intelligence packet, and here it is doing real work: it moves the squad forward and announces their arrival. The motorbike, by contrast, achieved nothing but a leaf-confirmed stall."
+      },
+      {
+        "name": "III. Archie, Who Was Not Dead",
+        "icon": "\ud83d\udd25",
+        "image": "assets/images/events/scorncrow-skirmish/scorncrow-04-dan-guard.jpg",
+        "imageCaption": "Feyward Dan emerging from a bush to guard Archie, who stands wrapped in a crackling barrier of fire like armour, one hand raised toward the towering evil tree.",
+        "overview": "In the middle of all of it, Markop found Archie. He stopped dead.\n\n\"What happened?\" Markop asked. \"Where have you been?\"\n\n\"Sorry \u2014 what? Wait, Markop, is that you?\"\n\n\"Yeah, it's me. Where have you been?\"\n\nArchie gathered himself the way a man gathers himself when he has been caught at the worst possible moment, which was all of them. \"Ugh, I've been \u2014 long story short, stuff happened, lots of drastic turns, and umm, here and there, I came back here. If you want a full story, I'll explain. But right now is not the time.\"\n\n\"I thought you were dead,\" Markop said.\n\n\"We have a situation going on,\" Archie replied, and it was the most honest thing he had said all evening.\n\n*Waluigi has heard Archie avoid accountability in a dozen registers, but 'long story short, stuff happened, lots of drastic turns' deserves a plaque. The wizard was not dead; he was merely somewhere else, and had been, and had apparently intended to keep being there. The grove had other plans.*\n\nArchie insisted they had made progress, which the party doubted, because Archie's idea of progress was that nobody else had taken damage. Markop pressed him. \"You tried to pull the whole tree out of the ground.\"\n\n\"Yes. It's an evil tree.\"\n\n\"I don't think you can just pull a whole tree out.\"\n\n\"You can. Uproot it, leave the ground \u2014 it's called deforestation.\" Archie said this with the flat confidence of a man who has recently attempted exactly that and is not finished attempting it.\n\nThe Toads asked Archie what was going on, bravely pretending they had not been in earshot the entire time. Archie ignored them, cast a barrier of fire around his body like armour, and flew across to Markop, who healed him a little. Feyward Dan came out of a bush to guard Archie while he worked, and the two of them talked in the only safe pocket of the field.",
+        "waluigi_note": "Archie's theory of combat is to locate the root cause and remove it by force. Waluigi files this under 'plausible in principle, catastrophic in practice.' Pulling the Scorncrow out by the roots is not wrong the way a plan is wrong; it is wrong the way archaeology is wrong when the tree fights back."
+      },
+      {
+        "name": "IV. The Scorncrow's Swing",
+        "icon": "\ud83e\udd87",
+        "image": "assets/images/events/scorncrow-skirmish/scorncrow-02-swing-bats.jpg",
+        "imageCaption": "The playground swing the Scorncrow summoned into the dark grass beside Remi, who declined it and shot the tree instead \u2014 a bat-swarm bursting from the wound in the trunk.",
+        "overview": "Markop ran around to flank the Scorncrow from the far side, with Archie directing him toward the tree. The Scorncrow was not hard to find; it was a tree, and it was very large. The problem was that it was also patient.\n\nRemi walked out onto the field and looked around. \"Huh. It's kind of dark out here.\"\n\nThe Scorncrow answered by summoning a playground swing into the grass beside her. Two chains. A wooden seat. It stood there, absurd and inviting in the middle of a battlefield.\n\n\"You want to swing again?\" the tree asked.\n\nMarkop's voice cut across the field. \"Remi \u2014 the swing! That swing will impale you. You know this.\"\n\n\"Oh. Okay,\" Remi said, and did not sit in the swing. She shot an arrow into the tree instead.\n\nThe arrow sank into the trunk, and a cloud of bats poured out of the wound, shrieking into the dark. \"Wow,\" Remi said, watching them. \"That was entertaining.\"\n\nMarkop sighed. \"We're hitting the tree...\"\n\n\"This is one thick tree,\" Remi agreed, and it was the closest either of them came to a battle report.",
+        "waluigi_note": "A swing that impales. The Scorncrow does not fight like a monster; it fights like a haunted playground, which is worse, because nobody has trained for a swing. Remi declining the swing and shooting the tree is the entire encounter in miniature: refuse the trap, then hit the root. WAH."
+      },
+      {
+        "name": "V. Eager's Shot and the Vanish",
+        "icon": "\ud83c\udff9",
+        "image": "assets/images/events/scorncrow-skirmish/scorncrow-03-eager-pin.jpg",
+        "imageCaption": "Eager loosing a single critical arrow from a bush on the flank, aimed low at the roots to pin the Scorncrow in place.",
+        "overview": "Mossy advanced on the tree without a word, a silent counterweight to the chaos. Eager, from a bush on the flank, drew his shortbow and loosed a single shot \u2014 a critical hit, aimed deliberately at the Scorncrow's feet in an attempt to pin the thing down.\n\nThe Scorncrow laughed. There was no humour in it, only the sound a tree makes when it has decided the archer is wasting arrows.\n\nThen it was gone. The Scorncrow disappeared in an explosion of smoke and crow-feathers, leaving only the words behind: \"It seems you are all having fun here. Sadly, I am not a monster.\"\n\n*WAH! Eager lands a perfect shot, aims it at the roots, and the monster responds by ceasing to be a target. 'I am not a monster' \u2014 as if the rest of the field has been fighting a garden implement. Waluigi has never hated a scarecrow more, and he was not even there.*\n\nNobody took the declaration at face value. The Scorncrow had not left; it had moved. The party had spent the elixir, filled the air with bats and feathers, and learned only that the thing in the grove could simply stop being hit when it chose to be.",
+        "waluigi_note": "A monster that refuses to be a monster has an answer for everything except a creature with patience. The party has none of that in reserve tonight; they have garlic, a stalled motorbike, and a giant. Waluigi rates the odds accordingly."
+      },
+      {
+        "name": "VI. The Blind Giant's Shoulder",
+        "icon": "\ud83e\udef3",
+        "overview": "The Scorncrow reappeared, angry now, swiping wildly at anything that came near. Markop, realizing that nobody else in the squad could survive a direct hit, stepped forward to take the vanguard alone. It was not a choice; it was the only arithmetic that worked.\n\nBehind him, Giant Green T lowered a massive hand to Remi. \"Get on my shoulder. Tell me if you see the Scorncrow anywhere.\"\n\nRemi climbed onto the giant's palm and was lifted above the field, over the bats and the stalled motorbike and the smoking tree, to a height where the whole battlefield became a map. She looked out across the dark.\n\n\"I don't see a Scorncrow,\" she said at last.\n\nThen she looked down at the giant who was holding her. \"I see you.\"\n\nIt was the only true thing reported from the entire field. Somewhere in the leaves, Wario's motorbike stayed stalled, and the Scorncrow stayed somewhere the party could not see \u2014 which, Waluigi suspects, is exactly where it wanted to be. The garlic was spent. The motorbike retrieval fee, Waluigi files, is pending.",
+        "waluigi_note": "The night ends with the party holding a giant instead of a monster, an observation tower with nothing to observe, and a stalled motorbike that outlasted the elixir. Waluigi files the receipts for the garlic and notes that the Scorncrow's next move is the only bill left unpaid."
+      }
     ],
     "participants": [
+      {
+        "id": "markop",
+        "name": "Markop",
+        "role": "Squad lead and vanguard \u2014 distributed the garlic weapons and elixir, bonked the Scorncrow, and took the front line alone because nobody else could survive a hit"
+      },
+      {
+        "id": "green_t",
+        "name": "Green T",
+        "role": "Giant-form observation tower \u2014 bellowed 'fi fi foe' across the grove and lifted Remi to his shoulder to spot the Scorncrow"
+      },
+      {
+        "id": "remi_akamatsu_full_backstory",
+        "name": "Remi Akamatsu",
+        "role": "Wrong-way scout and supply buyer \u2014 waited out the quake, declined the impaling swing, shot the tree, and called out the bats"
+      },
+      {
+        "id": "wario",
+        "name": "Wario",
+        "role": "Declared command of the field, then stalled his motorbike in the leaves and branches"
+      },
+      {
+        "id": "archie_miser",
+        "name": "Archie Archbold Miser",
+        "role": "Returned from presumed death, attempted literal deforestation, cast a ring of fire armour, and flew to Markop for healing"
+      },
+      {
+        "id": "dan",
+        "name": "Dan",
+        "role": "Came out of a bush to guard Archie while the wizard worked on the tree"
+      },
+      {
+        "id": "eager",
+        "name": "Eager",
+        "role": "Catastrophe scout \u2014 loosed a critical shortbow shot aimed at the Scorncrow's feet to pin it down"
+      },
+      {
+        "id": "mossy",
+        "name": "Mossy",
+        "role": "Silent construct \u2014 advanced on the tree without a word"
+      },
+      {
+        "id": "rattles",
+        "name": "Rattles",
+        "role": "Skeleton companion kept off the front line by plan \u2014 'rattles should stay'"
+      },
+      {
+        "id": "liberated_toads",
+        "name": "The Liberated Toads",
+        "role": "Marching in singing 'We are the Toads, and we're on our way!'"
+      },
+      {
+        "id": "scorncrow",
+        "name": "The Scorncrow",
+        "role": "Grove sovereign and primary target \u2014 summoned an impaling swing, laughed off the pinning shot, and vanished in smoke and crow-feathers declaring it was not a monster"
+      }
+    ],
+    "outcome": "The Scorncrow escaped in an explosion of smoke and crow-feathers after being bonked, shot, pinned at the feet, and stepped on by a giant. Nobody on the party's side took a direct hit. The anti-fey elixir is spent, Wario's motorbike remains stalled in the undergrowth, and the Scorncrow \u2014 having declared 'I am not a monster' \u2014 has gone somewhere the party cannot see. Markop advanced as the vanguard because nobody else could survive contact.",
+    "notableFeatures": [
+      "Garlic-coated Wario weaponry \u2014 the Skull Piercer and a warhammer, fresh from the shop and seasoned end to end",
+      "Wario-branded anti-fey elixir \u2014 warning label displayed, and for once the label told the truth about bonus attacks",
+      "Wario's stalled motorbike \u2014 'You want fun? Wario show you fun!' followed by a full stall in the leaves and branches",
+      "Archie Miser's manual deforestation \u2014 pulling an evil tree out of the ground by hand, called 'deforestation'",
+      "The Scorncrow's impaling playground swing \u2014 summoned beside Remi, declined on advice",
+      "Eager's critical shortbow shot \u2014 aimed at the roots to pin the monster down; the Scorncrow laughed and vanished",
+      "Giant Green T as an observation tower \u2014 'Get on my shoulder. Tell me if you see the Scorncrow anywhere.' Remi saw only him"
+    ],
+    "keyBattles": [
+      "the_scorncrow_skirmish_battle"
+    ],
+    "relatedArticles": [
       "markop",
       "green_t",
       "remi_akamatsu_full_backstory",
@@ -13696,17 +13804,28 @@
       "dan",
       "eager",
       "mossy",
-      "rattle",
-      "liberated_toads"
+      "rattles",
+      "liberated_toads",
+      "the_tree_of_woe_engagement",
+      "green_t_at_the_door_and_the_scorncrow_underfoot",
+      "tymnas_cottage_and_hedge_maze",
+      "green_t_and_archie_vs_the_scorncrow"
     ],
-    "relatedArticles": [
-      "wario",
-      "markop",
-      "green_t",
-      "remi_akamatsu_full_backstory",
-      "archie_miser",
-      "dan",
-      "liberated_toads"
-    ]
+    "aftermath": "**Immediate position:** the party holds the field and the Scorncrow does not, which is the entire victory and the entire problem. The thing vanished rather than fell, and 'I am not a monster' is the only intelligence the engagement produced about its nature.\n\n**Standing:** Markop stands at the vanguard unharmed, the only one who could take a hit and therefore the only one who did. Green T's giant form carried the observation duty and lifted Remi, but spent itself visibly. The elixir is gone; the garlic is on the weapons and the motorbike is in the bushes. Wario's retrieval fee is pending.\n\n**Exposure:** the Toads marched in singing and announced themselves to the whole grove. The party has spent its consumable edge against a field-sovereign that did not commit to a fight, and the Scorncrow knows now that they hit at the roots. That is a worse position to bargain from next time.",
+    "reputationNotes": "No faction standing changed this session. The Scorncrow is not a registered faction and the grove remains contested; the party spent its consumables and the elixir without landing a deciding blow.",
+    "reputationChanges": {},
+    "effects": {},
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-30T00:00:00+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    },
+    "waluigiAssessment": "**The Scorncrow is a territory, not a target.** It summons swings, laughs at pinning shots, and leaves through smoke. Treating it as one monster to bonk will keep producing a monster that is not there when the blow lands. The party fought the grove and the grove, being patient, let them.\n\n**Nobody could take a hit, so Markop took the vanguard alone.** That is the arithmetic of the night, and it is not sustainable. A squad with one absorbent member is a squad running on a single hinge. The elixir hid the gap for one engagement; the gap did not go away.\n\n**Archie's deforestation is a real tactic with the wrong target.** Pulling the root is correct against something that is rooted. The Scorncrow proved it is not rooted \u2014 it left through the air. Archie was not wrong about the method, only about the enemy.\n\n**The observation tower saw the wrong thing, and that was the point.** Remi looked for the Scorncrow and found Green T. The party's best intel asset tonight was a giant with nobody to point at. Next time the Scorncrow must be made to stay in one place before the party spends its garlic.\n\n**Recommendation:** stop pursuing the Scorncrow to its ground. Draw it somewhere it cannot vanish, commit Green T's size after it is pinned, and keep Markop's vanguard short. WAH."
   }
 ]

@@ -1953,6 +1953,21 @@
         "evidence",
         "sealed"
       ]
+    },
+    "prop_wario_elixir_warning_label": {
+      "kind": "note",
+      "icon": "\ud83e\uddea",
+      "title": "Anti-Fey Elixir \u2014 Warning Label",
+      "subtitle": "Wario Enterprise \u00b7 Fine Consumables \u00b7 adhered to the bottle Remi bought at Wario's table, 30 Harvestide, 1040 BF",
+      "items": [],
+      "articles": [
+        "the_scorncrow_skirmish"
+      ],
+      "note": "The only Wario product whose warning label was legible, which is the only reason the squad drank it once and not twice. The bonus attacks were real; the caution was the part nobody expected to be true.",
+      "stamps": [
+        "evidence"
+      ],
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Wario Enterprise \u00b7 Fine Consumables</div><div class=\"pd-sub\">Anti-Fey Elixir \u00b7 warning label</div></div><div class=\"pd-body\"><p>WAH! THIS BOTTLE CONFERS BONUS ATTACKS AGAINST FEY, UNDEAD, AND OTHER MONSTERS. DRINK ONE. NOT TWO.</p></div><div class=\"pd-clause\"><b class=\"n\">Warning as filed.</b> Wario&rsquo;s warning labels are usually decoration. This one is legible, and it was the whole reason the squad faced the Scorncrow sober on a full dose. The label is not a suggestion; it is the medicine.</div><div class=\"pd-margin\">One bottle, spent on a monster that refused to be one. Wario has filed the motorbike retrieval fee separately. &mdash; W.</div>"
     }
   }
 }

@@ -1,17 +1,17 @@
 {
   "featuredArticle": {
-    "id": "the_dread_mansion_incursion",
-    "type": "event",
-    "excerpt": "A rat that did not come back, a guildmaster who does not live in rust, and a crayfish five feet long.",
-    "label": "Featured File · The Junction Ladders",
-    "title": "The Dread Mansion Incursion: The Mission Vale Called and the Face That Followed"
-  },
+  "id": "the_scorncrow_skirmish",
+  "type": "event",
+  "excerpt": "Garlic-coated Wario weaponry, a Wario-branded elixir, Archie's literal deforestation, Giant Green T's shoulder, and a Scorncrow that vanished in smoke declaring it was not a monster.",
+  "label": "Latest File \u00b7 The Overgrown Grove",
+  "title": "The Scorncrow Skirmish: Deforestation, Garlic Weapons, and Wario's Stalled Motorbike"
+},
   "latestUpdate": {
-    "id": "the_dread_mansion_incursion",
-    "label": "Latest File · Warp Pipe Junction",
-    "excerpt": "5 Aethel, 1040 BF: Embercap lies them through a Bowser Bros gate. The manor is a shack. Toadette becomes a five-foot crayfish. The winch opens from the inside.",
-    "title": "The Dread Mansion Incursion: The Mission Vale Called and the Face That Followed"
-  },
+  "id": "the_scorncrow_skirmish",
+  "label": "Latest File \u00b7 The Overgrown Grove",
+  "excerpt": "Garlic-coated Wario weaponry, a Wario-branded elixir, Archie's literal deforestation, Giant Green T's shoulder, and a Scorncrow that vanished in smoke declaring it was not a monster.",
+  "title": "The Scorncrow Skirmish: Deforestation, Garlic Weapons, and Wario's Stalled Motorbike"
+},
   "didYouKnow": [
     "...that Remi escaped two armed dungeon guards by drawing a goblin face on a cardboard box with a Sharpie marker and claiming to be a certified Box Guardian?",
     "...that the Mount Ebott Survey Part VII file features Sans executing Flowey in a localized time-stop after recalling a midnight tea conversation with King Asgore?",

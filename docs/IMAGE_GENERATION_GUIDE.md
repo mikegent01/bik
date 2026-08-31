@@ -167,6 +167,33 @@ gouge in the gravel, not the crash; the burned plank, not the mourner.
 
 ---
 
+## Characters — never describe a known figure, pull the portrait
+
+**If a generation includes a named character from the archive, you MUST use
+that character's canonical portrait as a reference — you may not just describe
+them.** There is a dedicated portraits folder at `portraits/` (mirrored under
+`Reputation-Matrix2/assets/portraits/`), keyed by character id (e.g.
+`green_t.png`, `remi.png`, `eager.png`, `dan.png`, `archie.png`, `markop.png`,
+`wario.png`). Pass it to `generate_image` via the `images` array and instruct
+the model to render *that* figure — same face, hair, cap, and clothing — in the
+scene. Describing "a wizard" when `archie.png` exists yields a generic wizard
+and a portrait that matches nothing else in the archive.
+
+```text
+□ If the image contains a known character → locate portraits/<id>.png first.
+□ Pass it as a reference in generate_image images:[...].
+□ In the prompt, say "rendered exactly from the provided reference portrait
+   (same face, hair, cap, clothing)" and name the character.
+□ Record which portrait each slot used in the prompt sheet.
+```
+
+If no portrait exists for a character who is essential to the scene, do not
+invent one silently — flag it in the prompt sheet and the run report so a
+portrait can be commissioned, rather than generating an off-model look that
+pollutes canon.
+
+---
+
 ## Worked examples — the Mount Ebot set
 
 These are the real prompt blocks for the six shipped images, rebuilt from the
