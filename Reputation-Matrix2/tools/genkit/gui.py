@@ -476,6 +476,7 @@ def _handler_factory(state: RunState, defaults: Settings | None = None):
                     limit=int(body.get("limit") or 0),
                     temperature=float(body.get("temperature") or base.temperature or 0.7),
                     dry_run=bool(body.get("dry_run")),
+                    retry_failed=bool(body.get("retry_failed")),
                     timeout=base.timeout,
                     only=[s.strip() for s in (body.get("only") or "").split(",") if s.strip()],
                     weights={str(k): max(0.0, float(v))
@@ -504,6 +505,7 @@ def _handler_factory(state: RunState, defaults: Settings | None = None):
                     limit=int(body.get("limit") or 0),
                     temperature=float(body.get("temperature") or base.temperature or 0.7),
                     dry_run=bool(body.get("dry_run")),
+                    retry_failed=bool(body.get("retry_failed")),
                     timeout=base.timeout,
                     only=[s.strip() for s in (body.get("only") or "").split(",") if s.strip()],
                     weights={str(k): max(0.0, float(v))
@@ -594,6 +596,7 @@ def launch_tk(defaults: Settings | None = None) -> None:
         "temperature": tk.DoubleVar(value=base.temperature),
     }
     dry = tk.BooleanVar(value=base.dry_run)
+    retry = tk.BooleanVar(value=base.retry_failed)
 
     for column, (label, key, width) in enumerate(
         [("Endpoint", "endpoint", 34), ("Model", "model", 18),
@@ -605,6 +608,7 @@ def launch_tk(defaults: Settings | None = None) -> None:
             row=0, column=column * 2 + 1, sticky="w"
         )
     ttk.Checkbutton(controls, text="Dry run", variable=dry).grid(row=0, column=12, padx=8)
+    ttk.Checkbutton(controls, text="Retry failed", variable=retry).grid(row=0, column=13, padx=8)
 
     buttons = ttk.Frame(root, padding=(10, 0))
     buttons.pack(fill="x")
@@ -662,6 +666,7 @@ def launch_tk(defaults: Settings | None = None) -> None:
                 limit=int(fields["limit"].get() or 0),
                 temperature=float(fields["temperature"].get() or 0.7),
                 dry_run=dry.get(),
+                retry_failed=retry.get(),
                 only=[s.strip() for s in fields["only"].get().split(",") if s.strip()],
             )
         )

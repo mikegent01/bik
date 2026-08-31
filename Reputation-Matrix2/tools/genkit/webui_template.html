@@ -136,6 +136,7 @@
         <label>Generation mix (%) — 0 disables a system</label>
         <div id="mix" class="mix"></div>
         <label><input type="checkbox" id="dry" style="width:auto" __DRY_CHECKED__> Dry run (write nothing)</label>
+        <label><input type="checkbox" id="retry" style="width:auto"> Retry quarantined tasks</label>
         <div class="row" style="margin-top:16px">
           <button id="go" class="btn">Start</button>
           <button id="halt" class="ghost" disabled>Stop</button>
@@ -300,7 +301,7 @@ $('go').onclick=async()=>{
   await fetch('start',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({endpoint:$('endpoint').value,model:$('model').value,
       workers:+$('workers').value,limit:+$('limit').value,only:$('only').value,
-      temperature:+$('temperature').value,dry_run:$('dry').checked,
+      temperature:+$('temperature').value,dry_run:$('dry').checked, retry_failed:$('retry')?$('retry').checked:false,
       weights:Object.fromEntries([...document.querySelectorAll('[data-weight]')].map(x=>[x.dataset.weight,+x.value]))})});
   poll();
 };
@@ -309,7 +310,7 @@ $('overnight-go').onclick=async()=>{
   await fetch('overnight/start',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({endpoint:$('endpoint').value,model:$('model').value,
       workers:+$('overnight-workers').value,limit:+$('limit').value,
-      temperature:+$('temperature').value,dry_run:$('dry').checked,only:$('only').value,
+      temperature:+$('temperature').value,dry_run:$('dry').checked, retry_failed:$('retry')?$('retry').checked:false,only:$('only').value,
       maxHours:+$('overnight-hours').value,stopAt:$('overnight-stopat').value})});
   poll();
 };
