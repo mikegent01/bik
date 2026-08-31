@@ -1658,22 +1658,6 @@
       }
     },
     {
-      "d100": 104,
-      "category": "Severe injury",
-      "injuryType": "Shattered Vein",
-      "description": "Your veins are left with a permanent jagged scar, causing blood to clot unpredictably.",
-      "cure": "Major surgery and two months of rest and recovery",
-      "duration": "Forever",
-      "notes": "Avoid strenuous activities. The scars can be hidden with armor.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:01:48+00:00"
-      }
-    },
-    {
       "d100": 105,
       "category": "Special effect",
       "injuryType": "Echoing Silence",
@@ -1703,6 +1687,22 @@
         "system": "injury-table",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-30T18:01:40+00:00"
+      }
+    },
+    {
+      "d100": 104,
+      "category": "Severe injury",
+      "injuryType": "Shattered Vein",
+      "description": "Your veins are left with a permanent jagged scar, causing blood to clot unpredictably.",
+      "cure": "Major surgery and two months of rest and recovery",
+      "duration": "Forever",
+      "notes": "Avoid strenuous activities. The scars can be hidden with armor.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-30T18:01:48+00:00"
       }
     },
     {
@@ -1882,22 +1882,6 @@
       }
     },
     {
-      "d100": 118,
-      "category": "Special effect",
-      "injuryType": "Ethereal Veil",
-      "description": "Your body is suffused with a ghostly aura, making you nearly invisible to all but those who know where and how to look.",
-      "cure": "Major Restoration spell or equivalent magic item",
-      "duration": "Permanent unless cured",
-      "notes": "Only creatures trained in the art of detection can see through your ethereal veil.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:03:37+00:00"
-      }
-    },
-    {
       "d100": 119,
       "category": "Severe injury",
       "injuryType": "Phantom Veil",
@@ -1911,6 +1895,22 @@
         "system": "injury-table",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-30T18:03:31+00:00"
+      }
+    },
+    {
+      "d100": 118,
+      "category": "Special effect",
+      "injuryType": "Ethereal Veil",
+      "description": "Your body is suffused with a ghostly aura, making you nearly invisible to all but those who know where and how to look.",
+      "cure": "Major Restoration spell or equivalent magic item",
+      "duration": "Permanent unless cured",
+      "notes": "Only creatures trained in the art of detection can see through your ethereal veil.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-30T18:03:37+00:00"
       }
     },
     {
@@ -1978,22 +1978,6 @@
       }
     },
     {
-      "d100": 124,
-      "category": "Severe injury",
-      "injuryType": "Chillborn Flesh",
-      "description": "Your skin turns permanently frostbitten, causing constant pain and making you susceptible to cold temperatures.",
-      "cure": "Major surgery and a month of healing with a restful environment.",
-      "duration": "Forever",
-      "notes": "Avoids direct contact with cold elements or risk severe injury.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:04:51+00:00"
-      }
-    },
-    {
       "d100": 125,
       "category": "Severe injury",
       "injuryType": "Frostbound Vein",
@@ -2007,6 +1991,22 @@
         "system": "injury-table",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-30T18:04:44+00:00"
+      }
+    },
+    {
+      "d100": 124,
+      "category": "Severe injury",
+      "injuryType": "Chillborn Flesh",
+      "description": "Your skin turns permanently frostbitten, causing constant pain and making you susceptible to cold temperatures.",
+      "cure": "Major surgery and a month of healing with a restful environment.",
+      "duration": "Forever",
+      "notes": "Avoids direct contact with cold elements or risk severe injury.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-30T18:04:51+00:00"
       }
     },
     {
@@ -2026,22 +2026,6 @@
       }
     },
     {
-      "d100": 127,
-      "category": "Special effect",
-      "injuryType": "Forsaken Veil",
-      "description": "A ghostly cloak envelopes your form, visible only to allies within 30 feet. It grants +2 AC but you can't enter areas of total cover.",
-      "cure": "Dismiss with a successful DC 15 Arcana check or after 1d4 weeks.",
-      "duration": "Until dismissed or the duration ends",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:05:15+00:00"
-      }
-    },
-    {
       "d100": 128,
       "category": "Special effect",
       "injuryType": "Chronal Anomaly",
@@ -2055,6 +2039,22 @@
         "system": "injury-table",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-30T18:05:09+00:00"
+      }
+    },
+    {
+      "d100": 127,
+      "category": "Special effect",
+      "injuryType": "Forsaken Veil",
+      "description": "A ghostly cloak envelopes your form, visible only to allies within 30 feet. It grants +2 AC but you can't enter areas of total cover.",
+      "cure": "Dismiss with a successful DC 15 Arcana check or after 1d4 weeks.",
+      "duration": "Until dismissed or the duration ends",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-30T18:05:15+00:00"
       }
     },
     {
@@ -2090,6 +2090,22 @@
       }
     },
     {
+      "d100": 132,
+      "category": "Severe injury",
+      "injuryType": "Glowing Corruption",
+      "description": "A festering growth of living darkness consumes your flesh, emitting a cold, eerie light.",
+      "cure": "Elixir of Resurrection and a week of rest in a Holy Ground.",
+      "duration": "Forever until cured",
+      "notes": "Avoid contact with water or it spreads faster.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-30T18:05:42+00:00"
+      }
+    },
+    {
       "d100": 131,
       "category": "Severe injury",
       "injuryType": "Echoing Wound",
@@ -2106,19 +2122,595 @@
       }
     },
     {
-      "d100": 132,
-      "category": "Severe injury",
-      "injuryType": "Glowing Corruption",
-      "description": "A festering growth of living darkness consumes your flesh, emitting a cold, eerie light.",
-      "cure": "Elixir of Resurrection and a week of rest in a Holy Ground.",
-      "duration": "Forever until cured",
-      "notes": "Avoid contact with water or it spreads faster.",
+      "d100": 134,
+      "category": "Special effect",
+      "injuryType": "Ethereal Echoes",
+      "description": "You hear an eternal echo of your last spoken word, disrupting focus and communication.",
+      "cure": "Complete Silence Ritual",
+      "duration": "Forever",
+      "notes": "",
       "temporary": true,
       "_generated": {
         "by": "tools/genkit",
         "system": "injury-table",
         "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:05:42+00:00"
+        "at": "2026-08-31T03:40:25+00:00"
+      }
+    },
+    {
+      "d100": 135,
+      "category": "Special effect",
+      "injuryType": "Mystic Veil Binding",
+      "description": "Your body is suffused with a mystic aura that disrupts your concentration, reducing your spellcasting ability by half.",
+      "cure": "Major rest and a successful DC 18 Wisdom (Medicine) check",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:26+00:00"
+      }
+    },
+    {
+      "d100": 136,
+      "category": "Special effect",
+      "injuryType": "Spectral Veil Over Mind",
+      "description": "The mind is cloaked in a spectral veil, confusing thoughts and memories. Only clear thinking can pierce the mist.",
+      "cure": "A day of uninterrupted meditation or study",
+      "duration": "Instant",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:27+00:00"
+      }
+    },
+    {
+      "d100": 138,
+      "category": "Special effect",
+      "injuryType": "Spectral Mender's Curse",
+      "description": "Your flesh mends only to shift the wound elsewhere.",
+      "cure": "Major restoration spell",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:28+00:00"
+      }
+    },
+    {
+      "d100": 137,
+      "category": "Special effect",
+      "injuryType": "Mystic Veil Entanglement",
+      "description": "Your body becomes entwined with an ethereal veil that disrupts your alignment and magic. Your spells are unstable, and you suffer a -2 penalty to all spell checks.",
+      "cure": "A successful Wish or Miracle spell cast by another character.",
+      "duration": "Forever",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:29+00:00"
+      }
+    },
+    {
+      "d100": 140,
+      "category": "Special effect",
+      "injuryType": "Ethereal Paralysis",
+      "description": "Your body becomes partially ethereal, causing you to float at a height of one foot above the ground. This makes it difficult for others to touch or grapple you.",
+      "cure": "Major rest and an Ethereal Anchor spell",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:31+00:00"
+      }
+    },
+    {
+      "d100": 139,
+      "category": "Severe injury",
+      "injuryType": "Galebound Limb",
+      "description": "Your limb becomes as brittle as bone and can shatter under minimal stress. You suffer -2 to Strength checks.",
+      "cure": "Restoration spell or a successful Craft Medicine check with DC 15",
+      "duration": "Instantly cured, but re-injury lasts until long rest",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:31+00:00"
+      }
+    },
+    {
+      "d100": 141,
+      "category": "Special effect",
+      "injuryType": "Spectral Veil Over Heart",
+      "description": "A spectral veil obscures the heart's rhythm, causing palpitations and a weakening of resolve.",
+      "cure": "Restoration spell or equivalent magical treatment",
+      "duration": "Instant relief with cure",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:34+00:00"
+      }
+    },
+    {
+      "d100": 142,
+      "category": "Special effect",
+      "injuryType": "Mystic Veil Infusion",
+      "description": "A permanent veil of mysticism cloaks your form, granting you supernatural sight within 30 feet but causing you to be disoriented in bright or chaotic environments.",
+      "cure": "Removing the Mystic Veil Binding (129)",
+      "duration": "Forever",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:34+00:00"
+      }
+    },
+    {
+      "d100": 144,
+      "category": "Special effect",
+      "injuryType": "Veilbound Echoes",
+      "description": "Your body is intertwined with a phantom echo that mimics your voice and movements.",
+      "cure": "Dispel Magic spell",
+      "duration": "2d8 weeks",
+      "notes": "The echoes cannot be silenced or ignored.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:36+00:00"
+      }
+    },
+    {
+      "d100": 143,
+      "category": "Severe injury",
+      "injuryType": "Chilled Heart",
+      "description": "Your heart feels like it is encased in ice, impeding your ability to feel warmth.",
+      "cure": "Warmth infusion or a successful DC 30 Medicine check.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:39+00:00"
+      }
+    },
+    {
+      "d100": 145,
+      "category": "Special effect",
+      "injuryType": "Spectral Veil Entanglement",
+      "description": "Your body becomes entangled in an invisible spectral web, hampering your movements and reducing Dexterity by 2.",
+      "cure": "Rest for 1 week and a successful DC 20 Medicine check.",
+      "duration": "Until cured or removed by magic.",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:39+00:00"
+      }
+    },
+    {
+      "d100": 147,
+      "category": "Special effect",
+      "injuryType": "Mystic Veil Over Voice",
+      "description": "Your voice is warped by an otherworldly veil, rendering you unintelligible to all but those who can see through the mystical distortion.",
+      "cure": "Restoration spell or a successful DC 20 Charisma (Performance) check",
+      "duration": "Instant",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:41+00:00"
+      }
+    },
+    {
+      "d100": 146,
+      "category": "Special effect",
+      "injuryType": "Blinding Veil",
+      "description": "Your vision is clouded by an ever-present veil of shadow that distorts your perception. Enemies appear as distorted shadows.",
+      "cure": "Major restoration, greater restoration, or a wish spell.",
+      "duration": "Forever, but fades with time and effort to dispel it.",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:44+00:00"
+      }
+    },
+    {
+      "d100": 148,
+      "category": "Severe injury",
+      "injuryType": "Bone Whisperer",
+      "description": "Your bones now whisper cryptic messages that only you can hear. They drain your concentration and may interfere with magical effects.",
+      "cure": "Complete bone realignment surgery and a month of rest in a quiet environment.",
+      "duration": "2d8 weeks",
+      "notes": "GM note: Consider the messages as interruptions during combat or spellcasting.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:44+00:00"
+      }
+    },
+    {
+      "d100": 150,
+      "category": "Special effect",
+      "injuryType": "Soul Echo Weakness",
+      "description": "Your soul hums with a foreign echo, sapping your resolve. Your morale suffers in combat.",
+      "cure": "A week of meditation and rest to restore harmony within.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:47+00:00"
+      }
+    },
+    {
+      "d100": 149,
+      "category": "Severe injury",
+      "injuryType": "Frozen Veil Over Blood",
+      "description": "Your blood runs as cold as ice, congealing and slowing your body's functions. You are immune to fire-based damage.",
+      "cure": "A successful Medicine check or a Frost Mastery spell of at least 5th level.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:47+00:00"
+      }
+    },
+    {
+      "d100": 152,
+      "category": "Severe injury",
+      "injuryType": "Echoing Bone Weakness",
+      "description": "Your bones seem to whisper secrets of the past. They fracture easily and emit a constant eerie glow.",
+      "cure": "Spectral Bone Mender ritual, performed by an Arcane Healer",
+      "duration": "Forever",
+      "notes": "Players must avoid areas with strong magical fields.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:40:50+00:00"
+      }
+    },
+    {
+      "d100": 151,
+      "category": "Special effect",
+      "injuryType": "Spectral Veil Over Sight",
+      "description": "Your vision becomes fragmented and hazy, as if seen through a veil of mist.",
+      "cure": "2d6 hours of rest or an hour under bright light",
+      "duration": "Instant",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:41:33+00:00"
+      }
+    },
+    {
+      "d100": 153,
+      "category": "Special effect",
+      "injuryType": "Spectral Veil Over Sight",
+      "description": "Your vision is clouded by an ever-present veil of spectral mist, reducing all sight to silvery haze.",
+      "cure": "Restoration spell or equivalent magic, lasting 3d6 weeks",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:42:17+00:00"
+      }
+    },
+    {
+      "d100": 154,
+      "category": "Severe injury",
+      "injuryType": "Ethereal Wound",
+      "description": "A searing pain that pulses every hour, causing a -1 penalty to all saving throws. The wound bleeds ethereally.",
+      "cure": "Major Restoration spell",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:43:01+00:00"
+      }
+    },
+    {
+      "d100": 155,
+      "category": "Special effect",
+      "injuryType": "Veilbound Silence",
+      "description": "Your voice is muffled and indistinct to others. They can still hear you but understand you with difficulty.",
+      "cure": "Spectral Mender's Cure, Long rest",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:43:44+00:00"
+      }
+    },
+    {
+      "d100": 156,
+      "category": "Special effect",
+      "injuryType": "Veilbound Silence",
+      "description": "Your voice is warped by the spectral veil, rendering you unable to speak normally. Those who hear your words are compelled to misunderstand them.",
+      "cure": "Restoration spell or similar magic",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:44:28+00:00"
+      }
+    },
+    {
+      "d100": 157,
+      "category": "Special effect",
+      "injuryType": "Spectral Veil Over Ears",
+      "description": "You hear only whispers and echoes, as if the world has dimmed into a spectral dream.",
+      "cure": "Silent Ritual or equivalent magic",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:45:11+00:00"
+      }
+    },
+    {
+      "d100": 158,
+      "category": "Severe injury",
+      "injuryType": "Spectral Veil Over Hand",
+      "description": "Your hand is cloaked in an ethereal veil that impairs your dexterity.",
+      "cure": "A successful DC 15 Arcana check or access to a Lesser Restoration spell.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:45:54+00:00"
+      }
+    },
+    {
+      "d100": 159,
+      "category": "Special effect",
+      "injuryType": "Veilbound Silence Echoes",
+      "description": "You hear the faint whispers of those you've harmed, haunting your every moment.",
+      "cure": "Silent Veil Remedy or removal of the source of the echo.",
+      "duration": "Forever unless cured",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:36+00:00"
+      }
+    },
+    {
+      "d100": 160,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Limb Malady",
+      "description": "Your limb is encased in an ever-present veil that impedes movement and grants no strength. It feels heavy and sluggish.",
+      "cure": "Major restoration spell or equivalent magic item",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:38+00:00"
+      }
+    },
+    {
+      "d100": 161,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Shadow Hand",
+      "description": "Your hand is shrouded in shadow, halving your dexterity and imposing disadvantage on stealth checks.",
+      "cure": "Major Surgery or Restoration spell",
+      "duration": "2d8 weeks",
+      "notes": "The shadow recedes with rest, but full function returns only after treatment.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:39+00:00"
+      }
+    },
+    {
+      "d100": 163,
+      "category": "Special effect",
+      "injuryType": "Bone Veil Entanglement",
+      "description": "Your bones are intertwined with spectral threads that limit your mobility and slow your attacks.",
+      "cure": "A successful DC 18 Medicine check or the Dispel Magic spell.",
+      "duration": "Instant",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:42+00:00"
+      }
+    },
+    {
+      "d100": 162,
+      "category": "Special effect",
+      "injuryType": "Veilbound Echoed Voice",
+      "description": "Your voice echoes with otherworldly tones, confusing allies and drawing the attention of fiends.",
+      "cure": "Silencing potion or 3d6 hours of rest in a consecrated location",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:42+00:00"
+      }
+    },
+    {
+      "d100": 164,
+      "category": "Special effect",
+      "injuryType": "Ethereal Veil Touch",
+      "description": "Your skin becomes permeable to ethereal entities; they can touch you at will.",
+      "cure": "A successful caster level check against DC 18 or a week of seclusion.",
+      "duration": "2d6 weeks",
+      "notes": "Avoid places with powerful ethereal presences.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:44+00:00"
+      }
+    },
+    {
+      "d100": 165,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Weakness",
+      "description": "Your veins pulse with an eerie glow, sapping your strength and making you vulnerable to cold climates.",
+      "cure": "A week of herbal remedies and warm baths restores the normal flow of blood.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:45+00:00"
+      }
+    },
+    {
+      "d100": 166,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Mutation",
+      "description": "Your veins have been warped by the spectral veil, causing erratic blood flow and severe pain.",
+      "cure": "Major Restoration or successful Surgery (DC 25)",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:48+00:00"
+      }
+    },
+    {
+      "d100": 167,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Malady",
+      "description": "Your veins pulse with an eerie, spectral light, draining your vitality and leaving you susceptible to cold-based attacks.",
+      "cure": "Restoration spell or equivalent magic",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:48+00:00"
+      }
+    },
+    {
+      "d100": 169,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Collapse",
+      "description": "A pulsating void opens in your veins, causing severe hemorrhaging and excruciating pain.",
+      "cure": "Major surgery or a successful DC 25 Medicine check by another healer.",
+      "duration": "2d8 weeks",
+      "notes": "May require multiple sessions of treatment.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:51+00:00"
+      }
+    },
+    {
+      "d100": 168,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Malformation",
+      "description": "A twisted network of veins causes constant pain and unpredictable bursts of ethereal energy.",
+      "cure": "Surgery and 4d8 weeks of rest to realign the malformed vessels.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:54+00:00"
+      }
+    },
+    {
+      "d100": 171,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Echoes",
+      "description": "Your veins pulse with ethereal echoes that drain your strength and stamina.",
+      "cure": "Complete rest and a successful DC 20 Wisdom (Medicine) check.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T03:46:57+00:00"
       }
     }
   ],
