@@ -37,6 +37,36 @@ index → RNN → cross-system → run report).
   rule (a known character in a generation MUST be pulled from `portraits/` as
   a reference, never described from scratch)
 
+**Round 3 (layout, WAHwire fix, analysis page)**
+- `index.html` + `Reputation-Matrix2/app/pages/wahwire/wahwire.js` — **WAHwire
+  status filter fix**: both loaders accepted only `status:'canon'` or
+  `_quality.validator:'wahwire-v2'`, but every post in `posts.json` carries the
+  documented authored statuses `posted`/`generated`
+  (`docs/CROSS_SYSTEM_UPDATES.md`), so **0 of 11 posts survived the filter and
+  no article page anywhere showed a WAHwire panel**. Both filters now accept
+  `canon`/`posted`/`generated`/wahwire-v2 (verified: 11/11 pass; the event,
+  battle, and hanging-tree ids all index to their posts)
+- `index.html` — **side panel removed on event + battle articles**: the
+  `#battle-article-layout-fix` hack is replaced by `#record-article-layout`
+  (`.article-layout.record-wide-layout`): full-width single column, no rail.
+  The infobox + Contents now render inside the main column as a
+  `.record-summary` band (`recordSummaryBand()`), and the archive toolboxes
+  (Law & Culture, Link Graph, Connected Systems, Reader Controls) follow the
+  exhibits as a `.rail-band` grid via `articleRail(..., {wide:true})` — nothing
+  is lost, it just stops being a side panel. Other article types keep the rail
+- `Reputation-Matrix2/data/articleAnalyses.json` — **+ Waluigi analysis page**
+  `scorncrow_skirmish_waluigi_analysis` (6th record), per
+  `docs/ARTICLE_ANALYSES.md` + `docs/article-analyses/README.md`: thesis
+  ("the skirmish was an auction of attention the grove won by waiting"), 7
+  claim-headed sections each with a grounded `sourceAnchor` (elixir label,
+  three fanfares, Archie's unaudited return, deforestation as category error,
+  the second swing offer — cross-filed against `the_tree_of_woe_engagement` —
+  Eager's pin, the observation tower), signed verdict with recommendations,
+  3-roll after-hours research desk (DC 3/4/5), 11 resolving `relatedArticles`.
+  ~2,974 core words; discovery is data-driven via the event's
+  **Investigate this further** panel; route
+  `#/article-analysis/scorncrow_skirmish_waluigi_analysis`
+
 ## Events filed
 
 ```
@@ -108,10 +138,28 @@ total shows in both.
   table` (ordering 1–132). Neither file was touched by this filing.
 - `python3 tools/check-exhibits.py` — 0 errors / 0 warnings
 - `python3 tools/check-investigations.py` — 0 errors / 0 warnings
+- `articleAnalyses.json` — parses; identity checks pass (no duplicate analysis
+  id, no duplicate `sourceArticle`, unique section ids, DCs 2–6, all
+  `relatedArticles` resolve)
+- `python3 tools/check-readability.py --analysis scorncrow_skirmish_waluigi_analysis`
+  — **nothing flagged** (FRE 65.1, FK grade 8.6, longest drumbeat 3 fragments,
+  healthy sentence-length mix)
+- WAHwire filter simulated against real `posts.json` in Node: old filter kept
+  0/11, new keeps 11/11; both `the_scorncrow_skirmish` and
+  `the_scorncrow_skirmish_battle` index to the Wario post
+- Inline `<script>` blocks in `index.html` + `wahwire.js` pass syntax checks
 - Preview served and assets return HTTP 200.
 
 ## Not done / open
 
+- **Layout rework needs user eyes** — event and battle pages are now
+  full-width with no side rail, the infobox/Contents moved into the main
+  column, and the toolboxes sit in a bottom band. Verify on the preview:
+  `#/article/the_scorncrow_skirmish` (WAHwire panel under the XP block,
+  analysis link in **Investigate this further**) and
+  `#/article/the_scorncrow_skirmish_battle` (Session XP 2,550, same wire
+  panel). `#/article-analysis/scorncrow_skirmish_waluigi_analysis` for the new
+  analysis page.
 - **XP values** are a judgement (per `SESSION_FILING_PROCESS` step 4) drawn
   from the transcript beats — they were not stated by the GM, so the specific
   numbers are inferred and should be sanity-checked against the table's own

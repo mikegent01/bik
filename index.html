@@ -308,17 +308,23 @@
 }
 </style>
 
-<style id="battle-article-layout-fix">
-/* Battle articles are full-width with the rail hidden; these selectors are
+<style id="record-article-layout">
+/* Event and battle articles are full-width with NO side rail: the infobox and
+   contents render inside the main column (.record-summary) and the archive
+   toolboxes follow the exhibits as a bottom band (.rail-band). Selectors are
    deliberately higher-specificity than `.article-layout` so the layout cannot
    be re-squished into a side panel by load-order overrides. */
-.article-layout.battle-full-layout{display:block;grid-template-columns:1fr;width:100%;max-width:1180px;margin:0 auto}
-.article-layout.battle-full-layout>div:first-child{max-width:100%;width:100%;margin:0 auto}
-.article-layout.battle-full-layout>div:last-child{display:none}
-.article-layout.battle-full-layout .kv-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
-.article-layout.battle-full-layout .kv-row{border-left:3px solid var(--accent);padding:10px 12px;border-radius:8px;background:var(--bg2)}
-.article-layout.battle-full-layout .kv-row .k{display:block;color:var(--accent2);font-weight:800;margin-bottom:4px}
-.article-layout.battle-full-layout .kv-row .v{color:var(--text);line-height:1.45}
+.article-layout.record-wide-layout{display:block;grid-template-columns:1fr;width:100%;max-width:1180px;margin:0 auto}
+.article-layout.record-wide-layout>div:first-child{max-width:100%;width:100%;margin:0 auto}
+.article-layout.record-wide-layout .record-summary{display:grid;grid-template-columns:minmax(230px,330px) minmax(0,1fr);gap:16px;margin:18px 0;align-items:start}
+.article-layout.record-wide-layout .record-summary .infobox{margin-bottom:0}
+.article-layout.record-wide-layout .record-summary .toc{position:static}
+.article-layout.record-wide-layout .rail-band{position:static;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:18px;max-height:none;overflow:visible;padding-right:0}
+.article-layout.record-wide-layout .kv-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.article-layout.record-wide-layout .kv-row{border-left:3px solid var(--accent);padding:10px 12px;border-radius:8px;background:var(--bg2)}
+.article-layout.record-wide-layout .kv-row .k{display:block;color:var(--accent2);font-weight:800;margin-bottom:4px}
+.article-layout.record-wide-layout .kv-row .v{color:var(--text);line-height:1.45}
+@media(max-width:900px){.article-layout.record-wide-layout .record-summary{grid-template-columns:1fr}}
 </style>
 
 <style id="article-data-panels-skin">
@@ -5508,10 +5514,21 @@ function railBox(title,body,opts={}){
   if(!body) return '';
   return `<details class="railbox"${opts.open?' open':''}><summary>${esc(title)}${opts.count!==undefined?`<span class="rail-count">${esc(String(opts.count))}</span>`:''}</summary><div class="railbody">${body}</div></details>`;
 }
-function articleRail(articleId,typeKey,item,infoRows,toc){
+/* Full-width event/battle pages have no side rail, so the record's own facts
+   and its contents box move into the main column as a summary band. */
+function recordSummaryBand(item,infoRows,toc){
+  const box=infoRows?`<div class="infobox"><h4>${esc(displayName(item))}</h4>${infoRows}</div>`:'';
+  if(!box && !toc) return '';
+  return `<div class="record-summary">${box}${toc||''}</div>`;
+}
+function articleRail(articleId,typeKey,item,infoRows,toc,opts){
+  /* `wide` mode serves the full-width event/battle pages: the infobox and the
+     contents move into the main column (recordSummaryBand) and the remaining
+     toolboxes render as a bottom band instead of a sticky side rail. */
+  const wide=!!(opts&&opts.wide);
   const parts=[];
-  if(infoRows) parts.push(`<div class="infobox"><h4>${esc(displayName(item))}</h4>${infoRows}</div>`);
-  if(toc) parts.push(toc);
+  if(!wide && infoRows) parts.push(`<div class="infobox"><h4>${esc(displayName(item))}</h4>${infoRows}</div>`);
+  if(!wide && toc) parts.push(toc);
   // Faction systems get a prominent rail shortcut instead of hiding in the link soup.
   if(typeKey==='factions'){
     const sys=systemsForFaction(articleId);
@@ -5526,7 +5543,8 @@ function articleRail(articleId,typeKey,item,infoRows,toc){
   if(graph) parts.push(railBox('🕸️ Link Graph',graph,{open:true,count:LINK_LAST_STATS.unique}));
   parts.push(railBox('🔗 Connected Systems',crossPagePanel(articleId,typeKey,item),{open:false}));
   parts.push(railBox('⚙️ Reader Controls',articleControlPanel(articleId),{open:false}));
-  return `<div class="rail">${parts.filter(Boolean).join('')}</div>`;
+  if(!parts.length) return '';
+  return `<div class="rail${wide?' rail-band':''}">${parts.filter(Boolean).join('')}</div>`;
 }
 
 /* ===== Legal Friction panel (events & battles) =====
@@ -9042,8 +9060,11 @@ async function loadWahwireFeed(){
     const res = await fetch(pathPrefix + 'data/wahwire/posts.json', {cache:'no-cache'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const j = await res.json();
+    // 'canon' is the verified stamp; 'posted'/'generated' are the documented
+    // authored statuses (docs/CROSS_SYSTEM_UPDATES.md) that posts.json actually
+    // carries. Rejecting them hid every authored post from every article panel.
     WAHWIRE_POSTS = (j && Array.isArray(j.posts)) ? j.posts.filter(p =>
-      p && (p.status==='canon' || p._quality?.validator==='wahwire-v2')
+      p && (p.status==='canon' || p.status==='posted' || p.status==='generated' || p._quality?.validator==='wahwire-v2')
     ) : [];
     WAHWIRE_BY_RECORD = indexWahwirePosts(WAHWIRE_POSTS);
     const n = WAHWIRE_POSTS.length;
@@ -10165,9 +10186,17 @@ function view_article(id){
   let audioHtml=item.audio?`<div style="margin:14px 0"><audio controls src="${esc(assetPath(item.audio))}"></audio>${item.audioCaption?`<div class="imgcap">${esc(item.audioCaption)}</div>`:''}</div>`:'';
   const tocEntries=heads.map(h=>({slug:slug(h.text),text:h.text,h3:h.level===3})).concat(secTocParts.map(p=>({slug:p.slug,text:p.text,h3:false})));
   const toc=tocEntries.length?`<div class="toc" id="toc"><h4>Contents</h4>${tocEntries.map(h=>`<a class="${h.h3?'h3':''}" data-slug="${h.slug}" onclick="scrollToHeading('${h.slug}')">${esc(h.text)}</a>`).join('')}</div>`:'';
+  /* Event & battle pages are full-width with no side rail: the infobox and
+     contents move into the main column, and the archive toolboxes follow the
+     exhibits as a bottom band. Other article types keep the side rail. */
+  const wideRecord = typeKey==='events'||typeKey==='battles';
+  const summaryBand = wideRecord ? recordSummaryBand(item,infoRows,toc) : '';
+  const railHtml = wideRecord
+    ? articleRail(item.id,typeKey,item,null,null,{wide:true})
+    : `<div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div>`;
   el('content').innerHTML=`
    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › <a onclick="Router.go('#/list/${typeKey}')">${esc(t.label)}</a> › ${esc(displayName(item))}</div>
-   <div class="article-layout ${typeKey==='battles'?'battle-full-layout':''}"><div><div class="card animate-fade-in">
+   <div class="article-layout${wideRecord?' record-wide-layout':''}"><div><div class="card animate-fade-in">
      <div class="art-kicker">${t.emoji} ${esc(t.singular)}${item.era?` · ${esc(String(item.era).split('—')[0].trim())}`:(item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:'')}</div>
      <h1 class="art-title">${esc(displayName(item))}</h1>
      ${item.title&&item.title!==item.name?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
@@ -10182,6 +10211,7 @@ function view_article(id){
      ${(typeKey==='factions'||typeKey==='characters')?relationGraph(item):''}
      ${typeKey==='factions'?`<div id="faction-power-projection-container"></div>`:''}
 ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==='characters'?injuryPanel(item):''}${typeKey==='factions'?renderArticleFactionReputation(item.id):''}${(typeKey==='factions'||typeKey==='nations')?renderRelatedCongressVotes(item):''}${typeof renderConnectedInvestigationsPanel === 'function' ? renderConnectedInvestigationsPanel(item.id, typeKey) : ''}${typeof renderConnectedQuestsPanel === 'function' ? renderConnectedQuestsPanel(item.id, typeKey) : ''}
+     ${summaryBand}
      <div class="prose">${applyAnnotations(mdToHtml(item.description||'',item.id), item.id)}</div>
      ${sectionsHtml}
      ${engagementsHtml}
@@ -10189,7 +10219,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${item.aftermath?`<h2 id="h-aftermath">Aftermath</h2><div class="prose">${applyAnnotations(mdToHtml(item.aftermath,item.id), item.id)}</div>`:''}
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote wassessment">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
-   </div>${exhibitTilesHtml(propsForArticle(item.id),{heading:'🗂️ Documents behind this record',blurb:'The paperwork this account is built on. Click any one to read it as filed.'})}</div><div>${articleRail(item.id,typeKey,item,infoRows,toc)}</div></div>`;
+   </div>${exhibitTilesHtml(propsForArticle(item.id),{heading:'🗂️ Documents behind this record',blurb:'The paperwork this account is built on. Click any one to read it as filed.'})}${wideRecord?railHtml+'</div>':`</div>${railHtml}`}</div>`;
   setArticleAccent(typeKey);
   endLinkPass();
   window.scrollTo(0,0);setupScrollSpy();applyCustomCss(item.customCss);

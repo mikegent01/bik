@@ -276,8 +276,12 @@ async function load() {
     return;
   }
 
+  // 'canon' is the verified stamp; 'posted'/'generated' are the documented
+  // authored statuses (docs/CROSS_SYSTEM_UPDATES.md) that posts.json actually
+  // carries. Rejecting them hid every authored post from the wire.
   const posts = (Array.isArray(raw) ? raw : (raw.posts || [])).filter(post =>
-    post && (post.status === 'canon' || post._quality?.validator === 'wahwire-v2')
+    post && (post.status === 'canon' || post.status === 'posted' ||
+             post.status === 'generated' || post._quality?.validator === 'wahwire-v2')
   );
   _prepareIndex = 0;
   state.posts = posts.map(prepare);
