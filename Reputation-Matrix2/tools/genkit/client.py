@@ -83,24 +83,29 @@ class LMStudioClient:
         *,
         temperature: float = 0.7,
         attempts: int = 3,
+        max_tokens: int = 2000,
     ) -> dict[str, Any]:
         import re
         
-        # The user requested a "premade json that it just fills out" because Qwen was failing to generate.
-        # We find the JSON template in the system prompt.
         match = re.search(r"(\{.*\})", system_prompt, re.DOTALL)
         if match and "For anything else:" not in system_prompt and "For a real faction:" not in system_prompt:
             schema = match.group(1)
-            # Make the placeholders clear that they need to be replaced with content
-            schema = re.sub(r'"<([^>]+)>"', r'"<GENERATE: \1>"', schema)
+            # Make it perfectly valid JSON so the model isn't confused.
+            schema = re.sub(r'"<([^>]+)>"', r'"\1"', schema)
+            schema = re.sub(r':\s*<integer[^>]*>', ': 0', schema)
             
-            user_prompt = user_prompt.strip() + "\n\nIMPORTANT: You must fill out and return this exact JSON structure. Replace the <GENERATE: ...> placeholders with your actual generated content. Do not return empty fields.\n" + schema
+            # The prompt MUST be extremely clear.
+            user_prompt = user_prompt.strip() + "\n\nCRITICAL INSTRUCTION: You must strictly output the following JSON format. Replace the string descriptions and the '0' values with your actual generated content:\n" + schema
 
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt},
         ]
-        payload: dict[str, Any] = {"messages": messages, "temperature": temperature}
+        payload: dict[str, Any] = {
+            "messages": messages, 
+            "temperature": temperature,
+            "max_tokens": max_tokens
+        }
         if self.model:
             payload["model"] = self.model
 
@@ -152,7 +157,7 @@ class LMStudioClient:
             
             # Instruct models often add yapping before or after the JSON block.
             # Extract everything from the first { to the last }
-            if not content.startswith("{") and "{" in content and "}" in content:
+            if "{" in content and "}" in content:
                 content = content[content.find("{"):content.rfind("}")+1]
             elif "{" in content and "}" not in content:
                 # Missing closing brace! This usually means it was truncated by a context crash.
