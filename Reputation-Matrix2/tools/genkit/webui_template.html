@@ -270,7 +270,7 @@ function initTab(name){
 let genReady=false;
 async function poll(){
   try{
-    const s=await (await fetch('/state')).json();
+    const s=await (await fetch('state')).json();
     $('produced').innerHTML=s.produced+'<span>produced</span>';
     $('failed').innerHTML=s.failed+'<span>failed</span>';
     $('retried').innerHTML=(s.retried||0)+'<span>retried</span>';
@@ -297,23 +297,23 @@ async function poll(){
   }catch(e){$('state').innerHTML='offline<span>state</span>';}
 }
 $('go').onclick=async()=>{
-  await fetch('/start',{method:'POST',headers:{'Content-Type':'application/json'},
+  await fetch('start',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({endpoint:$('endpoint').value,model:$('model').value,
       workers:+$('workers').value,limit:+$('limit').value,only:$('only').value,
       temperature:+$('temperature').value,dry_run:$('dry').checked,
       weights:Object.fromEntries([...document.querySelectorAll('[data-weight]')].map(x=>[x.dataset.weight,+x.value]))})});
   poll();
 };
-$('halt').onclick=async()=>{await fetch('/stop',{method:'POST'});poll();};
+$('halt').onclick=async()=>{await fetch('stop',{method:'POST'});poll();};
 $('overnight-go').onclick=async()=>{
-  await fetch('/overnight/start',{method:'POST',headers:{'Content-Type':'application/json'},
+  await fetch('overnight/start',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({endpoint:$('endpoint').value,model:$('model').value,
       workers:+$('overnight-workers').value,limit:+$('limit').value,
       temperature:+$('temperature').value,dry_run:$('dry').checked,only:$('only').value,
       maxHours:+$('overnight-hours').value,stopAt:$('overnight-stopat').value})});
   poll();
 };
-$('overnight-stop').onclick=async()=>{await fetch('/overnight/stop',{method:'POST'});poll();};
+$('overnight-stop').onclick=async()=>{await fetch('overnight/stop',{method:'POST'});poll();};
 let isPolling=false;
 async function doPoll() {
   if(isPolling || !document.getElementById('tab-generate').classList.contains('active')) return setTimeout(doPoll, 1500);
@@ -325,7 +325,7 @@ async function doPoll() {
 doPoll();
 
 async function toggleAux(id){
-  const r=await fetch('/run-aux',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
+  const r=await fetch('run-aux',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id})});
   const j=await r.json();
   toast(j.msg || j.error, j.ok?'ok':'bad');
   poll();

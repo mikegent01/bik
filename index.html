@@ -336,6 +336,7 @@
 .article-layout .event-context-panel{padding:18px}
 .article-layout .event-context-grid{grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px}
 .article-layout .event-context-grid>div{min-width:0}
+.event-participant-xp{display:inline-block;margin:5px 0 2px;font-size:11px;font-weight:800;letter-spacing:.3px;color:#ffd166;background:rgba(224,180,0,.14);border:1px solid rgba(224,180,0,.35);border-radius:999px;padding:2px 9px}
 
 .wahwire-panel{margin:16px 0;border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:16px 18px;overflow:hidden}
 .wahwire-panel-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:2px;flex-wrap:wrap}
@@ -5441,18 +5442,22 @@ function eventPeopleAndXpPanel(item){
   [].concat(item.participants||[],item.participatingCharacters||[]).forEach(p=>addParticipant(p));
   (item.relatedArticles||[]).forEach(id=>{ if(id&&INDEX[id]&&INDEX[id].typeKey==='characters') addParticipant({id},'Related character'); });
   xpAwardsForEvent(item.id).forEach(a=>addParticipant({id:a.articleId,name:a.name},'XP recipient'));
+  const grouped=xpAwardsGrouped(item.id);
+  /* Per-person session totals: the Participants grid should show what each
+     named person actually banked, not just the aggregate block beside it. */
+  const xpByArticle=new Map(grouped.map(g=>[g.articleId||g.xpKey,g]));
   const participantCards=[...participantMap.values()].map(p=>{
     const linked=p.id&&INDEX[p.id];
     const route=linked?`onclick="openId('${esc(p.id)}')"`:'';
     const type=linked?TYPE_BY_KEY[INDEX[p.id].typeKey].singular:(p.kind||'Participant');
     const initials=String(p.name||'?').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'?';
+    const gained=p.id?xpByArticle.get(p.id):null;
     return `<div class="event-participant-card ${linked?'linked':'unlinked'}" ${route}>
       <div class="event-participant-avatar">${esc(initials)}</div>
-      <div class="event-participant-body"><div class="event-participant-name">${esc(p.name||prettyId(p.id))}</div>${p.role?`<div class="event-participant-role">${esc(p.role)}</div>`:''}<div class="event-participant-meta">${esc(type)}${linked?' · Open dossier →':' · no dossier yet'}</div></div>
+      <div class="event-participant-body"><div class="event-participant-name">${esc(p.name||prettyId(p.id))}</div>${p.role?`<div class="event-participant-role">${esc(p.role)}</div>`:''}${gained?`<div class="event-participant-xp" title="Session XP banked from this record">✦ +${Number(gained.total||0).toLocaleString()} XP this session</div>`:''}<div class="event-participant-meta">${esc(type)}${linked?' · Open dossier →':' · no dossier yet'}</div></div>
     </div>`;
   }).join('');
   const people=participantCards?`<div class="event-participants"><div class="event-participant-grid">${participantCards}</div></div>`:'';
-  const grouped=xpAwardsGrouped(item.id);
   const partyTotal=grouped.reduce((s,g)=>s+Number(g.total||0),0);
   const awards=grouped.map((g,i)=>xpAwardRowHtml(g,{eventId:item.id,partyTotal,rank:i+1})).join('');
   const awardsBlock=awards?`<div class="xp-session"><div class="xp-session-head"><h3>Session XP</h3><span class="xp-session-kicker">snapshot · party +${partyTotal.toLocaleString()} · ${grouped.length} ${grouped.length===1?'person':'people'}</span></div><div class="award-list">${awards}</div></div>`:'';
@@ -5467,7 +5472,15 @@ function eventPeopleAndXpPanel(item){
   return `<div class="event-context-panel"><div class="event-context-grid"><div><h3>👥 Participants</h3>${people}</div>${awardsBlock}</div></div>${tail}`;
 }
 const CATEGORIES_LABELS={combat:'Combat',exploration:'Exploration',social:'Social',survival:'Survival',discovery:'Discovery',chaos:'Chaos',stealth:'Stealth',faith:'Faith',magic:'Arcane',technique:'Technique',loyalty:'Loyalty',sabotage:'Sabotage'};
-function xpAwardsForEvent(eventId){const base=[...(XP_EVENT_AWARDS[eventId]||[])];const rec=(DATA?.events||[]).find(e=>e&&e.id===eventId) || (DATA?.battles||[]).find(b=>b&&b.id===eventId);if(Array.isArray(rec?.xpAwards))base.push(...rec.xpAwards);const seen=new Set();return base.filter(a=>{const key=[a.xpKey,a.articleId,a.cat,a.xp,a.title].join('|');if(seen.has(key))return false;seen.add(key);return true;});}
+function xpAwardsForEvent(eventId){const base=[...(XP_EVENT_AWARDS[eventId]||[])];const all=[...((DATA&&DATA.events)||[]),...((DATA&&DATA.battles)||[])];const rec=all.find(r=>r&&r.id===eventId);if(Array.isArray(rec&&rec.xpAwards))base.push(...rec.xpAwards);
+/* A session's XP is filed on whichever record owns the ledger — often the
+   battle. The event and the battle fought inside it are the same session, so
+   when this record carries no XP of its own, a linked record's awards render
+   here too. Guarded so a record with its own awards (or a legacy registry
+   entry) never double-counts a co-filed set; the dedupe below absorbs exact
+   mirrors. */
+if(!base.length){for(const r of all){if(!r||r.id===eventId||!Array.isArray(r.xpAwards))continue;const links=[].concat(r.relatedArticles||[],r.keyBattles||[]);if(links.includes(eventId))base.push(...r.xpAwards);}}
+const seen=new Set();return base.filter(a=>{const key=[a.xpKey,a.articleId,a.cat,a.xp,a.title].join('|');if(seen.has(key))return false;seen.add(key);return true;});}
 
 // Surface congress votes where a faction/nation was proposer, subject, notable_yea/nay/abstain, or clearly named in the description.
 function renderRelatedCongressVotes(item){

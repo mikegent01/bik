@@ -1658,6 +1658,22 @@
       }
     },
     {
+      "d100": 104,
+      "category": "Severe injury",
+      "injuryType": "Shattered Vein",
+      "description": "Your veins are left with a permanent jagged scar, causing blood to clot unpredictably.",
+      "cure": "Major surgery and two months of rest and recovery",
+      "duration": "Forever",
+      "notes": "Avoid strenuous activities. The scars can be hidden with armor.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-30T18:01:48+00:00"
+      }
+    },
+    {
       "d100": 105,
       "category": "Special effect",
       "injuryType": "Echoing Silence",
@@ -1687,22 +1703,6 @@
         "system": "injury-table",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-30T18:01:40+00:00"
-      }
-    },
-    {
-      "d100": 104,
-      "category": "Severe injury",
-      "injuryType": "Shattered Vein",
-      "description": "Your veins are left with a permanent jagged scar, causing blood to clot unpredictably.",
-      "cure": "Major surgery and two months of rest and recovery",
-      "duration": "Forever",
-      "notes": "Avoid strenuous activities. The scars can be hidden with armor.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:01:48+00:00"
       }
     },
     {
@@ -1882,22 +1882,6 @@
       }
     },
     {
-      "d100": 119,
-      "category": "Severe injury",
-      "injuryType": "Phantom Veil",
-      "description": "You are constantly plagued by the sensation of a phantom limb, which can only be alleviated with rigorous concentration and meditation.",
-      "cure": "A week of uninterrupted meditation in a sacred location.",
-      "duration": "2d10 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:03:31+00:00"
-      }
-    },
-    {
       "d100": 118,
       "category": "Special effect",
       "injuryType": "Ethereal Veil",
@@ -1911,6 +1895,22 @@
         "system": "injury-table",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-30T18:03:37+00:00"
+      }
+    },
+    {
+      "d100": 119,
+      "category": "Severe injury",
+      "injuryType": "Phantom Veil",
+      "description": "You are constantly plagued by the sensation of a phantom limb, which can only be alleviated with rigorous concentration and meditation.",
+      "cure": "A week of uninterrupted meditation in a sacred location.",
+      "duration": "2d10 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-30T18:03:31+00:00"
       }
     },
     {
@@ -1978,22 +1978,6 @@
       }
     },
     {
-      "d100": 125,
-      "category": "Severe injury",
-      "injuryType": "Frostbound Vein",
-      "description": "A vein in your body becomes encased in ice, reducing your stamina by 2d4 until thawed.",
-      "cure": "Cold resistance potion or successful healing spell (DC15)",
-      "duration": "2d8 weeks",
-      "notes": "Avoid cold environments to prevent further damage.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:04:44+00:00"
-      }
-    },
-    {
       "d100": 124,
       "category": "Severe injury",
       "injuryType": "Chillborn Flesh",
@@ -2007,6 +1991,22 @@
         "system": "injury-table",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-30T18:04:51+00:00"
+      }
+    },
+    {
+      "d100": 125,
+      "category": "Severe injury",
+      "injuryType": "Frostbound Vein",
+      "description": "A vein in your body becomes encased in ice, reducing your stamina by 2d4 until thawed.",
+      "cure": "Cold resistance potion or successful healing spell (DC15)",
+      "duration": "2d8 weeks",
+      "notes": "Avoid cold environments to prevent further damage.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-30T18:04:44+00:00"
       }
     },
     {
@@ -2026,22 +2026,6 @@
       }
     },
     {
-      "d100": 128,
-      "category": "Special effect",
-      "injuryType": "Chronal Anomaly",
-      "description": "Your flesh becomes unstable, shifting and warping with each passing moment, causing discomfort and unpredictable physical changes.",
-      "cure": "Restoration spell or a successful DC 25 Medicine check by another healer.",
-      "duration": "1d6 weeks",
-      "notes": "",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:05:09+00:00"
-      }
-    },
-    {
       "d100": 127,
       "category": "Special effect",
       "injuryType": "Forsaken Veil",
@@ -2055,6 +2039,22 @@
         "system": "injury-table",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-30T18:05:15+00:00"
+      }
+    },
+    {
+      "d100": 128,
+      "category": "Special effect",
+      "injuryType": "Chronal Anomaly",
+      "description": "Your flesh becomes unstable, shifting and warping with each passing moment, causing discomfort and unpredictable physical changes.",
+      "cure": "Restoration spell or a successful DC 25 Medicine check by another healer.",
+      "duration": "1d6 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-30T18:05:09+00:00"
       }
     },
     {
@@ -2090,22 +2090,6 @@
       }
     },
     {
-      "d100": 132,
-      "category": "Severe injury",
-      "injuryType": "Glowing Corruption",
-      "description": "A festering growth of living darkness consumes your flesh, emitting a cold, eerie light.",
-      "cure": "Elixir of Resurrection and a week of rest in a Holy Ground.",
-      "duration": "Forever until cured",
-      "notes": "Avoid contact with water or it spreads faster.",
-      "temporary": true,
-      "_generated": {
-        "by": "tools/genkit",
-        "system": "injury-table",
-        "model": "qwen2.5-7b-instruct-1m",
-        "at": "2026-08-30T18:05:42+00:00"
-      }
-    },
-    {
       "d100": 131,
       "category": "Severe injury",
       "injuryType": "Echoing Wound",
@@ -2119,6 +2103,22 @@
         "system": "injury-table",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-30T18:05:49+00:00"
+      }
+    },
+    {
+      "d100": 132,
+      "category": "Severe injury",
+      "injuryType": "Glowing Corruption",
+      "description": "A festering growth of living darkness consumes your flesh, emitting a cold, eerie light.",
+      "cure": "Elixir of Resurrection and a week of rest in a Holy Ground.",
+      "duration": "Forever until cured",
+      "notes": "Avoid contact with water or it spreads faster.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-30T18:05:42+00:00"
       }
     }
   ],

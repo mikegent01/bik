@@ -67,6 +67,27 @@ index → RNN → cross-system → run report).
   **Investigate this further** panel; route
   `#/article-analysis/scorncrow_skirmish_waluigi_analysis`
 
+**Round 4 (XP on Participants, checker repairs)**
+- `index.html` — **XP now renders in the 👥 Participants section**: every
+  participant card carries a `✦ +N XP this session` chip (per-person session
+  total), and `xpAwardsForEvent()` gained a guarded join so a record with no
+  XP of its own inherits a linked record's awards — the **event page** now
+  shows the battle-filed Session XP block (+2,550 · 8 people) instead of an
+  empty Participants-only panel. The join only fires when the page's own
+  record/registry entry has no awards, so legacy events (e.g. the Tree of Woe,
+  +1,840) can never double-count a co-filed battle set
+- `Reputation-Matrix2/data/injuries.json` — **injury-table check repaired**
+  (failure pre-existing at the base commit): rows 104–106, 118–119, 124–125,
+  127–128 and 131–132 were transposed — a pure permutation, all 132 values
+  present, no duplicates. Entries were sorted by `d100` as byte-exact block
+  moves (no row content touched; file size unchanged);
+  `generate-injury-table.py --check` passes
+- `Reputation-Matrix2/tools/genkit/webui_template.html` — **local-paths check
+  repaired** (pre-existing at base): the 6 fetch targets (`/state`, `/start`,
+  `/stop`, `/overnight/start`, `/overnight/stop`, `/run-aux`) made
+  page-relative — the gui.py dashboard is served at the server root, so they
+  resolve to identical URLs; `check-local-paths.py` passes
+
 ## Events filed
 
 ```
@@ -130,14 +151,13 @@ total shows in both.
 
 ## Verification
 
-- `python3 tools/check-all.py` — all checks that apply to this filing PASS
-  (references, exhibits, investigations, rolls, battles, background, home
-  feed, RNN, Bros sync/test). **Two pre-existing failures are unrelated to
-  this run and were present before it:** `local paths`
-  (`tools/genkit/webui_template.html` → `/overnight/*` routes) and `injury
-  table` (ordering 1–132). Neither file was touched by this filing.
+- `python3 tools/check-all.py` — **ALL CHECKS PASS**, including the two
+  formerly-failing ones repaired in round 4 (`local paths`, `injury table` —
+  both failures were verified pre-existing at the base commit `a511bfc`)
 - `python3 tools/check-exhibits.py` — 0 errors / 0 warnings
 - `python3 tools/check-investigations.py` — 0 errors / 0 warnings
+- `python3 tools/generate-injury-table.py --check` — OK: 132 temporary injury
+  entries; roll sequence intact
 - `articleAnalyses.json` — parses; identity checks pass (no duplicate analysis
   id, no duplicate `sourceArticle`, unique section ids, DCs 2–6, all
   `relatedArticles` resolve)
@@ -147,7 +167,13 @@ total shows in both.
 - WAHwire filter simulated against real `posts.json` in Node: old filter kept
   0/11, new keeps 11/11; both `the_scorncrow_skirmish` and
   `the_scorncrow_skirmish_battle` index to the Wario post
-- Inline `<script>` blocks in `index.html` + `wahwire.js` pass syntax checks
+- **Headless DOM run of the live app** (scripts executed against the served
+  site): zero console/page errors on home, the event, the battle, the
+  analysis, Markop's dossier, the events list, and the XP hub; the event page
+  renders the Session XP block (+2,550 · 8 people) and 8 per-participant chips
+  (500+350+430+100+520+250+280+120 = 2,550 ✓); the Tree of Woe page still
+  shows only its own legacy +1,840 (no XP leak through the join)
+- Inline `<script>` blocks in `index.html` pass syntax checks
 - Preview served and assets return HTTP 200.
 
 ## Not done / open
