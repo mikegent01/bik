@@ -17,16 +17,21 @@ index → RNN → cross-system → run report).
 - `Reputation-Matrix2/data/events.json` — stub → full event (6 sections,
   ~2,250 words), last object in array, ids resolve
 - `Reputation-Matrix2/data/battles.json` — + `the_scorncrow_skirmish_battle`
-  (61 records)
+  (61 records), later + 14 `xpAwards[]` rows (party 2,550 XP)
 - `Reputation-Matrix2/data/props.json` — + `prop_wario_elixir_warning_label`
   (127 props), wired inline via `[[prop:…]]`
 - `Reputation-Matrix2/data/investigations.json` — `shadeward_feyward_ruined`:
   + `s_h30_scorncrow_skirmish` session row, + related event
 - `Reputation-Matrix2/data/wahwire/posts.json` — + `wahwire_scorncrow_skirmish`
-  (order 11, author wario, status posted)
+  (order 11, author wario, status posted); later linked to the battle id too so
+  the post renders on the battle page feed
 - `Reputation-Matrix2/data/mainPage.json` — `latestUpdate` +
   `featuredArticle` → `the_scorncrow_skirmish`
-- `index.html` — prepended `SITE_UPDATES` entry
+- `index.html` — prepended `SITE_UPDATES` entry; later: strengthened
+  `#battle-article-layout-fix` (full-width, higher specificity) and added
+  `#article-data-panels-skin` — proper styles for the on-page WAHwire feed
+  panel (`wahwire.css` was never loaded on the article shell, so the feed
+  rendered unstyled) plus a wider Participants/XP grid
 - `tools/rnn-scripts/pending-news-articles.json` — appended event id (7/10)
 - `README.md` + `docs/IMAGE_GENERATION_GUIDE.md` — added the portrait-reference
   rule (a known character in a generation MUST be pulled from `portraits/` as
@@ -51,9 +56,31 @@ EVENT  the_scorncrow_skirmish — "The Scorncrow Skirmish: Deforestation,
 
 ## XP
 
-**No XP awarded this run.** The transcript supplied no XP amounts and no
-`xpAwards` values were invented. If XP is owed for this session, it needs a
-separate XP pass (flagged under Not done).
+Calculated from the transcript's beats and filed as `xpAwards[]` on the
+**battle record** (`the_scorncrow_skirmish_battle`), so the XP block renders on
+the battle page. Party total **2,550 XP across 8 people**:
+
+| Character | `xpKey` | Cat | XP | For |
+|---|---|---:|---:|---|
+| Markop | `markop` | combat | 300 | Sole vanguard, bonked the Scorncrow when nobody else could take a hit |
+| Markop | `markop` | survival | 200 | Survived as the only absorbent member |
+| Remi | `remi` | combat | 250 | Declined the impaling swing, shot the tree, pulled the bat swarm |
+| Remi | `remi` | survival | 180 | Waited out the quake, read the swing as the trap |
+| Eager | `eager` | combat | 280 | Critical shortbow shot aimed at the roots to pin it |
+| Green T | `greent` | survival | 200 | Giant-form observation tower, lifted Remi |
+| Green T | `greent` | technique | 150 | Turned the giant form into an observation platform |
+| Archie | `archie` | combat | 220 | Head-on engagement, literal deforestation, flew to Markop |
+| Archie | `archie` | magic | 180 | Fire-armour barrier |
+| Archie | `archie` | social | 120 | Reconciliation with Markop after presumed death |
+| Dan | `originaldan` | combat | 150 | Guarded Archie from the bush |
+| Dan | `originaldan` | loyalty | 100 | Held the guard post unasked |
+| Mossy | `mossy` | combat | 120 | Silent advance on the tree |
+| Wario | `wario` | social | 100 | Declared command, stalled the motorbike |
+
+Rattles (kept off the line by plan) and the Liberated Toads (marched in song)
+received none. Filed on the **battle** so it surfaces on the battle page; the
+event page's XP block is fed from the same `xpAwardsForEvent()` lookup, so the
+total shows in both.
 
 ## Index / RNN / cross-system
 
@@ -85,7 +112,10 @@ separate XP pass (flagged under Not done).
 
 ## Not done / open
 
-- **XP** — not specified in the transcript; needs a separate XP pass.
+- **XP values** are a judgement (per `SESSION_FILING_PROCESS` step 4) drawn
+  from the transcript beats — they were not stated by the GM, so the specific
+  numbers are inferred and should be sanity-checked against the table's own
+  award scale. Wired to the battle record, not the authoritative ledger.
 - **Four generated images** could not be visually verified in this
   environment (no vision). They were built from the prompt sheet at
   `docs/IMAGE_GENERATION_GUIDE.md` process with a canon portrait per figure

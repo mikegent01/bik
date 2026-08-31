@@ -4790,10 +4790,10 @@
       ]
     }
   },
-  {
+    {
     "id": "the_scorncrow_skirmish_battle",
     "name": "The Scorncrow Skirmish (Garlic, the Swing, and the Vanish)",
-    "date": "30 Harvestide, 1040 BF \u2014 the overgrown grove, the night of the threshold storm",
+    "date": "30 Harvestide, 1040 BF — the overgrown grove, the night of the threshold storm",
     "location": "The overgrown grove battlefield on the Shadow Estate grounds (Shadowfell)",
     "type": "Grove Skirmish / Monster Suppression (unresolved)",
     "result": "No decision. The party spent its anti-fey elixir, bonked, shot, and pinned the Scorncrow, and the Scorncrow vanished in smoke and crow-feathers, declaring it was not a monster. No party casualty; no kill; the target escaped.",
@@ -4811,7 +4811,7 @@
             "role": "vanguard, bonked the Scorncrow, the only one who could take a hit",
             "fate": "stood",
             "leader": true,
-            "fateNote": "vanguard \u2014 the only one who could take a hit, and therefore the only one who did"
+            "fateNote": "vanguard — the only one who could take a hit, and therefore the only one who did"
           },
           {
             "name": "Remi Akamatsu",
@@ -4870,7 +4870,7 @@
           },
           {
             "name": "The Evil Tree",
-            "role": "the Scorncrow's form \u2014 thick, patient, and not rooted",
+            "role": "the Scorncrow's form — thick, patient, and not rooted",
             "fate": "stood"
           }
         ]
@@ -4896,7 +4896,7 @@
         "time": "climax",
         "who": "Markop",
         "act": "Vanguard, bonks the Scorncrow",
-        "result": "the Scorncrow vanishes in smoke and crow-feathers \u2014 'I am not a monster'"
+        "result": "the Scorncrow vanishes in smoke and crow-feathers — 'I am not a monster'"
       },
       {
         "time": "after",
@@ -4925,6 +4925,162 @@
     "reputationChanges": [],
     "effects": [],
     "reputationNotes": "No faction standing changed; the Scorncrow is not a registered faction, and the grove remains contested.",
-    "_generatedReputation": {}
+    "_generatedReputation": {},
+    "xpAwards": [
+      {
+        "xpKey": "markop",
+        "articleId": "markop",
+        "name": "Markop",
+        "cat": "combat",
+        "xp": 300,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Vanguard who bonked the Scorncrow and stepped to the front line because nobody else could survive a hit.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "markop",
+        "articleId": "markop",
+        "name": "Markop",
+        "cat": "survival",
+        "xp": 200,
+        "title": "Battle — The Scorncrow Skirmish — Survival",
+        "desc": "Stood as the only absorbent member of the squad and came out of the grove unharmed.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "remi",
+        "articleId": "remi_akamatsu_full_backstory",
+        "name": "Remi Akamatsu",
+        "cat": "combat",
+        "xp": 250,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Declined the Scorncrow's impaling swing, shot the tree, and pulled the bat-swarm out of the wound.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "remi",
+        "articleId": "remi_akamatsu_full_backstory",
+        "name": "Remi Akamatsu",
+        "cat": "survival",
+        "xp": 180,
+        "title": "Battle — The Scorncrow Skirmish — Survival",
+        "desc": "Waited out the earthquake and read the swing for what it was — the trap, not the invitation.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "eager",
+        "articleId": "eager",
+        "name": "Eager",
+        "cat": "combat",
+        "xp": 280,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Loosed a critical shortbow shot from the bush, aimed deliberately at the roots to pin the Scorncrow in place.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "greent",
+        "articleId": "green_t",
+        "name": "Green T",
+        "cat": "survival",
+        "xp": 200,
+        "title": "Battle — The Scorncrow Skirmish — Survival",
+        "desc": "Spent the giant form visibly carrying the observation tower duty and lifting Remi to his shoulder.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "greent",
+        "articleId": "green_t",
+        "name": "Green T",
+        "cat": "technique",
+        "xp": 150,
+        "title": "Battle — The Scorncrow Skirmish — Technique",
+        "desc": "Turned the giant form into an observation platform — a tower that also announced itself across the grove.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "archie",
+        "articleId": "archie_miser",
+        "name": "Archie Miser",
+        "cat": "combat",
+        "xp": 220,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Engaged the Scorncrow head-on, attempted literal deforestation, and flew to Markop for healing.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "archie",
+        "articleId": "archie_miser",
+        "name": "Archie Miser",
+        "cat": "magic",
+        "xp": 180,
+        "title": "Battle — The Scorncrow Skirmish — Arcane",
+        "desc": "Cast a barrier of fire around his body like armour and used it to reach the front of the field.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "archie",
+        "articleId": "archie_miser",
+        "name": "Archie Miser",
+        "cat": "social",
+        "xp": 120,
+        "title": "Battle — The Scorncrow Skirmish — Social",
+        "desc": "Reconciled with Markop after being presumed dead — 'long story short, stuff happened.'",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "originaldan",
+        "articleId": "dan",
+        "name": "Dan",
+        "cat": "combat",
+        "xp": 150,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Came out of a bush to guard Archie while the wizard worked the tree.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "originaldan",
+        "articleId": "dan",
+        "name": "Dan",
+        "cat": "loyalty",
+        "xp": 100,
+        "title": "Battle — The Scorncrow Skirmish — Loyalty",
+        "desc": "Stood the guard post beside Archie without being asked, then held it.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "mossy",
+        "articleId": "mossy",
+        "name": "Mossy",
+        "cat": "combat",
+        "xp": 120,
+        "title": "Battle — The Scorncrow Skirmish — Combat",
+        "desc": "Advanced on the tree in silence, the one counterweight to the shouting.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "social",
+        "xp": 100,
+        "title": "Battle — The Scorncrow Skirmish — Social",
+        "desc": "Declared command of the field, then stalled his motorbike in the leaves and branches.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10400830
+      }
+    ]
   }
 ]

@@ -390,6 +390,10 @@
         {
           "id": "the_scorncrow_skirmish",
           "type": "event"
+        },
+        {
+          "id": "the_scorncrow_skirmish_battle",
+          "type": "battle"
         }
       ],
       "tags": [

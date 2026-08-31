@@ -309,13 +309,55 @@
 </style>
 
 <style id="battle-article-layout-fix">
-.battle-full-layout{display:block;max-width:1120px;margin:0 auto}
-.battle-full-layout>div:first-child{max-width:100%;margin:0 auto}
-.battle-full-layout>div:last-child{display:none}
-.battle-full-layout .kv-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
-.battle-full-layout .kv-row{border-left:3px solid var(--accent);padding:10px 12px;border-radius:8px;background:var(--bg2)}
-.battle-full-layout .kv-row .k{display:block;color:var(--accent2);font-weight:800;margin-bottom:4px}
-.battle-full-layout .kv-row .v{color:var(--text);line-height:1.45}
+/* Battle articles are full-width with the rail hidden; these selectors are
+   deliberately higher-specificity than `.article-layout` so the layout cannot
+   be re-squished into a side panel by load-order overrides. */
+.article-layout.battle-full-layout{display:block;grid-template-columns:1fr;width:100%;max-width:1180px;margin:0 auto}
+.article-layout.battle-full-layout>div:first-child{max-width:100%;width:100%;margin:0 auto}
+.article-layout.battle-full-layout>div:last-child{display:none}
+.article-layout.battle-full-layout .kv-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+.article-layout.battle-full-layout .kv-row{border-left:3px solid var(--accent);padding:10px 12px;border-radius:8px;background:var(--bg2)}
+.article-layout.battle-full-layout .kv-row .k{display:block;color:var(--accent2);font-weight:800;margin-bottom:4px}
+.article-layout.battle-full-layout .kv-row .v{color:var(--text);line-height:1.45}
+</style>
+
+<style id="article-data-panels-skin">
+/* Data panels on article/battle pages (Participants, Session XP, reputation
+   impact, and the WAHwire feed). The WAHwire feed panel classes are only
+   styled on the standalone wahwire page; the article shell does NOT load that
+   stylesheet, so the feed rendered as raw unstyled HTML. These rules give the
+   on-page feed a real skin so battle/event pages can actually show it. */
+.article-layout .event-context-panel{padding:18px}
+.article-layout .event-context-grid{grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:18px}
+.article-layout .event-context-grid>div{min-width:0}
+
+.wahwire-panel{margin:16px 0;border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:16px 18px;overflow:hidden}
+.wahwire-panel-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:2px;flex-wrap:wrap}
+.wahwire-panel-head h3{margin:0;color:var(--accent2);font-size:15px}
+.wahwire-panel-tally{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.wahwire-panel-note{font-size:12px;color:var(--muted);margin:2px 0 8px;line-height:1.5}
+.ww-panel-post{display:flex;gap:11px;padding:12px 0;border-top:1px solid var(--border)}
+.ww-panel-post:first-of-type{border-top:0}
+.ww-panel-avatar{width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:grid;place-items:center;font-size:17px;border:1px solid;background:#ffffff14;color:#fff}
+.ww-panel-body{flex:1;min-width:0}
+.ww-panel-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 8px}
+.ww-panel-name{font-weight:900;font-size:13.5px;text-decoration:none}
+.ww-panel-name:hover{text-decoration:underline}
+.ww-panel-handle{font-size:11px;color:var(--muted)}
+.ww-panel-when{font-size:11px;color:var(--muted)}
+.ww-panel-content{margin:5px 0 7px;font-size:13.5px;line-height:1.5;color:var(--text)}
+.ww-panel-meta{display:flex;flex-wrap:wrap;gap:10px;font-size:11px;color:var(--muted)}
+.ww-panel-tag{color:var(--accent2)}
+.ww-panel-thread{margin-top:9px;padding:8px 0 0 13px;border-left:2px solid var(--border);display:flex;flex-direction:column;gap:7px}
+.ww-panel-comment{font-size:12.5px;color:var(--text);line-height:1.45}
+.ww-panel-comment-who{font-weight:800;margin-right:6px}
+.ww-panel-comment-body{color:var(--muted)}
+.ww-panel-comment-react{margin-left:6px}
+.ww-panel-comment.is-reply{margin-left:16px;font-size:12px}
+.ww-panel-more{font-size:11px;color:var(--accent2);text-decoration:none}
+.ww-panel-more:hover{text-decoration:underline}
+.wahwire-panel-all{display:inline-block;margin-top:12px;font-size:12.5px;font-weight:700;color:var(--accent2);text-decoration:none}
+.wahwire-panel-all:hover{text-decoration:underline}
 </style>
 
 <style id="battle-article-skin">
