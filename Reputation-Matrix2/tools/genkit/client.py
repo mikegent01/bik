@@ -178,3 +178,54 @@ class LMStudioClient:
             return parsed
 
         raise LMStudioError(f"Invalid JSON after {attempts} attempts: {last_error}")
+
+    def complete_text(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        *,
+        temperature: float = 0.7,
+        max_tokens: int = 4000,
+    ) -> str:
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ]
+        payload: dict[str, Any] = {
+            "messages": messages, 
+            "temperature": temperature,
+            "max_tokens": max_tokens
+        }
+        if self.model:
+            payload["model"] = self.model
+
+        request = urllib.request.Request(
+            self.endpoint,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json; charset=utf-8"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=self.timeout) as response:
+                body = json.loads(response.read())
+        except urllib.error.HTTPError as error:
+            detail = error.read().decode("utf-8", errors="replace").strip()
+            message = f"LM Studio HTTP {error.code}: {detail or error.reason}"
+            if _is_context_error(detail):
+                raise ContextExceededError(message) from error
+            raise LMStudioError(message) from error
+        except urllib.error.URLError as error:
+            err_str = str(error)
+            if "Channel Error" in err_str or "Remote end closed connection" in err_str or "Connection reset" in err_str:
+                raise ContextExceededError(f"Connection dropped mid-generation, assuming context limit hit: {err_str}") from error
+            raise LMStudioError(f"LM Studio unreachable: {error}") from error
+        except Exception as error:  # noqa: BLE001
+            err_str = str(error)
+            if "Channel Error" in err_str or "Connection reset" in err_str or "Remote end closed connection" in err_str:
+                raise ContextExceededError(f"Connection dropped mid-generation, assuming context limit hit: {err_str}") from error
+            raise LMStudioError(f"LM Studio unreachable: {error}") from error
+
+        content = body["choices"][0]["message"]["content"]
+        if not isinstance(content, str):
+            raise ValueError("LM Studio returned a non-text response")
+        return content.strip()

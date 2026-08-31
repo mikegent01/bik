@@ -1,6 +1,6 @@
 """Injury Table, Locations, Events and Battles — first-class generate_all systems.
 
-These four used to sit in the dashboard as disabled \"(tool)\" rows with locked
+These four used to sit in the dashboard as disabled "(tool)" rows with locked
 mix weights. They are now ordinary popcorn systems: set a mix percentage and
 Start (or `python generate_all.py --only locations`) actually generates.
 
@@ -16,8 +16,10 @@ to be hand-filed canon. Injury rewrites keep `temporary: true` and the d100
 slot so `tools/generate-injury-table.py --check` still passes until a human
 reviews the table.
 """
-
 from __future__ import annotations
+import re
+def _words(text: str) -> int:
+    return len(re.findall(r"\b\w+\b", text))
 
 import json
 import re
@@ -406,6 +408,9 @@ def locations_build_prompt(task: Task) -> tuple[str, str]:
 
 def locations_generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
     system, user = locations_build_prompt(task)
+    # Remove description from JSON schema so we only generate metadata first
+    system = system.replace('  "description": "<detailed Waluigi-voiced description of the place>",\n', '')
+    
     if task.last_error:
         user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
         
@@ -420,28 +425,39 @@ def locations_generate(task: Task, client: Any, temperature: float) -> dict[str,
                 raw = client.complete_json(system, _shorten_prompt(user, 0.25), temperature=temperature)
         else:
             raise
-    desc = raw.get("description", "")
+
+    # Phase 2: Generate the description as plaintext
+    prog = task.payload.get("_progress")
+    if prog: prog("Generating detailed location description...")
+    
+    desc_sys = "You are a careful Waluipedia location archivist. Write from inside the world (Waluigi's encyclopaedia voice: opinionated, physical detail). This is a PLACE, not a person. Never write the name mike. Do not invent real-world canon."
+    desc_user = f"Write the detailed historical description for the location: {raw.get('name')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext description (1000-3000 words). Do not use JSON."
+    
+    try:
+        desc = client.complete_text(desc_sys, desc_user, temperature=temperature)
+    except Exception:
+        desc = ""
     
     # Auto-expander for short outputs
-    if _words(desc) < 180:
-        prog = task.payload.get("_progress")
-        if prog: prog("Expanding short location description...")
-        
-        expand_sys = "You are an archivist. Return ONLY valid JSON with one key: 'continued_description'."
+    while _words(desc) < 800 and len(desc) > 0:
+        if prog: prog(f"Expanding short location description ({_words(desc)} words)...")
+        expand_sys = "You are an archivist. Continue the location description in plaintext. Return ONLY the continuation text."
         expand_user = (
-            f"You have started writing a location description:\n\n{desc}\n\n"
-            f"This is a good start, but it is incomplete. KEEP this exact text, and WRITE THE REST of the location's description "
-            f"(add another 300-500 words). Structure the continuation to cover what hasn't been described yet: "
-            f"its history, its atmosphere, hidden sections, and Waluigi's personal assessment of its danger/value. "
-            f"Return ONLY the NEW continuation text in valid JSON with the key 'continued_description'."
+            f"You are writing the location '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
+            f"This is a good start, but it needs to be longer. WRITE THE REST of the description (add another 500-1000 words). "
+            f"Structure the continuation to cover what hasn't been described yet: its history, its atmosphere, hidden sections, and Waluigi's personal assessment of its danger/value. "
+            f"Return ONLY the NEW continuation text."
         )
         try:
-            expanded_raw = client.complete_json(expand_sys, expand_user, temperature=temperature)
-            if "continued_description" in expanded_raw and _words(expanded_raw["continued_description"]) > 50:
-                raw["description"] = desc + "\n\n" + expanded_raw["continued_description"]
+            expansion = client.complete_text(expand_sys, expand_user, temperature=temperature)
+            if _words(expansion) > 50:
+                desc = desc + "\n\n" + expansion
+            else:
+                break
         except Exception:
-            pass # fallback to original if expansion fails
+            break
 
+    raw["description"] = desc
     return raw
 
 
@@ -574,6 +590,9 @@ def events_build_prompt(task: Task) -> tuple[str, str]:
 
 def events_generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
     system, user = events_build_prompt(task)
+    # Remove description from JSON schema so we only generate metadata first
+    system = system.replace('  "description": "<detailed Waluigi-voiced event record>",\n', '')
+    
     if task.last_error:
         user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
         
@@ -588,27 +607,38 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
                 raw = client.complete_json(system, _shorten_prompt(user, 0.25), temperature=temperature)
         else:
             raise
-    desc = raw.get("description", "")
+
+    # Phase 2: Generate the description as plaintext
+    prog = task.payload.get("_progress")
+    if prog: prog("Generating detailed event description...")
+    
+    desc_sys = "You are Waluigi's chronicler. Write a detailed historical record. Story with a commentator, not a report. Physical detail: quoted speech, named objects, sounds. Never write the name mike. Do not invent real-world canon."
+    desc_user = f"Write the detailed historical record for the event: {raw.get('name')}. Location: {raw.get('location')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext story (1000-3000 words). Do not use JSON."
+    
+    try:
+        desc = client.complete_text(desc_sys, desc_user, temperature=temperature)
+    except Exception:
+        desc = ""
     
     # Auto-expander for short outputs
-    if _words(desc) < 200:
-        prog = task.payload.get("_progress")
-        if prog: prog("Expanding short description...")
-        
-        expand_sys = "You are an archivist. Return ONLY valid JSON with one key: 'continued_description'."
+    while _words(desc) < 800 and len(desc) > 0:
+        if prog: prog(f"Expanding short description ({_words(desc)} words)...")
+        expand_sys = "You are an archivist. Continue the historical record in plaintext. Return ONLY the continuation text."
         expand_user = (
-            f"You have started writing a historical record:\n\n{desc}\n\n"
-            f"This is a good start, but the record is incomplete. KEEP this exact text, and WRITE THE REST of the historical account "
-            f"(add another 300-500 words). Add physical details, quotes, and the final outcome. "
-            f"Return ONLY the NEW continuation text in valid JSON with the key 'continued_description'."
+            f"You are writing the event '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
+            f"This is a good start, but it needs to be longer. WRITE THE REST of the account (add another 500-1000 words). "
+            f"Return ONLY the NEW continuation text."
         )
         try:
-            expanded_raw = client.complete_json(expand_sys, expand_user, temperature=temperature)
-            if "continued_description" in expanded_raw and _words(expanded_raw["continued_description"]) > 50:
-                raw["description"] = desc + "\n\n" + expanded_raw["continued_description"]
+            expansion = client.complete_text(expand_sys, expand_user, temperature=temperature)
+            if _words(expansion) > 50:
+                desc = desc + "\n\n" + expansion
+            else:
+                break
         except Exception:
-            pass # fallback to original if expansion fails
+            break
 
+    raw["description"] = desc
     return raw
 
 
@@ -764,6 +794,9 @@ def battles_build_prompt(task: Task) -> tuple[str, str]:
 
 def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, Any]:
     system, user = battles_build_prompt(task)
+    # Remove description from JSON schema so we only generate metadata first
+    system = system.replace('  "description": "<detailed Waluigi-voiced war report>",\n', '')
+    
     if task.last_error:
         user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
         
@@ -778,28 +811,39 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
                 raw = client.complete_json(system, _shorten_prompt(user, 0.25), temperature=temperature)
         else:
             raise
-    desc = raw.get("description", "")
+
+    # Phase 2: Generate the description as plaintext
+    prog = task.payload.get("_progress")
+    if prog: prog("Generating detailed battle description...")
+    
+    desc_sys = "You are Waluigi's war-reporter. Write a detailed historical war report. Physical consequence over summary. Never write the name mike. Do not invent real-world canon."
+    desc_user = f"Write the detailed historical record for the battle: {raw.get('name')}. Location: {raw.get('location')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext story (1000-3000 words). Do not use JSON."
+    
+    try:
+        desc = client.complete_text(desc_sys, desc_user, temperature=temperature)
+    except Exception:
+        desc = ""
     
     # Auto-expander for short outputs
-    if _words(desc) < 200:
-        prog = task.payload.get("_progress")
-        if prog: prog("Expanding short description...")
-        
-        expand_sys = "You are an archivist. Return ONLY valid JSON with one key: 'continued_description'."
+    while _words(desc) < 800 and len(desc) > 0:
+        if prog: prog(f"Expanding short description ({_words(desc)} words)...")
+        expand_sys = "You are an archivist. Continue the war report in plaintext. Return ONLY the continuation text."
         expand_user = (
-            f"You have started writing a war report:\n\n{desc}\n\n"
-            f"This is a good start, but the report is incomplete. KEEP this exact text, and WRITE THE REST of the battle "
-            f"(add another 300-500 words). Structure the continuation to cover what hasn't been described yet: "
-            f"The Middle (the mess/confusion), The Turn (what decided it), and The Finish (decisive blow). "
-            f"Return ONLY the NEW continuation text in valid JSON with the key 'continued_description'."
+            f"You are writing the battle '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
+            f"This is a good start, but it needs to be longer. WRITE THE REST of the battle (add another 500-1000 words). "
+            f"Structure the continuation to cover what hasn't been described yet: The Middle (the mess/confusion), The Turn (what decided it), and The Finish (decisive blow). "
+            f"Return ONLY the NEW continuation text."
         )
         try:
-            expanded_raw = client.complete_json(expand_sys, expand_user, temperature=temperature)
-            if "continued_description" in expanded_raw and _words(expanded_raw["continued_description"]) > 50:
-                raw["description"] = desc + "\n\n" + expanded_raw["continued_description"]
+            expansion = client.complete_text(expand_sys, expand_user, temperature=temperature)
+            if _words(expansion) > 50:
+                desc = desc + "\n\n" + expansion
+            else:
+                break
         except Exception:
-            pass # fallback to original if expansion fails
+            break
 
+    raw["description"] = desc
     return raw
 
 
