@@ -792,6 +792,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     except Exception as e:
         print("Failed participants:", e)
         raw["participants"] = [{"id": "unknown_operator", "name": "Unknown Operator", "role": "Unrecorded"}]
+        raw["participants"] = [{"id": "unknown_operator", "name": "Unknown Operator", "role": "Unrecorded"}]
 
     # Phase 4: XP Awards
     if prog: prog("Calculating XP Awards...")
@@ -803,6 +804,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     except Exception as e:
         print("Failed xpAwards:", e)
         raw["xpAwards"] = []
+        raw["xpAwards"] = []
 
     # Phase 5: Waluigi's Assessment (Investigative stuff)
     if prog: prog("Drafting Waluigi's Assessment...")
@@ -813,6 +815,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     except Exception as e:
         print("Failed waluigiAssessment:", e)
         raw["waluigiAssessment"] = "Waluigi has filed this record, but the intelligence is too sparse for a full tactical assessment. WAH."
+        raw["waluigiAssessment"] = "Waluigi has filed this record, but the intelligence is too sparse for a full tactical assessment. WAH."
 
     # Phase 6: Related Investigative Article
     if prog: prog("Drafting Related Investigative Article (Aftermath)...")
@@ -822,6 +825,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
         raw["aftermath"] = inv_resp
     except Exception as e:
         print("Failed aftermath:", e)
+        raw["aftermath"] = "The long-term consequences of this event remain undocumented in the archives."
         raw["aftermath"] = "The long-term consequences of this event remain undocumented in the archives."
 
     return raw
@@ -860,6 +864,20 @@ def events_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         "notableFeatures": _string_list(raw.get("notableFeatures"), min_n=3, field="notableFeatures"),
         "relatedArticles": _string_list(raw.get("relatedArticles") or [], min_n=0, field="relatedArticles"),
     }
+    
+    if "participants" in raw:
+        res["participants"] = raw["participants"]
+    if "xpAwards" in raw:
+        res["xpAwards"] = raw["xpAwards"]
+    if "waluigiAssessment" in raw:
+        res["waluigiAssessment"] = raw["waluigiAssessment"]
+    if "aftermath" in raw:
+        res["aftermath"] = raw["aftermath"]
+    if "timeWindow" in raw:
+        res["timeWindow"] = raw["timeWindow"]
+        
+    return res
+
     
     if "participants" in raw:
         res["participants"] = raw["participants"]
@@ -1142,6 +1160,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     except Exception as e:
         print("Failed participants:", e)
         raw["participants"] = [{"id": "unknown_operator", "name": "Unknown Operator", "role": "Unrecorded"}]
+        raw["participants"] = [{"id": "unknown_operator", "name": "Unknown Operator", "role": "Unrecorded"}]
 
     # Phase 4: XP Awards
     if prog: prog("Calculating XP Awards...")
@@ -1153,6 +1172,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     except Exception as e:
         print("Failed xpAwards:", e)
         raw["xpAwards"] = []
+        raw["xpAwards"] = []
 
     # Phase 5: Waluigi's Assessment (Investigative stuff)
     if prog: prog("Drafting Waluigi's Assessment...")
@@ -1163,6 +1183,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     except Exception as e:
         print("Failed waluigiAssessment:", e)
         raw["waluigiAssessment"] = "Waluigi has filed this record, but the intelligence is too sparse for a full tactical assessment. WAH."
+        raw["waluigiAssessment"] = "Waluigi has filed this record, but the intelligence is too sparse for a full tactical assessment. WAH."
 
     # Phase 6: Related Investigative Article
     if prog: prog("Drafting Related Investigative Article (Aftermath)...")
@@ -1172,6 +1193,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
         raw["aftermath"] = inv_resp
     except Exception as e:
         print("Failed aftermath:", e)
+        raw["aftermath"] = "The long-term consequences of this event remain undocumented in the archives."
         raw["aftermath"] = "The long-term consequences of this event remain undocumented in the archives."
 
     return raw
