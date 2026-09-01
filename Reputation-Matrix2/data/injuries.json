@@ -2712,6 +2712,166 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-31T03:46:57+00:00"
       }
+    },
+    {
+      "d100": 172,
+      "category": "Severe injury",
+      "injuryType": "Echoing Veil Wound",
+      "description": "A deep wound that pulses with spectral echoes, causing pain and disorientation.",
+      "cure": "Major surgery followed by a month of bed rest and healing magic.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T04:04:58+00:00"
+      }
+    },
+    {
+      "d100": 174,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Rupture",
+      "description": "Your veins spasm uncontrollably, causing severe pain and potential organ failure.",
+      "cure": "Major surgery or 6 months of bed rest with constant monitoring.",
+      "duration": "Forever (can be mitigated but never fully cured)",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T04:05:13+00:00"
+      }
+    },
+    {
+      "d100": 173,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Fragmentation",
+      "description": "Your veins fray and tear, causing excruciating pain. Blood flow becomes erratic.",
+      "cure": "Surgery by a master healer or equivalent magical means",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T04:05:21+00:00"
+      }
+    },
+    {
+      "d100": 176,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Liquefaction",
+      "description": "Your veins liquefy, causing a constant, excruciating pain. Blood flows sluggishly and can leak through your skin.",
+      "cure": "Major surgery or successful casting of Greater Regeneration spell",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T04:05:35+00:00"
+      }
+    },
+    {
+      "d100": 175,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Syndrome",
+      "description": "A strange malady that causes the veins to shift and mutate, altering blood flow.",
+      "cure": "Major Restoration Spell or equivalent magic",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T04:05:42+00:00"
+      }
+    },
+    {
+      "d100": 177,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Heart Weakness",
+      "description": "Your heart feels like it's encased in an ethereal shroud, causing palpitations and shortness of breath.",
+      "cure": "A successful Restoration spell or similar magic that heals major wounds.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T04:05:49+00:00"
+      }
+    },
+    {
+      "d100": 178,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Paralysis",
+      "description": "Your veins stiffen, causing temporary paralysis in one limb.",
+      "cure": "A Long rest and a successful Medicine check.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T04:05:56+00:00"
+      }
+    },
+    {
+      "d100": 179,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Anomaly",
+      "description": "A pulsating growth in your arm disrupts your strength, reducing it by half.",
+      "cure": "Surgery and 1d4 months of rest",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T04:06:04+00:00"
+      }
+    },
+    {
+      "d100": 180,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Corruption",
+      "description": "A festering darkness spreads through your veins, causing excruciating pain and sapping your strength.",
+      "cure": "Major surgery followed by a month of bed rest",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T04:06:12+00:00"
+      }
+    },
+    {
+      "d100": 182,
+      "category": "Severe injury",
+      "injuryType": "Bone Veil Fracture",
+      "description": "Your bones are entangled with ethereal strands that twist and fracture at your every move. They heal but never quite return to their original form.",
+      "cure": "Long rest, then a month of bed rest under the guidance of a healer or druid.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-08-31T04:06:26+00:00"
+      }
     }
   ],
   "status": "temporary",

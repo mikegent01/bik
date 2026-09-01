@@ -4791,7 +4791,7 @@
       ]
     }
   },
-    {
+  {
     "id": "the_scorncrow_skirmish_battle",
     "name": "The Scorncrow Skirmish (Garlic, the Swing, and the Vanish)",
     "date": "30 Harvestide, 1040 BF — the overgrown grove, the night of the threshold storm",
@@ -4923,10 +4923,36 @@
       "rattles",
       "liberated_toads"
     ],
-    "reputationChanges": [],
+    "reputationChanges": {
+      "markop": {
+        "disaster_inc": 5,
+        "toad_gang": -3
+      },
+      "remi_akamatsu_full_backstory": {
+        "disaster_inc": 4,
+        "toad_gang": -2
+      },
+      "green_t": {
+        "disaster_inc": 3,
+        "toad_gang": -1
+      }
+    },
     "effects": [],
-    "reputationNotes": "No faction standing changed; the Scorncrow is not a registered faction, and the grove remains contested.",
-    "_generatedReputation": {},
+    "reputationNotes": {
+      "markop": "Markop bonked the Scorncrow, earning respect from his team but angering the gang.",
+      "remi_akamatsu_full_backstory": "Remi shot the tree and pulled out a bat-swarm, gaining her team's trust but alienating the gang.",
+      "green_t": "Green T lifted Remi to spot the Scorncrow, earning respect from his allies but displeasing the gang."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-08-31T04:45:15+00:00",
+      "fields": [
+        "reputationChanges",
+        "reputationNotes"
+      ]
+    },
     "xpAwards": [
       {
         "xpKey": "markop",
