@@ -628,7 +628,7 @@ def events_next_tasks(count: int) -> list[Task]:
     return tasks
 
 
-_EVENT_SYSTEM = """You are Waluigi's chronicler filing ONE PAST historical event for the archive.
+_EVENT_SYSTEM = """You are an encyclopedic chronicler filing ONE PAST historical event for the archive. Do not title the event after Waluigi. Focus on the lore, the factions, and the setting. Do not write about Waluigi doing everything.
 Story with a commentator, not a report with scenes attached. Physical detail: quoted speech, named objects, sounds.
 Never write the name mike. Do not invent real-world canon.
 Use the supplied Lore Context to feature real factions, locations, and people from this nation.
@@ -695,7 +695,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     prog = task.payload.get("_progress")
     if prog: prog("Generating detailed event description...")
     
-    desc_sys = "You are Waluigi's chronicler. Write a detailed historical record. Story with a commentator, not a report. Physical detail: quoted speech, named objects, sounds. Never write the name mike. Do not invent real-world canon."
+    desc_sys = "You are an encyclopedic chronicler. Write a detailed historical record. Focus on the lore, factions, and setting. Do not write about Waluigi doing everything. Story with a commentator, not a report. Physical detail: quoted speech, named objects, sounds. Never write the name mike. Do not invent real-world canon."
     desc_user = f"Write the detailed historical record for the event: {raw.get('name')}. Location: {raw.get('location')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext story (1000-3000 words). Format your response beautifully with Markdown: use double newlines (\n\n) to separate paragraphs, and use Markdown headers (##) for section titles. Do not output giant unbroken walls of text. Do not use JSON."
     
     try:
@@ -829,7 +829,7 @@ def battles_next_tasks(count: int) -> list[Task]:
     return tasks
 
 
-_BATTLE_SYSTEM = """You are Waluigi's war-reporter filing ONE PAST battle for the archive.
+_BATTLE_SYSTEM = """You are an encyclopedic war-reporter filing ONE PAST battle for the archive. Do not title the battle after Waluigi. Focus on the factions and the lore.
 Physical consequence over summary. Never write the name mike. Do not invent real-world canon.
 Use the supplied Lore Context to feature real factions, locations, and people from this nation.
 Date it in 722-1039 BF. Return strictly valid JSON only, no commentary, no code fence:
@@ -899,7 +899,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     prog = task.payload.get("_progress")
     if prog: prog("Generating detailed battle description...")
     
-    desc_sys = "You are Waluigi's war-reporter. Write a detailed historical war report. Physical consequence over summary. Never write the name mike. Do not invent real-world canon."
+    desc_sys = "You are an encyclopedic war-reporter. Write a detailed historical war report. Focus on the lore, factions, and the combatants. Do not make the battle entirely about Waluigi. Physical consequence over summary. Never write the name mike. Do not invent real-world canon."
     desc_user = f"Write the detailed historical record for the battle: {raw.get('name')}. Location: {raw.get('location')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext story (1000-3000 words). Format your response beautifully with Markdown: use double newlines (\n\n) to separate paragraphs, and use Markdown headers (##) for section titles. Do not output giant unbroken walls of text. Do not use JSON."
     
     try:
