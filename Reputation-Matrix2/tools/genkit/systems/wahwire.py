@@ -378,7 +378,7 @@ Return strictly valid JSON only, no commentary, no code fence:
 {
   "author": "<one id from the author list>",
   "content": "<the post, 1-3 short sentences, first person, in character>",
-  "evidenceQuote": "<exact 4-18 word excerpt from the supplied record, used verbatim in content>",
+  "evidenceQuote": "<exact 4-18 word excerpt from the supplied record>",
   "likes": <integer 0-9000>,
   "tags": ["<2-4 lowercase single-word tags>"],
   "reaction": "<one of the listed fixed reaction ids>"
@@ -397,7 +397,7 @@ Rules:
   in `content` gets the whole post rejected.
 - At most one emoji, and only if that character would use one.
 - Do not repeat the record's title back as a sentence. React, don't summarise.
-- Copy `evidenceQuote` exactly into the post and respond to that concrete detail.
+- Extract `evidenceQuote` from the record and respond to that concrete detail.
 - Never invent relatives, eyewitness status, private conversations or personal
   history that the supplied record does not state.
 - Do not write comments in this pass. Threading is a separate evidence-gated task.
@@ -1392,7 +1392,7 @@ RULES
 - Short is better. One reaction per comment, not a paragraph.
 - Disagree where disagreement is earned. A thread of agreement is not a thread.
 - Do not restate the post. Add a correction, consequence or accusation grounded in
-  `evidenceQuote`; copy that exact excerpt into the comment.
+  `evidenceQuote`.
 - Never invent relatives, eyewitness status, private conversations or history.
 - `replyTo` is optional and must name an account that already commented ABOVE it.
 - `reaction` is one of the listed ids, or a new single lower-case feeling word if
@@ -1540,8 +1540,7 @@ def _discuss_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         if task.payload.get("qualityV2"):
             evidence_normal = _evidence_text(evidence_quote)
             if (not 4 <= len(evidence_normal.split()) <= 18
-                    or evidence_normal not in _record_corpus(record)
-                    or evidence_normal not in _evidence_text(c_text)):
+                    or evidence_normal not in _record_corpus(record)):
                 rejected.append(f"{c_author}: missing/verbatim evidenceQuote")
                 continue
             if re.search(r"\b(my|our) (cousin|sister|brother|friend|family)\b", c_text, re.I):
