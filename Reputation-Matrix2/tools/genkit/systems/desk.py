@@ -725,7 +725,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     prog = task.payload.get("_progress")
     if prog: prog("Drafting article sections...")
     
-    desc_sys = "You are an encyclopedic chronicler. Write objectively about minor characters and distant regions. Use markdown headers. Never write the name mike."
+    desc_sys = "You are an encyclopedic chronicler writing a story in close third-person with ringside commentary asides. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
     
     # Step A: Get an outline
     outline_user = f"We are writing a historical archive record for '{raw.get('name')}' (Location: {raw.get('location')}, Era: {raw.get('era')}).\nProvide a 3-5 section outline for this article. Return ONLY a JSON list of strings, like [\"Prologue: The Rising Tension\", \"The Main Conflict\", \"Aftermath\"]. Do not include markdown or explanations."
@@ -751,7 +751,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
         if final_desc:
             section_user += f"Previous section ended with:\n{final_desc[-1][-200:]}\n\n"
             
-        section_user += "Write this specific section in rich, encyclopedic prose (200-400 words). Use double newlines for paragraphs. DO NOT just output a wall of text. Focus on the lore, factions, and minor unmentioned players. Return ONLY the plaintext content for this section. Do NOT include the section title itself, I will add it."
+        section_user += "Write this specific section in rich, story-driven prose (200-400 words), focusing on physical sensory details. Use double newlines for paragraphs. DO NOT just output a wall of text. Focus on the lore, factions, and minor unmentioned players. Return ONLY the plaintext content for this section. Do NOT include the section title itself, I will add it."
         
         try:
             section_content = client.complete_text(desc_sys, section_user, temperature=temperature)
@@ -960,7 +960,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     prog = task.payload.get("_progress")
     if prog: prog("Drafting battle sections...")
     
-    desc_sys = "You are an encyclopedic war-reporter. Write objectively about historical battles involving minor factions and remote locations. Use markdown headers. Never write the name mike."
+    desc_sys = "You are an encyclopedic war-reporter writing a tactical overview translating dice log ground-truth into physical consequences. Write objectively about historical battles involving minor factions and remote locations. Use markdown headers. Never write the name mike."
     
     # Step A: Get an outline
     outline_user = f"We are writing a military archive record for '{raw.get('name')}' (Location: {raw.get('location')}, Era: {raw.get('era')}).\nProvide a 3-5 section outline for this article. Return ONLY a JSON list of strings, like [\"The Prelude\", \"The Ambush\", \"Aftermath\"]. Do not include markdown or explanations."
