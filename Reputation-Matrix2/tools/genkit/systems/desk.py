@@ -539,7 +539,7 @@ def locations_generate(task: Task, client: Any, temperature: float) -> dict[str,
         if final_desc:
             section_user += f"Previous section ended with:\n{final_desc[-1][-200:]}\n\n"
             
-        section_user += "Write this specific section in rich, encyclopedic prose (200-400 words). Use double newlines for paragraphs. DO NOT just output a wall of text. Return ONLY the plaintext content for this section. Do NOT include the section title itself, I will add it."
+        section_user += "Write this specific section in rich, encyclopedic prose (200-400 words). Use double newlines for paragraphs. DO NOT just output a wall of text. Return ONLY the plaintext paragraphs for this section. Do NOT output a markdown header or the section title itself, I will add it. DO NOT output a wall of text."
         
         try:
             section_content = client.complete_text(desc_sys, section_user, temperature=temperature)
@@ -751,7 +751,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
         if final_desc:
             section_user += f"Previous section ended with:\n{final_desc[-1][-200:]}\n\n"
             
-        section_user += "Write this specific section in rich, story-driven prose (200-400 words), focusing on physical sensory details. Use double newlines for paragraphs. DO NOT just output a wall of text. Focus on the lore, factions, and minor unmentioned players. Return ONLY the plaintext content for this section. Do NOT include the section title itself, I will add it."
+        section_user += "Write this specific section in rich, story-driven prose (200-400 words), focusing on physical sensory details. Use double newlines for paragraphs. DO NOT just output a wall of text. Focus on the lore, factions, and minor unmentioned players. Return ONLY the plaintext paragraphs for this section. Do NOT output a markdown header or the section title itself, I will add it. DO NOT output a wall of text."
         
         try:
             section_content = client.complete_text(desc_sys, section_user, temperature=temperature)
@@ -986,7 +986,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
         if final_desc:
             section_user += f"Previous section ended with:\n{final_desc[-1][-200:]}\n\n"
             
-        section_user += "Write this specific section in rich, encyclopedic prose (200-400 words). Use double newlines for paragraphs. DO NOT just output a wall of text. Focus on tactical movements, minor factions, and gritty consequences. Return ONLY the plaintext content for this section. Do NOT include the section title itself, I will add it."
+        section_user += "Write this specific section in rich, encyclopedic prose (200-400 words). Use double newlines for paragraphs. DO NOT just output a wall of text. Focus on tactical movements, minor factions, and gritty consequences. Return ONLY the plaintext paragraphs for this section. Do NOT output a markdown header or the section title itself, I will add it. DO NOT output a wall of text."
         
         try:
             section_content = client.complete_text(desc_sys, section_user, temperature=temperature)
