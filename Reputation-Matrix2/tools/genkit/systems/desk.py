@@ -509,27 +509,54 @@ def locations_generate(task: Task, client: Any, temperature: float) -> dict[str,
         else:
             raise
 
-    # Phase 2: Generate the description as plaintext
+    # Phase 2: Generate the article step-by-step
     prog = task.payload.get("_progress")
-    if prog: prog("Generating detailed location description...")
+    if prog: prog("Drafting location sections...")
     
-    desc_sys = "You are a careful Waluipedia location archivist. Write from inside the world (Waluigi's encyclopaedia voice: opinionated, physical detail). This is a PLACE, not a person. Never write the name mike. Do not invent real-world canon."
-    desc_user = f"Write the detailed historical description for the location: {raw.get('name')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext description (1000-3000 words). Format your response beautifully with Markdown: use double newlines (\n\n) to separate paragraphs, and use Markdown headers (##) for section titles. Do not output giant unbroken walls of text. Do not use JSON."
+    desc_sys = "You are an encyclopedic chronicler. Write objectively about this location's history, architecture, and current state. Use markdown headers. Never write the name mike."
+    
+    # Step A: Get an outline
+    outline_user = f"We are writing a geographical archive record for '{raw.get('name')}' (Region: {raw.get('region')}).\nProvide a 3-5 section outline for this article. Return ONLY a JSON list of strings, like [\"Overview & Geography\", \"Historical Significance\", \"Notable Hazards\"]. Do not include markdown or explanations."
     
     try:
-        desc = client.complete_text(desc_sys, desc_user, temperature=temperature)
+        outline_resp = client.complete_text(desc_sys, outline_user, temperature=temperature).strip()
+        import json
+        if outline_resp.startswith("```json"):
+            outline_resp = outline_resp.split("```json")[1].split("```")[0].strip()
+        elif outline_resp.startswith("```"):
+            outline_resp = outline_resp.split("```")[1].split("```")[0].strip()
+        outline = json.loads(outline_resp)
+        if not isinstance(outline, list): outline = ["Geography", "History", "Current State"]
     except Exception:
-        desc = ""
-    
-    # Auto-expander for short outputs
-    while _words(desc) < 800 and len(desc) > 0:
+        outline = ["Physical Geography", "History", "Local Threats"]
+        
+    # Step B: Generate each section
+    final_desc = []
+    for i, section_title in enumerate(outline):
+        if prog: prog(f"Writing section {i+1}/{len(outline)}: {section_title}...")
+        
+        section_user = f"Location: {raw.get('name')}\nSummary: {raw.get('summary')}\n\nWe are writing the section: '{section_title}'.\n"
+        if final_desc:
+            section_user += f"Previous section ended with:\n{final_desc[-1][-200:]}\n\n"
+            
+        section_user += "Write this specific section in rich, encyclopedic prose (200-400 words). Use double newlines for paragraphs. DO NOT just output a wall of text. Return ONLY the plaintext content for this section. Do NOT include the section title itself, I will add it."
+        
+        try:
+            section_content = client.complete_text(desc_sys, section_user, temperature=temperature)
+            final_desc.append(f"## {section_title}\n\n{section_content.strip()}")
+        except Exception:
+            continue
+            
+    desc = "\n\n".join(final_desc)
+
+    # Auto-expander if STILL too short
+    while _words(desc) < 600 and len(desc) > 0:
         if prog: prog(f"Expanding short location description ({_words(desc)} words)...")
-        expand_sys = "You are an archivist. Continue the location description in plaintext. Return ONLY the continuation text."
+        expand_sys = "You are an archivist. Continue the location record in plaintext. Return ONLY the continuation text."
         expand_user = (
             f"You are writing the location '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
-            f"This is a good start, but it needs to be longer. WRITE THE REST of the description (add another 500-1000 words). "
-            f"Structure the continuation to cover what hasn't been described yet: its history, its atmosphere, hidden sections, and Waluigi's personal assessment of its danger/value. "
-            f"Return ONLY the NEW continuation text. Keep formatting it beautifully with Markdown (## headers and double newlines for paragraphs)."
+            f"This is a good start, but it needs to be longer. Add one more detailed section (add another 300-500 words) with a markdown header (##). "
+            f"Return ONLY the NEW continuation text."
         )
         try:
             expansion = client.complete_text(expand_sys, expand_user, temperature=temperature)
@@ -911,6 +938,9 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     # Remove description from JSON schema so we only generate metadata first
     system = system.replace('  "description": "<detailed Waluigi-voiced war report>",\n', '')
     
+    # Instruct the AI to vary the date and focus on obscure lore
+    user += "\n\nIMPORTANT: Pick a random year between 100 BF and 1035 BF, or even earlier. Focus on minor characters, remote POIs, other countries, and deep lore, NOT main party canon events! Do not invent new major world-altering canon."
+    
     if task.last_error:
         user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
         
@@ -926,27 +956,54 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
         else:
             raise
 
-    # Phase 2: Generate the description as plaintext
+    # Phase 2: Generate the article step-by-step
     prog = task.payload.get("_progress")
-    if prog: prog("Generating detailed battle description...")
+    if prog: prog("Drafting battle sections...")
     
-    desc_sys = "You are an encyclopedic war-reporter. Write a detailed historical war report. Focus on the lore, factions, and the combatants. Do not make the battle entirely about Waluigi. Physical consequence over summary. Never write the name mike. Do not invent real-world canon."
-    desc_user = f"Write the detailed historical record for the battle: {raw.get('name')}. Location: {raw.get('location')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext story (1000-3000 words). Format your response beautifully with Markdown: use double newlines (\n\n) to separate paragraphs, and use Markdown headers (##) for section titles. Do not output giant unbroken walls of text. Do not use JSON."
+    desc_sys = "You are an encyclopedic war-reporter. Write objectively about historical battles involving minor factions and remote locations. Use markdown headers. Never write the name mike."
+    
+    # Step A: Get an outline
+    outline_user = f"We are writing a military archive record for '{raw.get('name')}' (Location: {raw.get('location')}, Era: {raw.get('era')}).\nProvide a 3-5 section outline for this article. Return ONLY a JSON list of strings, like [\"The Prelude\", \"The Ambush\", \"Aftermath\"]. Do not include markdown or explanations."
     
     try:
-        desc = client.complete_text(desc_sys, desc_user, temperature=temperature)
+        outline_resp = client.complete_text(desc_sys, outline_user, temperature=temperature).strip()
+        import json
+        if outline_resp.startswith("```json"):
+            outline_resp = outline_resp.split("```json")[1].split("```")[0].strip()
+        elif outline_resp.startswith("```"):
+            outline_resp = outline_resp.split("```")[1].split("```")[0].strip()
+        outline = json.loads(outline_resp)
+        if not isinstance(outline, list): outline = ["The Gathering", "The Engagement", "The Fallout"]
     except Exception:
-        desc = ""
-    
-    # Auto-expander for short outputs
-    while _words(desc) < 800 and len(desc) > 0:
-        if prog: prog(f"Expanding short description ({_words(desc)} words)...")
+        outline = ["The Prelude", "The Battle", "The Aftermath"]
+        
+    # Step B: Generate each section
+    final_desc = []
+    for i, section_title in enumerate(outline):
+        if prog: prog(f"Writing section {i+1}/{len(outline)}: {section_title}...")
+        
+        section_user = f"Battle: {raw.get('name')}\nSummary: {raw.get('summary')}\n\nWe are writing the section: '{section_title}'.\n"
+        if final_desc:
+            section_user += f"Previous section ended with:\n{final_desc[-1][-200:]}\n\n"
+            
+        section_user += "Write this specific section in rich, encyclopedic prose (200-400 words). Use double newlines for paragraphs. DO NOT just output a wall of text. Focus on tactical movements, minor factions, and gritty consequences. Return ONLY the plaintext content for this section. Do NOT include the section title itself, I will add it."
+        
+        try:
+            section_content = client.complete_text(desc_sys, section_user, temperature=temperature)
+            final_desc.append(f"## {section_title}\n\n{section_content.strip()}")
+        except Exception:
+            continue
+            
+    desc = "\n\n".join(final_desc)
+
+    # Auto-expander if STILL too short
+    while _words(desc) < 600 and len(desc) > 0:
+        if prog: prog(f"Expanding short battle description ({_words(desc)} words)...")
         expand_sys = "You are an archivist. Continue the war report in plaintext. Return ONLY the continuation text."
         expand_user = (
             f"You are writing the battle '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
-            f"This is a good start, but it needs to be longer. WRITE THE REST of the battle (add another 500-1000 words). "
-            f"Structure the continuation to cover what hasn't been described yet: The Middle (the mess/confusion), The Turn (what decided it), and The Finish (decisive blow). "
-            f"Return ONLY the NEW continuation text. Keep formatting it beautifully with Markdown (## headers and double newlines for paragraphs)."
+            f"This is a good start, but it needs to be longer. Add one more detailed section (add another 300-500 words) with a markdown header (##). "
+            f"Return ONLY the NEW continuation text."
         )
         try:
             expansion = client.complete_text(expand_sys, expand_user, temperature=temperature)
