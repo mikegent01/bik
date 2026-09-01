@@ -282,8 +282,11 @@ async function poll(){
     else if(s.overnightStop){ $('overnight-status').textContent='Overnight stopped: '+(s.overnightStop||'done'); }
     else { $('overnight-status').textContent='Runs the full cycle on a loop until the time limit, auto-recovering if LM Studio is down. Safe to leave running.'; }
     if(!genReady){
-      $('mix').innerHTML=s.systems.map(x=>
-        `<div class="mixrow"><span>${esc(x.title)}</span><input data-weight="${x.id}" type="number" min="0" max="100" step="1" value="${x.enabled?'100':'0'}"></div>`).join('');
+      const savedWeights = JSON.parse(localStorage.getItem('genkit_weights') || '{}');
+      $('mix').innerHTML=s.systems.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(x=>{
+        let val = savedWeights[x.id] !== undefined ? savedWeights[x.id] : (x.enabled?'100':'0');
+        return `<div class="mixrow"><span>${esc(x.title)}</span><input data-weight="${x.id}" type="number" min="0" max="100" step="1" value="${val}" onchange="let w=JSON.parse(localStorage.getItem('genkit_weights')||'{}'); w['${x.id}']=this.value; localStorage.setItem('genkit_weights',JSON.stringify(w))"></div>`;
+      }).join('');
       genReady='1';
     }
     $('generatorCards').innerHTML=(s.generators||[]).map(g=>`<div class="card"><b>${esc(g.title)}</b><small>${esc(g.summary)}</small><small class="task">${esc(g.command)}</small><div style="margin-top:6px"><button class="btn tiny ${g.running?'warn':''}" onclick="toggleAux('${g.id}')">${g.running?'Stop':'Run'}</button></div></div>`).join('');
@@ -578,5 +581,27 @@ if($('bat-file')) $('bat-file').onchange=async e=>{
 };
 window.addEventListener('beforeunload',e=>{ if(editors.some(x=>x&&x.dirty)){ e.preventDefault(); e.returnValue=''; } });
 </script>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const fields = ['endpoint', 'model', 'workers', 'limit', 'only', 'temperature', 'overnight-hours', 'overnight-stopat', 'overnight-workers'];
+  fields.forEach(f => {
+    const el = document.getElementById(f);
+    if (!el) return;
+    const saved = localStorage.getItem('genkit_' + f);
+    if (saved !== null) el.value = saved;
+    el.addEventListener('change', () => localStorage.setItem('genkit_' + f, el.value));
+  });
+  const bools = ['dry', 'retry'];
+  bools.forEach(f => {
+    const el = document.getElementById(f);
+    if (!el) return;
+    const saved = localStorage.getItem('genkit_' + f);
+    if (saved !== null) el.checked = saved === 'true';
+    el.addEventListener('change', () => localStorage.setItem('genkit_' + f, el.checked));
+  });
+});
+</script>
+
 </body>
 </html>

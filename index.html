@@ -6580,7 +6580,7 @@ function inlineMd(t,opts){
 function mdToHtml(md,linkCtx){
   if(!md)return'';
   // AI generators sometimes forget newlines before/after headers in long single-line outputs
-  md = md.replace(/([.!?])\s+(#{2,3})\s/g, "$1\n\n$2 ");
+  md = md.replace(/([^\n])\s*(#{2,3})\s/g, "$1\n\n$2 ");
   
   const lines=md.replace(/\r/g,'').split('\n');let html='',para=[],quote=[];
   const opt=linkCtx?{link:true,currentId:linkCtx}:null;
@@ -6605,7 +6605,7 @@ function mdToHtml(md,linkCtx){
   fp();fq();return html;
 }
 
-function headings(md){if(!md)return[]; md = md.replace(/([.!?])\s+(#{2,3})\s/g, "$1\n\n$2 ");const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
+function headings(md){if(!md)return[]; md = md.replace(/([^\n])\s*(#{2,3})\s/g, "$1\n\n$2 ");const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
 const SEARCH_META={codex:'📜',article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',tradition:'⚖️',culture:'🌐',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️',ability:'🎓',whatif:'❓'};

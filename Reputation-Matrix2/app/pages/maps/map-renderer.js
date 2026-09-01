@@ -3179,9 +3179,10 @@ function applyPoiStyle(marker, poi) {
         iconWrapper.innerHTML = BUILDING_TYPES[poi.type]?.icon || '❓';
         marker.style.width = '24px';
         marker.style.height = '24px';
-        marker.style.borderColor = factionData.color;
-        marker.style.backgroundColor = hexToRgba(factionData.color, 0.2);
+        marker.style.borderColor = '#ffffff';
+        marker.style.backgroundColor = factionData.color === '#888888' ? 'rgba(136,136,136,0.6)' : factionData.color;
         iconWrapper.style.fontSize = '14px';
+        iconWrapper.style.filter = 'drop-shadow(0px 1px 2px rgba(0,0,0,0.8))';
     }
 }
 

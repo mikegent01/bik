@@ -514,7 +514,7 @@ def locations_generate(task: Task, client: Any, temperature: float) -> dict[str,
     if prog: prog("Generating detailed location description...")
     
     desc_sys = "You are a careful Waluipedia location archivist. Write from inside the world (Waluigi's encyclopaedia voice: opinionated, physical detail). This is a PLACE, not a person. Never write the name mike. Do not invent real-world canon."
-    desc_user = f"Write the detailed historical description for the location: {raw.get('name')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext description (1000-3000 words). Do not use JSON."
+    desc_user = f"Write the detailed historical description for the location: {raw.get('name')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext description (1000-3000 words). Format your response beautifully with Markdown: use double newlines (\n\n) to separate paragraphs, and use Markdown headers (##) for section titles. Do not output giant unbroken walls of text. Do not use JSON."
     
     try:
         desc = client.complete_text(desc_sys, desc_user, temperature=temperature)
@@ -529,7 +529,7 @@ def locations_generate(task: Task, client: Any, temperature: float) -> dict[str,
             f"You are writing the location '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
             f"This is a good start, but it needs to be longer. WRITE THE REST of the description (add another 500-1000 words). "
             f"Structure the continuation to cover what hasn't been described yet: its history, its atmosphere, hidden sections, and Waluigi's personal assessment of its danger/value. "
-            f"Return ONLY the NEW continuation text."
+            f"Return ONLY the NEW continuation text. Keep formatting it beautifully with Markdown (## headers and double newlines for paragraphs)."
         )
         try:
             expansion = client.complete_text(expand_sys, expand_user, temperature=temperature)
@@ -696,7 +696,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     if prog: prog("Generating detailed event description...")
     
     desc_sys = "You are Waluigi's chronicler. Write a detailed historical record. Story with a commentator, not a report. Physical detail: quoted speech, named objects, sounds. Never write the name mike. Do not invent real-world canon."
-    desc_user = f"Write the detailed historical record for the event: {raw.get('name')}. Location: {raw.get('location')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext story (1000-3000 words). Do not use JSON."
+    desc_user = f"Write the detailed historical record for the event: {raw.get('name')}. Location: {raw.get('location')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext story (1000-3000 words). Format your response beautifully with Markdown: use double newlines (\n\n) to separate paragraphs, and use Markdown headers (##) for section titles. Do not output giant unbroken walls of text. Do not use JSON."
     
     try:
         desc = client.complete_text(desc_sys, desc_user, temperature=temperature)
@@ -710,7 +710,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
         expand_user = (
             f"You are writing the event '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
             f"This is a good start, but it needs to be longer. WRITE THE REST of the account (add another 500-1000 words). "
-            f"Return ONLY the NEW continuation text."
+            f"Return ONLY the NEW continuation text. Keep formatting it beautifully with Markdown (## headers and double newlines for paragraphs)."
         )
         try:
             expansion = client.complete_text(expand_sys, expand_user, temperature=temperature)
@@ -900,7 +900,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     if prog: prog("Generating detailed battle description...")
     
     desc_sys = "You are Waluigi's war-reporter. Write a detailed historical war report. Physical consequence over summary. Never write the name mike. Do not invent real-world canon."
-    desc_user = f"Write the detailed historical record for the battle: {raw.get('name')}. Location: {raw.get('location')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext story (1000-3000 words). Do not use JSON."
+    desc_user = f"Write the detailed historical record for the battle: {raw.get('name')}. Location: {raw.get('location')}. Summary: {raw.get('summary')}.\nReturn ONLY the plaintext story (1000-3000 words). Format your response beautifully with Markdown: use double newlines (\n\n) to separate paragraphs, and use Markdown headers (##) for section titles. Do not output giant unbroken walls of text. Do not use JSON."
     
     try:
         desc = client.complete_text(desc_sys, desc_user, temperature=temperature)
@@ -915,7 +915,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
             f"You are writing the battle '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
             f"This is a good start, but it needs to be longer. WRITE THE REST of the battle (add another 500-1000 words). "
             f"Structure the continuation to cover what hasn't been described yet: The Middle (the mess/confusion), The Turn (what decided it), and The Finish (decisive blow). "
-            f"Return ONLY the NEW continuation text."
+            f"Return ONLY the NEW continuation text. Keep formatting it beautifully with Markdown (## headers and double newlines for paragraphs)."
         )
         try:
             expansion = client.complete_text(expand_sys, expand_user, temperature=temperature)
