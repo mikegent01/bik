@@ -6580,6 +6580,7 @@ function inlineMd(t,opts){
 function mdToHtml(md,linkCtx){
   if(!md)return'';
   // AI generators sometimes forget newlines before/after headers in long single-line outputs
+  md = md.replace(/\\#/g, '#');
   md = md.replace(/([^\n])\s*(#{2,3})\s/g, "$1\n\n$2 ");
   
   const lines=md.replace(/\r/g,'').split('\n');let html='',para=[],quote=[];
@@ -6592,8 +6593,8 @@ function mdToHtml(md,linkCtx){
      event links its cast once per part instead of once for the entire 6,000 words. */
   const newSection=()=>{ if(opt && linkLevelCfg().scope==='section') LINK_ONCE=new Set(); };
   for(const raw of lines){const line=raw.trimEnd();
-    if(/^###\s+/.test(line)){fp();fq();newSection();const t=line.replace(/^###\s+/,'');html+='<h3 id="'+slug(t)+'">'+inlineMd(t)+'</h3>';continue;}
-    if(/^##\s+/.test(line)){fp();fq();newSection();const t=line.replace(/^##\s+/,'');html+='<h2 id="'+slug(t)+'">'+inlineMd(t)+'</h2>';continue;}
+    if(/^\s*###\s+/.test(line)){fp();fq();newSection();const t=line.replace(/^\s*###\s+/,'');html+='<h3 id="'+slug(t)+'">'+inlineMd(t)+'</h3>';continue;}
+    if(/^\s*##\s+/.test(line)){fp();fq();newSection();const t=line.replace(/^\s*##\s+/,'');html+='<h2 id="'+slug(t)+'">'+inlineMd(t)+'</h2>';continue;}
     // Standalone markdown images: ![alt](path) — used heavily by race dossiers
     const imgM=line.trim().match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if(imgM){fp();fq();html+=`<figure class="md-figure"><img src="${esc(assetPath(imgM[2]))}" alt="${esc(imgM[1])}" loading="lazy" onerror="this.closest('figure').classList.add('broken')"><figcaption class="imgcap">${esc(imgM[1])}</figcaption></figure>`;continue;}
@@ -6605,7 +6606,7 @@ function mdToHtml(md,linkCtx){
   fp();fq();return html;
 }
 
-function headings(md){if(!md)return[]; md = md.replace(/([^\n])\s*(#{2,3})\s/g, "$1\n\n$2 ");const out=[];md.split('\n').forEach(l=>{let m;if((m=l.match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
+function headings(md){if(!md)return[]; md = md.replace(/\\#/g, '#'); md = md.replace(/([^\n])\s*(#{2,3})\s/g, "$1\n\n$2 ");const out=[];md.split('\n').forEach(l=>{let m;if((m=l.trim().match(/^##\s+(.+)/)))out.push({level:2,text:m[1].trim()});else if((m=l.trim().match(/^###\s+(.+)/)))out.push({level:3,text:m[1].trim()});});return out;}
 
 /* =============== SEARCH (SEARCH_DOCS built in buildIndexes after data loads) =============== */
 const SEARCH_META={codex:'📜',article:t=>TYPE_BY_KEY[t]?TYPE_BY_KEY[t].emoji:'📄',tradition:'⚖️',culture:'🌐',vote:'🏛️',conflict:'💥',majorbattle:'🗡️',artifact:'⭐',invitem:'🎒',bearer:'✴️',member:'🏳️',session:'📋',crisis:'⚠️',faction:'⚔️',dynasty:'👑',vendor:'🏪',holiday:'🎉',currency:'💱',chronicle:'📜',collection:'🗂️',book:'📚',craftingrecipe:'⚒️',craftingmaterial:'🧪',system:'⚙️',docketfile:'⚖️',ability:'🎓',whatif:'❓'};
