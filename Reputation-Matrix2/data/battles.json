@@ -578,7 +578,8 @@
     },
     "effects": {
       "mushroom_regency": -10,
-      "kremling_krew": -15
+      "kremling_krew": -15,
+      "arab_yeti": 15
     },
     "reputationNotes": {
       "waluigi": "Waluigi's mastermindship ensured the disaster relief program worked, despite everything."
