@@ -6581,6 +6581,7 @@ function mdToHtml(md,linkCtx){
   if(!md)return'';
   // AI generators sometimes forget newlines before/after headers in long single-line outputs
   md = md.replace(/\\#/g, '#');
+  md = md.replace(/\\#/g, '#');
   md = md.replace(/([^\n])\s*(#{2,3})\s/g, "$1\n\n$2 ");
   
   const lines=md.replace(/\r/g,'').split('\n');let html='',para=[],quote=[];

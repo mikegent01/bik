@@ -692,7 +692,7 @@ def events_build_prompt(task: Task) -> tuple[str, str]:
         f"Existing event titles (do not repeat): {_name_hint(rows)}\n"
         f"Legal months: {', '.join(_MONTHS)}\n\n"
         f"LORE CONTEXT for {nation_name}:\n{context}\n\n"
-        f"File past event #{task.payload['slot']} for {nation_name}. Year 722-1039 BF. "
+        f"File past event #{task.payload['slot']} for {nation_name}. Year 10-1040 BF. "
         f"Location must be inside {nation_name}. "
         "The description MUST be a substantial historical record (at least 300 words)."
     )
@@ -779,7 +779,51 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
         except Exception:
             break
 
+
     raw["description"] = desc
+
+    # Phase 3: Participants
+    if prog: prog("Determining participants...")
+    part_sys = "You are an archivist. Extract the participants from the event. Return valid JSON containing a single key 'participants' mapped to a list of objects: [{'id': 'snake_case_id', 'name': 'Full Name', 'role': 'What they did'}]."
+    try:
+        part_resp = client.complete_json(part_sys, f"Event Description:\n{desc[-1500:]}\n\nList 3-5 participants.", temperature=temperature)
+        if "participants" in part_resp:
+            raw["participants"] = part_resp["participants"]
+    except Exception as e:
+        print("Failed participants:", e)
+        raw["participants"] = [{"id": "unknown_operator", "name": "Unknown Operator", "role": "Unrecorded"}]
+
+    # Phase 4: XP Awards
+    if prog: prog("Calculating XP Awards...")
+    xp_sys = "You are Waluigi, auditing the session. Award XP to the participants. Return valid JSON containing a single key 'xpAwards' mapped to a list of objects: [{'character': 'snake_case_id', 'amount': 100, 'reason': 'Why they got it', 'type': 'Combat XP'}]."
+    try:
+        xp_resp = client.complete_json(xp_sys, f"Event Description:\n{desc[-1500:]}\n\nAssign XP to 2-3 participants.", temperature=temperature)
+        if "xpAwards" in xp_resp:
+            raw["xpAwards"] = xp_resp["xpAwards"]
+    except Exception as e:
+        print("Failed xpAwards:", e)
+        raw["xpAwards"] = []
+
+    # Phase 5: Waluigi's Assessment (Investigative stuff)
+    if prog: prog("Drafting Waluigi's Assessment...")
+    wal_sys = "You are Waluigi. Write a short, cynical, objective assessment (150 words) of the event's consequences and what it means for the world's factions. Use your signature 'WAH.' at the end. Return ONLY plaintext."
+    try:
+        wal_resp = client.complete_text(wal_sys, f"Event Description:\n{desc[-1500:]}", temperature=temperature).strip()
+        raw["waluigiAssessment"] = wal_resp
+    except Exception as e:
+        print("Failed waluigiAssessment:", e)
+        raw["waluigiAssessment"] = "Waluigi has filed this record, but the intelligence is too sparse for a full tactical assessment. WAH."
+
+    # Phase 6: Related Investigative Article
+    if prog: prog("Drafting Related Investigative Article (Aftermath)...")
+    inv_sys = "You are an intelligence agent. Write a short follow-up investigative report (200 words) about the aftermath of this event. Return ONLY plaintext."
+    try:
+        inv_resp = client.complete_text(inv_sys, f"Event Description:\n{desc[-1500:]}\n\nWrite the aftermath.", temperature=temperature).strip()
+        raw["aftermath"] = inv_resp
+    except Exception as e:
+        print("Failed aftermath:", e)
+        raw["aftermath"] = "The long-term consequences of this event remain undocumented in the archives."
+
     return raw
 
 
@@ -797,12 +841,12 @@ def events_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         raise ValidationError(f"duplicate id {slug!r}")
     date = _clean(raw.get("date"), lo=6, hi=80, field="date")
     year = _parse_year(date)
-    if year is None or not (722 <= year <= 1039):
-        raise ValidationError("date must be a past year 722-1039 BF")
+    if year is None or not (10 <= year <= 1040):
+        raise ValidationError("date must be a past year 10-1040 BF")
     location = _clean(raw.get("location"), lo=3, hi=120, field="location")
     if re.search(r"mushroom\s+kingdom|toad\s+town|midlands", location, re.I):
         raise ValidationError("location must be foreign (not Mushroom Kingdom / Midlands)")
-    return {
+    res = {
         "id": slug,
         "name": _clean(raw.get("name"), lo=3, hi=100, field="name"),
         "title": _clean(raw.get("title") or raw.get("name"), lo=3, hi=160, field="title"),
@@ -816,6 +860,20 @@ def events_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         "notableFeatures": _string_list(raw.get("notableFeatures"), min_n=3, field="notableFeatures"),
         "relatedArticles": _string_list(raw.get("relatedArticles") or [], min_n=0, field="relatedArticles"),
     }
+    
+    if "participants" in raw:
+        res["participants"] = raw["participants"]
+    if "xpAwards" in raw:
+        res["xpAwards"] = raw["xpAwards"]
+    if "waluigiAssessment" in raw:
+        res["waluigiAssessment"] = raw["waluigiAssessment"]
+    if "aftermath" in raw:
+        res["aftermath"] = raw["aftermath"]
+    if "timeWindow" in raw:
+        res["timeWindow"] = raw["timeWindow"]
+        
+    return res
+
 
 
 def events_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
@@ -927,7 +985,7 @@ def battles_build_prompt(task: Task) -> tuple[str, str]:
         f"Existing battle names (do not repeat): {_name_hint(rows)}\n"
         f"Legal months: {', '.join(_MONTHS)}\n\n"
         f"LORE CONTEXT for {nation_name}:\n{context}\n\n"
-        f"File past battle #{task.payload['slot']} for {nation_name}. Year 722-1039 BF.\n"
+        f"File past battle #{task.payload['slot']} for {nation_name}. Year 10-1040 BF.\n"
         f"Location must be inside {nation_name}. Name both sides using factions from the lore if possible.\n"
         "The description MUST be a substantial war report (at least 300 words) covering The Field, The Opening, The Middle, and The Finish."
     )
@@ -1036,14 +1094,14 @@ def battles_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         raise ValidationError(f"duplicate id {slug!r}")
     date = _clean(raw.get("date"), lo=6, hi=80, field="date")
     year = _parse_year(date)
-    if year is None or not (722 <= year <= 1039):
-        raise ValidationError("date must be a past year 722-1039 BF")
+    if year is None or not (10 <= year <= 1040):
+        raise ValidationError("date must be a past year 10-1040 BF")
     location = _clean(raw.get("location"), lo=3, hi=120, field="location")
     if re.search(r"mushroom\s+kingdom|toad\s+town|midlands", location, re.I):
         raise ValidationError("location must be foreign (not Mushroom Kingdom / Midlands)")
     belligerents = raw.get("belligerents") if isinstance(raw.get("belligerents"), dict) else {}
     casualties = raw.get("casualties") if isinstance(raw.get("casualties"), dict) else {}
-    return {
+    res = {
         "id": slug,
         "name": _clean(raw.get("name"), lo=3, hi=100, field="name"),
         "date": date,
@@ -1064,6 +1122,7 @@ def battles_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         "relatedArticles": _string_list(raw.get("relatedArticles") or [], min_n=0, field="relatedArticles"),
         "status": "Generated — review",
     }
+    return res
 
 
 def battles_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
