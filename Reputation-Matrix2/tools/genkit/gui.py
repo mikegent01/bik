@@ -543,7 +543,7 @@ def _handler_factory(state: RunState, defaults: Settings | None = None):
     return Handler
 
 
-def launch_web(host: str = "127.0.0.1", port: int = 8765, *, open_browser: bool = True,
+def launch_web(host: str = "0.0.0.0", port: int = 8765, *, open_browser: bool = True,
                defaults: Settings | None = None) -> None:
     state = RunState()
     server = ThreadingHTTPServer((host, port), _handler_factory(state, defaults))
