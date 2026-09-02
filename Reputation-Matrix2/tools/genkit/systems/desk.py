@@ -839,7 +839,18 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     except Exception as e:
         print("Failed aftermath:", e)
         raw["aftermath"] = "The long-term consequences of this event remain undocumented in the archives."
-        raw["aftermath"] = "The long-term consequences of this event remain undocumented in the archives."
+
+
+    # Phase 7: Document Exhibit
+    if prog: prog("Drafting Document Exhibit...")
+    exhibit_sys = "You are an archivist. Create a related document exhibit for this event (e.g., a letter, report, artifact). Return ONLY valid JSON."
+    exhibit_user = f"Event Description:\n{desc[-1500:]}\n\nGenerate a JSON object with these exact keys: 'id' (snake_case starting with ex_), 'propId' (snake_case starting with prop_), 'icon' (a single emoji), 'kind' ('note', 'artifact', or 'recording'), 'category' ('discovery' or 'evidence'), 'title' (short string), 'secured' (date/context), 'custody' (where kept), 'visual' (HTML string for visual flair like <div style=\"color:red\">...</div>), 'onRecord' (the document text), 'dc' (integer), 'analysis' (Waluigi's cynical analysis of this document)."
+    try:
+        ex_resp = client.complete_json(exhibit_sys, exhibit_user, temperature=temperature)
+        if "id" in ex_resp and "onRecord" in ex_resp:
+            raw["documentExhibit"] = ex_resp
+    except Exception as e:
+        print("Failed documentExhibit:", e)
 
     return raw
 
@@ -887,6 +898,8 @@ def events_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         res["aftermath"] = raw["aftermath"]
     if "timeWindow" in raw:
         res["timeWindow"] = raw["timeWindow"]
+    if "documentExhibit" in raw:
+        res["documentExhibit"] = raw["documentExhibit"]
         
     return res
 
@@ -901,6 +914,8 @@ def events_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         res["aftermath"] = raw["aftermath"]
     if "timeWindow" in raw:
         res["timeWindow"] = raw["timeWindow"]
+    if "documentExhibit" in raw:
+        res["documentExhibit"] = raw["documentExhibit"]
         
     return res
 
@@ -927,6 +942,7 @@ def events_apply(task: Task, record: dict[str, Any]) -> TaskResult:
             
         analysis_text = record.pop("waluigiAssessment", None)
         aftermath_text = record.pop("aftermath", None)
+        exhibit_data = record.pop("documentExhibit", None)
         
         entry = dict(record)
         entry.update(provenance("events", task.payload.get("model", ""), status="Generated — review"))
@@ -959,15 +975,18 @@ def events_apply(task: Task, record: dict[str, Any]) -> TaskResult:
                     atomic_write_json(aa_path, aa_data)
                     changed.append(str(aa_path.relative_to(ROOT)))
 
-        if aftermath_text:
+        if aftermath_text or exhibit_data:
             inv_path = ROOT / "data" / "investigations.json"
             if inv_path.exists():
+                import json
                 with open(inv_path, "r", encoding="utf-8") as f:
                     inv_data = json.load(f)
                 inv_list = inv_data.setdefault("investigations", [])
                 inv_id = f"inv_{record['id']}"
-                if not any(i.get("id") == inv_id for i in inv_list):
-                    inv_list.append({
+                
+                inv = next((i for i in inv_list if i.get("id") == inv_id), None)
+                if not inv:
+                    inv = {
                         "id": inv_id,
                         "codename": str(record.get("name", "Investigation")).upper(),
                         "title": f"Aftermath: {record.get('name')}",
@@ -978,14 +997,21 @@ def events_apply(task: Task, record: dict[str, Any]) -> TaskResult:
                         "archivist": "Waluigi, Auditor-General",
                         "icon": "🕵️",
                         "accent": "#4a9c6d",
-                        "plainSummary": [{"point": aftermath_text}],
+                        "plainSummary": [{"point": aftermath_text}] if aftermath_text else [],
                         "leads": [],
                         "sessions": [{"id": f"s_{record['id']}", "label": str(record.get("name", "")), "event": record["id"]}],
                         "relatedEvents": [record["id"]],
                         "exhibits": []
-                    })
-                    atomic_write_json(inv_path, inv_data)
-                    changed.append(str(inv_path.relative_to(ROOT)))
+                    }
+                    inv_list.append(inv)
+                
+                if exhibit_data:
+                    exhibit_data["session"] = f"s_{record['id']}"
+                    exhibit_data.setdefault("links", {})["events"] = [record["id"]]
+                    inv.setdefault("exhibits", []).append(exhibit_data)
+                    
+                atomic_write_json(inv_path, inv_data)
+                changed.append(str(inv_path.relative_to(ROOT)))
                     
     return TaskResult(
         task=task, ok=True, detail=record["name"], record=record,
@@ -1209,7 +1235,18 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     except Exception as e:
         print("Failed aftermath:", e)
         raw["aftermath"] = "The long-term consequences of this event remain undocumented in the archives."
-        raw["aftermath"] = "The long-term consequences of this event remain undocumented in the archives."
+
+
+    # Phase 7: Document Exhibit
+    if prog: prog("Drafting Document Exhibit...")
+    exhibit_sys = "You are an archivist. Create a related document exhibit for this event (e.g., a letter, report, artifact). Return ONLY valid JSON."
+    exhibit_user = f"Event Description:\n{desc[-1500:]}\n\nGenerate a JSON object with these exact keys: 'id' (snake_case starting with ex_), 'propId' (snake_case starting with prop_), 'icon' (a single emoji), 'kind' ('note', 'artifact', or 'recording'), 'category' ('discovery' or 'evidence'), 'title' (short string), 'secured' (date/context), 'custody' (where kept), 'visual' (HTML string for visual flair like <div style=\"color:red\">...</div>), 'onRecord' (the document text), 'dc' (integer), 'analysis' (Waluigi's cynical analysis of this document)."
+    try:
+        ex_resp = client.complete_json(exhibit_sys, exhibit_user, temperature=temperature)
+        if "id" in ex_resp and "onRecord" in ex_resp:
+            raw["documentExhibit"] = ex_resp
+    except Exception as e:
+        print("Failed documentExhibit:", e)
 
     return raw
 
@@ -1270,6 +1307,8 @@ def battles_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
         res["aftermath"] = raw["aftermath"]
     if "timeWindow" in raw:
         res["timeWindow"] = raw["timeWindow"]
+    if "documentExhibit" in raw:
+        res["documentExhibit"] = raw["documentExhibit"]
         
     return res
 
@@ -1295,6 +1334,7 @@ def battles_apply(task: Task, record: dict[str, Any]) -> TaskResult:
             
         analysis_text = record.pop("waluigiAssessment", None)
         aftermath_text = record.pop("aftermath", None)
+        exhibit_data = record.pop("documentExhibit", None)
             
         entry = dict(record)
         entry.update(provenance("battles", task.payload.get("model", ""), status="Generated — review"))
@@ -1328,7 +1368,7 @@ def battles_apply(task: Task, record: dict[str, Any]) -> TaskResult:
                     atomic_write_json(aa_path, aa_data)
                     changed.append(str(aa_path.relative_to(ROOT)))
 
-        if aftermath_text:
+        if aftermath_text or exhibit_data:
             inv_path = ROOT / "data" / "investigations.json"
             if inv_path.exists():
                 import json
@@ -1336,8 +1376,10 @@ def battles_apply(task: Task, record: dict[str, Any]) -> TaskResult:
                     inv_data = json.load(f)
                 inv_list = inv_data.setdefault("investigations", [])
                 inv_id = f"inv_{record['id']}"
-                if not any(i.get("id") == inv_id for i in inv_list):
-                    inv_list.append({
+                
+                inv = next((i for i in inv_list if i.get("id") == inv_id), None)
+                if not inv:
+                    inv = {
                         "id": inv_id,
                         "codename": str(record.get("name", "Investigation")).upper(),
                         "title": f"Aftermath: {record.get('name')}",
@@ -1348,14 +1390,21 @@ def battles_apply(task: Task, record: dict[str, Any]) -> TaskResult:
                         "archivist": "Waluigi, Auditor-General",
                         "icon": "🕵️",
                         "accent": "#4a9c6d",
-                        "plainSummary": [{"point": aftermath_text}],
+                        "plainSummary": [{"point": aftermath_text}] if aftermath_text else [],
                         "leads": [],
                         "sessions": [{"id": f"s_{record['id']}", "label": str(record.get("name", "")), "event": record["id"]}],
                         "relatedEvents": [record["id"]],
                         "exhibits": []
-                    })
-                    atomic_write_json(inv_path, inv_data)
-                    changed.append(str(inv_path.relative_to(ROOT)))
+                    }
+                    inv_list.append(inv)
+                
+                if exhibit_data:
+                    exhibit_data["session"] = f"s_{record['id']}"
+                    exhibit_data.setdefault("links", {})["events"] = [record["id"]]
+                    inv.setdefault("exhibits", []).append(exhibit_data)
+                    
+                atomic_write_json(inv_path, inv_data)
+                changed.append(str(inv_path.relative_to(ROOT)))
 
     return TaskResult(
         task=task, ok=True, detail=record["name"], record=record,
