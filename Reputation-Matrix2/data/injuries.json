@@ -2872,6 +2872,390 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-31T04:06:26+00:00"
       }
+    },
+    {
+      "d100": 181,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Dissolution",
+      "description": "Your veins begin to dissolve into a spectral mist, causing severe pain and potential organ failure.",
+      "cure": "A successful Wish spell or plane shift back to your home plane.",
+      "duration": "Instant",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T22:38:49+00:00"
+      }
+    },
+    {
+      "d100": 184,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Abscess",
+      "description": "An abscess forms in one of your veins, causing severe pain and potential organ damage.",
+      "cure": "Surgery or 4 weeks of continuous healing magic",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T22:39:20+00:00"
+      }
+    },
+    {
+      "d100": 183,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Anomaly II",
+      "description": "Your veins pulsate uncontrollably, causing disorientation and a risk of hemorrhage.",
+      "cure": "Major surgery or 2d6 weeks of rest in a healing ward.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T22:39:28+00:00"
+      }
+    },
+    {
+      "d100": 185,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Necrosis",
+      "description": "Your veins slowly rot away, causing constant pain and eventual organ failure.",
+      "cure": "Major surgery or a successful Restoration spell cast by a 12th-level caster",
+      "duration": "Forever; only curable with powerful magic",
+      "notes": "Avoid strenuous activity to prevent rapid progression.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T22:39:36+00:00"
+      }
+    },
+    {
+      "d100": 186,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Regression",
+      "description": "Your veins have regressed to a primitive state, slowing your heart and impeding circulation. Physical exertion is excruciating.",
+      "cure": "Major surgery or a week of bed rest with magical healing.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T22:39:44+00:00"
+      }
+    },
+    {
+      "d100": 187,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Tumor",
+      "description": "A malignant growth within your veins, causing intense pain and rapid fatigue.",
+      "cure": "Surgery and long-term magical treatments",
+      "duration": "2d8 weeks",
+      "notes": "Regular monitoring by a healer is required during recovery.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:36:30+00:00"
+      }
+    },
+    {
+      "d100": 188,
+      "category": "Severe injury",
+      "injuryType": "Heart Veil Fragment",
+      "description": "A fragment of the heart veil lodges in your chest cavity, causing chronic pain and irregular heartbeat.",
+      "cure": "Major surgery with a Heart Veil specialist or successful DC 25 Medicine check.",
+      "duration": "Long rest per day until cured",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:36:44+00:00"
+      }
+    },
+    {
+      "d100": 189,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Leech",
+      "description": "A parasitic connection to the veil drains your vitality, sapping strength and endurance over time.",
+      "cure": "Dispel magic or removal by a 9th level spellcaster",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:36:52+00:00"
+      }
+    },
+    {
+      "d100": 190,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Abscess II",
+      "description": "Your Veilbound Veins erupt in a persistent abscess that spreads rapidly and resists standard treatments.",
+      "cure": "Major surgery or successful Veilbound Healing ritual",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:36:58+00:00"
+      }
+    },
+    {
+      "d100": 192,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Mutation II",
+      "description": "A second mutation destabilizes the veins, causing constant internal bleeding and organ stress.",
+      "cure": "Surgery and a month of Long rest to stabilize the condition.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:37:25+00:00"
+      }
+    },
+    {
+      "d100": 191,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Mutation III",
+      "description": "Your Veilbound veins mutate into grotesque, pulsating growths that sap your strength and vitality.",
+      "cure": "Major Surgery or a successful Restorative Ritual",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:37:32+00:00"
+      }
+    },
+    {
+      "d100": 193,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Rot",
+      "description": "A festering rot infects your veins, causing constant pain and a loss of vitality.",
+      "cure": "Complete rest and a powerful healing draught",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:37:39+00:00"
+      }
+    },
+    {
+      "d100": 194,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Thrombosis",
+      "description": "A clot forms within the Veilbound Veins, causing chronic pain and restricted movement.",
+      "cure": "Major surgery or successful casting of a Remove Disease spell.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:37:46+00:00"
+      }
+    },
+    {
+      "d100": 195,
+      "category": "Severe injury",
+      "injuryType": "Echoing Veil Blindness",
+      "description": "You begin to see the world through the Veil, where shadows and distortions are constant.",
+      "cure": "Major Restoration spell or similar magic effect",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:37:53+00:00"
+      }
+    },
+    {
+      "d100": 197,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Tangle",
+      "description": "A network of twisted veins entwines with your flesh, causing constant discomfort and impeding movement.",
+      "cure": "Major surgery or removal by a Veilbound specialist",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:38:07+00:00"
+      }
+    },
+    {
+      "d100": 196,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Collapse II",
+      "description": "Your veins collapse under a creeping rot, causing chronic pain and restricting circulation to limbs.",
+      "cure": "Major surgery or 4d12 weeks of rest",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:38:13+00:00"
+      }
+    },
+    {
+      "d100": 198,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Miasma",
+      "description": "A noxious mist emanates from the vein, causing nausea and reducing all physical rolls by one step.",
+      "cure": "Major healing spell or successful surgery",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:38:20+00:00"
+      }
+    },
+    {
+      "d100": 199,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Dissolution II",
+      "description": "Your Veilbound veins liquefy and dissolve, causing severe pain and uncontrollable bleeding.",
+      "cure": "Major surgery or a successful Veilbound healer's intervention",
+      "duration": "2d8 weeks",
+      "notes": "Seek immediate treatment to prevent further internal damage.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:38:28+00:00"
+      }
+    },
+    {
+      "d100": 201,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Infestation",
+      "description": "A festering mass of Veilbound veins burrows through your body, causing excruciating pain and unpredictable bursts of energy.",
+      "cure": "Major surgery or a rare Veilbound Purge ritual",
+      "duration": "Forever, unless cured",
+      "notes": "The infestation can be pacified but never fully removed without drastic measures.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:38:43+00:00"
+      }
+    },
+    {
+      "d100": 200,
+      "category": "Severe injury",
+      "injuryType": "Echoing Veil Paralysis",
+      "description": "You feel a phantom pain in your limbs, as if the Veil whispers of past wounds.",
+      "cure": "Rest and 40 gold piece treatment for 3 weeks",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:38:49+00:00"
+      }
+    },
+    {
+      "d100": 202,
+      "category": "Severe injury",
+      "injuryType": "Echoing Veil Fever",
+      "description": "A persistent fever that only breaks at dawn, draining your strength.",
+      "cure": "Rest and a potion of cure disease.",
+      "duration": "Instant recovery upon resting through the night.",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:38:57+00:00"
+      }
+    },
+    {
+      "d100": 204,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Laceration",
+      "description": "Your Veilbound Veins tear open, causing profuse bleeding and intense pain.",
+      "cure": "Major surgery or 2d8 weeks of rest",
+      "duration": "2d8 weeks",
+      "notes": "Seek medical attention immediately to avoid further complications.",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:39:12+00:00"
+      }
+    },
+    {
+      "d100": 203,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Shatter",
+      "description": "Your veins rupture, causing a constant flow of darkened fluid. You are immobile until the breach is sealed.",
+      "cure": "Major surgery or a successful DC 40 Medicine check",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:39:19+00:00"
+      }
+    },
+    {
+      "d100": 205,
+      "category": "Severe injury",
+      "injuryType": "Veilbound Vein Tangle II",
+      "description": "Your veins twist and tangle, causing excruciating pain and reducing your agility by half.",
+      "cure": "Major surgery or two weeks of intensive magical treatment.",
+      "duration": "2d8 weeks",
+      "notes": "",
+      "temporary": true,
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "injury-table",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-01T23:39:26+00:00"
+      }
     }
   ],
   "status": "temporary",
