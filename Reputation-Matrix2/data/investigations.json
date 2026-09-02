@@ -3831,7 +3831,31 @@
       "relatedEvents": [
         "first_snowfall_incident"
       ],
-      "exhibits": []
+      "exhibits": [
+        {
+          "id": "ex_frozen_incident_report",
+          "propId": "prop_frozen_incident_report_01",
+          "session": "s_first_snowfall_incident",
+          "icon": "\ud83d\udcc4",
+          "kind": "note",
+          "category": "discovery",
+          "title": "Frost-Damaged Incident Report",
+          "secured": "14th Chillwind, 978 BF",
+          "custody": "Archive \u2014 Original document requires thermal gloves to handle.",
+          "visual": "<div style=\"padding:24px;border:1px solid rgba(160,220,255,.35);border-radius:10px;background:linear-gradient(135deg,rgba(20,50,70,.8),rgba(12,20,30,.95));color:#cceeff;text-align:center;font-weight:800;letter-spacing:.12em\">CONFIDENTIAL \u00b7 REGIONAL COMMAND</div>",
+          "onRecord": "A hastily scribbled report from a local militiaman. The ink is smeared and the parchment is unnaturally cold. It reads: 'Commander, the snow is humming. I repeat, the snow is humming. The village elder tried speaking to it, but the well froze solid in seconds. Requesting immediate tactical support.' The stamp of receipt from Central Command is dated three days AFTER the incident.",
+          "dc": 10,
+          "analysis": "This document proves Waluigi's assertion: the regional command completely ignored the distress call until it was far too late. The tactical failure was not a lack of communication from the ground, but a bureaucratic bottleneck at the top. The supernatural frost preserving the document is lingering fey magic.",
+          "links": {
+            "events": [
+              "first_snowfall_incident"
+            ],
+            "characters": [
+              "village_elder"
+            ]
+          }
+        }
+      ]
     }
   ]
 }

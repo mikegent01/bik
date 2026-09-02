@@ -562,7 +562,7 @@ def locations_generate(task: Task, client: Any, temperature: float) -> dict[str,
     desc = "\n\n".join(final_desc)
 
     # Auto-expander if STILL too short
-    while _words(desc) < 600 and len(desc) > 0:
+    while _words(desc) < 1200 and len(desc) > 0:
         if prog: prog(f"Expanding short location description ({_words(desc)} words)...")
         expand_sys = "You are an archivist. Continue the location record in plaintext. Return ONLY the continuation text."
         expand_user = (
@@ -737,7 +737,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     prog = task.payload.get("_progress")
     if prog: prog("Drafting article sections...")
     
-    desc_sys = "You are an encyclopedic chronicler writing a story in close third-person with ringside commentary asides. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
+    desc_sys = "You are Waluigi, the Auditor-General. Write the story from your strict, cynical first-person perspective (using 'Waluigi' or 'I'). Include your commentary, grievances, and signature 'WAH'. The story MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
     
     # Step A: Get an outline
     outline_user = f"We are writing a historical archive record for '{raw.get('name')}' (Location: {raw.get('location')}, Era: {raw.get('era')}).\nProvide a 3-5 section outline for this article. Return ONLY a JSON list of strings, like [\"Prologue: The Rising Tension\", \"The Main Conflict\", \"Aftermath\"]. Do not include markdown or explanations."
@@ -774,7 +774,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     desc = "\n\n".join(final_desc)
 
     # Auto-expander if STILL too short
-    while _words(desc) < 600 and len(desc) > 0:
+    while _words(desc) < 1200 and len(desc) > 0:
         if prog: prog(f"Expanding short description ({_words(desc)} words)...")
         expand_sys = "You are an archivist. Continue the historical record in plaintext. Return ONLY the continuation text."
         expand_user = (
@@ -806,17 +806,20 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
         raw["participants"] = [{"id": "unknown_operator", "name": "Unknown Operator", "role": "Unrecorded"}]
         raw["participants"] = [{"id": "unknown_operator", "name": "Unknown Operator", "role": "Unrecorded"}]
 
+    
     # Phase 4: XP Awards
     if prog: prog("Calculating XP Awards...")
     xp_sys = "You are Waluigi, auditing the session. Award XP to the participants. Return valid JSON containing a single key 'xpAwards' mapped to a list of objects: [{'character': 'snake_case_id', 'amount': 100, 'reason': 'Why they got it', 'type': 'Combat XP'}]."
     try:
-        xp_resp = client.complete_json(xp_sys, f"Event Description:\n{desc[-1500:]}\n\nAssign XP to 2-3 participants.", temperature=temperature)
+        part_json = json.dumps(raw.get("participants", []))
+        xp_user = f"Event Description:\n{desc[-1500:]}\n\nHere are the participants: {part_json}\n\nAssign XP ONLY using the exact 'id' values from the participant list provided."
+        xp_resp = client.complete_json(xp_sys, xp_user, temperature=temperature)
         if "xpAwards" in xp_resp:
             raw["xpAwards"] = xp_resp["xpAwards"]
     except Exception as e:
         print("Failed xpAwards:", e)
         raw["xpAwards"] = []
-        raw["xpAwards"] = []
+
 
     # Phase 5: Waluigi's Assessment (Investigative stuff)
     if prog: prog("Drafting Waluigi's Assessment...")
@@ -1142,7 +1145,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     desc = "\n\n".join(final_desc)
 
     # Auto-expander if STILL too short
-    while _words(desc) < 600 and len(desc) > 0:
+    while _words(desc) < 1200 and len(desc) > 0:
         if prog: prog(f"Expanding short battle description ({_words(desc)} words)...")
         expand_sys = "You are an archivist. Continue the war report in plaintext. Return ONLY the continuation text."
         expand_user = (
@@ -1173,17 +1176,20 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
         raw["participants"] = [{"id": "unknown_operator", "name": "Unknown Operator", "role": "Unrecorded"}]
         raw["participants"] = [{"id": "unknown_operator", "name": "Unknown Operator", "role": "Unrecorded"}]
 
+    
     # Phase 4: XP Awards
     if prog: prog("Calculating XP Awards...")
     xp_sys = "You are Waluigi, auditing the session. Award XP to the participants. Return valid JSON containing a single key 'xpAwards' mapped to a list of objects: [{'character': 'snake_case_id', 'amount': 100, 'reason': 'Why they got it', 'type': 'Combat XP'}]."
     try:
-        xp_resp = client.complete_json(xp_sys, f"Event Description:\n{desc[-1500:]}\n\nAssign XP to 2-3 participants.", temperature=temperature)
+        part_json = json.dumps(raw.get("participants", []))
+        xp_user = f"Event Description:\n{desc[-1500:]}\n\nHere are the participants: {part_json}\n\nAssign XP ONLY using the exact 'id' values from the participant list provided."
+        xp_resp = client.complete_json(xp_sys, xp_user, temperature=temperature)
         if "xpAwards" in xp_resp:
             raw["xpAwards"] = xp_resp["xpAwards"]
     except Exception as e:
         print("Failed xpAwards:", e)
         raw["xpAwards"] = []
-        raw["xpAwards"] = []
+
 
     # Phase 5: Waluigi's Assessment (Investigative stuff)
     if prog: prog("Drafting Waluigi's Assessment...")
