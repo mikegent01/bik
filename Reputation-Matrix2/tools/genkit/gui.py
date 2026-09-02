@@ -383,7 +383,7 @@ def render_web_page(defaults: Settings | None = None) -> str:
     return (page
             .replace("__ENDPOINT__", base.endpoint)
             .replace("__MODEL__", base.model or "")
-            .replace("__WORKERS__", str(base.workers or 2))
+            .replace("__WORKERS__", str(base.workers or 1))
             .replace("__LIMIT__", str(base.limit or 0))
             .replace("__ONLY__", ",".join(base.only))
             .replace("__TEMPERATURE__", str(base.temperature))
@@ -472,7 +472,7 @@ def _handler_factory(state: RunState, defaults: Settings | None = None):
                 settings = Settings(
                     endpoint=body.get("endpoint") or base.endpoint,
                     model=body.get("model") or base.model or "",
-                    workers=int(body.get("workers") or base.workers or 2),
+                    workers=int(body.get("workers") or base.workers or 1),
                     limit=int(body.get("limit") or 0),
                     temperature=float(body.get("temperature") or base.temperature or 0.7),
                     dry_run=bool(body.get("dry_run")),
@@ -501,7 +501,7 @@ def _handler_factory(state: RunState, defaults: Settings | None = None):
                 settings = Settings(
                     endpoint=body.get("endpoint") or base.endpoint,
                     model=body.get("model") or base.model or "",
-                    workers=int(body.get("workers") or base.workers or 2),
+                    workers=int(body.get("workers") or base.workers or 1),
                     limit=int(body.get("limit") or 0),
                     temperature=float(body.get("temperature") or base.temperature or 0.7),
                     dry_run=bool(body.get("dry_run")),
@@ -590,7 +590,7 @@ def launch_tk(defaults: Settings | None = None) -> None:
     fields: dict[str, tk.Variable] = {
         "endpoint": tk.StringVar(value=base.endpoint),
         "model": tk.StringVar(value=base.model or ""),
-        "workers": tk.IntVar(value=base.workers or 2),
+        "workers": tk.IntVar(value=base.workers or 1),
         "limit": tk.IntVar(value=base.limit or 0),
         "only": tk.StringVar(value=",".join(base.only)),
         "temperature": tk.DoubleVar(value=base.temperature),
@@ -662,7 +662,7 @@ def launch_tk(defaults: Settings | None = None) -> None:
             Settings(
                 endpoint=fields["endpoint"].get(),
                 model=fields["model"].get(),
-                workers=int(fields["workers"].get() or 2),
+                workers=int(fields["workers"].get() or 1),
                 limit=int(fields["limit"].get() or 0),
                 temperature=float(fields["temperature"].get() or 0.7),
                 dry_run=dry.get(),
