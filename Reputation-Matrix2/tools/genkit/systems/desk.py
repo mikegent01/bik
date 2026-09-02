@@ -304,12 +304,26 @@ def injuries_build_prompt(task: Task) -> tuple[str, str]:
         if r.get("d100") != task.payload.get("d100")
     ]
     if task.payload.get("is_new"):
+        import random
+        themes = ["Fire/Burns", "Cold/Frostbite", "Acid/Corrosion", "Lightning/Electrocution", 
+                  "Necrotic/Decay", "Radiant/Blinding", "Psychic/Madness", "Poison/Toxicity",
+                  "Slashing/Lacerations", "Bludgeoning/Crushing", "Piercing/Punctures",
+                  "Shadow/Void", "Fey/Curse", "Beast/Mauling", "Clockwork/Mechanical"]
+        parts = ["Head/Mind", "Eyes/Vision", "Ears/Hearing", "Arms/Hands", "Legs/Feet", 
+                 "Chest/Heart", "Lungs/Breathing", "Soul/Spirit", "Skin/Bones"]
+        
+        theme = random.choice(themes)
+        part = random.choice(parts)
+        sample_siblings = random.sample(siblings, min(12, len(siblings)))
+        
         prompt = (
             f"Write ONE NEW injury row for the table (row {task.payload['d100']}).\n"
             f"Pick a severe or interesting consequence.\n"
+            f"CRITICAL INSTRUCTION: Base this injury tightly around the theme of '{theme}' affecting the '{part}'.\n"
+            f"DO NOT use repetitive words like 'Veil', 'Vein', 'Echoing', 'Nexus', or 'Anomaly'. Invent a completely unique and flavorful name!\n"
             f"Existing categories include: Death, Facial scarring, Lose a limb, Severe injury, Minor boon, Special effect, etc.\n"
             f"Other injury names (do not duplicate):\n"
-            f"{json.dumps(siblings[-24:], ensure_ascii=False)}\n"
+            f"{json.dumps(sample_siblings, ensure_ascii=False)}\n"
             "Return one new row."
         )
         return _INJURY_SYSTEM.replace("rewrite one row", "write ONE NEW row"), prompt
@@ -319,7 +333,7 @@ def injuries_build_prompt(task: Task) -> tuple[str, str]:
         f"Rewrite row {task.payload['d100']} in category {task.payload.get('category')!r}.\n"
         f"Keep the same mechanical idea. Current row:\n"
         f"{json.dumps(current, ensure_ascii=False, indent=2)}\n\n"
-        f"Other injury names (do not duplicate):\n"
+            f"Other injury names (do not duplicate):\n"
         f"{json.dumps(siblings[:24], ensure_ascii=False)}\n"
         "Return one rewritten row."
     )

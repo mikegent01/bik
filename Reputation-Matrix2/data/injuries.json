@@ -1245,7 +1245,7 @@
       "d100": 78,
       "category": "Flavour effect",
       "injuryType": "Armor Marring Scar",
-      "description": "A telltale mark that endures even when the body heals—your armor bears witness to your ordeal.",
+      "description": "A telltale mark that endures even when the body heals\u2014your armor bears witness to your ordeal.",
       "cure": "None",
       "duration": "Instant",
       "notes": "",
