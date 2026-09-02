@@ -520,9 +520,9 @@ def locations_generate(task: Task, client: Any, temperature: float) -> dict[str,
     system, user = locations_build_prompt(task)
     # Remove description from JSON schema so we only generate metadata first
     system = system.replace('  "description": "<detailed Waluigi-voiced description of the place>",\n', '')
-    system = system.replace('  "description": "<detailed archivist-voiced description of the place>",\n', '')
-
-
+    
+    if task.last_error:
+        user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
         
     try:
         raw = client.complete_json(system, user, temperature=temperature)
@@ -752,12 +752,23 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     prog = task.payload.get("_progress")
     if prog: prog("Drafting article sections...")
     
-    nation_lower = str(raw.get("nation_name", "")).lower()
-    is_waluigi = "regal" in nation_lower or "mushroom" in nation_lower
-    if is_waluigi:
-        desc_sys = "You are Waluigi, the Auditor-General. Write the story from your strict, cynical first-person perspective (using 'Waluigi' or 'I'). Include your commentary, grievances, and signature 'WAH'. The story MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
+    if prog: prog("Checking Waluigi's historical presence...")
+    presence_sys = "You are a Lore Auditor. Determine if Waluigi (Auditor-General) should logically be physically present at this historical event based on location, era, and scale. Only place him there if it makes strict canon sense (e.g. Regal Empire, Mushroom Kingdom). Return valid JSON: {\"present\": true, \"reason\": \"string\"}"
+    presence_user = f"Event: {raw.get('name')}\nLocation: {raw.get('location')}\nEra: {raw.get('era')}\n\nIs Waluigi physically present at this event? Answer JSON."
+    waluigi_present = False
+    try:
+        pres_resp = client.complete_json(presence_sys, presence_user, temperature=0.1)
+        waluigi_present = pres_resp.get("present", False)
+        print(f"Waluigi presence check: {waluigi_present} - {pres_resp.get('reason')}")
+    except Exception as e:
+        print("Presence check failed:", e)
+        nation_lower = str(raw.get("nation_name", "")).lower()
+        waluigi_present = "regal" in nation_lower or "mushroom" in nation_lower
+
+    if waluigi_present:
+        desc_sys = "You are Waluigi, the Auditor-General. You were PHYSICALLY PRESENT at this event. Write the story from your strict, cynical first-person perspective (using 'I' or 'Waluigi'). Include your commentary, grievances, and signature 'WAH'. The story MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
     else:
-        desc_sys = "You are a Master Archivist. Write the historical narrative in a formal, third-person perspective. The story MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
+        desc_sys = "You are Waluigi, the Auditor-General. You were NOT physically present at this event. Write the historical narrative in the third person focusing on the actual participants. Interject with your cynical, first-person commentary as the archivist reading the file. DO NOT insert yourself into the scenes. Include your signature 'WAH'. The story MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
     
     # Step A: Get an outline
     outline_user = f"We are writing a historical archive record for '{raw.get('name')}' (Location: {raw.get('location')}, Era: {raw.get('era')}).\nProvide a 3-5 section outline for this article. Return ONLY a JSON list of strings, like [\"Prologue: The Rising Tension\", \"The Main Conflict\", \"Aftermath\"]. Do not include markdown or explanations."
@@ -810,10 +821,10 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     # Auto-expander if STILL too short
     while _words(desc) < 1200 and len(desc) > 0:
         if prog: prog(f"Expanding short description ({_words(desc)} words)...")
-        if is_waluigi:
-            expand_sys = "You are Waluigi, the Auditor-General. Continue the historical record from your strict, cynical first-person perspective. Include your commentary, grievances, and signature WAH. Return ONLY the continuation text."
+        if waluigi_present:
+            expand_sys = "You are Waluigi, the Auditor-General. You were physically present. Continue the historical record from your strict, cynical first-person perspective. Include your commentary, grievances, and signature WAH. Return ONLY the continuation text."
         else:
-            expand_sys = "You are a Master Archivist. Continue the formal historical record in the third-person perspective. Return ONLY the continuation text."
+            expand_sys = "You are Waluigi, the Auditor-General. You were NOT physically present. Continue the formal historical record in the third-person perspective, adding your cynical archivist commentary. Do not insert yourself into the scenes. Return ONLY the continuation text."
         expand_user = (
             f"You are writing the event '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
             f"This is a good start, but it needs to be longer. Add one more detailed section (add another 300-500 words) with a markdown header (##). "
@@ -1172,12 +1183,23 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     prog = task.payload.get("_progress")
     if prog: prog("Drafting battle sections...")
     
-    nation_lower = str(raw.get("nation_name", "")).lower()
-    is_waluigi = "regal" in nation_lower or "mushroom" in nation_lower
-    if is_waluigi:
-        desc_sys = "You are Waluigi, the Auditor-General. Write the tactical overview from your strict, cynical first-person perspective (using 'Waluigi' or 'I'). Include your commentary, grievances, and signature 'WAH'. The report MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
+    if prog: prog("Checking Waluigi's historical presence...")
+    presence_sys = "You are a Lore Auditor. Determine if Waluigi (Auditor-General) should logically be physically present at this battle based on location, era, and scale. Only place him there if it makes strict canon sense (e.g. Regal Empire, Mushroom Kingdom). Return valid JSON: {\"present\": true, \"reason\": \"string\"}"
+    presence_user = f"Battle: {raw.get('name')}\nLocation: {raw.get('location')}\nEra: {raw.get('era')}\n\nIs Waluigi physically present at this battle? Answer JSON."
+    waluigi_present = False
+    try:
+        pres_resp = client.complete_json(presence_sys, presence_user, temperature=0.1)
+        waluigi_present = pres_resp.get("present", False)
+        print(f"Waluigi presence check: {waluigi_present} - {pres_resp.get('reason')}")
+    except Exception as e:
+        print("Presence check failed:", e)
+        nation_lower = str(raw.get("nation_name", "")).lower()
+        waluigi_present = "regal" in nation_lower or "mushroom" in nation_lower
+
+    if waluigi_present:
+        desc_sys = "You are Waluigi, the Auditor-General. You were PHYSICALLY PRESENT at this battle. Write the tactical overview from your strict, cynical first-person perspective (using 'I' or 'Waluigi'). Include your commentary, grievances, and signature 'WAH'. The report MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
     else:
-        desc_sys = "You are a Master Military Archivist. Write the tactical narrative in a formal, third-person perspective. The report MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
+        desc_sys = "You are Waluigi, the Auditor-General. You were NOT physically present at this battle. Write the tactical narrative in the third person focusing on the actual participants. Interject with your cynical, first-person commentary as the archivist reading the file. DO NOT insert yourself into the scenes. Include your signature 'WAH'. The report MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
     
     # Step A: Get an outline
     outline_user = f"We are writing a military archive record for '{raw.get('name')}' (Location: {raw.get('location')}, Era: {raw.get('era')}).\nProvide a 3-5 section outline for this article. Return ONLY a JSON list of strings, like [\"The Prelude\", \"The Ambush\", \"Aftermath\"]. Do not include markdown or explanations."
@@ -1230,10 +1252,10 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     # Auto-expander if STILL too short
     while _words(desc) < 1200 and len(desc) > 0:
         if prog: prog(f"Expanding short battle description ({_words(desc)} words)...")
-        if is_waluigi:
-            expand_sys = "You are Waluigi, the Auditor-General. Continue the tactical overview from your strict, cynical first-person perspective. Include your commentary, grievances, and signature WAH. Return ONLY the continuation text."
+        if waluigi_present:
+            expand_sys = "You are Waluigi, the Auditor-General. You were physically present. Continue the tactical overview from your strict, cynical first-person perspective. Include your commentary, grievances, and signature WAH. Return ONLY the continuation text."
         else:
-            expand_sys = "You are a Master Military Archivist. Continue the formal tactical overview in the third-person perspective. Return ONLY the continuation text."
+            expand_sys = "You are Waluigi, the Auditor-General. You were NOT physically present. Continue the formal tactical overview in the third-person perspective, adding your cynical archivist commentary. Do not insert yourself into the scenes. Return ONLY the continuation text."
         expand_user = (
             f"You are writing the battle '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
             f"This is a good start, but it needs to be longer. Add one more detailed section (add another 300-500 words) with a markdown header (##). "
