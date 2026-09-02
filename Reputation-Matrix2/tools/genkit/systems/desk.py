@@ -149,7 +149,14 @@ def _is_bad_output(text: str) -> tuple[bool, str]:
 
 
 def _clean(text: Any, *, lo: int, hi: int, field: str) -> str:
-    value = " ".join(str(text or "").split())
+    raw_str = str(text or "").strip()
+    if field in ("description", "aftermath", "waluigiAssessment"):
+        value = re.sub(r'[ 	]+
+', '
+', raw_str)
+    else:
+        value = " ".join(raw_str.split())
+        
     if field == "description":
         if len(value) < lo:
             raise ValidationError(f"{field} must be at least {lo} characters (got {len(value)})")
@@ -161,7 +168,7 @@ def _clean(text: Any, *, lo: int, hi: int, field: str) -> str:
     else:
         if not (lo <= len(value) <= hi) and field not in ("aftermath", "waluigiAssessment", "summary", "description"):
             raise ValidationError(f"{field} must be {lo}-{hi} characters (got {len(value)})")
-    if re.search(r"\bmike\b", value, re.I):
+    if re.search(r"mike", value, re.I):
         raise ValidationError(f"{field} names the GM; rewrite without 'mike'")
     return value
 
@@ -929,7 +936,7 @@ def events_apply(task: Task, record: dict[str, Any]) -> TaskResult:
         changed = [str(EVENTS.relative_to(ROOT))]
         
         if analysis_text:
-            aa_path = ROOT / "Reputation-Matrix2" / "data" / "articleAnalyses.json"
+            aa_path = ROOT / "data" / "articleAnalyses.json"
             if aa_path.exists():
                 with open(aa_path, "r", encoding="utf-8") as f:
                     aa_data = json.load(f)
@@ -952,7 +959,7 @@ def events_apply(task: Task, record: dict[str, Any]) -> TaskResult:
                     changed.append(str(aa_path.relative_to(ROOT)))
 
         if aftermath_text:
-            inv_path = ROOT / "Reputation-Matrix2" / "data" / "investigations.json"
+            inv_path = ROOT / "data" / "investigations.json"
             if inv_path.exists():
                 with open(inv_path, "r", encoding="utf-8") as f:
                     inv_data = json.load(f)
@@ -1294,7 +1301,7 @@ def battles_apply(task: Task, record: dict[str, Any]) -> TaskResult:
         changed = [str(BATTLES.relative_to(ROOT))]
         
         if analysis_text:
-            aa_path = ROOT / "Reputation-Matrix2" / "data" / "articleAnalyses.json"
+            aa_path = ROOT / "data" / "articleAnalyses.json"
             if aa_path.exists():
                 import json
                 with open(aa_path, "r", encoding="utf-8") as f:
@@ -1318,7 +1325,7 @@ def battles_apply(task: Task, record: dict[str, Any]) -> TaskResult:
                     changed.append(str(aa_path.relative_to(ROOT)))
 
         if aftermath_text:
-            inv_path = ROOT / "Reputation-Matrix2" / "data" / "investigations.json"
+            inv_path = ROOT / "data" / "investigations.json"
             if inv_path.exists():
                 import json
                 with open(inv_path, "r", encoding="utf-8") as f:
