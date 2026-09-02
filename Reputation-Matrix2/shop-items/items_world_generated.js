@@ -53842,5 +53842,42 @@ export const ITEMS_WORLD_GENERATED = {
     "_quality": {
       "validator": "shop-v2"
     }
+  },
+  "wz_gen_common_0867": {
+    "id": "wz_gen_common_0867",
+    "name": "Whispering Willow Wand",
+    "description": "This enchanted wand can whisper secrets from the trees. It's a reliable tool for gathering lore, but it only works in areas where there are at least five different tree species.",
+    "price": 45,
+    "category": "curiosities",
+    "rarity": "common",
+    "icon": "🌿",
+    "stock": 3,
+    "levelRequirement": 2,
+    "levelRequirementReason": "Requires basic understanding of nature to wield effectively.",
+    "effectDetails": [
+      {
+        "title": "Tree Whisper",
+        "rules": "When activated, the wand allows you to hear secrets from five different tree species within a 10-foot radius for 1 minute."
+      }
+    ],
+    "usage": {
+      "activation": "action",
+      "duration": "1 minute",
+      "endsWhen": "the time runs out or when you stop concentrating on it (as an action)",
+      "charges": "one use per day"
+    },
+    "warning": "The information received is only as reliable as the trees' knowledge, which can be outdated.",
+    "vendorReason": "Wario stocks this because everyone loves a good gossip, especially about trees!",
+    "shippingDetail": "Shipped with a special delivery voucher for tree whispering sessions.",
+    "status": "generated",
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "shop_items",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-09-02T02:29:09+00:00"
+    },
+    "_quality": {
+      "validator": "shop-v2"
+    }
   }
 };

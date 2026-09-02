@@ -3914,6 +3914,151 @@
         "battle_of_the_sugar_swamp"
       ],
       "exhibits": []
+    },
+    {
+      "id": "inv_eldridge_hillfort_defense_722_bf",
+      "codename": "DEFENSE OF ELDRIDGE HILLFORT",
+      "title": "Aftermath: Defense of Eldridge Hillfort",
+      "subtitle": "The archive requires answers.",
+      "status": "active",
+      "classification": "Generated Investigation",
+      "opened": "Firstlight 15, 722 BF",
+      "archivist": "Waluigi, Auditor-General",
+      "icon": "🕵️",
+      "accent": "#4a9c6d",
+      "plainSummary": [
+        {
+          "point": "Aftermath of the Raid on Eldridge Hillfort:\n\nFollowing the raid, purification teams from neighboring settlements arrived to restore order and health within the hillfort. The immediate task was to address the sanitation issues caused by the battle, ensuring that any infectious agents were neutralized. New water sources were vital, and after a series of challenges, the discovery of a hidden spring brought much-needed relief.\n\nThe hillfort’s leaders prioritized both short-term repairs and long-term strategic planning. They fortified existing defenses, reinforcing walls and improving watchtowers to better withstand potential future attacks. Simultaneously, they began reorganizing supply lines and engaging in diplomacy with nearby settlements for additional support and resources.\n\nDespite the optimism brought by the spring, Eldridge Hillfort remained on high alert. The people knew that rebuilding was crucial but also understood the importance of preparing for further conflict. This dual focus reflected a deep understanding of their environment and the unyielding nature of survival. The hillfort stood as both a symbol of resilience and a reminder of the ongoing struggle to maintain order in an ever-threatened world."
+        }
+      ],
+      "leads": [],
+      "sessions": [
+        {
+          "id": "s_eldridge_hillfort_defense_722_bf",
+          "label": "Defense of Eldridge Hillfort",
+          "event": "eldridge_hillfort_defense_722_bf"
+        }
+      ],
+      "relatedEvents": [
+        "eldridge_hillfort_defense_722_bf"
+      ],
+      "exhibits": []
+    },
+    {
+      "id": "inv_battle_of_the_mistral_farmstead",
+      "codename": "BATTLE OF THE MISTRAL FARMSTEAD",
+      "title": "Aftermath: Battle of the Mistral Farmstead",
+      "subtitle": "The archive requires answers.",
+      "status": "active",
+      "classification": "Generated Investigation",
+      "opened": "Chillwind 15, 722 BF",
+      "archivist": "Waluigi, Auditor-General",
+      "icon": "🕵️",
+      "accent": "#4a9c6d",
+      "plainSummary": [
+        {
+          "point": "Following the intense Siege and Counter-Siege phase of the Battle of Mistral Farmstead, Block Farm Village emerged battered but resilient. The village's initial population had dwindled significantly due to casualties and disease, yet those who remained were hardened by the ordeal. Supplies, which had been stretched to their limits during the siege, were gradually replenished thanks to the successful alliance with neighboring villages.\n\nThe cooperation among these allied communities proved invaluable in bolstering morale and re-establishing a semblance of normalcy within the village. The leadership's strategic decisions paid off; the combined forces successfully disrupted the Shadow Guild’s operations, weakening their grip over the region. This victory did not come without cost; numerous villagers lost their lives or were left permanently disabled.\n\nThe aftermath saw the village undertaking extensive rebuilding efforts and implementing strict public health measures to combat lingering diseases. The alliance was solidified further as these villages learned valuable lessons in unity and preparedness for future challenges. Block Farm Village’s leadership emerged stronger, determined not only to defend but also to rebuild a prosperous community amidst the shadows cast by past conflicts."
+        }
+      ],
+      "leads": [],
+      "sessions": [
+        {
+          "id": "s_battle_of_the_mistral_farmstead",
+          "label": "Battle of the Mistral Farmstead",
+          "event": "battle_of_the_mistral_farmstead"
+        }
+      ],
+      "relatedEvents": [
+        "battle_of_the_mistral_farmstead"
+      ],
+      "exhibits": []
+    },
+    {
+      "id": "inv_undercity_grotto_seclusion_incident",
+      "codename": "THE SECLUSION INCIDENT AT THE UNDERCITY GROTTO",
+      "title": "Aftermath: The Seclusion Incident at the Undercity Grotto",
+      "subtitle": "The archive requires answers.",
+      "status": "active",
+      "classification": "Generated Investigation",
+      "opened": "Chillwind 15, 923 BF",
+      "archivist": "Waluigi, Auditor-General",
+      "icon": "🕵️",
+      "accent": "#4a9c6d",
+      "plainSummary": [
+        {
+          "point": "Following the pivotal event within the Undercity's hidden grotto, Waluigi found himself in a state of profound reflection and heightened awareness. The key turned once more, sealing behind him the ancient treasures and secrets he had uncovered. The resounding click of the door symbolized both closure and new beginnings—closure to a chapter steeped in history, and a new beginning for his role as an influential figure in the Undercity.\n\nThe weight in his hand—the artifact that represented the balance—had felt heavier with each step deeper into the grotto. Now, it seemed lighter, but not due to any diminishment of responsibility. Instead, he felt a renewed sense of purpose and clarity. The artifacts' pulsating presence had left him with an understanding that actions taken tonight would ripple through time, influencing future decisions and events.\n\nWaluigi emerged from the grotto, his steps steady but deliberate. The whispers of centuries past seemed to fade into the background, replaced by a renewed sense of duty. His path forward was clear: to maintain the balance, to act swiftly with the knowledge gained tonight, and to ensure that secrets long kept did not lead to the loss of harmony in the Undercity.\n\nThe Undercity inhabitants noticed his altered demeanor, seeing in him a leader more confident and resolute. Waluigi knew that he had taken on a monumental task but also that he was capable of navigating this path with wisdom and strength. The balance was fragile, but so too were the lives of those who depended on it."
+        }
+      ],
+      "leads": [],
+      "sessions": [
+        {
+          "id": "s_undercity_grotto_seclusion_incident",
+          "label": "The Seclusion Incident at the Undercity Grotto",
+          "event": "undercity_grotto_seclusion_incident"
+        }
+      ],
+      "relatedEvents": [
+        "undercity_grotto_seclusion_incident"
+      ],
+      "exhibits": []
+    },
+    {
+      "id": "inv_ruin_recovery_1023_bf",
+      "codename": "THE QUIET RECLAMATION OF FORGOTTEN RUINS",
+      "title": "Aftermath: The Quiet Reclamation of Forgotten Ruins",
+      "subtitle": "The archive requires answers.",
+      "status": "active",
+      "classification": "Generated Investigation",
+      "opened": "Chillwind 15, 1023 BF",
+      "archivist": "Waluigi, Auditor-General",
+      "icon": "🕵️",
+      "accent": "#4a9c6d",
+      "plainSummary": [
+        {
+          "point": "The riders from Rohan returned home with tales of the hillfort's relics under the cloak of morning light. The cache they had uncovered spoke volumes about a past now buried beneath layers of time, but it also left them with an uneasy feeling, as if the stories behind those artifacts were incomplete or lost to time. Waluigi’s mind lingered on the irony of history—how empires rise and fall while leaving behind only their forgotten relics.\n\nThe local scholars, who examined the collection, found evidence that suggested a blend of cultural influences not previously known in this region. This discovery opened new avenues for historical research but also raised more questions than answers. The pottery shards and metalwork hinted at once-flourishing trade routes and alliances that had since vanished into obscurity.\n\nThe hillfort itself, now quiet and still, was left to its own devices. It stood as a silent testament to the passage of time, its stones indifferent to the stories they held. As the days passed, the hillfort continued its slow decline, with only the artifacts from the cache serving as reminders of its former glory.\n\nWaluigi returned to his quarters, the weight of the past heavy on his mind. He realized that while the hillfort and its treasures belonged to history, he was part of a present where the lessons of the past could shape future decisions. The call in the wind, though distant, resonated with him—a reminder that all things have their end, but understanding is what truly matters."
+        }
+      ],
+      "leads": [],
+      "sessions": [
+        {
+          "id": "s_ruin_recovery_1023_bf",
+          "label": "The Quiet Reclamation of Forgotten Ruins",
+          "event": "ruin_recovery_1023_bf"
+        }
+      ],
+      "relatedEvents": [
+        "ruin_recovery_1023_bf"
+      ],
+      "exhibits": []
+    },
+    {
+      "id": "inv_frostfall_moonlit_mysteries",
+      "codename": "FROSTFALL'S MOONLIT MYSTERIES",
+      "title": "Aftermath: Frostfall's Moonlit Mysteries",
+      "subtitle": "The archive requires answers.",
+      "status": "active",
+      "classification": "Generated Investigation",
+      "opened": "Deepwinter 15, year 784 BF",
+      "archivist": "Waluigi, Auditor-General",
+      "icon": "🕵️",
+      "accent": "#4a9c6d",
+      "plainSummary": [
+        {
+          "point": "Following his harrowing encounter in Frostfall, Waluigi found himself amidst a landscape where shadows loomed large and secrets were as cold as the wind. The distant howls of creatures had left an indelible mark on his psyche, adding to the unease already present when he returned to the city. Local authorities reported no immediate disturbances or unusual activities, yet Waluigi could not shake off the feeling that something significant had occurred.\n\nIn the days following this event, Waluigi's contacts within various intelligence networks began reporting heightened surveillance and increased chatter among underground groups known for their involvement in such shadowy affairs. The peculiar hums he encountered resonated with theories of anomalous electromagnetic interference—a phenomenon often exploited by those seeking to control uncharted territories and resources.\n\nWaluigi decided to dig deeper into historical records, uncovering old reports of similar occurrences across various regions. His investigation led him to a network of clandestine organizations operating at the crossroads of science, technology, and power politics. The more he uncovered, the clearer it became that these events were not isolated incidents but part of a much larger, interconnected web.\n\nWith this new knowledge, Waluigi realized the importance of his role in unraveling these mysteries. Each piece of information pieced together brought him one step closer to understanding the true extent of the manipulation at play. The cold wind outside was a constant reminder that the battle against shadows would be long and arduous."
+        }
+      ],
+      "leads": [],
+      "sessions": [
+        {
+          "id": "s_frostfall_moonlit_mysteries",
+          "label": "Frostfall's Moonlit Mysteries",
+          "event": "frostfall_moonlit_mysteries"
+        }
+      ],
+      "relatedEvents": [
+        "frostfall_moonlit_mysteries"
+      ],
+      "exhibits": []
     }
   ]
 }

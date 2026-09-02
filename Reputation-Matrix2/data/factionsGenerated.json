@@ -2727,6 +2727,25 @@
           "battle_of_the_shadow_canyon"
         ]
       }
+    },
+    "mountain_dwarves": {
+      "name": "Mountain Dwarves",
+      "description": "Named in the record “Defense of Eldridge Hillfort”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "region": "Unrecorded",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T02:35:30.691161+00:00",
+        "sourceRecord": "Defense of Eldridge Hillfort"
+      }
     }
   }
 }
