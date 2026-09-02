@@ -752,7 +752,12 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     prog = task.payload.get("_progress")
     if prog: prog("Drafting article sections...")
     
-    desc_sys = "You are Waluigi, the Auditor-General. Write the story from your strict, cynical first-person perspective (using 'Waluigi' or 'I'). Include your commentary, grievances, and signature 'WAH'. The story MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
+    nation_lower = str(raw.get("nation_name", "")).lower()
+    is_waluigi = "regal" in nation_lower or "mushroom" in nation_lower
+    if is_waluigi:
+        desc_sys = "You are Waluigi, the Auditor-General. Write the story from your strict, cynical first-person perspective (using 'Waluigi' or 'I'). Include your commentary, grievances, and signature 'WAH'. The story MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
+    else:
+        desc_sys = "You are a Master Archivist. Write the historical narrative in a formal, third-person perspective. The story MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
     
     # Step A: Get an outline
     outline_user = f"We are writing a historical archive record for '{raw.get('name')}' (Location: {raw.get('location')}, Era: {raw.get('era')}).\nProvide a 3-5 section outline for this article. Return ONLY a JSON list of strings, like [\"Prologue: The Rising Tension\", \"The Main Conflict\", \"Aftermath\"]. Do not include markdown or explanations."
@@ -769,6 +774,20 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     except Exception:
         outline = ["Background", "The Incident", "Aftermath"]
         
+    # Phase 1b: Lore Audit
+    if prog: prog("Auditing outline for lore consistency...")
+    audit_sys = "You are a Senior Archivist conducting a lore audit. Review the following proposed article outline. Ensure it makes logical sense within the established lore, does not hallucinate major world-altering events, and does not mention game mechanics. Return ONLY a valid JSON list of strings for the final approved outline."
+    audit_user = f"Proposed Outline:\n{json.dumps(outline)}\n\nContext: {raw.get('name')} ({raw.get('location')}, {raw.get('era')}).\nReturn the final JSON list outline."
+    try:
+        audit_resp = client.complete_text(audit_sys, audit_user, temperature=0.2).strip()
+        if audit_resp.startswith("```json"):
+            audit_resp = audit_resp.split("```json")[1].split("```")[0].strip()
+        elif audit_resp.startswith("```"):
+            audit_resp = audit_resp.split("```")[1].split("```")[0].strip()
+        outline = json.loads(audit_resp)
+    except:
+        pass
+
     # Step B: Generate each section
     final_desc = []
     for i, section_title in enumerate(outline):
@@ -791,7 +810,10 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     # Auto-expander if STILL too short
     while _words(desc) < 1200 and len(desc) > 0:
         if prog: prog(f"Expanding short description ({_words(desc)} words)...")
-        expand_sys = "You are Waluigi, the Auditor-General. Continue the historical record from your strict, cynical first-person perspective. Include your commentary, grievances, and signature WAH. Return ONLY the continuation text."
+        if is_waluigi:
+            expand_sys = "You are Waluigi, the Auditor-General. Continue the historical record from your strict, cynical first-person perspective. Include your commentary, grievances, and signature WAH. Return ONLY the continuation text."
+        else:
+            expand_sys = "You are a Master Archivist. Continue the formal historical record in the third-person perspective. Return ONLY the continuation text."
         expand_user = (
             f"You are writing the event '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
             f"This is a good start, but it needs to be longer. Add one more detailed section (add another 300-500 words) with a markdown header (##). "
@@ -1150,7 +1172,12 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     prog = task.payload.get("_progress")
     if prog: prog("Drafting battle sections...")
     
-    desc_sys = "You are an encyclopedic war-reporter writing a tactical overview translating dice log ground-truth into physical consequences. Write objectively about historical battles involving minor factions and remote locations. Use markdown headers. Never write the name mike."
+    nation_lower = str(raw.get("nation_name", "")).lower()
+    is_waluigi = "regal" in nation_lower or "mushroom" in nation_lower
+    if is_waluigi:
+        desc_sys = "You are Waluigi, the Auditor-General. Write the tactical overview from your strict, cynical first-person perspective (using 'Waluigi' or 'I'). Include your commentary, grievances, and signature 'WAH'. The report MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
+    else:
+        desc_sys = "You are a Master Military Archivist. Write the tactical narrative in a formal, third-person perspective. The report MUST be at least 1000 words long. Write about minor characters and distant regions. Use markdown headers. Never write the name mike."
     
     # Step A: Get an outline
     outline_user = f"We are writing a military archive record for '{raw.get('name')}' (Location: {raw.get('location')}, Era: {raw.get('era')}).\nProvide a 3-5 section outline for this article. Return ONLY a JSON list of strings, like [\"The Prelude\", \"The Ambush\", \"Aftermath\"]. Do not include markdown or explanations."
@@ -1167,6 +1194,20 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     except Exception:
         outline = ["The Prelude", "The Battle", "The Aftermath"]
         
+    # Phase 1b: Lore Audit
+    if prog: prog("Auditing outline for lore consistency...")
+    audit_sys = "You are a Senior Military Archivist conducting a lore audit. Review the following proposed battle outline. Ensure it makes logical sense within the established lore, does not hallucinate major world-altering events, and does not mention game mechanics. Return ONLY a valid JSON list of strings for the final approved outline."
+    audit_user = f"Proposed Outline:\n{json.dumps(outline)}\n\nContext: {raw.get('name')} ({raw.get('location')}, {raw.get('era')}).\nReturn the final JSON list outline."
+    try:
+        audit_resp = client.complete_text(audit_sys, audit_user, temperature=0.2).strip()
+        if audit_resp.startswith("```json"):
+            audit_resp = audit_resp.split("```json")[1].split("```")[0].strip()
+        elif audit_resp.startswith("```"):
+            audit_resp = audit_resp.split("```")[1].split("```")[0].strip()
+        outline = json.loads(audit_resp)
+    except:
+        pass
+
     # Step B: Generate each section
     final_desc = []
     for i, section_title in enumerate(outline):
@@ -1189,7 +1230,10 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     # Auto-expander if STILL too short
     while _words(desc) < 1200 and len(desc) > 0:
         if prog: prog(f"Expanding short battle description ({_words(desc)} words)...")
-        expand_sys = "You are Waluigi, the Auditor-General. Continue the tactical overview from your strict, cynical first-person perspective. Include your commentary, grievances, and signature WAH. Return ONLY the continuation text."
+        if is_waluigi:
+            expand_sys = "You are Waluigi, the Auditor-General. Continue the tactical overview from your strict, cynical first-person perspective. Include your commentary, grievances, and signature WAH. Return ONLY the continuation text."
+        else:
+            expand_sys = "You are a Master Military Archivist. Continue the formal tactical overview in the third-person perspective. Return ONLY the continuation text."
         expand_user = (
             f"You are writing the battle '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
             f"This is a good start, but it needs to be longer. Add one more detailed section (add another 300-500 words) with a markdown header (##). "
