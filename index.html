@@ -6992,6 +6992,8 @@ function homeRecentAdventuresHtml(){
     if(!ev||!ev.id||seen.has(ev.id)) continue;
     seen.add(ev.id);
     const isLatest=ev.id===latestId;
+
+    const generatedBadge = (ev.status === "Generated — review" || ev._generated) ? `<span style="margin-left:8px; padding: 2px 6px; font-size: 10px; background: rgba(255,165,0,0.2); color: #ffa500; border-radius: 4px; font-weight: bold; border: 1px solid rgba(255,165,0,0.5); vertical-align: middle;">✨ AI GENERATED</span>` : '';
     const name=ev.name||ev.title||prettyId(ev.id);
     const dateHead=String(ev.date||'').split('—')[0].trim();
     const pal=homeFeedAccent(ev, isLatest);
@@ -7021,7 +7023,7 @@ function homeRecentAdventuresHtml(){
     });
     cards.push(`<div class="campaign-timeline-item" onclick="Router.go('#/article/${esc(ev.id)}')" style="cursor:pointer;border-left:4px solid ${pal.bar};background:linear-gradient(135deg,${pal.glow},var(--panel2));">
          <div class="timeline-date-chip" style="color:${pal.chip};">${kicker}</div>
-         <h3 class="timeline-event-title">${esc(name)}</h3>
+         <h3 class="timeline-event-title">${esc(name)}${generatedBadge}</h3>
          <div class="timeline-actors">${actors}</div>
          <p class="timeline-summary">${esc(sum)}</p>
          <div class="home-feed-actions" onclick="event.stopPropagation();">${actions.join('')}</div>
@@ -7184,7 +7186,8 @@ function view_home(){
        </div>
        <a class="chip" href="Reputation-Matrix2/app/pages/shop/shop.html" style="margin:0; font-weight:700; background:var(--panel2);">🛒 Wario Armory</a>
        <a class="chip" href="#/songs" style="margin:0; font-weight:700; background:var(--panel2);">🎵 Campaign Songbook (23 Songs · 5 Full Lyrics)</a>
-       <a class="chip" href="currency.html" style="margin:0; font-weight:700; background:var(--panel2);">💱 48-Currency Bank</a>
+              <a class="chip" href="currency.html" style="margin:0; font-weight:700; background:var(--panel2);">💱 48-Currency Bank</a>
+       <a class="chip" href="Reputation-Matrix2/app/pages/standalone/injury-desk.html" style="margin:0; font-weight:700; background:var(--panel2);">🎲 Permanent Injury Spinner</a>
      </div>
    </div>
 

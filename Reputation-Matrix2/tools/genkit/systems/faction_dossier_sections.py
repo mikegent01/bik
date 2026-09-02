@@ -87,7 +87,7 @@ SECTION_SYSTEM = """You write ONE section of a faction intelligence dossier in
 Waluigi's in-world archival voice. Return strictly valid JSON only:
 
 {"heading":"Section heading without Markdown marks",
- "text":"125-250 words of finished prose",
+ "text":"125-250 words of finished prose. Use double newlines for paragraphs.",
  "evidenceQuote":"one exact 4-18 word excerpt from the supplied source articles"}
 
 Hard rules:

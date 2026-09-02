@@ -774,7 +774,7 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     # Auto-expander if STILL too short
     while _words(desc) < 1200 and len(desc) > 0:
         if prog: prog(f"Expanding short description ({_words(desc)} words)...")
-        expand_sys = "You are an archivist. Continue the historical record in plaintext. Return ONLY the continuation text."
+        expand_sys = "You are Waluigi, the Auditor-General. Continue the historical record from your strict, cynical first-person perspective. Include your commentary, grievances, and signature WAH. Return ONLY the continuation text."
         expand_user = (
             f"You are writing the event '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
             f"This is a good start, but it needs to be longer. Add one more detailed section (add another 300-500 words) with a markdown header (##). "
@@ -952,6 +952,7 @@ def events_apply(task: Task, record: dict[str, Any]) -> TaskResult:
         
         changed = [str(EVENTS.relative_to(ROOT))]
         
+        import json
         if analysis_text:
             aa_path = ROOT / "data" / "articleAnalyses.json"
             if aa_path.exists():
@@ -1171,7 +1172,7 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     # Auto-expander if STILL too short
     while _words(desc) < 1200 and len(desc) > 0:
         if prog: prog(f"Expanding short battle description ({_words(desc)} words)...")
-        expand_sys = "You are an archivist. Continue the war report in plaintext. Return ONLY the continuation text."
+        expand_sys = "You are Waluigi, the Auditor-General. Continue the tactical overview from your strict, cynical first-person perspective. Include your commentary, grievances, and signature WAH. Return ONLY the continuation text."
         expand_user = (
             f"You are writing the battle '{raw.get('name')}'. Here is what you have so far:\n\n{desc[-1000:]}\n\n"
             f"This is a good start, but it needs to be longer. Add one more detailed section (add another 300-500 words) with a markdown header (##). "
@@ -1344,6 +1345,7 @@ def battles_apply(task: Task, record: dict[str, Any]) -> TaskResult:
         
         changed = [str(BATTLES.relative_to(ROOT))]
         
+        import json
         if analysis_text:
             aa_path = ROOT / "data" / "articleAnalyses.json"
             if aa_path.exists():
