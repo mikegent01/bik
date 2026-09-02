@@ -21,7 +21,6 @@ import re
 def _words(text: str) -> int:
     return len(re.findall(r"\b\w+\b", text))
 
-import json
 import re
 import sys
 import threading
@@ -547,7 +546,6 @@ def locations_generate(task: Task, client: Any, temperature: float) -> dict[str,
     
     try:
         outline_resp = client.complete_text(desc_sys, outline_user, temperature=temperature).strip()
-        import json
         if outline_resp.startswith("```json"):
             outline_resp = outline_resp.split("```json")[1].split("```")[0].strip()
         elif outline_resp.startswith("```"):
@@ -775,7 +773,6 @@ def events_generate(task: Task, client: Any, temperature: float) -> dict[str, An
     
     try:
         outline_resp = client.complete_text(desc_sys, outline_user, temperature=temperature).strip()
-        import json
         if outline_resp.startswith("```json"):
             outline_resp = outline_resp.split("```json")[1].split("```")[0].strip()
         elif outline_resp.startswith("```"):
@@ -1002,7 +999,6 @@ def events_apply(task: Task, record: dict[str, Any]) -> TaskResult:
         
         changed = [str(EVENTS.relative_to(ROOT))]
         
-        import json
         if analysis_text:
             aa_path = ROOT / "data" / "articleAnalyses.json"
             if aa_path.exists():
@@ -1029,7 +1025,6 @@ def events_apply(task: Task, record: dict[str, Any]) -> TaskResult:
         if aftermath_text or exhibit_data:
             inv_path = ROOT / "data" / "investigations.json"
             if inv_path.exists():
-                import json
                 with open(inv_path, "r", encoding="utf-8") as f:
                     inv_data = json.load(f)
                 inv_list = inv_data.setdefault("investigations", [])
@@ -1206,7 +1201,6 @@ def battles_generate(task: Task, client: Any, temperature: float) -> dict[str, A
     
     try:
         outline_resp = client.complete_text(desc_sys, outline_user, temperature=temperature).strip()
-        import json
         if outline_resp.startswith("```json"):
             outline_resp = outline_resp.split("```json")[1].split("```")[0].strip()
         elif outline_resp.startswith("```"):
@@ -1428,11 +1422,9 @@ def battles_apply(task: Task, record: dict[str, Any]) -> TaskResult:
         
         changed = [str(BATTLES.relative_to(ROOT))]
         
-        import json
         if analysis_text:
             aa_path = ROOT / "data" / "articleAnalyses.json"
             if aa_path.exists():
-                import json
                 with open(aa_path, "r", encoding="utf-8") as f:
                     aa_data = json.load(f)
                 aa_list = aa_data.setdefault("analyses", [])
@@ -1456,7 +1448,6 @@ def battles_apply(task: Task, record: dict[str, Any]) -> TaskResult:
         if aftermath_text or exhibit_data:
             inv_path = ROOT / "data" / "investigations.json"
             if inv_path.exists():
-                import json
                 with open(inv_path, "r", encoding="utf-8") as f:
                     inv_data = json.load(f)
                 inv_list = inv_data.setdefault("investigations", [])
