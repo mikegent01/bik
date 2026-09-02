@@ -151,9 +151,7 @@ def _is_bad_output(text: str) -> tuple[bool, str]:
 def _clean(text: Any, *, lo: int, hi: int, field: str) -> str:
     raw_str = str(text or "").strip()
     if field in ("description", "aftermath", "waluigiAssessment"):
-        value = re.sub(r'[ 	]+
-', '
-', raw_str)
+        value = re.sub(r'[ \t]+\n', '\n', raw_str)
     else:
         value = " ".join(raw_str.split())
         
