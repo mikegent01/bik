@@ -2350,13 +2350,17 @@
     },
     "crematoria_guild": {
       "name": "Crematoria Guild",
-      "description": "Named in the record “The Refugee Camp Visitation”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
+      "description": "## Identity and Confirmed Standing\n\nThe Crematoria Guild is a shadowy organisation with its origins tied to Mr. L's actions during the Chaos Heart Crisis. Mentioned first in 'The Refugee Camp Visitation,' this guild plays a role as a secret ally of Mr. L, engaged in covert activities that include interrogating refugees for intelligence. The records are deliberately vague about many details, suggesting an organization with significant capabilities but an uncertain and mobile nature. It is believed to operate within the Flipside border region, though its exact headquarters remain unknown, possibly hidden or moving as part of a larger network. The evidence from 'The Refugee Camp Visitation' indicates that the Crematoria Guild was involved in an event where 'dimensional displacement due to Chaos Heart proximity effects' occurred, leading to the disappearance of approximately 130 refugees. Officially, this outcome is attributed to 'dimensional displacement,' but the archive hints at more sinister undertones, suggesting a secret society with ties to Mr. L and potentially larger influences within the realm. The current status of the Crematoria Guild remains unconfirmed, as records are incomplete and possibly deliberately so, leaving much about its activities and standing in shadow.\n\n## Membership and Structure\n\nThe Crematoria Guild, a shadowy organisation first mentioned in connection with Mr. L's activities during the Chaos Heart Crisis, maintains an elusive structure that remains largely undocumented. The evidence available suggests a leadership role by Mr. L, alias of Luigi, but the records are silent on specific ranks and formal branches within the guild. The Refugee Camp Visitation is the most disturbing and least documented of Mr. L's operations during the crisis, where he demanded information about Mario’s whereabouts from the displaced persons camp population. This visitation has left the guild's membership largely unconfirmed beyond its connection to Mr. L. Allegiances appear fluid, with members possibly operating in clandestine cells or as freelance operatives within the network. The records do not establish a clear hierarchy or structure; instead, they hint at a web of individuals who operate under Mr. L’s shadowy influence, making it difficult to ascertain formal membership beyond those directly linked to the Crematoria Guild through incidents like the Refugee Camp Visitation.\n\n## Recorded Operations and Relationships\n\nThe Crematoria Guild, a shadowy organization first mentioned in connection with Mr. L's activities during the Chaos Heart Crisis, has been involved in covert operations that remain largely unconfirmed due to deliberate gaps in official records. The Refugee Camp Visitation, one of these operations, is described in 'The Refugee Camp Visitation' as 'the most disturbing and least documented of [L's] operations during the Chaos Heart Crisis.' During this visitation, Mr. L demanded information about Mario's whereabouts from refugees displaced by dimensional instability. When the refugees could not provide the sought-after information—because they lacked it—the outcome is shrouded in uncertainty. The records are deliberately incomplete, with some entries missing entirely. Officially, the camp was found abandoned; approximately 170 refugees were eventually located elsewhere, while another 130 were never accounted for. The official conclusion of 'dimensional displacement' reached at this time does not fully explain these discrepancies. Mr. L's operations during the Chaos Heart Crisis have thus left a legacy of secrecy and suspicion surrounding the Crematoria Guild’s true nature and activities.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Crematoria Guild represents a significant risk to any organization that operates in or near the border regions of Flipside. Their involvement with Mr. L during the Chaos Heart Crisis suggests they are capable of extraordinary, even chaotic, operations. The nature of their activities remains opaque; while their connection to refugees and potential interrogations is confirmed, the full extent of their capabilities and objectives eludes clear understanding. \"This would be consistent with Chaos Heart Crisis phenomena but does not explain why\"—these words highlight the ambiguity in the available records. Waluigi advises caution when dealing with this faction, recommending thorough reconnaissance before engaging. The guild's true headquarters are unknown, possibly mobile or hidden within their network, making it difficult to predict their next move. Until more is known about their intentions and capabilities, operations should proceed with extreme vigilance.",
+      "region": "Unrecorded — possibly Flipside border region",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
-        "allies": [],
-        "enemies": []
+        "allies": [
+          "luigi"
+        ],
+        "enemies": [
+          "mario"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -2365,55 +2369,116 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:46:45.037708+00:00",
         "sourceRecord": "The Refugee Camp Visitation"
+      },
+      "title": "The Green Thunder's Shadowy Allies",
+      "type": "Guild / Secret Society",
+      "currentStatus": "Unconfirmed",
+      "leader": "Mr. L (alias of Luigi)",
+      "headquarters": "Unknown, possibly mobile or hidden within the Crematoria Guild network",
+      "motto": "No recorded motto",
+      "summary": "The Crematoria Guild is a shadowy organisation first mentioned in connection with Mr. L's activities during the Chaos Heart Crisis, where it was involved in interrogating refugees for information.",
+      "evidenceQuotes": [
+        "dimensional displacement due to Chaos Heart proximity effects",
+        "The Refugee Camp Visitation is the most disturbing and least documented of Mr",
+        "L's operations during the Chaos Heart Crisis"
+      ],
+      "waluigi_tip": "The Crematoria Guild operates with deliberate ambiguity and secrecy. Approach any interaction with extreme caution, as their true nature is far from fully understood.",
+      "keyEvents": [
+        "refugee_camp_visitation",
+        "chaos_heart_crisis",
+        "ruined_manor_convergence",
+        "mr_l",
+        "luigi"
+      ],
+      "relatedArticles": [
+        "refugee_camp_visitation",
+        "chaos_heart_crisis",
+        "ruined_manor_convergence",
+        "mr_l",
+        "luigi"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:40:52+00:00",
+        "sourceArticles": [
+          "refugee_camp_visitation",
+          "chaos_heart_crisis",
+          "ruined_manor_convergence",
+          "mr_l",
+          "luigi"
+        ]
       }
     },
     "prince_peasley": {
       "name": "Prince Peasley",
-      "description": "Named in the record “The Second Diplomatic Summit”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:47:22.835897+00:00",
         "sourceRecord": "The Second Diplomatic Summit"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:41:03+00:00",
+        "sourceArticles": [
+          "second_summit",
+          "dk_crew",
+          "dreamland",
+          "fountain_of_dreams",
+          "princess_daisy"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "arab_yeti": {
       "name": "Arab Yeti",
-      "description": "Named in the record “The Second Diplomatic Summit”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "generic",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:47:22.908115+00:00",
         "sourceRecord": "The Second Diplomatic Summit"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:41:15+00:00",
+        "sourceArticles": [
+          "second_summit",
+          "dk_crew",
+          "dreamland",
+          "fountain_of_dreams",
+          "princess_daisy"
+        ],
+        "decision": "removed",
+        "entityKind": "generic"
       }
     },
     "koopa_resistance_main_force": {
       "name": "Koopa Resistance Main Force",
-      "description": "Named in the record “The Fall of the Regent Sorcerer”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
+      "description": "## Identity and Confirmed Standing\n\nThe Koopa Resistance Main Force is identified as the primary operational unit of the broader Koopa Resistance movement. Based on historical records, this faction has played a pivotal role in significant conflicts, notably during the final battle against Kamek and his Wyrm avatar at Valley Crater Rim, Final Anchor Site. The evidence confirms their active participation: 'Bob-omb Demolitions Expert KIA sacrifice' underscores that the Koopa Resistance Main Force was present and engaged in direct combat. Their headquarters remains unrecorded, indicating a flexible and covert operational structure. The current status of the Koopa Resistance is confirmed as active; they are allies with other Koopas and have demonstrated their capability by neutralizing a formidable adversary. Despite their stealthy nature, they have made significant contributions to the region's strategic balance.\n\n## Membership and Structure\n\nThe Koopa Resistance Main Force, a crucial military arm of the Koopa Resistance, operates with a defined but flexible structure. The force's effectiveness was highlighted in 'The Fall of the Regent Sorcerer' at Final Anchor Valley Crater Rim on June 27, 1040. This battle saw Hammer Bro Sergeant and Bob-omb Demolitions Expert as key operatives. 'Bob omb Demolitions Expert planted charges on the crystal,' a decisive action that played a pivotal role in dismantling Kamek's power source. The Koopa Foreman served as the de facto leader, though no formal hierarchy was established. The force consisted of distinct but integrated ranks and branches, including demolition experts like Bob-omb Demolitions Expert who specialized in strategic destruction. This organization demonstrates resilience and adaptability, crucial for its survival against formidable adversaries such as Kamek and his allies, the Magikoopa Council and the Primordial Wyrm.\n\n## Recorded Operations and Relationships\n\nThe Koopa Resistance Main Force, led by the Koopa Foreman, played a pivotal role in the decisive battle against Kamek, the Regent Sorcerer. The final assault targeted the anchor at the volcanic crater rim—the heart of Kamek's power (p The final assault targeted the anchor at the volcanic crater rim the heart of Kamek's power). This strategic move aimed to neutralize Kamek’s source of magical might. During the confrontation, Hammer Bro Sergeant and Bob-omb Demolitions Expert led a coordinated effort that resulted in Kamek being reduced to an avatar 30 feet high, wreathed in purple fire. The resistance faced significant adversity; however, their tenacity allowed them to destroy the final anchor, imprisoning the Wyrm within its depths. The sacrifice of Bob-omb Demolitions Expert ensured the success of this operation. With Kamek’s magic severed and his avatar defeated, he was captured and taken into custody. This victory not only marked a turning point in the conflict but also demonstrated the Koopa Resistance Main Force's capability to challenge even the most formidable sorcery.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Koopa Resistance Main Force demonstrated its capability in destroying the final anchor at Final Anchor Valley Crater Rim. The former advisor had transformed into a 30-foot avatar wreathed in purple fire, showcasing Kamek’s formidable power and the resistance’s strategic acumen. While the evidence of their effectiveness is clear, several unknowns remain. The exact composition and capabilities of Kamek's forces beyond the primary anchor are still uncharted territory. Additionally, it remains unknown how resilient the Koopa Resistance will be against future threats or if they can sustain such intense battles indefinitely. Waluigi assesses that while the resistance has proven itself in a decisive victory, the operational risks increase with each encounter. The organization’s success hinges on maintaining internal cohesion and avoiding overreliance on charismatic leaders like the Koopa Foreman. It is imperative for the Resistance to develop a more cohesive and resilient structure to mitigate future uncertainties.",
       "region": "Unrecorded",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
         "allies": [],
-        "enemies": []
+        "enemies": [
+          "primordial_wyrm",
+          "magikoopa_council"
+        ]
       },
       "status": "generated",
       "_generated": {
@@ -2422,60 +2487,100 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-16T15:48:32.772130+00:00",
         "sourceRecord": "The Fall of the Regent Sorcerer"
+      },
+      "title": "Koopa Resistance",
+      "type": "Military and Revolutionary Organisation",
+      "currentStatus": "Recorded status or Unconfirmed",
+      "leader": "Koopa Foreman",
+      "headquarters": "Unrecorded",
+      "motto": "No recorded motto",
+      "summary": "The Koopa Resistance Main Force played a crucial role in the fall of Kamek, the Regent Sorcerer, by destroying the final anchor at Final Anchor Valley Crater Rim.",
+      "evidenceQuotes": [
+        "Bob omb Demolitions Expert KIA sacrifice",
+        "Bob omb Demolitions Expert planted charges on the crystal",
+        "p The final assault targeted the anchor at the volcanic crater rim the heart of Kamek's power"
+      ],
+      "waluigi_tip": "Operational advice not yet available.",
+      "keyEvents": [
+        "final_anchor_valley_edge"
+      ],
+      "relatedArticles": [
+        "final_anchor_valley_edge"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:43:23+00:00",
+        "sourceArticles": [
+          "final_anchor_valley_edge"
+        ]
       }
     },
     "dirctor_vale": {
       "name": "Director Vale",
-      "description": "The disputed DGK director involved in the Spirit Residue retrieval.",
-      "region": "the_dread_mansion",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [
-          "liam"
-        ],
-        "enemies": [
-          "alice"
-        ]
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "person",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-29T17:21:40.712419+00:00",
         "sourceRecord": "The Dread Mansion Incursion — Alice, the Vial, and the Duplicate"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:41:48+00:00",
+        "sourceArticles": [
+          "the_dread_mansion_incursion",
+          "luigis_mansion_incident",
+          "mario",
+          "luigi",
+          "alice"
+        ],
+        "decision": "removed",
+        "entityKind": "person"
       }
     },
     "abandoned_mansions": {
       "name": "Abandoned Mansions",
-      "description": "Named in the record “The Dread Mansion Incursion — Alice, the Vial, and the Duplicate”. No dossier has been written yet — this entry exists so reputation against them can be recorded rather than discarded.",
-      "region": "Unrecorded",
-      "category": "Minor Powers",
-      "power_level": 1,
-      "relations": {
-        "allies": [],
-        "enemies": []
-      },
-      "status": "generated",
+      "status": "removed",
+      "entityKind": "event",
+      "redirectFactionId": "",
       "_generated": {
         "by": "tools/genkit",
         "system": "factions",
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-29T17:21:40.715938+00:00",
         "sourceRecord": "The Dread Mansion Incursion — Alice, the Vial, and the Duplicate"
+      },
+      "_generatedDossierReview": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:42:00+00:00",
+        "sourceArticles": [
+          "the_dread_mansion_incursion",
+          "luigis_mansion_incident",
+          "mario",
+          "luigi",
+          "alice"
+        ],
+        "decision": "removed",
+        "entityKind": "event"
       }
     },
     "feyward_high_society": {
       "name": "Feyward High Society",
-      "description": "A faction comprising well-to-do Feyward residents who rallied a cutting crew.",
-      "region": "Feyward woodlands, specifically the Lane and surrounding groves.",
+      "description": "## Identity and Confirmed Standing\n\nThe Feyward High Society is a rallying group comprising well-to-do residents of Feyward who organized a cutting crew to manage the overgrown lands within the woodlands, specifically the Lane and surrounding groves. This group emerged in response to the encroaching flora that threatened both livelihoods and safety. The evidence for its current standing comes from the record 'feyward_woodfellow_vs_the_treant,' which states, 'Mugwort and Sorrel and Bryony and Rattlecap sleep in the tally to this day.' This quote indicates that the Society's efforts have been documented and preserved, signifying their continued relevance. While no leader is explicitly named, the actions of the cutting crew suggest a structured operation led by those with influence within the community. The headquarters are located at 'The Lane,' an area rich in botanical history. Though allies and enemies are not recorded, the archive does not deny potential conflicts or alliances that remain unconfirmed.\n\n## Membership and Structure\n\nThe Feyward High Society is organized as a rallying group, comprising well-to-do residents of Feyward who have banded together to manage the overgrown lands. Membership appears informal; there are no recorded leaders or ranks within the society's records. The cutting crew, which includes satyrs and house guards, serves an instrumental role in this organization. Evidence from a field battle indicates that the crew operates with fluidity: 'a branch the width of a door brought down on Swifty' highlights how any member can step up to defend or assist. This excerpt demonstrates the crew's unity but also reveals the lack of a formal hierarchy, as every individual is capable of contributing to the group's efforts. The society lacks clear allies and enemies in its records, suggesting it operates more as a collective within the community than as an adversarial faction. The headquarters are located in The Lane, amidst the overgrowth area of Feyward woodlands, where operations focus on maintaining balance between human activity and natural growth.\n\n## Recorded Operations and Relationships\n\nThe Feyward High Society, a rallying group comprising well-to-do residents of Feyward who formed a cutting crew to manage the overgrown lands, has demonstrated its capabilities in several skirmishes. The most notable engagement involved Waluigi leading his cutters against a treant at The Lane within Feyward woodlands. Twice it brought the door sized arm down on Woodfellow's position, highlighting their determination and effectiveness. This encounter resulted in an expedition victory, with the treant felled by a strategic strike through its trunk. The aftermath was chaotic, with cleanup efforts necessary for wounded crew members, prisoners, and salvage operations. The Society’s actions exemplify their role as caretakers of the woodlands, albeit in a confrontational manner when necessary. Their relationships are currently unrecorded, indicating no formal alliances or enemies within the provided sources.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Feyward High Society's cutting crew faces significant risks. The evidence of their capabilities is clear; for instance, 'deleting Gall and then Tansy with single books' demonstrates the precision and lethality at their disposal. However, the archive is silent on the extent of their resources outside the woodlands. Their true leadership remains unrecorded, and their exact headquarters within the Lane are not specified. It is unknown how much support they receive from other factions or what internal structures govern them. The potential for alliances or betrayals cannot be overlooked. Waluigi's assessment suggests caution; while their battlefield prowess is notable, their strategic depth and external ties remain murky. Operationally, he advises to monitor the cutting crew closely, especially during critical times like harvests or when dealing with treants. Maintaining a balance between cooperation and vigilance seems prudent given the risks.",
+      "region": "Feyward woodlands, specifically the Lane and surrounding groves",
       "category": "Minor Powers",
       "power_level": 1,
       "relations": {
-        "allies": [
-          "feyward_high_society"
-        ],
+        "allies": [],
         "enemies": []
       },
       "status": "generated",
@@ -2485,6 +2590,142 @@
         "model": "qwen2.5-7b-instruct-1m",
         "at": "2026-08-29T17:24:09.591296+00:00",
         "sourceRecord": "Woodfellow vs. the Treant (The Lane, the Ledger, and the Weather)"
+      },
+      "title": "Well-to-Do Cutting Crew",
+      "type": "Rallying Group",
+      "currentStatus": "Recorded status or Unconfirmed",
+      "leader": "Unrecorded",
+      "headquarters": "The Lane and its overgrowth area within Feyward woodlands",
+      "motto": "No recorded motto",
+      "summary": "Comprises well-to-do residents of Feyward who rallied a cutting crew to manage the overgrown lands.",
+      "evidenceQuotes": [
+        "Mugwort and Sorrel and Bryony and Rattlecap sleep in the tally to this day",
+        "a branch the width of a door brought down on Swifty",
+        "Twice it brought the door sized arm down on Woodfellow's position"
+      ],
+      "waluigi_tip": "Operational advice not yet provided.",
+      "keyEvents": [
+        "feyward_woodfellow_vs_the_treant",
+        "feyward_second_hidden_room_rout",
+        "feyward_amnesia_vines_morel_steely",
+        "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
+        "feyward_grove"
+      ],
+      "relatedArticles": [
+        "feyward_woodfellow_vs_the_treant",
+        "feyward_second_hidden_room_rout",
+        "feyward_amnesia_vines_morel_steely",
+        "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
+        "feyward_grove"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:43:32+00:00",
+        "sourceArticles": [
+          "feyward_woodfellow_vs_the_treant",
+          "feyward_second_hidden_room_rout",
+          "feyward_amnesia_vines_morel_steely",
+          "the_feyward_revel_crisis_poison_plants_and_frozen_diplomacy",
+          "feyward_grove"
+        ]
+      }
+    },
+    "duskwood_guards": {
+      "name": "Duskwood Guards",
+      "description": "## Identity and Confirmed Standing\n\nThe Duskwood Guards, also known as the Guardians of Duskwood, are a military organization that operates in the Duskwood Region of Edolas. Their identity is confirmed by their participation in significant conflicts such as the Battle of the Shadow Canyon. The evidence from this battle proves their standing: 'launched an unexpected ambush on the Guardians of Duskwood at Shadow Canyon.' This operation demonstrated their capability for strategic defense and their tenacity in holding positions against formidable foes. Their headquarters are unrecorded, but they have been noted to operate with a commander named Ser Cedric. The Duskwood Guards' current status is recorded as 'Minor Powers,' indicating their importance within the region's power dynamics. Despite being categorized as minor powers, the Duskwood Guards have earned a reputation for resilience and strategic prowess, particularly in defending Shadow Canyon. Their enemies are well-documented, with the Scourge of the Vines being one of the known factions that they face in conflicts.\n\n## Membership and Structure\n\nThe Duskwood Guards, led by Ser Cedric, have a well-defined command structure. Though their headquarters remain unrecorded, there is no doubt about the leadership role played by Ser Cedric. The guards are composed of seasoned warriors who defend the borders of Shadow Canyon with tenacity and precision. Membership in the Duskwood Guards is not open to all; only those who demonstrate exceptional skills in combat and unwavering loyalty to their cause are accepted into the ranks. There is no evidence of formal ranks or branches within the organization, as the records indicate a cohesive unit that operates as one. The Prelude to the Battle of Shadow Canyon began in the early morning shadows, highlighting the guards' readiness for conflict at any moment. The absence of specific hierarchical details in the sources suggests that decision-making and leadership are likely distributed among those who have earned the trust and respect of their peers.\n\n## Recorded Operations and Relationships\n\nThe Duskwood Guards, also known as the Guardians of Duskwood, have been involved in several notable operations within their region. Their most significant engagement was during the Battle of the Shadow Canyon, where they successfully defended against an ambush by the Scourge of the Vines. As whispers of the Scourge of the Vines' movements reached the Guardians of Duskwood's scouts, Ser Cedric and his forces prepared a well-prepared trap that thwarted the attackers. This event solidified the Guards' reputation for tenacity in defense. The battle marked a clear victory for the defenders who held their ground despite the Scourge's initial advantage in stealth and guerilla tactics. The Duskwood Guards remain vigilant, maintaining a cautious approach to security and defense, with no known allies but a well-documented enmity towards the Scourge of the Vines.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Duskwood Guards have faced significant threats in their region. The Clash at Duskwood's Edge saw the Guardians of Duskwood rallying against the unexpected. While this event underscores their resilience, it also highlights lingering uncertainties. The exact nature and extent of their enemies' capabilities remain unconfirmed, as the Scourge of the Vines are described only as 'unrecorded.' This leaves the true intentions and strategic depth unknown. Waluigi's assessment leans towards caution; the Guardians operate with a clear commander in Ser Cedric, yet their precise strength and resources are elusive. The headquarters are unrecorded, suggesting potential vulnerabilities to ambush or infiltration. Operational advice: Maintain heightened vigilance along all borders, especially during nightfall when stealth tactics are most effective. Engage in proactive patrols and intelligence gathering to counter the unknown threats effectively.",
+      "region": "Duskwood Region, Edolas",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:39:04.735325+00:00",
+        "sourceRecord": "Battle of the Shadow Canyon"
+      },
+      "title": "Guardians of Duskwood",
+      "type": "Military Organization",
+      "currentStatus": "Recorded",
+      "leader": "Ser Cedric",
+      "headquarters": "Unrecorded",
+      "motto": "No recorded motto",
+      "summary": "The Duskwood Guards, also known as the Guardians of Duskwood, defended their territory against the Scourge of the Vines in the Battle of Shadow Canyon.",
+      "evidenceQuotes": [
+        "launched an unexpected ambush on the Guardians of Duskwood at Shadow Canyon",
+        "The Prelude to the Battle of Shadow Canyon began in the early morning shadows",
+        "as whispers of the Scourge of the Vines movements reached the Guardians of Duskwood's"
+      ],
+      "waluigi_tip": "Operational advice is pending further evidence.",
+      "keyEvents": [
+        "battle_of_the_shadow_canyon"
+      ],
+      "relatedArticles": [
+        "battle_of_the_shadow_canyon"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:45:06+00:00",
+        "sourceArticles": [
+          "battle_of_the_shadow_canyon"
+        ]
+      }
+    },
+    "scourge_of_the_vines": {
+      "name": "Scourge Of The Vines",
+      "description": "## Identity and Confirmed Standing\n\nThe Scourge of the Vines operates within the Duskwood Region of Edolas, a faction renowned for their stealth and guerilla tactics. Their identity remains unrecorded, yet they are identified by their signature style—launching unexpected ambushes that have tested even well-prepared forces. The most notable instance is the Battle of Shadow Canyon where they 'launched an unexpected ambush on the Guardians of Duskwood at Shadow Canyon.' This action demonstrated their capability to strike swiftly and with precision, but also highlighted the effectiveness of the defending force's preparedness. Despite these skirmishes, the Scourge’s current status remains unconfirmed; their leader and exact organization are not firmly established in the archives. Their relations with other factions suggest a dynamic conflict zone, where they either ally or clash based on immediate objectives or perceived threats.\n\n## Membership and Structure\n\nThe Scourge of the Vines operates as a guerrilla force with an unrecorded leader and headquarters located in Shadow Canyon, within the Duskwood Region. Their membership and structure remain elusive, with no concrete ranks or branches identified in official records. The Prelude to the Battle of Shadow Canyon began in the early morning shadows, indicating that their operations are characterized by stealth and unpredictability. Despite this, it is noted that they functioned as a cohesive unit during the ambush on the Guardians of Duskwood. The faction's tactics suggest a level of discipline and coordination among its members, even if no specific leadership or hierarchical structure has been confirmed. Their ability to launch an unexpected ambush, such as at Shadow Canyon, implies the presence of skilled fighters who are capable of operating in teams. It is unclear whether these fighters belong to distinct ranks or roles within the faction, and the records do not establish any collective features beyond their guerrilla tactics and stealth operations.\n\n## Recorded Operations and Relationships\n\nThe Scourge of the Vines have demonstrated their capability to execute stealthy and strategic ambushes, as evidenced by the Battle of Shadow Canyon on Highsun 15, 723 BF. In this engagement, 'as whispers of the Scourge of the Vines' movements reached the Guardians of Duskwood's', the faction launched an unexpected attack (source: 'Battle of the Shadow Canyon'). This ambush targeted the Guardians of Duskwood at Shadow Canyon within the Duskwood Region of Edolas. The attack was swift, but it came with significant costs for the attackers who were caught in a well-prepared trap by the defenders. The Scourge's tactics included operating from dense undergrowth and utilizing guerrilla warfare to their advantage. Their actions highlighted the faction's adaptability and reliance on surprise elements of their strategy. While the battle resulted in the defenders holding ground, it is clear that the Scourge of the Vines are not easily defeated; their operations demonstrate a persistent threat within the region. The alliance with the Guardians of Duskwood during this battle indicates mutual benefit or necessity for both parties.\n\n## Risks, Unknowns, and Waluigi's Assessment\n\nThe Scourge of the Vines poses a significant risk to operations in the Duskwood Region. Their tactics are characterized by stealth and guerilla warfare, as evidenced by the Battle of Shadow Canyon where they launched an unexpected ambush on the Guardians of Duskwood. Despite these known dangers, much remains unknown about their leadership, operational capabilities, and strategic alliances. The Clash at Duskwood's Edge saw the Guardians rallying against the unexpected, a stark reminder of the Scourge’s ability to catch even well-prepared forces off guard. While it is clear that they are capable of rapid, decisive strikes, the exact nature of their supply lines, command structure, and long-term objectives remain elusive. Waluigi assesses that the Scourge’s primary strength lies in their adaptability and surprise attacks; thus, any engagement should be conducted with maximum stealth and preparedness for a swift retreat if necessary. Operatives must assume that the Scourge can appear where least expected and be ready to neutralize threats without alerting them of surveillance or presence. In closing, Waluigi advises caution when operating in areas known to house this faction, emphasizing the need for intelligence gathering and flexible tactics.",
+      "region": "Duskwood Region, Edolas",
+      "category": "Minor Powers",
+      "power_level": 1,
+      "relations": {
+        "allies": [
+          "duskwood_guards"
+        ],
+        "enemies": []
+      },
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "factions",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:39:04.740365+00:00",
+        "sourceRecord": "Battle of the Shadow Canyon"
+      },
+      "title": "The Scourge of the Vines",
+      "type": "Guerrilla Force",
+      "currentStatus": "Unconfirmed",
+      "leader": "Unrecorded",
+      "headquarters": "Shadow Canyon, Duskwood Region",
+      "motto": "No recorded motto",
+      "summary": "The Scourge of the Vines is known for their stealth and guerilla tactics. They are capable of launching unexpected ambushes, as evidenced by the Battle of Shadow Canyon.",
+      "evidenceQuotes": [
+        "launched an unexpected ambush on the Guardians of Duskwood at Shadow Canyon",
+        "The Prelude to the Battle of Shadow Canyon began in the early morning shadows",
+        "as whispers of the Scourge of the Vines movements reached the Guardians of Duskwood's"
+      ],
+      "waluigi_tip": "Be wary of their stealth and guerilla tactics.",
+      "keyEvents": [
+        "battle_of_the_shadow_canyon"
+      ],
+      "relatedArticles": [
+        "battle_of_the_shadow_canyon"
+      ],
+      "_generatedDossier": {
+        "by": "tools/genkit",
+        "system": "faction-dossiers",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:45:33+00:00",
+        "sourceArticles": [
+          "battle_of_the_shadow_canyon"
+        ]
       }
     }
   }

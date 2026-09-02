@@ -578,8 +578,7 @@
     },
     "effects": {
       "mushroom_regency": -10,
-      "kremling_krew": -15,
-      "arab_yeti": 15
+      "kremling_krew": -15
     },
     "reputationNotes": {
       "waluigi": "Waluigi's mastermindship ensured the disaster relief program worked, despite everything."
@@ -5110,5 +5109,209 @@
       }
     ],
     "timeWindow": "roughly 1–2 hours, same night; no calendar day passed (still 1040 BF)"
+  },
+  {
+    "id": "battle_of_the_shadow_canyon",
+    "name": "Battle of the Shadow Canyon",
+    "date": "Highsun 15, 723 BF",
+    "location": "Shadow Canyon, within the Duskwood Region of Edolas",
+    "type": "ambush",
+    "result": "The defenders held the ground",
+    "belligerents": {
+      "attackers": {
+        "name": "Scourge of the Vines",
+        "factionId": "unrecorded",
+        "commander": "Unrecorded"
+      },
+      "defenders": {
+        "name": "Guardians of Duskwood",
+        "factionId": "duskwood_guards",
+        "commander": "Ser Cedric"
+      }
+    },
+    "casualties": {
+      "attackers": "30 casualties, 5 captured",
+      "defenders": "12 dead, 4 wounded"
+    },
+    "summary": "The Scourge of the Vines, a faction known for their stealth and guerilla tactics, launched an unexpected ambush on the Guardians of Duskwood at Shadow Canyon. The attack was swift but costly for the attackers who were caught in a well-prepared trap.",
+    "description": "## The Prelude\n\nThe Prelude to the Battle of Shadow Canyon began in the early morning shadows as whispers of the Scourge of the Vines' movements reached the Guardians of Duskwood's scouts. The faction known for their stealth and guerilla tactics, often operating from the dense undergrowth that bordered Shadow Canyon, had been unusually quiet for several days. The Guardians, who were on alert given the recent skirmishes along the borders of Duskwood, moved cautiously through the forested terrain.\n\nThe Scourge, however, was not just a whisper in the wind but a concerted force of about 50 warriors, each expertly equipped with weapons that promised both speed and lethality. They were led by a figure known only as The Shadow, whose movements had always been unpredictable yet effective. The ambush site was carefully chosen to exploit the natural topography of Shadow Canyon—a narrow pass between towering stone cliffs that rose to nearly twice their height.\n\nAs dawn broke, the Guardians, numbering some 70 men and women, advanced through the canyon, their formation disciplined but wary. They were drawn into a well-prepared trap when the ground shifted beneath them. The Scourge had cleverly rigged the area with tripwires that triggered hidden traps. Rocks fell from above, creating an obstacle course designed to disorient and slow down the Guardians' advance.\n\nThe first wave of the Guardians was caught in the initial barrage. Archers on the cliffs let loose a volley of arrows, pinning back any who attempted to flee or regroup. The ground shook as more traps were activated—rolling boulders and bursts of poison gas that forced the Guardians into defensive positions. Despite the initial setback, the Guardians fought back with determination, their own skills in defense and counterattack proving effective against the Scourge's guerrilla tactics.\n\nThe battle was far from over, but the prelude had set the stage for a confrontation where both sides would suffer losses, each striving to achieve victory through sheer willpower and tactical acumen.\n\n## The Maneuvers in Shadow Canyon\n\nThe Maneuvers in Shadow Canyon\n\nThe Scourge of the Vines emerged from the dense underbrush, their movements fluid and silent as they crept upon the unsuspecting Guardians of Duskwood. The landscape of Shadow Canyon was a mosaic of towering pines and thickets, offering perfect cover for the guerilla faction's stealthy approach. However, the Guardians had anticipated an ambush and prepared accordingly.\n\nAs the Scourge launched their attack, their initial momentum carried them forward with the zeal of surprise. They targeted key positions, focusing on disrupting the enemy lines rather than achieving a decisive breakthrough. The skirmish was characterized by quick, sharp exchanges—sudden bursts of fire followed by moments of eerie silence as the factions regrouped and repositioned themselves.\n\nThe Guardians swiftly responded to the Scourge's movements, leveraging their terrain knowledge to set up an elaborate trap. Stone walls were erected hastily, while archers took positions on elevated points, aiming to pick off any stragglers or command figures from a distance. The skirmish turned into a battle of attrition as both sides tested each other's resolve.\n\nThe Scourge faced the challenge with unyielding determination, utilizing their expertise in stealth and hit-and-run tactics to maintain pressure on the Guardians' flanks. They used the rugged terrain to their advantage, slipping through gaps that the Guardians had left unguarded due to overconfidence in their superior numbers and prepared positions.\n\nIn the end, the battle was marked by a series of close encounters where both sides suffered casualties. The Scourge's covert tactics allowed them to inflict significant damage on the Guardians before they were trapped within the confines of the canyon. The Guardians, however, managed to repel the attackers with disciplined counterattacks that highlighted their tactical acumen and resilience.\n\nThe battle was far from over, but it had set the stage for a confrontation where both sides would strive through sheer willpower and tactical acumen to achieve victory.\n\n## The Clash at Duskwood's Edge\n\nThe Clash at Duskwood's Edge saw the Guardians of Duskwood rallying against the unexpected assault by the Scourge of the Vines. The initial ambush had been swift, catching many of the Guardians unprepared and leading to scattered cries of alarm as units scrambled for cover behind makeshift barricades. The Scourge, known for their stealth and guerilla tactics, pressed their advantage, moving in small teams to exploit the disarray.\n\nHowever, the Guardians quickly regrouped under the leadership of their seasoned commanders. They employed a well-prepared trap, using terrain features such as dense underbrush and rocky outcrops to channel the Scourge's forces into narrow pathways. This maneuver proved fatal for the attackers; many were caught in crossfire from hidden positions, while others succumbed to the Guardians' superior marksmanship.\n\nThe battle was marked by the gritty consequences of close-quarters combat. The air was thick with the smell of gunpowder and the acrid scent of burning foliage as firefights erupted. Casualties on both sides were heavy; the Scourge's rapid advance had left them vulnerable to a counterattack, while the Guardians' resilience in defending their positions meant that not all attackers could be dislodged easily.\n\nDespite being caught in this trap, the Scourge showed remarkable tactical acumen and resilience. They regrouped, attempting to break through the Guardians' lines using hit-and-run tactics. However, the Guardians remained firm, maintaining a cohesive defense. The clash was relentless; each side pushed back and forth across the battlefield, with neither willing to concede ground.\n\nAs night fell, the battle took on a different tone. Shadows stretched longer, and visibility waned, making it harder for either faction to maintain their momentum. Both sides suffered from fatigue but held firm, knowing that victory would only be achieved through sheer willpower and tactical acumen. The clash at Duskwood's Edge was far from over, setting the stage for a drawn-out conflict where determination and strategic foresight would play crucial roles in determining the outcome.\n\n## The Battle Through the Night\n\nAs night draped its cloak over Shadow Canyon, the clash between the Guardians and the Scourge did not cease but instead took on new dimensions of both vulnerability and opportunity. Under the cover of darkness, the battle became a contest of stealth and endurance where every misstep could spell disaster.\n\nThe Guardian forces, accustomed to daytime engagements, found themselves unprepared for night-time warfare. The lack of visibility meant that they had to rely more heavily on sound, scent, and intuition to navigate the battlefield. This disadvantage was mitigated somewhat by their disciplined training but still posed significant challenges. The Scourge, on the other hand, thrived in such conditions. Their nocturnal tactics were a natural fit for the environment, and they capitalized on every shadowy corner and hidden crevice to launch surprise attacks.\n\nThe Scourge's hit-and-run tactics became more daring under the cover of darkness as they sought out isolated positions within the Guardian lines. These targeted assaults aimed at breaking the Guardians' morale while simultaneously testing their defensive capabilities. The Guardians responded by reinforcing vulnerable areas and adopting a more aggressive counter-offensive strategy, using the light from torches and campfires to better locate and engage the enemy.\n\nThe night brought with it a unique form of attrition warfare where both sides engaged in protracted skirmishes that tested not only physical strength but also mental resolve. The Scourge's relentless pursuit and the Guardians' unwavering defense created a tense stalemate, each side wary of overextending their resources. The sound of clashing steel echoed through the night air, punctuated by occasional cries for aid or warnings.\n\nFatigue set in more quickly among both factions as they fought through the long hours of darkness. Sleep deprivation and physical strain began to take their toll on warriors who were already pushing themselves to their limits. Despite these challenges, neither side showed signs of wavering. The Scourge continued to press forward with renewed vigor, driven by a desire to claim victory in this unexpected night-time engagement. The Guardians, for their part, clung tenaciously to their positions, determined to repel any further advances and maintain the integrity of their defenses.\n\nAs dawn approached, both sides faced a critical decision: push for one last surge before daylight fully broke or consolidate their gains and prepare for whatever challenges the new day might bring. The outcome of this pivotal moment would determine not only the immediate course of battle but also the strategic direction of the entire conflict.",
+    "relatedArticles": [
+      "battle_of_the_mirror_room"
+    ],
+    "status": "Generated — review",
+    "participants": [
+      {
+        "id": "scourge",
+        "name": "The Scourge",
+        "role": "pressed forward with renewed vigor"
+      },
+      {
+        "id": "guardians",
+        "name": "The Guardians",
+        "role": "clung tenaciously to their positions"
+      },
+      {
+        "id": "warriors",
+        "name": "Warriors from both factions",
+        "role": "fought through the long hours of darkness"
+      }
+    ],
+    "xpAwards": [
+      {
+        "character": "scourge",
+        "amount": 100,
+        "reason": "pressed forward with renewed vigor during a night-time engagement",
+        "type": "Combat XP"
+      },
+      {
+        "character": "guardians",
+        "amount": 100,
+        "reason": "clung tenaciously to their positions against an aggressive counter-offensive",
+        "type": "Combat XP"
+      },
+      {
+        "character": "warriors",
+        "amount": 100,
+        "reason": "fought through the long hours of darkness facing fatigue and physical strain",
+        "type": "Combat XP"
+      }
+    ],
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "battles",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-09-02T01:38:08+00:00"
+    },
+    "reputationChanges": {
+      "waluigi": {
+        "duskwood_guards": -15,
+        "scourge_of_the_vines": 30
+      },
+      "remi_akamatsu_full_backstory": {
+        "duskwood_guards": 5,
+        "scourge_of_the_vines": -20
+      }
+    },
+    "effects": {
+      "duskwood_guards": -10
+    },
+    "reputationNotes": {
+      "waluigi": "Mastermind behind the Guardians' victory in Shadow Canyon ambush.",
+      "remi_akamatsu_full_backstory": "Artificer whose expertise aided the Guardians against the Scourge."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-09-02T01:39:04+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
+  },
+  {
+    "id": "battle_of_the_sugar_swamp",
+    "name": "Battle of the Sugar Swamp",
+    "date": "Veridia 15, 722 BF",
+    "location": "The Overgrown Cottage, L'Eclaire Isle",
+    "type": "ambush",
+    "result": "The defenders held the ground.",
+    "belligerents": {
+      "attackers": {
+        "name": "Kremlings",
+        "factionId": "unrecorded",
+        "commander": "King K. Rool"
+      },
+      "defenders": {
+        "name": "Pastry Folk",
+        "factionId": "leclois",
+        "commander": "Helvetica"
+      }
+    },
+    "casualties": {
+      "attackers": "several Kremlings were lost",
+      "defenders": "none"
+    },
+    "summary": "King K. Rool's Kremlings ambushed a small Pastry Folk patrol, leading to a brief but fierce skirmish near the Overgrown Cottage.",
+    "description": "## The Prelude\n\nThe Prelude to the Battle of the Sugar Swamp began inauspiciously for the Pastry Folk, who were accustomed to patrolling the sugarcane fields near their village with relative ease. The Overgrown Cottage, an ancient ruin that had long been a gathering place for gossip and minor skirmishes between the Kremlings and the Pastry Folk, stood as a focal point of this encounter. On this particular day in the late autumn, King K. Rool's Kremlings, known for their cunning and stealth, had decided to test the boundaries of the Pastry Folk's territories.\n\nThe Kremling force, numbering just over fifty warriors, moved with the stealth characteristic of their kind, blending seamlessly into the dense foliage that surrounded the Overgrown Cottage. Their plan was simple yet audacious: an ambush on a small patrol of Pastry Folk soldiers and artisans, who had been tasked with checking the sugarcane for signs of infestation. The Kremlings' approach was meticulously planned; they crept through the underbrush, their footsteps muffled by the thick vegetation, until they reached a vantage point from which they could observe the patrol without being seen.\n\nThe Pastry Folk, unaware of the approaching danger, continued to walk along the edge of the swamp, their conversation light and casual. Suddenly, the sound of leaves rustling beneath heavy footsteps caught their attention. Before the patrol could react, a barrage of Kremling projectiles rained down upon them, forcing the Pastry Folk into defensive positions around the Overgrown Cottage. The ensuing skirmish was fierce but brief, with the Kremlings demonstrating their superior tactics and weaponry. Despite their best efforts to defend themselves, the Pastry Folk were overwhelmed; most were forced to retreat, leaving behind a few who fought valiantly before succumbing to their injuries.\n\nThe Kremling victory was swift, but not without cost. Their numbers were reduced by several, and they bore wounds from the Pastry Folk's more potent homemade weapons. The encounter served as both an exercise in strategy for King K. Rool's forces and a reminder of the precarious nature of peace between minor factions in these remote regions.\n\n## The Deployment and Clash\n\nThe deployment and clash in Sugar Swamp was both swift and brutal, reflecting the tense balance of power between King K. Rool's Kremlings and the Pastry Folk. The Kremlings, known for their cunning and unorthodox tactics, had been lurking around the Overgrown Cottage, a strategic location that served as a checkpoint for the Pastry Folk's supply lines. Under the cover of thick mist and dense vegetation, King K. Rool's forces moved silently, positioning themselves in ambush along the edges of the swamp. Their objective was to catch the Pastry Folk patrol unaware, disrupting their routine and possibly gaining an advantage over them.\n\nThe Kremlings' plan relied heavily on surprise and mobility. They deployed small squads around likely paths that the Pastry Folk would use for patrols. Snipers were posted in elevated positions overlooking potential routes of approach, ready to pick off any pastry-eaters who dared venture too close. Meanwhile, the main body of Kremling forces remained hidden until the opportune moment.\n\nThe ambush was sprung as the Pastry Folk patrol approached, their homemade weapons clinking ominously against one another as they marched through the swamp's overgrowth. The Kremlings' snipers took down several pastry-eaters before they could react, causing confusion and panic among the ranks. Despite initial shock, the Pastry Folk quickly regrouped and launched a counterattack. Their formation was more rigid than usual, with soldiers spreading out to engage in a line of skirmishers. The Kremlings' superior positioning allowed them to target key points within the patrol, but the Pastry Folk's numbers slowly began to dwindle.\n\nCasualties were not light on either side. The swampy ground hampered the movements of both factions, leading to close-quarters combat where every shot was crucial and every step in the mud a tactical consideration. By dawn, the battle had ended with the Kremlings victorious but at considerable cost. The Pastry Folk patrol was decimated, and several Kremling soldiers lay dead or wounded. This skirmish served as a grim reminder of the volatile nature of peace between minor factions, leaving both sides wary and more prepared for future encounters in this remote region.\n\n## The Aftermath\n\nThe aftermath of the Battle of the Sugar Swamp was marked by a palpable tension between King K. Rool's Kremlings and the Pastry Folk. The Kremlings' sudden ambush on a small patrol near the Overgrown Cottage had proven to be more than just a minor skirmish; it highlighted the vulnerability of both sides in this remote region.\n\nThe Kremling forces, known for their stealthy tactics, quickly overwhelmed the unsuspecting pastry folk who were likely on reconnaissance or supply missions. The ensuing fight was brutal and brief, with many casualties reported from both sides. The Kremlings' use of superior numbers and coordinated movements allowed them to secure a decisive victory. However, the Pastry Folk's swift retreat into the dense sugar swamp terrain presented a significant challenge for the pursuers. The swamps' muddy conditions slowed down the Kremling advance, allowing some pastry folk to escape.\n\nThe immediate consequences were devastating: several Kremlings lost their lives or were left severely wounded due to the difficult terrain and determined resistance from the Pastry Folk. Similarly, the Pastry Folk suffered heavy losses in both men and resources. The battle served as a grim reminder that even in remote areas, skirmishes could escalate quickly into full-fledged conflicts.\n\nThe Kremlings' victory was short-lived; their overconfidence after such an easy win led to a tactical miscalculation. Their prolonged engagement with the Pastry Folk deep within the swamps resulted in unnecessary casualties and delayed their return to their bases. This battle underscored the unpredictable nature of warfare in these areas, where even small patrols could become critical strategic targets.\n\nThe skirmish also left both sides wary for future encounters. The Pastry Folk, realizing the Kremlings' strength, began to fortify their positions and sought alliances with other minor factions. For the Kremlings, this battle taught them that caution was necessary in remote locations where terrain could be as much of a strategic asset as any weapon or force. The lesson learned would shape their future engagements in this volatile region, ensuring they remained ever-vigilant against potential ambushes and small-scale conflicts.\n\n## The Aftermath: A Symphony of Strategic Adjustments\n\nThe aftermath of the Sugar Swamp skirmish saw both sides scrambling to adapt and adjust their strategies in response to the lessons learned on the battlefield. For the Kremlings, the victory had been short-lived not just due to their own miscalculations but also because they underestimated the Pastry Folk's resilience and resourcefulness. The once-proud leader of the Kremling forces, Kritoid, found himself under increasing scrutiny from his superiors. His reputation as a competent tactician had taken a hit, and whispers of discontent began to circulate among the lower ranks.\n\nThe Pastry Folk, on the other hand, were now in an advantageous position. The reinforcement of their fortifications was accompanied by diplomatic efforts that sought to expand their influence beyond Sugar Swamp into neighboring territories. They began courting various minor factions, offering alliances and mutual defense pacts. This move was not merely a defensive strategy but also an attempt to leverage the chaos created by the Kremling-Kremling conflicts to their advantage.\n\nThe sugar cane fields surrounding the swamp were now bustling with activity as the Pastry Folk worked day and night to fortify their positions. Barriers of sugarcane stalks were reinforced, and hidden traps were set throughout the swamps, making any future incursion a dangerous proposition. The swamps' natural geography, which had initially been seen as an advantage by the Kremlings, now posed significant challenges for both sides.\n\nThe Kremling forces, realizing their overreliance on speed and surprise tactics, began to implement more structured training programs focused on terrain-specific operations. Kritoid himself was tasked with leading these efforts, his presence a symbol of the need for change within the Kremling ranks. His new approach emphasized thorough intelligence gathering, careful planning, and a readiness for prolonged engagements that could last days or even weeks.\n\nThe Pastry Folk's diplomatic maneuvers were met with mixed reactions from other factions in the region. Some viewed them as potential allies against the increasingly unpredictable Kremlings, while others saw them as opportunistic interlopers who would soon be expelled. The Kremlings' renewed efforts at diplomacy also began to bear fruit, albeit slowly. They sought alliances with smaller factions that had been previously neutral or even hostile.\n\nThe tension in Sugar Swamp was palpable, and the potential for further escalation loomed large. Both sides knew that the next skirmish could tip the balance of power once again. The lessons learned from this battle would be crucial in shaping future engagements. For the Kremlings, it was a reminder that victory through sheer force alone was not enough; they needed to adapt and evolve their strategies continuously. For the Pastry Folk, the opportunity to expand their influence was now clear, but with it came the responsibility to manage the various factions they sought to court or control.\n\nIn the shadows of Sugar Swamp, the seeds of future battles were already being planted. The war of attrition had only just begun, and both sides knew that the next move could be the defining moment in this volatile region.",
+    "relatedArticles": [
+      "battle_of_the_mirror_room"
+    ],
+    "status": "Generated — review",
+    "participants": [
+      {
+        "id": "kremling_commander",
+        "name": "Kremling Commander",
+        "role": "emphasized thorough intelligence gathering, careful planning, and prolonged engagements"
+      },
+      {
+        "id": "pastry_folk_diplomat",
+        "name": "Pastry Folk Diplomat",
+        "role": "met with mixed reactions from other factions in the region"
+      },
+      {
+        "id": "sugar_swamp_allies",
+        "name": "Sugar Swamp Allies",
+        "role": "viewed as potential allies against the Kremlings or saw them as opportunistic interlopers"
+      }
+    ],
+    "xpAwards": [
+      {
+        "character": "kremling_commander",
+        "amount": 150,
+        "reason": "emphasized thorough intelligence gathering, careful planning, and prolonged engagements",
+        "type": "Strategy XP"
+      },
+      {
+        "character": "pastry_folk_diplomat",
+        "amount": 200,
+        "reason": "met with mixed reactions from other factions in the region",
+        "type": "Diplomacy XP"
+      },
+      {
+        "character": "sugar_swamp_allies",
+        "amount": 100,
+        "reason": "viewed as potential allies against the Kremlings or saw them as opportunistic interlopers",
+        "type": "Observation XP"
+      }
+    ],
+    "_generated": {
+      "by": "tools/genkit",
+      "system": "battles",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-09-02T01:38:49+00:00"
+    },
+    "reputationChanges": {
+      "waluigi": {
+        "kremling_krew": -15
+      },
+      "remi_akamatsu_full_backstory": {
+        "kremling_krew": 10
+      },
+      "dan": {
+        "kremling_krew": -8
+      }
+    },
+    "effects": {
+      "kremling_krew": -20
+    },
+    "reputationNotes": {
+      "waluigi": "Mastermind Waluigi's careful planning backfires in a costly ambush.",
+      "remi_akamatsu_full_backstory": "Remi Akamatsu proves her worth against the Kremlings, earning respect from allies.",
+      "dan": "Fire mage Dan faces a setback when his tactics fail to protect the Pastry Folk."
+    },
+    "_generatedReputation": {
+      "by": "tools/genkit",
+      "system": "reputation",
+      "model": "qwen2.5-7b-instruct-1m",
+      "at": "2026-09-02T01:42:18+00:00",
+      "fields": [
+        "reputationChanges",
+        "effects",
+        "reputationNotes"
+      ]
+    }
   }
 ]

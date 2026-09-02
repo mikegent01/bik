@@ -413,6 +413,72 @@
         "from": "waluigi",
         "reason": "named participant of the linked record"
       }
+    },
+    {
+      "id": "wahwire_mount_ebott_survey_mission",
+      "author": "dracule_mihawk",
+      "order": 12,
+      "date": null,
+      "timestamp": "Harvestide 24, 1045 BF — Day 1 of the Mount Ebott survey",
+      "content": "This 'survey' is a mockery of protocol. Iron Legion's incompetence knows no bounds, and yet they expect me to abide by their rules? WAH.",
+      "evidenceQuote": "'A legionary who can't produce his own induction rite.'",
+      "likes": 342,
+      "links": [
+        {
+          "id": "mount_ebott_survey_mission",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "ironlegion",
+        "protocol",
+        "incompetence"
+      ],
+      "reaction": "rage",
+      "comments": [],
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:13:44+00:00"
+      },
+      "_quality": {
+        "validator": "wahwire-v2"
+      }
+    },
+    {
+      "id": "wahwire_the_estragon_island_incident",
+      "author": "generic_toad",
+      "order": 13,
+      "date": null,
+      "timestamp": "18 Harvestside, 1040 BF",
+      "content": "Oh no, not again! Another crazy Toad in our school? This place is getting more dangerous by the day... I just hope my rent doesn't go up.",
+      "evidenceQuote": "learned he was on a small island with no money and no way to leave",
+      "likes": 342,
+      "links": [
+        {
+          "id": "the_estragon_island_incident",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "danger",
+        "university",
+        "money"
+      ],
+      "reaction": "alarm",
+      "comments": [],
+      "status": "generated",
+      "_generated": {
+        "by": "tools/genkit",
+        "system": "wahwire",
+        "model": "qwen2.5-7b-instruct-1m",
+        "at": "2026-09-02T01:13:51+00:00"
+      },
+      "_quality": {
+        "validator": "wahwire-v2"
+      }
     }
   ]
 }
