@@ -334,7 +334,7 @@ def injuries_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
     else:
         category = _clean(raw.get("category") or task.payload.get("category") or "Injury", lo=3, hi=48, field="category")
     description = _clean(raw.get("description"), lo=12, hi=400, field="description")
-    cure = _clean(raw.get("cure") or "None", lo=2, hi=80, field="cure")
+    cure = _clean(raw.get("cure") or "None", lo=2, hi=250, field="cure")
     duration = _clean(raw.get("duration") or "Until cured", lo=2, hi=64, field="duration")
     notes = " ".join(str(raw.get("notes") or "").split())
     if len(notes) > 160:
@@ -360,14 +360,17 @@ def injuries_validate(task: Task, raw: dict[str, Any]) -> dict[str, Any]:
 
 def injuries_repair(task: Task, raw: dict[str, Any], why: str) -> dict[str, Any] | None:
     current = dict(task.payload.get("current") or {})
+    fixed = dict(raw)
+    
+    if "duplicate injuryType" in why:
+        original = str(fixed.get("injuryType") or current.get("injuryType") or "Injury")
+        roll = task.payload.get("d100")
+        fixed["injuryType"] = f"{original} {roll}"[:64]
+        return fixed
+        
     if not current:
         return None
-    fixed = dict(raw)
-    if "duplicate injuryType" in why:
-        original = str(current.get("injuryType") or "Injury")
-        roll = task.payload.get("d100")
-        fixed["injuryType"] = f"{original} (row {roll})"[:64]
-        return fixed
+        
     # Fill missing short fields from the existing row rather than inventing.
     for field in ("injuryType", "category", "description", "cure", "duration", "notes"):
         if not str(fixed.get(field) or "").strip() and current.get(field) not in (None, ""):
