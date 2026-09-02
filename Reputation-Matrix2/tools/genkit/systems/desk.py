@@ -520,9 +520,9 @@ def locations_generate(task: Task, client: Any, temperature: float) -> dict[str,
     system, user = locations_build_prompt(task)
     # Remove description from JSON schema so we only generate metadata first
     system = system.replace('  "description": "<detailed Waluigi-voiced description of the place>",\n', '')
-    
-    if task.last_error:
-        user += f"\n\nYOUR PREVIOUS ATTEMPT FAILED: {task.last_error}\nFix this in your next attempt."
+    system = system.replace('  "description": "<detailed archivist-voiced description of the place>",\n', '')
+
+
         
     try:
         raw = client.complete_json(system, user, temperature=temperature)
