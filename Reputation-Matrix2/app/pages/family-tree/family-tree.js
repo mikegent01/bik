@@ -1918,7 +1918,44 @@ cadetBranches: [
 
 
     // =========================================
-    // HOUSE KOOPA - THE DARK LANDS
+    
+
+    // ========================================
+    // HOUSE MISER - THE ORDER OF JACK
+    // ========================================
+houseMiser: {
+    name: 'House Miser',
+    sigil: '🛡️',
+    colors: ['#FFFFFF', '#0000FF', '#FFD700'],
+    motto: 'For Family, For Honor',
+    altMotto: 'Loyalty to the Leader',
+    founded: 1025,
+    founder: 'Jack Melvus Miser',
+    seat: 'The Order of Jack Headquarters',
+    status: 'Active',
+    cadetBranches: [],
+    members: [],
+    // ========================================
+    // GENERATION 1 - JACK MELVUS MISER
+    // ========================================
+    {
+        id: 'jack_melvus_miser',
+        name: 'Jack (Jackson) Melvus Miser',
+        epithet: 'Lord Commander of the Order of Jack',
+        born: 1019,
+        died: null,
+        generation: 1,
+        icon: '🛡️',
+        status: 'Active',
+        spouse: 'lunaria',
+    },
+    // ========================================
+    // GENERATION 2 - THE SIBLINGS
+    // ========================================
+    {
+        // July, Archie, Spring, Hark would be listed here
+    }
+// HOUSE KOOPA - THE DARK LANDS
     // =========================================
 
 houseKoopa: {
