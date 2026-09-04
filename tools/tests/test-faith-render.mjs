@@ -129,6 +129,43 @@ c = await go('#/article/jack_melvus_miser');
 check('jack still leads with the hand-drawn crop',
   /portraits\/jack_melvus_miser\.png$/.test(c.querySelector('.lead-frame.on').getAttribute('src')));
 
+// --- bespoke faith notes across the character roster ----------------------
+// The panel prefers `note` over the denomination's generic description, so a
+// declaration without prose is worse than no declaration at all.
+{
+  const chars = await (await fetch(BASE + 'Reputation-Matrix2/data/characters.json')).json();
+  const declared = chars.filter((x) => (x.faiths || []).length);
+  const EXCLUDED = ['archie_miser', 'markop', 'hjumpik', 'remi_akamatsu_full_backstory'];
+  const entries = declared.flatMap((x) => (x.faiths || []).map((f) => ({ who: x.id, ...f })));
+  const denoms = RELIGION_DATA.denominations;
+
+  check('at least 50 characters declare a faith', declared.length >= 50, declared.length + ' characters');
+  check('the Disaster Inc. principals are left alone',
+    EXCLUDED.every((id) => !(chars.find((x) => x.id === id) || {}).faiths),
+    EXCLUDED.filter((id) => (chars.find((x) => x.id === id) || {}).faiths).join(', ') || 'all four clean');
+  check('every declared faith id resolves in the register',
+    entries.every((e) => denoms[e.id]),
+    entries.filter((e) => !denoms[e.id]).map((e) => e.who + '/' + e.id).join(', ') || 'all resolve');
+  check('every declaration carries a role and a note',
+    entries.every((e) => e.role && e.note && e.note.length > 120),
+    entries.filter((e) => !(e.role && e.note && e.note.length > 120)).map((e) => e.who).join(', ') || 'all present');
+  check('no note is a copy of the denomination boilerplate',
+    entries.every((e) => e.note.trim() !== (denoms[e.id].description || '').trim()));
+  check('notes are bespoke, not reused between records',
+    new Set(entries.map((e) => e.note)).size === entries.length,
+    new Set(entries.map((e) => e.note)).size + ' unique / ' + entries.length);
+
+  // Spot-render three of the new records rather than trusting the data alone.
+  for (const id of ['thornbury', 'general_ironhand', 'quantity']) {
+    const el = await go('#/article/' + id);
+    const card = el.querySelector('.faith-panel .faith-card');
+    const rec = chars.find((x) => x.id === id);
+    check('#/article/' + id + ' renders its custom faith note',
+      !!card && card.textContent.includes(rec.faiths[0].note.slice(0, 40)),
+      card ? card.querySelector('.faith-name a').textContent : 'no panel');
+  }
+}
+
 console.log('--- PASS ---');
 ok.forEach((l) => console.log('  ok   ' + l));
 if (fail.length) { console.log('--- FAIL ---'); fail.forEach((l) => console.log('  FAIL ' + l)); }
