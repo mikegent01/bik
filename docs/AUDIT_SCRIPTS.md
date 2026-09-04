@@ -316,6 +316,32 @@ the craft standard is
 
 ---
 
+## Dossier assessment audit
+
+`FACTION_ASSESSMENTS` — the quoted **"Dossier Assessment"** line each faction
+keeps on each operator — exists in two files that must agree:
+
+| File | Notes |
+|---|---|
+| `index.html` → `const FACTION_ASSESSMENTS` | the live site reads this one |
+| `Reputation-Matrix2/data/support/assessments.js` | imported by `app/systems/reputation.js` and the directory / XP pages |
+
+```bash
+python3 tools/check-assessments.py
+```
+
+Committed and **not advisory** — it is part of `tools/check-all.py`. It compares
+the two copies key by key and text by text, flags any faction missing an
+operator the others carry, and lists every line whose phrasing trips the
+reputation engine's **hostility ceiling** (which caps that faction's standing at
+−20 regardless of event maths). Drift here does not just read wrong, it scores
+wrong, so a failure is a bug.
+
+The kill-order list in its output is worth reading even when the check passes:
+if a faction appears there that should have stood down, or a faction is missing
+that has since issued a warrant, the prose needs updating. Craft rules for
+writing these lines: [`STORY_FORMAT_GUIDE.md` §9E](STORY_FORMAT_GUIDE.md#9e-dossier-assessments--update-what-the-factions-say).
+
 ## Investigation audit
 
 The fourth script, and the second committed one. Where the exhibit audit checks
