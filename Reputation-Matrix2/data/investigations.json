@@ -3697,24 +3697,36 @@
         "dread_mansion_incursion"
       ],
       "opened": "Approximately 872 BF",
-      "lastFiled": "Approximately 872 BF",
+      "lastFiled": "Approximately 872 BF — rewritten from the recovered transcript",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🟢",
       "accent": "#4fbe83",
       "imageCaption": "A diary clasp, a green thread, and a face that does not belong to itself.",
-      "hook": "Who sent Liam into the mansion, and why did Alice recognize Mario?",
+      "hook": "Somebody forged a sender, not a mission. Who, and why did Alice already know Mario?",
       "plainSummary": [
         {
           "point": "Peach is alive in this record.",
-          "detail": "The handkerchief is a recent keepsake, placing the event before Highsun 1, 955 BF."
+          "detail": "Luigi carries a handkerchief she gave him the week before the brothers left, which places the account beside the Luigi's Mansion record at roughly 872 BF."
         },
         {
-          "point": "The DGK mission is contested.",
-          "detail": "Central Command denies authorizing Liam; Vale claims command after arriving."
+          "point": "The order was never signed.",
+          "detail": "Central Command has Liam's tracker, his name, and the containment class of the liquid — and no authorisation for the retrieval. Every part of the DGK worked except the sender."
         },
         {
-          "point": "Alice is connected to Mario.",
-          "detail": "She recognizes him, influences him, and may be using the diary as an anchor."
+          "point": "Vale did not claim authorisation.",
+          "detail": "Told the mission was never authorised, he answered “It is now.” His badge is Clearance Level 5 and appears genuine."
+        },
+        {
+          "point": "Alice recognised Mario before the diary was opened.",
+          "detail": "She reaches him first, says “You came back,” and lets the other two go. She is waiting for a return she considers scheduled."
+        },
+        {
+          "point": "The way in was pity.",
+          "detail": "Mario read her account of what Riba did to her and felt sorry for her. There is no ward against that."
+        },
+        {
+          "point": "A second crew was on the grounds.",
+          "detail": "Two men in modified DGK uniforms crossed the back lawn with a full sack and left by the dirt path. Unconnected to Vale."
         }
       ],
       "background": [
@@ -3730,36 +3742,71 @@
           "id": "th_alice_mario",
           "title": "Alice recognized Mario before the diary was opened",
           "state": "open",
-          "text": "Alice says “You came back” and reaches Mario before Liam or Luigi can establish how she knows him. The diary may explain the connection, but the transcript stops before it can be tested."
+          "text": "Alice says “You came back” and reaches Mario before Liam or Luigi can establish how she knows him. She then lets both of them leave the building and spends her only parting sentence on him. The diary may explain the connection; the transcript stops before anybody opens it."
         },
         {
           "id": "th_dgk_lure",
-          "title": "The retrieval order and Vale’s command do not match",
+          "title": "The retrieval order and Vale's command do not match",
           "state": "open",
-          "text": "Central Command denies sending Liam. Vale says he called Liam, but his arrival follows the denial and his first act is taking the phone. The original sender remains unidentified."
+          "text": "Central Command denies sending Liam while holding his tracker history and correctly classifying the sample on description. Vale arrives after the denial, presents a genuine Level 5 badge, and converts the denial into a command by assertion. The original sender is unidentified and the handset that would name them left with Vale."
+        },
+        {
+          "id": "th_paintings",
+          "title": "Blank canvases in a hall, and a note about paintings",
+          "state": "open",
+          "text": "Bowser's note says the Power Stars were sealed away in “those paintings.” The mansion's lower hall is hung with framed canvases that carry no image. Nobody in the transcript connects the two, and nobody has looked behind one."
+        },
+        {
+          "id": "th_second_crew",
+          "title": "Two men, modified uniforms, one sack",
+          "state": "open",
+          "text": "Wario and Waluigi crossed the back lawn during the incursion in re-tailored DGK uniforms and left the property on foot with a roped sack. Waluigi's own filing note confirms nobody sent them. The sack has never been inventoried."
         }
       ],
       "leads": [
         {
           "id": "lead_open_alice_diary",
-          "title": "Open Alice’s diary",
+          "title": "Open Alice's diary",
           "state": "open",
           "priority": "critical",
-          "objective": "Determine whether the diary explains Alice’s recognition of Mario, her influence, or the mansion’s looping exits.",
-          "why": "It is the only named object directly tied to Alice’s history and Mario’s possession.",
+          "objective": "Recover the leather-bound book from the second-floor study and read it.",
+          "why": "It is the only named object anybody in the file has a reason to want, it is the stated door through which Alice reached Mario, and as far as the archive knows it is still sitting on the corner of that desk untouched.",
           "exhibits": [
             "ex_spirit_residue_call"
           ]
         },
         {
           "id": "lead_identify_false_dgk_order",
-          "title": "Identify the original mission sender",
+          "title": "Identify who issued the retrieval order",
           "state": "open",
           "priority": "critical",
-          "objective": "Compare Liam’s assignment with Central Command records and Vale’s claimed authority.",
-          "why": "The denial proves a command conflict, not who created the lure.",
+          "objective": "Reconcile the unattributed field order against Central Command's authorisation register and Vale's command log.",
+          "why": "The denial proves a command conflict, not authorship. Somebody with real access inserted a real-looking order into a working system, which is a breach rather than a haunting.",
           "exhibits": [
+            "ex_dgk_order",
             "ex_spirit_residue_call"
+          ]
+        },
+        {
+          "id": "lead_recover_liam_handset",
+          "title": "Recover Liam's handset from Director Vale",
+          "state": "open",
+          "priority": "high",
+          "objective": "Retrieve the phone Vale confiscated in the courtyard, and with it the call log and the message that carried the assignment.",
+          "why": "It is the only physical object that can name the sender, and the first thing Vale did on arrival was take it out of Liam's hand.",
+          "exhibits": [
+            "ex_vale_badge"
+          ]
+        },
+        {
+          "id": "lead_look_behind_a_canvas",
+          "title": "Look behind a blank canvas in the lower hall",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Examine the unpainted framed canvases in the mansion's lower hall against Bowser's claim that the Power Stars were sealed in paintings.",
+          "why": "Two operations were converging on one building the same week and this is the only point where their paperwork touches the same furniture. It costs one frame to test.",
+          "exhibits": [
+            "ex_bowser_note"
           ]
         }
       ],
@@ -3799,6 +3846,80 @@
               "director_vale",
               "mario",
               "alice"
+            ]
+          }
+        },
+        {
+          "id": "ex_dgk_order",
+          "propId": "prop_dgk_retrieval_order",
+          "session": "s_dread_mansion",
+          "icon": "🧪",
+          "kind": "order",
+          "category": "discovery",
+          "title": "The retrieval order nobody signed",
+          "secured": "Approximately 872 BF — reconstructed from Liam's account after the handset was lost",
+          "custody": "Archive — reconstruction; original carried on the confiscated phone",
+          "visual": "<div style=\"padding:24px;border:1px dashed rgba(200,200,210,.45);border-radius:10px;background:linear-gradient(135deg,rgba(28,30,38,.92),rgba(14,16,20,.96));color:#d6d9e2;text-align:center;font-weight:800;letter-spacing:.14em\">ISSUING OFFICER &mdash; UNATTRIBUTED</div>",
+          "onRecord": "A field agent was sent alone to an isolated property to recover sealed samples. The order names no issuing officer, no containment grade, no escort and no extraction. Central Command holds the tracker log and denies the authorisation. [[roll:4|Ask what a forger would actually have to fake|the whole Directorate answers correctly all night, which means only the sender was fabricated and the fabricator had real access|the order is genuine and Central Command is lying to an agent it has already written off.]]",
+          "dc": 4,
+          "analysis": "The instinct is to read this as a fake organisation, and it is the wrong read. A fake would have failed somewhere: the emergency line would not have connected from inside a building that blocks everything else, the operator would not have had three-hour-old tracker data, and nobody would have named Level 4 containment off a verbal description of a green liquid. Every component of the Directorate performed. The single failing part is the one that says who gave the order, and it fails by being blank rather than by being wrong. That is not an outsider imitating an institution. That is somebody inside one, using it correctly, and declining to sign.",
+          "links": {
+            "events": [
+              "the_dread_mansion_incursion"
+            ],
+            "characters": [
+              "liam",
+              "director_vale"
+            ]
+          }
+        },
+        {
+          "id": "ex_vale_badge",
+          "propId": "prop_vale_clearance_badge",
+          "session": "s_dread_mansion",
+          "icon": "🪪",
+          "kind": "passport",
+          "category": "authority",
+          "title": "Clearance Level 5, held up to a telephone",
+          "secured": "Approximately 872 BF — courtyard, during the call",
+          "custody": "Not secured — remained with Vale, along with Liam's handset",
+          "visual": "<div style=\"padding:24px;border:1px solid rgba(190,196,214,.5);border-radius:10px;background:linear-gradient(135deg,rgba(46,50,62,.9),rgba(18,20,26,.96));color:#e6e9f2;text-align:center;font-weight:800;letter-spacing:.16em\">✲ LEVEL 5 · UNVERIFIED</div>",
+          "onRecord": "A silver badge bearing three intertwined arrows and the legend DIRECTORATE GLOBAL OPERATIONS — CLEARANCE LEVEL 5, presented to a live Central Command line. The operator's response was the name as a question, then compliance. [[roll:6|Weigh a genuine badge against a forged one|genuine is the worse finding: a real director is running an operation his own command says does not exist|forged, and a Central Command operator surrendered a live scene to a stranger with a piece of struck silver.]]",
+          "dc": 6,
+          "analysis": "Everything about this exchange rewards the badge and punishes the procedure. Vale never asserts that the mission was authorised — told plainly that it was not, he replies “It is now,” which is a claim about the present rather than the past and cannot be checked against any register. He then confiscates the only recording device in the courtyard and issues a stand-down to the operator who challenged him. Note the order of operations: he takes the phone before he finishes the argument. A man defending a legitimate operation does not need custody of the evidence, and the archive should treat the confiscation, not the badge, as the incriminating act.",
+          "links": {
+            "events": [
+              "the_dread_mansion_incursion"
+            ],
+            "characters": [
+              "director_vale",
+              "liam"
+            ]
+          }
+        },
+        {
+          "id": "ex_bowser_note",
+          "propId": "prop_bowser_painting_note",
+          "session": "s_dread_mansion",
+          "icon": "🐢",
+          "kind": "note",
+          "category": "correspondence",
+          "title": "The note folded for a day and a night",
+          "secured": "Approximately 872 BF — second-floor study, spotted in Luigi's pocket",
+          "custody": "Retained by Luigi",
+          "visual": "<div style=\"padding:24px;border:1px solid rgba(230,190,90,.45);border-radius:10px;background:linear-gradient(135deg,rgba(70,56,20,.85),rgba(20,16,10,.95));color:#ffe6a6;text-align:center;font-weight:800;letter-spacing:.12em\">POWER STARS · SEALED IN PAINTINGS</div>",
+          "onRecord": "Addressed to Mario in a cheerful hand, delivered to Luigi by a Koopa guard at a checkpoint on the road to the property with the words “For you.” It claims the Power Stars were sealed inside paintings and the princess taken again. It was carried folded for roughly a day and shown to nobody. [[roll:5|Consider the delivery rather than the contents|a Koopa guard was posted on the road to this specific house in the same week two other operations converged on it|the checkpoint was ordinary and the note reached the wrong brother by accident.]]",
+          "dc": 5,
+          "analysis": "The taunt is the least interesting part of this paper and it is the part everybody reads. The useful facts are logistical. First, delivery: somebody in the Koopa Troop knew which road, which week, and which brother, and handed the note to the one statistically certain to sit on it. Second, geography: the note says paintings, and the mansion's lower hall is hung with framed canvases carrying no image at all, a coincidence nobody in the transcript notices because they are busy being attacked. Third, timing: Luigi withheld it for a day out of fear that Mario would abandon the disappearances and run for Peach — a judgement about his brother's priorities that was almost certainly correct, and which bought Alice the eleven hours she needed.",
+          "links": {
+            "events": [
+              "the_dread_mansion_incursion"
+            ],
+            "characters": [
+              "luigi",
+              "mario",
+              "bowser",
+              "princess_peach"
             ]
           }
         }

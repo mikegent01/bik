@@ -1945,7 +1945,10 @@
       "subtitle": "Evidence recovered during the Dread Mansion incursion",
       "items": [],
       "articles": [
-        "the_dread_mansion_incursion"
+        "the_dread_mansion_incursion",
+        "liam",
+        "director_vale",
+        "dgk"
       ],
       "note": "The vial was released during the Vale ambush. The call transcript remains the surviving account of its classification and disputed authorization.",
       "body": "<div class=\"pd-head\"><strong>DGK CENTRAL — EMERGENCY LINE TRANSCRIPT</strong><br>Classification: Level 4 containment concern</div><p><strong>Caller:</strong> Liam reports possession of a glowing green sample recovered during an alleged DGK retrieval mission.</p><p><strong>Central Command:</strong> Orders Liam to put the sample down and states that DGK did not authorize the mission. The caller identifies the liquid as Spirit Residue, associated with locations where people disappear.</p><p><strong>Counterclaim:</strong> Director Vale arrives, identifies himself with a Directorate Global Operations badge, and declares the operation under his direct command. Central Command disputes the authorization.</p><p><strong>Disposition:</strong> The vial was thrown during the confrontation and released a green pulse that stunned Vale. Containment status after release is unknown.</p>",
@@ -1968,6 +1971,60 @@
         "evidence"
       ],
       "body": "<div class=\"pd-head\"><div class=\"pd-org\">Wario Enterprise \u00b7 Fine Consumables</div><div class=\"pd-sub\">Anti-Fey Elixir \u00b7 warning label</div></div><div class=\"pd-body\"><p>WAH! THIS BOTTLE CONFERS BONUS ATTACKS AGAINST FEY, UNDEAD, AND OTHER MONSTERS. DRINK ONE. NOT TWO.</p></div><div class=\"pd-clause\"><b class=\"n\">Warning as filed.</b> Wario&rsquo;s warning labels are usually decoration. This one is legible, and it was the whole reason the squad faced the Scorncrow sober on a full dose. The label is not a suggestion; it is the medicine.</div><div class=\"pd-margin\">One bottle, spent on a monster that refused to be one. Wario has filed the motorbike retrieval fee separately. &mdash; W.</div>"
+    },
+    "prop_dgk_retrieval_order": {
+      "kind": "order",
+      "icon": "🧪",
+      "title": "Field Retrieval Order — Sample Recovery, Grade Unlisted",
+      "subtitle": "The order Liam was working to · Central Command has no record of it",
+      "items": [],
+      "articles": [
+        "the_dread_mansion_incursion",
+        "liam",
+        "dgk",
+        "director_vale"
+      ],
+      "note": "Reconstructed from Liam's account of what he was sent to do, because the handset carrying the original left the courtyard in Director Vale's coat. Everything on this slip is correct except the part that says who wrote it.",
+      "body": "<div class=\"pd-classbar\">Directorate Global Operations — Field Distribution</div><div class=\"pd-head\"><div class=\"pd-org\">Directorate Global Operations</div><div class=\"pd-sub\">Field Retrieval Order · Sample Recovery</div></div><dl class=\"pd-meta\"><dt>Assigned</dt><dd>Agent LIAM, field grade, unaccompanied</dd><dt>Site</dt><dd>Private estate, isolated grounds. Referred to in the order only as \"the property\"</dd><dt>Object</dt><dd>Recover sealed samples. Quantity unspecified.</dd><dt>Containment grade</dt><dd><span class=\"pd-redact\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> — not stated on the order</dd><dt>Escort</dt><dd>None assigned</dd><dt>Extraction</dt><dd>Not specified</dd><dt>Issuing officer</dt><dd><b>Unattributed.</b> No name, no clearance number, no countersignature</dd></dl><div class=\"pd-clause\"><b class=\"n\">1.</b> Agent will proceed to the property and recover the sample material.</div><div class=\"pd-clause\"><b class=\"n\">2.</b> Agent will maintain tracker contact. Comms are expected to degrade on site.</div><div class=\"pd-clause\"><b class=\"n\">3.</b> Agent will report on recovery.</div><div class=\"pd-inset\"><div class=\"pd-quote\">\"Liam — DGK didn't send you on any sample retrieval mission. Not for that.\"<br>\"I never gave you a mission to collect samples.\"<br><b>— Central Command operator, emergency line, during the incursion</b></div></div><div class=\"pd-clause\"><b class=\"n\">4.</b> <b>Central Command holds no matching authorisation.</b> The tracker log exists. The containment classification exists. The agent exists. The order does not.</div><div class=\"pd-margin pd-margin--red\">Three lines and no signature. Nobody forged the Directorate — the line answered, the operator knew his tracker, and the liquid was correctly classified the moment it was described. They forged one thing: whoever sent him. — W.</div><div class=\"pd-classbar bottom\">Exhibit · The Dread Mansion File</div>",
+      "stamps": [
+        "void"
+      ]
+    },
+    "prop_vale_clearance_badge": {
+      "kind": "passport",
+      "icon": "🪪",
+      "title": "Identification — Director Vale, Clearance Level 5",
+      "subtitle": "Presented in the courtyard to a live Central Command line",
+      "items": [],
+      "articles": [
+        "the_dread_mansion_incursion",
+        "director_vale",
+        "dgk"
+      ],
+      "note": "The badge is not the problem. The badge appears to be entirely genuine, which is why a Central Command operator stopped giving orders the moment he heard the name.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Directorate Global Operations</div><div class=\"pd-sub\">Officer Identification · Level 5</div></div><div class=\"pd-seal\">✳</div><dl class=\"pd-meta\"><dt>Name</dt><dd>VALE</dd><dt>Rank</dt><dd>DIRECTOR</dd><dt>Clearance</dt><dd>LEVEL 5 — directorate and command tier</dd><dt>Device</dt><dd>Circle enclosing three intertwined arrows</dd><dt>Legend</dt><dd>DIRECTORATE GLOBAL OPERATIONS — CLEARANCE LEVEL 5</dd><dt>Material</dt><dd>Silver, struck; no lamination, no photograph</dd><dt>Verified against</dt><dd>Nothing. It was held up to a telephone.</dd></dl><div class=\"pd-inset\"><div class=\"pd-quote\">\"This operation is now under my direct command.\"<br>\"Director Vale… this mission was never authorized by Central Command.\"<br><b>\"It is now.\"</b></div></div><div class=\"pd-clause\">Central Command's recorded response on hearing the name was <i>\"…Director Vale?\"</i> — a question, then compliance. The operator did not challenge the credential. He challenged the operation, and lost.</div><div class=\"pd-margin pd-margin--red\">He never once said the mission was authorised. He said it is now, present tense, over the top of the man telling him it was not. A forgery would have been better news than this. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_bowser_painting_note": {
+      "kind": "note",
+      "icon": "🐢",
+      "title": "Handwritten Note — Power Stars, Paintings, and Ice Cream",
+      "subtitle": "Delivered by a Koopa guard at the outer gate · carried folded for a day and a night",
+      "items": [],
+      "articles": [
+        "the_dread_mansion_incursion",
+        "luigi",
+        "mario",
+        "bowser",
+        "princess_peach"
+      ],
+      "note": "Addressed to Mario. Handed to Luigi. Read at a checkpoint, folded twice, and not mentioned to anybody until a stranger spotted the corner of it in a second-floor study eleven hours later.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Handwritten · no letterhead</div><div class=\"pd-sub\">Recovered wording, per Luigi's copy</div></div><div class=\"pd-quote\">Oh, hi there Mario! I hope you don't mind, but I had to take all of those power stars and seal them all away in those paintings. I also had to kidnap the princess again&hellip; you know the routine, big bad guy and all, haha! Anyway, try to collect them all and fight me so we can see who wins! Then we can go get some ice cream at the place I told you about! See you then, buddy!</div><div class=\"pd-sign\"><div><div class=\"pd-sigline\"><i>Bowser</i></div><div class=\"pd-sigcap\">No seal, no date, no address</div></div></div><dl class=\"pd-meta\"><dt>Delivered by</dt><dd>A Koopa guard at a checkpoint on the road to the property</dd><dt>Words spoken on delivery</dt><dd>\"For you.\" Nothing further.</dd><dt>Held</dt><dd>Approximately one day. Not shown to Mario.</dd><dt>Stated reason for withholding</dt><dd>\"I was scared.\"</dd></dl><div class=\"pd-clause\"><b class=\"n\">I.</b> Power Stars removed and sealed inside paintings. The mansion's lower hall contains framed canvases with nothing painted on them.</div><div class=\"pd-clause\"><b class=\"n\">II.</b> The princess taken. Stated in the same sentence as the ice cream.</div><div class=\"pd-clause\"><b class=\"n\">III.</b> No location given for either.</div><div class=\"pd-margin\">A Koopa guard was standing on the road to this exact house, with this note, on this week. Nobody has ever explained what he was doing there and the archive has never once asked. — W.</div>",
+      "stamps": [
+        "evidence"
+      ]
     }
   }
 }

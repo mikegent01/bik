@@ -5079,7 +5079,12 @@
       "the_dread_mansion_incursion"
     ],
     "relatedArticles": [
-      "the_dread_mansion_incursion"
+      "the_dread_mansion_incursion",
+      "the_dread_mansion",
+      "alice",
+      "director_vale",
+      "luigi",
+      "dgk"
     ],
     "faiths": [
       {
@@ -5105,7 +5110,13 @@
       "the_dread_mansion_incursion"
     ],
     "relatedArticles": [
-      "the_dread_mansion_incursion"
+      "the_dread_mansion_incursion",
+      "riba",
+      "the_dread_mansion",
+      "mario",
+      "luigi",
+      "liam",
+      "director_vale"
     ],
     "faiths": [
       {
@@ -5115,6 +5126,28 @@
       }
     ],
     "image": "portraits/alice.png"
+  },
+  {
+    "id": "riba",
+    "name": "Riba",
+    "title": "The Mansion Owner Alice Loved",
+    "race": "Human \u2014 unrecorded beyond the testimony",
+    "status": "Long dead \u2014 Luigi states the estate has outlived him by decades",
+    "affiliation": "The Dread Mansion (former owner)",
+    "faction": "unknown",
+    "membership": "None recorded",
+    "summary": "Riba owned the Dread Mansion. Alice loved him and he betrayed her; she died on the property and what she left behind went into the house. He appears in the archive only through Luigi's account and through the diary Alice wrote, and every fact about him is secondhand.",
+    "description": "Riba is named twice in the Dread Mansion transcript and never appears in it. Luigi's account is the whole record: a woman called Alice loved the man who owned the mansion, the man betrayed her, and she died there carrying it.\n\nWhat makes him worth an entry is not the betrayal but its persistence. While Alice held Mario, Mario talked repeatedly and urgently about punishing Riba \u2014 a man who has been dead for the better part of a century and cannot be punished by anyone. The spirit's grievance has outlived every party to it, which is the clearest measure the archive has of what she actually is.\n\nNo independent source confirms he existed. The diary on the second-floor study is the only document that could, and nobody has opened it.",
+    "keyEvents": [
+      "the_dread_mansion_incursion"
+    ],
+    "relatedArticles": [
+      "the_dread_mansion_incursion",
+      "alice",
+      "the_dread_mansion",
+      "mario",
+      "luigi"
+    ]
   },
   {
     "id": "director_vale",
@@ -5131,7 +5164,11 @@
       "the_dread_mansion_incursion"
     ],
     "relatedArticles": [
-      "the_dread_mansion_incursion"
+      "the_dread_mansion_incursion",
+      "the_dread_mansion",
+      "liam",
+      "dgk",
+      "alice"
     ],
     "faiths": [
       {

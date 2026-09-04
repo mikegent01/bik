@@ -2203,7 +2203,7 @@
     "name": "The Dread Mansion",
     "type": "Haunted mansion / Spirit-residue site / DGK target",
     "region": "Unconfirmed; isolated grounds outside ordinary communications",
-    "controllingFaction": "Unconfirmed — Director Vale claims operational control",
+    "controllingFaction": "Unconfirmed — formerly the estate of Riba; Director Vale claimed operational control during the incursion",
     "population": "Alice and other hostile spirits; missing persons presumed; transient visitors",
     "climate": "Cold, dusty, and unnaturally quiet; temperature drops around Alice",
     "status": "Active hazard — exits loop or seal, communications fail, and Spirit Residue is present",
@@ -2215,11 +2215,21 @@
       "second-floor study where Alice's diary was found",
       "sealed or slamming doors",
       "hostile ghost activity and temperature drops",
-      "unreliable route that returns escapees to the mansion"
+      "unreliable route that returns escapees to the mansion",
+      "framed canvases in the lower hall with no image on them",
+      "a grand piano under a dust sheet, used as cover",
+      "an emergency line that connects from inside the building when nothing else does"
     ],
     "relatedArticles": [
-      "the_dread_mansion_incursion"
-    ]
+      "the_dread_mansion_incursion",
+      "liam",
+      "alice",
+      "director_vale",
+      "luigi",
+      "mario"
+    ],
+    "image": "assets/images/events/dread-mansion/dread-02-courtyard.jpg",
+    "imageCaption": "The Dread Mansion from its own courtyard, taken through the oak door Liam and Luigi broke out of. The grounds return escapees to this view."
   },
   {
     "id": "iron_legion_old_world_embassy",

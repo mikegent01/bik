@@ -550,6 +550,50 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "wahwire_dread_mansion_unsigned_order",
+      "author": "waluigi",
+      "order": 16,
+      "date": null,
+      "timestamp": "Approximately 872 BF — refiled 1040 BF",
+      "content": "Everybody wants to talk about the man with two faces. Nobody wants to talk about the order with no name on it. The line answered from inside a house where nothing answers. The operator had the tracker. He classified the liquid off a description. Then he said he never sent anyone. Read that again. They did not fake the Directorate. They faked one signature and let the rest work properly. WAH.",
+      "likes": 612,
+      "links": [
+        {
+          "id": "the_dread_mansion_incursion",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "dread mansion",
+        "dgk",
+        "liam",
+        "alice",
+        "872bf"
+      ],
+      "reaction": "alarm",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "wario",
+          "content": "I was in the garden that night and I saw NOTHING. Also the sack was mine.",
+          "likes": 31
+        },
+        {
+          "id": "c2",
+          "author": "waluigi",
+          "content": "You sewed the patches on crooked and I looked like a lampshade with a rank.",
+          "likes": 508
+        },
+        {
+          "id": "c3",
+          "author": "mario",
+          "content": "...she said i came back. i have never been to that house.",
+          "likes": 1204
+        }
+      ],
+      "status": "posted"
     }
   ]
 }
