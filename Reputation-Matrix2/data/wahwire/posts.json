@@ -479,6 +479,41 @@
       "_quality": {
         "validator": "wahwire-v2"
       }
+    },
+    {
+      "id": "wahwire_the_miser_muster_roll",
+      "author": "waluigi",
+      "order": 14,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF",
+      "content": "Everyone quotes the Order of Jack at twenty thousand. Nobody reads the column. It counts levies who cannot leave a harvest, volunteers nobody pays, hired-out clients, and Legion men already counted by the Legion. He can move a few hundred. He is a good man with eleven miles and a very good poster. WAH.",
+      "likes": 214,
+      "links": [
+        {
+          "id": "jack_melvus_miser",
+          "type": "character"
+        },
+        {
+          "id": "order_of_jack",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "misers",
+        "order of jack",
+        "regal lion",
+        "audit"
+      ],
+      "reaction": "suspicion",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "waluigi",
+          "content": "And no, before anyone writes in: nobody has told him about his brother.",
+          "likes": 97
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

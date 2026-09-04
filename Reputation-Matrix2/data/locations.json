@@ -2699,5 +2699,24 @@
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T23:26:45+00:00"
     }
+  },
+  {
+    "id": "vellanet_rise",
+    "name": "Vellanet Rise",
+    "type": "Location / Minor Landed Holding / Knight's Grant",
+    "region": "Regal Empire — Midlands periphery, upriver of the Midgrual foothill roads",
+    "image": "portraits/miser_family.png",
+    "controllingFaction": "The Order of Jack (grant held by Commander Jack Melvus Miser under Regal Empire tenure)",
+    "population": "Roughly three villages' worth of tenants, plus the manor household, the quarry crews, and the order's standing garrison",
+    "climate": "Cold uplands; long wet springs, short harvests, a road that closes twice a winter",
+    "status": "Active — quiet, solvent, and militarily unremarkable by every measure except its commander's reputation",
+    "summary": "The grant Jack Miser earned rather than inherited: a fortified manor, three villages, a mill, a quarry and the road tolls between them, on the Regal Empire's Midlands periphery. Eleven miles of it, give or take the moor. It is the seat of the Order of Jack, the home of Wanda Miser and three of her children, and — measured against the empires this archive normally files — extremely small. That smallness is the point of the page.",
+    "description": "## Scale, Stated Plainly\n\nWaluipedia's atlas is full of thrones, capitals, planar reflections and fortress-cities. Vellanet Rise is none of those. It is **a minor grant**: a fortified manor on a shoulder of high ground, three tenant villages below it, a mill on the river, a quarry cut into the ridge, and the toll rights on the road that ties them together.\n\nA rider crosses it in a morning. A bad winter closes it twice. Its chief strategic value is that the road exists at all, and that somebody competent is now standing on it.\n\nThe archive is being deliberate about this figure because the alternative is worse. Jack Miser is a **lord of about eleven miles**, and every draft that quietly upgrades him to a realm makes the rest of his file dishonest.\n\n## The Manor and the Yard\n\nThe manor is fortified rather than grand: a curtain wall a good siege engineer would call optimistic, a hall, a chapel with a Knowledge-Domain shrine that was not there before Lunaria started visiting, and a muster yard that is the only part of the estate built to a proper standard.\n\nThe yard tells you what the money went on. Stone underfoot, drainage that works, a smithy that is never cold, and stabling for far more horses than the household owns — because the order's mounted strength is the part of the roll that is real.\n\n## The Villages\n\nThree, named on the tenure roll and unremarkable on it: grain, sheep, gravel, and the mill. They pay the toll share, they raise the levy when called, and they have not been raided since the year the order stood up, which is the entire local argument for Jack's existence and the reason no one there cares what his muster roll says on paper.\n\n## Who Lives Here\n\nWanda Miser keeps a set of rooms in the manor and, according to every account, keeps them exactly as plainly as she kept the last house. July, Spring and Hark come and go — funded, housed, and pointedly not enlisted. Jack's own quarters are next to the muster yard rather than over the hall, which is either humility or logistics, and Waluigi has stopped trying to establish which.\n\nThere is no room set aside for Archie. There is also no room given away.\n\n## Waluigi's Assessment\n\nAn honest little holding that runs well, protects its tenants, and would not survive contact with anything this archive normally files as a threat. Its defence is not its wall. Its defence is that it is too small to be worth the march — a security policy which works exactly until the day it doesn't. WAH.",
+    "relatedArticles": [
+      "jack_melvus_miser",
+      "order_of_jack",
+      "miser_family",
+      "regal_empire"
+    ]
   }
 ]
