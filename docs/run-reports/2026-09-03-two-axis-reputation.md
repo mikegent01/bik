@@ -112,3 +112,68 @@ failures are pre-existing, confirmed previously via `git stash`).
   would still add signal.
 - `houseMiser` portrait ids are still absent from the hardcoded `boneLineIds`
   arrays in `visualDynastyMap` and `view_dynasty` (carried over, unrelated).
+
+---
+
+## Follow-up: over-correction fix and standings-page signal-to-noise
+
+User review of the shipped page caught two problems.
+
+### 1. The cap over-fired (regression I introduced)
+
+`_operatorFactions` substring-matched faction names out of free-text affiliation
+strings. Archie's reads:
+
+> `"Disaster Inc. / Mages' Guild (coerced employee, effective immediately, no severance package)"`
+
+That is captivity, not allegiance — but it registered him as a Mages' Guild
+member, so **every faction listing `mages_guild` as an enemy was flagged hostile
+and capped to −20**. Factions that plainly like him were inverted: the Ratchet
+Raiders (*"He's a job creator!"*) went +55 → −20, The Unchained
+(*"That makes him one of us"*) +40 → −20, Servants of the Cosmic Jester +45 → −20.
+65 of 1,024 pairs were capped. My earlier distribution check missed it because I
+only spot-checked the two cells originally reported.
+
+Fixes:
+- Bloc rivalry is now `rivalry`, **not** `hostile`. It contributes +8 pressure and
+  can never cap standing. Only *direct, personal* evidence caps: a warrant naming
+  the operator, or a dossier that is a standing order.
+- The kill-order regex dropped bare `bounty` (the Freelancer Underworld dossier
+  just observes that bounty hunters are after him — gossip, not intent).
+- `reasons` are sorted so the cap-causing reason is `reasons[0]`; the UI was
+  citing a rivalry note beside a cap actually caused by a kill-order.
+
+Capped pairs: **65 → 8**, all genuine warrants/kill-orders. Friendly factions restored.
+
+### 2. The page was ~90% noise
+
+For Archie the view rendered ~100 faction cards, ~60 of them identical
+`+0 / "No dated event modifiers on file"` — each padded with the faction's full
+article body (the Purple Legion's `description` is **12,595 characters**).
+
+- Factions with no standing, no history, no pressure and no dossier line now
+  collapse into one expandable roster ("87 factions have no recorded
+  relationship"). 41 cards render instead of 128.
+- Card descriptions truncate to 240 chars with a "read the dossier →" link.
+  `faction.description` is an article body, not a summary.
+- Fixed the same bug in the "Why this score →" modal, which was dumping whole
+  essays into a `<blockquote>` labelled **"Motto / Doctrine"**.
+- Removed the duplicated formula line (it printed in both chips and footer).
+- Pressure heat-bleed now applies only where contact exists, so unrelated
+  factions read `0 · None` instead of a meaningless floor of `12 · Light`.
+
+Rendered page text: **265,659 → 26,924 characters.**
+
+### Known data defect (NOT fixed — out of agreed scope)
+
+**House Corvinarus → Archie remains +25 Warm.** Its two scored records are
+`+20` (Belfry Floor / Corvinarus's Codex) and `+15` (*The Bullet That Broke the
+Shadowfell* — Green T shooting their lord). This is root cause #1, notoriety
+authored as approval, living in the **data**. Pressure correctly reports 70 ·
+Heavy, but no honest engine rule can read `+20, +15` as hostility; making it
+negative would require inventing a fiction. It needs an editorial re-score of
+those records. Locked in as an explicit assertion in the test suite so it cannot
+be silently "fixed" by a future rule.
+
+Verification: `test-reputation-two-axis.mjs` **25/25**; faith 31/31; home-feed
+11/11; `check-all.py` unchanged (two pre-existing failures).

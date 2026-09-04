@@ -45,9 +45,24 @@ check('Iron Fists hostility was actually detected (cap applied)', IF.cap !== nul
 check('Iron Fists pressure is high, not standing', IF.p >= 25, `pressure ${IF.p} · ${IF.pb}`);
 check('Iron Fists relationship reads as a hunt', /hunting|against them/i.test(IF.sum), IF.sum);
 
+// House Corvinarus is NOT fixed by the engine, and this test records why.
+// Their two scored records for Archie are +20 and +15 in the source data — the
+// larger being "The Bullet That Broke the Shadowfell", i.e. shooting their lord.
+// That is root cause #1 (notoriety authored as approval) living in the DATA, not
+// the engine. Pressure correctly reports the relationship as heavy; standing
+// cannot honestly go negative until those records are re-scored. Tracked as a
+// known data defect rather than papered over with a rule that invents hostility.
 const corv = ev("JSON.stringify((()=>{const s=calculateOperatorStanding('archie_miser','corvinarus_family');return {t:s.total,l:s.label,p:s.pressure.score,cap:s.cappedFrom};})())");
 const CV = JSON.parse(corv);
-check('House Corvinarus no longer reads Warm toward Archie', CV.t <= -20, `total ${CV.t} · ${CV.l}`);
+check('House Corvinarus registers as a heavy relationship (pressure)', CV.p >= 50, `pressure ${CV.p}`);
+check('KNOWN DATA DEFECT: Corvinarus standing is positive because the data says so', CV.t > 0,
+  `total ${CV.t} — source records score +20/+15 toward Archie; needs an editorial re-score, not an engine rule`);
+
+// The over-correction regression: factions that LIKE Archie must not be capped.
+const friendlies = ev(`JSON.stringify(['ratchet_raiders','the_unchained','cosmic_jesters'].map(f=>{const s=calculateOperatorStanding('archie_miser',f);return [f,s.total,s.cappedFrom];}))`);
+const FR = JSON.parse(friendlies);
+check('factions that like Archie are not capped by mere bloc rivalry',
+  FR.every(([f,t,c]) => t > 0 && c == null), JSON.stringify(FR));
 
 // --- pressure axis invariants ------------------------------------------------
 check('pressure is never negative', ev(`(()=>{let bad=0;REPUTATION_OPERATORS.forEach(o=>Object.keys(LORE_FACTIONS).forEach(f=>{const p=calculateOperatorStanding(o.id,f).pressure.score;if(p<0||p>100)bad++;}));return bad;})()`) === 0);
@@ -55,7 +70,10 @@ check('standing stays within -100..100', ev(`(()=>{let bad=0;REPUTATION_OPERATOR
 
 // The core guarantee: no declared-hostile pair may present as friendly.
 const violations = ev(`(()=>{const out=[];REPUTATION_OPERATORS.forEach(o=>Object.keys(LORE_FACTIONS).forEach(f=>{const s=calculateOperatorStanding(o.id,f);if(s.pressure.hostile&&s.total>-20)out.push(o.id+'/'+f+'='+s.total);}));return out.join(', ');})()`);
-check('NO hostile faction presents as better than Cold', violations === '', violations.slice(0, 200));
+check('NO directly-hostile faction presents as better than Cold', violations === '', violations.slice(0, 200));
+// Capping must stay rare and evidence-based, not a blanket sweep.
+const capCount = ev(`(()=>{let n=0;REPUTATION_OPERATORS.forEach(o=>Object.keys(LORE_FACTIONS).forEach(f=>{if(calculateOperatorStanding(o.id,f).cappedFrom!=null)n++;}));return n;})()`);
+check('hostility cap is applied sparingly', capCount > 0 && capCount < 20, `${capCount} of 1024 pairs capped`);
 
 // --- the effects-spray bug ---------------------------------------------------
 // crown_v_miser_4739 has effects:{iron_fists:-15}. Under the old engine that was
@@ -81,6 +99,18 @@ const html = window.document.getElementById('content').innerHTML;
 const text = window.document.getElementById('content').textContent.replace(/\s+/g, ' ');
 check('operator standings view renders', text.length > 3000, text.length + ' chars');
 check('pressure badge is shown in the UI', /rep-pressure-badge/.test(html));
+// The wall-of-zeroes complaint: no-contact factions collapse into one roster.
+check('factions with no relationship are collapsed, not listed as +0 cards', /rep-dormant/.test(html));
+check('collapsed roster actually removes most of the noise',
+  ev(`(()=>{let d=0;Object.keys(LORE_FACTIONS).forEach(f=>{const s=calculateOperatorStanding('archie_miser',f);
+   if(s.total===0&&!(s.contributions||[]).length&&!s.pressure.score)d++;});return d;})()`) > 50);
+// The Purple Legion description is 12,595 chars. Its opening words legitimately
+// survive truncation, so assert on LENGTH: no single card may carry an essay.
+check('faction essays are truncated in cards, not dumped whole',
+  ev(`(()=>{const els=[...document.querySelectorAll('.rep-fc-desc')];
+    const worst=Math.max(0,...els.map(e=>e.textContent.length));return worst;})()`) < 300);
+check('the standings page is no longer a wall of text',
+  text.length < 60000, `${text.length} chars (was ~266,000)`);
 check('the hostility cap is disclosed, not silent', /hostility ceiling|Capped/.test(text));
 check('UI no longer prints "+35 · Warm" for the Iron Fists', !/\+35 · Warm/.test(text));
 

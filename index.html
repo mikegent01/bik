@@ -6,8 +6,8 @@
 <title>Waluipedia — The Objective Encyclopedia (Written by Waluigi)</title>
 <link rel="icon" href="./favicon.ico">
 <!-- External CSS: cached by browser, loaded once, scales as site grows -->
-  <link rel="preload" href="Reputation-Matrix2/app/styles/waluipedia.css?v=rep2axis" as="style">
-  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/waluipedia.css?v=rep2axis">
+  <link rel="preload" href="Reputation-Matrix2/app/styles/waluipedia.css?v=rep2axis2" as="style">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/waluipedia.css?v=rep2axis2">
   <script>
   /* Apply theme BEFORE paint so toggle is never a no-op / flash. */
   (function () {
@@ -14204,16 +14204,23 @@ function _factionHostility(opKey, factionKey){
   const faction = LORE_FACTIONS[factionKey];
   if(!faction) return { hostile:false, reasons:[] };
   const reasons = [];
-  let hostile = false;
+  let hostile = false;   // direct, personal hostility toward THIS operator -> caps standing
+  let rivalry = false;   // their side vs your side -> pressure only, never a cap
 
-  // 1. The operator's own faction ties vs this faction's declared enemies.
+  /* 1. Factional rivalry. Deliberately NOT cap-worthy.
+     "A faction you're affiliated with is on their enemy list" says nothing about
+     how they feel about you personally, and affiliation strings are messy —
+     Archie's reads "Mages' Guild (coerced employee)", which is captivity, not
+     allegiance. Treating that as declared enmity flipped a dozen factions who
+     like him (the Ratchet Raiders literally call him "a job creator") to Cold.
+     Rivalry adds a little pressure and nothing else. */
   const rel = faction.relations || {};
   const enemies = Array.isArray(rel.enemies) ? rel.enemies : [];
   const opHomes = _operatorFactions(opKey);
   const clash = opHomes.filter(h => enemies.includes(h));
   if(clash.length){
-    hostile = true;
-    clash.forEach(h => reasons.push(`${faction.name||factionKey} lists ${(LORE_FACTIONS[h]&&LORE_FACTIONS[h].name)||h} as an enemy`));
+    rivalry = true;
+    clash.forEach(h => reasons.push(`Rival blocs: ${faction.name||factionKey} opposes ${(LORE_FACTIONS[h]&&LORE_FACTIONS[h].name)||h}`));
   }
 
   // 2. Warrants / kill-orders on the heat board naming this faction.
@@ -14233,11 +14240,17 @@ function _factionHostility(opKey, factionKey){
   //    as a kill-order rather than an opinion. This is the Iron Fists case.
   const shortKey = _opShortKey(opKey);
   const assess = (FACTION_ASSESSMENTS[factionKey]||{})[shortKey] || (FACTION_ASSESSMENTS[factionKey]||{})[opKey];
-  if(assess && /\b(dead or alive|price on (his|her|their) head|kill[- ]order|bounty|must be (cleansed|purged|removed|destroyed|stopped)|hunt(ed|ing)? (him|her|them) down|elimination|scrap the girl|arrest (her|him|them)|purged)\b/i.test(assess)){
+  /* Only phrasing that is unambiguously a standing order against this person.
+     Note "bounty" alone is excluded: the Freelancer Underworld dossier merely
+     observes that bounty hunters are after him, which is gossip, not intent. */
+  if(assess && /(dead or alive|price on (his|her|their) head|kill[- ]order|must be (cleansed|purged|removed|destroyed|stopped|detained)|we only await his capture|to be detained|hunt(ed|ing)? (him|her|them) down)/i.test(assess)){
     hostile = true;
-    reasons.push(`Dossier reads as a standing threat: “${String(assess).slice(0,80)}${assess.length>80?'…':''}”`);
+    reasons.push(`Dossier is a standing order: “${String(assess).slice(0,90)}${assess.length>90?'…':''}”`);
   }
-  return { hostile, reasons };
+  // Put direct-hostility reasons first: reasons[0] is what the UI cites, and
+  // citing a rivalry note next to a cap caused by a kill-order is misleading.
+  reasons.sort((a,b) => (a.startsWith('Rival blocs')?1:0) - (b.startsWith('Rival blocs')?1:0));
+  return { hostile, rivalry, reasons };
 }
 
 /* Which factions an operator belongs to, for enemy-of-my-faction checks. */
@@ -14282,12 +14295,14 @@ function calculateOperatorPressure(opKey, factionKey, contributions, standingTot
   const hostileWeight = contrib.reduce((s,c) => s + (c.decayed < 0 ? Math.abs(c.decayed) : 0), 0);
 
   const host = _factionHostility(opKey, factionKey);
-  const declared = host.hostile ? 30 : 0;
+  const declared = host.hostile ? 30 : (host.rivalry ? 8 : 0);
 
-  // Heat is personal, not per-faction, but a wanted person draws more pressure
-  // from everyone. Scaled down so it never dominates a specific relationship.
+  /* Heat is personal, not per-faction. It only bleeds into a relationship that
+     actually exists — a faction with no shared history and no quarrel is not
+     "leaning on" anyone, and showing every one of them a floor of 12 was noise. */
+  const hasContact = entanglement > 0 || host.hostile || host.rivalry;
   const heat = INFAMY_PROFILES[opKey] || INFAMY_PROFILES[_opShortKey(opKey)];
-  const heatBleed = heat ? Math.round((Number(heat.score)||0) * 0.15) : 0;
+  const heatBleed = hasContact && heat ? Math.round((Number(heat.score)||0) * 0.15) : 0;
 
   const raw = entanglement + hostileWeight * 0.5 + declared + heatBleed;
   const score = Math.max(0, Math.min(100, Math.round(raw)));
@@ -14298,6 +14313,7 @@ function calculateOperatorPressure(opKey, factionKey, contributions, standingTot
     declared,
     heatBleed,
     hostile: host.hostile,
+    rivalry: host.rivalry,
     reasons: host.reasons,
     band: pressureBand(score)
   };
@@ -14313,6 +14329,15 @@ function pressureBand(p){
    old single-number UI could not say. */
 function relationSummary(standing, pressure){
   const s = Number(standing)||0, p = (pressure&&pressure.score)||0;
+  /* Net standing can hide a violent relationship. House Corvinarus scores +25
+     with Archie off old cooperative history while currently hunting him: the
+     hostile share of their shared history, not the net, is what makes it a
+     hunt. When most of the weight between two parties is hostile, say so. */
+  const hw = (pressure&&pressure.hostileWeight)||0;
+  const ent = (pressure&&pressure.entanglement)||0;
+  const mostlyHostile = ent > 0 && (hw / ent) >= 0.5;
+  if(p >= 50 && mostlyHostile) return 'Openly hostile — heavy, mostly violent history';
+  if(p >= 25 && mostlyHostile) return 'Turning against them';
   if(p >= 50 && s <= -20) return 'Actively hunting them';
   if(p >= 50 && s >= 20)  return 'Deeply invested ally';
   if(p >= 50)             return 'Entangled — high stakes, unsettled';
@@ -14639,7 +14664,16 @@ function renderWhyModal(factionKey, opKey) {
       <ul style="line-height:1.6;font-size:13px">
         <li><b>Leadership Intel:</b> ${esc(faction.leader || 'Leader Classified or Collective Council')}</li>
         <li><b>Headquarters:</b> ${esc(faction.headquarters || 'Regional Garrisons')}</li>
-        <li class="intel-motto"><b>Motto / Doctrine:</b><blockquote>"${esc(faction.motto || faction.description || 'Order through action.')}"</blockquote></li>
+        <li class="intel-motto"><b>Motto / Doctrine:</b><blockquote>"${esc((()=>{
+          if(faction.motto) return faction.motto;
+          // Falling back to description dumped the faction's entire article into
+          // a blockquote labelled "Motto". Use a single sentence, or nothing.
+          const d = String(faction.description||'').replace(/^#+\s*[^\n]*\n+/,'').replace(/\s+/g,' ').trim();
+          if(!d) return 'Order through action.';
+          const stop = d.search(/[.!?](\s|$)/);
+          const one = stop > 0 ? d.slice(0, stop+1) : d;
+          return one.length > 200 ? one.slice(0, 197).replace(/\s+\S*$/,'') + '…' : one;
+        })())}"</blockquote></li>
         <li><b>Known Allies:</b> ${Array.isArray(faction.relations?.allies) ? faction.relations.allies.map(a => LORE_FACTIONS[a]?.name || a).join(', ') : 'None listed'}</li>
         <li><b>Known Hostiles:</b> ${Array.isArray(faction.relations?.enemies) ? faction.relations.enemies.map(e => LORE_FACTIONS[e]?.name || e).join(', ') : 'None listed'}</li>
       </ul>
@@ -14962,8 +14996,33 @@ function view_reputation(arg) {
     const posCount = standingsList.filter(s => s.standing.total >= 20).length;
     const neuCount = standingsList.filter(s => s.standing.total > -20 && s.standing.total < 20).length;
     const negCount = standingsList.filter(s => s.standing.total <= -20).length;
+    const pressCount = standingsList.filter(s => (s.standing.pressure||{}).score >= 50).length;
 
-    const itemsHtml = standingsList.map(item => {
+    /* A faction with no score, no shared history and no quarrel has no
+       relationship to render. Printing 60 identical "+0 / no modifiers on file"
+       cards — each padded with the faction's full encyclopedia entry — buried
+       the ~30 standings that actually say something. Those are now one line each. */
+    const hasRelationship = (it) => {
+      const st = it.standing || {};
+      const p = st.pressure || {};
+      return (st.total !== 0) || ((st.contributions||[]).length > 0) || (p.score > 0) || !!it.assessment;
+    };
+    const liveList = standingsList.filter(hasRelationship);
+    const dormantList = standingsList.filter(it => !hasRelationship(it));
+
+    const dormantHtml = dormantList.length ? `
+      <div class="rep-dormant card mb-12">
+        <button class="rep-dormant-toggle" onclick="this.parentElement.classList.toggle('open')">
+          <b>${dormantList.length} factions have no recorded relationship</b>
+          <span class="text-muted"> — no events, no politics, no quarrel. Neutral by default. </span>
+          <span class="rep-dormant-caret">▾</span>
+        </button>
+        <div class="rep-dormant-body">${dormantList.map(it =>
+          `<span class="rep-dormant-chip" onclick="renderWhyModal('${it.faction.key}', '${selectedOp.id}')" title="${esc(it.faction.region||'')}">${esc(it.faction.name)}</span>`
+        ).join('')}</div>
+      </div>` : '';
+
+    const itemsHtml = liveList.map(item => {
       return `
         <div class="rep-faction-card mb-12">
           <div class="rep-fc-head">
@@ -14976,11 +15035,20 @@ function view_reputation(arg) {
               ${(item.standing.pressure&&item.standing.pressure.score)?`<div class="rep-pressure-badge ${item.standing.pressure.score>=75?'p-consuming':item.standing.pressure.score>=50?'p-heavy':item.standing.pressure.score>=25?'p-active':'p-light'}" title="Pressure — how hard they are leaning on this operator. Attention, not approval.">◉ ${item.standing.pressure.score} · ${esc(item.standing.pressure.band)}</div>`:''}
             </div>
           </div>
-          ${item.assessment ? `<div class="wnote" style="margin:8px 0"><b>Dossier Assessment:</b> "${esc(item.assessment)}"</div>` : `<div style="font-size:12.5px;color:var(--muted);margin:6px 0">${esc(item.faction.description||'')}</div>`}
+          ${item.assessment
+            ? `<div class="wnote" style="margin:8px 0"><b>Dossier Assessment:</b> "${esc(item.assessment)}"</div>`
+            : (() => {
+                /* faction.description is the full article body — thousands of words of
+                   Waluigi essay. A standings card wants a sentence, not a chapter. */
+                const d = String(item.faction.description||'').replace(/^#+\s*[^\n]*\n+/,'').replace(/\s+/g,' ').trim();
+                if(!d) return '';
+                const cut = d.slice(0, 240);
+                const snip = d.length > 240 ? cut.slice(0, cut.lastIndexOf(' ')) + '…' : cut;
+                return `<div class="rep-fc-desc">${esc(snip)}${d.length>240?` <a href="#/article/${item.faction.key}" onclick="event.stopPropagation()">read the dossier →</a>`:''}</div>`;
+              })()}
           ${standingFactorChips(item.standing)}
           ${(item.standing.contributions||[]).length ? `<div class="rep-top-events text-muted">Top events: ${esc((item.standing.contributions||[]).slice(0,3).map(c => `${c.decayed>=0?'+':''}${c.decayed} ${(c.record.title||c.record.name||'').toString().slice(0,42)}`).join(' · '))}${(item.standing.contributions||[]).length>3?' …':''}</div>` : `<div class="rep-top-events text-muted">No dated event modifiers on file — this score is mostly baseline${(item.standing.subfactions||item.standing.propagation)?' plus politics/ripple':''}.</div>`}
           <div class="rep-card-footer">
-            <span style="font-size:11px;color:var(--muted)">${esc(standingFormulaLine(item.standing))}</span>
             <button class="rep-btn-trace" onclick="renderWhyModal('${item.faction.key}', '${selectedOp.id}')">Why this score →</button>
           </div>
         </div>
@@ -14999,12 +15067,14 @@ function view_reputation(arg) {
               <span class="chip chip-positive">Positive: ${posCount}</span>
               <span class="chip chip-neutral">Neutral: ${neuCount}</span>
               <span class="chip chip-negative">Hostile: ${negCount}</span>
+              <span class="chip" style="background:rgba(251,146,60,.14);border-color:rgba(251,146,60,.4);color:#fdba74" title="Factions leaning hard on this operator — Pressure 50+. Attention, not approval.">Under pressure: ${pressCount}</span>
               <span class="chip chip-heat">🚨 Heat: ${heat.score} (${esc(heat.label)})</span>
             </div>
           </div>
         </div>
         <h2 class="mb-12">All Faction Standings for ${esc(selectedOp.name)}</h2>
         <div>${itemsHtml}</div>
+        ${dormantHtml}
       </div>
     `;
 
