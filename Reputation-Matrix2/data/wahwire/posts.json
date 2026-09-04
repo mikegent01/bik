@@ -514,6 +514,42 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "wahwire_the_rise_upper_villages",
+      "author": "waluigi",
+      "order": 15,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF",
+      "content": "New plate of Vellanet Rise on file, and now you can see the thing the tenure roll declines to mention. Manor chapel: Silver Flame. Upper two villages: Lunar Cycle, since before there was a manor. Twenty-five out of a hundred on the friction register. Minor Friction. Survivable. Survivable because no inquisitor has yet walked up a road he is legally entitled to walk up. WAH.",
+      "likes": 168,
+      "links": [
+        {
+          "id": "vellanet_rise",
+          "type": "location"
+        },
+        {
+          "id": "order_of_jack",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "misers",
+        "vellanet rise",
+        "faith",
+        "silver flame",
+        "edict"
+      ],
+      "reaction": "suspicion",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "waluigi",
+          "content": "Three of his chaplains told me the same unwritten order in almost the same words. That is not a coincidence, that is a man who said it once and meant it.",
+          "likes": 88
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

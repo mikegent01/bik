@@ -2033,3 +2033,30 @@ input:focus, textarea:focus, select:focus, button:focus-visible {
 .dock-label{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 .dock-desc{font-size:12.5px;color:var(--muted);line-height:1.45;margin:8px 0 0}
 .dock-note{margin-top:8px;font-size:12px;color:var(--muted);font-style:italic}
+
+/* ===== Alternating lead art (imageAlternates[]) ===== */
+.lead-rotator{position:relative}
+.lead-rotator .lead-stack{position:relative;display:block}
+.lead-rotator .lead-frame{display:none}
+.lead-rotator .lead-frame.on{display:block}
+.lead-rotator .lead-cap{min-height:1.2em}
+.lead-rotator .lead-cap-credit{opacity:.7;font-style:italic}
+.lead-controls{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px}
+.lead-arrow{background:var(--panel2);border:1px solid var(--border);color:var(--muted);border-radius:7px;width:24px;height:24px;line-height:1;cursor:pointer;font-size:15px;padding:0}
+.lead-arrow:hover{color:var(--accent2);border-color:var(--accent2)}
+.lead-dots{display:inline-flex;gap:6px;align-items:center}
+.lead-dot{width:8px;height:8px;padding:0;border-radius:50%;border:1px solid var(--border);background:transparent;cursor:pointer}
+.lead-dot.on{background:var(--accent2);border-color:var(--accent2)}
+
+/* ===== Faith panel (religion-data.js) ===== */
+.faith-panel{margin:14px 0 6px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);padding:14px}
+.faith-panel h4{margin:0 0 4px;font-family:var(--font-display);display:flex;align-items:center;gap:8px}
+.faith-panel .faith-blurb{margin:0 0 10px;font-size:12px;color:var(--muted)}
+.faith-row{display:flex;flex-wrap:wrap;gap:10px}
+.faith-card{flex:1 1 250px;border:1px solid var(--border);border-left-width:4px;border-radius:10px;padding:10px 12px;background:var(--panel)}
+.faith-card .faith-name{font-weight:700;display:flex;align-items:center;gap:6px}
+.faith-card .faith-group{font-size:11px;text-transform:uppercase;letter-spacing:.6px;opacity:.75}
+.faith-card .faith-line{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+.faith-card .faith-role{font-size:11px;border:1px solid var(--border);border-radius:20px;padding:1px 8px;margin-left:auto;opacity:.85}
+.faith-tension{margin-top:10px;font-size:12.5px;border-top:1px dashed var(--border);padding-top:9px;color:var(--muted)}
+.faith-tension b{color:var(--text)}
