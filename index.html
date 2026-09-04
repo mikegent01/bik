@@ -8242,9 +8242,121 @@ function dynastyMemberArticleId(member){
   return id&&INDEX[id]&&INDEX[id].typeKey==='characters'?id:'';
 }
 function visualDynastyMap(h){
-  const members=(h.members||[]).slice(); const gens={}; members.forEach(m=>{const g=Number(m.generation||1);(gens[g]=gens[g]||[]).push(m);});
-  const cols=Object.keys(gens).map(Number).sort((a,b)=>a-b).map(g=>`<div class="dynasty-col"><h3>Generation ${g}</h3>${gens[g].map(m=>{const aid=dynastyMemberArticleId(m);const parent=(m.parents||[]).length?`Parents: ${(m.parents||[]).map(prettyId).join(', ')}`:'';const kids=(m.children||[]).length?`Children: ${(m.children||[]).slice(0,3).map(prettyId).join(', ')}${(m.children||[]).length>3?'…':''}`:'';const boneLineIds = ['sans', 'papyrus', 'grandpa_semi', 'lazybones', 'baby_bones', 'dirty_brother', 'will', 'cursive', 'has_a_very_special_attack', 'times_new_roman', 'prunsel', 'real_star', 'brother_killer', 'my_little_brother', 'ness', 'wing_gaster', 'my_brother', 'pretty_soon', 'helvetica', 'gee_lady', 'garbage_brother', 'starman', 'quantity', 'speen_kind_of_down_lately', 'pet_rock', 'dedan', 'mystery_man', 'sans_deltarune']; const nodeIcon = boneLineIds.includes(m.id) ? `<img src="${esc(assetPath('portraits/'+m.id+'.png'))}" style="width: 24px; height: 24px; object-fit: cover; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 4px;" onerror="this.outerHTML='${esc(m.icon||m.portrait||'👤')}'">` : esc(m.icon||m.portrait||'👤'); return `<div class="dynasty-node-card ${m.status==='deceased'?'dead':''} ${aid?'clickable':''}" ${aid?`onclick="openId('${esc(aid)}')"`:''}><div class="node-name">${nodeIcon} ${esc(m.name||m.id)}</div>${m.epithet?`<div class="node-epi">${esc(m.epithet)}</div>`:''}<div class="node-meta">${m.born?`b. ${esc(String(m.born))}`:''}${m.died?` · d. ${esc(String(m.died))}`:''}${m.reign?` · reign ${esc(m.reign)}`:''}</div>${parent||kids?`<div class="node-links">${esc(parent)}${parent&&kids?' · ':''}${esc(kids)}</div>`:''}</div>`;}).join('')}</div>`).join('');
-  return `<div class="dynasty-flow">${cols}</div>`;
+  const members=(h.members||[]).slice();
+  if(!members.length) return `<div class="dynasty-tree-empty text-muted">No members are filed for this house.</div>`;
+  const byId=new Map(members.map(m=>[m.id,m]));
+  const NW=190,NH=56,HG=26,VG=86,PAD=30;
+
+  /* Authored `generation` is unreliable: some members carry "Unknown" and most
+     cadet branches omit parents entirely. Derive depth from parent links where
+     they exist, fall back to the authored number, and guard against cycles. */
+  const depth=new Map(),seen=new Set();
+  const resolve=m=>{
+    if(depth.has(m.id))return depth.get(m.id);
+    if(seen.has(m.id))return 0;
+    seen.add(m.id);
+    const ps=(m.parents||[]).filter(p=>byId.has(p));
+    let d;
+    if(ps.length) d=Math.max(...ps.map(p=>resolve(byId.get(p))))+1;
+    else{const n=Number(m.generation);d=Number.isFinite(n)?n-1:0;}
+    depth.set(m.id,d);return d;
+  };
+  members.forEach(resolve);
+
+  const rows=new Map();
+  members.forEach(m=>{const d=depth.get(m.id);if(!rows.has(d))rows.set(d,[]);rows.get(d).push(m);});
+  /* Generations are sparse (Rosewood jumps 2 -> 6, Sarasa starts at 7), so rows
+     are packed by rank; drawing at raw generation number leaves dead canvas. */
+  const order=[...rows.keys()].sort((a,b)=>a-b);
+  const rank=new Map(order.map((d,i)=>[d,i]));
+  const pos=new Map();
+
+  /* A house with no blood links is a roster, not a tree. Laying 28 Bone-Line
+     members in one row produced a 4,800px canvas nobody can read. */
+  const hasLinks=members.some(m=>(m.parents||[]).some(p=>byId.has(p))||(m.children||[]).some(c=>byId.has(c)));
+  let W,H,roster=false;
+  if(!hasLinks){
+    roster=true;
+    const cols=Math.min(members.length,Math.max(3,Math.ceil(Math.sqrt(members.length*1.9))));
+    members.forEach((m,i)=>pos.set(m.id,{x:PAD+(i%cols)*(NW+HG),y:PAD+Math.floor(i/cols)*(NH+18)}));
+    const used=Math.ceil(members.length/cols);
+    W=PAD*2+cols*NW+(cols-1)*HG; H=PAD*2+used*NH+(used-1)*18;
+  }else{
+    const widest=Math.max(...order.map(d=>rows.get(d).length));
+    const provW=PAD*2+widest*NW+(widest-1)*HG;
+    order.forEach(d=>{
+      const row=rows.get(d);
+      const span=row.length*NW+(row.length-1)*HG;
+      let cursor=(provW-span)/2;
+      row.forEach(m=>{
+        const ps=(m.parents||[]).filter(p=>pos.has(p));
+        const want=ps.length?ps.reduce((a,p)=>a+pos.get(p).x,0)/ps.length:null;
+        pos.set(m.id,{x:want==null?cursor:want,y:PAD+rank.get(d)*(NH+VG)});
+        cursor+=NW+HG;
+      });
+      const sorted=row.slice().sort((a,b)=>pos.get(a.id).x-pos.get(b.id).x);
+      for(let i=1;i<sorted.length;i++){
+        const pv=pos.get(sorted[i-1].id),cu=pos.get(sorted[i].id);
+        if(cu.x-pv.x<NW+HG) cu.x=pv.x+NW+HG;
+      }
+    });
+    const minAll=Math.min(...members.map(m=>pos.get(m.id).x));
+    if(minAll!==PAD) members.forEach(m=>{pos.get(m.id).x+=PAD-minAll;});
+    W=Math.max(...members.map(m=>pos.get(m.id).x))+NW+PAD;
+    H=PAD*2+(order.length-1)*(NH+VG)+NH;
+  }
+
+  const edges=[];
+  const push=(a,b)=>{if(pos.has(a)&&pos.has(b)&&!edges.some(e=>e[0]===a&&e[1]===b))edges.push([a,b]);};
+  members.forEach(m=>{(m.children||[]).forEach(c=>push(m.id,c));(m.parents||[]).forEach(p=>push(p,m.id));});
+
+  const c0=(h.colors&&h.colors[0])||'#e0b400', c1=(h.colors&&h.colors[1])||'#8a4bff';
+  const uid='dt'+Math.random().toString(36).slice(2,8);
+  const maxD=Math.max(1,order.length-1);
+
+  const branches=edges.map(([a,b])=>{
+    const p=pos.get(a),c=pos.get(b);
+    const x1=p.x+NW/2,y1=p.y+NH,x2=c.x+NW/2,y2=c.y;
+    const mid=y1+(y2-y1)*0.55;
+    const w=Math.max(1.1,4.2-(depth.get(a)/maxD)*2.6);
+    return `<path d="M${x1.toFixed(1)} ${y1.toFixed(1)} C ${x1.toFixed(1)} ${mid.toFixed(1)}, ${x2.toFixed(1)} ${(y2-(y2-y1)*0.45).toFixed(1)}, ${x2.toFixed(1)} ${y2.toFixed(1)}" fill="none" stroke="url(#${uid})" stroke-width="${w.toFixed(2)}" stroke-linecap="round" opacity=".85"/>`;
+  }).join('');
+
+  const marriages=members.filter(m=>m.spouse&&pos.has(m.spouse)&&m.id<m.spouse).map(m=>{
+    const p=pos.get(m.id),q=pos.get(m.spouse);
+    const y=Math.min(p.y,q.y)+NH/2;
+    const x1=Math.min(p.x,q.x)+NW,x2=Math.max(p.x,q.x);
+    if(x2-x1<4) return '';
+    return `<line x1="${x1}" y1="${y}" x2="${x2}" y2="${y}" stroke="${esc(c1)}" stroke-width="1.4" stroke-dasharray="3 4" opacity=".7"/>`;
+  }).join('');
+
+  const AVAIL=NW-44;
+  const nodes=members.map(m=>{
+    const p=pos.get(m.id);
+    const aid=dynastyMemberArticleId(m);
+    const dead=String(m.status||'').toLowerCase()==='deceased';
+    const name=String(m.name||m.id);
+    /* textLength lets a long name compress to fit instead of being cut. */
+    const fits=name.length*6.6<=AVAIL;
+    const meta=[m.born?`b. ${m.born}`:'',m.died?`d. ${m.died}`:''].filter(Boolean).join(' · ');
+    const por=assetPath('portraits/'+m.id+'.png');
+    return `<g class="dt-node${dead?' dead':''}${aid?' clickable':''}" transform="translate(${p.x.toFixed(1)},${p.y.toFixed(1)})"${aid?` onclick="openId('${esc(aid)}')"`:''}>
+      <rect width="${NW}" height="${NH}" rx="9" class="dt-box"/>
+      <rect width="3.5" height="${NH}" rx="2" fill="${esc(dead?'#6b7280':c1)}"/>
+      <image href="${esc(por)}" x="10" y="14" width="26" height="26" clip-path="circle(13px at 13px 13px)" onerror="this.remove()"/>
+      <text x="44" y="24" class="dt-nm"${fits?'':` textLength="${AVAIL}" lengthAdjust="spacingAndGlyphs"`}>${esc(name)}</text>
+      <text x="44" y="40" class="dt-mt">${esc(meta||m.epithet||'')}</text>
+      <title>${esc(name)}${m.epithet?' — '+esc(m.epithet):''}</title>
+    </g>`;
+  }).join('');
+
+  const legend=`<div class="dt-legend">${members.length} members · ${edges.length} blood links${roster?' · no parent/child data on file, shown as a roster':''}</div>`;
+  return `<div class="dynasty-tree-wrap">${legend}<div class="dt-scroll"><svg viewBox="0 0 ${Math.ceil(W)} ${Math.ceil(H)}" width="${Math.ceil(W)}" height="${Math.ceil(H)}" class="dt-svg" role="img" aria-label="${esc(h.name||'')} family tree">
+    <defs><linearGradient id="${uid}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${esc(c0)}" stop-opacity=".95"/>
+      <stop offset="100%" stop-color="${esc(c1)}" stop-opacity=".55"/>
+    </linearGradient></defs>
+    <g>${branches}</g>${marriages}${nodes}</svg></div></div>`;
 }
 function dynastyIntelPolicy(){return `<div class="intel-policy"><b>Intel policy:</b> Waluipedia is public. Dynasty secrets are not revealed here. Locked entries show required intel thresholds only; full secret text belongs in the private Intel Dossiers / GM view, not the public encyclopedia.</div>`;}
 

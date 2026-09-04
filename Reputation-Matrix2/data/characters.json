@@ -5087,7 +5087,8 @@
         "role": "Trained into it",
         "note": "Liam entered the Dread Mansion to collect Spirit Residue on an assignment his own organisation says it never issued. Millennium Logic teaches that a documented procedure is a sufficient reason to act. Liam followed one all the way into a haunting."
       }
-    ]
+    ],
+    "image": "portraits/liam.png"
   },
   {
     "id": "alice",
@@ -5112,7 +5113,8 @@
         "role": "Bound, not devout",
         "note": "Alice is a spirit in a tattered Victorian dress whose anger drives the mansion's pursuit. The Dark Moon is the doctrine that explains a ghost kept lucid enough to recognise faces and furious enough to hunt them, which is a worse condition than madness."
       }
-    ]
+    ],
+    "image": "portraits/alice.png"
   },
   {
     "id": "director_vale",
@@ -5137,7 +5139,8 @@
         "role": "Badge as scripture",
         "note": "Vale appeared with a silver Director's badge after DGK Central denied sending Liam anywhere. State Atheism worships the System and the credential that proves you are inside it. Vale has produced the credential. Central has produced a denial. Only one of these is portable."
       }
-    ]
+    ],
+    "image": "portraits/director_vale.png"
   },
   {
     "id": "jack_melvus_miser",
