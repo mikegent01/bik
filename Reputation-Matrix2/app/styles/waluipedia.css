@@ -2060,3 +2060,17 @@ input:focus, textarea:focus, select:focus, button:focus-visible {
 .faith-card .faith-role{font-size:11px;border:1px solid var(--border);border-radius:20px;padding:1px 8px;margin-left:auto;opacity:.85}
 .faith-tension{margin-top:10px;font-size:12.5px;border-top:1px dashed var(--border);padding-top:9px;color:var(--muted)}
 .faith-tension b{color:var(--text)}
+
+/* ===== Two-axis reputation: standing + pressure ===== */
+.rep-badge-stack{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.rep-pressure-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.3px;white-space:nowrap;border:1px solid}
+.rep-pressure-badge.p-light{color:#9ca3af;border-color:rgba(156,163,175,.45);background:rgba(156,163,175,.10)}
+.rep-pressure-badge.p-active{color:#fbbf24;border-color:rgba(251,191,36,.45);background:rgba(251,191,36,.10)}
+.rep-pressure-badge.p-heavy{color:#fb923c;border-color:rgba(251,146,60,.5);background:rgba(251,146,60,.13)}
+.rep-pressure-badge.p-consuming{color:#f87171;border-color:rgba(248,113,113,.55);background:rgba(248,113,113,.16)}
+.rep-factor-chip.pressure{border-style:dashed}
+.rep-factor-chip.pressure.p-active{color:#fbbf24;border-color:rgba(251,191,36,.45)}
+.rep-factor-chip.pressure.p-heavy{color:#fb923c;border-color:rgba(251,146,60,.5)}
+.rep-factor-chip.pressure.p-consuming{color:#f87171;border-color:rgba(248,113,113,.55)}
+.rep-factor-chip.capped{color:#f0abfc;border-color:rgba(240,171,252,.5);background:rgba(240,171,252,.10)}
+.rep-relation-read{margin:7px 0 2px;font-size:12.5px;color:var(--muted);font-style:italic}

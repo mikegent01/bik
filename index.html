@@ -6,8 +6,8 @@
 <title>Waluipedia — The Objective Encyclopedia (Written by Waluigi)</title>
 <link rel="icon" href="./favicon.ico">
 <!-- External CSS: cached by browser, loaded once, scales as site grows -->
-  <link rel="preload" href="Reputation-Matrix2/app/styles/waluipedia.css?v=faith1" as="style">
-  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/waluipedia.css?v=faith1">
+  <link rel="preload" href="Reputation-Matrix2/app/styles/waluipedia.css?v=rep2axis" as="style">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/waluipedia.css?v=rep2axis">
   <script>
   /* Apply theme BEFORE paint so toggle is never a no-op / flash. */
   (function () {
@@ -13851,7 +13851,11 @@ function explainInfamy(heat){
 function standingFormulaLine(st){
   if(!st) return '';
   const f = (n)=>{ const v=Number(n)||0; return (v>=0?'+':'')+v; };
-  return `Total ${st.total>=0?'+':''}${st.total} = clamp( base ${f(st.base)} + subfactions ${f(st.subfactions)} + events ${f(st.rumors)} + ally/enemy ripple ${f(st.propagation)} )`;
+  const sum = `clamp( base ${f(st.base)} + subfactions ${f(st.subfactions)} + events ${f(st.rumors)} + ally/enemy ripple ${f(st.propagation)} )`;
+  if(st.cappedFrom!==null && st.cappedFrom!==undefined){
+    return `Total ${st.total>=0?'+':''}${st.total} = min( −20, ${sum} = ${st.cappedFrom>=0?'+':''}${st.cappedFrom} ) — hostility ceiling`;
+  }
+  return `Total ${st.total>=0?'+':''}${st.total} = ${sum}`;
 }
 
 function standingFactorChips(st){
@@ -13861,13 +13865,21 @@ function standingFactorChips(st){
     const cls = v>0?'pos':v<0?'neg':'zero';
     return `<span class="rep-factor-chip ${cls}" title="${esc(tip)}"><b>${esc(label)}</b> ${v>=0?'+':''}${v}</span>`;
   };
+  const p = st.pressure || {score:0, band:'None'};
+  const pcls = p.score>=75?'p-consuming':p.score>=50?'p-heavy':p.score>=25?'p-active':p.score>0?'p-light':'zero';
+  const capNote = st.cappedFrom!==null && st.cappedFrom!==undefined
+    ? `<span class="rep-factor-chip capped" title="This faction has declared hostility (enemy relation, warrant, or a dossier that reads as a kill-order). Standing is capped at −20 so accumulated involvement cannot read as approval. Uncapped sum was ${st.cappedFrom>=0?'+':''}${st.cappedFrom}."><b>Capped</b> from ${st.cappedFrom>=0?'+':''}${st.cappedFrom} → −20</span>`
+    : '';
   return `<div class="rep-factor-row">
     ${chip('Base', st.base, 'Starting relationship before events and internal politics.')}
     ${chip('Events', st.rumors, 'Decayed sum of catalogued events/battles/trials involving both parties.')}
     ${chip('Blocs', st.subfactions, 'Internal sub-faction modifiers (royalists, technocrats, etc.).')}
     ${chip('Ripple', st.propagation, 'Ally/enemy network: friends of friends, enemies of enemies.')}
+    ${capNote}
+    <span class="rep-factor-chip pressure ${pcls}" title="Pressure 0…100 — how hard this faction is leaning on them: shared history, hostile history, declared enmity and warrants. Pressure is attention, not approval."><b>Pressure</b> ${p.score} · ${esc(p.band)}</span>
     <span class="rep-factor-chip total" title="Clamped to −100…+100">${esc(standingFormulaLine(st))}</span>
-  </div>`;
+  </div>
+  <div class="rep-relation-read" title="The two axes read together.">${esc(st.summary||'')}${p.reasons&&p.reasons.length?` — ${esc(p.reasons[0])}`:''}</div>`;
 }
 
 
@@ -13991,6 +14003,77 @@ function _recordOperators(rec){
    nothing and renders no panel, which is the honest answer. */
 function _autoDeriveDeltas(rec, typeKey){ return {}; }
 
+/* ===== Delta sources: reputationChanges vs effects =====
+   These two fields were being treated as rivals for the same slot —
+   reputationChanges silently won and effects was thrown away. Across the corpus
+   190 records carry both and 109 of those disagree in sign, which is why a
+   faction that has doubled the bounty on your head could read as Warm.
+
+   They are not rivals. They mean different things:
+
+     reputationChanges : { opId: { factionId: delta } }
+         Per-person. "This faction's opinion of THIS OPERATOR moved by n."
+
+     effects           : { factionId: delta }
+         Per-record. "This faction's SITUATION moved by n" — the institutional
+         outcome of the event, not any individual's standing. It used to be
+         copied onto every participant, so 'the trial hurt the Iron Fists' became
+         'all seven participants lost standing with the Iron Fists'.
+
+   Both are kept. Per-operator deltas drive standing directly; record-level
+   effects are retained as context and contribute a much weaker shared signal
+   to operators the record does not score individually, so a faction-level
+   outcome still registers without being misattributed as seven personal ones. */
+const EFFECTS_SHARED_WEIGHT = 0.25;   // record-level outcome felt per-participant
+function _recordDeltaSources(rec){
+  const out = { deltas: {}, standing: {}, perOp: {}, recordLevel: {} };
+  if(!rec) return out;
+
+  // --- per-operator deltas -------------------------------------------------
+  let perOp = null, recordLevel = null;
+  if(rec.reputationChanges && typeof rec.reputationChanges === 'object'){
+    const keys = Object.keys(rec.reputationChanges);
+    // Legacy shape: keys are faction ids, so this is really a record-level map.
+    const looksLikeFactionMap = keys.length && keys.every(k => LORE_FACTIONS[k]);
+    if(looksLikeFactionMap) recordLevel = {...rec.reputationChanges};
+    else perOp = rec.reputationChanges;
+  }
+  if(rec.effects && typeof rec.effects === 'object'){
+    const merged = recordLevel || {};
+    Object.entries(rec.effects).forEach(([fid, v]) => {
+      if(typeof v !== 'number') return;
+      // If both legacy sources name the same faction, keep the stronger claim.
+      merged[fid] = (merged[fid] === undefined) ? v
+        : (Math.abs(v) > Math.abs(merged[fid]) ? v : merged[fid]);
+    });
+    if(Object.keys(merged).length) recordLevel = merged;
+  }
+
+  out.perOp = perOp || {};
+  out.recordLevel = recordLevel || {};
+
+  // --- combine -------------------------------------------------------------
+  const ops = _recordOperators(rec);
+  const deltas = {};
+  Object.entries(out.perOp).forEach(([opId, fm]) => {
+    if(!fm || typeof fm !== 'object') return;
+    deltas[opId] = {...fm};
+  });
+  if(Object.keys(out.recordLevel).length && ops.length){
+    ops.forEach(op => {
+      const bucket = deltas[op] || (deltas[op] = {});
+      Object.entries(out.recordLevel).forEach(([fid, v]) => {
+        // Never let a record-level outcome overwrite an authored personal delta.
+        if(bucket[fid] !== undefined) return;
+        const shared = Math.round(v * EFFECTS_SHARED_WEIGHT);
+        if(shared) bucket[fid] = shared;
+      });
+    });
+  }
+  out.deltas = deltas;
+  return out;
+}
+
 // Memorable event heuristic: matches keywords in title/type/status that suggest lasting historic weight.
 function _isMemorable(rec){
   if(rec && rec.memorable===true) return true;
@@ -14025,26 +14108,12 @@ function _buildRepEventCache(){
     // 1. explicit reputationChanges (opId -> factionId -> delta)
     // 2. legacy 'effects' (factionId -> delta) applied to all _recordOperators
     // 3. auto-derived
-    let deltas = null;
-    if(rec.reputationChanges && typeof rec.reputationChanges==='object'){
-      // If keys look like faction ids (present in LORE_FACTIONS), treat as legacy shape.
-      const keys = Object.keys(rec.reputationChanges);
-      const looksLikeFactionMap = keys.length && keys.every(k => LORE_FACTIONS[k]);
-      if(looksLikeFactionMap){
-        const ops = _recordOperators(rec);
-        if(ops.length){ deltas = {}; ops.forEach(op => { deltas[op] = {...rec.reputationChanges}; }); }
-      } else {
-        deltas = rec.reputationChanges;
-      }
-    } else if(rec.effects && typeof rec.effects==='object'){
-      const ops = _recordOperators(rec);
-      if(ops.length){ deltas = {}; ops.forEach(op => { deltas[op] = {...rec.effects}; }); }
-    }
-    if(!deltas) deltas = _autoDeriveDeltas(rec, typeKey);
+    const parsed = _recordDeltaSources(rec);
+    const deltas = parsed.deltas;
     if(!deltas || !Object.keys(deltas).length) return;
     const year = _recordYear(rec);
     const memorable = _isMemorable(rec);
-    cache.push({ record: rec, typeKey, deltas, year, memorable, decay: _decayFactor(year, memorable) });
+    cache.push({ record: rec, typeKey, deltas, standing: parsed.standing, year, memorable, decay: _decayFactor(year, memorable) });
   };
   (DATA.events||[]).forEach(r => push(r,'events'));
   (DATA.battles||[]).forEach(r => push(r,'battles'));
@@ -14100,6 +14169,161 @@ function getRecordReputationImpact(rec, typeKey){
   return { ops, meta: { year: entry.year, memorable: entry.memorable, decay: entry.decay } };
 }
 
+/* =========================================================================
+   TWO-AXIS REPUTATION
+   -------------------------------------------------------------------------
+   The old engine had one number and made it do two incompatible jobs.
+
+   A bounty doubling is a large event. Under a single scalar, "large" and
+   "positive" are the same thing, so the Iron Fists — whose own dossier line
+   reads "Price on his head just doubled. Dead or alive." — scored +35 Warm.
+   House Corvinarus, actively hunting party members through corridors, scored
+   +30 Warm. The engine was not wrong about the magnitude. It had nowhere to
+   put the hostility.
+
+   So there are now two axes:
+
+     STANDING  (-100..+100)  Do they like you?
+                             Signed sum of deltas. Unchanged in spirit.
+
+     PRESSURE  (0..100)      How hard are they leaning on you?
+                             Driven by the MAGNITUDE of your entanglement with
+                             them, plus declared hostility (enemy relations,
+                             warrants, kill-orders). Never negative, never
+                             "good". High pressure with negative standing is a
+                             manhunt. High pressure with positive standing is
+                             being someone's most important asset.
+
+   The crucial property: a hostile faction spending enormous effort on you
+   raises PRESSURE and cannot raise STANDING. That is the bug, closed.
+   ========================================================================= */
+
+/* Faction-declared hostility toward the party/operator, read from the data we
+   already have rather than a new hand-maintained table. */
+function _factionHostility(opKey, factionKey){
+  const faction = LORE_FACTIONS[factionKey];
+  if(!faction) return { hostile:false, reasons:[] };
+  const reasons = [];
+  let hostile = false;
+
+  // 1. The operator's own faction ties vs this faction's declared enemies.
+  const rel = faction.relations || {};
+  const enemies = Array.isArray(rel.enemies) ? rel.enemies : [];
+  const opHomes = _operatorFactions(opKey);
+  const clash = opHomes.filter(h => enemies.includes(h));
+  if(clash.length){
+    hostile = true;
+    clash.forEach(h => reasons.push(`${faction.name||factionKey} lists ${(LORE_FACTIONS[h]&&LORE_FACTIONS[h].name)||h} as an enemy`));
+  }
+
+  // 2. Warrants / kill-orders on the heat board naming this faction.
+  const heat = INFAMY_PROFILES[opKey] || INFAMY_PROFILES[_opShortKey(opKey)];
+  if(heat && Array.isArray(heat.warrants)){
+    const fname = String(faction.name||factionKey).toLowerCase();
+    heat.warrants.forEach(w => {
+      const wl = String(w).toLowerCase();
+      if(wl.includes(fname) || wl.includes(String(factionKey).replace(/_/g,' '))){
+        hostile = true;
+        reasons.push(`Active warrant/directive: ${w}`);
+      }
+    });
+  }
+
+  // 3. The faction's own written assessment of this operator, when it reads
+  //    as a kill-order rather than an opinion. This is the Iron Fists case.
+  const shortKey = _opShortKey(opKey);
+  const assess = (FACTION_ASSESSMENTS[factionKey]||{})[shortKey] || (FACTION_ASSESSMENTS[factionKey]||{})[opKey];
+  if(assess && /\b(dead or alive|price on (his|her|their) head|kill[- ]order|bounty|must be (cleansed|purged|removed|destroyed|stopped)|hunt(ed|ing)? (him|her|them) down|elimination|scrap the girl|arrest (her|him|them)|purged)\b/i.test(assess)){
+    hostile = true;
+    reasons.push(`Dossier reads as a standing threat: “${String(assess).slice(0,80)}${assess.length>80?'…':''}”`);
+  }
+  return { hostile, reasons };
+}
+
+/* Which factions an operator belongs to, for enemy-of-my-faction checks. */
+let _OP_FACTION_CACHE = null;
+function _operatorFactions(opKey){
+  if(!_OP_FACTION_CACHE){
+    _OP_FACTION_CACHE = {};
+    (DATA.characters||[]).forEach(c => {
+      if(!c || !c.id) return;
+      const homes = new Set();
+      const aff = [].concat(c.affiliation||[], c.faction||[], c.factions||[]);
+      aff.forEach(a => {
+        if(typeof a !== 'string') return;
+        const norm = a.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,'');
+        if(LORE_FACTIONS[norm]) homes.add(norm);
+        else Object.keys(LORE_FACTIONS).forEach(fid => {
+          const fn = String(LORE_FACTIONS[fid].name||'').toLowerCase();
+          if(fn && a.toLowerCase().includes(fn)) homes.add(fid);
+        });
+      });
+      _OP_FACTION_CACHE[c.id] = [...homes];
+    });
+  }
+  return _OP_FACTION_CACHE[opKey] || _OP_FACTION_CACHE[_opCanonKey(opKey)] || [];
+}
+function _opShortKey(opKey){ return String(opKey||'').replace('_miser','').replace('_akamatsu_full_backstory',''); }
+function _opCanonKey(k){
+  if(INDEX && INDEX[k]) return k;
+  if(k==='archie') return 'archie_miser';
+  if(k==='remi') return 'remi_akamatsu_full_backstory';
+  return k;
+}
+function invalidateOpFactionCache(){ _OP_FACTION_CACHE = null; }
+
+/* Pressure: attention, not approval. 0..100, never negative. */
+function calculateOperatorPressure(opKey, factionKey, contributions, standingTotal){
+  const contrib = contributions || _eventContributionsFor(opKey, factionKey);
+  // Entanglement: total absolute weight of your shared history, decayed.
+  const entanglement = contrib.reduce((s,c) => s + Math.abs(c.decayed), 0);
+  // Hostile history counts double toward pressure — a faction that keeps
+  // losing to you spends more on you, not less.
+  const hostileWeight = contrib.reduce((s,c) => s + (c.decayed < 0 ? Math.abs(c.decayed) : 0), 0);
+
+  const host = _factionHostility(opKey, factionKey);
+  const declared = host.hostile ? 30 : 0;
+
+  // Heat is personal, not per-faction, but a wanted person draws more pressure
+  // from everyone. Scaled down so it never dominates a specific relationship.
+  const heat = INFAMY_PROFILES[opKey] || INFAMY_PROFILES[_opShortKey(opKey)];
+  const heatBleed = heat ? Math.round((Number(heat.score)||0) * 0.15) : 0;
+
+  const raw = entanglement + hostileWeight * 0.5 + declared + heatBleed;
+  const score = Math.max(0, Math.min(100, Math.round(raw)));
+  return {
+    score,
+    entanglement: Math.round(entanglement),
+    hostileWeight: Math.round(hostileWeight),
+    declared,
+    heatBleed,
+    hostile: host.hostile,
+    reasons: host.reasons,
+    band: pressureBand(score)
+  };
+}
+function pressureBand(p){
+  if(p >= 75) return 'Consuming';
+  if(p >= 50) return 'Heavy';
+  if(p >= 25) return 'Active';
+  if(p > 0)  return 'Light';
+  return 'None';
+}
+/* The one-line human read of the two axes together. This is the sentence the
+   old single-number UI could not say. */
+function relationSummary(standing, pressure){
+  const s = Number(standing)||0, p = (pressure&&pressure.score)||0;
+  if(p >= 50 && s <= -20) return 'Actively hunting them';
+  if(p >= 50 && s >= 20)  return 'Deeply invested ally';
+  if(p >= 50)             return 'Entangled — high stakes, unsettled';
+  if(p >= 25 && s <= -20) return 'Working against them';
+  if(p >= 25 && s >= 20)  return 'Valued contact';
+  if(p >= 25)             return 'On their books';
+  if(s <= -20)            return 'Disliked, but not a priority';
+  if(s >= 20)             return 'Liked, low contact';
+  return 'Barely registers';
+}
+
 function calculateOperatorStanding(opKey, factionKey) {
   const faction = LORE_FACTIONS[factionKey];
   if (!faction) return { total: 0, base: 0, rumors: 0, subfactions: 0, propagation: 0, contributions: [], class: 'neutral', label: 'Neutral' };
@@ -14139,7 +14363,21 @@ function calculateOperatorStanding(opKey, factionKey) {
   }
 
   const rawTotal = base + subfactions + rumors + propagation;
-  const total = Math.max(-100, Math.min(100, Math.round(rawTotal)));
+  let total = Math.max(-100, Math.min(100, Math.round(rawTotal)));
+
+  /* Hostility ceiling. A faction that has declared you an enemy, holds a
+     warrant on you, or whose dossier is a kill-order cannot read as friendly
+     no matter how much shared history piles up. Without this, magnitude keeps
+     leaking into approval: the Iron Fists doubled a bounty and scored Warm.
+     The cap is applied last and always reported, so the number is never
+     silently different from the sum shown above it. */
+  const pressure = calculateOperatorPressure(opKey, factionKey, contributions, total);
+  let cappedFrom = null;
+  if(pressure.hostile && total > -20){
+    cappedFrom = total;
+    total = -20;
+  }
+
   return {
     total,
     base,
@@ -14147,6 +14385,9 @@ function calculateOperatorStanding(opKey, factionKey) {
     subfactions,
     propagation,
     contributions,
+    cappedFrom,
+    pressure,
+    summary: relationSummary(total, pressure),
     class: getStandingClass(total),
     label: getStandingLabel(total)
   };
@@ -14730,7 +14971,10 @@ function view_reputation(arg) {
               <h3>${esc(item.faction.name)}</h3>
               <div class="region">${esc(item.faction.region||'Known Realms')}</div>
             </div>
-            <div class="rep-score-badge ${item.standing.class}">${item.standing.total>=0?'+':''}${item.standing.total} · ${esc(item.standing.label)}</div>
+            <div class="rep-badge-stack">
+              <div class="rep-score-badge ${item.standing.class}">${item.standing.total>=0?'+':''}${item.standing.total} · ${esc(item.standing.label)}</div>
+              ${(item.standing.pressure&&item.standing.pressure.score)?`<div class="rep-pressure-badge ${item.standing.pressure.score>=75?'p-consuming':item.standing.pressure.score>=50?'p-heavy':item.standing.pressure.score>=25?'p-active':'p-light'}" title="Pressure — how hard they are leaning on this operator. Attention, not approval.">◉ ${item.standing.pressure.score} · ${esc(item.standing.pressure.band)}</div>`:''}
+            </div>
           </div>
           ${item.assessment ? `<div class="wnote" style="margin:8px 0"><b>Dossier Assessment:</b> "${esc(item.assessment)}"</div>` : `<div style="font-size:12.5px;color:var(--muted);margin:6px 0">${esc(item.faction.description||'')}</div>`}
           ${standingFactorChips(item.standing)}
