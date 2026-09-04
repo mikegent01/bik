@@ -21,7 +21,7 @@ function loadDynasties() {
   return JSON.parse(s.slice(i + key.length, j + 1));
 }
 
-const NODE_W = 158, NODE_H = 54, H_GAP = 26, V_GAP = 86, PAD = 30;
+const NODE_W = 190, NODE_H = 56, H_GAP = 26, V_GAP = 86, PAD = 30;
 
 export function layout(house) {
   const members = (house.members || []).slice();
@@ -57,6 +57,27 @@ export function layout(house) {
   const rank = new Map(order.map((d, i) => [d, i]));
 
   const pos = new Map();
+
+  // A house with no blood links is a roster, not a tree. Laying 28 Bone-Line
+  // members in one row produced a 4818px canvas nobody can read, so wrap flat
+  // rosters into a grid and report them honestly rather than pretending depth.
+  const hasLinks = members.some((m) =>
+    (m.parents || []).some((p) => byId.has(p)) || (m.children || []).some((c) => byId.has(c)));
+  if (!hasLinks) {
+    const cols = Math.min(members.length, Math.max(3, Math.ceil(Math.sqrt(members.length * 1.9))));
+    members.forEach((m, i) => pos.set(m.id, {
+      x: PAD + (i % cols) * (NODE_W + H_GAP),
+      y: PAD + Math.floor(i / cols) * (NODE_H + 18),
+    }));
+    const rowsUsed = Math.ceil(members.length / cols);
+    return {
+      pos, edges: [], spouses: [], roster: true,
+      W: PAD * 2 + cols * NODE_W + (cols - 1) * H_GAP,
+      H: PAD * 2 + rowsUsed * NODE_H + (rowsUsed - 1) * 18,
+      depth: new Map(members.map((m) => [m.id, 0])), rowCount: order.length, members,
+    };
+  }
+
   const widest = Math.max(...order.map((d) => rows.get(d).length));
   const provW = PAD * 2 + widest * NODE_W + (widest - 1) * H_GAP;
 
@@ -128,19 +149,25 @@ function svg(house, L) {
     const dead = String(m.status || '').toLowerCase() === 'deceased';
     const glyph = m.icon || m.portrait || '👤';
     const name = m.name || m.id;
-    const short = name.length > 20 ? name.slice(0, 19) + '…' : name;
+    // textLength + lengthAdjust lets long names compress to fit the card
+    // instead of being cut mid-word ("Lady Petra Stoneshe...").
+    const AVAIL = NODE_W - 44;
+    const fits = name.length * 6.6 <= AVAIL;
     const meta = [m.born ? `b. ${m.born}` : '', m.died ? `d. ${m.died}` : ''].filter(Boolean).join(' · ');
     return `<g class="n${dead ? ' dead' : ''}" transform="translate(${p.x.toFixed(1)},${p.y.toFixed(1)})">
       <rect width="${NODE_W}" height="${NODE_H}" rx="9" class="box"/>
       <rect width="3.5" height="${NODE_H}" rx="2" fill="${esc(dead ? '#6b7280' : c1)}"/>
       <text x="14" y="21" class="glyph">${esc(glyph)}</text>
-      <text x="34" y="22" class="nm">${esc(short)}</text>
+      <text x="34" y="22" class="nm"${fits ? '' : ` textLength="${AVAIL}" lengthAdjust="spacingAndGlyphs"`}>${esc(name)}</text>
       <text x="34" y="38" class="mt">${esc(meta || m.epithet || '')}</text>
       <title>${esc(name)}${m.epithet ? ' — ' + esc(m.epithet) : ''}</title>
     </g>`;
   }).join('');
 
-  return `<svg viewBox="0 0 ${Math.ceil(L.W)} ${Math.ceil(L.H)}" width="100%" preserveAspectRatio="xMidYMin meet" class="tree">
+  // Natural size in CSS pixels. width="100%" rescaled every tree to its
+  // container: a 402px-wide house blew up ~3.7x and the 4818px Bone-Line shrank
+  // to unreadable. One SVG unit must stay one pixel; .scroll pans the wide ones.
+  return `<svg viewBox="0 0 ${Math.ceil(L.W)} ${Math.ceil(L.H)}" width="${Math.ceil(L.W)}" height="${Math.ceil(L.H)}" class="tree">
     <defs><linearGradient id="g${uid}" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${esc(c0)}" stop-opacity=".95"/>
       <stop offset="100%" stop-color="${esc(c1)}" stop-opacity=".55"/>
@@ -162,7 +189,7 @@ const blocks = houses.map(([id, h]) => {
   return `<section class="house${h._cadet ? ' cadet' : ''}">
     <h2>${esc(h.sigil || '🏰')} ${esc(h.name || id)} ${h._cadet ? '<em>cadet branch</em>' : ''}</h2>
     <p class="stat">${L.members.length} members · ${L.edges.length} blood links · ${L.rowCount} generations · canvas ${Math.round(L.W)}×${Math.round(L.H)}
-    ${flat ? '<b class="warn">— no parent/child data: a tree adds nothing here, this is a roster</b>' : ''}</p>
+    ${flat ? '<b class="warn">— no parent/child data, drawn as a roster grid</b>' : ''}</p>
     <div class="scroll">${svg(h, L)}</div>
   </section>`;
 }).join('\n');
@@ -182,8 +209,8 @@ fs.writeFileSync(OUT, `<!doctype html><meta charset="utf-8">
  .house.cadet{margin-left:28px;background:#131020;border-style:dashed}
  h2{font-size:16px;margin:0 0 2px;font-weight:600} h2 em{font-size:11px;color:#8b7fa8;font-style:normal;text-transform:uppercase;letter-spacing:.08em}
  .stat{color:#8b7fa8;font-size:12px;margin:0 0 12px} .warn{color:#e0a458}
- .scroll{overflow-x:auto}
- .tree{display:block;min-width:100%}
+ .scroll{overflow-x:auto;padding-bottom:6px}
+ .tree{display:block}
  .box{fill:#1e1a2b;stroke:#392f50;stroke-width:1}
  .n:hover .box{fill:#282136;stroke:#6f5ca8}
  .n.dead .box{fill:#171520;stroke:#2c2740} .n.dead .nm{fill:#9a92ad}
@@ -198,8 +225,8 @@ fs.writeFileSync(OUT, `<!doctype html><meta charset="utf-8">
 <code>tools/build-dynasty-tree-demo.mjs</code>. Curves are real parent→child links, tapering with
 depth; dashed horizontals are marriages; greyed cards are deceased. Nothing here is hand-placed.</p>
 <div class="sum"><b>${totals.h} houses with members · ${totals.n} nodes · ${totals.e} blood links drawn.</b><br>
-<span style="color:#e0a458">${totals.flat} of ${totals.h} houses have no parent/child data at all</span> — for those a tree
-is just a roster in a fancier box, which is the real finding.</div>
+<span style="color:#e0a458">${totals.flat} of ${totals.h} houses have no parent/child data at all</span> — those are
+laid out as wrapped roster grids rather than fake trees, which is the real finding.</div>
 ${blocks}
 `, 'utf8');
 
