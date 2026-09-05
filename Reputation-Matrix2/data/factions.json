@@ -1491,5 +1491,37 @@
     "relatedArticles": [
       "the_dread_mansion_incursion"
     ]
+  },
+  {
+    "id": "order_of_jack",
+    "name": "The Order of Jack",
+    "title": "The Jackson Order — A Personal Retinue With a Recruiting Poster's Arithmetic",
+    "type": "Knightly Order / Household Retinue / Provincial Militia Umbrella",
+    "region": "Regal Empire — Midlands periphery, seated at Vellanet Rise",
+    "status": "Active — small standing strength, large paper strength, excellent local reputation",
+    "leader": "Commander Jack (Jackson) Melvus Miser",
+    "headquarters": "Vellanet Rise (fortified manor and muster yard)",
+    "motto": "\"Between the road and the harm.\"",
+    "affiliation": "Independent order, sworn personally to Jack Miser; backed by the Regal Lion and, at one remove, the Iron Legion",
+    "allies": [
+      "iron_legion"
+    ],
+    "enemies": [],
+    "summary": "Jack Miser's own body of arms, founded once he had the resources to stop borrowing other people's. Knights, paladins, clerics, fighters, soldiers and levy militias under one white-blue-and-yellow device: a shield fronting crossed swords and a vertical holy staff, winged either side, crowned above. Its quoted strength of 20,000 is a muster roll — levies, unpaid sworn volunteers, hired-out foreign clients, and Regal Lion / Iron Legion personnel already counted elsewhere. The bodies Jack pays and can move tomorrow number in the hundreds. It guards roads, escorts convoys, answers monster calls the Guild will not price, and hires out to neighbouring lords with Jack's permission. Its oath names Jack before it names any crown.",
+    "description": "## What It Is\n\nA **personal order**. Not a chapter of a larger institution, not a crown formation — a body of armed men and women who took an oath to a man who then bought them boots.\n\nJack founded it after eleven years inside the Regal Lion taught him precisely what he wanted and precisely what he could not get by staying: an order that would still exist, and still serve his family, after he was dead.\n\n## The Device\n\nA shield, fronting a cross of swords with a holy staff standing vertical through the join. Wings sprout left and right of the shield. A crown sits above it. White, blue and yellow.\n\nWaluigi has audited a great many heraldic devices and offers one observation: the crown is **above** the shield, not on a head. Read charitably, that is service to the Empire. Read the other way, it is a vacancy notice.\n\n## The Number\n\nThe order says **20,000 personnel combined**. That figure appears on its own recruitment sheets, in three ballads, and in at least one Mushroom-side threat estimate that took it at face value.\n\nThe roll includes, in one undifferentiated column:\n\n- the paid standing garrison and mounted knights (the real, movable order);\n- clerics and paladins on retainer rather than salary;\n- **levy militias** from Vellanet Rise's villages, who cannot all be fielded without abandoning a harvest;\n- sworn volunteers who wear the badge and have never drawn a wage;\n- contracted personnel hired out to foreign lords and clients;\n- **Regal Lion and Iron Legion troops counted as \"backing\"** — men already tallied on Legion rolls, counted twice.\n\nWaluigi's working figure for what Jack can actually pay, house and march tomorrow: a fortified manor's garrison and a few hundred riders. The rest is a mobilization ceiling and a favour network. That is not fraud; it is how every small order's paperwork looks. It is only dangerous because outsiders read it as an order of battle.\n\n## What It Actually Does\n\nRoad watch. Convoy escort. Disaster response inside the grant. Monster contracts for towns that cannot afford a Mages' Guild callout. Hired service to neighbouring lords and foreign clients — permitted by Jack explicitly, so that his people can sell capabilities that higher powers demand without going through their own rulers' chains of command.\n\nA meaningful share of its personnel did not join for the Empire, the crown, or the wage. They joined **for Jack**, having grown up on the Myrmidon story. Waluigi files that under *recruitment success* and, in the same breath, under *single point of failure*.\n\n## The Chaplaincy, and the Instruction Nobody Wrote Down\n\nThe Order's chaplains are **Silver Flame**, ordained at Flamekeep, because the Regal Lion's are and the Order inherited the Lion's chaplaincy along with its drill and its paperwork. On the establishment table they are unremarkable: a chaplain per standing company, the daily liturgy, the Litany of Purification before a contract, blessings on ammunition on Terras.\n\nOff the establishment table they carry one standing instruction that appears in no order book, no oath text, and no muster return: **the Edict of Purification is not to be raised against a tenant of Vellanet Rise.**\n\nWaluigi has confirmed this from three serving chaplains independently. None would write it down. All three described it in nearly identical words, which in Waluigi's experience means it was said once, clearly, by someone who meant it, and has been repeated ever since.\n\nConsider what that actually is. A commander with no ecclesiastical standing has instructed ordained clergy to disregard a standing edict of their own church, inside territory that church's inquisitors have a formal right of entry to, and the instruction has been obeyed for four years by everyone who received it. That is not a heresy. It is not currently anything, because nobody has filed it. It is, however, a demonstration that the Order's chaplains take their orders from Jack and not from Flamekeep, and a demonstration is exactly the sort of thing an inquisitor is trained to notice.\n\nThe oath problem and the chaplaincy problem are the same problem wearing different vestments. The Order's loyalty clause names a man rather than a throne. Its clergy answer a man rather than a church. Neither has been tested. Both will be, by whichever institution gets there first.\n\n## Waluigi's Assessment\n\nWell-run, well-liked, and structurally identical to the first chapter of every provincial warlord's biography ever filed in this archive. The difference so far is entirely the character of one man, which is a lovely thing to say about a person and a terrible thing to say about an institution.\n\nWatch the oath wording. Watch the second holding, if a second holding ever arrives. And watch Flamekeep, which has not yet asked the Order who its chaplains actually work for. WAH.",
+    "relatedArticles": [
+      "jack_melvus_miser",
+      "vellanet_rise",
+      "miser_family",
+      "iron_legion",
+      "regal_empire"
+    ],
+    "faiths": [
+      {
+        "id": "silver_flame_faith",
+        "role": "Chaplaincy of record",
+        "note": "The Order's chaplains are Flamekeep-ordained because the Regal Lion's are. The Order's standing instruction to those chaplains — do not raise the Edict of Purification against a tenant of the Rise — is not, and has never been, in writing."
+      }
+    ]
   }
 ]

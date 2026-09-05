@@ -78,7 +78,8 @@ Each block must contain:
 | **Slot** | `lead`, or the section number and name |
 | **Source lines** | The literal sentences from the prose the image must depict. Quote them. |
 | **Must appear** | The checklist of specific objects. This is what you verify against afterwards. |
-| **Must NOT appear** | The generic defaults to suppress — usually people, and usually the wrong century of technology |
+| **Cast** | Named characters in the shot and the portrait each one is drawn from (`portraits/<id>.png`), or `NONE — place/object plate`. Never leave this blank: blank means unconsidered. |
+| **Must NOT appear** | The generic defaults to suppress — usually the wrong century of technology. Only list `people` here when the slot really is a place/object plate |
 | **Text in image** | Either `NONE` or the exact string, letter for letter |
 | **Prompt** | The final prompt text |
 
@@ -88,6 +89,11 @@ Read each "Must appear" list next to the section text. Anything in the list not
 traceable to a sentence is invention — cut it. Anything vivid in the section
 missing from the list — add it. This is the cheap step. Do it properly and the
 expensive step usually works first time.
+
+**Then read the Cast row of every block in one pass.** If the filing is about
+people and every block says `NONE — place/object plate`, the set is wrong;
+go back and decide which scenes need their actors in frame. A session with a
+named cast that ships zero characters needs a reason in the run report.
 
 ### Step 3 — Generate
 
@@ -160,10 +166,29 @@ from the prose.
 6. **Negatives.** `No people, no text.` (or the exact required text), then
    `Oil-painting texture, atmospheric depth, high detail.`
 
-**On people:** default to `no people`. Faces and hands are where generators
-fail hardest, and a place photographed empty reads as archival evidence, which
-is the voice of this wiki. Depict the aftermath instead of the actor — the
-gouge in the gravel, not the crash; the burned plank, not the mourner.
+**On people — read this before you write `no people` out of habit.**
+
+`no people` is the default **for place, object, and evidence plates only**. It
+is not a house style for the whole archive, and it is not a reason to file a
+character-driven session as four empty rooms.
+
+| The slot is... | People rule |
+|---|---|
+| A place, a document, an object, an aftermath | `no people` — the empty room reads as evidence |
+| **A scene whose subject is what a character did** | **Put the character in it, from their portrait** |
+| A character study / roster / lead for a person's article | Portrait reference, always |
+
+The empty-room look earns its keep on a gouge in the gravel or a burned plank.
+It actively fails a scene whose whole content is a person doing something: a
+possession, a stand-off, a duplicate wearing somebody's face. Depicting *that*
+as furniture is not restraint, it is a missing illustration.
+
+> **The test, restated:** if the section's subject is a person and your prompt
+> says `no people`, you have illustrated the set and skipped the scene.
+
+Faces and hands really are where generators fail — that is an argument for
+**passing a portrait reference**, which is exactly what the next section
+requires. It is not an argument for emptying the frame.
 
 ---
 
@@ -187,10 +212,37 @@ and a portrait that matches nothing else in the archive.
 □ Record which portrait each slot used in the prompt sheet.
 ```
 
-If no portrait exists for a character who is essential to the scene, do not
-invent one silently — flag it in the prompt sheet and the run report so a
-portrait can be commissioned, rather than generating an off-model look that
-pollutes canon.
+### When the portrait does not exist
+
+Only about **68 of 152 characters** currently have a portrait, so this is the
+common case, not the edge case. "No portrait" is **not** a reason to fall back
+to an empty room — that is how a character-driven filing ends up illustrated
+entirely with furniture.
+
+Work down this ladder and stop at the first rung that applies:
+
+```text
+1. portraits/<id>.png exists            → pass it in images:[...]. Done.
+2. No portrait, but the character is    → COMMISSION IT FIRST: generate the
+   central to the filing                  portrait to portraits/<id>.png, look
+                                          at it, then use it as the reference
+                                          for every scene plate in the set.
+                                          One portrait, reused, keeps the set
+                                          on-model and grows the folder.
+3. No portrait, character is incidental → frame the shot so they are a
+   (a guard, a silhouette, a crowd)       silhouette, back view, or out of
+                                          frame. Do not invent a face.
+4. Character is a real-world-owned      → see below.
+   likeness the archive does not draw
+```
+
+Rung 2 is the one that gets skipped. If you are filing a session about three
+named people and none of them have portraits, the correct output is **three new
+portraits plus the scene plates**, not four pictures of an empty corridor.
+Record in the run report which portraits were commissioned.
+
+**Never** describe a known character in words when a portrait exists — that
+yields a generic figure matching nothing else in the archive.
 
 ---
 
@@ -333,6 +385,9 @@ sixty-one feet — and it is the right place for the archive's dry verdict.
 
 - [ ] Prompt sheet written and reviewed **before** any generation
 - [ ] Every "Must appear" item traceable to a sentence in the prose
+- [ ] **Cast row filled on every block** — portrait path, or an explicit "place/object plate"
+- [ ] Character-driven sections actually show the characters, not just their furniture
+- [ ] Portraits commissioned for central characters who had none, and saved to `portraits/<id>.png`
 - [ ] Required text specified letter for letter; decorative text suppressed
 - [ ] Every generated image **actually viewed** with `read_file`
 - [ ] Spelling on any in-image lettering checked by eye
