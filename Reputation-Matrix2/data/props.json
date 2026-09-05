@@ -22,6 +22,40 @@
     "stamps": "Optional. `stamps: [\"overdue\"]` renders .pd-stamp--overdue. Available: overdue, paid, void, sealed, noaction, evidence."
   },
   "props": {
+    "prop_red_dinner_service_sheet": {
+      "kind": "ledger",
+      "icon": "🍲",
+      "title": "Dinner Service Sheet - Evening, Overgrown Manor",
+      "subtitle": "The kitchen's own running sheet - four courses, one of them a weapon",
+      "items": [],
+      "articles": [
+        "feyward_library_reclamation_and_the_kitchen",
+        "red_the_kitchen_commander",
+        "overgrown_manor"
+      ],
+      "note": "Taken from the prep table while Red was holding up a plant that was dying in her fist.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Household of the Overgrown Manor &mdash; Kitchen</div><div class=\"pd-sub\">Evening service &middot; standing order &middot; unsigned</div></div><div class=\"pd-label\">SERVICE</div><div class=\"pd-clause\"><i>First:</i> broth, thin, salted. To the hall and the guard posts. <b>As normal.</b></div><div class=\"pd-clause\"><i>Second:</i> root and barley. To the hall. <b>As normal.</b></div><div class=\"pd-clause\"><i>Third:</i> the green dish. <b>To the overgrowth only.</b> Do not carry this to the hall. Do not taste. Do not let the sprites carry it - they eat from the tray.</div><div class=\"pd-clause\"><i>Fourth:</i> dessert. Held back. <b>Serve when asked for.</b></div><div class=\"pd-quote\">The green dish goes out every evening whether they ask or not. They ask.</div><div class=\"pd-margin\">Third course has no cost entered against it. Every other line on this sheet is priced to the copper. &mdash; W.</div><div class=\"pd-wah\">A kill order written as a menu. Filed with enormous professional respect. &mdash; WAH.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
+    "prop_mushroom_guard_three_credentials": {
+      "kind": "note",
+      "icon": "👁️",
+      "title": "Three Reasons to Trust Me",
+      "subtitle": "Transcribed in the lower hall, in the order the guard offered them",
+      "items": [],
+      "articles": [
+        "feyward_library_reclamation_and_the_kitchen",
+        "the_mushroom_room_guard",
+        "orangus_cornelius"
+      ],
+      "note": "Waluigi wrote these down while the man was still holding up fingers.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Wahbook &mdash; leaf, unnumbered</div><div class=\"pd-sub\">Lower hall &middot; asked: why should we trust you</div></div><div class=\"pd-label\">CREDENTIALS</div><div class=\"pd-clause\"><b>One.</b> Aurelian is helping.</div><div class=\"pd-clause\"><b>Two.</b> Orangus Cornelius.</div><div class=\"pd-clause\"><b>Three.</b> I stopped Wario. <i>Actually, I did quite a bit.</i></div><div class=\"pd-quote\">He had them ready. Nobody has ready answers to a question nobody has asked them yet.</div><div class=\"pd-margin\">One: currently inside a gold ring in the dwarf's pocket, helping no one. Two: a name the guards of this house have refused to say out loud since the sitting room, produced here as a reference. Three: a claim made by a great many people, none of whom have produced a receipt. &mdash; W.</div><div class=\"pd-wah\">He opened the passage anyway. The passage went in a circle. &mdash; WAH.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
     "prop_ebot_survey_iv": {
       "kind": "map",
       "icon": "🗺️",

@@ -121,12 +121,94 @@ investigate panels wired. Findable by search — `"barckelhaven"`, `"violet
 fungus"`, `"red kitchen"` and `"veteran fairy"` all return the new records,
 which is the search work from the previous session paying off.
 
-## Not done
+## Second pass — images and exhibits
 
-- **No images.** The image guide wants substantial new articles to ship with
-  art. This filing has none yet; the obvious plates are the book-eating mound in
-  the library, the polished lantern-lit corridor, and Red's kitchen.
-- **No exhibit props.** Nothing in the prose promises a document the reader
-  should be able to open — closest is the violet fungus, which is an object
-  rather than paper.
+Both gaps from the first pass are now closed.
+
+### Images (4 plates + 1 portrait)
+
+Prompt sheet written and reviewed **before** any generation, per the guide's
+step 1: `tools/scratch/library-reclamation-prompts.md`. Every "Must appear"
+item is quoted from the prose above it.
+
+| slot | file | cast |
+|---|---|---|
+| lead | `lib-01-mound-eating-books.jpg` | place plate — the room and the threat |
+| §4 On Three | `lib-02-on-three.jpg` | Hjumpik + Waluigi + Toad Lee, from `portraits/` |
+| §7 The Hallways | `lib-03-polished-hallway.jpg` | place plate, deliberately empty |
+| §10 We're Here to Cook | `lib-04-red-kitchen.jpg` | Red + Hjumpik, from `portraits/` |
+
+**All three party portraits were passed as references** to the ambush plate
+(`hjumpik.png`, `waluigi.png`, `toad_lee.png`) — the guide forbids describing a
+known character in words when a portrait exists. They came back on-model: the
+wolf-pelt hood and red beard, the purple cap and yellow inverted-L, the
+red-ringed cap and mushroom-boss shield.
+
+**One portrait commissioned** (ladder rung 2): Red is central to this filing and
+had no portrait, so `portraits/red_the_kitchen_commander.png` was generated
+first, viewed, then used as the reference for the kitchen plate. Mirrored to
+both `portraits/` and `Reputation-Matrix2/portraits/`, which are identical
+trees. The Veteran stays a backlit silhouette (rung 3) — he is incidental in the
+only slot he appears in, and inventing a face for him would be inventing canon.
+
+Slot 3 is the one deliberate empty room. The section's whole argument is that
+nobody is there and the marble is still polished, so people in frame would
+contradict the point.
+
+Every image was viewed with `read_file` before wiring. All are under 300 KB
+(the lead needed a recompress from 303 KB → 281 KB; the portrait went 2.3 MB →
+177 KB at 500×500 palette PNG, the house standard).
+
+### Exhibits
+
+Two documents, because the prose promised paper twice:
+
+- **`prop_red_dinner_service_sheet`** — the kitchen's four-course running sheet.
+  Three courses priced to the copper; the third, the one that goes to the
+  overgrowth only, has **no cost entered**. Exhibit `ex_red_dinner_service`,
+  DC 3, two inline insight rolls.
+- **`prop_mushroom_guard_three_credentials`** — the three reasons, in the order
+  he offered them. Exhibit `ex_mushroom_guard_credentials`, DC 4, two rolls.
+
+Both wired into the prose with `[[prop:…]]` triggers and verified to resolve
+through `getProp()` and render as `<a class="proplink">`.
+
+**A new lead:** `lead_red_authorisation` — the dinner sheet is unsigned and
+Red's first question was *did orange guy send you*, which is not the question of
+someone acting under orders. Either the heir is keeping a kill order off paper,
+or the manor's only working counter-attack is running without command knowing.
+
+`props.json` was spliced **textually**, never re-serialised — it is the one file
+in the archive with mixed encoding, and re-dumping it would rewrite the whole
+file.
+
+### A check caught me
+
+My first draft of both exhibits failed `check-investigations.py`: `dc` was a
+string, and the inline rolls had three pipe-separated fields instead of four.
+Error count went 25 → 29. The correct shape is
+`[[roll:DC|observation|what it proves|the counter-reading]]` — the fourth field
+is the honest alternative explanation, which is the point of the system. Fixed,
+and the count is back to the 25 pre-existing errors.
+
+## Verification (second pass)
+
+| check | result |
+|---|---|
+| `check-all.py` | **16/18** — unchanged, same two pre-existing failures |
+| `check-investigations.py` | 25 errors — **identical to baseline**, none mine |
+| `check-exhibits.py` | 0 errors, 0 warnings |
+| `check-rolls.py` | 53 rolls / 24 targets, 0 errors |
+| assets over HTTP | all 6 return 200 |
+| live render | 4 images + 4 captions in the DOM; both prop links resolve to anchors |
+
+**Note on the jsdom probe:** raw `[[prop:` tokens appear as literal text in the
+harness. This is **pre-existing site-wide behaviour**, not caused by this
+filing — an untouched article (`the_neighbor_incident`) shows 21 of them in the
+same harness. The renderer itself is correct: `proplinkHtml()` returns a proper
+anchor for both new props.
+
+## Still not done
+
 - **The dangling `the_orange_heir` id** in the previous filing is untouched.
+- No RNN episode; the pending list is not yet at the ~10-event threshold.
