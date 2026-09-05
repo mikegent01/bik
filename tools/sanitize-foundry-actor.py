@@ -581,9 +581,84 @@ def rule_stats_provenance(actor, report, opts):
         report.add("provenance", False, "actor", "cleared lastModifiedBy x%d" % count)
 
 
+def rule_clear_species(actor, report, opts):
+    """Remove the existing species so a Plutonium species import can succeed.
+
+    This one is opt-in (`--clear-species`) because it is not a repair: the
+    file is already valid. dnd5e's Race._preCreate refuses a second species
+    outright, and Plutonium then reports the refusal as
+    "Number of returned items did not match number of input items!" because
+    it asked for N documents and the server created N-1.
+
+    No amount of cleaning the export fixes that. The species already on the
+    sheet has to be gone *before* the import runs, which is what this does.
+    Race features left behind by the old species are removed with it, so the
+    incoming species does not stack duplicates like two Darkvisions.
+    """
+    if not getattr(opts, "clear_species", False):
+        return
+    items = actor.get("items") or []
+    races = [it for it in items if it.get("type") == "race"]
+    if not races:
+        return
+
+    doomed = {id(it) for it in races}
+    race_ids = {it.get("_id") for it in races}
+
+    # A race feature is a feat whose system.type.value is "race", or whose
+    # advancement chain was granted by the species being removed.
+    for it in items:
+        if it.get("type") != "feat":
+            continue
+        sysd = it.get("system") or {}
+        if ((sysd.get("type") or {}).get("value")) == "race":
+            doomed.add(id(it))
+            continue
+        origin = sysd.get("sourceId") or ""
+        if any(r and r in str(origin) for r in race_ids):
+            doomed.add(id(it))
+
+    granted = set()
+    for it in races:
+        adv = (it.get("system") or {}).get("advancement")
+        for entry in (adv.values() if isinstance(adv, dict) else (adv or [])):
+            if isinstance(entry, dict):
+                granted |= set((entry.get("value") or {}).get("added") or {})
+    for it in items:
+        if it.get("_id") in granted:
+            doomed.add(id(it))
+
+    removed_names = set()
+    for it in list(items):
+        if id(it) in doomed:
+            report.add(
+                "cleared-species", True, label(it),
+                "removed so a fresh species can be imported",
+            )
+            removed_names.add((it.get("name") or "").strip().lower())
+            items.remove(it)
+
+    # Some sheets carry a second, untyped copy of a racial feature (an
+    # untagged "Darkvision" alongside the type=race one). Those are NOT
+    # deleted -- an untyped feat can just as easily be a class or feat
+    # ability, and guessing from the name would destroy real content. They
+    # are reported instead so the duplicate can be resolved deliberately.
+    for it in items:
+        if it.get("type") != "feat":
+            continue
+        nm = (it.get("name") or "").strip().lower()
+        if nm and nm in removed_names:
+            report.add(
+                "leftover-racial-feature", False, label(it),
+                "untyped duplicate of a removed racial feature; the new "
+                "species will re-add this, so delete it by hand if it stacks",
+            )
+
+
 RULES = (
     rule_item_ids,
     rule_singletons,
+    rule_clear_species,
     rule_orphan_subclass,
     rule_advancement_grants,
     rule_effect_origins,
@@ -702,6 +777,10 @@ def main():
     ap.add_argument("--no-backup", action="store_true", help="skip the .bak on --in-place")
     ap.add_argument("--check", action="store_true",
                     help="CI mode: report and exit 1 if anything import-blocking")
+    ap.add_argument("--clear-species", action="store_true",
+                    help="remove the existing species and its racial features "
+                         "so Plutonium can import a new one (this is what the "
+                         "'Only a single Species' error actually needs)")
     ap.add_argument("--keep-species", choices=("first", "last"), default="first",
                     help="which duplicate race/background survives (default: first)")
     ap.add_argument("--manifest", default=DEFAULT_MANIFEST,

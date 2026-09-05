@@ -49,6 +49,7 @@ class Opts:
         self.verbose = False
         self.max_lines = 6
         self.no_backup = False
+        self.clear_species = False
         self.__dict__.update(kw)
 
 
@@ -132,6 +133,45 @@ check("npc keeps both races", len([i for i in out["items"] if i["type"] == "race
 # one race is left alone
 out, rep = S.sanitize(actor([item("r1aaaaaaaaaaaaaa", "Mountain Dwarf", "race")]), Opts())
 check("single race untouched", "duplicate-race" not in rules_fired(rep))
+
+
+print("\n-- --clear-species (the actual fix for the import rejection)")
+
+a = actor([
+    item("r1aaaaaaaaaaaaaa", "Mountain Dwarf", "race", system={"advancement": {
+        "a1": {"_id": "a1", "type": "ItemGrant",
+               "value": {"added": {"g1aaaaaaaaaaaaaa": "x"}}}}}),
+    item("g1aaaaaaaaaaaaaa", "Dwarven Toughness", "feat"),
+    item("f1aaaaaaaaaaaaaa", "Stonecunning", "feat", system={"type": {"value": "race"}}),
+    item("c1aaaaaaaaaaaaaa", "Fighter", "class", system={"identifier": "fighter"}),
+    item("w1aaaaaaaaaaaaaa", "Longsword", "weapon"),
+])
+out, rep = S.sanitize(copy.deepcopy(a), Opts())
+check("species kept when flag is off", len([i for i in out["items"] if i["type"] == "race"]) == 1)
+
+out, rep = S.sanitize(copy.deepcopy(a), Opts(clear_species=True))
+names = [i["name"] for i in out["items"]]
+check("species removed", "Mountain Dwarf" not in names, names)
+check("type=race feature removed", "Stonecunning" not in names, names)
+check("granted racial feature removed", "Dwarven Toughness" not in names, names)
+check("class survives", "Fighter" in names)
+check("gear survives", "Longsword" in names)
+check("cleared-species reported", "cleared-species" in rules_fired(rep))
+
+# an untyped same-name duplicate is reported, never silently deleted
+a2 = actor([
+    item("r1aaaaaaaaaaaaaa", "Mountain Dwarf", "race"),
+    item("f1aaaaaaaaaaaaaa", "Darkvision", "feat", system={"type": {"value": "race"}}),
+    item("f2aaaaaaaaaaaaaa", "Darkvision", "feat", system={"type": {"value": ""}}),
+])
+out, rep = S.sanitize(a2, Opts(clear_species=True))
+check("untyped duplicate is preserved",
+      "Darkvision" in [i["name"] for i in out["items"]])
+check("untyped duplicate is reported", "leftover-racial-feature" in rules_fired(rep))
+
+out, rep = S.sanitize(actor([item("c1aaaaaaaaaaaaaa", "Fighter", "class")]),
+                      Opts(clear_species=True))
+check("no species is a no-op", "cleared-species" not in rules_fired(rep))
 
 
 # --------------------------------------------------------------- subclass
