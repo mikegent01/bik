@@ -62,6 +62,7 @@ def main() -> int:
         # (tools/tests/test-search-live.mjs, which needs :8765).
         checks.append(("search quality", ["node", "tools/tests/test-search-quality.mjs"], ROOT))
         checks.append(("session nav", ["node", "tools/tests/test-session-nav.mjs"], ROOT))
+        checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))
     else:
         print("\n=== Bros discovery test ===\nSKIP: node is not on PATH")
 

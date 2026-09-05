@@ -1,2 +1,0 @@
-// JavaScript will go here
-
