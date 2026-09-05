@@ -10718,6 +10718,42 @@ function wbTranslateWord(w,L){
 /* Returns {text, tokens:[{src,out,known}], coverage} so the UI can show which
    words are real vocabulary and which the cipher invented. Being honest about
    that is the difference between a language and a decoration. */
+/* --- reverse: foreign -> Common -------------------------------------------
+   The dictionary is exact and always wins. The cipher is NOT losslessly
+   reversible -- Sylvan maps both "ee" and "a" onto "ae", Draconic maps both
+   "v" and "w" onto "vh" -- so undoing it is a best guess, and the UI says so.
+   Longest targets are undone first, otherwise a short rule eats the tail of a
+   longer one ("ae" would chew the "ael" that "ing" produced). */
+function wbReverseIndex(L){
+  if(L._rev)return L._rev;
+  const lex={};
+  for(const [en,fo] of Object.entries(L.lexicon||{})) lex[String(fo).toLowerCase()]=en;
+  const rules=(L.rules||[]).slice().sort((a,b)=>b[1].length-a[1].length);
+  L._rev={lex,rules};
+  return L._rev;
+}
+function wbUntranslateWord(w,L){
+  const bare=String(w||'').toLowerCase();
+  const rev=wbReverseIndex(L);
+  if(rev.lex[bare])return {out:rev.lex[bare],known:true};
+  let out=bare;
+  for(const [from,to] of rev.rules) out=out.split(to).join(from);
+  return {out,known:false};
+}
+function wbUntranslate(text,L){
+  const tokens=[];
+  const parts=String(text||'').split(/(\s+|[^\w'\-]+)/);
+  let known=0,words=0;
+  const out=parts.map(p=>{
+    if(!p||!/[a-z]/i.test(p))return p;
+    words++;
+    const t=wbUntranslateWord(p,L);
+    if(t.known)known++;
+    tokens.push({src:p,out:t.out,known:t.known});
+    return /^[A-Z]/.test(p)?t.out.charAt(0).toUpperCase()+t.out.slice(1):t.out;
+  }).join('');
+  return {text:out,tokens,coverage:words?Math.round(100*known/words):0,words,known};
+}
 function wbTranslate(text,L){
   const tokens=[];
   const parts=String(text||'').split(/(\s+|[^\w'\-]+)/);
@@ -10749,14 +10785,15 @@ function wbGlyphSvg(text,L,size){
   return out.join('');
 }
 
-let _wbState={lang:'sylvan',text:'Hjumpik could not read Sylvan',glyphs:true};
+let _wbState={lang:'sylvan',text:'Hjumpik could not read Sylvan',glyphs:true,dir:'to'};
 async function view_wahbabel(){
   renderSidebar('wahbabel');
   await loadWahbabel();
   const langs=(WAHBABEL&&WAHBABEL.languages)||[];
   if(!langs.length){ el('content').innerHTML='<div class="card">Wahbabel data unavailable. Run <code>python3 tools/build-wahbabel.py --write</code>.</div>'; return; }
   const L=wbLang(_wbState.lang)||langs[0];
-  const res=wbTranslate(_wbState.text,L);
+  const toForeign=_wbState.dir!=='from';
+  const res=toForeign?wbTranslate(_wbState.text,L):wbUntranslate(_wbState.text,L);
 
   const tabs=langs.map(x=>`<span class="wb-tab ${x.id===L.id?'on':''}" style="--wbc:${esc(x.colour)}"
     onclick="_wbState.lang='${esc(x.id)}';view_wahbabel()">${esc(x.name)}</span>`).join('');
@@ -10792,15 +10829,23 @@ async function view_wahbabel(){
       <div class="text-muted" style="font-size:12px;margin-top:6px">Spoken by: ${esc(L.speakers)}</div>
     </div>
     <div class="card">
-      <h3 style="margin-top:0">Translate</h3>
+      <div class="wb-dirbar">
+        <span class="wb-dir ${toForeign?'on':''}" onclick="_wbState.dir='to';view_wahbabel()">Common → ${esc(L.name)}</span>
+        <span class="wb-dir ${!toForeign?'on':''}" onclick="_wbState.dir='from';view_wahbabel()">${esc(L.name)} → Common</span>
+      </div>
       <textarea class="wb-input" id="wbInput" rows="3"
         oninput="_wbState.text=this.value;wbLiveUpdate()">${esc(_wbState.text)}</textarea>
       <div class="wb-out" id="wbOut">${esc(res.text)}</div>
-      ${_wbState.glyphs?`<div class="wb-glyphline" id="wbGlyphs">${wbGlyphSvg(res.text,L,26)}</div>`:''}
+      ${(_wbState.glyphs&&toForeign)?`<div class="wb-glyphline" id="wbGlyphs">${wbGlyphSvg(res.text,L,26)}</div>`:''}
       <div class="wb-cov" id="wbCov">
-        <b>${res.known}</b> of <b>${res.words}</b> words are real vocabulary (${res.coverage}%) —
-        the rest were produced by the cipher.
+        <b>${res.known}</b> of <b>${res.words}</b> words came from the dictionary (${res.coverage}%) —
+        the rest went through the cipher.
       </div>
+      ${!toForeign?`<div class="wb-warn">
+        Reading backwards is a best guess. The cipher is not losslessly reversible:
+        ${esc(L.name)} maps more than one Common sound onto the same foreign one, so a
+        word outside the dictionary can only be approximated. Dictionary words are exact.
+      </div>`:''}
     </div>
     <div class="card">
       <h3 style="margin-top:0">Alphabet</h3>
@@ -10814,11 +10859,12 @@ async function view_wahbabel(){
 }
 function wbLiveUpdate(){
   const L=wbLang(_wbState.lang); if(!L)return;
-  const res=wbTranslate(_wbState.text,L);
+  const toForeign=_wbState.dir!=='from';
+  const res=toForeign?wbTranslate(_wbState.text,L):wbUntranslate(_wbState.text,L);
   const o=document.getElementById('wbOut'); if(o)o.textContent=res.text;
-  const g=document.getElementById('wbGlyphs'); if(g)g.innerHTML=wbGlyphSvg(res.text,L,26);
+  const g=document.getElementById('wbGlyphs'); if(g)g.innerHTML=toForeign?wbGlyphSvg(res.text,L,26):'';
   const c=document.getElementById('wbCov');
-  if(c)c.innerHTML=`<b>${res.known}</b> of <b>${res.words}</b> words are real vocabulary (${res.coverage}%) — the rest were produced by the cipher.`;
+  if(c)c.innerHTML=`<b>${res.known}</b> of <b>${res.words}</b> words came from the dictionary (${res.coverage}%) — the rest went through the cipher.`;
 }
 
 /* Inline trigger for prose: [[lang:sylvan|the text]] renders the foreign text

@@ -168,6 +168,13 @@ html[data-theme="light"] header.topbar{background:linear-gradient(90deg,rgba(255
 .wb-toggle{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap}
 .wb-canon{margin-top:10px;padding:9px 12px;border-radius:8px;font-size:12.5px;font-style:italic;
   background:rgba(255,255,255,.035);border-left:3px solid var(--accent2);color:var(--muted)}
+.wb-dirbar{display:flex;gap:8px;margin-bottom:11px;flex-wrap:wrap}
+.wb-dir{padding:7px 14px;border-radius:8px;cursor:pointer;font-size:12.5px;font-weight:600;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);transition:.15s;white-space:nowrap}
+.wb-dir:hover{background:rgba(255,255,255,.08)}
+.wb-dir.on{background:rgba(212,168,83,.16);border-color:var(--accent2);color:var(--accent2)}
+.wb-warn{margin-top:10px;padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.6;
+  background:rgba(241,196,15,.07);border-left:3px solid rgba(241,196,15,.5);color:var(--muted)}
 .wb-input{width:100%;background:var(--panel2);color:var(--text);border:1px solid var(--border);
   border-radius:9px;padding:11px 13px;font:inherit;font-size:14px;resize:vertical}
 .wb-out{margin-top:12px;padding:13px 15px;border-radius:9px;background:rgba(0,0,0,.22);

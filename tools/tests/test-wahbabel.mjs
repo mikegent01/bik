@@ -50,9 +50,12 @@ function extract(sig) {
 // wbTranslateWord first, since it is declared above.
 const sandbox = {};
 new Function(`${extract('function wbTranslateWord(w,L){')}
-${extract('function wbTranslate(text,L){')};
-  this.wbTranslateWord=wbTranslateWord; this.wbTranslate=wbTranslate;`).call(sandbox);
-const { wbTranslate } = sandbox;
+${extract('function wbTranslate(text,L){')}
+${extract('function wbReverseIndex(L){')}
+${extract('function wbUntranslateWord(w,L){')}
+${extract('function wbUntranslate(text,L){')};
+  this.wbTranslate=wbTranslate; this.wbUntranslate=wbUntranslate;`).call(sandbox);
+const { wbTranslate, wbUntranslate } = sandbox;
 
 const langs = data.languages;
 const byId = Object.fromEntries(langs.map(L => [L.id, L]));
@@ -158,12 +161,80 @@ console.log('\n-- coverage is reported honestly');
 }
 {
   // A language must not silently claim 100% by having an empty cipher.
+  // Nonsense strings only -- the dictionary is 130 words now, so ordinary
+  // English words like "here" are covered and would not be a fair test.
   const L = byId.sylvan;
-  const r = wbTranslate('completely unknown phrasing here', L);
+  // Not in the dictionary, but built from letters the cipher does rewrite --
+  // "zzqq" would be left alone simply because Sylvan has no rule for z or q,
+  // which tests nothing.
+  const nonsense = 'brakim tarod';
+  const r = wbTranslate(nonsense, L);
   check('an all-unknown phrase reports 0% vocabulary', r.coverage === 0, `${r.coverage}%`);
-  check('...but still produces foreign text',
-    r.text !== 'completely unknown phrasing here', r.text);
+  check('...but still produces foreign text', r.text !== nonsense, r.text);
 }
+
+console.log('\n-- the dictionary is complete');
+
+const CONCEPT_FLOOR = 100;
+for (const L of langs) {
+  check(`${L.id}: lists at least ${CONCEPT_FLOOR} words`,
+    Object.keys(L.lexicon).length >= CONCEPT_FLOOR, `${Object.keys(L.lexicon).length}`);
+}
+{
+  // Every language must cover the SAME concepts, or a sentence written in one
+  // cannot be written in another.
+  const sets = langs.map(L => new Set(Object.keys(L.lexicon)));
+  const first = sets[0];
+  check('every language covers the same concept list',
+    sets.every(s => s.size === first.size && [...first].every(k => s.has(k))));
+}
+check('irregulars are recorded separately from ciphered words',
+  langs.every(L => Array.isArray(L.irregulars) && L.irregulars.length > 0));
+
+console.log('\n-- ciphered words stay pronounceable');
+for (const L of langs) {
+  const irr = new Set(L.irregulars.map(k => L.lexicon[k]));
+  const bad = Object.values(L.lexicon).filter(v =>
+    !irr.has(v) && (v.length > 13 || /[bcdfghjklmnpqrstvwxz]{4,}/.test(v) || /(.)\1\1/.test(v)));
+  check(`${L.id}: no unpronounceable generated words`, bad.length === 0,
+    bad.slice(0, 3).join(', '));
+}
+
+console.log('\n-- reverse translation');
+
+for (const L of langs) {
+  // Dictionary words must round-trip exactly -- EXCEPT where two concepts
+  // genuinely share one word. Orcish has a single word for "fight" and "war";
+  // reverse has to pick one, and that is a property of the language rather
+  // than a defect. Homonyms are published in the data, so exclude them here.
+  const homonyms = new Set(Object.values(L.homonyms || {}).flat());
+  const words = Object.keys(L.lexicon).filter(k => !homonyms.has(k)).slice(0, 6);
+  const fwd = wbTranslate(words.join(' '), L);
+  const back = wbUntranslate(fwd.text, L);
+  check(`${L.id}: unambiguous dictionary words round-trip exactly`,
+    back.text === words.join(' '), `${back.text}`);
+  check(`${L.id}: reverse reports them as dictionary hits`,
+    back.known === words.length, `${back.known}/${words.length}`);
+}
+{
+  // The ambiguity must be declared, not silently wrong.
+  const withHom = langs.filter(L => Object.keys(L.homonyms || {}).length);
+  check('languages that conflate two concepts publish the homonym',
+    withHom.every(L => Object.values(L.homonyms).every(v => v.length > 1)));
+  const orc = byId.orcish;
+  check('Orcish uses one word for fight and war (declared)',
+    JSON.stringify(orc.homonyms || {}).includes('war'),
+    JSON.stringify(orc.homonyms));
+}
+{
+  const L = byId.sylvan;
+  const r = wbUntranslate('qqzzxx', L);
+  check('reverse on an unknown word still returns text', r.text.length > 0);
+  check('reverse marks an unknown word as not-from-dictionary', r.known === 0);
+}
+check('reverse is exposed to the page', /function wbUntranslate/.test(main));
+check('the page offers a direction switch', /wb-dirbar/.test(main));
+check('the page admits reverse is a best guess', /best guess/.test(main));
 
 console.log('\n-- wiring');
 
