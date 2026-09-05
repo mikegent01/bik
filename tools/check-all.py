@@ -61,6 +61,7 @@ def main() -> int:
         # the real data. No server needed, unlike the live jsdom counterpart
         # (tools/tests/test-search-live.mjs, which needs :8765).
         checks.append(("search quality", ["node", "tools/tests/test-search-quality.mjs"], ROOT))
+        checks.append(("session nav", ["node", "tools/tests/test-session-nav.mjs"], ROOT))
     else:
         print("\n=== Bros discovery test ===\nSKIP: node is not on PATH")
 

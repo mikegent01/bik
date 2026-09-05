@@ -110,6 +110,28 @@ html[data-theme="light"] header.topbar{background:linear-gradient(90deg,rgba(255
 .res-item .rtype{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent2);margin-left:6px}
 .res-item .rscore{font-size:10px;color:var(--muted);margin-left:6px;font-weight:400}
 .res-item .rsum{color:var(--muted);font-size:12.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.45}
+/* --- previous / next session navigation ---------------------------------- */
+.session-nav{margin:26px 0 6px;padding-top:14px;border-top:1px solid rgba(212,168,83,.22)}
+.session-nav .snav-arc{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.session-nav .snav-arc a{font-size:12.5px;color:var(--gold,#d4a853);text-decoration:none;font-weight:600}
+.session-nav .snav-arc a:hover{text-decoration:underline}
+.session-nav .snav-count{font-size:11.5px;color:var(--muted);opacity:.85;white-space:nowrap}
+.session-nav .snav-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.session-nav .snav-cell{display:flex;flex-direction:column;gap:4px;padding:12px 14px;border-radius:10px;
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);text-decoration:none;
+  transition:border-color .15s ease,background .15s ease,transform .15s ease}
+.session-nav a.snav-cell:hover{background:rgba(212,168,83,.08);border-color:rgba(212,168,83,.4);transform:translateY(-1px)}
+.session-nav .snav-empty{background:none;border:1px dashed rgba(255,255,255,.06)}
+.session-nav .snav-next{text-align:right}
+.session-nav .snav-dir{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);opacity:.9}
+.session-nav .snav-title{font-size:13.5px;line-height:1.35;color:var(--fg,#f0e9dd);font-weight:600}
+.session-nav .snav-date{font-size:11px;color:var(--muted);opacity:.8}
+@media (max-width:640px){
+  .session-nav .snav-row{grid-template-columns:1fr}
+  .session-nav .snav-next{text-align:left}
+  .session-nav .snav-empty{display:none}
+}
+
 /* Search result metadata: when the record happened, and who the query hit. */
 .search-corrected{font-size:12px;color:var(--muted);padding:4px 2px 6px;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:6px}
 .search-corrected b{color:var(--fg,inherit)}

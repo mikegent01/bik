@@ -10579,6 +10579,75 @@ function injuryPanel(item){
   const rows=refs.map(ref=>{const e=entries.find(x=>x.d100===Number(ref.roll)); if(!e)return `<li>Unknown injury reference: ${esc(ref.injuryId||ref.roll)}</li>`; return `<li><a href="${pathPrefix}app/pages/standalone/injury-desk.html#injury-${e.d100}"><strong>d100 ${e.d100} · ${esc(e.injuryType)}</strong></a><span class="text-muted"> — ${esc(e.description)} Cure: ${esc(e.cure)} · ${esc(e.duration)}${ref.status&&ref.status!=='active'?` · ${esc(ref.status)}`:''}</span></li>`;}).join('');
   return `<section class="event-details-section injury-character-panel"><h4>🩹 Permanent injuries <a class="chip" href="${pathPrefix}app/pages/standalone/injury-desk.html">Open Injury Desk</a></h4><ul>${rows}</ul></section>`;
 }
+/* --- previous / next session nav ------------------------------------------
+   Sessions are filed into investigation arcs as an ordered sessions[] list.
+   That list, not the date field, is the reading order an archivist curated --
+   and it has to be, because Feyward filings carry two clocks (1040 BF on the
+   Material side, 922 BF on the Feyward side) and sorting by date interleaves
+   them into nonsense. We follow the curated order and show which arc it is. */
+function sessionNeighbours(articleId){
+  // investigations.json is {_README, investigations:[...]} -- the list is
+  // nested one level down, exactly as the sidebar count reads it.
+  const arcs=((DATA.investigations||{}).investigations)||[];
+  for(const arc of arcs){
+    const rows=(arc&&arc.sessions)||[];
+    // A session row points at an event id via .event
+    const idx=rows.findIndex(r=>r&&r.event===articleId);
+    if(idx<0)continue;
+    // A big arc braids several storylines together -- the Feyward manor thread,
+    // the Shadow Estate storm chain, the Shadowfell ritual. Walking the raw
+    // array sends a reader from a Feyward corridor straight into a different
+    // continent. So prefer the nearest neighbour sharing this article's
+    // storyline, identified by the leading segment of `era`, and only fall
+    // back to plain arc order when there is no same-thread neighbour.
+    const threadOf=eid=>{
+      const it=INDEX[eid]&&INDEX[eid].item;
+      const era=String((it&&it.era)||'');
+      // "Raventree Crisis - Feyward Operations / The Library Reclamation"
+      //  -> "raventree crisis - feyward operations"
+      // Dash characters are inconsistent across filings (- vs en/em dash),
+      // and normalizeSearchText does not strip the unicode ones.
+      return normalizeSearchText(era.split('/')[0].replace(/[\u2010-\u2015]/g,' ')).trim();
+    };
+    const mine=threadOf(articleId);
+    const scan=(from,step,sameThreadOnly)=>{
+      for(let i=from;i>=0&&i<rows.length;i+=step){
+        const r=rows[i];
+        if(!r||!r.event||r.event===articleId)continue;
+        if(!INDEX[r.event])continue;
+        if(sameThreadOnly&&mine&&threadOf(r.event)!==mine)continue;
+        return r;
+      }
+      return null;
+    };
+    const pick=(from,step)=>scan(from,step,true)||scan(from,step,false);
+    return {arc,prev:pick(idx-1,-1),next:pick(idx+1,1),idx,total:rows.length};
+  }
+  return null;
+}
+function sessionNavHtml(articleId){
+  const n=sessionNeighbours(articleId);
+  if(!n||(!n.prev&&!n.next))return '';
+  const cell=(row,dir)=>{
+    if(!row)return `<span class="snav-cell snav-empty"></span>`;
+    const it=INDEX[row.event]&&INDEX[row.event].item;
+    const name=(it&&(it.name||it.title))||prettyId(row.event);
+    const date=(it&&shortDateOf(it))||'';
+    return `<a class="snav-cell snav-${dir}" href="#/article/${encodeURIComponent(row.event)}">`
+      +`<span class="snav-dir">${dir==='prev'?'\u2190 Previous session':'Next session \u2192'}</span>`
+      +`<span class="snav-title">${esc(name)}</span>`
+      +(date?`<span class="snav-date">${esc(date)}</span>`:'')
+      +`</a>`;
+  };
+  const arcName=esc(n.arc.title||n.arc.codename||prettyId(n.arc.id));
+  return `<nav class="session-nav" aria-label="Session navigation">`
+    +`<div class="snav-arc">`
+      +`<a href="#/investigation/${encodeURIComponent(n.arc.id)}">\ud83d\uddc2\ufe0f ${arcName}</a>`
+      +`<span class="snav-count">session ${n.idx+1} of ${n.total}</span>`
+    +`</div>`
+    +`<div class="snav-row">${cell(n.prev,'prev')}${cell(n.next,'next')}</div>`
+  +`</nav>`;
+}
 function view_article(id){
   if(id==='the_midlands'){ Router.go('#/article/regal_empire'); return; }
   if(id==='thornburys_field_journal'){ view_fieldJournal(); return; }
@@ -10756,6 +10825,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${item.aftermath?`<h2 id="h-aftermath">Aftermath</h2><div class="prose">${applyAnnotations(mdToHtml(item.aftermath,item.id), item.id)}</div>`:''}
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote wassessment">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
+     ${sessionNavHtml(item.id)}
    </div>${exhibitTilesHtml(propsForArticle(item.id),{heading:'🗂️ Documents behind this record',blurb:'The paperwork this account is built on. Click any one to read it as filed.'})}${wideRecord?railHtml+'</div>':`</div>${railHtml}`}</div>`;
   setArticleAccent(typeKey);
   endLinkPass();

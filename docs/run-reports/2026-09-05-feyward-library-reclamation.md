@@ -208,6 +208,89 @@ filing — an untouched article (`the_neighbor_incident`) shows 21 of them in th
 same harness. The renderer itself is correct: `proplinkHtml()` returns a proper
 anchor for both new props.
 
+## Third pass — a canon correction, a portrait fix, and session navigation
+
+### The correction (this one mattered)
+
+The user flagged that **Waluigi opened the final door and Hjumpik tried to stop
+him** — I had written it the other way round. Checking the transcript against
+the filing, I had misattributed **six consecutive lines**. The speakers
+alternate strictly through that argument and I lost the alternation halfway:
+
+| transcript line | correct speaker | I had written |
+|---|---|---|
+| "thinking lead us so far… but if we dont act" | Waluigi | Hjumpik |
+| "no no no we cant fight every battle" | **Hjumpik** | Waluigi |
+| "i one shot that shrub almost 10 mineuts ago" | **Waluigi** | Hjumpik |
+| "remember the goblins stabbed it and it died" | **Hjumpik** | Waluigi |
+| "than if there that weak than we should take them on" | **Waluigi** | Hjumpik |
+| **opens the door** | **Waluigi** | Hjumpik |
+
+This inverted the meaning of the ending. In the real session **Hjumpik is the
+one counselling restraint** — *we can't fight every battle* — and **Waluigi is
+the one who escalates and forces the fight**, reaching past the dwarf's hand to
+open the door. That is what makes *"Since when did you care?"* land: it is not
+an idle question, it is a man asking why his cautious archivist just behaved
+completely out of character. My version had Hjumpik doing the reckless thing,
+which made the closing line a non-sequitur.
+
+Rewritten: the section prose, its aside, the event `summary`, the `outcome`,
+assessment points 1 and 6, three `notableFeatures`, and two XP award
+descriptions. Waluigi now records the door in the active voice and owns it.
+
+The bathroom-door references were checked and left alone — Hjumpik does knock
+and open *that* door in the transcript. Different door.
+
+### Hjumpik's likeness
+
+The user said he looked like a random dwarf. Correct: comparing the plate to
+`portraits/hjumpik.png`, the portrait is a younger human-proportioned man with
+a **short trimmed dark-brown beard**, and my prompt had said *"stocky
+red-bearded dwarf"* — I described him in words instead of letting the reference
+lead, which is the exact failure the guide warns about. Fixed by **editing**
+both affected plates rather than rerolling, preserving composition and lighting.
+`lib-02` and `lib-04` now carry the right face. (One edit was blocked by
+moderation on the first attempt and succeeded on a reworded retry.)
+
+### Previous / next session navigation
+
+New `sessionNavHtml()` / `sessionNeighbours()` in `index.html`, rendered under
+Related Articles on any article filed into an investigation arc. Shows the arc
+name, "session N of M", and prev/next cards with title and date.
+
+**The interesting problem:** a big arc braids storylines together.
+`shadeward_feyward_ruined` holds the Feyward manor thread, the Shadow Estate
+storm chain and the Shadowfell ritual in one 12-row `sessions[]` array, so plain
+array order sent a reader from a Feyward corridor to a different continent —
+the library's "previous" was the Scorncrow Skirmish. The nav now prefers the
+nearest neighbour **on the same storyline**, keyed off the leading segment of
+`era`, and only falls back to raw arc order when a thread has no neighbour.
+
+Two bugs found and fixed while building it:
+- `DATA.investigations` is `{_README, investigations:[…]}` — the list is nested
+  one level down. My first version assumed a bare array and threw.
+- Dash characters are inconsistent across filings (`-` vs `—`), and
+  `normalizeSearchText` does not strip unicode dashes, so two Feyward filings
+  had non-matching thread keys. The comparison now normalises `\u2010-\u2015`,
+  and this event's `era` was corrected to the archive's em-dash convention.
+
+`tools/tests/test-session-nav.mjs` — **17 assertions**, wired into
+`check-all.py`. It walks the whole Feyward chain in both directions, asserts the
+library never links back to a Shadow Estate session, and checks the invariants
+(no self-links, no links to missing events, null for non-session pages).
+
+## Verification (third pass)
+
+| check | result |
+|---|---|
+| `check-all.py` | **17/19** — same two pre-existing failures |
+| session nav | 17/17 |
+| search quality / live | 38/38 · 23/23 |
+| faith / reputation / home feed | 40/40 · 25/25 · 11/11 |
+| sanitizer | 92/92 |
+| `check-investigations.py` | 25 errors — still the baseline |
+| `index.html` JS parse | OK |
+
 ## Still not done
 
 - **The dangling `the_orange_heir` id** in the previous filing is untouched.
