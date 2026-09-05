@@ -6945,17 +6945,68 @@ function parseSearchQuery(raw,opts){
   q=q.replace(/(?:^|\s)(?:@|(?:cat(?:egory)?|type|in):)([a-z0-9_-]+)/ig,(m,c)=>{const mapped=SEARCH_CATEGORY_ALIASES[String(c).toLowerCase()]||category;if(!(opts&&opts.keepPrefixCategory))category=mapped;return ' ';}).trim();
   const quoted=[]; q=q.replace(/"([^"]+)"|'([^']+)'/g,(m,a,b)=>{const val=(a||b||'').trim();if(val)quoted.push(normalizeSearchText(val));return ' ';}).trim();
   const clean=normalizeSearchText(q);
-  const terms=clean.split(/\s+/).filter(t=>t.length>0);
+  // Drop conversational filler. Somebody at the table types
+  // "the session where we fought the mazebounds"; only two of those words
+  // carry any signal, and the rest drag the match ratio down until the real
+  // answer fails the smart-mode threshold. Never drop every term.
+  const STOP=new Set(['the','a','an','of','in','on','at','to','and','or','we','i','you','they',
+    'was','were','is','are','it','that','this','with','for','from','our','my','his','her','their',
+    'session','one','where','when','what','who','how','did','do','does','had','have','has','been',
+    'about','there','here','then','than','some','any','all','my','me','us','them','thing','stuff']);
+  let terms=clean.split(/\s+/).filter(t=>t.length>0);
+  const kept=terms.filter(t=>!STOP.has(t));
+  if(kept.length)terms=kept;
   return {raw:String(raw||''),q,clean,terms,quoted,category,mode};
+}
+/* Normalising every document costs ~240ms across the corpus (13.3M chars of
+   hay through a regex). The corpus does not change between keystrokes, so we
+   do it ONCE and cache it on the doc. Before this, scoreDoc re-normalised
+   everything on every keypress and a single keystroke cost ~573ms. */
+function ensureNormalized(d){
+  if(d._n)return d._n;
+  const label=searchTypeLabel(d);
+  d._n={
+    name:normalizeSearchText(d.name),
+    id:normalizeSearchText(d.id),
+    summary:normalizeSearchText(d.summary||''),
+    hay:normalizeSearchText([d.id,d.name,label,d.typeKey,d.summary,d.hay].filter(Boolean).join(' ')),
+    people:normalizeSearchText(d.people||'')
+  };
+  return d._n;
+}
+/* People at the table describe a session, they do not quote its title.
+   "the session where we fought the mazebounds" should find a Combat
+   Engagement even though the filed word is "Skirmish". These are intent
+   words, not a thesaurus: each maps to signals already in the record
+   (kind, typeKey, or the type field), never to invented content. */
+const SEARCH_INTENT={
+  fight:['battle','skirmish','combat','engagement','fought','duel','ambush','brawl'],
+  fought:['battle','skirmish','combat','engagement','fight','duel','ambush'],
+  battle:['skirmish','combat','engagement','fight','fought'],
+  died:['death','killed','casualty','fatal','deceased'],
+  death:['died','killed','casualty','fatal','deceased'],
+  killed:['death','died','casualty','slain','fatal'],
+  meeting:['council','negotiation','parley','summit','audience'],
+  trial:['court','tribunal','hearing','verdict','testimony'],
+  party:['revel','feast','festival','celebration','ball'],
+  monster:['creature','beast','fiend','abomination']
+};
+/* Returns {score, strong}. `strong` means the intent word matched the record's
+   OWN CLASSIFICATION -- a doc of kind/type "battle" for the query "fought".
+   That is real evidence and is allowed to satisfy the term. A mere mention of
+   a synonym somewhere in the prose is only a ranking nudge. */
+function intentBonus(t,hay,typeKey){
+  const alts=SEARCH_INTENT[t];
+  if(!alts)return {score:0,strong:false};
+  const tk=String(typeKey||'').toLowerCase();
+  for(const a of alts){ if(tk.includes(a))return {score:46,strong:true}; }
+  for(const a of alts){ if(hay.includes(a))return {score:20,strong:false}; }
+  return {score:0,strong:false};
 }
 function scoreDoc(d,parsed,mode){
   if(!categoryMatches(d,parsed.category))return null;
-  const label=searchTypeLabel(d);
-  const name=normalizeSearchText(d.name);
-  const id=normalizeSearchText(d.id);
-  const summary=normalizeSearchText(d.summary||'');
-  const hay=normalizeSearchText([d.id,d.name,label,d.typeKey,d.summary,d.hay].filter(Boolean).join(' '));
-  const people=normalizeSearchText(d.people||'');
+  const _n=ensureNormalized(d);
+  const name=_n.name, id=_n.id, summary=_n.summary, hay=_n.hay, people=_n.people;
   const query=parsed.clean;
   const terms=parsed.terms;
   let score=0,matched=0;
@@ -6982,12 +7033,45 @@ function scoreDoc(d,parsed,mode){
     for(const t of terms){
       if(!t)continue;
       const wordBoundary=new RegExp('(^|\\s)'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
-      const inId=id.includes(t), starts=name.startsWith(t), inName=name.includes(t), boundary=wordBoundary.test(name), inSummary=summary.includes(t), inHay=hay.includes(t);
+      // Fold a trailing plural/verb suffix so "mazebounds" finds "Mazebound"
+      // and "fought" is at least tried as "fight". Only applied when the
+      // stem is long enough that it cannot collide with a short word.
+      // Only stem when the STEM IS A REAL WORD in the corpus. Otherwise
+      // "possesed" (a typo) becomes "posses", which substring-matches
+      // possession/possessed/possesses across 300+ records AND suppresses the
+      // spell-corrector, because a bogus stem looks like a successful match.
+      // Only fold a plural, and only when the singular is a WHOLE WORD in the
+      // corpus vocabulary. Two guards matter here:
+      //  - "mazebounds" -> "mazebound" is a real word, so it folds.
+      //  - "possesed" (a typo) -> "posses" is not, so it does not, which keeps
+      //    a one-word typo from substring-matching 300+ records via
+      //    "dispossessed" and suppressing the spell-corrector.
+      const stemRaw=(t.length>5&&/(s|es)$/.test(t))?t.replace(/(ies|es|s)$/,m=>m==='ies'?'y':''):t;
+      const stem=(stemRaw!==t&&stemRaw.length>3&&SEARCH_VOCAB.has(stemRaw))?stemRaw:t;
+      // Stemming is safe when the stem is a known corpus word (gated above).
+      // It was briefly restricted to multi-word queries to stop a typo
+      // flood, but the real guard is the vocabulary check, so a plural
+      // like "mazebounds" resolves on any query length.
+      const useStem=(stem!==t);
+      const hit=(hs)=>hs.includes(t)||(useStem&&hs.includes(stem));
+      const inId=hit(id), starts=name.startsWith(t)||(useStem&&name.startsWith(stem)),
+            inName=hit(name), boundary=wordBoundary.test(name)||(useStem&&new RegExp('(^|\\s)'+stem.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).test(name)),
+            inSummary=hit(summary), inHay=hit(hay);
       // A person named in participants[] was actually IN the scene. That beats
       // a passing mention buried in prose, which is what used to bury the
       // record people were looking for.
-      const inPeople=people.includes(t), peopleWord=new RegExp('(^|\\s)'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).test(people);
-      if(inId||starts||inName||inSummary||inHay||inPeople){
+      const inPeople=hit(people), peopleWord=new RegExp('(^|\\s)'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).test(people);
+      // An intent synonym is a RANKING nudge, not proof the term is present.
+      // Letting it satisfy a term on a short query pulled unrelated factions
+      // above the actual event for "aurelian possessed". It may only stand in
+      // for a missing term when the query is long enough that the reader is
+      // clearly describing a session rather than naming one.
+      const ib=intentBonus(t,hay,[d.typeKey,d.kind,d.cat].join(' '));
+      // A strong intent hit (the record IS a battle) satisfies the term.
+      // A weak one (the word appears in prose) only adds score.
+      const intentCounts=ib.strong;
+      if(inId||starts||inName||inSummary||inHay||inPeople||intentCounts){
+        if(ib.score)score+=ib.score;
         matched++;
         if(id===t)score+=180;
         if(name===t)score+=260;
@@ -7001,7 +7085,25 @@ function scoreDoc(d,parsed,mode){
       }else if(mode!=='any')return null;
     }
     if(mode==='any' && matched===0)return null;
-    if((mode==='all'||mode==='smart') && matched < (terms.length+parsed.quoted.length))return null;
+    // 'all' still means all. But 'smart' should behave like a search engine:
+    // a record matching 2 of 3 terms is a WEAKER answer, not a non-answer.
+    // This is the bug behind "mazebound fight" -- The Mazebound Skirmish, an
+    // actual Combat Engagement, was excluded outright because the literal word
+    // "fight" appears nowhere in its indexed text. Partial matches now survive
+    // with a proportional penalty so full matches still win.
+    const need=terms.length+parsed.quoted.length;
+    if(mode==='all' && matched<need)return null;
+    if(mode==='smart' && matched<need){
+      // Partial credit only applies to genuinely multi-word queries, and only
+      // when MOST of the query matched. A one- or two-word query keeps the
+      // old strict behaviour: widening it floods the corpus (an early attempt
+      // dragged 323 records into a single-word typo search).
+      if(!matched)return null;
+      if(need<3)return null;
+      if(matched/need < 0.66)return null;
+      score=Math.round(score*0.5)-80;
+      if(score<1)score=1;
+    }
   }
   if(query){
     if(name===query)score+=380;
@@ -7010,6 +7112,21 @@ function scoreDoc(d,parsed,mode){
     if(hay.includes(query))score+=70;
   }
   if(d.kind==='article')score+=12;
+  // A record whose NAME carries a query term is about that thing; a record
+  // that merely mentions it is not. Combined with an intent word like
+  // "fight"/"battle" matching the record's own type, this is what lifts
+  // "The Mazebound Skirmish" (a Combat Engagement) above a dozen articles
+  // that happen to mention mazebounds in passing.
+  if(terms.length>1){
+    const nameHits=terms.filter(t=>t&&name.includes(t)).length;
+    if(nameHits)score+=90*nameHits;
+    const typeStr=normalizeSearchText([d.typeKey,d.kind,(INDEX[d.id]&&INDEX[d.id].item&&INDEX[d.id].item.type)||''].join(' '));
+    const intentHit=terms.some(t=>{
+      const alts=SEARCH_INTENT[t];
+      return alts&&alts.some(a=>typeStr.includes(a));
+    });
+    if(intentHit&&nameHits)score+=140;
+  }
   if(docCategory(d)===parsed.category&&parsed.category!=='all')score+=35;
   return score;
 }
@@ -7110,6 +7227,15 @@ function openSearchResult(d){ if(d.kind==='ability'){location.href=d.href||abili
 
 const searchInput=el('search'),resultsBox=el('results'),searchCategory=el('searchCategory'),searchMode=el('searchMode');let activeIdx=-1,currentResults=[];
 function searchCounts(q){const all=search(q,{category:'all',limit:600});const counts={all:all.length};all.forEach(r=>{counts[r.cat]=(counts[r.cat]||0)+1;});return counts;}
+/* Derive chip counts from a result set we already computed. Only falls back
+   to a fresh search when the active category filtered the list, because then
+   `list` is not the full picture. */
+function countsFromResults(list,parsed){
+  if(parsed&&parsed.category&&parsed.category!=='all')return searchCounts(parsed.raw||'');
+  const counts={all:list.length};
+  list.forEach(r=>{counts[r.cat]=(counts[r.cat]||0)+1;});
+  return counts;
+}
 function renderSearchHelp(){
   currentResults=[];activeIdx=-1;
   const chips=['characters','events','items','currencies','battles','books'].map(cat=>`<span class="search-chip" data-search-cat="${cat}">${SEARCH_CATEGORIES.find(x=>x[0]===cat)?.[1]||prettyId(cat)}</span>`).join('');
@@ -7134,10 +7260,13 @@ function matchedPeople(r,parsed){
   return out;
 }
 function renderResults(list,q){
-  currentResults=list;activeIdx=-1;
+  currentResults=list.slice(0,60);activeIdx=-1;
   if(!q){renderSearchHelp();return;}
   const parsed=parseSearchQuery(q);
-  const counts=searchCounts(q);
+  // Category counts used to run a SECOND full search at limit 600, doubling
+  // the cost of every keystroke. The unfiltered result set is already in
+  // hand, so derive the counts from it instead.
+  const counts=countsFromResults(list,parsed);
   const total=counts.all||0;
   const chipHtml=SEARCH_CATEGORIES.filter(([cat])=>cat==='all'||counts[cat]||cat===parsed.category).map(([cat,label])=>`<span class="search-chip ${cat===parsed.category?'active':''}" data-search-cat="${cat}">${esc(label)}${counts[cat]?` ${counts[cat]}`:''}</span>`).join('');
   const corr=LAST_SEARCH_CORRECTIONS.length
@@ -7145,7 +7274,10 @@ function renderResults(list,q){
     : '';
   const headerHtml=`<div class="search-panel-head">${corr}<div class="search-panel-title"><b>${total} match${total===1?'':'es'} indexed</b><span>${esc(SEARCH_CATEGORIES.find(x=>x[0]===parsed.category)?.[1]||'All')} · ${esc((searchMode&&searchMode.options[searchMode.selectedIndex]?.text)||parsed.mode)}</span></div><div class="search-chipbar">${chipHtml}</div></div>`;
   if(!list.length){resultsBox.innerHTML=headerHtml+'<div class="res-empty">No matches in this filter. Try All, Any word, or fewer words. Waluigi refuses to blame the index this time.</div>';resultsBox.classList.add('show');bindSearchChips();return;}
-  resultsBox.innerHTML=headerHtml + list.map((r,i)=>{
+  // We score up to 600 so the chip counts are honest, but only draw the
+  // first 60 rows -- building 600 DOM nodes per keystroke was its own stall.
+  const shown=list.slice(0,60);
+  resultsBox.innerHTML=headerHtml + shown.map((r,i)=>{
     const date=r.dateLabel?`<span class="rdate">${esc(r.dateLabel)}</span>`:'';
     // Say WHY this matched. On a historical archive the useful answer is
     // usually "because these people were in it", so name the ones the query
@@ -7158,9 +7290,20 @@ function renderResults(list,q){
   bindSearchChips();
   resultsBox.querySelectorAll('.res-item').forEach((n,i)=>n.addEventListener('click',()=>{openSearchResult(currentResults[i]);closeSearch();}));
 }
-function runSearch(showHelp){const q=searchInput.value;if(!q.trim()){if(showHelp)renderSearchHelp();else closeSearch();return;}renderResults(search(q),q);}
+/* One search per keystroke, at the counting limit, debounced. renderResults
+   derives the category chips from this same list and shows the first 60. */
+function runSearch(showHelp){
+  const q=searchInput.value;
+  if(!q.trim()){if(showHelp)renderSearchHelp();else closeSearch();return;}
+  renderResults(search(q,{limit:600}),q);
+}
+let _searchDebounce=null;
+function runSearchDebounced(showHelp){
+  if(_searchDebounce)clearTimeout(_searchDebounce);
+  _searchDebounce=setTimeout(()=>{_searchDebounce=null;runSearch(showHelp);},130);
+}
 function closeSearch(){resultsBox.classList.remove('show');}
-searchInput.addEventListener('input',()=>runSearch(false));
+searchInput.addEventListener('input',()=>runSearchDebounced(false));
 searchInput.addEventListener('focus',()=>runSearch(true));
 if(searchCategory)searchCategory.addEventListener('change',()=>runSearch(true));
 if(searchMode)searchMode.addEventListener('change',()=>runSearch(true));
