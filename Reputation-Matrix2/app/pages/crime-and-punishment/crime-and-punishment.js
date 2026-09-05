@@ -152,9 +152,16 @@
     void el('capReelStrip').offsetHeight;
 
     var dur = 3200 + Math.floor(Math.random() * 900);
+    var reel = el('capReel');
+    if (reel) { reel.classList.add('spinning'); reel.classList.remove('landed'); }
     setStripOffset(offsetForIndex(landIdx), true, dur);
 
     window.setTimeout(function () {
+      if (reel) {
+        reel.classList.remove('spinning');
+        reel.classList.add('landed');
+        window.setTimeout(function () { reel.classList.remove('landed'); }, 750);
+      }
       state.spinning = false;
       state.sentence = chosen;
       showVerdict(chosen);

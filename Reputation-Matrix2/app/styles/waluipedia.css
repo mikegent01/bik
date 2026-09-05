@@ -156,6 +156,78 @@ html[data-theme="light"] header.topbar{background:linear-gradient(90deg,rgba(255
 .pill.rnn-pill:hover{background:rgba(108,196,23,.14)}
 @media (max-width:720px){.rnn-q-row{grid-template-columns:1fr;gap:2px}}
 
+/* --- The Wahbabel ---------------------------------------------------------
+   Glyphs are real SVG letterforms. Styled Latin text was rejected: it reads as
+   a keyboard mash rather than another writing system. */
+.wb-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.wb-tab{padding:7px 15px;border-radius:9px;cursor:pointer;font-size:12.5px;font-weight:600;
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1);transition:.15s}
+.wb-tab:hover{background:rgba(255,255,255,.09)}
+.wb-tab.on{background:color-mix(in srgb,var(--wbc) 18%,transparent);border-color:var(--wbc);color:var(--wbc)}
+.wb-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+.wb-toggle{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap}
+.wb-canon{margin-top:10px;padding:9px 12px;border-radius:8px;font-size:12.5px;font-style:italic;
+  background:rgba(255,255,255,.035);border-left:3px solid var(--accent2);color:var(--muted)}
+.wb-input{width:100%;background:var(--panel2);color:var(--text);border:1px solid var(--border);
+  border-radius:9px;padding:11px 13px;font:inherit;font-size:14px;resize:vertical}
+.wb-out{margin-top:12px;padding:13px 15px;border-radius:9px;background:rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.09);font-size:15.5px;line-height:1.65;letter-spacing:.02em;
+  overflow-wrap:anywhere}
+.wb-glyphline{margin-top:12px;padding:14px;border-radius:9px;background:rgba(0,0,0,.3);
+  border:1px solid rgba(255,255,255,.07);display:flex;flex-wrap:wrap;align-items:center;gap:2px;min-height:56px}
+.wb-glyph{flex:0 0 auto;opacity:.94}
+.wb-space{width:13px;display:inline-block}
+.wb-unk{color:var(--muted);opacity:.4;padding:0 3px}
+.wb-cov{margin-top:10px;font-size:12px;color:var(--muted)}
+.wb-cov b{color:var(--accent2)}
+.wb-chart{display:grid;grid-template-columns:repeat(auto-fill,minmax(58px,1fr));gap:8px}
+.wb-chart-cell{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;
+  border-radius:8px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+.wb-chart-cell span{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.wb-lex{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px}
+.wb-lex-row{display:flex;justify-content:space-between;gap:10px;padding:7px 11px;border-radius:7px;
+  background:rgba(255,255,255,.03);font-size:12.5px}
+.wb-en{color:var(--muted)}
+.wb-fo{font-weight:700}
+/* Inline foreign text inside prose */
+.wb-inline{cursor:pointer;border-bottom:1px dashed var(--wbc);color:var(--wbc);
+  padding:0 2px;border-radius:3px;transition:.15s;position:relative}
+.wb-inline:hover{background:color-mix(in srgb,var(--wbc) 14%,transparent)}
+.wb-inline.revealed{font-style:italic;opacity:.92}
+.wb-tag{font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.7;
+  vertical-align:super;margin-left:3px}
+@media (max-width:620px){.wb-head{flex-direction:column}}
+
+/* --- Injury Desk: the d20 and the survive-then-pay handoff ---------------- */
+.inj-dieWrap{display:flex;justify-content:center;margin:16px 0 6px}
+.inj-die{width:96px;height:96px;display:flex;align-items:center;justify-content:center;
+  font-size:34px;font-weight:900;color:#ffd9d2;
+  background:radial-gradient(circle at 34% 28%,#6a2320,#331010);
+  border:2px solid rgba(231,76,60,.65);
+  clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);
+  text-shadow:0 2px 6px rgba(0,0,0,.6);transition:transform .18s ease}
+.inj-die.rolling{animation:injSpin .5s linear infinite}
+@keyframes injSpin{
+  0%{transform:rotate(0) scale(1)}
+  25%{transform:rotate(90deg) scale(1.07)}
+  50%{transform:rotate(180deg) scale(1)}
+  75%{transform:rotate(270deg) scale(1.07)}
+  100%{transform:rotate(360deg) scale(1)}
+}
+.inj-handoff{margin-top:12px;padding:13px 15px;border-radius:10px;
+  background:rgba(241,196,15,.09);border:1px solid rgba(241,196,15,.4)}
+.inj-handoff-t{font-size:13.5px;font-weight:700;color:#ffe08a;margin-bottom:9px}
+.inj-kicker{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.inj-result{animation:injIn .3s ease}
+@keyframes injIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.inj-pip{transition:transform .18s ease,background .18s ease}
+.inj-pip.on{animation:injPop .28s ease}
+@keyframes injPop{0%{transform:scale(.4)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){
+  .inj-die.rolling{animation:none}
+  .inj-pip.on,.inj-result{animation:none}
+}
+
 /* --- Collections: live computed panels ----------------------------------- */
 .col-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:14px}
 .col-stat{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:12px 14px;text-align:center}

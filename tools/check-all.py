@@ -41,6 +41,7 @@ def main() -> int:
         ("local paths", [py, "tools/check-local-paths.py"], ROOT),
         ("injury table", [py, "tools/generate-injury-table.py", "--check"], ROOT),
         ("injury repeats", [py, "tools/dedupe-injury-table.py", "--check"], ROOT),
+        ("wahbabel data", [py, "tools/build-wahbabel.py", "--check"], ROOT),
         ("duplicate records", [py, "tools/check-duplicates.py"], ROOT),
         ("references", [py, "tools/check-references.py"], ROOT),
         ("exhibits", [py, "tools/check-exhibits.py"], ROOT),
@@ -65,6 +66,7 @@ def main() -> int:
         checks.append(("session nav", ["node", "tools/tests/test-session-nav.mjs"], ROOT))
         checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))
         checks.append(("hub pages", ["node", "tools/tests/test-hub-pages.mjs"], ROOT))
+        checks.append(("wahbabel", ["node", "tools/tests/test-wahbabel.mjs"], ROOT))
         # search relevance needs a static server on 8765; run it manually.
     else:
         print("\n=== Bros discovery test ===\nSKIP: node is not on PATH")

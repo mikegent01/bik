@@ -6841,6 +6841,12 @@ function inlineMd(t,opts){
     propSlots.push(proplinkHtml(pid,label||''));
     return '\u241EPROP'+(propSlots.length-1)+'\u241E';
   });
+  // [[lang:sylvan|the untranslated line]] — same sentinel trick, so the
+  // auto-linker cannot chew the markup we just built.
+  t=t.replace(/\[\[lang:([a-zA-Z0-9_-]+)\|([^\]]+)\]\]/g,(m,lid,txt)=>{
+    propSlots.push(typeof wbInlineHtml==='function'?wbInlineHtml(lid,txt):esc(txt));
+    return '\u241EPROP'+(propSlots.length-1)+'\u241E';
+  });
   // Manual markdown links written in the JSON: [visible text](target_id) or full wiki URL ending in #/article/target_id.
   t=t.replace(/\[([^\]]+)\]\(([^)]+)\)/g,(m,text,target)=>{
     const tm=String(target).match(/#\/article\/([a-zA-Z0-9_:-]+)/);
@@ -7408,6 +7414,7 @@ function renderSidebar(active){
     navLink({emoji:'🔍',label:'Investigations',go:"Router.go('#/investigations')",active:active==='investigations',count:(((DATA.investigations||{}).investigations)||[]).length}),
     navLink({emoji:'⚖️',label:'Crime & Punishment',go:"location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'",title:'Sentencing reel and the consequence table — 89 punishments'}),
     navLink({emoji:'🩸',label:'Injury Desk',go:"Router.go('#/injuries')",active:active==='injuries',count:((DATA.injuries&&DATA.injuries.entries)||[]).length,title:'Death saving throws and the d100 injury table'}),
+    navLink({emoji:'🗣️',label:'The Wahbabel',go:"Router.go('#/wahbabel')",active:active==='wahbabel',count:(WAHBABEL&&WAHBABEL.languages?WAHBABEL.languages.length:7),title:'Translation desk — ciphers, dictionaries and glyphs'}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')}),
     navLink({emoji:'〰️',label:'WAHwire',go:`location.href='${wahwireUrl()}'`,count:WAHWIRE_COUNT,title:'The public feed — every post, searchable, wired back to the records it talks about'})
   ];
@@ -10685,6 +10692,156 @@ function view_fieldJournal(){
   window.scrollTo(0,0);
 }
 
+/* ===== The Wahbabel — the archive's translation desk =====
+   Data: Reputation-Matrix2/data/wahbabel.json (built by tools/build-wahbabel.py).
+   Cipher + lexicon: lexicon words win, everything else falls through the
+   phonetic rules, so coverage is total from day one and accuracy grows as
+   words are added. Glyphs are real SVG paths, not styled Latin text. */
+let WAHBABEL=null;
+async function loadWahbabel(){
+  if(WAHBABEL)return WAHBABEL;
+  try{
+    const r=await fetch(pathPrefix+'data/wahbabel.json',{cache:'no-cache'});
+    WAHBABEL=r.ok?await r.json():{languages:[]};
+  }catch(e){ WAHBABEL={languages:[]}; }
+  return WAHBABEL;
+}
+function wbLang(id){ return ((WAHBABEL&&WAHBABEL.languages)||[]).find(l=>l.id===id)||null; }
+
+function wbTranslateWord(w,L){
+  const bare=w.toLowerCase();
+  if(L.lexicon&&L.lexicon[bare])return {out:L.lexicon[bare],known:true};
+  let out=bare;
+  for(const [from,to] of (L.rules||[])) out=out.split(from).join(to);
+  return {out,known:false};
+}
+/* Returns {text, tokens:[{src,out,known}], coverage} so the UI can show which
+   words are real vocabulary and which the cipher invented. Being honest about
+   that is the difference between a language and a decoration. */
+function wbTranslate(text,L){
+  const tokens=[];
+  const parts=String(text||'').split(/(\s+|[^\w'\-]+)/);
+  let known=0,words=0;
+  const out=parts.map(p=>{
+    if(!p||!/[a-z]/i.test(p))return p;
+    words++;
+    const t=wbTranslateWord(p,L);
+    if(t.known)known++;
+    tokens.push({src:p,out:t.out,known:t.known});
+    // preserve leading capital
+    return /^[A-Z]/.test(p)?t.out.charAt(0).toUpperCase()+t.out.slice(1):t.out;
+  }).join('');
+  return {text:out,tokens,coverage:words?Math.round(100*known/words):0,words,known};
+}
+
+function wbGlyphSvg(text,L,size){
+  size=size||26;
+  const g=L.glyphs||{};
+  const out=[];
+  for(const ch of String(text||'').toLowerCase()){
+    if(ch===' '){ out.push(`<span class="wb-space"></span>`); continue; }
+    const d=g[ch];
+    if(!d){ out.push(`<span class="wb-unk">·</span>`); continue; }
+    out.push(`<svg class="wb-glyph" viewBox="0 0 24 24" width="${size}" height="${size}" aria-hidden="true">`
+      +`<path d="${esc(d)}" fill="none" stroke="${esc(L.colour||'#fff')}" stroke-width="1.7" `
+      +`stroke-linecap="round" stroke-linejoin="round"/></svg>`);
+  }
+  return out.join('');
+}
+
+let _wbState={lang:'sylvan',text:'Hjumpik could not read Sylvan',glyphs:true};
+async function view_wahbabel(){
+  renderSidebar('wahbabel');
+  await loadWahbabel();
+  const langs=(WAHBABEL&&WAHBABEL.languages)||[];
+  if(!langs.length){ el('content').innerHTML='<div class="card">Wahbabel data unavailable. Run <code>python3 tools/build-wahbabel.py --write</code>.</div>'; return; }
+  const L=wbLang(_wbState.lang)||langs[0];
+  const res=wbTranslate(_wbState.text,L);
+
+  const tabs=langs.map(x=>`<span class="wb-tab ${x.id===L.id?'on':''}" style="--wbc:${esc(x.colour)}"
+    onclick="_wbState.lang='${esc(x.id)}';view_wahbabel()">${esc(x.name)}</span>`).join('');
+
+  const chart=(WAHBABEL.alphabet||'').split('').map(ch=>`
+    <div class="wb-chart-cell">${wbGlyphSvg(ch,L,30)}<span>${ch}</span></div>`).join('');
+
+  const lex=Object.entries(L.lexicon||{}).map(([en,fo])=>`
+    <div class="wb-lex-row"><span class="wb-en">${esc(en)}</span><span class="wb-fo" style="color:${esc(L.colour)}">${esc(fo)}</span></div>`).join('');
+
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › The Wahbabel</div>
+    <div class="card animate-fade-in" style="border-left:5px solid ${esc(L.colour)};background:linear-gradient(135deg,${esc(L.colour)}18,rgba(0,0,0,.05)),var(--panel)">
+      <h1 style="margin:6px 0 4px">🗣️ The Wahbabel</h1>
+      <p class="text-muted" style="font-size:13.5px;margin:0">
+        Waluigi's translation desk. ${langs.length} tongues, each a phonetic cipher with a
+        growing dictionary bolted on top. Words the archive actually knows are marked;
+        everything else is the cipher doing its best, and it will tell you which is which.
+      </p>
+    </div>
+    <div class="wb-tabs">${tabs}</div>
+    <div class="card">
+      <div class="wb-head">
+        <div>
+          <h2 style="margin:0 0 2px">${esc(L.name)}</h2>
+          <div class="text-muted" style="font-size:12px">${esc(L.family)} · ${esc(L.script)} script · ${Object.keys(L.lexicon||{}).length} words known</div>
+        </div>
+        <label class="wb-toggle"><input type="checkbox" ${_wbState.glyphs?'checked':''}
+          onchange="_wbState.glyphs=this.checked;view_wahbabel()"> show glyphs</label>
+      </div>
+      <p style="font-size:13px;line-height:1.6;color:var(--muted);margin:10px 0 4px">${esc(L.flavour)}</p>
+      <div class="wb-canon">📖 ${esc(L.canon)}</div>
+      <div class="text-muted" style="font-size:12px;margin-top:6px">Spoken by: ${esc(L.speakers)}</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Translate</h3>
+      <textarea class="wb-input" id="wbInput" rows="3"
+        oninput="_wbState.text=this.value;wbLiveUpdate()">${esc(_wbState.text)}</textarea>
+      <div class="wb-out" id="wbOut">${esc(res.text)}</div>
+      ${_wbState.glyphs?`<div class="wb-glyphline" id="wbGlyphs">${wbGlyphSvg(res.text,L,26)}</div>`:''}
+      <div class="wb-cov" id="wbCov">
+        <b>${res.known}</b> of <b>${res.words}</b> words are real vocabulary (${res.coverage}%) —
+        the rest were produced by the cipher.
+      </div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Alphabet</h3>
+      <div class="wb-chart">${chart}</div>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Dictionary <span class="text-muted" style="font-size:12px;font-weight:400">— grows as the campaign does</span></h3>
+      <div class="wb-lex">${lex}</div>
+    </div>`;
+  window.scrollTo(0,0);
+}
+function wbLiveUpdate(){
+  const L=wbLang(_wbState.lang); if(!L)return;
+  const res=wbTranslate(_wbState.text,L);
+  const o=document.getElementById('wbOut'); if(o)o.textContent=res.text;
+  const g=document.getElementById('wbGlyphs'); if(g)g.innerHTML=wbGlyphSvg(res.text,L,26);
+  const c=document.getElementById('wbCov');
+  if(c)c.innerHTML=`<b>${res.known}</b> of <b>${res.words}</b> words are real vocabulary (${res.coverage}%) — the rest were produced by the cipher.`;
+}
+
+/* Inline trigger for prose: [[lang:sylvan|the text]] renders the foreign text
+   with a click to reveal the Common original -- the Hjumpik-cannot-read-Sylvan
+   moment, made playable. */
+function wbInlineHtml(langId,text){
+  const L=wbLang(langId);
+  if(!L)return esc(text);
+  const res=wbTranslate(text,L);
+  const id='wbi'+Math.random().toString(36).slice(2,9);
+  return `<span class="wb-inline" id="${id}" data-plain="${esc(text)}" data-foreign="${esc(res.text)}"
+    style="--wbc:${esc(L.colour)}" title="${esc(L.name)} — click to translate"
+    onclick="wbToggleInline('${id}')">${esc(res.text)}<span class="wb-tag">${esc(L.name)}</span></span>`;
+}
+function wbToggleInline(id){
+  const n=document.getElementById(id); if(!n)return;
+  const showing=n.getAttribute('data-showing')==='plain';
+  const txt=showing?n.getAttribute('data-foreign'):n.getAttribute('data-plain');
+  n.setAttribute('data-showing',showing?'foreign':'plain');
+  n.classList.toggle('revealed',!showing);
+  n.childNodes[0].nodeValue=txt;
+}
+
 /* ===== Injury Desk — death saving throws + the d100 consequence table =====
    Data: Reputation-Matrix2/data/injuries.json (343 entries).
    The table's own rules text has referenced "the spinner on the Injury Desk"
@@ -10716,19 +10873,49 @@ function injSeverityClass(cat){
 }
 
 function rollDeathSave(){
-  if(_injState.done)return;
+  if(_injState.done||_injState.rolling)return;
   const r=1+Math.floor(Math.random()*20);
-  let note='';
-  if(r===1){ _injState.fail+=2; note='NATURAL 1 — two failures'; }
-  else if(r===20){ _injState.done='revived'; note='NATURAL 20 — conscious at 1 HP'; }
-  else if(r>=10){ _injState.succ++; note='success'; }
-  else { _injState.fail++; note='failure'; }
-  _injState.log.unshift({r,note});
-  if(_injState.succ>=3&&!_injState.done)_injState.done='stable';
-  if(_injState.fail>=3&&!_injState.done)_injState.done='dead';
+  // Spin the die before committing the result. The number is already decided;
+  // the animation is honest theatre, not a fake roll.
+  _injState.rolling=true;
   view_injuries('saves');
+  const face=document.getElementById('injDie');
+  if(face){
+    face.classList.add('rolling');
+    let ticks=0;
+    const iv=setInterval(()=>{
+      face.textContent=1+Math.floor(Math.random()*20);
+      if(++ticks>13){ clearInterval(iv); face.textContent=r; face.classList.remove('rolling'); commit(); }
+    },55);
+  } else { commit(); }
+
+  function commit(){
+    let note='';
+    if(r===1){ _injState.fail+=2; note='NATURAL 1 — two failures'; }
+    else if(r===20){ _injState.done='revived'; note='NATURAL 20 — conscious at 1 HP'; }
+    else if(r>=10){ _injState.succ++; note='success'; }
+    else { _injState.fail++; note='failure'; }
+    _injState.log.unshift({r,note});
+    if(_injState.succ>=3&&!_injState.done)_injState.done='stable';
+    if(_injState.fail>=3&&!_injState.done)_injState.done='dead';
+    _injState.rolling=false;
+    _injState.lastRoll=r;
+    view_injuries('saves');
+  }
 }
-function resetDeathSaves(){ _injState={succ:0,fail:0,log:[],done:null,rolled:null}; view_injuries('saves'); }
+/* House rule, set by the GM: three failures is fatal, full stop. Surviving is
+   not free either -- you stabilise and then roll for what it permanently cost.
+   The table's one 'Death' row is excluded here, because the death saves have
+   already decided that question and rolling it twice would be double jeopardy. */
+function rollSurvivalInjury(){
+  const t=injuryTable().filter(e=>String(e.category||'').toLowerCase()!=='death');
+  if(!t.length)return;
+  _injState.rolled=t[Math.floor(Math.random()*t.length)];
+  _injState.fromSave=true;
+  view_injuries('saves');
+  setTimeout(()=>{const n=document.getElementById('injRolled');if(n)n.scrollIntoView({behavior:'smooth',block:'center'});},60);
+}
+function resetDeathSaves(){ _injState={succ:0,fail:0,log:[],done:null,rolled:null,rolling:false,fromSave:false,lastRoll:null}; view_injuries('saves'); }
 
 function rollInjury(){
   const t=injuryTable();
@@ -10749,10 +10936,17 @@ function view_injuries(tab){
 
   const pip=(n,on,cls)=>{let h='';for(let i=0;i<3;i++)h+=`<span class="inj-pip ${i<n?('on '+cls):''}"></span>`;return h;};
 
+  // House rule: three failures is fatal. Surviving means rolling for what it
+  // permanently cost, which is the handoff into the consequence table.
+  const survived=S.done==='stable'||S.done==='revived';
   const verdict=S.done?`<div class="inj-verdict ${S.done}">${
-    S.done==='stable'?'STABLE — three successes. Unconscious but no longer dying.':
-    S.done==='dead'?'DEAD — three failures. Roll on the consequence table only if the table is being used for a body.':
-    'CONSCIOUS — natural 20. Back up at 1 hit point.'}</div>`:'';
+    S.done==='stable'?'STABLE — three successes. Unconscious, no longer dying, and not walking away clean.':
+    S.done==='dead'?'DEAD — three failures. Fatal, by house rule. No consequence roll: the saves already answered it.':
+    'CONSCIOUS — natural 20. Back up at 1 hit point, and something still gave.'}</div>
+    ${survived&&!S.rolled?`<div class="inj-handoff">
+      <div class="inj-handoff-t">You lived. Now find out what it cost.</div>
+      <button class="inj-btn" onclick="rollSurvivalInjury()">Roll the permanent injury</button>
+    </div>`:''}`:'';
 
   const savesTab=`
     <div class="card inj-card">
@@ -10762,18 +10956,32 @@ function view_injuries(tab){
         Three successes and you stabilise; three failures and you do not. A natural 1
         counts as two failures, a natural 20 puts you back up at 1 hit point.
       </p>
+      <div class="inj-dieWrap">
+        <div class="inj-die ${S.rolling?'rolling':''}" id="injDie">${S.lastRoll||'d20'}</div>
+      </div>
       <div class="inj-track">
         <div class="inj-row"><span class="inj-lab succ">Successes</span><div class="inj-pips">${pip(S.succ,true,'succ')}</div></div>
         <div class="inj-row"><span class="inj-lab fail">Failures</span><div class="inj-pips">${pip(S.fail,true,'fail')}</div></div>
       </div>
       ${verdict}
       <div class="inj-btns">
-        <button class="inj-btn" onclick="rollDeathSave()" ${S.done?'disabled':''}>Roll d20</button>
+        <button class="inj-btn" onclick="rollDeathSave()" ${S.done||S.rolling?'disabled':''}>${S.rolling?'Rolling…':'Roll d20'}</button>
         <button class="inj-btn ghost" onclick="resetDeathSaves()">Reset</button>
       </div>
       ${S.log.length?`<div class="inj-log">${S.log.map(l=>`<div><b>${l.r}</b> — ${esc(l.note)}</div>`).join('')}</div>`:''}
-    </div>`;
+    </div>
+    ${S.fromSave&&S.rolled?rolledCard(S.rolled,'What it cost'):''}`;
 
+  function rolledCard(e,kicker){
+    return `<div class="card inj-result ${injSeverityClass(e.category)}" id="injRolled">
+      ${kicker?`<div class="inj-kicker">${esc(kicker)}</div>`:''}
+      <div class="inj-d100">d${esc(String(e.d100||'?'))}</div>
+      <div class="inj-cat">${esc(e.category||'')}</div>
+      <h3 style="margin:4px 0 8px">${esc(e.injuryType||'')}</h3>
+      <p style="font-size:13.5px;line-height:1.6;margin:0">${esc(e.description||'')}</p>
+      <div class="inj-cure">Lowest cure: <b>${esc(e.cure||'unrecorded')}</b>${e.duration?` · duration <b>${esc(e.duration)}</b>`:''}</div>
+    </div>`;
+  }
   const rolled=S.rolled?`
     <div class="card inj-result ${injSeverityClass(S.rolled.category)}" id="injRolled">
       <div class="inj-d100">d${esc(String(S.rolled.d100||'?'))}</div>
@@ -18116,6 +18324,7 @@ const Router={
     else if(route==='dynasty')view_dynasty(arg);
     else if(route==='crafting')view_crafting(arg);
     else if(route==='injuries'||route==='injury')view_injuries(arg);
+    else if(route==='wahbabel'||route==='languages')view_wahbabel();
     else if(route==='items')view_items();
     else if(route==='item')view_item(arg);
     else if(route==='books'||route==='library'||route==='codex')view_books(arg);

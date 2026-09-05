@@ -32,6 +32,22 @@
 /* ---- the reel ---- */
 .cap-reel-wrap{background:var(--cap-panel);border:1px solid var(--cap-line);border-radius:14px;
   padding:16px;margin-bottom:16px}
+/* The window pulses while the reel is turning and flashes gold when it stops,
+   so the moment of landing reads without sound. */
+.cap-reel.spinning .cap-window{animation:capPulse .55s ease-in-out infinite}
+@keyframes capPulse{0%,100%{box-shadow:0 0 0 0 rgba(212,168,83,.35)}50%{box-shadow:0 0 16px 3px rgba(212,168,83,.45)}}
+.cap-reel.landed .cap-window{animation:capLand .7s ease-out}
+@keyframes capLand{
+  0%{box-shadow:0 0 30px 8px rgba(212,168,83,.85);background:rgba(212,168,83,.22)}
+  100%{box-shadow:none;background:rgba(212,168,83,.07)}
+}
+.cap-reel.spinning .cap-strip{filter:blur(.4px)}
+.cap-verdict.show{animation:capIn .32s cubic-bezier(.2,.9,.3,1.2)}
+.cap-btn:active:not(:disabled){transform:translateY(1px) scale(.985)}
+@media (prefers-reduced-motion:reduce){
+  .cap-reel.spinning .cap-window,.cap-reel.landed .cap-window{animation:none}
+  .cap-reel.spinning .cap-strip{filter:none}
+}
 .cap-reel{position:relative;height:270px;overflow:hidden;border-radius:10px;
   background:linear-gradient(180deg,#1b1628,#241d33);border:1px solid rgba(255,255,255,.07)}
 /* fade the top and bottom so the list reads as a physical drum */

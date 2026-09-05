@@ -29,6 +29,7 @@ MAGES = ROOT / "tools" / "gen-mages-guild-code.py"
 ALL_SYSTEMS = ROOT / "Reputation-Matrix2" / "tools" / "generate_all.py"
 EXPAND = ROOT / "tools" / "expand-waluipedia.py"
 DEDUPE_INJURY = ROOT / "tools" / "dedupe-injury-table.py"
+WAHBABEL = ROOT / "tools" / "build-wahbabel.py"
 UNLINKED = ROOT / "tools" / "fix-unlinked-members.py"
 MIX_SYSTEMS = "wahwire-author,shop_items,reputation,faction-dossiers,crafting,abilities"
 
@@ -227,6 +228,7 @@ def main() -> int:
     # and the member pass only repoints ids it can prove, writing anything
     # ambiguous to a worklist for a human to decide.
     stages.append(("injury repeat audit", [PYTHON, str(DEDUPE_INJURY), "--report"]))
+    stages.append(("wahbabel rebuild", [PYTHON, str(WAHBABEL), "--write"]))
     stages.append(("unlinked members: safe repoints", [PYTHON, str(UNLINKED), "--write"]))
     stages.append(("unlinked members: worklist", [PYTHON, str(UNLINKED), "--worklist"]))
     stages.append(("injury contract after run", injury_check))
