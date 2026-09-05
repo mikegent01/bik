@@ -7,9 +7,34 @@ Live Foundry VTT actor exports for the campaign. **Import the plain
 | File | Use |
 |---|---|
 | `fvtt-Actor-*.json` | Repaired, import-ready. Use these. |
+| `fvtt-Actor-*-NO-SPECIES.json` | Same, with the species removed — import these when you intend to add a species through Plutonium. |
 | `original-fvtt-Actor-*.json` | Untouched exports, kept as the regression corpus. Do not import. |
-| `fvtt-Actor-hjumpik-deldkur-NO-SPECIES.json` | Hjumpik with his species stripped — see below. |
 | `fvtt-Actor-lady-aurelian-corvinarus-PC.json` | Aurelian as a playable character — see below. |
+
+Every character now ships both variants:
+
+| Character | Normal | Species-free |
+|---|---|---|
+| Hjumpik Deldkur | 101 items, Mountain Dwarf | 98 items |
+| Feyward Dan | 62 items, Grung | 57 items |
+| Toad Lee | 44 items, Toad — Liberated Survivor | 43 items |
+| Lady Aurelian (PC) | 53 items, Fey (Corvinarus Bloodline) | 52 items |
+
+Azure and the Aurelian NPC statblock are NPCs, which dnd5e does not restrict
+to one species, so they have no variant.
+
+## Rebuilding
+
+One command regenerates the whole folder from the untouched originals:
+
+```bash
+python3 tools/rebuild-actors.py           # rebuild everything
+python3 tools/rebuild-actors.py --check   # verify, write nothing
+```
+
+Per-actor decisions (such as Dan keeping the second species) live in
+`OVERRIDES` in that script, so nothing here is a hand-edited artefact. The
+`--check` mode runs in `check-all.py` as **actor exports**.
 
 Regenerate any of them:
 
@@ -43,14 +68,15 @@ importing, and check the file you pick is from `Reputation-Matrix2/actors/`.
 the race item. If that pointer names an item id that is not in `items[]`, the
 sheet believes a species exists that you cannot see or delete on the sheet,
 and `Race._preCreate` refuses the new one. **All five original exports had a
-dangling pointer of this kind**, so this was almost certainly the real blocker.
+dangling or mislabelled pointer of this kind**, so this was almost certainly the real blocker.
 The sanitizer now relinks or clears them (`dangling-detail-pointer`,
 `detail-pointer-relinked`), and `--clear-species` clears the pointer along with
 the item.
 
-Free-text values such as `race: "Archfey-Touched"` are legal on NPCs and are
-left alone; only values shaped like a 16-character item id are treated as
-pointers.
+Free-text values such as `race: "Archfey-Touched"` are legal on **NPCs** and
+are left alone. On a **character** the same field is a document pointer, so a
+label there (Toad Lee carried `race: "Toad"` while owning a real species item)
+is the same phantom-species state and gets relinked to the actual item.
 
 If it still fails, delete the species on the sheet by hand, save, and re-run
 the Plutonium import.
@@ -65,15 +91,16 @@ document back, and the shortfall surfaces as
 `Number of returned items did not match number of input items!` — a misleading
 message for a plain refusal.
 
-To import PHB'24 Dwarf onto him, the existing species has to be gone **first**.
-Either delete `Mountain Dwarf` on the sheet and re-run the Plutonium import, or
-import `fvtt-Actor-hjumpik-deldkur-NO-SPECIES.json`, which has the species and
-its racial features already removed:
+To import a new species onto any character, the existing one has to be gone
+**first**. Either delete it on the sheet and re-run the Plutonium import, or
+import that character's `-NO-SPECIES.json`, which has the species, its racial
+features and the `details.race` pointer already removed:
 
 ```bash
 python3 ../../tools/sanitize-foundry-actor.py \
   original-fvtt-Actor-hjumpik-deldkur-6eBoDhCt0i3e3qZ4.json \
-  --clear-species --write fvtt-Actor-hjumpik-deldkur-NO-SPECIES.json
+  --clear-species \
+  --write fvtt-Actor-hjumpik-deldkur-6eBoDhCt0i3e3qZ4-NO-SPECIES.json
 ```
 
 That file drops `Mountain Dwarf` plus the `type: race` copies of

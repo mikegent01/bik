@@ -208,13 +208,28 @@ check("no race item remains",
       not [i for i in out["items"] if i["type"] == "race"])
 
 
-# free-text labels are legal, especially on NPCs
-a = actor([], system={"details": {"race": "Archfey-Touched"}})
+# free-text labels are legal on NPCs
+a = actor([], type="npc", system={"details": {"race": "Archfey-Touched"}})
 out, rep = S.sanitize(a, Opts())
-check("free-text race label preserved",
+check("free-text race label preserved on an npc",
       out["system"]["details"]["race"] == "Archfey-Touched")
-check("free-text label not reported",
+check("npc free-text label not reported",
       "dangling-detail-pointer" not in rules_fired(rep))
+
+# on a character the same label is a broken link to a real species item
+a = actor([item("r1aaaaaaaaaaaaaa", "Toad — Liberated Survivor", "race")],
+          system={"details": {"race": "Toad"}})
+out, rep = S.sanitize(a, Opts())
+check("character label relinked to the species item",
+      out["system"]["details"]["race"] == "r1aaaaaaaaaaaaaa",
+      out["system"]["details"]["race"])
+check("character relink reported", "detail-pointer-relinked" in rules_fired(rep))
+
+# but with no species item to point at, a label is left as-is
+a = actor([], system={"details": {"race": "Toad"}})
+out, rep = S.sanitize(a, Opts())
+check("label kept when there is no species item",
+      out["system"]["details"]["race"] == "Toad")
 
 
 # --------------------------------------------------------------- subclass

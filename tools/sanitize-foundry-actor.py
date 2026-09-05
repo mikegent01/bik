@@ -691,9 +691,25 @@ def rule_detail_pointers(actor, report, opts):
         if not val or val in ids:
             continue
         # On an NPC these fields are free text ("Archfey-Touched"), which is
-        # perfectly legal. Only a value shaped like an item id is a broken
-        # pointer; anything else is a label and must be left alone.
+        # perfectly legal -- leave them alone.
+        #
+        # On a *character* the field is a document pointer. A free-text label
+        # there ("Toad") is a leftover from an older sheet: the species item
+        # exists but nothing links to it, which is the same phantom-species
+        # state that makes Race._preCreate refuse a new import. Relink it when
+        # there is exactly one candidate.
         if not ID_RE.match(str(val)):
+            if actor.get("type") != "character":
+                continue
+            present = by_type.get(typ) or []
+            if len(present) == 1:
+                det[key] = present[0]["_id"]
+                report.add(
+                    "detail-pointer-relinked", True,
+                    "actor: %s" % actor.get("name", "?"),
+                    "details.%s held the label %r instead of an id; "
+                    "relinked to %r" % (key, val, present[0].get("name")),
+                )
             continue
         present = by_type.get(typ) or []
         if len(present) == 1:

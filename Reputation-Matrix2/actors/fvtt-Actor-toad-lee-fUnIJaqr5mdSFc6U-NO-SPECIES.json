@@ -647,7 +647,7 @@
         "value": "<h2>Toad Lee — Warden of the Toads</h2><p><strong>Level 4 Barbarian; Liberated Toads, The Wardens.</strong> Toad Lee was freed from the Vigilance trafficking barrels and became one of the people who made survival into an organized duty. He is not a decorative hero: he assigns a guard, spots routes, carries an axe, and asks what happens after the door opens.</p><h3>Operational record</h3><p>Lee helped hold the line against the Coat, organized fractured survivors with Speaker L, pursued Waluigi during the Lounge Brawl with deliberately nonlethal leg-targeting swings, and kept functioning after Stucky's thrown eye landed on his head. He is the brain of the Feywild operation when the plan needs a roof, a route, or a fallback.</p><h3>Sheet boundary</h3><p>This is a level 4 playable translation of the lore. It includes confirmed themes—axe work, Rage, Warden discipline, pursuit, and survivor logistics—without inventing legendary loot or high-level magic. The XP ledger remains authoritative: 5,790 XP, 3 AP spent, 0 available.</p>",
         "public": ""
       },
-      "race": "bb00c9339a204b51",
+      "race": null,
       "background": "a01588c74bc740d6",
       "originalClass": "1SmEI98lciaGLBq6",
       "xp": {
@@ -906,66 +906,6 @@
     "prependAdjective": false
   },
   "items": [
-    {
-      "name": "Toad — Liberated Survivor",
-      "type": "race",
-      "system": {
-        "description": {
-          "value": "<p>Small amphibious survivor. Advantage on checks to navigate familiar sewer, marsh, and rooftop routes; can squeeze through spaces sized for Small creatures.</p>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "Waluipedia campaign",
-          "rules": "2014",
-          "revision": 1
-        },
-        "identifier": "toad---liberated-survivor",
-        "advancement": {},
-        "movement": {
-          "units": "ft",
-          "hover": false,
-          "ignoredDifficultTerrain": []
-        },
-        "senses": {
-          "ranges": {
-            "blindsight": null,
-            "darkvision": null,
-            "tremorsense": null,
-            "truesight": null
-          },
-          "units": "ft",
-          "special": ""
-        },
-        "type": {
-          "value": "humanoid"
-        }
-      },
-      "flags": {
-        "bik": {
-          "source": "Feyward Dan player-character dossier",
-          "ledgerLinked": true
-        }
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 10000,
-      "_id": "bb00c9339a204b51",
-      "img": "icons/svg/item-bag.svg",
-      "_stats": {
-        "coreVersion": "14.360",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1786148561996,
-        "modifiedTime": 1786148561996,
-        "lastModifiedBy": "f9K62vO9hIl1GByi",
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "ownership": {
-        "default": 0
-      }
-    },
     {
       "name": "Barrel Survivor / Warden",
       "type": "background",
