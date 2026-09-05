@@ -7406,6 +7406,8 @@ function renderSidebar(active){
     navLink({emoji:'🎵',label:'Campaign Songbook',go:"Router.go('#/songs')",active:active==='songs',count:23}),
     navLink({emoji:'🛰️',label:'Mission Control',go:"Router.go('#/mission-control')",active:active==='mission-control'}),
     navLink({emoji:'🔍',label:'Investigations',go:"Router.go('#/investigations')",active:active==='investigations',count:(((DATA.investigations||{}).investigations)||[]).length}),
+    navLink({emoji:'⚖️',label:'Crime & Punishment',go:"location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'",title:'Sentencing reel and the consequence table — 89 punishments'}),
+    navLink({emoji:'🩸',label:'Injury Desk',go:"Router.go('#/injuries')",active:active==='injuries',count:((DATA.injuries&&DATA.injuries.entries)||[]).length,title:'Death saving throws and the d100 injury table'}),
     navLink({emoji:'💬',label:'Chatter Hub',go:"Router.go('#/annotations')",active:active==='annotations',count:n('annotations')}),
     navLink({emoji:'〰️',label:'WAHwire',go:`location.href='${wahwireUrl()}'`,count:WAHWIRE_COUNT,title:'The public feed — every post, searchable, wired back to the records it talks about'})
   ];
@@ -10683,6 +10685,242 @@ function view_fieldJournal(){
   window.scrollTo(0,0);
 }
 
+/* ===== Injury Desk — death saving throws + the d100 consequence table =====
+   Data: Reputation-Matrix2/data/injuries.json (343 entries).
+   The table's own rules text has referenced "the spinner on the Injury Desk"
+   since it was written, but no such page existed and the table had no route
+   at all. This is that page.
+
+   Death saves are the 5e rule, run honestly: three successes stabilise, three
+   failures kill, a natural 1 counts as two failures, a natural 20 revives at
+   1 HP. Nothing here overrides a GM. */
+let _injState={succ:0,fail:0,log:[],done:null,rolled:null};
+
+function injuryTable(){
+  const d=DATA.injuries||{};
+  return (d.entries||[]).filter(e=>e&&e.injuryType);
+}
+function injuryCategories(){
+  const m={};
+  injuryTable().forEach(e=>{const k=e.category||'Uncategorised';m[k]=(m[k]||0)+1;});
+  return Object.entries(m).sort((a,b)=>b[1]-a[1]);
+}
+function injSeverityClass(cat){
+  const c=String(cat||'').toLowerCase();
+  if(c.includes('death')||c.includes('quicker')) return 'inj-death';
+  if(c.includes('severe')||c.includes('limb')) return 'inj-severe';
+  if(c.includes('major')) return 'inj-major';
+  if(c.includes('boon')||c.includes('surviv')) return 'inj-boon';
+  if(c.includes('flavour')||c.includes('special')||c.includes('scar')) return 'inj-flavour';
+  return 'inj-minor';
+}
+
+function rollDeathSave(){
+  if(_injState.done)return;
+  const r=1+Math.floor(Math.random()*20);
+  let note='';
+  if(r===1){ _injState.fail+=2; note='NATURAL 1 — two failures'; }
+  else if(r===20){ _injState.done='revived'; note='NATURAL 20 — conscious at 1 HP'; }
+  else if(r>=10){ _injState.succ++; note='success'; }
+  else { _injState.fail++; note='failure'; }
+  _injState.log.unshift({r,note});
+  if(_injState.succ>=3&&!_injState.done)_injState.done='stable';
+  if(_injState.fail>=3&&!_injState.done)_injState.done='dead';
+  view_injuries('saves');
+}
+function resetDeathSaves(){ _injState={succ:0,fail:0,log:[],done:null,rolled:null}; view_injuries('saves'); }
+
+function rollInjury(){
+  const t=injuryTable();
+  if(!t.length)return;
+  const i=Math.floor(Math.random()*t.length);
+  _injState.rolled=t[i];
+  view_injuries('table');
+  setTimeout(()=>{const n=document.getElementById('injRolled');if(n)n.scrollIntoView({behavior:'smooth',block:'center'});},60);
+}
+
+function view_injuries(tab){
+  renderSidebar('injuries');
+  const d=DATA.injuries||{};
+  const table=injuryTable();
+  const cats=injuryCategories();
+  tab=tab||'saves';
+  const S=_injState;
+
+  const pip=(n,on,cls)=>{let h='';for(let i=0;i<3;i++)h+=`<span class="inj-pip ${i<n?('on '+cls):''}"></span>`;return h;};
+
+  const verdict=S.done?`<div class="inj-verdict ${S.done}">${
+    S.done==='stable'?'STABLE — three successes. Unconscious but no longer dying.':
+    S.done==='dead'?'DEAD — three failures. Roll on the consequence table only if the table is being used for a body.':
+    'CONSCIOUS — natural 20. Back up at 1 hit point.'}</div>`:'';
+
+  const savesTab=`
+    <div class="card inj-card">
+      <h2 style="margin-top:0">🎲 Death Saving Throws</h2>
+      <p class="text-muted" style="font-size:13px;margin-top:0">
+        Roll a d20 at the start of your turn while dying. 10 or higher is a success.
+        Three successes and you stabilise; three failures and you do not. A natural 1
+        counts as two failures, a natural 20 puts you back up at 1 hit point.
+      </p>
+      <div class="inj-track">
+        <div class="inj-row"><span class="inj-lab succ">Successes</span><div class="inj-pips">${pip(S.succ,true,'succ')}</div></div>
+        <div class="inj-row"><span class="inj-lab fail">Failures</span><div class="inj-pips">${pip(S.fail,true,'fail')}</div></div>
+      </div>
+      ${verdict}
+      <div class="inj-btns">
+        <button class="inj-btn" onclick="rollDeathSave()" ${S.done?'disabled':''}>Roll d20</button>
+        <button class="inj-btn ghost" onclick="resetDeathSaves()">Reset</button>
+      </div>
+      ${S.log.length?`<div class="inj-log">${S.log.map(l=>`<div><b>${l.r}</b> — ${esc(l.note)}</div>`).join('')}</div>`:''}
+    </div>`;
+
+  const rolled=S.rolled?`
+    <div class="card inj-result ${injSeverityClass(S.rolled.category)}" id="injRolled">
+      <div class="inj-d100">d${esc(String(S.rolled.d100||'?'))}</div>
+      <div class="inj-cat">${esc(S.rolled.category||'')}</div>
+      <h3 style="margin:4px 0 8px">${esc(S.rolled.injuryType||'')}</h3>
+      <p style="font-size:13.5px;line-height:1.6;margin:0">${esc(S.rolled.description||'')}</p>
+      <div class="inj-cure">Lowest cure: <b>${esc(S.rolled.cure||'unrecorded')}</b>${S.rolled.duration?` · duration <b>${esc(S.rolled.duration)}</b>`:''}</div>
+    </div>`:'';
+
+  const rows=table.slice(0,400).map(e=>`
+    <tr class="${injSeverityClass(e.category)}">
+      <td class="inj-n">${esc(String(e.d100||''))}</td>
+      <td>${esc(e.category||'')}</td>
+      <td><b>${esc(e.injuryType||'')}</b><div class="inj-desc">${esc((e.description||'').slice(0,150))}${(e.description||'').length>150?'…':''}</div></td>
+      <td class="inj-cure-cell">${esc(e.cure||'')}</td>
+    </tr>`).join('');
+
+  const tableTab=`
+    <div class="card inj-card">
+      <h2 style="margin-top:0">🦴 ${esc(d.title||'Permanent Injury Table')}</h2>
+      <p class="text-muted" style="font-size:13px;margin-top:0">${esc(d.description||'')}</p>
+      <div class="inj-btns"><button class="inj-btn" onclick="rollInjury()">Roll on the table</button></div>
+      <div class="chips" style="margin-top:10px">${cats.map(([c,n])=>`<span class="pill ${injSeverityClass(c)}">${esc(c)} · ${n}</span>`).join('')}</div>
+    </div>
+    ${rolled}
+    <div class="card inj-card">
+      <div class="inj-table-wrap">
+        <table class="inj-table">
+          <thead><tr><th>#</th><th>Category</th><th>Injury</th><th>Lowest cure</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+
+  const warn=d.status==='temporary'?`
+    <div class="card inj-warn">
+      <b>⚠ These entries are provisional.</b> ${esc(d.replacement||'')}
+      They are machine-drafted reference text, kept because a table with 343 usable
+      rows beats an empty one, and flagged so nobody mistakes them for filed canon.
+    </div>`:'';
+
+  el('content').innerHTML=`
+    <div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Injury Desk</div>
+    <div class="card animate-fade-in" style="border-left:5px solid #c0392b;background:linear-gradient(135deg,rgba(192,57,43,.14),rgba(120,20,20,.08)),var(--panel)">
+      <h1 style="margin:6px 0 4px">🩸 The Injury Desk</h1>
+      <p class="text-muted" style="font-size:13.5px;margin:0">
+        Death saving throws and the ${table.length}-entry consequence table, in one place.
+        The sentencing side of the docket lives on
+        <a onclick="location.href='Reputation-Matrix2/app/pages/crime-and-punishment/crime-and-punishment.html'" style="cursor:pointer;text-decoration:underline">Crime and Punishment</a>.
+      </p>
+    </div>
+    ${warn}
+    <div class="inj-tabs">
+      <span class="inj-tab ${tab==='saves'?'on':''}" onclick="view_injuries('saves')">🎲 Death Saves</span>
+      <span class="inj-tab ${tab==='table'?'on':''}" onclick="view_injuries('table')">🦴 Consequence Table</span>
+    </div>
+    ${tab==='saves'?savesTab:tableTab}`;
+  window.scrollTo(0,0);
+}
+
+/* ===== RNN, wired both ways =====
+   The network was under-used for two structural reasons, not editorial ones:
+     1. Nothing told you which filed events were still waiting to air, so the
+        backlog was invisible (17 of 113 events had ever been covered).
+     2. No article said it had been on the news, so a broadcast was a dead end
+        rather than a route into the archive.
+   Both are computed from `sourceEvents`, which the episodes already carry. */
+
+function rnnEpisodes(){ return ((window.RNN_BROADCASTS||{}).episodes)||[]; }
+
+function rnnAiredMap(){
+  if(window.__rnnAired)return window.__rnnAired;
+  const m={};
+  rnnEpisodes().forEach(ep=>{
+    (ep.sourceEvents||[]).forEach(id=>{
+      if(!id)return;
+      (m[id]=m[id]||[]).push(ep);
+    });
+  });
+  window.__rnnAired=m;
+  return m;
+}
+function invalidateRnnAired(){ window.__rnnAired=null; }
+
+/* Events that exist in the archive and have never been referenced by an
+   episode, newest first. This is the actual editorial queue. */
+function rnnPending(){
+  const aired=rnnAiredMap();
+  const out=[];
+  (DATA.events||[]).forEach(e=>{
+    if(!e||!e.id)return;
+    if(aired[e.id])return;
+    out.push({id:e.id,name:e.name||e.title||prettyId(e.id),
+      date:(typeof shortDateOf==='function'?shortDateOf(e):''),
+      year:(typeof yearOf==='function'?yearOf(e):null),
+      type:e.type||''});
+  });
+  out.sort((a,b)=>((b.year||0)-(a.year||0)));
+  return out;
+}
+
+/* Panel shown on an article that has been on the news. */
+function rnnCoveragePanel(articleId){
+  const eps=rnnAiredMap()[articleId];
+  if(!eps||!eps.length)return '';
+  return `<div class="card rnn-covered">
+    <h2 style="margin-top:0">📺 Covered by the Rakasha News Network</h2>
+    <p class="text-muted" style="font-size:12.5px;margin-top:0">
+      This filing was reported on air. The broadcast is an in-world account and
+      may disagree with the record; where it does, the record stands.
+    </p>
+    <div class="chips">
+      ${eps.map(ep=>`<span class="pill rnn-pill" onclick="Router.go('#/rnn')" style="cursor:pointer">
+        📺 EP ${String(ep.number).padStart(3,'0')} — ${esc(ep.title)}</span>`).join('')}
+    </div>
+  </div>`;
+}
+
+/* Panel shown on the RNN page: what is queued, and how far behind we are. */
+function rnnNewsdeskPanel(){
+  const pending=rnnPending();
+  const total=(DATA.events||[]).length;
+  const aired=total-pending.length;
+  const pct=total?Math.round((aired/total)*100):0;
+  const show=pending.slice(0,12);
+  return `<div class="card rnn-desk">
+    <h2 style="margin-top:0">🗞️ The Newsdesk</h2>
+    <div class="rnn-cov">
+      <div class="rnn-bar"><i style="width:${pct}%"></i></div>
+      <div class="rnn-cov-l"><b>${aired}</b> of <b>${total}</b> filed events have aired · ${pct}% covered</div>
+    </div>
+    <p class="text-muted" style="font-size:12.5px">
+      One episode per roughly ten filed events. ${pending.length
+        ? `<b>${pending.length}</b> are waiting, so the desk owes about
+           <b>${Math.max(1,Math.round(pending.length/10))}</b> more episode${Math.round(pending.length/10)===1?'':'s'}.`
+        : 'Nothing is waiting. The desk is current.'}
+      Cut one with <code>python3 tools/build-rnn-broadcast.py</code>.
+    </p>
+    ${show.length?`<div class="rnn-queue">
+      ${show.map(e=>`<a class="rnn-q-row" href="#/article/${encodeURIComponent(e.id)}">
+        <span class="rnn-q-date">${esc(e.date||'—')}</span>
+        <span class="rnn-q-name">${esc(e.name)}</span>
+      </a>`).join('')}
+    </div>${pending.length>12?`<div class="text-muted" style="font-size:12px;margin-top:8px">…and ${pending.length-12} more in the queue.</div>`:''}`:''}
+  </div>`;
+}
+
 /* Rakasha News Network — weekly broadcast of the recent-adventures feed.
    Episode data: Reputation-Matrix2/data/rnn-broadcasts.js (generated by tools/build-rnn-broadcast.py).
    Cadence rule: a new broadcast is cut every week that applicable new events exist. */
@@ -10712,7 +10950,8 @@ function view_rakashaNews(){
     </div>
     <div class="card journal-viewer-card rnn-viewer-card">
       <iframe id="rnnBroadcastFrame" src="${esc(rnnSrc)}" title="Rakasha News Network broadcast" allow="autoplay"></iframe>
-    </div>`;
+    </div>
+    ${rnnNewsdeskPanel()}`;
   window.scrollTo(0,0);
 }
 
@@ -10969,6 +11208,7 @@ ${typeKey==='characters'?renderArticleOperatorReputation(item.id):''}${typeKey==
      ${item.aftermath?`<h2 id="h-aftermath">Aftermath</h2><div class="prose">${applyAnnotations(mdToHtml(item.aftermath,item.id), item.id)}</div>`:''}
      ${item.waluigiAssessment?`<h2 id="h-assessment">Waluigi's Assessment</h2><div class="wnote wassessment">${applyAnnotations(mdToHtml(item.waluigiAssessment,item.id), item.id)}</div>`:''}
      ${relChips?`<h2 id="h-related">Related Articles</h2><div class="related-list">${relChips}</div>`:''}
+     ${typeof rnnCoveragePanel==='function'?rnnCoveragePanel(item.id):''}
      ${sessionNavHtml(item.id)}
    </div>${exhibitTilesHtml(propsForArticle(item.id),{heading:'🗂️ Documents behind this record',blurb:'The paperwork this account is built on. Click any one to read it as filed.'})}${wideRecord?railHtml+'</div>':`</div>${railHtml}`}</div>`;
   setArticleAccent(typeKey);
@@ -16259,6 +16499,114 @@ function view_xpLeaderboard(){
    previously rendered as a bland generic list. Give them a real directory
    and per-collection page that treats their `members[]` roster as first-class
    cards with roles. */
+/* ===== Collections, made live =====
+   A collection used to be a static roster: names, roles, a paragraph. Nothing
+   on the page changed when the campaign moved, so there was never a reason to
+   open one. These helpers compute the parts that DO move -- shared appearances,
+   XP, injuries, reputation, a reading order -- from records the collection
+   already points at. No new data is invented; everything is derived. */
+
+function collectionMemberIds(c){
+  const ids=new Set();
+  (c.members||[]).forEach(m=>{ if(m&&m.id)ids.add(m.id); });
+  return [...ids];
+}
+
+/* Every event that names at least one member as a participant, newest first.
+   This is the "reading order" a collection was always implying and never had. */
+function collectionTimeline(c){
+  const ids=new Set(collectionMemberIds(c));
+  if(!ids.size)return [];
+  const out=[];
+  (DATA.events||[]).forEach(e=>{
+    if(!e||!e.id)return;
+    const who=[];
+    (e.participants||[]).forEach(p=>{
+      const pid=p&&(p.id||p);
+      if(pid&&ids.has(String(pid)))who.push(p.name||prettyId(String(pid)));
+    });
+    if(who.length)out.push({id:e.id,name:e.name||e.title||prettyId(e.id),
+      date:(typeof shortDateOf==='function'?shortDateOf(e):''),
+      year:(typeof yearOf==='function'?yearOf(e):null),who});
+  });
+  // Feyward filings run on a second clock, so sort by the extracted year and
+  // keep file order as the tiebreak rather than trusting prose dates.
+  out.sort((a,b)=>((b.year||0)-(a.year||0)));
+  return out;
+}
+
+function collectionStats(c){
+  const ids=collectionMemberIds(c);
+  const tl=collectionTimeline(c);
+  let xp=0,awards=0,injured=0,resolved=0;
+  const agg=(typeof _xpAggregate==='function')?_xpAggregate():null;
+  ids.forEach(id=>{
+    if(agg&&agg.byOp&&agg.byOp[id]){ xp+=agg.byOp[id].total||0; awards+=agg.byOp[id].count||0; }
+    const rec=INDEX[id]&&INDEX[id].item;
+    if(rec&&Array.isArray(rec.injuries)&&rec.injuries.length)injured++;
+    if(rec)resolved++;
+  });
+  return {members:ids.length,resolved,missing:ids.length-resolved,
+          events:tl.length,xp,awards,injured,timeline:tl};
+}
+
+/* Which OTHER collections share a member with this one. Turns 19 isolated
+   rosters into a graph you can actually walk. */
+function collectionNeighbours(c){
+  const mine=new Set(collectionMemberIds(c));
+  const out=[];
+  (DATA.collections||[]).forEach(o=>{
+    if(!o||o.id===c.id)return;
+    const shared=collectionMemberIds(o).filter(id=>mine.has(id));
+    if(shared.length)out.push({c:o,shared});
+  });
+  return out.sort((a,b)=>b.shared.length-a.shared.length).slice(0,6);
+}
+
+function collectionLivePanels(c){
+  const st=collectionStats(c);
+  const stat=(v,l)=>`<div class="col-stat"><div class="col-stat-v">${v}</div><div class="col-stat-l">${esc(l)}</div></div>`;
+  const bar=`<div class="col-stats">
+    ${stat(st.members,'members')}
+    ${stat(st.events,'shared appearances')}
+    ${stat(st.xp.toLocaleString(),'XP earned together')}
+    ${stat(st.awards,'award rows')}
+    ${st.missing?stat(st.missing,'unlinked ids'):''}
+  </div>`;
+
+  const tl=st.timeline.slice(0,14);
+  const timeline=tl.length?`
+    <div class="card" style="margin-top:14px">
+      <h2 style="margin-top:0">🕰️ Where this group shows up</h2>
+      <p class="text-muted" style="font-size:12.5px;margin-top:0">
+        Every filed event naming at least one member, newest first. This is the
+        reading order for the group — computed from <code>participants[]</code>,
+        not hand-maintained.
+      </p>
+      <div class="col-timeline">
+        ${tl.map(e=>`<a class="col-tl-row" href="#/article/${encodeURIComponent(e.id)}">
+          <span class="col-tl-date">${esc(e.date||'—')}</span>
+          <span class="col-tl-name">${esc(e.name)}</span>
+          <span class="col-tl-who">${esc(e.who.slice(0,3).join(', '))}${e.who.length>3?` +${e.who.length-3}`:''}</span>
+        </a>`).join('')}
+      </div>
+      ${st.timeline.length>14?`<div class="text-muted" style="font-size:12px;margin-top:8px">…and ${st.timeline.length-14} more.</div>`:''}
+    </div>`:'';
+
+  const nb=collectionNeighbours(c);
+  const linked=nb.length?`
+    <div class="card" style="margin-top:14px">
+      <h2 style="margin-top:0">🔗 Overlapping collections</h2>
+      <p class="text-muted" style="font-size:12.5px;margin-top:0">Groups that share people with this one.</p>
+      <div class="chips">
+        ${nb.map(n=>`<span class="pill" style="cursor:pointer" onclick="Router.go('#/collection/${encodeURIComponent(n.c.id)}')">
+          🗂️ ${esc(n.c.name||prettyId(n.c.id))} · ${n.shared.length} shared</span>`).join('')}
+      </div>
+    </div>`:'';
+
+  return bar+timeline+linked;
+}
+
 function view_collection(id){
   renderSidebar('list:collections');
   const list=DATA.collections||[];
@@ -16275,6 +16623,7 @@ function view_collection(id){
           <div style="font-size:12px;color:var(--muted);line-height:1.45;margin-bottom:8px">${esc((c.scope||c.summary||c.criteria||'').slice(0,140))}${(c.scope||c.summary||c.criteria||'').length>140?'…':''}</div>
           <div class="chips">
             <span class="pill">👥 ${memberCount} member${memberCount===1?'':'s'}</span>
+            ${(()=>{const st=collectionStats(c);return st.events?`<span class="pill">🕰️ ${st.events} appearance${st.events===1?'':'s'}</span>`:'';})()}
             ${(c.articles||[]).length?`<span class="pill">📄 ${c.articles.length} article${c.articles.length===1?'':'s'}</span>`:''}
           </div>
         </a>`;
@@ -16332,6 +16681,7 @@ function view_collection(id){
         <span class="pill">👥 ${(c.members||[]).length} members</span>
       </div>
     </div>
+    ${collectionLivePanels(c)}
     ${c.summary?`<div class="card"><h2 style="margin-top:0">📖 Summary</h2><p class="prose" style="line-height:1.65">${linkify?linkify(esc(c.summary)):esc(c.summary)}</p></div>`:''}
     ${c.criteria?`<div class="card"><h3 style="margin-top:0">📋 Criteria</h3><p style="font-size:13.5px;line-height:1.55">${esc(c.criteria)}</p></div>`:''}
 
@@ -17765,6 +18115,7 @@ const Router={
     else if(route==='dynasties')view_dynasties();
     else if(route==='dynasty')view_dynasty(arg);
     else if(route==='crafting')view_crafting(arg);
+    else if(route==='injuries'||route==='injury')view_injuries(arg);
     else if(route==='items')view_items();
     else if(route==='item')view_item(arg);
     else if(route==='books'||route==='library'||route==='codex')view_books(arg);

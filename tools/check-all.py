@@ -63,6 +63,7 @@ def main() -> int:
         checks.append(("search quality", ["node", "tools/tests/test-search-quality.mjs"], ROOT))
         checks.append(("session nav", ["node", "tools/tests/test-session-nav.mjs"], ROOT))
         checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))
+        checks.append(("hub pages", ["node", "tools/tests/test-hub-pages.mjs"], ROOT))
         # search relevance needs a static server on 8765; run it manually.
     else:
         print("\n=== Bros discovery test ===\nSKIP: node is not on PATH")
