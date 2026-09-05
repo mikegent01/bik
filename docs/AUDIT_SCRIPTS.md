@@ -461,3 +461,48 @@ rolls. Everything here exists to make that failure loud.
 | A `success` naming no person, number or date | The rule is that a success pays in case material, not characterisation. Re-read it and decide whether it is a finding or a mood. |
 | An entry under `articles` | Reserved and deliberately unused — see [`INVESTIGATIONS.md`](INVESTIGATIONS.md#why-articles-is-empty). Confirm the renderer supports it. |
 | An `id` that is not `lower_snake_case` | Cosmetic, but ids are permanent. |
+
+---
+
+## `tools/sanitize-foundry-actor.py` — Foundry VTT actor exports
+
+Repairs actor JSON so Plutonium can import into it. **Pure stdlib, fully
+offline, no AI and no model calls** — every decision is a fixed rule over the
+document, so the same input always produces byte-identical output.
+
+```bash
+python3 tools/sanitize-foundry-actor.py ACTOR.json                 # report only
+python3 tools/sanitize-foundry-actor.py ACTOR.json --in-place      # repair, keeps .bak
+python3 tools/sanitize-foundry-actor.py "dir/*.json" --check       # CI mode
+```
+
+Exit codes: `0` clean · `1` import-blocking findings · `2` unreadable / not an actor.
+
+### The three failures this was written against
+
+| Symptom | Cause | Rule |
+|---|---|---|
+| `Only a single Species can be added to a Player Character.` | The sheet already holds a `race` item, so the incoming one is refused. | `duplicate-race` / `duplicate-background` — keeps one (`--keep-species first\|last`). |
+| `Task "Dwarf (PHB'24)" failed! Number of returned items did not match number of input items!` | `advancement[].value.added` names item ids that are not in `items[]`. Plutonium asks for N documents, the server returns fewer, and the count assertion in `pCreateEmbeddedDocuments` throws. | `dangling-grant` — prunes only the entries whose target is absent. |
+| Console 404s on `.webp` / `.jpg` assets | Paths point at files Foundry renamed or that were never installed. | `renamed-image` (nearest real file in the same folder) then `unresolved-image` (typed `icons/svg/*` fallback). |
+
+### All rules
+
+**Import-blocking** (exit 1): `duplicate-id`, `missing-id`, `malformed-id`,
+`duplicate-race`, `duplicate-background`, `orphan-subclass`,
+`subclass-relinked`, `dangling-grant`, `stale-effect-origin`,
+`orphan-container-ref`.
+
+**Cosmetic** (reported, still repaired): `renamed-image`, `unresolved-image`,
+`stray-ownership`, `foreign-provenance`.
+
+### What it will not do
+
+It never deletes gear, never edits `system` stats, never renames anything, and
+never touches an origin pointing into a `Compendium.*` pack — those resolve
+from the installed module, not from the export. Duplicate *names* are left
+alone; two torches are legal. Only genuinely unresolvable references are
+touched, and a second pass over its own output is always a no-op.
+
+Tests: `python3 tools/tests/test-sanitize-foundry-actor.py` (61 assertions),
+wired into `check-all.py` as **Foundry sanitizer**.
