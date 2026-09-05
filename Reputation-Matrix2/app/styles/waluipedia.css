@@ -173,6 +173,11 @@ html[data-theme="light"] header.topbar{background:linear-gradient(90deg,rgba(255
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);transition:.15s;white-space:nowrap}
 .wb-dir:hover{background:rgba(255,255,255,.08)}
 .wb-dir.on{background:rgba(212,168,83,.16);border-color:var(--accent2);color:var(--accent2)}
+.wb-tokens{margin-top:9px;font-size:13.5px;line-height:2.1}
+.wb-sure{background:rgba(46,204,113,.14);border-bottom:1px solid rgba(46,204,113,.5);
+  padding:2px 5px;border-radius:4px}
+.wb-guess{background:rgba(241,196,15,.1);border-bottom:1px dashed rgba(241,196,15,.55);
+  padding:2px 5px;border-radius:4px;font-style:italic;opacity:.9}
 .wb-warn{margin-top:10px;padding:10px 13px;border-radius:8px;font-size:12px;line-height:1.6;
   background:rgba(241,196,15,.07);border-left:3px solid rgba(241,196,15,.5);color:var(--muted)}
 .wb-input{width:100%;background:var(--panel2);color:var(--text);border:1px solid var(--border);

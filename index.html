@@ -10724,21 +10724,40 @@ function wbTranslateWord(w,L){
    "v" and "w" onto "vh" -- so undoing it is a best guess, and the UI says so.
    Longest targets are undone first, otherwise a short rule eats the tail of a
    longer one ("ae" would chew the "ael" that "ing" produced). */
+/* Which rules make this language ambiguous in reverse: two Common sounds that
+   collapse onto one foreign sound. Reported to the reader instead of buried. */
+function wbCollisions(L){
+  const t={};
+  for(const [from,to] of (L.rules||[])) (t[to]=t[to]||[]).push(from);
+  const out={};
+  for(const [to,froms] of Object.entries(t)) if(froms.length>1) out[to]=froms;
+  return out;
+}
 function wbReverseIndex(L){
   if(L._rev)return L._rev;
   const lex={};
   for(const [en,fo] of Object.entries(L.lexicon||{})) lex[String(fo).toLowerCase()]=en;
-  const rules=(L.rules||[]).slice().sort((a,b)=>b[1].length-a[1].length);
+  // The rules are applied IN SEQUENCE going forward, so each one can rewrite
+  // what an earlier one produced: Sylvan turns "read" into "reaed" (a->ae),
+  // then "rieaied" (e->ie), then "ryeayed" (i->y). The inverse of a pipeline
+  // is the pipeline reversed -- undo the LAST rule first. Sorting by target
+  // length instead looked plausible and was wrong: it returned "rieaied"
+  // because it undid i->y before it undid e->ie.
+  const rules=(L.rules||[]).slice().reverse();
   L._rev={lex,rules};
   return L._rev;
 }
 function wbUntranslateWord(w,L){
   const bare=String(w||'').toLowerCase();
   const rev=wbReverseIndex(L);
+  // The dictionary is exact and covers every concept in the language, so it
+  // answers first. Only genuinely unknown words fall through to the inverse
+  // cipher, which is approximate by nature: Sylvan collapses both "a" and
+  // "ee" onto "ae", so "ae" cannot be resolved without a dictionary entry.
   if(rev.lex[bare])return {out:rev.lex[bare],known:true};
   let out=bare;
   for(const [from,to] of rev.rules) out=out.split(to).join(from);
-  return {out,known:false};
+  return {out,known:false,approx:true};
 }
 function wbUntranslate(text,L){
   const tokens=[];
@@ -10749,7 +10768,7 @@ function wbUntranslate(text,L){
     words++;
     const t=wbUntranslateWord(p,L);
     if(t.known)known++;
-    tokens.push({src:p,out:t.out,known:t.known});
+    tokens.push({src:p,out:t.out,known:t.known,approx:!!t.approx});
     return /^[A-Z]/.test(p)?t.out.charAt(0).toUpperCase()+t.out.slice(1):t.out;
   }).join('');
   return {text:out,tokens,coverage:words?Math.round(100*known/words):0,words,known};
@@ -10842,10 +10861,14 @@ async function view_wahbabel(){
         the rest went through the cipher.
       </div>
       ${!toForeign?`<div class="wb-warn">
-        Reading backwards is a best guess. The cipher is not losslessly reversible:
-        ${esc(L.name)} maps more than one Common sound onto the same foreign one, so a
-        word outside the dictionary can only be approximated. Dictionary words are exact.
-      </div>`:''}
+        <b>Dictionary words are exact.</b> Anything else is a best guess:
+        ${esc(L.name)} maps more than one Common sound onto the same foreign one
+        (${esc(Object.entries(wbCollisions(L)).slice(0,2).map(([t,srcs])=>srcs.join(' and ')+' both become '+t).join('; '))}),
+        so a word it has never been taught can only be approximated. Words below
+        marked <span class="wb-guess">like this</span> came from the cipher.
+      </div>
+      <div class="wb-tokens">${res.tokens.map(t=>
+        `<span class="${t.known?'wb-sure':'wb-guess'}" title="${esc(t.src)}">${esc(t.out)}</span>`).join(' ')}</div>`:''}
     </div>
     <div class="card">
       <h3 style="margin-top:0">Alphabet</h3>

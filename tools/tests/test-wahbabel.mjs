@@ -227,6 +227,40 @@ for (const L of langs) {
     JSON.stringify(orc.homonyms));
 }
 {
+  // REGRESSION. Reverse used to undo rules sorted by target length, which is
+  // not the inverse of a sequential pipeline. Sylvan turns "read" into
+  // "reaed" (a->ae) then "rieaied" (e->ie) then "ryeayed" (i->y); undoing
+  // i->y before e->ie returned "rieaied" instead of "read". The inverse of a
+  // pipeline is the pipeline reversed.
+  const L = byId.sylvan;
+  const fwd = wbTranslate('read', L);
+  const back = wbUntranslate(fwd.text, L);
+  check('reverse undoes rules in reverse order, not by length',
+    back.text === 'read', `"read" -> ${fwd.text} -> ${back.text}`);
+  for (const [word, lid] of [['manor', 'sylvan'], ['sword', 'sylvan'], ['night', 'sylvan']]) {
+    const LL = byId[lid];
+    const f = wbTranslate(word, LL);
+    check(`${lid}: "${word}" survives a round trip`,
+      wbUntranslate(f.text, LL).text === word, `${f.text} -> ${wbUntranslate(f.text, LL).text}`);
+  }
+}
+{
+  // Dictionary-first is what makes reverse usable at all, given every language
+  // has colliding rules (Sylvan maps both "a" and "ee" onto "ae"). Measure it
+  // rather than asserting a vibe: most of the shared vocabulary must survive.
+  let exact = 0, total = 0;
+  for (const L of langs) {
+    for (const en of Object.keys(L.lexicon)) {
+      total++;
+      const f = wbTranslate(en, L);
+      if (wbUntranslate(f.text, L).text === en) exact++;
+    }
+  }
+  const pct = Math.round((exact / total) * 100);
+  console.log(`  note dictionary round-trip accuracy: ${exact}/${total} (${pct}%)`);
+  check('nearly all dictionary words round-trip exactly', pct >= 95, `${pct}%`);
+}
+{
   const L = byId.sylvan;
   const r = wbUntranslate('qqzzxx', L);
   check('reverse on an unknown word still returns text', r.text.length > 0);
