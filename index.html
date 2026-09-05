@@ -4681,6 +4681,50 @@ function articlesInCulture(cid){
 /* global id index (wiki articles + trials) — populated by buildIndexes() after data loads */
 const INDEX={};
 let ALL_ITEMS=[];
+// --- search support: people, dates -----------------------------------------
+// Events carry participants:[{id,name,role}] on 99 of 112 records. That is the
+// single richest "who was there" source in the archive and it was never
+// indexed, so a question like "which battle was Aurelian possessed in" could
+// not be answered by search even though the data was sitting right there.
+function peopleOf(item,namesOnly){
+  const out=[];
+  const take=v=>{
+    if(!v)return;
+    if(typeof v==='string'){out.push(v);return;}
+    if(Array.isArray(v)){v.forEach(take);return;}
+    if(typeof v==='object'){
+      if(v.name)out.push(String(v.name));
+      // ids and roles help matching ("chief negotiator", "toad_lee") but are
+      // noise when the names are shown back to the reader.
+      if(!namesOnly){
+        if(v.id)out.push(String(v.id).replace(/_/g,' '));
+        if(v.role)out.push(String(v.role));
+      }
+    }
+  };
+  take(item.participants);take(item.characters);take(item.people);
+  take(item.leader);take(item.defendant);take(item.prosecutor);
+  return [...new Set(out.filter(Boolean))];
+}
+// "date" is free prose on 60 of 112 events (median 44 chars, longest 647), so
+// a plain Date parse is hopeless. Pull the BF year, which is what the setting
+// actually sorts by, and fall back to any 3-4 digit number.
+function yearOf(item){
+  const raw=String(item&&(item.date||item.era||'')||'');
+  let m=raw.match(/(\d{3,4})\s*BF/i);
+  if(m)return parseInt(m[1],10);
+  m=raw.match(/\b(\d{3,4})\b/);
+  return m?parseInt(m[1],10):null;
+}
+function shortDateOf(item){
+  const raw=String(item&&item.date||'').trim();
+  if(!raw)return '';
+  const m=raw.match(/^[^|(—]{0,48}/);
+  let out=(m?m[0]:raw).trim().replace(/[,;\s]+$/,'');
+  if(out.length>46)out=out.slice(0,46).replace(/\s+\S*$/,'')+'…';
+  return out;
+}
+
 const SEARCH_DOCS=[];
 function buildIndexes(){
   // reset (in case of reload)
@@ -4691,9 +4735,35 @@ function buildIndexes(){
   // search docs: articles + congress votes + conflicts + major battles
   ALL_ITEMS.forEach(({typeKey,item})=>{
     if(!item) return;
-    const hay=[item.name,item.title,item.summary,item.description,item.history,item.lore,item.bio,item.type,item.affiliation,item.race,item.leader,item.era,item.location,item.region,item.defendant,item.prosecutor].filter(Boolean).join(' ').toLowerCase();
-    SEARCH_DOCS.push({kind:'article',id:item.id,typeKey,name:displayName(item),summary:previewText(item,160),hay});
+    // Flatten anything: strings, arrays, and objects such as
+    // participants:[{id,name,role}] or sections:[{heading,body}]. Before this,
+    // only flat string fields were indexed, so "who was in this battle" was
+    // unanswerable even though participants[] lists exactly that.
+    const flat=(v,depth)=>{
+      if(v==null)return '';
+      if(typeof v==='string')return v;
+      if(typeof v==='number'||typeof v==='boolean')return String(v);
+      if((depth||0)>4)return '';
+      if(Array.isArray(v))return v.map(x=>flat(x,(depth||0)+1)).join(' ');
+      if(typeof v==='object')return Object.values(v).map(x=>flat(x,(depth||0)+1)).join(' ');
+      return '';
+    };
+    const people=peopleOf(item);
+    const peopleNames=peopleOf(item,true);
+    const hay=[item.name,item.title,item.summary,item.description,item.history,item.lore,item.bio,
+               item.type,item.affiliation,item.race,item.leader,item.era,item.location,item.region,
+               item.defendant,item.prosecutor,
+               // rich fields that carry the actual story content
+               flat(item.participants),flat(item.outcome),flat(item.aftermath),flat(item.sections),
+               flat(item.keyBattles),flat(item.notableFeatures),flat(item.effects),flat(item.status),
+               flat(item.waluigiAssessment),flat(item.openThreads),flat(item.tags),flat(item.aliases),
+               flat(item.keyMoments),flat(item.keyEvents),flat(item.date)
+              ].filter(Boolean).join(' ').toLowerCase();
+    SEARCH_DOCS.push({kind:'article',id:item.id,typeKey,name:displayName(item),
+                      summary:previewText(item,160),hay,people:people.join(' ').toLowerCase(),
+                      peopleNames,dateLabel:shortDateOf(item),year:yearOf(item)});
   });
+  buildSearchVocab();
   (DATA.congress_votes||[]).forEach(v=>{ if(!v) return; SEARCH_DOCS.push({kind:'vote',id:v.id,typeKey:'congress',name:v.title,summary:v.description||'',hay:[v.title,v.description,v.category,v.proposedBy].filter(Boolean).join(' ').toLowerCase()}); });
   Object.keys(DATA.conflicts||{}).forEach(name=>{const c=DATA.conflicts[name]; if(!c) return; SEARCH_DOCS.push({kind:'conflict',id:name,typeKey:'battlefield',name,summary:c.summary||'',hay:[name,c.summary,c.rootCause,c.status].filter(Boolean).join(' ').toLowerCase()});});
   (DATA.majorBattles||[]).forEach(b=>{ if(!b) return; SEARCH_DOCS.push({kind:'majorbattle',id:b.id,typeKey:'battlefield',name:b.name,summary:b.description||'',hay:[b.name,b.description,b.location,b.conflict,b.outcome].filter(Boolean).join(' ').toLowerCase()}); });
@@ -6884,6 +6954,7 @@ function scoreDoc(d,parsed,mode){
   const id=normalizeSearchText(d.id);
   const summary=normalizeSearchText(d.summary||'');
   const hay=normalizeSearchText([d.id,d.name,label,d.typeKey,d.summary,d.hay].filter(Boolean).join(' '));
+  const people=normalizeSearchText(d.people||'');
   const query=parsed.clean;
   const terms=parsed.terms;
   let score=0,matched=0;
@@ -6893,6 +6964,7 @@ function scoreDoc(d,parsed,mode){
     for(const ph of phrases){
       if(name===ph)score+=420;
       else if(name.includes(ph))score+=260;
+      else if(people.includes(ph))score+=190;
       else if(summary.includes(ph))score+=150;
       else if(hay.includes(ph))score+=100;
       else return null;
@@ -6902,6 +6974,7 @@ function scoreDoc(d,parsed,mode){
     if(!terms.length&&!parsed.quoted.length)return null;
     for(const ph of parsed.quoted){
       if(name.includes(ph)){score+=230;matched++;}
+      else if(people.includes(ph)){score+=170;matched++;}
       else if(hay.includes(ph)){score+=115;matched++;}
       else if(mode!=='any')return null;
     }
@@ -6909,13 +6982,19 @@ function scoreDoc(d,parsed,mode){
       if(!t)continue;
       const wordBoundary=new RegExp('(^|\\s)'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'));
       const inId=id.includes(t), starts=name.startsWith(t), inName=name.includes(t), boundary=wordBoundary.test(name), inSummary=summary.includes(t), inHay=hay.includes(t);
-      if(inId||starts||inName||inSummary||inHay){
+      // A person named in participants[] was actually IN the scene. That beats
+      // a passing mention buried in prose, which is what used to bury the
+      // record people were looking for.
+      const inPeople=people.includes(t), peopleWord=new RegExp('(^|\\s)'+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).test(people);
+      if(inId||starts||inName||inSummary||inHay||inPeople){
         matched++;
         if(id===t)score+=180;
         if(name===t)score+=260;
         if(starts)score+=100;
         if(boundary)score+=70;
         if(inName)score+=55;
+        if(peopleWord)score+=90;
+        else if(inPeople)score+=45;
         if(inSummary)score+=22;
         if(inHay)score+=8;
       }else if(mode!=='any')return null;
@@ -6933,6 +7012,63 @@ function scoreDoc(d,parsed,mode){
   if(docCategory(d)===parsed.category&&parsed.category!=='all')score+=35;
   return score;
 }
+/* --- typo tolerance -------------------------------------------------------
+   People at the table type what they remember, not what is filed. The report
+   that prompted this said "arulean" and "possesed"; the latter returned zero
+   results, which reads as "the archive has nothing" rather than "you missed a
+   letter". We keep a vocabulary of every indexed token and, only when a query
+   finds nothing, map unknown words to the nearest known one. */
+const SEARCH_VOCAB=new Set();
+function buildSearchVocab(){
+  SEARCH_VOCAB.clear();
+  for(const d of SEARCH_DOCS){
+    const blob=normalizeSearchText([d.name,d.people,d.summary].filter(Boolean).join(' '));
+    for(const t of blob.split(' ')) if(t.length>3&&t.length<24) SEARCH_VOCAB.add(t);
+  }
+}
+// Bounded Levenshtein: bails out as soon as the distance exceeds max.
+function editDistance(a,b,max){
+  const al=a.length,bl=b.length;
+  if(Math.abs(al-bl)>max)return max+1;
+  let prev=new Array(bl+1),cur=new Array(bl+1);
+  for(let j=0;j<=bl;j++)prev[j]=j;
+  for(let i=1;i<=al;i++){
+    cur[0]=i;let best=cur[0];
+    for(let j=1;j<=bl;j++){
+      cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+      if(cur[j]<best)best=cur[j];
+    }
+    if(best>max)return max+1;
+    const t=prev;prev=cur;cur=t;
+  }
+  return prev[bl];
+}
+// Nearest vocabulary word, or null. Short words are left alone: at 4 letters
+// an edit of 1 changes the word entirely and produces nonsense corrections.
+function correctTerm(t){
+  if(t.length<5||SEARCH_VOCAB.has(t))return null;
+  const max=t.length>=8?2:1;
+  let best=null,bestD=max+1;
+  for(const v of SEARCH_VOCAB){
+    if(Math.abs(v.length-t.length)>max)continue;
+    if(v[0]!==t[0])continue;              // first letter is rarely mistyped
+    const d=editDistance(t,v,max);
+    if(d<bestD){bestD=d;best=v;if(d===1)break;}
+  }
+  return bestD<=max?best:null;
+}
+// Returns {terms, corrections:[[typed,suggested]]} or null when nothing changed.
+function correctQuery(parsed){
+  const corrections=[];
+  const terms=parsed.terms.map(t=>{
+    const c=correctTerm(t);
+    if(c){corrections.push([t,c]);return c;}
+    return t;
+  });
+  return corrections.length?{terms,corrections}:null;
+}
+let LAST_SEARCH_CORRECTIONS=[];
+
 function search(q,opts={}){
   const parsed=parseSearchQuery(q,opts);
   if(!parsed.clean&&!parsed.quoted.length)return[];
@@ -6942,8 +7078,23 @@ function search(q,opts={}){
     out.sort((a,b)=>b.score-a.score||String(a.name).localeCompare(String(b.name)));
     return out;
   };
+  LAST_SEARCH_CORRECTIONS=[];
   let out=run(parsed.mode==='smart'?'all':parsed.mode);
   if(parsed.mode==='smart'&&!out.length&&parsed.terms.length>1)out=run('any').map(r=>Object.assign(r,{score:Math.max(1,r.score-40)}));
+  // Still nothing: assume a typo before declaring the archive empty.
+  if(!out.length&&parsed.terms.length){
+    const fixed=correctQuery(parsed);
+    if(fixed){
+      const reparsed={...parsed,terms:fixed.terms,clean:fixed.terms.join(' ')};
+      out=(()=>{const o=[];for(const d of SEARCH_DOCS){const sc=scoreDoc(d,reparsed,'all');if(sc!=null)o.push({...d,score:sc,cat:docCategory(d)});}
+        o.sort((a,b)=>b.score-a.score||String(a.name).localeCompare(String(b.name)));return o;})();
+      if(!out.length&&fixed.terms.length>1){
+        out=(()=>{const o=[];for(const d of SEARCH_DOCS){const sc=scoreDoc(d,reparsed,'any');if(sc!=null)o.push({...d,score:Math.max(1,sc-40),cat:docCategory(d)});}
+          o.sort((a,b)=>b.score-a.score||String(a.name).localeCompare(String(b.name)));return o;})();
+      }
+      if(out.length)LAST_SEARCH_CORRECTIONS=fixed.corrections;
+    }
+  }
   return out.slice(0,opts.limit||60);
 }
 function highlight(text,q){
@@ -6966,6 +7117,21 @@ function renderSearchHelp(){
   bindSearchChips();
 }
 function bindSearchChips(){resultsBox.querySelectorAll('[data-search-cat]').forEach(ch=>ch.addEventListener('click',e=>{e.stopPropagation();if(searchCategory)searchCategory.value=ch.dataset.searchCat;runSearch(true);}));}
+// Which of a record's named people match the query? Used to explain a hit.
+function matchedPeople(r,parsed){
+  const pool=Array.isArray(r&&r.peopleNames)?r.peopleNames:[];
+  if(!pool.length)return [];
+  const terms=[...(parsed.terms||[]),...(parsed.quoted||[])].filter(t=>t&&t.length>2);
+  if(!terms.length)return [];
+  const out=[];
+  for(const n of pool){
+    const nn=normalizeSearchText(n);
+    if(!nn)continue;
+    if(terms.some(t=>nn.includes(t))&&!out.includes(n))out.push(n);
+    if(out.length>=4)break;
+  }
+  return out;
+}
 function renderResults(list,q){
   currentResults=list;activeIdx=-1;
   if(!q){renderSearchHelp();return;}
@@ -6973,9 +7139,20 @@ function renderResults(list,q){
   const counts=searchCounts(q);
   const total=counts.all||0;
   const chipHtml=SEARCH_CATEGORIES.filter(([cat])=>cat==='all'||counts[cat]||cat===parsed.category).map(([cat,label])=>`<span class="search-chip ${cat===parsed.category?'active':''}" data-search-cat="${cat}">${esc(label)}${counts[cat]?` ${counts[cat]}`:''}</span>`).join('');
-  const headerHtml=`<div class="search-panel-head"><div class="search-panel-title"><b>${total} match${total===1?'':'es'} indexed</b><span>${esc(SEARCH_CATEGORIES.find(x=>x[0]===parsed.category)?.[1]||'All')} · ${esc((searchMode&&searchMode.options[searchMode.selectedIndex]?.text)||parsed.mode)}</span></div><div class="search-chipbar">${chipHtml}</div></div>`;
+  const corr=LAST_SEARCH_CORRECTIONS.length
+    ? `<div class="search-corrected">Showing results for <b>${esc(LAST_SEARCH_CORRECTIONS.map(c=>c[1]).join(' '))}</b> — no matches for ${esc(LAST_SEARCH_CORRECTIONS.map(c=>c[0]).join(' '))}</div>`
+    : '';
+  const headerHtml=`<div class="search-panel-head">${corr}<div class="search-panel-title"><b>${total} match${total===1?'':'es'} indexed</b><span>${esc(SEARCH_CATEGORIES.find(x=>x[0]===parsed.category)?.[1]||'All')} · ${esc((searchMode&&searchMode.options[searchMode.selectedIndex]?.text)||parsed.mode)}</span></div><div class="search-chipbar">${chipHtml}</div></div>`;
   if(!list.length){resultsBox.innerHTML=headerHtml+'<div class="res-empty">No matches in this filter. Try All, Any word, or fewer words. Waluigi refuses to blame the index this time.</div>';resultsBox.classList.add('show');bindSearchChips();return;}
-  resultsBox.innerHTML=headerHtml + list.map((r,i)=>`<div class="res-item" data-i="${i}"><span class="res-icon">${esc(searchIcon(r))}</span><div style="min-width:0;flex:1"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span><span class="rscore">${esc(SEARCH_CATEGORIES.find(x=>x[0]===r.cat)?.[1]||prettyId(r.cat))}</span>${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'No summary filed.').slice(0,190),q)}</div></div></div>`).join('');
+  resultsBox.innerHTML=headerHtml + list.map((r,i)=>{
+    const date=r.dateLabel?`<span class="rdate">${esc(r.dateLabel)}</span>`:'';
+    // Say WHY this matched. On a historical archive the useful answer is
+    // usually "because these people were in it", so name the ones the query
+    // hit rather than making the reader open the article to find out.
+    const who=matchedPeople(r,parsed);
+    const whoHtml=who.length?`<div class="rwho">👥 ${who.map(n=>highlight(n,q)).join(', ')}</div>`:'';
+    return `<div class="res-item" data-i="${i}"><span class="res-icon">${esc(searchIcon(r))}</span><div style="min-width:0;flex:1"><div class="rtitle">${highlight(r.name,q)}<span class="rtype">${esc(searchTypeLabel(r))}</span><span class="rscore">${esc(SEARCH_CATEGORIES.find(x=>x[0]===r.cat)?.[1]||prettyId(r.cat))}</span>${date}${annotationBadge(r.id,'mini')}</div><div class="rsum">${highlight((r.summary||'No summary filed.').slice(0,190),q)}</div>${whoHtml}</div></div>`;
+  }).join('');
   resultsBox.classList.add('show');
   bindSearchChips();
   resultsBox.querySelectorAll('.res-item').forEach((n,i)=>n.addEventListener('click',()=>{openSearchResult(currentResults[i]);closeSearch();}));

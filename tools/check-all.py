@@ -57,6 +57,10 @@ def main() -> int:
 
     if shutil.which("node"):
         checks.append(("Bros discovery test", ["node", "tools/tests/test_bros_discovery.mjs"], RM))
+        # Search quality: pure functions extracted from index.html, run against
+        # the real data. No server needed, unlike the live jsdom counterpart
+        # (tools/tests/test-search-live.mjs, which needs :8765).
+        checks.append(("search quality", ["node", "tools/tests/test-search-quality.mjs"], ROOT))
     else:
         print("\n=== Bros discovery test ===\nSKIP: node is not on PATH")
 
