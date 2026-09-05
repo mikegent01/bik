@@ -94,7 +94,7 @@ rather than invention:
 | Decision | Evidence |
 |---|---|
 | Level 9 | Her `attributes.spell.level` is already 9 and her slots are exactly 4/3/3/3/1 — the level 9 full-caster row. |
-| Bard | 24 of her 28 spells are on the Bard list; `attributes.spellcasting` is already `cha`; CHA 20 is her best stat. |
+| Bard | **25 of her 28 spells are on the Bard list** — next best is Wizard at 19. `attributes.spellcasting` is already `cha`; CHA 20 is her best stat. See `tools/analyze-aurelian-class.py`. |
 | College of Glamour | Mantle of Inspiration and Enthralling Performance are mechanically the "delicate hostess" mask her biography describes. |
 | HP 66, not 97 | 97 was `15d8+30`, a CR-8 monster budget. A level 9 d8 Bard gets 8 + (8 × 5) + (9 × CON 2) = 66. |
 | AC via the gown | Player characters cannot use `calc: "natural"`, so Gown of Autumn's Last Light carries the AC. |
@@ -105,10 +105,38 @@ feature). Pass `--keep-boss-abilities` to retain them.
 
 **Kept:** all 28 spells, her three signature items, all three loot pieces, and
 the flavour features Delicate Hostess, Draconic Heritage, Dimensional Anchor
-and Wither and Bloom. `Druidcraft`, `Plant Growth`, `Speak with Plants` and
-`Thaumaturgy` are off the Bard list, so they are tagged **Magical Secrets**
-rather than removed. Her fey species (flight 50 ft, hover, darkvision 120 ft,
+and Wither and Bloom. `Druidcraft`, `Thaumaturgy` and `Wall of Fire` are the
+only three spells off the Bard list, so they are tagged **Magical Secrets**
+rather than removed. (`Plant Growth` and `Speak with Plants` *are* Bard
+spells — an earlier build tagged them by mistake.) Her fey species (flight 50 ft, hover, darkvision 120 ft,
 charm/fright immunity) is preserved as a proper `race` item.
 
 She keeps 5 hit dice worth of nothing else: 53 items total, and the file passes
 the sanitizer clean.
+
+### Why Bard, in numbers
+
+`tools/analyze-aurelian-class.py` scores every full-caster list against the
+28 spells she already had. It is pure counting — the only judgement is the
+hand-entered spell/class table, and spells whose 2014 and 2024 lists differ
+are reported separately so an edition disagreement cannot change the answer
+silently.
+
+| Class | Coverage (2024 PHB) |
+|---|---|
+| **Bard** | **25 / 28 — 89%** |
+| Wizard | 19 / 28 — 68% |
+| Sorcerer | 18 / 28 — 64% |
+| Warlock | 12 / 28 — 43% |
+| Druid | 12 / 28 — 43% |
+| Cleric | 6 / 28 — 21% |
+
+A six-spell gap to the runner-up is not close. Her school profile is
+**57% enchantment and illusion** (10 enchantment, 6 illusion), which is the
+Bard's core identity, and the three misses are trivially covered by Magical
+Secrets.
+
+Warlock deserves a mention because Archfey patron matches her fiction well,
+but it covers only 12 of her spells and pact magic gives 2 slots where her
+sheet already specifies 4/3/3/3/1. It would mean rewriting her spellcasting
+from scratch rather than expressing what is already there.

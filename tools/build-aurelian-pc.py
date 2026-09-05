@@ -62,9 +62,12 @@ NPC_ONLY = {
     "Spellcasting",   # replaced by the real class feature
 }
 
-# Spells on her sheet that are NOT on the Bard list. A Bard holds these
-# through Magical Secrets, so they are tagged rather than removed.
-MAGICAL_SECRETS = {"Druidcraft", "Plant Growth", "Speak with Plants", "Thaumaturgy"}
+# Spells on her sheet that are NOT on the Bard list under either the 2014 or
+# 2024 PHB. A Bard holds these through Magical Secrets, so they are tagged
+# rather than removed. Verified by tools/analyze-aurelian-class.py -- note
+# that Plant Growth and Speak with Plants ARE Bard spells and do not belong
+# here, while Wall of Fire does.
+MAGICAL_SECRETS = {"Druidcraft", "Thaumaturgy", "Wall of Fire"}
 
 BARD_SKILLS = ["dec", "per", "prc", "ins", "arc", "his"]
 SAVE_PROFICIENCIES = ["dex", "cha"]          # Bard saving throws
@@ -328,9 +331,10 @@ def build(keep_boss=False):
              "saves against being charmed or frightened.</p>", 405),
         feat("Magical Secrets",
              "icons/skills/trades/academics-book-study-purple.webp",
-             "<p>Druidcraft, Plant Growth and Speak with Plants are held "
-             "through Magical Secrets — the manor's garden answers her "
-             "whether or not the Bard list says it should.</p>", 406),
+             "<p>Druidcraft, Thaumaturgy and Wall of Fire sit off the Bard "
+             "list and are held through Magical Secrets — the first two from "
+             "the manor's garden and its chapel, the third from the draconic "
+             "graft of 988 BF.</p>", 406),
         feat("Mantle of Inspiration",
              "icons/creatures/magical/fae-fairy-winged-glowing-green.webp",
              "<p>Spend a Bardic Inspiration to grant temporary hit points to "
@@ -421,6 +425,12 @@ def main():
     spells = [i for i in pc["items"] if i["type"] == "spell"]
     if len(spells) != 28:
         problems.append("expected 28 spells, found %d" % len(spells))
+    tagged = {i["name"] for i in spells
+              if ((i.get("system") or {}).get("source") or {}).get("custom")
+              == "Magical Secrets"}
+    if tagged != MAGICAL_SECRETS:
+        problems.append("Magical Secrets tagging is %s, expected %s"
+                        % (sorted(tagged), sorted(MAGICAL_SECRETS)))
 
     if problems:
         print("\nFAILED:")
