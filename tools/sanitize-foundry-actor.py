@@ -146,12 +146,48 @@ def nearest_asset(ref, manifest, cache={}):
     result = None
     if folder:
         siblings = [m for m in manifest if m.rsplit("/", 1)[0] == folder]
-        hit = difflib.get_close_matches(base, [s.rsplit("/", 1)[-1] for s in siblings],
-                                        n=1, cutoff=0.72)
-        if hit:
-            result = folder + "/" + hit[0]
+        hits = difflib.get_close_matches(base, [s.rsplit("/", 1)[-1] for s in siblings],
+                                         n=5, cutoff=0.72)
+        # String similarity alone will happily swap "claw-slash-orange" for
+        # "cougar-roar-rush-orange": same folder, similar letters, and they
+        # even share a word -- but "orange" is a colour, not the subject.
+        # Foundry names assets subject-first, so require the leading token to
+        # be identical. That accepts real renames
+        # (intimidation-impersonate -> intimidation-impressing) and rejects
+        # lookalikes (flute-pan-brown -> lute-gold-brown).
+        def subject(fn):
+            head = re.split(r"[^a-z0-9]+", fn.rsplit(".", 1)[0].lower())
+            return head[0] if head else ""
+
+        want = subject(base)
+        for h in hits:
+            if want and subject(h) == want:
+                result = folder + "/" + h
+                break
     cache[key] = result
     return result
+
+
+def manifest_roots(manifest, cache={}):
+    """Top-level directories the manifest actually indexed."""
+    key = id(manifest)
+    if key not in cache:
+        cache[key] = {m.split("/", 1)[0] for m in manifest if "/" in m}
+    return cache[key]
+
+
+def image_judgeable(ref, manifest):
+    """Can this reference be fairly judged against the manifest?
+
+    The manifest is a snapshot of one Foundry install. A homebrew or module
+    asset tree it never walked is missing from the manifest, not missing from
+    disk. Reporting those as broken would rewrite perfectly good artwork, so
+    only references under a root the manifest actually covers are judged.
+    """
+    p = ref.replace("\\", "/").lstrip("/").split("?")[0]
+    if "/" not in p:
+        return True  # a bare filename at the world root is genuinely suspect
+    return p.split("/", 1)[0] in manifest_roots(manifest)
 
 
 def image_known(ref, manifest):
@@ -274,12 +310,31 @@ def rule_singletons(actor, report, opts):
         if len(matches) <= 1:
             continue
         keeper = matches[-1] if opts.keep_species == "last" else matches[0]
+
+        def weight(it):
+            """Rough measure of how much mechanical content an item carries."""
+            sysd = it.get("system") or {}
+            adv = sysd.get("advancement")
+            n_adv = len(adv) if isinstance(adv, (dict, list)) else 0
+            desc = ((sysd.get("description") or {}).get("value") or "")
+            return n_adv * 100 + len(desc) + len(it.get("effects") or []) * 50
+
         for it in matches:
             if it is keeper:
                 continue
+            # Position is a crude tiebreak. If the copy being dropped is the
+            # one carrying the advancements, traits and description, say so
+            # loudly -- that is a judgement call the user should make, not a
+            # side effect of which item happened to be listed first.
+            note = ""
+            if weight(it) > weight(keeper):
+                note = (" — WARNING: the removed copy had more mechanical"
+                        " content (advancements/traits); consider"
+                        " --keep-species %s"
+                        % ("last" if opts.keep_species == "first" else "first"))
             report.add(
                 "duplicate-%s" % typ, True, label(it),
-                "removed; kept %r" % keeper.get("name"),
+                "removed; kept %r%s" % (keeper.get("name"), note),
             )
             items.remove(it)
 
@@ -376,8 +431,18 @@ def rule_effect_origins(actor, report, opts):
             if origin.startswith("Compendium."):
                 continue
             target = origin.rsplit(".Item.", 1)[-1]
-            foreign = origin.startswith("Actor.") and (
-                actor.get("_id") is None or ("Actor.%s." % actor.get("_id")) not in origin
+            # An export usually carries no top-level _id, so the actor prefix
+            # cannot be compared against anything. What actually matters is
+            # whether the item being pointed at travelled with this document:
+            # if it did, the link re-resolves on import no matter which actor
+            # id is in the string.
+            if target in ids:
+                continue
+            actor_id = actor.get("_id")
+            foreign = (
+                origin.startswith("Actor.")
+                and actor_id
+                and ("Actor.%s." % actor_id) not in origin
             )
             if target not in ids or foreign:
                 eff["origin"] = None
@@ -440,7 +505,9 @@ def rule_images(actor, report, opts):
 
     # actor portrait
     portrait = actor.get("img")
-    if isinstance(portrait, str) and portrait and not image_known(portrait, manifest):
+    if (isinstance(portrait, str) and portrait
+            and image_judgeable(portrait, manifest)
+            and not image_known(portrait, manifest)):
         near = nearest_asset(portrait, manifest)
         new = near or ACTOR_ICON
         report.add(
@@ -452,10 +519,17 @@ def rule_images(actor, report, opts):
     for container, key, value, where in list(iter_img_fields(actor)):
         if where == "$.img":
             continue  # handled above
+        # dnd5e activities legitimately ship img="" and inherit the parent
+        # item's artwork at render time. Filling that in would override the
+        # real icon with a generic bag.
+        if not value and ".system.activities." in where:
+            continue
         if not value:
             new = fallback_for(container)
             report.add("empty-image", False, where, "-> %s" % new)
             container[key] = new
+            continue
+        if not image_judgeable(value, manifest):
             continue
         if not image_known(value, manifest):
             near = nearest_asset(value, manifest)
@@ -564,6 +638,13 @@ def process(path, opts):
 
     if not len(report):
         print("    clean — nothing to repair")
+        # Still honour an explicit --write/--in-place. Asking for an output
+        # file and silently not getting one because the input happened to be
+        # clean makes the tool unusable in a batch.
+        if opts.write and not opts.check:
+            with open(opts.write, "w", encoding="utf-8") as fh:
+                fh.write(json.dumps(repaired, ensure_ascii=False, indent=2) + "\n")
+            print("    written (unchanged) -> %s" % opts.write)
         return 0
 
     fatal = report.fatal_count

@@ -210,6 +210,18 @@ out, rep = S.sanitize(a, Opts())
 check("compendium origin preserved",
       out["items"][0]["effects"][0]["origin"] == "Compendium.dnd5e.spells.Item.abc")
 
+# exports carry no top-level _id; a self-referential origin whose target
+# travelled with the document must survive
+a = actor([
+    item("selfaaaaaaaaaaaa", "Source"),
+    item(ID16, "Feat", effects=[
+        {"_id": "e1", "origin": "Actor.SOMEID.Item.selfaaaaaaaaaaaa"}]),
+])
+out, rep = S.sanitize(a, Opts())
+check("origin whose target is present is kept",
+      out["items"][1]["effects"][0]["origin"] == "Actor.SOMEID.Item.selfaaaaaaaaaaaa")
+check("present-target origin not reported", "stale-effect-origin" not in rules_fired(rep))
+
 a = actor([item(ID16, "Feat", effects=[{"_id": "e1", "origin": None}])])
 out, rep = S.sanitize(a, Opts())
 check("null origin ignored", "stale-effect-origin" not in rules_fired(rep))
@@ -245,10 +257,41 @@ check("near-miss path renamed to the real file",
 check("rename reported as cosmetic, not fatal",
       any(r["rule"] == "renamed-image" and not r["fatal"] for r in rep.rows))
 
-a = actor([item(ID16, "Axe", "weapon", img="totally/unrelated/nonsense-xyzzy.webp")])
+a = actor([item(ID16, "Axe", "weapon", img="icons/unrelated/nonsense-xyzzy.webp")])
 out, rep = S.sanitize(a, o)
 check("unresolvable path gets a type-appropriate fallback",
       out["items"][0]["img"] == "icons/svg/sword.svg", out["items"][0]["img"])
+
+# a root the manifest never indexed is not evidence of breakage
+a = actor([item(ID16, "Axe", "weapon",
+                img="assets/srd5e/img/homebrew/Oath_of_the_Harvest.webp")])
+out, rep = S.sanitize(a, o)
+check("un-indexed asset root left alone",
+      out["items"][0]["img"] == "assets/srd5e/img/homebrew/Oath_of_the_Harvest.webp")
+check("un-indexed root not reported", "unresolved-image" not in rules_fired(rep))
+
+# a bare filename at the world root IS suspect
+a = actor([item(ID16, "Thing", "loot", img="1709761629520545.jpg")])
+out, rep = S.sanitize(a, o)
+check("bare stray filename is caught", "unresolved-image" in rules_fired(rep))
+
+# fuzzy renames must share a subject word, not just letters
+man2 = {"icons/creatures/abilities/cougar-roar-rush-orange.webp",
+        "icons/tools/instruments/lute-gold-brown.webp",
+        "icons/svg/item-bag.svg", "icons/svg/sword.svg"}
+o2 = Opts(no_images=False, manifest_set=man2)
+a = actor([item(ID16, "Claw", "weapon",
+                img="icons/creatures/abilities/claw-slash-orange.webp")])
+out, rep = S.sanitize(a, o2)
+check("claw is not renamed to cougar",
+      out["items"][0]["img"] != "icons/creatures/abilities/cougar-roar-rush-orange.webp",
+      out["items"][0]["img"])
+a = actor([item(ID16, "Flute", "loot",
+                img="icons/tools/instruments/flute-pan-brown.webp")])
+out, rep = S.sanitize(a, o2)
+check("flute is not renamed to lute",
+      out["items"][0]["img"] != "icons/tools/instruments/lute-gold-brown.webp",
+      out["items"][0]["img"])
 
 a = actor([item(ID16, "Axe", "weapon", img="icons/svg/sword.svg")])
 out, rep = S.sanitize(a, o)
@@ -265,6 +308,15 @@ check("empty img filled", out["items"][0]["img"] == "icons/svg/item-bag.svg")
 
 out, rep = S.sanitize(actor([item(ID16, "X", "loot", img="broken/x.webp")]), Opts(no_images=True))
 check("--no-images skips image work", not rules_fired(rep) or "unresolved-image" not in rules_fired(rep))
+
+
+# dnd5e activities ship img="" and inherit the parent item icon
+a = actor([item(ID16, "Sword", "weapon", img="icons/svg/sword.svg",
+                system={"activities": {"act1": {"_id": "act1", "img": ""}}})])
+out, rep = S.sanitize(a, o)
+check("empty activity img left empty",
+      out["items"][0]["system"]["activities"]["act1"]["img"] == "")
+check("empty activity img not reported", "empty-image" not in rules_fired(rep))
 
 
 # --------------------------------------------------------------- ownership
