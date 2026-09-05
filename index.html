@@ -6035,7 +6035,7 @@ function view_faith(id){
       <div class="metabar"><span class="pill"><strong>Seat</strong> ${esc(f.seat||'—')}</span><span class="pill"><strong>Leader</strong> ${esc(f.leader||'—')}</span><span class="pill"><strong>Organisation</strong> ${esc(f.organization||'—')}</span></div>
       <div class="prose"><p>${esc(f.description||'')}</p></div>
       <h2>Doctrine in practice</h2>
-      <ul>
+      <ul class="faith-doctrine">
         ${f.bonus?`<li><b>Blessing</b> ${esc(f.bonus)}</li>`:''}
         ${f.active_law?`<li><b>Standing edict</b> ${esc(f.active_law)}</li>`:''}
         ${f.activation_ritual?`<li><b>Rite of entry</b> ${esc(f.activation_ritual)}</li>`:''}
@@ -6044,7 +6044,7 @@ function view_faith(id){
       </ul>
       ${obs?`<h2>Weekly observance</h2><ul>${obs}</ul>`:''}
       <h2>Doctrinal friction</h2>
-      <ul>${list('Most hostile toward',worst.map(chip))}${list('Most compatible with',best.map(chip))}</ul>
+      <ul class="faith-friction">${list('Most hostile toward',worst.map(chip))}${list('Most compatible with',best.map(chip))}</ul>
       <p class="text-muted" style="font-size:12.5px">Computed from the group compatibility matrix — <a class="entity-link" href="#/faiths">see the full grid</a>.</p>
       ${recRows?`<h2>Records that declare this faith</h2><div class="related-list">${recRows}</div>`:''}
     </div></div><div><div class="rail"><div class="infobox"><h4>${esc(f.name)}</h4>

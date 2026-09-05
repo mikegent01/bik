@@ -28,6 +28,8 @@ INJURY = ROOT / "tools" / "generate-injury-table.py"
 MAGES = ROOT / "tools" / "gen-mages-guild-code.py"
 ALL_SYSTEMS = ROOT / "Reputation-Matrix2" / "tools" / "generate_all.py"
 EXPAND = ROOT / "tools" / "expand-waluipedia.py"
+DEDUPE_INJURY = ROOT / "tools" / "dedupe-injury-table.py"
+UNLINKED = ROOT / "tools" / "fix-unlinked-members.py"
 MIX_SYSTEMS = "wahwire-author,shop_items,reputation,faction-dossiers,crafting,abilities"
 
 
@@ -116,6 +118,8 @@ def main() -> int:
             if args.past_events:
                 print(f"  after rounds: expand-waluipedia past events ({args.past_events})")
             print("  Codex emoji audit")
+            print("  injury repeat audit (template families, roman numerals)")
+            print("  unlinked collection members: repoint + worklist")
             print("  injury contract after run")
             if args.infinite:
                 print("  supervisor: repeat bounded rounds until interrupted")
@@ -178,6 +182,13 @@ def main() -> int:
                 return 1
         if run("Codex emoji audit", [PYTHON, str(MAGES), "--check-emoji"]):
             return 1
+        # Data-hygiene stages. Both are deterministic and use no AI, so they are
+        # safe to run unattended. Neither invents content: the injury pass only
+        # removes duplicate rows, and the member pass only repoints ids it can
+        # prove, writing anything ambiguous to a worklist for a human.
+        run("injury repeat audit", [PYTHON, str(DEDUPE_INJURY), "--report"])
+        run("unlinked members: safe repoints", [PYTHON, str(UNLINKED), "--write"])
+        run("unlinked members: worklist", [PYTHON, str(UNLINKED), "--worklist"])
         return run("injury contract after run", injury_check)
 
     if args.infinite and not args.mix and args.skip_mages:
@@ -211,6 +222,13 @@ def main() -> int:
             past_cmd += ["--model", args.model]
         stages.append(("expand-waluipedia: sparse foreign past events", past_cmd))
     stages.append(("Codex emoji audit", [PYTHON, str(MAGES), "--check-emoji"]))
+    # Data-hygiene stages. Deterministic, no AI, safe unattended. Neither
+    # invents content: the injury pass only reports duplicate template families,
+    # and the member pass only repoints ids it can prove, writing anything
+    # ambiguous to a worklist for a human to decide.
+    stages.append(("injury repeat audit", [PYTHON, str(DEDUPE_INJURY), "--report"]))
+    stages.append(("unlinked members: safe repoints", [PYTHON, str(UNLINKED), "--write"]))
+    stages.append(("unlinked members: worklist", [PYTHON, str(UNLINKED), "--worklist"]))
     stages.append(("injury contract after run", injury_check))
 
     if args.plan:

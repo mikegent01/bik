@@ -65,7 +65,10 @@ check('bands do not overlap', (() => {
 console.log('\n-- the consequence table joins cleanly');
 
 const entries = (inj.entries || []).filter(e => e && e.injuryType);
-check('injury entries load', entries.length > 300, `${entries.length}`);
+// The table was culled from 343 to 204 by tools/dedupe-injury-table.py:
+// 125 rows were 'Veilbound Vein ...' template repeats. The floor is what a
+// usable consequence table needs, not what the generator happened to emit.
+check('injury entries load', entries.length >= 150, `${entries.length}`);
 check('every entry has a category and description',
   entries.every(e => e.category && e.description));
 check('every entry has a cure', entries.every(e => e.cure));

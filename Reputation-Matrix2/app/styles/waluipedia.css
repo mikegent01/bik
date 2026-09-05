@@ -110,6 +110,34 @@ html[data-theme="light"] header.topbar{background:linear-gradient(90deg,rgba(255
 .res-item .rtype{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent2);margin-left:6px}
 .res-item .rscore{font-size:10px;color:var(--muted);margin-left:6px;font-weight:400}
 .res-item .rsum{color:var(--muted);font-size:12.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.45}
+/* --- Faith pages ---------------------------------------------------------
+   The faith infobox markup uses .irow, which had NO css anywhere in the
+   archive, so the label and the value rendered as one run-on string
+   ("SeatThe Brass Citadel"). This gives it the same treatment .row gets,
+   plus a little polish on the doctrine and friction lists. */
+.infobox .irow{display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+  padding:6px 0;border-bottom:1px dashed var(--border)}
+.infobox .irow:last-child{border-bottom:none}
+.infobox .irow>span{color:var(--muted);font-size:12px;letter-spacing:.02em;flex:0 0 auto}
+.infobox .irow>b{text-align:right;font-weight:600;line-height:1.4;overflow-wrap:anywhere}
+
+/* Doctrine list: the label carries the meaning, so let it lead. */
+.faith-doctrine{list-style:none;padding:0;margin:10px 0 0}
+.faith-doctrine li{display:grid;grid-template-columns:140px 1fr;gap:12px;align-items:baseline;
+  padding:8px 10px;border-radius:8px;border-bottom:1px solid rgba(255,255,255,.05)}
+.faith-doctrine li:nth-child(odd){background:rgba(255,255,255,.025)}
+.faith-doctrine li>b{color:var(--accent2);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.faith-friction{list-style:none;padding:0;margin:8px 0 0}
+.faith-friction li{padding:8px 0;line-height:1.9}
+.faith-friction li>b{display:block;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:5px}
+.faith-friction .entity-link{margin-right:4px}
+@media (max-width:620px){
+  .faith-doctrine li{grid-template-columns:1fr;gap:2px}
+  .infobox .irow{flex-direction:column;gap:2px}
+  .infobox .irow>b{text-align:left}
+}
+
 /* --- RNN: newsdesk queue + article coverage ------------------------------- */
 .rnn-desk{margin-top:14px;border-left:4px solid #6cc417}
 .rnn-cov{margin:10px 0 6px}

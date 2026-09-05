@@ -94,7 +94,7 @@ console.log(`\n${events.length} events · ${collList.length} collections · ${rn
 console.log('-- injury desk');
 
 const entries = (injuries.entries || []).filter(e => e && e.injuryType);
-check('the table has entries', entries.length > 300, `${entries.length}`);
+check('the table has entries', entries.length >= 150, `${entries.length}`);
 check('the Injury Desk has a route', /route==='injuries'/.test(main),
   'injuries.json still has no page');
 check('death saves are implemented', /function rollDeathSave/.test(main));
@@ -108,6 +108,29 @@ check('a natural 20 revives', /r===20[\s\S]{0,80}revived/.test(saveFn));
 check('10 or higher succeeds', /r>=10/.test(saveFn));
 check('three successes stabilise', /succ>=3/.test(saveFn));
 check('three failures kill', /fail>=3/.test(saveFn));
+
+// Regression guard: the generator once collapsed onto one noun phrase and
+// numbered its way out with roman numerals (125 rows of 'Veilbound Vein').
+{
+  const stem = n => String(n).replace(/\s+[IVXLCDM]{1,7}$/, '').trim();
+  const fam = {}; const pre = {};
+  for (const e of entries) {
+    const n = e.injuryType || '';
+    fam[stem(n)] = (fam[stem(n)] || 0) + 1;
+    const p = n.split(/\s+/).slice(0, 2).join(' ');
+    pre[p] = (pre[p] || 0) + 1;
+  }
+  const worstFam = Object.entries(fam).sort((a, b) => b[1] - a[1])[0] || ['', 0];
+  const worstPre = Object.entries(pre).sort((a, b) => b[1] - a[1])[0] || ['', 0];
+  check('no injury name family dominates the table', worstFam[1] <= 2,
+    `${worstFam[0]} x${worstFam[1]}`);
+  check('no two-word prefix dominates the table', worstPre[1] <= 12,
+    `${worstPre[0]} x${worstPre[1]}`);
+  const romans = entries.filter(e => /\s[IVXLCDM]{2,}$/.test(e.injuryType || '')).length;
+  check('roman-numeral variants are rare', romans <= 10, `${romans}`);
+  check('every injury name is unique',
+    new Set(entries.map(e => e.injuryType)).size === entries.length);
+}
 
 check('provisional entries are flagged to the reader',
   injuries.status !== 'temporary' || /inj-warn/.test(main),
