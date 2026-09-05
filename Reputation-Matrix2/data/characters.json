@@ -5284,5 +5284,54 @@
         "note": "The hill families the Misers grew up alongside keep the Cycle. That proximity is unremarkable in the Midlands and would be a charge sheet in Flamekeep, which is the entire reason this row exists on the page."
       }
     ]
+  },
+  {
+    "id": "the_veteran_fairy",
+    "name": "The Veteran",
+    "title": "The Bait Who Lived, and Then Took Point",
+    "type": "None",
+    "race": "Fairy",
+    "status": "Active - one wing still bent; walking point for Hjumpik's detachment by his own offer",
+    "affiliation": "Household of the Overgrown Manor / Hjumpik's detachment",
+    "summary": "The battered fairy a goblin carried in under one arm to be volunteered as bait, chosen because a guard argued that a mediocre fairy dying is cheaper than a good one dying. Hjumpik looked at him and saw his grandfather. He survived, and the next time a room needed someone to walk in front, he offered before he was asked.",
+    "description": "He is small, bruised, and one wing is bent at an angle wings do not bend. None of that is the notable thing about him. The notable thing is that he was brought into a war room as arithmetic - a guard's phrase, *if a mediocre fairy dies, a good one can take its place* - and he did not argue with the arithmetic. He listened to it being said in front of him, and his eyes stayed entirely clear.\n\nHjumpik Deldkur refused the arithmetic and then said the strangest compliment available in that house: *you remind me of my grandpa.* Asked what the grandfather was like, the dwarf said *dead*, and then *but a great warrior*, and the fairy answered *so I'm going to die* with the calm of a man reading a weather report. He was told about Piktor Deldkur the Third, who kept wanting to fight after his arm came off. He took the comparison as an instruction rather than a eulogy.\n\n**Barckelhaven.** He claims to have fought wars there, and he attaches to the claim the only credential he ever offers: *not one person died.* He says it the way other soldiers say a rank. The archive holds no other record of Barckelhaven and files the name pending a second source; what it does hold is that he asked to lead the marching order into the library, and that Hjumpik - who reorders a corridor the way other men reorder a sentence - let him.\n\nHe is the first person in the Overgrown Manor to volunteer for the front of a line without being counted first.",
+    "relatedArticles": [
+      "feyward_battalion_of_six_and_the_bait_plan",
+      "hjumpik",
+      "overgrown_manor",
+      "overgrown_library"
+    ]
+  },
+  {
+    "id": "red_the_kitchen_commander",
+    "name": "Red",
+    "title": "The Heir's Greatest Soldier, Currently Making Dinner",
+    "type": "None",
+    "race": "Fey (unrecorded)",
+    "status": "Active - holding the kitchen of the Overgrown Manor; cooking",
+    "affiliation": "Household of the Overgrown Manor / the orange heir's command",
+    "summary": "The commander in the manor kitchen. The guards describe her as the heir's greatest soldier and warn that she will eat you alive like the monsters will. She is not fighting the plants. She is feeding them, and what she feeds them makes them wither in the hand.",
+    "description": "Two guards holding a door shut said her name before they said what was behind them, which is its own kind of testimony. *A commander, Red - he, she - is preparing the dinner. She will eat you alive like the monsters. She's the heir's greatest soldier.*\n\nWhat the party found in the kitchen was a woman going *ow, ow, ow* over her work and asking whether the orange guy had sent them. Asked whether she was there to stop the plant monsters, she said no. *We're here to cook. The plants love this.* Then she held up what she was making, and it withered in her hand.\n\nThat is the whole of her strategy and it is the best one anybody in the manor has produced. The overgrowth cannot be stabbed faster than it grows; it can, apparently, be fed. She is running a poisoning operation through the service that the house already has, at the scale the house already runs it, and calling it dinner. She offered Hjumpik a pot of the slop and told him he would stay for dessert. Something was wriggling in an oven at the time and nobody asked about it.\n\nShe also owns a key. A locked door off her kitchen is, in her words, *nothing much - a shortcut to the main room*, which makes the manor's most direct route the personal property of its cook.\n\nThe archive notes that Red is a colour and not a name, that she was described to the party by two frightened men before she was met, and that the description they gave and the woman found in the kitchen do not obviously match. Filed as encountered. Amend when she gives a longer name.",
+    "relatedArticles": [
+      "overgrown_manor",
+      "hjumpik",
+      "the_orange_heir"
+    ]
+  },
+  {
+    "id": "the_mushroom_room_guard",
+    "name": "The Mushroom Room Guard",
+    "title": "Field Observations",
+    "type": "None",
+    "race": "Fey (unrecorded)",
+    "status": "Active - eyes bloodshot; insists he is unaffected",
+    "affiliation": "Household of the Overgrown Manor",
+    "summary": "A house guard who maintains that the mushroom room had no effect on him whatsoever, and who was missing for a stretch of time he accounts for as field observations. His eyes are bloodshot. The mushrooms, when picked up and sniffed, are fine.",
+    "description": "He is the manor's least reliable witness and its most useful one, because the shape of what he gets wrong is informative.\n\nHe says the mushroom room did nothing to him. He says this while his eyes are visibly bloodshot, which Hjumpik noticed and did not mention. He was absent long enough for a colleague to ask where he had gone, and returned with *field observations*, then let slip *oh, I didn't think you would come back that soon* - a sentence that only makes sense if he was doing something he had budgeted more time for.\n\nHe knows the knock. Three raps opens a hidden door off the lower hall; Hjumpik was given the instructions first, tried it himself, and failed. Asked why anyone should trust him, he offered three credentials in order: that Aurelian was helping, that Orangus Cornelius was involved, and that he had personally stopped Wario - *actually I did quite a bit.* The archive is obliged to point out that the first of those is currently inside a ring, the second is a name the manor's own guards refuse to say aloud, and the third is the sort of claim a great many people make.\n\nHe opened the passage anyway. The passage put everyone back where they started.",
+    "relatedArticles": [
+      "overgrown_manor",
+      "hjumpik",
+      "orangus_cornelius"
+    ]
   }
 ]

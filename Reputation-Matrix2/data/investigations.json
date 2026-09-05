@@ -548,6 +548,12 @@
           "label": "The Scorncrow Skirmish: Deforestation, Garlic Weapons, and Wario's Stalled Motorbike",
           "date": "30 Harvestide, 1040 BF — the overgrown grove, the night of the threshold storm",
           "event": "the_scorncrow_skirmish"
+        },
+        {
+          "id": "s_a01_library_reclamation",
+          "label": "The Reclamation of the Library: A Cook Who Poisons the Garden, and a Passage That Goes in a Circle",
+          "date": "1-2 Aethel, 922 BF (Feyward clock) - the library reading floor through the kitchen and an upstairs bathroom",
+          "event": "feyward_library_reclamation_and_the_kitchen"
         }
       ],
       "relatedEvents": [
