@@ -31,6 +31,30 @@ python3 ../../tools/sanitize-foundry-actor.py original-fvtt-Actor-NAME.json \
 
 Item counts preserved, `system` stat blocks byte-identical, second pass clean.
 
+## If the species error persists after importing
+
+Two things cause this, and the first one is not a bug in the file:
+
+**1. You are importing an old copy.** The `tools/item sheet examples/sanitized/`
+folder no longer exists — these files moved here. Pull the branch before
+importing, and check the file you pick is from `Reputation-Matrix2/actors/`.
+
+**2. A phantom species pointer.** dnd5e stores `system.details.race` next to
+the race item. If that pointer names an item id that is not in `items[]`, the
+sheet believes a species exists that you cannot see or delete on the sheet,
+and `Race._preCreate` refuses the new one. **All five original exports had a
+dangling pointer of this kind**, so this was almost certainly the real blocker.
+The sanitizer now relinks or clears them (`dangling-detail-pointer`,
+`detail-pointer-relinked`), and `--clear-species` clears the pointer along with
+the item.
+
+Free-text values such as `race: "Archfey-Touched"` are legal on NPCs and are
+left alone; only values shaped like a 16-character item id are treated as
+pointers.
+
+If it still fails, delete the species on the sheet by hand, save, and re-run
+the Plutonium import.
+
 ## "Only a single Species can be added to a Player Character"
 
 **This is not a defect in the file and no amount of sanitizing fixes it.**

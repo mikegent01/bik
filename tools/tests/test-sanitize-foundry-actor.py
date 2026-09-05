@@ -174,6 +174,49 @@ out, rep = S.sanitize(actor([item("c1aaaaaaaaaaaaaa", "Fighter", "class")]),
 check("no species is a no-op", "cleared-species" not in rules_fired(rep))
 
 
+print("\n-- details.race / background / originalClass pointers")
+
+a = actor([item("r1aaaaaaaaaaaaaa", "Mountain Dwarf", "race")],
+          system={"details": {"race": "GHOSTGHOSTGHOSTX"}})
+out, rep = S.sanitize(a, Opts())
+check("dangling race pointer relinked to the only race",
+      out["system"]["details"]["race"] == "r1aaaaaaaaaaaaaa")
+check("relink reported", "detail-pointer-relinked" in rules_fired(rep))
+
+a = actor([], system={"details": {"race": "GHOSTGHOSTGHOSTX"}})
+out, rep = S.sanitize(a, Opts())
+check("pointer with no race at all is cleared",
+      out["system"]["details"]["race"] is None)
+check("clear reported fatal",
+      any(r["rule"] == "dangling-detail-pointer" and r["fatal"] for r in rep.rows))
+
+a = actor([item("r1aaaaaaaaaaaaaa", "Dwarf", "race")],
+          system={"details": {"race": "r1aaaaaaaaaaaaaa"}})
+out, rep = S.sanitize(a, Opts())
+check("valid pointer untouched",
+      "dangling-detail-pointer" not in rules_fired(rep)
+      and "detail-pointer-relinked" not in rules_fired(rep))
+
+# --clear-species must take the pointer with it
+a = actor([item("r1aaaaaaaaaaaaaa", "Mountain Dwarf", "race")],
+          system={"details": {"race": "r1aaaaaaaaaaaaaa"}})
+out, rep = S.sanitize(a, Opts(clear_species=True))
+check("clear-species empties details.race",
+      out["system"]["details"]["race"] is None,
+      out["system"]["details"]["race"])
+check("no race item remains",
+      not [i for i in out["items"] if i["type"] == "race"])
+
+
+# free-text labels are legal, especially on NPCs
+a = actor([], system={"details": {"race": "Archfey-Touched"}})
+out, rep = S.sanitize(a, Opts())
+check("free-text race label preserved",
+      out["system"]["details"]["race"] == "Archfey-Touched")
+check("free-text label not reported",
+      "dangling-detail-pointer" not in rules_fired(rep))
+
+
 # --------------------------------------------------------------- subclass
 print("\n-- subclass linkage")
 

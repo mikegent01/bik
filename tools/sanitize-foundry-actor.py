@@ -628,6 +628,17 @@ def rule_clear_species(actor, report, opts):
         if it.get("_id") in granted:
             doomed.add(id(it))
 
+    # The sheet also stores a pointer at system.details.race. Leaving it
+    # aimed at a deleted item is what keeps dnd5e believing a species is
+    # still present, so it has to go with the item.
+    det = (actor.get("system") or {}).get("details")
+    if isinstance(det, dict) and det.get("race"):
+        report.add(
+            "cleared-species", True, "actor: %s" % actor.get("name", "?"),
+            "cleared system.details.race pointer %r" % det.get("race"),
+        )
+        det["race"] = None
+
     removed_names = set()
     for it in list(items):
         if id(it) in doomed:
@@ -655,10 +666,59 @@ def rule_clear_species(actor, report, opts):
             )
 
 
+def rule_detail_pointers(actor, report, opts):
+    """system.details.race / background / originalClass must resolve.
+
+    dnd5e keeps a pointer to the species, background and first class item
+    alongside the items themselves. If a pointer names an item that is not in
+    items[], the sheet reports a species that cannot be seen or edited -- and
+    that phantom is enough for Race._preCreate to refuse a new one, which
+    Plutonium then surfaces as "Number of returned items did not match number
+    of input items!".
+    """
+    det = (actor.get("system") or {}).get("details")
+    if not isinstance(det, dict):
+        return
+    items = actor.get("items") or []
+    ids = {it.get("_id") for it in items}
+    by_type = {}
+    for it in items:
+        by_type.setdefault(it.get("type"), []).append(it)
+
+    for key, typ in (("race", "race"), ("background", "background"),
+                     ("originalClass", "class")):
+        val = det.get(key)
+        if not val or val in ids:
+            continue
+        # On an NPC these fields are free text ("Archfey-Touched"), which is
+        # perfectly legal. Only a value shaped like an item id is a broken
+        # pointer; anything else is a label and must be left alone.
+        if not ID_RE.match(str(val)):
+            continue
+        present = by_type.get(typ) or []
+        if len(present) == 1:
+            # Exactly one candidate: re-point rather than blank it.
+            det[key] = present[0]["_id"]
+            report.add(
+                "detail-pointer-relinked", True,
+                "actor: %s" % actor.get("name", "?"),
+                "details.%s pointed at missing %s; relinked to %r"
+                % (key, val, present[0].get("name")),
+            )
+        else:
+            det[key] = None
+            report.add(
+                "dangling-detail-pointer", True,
+                "actor: %s" % actor.get("name", "?"),
+                "details.%s pointed at missing item %s; cleared" % (key, val),
+            )
+
+
 RULES = (
     rule_item_ids,
     rule_singletons,
     rule_clear_species,
+    rule_detail_pointers,
     rule_orphan_subclass,
     rule_advancement_grants,
     rule_effect_origins,
