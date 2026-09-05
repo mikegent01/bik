@@ -35,6 +35,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ACTORS = os.path.join(ROOT, "Reputation-Matrix2", "actors")
 SANITIZER = os.path.join(ROOT, "tools", "sanitize-foundry-actor.py")
 BUILD_AURELIAN = os.path.join(ROOT, "tools", "build-aurelian-pc.py")
+BUILD_WALUIGI = os.path.join(ROOT, "tools", "build-waluigi-pc.py")
 
 # Extra sanitizer flags per source file.
 OVERRIDES = {
@@ -47,6 +48,7 @@ OVERRIDES = {
 # Generated rather than sanitized from an original.
 GENERATED = {
     "fvtt-Actor-lady-aurelian-corvinarus-PC.json": [sys.executable, BUILD_AURELIAN],
+    "fvtt-Actor-waluigi-PC.json": [sys.executable, BUILD_WALUIGI],
 }
 
 
