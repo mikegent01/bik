@@ -278,6 +278,10 @@ Seven habits explain nearly every decision in this repository:
 - **Cut the news** → only when ~10 events are pending;
   `python3 tools/build-rnn-broadcast.py` (see the cadence rule above).
 - **Check what the news owes** → `python3 tools/build-rnn-broadcast.py --unaired`.
+- **Check what the map owes the locations** → `node tools/check-location-map-coverage.mjs`
+  (which location articles show a tactical-map pin, which are still unplotted; the
+  survey queue and the clue that placed every pin live in
+  `docs/worklists/LOCATION_MAP_COVERAGE.md`).
 - **Audit references site-wide** → `python3 tools/check-references.py`
   (dangling ids, missing art; `--strict` to fail on legacy links).
 - **Run the routine checker set** → `python3 tools/check-all.py` (local paths,

@@ -34,6 +34,7 @@ export const mountainEnclaveData = {
         // Rogueport is now north, Dragon's Maw is south.
         {
             id: 'poi_me_rogueport',
+            articleId: 'rogueport_bay',
             x: 29.00,
             y: 24.00,
             type: 'port',

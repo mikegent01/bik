@@ -64,6 +64,9 @@ def main() -> int:
         # (tools/tests/test-search-live.mjs, which needs :8765).
         checks.append(("search quality", ["node", "tools/tests/test-search-quality.mjs"], ROOT))
         checks.append(("session nav", ["node", "tools/tests/test-session-nav.mjs"], ROOT))
+        # Location articles show a map-pin preview; this prints what the map owes.
+        checks.append(("location map coverage", ["node", "tools/check-location-map-coverage.mjs"], ROOT))
+        checks.append(("location map preview", ["node", "tools/tests/test-location-map-preview.mjs"], ROOT))
         checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))
         checks.append(("hub pages", ["node", "tools/tests/test-hub-pages.mjs"], ROOT))
         checks.append(("wahbabel", ["node", "tools/tests/test-wahbabel.mjs"], ROOT))

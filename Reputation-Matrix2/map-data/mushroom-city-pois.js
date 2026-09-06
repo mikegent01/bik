@@ -7,6 +7,7 @@ export const mushroomCityData = {
             x: 60.0,
             y: 5.5,
             type: 'capital_city',
+            articleId: 'mushroom_regency',
             name: "Regency Parliament",
             description: "The grand, domed building that houses the Mushroom Regency's government. A place of tense debate and political maneuvering as Chancellor Toadsworth tries to hold the fractured kingdom together.",
             factionId: 'mushroom_regency',

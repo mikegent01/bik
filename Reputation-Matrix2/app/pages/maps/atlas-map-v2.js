@@ -98,7 +98,7 @@ function detailHtml(poi, pois) {
   </article>`;
 }
 
-export function mountAtlasMapV2(host, mapId) {
+export function mountAtlasMapV2(host, mapId, opts = {}) {
   const data = model(mapId);
   if (!data) {
     host.innerHTML = '<div class="atlas-v2-error">This map record is unavailable.</div>';
@@ -212,6 +212,24 @@ export function mountAtlasMapV2(host, mapId) {
     applyFilter();
   }
 
+  /* Deep-link focus: a location article's "Open in the World Atlas" chip lands the
+     reader on this sheet with the matching pin already selected and centred. */
+  function focusOn(id) {
+    const poi = pois.find(p => p.id === id);
+    if (!poi) return;
+    select(poi);
+    const vw = viewport.clientWidth || 1;
+    const vh = viewport.clientHeight || 1;
+    const box = state.box;
+    const px = box.left + box.w * poi.x / 100;
+    const py = box.top + box.h * poi.y / 100;
+    const z = 3.2;
+    state.scale = z;
+    state.tx = vw / 2 - px * z;
+    state.ty = vh / 2 - py * z;
+    applyTransform();
+  }
+
   function select(poi, ids) {
     state.selected = poi;
     overlay.querySelectorAll('[data-poi]').forEach(item => item.classList.toggle('selected', item.dataset.poi === poi.id));
@@ -239,7 +257,8 @@ export function mountAtlasMapV2(host, mapId) {
 
   img.addEventListener('load', () => {
     placePins();
-    if (!isFull) fitRegion();
+    if (opts.focusPoi) focusOn(opts.focusPoi);
+    else if (!isFull) fitRegion();
     else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); }
   });
   if (img.complete) img.dispatchEvent(new Event('load'));

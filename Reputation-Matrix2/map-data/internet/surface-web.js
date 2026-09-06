@@ -295,5 +295,22 @@ export const surfaceWebPois = [
         military_strength: 3,
         population: 80,
         age_of_antiquity: 1, crime_rate: 5
+    },
+    // --- Location-article pin (map-preview pass) ---
+    {
+        id: 'poi_inet_regency_hall_of_records',
+        x: 14.5, y: 39.5,
+        type: 'library',
+        name: "The Mushroom Regency Hall of Records",
+        description: "The Regency's archival repository beside its embassy spore-node: a committee-governed stack of every resolution, minute and provisional decree the Network's provisional government has ever filed.",
+        subRegion: 'surface_web',
+        factionId: 'mushroom_regency',
+        intelReq: { faction: 'internet_federation', level: 25 },
+        political_influence: 3,
+        economic_value: 2,
+        military_strength: 2,
+        population: 30,
+        age_of_antiquity: 1, crime_rate: 2,
+        articleId: 'the_mushroom_regency_hall_of_records'
     }
 ];

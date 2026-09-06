@@ -7,6 +7,7 @@ import { gondorData } from './middle-earth/Gondor.js';
 import { rhovanionData } from './middle-earth/Rhovanion.js';
 import { mordorData } from './middle-earth/Mordor.js';
 import { minhiriathData } from './middle-earth/Minhiriath.js';
+import { rohanData } from './middle-earth/Rohan.js';
 
 
 export const middleEarthData = {
@@ -19,6 +20,7 @@ export const middleEarthData = {
         ...rhovanionData.pointsOfInterest,
         ...mordorData.pointsOfInterest,
         ...minhiriathData.pointsOfInterest,
+        ...rohanData.pointsOfInterest,
     ],
     fogOfWar: [
         ...(forlindonData.fogOfWar || []),
@@ -29,5 +31,6 @@ export const middleEarthData = {
         ...(rhovanionData.fogOfWar || []),
         ...(mordorData.fogOfWar || []),
         ...(minhiriathData.fogOfWar || []),
+        ...(rohanData.fogOfWar || []),
     ]
 };

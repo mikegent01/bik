@@ -107,7 +107,10 @@ with the campaign date.
 
 ### POIs and territory
 `map-data.js` holds POIs (MK_POIS and friends); `map-battle-data-*.js`
-holds unit positions per theater. A major battle: update unit x/y to the
+holds unit positions per theater. A POI that is also a filed location carries
+`articleId: '<location id>'` — that field is what lets the location article open
+with its own pin on the painted sheet, so a new location filed without its pin
+leaves the article showing "Not on the tactical map yet". A major battle: update unit x/y to the
 battle's outcome **and** add or amend the POI (a razed bridge, a fallen
 treant across a lane, a taken checkpoint). Territory changing hands flips
 the controlling entry on both the POI and the location's

@@ -414,6 +414,85 @@ export const mushroomKingdomData = {
             economic_value: 1,
             military_strength: 6,
             population: 1
+        },
+        // --- Location-article pins (map-preview pass) ---
+        {
+            id: 'poi_mk_star_fountain',
+            articleId: 'star_fountain',
+            x: 63.0,
+            y: 26.0,
+            type: 'ley_line',
+            name: "The Star Fountain",
+            description: "One of the seven original Star Road waypoints, and the only one still showing activity seventy-eight years after the network's destruction. Filed in the eastern marches, away from every population centre that ever mattered.",
+            factionId: 'unaligned',
+            intelReq: 40,
+            political_influence: 3,
+            economic_value: 2,
+            military_strength: 2,
+            population: 0
+        },
+        {
+            id: 'poi_mk_capitol_ruins',
+            // Suspected duplicate pair (see docs/worklists/LOCATION_MAP_COVERAGE.md):
+            // both articles describe the same fallen capitol, so one pin serves both
+            // until a merge is decided.
+            articleId: ['ruins_of_the_mushroom_capitol', 'ruins_of_the_mushroom_kingdom_capitol'],
+            x: 49.5,
+            y: 33.0,
+            type: 'ruins',
+            name: "Ruins of the Mushroom Capitol",
+            description: "The fallen seat of Peach's monarchy in the historical central region: shattered plazas and scattered remnants of former glory, south of occupied Toad Town.",
+            factionId: 'mushroom_regency',
+            intelReq: 20,
+            political_influence: 2,
+            economic_value: 1,
+            military_strength: 1,
+            population: 0
+        },
+        {
+            id: 'poi_mk_koopa_barracks_ruins',
+            articleId: 'ruins_of_the_koopa_troop_barracks',
+            x: 66.0,
+            y: 42.0,
+            type: 'ruins',
+            name: "Ruins of the Koopa Troop Barracks",
+            description: "A coastal military site in the eastern periphery, its stone walls crumbling into the sea as the waves erode the coastline and the garrison's memory.",
+            factionId: 'koopa_troop',
+            intelReq: 20,
+            political_influence: 1,
+            economic_value: 1,
+            military_strength: 2,
+            population: 0
+        },
+        {
+            id: 'poi_si_overgrown_cottage',
+            articleId: 'isle_delfino_overgrown_cottage',
+            x: 20.0,
+            y: 5.0,
+            type: 'ruins',
+            name: "Overgrown Cottage (Isle Delfino)",
+            description: "A cottage in Isle Delfino's wilder regions that time forgot: walls gone to trellis, roof gone to canopy, doors opening onto rooms the jungle moved into first.",
+            factionId: 'unaligned',
+            intelReq: 15,
+            political_influence: 0,
+            economic_value: 1,
+            military_strength: 0,
+            population: 0
+        },
+        {
+            id: 'poi_bv_forgotten_cove',
+            articleId: 'forgotten_coastal_cove',
+            x: 41.0,
+            y: 15.0,
+            type: 'port',
+            name: "Forgotten Coastal Cove",
+            description: "A once-thriving port on Kongo Bongo's northern reach, now rotting docks and silent warehouses standing witness to trade that stopped calling.",
+            factionId: 'dk_crew',
+            intelReq: 15,
+            political_influence: 1,
+            economic_value: 3,
+            military_strength: 1,
+            population: 4
         }
     ],
     fogOfWar: []
