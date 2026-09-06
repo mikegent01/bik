@@ -19,6 +19,15 @@ reposed to face the tree; Bones removed after reading the latest filing;
 Eager/Bones cap and face restored from `portraits/`; canvas corrected back to
 16:9.
 
+**Round 2 corrections (this report):**
+- **Shadeward:** Remi's longbow replaced with her canonical **dual hand
+  crossbows** (raised + at her side), and the holstered revolver removed —
+  the archive reads "Remi drew her dual hand crossbows and fired a volley"
+  (Shadow Estate, Harvestside 14). No firearm in frame.
+- **Feyward:** Archie's horned-helmet look removed; he is now on his
+  canonical **storm cloud** above the fleeing crew, matching the Tree of Woe
+  art (`archie-storm-nimbus-tree-of-woe.jpg`), horns gone.
+
 ## Roster check (latest articles)
 
 - **Feyward front** — `feyward_library_reclamation_and_the_kitchen`
