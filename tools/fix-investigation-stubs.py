@@ -1,0 +1,218 @@
+#!/usr/bin/env python3
+"""Repair the two long-standing investigation defects.
+
+`check-investigations.py` has been red all session. After teaching it that a
+session may cite a battle as well as an event (battles are in TYPES, so they
+resolve through the page's INDEX exactly like events), 17 errors remained, and
+they are two distinct problems:
+
+1. MALFORMED plainSummary. The schema is a hook plus an explanation:
+
+       {"point": "one short line a newcomer can read",
+        "detail": "the sentence or two that explains it"}
+
+   Eight arcs have a whole paragraph crammed into `point` and no `detail` at
+   all. On the page that renders as a wall of text where a headline should be.
+   The repair splits the existing prose at its first sentence boundary: the
+   opening sentence becomes the point, the remainder becomes the detail. No
+   text is invented and none is discarded.
+
+2. EMPTY STUB ARCS. Three arcs are marked `active` with zero exhibits, whose
+   only session points at an article that does not exist anywhere in the
+   archive - not as an event, not as a battle. They are placeholders for
+   filings nobody wrote.
+
+   These are NOT auto-deleted. An arc may be a deliberate promise of future
+   work, and silently removing somebody's plan is worse than a red check. They
+   are flipped to `status: "stub"` so they stop claiming to be active
+   investigations, their dangling session rows are dropped, and each is written
+   to a worklist for a human decision.
+
+Deterministic, stdlib only, NO AI.
+
+  python3 tools/fix-investigation-stubs.py --report
+  python3 tools/fix-investigation-stubs.py --write
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+DATA = ROOT / "Reputation-Matrix2" / "data"
+INV = DATA / "investigations.json"
+WORKLIST = ROOT / "docs" / "worklists" / "investigation-stubs.md"
+
+# A point should be a headline. Longer than this and it is a paragraph.
+POINT_MAX = 150
+
+
+def load_ids(name: str) -> set:
+    p = DATA / f"{name}.json"
+    if not p.exists():
+        return set()
+    d = json.loads(p.read_text(encoding="utf-8"))
+    rows = d if isinstance(d, list) else d.get(name, d)
+    if isinstance(rows, dict):
+        return {k for k in rows if not k.startswith("_")}
+    return {r["id"] for r in rows if isinstance(r, dict) and r.get("id")}
+
+
+def split_point(text: str) -> tuple[str, str]:
+    """First sentence becomes the point; the rest becomes the detail.
+
+    Falls back to a clause break, then to a hard word split, so a paragraph
+    with no punctuation still yields a usable headline.
+    """
+    t = " ".join(str(text or "").split())
+    if not t:
+        return "", ""
+    m = re.search(r"(?<=[.!?])\s+", t)
+    if m and m.start() <= POINT_MAX * 2:
+        return t[:m.start()].strip(), t[m.end():].strip()
+    m = re.search(r"[:;]\s+", t)
+    if m and m.start() <= POINT_MAX * 2:
+        return t[:m.start()].strip(), t[m.end():].strip()
+    words = t.split()
+    head, n = [], 0
+    for w in words:
+        if n + len(w) > POINT_MAX and head:
+            break
+        head.append(w)
+        n += len(w) + 1
+    return " ".join(head).rstrip(",") + "…", " ".join(words[len(head):]).strip()
+
+
+def scan(data: dict) -> dict:
+    events = load_ids("events")
+    battles = load_ids("battles")
+    known = events | battles
+
+    malformed, stubs = [], []
+    for arc in data["investigations"]:
+        for i, entry in enumerate(arc.get("plainSummary") or []):
+            if isinstance(entry, dict) and entry.get("point") and not entry.get("detail"):
+                malformed.append((arc["id"], i, entry["point"]))
+        dangling = [s for s in (arc.get("sessions") or [])
+                    if s.get("event") and s["event"] not in known]
+        rel_bad = [e for e in (arc.get("relatedEvents") or []) if e not in known]
+        if dangling or rel_bad:
+            stubs.append({
+                "id": arc["id"],
+                "title": arc.get("title", ""),
+                "status": arc.get("status"),
+                "exhibits": len(arc.get("exhibits") or []),
+                "sessions": [s.get("event") for s in dangling],
+                "related": rel_bad,
+            })
+    return {"malformed": malformed, "stubs": stubs}
+
+
+def report(found: dict) -> None:
+    m, s = found["malformed"], found["stubs"]
+    print(f"plainSummary entries missing `detail`: {len(m)}")
+    for arc, _i, point in m[:10]:
+        print(f"   {arc[:44]:<46} {len(point)} chars in `point`")
+    print(f"\narcs citing records that do not exist: {len(s)}")
+    for st in s:
+        print(f"   {st['id'][:44]:<46} status={st['status']} exhibits={st['exhibits']}")
+        print(f"        missing: {', '.join(st['sessions'] + st['related'])[:70]}")
+
+
+def write_worklist(stubs: list) -> None:
+    WORKLIST.parent.mkdir(parents=True, exist_ok=True)
+    lines = [
+        "# Worklist — investigation arcs with no article",
+        "",
+        "Generated by `tools/fix-investigation-stubs.py --write`. Do not hand-edit;",
+        "re-run the tool.",
+        "",
+        "Each arc below cites an article that exists nowhere in the archive — not as",
+        "an event, not as a battle. They have been flipped from `active` to `stub` so",
+        "they stop claiming to be live investigations, and their dangling session rows",
+        "were removed. **Nothing was deleted**: an arc may be a deliberate plan for",
+        "future work, and quietly binning somebody's plan is worse than a red check.",
+        "",
+        "| arc | title | article it wanted | decision |",
+        "|---|---|---|---|",
+    ]
+    for st in stubs:
+        want = ", ".join(f"`{x}`" for x in dict.fromkeys(st["sessions"] + st["related"]))
+        lines.append(f"| `{st['id']}` | {st['title']} | {want} | _unresolved_ |")
+    lines += [
+        "",
+        "## How to resolve one",
+        "",
+        "1. **Write the filing** — follow `docs/SESSION_FILING_PROCESS.md`, then point",
+        "   the arc's session at the new id and set `status` back to `active`.",
+        "2. **The article exists under another id** — fix the reference and re-run.",
+        "3. **The arc was abandoned** — delete it from `investigations.json`.",
+        "",
+        f"Open stubs: **{len(stubs)}**",
+        "",
+    ]
+    WORKLIST.write_text("\n".join(lines), encoding="utf-8")
+    print(f"wrote {WORKLIST.relative_to(ROOT)} ({len(stubs)} open)")
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--report", action="store_true")
+    ap.add_argument("--write", action="store_true")
+    args = ap.parse_args()
+
+    raw = INV.read_text(encoding="utf-8")
+    data = json.loads(raw)
+    found = scan(data)
+
+    if not args.write:
+        report(found)
+        return 0
+
+    events = load_ids("events")
+    battles = load_ids("battles")
+    known = events | battles
+
+    fixed_summaries = 0
+    for arc in data["investigations"]:
+        for entry in arc.get("plainSummary") or []:
+            if isinstance(entry, dict) and entry.get("point") and not entry.get("detail"):
+                point, detail = split_point(entry["point"])
+                if detail:
+                    entry["point"], entry["detail"] = point, detail
+                else:
+                    # Nothing to split. Keep the text as the detail and give the
+                    # point a short honest label rather than duplicating it.
+                    entry["detail"] = entry["point"]
+                    entry["point"] = "What the file records"
+                fixed_summaries += 1
+
+    stubbed = []
+    for arc in data["investigations"]:
+        dangling = [s for s in (arc.get("sessions") or [])
+                    if s.get("event") and s["event"] not in known]
+        rel_bad = [e for e in (arc.get("relatedEvents") or []) if e not in known]
+        if not (dangling or rel_bad):
+            continue
+        arc["sessions"] = [s for s in (arc.get("sessions") or []) if s not in dangling]
+        arc["relatedEvents"] = [e for e in (arc.get("relatedEvents") or []) if e in known]
+        arc["status"] = "stub"
+        arc["_stubNote"] = ("Flipped from active by tools/fix-investigation-stubs.py: the "
+                            "article this arc cites has not been written. Listed in "
+                            "docs/worklists/investigation-stubs.md.")
+        stubbed.append(arc["id"])
+
+    INV.write_text(json.dumps(data, ensure_ascii=False, indent=2) +
+                   ("\n" if raw.endswith("\n") else ""), encoding="utf-8")
+    print(f"repaired {fixed_summaries} plainSummary entries")
+    print(f"flipped {len(stubbed)} arcs to stub: {', '.join(stubbed)}")
+    write_worklist(found["stubs"])
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

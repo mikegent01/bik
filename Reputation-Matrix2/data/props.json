@@ -22,6 +22,21 @@
     "stamps": "Optional. `stamps: [\"overdue\"]` renders .pd-stamp--overdue. Available: overdue, paid, void, sealed, noaction, evidence."
   },
   "props": {
+    "prop_frozen_incident_report_01": {
+      "kind": "note",
+      "icon": "📄",
+      "title": "Frost-Damaged Incident Report",
+      "subtitle": "Militia hand · one leaf · received three days after the event it reports",
+      "items": [],
+      "articles": [
+        "first_snowfall_incident"
+      ],
+      "note": "Recovered stiff with frost. The receipt stamp is the part that matters.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">Field Report &mdash; militia hand, unsigned</div><div class=\"pd-sub\">Written during the snowfall &middot; stamped by Central Command three days later</div></div><div class=\"pd-label\">URGENT</div><div class=\"pd-clause\">Commander, the snow is humming. I repeat, <b>the snow is humming</b>.</div><div class=\"pd-clause\">The village elder tried speaking to it, but the well froze solid in seconds.</div><div class=\"pd-clause\">Requesting immediate tactical support.</div><div class=\"pd-quote\">RECEIVED &mdash; Central Command &mdash; three days after the date written above.</div><div class=\"pd-margin\">The ink is smeared and the parchment is still cold to the touch. A report that takes three days to be received was either not sent when it was written, or not opened when it arrived. Both readings are worse than a slow courier. &mdash; W.</div><div class=\"pd-wah\">Filed. The elder is not named anywhere in this file. &mdash; WAH.</div>",
+      "stamps": [
+        "evidence"
+      ]
+    },
     "prop_red_dinner_service_sheet": {
       "kind": "ledger",
       "icon": "🍲",

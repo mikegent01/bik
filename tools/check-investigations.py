@@ -43,6 +43,10 @@ def ids(path, key):
     return {r['id'] for r in rows if isinstance(r, dict) and 'id' in r}
 
 EVENTS = ids('Reputation-Matrix2/data/events.json','events')
+# Battles are in TYPES alongside events, so they land in the page's INDEX and a
+# session may legitimately cite one. The checker only knew about events, which
+# reported four real, working links as broken.
+BATTLES = ids('Reputation-Matrix2/data/battles.json','battles')
 CHARS  = ids('Reputation-Matrix2/data/characters.json','characters')
 QUESTS = ids('Reputation-Matrix2/data/quests.json','quests')
 FACTIONS = ids('Reputation-Matrix2/data/factions.json','factions')
@@ -57,10 +61,11 @@ for iv in INV:
     tag = iv['id']
     sess = {s['id'] for s in iv.get('sessions', [])}
     for s in iv.get('sessions', []):
-        if s.get('event') and s['event'] not in EVENTS:
+        if s.get('event') and s['event'] not in EVENTS | BATTLES:
             err.append(f"{tag}: session {s['id']} → unknown event {s['event']}")
     for e in iv.get('relatedEvents', []):
-        if e not in EVENTS: err.append(f"{tag}: relatedEvents → unknown event {e}")
+        if e not in EVENTS | BATTLES:
+            err.append(f"{tag}: relatedEvents → unknown event {e}")
 
     # Reader-facing furniture added for newcomers. The renderer filters both
     # against INDEX so a bad id degrades to nothing on the page, which means a

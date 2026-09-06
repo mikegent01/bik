@@ -4010,7 +4010,8 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Following the intense storm, the village lay under a thick blanket of snow, eerily quiet after the chaos of the night. The branches that had threatened to break during the storm now hung low and heavy, their resilience tested but unbroken. The villagers emerged from their shelters, shivering in the cold light of dawn. Many were silent, their faces marked by exhaustion and a sense of dread.\n\nThe village elder, after his impassioned speech about ancient prophecies, was approached by several curious individuals who sought to know more about these predictions. He shared tales passed down through generations, speaking of winters that had been longer and harsher than this one, yet never so unpredictable. Despite his words, fear lingered in the air.\n\nThe village undertook a communal effort to clear paths and assess damages. Supplies were checked, and it was found that some crops had survived but others would be lost to the snow. The villagers worked together, determined to rebuild their lives. However, there was an underlying tension; the storm felt like more than just weather, as if nature itself had sent a warning.\n\nAs days passed, the cold continued, and the skies remained overcast. Some ventured into the woods cautiously, looking for signs of the unusual pressure on the earth. The village elders met frequently to discuss possible measures but could find no immediate solution. The storm’s aftermath was not just about physical damage but also a psychological one, leaving the villagers feeling both fragile and resilient in the face of an unknown future."
+          "point": "Following the intense storm, the village lay under a thick blanket of snow, eerily quiet after the chaos of the night.",
+          "detail": "The branches that had threatened to break during the storm now hung low and heavy, their resilience tested but unbroken. The villagers emerged from their shelters, shivering in the cold light of dawn. Many were silent, their faces marked by exhaustion and a sense of dread. The village elder, after his impassioned speech about ancient prophecies, was approached by several curious individuals who sought to know more about these predictions. He shared tales passed down through generations, speaking of winters that had been longer and harsher than this one, yet never so unpredictable. Despite his words, fear lingered in the air. The village undertook a communal effort to clear paths and assess damages. Supplies were checked, and it was found that some crops had survived but others would be lost to the snow. The villagers worked together, determined to rebuild their lives. However, there was an underlying tension; the storm felt like more than just weather, as if nature itself had sent a warning. As days passed, the cold continued, and the skies remained overcast. Some ventured into the woods cautiously, looking for signs of the unusual pressure on the earth. The village elders met frequently to discuss possible measures but could find no immediate solution. The storm’s aftermath was not just about physical damage but also a psychological one, leaving the villagers feeling both fragile and resilient in the face of an unknown future."
         }
       ],
       "leads": [],
@@ -4036,16 +4037,15 @@
           "secured": "14th Chillwind, 978 BF",
           "custody": "Archive — Original document requires thermal gloves to handle.",
           "visual": "<div style=\"padding:24px;border:1px solid rgba(160,220,255,.35);border-radius:10px;background:linear-gradient(135deg,rgba(20,50,70,.8),rgba(12,20,30,.95));color:#cceeff;text-align:center;font-weight:800;letter-spacing:.12em\">CONFIDENTIAL · REGIONAL COMMAND</div>",
-          "onRecord": "A hastily scribbled report from a local militiaman. The ink is smeared and the parchment is unnaturally cold. It reads: 'Commander, the snow is humming. I repeat, the snow is humming. The village elder tried speaking to it, but the well froze solid in seconds. Requesting immediate tactical support.' The stamp of receipt from Central Command is dated three days AFTER the incident.",
-          "dc": 10,
+          "onRecord": "A hastily scribbled report from a local militiaman. The ink is smeared and the parchment is unnaturally cold. It reads: 'Commander, the snow is humming. I repeat, the snow is humming. The village elder tried speaking to it, but the well froze solid in seconds. Requesting immediate tactical support.' The stamp of receipt from Central Command is dated three days AFTER the incident. [[roll:4|the receipt stamp postdates the report by three days|a report written during an event and received after it either sat undelivered or sat unopened, and both mean somebody in the chain chose not to act on it|winter couriers are slow and a three-day lag over snowed roads is unremarkable]]",
+          "dc": 4,
           "analysis": "This document proves Waluigi's assertion: the regional command completely ignored the distress call until it was far too late. The tactical failure was not a lack of communication from the ground, but a bureaucratic bottleneck at the top. The supernatural frost preserving the document is lingering fey magic.",
           "links": {
             "events": [
               "first_snowfall_incident"
             ],
-            "characters": [
-              "village_elder"
-            ]
+            "items": [],
+            "characters": []
           }
         }
       ]
@@ -4063,7 +4063,8 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "The dawn brought a somber realization to both factions as they faced the harsh realities of the night's engagements. The Guardians, having successfully repelled numerous Scourge advances, were exhausted yet relieved. They knew that while their defenses held strong, they too were stretched thin by the relentless nature of the night’s battles.\n\nOn the other side, the Scourge, though equally fatigued, maintained an air of determination. Their aggressive strategy had tested the Guardians' resolve, but also exposed vulnerabilities within their own ranks. The prolonged fighting had taken a significant toll on both sides, with casualties and injuries mounting. Leaders on both fronts had to quickly reassess their strategies for the upcoming day.\n\nIn the aftermath, the Scourge leadership convened an emergency meeting to evaluate their progress and discuss potential changes in tactics. They recognized that a direct assault might not be as effective given the high casualty rate. The Guardians, meanwhile, held council to strategize on how best to fortify their positions against any renewed attack.\n\nThe stalemate continued, with both sides preparing for what seemed likely to be another night of attrition warfare. Each faction's leaders were acutely aware that a single misstep could shift the balance in favor of the other, and thus, the strategic planning became even more critical. The battle lines remained drawn, but now with a heightened sense of anticipation for what the coming day would bring."
+          "point": "The dawn brought a somber realization to both factions as they faced the harsh realities of the night's engagements.",
+          "detail": "The Guardians, having successfully repelled numerous Scourge advances, were exhausted yet relieved. They knew that while their defenses held strong, they too were stretched thin by the relentless nature of the night’s battles. On the other side, the Scourge, though equally fatigued, maintained an air of determination. Their aggressive strategy had tested the Guardians' resolve, but also exposed vulnerabilities within their own ranks. The prolonged fighting had taken a significant toll on both sides, with casualties and injuries mounting. Leaders on both fronts had to quickly reassess their strategies for the upcoming day. In the aftermath, the Scourge leadership convened an emergency meeting to evaluate their progress and discuss potential changes in tactics. They recognized that a direct assault might not be as effective given the high casualty rate. The Guardians, meanwhile, held council to strategize on how best to fortify their positions against any renewed attack. The stalemate continued, with both sides preparing for what seemed likely to be another night of attrition warfare. Each faction's leaders were acutely aware that a single misstep could shift the balance in favor of the other, and thus, the strategic planning became even more critical. The battle lines remained drawn, but now with a heightened sense of anticipation for what the coming day would bring."
         }
       ],
       "leads": [],
@@ -4092,7 +4093,8 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Following the strategic withdrawal from Sugar Swamp, the Kremlings faced an internal reevaluation of their tactics and strategies. Their renewed emphasis on intelligence gathering and careful planning reflected a shift towards more prolonged engagements, signaling a change in their operational approach. The Pastry Folk’s diplomatic efforts had initially sparked mixed reactions; some factions saw them as potential allies against the unpredictable Kremlings, while others viewed them with suspicion, fearing opportunism.\n\nThe slow but steady alliances formed by the Pastry Folk with smaller factions marked a significant shift in the region's power dynamics. However, these gains came at a cost—estrangement from some previously allied groups who felt betrayed or threatened. The tension in Sugar Swamp remained high; skirmishes continued as both sides tested each other’s resolve and prepared for future confrontations.\n\nThe Kremlings' experience highlighted the importance of adaptability and strategic flexibility. Their willingness to engage diplomatically underscored their understanding that sheer force was insufficient, emphasizing the need for comprehensive strategy. The Pastry Folk, now poised to expand their influence, faced challenges in managing diverse alliances. They understood the responsibility to maintain stability amidst these shifts.\n\nAs Sugar Swamp simmered with ongoing conflicts, both sides prepared for the next potential tipping point. Each move, each engagement, was crucial as they vied for dominance within the volatile region."
+          "point": "Following the strategic withdrawal from Sugar Swamp, the Kremlings faced an internal reevaluation of their tactics and strategies.",
+          "detail": "Their renewed emphasis on intelligence gathering and careful planning reflected a shift towards more prolonged engagements, signaling a change in their operational approach. The Pastry Folk’s diplomatic efforts had initially sparked mixed reactions; some factions saw them as potential allies against the unpredictable Kremlings, while others viewed them with suspicion, fearing opportunism. The slow but steady alliances formed by the Pastry Folk with smaller factions marked a significant shift in the region's power dynamics. However, these gains came at a cost—estrangement from some previously allied groups who felt betrayed or threatened. The tension in Sugar Swamp remained high; skirmishes continued as both sides tested each other’s resolve and prepared for future confrontations. The Kremlings' experience highlighted the importance of adaptability and strategic flexibility. Their willingness to engage diplomatically underscored their understanding that sheer force was insufficient, emphasizing the need for comprehensive strategy. The Pastry Folk, now poised to expand their influence, faced challenges in managing diverse alliances. They understood the responsibility to maintain stability amidst these shifts. As Sugar Swamp simmered with ongoing conflicts, both sides prepared for the next potential tipping point. Each move, each engagement, was crucial as they vied for dominance within the volatile region."
         }
       ],
       "leads": [],
@@ -4121,7 +4123,8 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Aftermath of the Raid on Eldridge Hillfort:\n\nFollowing the raid, purification teams from neighboring settlements arrived to restore order and health within the hillfort. The immediate task was to address the sanitation issues caused by the battle, ensuring that any infectious agents were neutralized. New water sources were vital, and after a series of challenges, the discovery of a hidden spring brought much-needed relief.\n\nThe hillfort’s leaders prioritized both short-term repairs and long-term strategic planning. They fortified existing defenses, reinforcing walls and improving watchtowers to better withstand potential future attacks. Simultaneously, they began reorganizing supply lines and engaging in diplomacy with nearby settlements for additional support and resources.\n\nDespite the optimism brought by the spring, Eldridge Hillfort remained on high alert. The people knew that rebuilding was crucial but also understood the importance of preparing for further conflict. This dual focus reflected a deep understanding of their environment and the unyielding nature of survival. The hillfort stood as both a symbol of resilience and a reminder of the ongoing struggle to maintain order in an ever-threatened world."
+          "point": "Aftermath of the Raid on Eldridge Hillfort: Following the raid, purification teams from neighboring settlements arrived to restore order and health within the hillfort.",
+          "detail": "The immediate task was to address the sanitation issues caused by the battle, ensuring that any infectious agents were neutralized. New water sources were vital, and after a series of challenges, the discovery of a hidden spring brought much-needed relief. The hillfort’s leaders prioritized both short-term repairs and long-term strategic planning. They fortified existing defenses, reinforcing walls and improving watchtowers to better withstand potential future attacks. Simultaneously, they began reorganizing supply lines and engaging in diplomacy with nearby settlements for additional support and resources. Despite the optimism brought by the spring, Eldridge Hillfort remained on high alert. The people knew that rebuilding was crucial but also understood the importance of preparing for further conflict. This dual focus reflected a deep understanding of their environment and the unyielding nature of survival. The hillfort stood as both a symbol of resilience and a reminder of the ongoing struggle to maintain order in an ever-threatened world."
         }
       ],
       "leads": [],
@@ -4150,7 +4153,8 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Following the intense Siege and Counter-Siege phase of the Battle of Mistral Farmstead, Block Farm Village emerged battered but resilient. The village's initial population had dwindled significantly due to casualties and disease, yet those who remained were hardened by the ordeal. Supplies, which had been stretched to their limits during the siege, were gradually replenished thanks to the successful alliance with neighboring villages.\n\nThe cooperation among these allied communities proved invaluable in bolstering morale and re-establishing a semblance of normalcy within the village. The leadership's strategic decisions paid off; the combined forces successfully disrupted the Shadow Guild’s operations, weakening their grip over the region. This victory did not come without cost; numerous villagers lost their lives or were left permanently disabled.\n\nThe aftermath saw the village undertaking extensive rebuilding efforts and implementing strict public health measures to combat lingering diseases. The alliance was solidified further as these villages learned valuable lessons in unity and preparedness for future challenges. Block Farm Village’s leadership emerged stronger, determined not only to defend but also to rebuild a prosperous community amidst the shadows cast by past conflicts."
+          "point": "Following the intense Siege and Counter-Siege phase of the Battle of Mistral Farmstead, Block Farm Village emerged battered but resilient.",
+          "detail": "The village's initial population had dwindled significantly due to casualties and disease, yet those who remained were hardened by the ordeal. Supplies, which had been stretched to their limits during the siege, were gradually replenished thanks to the successful alliance with neighboring villages. The cooperation among these allied communities proved invaluable in bolstering morale and re-establishing a semblance of normalcy within the village. The leadership's strategic decisions paid off; the combined forces successfully disrupted the Shadow Guild’s operations, weakening their grip over the region. This victory did not come without cost; numerous villagers lost their lives or were left permanently disabled. The aftermath saw the village undertaking extensive rebuilding efforts and implementing strict public health measures to combat lingering diseases. The alliance was solidified further as these villages learned valuable lessons in unity and preparedness for future challenges. Block Farm Village’s leadership emerged stronger, determined not only to defend but also to rebuild a prosperous community amidst the shadows cast by past conflicts."
         }
       ],
       "leads": [],
@@ -4171,7 +4175,7 @@
       "codename": "THE SECLUSION INCIDENT AT THE UNDERCITY GROTTO",
       "title": "Aftermath: The Seclusion Incident at the Undercity Grotto",
       "subtitle": "The archive requires answers.",
-      "status": "active",
+      "status": "stub",
       "classification": "Generated Investigation",
       "opened": "Chillwind 15, 923 BF",
       "archivist": "Waluigi, Auditor-General",
@@ -4179,28 +4183,22 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Following the pivotal event within the Undercity's hidden grotto, Waluigi found himself in a state of profound reflection and heightened awareness. The key turned once more, sealing behind him the ancient treasures and secrets he had uncovered. The resounding click of the door symbolized both closure and new beginnings—closure to a chapter steeped in history, and a new beginning for his role as an influential figure in the Undercity.\n\nThe weight in his hand—the artifact that represented the balance—had felt heavier with each step deeper into the grotto. Now, it seemed lighter, but not due to any diminishment of responsibility. Instead, he felt a renewed sense of purpose and clarity. The artifacts' pulsating presence had left him with an understanding that actions taken tonight would ripple through time, influencing future decisions and events.\n\nWaluigi emerged from the grotto, his steps steady but deliberate. The whispers of centuries past seemed to fade into the background, replaced by a renewed sense of duty. His path forward was clear: to maintain the balance, to act swiftly with the knowledge gained tonight, and to ensure that secrets long kept did not lead to the loss of harmony in the Undercity.\n\nThe Undercity inhabitants noticed his altered demeanor, seeing in him a leader more confident and resolute. Waluigi knew that he had taken on a monumental task but also that he was capable of navigating this path with wisdom and strength. The balance was fragile, but so too were the lives of those who depended on it."
+          "point": "Following the pivotal event within the Undercity's hidden grotto, Waluigi found himself in a state of profound reflection and heightened awareness.",
+          "detail": "The key turned once more, sealing behind him the ancient treasures and secrets he had uncovered. The resounding click of the door symbolized both closure and new beginnings—closure to a chapter steeped in history, and a new beginning for his role as an influential figure in the Undercity. The weight in his hand—the artifact that represented the balance—had felt heavier with each step deeper into the grotto. Now, it seemed lighter, but not due to any diminishment of responsibility. Instead, he felt a renewed sense of purpose and clarity. The artifacts' pulsating presence had left him with an understanding that actions taken tonight would ripple through time, influencing future decisions and events. Waluigi emerged from the grotto, his steps steady but deliberate. The whispers of centuries past seemed to fade into the background, replaced by a renewed sense of duty. His path forward was clear: to maintain the balance, to act swiftly with the knowledge gained tonight, and to ensure that secrets long kept did not lead to the loss of harmony in the Undercity. The Undercity inhabitants noticed his altered demeanor, seeing in him a leader more confident and resolute. Waluigi knew that he had taken on a monumental task but also that he was capable of navigating this path with wisdom and strength. The balance was fragile, but so too were the lives of those who depended on it."
         }
       ],
       "leads": [],
-      "sessions": [
-        {
-          "id": "s_undercity_grotto_seclusion_incident",
-          "label": "The Seclusion Incident at the Undercity Grotto",
-          "event": "undercity_grotto_seclusion_incident"
-        }
-      ],
-      "relatedEvents": [
-        "undercity_grotto_seclusion_incident"
-      ],
-      "exhibits": []
+      "sessions": [],
+      "relatedEvents": [],
+      "exhibits": [],
+      "_stubNote": "Flipped from active by tools/fix-investigation-stubs.py: the article this arc cites has not been written. Listed in docs/worklists/investigation-stubs.md."
     },
     {
       "id": "inv_ruin_recovery_1023_bf",
       "codename": "THE QUIET RECLAMATION OF FORGOTTEN RUINS",
       "title": "Aftermath: The Quiet Reclamation of Forgotten Ruins",
       "subtitle": "The archive requires answers.",
-      "status": "active",
+      "status": "stub",
       "classification": "Generated Investigation",
       "opened": "Chillwind 15, 1023 BF",
       "archivist": "Waluigi, Auditor-General",
@@ -4208,28 +4206,22 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "The riders from Rohan returned home with tales of the hillfort's relics under the cloak of morning light. The cache they had uncovered spoke volumes about a past now buried beneath layers of time, but it also left them with an uneasy feeling, as if the stories behind those artifacts were incomplete or lost to time. Waluigi’s mind lingered on the irony of history—how empires rise and fall while leaving behind only their forgotten relics.\n\nThe local scholars, who examined the collection, found evidence that suggested a blend of cultural influences not previously known in this region. This discovery opened new avenues for historical research but also raised more questions than answers. The pottery shards and metalwork hinted at once-flourishing trade routes and alliances that had since vanished into obscurity.\n\nThe hillfort itself, now quiet and still, was left to its own devices. It stood as a silent testament to the passage of time, its stones indifferent to the stories they held. As the days passed, the hillfort continued its slow decline, with only the artifacts from the cache serving as reminders of its former glory.\n\nWaluigi returned to his quarters, the weight of the past heavy on his mind. He realized that while the hillfort and its treasures belonged to history, he was part of a present where the lessons of the past could shape future decisions. The call in the wind, though distant, resonated with him—a reminder that all things have their end, but understanding is what truly matters."
+          "point": "The riders from Rohan returned home with tales of the hillfort's relics under the cloak of morning light.",
+          "detail": "The cache they had uncovered spoke volumes about a past now buried beneath layers of time, but it also left them with an uneasy feeling, as if the stories behind those artifacts were incomplete or lost to time. Waluigi’s mind lingered on the irony of history—how empires rise and fall while leaving behind only their forgotten relics. The local scholars, who examined the collection, found evidence that suggested a blend of cultural influences not previously known in this region. This discovery opened new avenues for historical research but also raised more questions than answers. The pottery shards and metalwork hinted at once-flourishing trade routes and alliances that had since vanished into obscurity. The hillfort itself, now quiet and still, was left to its own devices. It stood as a silent testament to the passage of time, its stones indifferent to the stories they held. As the days passed, the hillfort continued its slow decline, with only the artifacts from the cache serving as reminders of its former glory. Waluigi returned to his quarters, the weight of the past heavy on his mind. He realized that while the hillfort and its treasures belonged to history, he was part of a present where the lessons of the past could shape future decisions. The call in the wind, though distant, resonated with him—a reminder that all things have their end, but understanding is what truly matters."
         }
       ],
       "leads": [],
-      "sessions": [
-        {
-          "id": "s_ruin_recovery_1023_bf",
-          "label": "The Quiet Reclamation of Forgotten Ruins",
-          "event": "ruin_recovery_1023_bf"
-        }
-      ],
-      "relatedEvents": [
-        "ruin_recovery_1023_bf"
-      ],
-      "exhibits": []
+      "sessions": [],
+      "relatedEvents": [],
+      "exhibits": [],
+      "_stubNote": "Flipped from active by tools/fix-investigation-stubs.py: the article this arc cites has not been written. Listed in docs/worklists/investigation-stubs.md."
     },
     {
       "id": "inv_frostfall_moonlit_mysteries",
       "codename": "FROSTFALL'S MOONLIT MYSTERIES",
       "title": "Aftermath: Frostfall's Moonlit Mysteries",
       "subtitle": "The archive requires answers.",
-      "status": "active",
+      "status": "stub",
       "classification": "Generated Investigation",
       "opened": "Deepwinter 15, year 784 BF",
       "archivist": "Waluigi, Auditor-General",
@@ -4237,21 +4229,15 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Following his harrowing encounter in Frostfall, Waluigi found himself amidst a landscape where shadows loomed large and secrets were as cold as the wind. The distant howls of creatures had left an indelible mark on his psyche, adding to the unease already present when he returned to the city. Local authorities reported no immediate disturbances or unusual activities, yet Waluigi could not shake off the feeling that something significant had occurred.\n\nIn the days following this event, Waluigi's contacts within various intelligence networks began reporting heightened surveillance and increased chatter among underground groups known for their involvement in such shadowy affairs. The peculiar hums he encountered resonated with theories of anomalous electromagnetic interference—a phenomenon often exploited by those seeking to control uncharted territories and resources.\n\nWaluigi decided to dig deeper into historical records, uncovering old reports of similar occurrences across various regions. His investigation led him to a network of clandestine organizations operating at the crossroads of science, technology, and power politics. The more he uncovered, the clearer it became that these events were not isolated incidents but part of a much larger, interconnected web.\n\nWith this new knowledge, Waluigi realized the importance of his role in unraveling these mysteries. Each piece of information pieced together brought him one step closer to understanding the true extent of the manipulation at play. The cold wind outside was a constant reminder that the battle against shadows would be long and arduous."
+          "point": "Following his harrowing encounter in Frostfall, Waluigi found himself amidst a landscape where shadows loomed large and secrets were as cold as the wind.",
+          "detail": "The distant howls of creatures had left an indelible mark on his psyche, adding to the unease already present when he returned to the city. Local authorities reported no immediate disturbances or unusual activities, yet Waluigi could not shake off the feeling that something significant had occurred. In the days following this event, Waluigi's contacts within various intelligence networks began reporting heightened surveillance and increased chatter among underground groups known for their involvement in such shadowy affairs. The peculiar hums he encountered resonated with theories of anomalous electromagnetic interference—a phenomenon often exploited by those seeking to control uncharted territories and resources. Waluigi decided to dig deeper into historical records, uncovering old reports of similar occurrences across various regions. His investigation led him to a network of clandestine organizations operating at the crossroads of science, technology, and power politics. The more he uncovered, the clearer it became that these events were not isolated incidents but part of a much larger, interconnected web. With this new knowledge, Waluigi realized the importance of his role in unraveling these mysteries. Each piece of information pieced together brought him one step closer to understanding the true extent of the manipulation at play. The cold wind outside was a constant reminder that the battle against shadows would be long and arduous."
         }
       ],
       "leads": [],
-      "sessions": [
-        {
-          "id": "s_frostfall_moonlit_mysteries",
-          "label": "Frostfall's Moonlit Mysteries",
-          "event": "frostfall_moonlit_mysteries"
-        }
-      ],
-      "relatedEvents": [
-        "frostfall_moonlit_mysteries"
-      ],
-      "exhibits": []
+      "sessions": [],
+      "relatedEvents": [],
+      "exhibits": [],
+      "_stubNote": "Flipped from active by tools/fix-investigation-stubs.py: the article this arc cites has not been written. Listed in docs/worklists/investigation-stubs.md."
     }
   ]
 }

@@ -75,6 +75,51 @@ def collections() -> tuple[list, object]:
     return lst, raw
 
 
+def scan_event_participants():
+    """Events carry participants[{id,name,role}] the same way collections carry
+    members. A dangling id there is worse than in a collection: participants
+    feed the search index, so a broken one silently costs a record its
+    'who was in this' coverage."""
+    known = known_records()
+    # A participant is a PERSON. Matching by name alone happily returns an
+    # event whose title contains the character's name -- "god_toad" resolved to
+    # "the_toad_god_interview_and_the_star_shard", which would have quietly
+    # listed an article as a member of its own cast. Only character and faction
+    # records are candidates here.
+    by_name = {}
+    for rid, (nm, src) in known.items():
+        if nm and src in ("characters", "factions"):
+            by_name.setdefault(nm, []).append(rid)
+    broken = {}
+    for ev in load("events"):
+        for p in (ev.get("participants") or []):
+            if not isinstance(p, dict):
+                continue
+            pid = p.get("id")
+            if not pid or pid in known:
+                continue
+            rec = broken.setdefault(pid, {"in": [], "names": set(), "suggest": None})
+            rec["in"].append(ev["id"])
+            if p.get("name"):
+                rec["names"].add(p["name"])
+    for mid, rec in broken.items():
+        for nm in rec["names"]:
+            key = norm(nm)
+            hits = by_name.get(key) or []
+            if len(hits) == 1:
+                rec["suggest"] = hits[0]
+                break
+            if len(key) >= 4:
+                pre = sorted({rid for full, rids in by_name.items()
+                              if full.startswith(key + " ") for rid in rids})
+                if len(pre) == 1:
+                    rec["suggest"] = pre[0]
+                    break
+                if pre:
+                    rec["candidates"] = pre
+    return broken
+
+
 def scan():
     known = known_records()
     by_name = {}
@@ -215,9 +260,22 @@ def main() -> int:
     ap.add_argument("--check", action="store_true", help="exit 1 while any member is unlinked")
     ap.add_argument("--write", action="store_true", help="apply exact-name repoints")
     ap.add_argument("--worklist", action="store_true", help="write the commission list")
+    ap.add_argument("--events", action="store_true",
+                    help="report dangling participant ids in events.json")
     args = ap.parse_args()
 
     broken = scan()
+    ev_broken = scan_event_participants()
+
+    if args.events:
+        ev_auto = {k: v for k, v in ev_broken.items() if v["suggest"]}
+        rows = sum(len(v["in"]) for v in ev_broken.values())
+        print(f"event participants with no record: {len(ev_broken)} ids ({rows} rows)")
+        print(f"  safe to repoint : {len(ev_auto)}")
+        print(f"  needs an article: {len(ev_broken) - len(ev_auto)}")
+        for mid, v in sorted(ev_auto.items()):
+            print(f"   {mid:<26} -> {v['suggest']}")
+        return 0
 
     if args.write:
         apply_repoints(broken)
