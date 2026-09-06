@@ -1,0 +1,93 @@
+/* Campaign cover gallery (homepage front desk).
+   Data lives in Reputation-Matrix2/data/mainPage.json:
+     campaignCovers[] — the two live-front composite key arts
+     fieldGallery[]   — existing field imagery from the archive
+
+   Rule: covers may be composites/edits of supplied project art; the field
+   strip must be existing archive images (portraits / event art), never new
+   renders where the archive already carries the beat. */
+
+.campaign-covers-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:16px;
+  margin:14px 0 6px;
+}
+.campaign-cover-card{
+  position:relative;
+  margin:0;
+  border-radius:14px;
+  overflow:hidden;
+  background:var(--panel2,#161022);
+  border:1px solid var(--border,#33254f);
+  box-shadow:0 8px 26px rgba(0,0,0,.35);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.campaign-cover-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 14px 34px rgba(0,0,0,.45);
+  border-color:var(--accent2,#e0b400);
+}
+.campaign-cover-card img{
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
+.campaign-cover-card figcaption{
+  padding:10px 14px 12px;
+  display:grid;
+  gap:3px;
+  background:linear-gradient(180deg,transparent,rgba(8,5,16,.92));
+}
+.campaign-cover-card .cover-campaign{
+  font-size:10.5px;
+  font-weight:900;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  color:var(--accent2,#e0b400);
+}
+.campaign-cover-card b{font-size:14.5px;color:var(--text,#f2ecff);line-height:1.3;}
+.campaign-cover-card em{font-style:normal;font-size:12px;color:var(--muted,#b9a8d6);line-height:1.45;}
+.campaign-cover-card.broken img{display:none;}
+.campaign-cover-card.broken figcaption{padding-top:14px;}
+
+.field-gallery-strip{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:12px;
+  margin-top:16px;
+}
+.field-gal-item{
+  position:relative;
+  margin:0;
+  border-radius:10px;
+  overflow:hidden;
+  background:var(--panel2,#161022);
+  border:1px solid var(--border,#33254f);
+  cursor:pointer;
+  transition:transform .15s ease, border-color .15s ease;
+}
+.field-gal-item:hover{transform:translateY(-2px);border-color:var(--accent2,#e0b400);}
+.field-gal-item img{
+  display:block;
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
+.field-gal-item figcaption{
+  position:absolute;
+  inset:auto 0 0 0;
+  padding:7px 9px;
+  font-size:11px;
+  line-height:1.35;
+  color:#eee;
+  background:linear-gradient(180deg,transparent,rgba(8,5,16,.88));
+}
+.field-gal-item.broken img{display:none;}
+.field-gal-item.broken figcaption{position:static;padding-top:10px;}
+
+@media (max-width:640px){
+  .campaign-covers-grid{grid-template-columns:1fr;}
+  .field-gallery-strip{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
+}

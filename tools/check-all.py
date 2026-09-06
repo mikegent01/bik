@@ -51,6 +51,7 @@ def main() -> int:
         ("background blurbs", [py, "tools/check-background.py"], ROOT),
         ("dossier assessments", [py, "tools/check-assessments.py"], ROOT),
         ("home feed contract", [py, "tools/check-home-feed.py"], ROOT),
+        ("cover gallery", [py, "tools/check-covers.py"], ROOT),
         ("RNN broadcast data", [py, "tools/build-rnn-broadcast.py", "--check"], ROOT),
         ("Bros Attack sync", [py, "tools/sync_bros_attacks.py", "--check"], RM),
         ("Foundry sanitizer", [py, "tools/tests/test-sanitize-foundry-actor.py"], ROOT),

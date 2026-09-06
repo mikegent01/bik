@@ -42,6 +42,7 @@
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/exhibits.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/investigations.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/version-history.css">
+  <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/campaign-covers.css">
   <link rel="stylesheet" href="Reputation-Matrix2/app/styles/systems/regal-parliament.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script src="Reputation-Matrix2/data/vendors-directory.js"></script>
@@ -7645,6 +7646,29 @@ function homeFeedAccent(ev, isLatest){
   if(/shadow|imp|mirror|vampire|cottage/.test(hay)) return {bar:'#6f59a8', glow:'rgba(111,89,168,.18)', chip:'#c9a6ff', btn:'#6f59a8'};
   return {bar:'#8a4bff', glow:'rgba(138,75,255,.12)', chip:'#c9a6ff', btn:'#8a4bff'};
 }
+function homeCoversHtml(){
+  /* Cover gallery (front desk). Data is mainPage.campaignCovers (composite
+     key art for the current fronts) + mainPage.fieldGallery (existing archive
+     imagery — reuse, not renders). */
+  const mp=DATA&&DATA.mainPage||{};
+  const covers=Array.isArray(mp.campaignCovers)?mp.campaignCovers:[];
+  const field=Array.isArray(mp.fieldGallery)?mp.fieldGallery:[];
+  const linkFor=(id)=>id&&INDEX[id]?`Router.go('#/article/${esc(id)}')`:'';
+  const coverCards=covers.map(c=>{
+    const tag=c.campaign?`<span class="cover-campaign">${esc(c.campaign)} · Current Front</span>`:'';
+    return `<figure class="campaign-cover-card" onclick="${linkFor(c.articleId)}" style="cursor:pointer;">
+      <img src="${esc(assetPath(c.image))}" alt="${esc(c.title||'Campaign cover')}" loading="lazy"
+           onerror="this.closest('figure').classList.add('broken')">
+      <figcaption>${tag}<b>${esc(c.title||'')}</b><em>${esc(c.caption||'')}</em></figcaption>
+    </figure>`;
+  }).join('');
+  const fieldItems=field.map(g=>`<figure class="field-gal-item" onclick="${linkFor(g.articleId)}">
+    <img src="${esc(assetPath(g.image))}" alt="${esc(g.caption||'')}" loading="lazy"
+         onerror="this.closest('figure').classList.add('broken')">
+    <figcaption>${esc(g.caption||'')}</figcaption>
+  </figure>`).join('');
+  return {covers:coverCards, field:fieldItems};
+}
 function homeRecentAdventuresHtml(){
   const events=(DATA&&DATA.events)||[];
   const latestId=(DATA.mainPage&&DATA.mainPage.latestUpdate&&DATA.mainPage.latestUpdate.id)||'';
@@ -7854,6 +7878,24 @@ function view_home(){
               <a class="chip" href="currency.html" style="margin:0; font-weight:700; background:var(--panel2);">💱 48-Currency Bank</a>
        <a class="chip" href="Reputation-Matrix2/app/pages/standalone/injury-desk.html" style="margin:0; font-weight:700; background:var(--panel2);">🎲 Permanent Injury Spinner</a>
      </div>
+   </div>
+
+   <!-- 2. CAMPAIGN COVERS & FIELD GALLERY -->
+   <div class="card animate-fade-in" style="border-left:4px solid var(--accent2); margin-bottom:24px;">
+     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:6px;">
+       <div>
+         <span style="font-size:11px; font-weight:900; color:var(--accent2); text-transform:uppercase; letter-spacing:0.6px;">Front Desk · This Season</span>
+         <h2 style="font-size:20px; font-weight:900; margin:4px 0; color:var(--text);">🎬 CAMPAIGN COVERS — WHAT'S ON THE FRONT</h2>
+       </div>
+       <button class="chip active" onclick="Router.go('#/list/events')" style="cursor:pointer; background:var(--accent2); color:#0b0616; font-weight:800;">📂 Browse All Filings →</button>
+     </div>
+     <p style="font-size:14px; color:var(--muted); margin:0 0 4px;">
+       Composite key art for the two live fronts — Feyward and Shadeward — built from supplied project
+       portraits and field art. The strip below is archive imagery already filed with the events, not new renders.
+     </p>
+     <div id="home-campaign-covers" class="campaign-covers-grid"></div>
+     <div class="field-strip-head" style="margin-top:6px; font-size:11px; font-weight:900; letter-spacing:.7px; text-transform:uppercase; color:var(--muted);">📷 From the archive — same stories, filed art</div>
+     <div id="home-field-gallery" class="field-gallery-strip"></div>
    </div>
 
    <!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
@@ -8201,6 +8243,16 @@ function view_home(){
      </div>
    </div>
    `;
+
+  try {
+    const coversMount = document.getElementById('home-campaign-covers');
+    const fieldMount = document.getElementById('home-field-gallery');
+    if (coversMount || fieldMount) {
+      const h = homeCoversHtml();
+      if (coversMount && h.covers) coversMount.innerHTML = h.covers;
+      if (fieldMount && h.field) fieldMount.innerHTML = h.field;
+    }
+  } catch (e) { console.warn('home covers failed', e); }
 
   try {
     const feedMount = document.getElementById('home-recent-adventures');

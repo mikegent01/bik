@@ -15,6 +15,50 @@ nonsense word `CRERA` on the tail. None of it was wrong, exactly. It was
 
 ---
 
+## Rule 0 — reuse the archive before spending a generation
+
+**The project's own files are the art department. Check them first.** The
+archive already carries canon imagery for most of what a filing needs:
+
+| Where | What lives there |
+|---|---|
+| `Reputation-Matrix2/portraits/` (+ `assets/portraits/party/`, `player/`, `toads/`) | Character likenesses — 300+ files across the campaign and its mirrors |
+| `Reputation-Matrix2/assets/images/events/…`, `battles/…`, `arcs/…` | Filed scene art, lead images, section plates from previous sessions |
+| `Reputation-Matrix2/tools/item sheet examples/image paths.txt` | The Foundry asset manifest (icons, tokens, `npc/…`, `player/…`) |
+| `Reputation-Matrix2/actors/` | Importer-ready actor exports, including their `img`/token art |
+
+Work this ladder before writing a prompt sheet:
+
+```text
+1. An existing image carries the beat          → use it as-is (or crop it).
+                                                 Say "reused assets/<path>" in the run report.
+2. A beat needs compositing (a cover, a poster, → EDIT/COMPOSITE the existing images:
+   a montage of known figures)                    pass the portraits + scene art as
+                                                 generate_image images:[...] references and
+                                                 instruct "composite from supplied images,
+                                                 do not redesign" — never generate figures
+                                                 you already have files for.
+3. The closest existing image is right but      → EDIT that image (remove/relight/repose) rather
+   wrong in one detail (a figure who was not       than regenerating the whole piece from scratch.
+   there, a face that drifted)                    Editing keeps every other canon element intact.
+4. Nothing existing can express the beat        → NOW generate. Follow the prompt-sheet
+                                                 process below, starting from the prose.
+```
+
+**Reuse is not a compromise; it is the stronger option.** The home page's
+campaign-cover gallery (`mainPage.campaignCovers` / `mainPage.fieldGallery`)
+is deliberately built this way: two composite key arts plus a strip of
+**already-filed event images**. When a story already has art, the gallery
+reuses it; nothing is rendered again just because a new section wants pixels.
+
+**Composites always register in data.** A cover or montage that reaches the
+site goes into `mainPage.json` with `campaignCovers` (composites) and
+`fieldGallery` (reused archive images), each entry carrying `image`,
+`caption`, and `articleId`. `tools/check-covers.py` proves every path exists
+and every link lands — add new gallery entries there, not in hard-coded HTML.
+
+---
+
 ## The rule that governs everything else
 
 **The prose is the art direction.** You are not inventing a scene. The scene
@@ -383,6 +427,9 @@ sixty-one feet — and it is the right place for the archive's dry verdict.
 
 ## Final checklist
 
+- [ ] **Rule 0 applied** — archive searched for existing art before any prompt; reuse or edit chosen where possible
+- [ ] Composites built from supplied project files, never newly invented figures
+- [ ] Cover/montage additions registered in `mainPage.json` (+ `tools/check-covers.py` green)
 - [ ] Prompt sheet written and reviewed **before** any generation
 - [ ] Every "Must appear" item traceable to a sentence in the prose
 - [ ] **Cast row filled on every block** — portrait path, or an explicit "place/object plate"
