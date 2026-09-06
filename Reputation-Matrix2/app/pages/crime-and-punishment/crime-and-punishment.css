@@ -1,0 +1,141 @@
+/* Crime and Punishment — sentencing reel + consequence table.
+   Scoped under #cap-root so nothing here can leak into the wiki shell. */
+
+#cap-root{
+  --cap-bg:#241d33;
+  --cap-panel:#2e2542;
+  --cap-line:rgba(212,168,83,.28);
+  --cap-gold:#d4a853;
+  --cap-fg:#f0e9dd;
+  --cap-muted:#a99fb8;
+  --cap-mild:#2ecc71;
+  --cap-moderate:#f39c12;
+  --cap-severe:#e74c3c;
+  --cap-weird:#9b59b6;
+  --cap-special:#3498db;
+  color:var(--cap-fg);
+  font-family:'Roboto Mono',ui-monospace,monospace;
+  max-width:1180px;margin:0 auto;padding:18px 16px 60px;
+}
+#cap-root *{box-sizing:border-box}
+#cap-root h1{font-family:'Orbitron',sans-serif;font-size:26px;margin:0 0 4px;color:var(--cap-gold);letter-spacing:.5px}
+#cap-root .cap-sub{color:var(--cap-muted);font-size:13px;margin-bottom:18px;font-style:italic}
+
+/* ---- phase strip ---- */
+.cap-phases{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.cap-phase{flex:1;min-width:210px;padding:10px 14px;border-radius:10px;background:var(--cap-panel);
+  border:1px solid rgba(255,255,255,.08);opacity:.5;transition:.2s}
+.cap-phase.on{opacity:1;border-color:var(--cap-line);box-shadow:0 0 0 1px rgba(212,168,83,.15)}
+.cap-phase .n{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--cap-muted)}
+.cap-phase .t{font-size:14px;font-weight:700;margin-top:2px}
+
+/* ---- the reel ---- */
+.cap-reel-wrap{background:var(--cap-panel);border:1px solid var(--cap-line);border-radius:14px;
+  padding:16px;margin-bottom:16px}
+/* The window pulses while the reel is turning and flashes gold when it stops,
+   so the moment of landing reads without sound. */
+.cap-reel.spinning .cap-window{animation:capPulse .55s ease-in-out infinite}
+@keyframes capPulse{0%,100%{box-shadow:0 0 0 0 rgba(212,168,83,.35)}50%{box-shadow:0 0 16px 3px rgba(212,168,83,.45)}}
+.cap-reel.landed .cap-window{animation:capLand .7s ease-out}
+@keyframes capLand{
+  0%{box-shadow:0 0 30px 8px rgba(212,168,83,.85);background:rgba(212,168,83,.22)}
+  100%{box-shadow:none;background:rgba(212,168,83,.07)}
+}
+.cap-reel.spinning .cap-strip{filter:blur(.4px)}
+.cap-verdict.show{animation:capIn .32s cubic-bezier(.2,.9,.3,1.2)}
+.cap-btn:active:not(:disabled){transform:translateY(1px) scale(.985)}
+@media (prefers-reduced-motion:reduce){
+  .cap-reel.spinning .cap-window,.cap-reel.landed .cap-window{animation:none}
+  .cap-reel.spinning .cap-strip{filter:none}
+}
+.cap-reel{position:relative;height:270px;overflow:hidden;border-radius:10px;
+  background:linear-gradient(180deg,#1b1628,#241d33);border:1px solid rgba(255,255,255,.07)}
+/* fade the top and bottom so the list reads as a physical drum */
+.cap-reel::before,.cap-reel::after{content:'';position:absolute;left:0;right:0;height:74px;z-index:3;pointer-events:none}
+.cap-reel::before{top:0;background:linear-gradient(180deg,#1b1628 10%,rgba(27,22,40,0))}
+.cap-reel::after{bottom:0;background:linear-gradient(0deg,#1b1628 10%,rgba(27,22,40,0))}
+.cap-window{position:absolute;left:8px;right:8px;top:50%;transform:translateY(-50%);height:54px;
+  border-top:2px solid var(--cap-gold);border-bottom:2px solid var(--cap-gold);
+  background:rgba(212,168,83,.07);z-index:2;pointer-events:none;border-radius:4px}
+.cap-window::before,.cap-window::after{content:'';position:absolute;top:50%;transform:translateY(-50%);
+  border:9px solid transparent;z-index:4}
+.cap-window::before{left:-4px;border-left-color:var(--cap-gold)}
+.cap-window::after{right:-4px;border-right-color:var(--cap-gold)}
+.cap-strip{position:absolute;left:0;right:0;top:0;will-change:transform}
+.cap-row{height:54px;display:flex;align-items:center;gap:10px;padding:0 20px;
+  border-bottom:1px solid rgba(255,255,255,.05)}
+.cap-row .sw{width:6px;height:32px;border-radius:3px;flex:0 0 auto}
+.cap-row .lb{font-size:14px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.cap-row .sv{font-size:10.5px;color:var(--cap-muted);white-space:nowrap;letter-spacing:.05em}
+
+/* ---- controls ---- */
+.cap-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.cap-btn{font-family:inherit;font-size:14px;font-weight:700;padding:11px 20px;border-radius:9px;
+  border:1px solid rgba(255,255,255,.14);background:#5b4bd6;color:#fff;cursor:pointer;transition:.15s}
+.cap-btn:hover:not(:disabled){filter:brightness(1.14);transform:translateY(-1px)}
+.cap-btn:disabled{opacity:.4;cursor:not-allowed}
+.cap-btn.g{background:#27ae60}
+.cap-btn.r{background:#c0392b}
+.cap-btn.ghost{background:transparent;color:var(--cap-muted)}
+.cap-meta{margin-left:auto;font-size:12.5px;color:var(--cap-muted);text-align:right}
+.cap-meta b{color:var(--cap-gold)}
+
+/* ---- charge bar ---- */
+.cap-charge{height:9px;border-radius:5px;background:rgba(255,255,255,.09);overflow:hidden;margin-top:12px}
+.cap-charge i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2ecc71,#f1c40f,#e74c3c);transition:width .08s linear}
+
+/* ---- verdict card ---- */
+.cap-verdict{margin-top:16px;padding:16px 18px;border-radius:12px;background:var(--cap-panel);
+  border:1px solid var(--cap-line);display:none}
+.cap-verdict.show{display:block;animation:capIn .28s ease}
+@keyframes capIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cap-verdict .vk{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cap-muted)}
+.cap-verdict .vt{font-size:20px;font-weight:700;margin:4px 0 8px;font-family:'Orbitron',sans-serif;line-height:1.25}
+.cap-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.cap-tag{font-size:11px;padding:3px 9px;border-radius:99px;border:1px solid rgba(255,255,255,.16);color:var(--cap-fg)}
+.cap-quote{font-style:italic;color:var(--cap-muted);font-size:13px;line-height:1.55;
+  border-left:3px solid var(--cap-gold);padding-left:12px;margin-top:10px}
+
+/* ---- consequence ---- */
+.cap-cons{margin-top:16px;padding:16px 18px;border-radius:12px;background:#2a1c1c;
+  border:1px solid rgba(231,76,60,.4);display:none}
+.cap-cons.show{display:block;animation:capIn .28s ease}
+.cap-cons .roll{font-family:'Orbitron',sans-serif;font-size:30px;color:#ff8a80;line-height:1}
+.cap-cons .cat{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--cap-muted);margin-top:6px}
+.cap-cons .inj{font-size:17px;font-weight:700;margin:4px 0 8px}
+.cap-cons .desc{font-size:13.5px;line-height:1.6;color:#e8dcd6}
+.cap-cons .cure{margin-top:10px;font-size:12.5px;color:var(--cap-muted)}
+.cap-cons .cure b{color:#ffb4a2}
+
+/* ---- shop ---- */
+.cap-shop{margin-top:22px}
+.cap-shop h2{font-family:'Orbitron',sans-serif;font-size:17px;color:var(--cap-gold);margin:0 0 4px}
+.cap-shop .blurb{font-size:12.5px;color:var(--cap-muted);margin-bottom:12px;font-style:italic}
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:11px}
+.cap-item{background:var(--cap-panel);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:12px 14px;
+  display:flex;flex-direction:column;gap:7px}
+.cap-item .nm{font-size:13.5px;font-weight:700}
+.cap-item .nm.scam{color:#ffcc66}
+.cap-item .ds{font-size:11.5px;color:var(--cap-muted);line-height:1.5;flex:1}
+.cap-item .rw{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.cap-item .ct{font-size:12.5px;color:var(--cap-gold);font-weight:700}
+.cap-buy{font-family:inherit;font-size:11.5px;font-weight:700;padding:6px 14px;border-radius:7px;
+  border:1px solid rgba(255,255,255,.16);background:#4a3f7a;color:#fff;cursor:pointer}
+.cap-buy:disabled{opacity:.38;cursor:not-allowed}
+
+.cap-log{margin-top:22px;font-size:12px;color:var(--cap-muted);line-height:1.75;
+  max-height:190px;overflow:auto;border-top:1px solid rgba(255,255,255,.09);padding-top:10px}
+.cap-log div{padding:1px 0}
+.cap-log .hi{color:var(--cap-gold)}
+
+.cap-note{margin-top:20px;font-size:11.5px;color:var(--cap-muted);line-height:1.65;
+  border-top:1px solid rgba(255,255,255,.08);padding-top:12px}
+
+@media (max-width:620px){
+  .cap-reel{height:216px}
+  .cap-meta{margin-left:0;width:100%;text-align:left}
+}
+@media (prefers-reduced-motion:reduce){
+  .cap-strip{transition:none!important}
+  .cap-verdict.show,.cap-cons.show{animation:none}
+}

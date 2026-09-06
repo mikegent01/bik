@@ -1,0 +1,5306 @@
+{
+  "folder": null,
+  "name": "Waluigi",
+  "type": "character",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0,
+      "IETzTwoDi4ElBJAV": 0
+    },
+    "abilities": {
+      "str": {
+        "value": 14,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 18,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 16,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 13,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 8,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 20,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "acr": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 2,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 1,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "JXS0f4ka71qKB2h3": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "HosVywGhVnGaF5lI": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 2,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "7CR1Hpx2Po8spit0": {
+        "ability": "con",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ZZNb2z3t0wdcMgNJ": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "6fCmMl31VtsqwENr": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 1,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 1,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "UreduGlabi2z8Vvm": {
+        "ability": "WIS",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "hQUumf2MfKPzcpDd": {
+        "ability": "INT",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 4,
+        "override": null
+      },
+      "spell2": {
+        "value": 3,
+        "override": null
+      },
+      "spell3": {
+        "value": 2,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      },
+      "pact": {
+        "value": 0,
+        "override": null
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": null,
+        "calc": "default",
+        "formula": ""
+      },
+      "hp": {
+        "value": 37,
+        "max": 37,
+        "temp": null,
+        "tempmax": 0,
+        "bonuses": {}
+      },
+      "movement": {
+        "walk": "40",
+        "climb": "30",
+        "units": "ft",
+        "hover": false,
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "special": "Sense Gold & Debts (60ft)",
+        "units": "ft",
+        "ranges": {
+          "darkvision": 60,
+          "blindsight": null,
+          "tremorsense": null,
+          "truesight": null
+        }
+      },
+      "spellcasting": "int",
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "death": {
+        "success": 0,
+        "failure": 0,
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "inspiration": false
+    },
+    "details": {
+      "alignment": "Chaotic Neutral",
+      "biography": {
+        "value": "<h1>The Scourge of Probability</h1><p>In a world tearing itself apart, Waluigi stands as a testament to the power of spite. A lanky silhouette of purple misery and surprising competence, he has carved a niche in the War-Torn Mushroom Kingdom not as a hero, but as a survivor who refuses to be ignored.</p><hr><h3>The 'Wally' Deception (1040 BF)</h3><p>For weeks, Waluigi operated under the alias <strong>'Wally,'</strong> a humble, mustache-less scout for the Iron Legion. He successfully infiltrated the party, feeding intel to the Legion until the hijacking of the airship <em>Vigilance</em>. The reveal of his identity was theatrical, devastating, and cemented his reputation as a master actor, though he lost his favorite fake mustache in the process.</p><h3>The 'Friendly Fire' Incident</h3><p>During the chaos aboard the <em>Vigilance</em> (Day 12), Waluigi unleashed a powerful <em>Cone of Cold</em> spell intended for Iron Legion boarders. However, due to his absolute lack of concern for collateral damage, he froze the toad ally <strong>Eager</strong> solid and hospitalized the newcomer <strong>FNG Remi</strong>. He maintains to this day that Eager 'walked into the crossfire' and that he actually saved them by cooling the room down.</p><h3>The Feywild Trauma</h3><p>After the <strong>Shattered Ritual</strong> at Raventree Manor (Day 21), Waluigi fell into the Feywild reflection of the estate. There, his leg was shattered by a Guardian Butterfly. He was saved by Sprites who used aggressive rapid-growth magic to knit the bone back together. The leg is now stronger but twitches with chaotic fey energy, giving him an unnatural, bouncy gait.</p>",
+        "public": ""
+      },
+      "race": null,
+      "ideal": "Recognition. Mario gets parades, Luigi gets sympathy, Wario gets paid. I get an encyclopedia and I wrote it myself. (Chaotic)",
+      "bond": "Wario's ledger. I did not agree to the debt, I do not accept the debt, and I have memorised every line of it.",
+      "flaw": "I cannot let a slight go, and I cannot tell the difference between a slight and a Tuesday.",
+      "habitat": {
+        "value": [],
+        "custom": ""
+      },
+      "treasure": {
+        "value": []
+      },
+      "xp": {
+        "value": 11911
+      },
+      "appearance": "Absurdly tall, absurdly thin, moustache waxed to a point sharp enough to file a grievance with. The left leg does not always arrive at the same time as the rest of him.",
+      "trait": "I am the greatest athlete in the Mushroom Kingdom and I will explain why, at length, unprompted.\nI keep records on everyone. Everyone.",
+      "gender": "Male",
+      "eyes": "Violet",
+      "hair": "Black",
+      "background": "ge0qtGAz6BJvGjmh",
+      "originalClass": "A19yytEFeQpC1YrF"
+    },
+    "resources": {
+      "primary": {
+        "value": 5,
+        "max": 5,
+        "sr": true,
+        "lr": false,
+        "label": "Arcane Recovery"
+      },
+      "secondary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      },
+      "tertiary": {
+        "value": 0,
+        "max": 0,
+        "sr": false,
+        "lr": false,
+        "label": ""
+      }
+    },
+    "source": {
+      "revision": 1,
+      "rules": "2024"
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common",
+          "undercommon",
+          "thieves' cant",
+          "sylvan"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "ci": {
+        "value": [
+          "charmed",
+          "frightened"
+        ],
+        "custom": ""
+      },
+      "dr": {
+        "value": [
+          "cold",
+          "psychic"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": false
+    },
+    "bastion": {
+      "name": "",
+      "description": ""
+    },
+    "favorites": []
+  },
+  "prototypeToken": {
+    "name": "Waluigi",
+    "displayName": 0,
+    "actorLink": true,
+    "width": 1,
+    "height": 1,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "depth": 1
+  },
+  "items": [
+    {
+      "_id": "ge0qtGAz6BJvGjmh",
+      "name": "Field Archivist (Disaster Inc.)",
+      "type": "background",
+      "img": "icons/sundries/books/book-embossed-jewel-silver-green.webp",
+      "system": {
+        "identifier": "field-archivist",
+        "description": {
+          "value": "<p>Author of the encyclopedia, reluctant employee of Wario's Enterprise, and the only person present at most of these events who took notes.</p>",
+          "chat": ""
+        },
+        "advancement": [],
+        "startingEquipment": [],
+        "source": {
+          "custom": "Waluipedia",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "A19yytEFeQpC1YrF",
+      "name": "Wizard",
+      "type": "class",
+      "img": "icons/magic/water/snowflake-ice-blue.webp",
+      "system": {
+        "identifier": "wizard",
+        "levels": 5,
+        "hd": {
+          "denomination": "d6",
+          "spent": 0,
+          "additional": ""
+        },
+        "primaryAbility": {
+          "value": [
+            "int"
+          ],
+          "all": false
+        },
+        "spellcasting": {
+          "progression": "full",
+          "ability": "int",
+          "preparation": {
+            "formula": ""
+          }
+        },
+        "description": {
+          "value": "<p>Self-taught, aggressively so. Waluigi maintains that he invented ice magic and that the existing literature is plagiarism.</p>",
+          "chat": ""
+        },
+        "advancement": [],
+        "properties": [],
+        "startingEquipment": [],
+        "source": {
+          "custom": "",
+          "book": "PHB",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "cJehoEK25kYMqeDg",
+      "name": "School of Evocation",
+      "type": "subclass",
+      "img": "icons/magic/water/orb-ice-web.webp",
+      "system": {
+        "identifier": "school-of-evocation",
+        "classIdentifier": "wizard",
+        "description": {
+          "value": "<p>Six of his eight spells deal damage and four of those are cold. Evocation is simply what he already does, written down.</p>",
+          "chat": ""
+        },
+        "advancement": [],
+        "source": {
+          "custom": "",
+          "book": "PHB",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 200,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "DjEEg5X3sgVnbQTh",
+      "name": "Spellcasting (Wizard)",
+      "type": "feat",
+      "img": "icons/magic/water/snowflake-ice-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Intelligence is his spellcasting ability. Spell save DC <strong>12</strong>, spell attack <strong>+4</strong>. Slots at level 5: four 1st, three 2nd, two 3rd.</p><p><em>His Intelligence is 13, so these numbers are modest. That is the honest consequence of a Wizard build on this statblock.</em></p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "GHxZILRarktnoPNz",
+      "name": "Arcane Recovery",
+      "type": "feat",
+      "img": "icons/magic/light/explosion-star-blue-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>Once per day on a short rest, recover expended spell slots totalling up to 3 levels, none above 5th.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 401,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "8sP9TK3MiJBJAXc6",
+      "name": "Evocation Savant",
+      "type": "feat",
+      "img": "icons/magic/water/orb-ice-web.webp",
+      "system": {
+        "description": {
+          "value": "<p>Copying an evocation spell into the spellbook costs half the usual time and gold.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 402,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "QaEDwjtf7dLsqNUQ",
+      "name": "Sculpt Spells",
+      "type": "feat",
+      "img": "icons/magic/water/orb-ice-glow.webp",
+      "system": {
+        "description": {
+          "value": "<p>When he casts an evocation spell of 1st level or higher, he may choose 2 creatures to automatically succeed on their save and take no damage. Waluigi has never once included an ally in the blast on purpose, and says so loudly whenever he does.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 403,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "akw1B8y0R2PQtPVm",
+      "name": "Potent Cantrip",
+      "type": "feat",
+      "img": "icons/magic/fire/beam-jet-stream-embers.webp",
+      "system": {
+        "description": {
+          "value": "<p>Creatures that succeed on a save against his cantrips still take half damage. Available from wizard level 6 — listed here for the next level-up.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "class",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 404,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "The Void Racket",
+      "type": "weapon",
+      "img": "icons/weapons/swords/sword-gold-holy.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Rare Magic Weapon (+1).</strong> This is no ordinary piece of sporting equipment. Looted from the ruins of the Grand Tennis Academy during the early years of the Civil War, this racket has been modified with illegal enchantments by Wario's artificers. The frame is reinforced with blackened steel, and the strings are woven from the gut of a Phase Spider, vibrating with a low, dissonance hum that sets teeth on edge.</p><p>When swung, the racket pulls kinetic energy from the air, manifesting glowing purple projectiles of force. It functions as both a mace and a wand, allowing Waluigi to strike distant foes with the same impact as a melee blow.</p>",
+          "chat": "<p>Waluigi pirouettes, the strings of his racket screaming with purple energy. He serves a ball of pure force that cracks the air like thunder. <em>'Game, Set, Match!'</em></p>"
+        },
+        "unidentified": {
+          "name": "Strange Netted Club",
+          "description": "<p>A strange, club-like weapon with a wide, netted head. It feels oddly balanced, top-heavy yet light. The strings are a dark, shimmering purple material you don't recognize, and holding it gives you a mild static shock.</p>"
+        },
+        "identified": true,
+        "equipped": true,
+        "range": {
+          "value": null,
+          "long": 60,
+          "units": "ft",
+          "reach": null
+        },
+        "damage": {
+          "base": {
+            "number": 1,
+            "denomination": 8,
+            "bonus": "5",
+            "types": [
+              "force"
+            ],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "versatile": {
+            "number": 1,
+            "denomination": 8,
+            "types": [
+              "necrotic"
+            ],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "override": false
+            },
+            "attack": {
+              "ability": "dex",
+              "bonus": "1",
+              "flat": false,
+              "critical": {},
+              "type": {}
+            },
+            "damage": {
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 8,
+                  "types": [
+                    "force"
+                  ],
+                  "custom": {
+                    "enabled": false
+                  },
+                  "scaling": {
+                    "number": 1
+                  }
+                },
+                {
+                  "number": 1,
+                  "denomination": 8,
+                  "types": [
+                    "necrotic"
+                  ],
+                  "custom": {
+                    "enabled": false
+                  },
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "critical": {},
+              "includeBase": true
+            },
+            "_id": "CpWw48M05Ksvwglf",
+            "sort": 0,
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "flags": {},
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "properties": [],
+        "proficient": null,
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "mastery": ""
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "last": {
+            "CpWw48M05Ksvwglf": {
+              "attackMode": "oneHanded",
+              "damageType": {
+                "0": "force",
+                "1": "force",
+                "2": "necrotic"
+              }
+            }
+          }
+        },
+        "world": {
+          "durability": {
+            "cur": 482,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "sO8aRSUQ7v4olLO3"
+    },
+    {
+      "name": "Wario's Debt Ledger",
+      "type": "loot",
+      "img": "icons/sundries/documents/document-bound-white-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>A heavy, ominous tome bound in yellow leather that smells faintly of garlic and greed. The pages are filled with frantic scribblings in Waluigi's hand and aggressive red stamps from Wario.</p><p>The final page lists a current outstanding balance of <strong>900,000,000,000,000 (900 Trillion) Gold Coins</strong>. The ink seems to be enchanted to glow brighter when Waluigi is idle, serving as a constant, terrifying reminder of his obligations. Possession of this book imparts a sense of crushing anxiety, but also a desperate, manic drive to succeed.</p>",
+          "chat": "<p>Waluigi clutches the book to his chest, his eyes darting around wildly. 'I have to pay him back... I have to pay him back or he'll take my knees!'</p>"
+        },
+        "unidentified": {
+          "name": "Locked Yellow Tome",
+          "description": "<p>A thick, leather-bound book with a heavy iron lock. It radiates an aura of overwhelming stress and anxiety. You feel poorer just holding it.</p>"
+        },
+        "identified": true,
+        "weight": {
+          "value": 5,
+          "units": "lb"
+        },
+        "rarity": "legendary",
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "E6QIDY94nZCbVkoL"
+    },
+    {
+      "name": "The Stomp (Assist Trophy)",
+      "type": "feat",
+      "img": "icons/skills/melee/strike-flail-destructive-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>Waluigi channels his frustration into his legs, delivering a rapid-fire series of stomps that can bury an opponent into the earth.</p><p><strong>Effect:</strong> Make a melee spell attack. On a hit, the target takes <strong>3d10 Bludgeoning damage</strong>. If the target is Medium or smaller and standing on loose earth or ground, they must succeed on a <strong>DC 15 Strength saving throw</strong> or be driven waist-deep into the ground, becoming <strong>Restrained</strong>. A creature can use an action to dig themselves out.</p>",
+          "chat": "<p>Waluigi's legs blur into a violet cyclone of violence. He stomps the target repeatedly, driving them into the dirt like a nail.</p>"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {}
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "gkz79pSecAWmfO3i"
+    },
+    {
+      "name": "Cheater's Gambit",
+      "type": "feat",
+      "img": "icons/sundries/gaming/dice-pair-white-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Waluigi does not play fair. He never has, and he never will.</p><p><strong>Reaction:</strong> When a creature Waluigi can see within 30 feet makes an attack roll, an ability check, or a saving throw, Waluigi can use his reaction to interfere. This manifests as throwing pocket sand, shouting a demotivating insult, or reflecting light off his racket into their eyes. The target suffers <strong>Disadvantage</strong> on the roll.</p>",
+          "chat": "<p>Just as you act, Waluigi shouts, 'YOU CHEATED!' and kicks dirt in your face.</p>"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "reaction",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {}
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "cPspZzN2mnv3dGQC"
+    },
+    {
+      "name": "Wario's Bob-ombs",
+      "type": "consumable",
+      "img": "icons/sundries/documents/document-sealed-red-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>These aren't standard military ordnance; these are WarioWare™ originals. Each black sphere has two wind-up feet and a pair of eyes that glare with malice.</p><p><strong>Action:</strong> Waluigi winds the key and throws the bomb up to 40 feet. It lands, walks 5 feet toward the nearest creature (friend or foe), and detonates. <strong>20ft Radius.</strong> <strong>DC 15 Dexterity Save</strong>. <strong>4d6 Fire + 4d6 Bludgeoning</strong> damage.</p>",
+          "chat": "<p>Waluigi chucks a bomb. It lands on its feet, looks at you, and sizzles aggressively.</p>"
+        },
+        "unidentified": {
+          "name": "Wind-up Iron Spheres",
+          "description": "<p>A heavy black iron sphere with a wind-up key on the back and painted white eyes. It feels warm to the touch and vibrates slightly, as if something inside is walking.</p>"
+        },
+        "identified": true,
+        "quantity": 3,
+        "uses": {
+          "max": "3",
+          "autoDestroy": true,
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "target": "",
+                  "value": "1",
+                  "scaling": {
+                    "mode": "",
+                    "formula": ""
+                  }
+                }
+              ],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {}
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "GeFoGw1LsQe7ACfZ"
+    },
+    {
+      "name": "Identity Kit: 'Wally'",
+      "type": "tool",
+      "img": "icons/equipment/head/helm-goggles-leather.webp",
+      "system": {
+        "description": {
+          "value": "<p>A leather pouch containing the remnants of Waluigi's greatest acting role. Inside is a forged Iron Legion identification card for <strong>'Wally,'</strong> a mustache-less scout from the 4th Recon Division. Also included is a small razor (used to shave his iconic mustache for the role), spirit gum, and a collection of fake noses.</p><p>Waluigi keeps this kit in pristine condition, viewing it as proof of his superior intellect and espionage capabilities, despite the disastrous end to the mission aboard the <em>Vigilance</em>.</p>",
+          "chat": "<p>Waluigi holds up an ID card. 'See? Wally is a legitimate businessman! Waluigi is innocent!'</p>"
+        },
+        "unidentified": {
+          "name": "Disguise Kit",
+          "description": "<p>A leather pouch containing the remnants of Waluigi's greatest acting role. Inside is a forged Iron Legion identification card for <strong>'Wally,'</strong> a mustache-less scout from the 4th Recon Division. Also included is a small razor (used to shave his iconic mustache for the role), spirit gum, and a collection of fake noses.</p>"
+        },
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "check",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "check": {
+              "ability": "str",
+              "associated": [],
+              "dc": {}
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identified": true,
+        "container": null,
+        "quantity": 1,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "ability": "",
+        "bonus": "",
+        "chatFlavor": "",
+        "proficient": null,
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "baseItem": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {},
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "9A47PIdL8doozKW8"
+    },
+    {
+      "name": "The Rose of Rejection",
+      "type": "weapon",
+      "img": "icons/weapons/swords/sword-gold-holy.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Weapon (Whip), Rare (Requires Attunement).</strong> This is not a crafted weapon, but a living cutting from the <strong>Feywild Manor's Rose Garden</strong>. Waluigi tore it from the earth during his escape from the Hag's Hut (Day 22). The stem is thick, woody, and lined with thorns that seem to lengthen when the wielder is angry.</p><p>The rose blooms perpetually with a deep, bruised purple flower. When snapped, it releases a scent of old perfume and bitter disappointment. It deals an additional <strong>1d6 Psychic damage</strong> on a hit, as the target is overwhelmed by feelings of inadequacy.</p><p><em>'She loves me... she loves me not... WALUIGI DOESN'T CARE!'</em></p>",
+          "chat": "<p>Waluigi snaps the thorny vine. It wraps around the target's limb, the thorns digging in deep as psychic whispers of failure assault their mind.</p>"
+        },
+        "unidentified": {
+          "name": "Thorny Rose Vine",
+          "description": "<p>A long, coiled vine with a single, unwithering purple rose at the tip. The thorns are razor-sharp and seem to drip a faint, translucent ichor. It twitches in your hand, reacting to your mood.</p>"
+        },
+        "identified": false,
+        "equipped": true,
+        "range": {
+          "value": null,
+          "units": "ft",
+          "reach": 10
+        },
+        "damage": {
+          "base": {
+            "number": 1,
+            "denomination": 4,
+            "types": [
+              "slashing"
+            ],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            },
+            "bonus": ""
+          },
+          "versatile": {
+            "number": 1,
+            "denomination": 6,
+            "types": [
+              "psychic"
+            ],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "10",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "properties": [],
+        "proficient": null,
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "mastery": ""
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {},
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "RnlfKMAs3mJ6xdu1"
+    },
+    {
+      "name": "Sprite-Silk Leg Splint",
+      "type": "equipment",
+      "img": "icons/equipment/chest/breastplate-layered-steel.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Wondrous Item, Rare.</strong> A makeshift medical device crafted by the Sprites of the Feywild Greenhouse (Day 22). After the <strong>Guardian Butterfly</strong> shattered Waluigi's leg, the sprites used aggressive rapid-growth vines and hardened silk to knit the bone back together in seconds.</p><p>The splint has fused with Waluigi's pant leg and skin. It pulses with chaotic life energy. While wearing it, Waluigi's movement speed increases by 10 feet, but he suffers a -2 penalty to Stealth checks due to the audible creaking of the magical vines.</p>",
+          "chat": "<p>The vines around Waluigi's leg pulse with green light, propelling him forward with an unnatural, bouncy gait.</p>"
+        },
+        "unidentified": {
+          "name": "Glowing Vine Brace",
+          "description": "<p>A rigid brace made of glowing green vines and hardened, opalescent silk. It looks incredibly uncomfortable and smells like fresh-cut grass and antiseptic.</p>"
+        },
+        "identified": false,
+        "equipped": true,
+        "armor": {
+          "value": 1,
+          "dex": null
+        },
+        "type": {
+          "value": "medium",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "TUReo9L14lgGt5VX"
+    },
+    {
+      "name": "Wario's 'Walkie-Screechie'",
+      "type": "tool",
+      "img": "icons/tools/scribal/lens-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Unique Item.</strong> A crude magical communication device consisting of a jagged yellow crystal jammed into a brass horn. It is strictly a one-way communication channel.</p><p>At random intervals (usually when Waluigi is trying to sleep or sneak), the crystal glows, and Wario's voice screams out demands for the <strong>900 Trillion Coin Debt</strong>. Waluigi cannot turn it off, only muffle it with a sock. Possession of this item imposes <strong>Disadvantage on Wisdom Saving Throws</strong> due to chronic stress.</p>",
+          "chat": "<p>The device vibrates violently. A distorted voice screams: <em>'HAVE YOU GOT THE MONEY YET?! WAH-HA-HA!'</em></p>"
+        },
+        "unidentified": {
+          "name": "Shrieking Crystal Horn",
+          "description": "<p>A brass horn fused with a jagged yellow crystal. It vibrates constantly and radiates an aura of overwhelming anxiety.</p>"
+        },
+        "identified": false,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "check",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "check": {
+              "ability": "str",
+              "associated": [],
+              "dc": {}
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "ability": "",
+        "bonus": "",
+        "chatFlavor": "",
+        "proficient": null,
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "baseItem": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {},
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "K8lPFnIuyUj8bDws"
+    },
+    {
+      "name": "Scale of the Guardian",
+      "type": "loot",
+      "img": "icons/commodities/materials/feather-blue-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>A plate-sized, iridescent scale ripped from the <strong>Guardian Butterfly</strong> that blocked the upper hallway of the Feywild Manor (Day 26). It shimmers with hypnotic patterns.</p><p>Waluigi keeps this as a trophy of the creature that broke his leg. He plans to sell it to the Deephold Smithing Guild, claiming he 'suplexed the beast single-handedly.'</p>",
+          "chat": "<p>Waluigi polishes the giant scale. 'A trophy for the victor! Waluigi is number one!'</p>"
+        },
+        "unidentified": {
+          "name": "Giant Iridescent Scale",
+          "description": "<p>A massive, lightweight scale that shifts color from emerald green to deep violet. It is covered in a fine, powdery dust that irritates the nose.</p>"
+        },
+        "identified": false,
+        "weight": {
+          "value": 5,
+          "units": "lb"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "1dTdAo2f7aIRbKyi"
+    },
+    {
+      "name": "Rotting Canapé (The Heir's Banquet)",
+      "type": "consumable",
+      "img": "icons/consumables/food/plate-chicken-grilled-mushroom-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>A fancy hors d'oeuvre stolen from the <strong>Orange Heir's Banquet</strong> (Day 22). To the naked eye, it looks like a delicious shrimp tart. However, anyone with True Sight or who succeeds on a DC 15 Investigation check sees it for what it is: a severed goblin finger on a moldy cracker.</p><p><strong>Effect:</strong> If eaten, the creature must make a <strong>DC 16 Constitution save</strong> or be <strong>Poisoned</strong> for 24 hours. While poisoned, they hallucinate that everyone around them is wearing masquerade masks.</p>",
+          "chat": "<p>Waluigi offers the tart. 'Try the shrimp! It has a... unique texture.'</p>"
+        },
+        "unidentified": {
+          "name": "Fancy Shrimp Tart",
+          "description": "<p>A delicately plated appetizer that looks mouth-watering, though it smells faintly of wet earth and formaldehyde.</p>"
+        },
+        "identified": false,
+        "quantity": 3,
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "autoDestroy": false,
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "moO4ybzniH112qW5"
+    },
+    {
+      "name": "Vigilance Control Chip (Broken)",
+      "type": "loot",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "description": {
+          "value": "<p>A fried control circuit ripped from the console of the <strong>Airship Vigilance</strong> during the hijacking (Day 4). Waluigi grabbed it hoping it was the key to the autopilot, but instead, it just turned off the coffee machine.</p><p>He keeps it in his pocket, convinced he can use it to hotwire another vehicle someday. It sparks occasionally.</p>",
+          "chat": "<p>Waluigi fiddles with the sparking chip. 'Technically, this makes Waluigi the captain!'</p>"
+        },
+        "unidentified": {
+          "name": "Sparking Crystal Chip",
+          "description": "<p>A jagged piece of green crystal etched with gold circuitry. It smells of ozone and burnt coffee.</p>"
+        },
+        "identified": false,
+        "weight": {
+          "value": 0.5,
+          "units": "lb"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "1Wwi6ZdErXj4ytPq"
+    },
+    {
+      "name": "Ace Service Balls",
+      "type": "consumable",
+      "img": "icons/weapons/thrown/grenade-round.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Ammunition (+1).</strong> A canister of three heavy rubber balls infused with <strong>Force</strong> magic. These are the ammunition for Waluigi's <strong>Void Racket</strong>. When hit by the racket, they do not bounce; they accelerate, punching through wood and stone.</p><p>They are painted with an inverted 'L' symbol, which Waluigi has crudely drawn over with a purple marker to make an upside-down 'L' (Gamma).</p>",
+          "chat": "<p>Waluigi loads a glowing purple ball. 'Service!'</p>"
+        },
+        "unidentified": {
+          "name": "Heavy Rubber Spheres",
+          "description": "<p>A canister containing three heavy, dense rubber spheres. They are cold to the touch and hum with a low vibration.</p>"
+        },
+        "identified": false,
+        "quantity": 3,
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "autoDestroy": false,
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "ATKgjjvpEbEokyF3"
+    },
+    {
+      "name": "Satyr's Party Popper",
+      "type": "consumable",
+      "img": "icons/weapons/thrown/dynamite-black.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Consumable.</strong> Confiscated from a drunk Satyr during the <strong>Guest Wing Eviction</strong> (Day 25). When the string is pulled, it explodes with a deafening <em>BANG</em> and a cloud of glitter.</p><p><strong>Effect:</strong> Creatures within 10 feet must succeed on a <strong>DC 13 Constitution save</strong> or be <strong>Blinded</strong> until the end of their next turn. The glitter remains for 1d4 weeks and is impossible to fully clean off.</p>",
+          "chat": "<p>Waluigi pulls the string. <em>POP!</em> 'Happy Waluigi Day!'</p>"
+        },
+        "unidentified": {
+          "name": "Colorful Party Tube",
+          "description": "<p>A colorful cardboard tube with a string hanging from the bottom. It rattles when shaken.</p>"
+        },
+        "identified": false,
+        "quantity": 2,
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "autoDestroy": false,
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "J1s1YT0447QajAEl"
+    },
+    {
+      "name": "Defaced Photo of 'The Brothers'",
+      "type": "loot",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "description": {
+          "value": "<p>A crumpled, water-damaged photograph of Mario and Luigi shaking hands with Princess Peach. Waluigi has aggressively scratched out their faces with a purple ink quill, tearing the paper in the process. He has drawn himself in the background, towering over them, holding a bag of gold.</p><p>It is a pathetic, angry little artifact that he keeps in his breast pocket, close to his heart.</p>",
+          "chat": "<p>Waluigi stares at the photo, muttering. 'Cheaters... all of them. But Waluigi will show them all.'</p>"
+        },
+        "unidentified": {
+          "name": "Torn Photograph",
+          "description": "<p>A folded, stained photograph. You can see red and green colors, but the faces have been violently scratched out.</p>"
+        },
+        "identified": false,
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "VWmK6lPgHCfBcL9X"
+    },
+    {
+      "name": "Gear of 'Mossy' (Steely)",
+      "type": "loot",
+      "img": "icons/commodities/tech/cog-steel.webp",
+      "system": {
+        "description": {
+          "value": "<p>A brass cog that fell off the mechanical hound <strong>Mossy</strong> (also known as Steely) during the escape from the Hag's Hut. Waluigi picked it up, intending to throw it at a guard, but kept it after realizing it was made of high-quality brass.</p><p>He occasionally talks to the cog when he's lonely.</p>",
+          "chat": "<p>Waluigi flips the cog in his hand. 'Even the dog is made of money in this place.'</p>"
+        },
+        "unidentified": {
+          "name": "Brass Gear",
+          "description": "<p>A heavy brass gear covered in grease and faint teeth marks.</p>"
+        },
+        "identified": false,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "fxcHzSG3rVhhWUmZ"
+    },
+    {
+      "name": "Bag of 'Wall-nuts'",
+      "type": "consumable",
+      "img": "icons/consumables/nuts/hazelnuts-group-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>A sack of hard-shelled nuts Waluigi gathered in the Feywild forest. He has branded each one by carving a 'W' into the shell.</p><p><strong>Effect:</strong> They are incredibly hard. Waluigi uses them as distraction items (throwing them to make noise) or as improvised caltrops. Stepping on one deals 1 piercing damage and requires a DC 10 Dex save to avoid swearing loudly.</p>",
+          "chat": "<p>Waluigi tosses a nut. <em>CRACK.</em></p>"
+        },
+        "unidentified": {
+          "name": "Bag of Hard Nuts",
+          "description": "<p>A burlap sack filled with nuts. Someone has carved a jagged 'W' into every single one.</p>"
+        },
+        "identified": false,
+        "quantity": 20,
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "autoDestroy": false,
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "La2j125Yik8gbUm2"
+    },
+    {
+      "name": "The Orange Invitation",
+      "type": "loot",
+      "img": "icons/commodities/gems/pearl-purple-dark.webp",
+      "system": {
+        "description": {
+          "value": "<p>An elegant invitation printed on human skin vellum, inviting the holder to the <strong>Orange Heir's Banquet</strong>. The ink smells of rot. Waluigi stole this from a guest he knocked unconscious in the garden.</p><p>Text: <em>'The Rot is Ripe. The Time is Nigh. Come feed.'</em> Waluigi uses it to pick his teeth.</p>",
+          "chat": "<p>Waluigi waves the invitation. 'I'm on the list! Waluigi is a V-I-P!'</p>"
+        },
+        "unidentified": {
+          "name": "Wax-Sealed Envelope",
+          "description": "<p>A heavy envelope sealed with orange wax. The paper feels disturbingly soft and warm, like skin.</p>"
+        },
+        "identified": false,
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "koUpbCkV00RA8dFQ"
+    },
+    {
+      "name": "Mustache Wax (Fey-Scented)",
+      "type": "tool",
+      "img": "icons/commodities/materials/bowl-powder-teal.webp",
+      "system": {
+        "description": {
+          "value": "<p>A tin of mustache wax Waluigi crafted using sap from the Feywild trees. It holds his mustache in a gravity-defying shape that is sharp enough to pop a balloon.</p><p><strong>Effect:</strong> Grants Advantage on Charisma (Intimidation) checks, but attracts bees.</p>",
+          "chat": "<p>Waluigi twirls his mustache. It stays perfectly rigid, gleaming in the light.</p>"
+        },
+        "unidentified": {
+          "name": "Purple Styling Paste",
+          "description": "<p>A small tin containing a purple, sticky paste. It smells heavily of lavender and ozone.</p>"
+        },
+        "identified": false,
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "check",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "check": {
+              "ability": "str",
+              "associated": [],
+              "dc": {}
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "ability": "",
+        "bonus": "",
+        "chatFlavor": "",
+        "proficient": null,
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "baseItem": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {},
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Wb28zkBH6ZcGtjny"
+    },
+    {
+      "name": "Cape of the Bad Sport",
+      "type": "equipment",
+      "img": "icons/equipment/back/cloak-layered-tattered-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Wondrous Item, Uncommon.</strong> A tattered, high-collared purple cape. It was originally a curtain in Raventree Manor that Waluigi tore down and tied around his neck for dramatic effect.</p><p><strong>Effect:</strong> The cape billows dramatically even when there is no wind. Once per day, when Waluigi fails a saving throw, he can use his reaction to whine loudly, allowing him to reroll the save. He must use the new roll.</p>",
+          "chat": "<p>Waluigi swirls his cape over his face. 'You didn't win! Waluigi wasn't ready!'</p>"
+        },
+        "unidentified": {
+          "name": "Tattered Purple Curtain",
+          "description": "<p>A heavy, velvet curtain that has been crudely cut into the shape of a cape. It is stained with wine and dust.</p>"
+        },
+        "identified": false,
+        "equipped": true,
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null,
+        "type": {
+          "value": "",
+          "baseItem": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "world": {
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "0TBagNRSBeEKJ6Dq"
+    },
+    {
+      "name": "Key to the Vine Room",
+      "type": "loot",
+      "img": "icons/sundries/misc/key-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p>A heavy iron key encrusted with dried plant matter. This key opens the bio-lock to the <strong>Vine Room</strong> in the Feywild Manor (Day 25), where Waluigi nearly died before incinerating the plants with fire magic.</p><p>He keeps it as a reminder that 'Plants are bad, fire is good.'</p>",
+          "chat": "<p>Waluigi holds up the key. 'This opens the room of pain. We don't go there anymore.'</p>"
+        },
+        "unidentified": {
+          "name": "Vine-Wrapped Key",
+          "description": "<p>An old iron key wrapped in dead, dried vines. The metal is warm.</p>"
+        },
+        "identified": false,
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "nlotd6L2hUmTJH5D"
+    },
+    {
+      "name": "Fey-Touched Step (Passive)",
+      "type": "feat",
+      "img": "icons/magic/movement/trail-streak-zigzag-teal.webp",
+      "system": {
+        "description": {
+          "value": "<p>Waluigi's left leg was shattered by a Guardian Butterfly in the Feywild Manor and rebuilt by Sprites using chaotic, rapid-growth magic. The bone density is uneven, and the leg occasionally phases in and out of the Ethereal Plane.</p><p><strong>Effect:</strong> Waluigi ignores difficult terrain. Additionally, he can use his <strong>Bonus Action</strong> to Dash or Disengage. When he does so, purple rose petals trail in his wake.</p>",
+          "chat": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "tIilLakxrEYOFOrV"
+    },
+    {
+      "name": "Satyr's Regret (Fey Wine)",
+      "type": "consumable",
+      "img": "icons/consumables/drinks/coconut-fruit-milk.webp",
+      "system": {
+        "description": {
+          "value": "<p>A dusty bottle of wine stolen from the cellars of the Feywild Manor during the 'Satyr Eviction' (Day 25). The liquid inside shifts color from green to purple.</p><p><strong>Effect:</strong> Consuming this wine acts as a <em>Potion of Heroism</em> (10 Temp HP, Bless effect), but for the next hour, the drinker cannot speak without rhyming. Failing to rhyme causes 1d4 psychic damage.</p>",
+          "chat": "<p>Waluigi uncorks the bottle with his teeth. 'Time for a drink, to help me think!'</p>"
+        },
+        "unidentified": {
+          "name": "Moss-Covered Wine",
+          "description": "<p>A bottle of wine covered in moss. The label is written in Sylvan and moves when you look at it peripherally. It smells like elderberries and mischief.</p>"
+        },
+        "identified": true,
+        "quantity": 1,
+        "uses": {
+          "max": "1",
+          "autoDestroy": true,
+          "spent": 0,
+          "recovery": []
+        },
+        "activities": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "modifiedTime": 1782005284314,
+        "createdTime": 1782005284314
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Jti3riWX9qQMBZ0k"
+    },
+    {
+      "name": "Cone of Cold",
+      "system": {
+        "description": {
+          "value": "<p><em>In the spellbook, not yet castable: this is a level 5 spell and Waluigi is level 5. It becomes available when he gains slots of that level.</em></p><p>You unleash a blast of cold air. Each creature in a 60-foot Cone originating from you makes a Constitution saving throw, taking 8d8 Cold damage on a failed save or half as much damage on a successful one. A creature killed by this spell becomes a frozen statue until it thaws.</p><p><strong>Using a Higher-Level Spell Slot.</strong> The damage increases by 1d8 for each spell slot level above 5.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Spellbook — above current level",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": null
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "choice": false
+          },
+          "template": {
+            "units": "ft",
+            "type": "cone",
+            "size": "60",
+            "contiguous": false,
+            "stationary": false
+          }
+        },
+        "range": {
+          "units": "self"
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "level": 5,
+        "school": "evo",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "materials": {
+          "value": "a small crystal or glass cone",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "override": false,
+              "concentration": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": [
+                {
+                  "number": 8,
+                  "denomination": 8,
+                  "bonus": "",
+                  "types": [
+                    "cold"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "cone-of-cold",
+        "method": "spell",
+        "prepared": 1
+      },
+      "type": "spell",
+      "img": "icons/magic/air/wind-tornado-wall-blue.webp",
+      "effects": [],
+      "folder": "beZ8MTpWY2cMEUlp",
+      "sort": 3000000,
+      "ownership": {
+        "default": 0,
+        "0tmjbgjsJjnyOG4D": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        },
+        "scene-packer": {
+          "hash": "9c84c83803ee2878f922d7d223be08a9cf95ae41"
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplConeofCold",
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "_id": "EXeEn416FhNYY4uz"
+    },
+    {
+      "name": "Ice Knife",
+      "system": {
+        "description": {
+          "value": "<p>You create a shard of ice and fling it at one creature within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 Piercing damage. Hit or miss, the shard then explodes. The target and each creature within 5 feet of it must succeed on a Dexterity saving throw or take 2d6 Cold damage.</p><p><strong>Using a Higher-Level Spell Slot. </strong>The Cold damage increases by 1d6 for each spell slot level above 1.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": null
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "1",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "60",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "level": 1,
+        "school": "con",
+        "properties": [
+          "somatic",
+          "material"
+        ],
+        "materials": {
+          "value": "a drop of water or a piece of ice",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "override": false,
+              "concentration": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "attack": {
+              "ability": "",
+              "bonus": "",
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "ranged",
+                "classification": "spell"
+              }
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": [
+                {
+                  "number": 1,
+                  "denomination": 10,
+                  "bonus": "",
+                  "types": [
+                    "piercing"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          },
+          "dnd5eactivity100": {
+            "_id": "dnd5eactivity100",
+            "type": "save",
+            "activation": {
+              "type": "",
+              "value": null,
+              "override": true,
+              "condition": ""
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": false
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "override": false,
+              "concentration": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "radius",
+                "size": "5",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": "creature",
+                "special": ""
+              },
+              "override": true
+            },
+            "damage": {
+              "onSave": "none",
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 2,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "cold"
+                  ],
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "sort": 0,
+            "name": "Shard Explosion",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "ice-knife",
+        "method": "spell",
+        "prepared": 1
+      },
+      "type": "spell",
+      "img": "icons/magic/water/projectile-ice-shard.webp",
+      "effects": [],
+      "folder": "pBaAAtXBCq9FVEnL",
+      "sort": 1800000,
+      "ownership": {
+        "default": 0,
+        "0tmjbgjsJjnyOG4D": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        },
+        "scene-packer": {
+          "hash": "11f4f693b2c1f51bddcaa466af500bd62d271b7f"
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplIceKnife00",
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "_id": "7ryYgv9xGsHtcrgZ"
+    },
+    {
+      "name": "Ice Storm",
+      "system": {
+        "description": {
+          "value": "<p><em>In the spellbook, not yet castable: this is a level 4 spell and Waluigi is level 5. It becomes available when he gains slots of that level.</em></p><p>Hail falls in a 20-foot-radius, 40-foot-high Cylinder centered on a point within range. Each creature in the Cylinder makes a Dexterity saving throw. A creature takes 2d10 Bludgeoning damage and 4d6 Cold damage on a failed save or half as much damage on a successful one.</p><p>Hailstones turn ground in the Cylinder into &amp;Reference[DifficultTerrain] until the end of your next turn.</p><p><strong>Using a Higher-Level Spell Slot.</strong> The Bludgeoning damage increases by 1d10 for each spell slot level above 4.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Spellbook — above current level",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": null
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "count": "",
+            "type": ""
+          },
+          "template": {
+            "units": "ft",
+            "type": "cylinder",
+            "size": "20",
+            "contiguous": false,
+            "height": "",
+            "count": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "300",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "level": 4,
+        "school": "evo",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "materials": {
+          "value": "a mitten",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "override": false,
+              "concentration": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": "(@item.level - 2)d10"
+                  },
+                  "number": 2,
+                  "denomination": 10,
+                  "bonus": "",
+                  "types": [
+                    "bludgeoning"
+                  ],
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1
+                  }
+                },
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 4,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "cold"
+                  ],
+                  "scaling": {
+                    "mode": "",
+                    "number": 1
+                  }
+                }
+              ]
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "sort": 0,
+            "name": "",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "ice-storm",
+        "method": "spell",
+        "prepared": 1
+      },
+      "type": "spell",
+      "img": "icons/magic/water/projectile-ice-chunks-salvo.webp",
+      "effects": [],
+      "folder": "qi3IbnEwap7mRw4b",
+      "sort": 1400000,
+      "ownership": {
+        "default": 0,
+        "0tmjbgjsJjnyOG4D": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        },
+        "scene-packer": {
+          "hash": "051b00ba9e9e3c2e133e812526d4b0f500b36e79"
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplIceStorm00",
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "_id": "r5unLTtWYmGNPwKx"
+    },
+    {
+      "name": "Wall of Ice",
+      "system": {
+        "description": {
+          "value": "<p><em>In the spellbook, not yet castable: this is a level 6 spell and Waluigi is level 5. It becomes available when he gains slots of that level.</em></p><p>You create a wall of ice on a solid surface within range. You can form it into a hemispherical dome or a globe with a radius of up to 10 feet, or you can shape a flat surface made up of ten 10-foot-square panels. Each panel must be contiguous with another panel. In any form, the wall is 1 foot thick and lasts for the duration.</p><p>If the wall cuts through a creature's space when it appears, the creature is pushed to one side of the wall (you choose which side) and makes a Dexterity saving throw, taking 10d6 Cold damage on a failed save or half as much damage on a successful one.</p><p>The wall is an object that can be damaged and thus breached. It has AC 12 and 30 Hit Points per 10-foot section, and it has Immunity to Cold, Poison, and Psychic damage and Vulnerability to Fire damage. Reducing a 10-foot section of wall to 0 Hit Points destroys it and leaves behind a sheet of frigid air in the space the wall occupied.</p><p>A creature moving through the sheet of frigid air for the first time on a turn makes a Constitution saving throw, taking 5d6 Cold damage on a failed save or half as much damage on a successful one.</p><p><strong>Using a Higher-Level Spell Slot.</strong> The damage the wall deals when it appears increases by 2d6 and the damage from passing through the sheet of frigid air increases by 1d6 for each spell slot level above 6.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Spellbook — above current level",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": null
+        },
+        "duration": {
+          "value": "10",
+          "units": "minute"
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "count": "",
+            "type": "space",
+            "special": "solid surface"
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "units": "ft",
+          "special": "",
+          "value": "120"
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "level": 6,
+        "school": "evo",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material",
+          "concentration"
+        ],
+        "materials": {
+          "value": "a piece of quartz",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "c4ttlpiIpyf3dFdf": {
+            "type": "save",
+            "_id": "c4ttlpiIpyf3dFdf",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "sphere",
+                "size": "10",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": ""
+              },
+              "override": true,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "sort": 0,
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 10,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "cold"
+                  ],
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 2,
+                    "formula": ""
+                  }
+                }
+              ],
+              "onSave": "half"
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "name": "Create Globe",
+            "img": "icons/magic/water/barrier-ice-shield.webp",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          },
+          "zjpb29Tww0iuv1P3": {
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": true,
+                "units": "ft",
+                "count": "10",
+                "type": "wall",
+                "size": "10",
+                "width": "1",
+                "height": "10",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": ""
+              },
+              "override": true,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "sort": 0,
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 10,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "cold"
+                  ],
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 2,
+                    "formula": ""
+                  }
+                }
+              ],
+              "onSave": "half"
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "name": "Create Panels",
+            "_id": "zjpb29Tww0iuv1P3",
+            "img": "icons/magic/water/barrier-ice-wall-snow.webp",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          },
+          "D8Q85bjeZgiFky5j": {
+            "type": "save",
+            "_id": "D8Q85bjeZgiFky5j",
+            "activation": {
+              "type": "",
+              "value": null,
+              "override": true,
+              "condition": "creature moves through the wall for the first time on a turn"
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": false,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": true
+            },
+            "effects": [],
+            "range": {
+              "override": true,
+              "units": "spec",
+              "special": ""
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "1",
+                "type": "creature",
+                "special": ""
+              },
+              "override": true,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "sort": 0,
+            "damage": {
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 5,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "cold"
+                  ],
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1
+                  }
+                }
+              ],
+              "onSave": "half"
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "name": "Frigid Air",
+            "img": "icons/magic/water/snowflake-ice-blue-white.webp",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "wall-of-ice",
+        "method": "spell",
+        "prepared": 1
+      },
+      "type": "spell",
+      "img": "icons/magic/water/barrier-ice-wall-snow.webp",
+      "effects": [],
+      "folder": "8WmlLARx1Df3Ii9v",
+      "sort": 100049,
+      "ownership": {
+        "default": 0,
+        "0tmjbgjsJjnyOG4D": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        },
+        "scene-packer": {
+          "hash": "152037ba9b3c3156911183c352173620be376841"
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplWallofIce0",
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "_id": "ui7l6OXGvQFKOI1f"
+    },
+    {
+      "name": "Fireball",
+      "system": {
+        "description": {
+          "value": "<p>A bright streak flashes from you to a point you choose within range and then blossoms with a low roar into a fiery explosion. Each creature in a 20-foot-radius Sphere centered on that point makes a Dexterity saving throw, taking 8d6 Fire damage on a failed save or half as much damage on a successful one.</p><p>Flammable objects in the area that aren't being worn or carried start burning.</p><p><strong>Using a Higher-Level Spell Slot.</strong> The damage increases by 1d6 for each spell slot level above 3.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": null
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "count": "",
+            "type": "creature",
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "type": "sphere",
+            "size": "20",
+            "contiguous": false,
+            "count": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "150",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "level": 3,
+        "school": "evo",
+        "properties": [
+          "vocal",
+          "somatic",
+          "material"
+        ],
+        "materials": {
+          "value": "a ball of bat guano and sulfur",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "override": false,
+              "concentration": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": [
+                {
+                  "number": 8,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "fire"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "spellcasting",
+                "formula": ""
+              }
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "fireball",
+        "method": "spell",
+        "prepared": 1
+      },
+      "type": "spell",
+      "img": "icons/magic/fire/barrier-shield-explosion-yellow.webp",
+      "effects": [],
+      "folder": "HCovEE4VoPGlIbKi",
+      "sort": 2100000,
+      "ownership": {
+        "default": 0,
+        "0tmjbgjsJjnyOG4D": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        },
+        "scene-packer": {
+          "hash": "063627757ea217617ede560f59a339ce861aa168"
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplFireball00",
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "_id": "b7MxC3fTjGT7sCUj"
+    },
+    {
+      "name": "Fire Bolt",
+      "system": {
+        "description": {
+          "value": "<p>You hurl a mote of fire at a creature or an object within range. Make a ranged spell attack against the target. On a hit, the target takes 1d10 Fire damage. A flammable object hit by this spell starts burning if it isn't being worn or carried.</p><p><strong>Cantrip Upgrade.</strong> The damage increases by 1d10 when you reach levels 5 (2d10), 11 (3d10), and 17 (4d10).</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": null
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "count": "1",
+            "type": "creatureOrObject",
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "units": "ft",
+          "special": "",
+          "value": "120"
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "level": 0,
+        "school": "evo",
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "23hcoYMwc0GUIB6V": {
+            "type": "attack",
+            "_id": "23hcoYMwc0GUIB6V",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "attack": {
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {
+                "value": "ranged",
+                "classification": ""
+              },
+              "ability": "",
+              "bonus": ""
+            },
+            "damage": {
+              "critical": {
+                "bonus": ""
+              },
+              "includeBase": true,
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 1,
+                  "denomination": 10,
+                  "bonus": "",
+                  "types": [
+                    "fire"
+                  ],
+                  "scaling": {
+                    "mode": "whole",
+                    "number": 1
+                  }
+                }
+              ]
+            },
+            "name": "",
+            "img": "systems/dnd5e/icons/svg/damage/force.svg",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "identifier": "fire-bolt",
+        "method": "spell",
+        "prepared": 1
+      },
+      "type": "spell",
+      "img": "icons/magic/fire/projectile-fireball-orange-green.webp",
+      "effects": [],
+      "folder": "4FhsY9FJQd7h7MZb",
+      "sort": 1400000,
+      "ownership": {
+        "default": 0,
+        "0tmjbgjsJjnyOG4D": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        },
+        "scene-packer": {
+          "hash": "9dfb1dea322755651991d0e8ae0db4f8a2dc6828"
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplFireBolt00",
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "_id": "qa34aIM7LDlFKJuB"
+    },
+    {
+      "name": "Mage Hand",
+      "system": {
+        "description": {
+          "value": "<p>A spectral, floating hand appears at a point you choose within range. The hand lasts for the duration. The hand vanishes if it is ever more than 30 feet away from you or if you cast this spell again.</p><p>When you cast the spell, you can use the hand to manipulate an object, open an unlocked door or container, stow or retrieve an item from an open container, or pour the contents out of a vial.</p><p>As a Magic action on your later turns, you can control the hand thus again. As part of that action, you can move the hand up to 30 feet.</p><p>The hand can't attack, activate magic items, or carry more than 10 pounds.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": null
+        },
+        "duration": {
+          "value": "1",
+          "units": "minute"
+        },
+        "target": {
+          "affects": {
+            "choice": false,
+            "count": "1",
+            "type": "space",
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "units": "ft",
+          "special": "",
+          "value": "30"
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "level": 0,
+        "school": "con",
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "QdMC2s97UJKjUBoD": {
+            "type": "summon",
+            "_id": "QdMC2s97UJKjUBoD",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "bonuses": {
+              "ac": "",
+              "hd": "",
+              "hp": "",
+              "attackDamage": "0",
+              "saveDamage": "0",
+              "healing": "0"
+            },
+            "creatureSizes": [],
+            "creatureTypes": [],
+            "match": {
+              "attacks": false,
+              "proficiency": false,
+              "saves": false,
+              "disposition": false
+            },
+            "profiles": [
+              {
+                "count": "",
+                "name": "",
+                "_id": "yXLZxwYBIj9AR2iQ",
+                "uuid": "Compendium.dnd5e.actors24.Actor.phbsplMageHand00",
+                "level": {
+                  "min": null,
+                  "max": null
+                },
+                "types": []
+              }
+            ],
+            "summon": {
+              "prompt": true,
+              "mode": ""
+            },
+            "name": "",
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "mage-hand",
+        "method": "spell",
+        "prepared": 1
+      },
+      "type": "spell",
+      "img": "icons/magic/light/hand-sparks-smoke-teal.webp",
+      "effects": [],
+      "folder": "4FhsY9FJQd7h7MZb",
+      "sort": 1000000,
+      "ownership": {
+        "default": 0,
+        "0tmjbgjsJjnyOG4D": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        },
+        "scene-packer": {
+          "hash": "e18059eeb24b2ac974a30349efbdfea8c664d3b1"
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplMageHand00",
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "_id": "jecwDDUaEQmCWUm0"
+    },
+    {
+      "name": "Magic Missile",
+      "system": {
+        "description": {
+          "value": "<p>You create three glowing darts of magical force. Each dart strikes a creature of your choice that you can see within range. A dart deals 1d4 + 1 Force damage to its target. The darts all strike simultaneously, and you can direct them to hit one creature or several.</p><p><strong>Using a Higher-Level Spell Slot.</strong> The spell creates one more dart for each spell slot level above 1.</p><p>[[2 + @item.level]]{Level [[lookup @item.level]] darts}</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "activation": {
+          "type": "action",
+          "condition": "",
+          "value": null
+        },
+        "duration": {
+          "value": "",
+          "units": "inst"
+        },
+        "target": {
+          "affects": {
+            "type": "creature",
+            "count": "2 + @item.level",
+            "choice": false,
+            "special": ""
+          },
+          "template": {
+            "units": "ft",
+            "contiguous": false,
+            "type": "",
+            "stationary": false
+          }
+        },
+        "range": {
+          "value": "120",
+          "units": "ft",
+          "special": ""
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "level": 1,
+        "school": "evo",
+        "properties": [
+          "vocal",
+          "somatic"
+        ],
+        "materials": {
+          "value": "",
+          "consumed": false,
+          "cost": 0,
+          "supply": 0
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "damage",
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "override": false,
+              "concentration": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "damage": {
+              "critical": {
+                "allow": false,
+                "bonus": ""
+              },
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 1,
+                  "denomination": 4,
+                  "bonus": "1",
+                  "types": [
+                    "force"
+                  ],
+                  "scaling": {
+                    "mode": "",
+                    "number": 1
+                  }
+                }
+              ]
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "sort": 0,
+            "name": "",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null
+          }
+        },
+        "identifier": "magic-missile",
+        "method": "spell",
+        "prepared": 1
+      },
+      "type": "spell",
+      "img": "icons/magic/light/projectiles-pink-purple.webp",
+      "effects": [],
+      "folder": "pBaAAtXBCq9FVEnL",
+      "sort": 1100000,
+      "ownership": {
+        "default": 0,
+        "0tmjbgjsJjnyOG4D": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        },
+        "scene-packer": {
+          "hash": "c154643c2714b60ef7095f44b870a0ac81060cc9"
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplMagicMissi",
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005284314,
+        "modifiedTime": 1782005284314,
+        "lastModifiedBy": "f9K62vO9hIl1GByi"
+      },
+      "_id": "U5knjTwtE5T4tlbb"
+    }
+  ],
+  "effects": [],
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "scene-packer": {
+      "hash": "328a988d620b9f9b231a9bfcd41d94e980e4811a"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "brute",
+          "controller",
+          "guardian",
+          "skirmisher"
+        ],
+        "reasons": [
+          "High HP (112) melee combatant → brute/frontliner",
+          "Spell list: 4× AOE control spells → controller",
+          "Keyword \"guardian\" in name/biography → guardian",
+          "Keyword \"scout\" in name/biography → skirmisher"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1786383977446,
+        "manuallyOverridden": false
+      }
+    }
+  },
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "dnd-part-2",
+      "uuid": "Actor.NfIOS8zqQFNqrDt5",
+      "coreVersion": "14.365",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    },
+    "coreVersion": "14.365",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1782005284314,
+    "modifiedTime": 1786383977468,
+    "lastModifiedBy": "f9K62vO9hIl1GByi"
+  }
+}

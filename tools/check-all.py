@@ -40,6 +40,8 @@ def main() -> int:
     checks: list[tuple[str, list[str], Path]] = [
         ("local paths", [py, "tools/check-local-paths.py"], ROOT),
         ("injury table", [py, "tools/generate-injury-table.py", "--check"], ROOT),
+        ("injury repeats", [py, "tools/dedupe-injury-table.py", "--check"], ROOT),
+        ("wahbabel data", [py, "tools/build-wahbabel.py", "--check"], ROOT),
         ("duplicate records", [py, "tools/check-duplicates.py"], ROOT),
         ("references", [py, "tools/check-references.py"], ROOT),
         ("exhibits", [py, "tools/check-exhibits.py"], ROOT),
@@ -47,13 +49,25 @@ def main() -> int:
         ("roll registry", [py, "tools/check-rolls.py"], ROOT),
         ("battles", [py, "tools/check-battles.py"], ROOT),
         ("background blurbs", [py, "tools/check-background.py"], ROOT),
+        ("dossier assessments", [py, "tools/check-assessments.py"], ROOT),
         ("home feed contract", [py, "tools/check-home-feed.py"], ROOT),
         ("RNN broadcast data", [py, "tools/build-rnn-broadcast.py", "--check"], ROOT),
         ("Bros Attack sync", [py, "tools/sync_bros_attacks.py", "--check"], RM),
+        ("Foundry sanitizer", [py, "tools/tests/test-sanitize-foundry-actor.py"], ROOT),
+        ("actor exports", [py, "tools/rebuild-actors.py", "--check"], ROOT),
     ]
 
     if shutil.which("node"):
         checks.append(("Bros discovery test", ["node", "tools/tests/test_bros_discovery.mjs"], RM))
+        # Search quality: pure functions extracted from index.html, run against
+        # the real data. No server needed, unlike the live jsdom counterpart
+        # (tools/tests/test-search-live.mjs, which needs :8765).
+        checks.append(("search quality", ["node", "tools/tests/test-search-quality.mjs"], ROOT))
+        checks.append(("session nav", ["node", "tools/tests/test-session-nav.mjs"], ROOT))
+        checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))
+        checks.append(("hub pages", ["node", "tools/tests/test-hub-pages.mjs"], ROOT))
+        checks.append(("wahbabel", ["node", "tools/tests/test-wahbabel.mjs"], ROOT))
+        # search relevance needs a static server on 8765; run it manually.
     else:
         print("\n=== Bros discovery test ===\nSKIP: node is not on PATH")
 

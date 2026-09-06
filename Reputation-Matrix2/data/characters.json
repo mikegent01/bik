@@ -22,6 +22,13 @@
       "asgore",
       "toriel",
       "mount_ebott_survey_final_log"
+    ],
+    "faiths": [
+      {
+        "id": "order_of_maat",
+        "role": "Solitary observance",
+        "note": "The Hawk of Blackfen Pass watches the Old World and intervenes rarely. Maat's weighing is a doctrine for judging without ruling, which is precisely the position Mihawk has taken up and declined to explain."
+      }
     ]
   },
   {
@@ -90,7 +97,14 @@
     "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
     "faction": "undertale_monsters",
     "membership": "Snowdin Perimeter Watch / Underground local guide",
-    "image": "portraits/sans.png"
+    "image": "portraits/sans.png",
+    "faiths": [
+      {
+        "id": "void_nihilism",
+        "role": "Knows too much to practise anything else",
+        "note": "Sans is unbothered by cosmic horror in a way that reads as calm and is not. Void Nihilism teaches that the end is coming and the interval is the only thing you get. He keeps the interval well: a post at the perimeter, a brother who believes in him, and jokes that are load-bearing."
+      }
+    ]
   },
   {
     "id": "gamma_agent",
@@ -117,6 +131,13 @@
       "asgore",
       "toriel",
       "mount_ebott_survey_final_log"
+    ],
+    "faiths": [
+      {
+        "id": "cog_gospel",
+        "role": "The Protocols",
+        "note": "Gamma Division's version of the Gospel is older and stricter than the Legion's current text \u2014 martial codes written before Chaos spilled into the world, followed by a man whose division was declared dead eighty-seven years ago. He recites Protocols to empty rooms. Nobody has told him which clauses were repealed."
+      }
     ]
   },
   {
@@ -142,6 +163,13 @@
       "corvinarus_family",
       "the_box_guardian_sharpie_disguise_and_the_soot_barrel",
       "randell_vampire"
+    ],
+    "faiths": [
+      {
+        "id": "circle_of_spores",
+        "role": "Groundskeeper's faith",
+        "note": "Tymnas has tended the Shadow Estate's grounds long enough to stop asking who owns them. The Circle's teaching that rot is a stage rather than a failure is, for a satyr gardening in the Shadowfell, simply the observed behaviour of the soil."
+      }
     ]
   },
   {
@@ -174,6 +202,13 @@
       "king_boo",
       "professor_frankly",
       "the_mole"
+    ],
+    "faiths": [
+      {
+        "id": "gadd_science",
+        "role": "Namesake",
+        "note": "The denomination is named for his method and he finds the elevation slightly embarrassing, in the manner of a man who would rather be read than believed. E. Gadd's Method holds that ghosts are a fluid-dynamics problem with opinions. Its founder invented a vacuum cleaner on that basis and was correct."
+      }
     ]
   },
   {
@@ -197,6 +232,18 @@
       "shadow_estate",
       "purple_legion",
       "mages_guild"
+    ],
+    "faiths": [
+      {
+        "id": "jester_cult",
+        "role": "Servant, by another name",
+        "note": "Bryan serves a deity he calls the Toad God, and the Toad God agrees with the Cosmic Jester that the world is a thing to be bitten. Bryan arrived at the Raventree crisis with divine instruction and no Shadowfell experience whatsoever, which is the most Punchline-shaped situation the archive has recorded this year."
+      },
+      {
+        "id": "star_spirits",
+        "role": "Heretical reading",
+        "note": "The Toad God ascended by fusing with a Crystal Star shard in the ashes of Edgeshade. Bryan's theology is therefore a Star Spirits heresy: the wish-granting stars are real, and one of them is now a person with a grievance."
+      }
     ]
   },
   {
@@ -220,6 +267,13 @@
       "the_eastern_passage",
       "ruined_manor_convergence",
       "the_arrangement"
+    ],
+    "faiths": [
+      {
+        "id": "tzeentch_schemes",
+        "role": "Was, or is, or was made",
+        "note": "The Regency says Mr. L was a temporary condition \u2014 Luigi brainwashed and weaponised. The Path of Change teaches that the self is a draft. Both accounts explain the evidence, and only one of them lets Luigi off, which is precisely why the archive declines to choose."
+      }
     ]
   },
   {
@@ -243,6 +297,13 @@
       "shadow_estate",
       "green_t",
       "the_oracle"
+    ],
+    "faiths": [
+      {
+        "id": "dark_moon_clan",
+        "role": "Sovereign",
+        "note": "The Dark Moon drives ghosts mad and King Boo governs the ones it has finished with. He is one of the few entities in the crisis operating outside every known faction structure, which the Clan would say is not independence but seniority."
+      }
     ]
   },
   {
@@ -277,6 +338,13 @@
       "oc_soul_ring",
       "waluigi_disguise_kit_wally",
       "feyward_battalion_of_six_and_the_bait_plan"
+    ],
+    "faiths": [
+      {
+        "id": "waluigi_time",
+        "role": "Unwilling object of worship",
+        "note": "The Cult of WAH holds that everyone is cheating but you. Waluigi did not found it, does not collect from it, and has filed a formal objection to the name in his own encyclopedia \u2014 but he did articulate the doctrine, at length, to a god, while strapped to an electric chair. The congregation considers this scripture. WAH."
+      }
     ]
   },
   {
@@ -302,6 +370,18 @@
       "rhak_the_lost",
       "manderaz_the_mad",
       "aemenor_evenflight"
+    ],
+    "faiths": [
+      {
+        "id": "cog_gospel",
+        "role": "Chapel Division, on the payroll",
+        "note": "Hargram is employed by the Iron Legion's chapel at Raventree, which makes him the closest thing that chapel has to a congregation. He can recite the responses. He has never been observed to mean one."
+      },
+      {
+        "id": "khornate_blood_cult",
+        "role": "Private, unadmitted",
+        "note": "The tattoos map a career through gangs, bandits and sailing vessels, and the thing Hargram actually believes in happens in the pit: that a fight settles a question no argument can, and that the settling is owed to something. He would deny this in the Legion's own chapel, standing up, in daylight."
+      }
     ]
   },
   {
@@ -322,6 +402,13 @@
       "meta_knight",
       "second_summit",
       "mushroom_regency"
+    ],
+    "faiths": [
+      {
+        "id": "bean_star_faith",
+        "role": "Enthusiastic, imprecise",
+        "note": "Dedede venerates the wish-granting vegetable star with the sincerity of a monarch who has never had a wish refused and the doctrinal precision of a man who mainly noticed it was food-adjacent. His Second Summit conduct suggests the wishes are not about the kingdom."
+      }
     ]
   },
   {
@@ -341,6 +428,13 @@
       "king_dedede",
       "fountain_of_dreams",
       "second_summit"
+    ],
+    "faiths": [
+      {
+        "id": "lady_of_the_lake",
+        "role": "Sworn, quietly",
+        "note": "Meta Knight actually runs Dreamland while Dedede holds the title, and the chivalric code is the only thing that makes that arrangement bearable: honour is owed to the office, service is owed to the realm, and neither requires the officeholder to deserve it."
+      }
     ]
   },
   {
@@ -359,6 +453,13 @@
       "second_summit",
       "mushroom_regency",
       "sarasaland"
+    ],
+    "faiths": [
+      {
+        "id": "order_of_maat",
+        "role": "Sarasaland's own",
+        "note": "Maat's balance came out of desert regions and Sarasaland is one of them \u2014 this is Daisy's inherited state faith rather than a discovery. She hosted the Second Diplomatic Summit on its principles and watched delegations walk out of it anyway."
+      }
     ]
   },
   {
@@ -387,6 +488,13 @@
       "dk_crew",
       "king_k_rool",
       "kongo_bongo"
+    ],
+    "faiths": [
+      {
+        "id": "cult_of_the_engine",
+        "role": "Institutional",
+        "note": "The Krew's reverence for the Engine is indistinguishable from its logistics: the machines are maintained, the crews are drilled, and the doctrine supplies a reason to keep both going between campaigns against Kongo Bongo."
+      }
     ]
   },
   {
@@ -408,6 +516,13 @@
       "star_rod",
       "king_dedede",
       "meta_knight"
+    ],
+    "faiths": [
+      {
+        "id": "great_maw",
+        "role": "Theologically embarrassing",
+        "note": "Kirby solves problems by eating them, and the problems have included cosmic horrors and galaxy-enders. By every doctrinal test the Great Maw applies, Kirby qualifies as its highest expression. The Maw's clergy find this intolerable, because Kirby is demonstrably kind and the doctrine has no provision for that."
+      }
     ]
   },
   {
@@ -474,6 +589,13 @@
       "raventree_manor",
       "mages_guild",
       "thornwood_manor_silent_field_dossier"
+    ],
+    "faiths": [
+      {
+        "id": "cog_gospel",
+        "role": "Observant, impatient",
+        "note": "Byscilla keeps the forms because the forms are how the Legion knows you are one of theirs. She has also dragged a Mages' Guild quartermaster out of a bath by the ear while her soldiers took heatstroke outside, which is not in the liturgy. Her faith is in the chain of command working; the theology is packaging."
+      }
     ]
   },
   {
@@ -494,6 +616,13 @@
       "byscilla_danos",
       "manderaz_the_mad",
       "raventree_manor"
+    ],
+    "faiths": [
+      {
+        "id": "great_waaagh",
+        "role": "Lapsed by geography",
+        "note": "Rhak carries the gestalt the way an expatriate carries an accent \u2014 it strengthens when there are enough of his own around and is nearly inaudible on Byscilla's team, where he is the only orc. 'The Lost' is not a battlefield title. It is what the WAAAGH! sounds like from too far away."
+      }
     ]
   },
   {
@@ -514,6 +643,13 @@
       "byscilla_danos",
       "rhak_the_lost",
       "raventree_manor"
+    ],
+    "faiths": [
+      {
+        "id": "khornate_blood_cult",
+        "role": "Aristocratic reading",
+        "note": "Manderaz gives the Blood God the bearing of a courtier: violence as a discipline with etiquette, owed to a peer and wasted on a lesser. The hobgoblin khanates produce this reading regularly and the Legion finds it very convenient, since a man who thinks slaughter has manners will follow orders about who is worth killing."
+      }
     ]
   },
   {
@@ -534,6 +670,13 @@
       "archie_miser",
       "hargram_fidger",
       "raventree_manor"
+    ],
+    "faiths": [
+      {
+        "id": "asuryan_faithful",
+        "role": "Kept quietly, among humans",
+        "note": "Aemenor observes the Phoenix flame in a Legion detachment that has no idea what the observance is for and would file it as a foreign superstition if it noticed. The cloak shifts colour; the practice does not. The scar predates the enlistment and Aemenor has never said which the faith was meant to answer."
+      }
     ]
   },
   {
@@ -556,6 +699,13 @@
       "dan",
       "raventree_manor",
       "thornwood_manor_silent_field_dossier"
+    ],
+    "faiths": [
+      {
+        "id": "dark_moon_clan",
+        "role": "Appeared under it",
+        "note": "Spriggon showed Hargram's team a keychain with an Iron Legion rank ring and then departed into darkness, which is the entirety of the record. The Clan's theology concerns what the moon sends and does not take back. The archive files him here for want of anything firmer."
+      }
     ]
   },
   {
@@ -575,6 +725,13 @@
       "hargram_fidger",
       "raventree_manor",
       "archie_miser"
+    ],
+    "faiths": [
+      {
+        "id": "great_waaagh",
+        "role": "Nominal",
+        "note": "Warol greets survey teams at a greenhouse gate. Whatever the WAAAGH! is doing in the Badlands, it is not reaching the Raventree perimeter, and Warol's practice has thinned to a few phrases he uses when startled."
+      }
     ]
   },
   {
@@ -597,6 +754,13 @@
       "mages_guild",
       "planar_fracture",
       "usk"
+    ],
+    "faiths": [
+      {
+        "id": "tzeentch_schemes",
+        "role": "Suspected",
+        "note": "A well-tailored man with a cane he does not need, plain clothing chosen to be forgettable, and dimensional interests nobody has mapped. Every visible choice Orvinder makes is about controlling what other people conclude. The archive files him here provisionally and expects to be surprised."
+      }
     ]
   },
   {
@@ -624,6 +788,13 @@
       "luigi",
       "shadow_estate_mirror_rooftop_escape",
       "shadow_estate"
+    ],
+    "faiths": [
+      {
+        "id": "jester_cult",
+        "role": "Practising, cruelly",
+        "note": "Mystic Morel sings while he works. He robbed Archie while Archie was pinned, bought a petrified fourteen-year-old at auction for twelve thousand gold, and put an invisible ring on her finger that would tighten daily and cut if she told anyone. The Cosmic Punchline holds that existence is a joke; Morel's contribution is insisting on an audience."
+      }
     ]
   },
   {
@@ -650,6 +821,18 @@
       "battle_of_the_brobot",
       "thornburys_field_journal",
       "thornwood_manor_silent_field_dossier"
+    ],
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "Raised in it",
+        "note": "Luigi keeps the observances he was raised with, which in his case means sketching the North Star on waking in houses that are not haunted, and doing it faster in houses that are."
+      },
+      {
+        "id": "gadd_science",
+        "role": "Contracted into it",
+        "note": "Whatever E. Gadd's Method is, Luigi is its most experienced field practitioner and its least willing one. He has operated the Poltergust in conditions the Method's own literature calls theoretical. The contract is with the Guild now, which has not improved the working relationship with the doctrine."
+      }
     ]
   },
   {
@@ -677,6 +860,13 @@
       "ryan",
       "rakasha",
       "fawful"
+    ],
+    "faiths": [
+      {
+        "id": "yggdrasil_pact",
+        "role": "Chief and spirit-walker",
+        "note": "The Rakasha kept dimensional traditions centuries before the Mages' Guild existed, and the Pact's reverence for the trees that connect realms is the closest published doctrine to what Thornpaw's shamans actually practise. He also testified at Fawful's gala to a secret relationship with Princess Peach, which no tradition covers."
+      }
     ]
   },
   {
@@ -696,7 +886,19 @@
       "princess_peach",
       "fawful_forces"
     ],
-    "image": "https://media.wired.com/photos/593231f92a990b06268a91a5/master/w_1600%2Cc_limit/captaintoad_toadette.jpg"
+    "image": "https://media.wired.com/photos/593231f92a990b06268a91a5/master/w_1600%2Cc_limit/captaintoad_toadette.jpg",
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "Devout",
+        "note": "Toadette prays before operations and considers this a logistical step rather than a spiritual one. The Loyalists fight for a dead Princess; the faith supplies the vocabulary that makes eighty-five years of that sound like duty instead of grief."
+      },
+      {
+        "id": "lady_of_the_lake",
+        "role": "Adopted discipline",
+        "note": "The chivalric code arrived with a captured Chramalot manual and Toadette kept the parts about honouring surrender. Her officers report that she means them, which is the inconvenient part."
+      }
+    ]
   },
   {
     "id": "mario",
@@ -721,6 +923,13 @@
       "mushroom_regency",
       "the_arrangement",
       "chief_thornpaw"
+    ],
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "The state's example",
+        "note": "For eighty-five years the Star Sanctuary has held Mario up as proof that a wish, made properly, is answered. Mario himself has not been available for comment on the theology since Peach died, and the faith has grown around his absence rather than his testimony."
+      }
     ]
   },
   {
@@ -738,7 +947,14 @@
       "archie_miser"
     ],
     "expandedFromMicro": true,
-    "microArticleFlag": "expanded"
+    "microArticleFlag": "expanded",
+    "faiths": [
+      {
+        "id": "silph_corporate_policy",
+        "role": "Medical Division rite",
+        "note": "Pellinost calls himself a doctor and the Guild calls what he does charity. Both terms survive because the bill arrives afterwards. The Corporate Policy reading of mercy is that it is a service, and an unbilled service is a service nobody valued."
+      }
+    ]
   },
   {
     "id": "thornbury",
@@ -764,6 +980,13 @@
       "raventree_manor",
       "the_arrangement",
       "thornburys_field_journal"
+    ],
+    "faiths": [
+      {
+        "id": "silph_corporate_policy",
+        "role": "Devout",
+        "note": "Thornbury charged Archie two thousand gold for a broken rope. This is not avarice in Thornbury's understanding \u2014 it is doctrine: value must be recognised, recorded, and invoiced, or the world drifts into the sin of the unpriced favour. He also brought rubber duckies for a bubble bath, which he almost certainly itemised."
+      }
     ]
   },
   {
@@ -797,6 +1020,13 @@
       "nerd_t",
       "geek_t",
       "the_scorncrow_skirmish"
+    ],
+    "faiths": [
+      {
+        "id": "order_of_maat",
+        "role": "Private code, no congregation",
+        "note": "Green T ran a criminal empire with the manners of a garden-party host and executes with the same tidiness \u2014 every account settled, nothing left ragged. Maat's weighing is the closest published doctrine to what he actually does, and he has never once called it a faith. He handed a fourteen-year-old a silenced revolver to close a loose end."
+      }
     ]
   },
   {
@@ -816,6 +1046,13 @@
       "xo",
       "archie_miser",
       "wario"
+    ],
+    "faiths": [
+      {
+        "id": "silph_corporate_policy",
+        "role": "Chapter doctrine",
+        "note": "The Iron Fists run the Swiftsoul Chapter as a business and Commander G runs it ruthlessly. Corporate Policy's teaching that price discovers truth is the whole of the Chapter's ethics, and it is the reason a bounty on a confessed arsonist counts as a market signal rather than a moral position."
+      }
     ]
   },
   {
@@ -834,6 +1071,13 @@
       "iron_fists_guild",
       "commander_g",
       "archie_miser"
+    ],
+    "faiths": [
+      {
+        "id": "abyss_order_void",
+        "role": "Destabilising",
+        "note": "X.O. is Commander G's daughter and the Chapter's internal problem. The Abyss hates imposed order specifically, which is a precise description of a person whose disruption is aimed at her own father's structure rather than at anything outside it."
+      }
     ]
   },
   {
@@ -851,6 +1095,13 @@
     "relatedArticles": [
       "iron_fists_guild",
       "archie_miser"
+    ],
+    "faiths": [
+      {
+        "id": "silph_corporate_policy",
+        "role": "Rank and file",
+        "note": "Coinsoul dealt with Archie shortly before Swiftsoul and priced the interaction the way the Chapter prices everything. The doctrine reaches the bottom of the org chart intact, which is more than most faiths manage."
+      }
     ]
   },
   {
@@ -869,6 +1120,13 @@
       "archie_miser",
       "iron_fists_guild",
       "veridian_grove"
+    ],
+    "faiths": [
+      {
+        "id": "yggdrasil_pact",
+        "role": "Circle elder",
+        "note": "Rowan Meadowlight was a respected druid of the Veridian Grove and died on the same day as the Swiftsoul explosion. The Grove's practice was Pact orthodoxy: the trees connect the realms, and the realms are therefore each other's responsibility."
+      }
     ]
   },
   {
@@ -886,6 +1144,13 @@
     "relatedArticles": [
       "archie_miser",
       "iron_fists_guild"
+    ],
+    "faiths": [
+      {
+        "id": "gematria_gnosis",
+        "role": "Temple of one",
+        "note": "Rakka employs agents for retrieval missions from a hidden temple and has never explained what the retrieved things are for. Gematria Gnosis seeks the sublime through the abstract and the horrific, and every commission Rakka has issued fits that description from the outside."
+      }
     ]
   },
   {
@@ -903,6 +1168,13 @@
     "relatedArticles": [
       "archie_miser",
       "iron_fists_guild"
+    ],
+    "faiths": [
+      {
+        "id": "order_of_maat",
+        "role": "Professional creed",
+        "note": "Edgeworth prosecutes, and Maat's scales are the oldest available statement of what a prosecution is supposed to be for. He is handling the case against Archie Miser in a court where Waluigi introduced a Wheel of Regret, which has tested the doctrine considerably."
+      }
     ]
   },
   {
@@ -922,7 +1194,14 @@
       "mushroom_kingdom"
     ],
     "expandedFromMicro": true,
-    "microArticleFlag": "expanded"
+    "microArticleFlag": "expanded",
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "Devout, and a witness",
+        "note": "Bloomia served Peach personally and kept the observances beside her. She is also the missing link in the assassination \u2014 a woman who knew the household's rites, the household's doors, and which of the two mattered on the morning of Highsun 1."
+      }
+    ]
   },
   {
     "id": "speaker_l",
@@ -948,6 +1227,18 @@
       "geek_t",
       "accountability_docket",
       "fractured_heart"
+    ],
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "Lapsing",
+        "note": "Speaker L was a procedural politician who believed a wish made properly and a question asked properly were the same kind of act. Order 120 killed everyone that belief was protecting."
+      },
+      {
+        "id": "khornate_blood_cult",
+        "role": "Drifting toward",
+        "note": "The war anthems are new. Speaker L would reject the label furiously and the drift is visible anyway: violence reframed as the only remaining honest transaction, and a vow to hunt the Green Decoy that is not about intelligence value. Nobody in the Pond Patrol has named what he is becoming, which is how these things proceed."
+      }
     ]
   },
   {
@@ -965,6 +1256,13 @@
     "relatedArticles": [
       "koopa_troop",
       "bowser"
+    ],
+    "faiths": [
+      {
+        "id": "great_maw",
+        "role": "Devout, catastrophically",
+        "note": "Kamek decided Bowser's methods were obsolete and dug under the castle to wake a world-eating space worm. There is no more literal act of Maw worship in the archive. He has been reduced to an avatar and captured, and the doctrine has not been noticeably inconvenienced."
+      }
     ]
   },
   {
@@ -986,6 +1284,13 @@
       "aegis_command",
       "robinson",
       "fractured_heart"
+    ],
+    "faiths": [
+      {
+        "id": "cog_gospel",
+        "role": "Doctrinal authority",
+        "note": "Ironhand does not preach the Gospel of the Cog; he administers it. The doctrine that flesh is weak and steel eternal is useful to him precisely because it converts people into materiel on paper before anyone has to do it in person. Order 120 was signed by a man who had already filed the prisoners under a category that does not require grief."
+      }
     ]
   },
   {
@@ -1017,6 +1322,13 @@
       "geek_t",
       "randell_vampire",
       "the_scorncrow_skirmish"
+    ],
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "Organiser's faith",
+        "note": "Dan helped build a faction out of people who had been shipped in barrels, and kept the observances because a shared rite was the cheapest structure available. He was a competent organiser before he was anything else."
+      }
     ]
   },
   {
@@ -1036,6 +1348,13 @@
       "peach_loyalists",
       "captain_toadette",
       "bramblehaven"
+    ],
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "Front-rank observance",
+        "note": "Embercap leads assaults from the front and says the wish before the door goes in. The Field Commander's version of the faith is short, practical, and addressed mostly to the people behind him."
+      }
     ]
   },
   {
@@ -1055,6 +1374,13 @@
       "dk_crew",
       "kongo_bongo",
       "second_summit"
+    ],
+    "faiths": [
+      {
+        "id": "cult_of_the_engine",
+        "role": "Patron",
+        "note": "K. Rool's schemes run on machinery \u2014 ships, weapons, and an information operation at the Second Summit that baited Lanky Kong on camera. The Cult venerates the perpetual motion that keeps the world running. K. Rool venerates the part where it can be aimed."
+      }
     ]
   },
   {
@@ -1135,6 +1461,13 @@
         "id": "orantha_cornelius",
         "name": "Orantha Cornelius (Suspected)",
         "role": "Possible true identity of the Oracle \u2014 connected to House Corvinarus as original portal architect \u2014 relationship to the man currently suspended in crystal tethers unknown"
+      }
+    ],
+    "faiths": [
+      {
+        "id": "tzeentch_schemes",
+        "role": "Structurally, whatever it professes",
+        "note": "The Oracle is a role wearing whoever was convenient, custodian of bleeding timelines, and the entity that talked a volatile pyromancer into anchoring a reality-altering ritual. The Path of Change venerates the schemer whose plans nest inside other plans. The Oracle has never claimed the faith and behaves indistinguishably from its ideal practitioner."
       }
     ]
   },
@@ -1309,6 +1642,13 @@
       "disaster_inc",
       "shadow_estate_mirror_rooftop_escape",
       "planar_fracture"
+    ],
+    "faiths": [
+      {
+        "id": "slaanesh_excess",
+        "role": "Aesthetic devotion",
+        "note": "Lyranth makes sculptures of stunning beauty out of people who were alive that morning, told Remi to smile, and exhibited her under a title crediting someone who was not there. The Cult of Excess teaches that sensation justifies itself. Lyranth's practice is the doctrine with the apologies removed."
+      }
     ]
   },
   {
@@ -1329,6 +1669,13 @@
       "lyranth",
       "remi",
       "toadburt"
+    ],
+    "faiths": [
+      {
+        "id": "gematria_gnosis",
+        "role": "Curator",
+        "note": "The Archivist controls the library and trades healing for indentured service \u2014 knowledge as a currency with a body attached. Gematria Gnosis seeks the sublime through the horrific and abstract, and the Archivist has organised an entire estate's suffering into a catalogue."
+      }
     ]
   },
   {
@@ -1350,6 +1697,13 @@
       "shadow_estate",
       "remi",
       "bowser"
+    ],
+    "faiths": [
+      {
+        "id": "sanguine_path",
+        "role": "Orthodox",
+        "note": "Ashford represents the Onyx Hand and the Sanguine Path is the Hand's official cosmology: blood as hierarchy, undeath as promotion. He arrived mid-confrontation to remind everyone present which rung they occupied."
+      }
     ]
   },
   {
@@ -1427,6 +1781,13 @@
       "shadow_estate_mirror_rooftop_escape",
       "shadow_estate_spotlight_cookie_cottage",
       "iron_legion"
+    ],
+    "faiths": [
+      {
+        "id": "great_maw",
+        "role": "Refuses the title",
+        "note": "The Maw's doctrine of the insatiable is exactly what eighty-five years of Regency propaganda has accused Bowser of embodying, and it is the one accusation he actually resents. He ate raw dripping meat in one bite at a vampire's table and then stopped a fourteen-year-old executing a prisoner because it was brutal even for him. The Maw has no clause for that."
+      }
     ]
   },
   {
@@ -1453,6 +1814,13 @@
       "toadsworth_sr",
       "mario",
       "mushroom_regency"
+    ],
+    "faiths": [
+      {
+        "id": "millennium_logic",
+        "role": "Senior Enforcer",
+        "note": "Stormweave's faith is in method: that a properly constructed procedure produces a defensible outcome and the outcome's morality is somebody else's department. Lady Bloomia places him at the Royal Vault on the morning of the assassination, delaying a crown delivery and knowing a name he should not have known. He would call that operational."
+      }
     ]
   },
   {
@@ -1485,7 +1853,14 @@
       "feyward_battalion_of_six_and_the_bait_plan"
     ],
     "expandedFromMicro": true,
-    "microArticleFlag": "expanded"
+    "microArticleFlag": "expanded",
+    "faiths": [
+      {
+        "id": "millennium_logic",
+        "role": "Practical adherent",
+        "note": "Toad Lee is the reason Disaster Inc. was not wholly consumed by the Feywild, and the reason is that he reads things. The Millennium doctrine \u2014 that method beats intuition and a checked answer beats a confident one \u2014 describes his entire contribution to the crisis."
+      }
+    ]
   },
   {
     "id": "ryan",
@@ -1503,6 +1878,13 @@
       "iron_legion",
       "vigilance",
       "disaster_inc"
+    ],
+    "faiths": [
+      {
+        "id": "void_nihilism",
+        "role": "Arrived at, not chosen",
+        "note": "Ryan jumped off the Vigilance during the Iron Sky Breach rather than be taken. Void Nihilism holds that the end is inevitable and the only question is your posture on the way. Nobody recruited Ryan to this. He worked it out mid-air."
+      }
     ]
   },
   {
@@ -1565,6 +1947,13 @@
       "astral_altar",
       "alpine_bank",
       "arunedeal_goblin_camp"
+    ],
+    "faiths": [
+      {
+        "id": "gematria_gnosis",
+        "role": "Reader, not believer",
+        "note": "Bones stole Fundamentals of Abjuration and read Corvinarus's ten-page Veins of the Tapestry \u2014 a masterwork that treats the structure of reality as a text with an author. Gematria Gnosis holds that the sublime is reachable through the horrific and abstract. Bones took the reading and left the reverence."
+      }
     ]
   },
   {
@@ -1619,6 +2008,13 @@
       "tymnas",
       "the_regulator_plane",
       "the_box_guardian_sharpie_disguise_and_the_soot_barrel"
+    ],
+    "faiths": [
+      {
+        "id": "missingno_glitch",
+        "role": "Involuntary congregation",
+        "note": "There are too many Dans. The Glitch venerates data corruption and reality errors, and this Dan is one \u2014 a dimensional duplicate who admitted shoving the original into a Mages' Guild null cage to stop the question being asked out loud. He does not worship the Glitch. He is evidence for it."
+      }
     ]
   },
   {
@@ -1667,6 +2063,13 @@
       "eager_player_character",
       "the_box_guardian_sharpie_disguise_and_the_soot_barrel",
       "randell_vampire"
+    ],
+    "faiths": [
+      {
+        "id": "helix_fossil_cult",
+        "role": "Sincere, and statistically doomed",
+        "note": "Eager consults omens before choosing a direction and has a supernatural gift for choosing the worst available one. The Church of Helix teaches that the fossil's guidance is real and its interpretation is your problem. Eager is the strongest evidence for both halves of that claim."
+      }
     ]
   },
   {
@@ -1725,6 +2128,13 @@
       "onyx_hand",
       "orangus_cornelius",
       "disaster_inc"
+    ],
+    "faiths": [
+      {
+        "id": "sanguine_path",
+        "role": "Fraudulent",
+        "note": "Vivian is not blood-related to the Corvinarus family, was not the woman the dinner guests met, and claimed an inheritance on the strength of a bloodline he does not have. The Sanguine Path is a faith entirely about blood as legitimacy, which made it the exact doctrine worth counterfeiting."
+      }
     ]
   },
   {
@@ -1815,6 +2225,13 @@
       "randell_vampire",
       "tymnas_cottage_and_hedge_maze",
       "the_scorncrow_skirmish"
+    ],
+    "faiths": [
+      {
+        "id": "silph_corporate_policy",
+        "role": "Founder-adjacent",
+        "note": "Wario's ledger tracks debts owed by generals, bosses and at least one deceased dragon, and he has offered to forgive one in exchange for a man's kidneys. Corporate Policy's trinity is profit, innovation and the Master Ball. Wario has never needed the third."
+      }
     ]
   },
   {
@@ -1975,6 +2392,18 @@
       "ryan",
       "spirit_walkers",
       "planar_fracture"
+    ],
+    "faiths": [
+      {
+        "id": "yggdrasil_pact",
+        "role": "Ancestral",
+        "note": "The confederation's spirit-walking and its dimensional traditions predate the Guild's charter, and the Pact is the register the outside world files them under. The Rakasha did not choose the filing."
+      },
+      {
+        "id": "wild_hunt",
+        "role": "The other half",
+        "note": "The tribes are warriors as well as spirit-walkers, and the Hunt's predator-and-prey theology accounts for the half of Rakasha practice that the Pact's gentler reading keeps leaving out."
+      }
     ]
   },
   {
@@ -1999,6 +2428,13 @@
       "captain_toadette",
       "peach_loyalists",
       "lady_bloomia"
+    ],
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "Chamberlain's observance",
+        "note": "Toadsworth the Elder kept the palace liturgy for a Princess whose death he may have enabled. If the journals recovered in 1010 BF are authentic, he went on lighting Star Altars for eighty-five years afterwards, which is either penance or the most sustained act of institutional composure on record."
+      }
     ]
   },
   {
@@ -2046,6 +2482,13 @@
       "mages_guild",
       "iron_legion",
       "princess_peach"
+    ],
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "Office, not conviction",
+        "note": "The Chancellor performs the state faith because the Regency is the state faith's principal patron and a Chancellor who skipped the rite would be reported by lunchtime. He inherited his father's chair and possibly his father's complicity. The Sanctuary has not asked him about the second thing."
+      }
     ]
   },
   {
@@ -2447,7 +2890,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/papyrus.png"
+    "image": "portraits/papyrus.png",
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "Wholehearted",
+        "note": "Papyrus makes wishes out loud, to strangers, on purpose, which is technically the Mercurias observance performed continuously. The Sanctuary's doctrine is that hope spreads by being shared. Papyrus is either the faith's ideal practitioner or proof that it did not need a faith."
+      }
+    ]
   },
   {
     "id": "grandpa_semi",
@@ -2479,7 +2929,14 @@
       }
     ],
     "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
-    "image": "portraits/grandpa_semi.png"
+    "image": "portraits/grandpa_semi.png",
+    "faiths": [
+      {
+        "id": "yggdrasil_pact",
+        "role": "Roots, in the family sense",
+        "note": "Grandpa Semi keeps registry cards, old recipes and half-finished jokes in a cedar chest, and insists the missing pieces are sometimes the important part. The Pact reveres what connects across distance. He taught Sans to listen before speaking, which is the only rite he has ever administered."
+      }
+    ]
   },
   {
     "id": "lazybones",
@@ -2519,7 +2976,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/lazybones.png"
+    "image": "portraits/lazybones.png",
+    "faiths": [
+      {
+        "id": "void_nihilism",
+        "role": "Comfortably",
+        "note": "From a nest of blankets by the heater, Lazybones coordinates emergency snacks, spare scarves and quiet cover stories. Void Nihilism says nothing lasts. Lazybones agrees and has concluded that the correct response is a warm room and a plausible excuse for whoever needs one."
+      }
+    ]
   },
   {
     "id": "baby_bones",
@@ -2599,7 +3063,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/dirty_brother.png"
+    "image": "portraits/dirty_brother.png",
+    "faiths": [
+      {
+        "id": "steam_covenant",
+        "role": "Boiler-side",
+        "note": "The green sparks are residue from ancient heating runes, not a curse, and he enjoys letting visitors believe otherwise. The Covenant venerates pressure and gears. Dirty Brother keeps Snowdin warm and lets the theology arrive on its own."
+      }
+    ]
   },
   {
     "id": "will",
@@ -2639,7 +3110,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/will.png"
+    "image": "portraits/will.png",
+    "faiths": [
+      {
+        "id": "sanctum_of_light",
+        "role": "Quartermaster's version",
+        "note": "Blankets, medicine, lantern oil and emergency noodles, organised with military focus under the motto 'feed first, worry later.' The Sanctum's doctrine emphasises healing and protection. Will has stripped out the healing rites and kept the supply chain, which is arguably the load-bearing half."
+      }
+    ]
   },
   {
     "id": "cursive",
@@ -2679,7 +3157,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/cursive.png"
+    "image": "portraits/cursive.png",
+    "faiths": [
+      {
+        "id": "unown_alphabet",
+        "role": "The other school",
+        "note": "Cursive turns gossip, notices and apologies into small works of art, and his friendly rivalry with Helvetica is the Bone-Line's only sustained theological dispute: whether the letter serves the reader or the meaning. Both positions are orthodox. Neither will concede."
+      }
+    ]
   },
   {
     "id": "times_new_roman",
@@ -2719,7 +3204,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/times_new_roman.png"
+    "image": "portraits/times_new_roman.png",
+    "faiths": [
+      {
+        "id": "millennium_logic",
+        "role": "Chronicle Office",
+        "note": "Times New Roman wants dates, sources and a respectable typeface, and distrusts any story introduced with 'you had to be there.' Millennium Logic's insistence on method over intuition is his entire editorial policy, applied to a family that communicates almost entirely by anecdote."
+      }
+    ]
   },
   {
     "id": "prunsel",
@@ -2759,7 +3251,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/prunsel.png"
+    "image": "portraits/prunsel.png",
+    "faiths": [
+      {
+        "id": "unown_alphabet",
+        "role": "Registry anomaly",
+        "note": "A colossal eye-shaped relative recorded in the margins of the family archive \u2014 some entries call it a cousin transformed by unfinished science, others a guardian that learned the name. The Hidden Power venerates letters that rewrite reality. Prunsel is filed in the margins because the margins are where the rewriting shows."
+      }
+    ]
   },
   {
     "id": "real_star",
@@ -2799,7 +3298,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/real_star.png"
+    "image": "portraits/real_star.png",
+    "faiths": [
+      {
+        "id": "luma_caretakers",
+        "role": "Claimed by both",
+        "note": "A Real Star insists the Bone-Line adopted him by cheering loudly enough at the night sky, and Papyrus accepted the claim on the spot. The Caretakers raise young stars. They have never been able to establish whether this one is theirs."
+      }
+    ]
   },
   {
     "id": "wing_gaster",
@@ -2842,7 +3348,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/wing_gaster.png"
+    "image": "portraits/wing_gaster.png",
+    "faiths": [
+      {
+        "id": "missingno_glitch",
+        "role": "Became the doctrine",
+        "note": "Family records name Wing Gaster as a brilliant scientist studying darkness and the architecture between worlds before he vanished from ordinary history. The Glitch worships data corruption and reality errors. Gaster is not a worshipper. He is the incident."
+      }
+    ]
   },
   {
     "id": "helvetica",
@@ -2882,7 +3395,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/helvetica.png"
+    "image": "portraits/helvetica.png",
+    "faiths": [
+      {
+        "id": "unown_alphabet",
+        "role": "Professionally",
+        "note": "Helvetica believes clarity is mercy and designs Snowdin's signs on that principle. The Hidden Power holds that letters rewrite reality. A signmaker in a blizzard would say that is not doctrine, it is the job."
+      }
+    ]
   },
   {
     "id": "garbage_brother",
@@ -2922,7 +3442,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/garbage_brother.png"
+    "image": "portraits/garbage_brother.png",
+    "faiths": [
+      {
+        "id": "scrappers_code",
+        "role": "Exemplary",
+        "note": "Baby Bones's favourite rattle and Papyrus's emergency spaghetti strainer both came off his workbench. The Scrapper's Code teaches reverence for the potential in discarded things. He dislikes the nickname and keeps the practice, which is the most orthodox thing anyone in Snowdin does."
+      }
+    ]
   },
   {
     "id": "quantity",
@@ -2962,7 +3489,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/quantity.png"
+    "image": "portraits/quantity.png",
+    "faiths": [
+      {
+        "id": "cyber_network_hive",
+        "role": "Literally",
+        "note": "A cooperative cluster of skeletons sharing one rolling chassis, several opinions and impeccable timing. The Network Hive's doctrine of collective consciousness is not an aspiration here; it is a description, and Quantity finds the Hive's reverence for it slightly overwrought."
+      }
+    ]
   },
   {
     "id": "mystery_man",
@@ -3002,7 +3536,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/mystery_man.png"
+    "image": "portraits/mystery_man.png",
+    "faiths": [
+      {
+        "id": "missingno_glitch",
+        "role": "Sighting-only",
+        "note": "Documented by sketches, absences, and appearances near sealed rooms and broken save points. The household policy is to leave a seat and ask no cruel questions. The Glitch would call that correct liturgical practice."
+      }
+    ]
   },
   {
     "id": "sans_deltarune",
@@ -3034,7 +3575,14 @@
       }
     ],
     "familyTreeSource": "family-tree.js / Snowdin Bone-Line",
-    "image": "portraits/sans_deltarune.png"
+    "image": "portraits/sans_deltarune.png",
+    "faiths": [
+      {
+        "id": "missingno_glitch",
+        "role": "Cousin from a corrupted file",
+        "note": "A parallel counterpart with a familiar storefront and a different map of impossible roads. The Glitch venerates the places where reality's record disagrees with itself. He is the household's standing evidence that it does, and they set a place for him anyway."
+      }
+    ]
   },
   {
     "id": "sans_family",
@@ -3120,7 +3668,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/has_a_very_special_attack.png"
+    "image": "portraits/has_a_very_special_attack.png",
+    "faiths": [
+      {
+        "id": "jester_cult",
+        "role": "Theatrical",
+        "note": "He announces every entrance as the last act of an opera, and his very special attack has so many versions that nobody agrees whether it is a spell, a dance or a difficult puzzle. The Cosmic Punchline holds that the joke is the point. Papyrus encourages him, which the Cult would consider enabling."
+      }
+    ]
   },
   {
     "id": "brother_killer",
@@ -3160,7 +3715,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/brother_killer.png"
+    "image": "portraits/brother_killer.png",
+    "faiths": [
+      {
+        "id": "khornate_blood_cult",
+        "role": "Refusing it, daily",
+        "note": "An intense red-eyed relation carrying a conflict nobody summarises the same way twice. The Blood God's pull is real and Brother Killer is losing to it slowly and on purpose \u2014 anger aimed at the perimeter, never at the house. In Snowdin this counts as recovery. In Khorne's terms it counts as a tithe."
+      }
+    ]
   },
   {
     "id": "my_little_brother",
@@ -3320,7 +3882,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/pretty_soon.png"
+    "image": "portraits/pretty_soon.png",
+    "faiths": [
+      {
+        "id": "bean_star_faith",
+        "role": "Hopeful",
+        "note": "A small green-scarfed cousin who promises every delayed plan will happen 'pretty soon' \u2014 a phrase the family now uses to mean hopeful patience rather than a deadline. The Bean Star grants wishes on its own schedule. Pretty Soon has made peace with the terms."
+      }
+    ]
   },
   {
     "id": "gee_lady",
@@ -3400,7 +3969,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/starman.png"
+    "image": "portraits/starman.png",
+    "faiths": [
+      {
+        "id": "luma_caretakers",
+        "role": "Guest, and possibly staff",
+        "note": "A silent grey visitor who arrives when the sky changes and once guided several relatives through a whiteout with a light that cast no shadows. Will leaves a chair. Sans watches the horizon. The Caretakers' doctrine would explain all three of those facts and has not been asked to."
+      }
+    ]
   },
   {
     "id": "speen_kind_of_down_lately",
@@ -3440,7 +4016,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/speen_kind_of_down_lately.png"
+    "image": "portraits/speen_kind_of_down_lately.png",
+    "faiths": [
+      {
+        "id": "nurgle_rot",
+        "role": "The kind reading",
+        "note": "The doctrine's public face is disease and despair; its actual teaching is endurance \u2014 that what persists through decline is still yours. Speen notices when other people are performing happiness. Lazybones keeps tea ready. Grandfather's Love, read generously, is the household's most accurate description of what they do for him."
+      }
+    ]
   },
   {
     "id": "pet_rock",
@@ -3480,7 +4063,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/pet_rock.png"
+    "image": "portraits/pet_rock.png",
+    "faiths": [
+      {
+        "id": "helix_fossil_cult",
+        "role": "Object of, arguably",
+        "note": "A tiny stone with no verified movement and an unquestioned place in the family. The Church of Helix venerates ancient fossils as sources of guidance. Baby Bones named it, Papyrus set it a plate, and nobody has established which side of the altar Pet Rock is on."
+      }
+    ]
   },
   {
     "id": "dedan",
@@ -3520,7 +4110,14 @@
     "powerLevel": 1,
     "fameScore": 18,
     "fameTier": "Obscure",
-    "image": "portraits/dedan.png"
+    "image": "portraits/dedan.png",
+    "faiths": [
+      {
+        "id": "lady_of_the_lake",
+        "role": "Duty as doctrine",
+        "note": "Dedan treats every entrance as a question of responsibility, is intimidating professionally and patient by choice, especially with children. The Lady's chivalry is about who a guard is for. Dedan has never called it a faith and has never once got the answer wrong."
+      }
+    ]
   },
   {
     "id": "flowey",
@@ -3551,7 +4148,14 @@
     "powerLevel": 8,
     "fameScore": 45,
     "fameTier": "Known",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "void_nihilism",
+        "role": "Doctrinally pure",
+        "note": "Sans identifies Flowey as the twisted remnant of Asgore's dead firstborn. Void Nihilism teaches that entropy is inevitable and meaning is a comforting error. Flowey did not adopt this position. He was returned without the capacity to hold any other."
+      }
+    ]
   },
   {
     "id": "koffin_k",
@@ -3586,7 +4190,14 @@
     "keyEvents": [
       "mount_ebott_survey_final_log"
     ],
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "jester_cult",
+        "role": "Aspiring",
+        "note": "A lonely theatrical would-be supervillain with a fake notebook, real maps and real minions. The Cosmic Punchline teaches that existence is a joke and laughter is the only response. Koffin-K has assembled all the apparatus of a villain and produced, so far, only the laughter."
+      }
+    ]
   },
   {
     "id": "crossbones",
@@ -3649,7 +4260,14 @@
       "mount_ebott_survey_part_7",
       "mount_ebott_survey_final_log"
     ],
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "sanctum_of_light",
+        "role": "Ordained in practice",
+        "note": "Sans names Toriel as one of the only authorities who can grant personal royal approval through the Underground. The Sanctum's emphasis on healing and protection describes her function exactly, and she has exercised it without any of the institution that usually comes attached."
+      }
+    ]
   },
   {
     "id": "asgore",
@@ -3687,7 +4305,14 @@
       "mount_ebott_survey_part_7",
       "mount_ebott_survey_final_log"
     ],
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "sanctum_of_light",
+        "role": "Compromised",
+        "note": "Asgore is barrier authority and the father of the dead child who became Flowey. The Sanctum teaches protection as the highest duty. He is the archive's clearest case of a man who kept the doctrine and lost the thing it was for."
+      }
+    ]
   },
   {
     "id": "boss_knuckles",
@@ -3739,7 +4364,14 @@
     "powerLevel": 5,
     "fameScore": 34,
     "fameTier": "Local",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "silver_flame_faith",
+        "role": "Inquisitorial commission",
+        "note": "Vale holds an Oathbound commission under a faith whose Edict of Purification supplies the legal theory for most of what the Mandate now permits. The Flame provides the authority; the Oathbound provide the paperwork."
+      }
+    ]
   },
   {
     "id": "skullcap_murphy",
@@ -3791,7 +4423,14 @@
     ],
     "needsReview": true,
     "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH.",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "First seat, oldest observance",
+        "note": "Mudcap treats survivor testimony as law and the liturgy as the oldest surviving testimony of all. He is the last member of the council who remembers the rite as something done in a kingdom rather than in a barrel."
+      }
+    ]
   },
   {
     "id": "captain_fernback",
@@ -3816,7 +4455,14 @@
     ],
     "needsReview": true,
     "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH.",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "lady_of_the_lake",
+        "role": "Sworn to a person, not a realm",
+        "note": "Fernback took the chivalric oath and pointed it at Speaker L rather than at any crown. The Lady's doctrine does not permit this substitution. Fernback has not noticed, and the distinction is going to matter."
+      }
+    ]
   },
   {
     "id": "scribe_dewdrop",
@@ -3841,7 +4487,14 @@
     ],
     "needsReview": true,
     "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH.",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "order_of_maat",
+        "role": "Convert by temperament",
+        "note": "Dewdrop found a desert doctrine about weighing truth and recognised her own job in it. She compares testimony, refuses to let emergency language erase inconvenient facts, and has told Speaker L to his face that a record altered for morale is a record destroyed. Maat's scales are the only authority she has ever cited approvingly."
+      }
+    ]
   },
   {
     "id": "forgemaster_ironspore",
@@ -3866,7 +4519,14 @@
     ],
     "needsReview": true,
     "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH.",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "scrappers_code",
+        "role": "Working creed",
+        "note": "Ironspore maintains a diaspora's equipment out of salvage, and the Scrapper's Code \u2014 that a discarded thing retains its potential until someone proves otherwise \u2014 is less a religion to him than an accurate description of his supply chain."
+      }
+    ]
   },
   {
     "id": "warden_thornshell",
@@ -3891,7 +4551,14 @@
     ],
     "needsReview": true,
     "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH.",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "khornate_blood_cult",
+        "role": "Unacknowledged",
+        "note": "Thornshell argues for direct action every time and frames it as defence every time. The Blood God does not require you to know his name; he requires you to keep reaching the same conclusion. Dewdrop has started keeping a tally of the votes."
+      }
+    ]
   },
   {
     "id": "healer_mistpetal",
@@ -3916,7 +4583,14 @@
     ],
     "needsReview": true,
     "waluigiComment": "Council identity imported from the Liberated Toads command docket. Expand when direct testimony is filed. WAH.",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "sanctum_of_light",
+        "role": "Practising",
+        "note": "Mistpetal measures every proposed operation against the casualty list it implies, which is the Sanctum's actual doctrine rather than its decorative one. The Menders pray over the wounded and then argue with the council, in that order."
+      }
+    ]
   },
   {
     "id": "kyrn",
@@ -3941,7 +4615,14 @@
     "faction": "independent",
     "membership": "Kyrn Facility custodian / plane-severing operation",
     "image": "assets/icons/actions/icon_traps.png",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "abyss_order_void",
+        "role": "Operational",
+        "note": "Kyrn returned to Remi's cell and demanded she kill the Oracle and sever the planar link. The Abyss teaches hatred of the imposed order above all. Whatever Kyrn's facility is for, its instructions and the Abyss's doctrine keep arriving at the same demand."
+      }
+    ]
   },
   {
     "id": "mike",
@@ -3965,7 +4646,14 @@
     ],
     "needsReview": true,
     "waluigiComment": "Placeholder name, not a person. The hired man on Mount Ebot is filed as Jory Dobbs. Waluigi keeps the husk because dead links are worse than duplicates, and because an archive that quietly deletes its own mistakes cannot be trusted about anyone else's. WAH.",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "scrappers_code",
+        "role": "Casual",
+        "note": "mike \u2014 lower-case, and he will tell you it is on his papers before you finish asking \u2014 took one expedition's casual labour for Wario's Enterprise. The Scrapper's Code holds that discarded things retain their potential. mike has heard this applied to himself and did not care for it."
+      }
+    ]
   },
   {
     "id": "speaker_rivers",
@@ -3999,7 +4687,14 @@
     ],
     "needsReview": true,
     "waluigiComment": "Sources conflict on whether Rivers and Speaker L are the same office or the same person. Filed as distinct because the Diet resignation and the Speakership are recorded an hour apart on the same day. Revise on direct testimony.",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "order_of_maat",
+        "role": "Resigned on principle",
+        "note": "Rivers walked out of the Midlands Diet at 09:00 on the 21st of Highsun over the Iron Mandate. Maat's balance is the only frame in which that act reads as duty rather than desertion, and Rivers has been quietly citing it since."
+      }
+    ]
   },
   {
     "id": "creek_medic",
@@ -4029,7 +4724,14 @@
     ],
     "needsReview": true,
     "waluigiComment": "Referenced in majorBattles as 'creek_medic' and in the faction roster simply as 'Creek'. Same toad. Filed under the id the battle record already uses.",
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "sanctum_of_light",
+        "role": "Hospital-trained",
+        "note": "Creek learned the Holy Light's healing rites in a hospital before the barrels, which means he learned them as procedure with a prayer attached. He stabilised Dan after Dan lost an arm. He has not said which half of the training did it."
+      }
+    ]
   },
   {
     "id": "robinson",
@@ -4054,7 +4756,14 @@
       "general_ironhand"
     ],
     "needsReview": true,
-    "waluigiComment": "Filed as 'Robinson' \u2014 the name the battle record, the timeline, and the conflict file all use. Relationship to Markop stated identically in three sources. Fate after Day 21 unrecorded."
+    "waluigiComment": "Filed as 'Robinson' \u2014 the name the battle record, the timeline, and the conflict file all use. Relationship to Markop stated identically in three sources. Fate after Day 21 unrecorded.",
+    "faiths": [
+      {
+        "id": "wild_hunt",
+        "role": "Centaur inheritance",
+        "note": "Markop's father stood in the Dragon's Den at Dragon Mountain at 10:00 on the 21st of Highsun. The Hunt's doctrine \u2014 that the pursuit is the relationship, and both roles are honourable \u2014 is the frame a centaur brings to a room like that."
+      }
+    ]
   },
   {
     "id": "the_mole",
@@ -4080,7 +4789,14 @@
       "pond_patrol"
     ],
     "needsReview": true,
-    "waluigiComment": "The council roster is the only source that identifies the Mole as the Scouts' seventh seat and dates the defection to Day 16. A separate recurring figure called 'the Mole' appears in the Overgrown Manor and Brobot records as a chaos agent with counterfeit E. Gadd equipment; whether these are the same individual is NOT established and is deliberately not asserted here."
+    "waluigiComment": "The council roster is the only source that identifies the Mole as the Scouts' seventh seat and dates the defection to Day 16. A separate recurring figure called 'the Mole' appears in the Overgrown Manor and Brobot records as a chaos agent with counterfeit E. Gadd equipment; whether these are the same individual is NOT established and is deliberately not asserted here.",
+    "faiths": [
+      {
+        "id": "tzeentch_schemes",
+        "role": "Functionally, if not confessed",
+        "note": "The Mole held the Scouts' elected seat and reported to the Iron Legion, and sustained that for long enough that the two loyalties stopped being distinguishable from inside. The Path of Change does not ask which one was real. That is the doctrine's whole appeal."
+      }
+    ]
   },
   {
     "id": "boundy",
@@ -4109,7 +4825,14 @@
       "Deliver the promised consequences to Markop",
       "Identify whether the hanging-tree apples carry Tree of Woe influence"
     ],
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "circle_of_spores",
+        "role": "Made, not converted",
+        "note": "The Mazebounds were blighted into what they are. Boundy negotiates, remembers, and sings, which is more personhood than the doctrine of decay usually leaves behind \u2014 and the Circle would call the singing part of the cycle rather than a remnant of the person. Boundy has not been asked which reading he prefers."
+      }
+    ]
   },
   {
     "id": "randell_vampire",
@@ -4141,7 +4864,14 @@
       "Exploit or explain the imp-granted invitation loophole",
       "Reveal who ordered the cottage operation"
     ],
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "sanguine_path",
+        "role": "Claimed, thinly",
+        "note": "Randell followed Remi and Eager to Tymnas's cottage and claimed authorisation for both the trampoline and the arrest. The Path's doctrine of rightful precedence is extremely convenient to a vampire whose authorisation nobody can verify."
+      }
+    ]
   },
   {
     "id": "jamesly",
@@ -4165,7 +4895,14 @@
       "legion_embassy_old_world",
       "gamma_high_command_spire"
     ],
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "cog_gospel",
+        "role": "Senior orthodoxy",
+        "note": "Jamesly's belief is procedural: the Protocols are correct because they are the Protocols, and an operative who invokes one outside its intended use has committed something closer to blasphemy than error. He entered the debriefing room to correct a heresy, not a mistake."
+      }
+    ]
   },
   {
     "id": "daniel_gamma_command",
@@ -4189,7 +4926,14 @@
       "iron_legion",
       "gamma_high_command_spire"
     ],
-    "expandedAt": "overnight"
+    "expandedAt": "overnight",
+    "faiths": [
+      {
+        "id": "red_winter_bureaucracy",
+        "role": "State before god",
+        "note": "Daniel's object of worship is the command structure itself. He confronted the Gamma Agent not over what was learned in the embassy but over who authorized the learning \u2014 a distinction that only matters if the hierarchy is the sacred thing and the intelligence is incidental."
+      }
+    ]
   },
   {
     "id": "hank_the_goblin_butler",
@@ -4282,6 +5026,13 @@
     "relatedArticles": [
       "feyward_battalion_of_six_and_the_bait_plan",
       "hjumpik"
+    ],
+    "faiths": [
+      {
+        "id": "brotherhood_of_steel",
+        "role": "House Deldkur",
+        "note": "Hjumpik's grandfather, named in the war room of the Overgrown Manor on the morning of 1 Aethel, 922 BF. The Steel Creed's instinct \u2014 that dangerous knowledge should be held rather than shared, for everyone's protection \u2014 is a dwarven house's default posture rendered as theology."
+      }
     ]
   },
   {
@@ -4304,6 +5055,13 @@
       "scribe_dewdrop",
       "peach_loyalists",
       "warp_pipe_junction"
+    ],
+    "faiths": [
+      {
+        "id": "star_spirits",
+        "role": "Inherited",
+        "note": "Big R keeps the faith the way he keeps the line \u2014 without commentary, and further forward than anyone asked him to. The field tally writes Black Bear. The after-action writes ANCHOR. Neither notes that he says the wish for the whole squad because nobody else has time."
+      }
     ]
   },
   {
@@ -4321,8 +5079,21 @@
       "the_dread_mansion_incursion"
     ],
     "relatedArticles": [
-      "the_dread_mansion_incursion"
-    ]
+      "the_dread_mansion_incursion",
+      "the_dread_mansion",
+      "alice",
+      "director_vale",
+      "luigi",
+      "dgk"
+    ],
+    "faiths": [
+      {
+        "id": "millennium_logic",
+        "role": "Trained into it",
+        "note": "Liam entered the Dread Mansion to collect Spirit Residue on an assignment his own organisation says it never issued. Millennium Logic teaches that a documented procedure is a sufficient reason to act. Liam followed one all the way into a haunting."
+      }
+    ],
+    "image": "portraits/liam.png"
   },
   {
     "id": "alice",
@@ -4339,7 +5110,43 @@
       "the_dread_mansion_incursion"
     ],
     "relatedArticles": [
+      "the_dread_mansion_incursion",
+      "riba",
+      "the_dread_mansion",
+      "mario",
+      "luigi",
+      "liam",
+      "director_vale"
+    ],
+    "faiths": [
+      {
+        "id": "dark_moon_clan",
+        "role": "Bound, not devout",
+        "note": "Alice is a spirit in a tattered Victorian dress whose anger drives the mansion's pursuit. The Dark Moon is the doctrine that explains a ghost kept lucid enough to recognise faces and furious enough to hunt them, which is a worse condition than madness."
+      }
+    ],
+    "image": "portraits/alice.png"
+  },
+  {
+    "id": "riba",
+    "name": "Riba",
+    "title": "The Mansion Owner Alice Loved",
+    "race": "Human \u2014 unrecorded beyond the testimony",
+    "status": "Long dead \u2014 Luigi states the estate has outlived him by decades",
+    "affiliation": "The Dread Mansion (former owner)",
+    "faction": "unknown",
+    "membership": "None recorded",
+    "summary": "Riba owned the Dread Mansion. Alice loved him and he betrayed her; she died on the property and what she left behind went into the house. He appears in the archive only through Luigi's account and through the diary Alice wrote, and every fact about him is secondhand.",
+    "description": "Riba is named twice in the Dread Mansion transcript and never appears in it. Luigi's account is the whole record: a woman called Alice loved the man who owned the mansion, the man betrayed her, and she died there carrying it.\n\nWhat makes him worth an entry is not the betrayal but its persistence. While Alice held Mario, Mario talked repeatedly and urgently about punishing Riba \u2014 a man who has been dead for the better part of a century and cannot be punished by anyone. The spirit's grievance has outlived every party to it, which is the clearest measure the archive has of what she actually is.\n\nNo independent source confirms he existed. The diary on the second-floor study is the only document that could, and nobody has opened it.",
+    "keyEvents": [
       "the_dread_mansion_incursion"
+    ],
+    "relatedArticles": [
+      "the_dread_mansion_incursion",
+      "alice",
+      "the_dread_mansion",
+      "mario",
+      "luigi"
     ]
   },
   {
@@ -4357,22 +5164,174 @@
       "the_dread_mansion_incursion"
     ],
     "relatedArticles": [
-      "the_dread_mansion_incursion"
-    ]
+      "the_dread_mansion_incursion",
+      "the_dread_mansion",
+      "liam",
+      "dgk",
+      "alice"
+    ],
+    "faiths": [
+      {
+        "id": "red_winter_bureaucracy",
+        "role": "Badge as scripture",
+        "note": "Vale appeared with a silver Director's badge after DGK Central denied sending Liam anywhere. State Atheism worships the System and the credential that proves you are inside it. Vale has produced the credential. Central has produced a denial. Only one of these is portable."
+      }
+    ],
+    "image": "portraits/director_vale.png"
   },
   {
     "id": "jack_melvus_miser",
     "name": "Jack (Jackson) Melvus Miser",
-    "title": "Commander of the Jackson Order",
+    "title": "Commander of the Order of Jack; Knight of the Regal Lion",
     "race": "Human",
-    "status": "Active \u2014 Lord of his own land and commander of a 20,000-strong military force",
-    "affiliation": "The Order of Jack (Founder/Leader), Regal Lion, Iron Legion",
-    "summary": "Jack Melvus Miser is a Paladin of the Oath of Glory and a self-made noble who rose from poverty to become a celebrated local hero and military commander. Driven by a burning desire to lift his mother, Wanda, and his siblings out of their station, Jack joined the Regal Lion at fifteen, eventually rising to become its second-in-command before founding his own knightly order, 'The Order of Jack.' Now 26, he governs his own land and commands a loyal army, remaining a charismatic, Lawful Good figure beloved by his followers and his long-time girlfriend, Lunaria.",
-    "description": "## Early Life and Drive\n\nBorn into poverty, Jack bore the weight of his family's struggles as the eldest sibling. While his younger siblings\u2014July, Archie, Spring, and Hark\u2014provided emotional support, Jack was driven by a burning ambition to elevate his family's station. At the age of fifteen, this relentless drive led him to enlist in the Regal Lion, a prestigious knightly order subordinate to the Iron Legion. He envisioned a future where he could provide his mother, Wanda, with a comfortable life in a manor filled with servants and fine food.\n\n## Rise in the Regal Lion\n\nJack's ascent through the ranks of the Regal Lion was marked by exceptional skill and charismatic leadership. Starting as a lowly squire, he earned his spurs as a knight and eventually took the Oath of Glory as a Paladin. He became renowned for his tactical brilliance and combat prowess, notably assisting in the eradication of large bandit gangs and slaying fearsome monsters, including a rampaging Fire Elemental Myrmidon (CR:7). His accomplishments transformed him into a national hero, inspiring a generation of youths to follow in his footsteps. Through merit and favor, he rose to become the order's second-in-command, securing alliances and laying the groundwork for his ultimate ambitions.\n\n## The Order of Jack\n\nHaving accumulated sufficient resources and a dedicated following, Jack achieved his lifelong dream by age 26: he became a landed noble and founded his own military organization, 'The Order of Jack' (also known as the Jackson Order). The order boasts a formidable force of 20,000 personnel, including knights, paladins, clerics, and militias. The organization acts as protectors of the weak and offers services to foreign lords, though their ultimate loyalty remains fiercely tied to Jack himself. The order's heraldry\u2014a shield fronting a cross of swords and a holy staff, flanked by wings and topped with a crown in white, blue, and yellow\u2014has become a symbol of valor across the region.\n\n## Personal Life and Combat Prowess\n\nDespite his meteoric rise, Jack remains grounded by his love for his family, ensuring his siblings have the space to pursue their own passions. He is currently unmarried but maintains a long-term relationship with Lunaria, a 25-year-old Neutral Good cleric of the Knowledge Domain. Jack values her intelligence, her supportive nature toward his family, and perhaps a subtle resemblance to his sister July's caring demeanor.\n\nIn combat, Jack is a formidable presence. He wields a rare Flame-Tongue Longsword with two hands for maximum damage, keeping a shortsword in reserve. While he possesses an Animated Shield, its unique properties prompt him to rely on a traditional +2 Shield and +2 Armor for guaranteed protection. He is a charismatic leader whose tactical mind and unwavering dedication to his allies make him a terrifying opponent on the battlefield.\n\n## Assessment\n\nWaluigi regards Jack with a mixture of professional respect and deep, cynical suspicion. A man who climbs from poverty to commanding a private army of 20,000 zealots by age 26 is either a tactical genius or a disaster waiting to happen. The 'Order of Jack' sounds less like a knightly brotherhood and more like a personality cult. Still, one cannot deny the efficiency of his monster-hunting operations. As long as his 'Lawful Good' moral compass doesn't interfere with the Auditor-General's ledgers, Waluigi is content to let the golden boy play lord. WAH.",
+    "age": "26 (turns 27 this year) \u2014 born c. 1013 BF",
+    "image": "portraits/jack_melvus_miser.png",
+    "status": "Active \u2014 minor landed knight-commander at Vellanet Rise; Regal Lion second-in-command on detached service; unaware his brother Archie is missing",
+    "affiliation": "The Order of Jack (founder and commander) / the Regal Lion (knight, formerly second-in-command) / the Iron Legion (by the Regal Lion's subordination, not by oath)",
+    "aliases": [
+      "Jack Miser",
+      "Jackson Miser",
+      "Commander Jack",
+      "The Golden Boy (Waluigi, sarcastically)"
+    ],
+    "summary": "Jack Melvus Miser is the eldest of the five Miser children and the reason the rest of them eat well. A paladin of the Oath of Glory who joined the Regal Lion at fifteen, he ground his way up from squire to the order's second-in-command on bandit cordons, unpriceable monster contracts, and one daylight kill on a rampaging Fire Elemental Myrmidon in front of a whole market town. He now holds Vellanet Rise \u2014 a minor Midlands-periphery grant of a fortified manor, three villages, a mill and a quarry \u2014 and leads his own body of arms, the Order of Jack, whose famous 20,000 is a muster roll rather than an army. Locally he is a hero; a hundred miles away he is nobody. He lifted his mother Wanda and his siblings out of poverty exactly as he said he would at fifteen, and has not yet been told that the brother missing from the family portrait is wanted across three planes.",
+    "description": "Waluipedia held a single line on Jack Miser for years: *Archie's older brother, the one who joined up.* That line is now retired. The man behind it is a **minor landed knight-commander of the Regal Empire's Midlands periphery**, and the reason nobody here had heard of him is not that he is small. It is that he is **provincial** \u2014 which in an archive written from the Mushroom Kingdom's ruins is a very different failure of attention.\n\n## The Eldest, and the Arithmetic That Made Him\n\nFive children. One mother. No father in any record Waluigi can find, and Waluigi looked. Wanda Miser \u2014 Wandella on the parish roll, Wanda to everyone who ever handed her a bill \u2014 raised Jack, July, Archie, Spring and Hark on a labourer's ledger in a province whose chief exports are grain, gravel, and young men.\n\nJack was the eldest, which in a household like that is not a birth order. It is a job description. July lightened the load; he says so himself, loudly, to anyone who calls him self-made. But the arithmetic of the house was his: what came in, what went out, what was still owed at the end of the month, and the standing question of whether the family was going to climb or simply keep not-drowning.\n\nAt **fifteen** he answered it by walking to the muster office and applying to the **Regal Lion**, a knightly order that sits under the Iron Legion the way a good hunting dog sits under a bad master. Squire, then knight, then paladin \u2014 the **Oath of Glory**, which is the oath you take when you intend to be remembered. Waluigi notes without comment that the boy chose the oath about *renown* over the oath about *devotion*, and then spent eleven years making the renown honest.\n\n## What He Actually Did\n\nThe stories are real, which is rarer than the stories being good.\n\n- **Bandit clearance in the periphery.** Not one heroic charge \u2014 several seasons of grinding, unglamorous cordon work against gangs large enough to tax villages. Jack was rarely the man who found them. He was consistently the man who cut off the road out.\n- **Monster contracts nobody else would price.** Standing arrangements with towns that could not afford a Mages' Guild callout fee.\n- **The Fire Elemental Myrmidon.** A rampaging elemental of the calibre a competent adventuring party gets killed by (CR 7). Jack's company took it in a market square, in daylight, in front of the whole town \u2014 which is the single most important fact about the incident. Every account of it comes from a witness, and witnesses make heroes.\n\nHe finished that decade as the Regal Lion's **second-in-command**: a competent soldier, a genuinely excellent strategist, and a charismatic co-leader in an institution where charisma is usually a court skill rather than a field one.\n\n## The Order of Jack \u2014 and the Number\n\nHere is where Waluigi does the job the ballads will not.\n\nJack now leads his own body of arms: **the Order of Jack**, also filed as the Jackson Order or the Order of Commander Jack, depending on which of his own people you ask and how much they have had to drink. Its heraldry is a shield fronting a cross of swords and a vertical holy staff, wings sprouting either side, a crown above; white, blue and yellow. It is a good device. It is also, Waluigi observes, a device that puts a crown over a man who does not have one.\n\nThe order's stated strength is **20,000**.\n\nWaluigi has read the muster roll, and 20,000 is a **roll**, not an army. It counts, in the same column: paid standing knights and paladins; clerics on retainer; the levy militias of a holding that could not field them all without abandoning the harvest; sworn volunteers who have taken the badge and never taken a wage; foreign clients hired out on contract; and \u2014 this is the part that matters \u2014 Regal Lion and Iron Legion personnel who are counted as *backing* by the order and as *their own* by the Legion. Several thousand men are therefore on two rolls at once, and Waluigi is not the first auditor to notice.\n\nThe honest peacetime figure \u2014 bodies Jack pays, houses, and can move tomorrow \u2014 is closer to **a fortified manor's garrison and a few hundred riders**. Everything else is a mobilization ceiling, a favour network, and a very good recruiting poster.\n\nThat is not an accusation of fraud. It is what every small order's paperwork looks like. It is only remarkable because Jack's paperwork is being read as a threat assessment by people who have never seen the holding.\n\n## What He Actually Owns\n\n**Vellanet Rise**: a minor grant on the Midlands periphery. A fortified manor, three villages, a mill, a quarry, and the road tolls between them. A lord of the *Empire*, technically. A lord of *about eleven miles*, practically.\n\nHe rules it well, by the standards of a frontier grant \u2014 the order acts as watch, escort, and disaster response, hires out to neighbouring lords with Jack's permission, and answers to Jack before it answers to any king. Waluigi flags that last clause in red. A body of armed men whose loyalty runs to a person rather than a crown is called a *retinue* when it is small and a *problem* when it is not, and Jack's is currently sitting on the line between the two, being extremely well-behaved about it.\n\n## The Family, Lifted\n\nHe did the thing he said he would do at fifteen.\n\nWanda is housed, warm, and proud in a way that embarrasses him publicly. July, Spring and Hark have the space and the funding to chase their own work. The Misers went from a labourer's ledger to a manor's in one lifetime, on one man's service record, and the family knows exactly whose service record it was.\n\nArchie is the hole in the picture. The Waluipedia file on Archie Miser describes a childhood of rigidity, control, and twenty-five years of having his choices made for him \u2014 and it describes a man who ran rather than come home. Jack's file describes a household he saved. **Both accounts are sincere.** Waluigi has seen this exact discrepancy in perhaps forty families and it always resolves the same way: the person carrying the household did not notice that carrying it and running it had become the same motion.\n\nJack is not looking for Archie. Jack does not know Archie is missing, wanted, magically unstable, in debt to the Mages' Guild for a rope, or a person of interest across three planes. **Nobody has told him.** Waluigi has elected, for now, not to be the one who does \u2014 not out of kindness, but because a paladin of the Oath of Glory with a private order and an unresolved brother is a chain reaction with a good publicist.\n\n## Lunaria\n\nUnmarried, and thinking about it. Lunaria is a 25-year-old human cleric of the **Knowledge Domain**, Neutral Good, well-read on more subjects than is comfortable at a dinner table, and devoted to her duties in a way that occasionally outranks Jack's schedule.\n\nHe says he likes that she is clever, informed, and good to his mother. Waluigi notes that clever, informed and good to his mother is also a precise description of his sister July, and then declines to develop the thought further, because there are limits and this encyclopedia has found roughly two of them.\n\n## The Oath He Swore, and the Church He Swore It In\n\nJack is **Silver Flame** on every document that has ever asked, and the file wants to be precise about what that means, because it is not what it looks like.\n\nHe did not choose the faith. The Regal Lion swears its knights in a Flamekeep rite; he was fifteen, he was a squire, and the rite was the door. He learned the Litany of Purification the way he learned the drill \u2014 completely, correctly, and without ever being asked whether he agreed with it. He funds the manor chapel. He keeps the daily liturgy, which is a candle and the names of the purified at sunrise, and by every account he has not missed one in eleven years, including the morning after the Myrmidon.\n\nWhat the Church actually gives an Oath of Glory paladin is real: *Purge the Wicked*, a doctrinal bonus against undead and chaos, and a chaplaincy that follows him into the field. What the Church actually asks in return is the **Edict of Purification** \u2014 inquisitors have free reign in allied territory \u2014 and this is where Jack has twice, quietly, said no.\n\nBoth refusals concern his own tenants. Neither is written down. He has never framed either as a doctrinal position, only as a tenancy matter, which is either careful or lucky and Waluigi has stopped trying to establish which.\n\nThere is a version of this man who becomes an inquisitor. He is good at exactly the things that job needs \u2014 analysis, tactics, a personal following, absolute reliability \u2014 and he has said no twice on the only grounds that will not survive being asked a third time in public.\n\n## Lunaria, and the Second Faith on the Page\n\nLunaria is not Silver Flame. She is a Knowledge Domain cleric who keeps to the **Order of Maat** \u2014 the Temple of Balance, *Scales of Truth*, the Judgment of Souls \u2014 and her discipline is the reason there is anything auditable about Jack's command at all.\n\nThe two faiths are both Celestial Order. The register scores that pairing at the bottom of the scale: same cosmology, same broad hierarchy, nothing worse than **Harmonious Integration**. There is no crisis here and the archive is not going to invent one.\n\nThere is, however, a difference in method that shows up in every document either of them touches. The Silver Flame asks *is this pure*. Maat asks *is this true*. When the Order's famous twenty-thousand figure was finally reconciled against the actual muster roll, the person who did the reconciling was the one whose faith requires her to. The shrine she put in the manor chapel's side aisle is not on the foundation document, is not Flamekeep-approved, and is the only part of that building anyone visits without being told to.\n\n## Field Notes \u2014 Combat\n\nPaladin, Oath of Glory. Weapon of choice a **Flame-Tongue longsword**, rare and openly worn; a shortsword kept for the day the fire is the wrong answer. He owns an **Animated Shield** and mostly does not use it \u2014 its floating-guard property leaves him uneasy, so he carries a **+2 shield** for work where he wants a shield to be exactly where he put it, over **+2 armour**.\n\nIn a line he will hold a flank and cover the person beside him. Given a choice, he takes the longsword in both hands and stops being a defensive asset entirely. His officers have opinions about this. He has heard them.\n\n## The Alignment Problem\n\nFiled as **Lawful Good**, and the file is honest about the strain. Almost every decision that reaches his desk is a choice between being lawful, being good, being neutral, and being employed. Contracts hired out to lords whose politics he dislikes. Legion secondments he cannot refuse. Villages inside his grant and villages just outside it. He has so far come down on the good side of the ledger more often than not, which is a sentence Waluigi has never once written about a Legion-adjacent commander and does not enjoy writing now.\n\n## Waluigi's Assessment\n\nA man who climbs from a labourer's household to a landed commission in eleven years is either exceptional or lucky, and Jack has been audited enough times by enough hostile clerks that Waluigi is prepared to say *exceptional*.\n\nWhat worries Waluigi is not the man. It is the **shape**. A personal order named after its founder. A recruitment pipeline of children who grew up on his stories. A loyalty clause that names a person rather than a throne. A number on a muster roll that everybody quotes and nobody checks. None of that is sinister today. All of it is the standard first chapter.\n\nHe wants a manor, clean clothes, good food, an order that serves his family for generations, and a happily-ever-after that survives his death. That is a modest ambition wearing armour, and modest ambitions wearing armour are how provinces acquire kings.\n\nWaluigi will keep the file open. WAH.",
+    "waluigiComment": "Filed properly at last, with the muster roll audited rather than quoted. The 20,000 figure stays in the record because Jack's own people use it \u2014 but it is a roll, not an army, and Waluipedia will not repeat a recruiting poster as an order of battle. WAH.",
     "keyEvents": [],
     "relatedArticles": [
-      "regal_lion",
-      "iron_legion"
+      "miser_family",
+      "archie_miser",
+      "order_of_jack",
+      "vellanet_rise",
+      "iron_legion",
+      "regal_empire"
+    ],
+    "familyTreeSource": "houseMiser",
+    "familyTreeSecrets": [
+      {
+        "intel": 20,
+        "text": "The Order of Jack's stated 20,000 counts levies, unpaid sworn volunteers, contracted foreign clients, and Regal Lion / Iron Legion personnel already counted on Legion rolls."
+      },
+      {
+        "intel": 45,
+        "text": "Jack has not been informed that Archie is missing, indebted to the Mages' Guild, or a person of interest to the Onyx Hand and the Guild both."
+      },
+      {
+        "intel": 70,
+        "text": "The order's oath of loyalty names Jack personally before it names any crown. Nobody in the Regal Lion has yet asked him to change the wording."
+      }
+    ],
+    "imageCaption": "Jack Melvus Miser. Cropped from the artist's pencil sheet of the Miser siblings, 27 April 2026. Canon likeness.",
+    "imageAlternates": [
+      {
+        "src": "portraits/alternates/jack_melvus_miser-alt.png",
+        "caption": "Alternate: a painted commission of the same likeness in Order colours, heraldry legible.",
+        "credit": "Non-canon study \u2014 machine-rendered from the pencil sheet."
+      }
+    ],
+    "faiths": [
+      {
+        "id": "silver_flame_faith",
+        "role": "Sworn",
+        "note": "Jack took his paladin's oath in a Flamekeep rite because it was the faith the Regal Lion swore its knights in, not because he chose it. He keeps the liturgy, funds the manor chapel, and has twice refused to let the Edict of Purification be executed inside his grant."
+      },
+      {
+        "id": "order_of_maat",
+        "role": "Advised",
+        "note": "Lunaria's discipline rather than his. She reads the Order's muster roll the way the Temple of Balance reads a ledger, which is why the twenty-thousand figure is the only number in Jack's life anyone has actually audited."
+      }
+    ]
+  },
+  {
+    "id": "miser_family",
+    "name": "The Miser Family",
+    "title": "A Labourer's Household That Produced a Knight and a Catastrophe",
+    "race": "Human",
+    "type": "Family / Household Record",
+    "region": "Regal Empire \u2014 Midlands periphery (Vellanet Rise and its parish)",
+    "image": "portraits/miser_family.png",
+    "status": "Active \u2014 four of six accounted for at Vellanet Rise; Archie missing across planes; the name remains provincial and largely unknown outside its home province",
+    "affiliation": "No faction. A household \u2014 currently attached to the Order of Jack by kinship rather than by oath",
+    "summary": "Six people: Wanda (Wandella) Miser and her five children \u2014 Jack, July, Archie, Spring and Hark. A single-mother household on the Regal Empire's Midlands periphery that produced one landed knight-commander, one wandering witch, one arcane disaster, and two young adults still deciding. The family is not famous. Within its own parish the Miser name now opens doors; a hundred miles away it opens nothing, and the middle child has spent years making sure it stays that way. Waluipedia held no Miser family file at all until Jack's record forced one.",
+    "description": "Waluigi is filing this page under protest, because the correct response to a family that has been referenced in fourteen separate entries without ever having a record of its own is embarrassment, not fanfare.\n\n## The Household\n\nSix people. No father in any surviving parish document.\n\n| | | |\n|---|---|---|\n| **Wanda (Wandella) Miser** | mother | Head of household. Kept five children fed on a labourer's ledger. Small, weathered, unimpressed. |\n| **Jack (Jackson) Melvus** | eldest | Paladin, Oath of Glory. Commander of the Order of Jack. Lord of Vellanet Rise. The reason the rest of them eat well. |\n| **July** | older sister | A witch by trade and by dress \u2014 pointed hat, staff, satchel. Carried the household's emotional load while Jack carried its arithmetic. |\n| **Archie Archbold** | middle child | Fire mage, third-eyed, entropy-bleeding, missing. See his own considerable file. |\n| **Spring** | younger sister | Staff-bearer, crystal-headed and coat-heavy; the one who smiles in the family portrait. |\n| **Hark** | youngest | Tall, lank, sleepy-eyed, and wearing an amulet nobody in the family will explain. |\n\n## How Poor, Exactly\n\nPoor enough that the eldest child's understanding of the household was a **ledger** rather than a home. Poor enough that fifteen was a reasonable age to leave for a muster office. Poor enough that the difference between climbing and drowning was a live question in living memory, and everyone in the portrait remembers which one it was.\n\nThe Misers are not gentry who fell. They are labour that rose, in one lifetime, on one service record \u2014 and the archive should be precise about that, because the class of the thing is the whole story.\n\n## How Well Known, Exactly\n\n**Not very.** This matters, and Waluipedia has already seen one draft get it wrong.\n\nInside their own parish and the two market towns downroad, Jack is a hero and the Miser name is currency. Children there have grown up on the Myrmidon story and are applying to musters because of it. Outside the province, the name means nothing whatsoever. No Mushroom Kingdom body has an opinion on the Misers. The Regency has never heard of them. The Iron Legion knows Jack as a Regal Lion officer and does not care what his surname was before that.\n\nEven Archie, who is filed here as one of the most disruptive individuals in the archive, is disruptive under his **own** name in circles that have never once asked who his mother was. The family's obscurity is not an oversight. Some of it is Archie's deliberate work.\n\n## What They Believe, Which Is Mostly Nothing In Particular\n\nThe Miser household is **Silver Flame** on the parish roll and the parish roll is doing all of the work in that sentence.\n\nA labourer's family in the Midlands is Silver Flame the way a Midlands house is damp: by default, inherited, and observed chiefly at the parts involving food. Wanda attends. The children were taken. Nobody in this family has ever been asked a doctrinal question and answered it correctly, and Waluigi says that with affection \u2014 it is the single most normal thing in a file otherwise full of Myrmidon kills and dimensional incidents.\n\nThe one detail that matters is geographic. The hill families the Miser children grew up alongside keep the **Lunar Cycle**, and the Misers grew up not caring. Shared roads, shared market, shared winters. Ordinary in the Midlands; a charge sheet in Flamekeep, where the compatibility register puts Primal Forces at twenty-five against the Celestial Order and the Edict of Purification puts inquisitors anywhere they like.\n\nThis is worth recording because it is the origin of the one genuinely dangerous decision in Jack's file. When he was granted a hill with two Cycle-keeping villages on it and declined to make that a problem, he was not taking a theological position. He was behaving exactly as he had been raised to behave toward the people on the next hill up. The archive notes, without comment, that the family's total absence of religious conviction is currently the only thing protecting two villages from their own church.\n\n## The Split in the Record\n\nTwo Miser files describe the same house and do not agree.\n\nJack's account: a household he carried, lifted, and settled into a manor \u2014 a promise made at fifteen and kept by twenty-six.\n\nArchie's account: twenty-five years of rigidity and control, choices made for him, and a family whose judgement he fled rather than face after the fireball trial.\n\nWaluigi's ruling, filed here so it stops being re-litigated in every entry that touches them: **both accounts are sincere and neither is a lie.** The person who runs a household under that much pressure and the person who is *run by* one are describing the same set of rules from different ends of it. The archive keeps both. It does not adjudicate between them.\n\n## Present Status\n\nWanda, July, Spring and Hark are housed within Jack's grant at Vellanet Rise, funded and free to pursue their own work \u2014 which they are doing, at varying distances from the manor. Jack commands. Archie is missing, and as far as Waluipedia can determine, **the family has not been told the full extent of it.**\n\nThat is the live thread on this page. Not a war, not a claim, not a prophecy. A letter that nobody has written yet. WAH.",
+    "waluigiComment": "Created because 'miser_family' had been linked from Archie's record for months and resolved to nothing. Deliberately kept provincial: the Misers are locally significant and nationally anonymous, and any future filing that promotes them to household-name status needs to say why. WAH.",
+    "keyEvents": [],
+    "relatedArticles": [
+      "jack_melvus_miser",
+      "archie_miser",
+      "order_of_jack",
+      "vellanet_rise",
+      "crown_v_miser_4739"
+    ],
+    "familyTreeSource": "houseMiser",
+    "imageCaption": "The Miser siblings and their mother. Cropped from the artist's pencil sheet of the Miser siblings, 27 April 2026. Canon likeness.",
+    "imageAlternates": [
+      {
+        "src": "portraits/alternates/miser_family-alt.png",
+        "caption": "Alternate: a redrawn group study of the same six figures, kept for costume and heraldry reference.",
+        "credit": "Non-canon study \u2014 machine-rendered from the pencil sheet."
+      }
+    ],
+    "faiths": [
+      {
+        "id": "silver_flame_faith",
+        "role": "Nominal",
+        "note": "A labourer's household in the Midlands is Silver Flame the way a Midlands household is damp: by default, without much thought, and only at the parts that involve food. Wanda attends. Nobody in this family has ever been asked a doctrinal question and answered it correctly."
+      },
+      {
+        "id": "lunar_cycle",
+        "role": "Neighbours",
+        "note": "The hill families the Misers grew up alongside keep the Cycle. That proximity is unremarkable in the Midlands and would be a charge sheet in Flamekeep, which is the entire reason this row exists on the page."
+      }
+    ]
+  },
+  {
+    "id": "the_veteran_fairy",
+    "name": "The Veteran",
+    "title": "The Bait Who Lived, and Then Took Point",
+    "type": "None",
+    "race": "Fairy",
+    "status": "Active - one wing still bent; walking point for Hjumpik's detachment by his own offer",
+    "affiliation": "Household of the Overgrown Manor / Hjumpik's detachment",
+    "summary": "The battered fairy a goblin carried in under one arm to be volunteered as bait, chosen because a guard argued that a mediocre fairy dying is cheaper than a good one dying. Hjumpik looked at him and saw his grandfather. He survived, and the next time a room needed someone to walk in front, he offered before he was asked.",
+    "description": "He is small, bruised, and one wing is bent at an angle wings do not bend. None of that is the notable thing about him. The notable thing is that he was brought into a war room as arithmetic - a guard's phrase, *if a mediocre fairy dies, a good one can take its place* - and he did not argue with the arithmetic. He listened to it being said in front of him, and his eyes stayed entirely clear.\n\nHjumpik Deldkur refused the arithmetic and then said the strangest compliment available in that house: *you remind me of my grandpa.* Asked what the grandfather was like, the dwarf said *dead*, and then *but a great warrior*, and the fairy answered *so I'm going to die* with the calm of a man reading a weather report. He was told about Piktor Deldkur the Third, who kept wanting to fight after his arm came off. He took the comparison as an instruction rather than a eulogy.\n\n**Barckelhaven.** He claims to have fought wars there, and he attaches to the claim the only credential he ever offers: *not one person died.* He says it the way other soldiers say a rank. The archive holds no other record of Barckelhaven and files the name pending a second source; what it does hold is that he asked to lead the marching order into the library, and that Hjumpik - who reorders a corridor the way other men reorder a sentence - let him.\n\nHe is the first person in the Overgrown Manor to volunteer for the front of a line without being counted first.",
+    "relatedArticles": [
+      "feyward_battalion_of_six_and_the_bait_plan",
+      "hjumpik",
+      "overgrown_manor",
+      "overgrown_library"
+    ]
+  },
+  {
+    "id": "red_the_kitchen_commander",
+    "name": "Red",
+    "title": "The Heir's Greatest Soldier, Currently Making Dinner",
+    "type": "None",
+    "race": "Fey (unrecorded)",
+    "status": "Active - holding the kitchen of the Overgrown Manor; cooking",
+    "affiliation": "Household of the Overgrown Manor / the orange heir's command",
+    "summary": "The commander in the manor kitchen. The guards describe her as the heir's greatest soldier and warn that she will eat you alive like the monsters will. She is not fighting the plants. She is feeding them, and what she feeds them makes them wither in the hand.",
+    "description": "Two guards holding a door shut said her name before they said what was behind them, which is its own kind of testimony. *A commander, Red - he, she - is preparing the dinner. She will eat you alive like the monsters. She's the heir's greatest soldier.*\n\nWhat the party found in the kitchen was a woman going *ow, ow, ow* over her work and asking whether the orange guy had sent them. Asked whether she was there to stop the plant monsters, she said no. *We're here to cook. The plants love this.* Then she held up what she was making, and it withered in her hand.\n\nThat is the whole of her strategy and it is the best one anybody in the manor has produced. The overgrowth cannot be stabbed faster than it grows; it can, apparently, be fed. She is running a poisoning operation through the service that the house already has, at the scale the house already runs it, and calling it dinner. She offered Hjumpik a pot of the slop and told him he would stay for dessert. Something was wriggling in an oven at the time and nobody asked about it.\n\nShe also owns a key. A locked door off her kitchen is, in her words, *nothing much - a shortcut to the main room*, which makes the manor's most direct route the personal property of its cook.\n\nThe archive notes that Red is a colour and not a name, that she was described to the party by two frightened men before she was met, and that the description they gave and the woman found in the kitchen do not obviously match. Filed as encountered. Amend when she gives a longer name.",
+    "relatedArticles": [
+      "overgrown_manor",
+      "hjumpik",
+      "the_orange_heir"
+    ]
+  },
+  {
+    "id": "the_mushroom_room_guard",
+    "name": "The Mushroom Room Guard",
+    "title": "Field Observations",
+    "type": "None",
+    "race": "Fey (unrecorded)",
+    "status": "Active - eyes bloodshot; insists he is unaffected",
+    "affiliation": "Household of the Overgrown Manor",
+    "summary": "A house guard who maintains that the mushroom room had no effect on him whatsoever, and who was missing for a stretch of time he accounts for as field observations. His eyes are bloodshot. The mushrooms, when picked up and sniffed, are fine.",
+    "description": "He is the manor's least reliable witness and its most useful one, because the shape of what he gets wrong is informative.\n\nHe says the mushroom room did nothing to him. He says this while his eyes are visibly bloodshot, which Hjumpik noticed and did not mention. He was absent long enough for a colleague to ask where he had gone, and returned with *field observations*, then let slip *oh, I didn't think you would come back that soon* - a sentence that only makes sense if he was doing something he had budgeted more time for.\n\nHe knows the knock. Three raps opens a hidden door off the lower hall; Hjumpik was given the instructions first, tried it himself, and failed. Asked why anyone should trust him, he offered three credentials in order: that Aurelian was helping, that Orangus Cornelius was involved, and that he had personally stopped Wario - *actually I did quite a bit.* The archive is obliged to point out that the first of those is currently inside a ring, the second is a name the manor's own guards refuse to say aloud, and the third is the sort of claim a great many people make.\n\nHe opened the passage anyway. The passage put everyone back where they started.",
+    "relatedArticles": [
+      "overgrown_manor",
+      "hjumpik",
+      "orangus_cornelius"
     ]
   }
 ]

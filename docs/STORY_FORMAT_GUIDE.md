@@ -33,6 +33,9 @@ different narrator stance — see **[`WHATIF_FORMAT_GUIDE.md`](WHATIF_FORMAT_GUI
 | 9 | [Event apparatus](#9-event-apparatus) | The wrapper fields |
 | 9A | [Naming rule](#naming-rule--table-names-are-not-character-names) | Table names are not character names |
 | 9B | [Exhibits](#9b-exhibits--the-documents-the-story-names) | The documents the story names — file the paper |
+| 9C | [Investigate this further](#9c-investigate-this-further--the-connected-panel-hook) | The connected-panel hook |
+| 9D | [WAHwire](#9d-wahwire--every-filing-posts) | Every filing posts |
+| 9E | [Dossier assessments](#9e-dossier-assessments--update-what-the-factions-say) | Update what the factions say about the party |
 | 10 | [Battle and campaign pages](#10-battle-and-campaign-pages) | The tactical variant |
 | 11 | [Pacing tells](#11-pacing-tells) | Nine things good filings do — steal deliberately |
 | 12 | [Pre-flight](#12-pre-flight) | Craft judgement + mechanical pass/fail |
@@ -633,6 +636,80 @@ article now earns at least one post — a character reacting (not a summary),
 linking the filing. Shape, tones, and the voice rule live in
 [`CROSS_SYSTEM_UPDATES.md`](CROSS_SYSTEM_UPDATES.md#wahwire--every-post-now).
 
+## 9E. Dossier assessments — update what the factions say
+
+`FACTION_ASSESSMENTS` is the in-character line each faction keeps on each
+operator — the quoted **"Dossier Assessment"** on the reputation standings
+cards. *"Price on his head just doubled. Dead or alive."* is the Iron Fists on
+Archie.
+
+These are **not decoration.** The reputation engine reads them: a line phrased
+as a standing order (`dead or alive`, `price on his head`, `kill-order`,
+`must be cleansed`, `we only await his capture`, `to be detained`) trips the
+**hostility ceiling** and caps that faction's standing at −20 no matter what the
+event maths says. A stale assessment therefore does not just read wrong — it
+silently scores wrong, in both directions:
+
+- A faction that has *turned against* the party but still carries a warm line
+  keeps reading warm, and accumulated involvement gets counted as approval.
+  This is the bug that had the Iron Fists at **+35 · Warm** beside a dossier
+  reading *"Dead or alive."*
+- A faction that has *stood down* but still carries kill-order phrasing stays
+  capped at −20 forever, and no amount of good history can lift it.
+
+### When to update
+
+Update the line when your filing **changes what that faction now believes**:
+
+- they issue, escalate, or **drop** a warrant, bounty, or kill-order
+- an operator publicly confesses, defects, is pardoned, or switches sides
+- the faction is newly helped or newly betrayed by that operator
+- a leadership change flips the institutional attitude
+- the current line references events your filing has now superseded
+
+If the filing doesn't move a faction's opinion, **leave it alone.** Most events
+change nothing for most factions; churning all 26 after every session produces
+noise, not canon.
+
+### How to write one
+
+Same discipline as any other voice on the page — it is the **faction talking**,
+not the archive summarising:
+
+- **In their register.** The Oathbound Judges write like a court, the Ratchet
+  Raiders shout about scrap value, Fawful's Freaks use caps. Match the existing
+  entry's voice.
+- **One to three sentences.** These render inside a card, not an article.
+- **Opinion, not plot recap.** *"He is ours to discipline now, not the
+  Empire's"* is an assessment. *"He attended the trial on Harvestide 12"* is a
+  log line.
+- **Mean the verb.** Because the engine pattern-matches intent, write
+  *"dead or alive"* only when they genuinely want the operator dead. If they
+  merely dislike him, say so without the kill-order vocabulary — otherwise you
+  cap a relationship you only meant to sour.
+
+### Where it lives — two copies, keep them in sync
+
+| File | Notes |
+|---|---|
+| `index.html` → `const FACTION_ASSESSMENTS` | the live site reads this one |
+| `Reputation-Matrix2/data/support/assessments.js` | imported by `app/systems/reputation.js` and the directory/XP pages |
+
+Keys are **short operator names** — currently `archie`, `markop`, `hjumpik`,
+`bowser`, `remi` — *not* record ids like `archie_miser` or
+`remi_akamatsu_full_backstory`. A mistyped key does not error; it silently
+renders no dossier line, so check the card actually shows your text. All 26
+factions carry all five operators today; if you add an operator, add them
+everywhere or leave the faction out entirely rather than half-filling it.
+
+> **Adjust the line, not the number.** There is no manual standing override and
+> we do not want one. Standing comes from catalogued event deltas; the
+> assessment is the *prose* and the hostility signal. If a score looks wrong
+> after you update the line, the fix is a correctly-scored event record, not a
+> thumb on the scale.
+
+---
+
 ## 10. Battle and campaign pages
 
 A session event tells the story. A battle page explains **how the fight moved**.
@@ -798,6 +875,8 @@ at it without explaining it. Readers finish the filing themselves.
 □ Every document the prose names is filed in props.json, or skipped on purpose (§9B)
 □ Every ## Addendum: heading has an addendum prop; tools/check-exhibits.py clean
 □ Event added to the home feed, SITE_UPDATES, and the RNN pending list
+□ Dossier assessments updated for any faction whose opinion this filing moved —
+  both copies in sync, kill-order phrasing only where meant (§9E)
 ```
 
 Run the numbers: [`AUDIT_SCRIPTS.md` → Event audit](AUDIT_SCRIPTS.md#event-audit).

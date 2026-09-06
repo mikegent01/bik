@@ -480,6 +480,21 @@
             "feyward_battalion_of_six_and_the_bait_plan",
             "feyward_chop_bros_soul_ring_and_the_guard_with_no_name"
           ]
+        },
+        {
+          "id": "lead_red_authorisation",
+          "title": "Find out whether the heir knows what his kitchen is cooking",
+          "status": "open",
+          "why": "Red's dinner sheet is unsigned, and her first question to the party was *did orange guy send you* — not the question of someone acting under orders. The manor's only working counter-attack against the overgrowth may be running without the command that owns the map ever having been told. If the heir does know, he has deliberately kept a kill order off paper. If he does not, then the kitchen is a second centre of power inside a house that already cannot agree on who its Lady is — and it holds the key to the main room.",
+          "exhibits": [
+            "ex_red_dinner_service"
+          ],
+          "events": [
+            "feyward_library_reclamation_and_the_kitchen"
+          ],
+          "characters": [
+            "red_the_kitchen_commander"
+          ]
         }
       ],
       "sessions": [
@@ -548,6 +563,12 @@
           "label": "The Scorncrow Skirmish: Deforestation, Garlic Weapons, and Wario's Stalled Motorbike",
           "date": "30 Harvestide, 1040 BF — the overgrown grove, the night of the threshold storm",
           "event": "the_scorncrow_skirmish"
+        },
+        {
+          "id": "s_a01_library_reclamation",
+          "label": "The Reclamation of the Library: A Cook Who Poisons the Garden, and a Passage That Goes in a Circle",
+          "date": "1-2 Aethel, 922 BF (Feyward clock) - the library reading floor through the kitchen and an upstairs bathroom",
+          "event": "feyward_library_reclamation_and_the_kitchen"
         }
       ],
       "relatedEvents": [
@@ -1046,6 +1067,57 @@
             "characters": [
               "waluigi",
               "hjumpik"
+            ]
+          }
+        },
+        {
+          "id": "ex_red_dinner_service",
+          "propId": "prop_red_dinner_service_sheet",
+          "session": "s_a01_library_reclamation",
+          "icon": "🍲",
+          "kind": "ledger",
+          "category": "discovery",
+          "title": "Dinner service sheet - the third course has no price",
+          "secured": "2 Aethel, 922 BF (Feyward clock) · taken from the kitchen prep table",
+          "custody": "Archive — original",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(38,30,20,.96),rgba(16,12,8,.98));border:1px solid rgba(212,168,83,.28)\"><div style=\"position:absolute;inset:14px;border-left:3px solid rgba(120,180,90,.55);padding-left:12px;font:12px/1.5 ui-monospace,monospace;color:rgba(232,224,208,.86)\">I &mdash; broth &middot; hall &amp; posts<br>II &mdash; root and barley &middot; hall<br><span style=\"color:rgba(150,210,110,.95)\">III &mdash; the green dish &middot; overgrowth only</span><br>IV &mdash; dessert &middot; held back</div><div style=\"position:absolute;right:14px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(212,168,83,.75)\">NO COST ENTERED &middot; LINE III</div></div>",
+          "onRecord": "Four courses. Three of them are priced to the copper. [[roll:3|the third course carries no cost against it|a kitchen this meticulous does not forget a price; a blank in an otherwise complete ledger means the item was never bought, but made from something the house already had or from something nobody wants written down|a standing dish repeated nightly can simply be costed once, elsewhere, in a stores book this sheet does not duplicate]] The third course is also the only one with a delivery restriction: to the overgrowth only, do not carry to the hall, do not taste. [[roll:4|do not let the sprites carry it, they eat from the tray|somebody has already thought about friendly casualties and written a control into the standing order, which makes this an operation with a safety procedure rather than a desperate improvisation|kitchens keep sprites off trays as ordinary practice, poison or no poison]]",
+          "dc": 3,
+          "analysis": "## The manor's only working weapon is a menu\n\nEverything else in this file is a plan. The heir has a map with pins in it. Hjumpik has a marching order. The Revel has an evacuation notice nobody can enforce. Red has a **delivery system the enemy already trusts**, running on a schedule the house has never stopped keeping.\n\nThat is the entire finding. The overgrowth cannot be cut faster than it grows — the wall walk proved that when the cut leaves came back thicker inside a minute. It can, apparently, be **fed**. And a great house at war still serves dinner, so the vector was always going to be the one service that never stops.\n\nWhat the sheet adds beyond the scene is the discipline. *Do not let the sprites carry it — they eat from the tray.* Somebody has already thought about friendly casualties and written a control into the standing order. This is not a desperate improvisation by a cook. It is an operation with a safety procedure.\n\nThe open question is authorisation. The sheet is **unsigned**, and Red's first words to the party were *did orange guy send you* — which is not the question of someone acting under the heir's orders. Either the heir knows and has kept it off paper, or the manor's most effective counter-attack is being run by its kitchen without anybody upstairs being told.",
+          "links": {
+            "events": [
+              "feyward_library_reclamation_and_the_kitchen"
+            ],
+            "items": [],
+            "characters": [
+              "red_the_kitchen_commander",
+              "hjumpik"
+            ]
+          }
+        },
+        {
+          "id": "ex_mushroom_guard_credentials",
+          "propId": "prop_mushroom_guard_three_credentials",
+          "session": "s_a01_library_reclamation",
+          "icon": "👁️",
+          "kind": "note",
+          "category": "testimony",
+          "title": "Three reasons to trust me, offered without hesitation",
+          "secured": "2 Aethel, 922 BF (Feyward clock) · the lower hall, before the hidden door was opened",
+          "custody": "Waluigi's own hand",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(30,34,44,.96),rgba(14,16,22,.98));border:1px solid rgba(150,120,200,.28)\"><div style=\"position:absolute;inset:14px;font:12px/1.6 ui-monospace,monospace;color:rgba(232,224,208,.86)\">1. Aurelian is helping<br>2. Orangus Cornelius<br>3. I stopped Wario</div><div style=\"position:absolute;right:14px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(200,160,120,.8)\">OFFERED IN THIS ORDER</div></div>",
+          "onRecord": "Asked why he should be trusted, the guard produced three credentials on his fingers without pausing to think. [[roll:4|he had all three ready|a man assembles a defence in advance when he expects to be challenged, so either somebody in this house has already asked him or he has been waiting for somebody to|a guard on a hidden door is challenged constantly and would rehearse an answer as a matter of routine]] He then opened a hidden door with three knocks that Hjumpik had been taught and could not reproduce. [[roll:3|bloodshot eyes over an insistence that the mushroom room did nothing to him|the room has an effect its own guards deny and the mushrooms themselves do not carry, which means the agent is something else in that room and the fungus is what everyone is looking at|a guard at the end of a long shift in a smoky lower hall has bloodshot eyes for ordinary reasons]]",
+          "dc": 4,
+          "analysis": "## Every credential is borrowed, and one of them is a name nobody says\n\nTaken one at a time:\n\n**Aurelian is helping.** She is folded into a gold band in Hjumpik's pocket and has helped nobody for weeks. Either he does not know that, which makes him badly informed for a man with a hidden door, or he is using her name the way people use a patron's name — as borrowed standing.\n\n**Orangus Cornelius.** This is the load-bearing one. It is the name the Guard With No Name refused to let the false Lady finish saying, the name a defector gave up his post rather than pronounce. This guard offers it as a **reference**, in a corridor, unprompted. Two men in the same household have opposite relationships with one name, and the difference between them is the shape of whatever faction exists inside this house.\n\n**I stopped Wario.** A claim available to anybody, made by many, evidenced by none.\n\nSet that against the two facts he did not intend to give away: bloodshot eyes over an insistence that the mushroom room did nothing to him, and *I didn't think you would come back that soon* — the sentence of a man who had budgeted more time for something. He is not lying about being useful. He opened the door. The door went in a circle, which may be the house's decision rather than his.",
+          "links": {
+            "events": [
+              "feyward_library_reclamation_and_the_kitchen"
+            ],
+            "items": [],
+            "characters": [
+              "the_mushroom_room_guard",
+              "orangus_cornelius",
+              "lady_aurelian"
             ]
           }
         }
@@ -3697,24 +3769,36 @@
         "dread_mansion_incursion"
       ],
       "opened": "Approximately 872 BF",
-      "lastFiled": "Approximately 872 BF",
+      "lastFiled": "Approximately 872 BF — rewritten from the recovered transcript",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🟢",
       "accent": "#4fbe83",
       "imageCaption": "A diary clasp, a green thread, and a face that does not belong to itself.",
-      "hook": "Who sent Liam into the mansion, and why did Alice recognize Mario?",
+      "hook": "Somebody forged a sender, not a mission. Who, and why did Alice already know Mario?",
       "plainSummary": [
         {
           "point": "Peach is alive in this record.",
-          "detail": "The handkerchief is a recent keepsake, placing the event before Highsun 1, 955 BF."
+          "detail": "Luigi carries a handkerchief she gave him the week before the brothers left, which places the account beside the Luigi's Mansion record at roughly 872 BF."
         },
         {
-          "point": "The DGK mission is contested.",
-          "detail": "Central Command denies authorizing Liam; Vale claims command after arriving."
+          "point": "The order was never signed.",
+          "detail": "Central Command has Liam's tracker, his name, and the containment class of the liquid — and no authorisation for the retrieval. Every part of the DGK worked except the sender."
         },
         {
-          "point": "Alice is connected to Mario.",
-          "detail": "She recognizes him, influences him, and may be using the diary as an anchor."
+          "point": "Vale did not claim authorisation.",
+          "detail": "Told the mission was never authorised, he answered “It is now.” His badge is Clearance Level 5 and appears genuine."
+        },
+        {
+          "point": "Alice recognised Mario before the diary was opened.",
+          "detail": "She reaches him first, says “You came back,” and lets the other two go. She is waiting for a return she considers scheduled."
+        },
+        {
+          "point": "The way in was pity.",
+          "detail": "Mario read her account of what Riba did to her and felt sorry for her. There is no ward against that."
+        },
+        {
+          "point": "A second crew was on the grounds.",
+          "detail": "Two men in modified DGK uniforms crossed the back lawn with a full sack and left by the dirt path. Unconnected to Vale."
         }
       ],
       "background": [
@@ -3730,36 +3814,71 @@
           "id": "th_alice_mario",
           "title": "Alice recognized Mario before the diary was opened",
           "state": "open",
-          "text": "Alice says “You came back” and reaches Mario before Liam or Luigi can establish how she knows him. The diary may explain the connection, but the transcript stops before it can be tested."
+          "text": "Alice says “You came back” and reaches Mario before Liam or Luigi can establish how she knows him. She then lets both of them leave the building and spends her only parting sentence on him. The diary may explain the connection; the transcript stops before anybody opens it."
         },
         {
           "id": "th_dgk_lure",
-          "title": "The retrieval order and Vale’s command do not match",
+          "title": "The retrieval order and Vale's command do not match",
           "state": "open",
-          "text": "Central Command denies sending Liam. Vale says he called Liam, but his arrival follows the denial and his first act is taking the phone. The original sender remains unidentified."
+          "text": "Central Command denies sending Liam while holding his tracker history and correctly classifying the sample on description. Vale arrives after the denial, presents a genuine Level 5 badge, and converts the denial into a command by assertion. The original sender is unidentified and the handset that would name them left with Vale."
+        },
+        {
+          "id": "th_paintings",
+          "title": "Blank canvases in a hall, and a note about paintings",
+          "state": "open",
+          "text": "Bowser's note says the Power Stars were sealed away in “those paintings.” The mansion's lower hall is hung with framed canvases that carry no image. Nobody in the transcript connects the two, and nobody has looked behind one."
+        },
+        {
+          "id": "th_second_crew",
+          "title": "Two men, modified uniforms, one sack",
+          "state": "open",
+          "text": "Wario and Waluigi crossed the back lawn during the incursion in re-tailored DGK uniforms and left the property on foot with a roped sack. Waluigi's own filing note confirms nobody sent them. The sack has never been inventoried."
         }
       ],
       "leads": [
         {
           "id": "lead_open_alice_diary",
-          "title": "Open Alice’s diary",
+          "title": "Open Alice's diary",
           "state": "open",
           "priority": "critical",
-          "objective": "Determine whether the diary explains Alice’s recognition of Mario, her influence, or the mansion’s looping exits.",
-          "why": "It is the only named object directly tied to Alice’s history and Mario’s possession.",
+          "objective": "Recover the leather-bound book from the second-floor study and read it.",
+          "why": "It is the only named object anybody in the file has a reason to want, it is the stated door through which Alice reached Mario, and as far as the archive knows it is still sitting on the corner of that desk untouched.",
           "exhibits": [
             "ex_spirit_residue_call"
           ]
         },
         {
           "id": "lead_identify_false_dgk_order",
-          "title": "Identify the original mission sender",
+          "title": "Identify who issued the retrieval order",
           "state": "open",
           "priority": "critical",
-          "objective": "Compare Liam’s assignment with Central Command records and Vale’s claimed authority.",
-          "why": "The denial proves a command conflict, not who created the lure.",
+          "objective": "Reconcile the unattributed field order against Central Command's authorisation register and Vale's command log.",
+          "why": "The denial proves a command conflict, not authorship. Somebody with real access inserted a real-looking order into a working system, which is a breach rather than a haunting.",
           "exhibits": [
+            "ex_dgk_order",
             "ex_spirit_residue_call"
+          ]
+        },
+        {
+          "id": "lead_recover_liam_handset",
+          "title": "Recover Liam's handset from Director Vale",
+          "state": "open",
+          "priority": "high",
+          "objective": "Retrieve the phone Vale confiscated in the courtyard, and with it the call log and the message that carried the assignment.",
+          "why": "It is the only physical object that can name the sender, and the first thing Vale did on arrival was take it out of Liam's hand.",
+          "exhibits": [
+            "ex_vale_badge"
+          ]
+        },
+        {
+          "id": "lead_look_behind_a_canvas",
+          "title": "Look behind a blank canvas in the lower hall",
+          "state": "open",
+          "priority": "medium",
+          "objective": "Examine the unpainted framed canvases in the mansion's lower hall against Bowser's claim that the Power Stars were sealed in paintings.",
+          "why": "Two operations were converging on one building the same week and this is the only point where their paperwork touches the same furniture. It costs one frame to test.",
+          "exhibits": [
+            "ex_bowser_note"
           ]
         }
       ],
@@ -3801,6 +3920,80 @@
               "alice"
             ]
           }
+        },
+        {
+          "id": "ex_dgk_order",
+          "propId": "prop_dgk_retrieval_order",
+          "session": "s_dread_mansion",
+          "icon": "🧪",
+          "kind": "order",
+          "category": "discovery",
+          "title": "The retrieval order nobody signed",
+          "secured": "Approximately 872 BF — reconstructed from Liam's account after the handset was lost",
+          "custody": "Archive — reconstruction; original carried on the confiscated phone",
+          "visual": "<div style=\"padding:24px;border:1px dashed rgba(200,200,210,.45);border-radius:10px;background:linear-gradient(135deg,rgba(28,30,38,.92),rgba(14,16,20,.96));color:#d6d9e2;text-align:center;font-weight:800;letter-spacing:.14em\">ISSUING OFFICER &mdash; UNATTRIBUTED</div>",
+          "onRecord": "A field agent was sent alone to an isolated property to recover sealed samples. The order names no issuing officer, no containment grade, no escort and no extraction. Central Command holds the tracker log and denies the authorisation. [[roll:4|Ask what a forger would actually have to fake|the whole Directorate answers correctly all night, which means only the sender was fabricated and the fabricator had real access|the order is genuine and Central Command is lying to an agent it has already written off.]]",
+          "dc": 4,
+          "analysis": "The instinct is to read this as a fake organisation, and it is the wrong read. A fake would have failed somewhere: the emergency line would not have connected from inside a building that blocks everything else, the operator would not have had three-hour-old tracker data, and nobody would have named Level 4 containment off a verbal description of a green liquid. Every component of the Directorate performed. The single failing part is the one that says who gave the order, and it fails by being blank rather than by being wrong. That is not an outsider imitating an institution. That is somebody inside one, using it correctly, and declining to sign.",
+          "links": {
+            "events": [
+              "the_dread_mansion_incursion"
+            ],
+            "characters": [
+              "liam",
+              "director_vale"
+            ]
+          }
+        },
+        {
+          "id": "ex_vale_badge",
+          "propId": "prop_vale_clearance_badge",
+          "session": "s_dread_mansion",
+          "icon": "🪪",
+          "kind": "passport",
+          "category": "authority",
+          "title": "Clearance Level 5, held up to a telephone",
+          "secured": "Approximately 872 BF — courtyard, during the call",
+          "custody": "Not secured — remained with Vale, along with Liam's handset",
+          "visual": "<div style=\"padding:24px;border:1px solid rgba(190,196,214,.5);border-radius:10px;background:linear-gradient(135deg,rgba(46,50,62,.9),rgba(18,20,26,.96));color:#e6e9f2;text-align:center;font-weight:800;letter-spacing:.16em\">✲ LEVEL 5 · UNVERIFIED</div>",
+          "onRecord": "A silver badge bearing three intertwined arrows and the legend DIRECTORATE GLOBAL OPERATIONS — CLEARANCE LEVEL 5, presented to a live Central Command line. The operator's response was the name as a question, then compliance. [[roll:6|Weigh a genuine badge against a forged one|genuine is the worse finding: a real director is running an operation his own command says does not exist|forged, and a Central Command operator surrendered a live scene to a stranger with a piece of struck silver.]]",
+          "dc": 6,
+          "analysis": "Everything about this exchange rewards the badge and punishes the procedure. Vale never asserts that the mission was authorised — told plainly that it was not, he replies “It is now,” which is a claim about the present rather than the past and cannot be checked against any register. He then confiscates the only recording device in the courtyard and issues a stand-down to the operator who challenged him. Note the order of operations: he takes the phone before he finishes the argument. A man defending a legitimate operation does not need custody of the evidence, and the archive should treat the confiscation, not the badge, as the incriminating act.",
+          "links": {
+            "events": [
+              "the_dread_mansion_incursion"
+            ],
+            "characters": [
+              "director_vale",
+              "liam"
+            ]
+          }
+        },
+        {
+          "id": "ex_bowser_note",
+          "propId": "prop_bowser_painting_note",
+          "session": "s_dread_mansion",
+          "icon": "🐢",
+          "kind": "note",
+          "category": "correspondence",
+          "title": "The note folded for a day and a night",
+          "secured": "Approximately 872 BF — second-floor study, spotted in Luigi's pocket",
+          "custody": "Retained by Luigi",
+          "visual": "<div style=\"padding:24px;border:1px solid rgba(230,190,90,.45);border-radius:10px;background:linear-gradient(135deg,rgba(70,56,20,.85),rgba(20,16,10,.95));color:#ffe6a6;text-align:center;font-weight:800;letter-spacing:.12em\">POWER STARS · SEALED IN PAINTINGS</div>",
+          "onRecord": "Addressed to Mario in a cheerful hand, delivered to Luigi by a Koopa guard at a checkpoint on the road to the property with the words “For you.” It claims the Power Stars were sealed inside paintings and the princess taken again. It was carried folded for roughly a day and shown to nobody. [[roll:5|Consider the delivery rather than the contents|a Koopa guard was posted on the road to this specific house in the same week two other operations converged on it|the checkpoint was ordinary and the note reached the wrong brother by accident.]]",
+          "dc": 5,
+          "analysis": "The taunt is the least interesting part of this paper and it is the part everybody reads. The useful facts are logistical. First, delivery: somebody in the Koopa Troop knew which road, which week, and which brother, and handed the note to the one statistically certain to sit on it. Second, geography: the note says paintings, and the mansion's lower hall is hung with framed canvases carrying no image at all, a coincidence nobody in the transcript notices because they are busy being attacked. Third, timing: Luigi withheld it for a day out of fear that Mario would abandon the disappearances and run for Peach — a judgement about his brother's priorities that was almost certainly correct, and which bought Alice the eleven hours she needed.",
+          "links": {
+            "events": [
+              "the_dread_mansion_incursion"
+            ],
+            "characters": [
+              "luigi",
+              "mario",
+              "bowser",
+              "princess_peach"
+            ]
+          }
         }
       ]
     },
@@ -3817,7 +4010,8 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Following the intense storm, the village lay under a thick blanket of snow, eerily quiet after the chaos of the night. The branches that had threatened to break during the storm now hung low and heavy, their resilience tested but unbroken. The villagers emerged from their shelters, shivering in the cold light of dawn. Many were silent, their faces marked by exhaustion and a sense of dread.\n\nThe village elder, after his impassioned speech about ancient prophecies, was approached by several curious individuals who sought to know more about these predictions. He shared tales passed down through generations, speaking of winters that had been longer and harsher than this one, yet never so unpredictable. Despite his words, fear lingered in the air.\n\nThe village undertook a communal effort to clear paths and assess damages. Supplies were checked, and it was found that some crops had survived but others would be lost to the snow. The villagers worked together, determined to rebuild their lives. However, there was an underlying tension; the storm felt like more than just weather, as if nature itself had sent a warning.\n\nAs days passed, the cold continued, and the skies remained overcast. Some ventured into the woods cautiously, looking for signs of the unusual pressure on the earth. The village elders met frequently to discuss possible measures but could find no immediate solution. The storm’s aftermath was not just about physical damage but also a psychological one, leaving the villagers feeling both fragile and resilient in the face of an unknown future."
+          "point": "Following the intense storm, the village lay under a thick blanket of snow, eerily quiet after the chaos of the night.",
+          "detail": "The branches that had threatened to break during the storm now hung low and heavy, their resilience tested but unbroken. The villagers emerged from their shelters, shivering in the cold light of dawn. Many were silent, their faces marked by exhaustion and a sense of dread. The village elder, after his impassioned speech about ancient prophecies, was approached by several curious individuals who sought to know more about these predictions. He shared tales passed down through generations, speaking of winters that had been longer and harsher than this one, yet never so unpredictable. Despite his words, fear lingered in the air. The village undertook a communal effort to clear paths and assess damages. Supplies were checked, and it was found that some crops had survived but others would be lost to the snow. The villagers worked together, determined to rebuild their lives. However, there was an underlying tension; the storm felt like more than just weather, as if nature itself had sent a warning. As days passed, the cold continued, and the skies remained overcast. Some ventured into the woods cautiously, looking for signs of the unusual pressure on the earth. The village elders met frequently to discuss possible measures but could find no immediate solution. The storm’s aftermath was not just about physical damage but also a psychological one, leaving the villagers feeling both fragile and resilient in the face of an unknown future."
         }
       ],
       "leads": [],
@@ -3843,16 +4037,15 @@
           "secured": "14th Chillwind, 978 BF",
           "custody": "Archive — Original document requires thermal gloves to handle.",
           "visual": "<div style=\"padding:24px;border:1px solid rgba(160,220,255,.35);border-radius:10px;background:linear-gradient(135deg,rgba(20,50,70,.8),rgba(12,20,30,.95));color:#cceeff;text-align:center;font-weight:800;letter-spacing:.12em\">CONFIDENTIAL · REGIONAL COMMAND</div>",
-          "onRecord": "A hastily scribbled report from a local militiaman. The ink is smeared and the parchment is unnaturally cold. It reads: 'Commander, the snow is humming. I repeat, the snow is humming. The village elder tried speaking to it, but the well froze solid in seconds. Requesting immediate tactical support.' The stamp of receipt from Central Command is dated three days AFTER the incident.",
-          "dc": 10,
+          "onRecord": "A hastily scribbled report from a local militiaman. The ink is smeared and the parchment is unnaturally cold. It reads: 'Commander, the snow is humming. I repeat, the snow is humming. The village elder tried speaking to it, but the well froze solid in seconds. Requesting immediate tactical support.' The stamp of receipt from Central Command is dated three days AFTER the incident. [[roll:4|the receipt stamp postdates the report by three days|a report written during an event and received after it either sat undelivered or sat unopened, and both mean somebody in the chain chose not to act on it|winter couriers are slow and a three-day lag over snowed roads is unremarkable]]",
+          "dc": 4,
           "analysis": "This document proves Waluigi's assertion: the regional command completely ignored the distress call until it was far too late. The tactical failure was not a lack of communication from the ground, but a bureaucratic bottleneck at the top. The supernatural frost preserving the document is lingering fey magic.",
           "links": {
             "events": [
               "first_snowfall_incident"
             ],
-            "characters": [
-              "village_elder"
-            ]
+            "items": [],
+            "characters": []
           }
         }
       ]
@@ -3870,7 +4063,8 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "The dawn brought a somber realization to both factions as they faced the harsh realities of the night's engagements. The Guardians, having successfully repelled numerous Scourge advances, were exhausted yet relieved. They knew that while their defenses held strong, they too were stretched thin by the relentless nature of the night’s battles.\n\nOn the other side, the Scourge, though equally fatigued, maintained an air of determination. Their aggressive strategy had tested the Guardians' resolve, but also exposed vulnerabilities within their own ranks. The prolonged fighting had taken a significant toll on both sides, with casualties and injuries mounting. Leaders on both fronts had to quickly reassess their strategies for the upcoming day.\n\nIn the aftermath, the Scourge leadership convened an emergency meeting to evaluate their progress and discuss potential changes in tactics. They recognized that a direct assault might not be as effective given the high casualty rate. The Guardians, meanwhile, held council to strategize on how best to fortify their positions against any renewed attack.\n\nThe stalemate continued, with both sides preparing for what seemed likely to be another night of attrition warfare. Each faction's leaders were acutely aware that a single misstep could shift the balance in favor of the other, and thus, the strategic planning became even more critical. The battle lines remained drawn, but now with a heightened sense of anticipation for what the coming day would bring."
+          "point": "The dawn brought a somber realization to both factions as they faced the harsh realities of the night's engagements.",
+          "detail": "The Guardians, having successfully repelled numerous Scourge advances, were exhausted yet relieved. They knew that while their defenses held strong, they too were stretched thin by the relentless nature of the night’s battles. On the other side, the Scourge, though equally fatigued, maintained an air of determination. Their aggressive strategy had tested the Guardians' resolve, but also exposed vulnerabilities within their own ranks. The prolonged fighting had taken a significant toll on both sides, with casualties and injuries mounting. Leaders on both fronts had to quickly reassess their strategies for the upcoming day. In the aftermath, the Scourge leadership convened an emergency meeting to evaluate their progress and discuss potential changes in tactics. They recognized that a direct assault might not be as effective given the high casualty rate. The Guardians, meanwhile, held council to strategize on how best to fortify their positions against any renewed attack. The stalemate continued, with both sides preparing for what seemed likely to be another night of attrition warfare. Each faction's leaders were acutely aware that a single misstep could shift the balance in favor of the other, and thus, the strategic planning became even more critical. The battle lines remained drawn, but now with a heightened sense of anticipation for what the coming day would bring."
         }
       ],
       "leads": [],
@@ -3899,7 +4093,8 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Following the strategic withdrawal from Sugar Swamp, the Kremlings faced an internal reevaluation of their tactics and strategies. Their renewed emphasis on intelligence gathering and careful planning reflected a shift towards more prolonged engagements, signaling a change in their operational approach. The Pastry Folk’s diplomatic efforts had initially sparked mixed reactions; some factions saw them as potential allies against the unpredictable Kremlings, while others viewed them with suspicion, fearing opportunism.\n\nThe slow but steady alliances formed by the Pastry Folk with smaller factions marked a significant shift in the region's power dynamics. However, these gains came at a cost—estrangement from some previously allied groups who felt betrayed or threatened. The tension in Sugar Swamp remained high; skirmishes continued as both sides tested each other’s resolve and prepared for future confrontations.\n\nThe Kremlings' experience highlighted the importance of adaptability and strategic flexibility. Their willingness to engage diplomatically underscored their understanding that sheer force was insufficient, emphasizing the need for comprehensive strategy. The Pastry Folk, now poised to expand their influence, faced challenges in managing diverse alliances. They understood the responsibility to maintain stability amidst these shifts.\n\nAs Sugar Swamp simmered with ongoing conflicts, both sides prepared for the next potential tipping point. Each move, each engagement, was crucial as they vied for dominance within the volatile region."
+          "point": "Following the strategic withdrawal from Sugar Swamp, the Kremlings faced an internal reevaluation of their tactics and strategies.",
+          "detail": "Their renewed emphasis on intelligence gathering and careful planning reflected a shift towards more prolonged engagements, signaling a change in their operational approach. The Pastry Folk’s diplomatic efforts had initially sparked mixed reactions; some factions saw them as potential allies against the unpredictable Kremlings, while others viewed them with suspicion, fearing opportunism. The slow but steady alliances formed by the Pastry Folk with smaller factions marked a significant shift in the region's power dynamics. However, these gains came at a cost—estrangement from some previously allied groups who felt betrayed or threatened. The tension in Sugar Swamp remained high; skirmishes continued as both sides tested each other’s resolve and prepared for future confrontations. The Kremlings' experience highlighted the importance of adaptability and strategic flexibility. Their willingness to engage diplomatically underscored their understanding that sheer force was insufficient, emphasizing the need for comprehensive strategy. The Pastry Folk, now poised to expand their influence, faced challenges in managing diverse alliances. They understood the responsibility to maintain stability amidst these shifts. As Sugar Swamp simmered with ongoing conflicts, both sides prepared for the next potential tipping point. Each move, each engagement, was crucial as they vied for dominance within the volatile region."
         }
       ],
       "leads": [],
@@ -3928,7 +4123,8 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Aftermath of the Raid on Eldridge Hillfort:\n\nFollowing the raid, purification teams from neighboring settlements arrived to restore order and health within the hillfort. The immediate task was to address the sanitation issues caused by the battle, ensuring that any infectious agents were neutralized. New water sources were vital, and after a series of challenges, the discovery of a hidden spring brought much-needed relief.\n\nThe hillfort’s leaders prioritized both short-term repairs and long-term strategic planning. They fortified existing defenses, reinforcing walls and improving watchtowers to better withstand potential future attacks. Simultaneously, they began reorganizing supply lines and engaging in diplomacy with nearby settlements for additional support and resources.\n\nDespite the optimism brought by the spring, Eldridge Hillfort remained on high alert. The people knew that rebuilding was crucial but also understood the importance of preparing for further conflict. This dual focus reflected a deep understanding of their environment and the unyielding nature of survival. The hillfort stood as both a symbol of resilience and a reminder of the ongoing struggle to maintain order in an ever-threatened world."
+          "point": "Aftermath of the Raid on Eldridge Hillfort: Following the raid, purification teams from neighboring settlements arrived to restore order and health within the hillfort.",
+          "detail": "The immediate task was to address the sanitation issues caused by the battle, ensuring that any infectious agents were neutralized. New water sources were vital, and after a series of challenges, the discovery of a hidden spring brought much-needed relief. The hillfort’s leaders prioritized both short-term repairs and long-term strategic planning. They fortified existing defenses, reinforcing walls and improving watchtowers to better withstand potential future attacks. Simultaneously, they began reorganizing supply lines and engaging in diplomacy with nearby settlements for additional support and resources. Despite the optimism brought by the spring, Eldridge Hillfort remained on high alert. The people knew that rebuilding was crucial but also understood the importance of preparing for further conflict. This dual focus reflected a deep understanding of their environment and the unyielding nature of survival. The hillfort stood as both a symbol of resilience and a reminder of the ongoing struggle to maintain order in an ever-threatened world."
         }
       ],
       "leads": [],
@@ -3957,7 +4153,8 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Following the intense Siege and Counter-Siege phase of the Battle of Mistral Farmstead, Block Farm Village emerged battered but resilient. The village's initial population had dwindled significantly due to casualties and disease, yet those who remained were hardened by the ordeal. Supplies, which had been stretched to their limits during the siege, were gradually replenished thanks to the successful alliance with neighboring villages.\n\nThe cooperation among these allied communities proved invaluable in bolstering morale and re-establishing a semblance of normalcy within the village. The leadership's strategic decisions paid off; the combined forces successfully disrupted the Shadow Guild’s operations, weakening their grip over the region. This victory did not come without cost; numerous villagers lost their lives or were left permanently disabled.\n\nThe aftermath saw the village undertaking extensive rebuilding efforts and implementing strict public health measures to combat lingering diseases. The alliance was solidified further as these villages learned valuable lessons in unity and preparedness for future challenges. Block Farm Village’s leadership emerged stronger, determined not only to defend but also to rebuild a prosperous community amidst the shadows cast by past conflicts."
+          "point": "Following the intense Siege and Counter-Siege phase of the Battle of Mistral Farmstead, Block Farm Village emerged battered but resilient.",
+          "detail": "The village's initial population had dwindled significantly due to casualties and disease, yet those who remained were hardened by the ordeal. Supplies, which had been stretched to their limits during the siege, were gradually replenished thanks to the successful alliance with neighboring villages. The cooperation among these allied communities proved invaluable in bolstering morale and re-establishing a semblance of normalcy within the village. The leadership's strategic decisions paid off; the combined forces successfully disrupted the Shadow Guild’s operations, weakening their grip over the region. This victory did not come without cost; numerous villagers lost their lives or were left permanently disabled. The aftermath saw the village undertaking extensive rebuilding efforts and implementing strict public health measures to combat lingering diseases. The alliance was solidified further as these villages learned valuable lessons in unity and preparedness for future challenges. Block Farm Village’s leadership emerged stronger, determined not only to defend but also to rebuild a prosperous community amidst the shadows cast by past conflicts."
         }
       ],
       "leads": [],
@@ -3978,7 +4175,7 @@
       "codename": "THE SECLUSION INCIDENT AT THE UNDERCITY GROTTO",
       "title": "Aftermath: The Seclusion Incident at the Undercity Grotto",
       "subtitle": "The archive requires answers.",
-      "status": "active",
+      "status": "stub",
       "classification": "Generated Investigation",
       "opened": "Chillwind 15, 923 BF",
       "archivist": "Waluigi, Auditor-General",
@@ -3986,28 +4183,22 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Following the pivotal event within the Undercity's hidden grotto, Waluigi found himself in a state of profound reflection and heightened awareness. The key turned once more, sealing behind him the ancient treasures and secrets he had uncovered. The resounding click of the door symbolized both closure and new beginnings—closure to a chapter steeped in history, and a new beginning for his role as an influential figure in the Undercity.\n\nThe weight in his hand—the artifact that represented the balance—had felt heavier with each step deeper into the grotto. Now, it seemed lighter, but not due to any diminishment of responsibility. Instead, he felt a renewed sense of purpose and clarity. The artifacts' pulsating presence had left him with an understanding that actions taken tonight would ripple through time, influencing future decisions and events.\n\nWaluigi emerged from the grotto, his steps steady but deliberate. The whispers of centuries past seemed to fade into the background, replaced by a renewed sense of duty. His path forward was clear: to maintain the balance, to act swiftly with the knowledge gained tonight, and to ensure that secrets long kept did not lead to the loss of harmony in the Undercity.\n\nThe Undercity inhabitants noticed his altered demeanor, seeing in him a leader more confident and resolute. Waluigi knew that he had taken on a monumental task but also that he was capable of navigating this path with wisdom and strength. The balance was fragile, but so too were the lives of those who depended on it."
+          "point": "Following the pivotal event within the Undercity's hidden grotto, Waluigi found himself in a state of profound reflection and heightened awareness.",
+          "detail": "The key turned once more, sealing behind him the ancient treasures and secrets he had uncovered. The resounding click of the door symbolized both closure and new beginnings—closure to a chapter steeped in history, and a new beginning for his role as an influential figure in the Undercity. The weight in his hand—the artifact that represented the balance—had felt heavier with each step deeper into the grotto. Now, it seemed lighter, but not due to any diminishment of responsibility. Instead, he felt a renewed sense of purpose and clarity. The artifacts' pulsating presence had left him with an understanding that actions taken tonight would ripple through time, influencing future decisions and events. Waluigi emerged from the grotto, his steps steady but deliberate. The whispers of centuries past seemed to fade into the background, replaced by a renewed sense of duty. His path forward was clear: to maintain the balance, to act swiftly with the knowledge gained tonight, and to ensure that secrets long kept did not lead to the loss of harmony in the Undercity. The Undercity inhabitants noticed his altered demeanor, seeing in him a leader more confident and resolute. Waluigi knew that he had taken on a monumental task but also that he was capable of navigating this path with wisdom and strength. The balance was fragile, but so too were the lives of those who depended on it."
         }
       ],
       "leads": [],
-      "sessions": [
-        {
-          "id": "s_undercity_grotto_seclusion_incident",
-          "label": "The Seclusion Incident at the Undercity Grotto",
-          "event": "undercity_grotto_seclusion_incident"
-        }
-      ],
-      "relatedEvents": [
-        "undercity_grotto_seclusion_incident"
-      ],
-      "exhibits": []
+      "sessions": [],
+      "relatedEvents": [],
+      "exhibits": [],
+      "_stubNote": "Flipped from active by tools/fix-investigation-stubs.py: the article this arc cites has not been written. Listed in docs/worklists/investigation-stubs.md."
     },
     {
       "id": "inv_ruin_recovery_1023_bf",
       "codename": "THE QUIET RECLAMATION OF FORGOTTEN RUINS",
       "title": "Aftermath: The Quiet Reclamation of Forgotten Ruins",
       "subtitle": "The archive requires answers.",
-      "status": "active",
+      "status": "stub",
       "classification": "Generated Investigation",
       "opened": "Chillwind 15, 1023 BF",
       "archivist": "Waluigi, Auditor-General",
@@ -4015,28 +4206,22 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "The riders from Rohan returned home with tales of the hillfort's relics under the cloak of morning light. The cache they had uncovered spoke volumes about a past now buried beneath layers of time, but it also left them with an uneasy feeling, as if the stories behind those artifacts were incomplete or lost to time. Waluigi’s mind lingered on the irony of history—how empires rise and fall while leaving behind only their forgotten relics.\n\nThe local scholars, who examined the collection, found evidence that suggested a blend of cultural influences not previously known in this region. This discovery opened new avenues for historical research but also raised more questions than answers. The pottery shards and metalwork hinted at once-flourishing trade routes and alliances that had since vanished into obscurity.\n\nThe hillfort itself, now quiet and still, was left to its own devices. It stood as a silent testament to the passage of time, its stones indifferent to the stories they held. As the days passed, the hillfort continued its slow decline, with only the artifacts from the cache serving as reminders of its former glory.\n\nWaluigi returned to his quarters, the weight of the past heavy on his mind. He realized that while the hillfort and its treasures belonged to history, he was part of a present where the lessons of the past could shape future decisions. The call in the wind, though distant, resonated with him—a reminder that all things have their end, but understanding is what truly matters."
+          "point": "The riders from Rohan returned home with tales of the hillfort's relics under the cloak of morning light.",
+          "detail": "The cache they had uncovered spoke volumes about a past now buried beneath layers of time, but it also left them with an uneasy feeling, as if the stories behind those artifacts were incomplete or lost to time. Waluigi’s mind lingered on the irony of history—how empires rise and fall while leaving behind only their forgotten relics. The local scholars, who examined the collection, found evidence that suggested a blend of cultural influences not previously known in this region. This discovery opened new avenues for historical research but also raised more questions than answers. The pottery shards and metalwork hinted at once-flourishing trade routes and alliances that had since vanished into obscurity. The hillfort itself, now quiet and still, was left to its own devices. It stood as a silent testament to the passage of time, its stones indifferent to the stories they held. As the days passed, the hillfort continued its slow decline, with only the artifacts from the cache serving as reminders of its former glory. Waluigi returned to his quarters, the weight of the past heavy on his mind. He realized that while the hillfort and its treasures belonged to history, he was part of a present where the lessons of the past could shape future decisions. The call in the wind, though distant, resonated with him—a reminder that all things have their end, but understanding is what truly matters."
         }
       ],
       "leads": [],
-      "sessions": [
-        {
-          "id": "s_ruin_recovery_1023_bf",
-          "label": "The Quiet Reclamation of Forgotten Ruins",
-          "event": "ruin_recovery_1023_bf"
-        }
-      ],
-      "relatedEvents": [
-        "ruin_recovery_1023_bf"
-      ],
-      "exhibits": []
+      "sessions": [],
+      "relatedEvents": [],
+      "exhibits": [],
+      "_stubNote": "Flipped from active by tools/fix-investigation-stubs.py: the article this arc cites has not been written. Listed in docs/worklists/investigation-stubs.md."
     },
     {
       "id": "inv_frostfall_moonlit_mysteries",
       "codename": "FROSTFALL'S MOONLIT MYSTERIES",
       "title": "Aftermath: Frostfall's Moonlit Mysteries",
       "subtitle": "The archive requires answers.",
-      "status": "active",
+      "status": "stub",
       "classification": "Generated Investigation",
       "opened": "Deepwinter 15, year 784 BF",
       "archivist": "Waluigi, Auditor-General",
@@ -4044,21 +4229,15 @@
       "accent": "#4a9c6d",
       "plainSummary": [
         {
-          "point": "Following his harrowing encounter in Frostfall, Waluigi found himself amidst a landscape where shadows loomed large and secrets were as cold as the wind. The distant howls of creatures had left an indelible mark on his psyche, adding to the unease already present when he returned to the city. Local authorities reported no immediate disturbances or unusual activities, yet Waluigi could not shake off the feeling that something significant had occurred.\n\nIn the days following this event, Waluigi's contacts within various intelligence networks began reporting heightened surveillance and increased chatter among underground groups known for their involvement in such shadowy affairs. The peculiar hums he encountered resonated with theories of anomalous electromagnetic interference—a phenomenon often exploited by those seeking to control uncharted territories and resources.\n\nWaluigi decided to dig deeper into historical records, uncovering old reports of similar occurrences across various regions. His investigation led him to a network of clandestine organizations operating at the crossroads of science, technology, and power politics. The more he uncovered, the clearer it became that these events were not isolated incidents but part of a much larger, interconnected web.\n\nWith this new knowledge, Waluigi realized the importance of his role in unraveling these mysteries. Each piece of information pieced together brought him one step closer to understanding the true extent of the manipulation at play. The cold wind outside was a constant reminder that the battle against shadows would be long and arduous."
+          "point": "Following his harrowing encounter in Frostfall, Waluigi found himself amidst a landscape where shadows loomed large and secrets were as cold as the wind.",
+          "detail": "The distant howls of creatures had left an indelible mark on his psyche, adding to the unease already present when he returned to the city. Local authorities reported no immediate disturbances or unusual activities, yet Waluigi could not shake off the feeling that something significant had occurred. In the days following this event, Waluigi's contacts within various intelligence networks began reporting heightened surveillance and increased chatter among underground groups known for their involvement in such shadowy affairs. The peculiar hums he encountered resonated with theories of anomalous electromagnetic interference—a phenomenon often exploited by those seeking to control uncharted territories and resources. Waluigi decided to dig deeper into historical records, uncovering old reports of similar occurrences across various regions. His investigation led him to a network of clandestine organizations operating at the crossroads of science, technology, and power politics. The more he uncovered, the clearer it became that these events were not isolated incidents but part of a much larger, interconnected web. With this new knowledge, Waluigi realized the importance of his role in unraveling these mysteries. Each piece of information pieced together brought him one step closer to understanding the true extent of the manipulation at play. The cold wind outside was a constant reminder that the battle against shadows would be long and arduous."
         }
       ],
       "leads": [],
-      "sessions": [
-        {
-          "id": "s_frostfall_moonlit_mysteries",
-          "label": "Frostfall's Moonlit Mysteries",
-          "event": "frostfall_moonlit_mysteries"
-        }
-      ],
-      "relatedEvents": [
-        "frostfall_moonlit_mysteries"
-      ],
-      "exhibits": []
+      "sessions": [],
+      "relatedEvents": [],
+      "exhibits": [],
+      "_stubNote": "Flipped from active by tools/fix-investigation-stubs.py: the article this arc cites has not been written. Listed in docs/worklists/investigation-stubs.md."
     }
   ]
 }

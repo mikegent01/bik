@@ -1,0 +1,802 @@
+{
+  "_README": {
+    "what": "Crime and Punishment: the sentencing reel plus the consequence table.",
+    "phases": "A verdict has two halves. The reel decides the SENTENCE (what the court makes you do). The injury table decides the CONSEQUENCE (what it costs your body).",
+    "sentences": "Ported from the standalone Wheel of Regret prototype (incoming/). 89 sentences across mild/moderate/severe/weird/special, severity 1-10.",
+    "effects": "20 game-effect spaces: coins, spins, rerolls, temporary modifiers. These are not punishments.",
+    "consequences": "Read live from injuries.json (343 entries, d100 1-345). Not duplicated here.",
+    "canon_note": "Place names were audited against the archive. Mighdural, Swiftsoul, Ravencreek, Edgeshade and Veilwood all appear in filed material. LOCKEWEALD and ALLELON appear nowhere else in data/ and are flagged as unverified rather than silently rewritten.",
+    "no_ai": "This file is a deterministic port of hand-written prototype data. No text was generated."
+  },
+  "sentences": [
+    {
+      "id": "mighdural_dungeon_cell_damp",
+      "label": "Mighdural Dungeon Cell (Damp)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#7f8c8d"
+    },
+    {
+      "id": "dragon_mountain_ash_duty_hot",
+      "label": "Dragon Mountain Ash Duty (Hot)",
+      "type": "severe",
+      "severity": 8,
+      "color": "#c0392b"
+    },
+    {
+      "id": "veilwood_spa_indebted_guest",
+      "label": "Veilwood Spa 'Indebted Guest'",
+      "type": "severe",
+      "severity": 9,
+      "color": "#8e44ad"
+    },
+    {
+      "id": "minor_fine_payable_in",
+      "label": "Minor Fine (Payable in 🪙!)",
+      "type": "special",
+      "severity": 1,
+      "color": "#2ecc71"
+    },
+    {
+      "id": "pirate_s_keep_debt_labor_salty",
+      "label": "Pirate's Keep Debt Labor (Salty)",
+      "type": "moderate",
+      "severity": 6,
+      "color": "#34495e"
+    },
+    {
+      "id": "swiftsoul_maintenance_windy",
+      "label": "Swiftsoul Maintenance (Windy)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#1abc9c"
+    },
+    {
+      "id": "assist_edgeshade_rebuilding_sobering",
+      "label": "Assist Edgeshade Rebuilding (Sobering)",
+      "type": "mild",
+      "severity": 3,
+      "color": "#f39c12"
+    },
+    {
+      "id": "lockeweald_night_watch_spooky",
+      "label": "Lockeweald Night Watch (Spooky)",
+      "type": "severe",
+      "severity": 7,
+      "color": "#2c3e50"
+    },
+    {
+      "id": "yal_belanor_errands_arcane",
+      "label": "Yal Belanor Errands (Arcane)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#9b59b6"
+    },
+    {
+      "id": "clean_the_miserable_statue_tedious",
+      "label": "Clean the Miserable Statue (Tedious)",
+      "type": "weird",
+      "severity": 2,
+      "color": "#b38e55"
+    },
+    {
+      "id": "face_the_whirlpool_current_deadly",
+      "label": "Face the Whirlpool Current (Deadly)",
+      "type": "severe",
+      "severity": 10,
+      "color": "#2980b9"
+    },
+    {
+      "id": "iron_fists_training_painful",
+      "label": "Iron Fists 'Training' (Painful)",
+      "type": "severe",
+      "severity": 8,
+      "color": "#d35400"
+    },
+    {
+      "id": "mountains_edge_isolation_cold",
+      "label": "Mountains Edge Isolation (Cold)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#bdc3c7"
+    },
+    {
+      "id": "forced_jester_duty_humiliating",
+      "label": "Forced Jester Duty (Humiliating)",
+      "type": "weird",
+      "severity": 3,
+      "color": "#e67e22"
+    },
+    {
+      "id": "map_the_salt_lick_marshes_slimy",
+      "label": "Map the Salt-Lick Marshes (Slimy)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#95a5a6"
+    },
+    {
+      "id": "rakasha_s_garden_gnome_still",
+      "label": "Rakasha's 'Garden Gnome' (Still)",
+      "type": "weird",
+      "severity": 4,
+      "color": "#16a085"
+    },
+    {
+      "id": "deliver_message_to_allelon_risky",
+      "label": "Deliver Message to Allelon (Risky)",
+      "type": "severe",
+      "severity": 7,
+      "color": "#778ca3"
+    },
+    {
+      "id": "mighdural_kitchen_duty_onions",
+      "label": "Mighdural Kitchen Duty (Onions)",
+      "type": "mild",
+      "severity": 2,
+      "color": "#a569bd"
+    },
+    {
+      "id": "royal_guard_boot_polishing_endless",
+      "label": "Royal Guard Boot Polishing (Endless)",
+      "type": "mild",
+      "severity": 1,
+      "color": "#6495ED"
+    },
+    {
+      "id": "tend_the_royal_menagerie_smelly",
+      "label": "Tend the Royal Menagerie (Smelly)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#cd6155"
+    },
+    {
+      "id": "scribe_duty_cramped_hand",
+      "label": "Scribe Duty (Cramped Hand)",
+      "type": "mild",
+      "severity": 2,
+      "color": "#d0d3d4"
+    },
+    {
+      "id": "dragon_mountain_lookout_nervous",
+      "label": "Dragon Mountain Lookout (Nervous)",
+      "type": "severe",
+      "severity": 7,
+      "color": "#ec7063"
+    },
+    {
+      "id": "explore_smoldering_cave_choking",
+      "label": "Explore Smoldering Cave (Choking)",
+      "type": "severe",
+      "severity": 8,
+      "color": "#a04000"
+    },
+    {
+      "id": "deliver_peace_offering_to_dragons_suicidal",
+      "label": "Deliver Peace Offering to Dragons? (Suicidal)",
+      "type": "severe",
+      "severity": 9,
+      "color": "#f5b041"
+    },
+    {
+      "id": "edgeshade_ghost_watch_eerie",
+      "label": "Edgeshade Ghost Watch (Eerie)",
+      "type": "weird",
+      "severity": 3,
+      "color": "#aeb6bf"
+    },
+    {
+      "id": "salvage_crew_edgeshade_ruins",
+      "label": "Salvage Crew (Edgeshade Ruins)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#707b7c"
+    },
+    {
+      "id": "guard_edgeshade_memorial_sad",
+      "label": "Guard Edgeshade Memorial (Sad)",
+      "type": "mild",
+      "severity": 2,
+      "color": "#5d6d7e"
+    },
+    {
+      "id": "veilwood_spa_laundry_duty_stained",
+      "label": "Veilwood Spa Laundry Duty (Stained)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#bb8fce"
+    },
+    {
+      "id": "veilwood_blood_drive_volunteer_pale",
+      "label": "Veilwood 'Blood Drive' Volunteer (Pale)",
+      "type": "severe",
+      "severity": 9,
+      "color": "#9b59b6"
+    },
+    {
+      "id": "clean_veilwood_coffins_dusty",
+      "label": "Clean Veilwood Coffins (Dusty)",
+      "type": "weird",
+      "severity": 4,
+      "color": "#7d3c98"
+    },
+    {
+      "id": "pirate_s_keep_lookout_duty_foggy",
+      "label": "Pirate's Keep Lookout Duty (Foggy)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#5dade2"
+    },
+    {
+      "id": "tavern_bouncer_skull_anchor",
+      "label": "Tavern Bouncer (Skull & Anchor)",
+      "type": "moderate",
+      "severity": 6,
+      "color": "#2e4053"
+    },
+    {
+      "id": "smuggling_run_escort_night",
+      "label": "Smuggling Run Escort (Night)",
+      "type": "severe",
+      "severity": 7,
+      "color": "#1c2833"
+    },
+    {
+      "id": "fetch_supplies_for_pirate_cook_gross",
+      "label": "Fetch 'Supplies' for Pirate Cook (Gross)",
+      "type": "weird",
+      "severity": 3,
+      "color": "#4a6a8a"
+    },
+    {
+      "id": "swiftsoul_aetherfont_polishing_sacred",
+      "label": "Swiftsoul Aetherfont Polishing (Sacred)",
+      "type": "mild",
+      "severity": 2,
+      "color": "#48c9b0"
+    },
+    {
+      "id": "test_pilot_experimental_flyer_crash",
+      "label": "Test Pilot Experimental Flyer (Crash?)",
+      "type": "severe",
+      "severity": 8,
+      "color": "#17a589"
+    },
+    {
+      "id": "sort_airship_cargo_manifests_boring",
+      "label": "Sort Airship Cargo Manifests (Boring)",
+      "type": "mild",
+      "severity": 1,
+      "color": "#a3e4d7"
+    },
+    {
+      "id": "guard_swiftsoul_shrine_entrance_quiet",
+      "label": "Guard Swiftsoul Shrine Entrance (Quiet)",
+      "type": "moderate",
+      "severity": 3,
+      "color": "#76d7c4"
+    },
+    {
+      "id": "forage_for_rare_herbs_lockeweald",
+      "label": "Forage for Rare Herbs (Lockeweald)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#28b463"
+    },
+    {
+      "id": "track_lost_caravan_lockeweald",
+      "label": "Track Lost Caravan (Lockeweald)",
+      "type": "moderate",
+      "severity": 6,
+      "color": "#1d8348"
+    },
+    {
+      "id": "clear_spider_nests_lockeweald",
+      "label": "Clear Spider Nests (Lockeweald)",
+      "type": "weird",
+      "severity": 4,
+      "color": "#186a3b"
+    },
+    {
+      "id": "serve_as_vampire_decoy_lockeweald",
+      "label": "Serve as Vampire Decoy (Lockeweald)",
+      "type": "severe",
+      "severity": 8,
+      "color": "#abebc6"
+    },
+    {
+      "id": "yal_belanor_lab_assistant_explosive",
+      "label": "Yal Belanor Lab Assistant (Explosive?)",
+      "type": "severe",
+      "severity": 7,
+      "color": "#af7ac5"
+    },
+    {
+      "id": "clean_scrying_pools_yal_belanor",
+      "label": "Clean Scrying Pools (Yal Belanor)",
+      "type": "mild",
+      "severity": 2,
+      "color": "#d2b4de"
+    },
+    {
+      "id": "rune_carver_apprentice_painful_mistakes",
+      "label": "Rune Carver Apprentice (Painful Mistakes)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#a569bd"
+    },
+    {
+      "id": "potion_taste_tester_side_effects",
+      "label": "Potion Taste-Tester (Side effects!)",
+      "type": "weird",
+      "severity": 6,
+      "color": "#884ea0"
+    },
+    {
+      "id": "offer_peace_gift_to_allelon_alpha_howl",
+      "label": "Offer 'Peace' Gift to Allelon Alpha (Howl?)",
+      "type": "severe",
+      "severity": 8,
+      "color": "#85929e"
+    },
+    {
+      "id": "allelon_boundary_patrol_tense",
+      "label": "Allelon Boundary Patrol (Tense)",
+      "type": "moderate",
+      "severity": 6,
+      "color": "#a6acaf"
+    },
+    {
+      "id": "gather_moonpetal_flowers_near_allelon",
+      "label": "Gather Moonpetal Flowers (Near Allelon)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#ccd1d1"
+    },
+    {
+      "id": "howling_practice_werewolf_mockery",
+      "label": "Howling Practice (Werewolf Mockery?)",
+      "type": "weird",
+      "severity": 3,
+      "color": "#eaeded"
+    },
+    {
+      "id": "mine_for_fool_s_gold_mountains_edge",
+      "label": "Mine for Fool's Gold (Mountains Edge)",
+      "type": "mild",
+      "severity": 2,
+      "color": "#fdebd0"
+    },
+    {
+      "id": "hunt_arctic_fox_mountains_edge",
+      "label": "Hunt Arctic Fox (Mountains Edge)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#e5e7e9"
+    },
+    {
+      "id": "build_snow_fort_defenses_childish",
+      "label": "Build Snow Fort Defenses (Childish?)",
+      "type": "mild",
+      "severity": 1,
+      "color": "#d6dbdf"
+    },
+    {
+      "id": "tundra_watch_duty_blizzard_risk",
+      "label": "Tundra Watch Duty (Blizzard Risk)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#b2babb"
+    },
+    {
+      "id": "gather_glowing_moss_rakasha",
+      "label": "Gather Glowing Moss (Rakasha)",
+      "type": "mild",
+      "severity": 2,
+      "color": "#45b39d"
+    },
+    {
+      "id": "decipher_strange_runes_rakasha",
+      "label": "Decipher Strange Runes (Rakasha)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#1e8449"
+    },
+    {
+      "id": "tend_rakasha_s_carnivorous_plants_bitey",
+      "label": "Tend Rakasha's Carnivorous Plants (Bitey)",
+      "type": "weird",
+      "severity": 5,
+      "color": "#a9dfbf"
+    },
+    {
+      "id": "meditate_with_rakasha_awkward_silence",
+      "label": "Meditate with Rakasha (Awkward Silence)",
+      "type": "weird",
+      "severity": 3,
+      "color": "#d1f2eb"
+    },
+    {
+      "id": "collect_tar_samples_salt_lick",
+      "label": "Collect Tar Samples (Salt-Lick)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#616a6b"
+    },
+    {
+      "id": "retrieve_sunken_body_salt_lick",
+      "label": "Retrieve Sunken Body (Salt-Lick)",
+      "type": "severe",
+      "severity": 7,
+      "color": "#909497"
+    },
+    {
+      "id": "scare_away_marsh_ghouls_yelling",
+      "label": "Scare Away Marsh Ghouls (Yelling)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#b3b6b7"
+    },
+    {
+      "id": "listen_to_marsh_whispers_insanity",
+      "label": "Listen to Marsh Whispers (Insanity?)",
+      "type": "weird",
+      "severity": 3,
+      "color": "#dadfe1"
+    },
+    {
+      "id": "blainnola_plains_farmhand_endless_wheat",
+      "label": "Blainnola Plains Farmhand (Endless Wheat)",
+      "type": "mild",
+      "severity": 2,
+      "color": "#f7dc6f"
+    },
+    {
+      "id": "caravan_guard_duty_bandit_risk",
+      "label": "Caravan Guard Duty (Bandit Risk)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#f4d03f"
+    },
+    {
+      "id": "watchtower_sentry_boring_view",
+      "label": "Watchtower Sentry (Boring View)",
+      "type": "mild",
+      "severity": 1,
+      "color": "#f9e79f"
+    },
+    {
+      "id": "scarecrow_duty_actual_crows_laugh",
+      "label": "Scarecrow Duty (Actual Crows Laugh)",
+      "type": "weird",
+      "severity": 1,
+      "color": "#fcf3cf"
+    },
+    {
+      "id": "cats_cove_fishing_duty_stormy_seas",
+      "label": "Cats Cove Fishing Duty (Stormy Seas)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#aed6f1"
+    },
+    {
+      "id": "untangle_miles_of_nets_cats_cove",
+      "label": "Untangle Miles of Nets (Cats Cove)",
+      "type": "mild",
+      "severity": 2,
+      "color": "#85c1e9"
+    },
+    {
+      "id": "serve_fish_guts_ale_claw_reel",
+      "label": "Serve Fish Guts Ale (Claw & Reel)",
+      "type": "weird",
+      "severity": 3,
+      "color": "#d6eaf8"
+    },
+    {
+      "id": "herding_the_town_s_cats_impossible",
+      "label": "Herding the Town's Cats (Impossible!)",
+      "type": "weird",
+      "severity": 2,
+      "color": "#ebf5fb"
+    },
+    {
+      "id": "ravencreek_river_patrol_vs_ghouls",
+      "label": "Ravencreek River Patrol (vs Ghouls)",
+      "type": "moderate",
+      "severity": 5,
+      "color": "#abb2b9"
+    },
+    {
+      "id": "guard_duty_vs_vampires_ravencreek",
+      "label": "Guard Duty vs Vampires (Ravencreek)",
+      "type": "severe",
+      "severity": 7,
+      "color": "#808b96"
+    },
+    {
+      "id": "cleanse_haunted_section_ravencreek",
+      "label": "Cleanse Haunted Section (Ravencreek)",
+      "type": "weird",
+      "severity": 4,
+      "color": "#d5d8dc"
+    },
+    {
+      "id": "spa_volunteer_for_questionable_test",
+      "label": "Spa 'Volunteer' for Questionable Test",
+      "type": "severe",
+      "severity": 8,
+      "color": "#ead1dc"
+    },
+    {
+      "id": "mighdural_clock_tower_winder_high",
+      "label": "Mighdural Clock Tower Winder (High)",
+      "type": "mild",
+      "severity": 1,
+      "color": "#707b7c"
+    },
+    {
+      "id": "translate_ancient_draconic_text_headache",
+      "label": "Translate Ancient Draconic Text (Headache)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#d35400"
+    },
+    {
+      "id": "act_as_live_bait_for_marsh_leviathan_wet",
+      "label": "Act as Live Bait for Marsh Leviathan (Wet)",
+      "type": "severe",
+      "severity": 9,
+      "color": "#17202a"
+    },
+    {
+      "id": "polish_king_elmor_s_armor_shiny",
+      "label": "Polish King Elmor's Armor (Shiny)",
+      "type": "mild",
+      "severity": 1,
+      "color": "#fdfefe"
+    },
+    {
+      "id": "organize_pirate_booty_inventory_counting",
+      "label": "Organize Pirate Booty Inventory (Counting)",
+      "type": "moderate",
+      "severity": 3,
+      "color": "#5499c7"
+    },
+    {
+      "id": "test_anti_werewolf_wards_itchy",
+      "label": "Test Anti-Werewolf Wards (Itchy)",
+      "type": "weird",
+      "severity": 4,
+      "color": "#d4e6f1"
+    },
+    {
+      "id": "entertain_the_iron_fists_with_song_off_key",
+      "label": "Entertain the Iron Fists with Song (Off-key?)",
+      "type": "weird",
+      "severity": 3,
+      "color": "#f5cba7"
+    },
+    {
+      "id": "investigate_strange_noises_in_citadel_crypt_spooky",
+      "label": "Investigate Strange Noises in Citadel Crypt (Spooky!)",
+      "type": "severe",
+      "severity": 6,
+      "color": "#cacfd2"
+    },
+    {
+      "id": "personal_masseuse_for_vampire_noble_cold",
+      "label": "Personal Masseuse for Vampire Noble (Cold!)",
+      "type": "weird",
+      "severity": 5,
+      "color": "#d7bde2"
+    },
+    {
+      "id": "sharpen_every_sword_in_mighdural_barracks_ouch",
+      "label": "Sharpen Every Sword in Mighdural Barracks (Ouch!)",
+      "type": "moderate",
+      "severity": 3,
+      "color": "#aab7b8"
+    },
+    {
+      "id": "clean_castle_moat_murky",
+      "label": "Clean Castle Moat (Murky)",
+      "type": "moderate",
+      "severity": 4,
+      "color": "#7d6608"
+    },
+    {
+      "id": "deliver_bad_news_to_angry_baron",
+      "label": "Deliver Bad News to Angry Baron",
+      "type": "severe",
+      "severity": 6,
+      "color": "#78281f"
+    },
+    {
+      "id": "write_apology_letters_for_wario",
+      "label": "Write Apology Letters for Wario",
+      "type": "mild",
+      "severity": 2,
+      "color": "#f8c471"
+    },
+    {
+      "id": "chase_greased_squigs",
+      "label": "Chase Greased Squigs",
+      "type": "weird",
+      "severity": 3,
+      "color": "#239b56"
+    },
+    {
+      "id": "guard_suspiciously_empty_chest",
+      "label": "Guard Suspiciously Empty Chest",
+      "type": "mild",
+      "severity": 1,
+      "color": "#d5dbdb"
+    }
+  ],
+  "effects": [
+    {
+      "id": "wario_coin_windfall",
+      "label": "Wario Coin Windfall!",
+      "color": "#f1c40f",
+      "effect": "gain_coins",
+      "value": 25
+    },
+    {
+      "id": "lose_some_coins",
+      "label": "Lose Some Coins!",
+      "color": "#c0392b",
+      "effect": "lose_coins",
+      "value": 15
+    },
+    {
+      "id": "1_spin",
+      "label": "+1 Spin!",
+      "color": "#2ecc71",
+      "effect": "gain_spin",
+      "value": 1
+    },
+    {
+      "id": "1_spin",
+      "label": "-1 Spin!",
+      "color": "#e74c3c",
+      "effect": "lose_spin",
+      "value": 1
+    },
+    {
+      "id": "moment_of_hesitation_free_re_spin",
+      "label": "Moment of Hesitation (Free Re-Spin!)",
+      "color": "#3498db",
+      "effect": "free_respin"
+    },
+    {
+      "id": "wheel_wobbles_next_spin_reroll",
+      "label": "Wheel Wobbles! (Next Spin Reroll)",
+      "color": "#f39c12",
+      "effect": "temp_reroll"
+    },
+    {
+      "id": "brief_luck_avoid_severe_next_spin",
+      "label": "Brief Luck (Avoid Severe Next Spin)",
+      "color": "#1abc9c",
+      "effect": "temp_avoid_severe"
+    },
+    {
+      "id": "sudden_dread_weird_next_spin_likely",
+      "label": "Sudden Dread (Weird Next Spin Likely)",
+      "color": "#8e44ad",
+      "effect": "temp_force_weird"
+    },
+    {
+      "id": "tap_bonus_next_round",
+      "label": "Tap Bonus Next Round!",
+      "color": "#27ae60",
+      "effect": "temp_tap_bonus",
+      "value": 10
+    },
+    {
+      "id": "tap_penalty_next_round",
+      "label": "Tap Penalty Next Round!",
+      "color": "#d35400",
+      "effect": "temp_tap_penalty",
+      "value": 10
+    },
+    {
+      "id": "wario_s_other_stash",
+      "label": "Wario's OTHER Stash!",
+      "color": "#f1c40f",
+      "effect": "gain_coins",
+      "value": 40
+    },
+    {
+      "id": "guild_protection_fee",
+      "label": "Guild 'Protection' Fee!",
+      "color": "#e74c3c",
+      "effect": "lose_coins",
+      "value": 20
+    },
+    {
+      "id": "sudden_clarity_1_spin",
+      "label": "Sudden Clarity! (+1 Spin)",
+      "color": "#2ecc71",
+      "effect": "gain_spin",
+      "value": 1
+    },
+    {
+      "id": "bureaucratic_delay_1_spin",
+      "label": "Bureaucratic Delay! (-1 Spin)",
+      "color": "#c0392b",
+      "effect": "lose_spin",
+      "value": 1
+    },
+    {
+      "id": "mysterious_gust_of_wind",
+      "label": "Mysterious Gust of Wind",
+      "color": "#ecf0f1",
+      "effect": "nothing"
+    },
+    {
+      "id": "temporary_buff_double_tap_coins",
+      "label": "Temporary Buff: Double Tap Coins!",
+      "color": "#27ae60",
+      "effect": "temp_tap_multiplier",
+      "value": 2
+    },
+    {
+      "id": "temporary_curse_halved_tap_coins",
+      "label": "Temporary Curse: Halved Tap Coins!",
+      "color": "#e74c3c",
+      "effect": "temp_tap_multiplier",
+      "value": 0
+    },
+    {
+      "id": "poltergeist_activity_lose_5_coins",
+      "label": "Poltergeist Activity! (Lose 5 Coins)",
+      "color": "#9b59b6",
+      "effect": "lose_coins",
+      "value": 5
+    },
+    {
+      "id": "friendly_toad_offers_help_10_coins",
+      "label": "Friendly Toad Offers Help! (+10 Coins)",
+      "color": "#3498db",
+      "effect": "gain_coins",
+      "value": 10
+    },
+    {
+      "id": "wheel_jammed_spin_again",
+      "label": "Wheel Jammed! (Spin Again?)",
+      "color": "#f39c12",
+      "effect": "free_respin"
+    }
+  ],
+  "severityBands": [
+    {
+      "min": 1,
+      "max": 3,
+      "name": "Minor",
+      "note": "Humiliating or tedious. You walk away."
+    },
+    {
+      "min": 4,
+      "max": 6,
+      "name": "Serious",
+      "note": "Real labour, real risk, real time."
+    },
+    {
+      "min": 7,
+      "max": 8,
+      "name": "Grave",
+      "note": "People have not come back from these."
+    },
+    {
+      "min": 9,
+      "max": 10,
+      "name": "Capital",
+      "note": "The court has stopped pretending this is corrective."
+    }
+  ],
+  "unverifiedTerms": [
+    "Lockeweald",
+    "Allelon"
+  ]
+}

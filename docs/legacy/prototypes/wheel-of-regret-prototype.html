@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waluigi's Pre-Verdict Wheel of Regret!</title>
+    <style>
+        /* Styles remain largely the same */
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Special+Elite&family=Creepster&display=swap');
+        :root {
+            --bg-color: #2a2a3a; --container-bg: #3d3d4d; --border-color: #6a5acd;
+            --text-color: #c0c0c0; --highlight-color: #c0c0ff; --title-color: #9a4eae;
+            --pointer-color: #888; --button-bg: #6a5acd; --button-border: #483d8b;
+            --button-hover: #7a6acd; --button-shadow: #3a2d7b; --disabled-bg: #555;
+            --disabled-text: #888; --disabled-shadow: #333; --result-bg: rgba(0, 0, 0, 0.2);
+            --result-border: #555; --result-emphasis: #ffcc66; --waluigi-comment: #b0a0e0;
+            --shop-bg: #4d4d5d; --shop-border: #5a4a9d; --coin-color: #f1c40f;
+            --shop-item-bg: rgba(0, 0, 0, 0.15); --shop-item-border: #666; --shop-text-color: #ddd;
+            --shop-desc-color: #bbb; --buy-button-bg: #f1c40f; --buy-button-text: #333;
+            --buy-button-border: #c49d0c; --buy-button-hover: #ffe066; --buff-color: #2ecc71;
+            --scam-color: #e74c3c; --spin-count-color: #bdc3c7;
+            --font-primary: 'Special Elite', cursive; --font-secondary: 'MedievalSharp', cursive;
+            --font-title: 'Creepster', cursive;
+            --game-effect-color: #e67e22;
+            --accept-btn-bg: #27ae60; --accept-btn-border: #1f8a4c; --accept-btn-shadow: #186a3b;
+            --reset-btn-bg: #e74c3c; --reset-btn-border: #c0392b; --reset-btn-shadow: #922b21;
+        }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-primary); display: flex; flex-direction: column; justify-content: flex-start; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23404050' fill-opacity='0.1'%3E%3Cpath fill-rule='evenodd' d='M11 0l5 20H6l5-20zm42 31l5 20H48l5-20zm-30 25l5 20H18l5-20zm42 31l5 20H60l5-20zM0 1o5 20H5l5-20zM62 4o5 20H67l5-20zm-30 25o5 20H37l5-20zm42 31o5 20H77l5-20z'/%3E%3C/g%3E%3C/svg%3E"); }
+        .container, .shop-container { border: 3px solid var(--border-color); border-radius: 15px; padding: 30px; text-align: center; max-width: 800px; width: 95%; margin-bottom: 20px; }
+        .container { background-color: var(--container-bg); box-shadow: 0 0 20px rgba(106, 90, 205, 0.3); }
+        h1 { font-family: var(--font-title); color: var(--title-color); font-size: 3em; margin-bottom: 15px; text-shadow: 2px 2px #1a1a2a; letter-spacing: 2px; }
+        .intro { font-style: italic; color: #b0b0b0; margin-bottom: 20px; font-size: 1.1em; line-height: 1.5; }
+        .intro strong { color: var(--highlight-color); font-family: var(--font-secondary); }
+        .spinner-area { position: relative; width: 300px; height: 300px; margin: 20px auto; display: flex; justify-content: center; align-items: center; }
+        #spinnerCanvas { width: 100%; height: 100%; transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1); border-radius: 50%; border: 5px solid #555; box-shadow: 0 0 10px rgba(0, 0, 0, 0.6); cursor: default; }
+        .pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 24px solid var(--pointer-color); z-index: 10; filter: drop-shadow(0px -2px 2px rgba(0,0,0,0.4)); }
+        .interaction-area { margin-top: 20px; display: flex; flex-direction: column; align-items: center; }
+        #spinCountDisplay { font-size: 1.1em; color: var(--spin-count-color); margin-bottom: 10px; font-family: var(--font-secondary); }
+        #tapButton { font-family: var(--font-secondary); background-color: var(--button-bg); color: #f0f0f0; border: 2px solid var(--button-border); padding: 12px 25px; font-size: 1.3em; border-radius: 8px; cursor: pointer; transition: background-color 0.3s, transform 0.1s; box-shadow: 0 4px var(--button-shadow); min-width: 220px; user-select: none; margin-bottom: 15px; }
+        #tapButton.tapping { background-color: var(--button-hover); transform: translateY(1px); box-shadow: 0 3px var(--button-shadow); }
+        #tapButton:hover:not(:disabled):not(.tapping) { background-color: var(--button-hover); }
+        #tapButton:active:not(:disabled):not(.tapping) { transform: translateY(2px); box-shadow: 0 2px var(--button-shadow); }
+        #tapButton:disabled { background-color: var(--disabled-bg); color: var(--disabled-text); cursor: not-allowed; box-shadow: 0 4px var(--disabled-shadow); }
+
+        .decision-buttons { display: flex; justify-content: center; gap: 20px; margin-top: 10px; }
+        .decision-button { font-family: var(--font-secondary); color: #f0f0f0; padding: 10px 20px; font-size: 1.1em; border-radius: 8px; cursor: pointer; transition: background-color 0.3s, transform 0.1s; }
+        #acceptPunishmentButton { background-color: var(--accept-btn-bg); border: 2px solid var(--accept-btn-border); box-shadow: 0 4px var(--accept-btn-shadow); }
+        #acceptPunishmentButton:hover:not(:disabled) { background-color: #2ecc71; }
+        #acceptPunishmentButton:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px var(--accept-btn-shadow); }
+        #resetButton { background-color: var(--reset-btn-bg); border: 2px solid var(--reset-btn-border); box-shadow: 0 4px var(--reset-btn-shadow); }
+        #resetButton:hover:not(:disabled) { background-color: #ff7675; }
+        #resetButton:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 2px var(--reset-btn-shadow); }
+        .decision-button:disabled { background-color: var(--disabled-bg); color: var(--disabled-text); cursor: not-allowed; box-shadow: 0 4px var(--disabled-shadow); }
+
+        #tapInfo { font-size: 1em; color: #aaa; margin-top: 10px; min-height: 20px; font-style: italic; }
+        #result { margin-top: 25px; font-size: 1.3em; min-height: 80px; padding: 15px; background-color: var(--result-bg); border-radius: 8px; border: 1px solid var(--result-border); text-align: left; }
+        #result strong { color: var(--result-emphasis); font-family: var(--font-secondary); font-size: 1.1em; display: block; margin-bottom: 5px; }
+        .game-effect-text { color: var(--game-effect-color); font-style: italic; font-weight: bold; }
+        /* Styles for 'Waluigi Joins?' buttons */
+        .join-prompt { margin-top: 10px; font-style: italic; color: #ccc; }
+        .join-buttons button { font-family: var(--font-primary); background-color: var(--button-bg); color: #fff; border: 1px solid var(--button-border); padding: 3px 8px; font-size: 0.9em; margin: 0 5px; cursor: pointer; transition: background-color 0.2s; border-radius: 4px; }
+        .join-buttons button:hover:not(:disabled) { background-color: var(--button-hover); }
+        .join-buttons button:disabled { background-color: var(--disabled-bg); color: var(--disabled-text); }
+
+        .waluigi-comment { margin-top: 15px; font-style: italic; color: var(--waluigi-comment); font-size: 1.1em; min-height: 30px; }
+        .shop-container { background-color: var(--shop-bg); border: 3px solid var(--shop-border); box-shadow: 0 0 15px rgba(90, 74, 157, 0.3); }
+        .shop-container h2 { font-family: var(--font-title); color: var(--title-color); margin-top: 0; margin-bottom: 15px; border-bottom: 1px dashed #777; padding-bottom: 10px; font-size: 2.2em; text-shadow: 1px 1px #1a1a2a; letter-spacing: 1px; }
+        .coin-display { font-size: 1.2em; margin-bottom: 15px; color: var(--coin-color); font-weight: bold; font-family: var(--font-secondary); }
+        .shop-item { background-color: var(--shop-item-bg); padding: 10px; margin-bottom: 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--shop-item-border); flex-wrap: wrap; }
+        .shop-item-info { text-align: left; flex-grow: 1; margin-right: 10px; }
+        .shop-item-name { font-weight: bold; color: var(--shop-text-color); font-family: var(--font-secondary); }
+        .shop-item-name.scam { color: var(--scam-color); font-style: italic; }
+        .shop-item-desc { font-size: 0.9em; color: var(--shop-desc-color); }
+        .shop-item-desc.scam-effect { font-size: 0.9em; color: var(--scam-color); font-style: italic; font-weight: bold; }
+        .shop-item-buy-area { display: flex; align-items: center; flex-shrink: 0; margin-top: 5px; }
+        .shop-item-cost { font-weight: bold; color: var(--coin-color); margin-right: 10px; font-family: var(--font-secondary); }
+        .buy-button { font-family: var(--font-primary); background-color: var(--buy-button-bg); color: var(--buy-button-text); border: 1px solid var(--buy-button-border); padding: 5px 10px; font-size: 0.9em; border-radius: 4px; cursor: pointer; transition: background-color 0.2s; white-space: nowrap; }
+        .buy-button:hover:not(:disabled) { background-color: var(--buy-button-hover); }
+        .buy-button:disabled { background-color: var(--disabled-bg); color: var(--disabled-text); cursor: not-allowed; border-color: #555; }
+        .active-buff, .scam-warning { margin-top: 10px; font-size: 1em; font-style: italic; font-weight: bold; min-height: 1.2em; }
+        .active-buff { color: var(--buff-color); }
+        .scam-warning { color: var(--scam-color); }
+        .store-mention { font-size: 0.9em; color: #999; margin-top: 15px; border-top: 1px dashed #666; padding-top: 10px; font-style: italic; }
+        .audio-hidden { display: none; }
+
+    </style>
+</head>
+<body>
+    <!-- Audio Elements -->
+    <div class="audio-hidden">
+        <audio id="snd_jackpot" src="Jackpot.mp3" preload="auto"></audio>
+        <audio id="snd_blip" src="blip.wav" preload="auto"></audio>
+        <audio id="snd_coin" src="coin-pickup.mp3" preload="auto"></audio>
+        <audio id="snd_ready" src="mario-party-announcer-ready.mp3" preload="auto"></audio>
+        <audio id="snd_musicbox" src="MarioMusicBox.mp3" preload="auto" loop></audio>
+        <audio id="snd_wah" src="wah-101soundboards.mp3" preload="auto"></audio>
+        <audio id="snd_scream" src="waluigi-screaming-made-with-Voicemod (mp3cut.net).mp3" preload="auto"></audio>
+        <audio id="snd_wario_wah" src="wario-wah.mp3" preload="auto"></audio>
+        <audio id="snd_wario_laugh" src="WarioLuagh.mp3" preload="auto"></audio>
+        <!-- Add a gavel sound if you have one, e.g., <audio id="snd_gavel" src="gavel.wav" preload="auto"></audio> -->
+    </div>
+
+    <div class="container">
+        <h1>Waluigi's Pre-Verdict Wheel of Regret!</h1>
+        <p class="intro">
+            Waluigi leans against the witness stand, looking unusually somber. "Alright, Archie... trial's still going. Not guilty yet! But... procedures." He gestures vaguely at Magistrate Vondar, who looks annoyed. "Judge wanted to use his tiny 'Wheel of Minor Inconveniences', get this over with. But NOOO, Edgeworth had to show up!" He points a long finger at the enormous, chaotic wheel dominating the courtroom. "That show-off brought *this* monstrosity. Now the Judge is all excited to maybe yell <strong>'GUILTY!'</strong> just to see this thing spin for real."
+            <br>"So, we spin now. Decide your potential punishment... *if* things go bad. Maybe spin something not awful? Still hoping you walk free, kid. Unlike..." He trails off, glancing sadly at a Wario-shaped shadow in the corner. "Spin the wheel. Let's see what fate *might* have in store."
+        </p>
+
+        <div class="spinner-area">
+            <div class="pointer"></div>
+            <canvas id="spinnerCanvas" width="300" height="300"></canvas>
+        </div>
+
+        <div class="interaction-area">
+            <div id="spinCountDisplay">Spins Remaining: 3</div>
+            <button id="tapButton">Tap to Charge Spin!</button>
+            <div class="decision-buttons">
+                <button id="acceptPunishmentButton" class="decision-button" disabled>Accept This Fate</button>
+                <button id="resetButton" class="decision-button">Reset Everything</button>
+            </div>
+            <div id="tapInfo">Tap rapidly for 3 seconds to earn Wario Coins!</div>
+        </div>
+
+        <div id="result">
+            The wheel awaits the pre-determination of your potential doom...
+        </div>
+
+        <div id="waluigiComment" class="waluigi-comment"></div>
+        <div id="activeBuffDisplay" class="active-buff"></div>
+        <div id="scamWarningDisplay" class="scam-warning"></div>
+
+    </div>
+
+    <div class="shop-container">
+        <h2>Wario's Leftovers</h2>
+        <div class="coin-display">Wario Coins: <span id="coinCount">0</span> 🪙</div>
+        <div id="shopItems">
+            <!-- Shop items populated by JS -->
+        </div>
+         <div class="store-mention">
+            (Wario left SO MUCH JUNK. Some might help? Most is probably cursed or smells like garlic. Buy at your own risk! WAH!)
+        </div>
+    </div>
+
+    <script>
+        // --- Sound Helper ---
+        function playSound(soundId, volume = 0.7) { /* ... unchanged ... */
+             try { const sound = document.getElementById(soundId); if (sound) { sound.pause(); sound.currentTime = 0; sound.volume = volume; sound.play().catch(e => console.warn(`Audio play failed for ${soundId}:`, e)); } else { console.warn(`Sound element not found: ${soundId}`); } } catch (e) { console.error(`Error playing sound ${soundId}:`, e); }
+        }
+
+        // --- Elements ---
+        const canvas = document.getElementById('spinnerCanvas'); const ctx = canvas.getContext('2d');
+        const tapButton = document.getElementById('tapButton'); const tapInfo = document.getElementById('tapInfo');
+        const resultDiv = document.getElementById('result'); const waluigiCommentDiv = document.getElementById('waluigiComment');
+        const coinCountSpan = document.getElementById('coinCount'); const shopItemsDiv = document.getElementById('shopItems');
+        const activeBuffDisplay = document.getElementById('activeBuffDisplay'); const scamWarningDisplay = document.getElementById('scamWarningDisplay');
+        const spinCountDisplay = document.getElementById('spinCountDisplay'); const backgroundMusic = document.getElementById('snd_musicbox');
+        const acceptPunishmentButton = document.getElementById('acceptPunishmentButton'); const resetButton = document.getElementById('resetButton');
+
+        // --- Game State ---
+        let warioCoins = 0; let currentAngle = 0; let isSpinning = false;
+        let tapCount = 0; let tapTimer = null; const TAP_DURATION = 3000;
+        let activeBuff = null; let purchasedBuffs = new Set(); let tapPhaseActive = false;
+        const STARTING_SPINS = 5; let spinsRemaining = STARTING_SPINS;
+        let nextTapCoinModifier = 1.0; let weirdChanceModifier = 0;
+        let musicStarted = false; let nextSpinBonusCoins = 0; let nextSpinPenaltyCoins = 0;
+        let avoidSevereNextSpin = false; let forceWeirdNextSpin = false;
+        let lastLandedSegment = null; let punishmentAccepted = false;
+
+        // --- MASSIVE Spinner Segments Array ---
+        const segments = [ /* ... unchanged ... */
+             // Existing Core Punishments
+            { label: "Mighdural Dungeon Cell (Damp)", color: "#7f8c8d", type: "moderate", severity: 5 },
+            { label: "Dragon Mountain Ash Duty (Hot)", color: "#c0392b", type: "severe", severity: 8 },
+            { label: "Veilwood Spa 'Indebted Guest'", color: "#8e44ad", type: "severe", severity: 9 },
+            { label: "Minor Fine (Payable in 🪙!)", color: "#2ecc71", type: "special", severity: 1 },
+            { label: "Pirate's Keep Debt Labor (Salty)", color: "#34495e", type: "moderate", severity: 6 },
+            { label: "Swiftsoul Maintenance (Windy)", color: "#1abc9c", type: "moderate", severity: 4 },
+            { label: "Assist Edgeshade Rebuilding (Sobering)", color: "#f39c12", type: "mild", severity: 3 },
+            { label: "Lockeweald Night Watch (Spooky)", color: "#2c3e50", type: "severe", severity: 7 },
+            { label: "Yal Belanor Errands (Arcane)", color: "#9b59b6", type: "moderate", severity: 5 },
+            { label: "Clean the Miserable Statue (Tedious)", color: "#b38e55", type: "weird", severity: 2 },
+            { label: "Face the Whirlpool Current (Deadly)", color: "#2980b9", type: "severe", severity: 10 },
+            { label: "Iron Fists 'Training' (Painful)", color: "#d35400", type: "severe", severity: 8 },
+            { label: "Mountains Edge Isolation (Cold)", color: "#bdc3c7", type: "moderate", severity: 4 },
+            { label: "Forced Jester Duty (Humiliating)", color: "#e67e22", type: "weird", severity: 3 },
+            { label: "Map the Salt-Lick Marshes (Slimy)", color: "#95a5a6", type: "moderate", severity: 5 },
+            { label: "Rakasha's 'Garden Gnome' (Still)", color: "#16a085", type: "weird", severity: 4 },
+            { label: "Deliver Message to Allelon (Risky)", color: "#778ca3", type: "severe", severity: 7 },
+            // Game Effect Spaces
+            { label: "Wario Coin Windfall!", color: "#f1c40f", type: "game_effect", effect: "gain_coins", value: 25, severity: 0 },
+            { label: "Lose Some Coins!", color: "#c0392b", type: "game_effect", effect: "lose_coins", value: 15, severity: 0 },
+            { label: "+1 Spin!", color: "#2ecc71", type: "game_effect", effect: "gain_spin", value: 1, severity: 0 },
+            { label: "-1 Spin!", color: "#e74c3c", type: "game_effect", effect: "lose_spin", value: 1, severity: 0 },
+            { label: "Moment of Hesitation (Free Re-Spin!)", color: "#3498db", type: "game_effect", effect: "free_respin", severity: 0 },
+            { label: "Wheel Wobbles! (Next Spin Reroll)", color: "#f39c12", type: "game_effect", effect: "temp_reroll", severity: 0 },
+            { label: "Brief Luck (Avoid Severe Next Spin)", color: "#1abc9c", type: "game_effect", effect: "temp_avoid_severe", severity: 0 },
+            { label: "Sudden Dread (Weird Next Spin Likely)", color: "#8e44ad", type: "game_effect", effect: "temp_force_weird", severity: 0 },
+            { label: "Tap Bonus Next Round!", color: "#27ae60", type: "game_effect", effect: "temp_tap_bonus", value: 10, severity: 0 },
+            { label: "Tap Penalty Next Round!", color: "#d35400", type: "game_effect", effect: "temp_tap_penalty", value: 10, severity: 0 },
+            // More Punishments
+            { label: "Mighdural Kitchen Duty (Onions)", color: "#a569bd", type: "mild", severity: 2 },
+            { label: "Royal Guard Boot Polishing (Endless)", color: "#6495ED", type: "mild", severity: 1 },
+            { label: "Tend the Royal Menagerie (Smelly)", color: "#cd6155", type: "moderate", severity: 4 },
+            { label: "Scribe Duty (Cramped Hand)", color: "#d0d3d4", type: "mild", severity: 2 },
+            { label: "Dragon Mountain Lookout (Nervous)", color: "#ec7063", type: "severe", severity: 7 },
+            { label: "Explore Smoldering Cave (Choking)", color: "#a04000", type: "severe", severity: 8 },
+            { label: "Deliver Peace Offering to Dragons? (Suicidal)", color: "#f5b041", type: "severe", severity: 9 },
+            { label: "Edgeshade Ghost Watch (Eerie)", color: "#aeb6bf", type: "weird", severity: 3 },
+            { label: "Salvage Crew (Edgeshade Ruins)", color: "#707b7c", type: "moderate", severity: 4 },
+            { label: "Guard Edgeshade Memorial (Sad)", color: "#5d6d7e", type: "mild", severity: 2 },
+            { label: "Veilwood Spa Laundry Duty (Stained)", color: "#bb8fce", type: "moderate", severity: 5 },
+            { label: "Veilwood 'Blood Drive' Volunteer (Pale)", color: "#9b59b6", type: "severe", severity: 9 },
+            { label: "Clean Veilwood Coffins (Dusty)", color: "#7d3c98", type: "weird", severity: 4 },
+            { label: "Pirate's Keep Lookout Duty (Foggy)", color: "#5dade2", type: "moderate", severity: 5 },
+            { label: "Tavern Bouncer (Skull & Anchor)", color: "#2e4053", type: "moderate", severity: 6 },
+            { label: "Smuggling Run Escort (Night)", color: "#1c2833", type: "severe", severity: 7 },
+            { label: "Fetch 'Supplies' for Pirate Cook (Gross)", color: "#4a6a8a", type: "weird", severity: 3 },
+            { label: "Swiftsoul Aetherfont Polishing (Sacred)", color: "#48c9b0", type: "mild", severity: 2 },
+            { label: "Test Pilot Experimental Flyer (Crash?)", color: "#17a589", type: "severe", severity: 8 },
+            { label: "Sort Airship Cargo Manifests (Boring)", color: "#a3e4d7", type: "mild", severity: 1 },
+            { label: "Guard Swiftsoul Shrine Entrance (Quiet)", color: "#76d7c4", type: "moderate", severity: 3 },
+            { label: "Forage for Rare Herbs (Lockeweald)", color: "#28b463", type: "moderate", severity: 4 },
+            { label: "Track Lost Caravan (Lockeweald)", color: "#1d8348", type: "moderate", severity: 6 },
+            { label: "Clear Spider Nests (Lockeweald)", color: "#186a3b", type: "weird", severity: 4 },
+            { label: "Serve as Vampire Decoy (Lockeweald)", color: "#abebc6", type: "severe", severity: 8 },
+            { label: "Yal Belanor Lab Assistant (Explosive?)", color: "#af7ac5", type: "severe", severity: 7 },
+            { label: "Clean Scrying Pools (Yal Belanor)", color: "#d2b4de", type: "mild", severity: 2 },
+            { label: "Rune Carver Apprentice (Painful Mistakes)", color: "#a569bd", type: "moderate", severity: 5 },
+            { label: "Potion Taste-Tester (Side effects!)", color: "#884ea0", type: "weird", severity: 6 },
+            { label: "Offer 'Peace' Gift to Allelon Alpha (Howl?)", color: "#85929e", type: "severe", severity: 8 },
+            { label: "Allelon Boundary Patrol (Tense)", color: "#a6acaf", type: "moderate", severity: 6 },
+            { label: "Gather Moonpetal Flowers (Near Allelon)", color: "#ccd1d1", type: "moderate", severity: 5 },
+            { label: "Howling Practice (Werewolf Mockery?)", color: "#eaeded", type: "weird", severity: 3 },
+            { label: "Mine for Fool's Gold (Mountains Edge)", color: "#fdebd0", type: "mild", severity: 2 },
+            { label: "Hunt Arctic Fox (Mountains Edge)", color: "#e5e7e9", type: "moderate", severity: 4 },
+            { label: "Build Snow Fort Defenses (Childish?)", color: "#d6dbdf", type: "mild", severity: 1 },
+            { label: "Tundra Watch Duty (Blizzard Risk)", color: "#b2babb", type: "moderate", severity: 5 },
+            { label: "Gather Glowing Moss (Rakasha)", color: "#45b39d", type: "mild", severity: 2 },
+            { label: "Decipher Strange Runes (Rakasha)", color: "#1e8449", type: "moderate", severity: 4 },
+            { label: "Tend Rakasha's Carnivorous Plants (Bitey)", color: "#a9dfbf", type: "weird", severity: 5 },
+            { label: "Meditate with Rakasha (Awkward Silence)", color: "#d1f2eb", type: "weird", severity: 3 },
+            { label: "Collect Tar Samples (Salt-Lick)", color: "#616a6b", type: "moderate", severity: 4 },
+            { label: "Retrieve Sunken Body (Salt-Lick)", color: "#909497", type: "severe", severity: 7 },
+            { label: "Scare Away Marsh Ghouls (Yelling)", color: "#b3b6b7", type: "moderate", severity: 5 },
+            { label: "Listen to Marsh Whispers (Insanity?)", color: "#dadfe1", type: "weird", severity: 3 },
+            { label: "Blainnola Plains Farmhand (Endless Wheat)", color: "#f7dc6f", type: "mild", severity: 2 },
+            { label: "Caravan Guard Duty (Bandit Risk)", color: "#f4d03f", type: "moderate", severity: 5 },
+            { label: "Watchtower Sentry (Boring View)", color: "#f9e79f", type: "mild", severity: 1 },
+            { label: "Scarecrow Duty (Actual Crows Laugh)", color: "#fcf3cf", type: "weird", severity: 1 },
+            { label: "Cats Cove Fishing Duty (Stormy Seas)", color: "#aed6f1", type: "moderate", severity: 4 },
+            { label: "Untangle Miles of Nets (Cats Cove)", color: "#85c1e9", type: "mild", severity: 2 },
+            { label: "Serve Fish Guts Ale (Claw & Reel)", color: "#d6eaf8", type: "weird", severity: 3 },
+            { label: "Herding the Town's Cats (Impossible!)", color: "#ebf5fb", type: "weird", severity: 2 },
+            { label: "Ravencreek River Patrol (vs Ghouls)", color: "#abb2b9", type: "moderate", severity: 5 },
+            { label: "Guard Duty vs Vampires (Ravencreek)", color: "#808b96", type: "severe", severity: 7 },
+            { label: "Cleanse Haunted Section (Ravencreek)", color: "#d5d8dc", type: "weird", severity: 4 },
+            { label: "Spa 'Volunteer' for Questionable Test", color: "#ead1dc", type: "severe", severity: 8 },
+            // More Game Effects
+            { label: "Wario's OTHER Stash!", color: "#f1c40f", type: "game_effect", effect: "gain_coins", value: 40, severity: 0 },
+            { label: "Guild 'Protection' Fee!", color: "#e74c3c", type: "game_effect", effect: "lose_coins", value: 20, severity: 0 },
+            { label: "Sudden Clarity! (+1 Spin)", color: "#2ecc71", type: "game_effect", effect: "gain_spin", value: 1, severity: 0 },
+            { label: "Bureaucratic Delay! (-1 Spin)", color: "#c0392b", type: "game_effect", effect: "lose_spin", value: 1, severity: 0 },
+            { label: "Mysterious Gust of Wind", color: "#ecf0f1", type: "game_effect", effect: "nothing", severity: 0 },
+            { label: "Temporary Buff: Double Tap Coins!", color: "#27ae60", type: "game_effect", effect: "temp_tap_multiplier", value: 2, severity: 0 },
+            { label: "Temporary Curse: Halved Tap Coins!", color: "#e74c3c", type: "game_effect", effect: "temp_tap_multiplier", value: 0.5, severity: 0 },
+            { label: "Poltergeist Activity! (Lose 5 Coins)", color: "#9b59b6", type: "game_effect", effect: "lose_coins", value: 5, severity: 0 },
+            { label: "Friendly Toad Offers Help! (+10 Coins)", color: "#3498db", type: "game_effect", effect: "gain_coins", value: 10, severity: 0 },
+            { label: "Wheel Jammed! (Spin Again?)", color: "#f39c12", type: "game_effect", effect: "free_respin", severity: 0 },
+            // Even MORE Punishments
+            { label: "Mighdural Clock Tower Winder (High)", color: "#707b7c", type: "mild", severity: 1 },
+            { label: "Translate Ancient Draconic Text (Headache)", color: "#d35400", type: "moderate", severity: 4 },
+            { label: "Act as Live Bait for Marsh Leviathan (Wet)", color: "#17202a", type: "severe", severity: 9 },
+            { label: "Polish King Elmor's Armor (Shiny)", color: "#fdfefe", type: "mild", severity: 1 },
+            { label: "Organize Pirate Booty Inventory (Counting)", color: "#5499c7", type: "moderate", severity: 3 },
+            { label: "Test Anti-Werewolf Wards (Itchy)", color: "#d4e6f1", type: "weird", severity: 4 },
+            { label: "Entertain the Iron Fists with Song (Off-key?)", color: "#f5cba7", type: "weird", severity: 3 },
+            { label: "Investigate Strange Noises in Citadel Crypt (Spooky!)", color: "#cacfd2", type: "severe", severity: 6 },
+            { label: "Personal Masseuse for Vampire Noble (Cold!)", color: "#d7bde2", type: "weird", severity: 5 },
+            { label: "Sharpen Every Sword in Mighdural Barracks (Ouch!)", color: "#aab7b8", type: "moderate", severity: 3 },
+            { label: "Clean Castle Moat (Murky)", color: "#7d6608", type: "moderate", severity: 4 },
+            { label: "Deliver Bad News to Angry Baron", color: "#78281f", type: "severe", severity: 6 },
+            { label: "Write Apology Letters for Wario", color: "#f8c471", type: "mild", severity: 2 },
+            { label: "Chase Greased Squigs", color: "#239b56", type: "weird", severity: 3 },
+            { label: "Guard Suspiciously Empty Chest", color: "#d5dbdb", type: "mild", severity: 1 }
+        ];
+
+        // --- Shop Items ---
+        const shopItemsData = [ /* ... unchanged ... */
+             { id: 'remove_worst', name: "Wario's 'Lucky' Garlic", desc: "Might ward off the *absolute worst* outcome. Smells awful. (One time use)", cost: 15, effect: 'remove_worst', oneTime: true, type: 'buff' },
+            { id: 'reroll_once', name: "Suspiciously Weighted Die", desc: "Lets you demand one re-spin if you don't like the result. Looks flimsy. (One time use)", cost: 25, effect: 'reroll_once', oneTime: true, type: 'buff' },
+            { id: 'coin_boost', name: "Greasy Coin Magnet", desc: "Permanently increases coins earned per tap slightly. Shockingly effective.", cost: 40, effect: 'coin_boost', oneTime: false, type: 'buff' },
+            { id: 'less_severe', name: "Tarnished Shield Fragment", desc: "Slightly reduces the chance of landing on a 'Severe' punishment for the next spin. (One time use)", cost: 20, effect: 'less_severe', oneTime: true, type: 'buff' },
+            { id: 'scam_charm', name: "Guaranteed Luck Pendant", desc: "Wario swore this cheap plastic thing worked. (Effect: Briefly attracts WEIRD outcomes?)", cost: 10, effect: 'scam_charm_effect', oneTime: false, type: 'scam' },
+            { id: 'scam_investment', name: "Wario's 'Sure Thing' Tip", desc: "'Invest' your coins! Huge returns promised! (Effect: Lose EXTRA Coins!)", cost: 30, effect: 'scam_investment_effect', oneTime: false, type: 'scam'},
+            { id: 'scam_token', name: "Expired Veilwood Spa Token", desc: "Maybe it still works? Offers... 'relaxation'? (Effect: Reduces next tap coin gain)", cost: 5, effect: 'scam_token_effect', oneTime: false, type: 'scam'},
+             { id: 'buy_spin', name: "Suspicious Energy Drink", desc: "Looks like Wario's homebrew... Grants one extra spin.", cost: 50, effect: 'buy_spin', oneTime: false, type: 'utility' }
+        ];
+        let coinBoostMultiplier = 1.0;
+
+        const numSegments = segments.length;
+        const sliceAngle = (2 * Math.PI) / numSegments;
+        const center = canvas.width / 2;
+
+        // --- Drawing (Text Removed) ---
+        function drawSpinner() { /* ... unchanged ... */
+             ctx.clearRect(0, 0, canvas.width, canvas.height); segments.forEach((segment, i) => { const angle = i * sliceAngle; ctx.beginPath(); ctx.moveTo(center, center); ctx.arc(center, center, center - 2, angle, angle + sliceAngle); ctx.closePath(); ctx.fillStyle = segment.color; ctx.fill(); ctx.lineWidth = 0.5; ctx.strokeStyle = '#222'; ctx.stroke(); });
+        }
+
+        // --- UI Updates ---
+        function updateSpinDisplay() { /* ... unchanged ... */
+             spinCountDisplay.textContent = `Spins Remaining: ${spinsRemaining}`; if (spinsRemaining <= 0 || punishmentAccepted) { if(!isSpinning && !tapPhaseActive) { tapButton.textContent = punishmentAccepted ? "Fate Accepted" : "No Spins Left"; tapButton.disabled = true; if (spinsRemaining <= 0 && !punishmentAccepted && !waluigiCommentDiv.textContent.includes("fate is sealed")) { waluigiCommentDiv.textContent = "Wah... That's it. No more spins. Your fate is sealed... unless you accept it first?"; } } } else { if (!tapPhaseActive && !isSpinning) { tapButton.textContent = "Tap to Charge Spin!"; tapButton.disabled = false; } } acceptPunishmentButton.disabled = punishmentAccepted || !lastLandedSegment || lastLandedSegment.type === 'game_effect';
+        }
+        function updateCoinDisplay() { /* ... unchanged ... */
+             coinCountSpan.textContent = warioCoins; document.querySelectorAll('.buy-button').forEach(button => { const item = shopItemsData.find(i => i.id === button.dataset.itemId); if (item) { let isDisabled = punishmentAccepted || warioCoins < item.cost || (item.oneTime && purchasedBuffs.has(item.id)); if((item.type === 'scam' || item.type === 'utility') && !(item.oneTime && purchasedBuffs.has(item.id))) { isDisabled = punishmentAccepted || warioCoins < item.cost; } button.disabled = isDisabled; } });
+        }
+
+        // --- Shop Logic ---
+        function populateShop() { /* ... unchanged ... */
+             shopItemsDiv.innerHTML = ''; shopItemsData.forEach(item => { const itemDiv = document.createElement('div'); itemDiv.classList.add('shop-item'); const isScam = item.type === 'scam'; itemDiv.innerHTML = ` <div class="shop-item-info"> <div class="shop-item-name ${isScam ? 'scam' : ''}">${item.name} ${isScam ? '(?)' : ''}</div> <div class="shop-item-desc">${item.desc}</div> <div class="scam-effect" id="scam-effect-${item.id}"></div> </div> <div class="shop-item-buy-area"> <span class="shop-item-cost">${item.cost} 🪙</span> <button class="buy-button" data-item-id="${item.id}"> ${(item.oneTime && purchasedBuffs.has(item.id)) ? 'Bought' : 'Buy'} </button> </div> `; const buyButton = itemDiv.querySelector('.buy-button'); if (buyButton) { buyButton.addEventListener('click', () => buyItem(item.id)); let isDisabled = punishmentAccepted || warioCoins < item.cost || (item.oneTime && purchasedBuffs.has(item.id)); if((item.type === 'scam' || item.type === 'utility') && !(item.oneTime && purchasedBuffs.has(item.id))) { isDisabled = punishmentAccepted || warioCoins < item.cost; } buyButton.disabled = isDisabled; } shopItemsDiv.appendChild(itemDiv); });
+        }
+        function buyItem(itemId) { /* ... uses custom comments ... */
+             const item = shopItemsData.find(i => i.id === itemId); let purchaseComment = ""; let purchaseSound = null; if (!item || punishmentAccepted || warioCoins < item.cost || (item.oneTime && purchasedBuffs.has(item.id) && item.type !== 'scam' && item.type !== 'utility')) return; startMusicIfNeeded(); warioCoins -= item.cost;
+            if (item.type === 'buff') { purchaseSound = 'snd_coin'; if (item.effect === 'coin_boost') { coinBoostMultiplier += 0.1; purchaseComment = `Wah! A coin magnet? Wario loved greasy things... Hope it works for you, unlike his diet.`; const btn = shopItemsDiv.querySelector(`.buy-button[data-item-id="${itemId}"]`); if(btn) btn.textContent = `Boost Lvl ${Math.round(coinBoostMultiplier*10-9)}`; activeBuffDisplay.textContent = `Permanent Buff: ${item.name} Increased!`; } else if (item.effect === 'remove_worst') { activeBuff = item.effect; purchaseComment = `Garlic? Seriously? Wario thought this stopped vampires... maybe it stops bad luck too? Wah! Smells bad!`; activeBuffDisplay.textContent = `Active Buff: ${item.name}`; if (item.oneTime) purchasedBuffs.add(itemId); } else if (item.effect === 'reroll_once') { activeBuff = item.effect; purchaseComment = `A weighted die, huh? Cheater! Just like... well, you know. Don't get caught using it!`; activeBuffDisplay.textContent = `Active Buff: ${item.name}`; if (item.oneTime) purchasedBuffs.add(itemId); } else if (item.effect === 'less_severe') { activeBuff = item.effect; purchaseComment = `A shield bit? Looks flimsy. Maybe it'll deflect a *tiny* bit of misery? Don't count on it.`; activeBuffDisplay.textContent = `Active Buff: ${item.name}`; if (item.oneTime) purchasedBuffs.add(itemId); } scamWarningDisplay.textContent = ""; }
+            else if (item.type === 'scam') { activeBuffDisplay.textContent = ""; let scamEffectText = ""; switch (item.effect) { case 'scam_charm_effect': purchaseSound = 'snd_wario_wah'; scamEffectText = "Pendant feels cheap plastic. Maybe things will get weirder now?"; purchaseComment = `That junk pendant? Wario found it stuck to his shoe! You actually bought it? Wah ha-- *cough* Wah.`; weirdChanceModifier = 0.2; break; case 'scam_investment_effect': purchaseSound = 'snd_wario_laugh'; const extraLoss = Math.min(warioCoins, Math.floor(item.cost * 0.5)); warioCoins -= extraLoss; scamEffectText = `Wario's 'tip' costs you ${extraLoss} more coins! Total loss: ${item.cost + extraLoss}! WAH!`; purchaseComment = `Ha! Sucker! Wario always said 'Never trust a Waluigi!' Wait, that's not right... Wah! You lost coins!`; break; case 'scam_token_effect': purchaseSound = 'snd_wah'; scamEffectText = "Token crumbles to dust! You feel sluggish... next tap will be weaker!"; purchaseComment = `A Veilwood token? From Wario? Expired like his fashion sense! Less energy for you!`; nextTapCoinModifier = 0.75; break; } scamWarningDisplay.textContent = scamEffectText; }
+            else if (item.type === 'utility') { if (item.effect === 'buy_spin') { purchaseSound = 'snd_jackpot'; spinsRemaining++; purchaseComment = `Ugh, that energy drink smells like fermented eggplant! But fine, one more spin for ya. Don't waste it!`; } }
+            updateCoinDisplay(); updateSpinDisplay(); if (purchaseSound) playSound(purchaseSound); waluigiCommentDiv.textContent = purchaseComment; populateShop();
+        }
+
+        // --- Tapping Logic ---
+        function startTapPhase() { /* ... uses custom comments ... */
+             if (isSpinning || tapPhaseActive || spinsRemaining <= 0 || punishmentAccepted) return; startMusicIfNeeded();
+             spinsRemaining--; updateSpinDisplay();
+            tapPhaseActive = true; tapButton.disabled = false; tapButton.textContent = "TAP NOW!"; tapButton.classList.add('tapping');
+            tapCount = 0; let timeLeft = TAP_DURATION / 1000; tapInfo.textContent = `Tap! Time left: ${timeLeft.toFixed(1)}s | Taps: 0`; resultDiv.textContent = "Charging spin...";
+            const tapStartComments = [ "Wah! Tap like you're squashing a Goomba!", "Faster! Faster! Earn those shiny things!", "Come on, put your lanky back into it!", "Tap! Tap! Tap! Or you'll get nothing!" ];
+            waluigiCommentDiv.textContent = tapStartComments[Math.floor(Math.random() * tapStartComments.length)]; activeBuffDisplay.textContent = activeBuff ? `Active Buff: ${shopItemsData.find(i=>i.effect===activeBuff)?.name}` : ""; scamWarningDisplay.textContent = "";
+            const handleTap = () => { if (!tapPhaseActive) return; tapCount++; tapInfo.textContent = `Tap! Time left: ${timeLeft.toFixed(1)}s | Taps: ${tapCount}`; playSound('snd_blip', 0.5); };
+            tapButton.addEventListener('click', handleTap); const interval = 100; let elapsed = 0;
+            tapTimer = setInterval(() => {
+                elapsed += interval; timeLeft = (TAP_DURATION - elapsed) / 1000;
+                if (timeLeft <= 0) {
+                    clearInterval(tapTimer); tapPhaseActive = false; tapButton.removeEventListener('click', handleTap); tapButton.classList.remove('tapping');
+                    const tapsPerSecond = tapCount / (TAP_DURATION / 1000); let coinsEarned = Math.max(0, Math.floor(tapsPerSecond * 1.5 * coinBoostMultiplier * nextTapCoinModifier)); if(tapCount > 0 && coinsEarned === 0 && nextTapCoinModifier > 0) coinsEarned = 1;
+                    let tapEndComment = ""; coinsEarned += nextSpinBonusCoins; coinsEarned = Math.max(0, coinsEarned - nextSpinPenaltyCoins);
+                    if (nextSpinBonusCoins > 0) { tapEndComment += `(+${nextSpinBonusCoins} Bonus!) `; playSound('snd_coin'); } if (nextSpinPenaltyCoins > 0) { tapEndComment += `(-${nextSpinPenaltyCoins} Penalty!) `; playSound('snd_wah');}
+                    nextSpinBonusCoins = 0; nextSpinPenaltyCoins = 0;
+                    if (coinsEarned > 15) { tapEndComment += `Wah! ${coinsEarned} coins! Not bad! `; if (!tapEndComment.includes('Bonus')) playSound('snd_coin', 0.8); }
+                    else if (coinsEarned > 5) { tapEndComment += `Okay, ${coinsEarned} coins. Meh. `; if (!tapEndComment.includes('Bonus')) playSound('snd_coin', 0.6); }
+                    else if (coinsEarned > 0) { tapEndComment += `Only ${coinsEarned} coin${coinsEarned > 1 ? 's' : ''}? Pathetic! `; if (!tapEndComment.includes('Bonus')) playSound('snd_coin', 0.4); }
+                    else { tapEndComment += `Zero coins?! Were you asleep?! `; if (!tapEndComment.includes('Penalty')) playSound('snd_wah'); }
+                    if (nextTapCoinModifier !== 1.0) { tapEndComment += "(Token effect active!) "; nextTapCoinModifier = 1.0; }
+                     tapEndComment += "Spinning the wheel!"; tapInfo.textContent = tapEndComment;
+                    warioCoins += coinsEarned; updateCoinDisplay(); updateSpinDisplay(); tapButton.disabled = true; spinWheel();
+                } else { if (tapPhaseActive) { tapInfo.textContent = `Tap! Time left: ${timeLeft.toFixed(1)}s | Taps: ${tapCount}`; } }
+            }, interval);
+        }
+
+        // --- Spinning Logic ---
+         function getResult(finalAngleDeg) { /* ... unchanged ... */
+             let segmentList = [...segments]; if (forceWeirdNextSpin) { forceWeirdNextSpin = false; const weirdSegments = segmentList.filter(s => s.type === 'weird'); if (weirdSegments.length > 0) { console.log("Forced weird result!"); return weirdSegments[Math.floor(Math.random() * weirdSegments.length)]; } } if (weirdChanceModifier > 0 && Math.random() < weirdChanceModifier) { const weirdSegments = segmentList.filter(s => s.type === 'weird'); if (weirdSegments.length > 0) { weirdChanceModifier = 0; console.log("Scam charm influenced weird result!"); return weirdSegments[Math.floor(Math.random() * weirdSegments.length)]; } } weirdChanceModifier = 0; const normalizedAngle = (finalAngleDeg % 360 + 360) % 360; const segmentAngleDeg = 360 / numSegments; const pointerOffset = segmentAngleDeg / 2; const correctedAngle = (normalizedAngle + pointerOffset) % 360; const segmentIndex = Math.floor(correctedAngle / segmentAngleDeg); let resultIndex = (numSegments - 1 - segmentIndex + numSegments) % numSegments; let resultSegment = segments[resultIndex]; if (avoidSevereNextSpin && resultSegment.type === 'severe') { avoidSevereNextSpin = false; console.log("Avoid Severe triggered! Rerolling..."); resultIndex = (resultIndex + 1) % numSegments; resultSegment = segments[resultIndex]; } avoidSevereNextSpin = false; return resultSegment;
+         }
+        function spinWheel() { /* ... uses custom comments ... */
+             if (isSpinning || punishmentAccepted) return; isSpinning = true; playSound('snd_ready');
+            resultDiv.innerHTML = "Spinning this HUGE wheel...";
+             const spinStartComments = [ "Round and round it goes! Where it stops... probably somewhere bad!", "Let's see what misery the wheel picks for YOU!", "Wah! Spinning! Don't blame me if it lands on the worst one!", "Here we go! Maybe you'll get lucky? ...Nah." ];
+             waluigiCommentDiv.textContent = spinStartComments[Math.floor(Math.random() * spinStartComments.length)];
+            let initialResultSegment; const totalRotations = 4 + Math.random() * 4; const randomAngle = Math.random() * 360; const targetAngle = currentAngle + totalRotations * 360 + randomAngle; canvas.style.transform = `rotate(${targetAngle}deg)`; currentAngle = targetAngle;
+            setTimeout(() => {
+                const finalRot = currentAngle % 360; initialResultSegment = getResult(finalRot); let finalSegment = initialResultSegment; lastLandedSegment = finalSegment; // Store final segment
+                let buffUsed = false; let reRolled = false; let buffComment = "";
+                // Buff Logic
+                 if (activeBuff === 'remove_worst') { const worstSeverity = Math.max(...segments.map(s => s.severity)); if (finalSegment.severity === worstSeverity) { buffComment = `Wah?! That stinky garlic actually worked?! "${finalSegment.label}" avoided! Rerolling!`; activeBuffDisplay.textContent = "Buff Used: Wario's 'Lucky' Garlic"; playSound('snd_wah', 0.9); let tempSegment; do { tempSegment = getResult(currentAngle + (Math.random() * 300 + 30) % 360); } while (tempSegment.severity === worstSeverity || tempSegment.label === finalSegment.label); finalSegment = tempSegment; buffUsed = true; reRolled = true; lastLandedSegment = finalSegment; } }
+                 if (activeBuff === 'temp_reroll' && !reRolled) { buffComment = `Wah! The wheel wobbled! You get a free re-roll! Lucky!`; activeBuffDisplay.textContent = "Wheel Effect: Free Re-roll!"; playSound('snd_jackpot'); let tempSegment; do { tempSegment = getResult(currentAngle + (Math.random() * 300 + 30) % 360); } while (tempSegment.label === finalSegment.label); finalSegment = tempSegment; buffUsed = true; reRolled = true; activeBuff = null; lastLandedSegment = finalSegment; }
+                 else if (activeBuff === 'reroll_once' && (initialResultSegment.type === 'severe' || initialResultSegment.type === 'weird') && !reRolled) { buffComment = `"${initialResultSegment.label}"? Nah, that die looked crooked! One more try, cheater!`; activeBuffDisplay.textContent = "Buff Used: Suspiciously Weighted Die"; playSound('snd_wah', 0.7); let tempSegment; do { tempSegment = getResult(currentAngle + (Math.random() * 300 + 30) % 360); } while (tempSegment.label === initialResultSegment.label); finalSegment = tempSegment; buffUsed = true; reRolled = true; lastLandedSegment = finalSegment; }
+                displayResult(finalSegment, buffComment);
+                // Clear buffs / update displays
+                 if (buffUsed && activeBuff !== 'coin_boost') { const usedBuffId = activeBuff; activeBuff = null; setTimeout(() => { if (!activeBuff) activeBuffDisplay.textContent = ""; purchasedBuffs.add(usedBuffId); populateShop(); }, 3500); }
+                 else if (activeBuff === 'coin_boost') { activeBuffDisplay.textContent = `Active Buff: Greasy Coin Magnet (Level ${Math.round(coinBoostMultiplier*10-9)})`; }
+                 else if (!buffUsed && activeBuff) { const item = shopItemsData.find(i => i.effect === activeBuff); if(item) activeBuffDisplay.textContent = `Active Buff: ${item.name}`; }
+                isSpinning = false;
+                 // Update button states AFTER spin completes
+                 updateSpinDisplay(); // Handles enabling/disabling tap button based on spins
+                 acceptPunishmentButton.disabled = punishmentAccepted || !lastLandedSegment || lastLandedSegment.type === 'game_effect'; // Enable accept button if valid
+
+            }, 5100);
+        }
+
+        // --- Get Waluigi's Acceptance Quote ---
+        function getWaluigiAcceptanceQuote(segmentLabel) { /* ... unchanged ... */
+            switch (segmentLabel) {
+                case "Mighdural Dungeon Cell (Damp)": return "Wah... Dungeon it is. Try not to rust, kid.";
+                case "Dragon Mountain Ash Duty (Hot)": return "Accepted ash sifting?! You're crazy! Don't come crying to me when you're charcoal!";
+                case "Veilwood Spa 'Indebted Guest'": return "Veilwood Spa? *gulp* Okay... just... try not to sign anything in blood. Or volunteer for 'treatments'.";
+                case "Minor Fine (Payable in 🪙!)": return "Accepted the fine? Smart move... if you had the coins! Wah!"; // Should technically not be possible to accept if defaulted
+                case "Pirate's Keep Debt Labor (Salty)": return "Debt labor with pirates? Watch your back! And your front! And your sides! Wah!";
+                case "Swiftsoul Maintenance (Windy)": return "Swiftsoul Maintenance... Alright. Just... hold on tight up there. Very tight.";
+                case "Assist Edgeshade Rebuilding (Sobering)": return "Helping in Edgeshade... A respectable choice, I guess. Still sad.";
+                case "Lockeweald Night Watch (Spooky)": return "Night watch in THAT forest?! You accepted?! Bring extra batteries! And courage! Lots of courage!";
+                case "Yal Belanor Errands (Arcane)": return "Errands for mages... Fine. Just don't mix up the glowing potions! Please?";
+                case "Clean the Miserable Statue (Tedious)": return "Cleaning the statue? Wah! Okay, make sure MY side is extra shiny!";
+                case "Face the Whirlpool Current (Deadly)": return "You ACCEPTED the Whirlpool?! WAAAHHH! Are you trying to get erased?! Idiot!";
+                case "Iron Fists 'Training' (Painful)": return "Iron Fists training... Alright, grit your teeth. It's gonna hurt. A lot.";
+                case "Mountains Edge Isolation (Cold)": return "Isolation... Quiet choice. Hope you like snow. And loneliness.";
+                case "Forced Jester Duty (Humiliating)": return "Jester duty?! WAH HAH-- I mean, Wah! Accepted?! Okay, practice your juggling!";
+                case "Map the Salt-Lick Marshes (Slimy)": return "Mapping the marshes? Ugh. Bring tall boots. And nose plugs.";
+                case "Rakasha's 'Garden Gnome' (Still)": return "Accepted being a gnome?! Seriously?! Okay... try not to twitch.";
+                case "Deliver Message to Allelon (Risky)": return "Delivering to Allelon... You're brave. Or stupid. Probably stupid. Good luck!";
+                case "Mighdural Kitchen Duty (Onions)": return "Kitchen duty? Fine. Maybe sneak Waluigi some pie?";
+                case "Royal Guard Boot Polishing (Endless)": return "Boot polishing... Such a waste of talent! But okay, make 'em shine.";
+                case "Tend the Royal Menagerie (Smelly)": return "The menagerie? Okay... just... don't poke the Snuffling Horror.";
+                case "Scribe Duty (Cramped Hand)": return "Scribe duty... Your poor hand. At least it's not dangerous? Probably?";
+                case "Dragon Mountain Lookout (Nervous)": return "Dragon lookout? Okay... Keep your eyes peeled! And maybe hide?";
+                case "Explore Smoldering Cave (Choking)": return "Exploring that cave?! Fine! Don't melt!";
+                case "Deliver Peace Offering to Dragons? (Suicidal)": return "You accepted delivering the offering?! WAAAHH! It was nice knowing you!";
+                case "Edgeshade Ghost Watch (Eerie)": return "Ghost watch... Alright. Don't make friends with them.";
+                case "Salvage Crew (Edgeshade Ruins)": return "Salvage crew... Maybe find some leftover coins Wario dropped?";
+                case "Guard Edgeshade Memorial (Sad)": return "Guarding the memorial... A quiet sentence. Respectable.";
+                case "Veilwood Spa Laundry Duty (Stained)": return "Spa laundry?! You accepted that?! Ew! Use lots of soap!";
+                case "Veilwood 'Blood Drive' Volunteer (Pale)": return "Blood drive volunteer?! Accepted?! Okay... drink lots of... beet juice?";
+                case "Clean Veilwood Coffins (Dusty)": return "Cleaning coffins? Weird choice, but okay. Don't breathe too deep.";
+                case "Pirate's Keep Lookout Duty (Foggy)": return "Lookout duty? Fine. Try not to fall asleep and fall OFF.";
+                case "Tavern Bouncer (Skull & Anchor)": return "Bouncer?! Alright, tough guy! Try not to lose too many teeth!";
+                case "Smuggling Run Escort (Night)": return "Smuggling escort... Okay. Stay hidden. Stay quiet. Stay alive.";
+                case "Fetch 'Supplies' for Pirate Cook (Gross)": return "Fetching pirate food? Okay... don't eat any of it.";
+                case "Swiftsoul Aetherfont Polishing (Sacred)": return "Polishing the Aetherfont? Don't mess it up!";
+                case "Test Pilot Experimental Flyer (Crash?)": return "Test pilot?! Accepted?! WAAAH! Check the escape hatch first!";
+                case "Sort Airship Cargo Manifests (Boring)": return "Sorting manifests? Zzzzzz.... Fine. Don't fall asleep ON the job.";
+                case "Guard Swiftsoul Shrine Entrance (Quiet)": return "Shrine guard? Okay. Try not to look bored.";
+                case "Forage for Rare Herbs (Lockeweald)": return "Herb foraging? Alright. Don't eat the mushrooms.";
+                case "Track Lost Caravan (Lockeweald)": return "Tracking the caravan? Okay. Hope you find them... in one piece.";
+                case "Clear Spider Nests (Lockeweald)": return "Spider nests?! EWWW! Fine! Burn 'em good!";
+                case "Serve as Vampire Decoy (Lockeweald)": return "Vampire decoy?! Accepted?! Wah! Wear something... unappetizing?";
+                case "Yal Belanor Lab Assistant (Explosive?)": return "Lab assistant? Okay... Duck if you hear sizzling!";
+                case "Clean Scrying Pools (Yal Belanor)": return "Cleaning magic pools? Fine. Don't make ripples.";
+                case "Rune Carver Apprentice (Painful Mistakes)": return "Rune carving? Okay. Steady hands, remember?";
+                case "Potion Taste-Tester (Side effects!)": return "Potion tester?! You accepted?! Write down the side effects... if you still can!";
+                case "Offer 'Peace' Gift to Allelon Alpha (Howl?)": return "Accepted delivering the gift to the Alpha?! Wah! Bow lower!";
+                case "Allelon Boundary Patrol (Tense)": return "Boundary patrol? Okay. Keep walking. Don't stop.";
+                case "Gather Moonpetal Flowers (Near Allelon)": return "Moonpetal flowers... Pretty. But hurry back!";
+                case "Howling Practice (Werewolf Mockery?)": return "Howling practice?! Fine! Just... try to sound convincing?";
+                case "Mine for Fool's Gold (Mountains Edge)": return "Mining fool's gold? Pointless. But okay, swing the pickaxe.";
+                case "Hunt Arctic Fox (Mountains Edge)": return "Hunting foxes? Alright. They're fast, you know.";
+                case "Build Snow Fort Defenses (Childish?)": return "Snow forts? Fine. Build a good one, I guess?";
+                case "Tundra Watch Duty (Blizzard Risk)": return "Tundra watch? Okay. Wrap up warm.";
+                case "Gather Glowing Moss (Rakasha)": return "Gathering moss... Okay. Don't bring back too much.";
+                case "Decipher Strange Runes (Rakasha)": return "Deciphering runes? Fine. Don't summon anything nasty.";
+                case "Tend Rakasha's Carnivorous Plants (Bitey)": return "Feeding bitey plants?! Accepted?! Okay... use long tongs.";
+                case "Meditate with Rakasha (Awkward Silence)": return "Meditating? Fine. Try not to snore.";
+                case "Collect Tar Samples (Salt-Lick)": return "Tar samples? Okay. Don't track it everywhere.";
+                case "Retrieve Sunken Body (Salt-Lick)": return "Retrieving a body?! UGH! Fine! Wash your hands after!";
+                case "Scare Away Marsh Ghouls (Yelling)": return "Scaring ghouls? Okay. Yell loud, I guess.";
+                case "Listen to Marsh Whispers (Insanity?)": return "Listening to whispers? Fine. Don't start whispering back.";
+                case "Blainnola Plains Farmhand (Endless Wheat)": return "Farmhand? Okay. Hard work builds character? Or just calluses.";
+                case "Caravan Guard Duty (Bandit Risk)": return "Caravan guard? Alright. Stay awake.";
+                case "Watchtower Sentry (Boring View)": return "Watchtower sentry? Fine. Try not to daydream too much.";
+                case "Scarecrow Duty (Actual Crows Laugh)": return "Scarecrow duty?! Accepted?! WAH HAH! Fine! Stand still!";
+                case "Cats Cove Fishing Duty (Stormy Seas)": return "Fishing? Okay. Don't fall overboard.";
+                case "Untangle Miles of Nets (Cats Cove)": return "Untangling nets? Patience is a virtue? Or just annoying.";
+                case "Serve Fish Guts Ale (Claw & Reel)": return "Serving fish guts ale?! Fine! Hold your breath!";
+                case "Herding the Town's Cats (Impossible!)": return "Herding cats?! You accepted?! Good luck with THAT!";
+                case "Ravencreek River Patrol (vs Ghouls)": return "River patrol? Fine. Watch the water.";
+                case "Guard Duty vs Vampires (Ravencreek)": return "Guarding against vampires? Okay. Stay sharp.";
+                case "Cleanse Haunted Section (Ravencreek)": return "Cleansing ghosts? Fine. Hope it works.";
+                case "Spa 'Volunteer' for Questionable Test": return "Spa volunteer?! Accepted?! Okay... let me know if you grow wings.";
+                case "Mighdural Clock Tower Winder (High)": return "Winding the clock? Fine. Don't be late.";
+                case "Translate Ancient Draconic Text (Headache)": return "Translating dragon talk? Fine. Bring aspirin.";
+                case "Act as Live Bait for Marsh Leviathan (Wet)": return "Live bait?! Accepted?! WAAAAHHH! You're fish food!";
+                case "Polish King Elmor's Armor (Shiny)": return "Polishing armor? Okay. Make it gleam.";
+                case "Organize Pirate Booty Inventory (Counting)": return "Inventorying booty? Fine. Count carefully.";
+                case "Test Anti-Werewolf Wards (Itchy)": return "Testing wards? Okay. Scratch if you have to.";
+                case "Entertain the Iron Fists with Song (Off-key?)": return "Singing for mercs? Fine. Try not to be too terrible.";
+                case "Investigate Strange Noises in Citadel Crypt (Spooky!)": return "Investigating the crypt? Okay. Take a big torch.";
+                case "Personal Masseuse for Vampire Noble (Cold!)": return "Massaging a vampire? Fine. Don't get hypnotized.";
+                case "Sharpen Every Sword in Mighdural Barracks (Ouch!)": return "Sharpening swords? Okay. Don't cut your fingers off.";
+                case "Clean Castle Moat (Murky)": return "Cleaning the moat? Ugh. Fine. Watch out for... things.";
+                case "Deliver Bad News to Angry Baron": return "Delivering bad news? Fine. Duck fast.";
+                case "Write Apology Letters for Wario": return "Writing apologies for Wario? Pointless, but fine.";
+                case "Chase Greased Squigs": return "Chasing squigs? Fine. Try not to slip.";
+                case "Guard Suspiciously Empty Chest": return "Guarding an empty chest? Fine. Look important.";
+                default: return "Wah... Accepted? Okay then. Good luck, I guess."; // Fallback
+            }
+        }
+
+        // --- Result Display (Handles Joins, Expanded Text & Custom Comments) ---
+        function displayResult(segment, buffComment = "") {
+            lastLandedSegment = segment;
+            let punishmentText = ""; let waluigiQuote = buffComment || "";
+            let resultSound = null; let gameEffectApplied = false; let allowAccept = true;
+            let waluigiJoinsPrompt = null; // Store potential join prompt HTML
+
+            const existingJoinButtons = resultDiv.querySelector('.join-buttons');
+            if (existingJoinButtons) existingJoinButtons.remove();
+
+            if (segment.type === 'game_effect') { /* ... game effect logic unchanged ... */
+                gameEffectApplied = true; allowAccept = false; // Cannot accept game effect
+                punishmentText = `<span class="game-effect-text">Wheel Effect: ${segment.label}</span><br>`; resultSound = 'snd_blip';
+                switch(segment.effect) {
+                     case 'gain_coins': warioCoins += segment.value; punishmentText += `Found ${segment.value} loose Wario Coins stuck to the wheel! Score!`; waluigiQuote = `Wah! Free coins! Did Wario hide these? Probably!`; resultSound = 'snd_jackpot'; updateCoinDisplay(); break;
+                    case 'lose_coins': const coinsToLose = Math.min(warioCoins, segment.value); warioCoins -= coinsToLose; punishmentText += `Oops! Dropped ${coinsToLose} Wario Coins down a crack! Too bad!`; waluigiQuote = `Wahahaha-- I mean, WAH! Lost coins! Clumsy!`; resultSound = 'snd_wario_laugh'; updateCoinDisplay(); break;
+                    case 'lose_coins_percent': const coinsToLosePercent = Math.min(warioCoins, Math.floor(warioCoins * segment.value)); warioCoins -= coinsToLosePercent; punishmentText += `The King's Tax Collector spotted you! Lost ${coinsToLosePercent} Wario Coins (${(segment.value * 100)}%)!`; waluigiQuote = `Taxes?! Wario hated taxes! So do I! Bad luck, cheater!`; resultSound = 'snd_scream'; updateCoinDisplay(); break;
+                    case 'gain_spin': spinsRemaining += segment.value; punishmentText += `The wheel sparks with energy! Gained ${segment.value} extra spin${segment.value > 1 ? 's' : ''}!`; waluigiQuote = `More spins?! You lucky purple-nosed weirdo! Don't waste 'em!`; resultSound = 'snd_jackpot'; updateSpinDisplay(); break;
+                    case 'lose_spin': const spinsToLose = Math.min(spinsRemaining, segment.value); if (spinsRemaining > 0) { spinsRemaining -= spinsToLose; punishmentText += `The wheel grinds ominously! Lost ${spinsToLose} spin${spinsToLose > 1 ? 's' : ''}!`; waluigiQuote = `Wah! Lost spins?! The wheel hates you today! Tough luck!`; resultSound = 'snd_scream'; updateSpinDisplay(); } else { punishmentText += `Tried to lose ${spinsToLose} spin${spinsToLose > 1 ? 's' : ''}, but you have none!`; waluigiQuote = `Ha! Tried to take spins you don't have? Wheel malfunction! Wah!`; resultSound = 'snd_wario_wah'; } break;
+                    case 'free_respin': allowAccept = false; punishmentText += `The wheel jams with a *CLUNK*! You get ONE free re-spin while Waluigi kicks it!`; waluigiQuote = `Wah?! Stupid wheel! Fine, spin it again while I fix this piece of junk!`; resultSound = 'snd_ready'; spinsRemaining++; updateSpinDisplay(); const freeSpinHandler = () => { playSound('snd_blip'); tapButton.removeEventListener('click', freeSpinHandler); tapButton.addEventListener('click', startTapPhase); tapButton.textContent = "Tap to Charge Spin!"; tapButton.disabled = true; spinWheel(); }; tapButton.removeEventListener('click', startTapPhase); tapButton.addEventListener('click', freeSpinHandler); tapButton.disabled = false; resultDiv.innerHTML = punishmentText; waluigiCommentDiv.textContent = waluigiQuote; return;
+                    case 'temp_reroll': activeBuff = 'temp_reroll'; punishmentText += `The wheel feels unstable... you'll get a free re-roll on your NEXT spin if it's bad!`; waluigiQuote = `Wah! This wheel is junk! Next spin might just... change its mind? Maybe?`; activeBuffDisplay.textContent = "Wheel Effect Active: Next Spin Re-roll"; break;
+                    case 'temp_avoid_severe': avoidSevereNextSpin = true; punishmentText += `A lucky coin flips in the air! Your next spin will avoid SEVERE outcomes!`; waluigiQuote = `Ooh, lucky flip! Next spin won't be *too* awful! Probably!`; activeBuffDisplay.textContent = "Wheel Effect Active: Avoid Severe Next Spin"; break;
+                    case 'temp_force_weird': forceWeirdNextSpin = true; punishmentText += `The air smells like lavender and garlic... your next spin is definitely going to be WEIRD!`; waluigiQuote = `Wah? What's that smell?! Next spin's gonna be strange! Brace yourself!`; activeBuffDisplay.textContent = "Wheel Effect Active: Weird Spin Likely"; break;
+                    case 'temp_tap_bonus': nextSpinBonusCoins = segment.value; punishmentText += `You find a discarded energy drink! Gain +${segment.value} bonus coins on your next tap phase!`; waluigiQuote = `Bonus coins next time?! Tap like Wario chasing gold!`; activeBuffDisplay.textContent = `Wheel Effect Active: +${segment.value} Coins Next Tap`; break;
+                    case 'temp_tap_penalty': nextSpinPenaltyCoins = segment.value; punishmentText += `You trip over a banana peel! Lose ${segment.value} coins from your next tap phase!`; waluigiQuote = `Wah! Penalty coins?! Who left that there?! Not me!`; activeBuffDisplay.textContent = `Wheel Effect Active: -${segment.value} Coins Next Tap`; break;
+                    case 'temp_tap_multiplier': nextTapCoinModifier = segment.value; punishmentText += `Magic surge! Next tap phase coin gain is multiplied by ${segment.value}!`; waluigiQuote = segment.value > 1 ? `Wah! Tap multiplier! Go crazy! Go stupid!` : `Wah! Tap nerf! That's just mean!`; activeBuffDisplay.textContent = `Wheel Effect Active: Next Tap Coins x${segment.value}`; break;
+                    case 'nothing': punishmentText += `The wheel spins... and lands on a blank space. Nothing happens. How boring.`; waluigiQuote = `...Wah? That's it? Nothing? Lame! Spin again!`; resultSound = 'snd_blip'; break;
+                    case 'force_shop_focus': punishmentText += `Wario's junk calls to you! Take a moment to browse the shop.`; waluigiQuote = `Look at the shop! Maybe buy something useful for once? Or more junk? WAH!`; resultSound = 'snd_coin'; document.querySelector('.shop-container').scrollIntoView({ behavior: 'smooth' }); break;
+                    case 'Dragon Flyby! (Lose 10 Coins!)': const flybyLoss = Math.min(warioCoins, 10); warioCoins -= flybyLoss; punishmentText += `A dragon swoops overhead, snatching ${flybyLoss} coins!`; waluigiQuote = `Wah! Dragon! Quick, hide the shinies! Too late!`; resultSound = 'snd_scream'; updateCoinDisplay(); break;
+                    case 'Kind Stranger (Gain 5 Coins!)': warioCoins += 5; punishmentText += `A mysterious figure tosses you 5 coins! How nice!`; waluigiQuote = `Free coins? From a stranger? Suspicious! But take 'em anyway!`; resultSound = 'snd_coin'; updateCoinDisplay(); break;
+                }
+            } else { // Handle regular punishments
+                punishmentText = `<strong>${segment.label}!</strong><br>`;
+                 if (!buffComment) { /* Assign default quote/sound */
+                    switch (segment.type) { case 'mild': waluigiQuote = `Wah. "${segment.label}". That's just tedious. Like counting Wario's nose hairs.`; resultSound = 'snd_blip'; break; case 'moderate': waluigiQuote = `"${segment.label}"? Gonna be annoying. Probably itchy too.`; resultSound = 'snd_wah'; break; case 'severe': waluigiQuote = `WAHHH! "${segment.label}"?! Oh, that's BAD! You're gonna regret spinning this wheel!`; resultSound = 'snd_scream'; break; case 'weird': waluigiQuote = `"${segment.label}"? ...Why? Just... why? This wheel is broken!`; resultSound = 'snd_wario_wah'; break; default: waluigiQuote = `Uh... "${segment.label}". ...That's a thing, I guess.`; }
+                 } else { waluigiQuote += ` The wheel FINALLY stopped on... "${segment.label}"! Happy now?!`; resultSound = 'snd_blip'; }
+
+                // Add EXPANDED descriptions and CUSTOM Waluigi overrides + Join Prompts
+                switch (segment.label) {
+                    // --- ADD ALL DESCRIPTIONS AND UNIQUE QUOTES HERE ---
+                    case "Mighdural Dungeon Cell (Damp)": punishmentText += "Sentenced to the cold, damp cells beneath the Royal Citadel. Enjoy the dripping water, the rats for company, and the faint smell of despair. Guards change shifts infrequently."; waluigiQuote = `A dungeon cell? Wah! Dark, wet, boring! Maybe you'll make friends with the moss? At least it's safe... ish.`; break;
+                    case "Dragon Mountain Ash Duty (Hot)": punishmentText += "You're assigned to sift through the endless fields of ash and char covering the slopes of Dragon Mountain, searching for anything valuable (or just intact). Watch for lingering embers, unstable ground, and VERY angry dragons."; waluigiQuote = `Sifting ash near DRAGONS?! You're gonna get roasted like a marshmallow! Wario probably hid something shiny up there though...`; resultSound = 'snd_scream'; break;
+                    case "Veilwood Spa 'Indebted Guest'": punishmentText += "The vampire proprietors 'invite' you for an extended stay. Enjoy luxurious blood-mineral baths and suspiciously rejuvenating treatments... while they figure out how much collateral (life essence?) you possess."; waluigiQuote = `Veilwood Spa?! Ooh la la-- wait, indebted?! Wah! They'll bleed you dry! Literally! Maybe I should visit... for research!`; resultSound = 'snd_scream'; break; // Hinting interest
+                    case "Minor Fine (Payable in 🪙!)": const fineAmount = 30 + Math.floor(Math.random() * 21); if (warioCoins >= fineAmount) { warioCoins -= fineAmount; punishmentText = `<strong>Minor Fine Paid!</strong><br>The court grudgingly accepts ${fineAmount} Wario Coins. Probably stolen. You're free... from this punishment.`; waluigiQuote = "Wah! Lucky break! You actually had the coins! Smart move paying up!"; resultSound = 'snd_jackpot'; updateCoinDisplay(); } else { const defaultPunishment = segments.find(s => s.label === "Swiftsoul Maintenance (Windy)") || segments.find(s => s.type === 'moderate'); punishmentText = `<strong>Fine Defaulted to ${defaultPunishment.label}!</strong><br>Couldn't pay ${fineAmount} coins? Pathetic! Now go fix airships!`; waluigiQuote = "Tch. Shoulda tapped harder. Enjoy the windburn, loser!"; resultSound = 'snd_scream'; segment = defaultPunishment; } break; // Updated quote
+                    case "Pirate's Keep Debt Labor (Salty)": punishmentText += "You owe the Sea Dogs, or maybe just looked at a captain funny. Assigned to hard labor: swabbing decks thick with grog and worse, patching leaky hulls with questionable materials, and breaking up fights at the Skull & Anchor. Keep an eye on your pockets."; waluigiQuote = `Pirate labor? Yarrr, gonna scrub barnacles till your nose falls off! Maybe learn some sea shanties? Or just get keel-hauled.`; break;
+                    case "Swiftsoul Maintenance (Windy)": punishmentText += "Sentenced to the heights of Swiftsoul Keep. Your job: precarious maintenance on the outer platforms and wind-wards, tightening bolts in gale-force winds. The fall is long, the landing is hard."; waluigiQuote = `Swiftsoul? Again? High places make Waluigi's knees wobble! Don't drop the wrench... or yourself! Wah! Remember last time?`; break; // Hinting at case
+                    case "Assist Edgeshade Rebuilding (Sobering)": punishmentText += "A sentence of conscience? You're sent to the ruined town of Edgeshade. Help clear rubble, salvage charred beams, and listen to the mournful wind whistling through broken homes. A grim reminder of Wario's... enthusiasm."; waluigiQuote = `Edgeshade? Where Wario... *sniff*... caused that mess? Wah... Sad place. Helping? Maybe it's good for the soul? Doubt it.`; resultSound = 'snd_blip'; break;
+                    case "Lockeweald Night Watch (Spooky)": punishmentText += "Patrol the misty, monster-infested paths of Lockeweald forest by the light of a sputtering lantern. Listen for werewolves, vampires, and things with too many eyes. Try not to become a midnight snack."; waluigiQuote = `Night watch in Lockeweald?! AWOOOO! You're gonna get eaten! If you survive, maybe tell me about the spooky noises?`; resultSound = 'snd_scream'; break; // Hinting interest
+                    case "Yal Belanor Errands (Arcane)": punishmentText += "Become a gofer for the irritable mages of Yal Belanor. Fetch volatile reagents from dangerous places, deliver cryptic scrolls without reading them, and try not to accidentally trigger any unstable wards."; waluigiQuote = `Errands for mages? Zap! Fizzle! POOF! You might end up as a newt's teapot! Bring me back a cool rune if you find one!`; break; // Hinting interest
+                    case "Clean the Miserable Statue (Tedious)":
+                        punishmentText += "That hideous stone monument depicting Wario, Waluigi, and some weird Toad needs its weekly scrubbing. Remove grime, bird droppings, and graffiti. Use a toothbrush. Daily.";
+                        waluigiQuote = `Cleaning OUR statue?! Wah! Okay, okay... Maybe I could... supervise? Make sure my magnificent nose gets extra polish?`; // Modified quote
+                        punishmentText += `<div class="join-prompt">Want Waluigi's expert critique while you work? <div class="join-buttons"><button onclick="handleJoinChoice(true, 'Clean the Miserable Statue (Tedious)')">Critique Me!</button><button onclick="handleJoinChoice(false, 'Clean the Miserable Statue (Tedious)')">I prefer silence</button></div></div>`; // Moved prompt here
+                        resultSound = 'snd_wario_wah'; break;
+                    case "Face the Whirlpool Current (Deadly)": punishmentText += "The Unpassable Whirlpool Lake awaits. Your sentence: 'test the currents'. Maybe you'll find the secret the Six Mages hid? More likely, you'll be magically unraveled. Farewell?"; waluigiQuote = `The Whirlpool?! WAAAHHH! That's not a sentence, that's deletion! Bye-bye, sucker! Don't splash me!`; resultSound = 'snd_scream'; break;
+                    case "Iron Fists 'Training' (Painful)": punishmentText += "The Iron Fists Mercenary Guild needs practice dummies. You're it. Prepare for grueling drills, harsh discipline from Commander G, and possibly being used as 'dynamic target practice' by X.O."; waluigiQuote = `Iron Fists training?! More like Iron Fists beating! Remember that weird note from X.O.? Watch out for her especially!`; resultSound = 'snd_scream'; break; // Hinting at case evidence
+                    case "Mountains Edge Isolation (Cold)": punishmentText += "Exiled to a remote, drafty hut in the freezing tundra near Mountains Edge. Your companions are the howling wind, the crunching snow, and distant dragon roars. Learn to enjoy frostbite."; waluigiQuote = `Isolation? Brrr! Cold and lonely! Like Waluigi waiting for an invitation! Maybe build a snowman?`; break;
+                    case "Forced Jester Duty (Humiliating)":
+                        punishmentText += "King Elmor demands mirth! Wear the floppy hat and bells, juggle questionable objects, and tell jokes that won't result in beheading. The crowd is tough. The dungeon is warm.";
+                        waluigiQuote = `A jester?! WAH! Humiliating! Unless... maybe we could do a routine? I have GREAT puns!`; // Modified quote
+                        punishmentText += `<div class="join-prompt">Need a comedy partner? My timing is impeccable! WAH! <div class="join-buttons"><button onclick="handleJoinChoice(true, 'Forced Jester Duty (Humiliating)')">Join Me!</button><button onclick="handleJoinChoice(false, 'Forced Jester Duty (Humiliating)')">I'll risk it alone</button></div></div>`; // Moved prompt here
+                        resultSound = 'snd_wario_laugh'; break;
+                    case "Map the Salt-Lick Marshes (Slimy)": punishmentText += "Wade through stinking muck, mapping treacherous paths between vampire and werewolf lands. Document bubbling tar pits, strange glowing fungi, and try not to disturb whatever lurks beneath the surface."; waluigiQuote = `Slimy marshes? Ew! Smells worse than Wario's gym socks after garlic stew! Find any lost treasure down there? Probably not.`; break;
+                    case "Rakasha's 'Garden Gnome' (Still)": punishmentText += "The mysterious Rakasha requires a new... focal point... for her enchanted garden. Your sentence: stand perfectly still. Indefinitely. Become one with the weird glowing moss. Don't blink."; waluigiQuote = `A garden gnome?! For Rakasha?! Wah! Sounds creepy AND boring! Does she at least water you?`; resultSound = 'snd_wario_wah'; break; // Hinting at case entity
+                    case "Deliver Message to Allelon (Risky)": punishmentText += "You must carry a sealed diplomatic pouch (contents unknown, probably insulting) to Allelon, stronghold of the werewolves. Knock politely, deliver the message, and run VERY fast."; waluigiQuote = `To Allelon?! With the werewolves?! Are they nuts?! Don't mention the recent attack in Ravencreek! Just run!`; resultSound = 'snd_scream'; break; // Hinting at case event
+                    // --- Fill in ALL other descriptions and UNIQUE Waluigi quotes ---
+                    case "Mighdural Kitchen Duty (Onions)": punishmentText += "Assigned to the royal kitchens. Peel mountains of potatoes, chop endless onions (get ready to cry!), scrub greasy pots stuck with week-old stew, and try to avoid the head chef's flying ladle. The upside? Maybe you can steal a sausage?"; waluigiQuote = `Kitchen duty? Wah! So many onions! My eyes are watering just thinking about it! Don't burn the soup!`; break;
+                    case "Royal Guard Boot Polishing (Endless)": punishmentText += "Every single boot worn by King Elmor's Royal Guard, from the lowly recruit to the Captain, needs polishing. To a mirror shine. Every day. Prepare for blisters and the endless smell of boot polish."; waluigiQuote = `Boot polishing?! Hundreds of 'em! Your fingers will be raw! Tedious! Wah!`; break;
+                    case "Tend the Royal Menagerie (Smelly)": punishmentText += "Clean the cages and enclosures of the King's collection of strange beasts: griffins that peck, cockatrices that glare, and the infamous 'Snuffling Horror' which... snuffles horrifically. Wear thick gloves and try not to look edible."; waluigiQuote = `The King's zoo? Smelly! And bitey! And probably hungry! Don't stick your fingers in the cages! WAH!`; break;
+                    case "Scribe Duty (Cramped Hand)": punishmentText += "Copy ancient, crumbling texts in the dusty Royal Library under the gaze of a librarian stricter than Edgeworth. Perfect calligraphy required. One ink blot means starting the whole page over. Say goodbye to feeling in your fingers."; waluigiQuote = `Copying books? Wah! So quiet! Your hand's gonna cramp into a permanent claw! Can you even read this old stuff?`; break;
+                    case "Dragon Mountain Lookout (Nervous)": punishmentText += "Posted to a high, lonely watchtower on the edge of Dragon Mountain. Your job: ring the bell LOUDLY if you see a dragon. Which you will. Every hour. Try not to develop a permanent nervous twitch."; waluigiQuote = `Dragon lookout?! You'll be ringing that bell till your ears bleed! Hope you packed snacks! And maybe a shield!`; break;
+                    case "Explore Smoldering Cave (Choking)": punishmentText += "Map the interior of a newly discovered cave system on Dragon Mountain. It's filled with noxious volcanic gases, unstable rock, glowing lava tubes, and possibly very territorial, very hot dragons. Bring a gas mask?"; waluigiQuote = `Explore a hot cave?! Choke on fumes! Get lost! Maybe find some dragon treasure? Nah, probably just melt! WAH!`; resultSound = 'snd_scream'; break;
+                    case "Deliver Peace Offering to Dragons? (Suicidal)": punishmentText += "In a moment of questionable judgment, the King decreed diplomacy. You get to deliver a 'gift' (a crate of slightly-less-stolen goods?) to the nearest dragon lair. Knock first? Survival... extremely unlikely."; waluigiQuote = `Give dragons a GIFT?! WAAAHHH! It's probably a trick! You're dragon chow! Tell them Waluigi thinks they're cool? Maybe?`; resultSound = 'snd_scream'; break;
+                    case "Edgeshade Ghost Watch (Eerie)": punishmentText += "Spend the night shift watching for spectral activity in the ruins of Edgeshade's charred chapel. Listen for moans on the wind, watch for floating lights, try not to make eye contact with translucent figures. Very atmospheric."; waluigiQuote = `Ghost watch?! In Edgeshade?! Spooooky! Are the ghosts mad about the dragons? Or Wario? Probably both! Wah!`; resultSound = 'snd_wario_wah'; break;
+                    case "Salvage Crew (Edgeshade Ruins)": punishmentText += "Join a crew picking through the dangerous ruins of Edgeshade, looking for anything salvageable – scorched timber, melted coins, maybe a non-haunted teapot. Risk of collapse, unexploded magic, and angry spirits."; waluigiQuote = `Salvage crew? Digging through Wario's mess? Depressing! Find anything good? Probably just rubble and sadness.`; break;
+                    case "Guard Edgeshade Memorial (Sad)": punishmentText += "Stand guard at the makeshift memorial for the victims of the Edgeshade massacre. A quiet, somber duty. Keep vandals away. Reflect on the terrible consequences of greed (mostly Wario's!)."; waluigiQuote = `Guard a memorial? Wah... Sad job. Important though. Keeps the memory... sigh... Never mind. Stand tall!`; resultSound = 'snd_blip'; break;
+                    case "Veilwood Spa Laundry Duty (Stained)": punishmentText += "Wash the linens from the Veilwood Spa. Mostly towels, robes... and suspiciously heavy, dark-stained sheets. Don't ask. Just scrub. And maybe wear gloves. And a mask."; waluigiQuote = `Spa laundry?! Ew! What ARE those stains?! Really, don't ask! Just wash 'em fast and don't sniff 'em!`; break;
+                    case "Veilwood 'Blood Drive' Volunteer (Pale)": punishmentText += "The spa is running a 'charitable' blood drive. You're the first 'volunteer'. And likely the main donor. Hope you're not anemic, because you might be soon."; waluigiQuote = `Blood drive volunteer?! At a VAMPIRE spa?! Wah! They call that a 'donation'?! You're gonna faint!`; resultSound = 'snd_scream'; break;
+                    case "Clean Veilwood Coffins (Dusty)": punishmentText += "The vampire residents require their resting places kept pristine. Your job: carefully dusting and polishing ornate, velvet-lined coffins. Try not to wake the occupants during daylight hours. They get grumpy."; waluigiQuote = `Cleaning coffins?! Creepy! And dusty! Achoo! Make sure they don't have splinters! Bad for napping!`; resultSound = 'snd_wario_wah'; break;
+                    case "Pirate's Keep Lookout Duty (Foggy)": punishmentText += "Stand watch on the crumbling cliffs above Pirate's Keep, peering through the constant, swirling fog for incoming ships (Royal Navy or rivals). Mostly, you'll just see fog and hear seagulls plotting."; waluigiQuote = `Lookout duty? In the fog? You'll see nothing but grey! Hope you like the smell of fish and betrayal!`; break;
+                    case "Tavern Bouncer (Skull & Anchor)": punishmentText += "Work the door at the Skull & Anchor, Pirate's Keep's roughest tavern. Check for obvious weapons (everyone has hidden ones), break up fights before they involve cannons, and toss out drunks into the murky harbor."; waluigiQuote = `Bouncer?! At the Skull & Anchor?! You'll get punched! Kicked! Probably bitten! Try not to start any fights yourself! Wah!`; break;
+                    case "Smuggling Run Escort (Night)": punishmentText += "Guard a shipment of 'perfectly legitimate goods' moving overland from Pirate's Keep under the cover of darkness. Expect ambushes from rivals, the King's guards, or creatures drawn by the scent of desperation."; waluigiQuote = `Smuggling escort?! Dark woods, shifty pirates, probably carrying something explosive or illegal! What could go wrong?! EVERYTHING!`; resultSound = 'snd_scream'; break;
+                    case "Fetch 'Supplies' for Pirate Cook (Gross)": punishmentText += "The cook at the Skull & Anchor needs ingredients for his infamous 'Sea Sludge Stew'. Usually involves chasing down giant crabs, digging up slimy tubers, or 'liberating' questionable barrels from other ships."; waluigiQuote = `Pirate cook's helper?! You'll be fetching tentacle bits and mystery goo! Don't ask what's in the stew!`; resultSound = 'snd_wario_wah'; break;
+                    case "Swiftsoul Aetherfont Polishing (Sacred)": punishmentText += "The crystalline Aetherfont pool in the Swiftsoul shrine requires careful polishing with enchanted cloths. Disturb the magic, and the mystics might turn you into a cloud. A grumpy cloud."; waluigiQuote = `Polishing the Aether-whatsit? Shiny! Don't smudge it! The sky-priests are watching! Always watching!`; break;
+                    case "Test Pilot Experimental Flyer (Crash?)": punishmentText += "Swiftsoul engineers built a new flying machine! It's mostly wings and hope. Your job: take it for its maiden flight. Bring a parachute. And maybe a last will."; waluigiQuote = `Test pilot?! For those crazy Swiftsoul deathtraps?! WAAAAHHH! It's gonna fall apart mid-air! Aim for something soft!`; resultSound = 'snd_scream'; break;
+                    case "Sort Airship Cargo Manifests (Boring)": punishmentText += "Endless stacks of confusing, contradictory cargo manifests for the airships docking at Swiftsoul Keep need sorting and filing. Mind-numbing, ink-staining work designed to crush the soul."; waluigiQuote = `Sorting papers?! BORING! Zzzzz... Wah! Don't mix up the 'Volatile Reagents' with the 'Lunch Orders'!`; break; // Hinting at case
+                    case "Guard Swiftsoul Shrine Entrance (Quiet)": punishmentText += "Stand guard at the entrance to the lower shrine levels of Swiftsoul Keep. Mostly involves telling pilgrims to be quiet and stopping engineers from tracking grease near the holy pool."; waluigiQuote = `Shrine guard? Stand there and look solemn? Easy! But SO dull! Try not to yawn too loud.`; break;
+                    case "Forage for Rare Herbs (Lockeweald)": punishmentText += "Gather specific, rare herbs deep within Lockeweald forest. Some are guarded by territorial Grootslangs, others only grow in Griffon nests. Don't pick the ones that scream."; waluigiQuote = `Herb foraging? In Lockeweald? Watch out for bitey plants, grabby roots, and grumpy badgers!`; break;
+                    case "Track Lost Caravan (Lockeweald)": punishmentText += "A merchant caravan vanished in Lockeweald. Follow the trail of broken wheels and scattered goods, find out what happened (bandits? werewolves? giant squirrels?), and report back. Try not to become the next mystery."; waluigiQuote = `Track a lost caravan? Probably dragged off by something nasty! Or maybe they just got lost? Nah, definitely eaten.`; break;
+                    case "Clear Spider Nests (Lockeweald)": punishmentText += "Giant, hairy, possibly venomous spiders have infested a section of Lockeweald. Your job: clear them out with fire, pointy sticks, and panicked yelling. They bite. Hard. And have too many eyes."; waluigiQuote = `Giant SPIDERS?! Ewww! Sticky webs! Fangs! Too many legs! WAH! Burn everything!`; resultSound = 'snd_wario_wah'; break;
+                    case "Serve as Vampire Decoy (Lockeweald)": punishmentText += "The local guard needs to lure out a troublesome vampire coven from Fairth's Retreat. You're the bait. Stand in a moonlit clearing, look vulnerable, and maybe hum invitingly?"; waluigiQuote = `Vampire DECOY?! Are they INSANE?! Wear a turtleneck! And maybe carry a stake? WAAAHHH!`; resultSound = 'snd_scream'; break;
+                    case "Yal Belanor Lab Assistant (Explosive?)": punishmentText += "Assist a Yal Belanor alchemist with 'routine' experiments. Mix volatile potions, handle unstable reagents that fizz ominously, clean up arcane spills that eat through metal. Safety goggles occasionally provided."; waluigiQuote = `Lab assistant?! BOOM! SIZZLE! FIZZ! Hope you like sudden loud noises and losing your eyebrows! WAH!`; resultSound = 'snd_scream'; break;
+                    case "Clean Scrying Pools (Yal Belanor)": punishmentText += "The magical scrying pools used by Yal Belanor mages get cloudy with residual futures. Your job: carefully clean them without disrupting prophecies or accidentally falling into next week."; waluigiQuote = `Cleaning magic pools? Don't fall in! You might see yourself doing this same boring job tomorrow!`; break;
+                    case "Rune Carver Apprentice (Painful Mistakes)": punishmentText += "Learn the delicate art of carving magical runes into stone, metal, and sometimes unwilling apprentices. One slip of the chisel can ruin the enchantment... or require stitches."; waluigiQuote = `Rune carving? Ouch! Sharp tools! Hard stone! Slip up and... YOWCH! Watch your fingers!`; break;
+                    case "Potion Taste-Tester (Side effects!)": punishmentText += "Yal Belanor needs someone expendable to test new potions. Effects may include temporary polymorphing into a newt, uncontrollable giggling fits, sudden obsession with cheese, or mild, colorful explosions.";
+                     waluigiQuote = `Potion tester?! You might turn purple! Or grow tentacles! Or start talking backwards! Maybe I should watch? For science?`; resultSound = 'snd_wario_wah'; // Hinting interest
+                    punishmentText += `<div class="join-prompt">Want an observer to document the... interesting side effects? <div class="join-buttons"><button onclick="handleJoinChoice(true, 'Potion Taste-Tester (Side effects!)')">Document Me!</button><button onclick="handleJoinChoice(false, 'Potion Taste-Tester (Side effects!)')">No Witnesses!</button></div></div>`; break;
+                    case "Offer 'Peace' Gift to Allelon Alpha (Howl?)": punishmentText += "Diplomacy attempt #3 (they didn't learn). Deliver a gift (a chew toy?) to the Alpha werewolf of Allelon. Bow respectfully. Do not show fear. Do not smell like rival wolf pack."; waluigiQuote = `Gift to the Alpha Werewolf?! Again?! What is it this time, a squeaky bone? Don't howl back! WAAAH!`; resultSound = 'snd_scream'; break;
+                    case "Allelon Boundary Patrol (Tense)": punishmentText += "Walk the misty, ominous border between the Kingdom and Allelon werewolf territory. Keep an eye out for glowing eyes in the woods. Report any incursions. A very tense and lonely patrol where twigs sound like footsteps."; waluigiQuote = `Patrolling near werewolves? Tense! Don't make eye contact! Don't carry any meat! Walk quietly!`; break;
+                    case "Gather Moonpetal Flowers (Near Allelon)": punishmentText += "These rare, beautiful flowers bloom only under the full moon near Allelon territory, humming with faint magic. Gather a bouquet without attracting unwanted, furry, moon-crazed attention."; waluigiQuote = `Moonpetal flowers? Near werewolves? At night?! Pretty... but are they worth getting chased by giant furballs?`; break;
+                    case "Howling Practice (Werewolf Mockery?)": punishmentText += "You are ordered (by someone with a weird sense of humor) to practice howling near Allelon's borders. Try different pitches. Is it bizarre training, or intentional provocation? The werewolves will likely be unamused."; waluigiQuote = `Howling practice?! Near werewolves?! They'll think you're challenging them! Or maybe inviting them for tea? Bad idea! WAH!`; resultSound = 'snd_wario_wah'; break;
+                    case "Mine for Fool's Gold (Mountains Edge)": punishmentText += "Endless hours chipping away at frozen rock in the dark, cold Mountains Edge mines, searching for glittering pyrite. Looks like gold, worth less than dirt. Just like the effort you put into this."; waluigiQuote = `Mining fool's gold? Pointless! Like trying to teach Wario to share! All that work for nothing! Wah!`; break;
+                    case "Hunt Arctic Fox (Mountains Edge)": punishmentText += "Track and hunt elusive arctic foxes in the freezing tundra for their pelts. They're fast, cunning, and blend perfectly with the snow. You'll likely just get cold, lost, and possibly mistaken for prey yourself."; waluigiQuote = `Hunt arctic foxes? Sneaky critters! You'll probably just freeze your mustache off! If you had one!`; break;
+                    case "Build Snow Fort Defenses (Childish?)": punishmentText += "Mountains Edge leadership has decided better defenses are needed against... snowballs? Your task: build elaborate snow forts around the town perimeter. Seems suspiciously like busy work, or a child's idea of strategy."; waluigiQuote = `Snow forts?! Like a little kid?! WAH! This is punishment? Okay... Build one with a slide?`; break;
+                    case "Tundra Watch Duty (Blizzard Risk)": punishmentText += "Stand watch on the edge of the vast, empty, wind-blasted tundra north of Mountains Edge. Mostly you'll see snow and ice. Occasionally, a sudden blizzard might try to bury you alive."; waluigiQuote = `Tundra watch? Stare at snow? BORING! Watch out for ice dragons! And frostbite! Mostly frostbite.`; break;
+                    case "Gather Glowing Moss (Rakasha)": punishmentText += "Rakasha requires fresh samples of the bioluminescent moss growing deep within her shadowed, enchanted woods. It pulses faintly and whispers forgotten secrets. Try not to listen too closely, or you might forget your own name."; waluigiQuote = `Glowing moss for Rakasha? It whispers weird things! Like 'Waluigi was robbed!' Don't listen!`; break; // Hinting at case entity
+                    case "Decipher Strange Runes (Rakasha)": punishmentText += "Rakasha possesses ancient tablets covered in unknown, swirling runes. Your task: try to decipher their meaning. Warning: may cause headaches, temporary madness, spontaneous levitation, or summoning things better left unsummoned."; waluigiQuote = `Decipher runes? For Rakasha? Might summon tentacles! Or worse, bad poetry! WAH! Careful!`; break;
+                    case "Tend Rakasha's Carnivorous Plants (Bitey)": punishmentText += "Rakasha's garden includes... lively flora. Feed the giant flytraps (they prefer goblins), prune the Grasping Vines (wear armor), and avoid the Spore-Shooting Fungi (explosive!). They bite. Hard."; waluigiQuote = `Rakasha's plants EAT things?! WAH! Don't get chomped! Bring snacks... for the plants, not you!`; resultSound = 'snd_wario_wah'; break;
+                    case "Meditate with Rakasha (Awkward Silence)": punishmentText += "Join Rakasha in silent meditation within her dimly lit temple. The silence is heavy, filled with unspoken magic, the scent of strange incense, and the sound of your own stomach rumbling. Try not to fidget or think about lunch."; waluigiQuote = `Meditate? With Rakasha? Awkward! What do you even think about? Tennis? Roses? Garlic bread?`; resultSound = 'snd_blip'; break;
+                    case "Collect Tar Samples (Salt-Lick)": punishmentText += "Gather samples from the bubbling, sulfurous tar pits in the Salt-Lick Marshes. The fumes are noxious, the ground is unstable, and sometimes things with too many teeth grab you from below."; waluigiQuote = `Tar samples?! Sticky! Smelly! Gross! Don't fall in! You'll never get the smell out!`; break;
+                    case "Retrieve Sunken Body (Salt-Lick)": punishmentText += "Something (or someone important, apparently) sank into the muck of the Salt-Lick Marshes. Your unpleasant job: retrieve it. Prepare to get very, very dirty, smelly, and possibly haunted."; waluigiQuote = `Retrieve a BODY?! From the MARSH?! WAAAHHH! Disgusting! Hope it's not someone I know! Wash your hands! Twice!`; resultSound = 'snd_scream'; break;
+                    case "Scare Away Marsh Ghouls (Yelling)": punishmentText += "Ghouls are bothering travelers near the Salt-Lick Marshes with their incessant moaning and grabbing. Your method of deterrence: run around yelling insults and banging pots and pans. Surprisingly effective. Deeply embarrassing."; waluigiQuote = `Scare ghouls by yelling?! WAH! They'll probably just stare at you! Or ask to borrow sugar!`; break;
+                    case "Listen to Marsh Whispers (Insanity?)": punishmentText += "Spend a night alone camping in the Salt-Lick Marshes, listening intently to the strange, sibilant whispers that drift on the fog. Record what you hear. Try to maintain your grip on reality."; waluigiQuote = `Listen to marsh whispers?! You'll go mad! They whisper lies! Like 'Wario is generous'! Don't listen!`; resultSound = 'snd_wario_wah'; break;
+                    case "Blainnola Plains Farmhand (Endless Wheat)": punishmentText += "Sentenced to toil on the vast, monotonous farms of the Blainnola Plains. Plow fields from sunup to sundown, sow seeds, harvest endless golden wheat. Back-breaking, soul-crushing work."; waluigiQuote = `Farmhand? Boring! Wheat, wheat, wheat! It gets everywhere! In your shoes! In your hair! Wah!`; break;
+                    case "Caravan Guard Duty (Bandit Risk)": punishmentText += "Guard a merchant caravan crossing the Blainnola Plains. Long days on bumpy roads, potential bandit attacks, arguing merchants, questionable food, low pay. The thrilling life of a guard!"; waluigiQuote = `Caravan guard? Bandits! Bumpy roads! Probably guarding cabbages! Hope you get paid extra for boredom!`; break;
+                    case "Watchtower Sentry (Boring View)": punishmentText += "Spend long, lonely shifts atop a windswept watchtower on the Blainnola Plains, scanning the horizon for... mostly waving wheat. Occasionally sheep. Very rarely, actual trouble. Bring a book."; waluigiQuote = `Watchtower duty? Stare at nothing but wheat? Zzzzzz.... Wah! Don't fall off when you fall asleep!`; break;
+                    case "Scarecrow Duty (Actual Crows Laugh)": punishmentText += "Stand perfectly still in a field on the Blainnola Plains, dressed in itchy rags, pretending to be a scarecrow. Your job: scare crows. They are not intimidated. They know. They will mock you."; waluigiQuote = `A scarecrow?! WAH HAH HAH! The birds will use you for target practice! And so will I! ...Kidding! Maybe.`; resultSound = 'snd_wario_laugh'; break;
+                    case "Cats Cove Fishing Duty (Stormy Seas)": punishmentText += "Join the salty fishing crews of Cats Cove. Head out onto the churning, slate-grey sea, cast heavy nets, haul slippery catches, endure storms, and try not to get tangled and dragged under."; waluigiQuote = `Fishing duty? Stormy seas! Seasickness! Fish guts! And the smell! Blech! Hope you can swim!`; break;
+                    case "Untangle Miles of Nets (Cats Cove)": punishmentText += "The fishing nets are hopelessly tangled into one giant, salty knot. Your Zen-like task: sit on the docks and patiently untangle them. It will take days. Weeks? Your fingers will bleed."; waluigiQuote = `Untangling nets? Wah! Knots! So many knots! Worse than untangling Wario's lies! Good luck!`; break;
+                    case "Serve Fish Guts Ale (Claw & Reel)": punishmentText += "Work as a server in Cats Cove's charmingly dilapidated tavern, the Claw & Reel. Serve the local 'delicacy', Fish Guts Ale, to grizzled, demanding fisherfolk. Try not to breathe through your nose."; waluigiQuote = `Serve Fish Guts Ale?! Sounds disgusting! Probably tastes like sadness and old boots! WAH!`; resultSound = 'snd_wario_wah'; break;
+                    case "Herding the Town's Cats (Impossible!)": punishmentText += "The many, many cats of Cats Cove need to be... accounted for? Your impossible task: herd them all into the town square. It cannot be done. But you must try."; waluigiQuote = `Herd CATS?! IMPOSSIBLE! They're cats! They do what they want! Like Waluigi! Wah! This is pointless!`; resultSound = 'snd_wario_wah'; break;
+                    case "Ravencreek River Patrol (vs Ghouls)": punishmentText += "Patrol the slow-moving, murky river near Ravencreek at night in a leaky boat. Watch for river ghouls with long, grabby fingers trying to climb aboard. Poke them off with an oar."; waluigiQuote = `River patrol? Ghouls! Slimy! Grabby! They pull you under! Poke 'em good! Poke 'em in the eye!`; break;
+                    case "Guard Duty vs Vampires (Ravencreek)": punishmentText += "Stand guard on the misty outskirts of Ravencreek, watching for vampire incursions from Lockeweald or, more likely, the Veilwood Spa itself. Stay alert. Garlic is recommended. Silver is better."; waluigiQuote = `Guard against Vampires?! Near their fancy spa?! They'll charm you then bite you! Don't look into their eyes!`; break;
+                    case "Cleanse Haunted Section (Ravencreek)": punishmentText += "A block of old houses in Ravencreek is plagued by noisy, annoying restless spirits. Armed with holy water (or maybe just vinegar?) and a book of stern warnings, you must cleanse the area. Bring earplugs."; waluigiQuote = `Cleanse ghosts?! Are they messy ghosts? Throwing plates? Wah! Tell 'em Waluigi says 'Be quiet!'`; resultSound = 'snd_wario_wah'; break;
+                    case "Spa 'Volunteer' for Questionable Test": punishmentText += "The Veilwood Spa is testing a new 'invigoration serum'. You're the primary test subject. Side effects are 'minimal' but may include temporary fangs, aversion to sunlight, and extreme pallor."; waluigiQuote = `Spa volunteer?! For VAMPIRES?! WAAAHH! They're gonna test weird stuff on you! Don't drink anything red!`; resultSound = 'snd_scream'; break;
+                    case "Mighdural Clock Tower Winder (High)": punishmentText += "Climb the dizzying spiral stairs of Mighdural's great clock tower daily to wind the massive, complex mechanism. Don't slip on the greasy gears. The fate of punctual appointments rests on you."; waluigiQuote = `Wind the clock tower? So high! So many gears! Clank! Clunk! Don't get your mustache caught! Oh wait, you don't have one! Wah!`; break;
+                    case "Translate Ancient Draconic Text (Headache)": punishmentText += "Locked in the dusty Royal Library archives with scorched scrolls allegedly written in Old Draconic. Translate them using incomplete dictionaries. The grammar gives splitting headaches. Probably threats or complaints about gold."; waluigiQuote = `Translate dragon language?! ROAR! FUS RO WAH! It probably just says 'Mine! Mine! Mine!' like Wario!`; break;
+                    case "Act as Live Bait for Marsh Leviathan (Wet)": punishmentText += "Scholars theorize a huge, tentacled creature lives in the deepest pools of the Salt-Lick Marshes. You get to dangle enticingly from a rope over the muck to lure it out for study. Hope it's vegetarian."; waluigiQuote = `LIVE BAIT?! For a MARSH MONSTER?! WAAAAHHHH! Tentacles! Slime! Bad end! Very bad end!`; resultSound = 'snd_scream'; break;
+                    case "Polish King Elmor's Armor (Shiny)": punishmentText += "The King's ceremonial (and probably also his battle) armor requires constant polishing to a blinding sheen. Every single rivet, every overlapping plate must shine like the sun. He inspects it personally. With white gloves."; waluigiQuote = `Polish the King's armor? Shiny! But SO MUCH ARMOR! You'll be rubbing for weeks! Don't miss a spot!`; break;
+                    case "Organize Pirate Booty Inventory (Counting)": punishmentText += "A successful pirate crew 'acquired' a large haul. They need you to inventory it. Count doubloons, identify possibly cursed artifacts, list stolen silverware. Try not to 'accidentally' pocket anything shiny."; waluigiQuote = `Inventorying pirate treasure?! Ooh! Gold! Jewels! Shiny things! Uh... just count it. Don't get any ideas! They WILL notice!`; break; // Hinting interest
+                     punishmentText += `<div class="join-prompt">Need help counting all that gold? I'm good at counting! Especially someone else's gold! <div class="join-buttons"><button onclick="handleJoinChoice(true, 'Organize Pirate Booty Inventory (Counting)')">Help Me Count!</button><button onclick="handleJoinChoice(false, 'Organize Pirate Booty Inventory (Counting)')">I Trust Myself</button></div></div>`; break;
+                    case "Test Anti-Werewolf Wards (Itchy)": punishmentText += "Someone developed new experimental wards against werewolves. You get to stand inside the test circle during the next full moon while they activate it. May cause mild tingling, intense itching, or attracting very large, very angry, very furry attention."; waluigiQuote = `Test anti-werewolf wards?! Might make you itchy! Or grow fur! Or just make the werewolves REALLY mad! Good luck!`; resultSound = 'snd_wario_wah'; break;
+                    case "Entertain the Iron Fists with Song (Off-key?)": punishmentText += "The mercenaries are bored and demand entertainment. Your sentence: sing for them in their mess hall. Choose your song wisely. Sea shanties or drinking songs are usually safe. Love ballads... less so. Bad singing may result in being used for knife-throwing practice."; waluigiQuote = `Sing for the Iron Fists?! Wah! Are you any good?! Sing something loud! And hope they're drunk!`; resultSound = 'snd_wario_wah'; break;
+                    case "Investigate Strange Noises in Citadel Crypt (Spooky!)": punishmentText += "Disturbing sounds - clanking, moaning, faint demands for snacks - are coming from the Royal Crypt beneath Mighdural Citadel. Take a flickering torch and investigate. Probably just rats. Or restless royal ghosts demanding better burial plots."; waluigiQuote = `Investigate the crypt?! Creepy! Dark! Dusty! Probably ghosts! Or maybe Wario hid snacks down there? Nah, ghosts.`; resultSound = 'snd_scream'; break;
+                    case "Personal Masseuse for Vampire Noble (Cold!)": punishmentText += "A wealthy, ancient vampire noble from Veilwood requires a personal masseuse for their 'eternal aches'. Strong hands required. Try not to notice the icy skin, the lack of breathing, or the pointed teeth. Tips are usually paid in 'favors'."; waluigiQuote = `Massage a VAMPIRE?! Ewww! Cold skin! Clammy! Probably wants a deep tissue neck massage! Watch out!`; resultSound = 'snd_wario_wah'; break;
+                    case "Sharpen Every Sword in Mighdural Barracks (Ouch!)": punishmentText += "The Royal Guard needs their thousands of blades sharp for... parades? Your task: sharpen every single sword, dagger, halberd, and pointy bit in the Mighdural barracks using a whetstone. Mind your fingers. It will take ages."; waluigiQuote = `Sharpen swords?! Clang! Scrape! So many sharp edges! Don't cut your fingers off! Or mine if I was helping! Which I'm not!`; break;
+                    case "Clean Castle Moat (Murky)": punishmentText += "The moat around Mighdural Citadel hasn't been cleaned in decades. It's filled with algae, lost boots, discarded weapons, and possibly Grimer's angrier cousin. Your job: dredge it. Wear waders."; waluigiQuote = `Clean the moat?! Yuck! Slimy! Smelly! Full of... moat monsters? Probably just garbage. Still gross!`; resultSound = 'snd_wario_wah'; break;
+                    case "Deliver Bad News to Angry Baron": punishmentText += "A local Baron known for his explosive temper just had his petition denied by the King. You get to deliver the rejection letter. He enjoys throwing heavy objects when displeased. Duck quickly."; waluigiQuote = `Deliver bad news?! To an ANGRY Baron?! Wah! He's gonna throw a fit! And maybe a chair! At YOU! Duck!`; break;
+                    case "Write Apology Letters for Wario": punishmentText += "Posthumously (or is he?), Wario needs apologies sent. To everyone he ever cheated, insulted, or stole from. That's... a lot of letters. Your task: write hundreds of insincere apology letters. Use your best handwriting."; waluigiQuote = `Apology letters?! For WARIO?! He'd HATE that! Wah ha ha! Okay, make 'em sound really fake!`; break;
+                    case "Chase Greased Squigs":
+                         punishmentText += "Someone (probably Wario) released greased squigs in the Mighdural market square during rush hour. Your sentence: catch them before they cause total chaos. They're fast, slippery, surprisingly bouncy, and bite.";
+                         waluigiQuote = `Chase greased SQUIGS?! WAH! Those things are impossible! Need help? I'm surprisingly fast!`;
+                         punishmentText += `<div class="join-prompt">Want Waluigi's lanky legs to help corner these pests? <div class="join-buttons"><button onclick="handleJoinChoice(true, 'Chase Greased Squigs')">Help Catch!</button><button onclick="handleJoinChoice(false, 'Chase Greased Squigs')">I'll handle it</button></div></div>`;
+                         resultSound = 'snd_wario_wah'; break;
+                    case "Guard Suspiciously Empty Chest": punishmentText += "You are assigned to solemnly guard a large, ornate, heavily locked chest in the royal treasury. It's conspicuously empty. Stand there and look intimidating. Is it a loyalty test? A prank? Or is the emptiness the point?"; waluigiQuote = `Guard an EMPTY chest?! Wah? What a waste of time! Is it a trick? Probably! Don't touch it!`; break;
+                }
+            }
+
+            // Play sound unless handled by specific logic (like free respin)
+            if (resultSound && segment.effect !== 'free_respin') {
+                 playSound(resultSound);
+            }
+
+            resultDiv.innerHTML = punishmentText; // Display expanded text
+            waluigiCommentDiv.textContent = waluigiQuote; // Display custom quote
+
+            // Enable/Disable Accept Button
+            acceptPunishmentButton.disabled = punishmentAccepted || !allowAccept;
+
+            // Clear messages after delay
+            if (scamWarningDisplay.textContent || (activeBuffDisplay.textContent && !activeBuffDisplay.textContent.includes("Permanent"))) { setTimeout(() => { scamWarningDisplay.textContent = ""; if (!activeBuff) activeBuffDisplay.textContent = ""; else if (activeBuff === 'coin_boost') { activeBuffDisplay.textContent = `Active Buff: Greasy Coin Magnet (Level ${Math.round(coinBoostMultiplier*10-9)})`; } }, 4000); }
+        }
+
+        // --- Handle Waluigi Join Choice ---
+        function handleJoinChoice(agreed, segmentLabel) { /* ... unchanged ... */
+            playSound('snd_blip'); const joinButtons = resultDiv.querySelector('.join-buttons'); if (joinButtons) { joinButtons.querySelectorAll('button').forEach(b => b.disabled = true); }
+            if (agreed) { switch(segmentLabel) { case "Clean the Miserable Statue (Tedious)": waluigiCommentDiv.textContent = "WAH HAH! Alright, let's make Waluigi shine like the star he is!"; break; case "Forced Jester Duty (Humiliating)": waluigiCommentDiv.textContent = "Okay, okay! You be the funny one, I'll be the... uh... handsome one! WAH!"; break; case "Chase Greased Squigs": waluigiCommentDiv.textContent = "Alright! You go left, I go right! Corner the slimy things! WAH!"; break; case "Organize Pirate Booty Inventory (Counting)": waluigiCommentDiv.textContent = "Okay! You count the copper, I'll count the gold! Trust me! WAH!"; break; case "Potion Taste-Tester (Side effects!)": waluigiCommentDiv.textContent = "Alright, I'll watch! Don't explode on me!"; break; default: waluigiCommentDiv.textContent = "Wah! Okay, fine, I'll tag along. But don't slow me down!"; } }
+            else { switch(segmentLabel) { case "Clean the Miserable Statue (Tedious)": waluigiCommentDiv.textContent = "Fine! Do it yourself! Probably scratch my perfect nose anyway..."; break; case "Forced Jester Duty (Humiliating)": waluigiCommentDiv.textContent = "Going solo? Okay, tough guy! Don't bomb!"; break; case "Chase Greased Squigs": waluigiCommentDiv.textContent = "You got this? Okay, fine! Don't complain when they bite you!"; break; case "Organize Pirate Booty Inventory (Counting)": waluigiCommentDiv.textContent = "Fine! Count it all yourself! Don't 'misplace' any!"; break; case "Potion Taste-Tester (Side effects!)": waluigiCommentDiv.textContent = "No witnesses? Fine! Your funeral... maybe literally!"; break; default: waluigiCommentDiv.textContent = "Your loss! Waluigi time is precious! Wah!"; } }
+        }
+
+        // --- Accept & Reset Logic ---
+        function acceptPunishment() {
+            if (!lastLandedSegment || lastLandedSegment.type === 'game_effect' || punishmentAccepted) return;
+            startMusicIfNeeded();
+            playSound('snd_jackpot'); // Or 'snd_gavel'
+            punishmentAccepted = true;
+            tapButton.disabled = true; acceptPunishmentButton.disabled = true; resetButton.disabled = true;
+            document.querySelectorAll('.buy-button').forEach(button => button.disabled = true);
+            resultDiv.innerHTML = `<strong>Fate Accepted: ${lastLandedSegment.label}!</strong><br>Your potential punishment is set. The trial will proceed... Good luck, kid.`;
+            waluigiCommentDiv.textContent = getWaluigiAcceptanceQuote(lastLandedSegment.label);
+            activeBuffDisplay.textContent = ""; scamWarningDisplay.textContent = "";
+            tapButton.textContent = "Fate Accepted"; spinCountDisplay.textContent = "Punishment Locked";
+            console.log("Punishment Accepted:", lastLandedSegment.label);
+        }
+        function resetGame() { /* ... unchanged ... */
+            if (confirm("Reset ALL progress? This includes coins, spins, buffs, and chosen punishment!")) {
+                playSound('snd_wah');
+                warioCoins = 0; currentAngle = 0; canvas.style.transform = `rotate(0deg)`; isSpinning = false;
+                tapCount = 0; clearTimeout(tapTimer); tapTimer = null; activeBuff = null; purchasedBuffs.clear();
+                tapPhaseActive = false; spinsRemaining = STARTING_SPINS; // Reset to STARTING_SPINS
+                nextTapCoinModifier = 1.0; weirdChanceModifier = 0; nextSpinBonusCoins = 0; nextSpinPenaltyCoins = 0;
+                avoidSevereNextSpin = false; forceWeirdNextSpin = false; lastLandedSegment = null; punishmentAccepted = false;
+                resultDiv.textContent = "The wheel awaits the pre-determination of your potential doom...";
+                waluigiCommentDiv.textContent = "Wah! Starting over? Fine by me! Try not to mess up this time!";
+                activeBuffDisplay.textContent = ""; scamWarningDisplay.textContent = "";
+                tapInfo.textContent = "Tap rapidly for 3 seconds to earn Wario Coins!";
+                acceptPunishmentButton.disabled = true; resetButton.disabled = false;
+                updateCoinDisplay(); updateSpinDisplay(); populateShop();
+                console.log("Game Reset");
+            }
+        }
+
+        // --- Music Handling ---
+        function startMusicIfNeeded() { /* ... unchanged ... */
+             if (!musicStarted && backgroundMusic) { backgroundMusic.volume = 0.15; backgroundMusic.play().then(() => { musicStarted = true; console.log("Background music started."); }).catch(e => { console.warn("Background music auto-play failed.", e); }); }
+        }
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', (event) => {
+            acceptPunishmentButton.addEventListener('click', acceptPunishment);
+            resetButton.addEventListener('click', resetGame);
+            tapButton.addEventListener('click', startTapPhase);
+            drawSpinner();
+            populateShop(); // Populate shop on load
+            updateCoinDisplay();
+            updateSpinDisplay(); // Set initial spin count/button state
+            waluigiCommentDiv.textContent = "Wah... This HUGE wheel looks even worse! Click the button... if you dare!";
+        });
+    </script>
+</body>
+</html>

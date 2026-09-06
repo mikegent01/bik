@@ -479,6 +479,121 @@
       "_quality": {
         "validator": "wahwire-v2"
       }
+    },
+    {
+      "id": "wahwire_the_miser_muster_roll",
+      "author": "waluigi",
+      "order": 14,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF",
+      "content": "Everyone quotes the Order of Jack at twenty thousand. Nobody reads the column. It counts levies who cannot leave a harvest, volunteers nobody pays, hired-out clients, and Legion men already counted by the Legion. He can move a few hundred. He is a good man with eleven miles and a very good poster. WAH.",
+      "likes": 214,
+      "links": [
+        {
+          "id": "jack_melvus_miser",
+          "type": "character"
+        },
+        {
+          "id": "order_of_jack",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "misers",
+        "order of jack",
+        "regal lion",
+        "audit"
+      ],
+      "reaction": "suspicion",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "waluigi",
+          "content": "And no, before anyone writes in: nobody has told him about his brother.",
+          "likes": 97
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "wahwire_the_rise_upper_villages",
+      "author": "waluigi",
+      "order": 15,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF",
+      "content": "New plate of Vellanet Rise on file, and now you can see the thing the tenure roll declines to mention. Manor chapel: Silver Flame. Upper two villages: Lunar Cycle, since before there was a manor. Twenty-five out of a hundred on the friction register. Minor Friction. Survivable. Survivable because no inquisitor has yet walked up a road he is legally entitled to walk up. WAH.",
+      "likes": 168,
+      "links": [
+        {
+          "id": "vellanet_rise",
+          "type": "location"
+        },
+        {
+          "id": "order_of_jack",
+          "type": "faction"
+        }
+      ],
+      "tags": [
+        "misers",
+        "vellanet rise",
+        "faith",
+        "silver flame",
+        "edict"
+      ],
+      "reaction": "suspicion",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "waluigi",
+          "content": "Three of his chaplains told me the same unwritten order in almost the same words. That is not a coincidence, that is a man who said it once and meant it.",
+          "likes": 88
+        }
+      ],
+      "status": "posted"
+    },
+    {
+      "id": "wahwire_dread_mansion_unsigned_order",
+      "author": "waluigi",
+      "order": 16,
+      "date": null,
+      "timestamp": "Approximately 872 BF — refiled 1040 BF",
+      "content": "Everybody wants to talk about the man with two faces. Nobody wants to talk about the order with no name on it. The line answered from inside a house where nothing answers. The operator had the tracker. He classified the liquid off a description. Then he said he never sent anyone. Read that again. They did not fake the Directorate. They faked one signature and let the rest work properly. WAH.",
+      "likes": 612,
+      "links": [
+        {
+          "id": "the_dread_mansion_incursion",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "dread mansion",
+        "dgk",
+        "liam",
+        "alice",
+        "872bf"
+      ],
+      "reaction": "alarm",
+      "comments": [
+        {
+          "id": "c1",
+          "author": "wario",
+          "content": "I was in the garden that night and I saw NOTHING. Also the sack was mine.",
+          "likes": 31
+        },
+        {
+          "id": "c2",
+          "author": "waluigi",
+          "content": "You sewed the patches on crooked and I looked like a lampshade with a rank.",
+          "likes": 508
+        },
+        {
+          "id": "c3",
+          "author": "mario",
+          "content": "...she said i came back. i have never been to that house.",
+          "likes": 1204
+        }
+      ],
+      "status": "posted"
     }
   ]
 }

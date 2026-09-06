@@ -441,7 +441,7 @@
     },
     "title": "The Kong Bug",
     "description": "Donkey Kong discovers a Kremling listening device, leading to a total breakdown of relations with King K. Rool and a threat of assassination against Funky Kong.",
-    "icon": "assets/factions/faction_assets/illustrations/remaining/dk_crew.png",
+    "icon": "assets/factions/faction_dk_crew.png",
     "category": "Political"
   },
   {
@@ -519,7 +519,7 @@
     },
     "title": "Archie's Confession",
     "description": "Archie Miser publicly confesses to the Greenhouse Inferno on Wahwire to justify his actions, drawing immediate Ire from the Mages' Guild.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Social"
   },
   {
@@ -623,7 +623,7 @@
     },
     "title": "Assassination Foiled",
     "description": "Donkey Kong intercepts the assassin Galypso at Funky's Surf Shack, preventing his brother's murder. The Kremling retreats, but the act of aggression ends the cold war.",
-    "icon": "assets/factions/faction_assets/illustrations/remaining/dk_crew.png",
+    "icon": "assets/factions/faction_dk_crew.png",
     "category": "Military"
   },
   {
@@ -1056,7 +1056,7 @@
     },
     "title": "The Heir of Rot",
     "description": "Hjumpik met the 'Orange Heir' of Lady Aurelian Corvinarus at a grotesque banquet filled with rotting food and living carpets. The Heir denied being the Master, pointing instead to a 'Reveal' planned for later.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1264,7 +1264,7 @@
     },
     "title": "Archie's Paperwork Bluff",
     "description": "In Shadeward Manor, Archie disguised himself as a vampire bureaucrat to rescue Green T from a locked room, bluffing his way past a guard by complaining about paperwork.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1277,7 +1277,7 @@
     },
     "title": "The Satyr Eviction",
     "description": "Hjumpik and Waluigi cleared the Guest Wing of unruly Satyrs by luring them with beer, pushing them off balconies, and directing them to a hag's hut. Lady Aurelian was pleased but demanded more service.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1303,7 +1303,7 @@
     },
     "title": "The Satyr Problem",
     "description": "Lady Aurelian tasked Hjumpik with removing drunken Satyrs from her party. Hjumpik discovered the guests were refusing to leave, leading to a tense standoff.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1420,7 +1420,7 @@
     },
     "title": "Archie Meets Agent L (Luigi)",
     "description": "Archie is introduced to Agent L by the Mages Guild to act as a cleanup crew for the area.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Social"
   },
   {
@@ -1433,7 +1433,7 @@
     },
     "title": "Contract Discussion",
     "description": "Archie and the Mages Guild negotiate terms. Archie is skeptical of a fast-tracked honorary fellowship badge detecting faint new magic on it.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Social"
   },
   {
@@ -1459,7 +1459,7 @@
     },
     "title": "Recruitment Attempt",
     "description": "Archie offers Usk and Orvinder to join; both decline, agreeing with the overall goals but possessing their own plans.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Social"
   },
   {
@@ -1498,7 +1498,7 @@
     },
     "title": "Return to Mages Guild",
     "description": "Archie and Luigi head back to deposit the ghosts into jars. Luigi expresses skepticism over ghost research for immortality.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Social"
   },
   {
@@ -1537,7 +1537,7 @@
     },
     "title": "The Delicate Fairy",
     "description": "The party meets Aurelian Corvinarus in the overgrown Master Bedroom. She plays the role of a delicate host, asking for the Satyrs to be removed.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Social"
   },
   {
@@ -1576,7 +1576,7 @@
     },
     "title": "Luigi's Entrance",
     "description": "A bump is heard at a nearby door. It opens, revealing Luigi to the group.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Social"
   },
   {
@@ -1693,7 +1693,7 @@
     },
     "title": "Remi Follows Guards",
     "description": "Remi runs out the front door, is intercepted by guards, and complies. Bowser, Dan, and Salam scatter through other exits.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1719,7 +1719,7 @@
     },
     "title": "Questioning Dan",
     "description": "Markop questions Dan's authenticity. Dan admits he doesn't know how to prove he's real, raising deep suspicions.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1732,7 +1732,7 @@
     },
     "title": "Kyrn Offers Drink",
     "description": "Kyrn approaches captured Remi, revealing the Oracle is dead. He claims her friends abandoned her and attempts to manipulate her loyalty.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Social"
   },
   {
@@ -1823,7 +1823,7 @@
     },
     "title": "Toadsmith Guard Offers Lodging (Flashback)",
     "description": "A Mages Guild guard offers safe passage and beds to Toadsmith Poultice and Embercap. The toads get cold feet and leave.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1862,7 +1862,7 @@
     },
     "title": "Bryan Recruits Purple T (Flashback)",
     "description": "Bryan seeks out Purple T, recognizing his theft skills, and proposes an alliance to target Archie.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1888,7 +1888,7 @@
     },
     "title": "Recruiting Dan & Mage (Flashback)",
     "description": "Purple T and Bryan wake Dan. Bryan introduces himself as a servant of the toad god and coerces Dan and another mage to join a revenge mission against Archie.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1927,7 +1927,7 @@
     },
     "title": "Missing Toad Quest",
     "description": "A guard approaches Archie with a cryptic message regarding the nightborn house decree and offers a quest to locate a missing toad.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -1966,7 +1966,7 @@
     },
     "title": "Byscilla's Discovery",
     "description": "Archie and Bones use a stolen water-powered fan to cool themselves. Byscilla Danos discovers them, confiscates the fan, and drags Bones away after confronting Archie.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Faction Event"
   },
   {
@@ -1992,7 +1992,7 @@
     },
     "title": "Ration Break with Thornbury",
     "description": "Archie and Luigi take a ration break. They converse with a Mages Guild guard named Thornbury about checking the remaining rooms.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -2044,7 +2044,7 @@
     },
     "title": "Spy in Sitting Room",
     "description": "Archie encounters the earlier spy in a ransacked sitting room. The spy evades questions about the ghosts, claiming he is busy looking for a toad.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -2148,7 +2148,7 @@
     },
     "title": "Agent L & Guild Encrypted Talk",
     "description": "Archie eavesdrops on Luigi and a Guild member discussing the destabilizing planar fracture. They agree to extract the ghosts even if it destabilizes the area and potentially kills Archie. The rope snaps, alerting them to Archie's presence.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Recent Event"
   },
   {
@@ -2282,7 +2282,7 @@
     },
     "title": "Hargram's Proposition",
     "description": "Tensions flare between Bones, Archie, and Lucky T, prompting Lucky T to leave. Shortly after, Hargram Fidger of the local Legion chapel approaches to offer Archie an alliance. Archie refuses, citing his recovery, while Thornbury warns of planar instability and incoming Guild reinforcements.",
-    "icon": "assets/icons/icon_social.png",
+    "icon": "assets/icons/misc/icon_social.png",
     "category": "Social"
   },
   {

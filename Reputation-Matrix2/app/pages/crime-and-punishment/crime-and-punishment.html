@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crime and Punishment | Waluipedia</title>
+<link rel="stylesheet" href="../../styles/global.css">
+<link rel="stylesheet" href="../../styles/layout.css">
+<link rel="stylesheet" href="../../styles/components.css">
+<link rel="stylesheet" href="crime-and-punishment.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Native Walupedia Ecosystem Header -->
+<div style="background: linear-gradient(90deg, #1f1245, #0f0a21); border-bottom: 2px solid #8a4bff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; font-family: 'Roboto Mono', monospace; z-index: 9999; position: relative; flex-wrap: wrap; gap: 10px;">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <span style="font-size: 20px;">&#9878;&#65039;</span>
+    <div>
+      <b style="color: #ffd700; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; font-family: 'Orbitron', sans-serif;">Crime and Punishment</b>
+      <div style="color: #a78bfa; font-size: 11px;">Sentencing Reel &amp; Consequence Table &middot; Part of the Unified Waluigi Terminal Ecosystem</div>
+    </div>
+  </div>
+  <div style="display: flex; gap: 10px;">
+    <button onclick="location.href='../../../../index.html#/laws'" style="background: #8a4bff; border: 1px solid #c084fc; color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: bold; font-family: 'Roboto Mono', monospace;">&#9878;&#65039; Legal Systems</button>
+    <button onclick="location.href='../../../../index.html'" style="background: transparent; border: 1px solid #4b5563; color: #9ca3af; padding: 6px 14px; border-radius: 6px; font-size: 12px; cursor: pointer; font-family: 'Roboto Mono', monospace;">&#127968; Walupedia Home</button>
+  </div>
+</div>
+
+<div id="cap-root">
+
+  <h1>Crime and Punishment</h1>
+  <div class="cap-sub">
+    "The court does two things to you. It tells you what you have to do, and then
+    the world tells you what it cost. Waluigi has been on the receiving end of both."
+  </div>
+
+  <!-- phases -->
+  <div class="cap-phases">
+    <div class="cap-phase" id="capPhase1">
+      <div class="n">Phase One</div>
+      <div class="t">&#9878;&#65039; The Sentence</div>
+    </div>
+    <div class="cap-phase" id="capPhase2">
+      <div class="n">Phase Two</div>
+      <div class="t">&#129701; The Consequence</div>
+    </div>
+    <div class="cap-phase" id="capPhase3">
+      <div class="n">Phase Three</div>
+      <div class="t">&#128220; Filed</div>
+    </div>
+  </div>
+
+  <!-- reel -->
+  <div class="cap-reel-wrap">
+    <div class="cap-reel" id="capReel">
+      <div class="cap-window"></div>
+      <div class="cap-strip" id="capReelStrip"></div>
+    </div>
+
+    <div class="cap-controls">
+      <button class="cap-btn" id="capSpinBtn">Pass Sentence</button>
+      <button class="cap-btn r" id="capConsBtn" disabled>Roll the Consequence</button>
+      <button class="cap-btn ghost" id="capRerollBtn" disabled>Use Weighted Die</button>
+      <div class="cap-meta">
+        Spins remaining <b id="capSpins">5</b> &middot; Wario Coins <b id="capCoins">0</b> &#129433;
+      </div>
+    </div>
+
+    <div class="cap-charge"><i id="capChargeFill"></i></div>
+    <div class="cap-controls">
+      <button class="cap-btn ghost" id="capTapBtn">Tap to Charge</button>
+      <button class="cap-btn g" id="capAcceptBtn" disabled>Accept This Fate</button>
+      <button class="cap-btn r" id="capResetBtn">Reset Docket</button>
+    </div>
+  </div>
+
+  <!-- verdict -->
+  <div class="cap-verdict" id="capVerdict">
+    <div class="vk">The court has decided</div>
+    <div class="vt" id="capVerdictTitle"></div>
+    <div class="cap-tags" id="capVerdictTags"></div>
+    <div class="cap-quote" id="capVerdictQuote"></div>
+  </div>
+
+  <!-- consequence -->
+  <div class="cap-cons" id="capConsequence">
+    <div class="roll" id="capRoll"></div>
+    <div class="cat" id="capCat"></div>
+    <div class="inj" id="capInj"></div>
+    <div class="desc" id="capDesc"></div>
+    <div class="cure" id="capCure"></div>
+  </div>
+
+  <!-- shop -->
+  <div class="cap-shop">
+    <h2>&#129433; Wario's Leftovers</h2>
+    <div class="blurb">
+      Tap to earn coins, then spend them on merchandise of famously inconsistent
+      quality. At least one item on this shelf is a straightforward swindle. That
+      is not a bug; it is who you are buying from.
+    </div>
+    <div class="cap-grid" id="capShopGrid"></div>
+  </div>
+
+  <div class="cap-log" id="capLog"></div>
+
+  <div class="cap-note">
+    <b>On this docket.</b> The sentencing reel carries 89 punishments ported from
+    the Wheel of Regret prototype. The consequence table is the archive's own
+    d100 injury table, read live from <code>injuries.json</code> &mdash; a higher
+    severity biases the roll upward, but nothing is guaranteed in either
+    direction. Two place names on the reel, <b>Lockeweald</b> and <b>Allelon</b>,
+    do not appear anywhere else in the archive and are flagged as unverified
+    rather than quietly rewritten.
+  </div>
+
+</div>
+
+<script src="crime-and-punishment.js"></script>
+</body>
+</html>

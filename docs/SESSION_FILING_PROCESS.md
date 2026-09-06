@@ -415,9 +415,19 @@ In this order:
    one-per-event** — see [`RNN_BROADCAST_GUIDE.md`](RNN_BROADCAST_GUIDE.md).
    Ten pending events, or a run of events too significant to hold, buys an
    episode. One event does not.
-4. **Any other artifact** — images, standalone pages, map entries, book
+4. **Update dossier assessments where opinion moved.** If the session changed
+   what a faction believes about an operator — a warrant issued or dropped, a
+   defection, a betrayal, a pardon — rewrite that faction's line in
+   `FACTION_ASSESSMENTS`. Both copies (`index.html` and
+   `Reputation-Matrix2/data/support/assessments.js`) must match, and the
+   reputation engine reads the phrasing, so kill-order wording caps standing at
+   −20. Craft rules:
+   [`STORY_FORMAT_GUIDE.md` §9E](STORY_FORMAT_GUIDE.md#9e-dossier-assessments--update-what-the-factions-say).
+   Verify with `python3 tools/check-assessments.py`. Most sessions move nothing
+   — leave those alone.
+5. **Any other artifact** — images, standalone pages, map entries, book
    entries. All downstream, all cheap to redo.
-5. **Write the run report.** Format:
+6. **Write the run report.** Format:
    [`RUN_REPORT_FORMAT.md`](RUN_REPORT_FORMAT.md). Every JSON touched, every
    event filed, every XP award, in one block at the end of the run.
 
@@ -438,6 +448,7 @@ In this order:
 8  INDEX       → mainPage.latestUpdate + SITE_UPDATES (feed auto from events.json)
 9  SYSTEMS     → CROSS_SYSTEM_UPDATES.md pass: Pond Patrol, Regal Diet, maps,
                  currencies, WAHwire, books, songs, Bros, shop logistics
+                 dossier assessments if any faction's opinion moved (both copies)
 10 ARTIFACTS   → pending-news-articles.json → broadcast if owed → run report
 
 The event is written last. The paper it mentions is filed right after.

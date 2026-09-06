@@ -5485,5 +5485,96 @@
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-09-02T02:35:18+00:00"
     }
+  },
+  {
+    "id": "library_reclamation",
+    "name": "The Reclamation of the Library",
+    "date": "1 Aethel, 922 BF (Feyward clock)",
+    "location": "The Overgrown Library, The Overgrown Manor",
+    "type": "Room Clearance / Opportunistic Ambush",
+    "result": "Victory - shambling mound destroyed; library retaken and immediately left unheld",
+    "belligerents": {
+      "attackers": {
+        "name": "Hjumpik's detachment",
+        "factionId": "disaster_inc",
+        "commander": "Hjumpik"
+      },
+      "defenders": {
+        "name": "Shambling mound (book-eater)",
+        "factionId": "unaligned",
+        "commander": "None"
+      }
+    },
+    "casualties": {
+      "attackers": "None",
+      "defenders": "Shambling mound destroyed; part of the collection eaten and unrecoverable"
+    },
+    "summary": "Hjumpik saw a shambling mound eating the library's books, abandoned the standing order to go upstairs, and took the room back. The creature had already been fought by the manor's fey residents before the party arrived. It was killed by a goblin staff, a warhammer and a magic missile in that order.",
+    "description": "The party approached along the bare joists in single file - the Veteran on point by his own offer, then Waluigi, then Hjumpik, with Toad Lee third. The stealth held; the mound did not turn, because it was reading. Hjumpik's first swing missed a stationary distracted target and his second took the shoulder off. Manor goblins arrived and stabbed it repeatedly. Waluigi finished it with a magic missile that detonated the remaining mass.\n\nThe archive records this as overkill. The creature was most of the way dead when the engagement began, a point Waluigi raised in the corridor ninety minutes later and which became the session's central argument. Toad Lee was present for the fight and, immediately afterward, could not say what had just been said to him - the third recorded instance of lost time.",
+    "aftermath": "The library was retaken and then left without a guard, making the reclamation a claim rather than a holding. Hjumpik recovered the mound's sharpened hardwood as a sword and spent a yew leaf as a component. The tree librarian, rooted at the west wall, did not intervene and did not comment.",
+    "relatedArticles": [
+      "hjumpik",
+      "waluigi",
+      "toad_lee",
+      "the_veteran_fairy",
+      "overgrown_library",
+      "feyward_library_reclamation_and_the_kitchen"
+    ],
+    "reputationChanges": {
+      "hjumpik": {
+        "disaster_inc": 10
+      }
+    },
+    "effects": {
+      "disaster_inc": 5
+    },
+    "reputationNotes": {
+      "hjumpik": "Broke from a planned objective to defend a room for its own sake - the first time anyone in the manor has done so."
+    }
+  },
+  {
+    "id": "the_bathroom_door_impostor",
+    "name": "The Bathroom Door",
+    "date": "2 Aethel, 922 BF (Feyward clock)",
+    "location": "An upstairs bathroom, The Overgrown Manor",
+    "type": "Unmasking / Single-Exchange Kill",
+    "result": "Victory - plant creature destroyed in one exchange",
+    "belligerents": {
+      "attackers": {
+        "name": "Hjumpik's detachment",
+        "factionId": "disaster_inc",
+        "commander": "Hjumpik"
+      },
+      "defenders": {
+        "name": "Plant creature posing as the lady of the manor",
+        "factionId": "unaligned",
+        "commander": "None"
+      }
+    },
+    "casualties": {
+      "attackers": "None",
+      "defenders": "Destroyed - reduced to ash where it stood"
+    },
+    "summary": "A house guard spent between fifteen and twenty minutes guarding what he believed was the lady of the manor, behind a bathroom door, because she was hiding her face. Toad Lee caught the discrepancy in the timings. Hjumpik knocked and opened the door. Waluigi destroyed what came out with a single spark of fire before it cleared the frame.",
+    "description": "The guard's account contained the error that ended it: he had been at the door fifteen minutes by Toad Lee's count and twenty by his own, and the lady he was protecting had never shown her face. Hjumpik knocked once and opened the door.\n\nWaluigi did not deliberate. A small precise spark went into the centre of the mass where a heart would be, and the creature turned to ash standing up. The engagement lasted one exchange. This is the second creature in the manor to have worn the Lady's identity, after the plant unmasked in the parlour.",
+    "aftermath": "A violet fungus was recovered from the toilet during the subsequent search - alive, apparently sapient, and untranslated. Hjumpik attempted to interview it, then consulted Waluipedia as a field reference. The fungus remains uncatalogued.",
+    "relatedArticles": [
+      "hjumpik",
+      "waluigi",
+      "toad_lee",
+      "overgrown_manor",
+      "feyward_library_reclamation_and_the_kitchen"
+    ],
+    "reputationChanges": {
+      "waluigi": {
+        "disaster_inc": 10
+      }
+    },
+    "effects": {
+      "disaster_inc": 5
+    },
+    "reputationNotes": {
+      "waluigi": "Destroyed a second impostor in a single exchange, without hesitation and without asking it a question first."
+    }
   }
 ]

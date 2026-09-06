@@ -1,0 +1,1504 @@
+{
+  "name": "Azure (Feywild Theater State)",
+  "type": "npc",
+  "img": "systems/dnd5e/tokens/fiend/Rakshasa.webp",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 24,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 14,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 18,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 16,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 8,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 20,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 16,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 110,
+        "max": 110,
+        "formula": "13d8 + 52",
+        "temp": null,
+        "tempmax": null
+      },
+      "movement": {
+        "walk": "40",
+        "units": "ft",
+        "hover": false,
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 60
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "price": {
+        "value": null,
+        "denomination": "gp"
+      },
+      "spell": {
+        "level": 0
+      }
+    },
+    "details": {
+      "alignment": "chaotic good",
+      "type": {
+        "value": "fey",
+        "subtype": "rakasha spirit-walker (theater-touched)"
+      },
+      "cr": 7,
+      "biography": {
+        "value": "<h1>Azure — The Rakasha Who Watched a Play and Never Came Back</h1><p>Azure is a Rakasha spirit-walker, which under normal circumstances means she is a precise, perceptive, spiritually disciplined hunter and scout whose tiger heritage manifests as supernatural awareness and physical capability beyond mortal bounds. Chief Thornpaw considers her one of his finest operatives. Her intelligence-gathering during the Raventree Manor crisis has been invaluable. She moves through hostile environments with the focused calm of someone who has trained for years to eliminate hesitation from her responses.</p><p>Then she watched a play in the Overgrown Library.</p><p>The exact nature of the theatrical performance she witnessed is unclear. The Overgrown Library in the Feywild reflection of the manor contains texts and performances from courts and eras that don't correspond to any known historical record, and the theatrical tradition of certain archfey incorporates enchantment magic directly into performance—not as background effect but as structural element, woven into the words and movements so completely that audiences don't experience the art so much as they are temporarily REMADE by it. The performers intend their work to linger. They succeed.</p><p>Azure has been in what the party has taken to calling \"theater state\" since watching the performance, a condition that manifests as follows: she speaks exclusively in rhyming couplets, she treats every situation as a theatrical scene requiring proper dramatic staging, her already considerable physical strength has been amplified to levels that make Hjumpik uncomfortable when she grabs his arm, and she manifests enormous blue ghost-hands at emotionally appropriate moments without seeming entirely aware that she's doing it.</p><p>The ghost-hands are the most alarming development. Rakasha spirit-walkers can access spiritual dimensions and channel spiritual energy in combat—this is known and expected. What is neither known nor expected is the scale of what Azure is accessing in theater state. When Toad Lee fell out a window during the servant's quarters skirmish, Azure's hand turned blue, a massive mystic ghost-hand the size of a cart reached out from nowhere, and caught Toad Lee mid-fall with casual precision before retracting. Azure didn't pause. She didn't seem to notice what she'd done. She stepped over an unconscious goblin—the squish sound has haunted Waluigi since—picked up Remi's mechanical dog, and walked out humming something that rhymed \"catastrophe\" with \"naturally.\"</p><p>The theater hypnosis has not impaired her information processing. This is both reassuring and deeply unsettling. Azure still notices everything she would normally notice—she confirmed the party's temporal displacement theory through observation that would require full cognitive function—but she filters everything through theatrical framing, delivering critical intelligence as sung verses with perfect rhyme scheme and impeccable meter. Her timing is excellent. Her delivery is committed. Waluigi has described receiving tactical intelligence in rhyming couplets as \"the worst possible way to learn anything important\" and means it sincerely.</p><p>Waluigi is slightly terrified of Azure. He acknowledges this openly because pretending otherwise would require lying to himself, and Waluigi has too much self-awareness for productive self-deception. The terrified is the correct response. Azure in theater state is an extremely powerful being operating without conventional inhibition, with dramatically amplified physical strength and access to spiritual energies at a scale that suggests the theater hypnosis isn't impairing her spirit-walker capabilities so much as removing the discipline that normally keeps those capabilities bounded. She's not dangerous to allies—she's affectionate, demonstrative, and very committed to the dramatic staging of their shared adventure. She's incredibly dangerous to enemies who underestimate the heavily intoxicated theater kid.</p><p>The skipping is particularly disconcerting. Spirit-walkers don't skip. Azure skips now. She skipped through the manor declaring \"sleepover, sleepover, we're having a sleepover!\" with the enthusiasm of someone who has never experienced fear and the physical capability of someone who could put a fist through a stone wall without slowing down.</p><p>Snapping Azure out of theater state requires either the specific counter-enchantment for whatever fey performance she was exposed to, exposure to an equally powerful emotional stimulus that creates a new theatrical frame, or waiting for the enchantment to dissipate on its own—a timeline that nobody can estimate because the performance's author is unknown and fey enchantment longevity is notoriously variable. She might be back to normal tomorrow. She might be delivering rhyming mission briefs for the next three months. The party has decided to treat this as a feature rather than a bug and move on with their lives.</p>",
+        "public": "A Rakasha woman in an advanced state of theatrical enchantment, skipping through corridors and delivering critical intelligence in rhyming couplets. Her ghost-hands are enormous and her grip on your arm is non-negotiable. Waluigi is scared of her. You should be too."
+      },
+      "race": "Rakasha (Spirit-Walker)",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "habitat": {
+        "value": [],
+        "custom": ""
+      },
+      "treasure": {
+        "value": []
+      }
+    },
+    "traits": {
+      "size": "med",
+      "languages": {
+        "value": [
+          "common",
+          "sylvan",
+          "rakasha",
+          "primordial"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "ci": {
+        "value": [
+          "frightened"
+        ],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [
+          "bludgeoning",
+          "piercing",
+          "slashing"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": false
+    },
+    "skills": {
+      "ath": {
+        "value": 2,
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "value": 2,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "value": 1,
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "source": {
+      "custom": "Custom NPC",
+      "revision": 1,
+      "rules": "2024"
+    },
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0,
+      "IETzTwoDi4ElBJAV": 0
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0
+      },
+      "spell2": {
+        "value": 0
+      },
+      "spell3": {
+        "value": 0
+      },
+      "spell4": {
+        "value": 0
+      },
+      "spell5": {
+        "value": 0
+      },
+      "spell6": {
+        "value": 0
+      },
+      "spell7": {
+        "value": 0
+      },
+      "spell8": {
+        "value": 0
+      },
+      "spell9": {
+        "value": 0
+      },
+      "pact": {
+        "value": 0
+      }
+    },
+    "resources": {
+      "legact": {
+        "max": 0,
+        "spent": 0
+      },
+      "legres": {
+        "max": 0,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    }
+  },
+  "prototypeToken": {
+    "name": "Azure (Feywild Theater State)",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 0.5,
+    "height": 0.5,
+    "depth": 0.5,
+    "texture": {
+      "src": "systems/dnd5e/tokens/fiend/Rakshasa.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "name": "Spirit-Walker Claws",
+      "type": "weapon",
+      "img": "icons/creatures/abilities/claw-slash-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Azure's natural claws, enhanced by spirit-walker training to channel spiritual energy into physical strikes. Under normal circumstances these claws deal reliable damage against both physical and incorporeal targets, the spirit energy allowing her to affect creatures that conventional weapons can't touch. In theater state, the claws deliver strikes with the kind of theatrical commitment that makes every hit feel like a dramatically important moment rather than a tactical exchange—she narrates her own combat, her couplets timing perfectly with her attacks in a way that is genuinely impressive and deeply infuriating to opponents.</p><p>The claws bypass resistance to nonmagical bludgeoning, piercing, and slashing damage due to their spirit-walker enhancement. In theater state, any creature struck by the claws must succeed on a DC 15 Charisma saving throw or be caught up in the theatrical framing of the moment, having disadvantage on their next attack roll as Azure's performance draws their attention toward the drama rather than the danger.</p>",
+          "chat": "<p>The claws strike and she declares the moment—something about fate and weight—in perfect iambic pentameter while her opponent bleeds.</p>"
+        },
+        "unidentified": {
+          "name": "Tiger Claws",
+          "description": "<p>Natural claws enhanced with spiritual energy, striking with both physical and supernatural force. Their wielder appears to be commenting on each strike as it lands.</p>"
+        },
+        "identified": false,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 2,
+            "denomination": 6,
+            "bonus": "7",
+            "types": [
+              "slashing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "properties": [],
+        "equipped": true,
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "range": {
+          "units": "ft"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "QWoYvwwPlgQilSUN"
+    },
+    {
+      "name": "Multiattack",
+      "type": "feat",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Azure makes three claw attacks, or two claw attacks and one Ghost Hand manifestation attack. The attacks are accompanied by an ongoing rhyming commentary that she delivers between strikes with the commitment of a performer who has memorized her lines and refuses to let violence interrupt the show.</p>",
+          "chat": "<p>Three strikes with rhyming narration between each one. The dramatic timing is perfect. This is the worst possible thing to face in combat.</p>"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "img": null,
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "persistSourceMigration": true
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "dmQU1EAJvXbPORWS"
+    },
+    {
+      "name": "Ghost Hand (Massive)",
+      "type": "weapon",
+      "img": "icons/magic/control/energy-stream-link-large-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Azure's most alarming capability in theater state: the manifestation of enormous blue spiritual hands that extend from her physical location to reach, grab, lift, or strike targets up to 60 feet away. The hands are approximately the size of a cart wheel, translucent blue, and operated with the casual precision of someone using their actual hands—Azure seems only peripherally aware that she's manifesting them, treating the ghost hands as natural extensions of her intention rather than special abilities.</p><p>As an action, Azure can manifest a Ghost Hand to perform one of the following:</p><p><strong>Catch:</strong> Azure automatically succeeds on any attempt to catch a falling creature within 60 feet, no roll required. The caught creature lands safely in a location of Azure's choice within 10 feet of her position. This use is triggered as a reaction when she sees a creature fall.</p><p><strong>Grab:</strong> Azure makes a melee attack against a creature within 60 feet (attack bonus +10). On a hit, the creature is grappled (escape DC 20). While grappled, the creature is restrained. Azure can maintain this grapple without using her action on subsequent turns, as the Ghost Hand holds independently.</p><p><strong>Strike:</strong> Azure makes a ranged melee attack against a creature within 60 feet (attack bonus +10), dealing 3d10 + 7 force damage on a hit. The sheer size of the impact requires the target to succeed on a DC 18 Strength saving throw or be pushed 20 feet away from Azure and knocked prone.</p>",
+          "chat": "<p>A hand the size of a cart wheel materializes from nowhere, blue and translucent, reaching across impossible distance with casual certainty. Azure is already humming something about hands of fate.</p>"
+        },
+        "unidentified": {
+          "name": "Massive Blue Spectral Hand",
+          "description": "<p>An enormous translucent blue hand that manifests to reach, grab, or strike at distances that the summoner's physical arms could never achieve. The summoner appears only marginally aware that this is happening.</p>"
+        },
+        "identified": false,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 3,
+            "denomination": 10,
+            "bonus": "7",
+            "types": [
+              "force"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": 60,
+          "units": "ft"
+        },
+        "properties": [],
+        "equipped": true,
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Pyl4rrgDpgjMJY0Z"
+    },
+    {
+      "name": "Theater Hypnosis (Condition)",
+      "type": "feat",
+      "img": "icons/magic/perception/eye-ringed-glow-angry-large-teal.webp",
+      "system": {
+        "description": {
+          "value": "<p>Azure is currently operating under the influence of a powerful fey theatrical enchantment acquired by watching a performance in the Overgrown Library. The enchantment manifests in the following ways that affect her statblock and roleplay:</p><p><strong>Rhyming Compulsion:</strong> All of Azure's spoken communication is delivered in rhyming couplets. She cannot communicate in prose regardless of urgency. Critical information is delivered in verse with perfect meter. This has no mechanical disadvantage—Azure's intelligence is unimpaired—but creates significant communication delays when she needs to find a rhyme for technical terms.</p><p><strong>Theatrical Framing:</strong> Azure perceives all situations as scenes in an ongoing dramatic performance. She stages herself, her allies, and her environment with the attention of a director. This grants her advantage on Charisma (Performance) checks and disadvantage on Wisdom (Perception) checks when a dramatic opportunity would draw her attention away from tactical observation.</p><p><strong>Amplified Strength:</strong> The enchantment has temporarily boosted Azure's Strength to 24, reflecting the theatrical tradition that performers in certain fey productions gain physical capability proportional to their dramatic investment. This boost lasts for the duration of the enchantment.</p><p><strong>Uninhibited Spirit Access:</strong> Azure's Ghost Hand capability, normally bounded by spirit-walker discipline, is currently operating without conventional limitations. She manifests enormous spectral hands without conscious effort, at scales beyond what her training would normally allow, occasionally without noticing she's done it until she hears the squish.</p>",
+          "chat": "<p>She speaks in rhyme, she stages every moment, and the ghost hands appear whether she's paying attention or not. The Feywild has done something to her that will take time to undo, assuming it can be undone at all.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "nCa0OxpnGpJkN2WD"
+    },
+    {
+      "name": "Spirit Walker's Perception",
+      "type": "feat",
+      "img": "icons/magic/perception/orb-eye-scrying.webp",
+      "system": {
+        "description": {
+          "value": "<p>Azure's spirit-walker training allows her to perceive spiritual dimensions overlaid on physical reality—seeing echoes of past events imprinted on locations, sensing the emotional residue left by strong feelings in a space, and detecting creatures that exist partially in spiritual or ethereal states. This perception is unimpaired by the theater enchantment, though she delivers its findings in couplets.</p><p>She can spend 1 minute in a location to receive impressions of significant events that occurred there within the past week, delivered as emotional and sensory fragments rather than precise visual replays. She can detect invisible or ethereal creatures within 30 feet automatically. And she can sense the presence of active enchantments or spiritual influence within 60 feet, identifying their general nature (but not specific mechanics) through spiritual resonance.</p><p>It was this perception that allowed Azure to identify the party's temporal displacement. She sensed the wrongness of the timestamps on fresh ink and the dissonance between the spiritual echoes of recent events and the physical evidence of their timing. She delivered this information in two rhyming couplets that Waluigi described as \"the most annoying accurate thing anyone has ever said to me.\"</p>",
+          "chat": "<p>She sees layers that other people miss, and then she tells you what she saw in verse form while skipping. Information has never arrived this dramatically before.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "FeCK67wB9KWCMkxy"
+    },
+    {
+      "name": "Temporal Displacement Confirmation",
+      "type": "feat",
+      "img": "icons/magic/time/clock-spinning-gold-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>Azure has confirmed through spirit-walker perception combined with theatrical observation that the party is displaced in time—they are in a period that predates their own origin, existing in a moment that hasn't happened yet from their frame of reference. She delivered this confirmation in song: 'The dates don't match, the ink is wet / We're in a time we haven't happened yet!'</p><p>The confirmation has mechanical implications. The party exists in a temporal location where actions they take may or may not align with the historical record they come from. Causing events that should already have occurred might be harmless. Preventing events that should have occurred might be catastrophic. And events that the historical record contains no memory of might be events that the party successfully erases through actions they take while displaced.</p><p>Azure is the only party member who has explicitly confirmed the displacement through supernatural perception rather than inference. She can attempt to perceive additional temporal information about their location through 10 minutes of focused spirit-walking. However, doing so while under theater enchantment means the information arrives as an improvised performance piece of uncertain length and metered complexity.</p>",
+          "chat": "<p>'The dates don't match, the ink is wet / We're in a time we haven't happened yet!' Waluigi is writing this down. He is not happy about any of it.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "BSjGhFMGS1qf5gKd"
+    },
+    {
+      "name": "Theatrical Strength (Unresisted Grab)",
+      "type": "feat",
+      "img": "icons/skills/melee/hand-grip-sword-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Azure's theater-state Strength of 24 makes her grapples and carries essentially irresistible to most mortal creatures. When she grabs an ally or neutral creature to move them, that creature cannot escape the grab through conventional Strength or Dexterity checks unless they match or exceed her Strength of 24—a threshold that eliminates most party members as viable resisters. Hjumpik, a seasoned warrior, could not resist her grip when she grabbed his arm. Toad Lee could not stop her when she decided to skip through the hall with both of them in tow.</p><p>This is not hostile—Azure doesn't use this ability aggressively against allies. She uses it affectionately, enthusiastically, and without any awareness of how alarming it is to be physically conveyed through a manor by a tiger-woman who is singing about adventure. Allies grabbed by Azure in theater state can call for her to release them (DC 12 Charisma check to request politely in a way that doesn't disrupt her theatrical framing) or simply be carried to wherever the scene requires them to be.</p>",
+          "chat": "<p>She grabs your arm with the grip of someone who could pick up a horse, and then skips. You skip with her. You don't have a choice.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "NwdQOEyKMWf1TRoi"
+    },
+    {
+      "name": "Passive Squish",
+      "type": "feat",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Azure in theater state does not consistently track where she is stepping in relation to objects or creatures at floor level. This is not malice—she's focused on the dramatic staging of the scene happening at eye level—but the result is that small creatures, objects, and unconscious enemies in her path may be stepped on without Azure noticing.</p><p>When Azure moves through an area containing prone, unconscious, or very small creatures, there is a chance she steps on them. The DM rolls a d6 at the start of each of Azure's turns when such creatures are in her path. On a 1-2, she steps on one of them. The affected creature takes 2d6 + 7 bludgeoning damage (Dexterity DC 18 to avoid if the creature is conscious and can react). Azure continues walking and singing, unaware. The squish sound, by all accounts, is distinctive and haunting.</p><p>This ability has a documented occurrence count of at least one: the goblin guard during the servant's quarters skirmish. Waluigi has written \"DO NOT BE ON THE FLOOR NEAR AZURE\" in his notes in capital letters and underlined it twice.</p>",
+          "chat": "<p>She walks through the room and everyone at eye level is fine. Everything at ankle level is less fine. The squish sound has achieved legendary status in Waluigi's trauma index.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "Ks20uvZfKfduggbp"
+    },
+    {
+      "name": "Ghost Hand (Catch, Reaction)",
+      "type": "feat",
+      "img": "icons/magic/control/energy-stream-link-large-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>When Azure sees a creature fall within 60 feet of her, she can use her reaction to manifest a Ghost Hand that catches the creature. This requires no attack roll and no saving throw—the hand simply catches the falling creature and places them safely in an unoccupied space within 10 feet of Azure's position. The reaction is automatic and appears to not require Azure's conscious direction; the Ghost Hand manifests when the theatrical situation requires it (someone falling is dramatically unacceptable) before Azure has consciously processed the event.</p><p>This is how Toad Lee survived falling from the window in the servant's quarters. The fall happened. The ghost hand manifested. Toad Lee was caught. Azure continued her skipping and singing, the enormous blue spectral hand having done its work and retracted without requiring more than peripheral awareness from its source.</p>",
+          "chat": "<p>He falls. The hand appears. He doesn't fall anymore. Azure is already three steps ahead, humming about gravity being rude.</p>"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "reaction",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "img": null,
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            }
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "persistSourceMigration": true
+        }
+      },
+      "ownership": {
+        "default": 0
+      },
+      "_id": "B8b5k4E3Qqjn5z77"
+    },
+    {
+      "name": "Waluigi Threat Assessment",
+      "type": "feat",
+      "img": "icons/skills/social/symbol-pyramid-eye.webp",
+      "system": {
+        "description": {
+          "value": "<p>Waluigi is slightly terrified of Azure. He has documented this openly in his notes and considers the terror reasonable given the evidence. This assessment is worth tracking as a mechanical element because Waluigi's fear responses are typically calibrated to actual threat levels, and Waluigi has survived things that should have killed him through a combination of paranoia and accurate assessment of danger.</p><p>The fact that Waluigi—who has survived Iron Legion raids, vampire dinner parties, and dimensional instability with relative composure—describes Azure as slightly terrifying suggests that the enchanted Rakasha registers in his internal threat calculator at levels that demand emotional acknowledgment. The ghost hands are large. The strength is irresistible. The good intentions don't reliably predict safe outcomes for anyone at floor level.</p><p>Creatures interacting with Azure in theater state and aware of Waluigi's assessment gain advantage on Wisdom (Insight) checks to identify whether her current theatrical framing is escalating toward physical intervention, giving them slightly more time to not be in her path if the scene calls for dramatic action.</p>",
+          "chat": "<p>Waluigi has survived a lot of things without being scared. He is slightly scared of Azure. This is the correct response.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "vkT6qgHYYdpJjLiJ"
+    },
+    {
+      "name": "Resistance to Nonmagical Damage",
+      "type": "feat",
+      "img": "icons/magic/defensive/illusion-evasion-echo-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>Azure's Rakasha nature provides resistance to bludgeoning, piercing, and slashing damage from nonmagical attacks. This is a species trait rather than a theater-state enhancement—Rakasha are spiritually substantial beings whose physical forms resist conventional harm through the same mechanisms that allow spirit-walkers to interact with spiritual dimensions. The resistance is not absolute, but it means that ordinary weapons deliver reduced harm to someone whose existence partially overlaps with the spiritual plane.</p>",
+          "chat": "<p>The blade hits and she keeps singing, apparently not having noticed that conventional weapons are doing less than expected.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "CAtfYG7tXIoF3Vp0"
+    },
+    {
+      "name": "The Song (Information Delivery System)",
+      "type": "feat",
+      "img": "icons/tools/instruments/flute-pan-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>Azure communicates exclusively through rhyming couplets while under theater enchantment. This is not a limitation of her intelligence or awareness—she processes information at full capacity and delivers accurate, important intelligence. It is a limitation of delivery format that creates specific interaction challenges.</p><p>Any information Azure delivers to the party is delivered in rhyming couplets with perfect meter. She can communicate effectively but requires additional time when the intelligence involves technical terms or proper nouns that don't rhyme easily. The party has learned to listen past the delivery format and extract the genuine intelligence underneath.</p><p>Once per long rest, Azure can deliver a Significant Song—a performance of 1-3 minutes that delivers comprehensive intelligence about a situation, location, or entity through theatrical verse. After the performance, all listeners who succeeded on a DC 10 Wisdom (Perception) check to follow the content gain advantage on Intelligence checks related to the subject matter for 24 hours, as the theatrical framing makes the information unusually memorable. Waluigi always passes this check and always complains about having to do so.</p>",
+          "chat": "<p>She tells you everything you need to know. She tells you in rhyme. You will remember it forever, not because you want to, but because meter lodges in memory and refuses to leave.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.360",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1782005283534,
+        "modifiedTime": 1782005283534,
+        "lastModifiedBy": "f9K62vO9hIl1GByi",
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      },
+      "_id": "YX6E5KBichk2KJ4L"
+    }
+  ],
+  "effects": [],
+  "folder": null,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {
+    "scene-packer": {
+      "hash": "3a62dd51932585042b1e5cc043164582518df64e"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "tactician",
+          "hunter",
+          "brute"
+        ],
+        "reasons": [
+          "Creature type \"fey\" → skirmisher",
+          "Creature type \"fey\" → tactician",
+          "Mixed melee/ranged weapons → hunter",
+          "High HP (110) melee combatant → brute/frontliner",
+          "Keyword \"hunter\" in name/biography → hunter",
+          "Keyword \"scout\" in name/biography → skirmisher"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1785687632341,
+        "manuallyOverridden": false
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.365",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1782005283534,
+    "modifiedTime": 1787708946897,
+    "lastModifiedBy": "f9K62vO9hIl1GByi",
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "dnd-part-2",
+      "uuid": "Actor.w91f2PNO3PJN2SS9",
+      "coreVersion": "14.365",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    }
+  }
+}
