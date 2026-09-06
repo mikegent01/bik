@@ -14479,5 +14479,36 @@
     ],
     "image": "assets/images/events/library-reclamation/lib-01-mound-eating-books.jpg",
     "imageCaption": "The Overgrown Library from the doorway. The floor is joists and root; the head librarian is rooted at the far wall with his books still hanging like fruit. The mound in the middle is most of the way through a volume, one page out the side of its mouth and browning. Hjumpik saw this and abandoned a night's planning."
+  },
+  {
+    "id": "promo_mario_newspaper",
+    "name": "Promo Mario",
+    "title": "Promo Mario — A Sighting or a Sales Pitch?",
+    "date": "5 Aethel, 1040 BF — provisional filing date, inferred after the 4 Aethel charred note; encounter undated",
+    "era": "1040 BF — Mario disappearance file",
+    "location": "Reading location unrecorded; Hollywood / Los Angeles claimed by the newspaper",
+    "type": "Press Review / Contested Sighting",
+    "status": "Unverified newspaper report — identity and whereabouts unresolved",
+    "compiled_by": "Waluigi",
+    "summary": "A newspaper read by Waluigi claims Lord Darian Marsh and his steward met Mario and Luigi in Hollywood, were told Peach was alive, and returned home through Nintendo's portal. A missing hero found—or a promotional story borrowing the archive's own words? Waluigi is not closing the file.",
+    "description": "Waluigi stopped at the name: [[prop:prop_promo_mario_newspaper_clipping|PROMO MARIO]]. The available newspaper account supplies no publisher, byline or issue date. It supplies churros, souvenir shirts and a very helpful corporation.\n\n## What the paper says\n\nLord Darian Marsh of the Dark Shores and Alistair of the Marshkeepers reportedly fell onto the set of the Nintendo Mania pilot. Their host introduced himself as Mario, taught them a video game and took them around Hollywood. Alistair collected souvenirs; Darian wanted proof of the journey, then a way home to his province.\n\nThe turn came with a Wario Inc. tablet. Darian displayed [Waluigi's account of the missing Mario](#/article/mario). The host read about Peach's assassination and the [Star Fountain reunion](#/article/star_fountain_reunion), dropped his phone and wept. Asked whether he was that Mario, he offered a name—not a remembered journey. His Luigi arrived with pizza; he said Peach was alive in the studio.\n\nThe report ends with Miyamoto arranging help and Dr. Takeda opening a sixty-second portal. Darian and Alistair stepped through with Nintendo charms. **Mario stayed behind.** The paper does not describe our missing hero coming home.\n\n## What Waluigi can actually file\n\n*WAH! I recognize the tablet passage. It is MY writing. A man crying after reading my article is not a second witness to the events in it. I would like Mario found, even if it means another unbearable celebration without me. This is not enough.*\n\nAlistair also places Mario's disappearance in 955 BF. That is the year of [Peach's assassination](#/article/princess_peach); the archive places the fountain meeting in 1039 BF. A matching cap and brother do not settle that contradiction. The claimed souvenirs and photographs have not been authenticated here, and Peach never appears before the visitors in the account. Like the [charred note](#/article/charred_note_at_waluigis_door), this is another story to test, not permission to replace the old file.",
+    "participants": [
+      {
+        "id": "waluigi",
+        "name": "Waluigi",
+        "role": "Newspaper reader and archivist; not a witness to the alleged encounter"
+      }
+    ],
+    "outcome": "Clipping filed as unverified evidence. Mario remains missing; Peach's recorded death is unchanged.",
+    "relatedArticles": [
+      "mario",
+      "luigi",
+      "princess_peach",
+      "star_fountain_reunion",
+      "charred_note_at_waluigis_door",
+      "the_eastern_passage",
+      "waluigi"
+    ],
+    "waluigiAssessment": "A counterpart is possible. So is a staged promotional tale: Nintendo gets the cameras, the rescue and the souvenirs. Neither explanation is proved. Find the publisher, question Darian and Alistair separately, and examine the original film before anybody prints MARIO FOUND. WAH."
   }
 ]

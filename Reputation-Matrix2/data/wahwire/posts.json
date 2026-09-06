@@ -594,6 +594,29 @@
         }
       ],
       "status": "posted"
+    },
+    {
+      "id": "wahwire_promo_mario_newspaper",
+      "author": "waluigi",
+      "order": 17,
+      "date": null,
+      "timestamp": "5 Aethel, 1040 BF — provisional filing date",
+      "content": "Apparently even in another world Mario gets a television show and I get quoted without an invitation. That would annoy me more if the newspaper had proved it found him. It has my own biography on a tablet. Bring the film, not the slogan. WAH.",
+      "likes": 0,
+      "links": [
+        {
+          "id": "promo_mario_newspaper",
+          "type": "event"
+        }
+      ],
+      "tags": [
+        "mario",
+        "press review",
+        "unverified"
+      ],
+      "reaction": "suspicion",
+      "comments": [],
+      "status": "posted"
     }
   ]
 }

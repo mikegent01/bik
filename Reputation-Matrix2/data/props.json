@@ -2074,6 +2074,21 @@
       "stamps": [
         "evidence"
       ]
+    },
+    "prop_promo_mario_newspaper_clipping": {
+      "kind": "note",
+      "icon": "📰",
+      "title": "Newspaper Clipping — Promo Mario",
+      "subtitle": "Abridged reading copy · publisher, byline and issue date unidentified",
+      "items": [],
+      "articles": [
+        "promo_mario_newspaper"
+      ],
+      "note": "An abridged account of what the newspaper claims, not certified testimony. No original issue, photograph or souvenir has been authenticated by the archive.",
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">PROMO MARIO</div><div class=\"pd-sub\">Darian Marsh and Alistair of the Marshkeepers — reported visitors</div></div><div class=\"pd-meta\">Claimed setting: Hollywood / Los Angeles, &ldquo;1996&rdquo;. This is the report's foreign dating, not an established equivalent of any BF date.</div><div class=\"pd-clause\">Lord Darian Marsh of the Dark Shores and his steward Alistair fell into filming of the Nintendo Mania pilot. Mario welcomed them, demonstrated Super Mario 64 and led them onto Hollywood Boulevard. Alistair gathered a souvenir shirt, ticket stub, soda can and churro stick; Mario took a group photograph with a disposable camera.</div><div class=\"pd-clause\">Darian produced a Wario Inc. tablet displaying Waluigi's account of the missing Mushroom Kingdom hero. Reading it, Mario dropped his phone and cried. Asked his full name, he offered &ldquo;Mario... Mario Mario?&rdquo;; Miyamoto, on the call, said it was simply Mario. Alistair recited heroic titles and placed the disappearance in 955 BF.</div><div class=\"pd-clause\">Mario said Peach was alive at the studio. Miyamoto said, &ldquo;We kept her safe. No assassinations happened here.&rdquo; Luigi arrived with pizza and joined the effort to send the visitors home.</div><div class=\"pd-clause\">At the studio, Dr. Takeda announced a dimensional-resonance route home. A portal opened for sixty seconds. Luigi gave the visitors Nintendo charms; Darian recognized his home province. Darian and Alistair passed through. Mario remained in the studio, crying.</div><div class=\"pd-margin\">The man learns his supposed history from my own article. The paper reports photographs; it does not put a developed photograph in my hands. Do not confuse either with corroboration. — W.</div><div class=\"pd-fine\">Archive excerpt, deliberately abridged. Original publication details, witness identities, imperial date and the portal's destination remain unverified.</div>",
+      "stamps": [
+        "evidence"
+      ]
     }
   }
 }

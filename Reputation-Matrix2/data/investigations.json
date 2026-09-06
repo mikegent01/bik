@@ -3591,7 +3591,7 @@
         "mario_disappearance"
       ],
       "opened": "4 Aethel, 1040 BF",
-      "lastFiled": "4 Aethel, 1040 BF",
+      "lastFiled": "5 Aethel, 1040 BF — provisional filing date",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🔥",
       "accent": "#c46b32",
@@ -3613,6 +3613,10 @@
         {
           "point": "Somebody staged the paper physically as well as narratively.",
           "detail": "The edges burned; the middle survived; the threshold kept the ash. The note was delivered to be discovered, not discarded."
+        },
+        {
+          "point": "The Promo Mario clipping is not a confirmed sighting of our Mario.",
+          "detail": "The Hollywood host learns the disappearance story from Waluigi's own article on a tablet. A counterpart, a performance and a promotional fabrication remain competing readings; nobody has authenticated the claimed photographs or souvenirs."
         }
       ],
       "background": [
@@ -3632,7 +3636,7 @@
           "why": "An emotional backseat confession from Luigi is where the farm entered the archive — the truth about Mario's disappearance on the farm, Harvestide 1035 BF. This new paper now tries to dictate what the farm meant."
         }
       ],
-      "brief": "**The short version.** An unsigned note burned neatly around the edges appeared at Waluigi's door before dawn and made the archive's least stable file worse.\n\nThe eastern farm used to be a timeline headache: too many claimed years between the Star Fountain reunion and the present day. The charred note solves that contradiction only by replacing the story entirely. According to the note, Mario reached the farm, lived there for three days, died there, woke up afterward, and later became something three Guild null cages could not hold.\n\nWaluigi is not accepting any of that merely because the note is dramatic. But dramatic lies still reveal where the liar wants the searchlight pointed. This file therefore treats the page in two ways at once: as an alleged confession and as a deliberate attempt to reorganize the Mario disappearance around Peach, the Guild, the farm, and the fountain all at once.\n\nThe archive's standing rule for this file is simple: do not ask first whether the note is true. Ask first what it is trying to replace.",
+      "brief": "**The short version.** An unsigned note burned neatly around the edges appeared at Waluigi's door before dawn and made the archive's least stable file worse.\n\nThe eastern farm used to be a timeline headache: too many claimed years between the Star Fountain reunion and the present day. The charred note solves that contradiction only by replacing the story entirely. According to the note, Mario reached the farm, lived there for three days, died there, woke up afterward, and later became something three Guild null cages could not hold.\n\nWaluigi is not accepting any of that merely because the note is dramatic. But dramatic lies still reveal where the liar wants the searchlight pointed. This file therefore treats the page in two ways at once: as an alleged confession and as a deliberate attempt to reorganize the Mario disappearance around Peach, the Guild, the farm, and the fountain all at once.\n\nThe archive's standing rule for this file is simple: do not ask first whether the note is true. Ask first what it is trying to replace.\n\n**Newspaper review — 5 Aethel, 1040 BF — provisional filing date.** The Promo Mario clipping adds a Hollywood host, a living Peach claimed offstage and a portal that sends two visitors home without Mario. It does not confirm either farm story. The host's grief follows a reading of Waluigi's own biography, so the archive must not count its own words as a new witness.",
       "threads": [
         {
           "id": "th_three_days",
@@ -3651,6 +3655,12 @@
           "title": "Somebody wrote this to be found",
           "state": "open",
           "text": "Burned margins, untouched title, threshold placement, and confession-shaped pacing all point the same way: the note is performance art pretending to be recovered truth. Performance can still contain truth. It simply never arrives alone.\n\n**In plain terms:** the staging is part of the evidence, not a distraction from it."
+        },
+        {
+          "id": "th_promo_mario_identity",
+          "title": "A familiar face is not a route from the fountain",
+          "state": "open",
+          "text": "Darian asks whether the host is the missing Mario. The answer supplies a name, not a memory of the fountain or an account of how he reached Hollywood. The clipping also moves the disappearance to 955 BF, contradicting the later fountain record. A genuine journey could still have met a counterpart; a genuine counterpart would still not locate our Mario."
         }
       ],
       "leads": [
@@ -3687,6 +3697,17 @@
           "exhibits": [
             "ex_charred_note"
           ]
+        },
+        {
+          "id": "lead_verify_promo_mario",
+          "title": "Trace the clipping before announcing a recovered hero",
+          "state": "open",
+          "priority": "high",
+          "objective": "Identify the newspaper and issue; seek Darian Marsh and Alistair separately; request the alleged original film and souvenirs with their custody history. If the host can be reached, ask for a private memory or a route from the Star Fountain that was not supplied by the tablet.",
+          "why": "At present every new claim arrives through one unidentified publication. Independent witnesses or examinable objects could test the journey; identity would still need evidence beyond a shared name, cap and brother.",
+          "exhibits": [
+            "ex_promo_mario_clipping"
+          ]
         }
       ],
       "sessions": [
@@ -3695,13 +3716,20 @@
           "label": "The charred note at Waluigi's door",
           "date": "4 Aethel, 1040 BF",
           "event": "charred_note_at_waluigis_door"
+        },
+        {
+          "id": "s_promo_mario_newspaper",
+          "label": "Promo Mario — a newspaper read by Waluigi",
+          "date": "5 Aethel, 1040 BF — provisional filing date",
+          "event": "promo_mario_newspaper"
         }
       ],
       "relatedEvents": [
         "charred_note_at_waluigis_door",
         "the_eastern_passage",
         "star_fountain_reunion",
-        "the_embassy_ambush_and_luigi_interrogation"
+        "the_embassy_ambush_and_luigi_interrogation",
+        "promo_mario_newspaper"
       ],
       "exhibits": [
         {
@@ -3753,6 +3781,34 @@
             "characters": [
               "waluigi",
               "mario"
+            ]
+          }
+        },
+        {
+          "id": "ex_promo_mario_clipping",
+          "propId": "prop_promo_mario_newspaper_clipping",
+          "session": "s_promo_mario_newspaper",
+          "icon": "📰",
+          "kind": "note",
+          "category": "record",
+          "title": "Promo Mario — the newspaper account",
+          "secured": "Reading copy filed 5 Aethel, 1040 BF — provisional filing date; source issue undated",
+          "custody": "Archive — abridged text only; no authenticated issue, photograph or souvenir",
+          "visual": "<div role=\"img\" aria-label=\"Illustrative newspaper excerpt marked unverified\" style=\"position:relative;height:132px;overflow:hidden;border:1px solid #b1a58d;border-radius:8px;background:#e9e1cd;color:#302b25\"><div style=\"position:absolute;inset:14px 12%;border-top:3px double #302b25;border-bottom:1px solid #302b25;text-align:center;padding:10px 0;font-weight:800;letter-spacing:.08em\">PROMO MARIO</div><div style=\"position:absolute;left:16%;right:16%;top:60px;height:30px;background:repeating-linear-gradient(transparent 0 5px,#a99f8c 5px 6px)\"></div><div style=\"position:absolute;bottom:9px;left:0;right:0;text-align:center;font-size:11px;font-weight:800;color:#7c342b\">READING COPY · UNVERIFIED</div></div>",
+          "onRecord": "The clipping names Darian and Alistair, describes the host reading Waluigi's Mario biography, claims a living Peach offstage, and sends the visitors—not Mario—through a portal. No publisher, original film or authenticated souvenir accompanies this reading copy. The host's identity remains unproved whether or not the trip happened.",
+          "dc": 4,
+          "analysis": "## A borrowed memory\n\nI dislike being quoted without getting an invitation. I dislike the temptation to count the quotation as confirmation more. The host's tears follow information supplied on the tablet; they do not establish knowledge he brought to the meeting. The question is what he could have told Darian before he read it.\n\n## A destination with no route\n\nEven a genuine photograph of the group would establish an encounter before it established an identity. The charms could support travel if their origin were tested. Neither supplies the missing journey from the Star Fountain. The clipping's portal takes Darian and Alistair away; it never brings Mario back.\n\n## The publicity question\n\n[[roll:4|I suspect the spotless corporate rescue is the selling point|Nintendo gets the show, the helpful celebrity call, the laboratory rescue and the souvenir farewell. That pattern gives me a reason to seek a sponsor or promotional source, not a reason to declare a forgery.|Grateful visitors might describe good hosts in exactly these terms. The flattering account could be sincere while remaining useless as proof of Mario's identity.]] Either reading leaves the same job: find an independent source. A die cannot authenticate a newspaper.",
+          "links": {
+            "events": [
+              "promo_mario_newspaper",
+              "charred_note_at_waluigis_door",
+              "star_fountain_reunion"
+            ],
+            "characters": [
+              "waluigi",
+              "mario",
+              "luigi",
+              "princess_peach"
             ]
           }
         }
