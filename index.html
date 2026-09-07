@@ -401,34 +401,79 @@
 .wah-guest p{font-size:12.5px;line-height:1.5;margin:4px 0}
 .wah-more{display:block;text-align:center;font-size:12.5px;color:var(--muted);margin-top:6px}
 /* ---------- Dashboard (single screen, no scroll at desktop) ---------- */
-.dash{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.2fr) minmax(0,.95fr);gap:12px;align-items:start}
-.dash h2{font-size:14px;margin:0 0 8px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent2,#e0b400)}
-.dash-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.dash-file{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer}
-.dash-file:last-child{border-bottom:0}
-.dash-file:hover b{color:var(--accent2,#e0b400)}
-.dash-file .d{font-size:11px;color:var(--muted);white-space:nowrap}
-.dash-file b{font-size:13px;display:block;line-height:1.35}
-.dash-file span{font-size:12px;color:var(--muted);display:block;line-height:1.4}
-.dash-file .pips{font-size:11px;color:var(--accent2,#e0b400)}
-.dash-fronts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.dash-front{border:1px solid var(--border);border-radius:10px;padding:8px;cursor:pointer;font-size:12px}
-.dash-front b{display:block;font-size:12.5px}
-.dash-front span{color:var(--muted);font-size:11.5px}
-.dash-doors{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.dash-door{border:1px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center;cursor:pointer;background:rgba(255,255,255,.02)}
-.dash-door:hover{border-color:var(--accent2,#e0b400)}
-.dash-door .e{font-size:22px;display:block}
-.dash-door b{font-size:12.5px;display:block;margin:2px 0}
-.dash-door span{font-size:11px;color:var(--muted)}
-.dash-sub{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-.dash-sub .chip{margin:0}
-.dash-mini{font-size:12.5px}
-.dash-mini .row{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid var(--border)}
-.dash-mini .row:last-child{border-bottom:0}
-.dash-mini .row span:last-child{color:var(--muted);text-align:right}
-@media(max-width:1100px){.dash{grid-template-columns:1fr 1fr}.dash-right{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}}
-@media(max-width:760px){.dash{grid-template-columns:1fr}.dash-right{display:block}.dash-right .card{margin-bottom:12px}}
+/* ---------- Unified home: The Villain's Front Page ---------- */
+.hm-hero{position:relative;overflow:hidden;border-radius:20px;border:1px solid var(--border);margin-bottom:0;background:linear-gradient(135deg,#241040,#120a24 60%,#1b0f33);box-shadow:var(--shadow)}
+.hm-hero-art{position:absolute;inset:0;background-size:cover;background-position:center 30%;opacity:.5}
+.hm-hero-scrim{position:absolute;inset:0;background:linear-gradient(100deg,rgba(13,8,24,.94) 20%,rgba(13,8,24,.72) 50%,rgba(13,8,24,.25) 100%),linear-gradient(0deg,rgba(13,8,24,.9),transparent 42%)}
+.hm-hero-in{position:relative;padding:38px 36px 26px;max-width:740px}
+.hm-wah{position:absolute;top:18px;right:22px;z-index:2;background:linear-gradient(180deg,#ffd94d,#e0b400);color:#2a1350;font-weight:900;font-size:20px;letter-spacing:1px;padding:8px 18px;border-radius:12px;transform:rotate(7deg);box-shadow:0 6px 20px rgba(224,180,0,.35);border:2px solid #fff3c4}
+.hm-kicker{font-size:12px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent2)}
+.hm-stamp{display:inline-block;margin:12px 0 10px;font-size:12px;font-weight:800;letter-spacing:.4px;color:#8fe3b6;background:rgba(47,174,138,.14);border:1px solid rgba(47,174,138,.45);padding:4px 12px;border-radius:999px}
+.hm-title{margin:0 0 10px;font-size:clamp(30px,4.6vw,52px);line-height:1.02;font-weight:900;color:#fff;text-wrap:balance;text-shadow:0 3px 24px rgba(0,0,0,.6)}
+.hm-sub{margin:0 0 10px;font-size:15px;line-height:1.6;color:#d9cff0;max-width:60ch;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.hm-voice{margin:0 0 18px;font-family:Georgia,serif;font-style:italic;font-size:14.5px;color:var(--accent2)}
+.hm-cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.hm-btn{display:inline-block;padding:11px 20px;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,.07);color:var(--text);transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
+.hm-btn:hover{transform:translateY(-2px);border-color:var(--accent2);box-shadow:0 8px 22px rgba(0,0,0,.4)}
+.hm-btn-gold{background:linear-gradient(180deg,#ffd94d,#e0b400);border-color:#fff3c4;color:#2a1350}
+.hm-meta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hm-search{flex:1;min-width:220px;display:flex;align-items:center;gap:8px;padding:11px 14px;border-radius:12px;background:rgba(10,6,20,.72);border:1px solid var(--border);color:var(--muted);font-size:13.5px;cursor:pointer}
+.hm-search:hover{border-color:var(--accent)}
+.hm-search kbd{margin-left:auto;background:var(--accent);color:#fff;font-size:11px;padding:2px 8px;border-radius:8px;font-weight:800;font-family:inherit}
+.hm-chip{display:inline-flex;align-items:center;gap:6px;padding:10px 14px;border-radius:12px;background:rgba(10,6,20,.72);border:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text);cursor:pointer;white-space:nowrap}
+.hm-chip:hover{border-color:var(--accent2)}
+.hm-ticker{position:relative;overflow:hidden;border:1px solid rgba(224,180,0,.35);border-top:0;border-radius:0 0 20px 20px;background:rgba(10,6,20,.85);padding:9px 0;margin-bottom:14px;white-space:nowrap}
+.hm-ticker-in{display:inline-block;animation:hmTick 38s linear infinite}
+.hm-ticker span{font-size:12.5px;font-weight:700;letter-spacing:.5px;color:var(--accent2);padding-right:8px}
+@keyframes hmTick{to{transform:translateX(-50%)}}
+.hm-status{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
+.hm-stat{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px 14px;cursor:pointer;transition:transform .15s ease,border-color .15s ease}
+.hm-stat:hover{transform:translateY(-2px);border-color:var(--accent2)}
+.hm-stat .v{font-size:16px;font-weight:900;color:var(--text);display:block}
+.hm-stat .l{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.hm-stat .s{font-size:12px;color:var(--muted);display:block;margin-top:2px}
+.hm-stat.alarm{border-color:var(--danger)}
+.hm-stat.alarm .v{color:#ff8a8a}
+.hm-sec{margin-bottom:24px}
+.hm-sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.hm-sec-kick{font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--accent2)}
+.hm-sec-head h2{margin:2px 0 0;font-size:22px;font-weight:900;color:var(--text)}
+.hm-sec-link{font-size:12.5px;font-weight:800;color:#2a1350;background:linear-gradient(180deg,#ffd94d,#e0b400);padding:7px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.hm-sec-link.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--border)}
+.campaign-timeline-feed{display:grid;gap:12px}
+.campaign-timeline-item{border-radius:14px;padding:16px 18px;border:1px solid var(--border);transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+.campaign-timeline-item:hover{transform:translateY(-2px);border-color:var(--accent2);box-shadow:var(--shadow)}
+.campaign-timeline-item .timeline-date-chip{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:4px}
+.campaign-timeline-item .timeline-event-title{margin:0 0 6px;font-size:18px;font-weight:900;line-height:1.25;color:var(--text)}
+.campaign-timeline-item .timeline-actors{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;font-weight:700;color:var(--accent2);margin-bottom:6px}
+.campaign-timeline-item .timeline-summary{margin:0 0 10px;font-size:13.5px;line-height:1.6;color:var(--muted)}
+.home-feed-actions{display:flex;flex-wrap:wrap;gap:8px}
+.campaign-timeline-feed>.campaign-timeline-item:first-child:nth-last-child(n+2){display:none}
+.campaign-timeline-feed>.campaign-timeline-item:nth-child(n+7){display:none}
+.campaign-timeline-feed.show-all>.campaign-timeline-item:nth-child(n+7){display:block}
+.hm-more{display:block;text-align:center;margin-top:12px;padding:11px;border-radius:12px;border:1px dashed var(--border);color:var(--muted);font-weight:800;font-size:13px;cursor:pointer}
+.hm-more:hover{border-color:var(--accent2);color:var(--text)}
+.dash-doors{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.dash-door{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:14px;padding:16px 10px;text-align:center;cursor:pointer;background:linear-gradient(160deg,rgba(138,75,255,.16),rgba(20,12,36,.4)),var(--panel);transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
+.dash-door:nth-child(3n){background:linear-gradient(160deg,rgba(224,180,0,.14),rgba(20,12,36,.4)),var(--panel)}
+.dash-door:nth-child(3n+1){background:linear-gradient(160deg,rgba(47,174,138,.13),rgba(20,12,36,.4)),var(--panel)}
+.dash-door:hover{transform:translateY(-3px);border-color:var(--accent2);box-shadow:0 10px 26px rgba(0,0,0,.45)}
+.dash-door .e{font-size:30px;display:block;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5))}
+.dash-door b{font-size:13.5px;display:block;margin:6px 0 2px;color:var(--text)}
+.dash-door span{font-size:11.5px;color:var(--muted)}
+.hm-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start;margin-bottom:24px}
+.hm-rail .card{margin:0}
+.hm-rail h2{font-size:16px}
+ul.otd{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px;font-size:13px;line-height:1.5}
+ul.otd li a{color:var(--text);font-weight:600}
+.hm-foot{text-align:center;padding:18px 10px 30px;color:var(--muted);font-size:12.5px}
+.hm-foot .wah-line{font-family:Georgia,serif;font-style:italic;color:var(--accent2);font-size:14px;display:block;margin-bottom:6px}
+.hm-rise{animation:hmRise .5s ease both}
+@keyframes hmRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media(max-width:1000px){.hm-grid{grid-template-columns:1fr}.dash-doors{grid-template-columns:repeat(3,1fr)}.hm-status{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.hm-hero-in{padding:26px 20px 20px}.hm-wah{font-size:15px;padding:6px 12px;top:12px;right:12px}.dash-doors{grid-template-columns:1fr 1fr}.hm-status{grid-template-columns:1fr 1fr}.hm-sec-head h2{font-size:19px}}
+@media(prefers-reduced-motion:reduce){.hm-ticker-in{animation:none}.hm-rise{animation:none}}
+
 /* ---------- Who-are-you picker ---------- */
 .who-rail{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:12px;padding:14px 4px 18px}
 .who-card{border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;background:rgba(255,255,255,.02)}
@@ -8282,9 +8327,6 @@ function homeRecentAdventuresHtml(){
   }
   return cards.join('\n       ')||'<div class="campaign-timeline-item">No sessions filed.</div>';
 }
-/* =============== DASHBOARD (default home) + WHO-ARE-YOU GATE ===============
-   Single screen, three columns: latest filings + fronts | door grid | minis.
-   First visit picks an operator profile (persisted); the dashboard greets them. */
 /* Filing order mirrors the classic feed exactly: pinned latestUpdate, then
    reverse file order. (Date-sorting fails here — "2374 BF (Historical
    Record)" is older than 1040 BF, not newer.) */
@@ -8307,21 +8349,6 @@ function dashNewCount(){
     return n;
   }catch(e){ return 0; }
 }
-function dashLatestFilings(){
-  const {queue,latestId}=dashFilingOrder();
-  return queue.slice(0,4).map(e=>{
-    const d=String(e.date||e.era||'undated').split('—')[0].trim().slice(0,26);
-    const sum=String(e.summary||e.description||'').replace(/\s+/g,' ').slice(0,110);
-    const pend=(e.status==='Generated — review'||e._generated)?' 📝':'';
-    const pips=(e.participants||[]).slice(0,4).map(p=>{ try{ return participantLabel(p); }catch(err){ return ''; } }).filter(Boolean);
-    return `<div class="dash-file" onclick="openId('${esc(e.id)}')"><span class="d">${esc(d)}</span><div><b>${esc(e.name||e.title||e.id)}${e.id===latestId?' · Latest Filing':''}${pend}</b><span>${esc(sum)}${sum.length>=110?'…':''}</span>${pips.length?`<span class="pips">${esc(pips.join(' · '))}</span>`:''}</div></div>`;
-  }).join('')+`<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/list/events')">📂 All filings →</a></div>`;
-}
-function dashFronts(){
-  const covers=((DATA.mainPage||{}).campaignCovers||[]).slice(0,2);
-  if(!covers.length) return '';
-  return `<div class="dash-fronts">`+covers.map(c=>`<div class="dash-front" onclick="openId('${esc(c.articleId||'')}')"><b>${esc(c.campaign||'Front')}</b><span>${esc(c.title||'')}</span></div>`).join('')+`</div>`;
-}
 function dashDoor(emoji,label,sub,go){ return `<div class="dash-door" onclick="${go}"><span class="e">${emoji}</span><b>${label}</b><span>${sub}</span></div>`; }
 function dashDoors(){
   const n=(v)=>{ v=Number(v)||0; return v; };
@@ -8339,57 +8366,8 @@ function dashDoors(){
     +dashDoor('💱','Bank',n((typeof getCurrenciesList==='function'?getCurrenciesList():[]).length)+' tenders',"Router.go('#/currencies')")
     +dashDoor('📺','RNN',(window.RNN_BROADCASTS&&window.RNN_BROADCASTS.episodes?window.RNN_BROADCASTS.episodes.length+' eps':'broadcast'),"Router.go('#/rnn')");
 }
-function dashPurse(){
-  const ids=['archie','markop','remi','hjumpik','bones','green_t'];
-  const rows=ids.map(id=>{
-    let nm=id, line='—';
-    try{
-      const c=(COMPANIONS||[]).find(x=>x&&x.id===id);
-      nm=(c?c.icon+' ':'')+(c?c.name:prettyId(id));
-      const w=walletForChar(id)||{};
-      const cur=Object.entries(w.currencies||{}).filter(([,v])=>Number(v)).slice(0,2);
-      if(cur.length) line=cur.map(([k,v])=>`${Number(v).toLocaleString()} ${k.replace(/_/g,' ')}`).join(' · ');
-    }catch(e){}
-    return `<div class="row"><span>${esc(nm)}</span><span>${esc(line)}</span></div>`;
-  }).join('');
-  let alarm='';
-  try{
-    const bad=((DATA.banking||{}).debts||[]).filter(d=>d&&['overdue','defaulted'].includes(d.status)).length;
-    if(bad) alarm=`<div class="row"><span>🔴 Debt alarm</span><span>${bad} overdue/defaulted</span></div>`;
-  }catch(e){}
-  return `${rows}${alarm}<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/currencies')">💱 Debts &amp; ledger →</a></div>`;
-}
-function dashHeat(){
-  const facs=[['wario_enterprise','💰 Wario'],['liberated_toads','🍄 Toads'],['iron_legion','⚔️ Legion'],['corvinarus_family','🦇 Corvinarus'],['mages_guild','🔮 Guild'],['mushroom_regency','👑 Regency']];
-  const ops=(typeof REPUTATION_OPERATORS!=='undefined'?REPUTATION_OPERATORS:[]);
-  const avgs=facs.map(([fid])=>{ let t=0,seen=0;
-    ops.forEach(op=>{ try{ t+=calculateOperatorStanding(op.key||op.id,fid).total||0; seen++; }catch(e){} });
-    return seen?Math.round(t/seen):0; });
-  const hi=Math.max(...avgs), lo=Math.min(...avgs);
-  const rows=facs.map(([fid,label],i)=>{
-    const avg=avgs[i];
-    const tag=avg>=15?'allied':avg>=5?'warm':avg>-5?'watchful':avg>-15?'cold':'hostile';
-    const dot=avg>=5?'🟢':avg>-5?'🟡':'🔴';
-    const xt=avg===hi&&hi!==lo?' 🔥':avg===lo&&hi!==lo?' 🧊':'';
-    return `<div class="row"><span>${label}${xt}</span><span>${dot} ${avg>=0?'+':''}${avg} ${tag}</span></div>`;
-  }).join('');
-  return `${rows}<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/reputation')">📊 Full matrix →</a></div>`;
-}
-function dashOTD(){
-  const items=[];
-  try{
-    const curMo=CUR.monthIndex+1, curDay=CUR.day;
-    (DATA.events||[]).concat(DATA.battles||[]).forEach(e=>{
-      if(!e||items.length>=3) return;
-      if(parseMonth(e.date||'')===curMo&&parseDay(e.date||'')===curDay)
-        items.push(`<div class="row"><span>📜 ${esc(e.name||e.title||e.id)}</span><span>${esc(String(parseYear(e.date||'')||'?'))} BF</span></div>`);
-    });
-  }catch(e){}
-  return (items.join('')||'<div class="row"><span>Quiet day in the archive.</span><span>—</span></div>')
-    +`<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/calendar')">📅 Full calendar →</a></div>`;
-}
 /* Dashboard memory: last-read dossier, recent reads, operator history, visits.
-   Written by view_article/view_hub/setCurrentUserId; read by dashSub(). */
+   Written by view_article/view_hub/setCurrentUserId; read by the home hero. */
 function dashNoteRead(id){
   try{
     if(!id) return;
@@ -8405,54 +8383,90 @@ function dashDice(){
     if(ids.length) openId(ids[Math.floor(Math.random()*ids.length)]);
   }catch(e){}
 }
-function dashLoudest(){
-  const facs=[['wario_enterprise','💰 Wario'],['liberated_toads','🍄 Toads'],['iron_legion','⚔️ Legion'],['corvinarus_family','🦇 Corvinarus'],['mages_guild','🔮 Guild'],['mushroom_regency','👑 Regency']];
-  const rows=[];
+/* =============== UNIFIED HOME (The Villain's Front Page) ===============
+   One page, no view-swapping. The hero features the latest filing; below it
+   sit fronts, the filings feed, explore doors, and the calendar rail. */
+function homeHeroHtml(o){
+  const f=o.feat||{};
+  const fdate=String(f.date||f.era||'undated').split('—')[0].trim();
+  const ftitle=f.name||f.title||'Untitled filing';
+  const fsum=String(f.summary||f.description||'').replace(/\s+/g,' ').slice(0,220);
+  const art=o.heroArt?`<div class="hm-hero-art" style="background-image:url('${esc(o.heroArt)}')"></div><div class="hm-hero-scrim"></div>`:`<div class="hm-hero-scrim"></div>`;
+  const resume=o.resume?`<span class="hm-chip" onclick="openId('${esc(o.resume.id)}')">▶️ Resume: ${esc(String(o.resume.name).slice(0,28))}</span>`:'';
+  return `<header class="hm-hero hm-rise">${art}<div class="hm-wah">WAH!</div><div class="hm-hero-in">`
+    +`<div class="hm-kicker">🟣 Waluipedia · No.1 Villain Archive · ${esc(o.dateStr)}${esc(o.wd)}</div>`
+    +`<div class="hm-stamp">● Latest filing · ${esc(fdate)}</div>`
+    +`<h1 class="hm-title">${esc(ftitle)}</h1>`
+    +`<p class="hm-sub">${esc(fsum)}${fsum.length>=220?'…':''}</p>`
+    +`<p class="hm-voice">WAH, ${esc(o.who.name)}. ${esc(o.greet)}</p>`
+    +`<div class="hm-cta"><span class="hm-btn hm-btn-gold" onclick="openHub('${esc(f.id||'')}')">📖 Read the filing →</span><span class="hm-btn" onclick="dashDice()">🎲 Surprise me</span></div>`
+    +`<div class="hm-meta"><div class="hm-search" onclick="document.getElementById('search').focus();window.scrollTo({top:0,behavior:'smooth'})">🔍 Search the archive…<kbd>/</kbd></div>${resume}<span class="hm-chip" onclick="Router.go('#/who')">${esc(o.who.icon)} ${esc(o.who.name)}</span></div>`
+    +`</div></header>`;
+}
+function homeTickerHtml(nNew){
+  const items=[];
   try{
-    (REPUTATION_OPERATORS||[]).forEach(op=>{
+    const b=window.RNN_BROADCASTS||{};
+    const eps=b.episodes||[];
+    const ep=eps.find(e=>e&&e.id===b.latest)||eps[eps.length-1];
+    if(ep) items.push(`📺 RNN #${ep.number||''}: ${ep.title||'new broadcast'}`.replace('#: ',''));
+  }catch(e){}
+  if(nNew) items.push(`🆕 ${nNew} new filings since your last visit`);
+  items.push('WAH · NUMBER ONE','Filed by Waluigi · disputed by everyone','Mind the Mimics on shelf nine','New filings · old grudges');
+  const half=items.map(t=>`<span>${esc(t)} ✦&nbsp;&nbsp;</span>`).join('');
+  return `<div class="hm-ticker hm-rise" aria-hidden="true"><div class="hm-ticker-in">${half}${half}</div></div>`;
+}
+function homeStatusBand(nNew){
+  let wallets=0;
+  try{
+    ['archie','markop','remi','hjumpik','bones','green_t'].forEach(id=>{ const w=walletForChar(id)||{}; if(Object.values(w.currencies||{}).some(Number)) wallets++; });
+  }catch(e){}
+  let bad=0;
+  try{ bad=((DATA.banking||{}).debts||[]).filter(d=>d&&['overdue','defaulted'].includes(d.status)).length; }catch(e){}
+  const facs=[['wario_enterprise','Wario'],['liberated_toads','Toads'],['iron_legion','Legion'],['corvinarus_family','Corvinarus'],['mages_guild','Guild'],['mushroom_regency','Regency']];
+  let hot=null,cold=null,loud=null;
+  try{
+    const ops=(typeof REPUTATION_OPERATORS!=='undefined'?REPUTATION_OPERATORS:[]);
+    facs.forEach(([fid,label])=>{
+      let t=0,seen=0;
+      ops.forEach(op=>{ try{ t+=calculateOperatorStanding(op.key||op.id,fid).total||0; seen++; }catch(e){} });
+      const avg=seen?Math.round(t/seen):0;
+      if(!hot||avg>hot.v) hot={v:avg,label};
+      if(!cold||avg<cold.v) cold={v:avg,label};
+    });
+    ops.forEach(op=>{
       let best=null;
-      facs.forEach(([fid,label])=>{
-        let t=0; try{ t=calculateOperatorStanding(op.key||op.id,fid).total||0; }catch(e){ return; }
-        if(!best||Math.abs(t)>Math.abs(best.t)) best={t,label};
-      });
-      if(best) rows.push({op:op.name||op.key||op.id,t:best.t,label:best.label});
+      facs.forEach(([fid,label])=>{ let t=0; try{ t=calculateOperatorStanding(op.key||op.id,fid).total||0; }catch(e){ return; } if(!best||Math.abs(t)>Math.abs(best.t)) best={t,label}; });
+      if(best&&(!loud||Math.abs(best.t)>Math.abs(loud.t))) loud={op:op.name||op.key||op.id,t:best.t,label:best.label};
     });
   }catch(e){}
-  rows.sort((a,b)=>Math.abs(b.t)-Math.abs(a.t));
-  const top=rows.slice(0,3);
-  if(!top.length) return '<div class="row"><span>All quiet on every front.</span><span>—</span></div>';
-  return top.map(r=>{
-    const emo=r.t>=15?'🤝':r.t>=5?'👍':r.t>-5?'😐':r.t>-15?'👎':'🔥';
-    return `<div class="row"><span>${emo} ${esc(r.op)} → ${esc(r.label)}</span><span>${r.t>=0?'+':''}${r.t}</span></div>`;
-  }).join('')+`<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/reputation')">📊 Full matrix →</a></div>`;
+  const f1=v=>`${v>=0?'+':''}${v}`;
+  return `<div class="hm-status hm-rise">`
+    +`<div class="hm-stat${bad?' alarm':''}" onclick="Router.go('#/currencies')"><span class="l">💰 Party purse</span><span class="v">${wallets||'—'} purses${bad?` · ${bad} red debts`:''}</span><span class="s">${bad?'🔴 Debt alarm — the ledger needs you':'debts quiet · ledger balanced'}</span></div>`
+    +`<div class="hm-stat" onclick="Router.go('#/reputation')"><span class="l">📈 Faction heat</span><span class="v">${hot?`🔥 ${esc(hot.label)} ${f1(hot.v)}`:'📈 Heat'}</span><span class="s">${cold?`🧊 Coldest: ${esc(cold.label)} ${f1(cold.v)}`:'—'}</span></div>`
+    +`<div class="hm-stat" onclick="Router.go('#/reputation')"><span class="l">📣 Loudest margin</span><span class="v">${loud?`${loud.t>=0?'🤝':'🔥'} ${f1(loud.t)}`:'📣 Quiet'}</span><span class="s">${loud?`${esc(loud.op)} → ${esc(loud.label)}`:'no margins yet'}</span></div>`
+    +`<div class="hm-stat" onclick="Router.go('#/list/events')"><span class="l">🆕 New filings</span><span class="v">${nNew?nNew+' fresh':'All caught up'}</span><span class="s">${nNew?'since your last visit':'no new filings'}</span></div>`
+    +`</div>`;
 }
-function dashSub(visits){
-  const chips=[];
+function homeOtdList(){
+  const out=[];
   try{
-    const last=localStorage.getItem('waluipediaLastRead')||'';
-    const rec=(last&&INDEX[last])?INDEX[last]:null;
-    if(rec) chips.push(`<span class="chip" onclick="openId('${esc(last)}')">▶️ Resume: ${esc(String(displayName(rec.item)).slice(0,34))}</span>`);
-    const recents=JSON.parse(localStorage.getItem('waluipediaRecents')||'[]').filter(x=>x&&x!==last&&INDEX[x]).slice(0,3);
-    recents.forEach(id=>chips.push(`<span class="chip" onclick="openId('${esc(id)}')">📄 ${esc(String(displayName(INDEX[id].item)).slice(0,26))}</span>`));
-  }catch(e){}
-  chips.push(`<span class="chip" onclick="dashDice()">🎲 Surprise me</span>`);
-  chips.push(`<span class="chip" onclick="try{const s=document.getElementById('search');s.scrollIntoView({block:'center'});s.focus()}catch(e){}">🔍 Find…</span>`);
-  if(visits) chips.push(`<span class="chip">👣 Visit #${visits}</span>`);
-  try{
-    const ops=dashRecentOps();
-    ops.slice(-3).forEach(id=>{
-      const c=(COMPANIONS||[]).find(x=>x&&x.id===id);
-      chips.push(`<span class="chip" onclick="Router.go('#/who')">${esc((c&&c.icon)||'👤')} ${esc((c&&c.name)||prettyId(id))}</span>`);
+    const curMo=CUR.monthIndex+1, curDay=CUR.day;
+    (DATA.events||[]).forEach(e=>{
+      if(!e) return;
+      if(parseMonth(e.date||'')===curMo&&parseDay(e.date||'')===curDay)
+        out.push({text:`${parseYear(e.date||'')||'?'} BF — ${e.name||e.title||e.id}`,route:'#/article/'+encodeURIComponent(e.id)});
+    });
+    (DATA.battles||[]).concat(DATA.majorBattles||[]).forEach(b=>{
+      if(!b) return;
+      if(parseMonth(b.date||'')===curMo&&parseDay(b.date||'')===curDay)
+        out.push({text:`${parseYear(b.date||'')||'?'} BF — Battle: ${b.name}`,route:(b.conflict?'#/mbattle/':'#/article/')+encodeURIComponent(b.id)});
     });
   }catch(e){}
-  let stats='';
-  try{
-    const nRec=Object.keys(INDEX||{}).length, nCast=(COMPANIONS||[]).length, nOps=(REPUTATION_OPERATORS||[]).length;
-    stats=`<span class="text-muted" style="font-size:12px;margin-left:auto">📊 ${nRec.toLocaleString()} records · ${nCast} cast · ${nOps} operators</span>`;
-  }catch(e){}
-  return `<div class="dash-sub">${chips.join('')}${stats}</div>`;
+  const items=(out.length?out:(((DATA.mainPage||{}).onThisDay||[]).map(s=>({text:s})))).slice(0,6);
+  if(!items.length) return '<li class="text-muted">Quiet day in the archive.</li>';
+  return items.map(x=>x.route?`<li>📄 <a onclick="Router.go('${x.route}')" style="cursor:pointer">${esc(x.text)}</a></li>`:`<li>${esc(x.text||x)}</li>`).join('');
 }
-function dashRecentOps(){ try{ return JSON.parse(localStorage.getItem('waluipediaSeenOps')||'[]'); }catch(e){ return []; } }
 function view_home(){
   renderSidebar('home');
   if(!getCurrentUserId()){ view_whoami(); return; }
@@ -8461,26 +8475,35 @@ function view_home(){
   try{ const c=(COMPANIONS||[]).find(x=>x&&x.id===uid); if(c) who={name:c.name,icon:c.icon||'👤'}; }catch(e){}
   let visits=0;
   try{ visits=(+localStorage.getItem('waluipediaVisits')||0)+1; localStorage.setItem('waluipediaVisits',String(visits)); }catch(e){}
-  const greets=['The archive missed you.','WAH! Fresh parchment, same old grudges.','Mind the Mimics on shelf nine.','New filings, old debts.','The RNN swears today is quiet. It lies.','Dust the shelves, dodge the auditors.'];
+  const {queue}=dashFilingOrder();
+  const feat=queue[0]||{};
+  const nNew=dashNewCount();
+  const greets=['The archive missed you.','Fresh parchment, same old grudges.','Mind the Mimics on shelf nine.','New filings, old debts.','The RNN swears today is quiet. It lies.','Dust the shelves, dodge the auditors.'];
   const greet=greets[(CUR.day+CUR.monthIndex*31+CUR.year)%greets.length];
   let wd='';
   try{ const w=calWeekdayForDate(getActiveCalendar(),CUR.year,CUR.monthIndex,CUR.day); if(w&&(w.name||w.label)) wd=' · '+(w.name||w.label); }catch(e){}
   const dateStr=`${(MONTHS||[])[CUR.monthIndex]||'?'} ${CUR.day}, ${CUR.year} BF`;
-  const nNew=dashNewCount();
-  const newPill=nNew?`<span class="chip" onclick="Router.go('#/list/events')">🆕 ${nNew} new</span>`:'';
-  el('content').innerHTML=`<div class="dash-head"><div><h1 style="margin:0">💠 Waluipedia Campaign Hub</h1>`
-    +`<p class="text-muted" style="margin:2px 0 0">🕰️ ${esc(dateStr)}${esc(wd)} · WAH, ${esc(who.name)}. ${esc(greet)}</p></div>`
-    +`<span class="chip" style="margin-left:auto" onclick="Router.go('#/who')">${esc(who.icon)} ${esc(who.name)} · switch</span>`
-    +newPill
-    +`<span class="chip" onclick="Router.go('#/home-classic')">📜 Classic view</span></div>`
-    +dashSub(visits)
-    +`<div class="dash"><div class="card" style="margin:0"><h2>📜 Latest filings</h2><div class="dash-mini">${dashLatestFilings()}</div>${dashFronts()}</div>`
-    +`<div class="card" style="margin:0"><h2>🎮 Choose your door</h2><div class="dash-doors">${dashDoors()}</div></div>`
-    +`<div class="dash-right"><div class="card" style="margin:0"><h2>💰 Party purse</h2><div class="dash-mini">${dashPurse()}</div></div>`
-    +`<div class="card" style="margin:12px 0 0"><h2>📈 Heat</h2><div class="dash-mini">${dashHeat()}</div></div>`
-    +`<div class="card" style="margin:12px 0 0"><h2>📣 Loudest margins</h2><div class="dash-mini">${dashLoudest()}</div></div>`
-    +`<div class="card" style="margin:12px 0 0"><h2>🕰️ On this day</h2><div class="dash-mini">${dashOTD()}</div><div id="dash-cal" class="mini-calendar" style="margin-top:8px"></div></div></div></div>`;
-  try{ renderMiniCalendar('dash-cal',CUR.year,CUR.monthIndex); }catch(e){}
+  let resume=null;
+  try{ const last=localStorage.getItem('waluipediaLastRead')||''; if(last&&INDEX[last]) resume={id:last,name:displayName(INDEX[last].item)}; }catch(e){}
+  let heroArt='';
+  try{ const c0=((DATA.mainPage||{}).campaignCovers||[])[0]||{}; heroArt=assetPath(feat.image||c0.image||''); }catch(e){}
+  let stats='';
+  try{ stats=`📊 ${Object.keys(INDEX||{}).length.toLocaleString()} records · ${(COMPANIONS||[]).length} cast · ${(REPUTATION_OPERATORS||[]).length} operators · 👣 visit #${visits}`; }catch(e){}
+  let mdName='';
+  try{ mdName=(typeof getMonthData==='function'?getMonthData(CUR.monthIndex):null)||{}; mdName=mdName.name||(MONTHS||[])[CUR.monthIndex]||''; }catch(e){ mdName=(MONTHS||[])[CUR.monthIndex]||''; }
+  const newPill=nNew?`<span class="hm-sec-link ghost" onclick="Router.go('#/list/events')">🆕 ${nNew} new</span>`:'';
+  el('content').innerHTML=
+    homeHeroHtml({who,dateStr,wd,greet,feat,heroArt,resume})
+    +homeTickerHtml(nNew)
+    +homeStatusBand(nNew)
+    +`<section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Front desk · this season</div><h2>🎬 Current fronts</h2></div><span class="hm-sec-link" onclick="Router.go('#/list/events')">📂 All filings →</span></div><div id="home-campaign-covers" class="campaign-covers-grid"></div><div style="margin-top:10px;font-size:11px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)">📷 From the archive — same stories, filed art</div><div id="home-field-gallery" class="field-gallery-strip"></div></section>`
+    +`<div class="hm-grid"><div class="hm-main"><section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Session logs &amp; chronicle</div><h2>📜 Latest filings</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap">${newPill}<span class="hm-sec-link" onclick="Router.go('#/list/events')">Browse all →</span></div></div><div id="home-recent-adventures" class="campaign-timeline-feed"></div><span class="hm-more" onclick="document.getElementById('home-recent-adventures').classList.add('show-all');this.remove()">Show all 12 filings ↓</span></section>`
+    +`<section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Every desk in the building</div><h2>🗺️ Explore the archive</h2></div></div><div class="dash-doors">${dashDoors()}</div></section></div>`
+    +`<aside class="hm-rail hm-rise"><div class="card"><h2>🕰️ On this day — ${esc(mdName)} ${CUR.day}</h2><div id="home-cal" class="mini-calendar"></div><ul class="otd">${homeOtdList()}</ul><div class="chips" style="margin-top:10px"><a class="chip" onclick="Router.go('#/calendar')">📅 Full calendar →</a></div></div></aside></div>`
+    +`<footer class="hm-foot hm-rise"><span class="wah-line">“Every filing is mine. This one is ESPECIALLY mine.”</span>${esc(stats)} · <a onclick="Router.go('#/currencies')" style="cursor:pointer">💱 debts &amp; ledger</a></footer>`;
+  try{ const h=homeCoversHtml(); const m=document.getElementById('home-campaign-covers'); if(m) m.innerHTML=h.covers||''; const g=document.getElementById('home-field-gallery'); if(g) g.innerHTML=h.field||''; }catch(e){ console.warn('home covers failed',e); }
+  try{ const f=document.getElementById('home-recent-adventures'); if(f) f.innerHTML=homeRecentAdventuresHtml(); }catch(e){ console.warn('home feed failed',e); }
+  try{ renderMiniCalendar('home-cal',CUR.year,CUR.monthIndex); }catch(e){ console.warn('mini cal failed',e); }
   window.scrollTo(0,0);
 }
 /* Who-are-you gate: horizontal cast picker. Blocks the dashboard until the
@@ -8507,557 +8530,6 @@ function view_whoami(){
     +`<div class="who-rail">${avail.map(c=>card(c,false)).join('')}${out.map(c=>card(c,true)).join('')}</div>`
     +`<p class="text-muted" style="text-align:center">Deep links still work — only the dashboard asks. Sign-on is kept on this device.</p>`;
   window.scrollTo(0,0);
-}
-/* The original scrolling home page, kept as the Classic view (#/home-classic).
-   The dashboard (view_home) is the default since the Batch 2 overhaul. */
-function view_home_classic(){
-  renderSidebar(null);
-  initCalendarState();
-  const mp=DATA.mainPage||{};const feat=mp.featuredArticle;const fi=feat&&INDEX[feat.id]?INDEX[feat.id].item:null;
-  const latest=mp.latestUpdate&&INDEX[mp.latestUpdate.id]?INDEX[mp.latestUpdate.id].item:null;
-  const directive = mp.editorialDirective || {
-    title: "WAH! Editorial Directive (1040 BF):",
-    text: "Imp Ambush of Harvestide 29 processed! Archie Miser settled 383g with the DM for a heap of warehouse rations and training dummies. Markop the centaur's hooves are clacking in Tymnas's cozy cottage, Remi Akamatsu got drenched in toxic bathroom poison, and Dan opened a creepy sensory eye. Clean up this swamp! WAH!"
-  };
-  const spotlight = mp.spotlight || {
-    kicker: "System Spotlight · Bank & Commerce",
-    title: "💱 Multi-Currency Exchange",
-    subtitle: "48 Tracked Tenders · Wallet Settlement",
-    excerpt: "Universal gold conversion rates across Gold, Mora, Wario Coin, Soul Coins, Ducats, and 44 other regional currencies. Integrated into Wario's shop checkout.",
-    actionText: "Open Bank Vaults →",
-    actionUrl: "currency.html"
-  };
-
-  const dyk=mp.didYouKnow||[],otdStatic=mp.onThisDay||[];
-  const dateStr=`${MONTHS[CUR.monthIndex]||'?'} ${CUR.day}, ${CUR.year} BF`;
-  const fullDate=formatFullDate?formatFullDate(CUR.year, CUR.monthIndex, CUR.day):dateStr;
-  const wdToday=weekdayForDate?weekdayForDate(CUR.year, CUR.monthIndex, CUR.day):{name:'?',abbreviation:'?'};
-  const mdToday=getMonthData?getMonthData(CUR.monthIndex):{name:MONTHS[CUR.monthIndex],days:30};
-  const seasonToday=getSeasonForMonth?getSeasonForMonth(mdToday.ordinal||CUR.monthIndex+1):null;
-  const totalAnnotations=(DATA.annotations||[]).length;
-  const intelTargets=Object.keys(partyIntel()).length;
-
-  // Dynamic On This Day: events that happened on same month/day in any year
-  let dynamicOTD = [];
-  try {
-    const curMo = CUR.monthIndex + 1;
-    const curDay = CUR.day;
-    (DATA.events || []).forEach(e => {
-      if (!e) return;
-      const mo = parseMonth(e.date || '');
-      const d = parseDay(e.date || '');
-      if (mo === curMo && d === curDay) {
-        const yr = parseYear(e.date || '') || '?';
-        dynamicOTD.push({ text: `${yr} BF — ${e.name || e.title || e.id}`, id: e.id, route: '#/article/' + encodeURIComponent(e.id) });
-      }
-    });
-    (DATA.battles || []).concat(DATA.majorBattles || []).forEach(b => {
-      if (!b) return;
-      const mo = parseMonth(b.date || '');
-      const d = parseDay(b.date || '');
-      if (mo === curMo && d === curDay) {
-        const yr = parseYear(b.date || '') || '?';
-        dynamicOTD.push({ text: `${yr} BF — Battle: ${b.name}`, id: b.id, route: b.conflict ? '#/mbattle/' + encodeURIComponent(b.id) : '#/article/' + encodeURIComponent(b.id) });
-      }
-    });
-  } catch(e) { dynamicOTD = []; }
-
-  const otdHtml = (dynamicOTD.length ? dynamicOTD : otdStatic.map(s => ({ text: s }))).slice(0, 8).map(x => {
-    if (x.route) return `<li style="margin-bottom:6px;">📄 <a onclick="Router.go('${x.route}')" style="cursor:pointer;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">${esc(x.text)}</a></li>`;
-    return `<li style="margin-bottom:6px;">${esc(x.text || x)}</li>`;
-  }).join('');
-
-  const _uidHome = typeof getCurrentUserId === 'function' ? getCurrentUserId() : null;
-  const _loginBannerHome = !_uidHome ? `
-    <div class="card animate-fade-in" style="border-left:4px solid var(--accent); background:linear-gradient(135deg,rgba(138,75,255,.14),rgba(224,180,0,.08)),var(--panel); padding:16px 20px; margin-bottom:18px;">
-      <div class="flex-gap-14-start" style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-        <div class="waluigi-ava-big" style="width:52px;height:52px;font-size:26px;flex:0 0 52px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:900;">W</div>
-        <div class="flex-1" style="flex:1;min-width:240px;">
-          <div style="font-size:14.5px;font-weight:800;color:var(--text);">🔐 IMMERSIVE SIGN-ON — LINK OPERATOR SESSION</div>
-          <div style="color:var(--muted);font-size:13px;line-height:1.45;margin:4px 0;">Connect your character session to view active wallet balances, XP progression, and custom Waluigi greetings.</div>
-          <div class="chips mt-10" style="margin-top:8px; display:flex; gap:8px;">
-            <span class="chip active" onclick="Router.go('#/login')" style="cursor:pointer;background:var(--accent);color:#fff;padding:5px 14px;border-radius:999px;font-weight:700;">🔐 Connect Session Now →</span>
-            <span class="chip" onclick="location.href='currency.html'" style="cursor:pointer;background:var(--panel2);border:1px solid var(--border);padding:5px 14px;border-radius:999px;">💱 48-Currency Exchange</span>
-          </div>
-        </div>
-      </div>
-    </div>` : `
-    <div class="card animate-fade-in border-left-green" style="border-left:4px solid var(--green); background:linear-gradient(135deg,rgba(47,174,138,0.12),var(--panel)); padding:16px 20px; margin-bottom:18px;">
-      <div class="flex-gap-12-center" style="display:flex; align-items:center; gap:14px; justify-content:space-between; flex-wrap:wrap;">
-        <div style="display:flex; align-items:center; gap:12px;">
-          <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#fff;font-weight:900;">${esc((XP_SUMMARY[_uidHome]?.name||_uidHome||'U')[0].toUpperCase())}</div>
-          <div>
-            <b style="font-size:15px;color:var(--text);">Connected as ${esc(XP_SUMMARY[_uidHome]?.name||_uidHome||'User')}</b>
-            <div class="text-muted text-sm" style="font-size:13px;">${esc(typeof getWaluigiWelcome==='function'?getWaluigiWelcome(_uidHome).slice(0,110):'WAH! Welcome back!')}…</div>
-          </div>
-        </div>
-        <span class="chip active" onclick="Router.go('#/profile')" style="cursor:pointer;background:var(--green);color:#fff;padding:6px 16px;border-radius:999px;font-weight:700;">Dossier &amp; Wallet →</span>
-      </div>
-    </div>`;
-
-  window.HOME_CATEGORIES_DATA = [
-    { action: "Router.go('#/calendar')", emoji: '🗓️', label: 'Calendar', count: `${MONTHS.length} months · ${CUR.year} BF`, group: 'history' },
-    { action: "Router.go('#/atlas')", emoji: '🍩', label: 'World Atlas', count: `${(DATA.nations||[]).length} realms`, group: 'systems' },
-    { action: "Router.go('#/maps')", emoji: '🧭', label: 'Tactical Maps', count: 'planar layers · journey', group: 'systems' },
-    { action: "Router.go('#/imperial-network')", emoji: '🕸️', label: 'Imperial Pressure', count: 'Empire ↔ Legion integrated', group: 'systems' },
-    { action: "Router.go('#/rnn')", emoji: '📺', label: 'Rakasha News Network', count: `${((window.RNN_BROADCASTS||{}).episodes||[]).length} weekly broadcast${((window.RNN_BROADCASTS||{}).episodes||[]).length===1?'':'s'}`, group: 'systems' },
-    { action: "Router.go('#/pond-docket')", emoji: '⚖️', label: 'Pond Patrol Docket', count: 'Liberated Toads system', group: 'systems' },
-    { action: "Router.go('#/cultures')", emoji: '⚖️', label: 'Cultures & Law', count: `${Object.keys(CULTURES||{}).length} spheres · ${Object.keys(TRADITIONS||{}).length} traditions`, group: 'systems' },
-    { action: "Router.go('#/dynasties')", emoji: '👑', label: 'Dynasties', count: `${Object.keys(DYNASTY_SYSTEM.houses||{}).length} bloodlines`, group: 'people' },
-    { action: "Router.go('#/items')", emoji: '🎒', label: 'Items', count: `${Object.keys(INVENTORY_SYSTEM.items||{}).length-1} public items`, group: 'commerce' },
-    ...TYPES.filter(t=>!['locations','nations'].includes(t.key)).map(t => ({
-      action: `Router.go('#/list/${t.key}')`,
-      emoji: t.emoji,
-      label: t.label,
-      count: `${(DATA[t.key]||[]).length}`,
-      group: ['characters','factions','races','collections','trials'].includes(t.key) ? 'people' : (['events','battles'].includes(t.key) ? 'history' : 'systems')
-    })),
-    { action: "Router.go('#/congress')", emoji: '🏛️', label: 'Congress', count: `${(DATA.congress_votes||[]).length} votes`, group: 'systems' },
-    { action: "Router.go('#/artifacts')", emoji: '⭐', label: 'Artifacts', count: `${((DATA.artifacts&&DATA.artifacts.star_bearers)||[]).length} bearers`, group: 'people' },
-    { action: "Router.go('#/years')", emoji: '🗓️', label: 'Chronicle', count: `${allYears().length} years`, group: 'history' },
-    { action: "Router.go('#/timeline')", emoji: '🕰️', label: 'Timeline', count: 'chronological', group: 'history' },
-    { action: "Router.go('#/vendor')", emoji: '🏪', label: 'Vendors & Markets', count: 'commerce directory', group: 'commerce' },
-    { action: "Router.go('#/holiday')", emoji: '🎉', label: 'Holidays & Observances', count: 'calendar records', group: 'commerce' },
-    { action: "Router.go('#/whatif')", emoji: '❓', label: 'What Ifs', count: `${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length} non-canon filing${((DATA.whatifs&&DATA.whatifs.whatifs)||[]).length===1?'':'s'}`, group: 'systems' },
-    { action: "Router.go('#/list/locations')", emoji: '🏰', label: 'Classic Locations Index', count: 'tucked away', group: 'history' },
-    { action: "location.href='books/library.html'", emoji: '📚', label: 'Grand Library Archive', count: '40+ books', group: 'history' },
-    { action: "Router.go('#/currencies')", emoji: '💱', label: 'Bank & Currency', count: 'codex + ledger', group: 'commerce' },
-    { action: "Router.go('#/commerce')", emoji: '🛒', label: 'Commerce Hub', count: 'warehouse · items · crafting', group: 'commerce' },
-  ];
-
-  window.toggleEncyclopediaDrawer = function() {
-    const dir = document.getElementById('home-category-directory');
-    const btn = document.getElementById('toggle-drawer-btn');
-    if (!dir || !btn) return;
-    const isHidden = dir.style.display === 'none';
-    dir.style.display = isHidden ? 'block' : 'none';
-    btn.innerHTML = isHidden ? '📂 Hide Encyclopedia Catalog ▴' : '📂 Browse Full Encyclopedia Catalog (23 Categories) ▾';
-    if (isHidden) {
-      try { window.filterHomeCategories('all'); } catch(e) {}
-      dir.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  el('content').innerHTML = `
-   ${_loginBannerHome}
-
-   <!-- 1. CAMPAIGN STATUS & COMMAND TERMINAL -->
-   <div class="hero animate-fade-in" style="padding:24px 28px; background:linear-gradient(135deg, rgba(138,75,255,0.15), rgba(20,10,35,0.65)), var(--panel); border-left:4px solid var(--accent); margin-bottom:24px;">
-     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
-       <div>
-         <span class="party-tag" style="background:var(--accent);color:#fff;font-size:11px;padding:3px 10px;border-radius:999px;font-weight:800;text-transform:uppercase;">Waluipedia Campaign Hub</span>
-         <h1 style="font-size:26px; font-weight:900; margin:6px 0 4px; color:var(--text);">DISASTER INC. CAMPAIGN TERMINAL &amp; AUDIT DESK</h1>
-       </div>
-       <div style="display:flex; align-items:center; gap:8px;">
-         <span class="datechip" style="margin:0; background:var(--bg2);">🕰️ ${esc(fullDate)}</span>
-         <button class="chip" onclick="Router.go('#/calendar')" style="margin:0; cursor:pointer;">📅 Calendar</button>
-         <button class="chip" onclick="openCalendarMathModal()" style="margin:0; cursor:pointer; border-color:var(--link); color:var(--link);">ℹ️ BF Lore</button>
-       </div>
-     </div>
-     <p style="font-size:14.5px; line-height:1.6; color:var(--muted); margin:0 0 16px; max-width:880px;">
-       Live tabletop intelligence for <b>1040 BF</b>. Track party member wallets, institutional debt ledgers, faction reputation heat, and chronological adventure reports. Written by Waluigi. Disputed by everyone else.
-     </p>
-     <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
-       <div class="hero-search-launch" onclick="document.getElementById('search').focus(); window.scrollTo({top:0,behavior:'smooth'});" style="margin:0; flex-grow:1; max-width:620px;">
-         <span>🔍 Search 436 articles, 7,880+ shop items, 48 currencies, or @events...</span>
-         <span style="background:var(--accent); color:#fff; font-size:11px; padding:2px 8px; border-radius:10px; font-weight:700;">Click or /</span>
-       </div>
-       <a class="chip" href="Reputation-Matrix2/app/pages/shop/shop.html" style="margin:0; font-weight:700; background:var(--panel2);">🛒 Wario Armory</a>
-       <a class="chip" href="#/songs" style="margin:0; font-weight:700; background:var(--panel2);">🎵 Campaign Songbook (23 Songs · 5 Full Lyrics)</a>
-              <a class="chip" href="currency.html" style="margin:0; font-weight:700; background:var(--panel2);">💱 48-Currency Bank</a>
-       <a class="chip" href="Reputation-Matrix2/app/pages/standalone/injury-desk.html" style="margin:0; font-weight:700; background:var(--panel2);">🎲 Permanent Injury Spinner</a>
-     </div>
-   </div>
-
-   <!-- 2. CAMPAIGN COVERS & FIELD GALLERY -->
-   <div class="card animate-fade-in" style="border-left:4px solid var(--accent2); margin-bottom:24px;">
-     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:6px;">
-       <div>
-         <span style="font-size:11px; font-weight:900; color:var(--accent2); text-transform:uppercase; letter-spacing:0.6px;">Front Desk · This Season</span>
-         <h2 style="font-size:20px; font-weight:900; margin:4px 0; color:var(--text);">🎬 CAMPAIGN COVERS — WHAT'S ON THE FRONT</h2>
-       </div>
-       <button class="chip active" onclick="Router.go('#/list/events')" style="cursor:pointer; background:var(--accent2); color:#0b0616; font-weight:800;">📂 Browse All Filings →</button>
-     </div>
-     <p style="font-size:14px; color:var(--muted); margin:0 0 4px;">
-       Composite key art for the two live fronts — Feyward and Shadeward — built from supplied project
-       portraits and field art. The strip below is archive imagery already filed with the events, not new renders.
-     </p>
-     <div id="home-campaign-covers" class="campaign-covers-grid"></div>
-     <div class="field-strip-head" style="margin-top:6px; font-size:11px; font-weight:900; letter-spacing:.7px; text-transform:uppercase; color:var(--muted);">📷 From the archive — same stories, filed art</div>
-     <div id="home-field-gallery" class="field-gallery-strip"></div>
-   </div>
-
-   <!-- 4. RECENT CAMPAIGN ADVENTURES & CHRONICLE FEED -->
-   <div class="card animate-fade-in" style="border-left:4px solid #e0b400; margin-bottom:24px;">
-     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:6px;">
-       <div>
-         <span style="font-size:11px; font-weight:900; color:var(--accent2); text-transform:uppercase; letter-spacing:0.6px;">Party Chronicle &amp; Session Logs</span>
-         <h2 style="font-size:20px; font-weight:900; margin:4px 0; color:var(--text);">📜 RECENT ADVENTURES — WHAT WE'VE BEEN THROUGH</h2>
-       </div>
-       <button class="chip active" onclick="Router.go('#/list/events')" style="cursor:pointer; background:var(--accent2); color:#0b0616; font-weight:800;">📂 Browse All Campaign Events →</button>
-     </div>
-     <p style="font-size:14px; color:var(--muted); margin:0 0 8px;">
-       Chronological audit feed of recent party escapes, battles, and intelligence breakthroughs in 1040 BF:
-     </p>
-
-     <div id="home-recent-adventures" class="campaign-timeline-feed"></div>
-   </div>
-
-   <!-- 2. PARTY OVERVIEW: DISASTER INC. DOSSIER & WALLET LEDGERS -->
-   <div class="party-dashboard-card animate-fade-in">
-     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
-       <div>
-         <div class="party-badge-strip" style="margin:0 0 4px;">
-           <span class="party-tag">💥 DISASTER INC. DOSSIER</span>
-           <span style="font-size:13px; color:var(--accent2); font-weight:700;">Active Party Operators — 1040 BF Crisis</span>
-         </div>
-         <h2 style="font-size:22px; font-weight:900; margin:0; color:var(--text);">PARTY TREASURY &amp; ACTIVE OPERATORS</h2>
-       </div>
-       <div style="display:flex; gap:8px; flex-wrap:wrap;">
-         <a class="chip active" href="currency.html" style="background:var(--accent); color:#fff; font-weight:700;">💱 Currency Exchange &amp; Debts →</a>
-         <a class="chip" href="Reputation-Matrix2/app/pages/shop/shop.html" style="font-weight:700;">🛒 Browse 7,880+ Shop Items →</a>
-       </div>
-     </div>
-     <p style="font-size:14px; line-height:1.55; color:var(--muted); margin:0 0 16px;">
-       Combined party liquid assets, active character wallets, and institutional debt ledgers tracked across 48 universal tenders.
-     </p>
-
-     <div class="member-wallets-grid">
-       <div class="member-wallet-card" onclick="Router.go('#/article/archie_miser')" style="cursor:pointer;">
-         <div class="member-wallet-head">
-           <div class="member-wallet-avatar">🧙‍♂️</div>
-           <div>
-             <h3 class="member-wallet-name">Archie Miser</h3>
-             <span class="member-wallet-role">Arcane Trickster / Sorcerer</span>
-           </div>
-         </div>
-         <div class="member-wallet-currencies" style="color:#ff6b6b;">Gold: -34g | Silver: 6s | Bronze: 18b</div>
-         <div class="member-wallet-note">⚠️ Overdue Debts: 1,474 Wario Coins &amp; 2,175 Ducats to Thornbury (rubber duck invoice).</div>
-       </div>
-
-       <div class="member-wallet-card" onclick="Router.go('#/article/markop')" style="cursor:pointer;">
-         <div class="member-wallet-head">
-           <div class="member-wallet-avatar">🛠️</div>
-           <div>
-             <h3 class="member-wallet-name">Markop Judi</h3>
-             <span class="member-wallet-role">Centaur Vanguard / Fighter</span>
-           </div>
-         </div>
-         <div class="member-wallet-currencies">Gold: 21g | Silver: 13s | Bronze: 28b</div>
-         <div class="member-wallet-note">🎒 Custody: Black Crystal key &amp; Trowel of Retrieving. Active Legion scrip debt.</div>
-       </div>
-
-       <div class="member-wallet-card" onclick="Router.go('#/article/remi_akamatsu_full_backstory')" style="cursor:pointer;">
-         <div class="member-wallet-head">
-           <div class="member-wallet-avatar">🔫</div>
-           <div>
-             <h3 class="member-wallet-name">Remi Akamatsu</h3>
-             <span class="member-wallet-role">Gunslinger / Artificer</span>
-           </div>
-         </div>
-         <div class="member-wallet-currencies">Kivotos: 5,500 | Gold: 180g | Silver: 220s</div>
-         <div class="member-wallet-note">🪞 Custody: Restored Mirror of True Reflection &amp; Oracle's Deck.</div>
-       </div>
-
-       <div class="member-wallet-card" onclick="Router.go('#/article/hjumpik')" style="cursor:pointer;">
-         <div class="member-wallet-head">
-           <div class="member-wallet-avatar">🐸</div>
-           <div>
-             <h3 class="member-wallet-name">Hjumpik</h3>
-             <span class="member-wallet-role">Toad Skirmisher / Scout</span>
-           </div>
-         </div>
-         <div class="member-wallet-currencies">Ducats: 421 | Gold: 120g | Silver: 180s</div>
-         <div class="member-wallet-note">💰 Stable reserve wallet; holds Dwarf Oathgold (8) and Toad Whistles (6).</div>
-       </div>
-
-       <div class="member-wallet-card" onclick="Router.go('#/article/bones')" style="cursor:pointer;">
-         <div class="member-wallet-head">
-           <div class="member-wallet-avatar">🦴</div>
-           <div>
-             <h3 class="member-wallet-name">Bones</h3>
-             <span class="member-wallet-role">Skeleton Operative / Infiltrator</span>
-           </div>
-         </div>
-         <div class="member-wallet-currencies">Gold: 75g | Equipment Assets</div>
-         <div class="member-wallet-note">❄️ Wearing Naaook's Goblin Winter Coat &amp; stolen Legion Iron Breastplate.</div>
-       </div>
-
-       <div class="member-wallet-card" onclick="Router.go('#/article/green_t')" style="cursor:pointer;">
-         <div class="member-wallet-head">
-           <div class="member-wallet-avatar">🧪</div>
-           <div>
-             <h3 class="member-wallet-name">Green T</h3>
-             <span class="member-wallet-role">Alchemist / Party Specialist</span>
-           </div>
-         </div>
-         <div class="member-wallet-currencies">Gold: 310g | Silver: 140s</div>
-         <div class="member-wallet-note">⚡ Contesting 7,507g Mirror claim with Wario. Mirror held during rooftop escape.</div>
-       </div>
-     </div>
-
-     <div style="margin-top:16px; padding:12px 16px; background:var(--bg2); border:1px solid var(--border); border-radius:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-       <div style="font-size:13.5px;">
-         <b style="color:var(--accent2);">Institutional Party Liability:</b>
-         <span style="color:var(--muted);"> 9,000 Wario Points owed to Quest Board · 5 Index Tokens owed to Shadow Estate Archive</span>
-       </div>
-       <span class="chip" onclick="Router.go('#/article/disaster_inc')" style="margin:0; cursor:pointer; font-size:12px;">Open Disaster Inc. Full Dossier →</span>
-     </div>
-   </div>
-
-   <!-- 3. FACTION HEAT & REPUTATION MATRIX SNAPSHOT -->
-   <div class="card animate-fade-in" style="border-left:4px solid #3f8fd0; margin-bottom:24px;">
-     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:6px;">
-       <div>
-         <span style="font-size:11px; font-weight:900; color:#3f8fd0; text-transform:uppercase; letter-spacing:0.6px;">Diplomatic Heat Engine</span>
-         <h2 style="font-size:20px; font-weight:900; margin:4px 0; color:var(--text);">📈 FACTION REPUTATION &amp; STANDING SNAPSHOT</h2>
-       </div>
-       <button class="chip active" onclick="Router.go('#/reputation')" style="cursor:pointer; background:#3f8fd0; color:#fff; font-weight:700;">📊 Open 100+ Faction Reputation Matrix →</button>
-     </div>
-     <p style="font-size:14px; color:var(--muted); margin:0 0 16px;">
-       How the primary powers and polities of 1040 BF view Disaster Inc.'s recent operations:
-     </p>
-
-     <div class="reputation-snapshot-grid">
-       <div class="rep-snap-card" onclick="location.href='Reputation-Matrix2/app/pages/shop/shop.html'" style="--rep-color:#2fae8a;">
-         <div>
-           <div class="rep-snap-head">
-             <b style="font-size:15px; color:var(--text);">💰 Wario's Enterprise</b>
-             <span class="rep-snap-status">ALLY / COMMERCIAL</span>
-           </div>
-           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
-             "Every crisis is an opportunity, and Wario is charging you for it. Party holds 9,000 Wario Points float line."
-           </p>
-         </div>
-         <div style="margin-top:12px; font-size:12px; font-weight:700; color:var(--green);">CEO: Wario · 7,880+ Shop Items →</div>
-       </div>
-
-       <div class="rep-snap-card" onclick="Router.go('#/pond-docket')" style="--rep-color:#3f8fd0;">
-         <div>
-           <div class="rep-snap-head">
-             <b style="font-size:15px; color:var(--text);">🍄 Liberated Toads</b>
-             <span class="rep-snap-status">CO-OPERATIVE / ALLIED</span>
-           </div>
-           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
-             "Emergency Resolution 17-A is active. Speaker L and the Pond Patrol share safehouse routes and legal fund ledgers."
-           </p>
-         </div>
-         <div style="margin-top:12px; font-size:12px; font-weight:700; color:#3f8fd0;">Pond Patrol Docket Live →</div>
-       </div>
-
-       <div class="rep-snap-card" onclick="Router.go('#/imperial-network')" style="--rep-color:#e5484d;">
-         <div>
-           <div class="rep-snap-head">
-             <b style="font-size:15px; color:var(--text);">⚔️ Iron Legion</b>
-             <span class="rep-snap-status">HOSTILE / PRIORITY THREAT</span>
-           </div>
-           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
-             "Order 120 signed. General Ironhand is actively hunting non-compliant party operatives after the Aegis Command breach."
-           </p>
-         </div>
-         <div style="margin-top:12px; font-size:12px; font-weight:700; color:var(--danger);">Imperial Pressure Network →</div>
-       </div>
-
-       <div class="rep-snap-card" onclick="Router.go('#/article/corvinarus_family')" style="--rep-color:#8a4bff;">
-         <div>
-           <div class="rep-snap-head">
-             <b style="font-size:15px; color:var(--text);">🦇 House Corvinarus</b>
-             <span class="rep-snap-status">ACTIVE HUNTING GROUND</span>
-           </div>
-           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
-             "Succession war at Raventree Manor. Vivian Corvinarus has dropped disguise and is hunting party members through corridors."
-           </p>
-         </div>
-         <div style="margin-top:12px; font-size:12px; font-weight:700; color:var(--accent);">Three Threads Prophecy →</div>
-       </div>
-
-       <div class="rep-snap-card" onclick="Router.go('#/article/mages_guild')" style="--rep-color:#e0b400;">
-         <div>
-           <div class="rep-snap-head">
-             <b style="font-size:15px; color:var(--text);">🔮 Mages' Guild</b>
-             <span class="rep-snap-status">SUSPICIOUS / WATCHING</span>
-           </div>
-           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
-             "Tracking planar fractures, ritual room circles, and Archie Miser's unauthorized dimensional transit experiments."
-           </p>
-         </div>
-         <div style="margin-top:12px; font-size:12px; font-weight:700; color:var(--accent2);">Archie Transit Liabilities →</div>
-       </div>
-
-       <div class="rep-snap-card" onclick="Router.go('#/atlas/mushroom_kingdom')" style="--rep-color:#c8a6ff;">
-         <div>
-           <div class="rep-snap-head">
-             <b style="font-size:15px; color:var(--text);">👑 Mushroom Regency</b>
-             <span class="rep-snap-status">WARY / CONTESTED</span>
-           </div>
-           <p style="font-size:13px; line-height:1.45; color:var(--muted); margin:0;">
-             "House Toadstool main line broken. Regency balancing Peach Loyalists, House Rosewood bankers, and Koopa intervention."
-           </p>
-         </div>
-         <div style="margin-top:12px; font-size:12px; font-weight:700; color:var(--link);">Mushroom Civil War Atlas →</div>
-       </div>
-     </div>
-   </div>
-
-   <!-- 5. OPERATOR TOOLKIT & COLLAPSIBLE ENCYCLOPEDIA DIRECTORY -->
-   <div class="card animate-fade-in" style="margin-bottom:24px;">
-     <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:8px;">
-       <div>
-         <span style="font-size:11px; font-weight:900; color:var(--accent); text-transform:uppercase; letter-spacing:0.6px;">Quick-Access Navigation</span>
-         <h2 style="font-size:20px; font-weight:900; margin:4px 0; color:var(--text);">🎮 OPERATOR TOOLKIT &amp; CORE ARCHIVES</h2>
-       </div>
-       <button id="toggle-drawer-btn" class="chip" onclick="toggleEncyclopediaDrawer()" style="cursor:pointer; background:var(--panel2); border-color:var(--accent); color:var(--text); font-weight:700;">
-         📂 Browse Full Encyclopedia Catalog (23 Categories) ▾
-       </button>
-     </div>
-     <p style="font-size:14px; color:var(--muted); margin:0 0 14px;">
-       Direct launchpad to essential campaign systems, commerce ledgers, world maps, and historical books:
-     </p>
-
-     <div class="operator-toolkit-grid">
-       <a class="toolkit-tile" href="#/songs">
-         <div class="toolkit-tile-icon">🎵</div>
-         <div class="toolkit-tile-text">
-           <b>Grand Songbook</b>
-           <span>18 Campaign Ballads</span>
-         </div>
-       </a>
-       <a class="toolkit-tile" href="Reputation-Matrix2/app/pages/shop/shop.html">
-         <div class="toolkit-tile-icon">🛒</div>
-         <div class="toolkit-tile-text">
-           <b>Wario Shop &amp; Armory</b>
-           <span>7,880+ Catalog Items</span>
-         </div>
-       </a>
-       <a class="toolkit-tile" href="currency.html">
-         <div class="toolkit-tile-icon">💱</div>
-         <div class="toolkit-tile-text">
-           <b>Bank &amp; Currency Exchange</b>
-           <span>48 Tenders &amp; Debts</span>
-         </div>
-       </a>
-       <a class="toolkit-tile" onclick="Router.go('#/rnn')">
-         <div class="toolkit-tile-icon">📺</div>
-         <div class="toolkit-tile-text">
-           <b>Rakasha News Network</b>
-           <span>Last Week's Broadcast</span>
-         </div>
-       </a>
-       <a class="toolkit-tile" onclick="Router.go('#/atlas')">
-         <div class="toolkit-tile-icon">🗺️</div>
-         <div class="toolkit-tile-text">
-           <b>World Atlas</b>
-           <span>31 Mapped Realms</span>
-         </div>
-       </a>
-       <a class="toolkit-tile" onclick="Router.go('#/maps')">
-         <div class="toolkit-tile-icon">🧭</div>
-         <div class="toolkit-tile-text">
-           <b>Tactical Maps</b>
-           <span>Feyward / Shadeward + Journey</span>
-         </div>
-       </a>
-       <a class="toolkit-tile" onclick="Router.go('#/reputation')">
-         <div class="toolkit-tile-icon">📈</div>
-         <div class="toolkit-tile-text">
-           <b>Reputation Matrix</b>
-           <span>100+ Faction Standings</span>
-         </div>
-       </a>
-       <a class="toolkit-tile" onclick="Router.go('#/pond-docket')">
-         <div class="toolkit-tile-icon">⚖️</div>
-         <div class="toolkit-tile-text">
-           <b>Pond Patrol Docket</b>
-           <span>Resolution 17-A Register</span>
-         </div>
-       </a>
-       <a class="toolkit-tile" onclick="Router.go('#/artifacts')">
-         <div class="toolkit-tile-icon">⭐</div>
-         <div class="toolkit-tile-text">
-           <b>Star Bearers Vault</b>
-           <span>Major Artifacts &amp; Powers</span>
-         </div>
-       </a>
-       <a class="toolkit-tile" href="books/library.html">
-         <div class="toolkit-tile-icon">📚</div>
-         <div class="toolkit-tile-text">
-           <b>Grand Library Archive</b>
-           <span>40+ Full-Text Books</span>
-         </div>
-       </a>
-       <a class="toolkit-tile" onclick="Router.go('#/years')">
-         <div class="toolkit-tile-icon">🗓️</div>
-         <div class="toolkit-tile-text">
-           <b>Chronicle Archive</b>
-           <span>21 Recorded Years · 23 Songs</span>
-         </div>
-       </a>
-     </div>
-
-     <!-- COLLAPSIBLE FULL CATEGORY DIRECTORY DRAWER -->
-     <div id="home-category-directory" style="display:none; margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
-       <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
-         <div>
-           <h3 style="font-size:17px; font-weight:800; margin:0; color:var(--accent2);">📚 FULL ENCYCLOPEDIA DIRECTORY (23 CATEGORIES)</h3>
-           <p style="font-size:13px; color:var(--muted); margin:4px 0 0;">Select a filter tab below to browse all categories and portals:</p>
-         </div>
-         <span class="chip" onclick="toggleEncyclopediaDrawer()" style="cursor:pointer; font-size:12px;">✕ Close Drawer</span>
-       </div>
-       <div class="home-cat-tabs">
-         <button class="home-cat-tab active" data-tab="all" onclick="filterHomeCategories('all')">All Categories <span class="cat-badge">23</span></button>
-         <button class="home-cat-tab" data-tab="systems" onclick="filterHomeCategories('systems')">🏛️ Campaign Systems <span class="cat-badge">6</span></button>
-         <button class="home-cat-tab" data-tab="history" onclick="filterHomeCategories('history')">📚 History &amp; Archives <span class="cat-badge">7</span></button>
-         <button class="home-cat-tab" data-tab="people" onclick="filterHomeCategories('people')">👤 People &amp; Factions <span class="cat-badge">7</span></button>
-         <button class="home-cat-tab" data-tab="commerce" onclick="filterHomeCategories('commerce')">💰 Commerce &amp; Items <span class="cat-badge">5</span></button>
-       </div>
-       <div id="home-cat-grid" class="grid-cats"></div>
-     </div>
-   </div>
-
-   <!-- 6. CALENDAR & ON THIS DAY SIDE DESK -->
-   <div class="card animate-fade-in" style="margin-bottom:24px;">
-     <div class="home-section-head" style="margin-bottom:12px;">
-       <div>
-         <h2>📅 This Month — ${esc(mdToday.name)} ${CUR.year} BF</h2>
-         <p>Mini calendar · click day to inspect · today highlighted</p>
-       </div>
-       <span class="chip" onclick="Router.go('#/calendar')" style="cursor:pointer;margin:0;">Full Calendar →</span>
-     </div>
-     <div id="home-mini-cal" class="mini-calendar"></div>
-     <div class="calendar-legend" style="margin-top:8px;">
-       <span class="lg"><i style="background:var(--accent)"></i>Has events</span>
-       <span class="lg">🟡 Today</span>
-     </div>
-     <div style="margin-top:18px; border-top:1px solid var(--border); padding-top:14px;">
-       <div class="flex-between-center" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-         <h3 style="margin:0; font-size:15px; color:var(--accent2);">🕰️ On This Day — ${esc(mdToday.name)} ${CUR.day}</h3>
-         <span class="chip" onclick="Router.go('#/year/${CUR.year}')" style="cursor:pointer;font-size:11px;margin:0;">${CUR.year} BF chronicle →</span>
-       </div>
-       <ul class="otd" style="margin:0; padding-left:18px; font-size:13px; line-height:1.6; max-height:170px; overflow-y:auto;">
-         ${otdHtml||'<li class="text-muted">No entries for today yet — add dated events to populate this automatically.</li>'}
-       </ul>
-     </div>
-   </div>
-   `;
-
-  try {
-    const coversMount = document.getElementById('home-campaign-covers');
-    const fieldMount = document.getElementById('home-field-gallery');
-    if (coversMount || fieldMount) {
-      const h = homeCoversHtml();
-      if (coversMount && h.covers) coversMount.innerHTML = h.covers;
-      if (fieldMount && h.field) fieldMount.innerHTML = h.field;
-    }
-  } catch (e) { console.warn('home covers failed', e); }
-
-  try {
-    const feedMount = document.getElementById('home-recent-adventures');
-    if (feedMount) feedMount.innerHTML = homeRecentAdventuresHtml();
-  } catch (e) { console.warn('home feed failed', e); }
-
-  try { renderMiniCalendar('home-mini-cal', CUR.year, CUR.monthIndex); } catch(e) { console.warn('mini cal failed', e); }
-  try { window.filterHomeCategories('all'); } catch(e) { console.warn('cat filter failed', e); }
-  window.scrollTo(0, 0);
 }
 /* =============== LIST VIEW =============== */
 const listState={};
@@ -19489,7 +18961,7 @@ const Router={
     LINK_GRAPH_OUT=new Set(); LINK_CONTEXT=new Set(); LINK_LAST_STATS={total:0,unique:0,scope:''}; LINK_SUPPRESSED=[];
     document.body.classList.remove('hide-walu-ambient');
     if(route==='home')view_home();
-    else if(route==='home-classic')view_home_classic();
+    else if(route==='home-classic')view_home(); /* legacy alias: one home, no swapping */
     else if(route==='who')view_whoami();
     else if(route==='list'){ if(arg==='nations')view_atlas(); else view_list(arg); }
     else if(route==='field-journal'||route==='journal')view_fieldJournal();

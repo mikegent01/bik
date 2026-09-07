@@ -120,14 +120,14 @@ if covered / max(1, total) < 0.90:
 # ---------- wiring ----------
 needles = ["function wahNotesFor(", "function wahNotesHtml(", "function wahLastSeen(",
            "function wahPartyTokens(", "function wahChatterByPoi(", "function view_whoami(",
-           "function view_home_classic(", "route==='who'", "route==='home-classic'",
+           "function view_home(", "route==='who'", "route==='home-classic'",
            "t==='chatter'", "data-party-toggle", "'wahnotes'", ".wah-note{",
            ".dash-door{", ".who-card{"]
 for n in needles:
     if n not in src:
         fail(f"index.html missing {n}")
 # Batch 2b: dashboard calendar scoping, who grid, census lenses, newspaper.
-needles2 = ['id="dash-cal" class="mini-calendar"', ".who-rail{display:grid",
+needles2 = ['id="home-cal" class="mini-calendar"', ".who-rail{display:grid",
              "function wahCensusByPoi(", "function wahFaithName(",
              "dashDoor('📺','RNN'", "rnnPaperFrame",
              "app/pages/newspaper/newspaper.html"]
@@ -137,11 +137,13 @@ for n in needles2:
 if src.count("census:wahCensusByPoi") < 2:
     fail("census not passed from both map mounts")
 # Batch 2c: scored wah tiers, curated filings, dashboard micro-features.
+# Batch 3: unified home (Front Page) — hero, ticker, status band, rail.
 needles3 = ["function wahScoreRemark(", "function dashFilingOrder(",
-             "dashDoor('📜','Events'", "function dashLoudest(",
-             "function dashSub(", "function dashDice(", "function dashNoteRead(",
+             "dashDoor('📜','Events'", "function homeHeroHtml(",
+             "function homeTickerHtml(", "function homeStatusBand(",
+             "function homeOtdList(", "function dashDice(", "function dashNoteRead(",
              "waluipediaLastRead", "waluipediaRecents", "waluipediaSeenOps",
-             "waluipediaVisits", ".dash-sub{display:flex", "Debt alarm",
+             "waluipediaVisits", ".hm-hero{", "red debts",
              "Surprise me", "cover-date"]
 for n in needles3:
     if n not in src:
