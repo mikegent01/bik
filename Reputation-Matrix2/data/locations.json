@@ -2753,5 +2753,37 @@
         "note": "The upper villages hold to the Cycle and have since before there was a manor. Under the Edict of Purification an inquisitor would call that a problem. Under Jack's tenure it is called the upper villages."
       }
     ]
+  },
+  {
+    "id": "skittering_grove",
+    "name": "The Skittering Grove",
+    "type": "Location / Interior Wilderness / Arachnid Domain",
+    "region": "Inside the Scorncrow's tree, the overgrown grove beyond Tymnas's cottage (Shadow Estate grounds, Shadowfell)",
+    "controllingFaction": "The Scorncrow's brood — ettercaps and giant green spiders; an Iron Legion detachment also present inside, unexplained",
+    "population": "Uncountable arachnids; an unknown number of wrapped victims, beast and man; at least one Legion contingent and one webbed guard",
+    "climate": "Windless, lightless, and warm the way a mouth is warm; fire magic burns weaker here than it should",
+    "status": "Active hazard — the party is inside it, the jaws are shut behind them, and the exit Archie made is sealed",
+    "summary": "The Skittering Grove is what is inside the Scorncrow's tree. You reach it by rope, through the tree's jaws, down a pit that a thrown torch does not measure. At its heart stands a great dead tree with a canopy of webs instead of leaves, hung with wrapped creatures like macabre fruit. It is a grove inside a tree, which is either impossible geometry or an honest description of what the Scorncrow is, and the archive has stopped assuming those are different things.",
+    "description": "Markop recognised it before anyone else did, which is its own piece of intelligence: this place has been visited before, and it is inside something that was standing in a field an hour ago.\n\n**The Approach**\nThere is no door. There is a mouth. When Markop pried the jaws of the trunk open he saw darkness first and a giant pit second, in that order, which is the order things arrive in here. The party threw a torch in as a test. The torch came back out of the trunk — and on the inside, Remi heard voices saying *there's a fire, someone's causing a fire, they're going to burn us all down*. That is the whole location in one exchange: you cannot sound it, and something in it is talking about you.\n\n**The Heart**\nAt the centre stands a great, towering tree with vast branches reaching out to form a canopy over the area. Its boughs are coated in thick webs that are an unnerving mockery of foliage, and hanging from them are the forms of wrapped creatures, both beast and man, dangling like macabre fruit. The tree is long dead — some terrible malady killed it from the inside out years ago. Its dark roots jut from grey earth that no longer nourishes it, and its great arms serve as home to an unimaginable host of creeping, crawling arachnids that accost anything which wanders into their domain.\n\n**What Lives Here**\nGiant green spiders that fight with webs before they fight with fangs. Ettercaps that reel their targets in on a strand and open with a multiattack. And — filed with the discomfort it deserves — Legion soldiers, inside, alongside the brood, on ground no Legion column marched to.\n\n**Fire**\nArchie's fire bolt scarred the bark and did nothing else. Fire magic is weakened in this domain, which the wizard tested twice before believing it and then answered by emptying every reserve he had into a single cast. The tree took it. The exit did not survive.\n\n**Waluigi's Assessment**\nWaluigi notes for the record that the Silent Grove was also a web-choked forest full of arachnids on a manor's grounds, and that the Silent Grove was cleared. Either this is a second one, or something has learned to grow the same room twice. Waluigi does not like either answer and files both. WAH.",
+    "notableFeatures": [
+      "Entered through the jaws of the Scorncrow's tree — no other confirmed way in or out",
+      "A pit below the jaws deep enough that a dropped torch teaches you nothing",
+      "A great dead tree at the heart, canopied in webs instead of leaves",
+      "Wrapped creatures, beast and man, hanging from the boughs",
+      "Grey earth that no longer nourishes the roots jutting out of it",
+      "Fire magic is measurably weakened inside",
+      "Ettercaps, giant green spiders, and an unexplained Iron Legion presence",
+      "Voices inside that react to what the party does outside"
+    ],
+    "relatedArticles": [
+      "the_belly_of_the_beast",
+      "the_skittering_grove_descent_battle",
+      "silent_grove",
+      "tymnas_cottage_and_hedge_maze",
+      "markop",
+      "remi_akamatsu_full_backstory",
+      "archie_miser",
+      "wario"
+    ]
   }
 ]

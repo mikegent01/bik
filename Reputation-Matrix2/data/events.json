@@ -14566,5 +14566,274 @@
         }
       ],
       "aftermath": "Standing as of 5 Aethel, 1040 BF — per the full account, not the newspaper.\n\n- The portal machine never opened. Darian and Alistair remained in the Hollywood studio, the devices red, Dr. Takeda promising recalibration over days.\n- Luigi was reported missing from the studio after the unsupervised tape played. No note, no struggle, no usable security footage.\n- A hostile figure calling itself a version of Mario emerged from a television, challenged the host to beat it or perish, and engaged him on the set. Its fate is unreported.\n- The Wario Apparition, which seized the studio systems and ran a game-show segment, dissolved after a Wario Inc. tablet was used as a flashlight. The tablet still works. Waluigi is not sorry.\n- The 955 BF tape, the funeral footage, the drowning image and the question-mark cipher remain unaccounted for.\n- Darian, Alistair, Mario and Dr. Takeda remain the account's only sources. No publisher, no original film and no independent witness has been produced."
-    }
+    },
+  {
+    "id": "the_belly_of_the_beast",
+    "name": "The Belly of the Beast",
+    "title": "The Belly of the Beast: Human Blood Under the Scarecrow, a Door Burned Shut, and the Skittering Grove Inside the Tree",
+    "date": "30 Harvestide, 1040 BF \u2014 continuing the same storm-night, from the grove into the tree",
+    "era": "Harvestide 1040 BF \u2014 Shadow Estate storm chain",
+    "location": "The overgrown grove beyond Tymnas's cottage, and the Skittering Grove inside the Scorncrow's tree (Shadowfell)",
+    "type": "Session Event / Grove Skirmish / Descent",
+    "status": "Unresolved \u2014 the party is inside the Skittering Grove, the jaws are shut, the exit Archie made is sealed, Remi is webbed and separated, and there are Legion soldiers in there with them",
+    "summary": "The Scorncrow put Feyward Dan down with a murder of crows, Archie slammed it out of the air onto Remi, and Remi \u2014 pinned at point-blank range \u2014 fired a musket into its face and found human blood. The thing fled into the mouth of its own tree; the party followed, Archie sealed the only exit burning it, Markop pried the jaws open and rigged a rope, and five of them descended into the Skittering Grove: a web-canopied grove inside the tree, hung with wrapped bodies, full of ettercaps, giant green spiders, and Legion soldiers.",
+    "description": "*Waluigi has filed three engagements against the Scorncrow. In every one of them the thing shouted that it was not a monster and Waluigi wrote that down as villain theatre, because that is what it sounds like. On the night of 30 Harvestide a fourteen-year-old girl pinned under its body pressed a musket to its face and fired, and the face came off, and the blood underneath was human. This article is partly a correction. WAH!*\n\nThe battle continued out of the grove skirmish without a pause. Crows took Feyward Dan down unconscious at Archie's feet; Salam crossed open ground to stabilise him; Archie planted his staff and shook the earth, and the Scorncrow's crows simply lifted it off the ground that was failing. It offered a swing \u2014 pointed, spiked \u2014 and Archie answered by slamming it out of the air knowing full well it would land on Remi. It did. She shot it in the face at zero range.\n\nWario cleared the shadow servants, freed his motorbike, and rode at everything. The Scorncrow laughed and jumped into the mouth of its own tree. Then the plans came apart: Archie argued for withdrawal and immediately talked himself into arson, Remi honked a horn that laughed in Wario's voice across a fifty-mile radius, Feyward Dan healed himself with every point of magic he owned and reported \u2014 inside an insult \u2014 that they had not seen half the Scorncrow's power.\n\nWario rode into the mouth. Remi went in after. Both ended up in cobwebs with the motorbike gone. Archie, outside and unanswered, poured every reserve he had into one weakened fire cast until his eyes turned to fire, and killed the tree, and sealed the exit doing it. Markop pulled a piece of bark and the jaws shut. Then he pried them open again, found a pit, tested it with a torch \u2014 and the pit answered, in voices, saying someone was going to burn them all down.\n\nThey set a marching order with reasons attached, went down Markop's rope, and arrived in the Skittering Grove.",
+    "image": "assets/images/events/scorncrow-skirmish/scorncrow-01-battlefield.jpg",
+    "imageCaption": "The overgrown grove on the night of the descent \u2014 the Scorncrow's tree, the crows still up, and the leaves where Wario's motorbike spent the first half of the engagement. Filed from the skirmish record; the interior has no filed image.",
+    "sections": [
+      {
+        "name": "I. The Crows Take Feyward Dan",
+        "icon": "\ud83e\udeb6",
+        "overview": "The Scorncrow's answer to a party that had held the field was to stop fighting people and start fighting one person. The crows came off the branches in a single mass and closed on Feyward Dan, and there is no elegant way to describe what a murder of crows does to a man at close range: they pecked him down. He fell unconscious at Archie Miser's feet, which is a place nobody should have to be put.\n\nArchie called for Salam. Salam looked at the thing making the crows and gave the only honest answer available.\n\n\"Alright \u2014 but keep that thing distracted. It's kinda scary.\"\n\nHe ran anyway. *\"Your service won't go in vain,\"* he said, over a body that was still breathing, and got to work.\n\n*WAH! Waluigi has watched a great many people volunteer for a great many stupid things and he notes the difference here. Salam did not pretend the field was safe. He said out loud that he was frightened, negotiated one condition, and then crossed the open ground. That is not courage as the stories tell it. That is courage as it actually gets done, with the paperwork filed in advance.*\n\nThe condition Salam negotiated is the reason for everything in the next section. Somebody had to keep the Scorncrow looking the other way, and the only volunteer was the least survivable person present.",
+        "waluigi_note": "Waluigi files this as the moment the engagement stopped being a skirmish. A monster that targets your healer has read your party sheet. The Scorncrow has now watched this squad fight three times and it opened the fourth by removing the paladin. That is not instinct. That is study."
+      },
+      {
+        "name": "II. Something Really Risky",
+        "icon": "\u26a1",
+        "overview": "\"I'm doing something really risky,\" Archie announced, which in this wizard's mouth is less a warning than a schedule.\n\nHe ran at the Scorncrow, drove his staff into the earth, and the ground came apart in a tremor that spread out under the tree. It was a good plan. It was, in fact, the same plan he has been running since the last engagement \u2014 take away the ground, and the thing standing on it stops being sovereign.\n\nThe Scorncrow laughed. *\"Oh, you little thing.\"* And as the earth shook itself into ridges, the crows came back under it and lifted it clear, so that it was standing on nothing at all while the ground failed.\n\nThen it made its offer, in the voice it always uses for offers.\n\n\"Care for a swing?\"\n\nA tree branch came down, pointed and spiked.\n\n*Waluigi notes, with the bitterness of an auditor whose warnings are never read, that this is the SECOND swing the Scorncrow has offered this party in one night. Remi declined the first. It is not a taunt. It is an invitation, and it means something, and nobody in that grove has the time to work out what.*\n\nArchie did not dodge it. He jumped \u2014 up and into the Scorncrow, a full-body slam with a wizard's frame behind it, and he knew as he left the ground exactly where the thing would fall if he connected. Remi was standing right next to it. He connected anyway.",
+        "waluigi_note": "The tremor is the correct instinct executed against the wrong physics. Archie keeps attacking the Scorncrow's relationship with the ground, and the Scorncrow keeps demonstrating it does not have one. Waluigi will say this as many times as it takes: the crows are not decoration, they are the landing gear."
+      },
+      {
+        "name": "III. Point Blank, and What Was Under the Face",
+        "icon": "\ud83e\ude78",
+        "overview": "The Scorncrow stumbled, went over, and came down on top of Remi Akamatsu.\n\n\"I'll make sure it's worth it,\" Archie said.\n\nMeanwhile the shadow servants had found Wario, or more accurately had found the motorbike, which he was still hauling out of the dirt with the grim single-mindedness of a man who has decided the vehicle is the point of the evening. They surrounded him. He kept pulling.\n\nEager awakened the Shadow Blade and brought it down on the fallen Scorncrow \u2014 a good strike, a fast strike, and one that passed close enough to Remi on the ground that he pulled off it and backed away rather than finish the swing. Waluigi wants that noted. The catastrophe scout looked at the geometry mid-blow and chose not to.\n\nUnder several hundred pounds of scarecrow, Remi filed her situation.\n\n\"Well, I have this monster on top of me. I'd better get him off of me.\"\n\n\"Preferably push him onto the tremor I made earlier,\" Archie called, still committed to the plan.\n\n\"It's too heavy.\"\n\nAnd then, in the small flat voice of somebody who has run out of options and found one underneath them: *\"Wait a minute. I'm at point-blank range.\"*\n\nShe fired the musket into the Scorncrow's face.\n\n**[[prop:prop_scorncrow_unmasking_note|The face came off. The blood was human.]]**\n\n*Waluigi has to stop the article here, because the archive has been wrong in print and this is where it gets corrected. Three filings. Three times that thing has stood in a field and shouted* I am not a monster *while Waluigi wrote it down as villain theatre and moved on to the jokes about garlic. A fourteen-year-old with a musket and no other options tested the claim at a range of zero inches. The claim held. Human blood, under a scarecrow's face, in a grove full of crows.*\n\n*Waluigi does not know what that means. He knows what it does not mean, and it does not mean nothing.*",
+        "waluigi_note": "Every reading of the human blood is worse than the last. Something human is wearing the scarecrow; something human was made into it; or the blood is a costume laid over a monster clever enough to know what this party would find convincing. Two of those three make 'I am not a monster' a complaint nobody answered. File it as unresolved and stop calling it the monster."
+      },
+      {
+        "name": "IV. Wario Clears the Field and the Scorncrow Leaves It",
+        "icon": "\ud83c\udfcd\ufe0f",
+        "overview": "Wario hit two shadow servants and they went to dust.\n\n\"You shadow chumps have nothing on Wario.\"\n\nMarkop swung, and the rest went with them. For a few seconds there was nothing left standing in the grove but the Scorncrow and the people who had spent the entire night failing to keep it in one place.\n\nAnd the motorbike came free. Wario, released from the dirt at last, came barrelling across the grove at full speed toward Remi, the Scorncrow and Archie \u2014 a manoeuvre with no stated target and every appearance of being aimed at all three.\n\nThe Scorncrow laughed, and jumped into the tree's mouth.\n\n*The tree, Waluigi records for the first time in this file, has a mouth.*\n\n\"Thanks for the ride,\" Archie said to the motorbike that had not yet arrived, and then made the sensible argument that he would spend the rest of the session abandoning: if it is clear we cannot win this battle, we should run, and Dan should be brought to safety. He asked where Green T was. *He seems too powerful* \u2014 and the giant was not there.\n\nWario disagreed on both counts. \"We can't let him get away.\" Then, pointing: that toad over there is poisoned. He's purple. Dan \u2014 we need to send him away.\n\n\"We should go to the belly of the beast,\" Wario said, motorbike whirring under him, \"and uproot it.\"\n\nRemi put it more plainly. If the tree needs to die, we go inside and kill it from the inside.\n\nArchie, who has never in his recorded life been able to decline an opportunity to set something enormous on fire, was compelled.",
+        "waluigi_note": "Two plans were on the table and they were the same plan wearing different hats. Wario wanted to uproot the belly of the beast; Remi wanted to kill the tree from inside. Nobody proposed the third option, which was leaving, which Archie had proposed thirty seconds earlier and then talked himself out of. Waluigi is not neutral about this: the correct move was the withdrawal, and the reason it lost is that the alternative involved arson."
+      },
+      {
+        "name": "V. WAHAHAHAH (Fifty Miles)",
+        "icon": "\ud83d\udce2",
+        "overview": "The reunion was short a giant. Green T was already gone by the time anyone counted, and Archie \u2014 with a poisoned Toad on the ground, an escaped monster, and a sealed grove ahead of him \u2014 suggested they go celebrate.\n\nWario declined to be worried about the missing giant. \"Green T has his own agenda. Maybe he's helping in another way.\"\n\nThen Remi honked the horn.\n\n**WAHAHAHAH.**\n\n\"Wow, that's loud,\" said Archie.\n\nThen, a beat later, with the horror of a man doing arithmetic: \"Too loud. Fifty-mile radius will hear this.\"\n\n*WAH! Waluigi wishes to register a professional objection on behalf of every stealth operation ever conducted in the history of this archive. The horn on Wario's motorbike does not honk. It LAUGHS. In his voice. At a volume that a wizard, on the spot, estimated at fifty miles. Waluigi has spent this campaign documenting infiltrations undone by a creaking floorboard, and here is a vehicle whose warning device is its owner's laugh, deployed in a monster's grove, by a fourteen-year-old, for fun.*\n\n*Waluigi would like to disapprove and finds that he cannot. WAHAHAHAH.*\n\nFeyward Dan chose that moment to sit up.\n\n\"IT'S OKAY ARCHIE, I AM HEALED. I used magic and everything\" \u2014 *although I used all of it* \u2014 \"but it's alright, no need to worry.\"\n\nHe had patched himself up, spending every point he had to do it, and then announced the fact at the volume of a man who has decided nobody should be allowed to worry about him. He turned immediately to Wario and mocked him for the plan: *wow, this guy is going to be a tough fight, we all should be in this together, you can't handle this on your own.* And then the line that has not stopped mattering since: **I don't think that was half his power.**\n\nWario's answer was to rev the motorbike and ride straight into the tree's mouth, which opened for him.\n\n\"No one challenges Wario to a fight and gets a-way from it!\"",
+        "waluigi_note": "Feyward Dan gave the single most valuable intelligence report of the night in the middle of an insult, and it went straight past everyone: *that was not half its power.* He also announced he had spent every reserve he had on himself, in the same breath, to the same audience, and nobody adjusted the plan. A party with a drained healer and an unmeasured enemy then rode into the enemy's mouth. Waluigi files the receipts."
+      },
+      {
+        "name": "VI. Cobwebs, and the Wizard Who Sealed the Door",
+        "icon": "\ud83d\udd25",
+        "overview": "\"Dang,\" said Archie, and called out for Remi and Wario.\n\nNo response.\n\nHe decided it was probably the tree's fault, which was the first correct deduction anybody had made in some time.\n\nInside, they were both in cobwebs. The motorbike was gone \u2014 not stalled, not stuck: gone, unseen, in a place that had swallowed it whole. A spider came at Remi and she said *oh no, please don't* to a thing that does not take requests, and it got closer, and she ran, and it nearly bit her, and she tripped into a web.\n\nOutside, Archie shouted. **REMI. WARIO. WHERE ARE YOU.**\n\nThen he cast a bolt of fire at the tree.\n\nIt hit. The bark was damaged. Nothing happened.\n\nHe fired again. Nothing happened.\n\nFire magic is weak here \u2014 Archie worked that out with two casts and a wizard's stubbornness, and then he did the thing that this file exists to record. He pulled all of his magic into it. **All** of it. Every reserve, weakened as it was, into one cast, until his eyes turned to fire.\n\nAnd it **EXPLODED** into the tree.\n\nThe tree died. And the exit sealed.\n\n\"What have you done?\" Markop said. \"You've destroyed our only entrance.\"\n\n*Waluigi wants to be fair to Archie Miser, which is an unusual sensation and he intends to enjoy it. The wizard was told his friends were inside a thing he could not enter, he tested fire twice, learned it was weakened, and then spent everything he had rather than stand outside shouting. Every step of that reasoning is defensible. The result was that he burned the door shut with two people on the wrong side of it. Both things are true, and the archive is going to hold both.*\n\nArchie started thinking of a plan \u2014 move the bark over, or enlarge the tree. Markop, more direct, took hold of a piece of bark and pulled it away.\n\nThe jaws of the tree **SHUT**.\n\nInside, Wario ran.",
+        "waluigi_note": "Two men solved the same door in opposite directions within a minute of each other, and both solutions made it worse. Archie's explosion sealed it; Markop's bark removal shut the jaws. Waluigi observes that this tree responds to every intervention by closing further, which is not the behaviour of a door. It is the behaviour of a throat."
+      },
+      {
+        "name": "VII. Inside: Crows, Webs, and a Guard With a Spear",
+        "icon": "\ud83d\udd77\ufe0f",
+        "overview": "The record of what happened inside is a combat log, and Waluigi files it as one, because the people in it did not have the luxury of narrative.\n\nThe Scorncrow opened with Multiattack and did not aim at a person. It aimed at the motorbike \u2014 **Murder of Crows**, twice, sixteen to hit, at disadvantage, fourteen damage to a machine. Then it turned to the owner: two more, seventeen and thirteen, and a **Shadow Jump** as a bonus action to be somewhere else before anything could answer.\n\n*The Scorncrow attacked the motorbike first. WAH! Waluigi has audited enough monsters to know what that means: it identified the party's mobility and removed it before it touched the man. The scarecrow is a tactician and the archive has been filing it as a prankster.*\n\nThen the grove itself joined in, and it came in with morale readings the archive has learned to dread. **Ettercap: BOLD, 84.** Multiattack, and a dash straight at Remi. **Giant Green Spider: BOLD, 84** \u2014 Web against a guard, DC 12 Strength. A second spider rushed the same guard and webbed it again. The Ettercap dashed at Wario. It cast **Web Strand** at the guard, DC 12 Dexterity, and **Reeled** \u2014 hauling a webbed man in on a line as a bonus action.\n\nThen it turned back to Remi and webbed her. Twice.\n\nWario retreated from Remi's position \u2014 the log records it flatly as *morale* \u2014 and the only friendly answer of the entire exchange came from a guard nobody has named: a spear, thirteen to hit, five damage into the Ettercap. One spear. Five points. Against a bold, coordinated brood that had already webbed him twice and pulled him in on a string.\n\n*Waluigi does not know who the guard is. Waluigi is not going to invent a name for him. He is the only person in that log who attacked instead of running, and the archive will hold his line open until somebody tells it what to write there.*",
+        "waluigi_note": "Read the morale numbers. Eighty-four, eighty-four, eighty-one, eighty-four, eighty-four \u2014 the brood never wavered and never had to. That is what fighting on somebody's home ground looks like from the ledger side: no morale checks failed, no retreat, and the only recorded withdrawal on that field was Wario's."
+      },
+      {
+        "name": "VIII. The Torch Test, and the Voices That Answered It",
+        "icon": "\ud83d\udd6f\ufe0f",
+        "overview": "Markop pried the jaws open again. He saw darkness in them. He looked below and saw a giant pit.\n\n\"Anyone have a rope?\" Markop asked.\n\n\"I don't think soooo,\" said Dan, in a tone the transcript preserves and Waluigi will not editorialise.\n\nSo they [[prop:prop_belly_torch_test|tested it the old way]]: they threw a torch in.\n\nAnd this is the part of the session that Waluigi keeps returning to. The torch went down into the dark \u2014 and inside, Remi heard voices. Not a spider's voice. People, in a panic, saying *there's a fire, someone is causing a fire, they're going to burn us all down.* And then the torch came back out of the trunk.\n\n*WAH! The party dropped a torch into a hole to find out how deep it was, and the hole COMPLAINED. There are people in there. They are frightened of fire. They are frightened enough to give a coherent, grammatical, collectively-worded objection, which means they can talk, they can hear, and they know what a fire means for whatever they are. Nobody outside heard a word of it. The torch simply came back, and the party read that as the pit being unhelpful.*\n\nThen Markop set [[prop:prop_belly_marching_order|the marching order]], and gave his reasons, which the archive appreciates more than it can say:\n\n> **Feyward Dan** (paladin) \u2014 front\n> **Eager**\n> **Archie** (squishy) \u2014 middle\n> **Salam**\n> **Markop** \u2014 rear\n\nA paladin at the front, the wizard packed in the middle where the file literally reads *squishy*, and the centaur bringing up the rear on his own rope. They used Markop's rope and descended into the belly of the beast.",
+        "waluigi_note": "The marching order is the best piece of work anybody did all night, and it is worth saying why: it is the only decision in the session with its reasoning attached. Everything else was improvised at speed by people with fire in their eyes. This one had a paladin at the front because he is a paladin and a wizard in the middle because he is squishy. Waluigi would like more of the campaign filed this way."
+      },
+      {
+        "name": "IX. The Skittering Grove",
+        "icon": "\ud83d\udd78\ufe0f",
+        "overview": "Markop recognised where they were.\n\n> At the heart of this skittering grove is a great, towering tree with vast branches reaching out to form a massive canopy over the area. Its boughs are coated in thick webs that are an unnerving mockery of foliage, and hanging from them are the forms of wrapped creatures, both beast and man, dangling like macabre fruit.\n>\n> This tree is long dead, some terrible malady having killed it from the inside out years ago. Now its dark roots jut from grey earth which no longer nourishes it, as its great arms serve as home to an unimaginable host of creeping, crawling arachnids that accost anything which foolishly wanders into their domain.\n\nThe **Skittering Grove**. Inside the tree. A grove inside a tree, hung with wrapped people, with a dead giant at its heart that something killed from the inside out years ago.\n\n*Waluigi will say the quiet thing. The Silent Grove was a web-choked forest full of arachnids on a manor's grounds, ruled by something enormous, hung with the remains of people who went in and did not come out. The party cleared it. Waluigi was THERE. And now, on different grounds, in a different realm, inside a scarecrow's tree, here it is again \u2014 the same room, the same fruit, the same silence with legs in it. Either this archive has found a second one, or something has learned how to grow the room twice. Waluigi files both and sleeps poorly.*\n\nRemi fired a bow at a spider and missed. The spiders were still there. All of them.\n\n\"It seems like I hear someone yelling,\" she said.\n\n\"WHERE ARE YOU!\" Markop yelled.\n\nArchie thought about spells, which is what a wizard does when he has spent all of them.\n\nMarkop found Wario's motorbike \u2014 recovered, intact, and completely useless to him, because Markop is a centaur and a centaur does not ride a motorbike.\n\n\"If there is a will, there is a way,\" said Archie.\n\nSpiders everywhere. **And Legion soldiers also.**\n\nAnd Remi Akamatsu, fourteen years old, webbed, separated, out of good options and with nothing but the honest one left, filed the party's entire remaining objective in a single line: the only thing she needs to do is figure out how not to die.",
+        "waluigi_note": "Legion soldiers. Inside. On the far side of a mouth that had to be pried open with a centaur's hands, in a grove that exists inside a tree, alongside a brood that answers to a scarecrow with human blood under its face. No column marched there. Waluigi has no theory he is willing to print, and he wants it on the record that he asked the question first: **who let the Iron Legion in, and through which door?**"
+      }
+    ],
+    "participants": [
+      {
+        "id": "remi_akamatsu_full_backstory",
+        "name": "Remi Akamatsu",
+        "role": "Pinned under the fallen Scorncrow and fired a musket into its face at point-blank range \u2014 the shot that found human blood; honked the horn; separated inside the grove and webbed"
+      },
+      {
+        "id": "archie_miser",
+        "name": "Archie Archbold Miser",
+        "role": "Tremored the ground, slammed the Scorncrow out of the air onto Remi, and emptied every reserve of magic into one weakened fire cast that killed the tree and sealed the only exit"
+      },
+      {
+        "id": "markop",
+        "name": "Markop",
+        "role": "Cleared the last shadow servants, pried the tree's jaws open and shut, set the marching order with reasons, rigged the rope, and recognised the Skittering Grove"
+      },
+      {
+        "id": "wario",
+        "name": "Wario",
+        "role": "Freed the motorbike under a shadow-servant swarm, destroyed two of them, rode into the tree's mouth \u2014 and lost the motorbike, the fight, and his position inside"
+      },
+      {
+        "id": "dan_the_toad",
+        "name": "Feyward Dan",
+        "role": "Taken down unconscious by the murder of crows, stabilised by Salam, self-healed at the cost of all his magic, and gave the night's key intelligence: 'I don't think that was half his power'"
+      },
+      {
+        "id": "salam",
+        "name": "Salam",
+        "role": "Crossed open ground under crow-fire to stabilise Feyward Dan \u2014 'your service won't go in vain' \u2014 and took fourth in the marching order"
+      },
+      {
+        "id": "eager",
+        "name": "Eager",
+        "role": "Awakened the Shadow Blade against the downed Scorncrow, pulled off the strike rather than hit Remi, and took second in the marching order"
+      },
+      {
+        "id": "mossy",
+        "name": "Mossy",
+        "role": "Descended into the Skittering Grove without a word"
+      },
+      {
+        "id": "green_t",
+        "name": "Green T",
+        "role": "Absent at the reunion and unexplained \u2014 'he seems too powerful'; Wario's position is that the giant has his own agenda"
+      },
+      {
+        "id": "scorncrow",
+        "name": "The Scorncrow",
+        "role": "Put the paladin down first, laughed off the tremor, offered a spiked swing, lost its face to a point-blank musket revealing human blood, and fled into the mouth of its own tree \u2014 then opened combat inside by destroying the party's mobility"
+      }
+    ],
+    "outcome": "No decision, and a worse position than the party started in. The Scorncrow was unmasked \u2014 human blood, at point-blank range \u2014 and escaped into its own tree. Archie killed the tree and sealed the exit; Markop shut the jaws and reopened them. Five of the party descended by rope into the Skittering Grove, where Remi and Wario were already separated and webbed, the motorbike was found but unusable, and Legion soldiers were present alongside the brood. The party is inside, split, out of magic, and unable to leave the way they came.",
+    "notableFeatures": [
+      "Human blood under the Scorncrow's face \u2014 the first physical test of its 'I am not a monster' claim, and the claim held",
+      "The tree has a mouth, a throat, and a pit; every intervention made it close further",
+      "Fire magic is measurably weakened inside the Scorncrow's domain \u2014 confirmed by two failed casts before the third",
+      "Archie's all-in fire cast: eyes turned to fire, the tree died, the exit sealed",
+      "The horn on Wario's motorbike laughs in his voice at an estimated fifty-mile radius",
+      "The torch test: the pit answered in human voices \u2014 'they're going to burn us all down'",
+      "A marching order set with stated reasons \u2014 paladin front, squishy wizard middle, centaur rear",
+      "The Skittering Grove: a web-canopied grove inside the tree, hung with wrapped beast and man",
+      "Iron Legion soldiers present inside the grove, by no marched route"
+    ],
+    "keyBattles": [
+      "the_skittering_grove_descent_battle"
+    ],
+    "relatedArticles": [
+      "the_scorncrow_skirmish",
+      "the_skittering_grove_descent_battle",
+      "skittering_grove",
+      "scorncrow",
+      "remi_akamatsu_full_backstory",
+      "archie_miser",
+      "markop",
+      "wario",
+      "dan_the_toad",
+      "salam",
+      "eager",
+      "mossy",
+      "green_t",
+      "silent_grove",
+      "tymnas_cottage_and_hedge_maze"
+    ],
+    "aftermath": "**Position:** the party is inside the Skittering Grove and cannot leave by the route they entered. Archie's explosion sealed the exit; Markop's bark removal shut the jaws; the rope goes down, and nothing in the record says it comes back up.\n\n**Condition:** Archie has spent all of his magic. Feyward Dan has spent all of his on himself. Remi is webbed and separated with Wario, who has already retreated once on the log. The motorbike has been recovered and is useless \u2014 Markop is a centaur. That is a party with no reserves, no mobility, and no door.\n\n**Intelligence gained:** the Scorncrow bleeds human blood; it opens fights by removing mobility and healers; it Shadow Jumps out of reprisal; and by Feyward Dan's estimate the party has not seen half its power. The pit contains people who can speak and who are afraid of fire. The Iron Legion is inside a place with one mouth, and nobody knows how.\n\n**Exposure:** the horn. Fifty miles, by Archie's own estimate, into a grove the party then walked into.",
+    "waluigiAssessment": "**The archive was wrong and this filing corrects it.** *I am not a monster* was a claim, not a taunt, and the only person who ever tested it did so because she was pinned underneath it with no other options. Waluigi filed three articles calling that thing a monster. Waluigi is not going to file a fourth.\n\n**Every door problem in this session was solved by making the door worse.** Archie burned it shut. Markop pulled a bark plate and the jaws closed. The tree responds to intervention by closing, which is not a door's behaviour \u2014 it is a throat's. The party is not besieging a fortress. They have been swallowed, and the correct model going forward is digestion, not siege.\n\n**Feyward Dan gave the report and nobody adjusted.** *That was not half his power*, from the one man who took a full engagement from it, delivered in the same breath as *I used all of my magic*. Two facts that should have ended the plan. The plan proceeded, on a motorbike, through a mouth.\n\n**The withdrawal was the right call and it lost to arson.** Archie proposed it: we cannot win this, run, get Dan to safety. He was correct. He then talked himself into going inside and setting the thing on fire, because that is who he is, and the archive should stop being surprised. The cost of that reversal is a split party under a sealed exit.\n\n**The unnamed guard held the only line.** One spear, five damage, into a bold ettercap that had already webbed and reeled him. Waluigi will not invent a name for him. He would like one supplied.\n\n**Recommendation:** find the second mouth. Something let the Legion in, the torch came back out of the trunk rather than the jaws, and voices in the pit heard a fire nobody outside could hear. There is another opening in that tree, and it is currently the party's only way home. WAH.",
+    "timeWindow": "30 Harvestide, 1040 BF \u2014 one continuous engagement running straight out of the grove skirmish, from the crows taking Feyward Dan to the descent into the Skittering Grove; several hours at most, no calendar day passed, still 1040 BF on the Shadowfell/Material chain.",
+    "xpAwards": [
+      {
+        "xpKey": "remi",
+        "articleId": "remi_akamatsu_full_backstory",
+        "name": "Remi",
+        "cat": "combat",
+        "xp": 340,
+        "title": "Event \u2014 The Belly of the Beast",
+        "desc": "Pinned under the Scorncrow, worked the problem to its only remaining answer and fired a musket into its face at point-blank range \u2014 the shot that produced human blood.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10403023
+      },
+      {
+        "xpKey": "remi",
+        "articleId": "remi_akamatsu_full_backstory",
+        "name": "Remi",
+        "cat": "discovery",
+        "xp": 260,
+        "title": "Event \u2014 The Belly of the Beast",
+        "desc": "Heard the voices inside the trunk answer the torch test, and reported them: the grove has people in it and they talk about fire.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10403023
+      },
+      {
+        "xpKey": "archie",
+        "articleId": "archie_miser",
+        "name": "Archie Miser",
+        "cat": "magic",
+        "xp": 380,
+        "title": "Event \u2014 The Belly of the Beast",
+        "desc": "Emptied every reserve he had into one weakened fire cast until his eyes turned to fire and the tree took it \u2014 and owned the consequence when the exit sealed.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10403023
+      },
+      {
+        "xpKey": "archie",
+        "articleId": "archie_miser",
+        "name": "Archie Miser",
+        "cat": "chaos",
+        "xp": 180,
+        "title": "Event \u2014 The Belly of the Beast",
+        "desc": "Slammed the Scorncrow out of the air knowing exactly who it would land on, and said so: 'I'll make sure it's worth it.'",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10403023
+      },
+      {
+        "xpKey": "markop",
+        "articleId": "markop",
+        "name": "Markop",
+        "cat": "technique",
+        "xp": 300,
+        "title": "Event \u2014 The Belly of the Beast",
+        "desc": "Pried the jaws open, shut them again with a piece of bark, and rigged the rope that put five people safely into a pit nobody could measure.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10403023
+      },
+      {
+        "xpKey": "wario",
+        "articleId": "wario",
+        "name": "Wario",
+        "cat": "combat",
+        "xp": 240,
+        "title": "Event \u2014 The Belly of the Beast",
+        "desc": "Wrenched the motorbike out of the dirt under a shadow-servant swarm, destroyed two of them, and rode into the mouth rather than let the Scorncrow leave a fight unfinished.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10403023
+      },
+      {
+        "xpKey": "feywarddan",
+        "articleId": "dan_the_toad",
+        "name": "Feyward Dan",
+        "cat": "faith",
+        "xp": 280,
+        "title": "Event \u2014 The Belly of the Beast",
+        "desc": "Went down under a murder of crows, came back up having spent every point of magic he had on himself, and took the front of the marching order anyway.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10403023
+      },
+      {
+        "xpKey": "salam",
+        "articleId": "salam",
+        "name": "Salam",
+        "cat": "loyalty",
+        "xp": 220,
+        "title": "Event \u2014 The Belly of the Beast",
+        "desc": "Left cover on request to stabilise an unconscious paladin with the thing that felled him still in the field. 'Your service won't go in vain.'",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10403023
+      },
+      {
+        "xpKey": "eager",
+        "articleId": "eager",
+        "name": "Eager",
+        "cat": "combat",
+        "xp": 200,
+        "title": "Event \u2014 The Belly of the Beast",
+        "desc": "Awakened the Shadow Blade on the downed Scorncrow and \u2014 the part that earns this \u2014 recognised the miss coming and backed off before it found Remi.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10403023
+      },
+      {
+        "xpKey": "mossy",
+        "articleId": "mossy",
+        "name": "Mossy",
+        "cat": "survival",
+        "xp": 90,
+        "title": "Event \u2014 The Belly of the Beast",
+        "desc": "Descended into the Skittering Grove without a word, as usual.",
+        "date": "30 Harvestide, 1040 BF",
+        "dateSort": 10403023
+      }
+    ]
+  }
 ]

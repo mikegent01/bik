@@ -2149,6 +2149,55 @@
       "stamps": [
         "evidence"
       ]
+    },
+    "prop_belly_marching_order": {
+      "kind": "order",
+      "icon": "🪧",
+      "title": "Marching Order — Descent Into the Belly of the Beast",
+      "subtitle": "Set at the jaws by Markop before the rope went down · 30 Harvestide, 1040 BF",
+      "items": [],
+      "articles": [
+        "the_belly_of_the_beast",
+        "the_skittering_grove_descent_battle"
+      ],
+      "note": "The only decision of the night filed with its reasoning attached. Five names, one line of justification each, and a rope. Waluigi would like the rest of the campaign conducted like this.",
+      "stamps": [
+        "evidence"
+      ],
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">DISASTER INC. · FIELD ORDER</div><div class=\"pd-sub\">Descent by rope through the jaws · the overgrown grove, 30 Harvestide, 1040 BF</div></div><div class=\"pd-meta\"><span>Set by</span><b>Markop</b><span>Rope</span><b>Markop's own</b><span>Below</span><b>Darkness, then a pit of unmeasured depth</b><span>Test conducted</span><b>One torch. It came back out of the trunk.</b></div><div class=\"pd-table\"><div class=\"pd-row\"><b>1.</b><span>Feyward Dan</span><span>Paladin. Front.</span></div><div class=\"pd-row\"><b>2.</b><span>Eager</span><span>Scout.</span></div><div class=\"pd-row\"><b>3.</b><span>Archie</span><span>Squishy.</span></div><div class=\"pd-row\"><b>4.</b><span>Salam</span><span>Behind the wizard.</span></div><div class=\"pd-row\"><b>5.</b><span>Markop</span><span>Rear. Rope holder.</span></div></div><div class=\"pd-clause\"><b class=\"n\">As filed.</b> The word recorded against the third position is <i>squishy</i>. The archive has elected not to improve it.</div><div class=\"pd-margin\">A paladin who had spent all his magic at the front, and a wizard who had spent all of his in the middle. The order is correct. The party it was written for was not in a condition to march. &mdash; W.</div>"
+    },
+    "prop_belly_torch_test": {
+      "kind": "note",
+      "icon": "🕯️",
+      "title": "The Torch Test — Two Accounts of One Torch",
+      "subtitle": "Sounding of the pit beneath the jaws · filed from both sides of the trunk",
+      "items": [],
+      "articles": [
+        "the_belly_of_the_beast",
+        "skittering_grove"
+      ],
+      "note": "The party dropped a torch into a hole to learn its depth. The hole complained. Only one person heard the complaint, and she was on the wrong side of the wood.",
+      "stamps": [
+        "evidence"
+      ],
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">SOUNDING RECORD</div><div class=\"pd-sub\">One torch · the pit beneath the Scorncrow's jaws · 30 Harvestide, 1040 BF</div></div><div class=\"pd-clause\"><b class=\"n\">Outside — as observed.</b> Markop pried the jaws and saw darkness, then a giant pit. He asked whether anyone had a rope. Dan answered that he did not think soooo. A torch was thrown in as a test of depth. The torch came back out of the trunk. No sound, no bottom, no reading.</div><div class=\"pd-clause\"><b class=\"n\">Inside — as heard by Remi Akamatsu.</b> Voices, in the dark, in a hurry:</div><div class=\"pd-quote\">there's a fire · someone is causing a fire · they're going to burn us all down</div><div class=\"pd-clause\"><b class=\"n\">What the two accounts prove together.</b> The party read the returned torch as an unhelpful pit. It was not a pit refusing to be measured. It was an interior that received a fire, understood it as a fire, discussed it in the plural, and sent it back.</div><div class=\"pd-fine\">Speakers unidentified. Number unknown. Whether they are the wrapped forms hanging from the boughs of the inner tree is not established by this record and should not be assumed by anyone citing it.</div><div class=\"pd-margin\">Somebody in there said <i>us</i>. Waluigi has read this line eleven times and it has not improved once. &mdash; W.</div>"
+    },
+    "prop_scorncrow_unmasking_note": {
+      "kind": "note",
+      "icon": "🩸",
+      "title": "Field Examination — What Was Under the Scorncrow's Face",
+      "subtitle": "Point-blank musket discharge by Remi Akamatsu, from beneath the subject · 30 Harvestide, 1040 BF",
+      "items": [],
+      "articles": [
+        "the_belly_of_the_beast",
+        "scorncrow",
+        "the_skittering_grove_descent_battle"
+      ],
+      "note": "Three filings called it a monster on its own denial. One shot at zero inches tested the denial. The archive lost that argument and is filing the loss.",
+      "stamps": [
+        "evidence"
+      ],
+      "body": "<div class=\"pd-head\"><div class=\"pd-org\">WALUIPEDIA · FIELD EXAMINATION</div><div class=\"pd-sub\">Subject: the Scorncrow · examination unplanned, conditions adverse, examiner pinned</div></div><div class=\"pd-meta\"><span>Range</span><b>Point blank — the subject was lying on the examiner</b><span>Instrument</span><b>Musket, one discharge</b><span>Examiner</span><b>Remi Akamatsu, age 14</b><span>Stated reasoning</span><b>\"Wait a minute. I am at point-blank range.\"</b></div><div class=\"pd-clause\"><b class=\"n\">I. Finding.</b> The discharge removed the face. Beneath it: blood. Human blood.</div><div class=\"pd-clause\"><b class=\"n\">II. Prior record.</b> The subject has stated <i>I am not a monster</i> on three separate filed occasions. The archive recorded each as taunt and proceeded to describe it as a monster in the same paragraph.</div><div class=\"pd-clause\"><b class=\"n\">III. Readings available, none preferred.</b> (a) Something human is inside the scarecrow, wearing it, by choice or otherwise. (b) Something human was made into the scarecrow, and the sentence is a complaint. (c) The blood is a further costume, laid over a monster that has learned what this party finds convincing.</div><div class=\"pd-clause\"><b class=\"n\">IV. Disposition.</b> Subject withdrew into the mouth of its own tree while the examination was still open. No sample retained. No face recovered.</div><div class=\"pd-margin\">Two of the three readings make that sentence a complaint nobody answered, in a grove where the boughs are hung with wrapped people. Waluigi has stopped using the word monster in this file. &mdash; W.</div><div class=\"pd-fine\">Examination conducted under fire by a combatant, not a physician. Single observer. No custody chain exists for anything described above.</div>"
     }
   }
 }

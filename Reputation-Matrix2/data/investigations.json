@@ -166,7 +166,7 @@
         "raventree_manor"
       ],
       "opened": "23 Harvestide, 1040 BF",
-      "lastFiled": "1 Aethel, 922 BF (Feyward clock) — Material 1040 BF",
+      "lastFiled": "30 Harvestide, 1040 BF (Material) — Feyward clock 1 Aethel, 922 BF",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🏚️",
       "accent": "#8a4bff",
@@ -248,6 +248,12 @@
           "title": "A warded house is only as closed as everyone already inside",
           "state": "open",
           "text": "Randell could not enter Tymnas's cottage until the imp thrown through the window granted permission. The invitation came from a hostile creature hiding in the broom closet, not the owner, host, or lawful occupant. Either the threshold recognizes any creature physically inside as household authority, or the imp possessed a specific right nobody had identified. Every safehouse containing prisoners, servants, vermin, familiars, summons, or hidden intruders now has a vampire-entry problem. The cottage did not fail under force. It accepted a sentence."
+        },
+        {
+          "id": "th_inside",
+          "title": "The tree is not a place the Scorncrow lives. It is an interior with its own population.",
+          "state": "open",
+          "text": "Everything filed about the Scorncrow before this session treated the tree as scenery: the shape it takes, the thing it stands next to, the object Archie kept trying to uproot. The descent says otherwise. Inside the tree there is a grove — a dead tree of its own, a canopy of webs, wrapped beast and man hanging from the boughs, an ettercap brood with unbroken morale, voices that argue about fire, and Legion soldiers on ground no column marched to. That is not a monster's body. That is an address.\n\n**In plain terms:** they thought they were cutting down a tree with something nasty in it. They have gone inside a room that is bigger than the thing containing it, and other people were already there."
         }
       ],
       "leads": [
@@ -495,6 +501,45 @@
           "characters": [
             "red_the_kitchen_commander"
           ]
+        },
+        {
+          "id": "lead_scorncrow_identity",
+          "title": "Establish who is under the Scorncrow's face, and whether they consented",
+          "status": "open",
+          "why": "The archive spent three filings classifying a creature as a monster on the strength of its own denial and equipped a squad accordingly — garlic, and an elixir sold for bonus attacks against fey and monsters. One point-blank shot produced human blood, which means either a person is inside that construct or a person was made into it. If it is the second, the grove is holding a victim who has stated the fact four times, and this file's grafting thread already contains the vocabulary for joining a person into something they did not choose. Nobody has recovered the face.",
+          "exhibits": [
+            "ex_scorncrow_human_blood"
+          ],
+          "events": [
+            "the_belly_of_the_beast",
+            "the_scorncrow_skirmish",
+            "green_t_at_the_door_and_the_scorncrow_underfoot"
+          ]
+        },
+        {
+          "id": "lead_second_mouth",
+          "title": "Find the opening the Legion used, because it is also the way out",
+          "status": "open",
+          "why": "An Iron Legion detachment is inside a structure whose only known entrance is a mouth that a centaur had to pry apart by hand, and which has closed further in response to every intervention. Soldiers do not arrive by rope through a jaw nobody was holding. The test torch also returned through the trunk rather than the jaws, which puts a second aperture in the record by physical evidence rather than inference. The party is currently sealed inside with no reserves; the same finding that explains the Legion explains their exit, and only one of those two facts is being treated as urgent.",
+          "exhibits": [
+            "ex_torch_voices",
+            "ex_burned_door"
+          ],
+          "events": [
+            "the_belly_of_the_beast"
+          ]
+        },
+        {
+          "id": "lead_wrapped_and_the_voices",
+          "title": "Determine whether the hanging wrapped are the voices in the pit",
+          "status": "open",
+          "why": "One witness heard a plural, grammatical objection to being burned from inside a location whose canopy is hung with wrapped creatures, beast and man. If the wrapped are alive and speaking, the grove is a larder with an inventory rather than a lair, the party's fire plan is a mass-casualty plan, and Archie has already made one attempt at it. Cutting down a single bundle settles the question, costs one round, and changes what winning here means.",
+          "exhibits": [
+            "ex_torch_voices"
+          ],
+          "events": [
+            "the_belly_of_the_beast"
+          ]
         }
       ],
       "sessions": [
@@ -569,6 +614,12 @@
           "label": "The Reclamation of the Library: A Cook Who Poisons the Garden, and a Passage That Goes in a Circle",
           "date": "1-2 Aethel, 922 BF (Feyward clock) - the library reading floor through the kitchen and an upstairs bathroom",
           "event": "feyward_library_reclamation_and_the_kitchen"
+        },
+        {
+          "id": "s_h30_belly_of_the_beast",
+          "label": "The Belly of the Beast: Human Blood Under the Scarecrow, a Door Burned Shut, and the Skittering Grove Inside the Tree",
+          "date": "30 Harvestide, 1040 BF — the overgrown grove into the interior of the Scorncrow's tree",
+          "event": "the_belly_of_the_beast"
         }
       ],
       "relatedEvents": [
@@ -585,7 +636,8 @@
         "the_hanging_tree_apple_mirror_theft_and_invited_vampire",
         "green_t_at_the_door_and_the_scorncrow_underfoot",
         "feyward_battalion_of_six_and_the_bait_plan",
-        "the_scorncrow_skirmish"
+        "the_scorncrow_skirmish",
+        "the_belly_of_the_beast"
       ],
       "exhibits": [
         {
@@ -1120,6 +1172,51 @@
               "lady_aurelian"
             ]
           }
+        },
+        {
+          "id": "ex_scorncrow_human_blood",
+          "propId": "prop_scorncrow_unmasking_note",
+          "session": "s_h30_belly_of_the_beast",
+          "icon": "🩸",
+          "kind": "note",
+          "category": "testimony",
+          "title": "The denial was testable, and nobody tested it for three filings",
+          "secured": "30 Harvestide, 1040 BF · from beneath the subject, mid-engagement",
+          "custody": "Waluigi's own hand — no sample, no face recovered",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(34,20,20,.96),rgba(14,10,10,.98));border:1px solid rgba(190,80,80,.28)\"><div style=\"position:absolute;inset:14px;font:12px/1.6 ui-monospace,monospace;color:rgba(232,224,208,.86)\">STATED (×3): <i>I am not a monster</i><br>FILED (×3): monster<br><span style=\"color:rgba(230,120,120,.95)\">TESTED (×1): human blood</span></div><div style=\"position:absolute;right:14px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(190,80,80,.8)\">RANGE: ZERO INCHES</div></div>",
+          "onRecord": "Pinned under the fallen subject, Remi Akamatsu observed that she was at point-blank range and discharged a musket into its face. The face came off and the blood beneath it was human. [[roll:3|the subject had made the same claim on three prior filed occasions|a creature that repeats one specific denial across three engagements is not taunting, it is correcting the record, and the party has been arguing with a thing that keeps telling them what it is|monsters in this archive say theatrical things constantly and the repetition proves only that it has a favourite line]] The subject did not press the advantage after being unmasked. It laughed and withdrew into the mouth of its own tree. [[roll:5|it left immediately after the face came off, not after the wound|the exposure was the intolerable event rather than the injury, which means the face is doing work — concealment, or restraint, or both|a creature knocked down, sliced by a shadow blade and shot in the head has ordinary reasons to disengage without any of them being about identity]]",
+          "dc": 4,
+          "analysis": "## Three filings of the archive calling something a liar for telling the truth\n\nThe method here is worth naming, because the file has seen it before under another heading. **Whoever keeps the record decides afterwards what happened** — and what happened, on the record, is that a creature stated a fact four times and the record printed the word *monster* in the same paragraph on every occasion.\n\nThat is not a small error of tone. Every operational decision this party made about the Scorncrow followed from the classification. Garlic weapons. An **anti-fey elixir**, bought and drunk, purchased specifically for bonus attacks against *fey, undead, and other monsters*. A wizard's repeated attempts to uproot it as though it were vegetation. A plan whose stated objective was to *uproot the belly of the beast*. Every one of those is a countermeasure selected for a category, and the category was chosen by the archivist rather than by the evidence.\n\nSet the elixir against the finding and the arithmetic gets uncomfortable: if the blood is human, the squad's consumable edge was optimised against a thing the subject may not be, and the fact that the fights still went badly stops being mysterious.\n\n**What the finding does not settle.** Human blood under a scarecrow's face admits at least three readings, and this file will not choose between them on one observation taken by a fourteen-year-old under a corpse's weight with no sample retained:\n\n- **Worn.** Something human is inside the construct, willingly or not.\n- **Made.** Something human *was* made into the construct — in which case *I am not a monster* is a complaint, filed four times, in a grove whose interior boughs are hung with wrapped people.\n- **Costumed.** The blood is a further layer, laid on by something that has watched this party for three engagements and worked out what would stop them.\n\nThe third reading deserves more respect than it is comfortable to give it, because the subject's behaviour inside the tree — attacking the motorbike before the man — is the behaviour of something that studies.\n\n**Where it connects.** The graft thread in this file already holds a document arguing that what is joined is not the flesh but the line, and that a line joined once can be joined again. A human interior under a non-human exterior is that vocabulary in a different medium. The file is not asserting the connection. It is refusing to pretend it cannot see it."
+        },
+        {
+          "id": "ex_burned_door",
+          "propId": "prop_belly_marching_order",
+          "session": "s_h30_belly_of_the_beast",
+          "icon": "🪧",
+          "kind": "order",
+          "category": "discovery",
+          "title": "Two men solved the same door and both solutions closed it",
+          "secured": "30 Harvestide, 1040 BF · set at the jaws before the rope went down",
+          "custody": "Archive — transcribed at the mouth",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(24,28,22,.96),rgba(12,14,12,.98));border:1px solid rgba(140,180,110,.28)\"><div style=\"position:absolute;inset:14px;font:12px/1.5 ui-monospace,monospace;color:rgba(232,224,208,.86)\">1 Feyward Dan &middot; paladin<br>2 Eager<br>3 Archie &middot; <i>squishy</i><br>4 Salam<br>5 Markop &middot; rope</div><div style=\"position:absolute;right:14px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(140,180,110,.8)\">DESCENT BY ROPE &middot; DEPTH UNKNOWN</div></div>",
+          "onRecord": "Archie's all-in fire cast killed the tree and sealed the exit. Markop then removed a piece of bark intending to widen the way, and the jaws shut. [[roll:4|every intervention made the opening smaller|a structure that closes further each time it is worked on is not a door failing, it is a mechanism succeeding, and the party has been operating the wrong end of it|a dying tree collapsing inward under fire and structural damage is the least surprising thing in this file]] The order that followed was set with a stated reason against each position, the only decision of the session filed that way. [[roll:6|the reasoning survives but the condition of the marchers does not appear in it|the order was written for a party that no longer existed — two of the five had spent every point of magic they had before the first step down|a marching order records position, not readiness, and expecting a condition report inside one is asking a rope plan to be a medical file]]",
+          "dc": 4,
+          "analysis": "## A throat, and five people who wrote a good plan for the wrong party\n\n**On the structure.** Take the sequence at face value, because it is short and it is consistent. Fire bolt: bark scarred, nothing. Second bolt: nothing. Full expenditure: the tree dies and the exit seals. Bark plate removed: the jaws shut. Torch dropped into the pit: the torch comes back out of the trunk.\n\nFive interventions, five closures, and one of them returned an object by a route the party did not use. A door that jams is a door. A structure that answers every kind of pressure by closing, and that can push something back out through a different part of itself, is doing something else. The plainest reading available is that the party is not besieging a building; they have been swallowed, and the model that fits the observations is digestion rather than fortification.\n\n**On the order.** This is the best piece of work in the session and the file should be honest about why it still failed. Markop wrote position with justification attached — paladin at the front, the wizard in the middle because the wizard is squishy, the centaur at the rear because the rope is his. Nothing in it is wrong.\n\nWhat is missing is the column the party needed most. Position one had spent every point of magic he owned healing himself. Position three had spent every point of his emptying it into the tree. Two of five were at zero, both of them had said so out loud within the previous ten minutes, and the order records neither fact. The plan was correct for the party that walked into the grove and was written for the party that walked out of it.\n\n**Consequence for the file.** The exit is not a lead about getting home; it is a lead about how the Legion got in. Something is inside a structure with one mouth that had to be pried apart by a centaur's hands. Either the closure is selective, or there is a second opening. Both answers are worth more than the rope."
+        },
+        {
+          "id": "ex_torch_voices",
+          "propId": "prop_belly_torch_test",
+          "session": "s_h30_belly_of_the_beast",
+          "icon": "🕯️",
+          "kind": "note",
+          "category": "testimony",
+          "title": "The pit answered, in the plural, and only one person heard it",
+          "secured": "30 Harvestide, 1040 BF · both sides of the trunk, same moment",
+          "custody": "Archive — two accounts, one witness each",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(180deg,rgba(20,22,30,.96),rgba(10,11,16,.98));border:1px solid rgba(212,168,83,.28)\"><div style=\"position:absolute;inset:14px;font:12px/1.6 ui-monospace,monospace;color:rgba(232,224,208,.86)\">OUTSIDE: torch in &rarr; torch out<br>INSIDE: <i>they're going to burn</i><br><span style=\"color:rgba(212,168,83,.95)\">&mdash; us all down</span></div><div style=\"position:absolute;right:14px;bottom:12px;font:10px ui-monospace,monospace;color:rgba(212,168,83,.75)\">SOUNDING FAILED &middot; ANSWER RECEIVED</div></div>",
+          "onRecord": "A torch was thrown into the pit to measure it. Outside, the torch came back out of the trunk and the sounding returned nothing. Inside, Remi Akamatsu heard voices: *there's a fire, someone is causing a fire, they're going to burn us all down.* [[roll:3|the objection is grammatical, collective and correctly reasoned|whatever is in there can hear, can speak, can identify a fire as a fire and can refer to itself as a group, which puts a population in the pit rather than a hazard|panicked speech carries in a confined space and a few intelligible words prove intelligence in the speaker, not numbers]] The torch returned by a route the party did not throw it down. [[roll:5|it came out of the trunk, not the jaws|the interior has at least one opening the party has not found, which is also the likeliest answer to how a Legion detachment reached ground with no marched route|an object thrown into a pit inside a hollow tree can be pushed back up any number of ways by anything strong enough, and no second opening is required]]",
+          "dc": 3,
+          "analysis": "## Somebody in there said *us*\n\n**The word doing all the work is a pronoun.** Not *me*, not a scream, not noise. *They're going to burn us all down.* That single word converts the pit from a hazard into a population, and it does it with grammar the party never asked for and cannot have supplied.\n\nWork out what the sentence requires of its speakers. They perceived a fire. They identified it as deliberate — *someone is causing a fire*. They inferred an intention held by parties outside a wall they cannot see through. And they described themselves as a plural body with a shared fate. That is four cognitive operations, performed under stress, by things the party has been calling scenery.\n\n**Set it beside the inner grove and the reading gets worse.** The heart of the Skittering Grove is hung with the forms of wrapped creatures, beast and man, dangling from the boughs like fruit. The file is not going to assert that the wrapped are the speakers, because one witness heard voices through wood and nobody has cut anything down. But the archive holds a location with hanging people in it and a recording of people in that location objecting to being burned, and it would be a strange kind of rigour to file those on separate pages and never mention it.\n\n**What it costs the party.** Archie's fire cast was the largest single expenditure of the night, and the fire it answered is the fire those voices were already panicking about — the test torch, thrown minutes earlier. From inside, the sequence reads: a fire arrives, they raise the alarm, and then a wizard empties his reserves into the walls. Whatever is in that grove now has a first impression of this party, and it is arson.\n\n**The plainer finding, and the one worth acting on.** The torch came back out of the trunk. It went in at the jaws. Something moved an object between two openings, and the party only knows about one of them."
         }
       ]
     },
@@ -3617,12 +3714,12 @@
         {
           "point": "The Promo Mario clipping is not a confirmed sighting of our Mario.",
           "detail": "The Hollywood host learns the disappearance story from Waluigi's own article on a tablet. A counterpart, a performance and a promotional fabrication remain competing readings; nobody has authenticated the claimed photographs or souvenirs."
-        }
-      ,
+        },
         {
           "point": "The newspaper's ending is not the ending.",
           "detail": "The full account recovered the same evening reports a failed portal, a missing Luigi, a corrupted Mario out of a television, and a Wario Apparition dispersed by a flashlight. The clipping was a teaser; Waluigi filed the teaser and is amending the record."
-        }],
+        }
+      ],
       "background": [
         {
           "id": "star_fountain_reunion",
@@ -3665,14 +3762,14 @@
           "title": "A familiar face is not a route from the fountain",
           "state": "open",
           "text": "Darian asks whether the host is the missing Mario. The answer supplies a name, not a memory of the fountain or an account of how he reached Hollywood. The clipping also moves the disappearance to 955 BF, contradicting the later fountain record. A genuine journey could still have met a counterpart; a genuine counterpart would still not locate our Mario."
-        }
-      ,
+        },
         {
           "id": "th_cut_at_the_farewell",
           "title": "The paper stopped before the story did",
           "state": "open",
           "text": "The clipped ending sold a perfect return: sixty-second portal, charms, waving, goodbye. The recovered account records PORTAL FAILED and a missing brother. A source that cuts exactly at the moment a rescue becomes a problem is not an abridged source; it is a curated one.\n\n**In plain terms:** the farewell was the tell. I filed the farewell."
-        }],
+        }
+      ],
       "leads": [
         {
           "id": "lead_identify_enforcer",
@@ -3718,8 +3815,7 @@
           "exhibits": [
             "ex_promo_mario_clipping"
           ]
-        }
-      ,
+        },
         {
           "id": "lead_find_hollywood_luigi",
           "title": "Find the Luigi in the green and blue",
@@ -3730,7 +3826,8 @@
           "exhibits": [
             "ex_promo_mario_full_account"
           ]
-        }],
+        }
+      ],
       "sessions": [
         {
           "id": "s_charred_note",
@@ -3743,14 +3840,14 @@
           "label": "Promo Mario — a newspaper read by Waluigi",
           "date": "5 Aethel, 1040 BF — provisional filing date",
           "event": "promo_mario_newspaper"
-        }
-      ,
+        },
         {
           "id": "s_promo_mario_full_account",
           "label": "Promo Mario — the full account recovered",
           "date": "5 Aethel, 1040 BF — evening; same-day amendment",
           "event": "promo_mario_newspaper"
-        }],
+        }
+      ],
       "relatedEvents": [
         "charred_note_at_waluigis_door",
         "the_eastern_passage",
@@ -3838,8 +3935,7 @@
               "princess_peach"
             ]
           }
-        }
-      ,
+        },
         {
           "id": "ex_promo_mario_full_account",
           "propId": "prop_promo_mario_full_account",
@@ -3869,7 +3965,8 @@
               "wario"
             ]
           }
-        }]
+        }
+      ]
     },
     {
       "id": "dread_mansion_file",

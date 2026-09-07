@@ -641,6 +641,80 @@
       "reaction": "correction",
       "comments": [],
       "status": "posted"
-    }
+    },
+    {
+        "id": "wahwire_belly_of_the_beast_correction",
+        "author": "waluigi",
+        "order": 19,
+        "date": null,
+        "timestamp": "30 Harvestide, 1040 BF — late, the overgrown grove",
+        "content": "CORRECTION, and Waluigi files it himself. Three times that scarecrow shouted I AM NOT A MONSTER and three times Waluigi wrote down the word monster in the next sentence. Tonight Remi was pinned underneath it, put a musket to its face at zero inches, and pulled. The face came off. The blood was HUMAN. Waluigi is not using that word again until somebody finds the face.",
+        "likes": 0,
+        "links": [
+          {
+            "id": "the_belly_of_the_beast",
+            "type": "event"
+          }
+        ],
+        "tags": [
+          "scorncrow",
+          "correction",
+          "remi",
+          "unverified"
+        ],
+        "reaction": "correction",
+        "comments": [],
+        "status": "posted"
+      },
+      {
+        "id": "wahwire_belly_of_the_beast_horn",
+        "author": "wario",
+        "order": 20,
+        "date": null,
+        "timestamp": "30 Harvestide, 1040 BF — immediately before riding into a mouth",
+        "content": "WAHAHAHAH. Horn works. Fifty miles, the wizard says. Wario say fifty miles of free advertising. Motorbike out of the dirt, two shadow chumps to dust, and nobody challenges Wario to a fight and gets a-way from it. Retrieval fee still pending. Invoice follows.",
+        "likes": 0,
+        "links": [
+          {
+            "id": "the_belly_of_the_beast",
+            "type": "event"
+          }
+        ],
+        "tags": [
+          "wario",
+          "motorbike",
+          "scorncrow"
+        ],
+        "reaction": "gloating",
+        "comments": [],
+        "status": "posted"
+      },
+      {
+        "id": "wahwire_belly_of_the_beast_pit",
+        "author": "waluigi",
+        "order": 21,
+        "date": null,
+        "timestamp": "30 Harvestide, 1040 BF — at the jaws, before the rope",
+        "content": "They threw a torch into the pit to find the bottom. The pit COMPLAINED. Remi, on the wrong side of the wood, heard people saying someone is causing a fire, they are going to burn US ALL DOWN. Us. Plural. And then the torch came back out of the trunk, which is not the hole they threw it in. Waluigi has questions and a rope.",
+        "likes": 0,
+        "links": [
+          {
+            "id": "the_belly_of_the_beast",
+            "type": "event"
+          },
+          {
+            "id": "skittering_grove",
+            "type": "location"
+          }
+        ],
+        "tags": [
+          "skittering grove",
+          "evidence",
+          "alarm"
+        ],
+        "reaction": "alarm",
+        "comments": [],
+        "status": "posted"
+      }
   ]
 }

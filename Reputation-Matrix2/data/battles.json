@@ -5576,5 +5576,178 @@
     "reputationNotes": {
       "waluigi": "Destroyed a second impostor in a single exchange, without hesitation and without asking it a question first."
     }
+  },
+  {
+    "id": "the_skittering_grove_descent_battle",
+    "name": "The Belly of the Beast (The Unmasking, the Sealed Door, and the Descent)",
+    "date": "30 Harvestide, 1040 BF — continuing straight out of the grove skirmish, the night of the threshold storm",
+    "location": "The overgrown grove beyond Tymnas's cottage, and the Skittering Grove inside the Scorncrow's tree (Shadowfell)",
+    "type": "Grove Skirmish / Forced Entry / Interior Ambush (unresolved)",
+    "result": "No decision, and a worse position than the last one. The Scorncrow was unmasked at point-blank range — human blood under the face — and withdrew into the mouth of its own tree. The shadow servants were destroyed to the last. Archie's all-in fire cast killed the tree and sealed the exit; Markop shut and reopened the jaws. Five of the party descended by rope into the Skittering Grove, where Remi and Wario were already webbed and separated, the motorbike was recovered but unrideable, and Legion soldiers were found among the brood.",
+    "engagement": {
+      "combatants": 14,
+      "ledgerWindow": "the overgrown grove into the Skittering Grove, continuous from the Scorncrow Skirmish on 30 Harvestide, 1040 BF · several hours at most; no calendar day passed",
+      "scale": "A squad-level engagement in two halves: an outdoor skirmish against the Scorncrow and its shadow servants, then an interior ambush by an ettercap-and-spider brood on ground the party could not leave"
+    },
+    "belligerents": {
+      "attackers": {
+        "name": "Disaster Inc. & the Liberated Toads",
+        "combatants": [
+          {
+            "name": "Markop",
+            "role": "cleared the last servants, worked the jaws open and shut, set the marching order, rigged the descent rope",
+            "fate": "stood",
+            "leader": true,
+            "fateNote": "the only member to solve the door twice and the only one who wrote his reasoning down"
+          },
+          {
+            "name": "Remi Akamatsu",
+            "role": "pinned under the fallen Scorncrow; fired a musket into its face at point-blank range",
+            "fate": "stood",
+            "fateNote": "separated inside the grove, webbed twice by the ettercap, missed a bow shot at a spider"
+          },
+          {
+            "name": "Archie Miser",
+            "role": "ground tremor, the airborne slam, and the all-in fire cast",
+            "fate": "stood",
+            "fateNote": "spent every reserve of magic; eyes turned to fire; killed the tree and sealed the exit doing it"
+          },
+          {
+            "name": "Wario",
+            "role": "freed the motorbike, destroyed two shadow servants, rode into the tree's mouth",
+            "fate": "stood",
+            "fateNote": "inside: motorbike attacked first and lost, took four Murder of Crows attacks, and retreated on morale"
+          },
+          {
+            "name": "Feyward Dan",
+            "role": "first target of the murder of crows; self-healed and took the front of the marching order",
+            "fate": "fell",
+            "fateNote": "knocked unconscious at Archie's feet, stabilised by Salam, then healed himself at the cost of all his magic"
+          },
+          {
+            "name": "Salam",
+            "role": "crossed open ground under crow-fire to stabilise the paladin",
+            "fate": "stood"
+          },
+          {
+            "name": "Eager",
+            "role": "awakened the Shadow Blade on the downed Scorncrow",
+            "fate": "stood",
+            "fateNote": "broke off the strike rather than let it carry into Remi on the ground"
+          },
+          {
+            "name": "Mossy",
+            "role": "silent descent into the grove",
+            "fate": "stood"
+          },
+          {
+            "name": "The Guard",
+            "role": "unnamed spearman inside the grove — the only friendly attack recorded in the interior log",
+            "fate": "stood",
+            "fateNote": "webbed twice, hit by Web Strand, reeled in on a line, and still put a spear into the ettercap for 5"
+          }
+        ]
+      },
+      "defenders": {
+        "name": "The Scorncrow's Grove and the Brood Inside It",
+        "leader": "The Scorncrow",
+        "combatants": [
+          {
+            "name": "The Scorncrow",
+            "role": "opened by removing the paladin, then by destroying the party's mobility; Murder of Crows multiattack, Shadow Jump",
+            "fate": "fled",
+            "leader": true,
+            "fateNote": "lost its face to a point-blank musket — human blood — and withdrew into the mouth of its own tree"
+          },
+          {
+            "name": "Shadow Servants",
+            "role": "swarmed Wario and the motorbike while it was stuck in the dirt",
+            "fate": "fell",
+            "fateNote": "two dusted by Wario, the remainder by Markop's swing; none left standing"
+          },
+          {
+            "name": "Ettercap",
+            "role": "interior ambusher — multiattack, Web, Web Strand (DC 12 Dex) and Reel",
+            "fate": "stood",
+            "fateNote": "morale BOLD (81–84) throughout; webbed Remi twice and reeled the guard in on a strand"
+          },
+          {
+            "name": "Giant Green Spiders",
+            "role": "Web attacks (DC 12 Str) against the guard, then a rush",
+            "fate": "stood",
+            "fateNote": "morale BOLD (81–84); never checked, never withdrew"
+          },
+          {
+            "name": "The Tree",
+            "role": "the ground, the door, and the throat",
+            "fate": "fell",
+            "fateNote": "killed by Archie's all-in fire cast — and sealed the only exit as it died"
+          },
+          {
+            "name": "Legion Soldiers",
+            "role": "present inside the Skittering Grove, unexplained",
+            "fate": "stood",
+            "fateNote": "no marched route accounts for them; contact not yet joined"
+          }
+        ]
+      }
+    },
+    "casualties": "No confirmed dead among the party. Feyward Dan went unconscious and was stabilised and self-healed. Every shadow servant was destroyed. The tree was killed. The Scorncrow lost its face and the archive's assumption about what it is. Wario's motorbike took two Murder of Crows attacks for 14, went missing inside, and was later recovered unrideable.",
+    "summary": "The Scorncrow opened by putting the paladin down with a murder of crows. Salam stabilised him under fire; Archie tremored the ground and learned again that crows do not need it; the Scorncrow offered a spiked swing and Archie slammed it out of the air onto Remi, who fired a musket into its face at zero range and found human blood. Wario and Markop destroyed the shadow servants, the Scorncrow fled into the mouth of its own tree, and the party followed: Wario by motorbike, Remi after him, both into cobwebs. Archie emptied his magic into one fire cast that killed the tree and sealed the exit; Markop pried the jaws and rigged a rope; five descended into the Skittering Grove and found ettercaps, giant green spiders, a webbed guard holding a line alone, and Legion soldiers.",
+    "description": "Waluigi files this as the second engagement against the Scorncrow in as many hours and the first one in which anybody learned anything.\n\n## The Unmasking\n\nThe crows took Feyward Dan first. That is a target selection, not a swarm, and it should be read as one. Salam crossed open ground to stabilise him on the condition that somebody keep the frightening thing looking elsewhere, and Archie volunteered by planting a staff in the earth and shaking it. The Scorncrow laughed — *oh, you little thing* — and its crows carried it off the failing ground. Then it offered the swing: a branch, pointed and spiked.\n\nArchie jumped into it. He knew where it would land. Remi was standing right there. It came down on her, and she found herself at point-blank range with a musket and no other move.\n\nThe face came off. The blood was human.\n\n## The Mouth\n\nWario dusted two shadow servants; Markop's swing took the rest. The motorbike came free and Wario rode at everything at once. The Scorncrow laughed, and jumped into the tree's mouth.\n\nWhat followed was two men solving the same door in opposite directions inside a minute. Archie, unanswered by the friends who had gone in, fired a bolt of fire that scarred the bark, fired again to the same result, worked out that fire is weakened in this domain, and then poured every reserve he had into a single cast until his eyes turned to fire. The tree died and the exit sealed. Markop, thinking he might widen the way, pulled a plate of bark — and the jaws shut.\n\n## The Interior Log\n\nInside, the Scorncrow's multiattack went to the motorbike before it went to the man: Murder of Crows twice on the machine (16 to hit at disadvantage, 14 damage), then twice on Wario (17, 13), then Shadow Jump as a bonus action to be elsewhere. The brood followed: an ettercap at BOLD 84 dashing at Remi, giant green spiders webbing an unnamed guard (DC 12 Strength), a Web Strand (DC 12 Dexterity) and a Reel dragging him in on a line, and two web attacks putting Remi down. Wario retreated on morale. The guard put a spear into the ettercap for 5, which is the only friendly attack the interior log records.\n\n## The Descent\n\nMarkop pried the jaws open again, found darkness and then a pit, and tested it with a torch. The torch came back out of the trunk — and inside, Remi heard people saying somebody was going to burn them all down. They descended anyway, on Markop's rope, in a marching order set with reasons: paladin front, squishy wizard middle, centaur rear. At the bottom was the Skittering Grove, and in it were the spiders, the wrapped fruit hanging from the boughs, Wario's recovered motorbike that no centaur can ride, and Legion soldiers.",
+    "keyMoments": [
+      {
+        "time": "opening",
+        "who": "The Scorncrow",
+        "act": "Puts Feyward Dan down with a murder of crows before touching anyone else",
+        "result": "the party's healer is on the ground in the first exchange; Salam leaves cover to stabilise him"
+      },
+      {
+        "time": "contact",
+        "who": "Archie Miser",
+        "act": "Slams the Scorncrow out of the air knowing it will land on Remi",
+        "result": "the Scorncrow falls on top of her — 'I'll make sure it's worth it'"
+      },
+      {
+        "time": "turning",
+        "who": "Remi Akamatsu",
+        "act": "Realises she is at point-blank range and fires the musket into the Scorncrow's face",
+        "result": "the face comes off; the blood is human; three filings' worth of assumption is overturned"
+      },
+      {
+        "time": "break",
+        "who": "The Scorncrow",
+        "act": "Laughs and jumps into the mouth of its own tree",
+        "result": "the fight moves inside, on the enemy's terms"
+      },
+      {
+        "time": "climax",
+        "who": "Archie Miser",
+        "act": "Pours every reserve of weakened magic into one fire cast until his eyes turn to fire",
+        "result": "the tree dies and the only exit is sealed with two of the party inside"
+      },
+      {
+        "time": "after",
+        "who": "Markop",
+        "act": "Pries the jaws, tests the pit with a torch, sets a marching order with reasons and rigs the rope",
+        "result": "five descend into the Skittering Grove — spiders, wrapped bodies, and Legion soldiers"
+      }
+    ],
+    "aftermath": "**Result by objective:** the party wanted the Scorncrow destroyed and the tree uprooted. The tree is dead, the Scorncrow is not, and the party is inside the corpse with no exit. Waluigi declines to call that half a win.\n\n**Carry-forward:** Archie has no magic. Feyward Dan has no magic. Remi is webbed and separated. Wario has retreated once on the log and lost his motorbike to the thing that recovered it. The brood never failed a morale check. And Feyward Dan's estimate stands unrefuted — the party has not seen half the Scorncrow's power.\n\n**Open question:** how the Iron Legion got inside a place with one mouth that had to be pried open by a centaur. There is a second way in, and it is currently the party's only way out.",
+    "relatedArticles": [
+      "the_belly_of_the_beast",
+      "the_scorncrow_skirmish",
+      "the_scorncrow_skirmish_battle",
+      "skittering_grove",
+      "scorncrow",
+      "markop",
+      "remi_akamatsu_full_backstory",
+      "archie_miser",
+      "wario",
+      "dan_the_toad",
+      "salam",
+      "eager",
+      "mossy"
+    ]
   }
 ]

@@ -1,25 +1,25 @@
 {
   "featuredArticle": {
-    "id": "promo_mario_newspaper",
+    "id": "the_belly_of_the_beast",
     "type": "event",
-    "excerpt": "Revision 2: the clipping’s happy ending was a teaser. The full account reports a failed portal, a missing Luigi, a Mario-shaped thing in a television, and a Wario who sings. Waluigi filed the teaser; he is amending it, loudly. Mario remains missing; the missing-person file stays open.",
-    "label": "Amended Filing · Full Account",
-    "title": "Promo Mario — The Full Account (Revision 2)"
+    "excerpt": "30 Harvestide, 1040 BF. The Scorncrow put the paladin down with crows; Archie slammed it out of the air onto Remi; and Remi, pinned at point-blank range, fired a musket into its face and found human blood. The party followed it into the tree's mouth, Archie sealed the only exit burning it, and five descended by rope into the Skittering Grove — webs for foliage, wrapped bodies for fruit, and Legion soldiers inside.",
+    "label": "Latest Filing · Session Event",
+    "title": "The Belly of the Beast — Human Blood Under the Scarecrow"
   },
   "latestUpdate": {
-    "id": "promo_mario_newspaper",
-    "label": "Amended Filing · Full Account",
-    "excerpt": "Revision 2: the clipping’s happy ending was a teaser. The full account reports a failed portal, a missing Luigi, a Mario-shaped thing in a television, and a Wario who sings. Waluigi filed the teaser; he is amending it, loudly. Mario remains missing; the missing-person file stays open.",
-    "title": "Promo Mario — The Full Account (Revision 2)"
+    "id": "the_belly_of_the_beast",
+    "label": "Latest Filing · Session Event",
+    "excerpt": "30 Harvestide, 1040 BF. The Scorncrow put the paladin down with crows; Archie slammed it out of the air onto Remi; and Remi, pinned at point-blank range, fired a musket into its face and found human blood. The party followed it into the tree's mouth, Archie sealed the only exit burning it, and five descended by rope into the Skittering Grove — webs for foliage, wrapped bodies for fruit, and Legion soldiers inside.",
+    "title": "The Belly of the Beast — Human Blood Under the Scarecrow"
   },
   "didYouKnow": [
+    "...that the Scorncrow told three separate filings it was not a monster, and when Remi Akamatsu finally tested the claim with a point-blank musket, the blood under the face was human?",
     "...that Remi escaped two armed dungeon guards by drawing a goblin face on a cardboard box with a Sharpie marker and claiming to be a certified Box Guardian?",
-    "...that the Mount Ebott Survey Part VII file features Sans executing Flowey in a localized time-stop after recalling a midnight tea conversation with King Asgore?",
-    "...that Hjumpik recovered the Oracle-marked 'OC' Soul Ring during the Feyward Manor expedition using a garlic grenade and a Bob-omb?"
+    "...that the Mount Ebott Survey Part VII file features Sans executing Flowey in a localized time-stop after recalling a midnight tea conversation with King Asgore?"
   ],
   "editorialDirective": {
-    "title": "WAH! Editorial Directive — Final Ebott Log:",
-    "text": "The oath says silence. The machine says record everything. High Command says stop recording. File the contradiction before anyone calls this mission complete. WAH!"
+    "title": "WAH! Editorial Directive — The Correction:",
+    "text": "Three filings called it a monster on its own denial. One shot at zero inches says otherwise. Stop using the word until somebody recovers the face. WAH!"
   },
   "spotlight": {
     "kicker": "System Spotlight · Live Governance",
@@ -30,12 +30,12 @@
     "actionUrl": "#/pond-docket"
   },
   "onThisDay": [
-    "955 BF — Princess Peach assassinated; Regency declares emergency state.",
     "1018 BF — Bowser consumes Vacuum Shroom; Dark Star crisis begins.",
     "1035 BF — Wario ambushes Luigi at Mage's Embassy in Toad Town.",
     "1040 BF — Harvestide 28: Remi conducts Midnight Audit of Shadow Estate.",
     "1040 BF — Harvestide 29: Imp Ambush at Tymnas's Cottage.",
-    "1040 BF — Harvestide 30: Remi uses Sharpie Box Disguise to escape dungeon."
+    "1040 BF — Harvestide 30: Remi uses Sharpie Box Disguise to escape dungeon.",
+    "1040 BF — Harvestide 30: the party descends by rope into the Skittering Grove inside the Scorncrow's tree."
   ],
   "campaignCovers": [
     {
