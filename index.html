@@ -10295,6 +10295,27 @@ function abilityByName(name,cls){
   const list=(A.abilities||[]).filter(a=>a.name===name);
   return list.find(a=>a.class===cls)||list[0]||null;
 }
+/* Restored after the wahwire prune: this loader sat between the ability
+   helpers and the wahwire block and was swept up by mistake. Boot calls it
+   to merge generated factions into LORE_FACTIONS. */
+async function loadGeneratedFactions(){
+  try{
+    const res = await fetch(pathPrefix + 'data/factionsGenerated.json', {cache:'no-cache'});
+    if(!res.ok) return;                      // absent is the normal case
+    const payload = await res.json();
+    const extra = (payload && payload.factions) || {};
+    let added = 0;
+    for(const [id, faction] of Object.entries(extra)){
+      // Source review retires labels that reputation generation mistook for
+      // institutions (people, places, generic "all" buckets). Keep those
+      // audit records in JSON, but never render them as faction dossiers.
+      if(!id || LORE_FACTIONS[id] || ['retired','removed'].includes(faction?.status)) continue;
+      LORE_FACTIONS[id] = faction;
+      added++;
+    }
+    if(added) window.__GENERATED_FACTIONS = added;
+  }catch(e){ /* the archive works fine without them */ }
+}
 /* Deep link into Wario's shop overlay rather than a Waluipedia page. */
 function abilityShopUrl(id){ return 'Reputation-Matrix2/app/pages/shop/shop.html#ability-shop'+(id?'/'+encodeURIComponent(id):''); }
 function warehouseUrl(tab){ return 'Reputation-Matrix2/app/pages/shop/shop.html#warehouse'+(tab?'/'+encodeURIComponent(tab):''); }
@@ -17157,10 +17178,12 @@ function bankLedgerCard(){
   const accts=b.bank_accounts||[], loans=b.loans||[], debts=b.debts||[];
   if(!accts.length&&!loans.length&&!debts.length) return '';
   const top=debts.slice().sort((x,y)=>(y.amountOwed||0)-(x.amountOwed||0)).slice(0,6);
-  const rows=top.map(d=>`<tr title="${esc(d.note||'')}"><td>${esc(d.creditor||'?')}</td><td>→ ${esc(d.debtor||'?')}</td><td style="text-align:right"><b>${Number(d.amountOwed||0).toLocaleString()}</b> <span class="text-muted">${esc(d.currencyKey||'')}</span></td><td><span class="pill">${esc(d.status||'active')}</span></td></tr>`).join('');
+  const td='style="padding:8px;border-bottom:1px solid var(--border)"';
+  const tdr='style="padding:8px;border-bottom:1px solid var(--border);text-align:right"';
+  const rows=top.map(d=>`<tr title="${esc(d.note||'')}"><td ${td}>${esc(d.creditor||'?')}</td><td ${td}>→ ${esc(d.debtor||'?')}</td><td ${tdr}><b>${Number(d.amountOwed||0).toLocaleString()}</b> <span class="text-muted">${esc(d.currencyKey||'')}</span></td><td ${td}><span class="pill">${esc(d.status||'active')}</span></td></tr>`).join('');
   return `<div class="card" style="margin-top:14px"><h2 style="margin-top:0">🏦 Banking Ledger</h2>`
     +`<div class="species-stats"><div class="species-stat"><b>${accts.length}</b>Accounts</div><div class="species-stat"><b>${loans.length}</b>Loans</div><div class="species-stat"><b>${debts.length}</b>Debts</div></div>`
-    +(rows?`<div class="table-wrap"><table class="table"><thead><tr><th>Creditor</th><th>Debtor</th><th style="text-align:right">Owed</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></div><p class="text-muted" style="font-size:12px">Hover the console for full notes — or open the <a href="currency.html">Bank &amp; Exchange Console →</a></p>`:'')
+    +(rows?`<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13px"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Creditor</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Debtor</th><th style="text-align:right;padding:8px;border-bottom:1px solid var(--border)">Owed</th><th style="text-align:left;padding:8px;border-bottom:1px solid var(--border)">Status</th></tr></thead><tbody>${rows}</tbody></table></div><p class="text-muted" style="font-size:12px">Hover a row for full notes — or open the <a href="currency.html">Bank &amp; Exchange Console →</a></p>`:'')
     +`</div>`;
 }
 function view_currencies(){
