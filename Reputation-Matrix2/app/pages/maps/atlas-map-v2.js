@@ -35,6 +35,10 @@ const PLANE_LABELS = {
 };
 const planeOf = poi => (poi && poi.plane) || 'material';
 
+/* Chatter overlay (Wah Notes map mode): set fresh on every mount, read by
+   detailHtml. One map is ever mounted at a time, so module scope is safe. */
+let ACTIVE_CHATTER = null;
+
 function wikiId(poi) {
   return poi.articleId || poi.locationId || WIKI_IDS[poi.id] || null;
 }
@@ -122,10 +126,12 @@ function detailHtml(poi, pois) {
     extras.push(['Intel req.', esc(reqText)]);
   }
   const planeTag = planeOf(poi) === 'material' ? '' : ` · ${PLANE_LABELS[planeOf(poi)] || planeOf(poi)}`;
+  const chatter = (ACTIVE_CHATTER && ACTIVE_CHATTER.remarks && ACTIVE_CHATTER.remarks[poi.id]) || [];
+  const chatterHtml = chatter.length ? `<div class="atlas-v2-chatter"><b>✍️ Wah Notes here</b>${chatter.map(r => `<p><b>${esc(r.icon)} ${esc(r.author)}</b> — ${esc(r.text)}${r.recordId ? ` <button class="atlas-v2-wiki" data-open-article="${esc(r.recordId)}">record</button>` : ''}</p>`).join('')}</div>` : '';
   return `<article class="atlas-v2-detail">
     <span class="atlas-v2-kicker">${esc(poi.type || 'location')}${esc(planeTag)}</span>
     <h3>${esc(poi.name)}</h3>
-    <p>${esc(poi.description || 'No field report filed.')}</p>
+    <p>${esc(poi.description || 'No field report filed.')}</p>${chatterHtml}
     <div class="atlas-v2-faction"><i style="background:${esc(faction.color)}"></i>${esc(faction.name)}</div>
     <dl>
       <div><dt>Population</dt><dd>${format(poi.population)}</dd></div>
@@ -154,6 +160,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     return null;
   }
   const { map, pois, population } = data;
+  ACTIVE_CHATTER = opts.chatter || null;
+  /* Chatter lens: pin size = Wah Notes volume. A value fn instead of a key
+     because loudness is computed, not filed on the POI. */
+  const modes = Object.assign({}, MODES);
+  if (opts.chatter) modes.chatter = { label: 'Chatter', color: '#f472b6', unit: 'wah notes', value: poi => ((opts.chatter.counts || {})[poi.id] || 0) };
+  const startMode = (opts.defaultMode && modes[opts.defaultMode]) ? opts.defaultMode : 'population';
   /* Journey stops: [{poiId, n, eventId, name, date, plane}]. Stops whose pin
      is not on this layer keep their numbers but render no marker or path. */
   const poiIds = new Set(pois.map(p => p.id));
@@ -190,7 +202,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       <span data-visible>${pois.length} markers</span>
     </div>
     <div class="atlas-v2-modes">
-      ${Object.entries(MODES).map(([id, m]) => `<button type="button" class="${id === 'population' ? 'active' : ''}" data-mode="${id}" style="--mode:${m.color}">${m.label}</button>`).join('')}
+      ${Object.entries(modes).map(([id, m]) => `<button type="button" class="${id === startMode ? 'active' : ''}" data-mode="${id}" style="--mode:${m.color}">${m.label}</button>`).join('')}
       <b data-mode-total>${format(population)} residents</b>
     </div>
     <div class="atlas-v2-layout">
@@ -212,7 +224,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   const world = host.querySelector('.atlas-v2-world');
   const viewport = host.querySelector('.atlas-v2-viewport');
   const sidebar = host.querySelector('.atlas-v2-sidebar');
-  const state = { scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: 'population', selected: null, wikiOnly: false };
+  const state = { scale: 1, tx: 0, ty: 0, box: { left: 0, top: 0, w: 1, h: 1 }, mode: startMode, selected: null, wikiOnly: false };
 
   function hull() {
     if (isFull || pois.length < 2) return { minX: 0, minY: 0, maxX: 100, maxY: 100 };
@@ -265,25 +277,29 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     overlay.style.top = `${top}px`;
     overlay.style.width = `${w}px`;
     overlay.style.height = `${h}px`;
-    const lens = MODES[state.mode];
+    const lens = modes[state.mode] || MODES.population;
+    const lensVal = p => lens.value ? lens.value(p) : (Number(p[lens.key]) || 0);
     const lensEl = host.querySelector('[data-legend-lens]');
+    /* Party last-seen tokens: companions whose latest filed appearance pins
+       onto this sheet. Rendered above pins, never clustered. */
+    const toks = (opts.party || []).filter(t => Number.isFinite(t.x) && Number.isFinite(t.y));
     /* Lens weight on a log scale: sheet values run 0..60,000 with a median
        near 50, so a linear share of max flattens 95% of pins to one dot.
        log(1+v)/log(1+max) spreads hamlets, towns, and cities across the
        whole size range; the top 5 pins earn a ring so the giants pop at
        thumbnail scale. Stacked pins size by their largest member. */
-    const values = pois.map(p => Number(p[lens.key]) || 0);
+    const values = pois.map(p => lensVal(p));
     const max = Math.max(0, ...values);
     const denom = Math.log1p(max) || 1;
     const weight = v => Math.min(1, Math.log1p(Math.max(0, v)) / denom);
-    const ranked = [...pois].sort((a, b) => (Number(b[lens.key]) || 0) - (Number(a[lens.key]) || 0)).slice(0, 5);
-    const major = new Set(ranked.filter(p => (Number(p[lens.key]) || 0) > 0).map(p => p.id));
+    const ranked = [...pois].sort((a, b) => lensVal(b) - lensVal(a)).slice(0, 5);
+    const major = new Set(ranked.filter(p => lensVal(p) > 0).map(p => p.id));
     const min = values.length ? Math.min(...values) : 0;
-    if (lensEl) lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}`;
+    if (lensEl) lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}`;
     overlay.innerHTML = journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
-      const top = Math.max(0, ...group.map(g => Number(g[lens.key]) || 0));
+      const top = Math.max(0, ...group.map(g => lensVal(g)));
       const w = weight(top);
       const diameter = Math.round(12 + w * 20);
       const isMajor = group.some(g => major.has(g.id));
@@ -302,6 +318,18 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
         select(picked, ids);
       });
     });
+    if (toks.length) {
+      overlay.insertAdjacentHTML('beforeend', toks.map((t, i) => `<button type="button" class="atlas-v2-token" data-token="${i}" style="left:${t.x}%;top:${t.y}%" title="${esc(t.name)} — last seen: ${esc(t.recordName)} (${esc(t.date || 'undated')})">${esc(t.icon)}</button>`).join(''));
+      overlay.querySelectorAll('[data-token]').forEach(btn => {
+        btn.addEventListener('click', ev => {
+          ev.stopPropagation();
+          const t = toks[Number(btn.dataset.token)];
+          if (!t) return;
+          overlay.querySelectorAll('[data-token]').forEach(b => b.classList.toggle('selected', b === btn));
+          sidebar.innerHTML = `<article class="atlas-v2-detail"><span class="atlas-v2-kicker">🛰️ party last seen</span><h3>${esc(t.icon)} ${esc(t.name)}</h3><p>Last filed appearance: <b>${esc(t.recordName)}</b><br>${esc(t.date || 'undated')}</p>${t.recordId ? `<button class="atlas-v2-wiki" data-open-article="${esc(t.recordId)}">Open the record</button>` : ''}</article>`;
+        });
+      });
+    }
     applyFilter();
   }
 
@@ -381,8 +409,9 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   host.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => {
     state.mode = button.dataset.mode;
     host.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b === button));
-    const lens = MODES[state.mode];
-    host.querySelector('[data-mode-total]').textContent = `${format(pois.reduce((n, p) => n + (Number(p[lens.key]) || 0), 0))} ${lens.unit}`;
+    const lens = modes[state.mode] || MODES.population;
+    const lv = p => lens.value ? lens.value(p) : (Number(p[lens.key]) || 0);
+    host.querySelector('[data-mode-total]').textContent = `${format(pois.reduce((n, p) => n + lv(p), 0))} ${lens.unit}`;
     placePins();
   }));
   host.querySelector('[data-action="wiki"]').addEventListener('click', event => {
@@ -456,7 +485,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
 
   let drag = null;
   viewport.addEventListener('pointerdown', event => {
-    if (event.target.closest('.atlas-v2-marker')) return;
+    if (event.target.closest('.atlas-v2-marker') || event.target.closest('.atlas-v2-token')) return;
     drag = { x: event.clientX, y: event.clientY, tx: state.tx, ty: state.ty };
     viewport.setPointerCapture(event.pointerId);
   });

@@ -385,6 +385,58 @@
 }
 </style>
 
+<style id="wah-dashboard">
+/* ---------- Wah Notes ---------- */
+.wah-note{border-left:3px solid var(--accent2,#e0b400);background:rgba(255,255,255,.03);border-radius:8px;padding:8px 10px;margin:0 0 8px}
+.wah-note:last-child{margin-bottom:0}
+.wah-note-head{display:flex;align-items:center;gap:7px;font-size:12.5px;margin-bottom:3px}
+.wah-note-ava{font-size:17px;line-height:1}
+.wah-note-who{font-weight:700}
+.wah-note-fac{color:var(--muted);font-size:11.5px}
+.wah-note-when{margin-left:auto;color:var(--muted);font-size:11px;white-space:nowrap}
+.wah-note-text{font-size:13px;line-height:1.5;margin:0}
+.wah-note-likes{color:var(--muted);font-size:11px;margin-top:3px}
+.wah-guest{border:1px dashed var(--accent2,#e0b400);border-radius:8px;padding:8px 10px;margin:0 0 8px;background:rgba(224,180,0,.05)}
+.wah-guest h4{margin:0 0 2px;font-size:13.5px}
+.wah-guest p{font-size:12.5px;line-height:1.5;margin:4px 0}
+.wah-more{display:block;text-align:center;font-size:12.5px;color:var(--muted);margin-top:6px}
+/* ---------- Dashboard (single screen, no scroll at desktop) ---------- */
+.dash{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.2fr) minmax(0,.95fr);gap:12px;align-items:start}
+.dash h2{font-size:14px;margin:0 0 8px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent2,#e0b400)}
+.dash-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.dash-file{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--border);cursor:pointer}
+.dash-file:last-child{border-bottom:0}
+.dash-file:hover b{color:var(--accent2,#e0b400)}
+.dash-file .d{font-size:11px;color:var(--muted);white-space:nowrap}
+.dash-file b{font-size:13px;display:block;line-height:1.35}
+.dash-file span{font-size:12px;color:var(--muted);display:block;line-height:1.4}
+.dash-fronts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.dash-front{border:1px solid var(--border);border-radius:10px;padding:8px;cursor:pointer;font-size:12px}
+.dash-front b{display:block;font-size:12.5px}
+.dash-front span{color:var(--muted);font-size:11.5px}
+.dash-doors{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dash-door{border:1px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center;cursor:pointer;background:rgba(255,255,255,.02)}
+.dash-door:hover{border-color:var(--accent2,#e0b400)}
+.dash-door .e{font-size:22px;display:block}
+.dash-door b{font-size:12.5px;display:block;margin:2px 0}
+.dash-door span{font-size:11px;color:var(--muted)}
+.dash-mini{font-size:12.5px}
+.dash-mini .row{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px solid var(--border)}
+.dash-mini .row:last-child{border-bottom:0}
+.dash-mini .row span:last-child{color:var(--muted);text-align:right}
+@media(max-width:1100px){.dash{grid-template-columns:1fr 1fr}.dash-right{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}}
+@media(max-width:760px){.dash{grid-template-columns:1fr}.dash-right{display:block}.dash-right .card{margin-bottom:12px}}
+/* ---------- Who-are-you picker ---------- */
+.who-rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:14px 4px 18px}
+.who-card{flex:0 0 190px;scroll-snap-align:center;border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;background:rgba(255,255,255,.02)}
+.who-card:hover{border-color:var(--accent2,#e0b400);transform:translateY(-2px)}
+.who-card.out{opacity:.45;cursor:not-allowed}
+.who-card .e{font-size:40px;display:block}
+.who-card b{font-size:14px;display:block;margin:6px 0 2px}
+.who-card .r{font-size:11.5px;color:var(--accent2,#e0b400);display:block}
+.who-card .w{font-size:11.5px;color:var(--muted);display:block;margin-top:6px;min-height:2.4em}
+.who-card .seen{font-size:11px;color:var(--muted);display:block;margin-top:4px;font-style:italic}
+</style>
 <style id="record-article-layout">
 /* Event and battle articles are full-width with NO side rail: the infobox and
    contents render inside the main column (.record-summary) and the archive
@@ -5412,7 +5464,7 @@ const MAPS_PLANES=[
   {id:'mirror',label:'Deep Mirror',emoji:'🪞',color:'#67e8f9'},
 ];
 const MAPS_PLANE_META={}; MAPS_PLANES.forEach(p=>MAPS_PLANE_META[p.id]=p);
-let MAPS_DESK={mapId:'',plane:'all',mode:'survey',party:'',sort:'chron',handle:null,playTimer:null,step:-1,stops:[]};
+let MAPS_DESK={mapId:'',plane:'all',mode:'survey',party:'',sort:'chron',handle:null,playTimer:null,step:-1,stops:[],showParty:true};
 function mapsPoiPlane(poi){ return (poi&&poi.plane)||'material'; }
 function mapsPlanesOnSheet(mapId, MAPS){
   const rec=(MAPS||{})[mapId]; if(!rec) return [];
@@ -5665,13 +5717,17 @@ function mapsDeskMount(){
   const stops=(journey&&journey.stops)||[];
   MAPS_DESK.stops=stops;
   const centroid=(MAPS_DESK.plane&&MAPS_DESK.plane!=='all')?mapsDeskCentroid(MAPS_DESK.mapId,MAPS_DESK.plane):null;
-  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map8').then(m=>{
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map9').then(m=>{
     if(!document.getElementById('maps-desk-map')) return;
+    const wantChatter=MAPS_DESK.mode==='chatter';
     MAPS_DESK.handle=m.mountAtlasMapV2(host,MAPS_DESK.mapId,{
       plane:MAPS_DESK.plane,
       journey:stops.map(s=>({poiId:s.poiId,n:s.n,eventId:s.eventId,name:s.name,date:s.date,plane:s.plane})),
       journeyOnly:MAPS_DESK.mode==='journey',
       focus:centroid?{x:centroid.x,y:centroid.y,scale:3}:null,
+      chatter:wantChatter?wahChatterByPoi(MAPS_DESK.mapId):null,
+      defaultMode:wantChatter?'chatter':null,
+      party:MAPS_DESK.showParty!==false?wahPartyTokens(MAPS_DESK.mapId):[],
     });
     if(MAPS_DESK.mode==='journey'&&stops.length) mapsDeskStep(0,{noScroll:true});
   }).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Maps desk failed',e);});
@@ -5685,7 +5741,7 @@ function view_maps(arg){
   const factionIds=new Set((DATA.factions||[]).map(f=>f&&f.id).filter(Boolean));
   segs.slice(1).forEach(s=>{
     const t=String(s).toLowerCase();
-    if(t==='journey'||t==='survey') mode=t;
+    if(t==='journey'||t==='survey'||t==='chatter') mode=t;
     else if(t==='all'||MAPS_PLANE_META[t]) plane=t;
     else if(MAPS_JOURNEY_SORTS[t]) sort=t;
     else if(factionIds.has(s)) party=s;
@@ -5737,11 +5793,25 @@ function view_maps(arg){
       +`<ol class="mapsdesk-stops">${stopRows||'<li><p class="mapsdesk-note">No events resolve to pins on this sheet and layer yet.</p></li>'}</ol>`
       +(unRows?`<div class="mapsdesk-unplotted"><details><summary>⚠ ${j.unpinned.length+j.unresolved.length} events not on this sheet</summary><ul>${unRows}</ul></details></div>`:'')+`</aside>`;
   }
+  if(mode==='chatter'){
+    /* Loudest pins + party last-seen share the journey panel's slot. */
+    const ch=wahChatterByPoi(mapId);
+    const sheetPois=((ATLAS_MAPS[mapId]||{}).pointsOfInterest||[]);
+    const loud=Object.entries(ch.counts).sort((a,b)=>b[1]-a[1]).slice(0,8);
+    const loudRows=loud.map(([pid,n])=>{const p=sheetPois.find(q=>q.id===pid)||{};
+      return `<li><button class="mapsdesk-chatter-stop" data-poi="${esc(pid)}"><span class="n">${n}</span><span><b>${esc(p.name||pid)}</b><br><span class="mapsdesk-note">${n} wah note${n===1?'':'s'}</span></span></button></li>`;}).join('');
+    const toks=wahPartyTokens(mapId);
+    const tokRows=toks.map(t=>`<li>${esc(t.icon)} <b>${esc(t.name)}</b> — last seen: <a onclick="openId('${esc(t.recordId)}')">${esc(t.recordName)}</a><br><span class="mapsdesk-note">${esc(t.date||'undated')}</span></li>`).join('');
+    journeyPanel=`<aside class="mapsdesk-journey"><h3>💬 Chatter &amp; Party</h3>`
+      +`<p class="mapsdesk-note">Pins sized by Wah Notes volume. 🛰️ marks where each companion was last filed.</p>`
+      +`<ol class="mapsdesk-stops">${loudRows||'<li><p class="mapsdesk-note">No remarks filed on this sheet yet.</p></li>'}</ol>`
+      +(tokRows?`<h3>🛰️ Party on this sheet</h3><ul class="mapsdesk-stops">${tokRows}</ul>`:`<p class="mapsdesk-note">No party filed on this sheet.</p>`)+`</aside>`;
+  }
   el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Tactical Cartography Desk</div>`
     +`<div class="card animate-fade-in"><h1>🗺️ Tactical Cartography Desk</h1>`
     +`<p class="text-muted">One painted sheet, four planar layers, and the campaign's own trail across it. The Feyward / Shadeward toggle filters this sheet by each pin's filed layer — same map, different worlds.</p>`
     +`<div class="mapsdesk-bar"><select data-map-pick aria-label="Painted sheet">${mapOptions}</select>`
-    +`<div class="mapsdesk-modes"><button class="mapsdesk-mode${mode==='survey'?' on':''}" data-mode="survey">🔭 Survey</button><button class="mapsdesk-mode${mode==='journey'?' on':''}" data-mode="journey">📍 Journey so far</button></div></div>`
+    +`<div class="mapsdesk-modes"><button class="mapsdesk-mode${mode==='survey'?' on':''}" data-mode="survey">🔭 Survey</button><button class="mapsdesk-mode${mode==='journey'?' on':''}" data-mode="journey">📍 Journey so far</button><button class="mapsdesk-mode${mode==='chatter'?' on':''}" data-mode="chatter">💬 Chatter</button><button class="mapsdesk-mode${MAPS_DESK.showParty!==false?' on':''}" data-party-toggle title="Show party last-seen tokens">🛰️ Party</button></div></div>`
     +(showPlanes?`<div class="mapsdesk-bar">${planeChips}</div>`:`<p class="mapsdesk-note">This sheet files no planar layers — every pin is Material. The Raventree cluster on the Midlands sheet is where the layers live.</p>`)
     +`</div>`
     +`<div class="mapsdesk-layout" id="maps-desk"><div class="card" style="margin:0"><div id="maps-desk-map"><div class="atlas-v2-loading">Loading map…</div></div></div>${journeyPanel}</div>`;
@@ -5755,6 +5825,9 @@ function view_maps(arg){
   const sortSel=document.querySelector('[data-sort]');
   if(sortSel) sortSel.addEventListener('change',()=>go(MAPS_DESK.mapId,MAPS_DESK.plane,MAPS_DESK.mode,MAPS_DESK.party,sortSel.value));
   document.querySelectorAll('[data-plane]').forEach(b=>b.addEventListener('click',()=>go(MAPS_DESK.mapId,b.dataset.plane,MAPS_DESK.mode)));
+  document.querySelectorAll('.mapsdesk-chatter-stop').forEach(b=>b.addEventListener('click',()=>{ if(MAPS_DESK.handle) MAPS_DESK.handle.focus(b.dataset.poi); }));
+  const partyTgl=document.querySelector('[data-party-toggle]');
+  if(partyTgl) partyTgl.addEventListener('click',()=>{ MAPS_DESK.showParty=MAPS_DESK.showParty===false; partyTgl.classList.toggle('on',MAPS_DESK.showParty!==false); mapsDeskMount(); });
   document.querySelectorAll('.mapsdesk-stop').forEach(b=>b.addEventListener('click',()=>mapsDeskStep(parseInt(b.dataset.i,10)||0)));
   const prev=document.querySelector('[data-step="prev"]'), next=document.querySelector('[data-step="next"]');
   if(prev) prev.addEventListener('click',()=>mapsDeskStep((MAPS_DESK.step<0?0:MAPS_DESK.step)-1));
@@ -6256,6 +6329,8 @@ function articleRail(articleId,typeKey,item,infoRows,toc,opts){
     const sys=systemsForFaction(articleId);
     if(sys.length) parts.push(`<div class="railbox" style="border-color:${sys[0].accent}"><div class="railbody" style="padding:12px 13px">${sys.map(x=>`<div class="navlink is-system active" style="border-left-color:${x.accent};margin:0" onclick="Router.go('${x.route}')"><span><span class="emoji">${x.emoji}</span> ${esc(x.name)}</span><span class="cnt sys">open</span></div>`).join('')}</div></div>`);
   }
+  const wahCount=wahNotesFor(articleId);
+  if(wahCount.notes.length||wahCount.guests.length) parts.push(railBox('✍️ Wah Notes',wahNotesHtml(articleId),{open:true,count:wahCount.total+wahCount.guests.length}));
   const inv=typeKey==='characters'?inventoryPanel(articleId,item):'';
   if(inv) parts.push(railBox('🎒 Inventory & Wallet',inv,{open:true}));
   const pond=typeKey==='characters'?pondDocketPanel(articleId):'';
@@ -8197,7 +8272,126 @@ function homeRecentAdventuresHtml(){
   }
   return cards.join('\n       ')||'<div class="campaign-timeline-item">No sessions filed.</div>';
 }
+/* =============== DASHBOARD (default home) + WHO-ARE-YOU GATE ===============
+   Single screen, three columns: latest filings + fronts | door grid | minis.
+   First visit picks an operator profile (persisted); the dashboard greets them. */
+function dashLatestFilings(){
+  const evs=(DATA.events||[]).map((e,i)=>({e,key:mapsEventSortKey(e,i)})).filter(x=>x.key[0]!==9999)
+    .sort((a,b)=>b.key[0]-a.key[0]||b.key[1]-a.key[1]||b.key[2]-a.key[2]||b.key[3]-a.key[3]).slice(0,4);
+  return evs.map(({e})=>{
+    const d=String(e.date||e.era||'undated').split('—')[0].trim().slice(0,26);
+    const sum=String(e.summary||e.description||'').replace(/\s+/g,' ').slice(0,110);
+    return `<div class="dash-file" onclick="openId('${esc(e.id)}')"><span class="d">${esc(d)}</span><div><b>${esc(e.name||e.title||e.id)}</b><span>${esc(sum)}${sum.length>=110?'…':''}</span></div></div>`;
+  }).join('')+`<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/list/events')">📂 All filings →</a></div>`;
+}
+function dashFronts(){
+  const covers=((DATA.mainPage||{}).campaignCovers||[]).slice(0,2);
+  if(!covers.length) return '';
+  return `<div class="dash-fronts">`+covers.map(c=>`<div class="dash-front" onclick="openId('${esc(c.articleId||'')}')"><b>${esc(c.campaign||'Front')}</b><span>${esc(c.title||'')}</span></div>`).join('')+`</div>`;
+}
+function dashDoor(emoji,label,sub,go){ return `<div class="dash-door" onclick="${go}"><span class="e">${emoji}</span><b>${label}</b><span>${sub}</span></div>`; }
+function dashDoors(){
+  const n=(v)=>{ v=Number(v)||0; return v; };
+  const songs=(DATA.songs&&(DATA.songs.songs||DATA.songs.tracks||[]))||[];
+  let docket='17-A'; try{ const a=docketData(); const t=(a.targets||[]).filter(x=>x.status!=='cleared_active').length; docket=t+' open'; }catch(e){}
+  return dashDoor('🗺️','Maps',n(Object.keys(ATLAS_MAPS||{}).length)+' sheets',"Router.go('#/maps')")
+    +dashDoor('🛒','Commerce',n(((DATA.crafting||{}).recipes||[]).length)+' recipes',"Router.go('#/commerce')")
+    +dashDoor('📅','Time',n((DATA.historicalTimeline||[]).length)+' entries',"Router.go('#/calendar')")
+    +dashDoor('🛰️','Party',n((typeof COMPANIONS!=='undefined'?COMPANIONS:[]).length)+' cast',"Router.go('#/mission-control')")
+    +dashDoor('📈','Reputation',n(Object.keys(LORE_FACTIONS||{}).length)+' powers',"Router.go('#/reputation')")
+    +dashDoor('📚','Library',n((((DATA.books||{}).books)||[]).length)+' books',"Router.go('#/books')")
+    +dashDoor('🎵','Songbook',songs.length?songs.length+' songs':'ballads',"Router.go('#/songs')")
+    +dashDoor('⚖️','Docket',docket,"Router.go('#/pond-docket')")
+    +dashDoor('💱','Bank',n((typeof getCurrenciesList==='function'?getCurrenciesList():[]).length)+' tenders',"Router.go('#/currencies')");
+}
+function dashPurse(){
+  const ids=['archie','markop','remi','hjumpik','bones','green_t'];
+  const rows=ids.map(id=>{
+    let nm=id, line='—';
+    try{
+      const c=(COMPANIONS||[]).find(x=>x&&x.id===id);
+      nm=(c?c.icon+' ':'')+(c?c.name:prettyId(id));
+      const w=walletForChar(id)||{};
+      const cur=Object.entries(w.currencies||{}).filter(([,v])=>Number(v)).slice(0,2);
+      if(cur.length) line=cur.map(([k,v])=>`${Number(v).toLocaleString()} ${k.replace(/_/g,' ')}`).join(' · ');
+    }catch(e){}
+    return `<div class="row"><span>${esc(nm)}</span><span>${esc(line)}</span></div>`;
+  }).join('');
+  return `${rows}<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/currencies')">💱 Debts &amp; ledger →</a></div>`;
+}
+function dashHeat(){
+  const facs=[['wario_enterprise','💰 Wario'],['liberated_toads','🍄 Toads'],['iron_legion','⚔️ Legion'],['corvinarus_family','🦇 Corvinarus'],['mages_guild','🔮 Guild'],['mushroom_regency','👑 Regency']];
+  const ops=(typeof REPUTATION_OPERATORS!=='undefined'?REPUTATION_OPERATORS:[]);
+  const rows=facs.map(([fid,label])=>{
+    let t=0,seen=0;
+    ops.forEach(op=>{ try{ t+=calculateOperatorStanding(op.key||op.id,fid).total||0; seen++; }catch(e){} });
+    const avg=seen?Math.round(t/seen):0;
+    const tag=avg>=15?'allied':avg>=5?'warm':avg>-5?'watchful':avg>-15?'cold':'hostile';
+    const dot=avg>=5?'🟢':avg>-5?'🟡':'🔴';
+    return `<div class="row"><span>${label}</span><span>${dot} ${avg>=0?'+':''}${avg} ${tag}</span></div>`;
+  }).join('');
+  return `${rows}<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/reputation')">📊 Full matrix →</a></div>`;
+}
+function dashOTD(){
+  const items=[];
+  try{
+    const curMo=CUR.monthIndex+1, curDay=CUR.day;
+    (DATA.events||[]).concat(DATA.battles||[]).forEach(e=>{
+      if(!e||items.length>=3) return;
+      if(parseMonth(e.date||'')===curMo&&parseDay(e.date||'')===curDay)
+        items.push(`<div class="row"><span>📜 ${esc(e.name||e.title||e.id)}</span><span>${esc(String(parseYear(e.date||'')||'?'))} BF</span></div>`);
+    });
+  }catch(e){}
+  return (items.join('')||'<div class="row"><span>Quiet day in the archive.</span><span>—</span></div>')
+    +`<div class="chips" style="margin-top:8px"><a class="chip" onclick="Router.go('#/calendar')">📅 Full calendar →</a></div>`;
+}
 function view_home(){
+  renderSidebar('home');
+  if(!getCurrentUserId()){ view_whoami(); return; }
+  const uid=getCurrentUserId();
+  let who={name:prettyId(uid),icon:'👤'};
+  try{ const c=(COMPANIONS||[]).find(x=>x&&x.id===uid); if(c) who={name:c.name,icon:c.icon||'👤'}; }catch(e){}
+  const dateStr=`${(MONTHS||[])[CUR.monthIndex]||'?'} ${CUR.day}, ${CUR.year} BF`;
+  el('content').innerHTML=`<div class="dash-head"><div><h1 style="margin:0">💠 Waluipedia Campaign Hub</h1>`
+    +`<p class="text-muted" style="margin:2px 0 0">🕰️ ${esc(dateStr)} · WAH, ${esc(who.name)}. The archive missed you.</p></div>`
+    +`<span class="chip" style="margin-left:auto" onclick="Router.go('#/who')">${esc(who.icon)} ${esc(who.name)} · switch</span>`
+    +`<span class="chip" onclick="Router.go('#/home-classic')">📜 Classic view</span></div>`
+    +`<div class="dash"><div class="card" style="margin:0"><h2>📜 Latest filings</h2><div class="dash-mini">${dashLatestFilings()}</div>${dashFronts()}</div>`
+    +`<div class="card" style="margin:0"><h2>🎮 Choose your door</h2><div class="dash-doors">${dashDoors()}</div></div>`
+    +`<div class="dash-right"><div class="card" style="margin:0"><h2>💰 Party purse</h2><div class="dash-mini">${dashPurse()}</div></div>`
+    +`<div class="card" style="margin:12px 0 0"><h2>📈 Heat</h2><div class="dash-mini">${dashHeat()}</div></div>`
+    +`<div class="card" style="margin:12px 0 0"><h2>🕰️ On this day</h2><div class="dash-mini">${dashOTD()}</div><div id="dash-cal" style="margin-top:8px"></div></div></div></div>`;
+  try{ renderMiniCalendar('dash-cal',CUR.year,CUR.monthIndex); }catch(e){}
+  window.scrollTo(0,0);
+}
+/* Who-are-you gate: horizontal cast picker. Blocks the dashboard until the
+   reader signs on as an operator; deep links elsewhere stay open. */
+function view_whoami(){
+  renderSidebar('home');
+  const avail=(COMPANIONS||[]).filter(c=>c&&!(typeof UNAVAILABLE_COMPANIONS!=='undefined'&&UNAVAILABLE_COMPANIONS.has(c.id)));
+  const out=(COMPANIONS||[]).filter(c=>c&&(typeof UNAVAILABLE_COMPANIONS!=='undefined'&&UNAVAILABLE_COMPANIONS.has(c.id)));
+  const card=(c,off)=>{
+    let w='pockets unknown', seen='whereabouts unknown';
+    if(!off){ try{
+      const wal=walletForChar(c.id)||{};
+      const cur=Object.entries(wal.currencies||{}).filter(([,v])=>Number(v)).slice(0,2);
+      if(cur.length) w=cur.map(([k,v])=>`${Number(v).toLocaleString()} ${k.replace(/_/g,' ')}`).join(' · ');
+      const s=wahLastSeen(c.id);
+      if(s&&s.recordId) seen='last seen: '+s.name;
+    }catch(e){} }
+    return `<div class="who-card${off?' out':''}"${off?'':` onclick="setCurrentUserId('${esc(c.id)}');Router.go('#/home')"`}>`
+      +`<span class="e">${esc(c.icon||'👤')}</span><b>${esc(c.name||c.id)}</b><span class="r">${esc(c.role||c.class||'')}</span>`
+      +`<span class="w">${off?'⛓️ detained by the plot':esc(w)}</span><span class="seen">${esc(seen)}</span></div>`;
+  };
+  el('content').innerHTML=`<div class="card animate-fade-in" style="text-align:center"><div class="hub-kicker">🔐 operator session required</div>`
+    +`<h1>Who are you?</h1><p class="text-muted">The archive files differently depending on who's asking. Pick your operator — scroll sideways through the cast.</p></div>`
+    +`<div class="who-rail">${avail.map(c=>card(c,false)).join('')}${out.map(c=>card(c,true)).join('')}</div>`
+    +`<p class="text-muted" style="text-align:center">Deep links still work — only the dashboard asks. Sign-on is kept on this device.</p>`;
+  window.scrollTo(0,0);
+}
+/* The original scrolling home page, kept as the Classic view (#/home-classic).
+   The dashboard (view_home) is the default since the Batch 2 overhaul. */
+function view_home_classic(){
   renderSidebar(null);
   initCalendarState();
   const mp=DATA.mainPage||{};const feat=mp.featuredArticle;const fi=feat&&INDEX[feat.id]?INDEX[feat.id].item:null;
@@ -9713,6 +9907,195 @@ function pondDocketPanel(articleId){
     +`<div class="chips"><a class="chip" onclick="Router.go('#/pond-docket')">⚖️ Open full docket →</a></div></div>`;
 }
 /* Full operational data ported from the standalone Liberated Toads terminal. */
+/* =============== WAH NOTES — margin scribbles on the archive ===============
+   Wahwire's replacement. Instead of a separate feed nobody feeds, remarks live
+   ON the records: annotation passage comments + pinned notes + routed notes
+   (matched on factions, participants, eras, types, locations). Display is
+   variety-interleaved so no record is ever two Warios talking to themselves. */
+const WAH_VOICES={
+  wario:{name:'Wario',icon:'🤑'}, general_ironhand:{name:'General Ironhand',icon:'⚙️'},
+  vivian_corvinarus:{name:'Vivian Corvinarus',icon:'🦇'}, mystic_morel:{name:'Mystic Morel',icon:'🍄'},
+  thornbury:{name:'Thornbury',icon:'🧾'}, professor_e_gadd:{name:'Professor E. Gadd',icon:'🧪'},
+  speaker_rivers:{name:'Speaker Rivers',icon:'🌊'}, captain_toadette:{name:'Captain Toadette',icon:'⭐'},
+};
+/* Companion id -> participant ids/names seen on events & battles. */
+const WAH_ALIASES={
+  archie:['archie','archie_miser'], remi:['remi','remi_akamatsu_full_backstory','remi akamatsu'],
+  markop:['markop','markop_judi','markop'], feywarddan:['feywarddan','dan_feyward'],
+  roger:['roger','rodger'], rakashaazure:['rakashaazure','azure_rakasha','rakasha_azure'],
+  dan:['dan','dan_original','dan_real','dan'], green_t:['green_t','green t'],
+  eager:['eager','eager'], salam:['salam','salam'], rattles:['rattles','rattles'],
+  bowser:['bowser'], hjumpik:['hjumpik'], bones:['bones'], speaker_l:['speaker_l'],
+  waluigi:['waluigi'], luigi:['luigi'], toad_lee:['toad_lee'], ryan:['ryan'],
+  smoking_j:['smoking_j'],
+};
+function wahAuthorMeta(id){
+  try{
+    const c=(typeof COMPANIONS!=='undefined'?COMPANIONS:[]).find(x=>x&&x.id===id);
+    if(c) return {name:c.name||id,icon:c.icon||'🖊️'};
+  }catch(e){}
+  if(WAH_VOICES[id]) return WAH_VOICES[id];
+  return null;
+}
+/* Everything a routed remark can match on for one record. */
+function wahTagset(articleId){
+  const rec=(typeof INDEX!=='undefined'&&INDEX[articleId])||{};
+  const item=rec.item||{}, typeKey=rec.typeKey||'';
+  const factions=new Set(), participants=new Set();
+  const rc=item.reputationChanges;
+  if(rc&&typeof rc==='object'&&!Array.isArray(rc)) Object.values(rc).forEach(m=>{ if(m&&typeof m==='object') Object.keys(m).forEach(f=>factions.add(String(f).toLowerCase())); });
+  [item.home_faction,item.controllingFaction,item.faction,item.affiliation].forEach(f=>{ if(f) factions.add(String(f).toLowerCase()); });
+  if(typeKey==='factions') factions.add(String(articleId).toLowerCase());
+  (item.participants||[]).forEach(p=>{
+    const v=(p&&(p.id!==undefined?p.id:p))||'';
+    if(v) participants.add(String(v).toLowerCase());
+    if(p&&p.name) participants.add(String(p.name).toLowerCase());
+  });
+  if(typeKey==='characters'){ participants.add(String(articleId).toLowerCase()); if(item.name) participants.add(String(item.name).toLowerCase()); }
+  const blob=String(item.era||'')+' '+String(item.type||'');
+  const loc=String(item.location||'')+(typeKey==='locations'&&item.name?' '+item.name:'');
+  return {factions,participants,blob:blob.toLowerCase(),loc:loc.toLowerCase()};
+}
+function wahRoutedFor(articleId,tagset){
+  const pool=(DATA&&DATA.wahnotes&&DATA.wahnotes.routed)||[];
+  const ts=tagset||wahTagset(articleId);
+  return pool.filter(r=>{
+    const so=(r&&r.showsOn)||{};
+    if((so.records||[]).includes(articleId)) return true;
+    if((so.factions||[]).some(f=>ts.factions.has(String(f).toLowerCase()))) return true;
+    if((so.participants||[]).some(p=>ts.participants.has(String(p).toLowerCase()))) return true;
+    if((so.eras||[]).concat(so.types||[]).some(t=>t&&ts.blob.includes(String(t).toLowerCase()))) return true;
+    if((so.locations||[]).some(t=>t&&ts.loc.includes(String(t).toLowerCase()))) return true;
+    return false;
+  });
+}
+/* Merged + variety-interleaved notes for a record. Cap keeps rails readable. */
+function wahNotesFor(articleId){
+  const out=[];
+  try{
+    (DATA.annotations||[]).filter(p=>p&&p.articleId===articleId).forEach(p=>(p.comments||[]).forEach(c=>out.push({
+      authorId:c.authorId||'',author:c.author||'',faction:c.faction||'',text:c.text||'',
+      timestamp:c.timestamp||'',likes:c.likes||0,source:'annotation'})));
+  }catch(e){}
+  try{
+    const w=DATA.wahnotes||{};
+    ((w.pinned||{})[articleId]||[]).forEach(c=>out.push(Object.assign({source:'pinned',likes:0},c)));
+    wahRoutedFor(articleId).forEach(c=>out.push(Object.assign({source:'routed',likes:0},c)));
+  }catch(e){}
+  // Round-robin by author so the first screen is always many voices.
+  const buckets=new Map();
+  out.forEach(n=>{ const k=(n.authorId||n.author||'?').toLowerCase(); if(!buckets.has(k)) buckets.set(k,[]); buckets.get(k).push(n); });
+  const mixed=[];
+  while(mixed.length<out.length){ let moved=false; buckets.forEach(b=>{ if(b.length){ mixed.push(b.shift()); moved=true; } }); if(!moved) break; }
+  let guests=[];
+  try{ guests=((DATA.wahnotes||{}).guests||[]).filter(g=>g&&g.recordId===articleId); }catch(e){}
+  return {notes:mixed.slice(0,12),total:mixed.length,guests};
+}
+function wahNoteCard(n){
+  const meta=wahAuthorMeta(n.authorId)||{};
+  const ava=meta.icon||'🖊️', who=n.author||meta.name||prettyId(n.authorId||'anon');
+  return `<div class="wah-note"><div class="wah-note-head"><span class="wah-note-ava">${esc(ava)}</span>`
+    +`<span class="wah-note-who">${esc(who)}</span>${n.faction?`<span class="wah-note-fac">· ${esc(n.faction)}</span>`:''}`
+    +`${n.timestamp?`<span class="wah-note-when">${esc(n.timestamp)}</span>`:''}</div>`
+    +`<p class="wah-note-text">${esc(n.text||'')}</p>`
+    +`${n.likes?`<div class="wah-note-likes">▲ ${n.likes} enjoyed this</div>`:''}</div>`;
+}
+function wahGuestCard(g){
+  const meta=wahAuthorMeta(g.authorId)||{};
+  return `<div class="wah-guest"><h4>📜 ${esc(g.title||'Guest filing')} — ${esc(meta.icon||'🖊️')} ${esc(g.author||'')}</h4>`
+    +`<p>${esc(g.body||'')}</p><div class="wah-note-fac">Filed against Waluigi's wishes · ${esc(g.timestamp||'')}</div></div>`;
+}
+/* limit: max cards; menu: compact strip for hub pages. Empty string when silent. */
+function wahNotesHtml(articleId,opts){
+  opts=opts||{};
+  const w=wahNotesFor(articleId);
+  if(!w.notes.length&&!w.guests.length) return '';
+  const lim=opts.limit||w.notes.length;
+  let h=w.guests.map(wahGuestCard).join('')+w.notes.slice(0,lim).map(wahNoteCard).join('');
+  if(w.total>lim) h+=`<a class="wah-more" onclick="Router.go('#/annotations')">+${w.total-lim} more in the Chatter Hub →</a>`;
+  return h;
+}
+/* ---- player tracking: latest dated appearance -> map pin (all dynamic) ---- */
+function wahPinIndex(){
+  const pins={};
+  try{
+    Object.values(ATLAS_MAPS||{}).forEach(rec=>{
+      (rec.pointsOfInterest||[]).forEach(p=>{
+        if(!p||!p.id) return;
+        [].concat(p.articleId||[],p.locationId||[],(typeof LOC_PIN_SPECIALS!=='undefined'&&LOC_PIN_SPECIALS[p.id])||[]).forEach(aid=>{
+          (pins[aid]=pins[aid]||[]).push({mapId:rec.id,poi:p});
+        });
+      });
+    });
+  }catch(e){}
+  return pins;
+}
+function wahCastIds(compId){
+  const set=new Set([String(compId).toLowerCase()]);
+  (WAH_ALIASES[compId]||[]).forEach(a=>set.add(String(a).toLowerCase()));
+  try{
+    const c=(COMPANIONS||[]).find(x=>x&&x.id===compId);
+    if(c&&c.name) set.add(c.name.toLowerCase());
+  }catch(e){}
+  return set;
+}
+function wahLastSeen(compId){
+  const want=wahCastIds(compId);
+  const recs=(DATA.events||[]).concat(DATA.battles||[]).filter(r=>r&&r.id);
+  const mine=recs.filter(r=>((r.participants||[]).some(p=>{
+    const v=(p&&(p.id!==undefined?p.id:p))||'';
+    return v&&want.has(String(v).toLowerCase())||(p&&p.name&&want.has(String(p.name).toLowerCase()));
+  }))).map((e,i)=>({e,key:mapsEventSortKey(e,i)}));
+  if(!mine.length) return null;
+  mine.sort((a,b)=>b.key[0]-a.key[0]||b.key[1]-a.key[1]||b.key[2]-a.key[2]||b.key[3]-a.key[3]);
+  let idx=null; try{ idx=mapsLocationIndex(DATA.locations||[]); }catch(e){}
+  const pins=wahPinIndex();
+  for(const {e} of mine){
+    let lid=null; try{ lid=idx?resolveEventLocationId(e.location,idx):null; }catch(err){}
+    const here=lid?pins[lid]||[]:[];
+    if(here.length) return {recordId:e.id,name:e.name||e.title||e.id,date:e.date||e.era||'',
+      mapId:here[0].mapId,x:here[0].poi.x,y:here[0].poi.y,poiName:here[0].poi.name||''};
+  }
+  const e=mine[0].e;
+  return {recordId:e.id,name:e.name||e.title||e.id,date:e.date||e.era||'',mapId:'',x:null,y:null,poiName:''};
+}
+function wahPartyTokens(mapId){
+  const out=[];
+  try{
+    (COMPANIONS||[]).forEach(c=>{
+      if(!c||!c.id) return;
+      if(typeof UNAVAILABLE_COMPANIONS!=='undefined'&&UNAVAILABLE_COMPANIONS.has(c.id)) return;
+      const s=wahLastSeen(c.id);
+      if(s&&s.mapId===mapId&&Number.isFinite(s.x)&&Number.isFinite(s.y))
+        out.push({x:s.x,y:s.y,icon:c.icon||'🛰️',name:c.name||c.id,recordId:s.recordId,recordName:s.name,date:s.date});
+    });
+  }catch(e){}
+  return out;
+}
+/* Chatter loudness per POI on one sheet: remarks attached to records filed
+   at that pin's location. Powers the Chatter map mode. */
+function wahChatterByPoi(mapId){
+  const counts={}, remarks={};
+  try{
+    const rec=ATLAS_MAPS[mapId]; if(!rec) return {counts,remarks};
+    const idx=mapsLocationIndex(DATA.locations||[]);
+    const pins={};
+    (rec.pointsOfInterest||[]).forEach(p=>{ if(p&&p.id) pins[p.id]=p; });
+    const locToPoi={};
+    Object.entries(wahPinIndex()).forEach(([lid,arr])=>{ (arr||[]).forEach(a=>{ if(a.mapId===mapId&&!locToPoi[lid]) locToPoi[lid]=a.poi.id; }); });
+    (DATA.events||[]).concat(DATA.battles||[]).forEach(e=>{
+      if(!e||!e.id) return;
+      let lid=null; try{ lid=resolveEventLocationId(e.location,idx); }catch(err){}
+      const pid=lid?locToPoi[lid]:null; if(!pid||!pins[pid]) return;
+      const w=wahNotesFor(e.id);
+      if(!w.total) return;
+      counts[pid]=(counts[pid]||0)+w.total;
+      const arr=(remarks[pid]=remarks[pid]||[]);
+      w.notes.slice(0,3).forEach(n=>{ if(arr.length<3) arr.push({author:n.author||'',icon:(wahAuthorMeta(n.authorId)||{}).icon||'🖊️',text:n.text||'',recordId:e.id,recordName:e.name||e.title||e.id}); });
+    });
+  }catch(e){}
+  return {counts,remarks};
+}
 function ltSystem(){ return DATA.liberatedToadsSystem||null; }
 /* Roster statistics, computed live from the ported cohort + core-toad data. */
 function ltIntake(){ const S=ltSystem(); return (S&&S.toadslistIntake)||null; }
@@ -13269,6 +13652,7 @@ function view_hub(id){
         <div class="hub-instruction">Waluigi has filed this one more than once. Pick how you want it.</div>
       </div>
       <div class="hub-grid">${tiles}</div>
+      ${(()=>{const strip=wahNotesHtml(id,{limit:3});return strip?`<div class="card" style="margin-top:12px"><h2 style="margin-top:0">✍️ Wah Notes <span class="text-muted" style="font-size:12px;font-weight:400">— the margins are talking</span></h2>${strip}</div>`:'';})()}
       <div class="hub-foot">
         <span class="chip" onclick="Router.go('#/article/${esc(id)}')">📖 Skip the menu, just read it →</span>
         <span class="chip" onclick="Router.go('#/home')">← Home</span>
@@ -18922,6 +19306,8 @@ const Router={
     LINK_GRAPH_OUT=new Set(); LINK_CONTEXT=new Set(); LINK_LAST_STATS={total:0,unique:0,scope:''}; LINK_SUPPRESSED=[];
     document.body.classList.remove('hide-walu-ambient');
     if(route==='home')view_home();
+    else if(route==='home-classic')view_home_classic();
+    else if(route==='who')view_whoami();
     else if(route==='list'){ if(arg==='nations')view_atlas(); else view_list(arg); }
     else if(route==='field-journal'||route==='journal')view_fieldJournal();
     else if(route==='rnn'||route==='rakasha-news'||route==='broadcast')view_rakashaNews();
@@ -19077,7 +19463,7 @@ document.addEventListener('keydown',e=>{const typing=/input|textarea|select/i.te
 /* ================= DATA LOADER (fetch ./data/*.json, fall back to embedded) ================= */
 /* Files that live in ./data/ as separate JSON. Keys map 1:1 to DATA fields. */
 const DATA_FILES = ['characters','events','articleAnalyses','commentaries','battles','locations','races','nations','factions','collections',
-  'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','currencies','banking','wallets','books','crafting','cultures','injuries','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls'];
+  'trials','brosAttacks','mainPage','congress_votes','conflicts','majorBattles','factionColors','currentDate','calendarMonths','calendarWeekdays','calendarSeasons','calendarMeta','calendars','calendarHolidays','historicalTimeline','artifacts','congress','annotations','wahnotes','currencies','banking','wallets','books','crafting','cultures','injuries','liberatedToadsSystem','ironLegionSystem','abilityShop','itemLoreLinks','whatifs','quests','props','investigations','rolls'];
 
 async function loadData(){
   const embedded = window.WALUPEDIA_EMBEDDED || {};
