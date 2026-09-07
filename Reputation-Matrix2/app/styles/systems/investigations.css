@@ -844,3 +844,61 @@ html[data-theme="light"] .article-analysis-layout{
   .hub-tile-art{width:68px;height:68px}
   .hub-title{font-size:24px}
 }
+
+/* ================= "Investigate this further" panel =================
+   Previously built entirely from inline styles, which meant every row carried
+   its own font-size and no rule could be changed in one place. Now classed.
+
+   When the record has a filing desk (#/hub/<id>), the analysis and commentary
+   collapse to a single .cf-doors strip — the desk is the canonical menu and
+   repeating both as full blocks said the same thing twice on one screen. The
+   exhibit rows stay, because they point at individual exhibits inside a file
+   rather than at the file the desk already links. */
+.connected-file{border-left:4px solid var(--accent);padding:18px 20px}
+.cf-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.cf-head h2{margin:0 0 4px;font-size:20px}
+.cf-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.55;max-width:74ch}
+
+.cf-file{margin-bottom:16px}
+.cf-file:last-child{margin-bottom:0}
+.cf-file-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+.cf-file-name{font-weight:800}
+.cf-codename{color:var(--muted);font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+.cf-why,.cf-more{color:var(--muted);font-size:12.5px;line-height:1.5}
+.cf-why{margin:2px 0 8px}
+.cf-more{margin-top:6px}
+
+/* Exhibit rows: a label column and a body column that can breathe. */
+.cfx-list{display:flex;flex-direction:column;gap:2px}
+.cfx-row{display:grid;grid-template-columns:minmax(96px,150px) 1fr;gap:12px;
+  padding:9px 10px;border-radius:8px;align-items:start}
+.cfx-row:nth-child(odd){background:rgba(139,92,246,.055)}
+.cfx-row:hover{background:rgba(139,92,246,.11)}
+.cfx-kind{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.03em;
+  text-transform:uppercase;padding-top:1px}
+.cfx-body{display:block;min-width:0}
+.cfx-link{font-weight:800}
+.cfx-read{margin-left:6px}
+.cfx-excerpt{display:block;color:var(--muted);font-size:12.5px;line-height:1.55;margin-top:3px}
+.cfx-dc{display:block;color:var(--muted);font-size:11.5px;margin-top:3px;
+  letter-spacing:.03em;font-variant-numeric:tabular-nums}
+
+/* Full mode (no desk): the analysis / commentary blocks. */
+.cf-sub{margin-top:4px}
+.cf-sub--ruled{border-top:1px solid var(--border);padding-top:16px}
+.cf-sub-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:7px}
+.cf-sub-head h3{margin:0;font-size:16px}
+.cf-sub-note{color:var(--muted);font-size:12.5px;line-height:1.55;margin:0 0 9px}
+
+/* Compact mode: one strip of doors instead of two repeated blocks. */
+.cf-doors{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:14px;
+  padding-top:13px;border-top:1px solid var(--border)}
+.cf-doors-label{color:var(--muted);font-size:11.5px;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase}
+.cf-door{margin:0}
+.cf-door--desk{border-color:var(--accent);font-weight:800}
+
+@media(max-width:600px){
+  .cfx-row{grid-template-columns:1fr;gap:2px}
+  .cfx-kind{padding-top:0}
+}

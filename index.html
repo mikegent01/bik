@@ -5740,7 +5740,7 @@ function eventPeopleAndXpPanel(item){
   const people=participantCards?`<div class="event-participants"><div class="event-participant-grid">${participantCards}</div></div>`:'';
   const partyTotal=grouped.reduce((s,g)=>s+Number(g.total||0),0);
   const awards=grouped.map((g,i)=>xpAwardRowHtml(g,{eventId:item.id,partyTotal,rank:i+1})).join('');
-  const awardsBlock=awards?`<div class="xp-session"><div class="xp-session-head"><h3>Session XP</h3><span class="xp-session-kicker">snapshot · party +${partyTotal.toLocaleString()} · ${grouped.length} ${grouped.length===1?'person':'people'}</span></div><div class="award-list">${awards}</div></div>`:'';
+  const awardsBlock=awards?`<div class="xp-session" id="xp-session"><div class="xp-session-head"><h3>Session XP</h3><span class="xp-session-kicker">snapshot · party +${partyTotal.toLocaleString()} · ${grouped.length} ${grouped.length===1?'person':'people'}</span></div><div class="award-list">${awards}</div></div>`:'';
   const effectsPanel = renderReputationImpactPanel(item);
   // The wire goes last, under the reputation ledger: reaction after record.
   const wirePanel = typeof renderWahwireFeedPanel === 'function' ? renderWahwireFeedPanel(item.id, 'events') : '';
@@ -12856,7 +12856,7 @@ function commentariesForSource(sourceId){
    offer, and openHub() then behaves exactly like openId() always did. Greyed
    rows are still rendered when at least one sibling exists, because "this filing
    has no commentary yet" is information a reader wants. */
-const HUB_ART='assets/hub/';
+const HUB_ART='assets/hub/';   /* resolved by assetPath() under Reputation-Matrix2/ */
 function hubOptions(id){
   const rec=INDEX[id];
   const item=rec?rec.item:null;
@@ -12902,7 +12902,10 @@ function hubOptions(id){
       blurb:'What the session actually paid. Per-person awards, categories, and the party total.',
       meta:xp.length?('party +'+xpTotal.toLocaleString()+' · '+xp.length+' '+(xp.length===1?'person':'people')):'',
       available:!!xp.length,
-      route:xp.length?'#/article/'+encodeURIComponent(id)+'#xp-session':'',
+      /* A second '#' would break hash routing (the router read the whole tail
+         as an article id). Navigate to the record, then scroll to the ledger. */
+      route:xp.length?'#/article/'+encodeURIComponent(id):'',
+      after:xp.length?'xp-session':'',
       empty:'No XP was banked against this record.' }
   ];
 }
@@ -12914,6 +12917,14 @@ function openHub(id){
   const target=resolveArticleId(id);
   if(hubIsWorthIt(target)){ Router.go('#/hub/'+encodeURIComponent(target)); return; }
   Router.go('#/article/'+encodeURIComponent(target));
+}
+
+/* Navigate, then bring an in-page anchor into view once the view has rendered. */
+function hubGo(route,anchor){
+  Router.go(route);
+  if(!anchor) return;
+  setTimeout(()=>{ const n=document.getElementById(anchor);
+    if(n) n.scrollIntoView({behavior:'smooth',block:'start'}); },80);
 }
 
 function view_hub(id){
@@ -12930,7 +12941,8 @@ function view_hub(id){
 
   const tiles=opts.map(o=>{
     const on=o.available;
-    const go=on?` onclick="Router.go('${esc(o.route)}')" tabindex="0" onkeydown="if(event.key==='Enter'){Router.go('${esc(o.route)}')}"`:' aria-disabled="true"';
+    const act=on?`hubGo('${esc(o.route)}','${esc(o.after||'')}')`:'';
+    const go=on?` onclick="${act}" tabindex="0" onkeydown="if(event.key==='Enter'){${act}}"`:' aria-disabled="true"';
     const extras=(on&&o.extra&&o.extra.length)
       ? `<div class="hub-extra" onclick="event.stopPropagation();">${o.extra.map(x=>`<span class="chip" onclick="Router.go('${esc(x.route)}')">${esc(String(x.label).slice(0,44))} →</span>`).join('')}</div>`
       : '';
@@ -13000,82 +13012,101 @@ function renderConnectedInvestigationsPanel(id, typeKey){
   const cuts = commentariesForSource(id);
   if(!files.length && !analyses.length && !cuts.length) return '';
 
+  /* If this record has a filing desk, the desk is now the canonical way to
+     reach the analysis and the commentary, and repeating both as full blocks
+     here just says the same thing twice on one screen. Collapse them to a
+     single strip of doors. The exhibit rows below are NOT redundant: the desk
+     links to a case file, these link to individual exhibits inside it. */
+  const hasDesk = (typeof hubIsWorthIt === 'function') && hubIsWorthIt(id);
+
   const nDoc = files.reduce((n,f) => n + f.ex.length, 0);
   const blocks = files.map(f => {
     const iv = f.iv;
     const rows = f.ex.slice(0, 6).map(x => {
       const done = !!invResult(iv.id, 'exam', x.id);
       const rolls = invInsightCount(x);
-      return `<div class="kv-row">
-        <span class="k">${esc(x.icon || '📄')} ${esc(x.kind || 'exhibit')}</span>
-        <span class="v">
-          <a class="entity-link" onclick="Router.go('#/investigation/${encodeURIComponent(iv.id)}');setTimeout(()=>invOpenExhibit('${esc(iv.id)}','${esc(x.id)}'),60)">${esc(x.title)}</a>
-          ${done ? '<span class="pill" style="margin-left:6px">read</span>' : ''}
-          <div class="text-muted" style="font-size:12.5px;line-height:1.5;margin-top:3px">${esc(invPlainText(x.onRecord).slice(0, 210))}${invPlainText(x.onRecord).length > 210 ? '…' : ''}</div>
-          <div class="text-muted" style="font-size:11.5px;margin-top:3px">Examination DC ${esc(String(x.dc))}${rolls ? ` · ${rolls} insight check${rolls === 1 ? '' : 's'}` : ''}</div>
+      const txt = invPlainText(x.onRecord);
+      return `<div class="cfx-row">
+        <span class="cfx-kind">${esc(x.icon || '📄')} ${esc(x.kind || 'exhibit')}</span>
+        <span class="cfx-body">
+          <a class="entity-link cfx-link" onclick="Router.go('#/investigation/${encodeURIComponent(iv.id)}');setTimeout(()=>invOpenExhibit('${esc(iv.id)}','${esc(x.id)}'),60)">${esc(x.title)}</a>
+          ${done ? '<span class="pill cfx-read">read</span>' : ''}
+          <span class="cfx-excerpt">${esc(txt.slice(0, 210))}${txt.length > 210 ? '…' : ''}</span>
+          <span class="cfx-dc">Examination DC ${esc(String(x.dc))}${rolls ? ` · ${rolls} insight check${rolls === 1 ? '' : 's'}` : ''}</span>
         </span>
       </div>`;
     }).join('');
     const more = f.ex.length > 6
-      ? `<div class="text-muted" style="font-size:12.5px;margin-top:6px">and ${f.ex.length - 6} more exhibit${f.ex.length - 6 === 1 ? '' : 's'} in this file.</div>` : '';
-    const note = f.why.length
-      ? `<div class="text-muted" style="font-size:12.5px;margin:2px 0 8px">${esc(f.why.join(' · '))}</div>` : '';
-    return `<div style="margin-bottom:16px">
-      <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:4px">
-        <a class="entity-link" style="font-weight:800" href="#/investigation/${encodeURIComponent(iv.id)}">${esc(iv.icon || '🔍')} ${esc(iv.title)}</a>
-        <span class="text-muted" style="font-size:12px">◆ ${esc(iv.codename)}</span>
+      ? `<div class="cf-more">and ${f.ex.length - 6} more exhibit${f.ex.length - 6 === 1 ? '' : 's'} in this file.</div>` : '';
+    const note = f.why.length ? `<div class="cf-why">${esc(f.why.join(' · '))}</div>` : '';
+    return `<div class="cf-file">
+      <div class="cf-file-head">
+        <a class="entity-link cf-file-name" href="#/investigation/${encodeURIComponent(iv.id)}">${esc(iv.icon || '🔍')} ${esc(iv.title)}</a>
+        <span class="cf-codename">◆ ${esc(iv.codename)}</span>
         ${f.ex.length ? `<span class="pill">${f.ex.length} exhibit${f.ex.length === 1 ? '' : 's'} cite this</span>` : ''}
       </div>
       ${note}
-      ${rows ? `<div class="kv-list">${rows}</div>` : ''}
+      ${rows ? `<div class="cfx-list">${rows}</div>` : ''}
       ${more}
     </div>`;
   }).join('');
 
   const panelSourceTitle = INDEX[id] ? displayName(INDEX[id].item) : '';
-  const analysisRows = analyses.map(a => `<div class="kv-row">
-    <span class="k">🖋️ opinion filing</span>
-    <span class="v">
-      <a class="entity-link" style="font-weight:800" href="#/article-analysis/${encodeURIComponent(a.id)}">${esc(panelSourceTitle || a.title)}</a>
-      ${a.researchDesk&&Array.isArray(a.researchDesk.rolls)&&a.researchDesk.rolls.length?`<span class="pill" style="margin-left:6px">🎲 ${a.researchDesk.rolls.length} optional after-hours checks</span>`:''}
-      <div class="text-muted" style="font-size:12.5px;line-height:1.55;margin-top:3px">${esc(a.summary || '')}</div>
-    </span>
-  </div>`).join('');
-  const analysisBlock = analysisRows ? `<div style="border-top:${files.length ? '1px solid var(--border)' : '0'};padding-top:${files.length ? '16px' : '0'};margin-top:${files.length ? '4px' : '0'}">
-    <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:7px">
-      <h3 style="margin:0">🖋️ Waluigi's Article Analysis</h3>
-      <span class="pill">same event · a signed interpretation</span>
-    </div>
-    <p class="text-muted" style="font-size:12.5px;margin:0 0 9px">The event is the canonical account. This companion is Waluigi arguing with what it means.</p>
-    <div class="kv-list">${analysisRows}</div>
-  </div>` : '';
 
-  const cutRows = cuts.map(c => `<div class="kv-row">
-    <span class="k">🎙️ commentary</span>
-    <span class="v">
-      <a class="entity-link" style="font-weight:800" href="#/commentary/${encodeURIComponent(c.id)}">${esc(c.title || panelSourceTitle)}</a>
-      <span class="pill" style="margin-left:6px">${(c.sections||[]).length} parts</span>
-      <div class="text-muted" style="font-size:12.5px;line-height:1.55;margin-top:3px">${esc(c.subtitle || c.standfirst || '')}</div>
-    </span>
-  </div>`).join('');
-  const cutBlock = cutRows ? `<div style="border-top:${(files.length||analyses.length) ? '1px solid var(--border)' : '0'};padding-top:${(files.length||analyses.length) ? '16px' : '0'};margin-top:${(files.length||analyses.length) ? '4px' : '0'}">
-    <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:7px">
-      <h3 style="margin:0">🎙️ Waluigi's Cut</h3>
-      <span class="pill">the whole story · told badly on purpose</span>
-    </div>
-    <p class="text-muted" style="font-size:12.5px;margin:0 0 9px">Same events, start to finish, with Waluigi talking over every one of them. Read this one if you are here for the voice rather than the record.</p>
-    <div class="kv-list">${cutRows}</div>
-  </div>` : '';
+  /* ---- compact mode: the desk already owns these doors ---- */
+  let siblingBlock = '';
+  if(hasDesk){
+    const doors = [];
+    analyses.forEach(a => doors.push(`<a class="chip cf-door" href="#/article-analysis/${encodeURIComponent(a.id)}">🖋️ Analysis</a>`));
+    cuts.forEach(c => doors.push(`<a class="chip cf-door" href="#/commentary/${encodeURIComponent(c.id)}">🎙️ Waluigi's Cut · ${(c.sections||[]).length} parts</a>`));
+    if(doors.length){
+      siblingBlock = `<div class="cf-doors">
+        <span class="cf-doors-label">Also filed as</span>
+        ${doors.join('')}
+        <a class="chip cf-door cf-door--desk" href="#/hub/${encodeURIComponent(id)}">🗂️ All ways to read this →</a>
+      </div>`;
+    }
+  } else {
+    /* ---- full mode: no desk, so this panel is the only signpost ---- */
+    const analysisRows = analyses.map(a => `<div class="cfx-row">
+      <span class="cfx-kind">🖋️ opinion filing</span>
+      <span class="cfx-body">
+        <a class="entity-link cfx-link" href="#/article-analysis/${encodeURIComponent(a.id)}">${esc(panelSourceTitle || a.title)}</a>
+        ${a.researchDesk&&Array.isArray(a.researchDesk.rolls)&&a.researchDesk.rolls.length?`<span class="pill cfx-read">🎲 ${a.researchDesk.rolls.length} optional after-hours checks</span>`:''}
+        <span class="cfx-excerpt">${esc(a.summary || '')}</span>
+      </span>
+    </div>`).join('');
+    const analysisBlock = analysisRows ? `<div class="cf-sub${files.length?' cf-sub--ruled':''}">
+      <div class="cf-sub-head"><h3>🖋️ Waluigi's Article Analysis</h3><span class="pill">same event · a signed interpretation</span></div>
+      <p class="cf-sub-note">The event is the canonical account. This companion is Waluigi arguing with what it means.</p>
+      <div class="cfx-list">${analysisRows}</div>
+    </div>` : '';
+
+    const cutRows = cuts.map(c => `<div class="cfx-row">
+      <span class="cfx-kind">🎙️ commentary</span>
+      <span class="cfx-body">
+        <a class="entity-link cfx-link" href="#/commentary/${encodeURIComponent(c.id)}">${esc(c.title || panelSourceTitle)}</a>
+        <span class="pill cfx-read">${(c.sections||[]).length} parts</span>
+        <span class="cfx-excerpt">${esc(c.subtitle || c.standfirst || '')}</span>
+      </span>
+    </div>`).join('');
+    const cutBlock = cutRows ? `<div class="cf-sub${(files.length||analyses.length)?' cf-sub--ruled':''}">
+      <div class="cf-sub-head"><h3>🎙️ Waluigi's Cut</h3><span class="pill">the whole story · told badly on purpose</span></div>
+      <p class="cf-sub-note">Same events, start to finish, with Waluigi talking over every one of them. Read this one if you are here for the voice rather than the record.</p>
+      <div class="cfx-list">${cutRows}</div>
+    </div>` : '';
+    siblingBlock = analysisBlock + cutBlock;
+  }
 
   const fileLine = nDoc
     ? `${nDoc} document${nDoc === 1 ? '' : 's'} in the archive ${nDoc === 1 ? 'names' : 'name'} this record.`
     : (files.length ? 'The archive has an open file covering this record.' : '');
-  const analysisLine = analyses.length
+  const analysisLine = (!hasDesk && analyses.length)
     ? ` Waluigi has filed ${analyses.length === 1 ? 'a dedicated reading' : `${analyses.length} dedicated readings`} of the article itself.`
     : '';
 
-  return `<div class="card" style="border-left:4px solid var(--accent)">
-    <div class="home-section-head">
+  return `<div class="card connected-file">
+    <div class="cf-head">
       <div>
         <h2>🔍 Investigate this further</h2>
         <p>${fileLine}${analysisLine}${files.length ? ' Opening an exhibit is a roll; reading costs nothing.' : ' Reading the analysis costs nothing and changes no canon.'}</p>
@@ -13083,8 +13114,7 @@ function renderConnectedInvestigationsPanel(id, typeKey){
       ${files.length ? '<a class="chip" href="#/investigations">All files →</a>' : ''}
     </div>
     ${blocks}
-    ${analysisBlock}
-    ${cutBlock}
+    ${siblingBlock}
   </div>`;
 }
 
