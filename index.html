@@ -448,7 +448,16 @@
 .campaign-timeline-item .timeline-actors{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;font-weight:700;color:var(--accent2);margin-bottom:6px}
 .campaign-timeline-item .timeline-summary{margin:0 0 10px;font-size:13.5px;line-height:1.6;color:var(--muted)}
 .home-feed-actions{display:flex;flex-wrap:wrap;gap:8px}
-.campaign-timeline-feed>.campaign-timeline-item:first-child:nth-last-child(n+2){display:none}
+.campaign-timeline-item{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px}
+.campaign-timeline-item:not(:has(.timeline-body)){display:block}
+.timeline-thumb{position:relative;border-radius:10px;overflow:hidden;background:var(--bg2);border:1px solid var(--border);min-height:130px}
+.timeline-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.timeline-thumb.fallback{display:grid;place-items:center;background:rgba(255,255,255,.03)}
+.timeline-thumb.fallback i{font-style:normal;font-size:44px;filter:drop-shadow(0 3px 8px rgba(0,0,0,.5))}
+.timeline-thumb.broken{display:grid;place-items:center}
+.timeline-thumb.broken::after{content:'📜';font-size:40px}
+.timeline-body{min-width:0}
+.timeline-meta{font-size:12px;color:var(--muted);margin-bottom:6px}
 .campaign-timeline-feed>.campaign-timeline-item:nth-child(n+7){display:none}
 .campaign-timeline-feed.show-all>.campaign-timeline-item:nth-child(n+7){display:block}
 .hm-more{display:block;text-align:center;margin-top:12px;padding:11px;border-radius:12px;border:1px dashed var(--border);color:var(--muted);font-weight:800;font-size:13px;cursor:pointer}
@@ -462,7 +471,23 @@
 .dash-door b{font-size:13.5px;display:block;margin:6px 0 2px;color:var(--text)}
 .dash-door span{font-size:11.5px;color:var(--muted)}
 .hm-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start;margin-bottom:24px}
+.hm-rail{display:grid;gap:12px;align-content:start}
 .hm-rail .card{margin:0}
+.hm-rail .dash-doors{grid-template-columns:1fr 1fr}
+.hm-rail .dash-door{padding:10px 6px}
+.hm-rail .dash-door .e{font-size:22px}
+.hm-rail .dash-door b{font-size:12px;margin:4px 0 1px}
+.hm-upds{display:grid;gap:2px}
+.hm-upd{display:flex;flex-direction:column;gap:1px;padding:7px 8px;border-radius:9px;cursor:pointer}
+.hm-upd:hover{background:rgba(138,75,255,.1)}
+.hm-upd span{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--accent2)}
+.hm-upd b{font-size:13px;font-weight:700;color:var(--text);line-height:1.35}
+.hm-upd-list{display:grid;gap:10px}
+.hm-upd-row{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;cursor:pointer}
+.hm-upd-row:hover{border-color:var(--accent2)}
+.hm-upd-row b{font-size:15px;color:var(--text)}
+.hm-upd-row p{margin:6px 0 0;font-size:13px;color:var(--muted);line-height:1.55}
+.hm-upd-row .tmeta{margin-top:8px}
 .hm-rail h2{font-size:16px}
 ul.otd{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:8px;font-size:13px;line-height:1.5}
 ul.otd li a{color:var(--text);font-weight:600}
@@ -470,8 +495,8 @@ ul.otd li a{color:var(--text);font-weight:600}
 .hm-foot .wah-line{font-family:Georgia,serif;font-style:italic;color:var(--accent2);font-size:14px;display:block;margin-bottom:6px}
 .hm-rise{animation:hmRise .5s ease both}
 @keyframes hmRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@media(max-width:1000px){.hm-grid{grid-template-columns:1fr}.dash-doors{grid-template-columns:repeat(3,1fr)}.hm-status{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.hm-hero-in{padding:26px 20px 20px}.hm-wah{font-size:15px;padding:6px 12px;top:12px;right:12px}.dash-doors{grid-template-columns:1fr 1fr}.hm-status{grid-template-columns:1fr 1fr}.hm-sec-head h2{font-size:19px}}
+@media(max-width:1000px){.hm-grid{grid-template-columns:1fr}.dash-doors{grid-template-columns:repeat(3,1fr)}.hm-status{grid-template-columns:1fr 1fr}.hm-rail .dash-doors{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:640px){.hm-hero-in{padding:26px 20px 20px}.hm-wah{font-size:15px;padding:6px 12px;top:12px;right:12px}.dash-doors{grid-template-columns:1fr 1fr}.hm-status{grid-template-columns:1fr 1fr}.hm-sec-head h2{font-size:19px}.campaign-timeline-item{grid-template-columns:1fr}.timeline-thumb{min-height:150px;max-height:170px}}
 @media(prefers-reduced-motion:reduce){.hm-ticker-in{animation:none}.hm-rise{animation:none}}
 
 /* ---------- Who-are-you picker ---------- */
@@ -5292,7 +5317,7 @@ function autoArt(item,kind,mode){
   const stars=[0,1,2,3,4,5,6,7].map(i=>{const x=360+((h>>(i*3))&31)*9, y=24+((h>>(i*4))&31)*6, r=1+((h>>(i*5))&3);return `<circle cx="${x}" cy="${y}" r="${r}" fill="rgba(255,255,255,.35)"/>`;}).join('');
   const scene=sceneSvg(k.motif||'sigil',id,k,small);
   const stamp=k.stamp||'WALUIPEDIA';
-  return `<figure class="${cls}" aria-label="Generated image for ${esc(title)}"><svg class="auto-art-svg" viewBox="0 0 640 300" role="img"><defs><linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${k.a}"/><stop offset=".55" stop-color="${k.b}"/><stop offset="1" stop-color="${k.c}"/></linearGradient><radialGradient id="${id}r" cx="78%" cy="16%" r="72%"><stop offset="0" stop-color="rgba(255,255,255,.28)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></radialGradient><filter id="${id}glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="${id}shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="rgba(0,0,0,.45)"/></filter><pattern id="${id}p" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M0 17H34M17 0V34" stroke="rgba(255,255,255,.045)" stroke-width="1"/></pattern></defs><rect width="640" height="300" fill="url(#${id}g)"/><rect width="640" height="300" fill="url(#${id}r)"/><rect width="640" height="300" fill="url(#${id}p)"/>${stars}<path d="M0 244 C120 198 206 309 360 254 C474 214 548 190 640 225 L640 300 L0 300 Z" fill="rgba(0,0,0,.28)"/><path d="M0 270 C150 230 260 312 418 266 S575 226 640 250 L640 300 L0 300 Z" fill="rgba(0,0,0,.20)"/>${scene}<rect x="30" y="36" width="${small?250:330}" height="36" rx="18" fill="rgba(0,0,0,.24)" stroke="rgba(255,255,255,.16)"/><text x="48" y="60" fill="rgba(255,255,255,.93)" font-size="14" font-family="Segoe UI, system-ui" font-weight="900" letter-spacing="2.4">${esc(k.label).toUpperCase()}</text><text x="42" y="172" fill="rgba(255,255,255,.96)" font-size="${small?'24':'32'}" font-family="Segoe UI, system-ui" font-weight="900">${esc(t)}</text>${small?'':`<text x="44" y="209" fill="rgba(255,255,255,.74)" font-size="16" font-family="Segoe UI, system-ui">${esc(st)}</text><rect x="42" y="228" width="${Math.min(420,stamp.length*10+30)}" height="28" rx="14" fill="rgba(0,0,0,.28)" stroke="rgba(255,255,255,.15)"/><text x="58" y="247" fill="rgba(255,255,255,.70)" font-size="11" font-family="Segoe UI, system-ui" font-weight="900" letter-spacing="1.5">${esc(stamp).toUpperCase()}</text>`}</svg></figure>`;
+  return `<figure class="${cls}" aria-label="Generated image for ${esc(title)}"><svg class="auto-art-svg" viewBox="0 0 640 300" role="img"><defs><linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${k.a}"/><stop offset=".55" stop-color="${k.b}"/><stop offset="1" stop-color="${k.c}"/></linearGradient><radialGradient id="${id}r" cx="78%" cy="16%" r="72%"><stop offset="0" stop-color="rgba(255,255,255,.28)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></radialGradient><filter id="${id}glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><filter id="${id}shadow" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="rgba(0,0,0,.45)"/></filter><pattern id="${id}p" width="34" height="34" patternUnits="userSpaceOnUse"><path d="M0 17H34M17 0V34" stroke="rgba(255,255,255,.045)" stroke-width="1"/></pattern></defs><rect width="640" height="300" fill="url(#${id}g)"/><rect width="640" height="300" fill="url(#${id}r)"/><rect width="640" height="300" fill="url(#${id}p)"/>${stars}<path d="M0 244 C120 198 206 309 360 254 C474 214 548 190 640 225 L640 300 L0 300 Z" fill="rgba(0,0,0,.28)"/><path d="M0 270 C150 230 260 312 418 266 S575 226 640 250 L640 300 L0 300 Z" fill="rgba(0,0,0,.20)"/>${scene}${small?'':`<rect x="30" y="36" width="${small?250:330}" height="36" rx="18" fill="rgba(0,0,0,.24)" stroke="rgba(255,255,255,.16)"/><text x="48" y="60" fill="rgba(255,255,255,.93)" font-size="14" font-family="Segoe UI, system-ui" font-weight="900" letter-spacing="2.4">${esc(k.label).toUpperCase()}</text><text x="42" y="172" fill="rgba(255,255,255,.96)" font-size="${small?'24':'32'}" font-family="Segoe UI, system-ui" font-weight="900">${esc(t)}</text><text x="44" y="209" fill="rgba(255,255,255,.74)" font-size="16" font-family="Segoe UI, system-ui">${esc(st)}</text><rect x="42" y="228" width="${Math.min(420,stamp.length*10+30)}" height="28" rx="14" fill="rgba(0,0,0,.28)" stroke="rgba(255,255,255,.15)"/><text x="58" y="247" fill="rgba(255,255,255,.70)" font-size="11" font-family="Segoe UI, system-ui" font-weight="900" letter-spacing="1.5">${esc(stamp).toUpperCase()}</text>`}</svg></figure>`;
 }
 /* ===== Alternating lead art =====
    A record can carry more than one picture of the same subject: the canon plate plus
@@ -8145,7 +8170,7 @@ function renderSidebar(active){
   h+=navSection('nav-systems-world','World Systems',systemLinks,{forceOpen:hasActive(systemLinks),count:systemLinks.length});
 
   const curU=(typeof getCurrentUserId==='function'?getCurrentUserId():null);
-  const curName=curU?((INDEX[curU]&&displayName(INDEX[curU].item))||(typeof XP_SUMMARY!=='undefined'&&XP_SUMMARY[curU]?.name)||curU):null;
+  const curName=curU?((INDEX[curU]&&displayName(INDEX[curU].item))||((typeof COMPANIONS!=='undefined'&&(COMPANIONS||[]).find(c=>c&&c.id===curU)||{}).name)||(typeof XP_SUMMARY!=='undefined'&&XP_SUMMARY[curU]?.name)||prettyId(curU)):null;
   const acct=[navLink({emoji:'🎲',label:'Random article',go:'Nav.random()'})];
   if(curU){
     acct.push(navLink({emoji:'👤',label:curName||'Profile',go:"Router.go('#/profile')",active:active==='profile',count:'Me'}));
@@ -8240,6 +8265,18 @@ function homeInvestigationForEvent(eventId){
   }
   return null;
 }
+function feedThumbEmoji(ev){
+  const hay=((ev.id||'')+' '+(ev.type||'')+' '+(ev.location||'')+' '+(ev.name||'')).toLowerCase();
+  if(/mario|peach|luigi/.test(hay)) return '🍄';
+  if(/battle|siege|war|ambush|combat|skirmish/.test(hay)) return '⚔️';
+  if(/fey|manor|grove|revel|garden|library/.test(hay)) return '🧚';
+  if(/shadow|vampire|mirror|ghost|crypt/.test(hay)) return '🌑';
+  if(/ebott|underground|snow|winter|frost/.test(hay)) return '⛰️';
+  if(/trial|court|docket|audit|assembly/.test(hay)) return '⚖️';
+  if(/song|ballad|shanty|music/.test(hay)) return '🎵';
+  if(/portal|rift|tower|machine|pipe/.test(hay)) return '🌀';
+  return '📜';
+}
 function homeFeedAccent(ev, isLatest){
   const hay=((ev.id||'')+' '+(ev.type||'')+' '+(ev.location||'')+' '+(ev.name||'')).toLowerCase();
   if(isLatest) return {bar:'#4a9c6d', glow:'rgba(74,156,109,.18)', chip:'#7fd8a4', btn:'#4a9c6d'};
@@ -8316,13 +8353,18 @@ function homeRecentAdventuresHtml(){
       const href=rec&&rec.typeKey==='events'?`#/article/${id}`:`#/article/${id}`;
       actions.push(`<span class="chip" onclick="Router.go('${esc(href)}')" style="margin:0;font-size:12px;background:var(--panel2);border-color:var(--accent);">${esc(String(nm).slice(0,40))} →</span>`);
     });
-    cards.push(`<div class="campaign-timeline-item" onclick="openHub('${esc(ev.id)}')" style="cursor:pointer;border-left:4px solid ${pal.bar};background:linear-gradient(135deg,${pal.glow},var(--panel2));">
-         <div class="timeline-date-chip" style="color:${pal.chip};">${kicker}</div>
+    const wcnt=words(((ev.summary||'')+' '+(ev.description||'')));
+    const locBit=String(ev.location||'').split(/[;—.]/)[0].trim().slice(0,44);
+    const metaBits=[ev.type||'',locBit,wcnt?`${wcnt.toLocaleString()} words`:''].filter(Boolean);
+    const metaline=metaBits.length?`<div class="timeline-meta">${esc(metaBits.join(' · '))}</div>`:'';
+    const thumb=ev.image?`<span class="timeline-thumb"><img src="${esc(assetPath(ev.image))}" alt="" loading="lazy" onerror="this.onerror=null;this.closest('.timeline-thumb').classList.add('broken');this.remove()"></span>`:`<span class="timeline-thumb fallback" style="border-color:${pal.bar}"><i>${feedThumbEmoji(ev)}</i></span>`;
+    cards.push(`<div class="campaign-timeline-item" onclick="openHub('${esc(ev.id)}')" style="cursor:pointer;border-left:4px solid ${pal.bar};background:linear-gradient(135deg,${pal.glow},var(--panel2));">${thumb}
+         <div class="timeline-body"><div class="timeline-date-chip" style="color:${pal.chip};">${kicker}</div>
          <h3 class="timeline-event-title">${esc(name)}${generatedBadge}</h3>
-         <div class="timeline-actors">${actors}</div>
+         ${metaline}<div class="timeline-actors">${actors}</div>
          <p class="timeline-summary">${esc(sum)}</p>
          <div class="home-feed-actions" onclick="event.stopPropagation();">${actions.join('')}</div>
-       </div>`);
+       </div></div>`);
     if(cards.length>=12) break;
   }
   return cards.join('\n       ')||'<div class="campaign-timeline-item">No sessions filed.</div>';
@@ -8498,12 +8540,38 @@ function view_home(){
     +homeStatusBand(nNew)
     +`<section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Front desk · this season</div><h2>🎬 Current fronts</h2></div><span class="hm-sec-link" onclick="Router.go('#/list/events')">📂 All filings →</span></div><div id="home-campaign-covers" class="campaign-covers-grid"></div><div style="margin-top:10px;font-size:11px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)">📷 From the archive — same stories, filed art</div><div id="home-field-gallery" class="field-gallery-strip"></div></section>`
     +`<div class="hm-grid"><div class="hm-main"><section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Session logs &amp; chronicle</div><h2>📜 Latest filings</h2></div><div style="display:flex;gap:8px;flex-wrap:wrap">${newPill}<span class="hm-sec-link" onclick="Router.go('#/list/events')">Browse all →</span></div></div><div id="home-recent-adventures" class="campaign-timeline-feed"></div><span class="hm-more" onclick="document.getElementById('home-recent-adventures').classList.add('show-all');this.remove()">Show all 12 filings ↓</span></section>`
-    +`<section class="hm-sec hm-rise"><div class="hm-sec-head"><div><div class="hm-sec-kick">Every desk in the building</div><h2>🗺️ Explore the archive</h2></div></div><div class="dash-doors">${dashDoors()}</div></section></div>`
-    +`<aside class="hm-rail hm-rise"><div class="card"><h2>🕰️ On this day — ${esc(mdName)} ${CUR.day}</h2><div id="home-cal" class="mini-calendar"></div><ul class="otd">${homeOtdList()}</ul><div class="chips" style="margin-top:10px"><a class="chip" onclick="Router.go('#/calendar')">📅 Full calendar →</a></div></div></aside></div>`
+    +`</div>`
+    +`<aside class="hm-rail hm-rise"><div class="card"><h2>🕰️ On this day — ${esc(mdName)} ${CUR.day}</h2><div id="home-cal" class="mini-calendar"></div><ul class="otd">${homeOtdList()}</ul><div class="chips" style="margin-top:10px"><a class="chip" onclick="Router.go('#/calendar')">📅 Full calendar →</a></div></div><div class="card"><h2>🧭 Explore</h2><div class="dash-doors">${dashDoors()}</div></div><div class="card"><h2>🆕 Latest updates</h2>${homeUpdatesCard()}<div class="chips" style="margin-top:10px"><a class="chip" onclick="Router.go('#/updates')">📋 All updates →</a></div></div></aside></div>`
     +`<footer class="hm-foot hm-rise"><span class="wah-line">“Every filing is mine. This one is ESPECIALLY mine.”</span>${esc(stats)} · <a onclick="Router.go('#/currencies')" style="cursor:pointer">💱 debts &amp; ledger</a></footer>`;
   try{ const h=homeCoversHtml(); const m=document.getElementById('home-campaign-covers'); if(m) m.innerHTML=h.covers||''; const g=document.getElementById('home-field-gallery'); if(g) g.innerHTML=h.field||''; }catch(e){ console.warn('home covers failed',e); }
   try{ const f=document.getElementById('home-recent-adventures'); if(f) f.innerHTML=homeRecentAdventuresHtml(); }catch(e){ console.warn('home feed failed',e); }
   try{ renderMiniCalendar('home-cal',CUR.year,CUR.monthIndex); }catch(e){ console.warn('mini cal failed',e); }
+  window.scrollTo(0,0);
+}
+/* Site updates rail card + archive. SITE_UPDATES is curated newest-first;
+   ids may be articles, routes, or standalone .html pages. */
+function updatesGo(id){
+  try{
+    if(!id) return;
+    if(/\.html?($|[?#])/.test(id)||String(id).includes('/')){ location.href=id; return; }
+    if(typeof INDEX!=='undefined'&&INDEX[id]){ openId(id); return; }
+    Router.go('#/'+id);
+  }catch(e){ try{ Router.go('#/'+id); }catch(_){} }
+}
+function homeUpdatesCard(){
+  const ups=(typeof SITE_UPDATES!=='undefined'?SITE_UPDATES:[]).slice(0,6);
+  if(!ups.length) return '<div class="text-muted" style="font-size:13px">No updates filed.</div>';
+  return `<div class="hm-upds">`+ups.map(u=>`<div class="hm-upd" onclick="updatesGo('${esc(u.id||'')}')"><span>${esc(u.label||u.kind||'Update')}</span><b>${esc(u.title||u.id||'')}</b></div>`).join('')+`</div>`;
+}
+function view_updates(){
+  renderSidebar('updates');
+  const ups=(typeof SITE_UPDATES!=='undefined'?SITE_UPDATES:[]);
+  const rows=ups.map(u=>{
+    const sum=String(u.summary||'').replace(/\s+/g,' ').slice(0,220);
+    const tags=(u.tags||[]).slice(0,4).map(x=>`<span class="pill">${esc(x)}</span>`).join('');
+    return `<div class="hm-upd-row" onclick="updatesGo('${esc(u.id||'')}')"><div class="hm-sec-kick">${esc(u.label||u.kind||'Update')}</div><b>${esc(u.title||u.id||'')}</b>${sum?`<p>${esc(sum)}${sum.length>=220?'…':''}</p>`:''}${tags?`<div class="tmeta">${tags}</div>`:''}</div>`;
+  }).join('');
+  el('content').innerHTML=`<div class="card animate-fade-in"><div class="listhead"><h2>📋 Latest updates <span style="color:var(--muted);font-size:15px">(${ups.length})</span></h2></div><p class="text-muted" style="margin-top:0">Every filing, system launch, and amendment, newest first. Filed by Waluigi. Disputed by everyone else.</p><div class="hm-upd-list">${rows||'<p class="text-muted">No updates filed.</p>'}</div></div>`;
   window.scrollTo(0,0);
 }
 /* Who-are-you gate: horizontal cast picker. Blocks the dashboard until the
@@ -8672,14 +8740,15 @@ function view_list(key){
     const groupControl=showGroupFilter?`<label><span>${esc(groupLabel())}</span><select id="listGroup_${key}">${groupOptions}</select></label>`:'';
     const sortOptions=Object.entries(sortLabels).map(([k,l])=>`<option value="${k}" ${st.sort===k?'selected':''}>${esc(l)}</option>`).join('');
     const tiles=arr.map(i=>{
-      const sub=i.title||i.type||'';const meta=[];
+      const sub=i.title||i.type||'';const disp0=displayName(i);const showSub=sub&&sub!==disp0?sub:'';const meta=[];
       if(i.status)meta.push(`<span class="pill">${esc(String(i.status).split('—')[0].trim())}</span>`);
       const g=filterGroup(key,i);
       if(g&&g!==sub)meta.push(`<span class="pill">${esc(g)}</span>`);
       const wc=wordCount(i); if(wc>600)meta.push(`<span class="pill">${wc.toLocaleString()} words</span>`);
-      const visual=cardVisual(i,key);
+      const visual=(key==='events'&&i.image)?`<figure class="article-lead-img event-thumb"><img src="${esc(assetPath(i.image))}" alt="${esc(displayName(i))}" loading="lazy" onerror="this.onerror=null;this.style.display='none'"></figure>`:cardVisual(i,key);
+      const kick=(key==='events'&&i.date)?`<div class="tkick">${esc(String(i.date).split('—')[0].trim())}</div>`:'';
       const sysMark=key==='factions'?systemMark(i.id):'';
-      return `<div class="arttile ${key==='characters'?'character-tile':''}" onclick="openId('${esc(i.id)}')">${visual}<div class="tt">${esc(displayName(i))}${sysMark}${annotationBadge(i.id,'mini')}${microBadge(i)}${expansionMark(i)}</div>${sub?`<div class="tsub">${esc(sub)}</div>`:''}<div class="tsum">${esc(previewText(i))}</div>${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}</div>`;
+      return `<div class="arttile ${key==='characters'?'character-tile':''}" onclick="openId('${esc(i.id)}')">${visual}${kick}<div class="tt">${esc(displayName(i))}${sysMark}${annotationBadge(i.id,'mini')}${microBadge(i)}${expansionMark(i)}</div>${showSub?`<div class="tsub">${esc(showSub)}</div>`:''}<div class="tsum">${esc(previewText(i))}</div>${meta.length?`<div class="tmeta">${meta.join('')}</div>`:''}</div>`;
     }).join('');
     const qid=`listSearch_${key}`, gid=`listGroup_${key}`, sid=`listSort_${key}`;
     const activeBits=[];
@@ -19001,6 +19070,7 @@ const Router={
     else if(route==='reputation'||route==='standings'||route==='directory')view_reputation(arg);
     else if(route==='atlas'){ if(arg){ const ap=String(arg).split('/'); view_atlasNation(ap[0],{mapId:ap[1]||'',poiId:ap[2]||''}); } else view_atlas(); }
     else if(route==='maps'||route==='cartography')view_maps(arg);
+    else if(route==='updates')view_updates();
     else if(route==='faiths'||route==='religion'||route==='religions')view_faiths();
     else if(route==='faith')view_faith(arg);
     else if(route==='dynasties')view_dynasties();

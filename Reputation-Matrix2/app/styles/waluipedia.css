@@ -857,10 +857,13 @@ main.content{min-width:0}
 .artgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
 .arttile{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:15px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;border-left:4px solid var(--border)}
 .arttile:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
-.arttile .tt{font-weight:700;font-size:15.5px}
-.arttile .tsub{color:var(--accent2);font-size:12px;margin:2px 0 6px}
+.arttile .tt{font-weight:700;font-size:15.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.arttile .tsub{color:var(--accent2);font-size:12px;margin:2px 0 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .arttile .tsum{color:var(--muted);font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
 .arttile .tmeta{margin-top:8px;font-size:11px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+.tkick{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent2);margin-bottom:2px}
+.event-thumb{margin:0 0 10px;border-radius:9px;overflow:hidden;border:1px solid rgba(255,255,255,.08);aspect-ratio:16/7;background:var(--bg2)}
+.event-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .pill{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1px 8px}
 /* Time filing code: the checkable twin of the prose date. Monospace so the
    hour and the clock suffix read as data, not as more Waluigi voice. */

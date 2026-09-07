@@ -144,7 +144,8 @@ needles3 = ["function wahScoreRemark(", "function dashFilingOrder(",
              "function homeOtdList(", "function dashDice(", "function dashNoteRead(",
              "waluipediaLastRead", "waluipediaRecents", "waluipediaSeenOps",
              "waluipediaVisits", ".hm-hero{", "red debts",
-             "Surprise me", "cover-date"]
+             "Surprise me", "cover-date", "function view_updates(",
+             "timeline-thumb", "class=\"tkick\"", "hm-upd-row"]
 for n in needles3:
     if n not in src:
         fail(f"index.html missing {n}")

@@ -1,5 +1,8 @@
 /* UI quality fixes: keep long intelligence dossiers readable and give the home desk room. */
 #sidenav { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
+#sidenav::-webkit-scrollbar { width: 8px; }
+#sidenav::-webkit-scrollbar-track { background: transparent; }
+#sidenav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px; }
 #sidenav .navsec { margin-bottom: 8px; }
 #sidenav .navhead { position: sticky; top: -12px; z-index: 2; background: var(--panel); padding: 5px 4px; }
 .results { max-height: min(70vh, 620px); overflow-y: auto; }
