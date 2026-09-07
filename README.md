@@ -82,9 +82,26 @@ for the Waluipedia tabletop campaign. `index.html` is the encyclopedia shell;
 newspapers, standalone pages); `tools/` holds the Python generators that keep
 the two in sync.
 
-It is a **static site** — no build step for the pages themselves, no framework,
-no server. Open `index.html` and it runs. The Python tools generate data and
-splice HTML; they are not a pipeline you must run to view the site.
+It is a **static site** — no build step for the pages themselves, no framework.
+The Python tools generate data and splice HTML; they are not a pipeline you must
+run to view the site.
+
+### Running it — `python3 start.py`
+
+```bash
+python3 start.py                                      # serve + open the browser
+python3 start.py --route "#/article/the_belly_of_the_beast"
+python3 start.py --no-browser --host 0.0.0.0 --port 9000
+```
+
+`start.py` sits in the repository root, serves the archive over HTTP and opens
+the home page for you. **Use it rather than double-clicking `index.html`.**
+Opening the file directly still renders the shell, but the browser blocks
+`fetch()` on `file://`, so `Reputation-Matrix2/data/*.json` never loads and
+events, characters, exhibits and investigations silently come up empty. The
+script also sends `Cache-Control: no-store`, which kills the "I filed it but the
+page shows the old version" problem. Ctrl-C to stop; it writes nothing and
+builds nothing.
 
 ## Intake first — decide what the data becomes
 

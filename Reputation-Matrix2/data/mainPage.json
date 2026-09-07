@@ -57,6 +57,16 @@
   ],
   "fieldGallery": [
     {
+      "image": "assets/images/events/belly-of-the-beast/belly-01-the-mask.jpg",
+      "caption": "The Scorncrow's mask knocked away — and a human face underneath it.",
+      "articleId": "the_belly_of_the_beast"
+    },
+    {
+      "image": "assets/images/events/belly-of-the-beast/belly-05-skittering-grove.jpg",
+      "caption": "Inside the tree: the Skittering Grove, webbed boughs hung with wrapped shapes.",
+      "articleId": "the_belly_of_the_beast"
+    },
+    {
       "image": "assets/images/events/scorncrow-skirmish/scorncrow-01-battlefield.jpg",
       "caption": "The grove at night: the Scorncrow's evil tree, bats at the roots, and Wario's stalled motorbike.",
       "articleId": "the_scorncrow_skirmish"

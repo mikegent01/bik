@@ -10,8 +10,18 @@
 
 ```
 CREATED
+  start.py                                         local webserver + browser launcher (root)
   tools/scratch/beats-skittering-grove.md          beat list, 45 numbered beats + new-canon marks
+  tools/scratch/belly-of-the-beast-prompts.md      image prompt sheet + what was actually generated
   docs/run-reports/2026-09-07-belly-of-the-beast.md this file
+
+CREATED — images (Reputation-Matrix2/assets/images/events/belly-of-the-beast/)
+  belly-01-the-mask.jpg          210 KB  lead + §III  the mask in flight, human face beneath
+  belly-02-jaws-and-rope.jpg     230 KB  §VIII        jaws pried open, Markop's rope, Remi's torch
+  belly-03-archie-all-in.jpg     247 KB  §VI          Archie's all-in cast, eyes burning
+  belly-04-wario-rides-in.jpg    235 KB  §V           Wario riding into the tree's mouth
+  belly-05-skittering-grove.jpg  278 KB  §IX + loc    the grove inside the tree
+                                 1.2 MB total
 
 EDITED — data (hand-written)
   Reputation-Matrix2/data/locations.json           + skittering_grove (new entry, 31 lines)
@@ -36,6 +46,14 @@ EDITED — data (hand-written)
   Reputation-Matrix2/data/wahwire/posts.json       + 3 posts (orders 19–21: waluigi ×2, wario ×1)
   index.html                                       ~ SITE_UPDATES: 1 entry prepended
   tools/rnn-scripts/pending-news-articles.json     ~ 1 id appended
+  README.md                                        ~ "Running it — python3 start.py" section added
+
+EDITED — image wiring (second pass)
+  events.json      ~ event.image/imageCaption + 5 section image/imageCaption pairs
+  battles.json     ~ the_skittering_grove_descent_battle.image
+  locations.json   ~ skittering_grove.image
+  characters.json  ~ scorncrow.image
+  mainPage.json    ~ fieldGallery +2 entries (now 10)
 
 GENERATED (do not hand-edit)
   none — no broadcast was owed, so build-rnn-broadcast.py was not run in write mode.
@@ -116,7 +134,26 @@ Static server on :8765, event JSON served and parsed clean.
 | Dynasty, currency, Bros attacks, songs, books | no trigger fired |
 | Dossier assessments | no faction changed its opinion of an operator; `check-assessments.py` PASS unchanged |
 
-## 6. Not done / open
+## 6. Local server
+
+`start.py` (repository root) serves the archive over HTTP and opens it:
+
+```bash
+python3 start.py                                       # 127.0.0.1:8765 + browser
+python3 start.py --route "#/article/the_belly_of_the_beast"
+python3 start.py --no-browser --host 0.0.0.0 --port 9000
+```
+
+It exists because opening `index.html` off the filesystem blocks `fetch()` on
+`file://`, so the whole `data/*.json` layer silently fails to load. It also sends
+`Cache-Control: no-store` so a freshly filed event is never masked by a cached
+`events.json`, forces correct MIME types for `.js`/`.mjs`/`.json`, steps to the
+next free port if 8765 is busy, quietens per-asset logging to errors only, and
+refuses to run if it is not sitting next to `index.html`. Verified: `index.html`,
+`events.json` and portraits all return 200 with the no-store header, and all five
+new images serve.
+
+## 7. Not done / open
 
 - **Pond Patrol docket not updated.** Salam and Feyward Dan are roster-adjacent
   Toads and both had a status event (Salam performed a field stabilisation under
@@ -138,11 +175,24 @@ Static server on :8765, event JSON served and parsed clean.
   in this sandbox (`ERR_MODULE_NOT_FOUND`). The static contract check
   (`check-home-feed.py`) passed, and the feed is data-driven from `events.json`,
   which is last-appended correctly.
-- **No new images.** The event reuses the existing scorncrow-skirmish battlefield
-  image with a caption that states it is from the earlier record. The Skittering
-  Grove interior has **no** filed image. Per `docs/ASSET_MAP.md` an unreferenced
-  upload rots, and the reverse case — a caption implying an interior view exists
-  — would be worse. Interior art is owed.
+- **Image slot 1 was re-framed by a safety filter, and the change matters.**
+  The prompt sheet's lead called for Remi pinned beneath the Scorncrow, firing
+  upward, human blood visible. Three variants were refused by the image model
+  (a child plus a levelled firearm plus blood). The shipped image is the instant
+  *after*: the scarecrow reeling, the burlap mask tumbling away, the plain human
+  face beneath it — no weapon, no blood, and **Remi is not in the frame**. The
+  filing's thesis survives; the point-blank staging does not. Recorded in
+  `tools/scratch/belly-of-the-beast-prompts.md`.
+- **Every character in the images comes from an existing portrait file**, passed
+  to the generator as a reference under Rule 0 of `IMAGE_GENERATION_GUIDE.md`
+  (`portraits/remi.png`, `markop.png`, `archie.png`, `wario.png`), with
+  `scorncrow-01-battlefield.jpg` and `scorncrow-04-dan-guard.jpg` as style plates
+  and the source of the reused motorbike. No new character designs were invented.
+  Worth noting: Wario's canon design is the purple-and-gold flame armour, not
+  overalls — a first draft had it wrong and the portrait file corrected it.
+- **Feyward Dan, Eager, Salam and Mossy do not appear in any image.** The
+  marching-order shot frames the rope and the pit rather than the five figures on
+  it. A group shot of the descent is owed if the arc wants one.
 - **The guard is unnamed on purpose.** The combat log names a "Guard" who is
   webbed, reeled, and lands the only friendly hit inside. Per the naming gate,
   no name was invented and no `characters.json` entry was created; he is *the
