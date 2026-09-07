@@ -249,3 +249,56 @@ new images serve.
 - **Nothing was deleted or overwritten** in any existing record except the seven
   `status` strings listed above and the `mainPage.json` fields, all of which are
   by-design rolling fields.
+
+## 5c. Prose remaster — Promo Mario analysis filing
+
+Same defect as the event filing, in the analysis form: the argument was rigorous
+but disembodied. `promo_mario_newspaper_waluigi_analysis` in
+`Reputation-Matrix2/data/articleAnalyses.json` had **zero** `*WAH!*` asides
+inside body paragraphs, no cold open (the thesis began on a finding, "I want to
+be precise about what the tablet proves"), every section leading with its own
+conclusion, and one section (`more-sources-mean-more-suspicion`) scoring a flat
+**0.0 sensory/1k**. The first person was entirely analytical — *I want to be
+precise / I will grant / I am refusing* — with no physical `I` anywhere.
+
+Note the form's ratio target differs from an event filing. `docs/ARTICLE_ANALYSES.md`
+sets the reverse ratio (≈20% source / 80% Waluigi), so the fix was **not** to add
+story. It was to give the existing argument a body: the analyst handling the
+objects he is already analyzing.
+
+| Metric | Before | After |
+|---|---:|---:|
+| Words | 2,494 | 3,216 |
+| Sensory / 1k | 5.6 | **16.5** |
+| `*WAH!*` asides in body prose | 0 | **8** |
+| Sections below 5 sensory/1k | 3 | **0** |
+| Worst section (`more-sources…`) | 0.0/1k | **20.0/1k** |
+
+### What changed
+- **Thesis** — cold open: the clipping squared to the blotter at a quarter past
+  midnight, cold tea, the thumb-smudge on the column about the weeping man.
+- **01 Tablet** — the clipping goes up to the lamp before the analysis starts.
+- **02 Crying** — the transcript is read aloud to an empty office first; the
+  "costs nothing to rehearse" claim now lands second, as a conclusion.
+- **03 Three Dates** — the tape label is described before the count begins; the
+  pencil tick in the margin makes the self-criticism an object.
+- **04 Second Source** — Waluigi crosses to the second shelf, pulls the
+  eastern-passage file by the spine, and lays the two documents touching.
+- **05 Luigi** — now **leads** with the Camera Three description (wrong green,
+  too tall, too still, flickering edges), and Alistair's line is promoted from
+  citation to rendered dialogue on its own line: *"That thing isn't him."*
+- **06 Documents** — the "four layers" is built as a physical stack, a quarter
+  of an inch tall, with the thing he actually wants weighing nothing on top.
+- **07 Flashlight** — arrival beat: squares the stack, drinks the cold tea, and
+  writes **ASK HIM THE ROUTE** on the blotter in block capitals.
+- **Verdict** — closes on a physical residual: lamp on, stack squared, the
+  thumb-smudge gone from grey to nearly black.
+
+### What did not change
+All 7 section ids, headings, icons and `sourceAnchor` fields; the 3
+`researchDesk` rolls; all 7 `relatedArticles`; the verdict's findings and
+recommendations; every quotation already in the source event. No canon facts,
+dates, custody or outcomes were altered — the diff is prose only
+(9 insertions / 9 deletions, one file).
+
+`tools/check-all.py` → **54 PASS**, all requested checks passed.
