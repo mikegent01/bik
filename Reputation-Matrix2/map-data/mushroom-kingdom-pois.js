@@ -467,6 +467,7 @@ export const mushroomKingdomData = {
         {
             id: 'poi_si_overgrown_cottage',
             articleId: 'isle_delfino_overgrown_cottage',
+            plane: 'material',
             x: 20.0,
             y: 5.0,
             type: 'ruins',

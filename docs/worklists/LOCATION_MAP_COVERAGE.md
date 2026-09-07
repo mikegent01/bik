@@ -148,6 +148,23 @@ Also sheet-less:
 - `legion_embassy_old_world` / `iron_legion_old_world_embassy` — same embassy, two records
   (event-side vs faction-side). One pin when the Ebott sheet exists.
 
+## Planar layers (2026-09-07 pass)
+
+The Raventree cluster pins on `midlands_full` now carry explicit `plane`
+tags (`material` / `shadow` / `fey` / `mirror`; absent = material), and the
+new `#/maps` cartography desk filters the sheet by them. The tags are kept
+honest by `tools/classify-location-planes.py` (region-anchored verdicts per
+location article, LM Studio second opinions for ambiguous ones) — full
+convention in `docs/PLANAR_MAPS.md`.
+
+This pass also filed the one pin the classifier found missing:
+`skittering_grove` → `poi_mid_skittering_grove` (74.9, 10.7, shadow), just
+beyond Tymnas's cottage per the region field. Coverage is now **46 / 62**;
+the 16 remaining are the same queue as before (Ebott sheet-less cluster,
+Dreamland/Star Haven/Astral, Undercity, Dread Mansion, Wariocopter,
+Forgotten Temple) — the tool's `--check` output replaces the hand-counted
+list above it going forward.
+
 ## Filing a new pin (the procedure this pass followed)
 
 ```text

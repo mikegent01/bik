@@ -22,6 +22,16 @@ const MODES = {
   influence: ['Influence', 'political_influence'],
 };
 
+/* Planar layers (cartography desk): a POI's `plane` tag decides which layer
+   shows it. Absent = material, so older sheets need no edits. */
+const PLANE_LABELS = {
+  material: 'Material',
+  shadow: 'Shadeward',
+  fey: 'Feyward',
+  mirror: 'Deep Mirror',
+};
+const planeOf = poi => (poi && poi.plane) || 'material';
+
 function wikiId(poi) {
   return poi.articleId || poi.locationId || WIKI_IDS[poi.id] || null;
 }
@@ -66,11 +76,22 @@ function clusterPois(pois, radius = 1.15) {
   return clusters;
 }
 
-function model(mapId) {
+function model(mapId, plane) {
   const map = MAP_DATA[mapId];
   if (!map) return null;
-  const pois = (map.pointsOfInterest || []).filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
+  let pois = (map.pointsOfInterest || []).filter(p => Number.isFinite(p.x) && Number.isFinite(p.y));
+  if (plane && plane !== 'all') pois = pois.filter(p => planeOf(p) === plane);
   return { map, pois, population: pois.reduce((n, poi) => n + (Number(poi.population) || 0), 0) };
+}
+
+function stopBannerHtml(stop) {
+  if (!stop) return '';
+  const plane = PLANE_LABELS[stop.plane] || PLANE_LABELS.material;
+  return `<div class="atlas-v2-stopbanner"><span class="atlas-v2-stopnum">${esc(stop.n)}</span>`
+    + `<div><span class="atlas-v2-kicker">journey stop ${esc(stop.n)} · ${esc(plane)} layer</span>`
+    + `<h3>${esc(stop.name)}</h3><p>${esc(stop.date || 'undated')}</p>`
+    + (stop.eventId ? `<button class="atlas-v2-wiki" data-open-article="${esc(stop.eventId)}">Open event record</button>` : '')
+    + `</div></div>`;
 }
 
 function detailHtml(poi, pois) {
@@ -99,23 +120,34 @@ function detailHtml(poi, pois) {
 }
 
 export function mountAtlasMapV2(host, mapId, opts = {}) {
-  const data = model(mapId);
+  const plane = (opts.plane && opts.plane !== 'all') ? opts.plane : '';
+  const data = model(mapId, plane);
   if (!data) {
     host.innerHTML = '<div class="atlas-v2-error">This map record is unavailable.</div>';
-    return;
+    return null;
   }
   const { map, pois, population } = data;
+  /* Journey stops: [{poiId, n, eventId, name, date, plane}]. Stops whose pin
+     is not on this layer keep their numbers but render no marker or path. */
+  const poiIds = new Set(pois.map(p => p.id));
+  const stops = (opts.journey || []).filter(s => s && poiIds.has(s.poiId));
+  const stopByPoi = new Map();
+  stops.forEach(s => { if (!stopByPoi.has(s.poiId)) stopByPoi.set(s.poiId, s); });
   const isFull = /_full$/.test(map.id) || /\(Full\)/i.test(map.name || '');
   const imgHref = new URL(`../../../${map.imageSrc}`, import.meta.url).href;
   const types = [...new Set(pois.map(p => p.type).filter(Boolean))].sort();
-  const clusters = clusterPois(pois);
+  /* A filtered layer holds a handful of pins that sit close together (the
+     Raventree reflections are ~0.5 apart); the full-sheet radius would fuse
+     the whole Feyward layer into one dot, so cluster tightly instead. */
+  const clusters = clusterPois(pois, plane ? 0.3 : 1.15);
+  const pinWord = plane ? `${PLANE_LABELS[plane] || plane} pins` : 'surveyed pins';
 
   host.innerHTML = `<section class="atlas-v2" aria-label="${esc(map.name)} tactical map">
     <header>
       <div>
         <span class="atlas-v2-eyebrow">WORLD ATLAS · PINNED ARTWORK</span>
         <h2>${esc((map.name || map.id).replace(' (Full)', ''))}</h2>
-        <p>${pois.length} surveyed pins · ${format(population)} mapped residents · x/y kept as percent of the painting</p>
+        <p>${pois.length} ${pinWord} · ${format(population)} mapped residents · x/y kept as percent of the painting</p>
       </div>
       <div class="atlas-v2-actions">
         <button type="button" data-action="fit">Reset view</button>
@@ -185,6 +217,17 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     applyTransform();
   }
 
+  function journeyPathSvg() {
+    if (stops.length < 2) return '';
+    const pts = stops.map(s => {
+      const p = pois.find(q => q.id === s.poiId);
+      return p ? `${p.x},${p.y}` : null;
+    }).filter(Boolean);
+    if (pts.length < 2) return '';
+    return `<svg class="atlas-v2-path" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">`
+      + `<polyline points="${pts.join(' ')}" vector-effect="non-scaling-stroke"/></svg>`;
+  }
+
   function placePins() {
     state.box = containBox(world, img);
     const { left, top, w, h } = state.box;
@@ -193,13 +236,16 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     overlay.style.width = `${w}px`;
     overlay.style.height = `${h}px`;
     const max = Math.max(1, ...pois.map(p => Number(p[MODES[state.mode][1]]) || 0));
-    overlay.innerHTML = clusters.map(group => {
+    overlay.innerHTML = journeyPathSvg() + clusters.map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
       const intensity = Math.min(1, (Number(poi[MODES[state.mode][1]]) || 0) / max);
       const extra = group.length > 1 ? `<em>${group.length}</em>` : '';
+      const groupStops = group.map(g => stopByPoi.get(g.id)).filter(Boolean);
+      const badge = groupStops.length === 1 ? `<b class="atlas-v2-stop">${esc(groupStops[0].n)}</b>`
+        : groupStops.length > 1 ? `<b class="atlas-v2-stop atlas-v2-stop-multi">${groupStops.length}</b>` : '';
       const ids = group.map(g => g.id).join(',');
-      return `<button type="button" class="atlas-v2-marker" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;--marker:${esc(faction.color)};--intensity:${intensity}" title="${esc(group.map(g => g.name).join(', '))}"><span>${faction.icon}</span>${extra}</button>`;
+      return `<button type="button" class="atlas-v2-marker${groupStops.length ? ' journey' : ''}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" style="left:${poi.x}%;top:${poi.y}%;--marker:${esc(faction.color)};--intensity:${intensity}" title="${esc(group.map(g => g.name).join(', '))}"><span>${faction.icon}</span>${extra}${badge}</button>`;
     }).join('');
     overlay.querySelectorAll('[data-poi]').forEach(btn => {
       btn.addEventListener('click', ev => {
@@ -213,32 +259,48 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   }
 
   /* Deep-link focus: a location article's "Open in the World Atlas" chip lands the
-     reader on this sheet with the matching pin already selected and centred. */
-  function focusOn(id) {
-    const poi = pois.find(p => p.id === id);
-    if (!poi) return;
-    select(poi);
+     reader on this sheet with the matching pin already selected and centred.
+     The journey stepper drives the same path through the returned handle. */
+  let ready = false;
+  let pendingFocus = null;
+  function centerOn(x, y, z) {
     const vw = viewport.clientWidth || 1;
     const vh = viewport.clientHeight || 1;
     const box = state.box;
-    const px = box.left + box.w * poi.x / 100;
-    const py = box.top + box.h * poi.y / 100;
-    const z = 3.2;
+    const px = box.left + box.w * x / 100;
+    const py = box.top + box.h * y / 100;
     state.scale = z;
     state.tx = vw / 2 - px * z;
     state.ty = vh / 2 - py * z;
     applyTransform();
   }
+  function focusOn(id, z, stop) {
+    const poi = pois.find(p => p.id === id);
+    if (!poi) return false;
+    select(poi, null, stop);
+    if (!ready) { pendingFocus = { id, z: z || 3.2, stop: stop || null }; return true; }
+    centerOn(poi.x, poi.y, z || 3.2);
+    return true;
+  }
 
-  function select(poi, ids) {
+  function select(poi, ids, stopOverride) {
     state.selected = poi;
-    overlay.querySelectorAll('[data-poi]').forEach(item => item.classList.toggle('selected', item.dataset.poi === poi.id));
+    /* A clustered pin lights its cluster marker even when it is not the
+       representative: match the whole id stack, not just data-poi. */
+    overlay.querySelectorAll('[data-poi]').forEach(item => {
+      const stack = (item.dataset.ids || item.dataset.poi || '').split(',');
+      item.classList.toggle('selected', stack.includes(poi.id));
+    });
     if (ids && ids.length > 1) {
       const stack = ids.map(id => pois.find(p => p.id === id)).filter(Boolean);
-      sidebar.innerHTML = `<article class="atlas-v2-detail"><span class="atlas-v2-kicker">stacked pins</span><h3>${stack.length} locations share this mark</h3><p>Same painted coordinate. Pick one.</p>${stack.map(p => `<button data-jump="${esc(p.id)}">${esc(p.name)}</button>`).join('')}</article>`;
+      const rows = stack.map(p => {
+        const st = stopByPoi.get(p.id);
+        return `<button data-jump="${esc(p.id)}">${st ? `<b class="atlas-v2-stopinline">${esc(st.n)}</b>` : ''}${esc(p.name)}</button>`;
+      }).join('');
+      sidebar.innerHTML = `<article class="atlas-v2-detail"><span class="atlas-v2-kicker">stacked pins</span><h3>${stack.length} locations share this mark</h3><p>Same painted coordinate. Pick one.</p>${rows}</article>`;
       return;
     }
-    sidebar.innerHTML = detailHtml(poi, pois);
+    sidebar.innerHTML = stopBannerHtml(stopOverride || stopByPoi.get(poi.id)) + detailHtml(poi, pois);
   }
 
   function applyFilter() {
@@ -257,7 +319,12 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
 
   img.addEventListener('load', () => {
     placePins();
-    if (opts.focusPoi) focusOn(opts.focusPoi);
+    ready = true;
+    if (pendingFocus) { focusOn(pendingFocus.id, pendingFocus.z, pendingFocus.stop); pendingFocus = null; }
+    else if (opts.focusPoi) focusOn(opts.focusPoi);
+    else if (opts.focus && Number.isFinite(opts.focus.x) && Number.isFinite(opts.focus.y)) {
+      centerOn(opts.focus.x, opts.focus.y, opts.focus.scale || 2.6);
+    }
     else if (!isFull) fitRegion();
     else { state.scale = 1; state.tx = 0; state.ty = 0; applyTransform(); }
   });
@@ -318,4 +385,14 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
     applyTransform();
   });
   viewport.addEventListener('pointerup', () => { drag = null; });
+
+  /* Control handle for the cartography desk's journey stepper. Existing
+     callers ignore the return value; their behaviour is unchanged. */
+  return {
+    focus: (poiId, z, stop) => focusOn(poiId, z, stop),
+    center: (x, y, z) => { if (ready) centerOn(x, y, z || 2.6); },
+    select: (poiId, stop) => { const p = pois.find(q => q.id === poiId); if (p) select(p, null, stop); },
+    getPois: () => pois.slice(),
+    getStops: () => stops.slice(),
+  };
 }

@@ -108,7 +108,8 @@ const midlandsData = {
             economic_value: 3,
             military_strength: 2,
             population: 10, // Represents the current occupiers and spectral residents
-            articleId: 'raventree_manor'
+            articleId: 'raventree_manor',
+            plane: 'material'
         },
         // #72
         {
@@ -459,6 +460,13 @@ const midlandsData = {
         // map. Planar reflections (Shadowfell / Feywild / Mirror / Feyward) sit
         // where their Material anchor — Raventree Manor — sits, offset just
         // enough that the pins do not stack into one unreadable dot.
+        //
+        // Planar layers: pins in the Raventree cluster carry an explicit
+        // `plane` — 'material', 'shadow' (Shadeward/Shadowfell), 'fey'
+        // (Feyward/Feywild) or 'mirror' (Deep Mirror). A pin WITHOUT the tag
+        // is Material by convention, so older sheets need no edits; the
+        // cartography desk (#/maps) filters this one sheet by that tag.
+        // Checked by tools/classify-location-planes.py --check.
         {
             id: 'poi_mid_shadow_estate',
             x: 72.9,
@@ -472,7 +480,8 @@ const midlandsData = {
             economic_value: 3,
             military_strength: 6,
             population: 40,
-            articleId: 'shadow_estate'
+            articleId: 'shadow_estate',
+            plane: 'shadow'
         },
         {
             id: 'poi_mid_shadow_estate_gardens',
@@ -487,7 +496,8 @@ const midlandsData = {
             economic_value: 1,
             military_strength: 2,
             population: 6,
-            articleId: 'shadow_estate_gardens'
+            articleId: 'shadow_estate_gardens',
+            plane: 'shadow'
         },
         {
             id: 'poi_mid_mazebound_grove',
@@ -502,7 +512,8 @@ const midlandsData = {
             economic_value: 1,
             military_strength: 4,
             population: 0,
-            articleId: 'mazebound_grove'
+            articleId: 'mazebound_grove',
+            plane: 'shadow'
         },
         {
             id: 'poi_mid_orange_deer_shrine',
@@ -517,7 +528,8 @@ const midlandsData = {
             economic_value: 1,
             military_strength: 1,
             population: 0,
-            articleId: 'orange_deer_shrine'
+            articleId: 'orange_deer_shrine',
+            plane: 'shadow'
         },
         {
             id: 'poi_mid_tymnas_cottage',
@@ -532,7 +544,24 @@ const midlandsData = {
             economic_value: 2,
             military_strength: 2,
             population: 3,
-            articleId: 'tymnas_cottage_and_hedge_maze'
+            articleId: 'tymnas_cottage_and_hedge_maze',
+            plane: 'shadow'
+        },
+        {
+            id: 'poi_mid_skittering_grove',
+            x: 74.9,
+            y: 10.7,
+            type: 'forest',
+            name: "The Skittering Grove",
+            description: "The grove inside the Scorncrow's tree, past Tymnas's cottage on the Shadow Estate grounds: ettercaps, giant green spiders, and voices that answer back from within.",
+            factionId: 'onyx_hand',
+            intelReq: { faction: 'onyx_hand', level: 35 },
+            political_influence: 1,
+            economic_value: 1,
+            military_strength: 4,
+            population: 0,
+            articleId: 'skittering_grove',
+            plane: 'shadow'
         },
         {
             id: 'poi_mid_silent_grove',
@@ -547,7 +576,8 @@ const midlandsData = {
             economic_value: 2,
             military_strength: 3,
             population: 0,
-            articleId: 'silent_grove'
+            articleId: 'silent_grove',
+            plane: 'material'
         },
         {
             id: 'poi_mid_overgrown_manor',
@@ -562,7 +592,8 @@ const midlandsData = {
             economic_value: 2,
             military_strength: 3,
             population: 25,
-            articleId: 'overgrown_manor'
+            articleId: 'overgrown_manor',
+            plane: 'fey'
         },
         {
             id: 'poi_mid_overgrown_library',
@@ -577,7 +608,8 @@ const midlandsData = {
             economic_value: 3,
             military_strength: 2,
             population: 12,
-            articleId: 'overgrown_library'
+            articleId: 'overgrown_library',
+            plane: 'fey'
         },
         {
             id: 'poi_mid_dreaming_tree_grove',
@@ -592,7 +624,8 @@ const midlandsData = {
             economic_value: 2,
             military_strength: 2,
             population: 60,
-            articleId: 'feyward_grove'
+            articleId: 'feyward_grove',
+            plane: 'fey'
         },
         {
             id: 'poi_mid_deep_mirror',
@@ -607,7 +640,8 @@ const midlandsData = {
             economic_value: 1,
             military_strength: 4,
             population: 0,
-            articleId: 'deep_mirror'
+            articleId: 'deep_mirror',
+            plane: 'mirror'
         },
         {
             id: 'poi_mid_alpine_bank_raventree',
@@ -622,7 +656,8 @@ const midlandsData = {
             economic_value: 7,
             military_strength: 3,
             population: 18,
-            articleId: 'alpine_bank_raventree_outskirts'
+            articleId: 'alpine_bank_raventree_outskirts',
+            plane: 'material'
         },
         {
             id: 'poi_mid_ironhold',
@@ -757,7 +792,8 @@ const midlandsData = {
             economic_value: 2,
             military_strength: 3,
             population: 2,
-            articleId: 'darius_sanctum'
+            articleId: 'darius_sanctum',
+            plane: 'mirror'
         },
         {
             id: 'poi_mid_planar_sanctum_belfry',
@@ -772,7 +808,8 @@ const midlandsData = {
             economic_value: 2,
             military_strength: 3,
             population: 1,
-            articleId: 'planar_sanctum_belfry_and_atrium'
+            articleId: 'planar_sanctum_belfry_and_atrium',
+            plane: 'mirror'
         },
         {
             id: 'poi_mid_alpine_bay_ranch',

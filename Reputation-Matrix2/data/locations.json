@@ -22,7 +22,10 @@
       "snowdin_town",
       "sans",
       "dracule_mihawk"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "snowdin_town",
@@ -46,7 +49,10 @@
       "sans",
       "bunny_innkeeper",
       "iron_legion"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "darius_sanctum",
@@ -70,7 +76,10 @@
       "markop",
       "remi",
       "deep_mirror"
-    ]
+    ],
+    "plane": "mirror",
+    "planeConfidence": "high",
+    "planeClue": "'deep mirror' x1 (region); 'fractured atrium' x1 (name)"
   },
   {
     "id": "fountain_of_dreams",
@@ -96,7 +105,10 @@
       "mushroom_regency",
       "second_summit",
       "star_rod"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "star_fountain",
@@ -124,7 +136,10 @@
       "star_spirits",
       "mushroom_kingdom",
       "the_long_dark"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "forgotten_temple_stars",
@@ -145,7 +160,10 @@
     ],
     "relatedArticles": [
       "iron_legion"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "aegis_command",
@@ -175,7 +193,10 @@
     "aliases": [
       "Sonic Grid",
       "The Sonic Grid"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "peachs_castle",
@@ -1330,7 +1351,10 @@
       "princess_peach",
       "koopa_troop",
       "liberated_toads"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "mazebound_grove",
@@ -1354,7 +1378,10 @@
       "shadow_estate",
       "skirmish_mazebound",
       "onyx_hand"
-    ]
+    ],
+    "plane": "shadow",
+    "planeConfidence": "high",
+    "planeClue": "'shadow estate' x1 (region); 'shadowfell' x1 (region)"
   },
   {
     "id": "overgrown_library",
@@ -1379,7 +1406,10 @@
       "overgrown_manor",
       "waluigi",
       "toad_lee"
-    ]
+    ],
+    "plane": "fey",
+    "planeConfidence": "high",
+    "planeClue": "'feywild' x1 (region); 'overgrown manor' x1 (region)"
   },
   {
     "id": "raventree_manor",
@@ -1407,7 +1437,10 @@
       "the_oracle",
       "spider_grove_battle",
       "iron_legion"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "vigilance",
@@ -1439,7 +1472,10 @@
       "Legionlance",
       "The Legionlance",
       "The Vigilance"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "rogueport_bay",
@@ -1462,7 +1498,10 @@
       "mushroom_kingdom",
       "iron_legion",
       "captain_syrup"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "shadow_estate",
@@ -1504,7 +1543,10 @@
       "mystic_morel",
       "lyranth",
       "orange_deer_shrine"
-    ]
+    ],
+    "plane": "shadow",
+    "planeConfidence": "high",
+    "planeClue": "'shadowfell' x1 (region); 'shadow estate' x11 (description)"
   },
   {
     "id": "overgrown_manor",
@@ -1538,7 +1580,10 @@
       "corvinarus_family",
       "feyward_battalion_of_six_and_the_bait_plan",
       "feyward_woodfellow_vs_the_treant"
-    ]
+    ],
+    "plane": "fey",
+    "planeConfidence": "high",
+    "planeClue": "'feywild' x1 (region); 'feywild' x14 (description)"
   },
   {
     "id": "feyward_grove",
@@ -1564,7 +1609,10 @@
       "wario"
     ],
     "expandedFromMicro": true,
-    "microArticleFlag": "expanded"
+    "microArticleFlag": "expanded",
+    "plane": "fey",
+    "planeConfidence": "high",
+    "planeClue": "'feyward' x1 (region); 'dreaming tree' x3 (description)"
   },
   {
     "id": "deep_mirror",
@@ -1589,7 +1637,10 @@
       "planar_fracture",
       "raventree_manor",
       "siege_raventree"
-    ]
+    ],
+    "plane": "mirror",
+    "planeConfidence": "high",
+    "planeClue": "'mirror dimension' x1 (region); 'deep mirror' x24 (description)"
   },
   {
     "id": "bramblehaven",
@@ -1616,7 +1667,10 @@
       "captain_toadette",
       "fawful_forces",
       "mushroom_kingdom"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "ironhold",
@@ -1642,7 +1696,10 @@
       "regal_empire",
       "iron_legion",
       "massacre_aegis"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "silent_grove",
@@ -1673,7 +1730,10 @@
       "markop",
       "skittering_grove",
       "the_belly_of_the_beast"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "toad_town",
@@ -1700,7 +1760,10 @@
       "peach_loyalists",
       "liberated_toads",
       "fawful_forces"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "mushroom_regency",
@@ -1731,7 +1794,10 @@
       "dreamland",
       "second_summit",
       "toad_town"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "star_rod",
@@ -1758,7 +1824,10 @@
       "dreamland",
       "kirby",
       "bowser"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "fawful_fortress",
@@ -1784,7 +1853,10 @@
     "relatedArticles": [
       "fawful_forces",
       "mushroom_kingdom"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "orange_deer_shrine",
@@ -1807,7 +1879,10 @@
       "shadow_estate",
       "archie_miser",
       "tymnas"
-    ]
+    ],
+    "plane": "shadow",
+    "planeConfidence": "high",
+    "planeClue": "'shadow estate' x1 (region); 'shadowfell' x1 (region)"
   },
   {
     "id": "planar_sanctum_belfry_and_atrium",
@@ -1831,7 +1906,10 @@
       "bones",
       "corvinarus_family",
       "veins_of_the_tapestry"
-    ]
+    ],
+    "plane": "mirror",
+    "planeConfidence": "high",
+    "planeClue": "'corvinarus sanctum' x1 (region); 'deep mirror' x1 (region)"
   },
   {
     "id": "astral_altar",
@@ -1853,7 +1931,12 @@
       "bryan",
       "bones",
       "archie_miser"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "low",
+    "planeClue": "extraplanar (astral) — outside the four mapped layers",
+    "needsReview": true,
+    "reviewNote": "Planar layer unresolved: extraplanar (astral) — outside the four mapped layers"
   },
   {
     "id": "alpine_bank",
@@ -1876,7 +1959,10 @@
       "bones",
       "midland_ducat",
       "regal_empire"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "alpine_mountain_inn",
@@ -1901,7 +1987,10 @@
       "iron_legion",
       "regal_empire",
       "bones_alpine_bank_eavesdropping_and_inn_refuge"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "the_ruins_mount_ebott",
@@ -1922,7 +2011,10 @@
       "Blue torch chamber as diplomatic threshold",
       "Sans’s explanation of the ancient seals",
       "Koffin-K’s first exposure here"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "hotland_portals",
@@ -1941,7 +2033,10 @@
       "Unstable portal route past the barrier",
       "Named by Sans as one of the few crossing methods",
       "Strategic exit / escape route"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "the_core_underground",
@@ -1960,7 +2055,10 @@
       "Dangerous known route past the ancient seals",
       "Likely structural power source",
       "Potential political, magical, and military objective"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "snowdin_police_station",
@@ -1981,7 +2079,10 @@
       "Abandoned evidence locker",
       "Repaired Legion survey machine stored inside",
       "Caged Flowey left beside the machine"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "tymnas_cottage_and_hedge_maze",
@@ -2018,7 +2119,10 @@
       "the_midnight_audit_of_harvestide_28",
       "raventree_manor",
       "the_hanging_tree_apple_mirror_theft_and_invited_vampire"
-    ]
+    ],
+    "plane": "shadow",
+    "planeConfidence": "high",
+    "planeClue": "'entropic' x1 (region); 'shadowfell' x1 (region)"
   },
   {
     "id": "arunedeal_goblin_camp",
@@ -2041,7 +2145,10 @@
       "iron_legion",
       "regal_empire",
       "bones_alpine_bank_eavesdropping_and_inn_refuge"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "legion_wall_checkpoint",
@@ -2064,7 +2171,10 @@
       "iron_legion",
       "regal_empire",
       "bones_alpine_bank_eavesdropping_and_inn_refuge"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "mount_ebot",
@@ -2096,7 +2206,10 @@
       "wario",
       "jory_dobbs",
       "glazed_congress_founding"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "legion_embassy_old_world",
@@ -2122,7 +2235,10 @@
       "iron_legion",
       "gamma_division",
       "mount_ebott"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "gamma_high_command_spire",
@@ -2149,7 +2265,10 @@
       "gamma_division",
       "iron_legion",
       "regal_empire"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "wariocopter",
@@ -2176,7 +2295,10 @@
       "wario",
       "waluigi",
       "jory_dobbs"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "warp_pipe_junction",
@@ -2204,7 +2326,10 @@
       "big_r",
       "bramblehaven",
       "toad_town"
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "the_dread_mansion",
@@ -2237,7 +2362,10 @@
       "mario"
     ],
     "image": "assets/images/events/dread-mansion/dread-02-courtyard.jpg",
-    "imageCaption": "The Dread Mansion from its own courtyard, taken through the oak door Liam and Luigi broke out of. The grounds return escapees to this view."
+    "imageCaption": "The Dread Mansion from its own courtyard, taken through the oak door Liam and Luigi broke out of. The grounds return escapees to this view.",
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "iron_legion_old_world_embassy",
@@ -2263,7 +2391,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:43:34+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "ruins_of_rohan_hillfort",
@@ -2289,7 +2420,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:44:09+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "shadow_estate_gardens",
@@ -2316,7 +2450,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:44:12+00:00"
-    }
+    },
+    "plane": "shadow",
+    "planeConfidence": "high",
+    "planeClue": "'entropic' x1 (region); 'shadowfell' x1 (region)"
   },
   {
     "id": "overgrown_rider_camp",
@@ -2343,7 +2480,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:44:44+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "the_mushroom_regency_hall_of_records",
@@ -2370,7 +2510,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:44:44+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "ruins_of_the_mushroom_kingdom_capitol",
@@ -2397,7 +2540,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:47:31+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "ruins_of_the_koopa_troop_barracks",
@@ -2423,7 +2569,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:47:57+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "block_farm_village_connectopia",
@@ -2449,7 +2598,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:47:58+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "the_undercity_grotto",
@@ -2475,7 +2627,12 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:48:37+00:00"
-    }
+    },
+    "plane": "mirror",
+    "planeConfidence": "low",
+    "planeClue": "'deep mirror' x1 (region) (region claim only — confirm)",
+    "needsReview": true,
+    "reviewNote": "Planar layer unresolved: 'deep mirror' x1 (region) (region claim only — confirm) candidates: mirror"
   },
   {
     "id": "isle_delfino_overgrown_cottage",
@@ -2502,7 +2659,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:49:09+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "ruins_of_shadow_pass",
@@ -2529,7 +2689,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:49:11+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "grand_country_eldridge_hillfort",
@@ -2556,7 +2719,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:49:42+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "alpine_bank_raventree_outskirts",
@@ -2583,7 +2749,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:49:58+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "alpine_bank_subterranean_chambers",
@@ -2609,7 +2778,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:50:12+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "overgrown_hillfort_shadow_pass",
@@ -2636,7 +2808,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:50:33+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "alpine_bay_ranch",
@@ -2662,7 +2837,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:50:43+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "forgotten_coastal_cove",
@@ -2689,7 +2867,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T04:51:04+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "ruins_of_the_mushroom_capitol",
@@ -2716,7 +2897,10 @@
       "system": "locations",
       "model": "qwen2.5-7b-instruct-1m",
       "at": "2026-08-31T23:26:45+00:00"
-    }
+    },
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "vellanet_rise",
@@ -2755,7 +2939,10 @@
         "role": "Two of the three villages",
         "note": "The upper villages hold to the Cycle and have since before there was a manor. Under the Edict of Purification an inquisitor would call that a problem. Under Jack's tenure it is called the upper villages."
       }
-    ]
+    ],
+    "plane": "material",
+    "planeConfidence": "medium",
+    "planeClue": "no planar markers — Material by default"
   },
   {
     "id": "skittering_grove",
@@ -2789,6 +2976,9 @@
       "archie_miser",
       "wario"
     ],
-    "image": "assets/images/events/belly-of-the-beast/belly-05-skittering-grove.jpg"
+    "image": "assets/images/events/belly-of-the-beast/belly-05-skittering-grove.jpg",
+    "plane": "shadow",
+    "planeConfidence": "high",
+    "planeClue": "'scorncrow' x1 (region); 'shadow estate' x1 (region)"
   }
 ]

@@ -90,6 +90,42 @@
 .locmap-note{color:var(--muted);font-size:12.5px;line-height:1.55;margin:2px 0 0}
 .locmap-note code{color:var(--link)}
 @media(max-width:640px){.locmap-frame{aspect-ratio:4/3}.locmap-where{margin-left:0}}
+/* ===== Tactical cartography desk (#/maps) =====
+   Scoped under .mapsdesk so the atlas and every older page stay untouched. */
+.mapsdesk-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.mapsdesk-bar select{background:var(--bg2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:8px 10px;font:12.5px inherit;max-width:340px}
+.mapsdesk-modes{display:flex;gap:6px;flex-wrap:wrap}
+.mapsdesk-mode{border:1px solid var(--border);background:var(--bg2);color:var(--muted);border-radius:999px;padding:7px 14px;font-size:12.5px;font-weight:800;cursor:pointer}
+.mapsdesk-mode.on{background:rgba(255,215,0,.14);border-color:rgba(255,215,0,.55);color:#ffd75e}
+.mapsdesk-planes{display:flex;gap:6px;flex-wrap:wrap}
+.mapsdesk-plane{border:1px solid var(--border);background:var(--bg2);color:var(--muted);border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.mapsdesk-plane i{width:10px;height:10px;border-radius:50%;background:var(--plane,#7c8aa5);flex:0 0 auto}
+.mapsdesk-plane.on{border-color:var(--plane,#ffd75e);color:var(--text);background:color-mix(in srgb,var(--plane,#ffd75e) 16%,transparent)}
+.mapsdesk-plane small{color:var(--muted);font-weight:700}
+.mapsdesk-note{color:var(--muted);font-size:12px;line-height:1.5;margin:8px 0 0}
+.mapsdesk-layout{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;align-items:start}
+.mapsdesk-journey{border:1px solid var(--border);border-radius:14px;background:var(--panel2);padding:13px 14px;max-height:640px;overflow:auto}
+.mapsdesk-journey h3{margin:0 0 4px;font-size:16px}
+.mapsdesk-stepper{display:flex;gap:6px;align-items:center;margin:10px 0}
+.mapsdesk-stepper button{border:1px solid var(--border);background:var(--bg2);color:var(--text);border-radius:8px;padding:6px 12px;font-weight:800;cursor:pointer;font-size:13px}
+.mapsdesk-stepper button:hover{border-color:var(--accent2)}
+.mapsdesk-stepper b{margin-left:auto;font-size:12px;color:var(--muted)}
+.mapsdesk-stops{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.mapsdesk-stop{display:flex;gap:9px;align-items:flex-start;border:1px solid var(--border);border-radius:10px;background:var(--bg2);padding:8px 10px;cursor:pointer;text-align:left;width:100%;color:var(--text);font:inherit}
+.mapsdesk-stop:hover{border-color:var(--accent2)}
+.mapsdesk-stop.on{border-color:#ffd75e;background:rgba(255,215,0,.08)}
+.mapsdesk-stop .n{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:#ffd75e;color:#111;font-weight:800;font-size:11.5px;display:grid;place-items:center}
+.mapsdesk-stop .t{min-width:0}
+.mapsdesk-stop .t b{display:block;font-size:12.5px;line-height:1.35}
+.mapsdesk-stop .t span{display:block;color:var(--muted);font-size:11px;margin-top:2px;line-height:1.4}
+.mapsdesk-stop .t i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--plane,#7c8aa5);margin-right:4px;font-style:normal}
+.mapsdesk-unplotted{margin-top:12px;border-top:1px dashed var(--border);padding-top:10px}
+.mapsdesk-unplotted summary{cursor:pointer;color:var(--muted);font-size:12px;font-weight:800}
+.mapsdesk-unplotted ul{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px;max-height:220px;overflow:auto}
+.mapsdesk-unplotted li{font-size:11.5px;color:var(--muted);line-height:1.45}
+.mapsdesk-unplotted li b{color:var(--text)}
+.mapsdesk-unplotted .chip{font-size:11px;padding:2px 8px;margin-left:6px}
+@media(max-width:980px){.mapsdesk-layout{grid-template-columns:1fr}.mapsdesk-journey{max-height:none}}
 /* ===== Faction-linked systems (Imperial Pressure Network, Pond Patrol Docket, …) ===== */
 .fsys-banner{position:relative;margin:16px 0 18px;padding:16px 18px;border:1px solid var(--border);border-left:5px solid var(--sys-accent,#8a4bff);border-radius:14px;background:linear-gradient(135deg,var(--sys-glow,rgba(138,75,255,.16)),rgba(0,0,0,0)),var(--panel2);box-shadow:var(--shadow);cursor:pointer;overflow:hidden}
 .fsys-banner:hover{border-color:var(--sys-accent,#8a4bff);transform:translateY(-1px)}
@@ -5394,6 +5430,254 @@ function atlasSelectPoi(id){
   const box=document.getElementById('atlas-selected');
   if(box){box.innerHTML=`<h4>${esc(p.name)}</h4><div class="poi-meta">${esc(p.type.replace(/_/g,' '))} · ${esc(p.factionId.replace(/_/g,' '))}</div><div style="color:var(--muted);line-height:1.45;margin-top:5px">${esc(p.description.slice(0,230))}${p.description.length>230?'…':''}</div>${link?`<a class="poi-link" onclick="openId('${esc(link)}')">Open linked article: ${esc(displayName(INDEX[link].item))} →</a>`:''}<div class="atlas-distance">${nearest.map(n=>`<span>${esc(n.p.name)}</span><b>${n.m} mi</b>`).join('')}</div>`;}
 }
+/* ===== Tactical cartography desk (#/maps): planar layers + journey mode =====
+   The dedicated map page. One painted sheet, filtered by the POI `plane` tag
+   (Feyward / Shadeward toggle), plus a "journey so far" mode that walks the
+   events in date order across the pins where they happened. Pure helpers live
+   up top so tools/tests/test-planar-map.mjs can lift this whole block. */
+const MAPS_PLANES=[
+  {id:'material',label:'Material',emoji:'🗺️',color:'#7c8aa5'},
+  {id:'shadow',label:'Shadeward',emoji:'🌑',color:'#8a4bff'},
+  {id:'fey',label:'Feyward',emoji:'🧚',color:'#e8b93c'},
+  {id:'mirror',label:'Deep Mirror',emoji:'🪞',color:'#67e8f9'},
+];
+const MAPS_PLANE_META={}; MAPS_PLANES.forEach(p=>MAPS_PLANE_META[p.id]=p);
+let MAPS_DESK={mapId:'',plane:'all',mode:'survey',handle:null,playTimer:null,step:-1,stops:[]};
+function mapsPoiPlane(poi){ return (poi&&poi.plane)||'material'; }
+function mapsPlanesOnSheet(mapId, MAPS){
+  const rec=(MAPS||{})[mapId]; if(!rec) return [];
+  const counts={};
+  (rec.pointsOfInterest||[]).forEach(p=>{
+    if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y)) return;
+    const pl=mapsPoiPlane(p); counts[pl]=(counts[pl]||0)+1;
+  });
+  return MAPS_PLANES.filter(p=>counts[p.id]).map(p=>({id:p.id,count:counts[p.id]}));
+}
+function mapsMatchKey(name){ return String(name||'').replace(/\s*\([^)]*\)/g,'').trim().toLowerCase(); }
+function mapsLocationIndex(locs){
+  const byId=new Set(), byName=new Map(), nameKeys=[];
+  (locs||[]).forEach(l=>{
+    if(!l||!l.id) return;
+    byId.add(l.id);
+    if(l.name) byName.set(String(l.name).toLowerCase(), l.id);
+    const key=mapsMatchKey(l.name);
+    if(key) nameKeys.push([key,l.id]);
+  });
+  nameKeys.sort((a,b)=>b[0].length-a[0].length);
+  return {byId,byName,nameKeys};
+}
+/* Event -> location resolution. MUST mirror resolve_event_location() in
+   tools/classify-location-planes.py rule for rule: exact ids/names compete
+   with full-name-in-field by earliest position, then full-word prefix. */
+function resolveEventLocationId(field, idx){
+  const loc=String(field||'').trim();
+  if(!loc||!idx) return '';
+  const low=loc.toLowerCase();
+  const wordCh=ch=>/[A-Za-z0-9_]/.test(ch||' ');
+  const cands=[];
+  if(idx.byId.has(loc)) cands.push([0,1,-loc.length,loc]);
+  const tokens=loc.split(/[,;/|]/).map(t=>t.trim()).filter(Boolean);
+  tokens.forEach(tok=>{
+    if(idx.byId.has(tok)) cands.push([low.indexOf(tok.toLowerCase()),2,-tok.length,tok]);
+  });
+  if(idx.byName.has(low)) cands.push([0,3,-loc.length,idx.byName.get(low)]);
+  tokens.forEach(tok=>{
+    const hit=idx.byName.get(tok.toLowerCase());
+    if(hit) cands.push([low.indexOf(tok.toLowerCase()),4,-tok.length,hit]);
+  });
+  (idx.nameKeys||[]).forEach(([key,lid])=>{
+    if(key.length<8&&key.split(' ').length<2) return;
+    let start=0;
+    for(;;){
+      const i=low.indexOf(key,start);
+      if(i<0) return;
+      const before=i>0?low[i-1]:' ', after=(i+key.length<low.length)?low[i+key.length]:' ';
+      if(!wordCh(before)&&!wordCh(after)){ cands.push([i,5,-key.length,lid]); return; }
+      start=i+1;
+    }
+  });
+  if(cands.length){
+    cands.sort((a,b)=>a[0]-b[0]||a[1]-b[1]||a[2]-b[2]||String(a[3]).localeCompare(String(b[3])));
+    return cands[0][3];
+  }
+  for(const tok of tokens){
+    const tlow=tok.toLowerCase();
+    if(tlow.length<8) continue;
+    for(const [key,lid] of (idx.nameKeys||[])){
+      if(key.indexOf(tlow)===0&&(key.length===tlow.length||!wordCh(key[tlow.length]))) return lid;
+    }
+  }
+  return '';
+}
+function mapsEventSortKey(ev, idx){
+  const dateStr=(ev&&(ev.date||ev.era))||'';
+  return [parseYear(dateStr)||9999, parseMonth(dateStr), parseDay(dateStr), idx];
+}
+/* Every journey stop plottable on one sheet: resolved events with a pin on
+   this sheet and layer, in date order (filing order breaks ties). Anything
+   else lands in unpinned/unresolved with the reason stated. */
+function buildJourney(mapId, plane, D, MAPS){
+  const events=((D||{}).events||[]).map((e,i)=>({e,i})).filter(x=>x.e&&x.e.id);
+  const idx=mapsLocationIndex((D||{}).locations||[]);
+  const pins={};
+  Object.values(MAPS||{}).forEach(rec=>{
+    (rec.pointsOfInterest||[]).forEach(p=>{
+      if(!p||!p.id) return;
+      [].concat(p.articleId||[],p.locationId||[],LOC_PIN_SPECIALS[p.id]||[]).forEach(aid=>{
+        (pins[aid]=pins[aid]||[]).push({mapId:rec.id,mapName:rec.name||rec.id,poi:p});
+      });
+    });
+  });
+  const stops=[], unpinned=[], unresolved=[];
+  events.forEach(({e,i})=>{
+    const key=mapsEventSortKey(e,i);
+    const lid=resolveEventLocationId(e.location, idx);
+    if(!lid){ unresolved.push({eventId:e.id,name:e.name||e.title||e.id,date:e.date||e.era||'',key}); return; }
+    const here=(pins[lid]||[]).filter(x=>x.mapId===mapId);
+    const loc=((D.locations||[]).find(l=>l.id===lid)||{});
+    const row={eventId:e.id,name:e.name||e.title||e.id,date:e.date||e.era||'',
+      locationId:lid,locationName:loc.name||lid,key};
+    if(!here.length){
+      row.reason=(pins[lid]||[]).length?('pinned on '+(pins[lid][0].mapName||pins[lid][0].mapId)):('no pin for '+(loc.name||lid));
+      row.otherMap=(pins[lid]||[]).length?pins[lid][0].mapId:'';
+      unpinned.push(row); return;
+    }
+    const pin=here[0];
+    const pl=mapsPoiPlane(pin.poi);
+    if(plane&&plane!=='all'&&pl!==plane){
+      row.reason=('on the '+((MAPS_PLANE_META[pl]||{}).label||pl)+' layer');
+      unpinned.push(row); return;
+    }
+    stops.push(Object.assign(row,{poiId:pin.poi.id,x:pin.poi.x,y:pin.poi.y,plane:pl}));
+  });
+  const cmp=(a,b)=>a.key[0]-b.key[0]||a.key[1]-b.key[1]||a.key[2]-b.key[2]||a.key[3]-b.key[3];
+  stops.sort(cmp); unpinned.sort(cmp); unresolved.sort(cmp);
+  stops.forEach((s,i)=>s.n=i+1);
+  return {stops,unpinned,unresolved};
+}
+function mapsDeskCentroid(mapId, plane){
+  const rec=(ATLAS_MAPS||{})[mapId]; if(!rec) return null;
+  const pts=(rec.pointsOfInterest||[]).filter(p=>p&&Number.isFinite(p.x)&&Number.isFinite(p.y)&&(!plane||plane==='all'||mapsPoiPlane(p)===plane));
+  if(!pts.length) return null;
+  return {x:pts.reduce((n,p)=>n+p.x,0)/pts.length, y:pts.reduce((n,p)=>n+p.y,0)/pts.length};
+}
+function mapsDeskStopTimer(){ if(MAPS_DESK.playTimer){ clearInterval(MAPS_DESK.playTimer); MAPS_DESK.playTimer=null; } }
+function mapsDeskStep(n, opts){
+  const host=document.getElementById('maps-desk'); if(!host) return;
+  const rows=[...host.querySelectorAll('.mapsdesk-stop')];
+  if(!rows.length) return;
+  mapsDeskStopTimer();
+  const i=Math.max(0,Math.min(rows.length-1,n));
+  MAPS_DESK.step=i;
+  rows.forEach((r,k)=>r.classList.toggle('on',k===i));
+  const row=rows[i];
+  const counter=host.querySelector('[data-step-counter]');
+  if(counter) counter.textContent='stop '+(i+1)+' of '+rows.length;
+  const st=(MAPS_DESK.stops||[])[i];
+  if(MAPS_DESK.handle&&row.dataset.poi) MAPS_DESK.handle.focus(row.dataset.poi,undefined,st?{n:st.n,eventId:st.eventId,name:st.name,date:st.date,plane:st.plane}:null);
+  if(!(opts&&opts.noScroll)&&row.scrollIntoView) row.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+function mapsDeskPlay(){
+  const host=document.getElementById('maps-desk'); if(!host) return;
+  if(MAPS_DESK.playTimer){ mapsDeskStopTimer(); mapsDeskPlayLabel(); return; }
+  const rows=host.querySelectorAll('.mapsdesk-stop').length;
+  if(!rows) return;
+  if(MAPS_DESK.step<0||MAPS_DESK.step>=rows-1) mapsDeskStep(0,{noScroll:true});
+  mapsDeskStopTimer();
+  MAPS_DESK.playTimer=setInterval(()=>{
+    if(!document.getElementById('maps-desk')){ mapsDeskStopTimer(); return; }
+    const total=document.getElementById('maps-desk').querySelectorAll('.mapsdesk-stop').length;
+    if(MAPS_DESK.step>=total-1){ mapsDeskStopTimer(); mapsDeskPlayLabel(); return; }
+    mapsDeskStepSilent(MAPS_DESK.step+1);
+  },2600);
+  mapsDeskPlayLabel();
+}
+function mapsDeskStepSilent(n){
+  const host=document.getElementById('maps-desk'); if(!host) return;
+  const rows=[...host.querySelectorAll('.mapsdesk-stop')];
+  if(!rows.length) return;
+  const keep=MAPS_DESK.playTimer; MAPS_DESK.playTimer=null;
+  mapsDeskStep(n); MAPS_DESK.playTimer=keep;
+}
+function mapsDeskPlayLabel(){
+  const b=document.querySelector('[data-play-btn]');
+  if(b) b.textContent=MAPS_DESK.playTimer?'⏸ Pause':'▶ Play the journey';
+}
+function mapsDeskMount(){
+  const host=document.getElementById('maps-desk-map'); if(!host) return;
+  const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map5';document.head.appendChild(css);}
+  const journey=(MAPS_DESK.mode==='journey')?buildJourney(MAPS_DESK.mapId,MAPS_DESK.plane,DATA,ATLAS_MAPS):null;
+  const stops=(journey&&journey.stops)||[];
+  MAPS_DESK.stops=stops;
+  const centroid=(MAPS_DESK.plane&&MAPS_DESK.plane!=='all')?mapsDeskCentroid(MAPS_DESK.mapId,MAPS_DESK.plane):null;
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map5').then(m=>{
+    if(!document.getElementById('maps-desk-map')) return;
+    MAPS_DESK.handle=m.mountAtlasMapV2(host,MAPS_DESK.mapId,{
+      plane:MAPS_DESK.plane,
+      journey:stops.map(s=>({poiId:s.poiId,n:s.n,eventId:s.eventId,name:s.name,date:s.date,plane:s.plane})),
+      focus:centroid?{x:centroid.x,y:centroid.y,scale:3}:null,
+    });
+    if(MAPS_DESK.mode==='journey'&&stops.length) mapsDeskStep(0,{noScroll:true});
+  }).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Maps desk failed',e);});
+}
+function view_maps(arg){
+  mapsDeskStopTimer();
+  MAPS_DESK.handle=null; MAPS_DESK.step=-1; MAPS_DESK.stops=[];
+  renderSidebar('maps'); buildAtlasIndex();
+  const segs=String(arg||'').split('/').filter(Boolean);
+  let mapId=segs[0]||'midlands_full', plane='all', mode='survey';
+  segs.slice(1).forEach(s=>{
+    const t=String(s).toLowerCase();
+    if(t==='journey'||t==='survey') mode=t;
+    else if(t==='all'||MAPS_PLANE_META[t]) plane=t;
+  });
+  if(!ATLAS_MAPS[mapId]) mapId='midlands_full';
+  if(!ATLAS_MAPS[mapId]){ el('content').innerHTML='<div class="card"><h1>🗺️ Tactical Cartography Desk</h1><p class="text-muted">The map catalogue failed to load.</p></div>'; return; }
+  MAPS_DESK.mapId=mapId; MAPS_DESK.plane=plane; MAPS_DESK.mode=mode;
+  const layers=mapsPlanesOnSheet(mapId,ATLAS_MAPS);
+  const showPlanes=layers.length>1||(layers.length===1&&layers[0].id!=='material');
+  const groups=Object.keys(ATLAS_MAP_GROUPS||{}).sort();
+  const mapOptions=groups.map(g=>`<optgroup label="${esc(g)}">${(ATLAS_MAP_GROUPS[g]||[]).map(m=>`<option value="${esc(m.id)}"${m.id===mapId?' selected':''}>${esc(m.name||m.id)}</option>`).join('')}</optgroup>`).join('');
+  const planeChips=showPlanes?`<div class="mapsdesk-planes" role="tablist" aria-label="Planar layer">`
+    +`<button class="mapsdesk-plane${plane==='all'?' on':''}" data-plane="all" style="--plane:#ffd75e">◎ All layers</button>`
+    +layers.map(l=>{const m=MAPS_PLANE_META[l.id];return `<button class="mapsdesk-plane${plane===l.id?' on':''}" data-plane="${l.id}" style="--plane:${m.color}"><i></i>${m.emoji} ${m.label} <small>${l.count}</small></button>`;}).join('')+`</div>`:'';
+  let journeyPanel='';
+  if(mode==='journey'){
+    const j=buildJourney(mapId,plane,DATA,ATLAS_MAPS);
+    const stopRows=j.stops.map(s=>{const m=MAPS_PLANE_META[s.plane]||MAPS_PLANE_META.material;
+      return `<li><button class="mapsdesk-stop" data-poi="${esc(s.poiId)}" data-i="${s.n-1}"><span class="n">${s.n}</span><span class="t" style="--plane:${m.color}"><b>${esc(s.name)}</b><span><i></i>${esc(s.date||'undated')} · ${esc(s.locationName)} · ${m.label}</span></span></button></li>`;}).join('');
+    const unRows=j.unpinned.concat(j.unresolved).map(u=>`<li><b>${esc(u.name)}</b> — ${esc(u.date||'undated')}<br>${esc(u.reason||'no location link — survey queue')}${u.otherMap?`<span class="chip" data-goto-map="${esc(u.otherMap)}">open that sheet</span>`:''}</li>`).join('');
+    journeyPanel=`<aside class="mapsdesk-journey"><h3>📍 The journey so far</h3>`
+      +`<p class="mapsdesk-note">${j.stops.length} plotted stop${j.stops.length===1?'':'s'} on this sheet${plane!=='all'?' · '+esc((MAPS_PLANE_META[plane]||{}).label||plane)+' layer':''}. Feyward-clock dates (922 BF) sort by their own year — the clocks disagree by canon.</p>`
+      +`<div class="mapsdesk-stepper"><button data-step="prev">◀</button><button data-step="next">▶</button><button data-play-btn>▶ Play the journey</button><b data-step-counter></b></div>`
+      +`<ol class="mapsdesk-stops">${stopRows||'<li><p class="mapsdesk-note">No events resolve to pins on this sheet and layer yet.</p></li>'}</ol>`
+      +(unRows?`<div class="mapsdesk-unplotted"><details><summary>⚠ ${j.unpinned.length+j.unresolved.length} events not on this sheet</summary><ul>${unRows}</ul></details></div>`:'')+`</aside>`;
+  }
+  el('content').innerHTML=`<div class="breadcrumb"><a onclick="Router.go('#/home')">Home</a> › Tactical Cartography Desk</div>`
+    +`<div class="card animate-fade-in"><h1>🗺️ Tactical Cartography Desk</h1>`
+    +`<p class="text-muted">One painted sheet, four planar layers, and the campaign's own trail across it. The Feyward / Shadeward toggle filters this sheet by each pin's filed layer — same map, different worlds.</p>`
+    +`<div class="mapsdesk-bar"><select data-map-pick aria-label="Painted sheet">${mapOptions}</select>`
+    +`<div class="mapsdesk-modes"><button class="mapsdesk-mode${mode==='survey'?' on':''}" data-mode="survey">🔭 Survey</button><button class="mapsdesk-mode${mode==='journey'?' on':''}" data-mode="journey">📍 Journey so far</button></div></div>`
+    +(showPlanes?`<div class="mapsdesk-bar">${planeChips}</div>`:`<p class="mapsdesk-note">This sheet files no planar layers — every pin is Material. The Raventree cluster on the Midlands sheet is where the layers live.</p>`)
+    +`</div>`
+    +`<div class="mapsdesk-layout" id="maps-desk"><div class="card" style="margin:0"><div id="maps-desk-map"><div class="atlas-v2-loading">Loading map…</div></div></div>${journeyPanel}</div>`;
+  const go=(m,pl,mo)=>Router.go('#/maps/'+encodeURIComponent(m)+'/'+encodeURIComponent(pl)+'/'+encodeURIComponent(mo));
+  const pick=document.querySelector('[data-map-pick]');
+  if(pick) pick.addEventListener('change',()=>go(pick.value,MAPS_DESK.plane,MAPS_DESK.mode));
+  document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>go(MAPS_DESK.mapId,MAPS_DESK.plane,b.dataset.mode)));
+  document.querySelectorAll('[data-plane]').forEach(b=>b.addEventListener('click',()=>go(MAPS_DESK.mapId,b.dataset.plane,MAPS_DESK.mode)));
+  document.querySelectorAll('.mapsdesk-stop').forEach(b=>b.addEventListener('click',()=>mapsDeskStep(parseInt(b.dataset.i,10)||0)));
+  const prev=document.querySelector('[data-step="prev"]'), next=document.querySelector('[data-step="next"]');
+  if(prev) prev.addEventListener('click',()=>mapsDeskStep((MAPS_DESK.step<0?0:MAPS_DESK.step)-1));
+  if(next) next.addEventListener('click',()=>mapsDeskStep((MAPS_DESK.step<0?-1:MAPS_DESK.step)+1));
+  const play=document.querySelector('[data-play-btn]');
+  if(play) play.addEventListener('click',mapsDeskPlay);
+  document.querySelectorAll('[data-goto-map]').forEach(c=>c.addEventListener('click',ev=>{ev.stopPropagation();go(c.dataset.gotoMap,'all','journey');}));
+  mapsDeskMount();
+  window.scrollTo(0,0);
+}
+/* ===== end tactical cartography desk ===== */
 function claimantRegimePanel(item){
   const arr=item.claimantRegimes||[]; if(!arr.length)return '';
   const cards=arr.map(c=>{const target=INDEX[c.id];return `<div class="claimant-card"><h4>${esc(c.name)}</h4><div class="ctype">${esc(c.type||'Claimant')}</div><p>${esc(c.role||'')}</p>${target?`<a class="poi-link" onclick="openId('${esc(c.id)}')">Open article →</a>`:''}</div>`;}).join('');
@@ -7608,6 +7892,7 @@ function renderSidebar(active){
 
   const worldLinks=[
     navLink({emoji:'🍩',label:'World Atlas',go:"Router.go('#/atlas')",active:active==='atlas',count:n('nations')}),
+    navLink({emoji:'🗺️',label:'Tactical Maps',go:"Router.go('#/maps')",active:active==='maps',title:'Cartography desk — planar layers and the journey so far'}),
     navLink({emoji:'⚖️',label:'Cultures & Laws',go:"Router.go('#/cultures')",active:active==='list:cultures',count:(Object.keys(TRADITIONS||{}).length||n('cultures')),title:'Cultural spheres, legal traditions, and where the laws collide'}),
     navLink({emoji:'⚡',label:'Power Projection',go:"Router.go('#/power')",active:active==='power'}),
     navLink({emoji:'👑',label:'Dynasties',go:"Router.go('#/dynasties')",active:active==='dynasties',count:Object.keys(DYNASTY_SYSTEM.houses||{}).length}),
@@ -7918,6 +8203,7 @@ function view_home(){
   window.HOME_CATEGORIES_DATA = [
     { action: "Router.go('#/calendar')", emoji: '🗓️', label: 'Calendar', count: `${MONTHS.length} months · ${CUR.year} BF`, group: 'history' },
     { action: "Router.go('#/atlas')", emoji: '🍩', label: 'World Atlas', count: `${(DATA.nations||[]).length} realms`, group: 'systems' },
+    { action: "Router.go('#/maps')", emoji: '🧭', label: 'Tactical Maps', count: 'planar layers · journey', group: 'systems' },
     { action: "Router.go('#/imperial-network')", emoji: '🕸️', label: 'Imperial Pressure', count: 'Empire ↔ Legion integrated', group: 'systems' },
     { action: "Router.go('#/rnn')", emoji: '📺', label: 'Rakasha News Network', count: `${((window.RNN_BROADCASTS||{}).episodes||[]).length} weekly broadcast${((window.RNN_BROADCASTS||{}).episodes||[]).length===1?'':'s'}`, group: 'systems' },
     { action: "Router.go('#/pond-docket')", emoji: '⚖️', label: 'Pond Patrol Docket', count: 'Liberated Toads system', group: 'systems' },
@@ -8270,6 +8556,13 @@ function view_home(){
            <span>31 Mapped Realms</span>
          </div>
        </a>
+       <a class="toolkit-tile" onclick="Router.go('#/maps')">
+         <div class="toolkit-tile-icon">🧭</div>
+         <div class="toolkit-tile-text">
+           <b>Tactical Maps</b>
+           <span>Feyward / Shadeward + Journey</span>
+         </div>
+       </a>
        <a class="toolkit-tile" onclick="Router.go('#/reputation')">
          <div class="toolkit-tile-icon">📈</div>
          <div class="toolkit-tile-text">
@@ -8614,7 +8907,7 @@ function view_atlas(){
     const n=x.nation; const total=x.locations.length+x.events.length+x.battles.length+x.trials.length;
     return `<div class="arttile" onclick="Router.go('#/atlas/${encodeURIComponent(n.id)}')">${flagArt(n,'tile')}<div class="tt">${esc(displayName(n))}</div><div class="tsub">${esc(n.status||n.type||'Realm')}</div><div class="tsum">${esc(n.summary||previewText(n))}</div><div class="tmeta"><span class="pill">${x.locations.length} locations</span><span class="pill">${x.events.length} events</span><span class="pill">${x.battles.length} battles</span><span class="pill">${x.factions.length} factions</span></div></div>`;
   }).join('');
-  el('content').innerHTML=`<div class="card animate-fade-in"><h1>🍩 World Atlas</h1><p class="text-muted">Top-down doughnut-world mode: nations and realms act as containers for locations, events, battles, trials, factions, species, and POIs. Classic wiki categories remain available in the sidebar.</p><div class="chips" style="margin-top: 15px;"><span class="chip active" onclick="Router.go('#/power')" style="cursor: pointer; background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.4); color: #ffd700;">⚡ Open Global Power Projection Monitor</span><span class="chip" onclick="Router.go('#/cultures')" style="cursor: pointer; background: rgba(138, 75, 255, 0.1); border-color: rgba(138, 75, 255, 0.4); color: #a78bfa;">⚖️ View Cultures & Laws</span></div></div><div class="card"><div class="artgrid">${cards}</div></div>`;
+  el('content').innerHTML=`<div class="card animate-fade-in"><h1>🍩 World Atlas</h1><p class="text-muted">Top-down doughnut-world mode: nations and realms act as containers for locations, events, battles, trials, factions, species, and POIs. Classic wiki categories remain available in the sidebar.</p><div class="chips" style="margin-top: 15px;"><span class="chip active" onclick="Router.go('#/power')" style="cursor: pointer; background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.4); color: #ffd700;">⚡ Open Global Power Projection Monitor</span><span class="chip" onclick="Router.go('#/cultures')" style="cursor: pointer; background: rgba(138, 75, 255, 0.1); border-color: rgba(138, 75, 255, 0.4); color: #a78bfa;">⚖️ View Cultures & Laws</span><span class="chip" onclick="Router.go('#/maps')" style="cursor: pointer; background: rgba(255, 215, 0, 0.1); border-color: rgba(255, 215, 0, 0.4); color: #ffd700;">🧭 Open the Cartography Desk</span></div></div><div class="card"><div class="artgrid">${cards}</div></div>`;
   window.scrollTo(0,0);
 }
 function atlasChips(arr,kind){
@@ -18976,6 +19269,7 @@ const Router={
     else if(route==='banking'||route==='debts'||route==='bank')view_currency(arg);
     else if(route==='reputation'||route==='standings'||route==='directory')view_reputation(arg);
     else if(route==='atlas'){ if(arg){ const ap=String(arg).split('/'); view_atlasNation(ap[0],{mapId:ap[1]||'',poiId:ap[2]||''}); } else view_atlas(); }
+    else if(route==='maps'||route==='cartography')view_maps(arg);
     else if(route==='faiths'||route==='religion'||route==='religions')view_faiths();
     else if(route==='faith')view_faith(arg);
     else if(route==='dynasties')view_dynasties();

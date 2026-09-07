@@ -70,6 +70,9 @@ def main() -> int:
         # Location articles show a map-pin preview; this prints what the map owes.
         checks.append(("location map coverage", ["node", "tools/check-location-map-coverage.mjs"], ROOT))
         checks.append(("location map preview", ["node", "tools/tests/test-location-map-preview.mjs"], ROOT))
+        # Planar map layers (Feyward/Shadeward toggle + journey mode data).
+        checks.append(("planar map layers", [py, "tools/classify-location-planes.py", "--check"], ROOT))
+        checks.append(("planar map test", ["node", "tools/tests/test-planar-map.mjs"], ROOT))
         checks.append(("crime and punishment", ["node", "tools/tests/test-crime-and-punishment.mjs"], ROOT))
         checks.append(("hub pages", ["node", "tools/tests/test-hub-pages.mjs"], ROOT))
         checks.append(("wahbabel", ["node", "tools/tests/test-wahbabel.mjs"], ROOT))
