@@ -138,6 +138,100 @@ of current chronological order.
 
 ---
 
+## Time filing codes — the machine-checkable twin
+
+Going off vibes stopped working. Eight events are filed on `30 Harvestide,
+1040 BF` with no way to tell which happened first, and until this section
+existed nothing in the repository could check a date at all.
+
+So every **new** filing carries a `timeCode` alongside its human `date`.
+
+```text
+TC:1040-08-30T23:50/SHD
+   |    |  |  |     |
+   |    |  |  |     clock: MAT | SHD | FEY | SUBJ
+   |    |  |  in-world time, 24h, optional
+   |    |  day
+   |    month, 1-indexed (08 = Harvestide)
+   year
+```
+
+The `date` string does not change and does not go away. It stays the readable,
+in-world, Waluigi-voiced line. The code is its sortable twin, and
+`tools/check-timecodes.py` makes the two agree.
+
+### Month numbers
+
+| # | Month | Days | # | Month | Days |
+|---:|---|---:|---:|---|---:|
+| 01 | Firstlight | 30 | 07 | Highsun | 30 |
+| 02 | Chillwind | 30 | 08 | Harvestide | 30 |
+| 03 | Veridia | 30 | 09 | Aethel | 30 |
+| 04 | Bloom | 30 | 10 | Darkmoon | 30 |
+| 05 | Floria | 30 | 11 | Frostfall | 30 |
+| 06 | Efferd | 30 | 12 | Deepwinter | **35** |
+
+### Clock suffixes
+
+| Suffix | Clock |
+|---|---|
+| `MAT` | Material / Imperial. The default. Checked against `currentDate.json`. |
+| `SHD` | Shadowfell drift. |
+| `FEY` | Feyward clock. Never synchronised to Material. |
+| `SUBJ` | Subjective or unverified duration — use when the record itself says the elapsed time is unknown. |
+
+### The time is evidence, not decoration
+
+Only stamp an hour the record can support. If the log says "later that night,"
+you may order the beats; you may **not** invent a clock reading for a moment the
+table never established. A code with no `T` is perfectly legal and is the right
+answer whenever the hour is genuinely unknown:
+
+```text
+TC:1040-08-30/SHD
+```
+
+Do not roll a filing past midnight into the next day unless the prose says so.
+Four filings of the storm night sit at 21:00, 22:40, 23:20 and 23:50 on
+30 Harvestide precisely because the record never claims anyone saw midnight.
+
+### What the checker enforces
+
+```text
+□ the code parses
+□ the month exists and the day fits it (Deepwinter has 35)
+□ the clock suffix is one of the four
+□ the code's month/year agree with the human date string
+□ MAT filings do not sit after currentDate.json unless laterDated: true
+```
+
+Run it directly, or let `tools/check-all.py` run it for you:
+
+```bash
+python3 tools/check-timecodes.py           # report
+python3 tools/check-timecodes.py --strict  # exit 1 on error (used by check-all)
+```
+
+### Ordering same-day filings
+
+This is the problem the code exists to solve. When several filings share a day,
+the codes give the archive a real sequence:
+
+```text
+the_hanging_tree_apple…      TC:1040-08-30T21:00/SHD
+green_t_at_the_door…         TC:1040-08-30T22:40/SHD
+the_scorncrow_skirmish       TC:1040-08-30T23:20/SHD
+the_belly_of_the_beast       TC:1040-08-30T23:50/SHD
+```
+
+### Backfill policy
+
+Old filings are **not** required to have codes, and a missing code is not an
+error. Add one whenever you touch a record's chain, and always add one to a new
+filing.
+
+---
+
 ## Date field format
 
 Use readable in-world dates:

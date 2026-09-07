@@ -48,6 +48,7 @@ def main() -> int:
         ("investigations", [py, "tools/check-investigations.py"], ROOT),
         ("roll registry", [py, "tools/check-rolls.py"], ROOT),
         ("battles", [py, "tools/check-battles.py"], ROOT),
+        ("time codes", [py, "tools/check-timecodes.py", "--strict"], ROOT),
         ("background blurbs", [py, "tools/check-background.py"], ROOT),
         ("dossier assessments", [py, "tools/check-assessments.py"], ROOT),
         ("home feed contract", [py, "tools/check-home-feed.py"], ROOT),

@@ -4757,6 +4757,26 @@ function yearOf(item){
   m=raw.match(/\b(\d{3,4})\b/);
   return m?parseInt(m[1],10):null;
 }
+/* Time filing code — TC:1040-08-30T23:50/SHD. The `date` string stays free
+   prose in Waluigi's voice; this is its machine-checkable twin, validated by
+   tools/check-timecodes.py. Rendered as a pill so a reader can see the exact
+   hour and clock without parsing a paragraph. */
+const TC_MONTHS=['Firstlight','Chillwind','Veridia','Bloom','Floria','Efferd',
+                 'Highsun','Harvestide','Aethel','Darkmoon','Frostfall','Deepwinter'];
+const TC_CLOCKS={MAT:'Material clock',SHD:'Shadowfell clock',FEY:'Feyward clock',SUBJ:'Subjective — duration unverified'};
+function parseTimeCode(code){
+  const m=/^TC:(\d{3,4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}))?\/(MAT|SHD|FEY|SUBJ)$/.exec(String(code||'').trim());
+  if(!m)return null;
+  return {year:+m[1],month:+m[2],day:+m[3],hh:m[4]||null,mm:m[5]||null,clock:m[6]};
+}
+function timeCodePill(item){
+  const p=parseTimeCode(item&&item.timeCode);
+  if(!p)return '';
+  const mn=TC_MONTHS[p.month-1]||`M${p.month}`;
+  const when=p.hh?`${p.day} ${mn} ${p.year} BF · ${p.hh}:${p.mm}`:`${p.day} ${mn} ${p.year} BF`;
+  const tip=`${esc(item.timeCode)} — ${esc(TC_CLOCKS[p.clock]||p.clock)}${p.hh?'':' · hour not established by the record'}`;
+  return `<span class="pill timecode-pill" title="${tip}">🕰 ${esc(when)} <b>${esc(p.clock)}</b></span>`;
+}
 function shortDateOf(item){
   const raw=String(item&&item.date||'').trim();
   if(!raw)return '';
@@ -11664,7 +11684,7 @@ function view_article(id){
      <div class="art-kicker">${t.emoji} ${esc(t.singular)}${item.era?` · ${esc(String(item.era).split('—')[0].trim())}`:(item.date?` · ${esc(String(item.date).split('(')[0].trim().slice(0,48))}`:'')}</div>
      <h1 class="art-title">${esc(displayName(item))}</h1>
      ${item.title&&item.title!==item.name?`<div class="art-subtitle">${esc(item.title)}</div>`:''}
-     <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${typeKey==='factions'?systemsForFaction(item.id).map(s=>`<span class="pill" style="border-color:${s.accent};color:${s.accent};cursor:pointer" onclick="Router.go('${s.route}')">${s.emoji} ${esc(s.name)} — integrated system</span>`).join(''):''}${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}${metaPills}</div>
+     <div class="metabar"><span class="pill">${t.emoji} ${esc(t.singular)}</span>${timeCodePill(item)}${typeKey==='factions'?systemsForFaction(item.id).map(s=>`<span class="pill" style="border-color:${s.accent};color:${s.accent};cursor:pointer" onclick="Router.go('${s.route}')">${s.emoji} ${esc(s.name)} — integrated system</span>`).join(''):''}${annotationBadge(item.id)}${microBadge(item)}${xpPill(item.id)}${item.status?`<span class="pill">${esc(String(item.status).split('—')[0].trim())}</span>`:''}${metaPills}</div>
      <div class="readtime">⏱ ${rtFull} min read · ${totalWords} words</div>
      <div class="article-top-xp">${xpMiniPanel(item.id)}</div>
      ${versionBarHtml}

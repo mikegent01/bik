@@ -862,6 +862,11 @@ main.content{min-width:0}
 .arttile .tsum{color:var(--muted);font-size:13px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;flex:1}
 .arttile .tmeta{margin-top:8px;font-size:11px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
 .pill{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:1px 8px}
+/* Time filing code: the checkable twin of the prose date. Monospace so the
+   hour and the clock suffix read as data, not as more Waluigi voice. */
+.timecode-pill{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11.5px;
+  letter-spacing:.2px;border-color:var(--accent2);color:var(--accent2);cursor:help}
+.timecode-pill b{font-weight:700;opacity:.85}
 /* article */
 .article-layout{display:grid;grid-template-columns:1fr 250px;gap:22px;align-items:start}
 .breadcrumb{color:var(--muted);font-size:13px;margin-bottom:10px}

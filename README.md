@@ -186,7 +186,7 @@ Seven habits explain nearly every decision in this repository:
 | Document | Owns | Read when |
 |---|---|---|
 | **[`docs/INTAKE_DECISION_GUIDE.md`](docs/INTAKE_DECISION_GUIDE.md)** | **What to create from supplied data.** Event vs battle vs exhibit vs investigation vs shop item vs XP vs character/location/faction vs annotation vs nothing yet | **First. Before deciding the task shape** |
-| **[`docs/DATE_FILING_GUIDE.md`](docs/DATE_FILING_GUIDE.md)** | **How to date new and backfilled articles.** Tense before dates; walk backward to the prior solid date, then forward through the chain; repair vague earlier dates when touched | Before setting any event date |
+| **[`docs/DATE_FILING_GUIDE.md`](docs/DATE_FILING_GUIDE.md)** | **How to date new and backfilled articles.** Tense before dates; walk backward to the prior solid date, then forward through the chain; repair vague earlier dates when touched. Includes the mandatory **time filing code** (`TC:1040-08-30T23:50/SHD`) enforced by `tools/check-timecodes.py` | Before setting any event date |
 
 > **Date warning:** a missing timestamp is not permission to use the current clock. Resolve relative clues such as “a week ago” first; seven days before 5 Aethel is 28 Harvestide. If the clue and the chain disagree, stop and mark the date inferred or ask rather than silently filing at “now.”
 
@@ -374,6 +374,12 @@ Rules:
   canonical months are Harvestide and Aethel. Do not introduce new
   non-canonical month names; normalize them only when their record is
   next touched.
+· Every NEW filing also carries a time code beside its prose date:
+    "date":     "30 Harvestide, 1040 BF — continuing the same storm-night"
+    "timeCode": "TC:1040-08-30T23:50/SHD"
+  year-month-day, optional Thh:mm, and the clock (MAT/SHD/FEY/SUBJ).
+  Leave the hour off if the record never established one. Do not invent it.
+  Checked by tools/check-timecodes.py, which runs inside check-all.py.
 · Full procedure: docs/DATE_FILING_GUIDE.md.
 ```
 
